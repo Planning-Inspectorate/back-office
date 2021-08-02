@@ -1,0 +1,43 @@
+{
+  "name": "web-app",
+  "version": "0.0.0",
+  "description": "Web App for the PINS Back Office",
+  "main": "src/server.js",
+  "scripts": {
+    "start:dev": "NODE_ENV=dev nodemon src/server.js | pino-pretty -tlc",
+    "test": "jest --coverage --maxWorkers=4",
+    "format": "prettier --write './**/*.js'",
+    "prebuild": "rm -Rf ./dist",
+    "build": "npm run build:sass && npm run build:app",
+    "build:app": "cp -Rf ./src ./dist",
+    "build:sass": "sass src/sass/main.scss:src/public/stylesheets/main.css --style=compressed --load-path=./ --no-source-map",
+    "start": "node dist/server.js"
+  },
+  "dependencies": {
+    "@pins/common": "file:../common",
+    "compression": "^1.7.4",
+    "cookie-parser": "^1.4.5",
+    "express": "^4.17.1",
+    "express-pino-logger": "^6.0.0",
+    "govuk-frontend": "^3.13.0",
+    "lusca": "^1.7.0",
+    "nunjucks": "^3.2.3",
+    "path": "^0.12.7",
+    "pino": "^6.13.0",
+    "sass": "^1.36.0",
+    "uuid": "^8.3.2"
+  },
+  "devDependencies": {
+    "babel-eslint": "^10.1.0",
+    "eslint": "^7.31.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-import": "^2.23.4",
+    "eslint-plugin-jest": "^24.4.0",
+    "eslint-plugin-prettier": "^3.4.0",
+    "jest": "^27.0.6",
+    "nodemon": "^2.0.12",
+    "pino-pretty": "^5.1.2",
+    "prettier": "^2.3.2"
+  }
+}

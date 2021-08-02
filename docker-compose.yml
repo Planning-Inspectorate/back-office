@@ -1,0 +1,16 @@
+# Port ranges (by convention):
+#  - Websites: 9000-9999
+#
+# Please run `make install` to get the dependencies install
+
+version: "3.7"
+services:
+  web-app:
+    image: node:14-alpine
+    ports:
+      - 9003:3000
+    working_dir: /opt/app
+    volumes:
+      - ./packages/common:/opt/app/node_modules/@pins/common
+      - ./packages/web-app:/opt/app
+    command: npm run start:dev
