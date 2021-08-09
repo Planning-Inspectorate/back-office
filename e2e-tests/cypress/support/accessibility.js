@@ -21,23 +21,25 @@ function callback(violations) {
                 name: '🔧 Fix',
                 consoleProps: () => violation,
                 $el: Cypress.$(target.join(',')),
-                message: target,
-            });
-        });
+                message: target
+            })
+        })
     });
-};
+}
 
 Cypress.Commands.add('checkPageA11y', () => {
     cy.injectAxe();
 
     cy.checkA11y(
-        // {
-        //     exclude: ['.govuk-radios__input'],
-        // },
-        null,
+        {
+            exclude: [],
+        },
+        {},
         callback,
     );
 });
+
+
 
 
 

@@ -1,4 +1,5 @@
-/// <reference types="cypress" />
+// cucumber configuration
+const cucumber = require('cypress-cucumber-preprocessor').default;
 // ***********************************************************
 // This example plugins/index.js can be used to load plugins
 //
@@ -16,13 +17,11 @@
  * @type {Cypress.PluginConfig}
  */
 module.exports = (on, config) => {
-    // `on` is used to hook into various events Cypress emits
-    // `config` is the resolved Cypress config
-}
-
-// cucumber configuration
-const cucumber = require('cypress-cucumber-preprocessor').default
-
-module.exports = (on, config) => {
-     on('file:preprocessor', cucumber());
+    on('file:preprocessor', cucumber());
+    on('task', {
+        log(message) {
+            console.log(message)
+            return null
+        },
+    });
    }

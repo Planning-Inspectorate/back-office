@@ -22,9 +22,8 @@
             "line": 6,
             "name": "Householder planning permission is requested",
             "result": {
-              "status": "failed",
-              "duration": 81000000,
-              "error_message": "TypeError: cy.checkPageA11y is not a function\n    at exports.houseHolderPage (http://localhost:9003/__cypress/tests?p=cypress\\integration\\vo-landing-page.feature:56:6)\n    at Context.eval (http://localhost:9003/__cypress/tests?p=cypress\\integration\\vo-landing-page.feature:42:40)\n    at Context.resolveAndRunStepDefinition (http://localhost:9003/__cypress/tests?p=cypress\\integration\\vo-landing-page.feature:7034:29)\n    at Context.eval (http://localhost:9003/__cypress/tests?p=cypress\\integration\\vo-landing-page.feature:6366:35)\nFrom previous event:\n    at Context.thenFn (http://localhost:9003/__cypress/runner/cypress_runner.js:156453:23)\n    at Context.then (http://localhost:9003/__cypress/runner/cypress_runner.js:156892:21)\n    at Context.<anonymous> (http://localhost:9003/__cypress/runner/cypress_runner.js:171546:21)\n    at http://localhost:9003/__cypress/runner/cypress_runner.js:170970:15\nFrom previous event:\n    at runCommand (http://localhost:9003/__cypress/runner/cypress_runner.js:170949:8)\n    at next (http://localhost:9003/__cypress/runner/cypress_runner.js:171095:14)\n    at http://localhost:9003/__cypress/runner/cypress_runner.js:171123:16\nFrom previous event:\n    at next (http://localhost:9003/__cypress/runner/cypress_runner.js:171095:34)\nFrom previous event:\n    at Promise.catch.err.name (http://localhost:9003/__cypress/runner/cypress_runner.js:171136:37)\nFrom previous event:\n    at run (http://localhost:9003/__cypress/runner/cypress_runner.js:171129:21)\n    at $Cy.cy.<computed> [as then] (http://localhost:9003/__cypress/runner/cypress_runner.js:171586:11)\n    at Context.runnable.fn (http://localhost:9003/__cypress/runner/cypress_runner.js:171813:21)\n    at callFn (http://localhost:9003/__cypress/runner/cypress_runner.js:105099:21)\n    at Test.../driver/node_modules/mocha/lib/runnable.js.Runnable.run (http://localhost:9003/__cypress/runner/cypress_runner.js:105086:7)\n    at http://localhost:9003/__cypress/runner/cypress_runner.js:177607:28\nFrom previous event:\n    at Object.onRunnableRun (http://localhost:9003/__cypress/runner/cypress_runner.js:177595:17)\n    at $Cypress.action (http://localhost:9003/__cypress/runner/cypress_runner.js:167954:28)\n    at Test.Runnable.run (http://localhost:9003/__cypress/runner/cypress_runner.js:175744:13)\n    at Runner.../driver/node_modules/mocha/lib/runner.js.Runner.runTest (http://localhost:9003/__cypress/runner/cypress_runner.js:105758:10)\n    at http://localhost:9003/__cypress/runner/cypress_runner.js:105884:12\n    at next (http://localhost:9003/__cypress/runner/cypress_runner.js:105667:14)\n    at http://localhost:9003/__cypress/runner/cypress_runner.js:105677:7\n    at next (http://localhost:9003/__cypress/runner/cypress_runner.js:105579:14)\n    at Hook.<anonymous> (http://localhost:9003/__cypress/runner/cypress_runner.js:105640:7)\n    at next (http://localhost:9003/__cypress/runner/cypress_runner.js:177523:22)\n    at http://localhost:9003/__cypress/runner/cypress_runner.js:177550:11\nFrom previous event:\n    at onNext (http://localhost:9003/__cypress/runner/cypress_runner.js:177547:57)\n    at done (http://localhost:9003/__cypress/runner/cypress_runner.js:105039:5)\n    at callFn (http://localhost:9003/__cypress/runner/cypress_runner.js:105122:7)\n    at Hook.../driver/node_modules/mocha/lib/runnable.js.Runnable.run (http://localhost:9003/__cypress/runner/cypress_runner.js:105086:7)\n    at http://localhost:9003/__cypress/runner/cypress_runner.js:177607:28\nFrom previous event:\n    at Object.onRunnableRun (http://localhost:9003/__cypress/runner/cypress_runner.js:177595:17)\n    at $Cypress.action (http://localhost:9003/__cypress/runner/cypress_runner.js:167954:28)\n    at Hook.Runnable.run (http://localhost:9003/__cypress/runner/cypress_runner.js:175744:13)\n    at next (http://localhost:9003/__cypress/runner/cypress_runner.js:105601:10)\n    at http://localhost:9003/__cypress/runner/cypress_runner.js:105645:5\n    at timeslice (http://localhost:9003/__cypress/runner/cypress_runner.js:99571:27)"
+              "status": "passed",
+              "duration": 1151000000
             }
           },
           {
@@ -33,7 +32,8 @@
             "line": 7,
             "name": "user selects yes option",
             "result": {
-              "status": "skipped"
+              "status": "passed",
+              "duration": 121000000
             }
           },
           {
@@ -42,7 +42,8 @@
             "line": 8,
             "name": "Decision date page is presented and page title is verified",
             "result": {
-              "status": "skipped"
+              "status": "passed",
+              "duration": 921000000
             }
           }
         ]
