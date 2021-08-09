@@ -1,0 +1,47 @@
+{% from "govuk/components/footer/macro.njk" import govukFooter %}
+
+{{ govukFooter({
+  navigation: [
+    {
+      title: "Contact the Planning Inspectorate",
+      columns: 2,
+      items: [
+        {
+          href: "tel:03034445000",
+          text: "Customer Support: England 0303 444 5000",
+          attributes: { "data-cy":"customer-support-telephone-number" }
+        },
+        {
+          href: "mailto:enquiries@planninginspectorate.gov.uk",
+          text: "enquiries@planninginspectorate.gov.uk",
+          attributes: { "data-cy":"customer-support-email-address" }
+        }
+      ]
+    },
+    {
+      title: "Service information",
+      items: [
+        {
+          href: "https://www.gov.uk/guidance/appeals-casework-portal-privacy-cookies",
+          text: "Privacy",
+          attributes: { "data-cy":"Privacy" }
+        },
+        {
+          href: "https://www.gov.uk/guidance/appeals-casework-portal-privacy-cookies",
+          text: "Cookies",
+          attributes: { "data-cy":"Cookies" }
+        },
+        {
+          href: "https://www.gov.uk/guidance/appeals-casework-portal-accessibility",
+          text: "Accessibility",
+          attributes: { "data-cy":"Accessibility" }
+        },
+        {
+          href: "https://www.gov.uk/guidance/appeals-casework-portal-terms-and-conditions",
+          text: "Terms and conditions",
+          attributes: { "data-cy":"Terms and conditions" }
+        }
+      ]
+    }
+  ]
+}) }}

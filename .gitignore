@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Created by .ignore support plugin (hsz.mobi)
 ### Terraform template
 # Local .terraform directories
@@ -158,10 +159,14 @@ dist
 .yarn/install-state.gz
 .pnp.*
 
+=======
+.vscode
+>>>>>>> main
 .idea
 .DS_Store
 Thumbs.db
 
+<<<<<<< HEAD
 # VSCode
 .vscode
 
@@ -175,3 +180,11 @@ packages/**/src/public/javascripts
 
 # OpenFaaS
 build
+=======
+node_modules
+
+coverage
+*.lcov
+
+dist
+>>>>>>> main
