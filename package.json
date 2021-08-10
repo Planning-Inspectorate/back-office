@@ -52,14 +52,8 @@
     "semantic-release": "^17.2.3",
     "semantic-release-monorepo": "^7.0.3"
   },
-  "husky": {
-    "hooks": {
-      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS",
-      "pre-commit": "bash .husky/pre-commit.sh \"packages\"",
-      "pre-push": "npm run commitlint"
-    }
-  },
   "dependencies": {
+    "cypress": "^8.2.0",
     "moment": "^2.29.1"
   },
   "optionalDependencies": {
