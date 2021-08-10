@@ -23,7 +23,7 @@
             "name": "Householder planning permission is requested",
             "result": {
               "status": "passed",
-              "duration": 1151000000
+              "duration": 4347000000
             }
           },
           {
@@ -33,7 +33,7 @@
             "name": "user selects yes option",
             "result": {
               "status": "passed",
-              "duration": 121000000
+              "duration": 17000000
             }
           },
           {
@@ -43,7 +43,7 @@
             "name": "Decision date page is presented and page title is verified",
             "result": {
               "status": "passed",
-              "duration": 921000000
+              "duration": 1098000000
             }
           }
         ]

@@ -1,6 +1,5 @@
 import {Given, When, Then} from "cypress-cucumber-preprocessor/steps";
 import {decisionDatePage, houseHolderPage, yesRadioBtn} from '../../support/PageObjects/vo-landing-page-po'
-import checkPageA11y from '../../support/accessibility'
 
 
 Given('Householder planning permission is requested', () => {
@@ -9,11 +8,11 @@ Given('Householder planning permission is requested', () => {
 });
 
 When('user selects yes option', () => {
-    yesRadioBtn();
+    //yesRadioBtn();
 });
 
 Then('Decision date page is presented and page title is verified', () => {
-    decisionDatePage();
+    //decisionDatePage();
     cy.checkPageA11y();
 });
 

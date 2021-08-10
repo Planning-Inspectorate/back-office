@@ -15,6 +15,7 @@
 
 // Import commands.js using ES2015 syntax:
 //import './commands';
+import './accessibility';
 
 import 'cypress-axe';
 import 'cypress-ntlm-auth/dist/commands';

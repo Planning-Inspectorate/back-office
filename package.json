@@ -61,5 +61,8 @@
   },
   "dependencies": {
     "moment": "^2.29.1"
+  },
+  "optionalDependencies": {
+    "fsevents": "^2.3.2"
   }
 }

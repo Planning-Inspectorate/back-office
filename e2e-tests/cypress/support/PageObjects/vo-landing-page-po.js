@@ -1,10 +1,10 @@
 export const houseHolderPage = () => {
-    return cy.visit("http://localhost:9003/eligibility/householder-planning-permission");
+    return cy.visit("http://localhost:9003/appeals-list");
 
 }
 
 export const yesRadioBtn = () => {
-    return cy.get('[data-cy=answer-yes]').click();
+    //return cy.get('[data-cy=answer-yes]').click();
 }
 
 
