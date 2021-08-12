@@ -4,7 +4,7 @@
   "description": "PINS Back Office",
   "scripts": {
     "commit": "cz",
-    "commitlint": "commitlint --from e3fe4cc --to HEAD",
+    "commitlint": "commitlint --from 7c0a45c --to HEAD",
     "test:e2e": "cd ./e2e-tests && npm run test:e2e",
     "test:e2e:lpa": "cd ./lpa-submissions-e2e-tests && npm run test:e2e",
     "test:e2e:demo": "cd ./e2e-tests && npm run test:e2e:demo",
