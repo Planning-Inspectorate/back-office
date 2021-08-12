@@ -1,5 +1,6 @@
 // cucumber configuration
 const cucumber = require('cypress-cucumber-preprocessor').default;
+//const htmlvalidate = require("cypress-html-validate/dist/plugin");
 // ***********************************************************
 // This example plugins/index.js can be used to load plugins
 //
@@ -24,4 +25,4 @@ module.exports = (on, config) => {
             return null
         },
     });
-   }
+     }
