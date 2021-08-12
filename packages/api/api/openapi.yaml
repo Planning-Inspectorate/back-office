@@ -1,0 +1,56 @@
+openapi: "3.0.3"
+info:
+  description: "PINS Back Office API"
+  version: "0.0.0"
+  title: "PINS Back Office API"
+  license:
+    name: MIT
+    url: 'https://opensource.org/licenses/MIT'
+servers:
+  - url: 'http://localhost:3000'
+paths:
+  "/api/v1/appeal":
+    get:
+      tags:
+      - "appeal"
+      summary: "Fetch"
+      description: "Fetch"
+      operationId: "getAppeal"
+      responses:
+        "200":
+          description: "Valid request"
+        "404":
+          description: "Not found"
+    post:
+      tags:
+      - "appeal"
+      summary: "Create"
+      description: "Create"
+      operationId: "postAppeal"
+      responses:
+        "200":
+          description: "Valid request"
+        "404":
+          description: "Not found"
+    put:
+      tags:
+      - "appeal"
+      summary: "Replace"
+      description: "Replace"
+      operationId: "putAppeal"
+      responses:
+        "200":
+          description: "Valid request"
+        "404":
+          description: "Not found"
+    patch:
+      tags:
+      - "appeal"
+      summary: "Update"
+      description: "Update"
+      operationId: "patchAppeal"
+      responses:
+        "200":
+          description: "Valid request"
+        "404":
+          description: "Not found"
