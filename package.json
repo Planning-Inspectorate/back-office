@@ -1,62 +1,27 @@
 {
-  "name": "appeal-planning-decision",
+  "name": "back-office",
   "version": "0.0.0",
-  "private": true,
-  "engines": {
-    "node": ">=14.0.0 <15.0.0",
-    "npm": ">=6.0.0 <7.0.0"
-  },
-  "description": "Appeal a planning decision - these are utility scripts for the whole repo",
-  "main": "index.js",
+  "description": "PINS Back Office",
   "scripts": {
     "commit": "cz",
-    "commitlint": "commitlint --from 60c94b6 --to HEAD",
-    "format": "prettier --write \"*.js\" \"data/*.js\"",
-    "semantic-release": "semantic-release",
+    "commitlint": "commitlint --from e3fe4cc --to HEAD",
     "test:e2e": "cd ./e2e-tests && npm run test:e2e",
     "test:e2e:lpa": "cd ./lpa-submissions-e2e-tests && npm run test:e2e",
     "test:e2e:demo": "cd ./e2e-tests && npm run test:e2e:demo",
     "test:e2e:postprocess": "cd ./e2e-tests && npm run test:e2e:postprocess",
     "test:e2e:lpa:postprocess": "cd ./lpa-submissions-e2e-tests && npm run test:e2e:postprocess",
     "test:e2e:files": "cd ./e2e-tests && ./create-large-test-files.sh",
-    "test:e2e:smoke": "cd ./e2e-tests && BASEURL=$BASEURL npm run test:e2e:smoke",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "document:appeals-service-api": "cd ./packages/appeals-service-api && npm install && npm run documentation",
-    "document:common": "cd ./packages/common && npm install && npm run documentation",
-    "document:document-service-api": "cd ./packages/document-service-api && npm install && npm run documentation",
-    "document:forms-web-app": "cd ./packages/forms-web-app && npm install && npm run documentation",
-    "document:lpa-questionnaire-web-app": "cd ./packages/lpa-questionnaire-web-app && npm install && npm run documentation",
-    "document:horizon-add-document": "cd ./packages/horizon-add-document && npm install && npm run documentation",
-    "document:horizon-create-contact": "cd ./packages/horizon-create-contact && npm install && npm run documentation",
-    "document:horizon-householder-appeal-publish": "cd ./packages/horizon-householder-appeal-publish && npm install && npm run documentation"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/foundry4/appeal-planning-decision.git"
-  },
-  "author": "Foundry4 <www.foundry4.com>",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/foundry4/appeal-planning-decision/issues"
-  },
-  "homepage": "https://github.com/foundry4/appeal-planning-decision#readme",
-  "devDependencies": {
-    "@commitlint/cli": "^11.0.0",
-    "@commitlint/config-conventional": "^11.0.0",
-    "@semantic-release/changelog": "^5.0.1",
-    "@semantic-release/git": "^9.0.0",
-    "commitizen": "^4.2.2",
-    "husky": "^4.3.0",
-    "lint-staged": "^10.5.0",
-    "prettier": "^2.1.2",
-    "semantic-release": "^17.2.3",
-    "semantic-release-monorepo": "^7.0.3"
+    "test:e2e:smoke": "cd ./e2e-tests && BASEURL=$BASEURL npm run test:e2e:smoke"
   },
   "dependencies": {
-    "cypress": "^8.2.0",
-    "moment": "^2.29.1"
+    "cypress": "^8.2.0"
   },
-  "optionalDependencies": {
-    "fsevents": "^2.3.2"
+  "devDependencies": {
+    "@commitlint/cli": "^13.1.0",
+    "@commitlint/config-conventional": "^13.1.0",
+    "commitizen": "^4.2.4",
+    "cz-conventional-changelog": "^3.2.0",
+    "husky": "^7.0.1",
+    "lint-staged": "^11.1.2"
   }
 }

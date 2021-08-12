@@ -184,7 +184,6 @@ build
 node_modules
 
 coverage
-*.lcov
 
 dist
 >>>>>>> main
