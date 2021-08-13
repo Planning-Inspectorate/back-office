@@ -41,6 +41,7 @@ const getAppealsList = (req, res) => {
 
   res.render(views.appealsList, {
     appealsListData,
+    pageTitle: 'Appeal submissions for review',
   });
 };
 

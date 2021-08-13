@@ -8,6 +8,10 @@
   {% include "includes/head.njk" %}
 {% endblock %}
 
+{% block pageTitle %}
+  {{ pageTitle }} - Appeal a householder planning decision - GOV.UK
+{% endblock %}
+
 {% block header %}
   {{ govukHeader({
     homepageUrl: "https://www.gov.uk/",
@@ -36,6 +40,10 @@
       {% endblock %}
 
       {% block backButton %}
+        {{ govukBackLink({
+          text: "Back",
+          href: backLink | default(previousPage)
+        }) }}
       {% endblock %}
 
       <div class="govuk-main-wrapper {{ mainClasses }}">

@@ -4,13 +4,18 @@ const lusca = require('lusca');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const nunjucks = require('nunjucks');
+const dateFilter = require('nunjucks-date-filter');
 const pinoExpress = require('express-pino-logger');
 const { v4: uuidV4 } = require('uuid');
 const { prometheus } = require('@pins/common');
 const logger = require('./lib/logger');
 const routes = require('./routes');
+const config = require('./config/config');
 
 const app = express();
+const {
+  application: { defaultDateFormat },
+} = config;
 
 prometheus.init(app);
 
@@ -35,8 +40,15 @@ const viewPaths = [
   path.join(__dirname, 'views'),
 ];
 
-nunjucks.configure(viewPaths, nunjucksConfig);
+const env = nunjucks.configure(viewPaths, nunjucksConfig);
 
+dateFilter.setDefaultFormat(defaultDateFormat);
+env.addFilter('date', dateFilter);
+
+app.use((req, res, next) => {
+  env.addGlobal('previousPage', req.headers.referer);
+  next();
+});
 app.use(compression());
 app.use(lusca.xframe('SAMEORIGIN'));
 app.use(lusca.xssProtection(true));

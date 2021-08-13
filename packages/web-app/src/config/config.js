@@ -1,4 +1,7 @@
 const config = {
+  application: {
+    defaultDateFormat: 'DD MMMM YYYY',
+  },
   logger: {
     level: process.env.LOGGER_LEVEL || 'info',
     redact: ['opts.body'],
