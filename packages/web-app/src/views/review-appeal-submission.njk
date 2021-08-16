@@ -1,0 +1,89 @@
+{% extends "layouts/two-thirds-page.njk" %}
+
+{% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
+{% from "components/address.njk" import address %}
+{% from "components/unorderedList.njk" import unorderedList %}
+{% from "components/form.njk" import form %}
+
+{% set yourDetails = appealData.aboutYouSection.yourDetails %}
+
+{% block pageContent %}
+  {{ govukSummaryList({
+    rows: [
+      {
+        key: { text: "Appellant name" },
+        value: { text: yourDetails.name if yourDetails.isOriginalApplicant else yourDetails.appealingOnBehalfOf }
+      },
+      { key: { text: "Appeal reference" },
+        value: { text: appealData.horizonId }
+      },
+      {
+        key: { text: "Received on" },
+        value: { text: appealData.submissionDate | date }
+      },
+      {
+        key: { text: "Appeal site" },
+        value: { html: address(appealData.appealSiteSection.siteAddress) }
+      },
+      {
+        key: { text: "Local planning department" },
+        value: { text: appealData.lpaCode }
+      },
+      {
+        key: { text: "Planning application reference" },
+        value: { text: appealData.requiredDocumentsSection.applicationNumber }
+      }
+    ]
+  }) }}
+
+  <h2 class="govuk-heading-l govuk-!-margin-top-9">Planning application documents</h2>
+
+  {{ govukSummaryList({
+    rows: [
+      {
+        key: { text: "Planning application form" },
+        value: { html: '<a class="govuk-link" href="#">' + appealData.requiredDocumentsSection.originalApplication.uploadedFile.name + '</a>' }
+      },
+      {
+        key: { text: "Decision letter" },
+        value: { html: '<a a class="govuk-link" href="#">' + appealData.requiredDocumentsSection.decisionLetter.uploadedFile.name + '</a>' }
+      }
+    ]
+  }) }}
+
+  <h2 class="govuk-heading-l govuk-!-margin-top-9">Appeal documents</h2>
+
+  {{ govukSummaryList({
+    rows: [
+      {
+        key: { text: "Appeal statement" },
+        value: { html: '<a a class="govuk-link" href="#">' + appealData.yourAppealSection.appealStatement.uploadedFile.name +'</a>' }
+      },
+      {
+        key: { text: "Supporting documents" },
+        value: { html: unorderedList(appealData.yourAppealSection.otherDocuments.uploadedFiles) }
+      }
+    ]
+  }) }}
+
+  {{ form(govukRadios({
+    idPrefix: "review-outcome",
+    name: "review-outcome",
+    errorMessage: errors['review-outcome'] and { text: errors['review-outcome'].msg },
+    fieldset: {
+      legend: {
+        text: "Outcome of review",
+        isPageHeading: false,
+        classes: "govuk-fieldset__legend--l govuk-!-margin-top-6"
+      }
+    },
+    items: [
+      { value: "valid", text: "Valid", checked: reviewOutcome === 'valid' },
+      { value: "invalid", text: "Invalid", checked: reviewOutcome === 'invalid' },
+      { divider: "or" },
+      { value: "incomplete", text: "Something is missing or wrong", checked: reviewOutcome === 'incomplete' }
+    ]
+  })) }}
+{% endblock %}

@@ -6,18 +6,17 @@
 
 {% for appeal in appealsListData %}
   {% set appealsListDisplayData = (appealsListDisplayData.push([
-    { html: "<a href=\"#\">" + appeal.reference + "</a>" },
+    { html: "<a href=\"review-appeal-submission\">" + appeal.reference + "</a>" },
     { text: appeal.dateReceived },
     { text: appeal.site }
   ]), appealsListDisplayData) %}
 {% endfor %}
 
-{% block pageTitle %}
-  Appeal submissions for review - Appeal a householder planning decision - GOV.UK
+{% block backButton %}
 {% endblock %}
 
 {% block content %}
-  <h1 class="govuk-heading-xl">Appeal submissions for review</h1>
+  <h1 class="govuk-heading-xl">{{ pageTitle }}</h1>
 
   {{ govukTable({
     head: [

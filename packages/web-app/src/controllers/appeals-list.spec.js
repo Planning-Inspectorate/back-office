@@ -50,6 +50,7 @@ describe('controllers/appeals-list', () => {
             site: '1 Grove Cottage, Shotesham Road, Woodton NR35 2ND',
           },
         ],
+        pageTitle: 'Appeal submissions for review',
       });
     });
   });
