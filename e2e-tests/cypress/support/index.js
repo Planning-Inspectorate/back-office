@@ -15,9 +15,10 @@
 
 // Import commands.js using ES2015 syntax:
 //import './commands';
-import './accessibility';
-
+import './common/accessibility';
 import 'cypress-axe';
 import 'cypress-ntlm-auth/dist/commands';
+import './common/header-footer';
+import '@testing-library/cypress/add-commands';
 // Alternatively you can use CommonJS syntax:
 // require('./commands')
