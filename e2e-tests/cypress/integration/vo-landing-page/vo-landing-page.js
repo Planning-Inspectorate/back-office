@@ -12,12 +12,10 @@ import {
 
 Given('user is on the Case Officer Login page', () => {
   caseOfficerLandingPage();
-      //checkPageA11y();
-});
+  });
 Given('Appeal submissions page is displayed', () => {
     caseOfficerLandingPage();
-    //checkPageA11y();
-});
+   });
 
 When('the login details are entered', () => {
 
