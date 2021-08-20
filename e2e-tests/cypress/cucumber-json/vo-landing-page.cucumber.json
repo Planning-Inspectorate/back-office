@@ -23,7 +23,7 @@
             "name": "user is on the Case Officer Login page",
             "result": {
               "status": "passed",
-              "duration": 7003000000
+              "duration": 6623000000
             }
           },
           {
@@ -33,7 +33,7 @@
             "name": "the login details are entered",
             "result": {
               "status": "passed",
-              "duration": 6000000
+              "duration": 7000000
             }
           },
           {
@@ -43,7 +43,7 @@
             "name": "Appeal submissions page is displayed and page title and page header footer  are verified",
             "result": {
               "status": "passed",
-              "duration": 2652000000
+              "duration": 1216000000
             }
           }
         ]
@@ -63,7 +63,7 @@
             "name": "Appeal submissions page is displayed",
             "result": {
               "status": "passed",
-              "duration": 356000000
+              "duration": 541000000
             }
           },
           {
@@ -73,7 +73,7 @@
             "name": "headers 'Appeal reference', 'Received on', 'Appeal site' are displayed",
             "result": {
               "status": "passed",
-              "duration": 22000000
+              "duration": 32000000
             }
           },
           {
@@ -83,7 +83,7 @@
             "name": "header contains the appeals data",
             "result": {
               "status": "passed",
-              "duration": 27000000
+              "duration": 59000000
             }
           }
         ]

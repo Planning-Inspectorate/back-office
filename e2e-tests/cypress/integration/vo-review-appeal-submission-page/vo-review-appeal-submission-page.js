@@ -1,10 +1,20 @@
 import {Given, When, Then} from "cypress-cucumber-preprocessor/steps";
 import {appealReference, caseOfficerLandingPage} from "../../support/PageObjects/vo-landing-page-po";
 import {
-    appealSite, appealStatement,
-    appellantName, decisionLetter,
-    errorMessage, localPlanningDept, planningAppForm, planningAppReference, receivedOn,
-    reviewAppealSubmissionPage, supportingDocs, titleReviewSubmission
+    appealSite,
+    appealStatement,
+    appellantName,
+    decisionLetter,
+    errorMessage,
+    errorMessageHeader,
+    headerReviewSubmission,
+    localPlanningDept,
+    planningAppForm,
+    planningAppReference,
+    receivedOn,
+    reviewAppealSubmissionPage,
+    supportingDocs,
+    titleReviewSubmission
 } from "../../support/PageObjects/vo-review-appeal-submission-page-po";
 import {backLink, continueButton} from "../../support/PageObjects/common-po";
 
@@ -32,6 +42,7 @@ When( "the Validation Officer selects ‘Continue’", function () {
 } );
 
 Then( "error message 'Select if the appeal is valid or invalid, or if something is missing or wrong' is displayed", function () {
+    errorMessageHeader();
     errorMessage();
 } );
 
@@ -49,6 +60,7 @@ When( 'the Validation Officer selects the appeal {string}', function () {
     appealReference().click();
 } );
 Then( "the ‘Review appeal submission’ Page will be displayed with the Appellant details", function () {
+    headerReviewSubmission().should('contain.text', "Review appeal submission");
     titleReviewSubmission();
     cy.checkPageA11y();
     appellantName();
