@@ -2,7 +2,7 @@ export const headerReviewSubmission = () => cy.get('.govuk-heading-xl');
 
 export const titleReviewSubmission = () => cy.title().should( 'eq', "Review appeal submission - Appeal a householder planning decision - GOV.UK");
 
-export const reviewAppealSubmissionPage = () => cy.visit("http://localhost:9003/review-appeal-submission");
+export const reviewAppealSubmissionPage = () => cy.visit("http://localhost:9004/review-appeal-submission");
 
 export const errorMessageHeader = () => cy.get('[id=error-summary-title]').should('exist');
 
