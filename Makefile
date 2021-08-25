@@ -5,6 +5,8 @@ down:
 .PHONY: down
 
 install:
+	npm ci
+
 	for dir in ${APPS}; do \
 		echo "-- Installing $${dir} --"; \
 		(cd $${dir} && npm ci); \
