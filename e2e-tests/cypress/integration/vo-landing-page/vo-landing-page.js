@@ -21,7 +21,7 @@ When('the login details are entered', () => {
 
 });
 
-Then('Appeal submissions page is displayed and page title and page header footer  are verified', () => {
+Then('Appeal submissions page is displayed and page title and page header footer are verified', () => {
   caseOfficerLandingPage();
   cy.checkPageA11y();
   caseOfficerPageTitle();

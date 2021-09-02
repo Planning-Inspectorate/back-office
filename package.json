@@ -5,11 +5,8 @@
   "scripts": {
     "commit": "cz",
     "commitlint": "commitlint --from 7c0a45c --to HEAD",
-    "test:e2e": "cd ./e2e-tests && npm run test:e2e",
-    "test:e2e:lpa": "cd ./lpa-submissions-e2e-tests && npm run test:e2e",
-    "test:e2e:demo": "cd ./e2e-tests && npm run test:e2e:demo",
+    "test:e2e": "cd ./e2e-tests && npm run test:e2e TAGS='not @wip'",
     "test:e2e:postprocess": "cd ./e2e-tests && npm run test:e2e:postprocess",
-    "test:e2e:lpa:postprocess": "cd ./lpa-submissions-e2e-tests && npm run test:e2e:postprocess",
     "test:e2e:files": "cd ./e2e-tests && ./create-large-test-files.sh",
     "test:e2e:smoke": "cd ./e2e-tests && BASEURL=$BASEURL npm run test:e2e:smoke"
   },
