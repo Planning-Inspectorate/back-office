@@ -2,6 +2,7 @@ Feature: As a Validation Officer
 I want to view appeals that need to be validated
 So that the appeal can be started
 
+ @as-2151
   Scenario: Appeals in status of ‘Appeal received' are displayed on the Submissions for review’ page
     Given user is on the Case Officer Login page
     When the login details are entered
