@@ -3,7 +3,7 @@ Feature: As a Validation Officer
   I want to review and confirm the outcome of an appeal as valid or invalid or something missing or wrong
 
   @smoke @as-3248
-  Scenario Outline: E2e test to cover all the appeal outcome
+  Scenario Outline: E2e tests to cover all the outcomes of an appeal
     Given the user is on the Review appeal submission page
     When the user selects the outcome as '<outcome>' and click on Continue button
     Then the '<next-page>' is displayed
