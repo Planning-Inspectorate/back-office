@@ -21,7 +21,7 @@ services:
     container_name: api
     image: node:14-alpine
     ports:
-      - 3000:3000
+      - 3004:3000
     working_dir: /opt/app
     volumes:
       - ./packages/common:/opt/app/node_modules/@pins/common
