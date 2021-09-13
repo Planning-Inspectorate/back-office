@@ -1,5 +1,6 @@
 # Port ranges (by convention):
 #  - API: 3000-3999
+#  - Services: 4000-4999
 #  - Websites: 9000-9999
 #
 # Please run `make install` to get the dependencies install
@@ -16,7 +17,10 @@ services:
       - ./packages/common:/opt/app/node_modules/@pins/common
       - ./packages/web-app:/opt/app
     command: npm run start:dev
-
+    environment:
+      SESSION_MONGODB_URL: mongodb://mongodb:27017/back-office-sessions
+      SESSION_KEY: some_secure_key_goes_here
+      USE_SECURE_SESSION_COOKIES: 'false'
   api:
     container_name: api
     image: node:14-alpine
@@ -27,3 +31,8 @@ services:
       - ./packages/common:/opt/app/node_modules/@pins/common
       - ./packages/api:/opt/app
     command: npm run start:dev
+  mongodb:
+    container_name: mongo-db
+    image: mongo:3.6.21
+    ports:
+      - 4000:27017
