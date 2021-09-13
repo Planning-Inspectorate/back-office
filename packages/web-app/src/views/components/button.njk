@@ -1,0 +1,7 @@
+{% from "govuk/components/button/macro.njk" import govukButton %}
+
+{% macro button(text) %}
+    {{ govukButton({
+      text: text | default('Continue')
+    }) }}
+{% endmacro %}

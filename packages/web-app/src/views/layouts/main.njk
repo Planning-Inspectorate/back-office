@@ -27,7 +27,7 @@
 {% set mainClasses = mainClasses | default("govuk-main-wrapper--auto-spacing") %}
 
 {% block main %}
-  <div class="govuk-width-container govuk-body {{ containerClasses }}">
+  <div class="govuk-width-container {{ containerClasses }}">
 
     <main id="main-content" role="main"{% if mainLang %} lang="{{ mainLang }}"{% endif %}>
       {% block phaseBanner %}
