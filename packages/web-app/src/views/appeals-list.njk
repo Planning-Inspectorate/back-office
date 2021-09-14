@@ -6,7 +6,7 @@
 
 {% for appeal in appealsListData %}
   {% set appealsListDisplayData = (appealsListDisplayData.push([
-    { html: "<a href=\"review-appeal-submission\">" + appeal.reference + "</a>" },
+    { html: "<a href=\"review-appeal-submission/" + appeal.id + "\">" + appeal.reference + "</a>" },
     { text: appeal.dateReceived },
     { text: appeal.site }
   ]), appealsListDisplayData) %}
