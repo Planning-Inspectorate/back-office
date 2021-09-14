@@ -3,9 +3,10 @@ const {
   postReviewAppealSubmission,
 } = require('../controllers/review-appeal-submission');
 const views = require('../config/views');
-const { get, post } = require('../test/router-mock');
+const { mockGet, mockPost } = require('../../test/utils/mocks');
 const reviewOutcomeValidation = require('../validation/review-outcome');
 const expressValidationErrorsToGovUkErrorList = require('../lib/express-validation-errors-to-govuk-error-list');
+const getCaseData = require('../lib/get-case-data');
 
 jest.mock('../validation/review-outcome');
 jest.mock('../lib/express-validation-errors-to-govuk-error-list');
@@ -15,9 +16,14 @@ describe('routes/review-appeal-submission', () => {
     // eslint-disable-next-line global-require
     require('./review-appeal-submission');
 
-    expect(get).toBeCalledWith(`/${views.reviewAppealSubmission}`, getReviewAppealSubmission);
-    expect(post).toBeCalledWith(
-      `/${views.reviewAppealSubmission}`,
+    expect(mockGet).toBeCalledWith(
+      `/${views.reviewAppealSubmission}/:appealId`,
+      getCaseData,
+      getReviewAppealSubmission
+    );
+    expect(mockPost).toBeCalledWith(
+      `/${views.reviewAppealSubmission}/:appealId`,
+      getCaseData,
       reviewOutcomeValidation(),
       expressValidationErrorsToGovUkErrorList,
       postReviewAppealSubmission
