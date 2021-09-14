@@ -1,15 +1,14 @@
-{% extends "layouts/two-thirds-page.njk" %}
+{% extends "layouts/form.njk" %}
 
 {% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
 {% from "govuk/components/radios/macro.njk" import govukRadios %}
-{% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
 {% from "components/address.njk" import address %}
 {% from "components/unorderedList.njk" import unorderedList %}
-{% from "components/form.njk" import form %}
+{% from "components/button.njk" import button %}
 
 {% set yourDetails = appealData.aboutYouSection.yourDetails %}
 
-{% block pageContent %}
+{% block formContent %}
   {{ govukSummaryList({
     rows: [
       {
@@ -68,7 +67,7 @@
     ]
   }) }}
 
-  {{ form(govukRadios({
+  {{ govukRadios({
     idPrefix: "review-outcome",
     name: "review-outcome",
     errorMessage: errors['review-outcome'] and { text: errors['review-outcome'].msg },
@@ -85,5 +84,7 @@
       { divider: "or" },
       { value: "incomplete", text: "Something is missing or wrong", checked: reviewOutcome === 'incomplete' }
     ]
-  })) }}
+  }) }}
+
+  {{ button() }}
 {% endblock %}

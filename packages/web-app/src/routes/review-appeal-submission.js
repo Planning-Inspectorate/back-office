@@ -6,12 +6,14 @@ const {
 const views = require('../config/views');
 const reviewOutcomeValidation = require('../validation/review-outcome');
 const expressValidationErrorsToGovUkErrorList = require('../lib/express-validation-errors-to-govuk-error-list');
+const getCaseData = require('../lib/get-case-data');
 
 const router = express.Router();
 
-router.get(`/${views.reviewAppealSubmission}`, getReviewAppealSubmission);
+router.get(`/${views.reviewAppealSubmission}/:appealId`, getCaseData, getReviewAppealSubmission);
 router.post(
-  `/${views.reviewAppealSubmission}`,
+  `/${views.reviewAppealSubmission}/:appealId`,
+  getCaseData,
   reviewOutcomeValidation(),
   expressValidationErrorsToGovUkErrorList,
   postReviewAppealSubmission

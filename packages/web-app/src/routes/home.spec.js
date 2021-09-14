@@ -1,11 +1,11 @@
 const getHome = require('../controllers/home');
 const views = require('../config/views');
-const { get } = require('../test/router-mock');
+const { mockGet } = require('../../test/utils/mocks');
 
 describe('routes/home', () => {
   it('should define the correct route', () => {
     // eslint-disable-next-line global-require
     require('./home');
-    expect(get).toBeCalledWith(`/${views.home}`, getHome);
+    expect(mockGet).toBeCalledWith(`/${views.home}`, getHome);
   });
 });
