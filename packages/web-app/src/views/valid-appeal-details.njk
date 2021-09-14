@@ -1,0 +1,23 @@
+{% extends "layouts/form.njk" %}
+
+{% from "govuk/components/textarea/macro.njk" import govukTextarea %}
+{% from "components/button-group.njk" import buttonGroup %}
+
+
+{% block formContent %}
+  <p class="govuk-body">Appeal reference: {{appealReference}}</p>
+
+  {{ govukTextarea({
+    name: "valid-appeal-details",
+    id: "valid-appeal-details",
+    label: {
+      text: "Description of development",
+      classes: "govuk-!-font-weight-bold"
+    },
+    value: validAppealDetails
+  }) }}
+
+  {{ buttonGroup(backLink) }}
+{% endblock %}
+
+{% from "govuk/components/textarea/macro.njk" import govukTextarea %}
