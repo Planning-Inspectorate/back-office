@@ -16,6 +16,10 @@ const config = {
       },
     },
   },
+  documents: {
+    timeout: Number(process.env.DOCUMENTS_SERVICE_API_TIMEOUT || 10000),
+    url: process.env.DOCUMENTS_SERVICE_API_URL,
+  },
   logger: {
     level: process.env.LOGGER_LEVEL || 'info',
     redact: ['opts.body'],

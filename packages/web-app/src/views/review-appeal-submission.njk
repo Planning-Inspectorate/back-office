@@ -7,6 +7,9 @@
 {% from "components/button.njk" import button %}
 
 {% set yourDetails = appealData.aboutYouSection.yourDetails %}
+{% set originalApplicationFile = appealData.requiredDocumentsSection.originalApplication.uploadedFile %}
+{% set decisionLetterFile = appealData.requiredDocumentsSection.decisionLetter.uploadedFile %}
+{% set appealStatementFile = appealData.yourAppealSection.appealStatement.uploadedFile %}
 
 {% block formContent %}
   {{ govukSummaryList({
@@ -43,11 +46,11 @@
     rows: [
       {
         key: { text: "Planning application form" },
-        value: { html: '<a class="govuk-link" href="#">' + appealData.requiredDocumentsSection.originalApplication.uploadedFile.name + '</a>' }
+        value: { html: '<a class="govuk-link" href="/document/'+appealData.id+'/'+originalApplicationFile.id+'">' + originalApplicationFile.name + '</a>' }
       },
       {
         key: { text: "Decision letter" },
-        value: { html: '<a a class="govuk-link" href="#">' + appealData.requiredDocumentsSection.decisionLetter.uploadedFile.name + '</a>' }
+        value: { html: '<a a class="govuk-link" href="/document/'+appealData.id+'/'+decisionLetterFile.id+'">' + decisionLetterFile.name + '</a>' }
       }
     ]
   }) }}
@@ -58,11 +61,11 @@
     rows: [
       {
         key: { text: "Appeal statement" },
-        value: { html: '<a a class="govuk-link" href="#">' + appealData.yourAppealSection.appealStatement.uploadedFile.name +'</a>' }
+        value: { html: '<a a class="govuk-link" href="/document/'+appealData.id+'/'+appealStatementFile.id+'">' + appealStatementFile.name + '</a>' }
       },
       {
         key: { text: "Supporting documents" },
-        value: { html: unorderedList(appealData.yourAppealSection.otherDocuments.uploadedFiles) }
+        value: { html: unorderedList(appealData.yourAppealSection.otherDocuments.uploadedFiles, '/document/'+appealData.id) }
       }
     ]
   }) }}
