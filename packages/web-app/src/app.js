@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 const express = require('express');
 const compression = require('compression');
 const lusca = require('lusca');
@@ -9,6 +11,7 @@ const pinoExpress = require('express-pino-logger');
 const { v4: uuidV4 } = require('uuid');
 const { prometheus } = require('@pins/common');
 const session = require('express-session');
+const { sso } = require('pins-sso');
 const logger = require('./lib/logger');
 const routes = require('./routes');
 const config = require('./config/config');
@@ -69,6 +72,8 @@ app.use(
   '/assets/govuk/all.js',
   express.static(path.join(__dirname, '..', 'node_modules', 'govuk-frontend', 'govuk', 'all.js'))
 );
+
+sso(app, config.sso, logger);
 
 app.use('/', routes);
 app.set('view engine', 'njk');
