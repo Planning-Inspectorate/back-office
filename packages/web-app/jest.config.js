@@ -3,6 +3,7 @@ process.env.TZ = 'GMT';
 module.exports = {
   clearMocks: true,
   testEnvironment: 'node',
+  setupFilesAfterEnv: ['./test/setupTests.js'],
   collectCoverage: true,
   collectCoverageFrom: ['src/**/*.js'],
   coverageReporters: ['json', 'html', 'text', 'text-summary'],
