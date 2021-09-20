@@ -2,7 +2,7 @@ const getData = (appealId) => {
   if (appealId) {
     return {
       appeal: {
-        id: appealId || '1dc8a211-4e1b-44fc-9e9c-a6e7b802fb8a',
+        id: appealId,
         horizonId: 'APP/Q9999/D/21/1234567',
         lpaCode: 'Maidstone Borough Council',
         submissionDate: '2021-05-16T12:00:00.000Z',
