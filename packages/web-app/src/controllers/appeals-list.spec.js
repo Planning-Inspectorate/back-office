@@ -15,6 +15,12 @@ describe('controllers/appeals-list', () => {
       expect(res.render).toBeCalledWith(views.appealsList, {
         appealsListData: [
           {
+            id: '5acfba23-af2f-4ce8-a519-3ab41020b6cf',
+            reference: 'BRL/Q9999/D/21/1234567',
+            dateReceived: '20 May 2021',
+            site: '10 Peldon Court, Maidstone, Kent, MD2 5XY',
+          },
+          {
             id: 'db9cc77a-7991-42e5-a917-0fc73e4ccd49',
             reference: 'APP/Q9999/D/21/1234567',
             dateReceived: '16 May 2021',

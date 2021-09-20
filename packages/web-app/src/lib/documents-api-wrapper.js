@@ -15,7 +15,7 @@ async function handler(path, method = 'GET', opts = {}, headers = {}) {
   });
 
   try {
-    logger.debug({ url, method, opts, headers }, 'New call');
+    logger.debug({ url, method, opts, headers }, 'Fetching document from Blob Storage');
 
     return await utils.promiseTimeout(
       config.documents.timeout,
@@ -30,7 +30,7 @@ async function handler(path, method = 'GET', opts = {}, headers = {}) {
         });
 
         if (!apiResponse.ok) {
-          logger.debug(apiResponse, 'API Response not OK');
+          logger.debug(apiResponse, 'Failed to fetch document from Blob Storage');
           try {
             const errorResponse = await apiResponse.json();
             /* istanbul ignore else */
@@ -46,7 +46,7 @@ async function handler(path, method = 'GET', opts = {}, headers = {}) {
           }
         }
 
-        logger.debug('Successfully called');
+        logger.debug('Fetching document from Blob Storage is successfull');
 
         return apiResponse;
       })
