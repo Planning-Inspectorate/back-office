@@ -46,7 +46,7 @@ async function handler(path, method = 'GET', opts = {}, headers = {}) {
           }
         }
 
-        logger.debug('Fetching document from Blob Storage is successfull');
+        logger.debug('Fetching document from Blob Storage is successful');
 
         return apiResponse;
       })
