@@ -35,7 +35,7 @@
     "nunjucks-date-filter": "^0.1.1",
     "path": "^0.12.7",
     "pino": "^6.13.1",
-    "pins-sso": "1.0.4",
+    "pins-sso": "~1.0.5",
     "sass": "^1.38.1",
     "uuid": "^8.3.2"
   },
