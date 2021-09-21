@@ -69,6 +69,9 @@ Then( "the ‘Review appeal submission’ Page will be displayed with the Appell
     appealSite();
     localPlanningDept();
     planningAppReference();
+    } );
+
+Then( 'the documents can be downloaded', function () {
     planningAppForm();
     decisionLetter();
     appealStatement();

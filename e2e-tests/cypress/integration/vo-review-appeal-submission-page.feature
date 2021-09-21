@@ -22,4 +22,5 @@ Feature: As a Validation Officer validating an appeal
     Given a Validation Officer is on the ‘Appeal submissions for review’ page
     When the Validation Officer selects the appeal 'APP/Q9999/D/21/1234567'
     Then the ‘Review appeal submission’ Page will be displayed with the Appellant details
+    And the documents can be downloaded
 
