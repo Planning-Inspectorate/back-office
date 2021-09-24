@@ -2,7 +2,7 @@ const getData = (appealId) => {
   if (appealId) {
     return {
       appeal: {
-        id: '1dc8a211-4e1b-44fc-9e9c-a6e7b802fb8a',
+        id: appealId,
         horizonId: 'APP/Q9999/D/21/1234567',
         lpaCode: 'Maidstone Borough Council',
         submissionDate: '2021-05-16T12:00:00.000Z',
@@ -18,11 +18,13 @@ const getData = (appealId) => {
           originalApplication: {
             uploadedFile: {
               name: 'planning application.pdf',
+              id: 'add0eb92-0e87-4b4e-8980-cec387967d4c',
             },
           },
           decisionLetter: {
             uploadedFile: {
               name: 'decision letter.pdf',
+              id: '06f3d256-cb09-4146-aa4d-25fea4719062',
             },
           },
         },
@@ -30,18 +32,22 @@ const getData = (appealId) => {
           appealStatement: {
             uploadedFile: {
               name: 'appeal statement.pdf',
+              id: 'add0eb92-0e87-4b4e-8980-cec387967d4c',
             },
           },
           otherDocuments: {
             uploadedFiles: [
               {
                 name: 'other documents 1.pdf',
+                id: '06f3d256-cb09-4146-aa4d-25fea4719062',
               },
               {
                 name: 'other documents 2.pdf',
+                id: 'add0eb92-0e87-4b4e-8980-cec387967d4c',
               },
               {
                 name: 'other documents 3.pdf',
+                id: '06f3d256-cb09-4146-aa4d-25fea4719062',
               },
             ],
           },
