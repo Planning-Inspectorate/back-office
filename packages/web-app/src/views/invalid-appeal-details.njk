@@ -1,0 +1,76 @@
+{% extends "layouts/form.njk" %}
+
+{% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
+{% from "components/button-group.njk" import buttonGroup %}
+{% from "govuk/components/input/macro.njk" import govukInput %}
+
+{% set errorValues = errors['invalid-appeal-reasons'].value %}
+
+{% block formContent %}
+  <p class="govuk-body">Appeal reference: {{appealReference}}</p>
+
+  {% set otherHtml %}
+    {{ govukInput({
+      id: "other-by-text",
+      name: "other-by-text",
+      value: invalidAppealDetails.otherByText,
+      label: {
+        text: "List reasons"
+      },
+      hint: {
+        text: "This will be sent to the appellant and LPA"
+      },
+      errorMessage: (errorValues === 'other' or (errorValues.includes and errorValues.includes('other'))) and {
+        text: errors['invalid-appeal-reasons'].msg
+      }
+    }) }}
+  {% endset -%}
+
+  {{ govukCheckboxes({
+    idPrefix: "invalid-appeal-reasons",
+    name: "invalid-appeal-reasons",
+    fieldset: {
+      legend: {
+        text: "Reasons the appeal is invalid",
+        classes: "govuk-fieldset__legend--m"
+      }
+    },
+    errorMessage: errors['invalid-appeal-reasons'] and not errorValues and {
+      text: errors['invalid-appeal-reasons'].msg
+    },
+    items: [
+      {
+        value: "outOfTime",
+        text: "Out of time",
+        checked: invalidAppealDetails and invalidAppealDetails.reasons and invalidAppealDetails.reasons.includes('outOfTime')
+      },
+      {
+        value: "noRightOfAppeal",
+        text: "No right of appeal",
+        checked: invalidAppealDetails and invalidAppealDetails.reasons and invalidAppealDetails.reasons.includes('noRightOfAppeal')
+      },
+      {
+        value: "notAppealable",
+        text: "Not appealable",
+        checked: invalidAppealDetails and invalidAppealDetails.reasons and invalidAppealDetails.reasons.includes('notAppealable')
+      },
+      {
+        value: "lpaDeemedApplicationAsInvalid",
+        text: "LPA deemed applicaton as invalid",
+        checked: invalidAppealDetails and invalidAppealDetails.reasons and invalidAppealDetails.reasons.includes('lpaDeemedApplicationAsInvalid')
+      },
+      {
+        value: "other",
+        text: "Other",
+        checked: invalidAppealDetails and invalidAppealDetails.reasons and invalidAppealDetails.reasons.includes('other'),
+        conditional: {
+          html: otherHtml
+        }
+      }
+    ]
+  }) }}
+
+  {{ buttonGroup(backLink) }}
+{% endblock %}
+
+{% from "govuk/components/textarea/macro.njk" import govukTextarea %}

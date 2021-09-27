@@ -101,13 +101,16 @@ describe('controllers/review-appeal-submission', () => {
       expect(req.session.appeal.casework.reviewOutcome).toEqual('valid');
     });
 
-    it('should call saveAndContinue with the correct nextPage value when reviewOutcome does not equal `valid`', () => {
+    it('should call saveAndContinue with the correct nextPage value when reviewOutcome equals `invalid`', () => {
       req = {
         body: {
           'review-outcome': 'invalid',
         },
         session: {
           appeal: {
+            appeal: {
+              id: '1234',
+            },
             casework: {},
           },
         },
@@ -120,7 +123,7 @@ describe('controllers/review-appeal-submission', () => {
         req,
         res,
         currentPage: views.reviewAppealSubmission,
-        nextPage: views.home,
+        nextPage: `${views.invalidAppealDetails}/${req.session.appeal.appeal.id}`,
         viewData: {
           pageTitle: 'Review appeal submission',
           backLink: `/${views.appealsList}`,
