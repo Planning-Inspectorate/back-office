@@ -132,5 +132,37 @@ describe('controllers/review-appeal-submission', () => {
       });
       expect(req.session.appeal.casework.reviewOutcome).toEqual('invalid');
     });
+
+    it('should call saveAndContinue with the correct nextPage value when reviewOutcome equals `incomplete`', () => {
+      req = {
+        body: {
+          'review-outcome': 'incomplete',
+        },
+        session: {
+          appeal: {
+            appeal: {
+              id: '1234',
+            },
+            casework: {},
+          },
+        },
+      };
+
+      postReviewAppealSubmission(req, res);
+
+      expect(saveAndContinue).toBeCalledTimes(1);
+      expect(saveAndContinue).toBeCalledWith({
+        req,
+        res,
+        currentPage: views.reviewAppealSubmission,
+        nextPage: `${views.home}`,
+        viewData: {
+          pageTitle: 'Review appeal submission',
+          backLink: `/${views.appealsList}`,
+          reviewOutcome: 'incomplete',
+        },
+      });
+      expect(req.session.appeal.casework.reviewOutcome).toEqual('incomplete');
+    });
   });
 });

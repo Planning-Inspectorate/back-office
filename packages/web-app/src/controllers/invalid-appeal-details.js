@@ -36,11 +36,11 @@ const postInvalidAppealDetails = (req, res) => {
   } = req;
 
   const reasons = body['invalid-appeal-reasons'];
-  const otherByText = body['other-by-text'];
+  const otherReason = body['other-reason'];
 
   const invalidAppealDetails = {
     reasons,
-    otherByText,
+    otherReason,
   };
 
   req.session.appeal.casework.invalidAppealDetails = invalidAppealDetails;

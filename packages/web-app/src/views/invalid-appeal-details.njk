@@ -4,24 +4,24 @@
 {% from "components/button-group.njk" import buttonGroup %}
 {% from "govuk/components/input/macro.njk" import govukInput %}
 
-{% set errorValues = errors['invalid-appeal-reasons'].value %}
+{% set otherError = errors['other-reason'].msg %}
 
 {% block formContent %}
   <p class="govuk-body">Appeal reference: {{appealReference}}</p>
 
   {% set otherHtml %}
     {{ govukInput({
-      id: "other-by-text",
-      name: "other-by-text",
-      value: invalidAppealDetails.otherByText,
+      id: "other-reason",
+      name: "other-reason",
+      value: invalidAppealDetails.otherReason,
       label: {
         text: "List reasons"
       },
       hint: {
         text: "This will be sent to the appellant and LPA"
       },
-      errorMessage: (errorValues === 'other' or (errorValues.includes and errorValues.includes('other'))) and {
-        text: errors['invalid-appeal-reasons'].msg
+      errorMessage: otherError and {
+        text: otherError
       }
     }) }}
   {% endset -%}
@@ -35,7 +35,7 @@
         classes: "govuk-fieldset__legend--m"
       }
     },
-    errorMessage: errors['invalid-appeal-reasons'] and not errorValues and {
+    errorMessage: errors['invalid-appeal-reasons'] and {
       text: errors['invalid-appeal-reasons'].msg
     },
     items: [
@@ -56,7 +56,7 @@
       },
       {
         value: "lpaDeemedApplicationAsInvalid",
-        text: "LPA deemed applicaton as invalid",
+        text: "LPA deemed application as invalid",
         checked: invalidAppealDetails and invalidAppealDetails.reasons and invalidAppealDetails.reasons.includes('lpaDeemedApplicationAsInvalid')
       },
       {

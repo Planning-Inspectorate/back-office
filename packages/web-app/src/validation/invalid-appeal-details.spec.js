@@ -1,5 +1,5 @@
 const { validationResult } = require('express-validator');
-const invalidAppealDetails = require('./invalid-appeal-details');
+const { invalidAppealDetailsValidation } = require('./invalid-appeal-details');
 
 describe('validation/invalid-appeal-details', () => {
   let req;
@@ -10,22 +10,26 @@ describe('validation/invalid-appeal-details', () => {
     req = { body: {} };
   });
 
+  const validators = invalidAppealDetailsValidation();
+
   it('should pass validation when given a value', async () => {
     req = {
       body: {
         'invalid-appeal-reasons': ['other', 'outOfTime'],
-        'other-by-text': 'other description',
+        'other-reason': 'other description',
       },
     };
 
-    await invalidAppealDetails()(req, res, next);
-    const result = validationResult(req);
+    validators.forEach(async (validator) => {
+      await validator(req, res, next);
+      const result = validationResult(req);
 
-    expect(result.errors).toHaveLength(0);
+      expect(result.errors).toHaveLength(0);
+    });
   });
 
   it('should fail validation when there is no reason', async () => {
-    await invalidAppealDetails()(req, res, next);
+    await validators[0](req, res, next);
     const result = validationResult(req);
 
     expect(result.errors).toHaveLength(1);
@@ -46,15 +50,15 @@ describe('validation/invalid-appeal-details', () => {
       },
     };
 
-    await invalidAppealDetails()(req, res, next);
+    await validators[1](req, res, next);
     const result = validationResult(req);
 
     expect(result.errors).toHaveLength(1);
     expect(result.errors).toEqual([
       {
-        value: req.body['invalid-appeal-reasons'],
+        value: undefined,
         msg: 'Enter why the appeal is invalid',
-        param: 'invalid-appeal-reasons',
+        param: 'other-reason',
         location: 'body',
       },
     ]);

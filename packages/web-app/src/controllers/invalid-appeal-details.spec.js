@@ -10,7 +10,7 @@ describe('controllers/invalid-appeal-details', () => {
   const horizonId = 'APP/Q9999/D/21/1234567';
   const invalidAppealDetails = {
     reasons: ['other', 'outOfTime'],
-    otherByText: 'other description',
+    otherReason: 'other description',
   };
   const expectedViewData = {
     pageTitle: 'Invalid appeal details',
@@ -50,7 +50,7 @@ describe('controllers/invalid-appeal-details', () => {
       req = {
         body: {
           'invalid-appeal-reasons': invalidAppealDetails.reasons,
-          'other-by-text': invalidAppealDetails.otherByText,
+          'other-reason': invalidAppealDetails.otherReason,
         },
         session: {
           appeal: {

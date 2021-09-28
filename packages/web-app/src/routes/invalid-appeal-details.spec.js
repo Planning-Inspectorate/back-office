@@ -4,7 +4,7 @@ const {
 } = require('../controllers/invalid-appeal-details');
 const views = require('../config/views');
 const { mockGet, mockPost } = require('../../test/utils/mocks');
-const invalidAppealDetailsValidation = require('../validation/invalid-appeal-details');
+const { invalidAppealDetailsValidation } = require('../validation/invalid-appeal-details');
 const expressValidationErrorsToGovUkErrorList = require('../lib/express-validation-errors-to-govuk-error-list');
 
 jest.mock('../validation/invalid-appeal-details');
@@ -15,7 +15,10 @@ describe('routes/invalid-appeal-details', () => {
     // eslint-disable-next-line global-require
     require('./invalid-appeal-details');
 
-    expect(mockGet).toBeCalledWith(`/${views.invalidAppealDetails}/:appealId`, getInvalidAppealDetails);
+    expect(mockGet).toBeCalledWith(
+      `/${views.invalidAppealDetails}/:appealId`,
+      getInvalidAppealDetails
+    );
     expect(mockPost).toBeCalledWith(
       `/${views.invalidAppealDetails}/:appealId`,
       invalidAppealDetailsValidation(),

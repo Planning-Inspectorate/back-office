@@ -4,7 +4,7 @@ const {
   postInvalidAppealDetails,
 } = require('../controllers/invalid-appeal-details');
 const { invalidAppealDetails } = require('../config/views');
-const invalidAppealDetailsValidation = require('../validation/invalid-appeal-details');
+const { invalidAppealDetailsValidation } = require('../validation/invalid-appeal-details');
 const expressValidationErrorsToGovUkErrorList = require('../lib/express-validation-errors-to-govuk-error-list');
 
 const router = express.Router();
