@@ -155,14 +155,46 @@ describe('controllers/review-appeal-submission', () => {
         req,
         res,
         currentPage: views.reviewAppealSubmission,
-        nextPage: `${views.home}`,
+        nextPage: `${views.missingOrWrong}`,
         viewData: {
           pageTitle: 'Review appeal submission',
           backLink: `/${views.appealsList}`,
-          reviewOutcome: 'incomplete',
+          reviewOutcome: req.body['review-outcome'],
         },
       });
-      expect(req.session.appeal.casework.reviewOutcome).toEqual('incomplete');
+      expect(req.session.appeal.casework.reviewOutcome).toEqual(req.body['review-outcome']);
+    });
+
+    it('should call saveAndContinue with the home page value when reviewOutcome is not one of valid options', () => {
+      req = {
+        body: {
+          'review-outcome': 'someInvalidOption',
+        },
+        session: {
+          appeal: {
+            appeal: {
+              id: '1234',
+            },
+            casework: {},
+          },
+        },
+      };
+
+      postReviewAppealSubmission(req, res);
+
+      expect(saveAndContinue).toBeCalledTimes(1);
+      expect(saveAndContinue).toBeCalledWith({
+        req,
+        res,
+        currentPage: views.reviewAppealSubmission,
+        nextPage: views.home,
+        viewData: {
+          pageTitle: 'Review appeal submission',
+          backLink: `/${views.appealsList}`,
+          reviewOutcome: req.body['review-outcome'],
+        },
+      });
+      expect(req.session.appeal.casework.reviewOutcome).toEqual(req.body['review-outcome']);
     });
   });
 });

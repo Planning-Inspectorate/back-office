@@ -4,6 +4,7 @@ const views = {
   reviewAppealSubmission: 'review-appeal-submission',
   validAppealDetails: 'valid-appeal-details',
   invalidAppealDetails: 'invalid-appeal-details',
+  missingOrWrong: 'missing-or-wrong',
 };
 
 module.exports = views;

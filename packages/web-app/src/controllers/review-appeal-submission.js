@@ -3,6 +3,7 @@ const {
   reviewAppealSubmission: currentPage,
   validAppealDetails,
   invalidAppealDetails,
+  missingOrWrong,
   home,
 } = require('../config/views');
 const saveAndContinue = require('../lib/save-and-continue');
@@ -37,6 +38,8 @@ const postReviewAppealSubmission = (req, res) => {
     nextPage = validAppealDetails;
   } else if (reviewOutcome === 'invalid') {
     nextPage = invalidAppealDetails;
+  } else if (reviewOutcome === 'incomplete') {
+    nextPage = missingOrWrong;
   } else {
     nextPage = home;
   }
