@@ -21,7 +21,6 @@ const getInvalidAppealDetails = (req, res) => {
       },
     },
   } = req;
-
   res.render(currentPage, viewData(id, horizonId, invalidAppealDetails));
 };
 

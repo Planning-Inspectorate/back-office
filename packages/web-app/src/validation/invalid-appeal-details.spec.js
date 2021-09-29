@@ -63,4 +63,25 @@ describe('validation/invalid-appeal-details', () => {
       },
     ]);
   });
+
+  it('should fail validation if request contains a reason with a wrong name', async () => {
+    req = {
+      body: {
+        'invalid-appeal-reasons': ['noRightOfAppeal', 'outOfTimes'],
+      },
+    };
+
+    await validators[0](req, res, next);
+    const result = validationResult(req);
+
+    expect(result.errors).toHaveLength(1);
+    expect(result.errors).toEqual([
+      {
+        value: req.body['invalid-appeal-reasons'],
+        msg: 'Invalid option(s) received',
+        param: 'invalid-appeal-reasons',
+        location: 'body',
+      },
+    ]);
+  });
 });

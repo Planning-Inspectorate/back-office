@@ -2,7 +2,7 @@ const { body } = require('express-validator');
 const { toArray } = require('@pins/common/src/utils');
 
 const validReasonOptions = [
-  'outOfTimes',
+  'outOfTime',
   'noRightOfAppeal',
   'notAppealable',
   'lpaDeemedApplicationAsInvalid',
@@ -23,6 +23,7 @@ const invalidAppealDetailsValidation = () => [
     }),
   body('other-reason').custom((value, { req }) => {
     const valueAsArray = toArray(req.body['invalid-appeal-reasons']);
+    /* istanbul ignore else  */
     if (valueAsArray.includes('other')) {
       if (!value || value.trim().length === 0) {
         throw new Error('Enter why the appeal is invalid');

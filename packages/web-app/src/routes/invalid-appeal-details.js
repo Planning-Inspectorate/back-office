@@ -9,9 +9,9 @@ const expressValidationErrorsToGovUkErrorList = require('../lib/express-validati
 
 const router = express.Router();
 
-router.get(`/${invalidAppealDetails}/:appealId`, getInvalidAppealDetails);
+router.get(`/${invalidAppealDetails}`, getInvalidAppealDetails);
 router.post(
-  `/${invalidAppealDetails}/:appealId`,
+  `/${invalidAppealDetails}`,
   invalidAppealDetailsValidation(),
   expressValidationErrorsToGovUkErrorList,
   postInvalidAppealDetails

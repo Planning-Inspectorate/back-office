@@ -123,7 +123,7 @@ describe('controllers/review-appeal-submission', () => {
         req,
         res,
         currentPage: views.reviewAppealSubmission,
-        nextPage: `${views.invalidAppealDetails}/${req.session.appeal.appeal.id}`,
+        nextPage: views.invalidAppealDetails,
         viewData: {
           pageTitle: 'Review appeal submission',
           backLink: `/${views.appealsList}`,

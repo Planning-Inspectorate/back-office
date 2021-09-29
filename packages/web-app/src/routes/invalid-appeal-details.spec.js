@@ -15,12 +15,9 @@ describe('routes/invalid-appeal-details', () => {
     // eslint-disable-next-line global-require
     require('./invalid-appeal-details');
 
-    expect(mockGet).toBeCalledWith(
-      `/${views.invalidAppealDetails}/:appealId`,
-      getInvalidAppealDetails
-    );
+    expect(mockGet).toBeCalledWith(`/${views.invalidAppealDetails}`, getInvalidAppealDetails);
     expect(mockPost).toBeCalledWith(
-      `/${views.invalidAppealDetails}/:appealId`,
+      `/${views.invalidAppealDetails}`,
       invalidAppealDetailsValidation(),
       expressValidationErrorsToGovUkErrorList,
       postInvalidAppealDetails

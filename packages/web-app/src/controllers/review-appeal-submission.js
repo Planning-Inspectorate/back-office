@@ -36,7 +36,7 @@ const postReviewAppealSubmission = (req, res) => {
   if (reviewOutcome === 'valid') {
     nextPage = validAppealDetails;
   } else if (reviewOutcome === 'invalid') {
-    nextPage = `${invalidAppealDetails}/${req.session?.appeal?.appeal?.id}`;
+    nextPage = invalidAppealDetails;
   } else {
     nextPage = home;
   }
