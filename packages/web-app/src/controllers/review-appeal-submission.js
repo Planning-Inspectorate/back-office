@@ -2,6 +2,7 @@ const {
   appealsList,
   reviewAppealSubmission: currentPage,
   validAppealDetails,
+  invalidAppealDetails,
   home,
 } = require('../config/views');
 const saveAndContinue = require('../lib/save-and-continue');
@@ -30,7 +31,15 @@ const getReviewAppealSubmission = (req, res) => {
 
 const postReviewAppealSubmission = (req, res) => {
   const reviewOutcome = req.body['review-outcome'];
-  const nextPage = reviewOutcome === 'valid' ? validAppealDetails : home;
+
+  let nextPage;
+  if (reviewOutcome === 'valid') {
+    nextPage = validAppealDetails;
+  } else if (reviewOutcome === 'invalid') {
+    nextPage = invalidAppealDetails;
+  } else {
+    nextPage = home;
+  }
 
   req.session.appeal.casework.reviewOutcome = reviewOutcome;
 
