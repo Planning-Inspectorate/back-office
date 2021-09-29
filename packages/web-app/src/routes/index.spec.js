@@ -4,7 +4,6 @@ const home = require('./home');
 const reviewAppealSubmission = require('./review-appeal-submission');
 const validAppealDetails = require('./valid-appeal-details');
 const invalidAppealDetails = require('./invalid-appeal-details');
-const missingOrWrongDetails = require('./missing-or-wrong');
 const { mockUse } = require('../../test/utils/mocks');
 const documentsServiceProxyRouter = require('./document-service-proxy');
 const appealAlreadyReviewed = require('./appeal-already-reviewed');
@@ -12,6 +11,7 @@ const views = require('../config/views');
 const handleAppealAlreadyReviewed = require('../lib/handle-appeal-already-reviewed');
 const getCaseData = require('../lib/get-case-data');
 const checkAndConfirmDetails = require('./check-and-confirm');
+const missingOrWrongDetails = require('./missing-or-wrong');
 
 describe('routes/index', () => {
   it('should define the correct routes', () => {
