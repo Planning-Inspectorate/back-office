@@ -1,4 +1,5 @@
 const appealsList = require('./appeals-list');
+const questionnairesList = require('./questionnaires-list');
 const home = require('./home');
 const reviewAppealSubmission = require('./review-appeal-submission');
 const validAppealDetails = require('./valid-appeal-details');
@@ -10,8 +11,9 @@ describe('routes/index', () => {
     // eslint-disable-next-line global-require
     require('./index');
 
-    expect(mockUse).toBeCalledTimes(5);
+    expect(mockUse).toBeCalledTimes(6);
     expect(mockUse).toBeCalledWith('/', appealsList);
+    expect(mockUse).toBeCalledWith('/', questionnairesList);
     expect(mockUse).toBeCalledWith('/', home);
     expect(mockUse).toBeCalledWith('/', reviewAppealSubmission);
     expect(mockUse).toBeCalledWith('/', validAppealDetails);
