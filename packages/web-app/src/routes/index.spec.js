@@ -4,6 +4,7 @@ const home = require('./home');
 const reviewAppealSubmission = require('./review-appeal-submission');
 const validAppealDetails = require('./valid-appeal-details');
 const invalidAppealDetails = require('./invalid-appeal-details');
+const missingOrWrongDetails = require('./missing-or-wrong');
 const { mockUse } = require('../../test/utils/mocks');
 const documentsServiceProxyRouter = require('./document-service-proxy');
 const appealAlreadyReviewed = require('./appeal-already-reviewed');
