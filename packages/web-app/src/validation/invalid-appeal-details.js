@@ -1,5 +1,6 @@
 const { body } = require('express-validator');
 const { toArray } = require('@pins/common/src/utils');
+const { validateCheckboxValueAgainstOptions } = require('@pins/common/src/validation');
 
 const validReasonOptions = [
   'outOfTime',
@@ -14,13 +15,7 @@ const invalidAppealDetailsValidation = () => [
     .notEmpty()
     .withMessage('Select why the appeal is invalid')
     .bail()
-    .custom((value) => {
-      const valueAsArray = toArray(value);
-      if (!valueAsArray.every((item) => validReasonOptions.includes(item))) {
-        throw new Error('Invalid option(s) received');
-      }
-      return true;
-    }),
+    .custom((value) => validateCheckboxValueAgainstOptions(value, validReasonOptions)),
   body('other-reason').custom((value, { req }) => {
     const valueAsArray = toArray(req.body['invalid-appeal-reasons']);
     /* istanbul ignore else  */

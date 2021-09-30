@@ -1,0 +1,124 @@
+{% extends "layouts/form.njk" %}
+
+{% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
+{% from "components/button-group.njk" import buttonGroup %}
+{% from "govuk/components/input/macro.njk" import govukInput %}
+
+{% set reasonsError = errors['missing-or-wrong-reasons'].msg %}
+{% set documentsError = errors['missing-or-wrong-documents'].msg %}
+{% set otherError = errors['other-reason'].msg %}
+
+{% set noApplicationFormChecked = outcomeDetails.reasons and outcomeDetails.reasons.includes and outcomeDetails.reasons.includes('noApplicationForm') %}
+{% set noDecisionNoticeChecked = outcomeDetails.reasons and outcomeDetails.reasons.includes and outcomeDetails.reasons.includes('noDecisionNotice') %}
+{% set noGroundsOfAppealChecked = outcomeDetails.reasons and outcomeDetails.reasons.includes and outcomeDetails.reasons.includes('noGroundsOfAppeal') %}
+{% set noSupportingDocumentsChecked = outcomeDetails.reasons and outcomeDetails.reasons.includes and outcomeDetails.reasons.includes('noSupportingDocuments') %}
+{% set namesNotMatchChecked = outcomeDetails.reasons and outcomeDetails.reasons.includes and outcomeDetails.reasons.includes('namesNotMatch') %}
+{% set sensitiveInformationIncludedChecked = outcomeDetails.reasons and outcomeDetails.reasons.includes and outcomeDetails.reasons.includes('sensitiveInformationIncluded') %}
+{% set missingOrWrongDocumentsChecked = outcomeDetails.reasons and outcomeDetails.reasons.includes and outcomeDetails.reasons.includes('missingOrWrongDocuments') %}
+{% set inflammatoryCommentsChecked = outcomeDetails.reasons and outcomeDetails.reasons.includes and outcomeDetails.reasons.includes('inflammatoryComments') %}
+{% set openedInErrorChecked = outcomeDetails.reasons and outcomeDetails.reasons.includes and outcomeDetails.reasons.includes('openedInError') %}
+{% set wrongAppealTypeChecked = outcomeDetails.reasons and outcomeDetails.reasons.includes and outcomeDetails.reasons.includes('wrongAppealType') %}
+{% set otherChecked = outcomeDetails.reasons and outcomeDetails.reasons.includes and outcomeDetails.reasons.includes('other') %}
+
+{% block formContent %}
+  <p class="govuk-body">Appeal reference: {{appealReference}}</p>
+
+  {% set otherHtml %}
+    {{ govukInput({
+      id: "other-reason",
+      name: "other-reason",
+      value: outcomeDetails.otherReason,
+      label: {
+        text: "List reasons"
+      },
+      errorMessage: otherError and {
+        text: otherError
+      }
+    }) }}
+  {% endset -%}
+
+  {% set missingOrWrongDocumentsHtml %}
+    {{ govukCheckboxes({
+      idPrefix: "missing-or-wrong-documents",
+      name: "missing-or-wrong-documents",
+      errorMessage: documentsError and {
+        text: documentsError
+      },
+      items: [
+        {
+          text: "Application form",
+          value: "noApplicationForm",
+          checked: noApplicationFormChecked
+        },
+        {
+          text: "Decision notice",
+          value: "noDecisionNotice",
+          checked: noDecisionNoticeChecked
+        },
+        {
+          text: "Grounds of appeal",
+          value: "noGroundsOfAppeal",
+          checked: noGroundsOfAppealChecked
+        },
+        {
+          text: "Supporting documents",
+          value: "noSupportingDocuments",
+          checked: noSupportingDocumentsChecked
+        }
+      ]
+    }) }}
+  {% endset -%}
+
+  {{ govukCheckboxes({
+    idPrefix: "missing-or-wrong-reasons",
+    name: "missing-or-wrong-reasons",
+    errorMessage: reasonsError and {
+      text: reasonsError
+    },
+    items: [
+      {
+        text: "Names do not match",
+        value: "namesNotMatch",
+        checked: namesNotMatchChecked
+      },
+      {
+        text: "Sensitive information included",
+        value: "sensitiveInformationIncluded",
+        checked: sensitiveInformationIncludedChecked
+      },
+      {
+        text: "Missing or wrong documents",
+        value: "missingOrWrongDocuments",
+        checked: missingOrWrongDocumentsChecked,
+        conditional: {
+          html: missingOrWrongDocumentsHtml
+        }
+      },
+      {
+        text: "Inflammatory comments made",
+        value: "inflammatoryComments",
+        checked: inflammatoryCommentsChecked
+      },
+      {
+        text: "Opened in error",
+        value: "openedInError",
+        checked: openedInErrorChecked
+      },
+      {
+        text: "Wrong appeal type used",
+        value: "wrongAppealType",
+        checked: wrongAppealTypeChecked
+      },
+      {
+        value: "other",
+        text: "Other",
+        checked: otherChecked,
+        conditional: {
+          html: otherHtml
+        }
+      }
+    ]
+  }) }}
+
+  {{ buttonGroup(backLink) }}
+{% endblock %}

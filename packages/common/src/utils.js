@@ -4,10 +4,12 @@
 
 const toArray = (candidate) => {
   const array = [];
-  if (Array.isArray(candidate)) {
-    array.push(...candidate);
-  } else {
-    array.push(candidate);
+  if (candidate) {
+    if (Array.isArray(candidate)) {
+      array.push(...candidate);
+    } else {
+      array.push(candidate);
+    }
   }
   return array;
 };
