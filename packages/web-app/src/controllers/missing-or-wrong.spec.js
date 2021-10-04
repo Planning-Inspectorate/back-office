@@ -33,10 +33,8 @@ describe('controllers/missing-or-wrong', () => {
     it('should render the view with data correctly', () => {
       req = {
         session: {
-          appeal: {
-            appeal: { id: appealId, horizonId },
-            casework: { outcomeDetails },
-          },
+          appeal: { id: appealId, horizonId },
+          casework: { outcomeDetails },
         },
       };
 
@@ -56,10 +54,8 @@ describe('controllers/missing-or-wrong', () => {
           'other-reason': outcomeDetails.otherReason,
         },
         session: {
-          appeal: {
-            appeal: { id: appealId, horizonId },
-            casework: {},
-          },
+          appeal: { id: appealId, horizonId },
+          casework: {},
         },
       };
 
@@ -73,7 +69,7 @@ describe('controllers/missing-or-wrong', () => {
         nextPage: views.home,
         viewData: expectedViewData,
       });
-      expect(req.session.appeal.casework.outcomeDetails).toEqual(outcomeDetails);
+      expect(req.session.casework.outcomeDetails).toEqual(outcomeDetails);
     });
   });
 });

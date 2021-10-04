@@ -1,6 +1,6 @@
 const saveAndContinue = require('./save-and-continue');
 const { saveData } = require('./api-wrapper');
-const { mockReq, mockRes } = require('../../test/utils/mocks');
+const { mockReq, mockRes } = require('../../test/utils/controller-mocks');
 
 jest.mock('./api-wrapper', () => ({
   saveData: jest.fn(),
@@ -8,6 +8,10 @@ jest.mock('./api-wrapper', () => ({
 
 describe('lib/saveAndContinue', () => {
   const horizonId = 'APP/Q9999/D/21/1234567';
+  const appealId = '60cfdd57-1739-488d-a416-64f3240e4ca1';
+  const casework = {
+    reviewOutcome: 'valid',
+  };
   const saveDataReturnValue = {
     appeal: {
       horizonId,
@@ -21,18 +25,25 @@ describe('lib/saveAndContinue', () => {
   let req;
 
   beforeEach(() => {
-    req = { ...mockReq };
+    req = { ...mockReq() };
   });
 
   describe('saveAndContinue', () => {
     it('should set the correct data and redirect to the next page', () => {
       saveData.mockReturnValue(saveDataReturnValue);
 
-      req.session.appeal = {};
+      req.session = {
+        appeal: {
+          id: appealId,
+        },
+        casework,
+      };
 
       saveAndContinue({ req, res, currentPage, nextPage, viewData });
 
-      expect(req.session.appeal.casework).toEqual(saveDataReturnValue);
+      expect(res.cookie).toBeCalledTimes(2);
+      expect(res.cookie).toBeCalledWith('appealId', appealId);
+      expect(res.cookie).toBeCalledWith(appealId, JSON.stringify(casework));
       expect(res.redirect).toBeCalledTimes(1);
       expect(res.redirect).toBeCalledWith(`/${nextPage}`);
     });

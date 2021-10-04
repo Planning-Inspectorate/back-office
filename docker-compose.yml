@@ -19,9 +19,7 @@ services:
     command: npm run start:dev
     environment:
       DOCUMENTS_SERVICE_API_URL: http://document-service-api:3000
-      SESSION_MONGODB_URL: mongodb://mongodb:27017/back-office-sessions
-      SESSION_KEY: some_secure_key_goes_here
-      USE_SECURE_SESSION_COOKIES: 'false'
+      LOGGER_LEVEL: 'debug'
     networks:
       - appeal-planning-decision_default
   api:

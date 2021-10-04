@@ -16,10 +16,8 @@ const viewData = (appealId, horizonId, outcomeDetails) => ({
 const getMissingOrWrong = (req, res) => {
   const {
     session: {
-      appeal: {
-        appeal: { id, horizonId },
-        casework: { outcomeDetails },
-      },
+      appeal: { id, horizonId },
+      casework: { outcomeDetails },
     },
   } = req;
 
@@ -29,9 +27,7 @@ const getMissingOrWrong = (req, res) => {
 const postMissingOrWrong = (req, res) => {
   const {
     session: {
-      appeal: {
-        appeal: { id, horizonId },
-      },
+      appeal: { id, horizonId },
     },
     body,
   } = req;
@@ -48,7 +44,7 @@ const postMissingOrWrong = (req, res) => {
     otherReason,
   };
 
-  req.session.appeal.casework.outcomeDetails = outcomeDetails;
+  req.session.casework.outcomeDetails = outcomeDetails;
 
   saveAndContinue({
     req,

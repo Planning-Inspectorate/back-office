@@ -71,10 +71,10 @@ describe('lib/apiWrapper', () => {
       });
     });
 
-    it('should return null when not given an application id', () => {
+    it('should return enpty appeal and casework objects when not given an application id', () => {
       const result = getData();
 
-      expect(result).toBeNull();
+      expect(result).toEqual({ appeal: {}, casework: {} });
     });
   });
 
