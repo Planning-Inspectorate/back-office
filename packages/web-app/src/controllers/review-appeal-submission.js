@@ -17,10 +17,8 @@ const viewData = (reviewOutcome) => ({
 const getReviewAppealSubmission = (req, res) => {
   const {
     session: {
-      appeal: {
-        appeal,
-        casework: { reviewOutcome },
-      },
+      appeal,
+      casework: { reviewOutcome },
     },
   } = req;
 
@@ -44,7 +42,7 @@ const postReviewAppealSubmission = (req, res) => {
     nextPage = home;
   }
 
-  req.session.appeal.casework.reviewOutcome = reviewOutcome;
+  req.session.casework.reviewOutcome = reviewOutcome;
 
   saveAndContinue({ req, res, currentPage, nextPage, viewData: viewData(reviewOutcome) });
 };

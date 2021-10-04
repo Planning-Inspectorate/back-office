@@ -28,12 +28,10 @@ describe('controllers/review-appeal-submission', () => {
       req = {
         session: {
           appeal: {
-            appeal: {
-              horizonId: 'abc123',
-            },
-            casework: {
-              reviewOutcome: 'valid',
-            },
+            horizonId: 'abc123',
+          },
+          casework: {
+            reviewOutcome: 'valid',
           },
         },
       };
@@ -53,12 +51,10 @@ describe('controllers/review-appeal-submission', () => {
       req = {
         session: {
           appeal: {
-            appeal: {
-              horizonId: 'abc123',
-            },
-            casework: {
-              reviewOutcome: 'valid',
-            },
+            horizonId: 'abc123',
+          },
+          casework: {
+            reviewOutcome: 'valid',
           },
         },
       };
@@ -82,9 +78,7 @@ describe('controllers/review-appeal-submission', () => {
           'review-outcome': 'valid',
         },
         session: {
-          appeal: {
-            casework: {},
-          },
+          casework: {},
         },
       };
 
@@ -98,7 +92,7 @@ describe('controllers/review-appeal-submission', () => {
         nextPage: views.validAppealDetails,
         viewData: expectedViewData,
       });
-      expect(req.session.appeal.casework.reviewOutcome).toEqual('valid');
+      expect(req.session.casework.reviewOutcome).toEqual('valid');
     });
 
     it('should call saveAndContinue with the correct nextPage value when reviewOutcome equals `invalid`', () => {
@@ -108,11 +102,9 @@ describe('controllers/review-appeal-submission', () => {
         },
         session: {
           appeal: {
-            appeal: {
-              id: '1234',
-            },
-            casework: {},
+            id: '1234',
           },
+          casework: {},
         },
       };
 
@@ -130,7 +122,7 @@ describe('controllers/review-appeal-submission', () => {
           reviewOutcome: 'invalid',
         },
       });
-      expect(req.session.appeal.casework.reviewOutcome).toEqual('invalid');
+      expect(req.session.casework.reviewOutcome).toEqual('invalid');
     });
 
     it('should call saveAndContinue with the correct nextPage value when reviewOutcome equals `incomplete`', () => {
@@ -140,11 +132,9 @@ describe('controllers/review-appeal-submission', () => {
         },
         session: {
           appeal: {
-            appeal: {
-              id: '1234',
-            },
-            casework: {},
+            id: '1234',
           },
+          casework: {},
         },
       };
 
@@ -162,7 +152,7 @@ describe('controllers/review-appeal-submission', () => {
           reviewOutcome: req.body['review-outcome'],
         },
       });
-      expect(req.session.appeal.casework.reviewOutcome).toEqual(req.body['review-outcome']);
+      expect(req.session.casework.reviewOutcome).toEqual(req.body['review-outcome']);
     });
 
     it('should call saveAndContinue with the home page value when reviewOutcome is not one of valid options', () => {
@@ -172,11 +162,9 @@ describe('controllers/review-appeal-submission', () => {
         },
         session: {
           appeal: {
-            appeal: {
-              id: '1234',
-            },
-            casework: {},
+            id: '1234',
           },
+          casework: {},
         },
       };
 
@@ -194,7 +182,7 @@ describe('controllers/review-appeal-submission', () => {
           reviewOutcome: req.body['review-outcome'],
         },
       });
-      expect(req.session.appeal.casework.reviewOutcome).toEqual(req.body['review-outcome']);
+      expect(req.session.casework.reviewOutcome).toEqual(req.body['review-outcome']);
     });
   });
 });

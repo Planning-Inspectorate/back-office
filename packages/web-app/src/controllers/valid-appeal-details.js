@@ -15,10 +15,8 @@ const viewData = (appealId, horizonId, validAppealDetails) => ({
 const getValidAppealDetails = (req, res) => {
   const {
     session: {
-      appeal: {
-        appeal: { id, horizonId },
-        casework: { validAppealDetails },
-      },
+      appeal: { id, horizonId },
+      casework: { validAppealDetails },
     },
   } = req;
 
@@ -28,14 +26,12 @@ const getValidAppealDetails = (req, res) => {
 const postValidAppealDetails = (req, res) => {
   const {
     session: {
-      appeal: {
-        appeal: { id, horizonId },
-      },
+      appeal: { id, horizonId },
     },
     body,
   } = req;
 
-  req.session.appeal.casework.validAppealDetails = req.body['valid-appeal-details'];
+  req.session.casework.validAppealDetails = req.body['valid-appeal-details'];
 
   saveAndContinue({
     req,

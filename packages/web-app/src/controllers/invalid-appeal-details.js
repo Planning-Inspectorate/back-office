@@ -15,10 +15,8 @@ const viewData = (appealId, horizonId, invalidAppealDetails) => ({
 const getInvalidAppealDetails = (req, res) => {
   const {
     session: {
-      appeal: {
-        appeal: { id, horizonId },
-        casework: { invalidAppealDetails },
-      },
+      appeal: { id, horizonId },
+      casework: { invalidAppealDetails },
     },
   } = req;
   res.render(currentPage, viewData(id, horizonId, invalidAppealDetails));
@@ -27,9 +25,7 @@ const getInvalidAppealDetails = (req, res) => {
 const postInvalidAppealDetails = (req, res) => {
   const {
     session: {
-      appeal: {
-        appeal: { id, horizonId },
-      },
+      appeal: { id, horizonId },
     },
     body,
   } = req;
@@ -42,7 +38,7 @@ const postInvalidAppealDetails = (req, res) => {
     otherReason,
   };
 
-  req.session.appeal.casework.invalidAppealDetails = invalidAppealDetails;
+  req.session.casework.invalidAppealDetails = invalidAppealDetails;
 
   saveAndContinue({
     req,

@@ -2,11 +2,11 @@ const { getData } = require('./api-wrapper');
 
 const getCaseData = (req, res, next) => {
   const {
+    cookies,
     log,
     params: { appealId },
-    session,
-    session: { appeal: { appeal = {} } = {} } = {},
   } = req;
+  const cookieAppealId = cookies.appealId;
 
   try {
     /*
@@ -21,15 +21,23 @@ const getCaseData = (req, res, next) => {
       It's probably not where we'd do it ideally when we've connected the API to the database
       so it can be replaced by a more appropriate solution at that point.
     */
-    if (session && appealId !== appeal.id) {
-      log.debug({ id: appealId }, 'Deleting session data');
-      delete req.session.appeal;
+    if (appealId && appealId !== cookieAppealId) {
+      log.debug({ appealId, cookieAppealId }, 'Deleting session data');
+      res.clearCookie('appealId');
+      res.clearCookie(cookieAppealId);
     }
 
-    if (session && !session.appeal) {
-      log.debug({ id: appealId }, 'Getting existing data');
-      session.appeal = getData(appealId);
-    }
+    const currentAppealId = appealId || cookieAppealId;
+
+    log.debug({ id: currentAppealId }, 'Getting existing data');
+
+    req.session = getData(currentAppealId);
+    req.session.casework = req.cookies[currentAppealId]
+      ? JSON.parse(req.cookies[currentAppealId])
+      : {};
+
+    log.debug({ session: req.session }, 'Set session data');
+
     next();
   } catch (err) {
     log.debug({ err }, 'Error getting existing data');

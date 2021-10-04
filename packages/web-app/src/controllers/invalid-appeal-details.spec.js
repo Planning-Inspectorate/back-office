@@ -31,10 +31,8 @@ describe('controllers/invalid-appeal-details', () => {
     it('should render the view with data correctly', () => {
       req = {
         session: {
-          appeal: {
-            appeal: { id: appealId, horizonId },
-            casework: { invalidAppealDetails },
-          },
+          appeal: { id: appealId, horizonId },
+          casework: { invalidAppealDetails },
         },
       };
 
@@ -53,10 +51,8 @@ describe('controllers/invalid-appeal-details', () => {
           'other-reason': invalidAppealDetails.otherReason,
         },
         session: {
-          appeal: {
-            appeal: { id: appealId, horizonId },
-            casework: {},
-          },
+          appeal: { id: appealId, horizonId },
+          casework: {},
         },
       };
 
@@ -70,7 +66,7 @@ describe('controllers/invalid-appeal-details', () => {
         nextPage: views.home,
         viewData: expectedViewData,
       });
-      expect(req.session.appeal.casework.invalidAppealDetails).toEqual(invalidAppealDetails);
+      expect(req.session.casework.invalidAppealDetails).toEqual(invalidAppealDetails);
     });
   });
 });

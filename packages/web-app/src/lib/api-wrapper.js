@@ -66,7 +66,7 @@ const getData = (appealId) => {
     };
   }
 
-  return null;
+  return { appeal: {}, casework: {} };
 };
 
 const saveData = (data) => {

@@ -10,18 +10,15 @@ const dateFilter = require('nunjucks-date-filter');
 const pinoExpress = require('express-pino-logger');
 const { v4: uuidV4 } = require('uuid');
 const { prometheus } = require('@pins/common');
-const session = require('express-session');
 const { sso } = require('pins-sso');
 const logger = require('./lib/logger');
 const routes = require('./routes');
 const config = require('./config/config');
-const sessionConfig = require('./lib/session-config');
+const getCaseData = require('./lib/get-case-data');
 
 const app = express();
 const {
   application: { defaultDateFormat },
-  server: { sessionSecret, useSecureSessionCookie },
-  db: { session: dbConfig },
 } = config;
 
 prometheus.init(app);
@@ -62,7 +59,6 @@ app.use(lusca.xssProtection(true));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(session(sessionConfig(sessionSecret, useSecureSessionCookie, dbConfig)));
 app.use('/public', express.static(path.join(__dirname, 'public')));
 app.use(
   '/assets',
@@ -72,6 +68,8 @@ app.use(
   '/assets/govuk/all.js',
   express.static(path.join(__dirname, '..', 'node_modules', 'govuk-frontend', 'govuk', 'all.js'))
 );
+
+app.use(getCaseData);
 
 sso(app, config.sso, logger);
 

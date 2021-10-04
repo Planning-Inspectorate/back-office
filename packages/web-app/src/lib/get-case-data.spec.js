@@ -1,12 +1,14 @@
 const getCaseData = require('./get-case-data');
 const { getData } = require('./api-wrapper');
-const { mockReq, mockRes, mockNext: next } = require('../../test/utils/mocks');
+const { mockReq, mockRes } = require('../../test/utils/controller-mocks');
 
 jest.mock('./api-wrapper', () => ({
   getData: jest.fn(),
 }));
 
 describe('lib/getCaseData', () => {
+  const next = jest.fn();
+
   let req;
   let res;
 
@@ -25,12 +27,12 @@ describe('lib/getCaseData', () => {
   };
 
   beforeEach(() => {
-    req = mockReq;
+    req = mockReq();
     res = mockRes();
   });
 
   describe('getCaseData', () => {
-    it('should set req.session.appeal when req.session.appeal does not exist', () => {
+    it('should set req.session with appeal data and empty casework', () => {
       getData.mockReturnValue(getDataReturnValue);
 
       req.params = {
@@ -41,24 +43,10 @@ describe('lib/getCaseData', () => {
 
       expect(getData).toBeCalledTimes(1);
       expect(getData).toBeCalledWith(appealId);
-      expect(req.session.appeal).toEqual(getDataReturnValue);
+      expect(req.session).toEqual(getDataReturnValue);
     });
 
-    it('should not set req.session.appeal when req.session does not exist', () => {
-      getData.mockReturnValue(getDataReturnValue);
-
-      req = {
-        ...req,
-        session: undefined,
-      };
-
-      getCaseData(req, res, next);
-
-      expect(getData).not.toBeCalled();
-      expect(req.session).toBeUndefined();
-    });
-
-    it('should not set req.session.appeal when req.session.appeal exists', () => {
+    it('should set req.session with appeal data and casework data', () => {
       getData.mockReturnValue(getDataReturnValue);
 
       req = {
@@ -66,18 +54,21 @@ describe('lib/getCaseData', () => {
         params: {
           appealId,
         },
-        session: {
-          appeal: alreadyExistingAppeal,
+        cookies: {
+          [appealId]: JSON.stringify({
+            reviewOutcome: 'valid',
+          }),
         },
       };
 
       getCaseData(req, res, next);
 
-      expect(getData).not.toBeCalled();
-      expect(req.session.appeal).toEqual(alreadyExistingAppeal);
+      expect(getData).toBeCalledTimes(1);
+      expect(getData).toBeCalledWith(appealId);
+      expect(req.session).toEqual(getDataReturnValue);
     });
 
-    it('should delete req.session when the given appeal id does not equal the session appeal id', () => {
+    it('should clear the cookies when the given appeal id exists and it does not equal the session appeal id', () => {
       getData.mockReturnValue(getDataReturnValue);
 
       const differentAppealId = '0127d52e-ed17-4e14-8d68-f6ffa872f846';
@@ -87,17 +78,36 @@ describe('lib/getCaseData', () => {
         params: {
           appealId: differentAppealId,
         },
-        session: {
-          appeal: alreadyExistingAppeal,
+        cookies: {
+          appealId: alreadyExistingAppeal.id,
         },
       };
 
       getCaseData(req, res, next);
 
-      expect(req.log.debug).toBeCalledTimes(2);
-      expect(req.log.debug).toBeCalledWith({ id: differentAppealId }, 'Deleting session data');
-      expect(req.log.debug).toBeCalledWith({ id: differentAppealId }, 'Getting existing data');
-      expect(req.session.appeal).toEqual(getDataReturnValue);
+      expect(res.clearCookie).toBeCalledTimes(2);
+      expect(res.clearCookie).toBeCalledWith('appealId');
+      expect(res.clearCookie).toBeCalledWith(alreadyExistingAppeal.id);
+    });
+
+    it('should not clear the cookies when the given appeal id does not exist and it does not equal the session appeal id', () => {
+      getData.mockReturnValue(getDataReturnValue);
+
+      const differentAppealId = undefined;
+
+      req = {
+        ...req,
+        params: {
+          appealId: differentAppealId,
+        },
+        cookies: {
+          appealId: alreadyExistingAppeal,
+        },
+      };
+
+      getCaseData(req, res, next);
+
+      expect(res.clearCookie).not.toBeCalled();
     });
 
     it('should throw the error when an error occurs', async () => {

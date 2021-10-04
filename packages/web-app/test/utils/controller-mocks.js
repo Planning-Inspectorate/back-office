@@ -12,6 +12,7 @@ const mockReq = (appeal = emptyAppeal) => ({
   session: {
     appeal,
   },
+  body: {},
 });
 
 const mockRes = () => ({
