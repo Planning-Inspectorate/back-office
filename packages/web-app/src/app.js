@@ -10,7 +10,7 @@ const dateFilter = require('nunjucks-date-filter');
 const pinoExpress = require('express-pino-logger');
 const { v4: uuidV4 } = require('uuid');
 const { prometheus } = require('@pins/common');
-const { sso } = require('pins-sso');
+// const { sso } = require('pins-sso');
 const logger = require('./lib/logger');
 const routes = require('./routes');
 const config = require('./config/config');
@@ -71,7 +71,7 @@ app.use(
 
 app.use(getCaseData);
 
-sso(app, config.sso, logger);
+// sso(app, config.sso, logger);
 
 app.use('/', routes);
 app.set('view engine', 'njk');
