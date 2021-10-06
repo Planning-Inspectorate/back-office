@@ -20,6 +20,10 @@ services:
     environment:
       DOCUMENTS_SERVICE_API_URL: http://document-service-api:3000
       LOGGER_LEVEL: 'debug'
+      AUTH_CLIENT_ID: '123'
+      AUTH_CLOUD_INSTANCE_ID: '123'
+      AUTH_TENANT_ID: '123'
+      AUTH_CLIENT_SECRET: '123'
     networks:
       - appeal-planning-decision_default
   api:
