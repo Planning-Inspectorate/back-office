@@ -1,0 +1,27 @@
+{% extends "layouts/form.njk" %}
+
+{% from "govuk/components/textarea/macro.njk" import govukTextarea %}
+{% from "components/button-group.njk" import buttonGroup %}
+{% from "components/unorderedList.njk" import unorderedList %}
+
+{% block pageTitle %}
+    Check and confirm - Appeal a householder planning decision - GOV.UK
+{% endblock %}
+
+
+{% block content %}
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds-from-desktop">
+            <h1 class="govuk-caption-xl">
+                Review questionnaire
+            </h1>
+            {% for section in params.sections %}
+                <h2 class="govuk-heading-m">Check and confirm</h2>
+            {% endfor %}
+        </div>
+    </div>
+
+  <h2 class="govuk-heading-m">Confirming the questionnaire as complete makes the appeal available to inspectors </h2>
+  {{ buttonGroup(backLink, random, Confirm outcome) }}
+{% endblock %}
+
