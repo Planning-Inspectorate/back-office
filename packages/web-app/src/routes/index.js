@@ -4,6 +4,7 @@ const reviewAppealSubmission = require('./review-appeal-submission');
 const validAppealDetails = require('./valid-appeal-details');
 const invalidAppealDetails = require('./invalid-appeal-details');
 const missingOrWrongAppealDetails = require('./missing-or-wrong');
+const checkAndConfirm = require('./check-and-confirm');
 const home = require('./home');
 const documentsServiceProxy = require('./document-service-proxy');
 const appealAlreadyReviewed = require('./appeal-already-reviewed');
