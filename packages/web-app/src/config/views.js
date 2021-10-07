@@ -1,6 +1,7 @@
 const views = {
   appealAlreadyReviewed: 'appeal-already-reviewed',
   appealsList: 'appeals-list',
+  document: 'document',
   home: '',
   reviewAppealSubmission: 'review-appeal-submission',
   validAppealDetails: 'valid-appeal-details',
