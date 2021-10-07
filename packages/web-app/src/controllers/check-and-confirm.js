@@ -4,7 +4,7 @@ const {
   home: nextPage,
 } = require('../config/views');
 
-const getConfirmationSections = (apealReference) => [
+const getConfirmationSections = async (apealReference) => [
   {
     title: 'Review outcome',
     value: 'Incomplete',
@@ -27,11 +27,11 @@ const getConfirmationSections = (apealReference) => [
   },
 ];
 
-const getCheckAndConfirm = (req, res) => {
+const getCheckAndConfirm = async (req, res) => {
   const { appealId } = req.query;
   res.render(currentPage, {
     pageTitle: 'Check and confirm',
-    sections: getConfirmationSections(),
+    sections: await getConfirmationSections(),
     backLink: `/${previousPage}/${appealId}`,
   });
 };
