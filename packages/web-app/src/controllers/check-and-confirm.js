@@ -4,12 +4,36 @@ const {
   home: nextPage,
 } = require('../config/views');
 
-const getCheckAndConfirm = (req, res) => {
-  const {
-    session: {},
-  } = req;
+const getConfirmationSections = (apealReference) => [
+  {
+    title: 'Review outcome',
+    value: 'Incomplete',
+  },
+  {
+    title: 'Missing or incorrect documents',
+    value: [],
+  },
+  {
+    title: 'Appeal reference',
+    value: 'APP',
+  },
+  {
+    title: 'Appeal site',
+    value: 'site',
+  },
+  {
+    title: 'Local planning department',
+    value: 'Newark and Sherwood District Council',
+  },
+];
 
-  res.render(currentPage, {});
+const getCheckAndConfirm = (req, res) => {
+  const { appealId } = req.query;
+  res.render(currentPage, {
+    pageTitle: 'Check and confirm',
+    sections: getConfirmationSections(),
+    backLink: `/${previousPage}/${appealId}`,
+  });
 };
 
 const postCheckAndConfirm = (req, res) => {

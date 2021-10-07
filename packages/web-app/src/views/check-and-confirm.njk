@@ -4,7 +4,6 @@
 {% from "components/confirmlist.njk" import confirmList %}
 {% from "components/breadcrumb.njk" import breadcrumb %}
 
-
 {% block pageTitle %}
     Check and confirm - Appeal a householder planning decision - GOV.UK
 {% endblock %}
@@ -25,7 +24,9 @@
             { record: "Appeal site" },
             { record: "Local planning department" }
         ],
-  }) })}
+    }) }}
     <h2 class="govuk-heading-m">Confirming the questionnaire as complete makes the appeal available to inspectors </h2>
-    {{ buttonGroup(backLink, random, Confirm outcome) }}
+    <div class="govuk-button-group">
+        <a href="confirm" role="button" draggable="false" class="govuk-button"> Confirm outcome </a>
+    </div>
 {% endblock %}
