@@ -6,15 +6,25 @@ const invalidAppealDetails = require('./invalid-appeal-details');
 const missingOrWrongAppealDetails = require('./missing-or-wrong');
 const home = require('./home');
 const documentsServiceProxyRouter = require('./document-service-proxy');
+const appealAlreadyReviewed = require('./appeal-already-reviewed');
+const views = require('../config/views');
+const handleAppealAlreadyReviewed = require('../lib/handle-appeal-already-reviewed');
+const getCaseData = require('../lib/get-case-data');
 
 const router = express.Router();
 
-router.use('/', appealsList);
 router.use('/', home);
-router.use('/', reviewAppealSubmission);
-router.use('/', validAppealDetails);
-router.use('/', invalidAppealDetails);
-router.use('/', missingOrWrongAppealDetails);
+router.use(`/${views.appealsList}`, appealsList);
+router.use(
+  `/${views.reviewAppealSubmission}/:appealId`,
+  getCaseData,
+  handleAppealAlreadyReviewed,
+  reviewAppealSubmission
+);
+router.use(`/${views.validAppealDetails}`, handleAppealAlreadyReviewed, validAppealDetails);
+router.use(`/${views.invalidAppealDetails}`, handleAppealAlreadyReviewed, invalidAppealDetails);
+router.use(`/${views.missingOrWrong}`, handleAppealAlreadyReviewed, missingOrWrongAppealDetails);
 router.use('/document', documentsServiceProxyRouter);
+router.use(`/${views.appealAlreadyReviewed}`, appealAlreadyReviewed);
 
 module.exports = router;
