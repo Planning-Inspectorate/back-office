@@ -1,9 +1,8 @@
 const express = require('express');
-
-const router = express.Router();
-
 const documentServiceProxyController = require('../controllers/document-service-proxy');
 const ensureAppealMatchesSessionMiddleware = require('../middleware/ensure-appeal-matches-session');
+
+const router = express.Router();
 
 router.get(
   '/:appealId/:documentId',
