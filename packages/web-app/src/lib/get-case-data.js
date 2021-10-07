@@ -32,9 +32,10 @@ const getCaseData = (req, res, next) => {
     log.debug({ id: currentAppealId }, 'Getting existing data');
 
     req.session = getData(currentAppealId);
-    req.session.casework = req.cookies[currentAppealId]
-      ? JSON.parse(req.cookies[currentAppealId])
-      : {};
+
+    if (req.cookies[currentAppealId]) {
+      req.session.casework = JSON.parse(req.cookies[currentAppealId]);
+    }
 
     log.debug({ session: req.session }, 'Set session data');
 
