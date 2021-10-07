@@ -1,4 +1,5 @@
 const views = {
+  appealAlreadyReviewed: 'appeal-already-reviewed',
   appealsList: 'appeals-list',
   home: '',
   reviewAppealSubmission: 'review-appeal-submission',

@@ -66,15 +66,19 @@ describe('lib/apiWrapper', () => {
               postcode: 'XM26 7YS',
             },
           },
+          state: 'Appeal Received',
         },
         casework: {},
       });
     });
 
-    it('should return enpty appeal and casework objects when not given an application id', () => {
+    it('should return an empty appeal and a default casework object when not given an application id', () => {
       const result = getData();
 
-      expect(result).toEqual({ appeal: {}, casework: {} });
+      expect(result).toEqual({
+        appeal: {},
+        casework: {},
+      });
     });
   });
 

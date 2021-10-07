@@ -1,3 +1,11 @@
+// Uncomment to test the /appeal-already-reviewed page
+// const casework = {
+//   reviewer: {
+//     name: 'Sally Smith',
+//   },
+//   reviewOutcome: 'valid',
+// };
+
 const getData = (appealId) => {
   if (appealId) {
     return {
@@ -61,12 +69,22 @@ const getData = (appealId) => {
             postcode: 'XM26 7YS',
           },
         },
+        // Switch state to test the /appeal-already-reviewed page
+        state: 'Appeal Received',
+        // state: 'Appeal Complete',
       },
+      // Switch casework to test the /appeal-already-reviewed page
       casework: {},
+      // casework,
     };
   }
 
-  return { appeal: {}, casework: {} };
+  return {
+    appeal: {},
+    // Switch casework to test the /appeal-already-reviewed page
+    casework: {},
+    // casework,
+  };
 };
 
 const saveData = (data) => {
