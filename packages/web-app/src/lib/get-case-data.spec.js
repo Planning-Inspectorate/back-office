@@ -11,14 +11,10 @@ describe('lib/getCaseData', () => {
 
   let req;
   let res;
+  let getDataReturnValue;
 
   const appealId = '5c943cb9-e029-4094-a447-4b3256d6ede7';
   const horizonId = 'APP/Q9999/D/21/1234567';
-  const getDataReturnValue = {
-    appeal: {
-      horizonId,
-    },
-  };
   const alreadyExistingAppeal = {
     appeal: {
       id: appealId,
@@ -29,10 +25,25 @@ describe('lib/getCaseData', () => {
   beforeEach(() => {
     req = mockReq();
     res = mockRes();
+    getDataReturnValue = {
+      ...{
+        appeal: {
+          horizonId,
+        },
+        casework: {},
+      },
+    };
   });
 
   describe('getCaseData', () => {
-    it('should set req.session with appeal data and empty casework', () => {
+    it('should set req.session with appeal data and default casework data', () => {
+      getDataReturnValue.casework = {
+        reviewer: {
+          name: 'Sally Smith',
+        },
+        reviewOutcome: 'valid',
+      };
+
       getData.mockReturnValue(getDataReturnValue);
 
       req.params = {
@@ -47,6 +58,13 @@ describe('lib/getCaseData', () => {
     });
 
     it('should set req.session with appeal data and casework data', () => {
+      getDataReturnValue.casework = {
+        reviewer: {
+          name: 'William Jones',
+        },
+        reviewOutcome: 'incomplete',
+      };
+
       getData.mockReturnValue(getDataReturnValue);
 
       req = {
