@@ -7,6 +7,7 @@ const missingOrWrongAppealDetails = require('./missing-or-wrong');
 const checkAndConfirm = require('./check-and-confirm');
 const home = require('./home');
 const documentsServiceProxyRouter = require('./document-service-proxy');
+const views = require('../config/views');
 
 const router = express.Router();
 
@@ -16,7 +17,7 @@ router.use('/', reviewAppealSubmission);
 router.use('/', validAppealDetails);
 router.use('/', invalidAppealDetails);
 router.use('/', missingOrWrongAppealDetails);
-router.use('/', checkAndConfirm);
+router.use(`/${views.questionnairesForReview}/${views.checkAndConfirm}`, checkAndConfirm);
 router.use('/document', documentsServiceProxyRouter);
 
 module.exports = router;

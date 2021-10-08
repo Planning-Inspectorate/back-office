@@ -4,7 +4,7 @@ const {
   home: nextPage,
 } = require('../config/views');
 
-const getConfirmationSections = async (apealReference) => [
+const getConfirmationSections = async (appealReference) => [
   {
     title: 'Review outcome',
     value: 'Incomplete',
@@ -19,7 +19,7 @@ const getConfirmationSections = async (apealReference) => [
   },
   {
     title: 'Appeal site',
-    value: 'site',
+    value: 'Site',
   },
   {
     title: 'Local planning department',
@@ -28,7 +28,8 @@ const getConfirmationSections = async (apealReference) => [
 ];
 
 const getCheckAndConfirm = async (req, res) => {
-  const { appealId } = req.query;
+  const { appealId } = req.param;
+
   res.render(currentPage, {
     pageTitle: 'Check and confirm',
     sections: await getConfirmationSections(),
@@ -36,7 +37,17 @@ const getCheckAndConfirm = async (req, res) => {
   });
 };
 
-const postCheckAndConfirm = (req, res) => {
+const updateQuestionnaireStatus = async (appealId) => ({
+  appealId,
+  status: 'Available for inspector',
+  timestamp: new Date().toISOString(),
+});
+
+const postCheckAndConfirm = async (req, res) => {
+  const { appealId } = req.param;
+  if (typeof appealId !== 'undefined') throw Error('appeal id is undefined');
+  await updateQuestionnaireStatus(appealId);
+
   res.render(currentPage, {});
 };
 
