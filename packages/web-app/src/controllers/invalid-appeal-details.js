@@ -1,13 +1,15 @@
 const {
   reviewAppealSubmission: previousPage,
   invalidAppealDetails: currentPage,
-  home: nextPage,
+  checkAndConfirm: nextPage,
 } = require('../config/views');
 const saveAndContinue = require('../lib/save-and-continue');
+const { getText } = require('../lib/review-appeal-submission');
 
 const viewData = (appealId, horizonId, invalidAppealDetails) => ({
   pageTitle: 'Invalid appeal details',
   backLink: `/${previousPage}/${appealId}`,
+  getText,
   invalidAppealDetails,
   appealReference: horizonId,
 });
@@ -19,7 +21,11 @@ const getInvalidAppealDetails = (req, res) => {
       casework: { invalidAppealDetails },
     },
   } = req;
-  res.render(currentPage, viewData(id, horizonId, invalidAppealDetails));
+  const options = {
+    ...viewData(id, horizonId, invalidAppealDetails),
+    getText,
+  };
+  res.render(currentPage, options);
 };
 
 const postInvalidAppealDetails = (req, res) => {

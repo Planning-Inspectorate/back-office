@@ -7,6 +7,7 @@ const views = {
   validAppealDetails: 'valid-appeal-details',
   invalidAppealDetails: 'invalid-appeal-details',
   missingOrWrong: 'missing-or-wrong',
+  checkAndConfirm: 'check-and-confirm',
 };
 
 module.exports = views;

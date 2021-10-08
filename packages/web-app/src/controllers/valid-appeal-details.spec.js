@@ -59,7 +59,7 @@ describe('controllers/valid-appeal-details', () => {
         req,
         res,
         currentPage: views.validAppealDetails,
-        nextPage: views.home,
+        nextPage: views.checkAndConfirm,
         viewData: expectedViewData,
       });
       expect(req.session.casework.validAppealDetails).toEqual(validAppealDetails);

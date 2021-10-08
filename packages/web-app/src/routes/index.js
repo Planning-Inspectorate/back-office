@@ -4,6 +4,7 @@ const reviewAppealSubmission = require('./review-appeal-submission');
 const validAppealDetails = require('./valid-appeal-details');
 const invalidAppealDetails = require('./invalid-appeal-details');
 const missingOrWrongAppealDetails = require('./missing-or-wrong');
+const checkAndConfirmDetails = require('./check-and-confirm');
 const home = require('./home');
 const documentsServiceProxy = require('./document-service-proxy');
 const appealAlreadyReviewed = require('./appeal-already-reviewed');
@@ -26,5 +27,6 @@ router.use(`/${views.invalidAppealDetails}`, handleAppealAlreadyReviewed, invali
 router.use(`/${views.missingOrWrong}`, handleAppealAlreadyReviewed, missingOrWrongAppealDetails);
 router.use(`/${views.document}`, documentsServiceProxy);
 router.use(`/${views.appealAlreadyReviewed}`, appealAlreadyReviewed);
+router.use(`/${views.checkAndConfirm}`, checkAndConfirmDetails);
 
 module.exports = router;

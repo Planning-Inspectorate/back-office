@@ -24,7 +24,7 @@
         text: otherError
       }
     }) }}
-  {% endset -%}
+  {% endset %}
 
   {{ govukCheckboxes({
     idPrefix: "invalid-appeal-reasons",
@@ -41,27 +41,27 @@
     items: [
       {
         value: "outOfTime",
-        text: "Out of time",
+        text: getText("outOfTime"),
         checked: invalidAppealDetails and invalidAppealDetails.reasons and invalidAppealDetails.reasons.includes('outOfTime')
       },
       {
         value: "noRightOfAppeal",
-        text: "No right of appeal",
+        text: getText("noRightOfAppeal"),
         checked: invalidAppealDetails and invalidAppealDetails.reasons and invalidAppealDetails.reasons.includes('noRightOfAppeal')
       },
       {
         value: "notAppealable",
-        text: "Not appealable",
+        text: getText("notAppealable"),
         checked: invalidAppealDetails and invalidAppealDetails.reasons and invalidAppealDetails.reasons.includes('notAppealable')
       },
       {
         value: "lpaDeemedApplicationAsInvalid",
-        text: "LPA deemed application as invalid",
+        text: getText("lpaDeemedApplicationAsInvalid"),
         checked: invalidAppealDetails and invalidAppealDetails.reasons and invalidAppealDetails.reasons.includes('lpaDeemedApplicationAsInvalid')
       },
       {
         value: "other",
-        text: "Other",
+        text: getText("other"),
         checked: invalidAppealDetails and invalidAppealDetails.reasons and invalidAppealDetails.reasons.includes('other'),
         conditional: {
           html: otherHtml

@@ -2,6 +2,7 @@ const { getInvalidAppealDetails, postInvalidAppealDetails } = require('./invalid
 const views = require('../config/views');
 const saveAndContinue = require('../lib/save-and-continue');
 const { mockReq, mockRes } = require('../../test/utils/mocks');
+const { getText } = require('../lib/review-appeal-submission');
 
 jest.mock('../lib/save-and-continue');
 
@@ -15,6 +16,7 @@ describe('controllers/invalid-appeal-details', () => {
   const expectedViewData = {
     pageTitle: 'Invalid appeal details',
     backLink: `/${views.reviewAppealSubmission}/${appealId}`,
+    getText,
     invalidAppealDetails,
     appealReference: horizonId,
   };
@@ -63,7 +65,7 @@ describe('controllers/invalid-appeal-details', () => {
         req,
         res,
         currentPage: views.invalidAppealDetails,
-        nextPage: views.home,
+        nextPage: views.checkAndConfirm,
         viewData: expectedViewData,
       });
       expect(req.session.casework.invalidAppealDetails).toEqual(invalidAppealDetails);

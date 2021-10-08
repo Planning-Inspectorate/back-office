@@ -1,7 +1,7 @@
 const {
   reviewAppealSubmission: previousPage,
   validAppealDetails: currentPage,
-  home: nextPage,
+  checkAndConfirm: nextPage,
 } = require('../config/views');
 const saveAndContinue = require('../lib/save-and-continue');
 
