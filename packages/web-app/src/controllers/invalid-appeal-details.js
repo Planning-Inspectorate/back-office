@@ -1,4 +1,4 @@
-const { toArray } = require('@pins/common/src/utils');
+const toArray = require('../lib/to-array');
 const {
   reviewAppealSubmission: previousPage,
   invalidAppealDetails: currentPage,

@@ -1,9 +1,9 @@
-const { validateCheckboxValueAgainstOptions } = require('./validation');
+const validateCheckboxValueAgainstOptions = require('./validate-checkbox-against-options');
 
 const validOptions = ['valid-1', 'valid-2', 'valid-3'];
 
-describe('validation test', () => {
-  describe('#validateCheckboxValueAgainstOptions', () => {
+describe('validation/utils/validate-checkbox-against-options.js', () => {
+  describe('validateCheckboxValueAgainstOptions', () => {
     it('should return true with undefined value', () => {
       const result = validateCheckboxValueAgainstOptions(undefined, validOptions);
       expect(result).toBe(true);

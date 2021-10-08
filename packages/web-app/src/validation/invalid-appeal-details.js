@@ -1,6 +1,6 @@
 const { body } = require('express-validator');
-const { toArray } = require('@pins/common/src/utils');
-const { validateCheckboxValueAgainstOptions } = require('@pins/common/src/validation');
+const toArray = require('../lib/to-array');
+const validateCheckboxValueAgainstOptions = require('./utils/validate-checkbox-against-options');
 
 const validReasonOptions = [
   'outOfTime',

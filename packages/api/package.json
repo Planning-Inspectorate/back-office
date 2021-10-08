@@ -12,7 +12,8 @@
     "test:tdd": "jest --watchAll --verbose",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
-    "format": "prettier --write './**/*.js'"
+    "format": "prettier --write './**/*.js'",
+    "documentation": "jest --bail --coverage --coverageReporters=cobertura --reporters=default --reporters=jest-junit"
   },
   "lint-staged": {
     "./**/*.js": "npm run lint:fix",
@@ -24,8 +25,11 @@
     "compression": "^1.7.4",
     "express": "^4.17.1",
     "express-pino-logger": "^6.0.0",
+    "jest": "^27.0.6",
+    "jest-junit": "^13.0.0",
     "js-yaml": "^3.14.1",
     "pino": "^6.13.0",
+    "supertest": "^6.1.4",
     "swagger-ui-express": "^4.1.6",
     "uuid": "^8.3.2"
   },
@@ -36,10 +40,8 @@
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-jest": "^24.4.0",
     "eslint-plugin-prettier": "^3.4.0",
-    "jest": "^27.0.6",
     "nodemon": "^2.0.12",
     "pino-pretty": "^5.1.2",
-    "prettier": "^2.3.2",
-    "supertest": "^6.1.4"
+    "prettier": "^2.3.2"
   }
 }

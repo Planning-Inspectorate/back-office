@@ -1,5 +1,5 @@
 const { body } = require('express-validator');
-const { validateCheckboxValueAgainstOptions } = require('@pins/common/src/validation');
+const validateCheckboxValueAgainstOptions = require('./utils/validate-checkbox-against-options');
 
 const validReasonOptions = [
   'namesNotMatch',
