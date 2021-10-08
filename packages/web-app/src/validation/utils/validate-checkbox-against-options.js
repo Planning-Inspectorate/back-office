@@ -1,4 +1,4 @@
-const { toArray } = require('./utils');
+const toArray = require('../../lib/to-array');
 
 const validateCheckboxValueAgainstOptions = (value, validOptions) => {
   if (value) {
@@ -10,6 +10,4 @@ const validateCheckboxValueAgainstOptions = (value, validOptions) => {
   return true;
 };
 
-module.exports = {
-  validateCheckboxValueAgainstOptions,
-};
+module.exports = validateCheckboxValueAgainstOptions;

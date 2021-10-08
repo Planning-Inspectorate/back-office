@@ -4,7 +4,7 @@
   "description": "PINS Back Office",
   "scripts": {
     "commit": "cz",
-    "commitlint": "commitlint --from 4b76eb9 --to HEAD",
+    "commitlint": "commitlint --from 2fe6984 --to HEAD",
     "test:e2e": "cd ./e2e-tests && npm run test:e2e TAGS='not @wip'",
     "test:e2e:postprocess": "cd ./e2e-tests && npm run test:e2e:postprocess",
     "test:e2e:files": "cd ./e2e-tests && ./create-large-test-files.sh",
