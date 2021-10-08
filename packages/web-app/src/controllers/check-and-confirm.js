@@ -4,14 +4,15 @@ const {
   home: nextPage,
 } = require('../config/views');
 
-const getConfirmationSections = async (appealReference) => [
+const reviewOutcome = {
+  COMPLETE: 'COMPLETE',
+  INCOMPLETE: 'INCOMPLETE',
+};
+
+const sections = [
   {
     title: 'Review outcome',
-    value: 'Incomplete',
-  },
-  {
-    title: 'Missing or incorrect documents',
-    value: [],
+    value: 'Complete',
   },
   {
     title: 'Appeal reference',
@@ -27,13 +28,42 @@ const getConfirmationSections = async (appealReference) => [
   },
 ];
 
+const getConfirmationSections = async (appealReference, outcome) => {
+  switch (outcome) {
+    case reviewOutcome.INCOMPLETE: {
+      return sections;
+    }
+
+    default:
+      return sections;
+  }
+};
+
+const getBreadcrumbs = async () => [
+  {
+    title: 'Case officer dashboard',
+  },
+  {
+    title: 'Questionnaires for review',
+  },
+  {
+    title: 'Dummy Appeal Reference',
+  },
+  {
+    title: 'Check and confirm',
+  },
+];
+
 const getCheckAndConfirm = async (req, res) => {
   const { appealId } = req.param;
+  const outcome = reviewOutcome.INCOMPLETE;
 
   res.render(currentPage, {
     pageTitle: 'Check and confirm',
-    sections: await getConfirmationSections(),
+    sections: await getConfirmationSections(undefined, outcome),
+    breadcrumbs: await getBreadcrumbs(),
     backLink: `/${previousPage}/${appealId}`,
+    reviewOutcome: outcome,
   });
 };
 
@@ -47,8 +77,7 @@ const postCheckAndConfirm = async (req, res) => {
   const { appealId } = req.param;
   if (typeof appealId !== 'undefined') throw Error('appeal id is undefined');
   await updateQuestionnaireStatus(appealId);
-
-  res.render(currentPage, {});
+  res.render('check-and-confirm', {});
 };
 
 module.exports = {

@@ -15,7 +15,6 @@ const getCaseData = require('../lib/get-case-data');
 
 const router = express.Router();
 
-router.use('/', home);
 router.use(`/${views.appealsList}`, appealsList);
 router.use(
   `/${views.reviewAppealSubmission}/:appealId`,
