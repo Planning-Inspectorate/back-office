@@ -42,27 +42,27 @@
       {
         value: "outOfTime",
         text: getText("outOfTime"),
-        checked: outcomeDetails and outcomeDetails.reasons and outcomeDetails.reasons.includes('outOfTime')
+        checked: invalidAppealDetails and invalidAppealDetails.reasons and invalidAppealDetails.reasons.includes('outOfTime')
       },
       {
         value: "noRightOfAppeal",
         text: getText("noRightOfAppeal"),
-        checked: outcomeDetails and outcomeDetails.reasons and outcomeDetails.reasons.includes('noRightOfAppeal')
+        checked: invalidAppealDetails and invalidAppealDetails.reasons and invalidAppealDetails.reasons.includes('noRightOfAppeal')
       },
       {
         value: "notAppealable",
         text: getText("notAppealable"),
-        checked: outcomeDetails and outcomeDetails.reasons and outcomeDetails.reasons.includes('notAppealable')
+        checked: invalidAppealDetails and invalidAppealDetails.reasons and invalidAppealDetails.reasons.includes('notAppealable')
       },
       {
         value: "lpaDeemedApplicationAsInvalid",
         text: getText("lpaDeemedApplicationAsInvalid"),
-        checked: outcomeDetails and outcomeDetails.reasons and outcomeDetails.reasons.includes('lpaDeemedApplicationAsInvalid')
+        checked: invalidAppealDetails and invalidAppealDetails.reasons and invalidAppealDetails.reasons.includes('lpaDeemedApplicationAsInvalid')
       },
       {
         value: "other",
         text: getText("other"),
-        checked: outcomeDetails and outcomeDetails.reasons and outcomeDetails.reasons.includes('other'),
+        checked: invalidAppealDetails and invalidAppealDetails.reasons and invalidAppealDetails.reasons.includes('other'),
         conditional: {
           html: otherHtml
         }

@@ -1,6 +1,6 @@
 const { checkAndConfirm: currentPage, home: nextPage } = require('../config/views');
 const saveAndContinue = require('../lib/save-and-continue');
-const { getText, getCheckAndConfirmConfig } = require('../config/review-appeal-submission');
+const { getText, getCheckAndConfirmConfig } = require('../lib/review-appeal-submission');
 
 const checkAndConfirmConfig = (casework) => getCheckAndConfirmConfig(casework.reviewOutcome);
 

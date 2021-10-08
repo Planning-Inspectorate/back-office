@@ -1,7 +1,9 @@
 {% extends "layouts/form.njk" %}
 
 {% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
 {% from "components/address.njk" import address %}
+{% from "components/unorderedList.njk" import unorderedList %}
 {% from "components/button.njk" import button %}
 {% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
 {% from "govuk/components/warning-text/macro.njk" import govukWarningText %}
@@ -16,48 +18,36 @@
 {% set completedError = errors['check-and-confirm-completed'].msg %}
 
 {% macro renderValidReason() %}
-  {{ validAppealDetails }}
-{% endmacro %}
-
-{% macro renderWithOtherReason(reason) %}
-  <li>{{ getText(reason)+('' if reason !== 'other' else ' - '+ outcomeDetails.otherReason) }}</li>
+  <p class="govuk-body govuk-!-margin-bottom-2">{{ validAppealDetails }}</p>
 {% endmacro %}
 
 {% macro renderInvalidReason() %}
-  {% for item in outcomeDetails.reasons %}
-    {{ renderWithOtherReason(item) }}
+  {% for item in invalidAppealDetails.reasons %}
+    <p class="govuk-body govuk-!-margin-bottom-2">{{ getText(item) }}{% if item === 'other' %} - {{ outcomeDetails.otherReason }}{% endif %}</p>
   {% endfor %}
 {% endmacro %}
 
 {% macro renderIncompleteReason() %}
   {% for item in outcomeDetails.reasons %}
+    <p class="govuk-body govuk-!-margin-bottom-2">{{ getText(item) }}{% if item === 'other' %} - {{ outcomeDetails.otherReason }}{% endif %}</p>
     {% if item === 'missingOrWrongDocuments' %}
-      <li>
-        {{ getText(item) }}
-        <ul class="govuk-list govuk-list--bullet">
-          {% for documentReason in outcomeDetails.documentReasons %}
-            <li>{{ getText(documentReason) }}</li>
-          {% endfor %}
-        </ul>
-      </li>
-    {% else %}
-      {{ renderWithOtherReason(item) }}
+      <ul class="govuk-list govuk-list--bullet">
+        {% for documentReason in outcomeDetails.documentReasons %}
+          <li>{{ getText(documentReason) }}</li>
+        {% endfor %}
+      </ul>
     {% endif %}
   {% endfor %}
 {% endmacro %}
 
 {% macro renderCheckAndConfirmReason() %}
-    {% if reviewOutcome.reviewOutcome === 'valid' %}
-      {{ renderValidReason() }}
-    {% else %}
-      <ul class="govuk-list">
-        {% if reviewOutcome.reviewOutcome === 'invalid' %}
-          {{ renderInvalidReason() }}
-        {% elif reviewOutcome.reviewOutcome === 'incomplete' %}
-          {{ renderIncompleteReason() }}
-        {% endif %}
-      </ul>
-    {% endif %}
+  {% if reviewOutcome.reviewOutcome === 'valid' %}
+    {{ renderValidReason() }}
+  {% elif reviewOutcome.reviewOutcome === 'invalid' %}
+    {{ renderInvalidReason() }}
+  {% elif reviewOutcome.reviewOutcome === 'incomplete' %}
+    {{ renderIncompleteReason() }}
+  {% endif %}
 {% endmacro %}
 
 {% block formContent %}

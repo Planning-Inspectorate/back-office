@@ -4,9 +4,9 @@ const saveAndContinue = require('../lib/save-and-continue');
 const { mockReq, mockRes } = require('../../test/utils/mocks');
 const {
   getText,
-  reviewOutcomeOption,
+  ReviewOutcome,
   getCheckAndConfirmConfig,
-} = require('../config/review-appeal-submission');
+} = require('../lib/review-appeal-submission');
 
 jest.mock('../lib/save-and-continue');
 
@@ -27,7 +27,7 @@ describe('controllers/check-and-confirm', () => {
       req = {
         session: {
           appeal: { id: appealId, horizonId },
-          casework: { reviewOutcome: reviewOutcomeOption.valid },
+          casework: { reviewOutcome: ReviewOutcome.valid },
         },
       };
 
@@ -36,7 +36,7 @@ describe('controllers/check-and-confirm', () => {
         backLink: `/${views.validAppealDetails}`,
         reviewOutcome: req.session.casework,
         appealData: req.session.appeal,
-        checkAndConfirmConfig: getCheckAndConfirmConfig(reviewOutcomeOption.valid),
+        checkAndConfirmConfig: getCheckAndConfirmConfig(ReviewOutcome.valid),
         getText,
       };
 
@@ -50,7 +50,7 @@ describe('controllers/check-and-confirm', () => {
       req = {
         session: {
           appeal: { id: appealId, horizonId },
-          casework: { reviewOutcome: reviewOutcomeOption.invalid },
+          casework: { reviewOutcome: ReviewOutcome.invalid },
         },
       };
 
@@ -59,7 +59,7 @@ describe('controllers/check-and-confirm', () => {
         backLink: `/${views.invalidAppealDetails}`,
         reviewOutcome: req.session.casework,
         appealData: req.session.appeal,
-        checkAndConfirmConfig: getCheckAndConfirmConfig(reviewOutcomeOption.invalid),
+        checkAndConfirmConfig: getCheckAndConfirmConfig(ReviewOutcome.invalid),
         getText,
       };
 
@@ -73,7 +73,7 @@ describe('controllers/check-and-confirm', () => {
       req = {
         session: {
           appeal: { id: appealId, horizonId },
-          casework: { reviewOutcome: reviewOutcomeOption.incomplete },
+          casework: { reviewOutcome: ReviewOutcome.incomplete },
         },
       };
 
@@ -82,7 +82,7 @@ describe('controllers/check-and-confirm', () => {
         backLink: `/${views.missingOrWrong}`,
         reviewOutcome: req.session.casework,
         appealData: req.session.appeal,
-        checkAndConfirmConfig: getCheckAndConfirmConfig(reviewOutcomeOption.incomplete),
+        checkAndConfirmConfig: getCheckAndConfirmConfig(ReviewOutcome.incomplete),
         getText,
       };
 
@@ -102,7 +102,7 @@ describe('controllers/check-and-confirm', () => {
         session: {
           appeal: { id: appealId, horizonId },
           casework: {
-            reviewOutcome: reviewOutcomeOption.incomplete,
+            reviewOutcome: ReviewOutcome.incomplete,
           },
         },
       };
@@ -112,7 +112,7 @@ describe('controllers/check-and-confirm', () => {
         backLink: `/${views.missingOrWrong}`,
         reviewOutcome: req.session.casework,
         appealData: req.session.appeal,
-        checkAndConfirmConfig: getCheckAndConfirmConfig(reviewOutcomeOption.incomplete),
+        checkAndConfirmConfig: getCheckAndConfirmConfig(ReviewOutcome.incomplete),
         getText,
       };
 
@@ -127,6 +127,38 @@ describe('controllers/check-and-confirm', () => {
         viewData: expectedViewData,
       });
       expect(req.session.casework.completed).toEqual('true');
+    });
+
+    it('should call saveAndContinue with the correct params if reviewOutcome is not incomplete', () => {
+      req = {
+        body: {},
+        session: {
+          appeal: { id: appealId, horizonId },
+          casework: {
+            reviewOutcome: ReviewOutcome.valid,
+          },
+        },
+      };
+
+      const expectedViewData = {
+        pageTitle: 'Check and confirm',
+        backLink: `/${views.validAppealDetails}`,
+        reviewOutcome: req.session.casework,
+        appealData: req.session.appeal,
+        checkAndConfirmConfig: getCheckAndConfirmConfig(ReviewOutcome.valid),
+        getText,
+      };
+
+      postCheckAndConfirm(req, res);
+
+      expect(saveAndContinue).toBeCalledTimes(1);
+      expect(saveAndContinue).toBeCalledWith({
+        req,
+        res,
+        currentPage: views.checkAndConfirm,
+        nextPage: views.home,
+        viewData: expectedViewData,
+      });
     });
   });
 });
