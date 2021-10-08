@@ -17,19 +17,27 @@
 {% set validAppealDetails = reviewOutcome.validAppealDetails %}
 {% set completedError = errors['check-and-confirm-completed'].msg %}
 
+{% macro renderReason(reason) %}
+  <p class="govuk-body govuk-!-margin-bottom-2">{{ reason }}</p>
+{% endmacro %}
+
 {% macro renderValidReason() %}
-  <p class="govuk-body govuk-!-margin-bottom-2">{{ validAppealDetails }}</p>
+  {{ renderReason(validAppealDetails) }}
+{% endmacro %}
+
+{% macro renderWithOtherReason(reason) %}
+  {{ renderReason(getText(reason)+('' if reason !== 'other' else ' - '+ outcomeDetails.otherReason)) }}
 {% endmacro %}
 
 {% macro renderInvalidReason() %}
-  {% for item in invalidAppealDetails.reasons %}
-    <p class="govuk-body govuk-!-margin-bottom-2">{{ getText(item) }}{% if item === 'other' %} - {{ outcomeDetails.otherReason }}{% endif %}</p>
+  {% for item in outcomeDetails.reasons %}
+    {{ renderWithOtherReason(item) }}
   {% endfor %}
 {% endmacro %}
 
 {% macro renderIncompleteReason() %}
   {% for item in outcomeDetails.reasons %}
-    <p class="govuk-body govuk-!-margin-bottom-2">{{ getText(item) }}{% if item === 'other' %} - {{ outcomeDetails.otherReason }}{% endif %}</p>
+    {{ renderWithOtherReason(item) }}
     {% if item === 'missingOrWrongDocuments' %}
       <ul class="govuk-list govuk-list--bullet">
         {% for documentReason in outcomeDetails.documentReasons %}

@@ -1,3 +1,4 @@
+const { toArray } = require('@pins/common/src/utils');
 const {
   reviewAppealSubmission: previousPage,
   invalidAppealDetails: currentPage,
@@ -6,11 +7,11 @@ const {
 const saveAndContinue = require('../lib/save-and-continue');
 const { getText } = require('../lib/review-appeal-submission');
 
-const viewData = (appealId, horizonId, invalidAppealDetails) => ({
+const viewData = (appealId, horizonId, outcomeDetails) => ({
   pageTitle: 'Invalid appeal details',
   backLink: `/${previousPage}/${appealId}`,
   getText,
-  invalidAppealDetails,
+  outcomeDetails,
   appealReference: horizonId,
 });
 
@@ -18,11 +19,11 @@ const getInvalidAppealDetails = (req, res) => {
   const {
     session: {
       appeal: { id, horizonId },
-      casework: { invalidAppealDetails },
+      casework: { outcomeDetails },
     },
   } = req;
   const options = {
-    ...viewData(id, horizonId, invalidAppealDetails),
+    ...viewData(id, horizonId, outcomeDetails),
     getText,
   };
   res.render(currentPage, options);
@@ -36,22 +37,22 @@ const postInvalidAppealDetails = (req, res) => {
     body,
   } = req;
 
-  const reasons = body['invalid-appeal-reasons'];
+  const reasons = toArray(body['invalid-appeal-reasons']);
   const otherReason = body['other-reason'];
 
-  const invalidAppealDetails = {
+  const outcomeDetails = {
     reasons,
     otherReason,
   };
 
-  req.session.casework.invalidAppealDetails = invalidAppealDetails;
+  req.session.casework.outcomeDetails = outcomeDetails;
 
   saveAndContinue({
     req,
     res,
     currentPage,
     nextPage,
-    viewData: viewData(id, horizonId, invalidAppealDetails),
+    viewData: viewData(id, horizonId, outcomeDetails),
   });
 };
 
