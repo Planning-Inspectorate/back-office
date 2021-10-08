@@ -1,4 +1,4 @@
-const toArray = require('../lib/to-array');
+const { toArray } = require('@pins/common/src/utils');
 const {
   reviewAppealSubmission: previousPage,
   invalidAppealDetails: currentPage,
@@ -11,7 +11,7 @@ const viewData = (appealId, horizonId, outcomeDetails) => ({
   pageTitle: 'Invalid appeal details',
   backLink: `/${previousPage}/${appealId}`,
   getText,
-  invalidAppealDetails,
+  outcomeDetails,
   appealReference: horizonId,
 });
 
@@ -23,7 +23,7 @@ const getInvalidAppealDetails = (req, res) => {
     },
   } = req;
   const options = {
-    ...viewData(id, horizonId, invalidAppealDetails),
+    ...viewData(id, horizonId, outcomeDetails),
     getText,
   };
   res.render(currentPage, options);

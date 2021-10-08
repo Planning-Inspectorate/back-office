@@ -17,7 +17,7 @@ describe('controllers/invalid-appeal-details', () => {
     pageTitle: 'Invalid appeal details',
     backLink: `/${views.reviewAppealSubmission}/${appealId}`,
     getText,
-    invalidAppealDetails,
+    outcomeDetails,
     appealReference: horizonId,
   };
 
