@@ -1,9 +1,7 @@
 {% extends "layouts/form.njk" %}
 
 {% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
-{% from "govuk/components/radios/macro.njk" import govukRadios %}
 {% from "components/address.njk" import address %}
-{% from "components/unorderedList.njk" import unorderedList %}
 {% from "components/button.njk" import button %}
 {% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
 {% from "govuk/components/warning-text/macro.njk" import govukWarningText %}
@@ -18,7 +16,7 @@
 {% set completedError = errors['check-and-confirm-completed'].msg %}
 
 {% macro renderReason(reason) %}
-  <p class="govuk-body govuk-!-margin-bottom-2">{{ reason }}</p>
+  <li>{{ reason }}</li>
 {% endmacro %}
 
 {% macro renderValidReason() %}
@@ -49,13 +47,15 @@
 {% endmacro %}
 
 {% macro renderCheckAndConfirmReason() %}
-  {% if reviewOutcome.reviewOutcome === 'valid' %}
-    {{ renderValidReason() }}
-  {% elif reviewOutcome.reviewOutcome === 'invalid' %}
-    {{ renderInvalidReason() }}
-  {% elif reviewOutcome.reviewOutcome === 'incomplete' %}
-    {{ renderIncompleteReason() }}
-  {% endif %}
+  <ul class="govuk-list">
+    {% if reviewOutcome.reviewOutcome === 'valid' %}
+      {{ renderValidReason() }}
+    {% elif reviewOutcome.reviewOutcome === 'invalid' %}
+      {{ renderInvalidReason() }}
+    {% elif reviewOutcome.reviewOutcome === 'incomplete' %}
+      {{ renderIncompleteReason() }}
+    {% endif %}
+  </ul>
 {% endmacro %}
 
 {% block formContent %}

@@ -2,7 +2,7 @@ const { getInvalidAppealDetails, postInvalidAppealDetails } = require('./invalid
 const views = require('../config/views');
 const saveAndContinue = require('../lib/save-and-continue');
 const { mockReq, mockRes } = require('../../test/utils/mocks');
-const { getText } = require('../lib/review-appeal-submission');
+const { getText } = require('../config/review-appeal-submission');
 
 jest.mock('../lib/save-and-continue');
 

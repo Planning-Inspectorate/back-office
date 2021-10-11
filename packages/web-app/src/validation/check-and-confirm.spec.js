@@ -1,6 +1,6 @@
 const { validationResult } = require('express-validator');
 const { checkAndConfirmValidation } = require('./check-and-confirm');
-const { ReviewOutcome } = require('../lib/review-appeal-submission');
+const { reviewOutcomeOption } = require('../config/review-appeal-submission');
 
 describe('validation/check-and-confirm', () => {
   let req;
@@ -34,7 +34,7 @@ describe('validation/check-and-confirm', () => {
       session: {
         appeal: {
           casework: {
-            reviewOutcome: ReviewOutcome.incomplete,
+            reviewOutcome: reviewOutcomeOption.incomplete,
           },
         },
       },
@@ -52,7 +52,7 @@ describe('validation/check-and-confirm', () => {
       body: {},
       session: {
         casework: {
-          reviewOutcome: ReviewOutcome.incomplete,
+          reviewOutcome: reviewOutcomeOption.incomplete,
         },
       },
     };
