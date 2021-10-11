@@ -1,5 +1,5 @@
 const { toArray } = require('@pins/common/src/utils');
-const { getText } = require('../lib/review-appeal-submission');
+const { getText } = require('../config/review-appeal-submission');
 
 const {
   reviewAppealSubmission: previousPage,

@@ -1,6 +1,6 @@
-const views = require('../config/views');
+const views = require('./views');
 
-const ReviewOutcome = {
+const reviewOutcomeOption = {
   valid: 'valid',
   invalid: 'invalid',
   incomplete: 'incomplete',
@@ -68,19 +68,19 @@ const allText = {
 const getText = (key) => allText[key]?.text || key;
 
 const checkAndConfirmConfigMap = {
-  [ReviewOutcome.valid]: {
+  [reviewOutcomeOption.valid]: {
     text: 'Valid',
     reasonText: 'Description of development',
     view: views.validAppealDetails,
     continueButtonText: 'Confirm and start appeal',
   },
-  [ReviewOutcome.invalid]: {
+  [reviewOutcomeOption.invalid]: {
     text: 'Invalid',
     reasonText: 'Reasons',
     view: views.invalidAppealDetails,
     continueButtonText: 'Confirm and turn away appeal',
   },
-  [ReviewOutcome.incomplete]: {
+  [reviewOutcomeOption.incomplete]: {
     text: 'Something is missing or wrong',
     reasonText: 'Reasons',
     view: views.missingOrWrong,
@@ -93,5 +93,5 @@ const getCheckAndConfirmConfig = (reviewOutcome) => checkAndConfirmConfigMap[rev
 module.exports = {
   getCheckAndConfirmConfig,
   getText,
-  ReviewOutcome,
+  reviewOutcomeOption,
 };

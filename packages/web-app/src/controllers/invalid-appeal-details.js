@@ -5,7 +5,7 @@ const {
   checkAndConfirm: nextPage,
 } = require('../config/views');
 const saveAndContinue = require('../lib/save-and-continue');
-const { getText } = require('../lib/review-appeal-submission');
+const { getText } = require('../config/review-appeal-submission');
 
 const viewData = (appealId, horizonId, outcomeDetails) => ({
   pageTitle: 'Invalid appeal details',

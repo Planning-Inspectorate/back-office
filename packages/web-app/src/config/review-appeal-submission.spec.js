@@ -1,5 +1,9 @@
-const { getText, getCheckAndConfirmConfig, ReviewOutcome } = require('./review-appeal-submission');
-const views = require('../config/views');
+const {
+  getText,
+  getCheckAndConfirmConfig,
+  reviewOutcomeOption,
+} = require('./review-appeal-submission');
+const views = require('./views');
 
 describe('review-appeal-submission', () => {
   describe('getText', () => {
@@ -16,7 +20,7 @@ describe('review-appeal-submission', () => {
 
   describe('getCheckAndConfirmConfig', () => {
     it('should return the right object with an existent review outcome', () => {
-      const checkAndConfirmConfig = getCheckAndConfirmConfig(ReviewOutcome.valid);
+      const checkAndConfirmConfig = getCheckAndConfirmConfig(reviewOutcomeOption.valid);
       expect(checkAndConfirmConfig.text).toEqual('Valid');
       expect(checkAndConfirmConfig.reasonText).toEqual('Description of development');
       expect(checkAndConfirmConfig.view).toEqual(views.validAppealDetails);
