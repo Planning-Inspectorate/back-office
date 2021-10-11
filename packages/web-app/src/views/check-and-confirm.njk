@@ -1,0 +1,119 @@
+{% extends "layouts/form.njk" %}
+
+{% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
+{% from "components/address.njk" import address %}
+{% from "components/button.njk" import button %}
+{% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
+{% from "govuk/components/warning-text/macro.njk" import govukWarningText %}
+
+{% set yourDetails = appealData.aboutYouSection.yourDetails %}
+{% set originalApplicationFile = appealData.requiredDocumentsSection.originalApplication.uploadedFile %}
+{% set decisionLetterFile = appealData.requiredDocumentsSection.decisionLetter.uploadedFile %}
+{% set appealStatementFile = appealData.yourAppealSection.appealStatement.uploadedFile %}
+{% set outcomeDetails = reviewOutcome.outcomeDetails %}
+{% set invalidAppealDetails = reviewOutcome.invalidAppealDetails %}
+{% set validAppealDetails = reviewOutcome.validAppealDetails %}
+{% set completedError = errors['check-and-confirm-completed'].msg %}
+
+{% macro renderValidReason() %}
+  {{ validAppealDetails }}
+{% endmacro %}
+
+{% macro renderWithOtherReason(reason) %}
+  <li>{{ getText(reason)+('' if reason !== 'other' else ' - '+ outcomeDetails.otherReason) }}</li>
+{% endmacro %}
+
+{% macro renderInvalidReason() %}
+  {% for item in outcomeDetails.reasons %}
+    {{ renderWithOtherReason(item) }}
+  {% endfor %}
+{% endmacro %}
+
+{% macro renderIncompleteReason() %}
+  {% for item in outcomeDetails.reasons %}
+    {% if item === 'missingOrWrongDocuments' %}
+      <li>
+        {{ getText(item) }}
+        <ul class="govuk-list govuk-list--bullet">
+          {% for documentReason in outcomeDetails.documentReasons %}
+            <li>{{ getText(documentReason) }}</li>
+          {% endfor %}
+        </ul>
+      </li>
+    {% else %}
+      {{ renderWithOtherReason(item) }}
+    {% endif %}
+  {% endfor %}
+{% endmacro %}
+
+{% macro renderCheckAndConfirmReason() %}
+    {% if reviewOutcome.reviewOutcome === 'valid' %}
+      {{ renderValidReason() }}
+    {% else %}
+      <ul class="govuk-list">
+        {% if reviewOutcome.reviewOutcome === 'invalid' %}
+          {{ renderInvalidReason() }}
+        {% elif reviewOutcome.reviewOutcome === 'incomplete' %}
+          {{ renderIncompleteReason() }}
+        {% endif %}
+      </ul>
+    {% endif %}
+{% endmacro %}
+
+{% block formContent %}
+
+  {{ govukSummaryList({
+    rows: [
+      {
+        key: { text: "Outcome of review" },
+        value: { text: checkAndConfirmConfig.text }
+      },
+      {
+        key: { text: "Appellant name" },
+        value: { text: yourDetails.name if yourDetails.isOriginalApplicant else yourDetails.appealingOnBehalfOf }
+      },
+      { key: { text: "Appeal reference" },
+        value: { text: appealData.horizonId }
+      },
+      {
+        key: { text: "Appeal site" },
+        value: { html: address(appealData.appealSiteSection.siteAddress) }
+      },
+      {
+        key: { text: checkAndConfirmConfig.reasonText },
+        value: { html: renderCheckAndConfirmReason() }
+      }
+    ]
+  }) }}
+
+  {% if reviewOutcome.reviewOutcome === 'valid' %}
+    {{ govukWarningText({
+      iconFallbackText: "Warning",
+      text: "Confirming this appeal as valid starts the appeal and sends the LPA questionnaire email."
+    }) }}
+  {% elif reviewOutcome.reviewOutcome === 'invalid' %}
+    {{ govukWarningText({
+      iconFallbackText: "Warning",
+      text: "Confirming this appeal as invalid turns away the appeal and emails the appellant and LPA."
+    }) }}
+  {% elif reviewOutcome.reviewOutcome === 'incomplete' %}
+    {{ govukCheckboxes({
+      idPrefix: "check-and-confirm-completed",
+      name: "check-and-confirm-completed",
+      classes: "govuk-checkboxes--small",
+      errorMessage: completedError and {
+        text: completedError
+      },
+      items: [
+        {
+          value: "true",
+          text: "I have completed all follow-up tasks and emails",
+          checked: completed === 'true'
+        }
+      ]
+    }) }}
+  {% endif %}
+
+  {{ button(checkAndConfirmConfig.continueButtonText) }}
+
+{% endblock %}

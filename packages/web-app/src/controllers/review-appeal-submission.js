@@ -7,6 +7,7 @@ const {
   home,
 } = require('../config/views');
 const saveAndContinue = require('../lib/save-and-continue');
+const { reviewOutcomeOption } = require('../config/review-appeal-submission');
 
 const viewData = (reviewOutcome) => ({
   pageTitle: 'Review appeal submission',
@@ -32,11 +33,11 @@ const postReviewAppealSubmission = (req, res) => {
   const reviewOutcome = req.body['review-outcome'];
 
   let nextPage;
-  if (reviewOutcome === 'valid') {
+  if (reviewOutcome === reviewOutcomeOption.valid) {
     nextPage = validAppealDetails;
-  } else if (reviewOutcome === 'invalid') {
+  } else if (reviewOutcome === reviewOutcomeOption.invalid) {
     nextPage = invalidAppealDetails;
-  } else if (reviewOutcome === 'incomplete') {
+  } else if (reviewOutcome === reviewOutcomeOption.incomplete) {
     nextPage = missingOrWrong;
   } else {
     nextPage = home;

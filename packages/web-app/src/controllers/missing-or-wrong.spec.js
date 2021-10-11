@@ -2,6 +2,7 @@ const { getMissingOrWrong, postMissingOrWrong } = require('./missing-or-wrong');
 const views = require('../config/views');
 const saveAndContinue = require('../lib/save-and-continue');
 const { mockReq, mockRes } = require('../../test/utils/mocks');
+const { getText } = require('../config/review-appeal-submission');
 
 jest.mock('../lib/save-and-continue');
 
@@ -11,12 +12,14 @@ describe('controllers/missing-or-wrong', () => {
   const missingReasons = ['other', 'outOfTime'];
   const missingDocumentReasons = ['noApplicationForm'];
   const outcomeDetails = {
-    reasons: [...missingReasons, ...missingDocumentReasons],
+    reasons: missingReasons,
+    documentReasons: missingDocumentReasons,
     otherReason: 'other description',
   };
   const expectedViewData = {
     pageTitle: 'What is missing or wrong?',
     backLink: `/${views.reviewAppealSubmission}/${appealId}`,
+    getText,
     outcomeDetails,
     appealReference: horizonId,
   };
@@ -66,7 +69,7 @@ describe('controllers/missing-or-wrong', () => {
         req,
         res,
         currentPage: views.missingOrWrong,
-        nextPage: views.home,
+        nextPage: views.checkAndConfirm,
         viewData: expectedViewData,
       });
       expect(req.session.casework.outcomeDetails).toEqual(outcomeDetails);

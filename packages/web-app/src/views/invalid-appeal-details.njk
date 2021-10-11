@@ -13,7 +13,7 @@
     {{ govukInput({
       id: "other-reason",
       name: "other-reason",
-      value: invalidAppealDetails.otherReason,
+      value: outcomeDetails.otherReason,
       label: {
         text: "List reasons"
       },
@@ -24,7 +24,7 @@
         text: otherError
       }
     }) }}
-  {% endset -%}
+  {% endset %}
 
   {{ govukCheckboxes({
     idPrefix: "invalid-appeal-reasons",
@@ -41,28 +41,28 @@
     items: [
       {
         value: "outOfTime",
-        text: "Out of time",
-        checked: invalidAppealDetails and invalidAppealDetails.reasons and invalidAppealDetails.reasons.includes('outOfTime')
+        text: getText("outOfTime"),
+        checked: outcomeDetails and outcomeDetails.reasons and outcomeDetails.reasons.includes('outOfTime')
       },
       {
         value: "noRightOfAppeal",
-        text: "No right of appeal",
-        checked: invalidAppealDetails and invalidAppealDetails.reasons and invalidAppealDetails.reasons.includes('noRightOfAppeal')
+        text: getText("noRightOfAppeal"),
+        checked: outcomeDetails and outcomeDetails.reasons and outcomeDetails.reasons.includes('noRightOfAppeal')
       },
       {
         value: "notAppealable",
-        text: "Not appealable",
-        checked: invalidAppealDetails and invalidAppealDetails.reasons and invalidAppealDetails.reasons.includes('notAppealable')
+        text: getText("notAppealable"),
+        checked: outcomeDetails and outcomeDetails.reasons and outcomeDetails.reasons.includes('notAppealable')
       },
       {
         value: "lpaDeemedApplicationAsInvalid",
-        text: "LPA deemed application as invalid",
-        checked: invalidAppealDetails and invalidAppealDetails.reasons and invalidAppealDetails.reasons.includes('lpaDeemedApplicationAsInvalid')
+        text: getText("lpaDeemedApplicationAsInvalid"),
+        checked: outcomeDetails and outcomeDetails.reasons and outcomeDetails.reasons.includes('lpaDeemedApplicationAsInvalid')
       },
       {
         value: "other",
-        text: "Other",
-        checked: invalidAppealDetails and invalidAppealDetails.reasons and invalidAppealDetails.reasons.includes('other'),
+        text: getText("other"),
+        checked: outcomeDetails and outcomeDetails.reasons and outcomeDetails.reasons.includes('other'),
         conditional: {
           html: otherHtml
         }

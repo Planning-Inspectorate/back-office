@@ -8,10 +8,10 @@
 {% set documentsError = errors['missing-or-wrong-documents'].msg %}
 {% set otherError = errors['other-reason'].msg %}
 
-{% set noApplicationFormChecked = outcomeDetails.reasons and outcomeDetails.reasons.includes and outcomeDetails.reasons.includes('noApplicationForm') %}
-{% set noDecisionNoticeChecked = outcomeDetails.reasons and outcomeDetails.reasons.includes and outcomeDetails.reasons.includes('noDecisionNotice') %}
-{% set noGroundsOfAppealChecked = outcomeDetails.reasons and outcomeDetails.reasons.includes and outcomeDetails.reasons.includes('noGroundsOfAppeal') %}
-{% set noSupportingDocumentsChecked = outcomeDetails.reasons and outcomeDetails.reasons.includes and outcomeDetails.reasons.includes('noSupportingDocuments') %}
+{% set noApplicationFormChecked = outcomeDetails.documentReasons and outcomeDetails.documentReasons.includes and outcomeDetails.documentReasons.includes('noApplicationForm') %}
+{% set noDecisionNoticeChecked = outcomeDetails.documentReasons and outcomeDetails.documentReasons.includes and outcomeDetails.documentReasons.includes('noDecisionNotice') %}
+{% set noGroundsOfAppealChecked = outcomeDetails.documentReasons and outcomeDetails.documentReasons.includes and outcomeDetails.documentReasons.includes('noGroundsOfAppeal') %}
+{% set noSupportingDocumentsChecked = outcomeDetails.documentReasons and outcomeDetails.documentReasons.includes and outcomeDetails.documentReasons.includes('noSupportingDocuments') %}
 {% set namesNotMatchChecked = outcomeDetails.reasons and outcomeDetails.reasons.includes and outcomeDetails.reasons.includes('namesNotMatch') %}
 {% set sensitiveInformationIncludedChecked = outcomeDetails.reasons and outcomeDetails.reasons.includes and outcomeDetails.reasons.includes('sensitiveInformationIncluded') %}
 {% set missingOrWrongDocumentsChecked = outcomeDetails.reasons and outcomeDetails.reasons.includes and outcomeDetails.reasons.includes('missingOrWrongDocuments') %}
@@ -46,23 +46,23 @@
       },
       items: [
         {
-          text: "Application form",
           value: "noApplicationForm",
+          text: getText("noApplicationForm"),
           checked: noApplicationFormChecked
         },
         {
-          text: "Decision notice",
           value: "noDecisionNotice",
+          text: getText("noDecisionNotice"),
           checked: noDecisionNoticeChecked
         },
         {
-          text: "Grounds of appeal",
           value: "noGroundsOfAppeal",
+          text: getText("noGroundsOfAppeal"),
           checked: noGroundsOfAppealChecked
         },
         {
-          text: "Supporting documents",
           value: "noSupportingDocuments",
+          text: getText("noSupportingDocuments"),
           checked: noSupportingDocumentsChecked
         }
       ]
@@ -77,41 +77,41 @@
     },
     items: [
       {
-        text: "Names do not match",
         value: "namesNotMatch",
+        text: getText("namesNotMatch"),
         checked: namesNotMatchChecked
       },
       {
-        text: "Sensitive information included",
         value: "sensitiveInformationIncluded",
+        text: getText("sensitiveInformationIncluded"),
         checked: sensitiveInformationIncludedChecked
       },
       {
-        text: "Missing or wrong documents",
         value: "missingOrWrongDocuments",
+        text: getText("missingOrWrongDocuments"),
         checked: missingOrWrongDocumentsChecked,
         conditional: {
           html: missingOrWrongDocumentsHtml
         }
       },
       {
-        text: "Inflammatory comments made",
         value: "inflammatoryComments",
+        text: getText("inflammatoryComments"),
         checked: inflammatoryCommentsChecked
       },
       {
-        text: "Opened in error",
         value: "openedInError",
+        text: getText("openedInError"),
         checked: openedInErrorChecked
       },
       {
-        text: "Wrong appeal type used",
         value: "wrongAppealType",
+        text: getText("wrongAppealType"),
         checked: wrongAppealTypeChecked
       },
       {
         value: "other",
-        text: "Other",
+        text: getText("other"),
         checked: otherChecked,
         conditional: {
           html: otherHtml

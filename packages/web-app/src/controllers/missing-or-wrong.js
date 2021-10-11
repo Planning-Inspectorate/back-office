@@ -1,8 +1,10 @@
 const { toArray } = require('@pins/common/src/utils');
+const { getText } = require('../config/review-appeal-submission');
+
 const {
   reviewAppealSubmission: previousPage,
   missingOrWrong: currentPage,
-  home: nextPage,
+  checkAndConfirm: nextPage,
 } = require('../config/views');
 const saveAndContinue = require('../lib/save-and-continue');
 
@@ -11,6 +13,7 @@ const viewData = (appealId, horizonId, outcomeDetails) => ({
   backLink: `/${previousPage}/${appealId}`,
   outcomeDetails,
   appealReference: horizonId,
+  getText,
 });
 
 const getMissingOrWrong = (req, res) => {
@@ -35,12 +38,11 @@ const postMissingOrWrong = (req, res) => {
   const reasons = toArray(body['missing-or-wrong-reasons']);
   const documentReasons = toArray(body['missing-or-wrong-documents']);
 
-  reasons.push(...documentReasons);
-
   const otherReason = body['other-reason'];
 
   const outcomeDetails = {
     reasons,
+    documentReasons,
     otherReason,
   };
 
