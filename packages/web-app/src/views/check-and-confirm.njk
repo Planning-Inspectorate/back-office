@@ -15,16 +15,12 @@
 {% set validAppealDetails = reviewOutcome.validAppealDetails %}
 {% set completedError = errors['check-and-confirm-completed'].msg %}
 
-{% macro renderReason(reason) %}
-  <li>{{ reason }}</li>
-{% endmacro %}
-
 {% macro renderValidReason() %}
-  {{ renderReason(validAppealDetails) }}
+  {{ validAppealDetails }}
 {% endmacro %}
 
 {% macro renderWithOtherReason(reason) %}
-  {{ renderReason(getText(reason)+('' if reason !== 'other' else ' - '+ outcomeDetails.otherReason)) }}
+  <li>{{ getText(reason)+('' if reason !== 'other' else ' - '+ outcomeDetails.otherReason) }}</li>
 {% endmacro %}
 
 {% macro renderInvalidReason() %}
@@ -35,27 +31,33 @@
 
 {% macro renderIncompleteReason() %}
   {% for item in outcomeDetails.reasons %}
-    {{ renderWithOtherReason(item) }}
     {% if item === 'missingOrWrongDocuments' %}
-      <ul class="govuk-list govuk-list--bullet">
-        {% for documentReason in outcomeDetails.documentReasons %}
-          <li>{{ getText(documentReason) }}</li>
-        {% endfor %}
-      </ul>
+      <li>
+        {{ getText(item) }}
+        <ul class="govuk-list govuk-list--bullet">
+          {% for documentReason in outcomeDetails.documentReasons %}
+            <li>{{ getText(documentReason) }}</li>
+          {% endfor %}
+        </ul>
+      </li>
+    {% else %}
+      {{ renderWithOtherReason(item) }}
     {% endif %}
   {% endfor %}
 {% endmacro %}
 
 {% macro renderCheckAndConfirmReason() %}
-  <ul class="govuk-list">
     {% if reviewOutcome.reviewOutcome === 'valid' %}
       {{ renderValidReason() }}
-    {% elif reviewOutcome.reviewOutcome === 'invalid' %}
-      {{ renderInvalidReason() }}
-    {% elif reviewOutcome.reviewOutcome === 'incomplete' %}
-      {{ renderIncompleteReason() }}
+    {% else %}
+      <ul class="govuk-list">
+        {% if reviewOutcome.reviewOutcome === 'invalid' %}
+          {{ renderInvalidReason() }}
+        {% elif reviewOutcome.reviewOutcome === 'incomplete' %}
+          {{ renderIncompleteReason() }}
+        {% endif %}
+      </ul>
     {% endif %}
-  </ul>
 {% endmacro %}
 
 {% block formContent %}
