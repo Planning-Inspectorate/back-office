@@ -31,6 +31,10 @@ const sections = [
 const getConfirmationSections = async (appealReference, outcome) => {
   switch (outcome) {
     case reviewOutcome.INCOMPLETE: {
+      sections.push({
+        title: 'Missing or incorrect documents',
+        value: [],
+      });
       return sections;
     }
 
@@ -56,17 +60,17 @@ const getBreadcrumbs = async () => [
 
 const getCheckAndConfirm = async (req, res) => {
   const { appealId } = req.param;
-  const outcome = reviewOutcome.INCOMPLETE;
+  const outcome = reviewOutcome.COMPLETE;
 
   res.render(currentPage, {
     pageTitle: 'Check and confirm',
-    sections: await getConfirmationSections(undefined, outcome),
+    sections: await getConfirmationSections(appealId, outcome),
     breadcrumbs: await getBreadcrumbs(),
     backLink: `/${previousPage}/${appealId}`,
     reviewOutcome: outcome,
   });
 };
-
+/*
 const updateQuestionnaireStatus = async (appealId) => ({
   appealId,
   status: 'Available for inspector',
@@ -79,8 +83,7 @@ const postCheckAndConfirm = async (req, res) => {
   await updateQuestionnaireStatus(appealId);
   res.render('check-and-confirm', {});
 };
-
+*/
 module.exports = {
   getCheckAndConfirm,
-  postCheckAndConfirm,
 };
