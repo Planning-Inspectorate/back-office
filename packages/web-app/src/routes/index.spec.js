@@ -17,7 +17,6 @@ describe('routes/index', () => {
     require('./index');
 
     expect(mockUse).toBeCalledTimes(8);
-    expect(mockUse).toBeCalledWith('/', home);
     expect(mockUse).toBeCalledWith(`/${views.appealsList}`, appealsList);
     expect(mockUse).toBeCalledWith(
       `/${views.reviewAppealSubmission}/:appealId`,
