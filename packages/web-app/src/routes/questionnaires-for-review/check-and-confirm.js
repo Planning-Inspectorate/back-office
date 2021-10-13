@@ -3,5 +3,5 @@ const checkAndConfirm = require('../../controllers/questionnaires-for-review/che
 
 const router = express.Router();
 
-router.get('/', checkAndConfirm.getCheckAndConfirm);
+router.get('/:appealId', checkAndConfirm.getCheckAndConfirm);
 module.exports = router;
