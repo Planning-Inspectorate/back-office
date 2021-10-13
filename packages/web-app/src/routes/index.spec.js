@@ -12,6 +12,7 @@ const views = require('../config/views');
 const handleAppealAlreadyReviewed = require('../lib/handle-appeal-already-reviewed');
 const getCaseData = require('../lib/get-case-data');
 const checkAndConfirmDetails = require('./check-and-confirm');
+const questionnaireCheckAndConfirm = require('./questionnaires-for-review/check-and-confirm');
 
 describe('routes/index', () => {
   it('should define the correct routes', () => {
@@ -47,5 +48,9 @@ describe('routes/index', () => {
     expect(mockUse).toBeCalledWith('/document', documentsServiceProxyRouter);
     expect(mockUse).toBeCalledWith(`/${views.appealAlreadyReviewed}`, appealAlreadyReviewed);
     expect(mockUse).toBeCalledWith(`/${views.checkAndConfirm}`, checkAndConfirmDetails);
+    expect(mockUse).toBeCalledWith(
+      `/${views.questionnairesForReview}/${views.checkAndConfirm}`,
+      questionnaireCheckAndConfirm
+    );
   });
 });
