@@ -1,0 +1,33 @@
+{% extends "layouts/main.njk" %}
+
+{% from "components/button-group.njk" import buttonGroup %}
+{% from "components/breadcrumb.njk" import breadcrumb %}
+{% from "components/confirmlist.njk" import confirmlist %}
+
+
+{% block pageTitle %}
+    Check and confirm - Appeal a householder planning decision - GOV.UK
+{% endblock %}
+
+{% block backButton %}
+  {{ breadcrumb(breadcrumbs) }}
+{% endblock %}
+
+{% block content %}
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+            <h1 class="govuk-heading-xl">
+                Review questionnaire
+            </h1>
+            <h2 class="govuk-heading-l">Check and confirm</h2>
+            {{ confirmlist(sections) }}
+        </div>
+    </div>
+    {% if reviewOutcome === 'COMPLETE' %}
+        <h3 class="govuk-heading-m">Confirming the questionnaire as complete makes the appeal available to inspectors </h3>
+    {% endif %}
+    <div class="govuk-button-group">
+        <a href="confirm" role="button" draggable="false" class="govuk-button"> Confirm outcome </a>
+        <a class="govuk-link" href="review">Go back to review questionnaire</a>
+    </div>
+{% endblock %}
