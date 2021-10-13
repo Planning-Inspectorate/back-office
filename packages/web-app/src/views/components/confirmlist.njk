@@ -1,0 +1,14 @@
+{% macro confirmlist(items, rootUrl = '') %}
+    <dl class="govuk-summary-list govuk-!-margin-bottom-9">
+        {% for item in items %}
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    {{ item.title }}
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    {{ item.value }}
+                </dd>
+            </div>
+        {% endfor %}
+    </dl>
+{% endmacro %}
