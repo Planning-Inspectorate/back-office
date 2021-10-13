@@ -8,6 +8,7 @@ const missingOrWrongAppealDetails = require('./missing-or-wrong');
 const checkAndConfirmDetails = require('./check-and-confirm');
 const reviewComplete = require('./review-complete');
 const checkAndConfirm = require('./check-and-confirm');
+const questionnaireCheckAndConfirm = require('./questionnaires-for-review/check-and-confirm');
 const home = require('./home');
 
 const documentsServiceProxy = require('./document-service-proxy');
@@ -38,5 +39,9 @@ router.use(`/${views.checkAndConfirm}`, checkAndConfirmDetails);
 router.use(`/${views.reviewComplete}`, reviewComplete);
 router.use(`/${views.reviewQuestionnaireComplete}`, reviewQuestionnaireComplete);
 router.use(`/${views.questionnairesForReview}/${views.checkAndConfirm}`, checkAndConfirm);
+router.use(
+  `/${views.questionnairesForReview}/${views.checkAndConfirm}`,
+  questionnaireCheckAndConfirm
+);
 
 module.exports = router;

@@ -1,7 +1,6 @@
 const {
   questionnairesForReview: previousPage,
   checkAndConfirm: currentPage,
-  home: nextPage,
 } = require('../../config/views');
 
 const reviewOutcome = {
@@ -28,7 +27,7 @@ const sections = [
   },
 ];
 
-const getConfirmationSections = async (appealReference, outcome) => {
+const getConfirmationSections = (appealReference, outcome) => {
   switch (outcome) {
     case reviewOutcome.INCOMPLETE: {
       sections.push({
@@ -43,7 +42,7 @@ const getConfirmationSections = async (appealReference, outcome) => {
   }
 };
 
-const getBreadcrumbs = async () => [
+const getBreadcrumbs = () => [
   {
     title: 'Case officer dashboard',
   },
@@ -58,14 +57,14 @@ const getBreadcrumbs = async () => [
   },
 ];
 
-const getCheckAndConfirm = async (req, res) => {
+const getCheckAndConfirm = (req, res) => {
   const { appealId } = req.param;
   const outcome = reviewOutcome.COMPLETE;
 
   res.render(currentPage, {
     pageTitle: 'Check and confirm',
-    sections: await getConfirmationSections(appealId, outcome),
-    breadcrumbs: await getBreadcrumbs(),
+    sections: getConfirmationSections(appealId, outcome),
+    breadcrumbs: getBreadcrumbs(),
     backLink: `/${previousPage}/${appealId}`,
     reviewOutcome: outcome,
   });
