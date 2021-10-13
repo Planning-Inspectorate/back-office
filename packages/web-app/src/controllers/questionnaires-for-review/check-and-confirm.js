@@ -59,7 +59,7 @@ const getBreadcrumbs = () => [
 
 const getCheckAndConfirm = (req, res) => {
   const { appealId } = req.param;
-  const outcome = reviewOutcome.COMPLETE;
+  const { outcome } = req.session;
 
   res.render(currentPage, {
     pageTitle: 'Check and confirm',
