@@ -49,9 +49,9 @@ describe('controllers/questionnaire-check-and-confirm', () => {
       ];
 
       const breadcrumbs = [
-        { title: 'Questionnaires for review' },
-        { title: 'APP/Q9999/D/21/1224115' },
-        { title: 'Check and confirm' },
+        { text: 'Questionnaires for review', href: '#' },
+        { text: 'APP/Q9999/D/21/1224115', href: '#' },
+        { text: 'Check and confirm', href: '#' },
       ];
 
       const req = {
@@ -73,7 +73,7 @@ describe('controllers/questionnaire-check-and-confirm', () => {
         sections: {
           rows: sections,
         },
-        pageTitle: 'Check and confirm',
+        pageTitle: 'Review questionnaire',
         reviewOutcome: 'COMPLETE',
       });
     });
@@ -135,9 +135,9 @@ describe('controllers/questionnaire-check-and-confirm', () => {
       ];
 
       const breadcrumbs = [
-        { title: 'Questionnaires for review' },
-        { title: 'APP/Q9999/D/21/1224115' },
-        { title: 'Check and confirm' },
+        { text: 'Questionnaires for review', href: '#' },
+        { text: 'APP/Q9999/D/21/1224115', href: '#' },
+        { text: 'Check and confirm', href: '#' },
       ];
 
       const req = {
@@ -159,7 +159,7 @@ describe('controllers/questionnaire-check-and-confirm', () => {
         sections: {
           rows: sections,
         },
-        pageTitle: 'Check and confirm',
+        pageTitle: 'Review questionnaire',
         reviewOutcome: 'INCOMPLETE',
       });
     });
