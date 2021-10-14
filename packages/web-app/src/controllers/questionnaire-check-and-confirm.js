@@ -3,6 +3,16 @@ const reviewOutcome = {
   INCOMPLETE: 'INCOMPLETE',
 };
 
+const documents = ['Passport', 'Birth certificate'];
+
+const siteAddress = {
+  address1: 'Jaleno',
+  address2: 'Church Lane',
+  town: 'Eakring',
+  city: 'NEWARK',
+  postcode: 'NG22 ODH',
+};
+
 const compileAddress = (address) => {
   if (typeof address !== 'undefined') {
     const mappedAddress = Object.values(address).map((item) => `${item} <br> `);
@@ -11,12 +21,9 @@ const compileAddress = (address) => {
   return '';
 };
 
-const siteAddress = {
-  address1: 'Jaleno',
-  address2: 'Church Lane',
-  town: 'Eakring',
-  city: 'NEWARK',
-  postcode: 'NG22 ODH',
+const compileMissingDocuments = () => {
+  const mappedDocuments = documents.map((item) => `${item} <br>`);
+  return mappedDocuments.toString().replace(/,/g, '');
 };
 
 const sections = [
@@ -62,8 +69,12 @@ const getConfirmationSections = (appealReference, outcome) => {
   switch (outcome) {
     case reviewOutcome.INCOMPLETE: {
       payload.rows.push({
-        title: 'Missing or incorrect documents',
-        value: [],
+        key: {
+          text: 'Missing or incorrect documents',
+        },
+        value: {
+          html: compileMissingDocuments(),
+        },
       });
       return payload;
     }
