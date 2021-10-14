@@ -26,68 +26,98 @@ const compileMissingDocuments = () => {
   return mappedDocuments.toString().replace(/,/g, '');
 };
 
-const sections = [
-  {
-    key: {
-      text: 'Review outcome',
-    },
-    value: {
-      text: 'Complete',
-    },
-  },
-  {
-    key: {
-      text: 'Appeal reference',
-    },
-    value: {
-      text: 'APP/Q9999/D/21/1224115',
-    },
-  },
-  {
-    key: {
-      text: 'Appeal site',
-    },
-    value: {
-      html: compileAddress(siteAddress),
-    },
-  },
-  {
-    key: {
-      text: 'Local planning department',
-    },
-    value: {
-      text: 'Newark and Sherwood District Council',
-    },
-  },
-];
-
 const getConfirmationSections = (appealReference, outcome) => {
   const payload = {
-    rows: sections,
+    rows: [],
   };
 
   switch (outcome) {
     case reviewOutcome.INCOMPLETE: {
-      payload.rows.push({
-        key: {
-          text: 'Missing or incorrect documents',
+      payload.rows.push(
+        {
+          key: {
+            text: 'Review outcome',
+          },
+          value: {
+            text: 'Incomplete',
+          },
         },
-        value: {
-          html: compileMissingDocuments(),
+        {
+          key: {
+            text: 'Missing or incorrect documents',
+          },
+          value: {
+            html: compileMissingDocuments(),
+          },
         },
-      });
+        {
+          key: {
+            text: 'Appeal reference',
+          },
+          value: {
+            text: 'APP/Q9999/D/21/1224115',
+          },
+        },
+        {
+          key: {
+            text: 'Appeal site',
+          },
+          value: {
+            html: compileAddress(siteAddress),
+          },
+        },
+        {
+          key: {
+            text: 'Local planning department',
+          },
+          value: {
+            text: 'Newark and Sherwood District Council',
+          },
+        }
+      );
       return payload;
     }
 
     default:
+      payload.rows.push(
+        {
+          key: {
+            text: 'Review outcome',
+          },
+          value: {
+            text: 'Complete',
+          },
+        },
+        {
+          key: {
+            text: 'Appeal reference',
+          },
+          value: {
+            text: 'APP/Q9999/D/21/1224115',
+          },
+        },
+        {
+          key: {
+            text: 'Appeal site',
+          },
+          value: {
+            html: compileAddress(siteAddress),
+          },
+        },
+        {
+          key: {
+            text: 'Local planning department',
+          },
+          value: {
+            text: 'Newark and Sherwood District Council',
+          },
+        }
+      );
       return payload;
   }
 };
 
 const getBreadcrumbs = () => [
-  {
-    title: 'Case officer dashboard',
-  },
   {
     title: 'Questionnaires for review',
   },
