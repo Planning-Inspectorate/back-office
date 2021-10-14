@@ -1,10 +1,11 @@
 const { get } = require('../../test/routes/router-mock');
 const checkAndConfirmController = require('../controllers/questionnaire-check-and-confirm');
+const checkAppealOutcome = require('../middleware/check-appeal-outcome');
 
-describe('routes/questionnaires-for-review/check-and-confirm', () => {
+describe('routes/questionnaire-check-and-confirm', () => {
   beforeEach(() => {
     // eslint-disable-next-line global-require
-    require('./check-and-confirm');
+    require('./questionnaire-check-and-confirm');
   });
 
   afterEach(() => {
@@ -12,6 +13,10 @@ describe('routes/questionnaires-for-review/check-and-confirm', () => {
   });
 
   it('should define the expected routes', () => {
-    expect(get).toHaveBeenCalledWith('/:appealId', checkAndConfirmController.getCheckAndConfirm);
+    expect(get).toHaveBeenCalledWith(
+      '/:appealId',
+      [checkAppealOutcome],
+      checkAndConfirmController.getCheckAndConfirm
+    );
   });
 });

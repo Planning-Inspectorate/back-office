@@ -14,15 +14,12 @@ const siteAddress = {
 };
 
 const compileAddress = (address) => {
-  if (typeof address !== 'undefined') {
-    const mappedAddress = Object.values(address).map((item) => `${item} <br> `);
-    return mappedAddress.toString().replace(/,/g, '');
-  }
-  return '';
+  const mappedAddress = Object.values(address).map((item) => `${item} <br> `);
+  return mappedAddress.toString().replace(/,/g, '');
 };
 
-const compileMissingDocuments = () => {
-  const mappedDocuments = documents.map((item) => `${item} <br>`);
+const compileMissingDocuments = (items) => {
+  const mappedDocuments = items.map((item) => `${item} <br>`);
   return mappedDocuments.toString().replace(/,/g, '');
 };
 
@@ -47,7 +44,7 @@ const getConfirmationSections = (appealReference, outcome) => {
             text: 'Missing or incorrect documents',
           },
           value: {
-            html: compileMissingDocuments(),
+            html: compileMissingDocuments(documents),
           },
         },
         {
@@ -143,4 +140,8 @@ const getCheckAndConfirm = (req, res) => {
 
 module.exports = {
   getCheckAndConfirm,
+  util: {
+    compileMissingDocuments,
+    compileAddress,
+  },
 };
