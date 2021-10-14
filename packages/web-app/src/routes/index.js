@@ -6,7 +6,7 @@ const validAppealDetails = require('./valid-appeal-details');
 const invalidAppealDetails = require('./invalid-appeal-details');
 const missingOrWrongAppealDetails = require('./missing-or-wrong');
 const checkAndConfirmDetails = require('./check-and-confirm');
-const questionnaireCheckAndConfirm = require('./questionnaires-for-review/check-and-confirm');
+const questionnaireCheckAndConfirm = require('./questionnaire-check-and-confirm');
 const home = require('./home');
 
 const documentsServiceProxy = require('./document-service-proxy');

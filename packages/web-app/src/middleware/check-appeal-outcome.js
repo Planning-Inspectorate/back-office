@@ -1,6 +1,5 @@
 /**
- * Ensure the appeal ID given in `request.params.appealId` matches the appeal id currently set
- * in the session.
+ * Get the appeal outcome using the appeal id for this session.
  *
  * @param req
  * @param res

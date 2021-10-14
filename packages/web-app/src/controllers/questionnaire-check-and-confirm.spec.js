@@ -1,5 +1,5 @@
 const getCheckAndConfirmController = require('./check-and-confirm');
-const views = require('../../config/views');
+const views = require('../config/views');
 
 describe('controllers/check-and-confirm', () => {
   describe('getCheckAndConfirm', () => {
