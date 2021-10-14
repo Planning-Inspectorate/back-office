@@ -1,5 +1,5 @@
-const { get } = require('../../../test/routes/router-mock');
-const checkAndConfirmController = require('../../controllers/questionnaires-for-review/check-and-confirm');
+const { get } = require('../../test/routes/router-mock');
+const checkAndConfirmController = require('../controllers/questionnaire-check-and-confirm');
 
 describe('routes/questionnaires-for-review/check-and-confirm', () => {
   beforeEach(() => {

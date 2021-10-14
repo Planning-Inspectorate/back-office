@@ -14,7 +14,7 @@ const getCaseData = require('../lib/get-case-data');
 const checkAndConfirmDetails = require('./check-and-confirm');
 const reviewComplete = require('./review-complete');
 const reviewQuestionnaireComplete = require('./review-questionnaire-complete');
-const questionnaireCheckAndConfirm = require('./questionnaires-for-review/check-and-confirm');
+const questionnaireCheckAndConfirm = require('./questionnaire-check-and-confirm');
 
 describe('routes/index', () => {
   it('should define the correct routes', () => {
@@ -51,7 +51,7 @@ describe('routes/index', () => {
     expect(mockUse).toBeCalledWith(`/${views.appealAlreadyReviewed}`, appealAlreadyReviewed);
     expect(mockUse).toBeCalledWith(`/${views.checkAndConfirm}`, checkAndConfirmDetails);
     expect(mockUse).toBeCalledWith(
-      `/${views.questionnairesForReview}/${views.checkAndConfirm}`,
+      `/${views.questionnairesForReview}/${views.checkAndConfirm}/:appealId`,
       questionnaireCheckAndConfirm
     );
   });
