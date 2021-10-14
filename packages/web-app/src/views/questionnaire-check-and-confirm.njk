@@ -30,8 +30,5 @@
             iconFallbackText: "Warning"
         }) }}
     {% endif %}
-    <div class="govuk-button-group">
-        <a href="confirm" role="button" draggable="false" class="govuk-button"> Confirm outcome </a>
-        <a class="govuk-link" href="review">Go back to review questionnaire</a>
-    </div>
+    {{ buttonGroup(href, "Go back to review questionnaire", "Confirm outcome") }}
 {% endblock %}
