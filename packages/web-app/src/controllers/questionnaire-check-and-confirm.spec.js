@@ -1,5 +1,4 @@
 const getCheckAndConfirmController = require('./questionnaire-check-and-confirm');
-const views = require('../config/views');
 
 describe('controllers/questionnaire-check-and-confirm', () => {
   describe('getCheckAndConfirm', () => {
