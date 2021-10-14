@@ -2,28 +2,20 @@
 
 {% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
 {% from "govuk/components/warning-text/macro.njk" import govukWarningText %}
+{% from "govuk/components/breadcrumbs/macro.njk" import govukBreadcrumbs %}
 {% from "components/button-group.njk" import buttonGroup %}
-{% from "components/breadcrumb.njk" import breadcrumb %}
-{% from "components/address.njk" import address %}
 
 {% block pageTitle %}
     Check and confirm - Appeal a householder planning decision - GOV.UK
 {% endblock %}
 
 {% block backButton %}
-  {{ breadcrumb(breadcrumbs) }}
+  {{ govukBreadcrumbs({ items: breadcrumbs })}}
 {% endblock %}
 
-{% block content %}
-    <div class="govuk-grid-row">
-        <div class="govuk-grid-column-two-thirds">
-            <h1 class="govuk-heading-xl">
-                Review questionnaire
-            </h1>
-            <h2 class="govuk-heading-l">Check and confirm</h2>
-            {{ govukSummaryList(sections) }}
-        </div>
-    </div>
+{% block formContent %}
+    <h2 class="govuk-heading-l">Check and confirm</h2>
+    {{ govukSummaryList(sections) }}
     {% if reviewOutcome === 'COMPLETE' %}
         {{ govukWarningText({
             text: "Confirming the questionnaire as complete makes the appeal available to inspectors.",

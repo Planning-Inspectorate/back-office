@@ -14,7 +14,7 @@ const siteAddress = {
 };
 
 const compileAddress = (address) => {
-  const mappedAddress = Object.values(address).map((item) => `${item} <br> `);
+  const mappedAddress = Object.values(address).map((item) => `${item} <br>`);
   return mappedAddress.toString().replace(/,/g, '');
 };
 
@@ -116,13 +116,16 @@ const getConfirmationSections = (appealReference, outcome) => {
 
 const getBreadcrumbs = () => [
   {
-    title: 'Questionnaires for review',
+    text: 'Questionnaires for review',
+    href: '#',
   },
   {
-    title: 'APP/Q9999/D/21/1224115',
+    text: 'APP/Q9999/D/21/1224115',
+    href: '#',
   },
   {
-    title: 'Check and confirm',
+    text: 'Check and confirm',
+    href: '#',
   },
 ];
 
@@ -131,7 +134,7 @@ const getCheckAndConfirm = (req, res) => {
   const { outcome } = req.session;
 
   res.render('questionnaire-check-and-confirm', {
-    pageTitle: 'Check and confirm',
+    pageTitle: 'Review questionnaire',
     sections: getConfirmationSections(appealId, outcome),
     breadcrumbs: getBreadcrumbs(),
     reviewOutcome: outcome,
