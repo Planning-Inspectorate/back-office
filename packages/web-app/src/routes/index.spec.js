@@ -49,7 +49,7 @@ describe('routes/index', () => {
     expect(mockUse).toBeCalledWith(`/${views.appealAlreadyReviewed}`, appealAlreadyReviewed);
     expect(mockUse).toBeCalledWith(`/${views.checkAndConfirm}`, checkAndConfirmDetails);
     expect(mockUse).toBeCalledWith(
-      `/${views.questionnairesForReview}/${views.checkAndConfirm}/:appealId`,
+      `/${views.questionnairesForReview}/${views.checkAndConfirm}`,
       questionnaireCheckAndConfirm
     );
   });
