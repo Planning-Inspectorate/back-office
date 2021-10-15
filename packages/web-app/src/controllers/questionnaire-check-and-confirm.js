@@ -23,7 +23,7 @@ const compileMissingDocuments = (items) => {
   return mappedDocuments.toString().replace(/,/g, '');
 };
 
-const getConfirmationSections = (appealReference, outcome) => {
+const getConfirmationSections = (outcome) => {
   const payload = {
     rows: [],
   };
