@@ -8,17 +8,17 @@
 {% set documentsError = errors['missing-or-wrong-documents'].msg %}
 {% set otherError = errors['other-reason'].msg %}
 
-{% set noApplicationFormChecked = outcomeDetails.documentReasons and outcomeDetails.documentReasons.includes and outcomeDetails.documentReasons.includes('noApplicationForm') %}
-{% set noDecisionNoticeChecked = outcomeDetails.documentReasons and outcomeDetails.documentReasons.includes and outcomeDetails.documentReasons.includes('noDecisionNotice') %}
-{% set noGroundsOfAppealChecked = outcomeDetails.documentReasons and outcomeDetails.documentReasons.includes and outcomeDetails.documentReasons.includes('noGroundsOfAppeal') %}
-{% set noSupportingDocumentsChecked = outcomeDetails.documentReasons and outcomeDetails.documentReasons.includes and outcomeDetails.documentReasons.includes('noSupportingDocuments') %}
-{% set namesNotMatchChecked = outcomeDetails.reasons and outcomeDetails.reasons.includes and outcomeDetails.reasons.includes('namesNotMatch') %}
-{% set sensitiveInformationIncludedChecked = outcomeDetails.reasons and outcomeDetails.reasons.includes and outcomeDetails.reasons.includes('sensitiveInformationIncluded') %}
-{% set missingOrWrongDocumentsChecked = outcomeDetails.reasons and outcomeDetails.reasons.includes and outcomeDetails.reasons.includes('missingOrWrongDocuments') %}
-{% set inflammatoryCommentsChecked = outcomeDetails.reasons and outcomeDetails.reasons.includes and outcomeDetails.reasons.includes('inflammatoryComments') %}
-{% set openedInErrorChecked = outcomeDetails.reasons and outcomeDetails.reasons.includes and outcomeDetails.reasons.includes('openedInError') %}
-{% set wrongAppealTypeChecked = outcomeDetails.reasons and outcomeDetails.reasons.includes and outcomeDetails.reasons.includes('wrongAppealType') %}
-{% set otherChecked = outcomeDetails.reasons and outcomeDetails.reasons.includes and outcomeDetails.reasons.includes('other') %}
+{% set noApplicationFormChecked = missingOrWrong.documentReasons and missingOrWrong.documentReasons.includes and missingOrWrong.documentReasons.includes('noApplicationForm') %}
+{% set noDecisionNoticeChecked = missingOrWrong.documentReasons and missingOrWrong.documentReasons.includes and missingOrWrong.documentReasons.includes('noDecisionNotice') %}
+{% set noGroundsOfAppealChecked = missingOrWrong.documentReasons and missingOrWrong.documentReasons.includes and missingOrWrong.documentReasons.includes('noGroundsOfAppeal') %}
+{% set noSupportingDocumentsChecked = missingOrWrong.documentReasons and missingOrWrong.documentReasons.includes and missingOrWrong.documentReasons.includes('noSupportingDocuments') %}
+{% set namesNotMatchChecked = missingOrWrong.reasons and missingOrWrong.reasons.includes and missingOrWrong.reasons.includes('namesNotMatch') %}
+{% set sensitiveInformationIncludedChecked = missingOrWrong.reasons and missingOrWrong.reasons.includes and missingOrWrong.reasons.includes('sensitiveInformationIncluded') %}
+{% set missingOrWrongDocumentsChecked = missingOrWrong.reasons and missingOrWrong.reasons.includes and missingOrWrong.reasons.includes('missingOrWrongDocuments') %}
+{% set inflammatoryCommentsChecked = missingOrWrong.reasons and missingOrWrong.reasons.includes and missingOrWrong.reasons.includes('inflammatoryComments') %}
+{% set openedInErrorChecked = missingOrWrong.reasons and missingOrWrong.reasons.includes and missingOrWrong.reasons.includes('openedInError') %}
+{% set wrongAppealTypeChecked = missingOrWrong.reasons and missingOrWrong.reasons.includes and missingOrWrong.reasons.includes('wrongAppealType') %}
+{% set otherChecked = missingOrWrong.reasons and missingOrWrong.reasons.includes and missingOrWrong.reasons.includes('other') %}
 
 {% block formContent %}
   <p class="govuk-body">Appeal reference: {{appealReference}}</p>
@@ -27,7 +27,7 @@
     {{ govukInput({
       id: "other-reason",
       name: "other-reason",
-      value: outcomeDetails.otherReason,
+      value: missingOrWrong.otherReason,
       label: {
         text: "List reasons"
       },

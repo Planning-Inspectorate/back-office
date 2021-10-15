@@ -11,7 +11,7 @@ describe('controllers/missing-or-wrong', () => {
   const horizonId = 'APP/Q9999/D/21/1234567';
   const missingReasons = ['other', 'outOfTime'];
   const missingDocumentReasons = ['noApplicationForm'];
-  const outcomeDetails = {
+  const missingOrWrong = {
     reasons: missingReasons,
     documentReasons: missingDocumentReasons,
     otherReason: 'other description',
@@ -20,7 +20,7 @@ describe('controllers/missing-or-wrong', () => {
     pageTitle: 'What is missing or wrong?',
     backLink: `/${views.reviewAppealSubmission}/${appealId}`,
     getText,
-    outcomeDetails,
+    missingOrWrong,
     appealReference: horizonId,
   };
 
@@ -37,7 +37,11 @@ describe('controllers/missing-or-wrong', () => {
       req = {
         session: {
           appeal: { id: appealId, horizonId },
-          casework: { outcomeDetails },
+          casework: {
+            outcomeDetails: {
+              missingOrWrong,
+            },
+          },
         },
       };
 
@@ -54,7 +58,7 @@ describe('controllers/missing-or-wrong', () => {
         body: {
           'missing-or-wrong-reasons': missingReasons,
           'missing-or-wrong-documents': missingDocumentReasons,
-          'other-reason': outcomeDetails.otherReason,
+          'other-reason': missingOrWrong.otherReason,
         },
         session: {
           appeal: { id: appealId, horizonId },
@@ -72,7 +76,7 @@ describe('controllers/missing-or-wrong', () => {
         nextPage: views.checkAndConfirm,
         viewData: expectedViewData,
       });
-      expect(req.session.casework.outcomeDetails).toEqual(outcomeDetails);
+      expect(req.session.casework.outcomeDetails.missingOrWrong).toEqual(missingOrWrong);
     });
   });
 });

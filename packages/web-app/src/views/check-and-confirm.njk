@@ -11,37 +11,38 @@
 {% set decisionLetterFile = appealData.requiredDocumentsSection.decisionLetter.uploadedFile %}
 {% set appealStatementFile = appealData.yourAppealSection.appealStatement.uploadedFile %}
 {% set outcomeDetails = reviewOutcome.outcomeDetails %}
-{% set invalidAppealDetails = reviewOutcome.invalidAppealDetails %}
-{% set validAppealDetails = reviewOutcome.validAppealDetails %}
+{% set validAppealDetails = outcomeDetails.valid %}
+{% set invalidAppealDetails = outcomeDetails.invalid %}
+{% set missingOrWrongDetails = outcomeDetails.missingOrWrong %}
 {% set completedError = errors['check-and-confirm-completed'].msg %}
 
 {% macro renderValidReason() %}
-  {{ validAppealDetails }}
+  {{ validAppealDetails.description }}
 {% endmacro %}
 
-{% macro renderWithOtherReason(reason) %}
-  <li>{{ getText(reason)+('' if reason !== 'other' else ' - '+ outcomeDetails.otherReason) }}</li>
+{% macro renderWithOtherReason(outcome, reason) %}
+  <li>{{ getText(reason)+('' if reason !== 'other' else ' - '+ outcome.otherReason) }}</li>
 {% endmacro %}
 
 {% macro renderInvalidReason() %}
-  {% for item in outcomeDetails.reasons %}
-    {{ renderWithOtherReason(item) }}
+  {% for item in invalidAppealDetails.reasons %}
+    {{ renderWithOtherReason(invalidAppealDetails, item) }}
   {% endfor %}
 {% endmacro %}
 
 {% macro renderIncompleteReason() %}
-  {% for item in outcomeDetails.reasons %}
+  {% for item in missingOrWrongDetails.reasons %}
     {% if item === 'missingOrWrongDocuments' %}
       <li>
         {{ getText(item) }}
         <ul class="govuk-list govuk-list--bullet">
-          {% for documentReason in outcomeDetails.documentReasons %}
+          {% for documentReason in missingOrWrongDetails.documentReasons %}
             <li>{{ getText(documentReason) }}</li>
           {% endfor %}
         </ul>
       </li>
     {% else %}
-      {{ renderWithOtherReason(item) }}
+      {{ renderWithOtherReason(missingOrWrongDetails, item) }}
     {% endif %}
   {% endfor %}
 {% endmacro %}

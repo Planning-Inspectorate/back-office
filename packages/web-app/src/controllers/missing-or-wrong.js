@@ -8,10 +8,10 @@ const {
 } = require('../config/views');
 const saveAndContinue = require('../lib/save-and-continue');
 
-const viewData = (appealId, horizonId, outcomeDetails) => ({
+const viewData = (appealId, horizonId, missingOrWrong) => ({
   pageTitle: 'What is missing or wrong?',
   backLink: `/${previousPage}/${appealId}`,
-  outcomeDetails,
+  missingOrWrong,
   appealReference: horizonId,
   getText,
 });
@@ -24,13 +24,14 @@ const getMissingOrWrong = (req, res) => {
     },
   } = req;
 
-  res.render(currentPage, viewData(id, horizonId, outcomeDetails));
+  res.render(currentPage, viewData(id, horizonId, outcomeDetails?.missingOrWrong));
 };
 
 const postMissingOrWrong = (req, res) => {
   const {
     session: {
       appeal: { id, horizonId },
+      casework,
     },
     body,
   } = req;
@@ -41,19 +42,21 @@ const postMissingOrWrong = (req, res) => {
   const otherReason = body['other-reason'];
 
   const outcomeDetails = {
-    reasons,
-    documentReasons,
-    otherReason,
+    missingOrWrong: {
+      reasons,
+      documentReasons,
+      otherReason,
+    },
   };
 
-  req.session.casework.outcomeDetails = outcomeDetails;
+  casework.outcomeDetails = outcomeDetails;
 
   saveAndContinue({
     req,
     res,
     currentPage,
     nextPage,
-    viewData: viewData(id, horizonId, outcomeDetails),
+    viewData: viewData(id, horizonId, outcomeDetails.missingOrWrong),
   });
 };
 
