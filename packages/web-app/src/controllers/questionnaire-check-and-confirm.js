@@ -130,12 +130,11 @@ const getBreadcrumbs = () => [
 ];
 
 const getCheckAndConfirm = (req, res) => {
-  const { appealId } = req.param;
   const { outcome } = req.session;
 
   res.render('questionnaire-check-and-confirm', {
     pageTitle: 'Review questionnaire',
-    sections: getConfirmationSections(appealId, outcome),
+    sections: getConfirmationSections(outcome),
     breadcrumbs: getBreadcrumbs(),
     reviewOutcome: outcome,
   });
