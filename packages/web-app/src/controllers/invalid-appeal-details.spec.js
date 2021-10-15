@@ -9,7 +9,7 @@ jest.mock('../lib/save-and-continue');
 describe('controllers/invalid-appeal-details', () => {
   const appealId = '5c943cb9-e029-4094-a447-4b3256d6ede7';
   const horizonId = 'APP/Q9999/D/21/1234567';
-  const outcomeDetails = {
+  const invalid = {
     reasons: ['other', 'outOfTime'],
     otherReason: 'other description',
   };
@@ -17,7 +17,7 @@ describe('controllers/invalid-appeal-details', () => {
     pageTitle: 'Invalid appeal details',
     backLink: `/${views.reviewAppealSubmission}/${appealId}`,
     getText,
-    outcomeDetails,
+    invalid,
     appealReference: horizonId,
   };
 
@@ -34,7 +34,11 @@ describe('controllers/invalid-appeal-details', () => {
       req = {
         session: {
           appeal: { id: appealId, horizonId },
-          casework: { outcomeDetails },
+          casework: {
+            outcomeDetails: {
+              invalid,
+            },
+          },
         },
       };
 
@@ -49,8 +53,8 @@ describe('controllers/invalid-appeal-details', () => {
     it('should call saveAndContinue with the correct params', () => {
       req = {
         body: {
-          'invalid-appeal-reasons': outcomeDetails.reasons,
-          'other-reason': outcomeDetails.otherReason,
+          'invalid-appeal-reasons': invalid.reasons,
+          'other-reason': invalid.otherReason,
         },
         session: {
           appeal: { id: appealId, horizonId },
@@ -68,7 +72,7 @@ describe('controllers/invalid-appeal-details', () => {
         nextPage: views.checkAndConfirm,
         viewData: expectedViewData,
       });
-      expect(req.session.casework.outcomeDetails).toEqual(outcomeDetails);
+      expect(req.session.casework.outcomeDetails.invalid).toEqual(invalid);
     });
   });
 });

@@ -13,7 +13,7 @@
     {{ govukInput({
       id: "other-reason",
       name: "other-reason",
-      value: outcomeDetails.otherReason,
+      value: invalid.otherReason,
       label: {
         text: "List reasons"
       },
@@ -42,27 +42,27 @@
       {
         value: "outOfTime",
         text: getText("outOfTime"),
-        checked: outcomeDetails and outcomeDetails.reasons and outcomeDetails.reasons.includes('outOfTime')
+        checked: invalid and invalid.reasons and invalid.reasons.includes('outOfTime')
       },
       {
         value: "noRightOfAppeal",
         text: getText("noRightOfAppeal"),
-        checked: outcomeDetails and outcomeDetails.reasons and outcomeDetails.reasons.includes('noRightOfAppeal')
+        checked: invalid and invalid.reasons and invalid.reasons.includes('noRightOfAppeal')
       },
       {
         value: "notAppealable",
         text: getText("notAppealable"),
-        checked: outcomeDetails and outcomeDetails.reasons and outcomeDetails.reasons.includes('notAppealable')
+        checked: invalid and invalid.reasons and invalid.reasons.includes('notAppealable')
       },
       {
         value: "lpaDeemedApplicationAsInvalid",
         text: getText("lpaDeemedApplicationAsInvalid"),
-        checked: outcomeDetails and outcomeDetails.reasons and outcomeDetails.reasons.includes('lpaDeemedApplicationAsInvalid')
+        checked: invalid and invalid.reasons and invalid.reasons.includes('lpaDeemedApplicationAsInvalid')
       },
       {
         value: "other",
         text: getText("other"),
-        checked: outcomeDetails and outcomeDetails.reasons and outcomeDetails.reasons.includes('other'),
+        checked: invalid and invalid.reasons and invalid.reasons.includes('other'),
         conditional: {
           html: otherHtml
         }

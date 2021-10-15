@@ -4,10 +4,10 @@ const { getText, getCheckAndConfirmConfig } = require('../config/review-appeal-s
 
 const checkAndConfirmConfig = (casework) => getCheckAndConfirmConfig(casework.reviewOutcome);
 
-const viewData = (reviewOutcome) => ({
+const viewData = (casework) => ({
   pageTitle: 'Check and confirm',
-  backLink: `/${checkAndConfirmConfig(reviewOutcome).view}`,
-  reviewOutcome,
+  backLink: `/${checkAndConfirmConfig(casework).view}`,
+  reviewOutcome: casework,
 });
 
 const getCheckAndConfirm = (req, res) => {
