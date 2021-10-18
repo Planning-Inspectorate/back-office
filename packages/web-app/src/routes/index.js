@@ -1,5 +1,6 @@
 const express = require('express');
 const appealsList = require('./appeals-list');
+const questionnairesList = require('./questionnaires-list');
 const reviewAppealSubmission = require('./review-appeal-submission');
 const validAppealDetails = require('./valid-appeal-details');
 const invalidAppealDetails = require('./invalid-appeal-details');
@@ -14,6 +15,8 @@ const getCaseData = require('../lib/get-case-data');
 
 const router = express.Router();
 
+router.use('/', appealsList);
+router.use('/', questionnairesList);
 router.use('/', home);
 router.use(`/${views.appealsList}`, appealsList);
 router.use(
