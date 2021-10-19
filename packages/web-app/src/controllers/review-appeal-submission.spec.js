@@ -78,7 +78,12 @@ describe('controllers/review-appeal-submission', () => {
           'review-outcome': 'valid',
         },
         session: {
-          casework: {},
+          appeal: {
+            horizonId: 'abc123',
+          },
+          casework: {
+            reviewOutcome: 'valid',
+          },
         },
       };
 
@@ -104,7 +109,9 @@ describe('controllers/review-appeal-submission', () => {
           appeal: {
             id: '1234',
           },
-          casework: {},
+          casework: {
+            reviewOutcome: 'invalid',
+          },
         },
       };
 
@@ -134,7 +141,9 @@ describe('controllers/review-appeal-submission', () => {
           appeal: {
             id: '1234',
           },
-          casework: {},
+          casework: {
+            reviewOutcome: 'incomplete',
+          },
         },
       };
 
@@ -192,10 +201,10 @@ describe('controllers/review-appeal-submission', () => {
         },
         session: {
           appeal: {
-            appeal: {
-              id: '1234',
-            },
-            casework: {},
+            horizonId: 'abc123',
+          },
+          casework: {
+            reviewOutcome: 'incomplete',
           },
         },
       };
@@ -214,7 +223,7 @@ describe('controllers/review-appeal-submission', () => {
           reviewOutcome: req.body['review-outcome'],
         },
       });
-      expect(req.session.appeal.casework.reviewOutcome).toEqual(req.body['review-outcome']);
+      expect(req.session.casework.reviewOutcome).toEqual(req.body['review-outcome']);
     });
 
     it('should call saveAndContinue with the home page value when reviewOutcome is not one of valid options', () => {
@@ -224,11 +233,9 @@ describe('controllers/review-appeal-submission', () => {
         },
         session: {
           appeal: {
-            appeal: {
-              id: '1234',
-            },
-            casework: {},
+            id: '1234',
           },
+          casework: {},
         },
       };
 
@@ -246,7 +253,7 @@ describe('controllers/review-appeal-submission', () => {
           reviewOutcome: req.body['review-outcome'],
         },
       });
-      expect(req.session.appeal.casework.reviewOutcome).toEqual(req.body['review-outcome']);
+      expect(req.session.casework.reviewOutcome).toEqual(req.body['review-outcome']);
     });
   });
 });
