@@ -4,9 +4,9 @@ So that the appeal can be started
 
  @as-2151
   Scenario: Appeals in status of ‘Appeal received' are displayed on the Submissions for review’ page
-    Given user is on the Case Officer Login page
-    When the login details are entered
+    Given user is on the Validation Officer Login page
     Then appeal submissions page is displayed and page title and page header footer are verified
+    #When the login details are entered -> needs to be implemented after SSO
     #Then all the appeals with status of 'Appeal Received’ and that have a Horizon ID are displayed
 
   Scenario: Verify the table headers and data

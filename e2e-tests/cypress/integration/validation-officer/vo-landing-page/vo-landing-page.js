@@ -10,7 +10,7 @@ import {
     } from '../../../support/PageObjects/vo-landing-page-po';
 
 
-Given('user is on the Case Officer Login page', () => {
+Given('user is on the Validation Officer Login page', () => {
   caseOfficerLandingPage();
   });
 
