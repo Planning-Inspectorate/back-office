@@ -14,7 +14,10 @@
       text: "Description of development",
       classes: "govuk-!-font-weight-bold"
     },
-    value: valid.description
+    value: valid.description,
+    errorMessage: errors and {
+      text: errors['valid-appeal-details'].msg
+    }
   }) }}
 
   {{ buttonGroup(backLink) }}

@@ -2,11 +2,16 @@ export const headerReviewSubmission = () => cy.get('.govuk-heading-xl');
 
 export const titleReviewSubmission = () => cy.title().should( 'eq', "Review appeal submission - Appeal a householder planning decision - GOV.UK");
 
-export const reviewAppealSubmissionPage = () => cy.visit("http://localhost:9004/review-appeal-submission");
+export const visitReviewAppealSubmissionPage = () => cy.visit('/review-appeal-submission/db9cc77a-7991-42e5-a917-0fc73e4ccd49');
 
-export const errorMessageHeader = () => cy.get('[id=error-summary-title]').should('exist');
+export const reviewAppealSubmissionPage = () => cy.url().should('include','/review-appeal-submission/db9cc77a-7991-42e5-a917-0fc73e4ccd49');
 
-export const errorMessage = () => cy.get('#review-outcome-error').should('exist');
+export const selectOutcomeValid = () => cy.findAllByText('Valid');
+
+//export const errorMessageHeader = () => cy.get('a[href="#valid-appeal-details"]').should('exist');
+export const errorMessageHeader = () => cy.get('.govuk-error-summary__list').should('exist');
+
+export const errorMessageLabel = () => cy.get('.govuk-error-message').should('exist');
 
 export const appellantName = () => cy.findAllByText('Manish Sharma');
 

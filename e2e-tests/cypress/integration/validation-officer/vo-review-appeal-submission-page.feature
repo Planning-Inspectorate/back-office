@@ -4,22 +4,27 @@ Feature: As a Validation Officer validating an appeal
 
   @as-2552
   Scenario: Navigate to the ‘Review appeal submission’ Page from the validation task list page
-    Given a Validation Officer is on the ‘Appeal submissions for review’ page
+    Given validation Officer is on the ‘Appeal submissions for review’ page
     When the Validation Officer selects an appeal
     Then the ‘Review appeal submission’ Page will be displayed
 
   Scenario: Continue selected but no outcome has been chosen
-    Given a Validation Officer has not chosen an outcome on the ‘Review appeal submission’ page
+    Given validation Officer has not chosen an outcome on the ‘Review appeal submission’ page
     When the Validation Officer selects ‘Continue’
     Then error message 'Select if the appeal is valid or invalid, or if something is missing or wrong' is displayed
 
+  Scenario: Continue selected with outcome as 'Valid'
+    Given validation Officer has selected outcome as valid on the ‘Review appeal submission’ page
+    When the Validation Officer selects ‘Continue’
+    Then description of Development page is displayed
+
   Scenario: Back link navigates to the ‘Appeal submissions for review’ page
-    Given a Validation Officer is on the ‘Review appeal submission’ page
+    Given validation Officer is on the ‘Review appeal submission’ page
     When the Validation Officer selects the ‘Back’ link
     Then the ‘Appeal submissions for review’ page will be displayed
 
   Scenario: Appellant details are displayed
-    Given a Validation Officer is on the ‘Appeal submissions for review’ page
+    Given validation Officer is on the ‘Appeal submissions for review’ page
     When the Validation Officer selects the appeal 'APP/Q9999/D/21/1234567'
     Then the ‘Review appeal submission’ Page will be displayed with the Appellant details
 
