@@ -1,4 +1,4 @@
-export const descriptionOfDevelopmentPage = () => cy.visit('http://localhost:9004/valid-appeal-details');
+export const descriptionOfDevelopmentPage = () => cy.visit('/valid-appeal-details');
 
 export const errorMessageDesDevelopment = () => cy.findByText('Enter a description of development');
 
