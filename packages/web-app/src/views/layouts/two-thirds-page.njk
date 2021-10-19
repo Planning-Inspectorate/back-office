@@ -12,7 +12,7 @@
         }) }}
       {% endif %}
 
-      <h1 class="govuk-heading-xl">{{ pageTitle }}</h1>
+      <h1 class="govuk-heading-xl {{ "govuk-visually-hidden" if hidePageTitle }}">{{ pageTitle }}</h1>
 
       {% block pageContent %}{% endblock %}
     </div>

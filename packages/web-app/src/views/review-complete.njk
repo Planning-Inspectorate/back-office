@@ -1,0 +1,21 @@
+{% extends "layouts/two-thirds-page.njk" %}
+
+{% from "govuk/components/panel/macro.njk" import govukPanel %}
+
+{% block backButton %}
+{% endblock %}
+
+{% block pageContent %}
+  <div class="govuk-!-margin-bottom-7" >
+    {{ govukPanel({
+      titleText: pageTitle,
+      html: checkAndConfirmConfig.reviewCompleteStatusText + "<br><strong>" + appealData.horizonId + "</strong>"
+    }) }}
+  </div>
+
+  <p class="govuk-body">{{ checkAndConfirmConfig.reviewCompleteText }}</p>
+
+  <h2 class="govuk-heading-m">What next?</h2>
+
+  <p class="govuk-body"><a href="/appeals-list" class="govuk-link">Return to task list</a></p>
+{% endblock %}

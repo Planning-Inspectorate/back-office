@@ -12,13 +12,14 @@ const views = require('../config/views');
 const handleAppealAlreadyReviewed = require('../lib/handle-appeal-already-reviewed');
 const getCaseData = require('../lib/get-case-data');
 const checkAndConfirmDetails = require('./check-and-confirm');
+const reviewComplete = require('./review-complete');
 
 describe('routes/index', () => {
   it('should define the correct routes', () => {
     // eslint-disable-next-line global-require
     require('./index');
 
-    expect(mockUse).toBeCalledTimes(11);
+    expect(mockUse).toBeCalledTimes(12);
     expect(mockUse).toBeCalledWith('/', appealsList);
     expect(mockUse).toBeCalledWith('/', questionnairesList);
     expect(mockUse).toBeCalledWith('/', home);
@@ -47,5 +48,6 @@ describe('routes/index', () => {
     expect(mockUse).toBeCalledWith('/document', documentsServiceProxyRouter);
     expect(mockUse).toBeCalledWith(`/${views.appealAlreadyReviewed}`, appealAlreadyReviewed);
     expect(mockUse).toBeCalledWith(`/${views.checkAndConfirm}`, checkAndConfirmDetails);
+    expect(mockUse).toBeCalledWith(`/${views.reviewComplete}`, reviewComplete);
   });
 });
