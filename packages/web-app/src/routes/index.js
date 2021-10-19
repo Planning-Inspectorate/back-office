@@ -40,7 +40,7 @@ router.use(`/${views.reviewComplete}`, reviewComplete);
 router.use(`/${views.reviewQuestionnaireComplete}`, reviewQuestionnaireComplete);
 router.use(`/${views.questionnairesForReview}/${views.checkAndConfirm}`, checkAndConfirm);
 router.use(
-  `/${views.questionnairesForReview}/${views.checkAndConfirm}`,
+  `/planning-inspectorate/appeals/${views.questionnairesForReview}/${views.checkAndConfirm}`,
   questionnaireCheckAndConfirm
 );
 
