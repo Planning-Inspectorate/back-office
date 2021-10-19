@@ -1,6 +1,6 @@
 const {
   getText,
-  getCheckAndConfirmConfig,
+  getReviewOutcomeConfig,
   reviewOutcomeOption,
 } = require('./review-appeal-submission');
 const views = require('./views');
@@ -18,16 +18,16 @@ describe('review-appeal-submission', () => {
     });
   });
 
-  describe('getCheckAndConfirmConfig', () => {
+  describe('getReviewOutcomeConfig', () => {
     it('should return the right object with an existent review outcome', () => {
-      const checkAndConfirmConfig = getCheckAndConfirmConfig(reviewOutcomeOption.valid);
+      const checkAndConfirmConfig = getReviewOutcomeConfig(reviewOutcomeOption.valid);
       expect(checkAndConfirmConfig.text).toEqual('Valid');
       expect(checkAndConfirmConfig.reasonText).toEqual('Description of development');
       expect(checkAndConfirmConfig.view).toEqual(views.validAppealDetails);
       expect(checkAndConfirmConfig.continueButtonText).toEqual('Confirm and start appeal');
     });
     it('should return undefined with a non existent review outcome', () => {
-      const checkAndConfirmConfig = getCheckAndConfirmConfig('nonExistentOutcome');
+      const checkAndConfirmConfig = getReviewOutcomeConfig('nonExistentOutcome');
       expect(checkAndConfirmConfig).toBeUndefined();
     });
   });

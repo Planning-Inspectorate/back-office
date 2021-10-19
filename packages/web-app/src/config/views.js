@@ -9,6 +9,7 @@ const views = {
   invalidAppealDetails: 'invalid-appeal-details',
   missingOrWrong: 'missing-or-wrong',
   checkAndConfirm: 'check-and-confirm',
+  reviewComplete: 'review-complete',
 };
 
 module.exports = views;

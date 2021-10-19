@@ -5,7 +5,7 @@ const { mockReq, mockRes } = require('../../test/utils/mocks');
 const {
   getText,
   reviewOutcomeOption,
-  getCheckAndConfirmConfig,
+  getReviewOutcomeConfig,
 } = require('../config/review-appeal-submission');
 
 jest.mock('../lib/save-and-continue');
@@ -37,7 +37,7 @@ describe('controllers/check-and-confirm', () => {
         changeOutcomeLink: `/${views.reviewAppealSubmission}/${appealId}`,
         reviewOutcome: req.session.casework,
         appealData: req.session.appeal,
-        checkAndConfirmConfig: getCheckAndConfirmConfig(reviewOutcomeOption.valid),
+        checkAndConfirmConfig: getReviewOutcomeConfig(reviewOutcomeOption.valid),
         getText,
       };
 
@@ -61,7 +61,7 @@ describe('controllers/check-and-confirm', () => {
         changeOutcomeLink: `/${views.reviewAppealSubmission}/${appealId}`,
         reviewOutcome: req.session.casework,
         appealData: req.session.appeal,
-        checkAndConfirmConfig: getCheckAndConfirmConfig(reviewOutcomeOption.invalid),
+        checkAndConfirmConfig: getReviewOutcomeConfig(reviewOutcomeOption.invalid),
         getText,
       };
 
@@ -85,7 +85,7 @@ describe('controllers/check-and-confirm', () => {
         changeOutcomeLink: `/${views.reviewAppealSubmission}/${appealId}`,
         reviewOutcome: req.session.casework,
         appealData: req.session.appeal,
-        checkAndConfirmConfig: getCheckAndConfirmConfig(reviewOutcomeOption.incomplete),
+        checkAndConfirmConfig: getReviewOutcomeConfig(reviewOutcomeOption.incomplete),
         getText,
       };
 
@@ -116,7 +116,7 @@ describe('controllers/check-and-confirm', () => {
         changeOutcomeLink: `/${views.reviewAppealSubmission}/${appealId}`,
         reviewOutcome: req.session.casework,
         appealData: req.session.appeal,
-        checkAndConfirmConfig: getCheckAndConfirmConfig(reviewOutcomeOption.incomplete),
+        checkAndConfirmConfig: getReviewOutcomeConfig(reviewOutcomeOption.incomplete),
         getText,
       };
 
@@ -127,7 +127,7 @@ describe('controllers/check-and-confirm', () => {
         req,
         res,
         currentPage: views.checkAndConfirm,
-        nextPage: views.home,
+        nextPage: views.reviewComplete,
         viewData: expectedViewData,
       });
       expect(req.session.casework.completed).toEqual('true');

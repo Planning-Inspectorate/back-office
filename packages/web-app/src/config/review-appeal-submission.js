@@ -67,31 +67,39 @@ const allText = {
 
 const getText = (key) => allText[key]?.text || key;
 
-const checkAndConfirmConfigMap = {
+const reviewOutcomeConfigMap = {
   [reviewOutcomeOption.valid]: {
     text: 'Valid',
     reasonText: 'Description of development',
     view: views.validAppealDetails,
     continueButtonText: 'Confirm and start appeal',
+    reviewCompleteStatusText: 'Appeal valid',
+    reviewCompleteText:
+      'The appeal has been started and the LPA questionnaire email has been sent.',
   },
   [reviewOutcomeOption.invalid]: {
     text: 'Invalid',
     reasonText: 'Reasons',
     view: views.invalidAppealDetails,
     continueButtonText: 'Confirm and turn away appeal',
+    reviewCompleteStatusText: 'Appeal invalid',
+    reviewCompleteText:
+      'The appeal has been turned away, and emails have been sent to the appellant and LPA.',
   },
   [reviewOutcomeOption.incomplete]: {
     text: 'Something is missing or wrong',
     reasonText: 'Reasons',
     view: views.missingOrWrong,
     continueButtonText: 'Confirm and finish review',
+    reviewCompleteStatusText: 'Something is missing or wrong',
+    reviewCompleteText: '',
   },
 };
 
-const getCheckAndConfirmConfig = (reviewOutcome) => checkAndConfirmConfigMap[reviewOutcome];
+const getReviewOutcomeConfig = (reviewOutcome) => reviewOutcomeConfigMap[reviewOutcome];
 
 module.exports = {
-  getCheckAndConfirmConfig,
+  getReviewOutcomeConfig,
   getText,
   reviewOutcomeOption,
 };

@@ -1,12 +1,12 @@
 const {
   checkAndConfirm: currentPage,
-  home: nextPage,
+  reviewComplete: nextPage,
   reviewAppealSubmission,
 } = require('../config/views');
 const saveAndContinue = require('../lib/save-and-continue');
-const { getText, getCheckAndConfirmConfig } = require('../config/review-appeal-submission');
+const { getText, getReviewOutcomeConfig } = require('../config/review-appeal-submission');
 
-const checkAndConfirmConfig = (casework) => getCheckAndConfirmConfig(casework.reviewOutcome);
+const checkAndConfirmConfig = (casework) => getReviewOutcomeConfig(casework.reviewOutcome);
 
 const viewData = (appeal, casework) => ({
   pageTitle: 'Check and confirm',
@@ -40,7 +40,7 @@ const postCheckAndConfirm = (req, res) => {
   const options = {
     ...viewData(appeal, casework),
     appealData: appeal,
-    checkAndConfirmConfig: getCheckAndConfirmConfig(casework.reviewOutcome),
+    checkAndConfirmConfig: getReviewOutcomeConfig(casework.reviewOutcome),
     getText,
   };
 
