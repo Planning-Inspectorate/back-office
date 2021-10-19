@@ -45,6 +45,9 @@ Then( "error message {string} is displayed", (errorMessage) => {
 Given( "validation Officer is on the ‘Review appeal submission’ page", () => {
    visitReviewAppealSubmissionPage();
 } );
+When( "the Validation Officer selects the ‘Back’ link", () => {
+    backLink().click();
+} );
 Then( "the ‘Appeal submissions for review’ page will be displayed", () =>{
     caseOfficerLandingPage();
 } );
