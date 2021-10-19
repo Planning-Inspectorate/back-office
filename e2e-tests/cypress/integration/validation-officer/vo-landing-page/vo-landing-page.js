@@ -13,6 +13,7 @@ import {
 Given('user is on the Case Officer Login page', () => {
   caseOfficerLandingPage();
   });
+
 Given('Appeal submissions page is displayed', () => {
     caseOfficerLandingPage();
    });
