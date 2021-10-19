@@ -9,6 +9,10 @@
 {% endblock %}
 
 {% block pageTitle %}
+  {% if errors %}
+    {% set pageTitle = 'Error: ' + pageTitle %}
+  {% endif %}
+
   {{ pageTitle }} - Appeal a householder planning decision - GOV.UK
 {% endblock %}
 
