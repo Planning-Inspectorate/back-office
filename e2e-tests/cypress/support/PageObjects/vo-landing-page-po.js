@@ -1,4 +1,4 @@
-export const caseOfficerLandingPage = () => cy.visit("http://localhost:9004/appeals-list");
+export const caseOfficerLandingPage = () => cy.visit("/appeals-list");
 
 export const caseOfficerPageTitle = () => cy.title().should('eq', "Appeal submissions for review - Appeal a householder planning decision - GOV.UK");
 

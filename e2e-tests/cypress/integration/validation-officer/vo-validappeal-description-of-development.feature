@@ -17,6 +17,6 @@ Feature: As a Validation Officer
     Then Check and confirm page is displayed
 
   Scenario: ‘Back’ link navigation
-  Given Validation Officer is on the Valid appeal details page
-  When the Validation Officer selects the ‘Back’ link for kk
-  Then the Review appeal submission Page will be displayed showing the previously selected outcome
+    Given Validation Officer is on the Valid appeal details page
+    When the Validation Officer selects the ‘Back’ link for kk
+    Then the Review appeal submission Page will be displayed showing the previously selected outcome
