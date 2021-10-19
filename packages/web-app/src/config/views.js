@@ -10,6 +10,7 @@ const views = {
   invalidAppealDetails: 'invalid-appeal-details',
   missingOrWrong: 'missing-or-wrong',
   checkAndConfirm: 'check-and-confirm',
+  reviewQuestionnaire: 'review-questionnaire',
 };
 
 module.exports = views;

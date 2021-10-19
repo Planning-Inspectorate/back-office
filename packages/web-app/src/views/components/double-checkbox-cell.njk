@@ -1,0 +1,29 @@
+{% macro doubleCheckboxCell(data, values, errors) %}
+{% set checkboxName = data.checkboxName %}
+{% set error = errors[checkboxName] %}
+{% set errorName = checkboxName + '-error' %}
+
+<div class="govuk-checkboxes__conditional govuk-checkboxes__conditional--hidden" id="conditional-lpaqreview">
+  <div class="govuk-form-group {% if error %}govuk-form-group--error"{% endif %}>
+    <fieldset class="govuk-fieldset">
+    {% if error %}      
+      <span class="govuk-error-message" name={{errorName}} data-cy={{errorName}}>
+        <span class="govuk-visually-hidden">Error:</span> {{error.msg}}
+      </span>
+    {% endif %}
+      <legend class="govuk-fieldset__legend">{{data.dropDown.title}}</legend>
+      <div class="govuk-checkboxes" data-module="govuk-checkboxes">
+        {% for subCheckBox in data.dropDown.subCheckBoxes %}
+          <div class="govuk-checkboxes__item {% if error %}govuk-input--error{% endif %}">
+            <input class="govuk-checkboxes__input" name={{subCheckBox.name}} data-cy={{subCheckBox.name}} {% if values[subCheckBox.name] === 'on' %}checked=true{% endif %} type="checkbox">
+            <label class="govuk-label govuk-checkboxes__label" >
+              {{subCheckBox.text}}
+            </label>
+          </div>
+        {% endfor %}
+      </div>
+    </fieldset>
+  </div>
+</div>
+
+{% endmacro %}

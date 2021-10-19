@@ -1,0 +1,11 @@
+{% macro checkboxCell(data, values) %}
+
+<div class="govuk-checkboxes govuk-checkboxes--small" data-module="govuk-checkboxes">
+  <div class="govuk-checkboxes__item">
+    <input class="govuk-checkboxes__input" name={{data.checkboxName}} data-cy={{data.checkboxName}} type="checkbox" {% if values[data.checkboxName] === 'on' %}checked=true{% endif %} aria-controls="conditional-lpaqreview" aria-expanded="true">
+    <label class="govuk-label govuk-checkboxes__label">
+      Missing or incorrect
+    </label> 
+  </div>
+
+{% endmacro %}

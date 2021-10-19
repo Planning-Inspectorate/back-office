@@ -1,0 +1,22 @@
+{% macro textBoxCell(data, values, errors) %}
+{% set textAreaName = data.textAreaName %}
+{% set error = errors[textAreaName] %}
+{% set errorName = textAreaName + '-error' %}
+
+<div class="govuk-checkboxes__conditional" id="conditional-lpaqreview">     
+  <div class="govuk-form-group {% if error %}govuk-form-group--error"{% endif %}>
+      <fieldset class="govuk-fieldset">       
+      <label class="govuk-label">
+        {{data.dropDown.title}}
+      </label>
+      {% if error %}      
+        <span class="govuk-error-message" name={{errorName}} data-cy={{errorName}}>
+          <span class="govuk-visually-hidden">Error:</span> {{error.msg}}
+        </span>
+      {% endif %}      
+      <textarea class="govuk-textarea {% if error %}govuk-input--error{% endif %}" name={{textAreaName}} data-cy={{textAreaName}} rows="3">{{values[textAreaName]}}</textarea>
+    </fieldset>
+  </div>
+</div>
+
+{% endmacro %}

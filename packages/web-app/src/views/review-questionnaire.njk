@@ -1,0 +1,72 @@
+{% extends "layouts/form.njk" %}
+{% from "components/document-review-row.njk" import documentReviewRow %}
+{% from "components/text-row.njk" import textRow %}
+
+<dl class="govuk-summary-list">
+  <div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key">{{data.appealInfo.appealReferenceTitle}}</dt>
+    <dd class="govuk-summary-list__value">{{data.appealInfo.appealReference}}</dd>
+  </div>
+  <div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key">{{data.appealInfo.appealSiteTitle}}</dt>
+    <dd class="govuk-summary-list__value">
+      {{ data.appealInfo.addressLine1 }}<br>
+      {{ data.appealInfo.addressLine2 }}<br>
+      {{ data.appealInfo.town }}<br>
+      {{ data.appealInfo.county }}<br>
+      {{ data.appealInfo.postcode }}
+    </dd>
+  </div>
+  <div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key">{{data.appealInfo.localPlanningDepartmentTitle}}</dt>
+    <dd class="govuk-summary-list__value">{{data.appealInfo.localPlanningDepartment}}</dd>
+  </div>
+</dl>
+
+{% block formContent %}
+  <h2 class="govuk-heading-l govuk-!-margin-top-6">{{data.planningApplication.sectionTitle}}</h2>
+  <table class="govuk-table govuk-table__lpareview">
+    <tbody class="govuk-table__body">
+      {{ textRow(data.planningApplication.planningApplicationReference.titleText, data.planningApplication.planningApplicationReference.cellText)}}
+      {{ documentReviewRow(data.planningApplication.decisionNotice, values, errors) }}
+      {{ documentReviewRow(data.planningApplication.officersReport, values, errors) }}
+      {{ documentReviewRow(data.planningApplication.plansDecision, values, errors) }}
+    </tbody>
+  </table>
+
+  <h2 class="govuk-heading-l govuk-!-margin-top-9">{{data.localPlansPolicies.sectionTitle}}</h2>
+  <table class="govuk-table govuk-table__lpareview">
+    <tbody class="govuk-table__body">
+      {{ documentReviewRow(data.localPlansPolicies.statutoryDevelopmentPlanPolicies, values, errors) }}
+      {{ documentReviewRow(data.localPlansPolicies.otherRelevantPolicies, values, errors) }}
+      {{ documentReviewRow(data.localPlansPolicies.supplementaryPlanningDocuments, values, errors) }}
+    </tbody>
+  </table>
+
+  <h2 class="govuk-heading-l govuk-!-margin-top-9">{{data.aboutAppealSite.sectionTitle}}</h2>
+  <table class="govuk-table govuk-table__lpareview">
+    <tbody class="govuk-table__body">
+      {{ textRow(data.aboutAppealSite.nearConservationArea.titleText, data.aboutAppealSite.nearConservationArea.cellText)}}
+      {% if data.aboutAppealSite.nearConservationArea.cellText === 'Yes' %}
+        {{ documentReviewRow(data.aboutAppealSite.conservationAreaMapGuidance, values, errors) }}
+      {% endif %}
+      {{ textRow(data.aboutAppealSite.developmentAffectSettings.titleText, data.aboutAppealSite.developmentAffectSettings.cellText)}}
+      {% if data.aboutAppealSite.developmentAffectSettings.cellText === 'Yes' %}
+        {{ documentReviewRow(data.aboutAppealSite.listingDescription, values, errors) }}
+      {% endif %}
+    </tbody>
+  </table>
+
+  <h2 class="govuk-heading-l govuk-!-margin-top-9">{{data.interestedParties.sectionTitle}}</h2>
+  <table class="govuk-table govuk-table__lpareview">
+    <tbody class="govuk-table__body">
+      {{ documentReviewRow(data.interestedParties.applicationNotification, values, errors) }}  
+      {{ documentReviewRow(data.interestedParties.applicationPublicity, values, errors) }} 
+      {{ documentReviewRow(data.interestedParties.representations, values, errors) }}
+      {{ documentReviewRow(data.interestedParties.appealNotification, values, errors) }} 
+    </tbody>
+  </table>
+
+  <h2 class="govuk-heading-l govuk-!-margin-top-9">{{data.finishedReviewTitle}}</h2>
+  <button class="govuk-button" data-module="govuk-button">{{data.submissionButtontext}}</button>
+{% endblock %}

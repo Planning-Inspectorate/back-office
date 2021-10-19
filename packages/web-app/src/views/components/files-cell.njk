@@ -1,0 +1,15 @@
+{% macro filesCell(data) %}
+
+<td class="govuk-table__cell">
+  {% for file in data.files %}
+    {% if file.link %}
+      <p class="govuk-body govuk-!-margin-bottom-0">
+        <a href={{file.link}}>{{file.text}}</a>
+      </p>
+    {% else %}
+      <p class="govuk-body govuk-!-margin-bottom-0">{{file.text}}</p>
+    {% endif %}
+  {% endfor %}
+</td>
+
+{% endmacro %}

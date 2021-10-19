@@ -1,0 +1,9 @@
+{% macro textRow(title, cell1, cell2) %}
+
+<tr class="govuk-table__row">
+  <th scope="row" class="govuk-table__header">{{title}}</th>
+  <td class="govuk-table__cell">{{cell1}}</td>
+  <td class="govuk-table__cell">{{cell2}}</td>
+</tr>
+
+{% endmacro %}

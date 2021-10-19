@@ -1,0 +1,23 @@
+{% macro documentReviewRow(data, values, errors) %}
+{% from "components/files-cell.njk" import filesCell %}
+{% from "components/text-box-cell.njk" import textBoxCell %}
+{% from "components/double-checkbox-cell.njk" import doubleCheckboxCell %}
+{% from "components/checkbox-cell.njk" import checkboxCell %}
+
+<tr class="govuk-table__row">
+  <th scope="row" class="govuk-table__header">{{data.titleText}}</th>
+  {{filesCell(data)}}
+  <td class="govuk-table__cell">
+    <div class="govuk-form-group govuk-!-margin-bottom-0">
+      {% if data.hasCheckbox %}
+          {{checkboxCell(data, values)}}
+        {% if data.dropDown.dropDownType === 'TEXT_BOX' %}
+          {{textBoxCell(data, values, errors)}}
+        {% elif data.dropDown.dropDownType === 'DOUBLE_CHECK_BOX' %}
+          {{doubleCheckboxCell(data, values, errors)}}
+        {% endif %}
+      {% endif %}
+    </div>
+  </td>
+</tr>
+{% endmacro %}

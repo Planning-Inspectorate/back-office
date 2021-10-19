@@ -12,6 +12,8 @@ const appealAlreadyReviewed = require('./appeal-already-reviewed');
 const views = require('../config/views');
 const handleAppealAlreadyReviewed = require('../lib/handle-appeal-already-reviewed');
 const getCaseData = require('../lib/get-case-data');
+const documentsServiceProxyRouter = require('./document-service-proxy');
+const reviewQuestionnaire = require('./review-questionnaire');
 
 const router = express.Router();
 
@@ -31,5 +33,11 @@ router.use(`/${views.missingOrWrong}`, handleAppealAlreadyReviewed, missingOrWro
 router.use(`/${views.document}`, documentsServiceProxy);
 router.use(`/${views.appealAlreadyReviewed}`, appealAlreadyReviewed);
 router.use(`/${views.checkAndConfirm}`, checkAndConfirmDetails);
+router.use('/', reviewAppealSubmission);
+router.use('/', validAppealDetails);
+router.use('/', invalidAppealDetails);
+router.use('/', missingOrWrongAppealDetails);
+router.use('/', reviewQuestionnaire);
+router.use('/document', documentsServiceProxyRouter);
 
 module.exports = router;
