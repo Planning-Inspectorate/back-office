@@ -34,7 +34,7 @@ router.use(`/${views.document}`, documentsServiceProxy);
 router.use(`/${views.appealAlreadyReviewed}`, appealAlreadyReviewed);
 router.use(`/${views.checkAndConfirm}`, checkAndConfirmDetails);
 router.use(
-  `/${views.questionnairesForReview}/${views.checkAndConfirm}`,
+  `/planning-inspectorate/appeals/${views.questionnairesForReview}/${views.checkAndConfirm}`,
   questionnaireCheckAndConfirm
 );
 
