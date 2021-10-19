@@ -10,7 +10,7 @@ export const selectOutcomeValid = () => cy.findAllByText('Valid');
 
 export const errorMessageHeader = () => cy.get('[id=error-summary-title]').should('exist');
 
-export const errorMessage = () => cy.get('#review-outcome-error').should('exist');
+export const errorMessageLabel = () => cy.get('#review-outcome-error').should('exist');
 
 export const appellantName = () => cy.findAllByText('Manish Sharma');
 
