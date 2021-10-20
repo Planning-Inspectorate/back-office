@@ -33,6 +33,9 @@ router.use(`/${views.missingOrWrong}`, handleAppealAlreadyReviewed, missingOrWro
 router.use(`/${views.document}`, documentsServiceProxy);
 router.use(`/${views.appealAlreadyReviewed}`, appealAlreadyReviewed);
 router.use(`/${views.checkAndConfirm}`, checkAndConfirmDetails);
-router.use(`/${views.questionnaireAlreadyReviewed}/already-reviewed`, questionnaireAlreadyReviewed);
+router.use(
+  `/planning-inspectorate/appeals/${views.questionnaireAlreadyReviewed}/already-reviewed`,
+  questionnaireAlreadyReviewed
+);
 
 module.exports = router;
