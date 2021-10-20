@@ -34,6 +34,7 @@ describe('controllers/check-and-confirm', () => {
       const expectedViewData = {
         pageTitle: 'Check and confirm',
         backLink: `/${views.validAppealDetails}`,
+        changeOutcomeLink: `/${views.reviewAppealSubmission}/${appealId}`,
         reviewOutcome: req.session.casework,
         appealData: req.session.appeal,
         checkAndConfirmConfig: getCheckAndConfirmConfig(reviewOutcomeOption.valid),
@@ -57,6 +58,7 @@ describe('controllers/check-and-confirm', () => {
       const expectedViewData = {
         pageTitle: 'Check and confirm',
         backLink: `/${views.invalidAppealDetails}`,
+        changeOutcomeLink: `/${views.reviewAppealSubmission}/${appealId}`,
         reviewOutcome: req.session.casework,
         appealData: req.session.appeal,
         checkAndConfirmConfig: getCheckAndConfirmConfig(reviewOutcomeOption.invalid),
@@ -80,6 +82,7 @@ describe('controllers/check-and-confirm', () => {
       const expectedViewData = {
         pageTitle: 'Check and confirm',
         backLink: `/${views.missingOrWrong}`,
+        changeOutcomeLink: `/${views.reviewAppealSubmission}/${appealId}`,
         reviewOutcome: req.session.casework,
         appealData: req.session.appeal,
         checkAndConfirmConfig: getCheckAndConfirmConfig(reviewOutcomeOption.incomplete),
@@ -110,6 +113,7 @@ describe('controllers/check-and-confirm', () => {
       const expectedViewData = {
         pageTitle: 'Check and confirm',
         backLink: `/${views.missingOrWrong}`,
+        changeOutcomeLink: `/${views.reviewAppealSubmission}/${appealId}`,
         reviewOutcome: req.session.casework,
         appealData: req.session.appeal,
         checkAndConfirmConfig: getCheckAndConfirmConfig(reviewOutcomeOption.incomplete),

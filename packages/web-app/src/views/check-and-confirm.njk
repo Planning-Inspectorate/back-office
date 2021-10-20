@@ -2,7 +2,7 @@
 
 {% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
 {% from "components/address.njk" import address %}
-{% from "components/button.njk" import button %}
+{% from "components/button-group.njk" import buttonGroup %}
 {% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
 {% from "govuk/components/warning-text/macro.njk" import govukWarningText %}
 
@@ -115,6 +115,6 @@
     }) }}
   {% endif %}
 
-  {{ button(checkAndConfirmConfig.continueButtonText) }}
+  {{ buttonGroup(changeOutcomeLink, undefined, checkAndConfirmConfig.continueButtonText) }}
 
 {% endblock %}
