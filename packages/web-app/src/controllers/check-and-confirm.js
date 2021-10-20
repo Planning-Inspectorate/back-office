@@ -1,12 +1,17 @@
-const { checkAndConfirm: currentPage, home: nextPage } = require('../config/views');
+const {
+  checkAndConfirm: currentPage,
+  home: nextPage,
+  reviewAppealSubmission,
+} = require('../config/views');
 const saveAndContinue = require('../lib/save-and-continue');
 const { getText, getCheckAndConfirmConfig } = require('../config/review-appeal-submission');
 
 const checkAndConfirmConfig = (casework) => getCheckAndConfirmConfig(casework.reviewOutcome);
 
-const viewData = (casework) => ({
+const viewData = (appeal, casework) => ({
   pageTitle: 'Check and confirm',
   backLink: `/${checkAndConfirmConfig(casework).view}`,
+  changeOutcomeLink: `/${reviewAppealSubmission}/${appeal.id}`,
   reviewOutcome: casework,
 });
 
@@ -16,7 +21,7 @@ const getCheckAndConfirm = (req, res) => {
   } = req;
 
   const options = {
-    ...viewData(casework),
+    ...viewData(appeal, casework),
     appealData: appeal,
     checkAndConfirmConfig: checkAndConfirmConfig(casework),
     getText,
@@ -33,7 +38,7 @@ const postCheckAndConfirm = (req, res) => {
   req.session.casework.completed = req.body['check-and-confirm-completed'];
 
   const options = {
-    ...viewData(casework),
+    ...viewData(appeal, casework),
     appealData: appeal,
     checkAndConfirmConfig: getCheckAndConfirmConfig(casework.reviewOutcome),
     getText,
