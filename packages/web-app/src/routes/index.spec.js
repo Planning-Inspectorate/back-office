@@ -15,6 +15,7 @@ const checkAndConfirmDetails = require('./check-and-confirm');
 const reviewComplete = require('./review-complete');
 const reviewQuestionnaireComplete = require('./review-questionnaire-complete');
 const questionnaireCheckAndConfirm = require('./questionnaire-check-and-confirm');
+const questionnaireAlreadyReviewed = require('./questionnaire-already-reviewed');
 
 describe('routes/index', () => {
   it('should define the correct routes', () => {
