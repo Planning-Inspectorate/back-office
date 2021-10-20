@@ -45,6 +45,9 @@ router.use(
   `/planning-inspectorate/appeals/${views.questionnairesForReview}/${views.checkAndConfirm}`,
   questionnaireCheckAndConfirm
 );
-router.use(`/${views.questionnaireAlreadyReviewed}/already-reviewed`, questionnaireAlreadyReviewed);
+router.use(
+  `/planning-inspectorate/appeals/${views.questionnaireAlreadyReviewed}/already-reviewed`,
+  questionnaireAlreadyReviewed
+);
 
 module.exports = router;
