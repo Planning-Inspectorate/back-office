@@ -9,6 +9,8 @@ const checkAndConfirmDetails = require('./check-and-confirm');
 const home = require('./home');
 const documentsServiceProxy = require('./document-service-proxy');
 const appealAlreadyReviewed = require('./appeal-already-reviewed');
+const questionnaireAlreadyReviewed = require('./questionnaire-already-reviewed');
+
 const views = require('../config/views');
 const handleAppealAlreadyReviewed = require('../lib/handle-appeal-already-reviewed');
 const getCaseData = require('../lib/get-case-data');
@@ -31,5 +33,6 @@ router.use(`/${views.missingOrWrong}`, handleAppealAlreadyReviewed, missingOrWro
 router.use(`/${views.document}`, documentsServiceProxy);
 router.use(`/${views.appealAlreadyReviewed}`, appealAlreadyReviewed);
 router.use(`/${views.checkAndConfirm}`, checkAndConfirmDetails);
+router.use(`/${views.questionnaireAlreadyReviewed}/already-reviewed`, questionnaireAlreadyReviewed);
 
 module.exports = router;

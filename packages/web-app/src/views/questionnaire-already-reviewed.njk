@@ -1,0 +1,17 @@
+{% extends "layouts/two-thirds-page.njk" %}
+
+{% from "govuk/components/breadcrumbs/macro.njk" import govukBreadcrumbs %}
+
+{% block backButton %}
+   {{ govukBreadcrumbs({ items: [
+      { text: "Questionnaires for review", href: "#" },
+      { text: "APP/B3030/D/21/3272772", href: "#" }
+      ] 
+    }) 
+  }}
+ {% endblock %}
+
+{% block pageContent %}
+  <p class="govuk-body">{{caseOfficerName}} confirmed this questionnaire is complete.</p>
+  <p class="govuk-body"><a href="/appeals-list" class="govuk-link">Return to appeal submissions for review</a></p>
+{% endblock %}
