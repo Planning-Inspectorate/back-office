@@ -1,0 +1,49 @@
+trigger:
+  - master
+
+resources:
+  - repo: self
+
+name: '0.0.0' # set dynamically below in a task
+
+variables:
+  # VERSION INFO ----------------------------------------------------------
+  version.MajorMinor: '1.0' # Manually adjust the version number as needed for semantic versioning. Revision is auto-incremented.
+  version.Revision: $[counter(variables['version.MajorMinor'], 0)]
+  versionNumber: '$(version.MajorMinor).$(version.Revision)'
+  # -----------------------------------------------------------------------
+
+  # Agent VM image name
+  vmImageName: 'ubuntu-latest'
+
+stages:
+  - stage: Increment_Version
+    displayName: Increment Version Number
+    jobs:
+      - job: Set_Version
+        displayName: Set Version Number
+        pool:
+          vmImage: $(vmImageName)
+        steps:
+          - task: PowerShell@2
+            displayName: Set the name of the build (i.e. the Build.BuildNumber)
+            inputs:
+              targetType: 'inline'
+              script: |
+                [string] $buildName = "$(versionNumber)_$(Build.BuildId)"
+                Write-Host "Setting the name of the build to '$buildName'."
+                Write-Host "##vso[build.updatebuildnumber]$buildName"
+
+  - stage: Publish_Test_Artifacts
+    displayName: Publish Test Artifacts
+    jobs:
+      - job: Publish
+        displayName: Publish
+        pool:
+          vmImage: $(vmImageName)
+        steps:
+          - task: PublishPipelineArtifact@1
+            displayName: Publish Back Office e2e Tests
+            inputs:
+              targetPath: $(Build.SourcesDirectory)/e2e-tests
+              artifactName: BackOfficeTests
