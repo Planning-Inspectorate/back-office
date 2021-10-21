@@ -1,31 +1,31 @@
 import {Given, When, Then} from "cypress-cucumber-preprocessor/steps";
 import {headerLogo, appealHouseHolderLink,clickFeedBackLink,footerGovtLicence} from "../../../support/PageObjects/common-po";
 import {
-    caseOfficerLandingPage,
-    caseOfficerPageTitle,
+    validationOfficerLandingPage,
+    validationOfficerPageTitle,
     tableHeaderAppealRef,
     tableHeaderReceivedOn,
     tableHeaderAppealSite,
-    appealReference, appealDate,appealSite
-    } from '../../../support/PageObjects/vo-landing-page-po';
+    appealReference, appealDate, appealSite,
+} from '../../../support/PageObjects/vo-landing-page-po';
 
 
 Given('user is on the Validation Officer Login page', () => {
-  caseOfficerLandingPage();
+    validationOfficerLandingPage();
   });
 
 Given('appeal submissions page is displayed', () => {
-    caseOfficerLandingPage();
+    validationOfficerLandingPage();
    });
 
-When('the login details are entered', () => {
-
-});
+// When('the login details are entered', () => {
+//
+// });
 
 Then('appeal submissions page is displayed and page title and page header footer are verified', () => {
-  caseOfficerLandingPage();
+  validationOfficerLandingPage();
   cy.checkPageA11y();
-  caseOfficerPageTitle();
+  validationOfficerPageTitle();
   headerLogo();
   appealHouseHolderLink();
   clickFeedBackLink();

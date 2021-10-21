@@ -1,5 +1,9 @@
 import {Given, When, Then} from "cypress-cucumber-preprocessor/steps";
-import {appealReference, caseOfficerLandingPage} from "../../../support/PageObjects/vo-landing-page-po";
+import {
+    appealReference,
+    caseOfficerLandingPage,
+    validationOfficerLandingPage
+} from "../../../support/PageObjects/vo-landing-page-po";
 import {
     appealSite,
     appealStatement,
@@ -22,7 +26,7 @@ import {validateErrorMessages} from "../../../support/common/validate-error-mess
 
 
 Given( "validation Officer is on the ‘Appeal submissions for review’ page", () => {
-    caseOfficerLandingPage();
+    validationOfficerLandingPage();
 } );
 When( "the Validation Officer selects an appeal", () => {
     appealReference().click();
@@ -49,7 +53,7 @@ When( "the Validation Officer selects the ‘Back’ link", () => {
     backLink().click();
 } );
 Then( "the ‘Appeal submissions for review’ page will be displayed", () =>{
-    caseOfficerLandingPage();
+    validationOfficerLandingPage();
 } );
 
 When( 'the Validation Officer selects the appeal {string}', () => {
@@ -73,7 +77,7 @@ Then( "the ‘Review appeal submission’ Page will be displayed with the Appell
 } );
 
 Given( "validation Officer has selected outcome as valid on the ‘Review appeal submission’ page", () => {
-    caseOfficerLandingPage();
+    validationOfficerLandingPage();
     appealReference().click();
     reviewAppealSubmissionPage();
     cy.checkPageA11y();

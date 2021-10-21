@@ -1,9 +1,9 @@
-export const caseOfficerLandingPage = () => cy.visit("/appeals-list");
+export const validationOfficerLandingPage = () => cy.visit("/appeals-list");
 
-export const caseOfficerPageTitle = () => cy.title().should('eq', "Appeal submissions for review - Appeal a householder planning decision - GOV.UK");
+export const validationOfficerPageTitle = () => cy.title().should('eq', "Appeal submissions for review - Appeal a householder planning decision - GOV.UK");
 
 // table header
-export const caseOfficerHeader = () => cy.get('h1');
+export const validationOfficerHeader = () => cy.get('h1');
 
 export const tableHeaderAppealRef = () => cy.contains('Appeal reference');
 
