@@ -3,12 +3,12 @@ import {backLink} from "../../../support/PageObjects/common-po";
 import {visitReviewAppealSubmissionPage} from "../../../support/PageObjects/vo-review-appeal-submission-page-po";
 import {validateErrorMessages} from "../../../support/common/validate-error-messages";
 const {descriptionOfDevelopmentPage,enterDescriptionOfDevelopmentTxt,checkAndConfirmPageValid} = require( "../../../support/PageObjects/vo-validappeal-description-of-development-po" );
-const {caseOfficerLandingPage, appealReference} = require( "../../../support/PageObjects/vo-landing-page-po" );
+const {validationOfficerLandingPage, appealReference} = require( "../../../support/PageObjects/vo-landing-page-po" );
 const {reviewAppealSubmissionPage,selectOutcomeValid} = require( "../../../support/PageObjects/vo-review-appeal-submission-page-po" );
 const {continueButton} = require( "../../../support/PageObjects/common-po" );
 
 Given( "the validation Officer has selected outcome as valid on the ‘Review appeal submission’ page", () => {
-    caseOfficerLandingPage();
+    validationOfficerLandingPage();
     appealReference().click();
     reviewAppealSubmissionPage();
     cy.checkPageA11y();
@@ -22,7 +22,7 @@ Then( 'the Valid appeal details Page will be displayed with the appeal reference
 } );
 
 Given( 'the Validation Officer has not provided a Description of development on the Valid appeal details Page', () => {
-    caseOfficerLandingPage();
+    validationOfficerLandingPage();
     appealReference().click();
     reviewAppealSubmissionPage();
     selectOutcomeValid().click();
@@ -38,7 +38,7 @@ Then( 'error message {string} will be displayed', (errorMessage) => {
 } );
 
 Given( "the Validation Officer is on the Valid appeal details page", () => {
-    caseOfficerLandingPage();
+    validationOfficerLandingPage();
     appealReference().click();
     reviewAppealSubmissionPage();
     selectOutcomeValid().click();
@@ -54,13 +54,13 @@ Then( "the Review appeal submission Page will be displayed showing the previousl
 } );
 
 Given( 'the Validation Officer has provided a Description of development on the Valid appeal details Page', () => {
-    caseOfficerLandingPage();
+    validationOfficerLandingPage();
     appealReference().click();
     reviewAppealSubmissionPage();
     selectOutcomeValid().click();
     continueButton().click();
     descriptionOfDevelopmentPage();
-    enterDescriptionOfDevelopmentTxt();
+    enterDescriptionOfDevelopmentTxt().type('This is a test description for Valid Outcome');
 } );
 When( "the Validation Officer selects ‘Continue’", () => {
     continueButton().click();
