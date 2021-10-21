@@ -1,4 +1,3 @@
-/* eslint-disable no-constant-condition */
 const { questionnaireAlreadyReviewed, appealsList } = require('../config/views');
 
 const getQuestionnaireAlreadySubmitted = (req, res) => {
