@@ -13,6 +13,13 @@ module.exports = (req, res, next) => {
     return res.sendStatus(404);
   }
 
-  req.session.outcome = 'INCOMPLETE';
+  if (appealId === 1) {
+    req.session.outcome = 'COMPLETE';
+  }
+
+  if (appealId === 2) {
+    req.session.outcome = 'INCOMPLETE';
+  }
+
   return next();
 };
