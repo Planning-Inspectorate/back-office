@@ -9,7 +9,7 @@ export const reviewAppealSubmissionPage = () => cy.url().should('include','/revi
 export const selectOutcomeValid = () => cy.findAllByText('Valid');
 
 //export const errorMessageHeader = () => cy.get('a[href="#valid-appeal-details"]').should('exist');
-export const errorMessageHeader = () => cy.get('.govuk-error-summary__list').should('exist');
+export const errorMessageHeader = () => cy.get('.govuk-error-summary__list').find('li>a').should('exist');
 
 export const errorMessageLabel = () => cy.get('.govuk-error-message').should('exist');
 

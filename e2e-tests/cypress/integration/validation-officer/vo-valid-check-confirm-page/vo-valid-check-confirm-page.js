@@ -18,7 +18,7 @@ import {
 import {
     btnConfirmAndStartAppeal, verifyDescriptionOfDevelopmentText, outcomeOfReview,
     pageHeader, pageTitleCheckConfirm,
-    warningTextCheckConfirmValid
+    warningTextCheckConfirmValid, pageTitleValidCheckConfirm
 } from "../../../support/PageObjects/vo-valid-check-confirm-page-po";
 
 Given( 'the Validation Officer has provided a Description of development on the Valid appeal details Page', () => {
@@ -34,7 +34,8 @@ When( "the Validation Officer selects ‘Continue’", () => {
     continueButton().click();
 } );
 Then( "the Check and confirm Page will be displayed showing the outcome as 'Valid'", () => {
-    pageTitleCheckConfirm();
+    pageTitleValidCheckConfirm();
+    cy.checkPageA11y();
     checkAndConfirmPageValid();
     pageHeader();
     outcomeOfReview();

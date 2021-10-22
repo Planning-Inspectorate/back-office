@@ -4,7 +4,7 @@ export const warningTextCheckConfirmValid = () => cy.get('.govuk-warning-text__t
 
 export const btnConfirmAndStartAppeal = () => cy.get('.govuk-button').should('contain',' Confirm and start appeal');
 
-export const pageTitleCheckConfirm = () => cy.title().should('include','Check and confirm - Appeal a householder planning decision - GOV.UK');
+export const pageTitleValidCheckConfirm = () => cy.title().should('include','Check and confirm - Appeal a householder planning decision - GOV.UK');
 
 export const outcomeOfReview = () => cy.findAllByText('Valid').should('exist');
 
