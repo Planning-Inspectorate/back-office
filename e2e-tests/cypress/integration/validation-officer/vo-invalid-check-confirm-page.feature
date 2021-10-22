@@ -10,3 +10,8 @@ Feature: As a Validation Officer validating an appeal
     Given the Validation Officer is on the ‘Check and confirm’ page and the outcome is ‘Invalid’
     When the Validation Officer selects ‘Back’ link
     Then the ‘Invalid appeal details’ page will be displayed along with the previously input data
+
+  Scenario: Change outcome navigation
+    Given the Validation Officer is on the ’Invalid appeal details’ page
+    When the Validation Officer clicks on ‘Change outcome’ link
+    Then the ‘Review appeal submission’ Page will be displayed

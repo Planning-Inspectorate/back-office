@@ -5,7 +5,7 @@ import {
 } from "../../../support/PageObjects/vo-landing-page-po";
 import {
     appealSite,
-    appellantName, receivedOn,
+    appellantName,
     reviewAppealSubmissionPage,
     selectOutcomeValid
 } from "../../../support/PageObjects/vo-review-appeal-submission-page-po";
@@ -17,16 +17,24 @@ import {
 } from "../../../support/PageObjects/vo-validappeal-description-of-development-po";
 import {
     btnConfirmAndStartAppeal, verifyDescriptionOfDevelopmentText, outcomeOfReview,
-    pageHeader, pageTitleCheckConfirm,
+    pageHeader,
     warningTextCheckConfirmValid, pageTitleValidCheckConfirm
 } from "../../../support/PageObjects/vo-valid-check-confirm-page-po";
 
-Given( 'the Validation Officer has provided a Description of development on the Valid appeal details Page', () => {
+function goToReviewAppealSubmissionPage () {
     validationOfficerLandingPage();
     appealReference().click();
     reviewAppealSubmissionPage();
+}
+
+const goToOutcomeValidPage = () => {
+    goToReviewAppealSubmissionPage();
     selectOutcomeValid().click();
     continueButton().click();
+};
+
+Given( 'the Validation Officer has provided a Description of development on the Valid appeal details Page', () => {
+    goToOutcomeValidPage();
     descriptionOfDevelopmentPage();
     enterDescriptionOfDevelopmentTxt().type('This is a test description for Valid Outcome');
 } );
@@ -49,11 +57,7 @@ Then( "the Check and confirm Page will be displayed showing the outcome as 'Vali
 } );
 
 Given( 'the Validation Officer is on the Check and confirm page', () => {
-    validationOfficerLandingPage();
-    appealReference().click();
-    reviewAppealSubmissionPage();
-    selectOutcomeValid().click();
-    continueButton().click();
+    goToOutcomeValidPage();
     descriptionOfDevelopmentPage();
     enterDescriptionOfDevelopmentTxt().type('This is a test description for Valid Outcome');
     continueButton().click();
@@ -64,4 +68,15 @@ When( "the Validation Officer selects the ‘Back’ link", () => {
 } );
 Then( 'the Valid appeal details Page will be displayed with the description of development details', () => {
     descriptionOfDevelopmentPage();
+} );
+
+Given( 'the Validation Officer is on the ’Valid appeal details’ page', () => {
+    goToOutcomeValidPage();
+} );
+When( "the Validation Officer clicks on ‘Change outcome’ link", () => {
+    linkChangeOutcome().click();
+} );
+Then( "the ‘Review appeal submission’ Page will be displayed", () => {
+    reviewAppealSubmissionPage();
+    cy.checkPageA11y();
 } );
