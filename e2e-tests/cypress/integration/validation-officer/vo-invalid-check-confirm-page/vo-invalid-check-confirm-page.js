@@ -19,18 +19,25 @@ import {
 import {
     appealSite,
     appellantName,
-    reviewAppealSubmissionPage,
+    reviewAppealSubmissionPage, selectOutcomeValid
 } from "../../../support/PageObjects/vo-review-appeal-submission-page-po";
 import {appealReference, validationOfficerLandingPage} from "../../../support/PageObjects/vo-landing-page-po";
 
 
-
-Given("the Validation Officer has provided the invalid reasons on the ‘Invalid appeal details’ page", () => {
+function goToReviewAppealSubmissionPage () {
     validationOfficerLandingPage();
     appealReference().click();
     reviewAppealSubmissionPage();
+}
+
+const goToOutcomeInvalidPage = () => {
+    goToReviewAppealSubmissionPage();
     selectOutcomeInvalid().click();
     continueButton().click();
+};
+
+Given("the Validation Officer has provided the invalid reasons on the ‘Invalid appeal details’ page", () => {
+    goToOutcomeInvalidPage();
     invalidAppealDetailsPage();
     // *** This identified critical issue AS-3610 bug has been raised ***
     //cy.checkPageA11y();
@@ -63,11 +70,7 @@ Then("the ‘Check and confirm’ Page will be displayed showing the the outcome
 });
 
 Given( "the Validation Officer is on the ‘Check and confirm’ page and the outcome is ‘Invalid’", () => {
-    validationOfficerLandingPage();
-    appealReference().click();
-    reviewAppealSubmissionPage();
-    selectOutcomeInvalid().click();
-    continueButton().click();
+    goToOutcomeInvalidPage()
     invalidAppealDetailsPage();
     // *** This identified critical issue AS-3610 bug has been raised ***
     //cy.checkPageA11y();
@@ -85,4 +88,15 @@ When( "the Validation Officer selects ‘Back’ link", () => {
 } );
 Then( "the ‘Invalid appeal details’ page will be displayed along with the previously input data", () => {
     invalidAppealDetailsPage();
+} );
+
+Given( 'the Validation Officer is on the ’Invalid appeal details’ page', () => {
+    goToOutcomeInvalidPage();
+} );
+When( "the Validation Officer clicks on ‘Change outcome’ link", () => {
+    linkChangeOutcome().click();
+} );
+Then( "the ‘Review appeal submission’ Page will be displayed", () => {
+    reviewAppealSubmissionPage();
+    cy.checkPageA11y();
 } );

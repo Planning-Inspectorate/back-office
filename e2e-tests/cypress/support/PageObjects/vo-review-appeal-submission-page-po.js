@@ -8,6 +8,10 @@ export const reviewAppealSubmissionPage = () => cy.url().should('include','/revi
 
 export const selectOutcomeValid = () => cy.findAllByText('Valid');
 
+export const selectOutcomeInvalid = () => cy.findAllByText('Invalid');
+
+export const selectOutcomeMissingOrWrong = () => cy.findAllByText('Something is missing or wrong');
+
 //export const errorMessageHeader = () => cy.get('a[href="#valid-appeal-details"]').should('exist');
 export const errorMessageHeader = () => cy.get('.govuk-error-summary__list').find('li>a').should('exist');
 
