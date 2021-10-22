@@ -11,6 +11,7 @@ I want to check the answers I’ve provided So that in case I’ve made any mist
     When the Validation Officer selects the ‘Back’ link
     Then the Valid appeal details Page will be displayed with the description of development details
 
-
-
-
+  Scenario: Change outcome navigation
+    Given the Validation Officer is on the ’Valid appeal details’ page
+    When the Validation Officer clicks on ‘Change outcome’ link
+    Then the ‘Review appeal submission’ Page will be displayed
