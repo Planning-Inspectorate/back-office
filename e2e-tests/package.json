@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "scripts": {
+    "test:e2e": "cypress run -e TAGS='not @wip'"
+  },
   "author": "",
   "license": "ISC",
   "dependencies": {

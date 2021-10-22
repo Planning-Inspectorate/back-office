@@ -2,7 +2,7 @@ import {errorMessageHeader, errorMessageLabel} from "../PageObjects/vo-review-ap
 
 export const validateErrorMessages = (errorMessage) => {
     cy.title().should('match', /^Error: /);
-    cy.checkPageA11y();
+    //cy.checkPageA11y();
     errorMessageHeader().invoke('text')
         .then((text) => {
             expect(text).to.contain(errorMessage);
