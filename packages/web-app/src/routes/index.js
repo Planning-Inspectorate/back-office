@@ -48,7 +48,7 @@ router.use(
   questionnaireCheckAndConfirm
 );
 router.use(
-  `/planning-inspectorate/appeals/${views.questionnaireForReview}/already-reviewed`,
+  `/planning-inspectorate/appeals/questionnaires-for-review/already-reviewed`,
   questionnaireAlreadyReviewed
 );
 

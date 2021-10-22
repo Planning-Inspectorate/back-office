@@ -53,12 +53,8 @@ describe('routes/index', () => {
     expect(mockUse).toBeCalledWith(`/${views.checkAndConfirm}`, checkAndConfirmDetails);
     expect(mockUse).toBeCalledWith(`/${views.reviewComplete}`, reviewComplete);
     expect(mockUse).toBeCalledWith(
-      `/${views.reviewQuestionnaireComplete}`,
-      reviewQuestionnaireComplete
-    );
-    expect(mockUse).toBeCalledWith(
-      `/planning-inspectorate/appeals/${views.questionnairesForReview}/${views.checkAndConfirm}`,
-      questionnaireCheckAndConfirm
+      `/planning-inspectorate/appeals/questionnaires-for-review/already-reviewed`,
+      questionnaireAlreadyReviewed
     );
   });
 });
