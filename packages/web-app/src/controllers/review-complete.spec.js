@@ -31,6 +31,7 @@ describe('controllers/review-complete', () => {
 
       const expectedViewData = {
         pageTitle: 'Review complete',
+        hidePageTitle: 'true',
         reviewComplete: req.session.casework,
         appealData: req.session.appeal,
         getText,
@@ -52,6 +53,7 @@ describe('controllers/review-complete', () => {
 
       const expectedViewData = {
         pageTitle: 'Review complete',
+        hidePageTitle: 'true',
         reviewComplete: req.session.casework,
         appealData: req.session.appeal,
         checkAndConfirmConfig: getReviewOutcomeConfig(reviewOutcomeOption.invalid),
@@ -74,6 +76,7 @@ describe('controllers/review-complete', () => {
 
       const expectedViewData = {
         pageTitle: 'Review complete',
+        hidePageTitle: 'true',
         reviewComplete: req.session.casework,
         appealData: req.session.appeal,
         checkAndConfirmConfig: getReviewOutcomeConfig(reviewOutcomeOption.incomplete),
