@@ -13,7 +13,9 @@
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "format": "prettier --write './**/*.js'",
-    "documentation": "jest --bail --coverage --coverageReporters=cobertura --reporters=default --reporters=jest-junit"
+    "documentation": "jest --bail --coverage --coverageReporters=cobertura --reporters=default --reporters=jest-junit",
+    "db:migrate": "sequelize-cli db:migrate",
+    "db:seed": "sequelize-cli db:seed:all"
   },
   "lint-staged": {
     "./**/*.js": "npm run lint:fix",
@@ -29,8 +31,11 @@
     "jest-junit": "^13.0.0",
     "js-yaml": "^3.14.1",
     "pino": "^6.13.0",
+    "sequelize": "^6.7.0",
+    "sequelize-cli": "^6.2.0",
     "supertest": "^6.1.4",
     "swagger-ui-express": "^4.1.6",
+    "tedious": "^13.1.0",
     "uuid": "^8.3.2"
   },
   "devDependencies": {
@@ -38,6 +43,7 @@
     "eslint": "^7.32.0",
     "eslint-config-airbnb-base": "^14.2.1",
     "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-import": "^2.25.2",
     "eslint-plugin-jest": "^24.4.0",
     "eslint-plugin-prettier": "^3.4.0",
     "nodemon": "^2.0.12",
