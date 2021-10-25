@@ -114,28 +114,29 @@ const getConfirmationSections = (outcome) => {
   }
 };
 
-const getBreadcrumbs = () => [
+const getBreadcrumbs = (appealId) => [
   {
     text: 'Questionnaires for review',
-    href: '#',
+    href: '/planning-inspectorate/appeals/questionnaires-for-review',
   },
   {
     text: 'APP/Q9999/D/21/1224115',
-    href: '#',
+    href: `/planning-inspectorate/appeals/questionnaires-for-review/review/${appealId}`,
   },
   {
     text: 'Check and confirm',
-    href: '#',
+    href: `/planning-inspectorate/appeals/questionnaires-for-review/check-and-confirm/${appealId}`,
   },
 ];
 
 const getCheckAndConfirm = (req, res) => {
   const { outcome } = req.session;
+  const { appealId } = req.params;
 
   res.render('questionnaire-check-and-confirm', {
     pageTitle: 'Review questionnaire',
     sections: getConfirmationSections(outcome),
-    breadcrumbs: getBreadcrumbs(),
+    breadcrumbs: getBreadcrumbs(appealId),
     reviewOutcome: outcome,
   });
 };
