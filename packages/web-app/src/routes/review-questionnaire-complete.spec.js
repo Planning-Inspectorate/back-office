@@ -6,6 +6,6 @@ describe('routes/review-questionnaire-complete', () => {
     // eslint-disable-next-line global-require
     require('./review-questionnaire-complete');
 
-    expect(mockGet).toBeCalledWith('/:appealId', getReviewQuestionnaireComplete);
+    expect(mockGet).toBeCalledWith('/', getReviewQuestionnaireComplete);
   });
 });
