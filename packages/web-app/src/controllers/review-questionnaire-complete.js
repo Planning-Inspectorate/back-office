@@ -1,13 +1,8 @@
-const {
-  reviewQuestionnaireComplete: currentPage,
-  home: dashboard,
-  questionnairesList,
-} = require('../config/views');
+const { reviewQuestionnaireComplete: currentPage, questionnairesList } = require('../config/views');
 
 const viewData = () => ({
   pageTitle: 'Review complete',
   hidePageTitle: 'true',
-  dashboardLink: dashboard,
   questionnairesListLink: questionnairesList,
 });
 

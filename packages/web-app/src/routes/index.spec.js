@@ -51,7 +51,7 @@ describe('routes/index', () => {
     expect(mockUse).toBeCalledWith(`/${views.checkAndConfirm}`, checkAndConfirmDetails);
     expect(mockUse).toBeCalledWith(`/${views.reviewComplete}`, reviewComplete);
     expect(mockUse).toBeCalledWith(
-      `/questionnaires-for-review/review-complete/${views.reviewQuestionnaireComplete}`,
+      `/${views.reviewQuestionnaireComplete}`,
       reviewQuestionnaireComplete
     );
   });
