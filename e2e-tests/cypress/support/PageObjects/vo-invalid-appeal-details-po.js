@@ -5,7 +5,8 @@ export const pageTitleCheckConfirm = () => cy.title().should('include','Invalid 
 
 export const invalidPageHeader = () => cy.get('.govuk-heading-xl').should('contain','Invalid appeal details');
 
-export const invalidAppealReference = () => cy.get('.govuk-body').should('contain',' APP/Q9999/D/21/1234567');
+//export const invalidAppealReference = () => cy.get('p.govuk-body').should('contain',' APP/Q9999/D/21/1234567');
+export const appealReferenceValidation = () => cy.get('p.govuk-body');
 
 export const reasonsAppealInvalid = () => cy.findAllByText('Reasons the appeal is invalid').should('be.visible');
 

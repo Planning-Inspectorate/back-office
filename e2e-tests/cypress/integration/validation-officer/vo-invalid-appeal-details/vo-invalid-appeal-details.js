@@ -3,16 +3,21 @@ import {appealReference, validationOfficerLandingPage} from "../../../support/Pa
 import {reviewAppealSubmissionPage, visitReviewAppealSubmissionPage} from "../../../support/PageObjects/vo-review-appeal-submission-page-po";
 import {
     invalidAppealDetailsPage,
-    invalidAppealReference,
     invalidPageHeader,
     otherListReasons,
     reasonsAppealInvalid,
-    reasonsOther, reasonsOutOfTime,
-    selectOutcomeInvalid, reasonsNoRightOfAppeal, reasonsNotAppealable, reasonsLPADeemedApplications,
+    reasonsOther,
+    reasonsOutOfTime,
+    selectOutcomeInvalid,
+    reasonsNoRightOfAppeal,
+    reasonsNotAppealable,
+    reasonsLPADeemedApplications
 } from "../../../support/PageObjects/vo-invalid-appeal-details-po";
 import {backLink, continueButton} from "../../../support/PageObjects/common-po";
 import {validateErrorMessages} from "../../../support/common/validate-error-messages";
 import { verifyInvalidCheckAndConfirmPage} from "../../../support/PageObjects/vo-invalid-check-confirm-po";
+import {voVerifyAppealId} from "../../../support/validation-officer/vo-verify-appeal-id";
+
 
 Given( "the validation Officer has selected outcome as 'Invalid' on the Review appeal submission page", () => {
     validationOfficerLandingPage();
@@ -24,11 +29,12 @@ Given( "the validation Officer has selected outcome as 'Invalid' on the Review a
 When( "a Validation Officer selects ‘Continue’", () => {
     continueButton().click();
 } );
-Then( "the ‘Invalid appeal details’ Page will be displayed showing the appeal reference", () => {
+Then( "the ‘Invalid appeal details’ Page will be displayed showing the appeal reference {string}", (appealId) => {
     invalidAppealDetailsPage();
     // *** This identified critical issue AS-3610 bug has been raised ***
     //cy.checkPageA11y();
-    invalidAppealReference().should('exist');
+  //  invalidAppealReference().should('exist');
+    voVerifyAppealId(appealId);
     invalidPageHeader().should('exist');
     reasonsAppealInvalid().should('exist');
     reasonsOutOfTime().should('exist');

@@ -12,7 +12,6 @@ export const selectOutcomeInvalid = () => cy.findAllByText('Invalid');
 
 export const selectOutcomeMissingOrWrong = () => cy.findAllByText('Something is missing or wrong');
 
-//export const errorMessageHeader = () => cy.get('a[href="#valid-appeal-details"]').should('exist');
 export const errorMessageHeader = () => cy.get('.govuk-error-summary__list').find('li>a').should('exist');
 
 export const errorMessageLabel = () => cy.get('.govuk-error-message').should('exist');
