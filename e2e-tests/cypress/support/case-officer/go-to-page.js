@@ -1,4 +1,4 @@
 export const goToCaseOfficerPage = () =>{
-    cy.visit('/questionnaire-list');
-    cy.checkA11y();
+    cy.visit('/questionnaires-list');
+    cy.checkPageA11y();
 }
