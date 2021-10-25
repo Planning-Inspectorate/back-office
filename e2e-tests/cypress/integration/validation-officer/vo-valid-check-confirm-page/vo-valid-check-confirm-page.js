@@ -20,6 +20,26 @@ import {
     pageHeader,
     warningTextCheckConfirmValid, pageTitleValidCheckConfirm
 } from "../../../support/PageObjects/vo-valid-check-confirm-page-po";
+import {
+    invalidAppealDetailsPage,
+    otherListReasons,
+    reasonsLPADeemedApplicationsCheck,
+    reasonsNoRightOfAppealCheck,
+    reasonsNotAppealableCheck,
+    reasonsOther,
+    reasonsOutOfTimeCheck, selectOutcomeInvalid
+} from "../../../support/PageObjects/vo-invalid-appeal-details-po";
+import {
+    btnConfirmAndTurnAwayAppeal,
+    invalidOutcomeOfReview,
+    invalidPageHeaderCheckConfirm, invalidReasonsText,
+    invalidReasonsTextNoRightOfAppeal,
+    invalidReasonsTextNotAppealable,
+    invalidReasonsTextNotAppealableLPADeemedApplication,
+    invalidReasonsTextOutOfTime,
+    verifyInvalidCheckAndConfirmPage,
+    visitInvalidCheckConfirmPage, warningTextCheckConfirmInValid
+} from "../../../support/PageObjects/vo-invalid-check-confirm-po";
 
 function goToReviewAppealSubmissionPage () {
     validationOfficerLandingPage();
@@ -30,6 +50,12 @@ function goToReviewAppealSubmissionPage () {
 const goToOutcomeValidPage = () => {
     goToReviewAppealSubmissionPage();
     selectOutcomeValid().click();
+    continueButton().click();
+};
+
+const goToOutcomeInvalidPage = () => {
+    goToReviewAppealSubmissionPage();
+    selectOutcomeInvalid().click();
     continueButton().click();
 };
 
@@ -69,8 +95,13 @@ When( "the Validation Officer selects the ‘Back’ link", () => {
 Then( 'the Valid appeal details Page will be displayed with the description of development details', () => {
     descriptionOfDevelopmentPage();
 } );
+Then( '‘Description of development’ field should have the related description', () => {
+    goToOutcomeValidPage();
+    descriptionOfDevelopmentPage();
+    enterDescriptionOfDevelopmentTxt().should('have.value', 'This is a test description for Valid Outcome')
+} );
 
-Given( 'the Validation Officer is on the ’Valid appeal details’ page', () => {
+Given( 'the Validation Officer goes to the ’Valid appeal details’ page', () => {
     goToOutcomeValidPage();
 } );
 When( "the Validation Officer clicks on ‘Change outcome’ link", () => {
@@ -79,4 +110,41 @@ When( "the Validation Officer clicks on ‘Change outcome’ link", () => {
 Then( "the ‘Review appeal submission’ Page will be displayed", () => {
     reviewAppealSubmissionPage();
     cy.checkPageA11y();
+} );
+
+
+Given("the Validation Officer has provided the invalid reasons on the ‘Invalid appeal details’ page", () => {
+    goToOutcomeInvalidPage();
+    invalidAppealDetailsPage();
+    // *** This identified critical issue AS-3610 bug has been raised ***
+    //cy.checkPageA11y();
+    reasonsOutOfTimeCheck().check();
+    reasonsNoRightOfAppealCheck().check();
+    reasonsNotAppealableCheck().check();
+    reasonsLPADeemedApplicationsCheck().check();
+    reasonsOther().check();
+    otherListReasons().type('This is a Test data for other List Reasons why the Appeal is Invalid');
+});
+Then("the ‘Check and confirm’ Page will be displayed showing the the outcome as Invalid", () => {
+    visitInvalidCheckConfirmPage();
+    verifyInvalidCheckAndConfirmPage();
+    invalidPageHeaderCheckConfirm();
+    invalidOutcomeOfReview();
+    appellantName();
+    appealReference();
+    appealSite();
+    invalidReasonsTextOutOfTime();
+    invalidReasonsTextNoRightOfAppeal();
+    invalidReasonsTextNotAppealable();
+    invalidReasonsTextNotAppealableLPADeemedApplication();
+    invalidReasonsText();
+    warningTextCheckConfirmInValid();
+    btnConfirmAndTurnAwayAppeal();
+    linkChangeOutcome();
+});
+
+Then( 'The Valid appeal details Page should have an empty ’description of development’ field', () => {
+    goToOutcomeValidPage();
+    descriptionOfDevelopmentPage();
+    enterDescriptionOfDevelopmentTxt().should('be.empty')
 } );
