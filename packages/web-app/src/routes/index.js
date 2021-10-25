@@ -34,9 +34,6 @@ router.use(`/${views.document}`, documentsServiceProxy);
 router.use(`/${views.appealAlreadyReviewed}`, appealAlreadyReviewed);
 router.use(`/${views.checkAndConfirm}`, checkAndConfirmDetails);
 router.use(`/${views.reviewComplete}`, reviewComplete);
-router.use(
-  `/questionnaires-for-review/review-complete/${views.reviewQuestionnaireComplete}`,
-  reviewQuestionnaireComplete
-);
+router.use(`/${views.reviewQuestionnaireComplete}`, reviewQuestionnaireComplete);
 
 module.exports = router;
