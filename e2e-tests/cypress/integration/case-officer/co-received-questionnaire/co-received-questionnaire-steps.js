@@ -15,41 +15,41 @@ const url = '/planning-inspectorate/appeals/questionnaires-for-review/review/';
 const pageHeading = 'Review questionnaire';
 const title = 'Review questionnaire - Appeal a householder planning decision - GOV.UK';
 
-Given('a Case Officer is on the Questionnaires for review page',()=>{
+Given('a Case officer is on the Questionnaires for review page',()=>{
     goToCaseOfficerPage();
     verifyPageHeading('Questionnaires for review');
 });
 Given('appeal status is {string}',(status)=>{
     cy.contains('td',status);
 });
-Given('case officer has navigated to {string} page',(page)=>{
+Given('Case officer has navigated to {string} page',(page)=>{
     verifyPageTitle(title);
     verifyPageHeading(pageHeading);
 });
-Given('case officer has selected the checkbox for missing information for {string}',(document_section)=>{
+Given('Case officer has selected the checkbox for missing information for {string}',(document_section)=>{
     reviewSectionMissingInformationCheckbox(document_section);
 });
-Given('a Case Officer is on the Review questionnaire page',()=>{
+Given('a Case officer is on the Review questionnaire page',()=>{
     goToCaseOfficerPage();
     getAppealsLink().click();
     verifyPageTitle(title);
     verifyPageHeading(pageHeading);
     cy.url().should('contain',url);
 });
-When('case officer selects the appeal to view',()=>{
+When('Case officer selects the appeal to view',()=>{
     getAppealsLink().click();
 });
-When('the Case Officer selects a {string} link in the {string}',(documentName, reviewSection)=>{
+When('the Case officer selects a {string} link in the {string}',(documentName, reviewSection)=>{
     reviewSectionDocumentList(documentName,reviewSection);
 });
-When(`the case officer selects the missing or incorrect checkbox for a {string}`,(document_section)=>{
+When(`the Case officer selects the missing or incorrect checkbox for a {string}`,(document_section)=>{
     reviewSectionMissingInformationCheckbox(document_section);
 });
-When('case officer does not provide the relevant missing information for {string}',(document_section)=>{
+When('Case officer does not provide the relevant missing information for {string}',(document_section)=>{
     reviewSectionMissingInformation('',document_section);
     getContinueButton().click();
 });
-When('case officer selects back',()=>{
+When('Case officer selects back',()=>{
     getBackButton().should('be.visible');
 });
 Then('the Review Questionnaire page will be displayed',()=>{
@@ -60,12 +60,12 @@ Then('the Review Questionnaire page will be displayed',()=>{
 Then('the document {string} will be downloaded for the {string}',(documentName, reviewSection)=>{
     reviewSectionDocumentList(documentName,reviewSection);
 });
-Then(`the case officer is able to enter {string} information for {string}`,(missing_information, document_section)=>{
+Then(`the Case officer is able to enter {string} information for {string}`,(missing_information, document_section)=>{
     reviewSectionMissingInformation(missing_information,document_section);
 });
 Then('an error {string} is displayed for {string}',(error_message, document_section)=>{
     reviewSectionMissingInformationError(error_message,document_section);
 });
-Then('the case officer is able to submit the review',()=>{
+Then('the Case officer is able to submit the review',()=>{
     getContinueButton().click();
 });
