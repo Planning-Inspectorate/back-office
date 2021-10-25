@@ -3,8 +3,6 @@
 
 {% block backButton %} {% endblock %}
 
-{% set dashboardLink = dashboardLink %}
-{% set questionnairesListLink = questionnairesListLink %}
 {% if questionnaireData.missingOrIncorrectDocuments > 0 %}
     {% set status = "incomplete" %}
 {% else %}
@@ -20,7 +18,6 @@
     </div>
 
     <p class="govuk-body">The appeal is now available to inspectors.</p>
-    <h2 class="govuk-heading-m govuk-!-margin-top-9">What next?</h2>
-    <p class="govuk-body"><a class="govuk-link" data-cy="dashboard" href="/{{ dashboardLink }}"> Return to dashboard</a></p>
+    <h2 class="govuk-heading-m">What next?</h2>
     <p class="govuk-body"><a class="govuk-link" data-cy="review-questionnaires" href="/{{ questionnairesListLink }}">Return to questionnaires for review</a></p>
 {% endblock %}
