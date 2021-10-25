@@ -11,6 +11,7 @@ export const footerGovtLicence = () => cy.get(".govuk-footer__licence-descriptio
 export const backLink = () => cy.get(".govuk-back-link");
 
 export const continueButton = () => cy.get(".govuk-button");
+export const pageHeading = () =>cy.get('h1');
 
 export const linkChangeOutcome = () => cy.get('.govuk-link').contains('Change outcome');
 
