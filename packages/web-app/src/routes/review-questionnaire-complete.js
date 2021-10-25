@@ -3,6 +3,6 @@ const { getReviewQuestionnaireComplete } = require('../controllers/review-questi
 
 const router = express.Router();
 
-router.get('/:appealId', getReviewQuestionnaireComplete);
+router.get('/', getReviewQuestionnaireComplete);
 
 module.exports = router;
