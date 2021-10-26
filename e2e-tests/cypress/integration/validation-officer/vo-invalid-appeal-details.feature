@@ -5,7 +5,7 @@ Feature: As a Validation Officer validating an appeal
   Scenario: Navigate to the 'Invalid appeal details Page' from the 'Review appeal submission' page
     Given the validation Officer has selected outcome as 'Invalid' on the Review appeal submission page
     When a Validation Officer selects ‘Continue’
-    Then the ‘Invalid appeal details’ Page will be displayed showing the appeal reference
+    Then the ‘Invalid appeal details’ Page will be displayed showing the appeal reference 'APP/Q9999/D/21/1234567'
 
   Scenario: Error when a ‘Reason’ has not been selected
     Given the Validation Officer has not selected a reason on the ‘Invalid appeal details’ Page
@@ -28,8 +28,6 @@ Feature: As a Validation Officer validating an appeal
     And provide the Other List reasons
     And the Validation Officer selects ‘Continue’
     Then the Invalid outcome Check and confirm page is displayed
-
-
 
   Scenario: ‘Back’ link navigation
     Given the Validation Officer is on the ‘Invalid appeal details' Page
