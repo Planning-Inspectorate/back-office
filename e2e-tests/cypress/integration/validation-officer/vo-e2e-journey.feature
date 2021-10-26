@@ -18,3 +18,5 @@ Feature: As a Validation Officer
       | invalid                       | invalid appeal details   | out of time                | confirm and turn away appeal |
       | something is missing or wrong | what is missing or wrong | names do not match         | confirm and finish review    |
 
+    # verify the data has been captured all the way through the journey and where ever needed
+
