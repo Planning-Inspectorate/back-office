@@ -6,4 +6,4 @@ export const verifyPageHeading = (pageHeading) => {
         .then( (text) => {
             expect( text ).to.contain( pageHeading );
         } );
-}
+};
