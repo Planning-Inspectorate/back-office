@@ -16,6 +16,8 @@ export const linkChangeOutcome = () => cy.get('.govuk-link').contains('Change ou
 
 export const pageHeading = () => cy.get('h1');
 
+export const pageHeading = () => cy.get('h1');
+
 
 
 
