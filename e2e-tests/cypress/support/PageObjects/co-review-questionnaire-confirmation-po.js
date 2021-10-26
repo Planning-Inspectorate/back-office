@@ -1,6 +1,8 @@
 export const questionnaireForReviewLink = () => cy.get("[data-cy=review-questionnaires]");
 
-export const reviewQuestionnaireConfirmationPage = () => cy.url().should('include','/review-questionnaire-complete');
+export const verifyPageHeading = (pageHeading) => cy.get(".govuk-panel__title")
+    .should("exist")
+    .should('contain', pageHeading);
 
 export const reviewQuestionnaireListPage = () => cy.url().should('include','/questionnaires-list');
 

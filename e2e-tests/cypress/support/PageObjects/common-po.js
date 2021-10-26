@@ -14,6 +14,8 @@ export const continueButton = () => cy.get(".govuk-button");
 
 export const linkChangeOutcome = () => cy.get('.govuk-link').should('contain','Change outcome');
 
+export const pageHeading = () => cy.get('h1');
+
 
 
 
