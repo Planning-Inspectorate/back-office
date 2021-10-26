@@ -32,6 +32,13 @@ services:
       - ./packages/common:/opt/app/node_modules/@pins/common
       - ./packages/api:/opt/app
     command: npm run start:dev
+    environment:
+      MSSQL_DATABASE: database
+      MSSQL_USERNAME: username
+      MSSQL_PASSWORD: password
+      MSSQL_HOST: host
+      MSSQL_DIALECT: mssql
+      LOGGER_LEVEL: debug
     networks:
       - appeal-planning-decision_default
 

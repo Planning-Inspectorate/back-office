@@ -14,6 +14,7 @@ ENV VERSION="${VERSION}"
 COPY --from=pinscommonukscontainers3887default.azurecr.io/common:latest /opt/app ../common
 
 ADD src src
+ADD database database
 ADD test test
 ADD jest.config.js jest.config.js
 ADD package.json package.json
