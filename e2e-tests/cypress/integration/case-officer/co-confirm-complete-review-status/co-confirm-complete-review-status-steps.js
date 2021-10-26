@@ -12,6 +12,7 @@ import {verifySectionName} from "../../../support/case-officer/verify-Section-Na
 const completeStatusUrl = '/planning-inspectorate/appeals/questionnaires-for-review/check-and-confirm/1';
 Given('a Case Officer selects continue on the review questionnaire page',()=>{
     cy.visit(completeStatusUrl);
+    cy.checkPageA11y();
 });
 When('the questionnaire review is {string}',(questionnaireReviewStatus)=>{
     verifySectionName('Check and confirm');
