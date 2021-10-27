@@ -20,7 +20,37 @@ describe('middleware/check-appeal-outcome', () => {
         ...mockReq,
         session: {},
         params: {
-          appealId: 12345,
+          appealId: '1',
+        },
+      },
+      expected: (req, res, next) => {
+        expect(next).toBeCalledTimes(1);
+      },
+    },
+    {
+      title: 'Return next if the review outcome is complete',
+      req: {
+        ...mockReq,
+        session: {
+          outcome: 'COMPLETE',
+        },
+        params: {
+          appealId: '1',
+        },
+      },
+      expected: (req, res, next) => {
+        expect(next).toBeCalledTimes(1);
+      },
+    },
+    {
+      title: 'Return next if the review outcome is complete',
+      req: {
+        ...mockReq,
+        session: {
+          outcome: 'INCOMPLETE',
+        },
+        params: {
+          appealId: '2',
         },
       },
       expected: (req, res, next) => {

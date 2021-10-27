@@ -3,7 +3,7 @@ const getCheckAndConfirmController = require('./questionnaire-check-and-confirm'
 describe('controllers/questionnaire-check-and-confirm', () => {
   describe('getCheckAndConfirm', () => {
     it('should render view with complete status', async () => {
-      const appealId = '123';
+      const appealId = '1';
 
       const siteAddress = {
         address1: 'Jaleno',
@@ -49,13 +49,22 @@ describe('controllers/questionnaire-check-and-confirm', () => {
       ];
 
       const breadcrumbs = [
-        { text: 'Questionnaires for review', href: '#' },
-        { text: 'APP/Q9999/D/21/1224115', href: '#' },
-        { text: 'Check and confirm', href: '#' },
+        {
+          text: 'Questionnaires for review',
+          href: '/planning-inspectorate/appeals/questionnaires-for-review',
+        },
+        {
+          text: 'APP/Q9999/D/21/1224115',
+          href: `/planning-inspectorate/appeals/questionnaires-for-review/review/${appealId}`,
+        },
+        {
+          text: 'Check and confirm',
+          href: `/planning-inspectorate/appeals/questionnaires-for-review/check-and-confirm/${appealId}`,
+        },
       ];
 
       const req = {
-        param: {
+        params: {
           appealId,
         },
         session: {
@@ -79,7 +88,7 @@ describe('controllers/questionnaire-check-and-confirm', () => {
     });
 
     it('should render view with incomplete status', () => {
-      const appealId = '123';
+      const appealId = '2';
 
       const siteAddress = {
         address1: 'Jaleno',
@@ -135,13 +144,22 @@ describe('controllers/questionnaire-check-and-confirm', () => {
       ];
 
       const breadcrumbs = [
-        { text: 'Questionnaires for review', href: '#' },
-        { text: 'APP/Q9999/D/21/1224115', href: '#' },
-        { text: 'Check and confirm', href: '#' },
+        {
+          text: 'Questionnaires for review',
+          href: '/planning-inspectorate/appeals/questionnaires-for-review',
+        },
+        {
+          text: 'APP/Q9999/D/21/1224115',
+          href: `/planning-inspectorate/appeals/questionnaires-for-review/review/${appealId}`,
+        },
+        {
+          text: 'Check and confirm',
+          href: `/planning-inspectorate/appeals/questionnaires-for-review/check-and-confirm/${appealId}`,
+        },
       ];
 
       const req = {
-        param: {
+        params: {
           appealId,
         },
         session: {

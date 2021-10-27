@@ -21,8 +21,7 @@ describe('routes/index', () => {
     // eslint-disable-next-line global-require
     require('./index');
 
-    expect(mockUse).toBeCalledTimes(13);
-    expect(mockUse).toBeCalledTimes(12);
+    expect(mockUse).toBeCalledTimes(15);
     expect(mockUse).toBeCalledWith('/', appealsList);
     expect(mockUse).toBeCalledWith('/', questionnairesList);
     expect(mockUse).toBeCalledWith('/', home);
