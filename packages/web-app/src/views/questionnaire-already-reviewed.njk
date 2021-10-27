@@ -4,7 +4,7 @@
 
 {% block backButton %}
    {{ govukBreadcrumbs({ items: [
-      { text: "Questionnaires for review", href: "#" },
+      { text: "Questionnaires for review", href: "/questionnaires-list" },
       { text: "APP/B3030/D/21/3272772", href: "#" }
       ] 
     }) 
@@ -13,5 +13,5 @@
 
 {% block pageContent %}
   <p class="govuk-body">{{caseOfficerName}} confirmed this questionnaire is complete.</p>
-  <p class="govuk-body"><a href="/appeals-list" class="govuk-link">Return to appeal submissions for review</a></p>
+  <p class="govuk-body"><a href="/questionnaires-list" class="govuk-link">Return to appeal submissions for review</a></p>
 {% endblock %}
