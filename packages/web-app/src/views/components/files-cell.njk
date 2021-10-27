@@ -1,0 +1,17 @@
+{% macro filesCell(data) %}
+
+<dd class="govuk-summary-list__value advanced-summary-list-row-value-width">
+  {% if data.cellText %}  
+    {{data.cellText}}
+  {% else %}
+    {% for file in data.files %}
+      {% if file.link %}
+        <a class="govuk-link" href={{file.link}}>{{file.text}}</a>
+      {% else %}
+        {{file.text}}
+      {% endif %}
+    {% endfor %} 
+  {% endif %}
+</dd>
+
+{% endmacro %}
