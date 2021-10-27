@@ -1,4 +1,4 @@
-const { questionnaireAlreadyReviewed, appealsList } = require('../config/views');
+const { questionnaireAlreadyReviewed, questionnairesList } = require('../config/views');
 
 const getQuestionnaireAlreadySubmitted = (req, res) => {
   const {
@@ -14,7 +14,7 @@ const getQuestionnaireAlreadySubmitted = (req, res) => {
     });
   }
 
-  return res.redirect(`/${appealsList}`);
+  return res.redirect(`/${questionnairesList}`);
 };
 
 module.exports = {
