@@ -1,0 +1,18 @@
+.advanced-summary-list-row-key-width {
+  width: 20%;
+  vertical-align: top;
+}
+
+.advanced-summary-list-row-value-width {
+  width: 45%;
+  vertical-align: top;
+}
+
+.advanced-summary-list-row-actions-width {
+  width: 35%;
+  text-align: left;
+
+  .govuk-label {
+    text-align: left;
+  }
+}

@@ -6,7 +6,7 @@
 
 {% for questionnaire in sortedQuestionnairesData %}
   {% if questionnaire.status.text === "Received" %}
-    {% set reference = "<a class='govuk-link' href=\"review-questionnaire-submission/" + questionnaire.id + "\">" + questionnaire.reference + "</a>"%}
+    {% set reference = "<a class='govuk-link' href=\"questionnaires-for-review/review/" + questionnaire.id + "\">" + questionnaire.reference + "</a>"%}
   {% else %}
     {% set reference = questionnaire.reference%}
   {% endif %}

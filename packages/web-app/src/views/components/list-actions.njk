@@ -1,0 +1,17 @@
+{% macro listActions(data, values, errors) %}
+{% from "components/checkbox-cell.njk" import checkboxCell %}
+{% from "components/text-box-cell.njk" import textBoxCell %}
+{% from "components/double-checkbox-cell.njk" import doubleCheckboxCell %}
+
+<dd class="govuk-summary-list__actions advanced-summary-list-row-actions-width">
+  {% if data.hasCheckbox %}
+    {{checkboxCell(data, values)}}
+    {# {% if data.dropDown.dropDownType === 'TEXT_BOX' %}
+      {{textBoxCell(data, values, errors)}}
+    {% elif data.dropDown.dropDownType === 'DOUBLE_CHECK_BOX' %}
+      {{doubleCheckboxCell(data, values, errors)}}
+    {% endif %} #}
+  {% endif %}
+</dd>
+
+{% endmacro %}

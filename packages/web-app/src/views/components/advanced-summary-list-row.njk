@@ -1,0 +1,10 @@
+{% macro advancedSummaryListRow(data, values, errors) %}
+{% from "components/files-cell.njk" import filesCell %}
+{% from "components/list-actions.njk" import listActions %}
+
+<div class="govuk-summary-list__row">
+  <dt class="govuk-summary-list__key advanced-summary-list-row-key-width">{{data.titleText}}</dt>
+  {{filesCell(data)}}
+  {{listActions(data, values, errors)}}
+</div>
+{% endmacro %}
