@@ -7,12 +7,13 @@ const getQuestionnaireAlreadySubmitted = (req, res) => {
     },
   } = req;
 
-  if (true) {
+  if (caseOfficerName) {
     return res.render(questionnaireAlreadyReviewed, {
       pageTitle: 'Questionnaire already reviewed',
-      caseOfficerName: caseOfficerName || 'Test Officer',
+      caseOfficerName,
     });
   }
+
   return res.redirect(`/${appealsList}`);
 };
 
