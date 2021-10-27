@@ -11,6 +11,7 @@ const views = {
   checkAndConfirm: 'check-and-confirm',
   reviewComplete: 'review-complete',
   reviewQuestionnaireComplete: 'review-questionnaire-complete',
+  reviewQuestionnaire: 'review-questionnaire',
 };
 
 module.exports = views;

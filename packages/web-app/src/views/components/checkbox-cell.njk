@@ -1,0 +1,19 @@
+{% macro checkboxCell(data, values) %}
+{% from "components/text-box-cell.njk" import textBoxCell %}
+{% from "components/double-checkbox-cell.njk" import doubleCheckboxCell %}
+
+<div class="govuk-checkboxes govuk-checkboxes--small" data-module="govuk-checkboxes">
+  <div class="govuk-checkboxes__item">
+    <input class="govuk-checkboxes__input" name={{data.checkboxName}} data-cy={{data.checkboxName}} id={{data.checkboxName}} type="checkbox" {% if values[data.checkboxName] === 'on' %}checked=true{% endif %} aria-controls="conditional-lpaqreview" aria-expanded="true">
+    <label class="govuk-label govuk-checkboxes__label" for={{data.checkboxName}}>
+      Missing or incorrect
+    </label> 
+  </div>
+  {% if data.dropDown.dropDownType === 'TEXT_BOX' %}
+      {{textBoxCell(data, values, errors)}}
+    {% elif data.dropDown.dropDownType === 'DOUBLE_CHECK_BOX' %}
+      {{doubleCheckboxCell(data, values, errors)}}
+    {% endif %}
+</div>
+
+{% endmacro %}
