@@ -16,7 +16,7 @@ import {
     checkOtherMissingOrWrong,
     checkSensitiveInformationIncluded, checkSupportingDocuments, checkWrongAppealTypeUsed,
     textboxOtherMissingOrWrong, visitCheckConfirmPageMissingWrong
-} from "../../../support/PageObjects/vo-missing-or-wrong-check-confirm-page-po";
+} from "../../../support/PageObjects/vo-missing-or-wrong-page-po";
 import {validateErrorMessages} from "../../../support/common/validate-error-messages";
 
 function goToReviewAppealSubmissionPage () {
