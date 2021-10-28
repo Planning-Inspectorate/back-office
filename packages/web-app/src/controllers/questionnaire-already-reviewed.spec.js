@@ -45,7 +45,7 @@ describe('controllers/questionnaire-already-reviewed', () => {
 
       expect(res.render).not.toBeCalled();
       expect(res.redirect).toBeCalledTimes(1);
-      expect(res.redirect).toBeCalledWith(`/${views.appealsList}`);
+      expect(res.redirect).toBeCalledWith(`/${views.questionnairesList}`);
     });
   });
 });
