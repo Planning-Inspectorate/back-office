@@ -50,8 +50,13 @@ describe('routes/index', () => {
     expect(mockUse).toBeCalledWith('/document', documentsServiceProxyRouter);
     expect(mockUse).toBeCalledWith(`/${views.appealAlreadyReviewed}`, appealAlreadyReviewed);
     expect(mockUse).toBeCalledWith(`/${views.checkAndConfirm}`, checkAndConfirmDetails);
+    expect(mockUse).toBeCalledWith(`/${views.reviewComplete}`, reviewComplete);
     expect(mockUse).toBeCalledWith(
-      `/${views.questionnairesForReview}/${views.checkAndConfirm}`,
+      `/${views.reviewQuestionnaireComplete}`,
+      reviewQuestionnaireComplete
+    );
+    expect(mockUse).toBeCalledWith(
+      `/planning-inspectorate/appeals/${views.questionnairesForReview}/${views.checkAndConfirm}`,
       questionnaireCheckAndConfirm
     );
   });

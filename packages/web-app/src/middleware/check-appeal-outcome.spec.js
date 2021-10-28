@@ -43,7 +43,7 @@ describe('middleware/check-appeal-outcome', () => {
       },
     },
     {
-      title: 'Return next if the review outcome is complete',
+      title: 'Return next if the review outcome is incomplete',
       req: {
         ...mockReq,
         session: {
