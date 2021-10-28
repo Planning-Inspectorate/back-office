@@ -7,7 +7,10 @@ const invalidAppealDetails = require('./invalid-appeal-details');
 const missingOrWrongAppealDetails = require('./missing-or-wrong');
 const checkAndConfirmDetails = require('./check-and-confirm');
 const reviewComplete = require('./review-complete');
+const checkAndConfirm = require('./check-and-confirm');
+const questionnaireCheckAndConfirm = require('./questionnaire-check-and-confirm');
 const home = require('./home');
+
 const documentsServiceProxy = require('./document-service-proxy');
 const appealAlreadyReviewed = require('./appeal-already-reviewed');
 const views = require('../config/views');
@@ -35,5 +38,10 @@ router.use(`/${views.appealAlreadyReviewed}`, appealAlreadyReviewed);
 router.use(`/${views.checkAndConfirm}`, checkAndConfirmDetails);
 router.use(`/${views.reviewComplete}`, reviewComplete);
 router.use(`/${views.reviewQuestionnaireComplete}`, reviewQuestionnaireComplete);
+router.use(`/${views.questionnairesForReview}/${views.checkAndConfirm}`, checkAndConfirm);
+router.use(
+  `/planning-inspectorate/appeals/${views.questionnairesForReview}/${views.checkAndConfirm}`,
+  questionnaireCheckAndConfirm
+);
 
 module.exports = router;
