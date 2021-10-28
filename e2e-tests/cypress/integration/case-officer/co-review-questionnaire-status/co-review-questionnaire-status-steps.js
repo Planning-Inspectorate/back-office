@@ -1,4 +1,5 @@
 import {goToCaseOfficerPage} from "../../../support/case-officer/go-to-page";
+import {Given, Then } from "cypress-cucumber-preprocessor/steps";
 
 Given('the Case Officer is on the Questionnaires for review page',()=>{
 goToCaseOfficerPage();
