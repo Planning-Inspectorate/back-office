@@ -1,17 +1,10 @@
 const migration = {
-    up: async (queryInterface, Sequelize) => {
+  up: async (queryInterface, Sequelize) => {
+    await queryInterface.addColumn('AppealLink', 'CheckSumRow', Sequelize.INTEGER);
 
-        await queryInterface.addColumn('AppealLink',
-            'CheckSumRow',
-            {
-                type: Sequelize.INT,
-            });
+    await queryInterface.sequelize.query('DROP TRIGGER [AfterInsertAppealLink]');
 
-        await queryInterface.sequelize.query(
-            'DROP TRIGGER [AfterInsertAppealLink]'
-        );
-
-        await queryInterface.sequelize.query(`
+    await queryInterface.sequelize.query(`
             CREATE TRIGGER [dbo].[AfterInsertAppealLink] ON [dbo].[AppealLink]
             FOR INSERT
             AS DECLARE @ID UNIQUEIDENTIFIER,
@@ -45,19 +38,16 @@ const migration = {
             END
         `);
 
-        await queryInterface.sequelize.query(
-            'ALTER TABLE [dbo].[AppealLink] ENABLE TRIGGER [AfterInsertAppealLink]'
-        );
-    },
-    down: async (queryInterface) => {
-        await queryInterface.removeColumn('AppealLink',
-            'CheckSumRow');
+    await queryInterface.sequelize.query(
+      'ALTER TABLE [dbo].[AppealLink] ENABLE TRIGGER [AfterInsertAppealLink]'
+    );
+  },
+  down: async (queryInterface) => {
+    await queryInterface.removeColumn('AppealLink', 'CheckSumRow');
 
-        await queryInterface.sequelize.query(
-            'DROP TRIGGER [AfterInsertAppealLink]'
-        );
+    await queryInterface.sequelize.query('DROP TRIGGER [AfterInsertAppealLink]');
 
-        await queryInterface.sequelize.query(`
+    await queryInterface.sequelize.query(`
             CREATE TRIGGER [dbo].[AfterInsertAppealLink] ON [dbo].[AppealLink]
             FOR INSERT
             AS DECLARE @ID UNIQUEIDENTIFIER,
@@ -76,10 +66,10 @@ const migration = {
             END
         `);
 
-        await queryInterface.sequelize.query(
-            'ALTER TABLE [dbo].[AppealLink] ENABLE TRIGGER [AfterInsertAppealLink]'
-        );
-    },
+    await queryInterface.sequelize.query(
+      'ALTER TABLE [dbo].[AppealLink] ENABLE TRIGGER [AfterInsertAppealLink]'
+    );
+  },
 };
 
 module.exports = migration;

@@ -1,10 +1,8 @@
 const migration = {
-    up: async (queryInterface, Sequelize) => {
-        await queryInterface.sequelize.query(
-            'DROP TRIGGER [AfterInsertMessageQueue]'
-        );
+  up: async (queryInterface) => {
+    await queryInterface.sequelize.query('DROP TRIGGER [AfterInsertMessageQueue]');
 
-        await queryInterface.sequelize.query(`
+    await queryInterface.sequelize.query(`
             CREATE TRIGGER [dbo].[AfterInsertMessageQueue] ON [dbo].[MessageQueue]
             FOR INSERT
             AS DECLARE @ID UNIQUEIDENTIFIER,
@@ -294,16 +292,14 @@ const migration = {
             END
         `);
 
-        await queryInterface.sequelize.query(
-            'ALTER TABLE [dbo].[MessageQueue] ENABLE TRIGGER [AfterInsertMessageQueue]'
-        );
-    },
-    down: async (queryInterface) => {
-        await queryInterface.sequelize.query(
-            'DROP TRIGGER [AfterInsertMessageQueue]'
-        );
+    await queryInterface.sequelize.query(
+      'ALTER TABLE [dbo].[MessageQueue] ENABLE TRIGGER [AfterInsertMessageQueue]'
+    );
+  },
+  down: async (queryInterface) => {
+    await queryInterface.sequelize.query('DROP TRIGGER [AfterInsertMessageQueue]');
 
-        await queryInterface.sequelize.query(`
+    await queryInterface.sequelize.query(`
             CREATE TRIGGER [dbo].[AfterInsertMessageQueue] ON [dbo].[MessageQueue]
             FOR INSERT
             AS DECLARE @ID UNIQUEIDENTIFIER,
@@ -458,10 +454,10 @@ const migration = {
             END
         `);
 
-        await queryInterface.sequelize.query(
-            'ALTER TABLE [dbo].[MessageQueue] ENABLE TRIGGER [AfterInsertMessageQueue]'
-        );
-    },
+    await queryInterface.sequelize.query(
+      'ALTER TABLE [dbo].[MessageQueue] ENABLE TRIGGER [AfterInsertMessageQueue]'
+    );
+  },
 };
 
 module.exports = migration;

@@ -1,17 +1,10 @@
 const migration = {
-    up: async (queryInterface, Sequelize) => {
+  up: async (queryInterface, Sequelize) => {
+    await queryInterface.addColumn('HASAppeal', 'CheckSumRow', Sequelize.INTEGER);
 
-        await queryInterface.addColumn('HASAppeal',
-            'CheckSumRow',
-            {
-                type: Sequelize.INT,
-            });
+    await queryInterface.sequelize.query('DROP TRIGGER [AfterInsertHASAppeal]');
 
-        await queryInterface.sequelize.query(
-            'DROP TRIGGER [AfterInsertHASAppeal]'
-        );
-
-        await queryInterface.sequelize.query(`
+    await queryInterface.sequelize.query(`
             CREATE TRIGGER [dbo].[AfterInsertHASAppeal] ON [dbo].[HASAppeal]
             FOR INSERT
             AS DECLARE @ID UNIQUEIDENTIFIER,
@@ -59,19 +52,16 @@ const migration = {
             END
         `);
 
-        await queryInterface.sequelize.query(
-            'ALTER TABLE [dbo].[HASAppeal] ENABLE TRIGGER [AfterInsertHASAppeal]'
-        );
-    },
-    down: async (queryInterface) => {
-        await queryInterface.removeColumn('HASAppeal',
-            'CheckSumRow');
+    await queryInterface.sequelize.query(
+      'ALTER TABLE [dbo].[HASAppeal] ENABLE TRIGGER [AfterInsertHASAppeal]'
+    );
+  },
+  down: async (queryInterface) => {
+    await queryInterface.removeColumn('HASAppeal', 'CheckSumRow');
 
-        await queryInterface.sequelize.query(
-            'DROP TRIGGER [AfterInsertHASAppealSubmission]'
-        );
+    await queryInterface.sequelize.query('DROP TRIGGER [AfterInsertHASAppealSubmission]');
 
-        await queryInterface.sequelize.query(`
+    await queryInterface.sequelize.query(`
             CREATE TRIGGER [dbo].[AfterInsertHASAppeal] ON [dbo].[HASAppeal]
             FOR INSERT
             AS DECLARE @ID UNIQUEIDENTIFIER,
@@ -90,10 +80,10 @@ const migration = {
             END
         `);
 
-        await queryInterface.sequelize.query(
-            'ALTER TABLE [dbo].[HASAppeal] ENABLE TRIGGER [AfterInsertHASAppeal]'
-        );
-    },
+    await queryInterface.sequelize.query(
+      'ALTER TABLE [dbo].[HASAppeal] ENABLE TRIGGER [AfterInsertHASAppeal]'
+    );
+  },
 };
 
 module.exports = migration;

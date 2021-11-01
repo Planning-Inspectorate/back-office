@@ -1,17 +1,10 @@
 const migration = {
-    up: async (queryInterface, Sequelize) => {
+  up: async (queryInterface, Sequelize) => {
+    await queryInterface.addColumn('HASLPASubmission', 'CheckSumRow', Sequelize.INTEGER);
 
-        await queryInterface.addColumn('HASLPASubmission',
-            'CheckSumRow',
-            {
-                type: Sequelize.INT,
-            });
+    await queryInterface.sequelize.query('DROP TRIGGER [AfterInsertHASLPASubmission]');
 
-        await queryInterface.sequelize.query(
-            'DROP TRIGGER [AfterInsertHASLPASubmission]'
-        );
-
-        await queryInterface.sequelize.query(`
+    await queryInterface.sequelize.query(`
             CREATE TRIGGER [dbo].[AfterInsertHASLPASubmission] ON [dbo].[HASLPASubmission]
             FOR INSERT
             AS DECLARE @ID UNIQUEIDENTIFIER,
@@ -60,19 +53,16 @@ const migration = {
             END
         `);
 
-        await queryInterface.sequelize.query(
-            'ALTER TABLE [dbo].[HASLPASubmission] ENABLE TRIGGER [AfterInsertHASLPASubmission]'
-        );
-    },
-    down: async (queryInterface) => {
-        await queryInterface.removeColumn('HASLPASubmission',
-            'CheckSumRow');
+    await queryInterface.sequelize.query(
+      'ALTER TABLE [dbo].[HASLPASubmission] ENABLE TRIGGER [AfterInsertHASLPASubmission]'
+    );
+  },
+  down: async (queryInterface) => {
+    await queryInterface.removeColumn('HASLPASubmission', 'CheckSumRow');
 
-        await queryInterface.sequelize.query(
-            'DROP TRIGGER [AfterInsertHASLPASubmission]'
-        );
+    await queryInterface.sequelize.query('DROP TRIGGER [AfterInsertHASLPASubmission]');
 
-        await queryInterface.sequelize.query(`
+    await queryInterface.sequelize.query(`
             CREATE TRIGGER [dbo].[AfterInsertHASLPASubmission] ON [dbo].[HASLPASubmission]
             FOR INSERT
             AS DECLARE @ID UNIQUEIDENTIFIER,
@@ -91,10 +81,10 @@ const migration = {
             END
         `);
 
-        await queryInterface.sequelize.query(
-            'ALTER TABLE [dbo].[HASLPASubmission] ENABLE TRIGGER [AfterInsertHASLPASubmission]'
-        );
-    },
+    await queryInterface.sequelize.query(
+      'ALTER TABLE [dbo].[HASLPASubmission] ENABLE TRIGGER [AfterInsertHASLPASubmission]'
+    );
+  },
 };
 
 module.exports = migration;
