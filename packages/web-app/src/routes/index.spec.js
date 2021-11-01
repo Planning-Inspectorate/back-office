@@ -22,7 +22,7 @@ describe('routes/index', () => {
     // eslint-disable-next-line global-require
     require('./index');
 
-    expect(mockUse).toBeCalledTimes(15);
+    expect(mockUse).toBeCalledTimes(16);
     expect(mockUse).toBeCalledWith('/', appealsList);
     expect(mockUse).toBeCalledWith('/', questionnairesList);
     expect(mockUse).toBeCalledWith('/', home);
@@ -52,6 +52,10 @@ describe('routes/index', () => {
     expect(mockUse).toBeCalledWith(`/${views.appealAlreadyReviewed}`, appealAlreadyReviewed);
     expect(mockUse).toBeCalledWith(`/${views.checkAndConfirm}`, checkAndConfirmDetails);
     expect(mockUse).toBeCalledWith(`/${views.reviewComplete}`, reviewComplete);
+    expect(mockUse).toBeCalledWith(
+      `/planning-inspectorate/appeals/questionnaires-for-review/check-and-confirm`,
+      questionnaireCheckAndConfirm
+    );
     expect(mockUse).toBeCalledWith(
       `/planning-inspectorate/appeals/questionnaires-for-review/already-reviewed`,
       questionnaireAlreadyReviewed
