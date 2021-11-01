@@ -79,8 +79,8 @@ const hasAppealSubmission = sequelize().define('HASAppealSubmission', {
     type: DataTypes.STRING(256),
   },
   CheckSumRow: {
-    type: DataTypes.INT,
-  }
+    type: DataTypes.INTEGER,
+  },
 });
 
 module.exports = hasAppealSubmission;

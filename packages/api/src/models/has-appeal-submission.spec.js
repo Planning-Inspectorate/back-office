@@ -88,7 +88,7 @@ describe('models/has-appeal-submission', () => {
         type: DataTypes.STRING(256),
       },
       CheckSumRow: {
-        type: DataTypes.INT,
+        type: DataTypes.INTEGER,
       }
     });
   });
