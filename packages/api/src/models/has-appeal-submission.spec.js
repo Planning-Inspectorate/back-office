@@ -87,6 +87,9 @@ describe('models/has-appeal-submission', () => {
       EventUserName: {
         type: DataTypes.STRING(256),
       },
+      CheckSumRow: {
+        type: DataTypes.INT,
+      }
     });
   });
 });

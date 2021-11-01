@@ -78,6 +78,9 @@ const hasAppealSubmission = sequelize().define('HASAppealSubmission', {
   EventUserName: {
     type: DataTypes.STRING(256),
   },
+  CheckSumRow: {
+    type: DataTypes.INT,
+  }
 });
 
 module.exports = hasAppealSubmission;
