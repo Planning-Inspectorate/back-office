@@ -7,7 +7,7 @@ const getQuestionnaireAlreadySubmitted = (req, res) => {
     },
   } = req;
 
-  if (caseOfficerName) {
+  if (true) {
     return res.render(questionnaireAlreadyReviewed, {
       pageTitle: 'Questionnaire already reviewed',
       caseOfficerName: caseOfficerName || 'Sam Wilson',
