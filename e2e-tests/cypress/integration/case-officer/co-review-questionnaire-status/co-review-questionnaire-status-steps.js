@@ -1,4 +1,9 @@
 import {goToCaseOfficerPage} from "../../../support/case-officer/go-to-page";
+import {
+    getAwaitingStatus,
+    getOverdueStatus,
+    getReceivedStatus
+} from "../../../support/PageObjects/co-questionnaire-list-po";
 
 Given('the Case Officer is on the Questionnaires for review page',()=>{
 goToCaseOfficerPage();
@@ -7,11 +12,12 @@ goToCaseOfficerPage();
 Then('the page will show the questionnaires with the status {string}',(status)=>{
 
     if(status==='RECEIVED'){
-        cy.contains('td',status)
-            .siblings()
+        getReceivedStatus().siblings()
             .contains('a')
             .click();
+    }else if(status === 'OVERDUE'){
+      getOverdueStatus().should('be.visible');
     }else{
-        cy.contains('td',status);
+        getAwaitingStatus().should('be.visible');
     }
 });

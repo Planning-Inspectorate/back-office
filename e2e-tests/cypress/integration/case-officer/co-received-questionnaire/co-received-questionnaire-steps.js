@@ -11,7 +11,7 @@ import {reviewSectionDocumentList} from "../../../support/case-officer/review-se
 import {reviewSectionMissingInformationCheckbox} from "../../../support/case-officer/review-section-missing-information-check-box";
 import {reviewSectionMissingInformation} from "../../../support/case-officer/review-section-missing-information";
 import {reviewSectionMissingInformationError} from "../../../support/case-officer/review-section-missing-information-error";
-const url = '/planning-inspectorate/appeals/questionnaires-for-review/review/';
+const url = '/questionnaires-for-review/review/';
 const pageHeading = 'Review questionnaire';
 const title = 'Review questionnaire - Appeal a householder planning decision - GOV.UK';
 
@@ -53,7 +53,7 @@ When('Case officer selects back',()=>{
     getBackButton().should('be.visible');
 });
 Then('the Review Questionnaire page will be displayed',()=>{
-    cy.url().should('contain','/planning-inspectorate/appeals/questionnaires-for-review/review/');
+    cy.url().should('contain','/questionnaires-for-review/review/');
     verifyPageTitle(title);
     verifyPageHeading(pageHeading);
 });
