@@ -40,6 +40,6 @@ export const getOtherRelevantPoliciesError = () => cy.get('[data-cy="lpaqreview-
 export const getSupplementaryPlanningError = () => cy.get('[data-cy="lpaqreview-supplementary-planning-textarea-error"]');
 export const getConservationAreaMapError = () => cy.get('[data-cy="lpaqreview-conservation-guidance-textarea-error"]');
 export const getListingDescriptionError = () => cy.get('[data-cy="lpaqreview-listing-description-textarea-error"]');
-export const getApplicationNotificationError = () => cy.get('[data-cy="lpaqreview-application-notification-checkbox-error"]');
+export const getApplicationNotificationError = () => cy.get('[data-cy="lpaqreview-application-notification-subcheckbox1-error"]');
 export const getRepresentationsError = () => cy.get('[data-cy="lpaqreview-representations-textarea-error"]');
-export const getAppealNotificationError = () => cy.get('[data-cy="lpaqreview-appeal-notification-checkbox-error"]');
+export const getAppealNotificationError = () => cy.get('[data-cy="lpaqreview-appeal-notification-subcheckbox1-error"]');
