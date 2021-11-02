@@ -86,7 +86,7 @@ const migration = {
         defaultValue: 1,
         allowNull: false,
       },
-      EventTimeStamp: {
+      EventDateTime: {
         type: Sequelize.DATE,
         defaultValue: Sequelize.DATE,
       },

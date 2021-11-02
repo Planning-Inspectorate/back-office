@@ -50,7 +50,7 @@ describe('models/has-appeal-submission', () => {
         type: DataTypes.BOOLEAN,
         allowNull: false,
       },
-      SiteRestrictionsDetails: {
+      SiteRestrictionDetails: {
         type: DataTypes.STRING(255),
       },
       SafetyConcern: {

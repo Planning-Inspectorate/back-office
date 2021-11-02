@@ -41,7 +41,7 @@ const hasAppealSubmission = sequelize().define('HASAppealSubmission', {
     type: DataTypes.BOOLEAN,
     allowNull: false,
   },
-  SiteRestrictionsDetails: {
+  SiteRestrictionDetails: {
     type: DataTypes.STRING(255),
   },
   SafetyConcern: {
