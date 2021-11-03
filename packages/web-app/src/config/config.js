@@ -24,6 +24,25 @@ const config = {
     },
     redirectUri: process.env.AUTH_REDIRECT_URI,
   },
+  services: {
+    notify: {
+      templates: {
+        startEmailToLpa: process.env.SRV_NOTIFY_START_EMAIL_TO_LPA_TEMPLATE_ID,
+      },
+      emailReplyToId: {
+        startEmailToLpa: process.env.SRV_NOTIFY_EMAIL_REPLYTO_ID_START_EMAIL_TO_LPA,
+      },
+    },
+    osPlaces: {
+      key: process.env.SRV_OS_PLACES_KEY,
+      url: process.env.SRV_OS_PLACES_URL,
+    },
+  },
+  apps: {
+    lpaQuestionnaire: {
+      baseUrl: process.env.APP_LPA_QUESTIONNAIRE_BASE_URL,
+    },
+  },
 };
 
 module.exports = config;

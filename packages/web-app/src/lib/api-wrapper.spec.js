@@ -10,7 +10,7 @@ describe('lib/apiWrapper', () => {
           id: '6e409024-97f3-4178-a44d-f0f3f234035c',
           horizonId: 'APP/Q9999/D/21/1234567',
           lpaCode: 'Maidstone Borough Council',
-          submissionDate: '2021-05-16T12:00:00.000Z',
+          submissionDate: new Date('2021-05-16T12:00:00.000Z'),
           aboutYouSection: {
             yourDetails: {
               isOriginalApplicant: true,

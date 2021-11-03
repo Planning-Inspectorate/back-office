@@ -20,6 +20,12 @@ services:
     environment:
       DOCUMENTS_SERVICE_API_URL: http://document-service-api:3000
       LOGGER_LEVEL: 'debug'
+      SRV_NOTIFY_START_EMAIL_TO_LPA_TEMPLATE_ID: 'c4701212-4b6a-4b55-801a-c86c7dbea54b'
+      SRV_NOTIFY_EMAIL_REPLYTO_ID_START_EMAIL_TO_LPA: '937b4147-8420-42da-859d-d4a65bdf99bc'
+      APP_LPA_QUESTIONNAIRE_BASE_URL: http://lpa-questionnaire-web-app:9001
+      SRV_NOTIFY_BASE_URL: http://mock-notify:3000
+      SRV_NOTIFY_SERVICE_ID: 'dummy-service-id-for-notify'
+      SRV_NOTIFY_API_KEY: 'dummy-api-key-for-notify'
     networks:
       - appeal-planning-decision_default
   api:

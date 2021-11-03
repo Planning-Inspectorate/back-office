@@ -7,8 +7,10 @@ const {
   reviewOutcomeOption,
   getReviewOutcomeConfig,
 } = require('../config/review-appeal-submission');
+const { sendStartEmailToLPA } = require('../lib/notify');
 
 jest.mock('../lib/save-and-continue');
+jest.mock('../lib/notify');
 
 describe('controllers/check-and-confirm', () => {
   const appealId = '5c943cb9-e029-4094-a447-4b3256d6ede7';
@@ -20,6 +22,7 @@ describe('controllers/check-and-confirm', () => {
   beforeEach(() => {
     req = mockReq;
     res = mockRes();
+    jest.clearAllMocks();
   });
 
   describe('getCheckAndConfirm', () => {
@@ -131,6 +134,31 @@ describe('controllers/check-and-confirm', () => {
         viewData: expectedViewData,
       });
       expect(req.session.casework.completed).toEqual('true');
+    });
+
+    it('should send sendStartEmailToLPA if only reviewOutcome is valid', () => {
+      req = {
+        body: {
+          'check-and-confirm-completed': 'true',
+        },
+        session: {
+          appeal: { id: appealId, horizonId },
+          casework: {
+            reviewOutcome: reviewOutcomeOption.invalid,
+          },
+        },
+      };
+
+      postCheckAndConfirm(req, res);
+      expect(sendStartEmailToLPA).not.toBeCalled();
+
+      req.session.casework.reviewOutcome = reviewOutcomeOption.incomplete;
+      postCheckAndConfirm(req, res);
+      expect(sendStartEmailToLPA).not.toBeCalled();
+
+      req.session.casework.reviewOutcome = reviewOutcomeOption.valid;
+      postCheckAndConfirm(req, res);
+      expect(sendStartEmailToLPA).toBeCalledTimes(1);
     });
   });
 });
