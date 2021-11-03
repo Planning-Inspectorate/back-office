@@ -117,15 +117,15 @@ const getConfirmationSections = (outcome) => {
 const getBreadcrumbs = (appealId) => [
   {
     text: 'Questionnaires for review',
-    href: '/planning-inspectorate/appeals/questionnaires-for-review',
+    href: '/appeals/questionnaires-for-review',
   },
   {
     text: 'APP/Q9999/D/21/1224115',
-    href: `/planning-inspectorate/appeals/questionnaires-for-review/review/${appealId}`,
+    href: `/appeals/questionnaires-for-review/review/${appealId}`,
   },
   {
     text: 'Check and confirm',
-    href: `/planning-inspectorate/appeals/questionnaires-for-review/check-and-confirm/${appealId}`,
+    href: `/appeals/questionnaires-for-review/check-and-confirm/${appealId}`,
   },
 ];
 
