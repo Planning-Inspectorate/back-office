@@ -12,6 +12,7 @@ const views = {
   reviewComplete: 'review-complete',
   reviewQuestionnaireComplete: 'review-questionnaire-complete',
   questionnairesForReview: 'questionnaires-for-review',
+  reviewQuestionnaire: 'review-questionnaire',
 };
 
 module.exports = views;
