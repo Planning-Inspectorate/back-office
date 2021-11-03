@@ -43,10 +43,7 @@ router.use(`/${views.reviewComplete}`, reviewComplete);
 router.use(`/`, reviewQuestionnaire);
 router.use(`/${views.reviewQuestionnaireComplete}`, reviewQuestionnaireComplete);
 router.use(`/${views.questionnairesForReview}/${views.checkAndConfirm}`, checkAndConfirm);
-router.use(
-  `/appeals/${views.questionnairesForReview}/${views.checkAndConfirm}`,
-  questionnaireCheckAndConfirm
-);
+router.use(`/appeals/questionnaires-for-review/check-and-confirm`, questionnaireCheckAndConfirm);
 router.use(`/appeals/questionnaires-for-review/already-reviewed`, questionnaireAlreadyReviewed);
 
 module.exports = router;
