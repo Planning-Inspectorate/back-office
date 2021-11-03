@@ -4,7 +4,12 @@ const {
   reviewAppealSubmission,
 } = require('../config/views');
 const saveAndContinue = require('../lib/save-and-continue');
-const { getText, getReviewOutcomeConfig } = require('../config/review-appeal-submission');
+const {
+  getText,
+  getReviewOutcomeConfig,
+  reviewOutcomeOption,
+} = require('../config/review-appeal-submission');
+const { sendStartEmailToLPA } = require('../lib/notify');
 
 const checkAndConfirmConfig = (casework) => getReviewOutcomeConfig(casework.reviewOutcome);
 
@@ -30,7 +35,7 @@ const getCheckAndConfirm = (req, res) => {
   res.render(currentPage, options);
 };
 
-const postCheckAndConfirm = (req, res) => {
+const postCheckAndConfirm = async (req, res) => {
   const {
     session: { appeal, casework },
   } = req;
@@ -43,6 +48,10 @@ const postCheckAndConfirm = (req, res) => {
     checkAndConfirmConfig: getReviewOutcomeConfig(casework.reviewOutcome),
     getText,
   };
+
+  if (casework.reviewOutcome === reviewOutcomeOption.valid) {
+    await sendStartEmailToLPA(appeal);
+  }
 
   saveAndContinue({
     req,
