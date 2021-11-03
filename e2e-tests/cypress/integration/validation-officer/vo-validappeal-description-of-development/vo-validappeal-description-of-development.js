@@ -1,6 +1,9 @@
 import {Given, When, Then} from "cypress-cucumber-preprocessor/steps";
 import {backLink} from "../../../support/PageObjects/common-po";
-import {visitReviewAppealSubmissionPage} from "../../../support/PageObjects/vo-review-appeal-submission-page-po";
+import {
+    selectOutcomeMissingOrWrong,
+    visitReviewAppealSubmissionPage
+} from "../../../support/PageObjects/vo-review-appeal-submission-page-po";
 import {validateErrorMessages} from "../../../support/common/validate-error-messages";
 const {descriptionOfDevelopmentPage,enterDescriptionOfDevelopmentTxt,checkAndConfirmPageValid} = require( "../../../support/PageObjects/vo-validappeal-description-of-development-po" );
 const {validationOfficerLandingPage, appealReference} = require( "../../../support/PageObjects/vo-landing-page-po" );

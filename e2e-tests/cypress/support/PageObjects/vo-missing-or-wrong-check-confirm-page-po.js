@@ -24,5 +24,7 @@ export const checkOtherMissingOrWrong = () => cy.get ('[id=missing-or-wrong-reas
 
 export const textboxOtherMissingOrWrong = () => cy.get('#other-reason');
 
+export const checkboxCompletedTasks= () => cy.get('#check-and-confirm-completed');
+
 export const visitCheckConfirmPageMissingWrong = () => cy.visit('/check-and-confirm');
 

@@ -1,5 +1,7 @@
 export const pageHeader = () => cy.get('.govuk-heading-xl').should('contain','Check and confirm');
 
+export const visitCheckConfirmPageValid = () => cy.visit('/check-and-confirm');
+
 export const warningTextCheckConfirmValid = () => cy.get('.govuk-warning-text__text').should('contain','Confirming this appeal as valid starts the appeal and sends the LPA questionnaire email.');
 
 export const btnConfirmAndStartAppeal = () => cy.get('.govuk-button').should('contain',' Confirm and start appeal');
