@@ -22,13 +22,17 @@ describe('controllers/review-questionnaire', () => {
 
     existingData = mockExistingData;
     viewData = mockViewData;
-
-    req.params.id = 'mock-appeal-id';
   });
 
   describe('getReviewQuestionnaire', () => {
     it('should render the view with data correctly', () => {
       getData.mockImplementation(() => existingData);
+
+      const req = {
+        session: {
+          appeal: { id: '5c943cb9-e029-4094-a447-4b3256d6ede7' },
+        },
+      };
 
       getReviewQuestionnaire(req, res);
 
@@ -39,6 +43,12 @@ describe('controllers/review-questionnaire', () => {
     });
 
     it('should render the view with data correctly, with differing conditionals', () => {
+      const req = {
+        session: {
+          appeal: { id: '5c943cb9-e029-4094-a447-4b3256d6ede7' },
+        },
+      };
+      
       existingData.questionnaire.nearConservationArea = false;
       existingData.questionnaire.listedBuilding.affectSetting = false;
 
@@ -60,7 +70,7 @@ describe('controllers/review-questionnaire', () => {
   describe('postReviewQuestionnaire', () => {
     beforeEach(() => {
       req.body = {};
-      viewData = { ...mockViewData, values: { ...emptyValues }, missingOrIncorrectDocuments: [] };
+      viewData = { ...mockViewData, values: { ...emptyValues }, pageTitle: 'Review questionnaire', };
     });
 
     it('should redirect with no missing or incorrect documents', () => {
@@ -72,26 +82,34 @@ describe('controllers/review-questionnaire', () => {
         req,
         res,
         currentPage: views.reviewQuestionnaire,
-        nextPage: '/questionnaires-for-review/check-and-confirm/mock-appeal-id',
+        nextPage: views.questionnairecheckAndConfirm,
         viewData,
       });
     });
 
     it('should redirect with non-empty missing or incorrect documents', () => {
-      req.body = {
-        'lpaqreview-officer-report-checkbox': 'on',
-        'lpaqreview-plans-decision-checkbox': 'on',
-        'lpaqreview-application-notification-checkbox': 'on',
+      const req = {
+        body: {
+          'lpaqreview-officer-report-checkbox': 'on',
+          'lpaqreview-plans-decision-checkbox': 'on',
+          'lpaqreview-application-notification-checkbox': 'on',
+        },
+        session: {
+          appeal: { id: '5c943cb9-e029-4094-a447-4b3256d6ede7' },
+          questionnaire: {
+            outcome: 'INCOMPLETE',
+            missingOrIncorrectDocuments: [
+              "Planning Officer's report",
+              'Plans used to reach the decision:',
+              'Application notification:',
+            ],
+          },
+        },
       };
 
       viewData.values['lpaqreview-application-notification-checkbox'] = 'on';
       viewData.values['lpaqreview-officer-report-checkbox'] = 'on';
       viewData.values['lpaqreview-plans-decision-checkbox'] = 'on';
-      viewData.missingOrIncorrectDocuments = [
-        "Planning Officer's report",
-        'Plans used to reach the decision:',
-        'Application notification:',
-      ];
 
       postReviewQuestionnaire(req, res);
 
@@ -105,7 +123,7 @@ describe('controllers/review-questionnaire', () => {
         req,
         res,
         currentPage: views.reviewQuestionnaire,
-        nextPage: '/questionnaires-for-review/check-and-confirm/mock-appeal-id',
+        nextPage: views.questionnairecheckAndConfirm,
         viewData,
       });
     });
@@ -146,21 +164,37 @@ describe('controllers/review-questionnaire', () => {
         req,
         res,
         currentPage: views.reviewQuestionnaire,
-        nextPage: '/questionnaires-for-review/check-and-confirm/mock-appeal-id',
+        nextPage: views.questionnairecheckAndConfirm,
         viewData,
       });
     });
 
     it('should render with previous values present', () => {
       const mockObject = { mock: 'mock' };
-      req.body = {
-        'lpaqreview-plans-decision-checkbox': 'on',
-        'lpaqreview-plans-decision-textarea': 'mock-plans-missing-text',
-        'lpaqreview-application-publicity-checkbox': 'on',
-        'lpaqreview-appeal-notification-checkbox': 'on',
-        'lpaqreview-appeal-notification-subcheckbox2': 'on',
-        errorSummary: mockObject,
-        errors: mockObject,
+
+      const req = {
+        body: {
+          'lpaqreview-plans-decision-checkbox': 'on',
+          'lpaqreview-plans-decision-textarea': 'mock-plans-missing-text',
+          'lpaqreview-application-publicity-checkbox': 'on',
+          'lpaqreview-appeal-notification-checkbox': 'on',
+          'lpaqreview-appeal-notification-subcheckbox2': 'on',
+          errorSummary: mockObject,
+          errors: mockObject,
+        },
+        session: {
+          appeal: { id: '5c943cb9-e029-4094-a447-4b3256d6ede7' },
+          questionnaire: {
+            outcome: 'INCOMPLETE',
+            missingOrIncorrectDocuments: [
+              'Plans used to reach the decision:',
+              'mock-plans-missing-text',
+              'Application publicity',
+              'Appeal notification:',
+              'Copy of letter or site notice',
+            ],
+          },
+        },
       };
 
       viewData.values['lpaqreview-plans-decision-checkbox'] = 'on';
@@ -168,13 +202,6 @@ describe('controllers/review-questionnaire', () => {
       viewData.values['lpaqreview-application-publicity-checkbox'] = 'on';
       viewData.values['lpaqreview-appeal-notification-checkbox'] = 'on';
       viewData.values['lpaqreview-appeal-notification-subcheckbox2'] = 'on';
-      viewData.missingOrIncorrectDocuments = [
-        'Plans used to reach the decision:',
-        'mock-plans-missing-text',
-        'Application publicity',
-        'Appeal notification:',
-        'Copy of letter or site notice',
-      ];
 
       postReviewQuestionnaire(req, res);
 
@@ -183,7 +210,7 @@ describe('controllers/review-questionnaire', () => {
         req,
         res,
         currentPage: views.reviewQuestionnaire,
-        nextPage: '/questionnaires-for-review/check-and-confirm/mock-appeal-id',
+        nextPage: views.questionnairecheckAndConfirm,
         viewData,
       });
     });

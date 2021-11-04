@@ -1,9 +1,10 @@
-const reviewOutcome = {
-  COMPLETE: 'COMPLETE',
-  INCOMPLETE: 'INCOMPLETE',
-};
-
-const documents = ['Passport', 'Birth certificate'];
+const {
+  QUESTIONNAIRE: { REVIEWOUTCOME },
+} = require('../constants');
+const {
+  reviewQuestionnaire: previousPage,
+  reviewQuestionnaireComplete: nextPage,
+} = require('../config/views');
 
 const siteAddress = {
   address1: 'Jaleno',
@@ -23,13 +24,13 @@ const compileMissingDocuments = (items) => {
   return mappedDocuments.toString().replace(/,/g, '');
 };
 
-const getConfirmationSections = (outcome) => {
+const getConfirmationSections = (outcome, missingOrIncorrectDocuments) => {
   const payload = {
     rows: [],
   };
 
   switch (outcome) {
-    case reviewOutcome.INCOMPLETE: {
+    case REVIEWOUTCOME.INCOMPLETE: {
       payload.rows.push(
         {
           key: {
@@ -44,7 +45,7 @@ const getConfirmationSections = (outcome) => {
             text: 'Missing or incorrect documents',
           },
           value: {
-            html: compileMissingDocuments(documents),
+            html: compileMissingDocuments(missingOrIncorrectDocuments),
           },
         },
         {
@@ -130,19 +131,28 @@ const getBreadcrumbs = (appealId) => [
 ];
 
 const getCheckAndConfirm = (req, res) => {
-  const { outcome } = req.session;
-  const { appealId } = req.params;
+  const {
+    appeal,
+    questionnaire: { outcome, missingOrIncorrectDocuments },
+  } = req.session;
+  const appealId = appeal.id;
 
   res.render('questionnaire-check-and-confirm', {
     pageTitle: 'Review questionnaire',
-    sections: getConfirmationSections(outcome),
+    previousPage,
+    sections: getConfirmationSections(outcome, missingOrIncorrectDocuments),
     breadcrumbs: getBreadcrumbs(appealId),
     reviewOutcome: outcome,
   });
 };
 
+const postCheckAndConfirm = (req, res) => {
+  res.redirect(`/${nextPage}`);
+};
+
 module.exports = {
   getCheckAndConfirm,
+  postCheckAndConfirm,
   util: {
     compileMissingDocuments,
     compileAddress,

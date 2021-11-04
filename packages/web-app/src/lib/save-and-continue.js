@@ -4,7 +4,7 @@ const logger = require('./logger');
 const saveAndContinue = ({ req, res, currentPage, nextPage, viewData }) => {
   const {
     body: { errors = {}, errorSummary = [] },
-    session: { appeal, casework },
+    session: { appeal, casework, questionnaire },
   } = req;
 
   if (Object.keys(errors).length > 0) {
@@ -17,9 +17,10 @@ const saveAndContinue = ({ req, res, currentPage, nextPage, viewData }) => {
   }
 
   try {
-    saveData(appeal.id, casework);
+    saveData(appeal.id, casework, questionnaire);
     res.cookie('appealId', appeal.id);
     res.cookie(appeal.id, JSON.stringify(casework));
+    res.cookie('appeal_questionnaire', JSON.stringify(questionnaire));
   } catch (err) {
     logger.error(err);
     res.render(currentPage, {

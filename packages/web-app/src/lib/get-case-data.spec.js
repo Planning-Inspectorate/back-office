@@ -31,17 +31,23 @@ describe('lib/getCaseData', () => {
           horizonId,
         },
         casework: {},
+        questionnaire: {},
       },
     };
   });
 
   describe('getCaseData', () => {
-    it('should set req.session with appeal data and default casework data', () => {
-      getDataReturnValue.casework = {
-        reviewer: {
-          name: 'Sally Smith',
+    it('should set req.session with appeal data, default casework and questionnaire data', () => {
+      getDataReturnValue = {
+        casework: {
+          reviewer: {
+            name: 'Sally Smith',
+          },
+          reviewOutcome: 'valid',
         },
-        reviewOutcome: 'valid',
+        questionnaire: {
+          horizonId: 'fake-horizon-id',
+        },
       };
 
       getData.mockReturnValue(getDataReturnValue);
@@ -57,7 +63,7 @@ describe('lib/getCaseData', () => {
       expect(req.session).toEqual(getDataReturnValue);
     });
 
-    it('should set req.session with appeal data and casework data', () => {
+    it('should set req.session with appeal data, casework data and questionnaire data', () => {
       getDataReturnValue.casework = {
         reviewer: {
           name: 'William Jones',
@@ -76,6 +82,7 @@ describe('lib/getCaseData', () => {
           [appealId]: JSON.stringify({
             reviewOutcome: 'valid',
           }),
+          appeal_questionnaire: JSON.stringify({ outcome: 'COMPLETE' }),
         },
       };
 
@@ -96,16 +103,21 @@ describe('lib/getCaseData', () => {
         params: {
           appealId: differentAppealId,
         },
-        cookies: {
-          appealId: alreadyExistingAppeal.id,
-        },
+        cookies: [
+          {
+            appealId: alreadyExistingAppeal.appeal.id,
+          },
+          {
+            appealId_questionnaire: `${alreadyExistingAppeal.appeal.id}_questionnaire`,
+          },
+        ],
       };
 
       getCaseData(req, res, next);
 
-      expect(res.clearCookie).toBeCalledTimes(2);
+      expect(res.clearCookie).toBeCalledTimes(3);
       expect(res.clearCookie).toBeCalledWith('appealId');
-      expect(res.clearCookie).toBeCalledWith(alreadyExistingAppeal.id);
+      expect(res.clearCookie).toBeCalledWith('appeal_questionnaire');
     });
 
     it('should not clear the cookies when the given appeal id does not exist and it does not equal the session appeal id', () => {

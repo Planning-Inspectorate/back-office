@@ -9,9 +9,9 @@ const expressValidationErrorsToGovUkErrorList = require('../lib/express-validati
 
 const router = express.Router();
 
-router.get(`/questionnaires-for-review/review/:id`, getReviewQuestionnaire);
+router.get('/', getReviewQuestionnaire);
 router.post(
-  `/questionnaires-for-review/review/:id`,
+  '/',
   reviewQuestionnaireValidationRules(),
   expressValidationErrorsToGovUkErrorList,
   postReviewQuestionnaire

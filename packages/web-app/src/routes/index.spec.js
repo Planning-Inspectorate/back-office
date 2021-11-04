@@ -56,7 +56,7 @@ describe('routes/index', () => {
       reviewQuestionnaireComplete
     );
     expect(mockUse).toBeCalledWith(
-      `/planning-inspectorate/appeals/${views.questionnairesForReview}/${views.checkAndConfirm}`,
+      `/${views.questionnairecheckAndConfirm}`,
       questionnaireCheckAndConfirm
     );
   });

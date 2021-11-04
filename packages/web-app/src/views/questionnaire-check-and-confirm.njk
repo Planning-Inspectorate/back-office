@@ -9,6 +9,8 @@
     Check and confirm - Appeal a householder planning decision - GOV.UK
 {% endblock %}
 
+{% block backButton %} {% endblock %}
+
 {% block formContent %}
     <h2 class="govuk-heading-l">Check and confirm</h2>
     {{ govukSummaryList(sections) }}
@@ -18,5 +20,5 @@
             iconFallbackText: "Warning"
         }) }}
     {% endif %}
-    {{ buttonGroup(href, "Go back to review questionnaire", "Confirm outcome") }}
+    {{ buttonGroup(previousPage, "Go back to review questionnaire", "Confirm outcome") }}
 {% endblock %}

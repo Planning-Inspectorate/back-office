@@ -14,7 +14,7 @@ describe('routes/questionnaire-check-and-confirm', () => {
 
   it('should define the expected routes', () => {
     expect(get).toHaveBeenCalledWith(
-      '/:appealId',
+      '/',
       [checkAppealOutcome],
       checkAndConfirmController.getCheckAndConfirm
     );

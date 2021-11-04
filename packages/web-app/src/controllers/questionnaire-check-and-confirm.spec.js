@@ -1,9 +1,32 @@
-const getCheckAndConfirmController = require('./questionnaire-check-and-confirm');
+const checkAndConfirmController = require('./questionnaire-check-and-confirm');
+const {
+  reviewQuestionnaire: previousPage,
+  reviewQuestionnaireComplete: nextPage,
+} = require('../config/views');
+const { mockReq, mockRes } = require('../../test/utils/mocks');
 
 describe('controllers/questionnaire-check-and-confirm', () => {
+  let req;
+  let res;
+
+  beforeEach(() => {
+    req = mockReq;
+    res = mockRes();
+  });
+
   describe('getCheckAndConfirm', () => {
     it('should render view with complete status', async () => {
-      const appealId = '1';
+      req = {
+        session: {
+          appeal: { id: '5c943cb9-e029-4094-a447-4b3256d6ede7' },
+          questionnaire: {
+            outcome: 'COMPLETE',
+            missingOrIncorrectDocuments: [],
+          },
+        },
+      };
+
+      const appealId = req.session.appeal.id;
 
       const siteAddress = {
         address1: 'Jaleno',
@@ -35,7 +58,7 @@ describe('controllers/questionnaire-check-and-confirm', () => {
             text: 'Appeal site',
           },
           value: {
-            html: getCheckAndConfirmController.util.compileAddress(siteAddress),
+            html: checkAndConfirmController.util.compileAddress(siteAddress),
           },
         },
         {
@@ -63,19 +86,7 @@ describe('controllers/questionnaire-check-and-confirm', () => {
         },
       ];
 
-      const req = {
-        params: {
-          appealId,
-        },
-        session: {
-          outcome: 'COMPLETE',
-        },
-      };
-      const res = {
-        render: jest.fn(),
-      };
-
-      getCheckAndConfirmController.getCheckAndConfirm(req, res);
+      checkAndConfirmController.getCheckAndConfirm(req, res);
       expect(res.render).toBeCalledTimes(1);
       expect(res.render).toBeCalledWith('questionnaire-check-and-confirm', {
         breadcrumbs,
@@ -83,12 +94,24 @@ describe('controllers/questionnaire-check-and-confirm', () => {
           rows: sections,
         },
         pageTitle: 'Review questionnaire',
+        previousPage,
         reviewOutcome: 'COMPLETE',
       });
     });
 
     it('should render view with incomplete status', () => {
-      const appealId = '2';
+      req = {
+        session: {
+          appeal: { id: '5c943cb9-e029-4094-a447-4b3256d6ede7' },
+          questionnaire: {
+            outcome: 'INCOMPLETE',
+            missingOrIncorrectDocuments: ["Planning Officer's report", 'Application publicity'],
+          },
+        },
+      };
+
+      const appealId = req.session.appeal.id;
+      const { missingOrIncorrectDocuments } = req.session.questionnaire;
 
       const siteAddress = {
         address1: 'Jaleno',
@@ -97,8 +120,6 @@ describe('controllers/questionnaire-check-and-confirm', () => {
         city: 'NEWARK',
         postcode: 'NG22 ODH',
       };
-
-      const documents = ['Passport', 'Birth certificate'];
 
       const sections = [
         {
@@ -114,7 +135,9 @@ describe('controllers/questionnaire-check-and-confirm', () => {
             text: 'Missing or incorrect documents',
           },
           value: {
-            html: getCheckAndConfirmController.util.compileMissingDocuments(documents),
+            html: checkAndConfirmController.util.compileMissingDocuments(
+              missingOrIncorrectDocuments
+            ),
           },
         },
         {
@@ -130,7 +153,7 @@ describe('controllers/questionnaire-check-and-confirm', () => {
             text: 'Appeal site',
           },
           value: {
-            html: getCheckAndConfirmController.util.compileAddress(siteAddress),
+            html: checkAndConfirmController.util.compileAddress(siteAddress),
           },
         },
         {
@@ -158,19 +181,7 @@ describe('controllers/questionnaire-check-and-confirm', () => {
         },
       ];
 
-      const req = {
-        params: {
-          appealId,
-        },
-        session: {
-          outcome: 'INCOMPLETE',
-        },
-      };
-      const res = {
-        render: jest.fn(),
-      };
-
-      getCheckAndConfirmController.getCheckAndConfirm(req, res);
+      checkAndConfirmController.getCheckAndConfirm(req, res);
       expect(res.render).toBeCalledTimes(1);
       expect(res.render).toBeCalledWith('questionnaire-check-and-confirm', {
         breadcrumbs,
@@ -178,8 +189,27 @@ describe('controllers/questionnaire-check-and-confirm', () => {
           rows: sections,
         },
         pageTitle: 'Review questionnaire',
+        previousPage,
         reviewOutcome: 'INCOMPLETE',
       });
+    });
+  });
+
+  describe('postCheckAndConfirm', () => {
+    it('should redirect to review outcomepage', () => {
+      req = {
+        session: {
+          appeal: { id: '5c943cb9-e029-4094-a447-4b3256d6ede7' },
+          questionnaire: {
+            outcome: 'COMPLETE',
+            missingOrIncorrectDocuments: [],
+          },
+        },
+      };
+      checkAndConfirmController.postCheckAndConfirm(req, res);
+
+      expect(res.redirect).toBeCalledTimes(1);
+      expect(res.redirect).toBeCalledWith(`/${nextPage}`);
     });
   });
 });

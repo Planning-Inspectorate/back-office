@@ -1,4 +1,7 @@
 const { reviewQuestionnaireComplete: currentPage, questionnairesList } = require('../config/views');
+const {
+  QUESTIONNAIRE: { REVIEWOUTCOME },
+} = require('../constants');
 
 const viewData = () => ({
   pageTitle: 'Review complete',
@@ -8,10 +11,11 @@ const viewData = () => ({
 
 const getReviewQuestionnaireComplete = (req, res) => {
   const {
-    session: { appeal, questionnaire },
-  } = req;
+    appeal,
+    questionnaire: { outcome },
+  } = req.session;
 
-  const options = { ...viewData(), appealData: appeal, questionnaireData: questionnaire };
+  const options = { ...viewData(), appealData: appeal, outcome: outcome.toLowerCase() };
 
   res.render(currentPage, options);
 };

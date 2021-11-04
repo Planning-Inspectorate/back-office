@@ -38,12 +38,9 @@ router.use(`/${views.document}`, documentsServiceProxy);
 router.use(`/${views.appealAlreadyReviewed}`, appealAlreadyReviewed);
 router.use(`/${views.checkAndConfirm}`, checkAndConfirmDetails);
 router.use(`/${views.reviewComplete}`, reviewComplete);
-router.use(`/`, reviewQuestionnaire);
+router.use(`/${views.reviewQuestionnaire}`, reviewQuestionnaire);
 router.use(`/${views.reviewQuestionnaireComplete}`, reviewQuestionnaireComplete);
 router.use(`/${views.questionnairesForReview}/${views.checkAndConfirm}`, checkAndConfirm);
-router.use(
-  `/planning-inspectorate/appeals/${views.questionnairesForReview}/${views.checkAndConfirm}`,
-  questionnaireCheckAndConfirm
-);
+router.use(`/${views.questionnairecheckAndConfirm}`, questionnaireCheckAndConfirm);
 
 module.exports = router;

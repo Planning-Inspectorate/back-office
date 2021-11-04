@@ -1,6 +1,13 @@
 const views = require('../config/views');
 const { getData } = require('../lib/api-wrapper');
 const saveAndContinue = require('../lib/save-and-continue');
+const {
+  QUESTIONNAIRE: { REVIEWOUTCOME },
+} = require('../constants');
+const {
+  reviewQuestionnaire: currentPage,
+  questionnairecheckAndConfirm: nextPage,
+} = require('../config/views');
 
 let appealId = '';
 
@@ -169,9 +176,12 @@ const createPageData = () => {
 };
 
 const getReviewQuestionnaire = (req, res) => {
-  appealId = req.params.id;
+  const {
+    session: { appeal },
+  } = req;
+  appealId = appeal.id;
   const viewData = createPageData();
-
+  
   res.render(views.reviewQuestionnaire, {
     pageTitle: 'Review questionnaire',
     ...viewData,
@@ -247,17 +257,20 @@ const postReviewQuestionnaire = (req, res) => {
   const viewData = {
     ...createPageData(),
     values,
-    missingOrIncorrectDocuments,
     pageTitle: 'Review questionnaire',
   };
 
-  req.session.questionnaire = { missingOrIncorrectDocuments };
+  req.session.questionnaire = {
+    missingOrIncorrectDocuments,
+    outcome:
+      missingOrIncorrectDocuments.length > 0 ? REVIEWOUTCOME.INCOMPLETE : REVIEWOUTCOME.COMPLETE,
+  };
 
   saveAndContinue({
     req,
     res,
-    currentPage: views.reviewQuestionnaire,
-    nextPage: `/questionnaires-for-review/check-and-confirm/${appealId}`,
+    currentPage,
+    nextPage,
     viewData,
   });
 };

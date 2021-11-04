@@ -41,7 +41,7 @@ describe('lib/saveAndContinue', () => {
 
       saveAndContinue({ req, res, currentPage, nextPage, viewData });
 
-      expect(res.cookie).toBeCalledTimes(2);
+      expect(res.cookie).toBeCalledTimes(3);
       expect(res.cookie).toBeCalledWith('appealId', appealId);
       expect(res.cookie).toBeCalledWith(appealId, JSON.stringify(casework));
       expect(res.redirect).toBeCalledTimes(1);

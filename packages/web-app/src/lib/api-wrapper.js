@@ -270,6 +270,8 @@ const getData = (appealId) => {
     // Switch casework to test the /appeal-already-reviewed page
     casework: {},
     // casework,
+    questionnaire: {},
+    // questionnaire,
   };
 };
 

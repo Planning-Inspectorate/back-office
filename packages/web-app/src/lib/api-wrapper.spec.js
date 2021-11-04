@@ -262,6 +262,7 @@ describe('lib/apiWrapper', () => {
       expect(result).toEqual({
         appeal: {},
         casework: {},
+        questionnaire: {},
       });
     });
   });
