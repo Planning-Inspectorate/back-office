@@ -1,5 +1,5 @@
 const views = require('../config/views');
-const { getData } = require('../lib/api-wrapper');
+const { getAppealData } = require('../lib/api-wrapper');
 const saveAndContinue = require('../lib/save-and-continue');
 
 let appealId = '';
@@ -37,7 +37,7 @@ const createSubCheckboxData = (name) => ({
 
 const createPageData = () => {
   // TODO collect data for id rathar than mocked data
-  const { appeal, questionnaire } = getData(appealId);
+  const { appeal, questionnaire } = getAppealData(appealId);
 
   return {
     appealInfo: {

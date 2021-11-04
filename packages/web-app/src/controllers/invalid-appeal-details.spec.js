@@ -33,7 +33,7 @@ describe('controllers/invalid-appeal-details', () => {
     it('should render the view with data correctly', () => {
       req = {
         session: {
-          appeal: { id: appealId, caseReference },
+          appeal: { appealId, caseReference },
           casework: {
             outcomeDetails: {
               invalid,
@@ -57,7 +57,7 @@ describe('controllers/invalid-appeal-details', () => {
           'other-reason': invalid.otherReason,
         },
         session: {
-          appeal: { id: appealId, caseReference },
+          appeal: { appealId, caseReference },
           casework: {},
         },
       };

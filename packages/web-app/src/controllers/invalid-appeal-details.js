@@ -18,12 +18,12 @@ const viewData = (appealId, caseReference, invalid) => ({
 const getInvalidAppealDetails = (req, res) => {
   const {
     session: {
-      appeal: { id, caseReference },
+      appeal: { appealId, caseReference },
       casework: { outcomeDetails },
     },
   } = req;
   const options = {
-    ...viewData(id, caseReference, outcomeDetails?.invalid),
+    ...viewData(appealId, caseReference, outcomeDetails?.invalid),
     getText,
   };
   res.render(currentPage, options);
@@ -32,7 +32,7 @@ const getInvalidAppealDetails = (req, res) => {
 const postInvalidAppealDetails = (req, res) => {
   const {
     session: {
-      appeal: { id, caseReference },
+      appeal: { appealId, caseReference },
       casework,
     },
     body,
@@ -55,7 +55,7 @@ const postInvalidAppealDetails = (req, res) => {
     res,
     currentPage,
     nextPage,
-    viewData: viewData(id, caseReference, outcomeDetails.invalid),
+    viewData: viewData(appealId, caseReference, outcomeDetails.invalid),
   });
 };
 

@@ -1,6 +1,6 @@
 const { getReviewQuestionnaire, postReviewQuestionnaire } = require('./review-questionnaire');
 const views = require('../config/views');
-const { getData } = require('../lib/api-wrapper');
+const { getAppealData } = require('../lib/api-wrapper');
 const { mockReq, mockRes } = require('../../test/utils/mocks');
 const mockExistingData = require('../../test/review-questionnaire-existing-data-mock.json');
 const mockViewData = require('../../test/review-questionnaire-view-data-mock.json');
@@ -28,7 +28,7 @@ describe('controllers/review-questionnaire', () => {
 
   describe('getReviewQuestionnaire', () => {
     it('should render the view with data correctly', () => {
-      getData.mockImplementation(() => existingData);
+      getAppealData.mockImplementation(() => existingData);
 
       getReviewQuestionnaire(req, res);
 
@@ -45,7 +45,7 @@ describe('controllers/review-questionnaire', () => {
       viewData.aboutAppealSite.developmentAffectSettings.cellText = 'No';
       viewData.aboutAppealSite.nearConservationArea.cellText = 'No';
 
-      getData.mockImplementation(() => existingData);
+      getAppealData.mockImplementation(() => existingData);
 
       getReviewQuestionnaire(req, res);
 

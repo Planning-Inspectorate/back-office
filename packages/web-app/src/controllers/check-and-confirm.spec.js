@@ -29,7 +29,7 @@ describe('controllers/check-and-confirm', () => {
     it('should render the view with correct data if reviewOutcome is valid', () => {
       req = {
         session: {
-          appeal: { id: appealId, horizonId },
+          appeal: { appealId, horizonId },
           casework: { reviewOutcome: reviewOutcomeOption.valid },
         },
       };
@@ -53,7 +53,7 @@ describe('controllers/check-and-confirm', () => {
     it('should render the view with correct data if reviewOutcome is invalid', () => {
       req = {
         session: {
-          appeal: { id: appealId, horizonId },
+          appeal: { appealId, horizonId },
           casework: { reviewOutcome: reviewOutcomeOption.invalid },
         },
       };
@@ -77,7 +77,7 @@ describe('controllers/check-and-confirm', () => {
     it('should render the view with correct data if reviewOutcome is incomplete', () => {
       req = {
         session: {
-          appeal: { id: appealId, horizonId },
+          appeal: { appealId, horizonId },
           casework: { reviewOutcome: reviewOutcomeOption.incomplete },
         },
       };
@@ -106,7 +106,7 @@ describe('controllers/check-and-confirm', () => {
           'check-and-confirm-completed': 'true',
         },
         session: {
-          appeal: { id: appealId, horizonId },
+          appeal: { appealId, horizonId },
           casework: {
             reviewOutcome: reviewOutcomeOption.incomplete,
           },
@@ -142,7 +142,7 @@ describe('controllers/check-and-confirm', () => {
           'check-and-confirm-completed': 'true',
         },
         session: {
-          appeal: { id: appealId, horizonId },
+          appeal: { appealId, horizonId },
           casework: {
             reviewOutcome: reviewOutcomeOption.invalid,
           },

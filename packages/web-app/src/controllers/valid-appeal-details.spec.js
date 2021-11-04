@@ -30,7 +30,7 @@ describe('controllers/valid-appeal-details', () => {
     it('should render the view with data correctly', () => {
       req = {
         session: {
-          appeal: { id: appealId, caseReference },
+          appeal: { appealId, caseReference },
           casework: {
             outcomeDetails: {
               valid,
@@ -53,7 +53,7 @@ describe('controllers/valid-appeal-details', () => {
           'valid-appeal-details': valid.description,
         },
         session: {
-          appeal: { id: appealId, caseReference },
+          appeal: { appealId, caseReference },
           casework: {},
         },
       };

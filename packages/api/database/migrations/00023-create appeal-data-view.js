@@ -13,7 +13,7 @@ const migration = {
         HASAppealSubmission.SiteOwnership as siteOwnership,
         HASAppealSubmission.SiteInformOwners as siteInformOwners,
         HASAppealSubmission.SiteRestriction as siteRestriction,
-        HASAppealSubmission.SiteRestrictionsDetails as siteRestrictionsDetails,
+        HASAppealSubmission.SiteRestrictionDetails as siteRestrictionDetails,
         HASAppealSubmission.SafetyConcern as safetyConcern,
         HASAppealSubmission.SafetyConcernDetails as safetyConcernDetails,
         HASAppealSubmission.SensitiveInformation as sensitiveInformation,
