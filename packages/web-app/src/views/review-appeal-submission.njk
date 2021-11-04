@@ -6,20 +6,15 @@
 {% from "components/unorderedList.njk" import unorderedList %}
 {% from "components/button.njk" import button %}
 
-{% set yourDetails = appealData.aboutYouSection.yourDetails %}
-{% set originalApplicationFile = appealData.requiredDocumentsSection.originalApplication.uploadedFile %}
-{% set decisionLetterFile = appealData.requiredDocumentsSection.decisionLetter.uploadedFile %}
-{% set appealStatementFile = appealData.yourAppealSection.appealStatement.uploadedFile %}
-
 {% block formContent %}
   {{ govukSummaryList({
     rows: [
       {
         key: { text: "Appellant name" },
-        value: { text: yourDetails.name if yourDetails.isOriginalApplicant else yourDetails.appealingOnBehalfOf }
+        value: { text: appealData.appellantName if appealData.creatorOriginalApplicant else appealData.creatorName }
       },
       { key: { text: "Appeal reference" },
-        value: { text: appealData.horizonId }
+        value: { text: appealData.caseReference }
       },
       {
         key: { text: "Received on" },
@@ -27,15 +22,21 @@
       },
       {
         key: { text: "Appeal site" },
-        value: { html: address(appealData.appealSiteSection.siteAddress) }
+        value: { html: address({
+          addressLine1: appealData.siteAddressLineOne,
+          addressLine2: appealData.siteAddressLineTwo,
+          town: appealData.siteAddressTown,
+          county: appealData.siteAddressCounty,
+          postcode: appealData.siteAddressPostCode
+        }) }
       },
       {
         key: { text: "Local planning department" },
-        value: { text: appealData.lpaCode }
+        value: { text: appealData.localPlanningAuthorityId }
       },
       {
         key: { text: "Planning application reference" },
-        value: { text: appealData.requiredDocumentsSection.applicationNumber }
+        value: { text: appealData.caseReference }
       }
     ]
   }) }}
@@ -46,11 +47,11 @@
     rows: [
       {
         key: { text: "Planning application form" },
-        value: { html: '<a class="govuk-link" href="/document/'+appealData.id+'/'+originalApplicationFile.id+'">' + originalApplicationFile.name + '</a>' }
+        value: { html: '<a class="govuk-link" href="/document/'+appealData.appealId+'/'+appealData.originalApplication.id+'">' + appealData.originalApplication.name + '</a>' }
       },
       {
         key: { text: "Decision letter" },
-        value: { html: '<a a class="govuk-link" href="/document/'+appealData.id+'/'+decisionLetterFile.id+'">' + decisionLetterFile.name + '</a>' }
+        value: { html: '<a a class="govuk-link" href="/document/'+appealData.appealId+'/'+appealData.decisionLetter.id+'">' + appealData.decisionLetter.name + '</a>' }
       }
     ]
   }) }}
@@ -61,11 +62,11 @@
     rows: [
       {
         key: { text: "Appeal statement" },
-        value: { html: '<a a class="govuk-link" href="/document/'+appealData.id+'/'+appealStatementFile.id+'">' + appealStatementFile.name + '</a>' }
+        value: { html: '<a a class="govuk-link" href="/document/'+appealData.appealId+'/'+appealData.appealStatement.id+'">' + appealData.appealStatement.name + '</a>' }
       },
       {
         key: { text: "Supporting documents" },
-        value: { html: unorderedList(appealData.yourAppealSection.otherDocuments.uploadedFiles, '/document/'+appealData.id) }
+        value: { html: unorderedList(appealData.otherDocuments, '/document/'+appealData.appealId) }
       }
     ]
   }) }}

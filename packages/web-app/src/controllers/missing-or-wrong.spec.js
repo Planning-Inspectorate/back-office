@@ -8,7 +8,7 @@ jest.mock('../lib/save-and-continue');
 
 describe('controllers/missing-or-wrong', () => {
   const appealId = '5c943cb9-e029-4094-a447-4b3256d6ede7';
-  const horizonId = 'APP/Q9999/D/21/1234567';
+  const caseReference = '1234567';
   const missingReasons = ['other', 'outOfTime'];
   const missingDocumentReasons = ['noApplicationForm'];
   const missingOrWrong = {
@@ -21,7 +21,7 @@ describe('controllers/missing-or-wrong', () => {
     backLink: `/${views.reviewAppealSubmission}/${appealId}`,
     getText,
     missingOrWrong,
-    appealReference: horizonId,
+    appealReference: caseReference,
   };
 
   let req;
@@ -36,7 +36,7 @@ describe('controllers/missing-or-wrong', () => {
     it('should render the view with data correctly', () => {
       req = {
         session: {
-          appeal: { id: appealId, horizonId },
+          appeal: { id: appealId, caseReference },
           casework: {
             outcomeDetails: {
               missingOrWrong,
@@ -61,7 +61,7 @@ describe('controllers/missing-or-wrong', () => {
           'other-reason': missingOrWrong.otherReason,
         },
         session: {
-          appeal: { id: appealId, horizonId },
+          appeal: { id: appealId, caseReference },
           casework: {},
         },
       };

@@ -7,7 +7,7 @@ jest.mock('../lib/save-and-continue');
 
 describe('controllers/valid-appeal-details', () => {
   const appealId = '5c943cb9-e029-4094-a447-4b3256d6ede7';
-  const horizonId = 'APP/Q9999/D/21/1234567';
+  const caseReference = '1234567';
   const valid = {
     description: 'some appeal details',
   };
@@ -15,7 +15,7 @@ describe('controllers/valid-appeal-details', () => {
     pageTitle: 'Valid appeal details',
     backLink: `/${views.reviewAppealSubmission}/${appealId}`,
     valid,
-    appealReference: horizonId,
+    appealReference: caseReference,
   };
 
   let req;
@@ -30,7 +30,7 @@ describe('controllers/valid-appeal-details', () => {
     it('should render the view with data correctly', () => {
       req = {
         session: {
-          appeal: { id: appealId, horizonId },
+          appeal: { id: appealId, caseReference },
           casework: {
             outcomeDetails: {
               valid,
@@ -53,7 +53,7 @@ describe('controllers/valid-appeal-details', () => {
           'valid-appeal-details': valid.description,
         },
         session: {
-          appeal: { id: appealId, horizonId },
+          appeal: { id: appealId, caseReference },
           casework: {},
         },
       };

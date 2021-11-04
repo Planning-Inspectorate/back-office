@@ -1,6 +1,6 @@
-const { getData } = require('./api-wrapper');
+const { getAppealData } = require('./api-wrapper');
 
-const getCaseData = (req, res, next) => {
+const getCaseData = async (req, res, next) => {
   const {
     cookies,
     log,
@@ -9,18 +9,6 @@ const getCaseData = (req, res, next) => {
   const cookieAppealId = cookies.appealId;
 
   try {
-    /*
-      Temporary conditional to clear the session data when a new appeal is selected from the
-      Appeals list.
-
-      We need to compare the selected appeal id with the one on the session data rather than
-      simply removing the session data each time because we don't want to remove the session
-      data if a user has clicked either the 'Back' or 'Change outcome' links on the Valid
-      Appeal Details page.
-
-      It's probably not where we'd do it ideally when we've connected the API to the database
-      so it can be replaced by a more appropriate solution at that point.
-    */
     if (appealId && appealId !== cookieAppealId) {
       log.debug({ appealId, cookieAppealId }, 'Deleting session data');
       res.clearCookie('appealId');
@@ -31,7 +19,7 @@ const getCaseData = (req, res, next) => {
 
     log.debug({ id: currentAppealId }, 'Getting existing data');
 
-    req.session = getData(currentAppealId);
+    req.session = await getAppealData(currentAppealId);
 
     if (req.cookies[currentAppealId]) {
       req.session.casework = JSON.parse(req.cookies[currentAppealId]);
@@ -41,8 +29,8 @@ const getCaseData = (req, res, next) => {
 
     next();
   } catch (err) {
-    log.debug({ err }, 'Error getting existing data');
-    throw err;
+    log.error({ err }, 'Failed to get existing data');
+    throw new Error(`Failed to get existing data - ${err.message}`);
   }
 };
 

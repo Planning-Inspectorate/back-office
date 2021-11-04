@@ -5,28 +5,28 @@ const {
 } = require('../config/views');
 const saveAndContinue = require('../lib/save-and-continue');
 
-const viewData = (appealId, horizonId, valid) => ({
+const viewData = (appealId, caseReference, valid) => ({
   pageTitle: 'Valid appeal details',
   backLink: `/${previousPage}/${appealId}`,
   valid,
-  appealReference: horizonId,
+  appealReference: caseReference,
 });
 
 const getValidAppealDetails = (req, res) => {
   const {
     session: {
-      appeal: { id, horizonId },
+      appeal: { id, caseReference },
       casework: { outcomeDetails },
     },
   } = req;
 
-  res.render(currentPage, viewData(id, horizonId, outcomeDetails?.valid));
+  res.render(currentPage, viewData(id, caseReference, outcomeDetails?.valid));
 };
 
 const postValidAppealDetails = (req, res) => {
   const {
     session: {
-      appeal: { id, horizonId },
+      appeal: { id, caseReference },
       casework,
     },
     body,
@@ -43,7 +43,7 @@ const postValidAppealDetails = (req, res) => {
     res,
     currentPage,
     nextPage,
-    viewData: viewData(id, horizonId, casework.outcomeDetails.valid),
+    viewData: viewData(id, caseReference, casework.outcomeDetails.valid),
   });
 };
 

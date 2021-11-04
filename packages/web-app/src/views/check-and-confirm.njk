@@ -71,14 +71,20 @@
       },
       {
         key: { text: "Appellant name" },
-        value: { text: yourDetails.name if yourDetails.isOriginalApplicant else yourDetails.appealingOnBehalfOf }
+        value: { text: appealData.appellantName if appealData.creatorOriginalApplicant else appealData.creatorName }
       },
       { key: { text: "Appeal reference" },
-        value: { text: appealData.horizonId }
+        value: { text: appealData.caseReference }
       },
       {
         key: { text: "Appeal site" },
-        value: { html: address(appealData.appealSiteSection.siteAddress) }
+        value: { html: address({
+          addressLine1: appealData.siteAddressLineOne,
+          addressLine2: appealData.siteAddressLineTwo,
+          town: appealData.siteAddressTown,
+          county: appealData.siteAddressCounty,
+          postcode: appealData.siteAddressPostCode
+        }) }
       },
       {
         key: { text: checkAndConfirmConfig.reasonText },
