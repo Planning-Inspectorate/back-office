@@ -31,7 +31,7 @@ describe('controllers/review-questionnaire-complete', () => {
       const options = {
         ...viewData(),
         appealData: req.session.appeal,
-        questionnaireData: req.session.questionnaire,
+        outcome: 'complete',
       };
 
       getReviewQuestionnaireComplete(req, res);

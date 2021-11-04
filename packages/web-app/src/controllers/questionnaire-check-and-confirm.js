@@ -8,6 +8,10 @@ const getCheckAndConfirm = (req, res) => {
   });
 };
 
+const postCheckAndConfirm = (req, res) => {
+  res.redirect(`/${nextPage}`);
+};
+
 module.exports = {
   getCheckAndConfirm,
 };

@@ -1,7 +1,7 @@
 {
   "appealInfo": {
     "appealReferenceTitle": "Appeal reference",
-    "appealReference": "mock-appeal-id",
+    "appealReference": "5c943cb9-e029-4094-a447-4b3256d6ede7",
     "appealSiteTitle": "Appeal site",
     "address": {
       "addressLine1": "mock-address-line-1",
@@ -23,7 +23,7 @@
       "titleText": "Decision notice",
       "files": [
         {
-          "link": "/document/mock-appeal-id/06f3d256-cb09-4146-aa4d-25fea4719062",
+          "link": "/document/5c943cb9-e029-4094-a447-4b3256d6ede7/06f3d256-cb09-4146-aa4d-25fea4719062",
           "text": "decision letter.pdf"
         }
       ],
@@ -36,7 +36,7 @@
       "titleText": "Planning Officer's report",
       "files": [
         {
-          "link": "/document/mock-appeal-id/c89ba175-82cc-404f-bdbb-450c4659df30",
+          "link": "/document/5c943cb9-e029-4094-a447-4b3256d6ede7/c89ba175-82cc-404f-bdbb-450c4659df30",
           "text": "officers-report-uploaded-file.pdf"
         }
       ],
@@ -49,7 +49,7 @@
       "titleText": "Plans used to reach decision",
       "files": [
         {
-          "link": "/document/mock-appeal-id/843dd1fc-6cd9-451f-a2a1-9107a85528e2",
+          "link": "/document/5c943cb9-e029-4094-a447-4b3256d6ede7/843dd1fc-6cd9-451f-a2a1-9107a85528e2",
           "text": "plans-decision-uploaded-file.pdf"
         }
       ],
@@ -65,11 +65,11 @@
       "titleText": "Statutory development plan policies",
       "files": [
         {
-          "link": "/document/mock-appeal-id/4a754d67-9c12-5556-ae71-28af8f710ea4",
+          "link": "/document/5c943cb9-e029-4094-a447-4b3256d6ede7/4a754d67-9c12-5556-ae71-28af8f710ea4",
           "text": "statutory-development-uploaded-file.pdf"
         },
         {
-          "link": "/document/mock-appeal-id/27be942a-26b5-11ec-9621-0242ac130002",
+          "link": "/document/5c943cb9-e029-4094-a447-4b3256d6ede7/27be942a-26b5-11ec-9621-0242ac130002",
           "text": "statutory-development-uploaded-file-2.pdf"
         }
       ],
@@ -85,7 +85,7 @@
       "titleText": "Other relevant policies",
       "files": [
         {
-          "link": "/document/mock-appeal-id/837cb5a1-ff87-fd90-3526-657b44b3a561",
+          "link": "/document/5c943cb9-e029-4094-a447-4b3256d6ede7/837cb5a1-ff87-fd90-3526-657b44b3a561",
           "text": "other-policy-uploaded-file.pdf"
         }
       ],
@@ -101,7 +101,7 @@
       "titleText": "Supplementary planning documents",
       "files": [
         {
-          "link": "/document/mock-appeal-id/20363838-c8da-4cfd-ab7d-e18a12fe3148",
+          "link": "/document/5c943cb9-e029-4094-a447-4b3256d6ede7/20363838-c8da-4cfd-ab7d-e18a12fe3148",
           "text": "supplementary-planning-uploaded-file.pdf"
         }
       ],
@@ -124,7 +124,7 @@
       "titleText": "Conservation area map and guidance",
       "files": [
         {
-          "link": "/document/mock-appeal-id/11dbbb23-9677-a890-aa33-f887b8b1e209",
+          "link": "/document/5c943cb9-e029-4094-a447-4b3256d6ede7/11dbbb23-9677-a890-aa33-f887b8b1e209",
           "text": "conservation-area-map-uploaded-file.pdf"
         }
       ],
@@ -162,7 +162,7 @@
       "titleText": "Application notification",
       "files": [
         {
-          "link": "/document/mock-appeal-id/99ee0123-ac21-7618-b00a-12dfdde8d9a5",
+          "link": "/document/5c943cb9-e029-4094-a447-4b3256d6ede7/99ee0123-ac21-7618-b00a-12dfdde8d9a5",
           "text": "application-notification-uploaded-file.pdf"
         }
       ],
@@ -188,7 +188,7 @@
       "titleText": "Application publicity",
       "files": [
         {
-          "link": "/document/mock-appeal-id/5ff87234-a009-bb12-5765-788992f2f3ac",
+          "link": "/document/5c943cb9-e029-4094-a447-4b3256d6ede7/5ff87234-a009-bb12-5765-788992f2f3ac",
           "text": "application-publicity-uploaded-file.pdf"
         }
       ],
@@ -201,11 +201,11 @@
       "titleText": "Representations",
       "files": [
         {
-          "link": "/document/mock-appeal-id/a6be9fa8-de03-43d2-a13b-0a18661fd498",
+          "link": "/document/5c943cb9-e029-4094-a447-4b3256d6ede7/a6be9fa8-de03-43d2-a13b-0a18661fd498",
           "text": "representations-uploaded-file.pdf"
         },
         {
-          "link": "/document/mock-appeal-id/cd5451be-275e-11ec-9621-0242ac130002",
+          "link": "/document/5c943cb9-e029-4094-a447-4b3256d6ede7/cd5451be-275e-11ec-9621-0242ac130002",
           "text": "representations-uploaded-file-2.pdf"
         }
       ],
@@ -221,7 +221,7 @@
       "titleText": "Appeal notification",
       "files": [
         {
-          "link": "/document/mock-appeal-id/4583adcb-6400-462f-9407-abe18f3a7737",
+          "link": "/document/5c943cb9-e029-4094-a447-4b3256d6ede7/4583adcb-6400-462f-9407-abe18f3a7737",
           "text": "upload-file-valid.pdf"
         }
       ],

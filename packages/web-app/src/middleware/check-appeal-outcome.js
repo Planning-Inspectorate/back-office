@@ -7,18 +7,11 @@
  * @returns {any}
  */
 module.exports = (req, res, next) => {
-  const { appealId } = req.params;
+  const { appeal } = req.session;
+  const appealId = appeal.id;
 
   if (!appealId) {
     return res.sendStatus(404);
-  }
-
-  if (appealId === '1') {
-    req.session.outcome = 'COMPLETE';
-  }
-
-  if (appealId === '2') {
-    req.session.outcome = 'INCOMPLETE';
   }
 
   return next();

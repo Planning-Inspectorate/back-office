@@ -28,6 +28,7 @@ describe('lib/getCaseData', () => {
           appealId,
         },
         casework: {},
+        questionnaire: {},
       },
     };
   });
@@ -68,6 +69,7 @@ describe('lib/getCaseData', () => {
           [appealId]: JSON.stringify({
             reviewOutcome: 1,
           }),
+          appeal_questionnaire: JSON.stringify({ outcome: 'COMPLETE' }),
         },
       };
 
@@ -102,16 +104,21 @@ describe('lib/getCaseData', () => {
         params: {
           appealId: differentAppealId,
         },
-        cookies: {
-          appealId: alreadyExistingAppeal.id,
-        },
+        cookies: [
+          {
+            appealId: alreadyExistingAppeal.appeal.id,
+          },
+          {
+            appealId_questionnaire: `${alreadyExistingAppeal.appeal.id}_questionnaire`,
+          },
+        ],
       };
 
       await getCaseData(req, res, next);
 
-      expect(res.clearCookie).toBeCalledTimes(2);
+      expect(res.clearCookie).toBeCalledTimes(3);
       expect(res.clearCookie).toBeCalledWith('appealId');
-      expect(res.clearCookie).toBeCalledWith(alreadyExistingAppeal.id);
+      expect(res.clearCookie).toBeCalledWith('appeal_questionnaire');
     });
 
     it('should not clear the cookies when the given appeal id does not exist and it does not equal the session appeal id', async () => {
