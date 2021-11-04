@@ -1,10 +1,12 @@
 const express = require('express');
-const appealRouter = require('./appeal');
-const apiDocsRouter = require('./api-docs');
+const appeal = require('./appeal');
+const questionnaire = require('./questionnaire');
+const apiDocs = require('./api-docs');
 
 const router = express.Router();
 
-router.use('/api/v1/appeal', appealRouter);
-router.use('/api-docs', apiDocsRouter);
+router.use('/api/v1/appeal', appeal);
+router.use('/api/v1/questionnaire', questionnaire);
+router.use('/api-docs', apiDocs);
 
 module.exports = router;

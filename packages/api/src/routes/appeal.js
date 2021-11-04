@@ -1,9 +1,10 @@
 const express = require('express');
-const { getAppeal, postAppeal } = require('../controllers/appeal');
+const { getAllAppeals, getOneAppeal, postAppeal } = require('../controllers/appeal');
 
 const router = express.Router();
 
-router.get('/', getAppeal);
+router.get('/', getAllAppeals);
+router.get('/:appealId', getOneAppeal);
 router.post('/', postAppeal);
 
 module.exports = router;

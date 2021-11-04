@@ -1,15 +1,15 @@
 const { mockReq, mockRes } = require('../../test/utils/mocks');
-const mockDbRecord = require('../../test/data/has-appeal-submission-db-record');
+const mockDbRecord = require('../../test/data/has-lpa-submission-db-record');
 const mockDocumentsMetadata = require('../../test/data/documents-metadata');
 
 jest.mock('../lib/db-wrapper', () => ({
-  findOneAppeal: jest
+  findOneQuestionnaire: jest
     .fn()
     .mockImplementationOnce(() => mockDbRecord)
     .mockImplementationOnce(() => {
       throw new Error('Internal Server Error');
     }),
-  findAllAppeals: jest
+  findAllQuestionnaires: jest
     .fn()
     .mockImplementationOnce(() => [mockDbRecord])
     .mockImplementationOnce(() => {
@@ -27,9 +27,9 @@ jest.mock('../lib/documents-api-wrapper', () => ({
   getDocumentsMetadata: jest.fn().mockReturnValue(mockDocumentsMetadata),
 }));
 
-const { getOneAppeal, getAllAppeals, postAppeal } = require('./appeal');
+const { getOneQuestionnaire, getAllQuestionnaires, postQuestionnaire } = require('./questionnaire');
 
-describe('controllers/appeal', () => {
+describe('controllers/questionnaire', () => {
   let req;
   let res;
 
@@ -38,62 +38,62 @@ describe('controllers/appeal', () => {
     res = mockRes();
   });
 
-  describe('getAllAppeals', () => {
+  describe('getAllQuestionnaires', () => {
     it('should return the correct response when data can be fetched', async () => {
-      await getAllAppeals(req, res);
+      await getAllQuestionnaires(req, res);
 
       expect(res.status).toBeCalledWith(200);
       expect(res.send).toBeCalledWith([mockDbRecord]);
     });
 
     it('should return the correct response when an error occurs', async () => {
-      await getAllAppeals(req, res);
+      await getAllQuestionnaires(req, res);
 
       expect(res.status).toBeCalledWith(500);
-      expect(res.send).toBeCalledWith('Failed to get appeals');
+      expect(res.send).toBeCalledWith('Failed to get questionnaires');
     });
   });
 
-  describe('getOneAppeal', () => {
+  describe('getOneQuestionnaire', () => {
     it('should return the correct response when given an appeal id and data can be fetched', async () => {
       req.params.appealId = 'da8f8051-bc7f-403c-8431-e9788563c07b';
 
-      await getOneAppeal(req, res);
+      await getOneQuestionnaire(req, res);
 
       expect(res.status).toBeCalledWith(200);
       expect(res.send).toBeCalledWith(mockDbRecord);
     });
 
     it('should return the correct response when not given an appeal id', async () => {
-      await getOneAppeal(req, res);
+      await getOneQuestionnaire(req, res);
 
       expect(res.status).toBeCalledWith(500);
-      expect(res.send).toBeCalledWith('Failed to get appeal - No AppealId given');
+      expect(res.send).toBeCalledWith('Failed to get questionnaire - No AppealId given');
     });
 
     it('should return the correct response when an error occurs', async () => {
       req.params.appealId = 'da8f8051-bc7f-403c-8431-e9788563c07b';
 
-      await getOneAppeal(req, res);
+      await getOneQuestionnaire(req, res);
 
       expect(res.status).toBeCalledWith(500);
-      expect(res.send).toBeCalledWith('Failed to get appeal - Internal Server Error');
+      expect(res.send).toBeCalledWith('Failed to get questionnaire - Internal Server Error');
     });
   });
 
-  describe('postAppeal', () => {
+  describe('postQuestionnaire', () => {
     it('should return the correct response when data can be inserted', async () => {
-      await postAppeal(req, res);
+      await postQuestionnaire(req, res);
 
       expect(res.status).toBeCalledWith(200);
       expect(res.send).toBeCalledWith(mockDbRecord);
     });
 
     it('should return the correct response when an error occurs', async () => {
-      await postAppeal(req, res);
+      await postQuestionnaire(req, res);
 
       expect(res.status).toBeCalledWith(500);
-      expect(res.send).toBeCalledWith('Failed to insert appeal');
+      expect(res.send).toBeCalledWith('Failed to insert questionnaire');
     });
   });
 });

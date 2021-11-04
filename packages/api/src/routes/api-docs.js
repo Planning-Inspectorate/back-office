@@ -5,7 +5,7 @@ const getYamlAsJson = require('../lib/get-yaml-as-json');
 const config = require('../config');
 
 const {
-  docs: {
+  documentation: {
     api: { path: apiDocsPath },
   },
 } = config;

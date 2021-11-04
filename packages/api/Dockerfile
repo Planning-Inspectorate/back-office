@@ -25,6 +25,7 @@ RUN npm prune --production \
   && npm rebuild \
   && npm version ${VERSION} --no-git-tag-version --allow-same-version || true
 RUN npm run documentation; echo $? > /npm.exitcode
+RUN npm run db:migrate
 
 EXPOSE 3000
 
