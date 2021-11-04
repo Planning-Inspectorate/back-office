@@ -1,4 +1,4 @@
-const { getCheckAndConfirm } = require('./questionnaire-check-and-confirm');
+  const { getCheckAndConfirm } = require('./questionnaire-check-and-confirm');
 const { mockReq, mockRes } = require('../../test/utils/mocks');
 
 describe('controllers/questionnaire-check-and-confirm', () => {
@@ -26,6 +26,24 @@ describe('controllers/questionnaire-check-and-confirm', () => {
         questionnaireData,
         reviewOutcome: 'Incomplete',
       });
+    });
+  });
+
+  describe('postCheckAndConfirm', () => {
+    it('should redirect to review outcomepage', () => {
+      req = {
+        session: {
+          appeal: { id: '5c943cb9-e029-4094-a447-4b3256d6ede7' },
+          questionnaire: {
+            outcome: 'COMPLETE',
+            missingOrIncorrectDocuments: [],
+          },
+        },
+      };
+      checkAndConfirmController.postCheckAndConfirm(req, res);
+
+      expect(res.redirect).toBeCalledTimes(1);
+      expect(res.redirect).toBeCalledWith(`/${nextPage}`);
     });
   });
 });

@@ -14,9 +14,9 @@ describe('routes/questionnaires-for-review/review', () => {
   it('should define the correct route', () => {
     // eslint-disable-next-line global-require
     require('./review-questionnaire');
-    expect(mockGet).toBeCalledWith(`/questionnaires-for-review/review/:id`, getReviewQuestionnaire);
+    expect(mockGet).toBeCalledWith(`/`, getReviewQuestionnaire);
     expect(mockPost).toBeCalledWith(
-      `/questionnaires-for-review/review/:id`,
+      `/`,
       reviewQuestionnaireValidationRules(),
       expressValidationErrorsToGovUkErrorList,
       postReviewQuestionnaire

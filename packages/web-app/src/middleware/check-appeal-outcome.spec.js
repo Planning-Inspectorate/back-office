@@ -8,7 +8,7 @@ describe('middleware/check-appeal-outcome', () => {
   [
     {
       title: 'Return 404 if there is no appeal id in the params',
-      req: { ...mockReq, params: {} },
+      req: { ...mockReq, session: { appeal: {} } },
       expected: (req, res, next) => {
         expect(next).not.toHaveBeenCalled();
         expect(res.sendStatus).toHaveBeenCalledWith(404);
@@ -18,10 +18,7 @@ describe('middleware/check-appeal-outcome', () => {
       title: 'Return next if there is appeal id in the params',
       req: {
         ...mockReq,
-        session: {},
-        params: {
-          appealId: '1',
-        },
+        session: { appeal: { id: 'b1a04ba7-9604-4196-b6b4-b16b4acd1875' } },
       },
       expected: (req, res, next) => {
         expect(next).toBeCalledTimes(1);
@@ -31,12 +28,7 @@ describe('middleware/check-appeal-outcome', () => {
       title: 'Return next if the review outcome is complete',
       req: {
         ...mockReq,
-        session: {
-          outcome: 'COMPLETE',
-        },
-        params: {
-          appealId: '1',
-        },
+        session: { appeal: { id: 'b1a04ba7-9604-4196-b6b4-b16b4acd1875' }, outcome: 'COMPLETE' },
       },
       expected: (req, res, next) => {
         expect(next).toBeCalledTimes(1);
@@ -46,12 +38,7 @@ describe('middleware/check-appeal-outcome', () => {
       title: 'Return next if the review outcome is incomplete',
       req: {
         ...mockReq,
-        session: {
-          outcome: 'INCOMPLETE',
-        },
-        params: {
-          appealId: '2',
-        },
+        session: { appeal: { id: 'b1a04ba7-9604-4196-b6b4-b16b4acd1875' }, outcome: 'INCOMPLETE' },
       },
       expected: (req, res, next) => {
         expect(next).toBeCalledTimes(1);

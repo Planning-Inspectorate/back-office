@@ -13,6 +13,7 @@ const getCaseData = async (req, res, next) => {
       log.debug({ appealId, cookieAppealId }, 'Deleting session data');
       res.clearCookie('appealId');
       res.clearCookie(cookieAppealId);
+      res.clearCookie(`appeal_questionnaire`);
     }
 
     const currentAppealId = appealId || cookieAppealId;
@@ -23,6 +24,10 @@ const getCaseData = async (req, res, next) => {
 
     if (req.cookies[currentAppealId]) {
       req.session.casework = JSON.parse(req.cookies[currentAppealId]);
+    }
+
+    if (req.cookies['appeal_questionnaire']) {
+      req.session.questionnaire = JSON.parse(req.cookies['appeal_questionnaire']);
     }
 
     log.debug({ session: req.session }, 'Set session data');

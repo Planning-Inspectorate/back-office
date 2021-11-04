@@ -4,7 +4,7 @@ const logger = require('./logger');
 const saveAndContinue = ({ req, res, currentPage, nextPage, viewData }) => {
   const {
     body: { errors = {}, errorSummary = [] },
-    session: { appeal, casework },
+    session: { appeal, casework, questionnaire },
   } = req;
 
   if (Object.keys(errors).length > 0) {

@@ -3,12 +3,6 @@
 
 {% block backButton %} {% endblock %}
 
-{% if questionnaireData.missingOrIncorrectDocuments > 0 %}
-    {% set status = "incomplete" %}
-{% else %}
-    {% set status = "complete" %}
-{% endif %}
-
 {% block pageContent %}
     <div class="govuk-panel govuk-panel--confirmation govuk-!-margin-bottom-7">
         {{ govukPanel({
@@ -17,7 +11,9 @@
         })  }}
     </div>
 
-    <p class="govuk-body">The appeal is now available to inspectors.</p>
+    {% if outcome === "complete" %}
+        <p class="govuk-body">The appeal is now available to inspectors.</p>
+    {% endif %}
     <h2 class="govuk-heading-m">What next?</h2>
     <p class="govuk-body"><a class="govuk-link" data-cy="review-questionnaires" href="/{{ questionnairesListLink }}">Return to questionnaires for review</a></p>
 {% endblock %}
