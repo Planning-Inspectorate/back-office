@@ -7,14 +7,14 @@ jest.mock('./api-wrapper', () => ({
 }));
 
 describe('lib/saveAndContinue', () => {
-  const horizonId = 'APP/Q9999/D/21/1234567';
+  const caseReference = '1234567';
   const appealId = '60cfdd57-1739-488d-a416-64f3240e4ca1';
   const casework = {
     reviewOutcome: 'valid',
   };
   const saveDataReturnValue = {
     appeal: {
-      horizonId,
+      caseReference,
     },
   };
   const res = mockRes();
@@ -34,7 +34,7 @@ describe('lib/saveAndContinue', () => {
 
       req.session = {
         appeal: {
-          id: appealId,
+          appealId,
         },
         casework,
       };

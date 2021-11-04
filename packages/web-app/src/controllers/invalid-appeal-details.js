@@ -7,23 +7,23 @@ const {
 const saveAndContinue = require('../lib/save-and-continue');
 const { getText } = require('../config/review-appeal-submission');
 
-const viewData = (appealId, horizonId, invalid) => ({
+const viewData = (appealId, caseReference, invalid) => ({
   pageTitle: 'Invalid appeal details',
   backLink: `/${previousPage}/${appealId}`,
   getText,
   invalid,
-  appealReference: horizonId,
+  appealReference: caseReference,
 });
 
 const getInvalidAppealDetails = (req, res) => {
   const {
     session: {
-      appeal: { id, horizonId },
+      appeal: { id, caseReference },
       casework: { outcomeDetails },
     },
   } = req;
   const options = {
-    ...viewData(id, horizonId, outcomeDetails?.invalid),
+    ...viewData(id, caseReference, outcomeDetails?.invalid),
     getText,
   };
   res.render(currentPage, options);
@@ -32,7 +32,7 @@ const getInvalidAppealDetails = (req, res) => {
 const postInvalidAppealDetails = (req, res) => {
   const {
     session: {
-      appeal: { id, horizonId },
+      appeal: { id, caseReference },
       casework,
     },
     body,
@@ -55,7 +55,7 @@ const postInvalidAppealDetails = (req, res) => {
     res,
     currentPage,
     nextPage,
-    viewData: viewData(id, horizonId, outcomeDetails.invalid),
+    viewData: viewData(id, caseReference, outcomeDetails.invalid),
   });
 };
 
