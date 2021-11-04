@@ -146,15 +146,15 @@ describe('controllers/questionnaire-check-and-confirm', () => {
       const breadcrumbs = [
         {
           text: 'Questionnaires for review',
-          href: 'questionnaires-for-review',
+          href: '/questionnaires-for-review',
         },
         {
           text: 'APP/Q9999/D/21/1224115',
-          href: `questionnaires-for-review/review/${appealId}`,
+          href: `/questionnaires-for-review/review/${appealId}`,
         },
         {
           text: 'Check and confirm',
-          href: `questionnaires-for-review/check-and-confirm/${appealId}`,
+          href: `/questionnaires-for-review/check-and-confirm/${appealId}`,
         },
       ];
 
