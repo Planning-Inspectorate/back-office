@@ -19,18 +19,18 @@ const viewData = (appealId, caseReference, missingOrWrong) => ({
 const getMissingOrWrong = (req, res) => {
   const {
     session: {
-      appeal: { id, caseReference },
+      appeal: { appealId, caseReference },
       casework: { outcomeDetails },
     },
   } = req;
 
-  res.render(currentPage, viewData(id, caseReference, outcomeDetails?.missingOrWrong));
+  res.render(currentPage, viewData(appealId, caseReference, outcomeDetails?.missingOrWrong));
 };
 
 const postMissingOrWrong = (req, res) => {
   const {
     session: {
-      appeal: { id, caseReference },
+      appeal: { appealId, caseReference },
       casework,
     },
     body,
@@ -56,7 +56,7 @@ const postMissingOrWrong = (req, res) => {
     res,
     currentPage,
     nextPage,
-    viewData: viewData(id, caseReference, outcomeDetails.missingOrWrong),
+    viewData: viewData(appealId, caseReference, outcomeDetails.missingOrWrong),
   });
 };
 

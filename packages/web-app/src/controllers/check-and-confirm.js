@@ -13,10 +13,10 @@ const { sendStartEmailToLPA } = require('../lib/notify');
 
 const checkAndConfirmConfig = (casework) => getReviewOutcomeConfig(casework.reviewOutcome);
 
-const viewData = (appeal, casework) => ({
+const viewData = (appealId, casework) => ({
   pageTitle: 'Check and confirm',
   backLink: `/${checkAndConfirmConfig(casework).view}`,
-  changeOutcomeLink: `/${reviewAppealSubmission}/${appeal.id}`,
+  changeOutcomeLink: `/${reviewAppealSubmission}/${appealId}`,
   reviewOutcome: casework,
 });
 
@@ -26,7 +26,7 @@ const getCheckAndConfirm = (req, res) => {
   } = req;
 
   const options = {
-    ...viewData(appeal, casework),
+    ...viewData(appeal.appealId, casework),
     appealData: appeal,
     checkAndConfirmConfig: checkAndConfirmConfig(casework),
     getText,
@@ -43,7 +43,7 @@ const postCheckAndConfirm = async (req, res) => {
   req.session.casework.completed = req.body['check-and-confirm-completed'];
 
   const options = {
-    ...viewData(appeal, casework),
+    ...viewData(appeal.appealId, casework),
     appealData: appeal,
     checkAndConfirmConfig: getReviewOutcomeConfig(casework.reviewOutcome),
     getText,

@@ -36,7 +36,7 @@ describe('controllers/missing-or-wrong', () => {
     it('should render the view with data correctly', () => {
       req = {
         session: {
-          appeal: { id: appealId, caseReference },
+          appeal: { appealId, caseReference },
           casework: {
             outcomeDetails: {
               missingOrWrong,
@@ -61,7 +61,7 @@ describe('controllers/missing-or-wrong', () => {
           'other-reason': missingOrWrong.otherReason,
         },
         session: {
-          appeal: { id: appealId, caseReference },
+          appeal: { appealId, caseReference },
           casework: {},
         },
       };
