@@ -1,16 +1,15 @@
 const { DataTypes } = require('sequelize');
 const hasAppealSubmission = require('./has-appeal-submission');
 
-jest.mock('../lib/db-wrapper', () => ({
-  sequelize: () => ({
-    define: (name, properties) => ({ name, properties }),
-  }),
-}));
-
 describe('models/has-appeal-submission', () => {
   it('should define the correct name and properties', () => {
-    expect(hasAppealSubmission.name).toEqual('HASAppealSubmission');
-    expect(hasAppealSubmission.properties).toEqual({
+    const sequelize = {
+      define: (name, properties) => ({ name, properties }),
+    };
+    const model = hasAppealSubmission(sequelize, DataTypes);
+
+    expect(model.name).toEqual('HASAppealSubmission');
+    expect(model.properties).toEqual({
       ID: {
         type: DataTypes.UUID,
         allowNull: false,

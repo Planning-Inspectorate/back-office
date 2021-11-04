@@ -1,4 +1,4 @@
-const { getAppeal, postAppeal } = require('../controllers/appeal');
+const { getAllAppeals, getOneAppeal, postAppeal } = require('../controllers/appeal');
 const { mockGet, mockPost } = require('../../test/utils/mocks');
 
 describe('routes/appeal', () => {
@@ -6,7 +6,8 @@ describe('routes/appeal', () => {
     // eslint-disable-next-line global-require
     require('./appeal');
 
-    expect(mockGet).toHaveBeenCalledWith('/', getAppeal);
+    expect(mockGet).toHaveBeenCalledWith('/', getAllAppeals);
+    expect(mockGet).toHaveBeenCalledWith('/:appealId', getOneAppeal);
     expect(mockPost).toHaveBeenCalledWith('/', postAppeal);
   });
 });
