@@ -26,8 +26,8 @@ services:
       SRV_NOTIFY_BASE_URL: http://mock-notify:3000
       SRV_NOTIFY_SERVICE_ID: 'dummy-service-id-for-notify'
       SRV_NOTIFY_API_KEY: 'dummy-api-key-for-notify'
-    networks:
-      - appeal-planning-decision_default
+      BACK_OFFICE_API_URL: http://api:3000
+
   api:
     container_name: api
     image: node:14-alpine
@@ -39,15 +39,24 @@ services:
       - ./packages/api:/opt/app
     command: npm run start:dev
     environment:
-      MSSQL_DATABASE: database
-      MSSQL_USERNAME: username
-      MSSQL_PASSWORD: password
-      MSSQL_HOST: host
+      MSSQL_DATABASE: backofficedev
+      MSSQL_USERNAME: sa
+      MSSQL_PASSWORD: AbCd12345@~
+      MSSQL_HOST: sql-server-db
       MSSQL_DIALECT: mssql
       LOGGER_LEVEL: debug
-    networks:
-      - appeal-planning-decision_default
+      DOCUMENTS_SERVICE_API_URL: http://document-service-api:3000
+
+  sql-server-db:
+    container_name: sql-server-db
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    ports:
+      - 1433:1433
+    environment:
+      SA_PASSWORD: AbCd12345@~
+      ACCEPT_EULA: Y
 
 networks:
-  appeal-planning-decision_default:
+  default:
+    name: appeal-planning-decision_default
     external: true
