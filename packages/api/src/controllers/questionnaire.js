@@ -17,6 +17,19 @@ const getAllQuestionnaires = async (req, res) => {
   }
 };
 
+const setQuestionnaireOutcome = async (req, res) => {
+  try {
+    const { appealId } = req.params;
+    const { outcome } = req.body;
+
+    const success = setOutcome(appealId, outcome);
+    return res.status(204).send({ status: success });
+  } catch (err) {
+    logger.error({ err }, 'Failed to set questionnaires');
+    return res.status(500).send('Failed to set questionnaire');
+  }
+};
+
 const getOneQuestionnaire = async (req, res) => {
   try {
     const { appealId } = req.params;
@@ -49,4 +62,5 @@ module.exports = {
   getAllQuestionnaires,
   getOneQuestionnaire,
   postQuestionnaire,
+  setQuestionnaireOutcome,
 };

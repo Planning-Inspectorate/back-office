@@ -1,5 +1,8 @@
 const ApiError = require('./api-error');
-const db = require('./db-connect');
+const config = require('../../database/config/config');
+const DbError = require('./db-error');
+
+const db = require('../models');
 
 const createRecord = (procedure, data) => {
   try {
@@ -35,6 +38,23 @@ const findOneAppeal = async (appealId) => {
   }
 };
 
+const findQuestionnaireOutcome = async (appealId) => {
+  try {
+    const query = `${appealId}`;
+    const result = await db.sequelize.query(query);
+    const [results] = result;
+    const [record] = results;
+
+    return record;
+  } catch (err) {
+    throw new DbError('Failed to find a specific questionnaire outcome');
+  }
+};
+
+const setQuestionnaireOutcome = async (appealId, outcome) => {
+  throw new Error('not yet implemented');
+};
+
 const findAllQuestionnaires = async () => {
   try {
     const query = 'SELECT * FROM QuestionnaireData';
@@ -64,4 +84,6 @@ module.exports = {
   findOneAppeal,
   findAllQuestionnaires,
   findOneQuestionnaire,
+  findQuestionnaireOutcome,
+  setQuestionnaireOutcome,
 };
