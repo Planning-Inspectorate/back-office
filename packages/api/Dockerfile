@@ -19,6 +19,7 @@ ADD test test
 ADD jest.config.js jest.config.js
 ADD package.json package.json
 ADD package-lock.json package-lock.json
+ADD .sequelizerc .sequelizerc
 
 RUN npm i
 RUN npm prune --production \
