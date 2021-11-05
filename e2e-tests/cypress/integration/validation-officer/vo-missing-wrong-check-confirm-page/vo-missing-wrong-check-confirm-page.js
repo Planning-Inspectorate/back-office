@@ -18,12 +18,11 @@ import {
     verifyOutcomeOfReview, visitMissingOrWrongCheckConfirmPage
 } from "../../../support/PageObjects/vo-missing-wrong-check-confirm-page-po";
 import {
-    checkApplicationForm,
-    checkMissingOrWrongDocuments,
     checkNamesDoNotMatch,
     checkOtherMissingOrWrong,
     textboxOtherMissingOrWrong, visitMissingOrWrongPage
 } from "../../../support/PageObjects/vo-missing-or-wrong-page-po";
+import {checkMissingOrWrongDocuments, checkApplicationForm} from "../../../support/PageObjects/vo-missing-or-wrong-check-confirm-page-po"
 import {validateErrorMessages} from "../../../support/common/validate-error-messages";
 
 const url = '/check-and-confirm';

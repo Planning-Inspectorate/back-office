@@ -41,8 +41,6 @@ import {
     visitInvalidCheckConfirmPage, warningTextCheckConfirmInValid
 } from "../../../support/PageObjects/vo-invalid-check-confirm-po";
 import {
-    checkApplicationForm,
-    checkMissingOrWrongDocuments,
     checkNamesDoNotMatch, checkOtherMissingOrWrong, textboxOtherMissingOrWrong
 } from "../../../support/PageObjects/vo-missing-or-wrong-page-po";
 import { verifyPageTitle } from "../../../support/common/verify-page-title";
@@ -52,9 +50,12 @@ import {
     textOtherReason,
     verifyAppealReference, verifyAppealSite,
     verifyAppellantName, verifyCheckBoxTasksEmails,
-    verifyOutcomeOfReview
+    verifyOutcomeOfReview,
 } from "../../../support/PageObjects/vo-missing-wrong-check-confirm-page-po";
-import { voVerifyAppealId } from "../../../support/validation-officer/vo-verify-appeal-id";
+import {
+    checkApplicationForm,
+    checkMissingOrWrongDocuments
+} from "../../../support/PageObjects/vo-missing-or-wrong-check-confirm-page-po";
 
 const url = '/check-and-confirm';
 const pageTitle = 'Check and confirm - Appeal a householder planning decision - GOV.UK';
@@ -186,7 +187,6 @@ Then( 'The Valid appeal details Page should have an empty ’description of deve
     descriptionOfDevelopmentPage();
     enterDescriptionOfDevelopmentTxt().should('be.empty')
 } );
-
 
 Given ("the Validation Officer has provided what is missing or wrong on the 'What is missing or wrong?’ page", () => {
     gotoSomethingMissingWrongPage();

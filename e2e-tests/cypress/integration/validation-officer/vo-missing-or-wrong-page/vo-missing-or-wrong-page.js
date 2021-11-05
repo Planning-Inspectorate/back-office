@@ -10,13 +10,13 @@ import {verifyPageHeading} from "../../../support/common/verify-page-heading";
 import {verifyPageTitle} from "../../../support/common/verify-page-title";
 import {voVerifyAppealId} from "../../../support/validation-officer/vo-verify-appeal-id";
 import {
-    checkApplicationForm, checkDecisionNotice, checkGroundsOfAppeal, checkInflammatoryCommentsMade,
-    checkMissingOrWrongDocuments,
-    checkNamesDoNotMatch, checkOpenedInError,
+     checkDecisionNotice, checkGroundsOfAppeal, checkInflammatoryCommentsMade,
+     checkNamesDoNotMatch, checkOpenedInError,
     checkOtherMissingOrWrong,
     checkSensitiveInformationIncluded, checkSupportingDocuments, checkWrongAppealTypeUsed,
-    textboxOtherMissingOrWrong, visitCheckConfirmPageMissingWrong
+    textboxOtherMissingOrWrong
 } from "../../../support/PageObjects/vo-missing-or-wrong-page-po";
+import {checkMissingOrWrongDocuments,checkApplicationForm, visitCheckConfirmPageMissingWrong} from "../../../support/PageObjects/vo-missing-or-wrong-check-confirm-page-po";
 import {validateErrorMessages} from "../../../support/common/validate-error-messages";
 
 function goToReviewAppealSubmissionPage () {
@@ -68,7 +68,7 @@ Then( 'error message {string} will be displayed', (errorMessage) => {
 validateErrorMessages(errorMessage);
 } );
 
-Given( "the Validation Officer has selected that a document is missing or wrong but, has not selected a document from the list on the ‘What is missing or wrong’ Page", () => {
+Given( "the Validation Officer has selected that a document is missing or wrong but, has not selected a document from the list on the 'What is missing or wrong' Page", () => {
     goToOutcomeMissingOrWrongPage();
     checkMissingOrWrongDocuments().check();
 } );
@@ -94,7 +94,7 @@ Then( "a text box will be displayed below the ‘Other’ option and Validation 
 When( "the Validation Officer selects the ‘Back’ link", () => {
     backLink().click();
 } );
-When( "the Validation Officer selects all the available options and click on 'Continue' button", () => {
+When( "the Validation Officer selects all the available options and click on 'Continue' button in missing wrong page", () => {
     goToOutcomeMissingOrWrongPage();
     checkNamesDoNotMatch().check();
     checkSensitiveInformationIncluded().check();

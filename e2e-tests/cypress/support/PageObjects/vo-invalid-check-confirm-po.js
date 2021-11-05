@@ -1,3 +1,4 @@
+//export const visitInvalidCheckConfirmPage = () => cy.visit(`${Cypress.env('vo-url')}/check-and-confirm`);
 export const visitInvalidCheckConfirmPage = () => cy.visit('/check-and-confirm');
 
 export const verifyInvalidCheckAndConfirmPage = () => cy.url().should('include', '/check-and-confirm');

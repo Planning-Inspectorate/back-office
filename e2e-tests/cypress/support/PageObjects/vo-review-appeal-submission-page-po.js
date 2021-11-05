@@ -3,6 +3,7 @@ export const headerReviewSubmission = () => cy.get('.govuk-heading-xl');
 export const titleReviewSubmission = () => cy.title().should( 'eq', "Review appeal submission - Appeal a householder planning decision - GOV.UK");
 
 export const visitReviewAppealSubmissionPage = () => cy.visit('/review-appeal-submission/db9cc77a-7991-42e5-a917-0fc73e4ccd49');
+//export const visitReviewAppealSubmissionPage = () => cy.visit(`${Cypress.env('vo-url')}/review-appeal-submission/db9cc77a-7991-42e5-a917-0fc73e4ccd49`);
 
 export const reviewAppealSubmissionPage = () => cy.url().should('include','/review-appeal-submission/db9cc77a-7991-42e5-a917-0fc73e4ccd49');
 

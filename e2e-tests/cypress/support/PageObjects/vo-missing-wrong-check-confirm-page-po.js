@@ -1,3 +1,4 @@
+//export const visitMissingOrWrongCheckConfirmPage = () => cy.visit(`${Cypress.env('vo-url')}/check-and-confirm`);
 export const visitMissingOrWrongCheckConfirmPage = () => cy.visit('/check-and-confirm');
 
 export const verifyOutcomeOfReview = () => cy.findByText('Outcome of review');
