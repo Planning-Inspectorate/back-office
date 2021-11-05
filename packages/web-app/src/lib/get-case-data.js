@@ -26,8 +26,8 @@ const getCaseData = async (req, res, next) => {
       req.session.casework = JSON.parse(req.cookies[currentAppealId]);
     }
 
-    if (req.cookies['appeal_questionnaire']) {
-      req.session.questionnaire = JSON.parse(req.cookies['appeal_questionnaire']);
+    if (req.cookies.appeal_questionnaire) {
+      req.session.questionnaire = JSON.parse(req.cookies.appeal_questionnaire);
     }
 
     log.debug({ session: req.session }, 'Set session data');
