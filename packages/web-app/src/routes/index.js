@@ -40,7 +40,7 @@ router.use(`/${views.document}`, documentsServiceProxy);
 router.use(`/${views.appealAlreadyReviewed}`, appealAlreadyReviewed);
 router.use(`/${views.checkAndConfirm}`, checkAndConfirmDetails);
 router.use(`/${views.reviewComplete}`, reviewComplete);
-router.use(`/${views.reviewQuestionnaire}`, reviewQuestionnaire);
+router.use(`/${views.reviewQuestionnaire}/:appealId`, reviewQuestionnaire);
 router.use(`/${views.reviewQuestionnaireComplete}`, reviewQuestionnaireComplete);
 router.use(`/${views.questionnairesForReview}/${views.checkAndConfirm}`, checkAndConfirm);
 router.use(`/questionnaires-for-review/check-and-confirm`, questionnaireCheckAndConfirm);
