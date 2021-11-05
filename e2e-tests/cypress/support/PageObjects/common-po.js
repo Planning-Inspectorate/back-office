@@ -12,19 +12,14 @@ export const backLink = () => cy.get(".govuk-back-link");
 
 export const continueButton = () => cy.get(".govuk-button");
 
-export const  confirmTurnAwayButton = () => cy.get(".govuk-button");
-
-export const  confirmFinishReviewButton = () => cy.get(".govuk-button");
+export const pageHeading = () => cy.get('h1');
 
 export const linkChangeOutcome = () => cy.get('.govuk-link').contains('Change outcome');
-
-export const pageHeading = () => cy.get('h1');
 
 export const textWhatNext = () => cy.get('h2');
 
 export const linkReturnToTaskList = () => cy.findByRole('link',{name:'Return to task list'});
 
+export const  confirmTurnAwayButton = () => cy.get(".govuk-button");
 
-
-
-
+export const  confirmFinishReviewButton = () => cy.get(".govuk-button");
