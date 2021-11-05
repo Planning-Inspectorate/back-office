@@ -14,7 +14,7 @@
           <span class="govuk-visually-hidden">Error:</span> {{error.msg}}
         </span>
       {% endif %}      
-      <textarea class="govuk-textarea {% if error %}govuk-input--error{% endif %}" name={{textAreaName}} id={{textAreaName}} data-cy={{textAreaName}} rows="3">{{values[textAreaName]}}</textarea>
+      <textarea class="govuk-textarea {% if error %}govuk-input--error{% endif %}" name={{textAreaName}} id={{textAreaName}} data-cy={{textAreaName}} rows="3" maxlength="1000">{{values[textAreaName]}}</textarea>
     </fieldset>
   </div>
 </div>

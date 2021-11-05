@@ -219,7 +219,7 @@ const convertValuesToMissingOrIncorrect = (values) => {
     'lpaqreview-other-relevant-policies-checkbox': 'Other relevant policies:',
     'lpaqreview-supplementary-planning-checkbox': 'Supplementary planning documents:',
     'lpaqreview-conservation-guidance-checkbox': 'Conservation area map and guidance:',
-    'lpaqreview-listing-description-checkbox': 'Need a message:', // This needs a proper message from Kike
+    'lpaqreview-listing-description-checkbox': 'Listing description:',
     'lpaqreview-application-publicity-checkbox': 'Application publicity',
     'lpaqreview-application-notification-checkbox': 'Application notification:',
     'lpaqreview-application-notification-subcheckbox1': 'List of addresses',
