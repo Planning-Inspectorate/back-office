@@ -13,7 +13,6 @@ const handleAppealAlreadyReviewed = require('../lib/handle-appeal-already-review
 const getCaseData = require('../lib/get-case-data');
 const checkAndConfirmDetails = require('./check-and-confirm');
 const reviewComplete = require('./review-complete');
-const reviewQuestionnaireComplete = require('./review-questionnaire-complete');
 const questionnaireCheckAndConfirm = require('./questionnaire-check-and-confirm');
 const questionnaireAlreadyReviewed = require('./questionnaire-already-reviewed');
 
@@ -22,7 +21,7 @@ describe('routes/index', () => {
     // eslint-disable-next-line global-require
     require('./index');
 
-    expect(mockUse).toBeCalledTimes(16);
+    expect(mockUse).toBeCalledTimes(17);
     expect(mockUse).toBeCalledWith('/', appealsList);
     expect(mockUse).toBeCalledWith('/', questionnairesList);
     expect(mockUse).toBeCalledWith('/', home);
