@@ -1,9 +1,12 @@
 {
-  "baseUrl": "https://back-office-web-app.azurewebsites.net",
+  "baseUrl": "http://localhost:9004",
   "testFiles": "**/*.feature",
   "chromeWebSecurity": false,
   "viewportWidth": 1024,
   "viewportHeight": 1600,
-  "video": true
+  "video": true,
+  "env": {
+    "vo-url": "https://back-office-web-app.azurewebsites.net"
+     }
   }
 

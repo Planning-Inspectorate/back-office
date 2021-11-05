@@ -18,7 +18,7 @@ Feature: As a Validation Officer validating an appeal
     Then error message 'Select what is missing or wrong in the appeal submission' will be displayed
 
   Scenario: Missing or wrong documents is selected, but no document(s) has been selected from the list
-    Given the Validation Officer has selected that a document is missing or wrong but, has not selected a document from the list on the ‘What is missing or wrong’ Page
+    Given the Validation Officer has selected that a document is missing or wrong but, has not selected a document from the list on the 'What is missing or wrong' Page
     When the Validation Officer selects ‘Continue’
     Then error message 'Select which documents are missing or wrong' will be displayed
 
@@ -40,7 +40,7 @@ Feature: As a Validation Officer validating an appeal
 
   Scenario: Select all the available options
     Given the Validation Officer is on the ’Missing or Wrong’ page
-    When the Validation Officer selects all the available options and click on 'Continue' button
+    When the Validation Officer selects all the available options and click on 'Continue' button in missing wrong page
     Then Check and confirm page for something missing or wrong is displayed
 
   Scenario: Back link navigation

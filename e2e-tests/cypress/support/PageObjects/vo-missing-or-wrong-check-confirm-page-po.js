@@ -1,8 +1,4 @@
-export const visitMissingOrWrongPage = () => cy.visit('/missing-or-wrong');
-
-export const checkNamesDoNotMatch = () => cy.get('[id=missing-or-wrong-reasons]');
-
-export const checkSensitiveInformationIncluded = () => cy.get ('[id=missing-or-wrong-reasons-2]');
+export const visitCheckConfirmPageMissingWrong = () => cy.visit('/check-and-confirm');
 
 export const checkMissingOrWrongDocuments = () => cy.get ('[id=missing-or-wrong-reasons-3]');
 
@@ -26,5 +22,4 @@ export const textboxOtherMissingOrWrong = () => cy.get('#other-reason');
 
 export const checkboxCompletedTasks= () => cy.get('#check-and-confirm-completed');
 
-export const visitCheckConfirmPageMissingWrong = () => cy.visit('/check-and-confirm');
 

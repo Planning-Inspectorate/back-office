@@ -1,4 +1,4 @@
-
+//export const invalidAppealDetailsPage = () => cy.visit(`${Cypress.env('vo-url')}/invalid-appeal-details`);
 export const invalidAppealDetailsPage = () => cy.visit('/invalid-appeal-details');
 
 export const pageTitleCheckConfirm = () => cy.title().should('include','Invalid appeal details - Appeal a householder planning decision - GOV.UK');

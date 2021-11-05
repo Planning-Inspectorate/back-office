@@ -1,4 +1,5 @@
-export const validationOfficerLandingPage = () => cy.visit("/appeals-list");
+//export const validationOfficerLandingPage = () => cy.visit(`${Cypress.env('vo-url')}/appeals-list`);
+export const validationOfficerLandingPage = () => cy.visit('/appeals-list');
 
 export const validationOfficerPageTitle = () => cy.title().should('eq', "Appeal submissions for review - Appeal a householder planning decision - GOV.UK");
 

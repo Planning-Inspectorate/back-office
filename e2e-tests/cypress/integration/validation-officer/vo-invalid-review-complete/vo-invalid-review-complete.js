@@ -42,7 +42,6 @@ When( "the Validation Officer selects 'Confirm and turn away appeal'", () => {
     confirmTurnAwayButton().click();
 } );
 Then( "the 'Review complete' Page will be displayed showing the validation outcome as 'Appeal invalid' with appeal reference", () => {
-    visitPageUrl();
     verifyPageTitle(verifyCompletePageTitle);
     verifyPageHeading(pageHeading);
     cy.checkPageA11y();
