@@ -13,6 +13,8 @@ const home = require('./home');
 
 const documentsServiceProxy = require('./document-service-proxy');
 const appealAlreadyReviewed = require('./appeal-already-reviewed');
+const questionnaireAlreadyReviewed = require('./questionnaire-already-reviewed');
+
 const views = require('../config/views');
 const handleAppealAlreadyReviewed = require('../lib/handle-appeal-already-reviewed');
 const getCaseData = require('../lib/get-case-data');
@@ -41,9 +43,7 @@ router.use(`/${views.reviewComplete}`, reviewComplete);
 router.use(`/`, reviewQuestionnaire);
 router.use(`/${views.reviewQuestionnaireComplete}`, reviewQuestionnaireComplete);
 router.use(`/${views.questionnairesForReview}/${views.checkAndConfirm}`, checkAndConfirm);
-router.use(
-  `/planning-inspectorate/appeals/${views.questionnairesForReview}/${views.checkAndConfirm}`,
-  questionnaireCheckAndConfirm
-);
+router.use(`/questionnaires-for-review/check-and-confirm`, questionnaireCheckAndConfirm);
+router.use(`/questionnaires-for-review/already-reviewed`, questionnaireAlreadyReviewed);
 
 module.exports = router;
