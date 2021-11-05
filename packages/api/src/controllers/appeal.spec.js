@@ -1,25 +1,33 @@
 const { mockReq, mockRes } = require('../../test/utils/mocks');
-const mockDbRecord = require('../../test/data/hasAppealSubmissionDbRecord');
+const mockDbRecord = require('../../test/data/has-appeal-submission-db-record');
+const mockDocumentsMetadata = require('../../test/data/documents-metadata');
 
 jest.mock('../lib/db-wrapper', () => ({
-  find: jest
-    .fn()
-    .mockImplementationOnce(() => [mockDbRecord])
-    .mockImplementationOnce(() => {
-      throw new Error('Internal Server Error');
-    }),
-  insert: jest
+  findOneAppeal: jest
     .fn()
     .mockImplementationOnce(() => mockDbRecord)
     .mockImplementationOnce(() => {
       throw new Error('Internal Server Error');
     }),
-  sequelize: jest.fn().mockReturnValue({
-    define: jest.fn(),
-  }),
+  findAllAppeals: jest
+    .fn()
+    .mockImplementationOnce(() => [mockDbRecord])
+    .mockImplementationOnce(() => {
+      throw new Error('Internal Server Error');
+    }),
+  create: jest
+    .fn()
+    .mockImplementationOnce(() => mockDbRecord)
+    .mockImplementationOnce(() => {
+      throw new Error('Internal Server Error');
+    }),
 }));
 
-const { getAppeal, postAppeal } = require('./appeal');
+jest.mock('../lib/documents-api-wrapper', () => ({
+  getDocumentsMetadata: jest.fn().mockReturnValue(mockDocumentsMetadata),
+}));
+
+const { getOneAppeal, getAllAppeals, postAppeal } = require('./appeal');
 
 describe('controllers/appeal', () => {
   let req;
@@ -30,31 +38,62 @@ describe('controllers/appeal', () => {
     res = mockRes();
   });
 
-  describe('getAppeal', () => {
-    it('should respond a success status and the correct data when data can be fetched', async () => {
-      await getAppeal(req, res);
+  describe('getAllAppeals', () => {
+    it('should return the correct response when data can be fetched', async () => {
+      await getAllAppeals(req, res);
+
       expect(res.status).toBeCalledWith(200);
       expect(res.send).toBeCalledWith([mockDbRecord]);
     });
 
-    it('should respond with an error status and the correct data when an error occurs', async () => {
-      await getAppeal(req, res);
+    it('should return the correct response when an error occurs', async () => {
+      await getAllAppeals(req, res);
+
       expect(res.status).toBeCalledWith(500);
-      expect(res.send).toBeCalledWith('Failed to find data');
+      expect(res.send).toBeCalledWith('Failed to get appeals');
     });
   });
 
-  describe('postAppeal', () => {
-    it('should respond with a success status and the correct data when data can be inserted', async () => {
-      await postAppeal(req, res);
+  describe('getOneAppeal', () => {
+    it('should return the correct response when given an appeal id and data can be fetched', async () => {
+      req.params.appealId = 'da8f8051-bc7f-403c-8431-e9788563c07b';
+
+      await getOneAppeal(req, res);
+
       expect(res.status).toBeCalledWith(200);
       expect(res.send).toBeCalledWith(mockDbRecord);
     });
 
-    it('should respond with an error status and the correct data when an error occurs', async () => {
-      await postAppeal(req, res);
+    it('should return the correct response when not given an appeal id', async () => {
+      await getOneAppeal(req, res);
+
       expect(res.status).toBeCalledWith(500);
-      expect(res.send).toBeCalledWith('Failed to insert data');
+      expect(res.send).toBeCalledWith('Failed to get appeal - No AppealId given');
+    });
+
+    it('should return the correct response when an error occurs', async () => {
+      req.params.appealId = 'da8f8051-bc7f-403c-8431-e9788563c07b';
+
+      await getOneAppeal(req, res);
+
+      expect(res.status).toBeCalledWith(500);
+      expect(res.send).toBeCalledWith('Failed to get appeal - Internal Server Error');
+    });
+  });
+
+  describe('postAppeal', () => {
+    it('should return the correct response when data can be inserted', async () => {
+      await postAppeal(req, res);
+
+      expect(res.status).toBeCalledWith(200);
+      expect(res.send).toBeCalledWith(mockDbRecord);
+    });
+
+    it('should return the correct response when an error occurs', async () => {
+      await postAppeal(req, res);
+
+      expect(res.status).toBeCalledWith(500);
+      expect(res.send).toBeCalledWith('Failed to insert appeal');
     });
   });
 });

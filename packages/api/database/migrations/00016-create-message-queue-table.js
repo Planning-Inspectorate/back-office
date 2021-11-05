@@ -25,7 +25,7 @@ const migration = {
         allowNull: false,
       },
       Data: {
-        type: Sequelize.STRING(4000),
+        type: Sequelize.STRING('MAX'),
         allowNull: false,
       },
     });

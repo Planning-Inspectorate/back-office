@@ -1,84 +1,121 @@
-const { Sequelize } = require('sequelize');
-const { find, insert, sequelize } = require('./db-wrapper');
-const hasAppealSubmissionDbRecord = require('../../test/data/hasAppealSubmissionDbRecord');
+const mockHasAppealSubmissionDbRecord = require('../../test/data/has-appeal-submission-db-record');
+const mockHasLpaSubmissionDbRecord = require('../../test/data/has-lpa-submission-db-record');
 
-jest.mock('sequelize');
+jest.mock('../models', () => ({
+  HASAppealSubmission: {
+    create: jest
+      .fn()
+      .mockImplementationOnce(() => ({}))
+      .mockImplementationOnce(() => {
+        throw new Error('Internal Server Error');
+      }),
+  },
+  sequelize: {
+    query: jest
+      .fn()
+      .mockImplementationOnce(() => [[mockHasAppealSubmissionDbRecord]])
+      .mockImplementationOnce(() => {
+        throw new Error('Internal Server Error');
+      })
+      .mockImplementationOnce(() => [[mockHasAppealSubmissionDbRecord]])
+      .mockImplementationOnce(() => {
+        throw new Error('Internal Server Error');
+      })
+      .mockImplementationOnce(() => [[mockHasLpaSubmissionDbRecord]])
+      .mockImplementationOnce(() => {
+        throw new Error('Internal Server Error');
+      })
+      .mockImplementationOnce(() => [[mockHasLpaSubmissionDbRecord]])
+      .mockImplementationOnce(() => {
+        throw new Error('Internal Server Error');
+      }),
+  },
+}));
+
+const {
+  create,
+  findAllAppeals,
+  findOneAppeal,
+  findAllQuestionnaires,
+  findOneQuestionnaire,
+} = require('./db-wrapper');
 
 describe('lib/db-wrapper', () => {
+  const model = {
+    name: 'HASAppealSubmission',
+  };
+  const data = {};
+
   afterEach(() => {
     jest.clearAllMocks();
   });
 
-  describe('sequelize', () => {
-    it('should return a Sequelize instance when the connection is successful', () => {
-      const MockSequelize = class {
-        constructor() {
-          return this;
-        }
-      };
-
-      Sequelize.mockImplementation(() => MockSequelize);
-
-      const result = sequelize();
-
-      expect(result).toEqual(MockSequelize);
-    });
-
-    it('should throw an error when an error occurs', () => {
-      Sequelize.mockImplementation(() => {
-        throw new Error('Internal Server Error');
-      });
-
-      expect(() => sequelize()).toThrow(
-        'Failed to connect to the database with error - Error: Internal Server Error'
-      );
-    });
-  });
-
-  describe('insert', () => {
+  describe('create', () => {
     it('should return the inserted data when the query is successful', () => {
-      const model = {
-        create: jest.fn().mockReturnValue(hasAppealSubmissionDbRecord),
-      };
-      const data = {};
-      const result = insert(model, data);
+      const result = create(model, data);
 
-      expect(result).toEqual(hasAppealSubmissionDbRecord);
+      expect(result).toEqual({});
     });
 
     it('should throw an error when an error occurs', () => {
-      const model = {
-        create: jest.fn().mockImplementation(() => {
-          throw new Error('Internal Server Error');
-        }),
-      };
-      const data = {};
-
-      expect(() => insert(model, data)).toThrow(
-        'Failed to insert data with error - Error: Internal Server Error'
+      expect(() => create(model, data)).toThrow(
+        'Failed to create data with error - Error: Internal Server Error'
       );
     });
   });
 
-  describe('find', () => {
-    it('should return the fetched data when the query is successful', () => {
-      const model = {
-        findAll: jest.fn().mockReturnValue([hasAppealSubmissionDbRecord]),
-      };
-      const result = find(model);
+  describe('findAllAppeals', () => {
+    it('should return the fetched data when the query is successful', async () => {
+      const result = await findAllAppeals();
 
-      expect(result).toEqual([hasAppealSubmissionDbRecord]);
+      expect(result).toEqual([mockHasAppealSubmissionDbRecord]);
     });
 
     it('should throw an error when an error occurs', () => {
-      const model = {
-        findAll: jest.fn().mockImplementation(() => {
-          throw new Error('Internal Server Error');
-        }),
-      };
+      expect(() => findAllAppeals(model)).rejects.toThrow(
+        'Failed to get appeals data with error - Error: Internal Server Error'
+      );
+    });
+  });
 
-      expect(() => find(model)).toThrow(
-        'Failed to find data with error - Error: Internal Server Error'
+  describe('findOneAppeal', () => {
+    it('should return the fetched data when the query is successful', async () => {
+      const result = await findOneAppeal();
+
+      expect(result).toEqual(mockHasAppealSubmissionDbRecord);
+    });
+
+    it('should throw an error when an error occurs', () => {
+      expect(() => findOneAppeal(model)).rejects.toThrow(
+        'Failed to get appeal data with error - Error: Internal Server Error'
+      );
+    });
+  });
+
+  describe('findAllQuestionnaires', () => {
+    it('should return the fetched data when the query is successful', async () => {
+      const result = await findAllQuestionnaires();
+
+      expect(result).toEqual([mockHasLpaSubmissionDbRecord]);
+    });
+
+    it('should throw an error when an error occurs', () => {
+      expect(() => findAllQuestionnaires(model)).rejects.toThrow(
+        'Failed to get questionnaires data with error - Error: Internal Server Error'
+      );
+    });
+  });
+
+  describe('findOneQuestionnaire', () => {
+    it('should return the fetched data when the query is successful', async () => {
+      const result = await findOneQuestionnaire();
+
+      expect(result).toEqual(mockHasLpaSubmissionDbRecord);
+    });
+
+    it('should throw an error when an error occurs', () => {
+      expect(() => findOneQuestionnaire(model)).rejects.toThrow(
+        'Failed to get questionnaire data with error - Error: Internal Server Error'
       );
     });
   });

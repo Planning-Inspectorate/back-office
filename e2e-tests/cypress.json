@@ -7,6 +7,5 @@
   "video": true,
   "env": {
     "vo-url": "https://back-office-web-app.azurewebsites.net"
-     }
   }
-
+}

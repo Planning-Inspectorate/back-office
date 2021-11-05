@@ -1,5 +1,6 @@
 const views = {
   appealAlreadyReviewed: 'appeal-already-reviewed',
+  questionnaireAlreadyReviewed: 'questionnaire-already-reviewed',
   appealsList: 'appeals-list',
   questionnairesList: 'questionnaires-list',
   document: 'document',
@@ -12,6 +13,7 @@ const views = {
   reviewComplete: 'review-complete',
   reviewQuestionnaireComplete: 'review-questionnaire-complete',
   questionnairesForReview: 'questionnaires-for-review',
+  reviewQuestionnaire: 'review-questionnaire',
 };
 
 module.exports = views;

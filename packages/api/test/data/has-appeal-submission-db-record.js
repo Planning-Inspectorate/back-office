@@ -9,7 +9,7 @@ const data = {
   SiteOwnership: true,
   SiteInformOwners: false,
   SiteRestriction: false,
-  SiteRestrictionsDetails: '',
+  SiteRestrictionDetails: '',
   SafetyConcern: false,
   SafetyConcernDetails: '',
   SensitiveInformation: false,

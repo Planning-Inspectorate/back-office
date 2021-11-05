@@ -1,10 +1,13 @@
 const path = require('path');
 
 const config = {
-  docs: {
+  documentation: {
     api: {
-      path: process.env.DOCS_API_PATH || path.join(__dirname, '..', 'api'),
+      path: process.env.DOCUMENTATION_API_PATH || path.join(__dirname, '..', 'api'),
     },
+  },
+  documents: {
+    url: process.env.DOCUMENTS_SERVICE_API_URL,
   },
   logger: {
     level: process.env.LOGGER_LEVEL || 'info',

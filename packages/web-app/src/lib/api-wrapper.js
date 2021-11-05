@@ -1,90 +1,99 @@
-// Uncomment to test the /appeal-already-reviewed page
-// const casework = {
-//   reviewer: {
-//     name: 'Sally Smith',
-//   },
-//   reviewOutcome: 'valid',
-// };
+const fetch = require('node-fetch');
+const config = require('../config/config');
+const logger = require('./logger');
+const documentTypes = require('../../../common/src/document-types');
 
-const getData = (appealId) => {
-  if (appealId) {
-    return {
-      appeal: {
-        id: appealId,
-        horizonId: 'APP/Q9999/D/21/1234567',
-        lpaCode: 'Maidstone Borough Council',
-        submissionDate: '2021-05-16T12:00:00.000Z',
-        aboutYouSection: {
-          yourDetails: {
-            isOriginalApplicant: true,
-            name: 'Manish Sharma',
-            appealingOnBehalfOf: 'Jack Pearson',
-          },
-        },
-        requiredDocumentsSection: {
-          applicationNumber: '48269/APP/2020/1482',
-          originalApplication: {
-            uploadedFile: {
-              name: 'planning application.pdf',
-              id: 'add0eb92-0e87-4b4e-8980-cec387967d4c',
-            },
-          },
-          decisionLetter: {
-            uploadedFile: {
-              name: 'decision letter.pdf',
-              id: '06f3d256-cb09-4146-aa4d-25fea4719062',
-            },
-          },
-        },
-        yourAppealSection: {
-          appealStatement: {
-            uploadedFile: {
-              name: 'appeal statement.pdf',
-              id: 'add0eb92-0e87-4b4e-8980-cec387967d4c',
-            },
-          },
-          otherDocuments: {
-            uploadedFiles: [
-              {
-                name: 'other documents 1.pdf',
-                id: '06f3d256-cb09-4146-aa4d-25fea4719062',
-              },
-              {
-                name: 'other documents 2.pdf',
-                id: 'add0eb92-0e87-4b4e-8980-cec387967d4c',
-              },
-              {
-                name: 'other documents 3.pdf',
-                id: '06f3d256-cb09-4146-aa4d-25fea4719062',
-              },
-            ],
-          },
-        },
-        appealSiteSection: {
-          siteAddress: {
-            addressLine1: '96 The Avenue',
-            addressLine2: '',
-            town: 'Maidstone',
-            county: '',
-            postcode: 'XM26 7YS',
-          },
-        },
-        // Switch state to test the /appeal-already-reviewed page
-        state: 'Appeal Received',
-        // state: 'Appeal Complete',
-      },
-      // Switch casework to test the /appeal-already-reviewed page
-      casework: {},
-      // casework,
-    };
+const {
+  backOfficeApi: { v1Url: backOfficeUrl },
+} = config;
+const appealDataUrl = `${backOfficeUrl}/appeal`;
+const questionnaireDataUrl = `${backOfficeUrl}/questionnaire`;
+
+const formatDocumentsAndAddToData = (data) => {
+  let newData = data;
+  const documents = {};
+
+  if (data.documents) {
+    data.documents.forEach(({ name, id, document_type: documentType }) => {
+      if (documentTypes[documentType]) {
+        if (!documentTypes[documentType].multiple) {
+          documents[documentType] = { name, id };
+        } else {
+          if (!documents[documentType]) {
+            documents[documentType] = [];
+          }
+          documents[documentType].push({ name, id });
+        }
+      }
+    });
   }
 
-  return {
-    appeal: {},
-    // Switch casework to test the /appeal-already-reviewed page
-    casework: {},
-    // casework,
-  };
+  newData = { ...newData, ...documents };
+  delete newData.documents;
+
+  return newData;
+};
+
+const getAppealData = async (appealId) => {
+  try {
+    const data = {
+      appeal: {},
+      casework: {},
+      questionnaire: {},
+    };
+
+    logger.debug({ appealId }, 'appealId');
+
+    if (appealId) {
+      const appealApiResponse = await fetch(`${appealDataUrl}/${appealId}`);
+
+      if (appealApiResponse.ok) {
+        const appeal = await appealApiResponse.json();
+        data.appeal = formatDocumentsAndAddToData(appeal);
+      }
+
+      const questionnaireApiResponse = await fetch(`${questionnaireDataUrl}/${appealId}`);
+
+      if (questionnaireApiResponse.ok) {
+        const questionnaire = await questionnaireApiResponse.json();
+        data.questionnaire = formatDocumentsAndAddToData(questionnaire);
+      }
+    }
+
+    return data;
+  } catch (err) {
+    throw new Error(`Failed to get data with error - ${err.toString()}`);
+  }
+};
+
+const getAllAppeals = async () => {
+  try {
+    const appealApiResponse = await fetch(appealDataUrl);
+
+    if (appealApiResponse.ok) {
+      return appealApiResponse.json();
+    }
+
+    return [];
+  } catch (err) {
+    throw new Error(`Failed to get all appeals with error - ${err.toString()}`);
+  }
+};
+
+const getAllQuestionnaires = async () => {
+  try {
+    const questionnaireApiResponse = await fetch(questionnaireDataUrl);
+
+    if (questionnaireApiResponse.ok) {
+      return questionnaireApiResponse.json();
+    }
+
+    logger.debug('No questionnaire data found');
+
+    return [];
+  } catch (err) {
+    throw new Error(`Failed to get all questionnaires with error - ${err.toString()}`);
+  }
 };
 
 const saveData = (data) => {
@@ -96,6 +105,8 @@ const saveData = (data) => {
 };
 
 module.exports = {
-  getData,
+  getAppealData,
+  getAllAppeals,
+  getAllQuestionnaires,
   saveData,
 };

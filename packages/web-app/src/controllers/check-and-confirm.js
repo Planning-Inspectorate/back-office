@@ -4,14 +4,19 @@ const {
   reviewAppealSubmission,
 } = require('../config/views');
 const saveAndContinue = require('../lib/save-and-continue');
-const { getText, getReviewOutcomeConfig } = require('../config/review-appeal-submission');
+const {
+  getText,
+  getReviewOutcomeConfig,
+  reviewOutcomeOption,
+} = require('../config/review-appeal-submission');
+const { sendStartEmailToLPA } = require('../lib/notify');
 
 const checkAndConfirmConfig = (casework) => getReviewOutcomeConfig(casework.reviewOutcome);
 
-const viewData = (appeal, casework) => ({
+const viewData = (appealId, casework) => ({
   pageTitle: 'Check and confirm',
   backLink: `/${checkAndConfirmConfig(casework).view}`,
-  changeOutcomeLink: `/${reviewAppealSubmission}/${appeal.id}`,
+  changeOutcomeLink: `/${reviewAppealSubmission}/${appealId}`,
   reviewOutcome: casework,
 });
 
@@ -21,7 +26,7 @@ const getCheckAndConfirm = (req, res) => {
   } = req;
 
   const options = {
-    ...viewData(appeal, casework),
+    ...viewData(appeal.appealId, casework),
     appealData: appeal,
     checkAndConfirmConfig: checkAndConfirmConfig(casework),
     getText,
@@ -30,7 +35,7 @@ const getCheckAndConfirm = (req, res) => {
   res.render(currentPage, options);
 };
 
-const postCheckAndConfirm = (req, res) => {
+const postCheckAndConfirm = async (req, res) => {
   const {
     session: { appeal, casework },
   } = req;
@@ -38,11 +43,15 @@ const postCheckAndConfirm = (req, res) => {
   req.session.casework.completed = req.body['check-and-confirm-completed'];
 
   const options = {
-    ...viewData(appeal, casework),
+    ...viewData(appeal.appealId, casework),
     appealData: appeal,
     checkAndConfirmConfig: getReviewOutcomeConfig(casework.reviewOutcome),
     getText,
   };
+
+  if (casework.reviewOutcome === reviewOutcomeOption.valid) {
+    await sendStartEmailToLPA(appeal);
+  }
 
   saveAndContinue({
     req,

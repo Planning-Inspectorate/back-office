@@ -1,16 +1,16 @@
-{% macro address(address) %}
-  {{ address.addressLine1 }}<br>
+{% macro address(address, singleLine) %}
+  {{ address.addressLine1 }}{{ ', ' if singleLine else '<br>' | safe }}
 
   {% if address.addressLine2 %}
-    {{ address.addressLine2 }}<br>
+    {{ address.addressLine2 }}{{ ', ' if singleLine else '<br>' | safe }}
   {% endif %}
 
   {% if address.town %}
-    {{ address.town }} <br>
+    {{ address.town }}{{ ', ' if singleLine else '<br>' | safe }}
   {% endif %}
 
   {% if address.county %}
-    {{ address.county }} <br>
+    {{ address.county }}{{ ', ' if singleLine else '<br>' | safe }}
   {% endif %}
 
   {{ address.postcode }}

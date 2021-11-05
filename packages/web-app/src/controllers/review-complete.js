@@ -10,7 +10,6 @@ const viewData = (casework) => ({
   reviewComplete: casework,
 });
 
-// GET method
 const getReviewComplete = (req, res) => {
   const {
     session: { appeal, casework },

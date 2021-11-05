@@ -1,84 +1,221 @@
-const { getData, saveData } = require('./api-wrapper');
+const fetch = require('node-fetch');
+const { getAppealData, getAllAppeals, getAllQuestionnaires, saveData } = require('./api-wrapper');
+const singleAppealDataRaw = require('../../test/data/single-appeal-data-raw');
+const singleAppealDataFormatted = require('../../test/data/single-appeal-data-formatted');
+const appealDataList = require('../../test/data/appeal-data-list');
+const singleQuestionnaireDataRaw = require('../../test/data/single-questionnaire-data-raw');
+const singleQuestionnaireDataFormatted = require('../../test/data/single-questionnaire-data-formatted');
+const questionnaireDataList = require('../../test/data/questionnaire-data-list');
+
+const invalidDocumentList = [
+  {
+    id: '',
+    document_type: 'pdf',
+  },
+];
+const singleAppealDataWithAnInvalidDocument = {
+  ...singleAppealDataRaw,
+  documents: invalidDocumentList,
+};
+const singleQuestionnaireDataWithAnInvalidDocument = {
+  ...singleQuestionnaireDataRaw,
+  documents: invalidDocumentList,
+};
+const singleAppealDataWithoutDocuments = {
+  ...singleAppealDataRaw,
+  documents: undefined,
+};
+const singleQuestionnaireDataWithoutDocuments = {
+  ...singleQuestionnaireDataRaw,
+  documents: undefined,
+};
+
+jest.mock('node-fetch');
 
 describe('lib/apiWrapper', () => {
-  describe('getData', () => {
-    it('should return the correct data when given an application id', () => {
-      const result = getData('6e409024-97f3-4178-a44d-f0f3f234035c');
+  describe('getAppealData', () => {
+    it('should return the correct data with documents when given an appeal id and both appeal and questionnaire data are found', async () => {
+      fetch
+        .mockImplementationOnce(() => ({
+          ok: true,
+          json: jest.fn().mockReturnValue(singleAppealDataRaw),
+        }))
+        .mockImplementationOnce(() => ({
+          ok: true,
+          json: jest.fn().mockReturnValue(singleQuestionnaireDataRaw),
+        }));
+
+      const result = await getAppealData('6e409024-97f3-4178-a44d-f0f3f234035c');
 
       expect(result).toEqual({
-        appeal: {
-          id: '6e409024-97f3-4178-a44d-f0f3f234035c',
-          horizonId: 'APP/Q9999/D/21/1234567',
-          lpaCode: 'Maidstone Borough Council',
-          submissionDate: '2021-05-16T12:00:00.000Z',
-          aboutYouSection: {
-            yourDetails: {
-              isOriginalApplicant: true,
-              name: 'Manish Sharma',
-              appealingOnBehalfOf: 'Jack Pearson',
-            },
-          },
-          requiredDocumentsSection: {
-            applicationNumber: '48269/APP/2020/1482',
-            originalApplication: {
-              uploadedFile: {
-                name: 'planning application.pdf',
-                id: 'add0eb92-0e87-4b4e-8980-cec387967d4c',
-              },
-            },
-            decisionLetter: {
-              uploadedFile: {
-                name: 'decision letter.pdf',
-                id: '06f3d256-cb09-4146-aa4d-25fea4719062',
-              },
-            },
-          },
-          yourAppealSection: {
-            appealStatement: {
-              uploadedFile: {
-                name: 'appeal statement.pdf',
-                id: 'add0eb92-0e87-4b4e-8980-cec387967d4c',
-              },
-            },
-            otherDocuments: {
-              uploadedFiles: [
-                {
-                  name: 'other documents 1.pdf',
-                  id: '06f3d256-cb09-4146-aa4d-25fea4719062',
-                },
-                {
-                  name: 'other documents 2.pdf',
-                  id: 'add0eb92-0e87-4b4e-8980-cec387967d4c',
-                },
-                {
-                  name: 'other documents 3.pdf',
-                  id: '06f3d256-cb09-4146-aa4d-25fea4719062',
-                },
-              ],
-            },
-          },
-          appealSiteSection: {
-            siteAddress: {
-              addressLine1: '96 The Avenue',
-              addressLine2: '',
-              town: 'Maidstone',
-              county: '',
-              postcode: 'XM26 7YS',
-            },
-          },
-          state: 'Appeal Received',
-        },
+        appeal: singleAppealDataFormatted,
         casework: {},
+        questionnaire: singleQuestionnaireDataFormatted,
       });
     });
 
-    it('should return an empty appeal and a default casework object when not given an application id', () => {
-      const result = getData();
+    it('should return the correct data with documents when given an appeal id and only appeal data is found', async () => {
+      fetch
+        .mockImplementationOnce(() => ({
+          ok: true,
+          json: jest.fn().mockReturnValue(singleAppealDataRaw),
+        }))
+        .mockImplementationOnce(() => ({
+          ok: false,
+        }));
+
+      const result = await getAppealData('6e409024-97f3-4178-a44d-f0f3f234035c');
+
+      expect(result).toEqual({
+        appeal: singleAppealDataFormatted,
+        casework: {},
+        questionnaire: {},
+      });
+    });
+
+    it('should return the correct data with documents when given an appeal id and only questionnaire data is found', async () => {
+      fetch
+        .mockImplementationOnce(() => ({
+          ok: false,
+        }))
+        .mockImplementationOnce(() => ({
+          ok: true,
+          json: jest.fn().mockReturnValue(singleQuestionnaireDataRaw),
+        }));
+
+      const result = await getAppealData('6e409024-97f3-4178-a44d-f0f3f234035c');
 
       expect(result).toEqual({
         appeal: {},
         casework: {},
+        questionnaire: singleQuestionnaireDataFormatted,
       });
+    });
+
+    it('should return the correct data without documents when given an appeal idand data is returned without documents', async () => {
+      fetch
+        .mockImplementationOnce(() => ({
+          ok: true,
+          json: jest.fn().mockReturnValue(singleAppealDataWithoutDocuments),
+        }))
+        .mockImplementationOnce(() => ({
+          ok: true,
+          json: jest.fn().mockReturnValue(singleQuestionnaireDataWithoutDocuments),
+        }));
+
+      const result = await getAppealData('6e409024-97f3-4178-a44d-f0f3f234035c');
+
+      expect(result).toEqual({
+        appeal: singleAppealDataWithoutDocuments,
+        casework: {},
+        questionnaire: singleQuestionnaireDataWithoutDocuments,
+      });
+    });
+
+    it('should return the correct data without documents with an invalid type when given an appeal id', async () => {
+      fetch
+        .mockImplementationOnce(() => ({
+          ok: true,
+          json: jest.fn().mockReturnValue(singleAppealDataWithAnInvalidDocument),
+        }))
+        .mockImplementationOnce(() => ({
+          ok: true,
+          json: jest.fn().mockReturnValue(singleQuestionnaireDataWithAnInvalidDocument),
+        }));
+
+      const result = await getAppealData('6e409024-97f3-4178-a44d-f0f3f234035c');
+
+      expect(result).toEqual({
+        appeal: singleAppealDataWithoutDocuments,
+        casework: {},
+        questionnaire: singleQuestionnaireDataWithoutDocuments,
+      });
+    });
+
+    it('should return the default data when not given an appeal id', async () => {
+      const result = await getAppealData();
+
+      expect(result).toEqual({
+        appeal: {},
+        casework: {},
+        questionnaire: {},
+      });
+    });
+
+    it('should throw an error when an error occurs', () => {
+      fetch.mockImplementation(() => {
+        throw new Error('Internal Server Error');
+      });
+
+      expect(() => getAppealData('6e409024-97f3-4178-a44d-f0f3f234035c')).rejects.toThrow(
+        'Failed to get data with error - Error: Internal Server Error'
+      );
+    });
+  });
+
+  describe('getAllAppeals', () => {
+    it('should return the correct data when appeals are found', async () => {
+      fetch.mockImplementation(() => ({
+        ok: true,
+        json: jest.fn().mockReturnValue(appealDataList),
+      }));
+
+      const result = await getAllAppeals();
+
+      expect(result).toEqual(appealDataList);
+    });
+
+    it('should return an empty array when appeals are not found', async () => {
+      fetch.mockImplementation(() => ({
+        ok: false,
+      }));
+
+      const result = await getAllAppeals();
+
+      expect(result).toEqual([]);
+    });
+
+    it('should throw an error when an error occurs', async () => {
+      fetch.mockImplementation(() => {
+        throw new Error('Internal Server Error');
+      });
+
+      expect(() => getAllAppeals()).rejects.toThrow(
+        'Failed to get all appeals with error - Error: Internal Server Error'
+      );
+    });
+  });
+
+  describe('getAllQuestionnaires', () => {
+    it('should return the correct data when questionnaires are found', async () => {
+      fetch.mockImplementation(() => ({
+        ok: true,
+        json: jest.fn().mockReturnValue(questionnaireDataList),
+      }));
+
+      const result = await getAllQuestionnaires();
+
+      expect(result).toEqual(questionnaireDataList);
+    });
+
+    it('should return an empty array when questionnaires are not found', async () => {
+      fetch.mockImplementation(() => ({
+        ok: false,
+      }));
+
+      const result = await getAllQuestionnaires();
+
+      expect(result).toEqual([]);
+    });
+
+    it('should throw an error when an error occurs', async () => {
+      fetch.mockImplementation(() => {
+        throw new Error('Internal Server Error');
+      });
+
+      expect(() => getAllQuestionnaires()).rejects.toThrow(
+        'Failed to get all questionnaires with error - Error: Internal Server Error'
+      );
     });
   });
 
