@@ -14,7 +14,7 @@
    export MSSQL_DIALECT=mssql
    ```
 
-2. Download [Azure Data Explorer](https://azure.microsoft.com/en-gb/features/storage-explorer) and connect to the database using the details above except database.
+2. Download [Azure Data Explorer](https://azure.microsoft.com/en-gb/features/storage-explorer) and add a database connection using the details above except database.
 
 3. Create the database using Azure Data Explorer (right click the connection and select New Query)
 
@@ -73,7 +73,7 @@
 
 The last migration can be undone as follows.
 
-This can be useful if you are creatign a new migration and need to run it several times.
+This can be useful if you are creating a new migration and need to run it several times.
 
 ```
 npx sequelize-cli db:migrate:undo
