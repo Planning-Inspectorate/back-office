@@ -1,10 +1,10 @@
 function isValidAppealForSendStartEmailToLPAEmail(appeal) {
   return (
-    typeof appeal?.id !== 'undefined' &&
-    typeof appeal?.lpaCode !== 'undefined' &&
-    typeof appeal?.horizonId !== 'undefined' &&
-    typeof appeal?.appealSiteSection?.siteAddress !== 'undefined' &&
-    typeof appeal?.requiredDocumentsSection?.applicationNumber !== 'undefined'
+    typeof appeal?.appealId !== 'undefined' &&
+    typeof appeal?.localPlanningAuthorityId !== 'undefined' &&
+    typeof appeal?.caseReference !== 'undefined' &&
+    typeof appeal?.creatorEmailAddress !== 'undefined' &&
+    typeof appeal?.originalApplicationNumber !== 'undefined'
   );
 }
 

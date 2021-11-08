@@ -13,14 +13,17 @@ async function sendStartEmailToLPA(appeal) {
 
   let lpa = {};
   try {
-    lpa = await getLpa(appeal.lpaCode);
+    lpa = await getLpa(appeal.localPlanningAuthorityId);
   } catch (e) {
-    logger.error({ err: e, lpaCode: appeal.lpaCode }, 'Unable to find LPA from given lpaCode');
+    logger.error(
+      { err: e, localPlanningAuthorityId: appeal.localPlanningAuthorityId },
+      'Unable to find LPA from given lpaCode'
+    );
   }
 
   if (!lpa || !lpa.name) {
     lpa = {
-      name: appeal.lpaCode,
+      name: appeal.localPlanningAuthorityId,
     };
   }
 
@@ -34,16 +37,16 @@ async function sendStartEmailToLPA(appeal) {
       .setEmailReplyToId(config.services.notify.emailReplyToId.startEmailToLpa)
       .setDestinationEmailAddress(lpa.email)
       .setTemplateVariablesFromObject({
-        'site address one line': getAddressSingleLine(appeal.appealSiteSection.siteAddress),
-        'horizon id': appeal.horizonId,
+        'site address one line': getAddressSingleLine(appeal),
+        'horizon id': appeal.caseReference,
         lpa: lpa.name,
-        'planning application number': appeal.requiredDocumentsSection.applicationNumber,
-        'site address': getAddressMultiLine(appeal.appealSiteSection.siteAddress),
+        'planning application number': appeal.originalApplicationNumber,
+        'site address': getAddressMultiLine(appeal),
         'questionnaire due date': getFormattedQuestionnaireDueDate(appeal),
-        url: `${config.apps.lpaQuestionnaire.baseUrl}/${appeal.id}`,
-        'appellant email address': appeal.aboutYouSection.yourDetails.email,
+        url: `${config.apps.lpaQuestionnaire.baseUrl}/${appeal.appealId}`,
+        'appellant email address': appeal.creatorEmailAddress,
       })
-      .setReference(appeal.id)
+      .setReference(appeal.appealId)
       .sendEmail();
   } catch (e) {
     logger.error({ err: e }, 'Unable to send start email to LPA.');

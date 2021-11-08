@@ -1,13 +1,13 @@
-const getAddress = (siteAddress) =>
+const getAddress = (appeal) =>
   [
-    siteAddress?.addressLine1,
-    siteAddress?.addressLine2,
-    siteAddress?.town,
-    siteAddress?.county,
-    siteAddress?.postcode,
+    appeal?.siteAddressLineOne,
+    appeal?.siteAddressLineTwo,
+    appeal?.siteAddressTown,
+    appeal?.siteAddressCounty,
+    appeal?.siteAddressPostCode,
   ].filter((n) => n);
 
 module.exports = {
-  getAddressSingleLine: (siteAddress) => getAddress(siteAddress).join(', '),
-  getAddressMultiLine: (siteAddress) => getAddress(siteAddress).join('\n'),
+  getAddressSingleLine: (appeal) => getAddress(appeal).join(', '),
+  getAddressMultiLine: (appeal) => getAddress(appeal).join('\n'),
 };
