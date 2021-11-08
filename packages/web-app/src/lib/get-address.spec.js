@@ -1,17 +1,17 @@
 const { getAddressSingleLine, getAddressMultiLine } = require('./get-address');
 
-const addressLine1 = 'address line 1';
-const addressLine2 = 'address line 2';
-const town = 'fake town';
-const county = 'fake county';
-const postcode = 'FA1 9KE';
+const siteAddressLineOne = 'address line 1';
+const siteAddressLineTwo = 'address line 2';
+const siteAddressTown = 'fake town';
+const siteAddressCounty = 'fake county';
+const siteAddressPostCode = 'FA1 9KE';
 
 const addressFull = {
-  addressLine1,
-  addressLine2,
-  town,
-  county,
-  postcode,
+  siteAddressLineOne,
+  siteAddressLineTwo,
+  siteAddressTown,
+  siteAddressCounty,
+  siteAddressPostCode,
 };
 
 describe('lib/get-address', () => {
@@ -35,7 +35,10 @@ describe('lib/get-address', () => {
       })),
       {
         description: `missing several properties of the address`,
-        given: () => (({ addressLine2, county, postcode, ...rest }) => rest)(addressFull),
+        given: () =>
+          (({ siteAddressLineTwo, siteAddressCounty, siteAddressPostCode, ...rest }) => rest)(
+            addressFull
+          ),
         expected: 'address line 1, fake town',
       },
       /* eslint-enable no-shadow */
@@ -66,7 +69,10 @@ describe('lib/get-address', () => {
       })),
       {
         description: `missing several properties of the address`,
-        given: () => (({ addressLine2, county, postcode, ...rest }) => rest)(addressFull),
+        given: () =>
+          (({ siteAddressLineTwo, siteAddressCounty, siteAddressPostCode, ...rest }) => rest)(
+            addressFull
+          ),
         expected: 'address line 1\nfake town',
       },
       /* eslint-enable no-shadow */

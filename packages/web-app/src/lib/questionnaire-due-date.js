@@ -1,4 +1,4 @@
-const { addDays, endOfDay, format } = require('date-fns');
+const { addDays, endOfDay, format, parseISO } = require('date-fns');
 
 module.exports = {
   /**
@@ -17,7 +17,7 @@ module.exports = {
     const householderAppealQuestionnaireAdditionalStartDays = 5;
 
     const dueDate = addDays(
-      appeal.submissionDate,
+      parseISO(appeal.submissionDate),
       householderAppealQuestionnaireAdditionalStartDays
     );
 

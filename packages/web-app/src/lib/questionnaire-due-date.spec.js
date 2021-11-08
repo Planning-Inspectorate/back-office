@@ -11,14 +11,14 @@ describe('lib/questionnaire-due-date', () => {
       {
         description: 'defaults to five days - change this when more appeal types are added',
         appeal: {
-          submissionDate: new Date(FIXED_DATETIME),
+          submissionDate: FIXED_DATETIME,
         },
         expectedDueDate: new Date('2020-11-23T23:59:59.999Z'),
       },
       {
         description: 'defaults to five days - variant date',
         appeal: {
-          submissionDate: new Date('2021-12-31T13:59:01.462Z'),
+          submissionDate: '2021-12-31T13:59:01.462Z',
         },
         expectedDueDate: new Date('2022-01-05T23:59:59.999Z'),
       },
@@ -34,14 +34,14 @@ describe('lib/questionnaire-due-date', () => {
       {
         description: 'defaults to five days - change this when more appeal types are added',
         appeal: {
-          submissionDate: new Date(FIXED_DATETIME),
+          submissionDate: FIXED_DATETIME,
         },
         expectedDueDate: '23 November 2020',
       },
       {
         description: 'defaults to five days - variant date',
         appeal: {
-          submissionDate: new Date('2022-12-31T01:00:01.462Z'),
+          submissionDate: '2022-12-31T01:00:01.462Z',
         },
         expectedDueDate: '05 January 2023',
       },

@@ -75,20 +75,22 @@ describe('lib/notify-validation', () => {
         // empty strings are valid, see JIRA AS-1854
         {
           appeal: {
-            id: 'some-uuid',
-            lpaCode: '',
-            horizonId: '',
-            requiredDocumentsSection: { applicationNumber: '' },
-            appealSiteSection: { siteAddress: { addressLine1: '' } },
+            appealId: 'some-uuid',
+            localPlanningAuthorityId: '',
+            caseReference: '',
+            originalApplicationNumber: '',
+            siteAddressLineOne: '',
+            creatorEmailAddress: '',
           },
         },
         {
           appeal: {
-            id: 'some-uuid',
-            lpaCode: '123',
-            horizonId: 'xyz-abc',
-            requiredDocumentsSection: { applicationNumber: '123/abc' },
-            appealSiteSection: { siteAddress: { addressLine1: '123 fake street' } },
+            appealId: 'some-uuid',
+            localPlanningAuthorityId: '123',
+            caseReference: 'xyz-abc',
+            originalApplicationNumber: '123/abc',
+            siteAddressLineOne: '123 fake street',
+            creatorEmailAddress: 'test@gmail.com',
           },
         },
       ].forEach(({ appeal }) => {

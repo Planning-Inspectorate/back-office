@@ -59,28 +59,15 @@ describe('lib/notify', () => {
       beforeEach(() => {
         appeal = {
           ...APPEAL_DOCUMENT.empty,
-          id: 'some-fake-id',
-          lpaCode: 'some-lpa-code',
-          horizonId: 'some-fake-horizon-id',
-          submissionDate: new Date('19 April 2021'),
-          aboutYouSection: {
-            yourDetails: {
-              name: 'appellant name',
-              email: 'timmy@tester.com',
-            },
-          },
-          requiredDocumentsSection: {
-            ...APPEAL_DOCUMENT.empty.requiredDocumentsSection,
-            applicationNumber: '123/abc/xyz',
-          },
-          appealSiteSection: {
-            ...APPEAL_DOCUMENT.empty.appealSiteSection,
-            siteAddress: {
-              addressLine1: '999 some street',
-              town: 'a town',
-              postcode: 'rt12 9ya',
-            },
-          },
+          appealId: 'some-fake-id',
+          localPlanningAuthorityId: 'some-lpa-code',
+          caseReference: 'some-fake-horizon-id',
+          submissionDate: '2021-04-19',
+          creatorEmailAddress: 'timmy@tester.com',
+          originalApplicationNumber: '123/abc/xyz',
+          siteAddressLineOne: '999 some street',
+          siteAddressTown: 'a town',
+          siteAddressPostCode: 'rt12 9ya',
         };
       });
 
@@ -137,13 +124,13 @@ describe('lib/notify', () => {
         expect(mockSetDestinationEmailAddress).toHaveBeenCalledWith('some@example.com');
         expect(mockSetTemplateVariablesFromObject).toHaveBeenCalledWith({
           'site address one line': '999 some street, a town, rt12 9ya',
-          'horizon id': appeal.horizonId,
+          'horizon id': appeal.caseReference,
           lpa: 'a happy value',
-          'planning application number': appeal.requiredDocumentsSection.applicationNumber,
+          'planning application number': appeal.originalApplicationNumber,
           'site address': '999 some street\na town\nrt12 9ya',
           'questionnaire due date': '24 April 2021',
           url: 'http://fake-lpa-questionnaire-base-url/some-fake-id',
-          'appellant email address': appeal.aboutYouSection.yourDetails.email,
+          'appellant email address': appeal.creatorEmailAddress,
         });
         expect(mockSetReference).toHaveBeenCalledWith('some-fake-id');
         expect(mockSend).toHaveBeenCalledTimes(1);
