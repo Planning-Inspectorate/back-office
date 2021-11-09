@@ -24,18 +24,12 @@ const getAllQuestionnaires = async (req, res) => {
 const getQuestionnaireOutcome = async (req, res) => {
   try {
     const { appealId } = req.params;
-    const { outcome } = req.body;
-
     if (typeof appealId === 'undefined') {
       throw new Error('appeal id is not defined');
     }
 
-    if (typeof outcome === 'undefined') {
-      throw new Error('outcome is not defined');
-    }
-
-    const reviewOutcome = findOutcome(appealId);
-    return res.status(200).send({ reviewOutcome });
+    const reviewOutcome = await findOutcome(appealId);
+    return res.status(200).send({ outcome: reviewOutcome });
   } catch (err) {
     logger.error({ err }, 'Failed to get questionnaire outcome');
     return res.status(500).send('Failed to get questionnaire outcome');
@@ -59,7 +53,7 @@ const setQuestionnaireOutcome = async (req, res) => {
     return res.sendStatus(204);
   } catch (err) {
     logger.error({ err }, 'Failed to set questionnaires');
-    return res.status(500).send('Failed to set questionnaire');
+    return res.status(500).send(`Failed to set questionnaire - ${err.message}`);
   }
 };
 
@@ -76,7 +70,7 @@ const getOneQuestionnaire = async (req, res) => {
     res.status(200).send(questionnaire);
   } catch (err) {
     logger.error({ err }, 'Failed to get questionnaire');
-    res.status(500).send(`Failed to get questionnaire - ${err.message}`);
+    return res.status(500).send(`Failed to get questionnaire - ${err.message}`);
   }
 };
 

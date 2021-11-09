@@ -1,5 +1,6 @@
 const Sequelize = require('sequelize');
 const { QueryTypes } = require('sequelize');
+const { v4: uuid4 } = require('uuid');
 const ApiError = require('./api-error');
 const config = require('../../database/config/config');
 const DbError = require('./db-error');
@@ -60,7 +61,7 @@ const findQuestionnaireOutcome = async (appealId) => {
 
     return {
       id: appeal?.AppealID,
-      outcome: appeal?.LPAQuestionnaireReviewOutcomeID,
+      outcome: appeal?.Outcome,
       datetime: appeal?.EventDateTime,
     };
   } catch (err) {
@@ -69,24 +70,30 @@ const findQuestionnaireOutcome = async (appealId) => {
 };
 
 const setQuestionnaireOutcome = async (appealId, outcome) => {
-  const query = `SELECT AppealID, EventDateTime, LookUpQuestionnaireOutcome.Outcome
-  FROM backofficedev.dbo.HASAppeal
-  LEFT JOIN backofficedev.dbo.LookUpQuestionnaireOutcome
-  ON HASAppeal.LPAQuestionnaireReviewOutcomeID = LookUpQuestionnaireOutcome.ID
-  WHERE AppealID = ${appealId}
-  ORDER BY EventDateTime DESC`;
+  const query = `SELECT *
+    FROM backofficedev.dbo.HASAppeal
+    WHERE AppealID = ?
+    ORDER BY EventDateTime DESC`;
 
-  const appeals = await db.sequelize.query(query, { type: QueryTypes.SELECT });
+  const appeals = await db.sequelize.query(query, {
+    type: QueryTypes.SELECT,
+    replacements: [appealId],
+    plain: false,
+  });
+
   const [appeal] = appeals;
 
-  const insertQuery = `INSERT INTO backofficedev.dbo.HASAppeal (AppealID, MinisterialTargetDate) 
-  VALUES (:AppealID, :MinisterialTargetDate, :RecommendedSiteVisitTypeID)`;
+  const insertQuery = `INSERT INTO backofficedev.dbo.HASAppeal (ID, AppealID, MinisterialTargetDate) 
+  VALUES ($ID, $AppealID, $MinisterialTargetDate)`;
 
   const [_, metadata] = await db.sequelize.query(insertQuery, {
     type: QueryTypes.INSERT,
-    replacements: [
-      { ...appeal, LPAQuestionnaireReviewOutcomeID: mapQuestionnaireOutcome(outcome) },
-    ],
+    bind: {
+      ...appeal,
+      ID: uuid4().toString(),
+      LPAQuestionnaireReviewOutcomeID: mapQuestionnaireOutcome(outcome),
+      MinisterialTargetDate: new Date(),
+    },
   });
 
   return metadata;
