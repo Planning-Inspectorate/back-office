@@ -14,11 +14,18 @@ const getCheckAndConfirm = (req, res) => {
   });
 };
 
-const postCheckAndConfirm = (req, res) => {
-  res.redirect(`/${nextPage}`);
+const setCheckAndConfirm = (req, res) => {
+  const { missingOrIncorrectDocuments } = req.session.questionnaire;
+
+  if (Array.isArray(missingOrIncorrectDocuments)) {
+    res.render('questionnaire-check-and-confirm', {
+      pageTitle: 'Review questionnaire',
+      reviewOutcome: 'Incomplete',
+    });
+  }
 };
 
 module.exports = {
   getCheckAndConfirm,
-  postCheckAndConfirm,
+  setCheckAndConfirm,
 };
