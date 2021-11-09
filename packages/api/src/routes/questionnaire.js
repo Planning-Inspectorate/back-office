@@ -4,6 +4,7 @@ const {
   getOneQuestionnaire,
   postQuestionnaire,
   setQuestionnaireOutcome,
+  getQuestionnaireOutcome,
 } = require('../controllers/questionnaire');
 
 const router = express.Router();
@@ -11,6 +12,7 @@ const router = express.Router();
 router.get('/', getAllQuestionnaires);
 router.get('/:appealId', getOneQuestionnaire);
 router.post('/', postQuestionnaire);
-router.post('/:appeaId/outcome', setQuestionnaireOutcome);
+router.post('/:appealId/outcome', setQuestionnaireOutcome);
+router.get('/:appealId/outcome', getQuestionnaireOutcome);
 
 module.exports = router;

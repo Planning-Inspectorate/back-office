@@ -2,7 +2,11 @@ const {
   findAllQuestionnaires,
   findOneQuestionnaire,
   createHasLpaSubmissionRecord,
+  createHasAppeal,
+  findQuestionnaireOutcome: findOutcome,
+  setQuestionnaireOutcome: setOutcome,
 } = require('../lib/db-wrapper');
+
 const logger = require('../lib/logger');
 const { getDocumentsMetadata } = require('../lib/documents-api-wrapper');
 const ApiError = require('../lib/api-error');
@@ -17,13 +21,42 @@ const getAllQuestionnaires = async (req, res) => {
   }
 };
 
+const getQuestionnaireOutcome = async (req, res) => {
+  try {
+    const { appealId } = req.params;
+    const { outcome } = req.body;
+
+    if (typeof appealId === 'undefined') {
+      throw new Error('appeal id is not defined');
+    }
+
+    if (typeof outcome === 'undefined') {
+      throw new Error('outcome is not defined');
+    }
+
+    const reviewOutcome = findOutcome(appealId);
+    return res.status(200).send({ reviewOutcome });
+  } catch (err) {
+    logger.error({ err }, 'Failed to get questionnaire outcome');
+    return res.status(500).send('Failed to get questionnaire outcome');
+  }
+};
+
 const setQuestionnaireOutcome = async (req, res) => {
   try {
     const { appealId } = req.params;
     const { outcome } = req.body;
 
-    const success = setOutcome(appealId, outcome);
-    return res.status(204).send({ status: success });
+    if (typeof appealId === 'undefined') {
+      throw new Error('appeal id is not defined');
+    }
+
+    if (typeof outcome === 'undefined') {
+      throw new Error('outcome is not defined');
+    }
+
+    await setOutcome(appealId, outcome);
+    return res.sendStatus(204);
   } catch (err) {
     logger.error({ err }, 'Failed to set questionnaires');
     return res.status(500).send('Failed to set questionnaire');
@@ -63,4 +96,5 @@ module.exports = {
   getOneQuestionnaire,
   postQuestionnaire,
   setQuestionnaireOutcome,
+  getQuestionnaireOutcome,
 };

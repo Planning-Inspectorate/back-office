@@ -1,8 +1,11 @@
+const Sequelize = require('sequelize');
+const { QueryTypes } = require('sequelize');
 const ApiError = require('./api-error');
 const config = require('../../database/config/config');
 const DbError = require('./db-error');
 
 const db = require('../models');
+const { mapQuestionnaireOutcome } = require('./mapper');
 
 const createRecord = (procedure, data) => {
   try {
@@ -40,19 +43,53 @@ const findOneAppeal = async (appealId) => {
 
 const findQuestionnaireOutcome = async (appealId) => {
   try {
-    const query = `${appealId}`;
-    const result = await db.sequelize.query(query);
-    const [results] = result;
-    const [record] = results;
+    const query = `SELECT AppealID, EventDateTime, LookUpQuestionnaireOutcome.Outcome
+    FROM backofficedev.dbo.HASAppeal
+    LEFT JOIN backofficedev.dbo.LookUpQuestionnaireOutcome
+    ON HASAppeal.LPAQuestionnaireReviewOutcomeID = LookUpQuestionnaireOutcome.ID
+    WHERE AppealID = ?
+    ORDER BY EventDateTime DESC`;
 
-    return record;
+    const appeals = await db.sequelize.query(query, {
+      type: QueryTypes.SELECT,
+      replacements: [appealId],
+      plain: false,
+    });
+
+    const [appeal] = appeals;
+
+    return {
+      id: appeal?.AppealID,
+      outcome: appeal?.LPAQuestionnaireReviewOutcomeID,
+      datetime: appeal?.EventDateTime,
+    };
   } catch (err) {
     throw new DbError('Failed to find a specific questionnaire outcome');
   }
 };
 
 const setQuestionnaireOutcome = async (appealId, outcome) => {
-  throw new Error('not yet implemented');
+  const query = `SELECT AppealID, EventDateTime, LookUpQuestionnaireOutcome.Outcome
+  FROM backofficedev.dbo.HASAppeal
+  LEFT JOIN backofficedev.dbo.LookUpQuestionnaireOutcome
+  ON HASAppeal.LPAQuestionnaireReviewOutcomeID = LookUpQuestionnaireOutcome.ID
+  WHERE AppealID = ${appealId}
+  ORDER BY EventDateTime DESC`;
+
+  const appeals = await db.sequelize.query(query, { type: QueryTypes.SELECT });
+  const [appeal] = appeals;
+
+  const insertQuery = `INSERT INTO backofficedev.dbo.HASAppeal (AppealID, MinisterialTargetDate) 
+  VALUES (:AppealID, :MinisterialTargetDate, :RecommendedSiteVisitTypeID)`;
+
+  const [_, metadata] = await db.sequelize.query(insertQuery, {
+    type: QueryTypes.INSERT,
+    replacements: [
+      { ...appeal, LPAQuestionnaireReviewOutcomeID: mapQuestionnaireOutcome(outcome) },
+    ],
+  });
+
+  return metadata;
 };
 
 const findAllQuestionnaires = async () => {
