@@ -29,6 +29,7 @@
     {% if aboutAppealSite.nearConservationArea.cellText === 'Yes' %}
       {{advancedSummaryListRow(aboutAppealSite.conservationAreaMapGuidance, values, errors)}}
     {% endif %}
+    {{advancedSummaryListRow(aboutAppealSite.conservationAreaMapGuidance, values, errors)}}
     {{advancedSummaryListRow(aboutAppealSite.developmentAffectSettings, values, errors)}}
     {% if aboutAppealSite.developmentAffectSettings.cellText === 'Yes' %}
       {{advancedSummaryListRow(aboutAppealSite.listingDescription, values, errors)}}

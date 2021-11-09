@@ -29,7 +29,7 @@ const getOneQuestionnaire = async (req, res) => {
     }
 
     const questionnaire = await findOneQuestionnaire(db, appealId);
-    questionnaire.documents = await getDocumentsMetadata(appealId);
+    questionnaire.documents = await getDocumentsMetadata(questionnaire.lpaQuestionnaireId);
     res.status(200).send(questionnaire);
   } catch (err) {
     logger.error({ err }, 'Failed to get questionnaire');

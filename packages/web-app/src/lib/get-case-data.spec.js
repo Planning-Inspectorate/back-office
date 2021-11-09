@@ -82,6 +82,7 @@ describe('lib/getCaseData', () => {
         casework: {
           reviewOutcome: 1,
         },
+        questionnaire: { outcome: 'COMPLETE' },
       });
     });
 

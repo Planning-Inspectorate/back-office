@@ -52,12 +52,9 @@ describe('routes/index', () => {
     expect(mockUse).toBeCalledWith(`/${views.checkAndConfirm}`, checkAndConfirmDetails);
     expect(mockUse).toBeCalledWith(`/${views.reviewComplete}`, reviewComplete);
     expect(mockUse).toBeCalledWith(
-      `/questionnaires-for-review/check-and-confirm`,
+      `/questionnaire-check-and-confirm`,
       questionnaireCheckAndConfirm
     );
-    expect(mockUse).toBeCalledWith(
-      `/questionnaires-for-review/already-reviewed`,
-      questionnaireAlreadyReviewed
-    );
+    expect(mockUse).toBeCalledWith(`/questionnaire-already-reviewed`, questionnaireAlreadyReviewed);
   });
 });

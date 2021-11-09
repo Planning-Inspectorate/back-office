@@ -7,8 +7,9 @@
  * @returns {any}
  */
 module.exports = (req, res, next) => {
-  const { appeal } = req.session;
-  const appealId = appeal.id;
+  const {
+    appeal: { appealId },
+  } = req.session;
 
   if (!appealId) {
     return res.sendStatus(404);

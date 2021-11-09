@@ -1,4 +1,7 @@
-const { getReviewQuestionnaire, postReviewQuestionnaire } = require('./review-questionnaire');
+const {
+  getReviewQuestionnaireSubmission,
+  postReviewQuestionnaireSubmission,
+} = require('./review-questionnaire-submission');
 const views = require('../config/views');
 const { getAppealData } = require('../lib/api-wrapper');
 const { mockReq, mockRes } = require('../../test/utils/mocks');
@@ -15,6 +18,8 @@ describe('controllers/review-questionnaire', () => {
   let res;
   let existingData;
   let viewData;
+  let currentPage;
+  let nextPage;
 
   beforeEach(() => {
     req = mockReq;
@@ -22,6 +27,9 @@ describe('controllers/review-questionnaire', () => {
 
     existingData = mockExistingData;
     viewData = mockViewData;
+
+    nextPage = views.questionnairecheckAndConfirm;
+    currentPage = views.reviewQuestionnaireSubmission;
   });
 
   describe('getReviewQuestionnaire', () => {
@@ -30,14 +38,14 @@ describe('controllers/review-questionnaire', () => {
 
       const req = {
         session: {
-          appeal: { id: '5c943cb9-e029-4094-a447-4b3256d6ede7' },
+          appeal: { appealId: '5c943cb9-e029-4094-a447-4b3256d6ede7' },
         },
       };
 
-      getReviewQuestionnaire(req, res);
+      getReviewQuestionnaireSubmission(req, res);
 
       expect(res.render).toBeCalledTimes(1);
-      expect(res.render).toBeCalledWith(views.reviewQuestionnaire, {
+      expect(res.render).toBeCalledWith(currentPage, {
         ...viewData,
       });
     });
@@ -45,10 +53,10 @@ describe('controllers/review-questionnaire', () => {
     it('should render the view with data correctly, with differing conditionals', () => {
       const req = {
         session: {
-          appeal: { id: '5c943cb9-e029-4094-a447-4b3256d6ede7' },
+          appeal: { appealId: '5c943cb9-e029-4094-a447-4b3256d6ede7' },
         },
       };
-      
+
       existingData.questionnaire.nearConservationArea = false;
       existingData.questionnaire.listedBuilding.affectSetting = false;
 
@@ -57,10 +65,10 @@ describe('controllers/review-questionnaire', () => {
 
       getAppealData.mockImplementation(() => existingData);
 
-      getReviewQuestionnaire(req, res);
+      getReviewQuestionnaireSubmission(req, res);
 
       expect(res.render).toBeCalledTimes(1);
-      expect(res.render).toBeCalledWith(views.reviewQuestionnaire, {
+      expect(res.render).toBeCalledWith(currentPage, {
         pageTitle: 'Review questionnaire',
         ...viewData,
       });
@@ -70,19 +78,19 @@ describe('controllers/review-questionnaire', () => {
   describe('postReviewQuestionnaire', () => {
     beforeEach(() => {
       req.body = {};
-      viewData = { ...mockViewData, values: { ...emptyValues }, pageTitle: 'Review questionnaire', };
+      viewData = { ...mockViewData, values: { ...emptyValues }, pageTitle: 'Review questionnaire' };
     });
 
     it('should redirect with no missing or incorrect documents', () => {
-      postReviewQuestionnaire(req, res);
+      postReviewQuestionnaireSubmission(req, res);
 
       expect(req.session.questionnaire.missingOrIncorrectDocuments).toEqual([]);
       expect(saveAndContinue).toBeCalledTimes(1);
       expect(saveAndContinue).toBeCalledWith({
         req,
         res,
-        currentPage: views.reviewQuestionnaire,
-        nextPage: views.questionnairecheckAndConfirm,
+        currentPage,
+        nextPage,
         viewData,
       });
     });
@@ -95,7 +103,7 @@ describe('controllers/review-questionnaire', () => {
           'lpaqreview-application-notification-checkbox': 'on',
         },
         session: {
-          appeal: { id: '5c943cb9-e029-4094-a447-4b3256d6ede7' },
+          appeal: { appealId: '5c943cb9-e029-4094-a447-4b3256d6ede7' },
           questionnaire: {
             outcome: 'INCOMPLETE',
             missingOrIncorrectDocuments: [
@@ -111,7 +119,7 @@ describe('controllers/review-questionnaire', () => {
       viewData.values['lpaqreview-officer-report-checkbox'] = 'on';
       viewData.values['lpaqreview-plans-decision-checkbox'] = 'on';
 
-      postReviewQuestionnaire(req, res);
+      postReviewQuestionnaireSubmission(req, res);
 
       expect(req.session.questionnaire.missingOrIncorrectDocuments).toEqual([
         "Planning Officer's report",
@@ -122,8 +130,8 @@ describe('controllers/review-questionnaire', () => {
       expect(saveAndContinue).toBeCalledWith({
         req,
         res,
-        currentPage: views.reviewQuestionnaire,
-        nextPage: views.questionnairecheckAndConfirm,
+        currentPage,
+        nextPage,
         viewData,
       });
     });
@@ -157,14 +165,14 @@ describe('controllers/review-questionnaire', () => {
 
       req.body = { errors, errorSummary };
 
-      postReviewQuestionnaire(req, res);
+      postReviewQuestionnaireSubmission(req, res);
 
       expect(saveAndContinue).toBeCalledTimes(1);
       expect(saveAndContinue).toBeCalledWith({
         req,
         res,
-        currentPage: views.reviewQuestionnaire,
-        nextPage: views.questionnairecheckAndConfirm,
+        currentPage,
+        nextPage,
         viewData,
       });
     });
@@ -183,9 +191,9 @@ describe('controllers/review-questionnaire', () => {
           errors: mockObject,
         },
         session: {
-          appeal: { id: '5c943cb9-e029-4094-a447-4b3256d6ede7' },
+          appeal: { appealId: '5c943cb9-e029-4094-a447-4b3256d6ede7' },
           questionnaire: {
-            outcome: 'INCOMPLETE',
+            outcome: 'Incomplete',
             missingOrIncorrectDocuments: [
               'Plans used to reach the decision:',
               'mock-plans-missing-text',
@@ -203,14 +211,14 @@ describe('controllers/review-questionnaire', () => {
       viewData.values['lpaqreview-appeal-notification-checkbox'] = 'on';
       viewData.values['lpaqreview-appeal-notification-subcheckbox2'] = 'on';
 
-      postReviewQuestionnaire(req, res);
+      postReviewQuestionnaireSubmission(req, res);
 
       expect(saveAndContinue).toBeCalledTimes(1);
       expect(saveAndContinue).toBeCalledWith({
         req,
         res,
-        currentPage: views.reviewQuestionnaire,
-        nextPage: views.questionnairecheckAndConfirm,
+        currentPage,
+        nextPage,
         viewData,
       });
     });
