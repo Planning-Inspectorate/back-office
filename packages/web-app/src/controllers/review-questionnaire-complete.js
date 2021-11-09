@@ -1,7 +1,4 @@
 const { reviewQuestionnaireComplete: currentPage, questionnairesList } = require('../config/views');
-const {
-  QUESTIONNAIRE: { REVIEWOUTCOME },
-} = require('../constants');
 
 const viewData = () => ({
   pageTitle: 'Review complete',

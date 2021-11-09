@@ -11,8 +11,20 @@ const mockReq = {
   log: logger,
   params: {},
   body: {},
-  session: {},
+  session: {
+    appeal: { appealId: '5c943cb9-e029-4094-a447-4b3256d6ede7' },
+    questionnaire: {
+      caseReference: '5c943cb9-e029-4094-a447-4b3256d6ede7',
+      siteAddressLineOne: 'one',
+      siteAddressLineTwo: 'two',
+      siteAddressTown: 'three',
+      siteAddressCounty: 'four',
+      siteAddressPostCode: 'five',
+      localPlanningAuthorityName: 'seven',
+    },
+  },
 };
+
 const mockRes = () => {
   const res = {};
   res.redirect = jest.fn().mockReturnValue(res);

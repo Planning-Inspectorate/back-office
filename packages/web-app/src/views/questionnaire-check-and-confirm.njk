@@ -4,6 +4,7 @@
 {% from "govuk/components/warning-text/macro.njk" import govukWarningText %}
 {% from "components/address.njk" import address %}
 {% from "components/button-group.njk" import buttonGroup %}
+{% from "components/missing-or-incorrect.njk" import missingOrIncorrect %}
 
 {% block pageTitle %}
     Check and confirm - Appeal a householder planning decision - GOV.UK
@@ -16,7 +17,7 @@
 
 {% set documentsSection = {
     key: { text: 'Missing or incorrect documents' },
-    value: { html: 'lol' }
+    value: { html: missingOrIncorrect(questionnaireData.missingOrIncorrectDocuments) }
 } %}
 
 {% set appealReferenceSection = {

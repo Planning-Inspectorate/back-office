@@ -1,7 +1,7 @@
 const fetch = require('node-fetch');
+const documentTypes = require('@pins/common/src/document-types');
 const config = require('../config/config');
 const logger = require('./logger');
-const documentTypes = require('../../../common/src/document-types');
 
 const {
   backOfficeApi: { v1Url: backOfficeUrl },
@@ -46,14 +46,12 @@ const getAppealData = async (appealId) => {
 
     if (appealId) {
       const appealApiResponse = await fetch(`${appealDataUrl}/${appealId}`);
-
       if (appealApiResponse.ok) {
         const appeal = await appealApiResponse.json();
         data.appeal = formatDocumentsAndAddToData(appeal);
       }
 
       const questionnaireApiResponse = await fetch(`${questionnaireDataUrl}/${appealId}`);
-
       if (questionnaireApiResponse.ok) {
         const questionnaire = await questionnaireApiResponse.json();
         data.questionnaire = formatDocumentsAndAddToData(questionnaire);

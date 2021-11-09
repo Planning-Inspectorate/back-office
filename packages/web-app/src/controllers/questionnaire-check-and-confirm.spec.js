@@ -1,9 +1,11 @@
-  const { getCheckAndConfirm } = require('./questionnaire-check-and-confirm');
+const { getCheckAndConfirm } = require('./questionnaire-check-and-confirm');
 const { mockReq, mockRes } = require('../../test/utils/mocks');
 
 describe('controllers/questionnaire-check-and-confirm', () => {
   const questionnaireData = {
     caseReference: 'ABC/123/12345',
+    appealId: '123',
+    reviewOutcome: 'Incomplete',
   };
 
   let req;
@@ -23,6 +25,7 @@ describe('controllers/questionnaire-check-and-confirm', () => {
       expect(res.render).toBeCalledTimes(1);
       expect(res.render).toBeCalledWith('questionnaire-check-and-confirm', {
         pageTitle: 'Review questionnaire',
+        previousPage: 'review-questionnaire-submission/123',
         questionnaireData,
         reviewOutcome: 'Incomplete',
       });

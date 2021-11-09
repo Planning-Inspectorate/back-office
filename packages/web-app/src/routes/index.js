@@ -18,7 +18,7 @@ const questionnaireAlreadyReviewed = require('./questionnaire-already-reviewed')
 const views = require('../config/views');
 const handleAppealAlreadyReviewed = require('../lib/handle-appeal-already-reviewed');
 const getCaseData = require('../lib/get-case-data');
-const reviewQuestionnaire = require('./review-questionnaire');
+const reviewQuestionnaireSubmission = require('./review-questionnaire-submission');
 const reviewQuestionnaireComplete = require('./review-questionnaire-complete');
 
 const router = express.Router();
@@ -40,10 +40,14 @@ router.use(`/${views.document}`, documentsServiceProxy);
 router.use(`/${views.appealAlreadyReviewed}`, appealAlreadyReviewed);
 router.use(`/${views.checkAndConfirm}`, checkAndConfirmDetails);
 router.use(`/${views.reviewComplete}`, reviewComplete);
-router.use(`/${views.reviewQuestionnaire}/:appealId`, reviewQuestionnaire);
+router.use(
+  `/${views.reviewQuestionnaireSubmission}/:appealId`,
+  getCaseData,
+  reviewQuestionnaireSubmission
+);
 router.use(`/${views.reviewQuestionnaireComplete}`, reviewQuestionnaireComplete);
 router.use(`/${views.questionnairesForReview}/${views.checkAndConfirm}`, checkAndConfirm);
-router.use(`/questionnaires-for-review/check-and-confirm`, questionnaireCheckAndConfirm);
-router.use(`/questionnaires-for-review/already-reviewed`, questionnaireAlreadyReviewed);
+router.use(`/questionnaire-check-and-confirm`, questionnaireCheckAndConfirm);
+router.use(`/questionnaire-already-reviewed`, questionnaireAlreadyReviewed);
 
 module.exports = router;

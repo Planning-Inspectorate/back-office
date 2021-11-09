@@ -1,6 +1,6 @@
 const { validationResult } = require('express-validator');
 const { testExpressValidatorMiddleware } = require('./validation-middleware-helper');
-const { rules } = require('./review-questionnaire');
+const { rules } = require('./review-questionnaire-submission');
 
 const getFailedTextBoxAreaValidationTest = (data) => ({
   title: `lpaqreview-${data.title}-textarea - fail`,

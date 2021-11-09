@@ -55,7 +55,7 @@ describe('middleware/ensure-appeal-matches-session', () => {
       },
       expected: (req, res, next) => {
         expect(next).not.toHaveBeenCalled();
-        expect(res.sendStatus).toHaveBeenCalledWith(403);
+        expect(res.sendStatus).toHaveBeenCalledWith(401);
       },
     },
     {
@@ -63,9 +63,7 @@ describe('middleware/ensure-appeal-matches-session', () => {
       req: {
         session: {
           appeal: {
-            appeal: {
-              id: 'abc-123',
-            },
+            appealId: 'abc-123',
           },
         },
         params: {

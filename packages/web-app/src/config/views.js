@@ -13,7 +13,7 @@ const views = {
   reviewComplete: 'review-complete',
   reviewQuestionnaireComplete: 'review-questionnaire-complete',
   questionnairesForReview: 'questionnaires-for-review',
-  reviewQuestionnaire: 'review-questionnaire',
+  reviewQuestionnaireSubmission: 'review-questionnaire-submission',
   questionnairecheckAndConfirm: 'questionnaire-check-and-confirm',
 };
 
