@@ -1,48 +1,56 @@
+const Sequelize = require('sequelize');
 const ApiError = require('./api-error');
-const db = require('../models');
+const config = require('../../database/config/config');
 
-const create = (model, data) => {
+const {
+  development: { username, password, database, host, dialect },
+} = config;
+
+const dbConnect = () => new Sequelize(database, username, password, { host, dialect });
+
+const createHasAppeal = (db, data) => {
   try {
-    return db[model.name].create(data);
+    const query = `EXEC CreateHASAppeal @json = '${JSON.stringify(data)}'`;
+    return db.query(query);
   } catch (err) {
-    throw new ApiError(`Failed to create data with error - ${err.toString()}`);
+    throw new ApiError(`Failed to create HAS appeal data with error - ${err.toString()}`);
   }
 };
 
-const findAllAppeals = async () => {
+const findAllAppeals = async (db) => {
   try {
     const query = 'SELECT * FROM AppealData WHERE caseReference IS NOT NULL AND CaseStageId = 1';
-    const result = await db.sequelize.query(query);
+    const result = await db.query(query);
     return result[0];
   } catch (err) {
     throw new ApiError(`Failed to get appeals data with error - ${err.toString()}`);
   }
 };
 
-const findOneAppeal = async (appealId) => {
+const findOneAppeal = async (db, appealId) => {
   try {
     const query = `SELECT * FROM AppealData WHERE AppealId = '${appealId}'`;
-    const result = await db.sequelize.query(query);
+    const result = await db.query(query);
     return result[0][0];
   } catch (err) {
     throw new ApiError(`Failed to get appeal data with error - ${err.toString()}`);
   }
 };
 
-const findAllQuestionnaires = async () => {
+const findAllQuestionnaires = async (db) => {
   try {
     const query = 'SELECT * FROM QuestionnaireData';
-    const result = await db.sequelize.query(query);
+    const result = await db.query(query);
     return result[0];
   } catch (err) {
     throw new ApiError(`Failed to get questionnaires data with error - ${err.toString()}`);
   }
 };
 
-const findOneQuestionnaire = async (appealId) => {
+const findOneQuestionnaire = async (db, appealId) => {
   try {
     const query = `SELECT * FROM QuestionnaireData WHERE AppealId = '${appealId}'`;
-    const result = await db.sequelize.query(query);
+    const result = await db.query(query);
     return result[0][0];
   } catch (err) {
     throw new ApiError(`Failed to get questionnaire data with error - ${err.toString()}`);
@@ -50,7 +58,8 @@ const findOneQuestionnaire = async (appealId) => {
 };
 
 module.exports = {
-  create,
+  dbConnect,
+  createHasAppeal,
   findAllAppeals,
   findOneAppeal,
   findAllQuestionnaires,
