@@ -1,4 +1,8 @@
-const { getCheckAndConfirm } = require('./questionnaire-check-and-confirm');
+const { getCheckAndConfirm, postCheckAndConfirm } = require('./questionnaire-check-and-confirm');
+const {
+  reviewQuestionnaireSubmission: previousPage,
+  reviewQuestionnaireComplete: nextPage,
+} = require('../config/views');
 const { mockReq, mockRes } = require('../../test/utils/mocks');
 
 describe('controllers/questionnaire-check-and-confirm', () => {
@@ -18,16 +22,16 @@ describe('controllers/questionnaire-check-and-confirm', () => {
 
   describe('getCheckAndConfirm', () => {
     it('should render the view with data correctly', async () => {
-      req.session.questionnaire = questionnaireData;
+      const { questionnaire } = req.session;
 
       getCheckAndConfirm(req, res);
 
       expect(res.render).toBeCalledTimes(1);
       expect(res.render).toBeCalledWith('questionnaire-check-and-confirm', {
         pageTitle: 'Review questionnaire',
-        previousPage: 'review-questionnaire-submission/123',
-        questionnaireData,
-        reviewOutcome: 'Incomplete',
+        previousPage: `${previousPage}/${questionnaire.appealId}`,
+        questionnaireData: questionnaire,
+        reviewOutcome: questionnaire.outcome,
       });
     });
   });
@@ -43,7 +47,8 @@ describe('controllers/questionnaire-check-and-confirm', () => {
           },
         },
       };
-      checkAndConfirmController.postCheckAndConfirm(req, res);
+
+      postCheckAndConfirm(req, res);
 
       expect(res.redirect).toBeCalledTimes(1);
       expect(res.redirect).toBeCalledWith(`/${nextPage}`);
