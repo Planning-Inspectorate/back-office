@@ -2,13 +2,7 @@ const { body } = require('express-validator');
 const toArray = require('../lib/to-array');
 const validateCheckboxValueAgainstOptions = require('./utils/validate-checkbox-against-options');
 
-const validReasonOptions = [
-  'outOfTime',
-  'noRightOfAppeal',
-  'notAppealable',
-  'lpaDeemedApplicationAsInvalid',
-  'other',
-];
+const validReasonOptions = ['1', '2', '3', '4', '5'];
 
 const invalidAppealDetailsValidation = () => [
   body('invalid-appeal-reasons')

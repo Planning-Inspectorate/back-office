@@ -10,23 +10,15 @@
 {% set originalApplicationFile = appealData.requiredDocumentsSection.originalApplication.uploadedFile %}
 {% set decisionLetterFile = appealData.requiredDocumentsSection.decisionLetter.uploadedFile %}
 {% set appealStatementFile = appealData.yourAppealSection.appealStatement.uploadedFile %}
-{% set outcomeDetails = reviewOutcome.outcomeDetails %}
-{% set validAppealDetails = outcomeDetails.valid %}
-{% set invalidAppealDetails = outcomeDetails.invalid %}
-{% set missingOrWrongDetails = outcomeDetails.missingOrWrong %}
 {% set completedError = errors['check-and-confirm-completed'].msg %}
 
 {% macro renderValidReason() %}
-  {{ validAppealDetails.description }}
-{% endmacro %}
-
-{% macro renderWithOtherReason(outcome, reason) %}
-  <li>{{ getText(reason)+('' if reason !== 'other' else ' - '+ outcome.otherReason) }}</li>
+  {{ validAppealDetails }}
 {% endmacro %}
 
 {% macro renderInvalidReason() %}
   {% for item in invalidAppealDetails.reasons %}
-    {{ renderWithOtherReason(invalidAppealDetails, item) }}
+    <li>{{ getText(item) + (' - ' + invalidAppealDetails.otherReason if item === '5') }}</li>
   {% endfor %}
 {% endmacro %}
 
@@ -42,19 +34,19 @@
         </ul>
       </li>
     {% else %}
-      {{ renderWithOtherReason(missingOrWrongDetails, item) }}
+      <li>{{ getText(item) + (' - ' + invalidAppealDetails.otherReason if item === 'other') }}</li>
     {% endif %}
   {% endfor %}
 {% endmacro %}
 
 {% macro renderCheckAndConfirmReason() %}
-    {% if reviewOutcome.reviewOutcome === 'valid' %}
+    {% if reviewOutcome === '1' %}
       {{ renderValidReason() }}
     {% else %}
       <ul class="govuk-list">
-        {% if reviewOutcome.reviewOutcome === 'invalid' %}
+        {% if reviewOutcome === '2' %}
           {{ renderInvalidReason() }}
-        {% elif reviewOutcome.reviewOutcome === 'incomplete' %}
+        {% elif reviewOutcome === '3' %}
           {{ renderIncompleteReason() }}
         {% endif %}
       </ul>
@@ -93,17 +85,17 @@
     ]
   }) }}
 
-  {% if reviewOutcome.reviewOutcome === 'valid' %}
+  {% if reviewOutcome === '1' %}
     {{ govukWarningText({
       iconFallbackText: "Warning",
       text: "Confirming this appeal as valid starts the appeal and sends the LPA questionnaire email."
     }) }}
-  {% elif reviewOutcome.reviewOutcome === 'invalid' %}
+  {% elif reviewOutcome === '2' %}
     {{ govukWarningText({
       iconFallbackText: "Warning",
       text: "Confirming this appeal as invalid turns away the appeal and emails the appellant and LPA."
     }) }}
-  {% elif reviewOutcome.reviewOutcome === 'incomplete' %}
+  {% elif reviewOutcome === '3' %}
     {{ govukCheckboxes({
       idPrefix: "check-and-confirm-completed",
       name: "check-and-confirm-completed",

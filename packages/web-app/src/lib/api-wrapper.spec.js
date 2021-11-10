@@ -29,6 +29,11 @@ const singleQuestionnaireDataWithoutDocuments = {
   ...singleQuestionnaireDataRaw,
   documents: undefined,
 };
+const data = {
+  appeal: {
+    appealId: 'ff5fe7af-e69c-4c0e-9d78-70890b2a6e31',
+  },
+};
 
 jest.mock('node-fetch');
 
@@ -220,22 +225,34 @@ describe('lib/apiWrapper', () => {
   });
 
   describe('saveData', () => {
-    it('should return the data when given data', () => {
-      const data = {
-        appeal: {
-          horizonId: 'APP/Q9999/D/21/1234567',
-        },
-      };
+    it('should return true when data can be saved', async () => {
+      fetch.mockImplementation(() => ({
+        ok: true,
+      }));
 
-      const result = saveData(data);
+      const result = await saveData(data);
 
-      expect(result).toEqual(data);
+      expect(result).toBeTruthy();
     });
 
-    it('should return null when not given data', () => {
-      const result = saveData();
+    it('should return false when data cannot be saved', async () => {
+      fetch.mockImplementation(() => ({
+        ok: false,
+      }));
 
-      expect(result).toBeNull();
+      const result = await saveData(data);
+
+      expect(result).toBeFalsy();
+    });
+
+    it('should throw an error when an error occurs', async () => {
+      fetch.mockImplementation(() => {
+        throw new Error('Internal Server Error');
+      });
+
+      expect(() => saveData(data)).rejects.toThrow(
+        'Failed to save data with error - Error: Internal Server Error'
+      );
     });
   });
 });

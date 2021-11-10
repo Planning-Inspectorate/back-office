@@ -20,11 +20,11 @@ const getMissingOrWrong = (req, res) => {
   const {
     session: {
       appeal: { appealId, caseReference },
-      casework: { outcomeDetails },
+      casework: { missingOrWrong },
     },
   } = req;
 
-  res.render(currentPage, viewData(appealId, caseReference, outcomeDetails?.missingOrWrong));
+  res.render(currentPage, viewData(appealId, caseReference, missingOrWrong));
 };
 
 const postMissingOrWrong = (req, res) => {
@@ -36,27 +36,20 @@ const postMissingOrWrong = (req, res) => {
     body,
   } = req;
 
-  const reasons = toArray(body['missing-or-wrong-reasons']);
-  const documentReasons = toArray(body['missing-or-wrong-documents']);
-
-  const otherReason = body['other-reason'];
-
-  const outcomeDetails = {
-    missingOrWrong: {
-      reasons,
-      documentReasons,
-      otherReason,
-    },
+  const missingOrWrong = {
+    reasons: toArray(body['missing-or-wrong-reasons']),
+    documentReasons: toArray(body['missing-or-wrong-documents']),
+    otherReason: body['other-reason'],
   };
 
-  casework.outcomeDetails = outcomeDetails;
+  casework.missingOrWrong = missingOrWrong;
 
   saveAndContinue({
     req,
     res,
     currentPage,
     nextPage,
-    viewData: viewData(appealId, caseReference, outcomeDetails.missingOrWrong),
+    viewData: viewData(appealId, caseReference, missingOrWrong),
   });
 };
 

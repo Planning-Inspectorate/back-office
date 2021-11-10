@@ -8,13 +8,23 @@ const {
   getReviewOutcomeConfig,
 } = require('../config/review-appeal-submission');
 const { sendStartEmailToLPA } = require('../lib/notify');
+const { hasAppeal } = require('../config/db-fields');
 
 jest.mock('../lib/save-and-continue');
 jest.mock('../lib/notify');
 
 describe('controllers/check-and-confirm', () => {
   const appealId = '5c943cb9-e029-4094-a447-4b3256d6ede7';
-  const horizonId = 'APP/Q9999/D/21/1234567';
+  const validAppealDetails = 'This appeal is valid';
+  const invalidAppealReasons = ['1', '5'];
+  const otherReason = 'Another invalid reason';
+  const missingReasons = ['other', 'outOfTime'];
+  const missingDocumentReasons = ['noApplicationForm'];
+  const missingOrWrong = {
+    reasons: missingReasons,
+    documentReasons: missingDocumentReasons,
+    otherReason,
+  };
 
   let req;
   let res;
@@ -29,8 +39,11 @@ describe('controllers/check-and-confirm', () => {
     it('should render the view with correct data if reviewOutcome is valid', () => {
       req = {
         session: {
-          appeal: { appealId, horizonId },
-          casework: { reviewOutcome: reviewOutcomeOption.valid },
+          appeal: { appealId },
+          casework: {
+            [hasAppeal.reviewOutcome]: reviewOutcomeOption.valid,
+            [hasAppeal.validAppealDetails]: validAppealDetails,
+          },
         },
       };
 
@@ -38,7 +51,8 @@ describe('controllers/check-and-confirm', () => {
         pageTitle: 'Check and confirm',
         backLink: `/${views.validAppealDetails}`,
         changeOutcomeLink: `/${views.reviewAppealSubmission}/${appealId}`,
-        reviewOutcome: req.session.casework,
+        reviewOutcome: reviewOutcomeOption.valid,
+        validAppealDetails,
         appealData: req.session.appeal,
         checkAndConfirmConfig: getReviewOutcomeConfig(reviewOutcomeOption.valid),
         getText,
@@ -53,8 +67,12 @@ describe('controllers/check-and-confirm', () => {
     it('should render the view with correct data if reviewOutcome is invalid', () => {
       req = {
         session: {
-          appeal: { appealId, horizonId },
-          casework: { reviewOutcome: reviewOutcomeOption.invalid },
+          appeal: { appealId },
+          casework: {
+            [hasAppeal.reviewOutcome]: reviewOutcomeOption.invalid,
+            [hasAppeal.invalidAppealReasons]: JSON.stringify(invalidAppealReasons),
+            [hasAppeal.invalidReasonOther]: otherReason,
+          },
         },
       };
 
@@ -62,7 +80,8 @@ describe('controllers/check-and-confirm', () => {
         pageTitle: 'Check and confirm',
         backLink: `/${views.invalidAppealDetails}`,
         changeOutcomeLink: `/${views.reviewAppealSubmission}/${appealId}`,
-        reviewOutcome: req.session.casework,
+        reviewOutcome: reviewOutcomeOption.invalid,
+        invalidAppealDetails: { reasons: invalidAppealReasons, otherReason },
         appealData: req.session.appeal,
         checkAndConfirmConfig: getReviewOutcomeConfig(reviewOutcomeOption.invalid),
         getText,
@@ -77,8 +96,11 @@ describe('controllers/check-and-confirm', () => {
     it('should render the view with correct data if reviewOutcome is incomplete', () => {
       req = {
         session: {
-          appeal: { appealId, horizonId },
-          casework: { reviewOutcome: reviewOutcomeOption.incomplete },
+          appeal: { appealId },
+          casework: {
+            [hasAppeal.reviewOutcome]: reviewOutcomeOption.incomplete,
+            missingOrWrong,
+          },
         },
       };
 
@@ -86,7 +108,8 @@ describe('controllers/check-and-confirm', () => {
         pageTitle: 'Check and confirm',
         backLink: `/${views.missingOrWrong}`,
         changeOutcomeLink: `/${views.reviewAppealSubmission}/${appealId}`,
-        reviewOutcome: req.session.casework,
+        reviewOutcome: reviewOutcomeOption.incomplete,
+        missingOrWrongDetails: missingOrWrong,
         appealData: req.session.appeal,
         checkAndConfirmConfig: getReviewOutcomeConfig(reviewOutcomeOption.incomplete),
         getText,
@@ -106,9 +129,9 @@ describe('controllers/check-and-confirm', () => {
           'check-and-confirm-completed': 'true',
         },
         session: {
-          appeal: { appealId, horizonId },
+          appeal: { appealId },
           casework: {
-            reviewOutcome: reviewOutcomeOption.incomplete,
+            [hasAppeal.reviewOutcome]: reviewOutcomeOption.incomplete,
           },
         },
       };
@@ -117,7 +140,7 @@ describe('controllers/check-and-confirm', () => {
         pageTitle: 'Check and confirm',
         backLink: `/${views.missingOrWrong}`,
         changeOutcomeLink: `/${views.reviewAppealSubmission}/${appealId}`,
-        reviewOutcome: req.session.casework,
+        reviewOutcome: reviewOutcomeOption.incomplete,
         appealData: req.session.appeal,
         checkAndConfirmConfig: getReviewOutcomeConfig(reviewOutcomeOption.incomplete),
         getText,
@@ -142,9 +165,9 @@ describe('controllers/check-and-confirm', () => {
           'check-and-confirm-completed': 'true',
         },
         session: {
-          appeal: { appealId, horizonId },
+          appeal: { appealId },
           casework: {
-            reviewOutcome: reviewOutcomeOption.invalid,
+            [hasAppeal.reviewOutcome]: reviewOutcomeOption.invalid,
           },
         },
       };
@@ -152,11 +175,11 @@ describe('controllers/check-and-confirm', () => {
       postCheckAndConfirm(req, res);
       expect(sendStartEmailToLPA).not.toBeCalled();
 
-      req.session.casework.reviewOutcome = reviewOutcomeOption.incomplete;
+      req.session.casework[hasAppeal.reviewOutcome] = reviewOutcomeOption.incomplete;
       postCheckAndConfirm(req, res);
       expect(sendStartEmailToLPA).not.toBeCalled();
 
-      req.session.casework.reviewOutcome = reviewOutcomeOption.valid;
+      req.session.casework[hasAppeal.reviewOutcome] = reviewOutcomeOption.valid;
       postCheckAndConfirm(req, res);
       expect(sendStartEmailToLPA).toBeCalledTimes(1);
     });

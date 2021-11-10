@@ -37,11 +37,7 @@ describe('controllers/missing-or-wrong', () => {
       req = {
         session: {
           appeal: { appealId, caseReference },
-          casework: {
-            outcomeDetails: {
-              missingOrWrong,
-            },
-          },
+          casework: { missingOrWrong },
         },
       };
 
@@ -76,7 +72,7 @@ describe('controllers/missing-or-wrong', () => {
         nextPage: views.checkAndConfirm,
         viewData: expectedViewData,
       });
-      expect(req.session.casework.outcomeDetails.missingOrWrong).toEqual(missingOrWrong);
+      expect(req.session.casework.missingOrWrong).toEqual(missingOrWrong);
     });
   });
 });

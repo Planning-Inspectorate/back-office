@@ -17,7 +17,10 @@ const saveAndContinue = ({ req, res, currentPage, nextPage, viewData }) => {
   }
 
   try {
-    saveData(appeal.appealId, casework);
+    saveData({
+      appealId: appeal.appealId,
+      ...casework,
+    });
     res.cookie('appealId', appeal.appealId);
     res.cookie(appeal.appealId, JSON.stringify(casework));
   } catch (err) {

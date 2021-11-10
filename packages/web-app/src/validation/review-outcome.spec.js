@@ -13,7 +13,7 @@ describe('validation/review-outcome', () => {
   it('should pass validation when given a value of valid', async () => {
     req = {
       body: {
-        'review-outcome': 'valid',
+        'review-outcome': 1,
       },
     };
 
@@ -26,7 +26,7 @@ describe('validation/review-outcome', () => {
   it('should pass validation when given a value of invalid', async () => {
     req = {
       body: {
-        'review-outcome': 'invalid',
+        'review-outcome': 2,
       },
     };
 
@@ -39,7 +39,7 @@ describe('validation/review-outcome', () => {
   it('should pass validation when given a value of incomplete', async () => {
     req = {
       body: {
-        'review-outcome': 'incomplete',
+        'review-outcome': 3,
       },
     };
 

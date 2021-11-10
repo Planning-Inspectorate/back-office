@@ -8,13 +8,11 @@ jest.mock('../lib/save-and-continue');
 describe('controllers/valid-appeal-details', () => {
   const appealId = '5c943cb9-e029-4094-a447-4b3256d6ede7';
   const caseReference = '1234567';
-  const valid = {
-    description: 'some appeal details',
-  };
+  const validAppealDetails = 'some appeal details';
   const expectedViewData = {
     pageTitle: 'Valid appeal details',
     backLink: `/${views.reviewAppealSubmission}/${appealId}`,
-    valid,
+    valid: validAppealDetails,
     appealReference: caseReference,
   };
 
@@ -32,9 +30,7 @@ describe('controllers/valid-appeal-details', () => {
         session: {
           appeal: { appealId, caseReference },
           casework: {
-            outcomeDetails: {
-              valid,
-            },
+            descriptionDevelopment: validAppealDetails,
           },
         },
       };
@@ -50,7 +46,7 @@ describe('controllers/valid-appeal-details', () => {
     it('should call saveAndContinue with the correct params', () => {
       req = {
         body: {
-          'valid-appeal-details': valid.description,
+          'valid-appeal-details': validAppealDetails,
         },
         session: {
           appeal: { appealId, caseReference },
@@ -68,7 +64,7 @@ describe('controllers/valid-appeal-details', () => {
         nextPage: views.checkAndConfirm,
         viewData: expectedViewData,
       });
-      expect(req.session.casework.outcomeDetails.valid).toEqual(valid);
+      expect(req.session.casework.descriptionDevelopment).toEqual(validAppealDetails);
     });
   });
 });

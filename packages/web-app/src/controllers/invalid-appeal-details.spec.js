@@ -3,21 +3,20 @@ const views = require('../config/views');
 const saveAndContinue = require('../lib/save-and-continue');
 const { mockReq, mockRes } = require('../../test/utils/mocks');
 const { getText } = require('../config/review-appeal-submission');
+const { hasAppeal } = require('../config/db-fields');
 
 jest.mock('../lib/save-and-continue');
 
 describe('controllers/invalid-appeal-details', () => {
   const appealId = '5c943cb9-e029-4094-a447-4b3256d6ede7';
   const caseReference = '1234567';
-  const invalid = {
-    reasons: ['other', 'outOfTime'],
-    otherReason: 'other description',
-  };
+  const reasons = ['1', '5'];
+  const otherReason = 'other description';
   const expectedViewData = {
     pageTitle: 'Invalid appeal details',
     backLink: `/${views.reviewAppealSubmission}/${appealId}`,
     getText,
-    invalid,
+    invalid: { reasons, otherReason },
     appealReference: caseReference,
   };
 
@@ -35,9 +34,8 @@ describe('controllers/invalid-appeal-details', () => {
         session: {
           appeal: { appealId, caseReference },
           casework: {
-            outcomeDetails: {
-              invalid,
-            },
+            [hasAppeal.invalidAppealReasons]: reasons,
+            [hasAppeal.invalidReasonOther]: otherReason,
           },
         },
       };
@@ -53,8 +51,8 @@ describe('controllers/invalid-appeal-details', () => {
     it('should call saveAndContinue with the correct params', () => {
       req = {
         body: {
-          'invalid-appeal-reasons': invalid.reasons,
-          'other-reason': invalid.otherReason,
+          'invalid-appeal-reasons': reasons,
+          'other-reason': otherReason,
         },
         session: {
           appeal: { appealId, caseReference },
@@ -72,7 +70,8 @@ describe('controllers/invalid-appeal-details', () => {
         nextPage: views.checkAndConfirm,
         viewData: expectedViewData,
       });
-      expect(req.session.casework.outcomeDetails.invalid).toEqual(invalid);
+      expect(req.session.casework[hasAppeal.invalidAppealReasons]).toEqual(JSON.stringify(reasons));
+      expect(req.session.casework[hasAppeal.invalidReasonOther]).toEqual(otherReason);
     });
   });
 });
