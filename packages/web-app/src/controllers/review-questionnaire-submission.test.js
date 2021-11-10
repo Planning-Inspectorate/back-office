@@ -3,8 +3,8 @@ const {
   postReviewQuestionnaireSubmission,
 } = require('./review-questionnaire-submission');
 const views = require('../config/views');
-const { getAppealData } = require('../lib/api-wrapper');
 const { mockReq, mockRes } = require('../../test/utils/mocks');
+const { createPageData } = require('../../test/lib/createPageData');
 const mockExistingData = require('../../test/review-questionnaire-existing-data-mock.json');
 const mockViewData = require('../../test/review-questionnaire-view-data-mock.json');
 const emptyValues = require('../../test/review-questionnaire-empty-values');
@@ -26,7 +26,7 @@ describe('controllers/review-questionnaire', () => {
     res = mockRes();
 
     existingData = mockExistingData;
-    viewData = mockViewData;
+    viewData = mockViewData.appealInfo;
 
     nextPage = views.questionnairecheckAndConfirm;
     currentPage = views.reviewQuestionnaireSubmission;
@@ -34,36 +34,33 @@ describe('controllers/review-questionnaire', () => {
 
   describe('getReviewQuestionnaire', () => {
     it('should render the view with data correctly', () => {
-      getAppealData.mockImplementation(() => existingData);
+      const {
+        session: { appeal, questionnaire },
+      } = req;
 
-      const req = {
-        session: {
-          appeal: { appealId: '5c943cb9-e029-4094-a447-4b3256d6ede7' },
-        },
-      };
+      viewData = createPageData(appeal, questionnaire);
 
       getReviewQuestionnaireSubmission(req, res);
 
       expect(res.render).toBeCalledTimes(1);
       expect(res.render).toBeCalledWith(currentPage, {
+        pageTitle: 'Review questionnaire',
         ...viewData,
       });
     });
 
     it('should render the view with data correctly, with differing conditionals', () => {
-      const req = {
-        session: {
-          appeal: { appealId: '5c943cb9-e029-4094-a447-4b3256d6ede7' },
-        },
-      };
+      const {
+        session: { appeal, questionnaire },
+      } = req;
+
+      viewData = createPageData(appeal, questionnaire);
 
       existingData.questionnaire.nearConservationArea = false;
       existingData.questionnaire.listedBuilding.affectSetting = false;
 
       viewData.aboutAppealSite.developmentAffectSettings.cellText = 'No';
       viewData.aboutAppealSite.nearConservationArea.cellText = 'No';
-
-      getAppealData.mockImplementation(() => existingData);
 
       getReviewQuestionnaireSubmission(req, res);
 
@@ -77,8 +74,15 @@ describe('controllers/review-questionnaire', () => {
 
   describe('postReviewQuestionnaire', () => {
     beforeEach(() => {
+      const {
+        session: { appeal, questionnaire },
+      } = req;
       req.body = {};
-      viewData = { ...mockViewData, values: { ...emptyValues }, pageTitle: 'Review questionnaire' };
+      viewData = {
+        ...createPageData(appeal, questionnaire),
+        values: { ...emptyValues },
+        pageTitle: 'Review questionnaire',
+      };
     });
 
     it('should redirect with no missing or incorrect documents', () => {
@@ -96,23 +100,10 @@ describe('controllers/review-questionnaire', () => {
     });
 
     it('should redirect with non-empty missing or incorrect documents', () => {
-      const req = {
-        body: {
-          'lpaqreview-officer-report-checkbox': 'on',
-          'lpaqreview-plans-decision-checkbox': 'on',
-          'lpaqreview-application-notification-checkbox': 'on',
-        },
-        session: {
-          appeal: { appealId: '5c943cb9-e029-4094-a447-4b3256d6ede7' },
-          questionnaire: {
-            outcome: 'INCOMPLETE',
-            missingOrIncorrectDocuments: [
-              "Planning Officer's report",
-              'Plans used to reach the decision:',
-              'Application notification:',
-            ],
-          },
-        },
+      req.body = {
+        'lpaqreview-officer-report-checkbox': 'on',
+        'lpaqreview-plans-decision-checkbox': 'on',
+        'lpaqreview-application-notification-checkbox': 'on',
       };
 
       viewData.values['lpaqreview-application-notification-checkbox'] = 'on';
@@ -180,29 +171,14 @@ describe('controllers/review-questionnaire', () => {
     it('should render with previous values present', () => {
       const mockObject = { mock: 'mock' };
 
-      const req = {
-        body: {
-          'lpaqreview-plans-decision-checkbox': 'on',
-          'lpaqreview-plans-decision-textarea': 'mock-plans-missing-text',
-          'lpaqreview-application-publicity-checkbox': 'on',
-          'lpaqreview-appeal-notification-checkbox': 'on',
-          'lpaqreview-appeal-notification-subcheckbox2': 'on',
-          errorSummary: mockObject,
-          errors: mockObject,
-        },
-        session: {
-          appeal: { appealId: '5c943cb9-e029-4094-a447-4b3256d6ede7' },
-          questionnaire: {
-            outcome: 'Incomplete',
-            missingOrIncorrectDocuments: [
-              'Plans used to reach the decision:',
-              'mock-plans-missing-text',
-              'Application publicity',
-              'Appeal notification:',
-              'Copy of letter or site notice',
-            ],
-          },
-        },
+      req.body = {
+        'lpaqreview-plans-decision-checkbox': 'on',
+        'lpaqreview-plans-decision-textarea': 'mock-plans-missing-text',
+        'lpaqreview-application-publicity-checkbox': 'on',
+        'lpaqreview-appeal-notification-checkbox': 'on',
+        'lpaqreview-appeal-notification-subcheckbox2': 'on',
+        errorSummary: mockObject,
+        errors: mockObject,
       };
 
       viewData.values['lpaqreview-plans-decision-checkbox'] = 'on';

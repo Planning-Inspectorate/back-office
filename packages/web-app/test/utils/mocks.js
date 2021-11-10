@@ -1,5 +1,5 @@
 jest.mock('../../src/lib/logger');
-
+const mockViewData = require('../review-questionnaire-view-data-mock.json');
 const logger = require('../../src/lib/logger');
 
 const mockGet = jest.fn();
@@ -11,18 +11,7 @@ const mockReq = {
   log: logger,
   params: {},
   body: {},
-  session: {
-    appeal: { appealId: '5c943cb9-e029-4094-a447-4b3256d6ede7' },
-    questionnaire: {
-      caseReference: '5c943cb9-e029-4094-a447-4b3256d6ede7',
-      siteAddressLineOne: 'one',
-      siteAddressLineTwo: 'two',
-      siteAddressTown: 'three',
-      siteAddressCounty: 'four',
-      siteAddressPostCode: 'five',
-      localPlanningAuthorityName: 'seven',
-    },
-  },
+  session: mockViewData.session,
 };
 
 const mockRes = () => {

@@ -8,20 +8,29 @@ const {
   questionnairecheckAndConfirm: nextPage,
 } = require('../config/views');
 
-const populateFilesObject = (files, appealId) => {
+const populateFilesObject = (files, lpaQuestionnaireId) => {
   if (!files) {
-    return 'No files uploaded';
+    return [{ text: 'No files uploaded' }];
   }
 
   if (Array.isArray(files)) {
-    return files.map((file) => ({ link: `/document/${appealId}/${file.id}`, text: file.name }));
+    return files.map((file) => ({
+      link: `/document/${lpaQuestionnaireId}/${file.id}`,
+      text: file.name,
+    }));
   }
-  return [{ link: `/document/${appealId}/${files.id}`, text: files.name }];
 };
 
-const createRowObjectData = (titleText, files, hasCheckbox, dropDown, htmlId, appealId) => ({
+const createRowObjectData = (
   titleText,
-  files: populateFilesObject(files, appealId),
+  files,
+  hasCheckbox,
+  dropDown,
+  htmlId,
+  lpaQuestionnaireId
+) => ({
+  titleText,
+  files: populateFilesObject(files, lpaQuestionnaireId),
   hasCheckbox,
   dropDown,
   checkboxName: `lpaqreview-${htmlId}-checkbox`,
@@ -78,7 +87,7 @@ const createPageData = (appeal, questionnaire) => ({
       true,
       {},
       'officer-report',
-      questionnaire.appealId
+      questionnaire.lpaQuestionnaireId
     ),
     plansDecision: createRowObjectData(
       'Plans used to reach decision',
@@ -86,7 +95,7 @@ const createPageData = (appeal, questionnaire) => ({
       true,
       { dropDownType: 'TEXT_BOX', title: 'Which plans are missing?' },
       'plans-decision',
-      questionnaire.appealId
+      questionnaire.lpaQuestionnaireId
     ),
   },
   localPlansPolicies: {
@@ -97,7 +106,7 @@ const createPageData = (appeal, questionnaire) => ({
       true,
       { dropDownType: 'TEXT_BOX', title: 'Which policies are missing?' },
       'statutory-development',
-      questionnaire.appealId
+      questionnaire.lpaQuestionnaireId
     ),
     otherRelevantPolicies: createRowObjectData(
       'Other relevant policies',
@@ -105,7 +114,7 @@ const createPageData = (appeal, questionnaire) => ({
       true,
       { dropDownType: 'TEXT_BOX', title: 'Which policies are missing?' },
       'other-relevant-policies',
-      questionnaire.appealId
+      questionnaire.lpaQuestionnaireId
     ),
     supplementaryPlanningDocuments: createRowObjectData(
       'Supplementary planning documents',
@@ -113,7 +122,7 @@ const createPageData = (appeal, questionnaire) => ({
       true,
       { dropDownType: 'TEXT_BOX', title: 'Which documents are missing?' },
       'supplementary-planning',
-      questionnaire.appealId
+      questionnaire.lpaQuestionnaireId
     ),
   },
   aboutAppealSite: {
@@ -128,7 +137,7 @@ const createPageData = (appeal, questionnaire) => ({
       true,
       { dropDownType: 'TEXT_BOX', title: 'What is missing or incorrect?' },
       'conservation-guidance',
-      questionnaire.appealId
+      questionnaire.lpaQuestionnaireId
     ),
     developmentAffectSettings: {
       titleText: 'Would the development affect the setting of a listed building?',
@@ -151,7 +160,7 @@ const createPageData = (appeal, questionnaire) => ({
       true,
       createSubCheckboxData('application'),
       'application-notification',
-      questionnaire.appealId
+      questionnaire.lpaQuestionnaireId
     ),
     applicationPublicity: createRowObjectData(
       'Application publicity',
@@ -159,7 +168,7 @@ const createPageData = (appeal, questionnaire) => ({
       true,
       {},
       'application-publicity',
-      questionnaire.appealId
+      questionnaire.lpaQuestionnaireId
     ),
     representations: createRowObjectData(
       'Representations',
@@ -167,7 +176,7 @@ const createPageData = (appeal, questionnaire) => ({
       true,
       { dropDownType: 'TEXT_BOX', title: 'Which representations are missing or incorrect?' },
       'representations',
-      questionnaire.appealId
+      questionnaire.lpaQuestionnaireId
     ),
     appealNotification: createRowObjectData(
       'Appeal notification',
@@ -175,7 +184,7 @@ const createPageData = (appeal, questionnaire) => ({
       true,
       createSubCheckboxData('appeal'),
       'appeal-notification',
-      questionnaire.appealId
+      questionnaire.lpaQuestionnaireId
     ),
   },
   finishedReviewTitle: 'Finished your review?',
@@ -189,7 +198,7 @@ const getReviewQuestionnaireSubmission = (req, res) => {
 
   const viewData = createPageData(appeal, questionnaire);
 
-  res.render(views.reviewQuestionnaireSubmission, {
+  res.render(currentPage, {
     pageTitle: 'Review questionnaire',
     ...viewData,
   });
@@ -271,7 +280,6 @@ const postReviewQuestionnaireSubmission = (req, res) => {
     pageTitle: 'Review questionnaire',
   };
 
-  req.session.questionnaire = req.session.questionnaire || {};
   req.session.questionnaire.missingOrIncorrectDocuments = missingOrIncorrectDocuments;
   req.session.questionnaire.outcome =
     missingOrIncorrectDocuments.length > 0 ? REVIEWOUTCOME.INCOMPLETE : REVIEWOUTCOME.COMPLETE;

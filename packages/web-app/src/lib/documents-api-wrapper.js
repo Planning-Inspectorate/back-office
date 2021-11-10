@@ -57,5 +57,5 @@ async function handler(path, method = 'GET', opts = {}, headers = {}) {
   }
 }
 
-exports.getDocument = async (appealId, documentId) =>
-  handler(`/api/v1/${appealId}/${documentId}/file`);
+exports.getDocument = async (appealOrQuestionnaireId, documentId) =>
+  handler(`/api/v1/${appealOrQuestionnaireId}/${documentId}/file`);
