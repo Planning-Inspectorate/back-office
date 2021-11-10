@@ -5,7 +5,6 @@ const {
 const views = require('../config/views');
 const { mockReq, mockRes } = require('../../test/utils/mocks');
 const { createPageData } = require('../../test/lib/createPageData');
-const mockExistingData = require('../../test/review-questionnaire-existing-data-mock.json');
 const mockViewData = require('../../test/review-questionnaire-view-data-mock.json');
 const emptyValues = require('../../test/review-questionnaire-empty-values');
 const saveAndContinue = require('../lib/save-and-continue');
@@ -16,7 +15,6 @@ jest.mock('../lib/save-and-continue');
 describe('controllers/review-questionnaire', () => {
   let req;
   let res;
-  let existingData;
   let viewData;
   let currentPage;
   let nextPage;
@@ -25,7 +23,6 @@ describe('controllers/review-questionnaire', () => {
     req = mockReq;
     res = mockRes();
 
-    existingData = mockExistingData;
     viewData = mockViewData.appealInfo;
 
     nextPage = views.questionnairecheckAndConfirm;
@@ -56,11 +53,23 @@ describe('controllers/review-questionnaire', () => {
 
       viewData = createPageData(appeal, questionnaire);
 
-      existingData.questionnaire.nearConservationArea = false;
-      existingData.questionnaire.listedBuilding.affectSetting = false;
+      getReviewQuestionnaireSubmission(req, res);
 
-      viewData.aboutAppealSite.developmentAffectSettings.cellText = 'No';
-      viewData.aboutAppealSite.nearConservationArea.cellText = 'No';
+      expect(res.render).toBeCalledTimes(1);
+      expect(res.render).toBeCalledWith(currentPage, {
+        pageTitle: 'Review questionnaire',
+        ...viewData,
+      });
+    });
+
+    it('should render the view with data correctly, with differing conditionals', () => {
+      req.session = mockViewData.sessionAlternate;
+
+      const {
+        session: { appeal, questionnaire },
+      } = req;
+
+      viewData = createPageData(appeal, questionnaire);
 
       getReviewQuestionnaireSubmission(req, res);
 
