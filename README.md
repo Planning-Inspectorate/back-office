@@ -4,7 +4,15 @@
 
 ### Local env setup
 
-1. Create the following environment variables:
+1. Download [Azure Data Explorer](https://azure.microsoft.com/en-gb/features/storage-explorer) and connect to the database using the details above except the database, which should be left blank.
+
+2. Create the database using Azure Data Explorer (right click the connection and select New Query)
+
+   ```
+   CREATE DATABASE backofficedev;
+   ```
+
+3. Create the following environment variables, by pasting the following commands into a new terminal window:
 
    ```
    export MSSQL_HOST=localhost
@@ -14,29 +22,21 @@
    export MSSQL_DIALECT=mssql
    ```
 
-2. Download [Azure Data Explorer](https://azure.microsoft.com/en-gb/features/storage-explorer) and add a database connection using the details above except database.
-
-3. Create the database using Azure Data Explorer (right click the connection and select New Query)
-
-   ```
-   CREATE DATABASE backofficedev;
-   ```
-
-4. Run the migrations
-
-   Completed migrations are stored in the db so when you run the migrations again only new ones since the last migration will be run.
+4. Run the migrations, by changing to the `packages/api` directory and pasting the following command into the same terminal window as in step 3:
 
    ```
    npm run db:migrate
    ```
 
-5. Seed the database
+   Completed migrations are stored in the db so when you run the migrations again only new ones since the last migration will be run.
 
-   Completed seeders are not stored in the db so this should only be run once as it will insert the same data each time they are run.
+5. Seed the database, by changing to the `packages/api` directory and pasting the following command into the same terminal window as in step 3:
 
    ```
    npm run db:seed
    ```
+
+   Completed seeders are not stored in the db so this should only be run once as it will insert the same data each time they are run.
 
 6. Add some demo records using Azure Data Explorer (right click the connection and select Refresh, then right click the database and select New Query)
 
