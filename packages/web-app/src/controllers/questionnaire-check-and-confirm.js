@@ -1,7 +1,6 @@
-const {
-  reviewQuestionnaireSubmission: previousPage,
-  reviewQuestionnaireComplete: nextPage,
-} = require('../config/views');
+const { reviewQuestionnaireSubmission: previousPage } = require('../config/views');
+
+const { saveData } = require('../lib/api-wrapper');
 
 const getCheckAndConfirm = (req, res) => {
   const { questionnaire } = req.session;
@@ -14,15 +13,24 @@ const getCheckAndConfirm = (req, res) => {
   });
 };
 
-const setCheckAndConfirm = (req, res) => {
+const setCheckAndConfirm = async (req, res) => {
   const { missingOrIncorrectDocuments } = req.session.questionnaire;
 
   if (Array.isArray(missingOrIncorrectDocuments)) {
-    res.render('questionnaire-check-and-confirm', {
+    if (missingOrIncorrectDocuments.length > 1) {
+      await saveData({ lpaQuestionnaireReviewOutcomeId: 2 });
+      return res.render('review-questionnaire', {
+        pageTitle: 'Review questionnaire',
+      });
+    }
+
+    await saveData({ lpaQuestionnaireReviewOutcomeId: 1 });
+    return res.render('review-questionnaire-complete', {
       pageTitle: 'Review questionnaire',
-      reviewOutcome: 'Incomplete',
     });
   }
+
+  return res.render('not-found');
 };
 
 module.exports = {
