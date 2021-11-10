@@ -18,7 +18,7 @@ describe('controllers/review-questionnaire-complete', () => {
       req = {
         session: {
           appeal: { id: appealId },
-          questionnaire: { missingOrIncorrectDocuments: 0 },
+          questionnaire: { missingOrIncorrectDocuments: 0, outcome: 'complete' },
         },
       };
 
@@ -31,7 +31,7 @@ describe('controllers/review-questionnaire-complete', () => {
       const options = {
         ...viewData(),
         appealData: req.session.appeal,
-        outcome: 'complete',
+        outcome: req.session.questionnaire.outcome,
       };
 
       getReviewQuestionnaireComplete(req, res);

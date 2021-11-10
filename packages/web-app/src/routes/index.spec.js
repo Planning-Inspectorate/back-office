@@ -13,6 +13,7 @@ const handleAppealAlreadyReviewed = require('../lib/handle-appeal-already-review
 const getCaseData = require('../lib/get-case-data');
 const checkAndConfirmDetails = require('./check-and-confirm');
 const reviewComplete = require('./review-complete');
+const reviewQuestionnaireSubmission = require('./review-questionnaire-submission');
 const questionnaireCheckAndConfirm = require('./questionnaire-check-and-confirm');
 const questionnaireAlreadyReviewed = require('./questionnaire-already-reviewed');
 
@@ -51,6 +52,11 @@ describe('routes/index', () => {
     expect(mockUse).toBeCalledWith(`/${views.appealAlreadyReviewed}`, appealAlreadyReviewed);
     expect(mockUse).toBeCalledWith(`/${views.checkAndConfirm}`, checkAndConfirmDetails);
     expect(mockUse).toBeCalledWith(`/${views.reviewComplete}`, reviewComplete);
+    expect(mockUse).toBeCalledWith(
+      `/${views.reviewQuestionnaireSubmission}/:appealId`,
+      getCaseData,
+      reviewQuestionnaireSubmission
+    );
     expect(mockUse).toBeCalledWith(
       `/questionnaire-check-and-confirm`,
       questionnaireCheckAndConfirm
