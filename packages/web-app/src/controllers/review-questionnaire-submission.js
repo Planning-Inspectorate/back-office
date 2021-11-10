@@ -1,4 +1,3 @@
-const views = require('../config/views');
 const saveAndContinue = require('../lib/save-and-continue');
 const {
   QUESTIONNAIRE: { REVIEWOUTCOME },
@@ -19,6 +18,8 @@ const populateFilesObject = (files, lpaQuestionnaireId) => {
       text: file.name,
     }));
   }
+
+  return [{ link: `/document/${lpaQuestionnaireId}/${files.id}`, text: files.name }];
 };
 
 const createRowObjectData = (
