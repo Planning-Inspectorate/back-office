@@ -7,7 +7,7 @@ describe('middleware/check-appeal-outcome', () => {
   });
   [
     {
-      title: 'Return 404 if there is no appeal id in the params',
+      title: 'Return 404 if there is no appeal id in session.appeal',
       req: { ...mockReq, session: { appeal: {} } },
       expected: (req, res, next) => {
         expect(next).not.toHaveBeenCalled();
@@ -15,7 +15,7 @@ describe('middleware/check-appeal-outcome', () => {
       },
     },
     {
-      title: 'Return next if there is appeal id in the params',
+      title: 'Return next if there is appeal id in the session.appeal',
       req: {
         ...mockReq,
         session: { appeal: { appealId: 'b1a04ba7-9604-4196-b6b4-b16b4acd1875' } },
