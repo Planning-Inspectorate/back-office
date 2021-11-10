@@ -96,12 +96,18 @@ const getAllQuestionnaires = async () => {
   }
 };
 
-const saveData = (data) => {
-  if (data) {
-    return data;
-  }
+const saveData = async (data) => {
+  try {
+    const response = await fetch(appealDataUrl, {
+      method: 'POST',
+      body: JSON.stringify(data),
+      headers: { 'Content-Type': 'application/json' },
+    });
 
-  return null;
+    return response.ok === true;
+  } catch (err) {
+    throw new Error(`Failed to save data with error - ${err.toString()}`);
+  }
 };
 
 module.exports = {

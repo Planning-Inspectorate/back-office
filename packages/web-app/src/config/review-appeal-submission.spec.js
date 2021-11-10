@@ -8,7 +8,7 @@ const views = require('./views');
 describe('review-appeal-submission', () => {
   describe('getText', () => {
     it('should return the right text for an invalid appeal reason key', () => {
-      expect(getText('noRightOfAppeal')).toEqual('No right of appeal');
+      expect(getText('2')).toEqual('No right of appeal');
     });
     it('should return the right text for an missing or wrong reason key', () => {
       expect(getText('inflammatoryComments')).toEqual('Inflammatory comments made');

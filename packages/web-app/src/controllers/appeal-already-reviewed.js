@@ -2,9 +2,9 @@ const { appealAlreadyReviewed, appealsList } = require('../config/views');
 
 const mapStatusMessage = (reviewOutcome) =>
   ({
-    valid: 'this appeal is valid',
-    invalid: 'this appeal is invalid',
-    incomplete: 'that something is missing or wrong',
+    1: 'this appeal is valid',
+    2: 'this appeal is invalid',
+    3: 'that something is missing or wrong',
   }[reviewOutcome]);
 
 const getAppealAlreadyReviewed = (req, res) => {

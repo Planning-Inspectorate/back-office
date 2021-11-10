@@ -32,7 +32,7 @@ describe('controllers/appeal-already-reviewed', () => {
 
   describe('getAppealAlreadyReviewed', () => {
     it('should render the view with data correctly when reviewOutcome is `valid`', () => {
-      req.session.casework.reviewOutcome = 'valid';
+      req.session.casework.reviewOutcome = 1;
       expectedViewData.statusMessage = 'this appeal is valid';
 
       getAppealAlreadyReviewed(req, res);
@@ -43,7 +43,7 @@ describe('controllers/appeal-already-reviewed', () => {
     });
 
     it('should render the view with data correctly when reviewOutcome is `invalid`', () => {
-      req.session.casework.reviewOutcome = 'invalid';
+      req.session.casework.reviewOutcome = 2;
       expectedViewData.statusMessage = 'this appeal is invalid';
 
       getAppealAlreadyReviewed(req, res);
@@ -54,7 +54,7 @@ describe('controllers/appeal-already-reviewed', () => {
     });
 
     it('should render the view with data correctly when reviewOutcome is `incomplete`', () => {
-      req.session.casework.reviewOutcome = 'incomplete';
+      req.session.casework.reviewOutcome = 3;
       expectedViewData.statusMessage = 'that something is missing or wrong';
 
       getAppealAlreadyReviewed(req, res);

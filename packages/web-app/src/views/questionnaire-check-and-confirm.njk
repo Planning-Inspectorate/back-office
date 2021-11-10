@@ -40,7 +40,7 @@
     value: { text: questionnaireData.localPlanningAuthorityName }
 } %}
 
-{% if reviewOutcome === 'Incomplete' %}
+{% if reviewOutcome === '2' %}
   {% set sections = [reviewOutcomeSection, documentsSection, appealReferenceSection, addressSection, lpaSection] %}
 {% else %}
   {% set sections = [reviewOutcomeSection, appealReferenceSection, addressSection, lpaSection] %}
@@ -49,7 +49,7 @@
 {% block formContent %}
     <h2 class="govuk-heading-l">Check and confirm</h2>
     {{ govukSummaryList({ rows: sections }) }}
-    {% if reviewOutcome === 'Complete' %}
+    {% if reviewOutcome === '3' %}
         {{ govukWarningText({
             text: "Confirming the questionnaire as complete makes the appeal available to inspectors.",
             iconFallbackText: "Warning"

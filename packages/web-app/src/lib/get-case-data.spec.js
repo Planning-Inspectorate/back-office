@@ -66,7 +66,7 @@ describe('lib/getCaseData', () => {
         },
         cookies: {
           [appealId]: JSON.stringify({
-            reviewOutcome: 'valid',
+            reviewOutcome: 1,
           }),
         },
       };
@@ -78,7 +78,7 @@ describe('lib/getCaseData', () => {
       expect(req.session).toEqual({
         ...getDataReturnValue,
         casework: {
-          reviewOutcome: 'valid',
+          reviewOutcome: 1,
         },
       });
     });

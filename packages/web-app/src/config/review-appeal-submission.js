@@ -1,9 +1,9 @@
 const views = require('./views');
 
 const reviewOutcomeOption = {
-  valid: 'valid',
-  invalid: 'invalid',
-  incomplete: 'incomplete',
+  valid: '1',
+  invalid: '2',
+  incomplete: '3',
 };
 
 const missingOrWrongReasons = {
@@ -43,19 +43,19 @@ const missingOrWrongReasons = {
 };
 
 const invalidAppealReasons = {
-  outOfTime: {
+  1: {
     text: 'Out of time',
   },
-  noRightOfAppeal: {
+  2: {
     text: 'No right of appeal',
   },
-  notAppealable: {
+  3: {
     text: 'Not appealable',
   },
-  lpaDeemedApplicationAsInvalid: {
+  4: {
     text: 'LPA deemed application as invalid',
   },
-  other: {
+  5: {
     text: 'Other',
   },
 };

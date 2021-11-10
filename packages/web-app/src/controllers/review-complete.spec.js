@@ -10,7 +10,6 @@ const {
 
 describe('controllers/review-complete', () => {
   const appealId = '5c943cb9-e029-4094-a447-4b3256d6ede7';
-  const horizonId = 'APP/Q9999/D/21/1234567';
 
   let req;
   let res;
@@ -24,7 +23,7 @@ describe('controllers/review-complete', () => {
     it('should render the view with correct data if reviewOutcome is valid', () => {
       req = {
         session: {
-          appeal: { id: appealId, horizonId },
+          appeal: { id: appealId },
           casework: { reviewComplete: reviewOutcomeOption.valid },
         },
       };
@@ -46,7 +45,7 @@ describe('controllers/review-complete', () => {
     it('should render the view with correct data if reviewOutcome is invalid', () => {
       req = {
         session: {
-          appeal: { id: appealId, horizonId },
+          appeal: { id: appealId },
           casework: { reviewOutcome: reviewOutcomeOption.invalid },
         },
       };
@@ -69,7 +68,7 @@ describe('controllers/review-complete', () => {
     it('should render the view with correct data if reviewOutcome is incomplete', () => {
       req = {
         session: {
-          appeal: { id: appealId, horizonId },
+          appeal: { id: appealId },
           casework: { reviewOutcome: reviewOutcomeOption.incomplete },
         },
       };

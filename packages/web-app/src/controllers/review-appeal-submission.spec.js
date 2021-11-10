@@ -5,6 +5,7 @@ const {
 const views = require('../config/views');
 const saveAndContinue = require('../lib/save-and-continue');
 const { mockReq, mockRes } = require('../../test/utils/mocks');
+const { hasAppeal } = require('../config/db-fields');
 
 jest.mock('../lib/save-and-continue');
 
@@ -15,8 +16,9 @@ describe('controllers/review-appeal-submission', () => {
   const expectedViewData = {
     pageTitle: 'Review appeal submission',
     backLink: `/${views.appealsList}`,
-    reviewOutcome: 'valid',
+    reviewOutcome: '1',
   };
+  const appealId = 'ff5fe7af-e69c-4c0e-9d78-70890b2a6e31';
 
   beforeEach(() => {
     req = mockReq;
@@ -28,10 +30,10 @@ describe('controllers/review-appeal-submission', () => {
       req = {
         session: {
           appeal: {
-            horizonId: 'abc123',
+            appealId,
           },
           casework: {
-            reviewOutcome: 'valid',
+            [hasAppeal.reviewOutcome]: '1',
           },
         },
       };
@@ -42,7 +44,7 @@ describe('controllers/review-appeal-submission', () => {
       expect(res.render).toBeCalledWith(views.reviewAppealSubmission, {
         ...expectedViewData,
         appealData: {
-          horizonId: 'abc123',
+          appealId,
         },
       });
     });
@@ -51,10 +53,10 @@ describe('controllers/review-appeal-submission', () => {
       req = {
         session: {
           appeal: {
-            horizonId: 'abc123',
+            appealId,
           },
           casework: {
-            reviewOutcome: 'valid',
+            [hasAppeal.reviewOutcome]: '1',
           },
         },
       };
@@ -65,17 +67,17 @@ describe('controllers/review-appeal-submission', () => {
       expect(res.render).toBeCalledWith(views.reviewAppealSubmission, {
         ...expectedViewData,
         appealData: {
-          horizonId: 'abc123',
+          appealId,
         },
       });
     });
   });
 
   describe('postReviewAppealSubmission', () => {
-    it('should call saveAndContinue with the correct nextPage value when reviewOutcome equals `valid`', () => {
+    it('should call saveAndContinue with the correct nextPage value when reviewOutcome equals 1', () => {
       req = {
         body: {
-          'review-outcome': 'valid',
+          'review-outcome': '1',
         },
         session: {
           casework: {},
@@ -92,13 +94,13 @@ describe('controllers/review-appeal-submission', () => {
         nextPage: views.validAppealDetails,
         viewData: expectedViewData,
       });
-      expect(req.session.casework.reviewOutcome).toEqual('valid');
+      expect(req.session.casework[hasAppeal.reviewOutcome]).toEqual('1');
     });
 
-    it('should call saveAndContinue with the correct nextPage value when reviewOutcome equals `invalid`', () => {
+    it('should call saveAndContinue with the correct nextPage value when reviewOutcome equals 2', () => {
       req = {
         body: {
-          'review-outcome': 'invalid',
+          'review-outcome': '2',
         },
         session: {
           appeal: {
@@ -119,16 +121,16 @@ describe('controllers/review-appeal-submission', () => {
         viewData: {
           pageTitle: 'Review appeal submission',
           backLink: `/${views.appealsList}`,
-          reviewOutcome: 'invalid',
+          reviewOutcome: '2',
         },
       });
-      expect(req.session.casework.reviewOutcome).toEqual('invalid');
+      expect(req.session.casework[hasAppeal.reviewOutcome]).toEqual('2');
     });
 
-    it('should call saveAndContinue with the correct nextPage value when reviewOutcome equals `incomplete`', () => {
+    it('should call saveAndContinue with the correct nextPage value when reviewOutcome equals 3', () => {
       req = {
         body: {
-          'review-outcome': 'incomplete',
+          'review-outcome': '3',
         },
         session: {
           appeal: {
@@ -152,7 +154,7 @@ describe('controllers/review-appeal-submission', () => {
           reviewOutcome: req.body['review-outcome'],
         },
       });
-      expect(req.session.casework.reviewOutcome).toEqual(req.body['review-outcome']);
+      expect(req.session.casework[hasAppeal.reviewOutcome]).toEqual('3');
     });
 
     it('should call saveAndContinue with the home page value when reviewOutcome is not one of valid options', () => {
@@ -182,7 +184,7 @@ describe('controllers/review-appeal-submission', () => {
           reviewOutcome: req.body['review-outcome'],
         },
       });
-      expect(req.session.casework.reviewOutcome).toEqual(req.body['review-outcome']);
+      expect(req.session.casework[hasAppeal.reviewOutcome]).toEqual(req.body['review-outcome']);
     });
   });
 });

@@ -10,15 +10,36 @@ const {
   reviewOutcomeOption,
 } = require('../config/review-appeal-submission');
 const { sendStartEmailToLPA } = require('../lib/notify');
+const { hasAppeal } = require('../config/db-fields');
 
-const checkAndConfirmConfig = (casework) => getReviewOutcomeConfig(casework.reviewOutcome);
+const viewData = (appealId, casework) => {
+  const validAppealDetails = casework[hasAppeal.validAppealDetails];
+  const invalidAppealReasons = casework[hasAppeal.invalidAppealReasons];
+  const missingOrWrongDetails = casework.missingOrWrong;
+  const data = {
+    pageTitle: 'Check and confirm',
+    backLink: `/${getReviewOutcomeConfig(casework[hasAppeal.reviewOutcome]).view}`,
+    changeOutcomeLink: `/${reviewAppealSubmission}/${appealId}`,
+    reviewOutcome: casework[hasAppeal.reviewOutcome],
+  };
 
-const viewData = (appealId, casework) => ({
-  pageTitle: 'Check and confirm',
-  backLink: `/${checkAndConfirmConfig(casework).view}`,
-  changeOutcomeLink: `/${reviewAppealSubmission}/${appealId}`,
-  reviewOutcome: casework,
-});
+  if (validAppealDetails) {
+    data.validAppealDetails = validAppealDetails;
+  }
+
+  if (invalidAppealReasons) {
+    data.invalidAppealDetails = {
+      reasons: invalidAppealReasons && JSON.parse(invalidAppealReasons),
+      otherReason: casework[hasAppeal.invalidReasonOther],
+    };
+  }
+
+  if (missingOrWrongDetails) {
+    data.missingOrWrongDetails = missingOrWrongDetails;
+  }
+
+  return data;
+};
 
 const getCheckAndConfirm = (req, res) => {
   const {
@@ -28,7 +49,7 @@ const getCheckAndConfirm = (req, res) => {
   const options = {
     ...viewData(appeal.appealId, casework),
     appealData: appeal,
-    checkAndConfirmConfig: checkAndConfirmConfig(casework),
+    checkAndConfirmConfig: getReviewOutcomeConfig(casework[hasAppeal.reviewOutcome]),
     getText,
   };
 
@@ -45,11 +66,11 @@ const postCheckAndConfirm = async (req, res) => {
   const options = {
     ...viewData(appeal.appealId, casework),
     appealData: appeal,
-    checkAndConfirmConfig: getReviewOutcomeConfig(casework.reviewOutcome),
+    checkAndConfirmConfig: getReviewOutcomeConfig(casework[hasAppeal.reviewOutcome]),
     getText,
   };
 
-  if (casework.reviewOutcome === reviewOutcomeOption.valid) {
+  if (casework[hasAppeal.reviewOutcome] === reviewOutcomeOption.valid) {
     await sendStartEmailToLPA(appeal);
   }
 
