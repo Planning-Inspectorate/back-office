@@ -1,12 +1,18 @@
-const { findAllQuestionnaires, findOneQuestionnaire, create } = require('../lib/db-wrapper');
-const hasAppealSubmission = require('../models/has-appeal-submission');
+const {
+  dbConnect,
+  findAllQuestionnaires,
+  findOneQuestionnaire,
+  createHasAppeal,
+} = require('../lib/db-wrapper');
 const logger = require('../lib/logger');
 const { getDocumentsMetadata } = require('../lib/documents-api-wrapper');
 const ApiError = require('../lib/api-error');
 
+const db = dbConnect();
+
 const getAllQuestionnaires = async (req, res) => {
   try {
-    const questionnaires = await findAllQuestionnaires();
+    const questionnaires = await findAllQuestionnaires(db);
     res.status(200).send(questionnaires);
   } catch (err) {
     logger.error({ err }, 'Failed to get questionnaires');
@@ -22,7 +28,7 @@ const getOneQuestionnaire = async (req, res) => {
       throw new ApiError('No AppealId given');
     }
 
-    const questionnaire = await findOneQuestionnaire(appealId);
+    const questionnaire = await findOneQuestionnaire(db, appealId);
     questionnaire.documents = await getDocumentsMetadata(appealId);
     res.status(200).send(questionnaire);
   } catch (err) {
@@ -34,7 +40,7 @@ const getOneQuestionnaire = async (req, res) => {
 const postQuestionnaire = async (req, res) => {
   try {
     const { body } = req;
-    const result = await create(hasAppealSubmission, body);
+    const result = await createHasAppeal(db, body);
     res.status(200).send(result);
   } catch (err) {
     logger.error({ err }, 'Failed to insert questionnaire');
