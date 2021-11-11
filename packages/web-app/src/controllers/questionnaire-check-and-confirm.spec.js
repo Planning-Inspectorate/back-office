@@ -6,12 +6,6 @@ const {
 const { mockReq, mockRes } = require('../../test/utils/mocks');
 
 describe('controllers/questionnaire-check-and-confirm', () => {
-  const questionnaireData = {
-    caseReference: 'ABC/123/12345',
-    appealId: '123',
-    reviewOutcome: 'Incomplete',
-  };
-
   let req;
   let res;
 

@@ -2,6 +2,7 @@ const {
   reviewQuestionnaireSubmission: previousPage,
   reviewQuestionnaireComplete: nextPage,
 } = require('../config/views');
+
 const getCheckAndConfirm = (req, res) => {
   const { questionnaire } = req.session;
 

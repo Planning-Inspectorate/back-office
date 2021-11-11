@@ -129,7 +129,7 @@ describe('lib/notify', () => {
           'planning application number': appeal.originalApplicationNumber,
           'site address': '999 some street\na town\nrt12 9ya',
           'questionnaire due date': '24 April 2021',
-          url: 'http://fake-lpa-questionnaire-base-url/some-fake-id',
+          url: 'http://fake-lpa-questionnaire-base-url/appeal-questionnaire/some-fake-id/task-list',
           'appellant email address': appeal.creatorEmailAddress,
         });
         expect(mockSetReference).toHaveBeenCalledWith('some-fake-id');

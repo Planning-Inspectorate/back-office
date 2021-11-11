@@ -43,7 +43,7 @@ async function sendStartEmailToLPA(appeal) {
         'planning application number': appeal.originalApplicationNumber,
         'site address': getAddressMultiLine(appeal),
         'questionnaire due date': getFormattedQuestionnaireDueDate(appeal),
-        url: `${config.apps.lpaQuestionnaire.baseUrl}/${appeal.appealId}`,
+        url: `${config.apps.lpaQuestionnaire.baseUrl}/appeal-questionnaire/${appeal.appealId}/task-list`,
         'appellant email address': appeal.creatorEmailAddress,
       })
       .setReference(appeal.appealId)
