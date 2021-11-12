@@ -19,7 +19,7 @@ const createHasAppeal = (db, data) => {
 
 const findAllAppeals = async (db) => {
   try {
-    const query = 'SELECT * FROM AppealData WHERE caseReference IS NOT NULL AND CaseStageId = 1';
+    const query = 'SELECT * FROM AppealData WHERE caseReference IS NOT NULL AND CaseStatusId = 1';
     const result = await db.query(query);
     return result[0];
   } catch (err) {
