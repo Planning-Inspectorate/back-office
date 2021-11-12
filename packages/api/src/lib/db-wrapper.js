@@ -1,23 +1,20 @@
-const Sequelize = require('sequelize');
 const ApiError = require('./api-error');
-const config = require('../../database/config/config');
+const db = require('./db-connect');
 
-const {
-  development: { username, password, database, host, dialect },
-} = config;
-
-const dbConnect = () => new Sequelize(database, username, password, { host, dialect });
-
-const createHasAppeal = (db, data) => {
+const createRecord = (procedure, data) => {
   try {
-    const query = `EXEC CreateHASAppeal @json = '${JSON.stringify(data)}'`;
-    return db.query(query);
+    const query = `EXEC ${procedure} @json = ?`;
+    return db.query(query, { replacements: [JSON.stringify(data)] });
   } catch (err) {
-    throw new ApiError(`Failed to create HAS appeal data with error - ${err.toString()}`);
+    throw new ApiError(`Failed to execute ${procedure} with error - ${err.toString()}`);
   }
 };
 
-const findAllAppeals = async (db) => {
+const createHasAppealRecord = (data) => createRecord('CreateHASAppeal', data);
+const createAppealLinkRecord = (data) => createRecord('CreateAppealLink', data);
+const createHasLpaSubmissionRecord = (data) => createRecord('CreateHASLPASubmission', data);
+
+const findAllAppeals = async () => {
   try {
     const query = 'SELECT * FROM AppealData WHERE caseReference IS NOT NULL AND CaseStatusId = 1';
     const result = await db.query(query);
@@ -27,7 +24,7 @@ const findAllAppeals = async (db) => {
   }
 };
 
-const findOneAppeal = async (db, appealId) => {
+const findOneAppeal = async (appealId) => {
   try {
     const query = `SELECT * FROM AppealData WHERE AppealId = '${appealId}'`;
     const result = await db.query(query);
@@ -37,7 +34,7 @@ const findOneAppeal = async (db, appealId) => {
   }
 };
 
-const findAllQuestionnaires = async (db) => {
+const findAllQuestionnaires = async () => {
   try {
     const query = 'SELECT * FROM QuestionnaireData';
     const result = await db.query(query);
@@ -47,7 +44,7 @@ const findAllQuestionnaires = async (db) => {
   }
 };
 
-const findOneQuestionnaire = async (db, appealId) => {
+const findOneQuestionnaire = async (appealId) => {
   try {
     const query = `SELECT * FROM QuestionnaireData WHERE AppealId = '${appealId}'`;
     const result = await db.query(query);
@@ -58,8 +55,9 @@ const findOneQuestionnaire = async (db, appealId) => {
 };
 
 module.exports = {
-  dbConnect,
-  createHasAppeal,
+  createAppealLinkRecord,
+  createHasAppealRecord,
+  createHasLpaSubmissionRecord,
   findAllAppeals,
   findOneAppeal,
   findAllQuestionnaires,

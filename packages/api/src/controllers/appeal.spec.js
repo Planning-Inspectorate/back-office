@@ -3,7 +3,6 @@ const mockDbRecord = require('../../test/data/has-appeal-submission-db-record');
 const mockDocumentsMetadata = require('../../test/data/documents-metadata');
 
 jest.mock('../lib/db-wrapper', () => ({
-  dbConnect: jest.fn(),
   findOneAppeal: jest
     .fn()
     .mockImplementationOnce(() => mockDbRecord)
@@ -16,7 +15,13 @@ jest.mock('../lib/db-wrapper', () => ({
     .mockImplementationOnce(() => {
       throw new Error('Internal Server Error');
     }),
-  createHasAppeal: jest
+  createRecord: jest
+    .fn()
+    .mockImplementationOnce(() => mockDbRecord)
+    .mockImplementationOnce(() => {
+      throw new Error('Internal Server Error');
+    }),
+  createHasAppealRecord: jest
     .fn()
     .mockImplementationOnce(() => mockDbRecord)
     .mockImplementationOnce(() => {

@@ -1,13 +1,11 @@
-const { dbConnect, findAllAppeals, findOneAppeal, createHasAppeal } = require('../lib/db-wrapper');
+const { findAllAppeals, findOneAppeal, createHasAppealRecord } = require('../lib/db-wrapper');
 const logger = require('../lib/logger');
 const { getDocumentsMetadata } = require('../lib/documents-api-wrapper');
 const ApiError = require('../lib/api-error');
 
-const db = dbConnect();
-
 const getAllAppeals = async (req, res) => {
   try {
-    const appeals = await findAllAppeals(db);
+    const appeals = await findAllAppeals();
     res.status(200).send(appeals);
   } catch (err) {
     logger.error({ err }, 'Failed to get appeals');
@@ -23,7 +21,7 @@ const getOneAppeal = async (req, res) => {
       throw new ApiError('No AppealId given');
     }
 
-    const appeal = await findOneAppeal(db, appealId);
+    const appeal = await findOneAppeal(appealId);
     appeal.documents = await getDocumentsMetadata(appealId);
     res.status(200).send(appeal);
   } catch (err) {
@@ -35,7 +33,7 @@ const getOneAppeal = async (req, res) => {
 const postAppeal = async (req, res) => {
   try {
     const { body } = req;
-    const result = await createHasAppeal(db, body);
+    const result = await createHasAppealRecord(body);
     res.status(200).send(result);
   } catch (err) {
     logger.error({ err }, 'Failed to insert appeal');
