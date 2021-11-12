@@ -1,7 +1,6 @@
-const { saveData } = require('./api-wrapper');
 const logger = require('./logger');
 
-const saveAndContinue = ({ req, res, currentPage, nextPage, viewData }) => {
+const saveAndContinue = ({ req, res, currentPage, nextPage, viewData, saveData }) => {
   const {
     body: { errors = {}, errorSummary = [] },
     session: { appeal, casework, questionnaire },
@@ -17,6 +16,10 @@ const saveAndContinue = ({ req, res, currentPage, nextPage, viewData }) => {
   }
 
   try {
+    if (typeof saveData !== 'function') {
+      throw new Error('The saveData parameter must be a save data function');
+    }
+
     saveData({
       appealId: appeal.appealId,
       ...casework,

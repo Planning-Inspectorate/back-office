@@ -2,6 +2,7 @@ const { getValidAppealDetails, postValidAppealDetails } = require('./valid-appea
 const views = require('../config/views');
 const saveAndContinue = require('../lib/save-and-continue');
 const { mockReq, mockRes } = require('../../test/utils/mocks');
+const { saveAppealData } = require('../lib/api-wrapper');
 
 jest.mock('../lib/save-and-continue');
 
@@ -63,6 +64,7 @@ describe('controllers/valid-appeal-details', () => {
         currentPage: views.validAppealDetails,
         nextPage: views.checkAndConfirm,
         viewData: expectedViewData,
+        saveData: saveAppealData,
       });
       expect(req.session.casework.descriptionDevelopment).toEqual(validAppealDetails);
     });

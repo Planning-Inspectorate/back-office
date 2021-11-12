@@ -1,9 +1,9 @@
 const saveAndContinue = require('./save-and-continue');
-const { saveData } = require('./api-wrapper');
+const { saveAppealData } = require('./api-wrapper');
 const { mockReq, mockRes } = require('../../test/utils/controller-mocks');
 
 jest.mock('./api-wrapper', () => ({
-  saveData: jest.fn(),
+  saveAppealData: jest.fn(),
 }));
 
 describe('lib/saveAndContinue', () => {
@@ -30,7 +30,7 @@ describe('lib/saveAndContinue', () => {
 
   describe('saveAndContinue', () => {
     it('should set the correct data and redirect to the next page', () => {
-      saveData.mockReturnValue(saveDataReturnValue);
+      saveAppealData.mockReturnValue(saveDataReturnValue);
 
       req.session = {
         appeal: {
@@ -39,7 +39,7 @@ describe('lib/saveAndContinue', () => {
         casework,
       };
 
-      saveAndContinue({ req, res, currentPage, nextPage, viewData });
+      saveAndContinue({ req, res, currentPage, nextPage, viewData, saveData: saveAppealData });
 
       expect(res.cookie).toBeCalledTimes(3);
       expect(res.cookie).toBeCalledWith('appealId', appealId);
@@ -49,7 +49,7 @@ describe('lib/saveAndContinue', () => {
     });
 
     it('should render the current page with the correct data when a field fails validation', () => {
-      saveData.mockReturnValue(saveDataReturnValue);
+      saveAppealData.mockReturnValue(saveDataReturnValue);
 
       const errors = {
         'review-outcome': 'Must be selected',
@@ -61,7 +61,7 @@ describe('lib/saveAndContinue', () => {
         errorSummary,
       };
 
-      saveAndContinue({ req, res, currentPage, nextPage, viewData });
+      saveAndContinue({ req, res, currentPage, nextPage, viewData, saveData: saveAppealData });
 
       expect(res.render).toBeCalledTimes(1);
       expect(res.render).toBeCalledWith(currentPage, {
@@ -72,12 +72,26 @@ describe('lib/saveAndContinue', () => {
       expect(res.redirect).not.toBeCalled();
     });
 
+    it('should render the current page with an error when saveData is not a function', () => {
+      saveAndContinue({ req, res, currentPage, nextPage, viewData, saveData: 'saveAppealData' });
+
+      expect(res.render).toBeCalledTimes(1);
+      expect(res.render).toBeCalledWith(currentPage, {
+        ...viewData,
+        errors: {},
+        errorSummary: [
+          { text: 'Error: The saveData parameter must be a save data function', href: '#' },
+        ],
+      });
+      expect(res.redirect).not.toBeCalled();
+    });
+
     it('should render the current page with the correct data when an error is thrown', () => {
-      saveData.mockImplementation(() => {
+      saveAppealData.mockImplementation(() => {
         throw new Error('Internal Server Error');
       });
 
-      saveAndContinue({ req, res, currentPage, nextPage, viewData });
+      saveAndContinue({ req, res, currentPage, nextPage, viewData, saveData: saveAppealData });
 
       expect(res.render).toBeCalledTimes(1);
       expect(res.render).toBeCalledWith(currentPage, {

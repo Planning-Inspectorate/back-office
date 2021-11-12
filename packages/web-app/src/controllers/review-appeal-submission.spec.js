@@ -6,6 +6,7 @@ const views = require('../config/views');
 const saveAndContinue = require('../lib/save-and-continue');
 const { mockReq, mockRes } = require('../../test/utils/mocks');
 const { hasAppeal } = require('../config/db-fields');
+const { saveAppealData } = require('../lib/api-wrapper');
 
 jest.mock('../lib/save-and-continue');
 
@@ -93,6 +94,7 @@ describe('controllers/review-appeal-submission', () => {
         currentPage: views.reviewAppealSubmission,
         nextPage: views.validAppealDetails,
         viewData: expectedViewData,
+        saveData: saveAppealData,
       });
       expect(req.session.casework[hasAppeal.reviewOutcome]).toEqual('1');
     });
@@ -123,6 +125,7 @@ describe('controllers/review-appeal-submission', () => {
           backLink: `/${views.appealsList}`,
           reviewOutcome: '2',
         },
+        saveData: saveAppealData,
       });
       expect(req.session.casework[hasAppeal.reviewOutcome]).toEqual('2');
     });
@@ -153,6 +156,7 @@ describe('controllers/review-appeal-submission', () => {
           backLink: `/${views.appealsList}`,
           reviewOutcome: req.body['review-outcome'],
         },
+        saveData: saveAppealData,
       });
       expect(req.session.casework[hasAppeal.reviewOutcome]).toEqual('3');
     });
@@ -183,6 +187,7 @@ describe('controllers/review-appeal-submission', () => {
           backLink: `/${views.appealsList}`,
           reviewOutcome: req.body['review-outcome'],
         },
+        saveData: saveAppealData,
       });
       expect(req.session.casework[hasAppeal.reviewOutcome]).toEqual(req.body['review-outcome']);
     });

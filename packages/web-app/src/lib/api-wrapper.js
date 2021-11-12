@@ -4,10 +4,11 @@ const config = require('../config/config');
 const logger = require('./logger');
 
 const {
-  backOfficeApi: { v1Url: backOfficeUrl },
+  backOfficeApi: { url: backOfficeUrl },
 } = config;
-const appealDataUrl = `${backOfficeUrl}/appeal`;
-const questionnaireDataUrl = `${backOfficeUrl}/questionnaire`;
+const appealDataUrl = `${backOfficeUrl}/api/v1/appeal`;
+const appealLinkDataUrl = `${backOfficeUrl}/api/v1/appeal-link`;
+const questionnaireDataUrl = `${backOfficeUrl}/api/v1/questionnaire`;
 
 const formatDocumentsAndAddToData = (data) => {
   let newData = data;
@@ -94,9 +95,9 @@ const getAllQuestionnaires = async () => {
   }
 };
 
-const saveData = async (data) => {
+const saveData = async (url, data) => {
   try {
-    const response = await fetch(appealDataUrl, {
+    const response = await fetch(url, {
       method: 'POST',
       body: JSON.stringify(data),
       headers: { 'Content-Type': 'application/json' },
@@ -108,9 +109,16 @@ const saveData = async (data) => {
   }
 };
 
+const saveAppealData = (data) => saveData(appealDataUrl, data);
+const saveAppealLinkData = (data) => saveData(appealLinkDataUrl, data);
+const saveQuestionnaireData = (data) => saveData(questionnaireDataUrl, data);
+
 module.exports = {
   getAppealData,
   getAllAppeals,
   getAllQuestionnaires,
   saveData,
+  saveAppealData,
+  saveAppealLinkData,
+  saveQuestionnaireData,
 };

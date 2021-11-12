@@ -1,5 +1,13 @@
 const fetch = require('node-fetch');
-const { getAppealData, getAllAppeals, getAllQuestionnaires, saveData } = require('./api-wrapper');
+const {
+  getAppealData,
+  getAllAppeals,
+  getAllQuestionnaires,
+  saveData,
+  saveAppealData,
+  saveAppealLinkData,
+  saveQuestionnaireData,
+} = require('./api-wrapper');
 const singleAppealDataRaw = require('../../test/data/single-appeal-data-raw');
 const singleAppealDataFormatted = require('../../test/data/single-appeal-data-formatted');
 const appealDataList = require('../../test/data/appeal-data-list');
@@ -253,6 +261,57 @@ describe('lib/apiWrapper', () => {
       expect(() => saveData(data)).rejects.toThrow(
         'Failed to save data with error - Error: Internal Server Error'
       );
+    });
+  });
+
+  describe('saveAppealData', () => {
+    it('should call fetch with the correct url and data', () => {
+      fetch.mockImplementation(() => ({
+        ok: true,
+      }));
+
+      saveAppealData(data);
+
+      expect(fetch).toBeCalledTimes(1);
+      expect(fetch).toBeCalledWith('http://localhost/api/v1/appeal', {
+        method: 'POST',
+        body: JSON.stringify(data),
+        headers: { 'Content-Type': 'application/json' },
+      });
+    });
+  });
+
+  describe('saveAppealLinkData', () => {
+    it('should call fetch with the correct url and data', () => {
+      fetch.mockImplementation(() => ({
+        ok: true,
+      }));
+
+      saveAppealLinkData(data);
+
+      expect(fetch).toBeCalledTimes(1);
+      expect(fetch).toBeCalledWith('http://localhost/api/v1/appeal-link', {
+        method: 'POST',
+        body: JSON.stringify(data),
+        headers: { 'Content-Type': 'application/json' },
+      });
+    });
+  });
+
+  describe('saveQuestionnaireData', () => {
+    it('should call fetch with the correct url and data', () => {
+      fetch.mockImplementation(() => ({
+        ok: true,
+      }));
+
+      saveQuestionnaireData(data);
+
+      expect(fetch).toBeCalledTimes(1);
+      expect(fetch).toBeCalledWith('http://localhost/api/v1/questionnaire', {
+        method: 'POST',
+        body: JSON.stringify(data),
+        headers: { 'Content-Type': 'application/json' },
+      });
     });
   });
 });

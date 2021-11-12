@@ -5,6 +5,7 @@ const {
 } = require('../config/views');
 const saveAndContinue = require('../lib/save-and-continue');
 const { hasAppeal } = require('../config/db-fields');
+const { saveAppealData } = require('../lib/api-wrapper');
 
 const viewData = (appealId, caseReference, valid) => ({
   pageTitle: 'Valid appeal details',
@@ -43,6 +44,7 @@ const postValidAppealDetails = (req, res) => {
     currentPage,
     nextPage,
     viewData: viewData(appealId, caseReference, validAppealDetails),
+    saveData: saveAppealData,
   });
 };
 

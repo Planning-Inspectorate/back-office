@@ -11,6 +11,7 @@ const {
 } = require('../config/review-appeal-submission');
 const { sendStartEmailToLPA } = require('../lib/notify');
 const { hasAppeal } = require('../config/db-fields');
+const { saveAppealData } = require('../lib/api-wrapper');
 
 const viewData = (appealId, casework) => {
   const validAppealDetails = casework[hasAppeal.validAppealDetails];
@@ -80,6 +81,7 @@ const postCheckAndConfirm = async (req, res) => {
     currentPage,
     nextPage,
     viewData: options,
+    saveData: saveAppealData,
   });
 };
 

@@ -3,6 +3,7 @@ const views = require('../config/views');
 const saveAndContinue = require('../lib/save-and-continue');
 const { mockReq, mockRes } = require('../../test/utils/mocks');
 const { getText } = require('../config/review-appeal-submission');
+const { saveAppealData } = require('../lib/api-wrapper');
 
 jest.mock('../lib/save-and-continue');
 
@@ -71,6 +72,7 @@ describe('controllers/missing-or-wrong', () => {
         currentPage: views.missingOrWrong,
         nextPage: views.checkAndConfirm,
         viewData: expectedViewData,
+        saveData: saveAppealData,
       });
       expect(req.session.casework.missingOrWrong).toEqual(missingOrWrong);
     });

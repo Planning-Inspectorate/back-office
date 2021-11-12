@@ -1,8 +1,10 @@
 const { reviewComplete: currentPage } = require('../config/views');
+const { hasAppeal } = require('../config/db-fields');
 
 const { getText, getReviewOutcomeConfig } = require('../config/review-appeal-submission');
 
-const checkAndConfirmConfig = (casework) => getReviewOutcomeConfig(casework.reviewOutcome);
+const checkAndConfirmConfig = (casework) =>
+  getReviewOutcomeConfig(casework[hasAppeal.reviewOutcome]);
 
 const viewData = (casework) => ({
   pageTitle: 'Review complete',

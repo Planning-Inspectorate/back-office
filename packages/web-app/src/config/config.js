@@ -2,7 +2,7 @@ require('dotenv').config();
 
 const config = {
   backOfficeApi: {
-    v1Url: `${process.env.BACK_OFFICE_API_URL}/api/v1`,
+    url: process.env.BACK_OFFICE_API_URL || 'http://localhost',
   },
   application: {
     defaultDateFormat: 'DD MMMM YYYY',
