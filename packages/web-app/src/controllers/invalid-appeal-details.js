@@ -7,6 +7,7 @@ const {
 const saveAndContinue = require('../lib/save-and-continue');
 const { getText } = require('../config/review-appeal-submission');
 const { hasAppeal } = require('../config/db-fields');
+const { saveAppealData } = require('../lib/api-wrapper');
 
 const viewData = (appealId, caseReference, invalid) => ({
   pageTitle: 'Invalid appeal details',
@@ -54,6 +55,7 @@ const postInvalidAppealDetails = (req, res) => {
     currentPage,
     nextPage,
     viewData: viewData(appealId, caseReference, { reasons, otherReason }),
+    saveData: saveAppealData,
   });
 };
 

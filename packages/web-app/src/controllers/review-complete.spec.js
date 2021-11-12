@@ -1,6 +1,7 @@
 const { getReviewComplete } = require('./review-complete');
 const views = require('../config/views');
 const { mockReq, mockRes } = require('../../test/utils/mocks');
+const { hasAppeal } = require('../config/db-fields');
 
 const {
   getText,
@@ -24,7 +25,7 @@ describe('controllers/review-complete', () => {
       req = {
         session: {
           appeal: { id: appealId },
-          casework: { reviewComplete: reviewOutcomeOption.valid },
+          casework: { [hasAppeal.reviewOutcome]: reviewOutcomeOption.valid },
         },
       };
 
@@ -33,6 +34,7 @@ describe('controllers/review-complete', () => {
         hidePageTitle: 'true',
         reviewComplete: req.session.casework,
         appealData: req.session.appeal,
+        checkAndConfirmConfig: getReviewOutcomeConfig(reviewOutcomeOption.valid),
         getText,
       };
 
@@ -46,7 +48,7 @@ describe('controllers/review-complete', () => {
       req = {
         session: {
           appeal: { id: appealId },
-          casework: { reviewOutcome: reviewOutcomeOption.invalid },
+          casework: { [hasAppeal.reviewOutcome]: reviewOutcomeOption.invalid },
         },
       };
 
@@ -69,7 +71,7 @@ describe('controllers/review-complete', () => {
       req = {
         session: {
           appeal: { id: appealId },
-          casework: { reviewOutcome: reviewOutcomeOption.incomplete },
+          casework: { [hasAppeal.reviewOutcome]: reviewOutcomeOption.incomplete },
         },
       };
 

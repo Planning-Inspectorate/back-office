@@ -9,6 +9,7 @@ const {
 } = require('../config/review-appeal-submission');
 const { sendStartEmailToLPA } = require('../lib/notify');
 const { hasAppeal } = require('../config/db-fields');
+const { saveAppealData } = require('../lib/api-wrapper');
 
 jest.mock('../lib/save-and-continue');
 jest.mock('../lib/notify');
@@ -155,6 +156,7 @@ describe('controllers/check-and-confirm', () => {
         currentPage: views.checkAndConfirm,
         nextPage: views.reviewComplete,
         viewData: expectedViewData,
+        saveData: saveAppealData,
       });
       expect(req.session.casework.completed).toEqual('true');
     });

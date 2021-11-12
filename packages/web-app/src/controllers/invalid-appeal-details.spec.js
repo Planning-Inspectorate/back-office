@@ -4,6 +4,7 @@ const saveAndContinue = require('../lib/save-and-continue');
 const { mockReq, mockRes } = require('../../test/utils/mocks');
 const { getText } = require('../config/review-appeal-submission');
 const { hasAppeal } = require('../config/db-fields');
+const { saveAppealData } = require('../lib/api-wrapper');
 
 jest.mock('../lib/save-and-continue');
 
@@ -69,6 +70,7 @@ describe('controllers/invalid-appeal-details', () => {
         currentPage: views.invalidAppealDetails,
         nextPage: views.checkAndConfirm,
         viewData: expectedViewData,
+        saveData: saveAppealData,
       });
       expect(req.session.casework[hasAppeal.invalidAppealReasons]).toEqual(JSON.stringify(reasons));
       expect(req.session.casework[hasAppeal.invalidReasonOther]).toEqual(otherReason);

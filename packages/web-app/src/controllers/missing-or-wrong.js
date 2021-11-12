@@ -1,5 +1,6 @@
 const toArray = require('../lib/to-array');
 const { getText } = require('../config/review-appeal-submission');
+const { saveAppealData } = require('../lib/api-wrapper');
 
 const {
   reviewAppealSubmission: previousPage,
@@ -50,6 +51,7 @@ const postMissingOrWrong = (req, res) => {
     currentPage,
     nextPage,
     viewData: viewData(appealId, caseReference, missingOrWrong),
+    saveData: saveAppealData,
   });
 };
 

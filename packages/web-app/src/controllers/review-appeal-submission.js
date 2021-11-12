@@ -9,6 +9,7 @@ const {
 const saveAndContinue = require('../lib/save-and-continue');
 const { reviewOutcomeOption } = require('../config/review-appeal-submission');
 const { hasAppeal } = require('../config/db-fields');
+const { saveAppealData } = require('../lib/api-wrapper');
 
 const viewData = (reviewOutcome) => ({
   pageTitle: 'Review appeal submission',
@@ -46,7 +47,14 @@ const postReviewAppealSubmission = (req, res) => {
 
   req.session.casework[hasAppeal.reviewOutcome] = reviewOutcome;
 
-  saveAndContinue({ req, res, currentPage, nextPage, viewData: viewData(reviewOutcome) });
+  saveAndContinue({
+    req,
+    res,
+    currentPage,
+    nextPage,
+    viewData: viewData(reviewOutcome),
+    saveData: saveAppealData,
+  });
 };
 
 module.exports = {
