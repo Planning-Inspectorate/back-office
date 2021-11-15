@@ -3,6 +3,7 @@ const mockHasLpaSubmissionDbRecord = require('../../test/data/has-lpa-submission
 const {
   createHasAppealRecord,
   createAppealLinkRecord,
+  createHasAppealSubmissionRecord,
   createHasLpaSubmissionRecord,
   findAllAppeals,
   findOneAppeal,
@@ -27,6 +28,10 @@ jest.mock('./db-connect', () => ({
       throw new Error('Internal Server Error');
     })
     .mockImplementationOnce(() => [[mockHasLpaSubmissionDbRecord]])
+    .mockImplementationOnce(() => {
+      throw new Error('Internal Server Error');
+    })
+    .mockImplementationOnce(() => [])
     .mockImplementationOnce(() => {
       throw new Error('Internal Server Error');
     })
@@ -131,6 +136,20 @@ describe('lib/db-wrapper', () => {
     it('should throw an error when an error occurs', () => {
       expect(() => createAppealLinkRecord(data)).toThrow(
         'Failed to execute CreateAppealLink with error - Error: Internal Server Error'
+      );
+    });
+  });
+
+  describe('createHasAppealSubmissionRecord', () => {
+    it('should return the correct data when the query is successful', () => {
+      createHasAppealSubmissionRecord(data);
+
+      expect(db.query).toBeCalledTimes(1);
+    });
+
+    it('should throw an error when an error occurs', () => {
+      expect(() => createHasAppealSubmissionRecord(data)).toThrow(
+        'Failed to execute CreateHASAppealSubmission with error - Error: Internal Server Error'
       );
     });
   });

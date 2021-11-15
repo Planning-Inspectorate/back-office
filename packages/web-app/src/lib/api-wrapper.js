@@ -8,6 +8,7 @@ const {
 } = config;
 const appealDataUrl = `${backOfficeUrl}/api/v1/appeal`;
 const appealLinkDataUrl = `${backOfficeUrl}/api/v1/appeal-link`;
+const appealSubmissionDataUrl = `${backOfficeUrl}/api/v1/appeal-submission`;
 const questionnaireDataUrl = `${backOfficeUrl}/api/v1/questionnaire`;
 
 const formatDocumentsAndAddToData = (data) => {
@@ -111,6 +112,7 @@ const saveData = async (url, data) => {
 
 const saveAppealData = (data) => saveData(appealDataUrl, data);
 const saveAppealLinkData = (data) => saveData(appealLinkDataUrl, data);
+const saveAppealSubmissionData = (data) => saveData(appealSubmissionDataUrl, data);
 const saveQuestionnaireData = (data) => saveData(questionnaireDataUrl, data);
 
 module.exports = {
@@ -120,5 +122,6 @@ module.exports = {
   saveData,
   saveAppealData,
   saveAppealLinkData,
+  saveAppealSubmissionData,
   saveQuestionnaireData,
 };
