@@ -12,6 +12,7 @@ const createRecord = (procedure, data) => {
 
 const createHasAppealRecord = (data) => createRecord('CreateHASAppeal', data);
 const createAppealLinkRecord = (data) => createRecord('CreateAppealLink', data);
+const createHasAppealSubmissionRecord = (data) => createRecord('CreateHASAppealSubmission', data);
 const createHasLpaSubmissionRecord = (data) => createRecord('CreateHASLPASubmission', data);
 
 const findAllAppeals = async () => {
@@ -57,6 +58,7 @@ const findOneQuestionnaire = async (appealId) => {
 module.exports = {
   createAppealLinkRecord,
   createHasAppealRecord,
+  createHasAppealSubmissionRecord,
   createHasLpaSubmissionRecord,
   findAllAppeals,
   findOneAppeal,

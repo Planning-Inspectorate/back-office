@@ -6,6 +6,7 @@ const {
   saveData,
   saveAppealData,
   saveAppealLinkData,
+  saveAppealSubmissionData,
   saveQuestionnaireData,
 } = require('./api-wrapper');
 const singleAppealDataRaw = require('../../test/data/single-appeal-data-raw');
@@ -291,6 +292,23 @@ describe('lib/apiWrapper', () => {
 
       expect(fetch).toBeCalledTimes(1);
       expect(fetch).toBeCalledWith('http://localhost/api/v1/appeal-link', {
+        method: 'POST',
+        body: JSON.stringify(data),
+        headers: { 'Content-Type': 'application/json' },
+      });
+    });
+  });
+
+  describe('saveAppealSubmissionData', () => {
+    it('should call fetch with the correct url and data', () => {
+      fetch.mockImplementation(() => ({
+        ok: true,
+      }));
+
+      saveAppealSubmissionData(data);
+
+      expect(fetch).toBeCalledTimes(1);
+      expect(fetch).toBeCalledWith('http://localhost/api/v1/appeal-submission', {
         method: 'POST',
         body: JSON.stringify(data),
         headers: { 'Content-Type': 'application/json' },
