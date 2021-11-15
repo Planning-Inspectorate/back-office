@@ -86,3 +86,7 @@ This will delete all tables and leave an empty database.
 ```
 npx sequelize-cli db:migrate:undo:all
 ```
+
+## API
+
+Documentation for the Back Office API can be found at [http://localhost:3004/api-docs](http://localhost:3004/api-docs)
