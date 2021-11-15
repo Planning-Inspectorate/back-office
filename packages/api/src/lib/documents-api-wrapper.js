@@ -14,7 +14,7 @@ const getDocumentsMetadata = async (appealId) => {
 
     return null;
   } catch (err) {
-    throw new ApiError(`Failed to get documents - ${err.toString()}`);
+    // throw new ApiError(`Failed to get documents - ${err.toString()}`);
   }
 };
 

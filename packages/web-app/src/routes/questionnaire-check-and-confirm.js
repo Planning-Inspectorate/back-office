@@ -4,7 +4,7 @@ const checkAppealOutcome = require('../middleware/check-appeal-outcome');
 
 const router = express.Router();
 
-router.get('/', [checkAppealOutcome], checkAndConfirm.getCheckAndConfirm);
-router.post('/', checkAndConfirm.postCheckAndConfirm);
+router.get('/:appealId', [checkAppealOutcome], checkAndConfirm.getCheckAndConfirm);
+router.post('/:appealId', [checkAppealOutcome], checkAndConfirm.setCheckAndConfirm);
 
 module.exports = router;

@@ -53,10 +53,15 @@ const getAppealData = async (appealId) => {
         data.appeal = formatDocumentsAndAddToData(appeal);
       }
 
-      const questionnaireApiResponse = await fetch(`${questionnaireDataUrl}/${appealId}`);
-      if (questionnaireApiResponse.ok) {
-        const questionnaire = await questionnaireApiResponse.json();
-        data.questionnaire = formatDocumentsAndAddToData(questionnaire);
+      try {
+        const questionnaireApiResponse = await fetch(`${questionnaireDataUrl}/${appealId}`);
+
+        if (questionnaireApiResponse.ok) {
+          const questionnaire = await questionnaireApiResponse.json();
+          data.questionnaire = formatDocumentsAndAddToData(questionnaire);
+        }
+      } catch (error) {
+        logger.debug({ appealId }, 'error getting back questionnaire');
       }
     }
 
