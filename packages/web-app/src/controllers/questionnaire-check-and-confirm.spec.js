@@ -16,7 +16,7 @@ describe('controllers/questionnaire-check-and-confirm', () => {
 
   describe('getCheckAndConfirm', () => {
     it('should render the view with data correctly', async () => {
-      const { questionnaire } = req.session;
+      const { appeal, questionnaire } = req.session;
 
       getCheckAndConfirm(req, res);
 
@@ -24,6 +24,7 @@ describe('controllers/questionnaire-check-and-confirm', () => {
       expect(res.render).toBeCalledWith('questionnaire-check-and-confirm', {
         pageTitle: 'Review questionnaire',
         previousPage: `${previousPage}/${questionnaire.appealId}`,
+        appealReference: appeal.caseReference,
         questionnaireData: questionnaire,
         reviewOutcome: questionnaire.outcome,
       });
