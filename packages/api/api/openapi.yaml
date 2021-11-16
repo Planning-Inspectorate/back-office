@@ -90,7 +90,7 @@ paths:
                     termsAgreed:
                       type: boolean
                       example: true
-                    decisionDate:
+                    appealDecisionDate:
                       type: "string"
                       example: "2021-11-12T00:00:00.000Z"
                     submissionDate:
@@ -99,7 +99,7 @@ paths:
                     caseReference:
                       type: "integer"
                       example: 123456789
-                    caseStageId:
+                    caseStatusId:
                       type: "integer"
                       example: 1
                     appellantName:
@@ -123,18 +123,75 @@ paths:
                     localPlanningAuthorityId:
                       type: "string"
                       example: "E69999999"
-                    typeName:
+                    caseOfficerFirstName:
                       type: "string"
-                      example: null
+                      example: "First Name"
+                    caseOfficerSurname:
+                      type: "string"
+                      example: "Surname"
+                    caseOfficerEmail:
+                      type: "string"
+                      example: "caseofficer@planninginspectorate.gov.uk"
+                    validationOfficerFirstName:
+                      type: "string"
+                      example: "First Name"
+                    validationOfficerSurname:
+                      type: "string"
+                      example: "Surname"
+                    validationOfficerEmail:
+                      type: "string"
+                      example: "validationofficer@planninginspectorate.gov.uk"
+                    invalidReasonOtherDetails:
+                      type: "string"
+                      example: "Other Details"
+                    invalidAppealReasons:
+                      type: "string"
+                      example: "'[1,3]'"
+                    inspectorFirstName:
+                      type: "string"
+                      example: "First name"
+                    inspectorSurname:
+                      type: "string"
+                      example: "Surname"
+                    inspectorEmail:
+                      type: "string"
+                      example: "inspector@planninginspectorate.gov.uk"
+                    scheduledSiteVisitDate:
+                      type: "string"
+                      example: "2021-11-10"
+                    questionnaireDecisionDate:
+                      type: "string"
+                      example: "2021-11-16"
+                    descriptionDevelopment:
+                      type: "string"
+                      example: "Description of the development"
+                    appealStartDate:
+                      type: "string"
+                      example: "2021-11-05"
+                    appealValidationDate:
+                      type: "string"
+                      example: "2021-11-16"
+                    caseTypeName:
+                      type: "string"
+                      example: "Householder Appeal (HAS)"
                     caseStageName:
                       type: "string"
                       example: "Received"
                     caseStatusName:
                       type: "string"
                       example: "Appeal Received"
-                    localPlanningAuthorityName:
+                    recommendedSiteVisitTypeName:
                       type: "string"
-                      example: "System Test Borough Council"
+                      example: "Unaccompanied"
+                    siteVisitTypeName:
+                      type: "string"
+                      example: "Accompanied"
+                    inspectorSpecialismName:
+                      type: "string"
+                      example: "General"
+                    decisionOutcomeName:
+                      type: "string"
+                      example: "Allowed"
         "404":
           description: "Not found"
   "/api/v1/appeal/{appealId}":
@@ -171,7 +228,7 @@ paths:
                     type: "string"
                     example: "An Agent"
                   creatorOriginalApplicant:
-                    type: boolean
+                    type: "boolean"
                     example: true
                   creatorOnBehalfOf:
                     type: "string"
@@ -201,9 +258,9 @@ paths:
                     type: "boolean"
                     example: true
                   termsAgreed:
-                    type: "boolean"
+                    type: boolean
                     example: true
-                  decisionDate:
+                  appealDecisionDate:
                     type: "string"
                     example: "2021-11-12T00:00:00.000Z"
                   submissionDate:
@@ -212,7 +269,7 @@ paths:
                   caseReference:
                     type: "integer"
                     example: 123456789
-                  caseStageId:
+                  caseStatusId:
                     type: "integer"
                     example: 1
                   appellantName:
@@ -236,18 +293,75 @@ paths:
                   localPlanningAuthorityId:
                     type: "string"
                     example: "E69999999"
-                  typeName:
+                  caseOfficerFirstName:
                     type: "string"
-                    example: null
+                    example: "First Name"
+                  caseOfficerSurname:
+                    type: "string"
+                    example: "Surname"
+                  caseOfficerEmail:
+                    type: "string"
+                    example: "caseofficer@planninginspectorate.gov.uk"
+                  validationOfficerFirstName:
+                    type: "string"
+                    example: "First Name"
+                  validationOfficerSurname:
+                    type: "string"
+                    example: "Surname"
+                  validationOfficerEmail:
+                    type: "string"
+                    example: "validationofficer@planninginspectorate.gov.uk"
+                  invalidReasonOtherDetails:
+                    type: "string"
+                    example: "Other Details"
+                  invalidAppealReasons:
+                    type: "string"
+                    example: "'[1,3]'"
+                  inspectorFirstName:
+                    type: "string"
+                    example: "First name"
+                  inspectorSurname:
+                    type: "string"
+                    example: "Surname"
+                  inspectorEmail:
+                    type: "string"
+                    example: "inspector@planninginspectorate.gov.uk"
+                  scheduledSiteVisitDate:
+                    type: "string"
+                    example: "2021-11-10"
+                  questionnaireDecisionDate:
+                    type: "string"
+                    example: "2021-11-16"
+                  descriptionDevelopment:
+                    type: "string"
+                    example: "Description of the development"
+                  appealStartDate:
+                    type: "string"
+                    example: "2021-11-05"
+                  appealValidationDate:
+                    type: "string"
+                    example: "2021-11-16"
+                  caseTypeName:
+                    type: "string"
+                    example: "Householder Appeal (HAS)"
                   caseStageName:
-                    type: "string"
-                    example: "Received"
+                      type: "string"
+                      example: "Received"
                   caseStatusName:
                     type: "string"
                     example: "Appeal Received"
-                  localPlanningAuthorityName:
+                  recommendedSiteVisitTypeName:
                     type: "string"
-                    example: "System Test Borough Council"
+                    example: "Unaccompanied"
+                  siteVisitTypeName:
+                    type: "string"
+                    example: "Accompanied"
+                  inspectorSpecialismName:
+                    type: "string"
+                    example: "General"
+                  decisionOutcomeName:
+                    type: "string"
+                    example: "Allowed"
                   documents:
                     type: "array"
                     items:
@@ -277,8 +391,6 @@ paths:
                         document_type:
                           type: "string"
                           example: "originalApplication"
-
-
         "404":
           description: "Not found"
   "/api/v1/appeal-link":
@@ -473,7 +585,7 @@ paths:
                       example: "Overdue"
                     caseTypeName:
                       type: "string"
-                      example: null
+                      example: "Householder Appeal (HAS)"
                     caseStageName:
                       type: "string"
                       example: "Received"
@@ -483,6 +595,9 @@ paths:
                     localPlanningAuthorityName:
                       type: "string"
                       example: "System Test Borough Council"
+                    lpaQuestionnaireOutcomeName:
+                      type: "string"
+                      example: "Complete"
         "404":
           description: "Not found"
   "/api/v1/questionnaire/{appealId}":
@@ -609,7 +724,7 @@ paths:
                       example: "Overdue"
                     caseTypeName:
                       type: "string"
-                      example: null
+                      example: "Householder Appeal (HAS)"
                     caseStageName:
                       type: "string"
                       example: "Received"
@@ -619,6 +734,9 @@ paths:
                     localPlanningAuthorityName:
                       type: "string"
                       example: "System Test Borough Council"
+                    lpaQuestionnaireOutcomeName:
+                      type: "string"
+                      example: "Complete"
                     documents:
                       type: "array"
                       items:

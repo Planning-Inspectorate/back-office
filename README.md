@@ -54,19 +54,19 @@
     [ExtraConditionsDetails], [AdjacentAppeals], [AdjacentAppealsNumbers], [CannotSeeLand], [SiteAccess], [SiteAccessDetails],
     [SiteNeighbourAccess], [SiteNeighbourAccessDetails], [HealthAndSafetyIssues], [HealthAndSafetyDetails], [AffectListedBuilding],
     [AffectListedBuildingDetails], [GreenBelt], [ConservationArea], [OriginalPlanningApplicationPublicised],
-    [DevelopmentNeighbourhoodPlanSubmitted], [DevelopmentNeighbourhoodPlanChanges], [QuestionnaireStatusID], [LatestEvent])
+    [DevelopmentNeighbourhoodPlanSubmitted], [DevelopmentNeighbourhoodPlanChanges], [LatestEvent])
    VALUES
     ('6922c408-e80a-472b-8b00-9377daec083d', '5c45c22d-a39c-4844-bee1-2f6829b42238', '6ff8d0ef-3767-4258-b3d3-34d48fca238b',
     '2021-11-01', 1, null, 0, null, 0, null, 1, 1, 'Easy site access', 1, 'Easy site neighbour access', 1,
-    'There are some health and safety issues', 0, 'The site is not a listed building', 0, 0, 1, 1, 1, 2, 1);
+    'There are some health and safety issues', 0, 'The site is not a listed building', 0, 0, 1, 1, 1, 1);
 
    INSERT INTO [AppealLink]
-    ([ID], [AppealID],[LPAQuestionnaireID], [CaseReference], [CaseTypeID], [CaseStageID], [CaseStatusID], [AppellantName],
+    ([ID], [AppealID],[LPAQuestionnaireID], [CaseReference], [CaseTypeID], [CaseStatusID], [AppellantName],
     [SiteAddressLineOne], [SiteAddressLineTwo], [SiteAddressTown], [SiteAddressCounty], [SiteAddressPostCode], [LocalPlanningAuthorityID],
-    [LatestEvent], [EventDateTime], [EventUserID], [EventUserName])
+    [QuestionnaireStatusID], [LatestEvent], [EventDateTime], [EventUserID], [EventUserName])
    VALUES
     ('9565dcf2-ebe6-42b1-8450-c8283abb8f53', '6ff8d0ef-3767-4258-b3d3-34d48fca238b', '5c45c22d-a39c-4844-bee1-2f6829b42238', 123456789,
-    null, 1, null, 'An Apellant', 'Address 1', 'Address 2', 'Town', 'Country', 'Postcode', 'E69999999', 1, null, null, null);
+    null, 1, 'An Apellant', 'Address 1', 'Address 2', 'Town', 'Country', 'Postcode', 'E69999999', 2, 1, null, null, null);
    ```
 
 ### Undoing migrations
