@@ -23,7 +23,7 @@ const saveAndContinue = ({ req, res, currentPage, nextPage, viewData, saveData }
     saveData({
       appealId: appeal.appealId,
       ...casework,
-      questionnaire,
+      ...questionnaire,
     });
     res.cookie('appealId', appeal.appealId);
     res.cookie(appeal.appealId, JSON.stringify(casework));

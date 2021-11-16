@@ -8,6 +8,7 @@ const { createPageData } = require('../../test/lib/createPageData');
 const mockViewData = require('../../test/review-questionnaire-view-data-mock.json');
 const emptyValues = require('../../test/review-questionnaire-empty-values');
 const saveAndContinue = require('../lib/save-and-continue');
+const { saveAppealData } = require('../lib/api-wrapper');
 
 jest.mock('../lib/api-wrapper');
 jest.mock('../lib/save-and-continue');
@@ -105,6 +106,7 @@ describe('controllers/review-questionnaire', () => {
         currentPage,
         nextPage,
         viewData,
+        saveData: saveAppealData,
       });
     });
 
@@ -133,6 +135,7 @@ describe('controllers/review-questionnaire', () => {
         currentPage,
         nextPage,
         viewData,
+        saveData: saveAppealData,
       });
     });
 
@@ -174,6 +177,7 @@ describe('controllers/review-questionnaire', () => {
         currentPage,
         nextPage,
         viewData,
+        saveData: saveAppealData,
       });
     });
 
@@ -205,6 +209,7 @@ describe('controllers/review-questionnaire', () => {
         currentPage,
         nextPage,
         viewData,
+        saveData: saveAppealData,
       });
     });
   });
