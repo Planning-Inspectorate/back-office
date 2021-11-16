@@ -1,6 +1,5 @@
 const { get } = require('../../test/routes/router-mock');
 const checkAndConfirmController = require('../controllers/questionnaire-check-and-confirm');
-const checkAppealOutcome = require('../middleware/check-appeal-outcome');
 
 describe('routes/questionnaire-check-and-confirm', () => {
   beforeEach(() => {
@@ -13,10 +12,6 @@ describe('routes/questionnaire-check-and-confirm', () => {
   });
 
   it('should define the expected routes', () => {
-    expect(get).toHaveBeenCalledWith(
-      '/',
-      [checkAppealOutcome],
-      checkAndConfirmController.getCheckAndConfirm
-    );
+    expect(get).toHaveBeenCalledWith('/:appealId', checkAndConfirmController.getCheckAndConfirm);
   });
 });
