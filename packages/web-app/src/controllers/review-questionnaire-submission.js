@@ -8,6 +8,7 @@ const {
   reviewQuestionnaireSubmission: currentPage,
   questionnairecheckAndConfirm: nextPage,
 } = require('../config/views');
+const { saveQuestionnaireData } = require('../lib/api-wrapper');
 
 const populateFilesObject = (files, lpaQuestionnaireId) => {
   if (!files) {
@@ -146,14 +147,6 @@ const createPageData = (appeal, questionnaire) => ({
       titleText: 'Would the development affect the setting of a listed building?',
       cellText: questionnaire.affectListedBuilding ? 'Yes' : 'No',
     },
-    // listingDescription: {
-    //   titleText: 'Listing description',
-    //   files: [{ text: questionnaire.affectListedBuildingDetails }],
-    //   hasCheckbox: true,
-    //   dropDown: { dropDownType: 'TEXT_BOX', title: 'Please add further information' },
-    //   checkboxName: 'lpaqreview-listing-description-checkbox',
-    //   textAreaName: `lpaqreview-listing-description-textarea`,
-    // },
   },
   interestedParties: {
     sectionTitle: 'Interested parties',
@@ -276,6 +269,7 @@ const postReviewQuestionnaireSubmission = (req, res) => {
   const {
     body,
     session: { appeal, questionnaire },
+    params: { appealId },
   } = req;
   const values = getValues(body);
   const missingOrIncorrectDocuments = convertValuesToMissingOrIncorrect(values);
@@ -294,9 +288,9 @@ const postReviewQuestionnaireSubmission = (req, res) => {
     req,
     res,
     currentPage,
-    nextPage,
+    nextPage: `${nextPage}/${appeal.appealId}`,
     viewData,
-    saveData: saveAppealData,
+    saveData: saveQuestionnaireData,
   });
 };
 
