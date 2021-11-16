@@ -55,7 +55,6 @@ const getAppealData = async (appealId) => {
 
       try {
         const questionnaireApiResponse = await fetch(`${questionnaireDataUrl}/${appealId}`);
-
         if (questionnaireApiResponse.ok) {
           const questionnaire = await questionnaireApiResponse.json();
           data.questionnaire = formatDocumentsAndAddToData(questionnaire);

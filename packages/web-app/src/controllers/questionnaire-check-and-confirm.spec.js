@@ -1,8 +1,5 @@
-const { getCheckAndConfirm, postCheckAndConfirm } = require('./questionnaire-check-and-confirm');
-const {
-  reviewQuestionnaireSubmission: previousPage,
-  reviewQuestionnaireComplete: nextPage,
-} = require('../config/views');
+const { getCheckAndConfirm, setCheckAndConfirm } = require('./questionnaire-check-and-confirm');
+const { reviewQuestionnaireSubmission: previousPage } = require('../config/views');
 const { mockReq, mockRes } = require('../../test/utils/mocks');
 
 describe('controllers/questionnaire-check-and-confirm', () => {
@@ -30,22 +27,25 @@ describe('controllers/questionnaire-check-and-confirm', () => {
     });
   });
 
-  describe('postCheckAndConfirm', () => {
-    it('should redirect to review outcomepage', () => {
+  describe('setCheckAndConfirm', () => {
+    it('should redirect to review outcome page', async () => {
       req = {
         session: {
           appeal: { id: '5c943cb9-e029-4094-a447-4b3256d6ede7' },
           questionnaire: {
             outcome: 'COMPLETE',
-            missingOrIncorrectDocuments: [],
+            missingOrIncorrectDocuments: undefined,
           },
         },
+        params: { appealId: '5c943cb9-e029-4094-a447-4b3256d6ede7' },
       };
 
-      postCheckAndConfirm(req, res);
+      await setCheckAndConfirm(req, res);
 
       expect(res.redirect).toBeCalledTimes(1);
-      expect(res.redirect).toBeCalledWith(`/${nextPage}`);
+      expect(res.redirect).toBeCalledWith(
+        `/review-questionnaire-submission/${req.params.appealId}`
+      );
     });
   });
 });

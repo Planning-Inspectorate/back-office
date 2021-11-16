@@ -23,21 +23,17 @@ const setCheckAndConfirm = async (req, res) => {
   if (Array.isArray(missingOrIncorrectDocuments)) {
     if (missingOrIncorrectDocuments.length > 1) {
       await saveData({ appealId, lpaQuestionnaireReviewOutcomeId: 2 });
+    } else {
+      await saveData({ appealId, lpaQuestionnaireReviewOutcomeId: 1 });
+      return res.render('review-questionnaire', {
+        pageTitle: 'Review questionnaire',
+        appealData: req.session.appeal,
+        questionnaireData: req.session.questionnaire,
+      });
     }
-
-    await saveData({ appealId, lpaQuestionnaireReviewOutcomeId: 1 });
-    return res.render('review-questionnaire', {
-      pageTitle: 'Review questionnaire',
-      appealData: req.session.appeal,
-      questionnaireData: req.session.questionnaire,
-    });
   }
 
-  return res.render('review-questionnaire-complete', {
-    pageTitle: 'Review questionnaire',
-    appealData: req.session.appeal,
-    questionnaireData: req.session.questionnaire,
-  });
+  return res.redirect(`/review-questionnaire-submission/${appealId}`);
 };
 
 module.exports = {
