@@ -1,4 +1,6 @@
 const saveAndContinue = require('../lib/save-and-continue');
+const { saveAppealData } = require('../lib/api-wrapper');
+
 const {
   QUESTIONNAIRE: { REVIEWOUTCOME },
 } = require('../constants');
@@ -291,6 +293,7 @@ const postReviewQuestionnaireSubmission = (req, res) => {
     currentPage,
     nextPage,
     viewData,
+    saveData: saveAppealData,
   });
 };
 
