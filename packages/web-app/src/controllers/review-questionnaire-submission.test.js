@@ -8,6 +8,7 @@ const { createPageData } = require('../../test/lib/createPageData');
 const mockViewData = require('../../test/review-questionnaire-view-data-mock.json');
 const emptyValues = require('../../test/review-questionnaire-empty-values');
 const saveAndContinue = require('../lib/save-and-continue');
+const { saveQuestionnaireData } = require('../lib/api-wrapper');
 
 jest.mock('../lib/api-wrapper');
 jest.mock('../lib/save-and-continue');
@@ -97,14 +98,19 @@ describe('controllers/review-questionnaire', () => {
     it('should redirect with no missing or incorrect documents', () => {
       postReviewQuestionnaireSubmission(req, res);
 
+      const {
+        session: { appeal },
+      } = req;
+
       expect(req.session.questionnaire.missingOrIncorrectDocuments).toEqual([]);
       expect(saveAndContinue).toBeCalledTimes(1);
       expect(saveAndContinue).toBeCalledWith({
         req,
         res,
         currentPage,
-        nextPage,
+        nextPage: `${nextPage}/${appeal.appealId}`,
         viewData,
+        saveData: saveQuestionnaireData,
       });
     });
 
@@ -114,6 +120,10 @@ describe('controllers/review-questionnaire', () => {
         'lpaqreview-plans-decision-checkbox': 'on',
         'lpaqreview-application-notification-checkbox': 'on',
       };
+
+      const {
+        session: { appeal },
+      } = req;
 
       viewData.values['lpaqreview-application-notification-checkbox'] = 'on';
       viewData.values['lpaqreview-officer-report-checkbox'] = 'on';
@@ -131,12 +141,17 @@ describe('controllers/review-questionnaire', () => {
         req,
         res,
         currentPage,
-        nextPage,
+        nextPage: `${nextPage}/${appeal.appealId}`,
         viewData,
+        saveData: saveQuestionnaireData,
       });
     });
 
     it('should render with errors', () => {
+      const {
+        session: { appeal },
+      } = req;
+
       const errorSummary = [
         {
           text: 'Enter which plans are missing',
@@ -172,13 +187,18 @@ describe('controllers/review-questionnaire', () => {
         req,
         res,
         currentPage,
-        nextPage,
+        nextPage: `${nextPage}/${appeal.appealId}`,
         viewData,
+        saveData: saveQuestionnaireData,
       });
     });
 
     it('should render with previous values present', () => {
       const mockObject = { mock: 'mock' };
+
+      const {
+        session: { appeal },
+      } = req;
 
       req.body = {
         'lpaqreview-plans-decision-checkbox': 'on',
@@ -203,8 +223,9 @@ describe('controllers/review-questionnaire', () => {
         req,
         res,
         currentPage,
-        nextPage,
+        nextPage: `${nextPage}/${appeal.appealId}`,
         viewData,
+        saveData: saveQuestionnaireData,
       });
     });
   });
