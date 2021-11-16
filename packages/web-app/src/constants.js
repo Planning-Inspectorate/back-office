@@ -1,8 +1,8 @@
 module.exports = {
   QUESTIONNAIRE: {
     REVIEWOUTCOME: {
-      COMPLETE: 'Complete',
-      INCOMPLETE: 'Incomplete',
+      COMPLETE: '1',
+      INCOMPLETE: '2',
     },
   },
 };
