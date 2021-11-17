@@ -11,7 +11,7 @@ import {reviewSectionMissingInformationCheckbox} from "../../../support/case-off
 import {reviewSectionMissingInformation} from "../../../support/case-officer/review-section-missing-information";
 import {reviewSectionMissingInformationError} from "../../../support/case-officer/review-section-missing-information-error";
 import {selectCaseReferenceFromDb} from "../../../support/db-queries/select-case-reference-from-db";
-import {selectAppealIdForValidationOfficerFromDb} from "../../../support/db-queries/select-appeal-id-for-validation-officer-from-db";
+import {selectAppealIdForCaseOfficerFromDb} from "../../../support/db-queries/select-appeal-id-for-validation-officer-from-db";
 const url = '/review-questionnaire-submission/';
 const pageHeading = 'Review questionnaire';
 const title = 'Review questionnaire - Appeal a householder planning decision - GOV.UK';
@@ -61,7 +61,7 @@ When('Case officer selects questionnaire for review from breadcrumbs',()=>{
     getQuestionnaireForReviewBack().click();
 });
 Then('the Review Questionnaire page will be displayed',()=>{
-    selectAppealIdForValidationOfficerFromDb();
+    selectAppealIdForCaseOfficerFromDb();
     cy.get('@receivedStatusAppealId').then((appealId)=>{
         cy.url().should('contain',appealId);
     })
