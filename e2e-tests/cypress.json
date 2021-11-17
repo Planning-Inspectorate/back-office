@@ -5,7 +5,18 @@
   "viewportWidth": 1024,
   "viewportHeight": 1600,
   "video": true,
+  "screenshot": true,
   "env": {
     "vo-url": "https://back-office-web-app.azurewebsites.net"
+  },
+  "db": {
+    "userName": "sa",
+    "password": "AbCd12345@~",
+    "server": "localhost",
+    "options": {
+      "database": "backofficedev",
+      "encrypt": true,
+      "rowCollectionOnRequestCompletion" : true
+    }
   }
 }

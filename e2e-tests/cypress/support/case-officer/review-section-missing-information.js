@@ -29,9 +29,13 @@ export const reviewSectionMissingInformation = (missing_info, documentSection) =
         else if (documentSection === 'Conservation area map and guidance')
             getConservationAreaMapText()
                 .should('be.visible');
-        else if (documentSection === 'Listing description')
-            getListingDescriptionText()
-                .should('be.visible');
+        else if (documentSection === 'Listing description'){
+            if(cy.findByText('Would the development affect the setting of a listed building?').siblings('ul').contains('No')) {
+            }else{
+                getListingDescriptionText()
+                    .should('be.visible');
+            }
+        }
         else if (documentSection === 'Application notification') {
             getApplicationNotification().click();
             getApplicationNotificationListOfAddressesCheckbox().should('exist');
@@ -66,10 +70,12 @@ export const reviewSectionMissingInformation = (missing_info, documentSection) =
             getConservationAreaMapText()
                 .should('be.visible')
                 .type(missing_info);
-        else if (documentSection === 'Listing description')
+        else if (documentSection === 'Listing description') if(cy.findByText('Would the development affect the setting of a listed building?').siblings('ul').contains('No')) {
+        }else{
             getListingDescriptionText()
                 .should('be.visible')
                 .type(missing_info);
+        }
         else if (documentSection === 'Application notification') {
                getApplicationNotificationListOfAddressesCheckbox().click();
                 getApplicationNotificationCopyOfLetterCheckbox().click();

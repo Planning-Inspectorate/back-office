@@ -4,14 +4,15 @@ import {verifyPageHeading} from "../../../support/common/verify-page-heading";
 import {goToCaseOfficerPage} from "../../../support/case-officer/go-to-page";
 import {
     getAppealsLink,
-    getBackButton,
-    getContinueButton
+    getContinueButton, getQuestionnaireForReviewBack
 } from "../../../support/PageObjects/co-review-questionnaire-po";
 import {reviewSectionDocumentList} from "../../../support/case-officer/review-section-documentList";
 import {reviewSectionMissingInformationCheckbox} from "../../../support/case-officer/review-section-missing-information-check-box";
 import {reviewSectionMissingInformation} from "../../../support/case-officer/review-section-missing-information";
 import {reviewSectionMissingInformationError} from "../../../support/case-officer/review-section-missing-information-error";
-const url = '/questionnaires-for-review/review/';
+import {selectCaseReferenceFromDb} from "../../../support/db-queries/select-case-reference-from-db";
+import {selectAppealIdForValidationOfficerFromDb} from "../../../support/db-queries/select-appeal-id-for-validation-officer-from-db";
+const url = '/review-questionnaire-submission/';
 const pageHeading = 'Review questionnaire';
 const title = 'Review questionnaire - Appeal a householder planning decision - GOV.UK';
 
@@ -29,15 +30,22 @@ Given('Case officer has navigated to {string} page',(page)=>{
 Given('Case officer has selected the checkbox for missing information for {string}',(document_section)=>{
     reviewSectionMissingInformationCheckbox(document_section);
 });
-Given('a Case officer is on the Review questionnaire page',()=>{
+Given('a Case officer is on the Review questionnaire page for {string} status',(status)=>{
     goToCaseOfficerPage();
-    getAppealsLink().click();
+    selectCaseReferenceFromDb(status);
+    cy.get('@caseReference').then((caseReference)=>{
+        getAppealsLink(caseReference).click();
+    });
     verifyPageTitle(title);
     verifyPageHeading(pageHeading);
     cy.url().should('contain',url);
 });
-When('Case officer selects the appeal to view',()=>{
-    getAppealsLink().click();
+When('Case officer selects the appeal to view for {string} status',(status)=>{
+    selectCaseReferenceFromDb(status);
+    cy.get('@caseReference').then((caseReference)=>{
+        getAppealsLink(caseReference).click();
+    });
+
 });
 When('the Case officer selects a {string} link in the {string}',(documentName, reviewSection)=>{
     reviewSectionDocumentList(documentName,reviewSection);
@@ -49,11 +57,15 @@ When('Case officer does not provide the relevant missing information for {string
     reviewSectionMissingInformation('',document_section);
     getContinueButton().click();
 });
-When('Case officer selects back',()=>{
-    getBackButton().should('be.visible');
+When('Case officer selects questionnaire for review from breadcrumbs',()=>{
+    getQuestionnaireForReviewBack().click();
 });
 Then('the Review Questionnaire page will be displayed',()=>{
-    cy.url().should('contain','/questionnaires-for-review/review/');
+    selectAppealIdForValidationOfficerFromDb();
+    cy.get('@receivedStatusAppealId').then((appealId)=>{
+        cy.url().should('contain',appealId);
+    })
+    cy.url().should('contain','/review-questionnaire-submission/');
     verifyPageTitle(title);
     verifyPageHeading(pageHeading);
 });
@@ -69,3 +81,7 @@ Then('an error {string} is displayed for {string}',(error_message, document_sect
 Then('the Case officer is able to submit the review',()=>{
     getContinueButton().click();
 });
+
+Then('Case officer navigates to Questionnaires for review page',()=>{
+    verifyPageHeading('Questionnaires for review');
+})
