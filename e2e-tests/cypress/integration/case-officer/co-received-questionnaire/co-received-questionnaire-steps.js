@@ -11,7 +11,7 @@ import {reviewSectionMissingInformationCheckbox} from "../../../support/case-off
 import {reviewSectionMissingInformation} from "../../../support/case-officer/review-section-missing-information";
 import {reviewSectionMissingInformationError} from "../../../support/case-officer/review-section-missing-information-error";
 import {selectCaseReferenceFromDb} from "../../../support/db-queries/select-case-reference-from-db";
-import {selectAppealIdForCaseOfficerFromDb} from "../../../support/db-queries/select-appeal-id-for-validation-officer-from-db";
+import {selectAppealIdForCaseOfficerFromDb} from "../../../support/db-queries/select-appeal-id-for-case-officer-from-db";
 const url = '/review-questionnaire-submission/';
 const pageHeading = 'Review questionnaire';
 const title = 'Review questionnaire - Appeal a householder planning decision - GOV.UK';

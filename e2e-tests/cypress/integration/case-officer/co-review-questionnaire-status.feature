@@ -8,5 +8,5 @@ Feature: As a Case Officer
     Examples:
     |status|
     |RECEIVED|
-    |OVERDUE |
-    |AWAITING|
+    #|OVERDUE |
+    #|AWAITING|
