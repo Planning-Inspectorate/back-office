@@ -3,10 +3,17 @@ import {
     gotoReviewQuestionnaireConfirmationPage,
     questionnaireForReviewLink,
     verifyPageHeading,
-    reviewQuestionnaireListPage
+    reviewQuestionnaireListPage, getOutcomeConfirmationPageText
 } from "../../../support/PageObjects/co-review-questionnaire-confirmation-po";
 import { verifyPageTitle } from "../../../support/common/verify-page-title";
 import { verifyPageUrl } from "../../../support/common/verify-page-url";
+import {goToCaseOfficerPage} from "../../../support/case-officer/go-to-page";
+import {selectCaseReferenceFromDb} from "../../../support/db-queries/select-case-reference-from-db";
+import {getAppealsLink, getContinueButton} from "../../../support/PageObjects/co-review-questionnaire-po";
+import {verifySectionName} from "../../../support/case-officer/verify-Section-Name";
+import {getConfirmContinueButton} from "../../../support/PageObjects/co-check-and-confirm-po";
+import {reviewSectionMissingInformationCheckbox} from "../../../support/case-officer/review-section-missing-information-check-box";
+import {reviewSectionMissingInformation} from "../../../support/case-officer/review-section-missing-information";
 
 const page = {
     heading: 'Outcome confirmed',
@@ -14,13 +21,48 @@ const page = {
     url: 'review-questionnaire-complete',
 };
 
-Given('the Case Officer is on the Check and Confirm page', () => {
-    // Do nothing for now. However write code to get to 'Check and Confirm' page once all the pages are built
+Given('Case officer is on Check and confirm page for {string} status', (status) => {
+    goToCaseOfficerPage();
+    selectCaseReferenceFromDb('Received');
+    cy.get('@caseReference').then((caseReference)=>{
+        getAppealsLink(caseReference).click();
+    });
+    if(status==='Complete'){
+        getContinueButton().click();
+        verifySectionName('Check and confirm');
+    }else{
+        reviewSectionMissingInformationCheckbox('Plans used to reach decision');
+        reviewSectionMissingInformation('Plans used to reach decision are incomplete','Plans used to reach decision');
+        getContinueButton().click();
+        verifySectionName('Check and confirm');
+    }
 });
 
-When('the Review outcome is Complete', () => {
-    gotoReviewQuestionnaireConfirmationPage();
+Given('Case officer is navigated to confirm outcome page',()=>{
+    goToCaseOfficerPage();
+    selectCaseReferenceFromDb('Received');
+    cy.get('@caseReference').then((caseReference)=>{
+        getAppealsLink(caseReference).click();
+    });
+    getContinueButton().click();
+    verifySectionName('Check and confirm');
+    getConfirmContinueButton().click();
+    cy.get('h1').should('contain','Outcome confirmed');
 });
+
+When('Case Officer clicks on Confirm outcome',()=>{
+    getConfirmContinueButton().click();
+    cy.get('h1').should('contain','Outcome confirmed');
+});
+
+Then('Case officer is navigated to confirm outcome page for {string} status',(status)=>{
+    cy.get('h1').should('contain','Outcome confirmed');
+    getOutcomeConfirmationPageText().should('contain', 'Questionnaire').should('contain',status);
+    selectCaseReferenceFromDb('Received');
+    cy.get('@caseReference').then((caseReference)=>{
+        getOutcomeConfirmationPageText().should('contain',caseReference);
+    });
+})
 
 Then('the Case Officer is presented with the confirmation page', () => {
     verifyPageUrl(page.url);

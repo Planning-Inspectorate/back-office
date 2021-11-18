@@ -5,20 +5,16 @@ import {
     getOverdueStatus,
     getReceivedStatus
 } from "../../../support/PageObjects/co-questionnaire-list-po";
+import {selectCaseReferenceFromDb} from "../../../support/db-queries/select-case-reference-from-db";
+import {getAppealsLink} from "../../../support/PageObjects/co-review-questionnaire-po";
 
 Given('the Case Officer is on the Questionnaires for review page',()=>{
 goToCaseOfficerPage();
 });
 
 Then('the page will show the questionnaires with the status {string}',(status)=>{
-
-    if(status==='RECEIVED'){
-        getReceivedStatus().siblings()
-            .contains('a')
-            .click();
-    }else if(status === 'OVERDUE'){
-      getOverdueStatus().should('be.visible');
-    }else{
-        getAwaitingStatus().should('be.visible');
-    }
+    selectCaseReferenceFromDb(status);
+    cy.get('@caseReference').then((caseReference)=>{
+        getAppealsLink(caseReference).click();
+    });
 });

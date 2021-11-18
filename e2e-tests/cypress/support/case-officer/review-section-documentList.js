@@ -40,6 +40,5 @@ export const reviewSectionDocumentList = (documentName, documentSection) => {
   function getDocument(documentName,documentSectionObject) {
         documentSectionObject.siblings()
             .contains(documentName)
-            .should("exist")
-            .should('have.attr','href');
+            .should("exist");
     }

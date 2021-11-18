@@ -1,4 +1,4 @@
-export const getAppealsLink = () => cy.findByRole('link',{name:'BRL/Q9999/D/21/8857835'});
+export const getAppealsLink = (caseReference) => cy.findByText(caseReference);
 export const getDecisionNotice = () => cy.findByText('Decision notice');
 export const getPlanningOfficersReport = () => cy.findByText(`Planning Officer's report`);
 export const getPlansUsedToReachDecision = () => cy.findByText('Plans used to reach decision');
@@ -33,7 +33,7 @@ export const getRepresentationsText = () => cy.get('[data-cy="lpaqreview-represe
 export const getAppealNotificationListOfAddressesCheckbox = () => cy.get('[data-cy="lpaqreview-appeal-notification-subcheckbox1"]');
 export const getAppealNotificationCopyOfLetterCheckbox = () => cy.get('[data-cy="lpaqreview-appeal-notification-subcheckbox2"]');
 export const getContinueButton = () => cy.findByRole('button',{name:'Continue'});
-export const getBackButton = () => cy.findByRole('link',{name:"Back"});
+export const getQuestionnaireForReviewBack = () => cy.findByRole('link',{name:"Questionnaires for review"});
 export const getPlansUsedToReachDecisionError = () => cy.get('[data-cy="lpaqreview-plans-decision-textarea-error"]');
 export const getStatutoryDevelopmentPlanError = () => cy.get('[data-cy="lpaqreview-statutory-development-textarea-error"]');
 export const getOtherRelevantPoliciesError = () => cy.get('[data-cy="lpaqreview-other-relevant-policies-textarea-error"]');

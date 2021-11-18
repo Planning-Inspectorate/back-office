@@ -25,8 +25,13 @@ export const reviewSectionMissingInformationCheckbox = (documentSection =>{
         clickMissingInfoCheckbox(documentSection, getSupplementaryPlanningMissingCheckbox());
     else if(documentSection === 'Conservation area map and guidance')
         clickMissingInfoCheckbox(documentSection, getConservationAreaMapMissingCheckbox());
-    else if(documentSection === 'Listing description')
-        clickMissingInfoCheckbox(documentSection,getListingDescriptionMissingCheckbox());
+    else if(documentSection === 'Listing description'){
+        if(cy.findByText('Would the development affect the setting of a listed building?').siblings('ul').contains('No')){
+          return;
+        }else {
+            clickMissingInfoCheckbox(documentSection, getListingDescriptionMissingCheckbox());
+        }
+    }
     else if(documentSection === 'Application notification')
         clickMissingInfoCheckbox(documentSection, getApplicationNotificationMissingCheckbox());
     else if(documentSection === 'Application publicity')

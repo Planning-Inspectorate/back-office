@@ -1,3 +1,4 @@
+import sqlServer from 'cypress-sql-server';
 // ***********************************************************
 // This example support/index.js is processed and
 // loaded automatically before your test files.
@@ -22,3 +23,4 @@ import './common/header-footer';
 import '@testing-library/cypress/add-commands';
 // Alternatively you can use CommonJS syntax:
 // require('./commands')
+sqlServer.loadDBCommands();

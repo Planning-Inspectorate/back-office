@@ -7,6 +7,6 @@ Feature: As a Case Officer
     Then the page will show the questionnaires with the status '<status>'
     Examples:
     |status|
-    |RECEIVED|
-    |OVERDUE |
-    |AWAITING|
+    |Received|
+    #|OVERDUE |
+    #|AWAITING|

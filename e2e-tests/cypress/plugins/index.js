@@ -1,5 +1,7 @@
 // cucumber configuration
 const cucumber = require('cypress-cucumber-preprocessor').default;
+const sqlServer = require('cypress-sql-server');
+const dbConfig = require('../../cypress.json');
 //const htmlvalidate = require("cypress-html-validate/dist/plugin");
 // ***********************************************************
 // This example plugins/index.js can be used to load plugins
@@ -25,4 +27,6 @@ module.exports = (on, config) => {
             return null
         },
     });
-     }
+    const tasks = sqlServer.loadDBPlugin(dbConfig.db);
+    on('task', tasks);
+}
