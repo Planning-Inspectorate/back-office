@@ -58,7 +58,7 @@
    VALUES
     ('6922c408-e80a-472b-8b00-9377daec083d', '5c45c22d-a39c-4844-bee1-2f6829b42238', '6ff8d0ef-3767-4258-b3d3-34d48fca238b',
     '2021-11-01', 1, null, 0, null, 0, null, 1, 1, 'Easy site access', 1, 'Easy site neighbour access', 1,
-    'There are some health and safety issues', 0, 'The site is not a listed building', 0, 0, 1, 1, 1, 1);
+    'There are some health and safety issues', 0, 'The site is not a listed building', 0, 0, 1, 1, 'The development neighbourhood plan changes', 1);
 
    INSERT INTO [AppealLink]
     ([ID], [AppealID],[LPAQuestionnaireID], [CaseReference], [CaseTypeID], [CaseStatusID], [AppellantName],
