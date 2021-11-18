@@ -13,7 +13,7 @@ const invalidAppealDetailsValidation = () => [
   body('other-reason').custom((value, { req }) => {
     const valueAsArray = toArray(req.body['invalid-appeal-reasons']);
     /* istanbul ignore else  */
-    if (valueAsArray.includes('other')) {
+    if (valueAsArray.includes('5')) {
       if (!value || value.trim().length === 0) {
         throw new Error('Enter why the appeal is invalid');
       }
