@@ -15,7 +15,7 @@ describe('validation/invalid-appeal-details', () => {
   it('should pass validation when given a value', async () => {
     req = {
       body: {
-        'invalid-appeal-reasons': ['other', 'outOfTime'],
+        'invalid-appeal-reasons': ['1', '5'],
         'other-reason': 'other description',
       },
     };
@@ -46,7 +46,7 @@ describe('validation/invalid-appeal-details', () => {
   it('should fail validation if "other" option is chosen but there is no description', async () => {
     req = {
       body: {
-        'invalid-appeal-reasons': ['other', 'outOfTime'],
+        'invalid-appeal-reasons': ['1', '5'],
       },
     };
 
@@ -67,7 +67,7 @@ describe('validation/invalid-appeal-details', () => {
   it('should fail validation if request contains a reason with a wrong name', async () => {
     req = {
       body: {
-        'invalid-appeal-reasons': ['noRightOfAppeal', 'outOfTimes'],
+        'invalid-appeal-reasons': ['noRightOfAppeal', '5'],
       },
     };
 

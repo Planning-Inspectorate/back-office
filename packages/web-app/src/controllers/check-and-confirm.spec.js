@@ -124,7 +124,7 @@ describe('controllers/check-and-confirm', () => {
   });
 
   describe('postCheckAndConfirm', () => {
-    it('should call saveAndContinue with the correct params if reviewOutcome is incomplete', () => {
+    it('should call saveAndContinue with the correct params if reviewOutcome is incomplete', async () => {
       req = {
         body: {
           'check-and-confirm-completed': 'true',
@@ -147,7 +147,7 @@ describe('controllers/check-and-confirm', () => {
         getText,
       };
 
-      postCheckAndConfirm(req, res);
+      await postCheckAndConfirm(req, res);
 
       expect(saveAndContinue).toBeCalledTimes(1);
       expect(saveAndContinue).toBeCalledWith({
@@ -161,7 +161,7 @@ describe('controllers/check-and-confirm', () => {
       expect(req.session.casework.completed).toEqual('true');
     });
 
-    it('should send sendStartEmailToLPA if only reviewOutcome is valid', () => {
+    it('should send sendStartEmailToLPA if only reviewOutcome is valid', async () => {
       req = {
         body: {
           'check-and-confirm-completed': 'true',
@@ -174,7 +174,7 @@ describe('controllers/check-and-confirm', () => {
         },
       };
 
-      postCheckAndConfirm(req, res);
+      await postCheckAndConfirm(req, res);
       expect(sendStartEmailToLPA).not.toBeCalled();
 
       req.session.casework[hasAppeal.reviewOutcome] = reviewOutcomeOption.incomplete;
@@ -184,6 +184,10 @@ describe('controllers/check-and-confirm', () => {
       req.session.casework[hasAppeal.reviewOutcome] = reviewOutcomeOption.valid;
       postCheckAndConfirm(req, res);
       expect(sendStartEmailToLPA).toBeCalledTimes(1);
+    });
+
+    it('should throw an error if the review outcome is not set', () => {
+      expect(() => postCheckAndConfirm(req, res)).rejects.toThrow('No review outcome set');
     });
   });
 });

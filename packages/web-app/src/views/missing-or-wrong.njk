@@ -8,10 +8,10 @@
 {% set documentsError = errors['missing-or-wrong-documents'].msg %}
 {% set otherError = errors['other-reason'].msg %}
 
-{% set noApplicationFormChecked = missingOrWrong.documentReasons and missingOrWrong.documentReasons.includes and missingOrWrong.documentReasons.includes('noApplicationForm') %}
-{% set noDecisionNoticeChecked = missingOrWrong.documentReasons and missingOrWrong.documentReasons.includes and missingOrWrong.documentReasons.includes('noDecisionNotice') %}
-{% set noGroundsOfAppealChecked = missingOrWrong.documentReasons and missingOrWrong.documentReasons.includes and missingOrWrong.documentReasons.includes('noGroundsOfAppeal') %}
-{% set noSupportingDocumentsChecked = missingOrWrong.documentReasons and missingOrWrong.documentReasons.includes and missingOrWrong.documentReasons.includes('noSupportingDocuments') %}
+{% set noApplicationFormChecked = missingOrWrong.reasons and missingOrWrong.reasons.includes and missingOrWrong.reasons.includes('noApplicationForm') %}
+{% set noDecisionNoticeChecked = missingOrWrong.reasons and missingOrWrong.reasons.includes and missingOrWrong.reasons.includes('noDecisionNotice') %}
+{% set noGroundsOfAppealChecked = missingOrWrong.reasons and missingOrWrong.reasons.includes and missingOrWrong.reasons.includes('noGroundsOfAppeal') %}
+{% set noSupportingDocumentsChecked = missingOrWrong.reasons and missingOrWrong.reasons.includes and missingOrWrong.reasons.includes('noSupportingDocuments') %}
 {% set namesNotMatchChecked = missingOrWrong.reasons and missingOrWrong.reasons.includes and missingOrWrong.reasons.includes('namesNotMatch') %}
 {% set sensitiveInformationIncludedChecked = missingOrWrong.reasons and missingOrWrong.reasons.includes and missingOrWrong.reasons.includes('sensitiveInformationIncluded') %}
 {% set missingOrWrongDocumentsChecked = missingOrWrong.reasons and missingOrWrong.reasons.includes and missingOrWrong.reasons.includes('missingOrWrongDocuments') %}

@@ -1,3 +1,4 @@
+const addBusinessDays = require('date-fns/addBusinessDays');
 const {
   checkAndConfirm: currentPage,
   reviewComplete: nextPage,
@@ -10,8 +11,8 @@ const {
   reviewOutcomeOption,
 } = require('../config/review-appeal-submission');
 const { sendStartEmailToLPA } = require('../lib/notify');
-const { hasAppeal } = require('../config/db-fields');
-const { saveAppealData } = require('../lib/api-wrapper');
+const { hasAppeal, appealLink } = require('../config/db-fields');
+const { saveAppealData, saveAppealLinkData } = require('../lib/api-wrapper');
 
 const viewData = (appealId, casework) => {
   const validAppealDetails = casework[hasAppeal.validAppealDetails];
@@ -62,7 +63,37 @@ const postCheckAndConfirm = async (req, res) => {
     session: { appeal, casework },
   } = req;
 
-  req.session.casework.completed = req.body['check-and-confirm-completed'];
+  casework.completed = req.body['check-and-confirm-completed'];
+
+  switch (casework[hasAppeal.reviewOutcome]) {
+    case reviewOutcomeOption.valid:
+      await sendStartEmailToLPA(appeal);
+      await saveAppealLinkData({
+        appealId: appeal.appealId,
+        [appealLink.questionnaireStatusId]: 1,
+        [appealLink.caseStatusId]: 2,
+      });
+      casework[hasAppeal.appealStartDate] = new Date();
+      casework[hasAppeal.questionnaireDueDate] = addBusinessDays(new Date(), 5);
+      casework[hasAppeal.appealValidDate] = appeal.submissionDate;
+      break;
+    case reviewOutcomeOption.invalid:
+      await saveAppealLinkData({
+        appealId: appeal.appealId,
+        [appealLink.caseStatusId]: 3,
+      });
+      casework[hasAppeal.appealValidationDate] = new Date();
+      break;
+    case reviewOutcomeOption.incomplete:
+      await saveAppealLinkData({
+        appealId: appeal.appealId,
+        [appealLink.caseStatusId]: 4,
+      });
+      casework[hasAppeal.appealValidationDate] = new Date();
+      break;
+    default:
+      throw new Error('No review outcome set');
+  }
 
   const options = {
     ...viewData(appeal.appealId, casework),
@@ -70,10 +101,6 @@ const postCheckAndConfirm = async (req, res) => {
     checkAndConfirmConfig: getReviewOutcomeConfig(casework[hasAppeal.reviewOutcome]),
     getText,
   };
-
-  if (casework[hasAppeal.reviewOutcome] === reviewOutcomeOption.valid) {
-    await sendStartEmailToLPA(appeal);
-  }
 
   saveAndContinue({
     req,
