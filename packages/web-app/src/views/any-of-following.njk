@@ -1,0 +1,38 @@
+{% extends "layouts/main.njk" %}
+
+{% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
+
+{% from "components/address.njk" import address %}
+
+{% block backButton %}{% endblock %}
+
+{% block content %}
+    {{ govukCheckboxes({
+    idPrefix: "option",
+    name: "option",
+    fieldset: {
+        legend: {
+        text: "Is your appeal about any of the following?",
+        isPageHeading: true,
+        classes: "govuk-fieldset__legend--l"
+        }
+    },
+  hint: {
+    text: "Select all that apply."
+  },
+  items: [
+    {
+      value: "carcasses",
+      text: "A listed building"
+    },
+    {
+      value: "mines",
+      text: "Waste from mines or quarries"
+    },
+    {
+      value: "farm",
+      text: "Farm or agricultural waste"
+    }
+  ]
+}) }}
+{% endblock %}

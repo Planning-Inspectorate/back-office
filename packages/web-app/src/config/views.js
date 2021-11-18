@@ -1,6 +1,7 @@
 const views = {
   appealAlreadyReviewed: 'appeal-already-reviewed',
   questionnaireAlreadyReviewed: 'questionnaire-already-reviewed',
+  anyOfFollowing: 'any-of-following',
   appealsList: 'appeals-list',
   questionnairesList: 'questionnaires-list',
   document: 'document',
