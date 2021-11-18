@@ -1,0 +1,3 @@
+{% macro documentLink(appealId, documentInfo) %}
+    <a class="govuk-link" href="/document/{{ appealId }}/{{ documentInfo.id }}">{{ documentInfo.name }}</a>
+{% endmacro %}

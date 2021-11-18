@@ -1,0 +1,507 @@
+{% extends "layouts/full-page.njk" %}
+
+{% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% from "components/address.njk" import address %}
+{% from "components/document-list-link.njk" import documentListLink %}
+{% from "components/button.njk" import button %}
+{% from "components/contact-details.njk" import contactDetails %}
+{% from "components/yes-no.njk" import yesNo %}
+{% from "govuk/components/accordion/macro.njk" import govukAccordion %}
+{% from "components/document-link.njk" import documentLink %}
+
+{% block pageContent %}
+  <style>
+
+    .gem-c-contents-list__list-item--numbered .gem-c-contents-list__link{display:table}.gem-c-contents-list__number,.gem-c-contents-list__numbered-text{display:table-cell}.gem-c-contents-list__number{min-width:1.5em}.gem-c-contents-list__numbered-text{padding-left:.3em}.direction-rtl .gem-c-contents-list__numbered-text{padding-left:0;padding-right:.3em}.gem-c-contents-list{position:relative;margin:0 0 20px 0;z-index:1;background:#fff;box-shadow:0 20px 15px -10px #fff}.gem-c-contents-list__title{color:#0b0c0c;font-family:"GDS Transport",arial,sans-serif;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;font-weight:400;font-size:14px;font-size:.875rem;line-height:1.5;margin:0}@media print{.gem-c-contents-list__title{color:#000}}@media print{.gem-c-contents-list__title{font-family:sans-serif}}@media (min-width: 40.0625em){.gem-c-contents-list__title{font-size:16px;font-size:1rem;line-height:1.5}}@media print{.gem-c-contents-list__title{font-size:14pt;line-height:1.5}}.gem-c-contents-list__list,.gem-c-contents-list__nested-list{color:#0b0c0c;font-family:"GDS Transport",arial,sans-serif;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;font-weight:400;font-size:14px;font-size:.875rem;line-height:1.1428571429;margin:0;padding:0;list-style-type:none}@media print{.gem-c-contents-list__list,.gem-c-contents-list__nested-list{color:#000}}@media print{.gem-c-contents-list__list,.gem-c-contents-list__nested-list{font-family:sans-serif}}@media (min-width: 40.0625em){.gem-c-contents-list__list,.gem-c-contents-list__nested-list{font-size:16px;font-size:1rem;line-height:1.25}}@media print{.gem-c-contents-list__list,.gem-c-contents-list__nested-list{font-size:14pt;line-height:1.2}}.gem-c-contents-list__list-item--parent>.gem-c-contents-list__link{font-weight:bold}.gem-c-contents-list__link:focus,.gem-c-contents-list__link:active:focus,.gem-c-contents-list__link:link:focus,.gem-c-contents-list__link:visited:focus{outline:3px solid transparent;color:#0b0c0c;background-color:#fd0;box-shadow:0 -2px #fd0,0 4px #0b0c0c;text-decoration:none;color:#0b0c0c !important}.gem-c-contents-list__list-item{padding-top:10px;line-height:1.3;list-style-type:none}@media (min-width: 40.0625em){.gem-c-contents-list__list-item{padding-top:7.5px}}.gem-c-contents-list__list-item--dashed{position:relative;padding-left:25px;padding-right:25px}.gem-c-contents-list__list-item--dashed:before{content:"—";position:absolute;left:0;width:20px;overflow:hidden}.direction-rtl .gem-c-contents-list__list-item--dashed:before{left:auto;right:0}.lte-ie8 .gem-c-contents-list__list-item--dashed .gem-c-contents-list__link{display:inline-block;vertical-align:top}
+
+    .content-list__sticky {
+      position: -webkit-sticky;
+      position: sticky;
+      top: 0;
+    }
+
+    .govuk-link:hover {
+      color: #003078;
+    }
+
+    .govuk-link:link {
+      color: #1d70b8;
+    }
+    .govuk-link:hover {
+      text-decoration-thickness: max(3px, .1875rem, .12em);
+      -webkit-text-decoration-skip-ink: none;
+      text-decoration-skip-ink: none;
+      -webkit-text-decoration-skip: none;
+      text-decoration-skip: none;
+    }
+    .govuk-link {
+      font-family: "GDS Transport",arial,sans-serif;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      text-decoration: underline;
+      text-decoration-thickness: max(1px, .0625rem);
+      text-underline-offset: .1em;
+    }
+
+    .appeal-details-section h3 {
+      font-size: 27px;
+      margin-bottom: 0;
+      padding-bottom: 30px;
+    }
+
+    h2.section-heading {
+      border-top: 3px solid #1d70b8;
+      padding-top: 15px;
+    }
+  </style>
+  <div class="govuk-grid-column-one-quarter content-list__sticky">
+
+    <aside>
+      <nav class="gem-c-contents-list" aria-label="Contents" role="navigation">
+        <h4 class="gem-c-contents-list__title">
+          Contents
+        </h4>
+        <ol class="gem-c-contents-list__list govuk-!-margin-bottom-3">
+          <li class="gem-c-contents-list__list-item">
+            <a class="gem-c-contents-list__link govuk-link govuk-link--no-underline" href="#summary">
+              Summary
+            </a>
+          </li>
+          <li class="gem-c-contents-list__list-item">
+            <a class="gem-c-contents-list__link govuk-link govuk-link--no-underline" href="#case-file">
+              Case file
+            </a>
+          </li>
+          <li class="gem-c-contents-list__list-item gem-c-contents-list__list-item--dashed">
+            <a class="gem-c-contents-list__link govuk-link govuk-link--no-underline" href="#key-dates">
+              Key dates
+            </a>
+          </li>
+          <li class="gem-c-contents-list__list-item gem-c-contents-list__list-item--dashed">
+            <a class="gem-c-contents-list__link govuk-link govuk-link--no-underline" href="#contact-details">
+              Contact details
+            </a>
+          </li>
+          <li class="gem-c-contents-list__list-item gem-c-contents-list__list-item--dashed">
+            <a class="gem-c-contents-list__link govuk-link govuk-link--no-underline" href="#evidence">
+              Evidence
+            </a>
+          </li>
+          <!--<li class="gem-c-contents-list__list-item gem-c-contents-list__list-item--dashed">
+            <a class="gem-c-contents-list__link govuk-link govuk-link--no-underline" href="#notes">
+              Notes
+            </a>
+          </li>-->
+          <li class="gem-c-contents-list__list-item">
+            <a class="gem-c-contents-list__link govuk-link govuk-link--no-underline" href="#stages">
+              Stages
+            </a>
+          </li>
+          <li class="gem-c-contents-list__list-item gem-c-contents-list__list-item--dashed">
+            <a class="gem-c-contents-list__link govuk-link govuk-link--no-underline" href="#validation">
+              Validation
+            </a>
+          </li>
+          <li class="gem-c-contents-list__list-item gem-c-contents-list__list-item--dashed">
+            <a class="gem-c-contents-list__link govuk-link govuk-link--no-underline" href="#start">
+              Start
+            </a>
+          </li>
+          <li class="gem-c-contents-list__list-item gem-c-contents-list__list-item--dashed">
+            <a class="gem-c-contents-list__link govuk-link govuk-link--no-underline" href="#questionnaire">
+              Questionnaire
+            </a>
+          </li>
+          <li class="gem-c-contents-list__list-item gem-c-contents-list__list-item--dashed">
+            <a class="gem-c-contents-list__link govuk-link govuk-link--no-underline" href="#site-visit">
+              Site visit
+            </a>
+          </li>
+          <li class="gem-c-contents-list__list-item gem-c-contents-list__list-item--dashed">
+            <a class="gem-c-contents-list__link govuk-link govuk-link--no-underline" href="#decision">
+              Decision
+            </a>
+          </li>
+        </ol>
+      </nav>
+    </aside>
+
+  </div>
+
+  <div class="govuk-grid-column-three-quarters">
+
+    <h2 id="summary" class="govuk-heading-l section-heading">Summary</h2>
+
+    {{ govukSummaryList({
+      rows: [
+        { key: { text: "Appeal reference" },
+          value: { text: appealData.caseReference }
+        },
+        {
+          key: { text: "Appellant" },
+          value: { text: appealData.appellantName }
+        },
+        {
+          key: { text: "Site address" },
+          value: { html: address({
+          addressLine1: appealData.siteAddressLineOne,
+          addressLine2: appealData.siteAddressLineTwo,
+          town: appealData.siteAddressTown,
+          county: appealData.siteAddressCounty,
+          postcode: appealData.siteAddressPostCode
+        }, true) }
+        },
+        {
+          key: { text: "Local planning department" },
+          value: { text: appealData.localPlanningAuthorityName }
+        }
+      ]
+    }) }}
+
+    <h2 id="case-file" class="govuk-heading-l govuk-!-margin-top-9 section-heading">Case File</h2>
+
+    <div id="key-dates">
+      <h3 class="govuk-heading-m">Key dates</h3>
+      {{ govukSummaryList({
+        rows: [
+          {
+            key: { text: "Appeal decision date"},
+            value: { text: appealData.decisionDate | date }
+          },
+          {
+            key: { text: "Appeal submission date"},
+            value: { text: appealData.submissionDate | date }
+          },
+          {
+            key: { text: "Validation date"},
+            value: { text: appealData.appealValidationDate | date }
+          }
+        ]
+      }) }}
+    </div>
+
+    <div id="contact-details" class="govuk-!-margin-top-9">
+      <h3 class="govuk-heading-m">Contact Details</h3>
+      {{ govukSummaryList({
+        rows: [
+          {
+            key: { text: "Appellant" },
+            value: { text: appealData.appellantName }
+          },
+          {
+            key: { text: "Agent" },
+            value: { text: 'No agent for this appeal' if appealData.creatorOriginalApplicant else appealData.creatorName }
+          },
+          {
+            key: { text: "Validation officer" },
+            value: { text: contactDetails(appealData.validationOfficerFirstName, appealData.validationOfficerSurname, appealData.validationOfficerEmail) }
+          },
+          {
+            key: { text: "Case officer" },
+            value: { text: contactDetails(appealData.caseOfficerFirstName, appealData.caseOfficerSurname, appealData.caseOfficerEmail) }
+          },
+          {
+            key: { text: "Inspector" },
+            value: { text: contactDetails(appealData.inspectorFirstName, appealData.inspectorSurname, appealData.inspectorEmail) }
+          }
+        ]
+      }) }}
+    </div>
+
+    <div id="evidence" class="govuk-!-margin-top-9">
+      <h3 class="govuk-heading-m">Evidence</h3>
+      {{ govukAccordion({
+        id: "accordion-default",
+        items: [
+          {
+            heading: {
+              text: "Case details"
+            },
+            content: {
+              html: govukSummaryList({
+              rows: [
+                {
+                  key: { text: "Appellant name" },
+                  value: { text: appealData.appellantName }
+                },
+                {
+                  key: { text: "Agent name" },
+                  value: { text: 'No agent for this appeal' if appealData.creatorOriginalApplicant else appealData.creatorName }
+                },
+                {
+                  key: { text: "Contact email address" },
+                  value: { text: appealData.creatorEmailAddress }
+                },
+                {
+                  key: { text: "Date appeal received" },
+                  value: { text: appealData.submissionDate | date }
+                },
+                {
+                  key: { text: "Description of development" },
+                  value: { text: appealData.descriptionDevelopment }
+                }
+              ]
+            })
+            }
+          },
+          {
+            heading: {
+              text: "Appellant case"
+            },
+            content: {
+              html: govukSummaryList({
+              rows: [
+                {
+                  key: { text: "Appeal statement" },
+                  value: { html: documentLink(appealData.appealId, appealData.appealStatement) }
+                },
+                {
+                  key: { text: "Supporting documents" },
+                  value: { html: documentListLink(appealData.appealId, appealData.otherDocuments) }
+                }
+              ]
+            })
+            }
+          },
+          {
+            heading: {
+              text: "Local planning department documents"
+            },
+            content: {
+              html: govukSummaryList({
+              rows: [
+                {
+                  key: { text: "Plans used to reach decision" },
+                  value: { html: documentListLink(questionnaireData.lpaQuestionnaireId, questionnaireData.decisionPlans) }
+                },
+                {
+                  key: { text: "Planning application form" },
+                  value: { html: documentLink(questionnaireData.lpaQuestionnaireId, questionnaireData.originalApplication) }
+                },
+                {
+                  key: { text: "Planning Officers report" },
+                  value: { html: documentListLink(questionnaireData.lpaQuestionnaireId, questionnaireData.officersReport) }
+                },
+                {
+                  key: { text: "Decision notice" },
+                  value: { html: documentListLink(questionnaireData.lpaQuestionnaireId, questionnaireData.decisionPlans) }
+                },
+                {
+                  key: { text: "Extra conditions" },
+                  value: { html: yesNo(questionnaireData.extraConditions) }
+                },
+                {
+                  key: { text: "Details of planning history" },
+                  value: { html: documentListLink(questionnaireData.lpaQuestionnaireId, questionnaireData.planningHistory) }
+                },
+                {
+                  key: { text: "Supporting documents" },
+                  value: { html: documentListLink(questionnaireData.lpaQuestionnaireId, questionnaireData.supplementaryDocuments) }
+                }
+              ]
+            })
+            }
+          },
+          {
+            heading: {
+              text: "Constraints"
+            },
+            content: {
+              html: govukSummaryList({
+              rows: [
+                {
+                  key: { text: "Affects listed building" },
+                  value: { text: yesNo(appealData.affectListedBuilding) }
+                },
+                {
+                  key: { text: "In green belt" },
+                  value: { text: yesNo(appealData.greenBelt) }
+                },
+                {
+                  key: { text: "In or near a conservation area" },
+                  value: { text: yesNo(appealData.conservationArea) }
+                }
+              ]
+            })
+            }
+          },
+          {
+            heading: {
+              text: "Policies"
+            },
+            content: {
+              html: govukSummaryList({
+              rows: [
+                {
+                  key: { text: "Statutory development plan policy" },
+                  value: { html: documentListLink(questionnaireData.lpaQuestionnaireId, questionnaireData.statutoryDevelopment) }
+                },
+                {
+                  key: { text: "Other relevant policies" },
+                  value: { html: documentListLink(questionnaireData.lpaQuestionnaireId, questionnaireData.otherPolicies) }
+                },
+                {
+                  key: { text: "Supplementary planning documents" },
+                  value: { html: documentListLink(questionnaireData.lpaQuestionnaireId, questionnaireData.supplementaryDocuments) }
+                },
+                {
+                  key: { text: "Emerging development plan or neighbourhood plan" },
+                  value: { html: yesNo(questionnaireData.developmentNeighbourhoodPlanSubmitted) }
+                }
+              ]
+            })
+            }
+          },
+          {
+            heading: {
+              text: "Representation"
+            },
+            content: {
+              html: govukSummaryList({
+              rows: [
+                {
+                  key: { text: "Representations" },
+                  value: { html: documentListLink(questionnaireData.lpaQuestionnaireId, questionnaireData.representations) }
+                }
+              ]
+            })
+            }
+          },
+          {
+            heading: {
+              text: "Correspondence"
+            },
+            content: {
+              html: govukSummaryList({
+              rows: [
+                {
+                  key: { text: "Application notification" },
+                  value: { html: documentListLink(questionnaireData.lpaQuestionnaireId, questionnaireData.notifyingParties) }
+                },
+                {
+                  key: { text: "Application publicity" },
+                  value: { html: documentListLink(questionnaireData.lpaQuestionnaireId, questionnaireData.interestedParties) }
+                },
+                {
+                  key: { text: "Appeal notification" },
+                  value: { html: documentListLink(questionnaireData.lpaQuestionnaireId, questionnaireData.representations) }
+                }
+              ]
+            })
+            }
+          }
+        ]
+      }) }}
+    </div>
+
+    <h2 id="stages" class="govuk-heading-l govuk-!-margin-top-9 section-heading">Stages</h2>
+
+    <div id="validation" class="govuk-!-margin-top-9">
+      <h3 class="govuk-heading-m">Validation</h3>
+      {{ govukSummaryList({
+        rows: [
+          { key: { text: "Outcome" },
+            value: { text: "Valid" }
+          },
+          {
+            key: { text: "Timestamp" },
+            value: { text: appealData.appealStartDate | date }
+          },
+          {
+            key: { text: "Validation officer" },
+            value: { text: contactDetails(appealData.validationOfficerFirstName, appealData.validationOfficerSurname, appealData.validationOfficerEmail, false) }
+          }
+        ]
+      }) }}
+    </div>
+
+    <div id="start" class="govuk-!-margin-top-9">
+      <h3 class="govuk-heading-m">Start</h3>
+      {{ govukSummaryList({
+        rows: [
+          { key: { text: "Outcome" },
+            value: { text: "Valid" }
+          },
+          {
+            key: { text: "Timestamp" },
+            value: { text: appealData.appealValidationDate | date }
+          },
+          {
+            key: { text: "Case officer" },
+            value: { text: contactDetails(appealData.caseOfficerFirstName, appealData.caseOfficerSurname, appealData.caseOfficerEmail, false) }
+          }
+        ]
+      }) }}
+    </div>
+
+    <div id="questionnaire" class="govuk-!-margin-top-9">
+      <h3 class="govuk-heading-m">Questionnaire</h3>
+      {{ govukSummaryList({
+        rows: [
+          { key: { text: "Status" },
+            value: { text: questionnaireData.questionnaireStatus }
+          },
+          { key: { text: "Outcome" },
+            value: { text: questionnaireData.lpaQuestionnaireOutcomeName }
+          },
+          {
+            key: { text: "Timestamp" },
+            value: { text: questionnaireData.submissionDate | date }
+          },
+          {
+            key: { text: "Case officer" },
+            value: { text: contactDetails(appealData.caseOfficerFirstName, appealData.caseOfficerSurname, appealData.caseOfficerEmail, false) }
+          }
+        ]
+      }) }}
+    </div>
+
+    <div id="site-visit" class="govuk-!-margin-top-9">
+      <h3 class="govuk-heading-m">Site visit</h3>
+      {{ govukSummaryList({
+        rows: [
+          { key: { text: "Provisional type" },
+            value: { text: questionnaireData.recommendedSiteVisitTypeName }
+          },
+          { key: { text: "Confirmed type" },
+            value: { text: questionnaireData.siteVisitTypeName }
+          },
+          {
+            key: { text: "Date" },
+            value: { text: questionnaireData.scheduledSiteVisitDate | date }
+          },
+          {
+            key: { text: "Time" },
+            value: { text: "15:30 to 17:30" }
+          }
+        ]
+      }) }}
+    </div>
+
+    <div id="decision" class="govuk-!-margin-top-9">
+      <h3 class="govuk-heading-m">Decision</h3>
+      {{ govukSummaryList({
+        rows: [
+          { key: { text: "Outcome" },
+            value: { text: appealData.decisionOutcomeName }
+          },
+          {
+            key: { text: "Date of decision" },
+            value: { text: appealData.questionnaireDecisionDate | date }
+          },
+          {
+            key: { text: "Decision report" },
+            value: { text: "Not available yet" }
+          },
+          {
+            key: { text: "State" },
+            value: { text: "Open" }
+          }
+        ]
+      }) }}
+    </div>
+
+  </div>
+
+{% endblock %}

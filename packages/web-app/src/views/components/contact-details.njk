@@ -1,0 +1,6 @@
+{% macro contactDetails(firstName, surname, email, showEmail = true) %}
+    <p class="govuk-body">{{ firstName }} {{ surname }}</p>
+    {% if showEmail %}
+        <p class="govuk-body"><a class="govuk-link" href="mailto:{{ email }}">{{ email }}</a></p>
+    {% endif %}
+{% endmacro %}

@@ -3,8 +3,9 @@
 {% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
 {% from "govuk/components/radios/macro.njk" import govukRadios %}
 {% from "components/address.njk" import address %}
-{% from "components/unorderedList.njk" import unorderedList %}
+{% from "components/document-list-link.njk" import documentListLink %}
 {% from "components/button.njk" import button %}
+{% from "components/document-link.njk" import documentLink %}
 
 {% block formContent %}
   {{ govukSummaryList({
@@ -47,11 +48,11 @@
     rows: [
       {
         key: { text: "Planning application form" },
-        value: { html: '<a class="govuk-link" href="/document/'+appealData.appealId+'/'+appealData.originalApplication.id+'">' + appealData.originalApplication.name + '</a>' }
+        value: { html: documentLink(appealData.appealId, appealData.originalApplication) }
       },
       {
         key: { text: "Decision letter" },
-        value: { html: '<a a class="govuk-link" href="/document/'+appealData.appealId+'/'+appealData.decisionLetter.id+'">' + appealData.decisionLetter.name + '</a>' }
+        value: { html: documentLink(appealData.appealId, appealData.decisionLetter) }
       }
     ]
   }) }}
@@ -62,11 +63,11 @@
     rows: [
       {
         key: { text: "Appeal statement" },
-        value: { html: '<a a class="govuk-link" href="/document/'+appealData.appealId+'/'+appealData.appealStatement.id+'">' + appealData.appealStatement.name + '</a>' }
+        value: { html: documentLink(appealData.appealId, appealData.appealStatement) }
       },
       {
         key: { text: "Supporting documents" },
-        value: { html: unorderedList(appealData.otherDocuments, '/document/'+appealData.appealId) }
+        value: { html: documentListLink(appealData.appealId, appealData.otherDocuments) }
       }
     ]
   }) }}
