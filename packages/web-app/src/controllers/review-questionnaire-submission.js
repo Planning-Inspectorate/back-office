@@ -200,10 +200,12 @@ const getReviewQuestionnaireSubmission = (req, res) => {
   } = req;
 
   const viewData = createPageData(appeal, questionnaire);
+  const values = questionnaire.missingOrIncorrectInformation;
 
   res.render(currentPage, {
     pageTitle: 'Review questionnaire',
     ...viewData,
+    values,
   });
 };
 
@@ -284,6 +286,7 @@ const postReviewQuestionnaireSubmission = (req, res) => {
   };
 
   req.session.questionnaire.missingOrIncorrectDocuments = missingOrIncorrectDocuments;
+  req.session.questionnaire.missingOrIncorrectInformation = values;
   req.session.questionnaire.outcome =
     missingOrIncorrectDocuments.length > 0 ? REVIEWOUTCOME.INCOMPLETE : REVIEWOUTCOME.COMPLETE;
 

@@ -37,6 +37,7 @@ describe('controllers/review-questionnaire', () => {
       } = req;
 
       viewData = createPageData(appeal, questionnaire);
+      const values = questionnaire.missingOrIncorrectInformation;
 
       getReviewQuestionnaireSubmission(req, res);
 
@@ -44,6 +45,7 @@ describe('controllers/review-questionnaire', () => {
       expect(res.render).toBeCalledWith(currentPage, {
         pageTitle: 'Review questionnaire',
         ...viewData,
+        values,
       });
     });
 
@@ -53,6 +55,7 @@ describe('controllers/review-questionnaire', () => {
       } = req;
 
       viewData = createPageData(appeal, questionnaire);
+      const values = questionnaire.missingOrIncorrectInformation;
 
       getReviewQuestionnaireSubmission(req, res);
 
@@ -60,6 +63,7 @@ describe('controllers/review-questionnaire', () => {
       expect(res.render).toBeCalledWith(currentPage, {
         pageTitle: 'Review questionnaire',
         ...viewData,
+        values
       });
     });
 
@@ -71,6 +75,7 @@ describe('controllers/review-questionnaire', () => {
       } = req;
 
       viewData = createPageData(appeal, questionnaire);
+      const values = questionnaire.missingOrIncorrectInformation;
 
       getReviewQuestionnaireSubmission(req, res);
 
@@ -78,6 +83,7 @@ describe('controllers/review-questionnaire', () => {
       expect(res.render).toBeCalledWith(currentPage, {
         pageTitle: 'Review questionnaire',
         ...viewData,
+        values,
       });
     });
   });
