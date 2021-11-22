@@ -27,7 +27,6 @@ describe('controllers/appeal-details', () => {
       expect(res.render).toBeCalledTimes(1);
       expect(res.render).toBeCalledWith(currentPage, {
         pageTitle: 'Appeal details',
-        backLink: '/appeals-list',
         appealData: {
           ...appeal,
         },

@@ -17,13 +17,15 @@ const reviewQuestionnaireSubmission = require('./review-questionnaire-submission
 const questionnaireCheckAndConfirm = require('./questionnaire-check-and-confirm');
 const questionnaireAlreadyReviewed = require('./questionnaire-already-reviewed');
 const appealDetails = require('./appeal-details');
+const appealSearch = require('./appeal-search');
+const appealSearchResults = require('./appeal-search-results');
 
 describe('routes/index', () => {
   it('should define the correct routes', () => {
     // eslint-disable-next-line global-require
     require('./index');
 
-    expect(mockUse).toBeCalledTimes(18);
+    expect(mockUse).toBeCalledTimes(20);
     expect(mockUse).toBeCalledWith('/', appealsList);
     expect(mockUse).toBeCalledWith('/', questionnairesList);
     expect(mockUse).toBeCalledWith('/', home);
@@ -64,5 +66,7 @@ describe('routes/index', () => {
     );
     expect(mockUse).toBeCalledWith(`/questionnaire-already-reviewed`, questionnaireAlreadyReviewed);
     expect(mockUse).toBeCalledWith(`/${views.appealDetails}/:appealId`, getCaseData, appealDetails);
+    expect(mockUse).toBeCalledWith(`/${views.search}`, appealSearch);
+    expect(mockUse).toBeCalledWith(`/${views.search}`, appealSearchResults);
   });
 });

@@ -1,0 +1,13 @@
+{% extends "layouts/form.njk" %}
+
+{% from "components/search-box.njk" import searchBox %}
+
+{% block backButton %}
+{% endblock %}
+
+{% block formContent %}
+  {{ searchBox(
+    'Search appeals',
+    'Search by appeal reference, site address, appellant/agent name or LPA application number.'
+  ) }}
+{% endblock %}

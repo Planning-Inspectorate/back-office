@@ -8,6 +8,7 @@ const {
   saveAppealLinkData,
   saveAppealSubmissionData,
   saveQuestionnaireData,
+  searchAppeals,
 } = require('./api-wrapper');
 const singleAppealDataRaw = require('../../test/data/single-appeal-data-raw');
 const singleAppealDataFormatted = require('../../test/data/single-appeal-data-formatted');
@@ -15,6 +16,7 @@ const appealDataList = require('../../test/data/appeal-data-list');
 const singleQuestionnaireDataRaw = require('../../test/data/single-questionnaire-data-raw');
 const singleQuestionnaireDataFormatted = require('../../test/data/single-questionnaire-data-formatted');
 const questionnaireDataList = require('../../test/data/questionnaire-data-list');
+const appealSearchResults = require('../../test/data/appeal-search-results');
 
 const invalidDocumentList = [
   {
@@ -330,6 +332,39 @@ describe('lib/apiWrapper', () => {
         body: JSON.stringify(data),
         headers: { 'Content-Type': 'application/json' },
       });
+    });
+  });
+
+  describe('searchAppeals', () => {
+    it('should return the correct data when appeals are found', async () => {
+      fetch.mockImplementation(() => ({
+        ok: true,
+        json: jest.fn().mockReturnValue(appealSearchResults),
+      }));
+
+      const result = await searchAppeals();
+
+      expect(result).toEqual(appealSearchResults);
+    });
+
+    it('should return an empty array when appeals are not found', async () => {
+      fetch.mockImplementation(() => ({
+        ok: false,
+      }));
+
+      const result = await searchAppeals();
+
+      expect(result).toEqual([]);
+    });
+
+    it('should throw an error when an error occurs', async () => {
+      fetch.mockImplementation(() => {
+        throw new Error('Internal Server Error');
+      });
+
+      expect(() => searchAppeals()).rejects.toThrow(
+        'Failed to search appeals with error - Error: Internal Server Error'
+      );
     });
   });
 });

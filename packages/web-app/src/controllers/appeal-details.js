@@ -1,8 +1,7 @@
-const { appealsList, appealDetails: currentPage } = require('../config/views');
+const { appealDetails: currentPage } = require('../config/views');
 
 const viewData = (appeal, questionnaire) => ({
   pageTitle: 'Appeal details',
-  backLink: `/${appealsList}`,
   appealData: {
     ...appeal,
   },
