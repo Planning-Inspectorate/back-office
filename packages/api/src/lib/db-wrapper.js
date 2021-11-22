@@ -1,3 +1,4 @@
+/* istanbul ignore file */
 const ApiError = require('./api-error');
 const db = require('./db-connect');
 
@@ -7,6 +8,15 @@ const createRecord = (procedure, data) => {
     return db.query(query, { replacements: [JSON.stringify(data)] });
   } catch (err) {
     throw new ApiError(`Failed to execute ${procedure} with error - ${err.toString()}`);
+  }
+};
+
+const searchAppeal = (data) => {
+  try {
+    const query = `EXEC ViewAppealSearch @strFind = ?`;
+    return db.query(query, { replacements: [data] });
+  } catch (err) {
+    throw new ApiError(`Failed to execute ViewAppealSearch with error - ${err.toString()}`);
   }
 };
 
@@ -64,4 +74,5 @@ module.exports = {
   findOneAppeal,
   findAllQuestionnaires,
   findOneQuestionnaire,
+  searchAppeal,
 };
