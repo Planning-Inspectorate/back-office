@@ -11,10 +11,11 @@ const createRecord = (procedure, data) => {
   }
 };
 
-const searchAppeal = (data) => {
+const searchAppeal = async (data) => {
   try {
-    const query = `EXEC ViewAppealSearch @strFind = ?`;
-    return db.query(query, { replacements: [data] });
+    const query = 'EXEC ViewAppealSearch @strFind = ?';
+    const result = await db.query(query, { replacements: [data] });
+    return result[0];
   } catch (err) {
     throw new ApiError(`Failed to execute ViewAppealSearch with error - ${err.toString()}`);
   }
