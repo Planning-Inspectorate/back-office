@@ -9,6 +9,7 @@ const {
 const appealDataUrl = `${backOfficeUrl}/api/v1/appeal`;
 const appealLinkDataUrl = `${backOfficeUrl}/api/v1/appeal-link`;
 const appealSubmissionDataUrl = `${backOfficeUrl}/api/v1/appeal-submission`;
+const appealSearchUrl = `${backOfficeUrl}/api/v1/appeal-search`;
 const questionnaireDataUrl = `${backOfficeUrl}/api/v1/questionnaire`;
 
 const formatDocumentsAndAddToData = (data) => {
@@ -115,6 +116,20 @@ const saveAppealLinkData = (data) => saveData(appealLinkDataUrl, data);
 const saveAppealSubmissionData = (data) => saveData(appealSubmissionDataUrl, data);
 const saveQuestionnaireData = (data) => saveData(questionnaireDataUrl, data);
 
+const searchAppeals = async (searchString) => {
+  try {
+    const appealApiResponse = await fetch(`${appealSearchUrl}/${searchString}`);
+
+    if (appealApiResponse.ok) {
+      return appealApiResponse.json();
+    }
+
+    return [];
+  } catch (err) {
+    throw new Error(`Failed to search appeals with error - ${err.toString()}`);
+  }
+};
+
 module.exports = {
   getAppealData,
   getAllAppeals,
@@ -124,4 +139,5 @@ module.exports = {
   saveAppealLinkData,
   saveAppealSubmissionData,
   saveQuestionnaireData,
+  searchAppeals,
 };

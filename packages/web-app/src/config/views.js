@@ -16,6 +16,8 @@ const views = {
   questionnairesForReview: 'questionnaires-for-review',
   reviewQuestionnaireSubmission: 'review-questionnaire-submission',
   questionnairecheckAndConfirm: 'questionnaire-check-and-confirm',
+  search: 'search',
+  searchResults: 'search-results',
 };
 
 module.exports = views;

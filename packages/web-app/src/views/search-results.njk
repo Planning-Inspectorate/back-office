@@ -1,0 +1,35 @@
+{% extends "layouts/main.njk" %}
+
+{% from "govuk/components/table/macro.njk" import govukTable %}
+
+{% set searchResultsDisplay = [] %}
+
+{% for result in searchResults %}
+  {% set searchResultsDisplay = (searchResultsDisplay.push([
+    { html: "<a href=\"/appeal-details/" + result.appealId + "\" class=\"govuk-link\">" + result.caseReference + "</a>" },
+    { text: result.appellantName },
+    { text: result.siteAddress }
+  ]), searchResultsDisplay) %}
+{% endfor %}
+
+{% block backButton %}
+{% endblock %}
+
+{% block content %}
+  <h1 class="govuk-heading-xl">{{ pageTitle }}</h1>
+  <p class="govuk-body">You searched for '{{ searchString }}'.</p>
+
+  {% if searchResultsDisplay | length %}
+    {{ govukTable({
+      head: [
+        { text: "Reference" },
+        { text: "Appellant name" },
+        { text: "Site address" }
+      ],
+      rows: searchResultsDisplay
+    }) }}
+  {% else %}
+    <p class="govuk-body">We couldn't find any appeals matching your search.</p>
+    <p class="govuk-body"><a href="/search" class="govuk-link">Back to search</a></p>
+  {% endif %}
+{% endblock %}
