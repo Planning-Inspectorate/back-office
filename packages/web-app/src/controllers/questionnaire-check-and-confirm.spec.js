@@ -16,7 +16,7 @@ describe('controllers/questionnaire-check-and-confirm', () => {
     it('should render the view with incomplete outcome correctly', async () => {
       req = {
         session: {
-          appeal: { id: '5c943cb9-e029-4094-a447-4b3256d6ede7' },
+          appeal: { appealId: '5c943cb9-e029-4094-a447-4b3256d6ede7' },
           questionnaire: {
             outcome: 'Incomplete',
           },
@@ -31,7 +31,7 @@ describe('controllers/questionnaire-check-and-confirm', () => {
       expect(res.render).toBeCalledTimes(1);
       expect(res.render).toBeCalledWith('questionnaire-check-and-confirm', {
         pageTitle: 'Review questionnaire',
-        previousPage: `${previousPage}/${appeal.appealId}`,
+        previousPage: `/${previousPage}/${appeal.appealId}`,
         questionnaireData: questionnaire,
         reviewOutcome: 'Incomplete',
       });
@@ -54,7 +54,7 @@ describe('controllers/questionnaire-check-and-confirm', () => {
       expect(res.render).toBeCalledTimes(1);
       expect(res.render).toBeCalledWith('questionnaire-check-and-confirm', {
         pageTitle: 'Review questionnaire',
-        previousPage: `${previousPage}/${appeal.appealId}`,
+        previousPage: `/${previousPage}/${appeal.appealId}`,
         questionnaireData: questionnaire,
         reviewOutcome: 'Complete',
       });
@@ -75,7 +75,7 @@ describe('controllers/questionnaire-check-and-confirm', () => {
 
       await setCheckAndConfirm(req, res);
 
-      expect(res.render).toBeCalledWith('review-questionnaire', {
+      expect(res.render).toBeCalledWith('review-questionnaire-complete', {
         pageTitle: 'Review questionnaire',
         appealData: req.session.appeal,
         questionnaireData: req.session.questionnaire,
@@ -95,7 +95,7 @@ describe('controllers/questionnaire-check-and-confirm', () => {
 
       await setCheckAndConfirm(req, res);
 
-      expect(res.render).toBeCalledWith('review-questionnaire', {
+      expect(res.render).toBeCalledWith('review-questionnaire-complete', {
         pageTitle: 'Review questionnaire',
         appealData: req.session.appeal,
         questionnaireData: req.session.questionnaire,
