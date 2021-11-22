@@ -1,4 +1,4 @@
-{% extends "layouts/form.njk" %}
+{% extends "layouts/two-thirds-page.njk" %}
 
 {% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
 {% from "components/address.njk" import address %}
@@ -8,13 +8,7 @@
 {% from "govuk/components/accordion/macro.njk" import govukAccordion %}
 {% from "components/document-link.njk" import documentLink %}
 
-{% block formContent %}
-
-    <style>
-        .govuk-accordion__section-content .govuk-summary-list__row:last-child .govuk-summary-list__key, .govuk-accordion__section-content .govuk-summary-list__row:last-child .govuk-summary-list__value, .govuk-accordion__section-content .govuk-summary-list__row:last-child .govuk-summary-list__actions {
-            border-bottom: 0;
-        }
-    </style>
+{% block pageContent %}
 
     <h2 id="summary" class="govuk-heading-l section-heading">Summary</h2>
 
@@ -60,11 +54,11 @@
           },
           {
             key: { text: "Validation date"},
-            value: { text: appealData.appealValidationDate | date if appealData.validationOutcomeKey !== 'valid' else ''}
+            value: { text: appealData.appealValidationDate | date if appealData.validationOutcomeId !== 1 else ''}
           },
           {
             key: { text: "Valid date"},
-            value: { text: appealData.appealValidDate | date if appealData.validationOutcomeKey === 'valid' else '' }
+            value: { text: appealData.appealValidDate | date if appealData.validationOutcomeId === 1 else '' }
           }
         ]
       }) }}

@@ -6,11 +6,6 @@ const reviewOutcomeOption = {
   incomplete: '3',
 };
 
-const reviewOutComeById = Object.keys(reviewOutcomeOption).reduce((result, current) => {
-  const key = reviewOutcomeOption[current];
-  return Object.assign(result, { [key]: current });
-}, {});
-
 const missingOrWrongReasons = {
   noApplicationForm: {
     text: 'Application form',
@@ -107,5 +102,4 @@ module.exports = {
   getReviewOutcomeConfig,
   getText,
   reviewOutcomeOption,
-  reviewOutComeById,
 };

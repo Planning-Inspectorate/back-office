@@ -4,3 +4,12 @@
 a {
   @extend .govuk-link;
 }
+
+.govuk-accordion__section-content .govuk-summary-list__row:last-child .govuk-summary-list__key, .govuk-accordion__section-content .govuk-summary-list__row:last-child .govuk-summary-list__value, .govuk-accordion__section-content .govuk-summary-list__row:last-child .govuk-summary-list__actions {
+  border-bottom: 0;
+}
+
+h2.section-heading {
+  border-top: 3px solid #1d70b8;
+  padding-top: 15px;
+}

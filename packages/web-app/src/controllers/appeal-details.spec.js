@@ -1,7 +1,6 @@
 const { getAppealDetails } = require('./appeal-details');
 const views = require('../config/views');
 const { mockReq, mockRes } = require('../../test/utils/mocks');
-const { reviewOutComeById } = require('../config/review-appeal-submission');
 
 jest.mock('../lib/api-wrapper');
 jest.mock('../lib/save-and-continue');
@@ -31,7 +30,6 @@ describe('controllers/appeal-details', () => {
         backLink: '/appeals-list',
         appealData: {
           ...appeal,
-          validationOutcomeKey: reviewOutComeById[appeal.validationOutcomeId],
         },
         questionnaireData: questionnaire,
       });
