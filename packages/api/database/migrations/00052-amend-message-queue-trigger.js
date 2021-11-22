@@ -180,8 +180,7 @@ const migration = {
                       VALUES(
                           @ID,
                           @AppealID,
-                          50000000+FLOOR((99999999-50000000+1)*RAND(CONVERT(VARBINARY,NEWID()))),
-                          2,
+                          50000000+FLOOR((99999999-50000000+1)*RAND(CONVERT(VARBINARY,NEWID()))),                          2,
                           CASE WHEN JSON_VALUE(@Data,'$.aboutYouSection.yourDetails.name')='' THEN NULL ELSE JSON_VALUE(@Data,'$.aboutYouSection.yourDetails.name') END,
                           CASE WHEN JSON_VALUE(@Data,'$.appealSiteSection.siteAddress.addressLine1')='' THEN NULL ELSE JSON_VALUE(@Data,'$.appealSiteSection.siteAddress.addressLine1') END,
                           CASE WHEN JSON_VALUE(@Data,'$.appealSiteSection.siteAddress.addressLine2')='' THEN NULL ELSE JSON_VALUE(@Data,'$.appealSiteSection.siteAddress.addressLine2') END,
@@ -289,6 +288,11 @@ const migration = {
                               GETDATE(),
                               '00000000-0000-0000-0000-000000000000',
                               'SYSTEM');
+
+                          IF EXISTS(SELECT 1 FROM AppealLink WHERE AppealID = @AppealID AND LatestEvent = 1)
+                          BEGIN
+                            UPDATE AppealLink SET QuestionnaireStatusID = 2 WHERE AppealID = @AppealID AND LatestEvent = 1
+                          END;
                       END;
                   END;
               END;
@@ -309,7 +313,7 @@ const migration = {
     await queryInterface.sequelize.query('DROP TRIGGER [AfterInsertMessageQueue]');
 
     await queryInterface.sequelize.query(`
-      CREATE TRIGGER [dbo].[AfterInsertMessageQueue] ON [dbo].[MessageQueue]
+        CREATE TRIGGER [dbo].[AfterInsertMessageQueue] ON [dbo].[MessageQueue]
       FOR INSERT
       AS DECLARE @ID CHAR(36),
           @RowID INT,
@@ -595,6 +599,11 @@ const migration = {
                               GETDATE(),
                               '00000000-0000-0000-0000-000000000000',
                               'SYSTEM');
+
+                          IF EXISTS(SELECT 1 FROM AppealLink WHERE AppealID = @AppealID AND LatestEvent = 1)
+                          BEGIN
+                            UPDATE AppealLink SET QuestionnaireStatusID = 2 WHERE AppealID = @AppealID AND LatestEvent = 1
+                          END;
                       END;
                   END;
               END;
