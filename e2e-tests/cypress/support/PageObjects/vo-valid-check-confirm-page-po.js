@@ -9,5 +9,5 @@ export const btnConfirmAndStartAppeal = () => cy.get('.govuk-button').should('co
 export const pageTitleValidCheckConfirm = () => cy.title().should('include','Check and confirm - Appeal a householder planning decision - GOV.UK');
 
 export const outcomeOfReview = () => cy.findAllByText('Valid').should('exist');
-
-export const verifyDescriptionOfDevelopmentText = () => cy.findAllByText('This is a test description for Valid Outcome').should('exist');
+export const outcomeOfReviewLabel = () => cy.findByText('Outcome of review');
+export const verifyDescriptionOfDevelopmentText = () => cy.findAllByText('Description of');

@@ -11,14 +11,14 @@ import {
 } from "../../../support/PageObjects/vo-review-appeal-submission-page-po";
 import {backLink, continueButton, linkChangeOutcome} from "../../../support/PageObjects/common-po";
 import {
-    checkAndConfirmPageValid,
+    checkAndConfirmPageValid, descriptionOfDevelopmentLabel,
     descriptionOfDevelopmentPage,
     enterDescriptionOfDevelopmentTxt,
 } from "../../../support/PageObjects/vo-validappeal-description-of-development-po";
 import {
     btnConfirmAndStartAppeal, verifyDescriptionOfDevelopmentText, outcomeOfReview,
     pageHeader,
-    warningTextCheckConfirmValid, pageTitleValidCheckConfirm
+    warningTextCheckConfirmValid, pageTitleValidCheckConfirm, outcomeOfReviewLabel
 } from "../../../support/PageObjects/vo-valid-check-confirm-page-po";
 import {
     invalidAppealDetailsPage, invalidPageHeader,
@@ -56,6 +56,7 @@ import {
     checkApplicationForm,
     checkMissingOrWrongDocuments
 } from "../../../support/PageObjects/vo-missing-or-wrong-check-confirm-page-po";
+import {selectAppealIdForValidationOfficerFromDb} from "../../../support/db-queries/select-appeal-id-for-validation-officer-from-db";
 
 const url = '/check-and-confirm';
 const pageTitle = 'Check and confirm - Appeal a householder planning decision - GOV.UK';
@@ -99,9 +100,23 @@ const goToOutcomeMissingOrWrongPage = () => {
 };
 
 Given( 'the Validation Officer has provided a Description of development on the Valid appeal details Page', () => {
-    goToOutcomeValidPage();
-    descriptionOfDevelopmentPage();
-    enterDescriptionOfDevelopmentTxt().type('This is a test description for Valid Outcome');
+    // goToOutcomeValidPage();
+    // descriptionOfDevelopmentPage();
+    // enterDescriptionOfDevelopmentTxt().type('This is a test description for Valid Outcome');
+    validationOfficerLandingPage();
+    selectAppealIdForValidationOfficerFromDb();
+    cy.get( '@appealReferenceVO' ).then( appealReferenceVO => {
+        appealReference( appealReferenceVO[16] ).should( 'exist' ).click();
+        reviewAppealSubmissionPage();
+        cy.checkPageA11y();
+        selectOutcomeValid().click();
+        continueButton().click();
+        descriptionOfDevelopmentPage();
+        //enterDescriptionOfDevelopmentTxt().type('This is a test description for Valid Outcome');
+        let appealRefID = appealReferenceVO[16];
+        let descriptionDevText = 'This is test data for description of development';
+        enterDescriptionOfDevelopmentTxt().type(descriptionDevText);
+    });
 } );
 When( "the Validation Officer selects ‘Continue’", () => {
     continueButton().click();
@@ -111,20 +126,39 @@ Then( "the Check and confirm Page will be displayed showing the outcome as 'Vali
     cy.checkPageA11y();
     checkAndConfirmPageValid();
     pageHeader();
-    outcomeOfReview();
-    appellantName();
-    appealReference();
-    appealSite();
-    verifyDescriptionOfDevelopmentText();
+    selectAppealIdForValidationOfficerFromDb();
+    cy.get( '@appealReferenceVO' ).then( appealReferenceVO => {
+        outcomeOfReviewLabel().siblings('dd').should('contain',appealReferenceVO[51]);
+        appealReference( appealReferenceVO[16] ).should( 'exist' ).click();
+        appellantName(appealReferenceVO[18]).should('exist');
+        appealSite().siblings('dd')
+            .should('contain',appealReferenceVO[19] )
+            .should('contain',appealReferenceVO[20] )
+            .should('contain',appealReferenceVO[21] )
+            .should('contain',appealReferenceVO[22] )
+            .should('contain',appealReferenceVO[23] );
+        descriptionOfDevelopmentLabel().siblings('dd').should('contain',appealReferenceVO[39])
+    });
     warningTextCheckConfirmValid();
     btnConfirmAndStartAppeal();
     linkChangeOutcome();
 } );
 
 Given( 'the Validation Officer is on the Check and confirm page', () => {
-    goToOutcomeValidPage();
-    descriptionOfDevelopmentPage();
-    enterDescriptionOfDevelopmentTxt().type('This is a test description for Valid Outcome');
+    validationOfficerLandingPage();
+    selectAppealIdForValidationOfficerFromDb();
+    cy.get( '@appealReferenceVO' ).then( appealReferenceVO => {
+        appealReference( appealReferenceVO[16] ).should( 'exist' ).click();
+        reviewAppealSubmissionPage();
+        cy.checkPageA11y();
+        selectOutcomeValid().click();
+        continueButton().click();
+        descriptionOfDevelopmentPage();
+        //enterDescriptionOfDevelopmentTxt().type('This is a test description for Valid Outcome');
+        let appealRefID = appealReferenceVO[16];
+    });
+    let descriptionDevText = 'This is test data for description of development';
+    enterDescriptionOfDevelopmentTxt().type(descriptionDevText);
     continueButton().click();
     checkAndConfirmPageValid();
 } );
@@ -141,8 +175,25 @@ Then( '‘Description of development’ field should have the related descriptio
 } );
 
 Given( 'the Validation Officer goes to the ’Valid appeal details’ page', () => {
-    goToOutcomeValidPage();
+    //goToOutcomeValidPage();
+    validationOfficerLandingPage();
+    selectAppealIdForValidationOfficerFromDb();
+    cy.get( '@appealReferenceVO' ).then( appealReferenceVO => {
+        appealReference( appealReferenceVO[16] ).should( 'exist' ).click();
+        reviewAppealSubmissionPage();
+        cy.checkPageA11y();
+    });
+    selectOutcomeValid().click();
+    descriptionOfDevelopmentPage();
 } );
+When("the Validation Officer goes to the ’Valid appeal details’ page by selecting valid outcome", () => {
+    selectOutcomeValid().click();
+    descriptionOfDevelopmentPage();
+    selectAppealIdForValidationOfficerFromDb();
+    cy.get( '@appealReferenceVO' ).then( appealReferenceVO => {
+        descriptionOfDevelopmentLabel().siblings('dd').should('contain',appealReferenceVO[39]);
+    });
+  });
 When( "the Validation Officer clicks on ‘Change outcome’ link", () => {
     linkChangeOutcome().click();
 } );

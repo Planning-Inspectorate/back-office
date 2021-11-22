@@ -17,6 +17,7 @@ import {
     verifyAppealReference,
     verifyAppealValid
 } from "../../../support/PageObjects/vo-review-complete-po";
+import {selectAppealIdForValidationOfficerFromDb} from "../../../support/db-queries/select-appeal-id-for-validation-officer-from-db";
 
 
 const url = '/review-complete';
@@ -39,7 +40,23 @@ const reviewCompletePage = () => {
 }
 
 Given( "the Validation Officer is on the Check and confirm page and has deemed the appeal Valid", () => {
-    confirmValidOutcome();
+    //confirmValidOutcome();
+    validationOfficerLandingPage();
+    selectAppealIdForValidationOfficerFromDb();
+    cy.get( '@appealReferenceVO' ).then( appealReferenceVO => {
+        appealReference( appealReferenceVO[16] ).should( 'exist' ).click();
+        reviewAppealSubmissionPage();
+        cy.checkPageA11y();
+        selectOutcomeValid().click();
+        continueButton().click();
+        descriptionOfDevelopmentPage();
+        //enterDescriptionOfDevelopmentTxt().type('This is a test description for Valid Outcome');
+        let appealRefID = appealReferenceVO[16];
+    });
+    let descriptionDevText = 'This is test data for description of development';
+    enterDescriptionOfDevelopmentTxt().type(descriptionDevText);
+    continueButton().click();
+    checkAndConfirmPageValid();
 } );
 When( "the Validation Officer selects 'Confirm and start appeal'", () => {
     continueButton().click();
@@ -49,7 +66,10 @@ Then( "the Review completePage will be displayed showing the validation outcome 
     verifyPageTitle(pageTitle);
     verifyPageHeading(pageHeading);
     cy.checkPageA11y();
-    verifyAppealReference().should('exist');
+    selectAppealIdForValidationOfficerFromDb();
+    cy.get( '@appealReferenceVO' ).then( appealReferenceVO => {
+        appealReference( appealReferenceVO[16] ).should( 'exist' );
+    });
     verifyAppealValid();
     textAppealStart();
     textWhatNext().should('exist');
@@ -57,7 +77,21 @@ Then( "the Review completePage will be displayed showing the validation outcome 
 } );
 
 Given('a Validation Officer is on the Review complete page', () => {
-    confirmValidOutcome();
+    validationOfficerLandingPage();
+    selectAppealIdForValidationOfficerFromDb();
+    cy.get( '@appealReferenceVO' ).then( appealReferenceVO => {
+        appealReference( appealReferenceVO[16] ).should( 'exist' ).click();
+               //let appealRefID = appealReferenceVO[16];
+    });
+    reviewAppealSubmissionPage();
+    cy.checkPageA11y();
+    selectOutcomeValid().click();
+    continueButton().click();
+    descriptionOfDevelopmentPage();
+    let descriptionDevText = 'This is test data for description of development';
+    enterDescriptionOfDevelopmentTxt().type(descriptionDevText);
+    continueButton().click();
+    checkAndConfirmPageValid();
     continueButton().click();
     reviewCompletePage();
 } );

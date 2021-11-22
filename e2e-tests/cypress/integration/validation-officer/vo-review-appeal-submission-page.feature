@@ -25,6 +25,6 @@ Feature: As a Validation Officer validating an appeal
 
   Scenario: Appellant details are displayed
     Given validation Officer is on the ‘Appeal submissions for review’ page
-    When the Validation Officer selects the appeal 'APP/Q9999/D/21/1234567'
+    When the Validation Officer selects the appeal
     Then the ‘Review appeal submission’ Page will be displayed with the Appellant details
 
