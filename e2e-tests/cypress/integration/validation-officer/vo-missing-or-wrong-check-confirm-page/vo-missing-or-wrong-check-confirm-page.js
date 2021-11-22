@@ -41,7 +41,7 @@ Given( 'the Validation Officer is on the ’Missing or Wrong’ page', () => {
 When( "the Validation Officer clicks on ‘Change outcome’ link", () => {
     linkChangeOutcome().click();
 } );
-Then( "the ‘Review appeal submission’ Page will be displayed", () => {
+Then( "the ‘Review appeal submission’ Page will be displayed ", () => {
     reviewAppealSubmissionPage();
     cy.checkPageA11y();
 } );

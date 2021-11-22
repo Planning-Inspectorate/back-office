@@ -6,8 +6,10 @@ import {
     tableHeaderAppealRef,
     tableHeaderReceivedOn,
     tableHeaderAppealSite,
-    appealReference, appealDate, appealSite,
+    appealReference, appealDate, appealSite, receivedOndate,
 } from '../../../support/PageObjects/vo-landing-page-po';
+import {selectAppealIdForValidationOfficerFromDb} from "../../../support/db-queries/select-appeal-id-for-validation-officer-from-db";
+import {dateFormat} from "../../../support/common/date-format";
 
 
 Given('user is on the Validation Officer Login page', () => {
@@ -39,7 +41,17 @@ Then("headers 'Appeal reference', 'Received on', 'Appeal site' are displayed", (
 });
 
 Then('header contains the appeals data', () => {
-    appealReference();
-    appealDate();
-    appealSite();
+    selectAppealIdForValidationOfficerFromDb();
+    cy.get('@appealReferenceVO').then(appealReferenceVO => {
+        let siteAddress = appealReferenceVO[19]+', '+appealReferenceVO[20]+', '+appealReferenceVO[21]+', '+appealReferenceVO[22]+', '+appealReferenceVO[23];
+        let receivedOnDate = appealReferenceVO[15];
+        cy.log(receivedOnDate);
+        let appealReceivedDate = dateFormat(receivedOnDate,'DD MMMM YYYY');
+        cy.log(appealReceivedDate);
+        appealDate(appealReceivedDate).should("exist");
+       // receivedOndate().siblings('td').should('contain',appealReceivedDate);
+        console.log(appealReceivedDate);
+        appealReference(appealReferenceVO[16]).should('exist');
+        appealSite(siteAddress).should("exist");
+          })
 });
