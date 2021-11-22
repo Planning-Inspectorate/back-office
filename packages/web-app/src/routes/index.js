@@ -2,6 +2,7 @@ const express = require('express');
 const appealsList = require('./appeals-list');
 const questionnairesList = require('./questionnaires-list');
 const reviewAppealSubmission = require('./review-appeal-submission');
+const appealDetails = require('./appeal-details');
 const validAppealDetails = require('./valid-appeal-details');
 const invalidAppealDetails = require('./invalid-appeal-details');
 const missingOrWrongAppealDetails = require('./missing-or-wrong');
@@ -33,6 +34,7 @@ router.use(
   handleAppealAlreadyReviewed,
   reviewAppealSubmission
 );
+router.use(`/${views.appealDetails}/:appealId`, getCaseData, appealDetails);
 router.use(`/${views.validAppealDetails}`, handleAppealAlreadyReviewed, validAppealDetails);
 router.use(`/${views.invalidAppealDetails}`, handleAppealAlreadyReviewed, invalidAppealDetails);
 router.use(`/${views.missingOrWrong}`, handleAppealAlreadyReviewed, missingOrWrongAppealDetails);

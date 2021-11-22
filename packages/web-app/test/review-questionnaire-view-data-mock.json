@@ -302,7 +302,8 @@
 				"appealPdf": {
 					"name": "Appeal-form.pdf",
 					"id": "f9446dc8-487a-4223-854f-cf703b8555bb"
-				}
+				},
+				"validationOutcomeId": 3
 			},
 			"casework": {},
 			"questionnaire": {
@@ -390,12 +391,12 @@
 						"id": "609131c3-e00a-42a1-a181-d01d9de12081"
 					}
 				],
-				"questionnairePdf": 
+				"questionnairePdf":
 				{
 					"name": "lpa-questionnaire.pdf",
 					"id": "33795446-4bf0-46ea-83e9-d0322893a0d5"
 				},
-				"notifyingParties": 
+				"notifyingParties":
 				{
 					"name": "Notify interested parties.pdf",
 					"id": "477972cc-0fab-4e23-96f3-1c48b96b31a6"
@@ -568,12 +569,12 @@
 						"id": "609131c3-e00a-42a1-a181-d01d9de12081"
 					}
 				],
-				"questionnairePdf": 
+				"questionnairePdf":
 				{
 					"name": "lpa-questionnaire.pdf",
 					"id": "33795446-4bf0-46ea-83e9-d0322893a0d5"
 				},
-				"notifyingParties": 
+				"notifyingParties":
 				{
 					"name": "Notify interested parties.pdf",
 					"id": "477972cc-0fab-4e23-96f3-1c48b96b31a6"

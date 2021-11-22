@@ -2,6 +2,7 @@ const {
   getText,
   getReviewOutcomeConfig,
   reviewOutcomeOption,
+  reviewOutComeById,
 } = require('./review-appeal-submission');
 const views = require('./views');
 
@@ -29,6 +30,14 @@ describe('review-appeal-submission', () => {
     it('should return undefined with a non existent review outcome', () => {
       const checkAndConfirmConfig = getReviewOutcomeConfig('nonExistentOutcome');
       expect(checkAndConfirmConfig).toBeUndefined();
+    });
+  });
+
+  describe('reviewOutComeById', () => {
+    it('should return outcome key by id', () => {
+      expect(reviewOutComeById[1]).toEqual('valid');
+      expect(reviewOutComeById[2]).toEqual('invalid');
+      expect(reviewOutComeById[3]).toEqual('incomplete');
     });
   });
 });
