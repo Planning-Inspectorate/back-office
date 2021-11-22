@@ -6,6 +6,7 @@ const views = {
   document: 'document',
   home: '',
   reviewAppealSubmission: 'review-appeal-submission',
+  appealDetails: 'appeal-details',
   validAppealDetails: 'valid-appeal-details',
   invalidAppealDetails: 'invalid-appeal-details',
   missingOrWrong: 'missing-or-wrong',

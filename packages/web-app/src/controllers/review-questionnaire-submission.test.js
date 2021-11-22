@@ -63,7 +63,7 @@ describe('controllers/review-questionnaire', () => {
       expect(res.render).toBeCalledWith(currentPage, {
         pageTitle: 'Review questionnaire',
         ...viewData,
-        values
+        values,
       });
     });
 
