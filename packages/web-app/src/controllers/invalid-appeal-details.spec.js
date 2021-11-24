@@ -2,7 +2,7 @@ const { getInvalidAppealDetails, postInvalidAppealDetails } = require('./invalid
 const views = require('../config/views');
 const saveAndContinue = require('../lib/save-and-continue');
 const { mockReq, mockRes } = require('../../test/utils/mocks');
-const { getText } = require('../config/review-appeal-submission');
+const { labels } = require('../config/review-appeal-submission');
 const { hasAppeal } = require('../config/db-fields');
 const { saveAppealData } = require('../lib/api-wrapper');
 
@@ -16,7 +16,7 @@ describe('controllers/invalid-appeal-details', () => {
   const expectedViewData = {
     pageTitle: 'Invalid appeal details',
     backLink: `/${views.reviewAppealSubmission}/${appealId}`,
-    getText,
+    labels,
     invalid: { reasons, otherReason },
     appealReference: caseReference,
   };

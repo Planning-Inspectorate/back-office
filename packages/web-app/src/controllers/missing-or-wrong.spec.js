@@ -2,7 +2,7 @@ const { getMissingOrWrong, postMissingOrWrong } = require('./missing-or-wrong');
 const views = require('../config/views');
 const saveAndContinue = require('../lib/save-and-continue');
 const { mockReq, mockRes } = require('../../test/utils/mocks');
-const { getText } = require('../config/review-appeal-submission');
+const { labels } = require('../config/review-appeal-submission');
 const { saveAppealData } = require('../lib/api-wrapper');
 const { hasAppeal } = require('../config/db-fields');
 
@@ -11,17 +11,14 @@ jest.mock('../lib/save-and-continue');
 describe('controllers/missing-or-wrong', () => {
   const appealId = '5c943cb9-e029-4094-a447-4b3256d6ede7';
   const caseReference = '1234567';
-  const missingReasons = ['other', 'outOfTime'];
-  const missingDocumentReasons = ['noApplicationForm'];
+  const reasons = ['3', '7'];
+  const documentReasons = ['3'];
   const otherReason = 'other description';
   const expectedViewData = {
     pageTitle: 'What is missing or wrong?',
     backLink: `/${views.reviewAppealSubmission}/${appealId}`,
-    getText,
-    missingOrWrong: {
-      reasons: [...missingReasons, ...missingDocumentReasons],
-      otherReason,
-    },
+    labels,
+    missingOrWrong: { reasons, documentReasons, otherReason },
     appealReference: caseReference,
   };
 
@@ -39,8 +36,9 @@ describe('controllers/missing-or-wrong', () => {
         session: {
           appeal: { appealId, caseReference },
           casework: {
-            [hasAppeal.invalidAppealReasons]: [...missingReasons, ...missingDocumentReasons],
-            [hasAppeal.invalidReasonOther]: otherReason,
+            [hasAppeal.missingOrWrongReasons]: reasons,
+            [hasAppeal.missingOrWrongDocuments]: documentReasons,
+            [hasAppeal.missingOrWrongOtherReason]: otherReason,
           },
         },
       };
@@ -56,8 +54,8 @@ describe('controllers/missing-or-wrong', () => {
     it('should call saveAndContinue with the correct params', () => {
       req = {
         body: {
-          'missing-or-wrong-reasons': missingReasons,
-          'missing-or-wrong-documents': missingDocumentReasons,
+          'missing-or-wrong-reasons': reasons,
+          'missing-or-wrong-documents': documentReasons,
           'other-reason': otherReason,
         },
         session: {
@@ -77,10 +75,13 @@ describe('controllers/missing-or-wrong', () => {
         viewData: expectedViewData,
         saveData: saveAppealData,
       });
-      expect(req.session.casework[hasAppeal.invalidAppealReasons]).toEqual(
-        JSON.stringify([...missingReasons, ...missingDocumentReasons])
+      expect(req.session.casework[hasAppeal.missingOrWrongReasons]).toEqual(
+        JSON.stringify(reasons)
       );
-      expect(req.session.casework[hasAppeal.invalidReasonOther]).toEqual(otherReason);
+      expect(req.session.casework[hasAppeal.missingOrWrongDocuments]).toEqual(
+        JSON.stringify(documentReasons)
+      );
+      expect(req.session.casework[hasAppeal.missingOrWrongOtherReason]).toEqual(otherReason);
     });
   });
 });

@@ -6,66 +6,30 @@ const reviewOutcomeOption = {
   incomplete: '3',
 };
 
-const missingOrWrongReasons = {
-  noApplicationForm: {
-    text: 'Application form',
-  },
-  noDecisionNotice: {
-    text: 'Decision notice',
-  },
-  noGroundsOfAppeal: {
-    text: 'Grounds of appeal',
-  },
-  noSupportingDocuments: {
-    text: 'Supporting documents',
-  },
-  namesNotMatch: {
-    text: 'Names do not match',
-  },
-  sensitiveInformationIncluded: {
-    text: 'Sensitive information included',
+const labels = {
+  missingOrWrongReasons: {
+    1: 'Names do not match',
+    2: 'Sensitive information included',
+    3: 'Missing or wrong documents',
+    4: 'Inflammatory comments made',
+    5: 'Opened in error',
+    6: 'Wrong appeal type used',
+    7: 'Other',
   },
   missingOrWrongDocuments: {
-    text: 'Missing or wrong documents',
+    1: 'Application form',
+    2: 'Decision notice',
+    3: 'Grounds of appeal',
+    4: 'Supporting documents',
   },
-  inflammatoryComments: {
-    text: 'Inflammatory comments made',
-  },
-  openedInError: {
-    text: 'Opened in error',
-  },
-  wrongAppealType: {
-    text: 'Wrong appeal type used',
-  },
-  other: {
-    text: 'Other',
+  invalidAppealReasons: {
+    1: 'Out of time',
+    2: 'No right of appeal',
+    3: 'Not appealable',
+    4: 'LPA deemed application as invalid',
+    5: 'Other',
   },
 };
-
-const invalidAppealReasons = {
-  1: {
-    text: 'Out of time',
-  },
-  2: {
-    text: 'No right of appeal',
-  },
-  3: {
-    text: 'Not appealable',
-  },
-  4: {
-    text: 'LPA deemed application as invalid',
-  },
-  5: {
-    text: 'Other',
-  },
-};
-
-const allText = {
-  ...missingOrWrongReasons,
-  ...invalidAppealReasons,
-};
-
-const getText = (key) => allText[key]?.text || key;
 
 const reviewOutcomeConfigMap = {
   [reviewOutcomeOption.valid]: {
@@ -100,6 +64,6 @@ const getReviewOutcomeConfig = (reviewOutcome) => reviewOutcomeConfigMap[reviewO
 
 module.exports = {
   getReviewOutcomeConfig,
-  getText,
+  labels,
   reviewOutcomeOption,
 };

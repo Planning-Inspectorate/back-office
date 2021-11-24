@@ -15,8 +15,8 @@ describe('validation/missing-or-wrong', () => {
   it('should pass validation when given a value', async () => {
     req = {
       body: {
-        'missing-or-wrong-reasons': ['other', 'missingOrWrongDocuments'],
-        'missing-or-wrong-documents': 'noApplicationForm',
+        'missing-or-wrong-reasons': ['3', '7'],
+        'missing-or-wrong-documents': '1',
         'other-reason': 'other description',
       },
     };
@@ -49,7 +49,7 @@ describe('validation/missing-or-wrong', () => {
   it('should fail validation if "other" option is chosen but there is no description', async () => {
     req = {
       body: {
-        'missing-or-wrong-reasons': ['other'],
+        'missing-or-wrong-reasons': ['7'],
       },
     };
 
@@ -70,7 +70,7 @@ describe('validation/missing-or-wrong', () => {
   it('should fail validation if "missingOrWrongDocuments" option is chosen but no sub option selected', async () => {
     req = {
       body: {
-        'missing-or-wrong-reasons': ['missingOrWrongDocuments'],
+        'missing-or-wrong-reasons': ['3'],
       },
     };
 
@@ -88,10 +88,10 @@ describe('validation/missing-or-wrong', () => {
     ]);
   });
 
-  it('should fail validation if request contains a reason with a wrong name', async () => {
+  it('should fail validation if request contains a reason with an incorrect value', async () => {
     req = {
       body: {
-        'missing-or-wrong-reasons': ['other', 'missingOrWrongDocumentsss'],
+        'missing-or-wrong-reasons': ['8'],
       },
     };
 
@@ -109,10 +109,10 @@ describe('validation/missing-or-wrong', () => {
     ]);
   });
 
-  it('should fail validation if request contains a document reason with a wrong name', async () => {
+  it('should fail validation if request contains a document reason with an incorrect value', async () => {
     req = {
       body: {
-        'missing-or-wrong-documents': ['noApplicationForms', 'noDecisionNotice'],
+        'missing-or-wrong-documents': ['5'],
       },
     };
 

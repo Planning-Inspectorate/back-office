@@ -1,22 +1,8 @@
 const { body } = require('express-validator');
 const validateCheckboxValueAgainstOptions = require('./utils/validate-checkbox-against-options');
 
-const validReasonOptions = [
-  'namesNotMatch',
-  'sensitiveInformationIncluded',
-  'missingOrWrongDocuments',
-  'inflammatoryComments',
-  'openedInError',
-  'wrongAppealType',
-  'other',
-];
-
-const validDocumentOptions = [
-  'noApplicationForm',
-  'noDecisionNotice',
-  'noGroundsOfAppeal',
-  'noSupportingDocuments',
-];
+const validReasonOptions = ['1', '2', '3', '4', '5', '6', '7'];
+const validDocumentOptions = ['1', '2', '3', '4'];
 
 const missingOrWrongAppealDetailsValidation = () => [
   body('missing-or-wrong-reasons')
@@ -30,7 +16,7 @@ const missingOrWrongAppealDetailsValidation = () => [
     .custom((value, { req }) => {
       const reasons = req.body['missing-or-wrong-reasons'];
       /* istanbul ignore else  */
-      if (reasons?.includes('missingOrWrongDocuments') && !value) {
+      if (reasons?.includes('3') && !value) {
         throw new Error('Select which documents are missing or wrong');
       }
       return true;
@@ -38,7 +24,7 @@ const missingOrWrongAppealDetailsValidation = () => [
   body('other-reason').custom((value, { req }) => {
     const reasons = req.body['missing-or-wrong-reasons'];
     /* istanbul ignore else  */
-    if (reasons && reasons.includes('other')) {
+    if (reasons && reasons.includes('7')) {
       if (!value || value.trim().length === 0) {
         throw new Error('Enter what is missing or wrong in the appeal submission');
       }
