@@ -6,7 +6,7 @@ const {
 } = require('../config/views');
 const saveAndContinue = require('../lib/save-and-continue');
 const {
-  getText,
+  labels,
   getReviewOutcomeConfig,
   reviewOutcomeOption,
 } = require('../config/review-appeal-submission');
@@ -17,7 +17,8 @@ const { saveAppealData, saveAppealLinkData } = require('../lib/api-wrapper');
 const viewData = (appealId, casework) => {
   const validAppealDetails = casework[hasAppeal.validAppealDetails];
   const invalidAppealReasons = casework[hasAppeal.invalidAppealReasons];
-  const missingOrWrongDetails = casework.missingOrWrong;
+  const missingOrWrongReasons = casework[hasAppeal.missingOrWrongReasons];
+  const missingOrWrongDocuments = casework[hasAppeal.missingOrWrongDocuments];
   const data = {
     pageTitle: 'Check and confirm',
     backLink: `/${getReviewOutcomeConfig(casework[hasAppeal.reviewOutcome]).view}`,
@@ -36,8 +37,12 @@ const viewData = (appealId, casework) => {
     };
   }
 
-  if (missingOrWrongDetails) {
-    data.missingOrWrongDetails = missingOrWrongDetails;
+  if (missingOrWrongReasons) {
+    data.missingOrWrongDetails = {
+      reasons: missingOrWrongReasons && JSON.parse(missingOrWrongReasons),
+      documentReasons: missingOrWrongDocuments && JSON.parse(missingOrWrongDocuments),
+      otherReason: casework[hasAppeal.missingOrWrongOtherReason],
+    };
   }
 
   return data;
@@ -52,7 +57,7 @@ const getCheckAndConfirm = (req, res) => {
     ...viewData(appeal.appealId, casework),
     appealData: appeal,
     checkAndConfirmConfig: getReviewOutcomeConfig(casework[hasAppeal.reviewOutcome]),
-    getText,
+    labels,
   };
 
   res.render(currentPage, options);
@@ -99,7 +104,7 @@ const postCheckAndConfirm = async (req, res) => {
     ...viewData(appeal.appealId, casework),
     appealData: appeal,
     checkAndConfirmConfig: getReviewOutcomeConfig(casework[hasAppeal.reviewOutcome]),
-    getText,
+    labels,
   };
 
   saveAndContinue({

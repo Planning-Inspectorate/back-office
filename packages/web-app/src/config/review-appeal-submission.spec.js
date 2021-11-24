@@ -1,20 +1,20 @@
 const {
-  getText,
+  labels,
   getReviewOutcomeConfig,
   reviewOutcomeOption,
 } = require('./review-appeal-submission');
 const views = require('./views');
 
 describe('review-appeal-submission', () => {
-  describe('getText', () => {
+  describe('labels', () => {
     it('should return the right text for an invalid appeal reason key', () => {
-      expect(getText('2')).toEqual('No right of appeal');
+      expect(labels.invalidAppealReasons[2]).toEqual('No right of appeal');
     });
     it('should return the right text for an missing or wrong reason key', () => {
-      expect(getText('inflammatoryComments')).toEqual('Inflammatory comments made');
+      expect(labels.missingOrWrongReasons[4]).toEqual('Inflammatory comments made');
     });
-    it('should return the the key if a matching text not found', () => {
-      expect(getText('aNonExistentKey')).toEqual('aNonExistentKey');
+    it('should return the right text for an missing or wrong document key', () => {
+      expect(labels.missingOrWrongDocuments[3]).toEqual('Grounds of appeal');
     });
   });
 

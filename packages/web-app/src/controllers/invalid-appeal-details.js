@@ -5,14 +5,14 @@ const {
   checkAndConfirm: nextPage,
 } = require('../config/views');
 const saveAndContinue = require('../lib/save-and-continue');
-const { getText } = require('../config/review-appeal-submission');
+const { labels } = require('../config/review-appeal-submission');
 const { hasAppeal } = require('../config/db-fields');
 const { saveAppealData } = require('../lib/api-wrapper');
 
 const viewData = (appealId, caseReference, invalid) => ({
   pageTitle: 'Invalid appeal details',
   backLink: `/${previousPage}/${appealId}`,
-  getText,
+  labels,
   invalid,
   appealReference: caseReference,
 });
@@ -29,7 +29,7 @@ const getInvalidAppealDetails = (req, res) => {
   } = req;
   const options = {
     ...viewData(appealId, caseReference, { reasons, otherReason }),
-    getText,
+    labels,
   };
   res.render(currentPage, options);
 };

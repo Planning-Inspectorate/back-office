@@ -18,23 +18,23 @@
 
 {% macro renderInvalidReason() %}
   {% for item in invalidAppealDetails.reasons %}
-    <li>{{ getText(item) + (' - ' + invalidAppealDetails.otherReason if item === '5') }}</li>
+    <li>{{ labels.invalidAppealReasons[item] + (' - ' + invalidAppealDetails.otherReason if item === '5') }}</li>
   {% endfor %}
 {% endmacro %}
 
 {% macro renderIncompleteReason() %}
   {% for item in missingOrWrongDetails.reasons %}
-    {% if item === 'missingOrWrongDocuments' %}
+    {% if item === '3' %}
       <li>
-        {{ getText(item) }}
+        {{ labels.missingOrWrongReasons[item] }}
         <ul class="govuk-list govuk-list--bullet">
           {% for documentReason in missingOrWrongDetails.documentReasons %}
-            <li>{{ getText(documentReason) }}</li>
+            <li>{{ labels.missingOrWrongDocuments[documentReason] }}</li>
           {% endfor %}
         </ul>
       </li>
     {% else %}
-      <li>{{ getText(item) + (' - ' + invalidAppealDetails.otherReason if item === 'other') }}</li>
+      <li>{{ labels.missingOrWrongReasons[item] + (' - ' + missingOrWrongDetails.otherReason if item === '7') }}</li>
     {% endif %}
   {% endfor %}
 {% endmacro %}

@@ -3,7 +3,7 @@ const views = require('../config/views');
 const saveAndContinue = require('../lib/save-and-continue');
 const { mockReq, mockRes } = require('../../test/utils/mocks');
 const {
-  getText,
+  labels,
   reviewOutcomeOption,
   getReviewOutcomeConfig,
 } = require('../config/review-appeal-submission');
@@ -21,11 +21,6 @@ describe('controllers/check-and-confirm', () => {
   const otherReason = 'Another invalid reason';
   const missingReasons = ['other', 'outOfTime'];
   const missingDocumentReasons = ['noApplicationForm'];
-  const missingOrWrong = {
-    reasons: missingReasons,
-    documentReasons: missingDocumentReasons,
-    otherReason,
-  };
 
   let req;
   let res;
@@ -56,7 +51,7 @@ describe('controllers/check-and-confirm', () => {
         validAppealDetails,
         appealData: req.session.appeal,
         checkAndConfirmConfig: getReviewOutcomeConfig(reviewOutcomeOption.valid),
-        getText,
+        labels,
       };
 
       getCheckAndConfirm(req, res);
@@ -85,7 +80,7 @@ describe('controllers/check-and-confirm', () => {
         invalidAppealDetails: { reasons: invalidAppealReasons, otherReason },
         appealData: req.session.appeal,
         checkAndConfirmConfig: getReviewOutcomeConfig(reviewOutcomeOption.invalid),
-        getText,
+        labels,
       };
 
       getCheckAndConfirm(req, res);
@@ -100,7 +95,9 @@ describe('controllers/check-and-confirm', () => {
           appeal: { appealId },
           casework: {
             [hasAppeal.reviewOutcome]: reviewOutcomeOption.incomplete,
-            missingOrWrong,
+            [hasAppeal.missingOrWrongReasons]: JSON.stringify(missingReasons),
+            [hasAppeal.missingOrWrongDocuments]: JSON.stringify(missingDocumentReasons),
+            [hasAppeal.missingOrWrongOtherReason]: otherReason,
           },
         },
       };
@@ -110,10 +107,14 @@ describe('controllers/check-and-confirm', () => {
         backLink: `/${views.missingOrWrong}`,
         changeOutcomeLink: `/${views.reviewAppealSubmission}/${appealId}`,
         reviewOutcome: reviewOutcomeOption.incomplete,
-        missingOrWrongDetails: missingOrWrong,
+        missingOrWrongDetails: {
+          reasons: missingReasons,
+          documentReasons: missingDocumentReasons,
+          otherReason,
+        },
         appealData: req.session.appeal,
         checkAndConfirmConfig: getReviewOutcomeConfig(reviewOutcomeOption.incomplete),
-        getText,
+        labels,
       };
 
       getCheckAndConfirm(req, res);
@@ -144,7 +145,7 @@ describe('controllers/check-and-confirm', () => {
         reviewOutcome: reviewOutcomeOption.incomplete,
         appealData: req.session.appeal,
         checkAndConfirmConfig: getReviewOutcomeConfig(reviewOutcomeOption.incomplete),
-        getText,
+        labels,
       };
 
       await postCheckAndConfirm(req, res);

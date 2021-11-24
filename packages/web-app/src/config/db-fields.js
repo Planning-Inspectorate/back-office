@@ -8,6 +8,9 @@ const dbFields = {
     appealValidationDate: 'appealValidationDate',
     questionnaireDueDate: 'questionnaireDueDate',
     appealValidDate: 'appealValidDate',
+    missingOrWrongReasons: 'missingOrWrongReasons',
+    missingOrWrongDocuments: 'missingOrWrongDocuments',
+    missingOrWrongOtherReason: 'missingOrWrongOtherReason',
   },
   appealLink: {
     questionnaireStatusId: 'questionnaireStatusId',

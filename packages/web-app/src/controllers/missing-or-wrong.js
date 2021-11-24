@@ -1,5 +1,5 @@
 const toArray = require('../lib/to-array');
-const { getText } = require('../config/review-appeal-submission');
+const { labels } = require('../config/review-appeal-submission');
 const { saveAppealData } = require('../lib/api-wrapper');
 const { hasAppeal } = require('../config/db-fields');
 
@@ -15,7 +15,7 @@ const viewData = (appealId, caseReference, missingOrWrong) => ({
   backLink: `/${previousPage}/${appealId}`,
   missingOrWrong,
   appealReference: caseReference,
-  getText,
+  labels,
 });
 
 const getMissingOrWrong = (req, res) => {
@@ -23,13 +23,17 @@ const getMissingOrWrong = (req, res) => {
     session: {
       appeal: { appealId, caseReference },
       casework: {
-        [hasAppeal.invalidAppealReasons]: reasons,
-        [hasAppeal.invalidReasonOther]: otherReason,
+        [hasAppeal.missingOrWrongReasons]: reasons,
+        [hasAppeal.missingOrWrongDocuments]: documentReasons,
+        [hasAppeal.missingOrWrongOtherReason]: otherReason,
       },
     },
   } = req;
 
-  res.render(currentPage, viewData(appealId, caseReference, { reasons, otherReason }));
+  res.render(
+    currentPage,
+    viewData(appealId, caseReference, { reasons, documentReasons, otherReason })
+  );
 };
 
 const postMissingOrWrong = (req, res) => {
@@ -45,8 +49,9 @@ const postMissingOrWrong = (req, res) => {
   const documentReasons = toArray(body['missing-or-wrong-documents']);
   const otherReason = body['other-reason'];
 
-  casework[hasAppeal.invalidAppealReasons] = JSON.stringify([...reasons, ...documentReasons]);
-  casework[hasAppeal.invalidReasonOther] = otherReason;
+  casework[hasAppeal.missingOrWrongReasons] = JSON.stringify(reasons);
+  casework[hasAppeal.missingOrWrongDocuments] = JSON.stringify(documentReasons);
+  casework[hasAppeal.missingOrWrongOtherReason] = otherReason;
 
   saveAndContinue({
     req,
@@ -54,7 +59,8 @@ const postMissingOrWrong = (req, res) => {
     currentPage,
     nextPage,
     viewData: viewData(appealId, caseReference, {
-      reasons: [...reasons, ...documentReasons],
+      reasons,
+      documentReasons,
       otherReason,
     }),
     saveData: saveAppealData,
