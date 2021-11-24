@@ -1,6 +1,7 @@
 const { validationResult } = require('express-validator');
 const { checkAndConfirmValidation } = require('./check-and-confirm');
 const { reviewOutcomeOption } = require('../config/review-appeal-submission');
+const { hasAppeal } = require('../config/db-fields');
 
 describe('validation/check-and-confirm', () => {
   let req;
@@ -32,10 +33,8 @@ describe('validation/check-and-confirm', () => {
         'check-and-confirm-completed': 'true',
       },
       session: {
-        appeal: {
-          casework: {
-            reviewOutcome: reviewOutcomeOption.incomplete,
-          },
+        casework: {
+          [hasAppeal.reviewOutcome]: reviewOutcomeOption.incomplete,
         },
       },
     };
@@ -52,7 +51,7 @@ describe('validation/check-and-confirm', () => {
       body: {},
       session: {
         casework: {
-          reviewOutcome: reviewOutcomeOption.incomplete,
+          [hasAppeal.reviewOutcome]: reviewOutcomeOption.incomplete,
         },
       },
     };
