@@ -271,8 +271,8 @@ const migration = {
             @safetyConcernDetails NVARCHAR(255),
             @sensitiveInformation BIT,
             @termsAgreed BIT,
-            @decisionDate DATETIME,
-            @submissionDate DATETIME,
+            @decisionDate DATETIME2,
+            @submissionDate DATETIME2,
             @eventUserId CHAR(36),
             @eventUserName NVARCHAR(256)
         BEGIN
