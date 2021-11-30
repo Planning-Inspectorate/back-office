@@ -34,7 +34,7 @@ router.use(
   handleAppealAlreadyReviewed,
   reviewAppealSubmission
 );
-router.use(`/${views.appealDetails}/:appealId`, getCaseData, appealDetails);
+router.use(`/${views.appealDetails}`, appealDetails);
 router.use(`/${views.validAppealDetails}`, handleAppealAlreadyReviewed, validAppealDetails);
 router.use(`/${views.invalidAppealDetails}`, handleAppealAlreadyReviewed, invalidAppealDetails);
 router.use(`/${views.missingOrWrong}`, handleAppealAlreadyReviewed, missingOrWrongAppealDetails);

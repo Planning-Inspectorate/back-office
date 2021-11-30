@@ -65,7 +65,7 @@ describe('routes/index', () => {
       questionnaireCheckAndConfirm
     );
     expect(mockUse).toBeCalledWith(`/questionnaire-already-reviewed`, questionnaireAlreadyReviewed);
-    expect(mockUse).toBeCalledWith(`/${views.appealDetails}/:appealId`, getCaseData, appealDetails);
+    expect(mockUse).toBeCalledWith(`/${views.appealDetails}`, appealDetails);
     expect(mockUse).toBeCalledWith(`/${views.search}`, appealSearch);
     expect(mockUse).toBeCalledWith(`/${views.search}`, appealSearchResults);
   });
