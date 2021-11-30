@@ -15,6 +15,10 @@ const dbFields = {
   appealLink: {
     questionnaireStatusId: 'questionnaireStatusId',
     caseStatusId: 'caseStatusId',
+    appellantName: 'appellantName',
+  },
+  hasAppealSubmission: {
+    creatorEmailAddress: 'creatorEmailAddress',
   },
 };
 

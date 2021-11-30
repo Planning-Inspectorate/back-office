@@ -18,6 +18,7 @@ const views = {
   questionnairecheckAndConfirm: 'questionnaire-check-and-confirm',
   search: 'search',
   searchResults: 'search-results',
+  appellant: 'appeal-details/appellant',
 };
 
 module.exports = views;
