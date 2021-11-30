@@ -10,19 +10,19 @@ const {
 } = require('../config/views');
 const { saveQuestionnaireData } = require('../lib/api-wrapper');
 
-const populateFilesObject = (files, lpaQuestionnaireId) => {
+const populateFilesObject = (files, appealOrQuestionnaireId) => {
   if (!files) {
     return [{ text: 'No files uploaded' }];
   }
 
   if (Array.isArray(files)) {
     return files.map((file) => ({
-      link: `/document/${lpaQuestionnaireId}/${file.id}`,
+      link: `/document/${appealOrQuestionnaireId}/${file.id}`,
       text: file.name,
     }));
   }
 
-  return [{ link: `/document/${lpaQuestionnaireId}/${files.id}`, text: files.name }];
+  return [{ link: `/document/${appealOrQuestionnaireId}/${files.id}`, text: files.name }];
 };
 
 const createRowObjectData = (
@@ -31,10 +31,10 @@ const createRowObjectData = (
   hasCheckbox,
   dropDown,
   htmlId,
-  lpaQuestionnaireId
+  appealOrQuestionnaireId
 ) => ({
   titleText,
-  files: populateFilesObject(files, lpaQuestionnaireId),
+  files: populateFilesObject(files, appealOrQuestionnaireId),
   hasCheckbox,
   dropDown,
   checkboxName: `lpaqreview-${htmlId}-checkbox`,
@@ -78,13 +78,14 @@ const createPageData = (appeal, questionnaire) => ({
       titleText: 'Planning application reference',
       cellText: appeal.originalApplicationNumber,
     },
-    // decisionNotice: createRowObjectData(
-    //   'Decision notice',
-    //   questionnaire.decisionPlans,
-    //   false,
-    //   {},
-    //   'decision-notice'
-    // ),
+    decisionNotice: createRowObjectData(
+      'Decision notice',
+      appeal.decisionLetter,
+      false,
+      {},
+      'decision-notice',
+      appeal.appealId
+    ),
     officersReport: createRowObjectData(
       "Planning Officer's report",
       questionnaire.officersReport,
