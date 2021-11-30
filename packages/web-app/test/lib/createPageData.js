@@ -64,6 +64,14 @@ module.exports.createPageData = (appeal, questionnaire) => ({
       titleText: 'Planning application reference',
       cellText: appeal.originalApplicationNumber,
     },
+    decisionNotice: createRowObjectData(
+      'Decision notice',
+      appeal.decisionLetter,
+      false,
+      {},
+      'decision-notice',
+      appeal.appealId
+    ),
     officersReport: createRowObjectData(
       "Planning Officer's report",
       questionnaire.officersReport,
