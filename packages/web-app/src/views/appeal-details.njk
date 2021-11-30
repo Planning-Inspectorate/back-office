@@ -19,7 +19,17 @@
         },
         {
           key: { text: "Appellant" },
-          value: { text: appealData.appellantName }
+          value: { text: appealData.appellantName },
+          actions: {
+            items: [
+              {
+                  href: "/appeal-details/" + appealData.appealId + "/appellant",
+                  text: "Change",
+                  visuallyHiddenText: "if the applicant's name",
+                  attributes: { "data-cy": "appellantName" }
+              }
+            ]
+          }
         },
         {
           key: { text: "Site address" },
@@ -46,7 +56,7 @@
         rows: [
           {
             key: { text: "Application decision date"},
-            value: { text: appealData.decisionDate | date }
+            value: { text: appealData.appealDecisionDate | date }
           },
           {
             key: { text: "Appeal submission date"},
@@ -70,7 +80,7 @@
         rows: [
           {
             key: { text: "Appellant" },
-            value: { text: appealData.appellantName }
+            value: { text: contactDetails(appealData.appellantName, undefined, appealData.creatorEmailAddress) }
           },
           {
             key: { text: "Agent" },
