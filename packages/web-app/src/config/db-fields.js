@@ -19,6 +19,7 @@ const dbFields = {
   },
   hasAppealSubmission: {
     creatorEmailAddress: 'creatorEmailAddress',
+    decisionDate: 'decisionDate',
   },
 };
 
