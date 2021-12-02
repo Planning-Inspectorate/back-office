@@ -57,6 +57,21 @@ describe('middleware/combine-date-inputs', () => {
       },
     },
     {
+      description: 'should set the full date if day and month fields dont have leading 0',
+      given: () => ({
+        ...mockReq,
+        body: {
+          'mock-date-day': '5',
+          'mock-date-month': '6',
+          'mock-date-year': '2020',
+        },
+      }),
+      expected: (req, res, next) => {
+        expect(req.body['mock-date']).toEqual('2020-06-05');
+        expect(next).toHaveBeenCalled();
+      },
+    },
+    {
       description: 'should return multiple dates if multiple date inputs used',
       given: () => ({
         ...mockReq,

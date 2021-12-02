@@ -127,42 +127,5 @@ describe('controllers/appeal-details/application-decision-date', () => {
         },
       });
     });
-
-    it('should handle exceptions correctly', async () => {
-      req = {
-        body: {
-          'decision-date': newDecisionDate,
-          'decision-date-day': newDecisionDateDay,
-          'decision-date-month': newDecisionDateMonth,
-          'decision-date-year': newDecisionDateYear,
-        },
-        session: {
-          appeal: {
-            appealId,
-          },
-        },
-      };
-
-      saveAndContinue.mockImplementation(() => {
-        throw new Error('Test Error');
-      });
-
-      await postApplicationDecisionDate(req, res);
-
-      expect(res.render).toBeCalledTimes(1);
-      expect(res.render).toBeCalledWith(views.applicationDecisionDate, {
-        ...expectedViewData,
-        appealData: {
-          decisionDate: new Date(`${newDecisionDate}T12:00:00.000Z`),
-        },
-        errorSummary: [
-          {
-            href: '#',
-            text: 'Error: Test Error',
-          },
-        ],
-        errors: {},
-      });
-    });
   });
 });

@@ -1,6 +1,5 @@
-const { parseISO, isValid } = require('date-fns');
+const { parseISO } = require('date-fns');
 const { applicationDecisionDate: currentPage, appealDetails } = require('../../config/views');
-const logger = require('../../lib/logger');
 const { saveAppealSubmissionData } = require('../../lib/api-wrapper');
 const saveAndContinue = require('../../lib/save-and-continue');
 const { hasAppealSubmission } = require('../../config/db-fields');
@@ -65,19 +64,14 @@ exports.postApplicationDecisionDate = async (req, res) => {
     [hasAppealSubmission.decisionDate]: newAppealDecisionDate,
   };
 
-  try {
-    req.session.casework = casework;
-    saveAndContinue({
-      req,
-      res,
-      currentPage,
-      nextPage: `${appealDetails}/${appealId}`,
-      viewData: casework,
-      saveData: saveAppealSubmissionData,
-    });
-  } catch (e) {
-    logger.error(e);
-    const options = viewData(casework, errors, [{ text: e.toString(), href: '#' }]);
-    res.render(currentPage, options);
-  }
+  req.session.casework = casework;
+
+  saveAndContinue({
+    req,
+    res,
+    currentPage,
+    nextPage: `${appealDetails}/${appealId}`,
+    viewData: casework,
+    saveData: saveAppealSubmissionData,
+  });
 };

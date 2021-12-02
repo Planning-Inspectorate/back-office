@@ -1,54 +1,38 @@
-{% extends "layouts/two-thirds-page.njk" %}
+{% extends "layouts/form.njk" %}
 
-{% from "govuk/components/button/macro.njk" import govukButton %}
 {% from "govuk/components/input/macro.njk" import govukInput %}
-{% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
 {% from "govuk/components/date-input/macro.njk" import govukDateInput %}
+{% from "components/button.njk" import button %}
 
-{% block pageContent %}
-
-  {% if errors %}
-    {{ govukErrorSummary({
-      titleText: "There is a problem",
-      errorList: errorSummary
-    }) }}
-  {% endif %}
-  <form action="" method="POST" novalidate>
-
-    {{ govukDateInput( {
-      id: "decision-date",
-      namePrefix: "decision-date",
-      hint: {
-        text: "For example, 20 04 2020"
+{% block formContent %}
+  {{ govukDateInput( {
+    id: "decision-date",
+    namePrefix: "decision-date",
+    hint: {
+      text: "For example, 20 04 2020"
+    },
+    errorMessage: errors and {
+      text: errors['decision-date'].msg or errors['decision-date-day'].msg or errors['decision-date-month'].msg or errors['decision-date-year'].msg
+    },
+    items: [
+      {
+        classes: "govuk-input--width-2 govuk-input--error" if errors['decision-date'] or errors['decision-date-day'] else "govuk-input--width-2",
+        name: "day",
+        value: appealData.decisionDate.day
       },
-      errorMessage: errors and {
-        text: errors['decision-date'].msg or errors['decision-date-day'].msg or errors['decision-date-month'].msg or errors['decision-date-year'].msg
+      {
+        classes: "govuk-input--width-2 govuk-input--error" if errors['decision-date'] or errors['decision-date-month'] else "govuk-input--width-2",
+        name: "month",
+        value: appealData.decisionDate.month
+
       },
-      items: [
-        {
-          classes: "govuk-input--width-2 govuk-input--error" if errors['decision-date'] or errors['decision-date-day'] else "govuk-input--width-2",
-          name: "day",
-          value: appealData.decisionDate.day
-        },
-        {
-          classes: "govuk-input--width-2 govuk-input--error" if errors['decision-date'] or errors['decision-date-month'] else "govuk-input--width-2",
-          name: "month",
-          value: appealData.decisionDate.month
+      {
+        classes: "govuk-input--width-4 govuk-input--error" if errors['decision-date'] or errors['decision-date-year'] else "govuk-input--width-4",
+        name: "year",
+        value: appealData.decisionDate.year
+      }
+    ]
+  } ) }}
 
-        },
-        {
-          classes: "govuk-input--width-4 govuk-input--error" if errors['decision-date'] or errors['decision-date-year'] else "govuk-input--width-4",
-          name: "year",
-          value: appealData.decisionDate.year
-        }
-      ]
-    } ) }}
-
-    {{ govukButton({
-      text: "Continue",
-      type: "submit",
-      attributes: { "data-cy":"button-save-and-continue"}
-    }) }}
-
-  </form>
+  {{ button("Save changes") }}
 {% endblock %}
