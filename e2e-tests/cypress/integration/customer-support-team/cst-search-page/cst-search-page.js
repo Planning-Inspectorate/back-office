@@ -9,8 +9,6 @@ import {
 } from "../../../support/PageObjects/cst-search-page-po";
 import {continueButton} from "../../../support/PageObjects/common-po";
 import {selectCaseDetailsSearchPageFromDb} from "../../../support/db-queries/select-case-details-search-page";
-let textSearch = '22';
-let postCode = 'RG';
 
 Given( 'Customer Support Team is on the search dashboard page', () => {
     visitSearchPage();

@@ -49,7 +49,7 @@ import {
     labelSupportingDocuments,
     linkSupportingDocs,
     localPlanningDepartment,
-    pageAppealDetailsTitle,
+    pageAppealDetailsTitle, pageSearchResultsTitle,
     questionnaireCaseOfficer,
     questionnaireOutcome,
     questionnaireStatus,
@@ -85,7 +85,7 @@ import {
     appealCaseReferenceCST,inputSearchbox,
     visitSearchPage
 } from "../../../support/PageObjects/cst-search-page-po";
-import {continueButton} from "../../../support/PageObjects/common-po";
+import {backLink, continueButton} from "../../../support/PageObjects/common-po";
 import {selectCaseDetailsSearchPageFromDb} from "../../../support/db-queries/select-case-details-search-page";
 import {appealReference} from "../../../support/PageObjects/vo-landing-page-po";
 import {appellantName} from "../../../support/PageObjects/vo-review-appeal-submission-page-po";
@@ -95,18 +95,19 @@ import {verifyCaseDetailsOpenClose} from "../../../support/customer-support-team
 
 Given( 'the user on the Search Results Page', () => {
     visitSearchPage();
-    inputSearchbox().type('86274735');
+    inputSearchbox().type('9');
     continueButton().click();
-    pageAppealDetailsTitle();
+    pageSearchResultsTitle();
      } );
 When( 'the user select an appeal to view the details', () => {
     selectCaseDetailsSearchPageFromDb();
     cy.get( '@caseReferenceCST' ).then( caseReferenceCST => {
         appealCaseReferenceCST( caseReferenceCST[16] ).click();
+        viewAppealDetailsPage().should('contain',caseReferenceCST[0]);
     });
-    viewAppealDetailsPage().should('contain','/bf213cc7-f5f1-4f25-9d1a-d442ea11e485');
 } );
 Then( "the user is presented with the appeal details in the 'Summary' section", () => {
+    pageAppealDetailsTitle();
     headerSectionSummary().should('be.visible');
     selectCaseDetailsSearchPageFromDb();
     cy.get( '@caseReferenceCST' ).then( caseReferenceCST => {
@@ -114,39 +115,42 @@ Then( "the user is presented with the appeal details in the 'Summary' section", 
         appellantName( caseReferenceCST[18] ).should( 'exist' );
         let siteAddressCST = caseReferenceCST[19] + ', ' + caseReferenceCST[20] + ', ' + caseReferenceCST[21] + ', ' + caseReferenceCST[22] + ', ' + caseReferenceCST[23];
         viewAppealSiteAddress().contains( 'dd', siteAddressCST ).should( 'be.visible' );
-        localPlanningDepartment().contains( 'dd', caseReferenceCST[49] ).should( 'be.visible' );
+        localPlanningDepartment().contains( 'dd', caseReferenceCST[46] ).should( 'be.visible' );
         viewTextCaseFile().should( 'be.visible' );
         viewTextKeyDates().should( 'be.visible' );
     });
-
 } );
 Then("the user is presented with the appeal details in the 'Case File' section", () => {
-    selectCaseFileDetailsFromDb();
-    cy.get('@caseFileReferenceCST').then(caseFileReferenceCST => {
-        let appealDecisionDateFormat = caseFileReferenceCST[15];
-        let appealDecisionDate = dateFormat(appealDecisionDateFormat,'DD MMMM YYYY');
-        //applicationDecisionDate().siblings('dd',appealDecisionDate).should('be.visible');
-        let appealSubmissionDateFormat = caseFileReferenceCST[16];
-        let appealSubmissionDate = dateFormat(appealSubmissionDateFormat,'DD MMMM YYYY');
-        appealSubmissiondate().siblings('dd',appealSubmissionDate).should('be.visible');
-        validationDate().should('be.visible');
-        validDate().siblings('dd',caseFileReferenceCST[42]).should('be.visible');
-        viewTextContactDetails().should('be.visible');
-        viewAppellantName().siblings('dd',caseFileReferenceCST[3]).should('be.visible');
-        viewAgentName().should('be.visible');
-        viewTextValidationOfficer().should('be.visible');
-        viewTextCaseOfficer().should('be.visible');
-        viewTextInspector().should('be.visible');
+    selectCaseDetailsSearchPageFromDb();
+    cy.get( '@caseReferenceCST' ).then( caseReferenceCST => {
+        let appealID = caseReferenceCST[0];
+        selectCaseFileDetailsFromDb( appealID );
+        cy.get( '@caseFileReferenceCST' ).then( caseFileReferenceCST => {
+            let appealDecisionDateFormat = caseFileReferenceCST[15];
+            let appealDecisionDate = dateFormat( appealDecisionDateFormat, 'DD MMMM YYYY' );
+            applicationDecisionDate().siblings( 'dd', appealDecisionDate ).should( 'be.visible' );
+            let appealSubmissionDateFormat = caseFileReferenceCST[16];
+            let appealSubmissionDate = dateFormat( appealSubmissionDateFormat, 'DD MMMM YYYY' );
+            appealSubmissiondate().siblings( 'dd', appealSubmissionDate ).should( 'be.visible' );
+            validationDate().should( 'be.visible' );
+            validDate().siblings( 'dd', caseFileReferenceCST[42] ).should( 'be.visible' );
+            viewTextContactDetails().should( 'be.visible' );
+            viewAppellantName().siblings( 'dd', caseFileReferenceCST[3] ).should( 'be.visible' );
+            viewAgentName().should( 'be.visible' );
+            viewTextValidationOfficer().should( 'be.visible' );
+            viewTextCaseOfficer().should( 'be.visible' );
+            viewTextInspector().should( 'be.visible' );
+        } );
     });
-})
-const NoAgentName = 'No agent for this appeal';
+    })
+
 Then("the user is presented with the appeal details in the 'Evidence Case Details' section", () => {
       selectCaseDetailsSearchPageFromDb();
         cy.get( '@caseReferenceCST' ).then( caseReferenceCST => {
         verifyCaseDetailsOpenClose();
         buttonCaseDetails().click();
         viewAppellantNameEvidence().siblings( 'dd', caseReferenceCST[2] ).should( 'be.visible' );
-        viewAgentNameEvidence().siblings('dd', NoAgentName).should( 'be.visible' );
+        viewAgentNameEvidence().should( 'be.visible' );
         viewAppellantEmailAddress().siblings('dd',caseReferenceCST[1]).should( 'be.visible' );
         let appealSubmissionDateFormat = caseReferenceCST[16];
         let appealSubmissionDate = dateFormat(appealSubmissionDateFormat,'DD MMMM YYYY');
@@ -160,13 +164,17 @@ Then("the user is presented with the appeal details in the 'Evidence Appellant C
     appealStatementAppellantCase().should('be.visible');
     appealStatementAppellantCase().siblings('dd').click();
     supportingDocumentsAppellantCase().should('be.visible');
-    linkSupportingDocs().siblings().within(() =>
+    if(cy.get("#accordion-default-content-2 > .govuk-summary-list > :nth-child(2) > .govuk-summary-list__value").length>0)
     {
-            cy.get('ul>li').each(($el, index, $list) =>
-            {
-                    cy.wrap($el).should('be.visible');
-            })
-        });
+        linkSupportingDocs().siblings().within( () => {
+            cy.get( 'ul>li' ).each( ($el, index, $list) => {
+                cy.wrap( $el ).should( 'be.visible' );
+            } )
+        } );
+    }
+else {
+        supportingDocumentsAppellantCase().should('be.visible');
+     }
     });
 Then("the user is presented with the appeal details in the 'Evidence Local Planning Department Documents' section", () =>{
     headerLocalPlanningDepartmentDocuments().should('be.visible');
@@ -245,4 +253,10 @@ Then("the user is presented with the appeal details in the 'Stages Decision' sec
     decisionReport();
     decisionState();
 });
+When("the user select the back link", () => {
+    backLink().click();
+})
+Then("the user will be navigated to the Search Results Page", () => {
+    pageSearchResultsTitle();
+})
 

@@ -20,7 +20,13 @@ Feature: As a Case Officer/CST member
     And the user is presented with the appeal details in the 'Stages Site Visit' section
     And the user is presented with the appeal details in the 'Stages Decision' section
 
+  Scenario: Click on Back link from Appeal Details Page
+    Given the user on the Search Results Page
+    When the user select an appeal to view the details
+    Then the user is presented with the appeal details in the 'Summary' section
+    When the user select the back link
+    And the user will be navigated to the Search Results Page
 
 
-    # Future work to write scenario for Agent as the data mapping is nor correct
+    # Future work to write scenario for Agent as the data mapping is not correct and there is no e2e flow between questionnaire and appeals
 

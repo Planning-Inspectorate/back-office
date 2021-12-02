@@ -1,6 +1,7 @@
 export const visitAppealDetailsPage = () => cy.visit('/appeal-details');
 export const viewAppealDetailsPage = () => cy.url();
-export const pageAppealDetailsTitle = () => cy.title().should('eq', 'Search results - Appeal a householder planning decision - GOV.UK');
+export const pageSearchResultsTitle = () => cy.title().should('eq', 'Search results - Appeal a householder planning decision - GOV.UK');
+export const pageAppealDetailsTitle = () => cy.title().should('eq', 'Appeal details - Appeal a householder planning decision - GOV.UK');
 export const viewAppealSiteAddress = () => cy.get('.govuk-summary-list');
 export const headerSectionSummary = () => cy.get('#summary');
 export const localPlanningDepartment = () => cy.get('.govuk-summary-list');
@@ -32,17 +33,17 @@ export const headerLocalPlanningDepartmentDocuments = () => cy.findAllByText('Lo
 export const labelPlansUsedToReachDecision = () => cy.findAllByText('Plans used to reach decision');
 export const labelPlanningApplicationForm = () => cy.findAllByText('Planning application form');
 
-export const  labelPlanningOfficersReport = () => cy.findAllByText('Planning Officers report');
-export const  labelDecisionNotice = () => cy.findAllByText('Decision notice');
-export const  labelExtraConditions = () => cy.findAllByText('Extra conditions');
-export const  labelDetailsOfPlanningHistory = () => cy.findAllByText('Details of planning history');
-export const  labelSupportingDocuments = () => cy.findAllByText('Supporting documents');
+export const labelPlanningOfficersReport = () => cy.findAllByText('Planning Officers report');
+export const labelDecisionNotice = () => cy.findAllByText('Decision notice');
+export const labelExtraConditions = () => cy.findAllByText('Extra conditions');
+export const labelDetailsOfPlanningHistory = () => cy.findAllByText('Details of planning history');
+export const labelSupportingDocuments = () => cy.findAllByText('Supporting documents');
 export const linkSupportingDocs = () => cy.get('#accordion-default-content-2').findByText('Supporting documents');
 
 export const headerConstraints = () => cy.findAllByText('Constraints');
-export const  labelAffectsListedBuilding = () => cy.findAllByText('Affects listed building');
-export const  labelInGreenBelt = () => cy.findAllByText('In green belt');
-export const  labelInOrNearAConservationArea = () => cy.findAllByText('In or near a conservation area');
+export const labelAffectsListedBuilding = () => cy.findAllByText('Affects listed building');
+export const labelInGreenBelt = () => cy.findAllByText('In green belt');
+export const labelInOrNearAConservationArea = () => cy.findAllByText('In or near a conservation area');
 
 export const headerPolicies = () => cy.findAllByText('Policies');
 export const labelStatutoryDevelopmentPlanPolicy = () => cy.findAllByText('Statutory development plan policy');
