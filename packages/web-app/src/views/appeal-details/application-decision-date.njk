@@ -1,0 +1,38 @@
+{% extends "layouts/form.njk" %}
+
+{% from "govuk/components/input/macro.njk" import govukInput %}
+{% from "govuk/components/date-input/macro.njk" import govukDateInput %}
+{% from "components/button.njk" import button %}
+
+{% block formContent %}
+  {{ govukDateInput( {
+    id: "decision-date",
+    namePrefix: "decision-date",
+    hint: {
+      text: "For example, 20 04 2020"
+    },
+    errorMessage: errors and {
+      text: errors['decision-date'].msg or errors['decision-date-day'].msg or errors['decision-date-month'].msg or errors['decision-date-year'].msg
+    },
+    items: [
+      {
+        classes: "govuk-input--width-2 govuk-input--error" if errors['decision-date'] or errors['decision-date-day'] else "govuk-input--width-2",
+        name: "day",
+        value: decisionDate.day
+      },
+      {
+        classes: "govuk-input--width-2 govuk-input--error" if errors['decision-date'] or errors['decision-date-month'] else "govuk-input--width-2",
+        name: "month",
+        value: decisionDate.month
+
+      },
+      {
+        classes: "govuk-input--width-4 govuk-input--error" if errors['decision-date'] or errors['decision-date-year'] else "govuk-input--width-4",
+        name: "year",
+        value: decisionDate.year
+      }
+    ]
+  } ) }}
+
+  {{ button("Save changes") }}
+{% endblock %}
