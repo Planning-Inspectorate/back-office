@@ -1,47 +1,33 @@
-{% extends "layouts/two-thirds-page.njk" %}
+{% extends "layouts/form.njk" %}
 
-{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "components/button.njk" import button %}
 {% from "govuk/components/input/macro.njk" import govukInput %}
-{% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
 
-{% block pageContent %}
+{% block formContent %}
+  {{ govukInput({
+    label: {
+      text: "Appellant name"
+    },
+    id: "appellant-name",
+    name: "appellant-name",
+    value: appealData.appellantName,
+    errorMessage: errors['appellant-name'] and {
+      text: errors['appellant-name'].msg
+    }
+  }) }}
 
-  {% if errors %}
-    {{ govukErrorSummary({
-      titleText: "There is a problem",
-      errorList: errorSummary
-    }) }}
-  {% endif %}
-  <form action="" method="POST" novalidate>
-    {{ govukInput({
-      label: {
-        text: "Appellant name"
-      },
-      id: "appellant-name",
-      name: "appellant-name",
-      value: appealData.appellantName,
-      errorMessage: errors['appellant-name'] and {
-        text: errors['appellant-name'].msg
-      }
-    }) }}
+  {{ govukInput({
+    label: {
+      text: "Appellant email address"
+    },
+    id: "appellant-email",
+    name: "appellant-email",
+    spellcheck: false,
+    value: appealData.creatorEmailAddress,
+    errorMessage: errors['appellant-email'] and {
+      text: errors['appellant-email'].msg
+    }
+  }) }}
 
-    {{ govukInput({
-      label: {
-        text: "Appellant email address"
-      },
-      id: "appellant-email",
-      name: "appellant-email",
-      spellcheck: false,
-      value: appealData.creatorEmailAddress,
-      errorMessage: errors['appellant-email'] and {
-        text: errors['appellant-email'].msg
-      }
-    }) }}
-
-    {{ govukButton({
-      text: "Save changes",
-      type: "submit",
-      attributes: { "data-cy":"button-save"}
-    }) }}
-  </form>
+  {{ button("Save changes") }}
 {% endblock %}

@@ -56,7 +56,17 @@
         rows: [
           {
             key: { text: "Application decision date"},
-            value: { text: appealData.appealDecisionDate | date }
+            value: { text: appealData.appealDecisionDate | date },
+            actions: {
+              items: [
+                {
+                  href: "/appeal-details/" + appealData.appealId + "/application-decision-date",
+                  text: "Change",
+                  visuallyHiddenText: "if the applicant's decision date",
+                  attributes: { "data-cy": "applicationDecisionDate" }
+                }
+              ]
+            }
           },
           {
             key: { text: "Appeal submission date"},

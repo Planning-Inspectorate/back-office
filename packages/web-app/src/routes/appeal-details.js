@@ -5,7 +5,9 @@ const getCaseData = require('../lib/get-case-data');
 const router = express.Router();
 
 const appellantRouter = require('./appeal-details/appellant');
+const applicationDecisionDateRouter = require('./appeal-details/application-decision-date');
 
+router.use('/:appealId/application-decision-date', getCaseData, applicationDecisionDateRouter);
 router.use('/:appealId/appellant', getCaseData, appellantRouter);
 router.use('/:appealId', getCaseData, getAppealDetails);
 
