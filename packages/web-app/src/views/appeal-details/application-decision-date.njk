@@ -18,18 +18,18 @@
       {
         classes: "govuk-input--width-2 govuk-input--error" if errors['decision-date'] or errors['decision-date-day'] else "govuk-input--width-2",
         name: "day",
-        value: appealData.decisionDate.day
+        value: decisionDate.day
       },
       {
         classes: "govuk-input--width-2 govuk-input--error" if errors['decision-date'] or errors['decision-date-month'] else "govuk-input--width-2",
         name: "month",
-        value: appealData.decisionDate.month
+        value: decisionDate.month
 
       },
       {
         classes: "govuk-input--width-4 govuk-input--error" if errors['decision-date'] or errors['decision-date-year'] else "govuk-input--width-4",
         name: "year",
-        value: appealData.decisionDate.year
+        value: decisionDate.year
       }
     ]
   } ) }}

@@ -44,12 +44,10 @@ describe('controllers/appeal-details/application-decision-date', () => {
       expect(res.render).toBeCalledTimes(1);
       expect(res.render).toBeCalledWith(views.applicationDecisionDate, {
         ...expectedViewData,
-        appealData: {
-          decisionDate: {
-            day: '19',
-            month: '11',
-            year: 2021,
-          },
+        decisionDate: {
+          day: '19',
+          month: '11',
+          year: 2021,
         },
       });
     });
@@ -86,45 +84,13 @@ describe('controllers/appeal-details/application-decision-date', () => {
         nextPage: `${appealDetails}/${appealId}`,
         viewData: {
           [hasAppealSubmission.decisionDate]: new Date(`${newDecisionDate}T12:00:00.000Z`),
+          decisionDate: {
+            day: '20',
+            month: '10',
+            year: 2021,
+          },
         },
         saveData: saveAppealSubmissionData,
-      });
-    });
-
-    it('should handle errors correctly', async () => {
-      req = {
-        body: {
-          'decision-date': newDecisionDate,
-          'decision-date-day': newDecisionDateDay,
-          'decision-date-month': newDecisionDateMonth,
-          'decision-date-year': newDecisionDateYear,
-          errors: {
-            key: 'value',
-          },
-        },
-        session: {
-          appeal: {
-            appealId,
-          },
-        },
-      };
-
-      await postApplicationDecisionDate(req, res);
-
-      expect(res.render).toBeCalledTimes(1);
-      expect(res.render).toBeCalledWith(views.applicationDecisionDate, {
-        ...expectedViewData,
-        appealData: {
-          decisionDate: {
-            day: newDecisionDateDay,
-            month: newDecisionDateMonth,
-            year: newDecisionDateYear,
-          },
-        },
-        errorSummary: [],
-        errors: {
-          key: 'value',
-        },
       });
     });
   });

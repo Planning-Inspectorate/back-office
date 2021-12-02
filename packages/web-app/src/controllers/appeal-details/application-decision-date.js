@@ -4,11 +4,9 @@ const { saveAppealSubmissionData } = require('../../lib/api-wrapper');
 const saveAndContinue = require('../../lib/save-and-continue');
 const { hasAppealSubmission } = require('../../config/db-fields');
 
-const viewData = (appeal, errors, errorSummary) => ({
+const viewData = (data, errors, errorSummary) => ({
   pageTitle: 'Change application decision date',
-  appealData: {
-    ...appeal,
-  },
+  ...data,
   errors,
   errorSummary,
 });
@@ -33,7 +31,6 @@ exports.getApplicationDecisionDate = (req, res) => {
 
 exports.postApplicationDecisionDate = async (req, res) => {
   const { body } = req;
-  const { errors = {}, errorSummary = [] } = body;
 
   const {
     session: {
@@ -41,37 +38,25 @@ exports.postApplicationDecisionDate = async (req, res) => {
     },
   } = req;
 
-  if (Object.keys(errors).length > 0) {
-    const options = viewData(
-      {
-        decisionDate: {
-          day: body['decision-date-day'],
-          month: body['decision-date-month'],
-          year: body['decision-date-year'],
-        },
-      },
-      errors,
-      errorSummary
-    );
-    res.render(currentPage, options);
-    return;
-  }
-
   const decisionDate = body['decision-date'];
   const newAppealDecisionDate = new Date(`${decisionDate}T12:00:00.000Z`);
 
-  const casework = {
+  req.session.casework = {
     [hasAppealSubmission.decisionDate]: newAppealDecisionDate,
   };
-
-  req.session.casework = casework;
 
   saveAndContinue({
     req,
     res,
     currentPage,
     nextPage: `${appealDetails}/${appealId}`,
-    viewData: casework,
+    viewData: {
+      decisionDate: {
+        day: body['decision-date-day'],
+        month: body['decision-date-month'],
+        year: body['decision-date-year'],
+      },
+    },
     saveData: saveAppealSubmissionData,
   });
 };
