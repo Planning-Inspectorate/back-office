@@ -9,11 +9,10 @@ Feature: As a Case Officer/CST member
 
    Examples:
      | reference            | data    |
-     | appeal reference     | 82      |
-     | 1st line of address  | 22      |
-     | postcode             | RG      |
-     | postcode             | RG6 1DX |
-     #| postcode             | RG61DX  |
-     | appellant agent name | ka      |
+     | appeal reference     | 9       |
+     | 1st line of address  | 2       |
+     | postcode             | 1       |
+     | postcode             | SA148AH |
+     | appellant agent name | k       |
 
 
