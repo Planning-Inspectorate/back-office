@@ -102,8 +102,17 @@
           },
           {
             key: { text: "Case officer" },
-            value: { text: contactDetails(appealData.caseOfficerFirstName, appealData.caseOfficerSurname, appealData.caseOfficerEmail) }
-          },
+            value: { text: contactDetails(appealData.caseOfficerName, undefined, appealData.caseOfficerEmail) },
+            actions: {
+              items: [
+                {
+                  href: "/appeal-details/" + appealData.appealId + "/case-officer",
+                  text: "Change",
+                  visuallyHiddenText: "if the case-officer's name",
+                  attributes: { "data-cy": "caseOfficer" }
+                }
+              ]
+            }          },
           {
             key: { text: "Inspector" },
             value: { text: contactDetails(appealData.inspectorFirstName, appealData.inspectorSurname, appealData.inspectorEmail) }
@@ -332,7 +341,7 @@
           },
           {
             key: { text: "Case officer" },
-            value: { text: contactDetails(appealData.caseOfficerFirstName, appealData.caseOfficerSurname, appealData.caseOfficerEmail, false) }
+            value: { text: contactDetails(appealData.caseOfficerName, appealData.caseOfficerEmail, false) }
           }
         ]
       }) }}
@@ -354,7 +363,7 @@
           },
           {
             key: { text: "Case officer" },
-            value: { text: contactDetails(appealData.caseOfficerFirstName, appealData.caseOfficerSurname, appealData.caseOfficerEmail, false) }
+            value: { text: contactDetails(appealData.caseOfficerName, appealData.caseOfficerEmail, false) }
           }
         ]
       }) }}

@@ -1,0 +1,47 @@
+{% extends "layouts/two-thirds-page.njk" %}
+
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/input/macro.njk" import govukInput %}
+{% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
+
+{% block pageContent %}
+
+  {% if errors %}
+    {{ govukErrorSummary({
+      titleText: "There is a problem",
+      errorList: errorSummary
+    }) }}
+  {% endif %}
+  <form action="" method="POST" novalidate>
+    {{ govukInput({
+      label: {
+        text: "Agent name"
+      },
+      id: "case-officer-name",
+      name: "case-officer-name",
+      value: appealData.caseOfficerName,
+      errorMessage: errors['case-officer-name'] and {
+        text: errors['case-officer-name'].msg
+      }
+    }) }}
+
+    {{ govukInput({
+      label: {
+        text: "Agent email address"
+      },
+      id: "case-officer-email",
+      name: "case-officer-email",
+      spellcheck: false,
+      value: appealData.caseOfficerEmail,
+      errorMessage: errors['case-officer-email'] and {
+        text: errors['case-officer-email'].msg
+      }
+    }) }}
+
+    {{ govukButton({
+      text: "Save changes",
+      type: "submit",
+      attributes: { "data-cy":"button-save"}
+    }) }}
+  </form>
+{% endblock %}

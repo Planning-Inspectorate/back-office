@@ -20,6 +20,7 @@ const views = {
   searchResults: 'search-results',
   appellant: 'appeal-details/appellant',
   applicationDecisionDate: 'appeal-details/application-decision-date',
+  caseOfficer: 'appeal-details/case-officer',
 };
 
 module.exports = views;

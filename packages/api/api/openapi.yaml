@@ -123,12 +123,9 @@ paths:
                     localPlanningAuthorityId:
                       type: "string"
                       example: "E69999999"
-                    caseOfficerFirstName:
+                    caseOfficerName:
                       type: "string"
-                      example: "First Name"
-                    caseOfficerSurname:
-                      type: "string"
-                      example: "Surname"
+                      example: "Name"
                     caseOfficerEmail:
                       type: "string"
                       example: "caseofficer@planninginspectorate.gov.uk"
@@ -293,12 +290,9 @@ paths:
                   localPlanningAuthorityId:
                     type: "string"
                     example: "E69999999"
-                  caseOfficerFirstName:
+                  caseOfficerName:
                     type: "string"
-                    example: "First Name"
-                  caseOfficerSurname:
-                    type: "string"
-                    example: "Surname"
+                    example: "Name"
                   caseOfficerEmail:
                     type: "string"
                     example: "caseofficer@planninginspectorate.gov.uk"
