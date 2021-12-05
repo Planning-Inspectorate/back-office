@@ -11,6 +11,8 @@ const dbFields = {
     missingOrWrongReasons: 'missingOrWrongReasons',
     missingOrWrongDocuments: 'missingOrWrongDocuments',
     missingOrWrongOtherReason: 'missingOrWrongOtherReason',
+    caseOfficerFirstName: 'caseOfficerFirstName',
+    caseOfficerEmail: 'caseOfficerEmail',
   },
   appealLink: {
     questionnaireStatusId: 'questionnaireStatusId',

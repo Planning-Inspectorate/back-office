@@ -19,6 +19,7 @@ const views = {
   search: 'search',
   searchResults: 'search-results',
   appellant: 'appeal-details/appellant',
+  caseOfficer: 'appeal-details/case-officer',
 };
 
 module.exports = views;
