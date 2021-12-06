@@ -1,0 +1,10 @@
+export const editNameChangeOutcome = () => cy.get('[data-cy=appellantName]');
+export const pageTitleEditName = () => cy.title().should('eq','Change appellant details - Appeal a householder planning decision - GOV.UK');
+export const errorPageTitleEditName = () => cy.title().should('eq','Error: Change appellant details - Appeal a householder planning decision - GOV.UK');
+export const pageChangeAppellantDetails = () => cy.url().should('contain', '/appellant');
+export const labelAppellantName = () => cy.findAllByText('Appellant name');
+export const inputAppellantName = () => cy.get('#appellant-name');
+export const labelAppellantEmailAddress = () => cy.findAllByText('Appellant email address');
+export const inputAppellantEmailAddress = () => cy.get('#appellant-email');
+export const errorLabelEmailAddress = () => cy.get('#appellant-email-error');
+export const errorLabelName = () => cy.get('#appellant-name-error');
