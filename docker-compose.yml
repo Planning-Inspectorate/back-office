@@ -27,6 +27,8 @@ services:
       SRV_NOTIFY_SERVICE_ID: 'dummy-service-id-for-notify'
       SRV_NOTIFY_API_KEY: 'dummy-api-key-for-notify'
       BACK_OFFICE_API_URL: http://api:3000
+      FILE_UPLOAD_MAX_SIZE_IN_BYTES: 15000000
+      FILE_UPLOAD_PATH: '/tmp'
 
   api:
     container_name: api

@@ -3,6 +3,7 @@ const appealLink = require('./appeal-link');
 const appealSubmission = require('./appeal-submission');
 const questionnaire = require('./questionnaire');
 const apiDocsRouter = require('./api-docs');
+const document = require('./document');
 const { mockUse } = require('../../test/utils/mocks');
 
 describe('routes/index', () => {
@@ -14,6 +15,7 @@ describe('routes/index', () => {
     expect(mockUse).toHaveBeenCalledWith('/api/v1/appeal-link', appealLink);
     expect(mockUse).toHaveBeenCalledWith('/api/v1/appeal-submission', appealSubmission);
     expect(mockUse).toHaveBeenCalledWith('/api/v1/questionnaire', questionnaire);
+    expect(mockUse).toHaveBeenCalledWith('/api/v1/document', document);
     expect(mockUse).toHaveBeenCalledWith('/api-docs', apiDocsRouter);
   });
 });
