@@ -1,0 +1,12 @@
+{
+  "bindings": [
+    {
+      "name": "publishfunction",
+      "type": "serviceBusTrigger",
+      "direction": "in",
+      "queueName": "sql-householder-lpa-publish",
+      "connection": "pinsuksmessagequeuedev_SERVICEBUS"
+    }
+  ]
+}
+
