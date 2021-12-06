@@ -56,3 +56,12 @@ Scenario: AC-01 Navigate to the Check and confirm page from the Review questionn
      And the Case officer enters 'Plans used to reach decision are incomplete' information for 'Plans used to reach decision'
      Then the 'Check and confirm' page is displayed showing the questionnaire as 'Incomplete'
      And Case officer can see the 'Plans used to reach decision are incomplete' for the 'Plans used to reach decision'
+
+  Scenario: AC-07 Change outcome from Incomplete to Complete
+    Given Case officer is on the Review questionnaire page for 'Received' status
+    And the Case officer enters 'Supplementary planning documents are incorrect' information for 'Supplementary planning documents'
+    And the 'Check and confirm' page is displayed showing the questionnaire as 'Incomplete'
+    And Case officer can see the 'Supplementary planning documents are incorrect' information for 'Supplementary planning documents'
+    When Case Officer clicks on Go back to review questionnaire
+    And the Case officer unchecks the 'Supplementary Planning documents'
+    Then the 'Check and confirm' page is displayed showing the questionnaire as 'Complete'

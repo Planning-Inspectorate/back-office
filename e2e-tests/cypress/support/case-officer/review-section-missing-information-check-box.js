@@ -43,5 +43,5 @@ export const reviewSectionMissingInformationCheckbox = (documentSection =>{
 })
 
 function clickMissingInfoCheckbox(documentSectionName, checkboxObject) {
-    checkboxObject.click();
+    checkboxObject.check();
 }

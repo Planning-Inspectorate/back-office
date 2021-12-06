@@ -11,7 +11,7 @@ import {verifySectionName} from "../../../support/case-officer/verify-Section-Na
 import {
     getAppealsLink,
     getContinueButton,
-    getQuestionnaireForReviewBack
+    getQuestionnaireForReviewBack, getSupplementaryPlanningMissingCheckbox
 } from "../../../support/PageObjects/co-review-questionnaire-po";
 import {reviewSectionMissingInformationCheckbox} from "../../../support/case-officer/review-section-missing-information-check-box";
 import {reviewSectionMissingInformation} from "../../../support/case-officer/review-section-missing-information";
@@ -23,10 +23,22 @@ Given('Case officer is on the Review questionnaire page for {string} status',(st
     goToCaseOfficerPage();
     selectCaseReferenceFromDb(status);
     cy.get('@caseReference').then((caseReference)=>{
-        getAppealsLink(caseReference).click();
+        getAppealsLink(caseReference[23]).click();
     });
 });
 
+Given('Case officer can see the {string} information for {string}',(missing_information, document_section)=>{
+    if(document_section!=='Application publicity'|| document_section!=='Planning Officer\'s report'){
+        getMissingOrIncorrectDocuments()
+            .siblings('dd')
+            .should('contain',document_section);
+    }else{
+        getMissingOrIncorrectDocuments()
+            .siblings('dd')
+            .should('contain', missing_information)
+            .should('contain',document_section);
+    }
+});
 When('Case Officer finishes the review as no missing information',()=>{
     getContinueButton().click();
 });
@@ -44,7 +56,7 @@ When('Case Officer clicks on {string} for {string} status',(breadcrumb,status)=>
     if(breadcrumb==='review questionnaire submission'){
         selectCaseReferenceFromDb(status);
         cy.get('@caseReference').then((caseReference)=>{
-            cy.findByRole('link', { name : caseReference.toString() }).click();
+            cy.findByRole('link', { name : caseReference[23].toString() }).click();
         });
     }else{
         getQuestionnaireForReviewBack().click();
@@ -59,13 +71,18 @@ When('Case Officer clicks on Confirm outcome',()=>{
     getConfirmContinueButton().click();
 });
 
+When('the Case officer unchecks the {string}',(document_section)=>{
+    cy.get(':checkbox').uncheck({force: true});
+    getContinueButton().click();
+});
+
 Then('the {string} page is displayed showing the questionnaire as {string}',(page,questionnaireReviewStatus)=>{
 verifySectionName(page);
 getReviewOutcome().siblings().should('contain',questionnaireReviewStatus);
     getAppealReference().should('be.visible');
-    selectCaseReferenceFromDb(status);
+    selectCaseReferenceFromDb('Received');
     cy.get('@caseReference').then((caseReference)=>{
-        getAppealReference().siblings('dd').should('contain',caseReference);
+        getAppealReference().siblings('dd').should('contain',caseReference[23]);
     });
     getAppealSite().should('be.visible');
     if(questionnaireReviewStatus==='Incomplete'){
