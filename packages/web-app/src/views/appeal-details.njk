@@ -34,12 +34,22 @@
         {
           key: { text: "Site address" },
           value: { html: address({
-          addressLine1: appealData.siteAddressLineOne,
-          addressLine2: appealData.siteAddressLineTwo,
-          town: appealData.siteAddressTown,
-          county: appealData.siteAddressCounty,
-          postcode: appealData.siteAddressPostCode
-        }, true) }
+            addressLine1: appealData.siteAddressLineOne,
+            addressLine2: appealData.siteAddressLineTwo,
+            town: appealData.siteAddressTown,
+            county: appealData.siteAddressCounty,
+            postcode: appealData.siteAddressPostCode
+          }, true) },
+          actions: {
+            items: [
+                {
+                    href: "/appeal-details/" + appealData.appealId + "/site-address",
+                    text: "Change",
+                    visuallyHiddenText: "if the asite address",
+                    attributes: { "data-cy": "siteAddress" }
+                }
+            ]
+          }
         },
         {
           key: { text: "Local planning department" },

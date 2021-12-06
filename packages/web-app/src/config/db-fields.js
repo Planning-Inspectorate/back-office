@@ -18,6 +18,11 @@ const dbFields = {
     questionnaireStatusId: 'questionnaireStatusId',
     caseStatusId: 'caseStatusId',
     appellantName: 'appellantName',
+    siteAddressLineOne: 'siteAddressLineOne',
+    siteAddressLineTwo: 'siteAddressLineTwo',
+    siteAddressTown: 'siteAddressTown',
+    siteAddressCounty: 'siteAddressCounty',
+    siteAddressPostcode: 'siteAddressPostcode',
   },
   hasAppealSubmission: {
     creatorEmailAddress: 'creatorEmailAddress',
