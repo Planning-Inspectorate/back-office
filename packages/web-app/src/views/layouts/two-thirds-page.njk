@@ -12,6 +12,9 @@
         }) }}
       {% endif %}
 
+      {% if pageTitleCaption %}
+        <span class="govuk-caption-xl">{{ pageTitleCaption }}</span>
+      {% endif %}
       <h1 class="govuk-heading-xl {{ "govuk-visually-hidden" if hidePageTitle }}">{{ pageTitle }}</h1>
 
       {% block pageContent %}{% endblock %}

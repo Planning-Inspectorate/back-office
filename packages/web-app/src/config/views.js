@@ -22,6 +22,7 @@ const views = {
   applicationDecisionDate: 'appeal-details/application-decision-date',
   caseOfficer: 'appeal-details/case-officer',
   siteAddress: 'appeal-details/site-address',
+  addDocuments: 'add-documents',
 };
 
 module.exports = views;

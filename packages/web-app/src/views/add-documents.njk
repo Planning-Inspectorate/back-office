@@ -1,0 +1,9 @@
+{% extends "layouts/form-upload.njk" %}
+
+{% from "components/file-upload.njk" import fileUpload %}
+{% from "components/button.njk" import button %}
+
+{% block formContent %}
+  {{ fileUpload(multiple, errors) }}
+  {{ button('Upload') }}
+{% endblock %}

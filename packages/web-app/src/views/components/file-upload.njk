@@ -1,0 +1,51 @@
+{% from "govuk/components/file-upload/macro.njk" import govukFileUpload %}
+{% from "govuk/components/inset-text/macro.njk" import govukInsetText %}
+{% from "govuk/components/details/macro.njk" import govukDetails %}
+
+{% macro fileUpload(multiple, errors) %}
+  {% set fileFormatList %}
+    <p class="govuk-body">
+      Your files must be in one of the following formats:
+    </p>
+    <ul class="govuk-list govuk-list--bullet">
+      <li>pdf</li>
+      <li>doc</li>
+      <li>docx</li>
+      <li>tif</li>
+      <li>tiff</li>
+      <li>jpg</li>
+      <li>jpeg</li>
+      <li>png</li>
+    </ul>
+  {% endset %}
+
+  {% set attributes = {} %}
+
+  {% if multiple %}
+    {% set attributes = { "multiple": "multiple" } %}
+  {% endif %}
+
+  {{ govukFileUpload({
+    id: "file-upload",
+    name: "file-upload",
+    label: {
+      text: "Upload files",
+      classes: "govuk-label--m"
+    },
+    hint: {
+      text: "Drag and drop files" + ' or select "Choose files"'
+    },
+    classes: "file-upload",
+    attributes: attributes,
+    errorMessage: errors['file-upload'] and { text: errors['file-upload'].msg }
+  }) }}
+
+  {{ govukInsetText({
+    text: "File size should be no more than 15MB."
+  }) }}
+
+  {{ govukDetails({
+    summaryText: "Help with file formats",
+    html: fileFormatList
+  }) }}
+{% endmacro %}

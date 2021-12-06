@@ -29,7 +29,7 @@ describe('lib/saveAndContinue', () => {
   });
 
   describe('saveAndContinue', () => {
-    it('should set the correct data and redirect to the next page', () => {
+    it('should set the correct data and redirect to the next page when casework is given', () => {
       saveAppealData.mockReturnValue(saveDataReturnValue);
 
       req.session = {
@@ -41,9 +41,28 @@ describe('lib/saveAndContinue', () => {
 
       saveAndContinue({ req, res, currentPage, nextPage, viewData, saveData: saveAppealData });
 
+      expect(saveAppealData).toBeCalledTimes(1);
+      expect(saveAppealData).toBeCalledWith({
+        appealId,
+        ...casework,
+      });
       expect(res.cookie).toBeCalledTimes(3);
       expect(res.cookie).toBeCalledWith('appealId', appealId);
       expect(res.cookie).toBeCalledWith(appealId, JSON.stringify(casework));
+      expect(res.redirect).toBeCalledTimes(1);
+      expect(res.redirect).toBeCalledWith(`/${nextPage}`);
+    });
+
+    it('should set the correct data and redirect to the next page when casework is not given', () => {
+      saveAppealData.mockReturnValue(saveDataReturnValue);
+
+      delete req.session;
+
+      saveAndContinue({ req, res, currentPage, nextPage, viewData, saveData: saveAppealData });
+
+      expect(saveAppealData).toBeCalledTimes(1);
+      expect(saveAppealData).toBeCalledWith();
+      expect(res.cookie).not.toBeCalled();
       expect(res.redirect).toBeCalledTimes(1);
       expect(res.redirect).toBeCalledWith(`/${nextPage}`);
     });
@@ -72,16 +91,14 @@ describe('lib/saveAndContinue', () => {
       expect(res.redirect).not.toBeCalled();
     });
 
-    it('should render the current page with an error when saveData is not a function', () => {
-      saveAndContinue({ req, res, currentPage, nextPage, viewData, saveData: 'saveAppealData' });
+    it('should render the current page with an error when saveData is not given', () => {
+      saveAndContinue({ req, res, currentPage, nextPage, viewData });
 
       expect(res.render).toBeCalledTimes(1);
       expect(res.render).toBeCalledWith(currentPage, {
         ...viewData,
         errors: {},
-        errorSummary: [
-          { text: 'Error: The saveData parameter must be a save data function', href: '#' },
-        ],
+        errorSummary: [{ text: 'TypeError: saveData is not a function', href: '#' }],
       });
       expect(res.redirect).not.toBeCalled();
     });

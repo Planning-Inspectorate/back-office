@@ -21,6 +21,7 @@ const reviewQuestionnaireSubmission = require('./review-questionnaire-submission
 const reviewQuestionnaireComplete = require('./review-questionnaire-complete');
 const appealSearch = require('./appeal-search');
 const appealSearchResults = require('./appeal-search-results');
+const addDocuments = require('./add-documents');
 
 const router = express.Router();
 
@@ -53,5 +54,6 @@ router.use(`/questionnaire-check-and-confirm`, questionnaireCheckAndConfirm);
 router.use(`/questionnaire-already-reviewed`, questionnaireAlreadyReviewed);
 router.use(`/${views.search}`, appealSearch);
 router.use(`/${views.search}`, appealSearchResults);
+router.use(`/${views.addDocuments}`, addDocuments);
 
 module.exports = router;
