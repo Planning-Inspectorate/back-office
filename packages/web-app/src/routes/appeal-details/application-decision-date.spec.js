@@ -12,7 +12,7 @@ const combineDateInputsMiddleware = require('../../middleware/combine-date-input
 jest.mock('../../validation/appeal-details/decision-date');
 jest.mock('../../lib/express-validation-errors-to-govuk-error-list');
 
-describe('routes/appeal-details/appellant', () => {
+describe('routes/appeal-details/application-decision-date', () => {
   it('should define the correct route', () => {
     // eslint-disable-next-line global-require
     require('./application-decision-date');
