@@ -23,3 +23,5 @@ export const linkReturnToTaskList = () => cy.findByRole('link',{name:'Return to 
 export const  confirmTurnAwayButton = () => cy.get(".govuk-button");
 
 export const  confirmFinishReviewButton = () => cy.get(".govuk-button");
+
+export const getErrorMessageSummary = () => cy.get('.govuk-error-summary');
