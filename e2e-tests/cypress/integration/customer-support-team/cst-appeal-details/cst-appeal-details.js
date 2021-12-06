@@ -71,7 +71,7 @@ import {
     viewAgentNameEvidence,
     viewAppealDetailsPage,
     viewAppealSiteAddress,
-    viewAppellantEmailAddress,
+    viewAppellantEmailAddress, viewAppellantEmailContactDetails,
     viewAppellantName,
     viewAppellantNameEvidence,
     viewTextCaseFile,
@@ -136,6 +136,7 @@ Then("the user is presented with the appeal details in the 'Case File' section",
             validDate().siblings( 'dd', caseFileReferenceCST[42] ).should( 'be.visible' );
             viewTextContactDetails().should( 'be.visible' );
             viewAppellantName().siblings( 'dd', caseFileReferenceCST[3] ).should( 'be.visible' );
+            viewAppellantEmailContactDetails().should( 'be.visible' );
             viewAgentName().should( 'be.visible' );
             viewTextValidationOfficer().should( 'be.visible' );
             viewTextCaseOfficer().should( 'be.visible' );

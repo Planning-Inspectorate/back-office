@@ -13,6 +13,7 @@ export const validationDate = () => cy.findAllByText('Validation date');
 export const validDate = () => cy.findAllByText('Valid date');
 export const viewTextContactDetails = () => cy.get('#contact-details');
 export const viewAppellantName = () => cy.findAllByText('Appellant');
+export const viewAppellantEmailContactDetails = () => cy.xpath("//div[@id='contact-details']//a[@class='govuk-link']");
 export const viewAgentName = () => cy.findAllByText('Agent');
 export const viewTextValidationOfficer = () => cy.findAllByText('Validation officer');
 export const viewTextCaseOfficer = () => cy.findAllByText('Case officer');
