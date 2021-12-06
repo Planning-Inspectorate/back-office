@@ -5,7 +5,6 @@ const saveAndContinue = require('../../lib/save-and-continue');
 const { hasAppealSubmission, appealLink } = require('../../config/db-fields');
 
 const viewData = (appeal, errors, errorSummary) => ({
-  pageTitle: 'Change appellant details',
   appealData: {
     ...appeal,
   },

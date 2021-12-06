@@ -16,10 +16,6 @@ describe('controllers/appeal-details/application-decision-date', () => {
   let req;
   let res;
 
-  const expectedViewData = {
-    pageTitle: 'Change application decision date',
-  };
-
   const appealId = 'ff5fe7af-e69c-4c0e-9d78-70890b2a6e31';
   const appealDecisionDate = '2021-11-19T00:00:00.000Z';
 
@@ -43,7 +39,6 @@ describe('controllers/appeal-details/application-decision-date', () => {
 
       expect(res.render).toBeCalledTimes(1);
       expect(res.render).toBeCalledWith(views.applicationDecisionDate, {
-        ...expectedViewData,
         decisionDate: {
           day: '19',
           month: '11',

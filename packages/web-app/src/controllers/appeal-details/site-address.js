@@ -4,7 +4,6 @@ const saveAndContinue = require('../../lib/save-and-continue');
 const { appealLink } = require('../../config/db-fields');
 
 const viewData = (data, errors, errorSummary) => ({
-  pageTitle: 'Change address of the appeal site',
   ...data,
   errors,
   errorSummary,
