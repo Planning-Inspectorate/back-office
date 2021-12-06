@@ -1,0 +1,9 @@
+# Update Questionnaire Status
+
+## Functionality
+Faas function to perform an to update the questionnaire in the AppealLink table
+Column is QuestionnaireStatusID
+This function is set to be run every 24 hours
+
+## Testing
+__tests__/sql-generator is for the purpose of seeding the database to check correct implementation
