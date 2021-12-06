@@ -5,7 +5,6 @@ const saveAndContinue = require('../../lib/save-and-continue');
 const { hasAppealSubmission } = require('../../config/db-fields');
 
 const viewData = (data, errors, errorSummary) => ({
-  pageTitle: 'Change application decision date',
   ...data,
   errors,
   errorSummary,
