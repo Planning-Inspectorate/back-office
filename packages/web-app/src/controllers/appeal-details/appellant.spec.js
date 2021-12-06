@@ -13,10 +13,6 @@ describe('controllers/appeal-details/appellant', () => {
   let req;
   let res;
 
-  const expectedViewData = {
-    pageTitle: 'Change appellant details',
-  };
-
   const appealId = 'ff5fe7af-e69c-4c0e-9d78-70890b2a6e31';
   const appellantName = 'Appellant Name';
   const creatorEmailAddress = 'email.address@example.com';
@@ -42,7 +38,6 @@ describe('controllers/appeal-details/appellant', () => {
 
       expect(res.render).toBeCalledTimes(1);
       expect(res.render).toBeCalledWith(views.appellant, {
-        ...expectedViewData,
         appealData: {
           appellantName,
           creatorEmailAddress,
@@ -111,7 +106,6 @@ describe('controllers/appeal-details/appellant', () => {
 
       expect(res.render).toBeCalledTimes(1);
       expect(res.render).toBeCalledWith(views.appellant, {
-        ...expectedViewData,
         appealData: {
           [appealLink.appellantName]: newAppellantName,
           [hasAppealSubmission.creatorEmailAddress]: newCreatorEmailAddress,
@@ -144,7 +138,6 @@ describe('controllers/appeal-details/appellant', () => {
 
       expect(res.render).toBeCalledTimes(1);
       expect(res.render).toBeCalledWith(views.appellant, {
-        ...expectedViewData,
         appealData: {
           [appealLink.appellantName]: newAppellantName,
           [hasAppealSubmission.creatorEmailAddress]: newCreatorEmailAddress,
