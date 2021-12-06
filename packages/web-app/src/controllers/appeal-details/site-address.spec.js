@@ -12,10 +12,6 @@ describe('controllers/appeal-details/site-address', () => {
   let req;
   let res;
 
-  const expectedViewData = {
-    pageTitle: 'Change address of the appeal site',
-  };
-
   const appealId = 'ff5fe7af-e69c-4c0e-9d78-70890b2a6e31';
   const siteAddressLineOne = 'line 1';
   const siteAddressLineTwo = 'line 2';
@@ -48,7 +44,6 @@ describe('controllers/appeal-details/site-address', () => {
 
       expect(res.render).toBeCalledTimes(1);
       expect(res.render).toBeCalledWith(views.siteAddress, {
-        ...expectedViewData,
         siteAddressLineOne,
         siteAddressLineTwo,
         siteAddressTown,

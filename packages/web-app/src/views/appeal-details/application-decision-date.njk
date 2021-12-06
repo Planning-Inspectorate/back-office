@@ -4,6 +4,8 @@
 {% from "govuk/components/date-input/macro.njk" import govukDateInput %}
 {% from "components/button.njk" import button %}
 
+{% set pageTitle = "Change application decision date" %}
+
 {% block formContent %}
   {{ govukDateInput( {
     id: "decision-date",

@@ -8,6 +8,7 @@ const {
 } = require('../../validation/appeal-details/decision-date');
 const expressValidationErrorsToGovUkErrorList = require('../../lib/express-validation-errors-to-govuk-error-list');
 const combineDateInputsMiddleware = require('../../middleware/combine-date-inputs');
+const govukErrorListOnlyFirst = require('../../lib/govuk-error-list-only-first');
 
 jest.mock('../../validation/appeal-details/decision-date');
 jest.mock('../../lib/express-validation-errors-to-govuk-error-list');
@@ -24,6 +25,7 @@ describe('routes/appeal-details/application-decision-date', () => {
         combineDateInputsMiddleware,
         decisionDateValidationRules(),
         expressValidationErrorsToGovUkErrorList,
+        govukErrorListOnlyFirst,
       ],
       postApplicationDecisionDate
     );
