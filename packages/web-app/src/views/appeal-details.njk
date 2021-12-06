@@ -176,11 +176,31 @@
               rows: [
                 {
                   key: { text: "Appeal statement" },
-                  value: { html: documentLink(appealData.appealId, appealData.appealStatement) }
+                  value: { html: documentLink(appealData.appealId, appealData.appealStatement) },
+                  actions: {
+                    items: [
+                      {
+                          href: "/add-documents/appealStatement/" + appealData.appealId,
+                          text: "Change",
+                          visuallyHiddenText: "the appeal statement",
+                          attributes: { "data-cy": "changeAppealStatement" }
+                      }
+                    ]
+                  }
                 },
                 {
                   key: { text: "Supporting documents" },
-                  value: { html: documentListLink(appealData.appealId, appealData.otherDocuments) }
+                  value: { html: documentListLink(appealData.appealId, appealData.otherDocuments) },
+                  actions: {
+                    items: [
+                      {
+                          href: "/add-documents/otherDocuments/" + appealData.appealId,
+                          text: "Change",
+                          visuallyHiddenText: "the supporting documents",
+                          attributes: { "data-cy": "changeOtherDocuments" }
+                      }
+                    ]
+                  }
                 }
               ]
             })
@@ -195,19 +215,59 @@
               rows: [
                 {
                   key: { text: "Plans used to reach decision" },
-                  value: { html: documentListLink(questionnaireData.lpaQuestionnaireId, questionnaireData.decisionPlans) }
+                  value: { html: documentListLink(questionnaireData.lpaQuestionnaireId, questionnaireData.decisionPlans) },
+                  actions: questionnaireData.lpaQuestionnaireId and {
+                    items: [
+                      {
+                          href: "/add-documents/decisionPlans/" + appealData.appealId + "/" + questionnaireData.lpaQuestionnaireId,
+                          text: "Change",
+                          visuallyHiddenText: "the decision plans",
+                          attributes: { "data-cy": "changeDecisionPlans" }
+                      }
+                    ]
+                  }
                 },
                 {
                   key: { text: "Planning application form" },
-                  value: { html: documentLink(appealData.lpaQuestionnaireId, appealData.originalApplication) }
+                  value: { html: documentLink(appealData.appealId, appealData.originalApplication) },
+                  actions: {
+                    items: [
+                      {
+                          href: "/add-documents/originalApplication/" + appealData.appealId,
+                          text: "Change",
+                          visuallyHiddenText: "the planning application form",
+                          attributes: { "data-cy": "changeOriginalApplication" }
+                      }
+                    ]
+                  }
                 },
                 {
                   key: { text: "Planning Officers report" },
-                  value: { html: documentListLink(questionnaireData.lpaQuestionnaireId, questionnaireData.officersReport) }
+                  value: { html: documentListLink(questionnaireData.lpaQuestionnaireId, questionnaireData.officersReport) },
+                  actions: questionnaireData.lpaQuestionnaireId and {
+                    items: [
+                      {
+                          href: "/add-documents/officersReport/" + appealData.appealId + "/" + questionnaireData.lpaQuestionnaireId,
+                          text: "Change",
+                          visuallyHiddenText: "the planning officers report",
+                          attributes: { "data-cy": "changeOfficersReport" }
+                      }
+                    ]
+                  }
                 },
                 {
                   key: { text: "Decision notice" },
-                  value: { html: documentListLink(questionnaireData.lpaQuestionnaireId, questionnaireData.decisionPlans) }
+                  value: { html: documentListLink(questionnaireData.lpaQuestionnaireId, questionnaireData.decisionPlans) },
+                  actions: questionnaireData.lpaQuestionnaireId and {
+                    items: [
+                      {
+                          href: "/add-documents/decisionPlans/" + appealData.appealId + "/" + questionnaireData.lpaQuestionnaireId,
+                          text: "Change",
+                          visuallyHiddenText: "the decision notice",
+                          attributes: { "data-cy": "changeDecisionNotice" }
+                      }
+                    ]
+                  }
                 },
                 {
                   key: { text: "Extra conditions" },
@@ -215,7 +275,17 @@
                 },
                 {
                   key: { text: "Details of planning history" },
-                  value: { html: documentListLink(questionnaireData.lpaQuestionnaireId, questionnaireData.planningHistory) }
+                  value: { html: documentListLink(questionnaireData.lpaQuestionnaireId, questionnaireData.planningHistory) },
+                  actions: questionnaireData.lpaQuestionnaireId and {
+                    items: [
+                      {
+                          href: "/add-documents/planningHistory/" + appealData.appealId + "/" + questionnaireData.lpaQuestionnaireId,
+                          text: "Change",
+                          visuallyHiddenText: "the details of planning history",
+                          attributes: { "data-cy": "changePlanningHistory" }
+                      }
+                    ]
+                  }
                 },
                 {
                   key: { text: "Supporting documents" },
@@ -257,15 +327,45 @@
               rows: [
                 {
                   key: { text: "Statutory development plan policy" },
-                  value: { html: documentListLink(questionnaireData.lpaQuestionnaireId, questionnaireData.statutoryDevelopment) }
+                  value: { html: documentListLink(questionnaireData.lpaQuestionnaireId, questionnaireData.statutoryDevelopment) },
+                  actions: questionnaireData.lpaQuestionnaireId and {
+                    items: [
+                      {
+                          href: "/add-documents/statutoryDevelopment/" + appealData.appealId + "/" + questionnaireData.lpaQuestionnaireId,
+                          text: "Change",
+                          visuallyHiddenText: "the statutory development plan policy",
+                          attributes: { "data-cy": "changeStatutoryDevelopment" }
+                      }
+                    ]
+                  }
                 },
                 {
                   key: { text: "Other relevant policies" },
-                  value: { html: documentListLink(questionnaireData.lpaQuestionnaireId, questionnaireData.otherPolicies) }
+                  value: { html: documentListLink(questionnaireData.lpaQuestionnaireId, questionnaireData.otherPolicies) },
+                  actions: questionnaireData.lpaQuestionnaireId and {
+                    items: [
+                      {
+                          href: "/add-documents/otherPolicies/" + appealData.appealId + "/" + questionnaireData.lpaQuestionnaireId,
+                          text: "Change",
+                          visuallyHiddenText: "the other relevant policies",
+                          attributes: { "data-cy": "changeOtherPolicies" }
+                      }
+                    ]
+                  }
                 },
                 {
                   key: { text: "Supplementary planning documents" },
-                  value: { html: documentListLink(questionnaireData.lpaQuestionnaireId, questionnaireData.supplementaryDocuments) }
+                  value: { html: documentListLink(questionnaireData.lpaQuestionnaireId, questionnaireData.supplementaryDocuments) },
+                  actions: questionnaireData.lpaQuestionnaireId and {
+                    items: [
+                      {
+                          href: "/add-documents/supplementaryDocuments/" + appealData.appealId + "/" + questionnaireData.lpaQuestionnaireId,
+                          text: "Change",
+                          visuallyHiddenText: "the supplementatry planning documents",
+                          attributes: { "data-cy": "changeSupplementaryDocuments" }
+                      }
+                    ]
+                  }
                 },
                 {
                   key: { text: "Emerging development plan or neighbourhood plan" },
@@ -284,7 +384,17 @@
               rows: [
                 {
                   key: { text: "Representations" },
-                  value: { html: documentListLink(questionnaireData.lpaQuestionnaireId, questionnaireData.representations) }
+                  value: { html: documentListLink(questionnaireData.lpaQuestionnaireId, questionnaireData.representations) },
+                  actions: questionnaireData.lpaQuestionnaireId and {
+                    items: [
+                      {
+                          href: "/add-documents/representations/" + appealData.appealId + "/" + questionnaireData.lpaQuestionnaireId,
+                          text: "Change",
+                          visuallyHiddenText: "the representations",
+                          attributes: { "data-cy": "changeRepresentations" }
+                      }
+                    ]
+                  }
                 }
               ]
             })
@@ -299,7 +409,17 @@
               rows: [
                 {
                   key: { text: "Application notification" },
-                  value: { html: documentListLink(questionnaireData.lpaQuestionnaireId, questionnaireData.interestedParties) }
+                  value: { html: documentListLink(questionnaireData.lpaQuestionnaireId, questionnaireData.interestedParties) },
+                  actions: questionnaireData.lpaQuestionnaireId and {
+                    items: [
+                      {
+                          href: "/add-documents/interestedParties/" + appealData.appealId + "/" + questionnaireData.lpaQuestionnaireId,
+                          text: "Change",
+                          visuallyHiddenText: "the application notification",
+                          attributes: { "data-cy": "changeInterestedParties" }
+                      }
+                    ]
+                  }
                 },
                 {
                   key: { text: "Application publicity" },
@@ -307,7 +427,17 @@
                 },
                 {
                   key: { text: "Appeal notification" },
-                  value: { html: documentListLink(questionnaireData.lpaQuestionnaireId, questionnaireData.notifyingParties) }
+                  value: { html: documentListLink(questionnaireData.lpaQuestionnaireId, questionnaireData.notifyingParties) },
+                  actions: questionnaireData.lpaQuestionnaireId and {
+                    items: [
+                      {
+                          href: "/add-documents/notifyingParties/" + appealData.appealId + "/" + questionnaireData.lpaQuestionnaireId,
+                          text: "Change",
+                          visuallyHiddenText: "the appeal notification",
+                          attributes: { "data-cy": "changeNotifyingParties" }
+                      }
+                    ]
+                  }
                 }
               ]
             })
