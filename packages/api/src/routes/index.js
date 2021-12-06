@@ -5,6 +5,7 @@ const appealLink = require('./appeal-link');
 const appealSubmission = require('./appeal-submission');
 const questionnaire = require('./questionnaire');
 const apiDocs = require('./api-docs');
+const document = require('./document');
 
 const router = express.Router();
 
@@ -13,6 +14,7 @@ router.use('/api/v1/appeal-search', appealSearch);
 router.use('/api/v1/appeal-link', appealLink);
 router.use('/api/v1/appeal-submission', appealSubmission);
 router.use('/api/v1/questionnaire', questionnaire);
+router.use('/api/v1/document', document);
 router.use('/api-docs', apiDocs);
 
 module.exports = router;
