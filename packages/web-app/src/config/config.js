@@ -46,6 +46,10 @@ const config = {
       baseUrl: process.env.APP_LPA_QUESTIONNAIRE_BASE_URL,
     },
   },
+  fileUpload: {
+    maxSizeInBytes: process.env.FILE_UPLOAD_MAX_SIZE_IN_BYTES,
+    path: process.env.FILE_UPLOAD_PATH,
+  },
 };
 
 module.exports = config;

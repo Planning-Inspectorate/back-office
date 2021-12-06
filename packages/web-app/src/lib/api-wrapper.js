@@ -1,5 +1,6 @@
 const fetch = require('node-fetch');
 const documentTypes = require('@pins/common/src/document-types');
+const compareAsc = require('date-fns/compareAsc');
 const config = require('../config/config');
 const logger = require('./logger');
 
@@ -17,18 +18,20 @@ const formatDocumentsAndAddToData = (data) => {
   const documents = {};
 
   if (data.documents) {
-    data.documents.forEach(({ name, id, document_type: documentType }) => {
-      if (documentTypes[documentType]) {
-        if (!documentTypes[documentType].multiple) {
-          documents[documentType] = { name, id };
-        } else {
-          if (!documents[documentType]) {
-            documents[documentType] = [];
+    data.documents
+      .sort((docA, docB) => compareAsc(new Date(docA.upload_date), new Date(docB.upload_date)))
+      .forEach(({ name, id, document_type: documentType }) => {
+        if (documentTypes[documentType]) {
+          if (!documentTypes[documentType].multiple) {
+            documents[documentType] = { name, id };
+          } else {
+            if (!documents[documentType]) {
+              documents[documentType] = [];
+            }
+            documents[documentType].push({ name, id });
           }
-          documents[documentType].push({ name, id });
         }
-      }
-    });
+      });
   }
 
   newData = { ...newData, ...documents };

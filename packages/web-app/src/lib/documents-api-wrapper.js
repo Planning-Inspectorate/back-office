@@ -1,7 +1,8 @@
 const fetch = require('node-fetch');
 const uuid = require('uuid');
 const { utils } = require('@pins/common');
-
+const fs = require('fs');
+const FormData = require('form-data');
 const config = require('../config/config');
 const parentLogger = require('./logger');
 
@@ -57,5 +58,23 @@ async function handler(path, method = 'GET', opts = {}, headers = {}) {
   }
 }
 
-exports.getDocument = async (appealOrQuestionnaireId, documentId) =>
+const getDocument = async (appealOrQuestionnaireId, documentId) =>
   handler(`/api/v1/${appealOrQuestionnaireId}/${documentId}/file`);
+
+const uploadDocuments = (appealOrQuestionnaireId, documentType, files) =>
+  Promise.all(
+    files.map((file) => {
+      const body = new FormData();
+      body.append('file', fs.createReadStream(file.path), file.originalname);
+      body.append('documentType', documentType);
+
+      return handler(`/api/v1/${appealOrQuestionnaireId}`, 'POST', {
+        body,
+      });
+    })
+  );
+
+module.exports = {
+  getDocument,
+  uploadDocuments,
+};
