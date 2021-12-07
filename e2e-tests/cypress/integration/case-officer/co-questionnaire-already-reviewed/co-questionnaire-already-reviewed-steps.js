@@ -3,7 +3,7 @@ import {verifyPageUrl} from "../../../support/common/verify-page-url";
 import {verifyPageTitle} from "../../../support/common/verify-page-title";
 import {verifyPageHeading} from "../../../support/common/verify-page-heading";
 import {returnToAppealSubmission} from "../../../support/PageObjects/co-questionnaire-already-reviewed-po";
-const pageUrl = '/questionnaires-for-review/already-reviewed/1';
+const pageUrl = 'review-questionnaire-complete';
 const pageTitle = 'Questionnaire already reviewed - Appeal a householder planning decision - GOV.UK';
 const pageHeading = 'Questionnaire already reviewed';
 Given('a case officer is reviewing a questionnaire',()=>{

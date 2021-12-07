@@ -34,7 +34,7 @@ Given('a Case officer is on the Review questionnaire page for {string} status',(
     goToCaseOfficerPage();
     selectCaseReferenceFromDb(status);
     cy.get('@caseReference').then((caseReference)=>{
-        getAppealsLink(caseReference).click();
+        getAppealsLink(caseReference[23]).click();
     });
     verifyPageTitle(title);
     verifyPageHeading(pageHeading);
@@ -43,7 +43,7 @@ Given('a Case officer is on the Review questionnaire page for {string} status',(
 When('Case officer selects the appeal to view for {string} status',(status)=>{
     selectCaseReferenceFromDb(status);
     cy.get('@caseReference').then((caseReference)=>{
-        getAppealsLink(caseReference).click();
+        getAppealsLink(caseReference[23]).click();
     });
 
 });

@@ -1,6 +1,6 @@
 export const selectCaseReferenceFromDb = (status) =>{
     if(status=== 'Received'){
-        cy.sqlServer("select caseReference from [QuestionnaireData] where questionnaireStatus='RECEIVED'").then( (res)=>{
+        cy.sqlServer("select * from [QuestionnaireData] where questionnaireStatus='RECEIVED'").then( (res)=>{
             cy.wrap(res).as('caseReference');
             //return res;
         });
