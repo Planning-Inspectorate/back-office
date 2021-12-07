@@ -1,5 +1,5 @@
 export const visitAppealDetailsPage = () => cy.visit('/appeal-details');
-export const viewAppealDetailsPage = () => cy.url();
+export const viewAppealDetailsPage = () => cy.url().should('include','/appeal-details')
 export const pageSearchResultsTitle = () => cy.title().should('eq', 'Search results - Appeal a householder planning decision - GOV.UK');
 export const pageAppealDetailsTitle = () => cy.title().should('eq', 'Appeal details - Appeal a householder planning decision - GOV.UK');
 export const viewAppealSiteAddress = () => cy.get('.govuk-summary-list');
