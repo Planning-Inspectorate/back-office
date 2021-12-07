@@ -49,7 +49,6 @@ When('the questionnaire review is {string}',(questionnaireReviewStatus)=>{
 When(`the Case officer enters {string} information for {string}`,(missing_information, document_section)=>{
     reviewSectionMissingInformationCheckbox(document_section);
     reviewSectionMissingInformation(missing_information,document_section);
-    getContinueButton().click();
 });
 
 When('Case Officer clicks on {string} for {string} status',(breadcrumb,status)=>{
@@ -72,10 +71,12 @@ When('Case Officer clicks on Confirm outcome',()=>{
 });
 
 When('the Case officer unchecks the {string}',(document_section)=>{
-    cy.get(':checkbox').uncheck({force: true});
+    cy.get('input[data-cy=lpaqreview-supplementary-planning-checkbox]').uncheck();
     getContinueButton().click();
 });
-
+Given('case officer clicks on finish outcome',()=>{
+    getContinueButton().click();
+})
 Then('the {string} page is displayed showing the questionnaire as {string}',(page,questionnaireReviewStatus)=>{
 verifySectionName(page);
 getReviewOutcome().siblings().should('contain',questionnaireReviewStatus);
