@@ -14,6 +14,12 @@ import {verifySectionName} from "../../../support/case-officer/verify-Section-Na
 import {getConfirmContinueButton} from "../../../support/PageObjects/co-check-and-confirm-po";
 import {reviewSectionMissingInformationCheckbox} from "../../../support/case-officer/review-section-missing-information-check-box";
 import {reviewSectionMissingInformation} from "../../../support/case-officer/review-section-missing-information";
+import {
+    selectAppealIdForCaseOfficerFromDb
+} from "../../../support/db-queries/select-appeal-id-for-case-officer-from-db";
+import {
+    selectLpaQuestionnaireOutcomeForCaseOfficerFromDb
+} from "../../../support/db-queries/select-lpa-questionnaire-outcome-for-case-officer-from-db";
 
 const page = {
     heading: 'Outcome confirmed',
@@ -57,11 +63,18 @@ When('Case Officer clicks on Confirm outcome',()=>{
 
 Then('Case officer is navigated to confirm outcome page for {string} status',(status)=>{
     cy.get('h1').should('contain','Outcome confirmed');
-    getOutcomeConfirmationPageText().should('contain', 'Questionnaire').should('contain',status);
+
     selectCaseReferenceFromDb('Received');
     cy.get('@caseReference').then((caseReference)=>{
         getOutcomeConfirmationPageText().should('contain',caseReference[23]);
     });
+    selectAppealIdForCaseOfficerFromDb();
+    cy.get('@receivedStatusAppealId').then((appealId)=>{
+        selectLpaQuestionnaireOutcomeForCaseOfficerFromDb(appealId);
+        cy.get('@lpaQuestionnaireOutcome').then((lpaQuestionnaireId)=>{
+            getOutcomeConfirmationPageText().should('contain', 'Questionnaire').should('contain',status);
+        })
+    })
 })
 
 Then('the Case Officer is presented with the confirmation page', () => {
