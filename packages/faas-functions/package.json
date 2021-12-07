@@ -1,0 +1,68 @@
+{
+  "name": "update-questionnaire-statuses-faas",
+  "version": "0.0.1",
+  "private": true,
+  "engines": {
+    "node": ">=14.0.0 <15.0.0",
+    "npm": ">=6.0.0 <7.0.0"
+  },
+  "description": "Update Questionnaire Statuses in Azure SQL database",
+  "main": "src/index.js",
+  "scripts": {
+    "documentation": "jest --coverage --reporters jest-html-reporters --coverageReporters html",
+    "format": "prettier --write './**/*.js'",
+    "lint": "eslint ./",
+    "print:insert-records": "node -e 'require(\"./update-questionnaire-statuses-faas/test/sql_generator.js\").createLpaSubmissionRecords()'",
+    "start": "func start",
+    "test": "jest",
+    "test:cov": "jest --coverage",
+    "test:watch": "jest --watch"
+  },
+  "author": "Foundry4 <www.foundry4.com>",
+  "lint-staged": {
+    "./**/*.js": "npm run lint -- --fix",
+    "./**/*.{js, json}": "npm run format"
+  },
+  "dependencies": {
+    "amqplib": "^0.8.0",
+    "date-fns": "^2.27.0",
+    "mssql": "^7.2.1",
+    "pino": "^6.11.3",
+    "uuid": "8.3.2"
+  },
+  "devDependencies": {
+    "eslint": "^7.12.1",
+    "eslint-config-airbnb-base": "^14.2.0",
+    "eslint-config-prettier": "^6.15.0",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-jest": "^24.1.0",
+    "eslint-plugin-prettier": "^3.1.4",
+    "jest": "^26.6.3",
+    "jest-date-mock": "^1.0.8",
+    "jest-html-reporters": "^2.1.2",
+    "jest-when": "^3.2.0",
+    "pino-pretty": "^4.3.0",
+    "prettier": "^2.1.2"
+  },
+  "jest": {
+    "coverageThreshold": {
+      "global": {
+        "branches": 100,
+        "functions": 100,
+        "lines": 100,
+        "statements": 100
+      }
+    },
+    "moduleFileExtensions": [
+      "js",
+      "json"
+    ],
+    "rootDir": ".",
+    "testMatch": [
+      "**/__tests__/**/*.(js|ts|tsx)",
+      "**/?(*.)+(spec|test).(js|ts|tsx)"
+    ],
+    "coverageDirectory": "./coverage",
+    "testEnvironment": "node"
+  }
+}

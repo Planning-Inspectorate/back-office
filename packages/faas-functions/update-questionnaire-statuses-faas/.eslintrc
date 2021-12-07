@@ -1,0 +1,19 @@
+{
+  "parserOptions": {
+    "ecmaVersion": 2020,
+    "sourceType": "module"
+  },
+  "extends": ["airbnb-base", "prettier"],
+  "plugins": ["jest", "prettier"],
+  "root": true,
+  "rules": {
+    "prettier/prettier": "error",
+    "no-console": "off" // OpenFaaS works best with console
+  },
+  "env": {
+    "commonjs": true,
+    "es2021": true,
+    "node": true,
+    "jest": true
+  }
+}

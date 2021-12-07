@@ -1,0 +1,12 @@
+{
+  "bindings": [
+    {
+      "name": "publishfunction",
+      "type": "serviceBusTrigger",
+      "direction": "in",
+      "queueName": "",
+      "connection": "pinsuksmessagequeuedev_SERVICEBUS"
+    }
+  ]
+}
+
