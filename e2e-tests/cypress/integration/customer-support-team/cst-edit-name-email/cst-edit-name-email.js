@@ -66,6 +66,7 @@ Given( "the user is on the Change appellant details page", () => {
     });
 } );
 When( "the user edits the information and saves", () => {
+    cy.checkPageA11y();
     inputAppellantName().clear().type('{home}NewRow-Test Appellant Name');
     inputAppellantEmailAddress().clear().type('{home}NewRow.Test@Gmail.com');
     continueButton().click();
