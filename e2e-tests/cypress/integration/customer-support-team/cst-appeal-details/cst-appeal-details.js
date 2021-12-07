@@ -115,7 +115,7 @@ Then( "the user is presented with the appeal details in the 'Summary' section", 
         appellantName( caseReferenceCST[18] ).should( 'exist' );
         let siteAddressCST = caseReferenceCST[19] + ', ' + caseReferenceCST[20] + ', ' + caseReferenceCST[21] + ', ' + caseReferenceCST[22] + ', ' + caseReferenceCST[23];
         viewAppealSiteAddress().contains( 'dd', siteAddressCST ).should( 'be.visible' );
-        localPlanningDepartment().contains( 'dd', caseReferenceCST[46] ).should( 'be.visible' );
+        localPlanningDepartment().contains( 'dd', caseReferenceCST[48] ).should( 'be.visible' );
         viewTextCaseFile().should( 'be.visible' );
         viewTextKeyDates().should( 'be.visible' );
     });
@@ -163,7 +163,10 @@ Then("the user is presented with the appeal details in the 'Evidence Appellant C
     headerAppellantCase().should('be.visible');
     buttonAppellantCase().click();
     appealStatementAppellantCase().should('be.visible');
-    appealStatementAppellantCase().siblings('dd').click();
+    if(appealStatementAppellantCase().siblings().length>0)
+    {
+        appealStatementAppellantCase().siblings( 'dd' ).click();
+    }
     supportingDocumentsAppellantCase().should('be.visible');
     if(cy.get("#accordion-default-content-2 > .govuk-summary-list > :nth-child(2) > .govuk-summary-list__value").length>0)
     {
