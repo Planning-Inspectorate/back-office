@@ -32,7 +32,7 @@ Cypress.Commands.add('checkPageA11y', () => {
 
     cy.checkA11y(
         {
-            exclude:['.govuk-checkboxes__input','.govuk-summary-list','.govuk-checkboxes__conditional','.govuk-summary-list__value']
+            exclude:['.govuk-checkboxes__input','.govuk-summary-list','.govuk-checkboxes__conditional','.govuk-summary-list__value',]
         },
         null,
         callback,
