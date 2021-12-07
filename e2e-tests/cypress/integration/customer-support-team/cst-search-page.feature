@@ -13,6 +13,6 @@ Feature: As a Case Officer/CST member
      | 1st line of address  | 2       |
      | postcode             | 1       |
      | postcode             | SA148AH |
-     | appellant agent name | k       |
+     | appellant agent name | n       |
 
 
