@@ -67,7 +67,7 @@ describe('controllers/questionnaire-check-and-confirm', () => {
         session: {
           appeal: { id: '5c943cb9-e029-4094-a447-4b3256d6ede7' },
           questionnaire: {
-            outcome: 'Incomplete',
+            outcome: '2',
           },
         },
         params: { appealId: '5c943cb9-e029-4094-a447-4b3256d6ede7' },
@@ -77,6 +77,7 @@ describe('controllers/questionnaire-check-and-confirm', () => {
 
       expect(res.render).toBeCalledWith('review-questionnaire-complete', {
         pageTitle: 'Review questionnaire',
+        outcome: '2',
         appealData: req.session.appeal,
         questionnaireData: req.session.questionnaire,
       });
@@ -87,7 +88,7 @@ describe('controllers/questionnaire-check-and-confirm', () => {
         session: {
           appeal: { id: '5c943cb9-e029-4094-a447-4b3256d6ede7' },
           questionnaire: {
-            outcome: 'Complete',
+            outcome: '1',
           },
         },
         params: { appealId: '5c943cb9-e029-4094-a447-4b3256d6ede7' },
@@ -97,6 +98,7 @@ describe('controllers/questionnaire-check-and-confirm', () => {
 
       expect(res.render).toBeCalledWith('review-questionnaire-complete', {
         pageTitle: 'Review questionnaire',
+        outcome: '1',
         appealData: req.session.appeal,
         questionnaireData: req.session.questionnaire,
       });

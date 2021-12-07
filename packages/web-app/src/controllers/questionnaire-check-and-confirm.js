@@ -18,12 +18,13 @@ const setCheckAndConfirm = async (req, res) => {
   const { outcome } = req.session.questionnaire;
   const { appealId } = req.params;
 
-  if (outcome === 'Complete') {
+  if (outcome === '1') {
     await saveAppealData({ appealId, lpaQuestionnaireReviewOutcomeId: 1 });
     return res.render('review-questionnaire-complete', {
       pageTitle: 'Review questionnaire',
       appealData: req.session.appeal,
       questionnaireData: req.session.questionnaire,
+      outcome: '1',
     });
   }
 
@@ -32,6 +33,7 @@ const setCheckAndConfirm = async (req, res) => {
     pageTitle: 'Review questionnaire',
     appealData: req.session.appeal,
     questionnaireData: req.session.questionnaire,
+    outcome: '2',
   });
 };
 
