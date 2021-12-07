@@ -25,7 +25,7 @@ Given('Case officer is on Check and confirm page for {string} status', (status) 
     goToCaseOfficerPage();
     selectCaseReferenceFromDb('Received');
     cy.get('@caseReference').then((caseReference)=>{
-        getAppealsLink(caseReference).click();
+        getAppealsLink(caseReference[23]).click();
     });
     if(status==='Complete'){
         getContinueButton().click();
@@ -42,7 +42,7 @@ Given('Case officer is navigated to confirm outcome page',()=>{
     goToCaseOfficerPage();
     selectCaseReferenceFromDb('Received');
     cy.get('@caseReference').then((caseReference)=>{
-        getAppealsLink(caseReference).click();
+        getAppealsLink(caseReference[23]).click();
     });
     getContinueButton().click();
     verifySectionName('Check and confirm');
@@ -60,7 +60,7 @@ Then('Case officer is navigated to confirm outcome page for {string} status',(st
     getOutcomeConfirmationPageText().should('contain', 'Questionnaire').should('contain',status);
     selectCaseReferenceFromDb('Received');
     cy.get('@caseReference').then((caseReference)=>{
-        getOutcomeConfirmationPageText().should('contain',caseReference);
+        getOutcomeConfirmationPageText().should('contain',caseReference[23]);
     });
 })
 

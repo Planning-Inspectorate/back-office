@@ -255,13 +255,39 @@ const convertValuesToMissingOrIncorrect = (values) => {
     'lpaqreview-appeal-notification-subcheckbox2': 'Copy of letter or site notice',
   };
 
+  const pageObjectsStructure = {
+    'lpaqreview-officer-report-checkbox': [],
+    'lpaqreview-plans-decision-checkbox': ['lpaqreview-plans-decision-textarea'],
+    'lpaqreview-statutory-development-checkbox': ['lpaqreview-statutory-development--textarea'],
+    'lpaqreview-other-relevant-policies-checkbox': ['lpaqreview-other-relevant-policies--textarea'],
+    'lpaqreview-supplementary-planning-checkbox': ['lpaqreview-supplementary-planning-textarea'],
+    'lpaqreview-conservation-guidance-checkbox': ['lpaqreview-conservation-guidance-textarea'],
+    'lpaqreview-listing-description-checkbox': ['lpaqreview-listing-description-textarea'],
+    'lpaqreview-application-notification-checkbox': [
+      'lpaqreview-application-notification-subcheckbox1',
+      'lpaqreview-application-notification-subcheckbox2',
+    ],
+    'lpaqreview-application-publicity-checkbox': [],
+    'lpaqreview-representations-checkbox': ['lpaqreview-representations-textarea'],
+    'lpaqreview-appeal-notification-checkbox': [
+      'lpaqreview-appeal-notification-subcheckbox1',
+      'lpaqreview-appeal-notification-subcheckbox2',
+    ],
+  };
+
   const includedMessages = [];
 
-  // eslint-disable-next-line no-restricted-syntax
-  for (const [key, value] of Object.entries(values)) {
-    if (value === 'on') includedMessages.push(messages[key]);
-    if (value !== 'on' && value !== '' && value !== undefined) includedMessages.push(value);
-  }
+  Object.entries(values).forEach(([key, value]) => {
+    if (value === 'on' && pageObjectsStructure[key]) {
+      includedMessages.push(messages[key]);
+
+      pageObjectsStructure[key].forEach((childKey) => {
+        if (values[childKey] && values[childKey] !== '') {
+          includedMessages.push(values[childKey] === 'on' ? messages[childKey] : values[childKey]);
+        }
+      });
+    }
+  });
 
   return includedMessages;
 };
