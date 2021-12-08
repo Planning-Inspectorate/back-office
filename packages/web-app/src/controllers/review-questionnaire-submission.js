@@ -1,5 +1,6 @@
 const saveAndContinue = require('../lib/save-and-continue');
 const { saveAppealData } = require('../lib/api-wrapper');
+const { hasAppeal } = require('../config/db-fields');
 
 const {
   QUESTIONNAIRE: { REVIEWOUTCOME },
@@ -235,12 +236,61 @@ const valueIds = [
   'lpaqreview-appeal-notification-subcheckbox2',
 ];
 
+const pageObjectsStructure = {
+  'lpaqreview-officer-report-checkbox': [],
+  'lpaqreview-plans-decision-checkbox': ['lpaqreview-plans-decision-textarea'],
+  'lpaqreview-statutory-development-checkbox': ['lpaqreview-statutory-development-textarea'],
+  'lpaqreview-other-relevant-policies-checkbox': ['lpaqreview-other-relevant-policies-textarea'],
+  'lpaqreview-supplementary-planning-checkbox': ['lpaqreview-supplementary-planning-textarea'],
+  'lpaqreview-conservation-guidance-checkbox': ['lpaqreview-conservation-guidance-textarea'],
+  'lpaqreview-listing-description-checkbox': ['lpaqreview-listing-description-textarea'],
+  'lpaqreview-application-notification-checkbox': [
+    'lpaqreview-application-notification-subcheckbox1',
+    'lpaqreview-application-notification-subcheckbox2',
+  ],
+  'lpaqreview-application-publicity-checkbox': [],
+  'lpaqreview-representations-checkbox': ['lpaqreview-representations-textarea'],
+  'lpaqreview-appeal-notification-checkbox': [
+    'lpaqreview-appeal-notification-subcheckbox1',
+    'lpaqreview-appeal-notification-subcheckbox2',
+  ],
+};
+
 const getValues = (body) => {
   const values = {};
   valueIds.forEach((name) => {
     values[name] = body[name];
   });
   return values;
+};
+
+const getValidSelectedMissingOrIncorrect = (values) => {
+  const ValidSelectedMissingOrIncorrect = [];
+
+  Object.entries(values).forEach(([key, value]) => {
+    if (value === 'on' && pageObjectsStructure[key]) {
+      const validItem = {};
+      validItem[key] = { value };
+
+      if (pageObjectsStructure[key].length === 0) {
+        ValidSelectedMissingOrIncorrect.push(validItem);
+      } else {
+        const children = [];
+        pageObjectsStructure[key].forEach((childKey) => {
+          const child = {};
+          if (values[childKey] && values[childKey] !== '') {
+            child[childKey] = values[childKey];
+          }
+          children.push(child);
+        });
+        validItem[key].children = children;
+        ValidSelectedMissingOrIncorrect.push(validItem);
+      }
+    }
+
+    return ValidSelectedMissingOrIncorrect;
+  });
+  return ValidSelectedMissingOrIncorrect;
 };
 
 const convertValuesToMissingOrIncorrect = (values) => {
@@ -260,26 +310,6 @@ const convertValuesToMissingOrIncorrect = (values) => {
     'lpaqreview-appeal-notification-checkbox': 'Appeal notification:',
     'lpaqreview-appeal-notification-subcheckbox1': 'List of addresses',
     'lpaqreview-appeal-notification-subcheckbox2': 'Copy of letter or site notice',
-  };
-
-  const pageObjectsStructure = {
-    'lpaqreview-officer-report-checkbox': [],
-    'lpaqreview-plans-decision-checkbox': ['lpaqreview-plans-decision-textarea'],
-    'lpaqreview-statutory-development-checkbox': ['lpaqreview-statutory-development--textarea'],
-    'lpaqreview-other-relevant-policies-checkbox': ['lpaqreview-other-relevant-policies--textarea'],
-    'lpaqreview-supplementary-planning-checkbox': ['lpaqreview-supplementary-planning-textarea'],
-    'lpaqreview-conservation-guidance-checkbox': ['lpaqreview-conservation-guidance-textarea'],
-    'lpaqreview-listing-description-checkbox': ['lpaqreview-listing-description-textarea'],
-    'lpaqreview-application-notification-checkbox': [
-      'lpaqreview-application-notification-subcheckbox1',
-      'lpaqreview-application-notification-subcheckbox2',
-    ],
-    'lpaqreview-application-publicity-checkbox': [],
-    'lpaqreview-representations-checkbox': ['lpaqreview-representations-textarea'],
-    'lpaqreview-appeal-notification-checkbox': [
-      'lpaqreview-appeal-notification-subcheckbox1',
-      'lpaqreview-appeal-notification-subcheckbox2',
-    ],
   };
 
   const includedMessages = [];
@@ -314,6 +344,9 @@ const postReviewQuestionnaireSubmission = (req, res) => {
 
   req.session.questionnaire.missingOrIncorrectDocuments = missingOrIncorrectDocuments;
   req.session.questionnaire.missingOrIncorrectInformation = values;
+  req.session.casework[hasAppeal.missingOrWrongReasons] = JSON.stringify(
+    getValidSelectedMissingOrIncorrect(values)
+  );
   req.session.questionnaire.outcome =
     missingOrIncorrectDocuments.length > 0 ? REVIEWOUTCOME.INCOMPLETE : REVIEWOUTCOME.COMPLETE;
 
