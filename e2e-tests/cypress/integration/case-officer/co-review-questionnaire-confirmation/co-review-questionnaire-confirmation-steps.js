@@ -63,7 +63,7 @@ When('Case Officer clicks on Confirm outcome',()=>{
 
 Then('Case officer is navigated to confirm outcome page for {string} status',(status)=>{
     cy.get('h1').should('contain','Outcome confirmed');
-
+    getOutcomeConfirmationPageText().should('contain', 'Questionnaire').should('contain',status);
     selectCaseReferenceFromDb('Received');
     cy.get('@caseReference').then((caseReference)=>{
         getOutcomeConfirmationPageText().should('contain',caseReference[23]);
@@ -72,7 +72,10 @@ Then('Case officer is navigated to confirm outcome page for {string} status',(st
     cy.get('@receivedStatusAppealId').then((appealId)=>{
         selectLpaQuestionnaireOutcomeForCaseOfficerFromDb(appealId);
         cy.get('@lpaQuestionnaireOutcome').then((lpaQuestionnaireId)=>{
-            getOutcomeConfirmationPageText().should('contain', 'Questionnaire').should('contain',status);
+            if(lpaQuestionnaireId.toString()==='1')
+            getOutcomeConfirmationPageText().should('contain', 'Questionnaire').should('contain','Complete');
+            else
+                getOutcomeConfirmationPageText().should('contain', 'Questionnaire').should('contain','Incomplete');
         })
     })
 })
