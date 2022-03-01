@@ -7,7 +7,7 @@ module.exports = {
 		try {
 			if (process.env.ENABLE_NOTIFIER === 'true') {
 				notifier.notify({
-					title: '🎾 LTA',
+					title: '🏢 PI',
 					message: message,
 					icon: false
 				});

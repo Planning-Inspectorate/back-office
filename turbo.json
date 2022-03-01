@@ -1,4 +1,5 @@
 {
+	"npmClient": "npm",
 	"pipeline": {
 		"build": {
 			"outputs": [

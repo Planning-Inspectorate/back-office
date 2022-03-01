@@ -4,10 +4,10 @@ const fs = require('node:fs');
 const path = require('node:path');
 const https = require('node:https');
 const kleur = require('kleur');
-const { loadEnv } = require('./lib/load-env');
+const { loadEnvironment } = require('./lib/load-environment');
 
 // Load .env files based on the rules defined in the docs
-loadEnv(process.env.NODE_ENV);
+loadEnvironment(process.env.NODE_ENV);
 
 // Express app
 const { app } = require('./app/express');

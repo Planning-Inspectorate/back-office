@@ -46,6 +46,7 @@ module.exports = {
 	rules: {
 		'filenames/match-exported': 2,
 		'filenames/no-index': 0,
-		'unicorn/prefer-module': 0
+		'unicorn/prefer-module': 0,
+		'unicorn/prevent-abbreviations': 1
 	}
 };

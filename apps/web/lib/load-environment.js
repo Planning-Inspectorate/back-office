@@ -3,7 +3,7 @@
 const path = require('path');
 const dotenv = require('dotenv');
 
-function loadEnv(nodeEnv = 'development') {
+function loadEnvironment(nodeEnv = 'development') {
 	const environmentSpecificLocalEnv = dotenv.config({
 		path: path.resolve(`.env.${nodeEnv}.local`),
 	});
@@ -22,8 +22,8 @@ function loadEnv(nodeEnv = 'development') {
 	const defaultEnv = dotenv.config({ path: path.resolve('.env') });
 
 	return Object.assign({}, defaultEnv.parsed, environmentSpecificEnv.parsed, localEnv.parsed, environmentSpecificLocalEnv.parsed);
-};
+}
 
 module.exports = {
-	loadEnv
-}
+	loadEnvironment
+};

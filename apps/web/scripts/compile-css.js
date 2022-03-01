@@ -1,6 +1,7 @@
 'use strict';
 
-const loadEnvironment = require('../lib/load-env');
+const { loadEnvironment } = require('../lib/load-environment');
+
 loadEnvironment(process.env.NODE_ENV);
 
 const isProduction = process.env.NODE_ENV === 'production';
@@ -28,18 +29,26 @@ function compileCSS(input) {
 		file: input,
 		outFile: 'main.css',
 		sourceMap: true,
+		quietDeps: true,
 		omitSourceMapUrl: true, // since we just read it from the result object
 		// Enabled it when using render instead of renderSync
 		// fiber: Fiber, // This increases perf for render https://github.com/sass/dart-sass#javascript-api
 		includePaths: [
 			resolvePath(`src/styles/env/${isProduction ? 'production' : 'development'}`),
-			resolvePath(`src/styles/dev/${isRelease ? 'release' : 'dev'}`)
+			resolvePath(`src/styles/dev/${isRelease ? 'release' : 'dev'}`),
+			// TODO: Find a better way to include these paths.
+			// We are including the govuk-frontend to be fix the NPM workspaces module resolution issues
+			// as we can't import files directly from the node_modules folder.
+			path.resolve(require.resolve('govuk-frontend'), '../..'),
 		]
 	};
+
 	if (isProduction) {
 		compiledOptions.outputStyle = 'compressed';
 	}
+
 	logger.log(`Compiling (${isProduction ? 'production' : 'development'} / ${isRelease ? 'release' : 'dev'})`, input);
+
 	const compiledResult = sassEngine.renderSync(compiledOptions);
 	const compiledMap = JSON.parse(compiledResult.map.toString('utf8'));
 
@@ -120,7 +129,7 @@ renderTo(out, `src/server/static/styles/main.css`);
 const resourceName = `main.css?v=${hash}`;
 fs.writeFileSync(
 	'src/server/_data/resourceCSS.json',
-	JSON.stringify({path: `/static/${resourceName}`}),
+	JSON.stringify({path: `/styles/${resourceName}`}),
 );
 
 logger.success(`Finished CSS! (${resourceName})`);

@@ -23,6 +23,9 @@
     {% endblock %}
 
     {% block head %}{% endblock %}
+
+	 <link rel="stylesheet" href="{{ resourceCSS.path | stripQueryParamsDev }}"/>
+
     {# The default og:image is added below head so that scrapers see any custom metatags first, and this is just a fallback #}
     {# image url needs to be absolute e.g. http://wwww.domain.com/.../govuk-opengraph-image.png #}
     <meta property="og:image" content="{{ assetUrl | default('/assets') }}/images/govuk-opengraph-image.png">
