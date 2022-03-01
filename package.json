@@ -8,7 +8,6 @@
     "node": ">=16.14.0"
   },
   "scripts": {
-    "prepare": "husky install",
     "build": "turbo run build",
     "dev": "turbo run dev --no-cache --parallel --continue",
     "lint": "turbo run lint",
@@ -17,8 +16,6 @@
   },
   "dependencies": {},
   "devDependencies": {
-    "husky": "7.0.4",
-    "lint-staged": "12.3.4",
     "lodash": "^4.17.21",
     "turbo": "latest"
   }
