@@ -1,24 +1,25 @@
 {
-  "name": "back-office",
-  "version": "0.0.0",
-  "description": "PINS Back Office",
+  "private": true,
+  "workspaces": [
+    "packages/*",
+    "apps/*"
+  ],
+  "engines": {
+    "node": ">=16.14.0"
+  },
   "scripts": {
-    "commit": "cz",
-    "commitlint": "commitlint --from b94d397 --to HEAD",
-    "test:e2e": "cd ./e2e-tests && npm run test:e2e TAGS='not @wip'",
-    "test:e2e:postprocess": "cd ./e2e-tests && npm run test:e2e:postprocess",
-    "test:e2e:files": "cd ./e2e-tests && ./create-large-test-files.sh",
-    "test:e2e:smoke": "cd ./e2e-tests && BASEURL=$BASEURL npm run test:e2e:smoke"
+    "prepare": "husky install",
+    "build": "turbo run build",
+    "dev": "turbo run dev --no-cache --parallel --continue",
+    "lint": "turbo run lint",
+    "test": "turbo run test",
+    "clean": "turbo run clean && rm -rf node_modules"
   },
-  "dependencies": {
-    "cypress": "^8.2.0"
-  },
+  "dependencies": {},
   "devDependencies": {
-    "@commitlint/cli": "^13.1.0",
-    "@commitlint/config-conventional": "^13.1.0",
-    "commitizen": "^4.2.4",
-    "cz-conventional-changelog": "^3.3.0",
-    "husky": "^7.0.1",
-    "lint-staged": "^11.1.2"
+    "husky": "7.0.4",
+    "lint-staged": "12.3.4",
+    "lodash": "^4.17.21",
+    "turbo": "latest"
   }
 }

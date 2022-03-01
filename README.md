@@ -1,92 +1,111 @@
-# back-office
+# Planning Inspectorate Back Office
 
-## Database
+> This is the Planning Inspectorate Back Office monorepo that holds the API and WEB apps plus any additional required packages.
 
-### Local env setup
+## Features
 
-1. Download [Azure Data Explorer](https://azure.microsoft.com/en-gb/features/storage-explorer) and connect to the database using the details above except the database, which should be left blank.
+- Enable [ES2015 features](https://babeljs.io/docs/learn-es2015/) using [Babel](https://babeljs.io)
+- Bundled JS code using [rollup.js](https://rollupjs.org/)
+- CSS with superpowers via [Scss](https://sass-lang.com/)
+- CSS [Autoprefixing](https://github.com/postcss/autoprefixer), [PostCSS](http://postcss.org/)
+- Built in CSS architecture bet practices with utility classes and sensitive settings
+- Map compiled CSS/JS to source stylesheets/js with source maps
+- Built in Node JS server (including http2 / https support) using [Express.js](https://expressjs.com/)
+- [browserslist](http://browserl.ist/) support for babel and friends
+- Linting done with [eslint](https://eslint.org/) and [stylelint](https://stylelint.io/)
+- Custom task runner using promises
 
-2. Create the database using Azure Data Explorer (right click the connection and select New Query)
+## Installing / Getting started
 
-   ```
-   CREATE DATABASE backofficedev;
-   ```
+In order to get started you will need to run the LTS version of [Node.js](https://nodejs.org/en/).
 
-3. Create the following environment variables, by pasting the following commands into a new terminal window:
+Additionaly you can run the entire solution using Docker containers so a local [Docker](https://www.docker.com/products/docker-desktop) instance is required.
 
-   ```
-   export MSSQL_HOST=localhost
-   export MSSQL_DATABASE=backofficedev
-   export MSSQL_USERNAME=sa
-   export MSSQL_PASSWORD=AbCd12345@~
-   export MSSQL_DIALECT=mssql
-   ```
-
-4. Run the migrations, by changing to the `packages/api` directory and pasting the following command into the same terminal window as in step 3:
-
-   ```
-   npm run db:migrate
-   ```
-
-   Completed migrations are stored in the db so when you run the migrations again only new ones since the last migration will be run.
-
-5. Seed the database, by changing to the `packages/api` directory and pasting the following command into the same terminal window as in step 3:
-
-   ```
-   npm run db:seed
-   ```
-
-   Completed seeders are not stored in the db so this should only be run once as it will insert the same data each time they are run.
-
-6. Add some demo records using Azure Data Explorer (right click the connection and select Refresh, then right click the database and select New Query)
-
-   ```
-   INSERT INTO [HASAppealSubmission]
-    ([ID], [AppealID], [CreatorEmailAddress], [CreatorName], [CreatorOriginalApplicant], [CreatorOnBehalfOf], [OriginalApplicationNumber],
-    [SiteOwnership], [SiteInformOwners], [SiteRestriction], [SiteRestrictionDetails], [SafetyConcern], [SafetyConcernDetails],
-    [SensitiveInformation], [TermsAgreed], [DecisionDate], [SubmissionDate])
-   VALUES
-    ('9214dd73-5bb3-4b81-acc0-4b01a7f6a146', '6ff8d0ef-3767-4258-b3d3-34d48fca238b', 'manish.sharma@example.com', 'Manish Sharma',
-    1, 0, 'APP/Q9999/D/21/1234567', 1, 0, 0, '', 0, '', 0, 0, '2021-10-21', '2021-10-21');
-
-   INSERT INTO [HASLPASubmission]
-    ([ID], [LPAQuestionnaireID], [AppealID], [SubmissionDate], [SubmissionAccuracy], [SubmissionAccuracyDetails], [ExtraConditions],
-    [ExtraConditionsDetails], [AdjacentAppeals], [AdjacentAppealsNumbers], [CannotSeeLand], [SiteAccess], [SiteAccessDetails],
-    [SiteNeighbourAccess], [SiteNeighbourAccessDetails], [HealthAndSafetyIssues], [HealthAndSafetyDetails], [AffectListedBuilding],
-    [AffectListedBuildingDetails], [GreenBelt], [ConservationArea], [OriginalPlanningApplicationPublicised],
-    [DevelopmentNeighbourhoodPlanSubmitted], [DevelopmentNeighbourhoodPlanChanges], [LatestEvent])
-   VALUES
-    ('6922c408-e80a-472b-8b00-9377daec083d', '5c45c22d-a39c-4844-bee1-2f6829b42238', '6ff8d0ef-3767-4258-b3d3-34d48fca238b',
-    '2021-11-01', 1, null, 0, null, 0, null, 1, 1, 'Easy site access', 1, 'Easy site neighbour access', 1,
-    'There are some health and safety issues', 0, 'The site is not a listed building', 0, 0, 1, 1, 'The development neighbourhood plan changes', 1);
-
-   INSERT INTO [AppealLink]
-    ([ID], [AppealID],[LPAQuestionnaireID], [CaseReference], [CaseTypeID], [CaseStatusID], [AppellantName],
-    [SiteAddressLineOne], [SiteAddressLineTwo], [SiteAddressTown], [SiteAddressCounty], [SiteAddressPostCode], [LocalPlanningAuthorityID],
-    [QuestionnaireStatusID], [LatestEvent], [EventDateTime], [EventUserID], [EventUserName])
-   VALUES
-    ('9565dcf2-ebe6-42b1-8450-c8283abb8f53', '6ff8d0ef-3767-4258-b3d3-34d48fca238b', '5c45c22d-a39c-4844-bee1-2f6829b42238', 123456789,
-    null, 1, 'An Apellant', 'Address 1', 'Address 2', 'Town', 'Country', 'Postcode', 'E69999999', 2, 1, null, null, null);
-   ```
-
-### Undoing migrations
-
-The last migration can be undone as follows.
-
-This can be useful if you are creating a new migration and need to run it several times.
+The repository is structured like a monorepo with two main folders `apps` and `packages`.
 
 ```
-npx sequelize-cli db:migrate:undo
+.
+├── apps
+│  ├── api
+│  └── web
+├── packages
+│  └── ui
 ```
 
-All migrations can be undone as follows.
+`apps` - Holds the main Express.js applications responsible for the DB access API backend and the front facing web app.
+`packages` - Holds the common packages that can be used by all apps.
 
-This will delete all tables and leave an empty database.
+## Developing
 
+### Built With
+
+The entire solution is built with [Express.js](https://expressjs.com/) and [Nunjucks templating language](https://mozilla.github.io/nunjucks/templating.html), both for the web and api backends.
+
+### Prerequisites
+
+Before you get started you need to create a `.env` local environment file within both the web and api apps folders.
+
+TODO: Finish this chapter.
+
+### Setting up Dev
+
+Here's a brief intro about what a developer must do in order to start developing
+the project further:
+
+```shell
+# Navigate to a folder on your system and clone the repository
+git clone git@github.com:Planning-Inspectorate/back-office.git
+cd back-office
 ```
-npx sequelize-cli db:migrate:undo:all
+
+Once the repository has been cloned you can follow the instructions bellow to run it locally.
+
+And state what happens step-by-step. If there is any virtual environment, local server or database feeder needed, explain here.
+
+### Building
+
+If your project needs some additional steps for the developer to build the
+project after some code changes, state them here. for example:
+
+```shell
+./configure
+make
+make install
 ```
 
-## API
+Here again you should state what actually happens when the code above gets
+executed.
 
-Documentation for the Back Office API can be found at [http://localhost:3004/api-docs](http://localhost:3004/api-docs)
+### Deploying / Publishing
+
+give instructions on how to build and release a new version
+In case there's some step you have to take that publishes this project to a
+server, this is the right time to state it.
+
+```shell
+packagemanager deploy your-project -s server.com -u username -p password
+```
+
+And again you'd need to tell what the previous code actually does.
+
+## Configuration
+
+Here you should write what are all of the configurations a user can enter when
+using the project.
+
+## Tests
+
+Describe and show how to run the tests with code examples.
+Explain what these tests test and why.
+
+```shell
+Give an example
+```
+
+## Style guide
+
+Explain your code style and show how to check it.
+
+## Licensing
+
+[MIT](https://opensource.org/licenses/mit) © Planning Inspectorate

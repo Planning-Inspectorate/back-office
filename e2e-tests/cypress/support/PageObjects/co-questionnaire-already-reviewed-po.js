@@ -1,1 +1,0 @@
-export const returnToAppealSubmission = () => cy.findByRole('link',{name:'Return to appeal submissions for review'});
