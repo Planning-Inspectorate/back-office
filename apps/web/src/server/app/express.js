@@ -4,48 +4,72 @@ const path = require("node:path");
 const express = require("express");
 const nunjucks = require("nunjucks");
 const logger = require("morgan");
-const compress = require("compression");
+const compression = require("compression");
 const cors = require("cors");
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
-const serveStatic = require('serve-static');
+const serveStatic = require("serve-static");
 const helmet = require("helmet");
 const { routes } = require("./routes");
+const { config } = require("../config/config");
+const stripQueryParametersDevelopment = require("../lib/filters/strip-query-params");
+const resourceCSS = require("../_data/resourceCSS.json");
+
+// Create a new Express app.
 const app = express();
-const stripQueryParamsDev = require('../lib/filters/strip-query-params-dev');
-const resourceCSS = require('../_data/resourceCSS.json');
 
-// if (config.env === 'development') {
-// 	app.use(logger('dev'));
-// }
+if (!config.isProd) {
+	app.use(logger("dev"));
+}
 
+// Parse incoming request bodies in a middleware before your handlers, available under the req.body property.
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+
+// Parse Cookie header and populate req.cookies with an object keyed by the cookie names.
+app.use(cookieParser());
+
+// Secure apps by setting various HTTP headers
+app.use(helmet());
+app.use(
+	helmet.contentSecurityPolicy({
+		directives: {
+			scriptSrc: [
+				"'self'",
+				() => `'nonce-EdcOUaJ8lczj9tIPO0lPow=='`,
+			],
+		},
+	})
+);
+
+// Enable CORS - Cross Origin Resource Sharing
+app.use(cors());
+
+// Enable compression middleware
+app.use(compression());
+
+// Nunjucks templating engine settings and configuration.
 const viewPaths = [
-	// TODO: Use NodeResolveLoader instead of this hack.
+	// TODO: Try and use NodeResolveLoader instead of this hack.
 	// https://mozilla.github.io/nunjucks/api.html
 	// https://github.com/mozilla/nunjucks/pull/1197/files
 	path.resolve(require.resolve("govuk-frontend"), "../.."),
 	path.join(__dirname, "../views"),
 ];
-const env = nunjucks.configure(viewPaths, {
+
+const njEnvironment = nunjucks.configure(viewPaths, {
 	autoescape: true,
 	express: app,
 });
 
-env.addFilter('stripQueryParamsDev', stripQueryParamsDev);
-env.addGlobal('resourceCSS', resourceCSS);
+njEnvironment.addFilter("stripQueryParamsDev", stripQueryParametersDevelopment);
+njEnvironment.addGlobal("resourceCSS", resourceCSS);
+njEnvironment.addGlobal("cspNonce", "EdcOUaJ8lczj9tIPO0lPow==");
 
 app.set("view engine", "njk");
 
-// Don't cache HTML files for local dev
-const cacheHeaders = (response, requestPath) => {
-	if (serveStatic.mime.lookup(requestPath) === 'text/html') {
-		// Custom Cache-Control for HTML files
-		response.setHeader('Cache-Control', 'public, max-age=0');
-		response.setHeader('Document-Policy', 'js-profiling');
-	}
-};
-
-app.use(serveStatic('src/server/static', { maxAge: '1h', setHeaders: cacheHeaders }));
+// Serve static files (fonts, images, generated CSS and JS, etc)
+app.use(serveStatic("src/server/static"));
 
 app.use("/", routes);
 

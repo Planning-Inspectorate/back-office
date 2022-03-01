@@ -1,6 +1,6 @@
 'use strict';
 
-const loadEnvironment = require('../lib/load-environment');
+const { loadEnvironment } = require('../lib/load-environment');
 
 // All env variables used by the app should be defined in this file.
 
@@ -27,4 +27,6 @@ const config = {
 };
 
 // Map env vars and make it visible outside module
-module.exports = config;
+module.exports = {
+	config
+};

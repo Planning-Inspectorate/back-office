@@ -1,5 +1,5 @@
-$govuk-assets-path: "/";
-$govuk-images-path: "/images/";
-$govuk-fonts-path: "/fonts/";
-
-@import "govuk/all";
+@use "govuk/all" with (
+	$govuk-assets-path: "/",
+	$govuk-images-path: "/images/",
+	$govuk-fonts-path: "/fonts/"
+);

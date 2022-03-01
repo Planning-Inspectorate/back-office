@@ -1,0 +1,78 @@
+@use "sass:meta";
+@use "./settings.config" as settings-config;
+
+//* ========================================================================
+//  # GLOBAL SETTINGS
+//  ======================================================================== */
+
+// The global settings file contains any project-wide variables; things that
+// need to be made available to the entire codebase.
+
+/// Baseline grid lines width / height (point grid system).
+/// Every spacing metric should be based on this.
+/// @group global-settings
+$global-baseline: 8px !default;
+
+/// Typography global basline (line height, 1/2 of the global baseline).
+/// @see {variable} $global-baseline
+/// @group global-settings
+$global-typography-baseline: $global-baseline / 2 !default;
+
+// Base typographical styles and baseline grid. You need to define these values
+// in pixels: they will be converted to more appropriate units.
+
+/// This is the global font size used mostly for body copy.
+/// @group global-settings
+$global-font-size: 16px !default;
+
+/// The global line height is basically the next baseline value (grid point system) from the global font size ((16 / 8) + 1) * 8  = 24.
+/// This will also be used to calculate the unitless line height for each font size we define via `t-font-size` mixin.
+/// @group global-settings
+$global-line-height: 24px !default;
+$global-line-height-base: $global-line-height / $global-font-size;
+
+/// Font family font list for system fonts.
+/// @group global-settings
+$font-family-system:
+	// Safari for macOS and iOS (San Francisco)
+	-apple-system,
+	// Chrome < 56 for macOS (San Francisco)
+	BlinkMacSystemFont,
+	// Windows
+	"Segoe UI",
+	// Android
+	Roboto,
+	// Basic web fallback
+	"Helvetica Neue", Arial,
+	// Linux
+	"Noto Sans",
+	// Sans serif fallback
+	sans-serif,
+	// Emoji fonts
+	"Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji" !default;
+
+/// Z-index layers map.
+/// @group global-settings
+$z-layers: (
+	"tooltip": 1110,
+	"popover": 1100, // The big difference between these and the bellow (modal) is to cater for stacked modals.
+	"modal-layer": (
+		"modal": 1050,
+		"modal-backdrop": 1040
+	),
+	"nav": 600,
+	"above": 100,
+	"default": 1,
+	"below": -100,
+	"seabed": -10000,
+) !default;
+
+/// Characters which are escaped by the escape-svg function.
+/// @group global-settings
+$escaped-characters: (
+	("<","%3c"),
+	(">","%3e"),
+	("#","%23"),
+	("(","%28"),
+	(")","%29"),
+) !default;
