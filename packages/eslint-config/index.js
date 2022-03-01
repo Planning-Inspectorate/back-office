@@ -31,7 +31,7 @@ module.exports = {
 		'plugin:unicorn/recommended',
 	],
 	env: {
-		"es2022": true,
+		'es2022': true,
 		es6: true,
 		browser: true,
 		node: true

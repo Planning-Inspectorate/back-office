@@ -104,7 +104,7 @@ module.exports = {
 		'prefer-object-spread': 0,
 		'quote-props': 0,
 		'quotes': 0,
-		'semi': [2, "always", { "omitLastInOneLineBlock": true}],
+		'semi': [2, 'always', { 'omitLastInOneLineBlock': true}],
 		'semi-spacing': 0,
 		'semi-style': 0,
 		'sort-keys': 0,

@@ -6,8 +6,8 @@ const appRoutes = require('./app.route');
 const router = express.Router();
 
 // GET /health-check - Check service health
-router.get('/health-check', (req, res) =>
-	res.send('OK')
+router.get('/health-check', (request, response) =>
+	response.send('OK')
 );
 
 router.use('/', appRoutes);
