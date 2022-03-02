@@ -7,7 +7,7 @@
     "node": ">=16.14.0"
   },
   "scripts": {
-    "test": "echo 'TOOD: add test script'",
+    "test": "NODE_ENV=test jest",
     "dev": "nodemon -e js,njk ./src/server.js",
     "start": "node ./src/server.js",
     "build": "echo 'TOOD: add build script'",
@@ -27,7 +27,6 @@
     "lodash": "^4.17.21",
     "log-process-errors": "8.0.0",
     "morgan": "1.10.0",
-    "nunjucks": "3.2.3",
     "planning-inspectorate-libs": "*"
   },
   "devDependencies": {
