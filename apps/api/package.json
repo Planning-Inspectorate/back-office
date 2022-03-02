@@ -9,8 +9,8 @@
   "scripts": {
     "test": "NODE_ENV=test jest",
     "dev": "nodemon -e js,njk ./src/server.js",
+    "build": "webpack",
     "start": "node ./src/server.js",
-    "build": "echo 'TOOD: add build script'",
     "lint": "eslint src --fix",
     "clean": "rimraf .turbo node_modules dist"
   },
