@@ -7,7 +7,7 @@ const path = require("path");
  * Loads environment from .env file
  *
  * @param {string} nodeEnvironment Declaration of environment
- * @returns {void}
+ * @returns {object} Object containing all environment variables
  */
 function loadEnvironment(nodeEnvironment = 'development') {
 	const environmentSpecificLocalEnvironment = dotenv.config({
