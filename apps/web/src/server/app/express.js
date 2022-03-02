@@ -14,6 +14,7 @@ const { routes } = require('./routes');
 const { config } = require('../config/config');
 const stripQueryParametersDevelopment = require('../lib/filters/strip-query-params');
 const resourceCSS = require('../_data/resourceCSS.json');
+const resourceJS = require('../_data/resourceJS.json');
 
 // Create a new Express app.
 const app = express();
@@ -64,6 +65,7 @@ const njEnvironment = nunjucks.configure(viewPaths, {
 
 njEnvironment.addFilter('stripQueryParamsDev', stripQueryParametersDevelopment);
 njEnvironment.addGlobal('resourceCSS', resourceCSS);
+njEnvironment.addGlobal('resourceJS', resourceJS);
 njEnvironment.addGlobal('cspNonce', 'EdcOUaJ8lczj9tIPO0lPow==');
 
 app.set('view engine', 'njk');

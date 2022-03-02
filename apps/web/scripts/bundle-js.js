@@ -1,6 +1,6 @@
 'use strict';
 
-const fs = require('node:fs').promises;
+const fs = require('node:fs/promises');
 const path = require('node:path');
 const rollup = require('rollup');
 const alias = require('@rollup/plugin-alias');
@@ -23,7 +23,6 @@ loadEnvironment(process.env.NODE_ENV);
 
 const isProduction = process.env.ELEVENTY_ENV === 'prod';
 const isRelease = process.env.APP_RELEASE === 'true';
-const appDirectory = fs.realpathSync(process.cwd());
 const logger = getLogger({ scope: 'JS'});
 
 process.on('unhandledRejection', (reason, p) => {
@@ -65,7 +64,7 @@ async function build() {
 				// babelHelpers: 'bundled',
 				// exclude: 'node_modules/**',
 				allowAllFormats: true,
-				configFile: path.resolve(appDirectory, 'babel.config.js')
+				configFile: path.resolve(process.cwd(), 'babel.config.js')
 			}),
 			alias({
 				entries: {}
