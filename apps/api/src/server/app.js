@@ -9,7 +9,7 @@ const helmet = require("helmet");
 const app = express();
 
 app.use(compression());
-app.use(morgan('combined'))
+app.use(morgan('combined'));
 app.use(helmet());
 
 app.use('/', homeRoutes);
