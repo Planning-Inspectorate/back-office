@@ -1,19 +1,19 @@
 'use strict';
 
+const fs = require('fs');
+const path = require('path');
+const kleur = require('kleur');
+const sassEngine = require('sass');
+// const Fiber = require('fibers');
+const { hashForContent } = require('../lib/hash');
+const getLogger = require('../lib/get-logger');
+const { notify } = require('../lib/notifier');
 const { loadEnvironment } = require('../lib/load-environment');
 
 loadEnvironment(process.env.NODE_ENV);
 
 const isProduction = process.env.NODE_ENV === 'production';
 const isRelease = process.env.APP_RELEASE === 'true';
-
-const fs = require('fs');
-const path = require('path');
-const sassEngine = require('sass');
-// const Fiber = require('fibers');
-const { hashForContent } = require('../lib/hash');
-const getLogger = require('../lib/get-logger');
-const { notify } = require('../lib/notifier');
 const logger = getLogger({ scope: 'Sass'});
 
 const appDirectory = fs.realpathSync(process.cwd());
@@ -47,7 +47,8 @@ function compileCSS(input) {
 		compiledOptions.outputStyle = 'compressed';
 	}
 
-	logger.log(`Compiling (${isProduction ? 'production' : 'development'} / ${isRelease ? 'release' : 'dev'})`, input);
+	// eslint-disable-next-line max-len
+	logger.log(`Compiling (${isProduction ? kleur.magenta('production') : kleur.magenta('development')} / ${isRelease ? 'release' : 'dev'})`, kleur.blue(input));
 
 	const compiledResult = sassEngine.renderSync(compiledOptions);
 	const compiledMap = JSON.parse(compiledResult.map.toString('utf8'));
@@ -88,14 +89,14 @@ function compileCSS(input) {
 		postcssOptions
 	);
 	postcssResult.warnings().forEach((warn) => {
-		console.warn(warn.toString());
+		logger.warn(warn.toString());
 	});
 
 	const { css, map: candidateMap } = postcssResult;
 
 	// nb. With the transpiled "sass", this is returned as a SourceMapGenerator, so convert it to
 	// a real string and then back to JSON.
-	const map = JSON.parse(candidateMap.toString('utf-8'));
+	const map = JSON.parse(candidateMap.toString('utf8'));
 	return { map, css };
 }
 
@@ -124,6 +125,7 @@ const hash = hashForContent(out.css);
 // We write an unhashed CSS file due to unfortunate real-world caching problems with a hash inside
 // the CSS name (we see our old HTML cached longer than the assets are available).
 renderTo(out, `src/server/static/styles/main.css`);
+logger.log(`Writing generated file to ${kleur.blue('src/server/static/styles/main.css')}`);
 
 // Write the CSS entrypoint to a known file, with a query hash, for Eleventy to read.
 const resourceName = `main.css?v=${hash}`;
@@ -131,6 +133,7 @@ fs.writeFileSync(
 	'src/server/_data/resourceCSS.json',
 	JSON.stringify({path: `/styles/${resourceName}`}),
 );
+logger.log(`Writing resource JSON file ${kleur.blue('resourceCSS.json')} to ${kleur.blue('src/server/_data/resourceCSS.json')}`);
 
 logger.success(`Finished CSS! (${resourceName})`);
 notify('Compiled CSS files');

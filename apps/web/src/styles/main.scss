@@ -1,5 +1,34 @@
+// Use the GDS Design System as a foundation
 @use "govuk/all" with (
 	$govuk-assets-path: "/",
 	$govuk-images-path: "/images/",
 	$govuk-fonts-path: "/fonts/"
 );
+
+// These are standalone dependencies loaded by the modules bellow.
+// ENV
+// 1 - SETTINGS
+// 2 - DESIGN TOKENS
+// 3 - TOOLS (functions, mixins)
+
+// 4 - GENERIC
+@use "4-generic/generic.box-sizing" as generic-box-sizing;
+
+// 5 - ELEMENTS
+@use "5-elements/elements.page" as elements-page;
+@use "5-elements/elements.images" as elements-images;
+
+// 6 - SKELETON
+// TODO: Add a simple grid system based on CSS grid.
+// @use "6-skeleton/skeleton.css-grid" as skeleton-css-grid;
+
+// 7 - COMPONENTS
+
+// 8 - UTILITIES
+
+// 9 - PAGES
+
+@use "dev" as *;
+
+// Shame file used for everytihng you will be shamed for.
+@use "shame";

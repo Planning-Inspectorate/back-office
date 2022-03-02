@@ -1,0 +1,60 @@
+@use "sass:map";
+@use "sass:meta";
+@use "../1-settings/settings.global";
+@use "./tools.functions";
+
+/**
+ * Function helper to avoid using `map-get($z-layers, $layer)`
+ * @param  {string} $layer The layer to use
+ * @return {number}        The z-index number returned from the `$z-layers` map
+ *
+ * Examples:
+ * Considering this `$z-layers` variable bellow, here is how the function works
+ * $z-layers: (
+ *     "tooltip": 1070,
+ *     "modal": (
+ *         "base": 1000,
+ *         "close": 1010,
+ *         "header": 1010
+ *     ),
+ *     "default": 1,
+ *     "seabed": -10000
+ * );
+ *
+ * @example scss - Usage
+ *  .modal {
+ *      z-index: z-index("modal", "base");
+ *  }
+ *
+ * @example scss - CSS Output
+ *  .modal {
+ *      z-index: 1000;
+ *  }
+ *
+ * @example scss - Usage
+ *  .element:after {
+ *      z-index: z-index("default") - 2;
+ *  }
+ *
+ * @example scss - CSS Output
+ *  .element:after {
+ *      z-index: -1;
+ *  }
+ *
+ * @example scss - Usage
+ *  .modal .btn.close {
+ *      z-index: z-index("modal", "close");
+ *  }
+ *
+ * @example scss - CSS Output
+ *  .modal .btn.close {
+ *      z-index: 1010;
+ *  }
+ */
+@function z-index($layers...) {
+	@if not tools.map-has-nested-keys(settings.$z-layers, $layers...) {
+		@warn "No z-index layer found for `#{meta.inspect($layers...)}` in $z-layers map. Property omitted.";
+	}
+
+	@return tools.map-deep-get(settings.$z-layers, $layers...);
+}

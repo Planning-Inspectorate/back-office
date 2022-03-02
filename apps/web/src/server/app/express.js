@@ -3,7 +3,7 @@
 const path = require('node:path');
 const express = require('express');
 const nunjucks = require('nunjucks');
-const logger = require('morgan');
+const morganLogger = require('morgan');
 const compression = require('compression');
 const cors = require('cors');
 const bodyParser = require('body-parser');
@@ -19,7 +19,7 @@ const resourceCSS = require('../_data/resourceCSS.json');
 const app = express();
 
 if (!config.isProd) {
-	app.use(logger('dev'));
+	app.use(morganLogger('dev'));
 }
 
 // Parse incoming request bodies in a middleware before your handlers, available under the req.body property.
