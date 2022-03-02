@@ -1,6 +1,6 @@
 'use strict';
 
-const {loadEnvironment} = require("./load-environment");
+const {loadEnvironment} = require("../../../../../packages/environment-config/load-environment");
 
 loadEnvironment(process.env.NODE_ENV);
 

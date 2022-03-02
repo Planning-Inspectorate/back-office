@@ -7,11 +7,12 @@ const path = require("path");
  * Loads environment from .env file
  *
  * @param {string} nodeEnvironment Declaration of environment
+ * @param {string} envFileDirectory Path to env file location
  * @returns {object} Object containing all environment variables
  */
-function loadEnvironment(nodeEnvironment = 'development') {
+function loadEnvironment(nodeEnvironment = 'development', envFileDirectory = ".") {
 	const environmentSpecificLocalEnvironment = dotenv.config({
-		path: path.resolve(`.env.${nodeEnvironment}.local`),
+		path: path.resolve(envFileDirectory, `.env.${nodeEnvironment}.local`),
 	});
 
 	const localEnvironment =
@@ -22,10 +23,10 @@ function loadEnvironment(nodeEnvironment = 'development') {
 			});
 
 	const environmentSpecificEnvironment = dotenv.config({
-		path: path.resolve(`.env.${nodeEnvironment}`),
+		path: path.resolve(envFileDirectory, `.env.${nodeEnvironment}`),
 	});
 
-	const defaultEnvironment = dotenv.config({ path: path.resolve('.env') });
+	const defaultEnvironment = dotenv.config({ path: path.resolve(envFileDirectory, '.env') });
 
 	return Object.assign(
 		{},
