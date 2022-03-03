@@ -12,6 +12,8 @@
     "node": ">=16.14.0"
   },
   "scripts": {
+    "lint:js": "eslint src",
+    "lint:js:fix": "eslint src --fix",
     "clean": "rimraf .turbo node_modules dist"
   },
   "dependencies": {

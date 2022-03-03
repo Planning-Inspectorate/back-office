@@ -16,7 +16,8 @@
     "watch:rollup": "chokidar \"src/client/**/*.js\" --silent -c \"npm run rollup\"",
     "watch:sass": "chokidar \"src/styles/**/*.scss\" --silent -c \"npm run sass\"",
     "test": "echo 'TOOD: add test script'",
-    "lint": "eslint src --fix",
+    "lint:js": "eslint src",
+    "lint:js:fix": "eslint src --fix",
     "clean": "rimraf .turbo node_modules dist"
   },
   "dependencies": {
@@ -50,6 +51,7 @@
     "autoprefixer": "10.4.2",
     "chokidar-cli": "^3.0.0",
     "core-js": "^3.21.1",
+    "cross-env": "^7.0.3",
     "eslint": "8.10.0",
     "eslint-config": "*",
     "node-notifier": "10.0.1",

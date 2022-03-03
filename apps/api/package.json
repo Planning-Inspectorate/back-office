@@ -31,6 +31,7 @@
     "planning-inspectorate-libs": "*"
   },
   "devDependencies": {
+    "cross-env": "^7.0.3",
     "eslint": "8.10.0",
     "jest": "27.5.1",
     "nodemon": "^2.0.15",
