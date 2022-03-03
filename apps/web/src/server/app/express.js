@@ -12,7 +12,7 @@ const serveStatic = require('serve-static');
 const helmet = require('helmet');
 const { routes } = require('./routes');
 const { config } = require('../config/config');
-const stripQueryParametersDevelopment = require('../lib/filters/strip-query-params');
+const stripQueryParametersDevelopment = require('../lib/filters/strip-query-parameters');
 const resourceCSS = require('../_data/resourceCSS.json');
 const resourceJS = require('../_data/resourceJS.json');
 
@@ -36,8 +36,8 @@ app.use(
 	helmet.contentSecurityPolicy({
 		directives: {
 			scriptSrc: [
-				"'self'",
-				() => `'nonce-EdcOUaJ8lczj9tIPO0lPow=='`,
+				"'self'", // eslint-disable-line quotes
+				() => `'nonce-EdcOUaJ8lczj9tIPO0lPow=='`, // eslint-disable-line quotes
 			],
 		},
 	})
