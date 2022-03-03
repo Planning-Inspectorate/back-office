@@ -11,7 +11,6 @@ dist
 build-tmp
 .cache
 .esm-cache
-.eslintcache
 .sass-cache
 .tmp
 .webpack-monitor
@@ -44,6 +43,7 @@ pids
 
 # Editors
 .vscode
+.idea
 
 # Env settings / local env files
 .env.local
@@ -53,5 +53,4 @@ pids
 *.pem
 
 # Other, system file
-temp
 .DS_Store
