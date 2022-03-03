@@ -18,6 +18,5 @@
     "rimraf": "^3.0.2",
     "turbo": "latest",
     "lodash": "^4.17.21"
-  },
-  "packageManager": "npm@8.3.1"
+  }
 }
