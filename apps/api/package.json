@@ -15,21 +15,23 @@
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist"
   },
   "dependencies": {
-    "body-parser": "^1.19.2",
-    "compression": "^1.7.4",
-    "cookie-parser": "^1.4.6",
-    "cors": "^2.8.5",
-    "dotenv": "^16.0.0",
+    "body-parser": "1.19.2",
+    "compression": "1.7.4",
+    "cookie-parser": "1.4.6",
+    "cors": "2.8.5",
+    "dotenv": "16.0.0",
     "eslint-config": "*",
     "express": "4.17.3",
-    "helmet": "^5.0.2",
-    "kleur": "^4.1.4",
-    "log-process-errors": "^8.0.0",
+    "helmet": "5.0.2",
+    "kleur": "4.1.4",
+    "log-process-errors": "8.0.0",
     "morgan": "1.10.0",
-    "nunjucks": "^3.2.3"
+    "nunjucks": "3.2.3"
   },
   "devDependencies": {
     "eslint": "8.10.0",
-    "nodemon": "2.0.15"
+    "jest": "27.5.1",
+    "nodemon": "^2.0.15",
+    "supertest": "6.2.2"
   }
 }
