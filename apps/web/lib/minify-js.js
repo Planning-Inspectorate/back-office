@@ -15,12 +15,12 @@ const terser = require('terser');
  * @param {!Array<string>} generated paths to generated script files
  * @returns {Promise<number>} ratio of compressed output to original source
  */
-async function minifySource(generated) {
+async function minifySource(generated, directory) {
 	let inputSize = 0;
 	let outputSize = 0;
 
 	for (const fileName of generated) {
-		const target = path.join('dist/static', fileName);
+		const target = path.join(directory, fileName);
 
 		const raw = await fs.readFile(target, 'utf8');
 		inputSize += raw.length;

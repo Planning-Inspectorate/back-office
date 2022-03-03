@@ -22,7 +22,7 @@ const { loadEnvironment } = require('planning-inspectorate-libs');
 
 loadEnvironment(process.env.NODE_ENV);
 
-const isProduction = process.env.ELEVENTY_ENV === 'prod';
+const isProduction = process.env.NODE_ENV === 'production';
 const isRelease = process.env.APP_RELEASE === 'true';
 const logger = getLogger({ scope: 'JS'});
 
@@ -37,7 +37,7 @@ process.on('unhandledRejection', (reason, p) => {
 const virtualImports = {
 	pi_config: {
 		isProduction,
-		env: process.env.ELEVENTY_ENV || 'dev',
+		env: process.env.NODE_ENV || 'dev',
 		useMockApi: process.env.USE_MOCK_API === 'true',
 		version: 'v' + new Date().toISOString().replace(/[\D]/g, '').slice(0, 12)
 	}
@@ -114,13 +114,13 @@ async function build() {
 	const hash = isRelease ? '' : hashForFiles(path.join('src/server/static/scripts', bootstrapPath));
 	const resourceName = `${bootstrapPath}${isRelease ? '' : '?v=' + hash}`;
 
-	// Write the bundle entrypoint to a known file for Eleventy to read.
+	// Write the bundle entrypoint to a known file for NJ to read.
 	logger.log(`Writing resource JSON file ${kleur.blue('resourceCSS.json')} to ${kleur.blue('src/server/_data/resourceJS.json')}`);
 	await fs.writeFile('src/server/_data/resourceJS.json', JSON.stringify({ path: `/scripts/${resourceName}` }));
 
 	// Compress the generated source here, as we need the final files and hashes for the Service Worker manifest.
 	if (isProduction) {
-		const ratio = await minifySource(outputFiles);
+		const ratio = await minifySource(outputFiles, 'src/server/static/scripts');
 		logger.log(`Minified site code is ${(ratio * 100).toFixed(2)}% of source`);
 	}
 
