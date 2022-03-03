@@ -7,10 +7,10 @@
     "node": ">=16.14.0"
   },
   "scripts": {
-    "test": "echo 'TOOD: add test script'",
-    "dev": "nodemon -e js,njk ./src/server.js",
+    "test": "cross-env NODE_ENV=test jest",
+    "dev": "nodemon -e js ./src/server.js",
+    "build": "echo \"TODO: Crete Build Script\"",
     "start": "node ./src/server.js",
-    "build": "echo 'TOOD: add build script'",
     "lint:js": "eslint src",
     "lint:js:fix": "eslint src --fix",
     "clean": "rimraf .turbo node_modules dist"
@@ -28,7 +28,6 @@
     "lodash": "^4.17.21",
     "log-process-errors": "8.0.0",
     "morgan": "1.10.0",
-    "nunjucks": "3.2.3",
     "planning-inspectorate-libs": "*"
   },
   "devDependencies": {
