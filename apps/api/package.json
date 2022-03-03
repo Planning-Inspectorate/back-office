@@ -7,11 +7,12 @@
     "node": ">=16.14.0"
   },
   "scripts": {
-    "test": "NODE_ENV=test jest",
+    "test": "cross-env NODE_ENV=test jest",
     "dev": "nodemon -e js ./src/server.js",
     "build": "echo \"TODO: Crete Build Script\"",
     "start": "node ./src/server.js",
-    "lint": "eslint src --fix",
+    "lint:js": "eslint src",
+    "lint:js:fix": "eslint src --fix",
     "clean": "rimraf .turbo node_modules dist"
   },
   "dependencies": {
