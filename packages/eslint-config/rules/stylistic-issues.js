@@ -103,7 +103,7 @@ module.exports = {
 		'padding-line-between-statements': 0,
 		'prefer-object-spread': 0,
 		'quote-props': 0,
-		'quotes': 0,
+		'quotes': [1, 'single'],
 		'semi': [2, 'always', { 'omitLastInOneLineBlock': true}],
 		'semi-spacing': 0,
 		'semi-style': 0,
