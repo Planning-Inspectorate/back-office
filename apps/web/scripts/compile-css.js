@@ -4,6 +4,8 @@ const fs = require('node:fs');
 const path = require('node:path');
 const kleur = require('kleur');
 const sassEngine = require('sass');
+const autoprefixer = require('autoprefixer');
+const postcss = require('postcss');
 const { hashForContent } = require('../lib/hash');
 const getLogger = require('../lib/get-logger');
 const { notify } = require('../lib/notifier');
@@ -24,6 +26,7 @@ const resolvePath = (relativePath) => path.resolve(appDirectory, relativePath);
  */
 function compileCSS(input) {
 	// #1: Compile CSS with either engine.
+	// -----------------------------------
 	const compiledOptions = {
 		sourceMap: true,
 		quietDeps: true,
@@ -43,30 +46,28 @@ function compileCSS(input) {
 	const compiledResult = sassEngine.compile(input, compiledOptions);
 	const compiledMap = compiledResult.sourceMap;
 
-	// We get back absolute source paths here that look like
-	// "file:///Users/test/Desktop/folder/src/...", so make them relative to here.
-	compiledMap.sources = compiledMap.sources.map((source) => {
-		if (source.startsWith('file://')) {
-			source = source.substr('file://'.length);
-		}
-		if (path.isAbsolute(source)) {
-			// TODO: Does this needs to be `path.relative(__dirname, '../', source);`
-			source = path.relative(__dirname, source);
-		}
-		return source;
-	});
+	// Disabled to be able to click the file in dev tools and open it.
+	// // We get back absolute source paths here that look like
+	// // "file:///Users/test/Desktop/folder/src/...", so make them relative to here.
+	// compiledMap.sources = compiledMap.sources.map((source) => {
+	// 	if (source.startsWith('file://')) {
+	// 		source = source.substr('file://'.length);
+	// 	}
+	// 	if (path.isAbsolute(source)) {
+	// 		// TODO: Does this needs to be `path.relative(__dirname, '../', source);`
+	// 		source = path.relative(__dirname, source);
+	// 	}
+	// 	return source;
+	// });
 
 	if (!isProduction) {
 		return { map: compiledMap, css: compiledResult.css };
 	}
 
+	// #2: Run postcss for autoprefixer.
+	// ---------------------------------
 	logger.log('Running postcss (autoprefixer)...');
 
-	// Only require() dependencies for autoprefixer when used.
-	const autoprefixer = require('autoprefixer');
-	const postcss = require('postcss');
-
-	// #2: Run postcss for autoprefixer.
 	const postcssResult = postcss([autoprefixer]).process(
 		compiledResult.css.toString(),
 		{
@@ -85,7 +86,6 @@ function compileCSS(input) {
 
 	const { map: candidateMap, css } = postcssResult;
 
-	// With the transpiled "sass", this is returned as a SourceMapGenerator, so convert it to a real string and then back to JSON.
 	const map = JSON.parse(candidateMap.toString('utf8'));
 	return { map, css };
 }
@@ -99,13 +99,11 @@ function renderTo(result, fileName) {
 	const base = path.basename(fileName);
 
 	let out = result.css.toString('utf8');
-	if (!isProduction) {
-		result.map.file = base;
 
-		out += `\n/*# sourceMappingURL=${base}.map */`;
-		fs.writeFileSync(fileName + '.map', JSON.stringify(result.map));
-	}
+	result.map.file = base;
+	out += `\n/*# sourceMappingURL=${base}.map */`;
 
+	fs.writeFileSync(fileName + '.map', JSON.stringify(result.map));
 	fs.writeFileSync(fileName, out);
 }
 
