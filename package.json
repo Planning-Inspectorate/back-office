@@ -12,10 +12,11 @@
     "dev": "turbo run dev --no-cache --parallel --continue",
     "lint": "turbo run lint",
     "test": "turbo run test",
-    "clean": "turbo run clean && rimraf node_modules"
+    "clean": "turbo run clean && rimraf node_modules",
+    "format": "prettier --write \"**/*.{js}\""
   },
-  "dependencies": {},
   "devDependencies": {
+    "prettier": "^2.5.1",
     "rimraf": "^3.0.2",
     "turbo": "latest"
   },
