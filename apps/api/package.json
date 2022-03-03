@@ -8,8 +8,8 @@
   },
   "scripts": {
     "test": "NODE_ENV=test jest",
-    "dev": "nodemon -e js,njk ./src/server.js",
-    "build": "webpack",
+    "dev": "nodemon -e js ./src/server.js",
+    "build": "echo \"TODO: Crete Build Script\"",
     "start": "node ./src/server.js",
     "lint": "eslint src --fix",
     "clean": "rimraf .turbo node_modules dist"
