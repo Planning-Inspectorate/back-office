@@ -1,7 +1,7 @@
 'use strict';
 
 const express = require("express");
-const homeRoutes = require("./app/home/home.routes");
+const { homeRoutes } = require("./app/home/home.routes");
 const compression = require("compression");
 const morgan = require("morgan");
 const helmet = require("helmet");
