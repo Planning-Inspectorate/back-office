@@ -2,6 +2,7 @@
 
 const fs = require('node:fs/promises');
 const path = require('node:path');
+const kleur = require('kleur');
 const rollup = require('rollup');
 const alias = require('@rollup/plugin-alias');
 const rollupPluginNodeResolve = require('@rollup/plugin-node-resolve').default;
@@ -46,16 +47,24 @@ const virtualImports = {
  * Performs main site compilation via Rollup.
  */
 async function build() {
+	const input = 'src/client/app.js';
+
+	// eslint-disable-next-line max-len
+	logger.log(`Bundling (${isProduction ? kleur.magenta('production') : kleur.magenta('development')} / ${isRelease ? 'release' : 'dev'})`, kleur.blue(input));
+
 	const appBundle = await rollup.rollup({
-		input: 'src/client/app.js',
+		input: input,
 		plugins: [
 			rollupPluginNodeResolve(),
 			rollupPluginCJS({
 				include: 'node_modules/**'
 			}),
 			rollupPluginReplace({
-				__buildEnv__: isProduction ? JSON.stringify('production') : JSON.stringify('development'),
-				'process.env.NODE_ENV': isProduction ? JSON.stringify('production') : JSON.stringify('development')
+				values: {
+					__buildEnv__: isProduction ? JSON.stringify('production') : JSON.stringify('development'),
+					'process.env.NODE_ENV': isProduction ? JSON.stringify('production') : JSON.stringify('development')
+				},
+				preventAssignment: true
 			}),
 			rollupPluginVirtual(buildVirtualJSON(virtualImports)),
 			rollupSizePlugin(),
@@ -83,7 +92,7 @@ async function build() {
 	const appGenerated = await appBundle.write({
 		// Do we need an import polyfill?
 		// dynamicImportFunction: 'window._import',
-		entryFileNames: '[name]-[hash].js',
+		entryFileNames: isRelease ? '[name]-[hash].js' : '[name].js',
 		sourcemap: true,
 		dir: 'src/server/static/scripts',
 		// https://rollupjs.org/guide/en/#outputformat
@@ -102,10 +111,11 @@ async function build() {
 
 	const bootstrapPath = appGenerated.output[0].fileName;
 
-	const hash = hashForFiles(path.join('src/server/static/scripts', bootstrapPath));
-	const resourceName = `${bootstrapPath}?v=${hash}`;
+	const hash = isRelease ? '' : hashForFiles(path.join('src/server/static/scripts', bootstrapPath));
+	const resourceName = `${bootstrapPath}${isRelease ? '' : '?v=' + hash}`;
 
 	// Write the bundle entrypoint to a known file for Eleventy to read.
+	logger.log(`Writing resource JSON file ${kleur.blue('resourceCSS.json')} to ${kleur.blue('src/server/_data/resourceJS.json')}`);
 	await fs.writeFile('src/server/_data/resourceJS.json', JSON.stringify({ path: `/scripts/${resourceName}` }));
 
 	// Compress the generated source here, as we need the final files and hashes for the Service Worker manifest.
@@ -114,7 +124,7 @@ async function build() {
 		logger.log(`Minified site code is ${(ratio * 100).toFixed(2)}% of source`);
 	}
 
-	logger.log(`Built site JS! '${resourceName}', total ${outputFiles.length} files`);
+	logger.success(`Bundled JS ${kleur.blue(resourceName)}, total ${outputFiles.length} files`);
 }
 
 (async function () {

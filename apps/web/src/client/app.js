@@ -2,3 +2,5 @@
 //* This will be updated based ona router -> loader flow.
 
 import './pages/default';
+
+console.log(__buildEnv__);
