@@ -9,8 +9,8 @@
   "scripts": {
     "dev": "npm-run-all --silent clean:dev sass rollup --parallel --race watch:** nodemon",
     "start": "node ./src/server/server.js",
-    "build": "cross-env NODE_ENV=production npm-run-all --silent clean:dev sass rollup",
-    "build:release": "cross-env NODE_ENV=production APP_RELEASE=true npm-run-all --silent clean:dev sass rollup",
+    "build": "cross-env NODE_ENV=production npm-run-all --silent sass rollup",
+    "build:release": "cross-env NODE_ENV=production APP_RELEASE=true npm-run-all --silent sass rollup",
     "nodemon": "nodemon --config ./nodemon.json ./src/server/server.js",
     "rollup": "node ./scripts/bundle-js.js",
     "sass": "node ./scripts/compile-css.js",
