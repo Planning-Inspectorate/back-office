@@ -8,7 +8,7 @@ const sassEngine = require('sass');
 const { hashForContent } = require('../lib/hash');
 const getLogger = require('../lib/get-logger');
 const { notify } = require('../lib/notifier');
-const { loadEnvironment } = require('../lib/load-environment');
+const { loadEnvironment } = require('planning-inspectorate-libs');
 
 loadEnvironment(process.env.NODE_ENV);
 

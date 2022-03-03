@@ -18,7 +18,7 @@ const { minifySource } = require('../lib/minify-js');
 const { hashForFiles } = require('../lib/hash');
 const { notify } = require('../lib/notifier');
 const { buildVirtualJSON } = require('../lib/rollup-plugin-virtual-json');
-const { loadEnvironment } = require('../lib/load-environment');
+const { loadEnvironment } = require('planning-inspectorate-libs');
 
 loadEnvironment(process.env.NODE_ENV);
 

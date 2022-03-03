@@ -12,7 +12,7 @@
     "start": "node ./src/server.js",
     "build": "echo 'TOOD: add build script'",
     "lint": "eslint src --fix",
-    "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist"
+    "clean": "rimraf .turbo node_modules dist"
   },
   "dependencies": {
     "body-parser": "1.19.2",
@@ -24,14 +24,17 @@
     "express": "4.17.3",
     "helmet": "5.0.2",
     "kleur": "4.1.4",
+    "lodash": "^4.17.21",
     "log-process-errors": "8.0.0",
     "morgan": "1.10.0",
-    "nunjucks": "3.2.3"
+    "nunjucks": "3.2.3",
+    "planning-inspectorate-libs": "*"
   },
   "devDependencies": {
     "eslint": "8.10.0",
     "jest": "27.5.1",
     "nodemon": "^2.0.15",
+    "rimraf": "^3.0.2",
     "supertest": "6.2.2"
   }
 }

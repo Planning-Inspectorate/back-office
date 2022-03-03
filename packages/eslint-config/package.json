@@ -14,7 +14,7 @@
     "node": ">=16.14.0"
   },
   "scripts": {
-    "clean": "rm -rf .turbo && rm -rf node_modules"
+    "clean": "rimraf .turbo node_modules dist"
   },
   "dependencies": {
     "eslint-plugin-eslint-comments": "^3.2.0",
@@ -25,12 +25,14 @@
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "^6.0.0",
     "eslint-plugin-react": "^7.29.2",
-    "eslint-plugin-unicorn": "^41.0.0"
+    "eslint-plugin-unicorn": "^41.0.0",
+    "lodash": "^4.17.21"
   },
   "peerDependencies": {
     "eslint": "^8.10.0"
   },
   "devDependencies": {
-    "eslint": "^8.10.0"
+    "eslint": "^8.10.0",
+    "rimraf": "^3.0.2"
   }
 }

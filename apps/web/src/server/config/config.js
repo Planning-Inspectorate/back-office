@@ -1,6 +1,6 @@
 'use strict';
 
-const { loadEnvironment } = require('../lib/load-environment');
+const { loadEnvironment } = require('planning-inspectorate-libs');
 
 // All env variables used by the app should be defined in this file.
 
