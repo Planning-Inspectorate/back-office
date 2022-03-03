@@ -1,6 +1,6 @@
 'use strict';
 
-const {loadEnvironment} = require("../../../../../packages/environment-config/load-environment");
+const { loadEnvironment } = require('planning-inspectorate-libs');
 
 loadEnvironment(process.env.NODE_ENV);
 
