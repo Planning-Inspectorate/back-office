@@ -29,7 +29,7 @@
 			],
 			"dependsOn": []
 		},
-		"lint": {
+		"lint:js": {
 			"dependsOn": [
 				"^build"
 			],

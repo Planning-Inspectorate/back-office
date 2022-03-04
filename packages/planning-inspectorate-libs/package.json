@@ -12,13 +12,14 @@
     "node": ">=16.14.0"
   },
   "scripts": {
-    "lint:js": "eslint src",
-    "lint:js:fix": "eslint src --fix",
+    "lint:js": "eslint .",
+    "lint:js:fix": "eslint . --fix",
     "clean": "rimraf .turbo node_modules dist"
   },
   "dependencies": {
   },
   "devDependencies": {
+    "eslint": "8.10.0",
     "eslint-config": "*",
     "lodash": "^4.17.21",
     "rimraf": "^3.0.2"
