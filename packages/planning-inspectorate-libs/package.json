@@ -12,8 +12,13 @@
     "node": ">=16.14.0"
   },
   "scripts": {
+<<<<<<< HEAD
     "lint:js": "eslint .",
     "lint:js:fix": "eslint . --fix",
+=======
+    "lint:js": "eslint lib",
+    "lint:js:fix": "eslint src --fix",
+>>>>>>> 176f76f ([BOCM-18] adds basic state machine)
     "clean": "rimraf .turbo node_modules dist"
   },
   "dependencies": {

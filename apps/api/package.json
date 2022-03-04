@@ -28,12 +28,18 @@
     "lodash": "^4.17.21",
     "log-process-errors": "8.0.0",
     "morgan": "1.10.0",
-    "planning-inspectorate-libs": "*"
+    "planning-inspectorate-libs": "*",
+    "xstate": "4.30.3"
   },
   "devDependencies": {
     "cross-env": "^7.0.3",
     "eslint": "8.10.0",
+<<<<<<< HEAD
     "ava": "^4.1.0",
+=======
+    "eslint-config": "*",
+    "jest": "27.5.1",
+>>>>>>> 176f76f ([BOCM-18] adds basic state machine)
     "nodemon": "^2.0.15",
     "rimraf": "^3.0.2",
     "supertest": "6.2.2"
