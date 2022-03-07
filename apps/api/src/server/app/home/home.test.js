@@ -1,7 +1,7 @@
 'use strict';
 
 const { app } = require('../../app');
-const { test } = require('ava');
+const test = require('ava');
 const supertest = require('supertest');
 const request = supertest(app);
 
