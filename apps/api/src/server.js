@@ -1,8 +1,6 @@
-'use strict';
-
-const { app } = require('./server/app');
-const config = require('./server/config/config');
+import { app } from './server/app.js';
+import config from './server/config/config.js';
 
 app.listen(config.PORT, () => {
-	console.log(`Server is live at localhost:${config.PORT}`);
+	console.log(`Server is live at http://localhost:${config.PORT}`);
 });

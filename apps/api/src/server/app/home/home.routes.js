@@ -1,11 +1,10 @@
-'use strict';
+import express from 'express';
+import { getHome } from './home.controller.js';
 
-const { getHome } = require('./home.controller');
-const express = require('express');
 const router = express.Router();
 
 router.get('/', getHome);
 
-module.exports = {
-	homeRoutes: router
+export  {
+	router as homeRoutes
 };
