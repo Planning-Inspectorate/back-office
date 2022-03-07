@@ -7,7 +7,7 @@
     "node": ">=16.14.0"
   },
   "scripts": {
-    "test": "cross-env NODE_ENV=test jest",
+    "test": "cross-env NODE_ENV=test ava",
     "dev": "nodemon -e js ./src/server.js",
     "build": "echo \"TODO: Crete Build Script\"",
     "start": "node ./src/server.js",
@@ -33,7 +33,7 @@
   "devDependencies": {
     "cross-env": "^7.0.3",
     "eslint": "8.10.0",
-    "jest": "27.5.1",
+    "ava": "^1.0.0",
     "nodemon": "^2.0.15",
     "rimraf": "^3.0.2",
     "supertest": "6.2.2"

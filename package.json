@@ -17,6 +17,7 @@
     "format": "prettier --write \"**/*.{js}\""
   },
   "devDependencies": {
+    "ava": "^4.0.1",
     "prettier": "^2.5.1",
     "rimraf": "^3.0.2",
     "turbo": "latest"
