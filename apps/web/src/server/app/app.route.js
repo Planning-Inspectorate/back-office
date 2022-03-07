@@ -1,17 +1,11 @@
-'use strict';
-
-const express = require('express');
+import express from 'express';
 
 const router = express.Router();
 
-router.route('/')
+// GET /health-check - Check service health
+router.route('/health-check')
 	.get((request, response) => {
-		response.render('home');
+		response.send('OK');
 	});
 
-router.route('/test')
-	.get((request, response) => {
-		response.send('<p>some html</p>');
-	});
-
-module.exports = router;
+export default router;

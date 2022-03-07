@@ -1,8 +1,4 @@
-'use strict';
-
-module.exports = function(api) {
-	api.cache(true);
-
+export default function() {
 	const presets = [
 		[
 			'@babel/preset-env',
@@ -28,4 +24,4 @@ module.exports = function(api) {
 		presets,
 		plugins
 	};
-};
+}

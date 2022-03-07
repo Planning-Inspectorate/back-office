@@ -1,20 +1,25 @@
-'use strict';
+import path from 'path';
+import { readFile } from 'fs/promises';
+import { createRequire } from 'module';
+import express from 'express';
+import nunjucks from 'nunjucks';
+import morganLogger from 'morgan';
+import compression from 'compression';
+import cors from 'cors';
+import bodyParser from 'body-parser';
+import cookieParser from 'cookie-parser';
+import serveStatic from 'serve-static';
+import helmet from 'helmet';
+import { __dirname } from '../lib/helpers.js';
+import { routes } from './routes.js';
+import { config } from '../config/config.js';
+import stripQueryParametersDevelopment from '../lib/nunjucks-filters/strip-query-parameters.js';
+// import resourceCSS from '../_data/resourceCSS.json' assert { type: 'json' };
+// import resourceJS from '../_data/resourceJS.json' assert { type: 'json' };
 
-const path = require('node:path');
-const express = require('express');
-const nunjucks = require('nunjucks');
-const morganLogger = require('morgan');
-const compression = require('compression');
-const cors = require('cors');
-const bodyParser = require('body-parser');
-const cookieParser = require('cookie-parser');
-const serveStatic = require('serve-static');
-const helmet = require('helmet');
-const { routes } = require('./routes');
-const { config } = require('../config/config');
-const stripQueryParametersDevelopment = require('../lib/filters/strip-query-parameters');
-const resourceCSS = require('../_data/resourceCSS.json');
-const resourceJS = require('../_data/resourceJS.json');
+const resourceCSS = JSON.parse(await readFile(new URL('../_data/resourceCSS.json', import.meta.url)));
+const resourceJS = JSON.parse(await readFile(new URL('../_data/resourceJS.json', import.meta.url)));
+const require = createRequire(import.meta.url);
 
 // Create a new Express app.
 const app = express();
@@ -73,9 +78,10 @@ app.set('view engine', 'njk');
 // Serve static files (fonts, images, generated CSS and JS, etc)
 app.use(serveStatic('src/server/static'));
 
-// App routes
+// Mount all routes on / path.
+// All the other subpaths will be defined in the `routes.js` file.
 app.use('/', routes);
 
-module.exports = {
-	app,
+export {
+	app
 };

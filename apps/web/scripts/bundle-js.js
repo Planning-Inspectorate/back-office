@@ -1,24 +1,22 @@
-'use strict';
-
-const fs = require('node:fs/promises');
-const path = require('node:path');
-const kleur = require('kleur');
-const rollup = require('rollup');
-const alias = require('@rollup/plugin-alias');
-const rollupPluginNodeResolve = require('@rollup/plugin-node-resolve').default;
-const rollupPluginCJS = require('@rollup/plugin-commonjs');
-const rollupPluginVirtual = require('@rollup/plugin-virtual');
-const rollupPluginReplace = require('@rollup/plugin-replace');
-const rollupPluginBeep = require('@rollup/plugin-beep');
-const rollupSizePlugin = require('rollup-plugin-size');
-const { visualizer } = require('rollup-plugin-visualizer');
-const { getBabelOutputPlugin } = require('@rollup/plugin-babel');
-const getLogger = require('../lib/get-logger');
-const { minifySource } = require('../lib/minify-js');
-const { hashForFiles } = require('../lib/hash');
-const { notify } = require('../lib/notifier');
-const { buildVirtualJSON } = require('../lib/rollup-plugin-virtual-json');
-const { loadEnvironment } = require('planning-inspectorate-libs');
+import * as fs from 'fs/promises';
+import path from 'path';
+import kleur from 'kleur';
+import { rollup } from 'rollup';
+import alias from '@rollup/plugin-alias';
+import { nodeResolve } from '@rollup/plugin-node-resolve';
+import rollupPluginCJS from '@rollup/plugin-commonjs';
+import rollupPluginVirtual from '@rollup/plugin-virtual';
+import rollupPluginReplace from '@rollup/plugin-replace';
+import rollupPluginBeep from '@rollup/plugin-beep';
+import rollupSizePlugin from 'rollup-plugin-size';
+import { visualizer } from 'rollup-plugin-visualizer';
+import { getBabelOutputPlugin } from '@rollup/plugin-babel';
+import { loadEnvironment } from 'planning-inspectorate-libs';
+import getLogger from '../lib/get-logger.js';
+import { minifySource } from '../lib/minify-js.js';
+import { hashForFiles } from '../lib/hash.js';
+import { notify } from '../lib/notifier.js';
+import { buildVirtualJSON } from '../lib/rollup-plugin-virtual-json.js';
 
 loadEnvironment(process.env.NODE_ENV);
 
@@ -52,10 +50,10 @@ async function build() {
 	// eslint-disable-next-line max-len
 	logger.log(`Bundling (${isProduction ? kleur.magenta('production') : kleur.magenta('development')} / ${isRelease ? 'release' : 'dev'})`, kleur.blue(input));
 
-	const appBundle = await rollup.rollup({
+	const appBundle = await rollup({
 		input: input,
 		plugins: [
-			rollupPluginNodeResolve(),
+			nodeResolve(),
 			rollupPluginCJS({
 				include: 'node_modules/**'
 			}),

@@ -5,8 +5,6 @@
  * disk and don't have a "real" name.
  */
 
-'use strict';
-
 const validJSName = /^[\w_$][\w\d_$]*$/;
 
 function createVirtualExport(object) {
@@ -27,12 +25,14 @@ function createVirtualExport(object) {
 	return parts.join('\n');
 }
 
-module.exports = {
-	buildVirtualJSON: (all) => {
-		const out = {};
-		Object.keys(all).forEach((key) => {
-			out[key] = createVirtualExport(all[key]);
-		});
-		return out;
-	}
+function buildVirtualJSON(all) {
+	const out = {};
+	Object.keys(all).forEach((key) => {
+		out[key] = createVirtualExport(all[key]);
+	});
+	return out;
+}
+
+export {
+	buildVirtualJSON
 };
