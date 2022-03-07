@@ -1,11 +1,9 @@
-'use strict';
-
-const express = require('express');
-const { homeRoutes } = require('./app/home/home.routes');
-const { validationRoutes } = require('./app/validation/validation.routes');
-const compression = require('compression');
-const morgan = require('morgan');
-const helmet = require('helmet');
+import express from 'express';
+import compression from 'compression';
+import morgan from 'morgan';
+import helmet from 'helmet';
+import { homeRoutes } from './app/home/home.routes.js';
+import { validationRoutes } from './app/validation/validation.routes.js';
 
 const app = express();
 
@@ -16,4 +14,6 @@ app.use(helmet());
 app.use('/', homeRoutes);
 app.use('/validation', validationRoutes);
 
-exports.app = app;
+export {
+	app
+};

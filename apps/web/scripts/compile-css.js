@@ -1,15 +1,14 @@
-'use strict';
-
-const fs = require('node:fs');
-const path = require('node:path');
-const kleur = require('kleur');
-const sassEngine = require('sass');
-const autoprefixer = require('autoprefixer');
-const postcss = require('postcss');
-const { hashForContent } = require('../lib/hash');
-const getLogger = require('../lib/get-logger');
-const { notify } = require('../lib/notifier');
-const { loadEnvironment } = require('planning-inspectorate-libs');
+import fs from 'fs';
+import path from 'path';
+import { createRequire } from 'module';
+import kleur from 'kleur';
+import sassEngine from 'sass';
+import autoprefixer from 'autoprefixer';
+import postcss from 'postcss';
+import { loadEnvironment } from 'planning-inspectorate-libs';
+import { hashForContent } from '../lib/hash.js';
+import { notify } from '../lib/notifier.js';
+import getLogger from '../lib/get-logger.js';
 
 loadEnvironment(process.env.NODE_ENV);
 
@@ -19,6 +18,7 @@ const logger = getLogger({ scope: 'Sass' });
 
 const appDirectory = fs.realpathSync(process.cwd());
 const resolvePath = (relativePath) => path.resolve(appDirectory, relativePath);
+const require = createRequire(import.meta.url);
 
 /**
  * @param {string} input filename to read for input

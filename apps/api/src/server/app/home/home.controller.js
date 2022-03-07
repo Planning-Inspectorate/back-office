@@ -1,5 +1,3 @@
-'use strict';
-
-exports.getHome = function (request, response) {
+export const getHome = function (request, response) {
 	response.send('Hello World!');
 };

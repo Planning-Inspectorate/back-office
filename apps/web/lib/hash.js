@@ -1,7 +1,5 @@
-'use strict';
-
-const crypto = require('node:crypto');
-const fs = require('node:fs');
+import crypto from 'crypto';
+import fs from 'fs';
 
 const hashLength = 8;
 
@@ -15,7 +13,7 @@ function generateAndValidateHash(c) {
 	// eslint-disable-next-line unicorn/prefer-string-slice
 	const hash = c.digest('hex').substr(0, hashLength);
 	if (hash.length !== hashLength) {
-		throw new TypeError(`could not hash content`);
+		throw new TypeError('could not hash content');
 	}
 	return hash;
 }
@@ -52,7 +50,7 @@ function hashForFiles(file, ...rest) {
 	return generateAndValidateHash(c);
 }
 
-module.exports = {
+export {
 	generateAndValidateHash,
 	hashForContent,
 	hashForFiles

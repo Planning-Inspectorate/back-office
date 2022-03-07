@@ -1,11 +1,10 @@
-'use strict';
+import express from 'express';
+import { getValidation } from './validation.controller.js';
 
-const { getValidation } = require('./validation.controller');
-const express = require('express');
 const router = express.Router();
 
 router.get('/', getValidation);
 
-module.exports = {
-	validationRoutes: router
+export {
+	router as validationRoutes
 };

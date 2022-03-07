@@ -1,13 +1,9 @@
-'use strict';
-
-const fs = require('node:fs');
-const path = require('node:path');
-const https = require('node:https');
-const kleur = require('kleur');
-const { config } = require('./config/config');
-
-// Express app
-const { app } = require('./app/express');
+import fs from 'fs';
+import path from 'path';
+import https from 'https';
+import kleur from 'kleur';
+import { config } from './config/config.js';
+import { app } from './app/app.express.js'; // Express app
 
 // Trust X-Forwarded-* headers so that when we are behind a reverse proxy,
 // our connection information is that of the original client (according to
@@ -26,8 +22,8 @@ const listener = app.listen(app.get('http-port'), () => {
 
 if (config.HTTPS_ENABLED === 'true') {
 	https.createServer({
-		cert: fs.readFileSync(path.resolve(__dirname, config.SSL_CERT_FILE)),
-		key: fs.readFileSync(path.resolve(__dirname, config.SSL_KEY_FILE))
+		cert: fs.readFileSync(path.resolve(config.SSL_CERT_FILE)),
+		key: fs.readFileSync(path.resolve(config.SSL_KEY_FILE))
 	}, app).listen(app.get('https-port'), () => {
 		// eslint-disable-next-line no-console
 		console.log('%s Server is running at https://localhost:%d in %s mode', kleur.green('✓'), app.get('https-port'), app.get('env'));

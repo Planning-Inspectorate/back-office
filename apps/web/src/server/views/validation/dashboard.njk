@@ -1,0 +1,36 @@
+{% extends "layouts/layout-page.njk" %}
+{% block content %}
+    <h1 class="govuk-heading-xl">
+        Appeal submissions for review
+    </h1>
+    <h2 class="govuk-heading-l govuk-!-margin-bottom-1">
+        New appeals
+    </h2>
+    <table class="govuk-table">
+        {% if appealsListData | length > 0 %}
+            <thead class="govuk-table__head">
+                <tr class="govuk-table__row">
+                    <th scope="col" class="govuk-table__header">Appeal reference</th>
+                    <th scope="col" class="govuk-table__header">Received</th>
+                    <th scope="col" class="govuk-table__header">Appeal site</th>
+                </tr>
+            </thead>
+            <tbody class="govuk-table__body">
+               ...
+            </tbody>
+        {% else %}
+            <thead class="govuk-table__head">
+                <tr class="govuk-table__row">
+                    <th scope="col" class="govuk-table__header"></th>
+                </tr>
+            </thead>
+            <tbody class="govuk-table__body">
+                <tr class="govuk-table__row">
+                    <td class="govuk-table__cell govuk-!-padding-9" style="text-align: center; background-color: #f3f2f1;">
+                        No new appeals
+                    </td>
+                </tr>
+            </tbody>
+        {% endif %}
+    </table>
+{% endblock %}

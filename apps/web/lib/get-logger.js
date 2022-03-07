@@ -1,10 +1,8 @@
-'use strict';
+import signale from 'signale';
+import figures from 'figures';
 
-const { Signale } = require('signale');
-const figures = require('figures');
-
-module.exports = ({ scope }) =>
-	new Signale({
+export default ({ scope }) =>
+	new signale.Signale({
 		config: { displayTimestamp: true, underlineMessage: false, displayLabel: false },
 		disabled: false,
 		interactive: false,

@@ -1,17 +1,16 @@
 'use strict';
 
-const express = require('express');
-const appRoutes = require('./app.route');
+import express from 'express';
+import appRoutes from './app.route.js';
+import validationRoutes from './validation/validation.route.js';
 
 const router = express.Router();
 
-// GET /health-check - Check service health
-router.get('/health-check', (request, response) =>
-	response.send('OK')
-);
-
+// Mount app routes at / (this includes all sub paths specific to the general app)
 router.use('/', appRoutes);
+// Mount all validation step routes at `/validation` (these will be seen by validation officers)
+router.use('/validation', validationRoutes);
 
-module.exports = {
-	routes: router
+export {
+	router as routes
 };

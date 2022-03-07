@@ -1,10 +1,8 @@
-'use strict';
+import test from 'ava';
+import supertest from 'supertest';
+import { app } from '../../app.js';
 
-const { app } = require('../../app');
-const test = require('ava');
-const supertest = require('supertest');
 const request = supertest(app);
-
 
 test('get / should return \'hello world!\'', async (t) => {
 	const resp = await request.get('/');

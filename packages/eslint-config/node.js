@@ -3,14 +3,16 @@
 module.exports = {
 	plugins: ['node'],
 	extends: [
-		'plugin:node/recommended'
+		// 'plugin:node/recommended'
+		'plugin:node/recommended-module'
 	],
 	parserOptions: {
-		sourceType: 'script'
+		sourceType: 'module'
 	},
 	rules: {
 		'no-console': 0,
 		'no-process-exit': 'error',
+		'unicorn/prefer-node-protocol': 0,
 		'node/exports-style': 'off',
 		'node/file-extension-in-import': 0,
 		'node/no-deprecated-api': 'error',

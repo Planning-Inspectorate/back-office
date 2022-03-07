@@ -6,6 +6,7 @@
   "engines": {
     "node": ">=16.14.0"
   },
+  "type": "module",
   "scripts": {
     "test": "cross-env NODE_ENV=test ava",
     "dev": "nodemon -e js ./src/server.js",
@@ -32,7 +33,7 @@
   "devDependencies": {
     "cross-env": "^7.0.3",
     "eslint": "8.10.0",
-    "ava": "^1.0.0",
+    "ava": "^4.1.0",
     "nodemon": "^2.0.15",
     "rimraf": "^3.0.2",
     "supertest": "6.2.2"

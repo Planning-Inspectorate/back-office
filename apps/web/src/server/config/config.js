@@ -1,6 +1,4 @@
-'use strict';
-
-const { loadEnvironment } = require('planning-inspectorate-libs');
+import { loadEnvironment } from 'planning-inspectorate-libs';
 
 // All env variables used by the app should be defined in this file.
 
@@ -27,6 +25,6 @@ const config = {
 };
 
 // Map env vars and make it visible outside module
-module.exports = {
+export {
 	config
 };

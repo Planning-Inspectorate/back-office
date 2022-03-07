@@ -1,6 +1,4 @@
-'use strict';
-
-const { loadEnvironment } = require('planning-inspectorate-libs');
+import { loadEnvironment } from 'planning-inspectorate-libs';
 
 loadEnvironment(process.env.NODE_ENV);
 
@@ -9,4 +7,4 @@ const config = {
 	PORT: process.env.PORT
 };
 
-module.exports = config;
+export default config;
