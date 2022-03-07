@@ -6,7 +6,6 @@
   "private": true,
   "files": [
     "rules/**/*.js",
-    "jest.js",
     "node.js",
     "index.js"
   ],
@@ -22,7 +21,6 @@
     "eslint-plugin-eslint-comments": "^3.2.0",
     "eslint-plugin-filenames": "^1.3.2",
     "eslint-plugin-import": "^2.25.4",
-    "eslint-plugin-jest": "^26.1.1",
     "eslint-plugin-jsdoc": "^37.9.5",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "^6.0.0",
