@@ -34,12 +34,7 @@
   "devDependencies": {
     "cross-env": "^7.0.3",
     "eslint": "8.10.0",
-<<<<<<< HEAD
     "ava": "^4.1.0",
-=======
-    "eslint-config": "*",
-    "jest": "27.5.1",
->>>>>>> 176f76f ([BOCM-18] adds basic state machine)
     "nodemon": "^2.0.15",
     "rimraf": "^3.0.2",
     "supertest": "6.2.2"

@@ -1,91 +1,33 @@
-const machine = require("./household-appeal.machine");
+import test from 'ava';
+import machine from './household-appeal.machine.js';
 
-describe("validation state machine", () => {
-	it("should have 'submitted' as initial state", () => {
-		const initial_state = machine.initialState;
-		expect(initial_state.value).toEqual("submitted");
-	})
-	describe("when starting state is 'submitted'", () => {
-		const start_state = "submitted";
-		it("should be able to move to invalid", () => {
-			const next_state = machine.transition(start_state, "INVALID");
-			expect(next_state.value).toEqual("invalid");
-			expect(next_state.changed).toEqual(true);
-		})
+test("should have 'submitted' as initial state", t => {
+	const initial_state = machine.initialState;
+	t.is(initial_state.value, "submitted");
+});
 
-		it("should be able to move to awaiting_validation_info", () => {
-			const next_state = machine.transition(start_state, "INFO_MISSING");
-			expect(next_state.value).toEqual("awaiting_validation_info");
-			expect(next_state.changed).toEqual(true);
-		})
+function applyAction(t, initial_state, action, expected_state, has_changed) {
+	const next_state = machine.transition(initial_state, action);
+	t.is(next_state.value, expected_state);
+	t.is(next_state.changed, has_changed);
+}
 
-		it("should be able to move to valid", () => {
-			const next_state = machine.transition(start_state, "VALID");
-			expect(next_state.value).toEqual("with_case_officer");
-			expect(next_state.changed).toEqual(true);
-		})
-	})
+applyAction.title = (providedTitle = "", initial_state, action, expected_state, has_changed) =>
+    `${providedTitle}: from state [${initial_state}] action [${action}] produces state [${expected_state}] ${has_changed ? '' : ' without'} having transitioned`
 
-	describe("when starting state is 'incomplete'", () => {
-		const start_state = "awaiting_validation_info";
-		it("should be able to move to invalid", () => {
-			const next_state = machine.transition(start_state, "INVALID");
-			expect(next_state.value).toEqual("invalid");
-			expect(next_state.changed).toEqual(true);
-		})
-
-		it("should not be able to move to awaiting_validation_info", () => {
-			const next_state = machine.transition(start_state, "INFO_MISSING");
-			expect(next_state.changed).toEqual(false);
-			expect(next_state.value).toEqual(start_state);
-		})
-
-		it("should be able to move to valid", () => {
-			const next_state = machine.transition(start_state, "VALID");
-			expect(next_state.value).toEqual("with_case_officer");
-			expect(next_state.changed).toEqual(true);
-		})
-	})
-
-	describe("when starting state is 'invalid'", () => {
-		const start_state = "invalid";
-		it("should not be able to move to invalid", () => {
-			const next_state = machine.transition(start_state, "INVALID");
-			expect(next_state.changed).toEqual(false);
-			expect(next_state.value).toEqual(start_state);
-		})
-
-		it("should not be able to move to incomplete", () => {
-			const next_state = machine.transition(start_state, "INFO_MISSING");
-			expect(next_state.changed).toEqual(false);
-			expect(next_state.value).toEqual(start_state);
-		})
-
-		it("should not be able to move to valid", () => {
-			const next_state = machine.transition(start_state, "VALID");
-			expect(next_state.changed).toEqual(false);
-			expect(next_state.value).toEqual(start_state);
-		})
-	})
-
-	describe("when starting state is 'valid'", () => {
-		const start_state = "with_case_officer";
-		it("should not be able to move to invalid", () => {
-			const next_state = machine.transition(start_state, "INVALID");
-			expect(next_state.changed).toEqual(false);
-			expect(next_state.value).toEqual(start_state);
-		})
-
-		it("should not be able to move to incomplete", () => {
-			const next_state = machine.transition(start_state, "INFO_MISSING");
-			expect(next_state.changed).toEqual(false);
-			expect(next_state.value).toEqual(start_state);
-		})
-
-		it("should not be able to move to valid", () => {
-			const next_state = machine.transition(start_state, "VALID");
-			expect(next_state.changed).toEqual(false);
-			expect(next_state.value).toEqual(start_state);
-		})
-	})
-})
+for (const param of [
+	["submitted", "INVALID", "invalid", true],
+	["submitted", "VALID", "with_case_officer", true],
+	["submitted", "INFO_MISSING", "awaiting_validation_info", true],
+	["awaiting_validation_info", "INVALID", "invalid", true],
+	["awaiting_validation_info", "INFO_MISSING", "awaiting_validation_info", false],
+	["awaiting_validation_info", "VALID", "with_case_officer", true],
+	["invalid", "INVALID", "invalid", false],
+	["invalid", "INFO_MISSING", "invalid", false],
+	["invalid", "VALID", "invalid", false],
+	["with_case_officer", "INVALID", "with_case_officer", false],
+	["with_case_officer", "INFO_MISSING", "with_case_officer", false],
+	["with_case_officer", "VALID", "with_case_officer", false],
+]) {
+	test(applyAction, ...param)
+}

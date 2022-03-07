@@ -1,6 +1,4 @@
-'use strict';
-
-const { createMachine } = require("xstate");
+import { createMachine } from "xstate";
 
 const validation_states = {
 	submitted: {
@@ -66,5 +64,4 @@ const housing_appeal_machine = createMachine({
 	}
 });
 
-module.exports = housing_appeal_machine;
-
+export default housing_appeal_machine;
