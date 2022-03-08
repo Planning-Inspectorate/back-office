@@ -25,7 +25,7 @@ const config = {
 	isRelease: process.env.APP_RELEASE === 'true',
 
 	USE_MOCK_API: process.env.USE_MOCK_API,
-	API_ENDPOINT: process.env.API_ENDPOINT
+	API_HOST: process.env.API_HOST
 };
 
 // Map env vars and make it visible outside module

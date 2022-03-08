@@ -2,7 +2,7 @@ import got	 from 'got';
 import { config } from '../config/config.js';
 
 const instance = got.extend({
-	prefixUrl: config.API_ENDPOINT,
+	prefixUrl: config.API_HOST,
 	responseType: 'json',
 	resolveBodyOnly: true,
 	handlers: [
