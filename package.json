@@ -22,5 +22,9 @@
     "rimraf": "^3.0.2",
     "turbo": "latest"
   },
-  "packageManager": "npm@8.5.1"
+  "packageManager": "npm@8.5.1",
+  "dependencies": {
+    "swagger-jsdoc": "^6.1.0",
+    "swagger-ui-express": "^4.3.0"
+  }
 }
