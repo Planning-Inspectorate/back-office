@@ -111,6 +111,31 @@ packagemanager deploy your-project -s server.com -u username -p password
 
 And again you'd need to tell what the previous code actually does.
 
+### Docker
+
+#### API
+
+To run the API with docker, from the root directory run:
+```shell
+docker build . -t pins-back-office-api -f apps/api/Dockerfile
+docker container run -dp 3000:3000 -t pins-back-office-api
+```
+which should create and run a container at `http://0.0.0.0:3000` on your machine.
+
+## Configuration
+
+Here you should write what are all of the configurations a user can enter when
+using the project.
+
+## Tests
+
+Describe and show how to run the tests with code examples.
+Explain what these tests test and why.
+
+```shell
+Give an example
+```
+
 ## Style guide
 
 The codebase has README.md file in all relevant folder that explain what is the purpose or any other guidelines to follow.
