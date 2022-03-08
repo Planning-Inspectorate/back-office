@@ -4,15 +4,15 @@
 
 ## Features
 
-- Enable [ES2015 features](https://babeljs.io/docs/learn-es2015/) using [Babel](https://babeljs.io)
-- Bundled JS code using [rollup.js](https://rollupjs.org/)
 - CSS with superpowers via [Scss](https://sass-lang.com/)
 - CSS [Autoprefixing](https://github.com/postcss/autoprefixer), [PostCSS](http://postcss.org/)
 - Built in CSS architecture bet practices with utility classes and sensitive settings
+- Bundled JS code using [rollup.js](https://rollupjs.org/)
+- Enable [ES2015 features](https://babeljs.io/docs/learn-es2015/) using [Babel](https://babeljs.io)
 - Map compiled CSS/JS to source stylesheets/js with source maps
-- Built in Node JS server (including http2 / https support) using [Express.js](https://expressjs.com/)
 - [browserslist](http://browserl.ist/) support for babel and friends
-- Linting done with [eslint](https://eslint.org/) and [stylelint](https://stylelint.io/)
+- Linting done with [eslint](https://eslint.org/) and [stylelint](https://stylelint.io/) using internal configs
+- Monorepo management using [NPM workspaces](https://docs.npmjs.com/cli/v7/using-npm/workspaces) and [Turborepo](https://turborepo.org/) (is a high-performance build system)
 - Custom task runner using promises
 
 ## Installing / Getting started
@@ -29,7 +29,8 @@ The repository is structured like a monorepo with two main folders `apps` and `p
 │  ├── api
 │  └── web
 ├── packages
-│  └── ui
+│  └── eslint-config
+│  └── planning-inspectorate-libs
 ```
 
 `apps` - Holds the main Express.js applications responsible for the DB access API backend and the front facing web app.
@@ -39,13 +40,13 @@ The repository is structured like a monorepo with two main folders `apps` and `p
 
 ### Built With
 
-The entire solution is built with [Express.js](https://expressjs.com/) and [Nunjucks templating language](https://mozilla.github.io/nunjucks/templating.html), both for the web and api backends.
+The entire solution is built on top [Express.js](https://expressjs.com/) and [Nunjucks templating language](https://mozilla.github.io/nunjucks/templating.html), both for the web and api backends.
 
 ### Prerequisites
 
-Before you get started you need to create a `.env` local environment file within both the web and api apps folders.
+Before you get started you need to make sure you are running the latest Node LTS version and latest NPM version.
 
-TODO: Finish this chapter.
+If you want to change the local env variables defaults create a `.env.local` local environment file within both the web and api apps folders and override the predefined ones.
 
 ### Setting up Dev
 
@@ -53,30 +54,52 @@ Here's a brief intro about what a developer must do in order to start developing
 the project further:
 
 ```shell
-# Navigate to a folder on your system and clone the repository
+# Navigate to a folder on your system and clone the repository.
 git clone git@github.com:Planning-Inspectorate/back-office.git
 cd back-office
 ```
 
 Once the repository has been cloned you can follow the instructions bellow to run it locally.
 
-And state what happens step-by-step. If there is any virtual environment, local server or database feeder needed, explain here.
+```shell
+# Run NPM install to install all workspace dependencies.
+# This will install all packages and apps dependencies so you don't have to run it in all folders.
+npm ci
+```
+
+Run all apps in dev mode
+
+```shell
+# This will run the dev script in all apps via Turbo
+npm run dev
+
+# OR you can manually run them
+npm run dev --workspace=api
+npm run dev --workspace=web
+
+# OR you can cd into the folder and run
+cd apps/web
+npm run dev
+```
+
+This will run all apps in dev mode. For example the Web app will run the Sass compiler, Rollup for JS bundling and various other tools (most of them in watch mode).
+
+Then you can open the local dev server `http://localhost:8080`.
 
 ### Building
 
-If your project needs some additional steps for the developer to build the
-project after some code changes, state them here. for example:
+Building the entire solution means running most of the dev tools into PROD mode.
 
 ```shell
-./configure
-make
-make install
+# In the root folder
+npm run build
 ```
 
-Here again you should state what actually happens when the code above gets
-executed.
+This will run the build process via Turbo, getting the benefit of speed and caching. All static assets will combiled in production mode and all requried distribution folders will be created.
 
 ### Deploying / Publishing
+
+TODO: Once we have the pipelines ready update the docs here.
 
 give instructions on how to build and release a new version
 In case there's some step you have to take that publishes this project to a
@@ -88,23 +111,9 @@ packagemanager deploy your-project -s server.com -u username -p password
 
 And again you'd need to tell what the previous code actually does.
 
-## Configuration
-
-Here you should write what are all of the configurations a user can enter when
-using the project.
-
-## Tests
-
-Describe and show how to run the tests with code examples.
-Explain what these tests test and why.
-
-```shell
-Give an example
-```
-
 ## Style guide
 
-Explain your code style and show how to check it.
+The codebase has README.md file in all relevant folder that explain what is the purpose or any other guidelines to follow.
 
 ## Licensing
 

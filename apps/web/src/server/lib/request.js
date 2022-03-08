@@ -1,4 +1,5 @@
-import got	 from 'got';
+import got from 'got';
+import kleur from 'kleur';
 import { config } from '../config/config.js';
 
 const instance = got.extend({
@@ -7,7 +8,7 @@ const instance = got.extend({
 	resolveBodyOnly: true,
 	handlers: [
 		(options, next) => {
-			console.log(`Sending ${options.method} to ${options.url}`);
+			console.log(`Sending ${kleur.bgBlue(options.method)} to ${kleur.blue(options.url)}`);
 			return next(options);
 		}
 	]

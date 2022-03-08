@@ -42,7 +42,6 @@ pids
 .eslintcache
 
 # Editors
-.vscode
 .idea
 
 # Env settings / local env files
