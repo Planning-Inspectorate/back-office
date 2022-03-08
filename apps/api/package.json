@@ -28,7 +28,8 @@
     "lodash": "^4.17.21",
     "log-process-errors": "8.0.0",
     "morgan": "1.10.0",
-    "planning-inspectorate-libs": "*"
+    "planning-inspectorate-libs": "*",
+    "xstate": "4.30.3"
   },
   "devDependencies": {
     "cross-env": "^7.0.3",
