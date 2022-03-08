@@ -1,11 +1,16 @@
-import got from 'got';
+import got	 from 'got';
+import { config } from '../config/config.js';
 
-const request = {
-	get: (url, options) => {
-		return got.get(url, options);
-	}
-};
+const instance = got.extend({
+	prefixUrl: config.API_ENDPOINT,
+	responseType: 'json',
+	resolveBodyOnly: true,
+	handlers: [
+		(options, next) => {
+			console.log(`Sending ${options.method} to ${options.url}`);
+			return next(options);
+		}
+	]
+});
 
-export {
-	request
-};
+export default instance;
