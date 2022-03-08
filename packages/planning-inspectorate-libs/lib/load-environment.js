@@ -1,7 +1,5 @@
-'use strict';
-
-const path = require('node:path');
-const dotenv = require('dotenv');
+import path from 'path';
+import dotenv from 'dotenv';
 
 function loadEnvironment(nodeEnv = 'development') {
 	const environmentSpecificLocalEnv = dotenv.config({
@@ -24,6 +22,6 @@ function loadEnvironment(nodeEnv = 'development') {
 	return Object.assign({}, defaultEnv.parsed, environmentSpecificEnv.parsed, localEnv.parsed, environmentSpecificLocalEnv.parsed);
 }
 
-module.exports = {
+export {
 	loadEnvironment
 };

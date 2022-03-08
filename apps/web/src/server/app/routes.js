@@ -1,5 +1,3 @@
-'use strict';
-
 import express from 'express';
 import appRoutes from './app.route.js';
 import validationRoutes from './validation/validation.route.js';

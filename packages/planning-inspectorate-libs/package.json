@@ -1,6 +1,7 @@
 {
   "name": "planning-inspectorate-libs",
   "version": "0.0.0",
+  "type": "module",
   "license": "MIT",
   "main": "index.js",
   "private": true,

@@ -7,6 +7,7 @@ module.exports = {
 		'plugin:node/recommended-module'
 	],
 	parserOptions: {
+		ecmaVersion: 'latest',
 		sourceType: 'module'
 	},
 	rules: {
