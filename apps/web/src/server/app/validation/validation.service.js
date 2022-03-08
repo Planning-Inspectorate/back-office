@@ -1,8 +1,8 @@
-import { request } from './../../lib/request.js';
+import request from './../../lib/request.js';
 
-function findAllNewAppeals() {
-	console.log(request.get);
-	return [];
+async function findAllNewAppeals() {
+	const data = await request('validation');
+	return data;
 }
 
 export {

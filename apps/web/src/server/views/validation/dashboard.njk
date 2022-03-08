@@ -16,7 +16,15 @@
                 </tr>
             </thead>
             <tbody class="govuk-table__body">
-               ...
+                {% for item in appealsListData %}
+					<tr class="govuk-table__row">
+						<td class="govuk-table__cell">
+							<a href="/validation-officer/{{ version }}/goto-appeal/{{ item.AppealId }}" class="govuk-link">APP/Q9999/D/21/{{ item.AppealId }}</a>
+						</td>
+						<td class="govuk-table__cell" nowrap>{{ item.Received }}</td>
+						<td class="govuk-table__cell">{{ item.AppealSite }}</td>
+					</tr>
+                {% endfor %}
             </tbody>
         {% else %}
             <thead class="govuk-table__head">
