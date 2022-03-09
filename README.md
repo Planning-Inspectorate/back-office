@@ -101,6 +101,14 @@ Explain what these tests test and why.
 ```shell
 Give an example
 ```
+## Swagger documentation
+
+In order to be able to generate the ducumentation fom Swagger you need to travel to the api folder in your terminal and run:
+```
+npm run swagger-autogen
+```
+that will create/re-do the `swagger-output.json` that is the source of information for the documentation file.
+That documentation can be checked in `/api-docs/` in the localhost
 
 ## Style guide
 
