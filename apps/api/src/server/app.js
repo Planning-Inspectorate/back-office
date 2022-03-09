@@ -14,6 +14,12 @@ import {swaggerOptions} from './swaggerOptions.js';
 const specs = swaggerJsDoc(swaggerOptions);
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs));
 
+//import swaggerAuto from '../../../../swagger-output.json';
+import swaggerAuto from '../../../../swagger-output.json' assert { type: 'json' };
+
+//const specsAuto = swaggerJsDoc(swaggerAuto);
+app.use('/api-docs2', swaggerUi.serve, swaggerUi.setup(swaggerAuto));
+
 app.use(compression());
 app.use(morgan('combined'));
 app.use(helmet());

@@ -9,7 +9,7 @@
   "type": "module",
   "scripts": {
     "test": "cross-env NODE_ENV=test ava",
-    "dev": "nodemon -e js ./src/server.js",
+    "dev": "nodemon --experimental-json-modules -e js ./src/server.js",
     "build": "echo \"TODO: Crete Build Script\"",
     "start": "node ./src/server.js",
     "lint:js": "eslint src",
