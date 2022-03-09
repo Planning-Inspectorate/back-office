@@ -8,17 +8,11 @@ import { validationRoutes } from './app/validation/validation.routes.js';
 const app = express();
 
 import swaggerUi from 'swagger-ui-express';
-import swaggerJsDoc from 'swagger-jsdoc';
-import {swaggerOptions} from './swaggerOptions.js';
+import fs from 'fs';
+import path from 'path';
 
-const specs = swaggerJsDoc(swaggerOptions);
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs));
-
-//import swaggerAuto from '../../../../swagger-output.json';
-import swaggerAuto from '../../../../swagger-output.json' assert { type: 'json' };
-
-//const specsAuto = swaggerJsDoc(swaggerAuto);
-app.use('/api-docs2', swaggerUi.serve, swaggerUi.setup(swaggerAuto));
+const swaggerAuto = JSON.parse(fs.readFileSync(path.resolve('..','..','swagger-output.json')));
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerAuto));
 
 app.use(compression());
 app.use(morgan('combined'));
