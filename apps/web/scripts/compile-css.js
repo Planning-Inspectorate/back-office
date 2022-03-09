@@ -109,15 +109,15 @@ function renderTo(result, fileName) {
 
 const out = compileCSS('src/styles/main.scss');
 const hash = hashForContent(out.css);
+const resourceName = isRelease ? `main-${hash}.css` : 'main.css';
 
-logger.log(`Writing generated file to ${kleur.blue('src/server/static/styles/main.css')}`);
+logger.log(`Writing generated file to ${kleur.blue(`src/server/static/styles/${resourceName}`)}`);
 
 // We write an unhashed CSS file due to unfortunate real-world caching problems with a hash inside
 // the CSS name (we see our old HTML cached longer than the assets are available).
-renderTo(out, `src/server/static/styles/main-${hash}.css`);
+renderTo(out, `src/server/static/styles/${resourceName}`);
 
 // Write the CSS entrypoint to a known file, with a query hash, for NJ to read.
-const resourceName = `main-${hash}.css`;
 fs.writeFileSync(
 	'src/server/_data/resourceCSS.json',
 	JSON.stringify({ path: `/styles/${resourceName}` }),
