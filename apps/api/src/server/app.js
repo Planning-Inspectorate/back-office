@@ -9,30 +9,8 @@ const app = express();
 
 import swaggerUi from 'swagger-ui-express';
 import swaggerJsDoc from 'swagger-jsdoc';
-const swaggerOptions = {
-	definition: {
-		swagger: "2.0",
-		info: { 
-			title: "PINS Back-office project ",
-			description: "PINS Back-office project API Information",
-    		version: "2.0"
-			},
-		servers: ["http://localhost:3000/"],
-		paths: {
-			"/validation": {
-				get: {
-					summary: "List of appeals to be validated",
-					parameters: {
-						
-					}
-				}
+import {swaggerOptions} from './swaggerOptions.js';
 
-		}
-	},
-		},
-	//apis: [".routes/*.js"]
-	apis: ["app.js"]
-}
 const specs = swaggerJsDoc(swaggerOptions);
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs));
 
