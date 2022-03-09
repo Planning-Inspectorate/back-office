@@ -14,7 +14,6 @@ import { getBabelOutputPlugin } from '@rollup/plugin-babel';
 import { loadEnvironment } from 'planning-inspectorate-libs';
 import getLogger from '../lib/get-logger.js';
 import { minifySource } from '../lib/minify-js.js';
-import { hashForFiles } from '../lib/hash.js';
 import { notify } from '../lib/notifier.js';
 import { buildVirtualJSON } from '../lib/rollup-plugin-virtual-json.js';
 
@@ -107,14 +106,11 @@ async function build() {
 		throw new Error(`expected single Rollup entrypoint, was: ${entrypoints.length}`);
 	}
 
-	const bootstrapPath = appGenerated.output[0].fileName;
-
-	const hash = isRelease ? '' : hashForFiles(path.join('src/server/static/scripts', bootstrapPath));
-	const resourceName = `${bootstrapPath}${isRelease ? '' : '?v=' + hash}`;
+	const appPath = appGenerated.output[0].fileName;
 
 	// Write the bundle entrypoint to a known file for NJ to read.
 	logger.log(`Writing resource JSON file ${kleur.blue('resourceCSS.json')} to ${kleur.blue('src/server/_data/resourceJS.json')}`);
-	await fs.writeFile('src/server/_data/resourceJS.json', JSON.stringify({ path: `/scripts/${resourceName}` }));
+	await fs.writeFile('src/server/_data/resourceJS.json', JSON.stringify({ path: `/scripts/${appPath}` }));
 
 	// Compress the generated source here, as we need the final files and hashes for the Service Worker manifest.
 	if (isProduction) {
@@ -122,7 +118,7 @@ async function build() {
 		logger.log(`Minified site code is ${(ratio * 100).toFixed(2)}% of source`);
 	}
 
-	logger.success(`Bundled JS ${kleur.blue(resourceName)}, total ${outputFiles.length} files`);
+	logger.success(`Bundled JS ${kleur.blue(appPath)}, total ${outputFiles.length} files`);
 }
 
 (async function () {

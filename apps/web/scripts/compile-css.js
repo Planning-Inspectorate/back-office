@@ -36,7 +36,7 @@ function compileCSS(input) {
 			// TODO: Find a better way to include these paths.
 			// We are including the govuk-frontend to be fix the NPM workspaces module resolution issues
 			// as we can't import files directly from the node_modules folder.
-			path.resolve(require.resolve('govuk-frontend'), '../..'),
+			path.resolve(require.resolve('govuk-frontend'), '../..')
 		]
 	};
 
@@ -68,17 +68,14 @@ function compileCSS(input) {
 	// ---------------------------------
 	logger.log('Running postcss (autoprefixer)...');
 
-	const postcssResult = postcss([autoprefixer]).process(
-		compiledResult.css.toString(),
-		{
-			from: 'main.css',
-			to: 'main.css',
-			map: {
-				prev: compiledMap,
-				annotation: true
-			}
+	const postcssResult = postcss([autoprefixer]).process(compiledResult.css.toString(), {
+		from: 'main.css',
+		to: 'main.css',
+		map: {
+			prev: compiledMap,
+			annotation: true
 		}
-	);
+	});
 
 	postcssResult.warnings().forEach((warn) => {
 		logger.warn(warn.toString());
@@ -118,10 +115,7 @@ logger.log(`Writing generated file to ${kleur.blue(`src/server/static/styles/${r
 renderTo(out, `src/server/static/styles/${resourceName}`);
 
 // Write the CSS entrypoint to a known file, with a query hash, for NJ to read.
-fs.writeFileSync(
-	'src/server/_data/resourceCSS.json',
-	JSON.stringify({ path: `/styles/${resourceName}` }),
-);
+fs.writeFileSync('src/server/_data/resourceCSS.json', JSON.stringify({ path: `/styles/${resourceName}` }));
 
 logger.log(`Writing resource JSON file ${kleur.blue('resourceCSS.json')} to ${kleur.blue('src/server/_data/resourceCSS.json')}`);
 logger.success(`Finished CSS! (${resourceName})`);
