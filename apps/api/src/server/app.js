@@ -11,7 +11,7 @@ import swaggerUi from 'swagger-ui-express';
 import fs from 'fs';
 import path from 'path';
 
-const swaggerAuto = JSON.parse(fs.readFileSync(path.resolve('..','..','swagger-output.json')));
+const swaggerAuto = JSON.parse(fs.readFileSync(path.resolve('src','server','swagger-output.json')));
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerAuto));
 
 app.use(compression());

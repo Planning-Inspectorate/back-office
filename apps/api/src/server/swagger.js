@@ -23,7 +23,7 @@ const doc = {
     components: {}            // by default: empty object (OpenAPI 3.x)
   };
 
-const outputFile = './swagger-output.json';
-const endpointsFiles = ['./apps/api/src/server/app.js'];
+const outputFile = './src/server/swagger-output.json';
+const endpointsFiles = ['./src/server/app.js'];
 
 swaggerAutogen()(outputFile, endpointsFiles, doc);

@@ -14,7 +14,8 @@
     "start": "node ./src/server.js",
     "lint:js": "eslint src",
     "lint:js:fix": "eslint src --fix",
-    "clean": "rimraf .turbo node_modules dist"
+    "clean": "rimraf .turbo node_modules dist",
+    "swagger-autogen": "node ./src/server/swagger.js"
   },
   "dependencies": {
     "body-parser": "1.19.2",
@@ -37,6 +38,8 @@
     "ava": "^4.1.0",
     "nodemon": "^2.0.15",
     "rimraf": "^3.0.2",
-    "supertest": "6.2.2"
+    "supertest": "6.2.2",
+    "swagger-autogen": "^2.19.0",
+    "swagger-ui-express": "^4.3.0"
   }
 }
