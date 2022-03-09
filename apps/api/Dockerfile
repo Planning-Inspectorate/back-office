@@ -1,12 +1,11 @@
-FROM node:16-alpine AS base
+FROM node:16-alpine
 WORKDIR /src/app
 COPY package*.json ./
 
-FROM base AS dependencies
-
 COPY packages/planning-inspectorate-libs packages/planning-inspectorate-libs
 
-COPY ./apps/api .
+COPY apps/api apps/api
 RUN npm install --only=prod
+COPY apps/api/.env.development ./.env
 EXPOSE 3000
-CMD [ "node", "./src/server.js" ]
+CMD [ "node", "./apps/api/src/server.js" ]
