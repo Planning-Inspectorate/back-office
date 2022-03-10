@@ -33,5 +33,5 @@ test('gets the appeallant information', async (t) => {
 		PlanningApplicationReference: '48269/APP/2021/1482'
 	};
 	t.is(resp.status, 200);
-	t.deepEqual(resp.body, [appealReviewInfo]);
+	t.deepEqual(resp.body, appealReviewInfo);
 });
