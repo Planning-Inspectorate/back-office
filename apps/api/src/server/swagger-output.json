@@ -38,10 +38,17 @@
         }
       }
     },
-    "/appeal-review/": {
+    "/validation/{id}/": {
       "get": {
         "description": "",
-        "parameters": [],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK"
