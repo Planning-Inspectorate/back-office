@@ -1,6 +1,8 @@
 import { Sequelize } from 'sequelize';
 import config from '../config/config.js';
 
+console.log(config);
+
 const sequelize = new Sequelize(
     config.SQL_SERVER_DATABASE,
     config.SQL_SERVER_USERNAME,
