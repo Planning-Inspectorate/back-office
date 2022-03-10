@@ -30,7 +30,9 @@
     "log-process-errors": "8.0.0",
     "morgan": "1.10.0",
     "planning-inspectorate-libs": "*",
-    "xstate": "4.30.3"
+    "xstate": "4.30.3",
+    "sequelize": "6.17.0",
+    "tedious": "14.3.0"
   },
   "devDependencies": {
     "cross-env": "^7.0.3",
