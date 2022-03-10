@@ -1,6 +1,8 @@
 {% extends "layouts/layout-page.njk" %}
+{% from "_includes/components/InfoBox/InfoBox.njk" import InfoBox %}
+{% from "govuk/components/table/macro.njk" import govukTable %}
 
-<% set head = [
+<% set tableHeadItems = [
 			{ text: "Appeal reference" },
 			{ text: "Received on" },
 			{ text: "Appeal site" }
@@ -9,32 +11,31 @@
 
 	{% block content %}
 
-		{% from "govuk/components/table/macro.njk" import govukTable %}
-
 		<h1 class="govuk-heading-xl">
-		Appeal submissions for review
-	</h1>
+			Appeal submissions for review
+		</h1>
 
 		<h2 class="govuk-heading-l govuk-!-margin-bottom-1">
-		New appeals
-	</h2>
+			New appeals
+		</h2>
 
 		{% if appealsList.newAppeals.length > 0 %}
 			{{ govukTable({
-			head: head,
-			rows: appealsList.newAppeals })
-	}}
+						head: tableHeadItems,
+						rows: appealsList.newAppeals
+				})
+			}}
 		{% else %}
-			{{ infoBox('No New Appeals') }}
+			{{ InfoBox('No New Appeals') }}
 		{% endif %}
 
 		<h2 class="govuk-heading-l govuk-!-margin-bottom-1">
-		Incomplete appeals
-	</h2>
+			Incomplete appeals
+		</h2>
 
 		{% if appealsList.incompleteAppeals.length > 0 %}
 			{{ govukTable({
-				head: head,
+				head: tableHeadItems,
 				rows: appealsList.incompleteAppeals })
 		}}
 		{% else %}
