@@ -1,5 +1,6 @@
 @use "govuk/settings/_colours-applied" as colors;
 
+
 .pi-info-box {
 	background-color: colors.govuk-colour("light-grey");
 	border-top: solid colors.$govuk-border-colour 1px;
