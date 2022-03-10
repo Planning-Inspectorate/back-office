@@ -16,8 +16,8 @@ const config = {
 	APP_RELEASE: process.env.APP_RELEASE,
 
 	HTTPS_ENABLED: process.env.HTTPS_ENABLED,
-	PORT: process.env.PORT,
-	HTTPS_PORT: process.env.HTTPS_PORT,
+	HTTP_PORT: process.env.HTTP_PORT || 8080,
+	HTTPS_PORT: process.env.HTTPS_PORT || 8443,
 	SSL_CERT_FILE: process.env.SSL_CERT_FILE,
 	SSL_KEY_FILE: process.env.SSL_KEY_FILE,
 
