@@ -122,6 +122,23 @@ docker container run -dp 3000:3000 -t pins-back-office-api
 ```
 which should create and run a container at `http://0.0.0.0:3000` on your machine.
 
+To run the database on port 1433 with docker, run:
+```shell
+sudo docker run -e "ACCEPT_EULA=Y" -e "SA_PASSWORD=<YourStrong@Passw0rd>" \
+   -p 1433:1433 --name pins_sql_server --hostname pins_sql_server \
+   -d mcr.microsoft.com/mssql/server:2019-latest
+```
+
+If this is your first time running this container, we need to create the database, by first connecting to the container:
+```shell
+sudo docker exec -it pins_sql_server "bash"
+```
+
+and once inside the container by running:
+```shell
+/opt/mssql-tools/bin/sqlcmd -S localhost -U SA -P "<YourStrong@Passw0rd>"
+```
+
 ## Configuration
 
 Here you should write what are all of the configurations a user can enter when
