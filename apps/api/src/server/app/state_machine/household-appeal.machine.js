@@ -1,4 +1,4 @@
-import { createMachine } from "xstate";
+import { createMachine } from 'xstate';
 
 const validation_states = {
 	submitted: {
@@ -12,7 +12,7 @@ const validation_states = {
 		type: 'final'
 	},
 	awaiting_validation_info: {
-		entry: ["notifyAppellantOfMissingAppealInfo"],
+		entry: ['notifyAppellantOfMissingAppealInfo'],
 		on: {
 			INVALID: 'invalid',
 			VALID: 'with_case_officer'
@@ -28,15 +28,15 @@ const validation_actions = {
 
 const case_manager_states = {
 	with_case_officer: {
-		entry: ["assignCaseManagerTeam", "sendAppealStartedDetails"],
+		entry: ['assignCaseManagerTeam', 'sendAppealStartedDetails'],
 		on: {
-			COMPLETE_QUESTIONNAIRE_RECEIVED: "with_inspector",
-			INCOMPLETE_QUESTIONNAIRE_RECEIVE: "awaiting_complete_questionnaire"
+			COMPLETE_QUESTIONNAIRE_RECEIVED: 'with_inspector',
+			INCOMPLETE_QUESTIONNAIRE_RECEIVE: 'awaiting_complete_questionnaire'
 		}
 	},
 	awaiting_complete_questionnaire: {
 		on: {
-			COMPLETE_QUESTIONNAIRE_RECEIVED: "with_inspector"
+			COMPLETE_QUESTIONNAIRE_RECEIVED: 'with_inspector'
 		}
 	},
 	with_inspector: {}
@@ -52,8 +52,8 @@ const case_manager_actions = {
 }
 
 const housing_appeal_machine = createMachine({
-	id: "housing_appeal",
-	initial: "submitted",
+	id: 'housing_appeal',
+	initial: 'submitted',
 	states: {
 		...validation_states,
 		...case_manager_states

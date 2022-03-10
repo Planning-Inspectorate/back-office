@@ -3,7 +3,7 @@ import machine from './household-appeal.machine.js';
 
 test("should have 'submitted' as initial state", t => {
 	const initial_state = machine.initialState;
-	t.is(initial_state.value, "submitted");
+	t.is(initial_state.value, 'submitted');
 });
 
 function applyAction(t, initial_state, action, expected_state, has_changed) {
@@ -12,22 +12,23 @@ function applyAction(t, initial_state, action, expected_state, has_changed) {
 	t.is(next_state.changed, has_changed);
 }
 
-applyAction.title = (providedTitle = "", initial_state, action, expected_state, has_changed) =>
-    `${providedTitle}: from state [${initial_state}] action [${action}] produces state [${expected_state}] ${has_changed ? '' : ' without'} having transitioned`
+applyAction.title = (providedTitle = '', initial_state, action, expected_state, has_changed) =>
+	`${providedTitle}: from state [${initial_state}] action [${action}] produces state 
+	[${expected_state}] ${has_changed ? '' : ' without'} having transitioned`
 
 for (const param of [
-	["submitted", "INVALID", "invalid", true],
-	["submitted", "VALID", "with_case_officer", true],
-	["submitted", "INFO_MISSING", "awaiting_validation_info", true],
-	["awaiting_validation_info", "INVALID", "invalid", true],
-	["awaiting_validation_info", "INFO_MISSING", "awaiting_validation_info", false],
-	["awaiting_validation_info", "VALID", "with_case_officer", true],
-	["invalid", "INVALID", "invalid", false],
-	["invalid", "INFO_MISSING", "invalid", false],
-	["invalid", "VALID", "invalid", false],
-	["with_case_officer", "INVALID", "with_case_officer", false],
-	["with_case_officer", "INFO_MISSING", "with_case_officer", false],
-	["with_case_officer", "VALID", "with_case_officer", false],
+	['submitted', 'INVALID', 'invalid', true],
+	['submitted', 'VALID', 'with_case_officer', true],
+	['submitted', 'INFO_MISSING', 'awaiting_validation_info', true],
+	['awaiting_validation_info', 'INVALID', 'invalid', true],
+	['awaiting_validation_info', 'INFO_MISSING', 'awaiting_validation_info', false],
+	['awaiting_validation_info', 'VALID', 'with_case_officer', true],
+	['invalid', 'INVALID', 'invalid', false],
+	['invalid', 'INFO_MISSING', 'invalid', false],
+	['invalid', 'VALID', 'invalid', false],
+	['with_case_officer', 'INVALID', 'with_case_officer', false],
+	['with_case_officer', 'INFO_MISSING', 'with_case_officer', false],
+	['with_case_officer', 'VALID', 'with_case_officer', false],
 ]) {
 	test(applyAction, ...param)
 }
