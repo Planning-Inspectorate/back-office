@@ -3,8 +3,8 @@ import compression from 'compression';
 import morgan from 'morgan';
 import helmet from 'helmet';
 import { homeRoutes } from './app/home/home.routes.js';
-import { validationRoutes } from './app/validation/validation.routes.js';
-import { appealReviewRoutes } from './app/validation/appeal-review/appeal-review.routes.js';
+import { validationRoutes, appealReviewRoutes } from './app/validation/validation.routes.js';
+
 
 const app = express();
 
