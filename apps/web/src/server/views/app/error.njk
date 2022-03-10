@@ -1,0 +1,28 @@
+{% extends "layouts/layout-page.njk" %}
+{% set mainClasses = "govuk-main-wrapper--l" %}
+
+{% block content %}
+<div class="govuk-grid-row">
+	<div class="govuk-grid-column-two-thirds">
+		<h1 class="govuk-heading-l">Sorry, there is a problem with the service</h1>
+		<p class="govuk-body">Try again later.</p>
+		<p class="govuk-body">
+			<a class="govuk-link" href="#">Contact the PINS Devs</a>.
+		</p>
+	</div>
+</div>
+{% if error and isProd === false %}
+<hr>
+<h1 class="govuk-heading-m" style="color: #d4351c;">Error (only seen in dev mode):</h1>
+<div class="govuk-grid-row">
+	<div class="govuk-grid-column-full">
+	<div>{{ error }}</div>
+	{% if error.stack %}
+	<pre>
+		{{ error.stack }}
+	</pre>
+	{% endif %}
+	</div>
+</div>
+{% endif %}
+{% endblock %}

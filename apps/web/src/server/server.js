@@ -11,9 +11,12 @@ import { app } from './app/app.express.js'; // Express app
 // and bot rendering.
 app.set('trust proxy', true);
 
+// Set the ETag response header.
+app.set('etag', 'weak');
+
 // Express http/s ports
-app.set('http-port', config.HTTP_PORT || 8080);
-app.set('https-port', config.HTTPS_PORT || 8443);
+app.set('http-port', config.HTTP_PORT);
+app.set('https-port', config.HTTPS_PORT);
 
 const listener = app.listen(app.get('http-port'), () => {
 	// eslint-disable-next-line no-console
