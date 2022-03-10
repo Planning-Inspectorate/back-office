@@ -17,7 +17,8 @@
     "clean": "rimraf .turbo node_modules dist",
     "swagger-autogen": "node ./src/server/swagger.js",
     "db:migrate": "npx sequelize-cli db:migrate",
-    "db:seed": "npx sequelize-cli db:seed:all"
+    "db:seed": "npx sequelize-cli db:seed:all",
+    "db:migrate:test": "NODE_ENV=test npm run db:migrate"
   },
   "dependencies": {
     "body-parser": "1.19.2",
