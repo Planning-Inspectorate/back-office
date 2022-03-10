@@ -38,7 +38,7 @@
         }
       }
     },
-    "/validation/{id}/": {
+    "/validation/{id}": {
       "get": {
         "description": "",
         "parameters": [
