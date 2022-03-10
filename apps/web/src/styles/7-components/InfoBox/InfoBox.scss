@@ -1,6 +1,6 @@
 @use "govuk/settings/_colours-applied" as colors;
 
-$pi-govuk-background-colour:  #f3f2f1;
+$pi-govuk-background-colour:  colors.govuk-colour("light-grey");
 $pi-color: rgb(11, 12, 12);
 
 .pi-info-box {
