@@ -1,4 +1,4 @@
-const appealsReviewList = [
+const appealReview = [
 	{
 		AppealId : 1,
 		AppealReference: 'APP/Q9999/D/21/1345264',
@@ -12,5 +12,5 @@ const appealsReviewList = [
 ];
 
 export const getAppealReview  = function (request, response) {
-	response.send(appealsReviewList);
+	response.send(appealReview);
 };

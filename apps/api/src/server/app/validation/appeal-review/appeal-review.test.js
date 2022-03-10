@@ -1,11 +1,11 @@
 import test from 'ava';
 import supertest from 'supertest';
-import { app } from '../../app.js';
+import { app } from '../../../app.js';
 
 const request = supertest(app);
 
 test('gets the appeallant information', async (t) => {
-	const resp = await request.get('/appeal-review');
+	const resp = await request.get('/validation/:id');
 	const appealReviewInfo = {
 		AppealId : 1,
 		AppealReference: 'APP/Q9999/D/21/1345264',

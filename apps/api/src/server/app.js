@@ -4,7 +4,7 @@ import morgan from 'morgan';
 import helmet from 'helmet';
 import { homeRoutes } from './app/home/home.routes.js';
 import { validationRoutes } from './app/validation/validation.routes.js';
-import { appealReviewRoutes } from './app/appeal-review/appeal-review.routes.js';
+import { appealReviewRoutes } from './app/validation/appeal-review/appeal-review.routes.js';
 
 const app = express();
 
@@ -23,7 +23,7 @@ app.use('/', homeRoutes);
 
 app.use('/validation', validationRoutes);
 
-app.use('/appeal-review', appealReviewRoutes);
+app.use('/validation/:id', appealReviewRoutes);
 
 export {
 	app
