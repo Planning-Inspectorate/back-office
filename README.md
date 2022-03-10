@@ -139,6 +139,14 @@ and once inside the container by running:
 /opt/mssql-tools/bin/sqlcmd -S localhost -U SA -P "<YourStrong@Passw0rd>"
 ```
 
+This way, we have access to the SQL Server command prompt. There, let's create the databases `pins_development` and `pins_test`:
+```sql
+CREATE DATABASE pins_development
+CREATE DATABASE pins_test
+SELECT Name from sys.Databases
+GO
+```
+
 ## Configuration
 
 Here you should write what are all of the configurations a user can enter when
