@@ -1,10 +1,10 @@
 import { findAllNewAppeals } from './validation.service.js';
 
 /**
- * @func makeGovTableRow - given an item object transform it into
- * 						 - govuk/components/table/macro.njk" import govukTable format
- * @param item {any} todo
- * @returns {any} todo
+ * Given an item object transform it into - govuk/components/table/macro.njk" import govukTable format
+ *
+ * @param {*} item to do
+ * @returns {any} to do
  */
 function makeGovTableRow(item){
 	return [
@@ -14,6 +14,13 @@ function makeGovTableRow(item){
 	];
 }
 
+/**
+ * Main Route Entrey Point
+ *
+ * @param {*} request to do
+ * @param {*} response to do
+ * @returns {void} to do
+ */
 async function getValidationDashboard(request, response) {
 
 	const appealsListData = await findAllNewAppeals();
@@ -33,8 +40,6 @@ async function getValidationDashboard(request, response) {
 		incompleteAppeals: incompleteAppeals,
 		newAppeals: newAppeals
 	};
-
-	console.log(appealsList)
 
 	response.render('validation/dashboard', {
 		appealsList

@@ -1,0 +1,14 @@
+@use "govuk/settings/_colours-applied" as colors;
+
+$pi-govuk-background-colour:  #f3f2f1;
+$pi-color: rgb(11, 12, 12);
+
+.pi-info-box {
+	background-color: $pi-govuk-background-colour;
+	border-top: solid colors.$govuk-border-colour 1px;
+	border-bottom: solid colors.$govuk-border-colour 1px;
+	color: $pi-color;
+	display: block;
+	padding: 10px;
+	text-align: center;
+}
