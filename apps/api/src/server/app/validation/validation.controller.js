@@ -46,4 +46,8 @@ const updateValidation = function (request, response) {
 	response.send();
 };
 
-export { getValidation, getAppealReview, updateValidation };
+const appealValidated = function (request, response) {
+	response.sent();
+};
+
+export { getValidation, getAppealReview, updateValidation, appealValidated };
