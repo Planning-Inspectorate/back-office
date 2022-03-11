@@ -1,16 +1,42 @@
 import { findAllNewAppeals } from './validation.service.js';
 
-async function getValidationDashboard(request, response, next) {
-	try {
-		const appealsListData = [];await findAllNewAppeals();
+/**
+ * Main Route Entrey Point
+ *
+ * @param {*} request to do
+ * @param {*} response to do
+ * @returns {void} to do
+ */
+async function getValidationDashboard(request, response) {
 
-		response.render('validation/dashboard', {
-			appealsListData
-		});
-	} catch (error) {
-		next(new Error(error));
-	}
+	const appealsListData = await findAllNewAppeals();
+	const incompleteAppeals = [];
+	const newAppeals = [];
+
+	// eslint-disable-next-line unicorn/no-array-for-each
+	appealsListData.forEach( ( item, x , i ) => {
+		const row = [
+			{ html: '<a href="#">'  + item.AppealReference + '</a>' },
+			{ text: item.Received },
+			{ text: item.AppealSite }
+		];
+		if ( item.AppealStatus === 'incomplete'){
+			incompleteAppeals.push(row);
+		} else if ( item.AppealStatus === 'new'){
+			newAppeals.push(row);
+		}
+	} );
+
+	const appealsList = {
+		incompleteAppeals: incompleteAppeals,
+		newAppeals: newAppeals
+	};
+
+	response.render('validation/dashboard', {
+		appealsList
+	});
 }
+
 
 export {
 	getValidationDashboard

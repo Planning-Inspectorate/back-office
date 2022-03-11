@@ -1,44 +1,45 @@
 {% extends "layouts/layout-page.njk" %}
-{% block content %}
-    <h1 class="govuk-heading-xl">
-        Appeal submissions for review
-    </h1>
-    <h2 class="govuk-heading-l govuk-!-margin-bottom-1">
-        New appeals
-    </h2>
-    <table class="govuk-table">
-        {% if appealsListData | length > 0 %}
-            <thead class="govuk-table__head">
-                <tr class="govuk-table__row">
-                    <th scope="col" class="govuk-table__header">Appeal reference</th>
-                    <th scope="col" class="govuk-table__header">Received</th>
-                    <th scope="col" class="govuk-table__header">Appeal site</th>
-                </tr>
-            </thead>
-            <tbody class="govuk-table__body">
-                {% for item in appealsListData %}
-					<tr class="govuk-table__row">
-						<td class="govuk-table__cell">
-							<a href="/validation-officer/{{ version }}/goto-appeal/{{ item.AppealId }}" class="govuk-link">APP/Q9999/D/21/{{ item.AppealId }}</a>
-						</td>
-						<td class="govuk-table__cell" nowrap>{{ item.Received }}</td>
-						<td class="govuk-table__cell">{{ item.AppealSite }}</td>
-					</tr>
-                {% endfor %}
-            </tbody>
-        {% else %}
-            <thead class="govuk-table__head">
-                <tr class="govuk-table__row">
-                    <th scope="col" class="govuk-table__header"></th>
-                </tr>
-            </thead>
-            <tbody class="govuk-table__body">
-                <tr class="govuk-table__row">
-                    <td class="govuk-table__cell govuk-!-padding-9" style="text-align: center; background-color: #f3f2f1;">
-                        No new appeals
-                    </td>
-                </tr>
-            </tbody>
-        {% endif %}
-    </table>
-{% endblock %}
+{% from "_includes/components/InfoBox/InfoBox.njk" import InfoBox %}
+{% from "govuk/components/table/macro.njk" import govukTable %}
+
+<% set tableHeadItems = [
+			{ text: "Appeal reference" },
+			{ text: "Received on" },
+			{ text: "Appeal site" }
+			]
+%>
+
+	{% block content %}
+
+		<h1 class="govuk-heading-xl">
+			Appeal submissions for review
+		</h1>
+
+		<h2 class="govuk-heading-l govuk-!-margin-bottom-1">
+			New appeals
+		</h2>
+
+		{% if appealsList.newAppeals.length > 0 %}
+			{{ govukTable({
+						head: tableHeadItems,
+						rows: appealsList.newAppeals
+				})
+			}}
+		{% else %}
+			{{ InfoBox('No New Appeals') }}
+		{% endif %}
+
+		<h2 class="govuk-heading-l govuk-!-margin-bottom-1">
+			Incomplete appeals
+		</h2>
+
+		{% if appealsList.incompleteAppeals.length > 0 %}
+			{{ govukTable({
+				head: tableHeadItems,
+				rows: appealsList.incompleteAppeals })
+		}}
+		{% else %}
+			{{ infoBox('No Incomplete Appeals') }}
+		{% endif %}
+
+	{% endblock %}
