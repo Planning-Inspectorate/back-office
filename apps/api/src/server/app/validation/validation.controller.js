@@ -38,7 +38,6 @@ const getValidation = function (request, response) {
 };
 
 const updateValidation = function (request, response) {
-	console.log(request.text);
 	const errors = validationResult(request);
 	if (!errors.isEmpty()) {
 		console.log(errors);
