@@ -35,3 +35,30 @@ test('gets the appeallant information', async (t) => {
 	t.is(resp.status, 200);
 	t.deepEqual(resp.body, appealReviewInfo);
 });
+
+test('should modify the selected field of the appeal', async (t) => {
+	const resp = await request.get('/validation/:id/change/:key');
+	const appealInfo = {
+		AppealId : 1,
+		AppealReference: 'APP/Q9999/D/21/1345264',
+		AppellantName: 'Lee Thornton',
+		AppealStatus:'new',
+		Received: '23 Feb 2022',
+		AppealSite:'96 The Avenue, Maidstone, Kent, MD21 5XY',
+		LocalPlanningDepartment: 'Maindstone Borough Council',
+		PlanningApplicationReference: '48269/APP/2021/1482'
+	};
+
+	appealInfo.save(() => {
+		resp.request()
+			.put('/validation' + appealInfo.AppealId)
+			.send({
+				AppealId : 1,
+				AppealReference: 'APP/Q9999/D/21/1345264',
+				AppellantName: 'Leah Thornton'
+			});
+	});
+	t.is(resp.status, 200);
+	t.deepEqual(resp.body.AppellantName, 'Leah Thornton');
+});
+
