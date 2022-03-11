@@ -1,3 +1,5 @@
+import { validationResult } from 'express-validator';
+
 const appealsList = [
 	{
 		AppealId: 1,
@@ -36,6 +38,12 @@ const getValidation = function (request, response) {
 };
 
 const updateValidation = function (request, response) {
+	console.log(request.text);
+	const errors = validationResult(request);
+	if (!errors.isEmpty()) {
+		console.log(errors);
+		return response.status(400).json({ errors: errors.array() });
+	}
 	response.send();
 };
 
