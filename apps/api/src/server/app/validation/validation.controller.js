@@ -35,4 +35,8 @@ const getValidation = function (request, response) {
 	response.send(appealsList);
 };
 
-export { getValidation, getAppealReview };
+const updateValidation = function (request, response) {
+	response.send();
+};
+
+export { getValidation, getAppealReview, updateValidation };
