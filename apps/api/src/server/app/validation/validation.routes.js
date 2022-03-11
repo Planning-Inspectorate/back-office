@@ -8,7 +8,7 @@ const router = express.Router();
 router.get('/', getValidation);
 router.get('/:id', getAppealReview);
 router.patch('/:id', body('AppellantName').isAlpha('en-US', { ignore: ' ' } ), updateValidation);
-router.post(':id', appealValidated);
+router.post('/:id', appealValidated);
 
 export {
 	router as validationRoutes

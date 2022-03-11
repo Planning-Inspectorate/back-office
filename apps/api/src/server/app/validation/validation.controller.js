@@ -40,14 +40,13 @@ const getValidation = function (request, response) {
 const updateValidation = function (request, response) {
 	const errors = validationResult(request);
 	if (!errors.isEmpty()) {
-		console.log(errors);
 		return response.status(400).json({ errors: errors.array() });
 	}
 	response.send();
 };
 
 const appealValidated = function (request, response) {
-	response.sent();
+	response.send();
 };
 
 export { getValidation, getAppealReview, updateValidation, appealValidated };
