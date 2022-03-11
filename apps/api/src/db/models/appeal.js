@@ -1,11 +1,11 @@
-import { Model, DataTypes } from 'sequelize';
-import { dbConnector } from '../db-connector.js';
+import { DataTypes } from 'sequelize';
+import { databaseConnector } from '../database-connector.js';
 
-const Appeal = dbConnector.define('Appeal', {
-  reference: {
-    type: DataTypes.STRING,
-    allowNull: false
-  }
-})
+const Appeal = databaseConnector.define('Appeal', {
+	reference: {
+		type: DataTypes.STRING,
+		allowNull: false
+	}
+});
 
 export default Appeal;

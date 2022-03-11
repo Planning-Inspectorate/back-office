@@ -31,4 +31,4 @@ for (const parameter of [
 	['with_case_officer', 'VALID', 'with_case_officer', false],
 ]) {
 	test(applyAction, ...parameter);
-}
+};
