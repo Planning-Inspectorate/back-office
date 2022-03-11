@@ -12,6 +12,8 @@ import swaggerUi from 'swagger-ui-express';
 import fs from 'fs';
 import path from 'path';
 
+import bodyParser from 'body-parser';
+app.use(bodyParser.json());
 const swaggerAuto = JSON.parse(fs.readFileSync(path.resolve('src', 'server', 'swagger-output.json')));
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerAuto));
 

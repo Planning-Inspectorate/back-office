@@ -1,3 +1,5 @@
+import { validationResult } from 'express-validator';
+
 const appealsList = [
 	{
 		AppealId: 1,
@@ -15,7 +17,7 @@ const appealsList = [
 	}
 ];
 
-const appealReview = [
+const appealReview =
 	{
 		AppealId : 1,
 		AppealReference: 'APP/Q9999/D/21/1345264',
@@ -25,8 +27,7 @@ const appealReview = [
 		AppealSite:'96 The Avenue, Maidstone, Kent, MD21 5XY',
 		LocalPlanningDepartment: 'Maindstone Borough Council',
 		PlanningApplicationReference: '48269/APP/2021/1482'
-	}
-];
+	};
 
 const getAppealReview  = function (request, response) {
 	response.send(appealReview);
@@ -36,4 +37,14 @@ const getValidation = function (request, response) {
 	response.send(appealsList);
 };
 
-export { getValidation, getAppealReview };
+const updateValidation = function (request, response) {
+	console.log(request.text);
+	const errors = validationResult(request);
+	if (!errors.isEmpty()) {
+		console.log(errors);
+		return response.status(400).json({ errors: errors.array() });
+	}
+	response.send();
+};
+
+export { getValidation, getAppealReview, updateValidation };
