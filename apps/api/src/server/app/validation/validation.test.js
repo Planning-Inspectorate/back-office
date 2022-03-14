@@ -79,8 +79,31 @@ test('should submit decision as invalid', async (t) => {
 	if (AppealDecision === 'invalid' && invalidValidation.LPADeemedInvalid === true) {
 		const resp = await request.post('/validation/' + 1)
 			.send({
-				AppealStatus:'invalid',
+				AppealStatus:'incomplete',
 				Reason: invalidValidation.LPADeemedInvalid
+			});
+		t.is(resp.status, 200);
+	}
+});
+
+test('should submit decision as incomplete', async (t) => {
+	const AppealDecision = 'incomplete';
+	const incompleteValidation = {
+		AppealStatus: 'incomplete',
+		NamesDoNotMatch: false,
+		Sensitiveinfo: true,
+		MissingOrWrongDocs: false,
+		InflamatoryComments: false,
+		OpenedInError: false,
+		WrongAppealType: false,
+		OtherReasons: ''
+	};
+
+	if (AppealDecision === 'incomplete' && incompleteValidation.Sensitiveinfo === true) {
+		const resp = await request.post('/validation/' + 1)
+			.send({
+				AppealStatus:'invalid',
+				Reason: incompleteValidation.Sensitiveinfo
 			});
 		t.is(resp.status, 200);
 	}
