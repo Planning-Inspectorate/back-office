@@ -1,45 +1,54 @@
-{% extends "layouts/layout-page.njk" %}
-{% from "_includes/components/InfoBox/InfoBox.njk" import InfoBox %}
+{% extends "_layouts/layout-page.njk" %}
+
+{% from "govuk/components/header/macro.njk" import govukHeader %}
 {% from "govuk/components/table/macro.njk" import govukTable %}
+{% from "_includes/components/InfoBox/InfoBox.njk" import InfoBox %}
 
-<% set tableHeadItems = [
-			{ text: "Appeal reference" },
-			{ text: "Received on" },
-			{ text: "Appeal site" }
-			]
-%>
+{% block header %}
+  {{ govukHeader({
+    homepageUrl: "https://www.gov.uk/",
+    serviceName: 'Appeal a planning decision',
+    serviceUrl: "/validation",
+    containerClasses: "govuk-width-container"
+  }) }}
+{% endblock %}
 
-	{% block content %}
+{% block content %}
+	{% set tableHeadItems = [
+		{ text: "Appeal reference" },
+		{ text: "Received on" },
+		{ text: "Appeal site" }
+	]
+	%}
 
-		<h1 class="govuk-heading-xl">
-			Appeal submissions for review
-		</h1>
+	<h1 class="govuk-heading-xl">
+		Appeal submissions for review
+	</h1>
 
-		<h2 class="govuk-heading-l govuk-!-margin-bottom-1">
-			New appeals
-		</h2>
+	<h2 class="govuk-heading-l govuk-!-margin-bottom-1">
+		New appeals
+	</h2>
 
-		{% if appealsList.newAppeals.length > 0 %}
-			{{ govukTable({
-						head: tableHeadItems,
-						rows: appealsList.newAppeals
-				})
-			}}
-		{% else %}
-			{{ InfoBox('No New Appeals') }}
-		{% endif %}
-
-		<h2 class="govuk-heading-l govuk-!-margin-bottom-1">
-			Incomplete appeals
-		</h2>
-
-		{% if appealsList.incompleteAppeals.length > 0 %}
-			{{ govukTable({
-				head: tableHeadItems,
-				rows: appealsList.incompleteAppeals })
+	{% if appealsList.newAppeals.length > 0 %}
+		{{ govukTable({
+			head: tableHeadItems,
+			rows: appealsList.newAppeals })
 		}}
-		{% else %}
-			{{ infoBox('No Incomplete Appeals') }}
-		{% endif %}
+	{% else %}
+		{{ InfoBox('No New Appeals', classes='govuk-!-margin-bottom-8') }}
+	{% endif %}
 
-	{% endblock %}
+	<h2 class="govuk-heading-l govuk-!-margin-bottom-1">
+		Incomplete appeals
+	</h2>
+
+	{% if appealsList.incompleteAppeals.length > 0 %}
+		{{ govukTable({
+			head: tableHeadItems,
+			rows: appealsList.incompleteAppeals })
+		}}
+	{% else %}
+		{{ InfoBox('No Incomplete Appeals', classes='govuk-!-margin-bottom-8') }}
+	{% endif %}
+
+{% endblock %}

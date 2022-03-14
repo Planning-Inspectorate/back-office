@@ -1,7 +1,7 @@
-{% macro InfoBox(message) %}
+{% macro InfoBox(message, classes) %}
+{% set classList = ['pi-info-box govuk-body govuk-!-padding-9 govuk-!-font-weight-regular govuk-!-font-size-24', classes] %}
 
-	<div class="pi-info-box govuk-body govuk-!-font-weight-regular govuk-!-font-size-24">
-		{{message}}
-	</div>
-
+<div class="{{ classList | className }}">
+	{{message}}
+</div>
 {% endmacro %}
