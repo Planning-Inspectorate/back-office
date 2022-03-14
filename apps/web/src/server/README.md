@@ -30,11 +30,11 @@ src/server
 │  ├── scripts
 │  └── styles
 └── views - Nunjucks templates
+   ├── _includes
+   ├── _layouts
    ├── auth
-   ├── home.njk
-   ├── includes
-   ├── layouts
    └── validation
+   └── home.njk
 ```
 
 ### Express app overview

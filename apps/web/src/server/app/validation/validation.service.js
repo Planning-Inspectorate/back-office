@@ -1,11 +1,7 @@
 import request from './../../lib/request.js';
 
-async function findAllNewAppeals() {
+export async function findAllNewIncompleteAppeals() {
 	const data = await request('validation');
 
 	return data;
 }
-
-export {
-	findAllNewAppeals
-};

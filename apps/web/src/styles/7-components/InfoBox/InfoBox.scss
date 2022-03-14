@@ -1,13 +1,9 @@
 @use "govuk/settings/_colours-applied" as colors;
 
-
 .pi-info-box {
 	background-color: colors.govuk-colour("light-grey");
-	border-top: solid colors.$govuk-border-colour 1px;
-	border-bottom: solid colors.$govuk-border-colour 1px;
+	border-top: 1px solid colors.$govuk-border-colour;
+	border-bottom: 1px solid colors.$govuk-border-colour;
 	color: colors.$govuk-text-colour;
-	display: block;
-	margin-bottom: 30px;
-	padding: 60px;
 	text-align: center;
 }
