@@ -1,6 +1,6 @@
 import swaggerAutogen from 'swagger-autogen';
 
-const doc = {
+const document_ = {
 	info: {
 		version: '2.0',      // by default: '1.0.0'
 		title: 'My PINS Project',        // by default: 'REST API'
@@ -26,4 +26,4 @@ const doc = {
 const outputFile = './src/server/swagger-output.json';
 const endpointsFiles = ['./src/server/app.js'];
 
-swaggerAutogen()(outputFile, endpointsFiles, doc);
+swaggerAutogen()(outputFile, endpointsFiles, document_);

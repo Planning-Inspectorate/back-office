@@ -40,7 +40,7 @@ const case_manager_states = {
 		}
 	},
 	with_inspector: {}
-}
+};
 
 const case_manager_actions = {
 	assignCaseManagerTeam: (context, event) => {
@@ -49,7 +49,7 @@ const case_manager_actions = {
 	sendAppealStartedDetails: (context, event) => {
 		console.log('Send Appeal Started Details');
 	}
-}
+};
 
 const housing_appeal_machine = createMachine({
 	id: 'housing_appeal',
