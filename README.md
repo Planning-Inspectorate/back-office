@@ -86,6 +86,36 @@ This will run all apps in dev mode. For example the Web app will run the Sass co
 
 Then you can open the local dev server `http://localhost:8080`.
 
+### Setting up Database locally
+
+Use Docker to run an instance of a SQL Server Docker container using the command:
+```shell
+sudo docker run -e "ACCEPT_EULA=Y" -e "SA_PASSWORD=<YourStrong@Passw0rd>" \
+   -p 1433:1433 --name pins_sql_server --hostname pins_sql_server \
+   -d mcr.microsoft.com/mssql/server:2019-latest
+```
+
+and create a `.env` file containing the following string:
+```json
+DATABASE_URL="sqlserver://0.0.0.0:1433;database=pins_development;user=sa;password=<YourStrong@Passw0rd>;trustServerCertificate=true"
+```
+
+You will need to also create a database called `pins_development` within your Docker container:
+```shell
+sudo docker exec -it pins_sql_server "bash"
+```
+
+then within the container:
+```shell
+/opt/mssql-tools/bin/sqlcmd -S localhost -U SA -P "<YourStrong@Passw0rd>"
+```
+
+then within the SQL command prompt:
+```sql
+CREATE DATABASE pins_development
+GO
+```
+
 ### Building
 
 Building the entire solution means running most of the dev tools into PROD mode.
