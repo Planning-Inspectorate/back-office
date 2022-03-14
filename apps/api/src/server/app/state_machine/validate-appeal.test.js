@@ -1,3 +1,4 @@
+// eslint-disable-next-line import/no-unresolved
 import test from 'ava';
 import machine from './household-appeal.machine.js';
 

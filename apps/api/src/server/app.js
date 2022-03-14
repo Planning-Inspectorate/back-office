@@ -3,7 +3,7 @@ import compression from 'compression';
 import morgan from 'morgan';
 import helmet from 'helmet';
 import { homeRoutes } from './app/home/home.routes.js';
-import { validationRoutes} from './app/validation/validation.routes.js';
+import { validationRoutes } from './app/validation/validation.routes.js';
 
 
 const app = express();
