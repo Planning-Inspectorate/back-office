@@ -53,3 +53,11 @@ test('should send error when the sent ApellantName is a number', async (t) => {
 	t.is(resp.status, 400);
 	// once we have a database, we will check if the register with id I equals to the new value
 });
+
+test('should submit validation decision', async (t) => {
+	const resp = await request.post('/validation/' + 1)
+		.send({
+			AppealStatus:'valid'
+		});
+	t.is(resp.status, 200);
+});
