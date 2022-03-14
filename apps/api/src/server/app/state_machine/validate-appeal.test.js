@@ -7,6 +7,13 @@ test('should have \'submitted\' as initial state', (t) => {
 	t.is(initial_state.value, 'submitted');
 });
 
+/**
+ * @param {object} t unit test
+ * @param {string} initial_state initial state in state machine
+ * @param {string} action action taken to proceed in state machine
+ * @param {string} expected_state expected state after action was taken
+ * @param {boolean} has_changed True if action was valid, False if action was invalid
+ */
 function applyAction(t, initial_state, action, expected_state, has_changed) {
 	const next_state = machine.transition(initial_state, action);
 	t.is(next_state.value, expected_state);
