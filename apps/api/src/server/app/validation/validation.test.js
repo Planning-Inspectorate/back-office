@@ -79,7 +79,8 @@ test('should submit decision as invalid', async (t) => {
 	if (AppealDecision === 'invalid' && invalidValidation.LPADeemedInvalid === true) {
 		const resp = await request.post('/validation/' + 1)
 			.send({
-				AppealStatus:'invalid'
+				AppealStatus:'invalid',
+				Reason: invalidValidation.LPADeemedInvalid
 			});
 		t.is(resp.status, 200);
 	}
