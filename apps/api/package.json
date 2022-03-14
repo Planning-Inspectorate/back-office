@@ -31,7 +31,9 @@
     "morgan": "1.10.0",
     "planning-inspectorate-libs": "*",
     "xstate": "4.30.3",
-    "express-validator": "6.14.0"
+    "express-validator": "6.14.0",
+    "prisma": "3.10.0",
+    "@prisma/client": "3.10.0"
   },
   "devDependencies": {
     "cross-env": "^7.0.3",
