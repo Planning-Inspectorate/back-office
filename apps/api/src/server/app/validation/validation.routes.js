@@ -1,6 +1,5 @@
 import express from 'express';
 import { getValidation,  getAppealReview, updateValidation, appealValidated } from './validation.controller.js';
-// eslint-disable-next-line import/no-unresolved
 import { body } from 'express-validator';
 
 const router = express.Router();
