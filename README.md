@@ -115,12 +115,25 @@ And again you'd need to tell what the previous code actually does.
 
 #### API
 
-To run the API with docker, from the root directory run:
+To run the API with Docker, from the root directory run:
+
 ```shell
 docker build . -t pins-back-office-api -f apps/api/Dockerfile
 docker container run -dp 3000:3000 -t pins-back-office-api
 ```
+
 which should create and run a container at `http://0.0.0.0:3000` on your machine.
+
+#### Web
+
+To build and run the WEB with Docker in `PRODUCTION RELEASE` mode, from the root directory run:
+
+```shell
+docker build . -t pins-web -f apps/web/Dockerfile
+docker container run -dp 8080:8080 -t pins-back-office-web
+```
+
+The image is built as a docker multi-stage build process, where first we compile the static assets and then we run the app.
 
 ## Configuration
 
