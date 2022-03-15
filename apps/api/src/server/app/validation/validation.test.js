@@ -93,7 +93,8 @@ test('should submit decision as incomplete', async (t) => {
 				InflamatoryComments: false,
 				OpenedInError: false,
 				WrongAppealType: false,
-				OtherReasons: ''}
+				OtherReasons: ''
+			}
 		});
 	t.is(resp.status, 200);
 });

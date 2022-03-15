@@ -9,6 +9,7 @@
   "type": "module",
   "scripts": {
     "test": "cross-env NODE_ENV=test ava",
+    "coverage": "c8 --reporter=html --reporter=text ava",
     "dev": "nodemon --experimental-json-modules -e js ./src/server.js",
     "build": "echo \"TODO: Crete Build Script\"",
     "start": "node ./src/server.js",
