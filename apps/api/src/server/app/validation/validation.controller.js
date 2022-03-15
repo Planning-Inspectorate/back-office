@@ -2,6 +2,7 @@ import { validationResult } from 'express-validator';
 import appealRepository from '../repositories/appeal.repository.js';
 import addressRepository from '../repositories/address.repository.js';
 import formatDate from '../utils/date-formatter.js';
+import formatAddress from '../utils/address-formatter.js';
 
 const appealReview = {
 	AppealId: 1,
@@ -38,15 +39,6 @@ async function formatAppeal(appeal) {
 		Received: formatDate(appeal.createdAt),
 		AppealSite: addressAsString
 	};
-}
-
-/**
- * @param {object} address address object
- * @returns {string} merged address parts into single string
- */
-function formatAddress(address) {
-	const addressParts = [address.addressLine1, address.addressLine2, address.addressLine3, address.addressLine4, address.addressLine5, address.addressLine6, address.city, address.postcode].filter((x) => !!x);
-	return addressParts.join(', ');
 }
 
 const updateValidation = function (request, response) {
