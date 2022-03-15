@@ -2,6 +2,25 @@
 
 > This is the Planning Inspectorate Back Office monorepo that holds the API and WEB apps plus any additional required packages.
 
+- [Planning Inspectorate Back Office](#planning-inspectorate-back-office)
+	- [Features](#features)
+	- [Installing / Getting started](#installing--getting-started)
+	- [Developing](#developing)
+		- [Built With](#built-with)
+		- [Prerequisites](#prerequisites)
+		- [Setting up Dev](#setting-up-dev)
+		- [Setting up Database locally](#setting-up-database-locally)
+		- [Building](#building)
+		- [Deploying / Publishing](#deploying--publishing)
+		- [Docker](#docker)
+			- [API](#api)
+			- [Web](#web)
+	- [Configuration](#configuration)
+	- [Tests](#tests)
+	- [Swagger documentation](#swagger-documentation)
+	- [Style guide](#style-guide)
+	- [Licensing](#licensing)
+
 ## Features
 
 - CSS with superpowers via [Scss](https://sass-lang.com/)
@@ -88,7 +107,10 @@ Then you can open the local dev server `http://localhost:8080`.
 
 ### Setting up Database locally
 
+> ⚠️ The local DB instance will be needed to run the API app.
+
 Use Docker to run an instance of a SQL Server Docker container using the command:
+
 ```shell
 sudo docker run -e "ACCEPT_EULA=Y" -e "SA_PASSWORD=<YourStrong@Passw0rd>" \
    -p 1433:1433 --name pins_sql_server --hostname pins_sql_server \
@@ -96,25 +118,29 @@ sudo docker run -e "ACCEPT_EULA=Y" -e "SA_PASSWORD=<YourStrong@Passw0rd>" \
 ```
 
 and create a `.env` file containing the following string:
+
 ```json
 DATABASE_URL="sqlserver://0.0.0.0:1433;database=pins_development;user=sa;password=<YourStrong@Passw0rd>;trustServerCertificate=true"
 ```
 
 You will need to also create a database called `pins_development` within your Docker container:
+
 ```shell
 sudo docker exec -it pins_sql_server "bash"
-```
 
-then within the container:
-```shell
+# then within the container:
 /opt/mssql-tools/bin/sqlcmd -S localhost -U SA -P "<YourStrong@Passw0rd>"
-```
 
-then within the SQL command prompt:
-```sql
+# then within the SQL command prompt:
+
 CREATE DATABASE pins_development
 GO
+
+# then you can exit with
+exit
 ```
+
+Next step will be to run the Prisma migrations and seed to get some test data. Pleas follow the [docs here](docs/database-migration.md).
 
 ### Building
 
@@ -167,8 +193,7 @@ The image is built as a docker multi-stage build process, where first we compile
 
 ## Configuration
 
-Here you should write what are all of the configurations a user can enter when
-using the project.
+All required configurations are part of `.env` files or app specific config file that are used throughout the entire applications.
 
 ## Tests
 
@@ -178,6 +203,7 @@ Explain what these tests test and why.
 ```shell
 Give an example
 ```
+
 ## Swagger documentation
 
 In order to be able to generate the ducumentation fom Swagger you need to travel to the api folder in your terminal and run:
@@ -189,7 +215,7 @@ That documentation can be checked in `/api-docs/` in the localhost
 
 ## Style guide
 
-The codebase has README.md file in all relevant folder that explain what is the purpose or any other guidelines to follow.
+The codebase has README.md files in all relevant folder that explain what is the purpose or any other guidelines to follow.
 
 ## Licensing
 
