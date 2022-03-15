@@ -207,7 +207,7 @@ Give an example
 Coverage for Backend testing reporting available with the instruction:
 ```
 npm run coverage
-```
+``
 
 ## Swagger documentation
 
