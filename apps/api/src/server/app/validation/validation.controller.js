@@ -1,21 +1,6 @@
 import { validationResult } from 'express-validator';
-
-const appealsList = [
-	{
-		AppealId: 1,
-		AppealReference: 'APP/Q9999/D/21/1345264',
-		AppealStatus: 'new',
-		Received: '23 Feb 2022',
-		AppealSite: '96 The Avenue, Maidstone, Kent, MD21 5XY'
-	},
-	{
-		AppealId: 2,
-		AppealReference: 'APP/Q9999/D/21/5463281',
-		AppealStatus: 'incomplete',
-		Received: '25 Feb 2022',
-		AppealSite: '55 Butcher Street, Thurnscoe, S63 0RB'
-	}
-];
+import appealRepository from '../repositories/appeal.repository.js';
+import addressRepository from '../repositories/address.repository.js';
 
 const appealReview = {
 	AppealId: 1,
@@ -32,9 +17,55 @@ const getAppealReview = function (request, response) {
 	response.send(appealReview);
 };
 
-const getValidation = function (request, response) {
-	response.send(appealsList);
+const getValidation = async function (request, response) {
+	const appeals =  await appealRepository.getByStatuses(['submitted', 'awaiting_validation_info']);
+	const formattedAppeals = await Promise.all(appeals.map(async (appeal) => formatAppeal(appeal)));
+	response.send(formattedAppeals);
 };
+
+/**
+ * @param {object} appeal appeal that requires formatting for the getValidation controller
+ */
+async function formatAppeal(appeal) {
+	const address = await addressRepository.getById(appeal.addressId);
+	const addressAsString = formatAddress(address);
+	const appealStatus = appeal.status == 'submitted' ? 'new' : 'incomplete';
+	return {
+		AppealId: appeal.id, 
+		AppealReference: appeal.reference, 
+		AppealStatus: appealStatus,
+		Received: formatDate(appeal.createdAt),
+		AppealSite: addressAsString
+	};
+}
+
+/**
+ * @param {object} address address object
+ * @returns {string} merged address parts into single string
+ */
+function formatAddress(address) {
+	const addressParts = [address.addressLine1, address.addressLine2, address.addressLine3, address.addressLine4, address.addressLine5, address.addressLine6, address.city, address.postcode].filter((x) => !!x);
+	return addressParts.join(', ');
+}
+
+/**
+ * @param {Date} date date object to be formatted for getValidation controller
+ * @returns {string} merged date parts in format DD MMM YYYY
+ */
+function formatDate(date) {
+	const monthNames =['Jan', 'Feb', 'Mar', 'Apr',
+		'May', 'Jun', 'Jul', 'Aug',
+		'Sep', 'Oct', 'Nov', 'Dec'];
+
+	const day = date.getDate();
+
+	const monthIndex = date.getMonth();
+	const monthName = monthNames[monthIndex];
+
+	const year = date.getFullYear();
+
+	return `${day} ${monthName} ${year}`;
+}
 
 const updateValidation = function (request, response) {
 	const errors = validationResult(request);
