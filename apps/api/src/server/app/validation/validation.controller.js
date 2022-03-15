@@ -19,16 +19,17 @@ const getAppealReview = function (request, response) {
 	response.send(appealReview);
 };
 
-const getValidation = async function (request, response) {
+const getValidation = async function (_request, response) {
 	const appeals =  await appealRepository.getByStatuses(['submitted', 'awaiting_validation_info']);
-	const formattedAppeals = await Promise.all(appeals.map(async (appeal) => formatAppeal(appeal)));
+	const formattedAppeals = await Promise.all(appeals.map(async (appeal) => formatAppealForAllAppeals(appeal)));
 	response.send(formattedAppeals);
 };
 
 /**
  * @param {object} appeal appeal that requires formatting for the getValidation controller
+ * @returns {object} appeal as a hash
  */
-async function formatAppeal(appeal) {
+async function formatAppealForAllAppeals(appeal) {
 	const address = await addressRepository.getById(appeal.addressId);
 	const addressAsString = formatAddress(address);
 	const appealStatus = appeal.status == 'submitted' ? 'new' : 'incomplete';
