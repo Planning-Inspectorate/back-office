@@ -34,7 +34,7 @@ test('gets all appeals', async(t) => {
 	t.deepEqual(appeals, []);
 });
 
-test('get single existing appeal', async(t) => {
+test('getting single existing appeal', async(t) => {
 	const appeal = await appealRepository.getById(1);
 	t.deepEqual(appeal, existingAppeal);
 });

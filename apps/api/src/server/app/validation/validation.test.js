@@ -67,7 +67,6 @@ test('gets the appeal information', async (t) => {
 		AppealSite: '55 Butcher Street, Thurnscoe, S63 0RB'
 	};
 	t.is(resp.status, 200);
-	console.log(resp.body);
 	t.deepEqual(resp.body, [validationLineNew, validationLineIncomplete]);
 });
 
