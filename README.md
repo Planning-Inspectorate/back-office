@@ -204,6 +204,11 @@ Explain what these tests test and why.
 Give an example
 ```
 
+Coverage for Backend testing reporting available with the instruction:
+```
+npm run coverage
+```
+
 ## Swagger documentation
 
 In order to be able to generate the ducumentation fom Swagger you need to travel to the api folder in your terminal and run:
