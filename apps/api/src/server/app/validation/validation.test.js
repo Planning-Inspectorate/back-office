@@ -56,55 +56,44 @@ test('should send error when the sent ApellantName is a number', async (t) => {
 });
 
 test('should submit decision as valid', async (t) => {
-	const AppealDecision = 'valid';
-	if (AppealDecision === 'valid') {
-		const resp = await request.post('/validation/' + 1)
-			.send({
-				AppealStatus:'valid'
-			});
-		t.is(resp.status, 200);
-	}
+	const resp = await request.post('/validation/' + 1)
+		.send({
+			AppealStatus:'valid'
+		});
+	t.is(resp.status, 200);
 });
 
 test('should submit decision as invalid', async (t) => {
 	const AppealDecision = 'invalid';
-	const invalidValidation = {
-		AppealStatus: 'invalid',
-		OutOfTime: false,
-		NoRightOfappeal: false,
-		NotAppealable: false,
-		LPADeemedInvalid: true,
-		OtherReasons: ''
-	};
-	if (AppealDecision === 'invalid' && invalidValidation.LPADeemedInvalid === true) {
-		const resp = await request.post('/validation/' + 1)
-			.send({
-				AppealStatus:'incomplete',
-				Reason: invalidValidation.LPADeemedInvalid
-			});
-		t.is(resp.status, 200);
-	}
+	const resp = await request.post('/validation/' + 1)
+		.send({
+			AppealStatus:AppealDecision,
+			Reason: {
+				AppealStatus: 'invalid',
+				OutOfTime: false,
+				NoRightOfappeal: false,
+				NotAppealable: false,
+				LPADeemedInvalid: true,
+				OtherReasons: ''
+			}
+		});
+	t.is(resp.status, 200);
+
 });
 
 test('should submit decision as incomplete', async (t) => {
-	const AppealDecision = 'incomplete';
-	const incompleteValidation = {
-		AppealStatus: 'incomplete',
-		NamesDoNotMatch: false,
-		Sensitiveinfo: true,
-		MissingOrWrongDocs: false,
-		InflamatoryComments: false,
-		OpenedInError: false,
-		WrongAppealType: false,
-		OtherReasons: ''
-	};
-
-	if (AppealDecision === 'incomplete' && incompleteValidation.Sensitiveinfo === true) {
-		const resp = await request.post('/validation/' + 1)
-			.send({
-				AppealStatus:'invalid',
-				Reason: incompleteValidation.Sensitiveinfo
-			});
-		t.is(resp.status, 200);
-	}
+	const resp = await request.post('/validation/' + 1)
+		.send({
+			AppealStatus:'invalid',
+			Reason: {
+				AppealStatus: 'incomplete',
+				NamesDoNotMatch: false,
+				Sensitiveinfo: true,
+				MissingOrWrongDocs: false,
+				InflamatoryComments: false,
+				OpenedInError: false,
+				WrongAppealType: false,
+				OtherReasons: ''}
+		});
+	t.is(resp.status, 200);
 });

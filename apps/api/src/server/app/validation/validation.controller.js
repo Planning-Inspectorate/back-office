@@ -37,6 +37,7 @@ const getValidation = function (request, response) {
 	response.send(appealsList);
 };
 
+// eslint-disable-next-line consistent-return
 const updateValidation = function (request, response) {
 	const errors = validationResult(request);
 	if (!errors.isEmpty()) {
