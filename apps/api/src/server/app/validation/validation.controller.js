@@ -1,6 +1,7 @@
 import { validationResult } from 'express-validator';
 import appealRepository from '../repositories/appeal.repository.js';
 import addressRepository from '../repositories/address.repository.js';
+import formatDate from '../utils/date-formatter.js';
 
 const appealReview = {
 	AppealId: 1,
@@ -46,25 +47,6 @@ async function formatAppeal(appeal) {
 function formatAddress(address) {
 	const addressParts = [address.addressLine1, address.addressLine2, address.addressLine3, address.addressLine4, address.addressLine5, address.addressLine6, address.city, address.postcode].filter((x) => !!x);
 	return addressParts.join(', ');
-}
-
-/**
- * @param {Date} date date object to be formatted for getValidation controller
- * @returns {string} merged date parts in format DD MMM YYYY
- */
-function formatDate(date) {
-	const monthNames =['Jan', 'Feb', 'Mar', 'Apr',
-		'May', 'Jun', 'Jul', 'Aug',
-		'Sep', 'Oct', 'Nov', 'Dec'];
-
-	const day = date.getDate();
-
-	const monthIndex = date.getMonth();
-	const monthName = monthNames[monthIndex];
-
-	const year = date.getFullYear();
-
-	return `${day} ${monthName} ${year}`;
 }
 
 const updateValidation = function (request, response) {
