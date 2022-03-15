@@ -135,6 +135,19 @@ Explain what these tests test and why.
 ```shell
 Give an example
 ```
+### Backend
+
+Report on testing of the code can be extracted with: 
+```
+npm test
+```
+
+You can have the same information plus the code coverage with:
+```
+npm run coverage
+```
+
+
 ## Swagger documentation
 
 In order to be able to generate the ducumentation fom Swagger you need to travel to the api folder in your terminal and run:
