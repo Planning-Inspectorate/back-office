@@ -5,6 +5,6 @@ const router = express.Router();
 
 router.get('/', getHome);
 
-export  {
+export {
 	router as homeRoutes
 };

@@ -1,0 +1,15 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlserver"
+  url      = env("DATABASE_URL")
+}
+
+model Appeal {
+  id Int @id @default(autoincrement())
+  reference String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
+}

@@ -21,7 +21,7 @@ const validation_states = {
 };
 
 const validation_actions = {
-	notifyAppellantOfMissingAppealInfo: (context, event) => {
+	notifyAppellantOfMissingAppealInfo: (_context, _event) => {
 		console.log('Letting Appellant know that info is missing...');
 	}
 };
@@ -43,10 +43,10 @@ const case_manager_states = {
 };
 
 const case_manager_actions = {
-	assignCaseManagerTeam: (context, event) => {
+	assignCaseManagerTeam: (_context, _event) => {
 		console.log('Assigning Case Manager Team');
 	},
-	sendAppealStartedDetails: (context, event) => {
+	sendAppealStartedDetails: (_context, _event) => {
 		console.log('Send Appeal Started Details');
 	}
 };
