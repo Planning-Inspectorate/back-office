@@ -83,59 +83,6 @@ test('gets all new and incomplete validation appeals', async (t) => {
 	t.deepEqual(resp.body, [validationLineNew, validationLineIncomplete]);
 });
 
-test('gets appeal that requires validation', async (t) => {
-	const resp = await request.get('/validation/1');
-	const appealReviewInfo = {
-		AppealId: 1,
-		AppealReference: 'APP/Q9999/D/21/1345264',
-		AppellantName: 'Lee Thornton',
-		AppealStatus: 'new',
-		Received: '23 Feb 2022',
-		AppealSite: '96 The Avenue, Maidstone, Kent, MD21 5XY',
-		LocalPlanningDepartment: 'Maidstone Borough Council',
-		PlanningApplicationReference: '48269/APP/2021/1482',
-		Documents: [
-			{
-				Type: 'planning application form',
-				Filename: 'planning-application.pdf',
-				URL: 'localhost:8080'
-			},
-			{
-				Type: 'decision letter',
-				Filename: 'decision-letter.pdf',
-				URL: 'localhost:8080'
-			},
-			{
-				Type: 'appeal statement',
-				Filename: 'appeal-statement.pdf',
-				URL: 'localhost:8080'
-			},
-			{
-				Type: 'supporting document',
-				Filename: 'other-document-1.pdf',
-				URL: 'localhost:8080'
-			},
-			{
-				Type: 'supporting document',
-				Filename: 'other-document-2.pdf',
-				URL: 'localhost:8080'
-			},
-			{
-				Type: 'supporting document',
-				Filename: 'other-document-3.pdf',
-				URL: 'localhost:8080'
-			}
-		]
-	};
-	t.is(resp.status, 200);
-	t.deepEqual(resp.body, appealReviewInfo);
-});
-
-test('throws 400 when appeal does not require validation', async (t) => {
-	const resp = await request.get('/validation/3');
-	t.is(resp.status, 400);
-});
-
 test('should modify the selected field of the appeal', async (t) => {
 	const resp = await request.patch('/validation/' + 1)
 		.send({
