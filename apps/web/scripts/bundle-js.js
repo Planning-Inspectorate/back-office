@@ -54,7 +54,10 @@ async function build() {
 		plugins: [
 			nodeResolve(),
 			rollupPluginCJS({
-				include: 'node_modules/**'
+				include: [
+					'node_modules/**',
+					/node_modules\/govuk-frontend/
+				]
 			}),
 			rollupPluginReplace({
 				values: {

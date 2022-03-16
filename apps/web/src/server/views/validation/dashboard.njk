@@ -7,7 +7,7 @@
 {% block header %}
   {{ govukHeader({
     homepageUrl: "https://www.gov.uk/",
-    serviceName: 'Appeal a planning decision',
+    serviceName: "Appeal a planning decision",
     serviceUrl: "/validation",
     containerClasses: "govuk-width-container"
   }) }}
@@ -35,7 +35,7 @@
 			rows: appealsList.newAppeals })
 		}}
 	{% else %}
-		{{ InfoBox('No New Appeals', classes='govuk-!-margin-bottom-8') }}
+		{{ InfoBox("No New Appeals", classes="govuk-!-margin-bottom-8") }}
 	{% endif %}
 
 	<h2 class="govuk-heading-l govuk-!-margin-bottom-1">
@@ -48,7 +48,6 @@
 			rows: appealsList.incompleteAppeals })
 		}}
 	{% else %}
-		{{ InfoBox('No Incomplete Appeals', classes='govuk-!-margin-bottom-8') }}
+		{{ InfoBox("No Incomplete Appeals") }}
 	{% endif %}
-
 {% endblock %}

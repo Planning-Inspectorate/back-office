@@ -5,3 +5,9 @@ export async function findAllNewIncompleteAppeals() {
 
 	return data;
 }
+
+export async function findAppealById(id) {
+	const data = await request(`validation/${id}`);
+
+	return data;
+}

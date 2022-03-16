@@ -1,0 +1,132 @@
+{% extends "_layouts/layout-two-thirds.njk" %}
+
+{% from "govuk/components/header/macro.njk" import govukHeader %}
+{% from "govuk/components/back-link/macro.njk" import govukBackLink %}
+{% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+
+{# Macro use to generate a list of documents #}
+{% macro documentsList(data)  %}
+<ul class="govuk-list">
+	<li><a href="#" class="govuk-link" target="_blank">other-documents-1.pdf</a></li>
+	<li><a href="#" class="govuk-link" target="_blank">other-documents-2.pdf</a></li>
+</ul>
+{% endmacro %}
+
+{% block header %}
+  {{ govukHeader({
+	homepageUrl: "https://www.gov.uk/",
+	serviceName: "Appeal a planning decision",
+	serviceUrl: "/validation",
+	containerClasses: "govuk-width-container"
+  }) }}
+{% endblock %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+	text: "Back",
+	href: "/validation/"
+  }) }}
+{% endblock %}
+
+{% block pageContent %}
+	<h1 class="govuk-heading-xl">
+		Review appeal submission
+	</h1>
+
+	{{ govukSummaryList({
+		rows: [
+			{
+				key: { text: "Appellant name" },
+				value: { text: appealData.AppellantName },
+				actions: {
+					items: [{
+						href: "#",
+						text: "Change"
+					}]
+				}
+			},
+			{ key: { text: "Appeal reference" },
+				value: { text: appealData.AppealReference }
+			},
+			{
+				key: { text: "Received on" },
+				value: { text: appealData.Received }
+			},
+			{
+				key: { text: "Appeal site" },
+				value: { html: appealData.AppealSite },
+				actions: {
+					items: [{
+						href: "#",
+						text: "Change"
+					}]
+				}
+			},
+			{
+				key: { text: "Local planning department" },
+				value: { text: appealData.LocalPlanningDepartment },
+				actions: {
+					items: [{
+						href: "#",
+						text: "Change"
+					}]
+				}
+			},
+			{
+				key: { text: "Planning application reference" },
+				value: { text: appealData.PlanningApplicationReference },
+				actions: {
+					items: [{
+						href: "#",
+						text: "Change"
+					}]
+				}
+			}
+		]
+	}) }}
+
+	<h2 class="govuk-heading-l govuk-!-margin-top-9">
+		Planning application documents
+	</h2>
+
+	{{ govukSummaryList({
+		rows: [
+			{ key: { text: "Planning application form" }, value: { html: '<a href="#">planning-application.pdf</a>' } },
+			{ key: { text: "Decision letter" }, value: { html: '<a href="#">decision-letter.pdf</a>' } }
+		]
+	}) }}
+
+	<h2 class="govuk-heading-l govuk-!-margin-top-9">
+		Appeal documents
+	</h2>
+
+	{{ govukSummaryList({
+		rows: [
+			{ key: { text: "Appeal statement" }, value: { html: '<a href="#">planning-application.pdf</a>' } },
+			{ key: { text: "Supporting documents" }, value: { html: documentsList(data) } }
+		]
+	}) }}
+
+	{{ govukRadios({
+		idPrefix: "review-outcome",
+		name: "review-outcome",
+		errorMessage: errors['review-outcome'] and { text: errors['review-outcome'].msg },
+		fieldset: {
+	  		legend: {
+				text: "Outcome of review",
+				isPageHeading: false,
+				classes: "govuk-fieldset__legend--l govuk-!-margin-top-6"
+	  		}
+		},
+		items: [
+			{ value: '1', text: "Valid", checked: reviewOutcome === '1' },
+			{ value: '2', text: "Invalid", checked: reviewOutcome === '2' },
+			{ divider: "or" },
+			{ value: '3', text: "Something is missing or wrong", checked: reviewOutcome === '3' }
+		]
+  	}) }}
+
+	{{ govukButton({ text: text | default('Continue') }) }}
+{% endblock %}
