@@ -3,18 +3,22 @@ import appealRepository from '../repositories/appeal.repository.js';
 import addressRepository from '../repositories/address.repository.js';
 import formatDate from '../utils/date-formatter.js';
 import formatAddress from '../utils/address-formatter.js';
+import ValidationError from './validation-error.js';
 
 const validationStatuses = ['submitted', 'awaiting_validation_info'];
 
 const getAppealToValidate = async function (request, response) {
 	const appeal = await appealRepository.getById(Number.parseInt(request.params.id, 10));
 	if (!validationStatuses.includes(appeal.status)) {
-		return response.send(400);
+		throw new ValidationError('Appeal does not require validation', 400);
 	}
 	const formattedAppeal = await formatAppealForAppealDetails(appeal);
 	return response.send(formattedAppeal);
 };
 
+/**
+ * @param appeal
+ */
 async function formatAppealForAppealDetails(appeal) {
 	const address = await addressRepository.getById(appeal.addressId);
 	const addressAsString = formatAddress(address);
@@ -86,6 +90,9 @@ async function formatAppealForAllAppeals(appeal) {
 	};
 }
 
+/**
+ * @param status
+ */
 function mapAppealStatus(status) {
 	return status == 'submitted' ? 'new' : 'incomplete';
 }

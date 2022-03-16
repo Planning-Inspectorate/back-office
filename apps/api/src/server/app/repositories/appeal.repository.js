@@ -1,6 +1,9 @@
 import DatabaseFactory from './database.js';
 
-var appealRepository = (function() {
+const appealRepository = (function() {
+	/**
+	 *
+	 */
 	function getPool () {
 	  return DatabaseFactory.getInstance().pool;
 	}
@@ -26,6 +29,6 @@ var appealRepository = (function() {
 			});
 		}
 	};
-  })();
+})();
 
 export default appealRepository;

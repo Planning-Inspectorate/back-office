@@ -2,7 +2,7 @@
  * @param {Date} date date object to be formatted for getValidation controller
  * @returns {string} merged date parts in format DD MMM YYYY
  */
- function formatDate(date) {
+function formatDate(date) {
 	const monthNames =['Jan', 'Feb', 'Mar', 'Apr',
 		'May', 'Jun', 'Jul', 'Aug',
 		'Sep', 'Oct', 'Nov', 'Dec'];

@@ -101,4 +101,5 @@ test('gets appeal that requires validation', async (t) => {
 test('throws 400 when appeal does not require validation', async (t) => {
 	const resp = await request.get('/validation/3');
 	t.is(resp.status, 400);
+	t.deepEqual(resp.body, { error: 'Appeal does not require validation' });
 });
