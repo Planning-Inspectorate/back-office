@@ -1,10 +1,9 @@
 /**
- * @param error
- * @param req
- * @param request
- * @param _request
- * @param res
- * @param next
+ * @param {Error} error error that requires handling
+ * @param {Request} _request API request
+ * @param {Response} response API response
+ * @param {Function} next next
+ * @returns {Response} API Response
  */
 function errorHandler(error, _request, response, next) {
 	if (response.headersSent) {

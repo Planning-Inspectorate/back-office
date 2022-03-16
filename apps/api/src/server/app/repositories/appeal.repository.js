@@ -2,18 +2,18 @@ import DatabaseFactory from './database.js';
 
 const appealRepository = (function() {
 	/**
-	 *
+	 * @returns {object} connection to database
 	 */
 	function getPool () {
-	  return DatabaseFactory.getInstance().pool;
+		return DatabaseFactory.getInstance().pool;
 	}
   
 	return {
-		getAll: async function () {
-			return await getPool().appeal.findMany();
+		getAll: function () {
+			return getPool().appeal.findMany();
 		},
-		getByStatuses: async function (statuses) {
-			return await getPool().appeal.findMany({
+		getByStatuses: function (statuses) {
+			return getPool().appeal.findMany({
 				where: {
 					status: {
 						in: statuses
@@ -21,8 +21,8 @@ const appealRepository = (function() {
 				}
 			});
 		},
-		getById: async function (id) {
-			return await getPool().appeal.findUnique({
+		getById: function (id) {
+			return getPool().appeal.findUnique({
 				where: {
 					id: id
 				}

@@ -17,7 +17,7 @@ const getAppealToValidate = async function (request, response) {
 };
 
 /**
- * @param appeal
+ * @param {object} appeal appeal
  */
 async function formatAppealForAppealDetails(appeal) {
 	const address = await addressRepository.getById(appeal.addressId);
@@ -69,7 +69,7 @@ async function formatAppealForAppealDetails(appeal) {
 
 const getValidation = async function (_request, response) {
 	const appeals = await appealRepository.getByStatuses(validationStatuses);
-	const formattedAppeals = await Promise.all(appeals.map(async (appeal) => formatAppealForAllAppeals(appeal)));
+	const formattedAppeals = await Promise.all(appeals.map((appeal) => formatAppealForAllAppeals(appeal)));
 	response.send(formattedAppeals);
 };
 
@@ -91,7 +91,8 @@ async function formatAppealForAllAppeals(appeal) {
 }
 
 /**
- * @param status
+ * @param {string} status appeal status
+ * @returns {string} reformatted appeal status
  */
 function mapAppealStatus(status) {
 	return status == 'submitted' ? 'new' : 'incomplete';
