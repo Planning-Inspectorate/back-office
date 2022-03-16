@@ -6,7 +6,7 @@ import formatAddress from '../utils/address-formatter.js';
 
 const validationStatuses = ['submitted', 'awaiting_validation_info'];
 
-const getAppealReview = async function (request, response) {
+const getAppealToValidate = async function (request, response) {
 	const appeal = await appealRepository.getById(Number.parseInt(request.params.id, 10));
 	if (!validationStatuses.includes(appeal.status)) {
 		return response.send(400);
@@ -102,4 +102,4 @@ const appealValidated = function (request, response) {
 	response.send();
 };
 
-export { getValidation, getAppealReview, updateValidation, appealValidated };
+export { getValidation, getAppealToValidate, updateValidation, appealValidated };
