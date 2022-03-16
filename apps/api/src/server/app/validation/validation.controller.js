@@ -4,21 +4,15 @@ import addressRepository from '../repositories/address.repository.js';
 import formatDate from '../utils/date-formatter.js';
 import formatAddress from '../utils/address-formatter.js';
 
-// const appealReview = {
-// 	AppealId: 1,
-// 	AppealReference: 'APP/Q9999/D/21/1345264',
-// 	AppellantName: 'Lee Thornton',
-// 	AppealStatus: 'new',
-// 	Received: '23 Feb 2022',
-// 	AppealSite: '96 The Avenue, Maidstone, Kent, MD21 5XY',
-// 	LocalPlanningDepartment: 'Maindstone Borough Council',
-// 	PlanningApplicationReference: '48269/APP/2021/1482'
-// };
+const validationStatuses = ['submitted', 'awaiting_validation_info'];
 
 const getAppealReview = async function (request, response) {
 	const appeal = await appealRepository.getById(Number.parseInt(request.params.id, 10));
+	if (!validationStatuses.includes(appeal.status)) {
+		return response.send(400);
+	}
 	const formattedAppeal = await formatAppealForAppealDetails(appeal);
-	response.send(formattedAppeal);
+	return response.send(formattedAppeal);
 };
 
 async function formatAppealForAppealDetails(appeal) {
@@ -70,7 +64,7 @@ async function formatAppealForAppealDetails(appeal) {
 }
 
 const getValidation = async function (_request, response) {
-	const appeals = await appealRepository.getByStatuses(['submitted', 'awaiting_validation_info']);
+	const appeals = await appealRepository.getByStatuses(validationStatuses);
 	const formattedAppeals = await Promise.all(appeals.map(async (appeal) => formatAppealForAllAppeals(appeal)));
 	response.send(formattedAppeals);
 };

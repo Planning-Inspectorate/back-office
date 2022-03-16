@@ -18,6 +18,21 @@ const appealsData = [
 				postcode: 'MD21 5XY'
 			}
 		}
+	},
+	{
+		reference: 'APP/Q9999/D/21/1345264',
+		appellantName: 'Lee Thornton',
+		localPlanningDepartment: 'Maidstone Borough Council',
+		planningApplicationReference: '48269/APP/2021/1482',
+		status: 'invalid',
+		address: {
+			create: {
+				addressLine1: '96 The Avenue',
+				addressLine2: 'Maidstone',
+				city: 'Kent',
+				postcode: 'MD21 5XY'
+			}
+		}
 	}
 ];
 

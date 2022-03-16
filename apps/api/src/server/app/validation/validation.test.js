@@ -38,8 +38,13 @@ const appeal_2 = {
 	createdAt: new Date(2022, 1, 25),
 	addressId: 2
 };
+const appeal_3 = {
+	id: 3,
+	status: 'invalid'
+};
 const getAppealByIdStub = sinon.stub();
 getAppealByIdStub.withArgs({ where: { id: 1 } }).returns(appeal_1);
+getAppealByIdStub.withArgs({ where: { id: 3 } }).returns(appeal_3);
 
 class MockDatabaseClass {
 	constructor(_parameters) {
@@ -124,6 +129,11 @@ test('gets appeal that requires validation', async (t) => {
 	};
 	t.is(resp.status, 200);
 	t.deepEqual(resp.body, appealReviewInfo);
+});
+
+test('throws 400 when appeal does not require validation', async (t) => {
+	const resp = await request.get('/validation/3');
+	t.is(resp.status, 400);
 });
 
 test('should modify the selected field of the appeal', async (t) => {
