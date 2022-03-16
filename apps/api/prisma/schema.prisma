@@ -8,13 +8,16 @@ datasource db {
 }
 
 model Appeal {
-  id        Int      @id @default(autoincrement())
-  reference String
-  address   Address  @relation(fields: [addressId], references: [id])
-  addressId Int
-  status    String   @default("submitted")
-  createdAt DateTime @default(now())
-  updatedAt DateTime @default(now())
+  id                           Int      @id @default(autoincrement())
+  reference                    String
+  address                      Address  @relation(fields: [addressId], references: [id])
+  addressId                    Int
+  status                       String   @default("submitted")
+  appellantName                String
+  localPlanningDepartment      String
+  planningApplicationReference String
+  createdAt                    DateTime @default(now())
+  updatedAt                    DateTime @default(now())
 }
 
 model Address {

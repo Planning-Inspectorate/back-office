@@ -1,20 +1,34 @@
 import DatabaseFactory from './database.js';
 
-const appealRepository = {
-	getAll: async function () {
-		const database = DatabaseFactory.getInstance();
-		return await database.pool.appeal.findMany();
-	},
-	getByStatuses: async function (statuses) {
-		const database = DatabaseFactory.getInstance();
-		return await database.pool.appeal.findMany({
-			where: {
-				status: {
-					in: statuses
-				}
-			}
-		});
+const appealRepository = (function() {
+	/**
+	 * @returns {object} connection to database
+	 */
+	function getPool () {
+		return DatabaseFactory.getInstance().pool;
 	}
-};
+  
+	return {
+		getAll: function () {
+			return getPool().appeal.findMany();
+		},
+		getByStatuses: function (statuses) {
+			return getPool().appeal.findMany({
+				where: {
+					status: {
+						in: statuses
+					}
+				}
+			});
+		},
+		getById: function (id) {
+			return getPool().appeal.findUnique({
+				where: {
+					id: id
+				}
+			});
+		}
+	};
+})();
 
 export default appealRepository;

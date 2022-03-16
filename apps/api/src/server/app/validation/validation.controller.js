@@ -1,38 +1,89 @@
 import { validationResult } from 'express-validator';
 import appealRepository from '../repositories/appeal.repository.js';
 import addressRepository from '../repositories/address.repository.js';
+import formatDate from '../utils/date-formatter.js';
+import formatAddress from '../utils/address-formatter.js';
+import ValidationError from './validation-error.js';
 
-const appealReview = {
-	AppealId: 1,
-	AppealReference: 'APP/Q9999/D/21/1345264',
-	AppellantName: 'Lee Thornton',
-	AppealStatus: 'new',
-	Received: '23 Feb 2022',
-	AppealSite: '96 The Avenue, Maidstone, Kent, MD21 5XY',
-	LocalPlanningDepartment: 'Maindstone Borough Council',
-	PlanningApplicationReference: '48269/APP/2021/1482'
+const validationStatuses = ['submitted', 'awaiting_validation_info'];
+
+const getAppealToValidate = async function (request, response) {
+	const appeal = await appealRepository.getById(Number.parseInt(request.params.id, 10));
+	if (!validationStatuses.includes(appeal.status)) {
+		throw new ValidationError('Appeal does not require validation', 400);
+	}
+	const formattedAppeal = await formatAppealForAppealDetails(appeal);
+	return response.send(formattedAppeal);
 };
 
-const getAppealReview = function (request, response) {
-	response.send(appealReview);
-};
+/**
+ * @param {object} appeal appeal
+ */
+async function formatAppealForAppealDetails(appeal) {
+	const address = await addressRepository.getById(appeal.addressId);
+	const addressAsString = formatAddress(address);
+	const appealStatus = mapAppealStatus(appeal.status);
+	return {
+		AppealId: appeal.id,
+		AppealReference: appeal.reference,
+		AppellantName: appeal.appellantName,
+		AppealStatus: appealStatus,
+		Received: formatDate(appeal.createdAt),
+		AppealSite: addressAsString,
+		LocalPlanningDepartment: appeal.localPlanningDepartment,
+		PlanningApplicationReference: appeal.planningApplicationReference,
+		Documents: [
+			{
+				Type: 'planning application form',
+				Filename: 'planning-application.pdf',
+				URL: 'localhost:8080'
+			},
+			{
+				Type: 'decision letter',
+				Filename: 'decision-letter.pdf',
+				URL: 'localhost:8080'
+			},
+			{
+				Type: 'appeal statement',
+				Filename: 'appeal-statement.pdf',
+				URL: 'localhost:8080'
+			},
+			{
+				Type: 'supporting document',
+				Filename: 'other-document-1.pdf',
+				URL: 'localhost:8080'
+			},
+			{
+				Type: 'supporting document',
+				Filename: 'other-document-2.pdf',
+				URL: 'localhost:8080'
+			},
+			{
+				Type: 'supporting document',
+				Filename: 'other-document-3.pdf',
+				URL: 'localhost:8080'
+			}
+		]
+	};
+}
 
-const getValidation = async function (request, response) {
-	const appeals =  await appealRepository.getByStatuses(['submitted', 'awaiting_validation_info']);
-	const formattedAppeals = await Promise.all(appeals.map(async (appeal) => formatAppeal(appeal)));
+const getValidation = async function (_request, response) {
+	const appeals = await appealRepository.getByStatuses(validationStatuses);
+	const formattedAppeals = await Promise.all(appeals.map((appeal) => formatAppealForAllAppeals(appeal)));
 	response.send(formattedAppeals);
 };
 
 /**
  * @param {object} appeal appeal that requires formatting for the getValidation controller
+ * @returns {object} appeal as a hash
  */
-async function formatAppeal(appeal) {
+async function formatAppealForAllAppeals(appeal) {
 	const address = await addressRepository.getById(appeal.addressId);
 	const addressAsString = formatAddress(address);
-	const appealStatus = appeal.status == 'submitted' ? 'new' : 'incomplete';
+	const appealStatus = mapAppealStatus(appeal.status);
 	return {
-		AppealId: appeal.id, 
-		AppealReference: appeal.reference, 
+		AppealId: appeal.id,
+		AppealReference: appeal.reference,
 		AppealStatus: appealStatus,
 		Received: formatDate(appeal.createdAt),
 		AppealSite: addressAsString
@@ -40,31 +91,11 @@ async function formatAppeal(appeal) {
 }
 
 /**
- * @param {object} address address object
- * @returns {string} merged address parts into single string
+ * @param {string} status appeal status
+ * @returns {string} reformatted appeal status
  */
-function formatAddress(address) {
-	const addressParts = [address.addressLine1, address.addressLine2, address.addressLine3, address.addressLine4, address.addressLine5, address.addressLine6, address.city, address.postcode].filter((x) => !!x);
-	return addressParts.join(', ');
-}
-
-/**
- * @param {Date} date date object to be formatted for getValidation controller
- * @returns {string} merged date parts in format DD MMM YYYY
- */
-function formatDate(date) {
-	const monthNames =['Jan', 'Feb', 'Mar', 'Apr',
-		'May', 'Jun', 'Jul', 'Aug',
-		'Sep', 'Oct', 'Nov', 'Dec'];
-
-	const day = date.getDate();
-
-	const monthIndex = date.getMonth();
-	const monthName = monthNames[monthIndex];
-
-	const year = date.getFullYear();
-
-	return `${day} ${monthName} ${year}`;
+function mapAppealStatus(status) {
+	return status == 'submitted' ? 'new' : 'incomplete';
 }
 
 const updateValidation = function (request, response) {
@@ -72,11 +103,11 @@ const updateValidation = function (request, response) {
 	if (!errors.isEmpty()) {
 		return response.status(400).json({ errors: errors.array() });
 	}
-	response.send();
+	return response.send();
 };
 
 const appealValidated = function (request, response) {
 	response.send();
 };
 
-export { getValidation, getAppealReview, updateValidation, appealValidated };
+export { getValidation, getAppealToValidate, updateValidation, appealValidated };
