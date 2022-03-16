@@ -109,24 +109,26 @@
 		]
 	}) }}
 
-	{{ govukRadios({
-		idPrefix: "review-outcome",
-		name: "review-outcome",
-		errorMessage: errors['review-outcome'] and { text: errors['review-outcome'].msg },
-		fieldset: {
-	  		legend: {
-				text: "Outcome of review",
-				isPageHeading: false,
-				classes: "govuk-fieldset__legend--l govuk-!-margin-top-6"
-	  		}
-		},
-		items: [
-			{ value: '1', text: "Valid", checked: reviewOutcome === '1' },
-			{ value: '2', text: "Invalid", checked: reviewOutcome === '2' },
-			{ divider: "or" },
-			{ value: '3', text: "Something is missing or wrong", checked: reviewOutcome === '3' }
-		]
-  	}) }}
+	<form action="" method="post" novalidate>
+		{{ govukRadios({
+			idPrefix: "review-outcome",
+			name: "review-outcome",
+			errorMessage: errors['review-outcome'] and { text: errors['review-outcome'].msg },
+			fieldset: {
+				legend: {
+					text: "Outcome of review",
+					isPageHeading: false,
+					classes: "govuk-fieldset__legend--l govuk-!-margin-top-6"
+				}
+			},
+			items: [
+				{ value: '1', text: "Valid", checked: reviewOutcome === '1' },
+				{ value: '2', text: "Invalid", checked: reviewOutcome === '2' },
+				{ divider: "or" },
+				{ value: '3', text: "Something is missing or wrong", checked: reviewOutcome === '3' }
+			]
+		}) }}
 
-	{{ govukButton({ text: text | default('Continue') }) }}
+		{{ govukButton({ text: text | default('Continue') }) }}
+	</form>
 {% endblock %}
