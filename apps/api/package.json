@@ -21,7 +21,8 @@
     "swagger-autogen": "node ./src/server/swagger.js",
     "db:migrate": "npx prisma migrate dev",
     "db:reset": "npx prisma migrate reset",
-    "db:seed": "npx prisma db seed"
+    "db:seed": "npx prisma db seed",
+    "prisma:format": "npx prisma format"
   },
   "dependencies": {
     "body-parser": "1.19.2",

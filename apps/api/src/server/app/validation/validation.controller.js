@@ -4,23 +4,73 @@ import addressRepository from '../repositories/address.repository.js';
 import formatDate from '../utils/date-formatter.js';
 import formatAddress from '../utils/address-formatter.js';
 
-const appealReview = {
-	AppealId: 1,
-	AppealReference: 'APP/Q9999/D/21/1345264',
-	AppellantName: 'Lee Thornton',
-	AppealStatus: 'new',
-	Received: '23 Feb 2022',
-	AppealSite: '96 The Avenue, Maidstone, Kent, MD21 5XY',
-	LocalPlanningDepartment: 'Maindstone Borough Council',
-	PlanningApplicationReference: '48269/APP/2021/1482'
+// const appealReview = {
+// 	AppealId: 1,
+// 	AppealReference: 'APP/Q9999/D/21/1345264',
+// 	AppellantName: 'Lee Thornton',
+// 	AppealStatus: 'new',
+// 	Received: '23 Feb 2022',
+// 	AppealSite: '96 The Avenue, Maidstone, Kent, MD21 5XY',
+// 	LocalPlanningDepartment: 'Maindstone Borough Council',
+// 	PlanningApplicationReference: '48269/APP/2021/1482'
+// };
+
+const getAppealReview = async function (request, response) {
+	const appeal = await appealRepository.getById(Number.parseInt(request.params.id, 10));
+	const formattedAppeal = await formatAppealForAppealDetails(appeal);
+	response.send(formattedAppeal);
 };
 
-const getAppealReview = function (request, response) {
-	response.send(appealReview);
-};
+async function formatAppealForAppealDetails(appeal) {
+	const address = await addressRepository.getById(appeal.addressId);
+	const addressAsString = formatAddress(address);
+	const appealStatus = mapAppealStatus(appeal.status);
+	return {
+		AppealId: appeal.id,
+		AppealReference: appeal.reference,
+		AppellantName: appeal.appellantName,
+		AppealStatus: appealStatus,
+		Received: formatDate(appeal.createdAt),
+		AppealSite: addressAsString,
+		LocalPlanningDepartment: appeal.localPlanningDepartment,
+		PlanningApplicationReference: appeal.planningApplicationReference,
+		Documents: [
+			{
+				Type: 'planning application form',
+				Filename: 'planning-application.pdf',
+				URL: 'localhost:8080'
+			},
+			{
+				Type: 'decision letter',
+				Filename: 'decision-letter.pdf',
+				URL: 'localhost:8080'
+			},
+			{
+				Type: 'appeal statement',
+				Filename: 'appeal-statement.pdf',
+				URL: 'localhost:8080'
+			},
+			{
+				Type: 'supporting document',
+				Filename: 'other-document-1.pdf',
+				URL: 'localhost:8080'
+			},
+			{
+				Type: 'supporting document',
+				Filename: 'other-document-2.pdf',
+				URL: 'localhost:8080'
+			},
+			{
+				Type: 'supporting document',
+				Filename: 'other-document-3.pdf',
+				URL: 'localhost:8080'
+			}
+		]
+	};
+}
 
 const getValidation = async function (_request, response) {
-	const appeals =  await appealRepository.getByStatuses(['submitted', 'awaiting_validation_info']);
+	const appeals = await appealRepository.getByStatuses(['submitted', 'awaiting_validation_info']);
 	const formattedAppeals = await Promise.all(appeals.map(async (appeal) => formatAppealForAllAppeals(appeal)));
 	response.send(formattedAppeals);
 };
@@ -32,14 +82,18 @@ const getValidation = async function (_request, response) {
 async function formatAppealForAllAppeals(appeal) {
 	const address = await addressRepository.getById(appeal.addressId);
 	const addressAsString = formatAddress(address);
-	const appealStatus = appeal.status == 'submitted' ? 'new' : 'incomplete';
+	const appealStatus = mapAppealStatus(appeal.status);
 	return {
-		AppealId: appeal.id, 
-		AppealReference: appeal.reference, 
+		AppealId: appeal.id,
+		AppealReference: appeal.reference,
 		AppealStatus: appealStatus,
 		Received: formatDate(appeal.createdAt),
 		AppealSite: addressAsString
 	};
+}
+
+function mapAppealStatus(status) {
+	return status == 'submitted' ? 'new' : 'incomplete';
 }
 
 const updateValidation = function (request, response) {
@@ -47,7 +101,7 @@ const updateValidation = function (request, response) {
 	if (!errors.isEmpty()) {
 		return response.status(400).json({ errors: errors.array() });
 	}
-	response.send();
+	return response.send();
 };
 
 const appealValidated = function (request, response) {

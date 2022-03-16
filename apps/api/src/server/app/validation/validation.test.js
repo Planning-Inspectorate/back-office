@@ -21,25 +21,32 @@ getAddressByIdStub.withArgs({ where: { id: 2 } }).returns({
 	city: 'Thurnscoe'
 });
 
+const appeal_1 = {
+	id: 1,
+	reference: 'APP/Q9999/D/21/1345264',
+	status: 'submitted',
+	createdAt: new Date(2022, 1, 23),
+	addressId: 1,
+	localPlanningDepartment: 'Maidstone Borough Council',
+	planningApplicationReference: '48269/APP/2021/1482',
+	appellantName: 'Lee Thornton'
+};
+const appeal_2 = {
+	id: 2,
+	reference: 'APP/Q9999/D/21/5463281',
+	status: 'awaiting_validation_info',
+	createdAt: new Date(2022, 1, 25),
+	addressId: 2
+};
+const getAppealByIdStub = sinon.stub();
+getAppealByIdStub.withArgs({ where: { id: 1 } }).returns(appeal_1);
+
 class MockDatabaseClass {
 	constructor(_parameters) {
 		this.pool = {
 			appeal: {
-				findMany: sinon.stub().returns([
-					{
-						id: 1,
-						reference: 'APP/Q9999/D/21/1345264',
-						status: 'submitted',
-						createdAt: new Date(2022, 1, 23),
-						addressId: 1
-					}, {
-						id: 2,
-						reference: 'APP/Q9999/D/21/5463281',
-						status: 'awaiting_validation_info',
-						createdAt: new Date(2022, 1, 25),
-						addressId: 2
-					}
-				])
+				findMany: sinon.stub().returns([appeal_1, appeal_2]),
+				findUnique: getAppealByIdStub
 			},
 			address: {
 				findUnique: getAddressByIdStub
@@ -48,10 +55,11 @@ class MockDatabaseClass {
 	}
 }
 
-test('gets the appeal information', async (t) => {
+test('gets all new and incomplete validation appeals', async (t) => {
 	sinon.stub(DatabaseFactory, 'getInstance').callsFake((arguments_) => new MockDatabaseClass(arguments_));
 
 	const resp = await request.get('/validation');
+
 	const validationLineNew = {
 		AppealId: 1,
 		AppealReference: 'APP/Q9999/D/21/1345264',
@@ -70,8 +78,8 @@ test('gets the appeal information', async (t) => {
 	t.deepEqual(resp.body, [validationLineNew, validationLineIncomplete]);
 });
 
-test('gets the appellant information', async (t) => {
-	const resp = await request.get('/validation/:id');
+test('gets appeal that requires validation', async (t) => {
+	const resp = await request.get('/validation/1');
 	const appealReviewInfo = {
 		AppealId: 1,
 		AppealReference: 'APP/Q9999/D/21/1345264',
@@ -79,8 +87,40 @@ test('gets the appellant information', async (t) => {
 		AppealStatus: 'new',
 		Received: '23 Feb 2022',
 		AppealSite: '96 The Avenue, Maidstone, Kent, MD21 5XY',
-		LocalPlanningDepartment: 'Maindstone Borough Council',
-		PlanningApplicationReference: '48269/APP/2021/1482'
+		LocalPlanningDepartment: 'Maidstone Borough Council',
+		PlanningApplicationReference: '48269/APP/2021/1482',
+		Documents: [
+			{
+				Type: 'planning application form',
+				Filename: 'planning-application.pdf',
+				URL: 'localhost:8080'
+			},
+			{
+				Type: 'decision letter',
+				Filename: 'decision-letter.pdf',
+				URL: 'localhost:8080'
+			},
+			{
+				Type: 'appeal statement',
+				Filename: 'appeal-statement.pdf',
+				URL: 'localhost:8080'
+			},
+			{
+				Type: 'supporting document',
+				Filename: 'other-document-1.pdf',
+				URL: 'localhost:8080'
+			},
+			{
+				Type: 'supporting document',
+				Filename: 'other-document-2.pdf',
+				URL: 'localhost:8080'
+			},
+			{
+				Type: 'supporting document',
+				Filename: 'other-document-3.pdf',
+				URL: 'localhost:8080'
+			}
+		]
 	};
 	t.is(resp.status, 200);
 	t.deepEqual(resp.body, appealReviewInfo);

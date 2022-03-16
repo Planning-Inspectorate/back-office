@@ -6,12 +6,16 @@ const prisma = new PrismaClient();
 
 const appealsData = [
 	{
-		reference: 'SOME REFERENCE',
+		reference: 'APP/Q9999/D/21/1345264',
+		appellantName: 'Lee Thornton',
+		localPlanningDepartment: 'Maidstone Borough Council',
+		planningApplicationReference: '48269/APP/2021/1482',
 		address: {
 			create: {
-				addressLine1: 'first line',
-				city: 'city',
-				postcode: 'A11 0ZZ'
+				addressLine1: '96 The Avenue',
+				addressLine2: 'Maidstone',
+				city: 'Kent',
+				postcode: 'MD21 5XY'
 			}
 		}
 	}
