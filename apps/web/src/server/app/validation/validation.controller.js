@@ -25,7 +25,7 @@ export async function getValidationDashboard(request, response, next) {
 
 	// eslint-disable-next-line unicorn/no-array-for-each
 	appealsListData.forEach((item) => {
-		const row = [{ html: `<a href="/validation/appeal/${item.AppealId}">${item.AppealReference}</a>` }, { text: item.Received }, { text: item.AppealSite }];
+		const row = [{ html: `<a href="/validation/review-appeal/${item.AppealId}">${item.AppealReference}</a>` }, { text: item.Received }, { text: item.AppealSite }];
 
 		if (item.AppealStatus === 'incomplete') {
 			incompleteAppeals.push(row);

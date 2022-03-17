@@ -9,9 +9,9 @@ const router = express.Router();
 router.route('/')
 	.get(getValidationDashboard);
 
-// Appeal details route `/validation/appeal/:appealId`
+// Appeal details route `/validation/review-appeal/:appealId`
 // Handles the initial GET of the appeal details and form submission checks
-router.route('/appeal/:appealId')
+router.route('/review-appeal/:appealId')
 	.get(getAppealDetails)
 	.post(validateOutcomePipe(), expressValidationErrorsInterceptor, postAppealOutcome);
 
