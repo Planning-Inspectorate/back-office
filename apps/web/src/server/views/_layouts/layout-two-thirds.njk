@@ -1,0 +1,18 @@
+{% extends "_layouts/layout-page.njk" %}
+
+{% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
+
+{% block content %}
+<div class="govuk-grid-row">
+	<div class="govuk-grid-column-two-thirds">
+	{% if errorSummary %}
+		{{ govukErrorSummary({
+			titleText: "There is a problem",
+			errorList: errorSummary
+		}) }}
+	{% endif %}
+
+	{% block pageContent %}{% endblock %}
+	</div>
+</div>
+{% endblock %}

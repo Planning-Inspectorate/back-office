@@ -78,8 +78,11 @@ const viewPaths = [
 ];
 
 const njEnvironment = nunjucks.configure(viewPaths, {
-	autoescape: true,
-	express: app
+	autoescape: true, // output with dangerous characters are escaped automatically
+	trimBlocks: true, // automatically remove trailing newlines from a block/tag
+	lstripBlocks: true, // automatically remove leading whitespace from a block/tag
+	noCache: true, // never use a cache and recompile templates each time
+	express: app // the express app that nunjucks should install to
 });
 
 njEnvironment.addFilter('stripQueryParamsDev', stripQueryParametersDevelopment);
