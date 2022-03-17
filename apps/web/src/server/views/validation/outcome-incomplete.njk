@@ -1,0 +1,96 @@
+{% extends "_layouts/layout-two-thirds.njk" %}
+
+{% from "govuk/components/header/macro.njk" import govukHeader %}
+{% from "govuk/components/back-link/macro.njk" import govukBackLink %}
+{% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
+{% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/input/macro.njk" import govukInput %}
+
+{# Macro use to generate a list of documents #}
+{% macro documentsList(data)  %}
+<ul class="govuk-list">
+	<li><a href="#" class="govuk-link" target="_blank">other-documents-1.pdf</a></li>
+	<li><a href="#" class="govuk-link" target="_blank">other-documents-2.pdf</a></li>
+</ul>
+{% endmacro %}
+
+{% block header %}
+  {{ govukHeader({
+	homepageUrl: "https://www.gov.uk/",
+	serviceName: "Appeal a planning decision",
+	serviceUrl: "/validation",
+	containerClasses: "govuk-width-container"
+  }) }}
+{% endblock %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+	text: "Back",
+	href: ("/validation/review-appeal/" + appealId if appealId else "/validation")
+  }) }}
+{% endblock %}
+
+{% block pageContent %}
+	<h1 class="govuk-heading-xl">
+		What is missing or wrong?
+	</h1>
+
+	<form action="" method="post" novalidate>
+		{{ govukCheckboxes({
+			idPrefix: "incomplete-reason",
+			name: "incomplete-reason",
+			errorMessage: errors['incomplete-reason'] and { text: errors['incomplete-reason'].msg },
+			fieldset: {
+				legend: {
+					text: "Reason for incomplete outcome",
+					isPageHeading: false,
+					classes: "govuk-fieldset__legend--l govuk-!-margin-top-6"
+				}
+			},
+			items: [
+				{ value: '1', text: "Names do not match", checked: incompleteReason === '1' },
+				{ value: '2', text: "Sensitive information included", checked: incompleteReason === '2' },
+				{
+					value: '3',
+					text: "Missing or wrong documents",
+					checked: incompleteReason === '3',
+					conditional: {
+						html: govukCheckboxes({
+							idPrefix: "missing-or-wrong-docs-reason",
+							name: "missing-or-wrong-docs-reason",
+							errorMessage: errors['missing-or-wrong-docs-reason'] and { text: errors['missing-or-wrong-docs-reason'].msg },
+							items: [
+								{ value: '1', text: "Application form", checked: missingOrWrongDocsReason === '1' },
+								{ value: '2', text: "Decision notice", checked: missingOrWrongDocsReason === '2' },
+								{ value: '3', text: "Grounds of appeal", checked: missingOrWrongDocsReason === '3' },
+								{ value: '4', text: "Supporting documents", checked: missingOrWrongDocsReason === '4' }
+							]
+						})
+					}
+				},
+				{ value: '4', text: "Inflammatory comments made", checked: incompleteReason === '4' },
+				{ value: '5', text: "Opened in error", checked: incompleteReason === '5' },
+				{ value: '6', text: "Wrong appeal type used", checked: incompleteReason === '6' },
+				{
+					value: '7',
+					text: "Other",
+					checked: incompleteReason === '7',
+					conditional: {
+						html: govukInput({
+							type: 'text',
+							id: "other-reason",
+							name: "other-reason",
+							errorMessage: errors['other-reason'] and { text: errors['other-reason'].msg },
+							spellcheck: true,
+							value: otherReason
+						})
+					}
+				}
+			]
+		}) }}
+
+		{{ govukButton({ text: text | default('Continue') }) }}
+		<a class="govuk-link block-link" href="appeal-review">Change outcome</a>
+	</form>
+{% endblock %}
