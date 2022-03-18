@@ -125,6 +125,8 @@ function mapAppealStatusToStateMachineAction(status) {
 			return 'VALID';
 		case 'invalid':
 			return 'INVALID';
+		case 'info missing':
+			return 'INFO_MISSING';
 		default:
 			throw new ValidationError('Unknown AppealStatus', 400);
 	}
