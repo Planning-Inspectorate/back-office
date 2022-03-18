@@ -7,14 +7,6 @@
 {% from "govuk/components/button/macro.njk" import govukButton %}
 {% from "govuk/components/input/macro.njk" import govukInput %}
 
-{# Macro use to generate a list of documents #}
-{% macro documentsList(data)  %}
-<ul class="govuk-list">
-	<li><a href="#" class="govuk-link" target="_blank">other-documents-1.pdf</a></li>
-	<li><a href="#" class="govuk-link" target="_blank">other-documents-2.pdf</a></li>
-</ul>
-{% endmacro %}
-
 {% block header %}
   {{ govukHeader({
 	homepageUrl: "https://www.gov.uk/",
@@ -38,9 +30,9 @@
 
 	<form action="" method="post" novalidate>
 		{{ govukCheckboxes({
-			idPrefix: "incomplete-reason",
-			name: "incomplete-reason",
-			errorMessage: errors['incomplete-reason'] and { text: errors['incomplete-reason'].msg },
+			idPrefix: "incompleteReason",
+			name: "incompleteReason",
+			errorMessage: errors['incompleteReason'] and { text: errors['incompleteReason'].msg },
 			fieldset: {
 				legend: {
 					text: "Reason for incomplete outcome",
@@ -49,39 +41,39 @@
 				}
 			},
 			items: [
-				{ value: '1', text: "Names do not match", checked: incompleteReason === '1' },
-				{ value: '2', text: "Sensitive information included", checked: incompleteReason === '2' },
+				{ value: '1', text: "Names do not match", checked: incompleteReason['1'] },
+				{ value: '2', text: "Sensitive information included", checked: incompleteReason['2'] },
 				{
 					value: '3',
 					text: "Missing or wrong documents",
-					checked: incompleteReason === '3',
+					checked: incompleteReason['3'],
 					conditional: {
 						html: govukCheckboxes({
-							idPrefix: "missing-or-wrong-docs-reason",
-							name: "missing-or-wrong-docs-reason",
-							errorMessage: errors['missing-or-wrong-docs-reason'] and { text: errors['missing-or-wrong-docs-reason'].msg },
+							idPrefix: "missingOrWrongDocumentsReason",
+							name: "missingOrWrongDocumentsReason",
+							errorMessage: errors['missingOrWrongDocumentsReason'] and { text: errors['missingOrWrongDocumentsReason'].msg },
 							items: [
-								{ value: '1', text: "Application form", checked: missingOrWrongDocsReason === '1' },
-								{ value: '2', text: "Decision notice", checked: missingOrWrongDocsReason === '2' },
-								{ value: '3', text: "Grounds of appeal", checked: missingOrWrongDocsReason === '3' },
-								{ value: '4', text: "Supporting documents", checked: missingOrWrongDocsReason === '4' }
+								{ value: '1', text: "Application form", checked: missingOrWrongDocumentsReason['1'] },
+								{ value: '2', text: "Decision notice", checked: missingOrWrongDocumentsReason['2'] },
+								{ value: '3', text: "Grounds of appeal", checked: missingOrWrongDocumentsReason['3'] },
+								{ value: '4', text: "Supporting documents", checked: missingOrWrongDocumentsReason['4'] }
 							]
 						})
 					}
 				},
-				{ value: '4', text: "Inflammatory comments made", checked: incompleteReason === '4' },
-				{ value: '5', text: "Opened in error", checked: incompleteReason === '5' },
-				{ value: '6', text: "Wrong appeal type used", checked: incompleteReason === '6' },
+				{ value: '4', text: "Inflammatory comments made", checked: incompleteReason['4'] },
+				{ value: '5', text: "Opened in error", checked: incompleteReason['5'] },
+				{ value: '6', text: "Wrong appeal type used", checked: incompleteReason['6'] },
 				{
 					value: '7',
 					text: "Other",
-					checked: incompleteReason === '7',
+					checked: incompleteReason['7'],
 					conditional: {
 						html: govukInput({
 							type: 'text',
-							id: "other-reason",
-							name: "other-reason",
-							errorMessage: errors['other-reason'] and { text: errors['other-reason'].msg },
+							id: "otherReason",
+							name: "otherReason",
+							errorMessage: errors['otherReason'] and { text: errors['otherReason'].msg },
 							spellcheck: true,
 							value: otherReason
 						})
@@ -90,7 +82,9 @@
 			]
 		}) }}
 
-		{{ govukButton({ text: text | default('Continue') }) }}
-		<a class="govuk-link block-link" href="appeal-review">Change outcome</a>
+		<div class="govuk-button-group">
+			{{ govukButton({ text: text | default('Continue') }) }}
+			<a class="govuk-link" href="appeal-review">Change outcome</a>
+		</div>
 	</form>
 {% endblock %}

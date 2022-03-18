@@ -1,6 +1,14 @@
 import { to } from 'planning-inspectorate-libs';
 import { findAllNewIncompleteAppeals, findAppealById } from './validation.service.js';
 
+function checkboxDataToCheckValuesObject(checkboxDataArray) {
+	// eslint-disable-next-line unicorn/no-array-reduce, unicorn/prefer-object-from-entries
+	return checkboxDataArray.reduce((previous, current) => {
+		previous[current] = true;
+		return previous;
+	}, {});
+}
+
 /**
  * GET the main dashboard.
  * It will fetch the appeals list (new, incomplete) and will render all.
@@ -141,32 +149,28 @@ export async function getOutcomeIncomplete(request, response, next) {
  * @returns {void}
  */
 export function postOutcomeIncomplete(request, response, next) {
-	const incompleteReason = request.body['incomplete-reason'];
-	const missingOrWrongDocsReason = request.body['missing-or-wrong-docs-reason'];
-	const otherReason = request.body['other-reason'];
-
 	const {
-		body: { errors = {}, errorSummary = [] }
+		body: {
+			errors = {},
+			errorSummary = [],
+			incompleteReason = [],
+			missingOrWrongDocumentsReason = [],
+			otherReason = ''
+		},
 	} = request;
 
 	if (Object.keys(errors).length > 0) {
+
 		return response.render('validation/outcome-incomplete', {
 			errors,
 			errorSummary,
-			incompleteReason,
-			missingOrWrongDocsReason,
-			otherReason
+			incompleteReason: checkboxDataToCheckValuesObject(incompleteReason),
+			missingOrWrongDocumentsReason: checkboxDataToCheckValuesObject(missingOrWrongDocumentsReason),
+			otherReason: otherReason
 		});
 	}
 
-	// TEST for error state data population
-	return response.render('validation/outcome-incomplete', {
-		incompleteReason,
-		missingOrWrongDocsReason,
-		otherReason
-	});
-
-	//return response.redirect('/validation/check-confirm');
+	return response.redirect('/validation/check-confirm');
 }
 
 /**

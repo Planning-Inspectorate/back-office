@@ -24,7 +24,7 @@ export const validateOutcomePipe = () =>
  * @returns {void}
  */
 export const validateOutcomeIncompletePipe = () =>
-	body('incomplete-reason')
+	body('incompleteReason')
 		.notEmpty()
 		.withMessage('Select one or more reasons for the incomplete outcome')
 		.bail()
