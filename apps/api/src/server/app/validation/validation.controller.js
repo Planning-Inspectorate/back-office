@@ -57,7 +57,7 @@ function mapAppealStatusToStateMachineAction(status) {
 
 /**
  * @param {string} appealId appeal ID
- * @returns {appeal} appeal with given ID
+ * @returns {object} appeal with given ID
  */
 async function getAppealForValidation(appealId) {
 	const appeal = await appealRepository.getById(Number.parseInt(appealId, 10));
