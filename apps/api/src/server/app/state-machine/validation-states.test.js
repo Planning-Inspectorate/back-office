@@ -1,9 +1,9 @@
 // eslint-disable-next-line import/no-unresolved
 import test from 'ava';
-import machine from './household-appeal.machine.js';
+import household_appeal_machine from './household-appeal.machine.js';
 
 test('should have \'submitted\' as initial state', (t) => {
-	const initial_state = machine.initialState;
+	const initial_state = household_appeal_machine.initialState;
 	t.is(initial_state.value, 'received_appeal');
 });
 
@@ -15,7 +15,7 @@ test('should have \'submitted\' as initial state', (t) => {
  * @param {boolean} has_changed True if action was valid, False if action was invalid
  */
 function applyAction(t, initial_state, action, expected_state, has_changed) {
-	const next_state = machine.transition(initial_state, action);
+	const next_state = household_appeal_machine.transition(initial_state, action);
 	t.is(next_state.value, expected_state);
 	t.is(next_state.changed, has_changed);
 }

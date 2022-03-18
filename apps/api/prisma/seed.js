@@ -24,7 +24,7 @@ const appealsData = [
 		appellantName: 'Lee Thornton',
 		localPlanningDepartment: 'Maidstone Borough Council',
 		planningApplicationReference: '48269/APP/2021/1482',
-		status: 'invalid',
+		status: 'invalid_appeal',
 		address: {
 			create: {
 				addressLine1: '96 The Avenue',

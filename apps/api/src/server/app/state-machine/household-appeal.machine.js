@@ -2,7 +2,7 @@ import { createMachine } from 'xstate';
 import { validation_states, validation_actions } from './validation-states.js';
 import { lpa_questionnaire_states, lpa_questionnaire_actions } from './lpa-questionnaire-states.js';
 
-const housing_appeal_machine = createMachine({
+const household_appeal_machine = createMachine({
 	id: 'housing_appeal',
 	initial: 'received_appeal',
 	states: {
@@ -15,4 +15,4 @@ const housing_appeal_machine = createMachine({
 	}
 });
 
-export default housing_appeal_machine;
+export default household_appeal_machine;
