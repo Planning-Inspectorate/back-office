@@ -5,7 +5,6 @@ import formatDate from '../utils/date-formatter.js';
 import formatAddress from '../utils/address-formatter.js';
 import ValidationError from './validation-error.js';
 import household_appeal_machine from '../state-machine/household-appeal.machine.js';
-import { response } from 'express';
 
 const validationStatuses = ['received_appeal', 'awaiting_validation_info'];
 
@@ -119,6 +118,10 @@ const appealValidated = async function (request, response) {
 	return response.send();
 };
 
+/**
+ * @param {string} status status change action received in request
+ * @returns {string} status change as expected by state machine
+ */
 function mapAppealStatusToStateMachineAction(status) {
 	switch(status) {
 		case 'valid':

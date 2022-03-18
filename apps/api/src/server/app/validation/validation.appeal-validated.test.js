@@ -75,5 +75,4 @@ test('should not be able to submit nonsensical decision decision', async(t) => {
 		.send({ AppealStatus: 'some unknown status' });
 	t.is(resp.status, 400);
 	t.deepEqual(resp.body, { error: 'Unknown AppealStatus' } );
-	// TODO: calledOneWithExactly throws error
 });
