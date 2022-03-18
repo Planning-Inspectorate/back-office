@@ -1,4 +1,5 @@
 import { to } from 'planning-inspectorate-libs';
+import { validationRoutesConfig as routes } from '../../config/routes.js';
 import { findAllNewIncompleteAppeals, findAppealById } from './validation.service.js';
 
 /**
@@ -25,7 +26,11 @@ export async function getValidationDashboard(request, response, next) {
 
 	// eslint-disable-next-line unicorn/no-array-for-each
 	appealsListData.forEach((item) => {
-		const row = [{ html: `<a href="/validation/review-appeal/${item.AppealId}">${item.AppealReference}</a>` }, { text: item.Received }, { text: item.AppealSite }];
+		const row = [
+			{ html: `<a href="/validation/${routes.reviewAppealRoute.path}/${item.AppealId}">${item.AppealReference}</a>` },
+			{ text: item.Received },
+			{ text: item.AppealSite }
+		];
 
 		if (item.AppealStatus === 'incomplete') {
 			incompleteAppeals.push(row);
@@ -34,7 +39,7 @@ export async function getValidationDashboard(request, response, next) {
 		}
 	});
 
-	response.render('validation/dashboard', {
+	response.render(routes.home.view, {
 		appealsList: {
 			newAppeals,
 			incompleteAppeals
@@ -43,15 +48,15 @@ export async function getValidationDashboard(request, response, next) {
 }
 
 /**
- * GET the appeal details page.
- * It will fetch the appeal details and it will render the page with them.
+ * GET the review appeal page.
+ * It will fetch the appeal details and it will render the page with that info.
  *
  * @param {object} request - Express request object
  * @param {object} response - Express request object
  * @param {Function} next  - Express function that calls then next middleware in the stack
  * @returns {void}
  */
-export async function getAppealDetails(request, response, next) {
+export async function getReviewAppeal(request, response, next) {
 	const appealId = request.param('appealId');
 
 	const [error, appealData] = await to(findAppealById(appealId));
@@ -61,13 +66,15 @@ export async function getAppealDetails(request, response, next) {
 		return;
 	}
 
-	response.render('validation/appeal-details', {
+	// Save the current appeal data into session storage
+	request.session.data = { appealData };
+
+	response.render(routes.reviewAppealRoute.view, {
 		appealData
 	});
 }
 
 /**
- * TODO: WIP
  * POST the appeal details page
  * It will fetch the appeal details and it will render the page with them.
  *
@@ -76,23 +83,59 @@ export async function getAppealDetails(request, response, next) {
  * @param {Function} next  - Express function that calls then next middleware in the stack
  * @returns {void}
  */
-export async function postAppealOutcome(request, response, next) {
+export function postAppealOutcome(request, response) {
 	const reviewOutcome = request.body['review-outcome'];
-	const appealId = request.param('appealId');
-
-	const [error, appealData] = await to(findAppealById(appealId));
+	const appealData = request.session.data.appealData;
 
 	const {
 		body: { errors = {}, errorSummary = [] }
 	} = request;
 
 	if (Object.keys(errors).length > 0) {
-		return response.render('validation/appeal-details', {
+		return response.render(routes.reviewAppealRoute.view, {
 			errors,
 			errorSummary,
 			appealData
 		});
 	}
 
-	return response.redirect(`/validation`);
+	let nextStepPage = '/validation';
+
+	switch (reviewOutcome) {
+		case 'valid':
+			nextStepPage = `/validation/${routes.validAppealOutcome.path}`;
+			break;
+		case 'invalid':
+			nextStepPage = `/validation/${routes.invalidAppealOutcome.path}`;
+			break;
+		case 'incomplete':
+			nextStepPage = `/validation/${routes.incompleteAppealOutcome.path}`;
+			break;
+		default:
+			nextStepPage = `/validation`;
+	}
+
+	return response.redirect(nextStepPage);
+}
+
+
+export function getValidAppealOutcome(request, response) {
+	response.render('validation/valid-appeal-outcome', {
+		backURL: '',
+		changeOutcomeURL: `/validation/${routes.reviewAppealRoute.path}/${request.session.data.appealData.AppealId}`
+	});
+}
+
+export function getInvalidAppealOutcome(request, response) {
+	response.render('validation/invalid-appeal-outcome', {
+		backURL: '',
+		changeOutcomeURL: `/validation/${routes.reviewAppealRoute.path}/${request.session.data.appealData.AppealId}`
+	});
+}
+
+export function getIncompleteAppealOutcome(request, response) {
+	response.render('validation/incomplete-appeal-outcome', {
+		backURL: '',
+		changeOutcomeURL: `/validation/${routes.reviewAppealRoute.path}/${request.session.data.appealData.AppealId}`
+	});
 }

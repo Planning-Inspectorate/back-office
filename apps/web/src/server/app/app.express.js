@@ -62,11 +62,18 @@ app.use(requestID());
 app.use(responseTime());
 
 // Session middleware
-app.use(session({
+const sessionConfig = {
 	secret: 'PINSBackOffice',
 	resave: false,
-	saveUninitialized: true
-}));
+	saveUninitialized: true,
+	cookie: {}
+};
+
+if (config.isProd) sessionConfig.cookie.secure = true;
+
+// TODO: Regeneration of Session After Login
+// TODO: Set Expiration
+app.use(session(sessionConfig));
 
 // Nunjucks templating engine settings and configuration.
 const viewPaths = [

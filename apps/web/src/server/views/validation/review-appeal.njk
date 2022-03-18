@@ -91,6 +91,7 @@
 		Planning application documents
 	</h2>
 
+	{# TODO: The document links if they are using the same path we might want to build a component that returns the A tag for them #}
 	{{ govukSummaryList({
 		rows: [
 			{ key: { text: "Planning application form" }, value: { html: '<a href="#">planning-application.pdf</a>' } },
@@ -122,10 +123,10 @@
 				}
 			},
 			items: [
-				{ value: '1', text: "Valid", checked: reviewOutcome === '1' },
-				{ value: '2', text: "Invalid", checked: reviewOutcome === '2' },
+				{ value: 'valid', text: "Valid", checked: reviewOutcome === '1' },
+				{ value: 'invalid', text: "Invalid", checked: reviewOutcome === '2' },
 				{ divider: "or" },
-				{ value: '3', text: "Something is missing or wrong", checked: reviewOutcome === '3' }
+				{ value: 'incomplete', text: "Something is missing or wrong", checked: reviewOutcome === '3' }
 			]
 		}) }}
 

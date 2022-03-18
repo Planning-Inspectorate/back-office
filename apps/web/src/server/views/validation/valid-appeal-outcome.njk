@@ -1,0 +1,50 @@
+{% extends "_layouts/layout-two-thirds.njk" %}
+
+{% from "govuk/components/header/macro.njk" import govukHeader %}
+{% from "govuk/components/back-link/macro.njk" import govukBackLink %}
+{% from "govuk/components/textarea/macro.njk" import govukTextarea %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+
+{% block header %}
+  {{ govukHeader({
+	homepageUrl: "https://www.gov.uk/",
+	serviceName: "Appeal a planning decision",
+	serviceUrl: "/validation",
+	containerClasses: "govuk-width-container"
+  }) }}
+{% endblock %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+	text: "Back",
+	href: "/validation/"
+  }) }}
+{% endblock %}
+
+{% block pageContent %}
+	<h1 class="govuk-heading-xl">
+		Valid appeal details
+	</h1>
+
+	<form action="" method="post" novalidate>
+		<p class="govuk-body">Appeal reference: {{ appealReference }}</p>
+
+		{{ govukTextarea({
+			name: "valid-appeal-details",
+			id: "valid-appeal-details",
+			label: {
+				text: "Description of development",
+				classes: "govuk-!-font-weight-bold"
+			},
+			value: validAppealDetails,
+			errorMessage: errors and {
+				text: errors['valid-appeal-details'].msg
+			}
+		}) }}
+
+		<div class="govuk-button-group">
+			{{ govukButton({ text: text | default('Continue') }) }}
+			<a class="govuk-link" href="{{ changeOutcomeURL }}">Change outcome</a>
+		</div>
+	</form>
+{% endblock %}
