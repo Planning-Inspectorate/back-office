@@ -12,24 +12,11 @@
 	{{ super() }}
 
 	<h1 class="govuk-heading-xl">
-		Valid appeal details
+		Check and confirm
 	</h1>
 
 	<form action="" method="post" novalidate>
-		<p class="govuk-body">Appeal reference: {{ appealReference }}</p>
-
-		{{ govukTextarea({
-			name: "valid-appeal-details",
-			id: "valid-appeal-details",
-			label: {
-				text: "Description of development",
-				classes: "govuk-!-font-weight-bold"
-			},
-			value: validAppealDetails,
-			errorMessage: errors and {
-				text: errors['valid-appeal-details'].msg
-			}
-		}) }}
+		Outcome of review
 
 		<div class="govuk-button-group">
 			{{ govukButton({ text: text | default('Continue') }) }}
