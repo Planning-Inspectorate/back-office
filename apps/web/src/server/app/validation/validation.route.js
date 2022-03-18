@@ -7,7 +7,8 @@ import {
 	postAppealOutcome,
 	getValidAppealOutcome,
 	getInvalidAppealOutcome,
-	getIncompleteAppealOutcome
+	getIncompleteAppealOutcome,
+	getAppealOutcomeInvalidReason
 } from './validation.controller.js';
 import { validateOutcomePipe } from './validation.pipes.js';
 import { appealDataGuard } from './validation.guards.js';
@@ -26,5 +27,8 @@ router.route(`/${routes.reviewAppealRoute.path}/:appealId`)
 router.route(`/${routes.validAppealOutcome.path}`).get(appealDataGuard, getValidAppealOutcome);
 router.route(`/${routes.invalidAppealOutcome.path}`).get(appealDataGuard, getInvalidAppealOutcome);
 router.route(`/${routes.incompleteAppealOutcome.path}`).get(appealDataGuard, getIncompleteAppealOutcome);
+
+router.route('/appealOutcomeInvalidReason')
+	.get( getAppealOutcomeInvalidReason);
 
 export default router;

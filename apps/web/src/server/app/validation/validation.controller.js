@@ -12,17 +12,18 @@ import { findAllNewIncompleteAppeals, findAppealById } from './validation.servic
  * @returns {void}
  */
 export async function getValidationDashboard(request, response, next) {
-	let error, appealsListData;
+	let error;
+	let appealsListData = [];
 	const newAppeals = [];
 	const incompleteAppeals = [];
 
 	// eslint-disable-next-line prefer-const
-	[error, appealsListData] = await to(findAllNewIncompleteAppeals());
+	// [error, appealsListData] = await to(findAllNewIncompleteAppeals());
 
-	if (error) {
-		next(new AggregateError([new Error('data fetch'), error], 'Fetch errors!'));
-		return;
-	}
+	// if (error) {
+	// 	next(new AggregateError([new Error('data fetch'), error], 'Fetch errors!'));
+	// 	return;
+	// }
 
 	// eslint-disable-next-line unicorn/no-array-for-each
 	appealsListData.forEach((item) => {
@@ -168,3 +169,16 @@ export function getIncompleteAppealOutcome(request, response) {
 		changeOutcomeURL: backURL
 	});
 }
+
+/**
+ * GET the incomplete appeal outcome next page journey.
+ *
+ * @param {object} request - Express request object
+ * @param {object} response - Express request object
+ * @returns {void}
+ */
+ export function getAppealOutcomeInvalidReason (request, response) {
+
+	response.render('validation/appealOutcomeInvalidReason', {});
+}
+

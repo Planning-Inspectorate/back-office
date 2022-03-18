@@ -1,0 +1,146 @@
+{% extends "_layouts/layout-base.njk" %}
+
+{% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
+{% from "govuk/components/input/macro.njk" import govukInput %}
+{% from "govuk/components/back-link/macro.njk" import govukBackLink %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/back-link/macro.njk" import govukBackLink %}
+
+{% block header %}
+	{{ govukHeader({
+    homepageUrl: "https://www.gov.uk/",
+    serviceName: 'Appeal a planning decision',
+    serviceUrl: "/validation",
+    containerClasses: "govuk-width-container"
+  }) }}
+{% endblock %}
+
+{% set appealReferencePrefix = "Appeal reference:" %}
+{% set appealReference = "APP/Q9999/D/21/1345264" %}
+{% set backTxt = "Back" %}
+{% set continueTxt = "Continue" %}
+{% set changeOutcomeTxt = "Change outcome" %}
+{% set backHref = "#" %}
+{% set hangeOutcomeUrl = "#" %}
+{% set formActionUrl = "" %}
+{% set formActionMethod = "get" %}
+{% set errorMessage = "Enter why the appeal is invalid." %}
+{% set otherHtml = '
+	<div id="other-hint" class="govuk-hint">
+		This will be sent to the appellant and LPA
+	</div>'
+%}
+{% set reasonsInvalidLegend = "Reasons the appeal is invalid" %}
+{% set invalidAppealDetailsTitle = "Invalid appeal details" %}
+{% set errorMessage = "Enter why the appeal is invalid." %}
+{% set checkbox = [
+	{
+		text: 'Out of time',
+		value: 'outOfTime',
+		checked: true
+	}, {
+		text: 'Not appealable',
+		value: 'noRightOfAppeal',
+		checked: false
+	}, {
+		text: 'No right of appeal',
+		value: 'noRightOfAppeal',
+		checked: false
+	}, {
+		text: 'LPA deemed application as invalid',
+		value: 'LPAinvalid',
+		checked: false
+	}, {
+		text: 'Other',
+		value: 'other',
+		checked: false
+	}
+] %}
+
+{% block content %}
+
+	{{ govukBackLink({
+		text: backTxt,
+		href: backHref
+	}) }}
+
+	<form action="{{ formActionUrl }}" method="{{ formActionMethod }}">
+
+		<h1 class="govuk-heading-xl">
+			{{invalidAppealDetailsTitle}}
+		</h1>
+
+		<p class="govuk-body">
+			{{appealReferencePrefix}}
+			{{ appealReference}}
+		</p>
+
+		{% set otherHtml %}
+		{{	govukInput({
+				id: "other",
+				name: "other",
+				type: "text",
+				autocomplete: "text",
+				classes: "",
+				label: {
+					html: otherHtml
+				}
+			})
+		}}
+
+		{% endset %}
+
+		{{	govukCheckboxes({
+			idPrefix: "invalidRaeson",
+			name: "invalidRaeson",
+			fieldset: {
+				legend: {
+					text: reasonInvalidLegeng,
+					isPageHeading: true,
+					classes: "govuk-fieldset__legend govuk-fieldset__legend--m"
+				}
+			},
+			errorMessage: errorMessage,
+			items: [
+				{
+					value: checkbox[0].value,
+					text: checkbox[0].text,
+					checked: checkbox[0].checked,
+					conditional: false
+				},{
+					value: checkbox[1].value,
+					text: checkbox[1].text,
+					checked: checkbox[1].checked,
+					conditional: false
+				},{
+					value: checkbox[2].value,
+					text: checkbox[2].text,
+					checked: checkbox[2].checked,
+					conditional: false
+				},{
+					value: checkbox[3].value,
+					text: checkbox[3].text,
+					checked: checkbox[3].checked,
+					conditional: false
+				},{
+					value: checkbox[4].value,
+					text: checkbox[4].text,
+					checked: checkbox[4].checked,
+					conditional: {
+						html: otherHtml
+					}
+				}]
+			})
+		}}
+
+		<div class="govuk-button-group">
+			{{
+			govukButton({
+				text: continueTxt
+			})
+		}}
+			<a class="govuk-link" href="{{ changeOutcomeUrl }}">{{changeOutcomeTxt}}</a>
+		</div>
+	</form >
+
+{% endblock %}
