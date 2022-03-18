@@ -31,6 +31,8 @@ WORKDIR /usr/src/app/apps/web
 ENV NODE_ENV=production
 ENV APP_RELEASE=true
 
+# TODO: Perhaps use `RUN npm ci --production` to shrink the size of the container
+
 EXPOSE 8080
 
 CMD [ "node", "./src/server/server.js" ]
