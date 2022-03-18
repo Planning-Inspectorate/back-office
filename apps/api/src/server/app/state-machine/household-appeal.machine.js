@@ -1,66 +1,17 @@
 import { createMachine } from 'xstate';
-
-const validation_states = {
-	submitted: {
-		on: {
-			INVALID: 'invalid',
-			INFO_MISSING: 'awaiting_validation_info',
-			VALID: 'with_case_officer'
-		}
-	},
-	invalid: {
-		type: 'final'
-	},
-	awaiting_validation_info: {
-		entry: ['notifyAppellantOfMissingAppealInfo'],
-		on: {
-			INVALID: 'invalid',
-			VALID: 'with_case_officer'
-		}
-	},
-};
-
-const validation_actions = {
-	notifyAppellantOfMissingAppealInfo: (_context, _event) => {
-		console.log('Letting Appellant know that info is missing...');
-	}
-};
-
-const case_manager_states = {
-	with_case_officer: {
-		entry: ['assignCaseManagerTeam', 'sendAppealStartedDetails'],
-		on: {
-			COMPLETE_QUESTIONNAIRE_RECEIVED: 'with_inspector',
-			INCOMPLETE_QUESTIONNAIRE_RECEIVE: 'awaiting_complete_questionnaire'
-		}
-	},
-	awaiting_complete_questionnaire: {
-		on: {
-			COMPLETE_QUESTIONNAIRE_RECEIVED: 'with_inspector'
-		}
-	},
-	with_inspector: {}
-};
-
-const case_manager_actions = {
-	assignCaseManagerTeam: (_context, _event) => {
-		console.log('Assigning Case Manager Team');
-	},
-	sendAppealStartedDetails: (_context, _event) => {
-		console.log('Send Appeal Started Details');
-	}
-};
+import { validation_states, validation_actions } from './validation-states.js';
+import { lpa_questionnaire_states, lpa_questionnaire_actions } from './lpa-questionnaire-states.js';
 
 const housing_appeal_machine = createMachine({
 	id: 'housing_appeal',
-	initial: 'submitted',
+	initial: 'received_appeal',
 	states: {
 		...validation_states,
-		...case_manager_states
+		...lpa_questionnaire_states
 	},
 	actions: {
 		...validation_actions,
-		...case_manager_actions
+		...lpa_questionnaire_actions
 	}
 });
 

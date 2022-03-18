@@ -4,7 +4,7 @@ import machine from './household-appeal.machine.js';
 
 test('should have \'submitted\' as initial state', (t) => {
 	const initial_state = machine.initialState;
-	t.is(initial_state.value, 'submitted');
+	t.is(initial_state.value, 'received_appeal');
 });
 
 /**
@@ -25,15 +25,15 @@ applyAction.title = (providedTitle = '', initial_state, action, expected_state, 
 	[${expected_state}] ${has_changed ? '' : ' without'} having transitioned`;
 
 for (const parameter of [
-	['submitted', 'INVALID', 'invalid', true],
-	['submitted', 'VALID', 'with_case_officer', true],
-	['submitted', 'INFO_MISSING', 'awaiting_validation_info', true],
-	['awaiting_validation_info', 'INVALID', 'invalid', true],
+	['received_appeal', 'INVALID', 'invalid_appeal', true],
+	['received_appeal', 'VALID', 'with_case_officer', true],
+	['received_appeal', 'INFO_MISSING', 'awaiting_validation_info', true],
+	['awaiting_validation_info', 'INVALID', 'invalid_appeal', true],
 	['awaiting_validation_info', 'INFO_MISSING', 'awaiting_validation_info', false],
 	['awaiting_validation_info', 'VALID', 'with_case_officer', true],
-	['invalid', 'INVALID', 'invalid', false],
-	['invalid', 'INFO_MISSING', 'invalid', false],
-	['invalid', 'VALID', 'invalid', false],
+	['invalid_appeal', 'INVALID', 'invalid_appeal', false],
+	['invalid_appeal', 'INFO_MISSING', 'invalid_appeal', false],
+	['invalid_appeal', 'VALID', 'invalid_appeal', false],
 	['with_case_officer', 'INVALID', 'with_case_officer', false],
 	['with_case_officer', 'INFO_MISSING', 'with_case_officer', false],
 	['with_case_officer', 'VALID', 'with_case_officer', false],
