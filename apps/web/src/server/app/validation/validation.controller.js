@@ -1,12 +1,18 @@
 import { to } from 'planning-inspectorate-libs';
 import { findAllNewIncompleteAppeals, findAppealById } from './validation.service.js';
 
-function checkboxDataToCheckValuesObject(checkboxDataArray) {
-	// eslint-disable-next-line unicorn/no-array-reduce, unicorn/prefer-object-from-entries
-	return checkboxDataArray.reduce((previous, current) => {
-		previous[current] = true;
-		return previous;
-	}, {});
+function checkboxDataToCheckValuesObject(checkboxData) {
+	if (Array.isArray(checkboxData)) {
+		// eslint-disable-next-line unicorn/no-array-reduce, unicorn/prefer-object-from-entries
+		return checkboxData.reduce((previous, current) => {
+			previous[current] = true;
+			return previous;
+		}, {});
+	} else if (typeof checkboxData === 'string') {
+		return { [checkboxData]: true };
+	} else {
+		return checkboxData;
+	}
 }
 
 /**

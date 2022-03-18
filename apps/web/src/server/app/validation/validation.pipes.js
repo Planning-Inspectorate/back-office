@@ -1,7 +1,7 @@
 import { body } from 'express-validator';
 
 /**
- * Validate the appeal outcome form that it has at least 1 answer.
+ * Validate the appeal outcome form to ensure it has at least 1 answer.
  * It will save into the current request all the validation errors that would be used
  * by the `expressValidationErrorsInterceptor` to populate the body with.
  *
@@ -17,16 +17,32 @@ export const validateOutcomePipe = () =>
 
 /**
  * TODO: validate conditional nested fields (i.e. missing or incorrect documents reason, other reason)
- * Validate the outcome incomplete form that it has at least 1 answer.
+ * Validate the outcome incomplete form to ensure it has at least 1 answer.
+ * If "missing or incorrect documents" is checked, validate missingOrWrongDocumentsReason to ensure a reason has been selected.
+ * If "other" is checked, validate otherReason to ensure a reason has been provided.
  * It will save into the current request all the validation errors that would be used
  * by the `expressValidationErrorsInterceptor` to populate the body with.
  *
  * @returns {void}
  */
-export const validateOutcomeIncompletePipe = () =>
+export const validateOutcomeIncompletePipe = () => [
 	body('incompleteReason')
 		.notEmpty()
-		.withMessage('Select one or more reasons for the incomplete outcome')
+		.withMessage('Please select one or more reasons for the incomplete outcome')
 		.bail()
 		.isIn([1, 2, 3, 4, 5, 6, 7])
-		.withMessage('Select one or more reasons for the incomplete outcome');
+		.withMessage('Please select one or more reasons for the incomplete outcome')
+		.bail(), // might be able to remove this .bail
+	body('missingOrWrongDocumentsReason')
+		.if(body('incompleteReason').isIn([3]))
+		.notEmpty()
+		.withMessage('Please select which documents are missing or wrong')
+		.bail()
+		.isIn([1, 2, 3, 4])
+		.withMessage('Please select which documents are missing or wrong')
+		.bail(), // might be able to remove this .bail
+	body('otherReason')
+		.if(body('incompleteReason').isIn([7]))
+		.notEmpty()
+		.withMessage('Please provide a reason for the incomplete outcome')
+];
