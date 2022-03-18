@@ -17,6 +17,26 @@ const appeal_1 = {
 	planningApplicationReference: '48269/APP/2021/1482',
 	appellantName: 'Lee Thornton'
 };
+const appeal_2 = {
+	id: 1,
+	reference: 'APP/Q9999/D/21/1345264',
+	status: 'valid_appeal',
+	createdAt: new Date(2022, 1, 23),
+	addressId: 1,
+	localPlanningDepartment: 'Maidstone Borough Council',
+	planningApplicationReference: '48269/APP/2021/1482',
+	appellantName: 'Lee Thornton'
+};
+const appeal_3 = {
+	id: 1,
+	reference: 'APP/Q9999/D/21/1345264',
+	status: 'invalid_appeal',
+	createdAt: new Date(2022, 1, 23),
+	addressId: 1,
+	localPlanningDepartment: 'Maidstone Borough Council',
+	planningApplicationReference: '48269/APP/2021/1482',
+	appellantName: 'Lee Thornton'
+};
 const updated_appeal_1 = {
 	id: 1,
 	reference: 'REFERENCE',
@@ -30,6 +50,8 @@ const getAppealByIdStub = sinon.stub();
 const updateStub = sinon.stub();
 
 getAppealByIdStub.withArgs({ where: { id: 1 } }).returns(appeal_1);
+getAppealByIdStub.withArgs({ where: { id: 2 } }).returns(appeal_2);
+getAppealByIdStub.withArgs({ where: { id: 3 } }).returns(appeal_3);
 updateStub.returns(updated_appeal_1);
 
 class MockDatabaseClass {
@@ -75,4 +97,18 @@ test('should not be able to submit nonsensical decision decision', async(t) => {
 		.send({ AppealStatus: 'some unknown status' });
 	t.is(resp.status, 400);
 	t.deepEqual(resp.body, { error: 'Unknown AppealStatus' } );
+});
+
+test('should not be able to submit validation decision for appeal that has been marked \'valid\'', async(t) => {
+	const resp = await request.post('/validation/2')
+		.send({ AppealStatus: 'some unknown status' });
+	t.is(resp.status, 400);
+	t.deepEqual(resp.body, { error: 'Appeal does not require validation' } );
+});
+
+test('should not be able to submit validation decision for appeal that has been marked \'invalid\'', async(t) => {
+	const resp = await request.post('/validation/3')
+		.send({ AppealStatus: 'some unknown status' });
+	t.is(resp.status, 400);
+	t.deepEqual(resp.body, { error: 'Appeal does not require validation' } );
 });
