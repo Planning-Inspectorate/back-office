@@ -123,6 +123,8 @@ function mapAppealStatusToStateMachineAction(status) {
 	switch(status) {
 		case 'valid':
 			return 'VALID';
+		case 'invalid':
+			return 'INVALID';
 		default:
 			throw new ValidationError('Unknown AppealStatus', 400);
 	}

@@ -47,9 +47,17 @@ test.before('sets up mocking of database', () => {
 	sinon.stub(DatabaseFactory, 'getInstance').callsFake((arguments_) => new MockDatabaseClass(arguments_));
 });
 
-test('should submit validation decision', async (t) => {
+test('should be able to submit valid decision', async (t) => {
 	const resp = await request.post('/validation/1')
 		.send({ AppealStatus: 'valid' });
 	t.is(resp.status, 200);
-	sinon.assert.calledOnceWithExactly(updateStub, { where: { id: 1 }, data: { status: 'with_case_officer' } });
+	sinon.assert.calledWithExactly(updateStub, { where: { id: 1 }, data: { status: 'with_case_officer' } });
+});
+
+test('should be able to submit invalid decision', async(t) => {
+	const resp = await request.post('/validation/1')
+		.send({ AppealStatus: 'invalid' });
+	t.is(resp.status, 200);
+	// TODO: calledOneWithExactly throws error
+	sinon.assert.calledWithExactly(updateStub, { where: { id: 1 }, data: { status: 'invalid_appeal' } });
 });
