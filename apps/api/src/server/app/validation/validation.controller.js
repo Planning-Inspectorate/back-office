@@ -13,10 +13,7 @@ const validationStatuses = [
 ];
 
 const getAppealToValidate = async function (request, response) {
-	const appeal = await appealRepository.getById(Number.parseInt(request.params.id, 10));
-	if (!validationStatuses.includes(appeal.status)) {
-		throw new ValidationError('Appeal does not require validation', 400);
-	}
+	const appeal = await getAppealForValidation(request.params.id);
 	const formattedAppeal = await formatAppealForAppealDetails(appeal);
 	return response.send(formattedAppeal);
 };
@@ -112,10 +109,7 @@ const updateValidation = function (request, response) {
 };
 
 const appealValidated = async function (request, response) {
-	const appeal = await appealRepository.getById(Number.parseInt(request.params.id, 10));
-	if (!validationStatuses.includes(appeal.status)) {
-		throw new ValidationError('Appeal does not require validation', 400);
-	}
+	const appeal = await getAppealForValidation(request.params.id);
 	const machineAction = mapAppealStatusToStateMachineAction(request.body.AppealStatus);
 	const nextState = household_appeal_machine.transition(appeal.state, machineAction);
 	await appealRepository.updateStatusById(appeal.id, nextState.value);
@@ -137,6 +131,14 @@ function mapAppealStatusToStateMachineAction(status) {
 		default:
 			throw new ValidationError('Unknown AppealStatus', 400);
 	}
+}
+
+async function getAppealForValidation(appealId) {
+	const appeal = await appealRepository.getById(Number.parseInt(appealId, 10));
+	if (!validationStatuses.includes(appeal.status)) {
+		throw new ValidationError('Appeal does not require validation', 400);
+	}	
+	return appeal;
 }
 
 export { getValidation, getAppealToValidate, updateValidation, appealValidated };
