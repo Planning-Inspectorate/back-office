@@ -1,3 +1,16 @@
+const validation_states_strings = {
+	received_appeal: 'received_appeal',
+	awaiting_validation_info: 'awaiting_validation_info',
+	valid_appeal: 'valid_appeal',
+	invalid_appeal: 'invalid_appeal'
+};
+
+const validation_actions_strings = {
+	invalid: 'INVALID',
+	valid: 'VALID',
+	information_missing: 'INFO_MISSING'
+};
+
 const validation_states = {
 	received_appeal: {
 		on: {
@@ -34,4 +47,4 @@ const validation_actions = {
 	}
 };
 
-export { validation_states, validation_actions };
+export { validation_states_strings, validation_actions_strings, validation_states, validation_actions };

@@ -5,8 +5,12 @@ import formatDate from '../utils/date-formatter.js';
 import formatAddress from '../utils/address-formatter.js';
 import ValidationError from './validation-error.js';
 import household_appeal_machine from '../state-machine/household-appeal.machine.js';
+import { validation_states_strings, validation_actions_strings } from '../state-machine/validation-states.js';
 
-const validationStatuses = ['received_appeal', 'awaiting_validation_info'];
+const validationStatuses = [
+	validation_states_strings.received_appeal, 
+	validation_states_strings.awaiting_validation_info
+];
 
 const getAppealToValidate = async function (request, response) {
 	const appeal = await appealRepository.getById(Number.parseInt(request.params.id, 10));
@@ -96,7 +100,7 @@ async function formatAppealForAllAppeals(appeal) {
  * @returns {string} reformatted appeal status
  */
 function mapAppealStatus(status) {
-	return status == 'received_appeal' ? 'new' : 'incomplete';
+	return status == validation_states_strings.received_appeal ? 'new' : 'incomplete';
 }
 
 const updateValidation = function (request, response) {
@@ -125,11 +129,11 @@ const appealValidated = async function (request, response) {
 function mapAppealStatusToStateMachineAction(status) {
 	switch(status) {
 		case 'valid':
-			return 'VALID';
+			return validation_actions_strings.valid;
 		case 'invalid':
-			return 'INVALID';
+			return validation_actions_strings.invalid;
 		case 'info missing':
-			return 'INFO_MISSING';
+			return validation_actions_strings.information_missing;
 		default:
 			throw new ValidationError('Unknown AppealStatus', 400);
 	}
