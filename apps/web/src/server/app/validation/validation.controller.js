@@ -70,6 +70,7 @@ export async function getReviewAppeal(request, response, next) {
 	request.session.data = { appealData };
 
 	response.render(routes.reviewAppealRoute.view, {
+		backURL: `/${routes.home.path}`,
 		appealData
 	});
 }
@@ -93,6 +94,7 @@ export function postAppealOutcome(request, response) {
 
 	if (Object.keys(errors).length > 0) {
 		return response.render(routes.reviewAppealRoute.view, {
+			backURL: routes.home.path,
 			errors,
 			errorSummary,
 			appealData
@@ -119,23 +121,50 @@ export function postAppealOutcome(request, response) {
 }
 
 
+/**
+ * GET the valid appeal outcome next page journey.
+ *
+ * @param {object} request - Express request object
+ * @param {object} response - Express request object
+ * @returns {void}
+ */
 export function getValidAppealOutcome(request, response) {
+	const backURL = `/validation/${routes.reviewAppealRoute.path}/${request.session.data.appealData.AppealId}`;
+
 	response.render('validation/valid-appeal-outcome', {
-		backURL: '',
-		changeOutcomeURL: `/validation/${routes.reviewAppealRoute.path}/${request.session.data.appealData.AppealId}`
+		backURL,
+		changeOutcomeURL: backURL
 	});
 }
 
+/**
+ * GET the invalid appeal outcome next page journey.
+ *
+ * @param {object} request - Express request object
+ * @param {object} response - Express request object
+ * @returns {void}
+ */
 export function getInvalidAppealOutcome(request, response) {
+	const backURL = `/validation/${routes.reviewAppealRoute.path}/${request.session.data.appealData.AppealId}`;
+
 	response.render('validation/invalid-appeal-outcome', {
-		backURL: '',
-		changeOutcomeURL: `/validation/${routes.reviewAppealRoute.path}/${request.session.data.appealData.AppealId}`
+		backURL,
+		changeOutcomeURL: backURL
 	});
 }
 
+/**
+ * GET the incomplete appeal outcome next page journey.
+ *
+ * @param {object} request - Express request object
+ * @param {object} response - Express request object
+ * @returns {void}
+ */
 export function getIncompleteAppealOutcome(request, response) {
+	const backURL = `/validation/${routes.reviewAppealRoute.path}/${request.session.data.appealData.AppealId}`;
+
 	response.render('validation/incomplete-appeal-outcome', {
-		backURL: '',
-		changeOutcomeURL: `/validation/${routes.reviewAppealRoute.path}/${request.session.data.appealData.AppealId}`
+		backURL,
+		changeOutcomeURL: backURL
 	});
 }

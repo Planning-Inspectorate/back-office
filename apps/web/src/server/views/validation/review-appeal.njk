@@ -1,6 +1,5 @@
-{% extends "_layouts/layout-two-thirds.njk" %}
+{% extends "validation/_layout-validation.njk" %}
 
-{% from "govuk/components/header/macro.njk" import govukHeader %}
 {% from "govuk/components/back-link/macro.njk" import govukBackLink %}
 {% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
 {% from "govuk/components/radios/macro.njk" import govukRadios %}
@@ -14,23 +13,13 @@
 </ul>
 {% endmacro %}
 
-{% block header %}
-  {{ govukHeader({
-	homepageUrl: "https://www.gov.uk/",
-	serviceName: "Appeal a planning decision",
-	serviceUrl: "/validation",
-	containerClasses: "govuk-width-container"
-  }) }}
-{% endblock %}
-
 {% block beforeContent %}
-  {{ govukBackLink({
-	text: "Back",
-	href: "/validation/"
-  }) }}
+  {{ govukBackLink({ text: "Back", href: backURL }) }}
 {% endblock %}
 
 {% block pageContent %}
+	{{ super() }}
+
 	<h1 class="govuk-heading-xl">
 		Review appeal submission
 	</h1>

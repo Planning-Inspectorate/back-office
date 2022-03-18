@@ -20,7 +20,7 @@ router.route('/').get(getValidationDashboard);
 // Review appeal and complete outcome form
 router.route(`/${routes.reviewAppealRoute.path}/:appealId`)
 	.get(getReviewAppeal)
-	.post(validateOutcomePipe(), expressValidationErrorsInterceptor, postAppealOutcome);
+	.post(appealDataGuard, validateOutcomePipe(), expressValidationErrorsInterceptor, postAppealOutcome);
 
 // All appeal outcomes routes
 router.route(`/${routes.validAppealOutcome.path}`).get(appealDataGuard, getValidAppealOutcome);
