@@ -1,0 +1,17 @@
+import test from 'ava';
+import supertest from 'supertest';
+import { app } from '../../app.js';
+const request = supertest(app);
+
+test('gets the appeals information with received questionnaires', async (t) => {
+	const resp = await request.get('/appeals');
+	const appealExample = { AppealId : 1,
+		AppealReference: 'APP/Q9999/D/21/1345264',
+		QuestionnaireDueDate:'01-Jun-2022',
+		AppealSite:'96 The Avenue, Maidstone, Kent, MD21 5XY',
+		QuestionnaireStatus: 'received'
+	};
+	t.is(resp.status, 200);
+	t.deepEqual(resp.body, appealExample);
+});
+
