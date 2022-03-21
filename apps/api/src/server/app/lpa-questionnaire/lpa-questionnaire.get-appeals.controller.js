@@ -13,8 +13,22 @@ const appealWithQuestionnnaire = [{
 	QuestionnaireStatus: 'incomplete'
 }];
 
+const appealWithQuestionnnaireDetail = {
+	AppealId : 1,
+	AppealReference: 'APP/Q9999/D/21/1345264',
+	LocalPlanningDepartment:'Maidstone Borough Council',
+	PlanningApplicationreference:'48269/APP/2021/1482',
+	AppealSiteNearConservationArea: false,
+	WouldDevelopmentAffectSettingOfListedBuilding: false,
+	ListedBuildingDesc: '' // Optional
+};
+
 const getAppeals = function (request, response) {
 	response.send(appealWithQuestionnnaire);
 };
 
-export { getAppeals };
+const getAppealsDetail = function (request, response) {
+	response.send(appealWithQuestionnnaireDetail);
+};
+
+export { getAppeals, getAppealsDetail };

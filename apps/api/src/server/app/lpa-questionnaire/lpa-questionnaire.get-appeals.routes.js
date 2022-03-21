@@ -1,10 +1,12 @@
 import express from 'express';
-import { getAppeals } from './lpa-questionnaire.get-appeals.controller.js';
+import { getAppeals, getAppealsDetail } from './lpa-questionnaire.get-appeals.controller.js';
 
 const router = express.Router();
 
 router.get('/', getAppeals);
+router.get('/id:', getAppealsDetail);
+
 
 export {
-	router as appealWithQUestionnaireRoutes
+	router as caseOfficerRoutes
 };
