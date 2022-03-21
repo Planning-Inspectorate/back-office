@@ -112,7 +112,7 @@ export function postAppealOutcome(request, response) {
 			nextStepPage = `/validation/${routes.invalidAppealOutcome.path}`;
 			break;
 		case 'incomplete':
-			nextStepPage = `/validation/${routes.incompleteAppealOutcome.path}`;
+			nextStepPage = `/validation/${routes.incompleteAppealOutcome.path}/${appealData.AppealId || ''}`;
 			break;
 		default:
 			nextStepPage = `/validation`;
@@ -203,11 +203,12 @@ export function getIncompleteAppealOutcome(request, response) {
 		return response.render('validation/appeal-details', {
 			errors,
 			errorSummary,
+			appealId,
 			appealData
 		});
 	}
 
-	return response.render('validation/outcome-incomplete', {
+	return response.render('validation/incomplete-appeal-outcome', {
 		appealId
 	});
 }
@@ -221,31 +222,60 @@ export function getIncompleteAppealOutcome(request, response) {
  * @param {object} response - Express request object
  * @returns {void}
  */
-export function postOutcomeIncomplete(request, response) {
+export function postIncompleteAppealOutcome(request, response) {
 	const {
 		body: {
 			errors = {},
 			errorSummary = [],
 			incompleteReason = [],
-			missingOrWrongDocumentsReason = [],
 			otherReason = ''
 		},
 	} = request;
 
-	if (Object.keys(errors).length > 0) {
+	let {
+		body: {
+			missingOrWrongDocumentsReason = []
+		},
+	} = request;
 
-		return response.render('validation/outcome-incomplete', {
-			errors,
-			errorSummary,
-			incompleteReason: checkboxDataToCheckValuesObject(incompleteReason),
-			missingOrWrongDocumentsReason: checkboxDataToCheckValuesObject(missingOrWrongDocumentsReason),
-			otherReason: otherReason
-		});
+	if (!incompleteReason.includes('missingOrWrongDocuments')) {
+		missingOrWrongDocumentsReason = undefined;
 	}
 
-	return response.redirect('/validation/check-confirm');
+	const data = {
+		incompleteReason: checkboxDataToCheckValuesObject(incompleteReason),
+		otherReason
+	};
+
+	if (missingOrWrongDocumentsReason) {
+		data.missingOrWrongDocumentsReason = checkboxDataToCheckValuesObject(missingOrWrongDocumentsReason);
+	}
+
+	if (Object.keys(errors).length > 0) {
+		data.errors = errors;
+		data.errorSummary = errorSummary;
+
+		return response.render('validation/incomplete-appeal-outcome', data);
+	}
+
+	const outcomeData = { incompleteReason };
+
+	if (missingOrWrongDocumentsReason) outcomeData.missingOrWrongDocumentsReason = missingOrWrongDocumentsReason;
+	if (otherReason) outcomeData.otherReason = otherReason;
+
+	// eslint-disable-next-line unicorn/consistent-destructuring
+	request.session.data = { outcomeData };
+
+	return response.redirect('/validation/check-and-confirm');
 }
 
+/**
+ * GET the check and confirm page.
+ *
+ * @param {object} request - Express request object
+ * @param {object} response - Express request object
+ * @returns {void}
+ */
 export function getCheckAndConfirm(request, response) {
 	const backURL = `/todo`;
 

@@ -23,3 +23,15 @@ export const checkboxDataToCheckValuesObject = (checkboxData) => {
 		return checkboxData;
 	}
 };
+
+// eslint-disable-next-line arrow-body-style
+export const makeValidator_StringMatchesOrArrayContainsMatch = (valueToMatch) => {
+	return (value) => {
+		if (Array.isArray(value)) {
+			return value.includes(valueToMatch);
+		} else if (typeof value === 'string') {
+			return value === valueToMatch;
+		}
+		return false;
+	};
+};

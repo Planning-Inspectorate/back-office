@@ -1,4 +1,5 @@
 import { body } from 'express-validator';
+import { makeValidator_StringMatchesOrArrayContainsMatch } from '../../lib/helpers.js';
 
 // All validation pipes will save into the current request all the validation errors that would be used
 // by the `expressValidationErrorsInterceptor` to populate the body with.
@@ -43,19 +44,34 @@ export const validateValidAppealDetails = () =>
 export const validateOutcomeIncompletePipe = () => [
 	body('incompleteReason')
 		.notEmpty()
-		.withMessage('Please select one or more reasons for the incomplete outcome')
+		.withMessage('Please enter a reason why the appeal is missing or wrong')
 		.bail()
-		.isIn([1, 2, 3, 4, 5, 6, 7])
-		.withMessage('Please select one or more reasons for the incomplete outcome'),
+		.isIn([
+			'namesDoNotMatch',
+			'sensitiveInformationIncluded',
+			'missingOrWrongDocuments',
+			'inflammatoryCommentsMade',
+			'openedInError',
+			'wrongAppealTypeUsed',
+			'other'
+		])
+		.withMessage('Please enter a reason why the appeal is missing or wrong'),
 	body('missingOrWrongDocumentsReason')
-		.if(body('incompleteReason').isIn([3]))
+		.if(body('incompleteReason').isIn(['missingOrWrongDocuments']))
 		.notEmpty()
 		.withMessage('Please select which documents are missing or wrong')
 		.bail()
-		.isIn([1, 2, 3, 4])
+		.isIn([
+			'applicationForm',
+			'decisionNotice',
+			'groundsOfAppeal',
+			'supportingDocuments'
+		])
 		.withMessage('Please select which documents are missing or wrong'),
 	body('otherReason')
-		.if(body('incompleteReason').isIn([7]))
+		.if(body('incompleteReason').custom(makeValidator_StringMatchesOrArrayContainsMatch('other')))
 		.notEmpty()
 		.withMessage('Please provide a reason for the incomplete outcome')
+		.isLength({ min: 1, max: 500 })
+		.withMessage('Word count exceeded')
 ];
