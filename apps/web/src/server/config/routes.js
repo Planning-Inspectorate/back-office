@@ -19,5 +19,9 @@ export const validationRoutesConfig = {
 	incompleteAppealOutcome: {
 		path: 'incomplete-appeal-outcome',
 		view: 'validation/incomplete-appeal-outcome'
+	},
+	checkAndConfirm: {
+		path: 'check-and-confirm',
+		view: 'validation/check-and-confirm'
 	}
 };

@@ -94,7 +94,7 @@ export function postAppealOutcome(request, response) {
 
 	if (Object.keys(errors).length > 0) {
 		return response.render(routes.reviewAppealRoute.view, {
-			backURL: routes.home.path,
+			backURL: `/${routes.home.path}`,
 			errors,
 			errorSummary,
 			appealData
@@ -131,10 +131,38 @@ export function postAppealOutcome(request, response) {
 export function getValidAppealOutcome(request, response) {
 	const backURL = `/validation/${routes.reviewAppealRoute.path}/${request.session.data.appealData.AppealId}`;
 
-	response.render('validation/valid-appeal-outcome', {
+	response.render(routes.validAppealOutcome.view, {
 		backURL,
 		changeOutcomeURL: backURL
 	});
+}
+
+/**
+ * POST the valid appeal details page
+ *
+ * @param {object} request - Express request object
+ * @param {object} response - Express request object
+ * @returns {void}
+ */
+export function postValidAppealDetails(request, response) {
+	const descriptionOfDevelopment = request.body['valid-appeal-details'];
+	const appealData = request.session.data.appealData;
+	const backURL = `/validation/${routes.reviewAppealRoute.path}/${request.session.data.appealData.AppealId}`;
+
+	const {
+		body: { errors = {}, errorSummary = [] }
+	} = request;
+
+	if (Object.keys(errors).length > 0) {
+		return response.render(routes.validAppealOutcome.view, {
+			backURL,
+			errors,
+			errorSummary,
+			appealData
+		});
+	}
+
+	return response.redirect(`/validation/${routes.checkAndConfirm.path}`);
 }
 
 /**
@@ -147,7 +175,7 @@ export function getValidAppealOutcome(request, response) {
 export function getInvalidAppealOutcome(request, response) {
 	const backURL = `/validation/${routes.reviewAppealRoute.path}/${request.session.data.appealData.AppealId}`;
 
-	response.render('validation/invalid-appeal-outcome', {
+	response.render(routes.invalidAppealOutcome.view, {
 		backURL,
 		changeOutcomeURL: backURL
 	});
@@ -163,7 +191,16 @@ export function getInvalidAppealOutcome(request, response) {
 export function getIncompleteAppealOutcome(request, response) {
 	const backURL = `/validation/${routes.reviewAppealRoute.path}/${request.session.data.appealData.AppealId}`;
 
-	response.render('validation/incomplete-appeal-outcome', {
+	response.render(routes.incompleteAppealOutcome.view, {
+		backURL,
+		changeOutcomeURL: backURL
+	});
+}
+
+export function getCheckAndConfirm(request, response) {
+	const backURL = `/todo`;
+
+	response.render(routes.checkAndConfirm.view, {
 		backURL,
 		changeOutcomeURL: backURL
 	});
