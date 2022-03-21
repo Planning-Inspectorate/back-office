@@ -19,7 +19,7 @@ getAddressByIdStub.withArgs({ where: { id: 1 } }).returns({
 const appeal_1 = {
 	id: 1,
 	reference: 'APP/Q9999/D/21/1345264',
-	status: 'submitted',
+	status: 'received_appeal',
 	createdAt: new Date(2022, 1, 23),
 	addressId: 1,
 	localPlanningDepartment: 'Maidstone Borough Council',
