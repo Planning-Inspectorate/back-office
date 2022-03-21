@@ -37,6 +37,16 @@ const appeal_3 = {
 	planningApplicationReference: '48269/APP/2021/1482',
 	appellantName: 'Lee Thornton'
 };
+const appeal_4 = {
+	id: 4,
+	reference: 'APP/Q9999/D/21/1345264',
+	status: 'awaiting_validation_info',
+	createdAt: new Date(2022, 1, 23),
+	addressId: 1,
+	localPlanningDepartment: 'Maidstone Borough Council',
+	planningApplicationReference: '48269/APP/2021/1482',
+	appellantName: 'Lee Thornton'
+};
 const updated_appeal_1 = {
 	id: 1,
 	reference: 'REFERENCE',
@@ -52,6 +62,8 @@ const updateStub = sinon.stub();
 getAppealByIdStub.withArgs({ where: { id: 1 } }).returns(appeal_1);
 getAppealByIdStub.withArgs({ where: { id: 2 } }).returns(appeal_2);
 getAppealByIdStub.withArgs({ where: { id: 3 } }).returns(appeal_3);
+getAppealByIdStub.withArgs({ where: { id: 4 } }).returns(appeal_4);
+
 updateStub.returns(updated_appeal_1);
 
 class MockDatabaseClass {
@@ -111,4 +123,16 @@ test('should not be able to submit validation decision for appeal that has been 
 		.send({ AppealStatus: 'some unknown status' });
 	t.is(resp.status, 400);
 	t.deepEqual(resp.body, { error: 'Appeal does not require validation' } );
+});
+
+test('should be able to mark appeal with missing info as \'valid\'', async(t) => {
+	const resp = await request.post('/validation/4').send({ AppealStatus: 'valid' });
+	t.is(resp.status, 200);
+	sinon.assert.calledWithExactly(updateStub, { where: { id: 4 }, data: { status: 'with_case_officer' } });
+});
+
+test('should be able to mark appeak with missing info as \'invalid\'', async(t) => {
+	const resp = await request.post('/validation/4').send({ AppealStatus: 'invalid' });
+	t.is(resp.status, 200);
+	sinon.assert.calledWithExactly(updateStub, { where: { id: 4 }, data: { status: 'invalid_appeal' } });
 });
