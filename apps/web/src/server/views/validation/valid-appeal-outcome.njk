@@ -1,0 +1,39 @@
+{% extends "validation/_layout-validation.njk" %}
+
+{% from "govuk/components/back-link/macro.njk" import govukBackLink %}
+{% from "govuk/components/textarea/macro.njk" import govukTextarea %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+
+{% block beforeContent %}
+  {{ govukBackLink({ text: "Back", href: backURL }) }}
+{% endblock %}
+
+{% block pageContent %}
+	{{ super() }}
+
+	<h1 class="govuk-heading-xl">
+		Valid appeal details
+	</h1>
+
+	<form action="" method="post" novalidate>
+		<p class="govuk-body">Appeal reference: {{ appealReference }}</p>
+
+		{{ govukTextarea({
+			name: "valid-appeal-details",
+			id: "valid-appeal-details",
+			label: {
+				text: "Description of development",
+				classes: "govuk-!-font-weight-bold"
+			},
+			value: validAppealDetails,
+			errorMessage: errors and {
+				text: errors['valid-appeal-details'].msg
+			}
+		}) }}
+
+		<div class="govuk-button-group">
+			{{ govukButton({ text: text | default('Continue') }) }}
+			<a class="govuk-link" href="{{ changeOutcomeURL }}">Change outcome</a>
+		</div>
+	</form>
+{% endblock %}

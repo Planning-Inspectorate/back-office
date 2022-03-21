@@ -1,34 +1,41 @@
 import express from 'express';
+import { expressValidationErrorsInterceptor } from '../../lib/express-validation-errors.js';
+import { validationRoutesConfig as routes } from '../../config/routes.js';
 import {
 	getValidationDashboard,
-	getAppealDetails,
+	getReviewAppeal,
 	postAppealOutcome,
-	getOutcomeIncomplete,
-	postOutcomeIncomplete,
+	getValidAppealOutcome,
+	postValidAppealDetails,
+	getInvalidAppealOutcome,
+	getIncompleteAppealOutcome,
 	getCheckAndConfirm
 } from './validation.controller.js';
-import { validateOutcomePipe, validateOutcomeIncompletePipe } from './validation.pipes.js';
-import { expressValidationErrorsInterceptor } from '../../lib/express-validation-errors.js';
+import { validateOutcomePipe, validateValidAppealDetails } from './validation.pipes.js';
+import { appealDataGuard } from './validation.guards.js';
 
 const router = express.Router();
 
 // Main validation route `/validation`
-router.route('/')
-	.get(getValidationDashboard);
+router.route('/').get(getValidationDashboard);
 
-// Appeal details route `/validation/review-appeal/:appealId`
-// Handles the initial GET of the appeal details and form submission checks
-router.route('/review-appeal/:appealId')
-	.get(getAppealDetails)
-	.post(validateOutcomePipe(), expressValidationErrorsInterceptor, postAppealOutcome);
+// Review appeal and complete outcome form
+router.route(`/${routes.reviewAppealRoute.path}/:appealId`)
+	.get(getReviewAppeal)
+	.post(appealDataGuard, validateOutcomePipe(), expressValidationErrorsInterceptor, postAppealOutcome);
 
-// Outcome incomplete route
-router.route('/outcome-incomplete/:appealId')
-	.get(getOutcomeIncomplete)
-	.post(validateOutcomeIncompletePipe(), expressValidationErrorsInterceptor, postOutcomeIncomplete);
+// * All appeal outcomes routes
+// Valid appeal outcome
+router.route(`/${routes.validAppealOutcome.path}`)
+	.get(appealDataGuard, getValidAppealOutcome)
+	.post(appealDataGuard, validateValidAppealDetails(), expressValidationErrorsInterceptor, postValidAppealDetails);
 
-// Check and confirm route
-router.route('/check-confirm')
-	.get(getCheckAndConfirm);
+// Invalid appeal outcome
+router.route(`/${routes.invalidAppealOutcome.path}`).get(appealDataGuard, getInvalidAppealOutcome);
 
+// Incomplete appeal outcome
+router.route(`/${routes.incompleteAppealOutcome.path}`).get(appealDataGuard, getIncompleteAppealOutcome);
+
+// Check and confirm appeal outcome details
+router.route(`/${routes.checkAndConfirm.path}`).get(appealDataGuard, getCheckAndConfirm);
 export default router;

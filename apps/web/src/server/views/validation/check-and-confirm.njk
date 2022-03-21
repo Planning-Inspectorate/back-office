@@ -1,0 +1,26 @@
+{% extends "validation/_layout-validation.njk" %}
+
+{% from "govuk/components/back-link/macro.njk" import govukBackLink %}
+{% from "govuk/components/textarea/macro.njk" import govukTextarea %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+
+{% block beforeContent %}
+  {{ govukBackLink({ text: "Back", href: backURL }) }}
+{% endblock %}
+
+{% block pageContent %}
+	{{ super() }}
+
+	<h1 class="govuk-heading-xl">
+		Check and confirm
+	</h1>
+
+	<form action="" method="post" novalidate>
+		Outcome of review
+
+		<div class="govuk-button-group">
+			{{ govukButton({ text: text | default('Continue') }) }}
+			<a class="govuk-link" href="{{ changeOutcomeURL }}">Change outcome</a>
+		</div>
+	</form>
+{% endblock %}
