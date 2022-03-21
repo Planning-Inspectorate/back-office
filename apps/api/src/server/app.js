@@ -26,7 +26,7 @@ app.use('/', homeRoutes);
 
 app.use('/validation', validationRoutes);
 
-app.use('/appeals', appealWithQUestionnaireRoutes);
+app.use('/case-officer', appealWithQUestionnaireRoutes);
 
 app.use(errorHandler);
 
