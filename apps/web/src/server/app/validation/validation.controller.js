@@ -1,20 +1,7 @@
 import { to } from 'planning-inspectorate-libs';
 import { validationRoutesConfig as routes } from '../../config/routes.js';
 import { findAllNewIncompleteAppeals, findAppealById } from './validation.service.js';
-
-function checkboxDataToCheckValuesObject(checkboxData) {
-	if (Array.isArray(checkboxData)) {
-		// eslint-disable-next-line unicorn/no-array-reduce, unicorn/prefer-object-from-entries
-		return checkboxData.reduce((previous, current) => {
-			previous[current] = true;
-			return previous;
-		}, {});
-	} else if (typeof checkboxData === 'string') {
-		return { [checkboxData]: true };
-	} else {
-		return checkboxData;
-	}
-}
+import { checkboxDataToCheckValuesObject } from '../../lib/helpers.js';
 
 /**
  * GET the main dashboard.
@@ -180,36 +167,6 @@ export function postValidAppealDetails(request, response) {
 }
 
 /**
- * GET the outcome incomplete page.
- *
- * @param {object} request - Express request object
- * @param {object} response - Express request object
- * @param {Function} next  - Express function that calls then next middleware in the stack
- * @returns {void}
- */
-export async function getOutcomeIncomplete(request, response, next) {
-	const appealId = request.param('appealId');
-
-	const [error, appealData] = await to(findAppealById(appealId));
-
-	const {
-		body: { errors = {}, errorSummary = [] }
-	} = request;
-
-	if (Object.keys(errors).length > 0) {
-		return response.render('validation/appeal-details', {
-			errors,
-			errorSummary,
-			appealData
-		});
-	}
-
-	return response.render('validation/outcome-incomplete', {
-		appealId
-	});
-}
-
-/**
  * GET the invalid appeal outcome next page journey.
  *
  * @param {object} request - Express request object
@@ -235,12 +192,58 @@ export function getInvalidAppealOutcome(request, response) {
  * @returns {void}
  */
 export function getIncompleteAppealOutcome(request, response) {
-	const backURL = `/validation/${routes.reviewAppealRoute.path}/${request.session.data.appealData.AppealId}`;
+	const appealId = request.param('appealId');
+	const appealData = request.session.data.appealData;
 
-	response.render(routes.incompleteAppealOutcome.view, {
-		backURL,
-		changeOutcomeURL: backURL
+	const {
+		body: { errors = {}, errorSummary = [] }
+	} = request;
+
+	if (Object.keys(errors).length > 0) {
+		return response.render('validation/appeal-details', {
+			errors,
+			errorSummary,
+			appealData
+		});
+	}
+
+	return response.render('validation/outcome-incomplete', {
+		appealId
 	});
+}
+
+/**
+ * POST the incomplete appeal outcome page
+ * If there are errors, it will reload the incomplete appeal outcome page and display the errors
+ * If there are no errors, it will render the check and confirm page
+ *
+ * @param {object} request - Express request object
+ * @param {object} response - Express request object
+ * @returns {void}
+ */
+export function postOutcomeIncomplete(request, response) {
+	const {
+		body: {
+			errors = {},
+			errorSummary = [],
+			incompleteReason = [],
+			missingOrWrongDocumentsReason = [],
+			otherReason = ''
+		},
+	} = request;
+
+	if (Object.keys(errors).length > 0) {
+
+		return response.render('validation/outcome-incomplete', {
+			errors,
+			errorSummary,
+			incompleteReason: checkboxDataToCheckValuesObject(incompleteReason),
+			missingOrWrongDocumentsReason: checkboxDataToCheckValuesObject(missingOrWrongDocumentsReason),
+			otherReason: otherReason
+		});
+	}
+
+	return response.redirect('/validation/check-confirm');
 }
 
 export function getCheckAndConfirm(request, response) {
