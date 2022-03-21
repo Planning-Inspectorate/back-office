@@ -6,5 +6,5 @@ const router = express.Router();
 router.get('/', getAppeals);
 
 export {
-	router as AppealWithQUestionnaireRoutes
+	router as appealWithQUestionnaireRoutes
 };
