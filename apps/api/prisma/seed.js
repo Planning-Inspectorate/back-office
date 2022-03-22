@@ -4,6 +4,15 @@ const { PrismaClient } = Prisma;
 
 const prisma = new PrismaClient();
 
+/**
+ * @returns {Date} date two weeks ago
+ */
+function getDateTwoWeeksAgo() {
+	const date = new Date();
+	date.setDate(date.getDate() - 14);
+	return date;
+}
+
 const appealsData = [
 	{
 		reference: 'APP/Q9999/D/21/1345264',
@@ -33,25 +42,42 @@ const appealsData = [
 				postcode: 'MD21 5XY'
 			}
 		}
+	},
+	{
+		reference: 'APP/Q9999/D/21/1345264',
+		appellantName: 'Bob Ross',
+		localPlanningDepartment: 'Maidstone Borough Council',
+		planningApplicationReference: '48269/APP/2021/1482',
+		status: 'awaiting_lpa_questionnaire',
+		statusUpdatedAt: getDateTwoWeeksAgo(),
+		address: {
+			create: {
+				addressLine1: '96 The Avenue',
+				addressLine2: 'Maidstone',
+				city: 'Kent',
+				postcode: 'MD21 5XY'
+			}
+		}
 	}
 ];
 
+/**
+ *
+ */
 async function main() {
-	console.log(`Start seeding ...`);
-	for (const a of appealsData) {
-		const appeal = await prisma.appeal.create({
-			data: a
-		});
-		console.log(`Created appeal with id: ${appeal.id}`);
+	try {
+		const createdAppeals = [];
+		for (const appealData of appealsData) {
+			const appeal = prisma.appeal.create({ data: appealData });
+			createdAppeals.push(appeal);
+		}
+		await Promise.all(createdAppeals);
+	} catch (error) {
+		console.error(error);
+		throw error;
+	} finally {
+		await prisma.$disconnect();
 	}
-	console.log(`Seeding finished.`);
 }
 
-main()
-	.catch((e) => {
-		console.error(e);
-		process.exit(1);
-	})
-	.finally(async () => {
-		await prisma.$disconnect();
-	});
+main();

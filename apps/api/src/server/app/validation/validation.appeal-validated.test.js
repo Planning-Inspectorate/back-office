@@ -85,7 +85,11 @@ test('should be able to submit \'valid\' decision', async (t) => {
 	const resp = await request.post('/validation/1')
 		.send({ AppealStatus: 'valid' });
 	t.is(resp.status, 200);
-	sinon.assert.calledWithExactly(updateStub, { where: { id: 1 }, data: { status: 'awaiting_lpa_questionnaire' } });
+	sinon.assert.calledWithExactly(updateStub, { where: { id: 1 }, data: { 
+		status: 'awaiting_lpa_questionnaire', 
+		statusUpdatedAt: sinon.match.any,
+		updatedAt: sinon.match.any
+	} });
 });
 
 test('should be able to submit \'invalid\' decision', async(t) => {
@@ -93,7 +97,11 @@ test('should be able to submit \'invalid\' decision', async(t) => {
 		.send({ AppealStatus: 'invalid' });
 	t.is(resp.status, 200);
 	// TODO: calledOneWithExactly throws error
-	sinon.assert.calledWithExactly(updateStub, { where: { id: 1 }, data: { status: 'invalid_appeal' } });
+	sinon.assert.calledWithExactly(updateStub, { where: { id: 1 }, data: { 
+		status: 'invalid_appeal',
+		statusUpdatedAt: sinon.match.any,
+		updatedAt: sinon.match.any
+	} });
 });
 
 test('should be able to submit \'missing appeal details\' decision', async(t) => {
@@ -101,7 +109,11 @@ test('should be able to submit \'missing appeal details\' decision', async(t) =>
 		.send({ AppealStatus: 'info missing' });
 	t.is(resp.status, 200);
 	// TODO: calledOneWithExactly throws error
-	sinon.assert.calledWithExactly(updateStub, { where: { id: 1 }, data: { status: 'awaiting_validation_info' } });
+	sinon.assert.calledWithExactly(updateStub, { where: { id: 1 }, data: { 
+		status: 'awaiting_validation_info', 
+		statusUpdatedAt: sinon.match.any,
+		updatedAt: sinon.match.any
+	} });
 });
 
 test('should not be able to submit nonsensical decision decision', async(t) => {
@@ -128,11 +140,19 @@ test('should not be able to submit validation decision for appeal that has been 
 test('should be able to mark appeal with missing info as \'valid\'', async(t) => {
 	const resp = await request.post('/validation/4').send({ AppealStatus: 'valid' });
 	t.is(resp.status, 200);
-	sinon.assert.calledWithExactly(updateStub, { where: { id: 4 }, data: { status: 'awaiting_lpa_questionnaire' } });
+	sinon.assert.calledWithExactly(updateStub, { where: { id: 4 }, data: { 
+		status: 'awaiting_lpa_questionnaire', 
+		statusUpdatedAt: sinon.match.any,
+		updatedAt: sinon.match.any
+	} });
 });
 
 test('should be able to mark appeak with missing info as \'invalid\'', async(t) => {
 	const resp = await request.post('/validation/4').send({ AppealStatus: 'invalid' });
 	t.is(resp.status, 200);
-	sinon.assert.calledWithExactly(updateStub, { where: { id: 4 }, data: { status: 'invalid_appeal' } });
+	sinon.assert.calledWithExactly(updateStub, { where: { id: 4 }, data: { 
+		status: 'invalid_appeal', 
+		statusUpdatedAt: sinon.match.any,
+		updatedAt: sinon.match.any
+	} });
 });

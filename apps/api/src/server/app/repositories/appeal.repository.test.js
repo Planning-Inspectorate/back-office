@@ -23,7 +23,11 @@ const updatedAppeal = {
 	addressId: 1
 };
 findUniqueStub.withArgs({ where: { id: 1 } }).returns(existingAppeal);
-updateStub.withArgs({ where: { id: 1 }, data: { status: 'new status' } }).returns(updatedAppeal);
+updateStub.withArgs({ where: { id: 1 }, data: { 
+	status: 'new status', 
+	updatedAt: sinon.match.any, 
+	statusUpdatedAt: sinon.match.any 
+} }).returns(updatedAppeal);
 
 class MockDatabaseClass {
 	constructor(_parameters) {
