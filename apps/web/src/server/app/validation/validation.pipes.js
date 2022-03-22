@@ -32,7 +32,7 @@ export const validateValidAppealDetails = () =>
 
 /**
  * Validate the outcome incomplete form to ensure it has at least 1 answer.
- * If "missing or incorrect documents" is checked, validate missingOrWrongDocumentsReason to ensure a reason has been selected.
+ * If "missing or incorrect documents" is checked, validate missingOrWrongDocumentsReasons to ensure a reason has been selected.
  * If "other" is checked, validate otherReason to ensure a reason has been provided.
  * It will save into the current request all the validation errors that would be used
  * by the `expressValidationErrorsInterceptor` to populate the body with.
@@ -40,7 +40,7 @@ export const validateValidAppealDetails = () =>
  * @returns {void}
  */
 export const validateOutcomeIncompletePipe = () => [
-	body('incompleteReason')
+	body('incompleteReasons')
 		.notEmpty()
 		.withMessage('Please enter a reason why the appeal is missing or wrong')
 		.bail()
@@ -54,8 +54,8 @@ export const validateOutcomeIncompletePipe = () => [
 			'other'
 		])
 		.withMessage('Please enter a reason why the appeal is missing or wrong'),
-	body('missingOrWrongDocumentsReason')
-		.if(body('incompleteReason').isIn(['missingOrWrongDocuments']))
+	body('missingOrWrongDocumentsReasons')
+		.if(body('incompleteReasons').isIn(['missingOrWrongDocuments']))
 		.notEmpty()
 		.withMessage('Please select which documents are missing or wrong')
 		.bail()
@@ -67,7 +67,7 @@ export const validateOutcomeIncompletePipe = () => [
 		])
 		.withMessage('Please select which documents are missing or wrong'),
 	body('otherReason')
-		.if(body('incompleteReason').custom(makeValidator_StringMatchesOrArrayContainsMatch('other')))
+		.if(body('incompleteReasons').custom(makeValidator_StringMatchesOrArrayContainsMatch('other')))
 		.notEmpty()
 		.withMessage('Please provide a reason for the incomplete outcome')
 		.isLength({ min: 1, max: 500 })

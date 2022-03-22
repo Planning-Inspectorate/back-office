@@ -205,11 +205,19 @@ export function getInvalidAppealOutcome(request, response) {
 export function getIncompleteAppealOutcome(request, response) {
 	const backURL = `/validation/${routes.reviewAppealRoute.path}/${request.session.appealData.AppealId}`;
 	const appealData = request.session.appealData;
+	console.log( request.session);
+
+	// TODO: FOR James to figure it out. Point is if we have it in session, put it back.
+	// const { incompleteReasons=[], otherReason='', missingOrWrongDocumentsReasons=[] } = request.session.appealWork?.incompleteAppealDetails;
 
 	return response.render(routes.incompleteAppealOutcome.view, {
 		backURL,
 		changeOutcomeURL: backURL,
-		appealData
+		appealData,
+		incompleteReasons: checkboxDataToCheckValuesObject(incompleteReasons),
+		otherReason,
+		missingOrWrongDocumentsReasons: incompleteReasons.includes('missingOrWrongDocuments')
+			? checkboxDataToCheckValuesObject(missingOrWrongDocumentsReasons): undefined
 	});
 }
 
