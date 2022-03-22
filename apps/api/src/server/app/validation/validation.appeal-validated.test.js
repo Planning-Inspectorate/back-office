@@ -85,7 +85,7 @@ test('should be able to submit \'valid\' decision', async (t) => {
 	const resp = await request.post('/validation/1')
 		.send({ AppealStatus: 'valid' });
 	t.is(resp.status, 200);
-	sinon.assert.calledWithExactly(updateStub, { where: { id: 1 }, data: { status: 'with_case_officer' } });
+	sinon.assert.calledWithExactly(updateStub, { where: { id: 1 }, data: { status: 'awaiting_lpa_questionnaire' } });
 });
 
 test('should be able to submit \'invalid\' decision', async(t) => {
@@ -128,7 +128,7 @@ test('should not be able to submit validation decision for appeal that has been 
 test('should be able to mark appeal with missing info as \'valid\'', async(t) => {
 	const resp = await request.post('/validation/4').send({ AppealStatus: 'valid' });
 	t.is(resp.status, 200);
-	sinon.assert.calledWithExactly(updateStub, { where: { id: 4 }, data: { status: 'with_case_officer' } });
+	sinon.assert.calledWithExactly(updateStub, { where: { id: 4 }, data: { status: 'awaiting_lpa_questionnaire' } });
 });
 
 test('should be able to mark appeak with missing info as \'invalid\'', async(t) => {
