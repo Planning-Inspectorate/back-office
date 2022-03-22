@@ -6,8 +6,6 @@ import { makeValidator_StringMatchesOrArrayContainsMatch } from '../../lib/helpe
 
 /**
  * Validate the appeal outcome form to ensure it has at least 1 answer.
- * It will save into the current request all the validation errors that would be used
- * by the `expressValidationErrorsInterceptor` to populate the body with.
  *
  * @returns {void}
  */

@@ -1,7 +1,8 @@
 import { to } from 'planning-inspectorate-libs';
 import { validationRoutesConfig as routes } from '../../config/routes.js';
-import { findAllNewIncompleteAppeals, findAppealById } from './validation.service.js';
 import { checkboxDataToCheckValuesObject } from '../../lib/helpers.js';
+import { findAllNewIncompleteAppeals, findAppealById } from './validation.service.js';
+import { validationLabelsMap, validationAppealOutcomeLabelsMap } from './validation.config.js';
 
 /**
  * GET the main dashboard.
@@ -52,15 +53,16 @@ export async function getValidationDashboard(request, response, next) {
  * GET the review appeal page.
  * It will fetch the appeal details and it will render the page with that info.
  *
- * @param {object} request - Express request object
- * @param {object} response - Express request object
+ * @param {import('express').Request} request - Express request object
+ * @param {import('express').Response} response - Express request object
  * @param {Function} next  - Express function that calls then next middleware in the stack
  * @returns {void}
  */
 export async function getReviewAppeal(request, response, next) {
-	const appealId = request.param('appealId');
+	const appealId = request.params.appealId;
 
 	const [error, appealData] = await to(findAppealById(appealId));
+	const reviewOutcome = request.session.appealWork?.reviewOutcome;
 
 	if (error) {
 		next(new AggregateError([new Error('data fetch'), error], 'Fetch errors!'));
@@ -68,11 +70,12 @@ export async function getReviewAppeal(request, response, next) {
 	}
 
 	// Save the current appeal data into session storage
-	request.session.data = { appealData };
+	request.session.appealData = appealData;
 
 	response.render(routes.reviewAppealRoute.view, {
-		backURL: `/${routes.home.path}`,
-		appealData
+		backURL: `/${routes.home.path}?direction=back`,
+		appealData,
+		reviewOutcome
 	});
 }
 
@@ -80,14 +83,16 @@ export async function getReviewAppeal(request, response, next) {
  * POST the appeal details page
  * It will fetch the appeal details and it will render the page with them.
  *
- * @param {object} request - Express request object
- * @param {object} response - Express request object
+ * @param {import('express').Request} request - Express request object
+ * @param {import('express').Response} response - Express request object
  * @param {Function} next  - Express function that calls then next middleware in the stack
  * @returns {void}
  */
 export function postAppealOutcome(request, response) {
 	const reviewOutcome = request.body['review-outcome'];
-	const appealData = request.session.data.appealData;
+	const appealData = request.session.appealData;
+
+	(request.session.appealWork ??= {}).reviewOutcome = reviewOutcome;
 
 	const {
 		body: { errors = {}, errorSummary = [] }
@@ -95,7 +100,7 @@ export function postAppealOutcome(request, response) {
 
 	if (Object.keys(errors).length > 0) {
 		return response.render(routes.reviewAppealRoute.view, {
-			backURL: `/${routes.home.path}`,
+			backURL: `/${routes.home.path}?direction=back`,
 			errors,
 			errorSummary,
 			appealData
@@ -112,7 +117,7 @@ export function postAppealOutcome(request, response) {
 			nextStepPage = `/validation/${routes.invalidAppealOutcome.path}`;
 			break;
 		case 'incomplete':
-			nextStepPage = `/validation/${routes.incompleteAppealOutcome.path}/${appealData.AppealId || ''}`;
+			nextStepPage = `/validation/${routes.incompleteAppealOutcome.path}`;
 			break;
 		default:
 			nextStepPage = `/validation`;
@@ -121,34 +126,40 @@ export function postAppealOutcome(request, response) {
 	return response.redirect(nextStepPage);
 }
 
-
 /**
  * GET the valid appeal outcome next page journey.
  *
- * @param {object} request - Express request object
- * @param {object} response - Express request object
+ * @param {import('express').Request} request - Express request object
+ * @param {import('express').Response} response - Express request object
  * @returns {void}
  */
 export function getValidAppealOutcome(request, response) {
-	const backURL = `/validation/${routes.reviewAppealRoute.path}/${request.session.data.appealData.AppealId}`;
+	const backURL = `/validation/${routes.reviewAppealRoute.path}/${request.session.appealData?.AppealId}?direction=back`;
+	const appealData = request.session.appealData;
+	const { descriptionOfDevelopment } = request.session.appealWork;
 
 	response.render(routes.validAppealOutcome.view, {
 		backURL,
-		changeOutcomeURL: backURL
+		changeOutcomeURL: backURL,
+		appealData,
+		descriptionOfDevelopment
 	});
 }
 
 /**
  * POST the valid appeal details page
  *
- * @param {object} request - Express request object
- * @param {object} response - Express request object
+ * @param {import('express').Request} request - Express request object
+ * @param {import('express').Response} response - Express request object
  * @returns {void}
  */
 export function postValidAppealDetails(request, response) {
 	const descriptionOfDevelopment = request.body['valid-appeal-details'];
-	const appealData = request.session.data.appealData;
-	const backURL = `/validation/${routes.reviewAppealRoute.path}/${request.session.data.appealData.AppealId}`;
+	const appealData = request.session.appealData;
+	const backURL = `/validation/${routes.reviewAppealRoute.path}/${request.session.appealData?.AppealId}?direction=back`;
+
+	// TODO: Should I just pass the appealWork obj?
+	(request.session.appealWork ??= {}).descriptionOfDevelopment = descriptionOfDevelopment;
 
 	const {
 		body: { errors = {}, errorSummary = [] }
@@ -157,9 +168,11 @@ export function postValidAppealDetails(request, response) {
 	if (Object.keys(errors).length > 0) {
 		return response.render(routes.validAppealOutcome.view, {
 			backURL,
+			changeOutcomeURL: backURL,
 			errors,
 			errorSummary,
-			appealData
+			appealData,
+			descriptionOfDevelopment
 		});
 	}
 
@@ -171,11 +184,10 @@ export function postValidAppealDetails(request, response) {
  *
  * @param {object} request - Express request object
  * @param {object} response - Express request object
- * @param {Function} next  - Express function that calls then next middleware in the stack
  * @returns {void}
  */
 export function getInvalidAppealOutcome(request, response) {
-	const backURL = `/validation/${routes.reviewAppealRoute.path}/${request.session.data.appealData.AppealId}`;
+	const backURL = `/validation/${routes.reviewAppealRoute.path}/${request.session.appealData.AppealId}`;
 
 	response.render(routes.invalidAppealOutcome.view, {
 		backURL,
@@ -188,28 +200,16 @@ export function getInvalidAppealOutcome(request, response) {
  *
  * @param {object} request - Express request object
  * @param {object} response - Express request object
- * @param {Function} next  - Express function that calls then next middleware in the stack
  * @returns {void}
  */
 export function getIncompleteAppealOutcome(request, response) {
-	const appealId = request.param('appealId');
-	const appealData = request.session.data.appealData;
+	const backURL = `/validation/${routes.reviewAppealRoute.path}/${request.session.appealData.AppealId}`;
+	const appealData = request.session.appealData;
 
-	const {
-		body: { errors = {}, errorSummary = [] }
-	} = request;
-
-	if (Object.keys(errors).length > 0) {
-		return response.render('validation/appeal-details', {
-			errors,
-			errorSummary,
-			appealId,
-			appealData
-		});
-	}
-
-	return response.render('validation/incomplete-appeal-outcome', {
-		appealId
+	return response.render(routes.incompleteAppealOutcome.view, {
+		backURL,
+		changeOutcomeURL: backURL,
+		appealData
 	});
 }
 
@@ -223,64 +223,66 @@ export function getIncompleteAppealOutcome(request, response) {
  * @returns {void}
  */
 export function postIncompleteAppealOutcome(request, response) {
+	const backURL = `/validation/${routes.reviewAppealRoute.path}/${request.session.appealData?.AppealId}?direction=back`;
+	const appealData = request.session.appealData;
+
 	const {
-		body: {
-			errors = {},
-			errorSummary = [],
-			incompleteReason = [],
-			otherReason = ''
-		},
+		body: { errors = {}, errorSummary = [], incompleteReasons = [], otherReason = '', missingOrWrongDocumentsReasons = [] }
 	} = request;
-
-	let {
-		body: {
-			missingOrWrongDocumentsReason = []
-		},
-	} = request;
-
-	if (!incompleteReason.includes('missingOrWrongDocuments')) {
-		missingOrWrongDocumentsReason = undefined;
-	}
-
-	const data = {
-		incompleteReason: checkboxDataToCheckValuesObject(incompleteReason),
-		otherReason
-	};
-
-	if (missingOrWrongDocumentsReason) {
-		data.missingOrWrongDocumentsReason = checkboxDataToCheckValuesObject(missingOrWrongDocumentsReason);
-	}
 
 	if (Object.keys(errors).length > 0) {
-		data.errors = errors;
-		data.errorSummary = errorSummary;
-
-		return response.render('validation/incomplete-appeal-outcome', data);
+		return response.render(routes.incompleteAppealOutcome.view, {
+			backURL,
+			changeOutcomeURL: backURL,
+			errors,
+			errorSummary,
+			appealData,
+			incompleteReasons: checkboxDataToCheckValuesObject(incompleteReasons),
+			otherReason,
+			missingOrWrongDocumentsReasons: incompleteReasons.includes('missingOrWrongDocuments')
+				? checkboxDataToCheckValuesObject(missingOrWrongDocumentsReasons): undefined
+		});
 	}
 
-	const outcomeData = { incompleteReason };
+	(request.session.appealWork ??= {}).incompleteAppealDetails = {
+		incompleteReasons,
+		otherReason,
+		missingOrWrongDocumentsReasons,
+	};
 
-	if (missingOrWrongDocumentsReason) outcomeData.missingOrWrongDocumentsReason = missingOrWrongDocumentsReason;
-	if (otherReason) outcomeData.otherReason = otherReason;
-
-	// eslint-disable-next-line unicorn/consistent-destructuring
-	request.session.data = { outcomeData };
-
-	return response.redirect('/validation/check-and-confirm');
+	return response.redirect(routes.checkAndConfirm.path);
 }
 
 /**
- * GET the check and confirm page.
+ * GET the check and confirm page used by all appeal outcomes journeys.
  *
- * @param {object} request - Express request object
- * @param {object} response - Express request object
+ * @param {import('express').Request} request - Express request object
+ * @param {import('express').Response} response - Express request object
  * @returns {void}
  */
 export function getCheckAndConfirm(request, response) {
-	const backURL = `/todo`;
+	const backURL = `/validation/${routes.reviewAppealRoute.path}/${request.session.appealData?.AppealId}?direction=back`;
+	const appealData = request.session.appealData;
+	const appealWork = request.session.appealWork;
 
 	response.render(routes.checkAndConfirm.view, {
 		backURL,
-		changeOutcomeURL: backURL
+		changeOutcomeURL: backURL,
+		appealData,
+		appealWork,
+		validationLabelsMap,
+		validationAppealOutcomeLabels: validationAppealOutcomeLabelsMap[appealWork.reviewOutcome]
 	});
+}
+
+/**
+ * POST the check and confirm page used by all appeal outcomes journeys.
+ *
+ * @param {import('express').Request} request - Express request object
+ * @param {import('express').Response} response - Express request object
+ * @returns {void}
+ */
+export function postCheckAndConfirm(request, response) {
+	// TODO: Build the summary page
+	response.redirect('/validation');
 }

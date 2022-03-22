@@ -35,7 +35,7 @@ router.route(`/${routes.validAppealOutcome.path}`)
 router.route(`/${routes.invalidAppealOutcome.path}`).get(appealDataGuard, getInvalidAppealOutcome);
 
 // Incomplete appeal outcome
-router.route(`/${routes.incompleteAppealOutcome.path}/:appealId`)
+router.route(`/${routes.incompleteAppealOutcome.path}`)
 	.get(appealDataGuard, getIncompleteAppealOutcome)
 	.post(appealDataGuard, validateOutcomeIncompletePipe(), expressValidationErrorsInterceptor, postIncompleteAppealOutcome);
 

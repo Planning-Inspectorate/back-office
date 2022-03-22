@@ -1,28 +1,13 @@
 {% extends "validation/_layout-validation.njk" %}
 
-{% from "govuk/components/header/macro.njk" import govukHeader %}
 {% from "govuk/components/back-link/macro.njk" import govukBackLink %}
 {% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
 {% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
 {% from "govuk/components/button/macro.njk" import govukButton %}
 {% from "govuk/components/input/macro.njk" import govukInput %}
 
-{% block header %}
-  {{ govukHeader({
-	homepageUrl: "https://www.gov.uk/",
-	serviceName: "Appeal a planning decision",
-	serviceUrl: "/validation",
-	containerClasses: "govuk-width-container"
-  }) }}
-{% endblock %}
-
-{%- set appealReviewPageHref = "/validation/review-appeal/" + appealId if appealId else "/validation" -%}
-
 {% block beforeContent %}
-  {{ govukBackLink({
-	text: "Back",
-	href: appealReviewPageHref
-  }) }}
+  {{ govukBackLink({ text: "Back", href: backURL }) }}
 {% endblock %}
 
 {% block pageContent %}
@@ -31,7 +16,7 @@
 	</h1>
 
 	<p class="govuk-body">
-		Appeal reference: {{appealId}}
+		Appeal reference: {{ appealData.AppealReference }}
 	</p>
 
 	<form action="" method="post" novalidate>
@@ -83,7 +68,7 @@
 
 		<div class="govuk-button-group">
 			{{ govukButton({ text: text | default('Continue') }) }}
-			<a class="govuk-link" href={{appealReviewPageHref}}>Change outcome</a>
+			<a class="govuk-link" href="{{ changeOutcomeURL }}">Change outcome</a>
 		</div>
 	</form>
 {% endblock %}
