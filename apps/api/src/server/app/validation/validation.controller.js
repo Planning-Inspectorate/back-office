@@ -33,7 +33,7 @@ const updateValidation = function (request, response) {
 const appealValidated = async function (request, response) {
 	const appeal = await getAppealForValidation(request.params.id);
 	const machineAction = mapAppealStatusToStateMachineAction(request.body.AppealStatus);
-	const nextState = household_appeal_machine.transition(appeal.state, machineAction);
+	const nextState = household_appeal_machine.transition(appeal.status, machineAction);
 	await appealRepository.updateStatusById(appeal.id, nextState.value);
 	return response.send();
 };
