@@ -79,6 +79,13 @@
           }
         }
       }
+    },
+    "/case-officer/{id}/confirm": {
+      "post": {
+        "description": "",
+        "parameters": [],
+        "responses": {}
+      }
     }
   }
 }
