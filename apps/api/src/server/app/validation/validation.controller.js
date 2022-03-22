@@ -32,41 +32,34 @@ const updateValidation = function (request, response) {
 	return response.send();
 };
 
-const invalidWithoutReasons =  function (request, response) {
-
-	if ((request.body.AppealStatus == 'invalid' &&
-	request.body.Reason.NamesDoNotMatch == false &&
-	request.body.Reason.Sensitiveinfo == false &&
-	request.body.Reason.MissingOrWrongDocs == false &&
-	request.body.Reason.InflamatoryComments == false &&
-	request.body.Reason.OpenedInError == false &&
-	request.body.Reason.WrongAppealType == false &&
-	request.body.Reason.OtherReasons == ''
+const invalidWithoutReasons =  function (request ) {
+	return (request.body.AppealStatus == 'invalid' &&
+	request.body.Reason.NamesDoNotMatch !== true &&
+	request.body.Reason.Sensitiveinfo !== true &&
+	request.body.Reason.MissingOrWrongDocs !== true &&
+	request.body.Reason.InflamatoryComments !== true &&
+	request.body.Reason.OpenedInError !== true &&
+	request.body.Reason.WrongAppealType !== true &&
+	(request.body.Reason.OtherReasons == '' || request.body.Reason.OtherReasons == undefined)
 	) || (request.body.AppealStatus == 'incomplete' &&
-	request.body.Reason.OutOfTime == false &&
-	request.body.Reason.NoRightOfappeal == false &&
-	request.body.Reason.NotAppealable == false &&
-	request.body.Reason.LPADeemedInvalid == false &&
-	request.body.Reason.OtherReasons == ''
-	))
-	{
-		return true;
-	} else {
-		return false;
-	}
+	request.body.Reason.OutOfTime !== true &&
+	request.body.Reason.NoRightOfappeal !== true &&
+	request.body.Reason.NotAppealable !== true &&
+	request.body.Reason.LPADeemedInvalid !== true &&
+	(request.body.Reason.OtherReasons == '' || request.body.Reason.OtherReasons == undefined)
+	);
 };
 
 const appealValidated = async function (request, response) {
-	console.log('HERE' + request.body.message);
-	if (invalidWithoutReasons(request, response) == true) {
-		throw new ValidationError('Invalid Appeal require a reason', 400);
-	} else {
-		const appeal = await getAppealForValidation(request.params.id);
-		const machineAction = mapAppealStatusToStateMachineAction(request.body.AppealStatus);
-		const nextState = household_appeal_machine.transition(appeal.state, machineAction);
-		await appealRepository.updateStatusById(appeal.id, nextState.value);
-		return response.send();
+	if (invalidWithoutReasons(request)) {
+		throw new ValidationError('Invalid or Incomplete Appeal require a reason', 400);
 	}
+	const appeal = await getAppealForValidation(request.params.id);
+	const machineAction = mapAppealStatusToStateMachineAction(request.body.AppealStatus);
+	const nextState = household_appeal_machine.transition(appeal.state, machineAction);
+	await appealRepository.updateStatusById(appeal.id, nextState.value);
+	return response.send();
+
 
 };
 

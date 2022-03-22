@@ -141,6 +141,15 @@ test('should not be able to submit decision as \'invalid\' if there is no reason
 	t.is(resp.status, 400);
 });
 
+test('should not be able to submit decision as \'invalid\' if there is no reason being sent', async (t) => {
+	const resp = await request.post('/validation/5')
+		.send({
+			AppealStatus:'invalid',
+			Reason:{} });
+	t.is(resp.status, 400);
+});
+
+
 test('should not be able to submit decision as \'incomplete\' if there is no reason marked', async (t) => {
 	const resp = await request.post('/validation/6')
 		.send({
@@ -157,4 +166,10 @@ test('should not be able to submit decision as \'incomplete\' if there is no rea
 
 });
 
-
+test('should not be able to submit decision as \'incomplete\' if there is no reason being sent', async (t) => {
+	const resp = await request.post('/validation/5')
+		.send({
+			AppealStatus:'incomplete',
+			Reason:{} });
+	t.is(resp.status, 400);
+});
