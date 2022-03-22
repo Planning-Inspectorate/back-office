@@ -60,12 +60,7 @@ export const validateOutcomeIncompletePipe = () => [
 		.withMessage('Please select which documents are missing or wrong')
 		.bail()
 		.toArray()
-		.isIn([
-			'applicationForm',
-			'decisionNotice',
-			'groundsOfAppeal',
-			'supportingDocuments'
-		])
+		.isIn(['applicationForm', 'decisionNotice', 'groundsOfAppeal', 'supportingDocuments'])
 		.withMessage('Please select which documents are missing or wrong'),
 	body('otherReason')
 		.if(body('incompleteReasons').toArray().custom((value) => value.includes('other')))
@@ -75,3 +70,46 @@ export const validateOutcomeIncompletePipe = () => [
 		.isLength({ min: 1, max: 500 })
 		.withMessage('Word count exceeded')
 ];
+
+/**
+ * Validate the outcome incomplete form to ensure it has at least 1 answer.
+ *
+ * @returns {void}
+ */
+export const validateOutcomeInvalidReason = () => [
+	body('invalidReasons')
+		.notEmpty()
+		.withMessage('Please select a reason why the appeal is invalid')
+		.bail()
+		.isIn([
+			'outOfTime',
+			'notApplicable',
+			'noRightOfAppeal',
+			'lpaInvalid',
+			'other'
+		])
+		.withMessage('Please enter a reason why the appeal is invalid'),
+	body('otherReason')
+		.if(body('invalidReasons').custom(makeValidator_StringMatchesOrArrayContainsMatch('other')))
+		.notEmpty()
+		.withMessage('Please provide a reason for the invalid outcome')
+		.bail()
+		.isLength({ min: 1, max: 500 })
+		.withMessage('Word count exceeded')
+];
+
+/**
+ * Validate the check and confirm step.
+ *
+ * @returns {void}
+ */
+export const validateCheckAndConfirmPipe = () =>
+	body('check-and-confirm-completed').custom((value, { req }) => {
+		const { appealWork = {} } = req.session;
+
+		if (appealWork.reviewOutcome === 'incomplete' && value !== 'true') {
+			throw new Error('Confirm if you have completed all follow-up tasks and emails');
+		}
+
+		return true;
+	});

@@ -23,6 +23,10 @@ export const validationRoutesConfig = {
 	checkAndConfirm: {
 		path: 'check-and-confirm',
 		view: 'validation/check-and-confirm'
+	},
+	reviewAppealComplete: {
+		path: 'review-appeal-complete',
+		view: 'validation/review-appeal-complete'
 	}
 };
 

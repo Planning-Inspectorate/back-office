@@ -1,0 +1,14 @@
+{% extends "validation/_layout-validation.njk" %}
+
+{% from "govuk/components/panel/macro.njk" import govukPanel %}
+
+{% block pageContent %}
+	{{ super() }}
+
+	<div class="govuk-!-margin-bottom-7" >
+		{{ govukPanel({
+			titleText: 'zzzzzz',
+			html: 'zzzzz'
+		}) }}
+	</div>
+{% endblock %}

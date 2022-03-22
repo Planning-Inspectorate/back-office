@@ -6,10 +6,11 @@
 {% from "govuk/components/button/macro.njk" import govukButton %}
 
 {# Macro use to generate a list of documents #}
-{% macro documentsList(data)  %}
+{% macro supportingDocumentsList(supportingDocuments)  %}
 <ul class="govuk-list">
-	<li><a href="#" class="govuk-link" target="_blank">other-documents-1.pdf</a></li>
-	<li><a href="#" class="govuk-link" target="_blank">other-documents-2.pdf</a></li>
+	{% for doc in supportingDocuments %}
+	<li><a href="{{ doc.url }}" class="govuk-link" target="_blank">{{ doc.filename }}</a></li>
+	{% endfor %}
 </ul>
 {% endmacro %}
 
@@ -83,8 +84,8 @@
 	{# TODO: The document links if they are using the same path we might want to build a component that returns the A tag for them #}
 	{{ govukSummaryList({
 		rows: [
-			{ key: { text: "Planning application form" }, value: { html: '<a href="#">planning-application.pdf</a>' } },
-			{ key: { text: "Decision letter" }, value: { html: '<a href="#">decision-letter.pdf</a>' } }
+			{ key: { text: "Planning application form" }, value: { html: '<a href="'+appealData.PlanningApplicationForm.url+'">'+appealData.PlanningApplicationForm.filename+'</a>' } },
+			{ key: { text: "Decision letter" }, value: { html: '<a href="'+appealData.DecisionLetter.url+'">'+appealData.DecisionLetter.filename+'</a>' } }
 		]
 	}) }}
 
@@ -94,8 +95,8 @@
 
 	{{ govukSummaryList({
 		rows: [
-			{ key: { text: "Appeal statement" }, value: { html: '<a href="#">planning-application.pdf</a>' } },
-			{ key: { text: "Supporting documents" }, value: { html: documentsList(data) } }
+			{ key: { text: "Appeal statement" }, value: { html: '<a href="'+appealData.AppealStatement.url+'">'+appealData.AppealStatement.filename+'</a>' } },
+			{ key: { text: "Supporting documents" }, value: { html: supportingDocumentsList(appealData.SupportingDocuments) } }
 		]
 	}) }}
 
