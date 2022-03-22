@@ -31,4 +31,8 @@ const getAppealsDetail = function (request, response) {
 	response.send(appealWithQuestionnnaireDetail);
 };
 
-export { getAppeals, getAppealsDetail };
+const confirmingLPAQuestionnaire = function (request, response) {
+	response.send();
+};
+
+export { getAppeals, getAppealsDetail, confirmingLPAQuestionnaire };
