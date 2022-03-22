@@ -44,7 +44,6 @@ const invalidWithoutReasons =  function (body ) {
 	);
 };
 
-
 const incompleteWithoutReasons =  function (body ) {
 	return (body.AppealStatus == 'incomplete' &&
 	body.Reason.OutOfTime !== true &&
@@ -67,8 +66,6 @@ const appealValidated = async function (request, response) {
 	const nextState = household_appeal_machine.transition(appeal.state, machineAction);
 	await appealRepository.updateStatusById(appeal.id, nextState.value);
 	return response.send();
-
-
 };
 
 /**
