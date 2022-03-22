@@ -12,7 +12,7 @@ model Appeal {
   reference                    String
   address                      Address  @relation(fields: [addressId], references: [id])
   addressId                    Int
-  status                       String   @default("submitted")
+  status                       String   @default("received_appeal")
   appellantName                String
   localPlanningDepartment      String
   planningApplicationReference String

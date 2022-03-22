@@ -1,0 +1,93 @@
+{% extends "validation/_layout-validation.njk" %}
+
+{% from "govuk/components/back-link/macro.njk" import govukBackLink %}
+{% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
+{% from "govuk/components/warning-text/macro.njk" import govukWarningText %}
+
+{% macro renderCheckAndConfirmReason() %}
+    {% if appealWork.reviewOutcome === 'valid' %}
+      {{ appealWork.descriptionOfDevelopment }}
+    {% else %}
+      <ul class="govuk-list">
+        {% if appealWork.reviewOutcome === 'invalid' %}
+			{% for item in invalidAppealDetails.reasons %}
+				<li>{{ validationLabelsMap.invalidAppealReasons.invalidAppealReasons[item] + (' - ' + invalidAppealDetails.otherReason if item === '5') }}</li>
+			{% endfor %}
+        {% elif appealWork.reviewOutcome === 'incomplete' %}
+			{% for item in incompleteReasons %}
+				{% if item === 'missingOrWrongDocuments' %}
+					<li>
+						{{ validationLabelsMap.incompleteAppealReasons[item] }}
+						<ul class="govuk-list govuk-list--bullet">
+							{% for documentReason in appealWork.incompleteAppealDetails.missingOrWrongDocumentsReasons %}
+								<li>{{ validationLabelsMap.incompleteAppealMissingOrWrongDocumentsReasons[documentReason] }}</li>
+							{% endfor %}
+						</ul>
+					</li>
+				{% else %}
+					<li>{{ validationLabelsMap.incompleteAppealReasons[item] + (' - ' + appealWork.incompleteAppealDetails.otherReason if item === 'other') }}</li>
+				{% endif %}
+			{% endfor %}
+        {% endif %}
+      </ul>
+    {% endif %}
+{% endmacro %}
+
+{% block beforeContent %}
+  {{ govukBackLink({ text: "Back", href: backURL }) }}
+{% endblock %}
+
+{% block pageContent %}
+	{{ super() }}
+
+	<h1 class="govuk-heading-xl">
+		Check and confirm
+	</h1>
+
+	<form action="" method="post" novalidate>
+		{{ govukSummaryList({
+			rows: [
+				{ key: { text: "Outcome of review" }, value: { text: validationAppealOutcomeLabels.label } },
+				{ key: { text: "Appellant name" }, value: { text: appealData.AppellantName } },
+				{ key: { text: "Appeal reference" }, value: { text: appealData.AppealReference } },
+				{ key: { text: "Appeal site" }, value: { text: appealData.AppealSite } },
+				{ key: { text: validationAppealOutcomeLabels.reasonLabel }, value: { html: renderCheckAndConfirmReason() } }
+			]
+		}) }}
+
+		{% if appealWork.reviewOutcome === 'valid' %}
+			{{ govukWarningText({
+				iconFallbackText: "Warning",
+				text: "Confirming this appeal as valid starts the appeal and sends the LPA questionnaire email."
+			}) }}
+		{% elif appealWork.reviewOutcome === 'invalid' %}
+			{# {{ govukWarningText({
+			iconFallbackText: "Warning",
+			text: "Confirming this appeal as invalid turns away the appeal and emails the appellant and LPA."
+			}) }} #}
+		{% elif appealWork.reviewOutcome === 'incomplete' %}
+			{{ govukCheckboxes({
+				idPrefix: "check-and-confirm-completed",
+				name: "check-and-confirm-completed",
+				classes: "govuk-checkboxes--small",
+				errorMessage: completedError and {
+					text: completedError
+				},
+				items: [
+					{
+						value: "true",
+						text: "I have completed all follow-up tasks and emails",
+						checked: completed === 'true'
+					}
+				]
+			}) }}
+		{% endif %}
+
+		<div class="govuk-button-group">
+			{{ govukButton({ text: validationAppealOutcomeLabels.continueButtonLabel | default('Confrim appeal outcome') }) }}
+			<a class="govuk-link" href="{{ changeOutcomeURL }}">Change outcome</a>
+		</div>
+	</form>
+{% endblock %}

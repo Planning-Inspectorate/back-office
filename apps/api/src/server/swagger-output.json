@@ -31,6 +31,30 @@
       "get": {
         "description": "",
         "parameters": [],
+        "responses": {}
+      }
+    },
+    "/validation/{id}": {
+      "get": {
+        "description": "",
+        "parameters": [],
+        "responses": {}
+      },
+      "patch": {
+        "description": "",
+        "parameters": [],
+        "responses": {}
+      },
+      "post": {
+        "description": "",
+        "parameters": [],
+        "responses": {}
+      }
+    },
+    "/case-officer/": {
+      "get": {
+        "description": "",
+        "parameters": [],
         "responses": {
           "200": {
             "description": "OK"
@@ -38,7 +62,7 @@
         }
       }
     },
-    "/validation/{id}": {
+    "/case-officer/{id}": {
       "get": {
         "description": "",
         "parameters": [
@@ -54,41 +78,13 @@
             "description": "OK"
           }
         }
-      },
-      "patch": {
-        "description": "",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "400": {
-            "description": "Bad Request"
-          }
-        }
-      },
+      }
+    },
+    "/case-officer/{id}/confirm": {
       "post": {
         "description": "",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
+        "parameters": [],
+        "responses": {}
       }
     }
   }

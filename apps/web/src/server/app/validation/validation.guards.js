@@ -8,7 +8,7 @@
  * @returns {void}
  */
 export function appealDataGuard(request, response, next) {
-	if (!request.session.data?.appealData) {
+	if (!request.session.appealData) {
 		return response.redirect('/validation');
 	}
 

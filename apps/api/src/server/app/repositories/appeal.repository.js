@@ -27,6 +27,12 @@ const appealRepository = (function() {
 					id: id
 				}
 			});
+		},
+		updateStatusById: function(id, status) {
+			return getPool().appeal.update({
+				where: { id: id },
+				data: { status: status }
+			});
 		}
 	};
 })();
