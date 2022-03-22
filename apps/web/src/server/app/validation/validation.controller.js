@@ -8,8 +8,8 @@ import { validationLabelsMap, validationAppealOutcomeLabelsMap } from './validat
  * GET the main dashboard.
  * It will fetch the appeals list (new, incomplete) and will render all.
  *
- * @param {object} request - Express request object
- * @param {object} response - Express request object
+ * @param {import('express').Request} request - Express request object
+ * @param {import('express').Response} response - Express request object
  * @param {Function} next  - Express function that calls then next middleware in the stack
  * @returns {void}
  */
@@ -182,12 +182,12 @@ export function postValidAppealDetails(request, response) {
 /**
  * GET the invalid appeal outcome next page journey.
  *
- * @param {object} request - Express request object
- * @param {object} response - Express request object
+ * @param {import('express').Request} request - Express request object
+ * @param {import('express').Response} response - Express request object
  * @returns {void}
  */
 export function getInvalidAppealOutcome(request, response) {
-	const backURL = `/validation/${routes.reviewAppealRoute.path}/${request.session.appealData.AppealId}`;
+	const backURL = `/validation/${routes.reviewAppealRoute.path}/${request.session.appealData?.AppealId}?direction=back`;
 
 	response.render(routes.invalidAppealOutcome.view, {
 		backURL,
@@ -198,12 +198,12 @@ export function getInvalidAppealOutcome(request, response) {
 /**
  * GET the incomplete appeal outcome next page journey.
  *
- * @param {object} request - Express request object
- * @param {object} response - Express request object
+ * @param {import('express').Request} request - Express request object
+ * @param {import('express').Response} response - Express request object
  * @returns {void}
  */
 export function getIncompleteAppealOutcome(request, response) {
-	const backURL = `/validation/${routes.reviewAppealRoute.path}/${request.session.appealData.AppealId}`;
+	const backURL = `/validation/${routes.reviewAppealRoute.path}/${request.session.appealData?.AppealId}?direction=back`;
 	const appealData = request.session.appealData;
 
 	const { incompleteReasons = [], missingOrWrongDocumentsReasons = [], otherReason = '' } = request.session.appealWork?.incompleteAppealDetails ?
