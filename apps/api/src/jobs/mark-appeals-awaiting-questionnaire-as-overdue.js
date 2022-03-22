@@ -34,9 +34,11 @@ async function markAppealsAsOverdue(appeals) {
 /**
  * Marks all appeals in the 'awaiting_lpa_questionnaire' state over 2 weeks with status 'overdue_lpa_questionnaire'
  */
-async function main() {
+async function findAndUpdateStatusForAppealsWithOverdueQuestionnaires() {
 	const appeals = await getAppealsWithOverdueQuestionnaires();
 	await markAppealsAsOverdue(appeals);
 }
 
-await main();
+await findAndUpdateStatusForAppealsWithOverdueQuestionnaires();
+
+export default findAndUpdateStatusForAppealsWithOverdueQuestionnaires;
