@@ -1,3 +1,5 @@
+/* eslint-disable complexity */
+/* eslint-disable unicorn/prefer-ternary */
 import { validationResult } from 'express-validator';
 import appealRepository from '../repositories/appeal.repository.js';
 import ValidationError from './validation-error.js';
@@ -6,7 +8,7 @@ import { validation_states_strings, validation_actions_strings } from '../state-
 import appealFormatter from './appeal-formatter.js';
 
 const validationStatuses = [
-	validation_states_strings.received_appeal, 
+	validation_states_strings.received_appeal,
 	validation_states_strings.awaiting_validation_info
 ];
 
@@ -30,12 +32,42 @@ const updateValidation = function (request, response) {
 	return response.send();
 };
 
+const invalidWithoutReasons =  function (request, response) {
+
+	if ((request.body.AppealStatus == 'invalid' &&
+	request.body.Reason.NamesDoNotMatch == false &&
+	request.body.Reason.Sensitiveinfo == false &&
+	request.body.Reason.MissingOrWrongDocs == false &&
+	request.body.Reason.InflamatoryComments == false &&
+	request.body.Reason.OpenedInError == false &&
+	request.body.Reason.WrongAppealType == false &&
+	request.body.Reason.OtherReasons == ''
+	) || (request.body.AppealStatus == 'incomplete' &&
+	request.body.Reason.OutOfTime == false &&
+	request.body.Reason.NoRightOfappeal == false &&
+	request.body.Reason.NotAppealable == false &&
+	request.body.Reason.LPADeemedInvalid == false &&
+	request.body.Reason.OtherReasons == ''
+	))
+	{
+		return true;
+	} else {
+		return false;
+	}
+};
+
 const appealValidated = async function (request, response) {
-	const appeal = await getAppealForValidation(request.params.id);
-	const machineAction = mapAppealStatusToStateMachineAction(request.body.AppealStatus);
-	const nextState = household_appeal_machine.transition(appeal.state, machineAction);
-	await appealRepository.updateStatusById(appeal.id, nextState.value);
-	return response.send();
+	console.log('HERE' + request.body.message);
+	if (invalidWithoutReasons(request, response) == true) {
+		throw new ValidationError('Invalid Appeal require a reason', 400);
+	} else {
+		const appeal = await getAppealForValidation(request.params.id);
+		const machineAction = mapAppealStatusToStateMachineAction(request.body.AppealStatus);
+		const nextState = household_appeal_machine.transition(appeal.state, machineAction);
+		await appealRepository.updateStatusById(appeal.id, nextState.value);
+		return response.send();
+	}
+
 };
 
 /**
@@ -63,7 +95,7 @@ async function getAppealForValidation(appealId) {
 	const appeal = await appealRepository.getById(Number.parseInt(appealId, 10));
 	if (!validationStatuses.includes(appeal.status)) {
 		throw new ValidationError('Appeal does not require validation', 400);
-	}	
+	}
 	return appeal;
 }
 

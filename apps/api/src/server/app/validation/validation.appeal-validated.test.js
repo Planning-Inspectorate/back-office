@@ -69,6 +69,8 @@ test.before('sets up mocking of database', () => {
 	sinon.stub(DatabaseFactory, 'getInstance').callsFake((arguments_) => new MockDatabaseClass(arguments_));
 });
 
+
+
 test('should be able to submit \'valid\' decision', async (t) => {
 	const resp = await request.post('/validation/1')
 		.send({ AppealStatus: 'valid' });
@@ -76,9 +78,19 @@ test('should be able to submit \'valid\' decision', async (t) => {
 	sinon.assert.calledWithExactly(updateStub, { where: { id: 1 }, data: { status: 'with_case_officer' } });
 });
 
+
 test('should be able to submit \'invalid\' decision', async(t) => {
 	const resp = await request.post('/validation/1')
-		.send({ AppealStatus: 'invalid' });
+		.send({ AppealStatus: 'invalid',
+			Reason: {
+				NamesDoNotMatch: true,
+				Sensitiveinfo: false,
+				MissingOrWrongDocs: false,
+				InflamatoryComments: false,
+				OpenedInError: false,
+				WrongAppealType: false,
+				OtherReasons: '' }
+		});
 	t.is(resp.status, 200);
 	// TODO: calledOneWithExactly throws error
 	sinon.assert.calledWithExactly(updateStub, { where: { id: 1 }, data: { status: 'invalid_appeal' } });
@@ -112,3 +124,37 @@ test('should not be able to submit validation decision for appeal that has been 
 	t.is(resp.status, 400);
 	t.deepEqual(resp.body, { error: 'Appeal does not require validation' } );
 });
+
+test('should not be able to submit decision as \'invalid\' if there is no reason marked', async (t) => {
+	const resp = await request.post('/validation/5')
+		.send({
+			AppealStatus:'invalid',
+			Reason: {
+				NamesDoNotMatch: false,
+				Sensitiveinfo: false,
+				MissingOrWrongDocs: false,
+				InflamatoryComments: false,
+				OpenedInError: false,
+				WrongAppealType: false,
+				OtherReasons: '' }
+		});
+	t.is(resp.status, 400);
+});
+
+test('should not be able to submit decision as \'incomplete\' if there is no reason marked', async (t) => {
+	const resp = await request.post('/validation/6')
+		.send({
+			AppealStatus:'incomplete',
+			Reason: {
+				OutOfTime: false,
+				NoRightOfappeal: false,
+				NotAppealable: false,
+				LPADeemedInvalid: false,
+				OtherReasons: ''
+			}
+		});
+	t.is(resp.status, 400);
+
+});
+
+
