@@ -9,7 +9,8 @@ import {
 	postValidAppealDetails,
 	getInvalidAppealOutcome,
 	getIncompleteAppealOutcome,
-	getCheckAndConfirm
+	getCheckAndConfirm,
+	postCheckAndConfirm
 } from './validation.controller.js';
 import { validateOutcomePipe, validateValidAppealDetails } from './validation.pipes.js';
 import { appealDataGuard } from './validation.guards.js';
@@ -37,5 +38,8 @@ router.route(`/${routes.invalidAppealOutcome.path}`).get(appealDataGuard, getInv
 router.route(`/${routes.incompleteAppealOutcome.path}`).get(appealDataGuard, getIncompleteAppealOutcome);
 
 // Check and confirm appeal outcome details
-router.route(`/${routes.checkAndConfirm.path}`).get(appealDataGuard, getCheckAndConfirm);
+router.route(`/${routes.checkAndConfirm.path}`)
+	.get(appealDataGuard, getCheckAndConfirm)
+	.post(appealDataGuard, postCheckAndConfirm);
+
 export default router;
