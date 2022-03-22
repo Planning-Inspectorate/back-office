@@ -70,6 +70,7 @@ export const validateOutcomeIncompletePipe = () => [
 		.if(body('incompleteReasons').custom(makeValidator_StringMatchesOrArrayContainsMatch('other')))
 		.notEmpty()
 		.withMessage('Please provide a reason for the incomplete outcome')
+		.bail()
 		.isLength({ min: 1, max: 500 })
 		.withMessage('Word count exceeded')
 ];

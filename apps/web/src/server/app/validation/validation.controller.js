@@ -205,10 +205,9 @@ export function getInvalidAppealOutcome(request, response) {
 export function getIncompleteAppealOutcome(request, response) {
 	const backURL = `/validation/${routes.reviewAppealRoute.path}/${request.session.appealData.AppealId}`;
 	const appealData = request.session.appealData;
-	console.log( request.session);
 
-	// TODO: FOR James to figure it out. Point is if we have it in session, put it back.
-	// const { incompleteReasons=[], otherReason='', missingOrWrongDocumentsReasons=[] } = request.session.appealWork?.incompleteAppealDetails;
+	const { incompleteReasons = [], missingOrWrongDocumentsReasons = [], otherReason = '' } = request.session.appealWork?.incompleteAppealDetails ?
+		request.session.appealWork.incompleteAppealDetails : {};
 
 	return response.render(routes.incompleteAppealOutcome.view, {
 		backURL,
@@ -273,11 +272,21 @@ export function getCheckAndConfirm(request, response) {
 	const appealData = request.session.appealData;
 	const appealWork = request.session.appealWork;
 
+	let incompleteReasons;
+	if (appealWork.incompleteAppealDetails) {
+		if (Array.isArray(appealWork.incompleteAppealDetails.incompleteReasons)) {
+			incompleteReasons = [...appealWork.incompleteAppealDetails.incompleteReasons];
+		} else if (typeof appealWork.incompleteAppealDetails.incompleteReasons === 'string') {
+			incompleteReasons = [appealWork.incompleteAppealDetails.incompleteReasons];
+		}
+	}
+
 	response.render(routes.checkAndConfirm.view, {
 		backURL,
 		changeOutcomeURL: backURL,
 		appealData,
 		appealWork,
+		incompleteReasons,
 		validationLabelsMap,
 		validationAppealOutcomeLabels: validationAppealOutcomeLabelsMap[appealWork.reviewOutcome]
 	});

@@ -8,20 +8,20 @@ export const validationLabelsMap = {
 		4: 'LPA deemed application as invalid',
 		5: 'Other'
 	},
-	incompleteAppealMssingOrWrongReasons: {
-		1: 'Names do not match',
-		2: 'Sensitive information included',
-		3: 'Missing or wrong documents',
-		4: 'Inflammatory comments made',
-		5: 'Opened in error',
-		6: 'Wrong appeal type used',
-		7: 'Other'
+	incompleteAppealReasons: {
+		namesDoNotMatch: 'Names do not match',
+		sensitiveInformationIncluded: 'Sensitive information included',
+		missingOrWrongDocuments: 'Missing or wrong documents',
+		inflammatoryCommentsMade: 'Inflammatory comments made',
+		openedInError: 'Opened in error',
+		wrongAppealTypeUsed: 'Wrong appeal type used',
+		other: 'Other'
 	},
-	incompleteAppealMssingOrWrongDocuments: {
-		1: 'Application form',
-		2: 'Decision notice',
-		3: 'Grounds of appeal',
-		4: 'Supporting documents'
+	incompleteAppealMissingOrWrongDocumentsReasons: {
+		applicationForm: 'Application form',
+		decisionNotice: 'Decision notice',
+		groundsOfAppeal: 'Grounds of appeal',
+		supportingDocuments: 'Supporting documents'
 	}
 };
 
