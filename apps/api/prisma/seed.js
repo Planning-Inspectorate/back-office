@@ -10,6 +10,7 @@ const prisma = new PrismaClient();
 function getDateTwoWeeksAgo() {
 	const date = new Date();
 	date.setDate(date.getDate() - 14);
+	date.setHours(23);
 	return date;
 }
 

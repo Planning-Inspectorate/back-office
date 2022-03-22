@@ -7,6 +7,10 @@ import household_appeal_machine from '../server/app/state-machine/household-appe
 function getDateTwoWeeksAgo() {
 	const date = new Date();
 	date.setDate(date.getDate() - 14);
+	date.setHours(23);
+	date.setMinutes(59);
+	date.setSeconds(59);
+	date.setMilliseconds(999);
 	return date;
 }
 
