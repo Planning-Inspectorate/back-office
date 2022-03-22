@@ -1,7 +1,10 @@
 {% extends "validation/_layout-validation.njk" %}
 
 {% from "govuk/components/back-link/macro.njk" import govukBackLink %}
+{% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
+{% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
 {% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/input/macro.njk" import govukInput %}
 
 {% block beforeContent %}
   {{ govukBackLink({ text: "Back", href: backURL }) }}
@@ -11,11 +14,59 @@
 	{{ super() }}
 
 	<h1 class="govuk-heading-xl">
-		Hello World!
+		What is missing or wrong?
 	</h1>
 
+	<p class="govuk-body">
+		Appeal reference: {{ appealData.AppealReference }}
+	</p>
+
 	<form action="" method="post" novalidate>
-		{# Form elements go here #}
+		{{ govukCheckboxes({
+			idPrefix: "incompleteReasons",
+			name: "incompleteReasons",
+			errorMessage: errors['incompleteReasons'] and { text: errors['incompleteReasons'].msg },
+			items: [
+				{ value: 'namesDoNotMatch', text: "Names do not match", checked: incompleteReasons['namesDoNotMatch'] },
+				{ value: 'sensitiveInformationIncluded', text: "Sensitive information included", checked: incompleteReasons['sensitiveInformationIncluded'] },
+				{
+					value: 'missingOrWrongDocuments',
+					text: "Missing or wrong documents",
+					checked: incompleteReasons['missingOrWrongDocuments'],
+					conditional: {
+						html: govukCheckboxes({
+							idPrefix: "missingOrWrongDocumentsReasons",
+							name: "missingOrWrongDocumentsReasons",
+							errorMessage: errors['missingOrWrongDocumentsReasons'] and { text: errors['missingOrWrongDocumentsReasons'].msg },
+							items: [
+								{ value: 'applicationForm', text: "Application form", checked: missingOrWrongDocumentsReasons['applicationForm'] },
+								{ value: 'decisionNotice', text: "Decision notice", checked: missingOrWrongDocumentsReasons['decisionNotice'] },
+								{ value: 'groundsOfAppeal', text: "Grounds of appeal", checked: missingOrWrongDocumentsReasons['groundsOfAppeal'] },
+								{ value: 'supportingDocuments', text: "Supporting documents", checked: missingOrWrongDocumentsReasons['supportingDocuments'] }
+							]
+						})
+					}
+				},
+				{ value: 'inflammatoryCommentsMade', text: "Inflammatory comments made", checked: incompleteReasons['inflammatoryCommentsMade'] },
+				{ value: 'openedInError', text: "Opened in error", checked: incompleteReasons['openedInError'] },
+				{ value: 'wrongAppealTypeUsed', text: "Wrong appeal type used", checked: incompleteReasons['wrongAppealTypeUsed'] },
+				{
+					value: 'other',
+					text: "Other",
+					checked: incompleteReasons['other'],
+					conditional: {
+						html: govukInput({
+							type: 'text',
+							id: "otherReason",
+							name: "otherReason",
+							errorMessage: errors['otherReason'] and { text: errors['otherReason'].msg },
+							spellcheck: true,
+							value: otherReason
+						})
+					}
+				}
+			]
+		}) }}
 
 		<div class="govuk-button-group">
 			{{ govukButton({ text: text | default('Continue') }) }}

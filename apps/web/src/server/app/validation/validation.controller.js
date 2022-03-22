@@ -1,5 +1,6 @@
 import { to } from 'planning-inspectorate-libs';
 import { validationRoutesConfig as routes } from '../../config/routes.js';
+import { checkboxDataToCheckValuesObject } from '../../lib/helpers.js';
 import { findAllNewIncompleteAppeals, findAppealById } from './validation.service.js';
 import { validationLabelsMap, validationAppealOutcomeLabelsMap } from './validation.config.js';
 
@@ -125,7 +126,6 @@ export function postAppealOutcome(request, response) {
 	return response.redirect(nextStepPage);
 }
 
-
 /**
  * GET the valid appeal outcome next page journey.
  *
@@ -204,11 +204,60 @@ export function getInvalidAppealOutcome(request, response) {
  */
 export function getIncompleteAppealOutcome(request, response) {
 	const backURL = `/validation/${routes.reviewAppealRoute.path}/${request.session.appealData?.AppealId}?direction=back`;
+	const appealData = request.session.appealData;
 
-	response.render(routes.incompleteAppealOutcome.view, {
+	const { incompleteReasons = [], missingOrWrongDocumentsReasons = [], otherReason = '' } = request.session.appealWork?.incompleteAppealDetails ?
+		request.session.appealWork.incompleteAppealDetails : {};
+
+	return response.render(routes.incompleteAppealOutcome.view, {
 		backURL,
-		changeOutcomeURL: backURL
+		changeOutcomeURL: backURL,
+		appealData,
+		incompleteReasons: checkboxDataToCheckValuesObject(incompleteReasons),
+		otherReason,
+		missingOrWrongDocumentsReasons: incompleteReasons.includes('missingOrWrongDocuments')
+			? checkboxDataToCheckValuesObject(missingOrWrongDocumentsReasons): undefined
 	});
+}
+
+/**
+ * POST the incomplete appeal outcome page
+ * If there are errors, it will reload the incomplete appeal outcome page and display the errors
+ * If there are no errors, it will render the check and confirm page
+ *
+ * @param {object} request - Express request object
+ * @param {object} response - Express request object
+ * @returns {void}
+ */
+export function postIncompleteAppealOutcome(request, response) {
+	const backURL = `/validation/${routes.reviewAppealRoute.path}/${request.session.appealData?.AppealId}?direction=back`;
+	const appealData = request.session.appealData;
+
+	const {
+		body: { errors = {}, errorSummary = [], incompleteReasons = [], otherReason = '', missingOrWrongDocumentsReasons = [] }
+	} = request;
+
+	if (Object.keys(errors).length > 0) {
+		return response.render(routes.incompleteAppealOutcome.view, {
+			backURL,
+			changeOutcomeURL: backURL,
+			errors,
+			errorSummary,
+			appealData,
+			incompleteReasons: checkboxDataToCheckValuesObject(incompleteReasons),
+			otherReason,
+			missingOrWrongDocumentsReasons: incompleteReasons.includes('missingOrWrongDocuments')
+				? checkboxDataToCheckValuesObject(missingOrWrongDocumentsReasons): undefined
+		});
+	}
+
+	(request.session.appealWork ??= {}).incompleteAppealDetails = {
+		incompleteReasons,
+		otherReason,
+		missingOrWrongDocumentsReasons,
+	};
+
+	return response.redirect(routes.checkAndConfirm.path);
 }
 
 /**
@@ -223,11 +272,21 @@ export function getCheckAndConfirm(request, response) {
 	const appealData = request.session.appealData;
 	const appealWork = request.session.appealWork;
 
+	let incompleteReasons;
+	if (appealWork.incompleteAppealDetails) {
+		if (Array.isArray(appealWork.incompleteAppealDetails.incompleteReasons)) {
+			incompleteReasons = [...appealWork.incompleteAppealDetails.incompleteReasons];
+		} else if (typeof appealWork.incompleteAppealDetails.incompleteReasons === 'string') {
+			incompleteReasons = [appealWork.incompleteAppealDetails.incompleteReasons];
+		}
+	}
+
 	response.render(routes.checkAndConfirm.view, {
 		backURL,
 		changeOutcomeURL: backURL,
 		appealData,
 		appealWork,
+		incompleteReasons,
 		validationLabelsMap,
 		validationAppealOutcomeLabels: validationAppealOutcomeLabelsMap[appealWork.reviewOutcome]
 	});
