@@ -21,7 +21,7 @@
 					<li>
 						{{ validationLabelsMap.incompleteAppealReasons[item] }}
 						<ul class="govuk-list govuk-list--bullet">
-							{% for documentReason in appealWork.incompleteAppealDetails.missingOrWrongDocumentsReasons %}
+							{% for documentReason in missingOrWrongDocumentsReasons %}
 								<li>{{ validationLabelsMap.incompleteAppealMissingOrWrongDocumentsReasons[documentReason] }}</li>
 							{% endfor %}
 						</ul>
