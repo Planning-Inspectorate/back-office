@@ -32,27 +32,35 @@ const updateValidation = function (request, response) {
 	return response.send();
 };
 
-const invalidWithoutReasons =  function (request ) {
-	return (request.body.AppealStatus == 'invalid' &&
-	request.body.Reason.NamesDoNotMatch !== true &&
-	request.body.Reason.Sensitiveinfo !== true &&
-	request.body.Reason.MissingOrWrongDocs !== true &&
-	request.body.Reason.InflamatoryComments !== true &&
-	request.body.Reason.OpenedInError !== true &&
-	request.body.Reason.WrongAppealType !== true &&
-	(request.body.Reason.OtherReasons == '' || request.body.Reason.OtherReasons == undefined)
-	) || (request.body.AppealStatus == 'incomplete' &&
-	request.body.Reason.OutOfTime !== true &&
-	request.body.Reason.NoRightOfappeal !== true &&
-	request.body.Reason.NotAppealable !== true &&
-	request.body.Reason.LPADeemedInvalid !== true &&
-	(request.body.Reason.OtherReasons == '' || request.body.Reason.OtherReasons == undefined)
+const invalidWithoutReasons =  function (body ) {
+	return (body.AppealStatus == 'invalid' &&
+	body.Reason.NamesDoNotMatch !== true &&
+	body.Reason.Sensitiveinfo !== true &&
+	body.Reason.MissingOrWrongDocs !== true &&
+	body.Reason.InflamatoryComments !== true &&
+	body.Reason.OpenedInError !== true &&
+	body.Reason.WrongAppealType !== true &&
+	(body.Reason.OtherReasons == '' || body.Reason.OtherReasons == undefined)
+	);
+};
+
+
+const incompleteWithoutReasons =  function (body ) {
+	return (body.AppealStatus == 'incomplete' &&
+	body.Reason.OutOfTime !== true &&
+	body.Reason.NoRightOfappeal !== true &&
+	body.Reason.NotAppealable !== true &&
+	body.Reason.LPADeemedInvalid !== true &&
+	(body.Reason.OtherReasons == '' || body.Reason.OtherReasons == undefined)
 	);
 };
 
 const appealValidated = async function (request, response) {
-	if (invalidWithoutReasons(request)) {
-		throw new ValidationError('Invalid or Incomplete Appeal require a reason', 400);
+	if (invalidWithoutReasons(request.body)) {
+		throw new ValidationError('Invalid Appeal require a reason', 400);
+	}
+	if (incompleteWithoutReasons(request.body)) {
+		throw new ValidationError('Incomplete Appeal require a reason', 400);
 	}
 	const appeal = await getAppealForValidation(request.params.id);
 	const machineAction = mapAppealStatusToStateMachineAction(request.body.AppealStatus);
