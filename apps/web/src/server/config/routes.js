@@ -25,3 +25,15 @@ export const validationRoutesConfig = {
 		view: 'validation/check-and-confirm'
 	}
 };
+
+// LPA routing paths and all associated template views
+export const lpaRoutesConfig = {
+	home: {
+		path: 'lpa',
+		view: 'lpa/dashboard'
+	},
+	reviewQuestionnaireRoute: {
+		path: 'review-questionnaire',
+		view: 'lpa/review-questionnaire'
+	},
+};
