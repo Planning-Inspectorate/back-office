@@ -1,3 +1,4 @@
+// eslint-disable-next-line import/no-unresolved
 import test from 'ava';
 import supertest from 'supertest';
 import { app } from '../../app.js';
@@ -16,7 +17,7 @@ test('gets the appeals information with received questionnaires', async (t) => {
 		AppealId : 2,
 		AppealReference: 'APP/Q9999/D/21/5463281',
 		QuestionnaireDueDate: ' 05 Jun 2022',
-		AppealSite:'55 Butcher Street, Thurnscoe, S63 0RB' ,
+		AppealSite:'55 Butcher Street, Thurnscoe, S63 0RB',
 		QuestionnaireStatus: 'incomplete'
 	}];
 

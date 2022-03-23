@@ -1,6 +1,6 @@
 import { to } from 'planning-inspectorate-libs';
 import { validationRoutesConfig as routes } from '../../config/routes.js';
-import { checkboxDataToCheckValuesObject } from '../../lib/helpers.js';
+import { checkboxDataToCheckValuesObject, arrayifyIfString } from '../../lib/helpers.js';
 import { findAllNewIncompleteAppeals, findAppealById } from './validation.service.js';
 import { validationLabelsMap, validationAppealOutcomeLabelsMap } from './validation.config.js';
 
@@ -274,12 +274,13 @@ export function getCheckAndConfirm(request, response) {
 	const appealWork = request.session.appealWork;
 
 	let incompleteReasons;
-	if (appealWork.incompleteAppealDetails) {
-		if (Array.isArray(appealWork.incompleteAppealDetails.incompleteReasons)) {
-			incompleteReasons = [...appealWork.incompleteAppealDetails.incompleteReasons];
-		} else if (typeof appealWork.incompleteAppealDetails.incompleteReasons === 'string') {
-			incompleteReasons = [appealWork.incompleteAppealDetails.incompleteReasons];
-		}
+	if (appealWork.incompleteAppealDetails && appealWork.incompleteAppealDetails.incompleteReasons) {
+		incompleteReasons = arrayifyIfString(appealWork.incompleteAppealDetails.incompleteReasons);
+	}
+
+	let missingOrWrongDocumentsReasons;
+	if (appealWork.incompleteAppealDetails && appealWork.incompleteAppealDetails.missingOrWrongDocumentsReasons) {
+		missingOrWrongDocumentsReasons = arrayifyIfString(appealWork.incompleteAppealDetails.missingOrWrongDocumentsReasons);
 	}
 
 	response.render(routes.checkAndConfirm.view, {
@@ -288,6 +289,7 @@ export function getCheckAndConfirm(request, response) {
 		appealData,
 		appealWork,
 		incompleteReasons,
+		missingOrWrongDocumentsReasons,
 		validationLabelsMap,
 		validationAppealOutcomeLabels: validationAppealOutcomeLabelsMap[appealWork.reviewOutcome]
 	});

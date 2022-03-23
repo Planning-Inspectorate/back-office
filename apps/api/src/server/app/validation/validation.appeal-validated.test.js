@@ -81,19 +81,39 @@ test.before('sets up mocking of database', () => {
 	sinon.stub(DatabaseFactory, 'getInstance').callsFake((arguments_) => new MockDatabaseClass(arguments_));
 });
 
+
+
 test('should be able to submit \'valid\' decision', async (t) => {
 	const resp = await request.post('/validation/1')
 		.send({ AppealStatus: 'valid' });
 	t.is(resp.status, 200);
-	sinon.assert.calledWithExactly(updateStub, { where: { id: 1 }, data: { status: 'with_case_officer' } });
+	sinon.assert.calledWithExactly(updateStub, { where: { id: 1 }, data: { 
+		status: 'awaiting_lpa_questionnaire', 
+		statusUpdatedAt: sinon.match.any,
+		updatedAt: sinon.match.any
+	} });
 });
+
 
 test('should be able to submit \'invalid\' decision', async(t) => {
 	const resp = await request.post('/validation/1')
-		.send({ AppealStatus: 'invalid' });
+		.send({ AppealStatus: 'invalid',
+			Reason: {
+				NamesDoNotMatch: true,
+				Sensitiveinfo: false,
+				MissingOrWrongDocs: false,
+				InflamatoryComments: false,
+				OpenedInError: false,
+				WrongAppealType: false,
+				OtherReasons: '' }
+		});
 	t.is(resp.status, 200);
 	// TODO: calledOneWithExactly throws error
-	sinon.assert.calledWithExactly(updateStub, { where: { id: 1 }, data: { status: 'invalid_appeal' } });
+	sinon.assert.calledWithExactly(updateStub, { where: { id: 1 }, data: { 
+		status: 'invalid_appeal',
+		statusUpdatedAt: sinon.match.any,
+		updatedAt: sinon.match.any
+	} });
 });
 
 test('should be able to submit \'missing appeal details\' decision', async(t) => {
@@ -101,7 +121,11 @@ test('should be able to submit \'missing appeal details\' decision', async(t) =>
 		.send({ AppealStatus: 'info missing' });
 	t.is(resp.status, 200);
 	// TODO: calledOneWithExactly throws error
-	sinon.assert.calledWithExactly(updateStub, { where: { id: 1 }, data: { status: 'awaiting_validation_info' } });
+	sinon.assert.calledWithExactly(updateStub, { where: { id: 1 }, data: { 
+		status: 'awaiting_validation_info', 
+		statusUpdatedAt: sinon.match.any,
+		updatedAt: sinon.match.any
+	} });
 });
 
 test('should not be able to submit nonsensical decision decision', async(t) => {
@@ -128,11 +152,71 @@ test('should not be able to submit validation decision for appeal that has been 
 test('should be able to mark appeal with missing info as \'valid\'', async(t) => {
 	const resp = await request.post('/validation/4').send({ AppealStatus: 'valid' });
 	t.is(resp.status, 200);
-	sinon.assert.calledWithExactly(updateStub, { where: { id: 4 }, data: { status: 'with_case_officer' } });
+	sinon.assert.calledWithExactly(updateStub, { where: { id: 4 }, data: { 
+		status: 'awaiting_lpa_questionnaire', 
+		statusUpdatedAt: sinon.match.any,
+		updatedAt: sinon.match.any
+	} });
 });
 
 test('should be able to mark appeak with missing info as \'invalid\'', async(t) => {
 	const resp = await request.post('/validation/4').send({ AppealStatus: 'invalid' });
 	t.is(resp.status, 200);
-	sinon.assert.calledWithExactly(updateStub, { where: { id: 4 }, data: { status: 'invalid_appeal' } });
+	sinon.assert.calledWithExactly(updateStub, { where: { id: 4 }, data: { 
+		status: 'invalid_appeal', 
+		statusUpdatedAt: sinon.match.any,
+		updatedAt: sinon.match.any
+	} });
 });
+
+test('should not be able to submit decision as \'invalid\' if there is no reason marked', async (t) => {
+	const resp = await request.post('/validation/5')
+		.send({
+			AppealStatus:'invalid',
+			Reason: {
+				NamesDoNotMatch: false,
+				Sensitiveinfo: false,
+				MissingOrWrongDocs: false,
+				InflamatoryComments: false,
+				OpenedInError: false,
+				WrongAppealType: false,
+				OtherReasons: '' }
+		});
+	t.is(resp.status, 400);
+	t.deepEqual(resp.body, { error: 'Invalid Appeal require a reason' } );
+});
+
+test('should not be able to submit decision as \'invalid\' if there is no reason being sent', async (t) => {
+	const resp = await request.post('/validation/5')
+		.send({
+			AppealStatus:'invalid',
+			Reason:{} });
+	t.is(resp.status, 400);
+	t.deepEqual(resp.body, { error: 'Invalid Appeal require a reason' } );
+});
+
+
+test('should not be able to submit decision as \'incomplete\' if there is no reason marked', async (t) => {
+	const resp = await request.post('/validation/6')
+		.send({
+			AppealStatus:'incomplete',
+			Reason: {
+				OutOfTime: false,
+				NoRightOfappeal: false,
+				NotAppealable: false,
+				LPADeemedInvalid: false,
+				OtherReasons: ''
+			}
+		});
+	t.is(resp.status, 400);
+	t.deepEqual(resp.body, { error: 'Incomplete Appeal require a reason' } );
+});
+
+test('should not be able to submit decision as \'incomplete\' if there is no reason being sent', async (t) => {
+	const resp = await request.post('/validation/5')
+		.send({
+			AppealStatus:'incomplete',
+			Reason:{} });
+	t.is(resp.status, 400);
+	t.deepEqual(resp.body, { error: 'Incomplete Appeal require a reason' } );
+
