@@ -1,8 +1,10 @@
 import { to } from 'planning-inspectorate-libs';
 import { validationRoutesConfig as routes } from '../../config/routes.js';
-import { checkboxDataToCheckValuesObject, arrayifyIfString } from '../../lib/helpers.js';
+import { checkboxDataToCheckValuesObject } from '../../lib/helpers.js';
 import { findAllNewIncompleteAppeals, findAppealById } from './validation.service.js';
 import { validationLabelsMap, validationAppealOutcomeLabelsMap } from './validation.config.js';
+import lodash from 'lodash';
+const { flatten } = lodash;
 
 /**
  * GET the main dashboard.
@@ -274,12 +276,12 @@ export function getCheckAndConfirm(request, response) {
 
 	let incompleteReasons;
 	if (appealWork.incompleteAppealDetails && appealWork.incompleteAppealDetails.incompleteReasons) {
-		incompleteReasons = arrayifyIfString(appealWork.incompleteAppealDetails.incompleteReasons);
+		incompleteReasons = flatten([appealWork.incompleteAppealDetails.incompleteReasons]);
 	}
 
 	let missingOrWrongDocumentsReasons;
 	if (appealWork.incompleteAppealDetails && appealWork.incompleteAppealDetails.missingOrWrongDocumentsReasons) {
-		missingOrWrongDocumentsReasons = arrayifyIfString(appealWork.incompleteAppealDetails.missingOrWrongDocumentsReasons);
+		missingOrWrongDocumentsReasons = flatten([appealWork.incompleteAppealDetails.missingOrWrongDocumentsReasons]);
 	}
 
 	response.render(routes.checkAndConfirm.view, {
