@@ -23,13 +23,19 @@ const updatedAppeal = {
 	addressId: 1
 };
 findUniqueStub.withArgs({ where: { id: 1 } }).returns(existingAppeal);
-updateStub.withArgs({ where: { id: 1 }, data: { status: 'new status' } }).returns(updatedAppeal);
+updateStub.withArgs({ where: { id: 1 }, data: { 
+	status: 'new status', 
+	updatedAt: sinon.match.any, 
+	statusUpdatedAt: sinon.match.any 
+} }).returns(updatedAppeal);
+
+const findManyStub = sinon.stub().returns([]);
 
 class MockDatabaseClass {
 	constructor(_parameters) {
 		this.pool = {
 			appeal: {
-				findMany: sinon.stub().returns([]),
+				findMany: findManyStub,
 				findUnique: findUniqueStub,
 				update: updateStub
 			}
@@ -54,4 +60,20 @@ test('getting single existing appeal', async(t) => {
 test('updates appeal status by id', async(t) => {
 	const appeal = await appealRepository.updateStatusById(1, 'new status');
 	t.deepEqual(appeal, updatedAppeal);
+	sinon.assert.calledWith(updateStub, { 
+		where: { id: 1 }, 
+		data: { status: 'new status', statusUpdatedAt: sinon.match.any, updatedAt: sinon.match.any }
+	});
+});
+
+test('gets appeals by status and less than statusUpdatedAt date', async(t) => {
+	const statusUpdatedAtLessThan = new Date();
+	const appeals = await appealRepository.getByStatusAndLessThanStatusUpdatedAtDate('some status', statusUpdatedAtLessThan);
+	t.deepEqual(appeals, []);
+	sinon.assert.calledWith(findManyStub, { where: {
+		status: 'some status', 
+		statusUpdatedAt: { 
+			lt: statusUpdatedAtLessThan 
+		}
+	} });
 });

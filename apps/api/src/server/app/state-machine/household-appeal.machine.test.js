@@ -26,17 +26,19 @@ applyAction.title = (providedTitle = '', initial_state, action, expected_state, 
 
 for (const parameter of [
 	['received_appeal', 'INVALID', 'invalid_appeal', true],
-	['received_appeal', 'VALID', 'with_case_officer', true],
+	['received_appeal', 'VALID', 'awaiting_lpa_questionnaire', true],
 	['received_appeal', 'INFO_MISSING', 'awaiting_validation_info', true],
 	['awaiting_validation_info', 'INVALID', 'invalid_appeal', true],
 	['awaiting_validation_info', 'INFO_MISSING', 'awaiting_validation_info', false],
-	['awaiting_validation_info', 'VALID', 'with_case_officer', true],
+	['awaiting_validation_info', 'VALID', 'awaiting_lpa_questionnaire', true],
 	['invalid_appeal', 'INVALID', 'invalid_appeal', false],
 	['invalid_appeal', 'INFO_MISSING', 'invalid_appeal', false],
 	['invalid_appeal', 'VALID', 'invalid_appeal', false],
-	['with_case_officer', 'INVALID', 'with_case_officer', false],
-	['with_case_officer', 'INFO_MISSING', 'with_case_officer', false],
-	['with_case_officer', 'VALID', 'with_case_officer', false],
+	['awaiting_lpa_questionnaire', 'INVALID', 'awaiting_lpa_questionnaire', false],
+	['awaiting_lpa_questionnaire', 'INFO_MISSING', 'awaiting_lpa_questionnaire', false],
+	['awaiting_lpa_questionnaire', 'VALID', 'awaiting_lpa_questionnaire', false],
+	['awaiting_lpa_questionnaire', 'OVERDUE', 'overdue_lpa_questionnaire', true],
+	['awaiting_lpa_questionnaire', 'RECEIVED', 'received_lpa_questionnaire', true]
 ]) {
 	test(applyAction, ...parameter);
 }

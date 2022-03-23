@@ -1,23 +1,24 @@
 const lpa_questionnaire_states = {
-	with_case_officer: {
+	awaiting_lpa_questionnaire: {
 		entry: ['sendLPAQuestionnaire'],
 		on: {
-			COMPLETE_QUESTIONNAIRE_RECEIVED: 'with_inspector',
-			INCOMPLETE_QUESTIONNAIRE_RECEIVE: 'awaiting_complete_questionnaire'
+			OVERDUE: 'overdue_lpa_questionnaire',
+			RECEIVED: 'received_lpa_questionnaire'
 		}
 	},
-	awaiting_complete_questionnaire: {
-		on: {
-			COMPLETE_QUESTIONNAIRE_RECEIVED: 'with_inspector'
-		}
-	},
-	with_inspector: {}
+	received_lpa_questionnaire: {},
+	overdue_lpa_questionnaire: {
+		entry: ['nudgeLPAQuestionnaire']
+	}
 };
 
 const lpa_questionnaire_actions = {
 	sendLPAQuestionnaire: (_context, _event) => {
 		console.log('Sending LPA Questionnaire...');
 	},
+	nudgeLPAQuestionnaire: (_context, _event) => {
+		console.log('Sending an email to nudge LPA regarding questionnaire');
+	}
 };
 
 export { lpa_questionnaire_states, lpa_questionnaire_actions };
