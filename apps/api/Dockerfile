@@ -9,4 +9,5 @@ ENV NODE_ENV=production
 RUN npm ci
 COPY apps/api/.env.development ./.env
 EXPOSE 3000
+ENV SWAGGER_JSON_DIR=./apps/api/src/server/swagger-output.json
 CMD [ "node", "./apps/api/src/server.js" ]
