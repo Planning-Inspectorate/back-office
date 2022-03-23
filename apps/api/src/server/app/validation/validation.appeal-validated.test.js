@@ -81,6 +81,8 @@ test.before('sets up mocking of database', () => {
 	sinon.stub(DatabaseFactory, 'getInstance').callsFake((arguments_) => new MockDatabaseClass(arguments_));
 });
 
+
+
 test('should be able to submit \'valid\' decision', async (t) => {
 	const resp = await request.post('/validation/1')
 		.send({ AppealStatus: 'valid' });
@@ -92,9 +94,19 @@ test('should be able to submit \'valid\' decision', async (t) => {
 	} });
 });
 
+
 test('should be able to submit \'invalid\' decision', async(t) => {
 	const resp = await request.post('/validation/1')
-		.send({ AppealStatus: 'invalid' });
+		.send({ AppealStatus: 'invalid',
+			Reason: {
+				NamesDoNotMatch: true,
+				Sensitiveinfo: false,
+				MissingOrWrongDocs: false,
+				InflamatoryComments: false,
+				OpenedInError: false,
+				WrongAppealType: false,
+				OtherReasons: '' }
+		});
 	t.is(resp.status, 200);
 	// TODO: calledOneWithExactly throws error
 	sinon.assert.calledWithExactly(updateStub, { where: { id: 1 }, data: { 
@@ -156,3 +168,55 @@ test('should be able to mark appeak with missing info as \'invalid\'', async(t) 
 		updatedAt: sinon.match.any
 	} });
 });
+
+test('should not be able to submit decision as \'invalid\' if there is no reason marked', async (t) => {
+	const resp = await request.post('/validation/5')
+		.send({
+			AppealStatus:'invalid',
+			Reason: {
+				NamesDoNotMatch: false,
+				Sensitiveinfo: false,
+				MissingOrWrongDocs: false,
+				InflamatoryComments: false,
+				OpenedInError: false,
+				WrongAppealType: false,
+				OtherReasons: '' }
+		});
+	t.is(resp.status, 400);
+	t.deepEqual(resp.body, { error: 'Invalid Appeal require a reason' } );
+});
+
+test('should not be able to submit decision as \'invalid\' if there is no reason being sent', async (t) => {
+	const resp = await request.post('/validation/5')
+		.send({
+			AppealStatus:'invalid',
+			Reason:{} });
+	t.is(resp.status, 400);
+	t.deepEqual(resp.body, { error: 'Invalid Appeal require a reason' } );
+});
+
+
+test('should not be able to submit decision as \'incomplete\' if there is no reason marked', async (t) => {
+	const resp = await request.post('/validation/6')
+		.send({
+			AppealStatus:'incomplete',
+			Reason: {
+				OutOfTime: false,
+				NoRightOfappeal: false,
+				NotAppealable: false,
+				LPADeemedInvalid: false,
+				OtherReasons: ''
+			}
+		});
+	t.is(resp.status, 400);
+	t.deepEqual(resp.body, { error: 'Incomplete Appeal require a reason' } );
+});
+
+test('should not be able to submit decision as \'incomplete\' if there is no reason being sent', async (t) => {
+	const resp = await request.post('/validation/5')
+		.send({
+			AppealStatus:'incomplete',
+			Reason:{} });
+	t.is(resp.status, 400);
+	t.deepEqual(resp.body, { error: 'Incomplete Appeal require a reason' } );
+
