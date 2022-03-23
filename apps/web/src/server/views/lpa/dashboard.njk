@@ -1,0 +1,44 @@
+{% extends "_layouts/layout-base.njk" %}
+
+{% from "govuk/components/table/macro.njk" import govukTable %}
+{% from "_includes/components/InfoBox/InfoBox.njk" import InfoBox %}
+
+{% block content %}
+	{% set tableHeadItems = [
+		{ text: "Appeal reference" },
+		{ text: "Date due" },
+		{ text: "Appeal site" },
+		{ text: "Status" }
+	]
+	%}
+
+	<h1 class="govuk-heading-xl">
+		Questionnaires for review
+	</h1>
+
+	<h2 class="govuk-heading-l govuk-!-margin-bottom-1">
+		Incoming questionnaires
+	</h2>
+
+	{# {% if appealsList.newAppeals.length > 0 %}
+		{{ govukTable({
+			head: tableHeadItems,
+			rows: appealsList.newAppeals })
+		}}
+	{% else %}
+		{{ InfoBox("No New Appeals", classes="govuk-!-margin-bottom-8") }}
+	{% endif %} #}
+
+	<h2 class="govuk-heading-l govuk-!-margin-bottom-1">
+		Incomplete questionnaires
+	</h2>
+
+	{# {% if appealsList.incompleteAppeals.length > 0 %}
+		{{ govukTable({
+			head: tableHeadItems,
+			rows: appealsList.incompleteAppeals })
+		}}
+	{% else %}
+		{{ InfoBox("No Incomplete Appeals") }}
+	{% endif %} #}
+{% endblock %}
