@@ -74,3 +74,26 @@ export const validateOutcomeIncompletePipe = () => [
 		.isLength({ min: 1, max: 500 })
 		.withMessage('Word count exceeded')
 ];
+
+
+export const validateAppealOutcomeInvalidReason = () => [
+	body('invalidReasons')
+		.notEmpty()
+		.withMessage('Please select a reason why the appeal is invalid')
+		.bail()
+		.isIn([
+			'outOfTime',
+			'notApplicable',
+			'noRightOfAppeal',
+			'LPAinvalid',
+			'other'
+		])
+		.withMessage('Please enter a reason why the appeal is invalid'),
+	body('otherReason')
+		.if(body('invalidReasons').custom(makeValidator_StringMatchesOrArrayContainsMatch('other')))
+		.notEmpty()
+		.withMessage('Please provide a reason for the invalid outcome')
+		.bail()
+		.isLength({ min: 1, max: 500 })
+		.withMessage('Word count exceeded')
+];

@@ -13,7 +13,7 @@ import {
 	getCheckAndConfirm,
 	postCheckAndConfirm
 } from './validation.controller.js';
-import { validateOutcomePipe, validateValidAppealDetails, validateOutcomeIncompletePipe } from './validation.pipes.js';
+import { validateAppealOutcomeInvalidReason, validateOutcomePipe, validateValidAppealDetails, validateOutcomeIncompletePipe } from './validation.pipes.js';
 import { appealDataGuard } from './validation.guards.js';
 
 const router = express.Router();
@@ -33,7 +33,9 @@ router.route(`/${routes.validAppealOutcome.path}`)
 	.post(appealDataGuard, validateValidAppealDetails(), expressValidationErrorsInterceptor, postValidAppealDetails);
 
 // Invalid appeal outcome
-router.route(`/${routes.invalidAppealOutcome.path}`).get(appealDataGuard, getInvalidAppealOutcome);
+router.route(`/${routes.invalidAppealOutcome.path}`)
+	.get(getInvalidAppealOutcome)
+	.post(validateAppealOutcomeInvalidReason(), expressValidationErrorsInterceptor, getInvalidAppealOutcome);
 
 // Incomplete appeal outcome
 router.route(`/${routes.incompleteAppealOutcome.path}`)
@@ -44,8 +46,5 @@ router.route(`/${routes.incompleteAppealOutcome.path}`)
 router.route(`/${routes.checkAndConfirm.path}`)
 	.get(appealDataGuard, getCheckAndConfirm)
 	.post(appealDataGuard, postCheckAndConfirm);
-
-router.route('/appealOutcomeInvalidReason')
-	.get( getAppealOutcomeInvalidReason);
 
 export default router;

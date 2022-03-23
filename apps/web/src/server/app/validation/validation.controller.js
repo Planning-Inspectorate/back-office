@@ -10,12 +10,10 @@ import { validationLabelsMap, validationAppealOutcomeLabelsMap } from './validat
  *
  * @param {import('express').Request} request - Express request object
  * @param {import('express').Response} response - Express request object
- * @param {Function} next  - Express function that calls then next middleware in the stack
  * @returns {void}
  */
-export async function getValidationDashboard(request, response, next) {
-	let error;
-	let appealsListData = [];
+export function getValidationDashboard(request, response) {
+	const appealsListData = [];
 	const newAppeals = [];
 	const incompleteAppeals = [];
 
@@ -86,7 +84,6 @@ export async function getReviewAppeal(request, response, next) {
  *
  * @param {import('express').Request} request - Express request object
  * @param {import('express').Response} response - Express request object
- * @param {Function} next  - Express function that calls then next middleware in the stack
  * @returns {void}
  */
 export function postAppealOutcome(request, response) {
@@ -121,7 +118,7 @@ export function postAppealOutcome(request, response) {
 			nextStepPage = `/validation/${routes.incompleteAppealOutcome.path}`;
 			break;
 		default:
-			nextStepPage = `/validation`;
+			nextStepPage = '/validation';
 	}
 
 	return response.redirect(nextStepPage);
@@ -190,10 +187,93 @@ export function postValidAppealDetails(request, response) {
 export function getInvalidAppealOutcome(request, response) {
 	const backURL = `/validation/${routes.reviewAppealRoute.path}/${request.session.appealData?.AppealId}?direction=back`;
 
-	response.render(routes.invalidAppealOutcome.view, {
+	const { body: { errors = {}, errorSummary = [] } } = request;
+
+	let invalidReasons = [];
+	let otherReason = '';
+	const body = request.body;
+
+	if (body.invalidReasons){
+		invalidReasons = body.invalidReasons;
+		otherReason = body.otherReason;
+	}
+
+	const isGetRequest = Object.keys(body).length===0;
+
+	const checkbox = [
+		{ text: 'Out of time', value: 'outOfTime' },
+		{ text: 'Not appealable', value: 'notApplicable' },
+		{ text: 'No right of appeal', value: 'noRightOfAppeal' },
+		{ text: 'LPA deemed application as invalid', value: 'LPAinvalid' },
+		{ text: 'Other', value: 'other' }
+	];
+
+	const items = [
+		{ 	value: checkbox[0].value,
+			text: checkbox[0].text,
+			checked: invalidReasons.includes(checkbox[0].value)
+		}, {
+			value: checkbox[1].value,
+			text: checkbox[1].text,
+			checked: invalidReasons.includes(checkbox[1].value)
+		}, { value: checkbox[2].value, text: checkbox[2].text,
+			checked: invalidReasons.includes(checkbox[2].value)
+		},
+		{
+			value: checkbox[3].value, text: checkbox[3].text,
+			checked: invalidReasons.includes(checkbox[3].value)
+		},
+		{
+			value: checkbox[4].value,
+			text: checkbox[4].text,
+			checked: invalidReasons.includes(checkbox[4].value),
+			conditional: {
+				html: `	<div class="govuk-form-group">
+							<label class="govuk-label" for="event-name">
+								<b>List reason</b><br>
+								This will be sent to the appellant and LPA
+							</label>
+							<input class="govuk-input" id="otherReason"
+								name="otherReason" type="text" value="` + otherReason + `"
+							>
+						</div>`
+			}
+		}
+	];
+
+
+	if ( isGetRequest || Object.keys(errors).length > 0) {
+
+		if ( !invalidReasons.includes(checkbox[4].value)) {
+			otherReason = '';
+		}
+
+		if (Object.keys(errors).length>0 ) {
+			return response.render(routes.invalidAppealOutcome.view, {
+				errors,
+				errorSummary,
+				invalidReasons: invalidReasons,
+				otherReason: otherReason,
+				items: items,
+				backURL,
+				changeOutcomeURL: backURL
+			});
+		}
+
+		return response.render(routes.invalidAppealOutcome.view, {
+			invalidReasons: invalidReasons,
+			otherReason: otherReason,
+			items: items,
+			backURL,
+			changeOutcomeURL: backURL
+		});
+	}
+
+	return response.render(routes.invalidAppealOutcome.view, {
 		backURL,
 		changeOutcomeURL: backURL
 	});
+
 }
 
 /**
