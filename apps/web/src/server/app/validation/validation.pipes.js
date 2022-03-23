@@ -1,10 +1,11 @@
 import { body } from 'express-validator';
+import { makeValidator_StringMatchesOrArrayContainsMatch } from '../../lib/helpers.js';
 
 // All validation pipes will save into the current request all the validation errors that would be used
 // by the `expressValidationErrorsInterceptor` to populate the body with.
 
 /**
- * Validate the apeal outcome form that it has at least 1 answer.
+ * Validate the appeal outcome form to ensure it has at least 1 answer.
  *
  * @returns {void}
  */
@@ -28,3 +29,48 @@ export const validateValidAppealDetails = () =>
 		.bail()
 		.isLength({ max: 500 })
 		.withMessage('Word count exceeded');
+
+/**
+ * Validate the outcome incomplete form to ensure it has at least 1 answer.
+ * If "missing or incorrect documents" is checked, validate missingOrWrongDocumentsReasons to ensure a reason has been selected.
+ * If "other" is checked, validate otherReason to ensure a reason has been provided.
+ * It will save into the current request all the validation errors that would be used
+ * by the `expressValidationErrorsInterceptor` to populate the body with.
+ *
+ * @returns {void}
+ */
+export const validateOutcomeIncompletePipe = () => [
+	body('incompleteReasons')
+		.notEmpty()
+		.withMessage('Please enter a reason why the appeal is missing or wrong')
+		.bail()
+		.isIn([
+			'namesDoNotMatch',
+			'sensitiveInformationIncluded',
+			'missingOrWrongDocuments',
+			'inflammatoryCommentsMade',
+			'openedInError',
+			'wrongAppealTypeUsed',
+			'other'
+		])
+		.withMessage('Please enter a reason why the appeal is missing or wrong'),
+	body('missingOrWrongDocumentsReasons')
+		.if(body('incompleteReasons').isIn(['missingOrWrongDocuments']))
+		.notEmpty()
+		.withMessage('Please select which documents are missing or wrong')
+		.bail()
+		.isIn([
+			'applicationForm',
+			'decisionNotice',
+			'groundsOfAppeal',
+			'supportingDocuments'
+		])
+		.withMessage('Please select which documents are missing or wrong'),
+	body('otherReason')
+		.if(body('incompleteReasons').custom(makeValidator_StringMatchesOrArrayContainsMatch('other')))
+		.notEmpty()
+		.withMessage('Please provide a reason for the incomplete outcome')
+		.bail()
+		.isLength({ min: 1, max: 500 })
+		.withMessage('Word count exceeded')
+];

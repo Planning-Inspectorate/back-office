@@ -55,5 +55,10 @@ module.exports = {
 		'node/prefer-promises/dns': 0,
 		'node/prefer-promises/fs': 0,
 		'node/process-exit-as-throw': 'error'
+	},
+	settings: {
+		jsdoc: {
+			mode: 'typescript'
+		}
 	}
 };

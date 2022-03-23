@@ -16,7 +16,7 @@
 	</h1>
 
 	<form action="" method="post" novalidate>
-		<p class="govuk-body">Appeal reference: {{ appealReference }}</p>
+		<p class="govuk-body">Appeal reference: {{ appealData.AppealReference }}</p>
 
 		{{ govukTextarea({
 			name: "valid-appeal-details",
@@ -25,7 +25,8 @@
 				text: "Description of development",
 				classes: "govuk-!-font-weight-bold"
 			},
-			value: validAppealDetails,
+			value: descriptionOfDevelopment,
+			attributes: { maxlength: '500' },
 			errorMessage: errors and {
 				text: errors['valid-appeal-details'].msg
 			}
