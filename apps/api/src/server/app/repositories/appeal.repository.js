@@ -29,9 +29,20 @@ const appealRepository = (function() {
 			});
 		},
 		updateStatusById: function(id, status) {
+			const updatedAt = new Date();
 			return getPool().appeal.update({
 				where: { id: id },
-				data: { status: status }
+				data: { status: status, statusUpdatedAt: updatedAt, updatedAt: updatedAt }
+			});
+		},
+		getByStatusAndLessThanStatusUpdatedAtDate(status, lessThanStatusUpdatedAt) {
+			return getPool().appeal.findMany({
+				where: {
+					status: status,
+					statusUpdatedAt: {
+						lt: lessThanStatusUpdatedAt
+					}
+				}
 			});
 		}
 	};

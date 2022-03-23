@@ -27,7 +27,7 @@ const validation_states = {
 		}
 	},
 	valid_appeal: {
-		always: [{ target: 'with_case_officer' }]
+		always: [{ target: 'awaiting_lpa_questionnaire' }]
 	},
 	invalid_appeal: {
 		entry: ['notifyAppellantOfInvalidAppeal', 'notifyLPAOfInvalidAppeal'],
