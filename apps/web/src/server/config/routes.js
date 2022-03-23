@@ -31,5 +31,9 @@ export const lpaRoutesConfig = {
 	home: {
 		path: 'lpa',
 		view: 'lpa/dashboard'
-	}
+	},
+	reviewQuestionnaireRoute: {
+		path: 'review-questionnaire',
+		view: 'lpa/review-questionnaire'
+	},
 };

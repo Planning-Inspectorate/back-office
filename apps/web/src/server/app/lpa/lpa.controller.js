@@ -26,7 +26,37 @@ export async function getLpaDashboard(request, response, next) {
 
 	// eslint-disable-next-line unicorn/no-array-for-each
 	questionnairesListData.forEach((item) => {
-		// TODO...
+		let statusTagColor;
+
+		switch (item.QuestionnaireStatus) {
+			case 'overdue':
+				statusTagColor = 'red';
+				break;
+			case 'awaiting':
+			case 'incomplete':
+				statusTagColor = 'blue';
+				break;
+			case 'received':
+			default:
+				statusTagColor = 'green';
+				break;
+		}
+
+		const row = [
+			{ html: item.QuestionnaireStatus === 'received'
+				? `<a href="/lpa/${routes.reviewQuestionnaireRoute.path}/${item.AppealId}">${item.AppealReference}</a>`
+				: item.AppealReference
+			},
+			{ text: item.QuestionnaireDueDate },
+			{ text: item.AppealSite },
+			{ html: `<strong class="govuk-tag govuk-tag--${statusTagColor}">${item.QuestionnaireStatus}</strong>` }
+		];
+
+		if (item.QuestionnaireStatus === 'incomplete') {
+			incompleteQuestionnaires.push(row);
+		} else {
+			incomingQuestionnaires.push(row);
+		}
 	});
 
 	response.render(routes.home.view, {

@@ -3,14 +3,22 @@
 {% from "govuk/components/table/macro.njk" import govukTable %}
 {% from "_includes/components/InfoBox/InfoBox.njk" import InfoBox %}
 
+{% block header %}
+  {{ govukHeader({
+    homepageUrl: "https://www.gov.uk/",
+    serviceName: "Appeal a planning decision",
+    serviceUrl: "/lpa",
+    containerClasses: "govuk-width-container"
+  }) }}
+{% endblock %}
+
 {% block content %}
-	{% set tableHeadItems = [
+	{%- set tableHeadItems = [
 		{ text: "Appeal reference" },
 		{ text: "Date due" },
 		{ text: "Appeal site" },
 		{ text: "Status" }
-	]
-	%}
+	] -%}
 
 	<h1 class="govuk-heading-xl">
 		Questionnaires for review
@@ -20,25 +28,25 @@
 		Incoming questionnaires
 	</h2>
 
-	{# {% if appealsList.newAppeals.length > 0 %}
+	{%- if questionnairesList.incomingQuestionnaires.length > 0 -%}
 		{{ govukTable({
 			head: tableHeadItems,
-			rows: appealsList.newAppeals })
+			rows: questionnairesList.incomingQuestionnaires })
 		}}
-	{% else %}
-		{{ InfoBox("No New Appeals", classes="govuk-!-margin-bottom-8") }}
-	{% endif %} #}
+	{%- else -%}
+		{{ InfoBox("No incoming questionnaires", classes="govuk-!-margin-bottom-8") }}
+	{%- endif -%}
 
 	<h2 class="govuk-heading-l govuk-!-margin-bottom-1">
 		Incomplete questionnaires
 	</h2>
 
-	{# {% if appealsList.incompleteAppeals.length > 0 %}
+	{%- if questionnairesList.incompleteQuestionnaires.length > 0 -%}
 		{{ govukTable({
 			head: tableHeadItems,
-			rows: appealsList.incompleteAppeals })
+			rows: questionnairesList.incompleteQuestionnaires })
 		}}
-	{% else %}
-		{{ InfoBox("No Incomplete Appeals") }}
-	{% endif %} #}
+	{%- else -%}
+		{{ InfoBox("No incomplete questionnaires") }}
+	{%- endif -%}
 {% endblock %}
