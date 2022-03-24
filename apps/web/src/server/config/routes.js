@@ -27,6 +27,22 @@ export const validationRoutesConfig = {
 	reviewAppealComplete: {
 		path: 'review-appeal-complete',
 		view: 'validation/review-appeal-complete'
+	},
+	changeAppellantName: {
+		path: 'change-appellant-name',
+		view: 'validation/change-appellant-name'
+	},
+	changeLpaName: {
+		path: 'change-lpa-name',
+		view: 'validation/change-lpa-name'
+	},
+	changeApplicationReference: {
+		path: 'change-application-reference',
+		view: 'validation/change-application-reference'
+	},
+	changeAppealSite: {
+		path: 'change-appeal-site',
+		view: 'validation/change-appeal-site'
 	}
 };
 

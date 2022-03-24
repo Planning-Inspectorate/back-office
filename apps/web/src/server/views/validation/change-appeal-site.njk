@@ -1,0 +1,90 @@
+{% extends "validation/_layout-validation.njk" %}
+
+{% from "govuk/components/back-link/macro.njk" import govukBackLink %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
+{% from "govuk/components/input/macro.njk" import govukInput %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+
+{% block beforeContent %}
+	{{ govukBackLink({ text: "Back", href: backURL }) }}
+{% endblock %}
+
+{% block pageContent %}
+	{{ super() }}
+
+	<h1 class="govuk-label govuk-label--l">
+		Change appeal site
+	</h1>
+
+	<form action="" method="post" novalidate>
+		{{
+			govukInput({
+				label: {
+					text: 'Building and street'
+				},
+				type: 'text',
+				id: 'buildingAndStreet1',
+				name: 'buildingAndStreet1',
+				errorMessage: errors['buildingAndStreet1'] and { text: errors['buildingAndStreet1'].msg },
+				spellcheck: true,
+				value: buildingAndStreet1
+			})
+		}}
+
+		{{
+			govukInput({
+				type: 'text',
+				id: 'buildingAndStreet2',
+				name: 'buildingAndStreet2',
+				errorMessage: errors['buildingAndStreet2'] and { text: errors['buildingAndStreet2'].msg },
+				spellcheck: true,
+				value: buildingAndStreet2
+			})
+		}}
+		{{
+			govukInput({
+				label: {
+					text: 'Town or City'
+				},
+				type: 'text',
+				id: 'townOrCity',
+				name: 'townOrCity',
+				errorMessage: errors['townOrCity'] and { text: errors['townOrCity'].msg },
+				spellcheck: true,
+				value: townOrCity
+			})
+		}}
+		{{
+			govukInput({
+				label: {
+					text: 'County'
+				},
+				type: 'text',
+				id: 'county',
+				name: 'county',
+				errorMessage: errors['county'] and { text: errors['county'].msg },
+				spellcheck: true,
+				value: county
+			})
+		}}
+		{{
+			govukInput({
+				label: {
+					text: 'Postcode'
+				},
+				type: 'text',
+				id: 'postcode',
+				name: 'postcode',
+				errorMessage: errors['postcode'] and { text: errors['postcode'].msg },
+				spellcheck: true,
+				value: postcode
+			})
+		}}
+
+		<div class="govuk-button-group">
+			{{ govukButton({ text: text | default('Save Changes') }) }}
+			<a class="govuk-link" href="{{ backURL }}">Cancel</a>
+		</div>
+	</form>
+{% endblock %}

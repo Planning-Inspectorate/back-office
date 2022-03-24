@@ -2,6 +2,10 @@ import express from 'express';
 import { expressValidationErrorsInterceptor } from '../../lib/express-validation-errors.js';
 import { validationRoutesConfig as routes } from '../../config/routes.js';
 import {
+	getChangeAppealSite,
+	getChangeApplicationReference,
+	getChangeLpaName,
+	getChangeAppellantName,
 	getValidationDashboard,
 	getReviewAppeal,
 	postAppealOutcome,
@@ -52,5 +56,26 @@ router.route(`/${routes.checkAndConfirm.path}`)
 	.post(appealDataGuard, validateCheckAndConfirmPipe(), expressValidationErrorsInterceptor, postCheckAndConfirm);
 
 router.route(`/${routes.reviewAppealComplete.path}`).get(appealDataGuard, getReviewAppealComplete);
+
+// Change Appellant Name
+router.route(`/${routes.changeAppellantName.path}`)
+	.get(getChangeAppellantName)
+	.post(getChangeAppellantName);
+
+
+// Change LPA Name
+router.route(`/${routes.changeLpaName.path}`)
+	.get(getChangeLpaName)
+	.post(getChangeLpaName);
+
+// Change Application Reference
+router.route(`/${routes.changeApplicationReference.path}`)
+	.get(getChangeApplicationReference)
+	.post(getChangeApplicationReference);
+
+// Change Appeal Site
+router.route(`/${routes.changeAppealSite.path}`)
+	.get(getChangeAppealSite)
+	.post(getChangeAppealSite);
 
 export default router;

@@ -1,0 +1,37 @@
+{% extends "validation/_layout-validation.njk" %}
+
+{% from "govuk/components/back-link/macro.njk" import govukBackLink %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
+{% from "govuk/components/input/macro.njk" import govukInput %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+
+{% block beforeContent %}
+	{{ govukBackLink({ text: "Back", href: backURL }) }}
+{% endblock %}
+
+{% block pageContent %}
+	{{ super() }}
+
+	<h1 class="govuk-label govuk-label--l">
+		Change planning application reference
+	</h1>
+
+	<form action="" method="post" novalidate>
+		{{
+			govukInput({
+				type: 'text',
+				id: 'applicationReference',
+				name: 'applicationReference',
+				errorMessage: errors['applicationReference'] and { text: errors['applicationReference'].msg },
+				spellcheck: true,
+				value: applicationReference
+			})
+		}}
+
+		<div class="govuk-button-group">
+			{{ govukButton({ text: text | default('Save Changes') }) }}
+			<a class="govuk-link" href="{{ backURL }}">Cancel</a>
+		</div>
+	</form>
+{% endblock %}

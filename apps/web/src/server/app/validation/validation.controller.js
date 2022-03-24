@@ -396,3 +396,100 @@ export function getReviewAppealComplete(request, response) {
 		validationAppealOutcomeLabels: validationAppealOutcomeLabelsMap[appealWork.reviewOutcome]
 	});
 }
+
+/**
+ * GET/POST to allow Change Appellant Name from Appeal / Appelant Details page
+ *
+ * @param {import('express').Request} request - Express request object
+ * @param {import('express').Response} response - Express request object
+ * @returns {void}
+ */
+ export function getChangeAppellantName(request, response) {
+	// const appealData = request.session.appealData;
+	// const appealWork = request.session.appealWork;
+
+	const backURL = '#';
+	const appellantName = request.body.appellantName;
+
+	response.render(routes.changeAppellantName.view, {
+		backURL,
+		appellantName,
+		// appealData,
+		// appealWork,
+	});
+}
+
+/**
+ * GET/POST to allow Change Appellant Name from Appeal / Appelant Details page
+ *
+ * @param {import('express').Request} request - Express request object
+ * @param {import('express').Response} response - Express request object
+ * @returns {void}
+ */
+ export function getChangeLpaName(request, response) {
+	// const appealData = request.session.appealData;
+	// const appealWork = request.session.appealWork;
+
+	const backURL = '#';
+	const lpaName = request.body.lpaName;
+
+	response.render(routes.changeLpaName.view, {
+		backURL,
+		lpaName,
+		// appealData,
+		// appealWork,
+	});
+}
+
+/**
+ * GET/POST to allow Change Appellant Reference from Appeal / Appelant Details page
+ *
+ * @param {import('express').Request} request - Express request object
+ * @param {import('express').Response} response - Express request object
+ * @returns {void}
+ */
+ export function getChangeApplicationReference(request, response) {
+	// const appealData = request.session.appealData;
+	// const appealWork = request.session.appealWork;
+
+	const backURL = '#';
+	const applicationReference = request.body.applicationReference;
+
+	response.render(routes.changeApplicationReference.view, {
+		backURL,
+		applicationReference,
+		// appealData,
+		// appealWork,
+	});
+}
+
+/**
+ * GET/POST to allow Change Appeal Site from Appeal / Appelant Details page
+ *
+ * @param {import('express').Request} request - Express request object
+ * @param {import('express').Response} response - Express request object
+ * @returns {void}
+ */
+ export function getChangeAppealSite(request, response) {
+	// const appealData = request.session.appealData;
+	// const appealWork = request.session.appealWork;
+
+	const backURL = '#';
+	const buildingAndStreet1 = request.body.buildingAndStreet1;
+	const buildingAndStreet2 = request.body.buildingAndStreet2;
+	const townOrCity = request.body.townOrCity;
+	const county = request.body.county;
+	const postcode = request.body.postcode;
+
+
+	response.render(routes.changeAppealSite.view, {
+		backURL,
+		buildingAndStreet1,
+		buildingAndStreet2,
+		townOrCity,
+		county,
+		postcode,
+		// appealData,
+		// appealWork,
+	});
+}
