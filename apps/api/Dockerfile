@@ -19,10 +19,10 @@ WORKDIR /src/app
 
 ENV SSH_PASSWD "root:Docker!"
 RUN apk add --no-cache wget
-RUN apt-get update \
-        && apt-get install -y --no-install-recommends dialog \
-        && apt-get update \
-        && apt-get install -y --no-install-recommends openssh-server \
+RUN apk update \
+        && apk install -y --no-install-recommends dialog \
+        && apk update \
+        && apk install -y --no-install-recommends openssh-server \
         && echo "$SSH_PASSWD" | chpasswd 
 COPY sshd_config /etc/ssh/
 COPY init.sh /usr/local/bin/
