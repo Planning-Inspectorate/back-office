@@ -3,8 +3,7 @@ import { validationRoutesConfig as routes } from '../../config/routes.js';
 import { checkboxDataToCheckValuesObject } from '../../lib/helpers.js';
 import { findAllNewIncompleteAppeals, findAppealById } from './validation.service.js';
 import { validationLabelsMap, validationAppealOutcomeLabelsMap } from './validation.config.js';
-import lodash from 'lodash';
-const { flatten } = lodash;
+import { flatten } from 'lodash-es';
 
 /**
  * GET the main dashboard.

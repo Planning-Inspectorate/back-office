@@ -68,7 +68,7 @@ export const validateOutcomeIncompletePipe = () => [
 		])
 		.withMessage('Please select which documents are missing or wrong'),
 	body('otherReason')
-		.if(body('incompleteReasons').toArray().isIn(['other']))
+		.if(body('incompleteReasons').toArray().custom((value) => value.includes('other')))
 		.notEmpty()
 		.withMessage('Please provide a reason for the incomplete outcome')
 		.bail()
