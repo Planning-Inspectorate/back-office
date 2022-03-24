@@ -387,5 +387,12 @@ export function postCheckAndConfirm(request, response) {
  * @returns {void}
  */
 export function getReviewAppealComplete(request, response) {
-	response.render(routes.reviewAppealComplete.view, {});
+	const appealData = request.session.appealData;
+	const appealWork = request.session.appealWork;
+
+	response.render(routes.reviewAppealComplete.view, {
+		appealData,
+		appealWork,
+		validationAppealOutcomeLabels: validationAppealOutcomeLabelsMap[appealWork.reviewOutcome]
+	});
 }
