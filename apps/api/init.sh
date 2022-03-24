@@ -2,6 +2,6 @@
 set -e
 
 echo "Starting SSH ..."
-service ssh start
+/usr/sbin/sshd
 
 node ./apps/api/src/server.js

@@ -8,6 +8,11 @@ COPY apps/api apps/api
 ENV NODE_ENV=production
 RUN npm ci
 COPY apps/api/.env.development ./.env
+COPY apps/api/init.sh ./init.sh
+COPY apps/api/sshd_config /etc/ssh/
+
+RUN mkdir -p /tmp
+COPY apps/api/ssh_setup.sh /tmp
 
 ENV SWAGGER_JSON_DIR=./apps/api/src/server/swagger-output.json
 ENV DATABASE_URL=$DATABASE_URL
@@ -17,18 +22,13 @@ RUN npx prisma generate
 
 WORKDIR /src/app
 
-ENV SSH_PASSWD "root:Docker!"
-RUN apk add --no-cache wget
-RUN apk update \
-        && apk install -y --no-install-recommends dialog \
-        && apk update \
-        && apk install -y --no-install-recommends openssh-server \
-        && echo "$SSH_PASSWD" | chpasswd 
-COPY sshd_config /etc/ssh/
-COPY init.sh /usr/local/bin/
-	
-RUN chmod u+x /usr/local/bin/init.sh
-EXPOSE 3000 2222
+RUN apk add openssh \
+     && echo "root:Docker!" | chpasswd 
 
+RUN chmod +x /tmp/ssh_setup.sh \
+    && (sleep 1;/tmp/ssh_setup.sh 2>&1 > /dev/null)
+
+RUN chmod u+x /src/app/init.sh
+EXPOSE 3000 2222
 # CMD [ "node", "./apps/api/src/server.js" ]
-ENTRYPOINT ["init.sh"]
+ENTRYPOINT ["sh", "/src/app/init.sh"]
