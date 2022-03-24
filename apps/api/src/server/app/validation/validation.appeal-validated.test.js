@@ -159,16 +159,6 @@ test('should be able to mark appeal with missing info as \'valid\'', async(t) =>
 	} });
 });
 
-test('should be able to mark appeak with missing info as \'invalid\'', async(t) => {
-	const resp = await request.post('/validation/4').send({ AppealStatus: 'invalid' });
-	t.is(resp.status, 200);
-	sinon.assert.calledWithExactly(updateStub, { where: { id: 4 }, data: { 
-		status: 'invalid_appeal', 
-		statusUpdatedAt: sinon.match.any,
-		updatedAt: sinon.match.any
-	} });
-});
-
 test('should not be able to submit decision as \'invalid\' if there is no reason marked', async (t) => {
 	const resp = await request.post('/validation/5')
 		.send({
@@ -218,5 +208,5 @@ test('should not be able to submit decision as \'incomplete\' if there is no rea
 			AppealStatus:'incomplete',
 			Reason:{} });
 	t.is(resp.status, 400);
-	t.deepEqual(resp.body, { error: 'Incomplete Appeal require a reason' } );
-
+	t.deepEqual(resp.body, { error: 'Incomplete Appeal require a reason' });
+} );
