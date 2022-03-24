@@ -10,4 +10,10 @@ RUN npm ci
 COPY apps/api/.env.development ./.env
 EXPOSE 3000
 ENV SWAGGER_JSON_DIR=./apps/api/src/server/swagger-output.json
+ENV DATABASE_URL=$DATABASE_URL
+
+WORKDIR /src/app/apps/api
+RUN npx prisma generate
+
+WORKDIR /src/app
 CMD [ "node", "./apps/api/src/server.js" ]
