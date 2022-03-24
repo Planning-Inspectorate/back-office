@@ -18,6 +18,7 @@ RUN npx prisma generate
 WORKDIR /src/app
 
 ENV SSH_PASSWD "root:Docker!"
+RUN apk add --no-cache wget
 RUN apt-get update \
         && apt-get install -y --no-install-recommends dialog \
         && apt-get update \
