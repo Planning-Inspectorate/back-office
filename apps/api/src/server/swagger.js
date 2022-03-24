@@ -38,8 +38,11 @@ const document_ = {
 			Received: '18 Mar 2022',
 			AppealSite: '96 The Avenue, Maidstone, Kent, MD21 5XY'
 		}],
+		ChangeAppeal: {
+			$AppellandName: 'Jhon Doe'
+		}
 	},
-	components: {}            // by default: empty object (OpenAPI 3.x)
+	components: {}
 };
 
 const outputFile = './src/server/swagger-output.json';

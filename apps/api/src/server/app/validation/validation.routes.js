@@ -30,7 +30,23 @@ router.get('/:id',
 		}
 	*/
 	asyncHandler(getAppealToValidate));
-router.patch('/:id', body('AppellantName').isAlpha('en-US', { ignore: ' ' } ), asyncHandler(updateValidation));
+router.patch('/:id', body('AppellantName').isAlpha('en-US', { ignore: ' ' } ), 
+	/*
+		#swagger.description = 'Updates appeal details'
+		#swagger.parameters['id'] = {
+			in: 'url',
+			description: 'Appeal ID',
+			required: true,
+			type: 'integer'
+		}
+		#swagger.parameters['obj'] = {
+			in: 'body',
+			description: 'Appellant Name',
+			required: true,
+			schema: { $ref: "#/definitions/ChangeAppeal" }
+		}
+	*/
+	asyncHandler(updateValidation));
 router.post('/:id', asyncHandler(appealValidated));
 
 

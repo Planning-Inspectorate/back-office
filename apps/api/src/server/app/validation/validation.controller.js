@@ -1,5 +1,3 @@
-/* eslint-disable complexity */
-/* eslint-disable unicorn/prefer-ternary */
 import { validationResult } from 'express-validator';
 import appealRepository from '../repositories/appeal.repository.js';
 import ValidationError from './validation-error.js';
@@ -24,33 +22,38 @@ const getValidation = async function (_request, response) {
 	response.send(formattedAppeals);
 };
 
-const updateValidation = function (request, response) {
+const updateValidation = async function (request, response) {
 	const errors = validationResult(request);
 	if (!errors.isEmpty()) {
 		return response.status(400).json({ errors: errors.array() });
 	}
+	const data = {
+		appellantName: request.body.AppellantName
+	};
+	const appeal = await getAppealForValidation(request.params.id);
+	await appealRepository.updateById(appeal.id, data);
 	return response.send();
 };
 
-const invalidWithoutReasons =  function (body ) {
+const invalidWithoutReasons = function (body) {
 	return (body.AppealStatus == 'invalid' &&
-	body.Reason.NamesDoNotMatch !== true &&
-	body.Reason.Sensitiveinfo !== true &&
-	body.Reason.MissingOrWrongDocs !== true &&
-	body.Reason.InflamatoryComments !== true &&
-	body.Reason.OpenedInError !== true &&
-	body.Reason.WrongAppealType !== true &&
-	(body.Reason.OtherReasons == '' || body.Reason.OtherReasons == undefined)
+		body.Reason.NamesDoNotMatch !== true &&
+		body.Reason.Sensitiveinfo !== true &&
+		body.Reason.MissingOrWrongDocs !== true &&
+		body.Reason.InflamatoryComments !== true &&
+		body.Reason.OpenedInError !== true &&
+		body.Reason.WrongAppealType !== true &&
+		(body.Reason.OtherReasons == '' || body.Reason.OtherReasons == undefined)
 	);
 };
 
-const incompleteWithoutReasons =  function (body ) {
+const incompleteWithoutReasons = function (body) {
 	return (body.AppealStatus == 'incomplete' &&
-	body.Reason.OutOfTime !== true &&
-	body.Reason.NoRightOfappeal !== true &&
-	body.Reason.NotAppealable !== true &&
-	body.Reason.LPADeemedInvalid !== true &&
-	(body.Reason.OtherReasons == '' || body.Reason.OtherReasons == undefined)
+		body.Reason.OutOfTime !== true &&
+		body.Reason.NoRightOfappeal !== true &&
+		body.Reason.NotAppealable !== true &&
+		body.Reason.LPADeemedInvalid !== true &&
+		(body.Reason.OtherReasons == '' || body.Reason.OtherReasons == undefined)
 	);
 };
 
@@ -73,7 +76,7 @@ const appealValidated = async function (request, response) {
  * @returns {string} status change as expected by state machine
  */
 function mapAppealStatusToStateMachineAction(status) {
-	switch(status) {
+	switch (status) {
 		case 'valid':
 			return validation_actions_strings.valid;
 		case 'invalid':

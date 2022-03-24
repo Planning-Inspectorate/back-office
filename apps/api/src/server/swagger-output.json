@@ -16,17 +16,6 @@
   "schemes": [],
   "securityDefinitions": {},
   "paths": {
-    "/": {
-      "get": {
-        "description": "",
-        "parameters": [],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
     "/validation/": {
       "get": {
         "description": "Gets all appeals that need to be validated. The AppealStatus will be either \\'new\\' or \\'incomplete\\'",
@@ -64,8 +53,25 @@
         }
       },
       "patch": {
-        "description": "",
-        "parameters": [],
+        "description": "Updates appeal details",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "url",
+            "required": true,
+            "type": "integer",
+            "description": "Appeal ID"
+          },
+          {
+            "name": "obj",
+            "in": "body",
+            "description": "Appellant Name",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ChangeAppeal"
+            }
+          }
+        ],
         "responses": {}
       },
       "post": {
@@ -184,6 +190,18 @@
           }
         }
       }
+    },
+    "ChangeAppeal": {
+      "type": "object",
+      "properties": {
+        "AppellandName": {
+          "type": "string",
+          "example": "Jhon Doe"
+        }
+      },
+      "required": [
+        "AppellandName"
+      ]
     }
   }
 }
