@@ -19,7 +19,33 @@ const document_ = {
 		// { ... }
 	],
 	securityDefinitions: {},  // by default: empty object (Swagger 2.0)
-	definitions: {},          // by default: empty object
+	definitions: {
+		AppealToValidate: {
+			AppealId: 1,
+			AppealReference: 'APP/Q9999/D/21/1345264',
+			AppellantName: 'Lee Thornton',
+			AppealStatus: 'new',
+			Received: '18 Mar 2022',
+			AppealSite: '96 The Avenue, Maidstone, Kent, MD21 5XY',
+			LocalPlanningDepartment: 'Maidstone Borough Council',
+			PlanningApplicationReference: '48269/APP/2021/1482',
+			Documents: []
+		},
+		NewAppealToValidate: [{
+			AppealId: 1,
+			AppealReference: 'APP/Q9999/D/21/1345264',
+			AppealStatus: { '@enum': ['new', 'incomplete'] },
+			Received: '18 Mar 2022',
+			AppealSite: '96 The Avenue, Maidstone, Kent, MD21 5XY'
+		}],
+		IncompleteAppealToValidate: [{
+			AppealId: 1,
+			AppealReference: 'APP/Q9999/D/21/1345264',
+			AppealStatus: 'incomplete',
+			Received: '18 Mar 2022',
+			AppealSite: '96 The Avenue, Maidstone, Kent, MD21 5XY'
+		}]
+	},
 	components: {}            // by default: empty object (OpenAPI 3.x)
 };
 

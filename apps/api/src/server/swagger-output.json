@@ -29,16 +29,39 @@
     },
     "/validation/": {
       "get": {
-        "description": "",
+        "description": "Gets all appeals that need to be validated. The AppealStatus will be either \\'new\\' or \\'incomplete\\'",
         "parameters": [],
-        "responses": {}
+        "responses": {
+          "200": {
+            "description": "Appeals that require validation",
+            "schema": {
+              "$ref": "#/definitions/NewAppealToValidate"
+            }
+          }
+        }
       }
     },
     "/validation/{id}": {
       "get": {
-        "description": "",
-        "parameters": [],
-        "responses": {}
+        "description": "Gets appeal to be validated by the Validation Officer",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "description": "Appeal ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "desciption": "Appeal that requires validation",
+            "schema": {
+              "$ref": "#/definitions/AppealsToValidate"
+            },
+            "description": "OK"
+          }
+        }
       },
       "patch": {
         "description": "",
@@ -85,6 +108,109 @@
         "description": "",
         "parameters": [],
         "responses": {}
+      }
+    }
+  },
+  "definitions": {
+    "AppealToValidate": {
+      "type": "object",
+      "properties": {
+        "AppealId": {
+          "type": "number",
+          "example": 1
+        },
+        "AppealReference": {
+          "type": "string",
+          "example": "APP/Q9999/D/21/1345264"
+        },
+        "AppellantName": {
+          "type": "string",
+          "example": "Lee Thornton"
+        },
+        "AppealStatus": {
+          "type": "string",
+          "example": "new"
+        },
+        "Received": {
+          "type": "string",
+          "example": "18 Mar 2022"
+        },
+        "AppealSite": {
+          "type": "string",
+          "example": "96 The Avenue, Maidstone, Kent, MD21 5XY"
+        },
+        "LocalPlanningDepartment": {
+          "type": "string",
+          "example": "Maidstone Borough Council"
+        },
+        "PlanningApplicationReference": {
+          "type": "string",
+          "example": "48269/APP/2021/1482"
+        },
+        "Documents": {
+          "type": "array",
+          "example": [],
+          "items": {}
+        }
+      }
+    },
+    "NewAppealToValidate": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "AppealId": {
+            "type": "number",
+            "example": 1
+          },
+          "AppealReference": {
+            "type": "string",
+            "example": "APP/Q9999/D/21/1345264"
+          },
+          "AppealStatus": {
+            "type": "string",
+            "enum": [
+              "new",
+              "incomplete"
+            ]
+          },
+          "Received": {
+            "type": "string",
+            "example": "18 Mar 2022"
+          },
+          "AppealSite": {
+            "type": "string",
+            "example": "96 The Avenue, Maidstone, Kent, MD21 5XY"
+          }
+        }
+      }
+    },
+    "IncompleteAppealToValidate": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "AppealId": {
+            "type": "number",
+            "example": 1
+          },
+          "AppealReference": {
+            "type": "string",
+            "example": "APP/Q9999/D/21/1345264"
+          },
+          "AppealStatus": {
+            "type": "string",
+            "example": "incomplete"
+          },
+          "Received": {
+            "type": "string",
+            "example": "18 Mar 2022"
+          },
+          "AppealSite": {
+            "type": "string",
+            "example": "96 The Avenue, Maidstone, Kent, MD21 5XY"
+          }
+        }
       }
     }
   }
