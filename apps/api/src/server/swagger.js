@@ -31,20 +31,13 @@ const document_ = {
 			PlanningApplicationReference: '48269/APP/2021/1482',
 			Documents: []
 		},
-		NewAppealToValidate: [{
+		AppealsToValidate: [{
 			AppealId: 1,
 			AppealReference: 'APP/Q9999/D/21/1345264',
 			AppealStatus: { '@enum': ['new', 'incomplete'] },
 			Received: '18 Mar 2022',
 			AppealSite: '96 The Avenue, Maidstone, Kent, MD21 5XY'
 		}],
-		IncompleteAppealToValidate: [{
-			AppealId: 1,
-			AppealReference: 'APP/Q9999/D/21/1345264',
-			AppealStatus: 'incomplete',
-			Received: '18 Mar 2022',
-			AppealSite: '96 The Avenue, Maidstone, Kent, MD21 5XY'
-		}]
 	},
 	components: {}            // by default: empty object (OpenAPI 3.x)
 };

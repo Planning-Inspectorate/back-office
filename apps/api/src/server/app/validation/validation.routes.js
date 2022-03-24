@@ -12,7 +12,7 @@ router.get('/',
 		#swagger.description = 'Gets all appeals that need to be validated. The AppealStatus will be either \'new\' or \'incomplete\''
 		#swagger.responses[200] = {
 			description: 'Appeals that require validation',
-			schema: { $ref: '#/definitions/NewAppealToValidate' }
+			schema: { $ref: '#/definitions/AppealsToValidate' }
 		}
 	*/
 	asyncHandler(getValidation));

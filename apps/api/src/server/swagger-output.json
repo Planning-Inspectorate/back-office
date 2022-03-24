@@ -35,7 +35,7 @@
           "200": {
             "description": "Appeals that require validation",
             "schema": {
-              "$ref": "#/definitions/NewAppealToValidate"
+              "$ref": "#/definitions/AppealsToValidate"
             }
           }
         }
@@ -154,7 +154,7 @@
         }
       }
     },
-    "NewAppealToValidate": {
+    "AppealsToValidate": {
       "type": "array",
       "items": {
         "type": "object",
@@ -173,34 +173,6 @@
               "new",
               "incomplete"
             ]
-          },
-          "Received": {
-            "type": "string",
-            "example": "18 Mar 2022"
-          },
-          "AppealSite": {
-            "type": "string",
-            "example": "96 The Avenue, Maidstone, Kent, MD21 5XY"
-          }
-        }
-      }
-    },
-    "IncompleteAppealToValidate": {
-      "type": "array",
-      "items": {
-        "type": "object",
-        "properties": {
-          "AppealId": {
-            "type": "number",
-            "example": 1
-          },
-          "AppealReference": {
-            "type": "string",
-            "example": "APP/Q9999/D/21/1345264"
-          },
-          "AppealStatus": {
-            "type": "string",
-            "example": "incomplete"
           },
           "Received": {
             "type": "string",
