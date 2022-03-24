@@ -90,7 +90,7 @@ export const validateOutcomeInvalidReason = () => [
 		])
 		.withMessage('Please enter a reason why the appeal is invalid'),
 	body('otherReason')
-		.if(body('invalidReasons').custom(makeValidator_StringMatchesOrArrayContainsMatch('other')))
+		.if(body('invalidReasons').toArray().custom((value) => value.includes('other')))
 		.notEmpty()
 		.withMessage('Please provide a reason for the invalid outcome')
 		.bail()

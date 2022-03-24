@@ -311,7 +311,7 @@ export function getCheckAndConfirm(request, response) {
 
 	let invalidReasons;
 	if (appealWork.invalidAppealDetails && appealWork.invalidAppealDetails.invalidReasons) {
-		invalidReasons = arrayifyIfString(appealWork.invalidAppealDetails.invalidReasons);
+		invalidReasons = flatten([appealWork.invalidAppealDetails.invalidReasons]);
 	}
 
 	let incompleteReasons;
@@ -353,12 +353,12 @@ export function postCheckAndConfirm(request, response) {
 
 	let incompleteReasons;
 	if (appealWork.incompleteAppealDetails && appealWork.incompleteAppealDetails.incompleteReasons) {
-		incompleteReasons = arrayifyIfString(appealWork.incompleteAppealDetails.incompleteReasons);
+		incompleteReasons = flatten([appealWork.incompleteAppealDetails.incompleteReasons]);
 	}
 
 	let missingOrWrongDocumentsReasons;
 	if (appealWork.incompleteAppealDetails && appealWork.incompleteAppealDetails.missingOrWrongDocumentsReasons) {
-		missingOrWrongDocumentsReasons = arrayifyIfString(appealWork.incompleteAppealDetails.missingOrWrongDocumentsReasons);
+		missingOrWrongDocumentsReasons = flatten([appealWork.incompleteAppealDetails.missingOrWrongDocumentsReasons]);
 	}
 
 	if (Object.keys(errors).length > 0) {
