@@ -29,7 +29,7 @@ export async function findAllIncomingIncompleteQuestionnaires() {
 
 		const row = [
 			{ html: item.QuestionnaireStatus === 'received'
-				? `<a href="/lpa/${routes.reviewQuestionnaireRoute.path}/${item.AppealId}">${item.AppealReference}</a>`
+				? `<a href="/lpa/${routes.reviewQuestionnaire.path}/${item.AppealId}">${item.AppealReference}</a>`
 				: item.AppealReference
 			},
 			{ text: item.QuestionnaireDueDate },
@@ -45,4 +45,15 @@ export async function findAllIncomingIncompleteQuestionnaires() {
 	});
 
 	return questionnairesListData;
+}
+
+export async function findQuestionnaireById(id) {
+	const data = await request(`case-officer/${id}`);
+
+	const questionnaireData = {
+		...data,
+		AppealSiteHtml: data.AppealSite.replaceAll(',', '<br />')
+	};
+
+	return questionnaireData;
 }

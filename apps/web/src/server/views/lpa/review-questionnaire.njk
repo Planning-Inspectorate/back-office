@@ -1,0 +1,189 @@
+{% extends "_layouts/layout-base.njk" %}
+
+{% from "govuk/components/back-link/macro.njk" import govukBackLink %}
+{% from "govuk/components/table/macro.njk" import govukTable %}
+{% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+
+{% block header %}
+  {{ govukHeader({
+    homepageUrl: "https://www.gov.uk/",
+    serviceName: "Appeal a planning decision",
+    serviceUrl: "/lpa",
+    containerClasses: "govuk-width-container"
+  }) }}
+{% endblock %}
+
+{%- macro missingOrIncorrectCheckbox(completed, completedError) -%}
+	{{ govukCheckboxes({
+		idPrefix: "planning-officers-report-missing-or-incorrect",
+		name: "planning-officers-report-missing-or-incorrect",
+		classes: "govuk-checkboxes--small",
+		formGroup: {
+			classes: 'govuk-!-margin-bottom-0'
+		},
+		errorMessage: completedError and {
+			text: completedError
+		},
+		items: [
+			{
+				value: "true",
+				text: "Missing or incorrect",
+				checked: completed === 'true'
+			}
+		]
+	}) }}
+{%- endmacro -%}
+
+{% block content %}
+	{{ super() }}
+
+	<h1 class="govuk-heading-xl">
+		Review questionnaire
+	</h1>
+
+	<div class="govuk-grid-row">
+		<div class="govuk-grid-column-two-thirds">
+			{{ govukTable({
+				rows: [
+					[
+						{ html: '<strong>Appeal reference</strong>' },
+						{ text: questionnaireData.AppealReference }
+					],
+					[
+						{ html: '<strong>Appeal site</strong>' },
+						{ html: questionnaireData.AppealSiteHtml }
+					],
+					[
+						{ html: '<strong>Local planning department</strong>' },
+						{ text: questionnaireData.LocalPlanningDepartment }
+					]
+				]
+			}) }}
+		</div>
+	</div>
+
+	<form action="" method="post" novalidate>
+		<h2 class="govuk-heading-l govuk-!-margin-top-6">The planning application</h2>
+
+		{{ govukTable({
+			rows: [
+				[
+					{ html: '<strong>Planning application reference</strong>' },
+					{ text: questionnaireData.PlanningApplicationreference },
+					{ text: '' }
+				],
+				[
+					{ html: '<strong>Decision notice</strong>' },
+					{ html: '<a class="govuk-link" target="_blank" href="#">' + 'decision-notice.pdf' + '</a>' },
+					{ text: '' }
+				],
+				[
+					{ html: '<strong>Planning Officer\'s report</strong>' },
+					{ html: '<a class="govuk-link" target="_blank" href="#">' + 'planning-officers-report.pdf' + '</a>' },
+					{ html: missingOrIncorrectCheckbox(completed, completedError) }
+				],
+				[
+					{ html: '<strong>Plans used to reach decision</strong>' },
+					{ html: '<a class="govuk-link" target="_blank" href="#">' + 'plans-used-to-reach-decision.pdf' + '</a>' },
+					{ html: missingOrIncorrectCheckbox(completed, completedError) }
+				]
+			]
+		}) }}
+
+		<h2 class="govuk-heading-l govuk-!-margin-top-9">Local plans and policies</h2>
+
+		{{ govukTable({
+			rows: [
+				[
+					{ html: '<strong>Statutory development plan policies</strong>' },
+					{
+						html: '
+							<a class="govuk-link" target="_blank" href="#">' + 'policy-and-supporting-text-1.pdf' + '</a><br />
+							<a class="govuk-link" target="_blank" href="#">' + 'policy-and-supporting-text-2.pdf' + '</a><br />
+							<a class="govuk-link" target="_blank" href="#">' + 'policy-and-supporting-text-3.pdf' + '</a>
+						'
+					},
+					{ html: missingOrIncorrectCheckbox(completed, completedError) }
+				],
+				[
+					{ html: '<strong>Other relevant policies</strong>' },
+					{
+						html: '
+							<a class="govuk-link" target="_blank" href="#">' + 'policy-and-supporting-text-1.pdf' + '</a><br />
+							<a class="govuk-link" target="_blank" href="#">' + 'policy-and-supporting-text-2.pdf' + '</a><br />
+							<a class="govuk-link" target="_blank" href="#">' + 'policy-and-supporting-text-3.pdf' + '</a>
+						'
+					},
+					{ html: missingOrIncorrectCheckbox(completed, completedError) }
+				],
+				[
+					{ html: '<strong>Supplementary planning documents</strong>' },
+					{ text: 'No files uploaded' },
+					{ html: missingOrIncorrectCheckbox(completed, completedError) }
+				]
+			]
+		}) }}
+
+		<h2 class="govuk-heading-l govuk-!-margin-top-9">About the appeal site</h2>
+
+		{{ govukTable({
+			rows: [
+				[
+					{ html: '<strong>Is the appeal site in or near a conservation area?</strong>' },
+					{ text: 'Yes' },
+					{ text: '' }
+				],
+				[
+					{ html: '<strong>Conservation area map and guidance</strong>' },
+					{ html: '<a class="govuk-link" target="_blank" href="#">' + 'conservation-area-plan.pdf' + '</a>' },
+					{ html: missingOrIncorrectCheckbox(completed, completedError) }
+				],
+				[
+					{ html: '<strong>Would the development affect the setting of a listed building?</strong>' },
+					{ text: 'Yes' },
+					{ text: '' }
+				],
+				[
+					{ html: '<strong>Listed building description</strong>' },
+					{ text: 'There is a grade 2 listed building next door.' },
+					{ html: missingOrIncorrectCheckbox(completed, completedError) }
+				]
+			]
+		}) }}
+
+		<h2 class="govuk-heading-l govuk-!-margin-top-9">Interested parties</h2>
+
+		{{ govukTable({
+			rows: [
+				[
+					{ html: '<strong>Application notification</strong>' },
+					{ text: 'No files uploaded' },
+					{ html: missingOrIncorrectCheckbox(completed, completedError) }
+				],
+				[
+					{ html: '<strong>Application publicity</strong>' },
+					{ text: 'No files uploaded' },
+					{ html: missingOrIncorrectCheckbox(completed, completedError) }
+				],
+				[
+					{ html: '<strong>Representations</strong>' },
+					{ text: 'No files uploaded' },
+					{ html: missingOrIncorrectCheckbox(completed, completedError) }
+				],
+				[
+					{ html: '<strong>Appeal notification</strong>' },
+					{ text: 'No files uploaded' },
+					{ html: missingOrIncorrectCheckbox(completed, completedError) }
+				]
+			]
+		}) }}
+
+		<h2 class="govuk-heading-l govuk-!-margin-top-9">Finished your review?</h2>
+
+		<div class="govuk-button-group">
+			{{ govukButton({ text: 'Continue' | default('Continue') }) }}
+		</div>
+	</form>
+
+{% endblock %}

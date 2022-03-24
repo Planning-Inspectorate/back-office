@@ -32,7 +32,7 @@ export const lpaRoutesConfig = {
 		path: 'lpa',
 		view: 'lpa/dashboard'
 	},
-	reviewQuestionnaireRoute: {
+	reviewQuestionnaire: {
 		path: 'review-questionnaire',
 		view: 'lpa/review-questionnaire'
 	},

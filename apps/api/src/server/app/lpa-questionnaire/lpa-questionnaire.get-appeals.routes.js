@@ -5,8 +5,8 @@ import { getAppeals, getAppealsDetail, confirmingLPAQuestionnaire } from './lpa-
 const router = express.Router();
 
 router.get('/', getAppeals);
-router.get('/id:', getAppealsDetail);
-router.post('/id:/confirm', asyncHandler(confirmingLPAQuestionnaire));
+router.get('/:id', getAppealsDetail);
+router.post('/:id/confirm', asyncHandler(confirmingLPAQuestionnaire));
 
 
 export {
