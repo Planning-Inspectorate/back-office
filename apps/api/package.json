@@ -14,7 +14,6 @@
     "test": "cross-env NODE_ENV=test ava",
     "coverage": "c8 --reporter=html --reporter=text ava",
     "dev": "nodemon --experimental-json-modules -e js ./src/server.js",
-    "build": "echo \"TODO: Crete Build Script\"",
     "start": "node ./src/server.js",
     "lint:js": "eslint src prisma/seed.js",
     "lint:js:fix": "eslint src prisma/seed.js --fix",
@@ -23,7 +22,9 @@
     "db:migrate": "npx prisma migrate dev",
     "db:reset": "npx prisma migrate reset",
     "db:seed": "npx prisma db seed",
-    "prisma:format": "npx prisma format"
+    "prisma:format": "npx prisma format",
+    "prisma:generate": "npx prisma generate",
+    "build": "npm run prisma:generate"
   },
   "dependencies": {
     "body-parser": "1.19.2",
@@ -41,7 +42,8 @@
     "xstate": "4.30.6",
     "express-validator": "6.14.0",
     "prisma": "3.10.0",
-    "@prisma/client": "3.10.0"
+    "@prisma/client": "3.10.0",
+    "swagger-ui-express": "^4.3.0"
   },
   "devDependencies": {
     "cross-env": "^7.0.3",
@@ -51,7 +53,6 @@
     "rimraf": "^3.0.2",
     "supertest": "6.2.2",
     "swagger-autogen": "^2.19.0",
-    "swagger-ui-express": "^4.3.0",
     "sinon": "13.0.1"
   }
 }
