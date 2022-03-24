@@ -39,7 +39,7 @@
     "govuk-frontend": "4.0.1",
     "helmet": "5.0.2",
     "kleur": "4.1.4",
-    "lodash": "4.17.21",
+    "lodash-es": "^4.17.21",
     "morgan": "1.10.0",
     "nunjucks": "3.2.3",
     "planning-inspectorate-libs": "*",
