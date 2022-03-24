@@ -1,5 +1,4 @@
 import { body } from 'express-validator';
-import { makeValidator_StringMatchesOrArrayContainsMatch } from '../../lib/helpers.js';
 
 // All validation pipes will save into the current request all the validation errors that would be used
 // by the `expressValidationErrorsInterceptor` to populate the body with.
@@ -44,6 +43,7 @@ export const validateOutcomeIncompletePipe = () => [
 		.notEmpty()
 		.withMessage('Please enter a reason why the appeal is missing or wrong')
 		.bail()
+		.toArray()
 		.isIn([
 			'namesDoNotMatch',
 			'sensitiveInformationIncluded',
@@ -59,6 +59,7 @@ export const validateOutcomeIncompletePipe = () => [
 		.notEmpty()
 		.withMessage('Please select which documents are missing or wrong')
 		.bail()
+		.toArray()
 		.isIn([
 			'applicationForm',
 			'decisionNotice',
@@ -67,7 +68,7 @@ export const validateOutcomeIncompletePipe = () => [
 		])
 		.withMessage('Please select which documents are missing or wrong'),
 	body('otherReason')
-		.if(body('incompleteReasons').custom(makeValidator_StringMatchesOrArrayContainsMatch('other')))
+		.if(body('incompleteReasons').toArray().custom((value) => value.includes('other')))
 		.notEmpty()
 		.withMessage('Please provide a reason for the incomplete outcome')
 		.bail()
