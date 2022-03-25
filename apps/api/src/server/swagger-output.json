@@ -232,12 +232,17 @@
         "LocalPlanningDepartment": {
           "type": "string",
           "example": ""
+        },
+        "PlanningApplicationReference": {
+          "type": "string",
+          "example": ""
         }
       },
       "required": [
         "AppellandName",
         "Address",
-        "LocalPlanningDepartment"
+        "LocalPlanningDepartment",
+        "PlanningApplicationReference"
       ]
     }
   }

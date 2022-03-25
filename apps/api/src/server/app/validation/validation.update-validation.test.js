@@ -101,3 +101,18 @@ test('should be able to modify local planning department', async(t) => {
 		}
 	});
 });
+
+test('should be able to modify planning application reference', async(t) => {
+	const resp = await request.patch('/validation/1')
+		.send({
+			PlanningApplicationReference: 'New Planning Application Reference'
+		});
+	t.is(resp.status, 200);
+	sinon.assert.calledWithExactly(updateStub, {
+		where: { id: 1 },
+		data: {
+			updatedAt: sinon.match.any,
+			planningApplicationReference: 'New Planning Application Reference'
+		}
+	});
+});
