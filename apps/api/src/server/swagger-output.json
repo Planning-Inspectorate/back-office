@@ -228,11 +228,16 @@
             "County",
             "PostCode"
           ]
+        },
+        "LocalPlanningDepartment": {
+          "type": "string",
+          "example": ""
         }
       },
       "required": [
         "AppellandName",
-        "Address"
+        "Address",
+        "LocalPlanningDepartment"
       ]
     }
   }

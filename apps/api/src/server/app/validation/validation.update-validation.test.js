@@ -86,3 +86,18 @@ test('should be able to modify address', async(t) => {
 		}
 	});
 });
+
+test('should be able to modify local planning department', async(t) => {
+	const resp = await request.patch('/validation/1')
+		.send({
+			LocalPlanningDepartment: 'New Planning Department'
+		});
+	t.is(resp.status, 200);
+	sinon.assert.calledWithExactly(updateStub, {
+		where: { id: 1 },
+		data: {
+			updatedAt: sinon.match.any,
+			localPlanningDepartment: 'New Planning Department'
+		}
+	});
+});

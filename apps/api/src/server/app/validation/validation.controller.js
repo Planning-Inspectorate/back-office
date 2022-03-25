@@ -36,7 +36,8 @@ const updateValidation = async function (request, response) {
 			addressLine3: request.body.Address.Town,
 			addressLine4: request.body.Address.County,
 			postcode: request.body.Address.PostCode
-		} } })
+		} } }),
+		...(request.body.LocalPlanningDepartment && { localPlanningDepartment: request.body.LocalPlanningDepartment } )
 	};
 	await appealRepository.updateById(appeal.id, data);
 	return response.send();

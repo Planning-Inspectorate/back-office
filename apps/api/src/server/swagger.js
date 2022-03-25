@@ -46,7 +46,8 @@ const document_ = {
 				$Town: '',
 				$County: '',
 				$PostCode: ''
-			}
+			},
+			$LocalPlanningDepartment: ''
 		}
 	},
 	components: {}
