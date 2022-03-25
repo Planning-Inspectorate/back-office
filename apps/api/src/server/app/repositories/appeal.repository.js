@@ -35,6 +35,13 @@ const appealRepository = (function() {
 				data: { status: status, statusUpdatedAt: updatedAt, updatedAt: updatedAt }
 			});
 		},
+		updateById: function(id, data) {
+			const updatedAt = new Date();
+			return getPool().appeal.update({
+				where: { id: id },
+				data: { updatedAt: updatedAt, ...data }
+			});
+		},
 		getByStatusAndLessThanStatusUpdatedAtDate(status, lessThanStatusUpdatedAt) {
 			return getPool().appeal.findMany({
 				where: {
