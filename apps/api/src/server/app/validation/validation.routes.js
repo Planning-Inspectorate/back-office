@@ -42,13 +42,8 @@ router.patch('/:id',
 		}
 		#swagger.parameters['obj'] = {
 			in: 'body',
-			description: 'Appellant Name',
+			description: 'New Details',
 			schema: { $ref: "#/definitions/ChangeAppeal" }
-		}
-		#swagger.parameters['obj'] = {
-			in: 'body',
-			description: 'Appeal Address',
-			schema: { $ref: "#/definitions/ChangeAppealAddress" }
 		}
 	*/
 	asyncHandler(updateValidation));

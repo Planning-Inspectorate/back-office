@@ -65,8 +65,7 @@
           {
             "name": "obj",
             "in": "body",
-            "description": "Appellant Name",
-            "required": true,
+            "description": "New Details",
             "schema": {
               "$ref": "#/definitions/ChangeAppeal"
             }
@@ -196,11 +195,44 @@
       "properties": {
         "AppellandName": {
           "type": "string",
-          "example": "Jhon Doe"
+          "example": "John Doe"
+        },
+        "Address": {
+          "type": "object",
+          "properties": {
+            "AddressLine1": {
+              "type": "string",
+              "example": ""
+            },
+            "AddressLine2": {
+              "type": "string",
+              "example": ""
+            },
+            "Town": {
+              "type": "string",
+              "example": ""
+            },
+            "County": {
+              "type": "string",
+              "example": ""
+            },
+            "PostCode": {
+              "type": "string",
+              "example": ""
+            }
+          },
+          "required": [
+            "AddressLine1",
+            "AddressLine2",
+            "Town",
+            "County",
+            "PostCode"
+          ]
         }
       },
       "required": [
-        "AppellandName"
+        "AppellandName",
+        "Address"
       ]
     }
   }

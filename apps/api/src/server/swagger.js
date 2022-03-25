@@ -39,7 +39,14 @@ const document_ = {
 			AppealSite: '96 The Avenue, Maidstone, Kent, MD21 5XY'
 		}],
 		ChangeAppeal: {
-			$AppellandName: 'Jhon Doe'
+			$AppellandName: 'John Doe',
+			$Address: {
+				$AddressLine1: '',
+				$AddressLine2: '',
+				$Town: '',
+				$County: '',
+				$PostCode: ''
+			}
 		}
 	},
 	components: {}
