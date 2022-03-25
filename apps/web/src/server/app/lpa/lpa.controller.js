@@ -48,8 +48,23 @@ export async function getReviewQuestionnaire(request, response, next) {
 		return;
 	}
 
+	const fields = {
+		planningOfficersReport: { completed: false, error: false },
+		plansUsedToReachDecision: { completed: false, error: false, detailsValue: '' },
+		statutoryDevelopmentPlanPolicies: { completed: false, error: false },
+		otherRelevantPolicies: { completed: false, error: false },
+		supplementaryPlanningDocuments: { completed: false, error: false },
+		conservationAreaGuidance: { completed: false, error: false },
+		listedBuildingDescription: { completed: false, error: false },
+		applicationNotification: { completed: false, error: false },
+		applicationPublicity: { completed: false, error: false },
+		representations: { completed: false, error: false },
+		appealNotification: { completed: false, error: false }
+	};
+
 	response.render(routes.reviewQuestionnaire.view, {
-		questionnaireData
+		questionnaireData,
+		fields
 	});
 }
 
@@ -63,5 +78,21 @@ export async function getReviewQuestionnaire(request, response, next) {
  * @returns {void}
  */
 export function postReviewQuestionnaire(request, response) {
-	const body = request.body;
+	const appealId = request.params.appealId;
+	const questionnaireData = request.session.questionnaireData;
+
+	const {
+		body: { errors = {}, errorSummary = [] }
+	} = request;
+
+	if (Object.keys(errors).length > 0) {
+		return response.render(routes.reviewAppealRoute.view, {
+			backURL: `/lpa/review-questionnaire/${appealId}?direction=back`,
+			errors,
+			errorSummary,
+			questionnaireData
+		});
+	}
+
+	return response.redirect('lpa/check-and-confirm');
 }

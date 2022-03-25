@@ -4,6 +4,7 @@
 {% from "govuk/components/table/macro.njk" import govukTable %}
 {% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
 {% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/textarea/macro.njk" import govukTextarea %}
 
 {% block header %}
   {{ govukHeader({
@@ -14,10 +15,31 @@
   }) }}
 {% endblock %}
 
-{%- macro missingOrIncorrectCheckbox(completed, completedError) -%}
+{%- macro detailsInput(type, idPrefix, labelText, details, checkboxItems) -%}
+	{%- if type === 'textarea' -%}
+		{{govukTextarea({
+			id: idPrefix + '-missing-or-incorrect-details',
+			name: idPrefix + '-missing-or-incorrect-details',
+			label: { text: labelText },
+			errorMessage: details.error and { text: details.error.msg },
+			spellcheck: true,
+			value: details.value,
+			rows: '3'
+		})}}
+	{%- elif type === 'checkboxes' -%}
+		{{govukCheckboxes({
+			idPrefix: idPrefix + '-missing-or-incorrect-details',
+			name: idPrefix + '-missing-or-incorrect-details',
+			errorMessage: details.error and { text: details.error.msg },
+			items: checkboxItems
+		})}}
+	{%- endif -%}
+{%- endmacro -%}
+
+{%- macro missingOrIncorrectCheckbox(id, completed, completedError, conditionalHtml) -%}
 	{{ govukCheckboxes({
-		idPrefix: "planning-officers-report-missing-or-incorrect",
-		name: "planning-officers-report-missing-or-incorrect",
+		idPrefix: id + "-missing-or-incorrect",
+		name: id + "-missing-or-incorrect",
 		classes: "govuk-checkboxes--small",
 		formGroup: {
 			classes: 'govuk-!-margin-bottom-0'
@@ -29,7 +51,8 @@
 			{
 				value: "true",
 				text: "Missing or incorrect",
-				checked: completed === 'true'
+				checked: completed === true,
+				conditional: conditionalHtml
 			}
 		]
 	}) }}
@@ -81,12 +104,21 @@
 				[
 					{ html: '<strong>Planning Officer\'s report</strong>' },
 					{ html: '<a class="govuk-link" target="_blank" href="#">' + 'planning-officers-report.pdf' + '</a>' },
-					{ html: missingOrIncorrectCheckbox(completed, completedError) }
+					{ html: missingOrIncorrectCheckbox(
+						'planning-officers-report',
+						fields.planningOfficersReport.completed,
+						fields.planningOfficersReport.error
+					)}
 				],
 				[
 					{ html: '<strong>Plans used to reach decision</strong>' },
 					{ html: '<a class="govuk-link" target="_blank" href="#">' + 'plans-used-to-reach-decision.pdf' + '</a>' },
-					{ html: missingOrIncorrectCheckbox(completed, completedError) }
+					{ html: missingOrIncorrectCheckbox(
+						'plans-used-to-reach-decision',
+						fields.plansUsedToReachDecision.completed,
+						fields.plansUsedToReachDecision.error,
+						{ html: detailsInput('textarea', 'plans-used-to-reach-decision', 'Which plans are missing?', fields.plansUsedToReachDecision.details)}
+					)}
 				]
 			]
 		}) }}
@@ -104,7 +136,12 @@
 							<a class="govuk-link" target="_blank" href="#">' + 'policy-and-supporting-text-3.pdf' + '</a>
 						'
 					},
-					{ html: missingOrIncorrectCheckbox(completed, completedError) }
+					{ html: missingOrIncorrectCheckbox(
+						'statutory-development-plan-policies',
+						fields.statutoryDevelopmentPlanPolicies.completed,
+						fields.statutoryDevelopmentPlanPolicies.error,
+						{ html: detailsInput('textarea', 'statutory-development-plan-policies', 'Which policies are missing?', fields.statutoryDevelopmentPlanPolicies.details)}
+					)}
 				],
 				[
 					{ html: '<strong>Other relevant policies</strong>' },
@@ -115,12 +152,22 @@
 							<a class="govuk-link" target="_blank" href="#">' + 'policy-and-supporting-text-3.pdf' + '</a>
 						'
 					},
-					{ html: missingOrIncorrectCheckbox(completed, completedError) }
+					{ html: missingOrIncorrectCheckbox(
+						'other-relevant-policies',
+						fields.otherRelevantPolicies.completed,
+						fields.otherRelevantPolicies.error,
+						{ html: detailsInput('textarea', 'other-relevant-policies', 'Which policies are missing?', fields.otherRelevantPolicies.details)}
+					)}
 				],
 				[
 					{ html: '<strong>Supplementary planning documents</strong>' },
 					{ text: 'No files uploaded' },
-					{ html: missingOrIncorrectCheckbox(completed, completedError) }
+					{ html: missingOrIncorrectCheckbox(
+						'supplementary-planning-documents',
+						fields.supplementaryPlanningDocuments.completed,
+						fields.supplementaryPlanningDocuments.error,
+						{ html: detailsInput('textarea', 'supplementary-planning-documents', 'Which documents are missing?', fields.supplementaryPlanningDocuments.details)}
+					)}
 				]
 			]
 		}) }}
@@ -137,7 +184,12 @@
 				[
 					{ html: '<strong>Conservation area map and guidance</strong>' },
 					{ html: '<a class="govuk-link" target="_blank" href="#">' + 'conservation-area-plan.pdf' + '</a>' },
-					{ html: missingOrIncorrectCheckbox(completed, completedError) }
+					{ html: missingOrIncorrectCheckbox(
+						'conservation-area-guidance',
+						fields.conservationAreaGuidance.completed,
+						fields.conservationAreaGuidance.error,
+						{ html: detailsInput('textarea', 'conservation-area-guidance', 'What is missing or incorrect?', fields.conservationAreaGuidance.details)}
+					)}
 				],
 				[
 					{ html: '<strong>Would the development affect the setting of a listed building?</strong>' },
@@ -147,7 +199,12 @@
 				[
 					{ html: '<strong>Listed building description</strong>' },
 					{ text: 'There is a grade 2 listed building next door.' },
-					{ html: missingOrIncorrectCheckbox(completed, completedError) }
+					{ html: missingOrIncorrectCheckbox(
+						'listed-building-description',
+						fields.listedBuildingDescription.completed,
+						fields.listedBuildingDescription.error,
+						{ html: detailsInput('textarea', 'listed-building-description', 'What is missing or incorrect?', fields.listedBuildingDescription.details)}
+					)}
 				]
 			]
 		}) }}
@@ -159,22 +216,47 @@
 				[
 					{ html: '<strong>Application notification</strong>' },
 					{ text: 'No files uploaded' },
-					{ html: missingOrIncorrectCheckbox(completed, completedError) }
+					{ html: missingOrIncorrectCheckbox(
+						'application-notification',
+						fields.applicationNotification.completed,
+						fields.applicationNotification.error,
+						{ html: detailsInput('checkboxes', 'application-notification', 'What is missing or incorrect?', fields.applicationNotification.details, [
+							{ value: 'listOfAddresses', text: "List of addresses", checked: fields.applicationNotification.details.checkValues['listOfAddresses'] },
+							{ value: 'copyOfLetterOrSiteNotice', text: "Copy of letter or site notice", checked: fields.applicationNotification.details.checkValues['copyOfLetterOrSiteNotice'] }
+						])}
+					)}
 				],
 				[
 					{ html: '<strong>Application publicity</strong>' },
 					{ text: 'No files uploaded' },
-					{ html: missingOrIncorrectCheckbox(completed, completedError) }
+					{ html: missingOrIncorrectCheckbox(
+						'application-publicity',
+						fields.applicationPublicity.completed,
+						fields.applicationPublicity.error
+					)}
 				],
 				[
 					{ html: '<strong>Representations</strong>' },
 					{ text: 'No files uploaded' },
-					{ html: missingOrIncorrectCheckbox(completed, completedError) }
+					{ html: missingOrIncorrectCheckbox(
+						'representations',
+						fields.representations.completed,
+						fields.representations.error,
+						{ html: detailsInput('textarea', 'representations', 'Which representations are missing or incorrect?', fields.representations.details)}
+					)}
 				],
 				[
 					{ html: '<strong>Appeal notification</strong>' },
 					{ text: 'No files uploaded' },
-					{ html: missingOrIncorrectCheckbox(completed, completedError) }
+					{ html: missingOrIncorrectCheckbox(
+						'appeal-notification',
+						fields.appealNotification.completed,
+						fields.appealNotification.error,
+						{ html: detailsInput('checkboxes', 'appeal-notification', 'What is missing or incorrect?', fields.appealNotification.details, [
+							{ value: 'listOfAddresses', text: "List of addresses", checked: fields.appealNotification.details.checkValues['listOfAddresses'] },
+							{ value: 'copyOfLetterOrSiteNotice', text: "Copy of letter or site notice", checked: fields.appealNotification.details.checkValues['copyOfLetterOrSiteNotice'] }
+						])}
+					)}
 				]
 			]
 		}) }}
