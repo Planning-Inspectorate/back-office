@@ -16,6 +16,7 @@ router.get('/',
 		}
 	*/
 	asyncHandler(getValidation));
+
 router.get('/:id', 
 	/* 
 		#swagger.description = 'Gets appeal to be validated by the Validation Officer'
@@ -30,6 +31,7 @@ router.get('/:id',
 		}
 	*/
 	asyncHandler(getAppealToValidate));
+
 router.patch('/:id', 
 	body('AppellantName').isAlpha('en-US', { ignore: ' ' } ).optional({ nullable: true }), 
 	/*
@@ -47,7 +49,23 @@ router.patch('/:id',
 		}
 	*/
 	asyncHandler(updateValidation));
-router.post('/:id', asyncHandler(appealValidated));
+
+router.post('/:id', 
+	/*
+		#swagger.description = 'Sends validation decision'
+		#swagger.parameters['id'] = {
+			id: 'url',
+			description: 'Appeal ID',
+			required: true,
+			type: 'integer'
+		}
+		#swagger.parameters['obj'] = {
+			in: 'body',
+			description: 'Validation Decision',
+			schema: { $ref: "#/definitions/ValidationDecision" } 
+		}
+	*/
+	asyncHandler(appealValidated));
 
 
 export {

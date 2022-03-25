@@ -118,7 +118,7 @@ test('should be able to submit \'invalid\' decision', async(t) => {
 
 test('should be able to submit \'missing appeal details\' decision', async(t) => {
 	const resp = await request.post('/validation/1')
-		.send({ AppealStatus: 'info missing' });
+		.send({ AppealStatus: 'info missing', Reason: { OutOfTime: true } });
 	t.is(resp.status, 200);
 	// TODO: calledOneWithExactly throws error
 	sinon.assert.calledWithExactly(updateStub, { where: { id: 1 }, data: { 
@@ -132,19 +132,19 @@ test('should not be able to submit nonsensical decision decision', async(t) => {
 	const resp = await request.post('/validation/1')
 		.send({ AppealStatus: 'some unknown status' });
 	t.is(resp.status, 400);
-	t.deepEqual(resp.body, { error: 'Unknown AppealStatus' } );
+	t.deepEqual(resp.body, { error: 'Unknown AppealStatus provided' } );
 });
 
 test('should not be able to submit validation decision for appeal that has been marked \'valid\'', async(t) => {
 	const resp = await request.post('/validation/2')
-		.send({ AppealStatus: 'some unknown status' });
+		.send({ AppealStatus: 'invalid', Reason: { NamesDoNotMatch: true } });
 	t.is(resp.status, 400);
 	t.deepEqual(resp.body, { error: 'Appeal does not require validation' } );
 });
 
 test('should not be able to submit validation decision for appeal that has been marked \'invalid\'', async(t) => {
 	const resp = await request.post('/validation/3')
-		.send({ AppealStatus: 'some unknown status' });
+		.send({ AppealStatus: 'valid' });
 	t.is(resp.status, 400);
 	t.deepEqual(resp.body, { error: 'Appeal does not require validation' } );
 });
@@ -180,7 +180,8 @@ test('should not be able to submit decision as \'invalid\' if there is no reason
 	const resp = await request.post('/validation/5')
 		.send({
 			AppealStatus:'invalid',
-			Reason:{} });
+			Reason:{} 
+		});
 	t.is(resp.status, 400);
 	t.deepEqual(resp.body, { error: 'Invalid Appeal require a reason' } );
 });
@@ -189,7 +190,7 @@ test('should not be able to submit decision as \'invalid\' if there is no reason
 test('should not be able to submit decision as \'incomplete\' if there is no reason marked', async (t) => {
 	const resp = await request.post('/validation/6')
 		.send({
-			AppealStatus:'incomplete',
+			AppealStatus:'info missing',
 			Reason: {
 				OutOfTime: false,
 				NoRightOfappeal: false,
@@ -205,8 +206,16 @@ test('should not be able to submit decision as \'incomplete\' if there is no rea
 test('should not be able to submit decision as \'incomplete\' if there is no reason being sent', async (t) => {
 	const resp = await request.post('/validation/5')
 		.send({
-			AppealStatus:'incomplete',
-			Reason:{} });
+			AppealStatus:'info missing',
+			Reason:{} 
+		});
 	t.is(resp.status, 400);
 	t.deepEqual(resp.body, { error: 'Incomplete Appeal require a reason' });
+} );
+
+test('should not be able to submit an unknown decision string', async (t) => {
+	const resp = await request.post('/validation/5')
+		.send({	AppealStatus:'blah blah blah' });
+	t.is(resp.status, 400);
+	t.deepEqual(resp.body, { error: 'Unknown AppealStatus provided' });
 } );

@@ -74,8 +74,25 @@
         "responses": {}
       },
       "post": {
-        "description": "",
-        "parameters": [],
+        "description": "Sends validation decision",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "id": "url",
+            "description": "Appeal ID"
+          },
+          {
+            "name": "obj",
+            "in": "body",
+            "description": "Validation Decision",
+            "schema": {
+              "$ref": "#/definitions/ValidationDecision"
+            }
+          }
+        ],
         "responses": {}
       }
     },
@@ -243,6 +260,85 @@
         "Address",
         "LocalPlanningDepartment",
         "PlanningApplicationReference"
+      ]
+    },
+    "ValidationDecision": {
+      "type": "object",
+      "properties": {
+        "AppealStatus": {
+          "type": "string",
+          "enum": [
+            "invalid",
+            "incomplete",
+            "valid"
+          ]
+        },
+        "Reason": {
+          "type": "object",
+          "properties": {
+            "NamesDoNotMatch": {
+              "type": "boolean",
+              "example": true
+            },
+            "SensitiveInfo": {
+              "type": "boolean",
+              "example": true
+            },
+            "MissingOrWrongDocs": {
+              "type": "boolean",
+              "example": true
+            },
+            "InflamatoryComments": {
+              "type": "boolean",
+              "example": true
+            },
+            "OpenedInError": {
+              "type": "boolean",
+              "example": true
+            },
+            "WrongAppealType": {
+              "type": "boolean",
+              "example": true
+            },
+            "OutOfTime": {
+              "type": "boolean",
+              "example": true
+            },
+            "NoRightOfappeal": {
+              "type": "boolean",
+              "example": true
+            },
+            "NotAppealable": {
+              "type": "boolean",
+              "example": true
+            },
+            "LPADeemedInvalid": {
+              "type": "boolean",
+              "example": true
+            },
+            "OtherReasons": {
+              "type": "string",
+              "example": ""
+            }
+          },
+          "required": [
+            "NamesDoNotMatch",
+            "SensitiveInfo",
+            "MissingOrWrongDocs",
+            "InflamatoryComments",
+            "OpenedInError",
+            "WrongAppealType",
+            "OutOfTime",
+            "NoRightOfappeal",
+            "NotAppealable",
+            "LPADeemedInvalid",
+            "OtherReasons"
+          ]
+        }
+      },
+      "required": [
+        "AppealStatus",
+        "Reason"
       ]
     }
   }

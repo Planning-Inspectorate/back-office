@@ -49,6 +49,22 @@ const document_ = {
 			},
 			$LocalPlanningDepartment: '',
 			$PlanningApplicationReference: ''
+		},
+		ValidationDecision: {
+			$AppealStatus: { '@enum': ['invalid', 'info missing', 'valid'] },
+			$Reason: {
+				$NamesDoNotMatch: true,
+				$SensitiveInfo: true,
+				$MissingOrWrongDocs: true,
+				$InflamatoryComments: true,
+				$OpenedInError: true,
+				$WrongAppealType: true,
+				$OutOfTime: true,
+				$NoRightOfappeal: true,
+				$NotAppealable: true,
+				$LPADeemedInvalid: true,
+				$OtherReasons: '',
+			}
 		}
 	},
 	components: {}

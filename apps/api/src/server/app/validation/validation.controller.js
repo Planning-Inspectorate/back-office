@@ -57,7 +57,7 @@ const invalidWithoutReasons = function (body) {
 };
 
 const incompleteWithoutReasons = function (body) {
-	return (body.AppealStatus == 'incomplete' &&
+	return (body.AppealStatus == 'info missing' &&
 		body.Reason.OutOfTime !== true &&
 		body.Reason.NoRightOfappeal !== true &&
 		body.Reason.NotAppealable !== true &&
@@ -66,7 +66,14 @@ const incompleteWithoutReasons = function (body) {
 	);
 };
 
+const invalidAppealStatus = function(appealStatus) {
+	return !['valid', 'invalid', 'info missing'].includes(appealStatus);
+};
+
 const appealValidated = async function (request, response) {
+	if (invalidAppealStatus(request.body.AppealStatus)) {
+		throw new ValidationError('Unknown AppealStatus provided', 400);
+	}
 	if (invalidWithoutReasons(request.body)) {
 		throw new ValidationError('Invalid Appeal require a reason', 400);
 	}
