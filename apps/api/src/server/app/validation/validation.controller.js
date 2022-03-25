@@ -27,10 +27,17 @@ const updateValidation = async function (request, response) {
 	if (!errors.isEmpty()) {
 		return response.status(400).json({ errors: errors.array() });
 	}
-	const data = {
-		appellantName: request.body.AppellantName
-	};
 	const appeal = await getAppealForValidation(request.params.id);
+	const data = {
+		...(request.body.AppellantName && { appellantName: request.body.AppellantName }),
+		...(request.body.Address && { address: { update: {
+			addressLine1: request.body.Address.AddressLine1,
+			addressLine2: request.body.Address.AddressLine2,
+			addressLine3: request.body.Address.Town,
+			addressLine4: request.body.Address.County,
+			postcode: request.body.Address.PostCode
+		} } })
+	};
 	await appealRepository.updateById(appeal.id, data);
 	return response.send();
 };

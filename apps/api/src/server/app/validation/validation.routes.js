@@ -30,7 +30,8 @@ router.get('/:id',
 		}
 	*/
 	asyncHandler(getAppealToValidate));
-router.patch('/:id', body('AppellantName').isAlpha('en-US', { ignore: ' ' } ), 
+router.patch('/:id', 
+	body('AppellantName').isAlpha('en-US', { ignore: ' ' } ).optional({ nullable: true }), 
 	/*
 		#swagger.description = 'Updates appeal details'
 		#swagger.parameters['id'] = {
@@ -42,8 +43,12 @@ router.patch('/:id', body('AppellantName').isAlpha('en-US', { ignore: ' ' } ),
 		#swagger.parameters['obj'] = {
 			in: 'body',
 			description: 'Appellant Name',
-			required: true,
 			schema: { $ref: "#/definitions/ChangeAppeal" }
+		}
+		#swagger.parameters['obj'] = {
+			in: 'body',
+			description: 'Appeal Address',
+			schema: { $ref: "#/definitions/ChangeAppealAddress" }
 		}
 	*/
 	asyncHandler(updateValidation));
