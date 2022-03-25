@@ -1,9 +1,9 @@
-import { validationResult } from 'express-validator';
 import appealRepository from '../repositories/appeal.repository.js';
 import ValidationError from './validation-error.js';
 import household_appeal_machine from '../state-machine/household-appeal.machine.js';
 import { validation_states_strings, validation_actions_strings } from '../state-machine/validation-states.js';
 import appealFormatter from './appeal-formatter.js';
+import { validationDecisions, validateAppealValidatedRequest, validateUpdateValidationRequest } from './validate-request.js';
 
 const validationStatuses = [
 	validation_states_strings.received_appeal,
@@ -23,10 +23,7 @@ const getValidation = async function (_request, response) {
 };
 
 const updateValidation = async function (request, response) {
-	const errors = validationResult(request);
-	if (!errors.isEmpty()) {
-		return response.status(400).json({ errors: errors.array() });
-	}
+	validateUpdateValidationRequest(request);
 	const appeal = await getAppealForValidation(request.params.id);
 	const data = {
 		...(request.body.AppellantName && { appellantName: request.body.AppellantName }),
@@ -44,49 +41,8 @@ const updateValidation = async function (request, response) {
 	return response.send();
 };
 
-const invalidWithoutReasons = function (body) {
-	return (body.AppealStatus == 'invalid' &&
-		body.Reason.NamesDoNotMatch !== true &&
-		body.Reason.Sensitiveinfo !== true &&
-		body.Reason.MissingOrWrongDocs !== true &&
-		body.Reason.InflamatoryComments !== true &&
-		body.Reason.OpenedInError !== true &&
-		body.Reason.WrongAppealType !== true &&
-		(body.Reason.OtherReasons == '' || body.Reason.OtherReasons == undefined)
-	);
-};
-
-const incompleteWithoutReasons = function (body) {
-	return (body.AppealStatus == 'info missing' &&
-		body.Reason.OutOfTime !== true &&
-		body.Reason.NoRightOfappeal !== true &&
-		body.Reason.NotAppealable !== true &&
-		body.Reason.LPADeemedInvalid !== true &&
-		(body.Reason.OtherReasons == '' || body.Reason.OtherReasons == undefined)
-	);
-};
-
-const invalidAppealStatus = function(appealStatus) {
-	return !['valid', 'invalid', 'info missing'].includes(appealStatus);
-};
-
-const validWithoutDescription = function(body) {
-	return (body.AppealStatus == 'valid' && (body.DescriptionOfDevelopment == '' || body.DescriptionOfDevelopment == undefined));
-};
-
 const appealValidated = async function (request, response) {
-	if (invalidAppealStatus(request.body.AppealStatus)) {
-		throw new ValidationError('Unknown AppealStatus provided', 400);
-	}
-	if (invalidWithoutReasons(request.body)) {
-		throw new ValidationError('Invalid Appeal requires a reason', 400);
-	}
-	if (incompleteWithoutReasons(request.body)) {
-		throw new ValidationError('Incomplete Appeal requires a reason', 400);
-	}
-	if (validWithoutDescription(request.body)) {
-		throw new ValidationError('Valid Appeals require Description of Development', 400);
-	}
+	validateAppealValidatedRequest(request.body);
 	const appeal = await getAppealForValidation(request.params.id);
 	const machineAction = mapAppealStatusToStateMachineAction(request.body.AppealStatus);
 	const nextState = household_appeal_machine.transition(appeal.status, machineAction);
@@ -100,11 +56,11 @@ const appealValidated = async function (request, response) {
  */
 function mapAppealStatusToStateMachineAction(status) {
 	switch (status) {
-		case 'valid':
+		case validationDecisions.valid:
 			return validation_actions_strings.valid;
-		case 'invalid':
+		case validationDecisions.invalid:
 			return validation_actions_strings.invalid;
-		case 'info missing':
+		case validationDecisions.infoMissing:
 			return validation_actions_strings.information_missing;
 		default:
 			throw new ValidationError('Unknown AppealStatus', 400);

@@ -47,14 +47,7 @@ test('should not be able to modify appellant name if provided numbers', async (t
 		.send({ AppellantName: '123456789' });
 	t.is(resp.status, 400);
 	t.deepEqual(resp.body, {
-		errors: [
-			{
-				location: 'body',
-				msg: 'Invalid value',
-				param: 'AppellantName',
-				value: '123456789',
-			},
-		],
+		error: 'Invalid request'
 	});
 });
 
