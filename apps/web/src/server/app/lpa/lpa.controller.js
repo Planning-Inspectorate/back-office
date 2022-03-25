@@ -1,6 +1,8 @@
 import { to } from 'planning-inspectorate-libs';
 import { findAllIncomingIncompleteQuestionnaires, findQuestionnaireById } from './lpa.service.js';
 import { lpaRoutesConfig as routes } from '../../config/routes.js';
+import { flatten } from 'lodash-es';
+import { checkboxDataToCheckValuesObject } from '../../lib/helpers.js';
 
 /**
  * GET the main dashboard.
@@ -48,23 +50,12 @@ export async function getReviewQuestionnaire(request, response, next) {
 		return;
 	}
 
-	const fields = {
-		planningOfficersReport: { completed: false, error: false },
-		plansUsedToReachDecision: { completed: false, error: false, detailsValue: '' },
-		statutoryDevelopmentPlanPolicies: { completed: false, error: false },
-		otherRelevantPolicies: { completed: false, error: false },
-		supplementaryPlanningDocuments: { completed: false, error: false },
-		conservationAreaGuidance: { completed: false, error: false },
-		listedBuildingDescription: { completed: false, error: false },
-		applicationNotification: { completed: false, error: false },
-		applicationPublicity: { completed: false, error: false },
-		representations: { completed: false, error: false },
-		appealNotification: { completed: false, error: false }
-	};
+	// Save the current questionnaire data into session storage
+	request.session.questionnaireData = questionnaireData;
 
 	response.render(routes.reviewQuestionnaire.view, {
+		backURL: `/${routes.home.path}?direction=back`,
 		questionnaireData,
-		fields
 	});
 }
 
@@ -81,18 +72,83 @@ export function postReviewQuestionnaire(request, response) {
 	const appealId = request.params.appealId;
 	const questionnaireData = request.session.questionnaireData;
 
+	(request.session.reviewWork ??= {}).reviewOutcome = {
+		planningOfficersReport: {
+			completed: request.body['planning-officers-report-missing-or-incorrect'],
+		},
+		plansUsedToReachDecision: {
+			completed: request.body['plans-used-to-reach-decision-missing-or-incorrect'],
+			details: { value: request.body['plans-used-to-reach-decision-missing-or-incorrect-reason'] }
+		},
+		statutoryDevelopmentPlanPolicies: {
+			completed: request.body['statutory-development-plan-policies-missing-or-incorrect'],
+			details: { value: request.body['statutory-development-plan-policies-missing-or-incorrect-reason'] }
+		},
+		otherRelevantPolicies: {
+			completed: request.body['other-relevant-policies-missing-or-incorrect'],
+			details: { value: request.body['other-relevant-policies-missing-or-incorrect-reason'] }
+		},
+		supplementaryPlanningDocuments: {
+			completed: request.body['supplementary-planning-documents-missing-or-incorrect'],
+			details: { value: request.body['supplementary-planning-documents-missing-or-incorrect-reason'] }
+		},
+		conservationAreaGuidance: {
+			completed: request.body['conservation-area-guidance-missing-or-incorrect'],
+			details: { value: request.body['conservation-area-guidance-missing-or-incorrect-reason'] }
+		},
+		listedBuildingDescription: {
+			completed: request.body['listed-building-description-missing-or-incorrect'],
+			details: { value: request.body['listed-building-description-missing-or-incorrect-reason'] }
+		},
+		applicationNotification: {
+			completed: request.body['application-notification-missing-or-incorrect'],
+			details: { checkValues: checkboxDataToCheckValuesObject(request.body['application-notification-missing-or-incorrect-reason']) }
+		},
+		applicationPublicity: {
+			completed: request.body['application-publicity-missing-or-incorrect'],
+		},
+		representations: {
+			completed: request.body['representations-missing-or-incorrect'],
+			details: { value: request.body['representations-missing-or-incorrect-reason'] }
+		},
+		appealNotification: {
+			completed: request.body['appeal-notification-missing-or-incorrect'],
+			details: { checkValues: checkboxDataToCheckValuesObject(request.body['appeal-notification-missing-or-incorrect-reason']) }
+		}
+	};
+
 	const {
 		body: { errors = {}, errorSummary = [] }
 	} = request;
 
 	if (Object.keys(errors).length > 0) {
-		return response.render(routes.reviewAppealRoute.view, {
-			backURL: `/lpa/review-questionnaire/${appealId}?direction=back`,
+		return response.render(routes.reviewQuestionnaire.view, {
+			backURL: `${routes.home.path}?direction=back`,
 			errors,
 			errorSummary,
-			questionnaireData
+			questionnaireData,
+			// eslint-disable-next-line unicorn/consistent-destructuring
+			reviewOutcome: request.session.reviewWork?.reviewOutcome
 		});
 	}
 
-	return response.redirect('lpa/check-and-confirm');
+	// eslint-disable-next-line unicorn/consistent-destructuring
+	request.session.appealId = appealId;
+
+	return response.redirect(routes.checkAndConfirm.path);
+}
+
+/**
+ * GET the LPA check and confirm page.
+ *
+ * @param {import('express').Request} request - Express request object
+ * @param {import('express').Response} response - Express request object
+ * @returns {void}
+ */
+export function getCheckAndConfirm(request, response) {
+	const backURL = `/lpa/${routes.reviewQuestionnaire.path}/${request.session.appealId}?direction=back`;
+
+	response.render('', {
+		backURL
+	});
 }
