@@ -52,6 +52,7 @@ const document_ = {
 		},
 		ValidationDecision: {
 			$AppealStatus: { '@enum': ['invalid', 'info missing', 'valid'] },
+			$DescriptionOfDevelopment: '',
 			$Reason: {
 				$NamesDoNotMatch: true,
 				$SensitiveInfo: true,

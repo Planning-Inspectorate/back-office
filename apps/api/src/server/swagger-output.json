@@ -269,9 +269,13 @@
           "type": "string",
           "enum": [
             "invalid",
-            "incomplete",
+            "info missing",
             "valid"
           ]
+        },
+        "DescriptionOfDevelopment": {
+          "type": "string",
+          "example": ""
         },
         "Reason": {
           "type": "object",
@@ -338,6 +342,7 @@
       },
       "required": [
         "AppealStatus",
+        "DescriptionOfDevelopment",
         "Reason"
       ]
     }

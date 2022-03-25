@@ -70,15 +70,22 @@ const invalidAppealStatus = function(appealStatus) {
 	return !['valid', 'invalid', 'info missing'].includes(appealStatus);
 };
 
+const validWithoutDescription = function(body) {
+	return (body.AppealStatus == 'valid' && (body.DescriptionOfDevelopment == '' || body.DescriptionOfDevelopment == undefined));
+};
+
 const appealValidated = async function (request, response) {
 	if (invalidAppealStatus(request.body.AppealStatus)) {
 		throw new ValidationError('Unknown AppealStatus provided', 400);
 	}
 	if (invalidWithoutReasons(request.body)) {
-		throw new ValidationError('Invalid Appeal require a reason', 400);
+		throw new ValidationError('Invalid Appeal requires a reason', 400);
 	}
 	if (incompleteWithoutReasons(request.body)) {
-		throw new ValidationError('Incomplete Appeal require a reason', 400);
+		throw new ValidationError('Incomplete Appeal requires a reason', 400);
+	}
+	if (validWithoutDescription(request.body)) {
+		throw new ValidationError('Valid Appeals require Description of Development', 400);
 	}
 	const appeal = await getAppealForValidation(request.params.id);
 	const machineAction = mapAppealStatusToStateMachineAction(request.body.AppealStatus);
