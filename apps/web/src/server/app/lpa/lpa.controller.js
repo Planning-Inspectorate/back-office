@@ -72,7 +72,7 @@ export function postReviewQuestionnaire(request, response) {
 	const appealId = request.params.appealId;
 	const questionnaireData = request.session.questionnaireData;
 
-	(request.session.reviewWork ??= {}).reviewOutcome = {
+	(request.session.reviewWork ??= {}).fields = {
 		planningOfficersReport: {
 			completed: request.body['planning-officers-report-missing-or-incorrect'],
 		},
@@ -125,7 +125,7 @@ export function postReviewQuestionnaire(request, response) {
 		for (const key in errors) {
 			if (errors.hasOwnProperty(key)) {
 				// eslint-disable-next-line unicorn/consistent-destructuring
-				request.session.reviewWork.reviewOutcome[camelCase(key.replace('-missing-or-incorrect-reason', ''))].details.error = { msg: errors[key].msg };
+				request.session.reviewWork.fields[camelCase(key.replace('-missing-or-incorrect-reason', ''))].details.error = { msg: errors[key].msg };
 			}
 		}
 
@@ -135,14 +135,27 @@ export function postReviewQuestionnaire(request, response) {
 			errorSummary,
 			questionnaireData,
 			// eslint-disable-next-line unicorn/consistent-destructuring
-			reviewOutcome: request.session.reviewWork?.reviewOutcome
+			fields: request.session.reviewWork?.fields
 		});
+	}
+
+	// eslint-disable-next-line unicorn/consistent-destructuring
+	request.session.reviewWork.reviewOutcome = 'complete';
+
+	// eslint-disable-next-line unicorn/consistent-destructuring
+	for (const key in request.session.reviewWork.fields) {
+		// eslint-disable-next-line unicorn/consistent-destructuring
+		if (request.session.reviewWork.fields.hasOwnProperty(key) && request.session.reviewWork.fields[key].completed) {
+			// eslint-disable-next-line unicorn/consistent-destructuring
+			request.session.reviewWork.reviewOutcome = 'incomplete';
+			break;
+		}
 	}
 
 	// eslint-disable-next-line unicorn/consistent-destructuring
 	request.session.appealId = appealId;
 
-	return response.redirect(routes.checkAndConfirm.path);
+	return response.redirect(`/lpa/${routes.checkAndConfirm.path}`);
 }
 
 /**
@@ -155,7 +168,7 @@ export function postReviewQuestionnaire(request, response) {
 export function getCheckAndConfirm(request, response) {
 	const backURL = `/lpa/${routes.reviewQuestionnaire.path}/${request.session.appealId}?direction=back`;
 
-	response.render('', {
+	response.render(routes.checkAndConfirm.view, {
 		backURL
 	});
 }

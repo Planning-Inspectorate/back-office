@@ -1,11 +1,13 @@
 import express from 'express';
 import { expressValidationErrorsInterceptor } from '../../lib/express-validation-errors.js';
+import { lpaRoutesConfig as routes } from '../../config/routes.js';
 import { validateQuestionnairePipe } from './lpa.pipes.js';
 
 import {
 	getLpaDashboard,
 	getReviewQuestionnaire,
-	postReviewQuestionnaire
+	postReviewQuestionnaire,
+	getCheckAndConfirm
 
 } from './lpa.controller.js';
 
@@ -15,8 +17,11 @@ const router = express.Router();
 router.route('/').get(getLpaDashboard);
 
 // Review questionnaire page
-router.route('/review-questionnaire/:appealId')
+router.route(`/${routes.reviewQuestionnaire.path}/:appealId`)
 	.get(getReviewQuestionnaire)
 	.post(validateQuestionnairePipe(), expressValidationErrorsInterceptor, postReviewQuestionnaire);
+
+router.route(`/${routes.checkAndConfirm.path}`)
+	.get(getCheckAndConfirm);
 
 export default router;
