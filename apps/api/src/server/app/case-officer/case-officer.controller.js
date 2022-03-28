@@ -24,7 +24,7 @@ const getAppeals = async function (_request, response) {
 	response.send(formattedAppeals);
 };
 
-const getAppealsDetail = function (request, response) {
+const getAppealDetails = function (request, response) {
 	response.send(appealWithQuestionnnaireDetail);
 };
 
@@ -32,4 +32,4 @@ const confirmingLPAQuestionnaire = function (request, response) {
 	response.send();
 };
 
-export { getAppeals, getAppealsDetail, confirmingLPAQuestionnaire };
+export { getAppeals, getAppealDetails, confirmingLPAQuestionnaire };
