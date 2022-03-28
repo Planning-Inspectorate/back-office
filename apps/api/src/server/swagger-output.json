@@ -98,11 +98,14 @@
     },
     "/case-officer/": {
       "get": {
-        "description": "",
+        "description": "Gets all appeals for a Case Officer to review",
         "parameters": [],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "Appeals the require Case Officer to checl",
+            "schema": {
+              "$ref": "#/definitions/AppealsForCaseOfficer"
+            }
           }
         }
       }
@@ -344,6 +347,42 @@
         "AppealStatus",
         "DescriptionOfDevelopment",
         "Reason"
+      ]
+    },
+    "AppealsForCaseOfficer": {
+      "type": "object",
+      "properties": {
+        "AppealId": {
+          "type": "number",
+          "example": 1
+        },
+        "AppealReference": {
+          "type": "string",
+          "example": ""
+        },
+        "QuestionnaireDueDate": {
+          "type": "string",
+          "example": "01 Jun 2022"
+        },
+        "AppealSite": {
+          "type": "string",
+          "example": ""
+        },
+        "QuestionnaireStatus": {
+          "type": "string",
+          "enum": [
+            "awaiting",
+            "received",
+            "overdue"
+          ]
+        }
+      },
+      "required": [
+        "AppealId",
+        "AppealReference",
+        "QuestionnaireDueDate",
+        "AppealSite",
+        "QuestionnaireStatus"
       ]
     }
   }

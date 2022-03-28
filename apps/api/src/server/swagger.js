@@ -66,6 +66,13 @@ const document_ = {
 				$LPADeemedInvalid: true,
 				$OtherReasons: '',
 			}
+		},
+		AppealsForCaseOfficer: {
+			$AppealId: 1,
+			$AppealReference: '',
+			$QuestionnaireDueDate: '01 Jun 2022',
+			$AppealSite: '',
+			$QuestionnaireStatus: { '@enum': ['awaiting', 'received', 'overdue'] }
 		}
 	},
 	components: {}

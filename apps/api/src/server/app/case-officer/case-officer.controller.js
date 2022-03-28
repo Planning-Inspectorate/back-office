@@ -25,7 +25,6 @@ function mapAppealStatus(status) {
 		default:
 			return status;
 	}
-	// return status == validation_states_strings.received_appeal ? 'new' : 'incomplete';
 }
 
 // const appealWithQuestionnnaire = [{

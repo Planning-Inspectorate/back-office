@@ -4,7 +4,15 @@ import { getAppeals, getAppealsDetail, confirmingLPAQuestionnaire } from './case
 
 const router = express.Router();
 
-router.get('/', getAppeals);
+router.get('/', 
+	/*
+		#swagger.description = 'Gets all appeals for a Case Officer to review'
+		#swagger.responses[200] = {
+			description: 'Appeals the require Case Officer to checl',
+			schema: { $ref: '#/definitions/AppealsForCaseOfficer' }
+		}
+	*/
+	getAppeals);
 router.get('/id:', getAppealsDetail);
 router.post('/id:/confirm', asyncHandler(confirmingLPAQuestionnaire));
 
