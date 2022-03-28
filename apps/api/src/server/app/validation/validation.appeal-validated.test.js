@@ -81,8 +81,6 @@ test.before('sets up mocking of database', () => {
 	sinon.stub(DatabaseFactory, 'getInstance').callsFake((arguments_) => new MockDatabaseClass(arguments_));
 });
 
-
-
 test('should be able to submit \'valid\' decision', async (t) => {
 	const resp = await request.post('/validation/1')
 		.send({ AppealStatus: 'valid', DescriptionOfDevelopment: 'Some Desc' });

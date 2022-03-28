@@ -12,9 +12,9 @@ router.get('/',
 			schema: { $ref: '#/definitions/AppealsForCaseOfficer' }
 		}
 	*/
-	getAppeals);
-router.get('/id:', getAppealDetails);
-router.post('/id:/confirm', asyncHandler(confirmingLPAQuestionnaire));
+	asyncHandler(getAppeals));
+router.get('/:id', asyncHandler(getAppealDetails));
+router.post('/:id/confirm', asyncHandler(confirmingLPAQuestionnaire));
 
 
 export {

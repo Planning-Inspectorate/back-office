@@ -38,6 +38,17 @@ const appealFormatter = {
 			AppealSite: addressAsString,
 			QuestionnaireDueDate: appeal.startedAt ? formatDate(add2Weeks(appeal.startedAt)) : ''
 		};
+	},
+	formatAppealForAppealDetails: function(appeal) {
+		return {
+			AppealId : appeal.id,
+			AppealReference: appeal.reference,
+			LocalPlanningDepartment: appeal.localPlanningDepartment,
+			PlanningApplicationreference: appeal.planningApplicationReference,
+			AppealSiteNearConservationArea: false,
+			WouldDevelopmentAffectSettingOfListedBuilding: false,
+			...(true && { ListedBuildingDesc: '' })
+		};
 	}
 };
 
