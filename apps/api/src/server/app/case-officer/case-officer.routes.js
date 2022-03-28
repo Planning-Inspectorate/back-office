@@ -1,6 +1,6 @@
 import express from 'express';
 import asyncHandler from '../middleware/async-handler.js';
-import { getAppeals, getAppealsDetail, confirmingLPAQuestionnaire } from './lpa-questionnaire.get-appeals.controller.js';
+import { getAppeals, getAppealsDetail, confirmingLPAQuestionnaire } from './case-officer.controller.js';
 
 const router = express.Router();
 

@@ -3,7 +3,7 @@ import compression from 'compression';
 import morgan from 'morgan';
 import helmet from 'helmet';
 import { validationRoutes } from './app/validation/validation.routes.js';
-import { caseOfficerRoutes } from './app/lpa-questionnaire/lpa-questionnaire.get-appeals.routes.js';
+import { caseOfficerRoutes } from './app/case-officer/case-officer.routes.js';
 import errorHandler from './app/middleware/error-handler.js';
 import config from './config/config.js';
 
