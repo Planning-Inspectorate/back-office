@@ -2,20 +2,20 @@
 // These are mostly used on the check and confrim and summary pages.
 export const validationLabelsMap = {
 	invalidAppealReasons: {
-		outOfTime: 'Out of time',
-		notApplicable: 'No right of appeal',
-		noRightOfAppeal: 'Not appealable',
-		lpaInvalid: 'LPA deemed application as invalid',
-		other: 'Other'
+		OutOfTime: 'Out of time',
+		NoRightOfappeal: 'No right of appeal',
+		NotAppealable: 'Not appealable',
+		LPADeemedInvalid: 'LPA deemed application as invalid',
+		OtherReason: 'Other'
 	},
 	incompleteAppealReasons: {
-		namesDoNotMatch: 'Names do not match',
-		sensitiveInformationIncluded: 'Sensitive information included',
-		missingOrWrongDocuments: 'Missing or wrong documents',
-		inflammatoryCommentsMade: 'Inflammatory comments made',
-		openedInError: 'Opened in error',
-		wrongAppealTypeUsed: 'Wrong appeal type used',
-		other: 'Other'
+		NamesDoNotMatch: 'Names do not match',
+		Sensitiveinfo: 'Sensitive information included',
+		MissingOrWrongDocs: 'Missing or wrong documents',
+		InflamatoryComments: 'Inflammatory comments made',
+		OpenedInError: 'Opened in error',
+		WrongAppealType: 'Wrong appeal type used',
+		OtherReason: 'Other'
 	},
 	incompleteAppealMissingOrWrongDocumentsReasons: {
 		applicationForm: 'Application form',
