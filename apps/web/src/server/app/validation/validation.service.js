@@ -42,3 +42,11 @@ export async function findAppealById(id) {
 
 	return data;
 }
+
+export async function updateAppeal(id, data) {
+	const result = await request.post(`validation/${id}`, {
+		json: data
+	});
+
+	return result;
+}

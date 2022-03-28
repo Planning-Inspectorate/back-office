@@ -11,7 +11,7 @@ declare module "express-session" {
 			},
 			incompleteAppealDetails: {
 				incompleteReasons: Array,
-				missingOrWrongDocumentsReasons: Array,
+				MissingOrWrongDocsReasons: Array,
 				otherReason: string
 			}
 		},
