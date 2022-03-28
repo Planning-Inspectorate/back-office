@@ -17,7 +17,6 @@ import bodyParser from 'body-parser';
 app.use(bodyParser.json());
 
 const swaggerAuto = JSON.parse(fs.readFileSync(path.resolve(config.SWAGGER_JSON_DIR)));
-// const swaggerAuto = JSON.parse(fs.readFileSync(path.resolve( 'src', 'server', 'swagger-output.json')));
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerAuto));
 
 app.use(compression());
