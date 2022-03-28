@@ -1,5 +1,6 @@
 {% extends "_layouts/layout-base.njk" %}
 
+{% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
 {% from "govuk/components/breadcrumbs/macro.njk" import govukBreadcrumbs %}
 {% from "govuk/components/table/macro.njk" import govukTable %}
 {% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
@@ -60,6 +61,13 @@
 
 {% block content %}
 	{{ super() }}
+
+	{% if errorSummary %}
+		{{ govukErrorSummary({
+			titleText: "There is a problem",
+			errorList: errorSummary
+		}) }}
+	{% endif %}
 
 	{{ govukBreadcrumbs({
 		classes: 'govuk-!-margin-top-0 govuk-!-margin-bottom-8',

@@ -1,7 +1,7 @@
 import { to } from 'planning-inspectorate-libs';
 import { findAllIncomingIncompleteQuestionnaires, findQuestionnaireById } from './lpa.service.js';
 import { lpaRoutesConfig as routes } from '../../config/routes.js';
-import { flatten } from 'lodash-es';
+import { camelCase } from 'lodash-es';
 import { checkboxDataToCheckValuesObject } from '../../lib/helpers.js';
 
 /**
@@ -122,6 +122,13 @@ export function postReviewQuestionnaire(request, response) {
 	} = request;
 
 	if (Object.keys(errors).length > 0) {
+		for (const key in errors) {
+			if (errors.hasOwnProperty(key)) {
+				// eslint-disable-next-line unicorn/consistent-destructuring
+				request.session.reviewWork.reviewOutcome[camelCase(key.replace('-missing-or-incorrect-reason', ''))].details.error = { msg: errors[key].msg };
+			}
+		}
+
 		return response.render(routes.reviewQuestionnaire.view, {
 			backURL: `${routes.home.path}?direction=back`,
 			errors,

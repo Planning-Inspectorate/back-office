@@ -1,5 +1,6 @@
 import express from 'express';
 import { expressValidationErrorsInterceptor } from '../../lib/express-validation-errors.js';
+import { validateQuestionnairePipe } from './lpa.pipes.js';
 
 import {
 	getLpaDashboard,
@@ -16,6 +17,6 @@ router.route('/').get(getLpaDashboard);
 // Review questionnaire page
 router.route('/review-questionnaire/:appealId')
 	.get(getReviewQuestionnaire)
-	.post(postReviewQuestionnaire);
+	.post(validateQuestionnairePipe(), expressValidationErrorsInterceptor, postReviewQuestionnaire);
 
 export default router;
