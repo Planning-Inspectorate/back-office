@@ -1,7 +1,7 @@
 import { to } from 'planning-inspectorate-libs';
 import { findAllIncomingIncompleteQuestionnaires, findQuestionnaireById } from './lpa.service.js';
 import { lpaRoutesConfig as routes } from '../../config/routes.js';
-import { camelCase } from 'lodash-es';
+import { camelCase, upperFirst } from 'lodash-es';
 import { checkboxDataToCheckValuesObject } from '../../lib/helpers.js';
 
 /**
@@ -155,6 +155,9 @@ export function postReviewQuestionnaire(request, response) {
 	// eslint-disable-next-line unicorn/consistent-destructuring
 	request.session.appealId = appealId;
 
+	// eslint-disable-next-line unicorn/consistent-destructuring
+	request.session.save();
+
 	return response.redirect(`/lpa/${routes.checkAndConfirm.path}`);
 }
 
@@ -167,8 +170,15 @@ export function postReviewQuestionnaire(request, response) {
  */
 export function getCheckAndConfirm(request, response) {
 	const backURL = `/lpa/${routes.reviewQuestionnaire.path}/${request.session.appealId}?direction=back`;
+	const appealId = request.session.appealId;
+	const questionnaireData = request.session.questionnaireData;
+	const reviewOutcome = request.session.reviewWork.reviewOutcome;
 
 	response.render(routes.checkAndConfirm.view, {
-		backURL
+		backURL,
+		appealId,
+		questionnaireData,
+		reviewOutcome,
+		reviewOutcomeLabel: upperFirst(reviewOutcome)
 	});
 }

@@ -1,11 +1,8 @@
 {% extends "_layouts/layout-base.njk" %}
 
-{% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
-{% from "govuk/components/breadcrumbs/macro.njk" import govukBreadcrumbs %}
-{% from "govuk/components/table/macro.njk" import govukTable %}
-{% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
+{% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
+{% from "govuk/components/warning-text/macro.njk" import govukWarningText %}
 {% from "govuk/components/button/macro.njk" import govukButton %}
-{% from "govuk/components/textarea/macro.njk" import govukTextarea %}
 
 {% block header %}
   {{ govukHeader({
@@ -20,7 +17,32 @@
 	{{ super() }}
 
 	<h1 class="govuk-heading-xl">
-		Check and confirm questionnaire
+		Review questionnaire
 	</h1>
+
+	<h2 class="govuk-heading-l">
+		Check and confirm
+	</h2>
+
+	{{ govukSummaryList({
+		rows: [
+			{ key: { text: "Review outcome" }, value: { text: reviewOutcomeLabel } },
+			{ key: { text: "Appeal reference" }, value: { text: questionnaireData.AppealReference } },
+			{ key: { text: "Appeal site" }, value: { html: questionnaireData.AppealSiteHtml } },
+			{ key: { text: "Local planning department" }, value: { text: questionnaireData.LocalPlanningDepartment } }
+		]
+	}) }}
+
+	{%- if reviewOutcome === 'complete' -%}
+		{{ govukWarningText({
+			iconFallbackText: "Warning",
+			text: "Confirming this questionnaire as complete makes the appeal visible to inspectors."
+		}) }}
+	{%- endif -%}
+
+	<div class="govuk-button-group">
+		{{ govukButton({ text: 'Confirm outcome' | default('Confirm outcome') }) }}
+		<a class="govuk-link" href="{{ backURL }}">Go back to review questionnaire</a>
+	</div>
 
 {% endblock %}
