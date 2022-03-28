@@ -11,7 +11,7 @@ resources:
 variables:
   # Container registry service connection established during pipeline creation
   dockerRegistryServiceConnection: 'a29fec5e-5b92-45a9-848f-b0e4d88fa2be'
-  imageRepository: back-office/web'
+  imageRepository: 'back-office/web'
   containerRegistry: 'pinscrsharedtoolinguks.azurecr.io'
   dockerfilePath: '$(Build.SourcesDirectory)/apps/web/Dockerfile'
   tag: '$(Build.BuildId)'
