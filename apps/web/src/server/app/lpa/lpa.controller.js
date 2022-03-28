@@ -50,12 +50,12 @@ export async function getReviewQuestionnaire(request, response, next) {
 		return;
 	}
 
-	// Save the current questionnaire data into session storage
 	request.session.questionnaireData = questionnaireData;
 
 	response.render(routes.reviewQuestionnaire.view, {
 		backURL: `/${routes.home.path}?direction=back`,
 		questionnaireData,
+		fields: request.session.reviewWork?.fields
 	});
 }
 
