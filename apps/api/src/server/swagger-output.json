@@ -102,7 +102,7 @@
         "parameters": [],
         "responses": {
           "200": {
-            "description": "Appeals the require Case Officer to checl",
+            "description": "Appeals the require Case Officer to check",
             "schema": {
               "$ref": "#/definitions/AppealsForCaseOfficer"
             }
@@ -112,7 +112,7 @@
     },
     "/case-officer/{id}": {
       "get": {
-        "description": "",
+        "description": "Gets appeal details for Case Officer to review",
         "parameters": [
           {
             "name": "id",
@@ -123,7 +123,10 @@
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "Appeal that requires a Case Officer to check over",
+            "schema": {
+              "$ref": "#/definitions/AppealForCaseOfficer"
+            }
           }
         }
       }
@@ -383,6 +386,48 @@
         "QuestionnaireDueDate",
         "AppealSite",
         "QuestionnaireStatus"
+      ]
+    },
+    "AppealForCaseOfficer": {
+      "type": "object",
+      "properties": {
+        "AppealId": {
+          "type": "number",
+          "example": 1
+        },
+        "AppealReference": {
+          "type": "string",
+          "example": ""
+        },
+        "LocalPlanningDepartment": {
+          "type": "string",
+          "example": ""
+        },
+        "PlanningApplicationReference": {
+          "type": "string",
+          "example": ""
+        },
+        "AppealSiteNearConservationArea": {
+          "type": "boolean",
+          "example": false
+        },
+        "WouldDevelopmentAffectSettingOfListedBuilding": {
+          "type": "boolean",
+          "example": false
+        },
+        "ListedBuildingDesc": {
+          "type": "string",
+          "example": ""
+        }
+      },
+      "required": [
+        "AppealId",
+        "AppealReference",
+        "LocalPlanningDepartment",
+        "PlanningApplicationReference",
+        "AppealSiteNearConservationArea",
+        "WouldDevelopmentAffectSettingOfListedBuilding",
+        "ListedBuildingDesc"
       ]
     }
   }

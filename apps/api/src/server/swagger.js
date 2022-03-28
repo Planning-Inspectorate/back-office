@@ -73,6 +73,15 @@ const document_ = {
 			$QuestionnaireDueDate: '01 Jun 2022',
 			$AppealSite: '',
 			$QuestionnaireStatus: { '@enum': ['awaiting', 'received', 'overdue'] }
+		},
+		AppealForCaseOfficer: {
+			$AppealId: 1,
+			$AppealReference: '',
+			$LocalPlanningDepartment: '',
+			$PlanningApplicationReference: '',
+			$AppealSiteNearConservationArea: false,
+			$WouldDevelopmentAffectSettingOfListedBuilding: false,
+			$ListedBuildingDesc: ''
 		}
 	},
 	components: {}

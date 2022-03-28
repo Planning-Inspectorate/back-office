@@ -9,9 +9,9 @@ const caseOfficerStatuses = [
 	lpaQuestionnaireStatesStrings.received_lpa_questionnaire
 ];
 
-const caseOfficerStatusesOnceQuestionnaireReceived = [
+const caseOfficerStatusesOnceQuestionnaireReceived = new Set([
 	lpaQuestionnaireStatesStrings.received_lpa_questionnaire	
-];
+]);
 
 const getAppeals = async function (_request, response) {
 	const appeals = await appealRepository.getByStatuses(caseOfficerStatuses);
@@ -35,7 +35,7 @@ const confirmingLPAQuestionnaire = function (request, response) {
  */
 async function getAppealForCaseOfficer(appealId) {
 	const appeal = await appealRepository.getById(Number.parseInt(appealId, 10));
-	if (!caseOfficerStatusesOnceQuestionnaireReceived.includes(appeal.status)) {
+	if (!caseOfficerStatusesOnceQuestionnaireReceived.has(appeal.status)) {
 		throw new CaseOfficerError('Appeal has yet to receive LPA questionnaire', 400);
 	}
 	return appeal;
