@@ -69,7 +69,7 @@ test('gets the appeals information with received questionnaires', async (t) => {
 	const appealExample = [{
 		AppealId : 1,
 		AppealReference: 'APP/Q9999/D/21/1345264',
-		QuestionnaireDueDate:'01 Jun 2022',
+		QuestionnaireDueDate: '01 Jun 2022',
 		AppealSite:'96 The Avenue, Maidstone, Kent, MD21 5XY',
 		QuestionnaireStatus: 'awaiting'
 	},
