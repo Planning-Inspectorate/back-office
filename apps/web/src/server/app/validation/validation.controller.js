@@ -305,7 +305,7 @@ export function postIncompleteAppealOutcome(request, response) {
  * @returns {void}
  */
 export function getCheckAndConfirm(request, response) {
-	const backURL = `/validation/${routes.reviewAppealRoute.path}/${request.session.appealData?.AppealId}?direction=back`;
+	const backURL = `/validation/${routes.validAppealOutcome.path}?direction=back`;
 	const appealData = request.session.appealData;
 	const appealWork = request.session.appealWork;
 
