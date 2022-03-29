@@ -146,7 +146,13 @@ test('should be able to submit \'invalid\' decision', async(t) => {
 
 test('should be able to submit \'missing appeal details\' decision', async(t) => {
 	const resp = await request.post('/validation/1')
-		.send({ AppealStatus: 'incomplete', Reason: { outOfTime: true } });
+		.send({ AppealStatus: 'incomplete', Reason: {
+			outOfTime: true,
+			missingApplicationForm: true,
+			missingDecisionNotice: true,
+			missingGroundsForAppeal: true,
+			missingSupportingDocuments: true
+		} });
 	t.is(resp.status, 200);
 	// TODO: calledOneWithExactly throws error
 	sinon.assert.calledWithExactly(updateStub, { where: { id: 1 }, data: {
@@ -158,7 +164,11 @@ test('should be able to submit \'missing appeal details\' decision', async(t) =>
 		appealId: 1,
 		decision: 'incomplete',
 		descriptionOfDevelopment: undefined,
-		outOfTime: true
+		outOfTime: true,
+		missingApplicationForm: true,
+		missingDecisionNotice: true,
+		missingGroundsForAppeal: true,
+		missingSupportingDocuments: true
 	} });
 });
 
@@ -226,11 +236,11 @@ test('should not be able to submit decision as \'incomplete\' if there is no rea
 		.send({
 			AppealStatus:'incomplete',
 			Reason: {
-				OutOfTime: false,
-				NoRightOfappeal: false,
-				NotAppealable: false,
-				LPADeemedInvalid: false,
-				OtherReasons: ''
+				outOfTime: false,
+				noRightOfappeal: false,
+				notAppealable: false,
+				lPADeemedInvalid: false,
+				otherReasons: ''
 			}
 		});
 	t.is(resp.status, 400);

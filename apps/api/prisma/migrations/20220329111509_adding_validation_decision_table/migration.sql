@@ -10,7 +10,10 @@ CREATE TABLE [dbo].[ValidationDecision] (
     [decision] NVARCHAR(1000) NOT NULL,
     [namesDoNotMatch] BIT NOT NULL CONSTRAINT [ValidationDecision_namesDoNotMatch_df] DEFAULT 0,
     [sensitiveInfo] BIT NOT NULL CONSTRAINT [ValidationDecision_sensitiveInfo_df] DEFAULT 0,
-    [missingOrWrongDocs] BIT NOT NULL CONSTRAINT [ValidationDecision_missingOrWrongDocs_df] DEFAULT 0,
+    [missingApplicationForm] BIT NOT NULL CONSTRAINT [ValidationDecision_missingApplicationForm_df] DEFAULT 0,
+    [missingDecisionNotice] BIT NOT NULL CONSTRAINT [ValidationDecision_missingDecisionNotice_df] DEFAULT 0,
+    [missingGroundsForAppeal] BIT NOT NULL CONSTRAINT [ValidationDecision_missingGroundsForAppeal_df] DEFAULT 0,
+    [missingSupportingDocuments] BIT NOT NULL CONSTRAINT [ValidationDecision_missingSupportingDocuments_df] DEFAULT 0,
     [inflamatoryComments] BIT NOT NULL CONSTRAINT [ValidationDecision_inflamatoryComments_df] DEFAULT 0,
     [openedInError] BIT NOT NULL CONSTRAINT [ValidationDecision_openedInError_df] DEFAULT 0,
     [wrongAppealTypeUsed] BIT NOT NULL CONSTRAINT [ValidationDecision_wrongAppealTypeUsed_df] DEFAULT 0,
@@ -19,6 +22,7 @@ CREATE TABLE [dbo].[ValidationDecision] (
     [notAppealable] BIT NOT NULL CONSTRAINT [ValidationDecision_notAppealable_df] DEFAULT 0,
     [lPADeemedInvalid] BIT NOT NULL CONSTRAINT [ValidationDecision_lPADeemedInvalid_df] DEFAULT 0,
     [otherReasons] NVARCHAR(1000),
+    [descriptionOfDevelopment] NVARCHAR(1000),
     CONSTRAINT [ValidationDecision_pkey] PRIMARY KEY ([id])
 );
 

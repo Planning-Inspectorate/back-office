@@ -294,7 +294,19 @@
               "type": "boolean",
               "example": true
             },
-            "missingOrWrongDocs": {
+            "missingApplicationForm": {
+              "type": "boolean",
+              "example": true
+            },
+            "missingDecisionNotice": {
+              "type": "boolean",
+              "example": true
+            },
+            "missingGroundsForAppeal": {
+              "type": "boolean",
+              "example": true
+            },
+            "missingSupportingDocuments": {
               "type": "boolean",
               "example": true
             },
@@ -334,7 +346,10 @@
           "required": [
             "namesDoNotMatch",
             "sensitiveInfo",
-            "missingOrWrongDocs",
+            "missingApplicationForm",
+            "missingDecisionNotice",
+            "missingGroundsForAppeal",
+            "missingSupportingDocuments",
             "inflamatoryComments",
             "openedInError",
             "wrongAppealTypeUsed",

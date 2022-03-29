@@ -56,7 +56,10 @@ const document_ = {
 			$Reason: {
 				$namesDoNotMatch: true,
 				$sensitiveInfo: true,
-				$missingOrWrongDocs: true,
+				$missingApplicationForm: true,
+				$missingDecisionNotice: true,
+				$missingGroundsForAppeal:true,
+				$missingSupportingDocuments: true,
 				$inflamatoryComments: true,
 				$openedInError: true,
 				$wrongAppealTypeUsed: true,

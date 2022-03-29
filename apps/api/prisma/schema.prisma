@@ -37,21 +37,24 @@ model Address {
 }
 
 model ValidationDecision {
-  id                  Int      @id @default(autoincrement())
-  appeal              Appeal   @relation(fields: [appealId], references: [id])
-  appealId            Int
-  createdAt           DateTime @default(now())
-  decision            String //can be 'valid', 'invalid' or 'incomplete' ...  that can be managed with enum
-  namesDoNotMatch     Boolean  @default(false)
-  sensitiveInfo       Boolean  @default(false)
-  missingOrWrongDocs  Boolean  @default(false)
-  inflamatoryComments Boolean  @default(false)
-  openedInError       Boolean  @default(false)
-  wrongAppealTypeUsed Boolean  @default(false)
-  outOfTime           Boolean  @default(false)
-  noRightOfAppeal     Boolean  @default(false)
-  notAppealable       Boolean  @default(false)
-  lPADeemedInvalid    Boolean  @default(false)
-  otherReasons        String?
-  descriptionOfDevelopment String?
+  id                         Int      @id @default(autoincrement())
+  appeal                     Appeal   @relation(fields: [appealId], references: [id])
+  appealId                   Int
+  createdAt                  DateTime @default(now())
+  decision                   String //can be 'valid', 'invalid' or 'incomplete' ...  that can be managed with enum
+  namesDoNotMatch            Boolean  @default(false)
+  sensitiveInfo              Boolean  @default(false)
+  missingApplicationForm     Boolean  @default(false)
+  missingDecisionNotice      Boolean  @default(false)
+  missingGroundsForAppeal    Boolean  @default(false)
+  missingSupportingDocuments Boolean  @default(false)
+  inflamatoryComments        Boolean  @default(false)
+  openedInError              Boolean  @default(false)
+  wrongAppealTypeUsed        Boolean  @default(false)
+  outOfTime                  Boolean  @default(false)
+  noRightOfAppeal            Boolean  @default(false)
+  notAppealable              Boolean  @default(false)
+  lPADeemedInvalid           Boolean  @default(false)
+  otherReasons               String?
+  descriptionOfDevelopment   String?
 }
