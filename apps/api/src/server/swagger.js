@@ -52,7 +52,7 @@ const document_ = {
 		},
 		ValidationDecision: {
 			$AppealStatus: { '@enum': ['invalid', 'incomplete', 'valid'] },
-			$DescriptionOfDevelopment: '',
+			$descriptionOfDevelopment: '',
 			$Reason: {
 				$namesDoNotMatch: true,
 				$sensitiveInfo: true,
