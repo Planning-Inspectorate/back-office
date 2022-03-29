@@ -3,7 +3,7 @@
 export const validationLabelsMap = {
 	invalidAppealReasons: {
 		outOfTime: 'Out of time',
-		noRightOfappeal: 'No right of appeal',
+		noRightOfAppeal: 'No right of appeal',
 		notAppealable: 'Not appealable',
 		lPADeemedInvalid: 'LPA deemed application as invalid',
 		otherReason: 'Other'
