@@ -12,22 +12,22 @@
     {% else %}
       <ul class="govuk-list">
         {% if appealWork.reviewOutcome === 'invalid' %}
-			{% for item in invalidAppealDetails.reasons %}
-				<li>{{ validationLabelsMap.invalidAppealReasons.invalidAppealReasons[item] + (' - ' + invalidAppealDetails.otherReason if item === '5') }}</li>
+			{% for item in invalidReasons %}
+				<li>{{ validationLabelsMap.invalidAppealReasons[item] + (' - ' + appealWork.invalidAppealDetails.OtherReasons if item === 'OtherReason') }}</li>
 			{% endfor %}
         {% elif appealWork.reviewOutcome === 'incomplete' %}
 			{% for item in incompleteReasons %}
-				{% if item === 'missingOrWrongDocuments' %}
+				{% if item === 'MissingOrWrongDocs' %}
 					<li>
 						{{ validationLabelsMap.incompleteAppealReasons[item] }}
 						<ul class="govuk-list govuk-list--bullet">
-							{% for documentReason in missingOrWrongDocumentsReasons %}
+							{% for documentReason in MissingOrWrongDocsReasons %}
 								<li>{{ validationLabelsMap.incompleteAppealMissingOrWrongDocumentsReasons[documentReason] }}</li>
 							{% endfor %}
 						</ul>
 					</li>
 				{% else %}
-					<li>{{ validationLabelsMap.incompleteAppealReasons[item] + (' - ' + appealWork.incompleteAppealDetails.otherReason if item === 'other') }}</li>
+					<li>{{ validationLabelsMap.incompleteAppealReasons[item] + (' - ' + appealWork.incompleteAppealDetails.OtherReasons if item === 'OtherReason') }}</li>
 				{% endif %}
 			{% endfor %}
         {% endif %}
@@ -49,37 +49,36 @@
 	<form action="" method="post" novalidate>
 		{{ govukSummaryList({
 			rows: [
-				{ key: { text: "Outcome of review" }, value: { text: validationAppealOutcomeLabels.label } },
-				{ key: { text: "Appellant name" }, value: { text: appealData.AppellantName } },
-				{ key: { text: "Appeal reference" }, value: { text: appealData.AppealReference } },
-				{ key: { text: "Appeal site" }, value: { text: appealData.AppealSite } },
+				{ key: { text: 'Outcome of review' }, value: { text: validationAppealOutcomeLabels.label } },
+				{ key: { text: 'Appellant name' }, value: { text: appealData.AppellantName } },
+				{ key: { text: 'Appeal reference' }, value: { text: appealData.AppealReference } },
+				{ key: { text: 'Appeal site' }, value: { text: appealData.AppealSite } },
 				{ key: { text: validationAppealOutcomeLabels.reasonLabel }, value: { html: renderCheckAndConfirmReason() } }
 			]
 		}) }}
 
 		{% if appealWork.reviewOutcome === 'valid' %}
 			{{ govukWarningText({
-				iconFallbackText: "Warning",
-				text: "Confirming this appeal as valid starts the appeal and sends the LPA questionnaire email."
+				iconFallbackText: 'Warning',
+				text: 'Confirming this appeal as valid starts the appeal and sends the LPA questionnaire email.'
 			}) }}
 		{% elif appealWork.reviewOutcome === 'invalid' %}
 			{# {{ govukWarningText({
-			iconFallbackText: "Warning",
-			text: "Confirming this appeal as invalid turns away the appeal and emails the appellant and LPA."
+			iconFallbackText: 'Warning',
+			text: 'Confirming this appeal as invalid turns away the appeal and emails the appellant and LPA.'
 			}) }} #}
 		{% elif appealWork.reviewOutcome === 'incomplete' %}
 			{{ govukCheckboxes({
-				idPrefix: "check-and-confirm-completed",
-				name: "check-and-confirm-completed",
-				classes: "govuk-checkboxes--small",
-				errorMessage: completedError and {
-					text: completedError
+				idPrefix: 'check-and-confirm-completed',
+				name: 'check-and-confirm-completed',
+				errorMessage: errors and {
+					text: errors['check-and-confirm-completed'].msg
 				},
 				items: [
 					{
-						value: "true",
-						text: "I have completed all follow-up tasks and emails",
-						checked: completed === 'true'
+						value: 'true',
+						text: 'I have completed all follow-up tasks and emails',
+						checked: false
 					}
 				]
 			}) }}

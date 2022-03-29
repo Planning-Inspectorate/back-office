@@ -16,38 +16,83 @@
   "schemes": [],
   "securityDefinitions": {},
   "paths": {
-    "/": {
+    "/validation/": {
       "get": {
-        "description": "",
+        "description": "Gets all appeals that need to be validated. The AppealStatus will be either \\'new\\' or \\'incomplete\\'",
         "parameters": [],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "Appeals that require validation",
+            "schema": {
+              "$ref": "#/definitions/AppealsToValidate"
+            }
           }
         }
       }
     },
-    "/validation/": {
-      "get": {
-        "description": "",
-        "parameters": [],
-        "responses": {}
-      }
-    },
     "/validation/{id}": {
       "get": {
-        "description": "",
-        "parameters": [],
-        "responses": {}
+        "description": "Gets appeal to be validated by the Validation Officer",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "description": "Appeal ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "desciption": "Appeal that requires validation",
+            "schema": {
+              "$ref": "#/definitions/AppealsToValidate"
+            },
+            "description": "OK"
+          }
+        }
       },
       "patch": {
-        "description": "",
-        "parameters": [],
+        "description": "Updates appeal details",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "url",
+            "required": true,
+            "type": "integer",
+            "description": "Appeal ID"
+          },
+          {
+            "name": "obj",
+            "in": "body",
+            "description": "New Details",
+            "schema": {
+              "$ref": "#/definitions/ChangeAppeal"
+            }
+          }
+        ],
         "responses": {}
       },
       "post": {
-        "description": "",
-        "parameters": [],
+        "description": "Sends validation decision",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "id": "url",
+            "description": "Appeal ID"
+          },
+          {
+            "name": "obj",
+            "in": "body",
+            "description": "Validation Decision",
+            "schema": {
+              "$ref": "#/definitions/ValidationDecision"
+            }
+          }
+        ],
         "responses": {}
       }
     },
@@ -86,6 +131,220 @@
         "parameters": [],
         "responses": {}
       }
+    }
+  },
+  "definitions": {
+    "AppealToValidate": {
+      "type": "object",
+      "properties": {
+        "AppealId": {
+          "type": "number",
+          "example": 1
+        },
+        "AppealReference": {
+          "type": "string",
+          "example": "APP/Q9999/D/21/1345264"
+        },
+        "AppellantName": {
+          "type": "string",
+          "example": "Lee Thornton"
+        },
+        "AppealStatus": {
+          "type": "string",
+          "example": "new"
+        },
+        "Received": {
+          "type": "string",
+          "example": "18 Mar 2022"
+        },
+        "AppealSite": {
+          "type": "string",
+          "example": "96 The Avenue, Maidstone, Kent, MD21 5XY"
+        },
+        "LocalPlanningDepartment": {
+          "type": "string",
+          "example": "Maidstone Borough Council"
+        },
+        "PlanningApplicationReference": {
+          "type": "string",
+          "example": "48269/APP/2021/1482"
+        },
+        "Documents": {
+          "type": "array",
+          "example": [],
+          "items": {}
+        }
+      }
+    },
+    "AppealsToValidate": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "AppealId": {
+            "type": "number",
+            "example": 1
+          },
+          "AppealReference": {
+            "type": "string",
+            "example": "APP/Q9999/D/21/1345264"
+          },
+          "AppealStatus": {
+            "type": "string",
+            "enum": [
+              "new",
+              "incomplete"
+            ]
+          },
+          "Received": {
+            "type": "string",
+            "example": "18 Mar 2022"
+          },
+          "AppealSite": {
+            "type": "string",
+            "example": "96 The Avenue, Maidstone, Kent, MD21 5XY"
+          }
+        }
+      }
+    },
+    "ChangeAppeal": {
+      "type": "object",
+      "properties": {
+        "AppellandName": {
+          "type": "string",
+          "example": "John Doe"
+        },
+        "Address": {
+          "type": "object",
+          "properties": {
+            "AddressLine1": {
+              "type": "string",
+              "example": ""
+            },
+            "AddressLine2": {
+              "type": "string",
+              "example": ""
+            },
+            "Town": {
+              "type": "string",
+              "example": ""
+            },
+            "County": {
+              "type": "string",
+              "example": ""
+            },
+            "PostCode": {
+              "type": "string",
+              "example": ""
+            }
+          },
+          "required": [
+            "AddressLine1",
+            "AddressLine2",
+            "Town",
+            "County",
+            "PostCode"
+          ]
+        },
+        "LocalPlanningDepartment": {
+          "type": "string",
+          "example": ""
+        },
+        "PlanningApplicationReference": {
+          "type": "string",
+          "example": ""
+        }
+      },
+      "required": [
+        "AppellandName",
+        "Address",
+        "LocalPlanningDepartment",
+        "PlanningApplicationReference"
+      ]
+    },
+    "ValidationDecision": {
+      "type": "object",
+      "properties": {
+        "AppealStatus": {
+          "type": "string",
+          "enum": [
+            "invalid",
+            "info missing",
+            "valid"
+          ]
+        },
+        "DescriptionOfDevelopment": {
+          "type": "string",
+          "example": ""
+        },
+        "Reason": {
+          "type": "object",
+          "properties": {
+            "NamesDoNotMatch": {
+              "type": "boolean",
+              "example": true
+            },
+            "SensitiveInfo": {
+              "type": "boolean",
+              "example": true
+            },
+            "MissingOrWrongDocs": {
+              "type": "boolean",
+              "example": true
+            },
+            "InflamatoryComments": {
+              "type": "boolean",
+              "example": true
+            },
+            "OpenedInError": {
+              "type": "boolean",
+              "example": true
+            },
+            "WrongAppealType": {
+              "type": "boolean",
+              "example": true
+            },
+            "OutOfTime": {
+              "type": "boolean",
+              "example": true
+            },
+            "NoRightOfappeal": {
+              "type": "boolean",
+              "example": true
+            },
+            "NotAppealable": {
+              "type": "boolean",
+              "example": true
+            },
+            "LPADeemedInvalid": {
+              "type": "boolean",
+              "example": true
+            },
+            "OtherReasons": {
+              "type": "string",
+              "example": ""
+            }
+          },
+          "required": [
+            "NamesDoNotMatch",
+            "SensitiveInfo",
+            "MissingOrWrongDocs",
+            "InflamatoryComments",
+            "OpenedInError",
+            "WrongAppealType",
+            "OutOfTime",
+            "NoRightOfappeal",
+            "NotAppealable",
+            "LPADeemedInvalid",
+            "OtherReasons"
+          ]
+        }
+      },
+      "required": [
+        "AppealStatus",
+        "DescriptionOfDevelopment",
+        "Reason"
+      ]
     }
   }
 }

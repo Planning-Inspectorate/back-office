@@ -19,8 +19,56 @@ const document_ = {
 		// { ... }
 	],
 	securityDefinitions: {},  // by default: empty object (Swagger 2.0)
-	definitions: {},          // by default: empty object
-	components: {}            // by default: empty object (OpenAPI 3.x)
+	definitions: {
+		AppealToValidate: {
+			AppealId: 1,
+			AppealReference: 'APP/Q9999/D/21/1345264',
+			AppellantName: 'Lee Thornton',
+			AppealStatus: 'new',
+			Received: '18 Mar 2022',
+			AppealSite: '96 The Avenue, Maidstone, Kent, MD21 5XY',
+			LocalPlanningDepartment: 'Maidstone Borough Council',
+			PlanningApplicationReference: '48269/APP/2021/1482',
+			Documents: []
+		},
+		AppealsToValidate: [{
+			AppealId: 1,
+			AppealReference: 'APP/Q9999/D/21/1345264',
+			AppealStatus: { '@enum': ['new', 'incomplete'] },
+			Received: '18 Mar 2022',
+			AppealSite: '96 The Avenue, Maidstone, Kent, MD21 5XY'
+		}],
+		ChangeAppeal: {
+			$AppellandName: 'John Doe',
+			$Address: {
+				$AddressLine1: '',
+				$AddressLine2: '',
+				$Town: '',
+				$County: '',
+				$PostCode: ''
+			},
+			$LocalPlanningDepartment: '',
+			$PlanningApplicationReference: ''
+		},
+		ValidationDecision: {
+			$AppealStatus: { '@enum': ['invalid', 'info missing', 'valid'] },
+			$DescriptionOfDevelopment: '',
+			$Reason: {
+				$NamesDoNotMatch: true,
+				$SensitiveInfo: true,
+				$MissingOrWrongDocs: true,
+				$InflamatoryComments: true,
+				$OpenedInError: true,
+				$WrongAppealType: true,
+				$OutOfTime: true,
+				$NoRightOfappeal: true,
+				$NotAppealable: true,
+				$LPADeemedInvalid: true,
+				$OtherReasons: '',
+			}
+		}
+	},
+	components: {}
 };
 
 const outputFile = './src/server/swagger-output.json';

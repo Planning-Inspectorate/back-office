@@ -1,11 +1,9 @@
-/* eslint-disable complexity */
-/* eslint-disable unicorn/prefer-ternary */
-import { validationResult } from 'express-validator';
 import appealRepository from '../repositories/appeal.repository.js';
 import ValidationError from './validation-error.js';
 import household_appeal_machine from '../state-machine/household-appeal.machine.js';
 import { validation_states_strings, validation_actions_strings } from '../state-machine/validation-states.js';
 import appealFormatter from './appeal-formatter.js';
+import { validationDecisions, validateAppealValidatedRequest, validateUpdateValidationRequest } from './validate-request.js';
 
 const validationStatuses = [
 	validation_states_strings.received_appeal,
@@ -24,43 +22,27 @@ const getValidation = async function (_request, response) {
 	response.send(formattedAppeals);
 };
 
-const updateValidation = function (request, response) {
-	const errors = validationResult(request);
-	if (!errors.isEmpty()) {
-		return response.status(400).json({ errors: errors.array() });
-	}
+const updateValidation = async function (request, response) {
+	validateUpdateValidationRequest(request);
+	const appeal = await getAppealForValidation(request.params.id);
+	const data = {
+		...(request.body.AppellantName && { appellantName: request.body.AppellantName }),
+		...(request.body.Address && { address: { update: {
+			addressLine1: request.body.Address.AddressLine1,
+			addressLine2: request.body.Address.AddressLine2,
+			addressLine3: request.body.Address.Town,
+			addressLine4: request.body.Address.County,
+			postcode: request.body.Address.PostCode
+		} } }),
+		...(request.body.LocalPlanningDepartment && { localPlanningDepartment: request.body.LocalPlanningDepartment } ),
+		...(request.body.PlanningApplicationReference && { planningApplicationReference: request.body.PlanningApplicationReference })
+	};
+	await appealRepository.updateById(appeal.id, data);
 	return response.send();
 };
 
-const invalidWithoutReasons =  function (body ) {
-	return (body.AppealStatus == 'invalid' &&
-	body.Reason.NamesDoNotMatch !== true &&
-	body.Reason.Sensitiveinfo !== true &&
-	body.Reason.MissingOrWrongDocs !== true &&
-	body.Reason.InflamatoryComments !== true &&
-	body.Reason.OpenedInError !== true &&
-	body.Reason.WrongAppealType !== true &&
-	(body.Reason.OtherReasons == '' || body.Reason.OtherReasons == undefined)
-	);
-};
-
-const incompleteWithoutReasons =  function (body ) {
-	return (body.AppealStatus == 'incomplete' &&
-	body.Reason.OutOfTime !== true &&
-	body.Reason.NoRightOfappeal !== true &&
-	body.Reason.NotAppealable !== true &&
-	body.Reason.LPADeemedInvalid !== true &&
-	(body.Reason.OtherReasons == '' || body.Reason.OtherReasons == undefined)
-	);
-};
-
 const appealValidated = async function (request, response) {
-	if (invalidWithoutReasons(request.body)) {
-		throw new ValidationError('Invalid Appeal require a reason', 400);
-	}
-	if (incompleteWithoutReasons(request.body)) {
-		throw new ValidationError('Incomplete Appeal require a reason', 400);
-	}
+	validateAppealValidatedRequest(request.body);
 	const appeal = await getAppealForValidation(request.params.id);
 	const machineAction = mapAppealStatusToStateMachineAction(request.body.AppealStatus);
 	const nextState = household_appeal_machine.transition(appeal.status, machineAction);
@@ -73,12 +55,12 @@ const appealValidated = async function (request, response) {
  * @returns {string} status change as expected by state machine
  */
 function mapAppealStatusToStateMachineAction(status) {
-	switch(status) {
-		case 'valid':
+	switch (status) {
+		case validationDecisions.valid:
 			return validation_actions_strings.valid;
-		case 'invalid':
+		case validationDecisions.invalid:
 			return validation_actions_strings.invalid;
-		case 'info missing':
+		case validationDecisions.infoMissing:
 			return validation_actions_strings.information_missing;
 		default:
 			throw new ValidationError('Unknown AppealStatus', 400);
