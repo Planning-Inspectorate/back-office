@@ -62,6 +62,10 @@ export async function getValidationDashboard(request, response, next) {
 export async function getReviewAppeal(request, response, next) {
 	const appealId = request.params.appealId;
 
+	if (request.session.appealWork && `${request.session.appealData?.AppealId}` !== appealId) {
+		request.session.appealWork = {};
+	}
+
 	const [error, appealData] = await to(findAppealById(appealId));
 	const reviewOutcome = request.session.appealWork?.reviewOutcome;
 
