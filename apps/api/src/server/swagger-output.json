@@ -326,7 +326,7 @@
               "type": "boolean",
               "example": true
             },
-            "noRightOfappeal": {
+            "noRightOfAppeal": {
               "type": "boolean",
               "example": true
             },
@@ -354,7 +354,7 @@
             "openedInError",
             "wrongAppealTypeUsed",
             "outOfTime",
-            "noRightOfappeal",
+            "noRightOfAppeal",
             "notAppealable",
             "lPADeemedInvalid",
             "otherReasons"

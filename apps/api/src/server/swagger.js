@@ -64,7 +64,7 @@ const document_ = {
 				$openedInError: true,
 				$wrongAppealTypeUsed: true,
 				$outOfTime: true,
-				$noRightOfappeal: true,
+				$noRightOfAppeal: true,
 				$notAppealable: true,
 				$lPADeemedInvalid: true,
 				$otherReasons: '',
