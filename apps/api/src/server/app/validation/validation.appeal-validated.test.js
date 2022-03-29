@@ -116,7 +116,7 @@ test('should be able to submit \'invalid\' decision', async(t) => {
 		.send({ AppealStatus: 'invalid',
 			Reason: {
 				outOfTime:true,
-				noRightOfappeal:true,
+				noRightOfAppeal:true,
 				notAppealable:true,
 				lPADeemedInvalid:true,
 				otherReasons: '' }
@@ -133,11 +133,10 @@ test('should be able to submit \'invalid\' decision', async(t) => {
 		decision: 'invalid',
 		descriptionOfDevelopment: undefined,
 		outOfTime:true,
-		noRightOfappeal:true,
+		noRightOfAppeal:true,
 		notAppealable:true,
 		lPADeemedInvalid:true,
 		otherReasons: ''
-
 	} });
 });
 

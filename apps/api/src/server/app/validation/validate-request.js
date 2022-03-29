@@ -26,7 +26,7 @@ const incompleteWithoutReasons = function (body) {
 const invalidWithoutReasons = function (body) {
 	return (body.AppealStatus == validationDecisions.invalid &&
 		body.Reason.outOfTime !== true &&
-		body.Reason.noRightOfappeal !== true &&
+		body.Reason.noRightOfAppeal !== true &&
 		body.Reason.notAppealable !== true &&
 		body.Reason.lPADeemedInvalid !== true &&
 		stringEmptyOrUndefined(body.Reason.otherReasons)
