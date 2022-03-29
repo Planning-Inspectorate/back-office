@@ -5,7 +5,7 @@ import stringEmptyOrUndefined from '../utils/string-validator.js';
 const validationDecisions = {
 	valid: 'valid',
 	invalid: 'invalid',
-	infoMissing: 'info missing'
+	incomplete: 'incomplete'
 };
 
 const invalidWithoutReasons = function (body) {
@@ -21,7 +21,7 @@ const invalidWithoutReasons = function (body) {
 };
 
 const incompleteWithoutReasons = function (body) {
-	return (body.AppealStatus == validationDecisions.infoMissing &&
+	return (body.AppealStatus == validationDecisions.incomplete &&
 		body.Reason.OutOfTime !== true &&
 		body.Reason.NoRightOfappeal !== true &&
 		body.Reason.NotAppealable !== true &&

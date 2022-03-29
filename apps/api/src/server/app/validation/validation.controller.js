@@ -60,7 +60,7 @@ function mapAppealStatusToStateMachineAction(status) {
 			return validation_actions_strings.valid;
 		case validationDecisions.invalid:
 			return validation_actions_strings.invalid;
-		case validationDecisions.infoMissing:
+		case validationDecisions.incomplete:
 			return validation_actions_strings.information_missing;
 		default:
 			throw new ValidationError('Unknown AppealStatus', 400);
