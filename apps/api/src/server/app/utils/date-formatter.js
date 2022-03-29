@@ -7,7 +7,7 @@ function formatDate(date) {
 		'May', 'Jun', 'Jul', 'Aug',
 		'Sep', 'Oct', 'Nov', 'Dec'];
 
-	const day = date.getDate();
+	const day = date.getDate().toString().padStart(2, '0');
 
 	const monthIndex = date.getMonth();
 	const monthName = monthNames[monthIndex];
