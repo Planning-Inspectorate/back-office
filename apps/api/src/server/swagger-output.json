@@ -275,80 +275,95 @@
           "type": "string",
           "enum": [
             "invalid",
-            "info missing",
+            "incomplete",
             "valid"
           ]
         },
-        "DescriptionOfDevelopment": {
+        "descriptionOfDevelopment": {
           "type": "string",
           "example": ""
         },
         "Reason": {
           "type": "object",
           "properties": {
-            "NamesDoNotMatch": {
+            "namesDoNotMatch": {
               "type": "boolean",
               "example": true
             },
-            "SensitiveInfo": {
+            "sensitiveInfo": {
               "type": "boolean",
               "example": true
             },
-            "MissingOrWrongDocs": {
+            "missingApplicationForm": {
               "type": "boolean",
               "example": true
             },
-            "InflamatoryComments": {
+            "missingDecisionNotice": {
               "type": "boolean",
               "example": true
             },
-            "OpenedInError": {
+            "missingGroundsForAppeal": {
               "type": "boolean",
               "example": true
             },
-            "WrongAppealType": {
+            "missingSupportingDocuments": {
               "type": "boolean",
               "example": true
             },
-            "OutOfTime": {
+            "inflamatoryComments": {
               "type": "boolean",
               "example": true
             },
-            "NoRightOfappeal": {
+            "openedInError": {
               "type": "boolean",
               "example": true
             },
-            "NotAppealable": {
+            "wrongAppealTypeUsed": {
               "type": "boolean",
               "example": true
             },
-            "LPADeemedInvalid": {
+            "outOfTime": {
               "type": "boolean",
               "example": true
             },
-            "OtherReasons": {
+            "noRightOfappeal": {
+              "type": "boolean",
+              "example": true
+            },
+            "notAppealable": {
+              "type": "boolean",
+              "example": true
+            },
+            "lPADeemedInvalid": {
+              "type": "boolean",
+              "example": true
+            },
+            "otherReasons": {
               "type": "string",
               "example": ""
             }
           },
           "required": [
-            "NamesDoNotMatch",
-            "SensitiveInfo",
-            "MissingOrWrongDocs",
-            "InflamatoryComments",
-            "OpenedInError",
-            "WrongAppealType",
-            "OutOfTime",
-            "NoRightOfappeal",
-            "NotAppealable",
-            "LPADeemedInvalid",
-            "OtherReasons"
+            "namesDoNotMatch",
+            "sensitiveInfo",
+            "missingApplicationForm",
+            "missingDecisionNotice",
+            "missingGroundsForAppeal",
+            "missingSupportingDocuments",
+            "inflamatoryComments",
+            "openedInError",
+            "wrongAppealTypeUsed",
+            "outOfTime",
+            "noRightOfappeal",
+            "notAppealable",
+            "lPADeemedInvalid",
+            "otherReasons"
           ]
         }
       },
       "required": [
         "AppealStatus",
-        "DescriptionOfDevelopment",
+        "descriptionOfDevelopment",
         "Reason"
       ]
     },

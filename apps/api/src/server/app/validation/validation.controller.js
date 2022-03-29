@@ -1,4 +1,5 @@
 import appealRepository from '../repositories/appeal.repository.js';
+import validationDecisionRepository from '../repositories/validation-decision.repository.js';
 import ValidationError from './validation-error.js';
 import household_appeal_machine from '../state-machine/household-appeal.machine.js';
 import { validation_states_strings, validation_actions_strings } from '../state-machine/validation-states.js';
@@ -41,12 +42,43 @@ const updateValidation = async function (request, response) {
 	return response.send();
 };
 
+
+const validReasonAdded = function(body) {
+	switch(true) {
+		case body.Reason.NamesDoNotMatch:
+			return { NamesDoNotMatch: true };
+		case body.Reason.Sensitiveinfo:
+			return { Sensitiveinfo: true };
+		case body.Reason.MissingOrWrongDocs:
+			return { MissingOrWrongDocs: true };
+		case body.Reason.InflamatoryComments:
+			return { InflamatoryComments: true };
+		case body.Reason.OpenedInError:
+			return { OpenedInError: true };
+		case body.Reason.WrongAppealType:
+			return { WrongAppealType: true };
+		case body.Reason.OutOfTime:
+			return { OutOfTime: true };
+		case body.Reason.NoRightOfappeal:
+			return { NoRightOfappeal: true };
+		case body.Reason.NotAppealable:
+			return { NotAppealable: true };
+		case body.Reason.LPADeemedInvalid:
+			return { LPADeemedInvalid: true };
+		default:
+			return { OtherReasons: '' };
+	}
+};
+
+
 const appealValidated = async function (request, response) {
 	validateAppealValidatedRequest(request.body);
 	const appeal = await getAppealForValidation(request.params.id);
 	const machineAction = mapAppealStatusToStateMachineAction(request.body.AppealStatus);
 	const nextState = household_appeal_machine.transition(appeal.status, machineAction);
 	await appealRepository.updateStatusById(appeal.id, nextState.value);
+	// const resultReason = request.body.Reason ? validReasonAdded(request.body) : {};
+	await validationDecisionRepository.addNewDecision(appeal.id, request.body.AppealStatus, request.body.Reason, request.body.DescriptionOfDevelopment);
 	return response.send();
 };
 
