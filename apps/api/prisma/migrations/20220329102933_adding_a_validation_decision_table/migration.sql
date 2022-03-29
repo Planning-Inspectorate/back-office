@@ -11,7 +11,7 @@ CREATE TABLE [dbo].[ValidationDecision] (
     [namesDoNotMatch] BIT NOT NULL CONSTRAINT [ValidationDecision_namesDoNotMatch_df] DEFAULT 0,
     [sensitiveInfo] BIT NOT NULL CONSTRAINT [ValidationDecision_sensitiveInfo_df] DEFAULT 0,
     [missingOrWrongDocs] BIT NOT NULL CONSTRAINT [ValidationDecision_missingOrWrongDocs_df] DEFAULT 0,
-    [InflamatoryComments] BIT NOT NULL CONSTRAINT [ValidationDecision_InflamatoryComments_df] DEFAULT 0,
+    [inflamatoryComments] BIT NOT NULL CONSTRAINT [ValidationDecision_inflamatoryComments_df] DEFAULT 0,
     [openedInError] BIT NOT NULL CONSTRAINT [ValidationDecision_openedInError_df] DEFAULT 0,
     [wrongAppealTypeUsed] BIT NOT NULL CONSTRAINT [ValidationDecision_wrongAppealTypeUsed_df] DEFAULT 0,
     [outOfTime] BIT NOT NULL CONSTRAINT [ValidationDecision_outOfTime_df] DEFAULT 0,

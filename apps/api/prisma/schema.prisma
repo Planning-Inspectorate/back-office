@@ -45,7 +45,7 @@ model ValidationDecision {
   namesDoNotMatch     Boolean  @default(false)
   sensitiveInfo       Boolean  @default(false)
   missingOrWrongDocs  Boolean  @default(false)
-  InflamatoryComments Boolean  @default(false)
+  inflamatoryComments Boolean  @default(false)
   openedInError       Boolean  @default(false)
   wrongAppealTypeUsed Boolean  @default(false)
   outOfTime           Boolean  @default(false)

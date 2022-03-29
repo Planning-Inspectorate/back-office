@@ -10,23 +10,23 @@ const validationDecisions = {
 
 const invalidWithoutReasons = function (body) {
 	return (body.AppealStatus == validationDecisions.invalid &&
-		body.Reason.NamesDoNotMatch !== true &&
-		body.Reason.Sensitiveinfo !== true &&
-		body.Reason.MissingOrWrongDocs !== true &&
-		body.Reason.InflamatoryComments !== true &&
-		body.Reason.OpenedInError !== true &&
-		body.Reason.WrongAppealType !== true &&
-        stringEmptyOrUndefined(body.Reason.OtherReasons)
+		body.Reason.namesDoNotMatch !== true &&
+		body.Reason.sensitiveinfo !== true &&
+		body.Reason.missingOrWrongDocs !== true &&
+		body.Reason.inflamatoryComments !== true &&
+		body.Reason.openedInError !== true &&
+		body.Reason.wrongAppealType !== true &&
+        stringEmptyOrUndefined(body.Reason.otherReasons)
 	);
 };
 
 const incompleteWithoutReasons = function (body) {
 	return (body.AppealStatus == validationDecisions.incomplete &&
-		body.Reason.OutOfTime !== true &&
-		body.Reason.NoRightOfappeal !== true &&
-		body.Reason.NotAppealable !== true &&
-		body.Reason.LPADeemedInvalid !== true &&
-		stringEmptyOrUndefined(body.Reason.OtherReasons)
+		body.Reason.outOfTime !== true &&
+		body.Reason.noRightOfappeal !== true &&
+		body.Reason.notAppealable !== true &&
+		body.Reason.lPADeemedInvalid !== true &&
+		stringEmptyOrUndefined(body.Reason.otherReasons)
 	);
 };
 
