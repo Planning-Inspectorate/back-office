@@ -28,24 +28,24 @@
 				name: 'invalidReasons',
 				errorMessage: errors['invalidReasons'] and { text: errors['invalidReasons'].msg },
 				items: [
-					{ value: 'OutOfTime', text: 'Out of time', checked: invalidReasons['OutOfTime'] },
-					{ value: 'NoRightOfappeal', text: 'No right of appeal', checked: invalidReasons['NoRightOfappeal'] },
-					{ value: 'NotAppealable', text: 'Not appealable', checked: invalidReasons['NotAppealable'] },
-					{ value: 'LPADeemedInvalid', text: 'LPA deemed application as invalid', checked: invalidReasons['LPADeemedInvalid'] },
+					{ value: 'outOfTime', text: 'Out of time', checked: invalidReasons['outOfTime'] },
+					{ value: 'noRightOfappeal', text: 'No right of appeal', checked: invalidReasons['noRightOfappeal'] },
+					{ value: 'notAppealable', text: 'Not appealable', checked: invalidReasons['notAppealable'] },
+					{ value: 'lPADeemedInvalid', text: 'LPA deemed application as invalid', checked: invalidReasons['lPADeemedInvalid'] },
 					{
-						value: 'OtherReason',
+						value: 'otherReason',
 						text: 'Other',
-						checked: invalidReasons['OtherReason'],
+						checked: invalidReasons['otherReason'],
 						conditional: {
 							html: govukInput({
 								type: 'text',
-								id: 'OtherReasons',
-								name: 'OtherReasons',
+								id: 'otherReasons',
+								name: 'otherReasons',
 								label: { text: 'List reasons' },
 								hint: { text: 'This will be sent to the appellant and LPA' },
-								errorMessage: errors['OtherReasons'] and { text: errors['OtherReasons'].msg },
+								errorMessage: errors['otherReasons'] and { text: errors['otherReasons'].msg },
 								spellcheck: true,
-								value: OtherReasons
+								value: otherReasons
 							})
 						}
 					}

@@ -193,7 +193,7 @@ export function getInvalidAppealOutcome(request, response) {
 	const backURL = `/validation/${routes.reviewAppealRoute.path}/${request.session.appealData?.AppealId}?direction=back`;
 	const appealData = request.session.appealData;
 
-	const { invalidReasons = [], OtherReasons = '' } = request.session.appealWork?.invalidAppealDetails ?
+	const { invalidReasons = [], otherReasons = '' } = request.session.appealWork?.invalidAppealDetails ?
 		request.session.appealWork.invalidAppealDetails : {};
 
 	return response.render(routes.invalidAppealOutcome.view, {
@@ -201,7 +201,7 @@ export function getInvalidAppealOutcome(request, response) {
 		changeOutcomeURL: backURL,
 		appealData,
 		invalidReasons: checkboxDataToCheckValuesObject(invalidReasons),
-		OtherReasons
+		otherReasons
 	});
 }
 
@@ -216,7 +216,7 @@ export function postInvalidAppealOutcome(request, response) {
 	const backURL = `/validation/${routes.reviewAppealRoute.path}/${request.session.appealData?.AppealId}?direction=back`;
 	const appealData = request.session.appealData;
 
-	const { body: { errors = {}, errorSummary = [], invalidReasons = [], OtherReasons = '' } } = request;
+	const { body: { errors = {}, errorSummary = [], invalidReasons = [], otherReasons = '' } } = request;
 
 	if (Object.keys(errors).length > 0) {
 		return response.render(routes.invalidAppealOutcome.view, {
@@ -226,13 +226,13 @@ export function postInvalidAppealOutcome(request, response) {
 			errorSummary,
 			appealData,
 			invalidReasons: checkboxDataToCheckValuesObject(invalidReasons),
-			OtherReasons
+			otherReasons
 		});
 	}
 
 	(request.session.appealWork ??= {}).invalidAppealDetails = {
 		invalidReasons,
-		OtherReasons
+		otherReasons
 	};
 
 	return response.redirect(`/validation/${routes.checkAndConfirm.path}`);
@@ -249,7 +249,7 @@ export function getIncompleteAppealOutcome(request, response) {
 	const backURL = `/validation/${routes.reviewAppealRoute.path}/${request.session.appealData?.AppealId}?direction=back`;
 	const appealData = request.session.appealData;
 
-	const { incompleteReasons = [], MissingOrWrongDocsReasons = [], OtherReasons = '' } = request.session.appealWork?.incompleteAppealDetails ?
+	const { incompleteReasons = [], missingOrWrongDocsReasons = [], otherReasons = '' } = request.session.appealWork?.incompleteAppealDetails ?
 		request.session.appealWork.incompleteAppealDetails : {};
 
 	return response.render(routes.incompleteAppealOutcome.view, {
@@ -257,9 +257,9 @@ export function getIncompleteAppealOutcome(request, response) {
 		changeOutcomeURL: backURL,
 		appealData,
 		incompleteReasons: checkboxDataToCheckValuesObject(incompleteReasons),
-		OtherReasons,
-		MissingOrWrongDocsReasons: incompleteReasons.includes('MissingOrWrongDocs')
-			? checkboxDataToCheckValuesObject(MissingOrWrongDocsReasons): undefined
+		otherReasons,
+		missingOrWrongDocsReasons: incompleteReasons.includes('missingOrWrongDocs')
+			? checkboxDataToCheckValuesObject(missingOrWrongDocsReasons): undefined
 	});
 }
 
@@ -276,7 +276,7 @@ export function postIncompleteAppealOutcome(request, response) {
 	const backURL = `/validation/${routes.reviewAppealRoute.path}/${request.session.appealData?.AppealId}?direction=back`;
 	const appealData = request.session.appealData;
 
-	const { body: { errors = {}, errorSummary = [], incompleteReasons = [], OtherReasons = '', MissingOrWrongDocsReasons = [] } } = request;
+	const { body: { errors = {}, errorSummary = [], incompleteReasons = [], otherReasons = '', missingOrWrongDocsReasons = [] } } = request;
 
 	if (Object.keys(errors).length > 0) {
 		return response.render(routes.incompleteAppealOutcome.view, {
@@ -286,16 +286,16 @@ export function postIncompleteAppealOutcome(request, response) {
 			errorSummary,
 			appealData,
 			incompleteReasons: checkboxDataToCheckValuesObject(incompleteReasons),
-			OtherReasons,
-			MissingOrWrongDocsReasons: incompleteReasons.includes('MissingOrWrongDocs')
-				? checkboxDataToCheckValuesObject(MissingOrWrongDocsReasons): undefined
+			otherReasons,
+			missingOrWrongDocsReasons: incompleteReasons.includes('missingOrWrongDocs')
+				? checkboxDataToCheckValuesObject(missingOrWrongDocsReasons): undefined
 		});
 	}
 
 	(request.session.appealWork ??= {}).incompleteAppealDetails = {
 		incompleteReasons,
-		OtherReasons,
-		MissingOrWrongDocsReasons,
+		otherReasons,
+		missingOrWrongDocsReasons,
 	};
 
 	return response.redirect(routes.checkAndConfirm.path);
@@ -316,16 +316,19 @@ export function getCheckAndConfirm(request, response) {
 	let invalidReasons;
 	if (appealWork.invalidAppealDetails && appealWork.invalidAppealDetails.invalidReasons) {
 		invalidReasons = flatten([appealWork.invalidAppealDetails.invalidReasons]);
+		request.session.appealWork.invalidAppealDetails.invalidReasons = invalidReasons;
 	}
 
 	let incompleteReasons;
 	if (appealWork.incompleteAppealDetails && appealWork.incompleteAppealDetails.incompleteReasons) {
 		incompleteReasons = flatten([appealWork.incompleteAppealDetails.incompleteReasons]);
+		request.session.appealWork.incompleteAppealDetails.incompleteReasons = incompleteReasons;
 	}
 
-	let MissingOrWrongDocsReasons;
-	if (appealWork.incompleteAppealDetails && appealWork.incompleteAppealDetails.MissingOrWrongDocsReasons) {
-		MissingOrWrongDocsReasons = flatten([appealWork.incompleteAppealDetails.MissingOrWrongDocsReasons]);
+	let missingOrWrongDocsReasons;
+	if (appealWork.incompleteAppealDetails && appealWork.incompleteAppealDetails.missingOrWrongDocsReasons) {
+		missingOrWrongDocsReasons = flatten([appealWork.incompleteAppealDetails.missingOrWrongDocsReasons]);
+		request.session.appealWork.incompleteAppealDetails.missingOrWrongDocsReasons = missingOrWrongDocsReasons;
 	}
 
 	response.render(routes.checkAndConfirm.view, {
@@ -335,7 +338,7 @@ export function getCheckAndConfirm(request, response) {
 		appealWork,
 		invalidReasons,
 		incompleteReasons,
-		MissingOrWrongDocsReasons,
+		missingOrWrongDocsReasons,
 		validationLabelsMap,
 		validationAppealOutcomeLabels: validationAppealOutcomeLabelsMap[appealWork.reviewOutcome]
 	});
@@ -361,9 +364,9 @@ export async function postCheckAndConfirm(request, response, next) {
 		incompleteReasons = flatten([appealWork.incompleteAppealDetails.incompleteReasons]);
 	}
 
-	let MissingOrWrongDocsReasons;
-	if (appealWork.incompleteAppealDetails && appealWork.incompleteAppealDetails.MissingOrWrongDocsReasons) {
-		MissingOrWrongDocsReasons = flatten([appealWork.incompleteAppealDetails.MissingOrWrongDocsReasons]);
+	let missingOrWrongDocsReasons;
+	if (appealWork.incompleteAppealDetails && appealWork.incompleteAppealDetails.missingOrWrongDocsReasons) {
+		missingOrWrongDocsReasons = flatten([appealWork.incompleteAppealDetails.missingOrWrongDocsReasons]);
 	}
 
 	if (Object.keys(errors).length > 0) {
@@ -375,7 +378,7 @@ export async function postCheckAndConfirm(request, response, next) {
 			appealData,
 			appealWork,
 			incompleteReasons,
-			MissingOrWrongDocsReasons,
+			missingOrWrongDocsReasons,
 			validationLabelsMap,
 			validationAppealOutcomeLabels: validationAppealOutcomeLabelsMap[appealWork.reviewOutcome]
 		});
@@ -393,10 +396,10 @@ export async function postCheckAndConfirm(request, response, next) {
 				AppealStatus: appealWork.reviewOutcome,
 				Reason: {
 					// Convert all reasons for the outcome from an array to an object. Each array item will become a key with a true value.
-					// If one of the reasons is based on the Other text box, the key has to be OtherReasons and the value is stored separatly in the appealWork data.
+					// If one of the reasons is based on the Other text box, the key has to be otherReasons and the value is stored separatly in the appealWork data.
 					...appealWork.invalidAppealDetails.invalidReasons.reduce((a, v) => ({
 						...a,
-						[(v === 'OtherReason') ? 'OtherReasons': v]: (v === 'OtherReason') ? appealWork.invalidAppealDetails.OtherReasons : true
+						[(v === 'otherReason') ? 'otherReasons': v]: (v === 'otherReason') ? appealWork.invalidAppealDetails.otherReasons : true
 					}), {})
 				}
 			};
@@ -407,12 +410,12 @@ export async function postCheckAndConfirm(request, response, next) {
 				Reason: {
 					// TODO: This code is messy, please refactor.
 					// Convert all reasons for the outcome from an array to an object. Each array item will become a key with a true value.
-					// If one of the reasons is based on the Other text box, the key has to be OtherReasons and the value is stored separatly in the appealWork data.
+					// If one of the reasons is based on the Other text box, the key has to be otherReasons and the value is stored separatly in the appealWork data.
 					...appealWork.incompleteAppealDetails.incompleteReasons.reduce((a, v) => ({
 						...a,
-						[(v === 'OtherReason') ? 'OtherReasons': v]: (v === 'OtherReason') ? appealWork.incompleteAppealDetails.OtherReasons : true
+						[(v === 'otherReason') ? 'otherReasons': v]: (v === 'otherReason') ? appealWork.incompleteAppealDetails.otherReasons : true
 					}), {}),
-					...appealWork.incompleteAppealDetails.MissingOrWrongDocsReasons.reduce((a, v) => ({ ...a, [v]: true }), {})
+					...appealWork.incompleteAppealDetails.missingOrWrongDocsReasons.reduce((a, v) => ({ ...a, [v]: true }), {})
 				}
 			};
 			break;
@@ -421,7 +424,7 @@ export async function postCheckAndConfirm(request, response, next) {
 	}
 
 	// Update the appeal with the outcome of the validation.
-	const [error, updataStatus] = await to(updateAppeal(appealData.AppealId, appealUpdateData));
+	const [error, updateStatus] = await to(updateAppeal(appealData.AppealId, appealUpdateData));
 
 	if (error) {
 		next(new AggregateError([new Error('data fetch'), error], 'Fetch errors!'));
@@ -442,7 +445,7 @@ export async function postCheckAndConfirm(request, response, next) {
 export function getReviewAppealComplete(request, response) {
 	const appealData = request.session.appealData;
 	const appealWork = request.session.appealWork;
-	
+
 	// Destroy the current session as the appeal has been validated.
 	request.session.destroy();
 
