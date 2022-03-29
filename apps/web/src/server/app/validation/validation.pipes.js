@@ -83,7 +83,7 @@ export const validateOutcomeInvalidReason = () => [
 		.bail()
 		.isIn([
 			'outOfTime',
-			'noRightOfappeal',
+			'noRightOfAppeal',
 			'notAppealable',
 			'lPADeemedInvalid',
 			'otherReason'
