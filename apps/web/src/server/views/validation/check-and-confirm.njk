@@ -13,21 +13,21 @@
       <ul class="govuk-list">
         {% if appealWork.reviewOutcome === 'invalid' %}
 			{% for item in invalidReasons %}
-				<li>{{ validationLabelsMap.invalidAppealReasons[item] + (' - ' + appealWork.invalidAppealDetails.OtherReasons if item === 'OtherReason') }}</li>
+				<li>{{ validationLabelsMap.invalidAppealReasons[item] + (' - ' + appealWork.invalidAppealDetails.otherReasons if item === 'otherReason') }}</li>
 			{% endfor %}
         {% elif appealWork.reviewOutcome === 'incomplete' %}
 			{% for item in incompleteReasons %}
-				{% if item === 'MissingOrWrongDocs' %}
+				{% if item === 'missingOrWrongDocs' %}
 					<li>
 						{{ validationLabelsMap.incompleteAppealReasons[item] }}
 						<ul class="govuk-list govuk-list--bullet">
-							{% for documentReason in MissingOrWrongDocsReasons %}
+							{% for documentReason in missingOrWrongDocsReasons %}
 								<li>{{ validationLabelsMap.incompleteAppealMissingOrWrongDocumentsReasons[documentReason] }}</li>
 							{% endfor %}
 						</ul>
 					</li>
 				{% else %}
-					<li>{{ validationLabelsMap.incompleteAppealReasons[item] + (' - ' + appealWork.incompleteAppealDetails.OtherReasons if item === 'OtherReason') }}</li>
+					<li>{{ validationLabelsMap.incompleteAppealReasons[item] + (' - ' + appealWork.incompleteAppealDetails.otherReasons if item === 'otherReason') }}</li>
 				{% endif %}
 			{% endfor %}
         {% endif %}

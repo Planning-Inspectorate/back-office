@@ -27,42 +27,42 @@
 			name: "incompleteReasons",
 			errorMessage: errors['incompleteReasons'] and { text: errors['incompleteReasons'].msg },
 			items: [
-				{ value: 'NamesDoNotMatch', text: "Names do not match", checked: incompleteReasons['NamesDoNotMatch'] },
-				{ value: 'Sensitiveinfo', text: "Sensitive information included", checked: incompleteReasons['Sensitiveinfo'] },
+				{ value: 'namesDoNotMatch', text: "Names do not match", checked: incompleteReasons['namesDoNotMatch'] },
+				{ value: 'sensitiveinfo', text: "Sensitive information included", checked: incompleteReasons['sensitiveinfo'] },
 				{
-					value: 'MissingOrWrongDocs',
+					value: 'missingOrWrongDocs',
 					text: "Missing or wrong documents",
-					checked: incompleteReasons['MissingOrWrongDocs'],
+					checked: incompleteReasons['missingOrWrongDocs'],
 					conditional: {
 						html: govukCheckboxes({
-							idPrefix: "MissingOrWrongDocsReasons",
-							name: "MissingOrWrongDocsReasons",
-							errorMessage: errors['MissingOrWrongDocsReasons'] and { text: errors['MissingOrWrongDocsReasons'].msg },
+							idPrefix: "missingOrWrongDocsReasons",
+							name: "missingOrWrongDocsReasons",
+							errorMessage: errors['missingOrWrongDocsReasons'] and { text: errors['missingOrWrongDocsReasons'].msg },
 							items: [
-								{ value: 'applicationForm', text: "Application form", checked: MissingOrWrongDocsReasons['applicationForm'] },
-								{ value: 'decisionNotice', text: "Decision notice", checked: MissingOrWrongDocsReasons['decisionNotice'] },
-								{ value: 'groundsOfAppeal', text: "Grounds of appeal", checked: MissingOrWrongDocsReasons['groundsOfAppeal'] },
-								{ value: 'supportingDocuments', text: "Supporting documents", checked: MissingOrWrongDocsReasons['supportingDocuments'] }
+								{ value: 'applicationForm', text: "Application form", checked: missingOrWrongDocsReasons['applicationForm'] },
+								{ value: 'decisionNotice', text: "Decision notice", checked: missingOrWrongDocsReasons['decisionNotice'] },
+								{ value: 'groundsOfAppeal', text: "Grounds of appeal", checked: missingOrWrongDocsReasons['groundsOfAppeal'] },
+								{ value: 'supportingDocuments', text: "Supporting documents", checked: missingOrWrongDocsReasons['supportingDocuments'] }
 							]
 						})
 					}
 				},
-				{ value: 'InflamatoryComments', text: "Inflammatory comments made", checked: incompleteReasons['InflamatoryComments'] },
-				{ value: 'OpenedInError', text: "Opened in error", checked: incompleteReasons['OpenedInError'] },
-				{ value: 'WrongAppealType', text: "Wrong appeal type used", checked: incompleteReasons['WrongAppealType'] },
+				{ value: 'inflamatoryComments', text: "Inflammatory comments made", checked: incompleteReasons['inflamatoryComments'] },
+				{ value: 'openedInError', text: "Opened in error", checked: incompleteReasons['openedInError'] },
+				{ value: 'wrongAppealType', text: "Wrong appeal type used", checked: incompleteReasons['wrongAppealType'] },
 				{
-					value: 'OtherReason',
+					value: 'otherReason',
 					text: "Other",
-					checked: incompleteReasons['OtherReason'],
+					checked: incompleteReasons['otherReason'],
 					conditional: {
 						html: govukInput({
 							type: 'text',
-							id: "OtherReasons",
-							name: "OtherReasons",
+							id: "otherReasons",
+							name: "otherReasons",
 							label: { text: 'List reasons' },
-							errorMessage: errors['OtherReasons'] and { text: errors['OtherReasons'].msg },
+							errorMessage: errors['otherReasons'] and { text: errors['otherReasons'].msg },
 							spellcheck: true,
-							value: OtherReasons
+							value: otherReasons
 						})
 					}
 				}
