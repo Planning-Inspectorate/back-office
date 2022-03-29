@@ -275,7 +275,7 @@
           "type": "string",
           "enum": [
             "invalid",
-            "info missing",
+            "incomplete",
             "valid"
           ]
         },
@@ -286,63 +286,63 @@
         "Reason": {
           "type": "object",
           "properties": {
-            "NamesDoNotMatch": {
+            "namesDoNotMatch": {
               "type": "boolean",
               "example": true
             },
-            "SensitiveInfo": {
+            "sensitiveInfo": {
               "type": "boolean",
               "example": true
             },
-            "MissingOrWrongDocs": {
+            "missingOrWrongDocs": {
               "type": "boolean",
               "example": true
             },
-            "InflamatoryComments": {
+            "inflamatoryComments": {
               "type": "boolean",
               "example": true
             },
-            "OpenedInError": {
+            "openedInError": {
               "type": "boolean",
               "example": true
             },
-            "WrongAppealType": {
+            "wrongAppealTypeUsed": {
               "type": "boolean",
               "example": true
             },
-            "OutOfTime": {
+            "outOfTime": {
               "type": "boolean",
               "example": true
             },
-            "NoRightOfappeal": {
+            "noRightOfappeal": {
               "type": "boolean",
               "example": true
             },
-            "NotAppealable": {
+            "notAppealable": {
               "type": "boolean",
               "example": true
             },
-            "LPADeemedInvalid": {
+            "lPADeemedInvalid": {
               "type": "boolean",
               "example": true
             },
-            "OtherReasons": {
+            "otherReasons": {
               "type": "string",
               "example": ""
             }
           },
           "required": [
-            "NamesDoNotMatch",
-            "SensitiveInfo",
-            "MissingOrWrongDocs",
-            "InflamatoryComments",
-            "OpenedInError",
-            "WrongAppealType",
-            "OutOfTime",
-            "NoRightOfappeal",
-            "NotAppealable",
-            "LPADeemedInvalid",
-            "OtherReasons"
+            "namesDoNotMatch",
+            "sensitiveInfo",
+            "missingOrWrongDocs",
+            "inflamatoryComments",
+            "openedInError",
+            "wrongAppealTypeUsed",
+            "outOfTime",
+            "noRightOfappeal",
+            "notAppealable",
+            "lPADeemedInvalid",
+            "otherReasons"
           ]
         }
       },

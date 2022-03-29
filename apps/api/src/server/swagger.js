@@ -51,20 +51,20 @@ const document_ = {
 			$PlanningApplicationReference: ''
 		},
 		ValidationDecision: {
-			$AppealStatus: { '@enum': ['invalid', 'info missing', 'valid'] },
+			$AppealStatus: { '@enum': ['invalid', 'incomplete', 'valid'] },
 			$DescriptionOfDevelopment: '',
 			$Reason: {
-				$NamesDoNotMatch: true,
-				$SensitiveInfo: true,
-				$MissingOrWrongDocs: true,
-				$InflamatoryComments: true,
-				$OpenedInError: true,
-				$WrongAppealType: true,
-				$OutOfTime: true,
-				$NoRightOfappeal: true,
-				$NotAppealable: true,
-				$LPADeemedInvalid: true,
-				$OtherReasons: '',
+				$namesDoNotMatch: true,
+				$sensitiveInfo: true,
+				$missingOrWrongDocs: true,
+				$inflamatoryComments: true,
+				$openedInError: true,
+				$wrongAppealTypeUsed: true,
+				$outOfTime: true,
+				$noRightOfappeal: true,
+				$notAppealable: true,
+				$lPADeemedInvalid: true,
+				$otherReasons: '',
 			}
 		},
 		AppealsForCaseOfficer: {
