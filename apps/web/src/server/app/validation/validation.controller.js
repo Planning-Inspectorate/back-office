@@ -62,6 +62,10 @@ export async function getValidationDashboard(request, response, next) {
 export async function getReviewAppeal(request, response, next) {
 	const appealId = request.params.appealId;
 
+	if (request.session.appealWork && `${request.session.appealData?.AppealId}` !== appealId) {
+		request.session.appealWork = {};
+	}
+
 	const [error, appealData] = await to(findAppealById(appealId));
 	const reviewOutcome = request.session.appealWork?.reviewOutcome;
 
@@ -305,7 +309,7 @@ export function postIncompleteAppealOutcome(request, response) {
  * @returns {void}
  */
 export function getCheckAndConfirm(request, response) {
-	const backURL = `/validation/${routes.reviewAppealRoute.path}/${request.session.appealData?.AppealId}?direction=back`;
+	const backURL = `/validation/${routes.validAppealOutcome.path}?direction=back`;
 	const appealData = request.session.appealData;
 	const appealWork = request.session.appealWork;
 
@@ -425,9 +429,6 @@ export async function postCheckAndConfirm(request, response, next) {
 		return error;
 	}
 
-	// Destroy the current session as the appeal has been validated.
-	request.session.destroy();
-
 	response.redirect(routes.reviewAppealComplete.path);
 }
 
@@ -441,6 +442,9 @@ export async function postCheckAndConfirm(request, response, next) {
 export function getReviewAppealComplete(request, response) {
 	const appealData = request.session.appealData;
 	const appealWork = request.session.appealWork;
+	
+	// Destroy the current session as the appeal has been validated.
+	request.session.destroy();
 
 	response.render(routes.reviewAppealComplete.view, {
 		appealData,
