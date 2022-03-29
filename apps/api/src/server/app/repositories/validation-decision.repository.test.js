@@ -30,7 +30,7 @@ test.before('sets up Database connection mock', () => {
 });
 
 test('adds new Validation decision', async(t) => {
-	const decision = await validationDecisionRepository.addNewDecision(1, 'incomplete',  { 	namesDoNotMatch: true }, undefined);
+	const decision = await validationDecisionRepository.addNewDecision(1, 'incomplete',  { 	namesDoNotMatch: true });
 	t.deepEqual(decision, newDecision);
 	sinon.assert.calledWith(addNewDecision, {
 		data: {

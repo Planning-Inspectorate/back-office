@@ -2,8 +2,8 @@ import DatabaseFactory from './database.js';
 
 const validationDecisionRepository = (function() {
 	/**
-    * @returns {object} connection to database
-    */
+	 * @returns {object} connection to database
+	 */
 	function getPool () {
 		return DatabaseFactory.getInstance().pool;
 	}
