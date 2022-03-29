@@ -10,15 +10,10 @@ const newDecision = {
 	appealId: 1,
 	decision: 'incomplete',
 	descriptionOfDevelopment: undefined,
-	outOfTime: true
+	namesDoNotMatch: true
 };
 
-addNewDecision.withArgs({ data: {
-	appealId: 1,
-	decision: 'incomplete',
-	descriptionOfDevelopment: undefined,
-	outOfTime: true
-} }).returns(newDecision);
+addNewDecision.returns(newDecision);
 
 class MockDatabaseClass {
 	constructor(_parameters) {
@@ -35,14 +30,14 @@ test.before('sets up Database connection mock', () => {
 });
 
 test('adds new Validation decision', async(t) => {
-	const decision = await validationDecisionRepository.addNewDecision(1, 'incomplete',  { outOfTime: true }, undefined);
+	const decision = await validationDecisionRepository.addNewDecision(1, 'incomplete',  { 	namesDoNotMatch: true }, undefined);
 	t.deepEqual(decision, newDecision);
 	sinon.assert.calledWith(addNewDecision, {
 		data: {
 			appealId: 1,
 			decision: 'incomplete',
 			descriptionOfDevelopment: undefined,
-			outOfTime: true
+			namesDoNotMatch: true
 		}
 	});
 });
