@@ -316,16 +316,19 @@ export function getCheckAndConfirm(request, response) {
 	let invalidReasons;
 	if (appealWork.invalidAppealDetails && appealWork.invalidAppealDetails.invalidReasons) {
 		invalidReasons = flatten([appealWork.invalidAppealDetails.invalidReasons]);
+		request.session.appealWork.invalidAppealDetails.invalidReasons = invalidReasons;
 	}
 
 	let incompleteReasons;
 	if (appealWork.incompleteAppealDetails && appealWork.incompleteAppealDetails.incompleteReasons) {
 		incompleteReasons = flatten([appealWork.incompleteAppealDetails.incompleteReasons]);
+		request.session.appealWork.incompleteAppealDetails.incompleteReasons = incompleteReasons;
 	}
 
 	let missingOrWrongDocsReasons;
 	if (appealWork.incompleteAppealDetails && appealWork.incompleteAppealDetails.missingOrWrongDocsReasons) {
 		missingOrWrongDocsReasons = flatten([appealWork.incompleteAppealDetails.missingOrWrongDocsReasons]);
+		request.session.appealWork.incompleteAppealDetails.missingOrWrongDocsReasons = missingOrWrongDocsReasons;
 	}
 
 	response.render(routes.checkAndConfirm.view, {
@@ -421,7 +424,7 @@ export async function postCheckAndConfirm(request, response, next) {
 	}
 
 	// Update the appeal with the outcome of the validation.
-	const [error, updataStatus] = await to(updateAppeal(appealData.AppealId, appealUpdateData));
+	const [error, updateStatus] = await to(updateAppeal(appealData.AppealId, appealUpdateData));
 
 	if (error) {
 		next(new AggregateError([new Error('data fetch'), error], 'Fetch errors!'));
