@@ -425,9 +425,6 @@ export async function postCheckAndConfirm(request, response, next) {
 		return error;
 	}
 
-	// Destroy the current session as the appeal has been validated.
-	request.session.destroy();
-
 	response.redirect(routes.reviewAppealComplete.path);
 }
 
@@ -441,6 +438,9 @@ export async function postCheckAndConfirm(request, response, next) {
 export function getReviewAppealComplete(request, response) {
 	const appealData = request.session.appealData;
 	const appealWork = request.session.appealWork;
+	
+	// Destroy the current session as the appeal has been validated.
+	request.session.destroy();
 
 	response.render(routes.reviewAppealComplete.view, {
 		appealData,
