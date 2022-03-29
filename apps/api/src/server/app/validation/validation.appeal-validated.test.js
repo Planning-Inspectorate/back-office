@@ -105,7 +105,8 @@ test('should be able to submit \'valid\' decision', async (t) => {
 	} });
 	sinon.assert.calledWithExactly(addNewDecision, {  data: {
 		appealId: 1,
-		decision: 'valid'
+		decision: 'valid',
+		descriptionOfDevelopment: 'Some Desc'
 	} });
 });
 
@@ -132,6 +133,7 @@ test('should be able to submit \'invalid\' decision', async(t) => {
 	sinon.assert.calledWithExactly(addNewDecision, {  data: {
 		appealId: 1,
 		decision: 'invalid',
+		descriptionOfDevelopment: undefined,
 		namesDoNotMatch: true,
 		sensitiveInfo: false,
 		missingOrWrongDocs: false,
@@ -155,6 +157,7 @@ test('should be able to submit \'missing appeal details\' decision', async(t) =>
 	sinon.assert.calledWithExactly(addNewDecision, {  data: {
 		appealId: 1,
 		decision: 'incomplete',
+		descriptionOfDevelopment: undefined,
 		outOfTime: true
 	} });
 });

@@ -53,4 +53,5 @@ model ValidationDecision {
   notAppealable       Boolean  @default(false)
   lPADeemedInvalid    Boolean  @default(false)
   otherReasons        String?
+  descriptionOfDevelopment String?
 }

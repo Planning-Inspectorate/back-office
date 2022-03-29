@@ -78,7 +78,7 @@ const appealValidated = async function (request, response) {
 	const nextState = household_appeal_machine.transition(appeal.status, machineAction);
 	await appealRepository.updateStatusById(appeal.id, nextState.value);
 	// const resultReason = request.body.Reason ? validReasonAdded(request.body) : {};
-	await validationDecisionRepository.addNewDecision(appeal.id, request.body.AppealStatus, request.body.Reason);
+	await validationDecisionRepository.addNewDecision(appeal.id, request.body.AppealStatus, request.body.Reason, request.body.DescriptionOfDevelopment);
 	return response.send();
 };
 

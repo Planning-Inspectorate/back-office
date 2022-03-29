@@ -9,12 +9,14 @@ const addNewDecision = sinon.stub();
 const newDecision = {
 	appealId: 1,
 	decision: 'incomplete',
+	descriptionOfDevelopment: undefined,
 	outOfTime: true
 };
 
 addNewDecision.withArgs({ data: {
 	appealId: 1,
 	decision: 'incomplete',
+	descriptionOfDevelopment: undefined,
 	outOfTime: true
 } }).returns(newDecision);
 
@@ -33,12 +35,13 @@ test.before('sets up Database connection mock', () => {
 });
 
 test('adds new Validation decision', async(t) => {
-	const decision = await validationDecisionRepository.addNewDecision(1, 'incomplete',  { outOfTime: true });
+	const decision = await validationDecisionRepository.addNewDecision(1, 'incomplete',  { outOfTime: true }, undefined);
 	t.deepEqual(decision, newDecision);
 	sinon.assert.calledWith(addNewDecision, {
 		data: {
 			appealId: 1,
 			decision: 'incomplete',
+			descriptionOfDevelopment: undefined,
 			outOfTime: true
 		}
 	});
