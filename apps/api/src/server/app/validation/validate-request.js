@@ -8,11 +8,14 @@ const validationDecisions = {
 	incomplete: 'incomplete'
 };
 
-const invalidWithoutReasons = function (body) {
-	return (body.AppealStatus == validationDecisions.invalid &&
+const incompleteWithoutReasons = function (body) {
+	return (body.AppealStatus == validationDecisions.incomplete &&
 		body.Reason.namesDoNotMatch !== true &&
 		body.Reason.sensitiveinfo !== true &&
-		body.Reason.missingOrWrongDocs !== true &&
+		body.Reason.missingApplicationForm !== true &&
+		body.Reason.missingDecisionNotice !== true &&
+		body.Reason.missingGroundsForAppeal !== true &&
+		body.Reason.missingSupportingDocuments !== true &&
 		body.Reason.inflamatoryComments !== true &&
 		body.Reason.openedInError !== true &&
 		body.Reason.wrongAppealType !== true &&
@@ -20,8 +23,8 @@ const invalidWithoutReasons = function (body) {
 	);
 };
 
-const incompleteWithoutReasons = function (body) {
-	return (body.AppealStatus == validationDecisions.incomplete &&
+const invalidWithoutReasons = function (body) {
+	return (body.AppealStatus == validationDecisions.invalid &&
 		body.Reason.outOfTime !== true &&
 		body.Reason.noRightOfappeal !== true &&
 		body.Reason.notAppealable !== true &&
