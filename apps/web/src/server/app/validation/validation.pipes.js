@@ -31,8 +31,8 @@ export const validateValidAppealDetails = () =>
 
 /**
  * Validate the outcome incomplete form to ensure it has at least 1 answer.
- * If "missing or incorrect documents" is checked, validate MissingOrWrongDocsReasons to ensure a reason has been selected.
- * If "OtherReason" is checked, validate OtherReasons to ensure a reason has been provided.
+ * If "missing or incorrect documents" is checked, validate missingOrWrongDocsReasons to ensure a reason has been selected.
+ * If "otherReason" is checked, validate otherReasons to ensure a reason has been provided.
  * It will save into the current request all the validation errors that would be used
  * by the `expressValidationErrorsInterceptor` to populate the body with.
  *
@@ -45,25 +45,25 @@ export const validateOutcomeIncompletePipe = () => [
 		.bail()
 		.toArray()
 		.isIn([
-			'NamesDoNotMatch',
-			'Sensitiveinfo',
-			'MissingOrWrongDocs',
-			'InflamatoryComments',
-			'OpenedInError',
-			'WrongAppealType',
-			'OtherReason'
+			'namesDoNotMatch',
+			'sensitiveinfo',
+			'missingOrWrongDocs',
+			'inflamatoryComments',
+			'openedInError',
+			'wrongAppealType',
+			'otherReason'
 		])
 		.withMessage('Please enter a reason why the appeal is missing or wrong'),
-	body('MissingOrWrongDocsReasons')
-		.if(body('incompleteReasons').isIn(['MissingOrWrongDocs']))
+	body('missingOrWrongDocsReasons')
+		.if(body('incompleteReasons').isIn(['missingOrWrongDocs']))
 		.notEmpty()
 		.withMessage('Please select which documents are missing or wrong')
 		.bail()
 		.toArray()
 		.isIn(['applicationForm', 'decisionNotice', 'groundsOfAppeal', 'supportingDocuments'])
 		.withMessage('Please select which documents are missing or wrong'),
-	body('OtherReasons')
-		.if(body('incompleteReasons').toArray().custom((value) => value.includes('OtherReason')))
+	body('otherReasons')
+		.if(body('incompleteReasons').toArray().custom((value) => value.includes('otherReason')))
 		.notEmpty()
 		.withMessage('Please provide a reason for the incomplete outcome')
 		.bail()
@@ -82,15 +82,15 @@ export const validateOutcomeInvalidReason = () => [
 		.withMessage('Please select a reason why the appeal is invalid')
 		.bail()
 		.isIn([
-			'OutOfTime',
-			'NoRightOfappeal',
-			'NotAppealable',
-			'LPADeemedInvalid',
-			'OtherReason'
+			'outOfTime',
+			'noRightOfappeal',
+			'notAppealable',
+			'lPADeemedInvalid',
+			'otherReason'
 		])
 		.withMessage('Please enter a reason why the appeal is invalid'),
-	body('OtherReasons')
-		.if(body('invalidReasons').toArray().custom((value) => value.includes('OtherReason')))
+	body('otherReasons')
+		.if(body('invalidReasons').toArray().custom((value) => value.includes('otherReason')))
 		.notEmpty()
 		.withMessage('Please provide a reason for the invalid outcome')
 		.bail()
