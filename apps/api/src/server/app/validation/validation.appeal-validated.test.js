@@ -115,12 +115,10 @@ test('should be able to submit \'invalid\' decision', async(t) => {
 	const resp = await request.post('/validation/1')
 		.send({ AppealStatus: 'invalid',
 			Reason: {
-				namesDoNotMatch: true,
-				sensitiveInfo: false,
-				missingOrWrongDocs: false,
-				inflamatoryComments: false,
-				openedInError: false,
-				wrongAppealType: false,
+				outOfTime:true,
+				noRightOfappeal:true,
+				notAppealable:true,
+				lPADeemedInvalid:true,
 				otherReasons: '' }
 		});
 	t.is(resp.status, 200);
@@ -134,25 +132,29 @@ test('should be able to submit \'invalid\' decision', async(t) => {
 		appealId: 1,
 		decision: 'invalid',
 		descriptionOfDevelopment: undefined,
-		namesDoNotMatch: true,
-		sensitiveInfo: false,
-		missingOrWrongDocs: false,
-		inflamatoryComments: false,
-		openedInError: false,
-		wrongAppealType: false,
+		outOfTime:true,
+		noRightOfappeal:true,
+		notAppealable:true,
+		lPADeemedInvalid:true,
 		otherReasons: ''
+
 	} });
 });
 
 test('should be able to submit \'missing appeal details\' decision', async(t) => {
 	const resp = await request.post('/validation/1')
-		.send({ AppealStatus: 'incomplete', Reason: {
-			outOfTime: true,
-			missingApplicationForm: true,
-			missingDecisionNotice: true,
-			missingGroundsForAppeal: true,
-			missingSupportingDocuments: true
-		} });
+		.send({ AppealStatus: 'incomplete',
+			Reason:{
+				namesDoNotMatch: true,
+				sensitiveinfo: true,
+				missingApplicationForm: true,
+				missingDecisionNotice:true,
+				missingGroundsForAppeal: true,
+				missingSupportingDocuments: true,
+				inflamatoryComments: true,
+				openedInError: true,
+				wrongAppealType: true}
+		} );
 	t.is(resp.status, 200);
 	// TODO: calledOneWithExactly throws error
 	sinon.assert.calledWithExactly(updateStub, { where: { id: 1 }, data: {
@@ -164,11 +166,15 @@ test('should be able to submit \'missing appeal details\' decision', async(t) =>
 		appealId: 1,
 		decision: 'incomplete',
 		descriptionOfDevelopment: undefined,
-		outOfTime: true,
+		namesDoNotMatch: true,
+		sensitiveinfo: true,
 		missingApplicationForm: true,
-		missingDecisionNotice: true,
+		missingDecisionNotice:true,
 		missingGroundsForAppeal: true,
-		missingSupportingDocuments: true
+		missingSupportingDocuments: true,
+		inflamatoryComments: true,
+		openedInError: true,
+		wrongAppealType: true
 	} });
 });
 
@@ -181,7 +187,7 @@ test('should not be able to submit nonsensical decision decision', async(t) => {
 
 test('should not be able to submit validation decision for appeal that has been marked \'valid\'', async(t) => {
 	const resp = await request.post('/validation/2')
-		.send({ AppealStatus: 'invalid', Reason: { namesDoNotMatch: true } });
+		.send({ AppealStatus: 'invalid', Reason: { outOfTime: true } });
 	t.is(resp.status, 400);
 	t.deepEqual(resp.body, { error: 'Appeal does not require validation' } );
 });
@@ -208,13 +214,11 @@ test('should not be able to submit decision as \'invalid\' if there is no reason
 		.send({
 			AppealStatus:'invalid',
 			Reason: {
-				NamesDoNotMatch: false,
-				Sensitiveinfo: false,
-				MissingOrWrongDocs: false,
-				InflamatoryComments: false,
-				OpenedInError: false,
-				WrongAppealType: false,
-				OtherReasons: '' }
+				outOfTime:false,
+				noRightOfappeal:false,
+				notAppealable:false,
+				lPADeemedInvalid:false,
+				otherReasons: '' }
 		});
 	t.is(resp.status, 400);
 	t.deepEqual(resp.body, { error: 'Invalid Appeal requires a reason' } );
@@ -236,10 +240,15 @@ test('should not be able to submit decision as \'incomplete\' if there is no rea
 		.send({
 			AppealStatus:'incomplete',
 			Reason: {
-				outOfTime: false,
-				noRightOfappeal: false,
-				notAppealable: false,
-				lPADeemedInvalid: false,
+				namesDoNotMatch: false,
+				sensitiveinfo: false,
+				missingApplicationForm: false,
+				missingDecisionNotice:false,
+				missingGroundsForAppeal: false,
+				missingSupportingDocuments: false,
+				inflamatoryComments: false,
+				openedInError: false,
+				wrongAppealType: false,
 				otherReasons: ''
 			}
 		});

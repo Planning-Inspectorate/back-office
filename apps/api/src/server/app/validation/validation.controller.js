@@ -42,35 +42,6 @@ const updateValidation = async function (request, response) {
 	return response.send();
 };
 
-
-const validReasonAdded = function(body) {
-	switch(true) {
-		case body.Reason.NamesDoNotMatch:
-			return { NamesDoNotMatch: true };
-		case body.Reason.Sensitiveinfo:
-			return { Sensitiveinfo: true };
-		case body.Reason.MissingOrWrongDocs:
-			return { MissingOrWrongDocs: true };
-		case body.Reason.InflamatoryComments:
-			return { InflamatoryComments: true };
-		case body.Reason.OpenedInError:
-			return { OpenedInError: true };
-		case body.Reason.WrongAppealType:
-			return { WrongAppealType: true };
-		case body.Reason.OutOfTime:
-			return { OutOfTime: true };
-		case body.Reason.NoRightOfappeal:
-			return { NoRightOfappeal: true };
-		case body.Reason.NotAppealable:
-			return { NotAppealable: true };
-		case body.Reason.LPADeemedInvalid:
-			return { LPADeemedInvalid: true };
-		default:
-			return { OtherReasons: '' };
-	}
-};
-
-
 const appealValidated = async function (request, response) {
 	validateAppealValidatedRequest(request.body);
 	const appeal = await getAppealForValidation(request.params.id);
