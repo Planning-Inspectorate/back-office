@@ -50,10 +50,7 @@ export async function findAllIncomingIncompleteQuestionnaires() {
 export async function findQuestionnaireById(id) {
 	const data = await request(`case-officer/${id}`);
 
-	const questionnaireData = {
-		...data,
-		AppealSiteHtml: data.AppealSite.replaceAll(',', '<br />')
-	};
+	data.AppealSiteHtml = data.AppealSite ? data.AppealSite.replaceAll(',', '<br />') : '';
 
-	return questionnaireData;
+	return data;
 }
