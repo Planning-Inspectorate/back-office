@@ -10,7 +10,6 @@ const lpaQuestionnaireStatesStrings = {
 
 const lpa_questionnaire_actions = {
 	sendLPAQuestionnaire: async function(context, _event) {
-		console.log('I am here');
 		await lpaQuestionnaireActions.sendLpaQuestionnaire(context.appealId);
 	},
 	nudgeLPAQuestionnaire: (_context, _event) => {
