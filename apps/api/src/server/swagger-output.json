@@ -16,55 +16,103 @@
   "schemes": [],
   "securityDefinitions": {},
   "paths": {
-    "/": {
+    "/validation/": {
       "get": {
-        "description": "",
+        "description": "Gets all appeals that need to be validated. The AppealStatus will be either \\'new\\' or \\'incomplete\\'",
         "parameters": [],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "Appeals that require validation",
+            "schema": {
+              "$ref": "#/definitions/AppealsToValidate"
+            }
           }
         }
       }
     },
-    "/validation/": {
-      "get": {
-        "description": "",
-        "parameters": [],
-        "responses": {}
-      }
-    },
     "/validation/{id}": {
       "get": {
-        "description": "",
-        "parameters": [],
-        "responses": {}
+        "description": "Gets appeal to be validated by the Validation Officer",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "description": "Appeal ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "desciption": "Appeal that requires validation",
+            "schema": {
+              "$ref": "#/definitions/AppealToValidate"
+            },
+            "description": "OK"
+          }
+        }
       },
       "patch": {
-        "description": "",
-        "parameters": [],
+        "description": "Updates appeal details",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "url",
+            "required": true,
+            "type": "integer",
+            "description": "Appeal ID"
+          },
+          {
+            "name": "obj",
+            "in": "body",
+            "description": "New Details",
+            "schema": {
+              "$ref": "#/definitions/ChangeAppeal"
+            }
+          }
+        ],
         "responses": {}
       },
       "post": {
-        "description": "",
-        "parameters": [],
+        "description": "Sends validation decision",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "id": "url",
+            "description": "Appeal ID"
+          },
+          {
+            "name": "obj",
+            "in": "body",
+            "description": "Validation Decision",
+            "schema": {
+              "$ref": "#/definitions/ValidationDecision"
+            }
+          }
+        ],
         "responses": {}
       }
     },
     "/case-officer/": {
       "get": {
-        "description": "",
+        "description": "Gets all appeals for a Case Officer to review",
         "parameters": [],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "Appeals the require Case Officer to check",
+            "schema": {
+              "$ref": "#/definitions/AppealsForCaseOfficer"
+            }
           }
         }
       }
     },
     "/case-officer/{id}": {
       "get": {
-        "description": "",
+        "description": "Gets appeal details for Case Officer to review",
         "parameters": [
           {
             "name": "id",
@@ -75,7 +123,10 @@
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "Appeal that requires a Case Officer to check over",
+            "schema": {
+              "$ref": "#/definitions/AppealForCaseOfficer"
+            }
           }
         }
       }
@@ -86,6 +137,358 @@
         "parameters": [],
         "responses": {}
       }
+    }
+  },
+  "definitions": {
+    "AppealToValidate": {
+      "type": "object",
+      "properties": {
+        "AppealId": {
+          "type": "number",
+          "example": 1
+        },
+        "AppealReference": {
+          "type": "string",
+          "example": "APP/Q9999/D/21/1345264"
+        },
+        "AppellantName": {
+          "type": "string",
+          "example": "Lee Thornton"
+        },
+        "AppealStatus": {
+          "type": "string",
+          "example": "new"
+        },
+        "Received": {
+          "type": "string",
+          "example": "18 Mar 2022"
+        },
+        "AppealSite": {
+          "type": "string",
+          "example": "96 The Avenue, Maidstone, Kent, MD21 5XY"
+        },
+        "LocalPlanningDepartment": {
+          "type": "string",
+          "example": "Maidstone Borough Council"
+        },
+        "PlanningApplicationReference": {
+          "type": "string",
+          "example": "48269/APP/2021/1482"
+        },
+        "Documents": {
+          "type": "array",
+          "example": [],
+          "items": {}
+        },
+        "reason": {
+          "type": "object",
+          "properties": {
+            "inflamatoryComments": {
+              "type": "boolean",
+              "example": true
+            },
+            "missingApplicationForm": {
+              "type": "boolean",
+              "example": true
+            },
+            "missingDecisionNotice": {
+              "type": "boolean",
+              "example": true
+            },
+            "missingGroundsForAppeal": {
+              "type": "boolean",
+              "example": true
+            },
+            "missingSupportingDocuments": {
+              "type": "boolean",
+              "example": true
+            },
+            "namesDoNotMatch": {
+              "type": "boolean",
+              "example": true
+            },
+            "openedInError": {
+              "type": "boolean",
+              "example": true
+            },
+            "otherReasons": {
+              "type": "string",
+              "example": "Some other weird reason"
+            },
+            "sensitiveInfo": {
+              "type": "boolean",
+              "example": true
+            },
+            "wrongAppealTypeUsed": {
+              "type": "boolean",
+              "example": true
+            }
+          }
+        }
+      }
+    },
+    "AppealsToValidate": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "AppealId": {
+            "type": "number",
+            "example": 1
+          },
+          "AppealReference": {
+            "type": "string",
+            "example": "APP/Q9999/D/21/1345264"
+          },
+          "AppealStatus": {
+            "type": "string",
+            "enum": [
+              "new",
+              "incomplete"
+            ]
+          },
+          "Received": {
+            "type": "string",
+            "example": "18 Mar 2022"
+          },
+          "AppealSite": {
+            "type": "string",
+            "example": "96 The Avenue, Maidstone, Kent, MD21 5XY"
+          }
+        }
+      }
+    },
+    "ChangeAppeal": {
+      "type": "object",
+      "properties": {
+        "AppellandName": {
+          "type": "string",
+          "example": "John Doe"
+        },
+        "Address": {
+          "type": "object",
+          "properties": {
+            "AddressLine1": {
+              "type": "string",
+              "example": ""
+            },
+            "AddressLine2": {
+              "type": "string",
+              "example": ""
+            },
+            "Town": {
+              "type": "string",
+              "example": ""
+            },
+            "County": {
+              "type": "string",
+              "example": ""
+            },
+            "PostCode": {
+              "type": "string",
+              "example": ""
+            }
+          },
+          "required": [
+            "AddressLine1",
+            "AddressLine2",
+            "Town",
+            "County",
+            "PostCode"
+          ]
+        },
+        "LocalPlanningDepartment": {
+          "type": "string",
+          "example": ""
+        },
+        "PlanningApplicationReference": {
+          "type": "string",
+          "example": ""
+        }
+      },
+      "required": [
+        "AppellandName",
+        "Address",
+        "LocalPlanningDepartment",
+        "PlanningApplicationReference"
+      ]
+    },
+    "ValidationDecision": {
+      "type": "object",
+      "properties": {
+        "AppealStatus": {
+          "type": "string",
+          "enum": [
+            "invalid",
+            "incomplete",
+            "valid"
+          ]
+        },
+        "descriptionOfDevelopment": {
+          "type": "string",
+          "example": ""
+        },
+        "Reason": {
+          "type": "object",
+          "properties": {
+            "namesDoNotMatch": {
+              "type": "boolean",
+              "example": true
+            },
+            "sensitiveInfo": {
+              "type": "boolean",
+              "example": true
+            },
+            "missingApplicationForm": {
+              "type": "boolean",
+              "example": true
+            },
+            "missingDecisionNotice": {
+              "type": "boolean",
+              "example": true
+            },
+            "missingGroundsForAppeal": {
+              "type": "boolean",
+              "example": true
+            },
+            "missingSupportingDocuments": {
+              "type": "boolean",
+              "example": true
+            },
+            "inflamatoryComments": {
+              "type": "boolean",
+              "example": true
+            },
+            "openedInError": {
+              "type": "boolean",
+              "example": true
+            },
+            "wrongAppealTypeUsed": {
+              "type": "boolean",
+              "example": true
+            },
+            "outOfTime": {
+              "type": "boolean",
+              "example": true
+            },
+            "noRightOfAppeal": {
+              "type": "boolean",
+              "example": true
+            },
+            "notAppealable": {
+              "type": "boolean",
+              "example": true
+            },
+            "lPADeemedInvalid": {
+              "type": "boolean",
+              "example": true
+            },
+            "otherReasons": {
+              "type": "string",
+              "example": ""
+            }
+          },
+          "required": [
+            "namesDoNotMatch",
+            "sensitiveInfo",
+            "missingApplicationForm",
+            "missingDecisionNotice",
+            "missingGroundsForAppeal",
+            "missingSupportingDocuments",
+            "inflamatoryComments",
+            "openedInError",
+            "wrongAppealTypeUsed",
+            "outOfTime",
+            "noRightOfAppeal",
+            "notAppealable",
+            "lPADeemedInvalid",
+            "otherReasons"
+          ]
+        }
+      },
+      "required": [
+        "AppealStatus",
+        "descriptionOfDevelopment",
+        "Reason"
+      ]
+    },
+    "AppealsForCaseOfficer": {
+      "type": "object",
+      "properties": {
+        "AppealId": {
+          "type": "number",
+          "example": 1
+        },
+        "AppealReference": {
+          "type": "string",
+          "example": ""
+        },
+        "QuestionnaireDueDate": {
+          "type": "string",
+          "example": "01 Jun 2022"
+        },
+        "AppealSite": {
+          "type": "string",
+          "example": ""
+        },
+        "QuestionnaireStatus": {
+          "type": "string",
+          "enum": [
+            "awaiting",
+            "received",
+            "overdue"
+          ]
+        }
+      },
+      "required": [
+        "AppealId",
+        "AppealReference",
+        "QuestionnaireDueDate",
+        "AppealSite",
+        "QuestionnaireStatus"
+      ]
+    },
+    "AppealForCaseOfficer": {
+      "type": "object",
+      "properties": {
+        "AppealId": {
+          "type": "number",
+          "example": 1
+        },
+        "AppealReference": {
+          "type": "string",
+          "example": ""
+        },
+        "LocalPlanningDepartment": {
+          "type": "string",
+          "example": ""
+        },
+        "PlanningApplicationReference": {
+          "type": "string",
+          "example": ""
+        },
+        "AppealSiteNearConservationArea": {
+          "type": "boolean",
+          "example": false
+        },
+        "WouldDevelopmentAffectSettingOfListedBuilding": {
+          "type": "boolean",
+          "example": false
+        },
+        "ListedBuildingDesc": {
+          "type": "string",
+          "example": ""
+        }
+      },
+      "required": [
+        "AppealId",
+        "AppealReference",
+        "LocalPlanningDepartment",
+        "PlanningApplicationReference",
+        "AppealSiteNearConservationArea",
+        "WouldDevelopmentAffectSettingOfListedBuilding",
+        "ListedBuildingDesc"
+      ]
     }
   }
 }

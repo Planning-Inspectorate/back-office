@@ -17,7 +17,6 @@
 			- [Web](#web)
 	- [Configuration](#configuration)
 	- [Tests](#tests)
-	- [Swagger documentation](#swagger-documentation)
 	- [Style guide](#style-guide)
 	- [Licensing](#licensing)
 
@@ -115,6 +114,10 @@ Use Docker to run an instance of a SQL Server Docker container using the command
 sudo docker run -e "ACCEPT_EULA=Y" -e "SA_PASSWORD=<YourStrong@Passw0rd>" \
    -p 1433:1433 --name pins_sql_server --hostname pins_sql_server \
    -d mcr.microsoft.com/mssql/server:2019-latest
+
+# For M1 Macs until [this issue](https://github.com/microsoft/mssql-docker/issues/668) gets resolved should use this version
+# or as an alternative you can use [colima](https://github.com/abiosoft/colima) instead of Docker.
+docker run --cap-add SYS_PTRACE -e 'ACCEPT_EULA=1' -e 'MSSQL_SA_PASSWORD=<YourStrong@Passw0rd>' -p 1433:1433 --name pins_sql_server -d mcr.microsoft.com/azure-sql-edge
 ```
 
 and create a `.env` file containing the following string:

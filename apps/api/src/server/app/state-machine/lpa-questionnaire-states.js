@@ -1,3 +1,9 @@
+const lpaQuestionnaireStatesStrings = {
+	awaiting_lpa_questionnaire: 'awaiting_lpa_questionnaire',
+	received_lpa_questionnaire: 'received_lpa_questionnaire',
+	overdue_lpa_questionnaire: 'overdue_lpa_questionnaire'
+};
+
 const lpa_questionnaire_states = {
 	awaiting_lpa_questionnaire: {
 		entry: ['sendLPAQuestionnaire'],
@@ -21,4 +27,4 @@ const lpa_questionnaire_actions = {
 	}
 };
 
-export { lpa_questionnaire_states, lpa_questionnaire_actions };
+export { lpaQuestionnaireStatesStrings, lpa_questionnaire_states, lpa_questionnaire_actions };

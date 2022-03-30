@@ -31,8 +31,8 @@ export const validateValidAppealDetails = () =>
 
 /**
  * Validate the outcome incomplete form to ensure it has at least 1 answer.
- * If "missing or incorrect documents" is checked, validate missingOrWrongDocumentsReasons to ensure a reason has been selected.
- * If "other" is checked, validate otherReason to ensure a reason has been provided.
+ * If "missing or incorrect documents" is checked, validate missingOrWrongDocsReasons to ensure a reason has been selected.
+ * If "otherReason" is checked, validate otherReasons to ensure a reason has been provided.
  * It will save into the current request all the validation errors that would be used
  * by the `expressValidationErrorsInterceptor` to populate the body with.
  *
@@ -46,32 +46,70 @@ export const validateOutcomeIncompletePipe = () => [
 		.toArray()
 		.isIn([
 			'namesDoNotMatch',
-			'sensitiveInformationIncluded',
-			'missingOrWrongDocuments',
-			'inflammatoryCommentsMade',
+			'sensitiveinfo',
+			'missingOrWrongDocs',
+			'inflamatoryComments',
 			'openedInError',
-			'wrongAppealTypeUsed',
-			'other'
+			'wrongAppealType',
+			'otherReason'
 		])
 		.withMessage('Please enter a reason why the appeal is missing or wrong'),
-	body('missingOrWrongDocumentsReasons')
-		.if(body('incompleteReasons').isIn(['missingOrWrongDocuments']))
+	body('missingOrWrongDocsReasons')
+		.if(body('incompleteReasons').isIn(['missingOrWrongDocs']))
 		.notEmpty()
 		.withMessage('Please select which documents are missing or wrong')
 		.bail()
 		.toArray()
-		.isIn([
-			'applicationForm',
-			'decisionNotice',
-			'groundsOfAppeal',
-			'supportingDocuments'
-		])
+		.isIn(['applicationForm', 'decisionNotice', 'groundsOfAppeal', 'supportingDocuments'])
 		.withMessage('Please select which documents are missing or wrong'),
-	body('otherReason')
-		.if(body('incompleteReasons').toArray().custom((value) => value.includes('other')))
+	body('otherReasons')
+		.if(body('incompleteReasons').toArray().custom((value) => value.includes('otherReason')))
 		.notEmpty()
 		.withMessage('Please provide a reason for the incomplete outcome')
 		.bail()
 		.isLength({ min: 1, max: 500 })
 		.withMessage('Word count exceeded')
 ];
+
+/**
+ * Validate the outcome incomplete form to ensure it has at least 1 answer.
+ *
+ * @returns {void}
+ */
+export const validateOutcomeInvalidReason = () => [
+	body('invalidReasons')
+		.notEmpty()
+		.withMessage('Please select a reason why the appeal is invalid')
+		.bail()
+		.isIn([
+			'outOfTime',
+			'noRightOfAppeal',
+			'notAppealable',
+			'lPADeemedInvalid',
+			'otherReason'
+		])
+		.withMessage('Please enter a reason why the appeal is invalid'),
+	body('otherReasons')
+		.if(body('invalidReasons').toArray().custom((value) => value.includes('otherReason')))
+		.notEmpty()
+		.withMessage('Please provide a reason for the invalid outcome')
+		.bail()
+		.isLength({ min: 1, max: 500 })
+		.withMessage('Word count exceeded')
+];
+
+/**
+ * Validate the check and confirm step.
+ *
+ * @returns {void}
+ */
+export const validateCheckAndConfirmPipe = () =>
+	body('check-and-confirm-completed').custom((value, { req }) => {
+		const { appealWork = {} } = req.session;
+
+		if (appealWork.reviewOutcome === 'incomplete' && value !== 'true') {
+			throw new Error('Confirm if you have completed all follow-up tasks and emails');
+		}
+
+		return true;
+	});

@@ -4,7 +4,16 @@ declare module "express-session" {
     interface SessionData {
 		appealWork: {
 			reviewOutcome: 'valid' | 'invalid' | 'incomplete',
-			descriptionOfDevelopment: string
+			descriptionOfDevelopment: string,
+			invalidAppealDetails: {
+				invalidReasons: Array,
+				otherReason: string
+			},
+			incompleteAppealDetails: {
+				incompleteReasons: Array,
+				missingOrWrongDocsReasons: Array,
+				otherReason: string
+			}
 		},
 		appealData: {
 			AppealId: number,

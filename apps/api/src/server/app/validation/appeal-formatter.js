@@ -11,6 +11,24 @@ function mapAppealStatus(status) {
 	return status == validation_states_strings.received_appeal ? 'new' : 'incomplete';
 }
 
+const formatIncompleteReason = function(incompleteValidationDecision) {
+	return {
+		reasons: {
+			...(incompleteValidationDecision.namesDoNotMatch && { namesDoNotMatch: incompleteValidationDecision.namesDoNotMatch }),
+			...(incompleteValidationDecision.sensitiveInfo && { sensitiveInfo: incompleteValidationDecision.sensitiveInfo }),
+			...(incompleteValidationDecision.missingApplicationForm && { missingApplicationForm: incompleteValidationDecision.missingApplicationForm }),
+			...(incompleteValidationDecision.missingDecisionNotice && { missingDecisionNotice: incompleteValidationDecision.missingDecisionNotice }),
+			...(incompleteValidationDecision.missingGroundsForAppeal && { missingGroundsForAppeal: incompleteValidationDecision.missingGroundsForAppeal }),
+			...(incompleteValidationDecision.missingSupportingDocuments && { 
+				missingSupportingDocuments: incompleteValidationDecision.missingSupportingDocuments }),
+			...(incompleteValidationDecision.inflamatoryComments && { inflamatoryComments: incompleteValidationDecision.inflamatoryComments }),
+			...(incompleteValidationDecision.openedInError && { openedInError: incompleteValidationDecision.openedInError }),
+			...(incompleteValidationDecision.wrongAppealTypeUsed && { wrongAppealTypeUsed: incompleteValidationDecision.wrongAppealTypeUsed }),
+			...(incompleteValidationDecision.otherReasons && { otherReasons: incompleteValidationDecision.otherReasons })
+		}
+	};
+};
+
 const appealFormatter = {
 	formatAppealForAllAppeals: async function(appeal) {
 		const address = await addressRepository.getById(appeal.addressId);
@@ -28,6 +46,10 @@ const appealFormatter = {
 		const address = await addressRepository.getById(appeal.addressId);
 		const addressAsString = formatAddress(address);
 		const appealStatus = mapAppealStatus(appeal.status);
+		const incompleteValidationDecision = appeal.ValidationDecision.find((decision) => decision.decision == 'incomplete');
+		const validationDecision = appeal.status == 'awaiting_validation_info' ? 
+			formatIncompleteReason(incompleteValidationDecision) : 
+			{};
 		return {
 			AppealId: appeal.id,
 			AppealReference: appeal.reference,
@@ -68,7 +90,8 @@ const appealFormatter = {
 					Filename: 'other-document-3.pdf',
 					URL: 'localhost:8080'
 				}
-			]
+			],
+			...validationDecision
 		};
 	}
 };

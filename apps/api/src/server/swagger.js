@@ -19,8 +19,87 @@ const document_ = {
 		// { ... }
 	],
 	securityDefinitions: {},  // by default: empty object (Swagger 2.0)
-	definitions: {},          // by default: empty object
-	components: {}            // by default: empty object (OpenAPI 3.x)
+	definitions: {
+		AppealToValidate: {
+			AppealId: 1,
+			AppealReference: 'APP/Q9999/D/21/1345264',
+			AppellantName: 'Lee Thornton',
+			AppealStatus: 'new',
+			Received: '18 Mar 2022',
+			AppealSite: '96 The Avenue, Maidstone, Kent, MD21 5XY',
+			LocalPlanningDepartment: 'Maidstone Borough Council',
+			PlanningApplicationReference: '48269/APP/2021/1482',
+			Documents: [],
+			reason: {
+				inflamatoryComments: true,
+				missingApplicationForm: true,
+				missingDecisionNotice: true,
+				missingGroundsForAppeal: true,
+				missingSupportingDocuments: true,
+				namesDoNotMatch: true,
+				openedInError: true,
+				otherReasons: 'Some other weird reason',
+				sensitiveInfo: true,
+				wrongAppealTypeUsed: true,
+			}
+		},
+		AppealsToValidate: [{
+			AppealId: 1,
+			AppealReference: 'APP/Q9999/D/21/1345264',
+			AppealStatus: { '@enum': ['new', 'incomplete'] },
+			Received: '18 Mar 2022',
+			AppealSite: '96 The Avenue, Maidstone, Kent, MD21 5XY'
+		}],
+		ChangeAppeal: {
+			$AppellandName: 'John Doe',
+			$Address: {
+				$AddressLine1: '',
+				$AddressLine2: '',
+				$Town: '',
+				$County: '',
+				$PostCode: ''
+			},
+			$LocalPlanningDepartment: '',
+			$PlanningApplicationReference: ''
+		},
+		ValidationDecision: {
+			$AppealStatus: { '@enum': ['invalid', 'incomplete', 'valid'] },
+			$descriptionOfDevelopment: '',
+			$Reason: {
+				$namesDoNotMatch: true,
+				$sensitiveInfo: true,
+				$missingApplicationForm: true,
+				$missingDecisionNotice: true,
+				$missingGroundsForAppeal:true,
+				$missingSupportingDocuments: true,
+				$inflamatoryComments: true,
+				$openedInError: true,
+				$wrongAppealTypeUsed: true,
+				$outOfTime: true,
+				$noRightOfAppeal: true,
+				$notAppealable: true,
+				$lPADeemedInvalid: true,
+				$otherReasons: '',
+			}
+		},
+		AppealsForCaseOfficer: {
+			$AppealId: 1,
+			$AppealReference: '',
+			$QuestionnaireDueDate: '01 Jun 2022',
+			$AppealSite: '',
+			$QuestionnaireStatus: { '@enum': ['awaiting', 'received', 'overdue'] }
+		},
+		AppealForCaseOfficer: {
+			$AppealId: 1,
+			$AppealReference: '',
+			$LocalPlanningDepartment: '',
+			$PlanningApplicationReference: '',
+			$AppealSiteNearConservationArea: false,
+			$WouldDevelopmentAffectSettingOfListedBuilding: false,
+			$ListedBuildingDesc: ''
+		}
+	},
+	components: {}
 };
 
 const outputFile = './src/server/swagger-output.json';

@@ -28,11 +28,28 @@ const appealRepository = (function() {
 				}
 			});
 		},
+		getByIdWithValidationDecision: function(id) {
+			return getPool().appeal.findUnique({
+				where: {
+					id: id
+				},
+				include: {
+					ValidationDecision: true
+				}
+			});
+		},
 		updateStatusById: function(id, status) {
 			const updatedAt = new Date();
 			return getPool().appeal.update({
 				where: { id: id },
 				data: { status: status, statusUpdatedAt: updatedAt, updatedAt: updatedAt }
+			});
+		},
+		updateById: function(id, data) {
+			const updatedAt = new Date();
+			return getPool().appeal.update({
+				where: { id: id },
+				data: { updatedAt: updatedAt, ...data }
 			});
 		},
 		getByStatusAndLessThanStatusUpdatedAtDate(status, lessThanStatusUpdatedAt) {

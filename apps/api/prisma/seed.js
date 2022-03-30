@@ -108,6 +108,21 @@ const appealsData = [
 				city: 'Woodton',
 				postcode: 'NR35 2ND'
 			}
+		},
+		ValidationDecision: {
+			create: {
+				decision: 'incomplete',
+				namesDoNotMatch: true,
+				sensitiveInfo: true,
+				missingApplicationForm: true,
+				missingDecisionNotice: true,
+				missingGroundsForAppeal: true,
+				missingSupportingDocuments: true,
+				inflamatoryComments: true,
+				openedInError: true,
+				wrongAppealTypeUsed: true,
+				otherReasons: 'Some other weird reason'
+			}
 		}
 	},
 	{
@@ -132,11 +147,44 @@ const appealsData = [
 		planningApplicationReference: '48269/APP/2021/1482',
 		status: 'awaiting_lpa_questionnaire',
 		statusUpdatedAt: getDateTwoWeeksAgo(),
+		startedAt: new Date(),
 		address: {
 			create: {
 				addressLine1: '96 The Avenue',
 				addressLine2: 'Maidstone',
 				city: 'Kent',
+				postcode: 'MD21 5XY'
+			}
+		}
+	},
+	{
+		reference: 'APP/Q9999/D/21/1087562',
+		appellantName: 'Bob Ross',
+		localPlanningDepartment: 'Maidstone Borough Council',
+		planningApplicationReference: '48269/APP/2021/1482',
+		status: 'received_lpa_questionnaire',
+		statusUpdatedAt: getDateTwoWeeksAgo(),
+		startedAt: new Date(),
+		address: {
+			create: {
+				addressLine1: '92 Huntsmoor Road',
+				city: 'Tadley',
+				postcode: 'RG26 4BX'
+			}
+		}
+	},
+	{
+		reference: 'APP/Q9999/D/21/5463281',
+		appellantName: 'Bob Ross',
+		localPlanningDepartment: 'Maidstone Borough Council',
+		planningApplicationReference: '48269/APP/2021/1482',
+		status: 'awaiting_lpa_questionnaire',
+		statusUpdatedAt: getDateTwoWeeksAgo(),
+		startedAt: new Date(),
+		address: {
+			create: {
+				addressLine1: '55 Butcher Street',
+				city: 'Thurnscoe',
 				postcode: 'MD21 5XY'
 			}
 		}
