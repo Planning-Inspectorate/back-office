@@ -309,9 +309,19 @@ export function postIncompleteAppealOutcome(request, response) {
  * @returns {void}
  */
 export function getCheckAndConfirm(request, response) {
-	const backURL = `/validation/${routes.validAppealOutcome.path}?direction=back`;
-	const appealData = request.session.appealData;
-	const appealWork = request.session.appealWork;
+	const { appealData, appealWork } = request.session;
+
+	// Determine the back url depending on where the user originated from in the
+	// validation journey
+	let backURL;
+
+	if ('invalidAppealDetails' in appealWork) {
+		backURL = `/validation/${routes.invalidAppealOutcome.path}?direction=back`;
+	} else if ('incompleteAppealDetails' in appealWork) {
+		backURL = `/validation/${routes.incompleteAppealOutcome.path}?direction=back`;
+	} else {
+		backURL = `/validation/${routes.validAppealOutcome.path}?direction=back`;
+	}
 
 	let invalidReasons;
 	if (appealWork.invalidAppealDetails && appealWork.invalidAppealDetails.invalidReasons) {
