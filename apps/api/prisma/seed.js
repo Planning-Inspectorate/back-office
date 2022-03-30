@@ -108,6 +108,21 @@ const appealsData = [
 				city: 'Woodton',
 				postcode: 'NR35 2ND'
 			}
+		},
+		ValidationDecision: {
+			create: {
+				decision: 'incomplete',
+				namesDoNotMatch: true,
+				sensitiveInfo: true,
+				missingApplicationForm: true,
+				missingDecisionNotice: true,
+				missingGroundsForAppeal: true,
+				missingSupportingDocuments: true,
+				inflamatoryComments: true,
+				openedInError: true,
+				wrongAppealTypeUsed: true,
+				otherReasons: 'Some other weird reason'
+			}
 		}
 	},
 	{

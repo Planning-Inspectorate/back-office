@@ -28,6 +28,16 @@ const appealRepository = (function() {
 				}
 			});
 		},
+		getByIdWithValidationDecision: function(id) {
+			return getPool().appeal.findUnique({
+				where: {
+					id: id
+				},
+				include: {
+					ValidationDecision: true
+				}
+			});
+		},
 		updateStatusById: function(id, status) {
 			const updatedAt = new Date();
 			return getPool().appeal.update({

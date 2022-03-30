@@ -29,7 +29,19 @@ const document_ = {
 			AppealSite: '96 The Avenue, Maidstone, Kent, MD21 5XY',
 			LocalPlanningDepartment: 'Maidstone Borough Council',
 			PlanningApplicationReference: '48269/APP/2021/1482',
-			Documents: []
+			Documents: [],
+			reason: {
+				inflamatoryComments: true,
+				missingApplicationForm: true,
+				missingDecisionNotice: true,
+				missingGroundsForAppeal: true,
+				missingSupportingDocuments: true,
+				namesDoNotMatch: true,
+				openedInError: true,
+				otherReasons: 'Some other weird reason',
+				sensitiveInfo: true,
+				wrongAppealTypeUsed: true,
+			}
 		},
 		AppealsToValidate: [{
 			AppealId: 1,
