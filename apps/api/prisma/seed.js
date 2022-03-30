@@ -162,6 +162,9 @@ const appealsAwaitingLPAQuestionnaire = [
 				city: 'Kent',
 				postcode: 'MD21 5XY'
 			}
+		},
+		lpaQuestionnaire: {
+			create: {}
 		}
 	},
 	{
@@ -178,6 +181,9 @@ const appealsAwaitingLPAQuestionnaire = [
 				city: 'Thurnscoe',
 				postcode: 'MD21 5XY'
 			}
+		},
+		lpaQuestionnaire: {
+			create: {}
 		}
 	}
 ];

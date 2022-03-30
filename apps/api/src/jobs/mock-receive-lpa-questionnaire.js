@@ -2,24 +2,10 @@ import appealRepository from '../server/app/repositories/appeal.repository.js';
 import createHouseholpAppealMachine from '../server/app/state-machine/household-appeal.machine.js';
 
 /**
- * @returns {Date} date two weeks ago
+ * @returns {Array} array of appeals that are in 'awaiting_lpa_questionnaire' or 'awaiting_lpa_questionnaire' states
  */
-function getDateTwoWeeksAgo() {
-	const date = new Date();
-	date.setDate(date.getDate() - 14);
-	date.setHours(23);
-	date.setMinutes(59);
-	date.setSeconds(59);
-	date.setMilliseconds(999);
-	return date;
-}
-
-/**
- * @returns {Array} array of appeals that are in 'awaiting_lpa_questionnaire' state which have been in that state for over two weeks
- */
-async function getAppealsWithOverdueQuestionnaires() {
-	const twoWeeksAgo = getDateTwoWeeksAgo();
-	const appeals = await appealRepository.getByStatusAndLessThanStatusUpdatedAtDate('awaiting_lpa_questionnaire', twoWeeksAgo);
+async function getAppealsAwaitingQuestionnaires() {
+	const appeals = await appealRepository.getByStatuses(['awaiting_lpa_questionnaire', 'overdue_lpa_questionnaire']);
 	return appeals;
 }
 
@@ -29,7 +15,7 @@ async function getAppealsWithOverdueQuestionnaires() {
 async function markAppealsAsOverdue(appeals) {
 	const updatedAppeals = [];
 	for (const appeal of appeals) {
-		const newStatus = createHouseholpAppealMachine(appeal.id).transition(appeal.status, 'OVERDUE');
+		const newStatus = createHouseholpAppealMachine(appeal.id).transition(appeal.status, 'RECEIVED');
 		updatedAppeals.push(appealRepository.updateStatusById(appeal.id, newStatus.value));
 	}
 	await Promise.all(updatedAppeals);
@@ -39,7 +25,7 @@ async function markAppealsAsOverdue(appeals) {
  * Marks all appeals in the 'awaiting_lpa_questionnaire' state over 2 weeks with status 'overdue_lpa_questionnaire'
  */
 async function findAndUpdateStatusForAppealsWithOverdueQuestionnaires() {
-	const appeals = await getAppealsWithOverdueQuestionnaires();
+	const appeals = await getAppealsAwaitingQuestionnaires();
 	await markAppealsAsOverdue(appeals);
 }
 

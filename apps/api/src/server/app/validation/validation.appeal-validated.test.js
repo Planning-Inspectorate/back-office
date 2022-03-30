@@ -76,6 +76,8 @@ const newDecision = {
 
 addNewDecision.returns(newDecision);
 
+const createLpaQuestionnaireStub = sinon.stub();
+
 class MockDatabaseClass {
 	constructor(_parameters) {
 		this.pool = {
@@ -85,6 +87,9 @@ class MockDatabaseClass {
 			},
 			validationDecision: {
 				create: addNewDecision
+			},
+			lPAQuestionnaire: {
+				create: createLpaQuestionnaireStub
 			}
 		};
 	}
