@@ -166,6 +166,10 @@ export function postValidAppealDetails(request, response) {
 	// TODO: Should I just pass the appealWork obj?
 	(request.session.appealWork ??= {}).descriptionOfDevelopment = descriptionOfDevelopment;
 
+	// Clear any session data from other validation journeys to prevent errors
+	delete request.session.appealWork.invalidAppealDetails;
+	delete request.session.appealWork.incompleteAppealDetails;
+
 	const { body: { errors = {}, errorSummary = [] } } = request;
 
 	if (Object.keys(errors).length > 0) {
@@ -235,6 +239,10 @@ export function postInvalidAppealOutcome(request, response) {
 		otherReasons
 	};
 
+	// Clear any session data from other validation journeys to prevent errors
+	delete request.session.appealWork.descriptionOfDevelopment;
+	delete request.session.appealWork.incompleteAppealDetails;
+
 	return response.redirect(`/validation/${routes.checkAndConfirm.path}`);
 }
 
@@ -297,6 +305,10 @@ export function postIncompleteAppealOutcome(request, response) {
 		otherReasons,
 		missingOrWrongDocsReasons,
 	};
+
+	// Clear any session data from other validation journeys to prevent errors
+	delete request.session.appealWork.descriptionOfDevelopment;
+	delete request.session.appealWork.invalidAppealDetails;
 
 	return response.redirect(routes.checkAndConfirm.path);
 }
