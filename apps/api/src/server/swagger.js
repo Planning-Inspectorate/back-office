@@ -60,7 +60,7 @@ const document_ = {
 				$missingDecisionNotice: true,
 				$missingGroundsForAppeal:true,
 				$missingSupportingDocuments: true,
-				$inflamatoryComments: true,
+				$inflammatoryComments: true,
 				$openedInError: true,
 				$wrongAppealTypeUsed: true,
 				$outOfTime: true,

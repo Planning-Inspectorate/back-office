@@ -355,6 +355,59 @@ export function getCheckAndConfirm(request, response) {
 }
 
 /**
+ * Utility function to create Reason data in valid format for updateAppeal API post using the supplied details data
+ *
+ * @param {string} outcomeType - string specifying the applicable outcome ('invalid' or 'incomplete') (valid outcome returns an empty object as Reasons not required for that case)
+ * @param {object} appealDetails - details object from session storage containing data on the outcome
+ * @returns {object} - resulting Reasons object in valid format (see /api-docs/#/default/post_validation__id_ for details)
+ */
+function formatOutcomeReasonsDataForApiPost(outcomeType, appealDetails) {
+	let data = {};
+
+	switch (outcomeType) {
+		case 'invalid':
+			data = {
+				// eslint-disable-next-line unicorn/no-array-reduce, unicorn/prefer-object-from-entries
+				...appealDetails.invalidReasons.reduce((previous, current) => {
+					if (current === 'otherReason') return previous;
+
+					previous[current] = true;
+					return previous;
+				}, {})
+			};
+
+			if (appealDetails.otherReasons) data.otherReasons = appealDetails.otherReasons;
+
+			break;
+		case 'incomplete':
+			data = {
+				// eslint-disable-next-line unicorn/no-array-reduce, unicorn/prefer-object-from-entries
+				...appealDetails.incompleteReasons.reduce((previous, current) => {
+					if (current === 'missingOrWrongDocs') return previous;
+					if (current === 'otherReason') return previous;
+
+					previous[current] = true;
+					return previous;
+				}, {})
+			};
+
+			if (appealDetails.otherReasons) data.otherReasons = appealDetails.otherReasons;
+
+			// eslint-disable-next-line unicorn/no-array-for-each
+			appealDetails.missingOrWrongDocsReasons.forEach((reason) => {
+				// eslint-disable-next-line unicorn/prefer-string-slice
+				data[`missing${reason[0].toUpperCase()}${reason.substring(1)}`] = true;
+			});
+
+			break;
+		default:
+			break;
+	}
+
+	return data;
+}
+
+/**
  * POST the check and confirm page used by all appeal outcomes journeys.
  *
  * @param {import('express').Request} request - Express request object
@@ -396,42 +449,13 @@ export async function postCheckAndConfirm(request, response, next) {
 
 	// Update the appeal status and transition it to the next phase.
 	// Convert the form / appeal session data into a valid payload format.
-	let appealUpdateData = {};
-	switch (appealWork.reviewOutcome) {
-		case 'valid':
-			appealUpdateData = { AppealStatus: appealWork.reviewOutcome, DescriptionOfDevelopment: appealWork.descriptionOfDevelopment };
-			break;
-		case 'invalid':
-			appealUpdateData = {
-				AppealStatus: appealWork.reviewOutcome,
-				Reason: {
-					// Convert all reasons for the outcome from an array to an object. Each array item will become a key with a true value.
-					// If one of the reasons is based on the Other text box, the key has to be otherReasons and the value is stored separatly in the appealWork data.
-					...appealWork.invalidAppealDetails.invalidReasons.reduce((a, v) => ({
-						...a,
-						[(v === 'otherReason') ? 'otherReasons': v]: (v === 'otherReason') ? appealWork.invalidAppealDetails.otherReasons : true
-					}), {})
-				}
-			};
-			break;
-		case 'incomplete':
-			appealUpdateData = {
-				AppealStatus: appealWork.reviewOutcome,
-				Reason: {
-					// TODO: This code is messy, please refactor.
-					// Convert all reasons for the outcome from an array to an object. Each array item will become a key with a true value.
-					// If one of the reasons is based on the Other text box, the key has to be otherReasons and the value is stored separatly in the appealWork data.
-					...appealWork.incompleteAppealDetails.incompleteReasons.reduce((a, v) => ({
-						...a,
-						[(v === 'otherReason') ? 'otherReasons': v]: (v === 'otherReason') ? appealWork.incompleteAppealDetails.otherReasons : true
-					}), {}),
-					...appealWork.incompleteAppealDetails.missingOrWrongDocsReasons.reduce((a, v) => ({ ...a, [v]: true }), {})
-				}
-			};
-			break;
-		default:
-			break;
-	}
+	const appealUpdateData = {
+		AppealStatus: appealWork.reviewOutcome,
+		DescriptionOfDevelopment: appealWork.descriptionOfDevelopment || '',
+		Reason: formatOutcomeReasonsDataForApiPost(
+			appealWork.reviewOutcome, appealWork.reviewOutcome === 'invalid' ? appealWork.invalidAppealDetails : appealWork.incompleteAppealDetails
+		)
+	};
 
 	// Update the appeal with the outcome of the validation.
 	const [error, updateStatus] = await to(updateAppeal(appealData.AppealId, appealUpdateData));
