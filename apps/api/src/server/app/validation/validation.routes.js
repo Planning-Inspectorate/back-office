@@ -27,7 +27,7 @@ router.get('/:id',
 		}
 		#swagger.responses[200] = {
 			desciption: 'Appeal that requires validation',
-			schema: { $ref: '#/definitions/AppealsToValidate' }
+			schema: { $ref: '#/definitions/AppealToValidate' }
 		}
 	*/
 	asyncHandler(getAppealToValidate));

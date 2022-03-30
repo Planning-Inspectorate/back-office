@@ -46,7 +46,7 @@
           "200": {
             "desciption": "Appeal that requires validation",
             "schema": {
-              "$ref": "#/definitions/AppealsToValidate"
+              "$ref": "#/definitions/AppealToValidate"
             },
             "description": "OK"
           }
@@ -179,6 +179,51 @@
           "type": "array",
           "example": [],
           "items": {}
+        },
+        "reason": {
+          "type": "object",
+          "properties": {
+            "inflamatoryComments": {
+              "type": "boolean",
+              "example": true
+            },
+            "missingApplicationForm": {
+              "type": "boolean",
+              "example": true
+            },
+            "missingDecisionNotice": {
+              "type": "boolean",
+              "example": true
+            },
+            "missingGroundsForAppeal": {
+              "type": "boolean",
+              "example": true
+            },
+            "missingSupportingDocuments": {
+              "type": "boolean",
+              "example": true
+            },
+            "namesDoNotMatch": {
+              "type": "boolean",
+              "example": true
+            },
+            "openedInError": {
+              "type": "boolean",
+              "example": true
+            },
+            "otherReasons": {
+              "type": "string",
+              "example": "Some other weird reason"
+            },
+            "sensitiveInfo": {
+              "type": "boolean",
+              "example": true
+            },
+            "wrongAppealTypeUsed": {
+              "type": "boolean",
+              "example": true
+            }
+          }
         }
       }
     },
