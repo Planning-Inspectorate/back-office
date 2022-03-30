@@ -75,7 +75,7 @@ function mapAppealStatusToStateMachineAction(status) {
  * @returns {object} appeal with given ID
  */
 async function getAppealForValidation(appealId) {
-	const appeal = await appealRepository.getById(Number.parseInt(appealId, 10));
+	const appeal = await appealRepository.getByIdWithValidationDecision(Number.parseInt(appealId, 10));
 	if (!validationStatuses.includes(appeal.status)) {
 		throw new ValidationError('Appeal does not require validation', 400);
 	}
