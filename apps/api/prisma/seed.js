@@ -14,87 +14,88 @@ function getDateTwoWeeksAgo() {
 	return date;
 }
 
-const appealsData = [
-	{
-		reference: 'APP/Q9999/D/21/1345264',
-		appellantName: 'Lee Thornton',
-		localPlanningDepartment: 'Maidstone Borough Council',
-		planningApplicationReference: '48269/APP/2021/1482',
-		address: {
-			create: {
-				addressLine1: '96 The Avenue',
-				addressLine2: 'Maidstone',
-				city: 'Kent',
-				postcode: 'MD21 5XY'
-			}
+const newAppeals = [{
+	reference: 'APP/Q9999/D/21/1345264',
+	appellantName: 'Lee Thornton',
+	localPlanningDepartment: 'Maidstone Borough Council',
+	planningApplicationReference: '48269/APP/2021/1482',
+	address: {
+		create: {
+			addressLine1: '96 The Avenue',
+			addressLine2: 'Maidstone',
+			city: 'Kent',
+			postcode: 'MD21 5XY'
 		}
-	},
-	{
-		reference: 'APP/Q9999/D/21/5463281',
-		appellantName: 'Haley Eland',
-		localPlanningDepartment: 'Barnsley Metropolitan Borough Council',
-		planningApplicationReference: '32569/APP/2021/2102',
-		address: {
-			create: {
-				addressLine1: '55 Butcher Street',
-				city: 'Thurnscoe',
-				postcode: 'S63 0RB'
-			}
+	}
+},
+{
+	reference: 'APP/Q9999/D/21/5463281',
+	appellantName: 'Haley Eland',
+	localPlanningDepartment: 'Barnsley Metropolitan Borough Council',
+	planningApplicationReference: '32569/APP/2021/2102',
+	address: {
+		create: {
+			addressLine1: '55 Butcher Street',
+			city: 'Thurnscoe',
+			postcode: 'S63 0RB'
 		}
-	},
-	{
-		reference: 'APP/Q9999/D/21/1203521',
-		appellantName: 'Roger Simmons',
-		localPlanningDepartment: 'Worthing Borough Council',
-		planningApplicationReference: '25468/APP/2021/1185',
-		address: {
-			create: {
-				addressLine1: '8 The Chase',
-				city: 'Findon',
-				postcode: 'BN14 0TT'
-			}
+	}
+},
+{
+	reference: 'APP/Q9999/D/21/1203521',
+	appellantName: 'Roger Simmons',
+	localPlanningDepartment: 'Worthing Borough Council',
+	planningApplicationReference: '25468/APP/2021/1185',
+	address: {
+		create: {
+			addressLine1: '8 The Chase',
+			city: 'Findon',
+			postcode: 'BN14 0TT'
 		}
-	},
-	{
-		reference: 'APP/Q9999/D/21/1154923',
-		appellantName: 'Sophie Skinner',
-		localPlanningDepartment: 'Dorset Council',
-		planningApplicationReference: '19457/APP/2021/5421',
-		address: {
-			create: {
-				addressLine1: '96 The Avenue',
-				addressLine2: 'Maidstone',
-				city: 'Kent',
-				postcode: 'MD21 5XY'
-			}
+	}
+},
+{
+	reference: 'APP/Q9999/D/21/1154923',
+	appellantName: 'Sophie Skinner',
+	localPlanningDepartment: 'Dorset Council',
+	planningApplicationReference: '19457/APP/2021/5421',
+	address: {
+		create: {
+			addressLine1: '96 The Avenue',
+			addressLine2: 'Maidstone',
+			city: 'Kent',
+			postcode: 'MD21 5XY'
 		}
-	},
-	{
-		reference: 'APP/Q9999/D/21/1087562',
-		appellantName: 'Ryan Marshall',
-		localPlanningDepartment: 'Basingstoke and Deane Borough Council',
-		planningApplicationReference: '10016/APP/2021/960',
-		address: {
-			create: {
-				addressLine1: '44 Rivervale',
-				city: 'Bridport',
-				postcode: 'DT6 5RN'
-			}
+	}
+},
+{
+	reference: 'APP/Q9999/D/21/1087562',
+	appellantName: 'Ryan Marshall',
+	localPlanningDepartment: 'Basingstoke and Deane Borough Council',
+	planningApplicationReference: '10016/APP/2021/960',
+	address: {
+		create: {
+			addressLine1: '44 Rivervale',
+			city: 'Bridport',
+			postcode: 'DT6 5RN'
 		}
-	},
-	{
-		reference: 'APP/Q9999/D/21/1365524',
-		appellantName: 'Fiona Burgess',
-		localPlanningDepartment: 'Wiltshire Council',
-		planningApplicationReference: '9423/APP/2021/1223',
-		address: {
-			create: {
-				addressLine1: '92 Huntsmoor Road',
-				city: 'Tadley',
-				postcode: 'RG26 4BX'
-			}
+	}
+},
+{
+	reference: 'APP/Q9999/D/21/1365524',
+	appellantName: 'Fiona Burgess',
+	localPlanningDepartment: 'Wiltshire Council',
+	planningApplicationReference: '9423/APP/2021/1223',
+	address: {
+		create: {
+			addressLine1: '92 Huntsmoor Road',
+			city: 'Tadley',
+			postcode: 'RG26 4BX'
 		}
-	},
+	}
+}];
+
+const appealsAwaitingValidationInfo = [
 	{
 		reference: 'APP/Q9999/D/21/1224115',
 		appellantName: 'Kevin Fowler',
@@ -124,7 +125,10 @@ const appealsData = [
 				otherReasons: 'Some other weird reason'
 			}
 		}
-	},
+	}
+];
+
+const invalidAppeals = [
 	{
 		reference: 'APP/Q9999/D/21/1345264',
 		appellantName: 'Lee Thornton',
@@ -139,7 +143,10 @@ const appealsData = [
 				postcode: 'MD21 5XY'
 			}
 		}
-	},
+	}
+];
+
+const appealsAwaitingLPAQuestionnaire = [
 	{
 		reference: 'APP/Q9999/D/21/1345264',
 		appellantName: 'Bob Ross',
@@ -154,22 +161,6 @@ const appealsData = [
 				addressLine2: 'Maidstone',
 				city: 'Kent',
 				postcode: 'MD21 5XY'
-			}
-		}
-	},
-	{
-		reference: 'APP/Q9999/D/21/1087562',
-		appellantName: 'Bob Ross',
-		localPlanningDepartment: 'Maidstone Borough Council',
-		planningApplicationReference: '48269/APP/2021/1482',
-		status: 'received_lpa_questionnaire',
-		statusUpdatedAt: getDateTwoWeeksAgo(),
-		startedAt: new Date(),
-		address: {
-			create: {
-				addressLine1: '92 Huntsmoor Road',
-				city: 'Tadley',
-				postcode: 'RG26 4BX'
 			}
 		}
 	},
@@ -189,6 +180,52 @@ const appealsData = [
 			}
 		}
 	}
+];
+
+const appealsWithReceivedLPAQuestionnaire = [
+	{
+		reference: 'APP/Q9999/D/21/1087562',
+		appellantName: 'Bob Ross',
+		localPlanningDepartment: 'Maidstone Borough Council',
+		planningApplicationReference: '48269/APP/2021/1482',
+		status: 'received_lpa_questionnaire',
+		statusUpdatedAt: getDateTwoWeeksAgo(),
+		startedAt: new Date(),
+		address: {
+			create: {
+				addressLine1: '92 Huntsmoor Road',
+				city: 'Tadley',
+				postcode: 'RG26 4BX'
+			}
+		},
+		lpaQuestionnaire: {
+			create: {
+				affectsListedBuilding: false,
+				extraConditions: false,
+				inGreenBelt: false,
+				inOrNearConservationArea: false,
+				siteVisibleFromPublicLand: false,
+				sideVisibleFromPublicLandDescription: 'The extension is to the read of the property, and the garden has high hedges',
+				doesInspectorNeedToEnterSite: true,
+				doesInspectorNeedToEnterSideDescription: 'The proposed development can only be viewed from the appellant\'s garden',
+				doesInspectorNeedToAccessNeighboursLand: true,
+				doesInspectorNeedToAccessNeighboursLandDescription: '54 Butcher Street',
+				healthAndSafetyIssues: true,
+				healthAndSafetyIsueesDescription: 'A defensive dog',
+				appealsInImmediateAreaBeingConsidered: '893482, 372839',
+				sentAt: new Date(2022, 3, 1),
+				receivedAt: new Date(2022, 3, 20)
+			}
+		}
+	}
+];
+
+const appealsData = [
+	...newAppeals,
+	...appealsAwaitingValidationInfo, 
+	...invalidAppeals,
+	...appealsAwaitingLPAQuestionnaire,
+	...appealsWithReceivedLPAQuestionnaire
 ];
 
 /**
