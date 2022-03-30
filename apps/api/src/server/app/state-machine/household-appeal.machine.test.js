@@ -38,7 +38,13 @@ for (const parameter of [
 	['awaiting_lpa_questionnaire', 'INFO_MISSING', 'awaiting_lpa_questionnaire', false],
 	['awaiting_lpa_questionnaire', 'VALID', 'awaiting_lpa_questionnaire', false],
 	['awaiting_lpa_questionnaire', 'OVERDUE', 'overdue_lpa_questionnaire', true],
-	['awaiting_lpa_questionnaire', 'RECEIVED', 'received_lpa_questionnaire', true]
+	['awaiting_lpa_questionnaire', 'RECEIVED', 'received_lpa_questionnaire', true],
+	['overdue_lpa_questionnaire', 'RECEIVED', 'received_lpa_questionnaire', true],
+	['overdue_lpa_questionnaire', 'COMPLETE', 'overdue_lpa_questionnaire', false],
+	['overdue_lpa_questionnaire', 'INCOMPLETE', 'overdue_lpa_questionnaire', false],
+	['received_lpa_questionnaire', 'COMPLETE', 'complete_lpa_questionnaire', true],
+	['received_lpa_questionnaire', 'INCOMPLETE', 'incomplete_lpa_questionnaire', true],
+	['incomplete_lpa_questionnaire', 'COMPLETE', 'complete_lpa_questionnaire', true],
 ]) {
 	test(applyAction, ...parameter);
 }

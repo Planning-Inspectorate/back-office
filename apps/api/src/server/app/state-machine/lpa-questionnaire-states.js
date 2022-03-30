@@ -1,7 +1,9 @@
 const lpaQuestionnaireStatesStrings = {
 	awaiting_lpa_questionnaire: 'awaiting_lpa_questionnaire',
 	received_lpa_questionnaire: 'received_lpa_questionnaire',
-	overdue_lpa_questionnaire: 'overdue_lpa_questionnaire'
+	overdue_lpa_questionnaire: 'overdue_lpa_questionnaire',
+	complete_lpa_questionnaire: 'complete_lpa_questionnaire',
+	incomplete_lpa_questionnaire: 'incomplete_lpa_questionnaire'
 };
 
 const lpa_questionnaire_states = {
@@ -12,9 +14,23 @@ const lpa_questionnaire_states = {
 			RECEIVED: 'received_lpa_questionnaire'
 		}
 	},
-	received_lpa_questionnaire: {},
+	received_lpa_questionnaire: {
+		on: {
+			COMPLETE: 'complete_lpa_questionnaire',
+			INCOMPLETE: 'incomplete_lpa_questionnaire'
+		}
+	},
 	overdue_lpa_questionnaire: {
-		entry: ['nudgeLPAQuestionnaire']
+		entry: ['nudgeLPAQuestionnaire'],
+		on: {
+			RECEIVED: 'received_lpa_questionnaire'
+		}
+	},
+	complete_lpa_questionnaire: {},
+	incomplete_lpa_questionnaire: {
+		on: {
+			COMPLETE: 'complete_lpa_questionnaire',
+		}
 	}
 };
 
