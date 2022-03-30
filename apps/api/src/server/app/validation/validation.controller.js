@@ -1,11 +1,10 @@
 import appealRepository from '../repositories/appeal.repository.js';
 import validationDecisionRepository from '../repositories/validation-decision.repository.js';
 import ValidationError from './validation-error.js';
-import createHouseholpAppealMachine from '../state-machine/household-appeal.machine.js';
+import transitionState from '../state-machine/household-appeal.machine.js';
 import { validation_states_strings, validation_actions_strings } from '../state-machine/validation-states.js';
 import appealFormatter from './appeal-formatter.js';
 import { validationDecisions, validateAppealValidatedRequest, validateUpdateValidationRequest } from './validate-request.js';
-import { createMachine, assign, interpret } from 'xstate';
 
 const validationStatuses = [
 	validation_states_strings.received_appeal,
@@ -47,11 +46,7 @@ const appealValidated = async function (request, response) {
 	validateAppealValidatedRequest(request.body);
 	const appeal = await getAppealForValidation(request.params.id);
 	const machineAction = mapAppealStatusToStateMachineAction(request.body.AppealStatus);
-	const service = interpret(createHouseholpAppealMachine(appeal.id));
-	service.start(appeal.status);
-	service.send({ type: machineAction });
-	const nextState = service.state;
-	service.stop();
+	const nextState = transitionState(appeal.id, appeal.status, machineAction);
 	await appealRepository.updateStatusById(appeal.id, nextState.value);
 	await validationDecisionRepository.addNewDecision(appeal.id, request.body.AppealStatus, request.body.Reason, request.body.DescriptionOfDevelopment);
 	return response.send();

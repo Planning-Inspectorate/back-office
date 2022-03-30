@@ -1,4 +1,4 @@
-import { createMachine } from 'xstate';
+import { createMachine, interpret } from 'xstate';
 import { validation_states, validation_actions } from './validation-states.js';
 import { lpa_questionnaire_states, lpa_questionnaire_actions } from './lpa-questionnaire-states.js';
 
@@ -22,4 +22,13 @@ const createHouseholpAppealMachine = function(appealId) {
 	});
 };
 
-export default createHouseholpAppealMachine;
+const transitionState = function(appealId, status, machineAction) {
+	const service = interpret(createHouseholpAppealMachine(appealId));
+	service.start(status);
+	service.send({ type: machineAction });
+	const nextState = service.state;
+	service.stop();
+	return nextState;
+};
+
+export default transitionState;

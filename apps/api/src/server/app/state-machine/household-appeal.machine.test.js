@@ -1,18 +1,13 @@
 // eslint-disable-next-line import/no-unresolved
 import test from 'ava';
 import sinon from 'sinon';
-import createHouseholpAppealMachine from './household-appeal.machine.js';
+import transitionState from './household-appeal.machine.js';
 import lpaQuestionnaireActions from './lpa-questionnaire.actions.js';
-
-test('should have \'submitted\' as initial state', (t) => {
-	const initial_state = createHouseholpAppealMachine(1).initialState;
-	t.is(initial_state.value, 'received_appeal');
-});
 
 const lpaQuestionnaireStub = sinon.stub();
 
 test.before('sets up mocking of actions', () => {
-	sinon.stub(lpaQuestionnaireActions, 'sendLpaQuestionnaire').callsFake((arguments_) => lpaQuestionnaireStub(arguments_));
+	sinon.stub(lpaQuestionnaireActions, 'sendLpaQuestionnaire').callsFake(lpaQuestionnaireStub);
 });
 
 const validateLPAQuestionnaireRowCreated = function(appealId) {
@@ -25,12 +20,15 @@ const validateLPAQuestionnaireRowCreated = function(appealId) {
  * @param {string} action action taken to proceed in state machine
  * @param {string} expected_state expected state after action was taken
  * @param {boolean} has_changed True if action was valid, False if action was invalid
+ * @param {functions} callback callback test
  */
 function applyAction(t, initial_state, action, expected_state, has_changed, callback) {
-	const next_state = createHouseholpAppealMachine(1).transition(initial_state, action);
+	const next_state = transitionState(1, initial_state, action);
 	t.is(next_state.value, expected_state);
 	t.is(next_state.changed, has_changed);
-	// if(callback) { callback(1) }
+	if (next_state.value == 'awaiting_lpa_questionnaire') {
+		sinon.assert.calledWithExactly(lpaQuestionnaireStub, 1);
+	}
 }
 
 applyAction.title = (providedTitle = '', initial_state, action, expected_state, has_changed) =>
@@ -44,9 +42,9 @@ for (const parameter of [
 	['awaiting_validation_info', 'INVALID', 'invalid_appeal', true],
 	['awaiting_validation_info', 'INFO_MISSING', 'awaiting_validation_info', false],
 	['awaiting_validation_info', 'VALID', 'awaiting_lpa_questionnaire', true, validateLPAQuestionnaireRowCreated],
-	['invalid_appeal', 'INVALID', 'invalid_appeal', false],
-	['invalid_appeal', 'INFO_MISSING', 'invalid_appeal', false],
-	['invalid_appeal', 'VALID', 'invalid_appeal', false],
+	['invalid_appeal', 'INVALID', 'invalid_appeal', undefined],
+	['invalid_appeal', 'INFO_MISSING', 'invalid_appeal', undefined],
+	['invalid_appeal', 'VALID', 'invalid_appeal', undefined],
 	['awaiting_lpa_questionnaire', 'INVALID', 'awaiting_lpa_questionnaire', false],
 	['awaiting_lpa_questionnaire', 'INFO_MISSING', 'awaiting_lpa_questionnaire', false],
 	['awaiting_lpa_questionnaire', 'VALID', 'awaiting_lpa_questionnaire', false],

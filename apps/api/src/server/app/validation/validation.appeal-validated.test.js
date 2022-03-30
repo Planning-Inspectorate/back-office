@@ -157,7 +157,7 @@ test('should be able to submit \'missing appeal details\' decision', async(t) =>
 				missingSupportingDocuments: true,
 				inflamatoryComments: true,
 				openedInError: true,
-				wrongAppealType: true}
+				wrongAppealType: true }
 		} );
 	t.is(resp.status, 200);
 	// TODO: calledOneWithExactly throws error
