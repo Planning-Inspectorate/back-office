@@ -3,17 +3,13 @@
  * @returns {string} merged address parts into single string
  */
 function formatAddress(address) {
-	const addressParts = [
-		address.addressLine1, 
-		address.addressLine2, 
-		address.addressLine3, 
-		address.addressLine4, 
-		address.addressLine5, 
-		address.addressLine6, 
-		address.city, 
-		address.postcode
-	].filter((x) => !!x);
-	return addressParts.join(', ');
+	return {
+		AddressLine1: address.addressLine1,
+		AddressLine2: address.addressLine2,
+		Town: address.town,
+		County: address.county,
+		PostCode: address.postcode
+	};
 }
 
 export default formatAddress;

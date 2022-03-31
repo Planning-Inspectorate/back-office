@@ -164,8 +164,29 @@
           "example": "18 Mar 2022"
         },
         "AppealSite": {
-          "type": "string",
-          "example": "96 The Avenue, Maidstone, Kent, MD21 5XY"
+          "type": "object",
+          "properties": {
+            "AddressLine1": {
+              "type": "string",
+              "example": "96 The Avenue"
+            },
+            "AddressLine2": {
+              "type": "string",
+              "example": ""
+            },
+            "Town": {
+              "type": "string",
+              "example": "Maidstone"
+            },
+            "County": {
+              "type": "string",
+              "example": "Kent"
+            },
+            "PostCode": {
+              "type": "string",
+              "example": "MD21 5XY"
+            }
+          }
         },
         "LocalPlanningDepartment": {
           "type": "string",
@@ -177,8 +198,23 @@
         },
         "Documents": {
           "type": "array",
-          "example": [],
-          "items": {}
+          "items": {
+            "type": "object",
+            "properties": {
+              "Type": {
+                "type": "string",
+                "example": ""
+              },
+              "Filename": {
+                "type": "string",
+                "example": ""
+              },
+              "URL": {
+                "type": "string",
+                "example": ""
+              }
+            }
+          }
         },
         "reason": {
           "type": "object",
@@ -252,8 +288,29 @@
             "example": "18 Mar 2022"
           },
           "AppealSite": {
-            "type": "string",
-            "example": "96 The Avenue, Maidstone, Kent, MD21 5XY"
+            "type": "object",
+            "properties": {
+              "AddressLine1": {
+                "type": "string",
+                "example": "96 The Avenue"
+              },
+              "AddressLine2": {
+                "type": "string",
+                "example": ""
+              },
+              "Town": {
+                "type": "string",
+                "example": "Maidstone"
+              },
+              "County": {
+                "type": "string",
+                "example": "Kent"
+              },
+              "PostCode": {
+                "type": "string",
+                "example": "MD21 5XY"
+              }
+            }
           }
         }
       }
@@ -428,8 +485,36 @@
           "example": "01 Jun 2022"
         },
         "AppealSite": {
-          "type": "string",
-          "example": ""
+          "type": "object",
+          "properties": {
+            "AddressLine1": {
+              "type": "string",
+              "example": "96 The Avenue"
+            },
+            "AddressLine2": {
+              "type": "string",
+              "example": ""
+            },
+            "Town": {
+              "type": "string",
+              "example": "Maidstone"
+            },
+            "County": {
+              "type": "string",
+              "example": "Kent"
+            },
+            "PostCode": {
+              "type": "string",
+              "example": "MD21 5XY"
+            }
+          },
+          "required": [
+            "AddressLine1",
+            "AddressLine2",
+            "Town",
+            "County",
+            "PostCode"
+          ]
         },
         "QuestionnaireStatus": {
           "type": "string",
@@ -478,6 +563,63 @@
         "ListedBuildingDesc": {
           "type": "string",
           "example": ""
+        },
+        "AppealSite": {
+          "type": "object",
+          "properties": {
+            "AddressLine1": {
+              "type": "string",
+              "example": "96 The Avenue"
+            },
+            "AddressLine2": {
+              "type": "string",
+              "example": ""
+            },
+            "Town": {
+              "type": "string",
+              "example": "Maidstone"
+            },
+            "County": {
+              "type": "string",
+              "example": "Kent"
+            },
+            "PostCode": {
+              "type": "string",
+              "example": "MD21 5XY"
+            }
+          },
+          "required": [
+            "AddressLine1",
+            "AddressLine2",
+            "Town",
+            "County",
+            "PostCode"
+          ]
+        },
+        "Documents": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "Type": {
+                "type": "string",
+                "example": ""
+              },
+              "Filename": {
+                "type": "string",
+                "example": ""
+              },
+              "URL": {
+                "type": "string",
+                "example": ""
+              }
+            },
+            "required": [
+              "Type",
+              "Filename",
+              "URL"
+            ]
+          }
         }
       },
       "required": [
@@ -487,7 +629,9 @@
         "PlanningApplicationReference",
         "AppealSiteNearConservationArea",
         "WouldDevelopmentAffectSettingOfListedBuilding",
-        "ListedBuildingDesc"
+        "ListedBuildingDesc",
+        "AppealSite",
+        "Documents"
       ]
     }
   }

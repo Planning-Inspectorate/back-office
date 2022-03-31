@@ -1,5 +1,5 @@
 import express from 'express';
-import { getValidation,  getAppealToValidate, updateValidation, appealValidated } from './validation.controller.js';
+import { getAppeals,  getAppealDetails, updateAppeal, submitValidationDecision } from './validation.controller.js';
 import { body } from 'express-validator';
 
 
@@ -15,7 +15,7 @@ router.get('/',
 			schema: { $ref: '#/definitions/AppealsToValidate' }
 		}
 	*/
-	asyncHandler(getValidation));
+	asyncHandler(getAppeals));
 
 router.get('/:id', 
 	/* 
@@ -30,7 +30,7 @@ router.get('/:id',
 			schema: { $ref: '#/definitions/AppealToValidate' }
 		}
 	*/
-	asyncHandler(getAppealToValidate));
+	asyncHandler(getAppealDetails));
 
 router.patch('/:id', 
 	body('AppellantName').isAlpha('en-US', { ignore: ' ' } ).optional({ nullable: true }), 
@@ -48,7 +48,7 @@ router.patch('/:id',
 			schema: { $ref: "#/definitions/ChangeAppeal" }
 		}
 	*/
-	asyncHandler(updateValidation));
+	asyncHandler(updateAppeal));
 
 router.post('/:id', 
 	/*
@@ -65,7 +65,7 @@ router.post('/:id',
 			schema: { $ref: "#/definitions/ValidationDecision" } 
 		}
 	*/
-	asyncHandler(appealValidated));
+	asyncHandler(submitValidationDecision));
 
 
 export {

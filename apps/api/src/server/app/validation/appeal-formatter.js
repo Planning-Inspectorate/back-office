@@ -1,4 +1,3 @@
-import addressRepository from '../repositories/address.repository.js';
 import formatAddress from '../utils/address-formatter.js';
 import { validation_states_strings } from '../state-machine/validation-states.js';
 import formatDate from '../utils/date-formatter.js';
@@ -30,23 +29,17 @@ const formatIncompleteReason = function(incompleteValidationDecision) {
 };
 
 const appealFormatter = {
-	formatAppealForAllAppeals: async function(appeal) {
-		const address = await addressRepository.getById(appeal.addressId);
-		const addressAsString = formatAddress(address);
-		const appealStatus = mapAppealStatus(appeal.status);
+	formatAppealForAllAppeals: function(appeal) {
 		return {
 			AppealId: appeal.id,
 			AppealReference: appeal.reference,
-			AppealStatus: appealStatus,
+			AppealStatus: mapAppealStatus(appeal.status),
 			Received: formatDate(appeal.createdAt),
-			AppealSite: addressAsString
+			AppealSite: formatAddress(appeal.address)
 		};
 	},
-	formatAppealForAppealDetails: async function(appeal) {
-		const address = await addressRepository.getById(appeal.addressId);
-		const addressAsString = formatAddress(address);
-		const appealStatus = mapAppealStatus(appeal.status);
-		const incompleteValidationDecision = appeal.ValidationDecision.find((decision) => decision.decision == 'incomplete');
+	formatAppealForAppealDetails: function(appeal) {
+		const incompleteValidationDecision = appeal.validationDecision.find((decision) => decision.decision == 'incomplete');
 		const validationDecision = appeal.status == 'awaiting_validation_info' ? 
 			formatIncompleteReason(incompleteValidationDecision) : 
 			{};
@@ -54,9 +47,9 @@ const appealFormatter = {
 			AppealId: appeal.id,
 			AppealReference: appeal.reference,
 			AppellantName: appeal.appellantName,
-			AppealStatus: appealStatus,
+			AppealStatus: mapAppealStatus(appeal.status),
 			Received: formatDate(appeal.createdAt),
-			AppealSite: addressAsString,
+			AppealSite: formatAddress(appeal.address),
 			LocalPlanningDepartment: appeal.localPlanningDepartment,
 			PlanningApplicationReference: appeal.planningApplicationReference,
 			Documents: [

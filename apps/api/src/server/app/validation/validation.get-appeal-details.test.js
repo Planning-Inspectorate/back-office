@@ -7,22 +7,6 @@ import DatabaseFactory from '../repositories/database.js';
 
 const request = supertest(app);
 
-const getAddressByIdStub = sinon.stub();
-getAddressByIdStub.withArgs({ where: { id: 1 } }).returns({
-	id: 1,
-	addressLine1: '96 The Avenue',
-	addressLine2: 'Maidstone',
-	postcode: 'MD21 5XY',
-	city: 'Kent'
-});
-getAddressByIdStub.withArgs({ where: { id: 2 } }).returns({
-	id: 2,
-	addressLine1: '1 Grove Cottage',
-	addressLine2: 'Shotesham Road',
-	city: 'Woodton',
-	postcode: 'NR35 2ND'
-});
-
 const appeal_1 = {
 	id: 1,
 	reference: 'APP/Q9999/D/21/1345264',
@@ -32,7 +16,14 @@ const appeal_1 = {
 	localPlanningDepartment: 'Maidstone Borough Council',
 	planningApplicationReference: '48269/APP/2021/1482',
 	appellantName: 'Lee Thornton',
-	ValidationDecision: []
+	ValidationDecision: [],
+	address: {
+		addressLine1: 'line 1',
+		addressLine2: 'line 2',
+		town: 'town',
+		county: 'county',
+		postcode: 'post code'
+	}
 };
 const appeal_2 = {
 	id: 2,
@@ -59,7 +50,13 @@ const appeal_2 = {
 			wrongAppealTypeUsed: true,
 			otherReasons: 'Some other weird reason'
 		}
-	]
+	],
+	address: {
+		addressLine1: '1 Grove Cottage', 
+		addressLine2: 'Shotesham Road', 
+		town: 'Woodton', 
+		postcode: 'NR35 2ND'
+	}
 };
 const appeal_3 = {
 	id: 3,
@@ -90,22 +87,25 @@ const appeal_4 = {
 			wrongAppealTypeUsed: false,
 			otherReasons: undefined
 		}
-	]
+	],
+	address: {
+		addressLine1: '1 Grove Cottage', 
+		addressLine2: 'Shotesham Road', 
+		town: 'Woodton', 
+		postcode: 'NR35 2ND'
+	}	
 };
 const getAppealByIdStub = sinon.stub();
-getAppealByIdStub.withArgs({ where: { id: 1 }, include: { ValidationDecision: true } }).returns(appeal_1);
-getAppealByIdStub.withArgs({ where: { id: 2 }, include: { ValidationDecision: true } }).returns(appeal_2);
-getAppealByIdStub.withArgs({ where: { id: 3 }, include: { ValidationDecision: true } }).returns(appeal_3);
-getAppealByIdStub.withArgs({ where: { id: 4 }, include: { ValidationDecision: true } }).returns(appeal_4);
+getAppealByIdStub.withArgs({ where: { id: 1 }, include: { ValidationDecision: true, address: true } }).returns(appeal_1);
+getAppealByIdStub.withArgs({ where: { id: 2 }, include: { ValidationDecision: true, address: true } }).returns(appeal_2);
+getAppealByIdStub.withArgs({ where: { id: 3 }, include: { ValidationDecision: true, address: true } }).returns(appeal_3);
+getAppealByIdStub.withArgs({ where: { id: 4 }, include: { ValidationDecision: true, address: true } }).returns(appeal_4);
 
 class MockDatabaseClass {
 	constructor(_parameters) {
 		this.pool = {
 			appeal: {
 				findUnique: getAppealByIdStub
-			},
-			address: {
-				findUnique: getAddressByIdStub
 			}
 		};
 	}
@@ -123,7 +123,13 @@ test('gets appeal that requires validation', async (t) => {
 		AppellantName: 'Lee Thornton',
 		AppealStatus: 'new',
 		Received: '23 Feb 2022',
-		AppealSite: '96 The Avenue, Maidstone, Kent, MD21 5XY',
+		AppealSite: {
+			AddressLine1: 'line 1', 
+			AddressLine2: 'line 2',
+			Town: 'town', 
+			County: 'county',
+			PostCode: 'post code'
+		},
 		LocalPlanningDepartment: 'Maidstone Borough Council',
 		PlanningApplicationReference: '48269/APP/2021/1482',
 		Documents: [
@@ -177,7 +183,12 @@ test('returns appeal with all reasons why it is in \'incomplete\' state', async 
 		AppellantName: 'Kevin Fowler',
 		AppealStatus: 'incomplete',
 		Received: '23 Feb 2022',
-		AppealSite: '1 Grove Cottage, Shotesham Road, Woodton, NR35 2ND',
+		AppealSite: {
+			AddressLine1: '1 Grove Cottage', 
+			AddressLine2: 'Shotesham Road', 
+			Town: 'Woodton', 
+			PostCode: 'NR35 2ND'
+		},
 		LocalPlanningDepartment: 'Waveney District Council',
 		PlanningApplicationReference: '18543/APP/2021/6627',
 		Documents: [
@@ -238,7 +249,12 @@ test('returns appeal with one reason why it is in \'incomplete\' state', async (
 		AppellantName: 'Kevin Fowler',
 		AppealStatus: 'incomplete',
 		Received: '23 Feb 2022',
-		AppealSite: '1 Grove Cottage, Shotesham Road, Woodton, NR35 2ND',
+		AppealSite: {
+			AddressLine1: '1 Grove Cottage', 
+			AddressLine2: 'Shotesham Road', 
+			Town: 'Woodton', 
+			PostCode: 'NR35 2ND'
+		},
 		LocalPlanningDepartment: 'Waveney District Council',
 		PlanningApplicationReference: '18543/APP/2021/6627',
 		Documents: [
