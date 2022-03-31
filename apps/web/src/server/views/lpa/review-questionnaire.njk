@@ -5,7 +5,7 @@
 {% from "govuk/components/table/macro.njk" import govukTable %}
 {% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
 {% from "govuk/components/button/macro.njk" import govukButton %}
-{% from "govuk/components/textarea/macro.njk" import govukTextarea %}
+{% from "govuk/components/character-count/macro.njk" import govukCharacterCount %}
 
 {% block header %}
   {{ govukHeader({
@@ -18,22 +18,23 @@
 
 {%- macro detailsInput(type, idPrefix, labelText, details, checkboxItems) -%}
 	{%- if type === 'textarea' -%}
-		{{govukTextarea({
+		{{ govukCharacterCount({
 			id: idPrefix + '-missing-or-incorrect-reason',
 			name: idPrefix + '-missing-or-incorrect-reason',
+			maxlength: 500,
 			label: { text: labelText },
 			errorMessage: details.error and { text: details.error.msg },
 			spellcheck: true,
 			value: details.value,
 			rows: '3'
-		})}}
+		}) }}
 	{%- elif type === 'checkboxes' -%}
-		{{govukCheckboxes({
+		{{ govukCheckboxes({
 			idPrefix: idPrefix + '-missing-or-incorrect-reason',
 			name: idPrefix + '-missing-or-incorrect-reason',
 			errorMessage: details.error and { text: details.error.msg },
 			items: checkboxItems
-		})}}
+		}) }}
 	{%- endif -%}
 {%- endmacro -%}
 
