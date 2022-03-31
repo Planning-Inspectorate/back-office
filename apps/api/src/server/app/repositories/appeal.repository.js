@@ -28,6 +28,16 @@ const appealRepository = (function() {
 				}
 			});
 		},
+		getByIdWithAddress: function(id) {
+			return getPool().appeal.findUnique({
+				where: {
+					id: id
+				},
+				include: {
+					address: true
+				}
+			});
+		},
 		getByIdWithValidationDecision: function(id) {
 			return getPool().appeal.findUnique({
 				where: {

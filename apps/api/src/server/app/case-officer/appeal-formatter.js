@@ -45,9 +45,42 @@ const appealFormatter = {
 			AppealReference: appeal.reference,
 			LocalPlanningDepartment: appeal.localPlanningDepartment,
 			PlanningApplicationreference: appeal.planningApplicationReference,
+			AppealSite: formatAddress(appeal.address),
 			AppealSiteNearConservationArea: false,
 			WouldDevelopmentAffectSettingOfListedBuilding: false,
-			...(true && { ListedBuildingDesc: '' })
+			...(true && { ListedBuildingDesc: '' }),
+			Documents: [
+				{
+					Type: 'planning application form',
+					Filename: 'planning-application.pdf',
+					URL: 'localhost:8080'
+				},
+				{
+					Type: 'decision letter',
+					Filename: 'decision-letter.pdf',
+					URL: 'localhost:8080'
+				},
+				{
+					Type: 'appeal statement',
+					Filename: 'appeal-statement.pdf',
+					URL: 'localhost:8080'
+				},
+				{
+					Type: 'supporting document',
+					Filename: 'other-document-1.pdf',
+					URL: 'localhost:8080'
+				},
+				{
+					Type: 'supporting document',
+					Filename: 'other-document-2.pdf',
+					URL: 'localhost:8080'
+				},
+				{
+					Type: 'supporting document',
+					Filename: 'other-document-3.pdf',
+					URL: 'localhost:8080'
+				}
+			]
 		};
 	}
 };
