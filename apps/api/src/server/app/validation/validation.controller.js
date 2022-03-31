@@ -11,19 +11,19 @@ const validationStatuses = [
 	validation_states_strings.awaiting_validation_info
 ];
 
-const getAppealToValidate = async function (request, response) {
+const getAppealDetails = async function (request, response) {
 	const appeal = await getAppealForValidation(request.params.id);
 	const formattedAppeal = await appealFormatter.formatAppealForAppealDetails(appeal);
 	return response.send(formattedAppeal);
 };
 
-const getValidation = async function (_request, response) {
+const getAppeals = async function (_request, response) {
 	const appeals = await appealRepository.getByStatuses(validationStatuses);
 	const formattedAppeals = await Promise.all(appeals.map((appeal) => appealFormatter.formatAppealForAllAppeals(appeal)));
 	response.send(formattedAppeals);
 };
 
-const updateValidation = async function (request, response) {
+const updateAppeal = async function (request, response) {
 	validateUpdateValidationRequest(request);
 	const appeal = await getAppealForValidation(request.params.id);
 	const data = {
@@ -81,4 +81,4 @@ async function getAppealForValidation(appealId) {
 	return appeal;
 }
 
-export { getValidation, getAppealToValidate, updateValidation, appealValidated };
+export { getAppeals, getAppealDetails, updateAppeal, appealValidated };
