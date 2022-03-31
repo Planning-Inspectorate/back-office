@@ -59,14 +59,14 @@ const updated_appeal_1 = {
 const getAppealByIdStub = sinon.stub();
 const updateStub = sinon.stub();
 
-getAppealByIdStub.withArgs({ where: { id: 1 } }).returns(appeal_1);
-getAppealByIdStub.withArgs({ where: { id: 2 } }).returns(appeal_2);
-getAppealByIdStub.withArgs({ where: { id: 3 } }).returns(appeal_3);
-getAppealByIdStub.withArgs({ where: { id: 4 } }).returns(appeal_4);
+getAppealByIdStub.withArgs({ where: { id: 1 }, include: { ValidationDecision: true, address: true } }).returns(appeal_1);
+getAppealByIdStub.withArgs({ where: { id: 2 }, include: { ValidationDecision: true, address: true } }).returns(appeal_2);
+getAppealByIdStub.withArgs({ where: { id: 3 }, include: { ValidationDecision: true, address: true } }).returns(appeal_3);
+getAppealByIdStub.withArgs({ where: { id: 4 }, include: { ValidationDecision: true, address: true } }).returns(appeal_4);
 
 updateStub.returns(updated_appeal_1);
 
-const addNewDecision = sinon.stub();
+const addNewDecisionStub = sinon.stub();
 
 const newDecision = {
 	appealId: 1,
@@ -74,7 +74,9 @@ const newDecision = {
 	outOfTime: true
 };
 
-addNewDecision.returns(newDecision);
+addNewDecisionStub.returns(newDecision);
+
+const createLpaQuestionnaireStub = sinon.stub();
 
 class MockDatabaseClass {
 	constructor(_parameters) {
@@ -84,7 +86,10 @@ class MockDatabaseClass {
 				update: updateStub
 			},
 			validationDecision: {
-				create: addNewDecision
+				create: addNewDecisionStub
+			},
+			lPAQuestionnaire: {
+				create: createLpaQuestionnaireStub
 			}
 		};
 	}
@@ -103,7 +108,7 @@ test('should be able to submit \'valid\' decision', async (t) => {
 		statusUpdatedAt: sinon.match.any,
 		updatedAt: sinon.match.any
 	} });
-	sinon.assert.calledWithExactly(addNewDecision, {  data: {
+	sinon.assert.calledWithExactly(addNewDecisionStub, {  data: {
 		appealId: 1,
 		decision: 'valid',
 		descriptionOfDevelopment: 'Some Desc'
@@ -128,7 +133,7 @@ test('should be able to submit \'invalid\' decision', async(t) => {
 		statusUpdatedAt: sinon.match.any,
 		updatedAt: sinon.match.any
 	} });
-	sinon.assert.calledWithExactly(addNewDecision, {  data: {
+	sinon.assert.calledWithExactly(addNewDecisionStub, {  data: {
 		appealId: 1,
 		decision: 'invalid',
 		descriptionOfDevelopment: undefined,
@@ -152,7 +157,7 @@ test('should be able to submit \'missing appeal details\' decision', async(t) =>
 				missingSupportingDocuments: true,
 				inflammatoryComments: true,
 				openedInError: true,
-				wrongAppealType: true}
+				wrongAppealType: true }
 		} );
 	t.is(resp.status, 200);
 	// TODO: calledOneWithExactly throws error
@@ -161,7 +166,7 @@ test('should be able to submit \'missing appeal details\' decision', async(t) =>
 		statusUpdatedAt: sinon.match.any,
 		updatedAt: sinon.match.any
 	} });
-	sinon.assert.calledWithExactly(addNewDecision, {  data: {
+	sinon.assert.calledWithExactly(addNewDecisionStub, {  data: {
 		appealId: 1,
 		decision: 'incomplete',
 		descriptionOfDevelopment: undefined,

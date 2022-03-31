@@ -17,7 +17,7 @@ const validationDecisionRepository = (function() {
 					descriptionOfDevelopment: descriptionOfDevelopment,
 					...reason }
 			});
-		},
+		}
 	};
 })();
 
