@@ -24,7 +24,11 @@ const incompleteWithoutReasons = function (body) {
 	);
 };
 
-const invalidWithoutReasons = function (body) {
+const allArrayElementsInArray = function(arrayToCheck, arrayToCheckAgainst) {
+	return _.difference(arrayToCheck, arrayToCheckAgainst).length === 0;
+};
+
+const invalidWithoutReasons = function(body) {
 	return (body.AppealStatus == validationDecisions.invalid &&
 		body.Reason.outOfTime !== true &&
 		body.Reason.noRightOfAppeal !== true &&
@@ -32,6 +36,33 @@ const invalidWithoutReasons = function (body) {
 		body.Reason.lPADeemedInvalid !== true &&
 		stringEmptyOrUndefined(body.Reason.otherReasons)
 	);
+};
+
+const invalidWithUnexpectedReasons = function(body) {
+	return body.AppealStatus == validationDecisions.invalid &&
+		!allArrayElementsInArray(Object.keys(body.Reason), [
+			'outOfTime',
+			'noRightOfAppeal',
+			'notAppealable',
+			'lPADeemedInvalid',
+			'otherReasons'
+		]);
+};
+
+const incompleteWithUnexpectedReasons = function (body) {
+	return body.AppealStatus == validationDecisions.incomplete &&
+		!allArrayElementsInArray(Object.keys(body.Reason), [
+			'namesDoNotMatch',
+			'sensitiveinfo',
+			'missingApplicationForm',
+			'missingDecisionNotice',
+			'missingGroundsForAppeal',
+			'missingSupportingDocuments',
+			'inflamatoryComments',
+			'openedInError',
+			'wrongAppealType',
+			'otherReasons'
+		]);
 };
 
 const invalidAppealStatus = function(appealStatus) {
@@ -45,6 +76,9 @@ const validWithoutDescription = function(body) {
 const validateAppealValidatedRequest = function(body) {
 	if (invalidAppealStatus(body.AppealStatus)) {
 		throw new ValidationError('Unknown AppealStatus provided', 400);
+	}
+	if (invalidWithUnexpectedReasons(body) || incompleteWithUnexpectedReasons(body)) {
+		throw new ValidationError('Unknown Reason provided', 400);
 	}
 	if (invalidWithoutReasons(body)) {
 		throw new ValidationError('Invalid Appeal requires a reason', 400);

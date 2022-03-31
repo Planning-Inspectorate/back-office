@@ -126,6 +126,7 @@ test('should be able to submit \'invalid\' decision', async(t) => {
 				lPADeemedInvalid:true,
 				otherReasons: '' }
 		});
+	console.log(resp.body);
 	t.is(resp.status, 200);
 	// TODO: calledOneWithExactly throws error
 	sinon.assert.calledWithExactly(updateStub, { where: { id: 1 }, data: {
@@ -218,10 +219,10 @@ test('should not be able to submit decision as \'invalid\' if there is no reason
 		.send({
 			AppealStatus:'invalid',
 			Reason: {
-				outOfTime:false,
-				noRightOfappeal:false,
-				notAppealable:false,
-				lPADeemedInvalid:false,
+				outOfTime: false,
+				noRightOfAppeal: false,
+				notAppealable: false,
+				lPADeemedInvalid: false,
 				otherReasons: '' }
 		});
 	t.is(resp.status, 400);
@@ -244,6 +245,22 @@ test('should not be able to submit decision as \'incomplete\' if there is no rea
 		.send({
 			AppealStatus:'incomplete',
 			Reason: {
+				outOfTime: true,
+				noRightOfAppeal: false,
+				notAppealable: false,
+				lPADeemedInvalid: false,
+				otherReasons: ''
+			}
+		});
+	t.is(resp.status, 400);
+	t.deepEqual(resp.body, { error: 'Unknown Reason provided' } );
+});
+
+test('should not be able to submit decision as \'incomplete\' if providing invalid reasons', async (t) => {
+	const resp = await request.post('/validation/6')
+		.send({
+			AppealStatus:'incomplete',
+			Reason: {
 				namesDoNotMatch: false,
 				sensitiveinfo: false,
 				missingApplicationForm: false,
@@ -258,6 +275,18 @@ test('should not be able to submit decision as \'incomplete\' if there is no rea
 		});
 	t.is(resp.status, 400);
 	t.deepEqual(resp.body, { error: 'Incomplete Appeal requires a reason' } );
+});
+
+test('should not be able to submit decision as \'invalid\' if providing incomplete reasons', async (t) => {
+	const resp = await request.post('/validation/6')
+		.send({
+			AppealStatus:'invalid',
+			Reason: {
+				someFakeReason: true
+			}
+		});
+	t.is(resp.status, 400);
+	t.deepEqual(resp.body, { error: 'Unknown Reason provided' } );
 });
 
 test('should not be able to submit decision as \'incomplete\' if there is no reason being sent', async (t) => {
