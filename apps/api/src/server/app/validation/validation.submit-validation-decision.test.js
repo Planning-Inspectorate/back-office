@@ -126,7 +126,6 @@ test('should be able to submit \'invalid\' decision', async(t) => {
 				lPADeemedInvalid:true,
 				otherReasons: '' }
 		});
-	console.log(resp.body);
 	t.is(resp.status, 200);
 	// TODO: calledOneWithExactly throws error
 	sinon.assert.calledWithExactly(updateStub, { where: { id: 1 }, data: {
