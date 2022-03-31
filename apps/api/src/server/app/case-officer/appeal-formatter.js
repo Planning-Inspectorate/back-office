@@ -27,14 +27,12 @@ function mapAppealStatus(status) {
 
 const appealFormatter = {
 	formatAppealForAllAppeals: function(appeal) { 
-		const address = appeal.address;
-		const addressAsJson = formatAddress(address);
 		const appealStatus = mapAppealStatus(appeal.status);
 		return {
 			AppealId: appeal.id,
 			AppealReference: appeal.reference,
 			QuestionnaireStatus: appealStatus,
-			AppealSite: addressAsJson,
+			AppealSite: formatAddress(appeal.address),
 			QuestionnaireDueDate: appeal.startedAt ? formatDate(add2Weeks(appeal.startedAt)) : ''
 		};
 	},
