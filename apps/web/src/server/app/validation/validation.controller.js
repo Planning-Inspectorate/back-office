@@ -328,7 +328,7 @@ export function getCheckAndConfirm(request, response) {
 	let backURL;
 
 	if ('invalidAppealDetails' in appealWork) {
-		backURL = `/validation/${routes.invalidAppealOutcome.path}?direction=back`;
+		backURL = `/validation/${routes.reviewAppealRoute.path}/${appealData.AppealId}?direction=back`;
 	} else if ('incompleteAppealDetails' in appealWork) {
 		backURL = `/validation/${routes.incompleteAppealOutcome.path}?direction=back`;
 	} else {
