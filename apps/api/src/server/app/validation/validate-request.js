@@ -16,7 +16,7 @@ const incompleteWithoutReasons = function (body) {
 		body.Reason.missingDecisionNotice !== true &&
 		body.Reason.missingGroundsForAppeal !== true &&
 		body.Reason.missingSupportingDocuments !== true &&
-		body.Reason.inflamatoryComments !== true &&
+		body.Reason.inflammatoryComments !== true &&
 		body.Reason.openedInError !== true &&
 		body.Reason.wrongAppealType !== true &&
         stringEmptyOrUndefined(body.Reason.otherReasons)

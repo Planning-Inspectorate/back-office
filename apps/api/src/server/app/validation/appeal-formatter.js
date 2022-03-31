@@ -18,9 +18,9 @@ const formatIncompleteReason = function(incompleteValidationDecision) {
 			...(incompleteValidationDecision.missingApplicationForm && { missingApplicationForm: incompleteValidationDecision.missingApplicationForm }),
 			...(incompleteValidationDecision.missingDecisionNotice && { missingDecisionNotice: incompleteValidationDecision.missingDecisionNotice }),
 			...(incompleteValidationDecision.missingGroundsForAppeal && { missingGroundsForAppeal: incompleteValidationDecision.missingGroundsForAppeal }),
-			...(incompleteValidationDecision.missingSupportingDocuments && { 
+			...(incompleteValidationDecision.missingSupportingDocuments && {
 				missingSupportingDocuments: incompleteValidationDecision.missingSupportingDocuments }),
-			...(incompleteValidationDecision.inflamatoryComments && { inflamatoryComments: incompleteValidationDecision.inflamatoryComments }),
+			...(incompleteValidationDecision.inflammatoryComments && { inflammatoryComments: incompleteValidationDecision.inflammatoryComments }),
 			...(incompleteValidationDecision.openedInError && { openedInError: incompleteValidationDecision.openedInError }),
 			...(incompleteValidationDecision.wrongAppealTypeUsed && { wrongAppealTypeUsed: incompleteValidationDecision.wrongAppealTypeUsed }),
 			...(incompleteValidationDecision.otherReasons && { otherReasons: incompleteValidationDecision.otherReasons })
@@ -40,8 +40,8 @@ const appealFormatter = {
 	},
 	formatAppealForAppealDetails: function(appeal) {
 		const incompleteValidationDecision = appeal.validationDecision.find((decision) => decision.decision == 'incomplete');
-		const validationDecision = appeal.status == 'awaiting_validation_info' ? 
-			formatIncompleteReason(incompleteValidationDecision) : 
+		const validationDecision = appeal.status == 'awaiting_validation_info' ?
+			formatIncompleteReason(incompleteValidationDecision) :
 			{};
 		return {
 			AppealId: appeal.id,

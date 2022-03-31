@@ -27,10 +27,10 @@ const document_ = {
 			AppealStatus: 'new',
 			Received: '18 Mar 2022',
 			AppealSite: {
-				AddressLine1: '96 The Avenue', 
+				AddressLine1: '96 The Avenue',
 				AddressLine2: '',
-				Town: 'Maidstone', 
-				County: 'Kent', 
+				Town: 'Maidstone',
+				County: 'Kent',
 				PostCode: 'MD21 5XY'
 			},
 			LocalPlanningDepartment: 'Maidstone Borough Council',
@@ -41,7 +41,7 @@ const document_ = {
 				URL: ''
 			}],
 			reason: {
-				inflamatoryComments: true,
+				inflammatoryComments: true,
 				missingApplicationForm: true,
 				missingDecisionNotice: true,
 				missingGroundsForAppeal: true,
@@ -59,10 +59,10 @@ const document_ = {
 			AppealStatus: { '@enum': ['new', 'incomplete'] },
 			Received: '18 Mar 2022',
 			AppealSite: {
-				AddressLine1: '96 The Avenue', 
+				AddressLine1: '96 The Avenue',
 				AddressLine2: '',
-				Town: 'Maidstone', 
-				County: 'Kent', 
+				Town: 'Maidstone',
+				County: 'Kent',
 				PostCode: 'MD21 5XY'
 			}
 		}],
@@ -88,7 +88,7 @@ const document_ = {
 				$missingDecisionNotice: true,
 				$missingGroundsForAppeal:true,
 				$missingSupportingDocuments: true,
-				$inflamatoryComments: true,
+				$inflammatoryComments: true,
 				$openedInError: true,
 				$wrongAppealTypeUsed: true,
 				$outOfTime: true,
@@ -103,10 +103,10 @@ const document_ = {
 			$AppealReference: '',
 			$QuestionnaireDueDate: '01 Jun 2022',
 			$AppealSite: {
-				$AddressLine1: '96 The Avenue', 
+				$AddressLine1: '96 The Avenue',
 				$AddressLine2: '',
-				$Town: 'Maidstone', 
-				$County: 'Kent', 
+				$Town: 'Maidstone',
+				$County: 'Kent',
 				$PostCode: 'MD21 5XY'
 			},
 			$QuestionnaireStatus: { '@enum': ['awaiting', 'received', 'overdue'] }
@@ -120,10 +120,10 @@ const document_ = {
 			$WouldDevelopmentAffectSettingOfListedBuilding: false,
 			$ListedBuildingDesc: '',
 			$AppealSite: {
-				$AddressLine1: '96 The Avenue', 
+				$AddressLine1: '96 The Avenue',
 				$AddressLine2: '',
-				$Town: 'Maidstone', 
-				$County: 'Kent', 
+				$Town: 'Maidstone',
+				$County: 'Kent',
 				$PostCode: 'MD21 5XY'
 			},
 			$Documents: [{

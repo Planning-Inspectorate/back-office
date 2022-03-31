@@ -46,7 +46,7 @@ model ValidationDecision {
   missingDecisionNotice      Boolean  @default(false)
   missingGroundsForAppeal    Boolean  @default(false)
   missingSupportingDocuments Boolean  @default(false)
-  inflamatoryComments        Boolean  @default(false)
+  inflammatoryComments        Boolean  @default(false)
   openedInError              Boolean  @default(false)
   wrongAppealTypeUsed        Boolean  @default(false)
   outOfTime                  Boolean  @default(false)

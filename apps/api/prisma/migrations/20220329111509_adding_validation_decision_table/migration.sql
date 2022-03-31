@@ -14,7 +14,7 @@ CREATE TABLE [dbo].[ValidationDecision] (
     [missingDecisionNotice] BIT NOT NULL CONSTRAINT [ValidationDecision_missingDecisionNotice_df] DEFAULT 0,
     [missingGroundsForAppeal] BIT NOT NULL CONSTRAINT [ValidationDecision_missingGroundsForAppeal_df] DEFAULT 0,
     [missingSupportingDocuments] BIT NOT NULL CONSTRAINT [ValidationDecision_missingSupportingDocuments_df] DEFAULT 0,
-    [inflamatoryComments] BIT NOT NULL CONSTRAINT [ValidationDecision_inflamatoryComments_df] DEFAULT 0,
+    [inflammatoryComments] BIT NOT NULL CONSTRAINT [ValidationDecision_inflammatoryComments_df] DEFAULT 0,
     [openedInError] BIT NOT NULL CONSTRAINT [ValidationDecision_openedInError_df] DEFAULT 0,
     [wrongAppealTypeUsed] BIT NOT NULL CONSTRAINT [ValidationDecision_wrongAppealTypeUsed_df] DEFAULT 0,
     [outOfTime] BIT NOT NULL CONSTRAINT [ValidationDecision_outOfTime_df] DEFAULT 0,

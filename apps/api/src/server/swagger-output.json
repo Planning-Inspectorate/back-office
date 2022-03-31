@@ -219,7 +219,7 @@
         "reason": {
           "type": "object",
           "properties": {
-            "inflamatoryComments": {
+            "inflammatoryComments": {
               "type": "boolean",
               "example": true
             },
@@ -412,7 +412,7 @@
               "type": "boolean",
               "example": true
             },
-            "inflamatoryComments": {
+            "inflammatoryComments": {
               "type": "boolean",
               "example": true
             },
@@ -452,7 +452,7 @@
             "missingDecisionNotice",
             "missingGroundsForAppeal",
             "missingSupportingDocuments",
-            "inflamatoryComments",
+            "inflammatoryComments",
             "openedInError",
             "wrongAppealTypeUsed",
             "outOfTime",

@@ -45,16 +45,16 @@ const appeal_2 = {
 			missingDecisionNotice: true,
 			missingGroundsForAppeal: true,
 			missingSupportingDocuments: true,
-			inflamatoryComments: true,
+			inflammatoryComments: true,
 			openedInError: true,
 			wrongAppealTypeUsed: true,
 			otherReasons: 'Some other weird reason'
 		}
 	],
 	address: {
-		addressLine1: '1 Grove Cottage', 
-		addressLine2: 'Shotesham Road', 
-		town: 'Woodton', 
+		addressLine1: '1 Grove Cottage',
+		addressLine2: 'Shotesham Road',
+		town: 'Woodton',
 		postcode: 'NR35 2ND'
 	}
 };
@@ -82,18 +82,18 @@ const appeal_4 = {
 			missingDecisionNotice: false,
 			missingGroundsForAppeal: false,
 			missingSupportingDocuments: false,
-			inflamatoryComments: true,
+			inflammatoryComments: true,
 			openedInError: false,
 			wrongAppealTypeUsed: false,
 			otherReasons: undefined
 		}
 	],
 	address: {
-		addressLine1: '1 Grove Cottage', 
-		addressLine2: 'Shotesham Road', 
-		town: 'Woodton', 
+		addressLine1: '1 Grove Cottage',
+		addressLine2: 'Shotesham Road',
+		town: 'Woodton',
 		postcode: 'NR35 2ND'
-	}	
+	}
 };
 const getAppealByIdStub = sinon.stub();
 getAppealByIdStub.withArgs({ where: { id: 1 }, include: { ValidationDecision: true, address: true } }).returns(appeal_1);
@@ -124,9 +124,9 @@ test('gets appeal that requires validation', async (t) => {
 		AppealStatus: 'new',
 		Received: '23 Feb 2022',
 		AppealSite: {
-			AddressLine1: 'line 1', 
+			AddressLine1: 'line 1',
 			AddressLine2: 'line 2',
-			Town: 'town', 
+			Town: 'town',
 			County: 'county',
 			PostCode: 'post code'
 		},
@@ -184,9 +184,9 @@ test('returns appeal with all reasons why it is in \'incomplete\' state', async 
 		AppealStatus: 'incomplete',
 		Received: '23 Feb 2022',
 		AppealSite: {
-			AddressLine1: '1 Grove Cottage', 
-			AddressLine2: 'Shotesham Road', 
-			Town: 'Woodton', 
+			AddressLine1: '1 Grove Cottage',
+			AddressLine2: 'Shotesham Road',
+			Town: 'Woodton',
 			PostCode: 'NR35 2ND'
 		},
 		LocalPlanningDepartment: 'Waveney District Council',
@@ -224,7 +224,7 @@ test('returns appeal with all reasons why it is in \'incomplete\' state', async 
 			}
 		],
 		reasons: {
-			inflamatoryComments: true,
+			inflammatoryComments: true,
 			missingApplicationForm: true,
 			missingDecisionNotice: true,
 			missingGroundsForAppeal: true,
@@ -250,9 +250,9 @@ test('returns appeal with one reason why it is in \'incomplete\' state', async (
 		AppealStatus: 'incomplete',
 		Received: '23 Feb 2022',
 		AppealSite: {
-			AddressLine1: '1 Grove Cottage', 
-			AddressLine2: 'Shotesham Road', 
-			Town: 'Woodton', 
+			AddressLine1: '1 Grove Cottage',
+			AddressLine2: 'Shotesham Road',
+			Town: 'Woodton',
 			PostCode: 'NR35 2ND'
 		},
 		LocalPlanningDepartment: 'Waveney District Council',
@@ -290,7 +290,7 @@ test('returns appeal with one reason why it is in \'incomplete\' state', async (
 			}
 		],
 		reasons: {
-			inflamatoryComments: true
+			inflammatoryComments: true
 		}
 	};
 	t.is(resp.status, 200);

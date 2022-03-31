@@ -119,7 +119,7 @@ const appealsAwaitingValidationInfo = [
 				missingDecisionNotice: true,
 				missingGroundsForAppeal: true,
 				missingSupportingDocuments: true,
-				inflamatoryComments: true,
+				inflammatoryComments: true,
 				openedInError: true,
 				wrongAppealTypeUsed: true,
 				otherReasons: 'Some other weird reason'
@@ -228,7 +228,7 @@ const appealsWithReceivedLPAQuestionnaire = [
 
 const appealsData = [
 	...newAppeals,
-	...appealsAwaitingValidationInfo, 
+	...appealsAwaitingValidationInfo,
 	...invalidAppeals,
 	...appealsAwaitingLPAQuestionnaire,
 	...appealsWithReceivedLPAQuestionnaire

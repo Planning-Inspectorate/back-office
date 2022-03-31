@@ -155,7 +155,7 @@ test('should be able to submit \'missing appeal details\' decision', async(t) =>
 				missingDecisionNotice:true,
 				missingGroundsForAppeal: true,
 				missingSupportingDocuments: true,
-				inflamatoryComments: true,
+				inflammatoryComments: true,
 				openedInError: true,
 				wrongAppealType: true }
 		} );
@@ -176,7 +176,7 @@ test('should be able to submit \'missing appeal details\' decision', async(t) =>
 		missingDecisionNotice:true,
 		missingGroundsForAppeal: true,
 		missingSupportingDocuments: true,
-		inflamatoryComments: true,
+		inflammatoryComments: true,
 		openedInError: true,
 		wrongAppealType: true
 	} });
@@ -250,7 +250,7 @@ test('should not be able to submit decision as \'incomplete\' if there is no rea
 				missingDecisionNotice:false,
 				missingGroundsForAppeal: false,
 				missingSupportingDocuments: false,
-				inflamatoryComments: false,
+				inflammatoryComments: false,
 				openedInError: false,
 				wrongAppealType: false,
 				otherReasons: ''
