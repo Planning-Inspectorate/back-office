@@ -1,5 +1,5 @@
 import express from 'express';
-import { getAppeals,  getAppealDetails, updateAppeal, appealValidated } from './validation.controller.js';
+import { getAppeals,  getAppealDetails, updateAppeal, submitValidationDecision } from './validation.controller.js';
 import { body } from 'express-validator';
 
 
@@ -65,7 +65,7 @@ router.post('/:id',
 			schema: { $ref: "#/definitions/ValidationDecision" } 
 		}
 	*/
-	asyncHandler(appealValidated));
+	asyncHandler(submitValidationDecision));
 
 
 export {

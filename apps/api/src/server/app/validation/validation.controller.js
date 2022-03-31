@@ -42,7 +42,7 @@ const updateAppeal = async function (request, response) {
 	return response.send();
 };
 
-const appealValidated = async function (request, response) {
+const submitValidationDecision = async function (request, response) {
 	validateAppealValidatedRequest(request.body);
 	const appeal = await getAppealForValidation(request.params.id);
 	const machineAction = mapAppealStatusToStateMachineAction(request.body.AppealStatus);
@@ -81,4 +81,4 @@ async function getAppealForValidation(appealId) {
 	return appeal;
 }
 
-export { getAppeals, getAppealDetails, updateAppeal, appealValidated };
+export { getAppeals, getAppealDetails, updateAppeal, submitValidationDecision };
