@@ -1,5 +1,5 @@
 import appealRepository from '../server/app/repositories/appeal.repository.js';
-import household_appeal_machine from '../server/app/state-machine/household-appeal.machine.js';
+import transitionState from '../server/app/state-machine/household-appeal.machine.js';
 
 /**
  * @returns {Date} date two weeks ago
@@ -29,7 +29,7 @@ async function getAppealsWithOverdueQuestionnaires() {
 async function markAppealsAsOverdue(appeals) {
 	const updatedAppeals = [];
 	for (const appeal of appeals) {
-		const newStatus = household_appeal_machine.transition(appeal.status, 'OVERDUE');
+		const newStatus = transitionState(appeal.id, appeal.status, 'OVERDUE');
 		updatedAppeals.push(appealRepository.updateStatusById(appeal.id, newStatus.value));
 	}
 	await Promise.all(updatedAppeals);

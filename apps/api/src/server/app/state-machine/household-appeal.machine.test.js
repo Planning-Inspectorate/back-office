@@ -1,10 +1,13 @@
 // eslint-disable-next-line import/no-unresolved
 import test from 'ava';
-import household_appeal_machine from './household-appeal.machine.js';
+import sinon from 'sinon';
+import transitionState from './household-appeal.machine.js';
+import lpaQuestionnaireActions from './lpa-questionnaire.actions.js';
 
-test('should have \'submitted\' as initial state', (t) => {
-	const initial_state = household_appeal_machine.initialState;
-	t.is(initial_state.value, 'received_appeal');
+const lpaQuestionnaireStub = sinon.stub();
+
+test.before('sets up mocking of actions', () => {
+	sinon.stub(lpaQuestionnaireActions, 'sendLpaQuestionnaire').callsFake(lpaQuestionnaireStub);
 });
 
 /**
@@ -15,9 +18,12 @@ test('should have \'submitted\' as initial state', (t) => {
  * @param {boolean} has_changed True if action was valid, False if action was invalid
  */
 function applyAction(t, initial_state, action, expected_state, has_changed) {
-	const next_state = household_appeal_machine.transition(initial_state, action);
+	const next_state = transitionState(1, initial_state, action);
 	t.is(next_state.value, expected_state);
 	t.is(next_state.changed, has_changed);
+	if (next_state.value == 'awaiting_lpa_questionnaire') {
+		sinon.assert.calledWithExactly(lpaQuestionnaireStub, 1);
+	}
 }
 
 applyAction.title = (providedTitle = '', initial_state, action, expected_state, has_changed) =>
@@ -31,14 +37,20 @@ for (const parameter of [
 	['awaiting_validation_info', 'INVALID', 'invalid_appeal', true],
 	['awaiting_validation_info', 'INFO_MISSING', 'awaiting_validation_info', false],
 	['awaiting_validation_info', 'VALID', 'awaiting_lpa_questionnaire', true],
-	['invalid_appeal', 'INVALID', 'invalid_appeal', false],
-	['invalid_appeal', 'INFO_MISSING', 'invalid_appeal', false],
-	['invalid_appeal', 'VALID', 'invalid_appeal', false],
+	['invalid_appeal', 'INVALID', 'invalid_appeal', undefined],
+	['invalid_appeal', 'INFO_MISSING', 'invalid_appeal', undefined],
+	['invalid_appeal', 'VALID', 'invalid_appeal', undefined],
 	['awaiting_lpa_questionnaire', 'INVALID', 'awaiting_lpa_questionnaire', false],
 	['awaiting_lpa_questionnaire', 'INFO_MISSING', 'awaiting_lpa_questionnaire', false],
 	['awaiting_lpa_questionnaire', 'VALID', 'awaiting_lpa_questionnaire', false],
 	['awaiting_lpa_questionnaire', 'OVERDUE', 'overdue_lpa_questionnaire', true],
-	['awaiting_lpa_questionnaire', 'RECEIVED', 'received_lpa_questionnaire', true]
+	['awaiting_lpa_questionnaire', 'RECEIVED', 'received_lpa_questionnaire', true],
+	['overdue_lpa_questionnaire', 'RECEIVED', 'received_lpa_questionnaire', true],
+	['overdue_lpa_questionnaire', 'COMPLETE', 'overdue_lpa_questionnaire', false],
+	['overdue_lpa_questionnaire', 'INCOMPLETE', 'overdue_lpa_questionnaire', false],
+	['received_lpa_questionnaire', 'COMPLETE', 'complete_lpa_questionnaire', true],
+	['received_lpa_questionnaire', 'INCOMPLETE', 'incomplete_lpa_questionnaire', true],
+	['incomplete_lpa_questionnaire', 'COMPLETE', 'complete_lpa_questionnaire', true],
 ]) {
 	test(applyAction, ...parameter);
 }
