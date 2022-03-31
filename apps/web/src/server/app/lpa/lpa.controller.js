@@ -14,10 +14,7 @@ import { checkboxDataToCheckValuesObject } from '../../lib/helpers.js';
  * @returns {void}
  */
 export async function getLpaDashboard(request, response, next) {
-	let error, questionnairesList;
-
-	// eslint-disable-next-line prefer-const
-	[error, questionnairesList] = await to(findAllIncomingIncompleteQuestionnaires());
+	const [error, questionnairesList] = await to(findAllIncomingIncompleteQuestionnaires());
 
 	if (error) {
 		next(new AggregateError([new Error('data fetch'), error], 'Fetch errors!'));
@@ -40,10 +37,7 @@ export async function getLpaDashboard(request, response, next) {
  */
 export async function getReviewQuestionnaire(request, response, next) {
 	const appealId = request.params.appealId;
-	let error, questionnaireData;
-
-	// eslint-disable-next-line prefer-const
-	[error, questionnaireData] = await to(findQuestionnaireById(appealId));
+	const [error, questionnaireData] = await to(findQuestionnaireById(appealId));
 
 	if (error) {
 		next(new AggregateError([new Error('data fetch'), error], 'Fetch errors!'));

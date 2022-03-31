@@ -8,12 +8,12 @@
 {% from "govuk/components/character-count/macro.njk" import govukCharacterCount %}
 
 {% block header %}
-  {{ govukHeader({
-    homepageUrl: "https://www.gov.uk/",
-    serviceName: "Appeal a planning decision",
-    serviceUrl: "/lpa",
-    containerClasses: "govuk-width-container"
-  }) }}
+	{{ govukHeader({
+		homepageUrl: "https://www.gov.uk/",
+		serviceName: "Appeal a planning decision",
+		serviceUrl: "/lpa",
+		containerClasses: "govuk-width-container"
+	}) }}
 {% endblock %}
 
 {%- macro detailsInput(type, idPrefix, labelText, details, checkboxItems) -%}
