@@ -46,7 +46,7 @@ test('finds appeals to mark as overdue as updates their statuses', async(t) => {
 			}
 		}
 	});
-	sinon.assert.calledWith(updateStub, { 
+	sinon.assert.calledOnceWithExactly(updateStub, { 
 		where: { id: 1 }, 
 		data: { status: 'overdue_lpa_questionnaire', statusUpdatedAt: sinon.match.any, updatedAt: sinon.match.any }
 	});
