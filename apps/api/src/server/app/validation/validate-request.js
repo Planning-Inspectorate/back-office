@@ -1,5 +1,6 @@
-import ValidationError from './validation-error.js';
+import _ from 'lodash';
 import { validationResult } from 'express-validator';
+import ValidationError from './validation-error.js';
 import stringEmptyOrUndefined from '../utils/string-validator.js';
 
 const validationDecisions = {
@@ -60,6 +61,14 @@ const validateUpdateValidationRequest = function(request) {
 	const errors = validationResult(request);
 	if (!errors.isEmpty()) {
 		throw new ValidationError('Invalid request', 400);
+	}
+	if (!Object.keys(request.body).every((key) => ['AppellantName', 'LocalPlanningDepartment', 'PlanningApplicationReference', 'Address'].includes(key))) {
+		throw new ValidationError('Invalid request keys', 400);
+	}
+	if (request.body.Address && 
+		(_.isEmpty(request.body.Address) ||
+		!Object.keys(request.body.Address).every((key) => ['AddressLine1', 'AddressLine2', 'County', 'Town', 'PostCode'].includes(key)))) {
+		throw new ValidationError('Invalid Address in body', 400);
 	}
 };
 
