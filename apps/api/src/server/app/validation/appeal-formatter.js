@@ -1,4 +1,3 @@
-import addressRepository from '../repositories/address.repository.js';
 import formatAddress from '../utils/address-formatter.js';
 import { validation_states_strings } from '../state-machine/validation-states.js';
 import formatDate from '../utils/date-formatter.js';
@@ -32,14 +31,14 @@ const formatIncompleteReason = function(incompleteValidationDecision) {
 const appealFormatter = {
 	formatAppealForAllAppeals: function(appeal) {
 		const address = appeal.address;
-		const addressAsString = formatAddress(address);
+		const addressAsJson = formatAddress(address);
 		const appealStatus = mapAppealStatus(appeal.status);
 		return {
 			AppealId: appeal.id,
 			AppealReference: appeal.reference,
 			AppealStatus: appealStatus,
 			Received: formatDate(appeal.createdAt),
-			AppealSite: addressAsString
+			AppealSite: addressAsJson
 		};
 	},
 	formatAppealForAppealDetails: function(appeal) {

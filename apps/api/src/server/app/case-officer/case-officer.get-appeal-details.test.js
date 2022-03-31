@@ -29,7 +29,7 @@ findUniqueStub.withArgs({ where: { id: 2 }, include: { address: true } }).return
 	reference: 'APP/Q9999/D/21/1345264',
 	status: 'awaiting_lpa_questionnaire'
 });
-const listOfDocs = [
+const listOfDocuments = [
 	{
 		Type: 'planning application form',
 		Filename: 'planning-application.pdf',
@@ -91,7 +91,7 @@ test('gets the appeals detailed information with received questionnaires', async
 			AddressLine2: 'line 2', 
 			PostCode: 'some code'
 		},
-		Documents: listOfDocs
+		Documents: listOfDocuments
 	};
 	t.is(resp.status, 200);
 	t.deepEqual(resp.body, appealExampleDetail);
