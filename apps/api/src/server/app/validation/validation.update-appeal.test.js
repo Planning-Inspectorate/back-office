@@ -1,3 +1,4 @@
+/* eslint-disable unicorn/no-null */
 // eslint-disable-next-line import/no-unresolved
 import test from 'ava';
 import supertest from 'supertest';
@@ -71,9 +72,35 @@ test('should be able to modify address', async(t) => {
 				update: {
 					addressLine1: 'some new addr',
 					addressLine2: 'some more addr',
-					addressLine3: 'town',
-					addressLine4: 'county',
+					town: 'town',
+					county: 'county',
 					postcode: 'POST CODE'
+				}
+			}
+		}
+	});
+});
+
+test('should be able to modify address even when some parts are null', async(t) => {
+	const resp = await request.patch('/validation/1')
+		.send({
+			Address: {
+				AddressLine1: 'some new addr',
+				Town: 'town',
+			}
+		});
+	t.is(resp.status, 200);
+	sinon.assert.calledWithExactly(updateStub, {
+		where: { id: 1 },
+		data: {
+			updatedAt: sinon.match.any,
+			address: {
+				update: {
+					addressLine1: 'some new addr',
+					addressLine2: null,
+					county: null,
+					town: 'town',
+					postcode: null
 				}
 			}
 		}

@@ -23,17 +23,22 @@ const getAppeals = async function (_request, response) {
 	response.send(formattedAppeals);
 };
 
+const nullIfUndefined = function(value) {
+	// eslint-disable-next-line unicorn/no-null
+	return value || null;
+};
+
 const updateAppeal = async function (request, response) {
 	validateUpdateValidationRequest(request);
 	const appeal = await getAppealForValidation(request.params.id);
 	const data = {
 		...(request.body.AppellantName && { appellantName: request.body.AppellantName }),
 		...(request.body.Address && { address: { update: {
-			addressLine1: request.body.Address.AddressLine1,
-			addressLine2: request.body.Address.AddressLine2,
-			addressLine3: request.body.Address.Town,
-			addressLine4: request.body.Address.County,
-			postcode: request.body.Address.PostCode
+			addressLine1: nullIfUndefined(request.body.Address.AddressLine1),
+			addressLine2: nullIfUndefined(request.body.Address.AddressLine2),
+			town: nullIfUndefined(request.body.Address.Town),
+			county: nullIfUndefined(request.body.Address.County),
+			postcode: nullIfUndefined(request.body.Address.PostCode)
 		} } }),
 		...(request.body.LocalPlanningDepartment && { localPlanningDepartment: request.body.LocalPlanningDepartment } ),
 		...(request.body.PlanningApplicationReference && { planningApplicationReference: request.body.PlanningApplicationReference })
