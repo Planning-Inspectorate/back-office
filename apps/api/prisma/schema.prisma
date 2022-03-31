@@ -26,14 +26,11 @@ model Appeal {
 
 model Address {
   id           Int      @id @default(autoincrement())
-  addressLine1 String
+  addressLine1 String?
   addressLine2 String?
-  addressLine3 String?
-  addressLine4 String?
-  addressLine5 String?
-  addressLine6 String?
-  postcode     String
-  city         String
+  town         String?
+  county       String?
+  postcode     String?
   Appeal       Appeal[]
 }
 
