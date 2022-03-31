@@ -21,7 +21,7 @@ const getAppeals = async function (_request, response) {
 
 const getAppealDetails = async function (request, response) {
 	const appeal = await getAppealForCaseOfficer(request.params.id);
-	const formattedAppeal = await appealFormatter.formatAppealForAppealDetails(appeal);
+	const formattedAppeal = appealFormatter.formatAppealForAppealDetails(appeal);
 	return response.send(formattedAppeal);
 };
 

@@ -1,4 +1,3 @@
-/* eslint-disable unicorn/no-null */
 // eslint-disable-next-line import/no-unresolved
 import test from 'ava';
 import supertest from 'supertest';
@@ -97,9 +96,12 @@ test('should be able to modify address even when some parts are null', async(t) 
 			address: {
 				update: {
 					addressLine1: 'some new addr',
+					// eslint-disable-next-line unicorn/no-null
 					addressLine2: null,
+					// eslint-disable-next-line unicorn/no-null
 					county: null,
 					town: 'town',
+					// eslint-disable-next-line unicorn/no-null
 					postcode: null
 				}
 			}
