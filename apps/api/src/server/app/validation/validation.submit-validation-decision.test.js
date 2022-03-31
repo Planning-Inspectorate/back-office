@@ -59,10 +59,10 @@ const updated_appeal_1 = {
 const getAppealByIdStub = sinon.stub();
 const updateStub = sinon.stub();
 
-getAppealByIdStub.withArgs({ where: { id: 1 }, include: { ValidationDecision: true, address: true } }).returns(appeal_1);
-getAppealByIdStub.withArgs({ where: { id: 2 }, include: { ValidationDecision: true, address: true } }).returns(appeal_2);
-getAppealByIdStub.withArgs({ where: { id: 3 }, include: { ValidationDecision: true, address: true } }).returns(appeal_3);
-getAppealByIdStub.withArgs({ where: { id: 4 }, include: { ValidationDecision: true, address: true } }).returns(appeal_4);
+getAppealByIdStub.withArgs({ where: { id: 1 }, include: { validationDecision: true, address: true } }).returns(appeal_1);
+getAppealByIdStub.withArgs({ where: { id: 2 }, include: { validationDecision: true, address: true } }).returns(appeal_2);
+getAppealByIdStub.withArgs({ where: { id: 3 }, include: { validationDecision: true, address: true } }).returns(appeal_3);
+getAppealByIdStub.withArgs({ where: { id: 4 }, include: { validationDecision: true, address: true } }).returns(appeal_4);
 
 updateStub.returns(updated_appeal_1);
 

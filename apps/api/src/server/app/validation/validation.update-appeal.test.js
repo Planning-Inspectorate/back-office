@@ -8,7 +8,7 @@ import DatabaseFactory from '../repositories/database.js';
 const request = supertest(app);
 
 const findUniqueStub = sinon.stub();
-findUniqueStub.withArgs({ where: { id: 1 }, include: { ValidationDecision: true, address: true } }).returns(
+findUniqueStub.withArgs({ where: { id: 1 }, include: { validationDecision: true, address: true } }).returns(
 	{ id: 1, status: 'received_appeal', addressId: 10 }
 );
 
