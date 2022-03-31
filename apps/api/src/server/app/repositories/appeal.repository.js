@@ -21,6 +21,18 @@ const appealRepository = (function() {
 				}
 			});
 		},
+		getByStatusesWithAddresses: function (statuses) {
+			return getPool().appeal.findMany({
+				where: {
+					status: {
+						in: statuses
+					}
+				},
+				include: {
+					address: true
+				}
+			});
+		},
 		getById: function (id) {
 			return getPool().appeal.findUnique({
 				where: {
@@ -45,6 +57,17 @@ const appealRepository = (function() {
 				},
 				include: {
 					ValidationDecision: true
+				}
+			});
+		},
+		getByIdWithValidationDecisionAndAddress: function(id) {
+			return getPool().appeal.findUnique({
+				where: {
+					id: id
+				},
+				include: {
+					ValidationDecision: true,
+					address: true
 				}
 			});
 		},

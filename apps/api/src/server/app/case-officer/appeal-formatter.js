@@ -27,15 +27,15 @@ function mapAppealStatus(status) {
 }
 
 const appealFormatter = {
-	formatAppealForAllAppeals: async function(appeal) { 
-		const address = await addressRepository.getById(appeal.addressId);
-		const addressAsString = formatAddress(address);
+	formatAppealForAllAppeals: function(appeal) { 
+		const address = appeal.address;
+		const addressAsJson = formatAddress(address);
 		const appealStatus = mapAppealStatus(appeal.status);
 		return {
 			AppealId: appeal.id,
 			AppealReference: appeal.reference,
 			QuestionnaireStatus: appealStatus,
-			AppealSite: addressAsString,
+			AppealSite: addressAsJson,
 			QuestionnaireDueDate: appeal.startedAt ? formatDate(add2Weeks(appeal.startedAt)) : ''
 		};
 	},

@@ -86,7 +86,11 @@ test('gets the appeals detailed information with received questionnaires', async
 		AppealSiteNearConservationArea: false,
 		WouldDevelopmentAffectSettingOfListedBuilding: false,
 		ListedBuildingDesc: '',
-		AppealSite: 'line 1, line 2, some code',
+		AppealSite: {
+			AddressLine1: 'line 1', 
+			AddressLine2: 'line 2', 
+			PostCode: 'some code'
+		},
 		Documents: listOfDocs
 	};
 	t.is(resp.status, 200);
@@ -95,7 +99,6 @@ test('gets the appeals detailed information with received questionnaires', async
 
 test('unable to retrieve details for an appeal which has yet to receive the questionnaire', async (t) => {
 	const resp = await request.get('/case-officer/2');
-	console.log(resp.body)
 	t.is(resp.status, 400);
 	t.deepEqual(resp.body, { error: 'Appeal has yet to receive LPA questionnaire' });
 });

@@ -30,8 +30,8 @@ const formatIncompleteReason = function(incompleteValidationDecision) {
 };
 
 const appealFormatter = {
-	formatAppealForAllAppeals: async function(appeal) {
-		const address = await addressRepository.getById(appeal.addressId);
+	formatAppealForAllAppeals: function(appeal) {
+		const address = appeal.address;
 		const addressAsString = formatAddress(address);
 		const appealStatus = mapAppealStatus(appeal.status);
 		return {
@@ -42,9 +42,9 @@ const appealFormatter = {
 			AppealSite: addressAsString
 		};
 	},
-	formatAppealForAppealDetails: async function(appeal) {
-		const address = await addressRepository.getById(appeal.addressId);
-		const addressAsString = formatAddress(address);
+	formatAppealForAppealDetails: function(appeal) {
+		const address = appeal.address;
+		const addressAsJson = formatAddress(address);
 		const appealStatus = mapAppealStatus(appeal.status);
 		const incompleteValidationDecision = appeal.ValidationDecision.find((decision) => decision.decision == 'incomplete');
 		const validationDecision = appeal.status == 'awaiting_validation_info' ? 
@@ -56,7 +56,7 @@ const appealFormatter = {
 			AppellantName: appeal.appellantName,
 			AppealStatus: appealStatus,
 			Received: formatDate(appeal.createdAt),
-			AppealSite: addressAsString,
+			AppealSite: addressAsJson,
 			LocalPlanningDepartment: appeal.localPlanningDepartment,
 			PlanningApplicationReference: appeal.planningApplicationReference,
 			Documents: [
