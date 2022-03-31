@@ -20,7 +20,7 @@ model Appeal {
   updatedAt                    DateTime             @default(now())
   statusUpdatedAt              DateTime             @default(now())
   startedAt                    DateTime?
-  ValidationDecision           ValidationDecision[]
+  validationDecision           ValidationDecision[]
   lpaQuestionnaire             LPAQuestionnaire?
 }
 

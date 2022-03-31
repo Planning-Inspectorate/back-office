@@ -39,7 +39,7 @@ const appealFormatter = {
 		};
 	},
 	formatAppealForAppealDetails: function(appeal) {
-		const incompleteValidationDecision = appeal.ValidationDecision.find((decision) => decision.decision == 'incomplete');
+		const incompleteValidationDecision = appeal.validationDecision.find((decision) => decision.decision == 'incomplete');
 		const validationDecision = appeal.status == 'awaiting_validation_info' ? 
 			formatIncompleteReason(incompleteValidationDecision) : 
 			{};

@@ -110,7 +110,7 @@ const appealsAwaitingValidationInfo = [
 				postcode: 'NR35 2ND'
 			}
 		},
-		ValidationDecision: {
+		validationDecision: {
 			create: {
 				decision: 'incomplete',
 				namesDoNotMatch: true,

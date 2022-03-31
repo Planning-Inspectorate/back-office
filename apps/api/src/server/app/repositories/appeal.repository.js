@@ -56,7 +56,7 @@ const appealRepository = (function() {
 					id: id
 				},
 				include: {
-					ValidationDecision: true
+					validationDecision: true
 				}
 			});
 		},
@@ -66,7 +66,7 @@ const appealRepository = (function() {
 					id: id
 				},
 				include: {
-					ValidationDecision: true,
+					validationDecision: true,
 					address: true
 				}
 			});
