@@ -219,7 +219,7 @@
         "reason": {
           "type": "object",
           "properties": {
-            "inflamatoryComments": {
+            "inflammatoryComments": {
               "type": "boolean",
               "example": true
             },

@@ -23,3 +23,26 @@ export const checkboxDataToCheckValuesObject = (checkboxData) => {
 		return checkboxData;
 	}
 };
+
+/**
+ * Transforms an AppealSite object, as returned from the API, into a string, with valid address fragments separated by the supplied separator.
+ *
+ * @param {object} appealSite - AppealSite object in the format returned by the API
+ * @param {string} separator - Separator to use (defaults to comma)
+ * @returns {string} - string containing the resulting address formatted as a single line with address fragments separated by supplied separator
+ */
+export const appealSiteObjectToText = (appealSite, separator) => {
+	let addressString = '';
+	const keys = Object.keys(appealSite);
+
+	if (!separator) separator = ', ';
+
+	// eslint-disable-next-line unicorn/no-for-loop
+	for (let i = 0; i < keys.length; i++) {
+		const entry = appealSite[keys[i]];
+		if (!entry) continue;
+		addressString += entry + (i < keys.length - 1 ? separator : '');
+	}
+
+	return addressString;
+};

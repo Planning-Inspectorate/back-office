@@ -32,7 +32,7 @@ export async function getValidationDashboard(request, response, next) {
 		const row = [
 			{ html: `<a href="/validation/${routes.reviewAppealRoute.path}/${item.AppealId}">${item.AppealReference}</a>` },
 			{ text: item.Received },
-			{ text: item.AppealSite }
+			{ text: item.AppealSiteString }
 		];
 
 		if (item.AppealStatus === 'incomplete') {
@@ -338,18 +338,22 @@ export function getCheckAndConfirm(request, response) {
 	let invalidReasons;
 	if (appealWork.invalidAppealDetails && appealWork.invalidAppealDetails.invalidReasons) {
 		invalidReasons = flatten([appealWork.invalidAppealDetails.invalidReasons]);
+		// eslint-disable-next-line unicorn/consistent-destructuring
 		request.session.appealWork.invalidAppealDetails.invalidReasons = invalidReasons;
 	}
 
 	let incompleteReasons;
 	if (appealWork.incompleteAppealDetails && appealWork.incompleteAppealDetails.incompleteReasons) {
 		incompleteReasons = flatten([appealWork.incompleteAppealDetails.incompleteReasons]);
+		// eslint-disable-next-line unicorn/consistent-destructuring
 		request.session.appealWork.incompleteAppealDetails.incompleteReasons = incompleteReasons;
 	}
 
+	// eslint-disable-next-line unicorn/prevent-abbreviations
 	let missingOrWrongDocsReasons;
 	if (appealWork.incompleteAppealDetails && appealWork.incompleteAppealDetails.missingOrWrongDocsReasons) {
 		missingOrWrongDocsReasons = flatten([appealWork.incompleteAppealDetails.missingOrWrongDocsReasons]);
+		// eslint-disable-next-line unicorn/consistent-destructuring
 		request.session.appealWork.incompleteAppealDetails.missingOrWrongDocsReasons = missingOrWrongDocsReasons;
 	}
 
