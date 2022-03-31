@@ -368,11 +368,11 @@ function formatOutcomeReasonsDataForApiPost(outcomeType, appealDetails) {
 		case 'invalid':
 			data = {
 				// eslint-disable-next-line unicorn/no-array-reduce, unicorn/prefer-object-from-entries
-				...appealDetails.invalidReasons.reduce((previous, current) => {
-					if (current === 'otherReason') return previous;
+				...appealDetails.invalidReasons.reduce((accumulator, value) => {
+					if (value === 'otherReason') return accumulator;
 
-					previous[current] = true;
-					return previous;
+					accumulator[value] = true;
+					return accumulator;
 				}, {})
 			};
 
@@ -382,12 +382,12 @@ function formatOutcomeReasonsDataForApiPost(outcomeType, appealDetails) {
 		case 'incomplete':
 			data = {
 				// eslint-disable-next-line unicorn/no-array-reduce, unicorn/prefer-object-from-entries
-				...appealDetails.incompleteReasons.reduce((previous, current) => {
-					if (current === 'missingOrWrongDocs') return previous;
-					if (current === 'otherReason') return previous;
+				...appealDetails.incompleteReasons.reduce((accumulator, value) => {
+					if (value === 'missingOrWrongDocs') return accumulator;
+					if (value === 'otherReason') return accumulator;
 
-					previous[current] = true;
-					return previous;
+					accumulator[value] = true;
+					return accumulator;
 				}, {})
 			};
 
