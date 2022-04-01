@@ -328,12 +328,14 @@ export function getCheckAndConfirm(request, response) {
 	let backURL;
 
 	if ('invalidAppealDetails' in appealWork) {
-		backURL = `/validation/${routes.reviewAppealRoute.path}/${appealData.AppealId}?direction=back`;
+		backURL = `/validation/${routes.invalidAppealOutcome.path}?direction=back`;
 	} else if ('incompleteAppealDetails' in appealWork) {
 		backURL = `/validation/${routes.incompleteAppealOutcome.path}?direction=back`;
 	} else {
 		backURL = `/validation/${routes.validAppealOutcome.path}?direction=back`;
 	}
+
+	const changeOutcomeURL = `/validation/${routes.reviewAppealRoute.path}/${appealData.AppealId}?direction=back`;
 
 	let invalidReasons;
 	if (appealWork.invalidAppealDetails && appealWork.invalidAppealDetails.invalidReasons) {
@@ -359,7 +361,7 @@ export function getCheckAndConfirm(request, response) {
 
 	response.render(routes.checkAndConfirm.view, {
 		backURL,
-		changeOutcomeURL: backURL,
+		changeOutcomeURL,
 		appealData,
 		appealWork,
 		invalidReasons,
