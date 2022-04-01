@@ -5,6 +5,31 @@ import { camelCase, upperFirst } from 'lodash-es';
 import { checkboxDataToCheckValuesObject, appealSiteObjectToText } from '../../lib/helpers.js';
 
 /**
+ * Create an array of row data for consumption in nunjucks template govukTable component, using the supplied data array from the LPA service
+ *
+ * @param {Array<object>} questionnairesList - array of questionnaire data items returned from findAllIncomingIncompleteQuestionnaires service method
+ * @returns {Array<object>} - array of row data objects for consumption in nunjucks template
+ */
+function makeQuestionnairesListRowsForTemplate (questionnairesList) {
+	const rows = [];
+
+	// eslint-disable-next-line unicorn/no-array-for-each
+	questionnairesList.forEach((item) => {
+		rows.push([
+			{ html: item.QuestionnaireStatus === 'received'
+				? `<a href="/lpa/${routes.reviewQuestionnaire.path}/${item.AppealId}">${item.AppealReference}</a>`
+				: item.AppealReference
+			},
+			{ text: item.QuestionnaireDueDate },
+			{ text: item.AppealSite ? appealSiteObjectToText(item.AppealSite) : '' },
+			{ html: `<strong class="govuk-tag govuk-tag--${item.StatusTagColor}">${item.QuestionnaireStatus}</strong>` }
+		]);
+	});
+
+	return rows;
+}
+
+/**
  * GET the main dashboard.
  * It will fetch the questionnaires list (incoming, incomplete) and will render all.
  *
@@ -20,6 +45,9 @@ export async function getLpaDashboard(request, response, next) {
 		next(new AggregateError([new Error('data fetch'), error], 'Fetch errors!'));
 		return;
 	}
+
+	questionnairesList.incomingQuestionnairesRows = makeQuestionnairesListRowsForTemplate(questionnairesList.incomingQuestionnaires);
+	questionnairesList.incompleteQuestionnairesRows = makeQuestionnairesListRowsForTemplate(questionnairesList.incompleteQuestionnaires);
 
 	response.render(routes.home.view, {
 		questionnairesList

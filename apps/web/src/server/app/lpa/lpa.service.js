@@ -1,7 +1,6 @@
 import request from './../../lib/request.js';
-import { lpaRoutesConfig as routes } from '../../config/routes.js';
-import { appealSiteObjectToText } from '../../lib/helpers.js';
 
+// TODO: JSDoc comment
 export async function findAllIncomingIncompleteQuestionnaires() {
 	const data = await request('case-officer');
 
@@ -28,26 +27,19 @@ export async function findAllIncomingIncompleteQuestionnaires() {
 				break;
 		}
 
-		const row = [
-			{ html: item.QuestionnaireStatus === 'received'
-				? `<a href="/lpa/${routes.reviewQuestionnaire.path}/${item.AppealId}">${item.AppealReference}</a>`
-				: item.AppealReference
-			},
-			{ text: item.QuestionnaireDueDate },
-			{ text: item.AppealSite ? appealSiteObjectToText(item.AppealSite) : '' },
-			{ html: `<strong class="govuk-tag govuk-tag--${statusTagColor}">${item.QuestionnaireStatus}</strong>` }
-		];
+		item.StatusTagColor = statusTagColor;
 
 		if (item.QuestionnaireStatus === 'incomplete') {
-			questionnairesListData.incompleteQuestionnaires.push(row);
+			questionnairesListData.incompleteQuestionnaires.push(item);
 		} else {
-			questionnairesListData.incomingQuestionnaires.push(row);
+			questionnairesListData.incomingQuestionnaires.push(item);
 		}
 	});
 
 	return questionnairesListData;
 }
 
+// TODO: JSDoc comment
 export async function findQuestionnaireById(id) {
 	const data = await request(`case-officer/${id}`);
 

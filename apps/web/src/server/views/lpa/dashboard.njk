@@ -31,7 +31,7 @@
 	{%- if questionnairesList.incomingQuestionnaires.length > 0 -%}
 		{{ govukTable({
 			head: tableHeadItems,
-			rows: questionnairesList.incomingQuestionnaires })
+			rows: questionnairesList.incomingQuestionnairesRows })
 		}}
 	{%- else -%}
 		{{ InfoBox("No incoming questionnaires", classes="govuk-!-margin-bottom-8") }}
@@ -44,7 +44,7 @@
 	{%- if questionnairesList.incompleteQuestionnaires.length > 0 -%}
 		{{ govukTable({
 			head: tableHeadItems,
-			rows: questionnairesList.incompleteQuestionnaires })
+			rows: questionnairesList.incompleteQuestionnairesRows })
 		}}
 	{%- else -%}
 		{{ InfoBox("No incomplete questionnaires") }}
