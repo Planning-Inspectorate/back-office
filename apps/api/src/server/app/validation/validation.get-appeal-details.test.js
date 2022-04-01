@@ -16,7 +16,7 @@ const appeal_1 = {
 	localPlanningDepartment: 'Maidstone Borough Council',
 	planningApplicationReference: '48269/APP/2021/1482',
 	appellantName: 'Lee Thornton',
-	ValidationDecision: [],
+	validationDecision: [],
 	address: {
 		addressLine1: 'line 1',
 		addressLine2: 'line 2',
@@ -34,7 +34,7 @@ const appeal_2 = {
 	status: 'awaiting_validation_info',
 	createdAt: new Date(2022, 1, 23),
 	addressId: 2,
-	ValidationDecision: [
+	validationDecision: [
 		{
 			id: 1,
 			appealId: 2,
@@ -71,7 +71,7 @@ const appeal_4 = {
 	status: 'awaiting_validation_info',
 	createdAt: new Date(2022, 1, 23),
 	addressId: 2,
-	ValidationDecision: [
+	validationDecision: [
 		{
 			id: 1,
 			appealId: 4,
@@ -96,10 +96,10 @@ const appeal_4 = {
 	}
 };
 const getAppealByIdStub = sinon.stub();
-getAppealByIdStub.withArgs({ where: { id: 1 }, include: { ValidationDecision: true, address: true } }).returns(appeal_1);
-getAppealByIdStub.withArgs({ where: { id: 2 }, include: { ValidationDecision: true, address: true } }).returns(appeal_2);
-getAppealByIdStub.withArgs({ where: { id: 3 }, include: { ValidationDecision: true, address: true } }).returns(appeal_3);
-getAppealByIdStub.withArgs({ where: { id: 4 }, include: { ValidationDecision: true, address: true } }).returns(appeal_4);
+getAppealByIdStub.withArgs({ where: { id: 1 }, include: { validationDecision: true, address: true } }).returns(appeal_1);
+getAppealByIdStub.withArgs({ where: { id: 2 }, include: { validationDecision: true, address: true } }).returns(appeal_2);
+getAppealByIdStub.withArgs({ where: { id: 3 }, include: { validationDecision: true, address: true } }).returns(appeal_3);
+getAppealByIdStub.withArgs({ where: { id: 4 }, include: { validationDecision: true, address: true } }).returns(appeal_4);
 
 class MockDatabaseClass {
 	constructor(_parameters) {

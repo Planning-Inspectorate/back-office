@@ -59,10 +59,10 @@ const updated_appeal_1 = {
 const getAppealByIdStub = sinon.stub();
 const updateStub = sinon.stub();
 
-getAppealByIdStub.withArgs({ where: { id: 1 }, include: { ValidationDecision: true, address: true } }).returns(appeal_1);
-getAppealByIdStub.withArgs({ where: { id: 2 }, include: { ValidationDecision: true, address: true } }).returns(appeal_2);
-getAppealByIdStub.withArgs({ where: { id: 3 }, include: { ValidationDecision: true, address: true } }).returns(appeal_3);
-getAppealByIdStub.withArgs({ where: { id: 4 }, include: { ValidationDecision: true, address: true } }).returns(appeal_4);
+getAppealByIdStub.withArgs({ where: { id: 1 }, include: { validationDecision: true, address: true } }).returns(appeal_1);
+getAppealByIdStub.withArgs({ where: { id: 2 }, include: { validationDecision: true, address: true } }).returns(appeal_2);
+getAppealByIdStub.withArgs({ where: { id: 3 }, include: { validationDecision: true, address: true } }).returns(appeal_3);
+getAppealByIdStub.withArgs({ where: { id: 4 }, include: { validationDecision: true, address: true } }).returns(appeal_4);
 
 updateStub.returns(updated_appeal_1);
 
@@ -218,10 +218,10 @@ test('should not be able to submit decision as \'invalid\' if there is no reason
 		.send({
 			AppealStatus:'invalid',
 			Reason: {
-				outOfTime:false,
-				noRightOfappeal:false,
-				notAppealable:false,
-				lPADeemedInvalid:false,
+				outOfTime: false,
+				noRightOfAppeal: false,
+				notAppealable: false,
+				lPADeemedInvalid: false,
 				otherReasons: '' }
 		});
 	t.is(resp.status, 400);
@@ -244,6 +244,22 @@ test('should not be able to submit decision as \'incomplete\' if there is no rea
 		.send({
 			AppealStatus:'incomplete',
 			Reason: {
+				outOfTime: true,
+				noRightOfAppeal: false,
+				notAppealable: false,
+				lPADeemedInvalid: false,
+				otherReasons: ''
+			}
+		});
+	t.is(resp.status, 400);
+	t.deepEqual(resp.body, { error: 'Unknown Reason provided' } );
+});
+
+test('should not be able to submit decision as \'incomplete\' if providing invalid reasons', async (t) => {
+	const resp = await request.post('/validation/6')
+		.send({
+			AppealStatus:'incomplete',
+			Reason: {
 				namesDoNotMatch: false,
 				sensitiveinfo: false,
 				missingApplicationForm: false,
@@ -258,6 +274,18 @@ test('should not be able to submit decision as \'incomplete\' if there is no rea
 		});
 	t.is(resp.status, 400);
 	t.deepEqual(resp.body, { error: 'Incomplete Appeal requires a reason' } );
+});
+
+test('should not be able to submit decision as \'invalid\' if providing incomplete reasons', async (t) => {
+	const resp = await request.post('/validation/6')
+		.send({
+			AppealStatus:'invalid',
+			Reason: {
+				someFakeReason: true
+			}
+		});
+	t.is(resp.status, 400);
+	t.deepEqual(resp.body, { error: 'Unknown Reason provided' } );
 });
 
 test('should not be able to submit decision as \'incomplete\' if there is no reason being sent', async (t) => {

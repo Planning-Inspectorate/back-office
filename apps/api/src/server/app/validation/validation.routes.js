@@ -33,7 +33,6 @@ router.get('/:id',
 	asyncHandler(getAppealDetails));
 
 router.patch('/:id', 
-	body('AppellantName').isAlpha('en-US', { ignore: ' ' } ).optional({ nullable: true }), 
 	/*
 		#swagger.description = 'Updates appeal details'
 		#swagger.parameters['id'] = {
@@ -48,6 +47,7 @@ router.patch('/:id',
 			schema: { $ref: "#/definitions/ChangeAppeal" }
 		}
 	*/
+	body('AppellantName').isAlpha('en-US', { ignore: ' ' } ).optional({ nullable: true }),
 	asyncHandler(updateAppeal));
 
 router.post('/:id', 
