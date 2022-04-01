@@ -150,14 +150,14 @@ test('should be able to submit \'missing appeal details\' decision', async(t) =>
 		.send({ AppealStatus: 'incomplete',
 			Reason:{
 				namesDoNotMatch: true,
-				sensitiveinfo: true,
+				sensitiveInfo: true,
 				missingApplicationForm: true,
 				missingDecisionNotice:true,
 				missingGroundsForAppeal: true,
 				missingSupportingDocuments: true,
 				inflammatoryComments: true,
 				openedInError: true,
-				wrongAppealType: true }
+				wrongAppealTypeUsed: true }
 		} );
 	t.is(resp.status, 200);
 	// TODO: calledOneWithExactly throws error
@@ -171,14 +171,14 @@ test('should be able to submit \'missing appeal details\' decision', async(t) =>
 		decision: 'incomplete',
 		descriptionOfDevelopment: undefined,
 		namesDoNotMatch: true,
-		sensitiveinfo: true,
+		sensitiveInfo: true,
 		missingApplicationForm: true,
 		missingDecisionNotice:true,
 		missingGroundsForAppeal: true,
 		missingSupportingDocuments: true,
 		inflammatoryComments: true,
 		openedInError: true,
-		wrongAppealType: true
+		wrongAppealTypeUsed: true
 	} });
 });
 
@@ -261,14 +261,14 @@ test('should not be able to submit decision as \'incomplete\' if providing inval
 			AppealStatus:'incomplete',
 			Reason: {
 				namesDoNotMatch: false,
-				sensitiveinfo: false,
+				sensitiveInfo: false,
 				missingApplicationForm: false,
 				missingDecisionNotice:false,
 				missingGroundsForAppeal: false,
 				missingSupportingDocuments: false,
 				inflammatoryComments: false,
 				openedInError: false,
-				wrongAppealType: false,
+				wrongAppealTypeUsed: false,
 				otherReasons: ''
 			}
 		});
