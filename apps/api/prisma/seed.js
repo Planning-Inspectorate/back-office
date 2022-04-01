@@ -23,7 +23,7 @@ const newAppeals = [{
 		create: {
 			addressLine1: '96 The Avenue',
 			addressLine2: 'Maidstone',
-			city: 'Kent',
+			county: 'Kent',
 			postcode: 'MD21 5XY'
 		}
 	}
@@ -36,7 +36,7 @@ const newAppeals = [{
 	address: {
 		create: {
 			addressLine1: '55 Butcher Street',
-			city: 'Thurnscoe',
+			town: 'Thurnscoe',
 			postcode: 'S63 0RB'
 		}
 	}
@@ -49,7 +49,7 @@ const newAppeals = [{
 	address: {
 		create: {
 			addressLine1: '8 The Chase',
-			city: 'Findon',
+			town: 'Findon',
 			postcode: 'BN14 0TT'
 		}
 	}
@@ -63,7 +63,7 @@ const newAppeals = [{
 		create: {
 			addressLine1: '96 The Avenue',
 			addressLine2: 'Maidstone',
-			city: 'Kent',
+			county: 'Kent',
 			postcode: 'MD21 5XY'
 		}
 	}
@@ -76,7 +76,7 @@ const newAppeals = [{
 	address: {
 		create: {
 			addressLine1: '44 Rivervale',
-			city: 'Bridport',
+			town: 'Bridport',
 			postcode: 'DT6 5RN'
 		}
 	}
@@ -89,7 +89,7 @@ const newAppeals = [{
 	address: {
 		create: {
 			addressLine1: '92 Huntsmoor Road',
-			city: 'Tadley',
+			town: 'Tadley',
 			postcode: 'RG26 4BX'
 		}
 	}
@@ -106,11 +106,11 @@ const appealsAwaitingValidationInfo = [
 			create: {
 				addressLine1: '1 Grove Cottage',
 				addressLine2: 'Shotesham Road',
-				city: 'Woodton',
+				town: 'Woodton',
 				postcode: 'NR35 2ND'
 			}
 		},
-		ValidationDecision: {
+		validationDecision: {
 			create: {
 				decision: 'incomplete',
 				namesDoNotMatch: true,
@@ -119,7 +119,7 @@ const appealsAwaitingValidationInfo = [
 				missingDecisionNotice: true,
 				missingGroundsForAppeal: true,
 				missingSupportingDocuments: true,
-				inflamatoryComments: true,
+				inflammatoryComments: true,
 				openedInError: true,
 				wrongAppealTypeUsed: true,
 				otherReasons: 'Some other weird reason'
@@ -139,7 +139,7 @@ const invalidAppeals = [
 			create: {
 				addressLine1: '96 The Avenue',
 				addressLine2: 'Maidstone',
-				city: 'Kent',
+				town: 'Kent',
 				postcode: 'MD21 5XY'
 			}
 		}
@@ -159,7 +159,7 @@ const appealsAwaitingLPAQuestionnaire = [
 			create: {
 				addressLine1: '96 The Avenue',
 				addressLine2: 'Maidstone',
-				city: 'Kent',
+				town: 'Kent',
 				postcode: 'MD21 5XY'
 			}
 		},
@@ -178,7 +178,7 @@ const appealsAwaitingLPAQuestionnaire = [
 		address: {
 			create: {
 				addressLine1: '55 Butcher Street',
-				city: 'Thurnscoe',
+				town: 'Thurnscoe',
 				postcode: 'MD21 5XY'
 			}
 		},
@@ -200,7 +200,7 @@ const appealsWithReceivedLPAQuestionnaire = [
 		address: {
 			create: {
 				addressLine1: '92 Huntsmoor Road',
-				city: 'Tadley',
+				county: 'Tadley',
 				postcode: 'RG26 4BX'
 			}
 		},
@@ -228,7 +228,7 @@ const appealsWithReceivedLPAQuestionnaire = [
 
 const appealsData = [
 	...newAppeals,
-	...appealsAwaitingValidationInfo, 
+	...appealsAwaitingValidationInfo,
 	...invalidAppeals,
 	...appealsAwaitingLPAQuestionnaire,
 	...appealsWithReceivedLPAQuestionnaire

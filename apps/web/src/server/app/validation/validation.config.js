@@ -12,7 +12,7 @@ export const validationLabelsMap = {
 		namesDoNotMatch: 'Names do not match',
 		sensitiveinfo: 'Sensitive information included',
 		missingOrWrongDocs: 'Missing or wrong documents',
-		inflamatoryComments: 'Inflammatory comments made',
+		inflammatoryComments: 'Inflammatory comments made',
 		openedInError: 'Opened in error',
 		wrongAppealType: 'Wrong appeal type used',
 		otherReason: 'Other'

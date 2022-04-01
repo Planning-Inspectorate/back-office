@@ -26,12 +26,22 @@ const document_ = {
 			AppellantName: 'Lee Thornton',
 			AppealStatus: 'new',
 			Received: '18 Mar 2022',
-			AppealSite: '96 The Avenue, Maidstone, Kent, MD21 5XY',
+			AppealSite: {
+				AddressLine1: '96 The Avenue',
+				AddressLine2: '',
+				Town: 'Maidstone',
+				County: 'Kent',
+				PostCode: 'MD21 5XY'
+			},
 			LocalPlanningDepartment: 'Maidstone Borough Council',
 			PlanningApplicationReference: '48269/APP/2021/1482',
-			Documents: [],
+			Documents: [{
+				Type: '',
+				Filename: '',
+				URL: ''
+			}],
 			reason: {
-				inflamatoryComments: true,
+				inflammatoryComments: true,
 				missingApplicationForm: true,
 				missingDecisionNotice: true,
 				missingGroundsForAppeal: true,
@@ -48,7 +58,13 @@ const document_ = {
 			AppealReference: 'APP/Q9999/D/21/1345264',
 			AppealStatus: { '@enum': ['new', 'incomplete'] },
 			Received: '18 Mar 2022',
-			AppealSite: '96 The Avenue, Maidstone, Kent, MD21 5XY'
+			AppealSite: {
+				AddressLine1: '96 The Avenue',
+				AddressLine2: '',
+				Town: 'Maidstone',
+				County: 'Kent',
+				PostCode: 'MD21 5XY'
+			}
 		}],
 		ChangeAppeal: {
 			$AppellandName: 'John Doe',
@@ -72,7 +88,7 @@ const document_ = {
 				$missingDecisionNotice: true,
 				$missingGroundsForAppeal:true,
 				$missingSupportingDocuments: true,
-				$inflamatoryComments: true,
+				$inflammatoryComments: true,
 				$openedInError: true,
 				$wrongAppealTypeUsed: true,
 				$outOfTime: true,
@@ -86,7 +102,13 @@ const document_ = {
 			$AppealId: 1,
 			$AppealReference: '',
 			$QuestionnaireDueDate: '01 Jun 2022',
-			$AppealSite: '',
+			$AppealSite: {
+				$AddressLine1: '96 The Avenue',
+				$AddressLine2: '',
+				$Town: 'Maidstone',
+				$County: 'Kent',
+				$PostCode: 'MD21 5XY'
+			},
 			$QuestionnaireStatus: { '@enum': ['awaiting', 'received', 'overdue'] }
 		},
 		AppealForCaseOfficer: {
@@ -96,7 +118,19 @@ const document_ = {
 			$PlanningApplicationReference: '',
 			$AppealSiteNearConservationArea: false,
 			$WouldDevelopmentAffectSettingOfListedBuilding: false,
-			$ListedBuildingDesc: ''
+			$ListedBuildingDesc: '',
+			$AppealSite: {
+				$AddressLine1: '96 The Avenue',
+				$AddressLine2: '',
+				$Town: 'Maidstone',
+				$County: 'Kent',
+				$PostCode: 'MD21 5XY'
+			},
+			$Documents: [{
+				$Type: '',
+				$Filename: '',
+				$URL: ''
+			}]
 		}
 	},
 	components: {}

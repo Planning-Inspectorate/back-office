@@ -48,7 +48,7 @@ export const validateOutcomeIncompletePipe = () => [
 			'namesDoNotMatch',
 			'sensitiveinfo',
 			'missingOrWrongDocs',
-			'inflamatoryComments',
+			'inflammatoryComments',
 			'openedInError',
 			'wrongAppealType',
 			'otherReason'
