@@ -46,11 +46,11 @@ export const validateOutcomeIncompletePipe = () => [
 		.toArray()
 		.isIn([
 			'namesDoNotMatch',
-			'sensitiveinfo',
+			'sensitiveInfo',
 			'missingOrWrongDocs',
 			'inflammatoryComments',
 			'openedInError',
-			'wrongAppealType',
+			'wrongAppealTypeUsed',
 			'otherReason'
 		])
 		.withMessage('Please enter a reason why the appeal is missing or wrong'),
@@ -60,7 +60,7 @@ export const validateOutcomeIncompletePipe = () => [
 		.withMessage('Please select which documents are missing or wrong')
 		.bail()
 		.toArray()
-		.isIn(['applicationForm', 'decisionNotice', 'groundsOfAppeal', 'supportingDocuments'])
+		.isIn(['applicationForm', 'decisionNotice', 'groundsForAppeal', 'supportingDocuments'])
 		.withMessage('Please select which documents are missing or wrong'),
 	body('otherReasons')
 		.if(body('incompleteReasons').toArray().custom((value) => value.includes('otherReason')))
