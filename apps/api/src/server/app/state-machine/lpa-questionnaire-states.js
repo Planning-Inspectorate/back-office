@@ -1,12 +1,5 @@
+import mapObjectKeysToStrings from '../utils/map-states-to-strings.js';
 import lpaQuestionnaireActions from './lpa-questionnaire.actions.js';
-
-const lpaQuestionnaireStatesStrings = {
-	awaiting_lpa_questionnaire: 'awaiting_lpa_questionnaire',
-	received_lpa_questionnaire: 'received_lpa_questionnaire',
-	overdue_lpa_questionnaire: 'overdue_lpa_questionnaire',
-	complete_lpa_questionnaire: 'complete_lpa_questionnaire',
-	incomplete_lpa_questionnaire: 'incomplete_lpa_questionnaire'
-};
 
 const lpa_questionnaire_actions = {
 	sendLPAQuestionnaire: async function(context, _event) {
@@ -37,12 +30,16 @@ const lpa_questionnaire_states = {
 			RECEIVED: 'received_lpa_questionnaire'
 		}
 	},
-	complete_lpa_questionnaire: {},
+	complete_lpa_questionnaire: {
+		always: [{ target: 'available_for_investigator_pickup' }]
+	},
 	incomplete_lpa_questionnaire: {
 		on: {
 			COMPLETE: 'complete_lpa_questionnaire',
 		}
 	}
 };
+
+const lpaQuestionnaireStatesStrings = mapObjectKeysToStrings(lpa_questionnaire_states);
 
 export { lpaQuestionnaireStatesStrings, lpa_questionnaire_states, lpa_questionnaire_actions };

@@ -1,10 +1,4 @@
-
-const validation_states_strings = {
-	received_appeal: 'received_appeal',
-	awaiting_validation_info: 'awaiting_validation_info',
-	valid_appeal: 'valid_appeal',
-	invalid_appeal: 'invalid_appeal'
-};
+import mapObjectKeysToStrings from '../utils/map-states-to-strings.js';
 
 const validation_actions_strings = {
 	invalid: 'INVALID',
@@ -17,10 +11,7 @@ const validation_states = {
 		on: {
 			INVALID: 'invalid_appeal',
 			INFO_MISSING: 'awaiting_validation_info',
-			VALID: {
-				target: 'valid_appeal',
-				acions: ['consolelog']
-			}
+			VALID: 'valid_appeal'
 		}
 	},
 	awaiting_validation_info: {
@@ -50,5 +41,7 @@ const validation_actions = {
 		console.log('Letting LPA know that the appeal is invalid...');
 	}
 };
+
+const validation_states_strings = mapObjectKeysToStrings(validation_states);
 
 export { validation_states_strings, validation_actions_strings, validation_states, validation_actions };

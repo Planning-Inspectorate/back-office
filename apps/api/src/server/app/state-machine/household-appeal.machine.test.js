@@ -48,9 +48,9 @@ for (const parameter of [
 	['overdue_lpa_questionnaire', 'RECEIVED', 'received_lpa_questionnaire', true],
 	['overdue_lpa_questionnaire', 'COMPLETE', 'overdue_lpa_questionnaire', false],
 	['overdue_lpa_questionnaire', 'INCOMPLETE', 'overdue_lpa_questionnaire', false],
-	['received_lpa_questionnaire', 'COMPLETE', 'complete_lpa_questionnaire', true],
+	['received_lpa_questionnaire', 'COMPLETE', 'available_for_investigator_pickup', true],
 	['received_lpa_questionnaire', 'INCOMPLETE', 'incomplete_lpa_questionnaire', true],
-	['incomplete_lpa_questionnaire', 'COMPLETE', 'complete_lpa_questionnaire', true],
+	['incomplete_lpa_questionnaire', 'COMPLETE', 'available_for_investigator_pickup', true],
 ]) {
 	test(applyAction, ...parameter);
 }
