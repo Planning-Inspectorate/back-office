@@ -53,14 +53,14 @@ const incompleteWithUnexpectedReasons = function (body) {
 	return body.AppealStatus == validationDecisions.incomplete &&
 		!allArrayElementsInArray(Object.keys(body.Reason), [
 			'namesDoNotMatch',
-			'sensitiveinfo',
+			'sensitiveInfo',
 			'missingApplicationForm',
 			'missingDecisionNotice',
 			'missingGroundsForAppeal',
 			'missingSupportingDocuments',
 			'inflammatoryComments',
 			'openedInError',
-			'wrongAppealType',
+			'wrongAppealTypeUsed',
 			'otherReasons'
 		]);
 };
@@ -70,7 +70,7 @@ const invalidAppealStatus = function(appealStatus) {
 };
 
 const validWithoutDescription = function(body) {
-	return (body.AppealStatus == validationDecisions.valid && stringEmptyOrUndefined(body.DescriptionOfDevelopment));
+	return (body.AppealStatus == validationDecisions.valid && stringEmptyOrUndefined(body.descriptionOfDevelopment));
 };
 
 const validateAppealValidatedRequest = function(body) {
@@ -99,7 +99,7 @@ const validateUpdateValidationRequest = function(request) {
 	if (!Object.keys(request.body).every((key) => ['AppellantName', 'LocalPlanningDepartment', 'PlanningApplicationReference', 'Address'].includes(key))) {
 		throw new ValidationError('Invalid request keys', 400);
 	}
-	if (request.body.Address && 
+	if (request.body.Address &&
 		(_.isEmpty(request.body.Address) ||
 		!Object.keys(request.body.Address).every((key) => ['AddressLine1', 'AddressLine2', 'County', 'Town', 'PostCode'].includes(key)))) {
 		throw new ValidationError('Invalid Address in body', 400);

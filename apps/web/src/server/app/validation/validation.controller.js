@@ -469,11 +469,14 @@ export async function postCheckAndConfirm(request, response, next) {
 	// Convert the form / appeal session data into a valid payload format.
 	const appealUpdateData = {
 		AppealStatus: appealWork.reviewOutcome,
-		DescriptionOfDevelopment: appealWork.descriptionOfDevelopment || '',
 		Reason: formatOutcomeReasonsDataForApiPost(
 			appealWork.reviewOutcome, appealWork.reviewOutcome === 'invalid' ? appealWork.invalidAppealDetails : appealWork.incompleteAppealDetails
 		)
 	};
+
+	if (appealWork.reviewOutcome === 'valid') {
+		appealUpdateData.descriptionOfDevelopment = appealWork.descriptionOfDevelopment || '';
+	}
 
 	// Update the appeal with the outcome of the validation.
 	const [error, updateStatus] = await to(updateAppeal(appealData.AppealId, appealUpdateData));
