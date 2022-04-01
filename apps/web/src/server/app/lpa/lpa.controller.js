@@ -2,7 +2,7 @@ import { to } from 'planning-inspectorate-libs';
 import { findAllIncomingIncompleteQuestionnaires, findQuestionnaireById } from './lpa.service.js';
 import { lpaRoutesConfig as routes } from '../../config/routes.js';
 import { camelCase, upperFirst } from 'lodash-es';
-import { checkboxDataToCheckValuesObject } from '../../lib/helpers.js';
+import { checkboxDataToCheckValuesObject, appealSiteObjectToText } from '../../lib/helpers.js';
 
 /**
  * GET the main dashboard.
@@ -43,6 +43,8 @@ export async function getReviewQuestionnaire(request, response, next) {
 		next(new AggregateError([new Error('data fetch'), error], 'Fetch errors!'));
 		return;
 	}
+
+	questionnaireData.AppealSiteHtml = questionnaireData.AppealSite ? appealSiteObjectToText(questionnaireData.AppealSite, '<br /> ') : '';
 
 	request.session.questionnaireData = questionnaireData;
 

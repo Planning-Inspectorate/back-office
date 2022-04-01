@@ -1,6 +1,6 @@
 import { to } from 'planning-inspectorate-libs';
 import { validationRoutesConfig as routes } from '../../config/routes.js';
-import { checkboxDataToCheckValuesObject } from '../../lib/helpers.js';
+import { checkboxDataToCheckValuesObject, appealSiteObjectToText } from '../../lib/helpers.js';
 import { findAllNewIncompleteAppeals, findAppealById, updateAppeal } from './validation.service.js';
 import { validationLabelsMap, validationAppealOutcomeLabelsMap } from './validation.config.js';
 import { flatten } from 'lodash-es';
@@ -25,6 +25,10 @@ export async function getValidationDashboard(request, response, next) {
 	if (error) {
 		next(new AggregateError([new Error('data fetch'), error], 'Fetch errors!'));
 		return;
+	}
+
+	for (const appeal of appealsListData) {
+		appeal.AppealSiteString = appeal.AppealSite ? appealSiteObjectToText(appeal.AppealSite) : '';
 	}
 
 	// eslint-disable-next-line unicorn/no-array-for-each
@@ -67,12 +71,15 @@ export async function getReviewAppeal(request, response, next) {
 	}
 
 	const [error, appealData] = await to(findAppealById(appealId));
-	const reviewOutcome = request.session.appealWork?.reviewOutcome;
 
 	if (error) {
 		next(new AggregateError([new Error('data fetch'), error], 'Fetch errors!'));
 		return;
 	}
+
+	appealData.AppealSiteHtml = appealData.AppealSite ? appealSiteObjectToText(appealData.AppealSite, '<br /> ') : '';
+
+	const reviewOutcome = request.session.appealWork?.reviewOutcome;
 
 	// Save the current appeal data into session storage
 	request.session.appealData = appealData;

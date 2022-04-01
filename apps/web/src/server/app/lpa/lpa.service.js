@@ -1,5 +1,6 @@
 import request from './../../lib/request.js';
 import { lpaRoutesConfig as routes } from '../../config/routes.js';
+import { appealSiteObjectToText } from '../../lib/helpers.js';
 
 export async function findAllIncomingIncompleteQuestionnaires() {
 	const data = await request('case-officer');
@@ -33,7 +34,7 @@ export async function findAllIncomingIncompleteQuestionnaires() {
 				: item.AppealReference
 			},
 			{ text: item.QuestionnaireDueDate },
-			{ text: item.AppealSite },
+			{ text: item.AppealSite ? appealSiteObjectToText(item.AppealSite) : '' },
 			{ html: `<strong class="govuk-tag govuk-tag--${statusTagColor}">${item.QuestionnaireStatus}</strong>` }
 		];
 
@@ -49,8 +50,6 @@ export async function findAllIncomingIncompleteQuestionnaires() {
 
 export async function findQuestionnaireById(id) {
 	const data = await request(`case-officer/${id}`);
-
-	data.AppealSiteHtml = data.AppealSite ? data.AppealSite.replaceAll(',', '<br />') : '';
 
 	return data;
 }

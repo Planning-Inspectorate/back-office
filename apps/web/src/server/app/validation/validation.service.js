@@ -1,12 +1,7 @@
 import request from './../../lib/request.js';
-import { appealSiteObjectToText } from '../../lib/helpers.js';
 
 export async function findAllNewIncompleteAppeals() {
 	const data = await request('validation');
-
-	for (const appeal of data) {
-		appeal.AppealSiteString = appeal.AppealSite ? appealSiteObjectToText(appeal.AppealSite) : '';
-	}
 
 	return data;
 }
@@ -44,8 +39,6 @@ export async function findAppealById(id) {
 	data.DecisionLetter = DecisionLetter;
 	data.AppealStatement = AppealStatement;
 	data.SupportingDocuments = SupportingDocuments;
-
-	data.AppealSiteHtml = data.AppealSite ? appealSiteObjectToText(data.AppealSite, '<br /> ') : '';
 
 	return data;
 }
