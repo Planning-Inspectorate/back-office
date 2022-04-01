@@ -12,14 +12,14 @@ const validationDecisions = {
 const incompleteWithoutReasons = function (body) {
 	return (body.AppealStatus == validationDecisions.incomplete &&
 		body.Reason.namesDoNotMatch !== true &&
-		body.Reason.sensitiveinfo !== true &&
+		body.Reason.sensitiveInfo !== true &&
 		body.Reason.missingApplicationForm !== true &&
 		body.Reason.missingDecisionNotice !== true &&
 		body.Reason.missingGroundsForAppeal !== true &&
 		body.Reason.missingSupportingDocuments !== true &&
 		body.Reason.inflammatoryComments !== true &&
 		body.Reason.openedInError !== true &&
-		body.Reason.wrongAppealType !== true &&
+		body.Reason.wrongAppealTypeUsed !== true &&
         stringEmptyOrUndefined(body.Reason.otherReasons)
 	);
 };
