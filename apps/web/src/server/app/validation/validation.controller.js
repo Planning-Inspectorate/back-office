@@ -335,6 +335,8 @@ export function getCheckAndConfirm(request, response) {
 		backURL = `/validation/${routes.validAppealOutcome.path}?direction=back`;
 	}
 
+	const changeOutcomeURL = `/validation/${routes.reviewAppealRoute.path}/${appealData.AppealId}?direction=back`;
+
 	let invalidReasons;
 	if (appealWork.invalidAppealDetails && appealWork.invalidAppealDetails.invalidReasons) {
 		invalidReasons = flatten([appealWork.invalidAppealDetails.invalidReasons]);
@@ -359,7 +361,7 @@ export function getCheckAndConfirm(request, response) {
 
 	response.render(routes.checkAndConfirm.view, {
 		backURL,
-		changeOutcomeURL: backURL,
+		changeOutcomeURL,
 		appealData,
 		appealWork,
 		invalidReasons,
