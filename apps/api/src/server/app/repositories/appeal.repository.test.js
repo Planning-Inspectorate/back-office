@@ -58,9 +58,10 @@ test('getting single existing appeal', async(t) => {
 });
 
 test('updates appeal status by id', async(t) => {
+	updateStub.resetHistory();
 	const appeal = await appealRepository.updateStatusById(1, 'new status');
 	t.deepEqual(appeal, updatedAppeal);
-	sinon.assert.calledWith(updateStub, { 
+	sinon.assert.calledWithExactly(updateStub, { 
 		where: { id: 1 }, 
 		data: { status: 'new status', statusUpdatedAt: sinon.match.any, updatedAt: sinon.match.any }
 	});
@@ -70,10 +71,16 @@ test('gets appeals by status and less than statusUpdatedAt date', async(t) => {
 	const statusUpdatedAtLessThan = new Date();
 	const appeals = await appealRepository.getByStatusAndLessThanStatusUpdatedAtDate('some status', statusUpdatedAtLessThan);
 	t.deepEqual(appeals, []);
-	sinon.assert.calledWith(findManyStub, { where: {
+	sinon.assert.calledWithMatch(findManyStub, { where: {
 		status: 'some status', 
 		statusUpdatedAt: { 
 			lt: statusUpdatedAtLessThan 
 		}
 	} });
+});
+
+test('gets appeals by list of statuses', async(t) => {
+	const appeals = await appealRepository.getByStatuses(['some status', 'some other status']);
+	t.deepEqual(appeals, []);
+	sinon.assert.calledWithExactly(findManyStub, { where: { status: { in: ['some status', 'some other status'] } } });
 });

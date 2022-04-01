@@ -1,18 +1,34 @@
-import { createMachine } from 'xstate';
+import { createMachine, interpret } from 'xstate';
 import { validation_states, validation_actions } from './validation-states.js';
 import { lpa_questionnaire_states, lpa_questionnaire_actions } from './lpa-questionnaire-states.js';
 
-const household_appeal_machine = createMachine({
-	id: 'household_appeal',
-	initial: 'received_appeal',
-	states: {
-		...validation_states,
-		...lpa_questionnaire_states
-	},
-	actions: {
-		...validation_actions,
-		...lpa_questionnaire_actions
-	}
-});
+const createHouseholpAppealMachine = function(appealId) {
+	return createMachine({
+		id: 'household_appeal',
+		context: {
+			appealId: appealId
+		},
+		initial: 'received_appeal',
+		states: {
+			...validation_states,
+			...lpa_questionnaire_states
+		},
 
-export default household_appeal_machine;
+	}, {
+		actions: {
+			...validation_actions,
+			...lpa_questionnaire_actions
+		}
+	});
+};
+
+const transitionState = function(appealId, status, machineAction) {
+	const service = interpret(createHouseholpAppealMachine(appealId));
+	service.start(status);
+	service.send({ type: machineAction });
+	const nextState = service.state;
+	service.stop();
+	return nextState;
+};
+
+export default transitionState;

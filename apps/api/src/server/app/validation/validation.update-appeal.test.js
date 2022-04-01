@@ -8,7 +8,7 @@ import DatabaseFactory from '../repositories/database.js';
 const request = supertest(app);
 
 const findUniqueStub = sinon.stub();
-findUniqueStub.withArgs({ where: { id: 1 }, include: { ValidationDecision: true } }).returns(
+findUniqueStub.withArgs({ where: { id: 1 }, include: { validationDecision: true, address: true } }).returns(
 	{ id: 1, status: 'received_appeal', addressId: 10 }
 );
 
@@ -71,9 +71,38 @@ test('should be able to modify address', async(t) => {
 				update: {
 					addressLine1: 'some new addr',
 					addressLine2: 'some more addr',
-					addressLine3: 'town',
-					addressLine4: 'county',
+					town: 'town',
+					county: 'county',
 					postcode: 'POST CODE'
+				}
+			}
+		}
+	});
+});
+
+test('should be able to modify address even when some parts are null', async(t) => {
+	const resp = await request.patch('/validation/1')
+		.send({
+			Address: {
+				AddressLine1: 'some new addr',
+				Town: 'town',
+			}
+		});
+	t.is(resp.status, 200);
+	sinon.assert.calledWithExactly(updateStub, {
+		where: { id: 1 },
+		data: {
+			updatedAt: sinon.match.any,
+			address: {
+				update: {
+					addressLine1: 'some new addr',
+					// eslint-disable-next-line unicorn/no-null
+					addressLine2: null,
+					// eslint-disable-next-line unicorn/no-null
+					county: null,
+					town: 'town',
+					// eslint-disable-next-line unicorn/no-null
+					postcode: null
 				}
 			}
 		}
@@ -108,4 +137,36 @@ test('should be able to modify planning application reference', async(t) => {
 			planningApplicationReference: 'New Planning Application Reference'
 		}
 	});
+});
+
+test('should throw an error if unexpected keys provided in the body', async(t) => {
+	const resp = await request.patch('/validation/1')
+		.send({
+			PlanningApplicationReference: 'New Planning Application Reference',
+			Test: 'something unexpected'
+		});
+	t.is(resp.status, 400);
+	t.deepEqual(resp.body, { error: 'Invalid request keys' });
+});
+
+test('should throw an error if no Address keys provided in the body', async(t) => {
+	const resp = await request.patch('/validation/1')
+		.send({
+			PlanningApplicationReference: 'New Planning Application Reference',
+			Address: {}
+		});
+	t.is(resp.status, 400);
+	t.deepEqual(resp.body, { error: 'Invalid Address in body' });
+});
+
+test('should throw an error if invalid Address keys provided in the body', async(t) => {
+	const resp = await request.patch('/validation/1')
+		.send({
+			PlanningApplicationReference: 'New Planning Application Reference',
+			Address: {
+				SomeUnexpectedKey: 1
+			}
+		});
+	t.is(resp.status, 400);
+	t.deepEqual(resp.body, { error: 'Invalid Address in body' });
 });

@@ -38,7 +38,7 @@ test('finds appeals to mark as overdue as updates their statuses', async(t) => {
 	await findAndUpdateStatusForAppealsWithOverdueQuestionnaires();
 	// This is needed because otherwise AVA complains that there are no assertions in the test :(
 	t.is(true, true);
-	sinon.assert.calledOnceWithMatch(findManyStub, {
+	sinon.assert.calledOnceWithExactly(findManyStub, {
 		where: {
 			status: 'awaiting_lpa_questionnaire',
 			statusUpdatedAt: {
@@ -46,7 +46,7 @@ test('finds appeals to mark as overdue as updates their statuses', async(t) => {
 			}
 		}
 	});
-	sinon.assert.calledWith(updateStub, { 
+	sinon.assert.calledOnceWithExactly(updateStub, { 
 		where: { id: 1 }, 
 		data: { status: 'overdue_lpa_questionnaire', statusUpdatedAt: sinon.match.any, updatedAt: sinon.match.any }
 	});

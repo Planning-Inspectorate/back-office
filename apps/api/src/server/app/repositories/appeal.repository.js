@@ -21,10 +21,32 @@ const appealRepository = (function() {
 				}
 			});
 		},
+		getByStatusesWithAddresses: function (statuses) {
+			return getPool().appeal.findMany({
+				where: {
+					status: {
+						in: statuses
+					}
+				},
+				include: {
+					address: true
+				}
+			});
+		},
 		getById: function (id) {
 			return getPool().appeal.findUnique({
 				where: {
 					id: id
+				}
+			});
+		},
+		getByIdWithAddress: function(id) {
+			return getPool().appeal.findUnique({
+				where: {
+					id: id
+				},
+				include: {
+					address: true
 				}
 			});
 		},
@@ -34,7 +56,18 @@ const appealRepository = (function() {
 					id: id
 				},
 				include: {
-					ValidationDecision: true
+					validationDecision: true
+				}
+			});
+		},
+		getByIdWithValidationDecisionAndAddress: function(id) {
+			return getPool().appeal.findUnique({
+				where: {
+					id: id
+				},
+				include: {
+					validationDecision: true,
+					address: true
 				}
 			});
 		},

@@ -10,17 +10,17 @@ export const validationLabelsMap = {
 	},
 	incompleteAppealReasons: {
 		namesDoNotMatch: 'Names do not match',
-		sensitiveinfo: 'Sensitive information included',
+		sensitiveInfo: 'Sensitive information included',
 		missingOrWrongDocs: 'Missing or wrong documents',
-		inflamatoryComments: 'Inflammatory comments made',
+		inflammatoryComments: 'Inflammatory comments made',
 		openedInError: 'Opened in error',
-		wrongAppealType: 'Wrong appeal type used',
+		wrongAppealTypeUsed: 'Wrong appeal type used',
 		otherReason: 'Other'
 	},
 	incompleteAppealMissingOrWrongDocumentsReasons: {
 		applicationForm: 'Application form',
 		decisionNotice: 'Decision notice',
-		groundsOfAppeal: 'Grounds of appeal',
+		groundsForAppeal: 'Grounds of appeal',
 		supportingDocuments: 'Supporting documents'
 	}
 };

@@ -1,7 +1,7 @@
 import appealRepository from '../repositories/appeal.repository.js';
 import validationDecisionRepository from '../repositories/validation-decision.repository.js';
 import ValidationError from './validation-error.js';
-import household_appeal_machine from '../state-machine/household-appeal.machine.js';
+import transitionState from '../state-machine/household-appeal.machine.js';
 import { validation_states_strings, validation_actions_strings } from '../state-machine/validation-states.js';
 import appealFormatter from './appeal-formatter.js';
 import { validationDecisions, validateAppealValidatedRequest, validateUpdateValidationRequest } from './validate-request.js';
@@ -11,29 +11,34 @@ const validationStatuses = [
 	validation_states_strings.awaiting_validation_info
 ];
 
-const getAppealToValidate = async function (request, response) {
+const getAppealDetails = async function (request, response) {
 	const appeal = await getAppealForValidation(request.params.id);
-	const formattedAppeal = await appealFormatter.formatAppealForAppealDetails(appeal);
+	const formattedAppeal = appealFormatter.formatAppealForAppealDetails(appeal);
 	return response.send(formattedAppeal);
 };
 
-const getValidation = async function (_request, response) {
-	const appeals = await appealRepository.getByStatuses(validationStatuses);
-	const formattedAppeals = await Promise.all(appeals.map((appeal) => appealFormatter.formatAppealForAllAppeals(appeal)));
+const getAppeals = async function (_request, response) {
+	const appeals = await appealRepository.getByStatusesWithAddresses(validationStatuses);
+	const formattedAppeals = appeals.map((appeal) => appealFormatter.formatAppealForAllAppeals(appeal));
 	response.send(formattedAppeals);
 };
 
-const updateValidation = async function (request, response) {
+const nullIfUndefined = function(value) {
+	// eslint-disable-next-line unicorn/no-null
+	return value || null;
+};
+
+const updateAppeal = async function (request, response) {
 	validateUpdateValidationRequest(request);
 	const appeal = await getAppealForValidation(request.params.id);
 	const data = {
 		...(request.body.AppellantName && { appellantName: request.body.AppellantName }),
 		...(request.body.Address && { address: { update: {
-			addressLine1: request.body.Address.AddressLine1,
-			addressLine2: request.body.Address.AddressLine2,
-			addressLine3: request.body.Address.Town,
-			addressLine4: request.body.Address.County,
-			postcode: request.body.Address.PostCode
+			addressLine1: nullIfUndefined(request.body.Address.AddressLine1),
+			addressLine2: nullIfUndefined(request.body.Address.AddressLine2),
+			town: nullIfUndefined(request.body.Address.Town),
+			county: nullIfUndefined(request.body.Address.County),
+			postcode: nullIfUndefined(request.body.Address.PostCode)
 		} } }),
 		...(request.body.LocalPlanningDepartment && { localPlanningDepartment: request.body.LocalPlanningDepartment } ),
 		...(request.body.PlanningApplicationReference && { planningApplicationReference: request.body.PlanningApplicationReference })
@@ -42,13 +47,12 @@ const updateValidation = async function (request, response) {
 	return response.send();
 };
 
-const appealValidated = async function (request, response) {
+const submitValidationDecision = async function (request, response) {
 	validateAppealValidatedRequest(request.body);
 	const appeal = await getAppealForValidation(request.params.id);
 	const machineAction = mapAppealStatusToStateMachineAction(request.body.AppealStatus);
-	const nextState = household_appeal_machine.transition(appeal.status, machineAction);
+	const nextState = transitionState(appeal.id, appeal.status, machineAction);
 	await appealRepository.updateStatusById(appeal.id, nextState.value);
-	// const resultReason = request.body.Reason ? validReasonAdded(request.body) : {};
 	await validationDecisionRepository.addNewDecision(appeal.id, request.body.AppealStatus, request.body.Reason, request.body.DescriptionOfDevelopment);
 	return response.send();
 };
@@ -75,11 +79,11 @@ function mapAppealStatusToStateMachineAction(status) {
  * @returns {object} appeal with given ID
  */
 async function getAppealForValidation(appealId) {
-	const appeal = await appealRepository.getByIdWithValidationDecision(Number.parseInt(appealId, 10));
+	const appeal = await appealRepository.getByIdWithValidationDecisionAndAddress(Number.parseInt(appealId, 10));
 	if (!validationStatuses.includes(appeal.status)) {
 		throw new ValidationError('Appeal does not require validation', 400);
 	}
 	return appeal;
 }
 
-export { getValidation, getAppealToValidate, updateValidation, appealValidated };
+export { getAppeals, getAppealDetails, updateAppeal, submitValidationDecision };

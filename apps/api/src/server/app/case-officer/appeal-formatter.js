@@ -1,4 +1,3 @@
-import addressRepository from '../repositories/address.repository.js';
 import formatAddress from '../utils/address-formatter.js';
 import formatDate from '../utils/date-formatter.js';
 import { lpaQuestionnaireStatesStrings } from '../state-machine/lpa-questionnaire-states.js';
@@ -27,15 +26,13 @@ function mapAppealStatus(status) {
 }
 
 const appealFormatter = {
-	formatAppealForAllAppeals: async function(appeal) { 
-		const address = await addressRepository.getById(appeal.addressId);
-		const addressAsString = formatAddress(address);
+	formatAppealForAllAppeals: function(appeal) { 
 		const appealStatus = mapAppealStatus(appeal.status);
 		return {
 			AppealId: appeal.id,
 			AppealReference: appeal.reference,
 			QuestionnaireStatus: appealStatus,
-			AppealSite: addressAsString,
+			AppealSite: formatAddress(appeal.address),
 			QuestionnaireDueDate: appeal.startedAt ? formatDate(add2Weeks(appeal.startedAt)) : ''
 		};
 	},
@@ -45,9 +42,42 @@ const appealFormatter = {
 			AppealReference: appeal.reference,
 			LocalPlanningDepartment: appeal.localPlanningDepartment,
 			PlanningApplicationreference: appeal.planningApplicationReference,
+			AppealSite: formatAddress(appeal.address),
 			AppealSiteNearConservationArea: false,
 			WouldDevelopmentAffectSettingOfListedBuilding: false,
-			...(true && { ListedBuildingDesc: '' })
+			...(true && { ListedBuildingDesc: '' }),
+			Documents: [
+				{
+					Type: 'planning application form',
+					Filename: 'planning-application.pdf',
+					URL: 'localhost:8080'
+				},
+				{
+					Type: 'decision letter',
+					Filename: 'decision-letter.pdf',
+					URL: 'localhost:8080'
+				},
+				{
+					Type: 'appeal statement',
+					Filename: 'appeal-statement.pdf',
+					URL: 'localhost:8080'
+				},
+				{
+					Type: 'supporting document',
+					Filename: 'other-document-1.pdf',
+					URL: 'localhost:8080'
+				},
+				{
+					Type: 'supporting document',
+					Filename: 'other-document-2.pdf',
+					URL: 'localhost:8080'
+				},
+				{
+					Type: 'supporting document',
+					Filename: 'other-document-3.pdf',
+					URL: 'localhost:8080'
+				}
+			]
 		};
 	}
 };

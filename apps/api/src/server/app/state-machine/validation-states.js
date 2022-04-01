@@ -1,3 +1,4 @@
+
 const validation_states_strings = {
 	received_appeal: 'received_appeal',
 	awaiting_validation_info: 'awaiting_validation_info',
@@ -16,7 +17,10 @@ const validation_states = {
 		on: {
 			INVALID: 'invalid_appeal',
 			INFO_MISSING: 'awaiting_validation_info',
-			VALID: 'valid_appeal'
+			VALID: {
+				target: 'valid_appeal',
+				acions: ['consolelog']
+			}
 		}
 	},
 	awaiting_validation_info: {
