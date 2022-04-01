@@ -40,6 +40,12 @@ const lpaQuestionnaireStates = {
 	}
 };
 
+<<<<<<< HEAD
 const lpaQuestionnaireStatesStrings = mapObjectKeysToStrings(lpaQuestionnaireStates);
 
 export { lpaQuestionnaireStatesStrings, lpaQuestionnaireStates, lpaQuestionnaireActions };
+=======
+const lpaQuestionnaireStatesStrings = mapObjectKeysToStrings(lpa_questionnaire_states);
+
+export { lpaQuestionnaireStatesStrings, lpa_questionnaire_states, lpa_questionnaire_actions };
+>>>>>>> 09d1bb2 (BOCM-104 - automatically transitions complete lpa questionnaire straight to ready for investigator pickup)
