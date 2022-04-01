@@ -1,16 +1,16 @@
 import mapObjectKeysToStrings from '../utils/map-states-to-strings.js';
-import lpaQuestionnaireActions from './lpa-questionnaire.actions.js';
+import lpaQuestionnaireActionsService from './lpa-questionnaire.actions.js';
 
-const lpa_questionnaire_actions = {
+const lpaQuestionnaireActions = {
 	sendLPAQuestionnaire: async function(context, _event) {
-		await lpaQuestionnaireActions.sendLpaQuestionnaire(context.appealId);
+		await lpaQuestionnaireActionsService.sendLpaQuestionnaire(context.appealId);
 	},
 	nudgeLPAQuestionnaire: (_context, _event) => {
 		console.log('Sending an email to nudge LPA regarding questionnaire');
 	}
 };
 
-const lpa_questionnaire_states = {
+const lpaQuestionnaireStates = {
 	awaiting_lpa_questionnaire: {
 		entry: ['sendLPAQuestionnaire'],
 		on: {
@@ -40,6 +40,6 @@ const lpa_questionnaire_states = {
 	}
 };
 
-const lpaQuestionnaireStatesStrings = mapObjectKeysToStrings(lpa_questionnaire_states);
+const lpaQuestionnaireStatesStrings = mapObjectKeysToStrings(lpaQuestionnaireStates);
 
-export { lpaQuestionnaireStatesStrings, lpa_questionnaire_states, lpa_questionnaire_actions };
+export { lpaQuestionnaireStatesStrings, lpaQuestionnaireStates, lpaQuestionnaireActions };

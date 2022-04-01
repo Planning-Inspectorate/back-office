@@ -1,6 +1,6 @@
 import lpaQuestionnaireRepository from '../repositories/lpa-questionnaire.repository.js';
 
-const lpaQuestionnaireActions = {
+const lpaQuestionnaireActionsService = {
 	sendLpaQuestionnaire: async function(appealId) {
 		console.log(`Sending LPA questionnaire to AppealID ${appealId}`);
 		await lpaQuestionnaireRepository.createNewLpaQuestionnaire(appealId);
@@ -8,4 +8,4 @@ const lpaQuestionnaireActions = {
 	}
 };
 
-export default lpaQuestionnaireActions;
+export default lpaQuestionnaireActionsService;

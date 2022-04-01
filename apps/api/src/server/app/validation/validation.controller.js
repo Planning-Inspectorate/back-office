@@ -2,13 +2,13 @@ import appealRepository from '../repositories/appeal.repository.js';
 import validationDecisionRepository from '../repositories/validation-decision.repository.js';
 import ValidationError from './validation-error.js';
 import transitionState from '../state-machine/household-appeal.machine.js';
-import { validation_states_strings, validation_actions_strings } from '../state-machine/validation-states.js';
+import { validationStatesStrings, validationActionsStrings } from '../state-machine/validation-states.js';
 import appealFormatter from './appeal-formatter.js';
 import { validationDecisions, validateAppealValidatedRequest, validateUpdateValidationRequest } from './validate-request.js';
 
 const validationStatuses = [
-	validation_states_strings.received_appeal,
-	validation_states_strings.awaiting_validation_info
+	validationStatesStrings.received_appeal,
+	validationStatesStrings.awaiting_validation_info
 ];
 
 const getAppealDetails = async function (request, response) {
@@ -64,11 +64,11 @@ const submitValidationDecision = async function (request, response) {
 function mapAppealStatusToStateMachineAction(status) {
 	switch (status) {
 		case validationDecisions.valid:
-			return validation_actions_strings.valid;
+			return validationActionsStrings.valid;
 		case validationDecisions.invalid:
-			return validation_actions_strings.invalid;
+			return validationActionsStrings.invalid;
 		case validationDecisions.incomplete:
-			return validation_actions_strings.information_missing;
+			return validationActionsStrings.information_missing;
 		default:
 			throw new ValidationError('Unknown AppealStatus', 400);
 	}
