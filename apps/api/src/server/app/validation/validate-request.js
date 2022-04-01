@@ -25,6 +25,7 @@ const incompleteWithoutReasons = function (body) {
 };
 
 const allArrayElementsInArray = function(arrayToCheck, arrayToCheckAgainst) {
+	console.log(_.difference(arrayToCheck, arrayToCheckAgainst));
 	return _.difference(arrayToCheck, arrayToCheckAgainst).length === 0;
 };
 
@@ -58,7 +59,7 @@ const incompleteWithUnexpectedReasons = function (body) {
 			'missingDecisionNotice',
 			'missingGroundsForAppeal',
 			'missingSupportingDocuments',
-			'inflamatoryComments',
+			'inflammatoryComments',
 			'openedInError',
 			'wrongAppealType',
 			'otherReasons'
