@@ -58,7 +58,7 @@ const incompleteWithUnexpectedReasons = function (body) {
 			'missingDecisionNotice',
 			'missingGroundsForAppeal',
 			'missingSupportingDocuments',
-			'inflamatoryComments',
+			'inflammatoryComments',
 			'openedInError',
 			'wrongAppealType',
 			'otherReasons'
