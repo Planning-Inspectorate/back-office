@@ -1,0 +1,64 @@
+{% extends 'app/layouts/app-three-column.layout.njk' %}
+
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% from "govuk/components/file-upload/macro.njk" import govukFileUpload %}
+{% from "inspector/components/appeal-summary.component.njk" import appealSummary %}
+
+{% set pageTitle = 'Issue a decision' %}
+{% set backLinkUrl = '/inspector/appeals/' + appeal.appealId %}
+
+{% block pageLeft %}
+  {{ appealSummary(appeal) }}
+{% endblock %}
+
+{% block pageContent %}
+  <h2 class="govuk-heading-l">Decision details</h2>
+
+  <form method="post" enctype="multipart/form-data" novalidate="novalidate">
+    <h3 class="govuk-heading-m">Date</h3>
+    <p class="govuk-body">{{ today() }}</p>
+    {{
+      govukRadios({
+        idPrefix: "outcome",
+        name: "outcome",
+        errorMessage: errors.outcome and { text: errors.outcome.msg },
+        fieldset: {
+          legend: {
+            text: "Outcome",
+            classes: "govuk-fieldset__legend--m"
+          }
+        },
+        items: [
+          {
+            value: 'allowed',
+            text: 'Allowed',
+            checked: outcome === 'allowed'
+          },
+          { 
+            value: 'dismissed',
+            text: 'Dismissed',
+            checked: outcome === 'dismissed'
+          },
+          {
+            value: 'split decision',
+            text: 'Split decision',
+            checked: outcome === 'split decision'
+          }
+        ]
+      })
+    }}  
+    {{
+      govukFileUpload({
+        id: "decisionLetter",
+        name: "decisionLetter",
+        errorMessage: errors.decisionLetter and { text: errors.decisionLetter.msg },
+        label: {
+          text: "Upload decision letter",
+          classes: 'govuk-label--m'
+        }
+      })
+    }}  
+    {{ govukButton({ text: "Continue" }) }}
+  </form>
+{% endblock %}

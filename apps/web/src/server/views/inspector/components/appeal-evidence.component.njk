@@ -2,6 +2,7 @@
 {% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
 {% from "govuk/components/table/macro.njk" import govukTable %}
 {% from "app/components/document-list.component.njk" import documentList %}
+{% from "inspector/components/site-visit-details.component.njk" import siteVisitDetails %}
 
 {% macro appealEvidence(appeal) %}
   {{ 
@@ -190,46 +191,7 @@
         {
           heading: { text: 'Site access' },
           content: {
-            html: govukTable({
-              firstCellIsHeader: true,
-              head: [
-                { text: 'Question', classes: 'govuk-visually-hidden' }, 
-                { text: 'Local planning department\'s answer' },
-                { text: 'Appellant\'s answer' }
-              ],
-              rows: [
-                [
-                  { text: 'Can the site been seen from public land?' }, 
-                  { text: "No\nThe extension is to the rear of the property, and the garden has high hedges." },
-                  { text: "No\nI've got big hedges." } 
-                ],
-                [
-                  { text: 'Does the inspector need to enter the site?' }, 
-                  { text: "Yes\nThe proposed development can only be viewed from the appellant's garden." },
-                  { text: '(not asked)' } 
-                ],
-                [
-                  { text: 'Does the inspector need to access a neighbour\'s land?' }, 
-                  { text: "Yes\n54 Butcher Street" },
-                  { text: '(not asked)' } 
-                ],
-                [
-                  { text: 'Does the appellant own the whole site?' }, 
-                  { text: "(not asked)" },
-                  { text: 'Yes' } 
-                ],
-                [
-                  { text: 'Are there any health and safety issues?' }, 
-                  { text: "Yes\nA defensive dog" },
-                  { text: 'No' } 
-                ],
-                [
-                  { text: 'Appeals in the immediate area still being considered' }, 
-                  { text: "893482, 372839" },
-                  { text: '(not asked)' } 
-                ]
-              ]
-            })
+            html: siteVisitDetails(appeal)
           }
         }
       ]

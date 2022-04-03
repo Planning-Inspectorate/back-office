@@ -2,6 +2,7 @@ import "express-session";
 
 declare module "express-session" {
     interface SessionData {
+			inspector: any;
 		appealWork: {
 			reviewOutcome: 'valid' | 'invalid' | 'incomplete',
 			descriptionOfDevelopment: string,

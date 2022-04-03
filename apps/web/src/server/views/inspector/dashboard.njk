@@ -1,0 +1,62 @@
+{% extends 'app/layouts/app.layout.njk' %}
+
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "inspector/components/appeal-table.component.njk" import appealTable %}
+
+{% set pageTitle = 'My appeals' %}
+
+{% block pageContent %}
+  <h2 class="govuk-heading-l">Decisions due</h2>
+  {{
+    appealTable({
+      appeals: appeals | filter({ status: 'decision due' }),
+      columns: [
+        'Appeal reference',
+        'Appeal site',
+        'Appeal age',
+        'Appeal type',
+        'Site visit type',
+        'Site visit date'
+      ]
+    })
+  }}
+
+  <h2 class="govuk-heading-l">Decisions due</h2>
+  {{
+    appealTable({
+      appeals: appeals | filter({ status: 'booked' }),
+      columns: [
+        'Appeal reference',
+        'Appeal site',
+        'Appeal age',
+        'Appeal type',
+        'Site visit type',
+        'Site visit date',
+        'Site visit time'
+      ]
+    })
+  }}
+
+  <h2 class="govuk-heading-l">Site visits not yet booked</h2>
+  {{
+    appealTable({
+      appeals: appeals | filter({ status: 'not yet booked' }),
+      columns: [
+        'Appeal reference',
+        'Status',
+        'Appeal site',
+        'Appeal age',
+        'Appeal type',
+        'Provisional site visit type'
+      ],
+      headerHidden: ['Status'] 
+    })
+  }}
+
+  {{
+    govukButton({
+      text: 'Get more appeals',
+      href: '/inspector/available-appeals'
+    })
+  }}
+{% endblock %}

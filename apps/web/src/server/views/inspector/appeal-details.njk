@@ -22,37 +22,37 @@
 {% endblock %}
 
 {% block pageRight %}
-  {% if appeal.AppealStatus === 'awaiting booking' %}
+  {% if appeal.status === 'not yet booked' %}
     <div class="pins-related">
       <h3 class="govuk-heading-m">Site visit</h3>
       <dl class="govuk-body">
         <dt class="govuk-!-font-weight-bold">Recommended type<dt>
-        <dd>appeal.SiteVisitType</dd>
+        <dd>{{ appeal.provisionalVisitType | capitalize }}</dd>
       </dl>
       {{
         govukButton({
           text: 'Book site visit',
-          href: '#',
+          href: '/inspector/appeals/' + appeal.appealId + '/book-site',
           classes: 'govuk-!-margin-bottom-0'
         })
       }}
     </div>
   {% endif %}
 
-  {% if appeal.AppealStatus === 'awaiting decision' %}
+  {% if appeal.status === 'decision due' %}
     <div class="pins-related">
       <h3 class="govuk-heading-m">Decision</h3>
       {{
         govukButton({
           text: 'Issue decision',
-          href: '#',
+          href: '/inspector/appeals/' + appeal.appealId + '/issue-decision',
           classes: 'govuk-!-margin-bottom-0'
         })
       }}
     </div>
   {% endif %}
 
-  {% if appeal.AppealStatus !== 'awaiting booking' %}
+  {% if appeal.status !== 'booked' %}
     {{ siteVisit(appeal) }}
   {% endif %}
 {% endblock %}
