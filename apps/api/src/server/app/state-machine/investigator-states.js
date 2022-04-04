@@ -6,7 +6,12 @@ const investigatorStates = {
 			PICKUP: 'site_visit_not_yet_booked'
 		}
 	},
-	site_visit_not_yet_booked: {}
+	site_visit_not_yet_booked: {
+		on: {
+			BOOK: 'site_visit_booked'
+		}
+	},
+	site_visit_booked: {}
 };
 
 const investigatorStatesStrings = mapObjectKeysToStrings(investigatorStates);

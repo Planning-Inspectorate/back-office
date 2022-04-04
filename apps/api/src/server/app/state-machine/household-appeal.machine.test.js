@@ -51,7 +51,8 @@ for (const parameter of [
 	['received_lpa_questionnaire', 'COMPLETE', 'available_for_investigator_pickup', true],
 	['received_lpa_questionnaire', 'INCOMPLETE', 'incomplete_lpa_questionnaire', true],
 	['incomplete_lpa_questionnaire', 'COMPLETE', 'available_for_investigator_pickup', true],
-	['available_for_investigator_pickup', 'PICKUP', 'site_visit_not_yet_booked', true]
+	['available_for_investigator_pickup', 'PICKUP', 'site_visit_not_yet_booked', true],
+	['site_visit_not_yet_booked', 'BOOK', 'site_visit_booked', true]
 ]) {
 	test(applyAction, ...parameter);
 }
