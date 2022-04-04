@@ -2,7 +2,7 @@ import appealRepository from '../server/app/repositories/appeal.repository.js';
 import createHouseholpAppealMachine from '../server/app/state-machine/household-appeal.machine.js';
 
 /**
- * @returns {Array} array of appeals that are in 'awaiting_lpa_questionnaire' or 'awaiting_lpa_questionnaire' states
+ * @returns {Array} array of appeals that are in 'awaiting_lpa_questionnaire' or 'overdue_lpa_questionnaire' states
  */
 async function getAppealsAwaitingQuestionnaires() {
 	const appeals = await appealRepository.getByStatuses(['awaiting_lpa_questionnaire', 'overdue_lpa_questionnaire']);
@@ -10,9 +10,9 @@ async function getAppealsAwaitingQuestionnaires() {
 }
 
 /**
- * @param {Array} appeals appeal that need to be marked overdue
+ * @param {Array} appeals appeal that need to be marked as LPA questionnaire received
  */
-async function markAppealsAsOverdue(appeals) {
+async function markAppealsAsLPAReceived(appeals) {
 	const updatedAppeals = [];
 	for (const appeal of appeals) {
 		const newStatus = createHouseholpAppealMachine(appeal.id).transition(appeal.status, 'RECEIVED');
@@ -22,13 +22,13 @@ async function markAppealsAsOverdue(appeals) {
 }
 
 /**
- * Marks all appeals in the 'awaiting_lpa_questionnaire' state over 2 weeks with status 'overdue_lpa_questionnaire'
+ * Marks all appeals in the 'awaiting_lpa_questionnaire' or 'overdue_lpa_questionnaire' states as received
  */
-async function findAndUpdateStatusForAppealsWithOverdueQuestionnaires() {
+async function findAndUpdateStatusForAppealsAwaitingQuestionnaires() {
 	const appeals = await getAppealsAwaitingQuestionnaires();
-	await markAppealsAsOverdue(appeals);
+	await markAppealsAsLPAReceived(appeals);
 }
 
-await findAndUpdateStatusForAppealsWithOverdueQuestionnaires();
+await findAndUpdateStatusForAppealsAwaitingQuestionnaires();
 
-export default findAndUpdateStatusForAppealsWithOverdueQuestionnaires;
+export default findAndUpdateStatusForAppealsAwaitingQuestionnaires;
