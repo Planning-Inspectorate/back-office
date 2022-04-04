@@ -32,6 +32,27 @@ Folder/File structure follows ITCSS, and everything else its a mixture of BEM an
 
 We use the [GOV.UK Frontend](https://github.com/alphagov/govuk-frontend/) design system with all its defaults.
 
+In order to import and use the GOV.UK mixins and functions or anything else we have to import them like this:
+
+```scss
+@use "govuk-frontend/govuk/base" as govuk;
+
+.test {
+	@include govuk.govuk-responsive-padding(4);
+	@include base.govuk-responsive-margin(6, 'bottom');
+}
+```
+
+This actually imports the follwing:
+
+```scss
+@import "settings/all";
+@import "tools/all";
+@import "helpers/all";
+```
+
+so you will have access to everything via `govuk.` namespace.
+
 ## Getting started
 
 There are a handful of things we need to do before we’re ready to go.

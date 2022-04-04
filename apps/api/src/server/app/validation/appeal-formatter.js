@@ -1,5 +1,5 @@
 import formatAddress from '../utils/address-formatter.js';
-import { validation_states_strings } from '../state-machine/validation-states.js';
+import { validationStatesStrings } from '../state-machine/validation-states.js';
 import formatDate from '../utils/date-formatter.js';
 
 /**
@@ -7,7 +7,7 @@ import formatDate from '../utils/date-formatter.js';
  * @returns {string} reformatted appeal status
  */
 function mapAppealStatus(status) {
-	return status == validation_states_strings.received_appeal ? 'new' : 'incomplete';
+	return status == validationStatesStrings.received_appeal ? 'new' : 'incomplete';
 }
 
 const formatIncompleteReason = function(incompleteValidationDecision) {
