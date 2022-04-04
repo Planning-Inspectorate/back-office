@@ -1,5 +1,5 @@
 // Use the GDS Design System as a foundation
-@use "govuk/all" with (
+@use "govuk-frontend/govuk/all" with (
 	$govuk-assets-path: "/",
 	$govuk-images-path: "/images/",
 	$govuk-fonts-path: "/fonts/"
@@ -10,6 +10,9 @@
 // 1 - SETTINGS
 // 2 - DESIGN TOKENS
 // 3 - TOOLS (functions, mixins)
+
+// Vendors
+@use "accessible-autocomplete/src/autocomplete.css" as accessible-autocomplete;
 
 // 4 - GENERIC
 @use "4-generic/generic.box-sizing" as generic-box-sizing;
