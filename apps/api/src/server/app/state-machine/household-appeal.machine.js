@@ -1,14 +1,12 @@
 import { createMachine, interpret } from 'xstate';
 import { validationStates, validationActions } from './validation-states.js';
 import { lpaQuestionnaireStates, lpaQuestionnaireActions } from './lpa-questionnaire-states.js';
-import { investigatorStates } from './investigator-states.js';
+import { investigatorStates, investigatorActions } from './investigator-states.js';
 
-const createHouseholpAppealMachine = function(appealId) {
+const createHouseholpAppealMachine = function(context) {
 	return createMachine({
 		id: 'household_appeal',
-		context: {
-			appealId: appealId
-		},
+		context: context,
 		initial: 'received_appeal',
 		states: {
 			...validationStates,
@@ -18,13 +16,14 @@ const createHouseholpAppealMachine = function(appealId) {
 	}, {
 		actions: {
 			...validationActions,
-			...lpaQuestionnaireActions
+			...lpaQuestionnaireActions,
+			...investigatorActions
 		}
 	});
 };
 
-const transitionState = function(appealId, status, machineAction) {
-	const service = interpret(createHouseholpAppealMachine(appealId));
+const transitionState = function(context, status, machineAction) {
+	const service = interpret(createHouseholpAppealMachine(context));
 	service.start(status);
 	service.send({ type: machineAction });
 	const nextState = service.state;

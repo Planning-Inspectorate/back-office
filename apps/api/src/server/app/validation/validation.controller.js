@@ -51,7 +51,7 @@ const submitValidationDecision = async function (request, response) {
 	validateAppealValidatedRequest(request.body);
 	const appeal = await getAppealForValidation(request.params.id);
 	const machineAction = mapAppealStatusToStateMachineAction(request.body.AppealStatus);
-	const nextState = transitionState(appeal.id, appeal.status, machineAction);
+	const nextState = transitionState({ appealId: appeal.id }, appeal.status, machineAction);
 	await appealRepository.updateStatusById(appeal.id, nextState.value);
 	await validationDecisionRepository.addNewDecision(appeal.id, request.body.AppealStatus, request.body.Reason, request.body.descriptionOfDevelopment);
 	return response.send();
