@@ -11,24 +11,6 @@ export async function findAllIncomingIncompleteQuestionnaires() {
 
 	// eslint-disable-next-line unicorn/no-array-for-each
 	data.forEach((item) => {
-		let statusTagColor;
-
-		switch (item.QuestionnaireStatus) {
-			case 'overdue':
-				statusTagColor = 'red';
-				break;
-			case 'awaiting':
-			case 'incomplete':
-				statusTagColor = 'blue';
-				break;
-			case 'received':
-			default:
-				statusTagColor = 'green';
-				break;
-		}
-
-		item.StatusTagColor = statusTagColor;
-
 		if (item.QuestionnaireStatus === 'incomplete') {
 			questionnairesListData.incompleteQuestionnaires.push(item);
 		} else {

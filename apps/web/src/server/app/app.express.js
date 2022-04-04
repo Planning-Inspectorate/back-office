@@ -18,6 +18,7 @@ import { routes } from './routes.js';
 import { config } from '../config/config.js';
 import stripQueryParametersDevelopment from '../lib/nunjucks-filters/strip-query-parameters.js';
 import className from '../lib/nunjucks-filters/class-name.js';
+import makeQuestionnaireTableRows from '../lib/nunjucks-filters/make-questionnaire-table-rows.js';
 
 const resourceCSS = JSON.parse(await readFile(new URL('../_data/resourceCSS.json', import.meta.url)));
 const resourceJS = JSON.parse(await readFile(new URL('../_data/resourceJS.json', import.meta.url)));
@@ -94,6 +95,7 @@ const njEnvironment = nunjucks.configure(viewPaths, {
 
 njEnvironment.addFilter('stripQueryParamsDev', stripQueryParametersDevelopment);
 njEnvironment.addFilter('className', className);
+njEnvironment.addFilter('makeQuestionnaireTableRows', makeQuestionnaireTableRows);
 njEnvironment.addGlobal('isProd', config.isProd);
 njEnvironment.addGlobal('isRelease', config.isRelease);
 njEnvironment.addGlobal('resourceCSS', resourceCSS);

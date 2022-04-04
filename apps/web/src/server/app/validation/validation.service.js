@@ -9,6 +9,7 @@ export async function findAllNewIncompleteAppeals() {
 export async function findAppealById(id) {
 	const data = await request(`validation/${id}`);
 
+	// TODO: data manipulation should be done in templates if required
 	let PlanningApplicationForm;
 	let DecisionLetter;
 	let AppealStatement;

@@ -1,6 +1,6 @@
 import { to } from 'planning-inspectorate-libs';
 import { validationRoutesConfig as routes } from '../../config/routes.js';
-import { checkboxDataToCheckValuesObject, appealSiteObjectToText } from '../../lib/helpers.js';
+import { checkboxDataToCheckValuesObject } from '../../lib/helpers.js';
 import { findAllNewIncompleteAppeals, findAppealById, updateAppeal } from './validation.service.js';
 import { validationLabelsMap, validationAppealOutcomeLabelsMap } from './validation.config.js';
 import { flatten } from 'lodash-es';
@@ -27,16 +27,16 @@ export async function getValidationDashboard(request, response, next) {
 		return;
 	}
 
-	for (const appeal of appealsListData) {
-		appeal.AppealSiteString = appeal.AppealSite ? appealSiteObjectToText(appeal.AppealSite) : '';
-	}
-
 	// eslint-disable-next-line unicorn/no-array-for-each
 	appealsListData.forEach((item) => {
 		const row = [
 			{ html: `<a href="/validation/${routes.reviewAppealRoute.path}/${item.AppealId}">${item.AppealReference}</a>` },
 			{ text: item.Received },
-			{ text: item.AppealSiteString }
+			// eslint-disable-next-line unicorn/no-array-reduce
+			{ text: Object.keys(item.AppealSite).reduce((accumulator, key) => {
+				if (item.AppealSite[key]) accumulator += (accumulator.length > 0 ? ', ' : '') + item.AppealSite[key];
+				return accumulator;
+			}, '') }
 		];
 
 		if (item.AppealStatus === 'incomplete') {
@@ -76,8 +76,6 @@ export async function getReviewAppeal(request, response, next) {
 		next(new AggregateError([new Error('data fetch'), error], 'Fetch errors!'));
 		return;
 	}
-
-	appealData.AppealSiteHtml = appealData.AppealSite ? appealSiteObjectToText(appealData.AppealSite, '<br /> ') : '';
 
 	const reviewOutcome = request.session.appealWork?.reviewOutcome;
 

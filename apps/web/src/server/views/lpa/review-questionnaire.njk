@@ -7,6 +7,9 @@
 {% from "govuk/components/button/macro.njk" import govukButton %}
 {% from "govuk/components/character-count/macro.njk" import govukCharacterCount %}
 
+{% from "_includes/macros/make-document-links-for-type.njk" import makeDocumentLinksForType %}
+{% from "_includes/macros/make-appeal-site-html.njk" import makeAppealSiteHtml %}
+
 {% block header %}
 	{{ govukHeader({
 		homepageUrl: "https://www.gov.uk/",
@@ -60,22 +63,6 @@
 	}) }}
 {%- endmacro -%}
 
-{% macro makeDocumentLinksForType(documents, type) %}
-	{%- set numRendered = 0 -%}
-	{%- for document in documents -%}
-		{%- if document.Type === type -%}
-			{%- if numRendered > 0 -%}
-				<br />
-			{%- endif -%}
-			<a class="govuk-link" target="_blank" href="{{ document.URL }}">{{ document.Filename }}</a>
-			{%- set numRendered = numRendered + 1 -%}
-		{%- endif -%}
-	{%- endfor -%}
-	{%- if numRendered === 0 -%}
-		<span>No documents uploaded</span>
-	{%- endif -%}
-{% endmacro %}
-
 {% block pageTitle %}
 	Review questionnaire
 {% endblock %}
@@ -112,7 +99,7 @@
 					],
 					[
 						{ html: '<strong>Appeal site</strong>' },
-						{ html: questionnaireData.AppealSiteHtml }
+						{ html: makeAppealSiteHtml(questionnaireData.AppealSite) }
 					],
 					[
 						{ html: '<strong>Local planning department</strong>' },

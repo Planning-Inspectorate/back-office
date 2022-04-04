@@ -5,6 +5,8 @@
 {% from "govuk/components/radios/macro.njk" import govukRadios %}
 {% from "govuk/components/button/macro.njk" import govukButton %}
 
+{% from "_includes/macros/make-appeal-site-html.njk" import makeAppealSiteHtml %}
+
 {# Macro use to generate a list of documents #}
 {% macro supportingDocumentsList(supportingDocuments)  %}
 <ul class="govuk-list">
@@ -46,7 +48,7 @@
 			},
 			{
 				key: { text: "Appeal site" },
-				value: { html: appealData.AppealSiteHtml },
+				value: { html: makeAppealSiteHtml(appealData.AppealSite) },
 				actions: {
 					items: [{
 						href: "#",

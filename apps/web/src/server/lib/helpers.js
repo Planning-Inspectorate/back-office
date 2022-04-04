@@ -1,5 +1,4 @@
 import * as url from 'url';
-import { camelCase } from 'lodash-es';
 
 export const __filename = url.fileURLToPath(import.meta.url);
 export const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
@@ -23,27 +22,4 @@ export const checkboxDataToCheckValuesObject = (checkboxData) => {
 	} else {
 		return checkboxData;
 	}
-};
-
-/**
- * Transforms an AppealSite object, as returned from the API, into a string, with valid address fragments separated by the supplied separator.
- *
- * @param {object} appealSite - AppealSite object in the format returned by the API
- * @param {string} separator - Separator to use (defaults to comma)
- * @returns {string} - string containing the resulting address formatted as a single line with address fragments separated by supplied separator
- */
-export const appealSiteObjectToText = (appealSite, separator) => {
-	let addressString = '';
-	const keys = Object.keys(appealSite);
-
-	if (!separator) separator = ', ';
-
-	// eslint-disable-next-line unicorn/no-for-loop
-	for (let i = 0; i < keys.length; i++) {
-		const entry = appealSite[keys[i]];
-		if (!entry) continue;
-		addressString += entry + (i < keys.length - 1 ? separator : '');
-	}
-
-	return addressString;
 };
