@@ -22,6 +22,7 @@ test.before('sets up mocking of actions', () => {
  * @param {object} context Context of transition
  */
 function applyAction(t, initial_state, action, expected_state, has_changed, context) {
+	investigatorSendBookingStub.resetHistory();
 	const next_state = transitionState(context, initial_state, action);
 	t.is(next_state.value, expected_state);
 	t.is(next_state.changed, has_changed);
@@ -65,7 +66,7 @@ for (const parameter of [
 	['available_for_investigator_pickup', 'PICKUP', 'site_visit_not_yet_booked', true, { appealId: 1 }],
 	['site_visit_not_yet_booked', 'BOOK', 'site_visit_booked', true, { appealId: 1, inspectionType: 'accompanied' }],
 	['site_visit_not_yet_booked', 'BOOK', 'site_visit_booked', true, { appealId: 1, inspectionType: 'access required' }],
-	// ['site_visit_not_yet_booked', 'BOOK', 'site_visit_booked', true, { appealId: 1, inspectionType: 'any other type' }]
+	['site_visit_not_yet_booked', 'BOOK', 'site_visit_booked', true, { appealId: 1, inspectionType: 'any other type' }]
 ]) {
 	test(applyAction, ...parameter);
 }
