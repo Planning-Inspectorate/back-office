@@ -1,6 +1,7 @@
 // @ts-check
 
 /**
+ * TODO: re-assess in express 5.x
  * Wrap an asynchronous express middleware such that it catches and handles errors
  *
  * @param {import('express').RequestHandler<any>} requestHandler - The asynchronous middleware.

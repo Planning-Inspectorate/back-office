@@ -3,7 +3,7 @@ import appRoutes from './app.route.js';
 import validationRoutes from './validation/validation.route.js';
 import { registerValidationLocals } from './validation/validation.pipes.js';
 import lpaRoutes from './lpa/lpa.route.js';
-import inspectorRouter from './inspector/inspector.router.js';
+import inspectorRoutes from './inspector/inspector.route.js';
 import { registerInspectorLocals } from './inspector/inspector.pipes.js';
 
 const router = express.Router();
@@ -22,6 +22,6 @@ router.use('/validation', [registerValidationLocals, validationRoutes]);
 // Mount all LPA step routes at `/lpa` (these will be seen by case officers)
 router.use('/lpa', [registerLpaLocals, lpaRoutes]);
 
-router.use('/inspector', [registerInspectorLocals, inspectorRouter]);
+router.use('/inspector', [registerInspectorLocals, inspectorRoutes]);
 
 export { router as routes };
