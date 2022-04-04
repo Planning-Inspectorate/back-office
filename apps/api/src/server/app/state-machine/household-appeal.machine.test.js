@@ -66,6 +66,7 @@ for (const parameter of [
 	['available_for_investigator_pickup', 'PICKUP', 'site_visit_not_yet_booked', true, { appealId: 1 }],
 	['site_visit_not_yet_booked', 'BOOK', 'site_visit_booked', true, { appealId: 1, inspectionType: 'accompanied' }],
 	['site_visit_not_yet_booked', 'BOOK', 'site_visit_booked', true, { appealId: 1, inspectionType: 'access required' }],
+	['site_visit_not_yet_booked', 'BOOK', 'site_visit_booked', true, { appealId: 1, inspectionType: 'unaccompanied' }],
 	['site_visit_not_yet_booked', 'BOOK', 'site_visit_booked', true, { appealId: 1, inspectionType: 'any other type' }]
 ]) {
 	test(applyAction, ...parameter);
