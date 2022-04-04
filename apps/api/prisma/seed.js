@@ -188,13 +188,13 @@ const appealsAwaitingLPAQuestionnaire = [
 	}
 ];
 
-const appealsAvailableForInvestigatorPickup = [
+const appealsAvailableForInspectorPickup = [
 	{
 		reference: 'APP/Q9999/D/21/1087562',
 		appellantName: 'Bob Ross',
 		localPlanningDepartment: 'Maidstone Borough Council',
 		planningApplicationReference: '48269/APP/2021/1482',
-		status: 'available_for_investigator_pickup',
+		status: 'available_for_inspector_pickup',
 		statusUpdatedAt: getDateTwoWeeksAgo(),
 		startedAt: new Date(),
 		address: {
@@ -255,7 +255,7 @@ const appealsData = [
 	...appealsAwaitingValidationInfo,
 	...invalidAppeals,
 	...appealsAwaitingLPAQuestionnaire,
-	...appealsAvailableForInvestigatorPickup,
+	...appealsAvailableForInspectorPickup,
 	...appealsWithBookedSiteVisit
 ];
 

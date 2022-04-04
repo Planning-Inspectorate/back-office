@@ -2,15 +2,15 @@
 import test from 'ava';
 import sinon from 'sinon';
 import transitionState from './household-appeal.machine.js';
-import investigatorActionsService from './investigator.actions.js';
+import inspectorActionsService from './inspector.actions.js';
 import lpaQuestionnaireActions from './lpa-questionnaire.actions.js';
 
 const lpaQuestionnaireStub = sinon.stub();
-const investigatorSendBookingStub = sinon.stub();
+const inspectorSendBookingStub = sinon.stub();
 
 test.before('sets up mocking of actions', () => {
 	sinon.stub(lpaQuestionnaireActions, 'sendLpaQuestionnaire').callsFake(lpaQuestionnaireStub);
-	sinon.stub(investigatorActionsService, 'sendEmailToAppellantWithSiteVisitBooking').callsFake(investigatorSendBookingStub);
+	sinon.stub(inspectorActionsService, 'sendEmailToAppellantWithSiteVisitBooking').callsFake(inspectorSendBookingStub);
 });
 
 /**
@@ -22,7 +22,7 @@ test.before('sets up mocking of actions', () => {
  * @param {object} context Context of transition
  */
 function applyAction(t, initial_state, action, expected_state, has_changed, context) {
-	investigatorSendBookingStub.resetHistory();
+	inspectorSendBookingStub.resetHistory();
 	const next_state = transitionState(context, initial_state, action);
 	t.is(next_state.value, expected_state);
 	t.is(next_state.changed, has_changed);
@@ -31,9 +31,9 @@ function applyAction(t, initial_state, action, expected_state, has_changed, cont
 	}
 	if (next_state.value == 'site_visit_booked') {
 		if (context.inspectionType == 'accompanied' || context.inspectionType == 'access required') {
-			sinon.assert.calledWithExactly(investigatorSendBookingStub, 1);
+			sinon.assert.calledWithExactly(inspectorSendBookingStub, 1);
 		} else {
-			sinon.assert.notCalled(investigatorSendBookingStub);
+			sinon.assert.notCalled(inspectorSendBookingStub);
 		}
 	}
 }
@@ -60,10 +60,10 @@ for (const parameter of [
 	['overdue_lpa_questionnaire', 'RECEIVED', 'received_lpa_questionnaire', true, { appealId: 1 }],
 	['overdue_lpa_questionnaire', 'COMPLETE', 'overdue_lpa_questionnaire', false, { appealId: 1 }],
 	['overdue_lpa_questionnaire', 'INCOMPLETE', 'overdue_lpa_questionnaire', false, { appealId: 1 }],
-	['received_lpa_questionnaire', 'COMPLETE', 'available_for_investigator_pickup', true, { appealId: 1 }],
+	['received_lpa_questionnaire', 'COMPLETE', 'available_for_inspector_pickup', true, { appealId: 1 }],
 	['received_lpa_questionnaire', 'INCOMPLETE', 'incomplete_lpa_questionnaire', true, { appealId: 1 }],
-	['incomplete_lpa_questionnaire', 'COMPLETE', 'available_for_investigator_pickup', true, { appealId: 1 }],
-	['available_for_investigator_pickup', 'PICKUP', 'site_visit_not_yet_booked', true, { appealId: 1 }],
+	['incomplete_lpa_questionnaire', 'COMPLETE', 'available_for_inspector_pickup', true, { appealId: 1 }],
+	['available_for_inspector_pickup', 'PICKUP', 'site_visit_not_yet_booked', true, { appealId: 1 }],
 	['site_visit_not_yet_booked', 'BOOK', 'site_visit_booked', true, { appealId: 1, inspectionType: 'accompanied' }],
 	['site_visit_not_yet_booked', 'BOOK', 'site_visit_booked', true, { appealId: 1, inspectionType: 'access required' }],
 	['site_visit_not_yet_booked', 'BOOK', 'site_visit_booked', true, { appealId: 1, inspectionType: 'unaccompanied' }],
