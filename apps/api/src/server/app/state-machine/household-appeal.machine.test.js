@@ -2,12 +2,15 @@
 import test from 'ava';
 import sinon from 'sinon';
 import transitionState from './household-appeal.machine.js';
+import investigatorActionsService from './investigator.actions.js';
 import lpaQuestionnaireActions from './lpa-questionnaire.actions.js';
 
 const lpaQuestionnaireStub = sinon.stub();
+const investigatorSendBookingStub = sinon.stub();
 
 test.before('sets up mocking of actions', () => {
 	sinon.stub(lpaQuestionnaireActions, 'sendLpaQuestionnaire').callsFake(lpaQuestionnaireStub);
+	sinon.stub(investigatorActionsService, 'sendEmailToAppellantWithSiteVisitBooking').callsFake(investigatorSendBookingStub);
 });
 
 /**
@@ -23,6 +26,9 @@ function applyAction(t, initial_state, action, expected_state, has_changed) {
 	t.is(next_state.changed, has_changed);
 	if (next_state.value == 'awaiting_lpa_questionnaire') {
 		sinon.assert.calledWithExactly(lpaQuestionnaireStub, 1);
+	}
+	if (next_state.value == 'site_visit_booked') {
+		sinon.assertCalledWithExactly(investigatorSendBookingStub, 1);
 	}
 }
 

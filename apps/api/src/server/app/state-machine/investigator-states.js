@@ -1,4 +1,18 @@
 import mapObjectKeysToStrings from '../utils/map-states-to-strings.js';
+import investigatorActionsService from './investigator.actions.js';
+
+const inspectionTypesThatSendEmail = new Set([
+	'accompanied',
+	'access required'
+]);
+
+const investigatorActions = {
+	notifyAppellantOfBookedSiteVisit: async function(context, _event) {
+		if (inspectionTypesThatSendEmail.has(context.inspectionType)) {
+			await investigatorActionsService.sendEmailToAppellantWithSiteVisitBooking(context.appealId);
+		}
+	}
+};
 
 const investigatorStates = {
 	available_for_investigator_pickup: {
@@ -11,9 +25,11 @@ const investigatorStates = {
 			BOOK: 'site_visit_booked'
 		}
 	},
-	site_visit_booked: {}
+	site_visit_booked: {
+		entry: ['notifyAppellantOfBookedSiteVisit']
+	}
 };
 
 const investigatorStatesStrings = mapObjectKeysToStrings(investigatorStates);
 
-export { investigatorStates, investigatorStatesStrings };
+export { investigatorStates, investigatorStatesStrings, investigatorActions };

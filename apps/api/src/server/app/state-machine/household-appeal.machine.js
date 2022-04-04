@@ -1,7 +1,7 @@
 import { createMachine, interpret } from 'xstate';
 import { validationStates, validationActions } from './validation-states.js';
 import { lpaQuestionnaireStates, lpaQuestionnaireActions } from './lpa-questionnaire-states.js';
-import { investigatorStates } from './investigator-states.js';
+import { investigatorStates, investigatorActions } from './investigator-states.js';
 
 const createHouseholpAppealMachine = function(appealId) {
 	return createMachine({
@@ -18,7 +18,8 @@ const createHouseholpAppealMachine = function(appealId) {
 	}, {
 		actions: {
 			...validationActions,
-			...lpaQuestionnaireActions
+			...lpaQuestionnaireActions,
+			...investigatorActions
 		}
 	});
 };
