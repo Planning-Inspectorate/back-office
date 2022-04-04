@@ -19,11 +19,12 @@
 @use "5-elements/elements.images" as elements-images;
 
 // 6 - SKELETON
-// TODO: Add a simple grid system based on CSS grid.
-// @use "6-skeleton/skeleton.css-grid" as skeleton-css-grid;
+@use "6-skeleton/container";
 
 // 7 - COMPONENTS
 @use "7-components/InfoBox/InfoBox" as InfoBox;
+@use "7-components/related";
+@use "7-components/table";
 
 // 8 - UTILITIES
 
@@ -33,3 +34,9 @@
 
 // Shame file used for everytihng you will be shamed for.
 @use "shame";
+
+// FIXME: govuk accessible autocomplete – copied from
+// node_modules/accessible-autocomplete for whatever reason none of
+// "~accessible-autocomplete", "~accessible-autocomplete/src/autocomplete" or
+// "~accessible-autocomplete/src/autocomplete.css" will work
+@use "autocomplete.css";

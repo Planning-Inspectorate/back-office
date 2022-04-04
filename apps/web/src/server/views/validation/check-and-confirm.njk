@@ -1,10 +1,11 @@
-{% extends "validation/_layout-validation.njk" %}
+{% extends "app/layouts/app-two-column.layout.njk" %}
 
-{% from "govuk/components/back-link/macro.njk" import govukBackLink %}
 {% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
 {% from "govuk/components/button/macro.njk" import govukButton %}
 {% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
 {% from "govuk/components/warning-text/macro.njk" import govukWarningText %}
+
+{% set pageTitle = 'Check and confirm' %}
 
 {% macro renderCheckAndConfirmReason() %}
     {% if appealWork.reviewOutcome === 'valid' %}
@@ -35,24 +36,14 @@
     {% endif %}
 {% endmacro %}
 
-{% block beforeContent %}
-  {{ govukBackLink({ text: "Back", href: backURL }) }}
-{% endblock %}
-
 {% block pageContent %}
-	{{ super() }}
-
-	<h1 class="govuk-heading-xl">
-		Check and confirm
-	</h1>
-
 	<form action="" method="post" novalidate>
 		{{ govukSummaryList({
 			rows: [
 				{ key: { text: 'Outcome of review' }, value: { text: validationAppealOutcomeLabels.label } },
 				{ key: { text: 'Appellant name' }, value: { text: appealData.AppellantName } },
 				{ key: { text: 'Appeal reference' }, value: { text: appealData.AppealReference } },
-				{ key: { text: 'Appeal site' }, value: { html: appealData.AppealSiteHtml } },
+				{ key: { text: 'Appeal site' }, value: { html: appealData.AppealSite | address(', ') } },
 				{ key: { text: validationAppealOutcomeLabels.reasonLabel }, value: { html: renderCheckAndConfirmReason() } }
 			]
 		}) }}

@@ -6,14 +6,14 @@ import { validationResult } from 'express-validator';
  * - errors - An object where the keys are the field names, and the values are the validation errors used by form elements to display errors
  * - errorSummary - An array off all the errors used by the GOCUK error-summary component to be displayed on top of the page
  *
- * @param {object} request - Express request object
- * @param {object} response - Express request object
- * @param {Function} next  - Express function that calls then next middleware in the stack
+ * @type {import('express').RequestHandler}
  */
 export const expressValidationErrorsInterceptor = (request, response, next) => {
 	const errors = validationResult(request);
 
 	if (!errors.isEmpty()) {
+		request.validationErrors = errors.mapped();
+
 		request.body.errors = errors.mapped();
 		request.body.errorSummary = errors.errors.map(({ msg, param }) => ({
 			text: msg,

@@ -1,16 +1,7 @@
-{% extends "_layouts/layout-base.njk" %}
+{% extends "app/layouts/app.layout.njk" %}
 
 {% from "govuk/components/table/macro.njk" import govukTable %}
-{% from "_includes/components/InfoBox/InfoBox.njk" import InfoBox %}
-
-{% block header %}
-  {{ govukHeader({
-    homepageUrl: "https://www.gov.uk/",
-    serviceName: "Appeal a planning decision",
-    serviceUrl: "/lpa",
-    containerClasses: "govuk-width-container"
-  }) }}
-{% endblock %}
+{% from "app/components/infoBox.njk" import infoBox %}
 
 {% block content %}
 	{%- set tableHeadItems = [
@@ -34,7 +25,7 @@
 			rows: questionnairesList.incomingQuestionnaires })
 		}}
 	{%- else -%}
-		{{ InfoBox("No incoming questionnaires", classes="govuk-!-margin-bottom-8") }}
+		{{ infoBox("No incoming questionnaires", classes="govuk-!-margin-bottom-8") }}
 	{%- endif -%}
 
 	<h2 class="govuk-heading-l govuk-!-margin-bottom-1">
@@ -47,6 +38,6 @@
 			rows: questionnairesList.incompleteQuestionnaires })
 		}}
 	{%- else -%}
-		{{ InfoBox("No incomplete questionnaires") }}
+		{{ infoBox("No incomplete questionnaires") }}
 	{%- endif -%}
 {% endblock %}

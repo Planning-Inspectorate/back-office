@@ -1,29 +1,18 @@
-{% extends "_layouts/layout-base.njk" %}
+{% extends "app/layouts/app.layout.njk" %}
 
 {% from "govuk/components/header/macro.njk" import govukHeader %}
 {% from "govuk/components/table/macro.njk" import govukTable %}
-{% from "_includes/components/InfoBox/InfoBox.njk" import InfoBox %}
+{% from "app/components/infoBox.njk" import infoBox %}
 
-{% block header %}
-  {{ govukHeader({
-    homepageUrl: "https://www.gov.uk/",
-    serviceName: "Appeal a planning decision",
-    serviceUrl: "/validation",
-    containerClasses: "govuk-width-container"
-  }) }}
-{% endblock %}
+{% set pageTitle = 'Appeal submissions for review' %}
 
-{% block content %}
+{% block pageContent %}
 	{% set tableHeadItems = [
 		{ text: "Appeal reference" },
 		{ text: "Received on" },
 		{ text: "Appeal site" }
 	]
 	%}
-
-	<h1 class="govuk-heading-xl">
-		Appeal submissions for review
-	</h1>
 
 	<h2 class="govuk-heading-l govuk-!-margin-bottom-1">
 		New appeals
@@ -35,7 +24,7 @@
 			rows: appealsList.newAppeals })
 		}}
 	{% else %}
-		{{ InfoBox("No New Appeals", classes="govuk-!-margin-bottom-8") }}
+		{{ infoBox("No New Appeals", classes="govuk-!-margin-bottom-8") }}
 	{% endif %}
 
 	<h2 class="govuk-heading-l govuk-!-margin-bottom-1">
@@ -48,6 +37,6 @@
 			rows: appealsList.incompleteAppeals })
 		}}
 	{% else %}
-		{{ InfoBox("No Incomplete Appeals") }}
+		{{ infoBox("No Incomplete Appeals") }}
 	{% endif %}
 {% endblock %}

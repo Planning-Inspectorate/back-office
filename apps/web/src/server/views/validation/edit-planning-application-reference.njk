@@ -1,0 +1,30 @@
+{% extends "app/layouts/app-two-column.layout.njk" %}
+
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/input/macro.njk" import govukInput %}
+
+{% set pageTitle = 'Change planning application reference' %}
+{% set backLinkUrl = '/validation/review-appeal/' + appealId %}
+
+{% block pageHeading %}
+	<h1 class="govuk-heading-l">{{ pageTitle }}</h1>
+{% endblock %}
+
+{% block pageContent %}
+	<form method="post" novalidate>
+		{{ 
+			govukInput({
+				id: "PlanningApplicationReference",
+				type: 'text',
+				name: "PlanningApplicationReference",
+				label: { text: 'Planning application reference', classes: "govuk-visually-hidden" },
+				errorMessage: errors.PlanningApplicationReference and { text: errors.PlanningApplicationReference.msg },
+				value: planningApplicationReference
+			})
+		}}
+		<div class="govuk-button-group">
+			{{ govukButton({ text: "Save changes" }) }}
+			<a class="govuk-link" href="/validation/review-appeal/{{ appealId }}">Cancel</a>
+		</div>
+	</form>
+{% endblock %}
