@@ -2,7 +2,7 @@ import { to } from 'planning-inspectorate-libs';
 import { findAllIncomingIncompleteQuestionnaires, findQuestionnaireById } from './lpa.service.js';
 import { lpaRoutesConfig as routes } from '../../config/routes.js';
 import { camelCase, upperFirst } from 'lodash-es';
-import { checkboxDataToCheckValuesObject, appealSiteObjectToText } from '../../lib/helpers.js';
+import { checkboxDataToCheckValuesObject, appealSiteObjectToText, makeDownloadLinksDataForTemplate } from '../../lib/helpers.js';
 
 /**
  * Create an array of row data for consumption in nunjucks template govukTable component, using the supplied data array from the LPA service
@@ -27,27 +27,6 @@ function makeQuestionnairesListRowsForTemplate (questionnairesList) {
 	});
 
 	return rows;
-}
-
-/**
- * Create an object of html strings containing file download links for consumption in nunjucks template, using the supplied Documents data array from the LPA service
- *
- * @param {Array<object>} documents - array of document data items from questionnaire data returned from findAllIncomingIncompleteQuestionnaires service method
- * @returns {Object} - object containing html strings for consumption in nunjucks template
- */
-function makeQuestionnaireDocumentsForTemplate (documents) {
-	const documentsData = {};
-
-	for (const document of documents) {
-		const key = camelCase(document.Type);
-		const linkHtml = `<a class="govuk-link" target="_blank" href="${document.URL}">${document.Filename}</a>`;
-
-		if (!documentsData.hasOwnProperty(key)) documentsData[key] = '';
-
-		documentsData[key] += `${documentsData[key].length > 0 ? '<br />' : ''}${linkHtml}`;
-	}
-
-	return documentsData;
 }
 
 /**
@@ -97,7 +76,7 @@ export async function getReviewQuestionnaire(request, response, next) {
 
 	request.session.questionnaireData = questionnaireData;
 
-	const questionnaireDocuments = makeQuestionnaireDocumentsForTemplate(questionnaireData.Documents);
+	const questionnaireDocuments = makeDownloadLinksDataForTemplate(questionnaireData.Documents);
 
 	response.render(routes.reviewQuestionnaire.view, {
 		backURL: `/${routes.home.path}?direction=back`,
