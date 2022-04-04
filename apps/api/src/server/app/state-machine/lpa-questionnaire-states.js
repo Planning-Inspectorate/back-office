@@ -1,23 +1,16 @@
-import lpaQuestionnaireActions from './lpa-questionnaire.actions.js';
+import mapObjectKeysToStrings from '../utils/map-states-to-strings.js';
+import lpaQuestionnaireActionsService from './lpa-questionnaire.actions.js';
 
-const lpaQuestionnaireStatesStrings = {
-	awaiting_lpa_questionnaire: 'awaiting_lpa_questionnaire',
-	received_lpa_questionnaire: 'received_lpa_questionnaire',
-	overdue_lpa_questionnaire: 'overdue_lpa_questionnaire',
-	complete_lpa_questionnaire: 'complete_lpa_questionnaire',
-	incomplete_lpa_questionnaire: 'incomplete_lpa_questionnaire'
-};
-
-const lpa_questionnaire_actions = {
+const lpaQuestionnaireActions = {
 	sendLPAQuestionnaire: async function(context, _event) {
-		await lpaQuestionnaireActions.sendLpaQuestionnaire(context.appealId);
+		await lpaQuestionnaireActionsService.sendLpaQuestionnaire(context.appealId);
 	},
 	nudgeLPAQuestionnaire: (_context, _event) => {
 		console.log('Sending an email to nudge LPA regarding questionnaire');
 	}
 };
 
-const lpa_questionnaire_states = {
+const lpaQuestionnaireStates = {
 	awaiting_lpa_questionnaire: {
 		entry: ['sendLPAQuestionnaire'],
 		on: {
@@ -37,7 +30,9 @@ const lpa_questionnaire_states = {
 			RECEIVED: 'received_lpa_questionnaire'
 		}
 	},
-	complete_lpa_questionnaire: {},
+	complete_lpa_questionnaire: {
+		always: [{ target: 'available_for_investigator_pickup' }]
+	},
 	incomplete_lpa_questionnaire: {
 		on: {
 			COMPLETE: 'complete_lpa_questionnaire',
@@ -45,4 +40,6 @@ const lpa_questionnaire_states = {
 	}
 };
 
-export { lpaQuestionnaireStatesStrings, lpa_questionnaire_states, lpa_questionnaire_actions };
+const lpaQuestionnaireStatesStrings = mapObjectKeysToStrings(lpaQuestionnaireStates);
+
+export { lpaQuestionnaireStatesStrings, lpaQuestionnaireStates, lpaQuestionnaireActions };
