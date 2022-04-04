@@ -26,8 +26,12 @@ const investigatorStates = {
 		}
 	},
 	site_visit_booked: {
-		entry: ['notifyAppellantOfBookedSiteVisit']
-	}
+		entry: ['notifyAppellantOfBookedSiteVisit'],
+		on: {
+			BOOKING_PASSED: 'decision_due'
+		}
+	},
+	decision_due: {}
 };
 
 const investigatorStatesStrings = mapObjectKeysToStrings(investigatorStates);
