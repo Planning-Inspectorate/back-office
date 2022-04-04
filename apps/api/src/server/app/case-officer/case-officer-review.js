@@ -2,7 +2,7 @@
 // import { validationResult } from 'express-validator';
 
 const reviewIncomplete = function (body) {
-	return ( false ?
+	return ((
 		body.Reason.applicationPlanningOficersReportMissingOrIncorrect == true ||
 		body.Reason.applicationPlansToReachDecisionMissingOrIncorrect  == true ||
 		body.Reason.policiesStatutoryDevelopmentPlanPoliciesMissingOrIncorrect  == true ||
@@ -17,8 +17,8 @@ const reviewIncomplete = function (body) {
 		body.Reason.thirdPartyRepresentationsMissingOrIncorrect  == true ||
 		body.Reason.thirdPartyAppealNotificationMissingOrIncorrect  == true ||
 		body.Reason.thirdPartyAppealNotificationMissingOrIncorrectListOfAddresses  == true ||
-		body.Reason.thirdPartyAppealNotificationMissingOrIncorrectCopyOfLetterOrSiteNotice  == true
-		: true );
+		body.Reason.thirdPartyAppealNotificationMissingOrIncorrectCopyOfLetterOrSiteNotice  == true ) ?
+		false : true );
 };
 
 export { reviewIncomplete };
