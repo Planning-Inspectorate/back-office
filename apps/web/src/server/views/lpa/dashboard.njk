@@ -12,6 +12,10 @@
   }) }}
 {% endblock %}
 
+{% block pageTitle %}
+	Questionnaires for review
+{% endblock %}
+
 {% block content %}
 	{%- set tableHeadItems = [
 		{ text: "Appeal reference" },
@@ -19,6 +23,8 @@
 		{ text: "Appeal site" },
 		{ text: "Status" }
 	] -%}
+
+	{{ super() }}
 
 	<h1 class="govuk-heading-xl">
 		Questionnaires for review

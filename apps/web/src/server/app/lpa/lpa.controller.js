@@ -30,6 +30,27 @@ function makeQuestionnairesListRowsForTemplate (questionnairesList) {
 }
 
 /**
+ * Create an object of html strings containing file download links for consumption in nunjucks template, using the supplied Documents data array from the LPA service
+ *
+ * @param {Array<object>} documents - array of document data items from questionnaire data returned from findAllIncomingIncompleteQuestionnaires service method
+ * @returns {Object} - object containing html strings for consumption in nunjucks template
+ */
+function makeQuestionnaireDocumentsForTemplate (documents) {
+	const documentsData = {};
+
+	for (const document of documents) {
+		const key = camelCase(document.Type);
+		const linkHtml = `<a class="govuk-link" target="_blank" href="${document.URL}">${document.Filename}</a>`;
+
+		if (!documentsData.hasOwnProperty(key)) documentsData[key] = '';
+
+		documentsData[key] += `${documentsData[key].length > 0 ? '<br />' : ''}${linkHtml}`;
+	}
+
+	return documentsData;
+}
+
+/**
  * GET the main dashboard.
  * It will fetch the questionnaires list (incoming, incomplete) and will render all.
  *
@@ -76,9 +97,12 @@ export async function getReviewQuestionnaire(request, response, next) {
 
 	request.session.questionnaireData = questionnaireData;
 
+	const questionnaireDocuments = makeQuestionnaireDocumentsForTemplate(questionnaireData.Documents);
+
 	response.render(routes.reviewQuestionnaire.view, {
 		backURL: `/${routes.home.path}?direction=back`,
 		questionnaireData,
+		questionnaireDocuments,
 		fields: request.session.reviewWork?.fields
 	});
 }

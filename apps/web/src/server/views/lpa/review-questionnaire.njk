@@ -60,6 +60,10 @@
 	}) }}
 {%- endmacro -%}
 
+{% block pageTitle %}
+	Review questionnaire
+{% endblock %}
+
 {% block content %}
 	{{ super() }}
 
@@ -115,12 +119,12 @@
 				],
 				[
 					{ html: '<strong>Decision notice</strong>' },
-					{ html: '<a class="govuk-link" target="_blank" href="#">' + 'decision-notice.pdf' + '</a>' },
+					{ html: questionnaireDocuments.decisionNotice | default('No files uploaded') },
 					{ text: '' }
 				],
 				[
 					{ html: '<strong>Planning Officer\'s report</strong>' },
-					{ html: '<a class="govuk-link" target="_blank" href="#">' + 'planning-officers-report.pdf' + '</a>' },
+					{ html: questionnaireDocuments.planningOfficersReport | default('No files uploaded') },
 					{ html: missingOrIncorrectCheckbox(
 						'planning-officers-report',
 						fields.planningOfficersReport.completed,
@@ -129,7 +133,7 @@
 				],
 				[
 					{ html: '<strong>Plans used to reach decision</strong>' },
-					{ html: '<a class="govuk-link" target="_blank" href="#">' + 'plans-used-to-reach-decision.pdf' + '</a>' },
+					{ html: questionnaireDocuments.plansUsedToReachDecision | default('No files uploaded') },
 					{ html: missingOrIncorrectCheckbox(
 						'plans-used-to-reach-decision',
 						fields.plansUsedToReachDecision.completed,
@@ -146,13 +150,7 @@
 			rows: [
 				[
 					{ html: '<strong>Statutory development plan policies</strong>' },
-					{
-						html: '
-							<a class="govuk-link" target="_blank" href="#">' + 'policy-and-supporting-text-1.pdf' + '</a><br />
-							<a class="govuk-link" target="_blank" href="#">' + 'policy-and-supporting-text-2.pdf' + '</a><br />
-							<a class="govuk-link" target="_blank" href="#">' + 'policy-and-supporting-text-3.pdf' + '</a>
-						'
-					},
+					{ html: questionnaireDocuments.statutoryDevelopmentPlanPolicy | default('No files uploaded') },
 					{ html: missingOrIncorrectCheckbox(
 						'statutory-development-plan-policies',
 						fields.statutoryDevelopmentPlanPolicies.completed,
@@ -162,13 +160,7 @@
 				],
 				[
 					{ html: '<strong>Other relevant policies</strong>' },
-					{
-						html: '
-							<a class="govuk-link" target="_blank" href="#">' + 'policy-and-supporting-text-1.pdf' + '</a><br />
-							<a class="govuk-link" target="_blank" href="#">' + 'policy-and-supporting-text-2.pdf' + '</a><br />
-							<a class="govuk-link" target="_blank" href="#">' + 'policy-and-supporting-text-3.pdf' + '</a>
-						'
-					},
+					{ html: questionnaireDocuments.otherRelevantPolicy | default('No files uploaded') },
 					{ html: missingOrIncorrectCheckbox(
 						'other-relevant-policies',
 						fields.otherRelevantPolicies.completed,
@@ -178,7 +170,7 @@
 				],
 				[
 					{ html: '<strong>Supplementary planning documents</strong>' },
-					{ text: 'No files uploaded' },
+					{ html: questionnaireDocuments.supplementaryPlanningDocument | default('No files uploaded') },
 					{ html: missingOrIncorrectCheckbox(
 						'supplementary-planning-documents',
 						fields.supplementaryPlanningDocuments.completed,
@@ -200,7 +192,7 @@
 				],
 				[
 					{ html: '<strong>Conservation area map and guidance</strong>' },
-					{ html: '<a class="govuk-link" target="_blank" href="#">' + 'conservation-area-plan.pdf' + '</a>' },
+					{ html: questionnaireDocuments.conservationAreaGuidance | default('No files uploaded') },
 					{ html: missingOrIncorrectCheckbox(
 						'conservation-area-guidance',
 						fields.conservationAreaGuidance.completed,
@@ -232,7 +224,7 @@
 			rows: [
 				[
 					{ html: '<strong>Application notification</strong>' },
-					{ text: 'No files uploaded' },
+					{ html: questionnaireDocuments.applicationNotification | default('No files uploaded') },
 					{ html: missingOrIncorrectCheckbox(
 						'application-notification',
 						fields.applicationNotification.completed,
@@ -245,7 +237,7 @@
 				],
 				[
 					{ html: '<strong>Application publicity</strong>' },
-					{ text: 'No files uploaded' },
+					{ html: questionnaireDocuments.applicationPublicity | default('No files uploaded') },
 					{ html: missingOrIncorrectCheckbox(
 						'application-publicity',
 						fields.applicationPublicity.completed,
@@ -254,7 +246,7 @@
 				],
 				[
 					{ html: '<strong>Representations</strong>' },
-					{ text: 'No files uploaded' },
+					{ html: questionnaireDocuments.representation | default('No files uploaded') },
 					{ html: missingOrIncorrectCheckbox(
 						'representations',
 						fields.representations.completed,
@@ -264,7 +256,7 @@
 				],
 				[
 					{ html: '<strong>Appeal notification</strong>' },
-					{ text: 'No files uploaded' },
+					{ html: questionnaireDocuments.appealNotification | default('No files uploaded') },
 					{ html: missingOrIncorrectCheckbox(
 						'appeal-notification',
 						fields.appealNotification.completed,
@@ -281,7 +273,7 @@
 		<h2 class="govuk-heading-l govuk-!-margin-top-9">Finished your review?</h2>
 
 		<div class="govuk-button-group">
-			{{ govukButton({ text: 'Continue' | default('Continue') }) }}
+			{{ govukButton({ text: 'Continue' }) }}
 		</div>
 	</form>
 

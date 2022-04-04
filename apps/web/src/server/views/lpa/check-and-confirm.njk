@@ -13,6 +13,10 @@
 	}) }}
 {% endblock %}
 
+{% block pageTitle %}
+	Review questionnaire
+{% endblock %}
+
 {% block content %}
 	{{ super() }}
 
@@ -41,7 +45,7 @@
 	{%- endif -%}
 
 	<div class="govuk-button-group">
-		{{ govukButton({ text: 'Confirm outcome' | default('Confirm outcome') }) }}
+		{{ govukButton({ text: 'Confirm outcome' }) }}
 		<a class="govuk-link" href="{{ backURL }}">Go back to review questionnaire</a>
 	</div>
 
