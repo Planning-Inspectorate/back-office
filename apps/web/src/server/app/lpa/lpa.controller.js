@@ -2,7 +2,7 @@ import { to } from 'planning-inspectorate-libs';
 import { findAllIncomingIncompleteQuestionnaires, findQuestionnaireById } from './lpa.service.js';
 import { lpaRoutesConfig as routes } from '../../config/routes.js';
 import { camelCase, upperFirst } from 'lodash-es';
-import { checkboxDataToCheckValuesObject, appealSiteObjectToText, makeDownloadLinksDataForTemplate } from '../../lib/helpers.js';
+import { checkboxDataToCheckValuesObject, appealSiteObjectToText } from '../../lib/helpers.js';
 
 /**
  * Create an array of row data for consumption in nunjucks template govukTable component, using the supplied data array from the LPA service
@@ -76,12 +76,9 @@ export async function getReviewQuestionnaire(request, response, next) {
 
 	request.session.questionnaireData = questionnaireData;
 
-	const questionnaireDocuments = makeDownloadLinksDataForTemplate(questionnaireData.Documents);
-
 	response.render(routes.reviewQuestionnaire.view, {
 		backURL: `/${routes.home.path}?direction=back`,
 		questionnaireData,
-		questionnaireDocuments,
 		fields: request.session.reviewWork?.fields
 	});
 }

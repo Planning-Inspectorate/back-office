@@ -47,24 +47,3 @@ export const appealSiteObjectToText = (appealSite, separator) => {
 
 	return addressString;
 };
-
-/**
- * Create an object of html strings containing file download links for consumption in nunjucks template, using the supplied documents data array from the LPA service
- *
- * @param {Array<object>} documents - array of document data items from API endpoint
- * @returns {Object} - object containing html strings for consumption in nunjucks template
- */
-export const makeDownloadLinksDataForTemplate = (documents) => {
-	const documentsData = {};
-
-	for (const document of documents) {
-		const key = camelCase(document.Type);
-		const linkHtml = `<a class="govuk-link" target="_blank" href="${document.URL}">${document.Filename}</a>`;
-
-		if (!documentsData.hasOwnProperty(key)) documentsData[key] = '';
-
-		documentsData[key] += `${documentsData[key].length > 0 ? '<br />' : ''}${linkHtml}`;
-	}
-
-	return documentsData;
-};
