@@ -93,7 +93,6 @@ export async function getValidationDashboard(request, response, next) {
  * where displaying the review outcome options first requires an additional
  * 'Change outcome' action to be performed in the UI.
  */
-	const [error, appealData] = await to(findAppealById(appealId));
 
 /**
  * Load the review appeal page used for recording an outcome on a new or
@@ -107,8 +106,6 @@ export async function getReviewAppeal({ query, session, params }, response) {
 		session.appealWork = {};
 	}
 	const appeal = await findAppealById(params.appealId);
-
-	const reviewOutcome = request.session.appealWork?.reviewOutcome;
 
 	// Save the current appeal data into session storage
 	session.appealData = appeal;

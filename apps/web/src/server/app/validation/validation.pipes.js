@@ -18,13 +18,13 @@ export const registerValidationLocals = (_, response, next) => {
  *
  * @returns {void}
  */
-export const validateOutcomePipe = body('review-outcome')
+export const validateOutcomePipe = body('reviewOutcome')
 	.notEmpty()
 	.withMessage((_, { req }) =>
-			req.session.appealData.AppealStatus === 'incomplete'
-				? 'Select if the appeal is valid or invalid'
-				: 'Select if the appeal is valid or invalid, or if something is missing or wrong'
-		)
+		req.session.appealData.AppealStatus === 'incomplete'
+			? 'Select if the appeal is valid or invalid'
+			: 'Select if the appeal is valid or invalid, or if something is missing or wrong'
+	)
 	.bail()
 	.isIn(['valid', 'invalid', 'incomplete'])
 	.withMessage('Select if the appeal is valid or invalid, or if something is missing or wrong');

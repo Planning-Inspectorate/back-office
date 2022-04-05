@@ -28,8 +28,8 @@ import {
 } from './validation.controller.js';
 import {
 	validateOutcomePipe,
-	validateValidAppealDetails,
-	validateOutcomeInvalidReason,
+	validateValidAppealDetailsPipe,
+	validateOutcomeInvalidReasonPipe,
 	validateOutcomeIncompletePipe,
 	validateCheckAndConfirmPipe,
 	validateAppellantName,
@@ -45,7 +45,7 @@ const router = express.Router();
 router
 	.route('/review-appeal/:appealId')
 	.get(createAsyncHandler(getReviewAppeal))
-	.post(appealDataGuard, validateOutcomePipe(), expressValidationErrorsInterceptor, postAppealOutcome);
+	.post(appealDataGuard, validateOutcomePipe, expressValidationErrorsInterceptor, postAppealOutcome);
 
 router
 	.route('/review-appeal/:appealId/appeal-site')

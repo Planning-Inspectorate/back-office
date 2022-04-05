@@ -1,6 +1,6 @@
-import appealSiteObjectToText from "./appeal-site-object-to-text.js";
+import { appealSiteObjectToText } from "./appeal-site-object-to-text.js";
 
-export default function makeQuestionnaireTableRows (questionnairesListData, reviewQuestionnairePath) {
+export function makeQuestionnaireTableRows (questionnairesListData, reviewQuestionnairePath) {
 	const rows = [];
 
 	// eslint-disable-next-line unicorn/no-array-for-each
