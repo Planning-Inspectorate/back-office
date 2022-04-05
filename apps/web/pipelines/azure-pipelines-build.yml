@@ -32,4 +32,4 @@ extends:
           dockerfilePath: $(dockerFilePath)
           repository: $(repository)
           versionNumber: $(versionNumber)
-          workingDirectory: $(Build.Repository.LocalPath)/apps/web
+          workingDirectory: $(Build.Repository.LocalPath)
