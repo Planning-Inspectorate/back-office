@@ -53,15 +53,26 @@ const incompleteWithUnexpectedReasons = function (body) {
 	return !allArrayElementsInArray(Object.keys(body.reason), [
 		'applicationPlanningOfficersReportMissingOrIncorrect',
 		'applicationPlansToReachDecisionMissingOrIncorrect',
+		'applicationPlansToReachDecisionMissingOrIncorrectDescription',
 		'policiesStatutoryDevelopmentPlanPoliciesMissingOrIncorrect',
+		'policiesStatutoryDevelopmentPlanPoliciesMissingOrIncorrectDescription',
 		'policiesOtherRelevantPoliciesMissingOrIncorrect',
+		'policiesOtherRelevantPoliciesMissingOrIncorrectDescription',
 		'policiesSupplementaryPlanningDocumentsMissingOrIncorrect',
+		'policiesSupplementaryPlanningDocumentsMissingOrIncorrectDescription',
 		'siteConservationAreaMapAndGuidanceMissingOrIncorrect',
+		'siteConservationAreaMapAndGuidanceMissingOrIncorrectDescription',
 		'siteListedBuildingDescriptionMissingOrIncorrect',
+		'siteListedBuildingDescriptionMissingOrIncorrectDescription',
 		'thirdPartyApplicationNotificationMissingOrIncorrect',
+		'thirdPartyApplicationNotificationMissingOrIncorrectListOfAddresses',
+		'thirdPartyApplicationNotificationMissingOrIncorrectCopyOfLetterOrSiteNotice',
 		'thirdPartyApplicationPublicityMissingOrIncorrect',
 		'thirdPartyRepresentationsMissingOrIncorrect',
-		'thirdPartyAppealNotificationMissingOrIncorrect'
+		'thirdPartyRepresentationsMissingOrIncorrectDescription',
+		'thirdPartyAppealNotificationMissingOrIncorrect',
+		'thirdPartyAppealNotificationMissingOrIncorrectListOfAddresses',
+		'thirdPartyAppealNotificationMissingOrIncorrectCopyOfLetterOrSiteNotice'
 	]);
 };
 
