@@ -1,0 +1,4 @@
+variables:
+  azurecrName: pinscrsharedtoolinguks
+  azurecrServiceConnection: back-office-tooling
+  projectName: back-office

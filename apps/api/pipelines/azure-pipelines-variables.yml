@@ -1,0 +1,11 @@
+variables:
+  # VERSION INFO ----------------------------------------------------------
+  version.MajorMinor: '1.0' # Manually adjust the version number as needed for semantic versioning. Revision is auto-incremented.
+  version.Revision: $[counter(variables['version.MajorMinor'], 0)]
+  versionNumber: $(version.MajorMinor).$(version.Revision)
+  # -----------------------------------------------------------------------
+
+  dockerFilePath: $(Build.SourcesDirectory)/apps/api/Dockerfile
+  repository: back-office/back-office-api
+  webAppNamePrefix: pins-app-back-office-api
+  
