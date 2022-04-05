@@ -49,11 +49,11 @@ test('should submit confirmation of an incomplete outcome of LPA questionnaire',
 	const resp = await request.post('/case-officer/11/confirm')
 		.send({
 			reason:{
-				applicationPlanningOficersReportMissingOrIncorrect: false,
+				applicationPlanningOfficersReportMissingOrIncorrect: false,
 				applicationPlansToReachDecisionMissingOrIncorrect: true,
 				applicationPlansToReachDecisionMissingOrIncorrectDescription: 'Some description',
 				policiesStatutoryDevelopmentPlanPoliciesMissingOrIncorrect: false,
-				policiesOtherRelevanPoliciesMissingOrIncorrect: false,
+				policiesOtherRelevantPoliciesMissingOrIncorrect: false,
 				policiesSupplementaryPlanningDocumentsMissingOrIncorrect : false,
 				siteConservationAreaMapAndGuidanceMissingOrIncorrect: false,
 				siteListedBuildingDescriptionMissingOrIncorrect: false,
@@ -71,11 +71,11 @@ test('should submit confirmation of an incomplete outcome of LPA questionnaire',
 	sinon.assert.calledWithExactly(addReviewStub, {  data: {
 		appealId: 11,
 		complete: false,
-		applicationPlanningOficersReportMissingOrIncorrect: false,
+		applicationPlanningOfficersReportMissingOrIncorrect: false,
 		applicationPlansToReachDecisionMissingOrIncorrect: true,
 		applicationPlansToReachDecisionMissingOrIncorrectDescription: 'Some description',
 		policiesStatutoryDevelopmentPlanPoliciesMissingOrIncorrect: false,
-		policiesOtherRelevanPoliciesMissingOrIncorrect: false,
+		policiesOtherRelevantPoliciesMissingOrIncorrect: false,
 		policiesSupplementaryPlanningDocumentsMissingOrIncorrect : false,
 		siteConservationAreaMapAndGuidanceMissingOrIncorrect: false,
 		siteListedBuildingDescriptionMissingOrIncorrect: false,
@@ -94,10 +94,10 @@ test('should submit confirmation of the outcome of LPA questionnaire', async (t)
 	const resp = await request.post('/case-officer/11/confirm')
 		.send({
 			reason:{
-				applicationPlanningOficersReportMissingOrIncorrect: false,
+				applicationPlanningOfficersReportMissingOrIncorrect: false,
 				applicationPlansToReachDecisionMissingOrIncorrect: false,
 				policiesStatutoryDevelopmentPlanPoliciesMissingOrIncorrect: false,
-				policiesOtherRelevanPoliciesMissingOrIncorrect: false,
+				policiesOtherRelevantPoliciesMissingOrIncorrect: false,
 				policiesSupplementaryPlanningDocumentsMissingOrIncorrect : false,
 				siteConservationAreaMapAndGuidanceMissingOrIncorrect: false,
 				siteListedBuildingDescriptionMissingOrIncorrect: false,
@@ -116,10 +116,10 @@ test('should submit confirmation of the outcome of LPA questionnaire', async (t)
 	sinon.assert.calledWithExactly(addReviewStub, {  data: {
 		appealId: 11,
 		complete: true,
-		applicationPlanningOficersReportMissingOrIncorrect: false,
+		applicationPlanningOfficersReportMissingOrIncorrect: false,
 		applicationPlansToReachDecisionMissingOrIncorrect: false,
 		policiesStatutoryDevelopmentPlanPoliciesMissingOrIncorrect: false,
-		policiesOtherRelevanPoliciesMissingOrIncorrect: false,
+		policiesOtherRelevantPoliciesMissingOrIncorrect: false,
 		policiesSupplementaryPlanningDocumentsMissingOrIncorrect : false,
 		siteConservationAreaMapAndGuidanceMissingOrIncorrect: false,
 		siteListedBuildingDescriptionMissingOrIncorrect: false,
@@ -138,10 +138,10 @@ test('should not be able to submit review as \'incomplete\' if there is no descr
 	const resp = await request.post('/case-officer/11/confirm')
 		.send({
 			reason:{
-				applicationPlanningOficersReportMissingOrIncorrect: false,
+				applicationPlanningOfficersReportMissingOrIncorrect: false,
 				applicationPlansToReachDecisionMissingOrIncorrect: true,
 				policiesStatutoryDevelopmentPlanPoliciesMissingOrIncorrect: false,
-				policiesOtherRelevanPoliciesMissingOrIncorrect: false,
+				policiesOtherRelevantPoliciesMissingOrIncorrect: false,
 				policiesSupplementaryPlanningDocumentsMissingOrIncorrect : false,
 				siteConservationAreaMapAndGuidanceMissingOrIncorrect: false,
 				siteListedBuildingDescriptionMissingOrIncorrect: false,
