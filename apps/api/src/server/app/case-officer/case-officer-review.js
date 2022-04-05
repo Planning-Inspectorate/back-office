@@ -77,9 +77,6 @@ const incompleteWithUnexpectedReasons = function (body) {
 };
 
 const validateReviewRequest = function(body) {
-	// if (invalidAppealStatus(body.AppealStatus)) {
-	// 	throw new ValidationError('Unknown AppealStatus provided', 400);
-	// }
 
 	if (invalidWithoutReasons(body)) {
 		throw new CaseOfficerError('Incomplete Review requires a description', 400);
@@ -87,11 +84,8 @@ const validateReviewRequest = function(body) {
 	if (incompleteWithUnexpectedReasons(body)) {
 		throw new CaseOfficerError('Incomplete Review requires a known description', 400);
 	}
-	// if (incompleteWithoutReasons(body)) {
-	// 	throw new ValidationError('Incomplete Appeal requires a reason', 400);
-	// }
-	// if (validWithoutDescription(body)) {
-	// 	throw new ValidationError('Valid Appeals require Description of Development', 400);
+	// if (invalidAppealStatus(body.AppealStatus)) {
+	// 	throw new ValidationError('Unknown AppealStatus provided', 400);
 	// }
 };
 
