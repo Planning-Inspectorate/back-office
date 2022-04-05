@@ -1,5 +1,6 @@
 /* eslint-disable complexity */
 import CaseOfficerError from './case-officer-error.js';
+import _ from 'lodash';
 
 const reviewComplete = function (body) {
 	return ((
@@ -44,15 +45,36 @@ const invalidWithoutReasons = function (body) {
 		true : false);
 };
 
+const allArrayElementsInArray = function(arrayToCheck, arrayToCheckAgainst) {
+	return _.difference(arrayToCheck, arrayToCheckAgainst).length === 0;
+};
+
+const incompleteWithUnexpectedReasons = function (body) {
+	return !allArrayElementsInArray(Object.keys(body.reason), [
+		'applicationPlanningOfficersReportMissingOrIncorrect',
+		'applicationPlansToReachDecisionMissingOrIncorrect',
+		'policiesStatutoryDevelopmentPlanPoliciesMissingOrIncorrect',
+		'policiesOtherRelevantPoliciesMissingOrIncorrect',
+		'policiesSupplementaryPlanningDocumentsMissingOrIncorrect',
+		'siteConservationAreaMapAndGuidanceMissingOrIncorrect',
+		'siteListedBuildingDescriptionMissingOrIncorrect',
+		'thirdPartyApplicationNotificationMissingOrIncorrect',
+		'thirdPartyApplicationPublicityMissingOrIncorrect',
+		'thirdPartyRepresentationsMissingOrIncorrect',
+		'thirdPartyAppealNotificationMissingOrIncorrect'
+	]);
+};
+
 const validateReviewRequest = function(body) {
 	// if (invalidAppealStatus(body.AppealStatus)) {
 	// 	throw new ValidationError('Unknown AppealStatus provided', 400);
 	// }
-	// if (invalidWithUnexpectedReasons(body) || incompleteWithUnexpectedReasons(body)) {
-	// 	throw new ValidationError('Unknown Reason provided', 400);
-	// }
+
 	if (invalidWithoutReasons(body)) {
 		throw new CaseOfficerError('Incomplete Review requires a description', 400);
+	}
+	if (incompleteWithUnexpectedReasons(body)) {
+		throw new CaseOfficerError('Incomplete Review requires a known description', 400);
 	}
 	// if (incompleteWithoutReasons(body)) {
 	// 	throw new ValidationError('Incomplete Appeal requires a reason', 400);
