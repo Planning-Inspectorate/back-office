@@ -8,7 +8,7 @@ import DatabaseFactory from '../repositories/database.js';
 const request = supertest(app);
 
 const appeal_11 = {
-	id: 1,
+	id: 11,
 	reference: 'APP/Q9999/D/21/1087562',
 	status: 'received_lpa_questionnaire',
 	createdAt: new Date(2022, 1, 23),
@@ -49,7 +49,7 @@ test('should submit confirmation of an incomplete outcome of LPA questionnaire',
 	const resp = await request.post('/case-officer/11/confirm')
 		.send({
 			reason:{
-				appealId: 11,
+
 				applicationPlanningOficersReportMissingOrIncorrect: false,
 				applicationPlansToReachDecisionMissingOrIncorrect: true,
 				applicationPlansToReachDecisionMissingOrIncorrectDescription: 'Some description',
@@ -113,6 +113,7 @@ test('should submit confirmation of the outcome of LPA questionnaire', async (t)
 			}
 		});
 	t.is(resp.status, 200);
+	console.log('HERE' + resp.send);
 	sinon.assert.calledWithExactly(addReviewStub, {  data: {
 		appealId: 11,
 		complete: true,
