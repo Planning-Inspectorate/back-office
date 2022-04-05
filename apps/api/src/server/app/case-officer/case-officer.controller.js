@@ -1,6 +1,6 @@
 import appealRepository from '../repositories/appeal.repository.js';
 import newReviewRepository from '../repositories/review-questionnaire.repository.js';
-import { reviewIncomplete } from './case-officer-review.js';
+import { reviewComplete } from './case-officer-review.js';
 import { lpaQuestionnaireStatesStrings } from '../state-machine/lpa-questionnaire-states.js';
 import appealFormatter from './appeal-formatter.js';
 import CaseOfficerError from './case-officer-error.js';
@@ -28,10 +28,10 @@ const getAppealDetails = async function (request, response) {
 };
 
 const confirmingLPAQuestionnaire = async function (request, response) {
-	const reviewResult = await reviewIncomplete(request.body);
-	const appeal = await getAppeals(request.params.id);
-	await newReviewRepository.addReview(appeal.id, reviewResult, request.body.Reason);
-	response.send();
+	const reviewResult = await reviewComplete(request.body);
+	const appeal = await getAppealForCaseOfficer(request.params.id);
+	await newReviewRepository.addReview(appeal.id, reviewResult, request.body.reason);
+	return response.send();
 };
 
 /**

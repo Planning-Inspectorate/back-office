@@ -1,24 +1,24 @@
+// eslint-disable-next-line eslint-comments/disable-enable-pair
 /* eslint-disable complexity */
 // import { validationResult } from 'express-validator';
-
-const reviewIncomplete = function (body) {
+const reviewComplete = function (body) {
 	return ((
-		body.Reason.applicationPlanningOficersReportMissingOrIncorrect == true ||
-		body.Reason.applicationPlansToReachDecisionMissingOrIncorrect  == true ||
-		body.Reason.policiesStatutoryDevelopmentPlanPoliciesMissingOrIncorrect  == true ||
-		body.Reason.policiesOtherRelevanPoliciesMissingOrIncorrect  == true ||
-		body.Reason.policiesSupplementaryPlanningDocumentsMissingOrIncorrect   == true ||
-		body.Reason.siteConservationAreaMapAndGuidanceMissingOrIncorrect  == true ||
-		body.Reason.siteListedBuildingDescriptionMissingOrIncorrect  == true ||
-		body.Reason.thirdPartyApplicationNotificationMissingOrIncorrect  == true ||
-		body.Reason.thirdPartyApplicationNotificationMissingOrIncorrectListOfAddresses  == true ||
-		body.Reason.thirdPartyApplicationNotificationMissingOrIncorrectCopyOfLetterOrSiteNotice  == true ||
-		body.Reason.thirdPartyApplicationPublicityMissingOrIncorrect  == true ||
-		body.Reason.thirdPartyRepresentationsMissingOrIncorrect  == true ||
-		body.Reason.thirdPartyAppealNotificationMissingOrIncorrect  == true ||
-		body.Reason.thirdPartyAppealNotificationMissingOrIncorrectListOfAddresses  == true ||
-		body.Reason.thirdPartyAppealNotificationMissingOrIncorrectCopyOfLetterOrSiteNotice  == true ) ?
+		body.reason.applicationPlanningOficersReportMissingOrIncorrect == true ||
+		body.reason.applicationPlansToReachDecisionMissingOrIncorrect  == true ||
+		body.reason.policiesStatutoryDevelopmentPlanPoliciesMissingOrIncorrect  == true ||
+		body.reason.policiesOtherRelevanPoliciesMissingOrIncorrect  == true ||
+		body.reason.policiesSupplementaryPlanningDocumentsMissingOrIncorrect   == true ||
+		body.reason.siteConservationAreaMapAndGuidanceMissingOrIncorrect  == true ||
+		body.reason.siteListedBuildingDescriptionMissingOrIncorrect  == true ||
+		body.reason.thirdPartyApplicationNotificationMissingOrIncorrect  == true ||
+		body.reason.thirdPartyApplicationNotificationMissingOrIncorrectListOfAddresses  == true ||
+		body.reason.thirdPartyApplicationNotificationMissingOrIncorrectCopyOfLetterOrSiteNotice  == true ||
+		body.reason.thirdPartyApplicationPublicityMissingOrIncorrect  == true ||
+		body.reason.thirdPartyRepresentationsMissingOrIncorrect  == true ||
+		body.reason.thirdPartyAppealNotificationMissingOrIncorrect  == true ||
+		body.reason.thirdPartyAppealNotificationMissingOrIncorrectListOfAddresses  == true ||
+		body.reason.thirdPartyAppealNotificationMissingOrIncorrectCopyOfLetterOrSiteNotice  == true ) ?
 		false : true );
 };
 
-export { reviewIncomplete };
+export { reviewComplete };
