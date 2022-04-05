@@ -1,0 +1,44 @@
+{% extends "govuk/template.njk" %}
+
+{% from "govuk/components/back-link/macro.njk" import govukBackLink %}
+
+{% block head %}
+  <link rel="stylesheet" href="{{ resourceCSS.path | stripQueryParamsDev }}"/>
+  <script defer="defer" src="{{ resourceJS.path | stripQueryParamsDev }}"></script>
+{% endblock %}
+
+{% block pageTitle %}
+  {{ pageTitle | default('GOV.UK') }} – {{ serviceName }}
+{% endblock %}
+
+{% block header %}
+  {{
+    govukHeader({
+      homepageUrl: homepageUrl | default('https://www.gov.uk/'),
+      serviceName: serviceName,
+      serviceUrl: serviceUrl | default('/'),
+      containerClasses: containerClasses
+    })
+  }}
+{% endblock %}
+
+{% block beforeContent %}
+  {% block backLink %}
+    {% if backLinkUrl %}
+      {{ govukBackLink({ href: backLinkUrl }) }}
+    {% elseif backURL %}
+      {{ govukBackLink({ href: backURL }) }}
+    {% endif%}
+  {% endblock %}
+{% endblock %}
+
+{% block content %}
+  {% block pageHeading %}
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-full">
+        <h1 class="govuk-heading-xl">{{ pageTitle }}</h1>
+      </div>
+    </div>
+  {% endblock %}
+  {% block pageContent %}{% endblock %}
+{% endblock %}

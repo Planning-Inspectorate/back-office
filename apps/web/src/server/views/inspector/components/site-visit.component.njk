@@ -1,0 +1,19 @@
+{% macro siteVisit(appeal) %}
+  <div class="pins-related">
+    <h3 class="govuk-heading-m">Site visit</h3>
+    <dl class="govuk-body">
+      <div class="govuk-!-margin-bottom-3">
+        <dt class="govuk-!-font-weight-bold">Date<dt>
+        <dd>appeal.SiteVisitDate</dd>
+      </div>
+      <div class="govuk-!-margin-bottom-3">
+        <dt class="govuk-!-font-weight-bold">Time<dt>
+        <dd>appeal.SiteVisitTime</dd>
+      </div>
+      <div class="govuk-!-margin-bottom-3">
+        <dt class="govuk-!-font-weight-bold">Type<dt>
+        <dd>appeal.SiteVisitType</dd>
+      </div>
+    </dl>
+  </div>
+{% endmacro %}

@@ -1,7 +1,8 @@
 /**
- * @param { Promise } promise - Promise we want to await for
+ * @template T
+ * @param { Promise<T> } promise - Promise we want to await for
  * @param { object= } errorExt - Additional Information you can pass to the err object
- * @returns { Promise } Promise that resolves with an array containing the error and / or result object
+ * @returns { Promise<T> } Promise that resolves with an array containing the error and / or result object
  */
 export function to(promise, errorExt) {
 	return promise

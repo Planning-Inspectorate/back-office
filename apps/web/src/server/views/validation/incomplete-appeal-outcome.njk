@@ -1,4 +1,4 @@
-{% extends "validation/_layout-validation.njk" %}
+{% extends "app/layouts/app-two-column.layout.njk" %}
 
 {% from "govuk/components/back-link/macro.njk" import govukBackLink %}
 {% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
@@ -6,17 +6,9 @@
 {% from "govuk/components/button/macro.njk" import govukButton %}
 {% from "govuk/components/input/macro.njk" import govukInput %}
 
-{% block beforeContent %}
-  {{ govukBackLink({ text: "Back", href: backURL }) }}
-{% endblock %}
+{% set pageTitle = 'What is missing or wrong?' %}
 
 {% block pageContent %}
-	{{ super() }}
-
-	<h1 class="govuk-heading-xl">
-		What is missing or wrong?
-	</h1>
-
 	<p class="govuk-body">
 		Appeal reference: {{ appealData.AppealReference }}
 	</p>
