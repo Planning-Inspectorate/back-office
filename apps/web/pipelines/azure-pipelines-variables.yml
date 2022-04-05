@@ -8,4 +8,3 @@ variables:
   dockerFilePath: $(Build.SourcesDirectory)/apps/web/Dockerfile
   repository: back-office/back-office-web
   webAppNamePrefix: pins-app-back-office-web
-  
