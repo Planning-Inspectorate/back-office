@@ -36,16 +36,11 @@ const appeal_2 = {
 	}
 };
 
-// const getAppealByIdStub = sinon.stub();
-// getAppealByIdStub.withArgs({ where: { id: 1 } }).returns(appeal_1);
-// getAppealByIdStub.withArgs({ where: { id: 3 } }).returns(appeal_3);
-
 class MockDatabaseClass {
 	constructor(_parameters) {
 		this.pool = {
 			appeal: {
-				findMany: sinon.stub().returns([appeal_1, appeal_2]),
-				// findUnique: getAppealByIdStub
+				findMany: sinon.stub().returns([appeal_1, appeal_2])
 			}
 		};
 	}

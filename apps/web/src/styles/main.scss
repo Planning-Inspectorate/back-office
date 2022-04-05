@@ -1,5 +1,5 @@
 // Use the GDS Design System as a foundation
-@use "govuk/all" with (
+@use "govuk-frontend/govuk/all" with (
 	$govuk-assets-path: "/",
 	$govuk-images-path: "/images/",
 	$govuk-fonts-path: "/fonts/"
@@ -10,6 +10,9 @@
 // 1 - SETTINGS
 // 2 - DESIGN TOKENS
 // 3 - TOOLS (functions, mixins)
+
+// Vendors
+@use "accessible-autocomplete/src/autocomplete.css" as accessible-autocomplete;
 
 // 4 - GENERIC
 @use "4-generic/generic.box-sizing" as generic-box-sizing;
@@ -24,6 +27,7 @@
 
 // 7 - COMPONENTS
 @use "7-components/InfoBox/InfoBox" as InfoBox;
+@use "7-components/autocomplete";
 @use "7-components/related";
 @use "7-components/table";
 
@@ -35,9 +39,3 @@
 
 // Shame file used for everytihng you will be shamed for.
 @use "shame";
-
-// FIXME: govuk accessible autocomplete – copied from
-// node_modules/accessible-autocomplete for whatever reason none of
-// "~accessible-autocomplete", "~accessible-autocomplete/src/autocomplete" or
-// "~accessible-autocomplete/src/autocomplete.css" will work
-@use "autocomplete.css";

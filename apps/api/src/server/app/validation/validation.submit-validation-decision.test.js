@@ -101,7 +101,7 @@ test.before('sets up mocking of database', () => {
 
 test('should be able to submit \'valid\' decision', async (t) => {
 	const resp = await request.post('/validation/1')
-		.send({ AppealStatus: 'valid', DescriptionOfDevelopment: 'Some Desc' });
+		.send({ AppealStatus: 'valid', descriptionOfDevelopment: 'Some Desc' });
 	t.is(resp.status, 200);
 	sinon.assert.calledWithExactly(updateStub, { where: { id: 1 }, data: {
 		status: 'awaiting_lpa_questionnaire',
@@ -198,13 +198,13 @@ test('should not be able to submit validation decision for appeal that has been 
 
 test('should not be able to submit validation decision for appeal that has been marked \'invalid\'', async(t) => {
 	const resp = await request.post('/validation/3')
-		.send({ AppealStatus: 'valid', DescriptionOfDevelopment: 'Some desc' });
+		.send({ AppealStatus: 'valid', descriptionOfDevelopment: 'Some desc' });
 	t.is(resp.status, 400);
 	t.deepEqual(resp.body, { error: 'Appeal does not require validation' } );
 });
 
 test('should be able to mark appeal with missing info as \'valid\'', async(t) => {
-	const resp = await request.post('/validation/4').send({ AppealStatus: 'valid', DescriptionOfDevelopment: 'some desc' });
+	const resp = await request.post('/validation/4').send({ AppealStatus: 'valid', descriptionOfDevelopment: 'some desc' });
 	t.is(resp.status, 200);
 	sinon.assert.calledWithExactly(updateStub, { where: { id: 4 }, data: {
 		status: 'awaiting_lpa_questionnaire',
@@ -263,7 +263,7 @@ test('should not be able to submit decision as \'incomplete\' if providing inval
 				namesDoNotMatch: false,
 				sensitiveInfo: false,
 				missingApplicationForm: false,
-				missingDecisionNotice:false,
+				missingDecisionNotice: false,
 				missingGroundsForAppeal: false,
 				missingSupportingDocuments: false,
 				inflammatoryComments: false,

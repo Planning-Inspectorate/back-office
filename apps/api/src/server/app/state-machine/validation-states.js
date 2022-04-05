@@ -1,26 +1,17 @@
+import mapObjectKeysToStrings from '../utils/map-states-to-strings.js';
 
-const validation_states_strings = {
-	received_appeal: 'received_appeal',
-	awaiting_validation_info: 'awaiting_validation_info',
-	valid_appeal: 'valid_appeal',
-	invalid_appeal: 'invalid_appeal'
-};
-
-const validation_actions_strings = {
+const validationActionsStrings = {
 	invalid: 'INVALID',
 	valid: 'VALID',
 	information_missing: 'INFO_MISSING'
 };
 
-const validation_states = {
+const validationStates = {
 	received_appeal: {
 		on: {
 			INVALID: 'invalid_appeal',
 			INFO_MISSING: 'awaiting_validation_info',
-			VALID: {
-				target: 'valid_appeal',
-				acions: ['consolelog']
-			}
+			VALID: 'valid_appeal'
 		}
 	},
 	awaiting_validation_info: {
@@ -39,7 +30,7 @@ const validation_states = {
 	},
 };
 
-const validation_actions = {
+const validationActions = {
 	notifyAppellantOfMissingAppealInfo: (_context, _event) => {
 		console.log('Letting Appellant know that info is missing...');
 	},
@@ -51,4 +42,6 @@ const validation_actions = {
 	}
 };
 
-export { validation_states_strings, validation_actions_strings, validation_states, validation_actions };
+const validationStatesStrings = mapObjectKeysToStrings(validationStates);
+
+export { validationStatesStrings, validationActionsStrings, validationStates, validationActions };
