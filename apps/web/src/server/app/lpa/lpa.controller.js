@@ -119,7 +119,6 @@ export function postReviewQuestionnaire(request, response) {
 	if (Object.keys(errors).length > 0) {
 		for (const key in errors) {
 			if (errors.hasOwnProperty(key)) {
-				// eslint-disable-next-line unicorn/consistent-destructuring
 				request.session.reviewWork.fields[camelCase(key.replace('-missing-or-incorrect-reason', ''))].details.error = { msg: errors[key].msg };
 			}
 		}
@@ -129,28 +128,21 @@ export function postReviewQuestionnaire(request, response) {
 			errors,
 			errorSummary,
 			questionnaireData,
-			// eslint-disable-next-line unicorn/consistent-destructuring
 			fields: request.session.reviewWork?.fields
 		});
 	}
 
-	// eslint-disable-next-line unicorn/consistent-destructuring
 	request.session.reviewWork.reviewOutcome = 'complete';
 
-	// eslint-disable-next-line unicorn/consistent-destructuring
 	for (const key in request.session.reviewWork.fields) {
-		// eslint-disable-next-line unicorn/consistent-destructuring
 		if (request.session.reviewWork.fields.hasOwnProperty(key) && request.session.reviewWork.fields[key].completed) {
-			// eslint-disable-next-line unicorn/consistent-destructuring
 			request.session.reviewWork.reviewOutcome = 'incomplete';
 			break;
 		}
 	}
 
-	// eslint-disable-next-line unicorn/consistent-destructuring
 	request.session.appealId = appealId;
 
-	// eslint-disable-next-line unicorn/consistent-destructuring
 	request.session.save();
 
 	return response.redirect(`/lpa/${routes.checkAndConfirm.path}`);

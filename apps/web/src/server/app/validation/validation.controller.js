@@ -635,14 +635,12 @@ export function getCheckAndConfirm(request, response) {
 	let invalidReasons;
 	if (appealWork.invalidAppealDetails && appealWork.invalidAppealDetails.invalidReasons) {
 		invalidReasons = flatten([appealWork.invalidAppealDetails.invalidReasons]);
-		// eslint-disable-next-line unicorn/consistent-destructuring
 		request.session.appealWork.invalidAppealDetails.invalidReasons = invalidReasons;
 	}
 
 	let incompleteReasons;
 	if (appealWork.incompleteAppealDetails && appealWork.incompleteAppealDetails.incompleteReasons) {
 		incompleteReasons = flatten([appealWork.incompleteAppealDetails.incompleteReasons]);
-		// eslint-disable-next-line unicorn/consistent-destructuring
 		request.session.appealWork.incompleteAppealDetails.incompleteReasons = incompleteReasons;
 	}
 
@@ -650,7 +648,6 @@ export function getCheckAndConfirm(request, response) {
 	let missingOrWrongDocsReasons;
 	if (appealWork.incompleteAppealDetails && appealWork.incompleteAppealDetails.missingOrWrongDocsReasons) {
 		missingOrWrongDocsReasons = flatten([appealWork.incompleteAppealDetails.missingOrWrongDocsReasons]);
-		// eslint-disable-next-line unicorn/consistent-destructuring
 		request.session.appealWork.incompleteAppealDetails.missingOrWrongDocsReasons = missingOrWrongDocsReasons;
 	}
 

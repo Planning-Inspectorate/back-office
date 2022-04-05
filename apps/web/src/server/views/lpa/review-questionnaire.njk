@@ -8,7 +8,6 @@
 {% from "govuk/components/character-count/macro.njk" import govukCharacterCount %}
 
 {% from "_includes/macros/make-document-links-for-type.njk" import makeDocumentLinksForType %}
-{% from "_includes/macros/make-appeal-site-html.njk" import makeAppealSiteHtml %}
 
 {%- macro detailsInput(type, idPrefix, labelText, details, checkboxItems) -%}
 	{%- if type === 'textarea' -%}
@@ -84,7 +83,7 @@
 					],
 					[
 						{ html: '<strong>Appeal site</strong>' },
-						{ html: makeAppealSiteHtml(questionnaireData.AppealSite) }
+						{ html: questionnaireData.AppealSite | address }
 					],
 					[
 						{ html: '<strong>Local planning department</strong>' },
