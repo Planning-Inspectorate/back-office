@@ -40,12 +40,17 @@ export async function getValidationDashboard(request, response, next) {
 		return;
 	}
 
+	// TODO: data manipulation should be done in templates if required
 	// eslint-disable-next-line unicorn/no-array-for-each
 	appealsListData.forEach((item) => {
 		const row = [
 			{ html: `<a href="/validation/${routes.reviewAppealRoute.path}/${item.AppealId}">${item.AppealReference}</a>` },
 			{ text: item.Received },
-			{ text: item.AppealSiteString }
+			// eslint-disable-next-line unicorn/no-array-reduce
+			{ text: Object.keys(item.AppealSite).reduce((accumulator, key) => {
+				if (item.AppealSite[key]) accumulator += (accumulator.length > 0 ? ', ' : '') + item.AppealSite[key];
+				return accumulator;
+			}, '') }
 		];
 
 		if (item.AppealStatus === 'incomplete') {
@@ -630,14 +635,12 @@ export function getCheckAndConfirm(request, response) {
 	let invalidReasons;
 	if (appealWork.invalidAppealDetails && appealWork.invalidAppealDetails.invalidReasons) {
 		invalidReasons = flatten([appealWork.invalidAppealDetails.invalidReasons]);
-		// eslint-disable-next-line unicorn/consistent-destructuring
 		request.session.appealWork.invalidAppealDetails.invalidReasons = invalidReasons;
 	}
 
 	let incompleteReasons;
 	if (appealWork.incompleteAppealDetails && appealWork.incompleteAppealDetails.incompleteReasons) {
 		incompleteReasons = flatten([appealWork.incompleteAppealDetails.incompleteReasons]);
-		// eslint-disable-next-line unicorn/consistent-destructuring
 		request.session.appealWork.incompleteAppealDetails.incompleteReasons = incompleteReasons;
 	}
 
@@ -645,7 +648,6 @@ export function getCheckAndConfirm(request, response) {
 	let missingOrWrongDocsReasons;
 	if (appealWork.incompleteAppealDetails && appealWork.incompleteAppealDetails.missingOrWrongDocsReasons) {
 		missingOrWrongDocsReasons = flatten([appealWork.incompleteAppealDetails.missingOrWrongDocsReasons]);
-		// eslint-disable-next-line unicorn/consistent-destructuring
 		request.session.appealWork.incompleteAppealDetails.missingOrWrongDocsReasons = missingOrWrongDocsReasons;
 	}
 

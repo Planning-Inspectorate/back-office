@@ -70,11 +70,11 @@
 
 			{{ govukButton({ text: text | default('Continue') }) }}
 		</form>
-		
+
 	{% else %}
 
 		{# Incomplete appeal #}
-		
+
 		{% if canEditReviewOutcome %}
 			<form action="" method="post" novalidate>
 				{{ govukRadios({
@@ -100,10 +100,10 @@
 				</div>
 			</form>
 		{% else %}
-			{{ govukButton({ 
+			{{ govukButton({
 				href: '/validation/review-appeal/' + appeal.AppealId + '?edit=true',
 				text: 'Change outcome',
-				classes: 'govuk-button--secondary' 
+				classes: 'govuk-button--secondary'
 			}) }}
 		{% endif %}
 

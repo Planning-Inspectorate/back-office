@@ -1,7 +1,9 @@
-{% extends "app/layouts/app.layout.njk" %}
+{% extends "app/layouts/app-wide.layout.njk" %}
 
 {% from "govuk/components/table/macro.njk" import govukTable %}
 {% from "app/components/infoBox.njk" import infoBox %}
+
+{% set pageTitle = 'Questionnaires for review' %}
 
 {% block content %}
 	{%- set tableHeadItems = [
@@ -11,9 +13,7 @@
 		{ text: "Status" }
 	] -%}
 
-	<h1 class="govuk-heading-xl">
-		Questionnaires for review
-	</h1>
+	{{ super() }}
 
 	<h2 class="govuk-heading-l govuk-!-margin-bottom-1">
 		Incoming questionnaires
@@ -22,7 +22,7 @@
 	{%- if questionnairesList.incomingQuestionnaires.length > 0 -%}
 		{{ govukTable({
 			head: tableHeadItems,
-			rows: questionnairesList.incomingQuestionnaires })
+			rows: questionnairesList.incomingQuestionnaires | makeQuestionnaireTableRows(reviewQuestionnairePath) })
 		}}
 	{%- else -%}
 		{{ infoBox("No incoming questionnaires", classes="govuk-!-margin-bottom-8") }}
@@ -35,7 +35,7 @@
 	{%- if questionnairesList.incompleteQuestionnaires.length > 0 -%}
 		{{ govukTable({
 			head: tableHeadItems,
-			rows: questionnairesList.incompleteQuestionnaires })
+			rows: questionnairesList.incompleteQuestionnaires | makeQuestionnaireTableRows(reviewQuestionnairePath) })
 		}}
 	{%- else -%}
 		{{ infoBox("No incomplete questionnaires") }}

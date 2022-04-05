@@ -36,8 +36,12 @@ export const lpaRoutesConfig = {
 		path: 'lpa',
 		view: 'lpa/dashboard'
 	},
-	reviewQuestionnaireRoute: {
+	reviewQuestionnaire: {
 		path: 'review-questionnaire',
 		view: 'lpa/review-questionnaire'
 	},
+	checkAndConfirm: {
+		path: 'check-and-confirm',
+		view: 'lpa/check-and-confirm'
+	}
 };

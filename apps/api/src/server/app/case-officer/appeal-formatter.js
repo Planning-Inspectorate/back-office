@@ -26,7 +26,7 @@ function mapAppealStatus(status) {
 }
 
 const appealFormatter = {
-	formatAppealForAllAppeals: function(appeal) { 
+	formatAppealForAllAppeals: function(appeal) {
 		const appealStatus = mapAppealStatus(appeal.status);
 		return {
 			AppealId: appeal.id,
@@ -75,6 +75,51 @@ const appealFormatter = {
 				{
 					Type: 'supporting document',
 					Filename: 'other-document-3.pdf',
+					URL: 'localhost:8080'
+				},
+				{
+					Type: 'planning officers report',
+					Filename: 'planning-officers-report.pdf',
+					URL: 'localhost:8080'
+				},
+				{
+					Type: 'plans used to reach decision',
+					Filename: 'plans-used-to-reach-decision.pdf',
+					URL: 'localhost:8080'
+				},
+				{
+					Type: 'statutory development plan policy',
+					Filename: 'policy-and-supporting-text-1.pdf',
+					URL: 'localhost:8080'
+				},
+				{
+					Type: 'statutory development plan policy',
+					Filename: 'policy-and-supporting-text-2.pdf',
+					URL: 'localhost:8080'
+				},
+				{
+					Type: 'statutory development plan policy',
+					Filename: 'policy-and-supporting-text-3.pdf',
+					URL: 'localhost:8080'
+				},
+				{
+					Type: 'other relevant policy',
+					Filename: 'policy-and-supporting-text-1.pdf',
+					URL: 'localhost:8080'
+				},
+				{
+					Type: 'other relevant policy',
+					Filename: 'policy-and-supporting-text-2.pdf',
+					URL: 'localhost:8080'
+				},
+				{
+					Type: 'other relevant policy',
+					Filename: 'policy-and-supporting-text-3.pdf',
+					URL: 'localhost:8080'
+				},
+				{
+					Type: 'conservation area guidance',
+					Filename: 'conservation-area-plan.pdf',
 					URL: 'localhost:8080'
 				}
 			]

@@ -1,5 +1,4 @@
 import FormData from 'form-data';
-import { appealSiteObjectToText } from '../../lib/helpers.js';
 import request from './../../lib/request.js';
 import localPlanningDepartments from './__dev__/local-planning-departments.js';
 
@@ -20,10 +19,6 @@ export function findAllLocalPlanningDepartments() {
 
 export async function findAllNewIncompleteAppeals() {
 	const data = await request('validation');
-
-	for (const appeal of data) {
-		appeal.AppealSiteString = appeal.AppealSite ? appealSiteObjectToText(appeal.AppealSite) : '';
-	}
 
 	return data;
 }
@@ -48,7 +43,7 @@ export function findAppealById(appealId) {
 
 /**
  * Updates the details of an appeal as identified by the `appealId` parameter.
- * These details can be provided as a full or partial representation. 
+ * These details can be provided as a full or partial representation.
  *
  * @param {string} appealId - The unique identifier of the appeal to be updated.
  * @param {AppealDetails} details - A complete or partial set of details to be
@@ -70,7 +65,6 @@ export function updateAppeal(id, data) {
  * associate the uploaded file.
  * @property {Express.Multer.File} file - A file uploaded via multer.
  */
-
 /**
  * Upload a document to an appeal according to a given `documentType`.
  *

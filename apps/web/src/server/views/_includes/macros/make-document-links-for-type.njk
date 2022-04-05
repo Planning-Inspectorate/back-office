@@ -1,0 +1,16 @@
+// TODO: consolidate functionality with documentSummaryList macro in validation/review-appeal.njk
+{% macro makeDocumentLinksForType(documents, type) %}
+	{%- set numRendered = 0 -%}
+	{%- for document in documents -%}
+		{%- if document.Type === type -%}
+			{%- if numRendered > 0 -%}
+				<br />
+			{%- endif -%}
+			<a class="govuk-link" target="_blank" href="{{ document.URL }}">{{ document.Filename }}</a>
+			{%- set numRendered = numRendered + 1 -%}
+		{%- endif -%}
+	{%- endfor -%}
+	{%- if numRendered === 0 -%}
+		<span>No documents uploaded</span>
+	{%- endif -%}
+{% endmacro %}

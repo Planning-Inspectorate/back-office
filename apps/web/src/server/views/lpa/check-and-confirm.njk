@@ -1,0 +1,46 @@
+{% extends "app/layouts/app-wide.layout.njk" %}
+
+{% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
+{% from "govuk/components/warning-text/macro.njk" import govukWarningText %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+
+{% block header %}
+	{{ govukHeader({
+		homepageUrl: "https://www.gov.uk/",
+		serviceName: "Appeal a planning decision",
+		serviceUrl: "/lpa",
+		containerClasses: "govuk-width-container"
+	}) }}
+{% endblock %}
+
+{% set pageTitle = 'Review questionnaire' %}
+
+{% block content %}
+	{{ super() }}
+
+	<h2 class="govuk-heading-l">
+		Check and confirm
+	</h2>
+
+	{{ govukSummaryList({
+		rows: [
+			{ key: { text: "Review outcome" }, value: { text: reviewOutcomeLabel } },
+			{ key: { text: "Appeal reference" }, value: { text: questionnaireData.AppealReference } },
+			{ key: { text: "Appeal site" }, value: { html: questionnaireData.AppealSite | address(', ') } },
+			{ key: { text: "Local planning department" }, value: { text: questionnaireData.LocalPlanningDepartment } }
+		]
+	}) }}
+
+	{%- if reviewOutcome === 'complete' -%}
+		{{ govukWarningText({
+			iconFallbackText: "Warning",
+			text: "Confirming this questionnaire as complete makes the appeal visible to inspectors."
+		}) }}
+	{%- endif -%}
+
+	<div class="govuk-button-group">
+		{{ govukButton({ text: 'Confirm outcome' }) }}
+		<a class="govuk-link" href="{{ backURL }}">Go back to review questionnaire</a>
+	</div>
+
+{% endblock %}

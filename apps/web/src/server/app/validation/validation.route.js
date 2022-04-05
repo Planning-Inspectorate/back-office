@@ -28,8 +28,8 @@ import {
 } from './validation.controller.js';
 import {
 	validateOutcomePipe,
-	validateValidAppealDetails,
-	validateOutcomeInvalidReason,
+	validateValidAppealDetailsPipe,
+	validateOutcomeInvalidReasonPipe,
 	validateOutcomeIncompletePipe,
 	validateCheckAndConfirmPipe,
 	validateAppellantName,
@@ -45,7 +45,7 @@ const router = express.Router();
 router
 	.route('/review-appeal/:appealId')
 	.get(createAsyncHandler(getReviewAppeal))
-	.post(appealDataGuard, validateOutcomePipe(), expressValidationErrorsInterceptor, postAppealOutcome);
+	.post(appealDataGuard, validateOutcomePipe, expressValidationErrorsInterceptor, postAppealOutcome);
 
 router
 	.route('/review-appeal/:appealId/appeal-site')
@@ -80,25 +80,25 @@ router.route('/').get(getValidationDashboard);
 router
 	.route(`/${routes.validAppealOutcome.path}`)
 	.get(appealDataGuard, getValidAppealOutcome)
-	.post(appealDataGuard, validateValidAppealDetails(), expressValidationErrorsInterceptor, postValidAppealDetails);
+	.post(appealDataGuard, validateValidAppealDetailsPipe, expressValidationErrorsInterceptor, postValidAppealDetails);
 
 // Invalid appeal outcome
 router
 	.route(`/${routes.invalidAppealOutcome.path}`)
 	.get(appealDataGuard, getInvalidAppealOutcome)
-	.post(appealDataGuard, validateOutcomeInvalidReason(), expressValidationErrorsInterceptor, postInvalidAppealOutcome);
+	.post(appealDataGuard, validateOutcomeInvalidReasonPipe, expressValidationErrorsInterceptor, postInvalidAppealOutcome);
 
 // Incomplete appeal outcome
 router
 	.route(`/${routes.incompleteAppealOutcome.path}`)
 	.get(appealDataGuard, getIncompleteAppealOutcome)
-	.post(appealDataGuard, validateOutcomeIncompletePipe(), expressValidationErrorsInterceptor, postIncompleteAppealOutcome);
+	.post(appealDataGuard, validateOutcomeIncompletePipe, expressValidationErrorsInterceptor, postIncompleteAppealOutcome);
 
 // Check and confirm appeal outcome details
 router
 	.route(`/${routes.checkAndConfirm.path}`)
 	.get(appealDataGuard, getCheckAndConfirm)
-	.post(appealDataGuard, validateCheckAndConfirmPipe(), expressValidationErrorsInterceptor, postCheckAndConfirm);
+	.post(appealDataGuard, validateCheckAndConfirmPipe, expressValidationErrorsInterceptor, postCheckAndConfirm);
 
 router.route(`/${routes.reviewAppealComplete.path}`).get(appealDataGuard, getReviewAppealComplete);
 
