@@ -1,6 +1,6 @@
-// eslint-disable-next-line eslint-comments/disable-enable-pair
 /* eslint-disable complexity */
-// import { validationResult } from 'express-validator';
+import CaseOfficerError from './case-officer-error.js';
+
 const reviewComplete = function (body) {
 	return ((
 		body.reason.applicationPlanningOfficersReportMissingOrIncorrect == true ||
@@ -45,21 +45,21 @@ const invalidWithoutReasons = function (body) {
 };
 
 const validateReviewRequest = function(body) {
-	if (invalidAppealStatus(body.AppealStatus)) {
-		throw new ValidationError('Unknown AppealStatus provided', 400);
-	}
-	if (invalidWithUnexpectedReasons(body) || incompleteWithUnexpectedReasons(body)) {
-		throw new ValidationError('Unknown Reason provided', 400);
-	}
+	// if (invalidAppealStatus(body.AppealStatus)) {
+	// 	throw new ValidationError('Unknown AppealStatus provided', 400);
+	// }
+	// if (invalidWithUnexpectedReasons(body) || incompleteWithUnexpectedReasons(body)) {
+	// 	throw new ValidationError('Unknown Reason provided', 400);
+	// }
 	if (invalidWithoutReasons(body)) {
-		throw new ValidationError('Incomplete Review requires a description', 400);
+		throw new CaseOfficerError('Incomplete Review requires a description', 400);
 	}
-	if (incompleteWithoutReasons(body)) {
-		throw new ValidationError('Incomplete Appeal requires a reason', 400);
-	}
-	if (validWithoutDescription(body)) {
-		throw new ValidationError('Valid Appeals require Description of Development', 400);
-	}
+	// if (incompleteWithoutReasons(body)) {
+	// 	throw new ValidationError('Incomplete Appeal requires a reason', 400);
+	// }
+	// if (validWithoutDescription(body)) {
+	// 	throw new ValidationError('Valid Appeals require Description of Development', 400);
+	// }
 };
 
 export { reviewComplete, validateReviewRequest };
