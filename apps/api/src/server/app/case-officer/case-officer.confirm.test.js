@@ -218,7 +218,6 @@ test('should not be able to submit review if appeal is not in a state ready to r
 				thirdPartyAppealNotificationMissingOrIncorrectCopyOfLetterOrSiteNotice: false
 			}
 		});
-
 	t.is(resp.status, 400);
 	t.deepEqual(resp.body, { error: 'Appeal has yet to receive LPA questionnaire' });
 } );
