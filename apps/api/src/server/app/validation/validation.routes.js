@@ -17,7 +17,18 @@ router.get('/',
 	*/
 	asyncHandler(getAppeals));
 
-router.get('/lpa-list', asyncHandler(getLPAList));
+router.get('/lpa-list', 
+	/* 
+		#swagger.description = 'Gets all LPAs from external API'
+		#swagger.responses[200] = {
+			description: 'All available LPAs',
+			schema: [
+				'County Durham LPA',
+				'Darlington LPA'
+			]
+		}
+	*/
+	asyncHandler(getLPAList));
 
 router.get('/:id', 
 	/* 
