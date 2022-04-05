@@ -1,3 +1,5 @@
+// eslint-disable-next-line import/no-unresolved
+import got from 'got';
 import appealRepository from '../repositories/appeal.repository.js';
 import validationDecisionRepository from '../repositories/validation-decision.repository.js';
 import ValidationError from './validation-error.js';
@@ -86,4 +88,14 @@ async function getAppealForValidation(appealId) {
 	return appeal;
 }
 
-export { getAppeals, getAppealDetails, updateAppeal, submitValidationDecision };
+const obtainLPAList = async function() {
+	const dataRaw = await got.get('https://services1.arcgis.com/ESMARspQHYMw9BZ9/arcgis/rest/services/LPA_APR_2021_UK_NC/FeatureServer/0/query?where=1%3D1&outFields=LPA21NM&outSR=4326&f=json');
+	return dataRaw.json().features.map((lpas) => lpas.attributes.LPA21NM);
+};
+
+const getLPAList = async function(_request, response) {
+	const LPAList = await obtainLPAList();
+	return response.send(LPAList);
+};
+
+export { getAppeals, getAppealDetails, updateAppeal, submitValidationDecision, getLPAList };
