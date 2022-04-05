@@ -10,6 +10,11 @@
 {% from "_includes/macros/make-document-links-for-type.njk" import makeDocumentLinksForType %}
 
 {%- macro detailsInput(type, idPrefix, labelText, details, checkboxItems) -%}
+	{#
+		The prefix starts with a - because
+		the isPrefix is concatenated with the "missing or incorrect reason" text,
+		without the - you would end up with IDs like supporting-documentsmissing-or-incorrect-reason
+	#}
 	{%- if type === 'textarea' -%}
 		{{ govukCharacterCount({
 			id: idPrefix + '-missing-or-incorrect-reason',

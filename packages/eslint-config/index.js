@@ -47,6 +47,8 @@ module.exports = {
 		'filenames/match-exported': 0,
 		'filenames/no-index': 0,
 		'unicorn/prefer-module': 0,
-		'unicorn/prevent-abbreviations': 1
+		'unicorn/prevent-abbreviations': 1,
+		'unicorn/consistent-destructuring': '1',
+		'unicorn/no-array-reduce': 0
 	}
 };
