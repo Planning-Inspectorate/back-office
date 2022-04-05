@@ -7,10 +7,12 @@ import lpaQuestionnaireActions from './lpa-questionnaire.actions.js';
 
 const lpaQuestionnaireStub = sinon.stub();
 const inspectorSendBookingStub = sinon.stub();
+const notifyAppellantOfDecisionStub = sinon.stub();
 
 test.before('sets up mocking of actions', () => {
 	sinon.stub(lpaQuestionnaireActions, 'sendLpaQuestionnaire').callsFake(lpaQuestionnaireStub);
 	sinon.stub(inspectorActionsService, 'sendEmailToAppellantWithSiteVisitBooking').callsFake(inspectorSendBookingStub);
+	sinon.stub(inspectorActionsService, 'sendEmailToLPAAndAppellantWithDeciion').callsFake(notifyAppellantOfDecisionStub);
 });
 
 /**
@@ -35,6 +37,9 @@ function applyAction(t, initial_state, action, expected_state, has_changed, cont
 		} else {
 			sinon.assert.notCalled(inspectorSendBookingStub);
 		}
+	}
+	if (next_state.value == 'appeal_decided') {
+		sinon.assert.calledWithExactly(notifyAppellantOfDecisionStub, 1, 'allowed');
 	}
 }
 
@@ -68,7 +73,8 @@ for (const parameter of [
 	['site_visit_not_yet_booked', 'BOOK', 'site_visit_booked', true, { appealId: 1, inspectionType: 'access required' }],
 	['site_visit_not_yet_booked', 'BOOK', 'site_visit_booked', true, { appealId: 1, inspectionType: 'unaccompanied' }],
 	['site_visit_not_yet_booked', 'BOOK', 'site_visit_booked', true, { appealId: 1, inspectionType: 'any other type' }],
-	['site_visit_booked', 'BOOKING_PASSED', 'decision_due', true, { appealId: 1 }]
+	['site_visit_booked', 'BOOKING_PASSED', 'decision_due', true, { appealId: 1 }],
+	['decision_due', 'DECIDE', 'appeal_decided', true, { appealId: 1, decision: 'allowed' }]
 ]) {
 	test(applyAction, ...parameter);
 }
