@@ -1,0 +1,238 @@
+{% from "govuk/components/accordion/macro.njk" import govukAccordion %}
+{% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
+{% from "govuk/components/table/macro.njk" import govukTable %}
+{% from "app/components/document-list.component.njk" import documentList %}
+
+{% macro appealEvidence(appeal) %}
+  {{ 
+    govukAccordion({
+      id: "appeal-details",
+      items: [
+        {
+          heading: { text: "Case details" },
+          content: {
+            html: govukSummaryList({
+              rows: [
+                { 
+                  key: { text: 'Appellant name' },
+                  value: { text: 'appeal.AppellantName' } 
+                },
+                { 
+                  key: { text: 'Agent name' },
+                  value: { text: 'appeal.AgentName' } 
+                },
+                { 
+                  key: { text: 'Contact email address' },
+                  value: { html: '<a class="govuk-link" href="#">appeal.ContactEmail</a>' } 
+                },
+                {
+                  key: { text: 'Date appeal received' },
+                  value: { text: 'appeal.DateAppealReceived' }
+                },
+                {
+                  key: { text: 'Description of development' },
+                  value: { text: 'appeal.DevelopmentDescription' }
+                }
+              ]
+            })
+          }
+        },
+        {
+          heading: { text: 'Appellant case' },
+          content: {
+            html: govukSummaryList({
+              rows: [
+                { 
+					        key: { text: 'Appeal statement' }, 
+					        value: {
+                    html: documentList(appeal.Documents | filter({ Type: 'appeal statement' }))
+                  }
+				        },
+				        { 
+                  key: { text: 'Supporting documents' },
+                  value: {
+                    html: documentList(appeal.Documents | filter({ Type: 'supporting document' }))
+                  }
+                }
+              ]
+            })
+          }
+        },
+        {
+          heading: { text: 'Local planning department documents' },
+          content: {
+            html: govukSummaryList({
+             rows: [
+                { 
+                  key: { text: 'Appeal statement' }, 
+                  value: {
+                    html: documentList(appeal.Documents | filter({ Type: 'appeal statement' }))
+                  }
+                },
+                { 
+                  key: { text: 'Supporting documents' },
+                  html: {
+                    value: documentList(appeal.Documents | filter({ Type: 'supporting document' }))
+                  }
+                },
+                {
+                  key: { text: 'Planning Officer\'s report' },
+                  value: {
+                    html: documentList(appeal.Documents | filter({ Type: 'planning officer report' }))
+                  }
+                },
+                {
+                  key: { text: 'Decision notice' },
+                  value: {
+                    html: documentList(appeal.Documents | filter({ Type: 'decision notice' }))
+                  }
+                },
+                {
+                  key: { text: 'Extra conditions' },
+                  value: { text: 'appeal.ExtraConditions' }
+                },
+                {
+                  key: { text: 'Details of planning history' },
+                  value: {
+                    html: documentList(appeal.Documents | filter({ Type: 'details of planning history' }))
+                  }
+                },
+                {
+                  key: { text: 'Supporting documents' },
+                  value: {
+                    html: documentList(appeal.Documents | filter({ Type: 'supporting document' }))
+                  }
+                }
+              ]
+            })
+          }
+        },
+        {
+          heading: { text: 'Constraints' },
+          content: {
+            html: govukSummaryList({
+              rows: [
+                {
+                  key: { text: 'Affects listed building' },
+                  value: { text: 'appeal.AffectsListedBuilding' }
+                },
+                {
+                  key: { text: 'In green belt' },
+                  value: { text: 'appeal.GreenBelt' }
+                },
+                {
+                  key: { text: 'In or near a conservation area' },
+                  value: { text: 'appeal.ConservationArea' }
+                }
+              ]
+            })
+          }
+        },
+        {
+          heading: { text: 'Policies' },
+          content: {
+            html: govukSummaryList({
+              rows: [
+                {
+                  key: { text: 'Statutory development plan policy' },
+                  html: documentList(appeal.Documents | filter({ Type: 'statutory development plan policy' }))
+                },
+                {
+                  key: { text: 'Other relevant policies' },
+                  html: documentList(appeal.Documents | filter({ Type: 'other relevant policy' }))
+                },
+                {
+                  key: { text: 'Supplementary planning documents' },
+                  html: documentList(appeal.Documents | filter({ Type: 'supplementary planning document' }))
+                },
+                {
+                  key: { text: 'Emerging development plan or neighbourhood plan' },
+                  html: 'appeal.DevelopmentPlan'
+                }
+              ]
+            })
+          }
+        },
+        {
+          heading: { text: 'Representations' },
+          content: {
+            html: govukSummaryList({
+              rows: [
+                {
+                  key: { text: 'Representations' },
+                  html: documentList(appeal.Documents | filter({ Type: 'representation' }))
+                }
+              ]
+            })
+          }
+        },
+        {
+          heading: { text: 'Correspondence' },
+          content: {
+            html: govukSummaryList({
+              rows: [
+                {
+                  key: { text: 'Application notification' },
+                  html: documentList(appeal.Documents | filter({ Type: 'application notification' }))
+                },
+                {
+                  key: { text: 'Application publicity' },
+                  html: documentList(appeal.Documents | filter({ Type: 'application publicity' }))
+                },
+                {
+                  key: { text: 'Appeal notification' },
+                  html: documentList(appeal.Documents | filter({ Type: 'appeal notification' }))
+                }
+              ]
+            })
+          }
+        },
+        {
+          heading: { text: 'Site access' },
+          content: {
+            html: govukTable({
+              firstCellIsHeader: true,
+              head: [
+                { text: 'Question', classes: 'govuk-visually-hidden' }, 
+                { text: 'Local planning department\'s answer' },
+                { text: 'Appellant\'s answer' }
+              ],
+              rows: [
+                [
+                  { text: 'Can the site been seen from public land?' }, 
+                  { text: "No\nThe extension is to the rear of the property, and the garden has high hedges." },
+                  { text: "No\nI've got big hedges." } 
+                ],
+                [
+                  { text: 'Does the inspector need to enter the site?' }, 
+                  { text: "Yes\nThe proposed development can only be viewed from the appellant's garden." },
+                  { text: '(not asked)' } 
+                ],
+                [
+                  { text: 'Does the inspector need to access a neighbour\'s land?' }, 
+                  { text: "Yes\n54 Butcher Street" },
+                  { text: '(not asked)' } 
+                ],
+                [
+                  { text: 'Does the appellant own the whole site?' }, 
+                  { text: "(not asked)" },
+                  { text: 'Yes' } 
+                ],
+                [
+                  { text: 'Are there any health and safety issues?' }, 
+                  { text: "Yes\nA defensive dog" },
+                  { text: 'No' } 
+                ],
+                [
+                  { text: 'Appeals in the immediate area still being considered' }, 
+                  { text: "893482, 372839" },
+                  { text: '(not asked)' } 
+                ]
+              ]
+            })
+          }
+        }
+      ]
+    })
+  }}
+{% endmacro %}

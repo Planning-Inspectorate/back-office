@@ -188,13 +188,13 @@ const appealsAwaitingLPAQuestionnaire = [
 	}
 ];
 
-const appealsWithReceivedLPAQuestionnaire = [
+const appealsAvailableForInspectorPickup = [
 	{
 		reference: 'APP/Q9999/D/21/1087562',
 		appellantName: 'Bob Ross',
 		localPlanningDepartment: 'Maidstone Borough Council',
 		planningApplicationReference: '48269/APP/2021/1482',
-		status: 'received_lpa_questionnaire',
+		status: 'available_for_inspector_pickup',
 		statusUpdatedAt: getDateTwoWeeksAgo(),
 		startedAt: new Date(),
 		address: {
@@ -226,12 +226,37 @@ const appealsWithReceivedLPAQuestionnaire = [
 	}
 ];
 
+const appealsWithBookedSiteVisit = [
+	{
+		reference: 'APP/2021/56789/3556481',
+		appellantName: 'Bob Ross',
+		localPlanningDepartment: 'Maidstone Borough Council',
+		planningApplicationReference: '48269/APP/2021/1482',
+		status: 'site_visit_booked',
+		startedAt: new Date(),
+		address: {
+			create: {
+				addressLine1: '131 High Street',
+				county: 'Bradford',
+				postcode: 'BD6 1JK'
+			}
+		},
+		siteVisit: {
+			create: {
+				visitDate: new Date(2022, 3, 1),
+				visitSlot: '1pm - 2pm'
+			}
+		}
+	}
+];
+
 const appealsData = [
 	...newAppeals,
 	...appealsAwaitingValidationInfo,
 	...invalidAppeals,
 	...appealsAwaitingLPAQuestionnaire,
-	...appealsWithReceivedLPAQuestionnaire
+	...appealsAvailableForInspectorPickup,
+	...appealsWithBookedSiteVisit
 ];
 
 /**

@@ -1,4 +1,14 @@
-import { body } from 'express-validator';
+import { mapMulterErrorToValidationError } from '@pins/express';
+import { validatePostcode } from '@pins/platform';
+import { storage } from '../../lib/multer.js';
+import { body, checkSchema } from 'express-validator';
+import multer from 'multer';
+
+export const registerValidationLocals = (_, response, next) => {
+	response.locals.serviceName = 'Appeal a planning decision';
+	response.locals.serviceUrl = '/validation';
+	next();
+};
 
 // All validation pipes will save into the current request all the validation errors that would be used
 // by the `expressValidationErrorsInterceptor` to populate the body with.
@@ -10,7 +20,11 @@ import { body } from 'express-validator';
  */
 export const validateOutcomePipe = body('review-outcome')
 	.notEmpty()
-	.withMessage('Select if the appeal is valid or invalid, or if something is missing or wrong')
+	.withMessage((_, { req }) =>
+			req.session.appealData.AppealStatus === 'incomplete'
+				? 'Select if the appeal is valid or invalid'
+				: 'Select if the appeal is valid or invalid, or if something is missing or wrong'
+		)
 	.bail()
 	.isIn(['valid', 'invalid', 'incomplete'])
 	.withMessage('Select if the appeal is valid or invalid, or if something is missing or wrong');
@@ -63,7 +77,11 @@ export const validateOutcomeIncompletePipe = [
 		.isIn(['applicationForm', 'decisionNotice', 'groundsForAppeal', 'supportingDocuments'])
 		.withMessage('Please select which documents are missing or wrong'),
 	body('otherReasons')
-		.if(body('incompleteReasons').toArray().custom((value) => value.includes('otherReason')))
+		.if(
+			body('incompleteReasons')
+				.toArray()
+				.custom((value) => value.includes('otherReason'))
+		)
 		.escape()
 		.trim()
 		.notEmpty()
@@ -83,16 +101,14 @@ export const validateOutcomeInvalidReasonPipe = [
 		.notEmpty()
 		.withMessage('Please select a reason why the appeal is invalid')
 		.bail()
-		.isIn([
-			'outOfTime',
-			'noRightOfAppeal',
-			'notAppealable',
-			'lPADeemedInvalid',
-			'otherReason'
-		])
+		.isIn(['outOfTime', 'noRightOfAppeal', 'notAppealable', 'lPADeemedInvalid', 'otherReason'])
 		.withMessage('Please enter a reason why the appeal is invalid'),
 	body('otherReasons')
-		.if(body('invalidReasons').toArray().custom((value) => value.includes('otherReason')))
+		.if(
+			body('invalidReasons')
+				.toArray()
+				.custom((value) => value.includes('otherReason'))
+		)
 		.escape()
 		.trim()
 		.notEmpty()
@@ -117,3 +133,114 @@ export const validateCheckAndConfirmPipe = body('check-and-confirm-completed')
 
 		return true;
 	});
+
+export const validateAppellantName = checkSchema({
+	AppellantName: {
+		escape: true,
+		trim: true,
+		notEmpty: {
+			errorMessage: 'Enter an appellant name',
+			bail: true
+		},
+		isLength: {
+			errorMessage: 'An appellant name must be 500 characters or fewer',
+			options: {
+				max: 500
+			}
+		}
+	}
+});
+
+export const validateAppealSite = checkSchema({
+	AddressLine1: {
+		escape: true,
+		trim: true,
+		notEmpty: {
+			errorMessage: 'Enter the first line of the address',
+			bail: true
+		},
+		isLength: {
+			errorMessage: 'First line of address must be 500 characters or fewer',
+			options: {
+				max: 500
+			}
+		}
+	},
+	AddressLine2: {
+		escape: true,
+		trim: true,
+		isLength: {
+			errorMessage: 'Second line of address must be 500 characters or fewer',
+			options: { max: 500 }
+		}
+	},
+	Town: {
+		escape: true,
+		trim: true,
+		notEmpty: {
+			errorMessage: 'Enter a town or city',
+			bail: true
+		},
+		isLength: {
+			errorMessage: 'Town or city must be 500 characters or fewer',
+			options: { max: 500 }
+		}
+	},
+	County: {
+		escape: true,
+		trim: true,
+		isLength: {
+			errorMessage: 'County must be 500 characters or fewer',
+			options: { max: 500 }
+		}
+	},
+	PostCode: {
+		escape: true,
+		trim: true,
+		notEmpty: {
+			errorMessage: 'Enter a postcode',
+			bail: true
+		},
+		custom: {
+			options: validatePostcode,
+			errorMessage: 'Enter a real postcode'
+		}
+	}
+});
+
+export const validateLocalPlanningDepartment = checkSchema({
+	LocalPlanningDepartment: {
+		escape: true,
+		trim: true,
+		notEmpty: {
+			errorMessage: 'Select a local planning department'
+		},
+	}
+});
+
+export const validatePlanningApplicationReference = checkSchema({
+	PlanningApplicationReference: {
+		escape: true,
+		trim: true,
+		notEmpty: {
+			errorMessage: 'Enter a planning application reference'
+		},
+	}
+});
+
+export const handleUploadedDocuments = [
+	checkSchema({
+		files: {
+			notEmpty: {
+				errorMessage: 'Select a file'
+			}
+		}
+	}),
+	multer({
+		storage,
+		limits: {
+			fileSize: 1 * Math.pow(1024, 2 /* MBs*/)
+		}
+	}).array('files'),
+	mapMulterErrorToValidationError
+];

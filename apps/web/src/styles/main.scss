@@ -16,17 +16,20 @@
 
 // 4 - GENERIC
 @use "4-generic/generic.box-sizing" as generic-box-sizing;
+@use "4-generic/generic.reset";
 
 // 5 - ELEMENTS
 @use "5-elements/elements.page" as elements-page;
 @use "5-elements/elements.images" as elements-images;
 
 // 6 - SKELETON
-// TODO: Add a simple grid system based on CSS grid.
-// @use "6-skeleton/skeleton.css-grid" as skeleton-css-grid;
+@use "6-skeleton/container";
 
 // 7 - COMPONENTS
 @use "7-components/InfoBox/InfoBox" as InfoBox;
+@use "7-components/autocomplete";
+@use "7-components/related";
+@use "7-components/table";
 
 // 8 - UTILITIES
 

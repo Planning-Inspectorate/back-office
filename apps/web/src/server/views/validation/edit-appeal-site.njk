@@ -1,0 +1,78 @@
+{% extends "app/layouts/app-two-column.layout.njk" %}
+
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/input/macro.njk" import govukInput %}
+
+{% set pageTitle = 'Change appeal site' %}
+{% set backLinkUrl = '/validation/review-appeal/' + appealId %}
+
+{% block pageHeading %}
+	<h1 class="govuk-heading-l">{{ pageTitle }}</h1>
+{% endblock %}
+
+{% block pageContent %}
+	<form method="post" novalidate>
+		<fieldset class="govuk-fieldset">
+			<legend class="govuk-visually-hidden">{{ pageTitle }}</legend>
+			{{ 
+				govukInput({
+					id: 'AddressLine1',
+					type: 'text',
+					name: "AddressLine1",
+					label: { text: 'Building and street' },
+					errorMessage: errors.AddressLine1 and { text: errors.AddressLine1.msg },
+					value: appealSite.AddressLine1
+				})
+			}}
+			{{ 
+				govukInput({
+					id: 'AddressLine2',
+					type: 'text',
+					name: "AddressLine2",
+					label: { text: 'Address line 2', classes: "govuk-visually-hidden" },
+					errorMessage: errors.AddressLine2 and { text: errors.AddressLine2.msg },
+					value: appealSite.AddressLine2
+				})
+			}}
+			{{ 
+				govukInput({
+					id: 'Town',
+					type: 'text',
+					name: "Town",
+					label: { text: 'Town or city' },
+					classes: "govuk-input--width-20",
+					errorMessage: errors.Town and { text: errors.Town.msg },
+					value: appealSite.Town
+				})
+			}}
+			{{ 
+				govukInput({
+					id: 'County',
+					type: 'text',
+					name: "County",
+					label: { text: 'County' },
+					classes: "govuk-input--width-20",
+					errorMessage: errors.County and { text: errors.County.msg },
+					value: appealSite.County
+				})
+			}}
+			{{ 
+				govukInput({
+					id: 'PostCode',
+					type: 'text',
+					name: 'PostCode',
+					label: { text: 'Postcode' },
+					classes: "govuk-input--width-10",
+					errorMessage: errors.PostCode and { text: errors.PostCode.msg },
+					value: appealSite.PostCode
+				})
+			}}
+		</fieldset>
+
+		<div class="govuk-button-group">
+			{{ govukButton({ text: "Save changes" }) }}
+			<a class="govuk-link" href="/validation/review-appeal/{{ appealId }}">Cancel</a>
+		</div>
+	</form>
+
+{% endblock %}

@@ -1,0 +1,88 @@
+{% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
+		
+{% macro appealSummary(params) %}
+	{% set appeal = params.appeal %}
+	{% set appealSummaryListRows = [
+		{
+			key: { text: "Appellant name" },
+			value: { text: appeal.AppellantName },
+			actions: {
+				items: [
+					{ 
+            href: '/validation/review-appeal/' + appeal.AppealId + '/appellant-name',
+            text: "Change",
+            visuallyHiddenText: 'appellant name'            
+          }
+				]
+			}
+		}, {
+			key: { text: "Appeal reference" },
+			value: { text: appeal.AppealReference }
+		}, {
+			key: { text: "Received on" },
+			value: { text: appeal.Received }
+		}, {
+			key: { text: "Appeal site" },
+			value: { html: appeal.AppealSite | address },
+			actions: {
+				items: [
+					{ 
+            href: '/validation/review-appeal/' + appeal.AppealId + '/appeal-site',
+            text: "Change",
+            visuallyHiddenText: 'appeal site'
+          }
+				]
+			}
+		}, {
+			key: { text: "Local planning department" },
+			value: { text: appeal.LocalPlanningDepartment },
+			actions: {
+				items: [
+					{
+            href: '/validation/review-appeal/' + appeal.AppealId + '/local-planning-department',
+            text: "Change",
+            visuallyHiddenText: 'local planning department'
+          }
+				]
+			}
+		}, {
+			key: { text: "Planning application reference" },
+			value: { text: appeal.PlanningApplicationReference },
+			actions: {
+				items: [
+					{
+            href: '/validation/review-appeal/' + appeal.AppealId + '/planning-application-reference',
+            text: "Change",
+            visuallyHiddenText: 'planning application reference'
+          }
+				]
+			}
+		}
+	] %}
+
+	{% if appeal.AppealStatus === 'incomplete' %}
+		{% set appealSummaryListRows = (appealSummaryListRows.push({
+			key: { text: "Reasons why incomplete" },
+			value: {
+				html: incompleteReasonList(appeal.reasons)
+			}
+		}), appealSummaryListRows)
+ 	%}
+	{% endif %}
+
+	{{ govukSummaryList({ rows: appealSummaryListRows }) }}
+{% endmacro %}
+
+{% macro incompleteReasonList(reasons) %}
+	<ul class="govuk-list">
+  	{% for entry in reasons | entries %}
+			<li>
+				{% if entry[0] === 'otherReasons' %}
+					{{ entry[1] }}
+				{% else %}
+					{{ entry[0] | incompleteReasonLabel }}
+				{% endif %}
+			</li>
+		{% endfor %}
+	</ul>
+{% endmacro %}
