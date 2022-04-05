@@ -69,7 +69,7 @@ test('should submit confirmation of the outcome of LPA questionnaire', async (t)
 	t.is(resp.status, 200);
 	sinon.assert.calledWithExactly(addReviewStub, {  data: {
 		appealId: 11,
-		complete: false,
+		complete: true,
 		applicationPlanningOficersReportMissingOrIncorrect: false,
 		applicationPlansToReachDecisionMissingOrIncorrect: false,
 		policiesStatutoryDevelopmentPlanPoliciesMissingOrIncorrect: false,

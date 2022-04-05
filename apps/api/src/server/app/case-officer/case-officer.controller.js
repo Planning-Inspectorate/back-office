@@ -27,10 +27,10 @@ const getAppealDetails = async function (request, response) {
 	return response.send(formattedAppeal);
 };
 
-const confirmingLPAQuestionnaire = async function (request, response) {
-	const reviewResult = await reviewComplete(request.body);
-	const appeal = await getAppealForCaseOfficer(request.params.id);
-	await newReviewRepository.addReview(appeal.id, reviewResult, request.body.reason);
+const confirmingLPAQuestionnaire =  function (request, response) {
+	const reviewResult = reviewComplete(request.body);
+	const appeal = getAppealForCaseOfficer(request.params.id);
+	newReviewRepository.addReview(appeal.id, reviewResult, request.body.reason);
 	return response.send();
 };
 
