@@ -27,6 +27,7 @@ export async function getValidationDashboard(request, response, next) {
 		return;
 	}
 
+	// TODO: data manipulation should be done in templates if required
 	// eslint-disable-next-line unicorn/no-array-for-each
 	appealsListData.forEach((item) => {
 		const row = [

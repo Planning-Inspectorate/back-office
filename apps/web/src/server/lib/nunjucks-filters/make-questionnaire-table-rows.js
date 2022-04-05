@@ -1,3 +1,5 @@
+import appealSiteObjectToText from "./appeal-site-object-to-text.js";
+
 export default function makeQuestionnaireTableRows (questionnairesListData, reviewQuestionnairePath) {
 	const rows = [];
 
@@ -26,10 +28,7 @@ export default function makeQuestionnaireTableRows (questionnairesListData, revi
 			},
 			{ text: item.QuestionnaireDueDate },
 			// eslint-disable-next-line unicorn/no-array-reduce
-			{ text: Object.keys(item.AppealSite).reduce((accumulator, key) => {
-				if (item.AppealSite[key]) accumulator += (accumulator.length > 0 ? ', ' : '') + item.AppealSite[key];
-				return accumulator;
-			}, '') },
+			{ text: appealSiteObjectToText(item.AppealSite) },
 			{ html: `<strong class="govuk-tag govuk-tag--${statusTagColor}">${item.QuestionnaireStatus}</strong>` }
 		]);
 	});

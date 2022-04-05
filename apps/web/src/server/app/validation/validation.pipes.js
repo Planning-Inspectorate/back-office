@@ -8,26 +8,26 @@ import { body } from 'express-validator';
  *
  * @returns {void}
  */
-export const validateOutcomePipe = () =>
-	body('review-outcome')
-		.notEmpty()
-		.withMessage('Select if the appeal is valid or invalid, or if something is missing or wrong')
-		.bail()
-		.isIn(['valid', 'invalid', 'incomplete'])
-		.withMessage('Select if the appeal is valid or invalid, or if something is missing or wrong');
+export const validateOutcomePipe = body('review-outcome')
+	.notEmpty()
+	.withMessage('Select if the appeal is valid or invalid, or if something is missing or wrong')
+	.bail()
+	.isIn(['valid', 'invalid', 'incomplete'])
+	.withMessage('Select if the appeal is valid or invalid, or if something is missing or wrong');
 
 /**
- * Validate the apeal details form that it has content and it doesn't exceed 500 chars.
+ * Validate the appeal details form that it has content and it doesn't exceed 500 chars.
  *
  * @returns {void}
  */
-export const validateValidAppealDetails = () =>
-	body('valid-appeal-details')
-		.notEmpty()
-		.withMessage('Enter a description of development')
-		.bail()
-		.isLength({ max: 500 })
-		.withMessage('Word count exceeded');
+export const validateValidAppealDetailsPipe = body('valid-appeal-details')
+	.escape()
+	.trim()
+	.notEmpty()
+	.withMessage('Enter a description of development')
+	.bail()
+	.isLength({ max: 500 })
+	.withMessage('Word count exceeded');
 
 /**
  * Validate the outcome incomplete form to ensure it has at least 1 answer.
@@ -38,7 +38,7 @@ export const validateValidAppealDetails = () =>
  *
  * @returns {void}
  */
-export const validateOutcomeIncompletePipe = () => [
+export const validateOutcomeIncompletePipe = [
 	body('incompleteReasons')
 		.notEmpty()
 		.withMessage('Please enter a reason why the appeal is missing or wrong')
@@ -64,6 +64,8 @@ export const validateOutcomeIncompletePipe = () => [
 		.withMessage('Please select which documents are missing or wrong'),
 	body('otherReasons')
 		.if(body('incompleteReasons').toArray().custom((value) => value.includes('otherReason')))
+		.escape()
+		.trim()
 		.notEmpty()
 		.withMessage('Please provide a reason for the incomplete outcome')
 		.bail()
@@ -76,7 +78,7 @@ export const validateOutcomeIncompletePipe = () => [
  *
  * @returns {void}
  */
-export const validateOutcomeInvalidReason = () => [
+export const validateOutcomeInvalidReasonPipe = [
 	body('invalidReasons')
 		.notEmpty()
 		.withMessage('Please select a reason why the appeal is invalid')
@@ -91,6 +93,8 @@ export const validateOutcomeInvalidReason = () => [
 		.withMessage('Please enter a reason why the appeal is invalid'),
 	body('otherReasons')
 		.if(body('invalidReasons').toArray().custom((value) => value.includes('otherReason')))
+		.escape()
+		.trim()
 		.notEmpty()
 		.withMessage('Please provide a reason for the invalid outcome')
 		.bail()
@@ -103,8 +107,8 @@ export const validateOutcomeInvalidReason = () => [
  *
  * @returns {void}
  */
-export const validateCheckAndConfirmPipe = () =>
-	body('check-and-confirm-completed').custom((value, { req }) => {
+export const validateCheckAndConfirmPipe = body('check-and-confirm-completed')
+	.custom((value, { req }) => {
 		const { appealWork = {} } = req.session;
 
 		if (appealWork.reviewOutcome === 'incomplete' && value !== 'true') {

@@ -32,7 +32,7 @@
 		rows: [
 			{ key: { text: "Review outcome" }, value: { text: reviewOutcomeLabel } },
 			{ key: { text: "Appeal reference" }, value: { text: questionnaireData.AppealReference } },
-			{ key: { text: "Appeal site" }, value: { html: questionnaireData.AppealSiteHtml } },
+			{ key: { text: "Appeal site" }, value: { html: questionnaireData.AppealSite | appealSiteObjectToText } },
 			{ key: { text: "Local planning department" }, value: { text: questionnaireData.LocalPlanningDepartment } }
 		]
 	}) }}

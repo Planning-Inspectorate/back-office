@@ -52,7 +52,7 @@
 				{ key: { text: 'Outcome of review' }, value: { text: validationAppealOutcomeLabels.label } },
 				{ key: { text: 'Appellant name' }, value: { text: appealData.AppellantName } },
 				{ key: { text: 'Appeal reference' }, value: { text: appealData.AppealReference } },
-				{ key: { text: 'Appeal site' }, value: { html: appealData.AppealSiteHtml } },
+				{ key: { text: 'Appeal site' }, value: { html: appealData.AppealSite | appealSiteObjectToText } },
 				{ key: { text: validationAppealOutcomeLabels.reasonLabel }, value: { html: renderCheckAndConfirmReason() } }
 			]
 		}) }}

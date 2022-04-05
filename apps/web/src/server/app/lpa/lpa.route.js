@@ -19,7 +19,7 @@ router.route('/').get(getLpaDashboard);
 // Review questionnaire page
 router.route(`/${routes.reviewQuestionnaire.path}/:appealId`)
 	.get(getReviewQuestionnaire)
-	.post(validateQuestionnairePipe(), expressValidationErrorsInterceptor, postReviewQuestionnaire);
+	.post(validateQuestionnairePipe, expressValidationErrorsInterceptor, postReviewQuestionnaire);
 
 router.route(`/${routes.checkAndConfirm.path}`)
 	.get(getCheckAndConfirm);
