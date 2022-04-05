@@ -158,3 +158,41 @@ test('should not be able to submit review as \'incomplete\' if there is no descr
 	t.is(resp.status, 400);
 	t.deepEqual(resp.body, { error: 'Incomplete Review requires a description' });
 } );
+
+test('should not be able to submit review as \'incomplete\' if ome unexpected body attributes are provided', async (t) => {
+	const resp = await request.post('/case-officer/11/confirm')
+		.send({
+			reason:{
+				applicationPlanningOfficersReportMissingOrIncorrect: false,
+				applicationPlansToReachDecisionMissingOrIncorrect: false,
+				policiesStatutoryDevelopmentPlanPoliciesMissingOrIncorrect: false,
+				policiesOtherRelevantPoliciesMissingOrIncorrect: false,
+				policiesSupplementaryPlanningDocumentsMissingOrIncorrect : false,
+				siteConservationAreaMapAndGuidanceMissingOrIncorrect: false,
+				siteListedBuildingDescriptionMissingOrIncorrect: false,
+				thirdPartyApplicationNotificationMissingOrIncorrect: false,
+				thirdPartyApplicationNotificationMissingOrIncorrectListOfAddresses: false,
+				thirdPartyApplicationNotificationMissingOrIncorrectCopyOfLetterOrSiteNotice: false,
+				thirdPartyApplicationPublicityMissingOrIncorrect: false,
+				thirdPartyRepresentationsMissingOrIncorrect : false,
+				thirdPartyAppealNotificationMissingOrIncorrect: false,
+				thirdPartyAppealNotificationMissingOrIncorrectListOfAddresses: false,
+				thirdPartyAppealNotificationMissingOrIncorrectCopyOfLetterOrSiteNotice: false,
+				someFakeReason: true
+			}
+		});
+	t.is(resp.status, 400);
+	t.deepEqual(resp.body, { error: 'Incomplete Review requires a known description' });
+} );
+
+test('should not be able to submit decision as \'invalid\' if providing incomplete reasons', async (t) => {
+	const resp = await request.post('/validation/6')
+		.send({
+			AppealStatus:'invalid',
+			Reason: {
+				someFakeReason: true
+			}
+		});
+	t.is(resp.status, 400);
+	t.deepEqual(resp.body, { error: 'Unknown Reason provided' } );
+});
