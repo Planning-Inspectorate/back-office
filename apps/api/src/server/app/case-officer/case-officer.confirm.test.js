@@ -31,9 +31,9 @@ const appeal_11 = {
 
 const getAppealByIdStub = sinon.stub();
 
-getAppealByIdStub.returns( appeal_11 );
-//getAppealByIdStub.withArgs({ where: { id: 11 }, include: { 	status: 'received_lpa_questionnaire' } }).returns(appeal_11);
-getAppealByIdStub.withArgs({ where: { id: 10 }, include: { 	status: 'received_appeal' } }).returns(appeal_10);
+//getAppealByIdStub.returns( appeal_11 );
+getAppealByIdStub.withArgs({ where: { id: 11 }, include: { address: true } }).returns(appeal_11);
+getAppealByIdStub.withArgs({ where: { id: 10 }, include: { address: true } }).returns(appeal_10);
 
 const addReviewStub = sinon.stub();
 
@@ -125,7 +125,6 @@ test('should submit confirmation of the outcome of LPA questionnaire', async (t)
 			}
 		});
 	t.is(resp.status, 200);
-	console.log('HERE' + resp.send);
 	sinon.assert.calledWithExactly(addReviewStub, {  data: {
 		appealId: 11,
 		complete: true,
@@ -202,7 +201,6 @@ test('should not be able to submit review if appeal is not in a state ready to r
 	const resp = await request.post('/case-officer/10/confirm')
 		.send({
 			reason:{
-				appealId: 10,
 				applicationPlanningOfficersReportMissingOrIncorrect: false,
 				applicationPlansToReachDecisionMissingOrIncorrect: false,
 				policiesStatutoryDevelopmentPlanPoliciesMissingOrIncorrect: false,
@@ -211,12 +209,16 @@ test('should not be able to submit review if appeal is not in a state ready to r
 				siteConservationAreaMapAndGuidanceMissingOrIncorrect: false,
 				siteListedBuildingDescriptionMissingOrIncorrect: false,
 				thirdPartyApplicationNotificationMissingOrIncorrect: false,
+				thirdPartyApplicationNotificationMissingOrIncorrectListOfAddresses: false,
+				thirdPartyApplicationNotificationMissingOrIncorrectCopyOfLetterOrSiteNotice: false,
 				thirdPartyApplicationPublicityMissingOrIncorrect: false,
 				thirdPartyRepresentationsMissingOrIncorrect : false,
-				thirdPartyAppealNotificationMissingOrIncorrect: false
+				thirdPartyAppealNotificationMissingOrIncorrect: false,
+				thirdPartyAppealNotificationMissingOrIncorrectListOfAddresses: false,
+				thirdPartyAppealNotificationMissingOrIncorrectCopyOfLetterOrSiteNotice: false
 			}
 		});
 
 	t.is(resp.status, 400);
-	t.deepEqual(resp.body, { error: 'Review requires received LPA Questionnaire status' });
+	t.deepEqual(resp.body, { error: 'Appeal has yet to receive LPA questionnaire' });
 } );

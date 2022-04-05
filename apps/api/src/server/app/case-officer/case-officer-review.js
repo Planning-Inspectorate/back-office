@@ -1,4 +1,5 @@
 /* eslint-disable complexity */
+
 import CaseOfficerError from './case-officer-error.js';
 import _ from 'lodash';
 
@@ -84,9 +85,5 @@ const validateReviewRequest = function(body) {
 		throw new CaseOfficerError('Incomplete Review requires a known description', 400);
 	}
 };
-
-// const validateAppealStatus = function(body) {
-
-// };
 
 export { reviewComplete, validateReviewRequest };
