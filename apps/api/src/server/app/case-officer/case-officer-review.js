@@ -77,16 +77,16 @@ const incompleteWithUnexpectedReasons = function (body) {
 };
 
 const validateReviewRequest = function(body) {
-
 	if (invalidWithoutReasons(body)) {
 		throw new CaseOfficerError('Incomplete Review requires a description', 400);
 	}
 	if (incompleteWithUnexpectedReasons(body)) {
 		throw new CaseOfficerError('Incomplete Review requires a known description', 400);
 	}
-	// if (invalidAppealStatus(body.AppealStatus)) {
-	// 	throw new ValidationError('Unknown AppealStatus provided', 400);
-	// }
 };
+
+// const validateAppealStatus = function(body) {
+
+// };
 
 export { reviewComplete, validateReviewRequest };

@@ -7,6 +7,17 @@ import DatabaseFactory from '../repositories/database.js';
 
 const request = supertest(app);
 
+const appeal_10 = {
+	id: 10,
+	reference: 'APP/Q9999/D/21/1345264',
+	status: 'received_appeal',
+	createdAt: new Date(2022, 1, 23),
+	addressId: 9,
+	localPlanningDepartment: 'Maidstone Borough Council',
+	planningApplicationReference: '48269/APP/2021/1482',
+	appellantName: 'Lee Thornton'
+};
+
 const appeal_11 = {
 	id: 11,
 	reference: 'APP/Q9999/D/21/1087562',
@@ -21,6 +32,8 @@ const appeal_11 = {
 const getAppealByIdStub = sinon.stub();
 
 getAppealByIdStub.returns( appeal_11 );
+//getAppealByIdStub.withArgs({ where: { id: 11 }, include: { 	status: 'received_lpa_questionnaire' } }).returns(appeal_11);
+getAppealByIdStub.withArgs({ where: { id: 10 }, include: { 	status: 'received_appeal' } }).returns(appeal_10);
 
 const addReviewStub = sinon.stub();
 
@@ -189,6 +202,7 @@ test('should not be able to submit review if appeal is not in a state ready to r
 	const resp = await request.post('/case-officer/10/confirm')
 		.send({
 			reason:{
+				appealId: 10,
 				applicationPlanningOfficersReportMissingOrIncorrect: false,
 				applicationPlansToReachDecisionMissingOrIncorrect: false,
 				policiesStatutoryDevelopmentPlanPoliciesMissingOrIncorrect: false,
@@ -197,15 +211,12 @@ test('should not be able to submit review if appeal is not in a state ready to r
 				siteConservationAreaMapAndGuidanceMissingOrIncorrect: false,
 				siteListedBuildingDescriptionMissingOrIncorrect: false,
 				thirdPartyApplicationNotificationMissingOrIncorrect: false,
-				thirdPartyApplicationNotificationMissingOrIncorrectListOfAddresses: false,
-				thirdPartyApplicationNotificationMissingOrIncorrectCopyOfLetterOrSiteNotice: false,
 				thirdPartyApplicationPublicityMissingOrIncorrect: false,
 				thirdPartyRepresentationsMissingOrIncorrect : false,
-				thirdPartyAppealNotificationMissingOrIncorrect: false,
-				thirdPartyAppealNotificationMissingOrIncorrectListOfAddresses: false,
-				thirdPartyAppealNotificationMissingOrIncorrectCopyOfLetterOrSiteNotice: false,
+				thirdPartyAppealNotificationMissingOrIncorrect: false
 			}
 		});
+
 	t.is(resp.status, 400);
-	t.deepEqual(resp.body, { error: 'Review requires reveived LPA Questionnaoire status' });
+	t.deepEqual(resp.body, { error: 'Review requires received LPA Questionnaire status' });
 } );
