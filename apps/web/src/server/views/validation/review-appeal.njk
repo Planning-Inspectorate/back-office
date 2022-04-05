@@ -1,125 +1,140 @@
-{% extends "validation/_layout-validation.njk" %}
+{% extends "app/layouts/app-two-column.layout.njk" %}
 
-{% from "govuk/components/back-link/macro.njk" import govukBackLink %}
-{% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
-{% from "govuk/components/radios/macro.njk" import govukRadios %}
 {% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
+{% from "./components/appeal-summary.component.njk" import appealSummary %}
+{% from "app/components/document-list.component.njk" import documentList %}
 
-{# Macro use to generate a list of documents #}
-{% macro supportingDocumentsList(supportingDocuments)  %}
-<ul class="govuk-list">
-	{% for doc in supportingDocuments %}
-	<li><a href="{{ doc.url }}" class="govuk-link" target="_blank">{{ doc.filename }}</a></li>
-	{% endfor %}
-</ul>
-{% endmacro %}
+{% set isAppealIncomplete = appeal.AppealStatus === 'incomplete' %}
 
-{% block beforeContent %}
-  {{ govukBackLink({ text: "Back", href: backURL }) }}
-{% endblock %}
+{% set pageTitle = 'Review appeal submission' %}
+{% if canEditReviewOutcome %}
+	{% set pageTitle = 'Change incomplete appeal outcome' %}
+{% elseif isAppealIncomplete %}
+	{% set pageTitle = 'Update incomplete appeal' %}
+{% endif %}
 
 {% block pageContent %}
-	{{ super() }}
+	<h2 class="govuk-visually-hidden">
+    Appeal details
+  </h2>
 
-	<h1 class="govuk-heading-xl">
-		Review appeal submission
-	</h1>
-
-	{{ govukSummaryList({
-		rows: [
-			{
-				key: { text: "Appellant name" },
-				value: { text: appealData.AppellantName },
-				actions: {
-					items: [{
-						href: "#",
-						text: "Change"
-					}]
-				}
-			},
-			{ key: { text: "Appeal reference" },
-				value: { text: appealData.AppealReference }
-			},
-			{
-				key: { text: "Received on" },
-				value: { text: appealData.Received }
-			},
-			{
-				key: { text: "Appeal site" },
-				value: { html: appealData.AppealSiteHtml },
-				actions: {
-					items: [{
-						href: "#",
-						text: "Change"
-					}]
-				}
-			},
-			{
-				key: { text: "Local planning department" },
-				value: { text: appealData.LocalPlanningDepartment },
-				actions: {
-					items: [{
-						href: "#",
-						text: "Change"
-					}]
-				}
-			},
-			{
-				key: { text: "Planning application reference" },
-				value: { text: appealData.PlanningApplicationReference },
-				actions: {
-					items: [{
-						href: "#",
-						text: "Change"
-					}]
-				}
-			}
-		]
-	}) }}
+	{{ appealSummary({ appeal: appeal }) }}
 
 	<h2 class="govuk-heading-l govuk-!-margin-top-9">
 		Planning application documents
 	</h2>
 
-	{# TODO: The document links if they are using the same path we might want to build a component that returns the A tag for them #}
-	{{ govukSummaryList({
-		rows: [
-			{ key: { text: "Planning application form" }, value: { html: '<a href="'+appealData.PlanningApplicationForm.url+'">'+appealData.PlanningApplicationForm.filename+'</a>' } },
-			{ key: { text: "Decision letter" }, value: { html: '<a href="'+appealData.DecisionLetter.url+'">'+appealData.DecisionLetter.filename+'</a>' } }
-		]
-	}) }}
+	{{
+		documentSummaryList([
+		 { label: 'Planning application form', documentType: 'planning application form' },
+		 { label: 'Decision letter', documentType: 'decision letter' }
+		])
+	}}
 
 	<h2 class="govuk-heading-l govuk-!-margin-top-9">
 		Appeal documents
 	</h2>
 
-	{{ govukSummaryList({
-		rows: [
-			{ key: { text: "Appeal statement" }, value: { html: '<a href="'+appealData.AppealStatement.url+'">'+appealData.AppealStatement.filename+'</a>' } },
-			{ key: { text: "Supporting documents" }, value: { html: supportingDocumentsList(appealData.SupportingDocuments) } }
-		]
-	}) }}
+	{{
+		documentSummaryList([
+		 { label: 'Appeal statement', documentType: 'appeal statement' },
+		 { label: 'Supporting documents', documentType: 'supporting document' }
+		])
+	}}
 
-	<form action="" method="post" novalidate>
-		{{ govukRadios({
-			idPrefix: "review-outcome",
-			name: "review-outcome",
-			errorMessage: errors['review-outcome'] and { text: errors['review-outcome'].msg },
-			fieldset: {
-				legend: {
-					text: "Outcome of review",
-					isPageHeading: false,
-					classes: "govuk-fieldset__legend--l govuk-!-margin-top-6"
-				}
-			},
-			items: [
-				{ value: 'valid', text: "Valid", checked: reviewOutcome === 'valid' },
-				{ value: 'invalid', text: "Invalid", checked: reviewOutcome === 'invalid' },
-				{ divider: "or" },
-				{ value: 'incomplete', text: "Something is missing or wrong", checked: reviewOutcome === 'incomplete' }
-			]
-		}) }}
+	{% if not isAppealIncomplete %}
 
-		{{ govukButton({ text: text | default('Continue') }) }}
-	</form>
+		{# New appeal #}
+
+		<form action="" method="post" novalidate>
+			{{ govukRadios({
+				idPrefix: "reviewOutcome",
+				name: "reviewOutcome",
+				errorMessage: errors.reviewOutcome and { text: errors.reviewOutcome.msg },
+				fieldset: {
+					legend: {
+						text: "Outcome of review",
+						isPageHeading: false,
+						classes: "govuk-fieldset__legend--l govuk-!-margin-top-6"
+					}
+				},
+				items: [
+					{ value: 'valid', text: "Valid", checked: reviewOutcome === 'valid' },
+					{ value: 'invalid', text: "Invalid", checked: reviewOutcome === 'invalid' },
+					{ divider: "or" },
+					{ value: 'incomplete', text: "Something is missing or wrong", checked: reviewOutcome === 'incomplete' }
+				]
+			}) }}
+
+			{{ govukButton({ text: text | default('Continue') }) }}
+		</form>
+		
+	{% else %}
+
+		{# Incomplete appeal #}
+		
+		{% if canEditReviewOutcome %}
+			<form action="" method="post" novalidate>
+				{{ govukRadios({
+					idPrefix: "reviewOutcome",
+					name: "reviewOutcome",
+					errorMessage: errors.reviewOutcome and { text: errors.reviewOutcome.msg },
+					fieldset: {
+						legend: {
+							text: "Outcome of review",
+							isPageHeading: false,
+							classes: "govuk-fieldset__legend--l govuk-!-margin-top-6"
+						}
+					},
+					items: [
+						{ value: 'valid', text: "Valid", checked: reviewOutcome === 'valid' },
+						{ value: 'invalid', text: "Invalid", checked: reviewOutcome === 'invalid' }
+					]
+				}) }}
+
+				<div class="govuk-button-group">
+  				{{ govukButton({ text: "Continue" }) }}
+					<a class="govuk-link" href="/validation/review-appeal/{{ appeal.AppealId }}">Cancel</a>
+				</div>
+			</form>
+		{% else %}
+			{{ govukButton({ 
+				href: '/validation/review-appeal/' + appeal.AppealId + '?edit=true',
+				text: 'Change outcome',
+				classes: 'govuk-button--secondary' 
+			}) }}
+		{% endif %}
+
+	{% endif %}
 {% endblock %}
+
+{% macro documentSummaryList(rows) %}
+	{% set summaryListRows = [] %}
+
+	{% for row in rows %}
+		{% set actionItems = [] %}
+		{% set documents = appeal.Documents | filter({ Type: row.documentType }) %}
+
+		{% if isAppealIncomplete %}
+			{% set actionItems = [
+				{
+					text: 'Change',
+					href: '/validation/review-appeal/' + appeal.AppealId + '/documents/' + (row.documentType | lower | kebabCase),
+					visuallyHiddenText: row.label | lower
+				}
+			] %}
+		{% endif %}
+		{% set summaryListRow = {
+				key: { text: row.label },
+				value: {
+					html: documentList(documents)
+				},
+				actions: { items: actionItems }
+			} %}
+		{% set summaryListRows = (summaryListRows.push(summaryListRow), summaryListRows) %}
+	{% endfor %}
+
+	{{ govukSummaryList({ rows: summaryListRows }) }}
+{% endmacro %}

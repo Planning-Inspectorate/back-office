@@ -1,0 +1,42 @@
+{% extends "app/layouts/app-two-column.layout.njk" %}
+
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/select/macro.njk" import govukSelect %}
+
+{% set pageTitle = 'Change local planning department' %}
+{% set backLinkUrl = '/validation/review-appeal/' + appealId %}
+
+{% block pageHeading %}
+	<h1 class="govuk-heading-l">{{ pageTitle }}</h1>
+{% endblock %}
+
+{% block pageContent %}
+	<form method="post" novalidate="novalidate">
+		{{ 
+			govukSelect({
+				id: "LocalPlanningDepartment",
+				name: "LocalPlanningDepartment",
+				classes: 'accessible-autocomplete',
+				label: {
+					text: "Local planning department",
+					classes: 'govuk-visually-hidden'
+				},
+				hint: {
+					text: 'Start typing to select an option',
+					classes: 'govuk-visually-hidden'
+				},
+				items: [{ text: 'Select a local planning department', value: '' }] | concat(
+					source | selectItems({
+						labelKey: 'LPA21NM',
+						valueKey: 'LPA21NM',
+						selectedValue: localPlanningDepartment	
+					})
+				)
+			})
+		}}
+		<div class="govuk-button-group">
+				{{ govukButton({ text: "Save changes" }) }}
+				<a class="govuk-link" href="/validation/review-appeal/{{ appealId }}">Cancel</a>
+		</div>
+	</form>
+{% endblock %}

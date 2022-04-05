@@ -1,0 +1,30 @@
+{% extends "app/layouts/app-two-column.layout.njk" %}
+
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/input/macro.njk" import govukInput %}
+
+{% set pageTitle = 'Change apellant name' %}
+{% set backLinkUrl = '/validation/review-appeal/' + appealId %}
+
+{% block pageHeading %}
+	<h1 class="govuk-heading-l">{{ pageTitle }}</h1>
+{% endblock %}
+
+{% block pageContent %}
+	<form method="post" novalidate>
+		{{ 
+			govukInput({
+				id: 'AppellantName',
+				type: 'text',
+				name: "AppellantName",
+				label: { text: 'Appellant name', classes: "govuk-visually-hidden" },
+				errorMessage: errors.AppellantName and { text: errors.AppellantName.msg },
+				value: appellantName
+			})
+		}}
+		<div class="govuk-button-group">
+			{{ govukButton({ text: "Save changes" }) }}
+			<a class="govuk-link" href="/validation/review-appeal/{{ appealId }}">Cancel</a>
+		</div>
+	</form>
+{% endblock %}

@@ -1,0 +1,1 @@
+export { validatePostcode } from './validators/postcode.js';

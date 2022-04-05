@@ -16,8 +16,7 @@ import session from 'express-session';
 import { __dirname } from '../lib/helpers.js';
 import { routes } from './routes.js';
 import { config } from '../config/config.js';
-import stripQueryParametersDevelopment from '../lib/nunjucks-filters/strip-query-parameters.js';
-import className from '../lib/nunjucks-filters/class-name.js';
+import * as nunjucksFilters from '../lib/nunjucks-filters/index.js';
 
 const resourceCSS = JSON.parse(await readFile(new URL('../_data/resourceCSS.json', import.meta.url)));
 const resourceJS = JSON.parse(await readFile(new URL('../_data/resourceJS.json', import.meta.url)));
@@ -92,8 +91,12 @@ const njEnvironment = nunjucks.configure(viewPaths, {
 	express: app // the express app that nunjucks should install to
 });
 
-njEnvironment.addFilter('stripQueryParamsDev', stripQueryParametersDevelopment);
-njEnvironment.addFilter('className', className);
+for (const filterName in nunjucksFilters) {
+	if (Object.prototype.hasOwnProperty.call(nunjucksFilters, filterName)) {
+		njEnvironment.addFilter(filterName, nunjucksFilters[filterName]);
+	}
+}
+
 njEnvironment.addGlobal('isProd', config.isProd);
 njEnvironment.addGlobal('isRelease', config.isRelease);
 njEnvironment.addGlobal('resourceCSS', resourceCSS);

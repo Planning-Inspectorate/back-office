@@ -29,7 +29,7 @@ async function getAppealsWithOverdueQuestionnaires() {
 async function markAppealsAsOverdue(appeals) {
 	const updatedAppeals = [];
 	for (const appeal of appeals) {
-		const newStatus = transitionState(appeal.id, appeal.status, 'OVERDUE');
+		const newStatus = transitionState({ appealId: appeal.id }, appeal.status, 'OVERDUE');
 		updatedAppeals.push(appealRepository.updateStatusById(appeal.id, newStatus.value));
 	}
 	await Promise.all(updatedAppeals);

@@ -1,20 +1,11 @@
-{% extends "validation/_layout-validation.njk" %}
+{% extends "app/layouts/app-two-column.layout.njk" %}
 
-{% from "govuk/components/back-link/macro.njk" import govukBackLink %}
 {% from "govuk/components/button/macro.njk" import govukButton %}
 {% from "govuk/components/character-count/macro.njk" import govukCharacterCount %}
 
-{% block beforeContent %}
-	{{ govukBackLink({ text: "Back", href: backURL }) }}
-{% endblock %}
+{% set pageTitle = 'Valid appeal details' %}
 
 {% block pageContent %}
-	{{ super() }}
-
-	<h1 class="govuk-heading-xl">
-		Valid appeal details
-	</h1>
-
 	<form action="" method="post" novalidate>
 		<p class="govuk-body">Appeal reference: {{ appealData.AppealReference }}</p>
 

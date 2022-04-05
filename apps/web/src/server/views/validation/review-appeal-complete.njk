@@ -1,10 +1,8 @@
-{% extends "validation/_layout-validation.njk" %}
+{% extends "app/layouts/app-two-column.layout.njk" %}
 
 {% from "govuk/components/panel/macro.njk" import govukPanel %}
 
 {% block pageContent %}
-	{{ super() }}
-
 	{{ govukPanel({
 		titleText: 'Review complete',
 		html: '<p class="govuk-!-margin-0">' + validationAppealOutcomeLabels.reviewCompleteStatusLabel + '</p><strong>' + appealData.AppealReference + '</strong>'

@@ -1,0 +1,16 @@
+{
+  "name": "@pins/inspector",
+  "version": "0.0.0",
+  "type": "module",
+  "main": "index.d.ts",
+  "private": true,
+  "engines": {
+    "node": ">=16.14.0"
+  },
+  "scripts": {
+  },
+  "dependencies": {
+  },
+  "devDependencies": {
+  }
+}

@@ -23,6 +23,7 @@ model Appeal {
   validationDecision           ValidationDecision[]
   reviewQuestionnaire          ReviewQuestionnaire[]
   lpaQuestionnaire             LPAQuestionnaire?
+  siteVisit                    SiteVisit?
 }
 
 model Address {
@@ -108,4 +109,11 @@ model ReviewQuestionnaire {
   thirdPartyAppealNotificationMissingOrIncorrect                              Boolean  @default(false)
   thirdPartyAppealNotificationMissingOrIncorrectListOfAddresses               Boolean  @default(false)
   thirdPartyAppealNotificationMissingOrIncorrectCopyOfLetterOrSiteNotice      Boolean  @default(false)
+
+model SiteVisit {
+  id        Int      @id @default(autoincrement())
+  appeal    Appeal   @relation(fields: [appealId], references: [id])
+  appealId  Int      @unique
+  visitDate DateTime
+  visitSlot String
 }
