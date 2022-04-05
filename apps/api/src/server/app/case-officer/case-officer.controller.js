@@ -34,6 +34,7 @@ const confirmingLPAQuestionnaire =  async function (request, response) {
 	await newReviewRepository.addReview(appeal.id, reviewResult, request.body.reason);
 	return response.send();
 };
+
 /**
  * @param {string} appealId appeal ID
  * @returns {object} appeal with given ID
