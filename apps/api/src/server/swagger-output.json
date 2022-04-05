@@ -30,6 +30,30 @@
         }
       }
     },
+    "/validation/lpa-list": {
+      "get": {
+        "description": "Gets all LPAs from external API",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "All available LPAs",
+            "schema": {
+              "type": "array",
+              "example": [
+                "County Durham LPA",
+                "Darlington LPA"
+              ],
+              "items": {
+                "type": "string"
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          }
+        }
+      }
+    },
     "/validation/{id}": {
       "get": {
         "description": "Gets appeal to be validated by the Validation Officer",

@@ -1,5 +1,5 @@
 import express from 'express';
-import { getAppeals,  getAppealDetails, updateAppeal, submitValidationDecision } from './validation.controller.js';
+import {  getAppeals, getAppealDetails, updateAppeal, submitValidationDecision, getLPAList } from './validation.controller.js';
 import { body } from 'express-validator';
 
 
@@ -16,6 +16,19 @@ router.get('/',
 		}
 	*/
 	asyncHandler(getAppeals));
+
+router.get('/lpa-list', 
+	/* 
+		#swagger.description = 'Gets all LPAs from external API'
+		#swagger.responses[200] = {
+			description: 'All available LPAs',
+			schema: [
+				'County Durham LPA',
+				'Darlington LPA'
+			]
+		}
+	*/
+	asyncHandler(getLPAList));
 
 router.get('/:id', 
 	/* 
@@ -66,7 +79,6 @@ router.post('/:id',
 		}
 	*/
 	asyncHandler(submitValidationDecision));
-
 
 export {
 	router as validationRoutes
