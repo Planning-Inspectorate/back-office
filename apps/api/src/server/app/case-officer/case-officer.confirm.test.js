@@ -49,7 +49,6 @@ test('should submit confirmation of an incomplete outcome of LPA questionnaire',
 	const resp = await request.post('/case-officer/11/confirm')
 		.send({
 			reason:{
-
 				applicationPlanningOficersReportMissingOrIncorrect: false,
 				applicationPlansToReachDecisionMissingOrIncorrect: true,
 				applicationPlansToReachDecisionMissingOrIncorrectDescription: 'Some description',
@@ -134,3 +133,28 @@ test('should submit confirmation of the outcome of LPA questionnaire', async (t)
 		thirdPartyAppealNotificationMissingOrIncorrectCopyOfLetterOrSiteNotice: false
 	} });
 });
+
+test('should not be able to submit review as \'incomplete\' if there is no description being sent', async (t) => {
+	const resp = await request.post('/case-officer/11/confirm')
+		.send({
+			reason:{
+				applicationPlanningOficersReportMissingOrIncorrect: false,
+				applicationPlansToReachDecisionMissingOrIncorrect: true,
+				policiesStatutoryDevelopmentPlanPoliciesMissingOrIncorrect: false,
+				policiesOtherRelevanPoliciesMissingOrIncorrect: false,
+				policiesSupplementaryPlanningDocumentsMissingOrIncorrect : false,
+				siteConservationAreaMapAndGuidanceMissingOrIncorrect: false,
+				siteListedBuildingDescriptionMissingOrIncorrect: false,
+				thirdPartyApplicationNotificationMissingOrIncorrect: false,
+				thirdPartyApplicationNotificationMissingOrIncorrectListOfAddresses: false,
+				thirdPartyApplicationNotificationMissingOrIncorrectCopyOfLetterOrSiteNotice: false,
+				thirdPartyApplicationPublicityMissingOrIncorrect: false,
+				thirdPartyRepresentationsMissingOrIncorrect : false,
+				thirdPartyAppealNotificationMissingOrIncorrect: false,
+				thirdPartyAppealNotificationMissingOrIncorrectListOfAddresses: false,
+				thirdPartyAppealNotificationMissingOrIncorrectCopyOfLetterOrSiteNotice: false
+			}
+		});
+	t.is(resp.status, 400);
+	t.deepEqual(resp.body, { error: 'Incomplete Review requires a description' });
+} );
