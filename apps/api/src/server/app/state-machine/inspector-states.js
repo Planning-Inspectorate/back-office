@@ -11,6 +11,9 @@ const inspectorActions = {
 		if (inspectionTypesThatSendEmail.has(context.inspectionType)) {
 			await inspectorActionsService.sendEmailToAppellantWithSiteVisitBooking(context.appealId);
 		}
+	},
+	notifyAppellantOfDecision: async function(context, _event) {
+		await inspectorActionsService.sendEmailToLPAAndAppellantWithDeciion(context.appealId, context.decision);
 	}
 };
 
@@ -31,7 +34,14 @@ const inspectorStates = {
 			BOOKING_PASSED: 'decision_due'
 		}
 	},
-	decision_due: {}
+	decision_due: {
+		on: {
+			DECIDE: 'appeal_decided'
+		}
+	},
+	appeal_decided: {
+		entry: ['notifyAppellantOfDecision']
+	}
 };
 
 const inspectorStatesStrings = mapObjectKeysToStrings(inspectorStates);
