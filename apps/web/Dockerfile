@@ -7,7 +7,7 @@ COPY package.json .
 COPY package-lock.json .
 COPY turbo.json .
 
-COPY packages/planning-inspectorate-libs ./packages/planning-inspectorate-libs
+COPY packages ./packages
 COPY apps/web ./apps/web
 
 RUN npm ci --loglevel notice
