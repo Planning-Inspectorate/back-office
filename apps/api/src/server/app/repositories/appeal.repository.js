@@ -85,12 +85,24 @@ const appealRepository = (function() {
 				data: { updatedAt: updatedAt, ...data }
 			});
 		},
-		getByStatusAndLessThanStatusUpdatedAtDate(status, lessThanStatusUpdatedAt) {
+		getByStatusAndLessThanStatusUpdatedAtDate: function(status, lessThanStatusUpdatedAt) {
 			return getPool().appeal.findMany({
 				where: {
 					status: status,
 					statusUpdatedAt: {
 						lt: lessThanStatusUpdatedAt
+					}
+				}
+			});
+		},
+		getByStatusAndInspectionBeforeDate: function(status, lessThanInspectionDate) {
+			return getPool().appeal.findMany({
+				where: {
+					status: status,
+					siteVisit: {
+						visitDate: {
+							lt: lessThanInspectionDate
+						}
 					}
 				}
 			});

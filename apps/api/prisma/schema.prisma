@@ -22,6 +22,7 @@ model Appeal {
   startedAt                    DateTime?
   validationDecision           ValidationDecision[]
   lpaQuestionnaire             LPAQuestionnaire?
+  siteVisit                    SiteVisit?
 }
 
 model Address {
@@ -46,7 +47,7 @@ model ValidationDecision {
   missingDecisionNotice      Boolean  @default(false)
   missingGroundsForAppeal    Boolean  @default(false)
   missingSupportingDocuments Boolean  @default(false)
-  inflammatoryComments        Boolean  @default(false)
+  inflammatoryComments       Boolean  @default(false)
   openedInError              Boolean  @default(false)
   wrongAppealTypeUsed        Boolean  @default(false)
   outOfTime                  Boolean  @default(false)
@@ -77,4 +78,12 @@ model LPAQuestionnaire {
   appealsInImmediateAreaBeingConsidered              String?
   sentAt                                             DateTime  @default(now())
   receivedAt                                         DateTime?
+}
+
+model SiteVisit {
+  id        Int      @id @default(autoincrement())
+  appeal    Appeal   @relation(fields: [appealId], references: [id])
+  appealId  Int      @unique
+  visitDate DateTime
+  visitSlot String
 }

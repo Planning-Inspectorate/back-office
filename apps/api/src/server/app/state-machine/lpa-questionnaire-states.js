@@ -31,7 +31,7 @@ const lpaQuestionnaireStates = {
 		}
 	},
 	complete_lpa_questionnaire: {
-		always: [{ target: 'available_for_investigator_pickup' }]
+		always: [{ target: 'available_for_inspector_pickup' }]
 	},
 	incomplete_lpa_questionnaire: {
 		on: {
