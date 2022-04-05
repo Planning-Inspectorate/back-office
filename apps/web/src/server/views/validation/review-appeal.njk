@@ -7,7 +7,6 @@
 {% from "app/components/document-list.component.njk" import documentList %}
 
 {% set isAppealIncomplete = appeal.AppealStatus === 'incomplete' %}
-{% from "_includes/macros/make-appeal-site-html.njk" import makeAppealSiteHtml %}
 
 {# Macro use to generate a list of documents #}
 {% macro supportingDocumentsList(supportingDocuments)  %}
@@ -80,11 +79,11 @@
 
 			{{ govukButton({ text: text | default('Continue') }) }}
 		</form>
-		
+
 	{% else %}
 
 		{# Incomplete appeal #}
-		
+
 		{% if canEditReviewOutcome %}
 			<form action="" method="post" novalidate>
 				{{ govukRadios({
@@ -110,10 +109,10 @@
 				</div>
 			</form>
 		{% else %}
-			{{ govukButton({ 
+			{{ govukButton({
 				href: '/validation/review-appeal/' + appeal.AppealId + '?edit=true',
 				text: 'Change outcome',
-				classes: 'govuk-button--secondary' 
+				classes: 'govuk-button--secondary'
 			}) }}
 		{% endif %}
 
