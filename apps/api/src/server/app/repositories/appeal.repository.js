@@ -106,6 +106,16 @@ const appealRepository = (function() {
 					}
 				}
 			});
+		},
+		getByStatusesAndUserId: function(statuses, userId) {
+			return getPool().appeal.findMany({
+				where: {
+					status: {
+						in: statuses
+					},
+					userId: userId
+				}
+			});
 		}
 	};
 })();
