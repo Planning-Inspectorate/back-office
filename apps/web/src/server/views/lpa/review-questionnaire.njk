@@ -1,4 +1,4 @@
-{% extends "_layouts/layout-base.njk" %}
+{% extends "app/layouts/app-wide.layout.njk" %}
 
 {% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
 {% from "govuk/components/breadcrumbs/macro.njk" import govukBreadcrumbs %}
@@ -9,15 +9,6 @@
 
 {% from "_includes/macros/make-document-links-for-type.njk" import makeDocumentLinksForType %}
 {% from "_includes/macros/make-appeal-site-html.njk" import makeAppealSiteHtml %}
-
-{% block header %}
-	{{ govukHeader({
-		homepageUrl: "https://www.gov.uk/",
-		serviceName: "Appeal a planning decision",
-		serviceUrl: "/lpa",
-		containerClasses: "govuk-width-container"
-	}) }}
-{% endblock %}
 
 {%- macro detailsInput(type, idPrefix, labelText, details, checkboxItems) -%}
 	{%- if type === 'textarea' -%}
@@ -63,9 +54,7 @@
 	}) }}
 {%- endmacro -%}
 
-{% block pageTitle %}
-	Review questionnaire
-{% endblock %}
+{% set pageTitle = 'Review questionnaire' %}
 
 {% block content %}
 	{{ super() }}
@@ -84,10 +73,6 @@
 			{ text: questionnaireData.AppealReference }
 		]
 	}) }}
-
-	<h1 class="govuk-heading-xl">
-		Review questionnaire
-	</h1>
 
 	<div class="govuk-grid-row">
 		<div class="govuk-grid-column-two-thirds">

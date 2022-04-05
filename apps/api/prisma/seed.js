@@ -250,13 +250,53 @@ const appealsWithBookedSiteVisit = [
 	}
 ];
 
+// JH
+const appealsReadyForConfirmationFromCaseOfficer = [
+	{
+		reference: 'APP/Q9999/D/21/1087562',
+		appellantName: 'Bob Ross',
+		localPlanningDepartment: 'Maidstone Borough Council',
+		planningApplicationReference: '48269/APP/2021/1482',
+		status: 'received_lpa_questionnaire',
+		statusUpdatedAt: getDateTwoWeeksAgo(),
+		startedAt: new Date(),
+		address: {
+			create: {
+				addressLine1: '92 Huntsmoor Road',
+				county: 'Tadley',
+				postcode: 'RG26 4BX'
+			}
+		},
+		lpaQuestionnaire: {
+			create: {
+				affectsListedBuilding: false,
+				extraConditions: false,
+				inGreenBelt: false,
+				inOrNearConservationArea: false,
+				siteVisibleFromPublicLand: false,
+				sideVisibleFromPublicLandDescription: 'The extension is to the read of the property, and the garden has high hedges',
+				doesInspectorNeedToEnterSite: true,
+				doesInspectorNeedToEnterSideDescription: 'The proposed development can only be viewed from the appellant\'s garden',
+				doesInspectorNeedToAccessNeighboursLand: true,
+				doesInspectorNeedToAccessNeighboursLandDescription: '54 Butcher Street',
+				healthAndSafetyIssues: true,
+				healthAndSafetyIsueesDescription: 'A defensive dog',
+				appealsInImmediateAreaBeingConsidered: '893482, 372839',
+				sentAt: new Date(2022, 3, 1),
+				receivedAt: new Date(2022, 3, 20)
+			}
+		}
+	}
+];
+
 const appealsData = [
 	...newAppeals,
 	...appealsAwaitingValidationInfo,
 	...invalidAppeals,
 	...appealsAwaitingLPAQuestionnaire,
 	...appealsAvailableForInspectorPickup,
-	...appealsWithBookedSiteVisit
+	...appealsWithBookedSiteVisit,
+	...appealsReadyForConfirmationFromCaseOfficer
 ];
 
 /**

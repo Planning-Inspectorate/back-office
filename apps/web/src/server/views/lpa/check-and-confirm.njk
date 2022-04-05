@@ -1,4 +1,4 @@
-{% extends "_layouts/layout-base.njk" %}
+{% extends "app/layouts/app-wide.layout.njk" %}
 
 {% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
 {% from "govuk/components/warning-text/macro.njk" import govukWarningText %}
@@ -13,16 +13,10 @@
 	}) }}
 {% endblock %}
 
-{% block pageTitle %}
-	Review questionnaire
-{% endblock %}
+{% set pageTitle = 'Review questionnaire' %}
 
 {% block content %}
 	{{ super() }}
-
-	<h1 class="govuk-heading-xl">
-		Review questionnaire
-	</h1>
 
 	<h2 class="govuk-heading-l">
 		Check and confirm

@@ -1,11 +1,9 @@
-{% extends "app/layouts/app.layout.njk" %}
+{% extends "app/layouts/app-wide.layout.njk" %}
 
 {% from "govuk/components/table/macro.njk" import govukTable %}
 {% from "app/components/infoBox.njk" import infoBox %}
 
-{% block pageTitle %}
-	Questionnaires for review
-{% endblock %}
+{% set pageTitle = 'Questionnaires for review' %}
 
 {% block content %}
 	{%- set tableHeadItems = [
@@ -16,10 +14,6 @@
 	] -%}
 
 	{{ super() }}
-
-	<h1 class="govuk-heading-xl">
-		Questionnaires for review
-	</h1>
 
 	<h2 class="govuk-heading-l govuk-!-margin-bottom-1">
 		Incoming questionnaires
