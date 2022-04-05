@@ -47,5 +47,3 @@ extends:
     ${{ if in(variables['Build.Reason'], 'IndividualCI', 'BatchedCI', 'ResourceTrigger') }}:
       environments:
         - name: Dev
-    ${{ else }}:
-      environments: ${{ parameters.environments }}
