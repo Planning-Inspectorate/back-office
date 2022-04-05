@@ -29,12 +29,12 @@ test.before('sets up Database connection mock', () => {
 	sinon.stub(DatabaseFactory, 'getInstance').callsFake((arguments_) => new MockDatabaseClass(arguments_));
 });
 
-test('adds new Validation decision', async(t) => {
+test('adds new review decision', async(t) => {
 	const review = await newReviewRepository.addReview(
 		1,
 		false,
-		{ applicationPlansToReachDecisionMissingOrIncorrect: true },
-		{ applicationPlansToReachDecisionMissingOrIncorrectDescription: 'Some description' });
+		{ applicationPlansToReachDecisionMissingOrIncorrect: true,
+			applicationPlansToReachDecisionMissingOrIncorrectDescription: 'Some description' });
 	t.deepEqual(review, newReview);
 	sinon.assert.calledWith(addReview, {
 		data: {
