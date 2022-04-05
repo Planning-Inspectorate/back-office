@@ -43,7 +43,7 @@ export function findAppealById(appealId) {
 
 /**
  * Updates the details of an appeal as identified by the `appealId` parameter.
- * These details can be provided as a full or partial representation. 
+ * These details can be provided as a full or partial representation.
  *
  * @param {string} appealId - The unique identifier of the appeal to be updated.
  * @param {AppealDetails} details - A complete or partial set of details to be
@@ -57,8 +57,6 @@ export function updateAppealDetails(appealId, details) {
 
 export function updateAppeal(id, data) {
 	return request.post(`validation/${id}`, { json: data });
-
-	return data;
 }
 
 /**

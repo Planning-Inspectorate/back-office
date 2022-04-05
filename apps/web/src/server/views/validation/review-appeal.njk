@@ -8,15 +8,6 @@
 
 {% set isAppealIncomplete = appeal.AppealStatus === 'incomplete' %}
 
-{# Macro use to generate a list of documents #}
-{% macro supportingDocumentsList(supportingDocuments)  %}
-<ul class="govuk-list">
-	{% for doc in supportingDocuments %}
-	<li><a href="{{ doc.url }}" class="govuk-link" target="_blank">{{ doc.filename }}</a></li>
-	{% endfor %}
-</ul>
-{% endmacro %}
-
 {% set pageTitle = 'Review appeal submission' %}
 {% if canEditReviewOutcome %}
 	{% set pageTitle = 'Change incomplete appeal outcome' %}

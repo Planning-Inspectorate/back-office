@@ -1,4 +1,4 @@
-import { appealSiteObjectToText } from "./appeal-site-object-to-text.js";
+import { address } from "./address.js";
 
 export function makeQuestionnaireTableRows (questionnairesListData, reviewQuestionnairePath) {
 	const rows = [];
@@ -28,7 +28,7 @@ export function makeQuestionnaireTableRows (questionnairesListData, reviewQuesti
 			},
 			{ text: item.QuestionnaireDueDate },
 			// eslint-disable-next-line unicorn/no-array-reduce
-			{ text: appealSiteObjectToText(item.AppealSite) },
+			{ text: address(item.AppealSite, ', ') },
 			{ html: `<strong class="govuk-tag govuk-tag--${statusTagColor}">${item.QuestionnaireStatus}</strong>` }
 		]);
 	});
