@@ -6,20 +6,7 @@ import _ from 'lodash';
 // the questionnaire review is not completed until all the points in the review are completed as well.
 // This validation establishes the status of an appeal as complete or incomplete according to this criteria
 const reviewComplete = function (body) {
-	return ((
-		body.reason.applicationPlanningOfficersReportMissingOrIncorrect === true ||
-		body.reason.applicationPlansToReachDecisionMissingOrIncorrect  === true ||
-		body.reason.policiesStatutoryDevelopmentPlanPoliciesMissingOrIncorrect  === true ||
-		body.reason.policiesOtherRelevantPoliciesMissingOrIncorrect  === true ||
-		body.reason.policiesSupplementaryPlanningDocumentsMissingOrIncorrect   === true ||
-		body.reason.siteConservationAreaMapAndGuidanceMissingOrIncorrect  === true ||
-		body.reason.siteListedBuildingDescriptionMissingOrIncorrect  === true ||
-		body.reason.thirdPartyApplicationNotificationMissingOrIncorrect  === true ||
-		body.reason.thirdPartyApplicationPublicityMissingOrIncorrect  === true ||
-		body.reason.thirdPartyRepresentationsMissingOrIncorrect  === true ||
-		body.reason.thirdPartyAppealNotificationMissingOrIncorrect  === true
-	)?
-		false : true );
+	return Object.keys(body.reason).every((index) => !body.reason[index])? true : false;
 };
 
 const invalidWithoutReasons = function (body) {
