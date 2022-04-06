@@ -36,3 +36,14 @@ export async function findQuestionnaireById(id) {
 
 	return data;
 }
+
+/**
+ * Confirms a questionnaire review as identified by the `appealId` parameter.
+ * @param {string} id - numerical appeal id of the desired questionnaire
+ * @returns {object} - response data
+ */
+export async function confirmReview (id) {
+	const data = await request.post(`case-officer/${id}/confirm`);
+
+	return data;
+}
