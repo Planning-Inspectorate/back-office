@@ -40,17 +40,17 @@ router
 router
 	.route('/appeals/:appealId/confirm-site-visit')
 	.get(bookSiteVisitGuard, createAsyncHandler(viewSiteVisitConfirmation))
-	.post(bookSiteVisitGuard, validateSiteVisit, expressValidationErrorsInterceptor, createAsyncHandler(confirmSiteVisit));
+	.post(validateSiteVisit, expressValidationErrorsInterceptor, createAsyncHandler(confirmSiteVisit));
 
 router
 	.route('/appeals/:appealId/issue-decision')
-	.get(canBookSiteVisitGuard, createAsyncHandler(newDecision))
+	.get(canIssueDecisionGuard, createAsyncHandler(newDecision))
 	.post(...handleDecision, expressValidationErrorsInterceptor, createAsyncHandler(createDecision));
 
 router
 	.route('/appeals/:appealId/confirm-decision')
-	.get(createAsyncHandler(viewDecisionConfirmation))
-	.post(canIssueDecisionGuard, expressValidationErrorsInterceptor, createAsyncHandler(confirmDecision));
+	.get(canIssueDecisionGuard, createAsyncHandler(viewDecisionConfirmation))
+	.post(expressValidationErrorsInterceptor, createAsyncHandler(confirmDecision));
 
 router.route('/appeals/:appealId/confirm-decision/download-decision-letter').get(downloadDecisionLetter);
 
