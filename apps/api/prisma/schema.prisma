@@ -96,7 +96,7 @@ model SiteVisit {
   appealId  Int      @unique
   visitDate DateTime
   visitSlot String
-  visitType String
+  visitType String?
 }
 
 model User {
