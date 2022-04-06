@@ -18,7 +18,7 @@ import {
 	viewDecisionConfirmation,
 	viewSiteVisitConfirmation
 } from './inspector.controller.js';
-import { bookSiteVisitGuard, canBookSiteVisitGuard, canIssueDecisionGuard } from './inspector.guards.js';
+import { bookSiteVisitGuard, canBookSiteVisitGuard, canIssueDecisionGuard, issueDecisionGuard } from './inspector.guards.js';
 import { handleDecision, validateAvailableAppeals, validateSiteVisit } from './inspector.pipes.js';
 
 const router = express.Router();
@@ -49,7 +49,7 @@ router
 
 router
 	.route('/appeals/:appealId/confirm-decision')
-	.get(canIssueDecisionGuard, createAsyncHandler(viewDecisionConfirmation))
+	.get(issueDecisionGuard, createAsyncHandler(viewDecisionConfirmation))
 	.post(expressValidationErrorsInterceptor, createAsyncHandler(confirmDecision));
 
 router.route('/appeals/:appealId/confirm-decision/download-decision-letter').get(downloadDecisionLetter);
