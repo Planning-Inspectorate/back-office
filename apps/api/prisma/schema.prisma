@@ -87,17 +87,17 @@ model ReviewQuestionnaire {
   appealId                                                                    Int
   createdAt                                                                   DateTime @default(now())
   complete                                                                    Boolean  @default(false)
-  applicationPlanningOfficersReportMissingOrIncorrect                          Boolean  @default(false)
+  applicationPlanningOfficersReportMissingOrIncorrect                         Boolean  @default(false)
   applicationPlansToReachDecisionMissingOrIncorrect                           Boolean  @default(false)
   applicationPlansToReachDecisionMissingOrIncorrectDescription                String?
   policiesStatutoryDevelopmentPlanPoliciesMissingOrIncorrect                  Boolean  @default(false)
   policiesStatutoryDevelopmentPlanPoliciesMissingOrIncorrectDescription       String?
-  policiesOtherRelevantPoliciesMissingOrIncorrect                              Boolean  @default(false)
-  policiesOtherRelevantPoliciesMissingOrIncorrectDescription                   String?
+  policiesOtherRelevantPoliciesMissingOrIncorrect                             Boolean  @default(false)
+  policiesOtherRelevantPoliciesMissingOrIncorrectDescription                  String?
   policiesSupplementaryPlanningDocumentsMissingOrIncorrect                    Boolean  @default(false)
   policiesSupplementaryPlanningDocumentsMissingOrIncorrectDescription         String?
   siteConservationAreaMapAndGuidanceMissingOrIncorrect                        Boolean  @default(false)
-  siteConservationAreaMapAndGuidanceMissingOrIncorrectDescription            String?
+  siteConservationAreaMapAndGuidanceMissingOrIncorrectDescription             String?
   siteListedBuildingDescriptionMissingOrIncorrect                             Boolean  @default(false)
   siteListedBuildingDescriptionMissingOrIncorrectDescription                  String?
   thirdPartyApplicationNotificationMissingOrIncorrect                         Boolean  @default(false)
