@@ -1,11 +1,6 @@
-// LPA form fields labels
 export const questionnaireReviewOutcomeLabelsMap = {
-	'complete': {
-		outcomeLabel: 'Questionnaire Complete'
-	},
-	'incomplete': {
-		outcomeLabel: 'Questionnaire Incomplete'
-	}
+	'complete': 'Questionnaire Complete',
+	'incomplete': 'Questionnaire Incomplete'
 };
 
 export const missingOrIncorrectDocumentsLabelsMap = {

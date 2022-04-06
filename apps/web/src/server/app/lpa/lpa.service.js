@@ -32,9 +32,7 @@ export async function findAllIncomingIncompleteQuestionnaires() {
  * @returns {object} - questionnaires list data object containing two arrays, one for incoming questionnaires and one for incomplete questionnaires
  */
 export async function findQuestionnaireById(id) {
-	const data = await request(`case-officer/${id}`);
-
-	return data;
+	return await request(`case-officer/${id}`);
 }
 
 /**
@@ -43,7 +41,5 @@ export async function findQuestionnaireById(id) {
  * @returns {object} - response data
  */
 export async function confirmReview (id) {
-	const data = await request.post(`case-officer/${id}/confirm`);
-
-	return data;
+	return await request.post(`case-officer/${id}/confirm`);
 }

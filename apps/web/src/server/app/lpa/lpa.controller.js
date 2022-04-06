@@ -236,6 +236,6 @@ export function getReviewComplete(request, response) {
 	response.render(routes.reviewQuestionnaireComplete.view, {
 		questionnaireData,
 		reviewOutcome,
-		reviewOutcomeLabels: questionnaireReviewOutcomeLabelsMap[reviewOutcome]
+		reviewOutcomeLabel: questionnaireReviewOutcomeLabelsMap[reviewOutcome]
 	});
 }
