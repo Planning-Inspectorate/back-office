@@ -70,6 +70,6 @@ export const post = (url, options) => instance.post(url, options);
  * @returns {import('got').CancelableRequest<T>} - A cancelable promise that
  * resolves to the generic type.
  */
-export const patch = (url, options) => instance.post(url, options);
+export const patch = (url, options) => instance.patch(url, options);
 
 export default instance;
