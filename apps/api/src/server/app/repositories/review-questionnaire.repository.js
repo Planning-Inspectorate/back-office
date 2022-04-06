@@ -2,8 +2,8 @@ import DatabaseFactory from './database.js';
 
 const newReviewRepository = (function() {
 	/**
-    * @returns {object} connection to database
-    */
+		* @returns {object} connection to database
+		*/
 	function getPool () {
 		return DatabaseFactory.getInstance().pool;
 	}
