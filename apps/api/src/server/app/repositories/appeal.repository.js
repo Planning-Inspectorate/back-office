@@ -117,7 +117,9 @@ const appealRepository = (function() {
 				},
 				include: {
 					address: true,
-					siteVisit: true
+					siteVisit: true,
+					lpaQuestionnaire: true,
+					appealDetailsFromAppellant: true
 				}
 			});
 		}

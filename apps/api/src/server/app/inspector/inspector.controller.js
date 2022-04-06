@@ -32,7 +32,11 @@ const formatAppealForAllAppeals = function(appeal) {
 		...(!_.isEmpty(appeal.siteVisit) && { siteVisitDate: formatDate(appeal.siteVisit.visitDate) }),
 		...(!_.isEmpty(appeal.siteVisit) && { siteVisitSlot: appeal.siteVisit.visitSlot }),
 		...(!_.isEmpty(appeal.siteVisit) && { siteVisitType: appeal.siteVisit.visitType }),
-		status: formatStatus(appeal.status)
+		...(_.isEmpty(appeal.siteVisit) && { 
+			provisionalVisitType: (appeal.lpaQuestionnaire.siteVisibleFromPublicLand || appeal.appealDetailsFromAppellant.siteVisibleFromPublicLand) ? 
+				'access required' : 'unaccompanied' 
+		}),
+		status: formatStatus(appeal.status),
 	};
 };
 

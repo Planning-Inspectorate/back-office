@@ -26,6 +26,9 @@ const appeal_1 = {
 		visitDate: new Date(2021, 10, 2),
 		visitSlot: '1pm - 2pm',
 		visitType: 'unaccompanied'
+	},
+	lpaQuestionnaire: {
+		siteVisibleFromPublicLand: false
 	}
 };
 const appeal_2 = {
@@ -43,6 +46,9 @@ const appeal_2 = {
 		visitDate: new Date(2022, 0, 10),
 		visitSlot: '10am - 11am',
 		visitType: 'accompanied'
+	},
+	lpaQuestionnaire: {
+		siteVisibleFromPublicLand: false
 	}
 };
 
@@ -57,10 +63,56 @@ const appeal_3 = {
 		town: 'Thurnscoe',
 		postcode: 'S63 0RB'
 	},
-	siteVisit: {}
+	siteVisit: {},
+	lpaQuestionnaire: {
+		siteVisibleFromPublicLand: false
+	},
+	appealDetailsFromAppellant: {
+		siteVisibleFromPublicLand: true
+	}
 };
 
-const findManyStub = sinon.stub().returns([appeal_1, appeal_2, appeal_3]);
+const appeal_4 = {
+	id: 4,
+	reference: 'APP/Q9999/D/21/5463281',
+	status: 'site_visit_not_yet_booked',
+	createdAt: new Date(2022, 1, 25),
+	startedAt: new Date(2022, 3, 29),
+	address: {
+		addressLine1: '55 Butcher Street',
+		town: 'Thurnscoe',
+		postcode: 'S63 0RB'
+	},
+	siteVisit: {},
+	lpaQuestionnaire: {
+		siteVisibleFromPublicLand: true
+	},
+	appealDetailsFromAppellant: {
+		siteVisibleFromPublicLand: false
+	}
+};
+
+const appeal_5 = {
+	id: 5,
+	reference: 'APP/Q9999/D/21/5463281',
+	status: 'site_visit_not_yet_booked',
+	createdAt: new Date(2022, 1, 25),
+	startedAt: new Date(2022, 3, 29),
+	address: {
+		addressLine1: '55 Butcher Street',
+		town: 'Thurnscoe',
+		postcode: 'S63 0RB'
+	},
+	siteVisit: {},
+	lpaQuestionnaire: {
+		siteVisibleFromPublicLand: false
+	},
+	appealDetailsFromAppellant: {
+		siteVisibleFromPublicLand: false
+	}
+};
+
+const findManyStub = sinon.stub().returns([appeal_1, appeal_2, appeal_3, appeal_4, appeal_5]);
 
 class MockDatabaseClass {
 	constructor(_parameters) {
@@ -108,7 +160,7 @@ test('gets all appeals assigned to inspector', async (t) => {
 			siteVisitType: 'accompanied',
 			appealType: 'HAS',
 			siteVisitDate: '10 Jan 2022',
-			siteVisitSlot: '10am - 11am'
+			siteVisitSlot: '10am - 11am',
 		},
 		{
 			appealAge: 22,
@@ -120,7 +172,34 @@ test('gets all appeals assigned to inspector', async (t) => {
 			},
 			appealType: 'HAS',
 			reference: 'APP/Q9999/D/21/5463281',
-			status: 'not yet booked'
+			status: 'not yet booked',
+			provisionalVisitType: 'access required'
+		},
+		{
+			appealAge: 22,
+			appealId: 4,
+			appealSite: {
+				addressLine1: '55 Butcher Street',
+				postCode: 'S63 0RB',
+				town: 'Thurnscoe',
+			},
+			appealType: 'HAS',
+			reference: 'APP/Q9999/D/21/5463281',
+			status: 'not yet booked',
+			provisionalVisitType: 'access required'
+		},
+		{
+			appealAge: 22,
+			appealId: 5,
+			appealSite: {
+				addressLine1: '55 Butcher Street',
+				postCode: 'S63 0RB',
+				town: 'Thurnscoe',
+			},
+			appealType: 'HAS',
+			reference: 'APP/Q9999/D/21/5463281',
+			status: 'not yet booked',
+			provisionalVisitType: 'unaccompanied'
 		}
 	]);
 	sinon.assert.calledWith(findManyStub, {
@@ -136,7 +215,9 @@ test('gets all appeals assigned to inspector', async (t) => {
 		},
 		include: {
 			address: true,
-			siteVisit: true
+			siteVisit: true,
+			lpaQuestionnaire: true,
+			appealDetailsFromAppellant: true
 		}
 	});
 });
