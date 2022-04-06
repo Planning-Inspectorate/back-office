@@ -114,6 +114,10 @@ const appealRepository = (function() {
 						in: statuses
 					},
 					userId: userId
+				},
+				include: {
+					address: true,
+					siteVisit: true
 				}
 			});
 		}
