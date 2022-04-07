@@ -19,6 +19,19 @@ router.get('/',
     */
 	asyncHandler(getAppeals));
 
-router.post('/assign', asyncHandler(assignAppeals));
+router.post('/assign',
+	/*
+        #swagger.description = 'Assigns appeals to inspector'
+        #swagger.parameters['userId'] = {
+            in: 'header',
+            type: 'integer',
+            required: true
+        }
+        #swagger.responses[200] = {
+            description: 'Appeals that were assigned to inspector and those that failed to be assigned',
+            schema: { $ref: '#/definitions/AppealsAssignedToInspector' }
+        }
+    */
+	asyncHandler(assignAppeals));
 
 export { router as inspectorRoutes };

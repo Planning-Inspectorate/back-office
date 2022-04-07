@@ -189,9 +189,11 @@ test('throws error if no userid provided', async(t) => {
 test('throws error if no appeals provided', async(t) => {
 	const resp = await request.post('/inspector/assign').set('userId', 1);
 	t.is(resp.status, 400);
+	t.deepEqual(resp.body, { error: 'Must provide appeals to assign' });
 });
 
 test('throws error if empty array of appeals provided', async(t) => {
 	const resp = await request.post('/inspector/assign').set('userId', 1).send([]);
 	t.is(resp.status, 400);
+	t.deepEqual(resp.body, { error: 'Must provide appeals to assign' });
 });
