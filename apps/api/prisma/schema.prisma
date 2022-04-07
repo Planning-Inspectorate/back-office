@@ -119,6 +119,7 @@ model ReviewQuestionnaire {
   thirdPartyAppealNotificationMissingOrIncorrect                              Boolean  @default(false)
   thirdPartyAppealNotificationMissingOrIncorrectListOfAddresses               Boolean  @default(false)
   thirdPartyAppealNotificationMissingOrIncorrectCopyOfLetterOrSiteNotice      Boolean  @default(false)
+}
 
 model SiteVisit {
   id        Int      @id @default(autoincrement())
