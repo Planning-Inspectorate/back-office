@@ -8,7 +8,7 @@ import { body } from 'express-validator';
  *
  * @returns {void}
  */
-export const validateQuestionnairePipe = [
+export const lpaReviewQuestionnairePipe = [
 	body('plans-used-to-reach-decision-missing-or-incorrect-reason')
 		.if(body('plans-used-to-reach-decision-missing-or-incorrect').notEmpty())
 		.escape()
@@ -81,3 +81,19 @@ export const validateQuestionnairePipe = [
 		.notEmpty()
 		.withMessage('Please provide details describing what is missing or wrong')
 ];
+
+/**
+ * Validate the check and confirm step.
+ *
+ * @returns {void}
+ */
+ export const lpaCheckAndConfirmQuestionnairePipe = body('check-and-confirm-completed')
+ .custom((value, { req }) => {
+	 const { reviewWork = {} } = req.session;
+
+	 if (reviewWork.reviewOutcome === 'incomplete' && value !== 'true') {
+		throw new Error('Please confirm you have completed all follow-up tasks and emails');
+	 }
+
+	 return true;
+ });

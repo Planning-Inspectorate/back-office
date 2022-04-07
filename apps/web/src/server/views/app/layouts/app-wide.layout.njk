@@ -1,3 +1,33 @@
 {% extends "app/layouts/app.layout.njk" %}
 
+{% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
+
 {% set containerClasses = 'pins-width-container' %}
+
+{% block content %}
+	<div class="govuk-grid-row">
+		<div class="govuk-grid-column">
+			{% if errorSummary %}
+				{{
+					govukErrorSummary({
+						titleText: "There is a problem",
+						errorList: errorSummary
+					})
+				}}
+			{% elseif errors %}
+				{{
+					govukErrorSummary({
+						titleText: "There is a problem",
+						errorList: errors | mapToErrorSummary
+					})
+				}}
+			{% endif %}
+			{% block pageHeading %}
+				{% if pageTitle %}
+					<h1 class="govuk-heading-xl">{{ pageTitle }}</h1>
+				{% endif %}
+			{% endblock %}
+			{% block pageContent %}{% endblock %}
+		</div>
+	</div>
+{% endblock %}

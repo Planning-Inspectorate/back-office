@@ -1,6 +1,7 @@
 import { to } from 'planning-inspectorate-libs';
-import { findAllIncomingIncompleteQuestionnaires, findQuestionnaireById } from './lpa.service.js';
+import { findAllIncomingIncompleteQuestionnaires, findQuestionnaireById, confirmReview } from './lpa.service.js';
 import { lpaRoutesConfig as routes } from '../../config/routes.js';
+import { questionnaireReviewOutcomeLabelsMap, missingOrIncorrectDocumentsLabelsMap } from './lpa.config.js';
 import { camelCase, upperFirst } from 'lodash-es';
 import { checkboxDataToCheckValuesObject } from '../../lib/helpers.js';
 
@@ -97,7 +98,7 @@ export function postReviewQuestionnaire(request, response) {
 		},
 		applicationNotification: {
 			completed: request.body['application-notification-missing-or-incorrect'],
-			details: { checkValues: checkboxDataToCheckValuesObject(request.body['application-notification-missing-or-incorrect-reason']) }
+			details: { value: checkboxDataToCheckValuesObject(request.body['application-notification-missing-or-incorrect-reason']) }
 		},
 		applicationPublicity: {
 			completed: request.body['application-publicity-missing-or-incorrect'],
@@ -108,7 +109,7 @@ export function postReviewQuestionnaire(request, response) {
 		},
 		appealNotification: {
 			completed: request.body['appeal-notification-missing-or-incorrect'],
-			details: { checkValues: checkboxDataToCheckValuesObject(request.body['appeal-notification-missing-or-incorrect-reason']) }
+			details: { value: checkboxDataToCheckValuesObject(request.body['appeal-notification-missing-or-incorrect-reason']) }
 		}
 	};
 
@@ -133,11 +134,12 @@ export function postReviewQuestionnaire(request, response) {
 	}
 
 	request.session.reviewWork.reviewOutcome = 'complete';
+	request.session.reviewWork.missingOrIncorrectDocuments = {};
 
 	for (const key in request.session.reviewWork.fields) {
 		if (request.session.reviewWork.fields.hasOwnProperty(key) && request.session.reviewWork.fields[key].completed) {
 			request.session.reviewWork.reviewOutcome = 'incomplete';
-			break;
+			request.session.reviewWork.missingOrIncorrectDocuments[key] = request.session.reviewWork.fields[key].details ? request.session.reviewWork.fields[key].details : true;
 		}
 	}
 
@@ -160,12 +162,80 @@ export function getCheckAndConfirm(request, response) {
 	const appealId = request.session.appealId;
 	const questionnaireData = request.session.questionnaireData;
 	const reviewOutcome = request.session.reviewWork.reviewOutcome;
+	const missingOrIncorrectDocuments = request.session.reviewWork.missingOrIncorrectDocuments;
 
 	response.render(routes.checkAndConfirm.view, {
 		backURL,
 		appealId,
 		questionnaireData,
 		reviewOutcome,
-		reviewOutcomeLabel: upperFirst(reviewOutcome)
+		reviewOutcomeText: upperFirst(reviewOutcome),
+		missingOrIncorrectDocuments,
+		missingOrIncorrectDocumentsLabelsMap
+	});
+}
+
+/**
+ * POST the LPA check and confirm page
+ *
+ * @param {import('express').Request} request - Express request object
+ * @param {import('express').Response} response - Express request object
+ * @param {Function} next  - Express function that calls then next middleware in the stack
+ * @returns {void}
+ */
+ export async function postCheckAndConfirm(request, response, next) {
+	const backURL = `/lpa/${routes.reviewQuestionnaire.path}/${request.session.appealId}?direction=back`;
+	const appealId = request.session.appealId;
+	const questionnaireData = request.session.questionnaireData;
+	const reviewOutcome = request.session.reviewWork.reviewOutcome;
+	const missingOrIncorrectDocuments = request.session.reviewWork.missingOrIncorrectDocuments;
+
+	const {
+		body: { errors = {}, errorSummary = [] }
+	} = request;
+
+	if (Object.keys(errors).length > 0) {
+		return response.render(routes.checkAndConfirm.view, {
+			errors,
+			errorSummary,
+			backURL,
+			appealId,
+			questionnaireData,
+			reviewOutcome,
+			reviewOutcomeText: upperFirst(reviewOutcome),
+			missingOrIncorrectDocuments,
+			missingOrIncorrectDocumentsLabelsMap
+		});
+	}
+
+	const [error, updateStatus] = await to(confirmReview(appealId));
+
+	if (error) {
+		next(new AggregateError([new Error('data fetch'), error], 'Fetch errors!'));
+
+		return error;
+	}
+
+	response.redirect(routes.reviewQuestionnaireComplete.path);
+}
+
+/**
+ * GET the review questionnaire complete page that shows the status and a link to go back to the dashboard.
+ *
+ * @param {import('express').Request} request - Express request object
+ * @param {import('express').Response} response - Express request object
+ * @returns {void}
+ */
+export function getReviewComplete(request, response) {
+	const questionnaireData = request.session.questionnaireData;
+	const reviewOutcome = request.session.reviewWork.reviewOutcome;
+
+	// Destroy the current session as the questionnaire has been reviewed.
+	request.session.destroy();
+
+	response.render(routes.reviewQuestionnaireComplete.view, {
+		questionnaireData,
+		reviewOutcome,
+		reviewOutcomeLabel: questionnaireReviewOutcomeLabelsMap[reviewOutcome]
 	});
 }

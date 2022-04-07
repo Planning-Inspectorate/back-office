@@ -1,0 +1,15 @@
+{% extends "app/layouts/app-two-column.layout.njk" %}
+
+{% from "govuk/components/panel/macro.njk" import govukPanel %}
+
+{% block pageContent %}
+	{{ govukPanel({
+		titleText: 'Outcome confirmed',
+		html: '<p class="govuk-!-margin-0">' + reviewOutcomeLabel + '</p><strong>' + questionnaireData.AppealReference + '</strong>'
+	}) }}
+
+	<h2 class="govuk-heading-m">What next?</h2>
+	<ul class="govuk-list">
+		<li><a href="/lpa" class="govuk-link">Return to questionnaires for review</a></li>
+	</ul>
+{% endblock %}
