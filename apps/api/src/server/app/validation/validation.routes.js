@@ -1,8 +1,6 @@
 import express from 'express';
-import {  getAppeals, getAppealDetails, updateAppeal, submitValidationDecision, getLPAList } from './validation.controller.js';
+import { getAppeals, getAppealDetails, updateAppeal, submitValidationDecision, getLPAList } from './validation.controller.js';
 import { body } from 'express-validator';
-
-
 import asyncHandler from '../middleware/async-handler.js';
 
 const router = express.Router();

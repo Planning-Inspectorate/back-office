@@ -29,7 +29,7 @@ const fakeGet = {
 };
 
 test.serial('gets all LPAs from external API', async(t) => {
-	const gotStub = sinon.stub(got, 'get').callsFake(getStub);
+	sinon.stub(got, 'get').callsFake(getStub);
 	getStub.returns(fakeGet);
 	const resp = await request.get('/validation/lpa-list');
 	t.is(resp.status, 200);
@@ -38,7 +38,7 @@ test.serial('gets all LPAs from external API', async(t) => {
 });
 
 test.serial('returns 500 if unable to get list of LPAs', async(t) => {
-	const gotStub = sinon.stub(got, 'get').callsFake(getStub);
+	sinon.stub(got, 'get').callsFake(getStub);
 	getStub.throws(new Error('Unable to get data'));
 	const resp = await request.get('/validation/lpa-list');
 	t.is(resp.status, 500);
