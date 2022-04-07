@@ -9,6 +9,7 @@ const reviewComplete = function (body) {
 	return Object.keys(body.reason).every((index) => !body.reason[index])? true : false;
 };
 
+// TODO: Refactor this to make it more readable. 
 const invalidWithoutReasons = function (body) {
 	return ((
 		(body.reason.applicationPlansToReachDecisionMissingOrIncorrect  === true &&
@@ -35,6 +36,7 @@ const invalidWithoutReasons = function (body) {
 		true : false);
 };
 
+// TODO: There is no need for this utility function, is not reused and Lodash can be used directly.
 const allArrayElementsInArray = function(arrayToCheck, arrayToCheckAgainst) {
 	return _.difference(arrayToCheck, arrayToCheckAgainst).length === 0;
 };
