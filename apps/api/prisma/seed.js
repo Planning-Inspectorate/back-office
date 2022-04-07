@@ -369,8 +369,8 @@ const appealsSiteVisitNotYetBooked = [
 		},
 		address: {
 			create: {
-				addressLine1: "Copthalls",
-				addressLine2: "Clevedon Road",
+				addressLine1: 'Copthalls',
+				addressLine2: 'Clevedon Road',
 				town: 'West Hill',
 				postcode: 'BS48 1PN'
 			}
@@ -394,7 +394,7 @@ const appealsSiteVisitNotYetBooked = [
 		},
 		address: {
 			create: {
-				addressLine1: "	66 Grove Road",
+				addressLine1: '	66 Grove Road',
 				town: 'Fishponds',
 				postcode: 'BS16 2BP'
 			}
@@ -406,7 +406,7 @@ const appealsSiteVisitNotYetBooked = [
 			}
 		}
 	}
-]
+];
 
 const appealsData = [
 	...newAppeals,
