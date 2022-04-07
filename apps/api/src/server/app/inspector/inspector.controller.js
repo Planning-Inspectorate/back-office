@@ -3,6 +3,7 @@ import appealRepository from '../repositories/appeal.repository.js';
 import { inspectorStatesStrings } from '../state-machine/inspector-states.js';
 import formatAddressLowerCase from '../utils/address-formatter-lowercase.js';
 import formatDate from '../utils/date-formatter.js';
+import InspectorError from './inspector-error.js';
 
 const daysBetweenDates = function(firstDate, secondDate) {
 	const oneDay = 24 * 60 * 60 * 1000;
@@ -40,12 +41,20 @@ const formatAppealForAllAppeals = function(appeal) {
 	};
 };
 
+const validateUserId = function(userid) {
+	if (userid == undefined) {
+		throw new InspectorError('Must provide userid', 400);
+	}
+	return Number.parseInt(userid, 10);
+};
+
 const getAppeals = async function(request, response) {
+	const userId = validateUserId(request.headers.userid);
 	const appeals = await appealRepository.getByStatusesAndUserId([
 		inspectorStatesStrings.site_visit_not_yet_booked,
 		inspectorStatesStrings.site_visit_booked,
 		inspectorStatesStrings.decision_due
-	], Number.parseInt(request.headers.userid, 10));
+	], userId);
 	const appealsForResponse = appeals.map((appeal) => formatAppealForAllAppeals(appeal));
 	return response.send(appealsForResponse);
 };

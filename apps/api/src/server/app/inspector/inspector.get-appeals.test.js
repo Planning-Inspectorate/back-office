@@ -221,3 +221,9 @@ test('gets all appeals assigned to inspector', async (t) => {
 		}
 	});
 });
+
+test('throws error if userid is not provided in the header', async(t) => {
+	const resp = await request.get('/inspector');
+	t.is(resp.status, 400);
+	t.deepEqual(resp.body, { error: 'Must provide userid' });
+});
