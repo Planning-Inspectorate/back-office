@@ -308,7 +308,9 @@ const appealsWithBookedSiteVisit = [
 			}
 		},
 		user: {
-			create: {}
+			connect: {
+				id: 1
+			}
 		}
 	}
 ];
@@ -361,6 +363,7 @@ const appealsSiteVisitNotYetBooked = [
 		reference: 'APP/2021/56789/3755470',
 		localPlanningDepartment: 'Some Department',
 		planningApplicationReference: 'ABC',
+		status: 'site_visit_not_yet_booked',
 		appellant: {
 			create: {
 				name: 'Maria Sharma',
@@ -386,6 +389,7 @@ const appealsSiteVisitNotYetBooked = [
 		reference: 'APP/2021/56789/4909983',
 		localPlanningDepartment: 'some other department',
 		planningApplicationReference: 'XYZ',
+		status: 'site_visit_not_yet_booked',
 		appellant: {
 			create: {
 				name: 'Maria Sharma',
@@ -408,6 +412,33 @@ const appealsSiteVisitNotYetBooked = [
 	}
 ];
 
+const appealsWithDecisionDue = [
+	{
+		reference: 'APP/2021/56789/3266594',
+		status: 'decision_due',
+		localPlanningDepartment: 'some planning department',
+		planningApplicationReference: 'ABCDEFG',
+		address: {
+			create: {
+				addressLine1: '8 The Chase',
+				town: 'Findon',
+				postcode: 'BN14 0TT'
+			}
+		},
+		siteVisit: {
+			create: {
+				visitDate: new Date(2021, 11, 2),
+				visitSlot: '1pm - 2pm'
+			}
+		},
+		user: {
+			connect: {
+				id: 1
+			}
+		}
+	}
+]
+
 const appealsData = [
 	...newAppeals,
 	...appealsAwaitingValidationInfo,
@@ -416,8 +447,8 @@ const appealsData = [
 	...appealsReadyForConfirmationFromCaseOfficer,
 	...appealsAvailableForInspectorPickup,
 	...appealsSiteVisitNotYetBooked,
-	...appealsWithBookedSiteVisit
-	// ...appealsWithDecisionDue
+	...appealsWithBookedSiteVisit,
+	...appealsWithDecisionDue
 ];
 
 /**
@@ -425,6 +456,7 @@ const appealsData = [
  */
 async function main() {
 	try {
+		const user = await prisma.user.create({data: {}});
 		const createdAppeals = [];
 		for (const appealData of appealsData) {
 			const appeal = prisma.appeal.create({ data: appealData });
