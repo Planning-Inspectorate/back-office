@@ -59,6 +59,51 @@ const listOfDocuments = [
 		Type: 'supporting document',
 		Filename: 'other-document-3.pdf',
 		URL: 'localhost:8080'
+	},
+	{
+		Filename: 'planning-officers-report.pdf',
+		Type: 'planning officers report',
+		URL: 'localhost:8080',
+	},
+	{
+		Filename: 'plans-used-to-reach-decision.pdf',
+		Type: 'plans used to reach decision',
+		URL: 'localhost:8080',
+	},
+	{
+		Filename: 'policy-and-supporting-text-1.pdf',
+		Type: 'statutory development plan policy',
+		URL: 'localhost:8080',
+	},
+	{
+		Filename: 'policy-and-supporting-text-2.pdf',
+		Type: 'statutory development plan policy',
+		URL: 'localhost:8080',
+	},
+	{
+		Filename: 'policy-and-supporting-text-3.pdf',
+		Type: 'statutory development plan policy',
+		URL: 'localhost:8080',
+	},
+	{
+		Filename: 'policy-and-supporting-text-1.pdf',
+		Type: 'other relevant policy',
+		URL: 'localhost:8080',
+	},
+	{
+		Filename: 'policy-and-supporting-text-2.pdf',
+		Type: 'other relevant policy',
+		URL: 'localhost:8080',
+	},
+	{
+		Filename: 'policy-and-supporting-text-3.pdf',
+		Type: 'other relevant policy',
+		URL: 'localhost:8080',
+	},
+	{
+		Filename: 'conservation-area-plan.pdf',
+		Type: 'conservation area guidance',
+		URL: 'localhost:8080',
 	}
 ];
 
@@ -79,16 +124,16 @@ test.before('sets up mocking of database', () => {
 test('gets the appeals detailed information with received questionnaires', async (t) => {
 	const resp = await request.get('/case-officer/1');
 	const appealExampleDetail = {
-		AppealId : 1,
+		AppealId: 1,
 		AppealReference: 'APP/Q9999/D/21/1345264',
-		LocalPlanningDepartment:'Maidstone Borough Council',
-		PlanningApplicationreference:'48269/APP/2021/1482',
+		LocalPlanningDepartment: 'Maidstone Borough Council',
+		PlanningApplicationreference: '48269/APP/2021/1482',
 		AppealSiteNearConservationArea: false,
 		WouldDevelopmentAffectSettingOfListedBuilding: false,
 		ListedBuildingDesc: '',
 		AppealSite: {
-			AddressLine1: 'line 1', 
-			AddressLine2: 'line 2', 
+			AddressLine1: 'line 1',
+			AddressLine2: 'line 2',
 			PostCode: 'some code'
 		},
 		Documents: listOfDocuments

@@ -1,6 +1,6 @@
 import express from 'express';
 import asyncHandler from '../middleware/async-handler.js';
-import { getAppeals } from './inspector.controller.js';
+import { getAppeals, assignAppeals } from './inspector.controller.js';
 
 const router = express.Router();
 
@@ -18,5 +18,7 @@ router.get('/',
         }
     */
 	asyncHandler(getAppeals));
+
+router.post('/assign', asyncHandler(assignAppeals));
 
 export { router as inspectorRoutes };
