@@ -9,49 +9,44 @@
 
 {% from "_includes/macros/make-document-links-for-type.njk" import makeDocumentLinksForType %}
 
-{%- macro detailsInput(type, idPrefix, labelText, details, checkboxItems) -%}
-	{#
-		The prefix starts with a - because
-		the isPrefix is concatenated with the "missing or incorrect reason" text,
-		without the - you would end up with IDs like supporting-documentsmissing-or-incorrect-reason
-	#}
-	{%- if type === 'textarea' -%}
-		{{ govukCharacterCount({
-			id: idPrefix + '-missing-or-incorrect-reason',
-			name: idPrefix + '-missing-or-incorrect-reason',
-			maxlength: 500,
-			label: { text: labelText },
-			errorMessage: details.error and { text: details.error.msg },
-			spellcheck: true,
-			value: details.value,
-			rows: '3'
-		}) }}
-	{%- elif type === 'checkboxes' -%}
-		{{ govukCheckboxes({
-			idPrefix: idPrefix + '-missing-or-incorrect-reason',
-			name: idPrefix + '-missing-or-incorrect-reason',
-			errorMessage: details.error and { text: details.error.msg },
-			items: checkboxItems
-		}) }}
-	{%- endif -%}
-{%- endmacro -%}
+{% macro detailsTextarea(id, labelText, value, error) %}
+	{{ govukCharacterCount({
+		id: id,
+		name: id,
+		maxlength: 500,
+		label: { text: labelText },
+		errorMessage: error and { text: error.msg },
+		spellcheck: true,
+		value: value,
+		rows: '3'
+	}) }}
+{% endmacro %}
 
-{%- macro missingOrIncorrectCheckbox(id, completed, completedError, conditionalHtml) -%}
+{% macro detailsCheckboxes(id, error, checkboxItems) %}
 	{{ govukCheckboxes({
-		idPrefix: id + "-missing-or-incorrect",
-		name: id + "-missing-or-incorrect",
+		id: id,
+		name: id,
+		errorMessage: error and { text: error.msg },
+		items: checkboxItems
+	}) }}
+{% endmacro %}
+
+{%- macro missingOrIncorrectCheckbox(id, value, error, conditionalHtml) -%}
+	{{ govukCheckboxes({
+		id: id,
+		name: id,
 		classes: "govuk-checkboxes--small",
 		formGroup: {
 			classes: 'govuk-!-margin-bottom-0'
 		},
-		errorMessage: completedError and {
-			text: completedError
+		errorMessage: error and {
+			text: error.msg
 		},
 		items: [
 			{
 				value: "true",
 				text: "Missing or incorrect",
-				checked: completed === 'true',
+				checked: value === 'true',
 				conditional: conditionalHtml
 			}
 		]
@@ -113,19 +108,24 @@
 					{ html: '<strong>Planning Officer\'s report</strong>' },
 					{ html: makeDocumentLinksForType(questionnaireData.Documents, 'planning officers report') },
 					{ html: missingOrIncorrectCheckbox(
-						'planning-officers-report',
-						fields.planningOfficersReport.completed,
-						fields.planningOfficersReport.error
+						'applicationPlanningOfficersReportMissingOrIncorrect',
+						fields['applicationPlanningOfficersReportMissingOrIncorrect'],
+						errors['applicationPlanningOfficersReportMissingOrIncorrectDescription']
 					)}
 				],
 				[
 					{ html: '<strong>Plans used to reach decision</strong>' },
 					{ html: makeDocumentLinksForType(questionnaireData.Documents, 'plans used to reach decision') },
 					{ html: missingOrIncorrectCheckbox(
-						'plans-used-to-reach-decision',
-						fields.plansUsedToReachDecision.completed,
-						fields.plansUsedToReachDecision.error,
-						{ html: detailsInput('textarea', 'plans-used-to-reach-decision', 'Which plans are missing?', fields.plansUsedToReachDecision.details)}
+						'applicationPlansToReachDecisionMissingOrIncorrect',
+						fields['applicationPlansToReachDecisionMissingOrIncorrect'],
+						errors['applicationPlansToReachDecisionMissingOrIncorrectDescription'],
+						{ html: detailsTextarea(
+							'applicationPlansToReachDecisionMissingOrIncorrectDescription',
+							'Which plans are missing?',
+							fields['applicationPlansToReachDecisionMissingOrIncorrectDescription'],
+							errors['applicationPlansToReachDecisionMissingOrIncorrectDescription']
+						)}
 					)}
 				]
 			]
@@ -139,30 +139,45 @@
 					{ html: '<strong>Statutory development plan policies</strong>' },
 					{ html: makeDocumentLinksForType(questionnaireData.Documents, 'statutory development plan policy') },
 					{ html: missingOrIncorrectCheckbox(
-						'statutory-development-plan-policies',
-						fields.statutoryDevelopmentPlanPolicies.completed,
-						fields.statutoryDevelopmentPlanPolicies.error,
-						{ html: detailsInput('textarea', 'statutory-development-plan-policies', 'Which policies are missing?', fields.statutoryDevelopmentPlanPolicies.details)}
+						'policiesStatutoryDevelopmentPlanPoliciesMissingOrIncorrect',
+						fields['policiesStatutoryDevelopmentPlanPoliciesMissingOrIncorrect'],
+						errors['policiesStatutoryDevelopmentPlanPoliciesMissingOrIncorrectDescription'],
+						{ html: detailsTextarea(
+							'policiesStatutoryDevelopmentPlanPoliciesMissingOrIncorrectDescription',
+							'Which plans are missing?',
+							fields['policiesStatutoryDevelopmentPlanPoliciesMissingOrIncorrectDescription'],
+							errors['policiesStatutoryDevelopmentPlanPoliciesMissingOrIncorrectDescription']
+						)}
 					)}
 				],
 				[
 					{ html: '<strong>Other relevant policies</strong>' },
 					{ html: makeDocumentLinksForType(questionnaireData.Documents, 'other relevant policy') },
 					{ html: missingOrIncorrectCheckbox(
-						'other-relevant-policies',
-						fields.otherRelevantPolicies.completed,
-						fields.otherRelevantPolicies.error,
-						{ html: detailsInput('textarea', 'other-relevant-policies', 'Which policies are missing?', fields.otherRelevantPolicies.details)}
+						'policiesOtherRelevantPoliciesMissingOrIncorrect',
+						fields['policiesOtherRelevantPoliciesMissingOrIncorrect'],
+						errors['policiesOtherRelevantPoliciesMissingOrIncorrectDescription'],
+						{ html: detailsTextarea(
+							'policiesOtherRelevantPoliciesMissingOrIncorrectDescription',
+							'Which policies are missing?',
+							fields['policiesOtherRelevantPoliciesMissingOrIncorrectDescription'],
+							errors['policiesOtherRelevantPoliciesMissingOrIncorrectDescription']
+						)}
 					)}
 				],
 				[
 					{ html: '<strong>Supplementary planning documents</strong>' },
 					{ html: makeDocumentLinksForType(questionnaireData.Documents, 'supplementary planning document') },
 					{ html: missingOrIncorrectCheckbox(
-						'supplementary-planning-documents',
-						fields.supplementaryPlanningDocuments.completed,
-						fields.supplementaryPlanningDocuments.error,
-						{ html: detailsInput('textarea', 'supplementary-planning-documents', 'Which documents are missing?', fields.supplementaryPlanningDocuments.details)}
+						'policiesSupplementaryPlanningDocumentsMissingOrIncorrect',
+						fields['policiesSupplementaryPlanningDocumentsMissingOrIncorrect'],
+						errors['policiesSupplementaryPlanningDocumentsMissingOrIncorrectDescription'],
+						{ html: detailsTextarea(
+							'policiesSupplementaryPlanningDocumentsMissingOrIncorrectDescription',
+							'Which plans are missing?',
+							fields['policiesSupplementaryPlanningDocumentsMissingOrIncorrectDescription'],
+							errors['policiesSupplementaryPlanningDocumentsMissingOrIncorrectDescription']
+						)}
 					)}
 				]
 			]
@@ -181,10 +196,15 @@
 					{ html: '<strong>Conservation area map and guidance</strong>' },
 					{ html: makeDocumentLinksForType(questionnaireData.Documents, 'conservation area guidance') },
 					{ html: missingOrIncorrectCheckbox(
-						'conservation-area-guidance',
-						fields.conservationAreaGuidance.completed,
-						fields.conservationAreaGuidance.error,
-						{ html: detailsInput('textarea', 'conservation-area-guidance', 'What is missing or incorrect?', fields.conservationAreaGuidance.details)}
+						'siteConservationAreaMapAndGuidanceMissingOrIncorrect',
+						fields['siteConservationAreaMapAndGuidanceMissingOrIncorrect'],
+						errors['siteConservationAreaMapAndGuidanceMissingOrIncorrectDescription'],
+						{ html: detailsTextarea(
+							'siteConservationAreaMapAndGuidanceMissingOrIncorrectDescription',
+							'Which plans are missing?',
+							fields['siteConservationAreaMapAndGuidanceMissingOrIncorrectDescription'],
+							errors['siteConservationAreaMapAndGuidanceMissingOrIncorrectDescription']
+						)}
 					)}
 				],
 				[
@@ -196,10 +216,15 @@
 					{ html: '<strong>Listed building description</strong>' },
 					{ text: 'There is a grade 2 listed building next door.' },
 					{ html: missingOrIncorrectCheckbox(
-						'listed-building-description',
-						fields.listedBuildingDescription.completed,
-						fields.listedBuildingDescription.error,
-						{ html: detailsInput('textarea', 'listed-building-description', 'What is missing or incorrect?', fields.listedBuildingDescription.details)}
+						'siteListedBuildingDescriptionMissingOrIncorrect',
+						fields['siteListedBuildingDescriptionMissingOrIncorrect'],
+						errors['siteListedBuildingDescriptionMissingOrIncorrectDescription'],
+						{ html: detailsTextarea(
+							'siteListedBuildingDescriptionMissingOrIncorrectDescription',
+							'Which plans are missing?',
+							fields['siteListedBuildingDescriptionMissingOrIncorrectDescription'],
+							errors['siteListedBuildingDescriptionMissingOrIncorrectDescription']
+						)}
 					)}
 				]
 			]
@@ -213,45 +238,74 @@
 					{ html: '<strong>Application notification</strong>' },
 					{ html: makeDocumentLinksForType(questionnaireData.Documents, 'application notification') },
 					{ html: missingOrIncorrectCheckbox(
-						'application-notification',
-						fields.applicationNotification.completed,
-						fields.applicationNotification.error,
-						{ html: detailsInput('checkboxes', 'application-notification', 'What is missing or incorrect?', fields.applicationNotification.details, [
-							{ value: 'listOfAddresses', text: "List of addresses", checked: fields.applicationNotification.details.value['listOfAddresses'] },
-							{ value: 'copyOfLetterOrSiteNotice', text: "Copy of letter or site notice", checked: fields.applicationNotification.details.value['copyOfLetterOrSiteNotice'] }
-						])}
+						'thirdPartyApplicationNotificationMissingOrIncorrect',
+						fields['thirdPartyApplicationNotificationMissingOrIncorrect'],
+						errors['thirdPartyApplicationNotificationMissingOrIncorrectDescription'],
+						{ html: detailsCheckboxes(
+							'thirdPartyApplicationNotificationMissingOrIncorrectDescription',
+							errors['thirdPartyApplicationNotificationMissingOrIncorrectDescription'],
+							[
+								{
+									value: 'thirdPartyApplicationNotificationMissingOrIncorrectListOfAddresses',
+									text: "List of addresses",
+									checked: fields['thirdPartyApplicationNotificationMissingOrIncorrectListOfAddresses']
+								},
+								{
+									value: 'thirdPartyApplicationNotificationMissingOrIncorrectCopyOfLetterOrSiteNotice',
+									text: "Copy of letter or site notice",
+									checked: fields['thirdPartyApplicationNotificationMissingOrIncorrectCopyOfLetterOrSiteNotice']
+								}
+							]
+						)}
 					)}
 				],
 				[
 					{ html: '<strong>Application publicity</strong>' },
 					{ html: makeDocumentLinksForType(questionnaireData.Documents, 'application publicity') },
 					{ html: missingOrIncorrectCheckbox(
-						'application-publicity',
-						fields.applicationPublicity.completed,
-						fields.applicationPublicity.error
+						'thirdPartyApplicationPublicityMissingOrIncorrect',
+						fields['thirdPartyApplicationPublicityMissingOrIncorrect'],
+						errors['thirdPartyApplicationPublicityMissingOrIncorrect']
 					)}
 				],
 				[
 					{ html: '<strong>Representations</strong>' },
 					{ html: makeDocumentLinksForType(questionnaireData.Documents, 'representation') },
 					{ html: missingOrIncorrectCheckbox(
-						'representations',
-						fields.representations.completed,
-						fields.representations.error,
-						{ html: detailsInput('textarea', 'representations', 'Which representations are missing or incorrect?', fields.representations.details)}
+						'thirdPartyRepresentationsMissingOrIncorrect',
+						fields['thirdPartyRepresentationsMissingOrIncorrect'],
+						errors['thirdPartyRepresentationsMissingOrIncorrectDescription'],
+						{ html: detailsTextarea(
+							'thirdPartyRepresentationsMissingOrIncorrectDescription',
+							'Which plans are missing?',
+							fields['thirdPartyRepresentationsMissingOrIncorrectDescription'],
+							errors['thirdPartyRepresentationsMissingOrIncorrectDescription']
+						)}
 					)}
 				],
 				[
 					{ html: '<strong>Appeal notification</strong>' },
 					{ html: makeDocumentLinksForType(questionnaireData.Documents, 'appeal notification') },
 					{ html: missingOrIncorrectCheckbox(
-						'appeal-notification',
-						fields.appealNotification.completed,
-						fields.appealNotification.error,
-						{ html: detailsInput('checkboxes', 'appeal-notification', 'What is missing or incorrect?', fields.appealNotification.details, [
-							{ value: 'listOfAddresses', text: "List of addresses", checked: fields.appealNotification.details.value['listOfAddresses'] },
-							{ value: 'copyOfLetterOrSiteNotice', text: "Copy of letter or site notice", checked: fields.appealNotification.details.value['copyOfLetterOrSiteNotice'] }
-						])}
+						'thirdPartyAppealNotificationMissingOrIncorrect',
+						fields['thirdPartyAppealNotificationMissingOrIncorrect'],
+						errors['thirdPartyAppealNotificationMissingOrIncorrectDescription'],
+						{ html: detailsCheckboxes(
+							'thirdPartyAppealNotificationMissingOrIncorrectDescription',
+							errors['thirdPartyAppealNotificationMissingOrIncorrectDescription'],
+							[
+								{
+									value: 'thirdPartyAppealNotificationMissingOrIncorrectListOfAddresses',
+									text: "List of addresses",
+									checked: fields['thirdPartyAppealNotificationMissingOrIncorrectListOfAddresses']
+								},
+								{
+									value: 'thirdPartyAppealNotificationMissingOrIncorrectCopyOfLetterOrSiteNotice',
+									text: "Copy of letter or site notice",
+									checked: fields['thirdPartyAppealNotificationMissingOrIncorrectCopyOfLetterOrSiteNotice']
+								}
+							]
+						)}
 					)}
 				]
 			]

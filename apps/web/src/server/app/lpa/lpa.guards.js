@@ -1,30 +1,33 @@
-export function postReviewQuestionnaireGuard({ session }, response, next) {
-	if (!session.questionnaireData) {
-		return response.redirect('/lpa');
+import * as lpaSession from './lpa-session.service.js';
+
+export function decideQuestionnaireReviewOutcomeGuard({ params, session }, response, next) {
+	if (params.appealId &&
+		lpaSession.getQuestionnaireData(session, params.appealId)
+	) {
+		return next();
 	}
 
-	return next();
+	return response.redirect('/lpa');
 }
 
-export function checkAndConfirmGuard({ session }, response, next) {
-	if (!session.appealId ||
-		!session.questionnaireData ||
-		!session.reviewWork ||
-		!session.reviewWork.reviewOutcome)
+export function checkAndConfirmGuard({ params, session }, response, next) {
+	if (params.appealId &&
+		lpaSession.getQuestionnaireData(session, params.appealId) &&
+		lpaSession.getReviewOutcome(session, params.appealId))
 	{
-		return response.redirect('/lpa');
+		return next();
 	}
 
-	return next();
+	return response.redirect('/lpa');
 }
 
-export function getReviewCompleteGuard({ session }, response, next) {
-	if (!session.questionnaireData ||
-		!session.reviewWork ||
-		!session.reviewWork.reviewOutcome)
+export function viewReviewCompleteGuard({ params, session }, response, next) {
+	if (params.appealId &&
+		lpaSession.getQuestionnaireData(session, params.appealId) &&
+		lpaSession.getReviewOutcome(session, params.appealId))
 	{
-		return response.redirect('/lpa');
+		return next();
 	}
 
-	return next();
+	return response.redirect('/lpa');
 }
