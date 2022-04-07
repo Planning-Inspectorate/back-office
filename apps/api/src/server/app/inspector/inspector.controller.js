@@ -5,11 +5,7 @@ import formatAddressLowerCase from '../utils/address-formatter-lowercase.js';
 import formatDate from '../utils/date-formatter.js';
 import InspectorError from './inspector-error.js';
 import transitionState from '../state-machine/household-appeal.machine.js';
-
-const daysBetweenDates = function(firstDate, secondDate) {
-	const oneDay = 24 * 60 * 60 * 1000;
-	return Math.round(Math.abs((firstDate - secondDate) / oneDay));
-};
+import daysBetweenDates from '../utils/days-between-dates.js';
 
 const formatStatus = function(status) {
 	switch (status) {
