@@ -15,7 +15,9 @@ const appeal_1 = {
 	addressId: 1,
 	localPlanningDepartment: 'Maidstone Borough Council',
 	planningApplicationReference: '48269/APP/2021/1482',
-	appellantName: 'Lee Thornton'
+	appellant: {
+		name: 'Lee Thornton'
+	}
 };
 const appeal_2 = {
 	id: 1,
@@ -25,7 +27,9 @@ const appeal_2 = {
 	addressId: 1,
 	localPlanningDepartment: 'Maidstone Borough Council',
 	planningApplicationReference: '48269/APP/2021/1482',
-	appellantName: 'Lee Thornton'
+	appellant: {
+		name: 'Lee Thornton'
+	}
 };
 const appeal_3 = {
 	id: 1,
@@ -35,7 +39,9 @@ const appeal_3 = {
 	addressId: 1,
 	localPlanningDepartment: 'Maidstone Borough Council',
 	planningApplicationReference: '48269/APP/2021/1482',
-	appellantName: 'Lee Thornton'
+	appellant: {
+		name: 'Lee Thornton'
+	}
 };
 const appeal_4 = {
 	id: 4,
@@ -45,7 +51,9 @@ const appeal_4 = {
 	addressId: 1,
 	localPlanningDepartment: 'Maidstone Borough Council',
 	planningApplicationReference: '48269/APP/2021/1482',
-	appellantName: 'Lee Thornton'
+	appellant: {
+		name: 'Lee Thornton'
+	}
 };
 const updated_appeal_1 = {
 	id: 1,
@@ -59,10 +67,10 @@ const updated_appeal_1 = {
 const getAppealByIdStub = sinon.stub();
 const updateStub = sinon.stub();
 
-getAppealByIdStub.withArgs({ where: { id: 1 }, include: { validationDecision: true, address: true } }).returns(appeal_1);
-getAppealByIdStub.withArgs({ where: { id: 2 }, include: { validationDecision: true, address: true } }).returns(appeal_2);
-getAppealByIdStub.withArgs({ where: { id: 3 }, include: { validationDecision: true, address: true } }).returns(appeal_3);
-getAppealByIdStub.withArgs({ where: { id: 4 }, include: { validationDecision: true, address: true } }).returns(appeal_4);
+getAppealByIdStub.withArgs({ where: { id: 1 }, include: { validationDecision: true, address: true, appellant: true } }).returns(appeal_1);
+getAppealByIdStub.withArgs({ where: { id: 2 }, include: { validationDecision: true, address: true, appellant: true } }).returns(appeal_2);
+getAppealByIdStub.withArgs({ where: { id: 3 }, include: { validationDecision: true, address: true, appellant: true } }).returns(appeal_3);
+getAppealByIdStub.withArgs({ where: { id: 4 }, include: { validationDecision: true, address: true, appellant: true } }).returns(appeal_4);
 
 updateStub.returns(updated_appeal_1);
 

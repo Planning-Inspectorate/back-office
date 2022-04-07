@@ -8,7 +8,7 @@ import DatabaseFactory from '../repositories/database.js';
 const request = supertest(app);
 
 const findUniqueStub = sinon.stub();
-findUniqueStub.withArgs({ where: { id: 1 }, include: { validationDecision: true, address: true } }).returns(
+findUniqueStub.withArgs({ where: { id: 1 }, include: { validationDecision: true, address: true, appellant: true } }).returns(
 	{ id: 1, status: 'received_appeal', addressId: 10 }
 );
 
@@ -32,11 +32,16 @@ test.before('sets up mocking of database', () => {
 test('should be able to modify the appellant name', async (t) => {
 	const resp = await request.patch('/validation/1')
 		.send({ AppellantName: 'Leah Thornton' });
+	console.log(resp.body);
 	t.is(resp.status, 200);
 	sinon.assert.calledWithExactly(updateStub, {
 		where: { id: 1 },
 		data: { 
-			appellantName: 'Leah Thornton',
+			appellant: {
+				update: {
+					name: 'Leah Thornton'
+				}
+			},
 			updatedAt: sinon.match.any
 		}
 	});

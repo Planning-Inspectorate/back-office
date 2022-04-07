@@ -15,7 +15,9 @@ const appeal_10 = {
 	addressId: 9,
 	localPlanningDepartment: 'Maidstone Borough Council',
 	planningApplicationReference: '48269/APP/2021/1482',
-	appellantName: 'Lee Thornton'
+	appellant: {
+		name: 'Lee Thornton'
+	}
 };
 
 const appeal_11 = {
@@ -26,14 +28,16 @@ const appeal_11 = {
 	addressId: 11,
 	localPlanningDepartment: 'Maidstone Borough Council',
 	planningApplicationReference: '48269/APP/2021/1482',
-	appellantName: 'Bob Ross'
+	appellant: {
+		name: 'Bob Ross'
+	}
 };
 
 const getAppealByIdStub = sinon.stub();
 
 //getAppealByIdStub.returns( appeal_11 );
-getAppealByIdStub.withArgs({ where: { id: 11 }, include: { address: true } }).returns(appeal_11);
-getAppealByIdStub.withArgs({ where: { id: 10 }, include: { address: true } }).returns(appeal_10);
+getAppealByIdStub.withArgs({ where: { id: 11 }, include: { address: true, appellant: true } }).returns(appeal_11);
+getAppealByIdStub.withArgs({ where: { id: 10 }, include: { address: true, appellant: true } }).returns(appeal_10);
 
 const addReviewStub = sinon.stub();
 
@@ -80,6 +84,7 @@ test('should submit confirmation of an incomplete outcome of LPA questionnaire',
 				thirdPartyAppealNotificationMissingOrIncorrectCopyOfLetterOrSiteNotice: false
 			}
 		});
+	console.log(resp.body);
 	t.is(resp.status, 200);
 	sinon.assert.calledWithExactly(addReviewStub, {  data: {
 		appealId: 11,

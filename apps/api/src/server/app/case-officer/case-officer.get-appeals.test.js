@@ -15,7 +15,9 @@ const appeal_1 = {
 	addressId: 1,
 	localPlanningDepartment: 'Maidstone Borough Council',
 	planningApplicationReference: '48269/APP/2021/1482',
-	appellantName: 'Lee Thornton',
+	appellant: {
+		name: 'Lee Thornton'
+	},
 	startedAt: new Date(2022, 4, 18),
 	address: {
 		addressLine1: '96 The Avenue',

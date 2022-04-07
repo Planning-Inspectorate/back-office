@@ -15,7 +15,9 @@ const appeal_1 = {
 	createdAt: new Date(2022, 1, 23),
 	localPlanningDepartment: 'Maidstone Borough Council',
 	planningApplicationReference: '48269/APP/2021/1482',
-	appellantName: 'Lee Thornton',
+	appellant: {
+		name: 'Lee Thornton'
+	},
 	startedAt: new Date(2022, 1, 25),
 	address: {
 		addressLine1: '96 The Avenue',
@@ -119,11 +121,11 @@ const appeal_5 = {
 };
 
 const findUniqueStub = sinon.stub();
-findUniqueStub.withArgs({ where: { id: 1 } }).returns(appeal_1);
-findUniqueStub.withArgs({ where: { id: 2 } }).returns(appeal_2);
-findUniqueStub.withArgs({ where: { id: 3 } }).returns(appeal_3);
-findUniqueStub.withArgs({ where: { id: 4 } }).returns(appeal_4);
-findUniqueStub.withArgs({ where: { id: 5 } }).returns(appeal_5);
+findUniqueStub.withArgs({ where: { id: 1 }, include: { appellant: true } }).returns(appeal_1);
+findUniqueStub.withArgs({ where: { id: 2 }, include: { appellant: true } }).returns(appeal_2);
+findUniqueStub.withArgs({ where: { id: 3 }, include: { appellant: true } }).returns(appeal_3);
+findUniqueStub.withArgs({ where: { id: 4 }, include: { appellant: true } }).returns(appeal_4);
+findUniqueStub.withArgs({ where: { id: 5 }, include: { appellant: true } }).returns(appeal_5);
 
 const updateStub = sinon.stub();
 
