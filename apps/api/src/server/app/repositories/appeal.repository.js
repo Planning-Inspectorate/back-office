@@ -86,7 +86,6 @@ const appealRepository = (function() {
 		},
 		updateById: function(id, data) {
 			const updatedAt = new Date();
-			console.log(data);
 			return getPool().appeal.update({
 				where: { id: id },
 				data: { updatedAt: updatedAt, ...data }

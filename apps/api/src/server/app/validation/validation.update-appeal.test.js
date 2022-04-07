@@ -32,7 +32,6 @@ test.before('sets up mocking of database', () => {
 test('should be able to modify the appellant name', async (t) => {
 	const resp = await request.patch('/validation/1')
 		.send({ AppellantName: 'Leah Thornton' });
-	console.log(resp.body);
 	t.is(resp.status, 200);
 	sinon.assert.calledWithExactly(updateStub, {
 		where: { id: 1 },

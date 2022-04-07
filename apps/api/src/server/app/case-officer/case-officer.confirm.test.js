@@ -84,7 +84,6 @@ test('should submit confirmation of an incomplete outcome of LPA questionnaire',
 				thirdPartyAppealNotificationMissingOrIncorrectCopyOfLetterOrSiteNotice: false
 			}
 		});
-	console.log(resp.body);
 	t.is(resp.status, 200);
 	sinon.assert.calledWithExactly(addReviewStub, {  data: {
 		appealId: 11,
