@@ -66,9 +66,14 @@ const assignAppealsById = async function(userId, appealIds) {
 	await Promise.all(appealIds.map(async (appealId) => {
 		const appeal = await appealRepository.getById(appealId);
 		if (appeal.userId == undefined && appeal.status == 'available_for_inspector_pickup') {
-			const nextState = transitionState({ appealId: appeal.id }, appeal.status, 'PICKUP');
-			await appealRepository.updateById(appeal.id, { status: nextState.value, userId: userId });
-			successfullyAssigned.push(appeal.id);
+			try {
+				const nextState = transitionState({ appealId: appeal.id }, appeal.status, 'PICKUP');
+				await appealRepository.updateById(appeal.id, { status: nextState.value, user: { connect: { id: userId } } });
+				successfullyAssigned.push(appeal.id);
+			} catch (error) {
+				console.error(error);
+				unsuccessfullyAssigned.push({ appealId: appeal.id, reason: error.message });
+			}
 		} else if (appeal.status != 'available_for_inspector_pickup') {
 			unsuccessfullyAssigned.push({ appealId: appeal.id, reason: 'appeal in wrong state' });
 		} else if (appeal.userId != undefined) {

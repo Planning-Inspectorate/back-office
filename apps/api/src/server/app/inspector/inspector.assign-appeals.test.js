@@ -147,15 +147,15 @@ test('assigns all appeals as they are all available', async(t) => {
 	t.is(resp.status, 200);
 	sinon.assert.calledWith(updateStub, {
 		where: { id: 1 },
-		data: { updatedAt: sinon.match.any, status: 'site_visit_not_yet_booked', userId: 1 }
+		data: { updatedAt: sinon.match.any, status: 'site_visit_not_yet_booked', user: { connect: { id: 1 } } }
 	});
 	sinon.assert.calledWith(updateStub, {
 		where: { id: 2 },
-		data: { updatedAt: sinon.match.any, status: 'site_visit_not_yet_booked', userId: 1 }
+		data: { updatedAt: sinon.match.any, status: 'site_visit_not_yet_booked', user: { connect: { id: 1 } }  }
 	});
 	sinon.assert.calledWith(updateStub, {
 		where: { id: 3 },
-		data: { updatedAt: sinon.match.any, status: 'site_visit_not_yet_booked', userId: 1 }
+		data: { updatedAt: sinon.match.any, status: 'site_visit_not_yet_booked', user: { connect: { id: 1 } }  }
 	});
 	t.deepEqual(resp.body, { successfullyAssigned: [1, 2, 3], unsuccessfullyAssigned: [] });
 });
@@ -165,7 +165,7 @@ test('unable to assign appeals that are not in the appropriate state', async(t) 
 	t.is(resp.status, 200);
 	sinon.assert.calledWith(updateStub, {
 		where: { id: 3 },
-		data: { updatedAt: sinon.match.any, status: 'site_visit_not_yet_booked', userId: 1 }
+		data: { updatedAt: sinon.match.any, status: 'site_visit_not_yet_booked', user: { connect: { id: 1 } }  }
 	});
 	t.deepEqual(resp.body, { successfullyAssigned: [3], unsuccessfullyAssigned: [{ appealId: 4, reason: 'appeal in wrong state' }] });
 });
@@ -175,7 +175,7 @@ test('unable to assign appeals that are already assigned to someone', async (t) 
 	t.is(resp.status, 200);
 	sinon.assert.calledWith(updateStub, {
 		where: { id: 1 },
-		data: { updatedAt: sinon.match.any, status: 'site_visit_not_yet_booked', userId: 1 }
+		data: { updatedAt: sinon.match.any, status: 'site_visit_not_yet_booked', user: { connect: { id: 1 } }  }
 	});
 	t.deepEqual(resp.body, { successfullyAssigned: [1], unsuccessfullyAssigned: [{ appealId: 5, reason: 'appeal already assigned' }] });
 });
