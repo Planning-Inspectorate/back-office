@@ -24,6 +24,16 @@ model Appeal {
   reviewQuestionnaire          ReviewQuestionnaire[]
   lpaQuestionnaire             LPAQuestionnaire?
   siteVisit                    SiteVisit?
+  user                         User?                @relation(fields: [userId], references: [id])
+  userId                       Int?
+  appealDetailsFromAppellant AppealDetailsFromAppellant?
+}
+
+model AppealDetailsFromAppellant {
+  id Int @id @default(autoincrement())
+  appeal Appeal @relation(fields: [appealId], references: [id])
+  appealId Int
+  siteVisibleFromPublicLand Boolean?
 }
 
 model Address {
@@ -116,4 +126,10 @@ model SiteVisit {
   appealId  Int      @unique
   visitDate DateTime
   visitSlot String
+  visitType String?
+}
+
+model User {
+  id     Int      @id @default(autoincrement())
+  appeal Appeal[]
 }

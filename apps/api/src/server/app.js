@@ -4,6 +4,7 @@ import morgan from 'morgan';
 import helmet from 'helmet';
 import { validationRoutes } from './app/validation/validation.routes.js';
 import { caseOfficerRoutes } from './app/case-officer/case-officer.routes.js';
+import { inspectorRoutes } from './app/inspector/inspector.routes.js';
 import errorHandler from './app/middleware/error-handler.js';
 import config from './config/config.js';
 
@@ -24,8 +25,8 @@ app.use(morgan('combined'));
 app.use(helmet());
 
 app.use('/validation', validationRoutes);
-
 app.use('/case-officer', caseOfficerRoutes);
+app.use('/inspector', inspectorRoutes);
 
 app.use(errorHandler);
 
