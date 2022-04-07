@@ -246,6 +246,9 @@ const appealsWithBookedSiteVisit = [
 				visitDate: new Date(2022, 3, 1),
 				visitSlot: '1pm - 2pm'
 			}
+		},
+		user: {
+			create: {}
 		}
 	}
 ];

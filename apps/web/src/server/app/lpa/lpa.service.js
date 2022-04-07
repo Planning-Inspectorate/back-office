@@ -32,7 +32,14 @@ export async function findAllIncomingIncompleteQuestionnaires() {
  * @returns {object} - questionnaires list data object containing two arrays, one for incoming questionnaires and one for incomplete questionnaires
  */
 export async function findQuestionnaireById(id) {
-	const data = await request(`case-officer/${id}`);
+	return await request(`case-officer/${id}`);
+}
 
-	return data;
+/**
+ * Confirms a questionnaire review as identified by the `appealId` parameter.
+ * @param {string} id - numerical appeal id of the desired questionnaire
+ * @returns {object} - response data
+ */
+export async function confirmReview (id) {
+	return await request.post(`case-officer/${id}/confirm`);
 }

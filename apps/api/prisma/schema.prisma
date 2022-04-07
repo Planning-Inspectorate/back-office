@@ -8,21 +8,32 @@ datasource db {
 }
 
 model Appeal {
-  id                           Int                  @id @default(autoincrement())
+  id                           Int                   @id @default(autoincrement())
   reference                    String
-  address                      Address              @relation(fields: [addressId], references: [id])
+  address                      Address               @relation(fields: [addressId], references: [id])
   addressId                    Int
-  status                       String               @default("received_appeal")
+  status                       String                @default("received_appeal")
   appellantName                String
   localPlanningDepartment      String
   planningApplicationReference String
-  createdAt                    DateTime             @default(now())
-  updatedAt                    DateTime             @default(now())
-  statusUpdatedAt              DateTime             @default(now())
+  createdAt                    DateTime              @default(now())
+  updatedAt                    DateTime              @default(now())
+  statusUpdatedAt              DateTime              @default(now())
   startedAt                    DateTime?
   validationDecision           ValidationDecision[]
+  reviewQuestionnaire          ReviewQuestionnaire[]
   lpaQuestionnaire             LPAQuestionnaire?
   siteVisit                    SiteVisit?
+  user                         User?                @relation(fields: [userId], references: [id])
+  userId                       Int?
+  appealDetailsFromAppellant AppealDetailsFromAppellant?
+}
+
+model AppealDetailsFromAppellant {
+  id Int @id @default(autoincrement())
+  appeal Appeal @relation(fields: [appealId], references: [id])
+  appealId Int
+  siteVisibleFromPublicLand Boolean?
 }
 
 model Address {
@@ -80,10 +91,46 @@ model LPAQuestionnaire {
   receivedAt                                         DateTime?
 }
 
+model ReviewQuestionnaire {
+  id                                                                          Int      @id @default(autoincrement())
+  appeal                                                                      Appeal   @relation(fields: [appealId], references: [id])
+  appealId                                                                    Int
+  createdAt                                                                   DateTime @default(now())
+  complete                                                                    Boolean  @default(false)
+  applicationPlanningOfficersReportMissingOrIncorrect                         Boolean  @default(false)
+  applicationPlansToReachDecisionMissingOrIncorrect                           Boolean  @default(false)
+  applicationPlansToReachDecisionMissingOrIncorrectDescription                String?
+  policiesStatutoryDevelopmentPlanPoliciesMissingOrIncorrect                  Boolean  @default(false)
+  policiesStatutoryDevelopmentPlanPoliciesMissingOrIncorrectDescription       String?
+  policiesOtherRelevantPoliciesMissingOrIncorrect                             Boolean  @default(false)
+  policiesOtherRelevantPoliciesMissingOrIncorrectDescription                  String?
+  policiesSupplementaryPlanningDocumentsMissingOrIncorrect                    Boolean  @default(false)
+  policiesSupplementaryPlanningDocumentsMissingOrIncorrectDescription         String?
+  siteConservationAreaMapAndGuidanceMissingOrIncorrect                        Boolean  @default(false)
+  siteConservationAreaMapAndGuidanceMissingOrIncorrectDescription             String?
+  siteListedBuildingDescriptionMissingOrIncorrect                             Boolean  @default(false)
+  siteListedBuildingDescriptionMissingOrIncorrectDescription                  String?
+  thirdPartyApplicationNotificationMissingOrIncorrect                         Boolean  @default(false)
+  thirdPartyApplicationNotificationMissingOrIncorrectListOfAddresses          Boolean  @default(false)
+  thirdPartyApplicationNotificationMissingOrIncorrectCopyOfLetterOrSiteNotice Boolean  @default(false)
+  thirdPartyApplicationPublicityMissingOrIncorrect                            Boolean  @default(false)
+  thirdPartyRepresentationsMissingOrIncorrect                                 Boolean  @default(false)
+  thirdPartyRepresentationsMissingOrIncorrectDescription                      String?
+  thirdPartyAppealNotificationMissingOrIncorrect                              Boolean  @default(false)
+  thirdPartyAppealNotificationMissingOrIncorrectListOfAddresses               Boolean  @default(false)
+  thirdPartyAppealNotificationMissingOrIncorrectCopyOfLetterOrSiteNotice      Boolean  @default(false)
+}
+
 model SiteVisit {
   id        Int      @id @default(autoincrement())
   appeal    Appeal   @relation(fields: [appealId], references: [id])
   appealId  Int      @unique
   visitDate DateTime
   visitSlot String
+  visitType String?
+}
+
+model User {
+  id     Int      @id @default(autoincrement())
+  appeal Appeal[]
 }

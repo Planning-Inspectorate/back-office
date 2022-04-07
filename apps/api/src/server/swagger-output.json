@@ -161,6 +161,27 @@
         "parameters": [],
         "responses": {}
       }
+    },
+    "/inspector/": {
+      "get": {
+        "description": "Gets appeals assigned to inspector",
+        "parameters": [
+          {
+            "name": "userid",
+            "in": "header",
+            "type": "integer",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Appeals that are assigned to inspector",
+            "schema": {
+              "$ref": "#/definitions/AppealsForInspector"
+            }
+          }
+        }
+      }
     }
   },
   "definitions": {
@@ -656,6 +677,92 @@
         "ListedBuildingDesc",
         "AppealSite",
         "Documents"
+      ]
+    },
+    "AppealsForInspector": {
+      "type": "object",
+      "properties": {
+        "appealId": {
+          "type": "number",
+          "example": 1
+        },
+        "appealAge": {
+          "type": "number",
+          "example": 10
+        },
+        "appealSite": {
+          "type": "object",
+          "properties": {
+            "addressLine1": {
+              "type": "string",
+              "example": ""
+            },
+            "addressLine2": {
+              "type": "string",
+              "example": ""
+            },
+            "town": {
+              "type": "string",
+              "example": ""
+            },
+            "county": {
+              "type": "string",
+              "example": ""
+            },
+            "postCode": {
+              "type": "string",
+              "example": ""
+            }
+          },
+          "required": [
+            "addressLine1",
+            "addressLine2",
+            "town",
+            "county",
+            "postCode"
+          ]
+        },
+        "appealType": {
+          "type": "string",
+          "example": "HAS"
+        },
+        "reference": {
+          "type": "string",
+          "example": ""
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "not yet booked",
+            "booked",
+            "decision due"
+          ]
+        },
+        "siteVisitType": {
+          "type": "string",
+          "enum": [
+            "accompanied",
+            "unaccompanied",
+            "access required"
+          ]
+        },
+        "provisionalSiteVisitType": {
+          "type": "string",
+          "enum": [
+            "unaccompanied",
+            "access required"
+          ]
+        }
+      },
+      "required": [
+        "appealId",
+        "appealAge",
+        "appealSite",
+        "appealType",
+        "reference",
+        "status",
+        "siteVisitType",
+        "provisionalSiteVisitType"
       ]
     }
   }

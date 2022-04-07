@@ -1,4 +1,4 @@
-{% extends "app/layouts/app-wide.layout.njk" %}
+{% extends "app/layouts/app.layout.njk" %}
 
 {% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
 {% from "govuk/components/breadcrumbs/macro.njk" import govukBreadcrumbs %}
@@ -62,13 +62,6 @@
 
 {% block content %}
 	{{ super() }}
-
-	{% if errorSummary %}
-		{{ govukErrorSummary({
-			titleText: "There is a problem",
-			errorList: errorSummary
-		}) }}
-	{% endif %}
 
 	{{ govukBreadcrumbs({
 		classes: 'govuk-!-margin-top-0 govuk-!-margin-bottom-8',
@@ -222,8 +215,8 @@
 						fields.applicationNotification.completed,
 						fields.applicationNotification.error,
 						{ html: detailsInput('checkboxes', 'application-notification', 'What is missing or incorrect?', fields.applicationNotification.details, [
-							{ value: 'listOfAddresses', text: "List of addresses", checked: fields.applicationNotification.details.checkValues['listOfAddresses'] },
-							{ value: 'copyOfLetterOrSiteNotice', text: "Copy of letter or site notice", checked: fields.applicationNotification.details.checkValues['copyOfLetterOrSiteNotice'] }
+							{ value: 'listOfAddresses', text: "List of addresses", checked: fields.applicationNotification.details.value['listOfAddresses'] },
+							{ value: 'copyOfLetterOrSiteNotice', text: "Copy of letter or site notice", checked: fields.applicationNotification.details.value['copyOfLetterOrSiteNotice'] }
 						])}
 					)}
 				],
@@ -254,8 +247,8 @@
 						fields.appealNotification.completed,
 						fields.appealNotification.error,
 						{ html: detailsInput('checkboxes', 'appeal-notification', 'What is missing or incorrect?', fields.appealNotification.details, [
-							{ value: 'listOfAddresses', text: "List of addresses", checked: fields.appealNotification.details.checkValues['listOfAddresses'] },
-							{ value: 'copyOfLetterOrSiteNotice', text: "Copy of letter or site notice", checked: fields.appealNotification.details.checkValues['copyOfLetterOrSiteNotice'] }
+							{ value: 'listOfAddresses', text: "List of addresses", checked: fields.appealNotification.details.value['listOfAddresses'] },
+							{ value: 'copyOfLetterOrSiteNotice', text: "Copy of letter or site notice", checked: fields.appealNotification.details.value['copyOfLetterOrSiteNotice'] }
 						])}
 					)}
 				]
