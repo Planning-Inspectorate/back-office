@@ -19,42 +19,44 @@
     {% for column in params.columns %}
       {% set cell = {} %}
 
-      {% if column === 'Appeal age' %}
-        {% set cell = { text: appeal.appealAge } %}
-      {% elseif column === 'Appeal reference' %}
-        {% set cell = { text: appeal.reference } %}
-      {% elseif column === 'Appeal site' %}
-        {% set cell = { text: appeal.appealSite | collapse(', ') } %}
-      {% elseif column === 'Appeal type' %}
-        {% set cell = { text: appeal.appealType } %}
-      {% elseif column === 'Postcode' %}
-        {% set cell = { text: appeal.appealSite.postCode } %}
-      {% elseif column === 'Provisional site visit type' %}
-        {% set cell = { text: appeal.provisionalVisitType | capitalize } %}
-      {% elseif column === 'Recommended site visit' %}
-        {% set cell = { text: appeal.provisionalVisitType | capitalize } %}
-      {% elseif column === 'Specialism' %}
-        {% set cell = { text: 'Specialism' } %}
-      {% elseif column === 'Site visit date' %}
-        {% set cell = { text: appeal.siteVisitDate } %}
-      {% elseif column === 'Site visit time' %}
-        {% set cell = { text: appeal.siteVisitTimeSlot } %}
-      {% elseif column === 'Site visit type' %}
-        {% set cell = { text: appeal.siteVisitType } %}
-      {% elseif column === 'Select' %}
-        {% set cell = {
-          attributes: { style: 'padding-top: 2px' },
-          html: createCheckboxCell({
-            label: 'Select AppealReference',
-            checked: params.selected | includes(appeal.appealId),
-            value: appeal.appealId
-          })
-        } %}
-      {% elseif column === 'Status' %}
-        {% set cell = { html: govukTag({ text: 'New', classes: 'govuk-tag--green' }) } %}
-      {% endif %}    
+      {% switch column %}
+        {% case 'Appeal age' %}
+          {% set cell = { text: appeal.appealAge } %}
+        {% case 'Appeal reference' %}
+          {% set cell = { text: appeal.reference } %}
+        {% case 'Appeal site' %}
+          {% set cell = { text: appeal.appealSite | collapse(', ') } %}
+        {% case 'Appeal type' %}
+          {% set cell = { text: appeal.appealType } %}
+        {% case 'Postcode' %}
+          {% set cell = { text: appeal.appealSite.postCode } %}
+        {% case 'Provisional site visit type' %}
+          {% set cell = { text: appeal.provisionalVisitType | capitalize } %}
+        {% case 'Recommended site visit' %}
+          {% set cell = { text: appeal.provisionalVisitType | capitalize } %}
+        {% case 'Specialism' %}
+          {% set cell = { text: 'Specialism' } %}
+        {% case 'Site visit data' %}
+          {% set cell = { text: appeal.siteVisitDate } %}
+        {% case 'Site visit time' %}
+          {% set cell = { text: appeal.siteVisitTimeSlot } %}
+        {% case 'Site visit type' %}
+          {% set cell = { text: appeal.siteVisitType } %}
+        {% case 'Select' %}
+          {% set cell = {
+            attributes: { style: 'padding-top: 2px' },
+            html: createCheckboxCell({
+              label: 'Select AppealReference',
+              checked: params.selected | includes(appeal.appealId),
+              value: appeal.appealId
+            })
+          } %}
+        {% case 'Status' %}
+          {% set cell = { html: govukTag({ text: 'New', classes: 'govuk-tag--green' }) } %}
+        {
+      {% endswitch %}
 
-      {% set cells = (cells.push(cell), cells) %}
+      {% set cells = (cells.push(cell), cells) %}      
     {% endfor %}
 
     {% set rows = (rows.push(cells), rows) %}
