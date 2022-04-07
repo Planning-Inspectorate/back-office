@@ -131,6 +131,22 @@ const document_ = {
 				$Filename: '',
 				$URL: ''
 			}]
+		},
+		AppealsForInspector: {
+			$appealId: 1,
+			$appealAge: 10,
+			$appealSite: {
+				$addressLine1: '',
+				$addressLine2: '',
+				$town: '',
+				$county: '',
+				$postCode: ''
+			},
+			$appealType: 'HAS',
+			$reference: '',
+			$status: { '@enum': ['not yet booked', 'booked', 'decision due'] },
+			$siteVisitType: { '@enum': ['accompanied', 'unaccompanied', 'access required'] },
+			$provisionalSiteVisitType: { '@enum': ['unaccompanied', 'access required'] }
 		}
 	},
 	components: {}
