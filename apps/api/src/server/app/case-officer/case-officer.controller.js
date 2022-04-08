@@ -32,6 +32,9 @@ const confirmingLPAQuestionnaire =  async function (request, response) {
 	const reviewResult = reviewComplete(request.body);
 	const appeal = await getAppealForCaseOfficer(request.params.id);
 	await newReviewRepository.addReview(appeal.id, reviewResult, request.body.reason);
+	const appealStatemachineStatus = reviewResult ?  'COMPLETE' : 'INCOMPLETE';
+	const nextState = transitionState({ appealId: appeal.id }, appeal.status, appealStatemachineStatus);
+	await appealRepository.updateStatusById(appeal.id, nextState.value);
 	return response.send();
 };
 
