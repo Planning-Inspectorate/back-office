@@ -1,6 +1,9 @@
 {% extends "govuk/template.njk" %}
 
 {% from "govuk/components/back-link/macro.njk" import govukBackLink %}
+{% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
+
+{% set containerClasses = 'pins-width-container' if containerSize === 'xl' else 'govuk-width-container' %}
 
 {% block head %}
   <link rel="stylesheet" href="{{ resourceCSS.path | stripQueryParamsDev }}"/>
@@ -33,6 +36,18 @@
 {% endblock %}
 
 {% block content %}
+  <div class="govuk-grid-row">
+		<div class="govuk-grid-column-two-thirds">
+			{% if errors %}
+				{{
+					govukErrorSummary({
+						titleText: "There is a problem",
+						errorList: errors | mapToErrorSummary
+					})
+				}}
+			{% endif %}
+    </div>
+  </div>
   {% block pageHeading %}
     <div class="govuk-grid-row">
       <div class="govuk-grid-column-full">

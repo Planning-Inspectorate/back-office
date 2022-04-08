@@ -2,7 +2,7 @@
   "name": "@pins/inspector",
   "version": "0.0.0",
   "type": "module",
-  "main": "index.d.ts",
+  "main": "index.js",
   "private": true,
   "engines": {
     "node": ">=16.14.0"

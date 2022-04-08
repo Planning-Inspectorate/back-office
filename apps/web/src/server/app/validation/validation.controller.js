@@ -123,20 +123,18 @@ export async function getReviewAppeal({ query, session, params }, response) {
  * @property {AppealOutcomeStatus} reviewOutcome - the outcome chosen by the user reviewing the appeal
  */
 
-/** @typedef {ReviewAppealRenderOptions & import('@pins/express').ErrorRenderOptions} AppealOutcomeRenderOptions */
-
 /**
  * Record the outcome for a new or incomplete appeal.
  *
- * @type {import('@pins/express').CommandHandler<{}, AppealOutcomeRenderOptions, AppealOutcomeBody>}
+ * @type {import('@pins/express').CommandHandler<{}, ReviewAppealRenderOptions, AppealOutcomeBody>}
  */
-export function postAppealOutcome({ body, session, validationErrors }, response) {
-	if (validationErrors) {
+export function postAppealOutcome({ body, session }, response) {
+	if (response.locals.errors) {
 		return response.render(routes.reviewAppealRoute.view, {
 			appeal: session.appealData,
 			backURL: `/${routes.home.path}?direction=back`,
 			canEditReviewOutcome: true,
-			errors: validationErrors
+			reviewOutcome: body.reviewOutcome
 		});
 	}
 
@@ -187,19 +185,14 @@ export async function editAppellantName({ params }, response) {
  * @property {string} appellantName - The appellant name to save to the appeal.
  */
 
-/** @typedef {EditAppellantNameRenderOptions & import('@pins/express').ErrorRenderOptions} UpdateAppellantNameRenderOptions */
-
 /**
  * Update the appellant name belonging to a given `appealId`.
  *
- * @type {import('@pins/express').CommandHandler<AppealParams, UpdateAppellantNameRenderOptions, UpdateAppellantNameBody>}
+ * @type {import('@pins/express').CommandHandler<AppealParams, EditAppellantNameRenderOptions, UpdateAppellantNameBody>}
  */
-export async function updateAppellantName({ body, params, validationErrors }, response) {
-	if (validationErrors) {
-		response.render('validation/edit-appellant-name', {
-			appellantName: body.appellantName,
-			errors: validationErrors
-		});
+export async function updateAppellantName({ body, params }, response) {
+	if (response.locals.errors) {
+		response.render('validation/edit-appellant-name', { appellantName: body.appellantName });
 		return;
 	}
 	await updateAppealDetails(params.appealId, body);
@@ -229,19 +222,17 @@ export async function editAppealSite({ params }, response) {
 }
 
 /** @typedef {Appeal['AppealSite']} UpdateAppealSiteBody */
-/** @typedef {EditAppealSiteRenderOptions & import('@pins/express').ErrorRenderOptions} UpdateAppealSiteRenderOptions */
 
 /**
  * Update the appeal site belonging to a given `appealId`.
  *
- * @type {import('@pins/express').CommandHandler<AppealParams, UpdateAppealSiteRenderOptions, UpdateAppealSiteBody>}
+ * @type {import('@pins/express').CommandHandler<AppealParams, EditAppealSiteRenderOptions, UpdateAppealSiteBody>}
  */
-export async function updateAppealSite({ body, params, validationErrors }, response) {
-	if (validationErrors) {
+export async function updateAppealSite({ body, params }, response) {
+	if (response.locals.errors) {
 		response.render('validation/edit-appeal-site', {
 			appealId: params.appealId,
-			appealSite: body,
-			errors: validationErrors
+			appealSite: body
 		});
 		return;
 	}
@@ -283,22 +274,19 @@ export async function editLocalPlanningDepartment({ params }, response) {
  * to save to the appeal.
  */
 
-/** @typedef {EditLocalPlanningDeptRenderOptions & import('@pins/express').ErrorRenderOptions} UpdateLocalPlanningDepartmentRenderOptions */
-
 /**
  * Update the local planning department belonging to a given `appealId`.
  *
- * @type {import('@pins/express').CommandHandler<AppealParams, UpdateLocalPlanningDepartmentRenderOptions, UpdateLocalPlanningDeptBody>}
+ * @type {import('@pins/express').CommandHandler<AppealParams, EditLocalPlanningDeptRenderOptions, UpdateLocalPlanningDeptBody>}
  */
-export async function updateLocalPlanningDepartment({ body, params, validationErrors }, response) {
-	if (validationErrors) {
+export async function updateLocalPlanningDepartment({ body, params }, response) {
+	if (response.locals.errors) {
 		const source = await findAllLocalPlanningDepartments();
 
 		response.render('validation/edit-local-planning-department', {
 			appealId: params.appealId,
 			localPlanningDepartment: body.LocalPlanningDepartment,
-			source,
-			errors: validationErrors
+			source
 		});
 		return;
 	}
@@ -336,19 +324,16 @@ export async function editPlanningApplicationReference({ params }, response) {
  * reference to save to the appeal.
  */
 
-/** @typedef {EditPlanningApplicationRefRenderOptions & import('@pins/express').ErrorRenderOptions} UpdatePlanningApplicationRefRenderOptions */
-
 /**
  * Update the planning application reference belonging to a given `appealId`.
  *
- * @type {import('@pins/express').CommandHandler<AppealParams, UpdatePlanningApplicationRefRenderOptions, UpdatePlanningApplicationRefBody>}
+ * @type {import('@pins/express').CommandHandler<AppealParams, EditPlanningApplicationRefRenderOptions, UpdatePlanningApplicationRefBody>}
  */
-export async function updatePlanningApplicationReference({ body, params, validationErrors }, response) {
-	if (validationErrors) {
+export async function updatePlanningApplicationReference({ body, params }, response) {
+	if (response.locals.errors) {
 		response.render('validation/edit-planning-application-reference', {
 			appealId: params.appealId,
-			planningApplicationReference: body.planningApplicationReference,
-			errors: validationErrors
+			planningApplicationReference: body.planningApplicationReference
 		});
 		return;
 	}
@@ -387,24 +372,21 @@ export async function editDocuments({ params }, response) {
 	});
 }
 
-/** @typedef {EditDocumentsRenderOptions & import('@pins/express').ErrorRenderOptions} UpdateDocumentsRenderOptions */
-
 /**
  * Upload additional documents to an appeal, according to a given `appealId` and `documentType`.
  *
- * @type {import('@pins/express').CommandHandler<EditDocumentsParams, UpdateDocumentsRenderOptions>}
+ * @type {import('@pins/express').CommandHandler<EditDocumentsParams, EditDocumentsRenderOptions>}
  */
-export async function uploadDocuments({ files, params, validationErrors }, response) {
+export async function uploadDocuments({ files, params }, response) {
 	const documentType = lowerCase(params.documentType);
 
-	if (validationErrors) {
+	if (response.locals.errors) {
 		const appeal = await findAppealById(params.appealId);
 
 		response.render('validation/edit-documents', {
 			appealId: params.appealId,
 			documentType,
-			documents: appeal.Documents,
-			errors: validationErrors
+			documents: appeal.Documents
 		});
 		return;
 	}

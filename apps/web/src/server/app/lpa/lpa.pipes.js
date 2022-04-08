@@ -1,5 +1,12 @@
 import { body } from 'express-validator';
 
+export const registerLpaLocals = (_, response, next) => {
+	response.locals.containerSize = 'xl';
+	response.locals.serviceName = 'Appeal a planning decision';
+	response.locals.serviceUrl = '/lpa';
+	next();
+};
+
 // All validation pipes will save into the current request all the validation errors that would be used
 // by the `expressValidationErrorsInterceptor` to populate the body with.
 

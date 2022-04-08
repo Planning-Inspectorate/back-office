@@ -1,19 +1,13 @@
 import express from 'express';
 import appRoutes from './app.route.js';
-import validationRoutes from './validation/validation.route.js';
-import { registerValidationLocals } from './validation/validation.pipes.js';
-import lpaRoutes from './lpa/lpa.route.js';
-import inspectorRoutes from './inspector/inspector.route.js';
 import { registerInspectorLocals } from './inspector/inspector.pipes.js';
+import inspectorRoutes from './inspector/inspector.route.js';
+import { registerLpaLocals } from './lpa/lpa.pipes.js';
+import lpaRoutes from './lpa/lpa.route.js';
+import { registerValidationLocals } from './validation/validation.pipes.js';
+import validationRoutes from './validation/validation.route.js';
 
 const router = express.Router();
-
-// TODO: move to `lpa/lpa.pipes.js` once James's work is merged
-const registerLpaLocals = (_, response, next) => {
-	response.locals.serviceName = 'Appeal a planning decision';
-	response.locals.serviceUrl = '/lpa';
-	next();
-};
 
 // Mount app routes at / (this includes all sub paths specific to the general app)
 router.use('/', appRoutes);

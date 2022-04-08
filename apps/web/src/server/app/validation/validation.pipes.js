@@ -1,6 +1,6 @@
 import { mapMulterErrorToValidationError } from '@pins/express';
 import { validatePostcode } from '@pins/platform';
-import { storage } from '../../lib/multer.js';
+import { memoryStorage } from '../../lib/multer.js';
 import { body, checkSchema } from 'express-validator';
 import multer from 'multer';
 
@@ -237,7 +237,7 @@ export const handleUploadedDocuments = [
 		}
 	}),
 	multer({
-		storage,
+		storage: memoryStorage,
 		limits: {
 			fileSize: 1 * Math.pow(1024, 2 /* MBs*/)
 		}
