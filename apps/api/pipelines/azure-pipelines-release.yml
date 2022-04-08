@@ -40,6 +40,14 @@ extends:
     globalVariables:
       - template: azure-pipelines-variables.yml@self
       - template: apps/api/pipelines/azure-pipelines-variables.yml@self
+    preDeploySteps:
+      - checkout: self
+      - task: Npm@1
+        inputs:
+          command: custom
+          workingDir: $(Build.Repository.LocalPath)/apps/api
+          customCommand: run db:migrate:prod
+        displayName: Sync Database Schema
     projectName: $(projectName) 
     releaseVersion: $(version.MajorMinor)
     region: ${{ parameters.region }}

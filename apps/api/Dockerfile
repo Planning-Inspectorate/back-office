@@ -30,5 +30,5 @@ RUN chmod +x /tmp/ssh_setup.sh \
 
 RUN chmod u+x /src/app/init.sh
 EXPOSE 3000 2222
-# CMD [ "node", "./apps/api/src/server.js" ]
+
 ENTRYPOINT ["sh", "/src/app/init.sh"]
