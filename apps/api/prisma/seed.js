@@ -304,7 +304,8 @@ const appealsWithBookedSiteVisit = [
 		siteVisit: {
 			create: {
 				visitDate: new Date(2022, 3, 1),
-				visitSlot: '1pm - 2pm'
+				visitSlot: '1pm - 2pm',
+				visitType: 'unaccompanied'
 			}
 		},
 		user: {
