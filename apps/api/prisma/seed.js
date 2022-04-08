@@ -293,7 +293,7 @@ const appealsWithBookedSiteVisit = [
 		localPlanningDepartment: 'Maidstone Borough Council',
 		planningApplicationReference: '48269/APP/2021/1482',
 		status: 'site_visit_booked',
-		startedAt: new Date(),
+		startedAt: new Date(2022, 1, 1, 9),
 		address: {
 			create: {
 				addressLine1: '131 High Street',
@@ -329,7 +329,6 @@ const appealsReadyForConfirmationFromCaseOfficer = [
 		planningApplicationReference: '48269/APP/2021/1482',
 		status: 'received_lpa_questionnaire',
 		statusUpdatedAt: getDateTwoWeeksAgo(),
-		startedAt: new Date(),
 		address: {
 			create: {
 				addressLine1: '92 Huntsmoor Road',
@@ -379,10 +378,20 @@ const appealsSiteVisitNotYetBooked = [
 				postcode: 'BS48 1PN'
 			}
 		},
-		startedAt: new Date(2022, 3, 1),
+		startedAt: new Date(2022, 3, 1, 10),
 		appealDetailsFromAppellant: {
 			create: {
 				siteVisibleFromPublicLand: true
+			}
+		},
+		user: {
+			connect: {
+				id: 1
+			}
+		},
+		lpaQuestionnaire: {
+			create: {
+				siteVisibleFromPublicLand: false,
 			}
 		}
 	},
@@ -399,15 +408,25 @@ const appealsSiteVisitNotYetBooked = [
 		},
 		address: {
 			create: {
-				addressLine1: '	66 Grove Road',
+				addressLine1: '66 Grove Road',
 				town: 'Fishponds',
 				postcode: 'BS16 2BP'
 			}
 		},
-		startedAt: new Date(2022, 4, 1),
+		startedAt: new Date(2022, 4, 1, 11),
 		appealDetailsFromAppellant: {
 			create: {
 				siteVisibleFromPublicLand: true
+			}
+		},
+		user: {
+			connect: {
+				id: 1
+			}
+		},
+		lpaQuestionnaire: {
+			create: {
+				siteVisibleFromPublicLand: true,
 			}
 		}
 	}
@@ -419,6 +438,7 @@ const appealsWithDecisionDue = [
 		status: 'decision_due',
 		localPlanningDepartment: 'some planning department',
 		planningApplicationReference: 'ABCDEFG',
+		startedAt: new Date(2022, 1, 5, 9),
 		address: {
 			create: {
 				addressLine1: '8 The Chase',
@@ -429,7 +449,8 @@ const appealsWithDecisionDue = [
 		siteVisit: {
 			create: {
 				visitDate: new Date(2021, 11, 2),
-				visitSlot: '1pm - 2pm'
+				visitSlot: '1pm - 2pm',
+				visitType: 'accompanied'
 			}
 		},
 		user: {
