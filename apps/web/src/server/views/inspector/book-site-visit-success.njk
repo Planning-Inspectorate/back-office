@@ -7,16 +7,16 @@
 {% block pageHeading %}{% endblock %}
 {% block pageContent %}
 	{{
-    govukPanel({
-		  titleText: pageTitle,
-		  html: [
-        appeal.appealSite | collapse(', '), 
-        '',
-        appeal.siteVisitDate,
-        appeal.siteVisitTimeSlot
-      ] | join('<br>')
-    })
-  }}
+		govukPanel({
+			titleText: pageTitle,
+			html: [
+				appeal.appealSite | collapse(', '), 
+				'',
+				appeal.siteVisitDate,
+				appeal.siteVisitTimeSlot
+			] | join('<br>')
+		})
+	}}
 
   <hr class="govuk-section-break govuk-section-break--xl govuk-section-break--visible">
 

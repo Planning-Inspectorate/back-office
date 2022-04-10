@@ -7,6 +7,7 @@
 {% from "app/components/document-list.component.njk" import documentList %}
 
 {% set isAppealIncomplete = appeal.AppealStatus === 'incomplete' %}
+{% set backLinkUrl = '/validation' %}
 
 {% set pageTitle = 'Review appeal submission' %}
 {% if canEditReviewOutcome %}
@@ -48,39 +49,12 @@
 
 		{# New appeal #}
 
-		<form action="" method="post" novalidate>
-			{{ govukRadios({
-				idPrefix: "reviewOutcome",
-				name: "reviewOutcome",
-				errorMessage: errors.reviewOutcome and { text: errors.reviewOutcome.msg },
-				fieldset: {
-					legend: {
-						text: "Outcome of review",
-						isPageHeading: false,
-						classes: "govuk-fieldset__legend--l govuk-!-margin-top-6"
-					}
-				},
-				items: [
-					{ value: 'valid', text: "Valid", checked: reviewOutcome === 'valid' },
-					{ value: 'invalid', text: "Invalid", checked: reviewOutcome === 'invalid' },
-					{ divider: "or" },
-					{ value: 'incomplete', text: "Something is missing or wrong", checked: reviewOutcome === 'incomplete' }
-				]
-			}) }}
-
-			{{ govukButton({ text: text | default('Continue') }) }}
-		</form>
-
-	{% else %}
-
-		{# Incomplete appeal #}
-
-		{% if canEditReviewOutcome %}
-			<form action="" method="post" novalidate>
-				{{ govukRadios({
-					idPrefix: "reviewOutcome",
-					name: "reviewOutcome",
-					errorMessage: errors.reviewOutcome and { text: errors.reviewOutcome.msg },
+		<form action="" method="post" novalidate>	
+			{{ 
+				govukRadios({
+					idPrefix: "status",
+					name: "status",
+					errorMessage: errors.status and { text: errors.status.msg },
 					fieldset: {
 						legend: {
 							text: "Outcome of review",
@@ -89,19 +63,48 @@
 						}
 					},
 					items: [
-						{ value: 'valid', text: "Valid", checked: reviewOutcome === 'valid' },
-						{ value: 'invalid', text: "Invalid", checked: reviewOutcome === 'invalid' }
+						{ value: 'valid', text: "Valid", checked: reviewOutcomeStatus === 'valid' },
+						{ value: 'invalid', text: "Invalid", checked: reviewOutcomeStatus === 'invalid' },
+						{ divider: "or" },
+						{ value: 'incomplete', text: "Something is missing or wrong", checked: reviewOutcomeStatus === 'incomplete' }
 					]
-				}) }}
+				})
+			}}
+			{{ govukButton({ text: 'Continue' }) }}
+		</form>
 
+	{% else %}
+
+		{# Incomplete appeal #}
+
+		{% if canEditReviewOutcomeStatus %}
+			<form action="" method="post" novalidate>
+				{{ 
+					govukRadios({
+						idPrefix: "status",
+						name: "status",
+						errorMessage: errors.status and { text: errors.status.msg },
+						fieldset: {
+							legend: {
+								text: "Outcome of review",
+								isPageHeading: false,
+								classes: "govuk-fieldset__legend--l govuk-!-margin-top-6"
+							}
+						},
+						items: [
+							{ value: 'valid', text: "Valid", checked: reviewOutcomeStatus === 'valid' },
+							{ value: 'invalid', text: "Invalid", checked: reviewOutcomeStatus === 'invalid' }
+						]
+					})
+				}}
 				<div class="govuk-button-group">
   				{{ govukButton({ text: "Continue" }) }}
-					<a class="govuk-link" href="/validation/review-appeal/{{ appeal.AppealId }}">Cancel</a>
+					<a class="govuk-link" href="/validation/appeals/{{ appeal.AppealId }}">Cancel</a>
 				</div>
 			</form>
 		{% else %}
 			{{ govukButton({
-				href: '/validation/review-appeal/' + appeal.AppealId + '?edit=true',
+				href: '/validation/appeals/' + appeal.AppealId + '?edit=true',
 				text: 'Change outcome',
 				classes: 'govuk-button--secondary'
 			}) }}
@@ -121,7 +124,7 @@
 			{% set actionItems = [
 				{
 					text: 'Change',
-					href: '/validation/review-appeal/' + appeal.AppealId + '/documents/' + (row.documentType | lower | kebabCase),
+					href: '/validation/appeals/' + appeal.AppealId + '/documents/' + (row.documentType | lower | kebabCase),
 					visuallyHiddenText: row.label | lower
 				}
 			] %}

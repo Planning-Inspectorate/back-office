@@ -4,7 +4,7 @@
 {% from "govuk/components/input/macro.njk" import govukInput %}
 
 {% set pageTitle = 'Change planning application reference' %}
-{% set backLinkUrl = '/validation/review-appeal/' + appealId %}
+{% set backLinkUrl = '/validation/appeals/' + appealId %}
 
 {% block pageHeading %}
 	<h1 class="govuk-heading-l">{{ pageTitle }}</h1>
@@ -24,7 +24,7 @@
 		}}
 		<div class="govuk-button-group">
 			{{ govukButton({ text: "Save changes" }) }}
-			<a class="govuk-link" href="/validation/review-appeal/{{ appealId }}">Cancel</a>
+			<a class="govuk-link" href="/validation/appeals/{{ appealId }}">Cancel</a>
 		</div>
 	</form>
 {% endblock %}
