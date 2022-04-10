@@ -9,7 +9,7 @@
  */
 export const createAsyncHandler = (requestHandler) => {
 	return (req, res, next) => {
-		requestHandler(req, res, next).catch((error) => {
+		Promise.resolve(requestHandler(req, res, next)).catch((error) => {
 			next(new AggregateError([new Error('data fetch'), error], 'Fetch errors!'));
 		});
 	};
