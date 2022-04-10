@@ -1,9 +1,18 @@
 import { NextFunction, ParamsDictionary, Request, Response } from 'express-serve-static-core';
 import { ParsedQs } from 'qs';
-import { ValidationError } from 'express-validator';
+import { ValidationChain, ValidationError } from 'express-validator';
 import { RequestHandler } from 'express';
 
 declare module '@pins/express' {
+	export interface CreateWhitelistedKeysValidatorOptions {
+		errorMessage: string;
+		whitelist: string[];
+	}
+
+	export const createWhitelistedKeysValidator: (options: CreateWhitelistedKeysValidatorOptions) => (value: unknown) => boolean;
+	export const composeMiddleware: (...middlewareFns: RequestHandler[]) => RequestHandler;
+	export const createValidator: (...validationFns: (ValidationChain[] | RequestHandler)[]) => RequestHandler;
+	export const expressValidatorErrorHandler: RequestHandler;
 	export const mapMulterErrorToValidationError: RequestHandler<any>;
 }
 
