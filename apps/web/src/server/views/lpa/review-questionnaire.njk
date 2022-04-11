@@ -60,17 +60,19 @@
 
 {% set pageTitle = 'Review questionnaire' %}
 
-{% block content %}
-	{{ super() }}
+{% block beforeContent %}
+	{{
+		govukBreadcrumbs({
+			classes: 'govuk-!-margin-top-0 govuk-!-margin-top-3',
+			items: [
+				{ href: backURL, text: 'Questionnaires for review' },
+				{ text: questionnaireData.AppealReference }
+			]
+		})	
+	}}
+{% endblock %}
 
-	{{ govukBreadcrumbs({
-		classes: 'govuk-!-margin-top-0 govuk-!-margin-bottom-8',
-		items: [
-			{ href: backURL, text: 'Questionnaires for review' },
-			{ text: questionnaireData.AppealReference }
-		]
-	}) }}
-
+{% block pageContent %}
 	<div class="govuk-grid-row">
 		<div class="govuk-grid-column-two-thirds">
 			{{ govukTable({
