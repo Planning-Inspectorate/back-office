@@ -11,6 +11,16 @@ import { get, post } from './../../lib/request.js';
 /** @typedef {import('@pins/inspector').AppealSummary} AppealSummary */
 /** @typedef {import('@pins/inspector').SiteVisitType} siteVisitType */
 
+const developmentOptions = {
+	hooks: {
+		beforeRequest: [
+			(options) => {
+				options.headers.userid = '1';
+			}
+		]
+	}
+};
+
 /**
  * Assign unassigned appeals to the user.
  *
@@ -45,7 +55,7 @@ export function bookSiteVisit(appealId, data) {
  * @returns {Promise<AppealSummary[]>} - A promise that resolves to a collection of appeal entities.
  */
 export function findAllAssignedAppeals() {
-	return get('inspector');
+	return get('inspector', developmentOptions);
 }
 
 /**
