@@ -37,7 +37,7 @@ const invalidWithoutReasons = function (body) {
 };
 
 const incompleteWithUnexpectedReasons = function (body) {
-	return _.difference(!(Object.keys(body.reason)), ([
+	return (_.difference(Object.keys(body.reason), [
 		'applicationPlanningOfficersReportMissingOrIncorrect',
 		'applicationPlansToReachDecisionMissingOrIncorrect',
 		'applicationPlansToReachDecisionMissingOrIncorrectDescription',
@@ -60,7 +60,7 @@ const incompleteWithUnexpectedReasons = function (body) {
 		'thirdPartyAppealNotificationMissingOrIncorrect',
 		'thirdPartyAppealNotificationMissingOrIncorrectListOfAddresses',
 		'thirdPartyAppealNotificationMissingOrIncorrectCopyOfLetterOrSiteNotice'
-	])).length === 0;
+	]).length === 0)? false : true;
 };
 
 const validateReviewRequest = function(body) {
