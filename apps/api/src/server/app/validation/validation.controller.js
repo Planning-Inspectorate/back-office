@@ -34,7 +34,7 @@ const updateAppeal = async function (request, response) {
 	validateUpdateValidationRequest(request);
 	const appeal = await getAppealForValidation(request.params.id);
 	const data = {
-		...(request.body.AppellantName && { appellantName: request.body.AppellantName }),
+		...(request.body.AppellantName && { appellant: { update: { name: request.body.AppellantName } } }),
 		...(request.body.Address && { address: { update: {
 			addressLine1: nullIfUndefined(request.body.Address.AddressLine1),
 			addressLine2: nullIfUndefined(request.body.Address.AddressLine2),

@@ -182,6 +182,27 @@
           }
         }
       }
+    },
+    "/inspector/assign": {
+      "post": {
+        "description": "Assigns appeals to inspector",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "header",
+            "type": "integer",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Appeals that were assigned to inspector and those that failed to be assigned",
+            "schema": {
+              "$ref": "#/definitions/AppealsAssignedToInspector"
+            }
+          }
+        }
+      }
     }
   },
   "definitions": {
@@ -763,6 +784,49 @@
         "status",
         "siteVisitType",
         "provisionalSiteVisitType"
+      ]
+    },
+    "AppealsAssignedToInspector": {
+      "type": "object",
+      "properties": {
+        "successfullyAssigned": {
+          "type": "array",
+          "example": [
+            1,
+            2,
+            3
+          ],
+          "items": {
+            "type": "number"
+          }
+        },
+        "unsuccessfullyAssigned": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "appealId": {
+                "type": "number",
+                "example": 4
+              },
+              "reason": {
+                "type": "string",
+                "enum": [
+                  "appeal in wrong state",
+                  "appeal already assigned"
+                ]
+              }
+            },
+            "required": [
+              "appealId",
+              "reason"
+            ]
+          }
+        }
+      },
+      "required": [
+        "successfullyAssigned",
+        "unsuccessfullyAssigned"
       ]
     }
   }

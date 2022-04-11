@@ -46,7 +46,7 @@ const appealFormatter = {
 		return {
 			AppealId: appeal.id,
 			AppealReference: appeal.reference,
-			AppellantName: appeal.appellantName,
+			AppellantName: appeal.appellant.name,
 			AppealStatus: mapAppealStatus(appeal.status),
 			Received: formatDate(appeal.createdAt),
 			AppealSite: formatAddress(appeal.address),

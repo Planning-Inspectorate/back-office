@@ -147,6 +147,13 @@ const document_ = {
 			$status: { '@enum': ['not yet booked', 'booked', 'decision due'] },
 			$siteVisitType: { '@enum': ['accompanied', 'unaccompanied', 'access required'] },
 			$provisionalSiteVisitType: { '@enum': ['unaccompanied', 'access required'] }
+		},
+		AppealsAssignedToInspector: {
+			$successfullyAssigned: [1, 2, 3],
+			$unsuccessfullyAssigned: [{
+				$appealId: 4,
+				$reason: { '@enum': ['appeal in wrong state', 'appeal already assigned'] }
+			}]
 		}
 	},
 	components: {}

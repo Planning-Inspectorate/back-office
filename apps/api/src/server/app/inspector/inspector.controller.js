@@ -4,11 +4,8 @@ import { inspectorStatesStrings } from '../state-machine/inspector-states.js';
 import formatAddressLowerCase from '../utils/address-formatter-lowercase.js';
 import formatDate from '../utils/date-formatter.js';
 import InspectorError from './inspector-error.js';
-
-const daysBetweenDates = function(firstDate, secondDate) {
-	const oneDay = 24 * 60 * 60 * 1000;
-	return Math.round(Math.abs((firstDate - secondDate) / oneDay));
-};
+import transitionState from '../state-machine/household-appeal.machine.js';
+import daysBetweenDates from '../utils/days-between-dates.js';
 
 const formatStatus = function(status) {
 	switch (status) {
@@ -59,4 +56,40 @@ const getAppeals = async function(request, response) {
 	return response.send(appealsForResponse);
 };
 
-export { getAppeals };
+const assignAppealsById = async function(userId, appealIds) {
+	const successfullyAssigned = [];
+	const unsuccessfullyAssigned = [];
+	await Promise.all(appealIds.map(async (appealId) => {
+		const appeal = await appealRepository.getById(appealId);
+		if (appeal.userId == undefined && appeal.status == 'available_for_inspector_pickup') {
+			try {
+				const nextState = transitionState({ appealId: appeal.id }, appeal.status, 'PICKUP');
+				await appealRepository.updateById(appeal.id, { status: nextState.value, user: { connect: { id: userId } } });
+				successfullyAssigned.push(appeal.id);
+			} catch (error) {
+				console.error(error);
+				unsuccessfullyAssigned.push({ appealId: appeal.id, reason: error.message });
+			}
+		} else if (appeal.status != 'available_for_inspector_pickup') {
+			unsuccessfullyAssigned.push({ appealId: appeal.id, reason: 'appeal in wrong state' });
+		} else if (appeal.userId != undefined) {
+			unsuccessfullyAssigned.push({ appealId: appeal.id, reason: 'appeal already assigned' });
+		}
+	}));
+	return { successfullyAssigned: successfullyAssigned, unsuccessfullyAssigned: unsuccessfullyAssigned };
+};
+
+const validateAppealIdsPresent = function(body) {
+	if (_.isEmpty(body)) {
+		throw new InspectorError('Must provide appeals to assign', 400);
+	}
+};
+
+const assignAppeals = async function(request, response) {
+	const userId = validateUserId(request.headers.userid);
+	validateAppealIdsPresent(request.body);
+	const resultantAppeals = await assignAppealsById(userId, request.body);
+	response.send(resultantAppeals);
+};
+
+export { getAppeals, assignAppeals };

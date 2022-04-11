@@ -8,31 +8,40 @@ datasource db {
 }
 
 model Appeal {
-  id                           Int                   @id @default(autoincrement())
+  id                           Int                         @id @default(autoincrement())
   reference                    String
-  address                      Address               @relation(fields: [addressId], references: [id])
+  address                      Address                     @relation(fields: [addressId], references: [id])
   addressId                    Int
-  status                       String                @default("received_appeal")
-  appellantName                String
+  status                       String                      @default("received_appeal")
+  appellant                    Appellant?                  @relation(fields: [appellantId], references: [id])
+  appellantId                  Int?                        @unique
   localPlanningDepartment      String
   planningApplicationReference String
-  createdAt                    DateTime              @default(now())
-  updatedAt                    DateTime              @default(now())
-  statusUpdatedAt              DateTime              @default(now())
+  createdAt                    DateTime                    @default(now())
+  updatedAt                    DateTime                    @default(now())
+  statusUpdatedAt              DateTime                    @default(now())
   startedAt                    DateTime?
   validationDecision           ValidationDecision[]
   reviewQuestionnaire          ReviewQuestionnaire[]
   lpaQuestionnaire             LPAQuestionnaire?
   siteVisit                    SiteVisit?
-  user                         User?                @relation(fields: [userId], references: [id])
+  user                         User?                       @relation(fields: [userId], references: [id])
   userId                       Int?
-  appealDetailsFromAppellant AppealDetailsFromAppellant?
+  appealDetailsFromAppellant   AppealDetailsFromAppellant?
+}
+
+model Appellant {
+  id        Int     @id @default(autoincrement())
+  name      String
+  email     String
+  agentName String?
+  appeal    Appeal?
 }
 
 model AppealDetailsFromAppellant {
-  id Int @id @default(autoincrement())
-  appeal Appeal @relation(fields: [appealId], references: [id])
-  appealId Int
+  id                        Int      @id @default(autoincrement())
+  appeal                    Appeal   @relation(fields: [appealId], references: [id])
+  appealId                  Int      @unique
   siteVisibleFromPublicLand Boolean?
 }
 
