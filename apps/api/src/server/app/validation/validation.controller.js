@@ -88,12 +88,38 @@ async function getAppealForValidation(appealId) {
 	return appeal;
 }
 
-const obtainLPAList = async function() {
-	const dataRaw = await got.get('https://services1.arcgis.com/ESMARspQHYMw9BZ9/arcgis/rest/services/LPA_APR_2021_UK_NC/FeatureServer/0/query?where=1%3D1&outFields=LPA21NM&outSR=4326&f=json');
-	return dataRaw.json().features.map((lpas) => lpas.attributes.LPA21NM);
+/**
+ * @typedef {object} LocalPlanningDepartmentResponse
+ * @property {LocalPlanningDepartment[]} features - A collection of requested LPAs in schema format.
+ *
+ * @typedef {object} LocalPlanningDepartment
+ * @property {object} attributes - A dictionary of request attributes
+ * @property {string} attributes.LPA21NM - The name of the local planning department
+ */
+
+/**
+ * Fetch a list of planning departments from the remote arcgis service.
+ *
+ * @returns {Promise<string[]>} - A list of local planning department names.
+ */
+const obtainLPAList = async function () {
+	const { body } = await /** @type {Promise<import('got').Response<LocalPlanningDepartmentResponse>>} */ (
+		got.get('https://services1.arcgis.com/ESMARspQHYMw9BZ9/arcgis/rest/services/LPA_APR_2021_UK_NC/FeatureServer/0/query', {
+			responseType: 'json',
+			searchParams: {
+				where: '1=1',
+				outFields: 'LPA21NM',
+				outSR: 4326,
+				f: 'json'
+			}
+		})
+	);
+
+	return body.features.map((feature) => feature.attributes.LPA21NM);
 };
 
-const getLPAList = async function(_request, response) {
+/** @type {import('express').RequestHandler } */
+const getLPAList = async function (_request, response) {
 	const LPAList = await obtainLPAList();
 	return response.send(LPAList);
 };
