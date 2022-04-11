@@ -203,6 +203,43 @@
           }
         }
       }
+    },
+    "/inspector/book": {
+      "post": {
+        "description": "Book a site visit as an inspector.",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "header",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "appealId",
+            "in": "url",
+            "description": "Unique identifier for the appeal.",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Book site visit payload.",
+            "schema": {
+              "$ref": "#/definitions/BookSiteVisit"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The updated appeal.",
+            "schema": {
+              "$ref": "#/definitions/AppealsForInspector"
+            }
+          }
+        }
+      }
     }
   },
   "definitions": {
@@ -384,7 +421,7 @@
     "ChangeAppeal": {
       "type": "object",
       "properties": {
-        "AppellandName": {
+        "AppellantName": {
           "type": "string",
           "example": "John Doe"
         },
@@ -430,7 +467,7 @@
         }
       },
       "required": [
-        "AppellandName",
+        "AppellantName",
         "Address",
         "LocalPlanningDepartment",
         "PlanningApplicationReference"
@@ -827,6 +864,67 @@
       "required": [
         "successfullyAssigned",
         "unsuccessfullyAssigned"
+      ]
+    },
+    "BookSiteVisit": {
+      "type": "object",
+      "properties": {
+        "SiteVisitType": {
+          "required": true,
+          "type": "string",
+          "enum": [
+            "accompanied",
+            "unaccompanied",
+            "access required"
+          ]
+        },
+        "SiteVisitDate": {
+          "type": "object",
+          "properties": {
+            "required": {
+              "type": "boolean",
+              "example": true
+            },
+            "type": {
+              "type": "string",
+              "example": "string"
+            },
+            "pattern": {
+              "type": "string",
+              "example": "^d{4}(0[1-9]|1[012])(0[1-9]|[12][0-9]|3[01])$"
+            },
+            "examples": {
+              "type": "array",
+              "example": [
+                "2022-01-01"
+              ],
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "SiteVisitTimeSlot": {
+          "required": true,
+          "type": "string",
+          "enum": [
+            "8am to 10am",
+            "9am to 11am",
+            "10am to midday",
+            "11am to 1pm",
+            "midday to 2pm",
+            "1pm to 3pm",
+            "2pm to 4pm",
+            "3pm to 5pm",
+            "4pm to 6pm",
+            "5pm to 7pm"
+          ]
+        }
+      },
+      "required": [
+        "SiteVisitType",
+        "SiteVisitDate",
+        "SiteVisitTimeSlot"
       ]
     }
   }
