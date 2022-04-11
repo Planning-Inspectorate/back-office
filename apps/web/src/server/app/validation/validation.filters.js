@@ -1,5 +1,3 @@
-// @ts-check
-
 import { capitalize } from 'lodash-es';
 
 /** @typedef {import('@pins/validation').AppealOutcomeStatus} AppealOutcomeStatus */

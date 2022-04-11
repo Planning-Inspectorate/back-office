@@ -1,5 +1,3 @@
-// @ts-check
-
 import session from 'express-session';
 
 // TODO: Regeneration of Session After Login

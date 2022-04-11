@@ -1,0 +1,12 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "allowSyntheticDefaultImports": true,
+    "checkJs": true,
+    "esModuleInterop": true,
+    "moduleResolution": "node",
+    "module": "ES2020",
+    "strict": true 
+  },
+  "include": ["apps/web"]
+}

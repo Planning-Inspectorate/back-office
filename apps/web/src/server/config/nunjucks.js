@@ -1,5 +1,3 @@
-// @ts-check
-
 import { createRequire } from 'module';
 import nunjucks from 'nunjucks';
 import path from 'path';
@@ -28,14 +26,14 @@ const nunjucksEnvironments = nunjucks.configure([
 // Add all custom app filters
 for (const filterName in nunjucksFilters) {
 	if (Object.prototype.hasOwnProperty.call(nunjucksFilters, filterName)) {
-		nunjucksEnvironments.addFilter(filterName, nunjucksFilters[filterName]);
+		nunjucksEnvironments.addFilter(filterName, nunjucksFilters[/** @type {keyof typeof nunjucksFilters} */ (filterName)]);
 	}
 }
 
 // Add all custom globals
 for (const globalName in nunjucksGlobals) {
 	if (Object.prototype.hasOwnProperty.call(nunjucksGlobals, globalName)) {
-		nunjucksEnvironments.addGlobal(globalName, nunjucksGlobals[globalName]);
+		nunjucksEnvironments.addGlobal(globalName, nunjucksGlobals[/** @type {keyof typeof nunjucksGlobals} */ (globalName)]);
 	}
 }
 

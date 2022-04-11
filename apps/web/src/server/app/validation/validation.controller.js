@@ -1,5 +1,3 @@
-// @ts-check
-
 import * as validationSession from './validation-session.service.js';
 import * as validationService from './validation.service.js';
 
@@ -346,7 +344,9 @@ export async function uploadDocuments({ files, params }, response) {
  */
 export async function newReviewOutcome({ params, session }, response) {
 	const appeal = await validationService.findAppealById(params.appealId);
-	const reviewOutcome = validationSession.getReviewOutcome(session, params.appealId);
+	const reviewOutcome = /** @type {import('./validation-session.service').ReviewOutcomeState} */ (
+		validationSession.getReviewOutcome(session, params.appealId)
+	);
 
 	response.render(`validation/review-outcome-${reviewOutcome.status}`, { appeal, reviewOutcome });
 }
@@ -383,8 +383,10 @@ export async function createReviewOutcome({ body, params, session }, response) {
  * @type {import('@pins/express').QueryHandler<AppealParams, ViewReviewOutcomeConfirmationRenderOptions>}
  */
 export async function viewReviewOutcomeConfirmation({ params, session }, response) {
-	const reviewOutcome = validationSession.getReviewOutcome(session, params.appealId);
 	const appeal = await validationService.findAppealById(params.appealId);
+	const reviewOutcome = /** @type {import('./validation-session.service').ReviewOutcomeState} */ (
+		validationSession.getReviewOutcome(session, params.appealId)
+	);
 
 	response.render(`validation/review-outcome-${reviewOutcome.status}-confirmation`, {
 		appeal,

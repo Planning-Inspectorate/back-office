@@ -1,5 +1,3 @@
-// @ts-check
-
 import * as validation from '@pins/validation';
 import express from 'express';
 import { lowerCase } from 'lodash-es';

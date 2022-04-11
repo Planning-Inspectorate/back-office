@@ -1,5 +1,3 @@
-// @ts-check
-
 import { composeMiddleware, createValidator, mapMulterErrorToValidationError } from '@pins/express';
 import * as validation from '@pins/validation';
 import { body, checkSchema, validationResult } from 'express-validator';
@@ -35,43 +33,15 @@ export const registerValidationLocals = (_, response, next) => {
 /** @typedef {import('@pins/validation').Address} UnparsedAppealSiteBody */
 /** @typedef {{ Address: import('@pins/validation').Address}} ParsedAppealSiteBody */
 
-export const validateAppealSite = composeMiddleware(
-	function parseAppealSiteBody(request, _, next) {
-		request.body = { Address: request.body };
-		next();
-	},
-	validation.validateAppealSite
-);
-
-/**
- * Interim validator that invokes the correct validator for the given review
- * outcome status.
- *
- * @type {import('express').RequestHandler}
- */
-export const validateReviewOutcome = (req, res, next) => {
-	switch (req.body.status) {
-		case 'incomplete':
-			validateIncompleteOutcome(req, res, next);
-			break;
-
-		case 'invalid':
-			validateInvalidOutcome(req, res, next);
-			break;
-
-		case 'valid':
-			validation.validateValidReviewOutcome(req, res, next);
-			break;
-
-		default:
-			next(new Error('Review outcome status could not be determined'));
-	}
-};
+export const validateAppealSite = composeMiddleware(function parseAppealSiteBody(request, _, next) {
+	request.body = { Address: request.body };
+	next();
+}, validation.validateAppealSite);
 
 export const validateReviewOutcomeConfirmation = createValidator(
 	body('confirmation')
 		.custom((value, { req }) => {
-			const status = validationSession.getReviewOutcomeStatus(req.session, req.params.appealId);
+			const status = validationSession.getReviewOutcomeStatus(req.session, req.params?.appealId);
 
 			return status === 'incomplete' ? Boolean(value) : true;
 		})
@@ -190,3 +160,28 @@ const validateInvalidOutcome = createValidator(
 	},
 	validation.validateInvalidReviewOutcome
 );
+
+/**
+ * Interim validator that invokes the correct validator for the given review
+ * outcome status.
+ *
+ * @type {import('express').RequestHandler}
+ */
+export const validateReviewOutcome = (req, res, next) => {
+	switch (req.body.status) {
+		case 'incomplete':
+			validateIncompleteOutcome(req, res, next);
+			break;
+
+		case 'invalid':
+			validateInvalidOutcome(req, res, next);
+			break;
+
+		case 'valid':
+			validation.validateValidReviewOutcome(req, res, next);
+			break;
+
+		default:
+			next(new Error('Review outcome status could not be determined'));
+	}
+};

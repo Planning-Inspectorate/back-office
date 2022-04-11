@@ -1,5 +1,3 @@
-// @ts-check
-
 import FormData from 'form-data';
 import { get, post, patch } from './../../lib/request.js';
 
@@ -113,7 +111,7 @@ export function recordOutcome(appealId, { status: AppealStatus, ...other }) {
  *
  * @param {number} appealId - Unique identifier for the appeal.
  * @param {UploadDocumentData} data - The buffered file and its metadata.
- * @returns {Promise} - A promise that resolves once the document is uploaded to
+ * @returns {Promise<unknown>} - A promise that resolves once the document is uploaded to
  * the appeal.
  */
 export function uploadDocument(appealId, { file, documentType }) {

@@ -1,5 +1,3 @@
-// @ts-check
-
 import * as inspectorSession from './inspector-session.service.js';
 import * as inspectorService from './inspector.service.js';
 
@@ -7,6 +5,8 @@ import * as inspectorService from './inspector.service.js';
 /** @typedef {import('@pins/inspector').AppealOutcome} AppealOutcome */
 /** @typedef {import('@pins/inspector').AppealSummary} AppealSummary */
 /** @typedef {import('@pins/inspector').SiteVisitType} SiteVisitType */
+/** @typedef {import('./inspector-session.service').DecisionState} DecisionState} */
+/** @typedef {import('./inspector-session.service').SiteVisitState} SiteVisitState} */
 
 /**
  * @typedef {Object} ViewDashboardRenderOptions
@@ -155,7 +155,7 @@ export async function createSiteVisit({ body, params, session }, response) {
  */
 export async function viewSiteVisitConfirmation({ params, session }, response) {
 	const appeal = await inspectorService.findAppealById(params.appealId);
-	const siteVisitData = inspectorSession.getSiteVisit(session, params.appealId);
+	const siteVisitData = /** @type {SiteVisitState} */ (inspectorSession.getSiteVisit(session, params.appealId));
 
 	response.render('inspector/book-site-visit-confirmation', { appeal, ...siteVisitData });
 }
@@ -171,7 +171,7 @@ export async function viewSiteVisitConfirmation({ params, session }, response) {
  * @type {import('@pins/express').QueryHandler<AppealParams, ConfirmSiteVisitSuccessRenderOptions>}
  */
 export async function confirmSiteVisit({ params, session }, response) {
-	const siteVisitData = inspectorSession.getSiteVisit(session, params.appealId);
+	const siteVisitData = /** @type {SiteVisitState} */ (inspectorSession.getSiteVisit(session, params.appealId));
 	const updatedAppeal = await inspectorService.bookSiteVisit(params.appealId, siteVisitData);
 
 	inspectorSession.destroy(session);
@@ -225,7 +225,7 @@ export async function createDecision({ body, file, params, session }, response) 
 	inspectorSession.setDecision(session, {
 		appealId: params.appealId,
 		outcome: body.outcome,
-		decisionLetter: file
+		decisionLetter: /** @type {Express.Multer.File} */ (file)
 	});
 
 	response.redirect(`/inspector/appeals/${params.appealId}/confirm-decision`);
@@ -247,7 +247,7 @@ export async function createDecision({ body, file, params, session }, response) 
  */
 export async function viewDecisionConfirmation({ params, session }, response) {
 	const appeal = await inspectorService.findAppealById(params.appealId);
-	const decisionData = inspectorSession.getDecision(session, params.appealId);
+	const decisionData = /** @type {DecisionState} */ (inspectorSession.getDecision(session, params.appealId));
 
 	response.render('inspector/issue-decision-confirmation', { appeal, ...decisionData });
 }
@@ -258,7 +258,7 @@ export async function viewDecisionConfirmation({ params, session }, response) {
  * @type {import('@pins/express').QueryHandler<AppealParams>}
  */
 export function downloadDecisionLetter({ params, session }, response) {
-	const { decisionLetter } = inspectorSession.getDecision(session, params.appealId);
+	const { decisionLetter } = /** @type {DecisionState} */ (inspectorSession.getDecision(session, params.appealId));
 
 	response.sendFile(decisionLetter.path, {
 		headers: {
@@ -278,7 +278,7 @@ export function downloadDecisionLetter({ params, session }, response) {
  * @type {import('@pins/express').CommandHandler<AppealParams, ConfirmDecisionSuccessRenderOptions>}
  */
 export async function confirmDecision({ params, session }, response) {
-	const decisionData = inspectorSession.getDecision(session, params.appealId);
+	const decisionData = /** @type {DecisionState} */ (inspectorSession.getDecision(session, params.appealId));
 	const updatedAppeal = await inspectorService.issueDecision(params.appealId, decisionData);
 
 	inspectorSession.destroy(session);

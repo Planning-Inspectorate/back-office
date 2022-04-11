@@ -1,5 +1,3 @@
-// @ts-check
-
 import * as validationSession from './validation-session.service.js';
 
 /** @typedef {import('@pins/validation').AppealOutcomeStatus} AppealOutcomeStatus */

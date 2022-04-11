@@ -1,5 +1,3 @@
-// @ts-check
-
 import bodyParser from 'body-parser';
 import compression from 'compression';
 import cookieParser from 'cookie-parser';
@@ -76,14 +74,17 @@ app.use('/', routes);
 // ! Otherwise, our error handler won't get called.
 // Catch all "server" (the ones in the routing flow) errors and and render generic error page
 // with the error message if the app runs in dev mode, or geneirc error if running in production.
-app.use((error, request, response, next) => {
-	if (response.headersSent) {
-		next(error);
-	}
+app.use(
+	/** @type {import('express').ErrorRequestHandler} */
+	(error, request, response, next) => {
+		if (response.headersSent) {
+			next(error);
+		}
 
-	response.status(500);
-	response.render('app/error', { error: error });
-});
+		response.status(500);
+		response.render('app/error', { error: error });
+	}
+);
 
 // Catch undefined routes (404) and render generic 404 not found page
 app.use((request, response) => {

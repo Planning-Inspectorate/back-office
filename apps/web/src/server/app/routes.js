@@ -12,10 +12,10 @@ const router = express.Router();
 // Mount app routes at / (this includes all sub paths specific to the general app)
 router.use('/', appRoutes);
 // Mount all validation step routes at `/validation` (these will be seen by validation officers)
-router.use('/validation', [registerValidationLocals, validationRouter]);
+router.use('/validation', registerValidationLocals, validationRouter);
 // Mount all LPA step routes at `/lpa` (these will be seen by case officers)
-router.use('/lpa', [registerLpaLocals, lpaRouter]);
+router.use('/lpa', registerLpaLocals, lpaRouter);
 
-router.use('/inspector', [registerInspectorLocals, inspectorRouter]);
+router.use('/inspector', registerInspectorLocals, inspectorRouter);
 
 export { router as routes };

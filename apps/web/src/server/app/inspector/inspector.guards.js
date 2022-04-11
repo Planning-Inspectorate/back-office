@@ -1,5 +1,3 @@
-// @ts-check
-
 import { createAsyncHandler } from '../../lib/async-error-handler.js';
 import * as inspectorSession from './inspector-session.service.js';
 import * as inspectorService from './inspector.service.js';

@@ -1,5 +1,3 @@
-// @ts-check
-
 import fs from 'fs';
 import { config } from './config.js';
 
@@ -10,7 +8,7 @@ import { config } from './config.js';
  * @returns {{ path: string }} - The resource configuration.
  */
 const getConfig = (filename) => {
-	const json = fs.readFileSync(new URL(`../_data/${filename}`, import.meta.url), { encoding: 'utf-8' });
+	const json = fs.readFileSync(new URL(`../_data/${filename}`, import.meta.url), { encoding: 'utf8' });
 
 	return JSON.parse(json);
 };
