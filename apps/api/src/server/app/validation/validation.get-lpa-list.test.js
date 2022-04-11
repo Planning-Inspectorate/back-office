@@ -10,21 +10,19 @@ const request = supertest(app);
 const getStub = sinon.stub();
 
 const fakeGet = {
-	json: function() {
-		return {
-			features: [
-				{
-					attributes: {
-						LPA21NM: 'first LPA'
-					}
-				},
-				{
-					attributes: {
-						LPA21NM: 'second LPA'
-					}
+	body: {
+		features: [
+			{
+				attributes: {
+					LPA21NM: 'first LPA'
 				}
-			]
-		};
+			},
+			{
+				attributes: {
+					LPA21NM: 'second LPA'
+				}
+			}
+		]
 	}
 };
 
