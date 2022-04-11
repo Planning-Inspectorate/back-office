@@ -67,17 +67,13 @@ test('should submit confirmation of an incomplete outcome of LPA questionnaire',
 				applicationPlansToReachDecisionMissingOrIncorrectDescription: 'Some description',
 				policiesStatutoryDevelopmentPlanPoliciesMissingOrIncorrect: false,
 				policiesOtherRelevantPoliciesMissingOrIncorrect: false,
-				policiesSupplementaryPlanningDocumentsMissingOrIncorrect : false,
+				policiesSupplementaryPlanningDocumentsMissingOrIncorrect: false,
 				siteConservationAreaMapAndGuidanceMissingOrIncorrect: false,
 				siteListedBuildingDescriptionMissingOrIncorrect: false,
 				thirdPartyApplicationNotificationMissingOrIncorrect: false,
-				thirdPartyApplicationNotificationMissingOrIncorrectListOfAddresses: false,
-				thirdPartyApplicationNotificationMissingOrIncorrectCopyOfLetterOrSiteNotice: false,
 				thirdPartyApplicationPublicityMissingOrIncorrect: false,
-				thirdPartyRepresentationsMissingOrIncorrect : false,
-				thirdPartyAppealNotificationMissingOrIncorrect: false,
-				thirdPartyAppealNotificationMissingOrIncorrectListOfAddresses: false,
-				thirdPartyAppealNotificationMissingOrIncorrectCopyOfLetterOrSiteNotice: false
+				thirdPartyRepresentationsMissingOrIncorrect: false,
+				thirdPartyAppealNotificationMissingOrIncorrect: false
 			}
 		});
 	t.is(resp.status, 200);
@@ -89,17 +85,13 @@ test('should submit confirmation of an incomplete outcome of LPA questionnaire',
 		applicationPlansToReachDecisionMissingOrIncorrectDescription: 'Some description',
 		policiesStatutoryDevelopmentPlanPoliciesMissingOrIncorrect: false,
 		policiesOtherRelevantPoliciesMissingOrIncorrect: false,
-		policiesSupplementaryPlanningDocumentsMissingOrIncorrect : false,
+		policiesSupplementaryPlanningDocumentsMissingOrIncorrect: false,
 		siteConservationAreaMapAndGuidanceMissingOrIncorrect: false,
 		siteListedBuildingDescriptionMissingOrIncorrect: false,
 		thirdPartyApplicationNotificationMissingOrIncorrect: false,
-		thirdPartyApplicationNotificationMissingOrIncorrectListOfAddresses: false,
-		thirdPartyApplicationNotificationMissingOrIncorrectCopyOfLetterOrSiteNotice: false,
 		thirdPartyApplicationPublicityMissingOrIncorrect: false,
-		thirdPartyRepresentationsMissingOrIncorrect : false,
-		thirdPartyAppealNotificationMissingOrIncorrect: false,
-		thirdPartyAppealNotificationMissingOrIncorrectListOfAddresses: false,
-		thirdPartyAppealNotificationMissingOrIncorrectCopyOfLetterOrSiteNotice: false
+		thirdPartyRepresentationsMissingOrIncorrect: false,
+		thirdPartyAppealNotificationMissingOrIncorrect: false
 	} });
 });
 
@@ -111,17 +103,13 @@ test('should submit confirmation of the outcome of LPA questionnaire', async (t)
 				applicationPlansToReachDecisionMissingOrIncorrect: false,
 				policiesStatutoryDevelopmentPlanPoliciesMissingOrIncorrect: false,
 				policiesOtherRelevantPoliciesMissingOrIncorrect: false,
-				policiesSupplementaryPlanningDocumentsMissingOrIncorrect : false,
+				policiesSupplementaryPlanningDocumentsMissingOrIncorrect: false,
 				siteConservationAreaMapAndGuidanceMissingOrIncorrect: false,
 				siteListedBuildingDescriptionMissingOrIncorrect: false,
 				thirdPartyApplicationNotificationMissingOrIncorrect: false,
-				thirdPartyApplicationNotificationMissingOrIncorrectListOfAddresses: false,
-				thirdPartyApplicationNotificationMissingOrIncorrectCopyOfLetterOrSiteNotice: false,
 				thirdPartyApplicationPublicityMissingOrIncorrect: false,
-				thirdPartyRepresentationsMissingOrIncorrect : false,
-				thirdPartyAppealNotificationMissingOrIncorrect: false,
-				thirdPartyAppealNotificationMissingOrIncorrectListOfAddresses: false,
-				thirdPartyAppealNotificationMissingOrIncorrectCopyOfLetterOrSiteNotice: false
+				thirdPartyRepresentationsMissingOrIncorrect: false,
+				thirdPartyAppealNotificationMissingOrIncorrect: false
 			}
 		});
 	t.is(resp.status, 200);
@@ -132,17 +120,13 @@ test('should submit confirmation of the outcome of LPA questionnaire', async (t)
 		applicationPlansToReachDecisionMissingOrIncorrect: false,
 		policiesStatutoryDevelopmentPlanPoliciesMissingOrIncorrect: false,
 		policiesOtherRelevantPoliciesMissingOrIncorrect: false,
-		policiesSupplementaryPlanningDocumentsMissingOrIncorrect : false,
+		policiesSupplementaryPlanningDocumentsMissingOrIncorrect: false,
 		siteConservationAreaMapAndGuidanceMissingOrIncorrect: false,
 		siteListedBuildingDescriptionMissingOrIncorrect: false,
 		thirdPartyApplicationNotificationMissingOrIncorrect: false,
-		thirdPartyApplicationNotificationMissingOrIncorrectListOfAddresses: false,
-		thirdPartyApplicationNotificationMissingOrIncorrectCopyOfLetterOrSiteNotice: false,
 		thirdPartyApplicationPublicityMissingOrIncorrect: false,
-		thirdPartyRepresentationsMissingOrIncorrect : false,
-		thirdPartyAppealNotificationMissingOrIncorrect: false,
-		thirdPartyAppealNotificationMissingOrIncorrectListOfAddresses: false,
-		thirdPartyAppealNotificationMissingOrIncorrectCopyOfLetterOrSiteNotice: false
+		thirdPartyRepresentationsMissingOrIncorrect: false,
+		thirdPartyAppealNotificationMissingOrIncorrect: false
 	} });
 });
 
@@ -154,17 +138,13 @@ test('should not be able to submit review as \'incomplete\' if there is no descr
 				applicationPlansToReachDecisionMissingOrIncorrect: true,
 				policiesStatutoryDevelopmentPlanPoliciesMissingOrIncorrect: false,
 				policiesOtherRelevantPoliciesMissingOrIncorrect: false,
-				policiesSupplementaryPlanningDocumentsMissingOrIncorrect : false,
+				policiesSupplementaryPlanningDocumentsMissingOrIncorrect: false,
 				siteConservationAreaMapAndGuidanceMissingOrIncorrect: false,
 				siteListedBuildingDescriptionMissingOrIncorrect: false,
 				thirdPartyApplicationNotificationMissingOrIncorrect: false,
-				thirdPartyApplicationNotificationMissingOrIncorrectListOfAddresses: false,
-				thirdPartyApplicationNotificationMissingOrIncorrectCopyOfLetterOrSiteNotice: false,
 				thirdPartyApplicationPublicityMissingOrIncorrect: false,
-				thirdPartyRepresentationsMissingOrIncorrect : false,
-				thirdPartyAppealNotificationMissingOrIncorrect: false,
-				thirdPartyAppealNotificationMissingOrIncorrectListOfAddresses: false,
-				thirdPartyAppealNotificationMissingOrIncorrectCopyOfLetterOrSiteNotice: false
+				thirdPartyRepresentationsMissingOrIncorrect: false,
+				thirdPartyAppealNotificationMissingOrIncorrect: false
 			}
 		});
 	t.is(resp.status, 400);
@@ -179,17 +159,13 @@ test('should not be able to submit review as \'incomplete\' if some unexpected b
 				applicationPlansToReachDecisionMissingOrIncorrect: false,
 				policiesStatutoryDevelopmentPlanPoliciesMissingOrIncorrect: false,
 				policiesOtherRelevantPoliciesMissingOrIncorrect: false,
-				policiesSupplementaryPlanningDocumentsMissingOrIncorrect : false,
+				policiesSupplementaryPlanningDocumentsMissingOrIncorrect: false,
 				siteConservationAreaMapAndGuidanceMissingOrIncorrect: false,
 				siteListedBuildingDescriptionMissingOrIncorrect: false,
 				thirdPartyApplicationNotificationMissingOrIncorrect: false,
-				thirdPartyApplicationNotificationMissingOrIncorrectListOfAddresses: false,
-				thirdPartyApplicationNotificationMissingOrIncorrectCopyOfLetterOrSiteNotice: false,
 				thirdPartyApplicationPublicityMissingOrIncorrect: false,
-				thirdPartyRepresentationsMissingOrIncorrect : false,
+				thirdPartyRepresentationsMissingOrIncorrect: false,
 				thirdPartyAppealNotificationMissingOrIncorrect: false,
-				thirdPartyAppealNotificationMissingOrIncorrectListOfAddresses: false,
-				thirdPartyAppealNotificationMissingOrIncorrectCopyOfLetterOrSiteNotice: false,
 				someFakeReason: true
 			}
 		});
@@ -205,17 +181,13 @@ test('should not be able to submit review if appeal is not in a state ready to r
 				applicationPlansToReachDecisionMissingOrIncorrect: false,
 				policiesStatutoryDevelopmentPlanPoliciesMissingOrIncorrect: false,
 				policiesOtherRelevantPoliciesMissingOrIncorrect: false,
-				policiesSupplementaryPlanningDocumentsMissingOrIncorrect : false,
+				policiesSupplementaryPlanningDocumentsMissingOrIncorrect: false,
 				siteConservationAreaMapAndGuidanceMissingOrIncorrect: false,
 				siteListedBuildingDescriptionMissingOrIncorrect: false,
 				thirdPartyApplicationNotificationMissingOrIncorrect: false,
-				thirdPartyApplicationNotificationMissingOrIncorrectListOfAddresses: false,
-				thirdPartyApplicationNotificationMissingOrIncorrectCopyOfLetterOrSiteNotice: false,
 				thirdPartyApplicationPublicityMissingOrIncorrect: false,
-				thirdPartyRepresentationsMissingOrIncorrect : false,
-				thirdPartyAppealNotificationMissingOrIncorrect: false,
-				thirdPartyAppealNotificationMissingOrIncorrectListOfAddresses: false,
-				thirdPartyAppealNotificationMissingOrIncorrectCopyOfLetterOrSiteNotice: false
+				thirdPartyRepresentationsMissingOrIncorrect: false,
+				thirdPartyAppealNotificationMissingOrIncorrect: false
 			}
 		});
 	t.is(resp.status, 400);
