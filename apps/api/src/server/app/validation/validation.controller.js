@@ -100,7 +100,7 @@ async function getAppealForValidation(appealId) {
 /**
  * Fetch a list of planning departments from the remote arcgis service.
  *
- * @returns {Promise<string>} - A list of local planning department names.
+ * @returns {Promise<string[]>} - A list of local planning department names.
  */
 const obtainLPAList = async function () {
 	const { body } = await /** @type {Promise<import('got').Response<LocalPlanningDepartmentResponse>>} */ (
