@@ -29,7 +29,8 @@ const appealRepository = (function() {
 					}
 				},
 				include: {
-					address: true
+					address: true,
+					appellant: true
 				}
 			});
 		},
@@ -37,6 +38,9 @@ const appealRepository = (function() {
 			return getPool().appeal.findUnique({
 				where: {
 					id: id
+				},
+				include: {
+					appellant: true
 				}
 			});
 		},
@@ -46,7 +50,8 @@ const appealRepository = (function() {
 					id: id
 				},
 				include: {
-					address: true
+					address: true,
+					appellant: true
 				}
 			});
 		},
@@ -67,7 +72,8 @@ const appealRepository = (function() {
 				},
 				include: {
 					validationDecision: true,
-					address: true
+					address: true,
+					appellant: true
 				}
 			});
 		},
@@ -119,7 +125,8 @@ const appealRepository = (function() {
 					address: true,
 					siteVisit: true,
 					lpaQuestionnaire: true,
-					appealDetailsFromAppellant: true
+					appealDetailsFromAppellant: true,
+					appellant: true
 				}
 			});
 		}

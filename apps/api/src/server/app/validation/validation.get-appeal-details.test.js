@@ -15,7 +15,9 @@ const appeal_1 = {
 	addressId: 1,
 	localPlanningDepartment: 'Maidstone Borough Council',
 	planningApplicationReference: '48269/APP/2021/1482',
-	appellantName: 'Lee Thornton',
+	appellant: {
+		name: 'Lee Thornton'
+	},
 	validationDecision: [],
 	address: {
 		addressLine1: 'line 1',
@@ -28,7 +30,9 @@ const appeal_1 = {
 const appeal_2 = {
 	id: 2,
 	reference: 'APP/Q9999/D/21/1224115',
-	appellantName: 'Kevin Fowler',
+	appellant: {
+		name: 'Kevin Fowler'
+	},
 	localPlanningDepartment: 'Waveney District Council',
 	planningApplicationReference: '18543/APP/2021/6627',
 	status: 'awaiting_validation_info',
@@ -65,7 +69,9 @@ const appeal_3 = {
 const appeal_4 = {
 	id: 4,
 	reference: 'APP/Q9999/D/21/1224115',
-	appellantName: 'Kevin Fowler',
+	appellant: {
+		name: 'Kevin Fowler'
+	},
 	localPlanningDepartment: 'Waveney District Council',
 	planningApplicationReference: '18543/APP/2021/6627',
 	status: 'awaiting_validation_info',
@@ -96,10 +102,10 @@ const appeal_4 = {
 	}
 };
 const getAppealByIdStub = sinon.stub();
-getAppealByIdStub.withArgs({ where: { id: 1 }, include: { validationDecision: true, address: true } }).returns(appeal_1);
-getAppealByIdStub.withArgs({ where: { id: 2 }, include: { validationDecision: true, address: true } }).returns(appeal_2);
-getAppealByIdStub.withArgs({ where: { id: 3 }, include: { validationDecision: true, address: true } }).returns(appeal_3);
-getAppealByIdStub.withArgs({ where: { id: 4 }, include: { validationDecision: true, address: true } }).returns(appeal_4);
+getAppealByIdStub.withArgs({ where: { id: 1 }, include: { validationDecision: true, address: true, appellant: true } }).returns(appeal_1);
+getAppealByIdStub.withArgs({ where: { id: 2 }, include: { validationDecision: true, address: true, appellant: true } }).returns(appeal_2);
+getAppealByIdStub.withArgs({ where: { id: 3 }, include: { validationDecision: true, address: true, appellant: true } }).returns(appeal_3);
+getAppealByIdStub.withArgs({ where: { id: 4 }, include: { validationDecision: true, address: true, appellant: true } }).returns(appeal_4);
 
 class MockDatabaseClass {
 	constructor(_parameters) {

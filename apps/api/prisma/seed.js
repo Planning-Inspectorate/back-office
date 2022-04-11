@@ -16,7 +16,12 @@ function getDateTwoWeeksAgo() {
 
 const newAppeals = [{
 	reference: 'APP/Q9999/D/21/1345264',
-	appellantName: 'Lee Thornton',
+	appellant: {
+		create: {
+			name: 'Lee Thornton',
+			email: 'lee.thornton@gmail.com'
+		}
+	},
 	localPlanningDepartment: 'Maidstone Borough Council',
 	planningApplicationReference: '48269/APP/2021/1482',
 	address: {
@@ -30,7 +35,12 @@ const newAppeals = [{
 },
 {
 	reference: 'APP/Q9999/D/21/5463281',
-	appellantName: 'Haley Eland',
+	appellant: {
+		create: {
+			name: 'Haley Eland',
+			email: 'haley.eland@gmail.com'
+		}
+	},
 	localPlanningDepartment: 'Barnsley Metropolitan Borough Council',
 	planningApplicationReference: '32569/APP/2021/2102',
 	address: {
@@ -43,7 +53,12 @@ const newAppeals = [{
 },
 {
 	reference: 'APP/Q9999/D/21/1203521',
-	appellantName: 'Roger Simmons',
+	appellant: {
+		create: {
+			name: 'Roger Simmons',
+			email: 'rg@gmail.com'
+		}
+	},
 	localPlanningDepartment: 'Worthing Borough Council',
 	planningApplicationReference: '25468/APP/2021/1185',
 	address: {
@@ -56,7 +71,12 @@ const newAppeals = [{
 },
 {
 	reference: 'APP/Q9999/D/21/1154923',
-	appellantName: 'Sophie Skinner',
+	appellant: {
+		create: {
+			name: 'Sophie Skinner',
+			email: 'skinner@gmail.com'
+		}
+	},
 	localPlanningDepartment: 'Dorset Council',
 	planningApplicationReference: '19457/APP/2021/5421',
 	address: {
@@ -70,7 +90,12 @@ const newAppeals = [{
 },
 {
 	reference: 'APP/Q9999/D/21/1087562',
-	appellantName: 'Ryan Marshall',
+	appellant: {
+		create: {
+			name: 'Ryan Marshall',
+			email: 'marshall@gmail.com'
+		}
+	},
 	localPlanningDepartment: 'Basingstoke and Deane Borough Council',
 	planningApplicationReference: '10016/APP/2021/960',
 	address: {
@@ -83,7 +108,12 @@ const newAppeals = [{
 },
 {
 	reference: 'APP/Q9999/D/21/1365524',
-	appellantName: 'Fiona Burgess',
+	appellant: {
+		create: {
+			name: 'Fiona Burgess',
+			email: 'fi.bu@gmail.com'
+		}
+	},
 	localPlanningDepartment: 'Wiltshire Council',
 	planningApplicationReference: '9423/APP/2021/1223',
 	address: {
@@ -98,7 +128,12 @@ const newAppeals = [{
 const appealsAwaitingValidationInfo = [
 	{
 		reference: 'APP/Q9999/D/21/1224115',
-		appellantName: 'Kevin Fowler',
+		appellant: {
+			create: {
+				name: 'Kevin Fowler',
+				email: 'kv@gmail.com'
+			}
+		},
 		localPlanningDepartment: 'Waveney District Council',
 		planningApplicationReference: '18543/APP/2021/6627',
 		status: 'awaiting_validation_info',
@@ -131,7 +166,12 @@ const appealsAwaitingValidationInfo = [
 const invalidAppeals = [
 	{
 		reference: 'APP/Q9999/D/21/1345264',
-		appellantName: 'Lee Thornton',
+		appellant: {
+			create: {
+				name: 'Lee Thornton',
+				email: 'lee@gmail.com'
+			}
+		},
 		localPlanningDepartment: 'Maidstone Borough Council',
 		planningApplicationReference: '48269/APP/2021/1482',
 		status: 'invalid_appeal',
@@ -149,7 +189,12 @@ const invalidAppeals = [
 const appealsAwaitingLPAQuestionnaire = [
 	{
 		reference: 'APP/Q9999/D/21/1345264',
-		appellantName: 'Bob Ross',
+		appellant: {
+			create: {
+				name: 'Bob Ross',
+				email: 'bob@gmail.com'
+			}
+		},
 		localPlanningDepartment: 'Maidstone Borough Council',
 		planningApplicationReference: '48269/APP/2021/1482',
 		status: 'awaiting_lpa_questionnaire',
@@ -169,7 +214,12 @@ const appealsAwaitingLPAQuestionnaire = [
 	},
 	{
 		reference: 'APP/Q9999/D/21/5463281',
-		appellantName: 'Bob Ross',
+		appellant: {
+			create: {
+				name: 'Bob Ross',
+				email: 'bob@gmail.com'
+			}
+		},
 		localPlanningDepartment: 'Maidstone Borough Council',
 		planningApplicationReference: '48269/APP/2021/1482',
 		status: 'awaiting_lpa_questionnaire',
@@ -191,7 +241,12 @@ const appealsAwaitingLPAQuestionnaire = [
 const appealsAvailableForInspectorPickup = [
 	{
 		reference: 'APP/Q9999/D/21/1087562',
-		appellantName: 'Bob Ross',
+		appellant: {
+			create: {
+				name: 'Bob Ross',
+				email: 'bob@gmail.com'
+			}
+		},
 		localPlanningDepartment: 'Maidstone Borough Council',
 		planningApplicationReference: '48269/APP/2021/1482',
 		status: 'available_for_inspector_pickup',
@@ -229,11 +284,16 @@ const appealsAvailableForInspectorPickup = [
 const appealsWithBookedSiteVisit = [
 	{
 		reference: 'APP/2021/56789/3556481',
-		appellantName: 'Bob Ross',
+		appellant: {
+			create: {
+				name: 'Bob Ross',
+				email: 'bob@gmail.com'
+			}
+		},
 		localPlanningDepartment: 'Maidstone Borough Council',
 		planningApplicationReference: '48269/APP/2021/1482',
 		status: 'site_visit_booked',
-		startedAt: new Date(),
+		startedAt: new Date(2022, 1, 1, 9),
 		address: {
 			create: {
 				addressLine1: '131 High Street',
@@ -244,25 +304,31 @@ const appealsWithBookedSiteVisit = [
 		siteVisit: {
 			create: {
 				visitDate: new Date(2022, 3, 1),
-				visitSlot: '1pm - 2pm'
+				visitSlot: '1pm - 2pm',
+				visitType: 'unaccompanied'
 			}
 		},
 		user: {
-			create: {}
+			connect: {
+				id: 1
+			}
 		}
 	}
 ];
 
-// JH
 const appealsReadyForConfirmationFromCaseOfficer = [
 	{
 		reference: 'APP/Q9999/D/21/1087562',
-		appellantName: 'Bob Ross',
+		appellant: {
+			create: {
+				name: 'Bob Ross',
+				email: 'bob@gmail.com'
+			}
+		},
 		localPlanningDepartment: 'Maidstone Borough Council',
 		planningApplicationReference: '48269/APP/2021/1482',
 		status: 'received_lpa_questionnaire',
 		statusUpdatedAt: getDateTwoWeeksAgo(),
-		startedAt: new Date(),
 		address: {
 			create: {
 				addressLine1: '92 Huntsmoor Road',
@@ -292,14 +358,119 @@ const appealsReadyForConfirmationFromCaseOfficer = [
 	}
 ];
 
+const appealsSiteVisitNotYetBooked = [
+	{
+		reference: 'APP/2021/56789/3755470',
+		localPlanningDepartment: 'Some Department',
+		planningApplicationReference: 'ABC',
+		status: 'site_visit_not_yet_booked',
+		appellant: {
+			create: {
+				name: 'Maria Sharma',
+				email: 'maria.sharma@gmail.com'
+			}
+		},
+		address: {
+			create: {
+				addressLine1: 'Copthalls',
+				addressLine2: 'Clevedon Road',
+				town: 'West Hill',
+				postcode: 'BS48 1PN'
+			}
+		},
+		startedAt: new Date(2022, 3, 1, 10),
+		appealDetailsFromAppellant: {
+			create: {
+				siteVisibleFromPublicLand: true
+			}
+		},
+		user: {
+			connect: {
+				id: 1
+			}
+		},
+		lpaQuestionnaire: {
+			create: {
+				siteVisibleFromPublicLand: false,
+			}
+		}
+	},
+	{
+		reference: 'APP/2021/56789/4909983',
+		localPlanningDepartment: 'some other department',
+		planningApplicationReference: 'XYZ',
+		status: 'site_visit_not_yet_booked',
+		appellant: {
+			create: {
+				name: 'Maria Sharma',
+				email: 'maria.sharma@gmail.com'
+			}
+		},
+		address: {
+			create: {
+				addressLine1: '66 Grove Road',
+				town: 'Fishponds',
+				postcode: 'BS16 2BP'
+			}
+		},
+		startedAt: new Date(2022, 4, 1, 11),
+		appealDetailsFromAppellant: {
+			create: {
+				siteVisibleFromPublicLand: true
+			}
+		},
+		user: {
+			connect: {
+				id: 1
+			}
+		},
+		lpaQuestionnaire: {
+			create: {
+				siteVisibleFromPublicLand: true,
+			}
+		}
+	}
+];
+
+const appealsWithDecisionDue = [
+	{
+		reference: 'APP/2021/56789/3266594',
+		status: 'decision_due',
+		localPlanningDepartment: 'some planning department',
+		planningApplicationReference: 'ABCDEFG',
+		startedAt: new Date(2022, 1, 5, 9),
+		address: {
+			create: {
+				addressLine1: '8 The Chase',
+				town: 'Findon',
+				postcode: 'BN14 0TT'
+			}
+		},
+		siteVisit: {
+			create: {
+				visitDate: new Date(2021, 11, 2),
+				visitSlot: '1pm - 2pm',
+				visitType: 'accompanied'
+			}
+		},
+		user: {
+			connect: {
+				id: 1
+			}
+		}
+	}
+]
+
 const appealsData = [
 	...newAppeals,
 	...appealsAwaitingValidationInfo,
 	...invalidAppeals,
 	...appealsAwaitingLPAQuestionnaire,
+	...appealsReadyForConfirmationFromCaseOfficer,
 	...appealsAvailableForInspectorPickup,
+	...appealsSiteVisitNotYetBooked,
 	...appealsWithBookedSiteVisit,
-	...appealsReadyForConfirmationFromCaseOfficer
+	...appealsWithDecisionDue
 ];
 
 /**
@@ -307,6 +478,7 @@ const appealsData = [
  */
 async function main() {
 	try {
+		const user = await prisma.user.create({data: {}});
 		const createdAppeals = [];
 		for (const appealData of appealsData) {
 			const appeal = prisma.appeal.create({ data: appealData });
