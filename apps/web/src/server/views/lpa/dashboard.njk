@@ -25,7 +25,7 @@
 			rows: questionnairesList.incomingQuestionnaires | makeQuestionnaireTableRows(reviewQuestionnairePath) })
 		}}
 	{%- else -%}
-		{{ infoBox("No incoming questionnaires", classes="govuk-!-margin-bottom-8") }}
+		{{ infoBox({ text: "No incoming questionnaires", classes: "govuk-!-margin-bottom-8" }) }}
 	{%- endif -%}
 
 	<h2 class="govuk-heading-l govuk-!-margin-bottom-1">
@@ -38,6 +38,6 @@
 			rows: questionnairesList.incompleteQuestionnaires | makeQuestionnaireTableRows(reviewQuestionnairePath) })
 		}}
 	{%- else -%}
-		{{ infoBox("No incomplete questionnaires") }}
+		{{ infoBox({ text: "No incomplete questionnaires" }) }}
 	{%- endif -%}
 {% endblock %}
