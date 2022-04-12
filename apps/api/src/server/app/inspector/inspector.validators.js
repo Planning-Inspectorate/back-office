@@ -7,15 +7,33 @@ import { body, header, validationResult } from 'express-validator';
 import appealRepository from '../repositories/appeal.repository.js';
 
 /** @typedef {import('@pins/inspector').SiteVisitType} SiteVisitType */
+/** @typedef {keyof typeof import('../state-machine/inspector-states').inspectorStates} InspectorState } */
+
+/**
+ * Validate if a state can be transitioned to for the current appeal.
+ *
+ * @param {InspectorState} status - The state to transition to
+ * @returns {import('express').RequestHandler<{ appealId: number; }>} - A
+ * validation middleware that handles invalid state transitions
+ **/
+export const validateStateTransition = (status) =>
+	async ({ params }, response, next) => {
+		const appeal = await appealRepository.getById(params.appealId);
+
+		if (appeal?.status !== status) {
+			response.status(409).send({
+				errors: {
+					status: 'Appeal is in an invalid state'
+				}
+			});
+		} else {
+			next();
+		}
+	};
 
 /** @type {import('express').RequestHandler } */
 export const validateUserId = async (request, response, next) => {
-	const result = await header('userId')
-		.notEmpty()
-		.bail()
-		.withMessage('Authentication error. Missing header `userId`.')
-		.toInt()
-		.run(request);
+	const result = await header('userId').notEmpty().bail().withMessage('Authentication error. Missing header `userId`.').toInt().run(request);
 
 	if (!result.isEmpty()) {
 		response.status(401).send({ errors: result.formatWith(({ msg }) => msg).mapped() });
@@ -82,12 +100,7 @@ export const validateIssueDecision = composeMiddleware(
 		}
 	}).single('decisionLetter'),
 	mapMulterErrorToValidationError,
-	body('outcome').isIn([
-		'allowed',
-		'dismissed',
-		'split decision'
-	])
-		.withMessage('Select a valid decision'),
+	body('outcome').isIn(['allowed', 'dismissed', 'split decision']).withMessage('Select a valid decision'),
 	body('decisionLetter')
 		.custom((_, { req }) => Boolean(req.file))
 		.withMessage('Select a decision letter'),

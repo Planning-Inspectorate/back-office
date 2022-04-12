@@ -1,8 +1,8 @@
 import express from 'express';
 import { param } from 'express-validator';
 import asyncHandler from '../middleware/async-handler.js';
-import { getAppeals, assignAppeals, bookSiteVisit, issueDecision } from './inspector.controller.js';
-import { validateBookSiteVisit, validateIssueDecision, validateUserBelongsToAppeal } from './inspector.validators.js';
+import { assignAppeals, bookSiteVisit, getAppeals, issueDecision } from './inspector.controller.js';
+import { validateBookSiteVisit, validateIssueDecision, validateStateTransition, validateUserBelongsToAppeal } from './inspector.validators.js';
 
 const router = express.Router();
 
@@ -87,6 +87,10 @@ router.post(
         }
 	*/
 	param('appealId').toInt(),
+	// TODO: replace this with an error thrown from `transitionState` else the
+	// route has to know about the intended state transition when that's the
+	// controller's responsibility
+	validateStateTransition('appeal_decided'),
 	validateUserBelongsToAppeal,
 	validateIssueDecision,
 	asyncHandler(issueDecision)

@@ -24,7 +24,10 @@ const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
 const pathToFile = path.join(__dirname, './assets/simple.pdf');
 
 /** @type {TestAppeal[]} */
-const appeals = [{ id: 1, status: 'decision_due', userId: 100 }];
+const appeals = [
+	{ id: 1, status: 'decision_due', userId: 100 },
+	{ id: 2, status: 'available_for_inspector_pickup', userId: 100 }
+];
 const updateById = sinon.stub(appealRepository, 'updateById').callsFake((id, { status }) => {
 	const appeal = find(appeals, { id });
 	return Promise.resolve({ ...appeal, status });
@@ -80,6 +83,21 @@ test('fails with a 403 status when the `userId` is different from the appeal use
 	t.deepEqual(response.body, {
 		errors: {
 			userid: 'User is not permitted to perform this action.'
+		}
+	});
+});
+
+test('fails with a 409 status when the appeal in a state that cannot be be advanced', async (t) => {
+	const response = await request
+		.post('/inspector/2/issue-decision')
+		.set('userId', '100')
+		.attach('decisionLetter', pathToFile)
+		.field('outcome', 'allowed');
+
+	t.is(response.status, 409);
+	t.deepEqual(response.body, {
+		errors: {
+			status: 'Appeal is in an invalid state'
 		}
 	});
 });
