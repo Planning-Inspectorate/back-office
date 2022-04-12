@@ -143,7 +143,7 @@ test('gets all appeals assigned to inspector', async (t) => {
 				postCode: 'MD21 5XY',
 				town: 'Maidstone',
 			},
-			appealAge: 41,
+			appealAge: 46,
 			siteVisitType: 'unaccompanied',
 			appealType: 'HAS',
 			siteVisitDate: '02 Nov 2021',
@@ -158,14 +158,14 @@ test('gets all appeals assigned to inspector', async (t) => {
 				postCode: 'S63 0RB',
 				town: 'Thurnscoe',
 			},
-			appealAge: 22,
+			appealAge: 17,
 			siteVisitType: 'accompanied',
 			appealType: 'HAS',
 			siteVisitDate: '10 Jan 2022',
 			siteVisitSlot: '10am - 11am',
 		},
 		{
-			appealAge: 22,
+			appealAge: 17,
 			appealId: 3,
 			appealSite: {
 				addressLine1: '55 Butcher Street',
@@ -178,7 +178,7 @@ test('gets all appeals assigned to inspector', async (t) => {
 			provisionalVisitType: 'access required'
 		},
 		{
-			appealAge: 22,
+			appealAge: 17,
 			appealId: 4,
 			appealSite: {
 				addressLine1: '55 Butcher Street',
@@ -191,7 +191,7 @@ test('gets all appeals assigned to inspector', async (t) => {
 			provisionalVisitType: 'access required'
 		},
 		{
-			appealAge: 22,
+			appealAge: 17,
 			appealId: 5,
 			appealSite: {
 				addressLine1: '55 Butcher Street',

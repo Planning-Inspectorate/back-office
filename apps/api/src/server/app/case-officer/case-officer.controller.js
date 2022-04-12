@@ -2,6 +2,7 @@ import appealRepository from '../repositories/appeal.repository.js';
 import newReviewRepository from '../repositories/review-questionnaire.repository.js';
 import { reviewComplete, validateReviewRequest } from './case-officer-review.js';
 import { lpaQuestionnaireStatesStrings } from '../state-machine/lpa-questionnaire-states.js';
+import transitionState from '../state-machine/household-appeal.machine.js';
 import appealFormatter from './appeal-formatter.js';
 import CaseOfficerError from './case-officer-error.js';
 
@@ -32,6 +33,9 @@ const confirmingLPAQuestionnaire =  async function (request, response) {
 	const reviewResult = reviewComplete(request.body);
 	const appeal = await getAppealForCaseOfficer(request.params.id);
 	await newReviewRepository.addReview(appeal.id, reviewResult, request.body.reason);
+	const appealStatemachineStatus = reviewResult ?  'COMPLETE' : 'INCOMPLETE';
+	const nextState = transitionState({ appealId: appeal.id }, appeal.status, appealStatemachineStatus);
+	await appealRepository.updateStatusById(appeal.id, nextState.value);
 	return response.send();
 };
 
