@@ -45,8 +45,6 @@ const formatAppealForAllAppeals = function(appeal) {
 };
 
 const validateUserId = function(userid) {
-	console.log('validating user id')
-	console.log(userid);
 	if (userid == undefined) {
 		throw new InspectorError('Must provide userid', 400);
 	}
@@ -102,7 +100,7 @@ const validateAppealIdsPresent = function(body) {
 };
 
 const assignAppeals = async function(request, response) {
-	const userId = validateUserId(request.headers.userid);
+	const userId = Number.parseInt(request.headers.userid, 10)
 	validateAppealIdsPresent(request.body);
 	const resultantAppeals = await assignAppealsById(userId, request.body);
 	response.send(resultantAppeals);

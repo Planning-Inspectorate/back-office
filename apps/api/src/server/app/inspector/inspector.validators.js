@@ -77,6 +77,12 @@ export const validateBookSiteVisit = composeMiddleware(
 	handleValidationError
 );
 
+export const validateAssignAppealsToInspector = composeMiddleware(
+	body().isArray().withMessage('Provide appeals to assign to the inspector'),
+	body().notEmpty().withMessage('Provide appeals to assign to the inspector'),
+	handleValidationError
+)
+
 /**
  * Evaluate any errors collected by express validation and return a 400 status
  * with the mapped errors.

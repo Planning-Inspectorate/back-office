@@ -260,20 +260,26 @@ test('unable to assign appeals that are already assigned to someone', async (t) 
 	}], unsuccessfullyAssigned: [{ appealId: 5, reason: 'appeal already assigned' }] });
 });
 
-// test('throws error if no userid provided', async(t) => {
-// 	const resp = await request.post('/inspector/assign').send([1]);
-// 	t.is(resp.status, 400);
-// 	t.deepEqual(resp.body, { error: 'Must provide userid' });
-// });
+test('throws error if no userid provided', async(t) => {
+	const resp = await request.post('/inspector/assign').send([1]);
+	t.is(resp.status, 401);
+	t.deepEqual(resp.body, { errors: {
+		userid: 'Authentication error. Missing header `userId`.',
+	} });
+});
 
-// test('throws error if no appeals provided', async(t) => {
-// 	const resp = await request.post('/inspector/assign').set('userId', 1);
-// 	t.is(resp.status, 400);
-// 	t.deepEqual(resp.body, { error: 'Must provide appeals to assign' });
-// });
+test('throws error if no appeals provided', async(t) => {
+	const resp = await request.post('/inspector/assign').set('userId', 1);
+	t.is(resp.status, 400);
+	t.deepEqual(resp.body, { errors: {
+		'': 'Provide appeals to assign to the inspector',
+	} });
+});
 
-// test('throws error if empty array of appeals provided', async(t) => {
-// 	const resp = await request.post('/inspector/assign').set('userId', 1).send([]);
-// 	t.is(resp.status, 400);
-// 	t.deepEqual(resp.body, { error: 'Must provide appeals to assign' });
-// });
+test('throws error if empty array of appeals provided', async(t) => {
+	const resp = await request.post('/inspector/assign').set('userId', 1).send([]);
+	t.is(resp.status, 400);
+	t.deepEqual(resp.body, { errors: {
+		'': 'Provide appeals to assign to the inspector',
+	} });
+});
