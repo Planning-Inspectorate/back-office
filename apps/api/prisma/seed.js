@@ -238,6 +238,94 @@ const appealsAwaitingLPAQuestionnaire = [
 	}
 ];
 
+const appealsAwaitingLPAQuestionnaireOverdue = [
+	{
+		reference: 'APP/Q9999/D/21/5551277',
+		appellant: {
+			create: {
+				name: 'Eva Sharma',
+				email: 'eva.sharma@gmail.com'
+			}
+		},
+		localPlanningDepartment: 'Bristol City Council',
+		planningApplicationReference: '48269/APP/2021/1010',
+		status: 'overdue_lpa_questionnaire',
+		statusUpdatedAt: getDateTwoWeeksAgo(),
+		startedAt: new Date(2021, 10, 10),
+		address: {
+			create: {
+				addressLine1: '19 Beauchamp Road',
+				town: 'Bristol',
+				postcode: 'BS7 8LQ'
+			}
+		},
+		lpaQuestionnaire: {
+			create: {}
+		}
+	}
+];
+
+const appealsReviewIncomplete = [
+	{
+		reference: 'APP/Q8874/D/23/4293472',
+		appellant: {
+			create: {
+				name: 'Maria Sharma',
+				email: 'maria.sharma@gmail.com'
+			}
+		},
+		localPlanningDepartment: 'Bristol City Council',
+		planningApplicationReference: '48269/APP/2021/1482',
+		status: 'incomplete_lpa_questionnaire',
+		statusUpdatedAt: getDateTwoWeeksAgo(),
+		startedAt: new Date(2021, 12, 12),
+		address: {
+			create: {
+				addressLine1: '180 Bloomfield Road, Bristol, ',
+				town: 'Bristol',
+				postcode: 'BS4 3QX'
+			}
+		},
+		lpaQuestionnaire: {
+			create: {
+				affectsListedBuilding: false,
+				extraConditions: false,
+				inGreenBelt: false,
+				inOrNearConservationArea: false,
+				siteVisibleFromPublicLand: false,
+				sideVisibleFromPublicLandDescription: 'The extension is to the rear of the property, and the garden has high hedges.',
+				doesInspectorNeedToEnterSite: true,
+				doesInspectorNeedToEnterSideDescription: 'The proposed development can only be viewed from the appellant\'s garden',
+				doesInspectorNeedToAccessNeighboursLand: true,
+				doesInspectorNeedToAccessNeighboursLandDescription: '54 Butcher Street',
+				healthAndSafetyIssues: true,
+				healthAndSafetyIsueesDescription: 'A defensive dog',
+				appealsInImmediateAreaBeingConsidered: '893482, 372839',
+				sentAt: new Date(2022, 3, 1),
+				receivedAt: new Date(2022, 3, 20)
+			}
+		},
+		reviewQuestionnaire: {
+			create: {
+				createdAt: new Date(2022, 3, 20),
+				complete: false,
+				applicationPlanningOfficersReportMissingOrIncorrect: false,
+				applicationPlansToReachDecisionMissingOrIncorrect: true,
+				applicationPlansToReachDecisionMissingOrIncorrectDescription: 'Missing Documents XYZ',
+				policiesStatutoryDevelopmentPlanPoliciesMissingOrIncorrect: false,
+				policiesOtherRelevantPoliciesMissingOrIncorrect: false,
+				policiesSupplementaryPlanningDocumentsMissingOrIncorrect: false,
+				siteConservationAreaMapAndGuidanceMissingOrIncorrect: false,
+				siteListedBuildingDescriptionMissingOrIncorrect: false,
+				thirdPartyApplicationNotificationMissingOrIncorrect: false,
+				thirdPartyApplicationPublicityMissingOrIncorrect: false,
+				thirdPartyRepresentationsMissingOrIncorrect: false,
+				thirdPartyAppealNotificationMissingOrIncorrect: false
+			}
+		}
+	}
+];
+
 const appealsAvailableForInspectorPickup = [
 	{
 		reference: 'APP/Q9999/D/21/1087562',
@@ -466,6 +554,8 @@ const appealsData = [
 	...appealsAwaitingValidationInfo,
 	...invalidAppeals,
 	...appealsAwaitingLPAQuestionnaire,
+	...appealsAwaitingLPAQuestionnaireOverdue,
+	...appealsReviewIncomplete,
 	...appealsReadyForConfirmationFromCaseOfficer,
 	...appealsAvailableForInspectorPickup,
 	...appealsSiteVisitNotYetBooked,
@@ -478,7 +568,7 @@ const appealsData = [
  */
 async function main() {
 	try {
-		const user = await prisma.user.create({data: {}});
+		const user = await prisma.user.create({ data: {} });
 		const createdAppeals = [];
 		for (const appealData of appealsData) {
 			const appeal = prisma.appeal.create({ data: appealData });

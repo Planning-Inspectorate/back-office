@@ -9,7 +9,8 @@ import CaseOfficerError from './case-officer-error.js';
 const caseOfficerStatuses = [
 	lpaQuestionnaireStatesStrings.awaiting_lpa_questionnaire,
 	lpaQuestionnaireStatesStrings.overdue_lpa_questionnaire,
-	lpaQuestionnaireStatesStrings.received_lpa_questionnaire
+	lpaQuestionnaireStatesStrings.received_lpa_questionnaire,
+	lpaQuestionnaireStatesStrings.incomplete_lpa_questionnaire
 ];
 
 const caseOfficerStatusesOnceQuestionnaireReceived = new Set([
@@ -18,6 +19,7 @@ const caseOfficerStatusesOnceQuestionnaireReceived = new Set([
 
 const getAppeals = async function (_request, response) {
 	const appeals = await appealRepository.getByStatusesWithAddresses(caseOfficerStatuses);
+	console.log('HERE ', appeals);
 	const formattedAppeals = appeals.map((appeal) => appealFormatter.formatAppealForAllAppeals(appeal));
 	response.send(formattedAppeals);
 };

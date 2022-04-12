@@ -204,20 +204,26 @@
         }
       }
     },
-    "/inspector/book": {
+    "/inspector/{appealId}/book": {
       "post": {
         "description": "Book a site visit as an inspector.",
         "parameters": [
           {
-            "name": "userId",
-            "in": "header",
-            "type": "string",
-            "required": true
+            "name": "appealId",
+            "in": "path",
+            "required": true,
+            "type": "string"
           },
           {
             "name": "appealId",
             "in": "url",
-            "description": "Unique identifier for the appeal.",
+            "required": true,
+            "type": "string",
+            "description": "Unique identifier for the appeal."
+          },
+          {
+            "name": "userId",
+            "in": "header",
             "type": "string",
             "required": true
           },
@@ -889,18 +895,13 @@
               "type": "string",
               "example": "string"
             },
-            "pattern": {
+            "format": {
               "type": "string",
-              "example": "^d{4}(0[1-9]|1[012])(0[1-9]|[12][0-9]|3[01])$"
+              "example": "date"
             },
-            "examples": {
-              "type": "array",
-              "example": [
-                "2022-01-01"
-              ],
-              "items": {
-                "type": "string"
-              }
+            "example": {
+              "type": "string",
+              "example": "2022-01-01"
             }
           }
         },
