@@ -1,9 +1,3 @@
-// @ts-check
-
-// TODO: fix this with jsconfig.json
-// this import is required just to make a global type available to the file
-import 'multer';
-
 import { get, post } from './../../lib/request.js';
 
 /** @typedef {import('@pins/inspector').Appeal} Appeal */

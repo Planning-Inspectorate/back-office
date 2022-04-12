@@ -9,7 +9,7 @@
 			actions: {
 				items: [
 					{ 
-            href: '/validation/review-appeal/' + appeal.AppealId + '/appellant-name',
+            href: '/validation/appeals/' + appeal.AppealId + '/appellant-name',
             text: "Change",
             visuallyHiddenText: 'appellant name'            
           }
@@ -27,7 +27,7 @@
 			actions: {
 				items: [
 					{ 
-            href: '/validation/review-appeal/' + appeal.AppealId + '/appeal-site',
+            href: '/validation/appeals/' + appeal.AppealId + '/appeal-site',
             text: "Change",
             visuallyHiddenText: 'appeal site'
           }
@@ -39,7 +39,7 @@
 			actions: {
 				items: [
 					{
-            href: '/validation/review-appeal/' + appeal.AppealId + '/local-planning-department',
+            href: '/validation/appeals/' + appeal.AppealId + '/local-planning-department',
             text: "Change",
             visuallyHiddenText: 'local planning department'
           }
@@ -51,7 +51,7 @@
 			actions: {
 				items: [
 					{
-            href: '/validation/review-appeal/' + appeal.AppealId + '/planning-application-reference',
+            href: '/validation/appeals/' + appeal.AppealId + '/planning-application-reference',
             text: "Change",
             visuallyHiddenText: 'planning application reference'
           }
@@ -80,7 +80,7 @@
 				{% if entry[0] === 'otherReasons' %}
 					{{ entry[1] }}
 				{% else %}
-					{{ entry[0] | incompleteReasonLabel }}
+					{{ entry[0] | validationLabel }}
 				{% endif %}
 			</li>
 		{% endfor %}

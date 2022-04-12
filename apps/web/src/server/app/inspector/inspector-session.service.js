@@ -1,5 +1,3 @@
-// @ts-check
-
 import fs from 'fs';
 
 /** @typedef {import('@pins/inspector').AppealOutcome} AppealOutcome */

@@ -2,8 +2,8 @@ import { to } from 'planning-inspectorate-libs';
 import { findAllIncomingIncompleteQuestionnaires, findQuestionnaireById, confirmReview } from './lpa.service.js';
 import { lpaRoutesConfig as routes } from '../../config/routes.js';
 import { questionnaireReviewOutcomeLabelsMap, missingOrIncorrectDocumentsLabelsMap } from './lpa.config.js';
-import { camelCase, upperFirst } from 'lodash-es';
-import { checkboxDataToCheckValuesObject } from '../../lib/helpers.js';
+import { upperFirst, flatten } from 'lodash-es';
+import * as lpaSession from './lpa-session.service.js';
 
 /**
  * GET the main dashboard.
@@ -14,7 +14,7 @@ import { checkboxDataToCheckValuesObject } from '../../lib/helpers.js';
  * @param {Function} next  - Express function that calls then next middleware in the stack
  * @returns {void}
  */
-export async function getLpaDashboard(request, response, next) {
+export async function viewDashboard(request, response, next) {
 	const [error, questionnairesList] = await to(findAllIncomingIncompleteQuestionnaires());
 
 	if (error) {
@@ -37,8 +37,9 @@ export async function getLpaDashboard(request, response, next) {
  * @param {Function} next  - Express function that calls then next middleware in the stack
  * @returns {void}
  */
-export async function getReviewQuestionnaire(request, response, next) {
+export async function viewReviewQuestionnaire(request, response, next) {
 	const appealId = request.params.appealId;
+	const fields = lpaSession.getReviewFields(request.session, appealId);
 	const [error, questionnaireData] = await to(findQuestionnaireById(appealId));
 
 	if (error) {
@@ -46,12 +47,12 @@ export async function getReviewQuestionnaire(request, response, next) {
 		return;
 	}
 
-	request.session.questionnaireData = questionnaireData;
+	lpaSession.setQuestionnaireData(request.session, appealId, questionnaireData);
 
 	response.render(routes.reviewQuestionnaire.view, {
 		backURL: `/${routes.home.path}?direction=back`,
 		questionnaireData,
-		fields: request.session.reviewWork?.fields
+		fields
 	});
 }
 
@@ -64,90 +65,63 @@ export async function getReviewQuestionnaire(request, response, next) {
  * @param {object} response - Express request object
  * @returns {void}
  */
-export function postReviewQuestionnaire(request, response) {
+export function decideQuestionnaireReviewOutcome(request, response) {
 	const appealId = request.params.appealId;
-	const questionnaireData = request.session.questionnaireData;
+	const questionnaireData = lpaSession.getQuestionnaireData(request.session, appealId);
 
-	(request.session.reviewWork ??= {}).fields = {
-		planningOfficersReport: {
-			completed: request.body['planning-officers-report-missing-or-incorrect'],
-		},
-		plansUsedToReachDecision: {
-			completed: request.body['plans-used-to-reach-decision-missing-or-incorrect'],
-			details: { value: request.body['plans-used-to-reach-decision-missing-or-incorrect-reason'] }
-		},
-		statutoryDevelopmentPlanPolicies: {
-			completed: request.body['statutory-development-plan-policies-missing-or-incorrect'],
-			details: { value: request.body['statutory-development-plan-policies-missing-or-incorrect-reason'] }
-		},
-		otherRelevantPolicies: {
-			completed: request.body['other-relevant-policies-missing-or-incorrect'],
-			details: { value: request.body['other-relevant-policies-missing-or-incorrect-reason'] }
-		},
-		supplementaryPlanningDocuments: {
-			completed: request.body['supplementary-planning-documents-missing-or-incorrect'],
-			details: { value: request.body['supplementary-planning-documents-missing-or-incorrect-reason'] }
-		},
-		conservationAreaGuidance: {
-			completed: request.body['conservation-area-guidance-missing-or-incorrect'],
-			details: { value: request.body['conservation-area-guidance-missing-or-incorrect-reason'] }
-		},
-		listedBuildingDescription: {
-			completed: request.body['listed-building-description-missing-or-incorrect'],
-			details: { value: request.body['listed-building-description-missing-or-incorrect-reason'] }
-		},
-		applicationNotification: {
-			completed: request.body['application-notification-missing-or-incorrect'],
-			details: { value: checkboxDataToCheckValuesObject(request.body['application-notification-missing-or-incorrect-reason']) }
-		},
-		applicationPublicity: {
-			completed: request.body['application-publicity-missing-or-incorrect'],
-		},
-		representations: {
-			completed: request.body['representations-missing-or-incorrect'],
-			details: { value: request.body['representations-missing-or-incorrect-reason'] }
-		},
-		appealNotification: {
-			completed: request.body['appeal-notification-missing-or-incorrect'],
-			details: { value: checkboxDataToCheckValuesObject(request.body['appeal-notification-missing-or-incorrect-reason']) }
-		}
+	const reviewFields = {
+		'applicationPlanningOfficersReportMissingOrIncorrect': request.body['applicationPlanningOfficersReportMissingOrIncorrect'],
+		'applicationPlansToReachDecisionMissingOrIncorrect': request.body['applicationPlansToReachDecisionMissingOrIncorrect'],
+		'applicationPlansToReachDecisionMissingOrIncorrectDescription': request.body['applicationPlansToReachDecisionMissingOrIncorrectDescription'],
+		'policiesStatutoryDevelopmentPlanPoliciesMissingOrIncorrect': request.body['policiesStatutoryDevelopmentPlanPoliciesMissingOrIncorrect'],
+		'policiesStatutoryDevelopmentPlanPoliciesMissingOrIncorrectDescription': request.body['policiesStatutoryDevelopmentPlanPoliciesMissingOrIncorrectDescription'],
+		'policiesOtherRelevantPoliciesMissingOrIncorrect': request.body['policiesOtherRelevantPoliciesMissingOrIncorrect'],
+		'policiesOtherRelevantPoliciesMissingOrIncorrectDescription': request.body['policiesOtherRelevantPoliciesMissingOrIncorrectDescription'],
+		'policiesSupplementaryPlanningDocumentsMissingOrIncorrect': request.body['policiesSupplementaryPlanningDocumentsMissingOrIncorrect'],
+		'policiesSupplementaryPlanningDocumentsMissingOrIncorrectDescription': request.body['policiesSupplementaryPlanningDocumentsMissingOrIncorrectDescription'],
+		'siteConservationAreaMapAndGuidanceMissingOrIncorrect': request.body['siteConservationAreaMapAndGuidanceMissingOrIncorrect'],
+		'siteConservationAreaMapAndGuidanceMissingOrIncorrectDescription': request.body['siteConservationAreaMapAndGuidanceMissingOrIncorrectDescription'],
+		'siteListedBuildingDescriptionMissingOrIncorrect': request.body['siteListedBuildingDescriptionMissingOrIncorrect'],
+		'siteListedBuildingDescriptionMissingOrIncorrectDescription': request.body['siteListedBuildingDescriptionMissingOrIncorrectDescription'],
+		'thirdPartyApplicationNotificationMissingOrIncorrect': request.body['thirdPartyApplicationNotificationMissingOrIncorrect'],
+		'thirdPartyApplicationNotificationMissingOrIncorrectListOfAddresses': flatten([request.body['thirdPartyApplicationNotificationMissingOrIncorrectDescription']]).includes('thirdPartyApplicationNotificationMissingOrIncorrectListOfAddresses') ? 'true' : '',
+		'thirdPartyApplicationNotificationMissingOrIncorrectCopyOfLetterOrSiteNotice': flatten([request.body['thirdPartyApplicationNotificationMissingOrIncorrectDescription']]).includes('thirdPartyApplicationNotificationMissingOrIncorrectCopyOfLetterOrSiteNotice') ? 'true' : '',
+		'thirdPartyApplicationPublicityMissingOrIncorrect': request.body['thirdPartyApplicationPublicityMissingOrIncorrect'],
+		'thirdPartyRepresentationsMissingOrIncorrect': request.body['thirdPartyRepresentationsMissingOrIncorrect'],
+		'thirdPartyRepresentationsMissingOrIncorrectDescription': request.body['thirdPartyRepresentationsMissingOrIncorrectDescription'],
+		'thirdPartyAppealNotificationMissingOrIncorrect': request.body['thirdPartyAppealNotificationMissingOrIncorrect'],
+		'thirdPartyAppealNotificationMissingOrIncorrectListOfAddresses': flatten([request.body['thirdPartyAppealNotificationMissingOrIncorrectDescription']]).includes('thirdPartyAppealNotificationMissingOrIncorrectListOfAddresses') ? 'true' : '',
+		'thirdPartyAppealNotificationMissingOrIncorrectCopyOfLetterOrSiteNotice': flatten([request.body['thirdPartyAppealNotificationMissingOrIncorrectDescription']]).includes('thirdPartyAppealNotificationMissingOrIncorrectCopyOfLetterOrSiteNotice') ? 'true' : '',
 	};
+
+	lpaSession.setReviewFields(request.session, appealId, reviewFields);
 
 	const {
 		body: { errors = {}, errorSummary = [] }
 	} = request;
 
 	if (Object.keys(errors).length > 0) {
-		for (const key in errors) {
-			if (errors.hasOwnProperty(key)) {
-				request.session.reviewWork.fields[camelCase(key.replace('-missing-or-incorrect-reason', ''))].details.error = { msg: errors[key].msg };
-			}
-		}
-
 		return response.render(routes.reviewQuestionnaire.view, {
 			backURL: `${routes.home.path}?direction=back`,
 			errors,
 			errorSummary,
 			questionnaireData,
-			fields: request.session.reviewWork?.fields
+			fields: lpaSession.getReviewFields(request.session, appealId)
 		});
 	}
 
-	request.session.reviewWork.reviewOutcome = 'complete';
-	request.session.reviewWork.missingOrIncorrectDocuments = {};
+	lpaSession.setReviewOutcome(request.session, appealId, 'complete');
 
-	for (const key in request.session.reviewWork.fields) {
-		if (request.session.reviewWork.fields.hasOwnProperty(key) && request.session.reviewWork.fields[key].completed) {
-			request.session.reviewWork.reviewOutcome = 'incomplete';
-			request.session.reviewWork.missingOrIncorrectDocuments[key] = request.session.reviewWork.fields[key].details ? request.session.reviewWork.fields[key].details : true;
+	for (const key in reviewFields) {
+		if (!key.endsWith('Description') && reviewFields.hasOwnProperty(key) && reviewFields[key] === 'true') {
+			lpaSession.setReviewOutcome(request.session, appealId, 'incomplete');
+			break;
 		}
 	}
 
-	request.session.appealId = appealId;
+	request.session.save(); // maybe this should have its own service function?
 
-	request.session.save();
-
-	return response.redirect(`/lpa/${routes.checkAndConfirm.path}`);
+	return response.redirect(`/lpa/${routes.checkAndConfirm.path}/${appealId}`);
 }
 
 /**
@@ -157,12 +131,12 @@ export function postReviewQuestionnaire(request, response) {
  * @param {import('express').Response} response - Express request object
  * @returns {void}
  */
-export function getCheckAndConfirm(request, response) {
-	const backURL = `/lpa/${routes.reviewQuestionnaire.path}/${request.session.appealId}?direction=back`;
-	const appealId = request.session.appealId;
-	const questionnaireData = request.session.questionnaireData;
-	const reviewOutcome = request.session.reviewWork.reviewOutcome;
-	const missingOrIncorrectDocuments = request.session.reviewWork.missingOrIncorrectDocuments;
+export function viewCheckAndConfirm(request, response) {
+	const appealId = request.params.appealId;
+	const backURL = `/lpa/${routes.reviewQuestionnaire.path}/${appealId}?direction=back`;
+	const questionnaireData = lpaSession.getQuestionnaireData(request.session, appealId);
+	const reviewOutcome = lpaSession.getReviewOutcome(request.session, appealId);
+	const fields = lpaSession.getReviewFields(request.session, appealId);
 
 	response.render(routes.checkAndConfirm.view, {
 		backURL,
@@ -170,7 +144,7 @@ export function getCheckAndConfirm(request, response) {
 		questionnaireData,
 		reviewOutcome,
 		reviewOutcomeText: upperFirst(reviewOutcome),
-		missingOrIncorrectDocuments,
+		fields,
 		missingOrIncorrectDocumentsLabelsMap
 	});
 }
@@ -183,12 +157,12 @@ export function getCheckAndConfirm(request, response) {
  * @param {Function} next  - Express function that calls then next middleware in the stack
  * @returns {void}
  */
- export async function postCheckAndConfirm(request, response, next) {
-	const backURL = `/lpa/${routes.reviewQuestionnaire.path}/${request.session.appealId}?direction=back`;
-	const appealId = request.session.appealId;
-	const questionnaireData = request.session.questionnaireData;
-	const reviewOutcome = request.session.reviewWork.reviewOutcome;
-	const missingOrIncorrectDocuments = request.session.reviewWork.missingOrIncorrectDocuments;
+ export async function confirmDecision(request, response, next) {
+	const appealId = request.params.appealId;
+	const backURL = `/lpa/${routes.reviewQuestionnaire.path}/${appealId}?direction=back`;
+	const questionnaireData = lpaSession.getQuestionnaireData(request.session, appealId);
+	const reviewOutcome = lpaSession.getReviewOutcome(request.session, appealId);
+	const fields = lpaSession.getReviewFields(request.session, appealId);
 
 	const {
 		body: { errors = {}, errorSummary = [] }
@@ -203,12 +177,12 @@ export function getCheckAndConfirm(request, response) {
 			questionnaireData,
 			reviewOutcome,
 			reviewOutcomeText: upperFirst(reviewOutcome),
-			missingOrIncorrectDocuments,
+			fields,
 			missingOrIncorrectDocumentsLabelsMap
 		});
 	}
 
-	const [error, updateStatus] = await to(confirmReview(appealId));
+	const [error, updateStatus] = await to(confirmReview(appealId, fields));
 
 	if (error) {
 		next(new AggregateError([new Error('data fetch'), error], 'Fetch errors!'));
@@ -216,7 +190,7 @@ export function getCheckAndConfirm(request, response) {
 		return error;
 	}
 
-	response.redirect(routes.reviewQuestionnaireComplete.path);
+	response.redirect(`/lpa/${routes.reviewQuestionnaireComplete.path}/${appealId}`);
 }
 
 /**
@@ -226,12 +200,12 @@ export function getCheckAndConfirm(request, response) {
  * @param {import('express').Response} response - Express request object
  * @returns {void}
  */
-export function getReviewComplete(request, response) {
-	const questionnaireData = request.session.questionnaireData;
-	const reviewOutcome = request.session.reviewWork.reviewOutcome;
+export function viewReviewComplete(request, response) {
+	const appealId = request.params.appealId;
+	const questionnaireData = lpaSession.getQuestionnaireData(request.session, appealId);
+	const reviewOutcome = lpaSession.getReviewOutcome(request.session, appealId);
 
-	// Destroy the current session as the questionnaire has been reviewed.
-	request.session.destroy();
+	lpaSession.destroy(request.session); // don't think this is needed anymore
 
 	response.render(routes.reviewQuestionnaireComplete.view, {
 		questionnaireData,

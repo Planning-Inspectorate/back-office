@@ -9,7 +9,7 @@ const reviewComplete = function (body) {
 	return Object.keys(body.reason).every((index) => !body.reason[index])? true : false;
 };
 
-// TODO: Refactor this to make it more readable. 
+// TODO: Refactor this to make it more readable.
 const invalidWithoutReasons = function (body) {
 	return ((
 		(body.reason.applicationPlansToReachDecisionMissingOrIncorrect  === true &&

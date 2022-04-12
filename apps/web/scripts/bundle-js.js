@@ -8,7 +8,6 @@ import rollupPluginCJS from '@rollup/plugin-commonjs';
 import rollupPluginVirtual from '@rollup/plugin-virtual';
 import rollupPluginReplace from '@rollup/plugin-replace';
 import rollupPluginBeep from '@rollup/plugin-beep';
-import rollupSizePlugin from 'rollup-plugin-size';
 import { visualizer } from 'rollup-plugin-visualizer';
 import { getBabelOutputPlugin } from '@rollup/plugin-babel';
 import { loadEnvironment } from 'planning-inspectorate-libs';
@@ -67,7 +66,6 @@ async function build() {
 				preventAssignment: true
 			}),
 			rollupPluginVirtual(buildVirtualJSON(virtualImports)),
-			rollupSizePlugin(),
 			rollupPluginBeep(),
 			getBabelOutputPlugin({
 				// babelHelpers: 'bundled',

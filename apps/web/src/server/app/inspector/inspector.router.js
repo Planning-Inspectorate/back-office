@@ -1,5 +1,3 @@
-// @ts-check
-
 import express from 'express';
 import { createAsyncHandler } from '../../lib/async-error-handler.js';
 import { expressValidationErrorsInterceptor } from '../../lib/express-validation-errors.js';

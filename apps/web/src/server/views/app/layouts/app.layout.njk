@@ -6,8 +6,8 @@
 {% set containerClasses = 'pins-width-container' if containerSize === 'xl' else 'govuk-width-container' %}
 
 {% block head %}
-  <link rel="stylesheet" href="{{ resourceCSS.path | stripQueryParamsDev }}"/>
-  <script defer="defer" src="{{ resourceJS.path | stripQueryParamsDev }}"></script>
+  <link rel="stylesheet" href="{{ pathToCss | stripQueryParamsDev }}"/>
+  <script defer="defer" src="{{ pathToJs | stripQueryParamsDev }}"></script>
 {% endblock %}
 
 {% block pageTitle %}
