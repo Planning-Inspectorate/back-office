@@ -11,6 +11,9 @@ import * as inspectorService from './inspector.service.js';
 /**
  * @typedef {Object} ViewDashboardRenderOptions
  * @property {AppealSummary[]} appeals - A collection of appeals assigned to the user.
+ * @property {number[]} assignedAppealIds - A list of appeal ids assigned to the
+ * user during this session. These will be used for denoting the 'New' status on
+ * the dashboard.
  */
 
 /**
@@ -18,10 +21,11 @@ import * as inspectorService from './inspector.service.js';
  *
  * @type {import('@pins/express').QueryHandler<{}, ViewDashboardRenderOptions>}
  */
-export async function viewDashboard(_, response) {
+export async function viewDashboard({ session }, response) {
 	const appeals = await inspectorService.findAllAssignedAppeals();
+	const assignedAppealIds = inspectorSession.getAssignedAppealIds(session);
 
-	response.render('inspector/dashboard', { appeals });
+	response.render('inspector/dashboard', { appeals, assignedAppealIds });
 }
 
 /**
@@ -56,7 +60,7 @@ export async function viewAvailableAppeals(_, response) {
 /**
  * @type {import('@pins/express').CommandHandler<{}, ViewAvailableAppealsRenderOptions | AssignAppealsSuccessRenderOptions, AssignAvailableAppealsBody>}
  */
-export async function assignAvailableAppeals({ body }, response) {
+export async function assignAvailableAppeals({ body, session }, response) {
 	const appeals = await inspectorService.findAllUnassignedAppeals();
 
 	if (response.locals.errors) {
@@ -66,6 +70,8 @@ export async function assignAvailableAppeals({ body }, response) {
 		});
 	} else {
 		const assignedAppeals = await inspectorService.assignAppealsToUser(body.appealIds);
+		// Save a copy of the assigned appeals so as to capture the 'New' status on the dashboard
+		inspectorSession.addAssignedAppealIds(session, body.appealIds);
 
 		response.render('inspector/assign-appeals-success', { appeals: assignedAppeals });
 	}
@@ -174,7 +180,7 @@ export async function confirmSiteVisit({ params, session }, response) {
 	const siteVisitData = /** @type {SiteVisitState} */ (inspectorSession.getSiteVisit(session, params.appealId));
 	const updatedAppeal = await inspectorService.bookSiteVisit(params.appealId, siteVisitData);
 
-	inspectorSession.destroy(session);
+	inspectorSession.destroySiteVisit(session);
 
 	response.render('inspector/book-site-visit-success', { appeal: updatedAppeal });
 }
@@ -281,7 +287,7 @@ export async function confirmDecision({ params, session }, response) {
 	const decisionData = /** @type {DecisionState} */ (inspectorSession.getDecision(session, params.appealId));
 	const updatedAppeal = await inspectorService.issueDecision(params.appealId, decisionData);
 
-	inspectorSession.destroy(session);
+	inspectorSession.destroyDecision(session);
 
 	response.render('inspector/issue-decision-success', { appeal: updatedAppeal });
 }
