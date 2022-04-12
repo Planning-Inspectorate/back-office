@@ -20,6 +20,7 @@
     "clean": "rimraf .turbo node_modules dist",
     "swagger-autogen": "node ./src/server/swagger.js",
     "db:migrate": "npx prisma migrate dev",
+    "db:migrate:prod": "npx prisma migrate deploy",
     "db:reset": "npx prisma migrate reset",
     "db:seed": "npx prisma db seed",
     "prisma:format": "npx prisma format",
