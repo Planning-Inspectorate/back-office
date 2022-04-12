@@ -21,7 +21,8 @@
 
       {% switch column.name %}
         {% case 'Appeal age' %}
-          {% set cell = { text: appeal.appealAge } %}
+          {% set suffix = 'day' if appeal.appealAge === 1 else 'days' %}
+          {% set cell = { text: appeal.appealAge + ' ' + suffix  } %}
         {% case 'Appeal reference' %}
           {% if column.href %}
             {% set cell = { html: createAppealLink(appeal) } %}
