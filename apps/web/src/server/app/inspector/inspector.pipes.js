@@ -1,5 +1,3 @@
-// @ts-check
-
 import { mapMulterErrorToValidationError } from '@pins/express';
 import { siteVisitTimeSlots } from '@pins/inspector';
 import { validateFutureDate } from '@pins/platform';

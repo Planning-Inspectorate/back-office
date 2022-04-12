@@ -2,7 +2,7 @@
   "name": "@pins/validation",
   "version": "0.0.0",
   "type": "module",
-  "main": "index.d.ts",
+  "main": "index.js",
   "private": true,
   "engines": {
     "node": ">=16.14.0"
@@ -10,7 +10,7 @@
   "scripts": {
   },
   "dependencies": {
-  },
-  "devDependencies": {
+    "express-validator": "6.14.0",
+    "lodash-es": "^4.17.21"
   }
 }

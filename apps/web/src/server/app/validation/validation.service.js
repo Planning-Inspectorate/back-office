@@ -1,36 +1,40 @@
 import FormData from 'form-data';
-import request from './../../lib/request.js';
-import localPlanningDepartments from './__dev__/local-planning-departments.js';
+import { get, post, patch } from './../../lib/request.js';
 
-/** @typedef {import('@pins/platform').LocalPlanningDepartment} LocalPlanningDepartment } */
 /** @typedef {import('@pins/validation').Appeal} Appeal */
+/** @typedef {import('@pins/validation').AppealOutcomeStatus} AppealOutcomeStatus */
 /** @typedef {import('@pins/validation').AppealDocumentType} AppealDocumentType */
+/** @typedef {import('@pins/validation').IncompleteReasons} IncompleteReasons */
+/** @typedef {import('@pins/validation').InvalidReasons } InvalidReasons */
 
 /**
  * Fetch all local planning departments.
  *
- * @returns {Promise<LocalPlanningDepartment[]>} - A promise that resolves to a
- * collection of local planning department entities.
+ * @returns {Promise<string[]>} - A promise that resolves to a list of local
+ * planning department names.
  */
 export function findAllLocalPlanningDepartments() {
-	// Temporarily return hardcoded data pending endpoint becoming available
-	return Promise.resolve(localPlanningDepartments);
+	return get('validation/lpa-list');
 }
 
-export async function findAllNewIncompleteAppeals() {
-	const data = await request('validation');
-
-	return data;
+/**
+ * Fetch all appeals to be validated.
+ *
+ * @returns {Promise<Appeal[]>} - A promise that resolves to a collection of
+ * all appeals awaiting validaton.
+ */
+export function findAllAppeals() {
+	return get('validation');
 }
 
 /**
  * Fetch an appeal for validation.
  *
- * @param {Appeal} appealId - Unique identifier for the appeal.
- * @returns {Promise<Appeal>} - A promise that resolves to the appeal.
+ * @param {number} appealId - Unique identifier for the appeal.
+ * @returns {Promise<Appeal>} - A promise that resolves to the appeal entity.
  */
 export function findAppealById(appealId) {
-	return request(`validation/${appealId}`);
+	return get(`validation/${appealId}`);
 }
 
 /**
@@ -39,24 +43,60 @@ export function findAppealById(appealId) {
  * @property {Appeal['AppealSite']=} Address - The site address of the appeal.
  * @property {string=} LocalPlanningDepartment - The local planning department
  * on the appeal.
+ * @property {string=} PlanningApplicationReference - The planning application
+ * reference to save to the appeal.
  */
 
 /**
- * Updates the details of an appeal as identified by the `appealId` parameter.
+ * Update the details of an appeal as identified by the `appealId` parameter.
  * These details can be provided as a full or partial representation.
  *
- * @param {string} appealId - The unique identifier of the appeal to be updated.
+ * @param {number} appealId - The unique identifier of the appeal to be updated.
  * @param {AppealDetails} details - A complete or partial set of details to be
  * updated for this appeal.
- * @returns {Promise} - A promise that resolves once the appeal details are
- * remotely updated.
+ * @returns {Promise<Appeal>} - A promise that resolves to the appeal once the
+ * details are remotely updated.
  */
 export function updateAppealDetails(appealId, details) {
-	return request.patch(`validation/${appealId}`, { json: details });
+	return patch(`validation/${appealId}`, { json: details });
 }
 
-export function updateAppeal(id, data) {
-	return request.post(`validation/${id}`, { json: data });
+/**
+ * @typedef {Object} ValidAppealData
+ * @property {'valid'} status - The 'valid' {@link AppealOutcomeStatus}
+ * @property {string} descriptionOfDevelopment - A description of the valid
+ * development by the user.
+ */
+
+/**
+ * @typedef {Object} InvalidAppealData
+ * @property {'invalid'} status - The 'invalid' {@link AppealOutcomeStatus}
+ * @property {InvalidReasons} reasons - A dictionary of reasons qualifying the invalid decision.
+ */
+
+/**
+ * @typedef {Object} IncompleteAppealData
+ * @property {'incomplete'} status - The 'incomplete' {@link AppealOutcomeStatus}
+ * @property {IncompleteReasons} reasons - A dictionary of reasons qualifying the incomplete decision.
+ */
+
+/**
+ * @typedef {ValidAppealData | InvalidAppealData | IncompleteAppealData} OutcomeData
+ */
+
+/**
+ * Record the validation outcome for an appeal.
+ *
+ * @param {number} appealId - The unique identifier of the appeal.
+ * @param {OutcomeData} data - The valid, invalid or incomplete outcome data.
+ * @returns {Promise<Appeal>} - A promise that resolves to the appeal once the
+ * state is remotely updated.
+ */
+export function recordOutcome(appealId, { status: AppealStatus, ...other }) {
+	return post(`validation/${appealId}`, {
+		// TODO: have api align the posted property names of these values with the model
+		json: 'reasons' in other ? { AppealStatus, Reason: other.reasons } : { AppealStatus, ...other }
+	});
 }
 
 /**
@@ -65,12 +105,13 @@ export function updateAppeal(id, data) {
  * associate the uploaded file.
  * @property {Express.Multer.File} file - A file uploaded via multer.
  */
+
 /**
  * Upload a document to an appeal according to a given `documentType`.
  *
  * @param {number} appealId - Unique identifier for the appeal.
  * @param {UploadDocumentData} data - The buffered file and its metadata.
- * @returns {Promise} - A promise that resolves once the document is uploaded to
+ * @returns {Promise<unknown>} - A promise that resolves once the document is uploaded to
  * the appeal.
  */
 export function uploadDocument(appealId, { file, documentType }) {
@@ -80,7 +121,5 @@ export function uploadDocument(appealId, { file, documentType }) {
 	formData.append('filename', file.originalname);
 
 	// Awaiting https://pins-ds.atlassian.net/browse/BOCM-78
-	return Promise.reject(
-		new Error(`validation/${appealId}/documents is not yet implemented!`)
-	);
+	return Promise.reject(new Error(`validation/${appealId}/documents is not yet implemented!`));
 }

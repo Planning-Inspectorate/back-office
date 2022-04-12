@@ -1,30 +1,24 @@
-import path from 'path';
-import { readFile } from 'fs/promises';
-import { createRequire } from 'module';
-import express from 'express';
-import nunjucks from 'nunjucks';
-import morganLogger from 'morgan';
-import compression from 'compression';
-import cors from 'cors';
 import bodyParser from 'body-parser';
+import compression from 'compression';
 import cookieParser from 'cookie-parser';
-import serveStatic from 'serve-static';
-import helmet from 'helmet';
+import cors from 'cors';
+import express from 'express';
 import requestID from 'express-request-id';
+import helmet from 'helmet';
+import morganLogger from 'morgan';
 import responseTime from 'response-time';
-import session from 'express-session';
-import { __dirname } from '../lib/helpers.js';
-import { routes } from './routes.js';
+import serveStatic from 'serve-static';
 import { config } from '../config/config.js';
-import * as nunjucksFilters from '../lib/nunjucks-filters/index.js';
-import * as nunjucksGlobals from '../lib/nunjucks-globals/index.js';
-
-const resourceCSS = JSON.parse(await readFile(new URL('../_data/resourceCSS.json', import.meta.url)));
-const resourceJS = JSON.parse(await readFile(new URL('../_data/resourceJS.json', import.meta.url)));
-const require = createRequire(import.meta.url);
+import locals from '../config/locals.js';
+import nunjucksEnvironment from '../config/nunjucks.js';
+import session from '../config/session.js';
+import { routes } from './routes.js';
 
 // Create a new Express app.
 const app = express();
+
+// Initialize app locals
+app.locals = locals;
 
 if (!config.isProd) {
 	app.use(morganLogger('dev'));
@@ -62,55 +56,10 @@ app.use(requestID());
 app.use(responseTime());
 
 // Session middleware
-const sessionConfig = {
-	secret: 'PINSBackOffice',
-	resave: false,
-	saveUninitialized: true,
-	cookie: {}
-};
+app.use(session);
 
-if (config.isProd) sessionConfig.cookie.secure = true;
-
-// TODO: Regeneration of Session After Login
-// TODO: Set Expiration
-app.use(session(sessionConfig));
-
-// Nunjucks templating engine settings and configuration.
-const viewPaths = [
-	// TODO: Try and use NodeResolveLoader instead of this hack.
-	// https://mozilla.github.io/nunjucks/api.html
-	// https://github.com/mozilla/nunjucks/pull/1197/files
-	path.resolve(require.resolve('govuk-frontend'), '../..'),
-	path.join(__dirname, '../views')
-];
-
-const njEnvironment = nunjucks.configure(viewPaths, {
-	autoescape: true, // output with dangerous characters are escaped automatically
-	trimBlocks: true, // automatically remove trailing newlines from a block/tag
-	lstripBlocks: true, // automatically remove leading whitespace from a block/tag
-	noCache: true, // never use a cache and recompile templates each time
-	express: app // the express app that nunjucks should install to
-});
-
-for (const filterName in nunjucksFilters) {
-	if (Object.prototype.hasOwnProperty.call(nunjucksFilters, filterName)) {
-		njEnvironment.addFilter(filterName, nunjucksFilters[filterName]);
-	}
-}
-
-for (const globalName in nunjucksGlobals) {
-	if (Object.prototype.hasOwnProperty.call(nunjucksGlobals, globalName)) {
-		njEnvironment.addGlobal(globalName, nunjucksGlobals[globalName]);
-	}
-}
-
-njEnvironment.addGlobal('isProd', config.isProd);
-njEnvironment.addGlobal('isRelease', config.isRelease);
-njEnvironment.addGlobal('resourceCSS', resourceCSS);
-njEnvironment.addGlobal('resourceJS', resourceJS);
-njEnvironment.addGlobal('cspNonce', 'EdcOUaJ8lczj9tIPO0lPow==');
-
-// Set the express view engine to NJK.
+// Set the express view engine to nunjucks.
+nunjucksEnvironment.express(app);
 app.set('view engine', 'njk');
 
 // Serve static files (fonts, images, generated CSS and JS, etc)
@@ -125,14 +74,17 @@ app.use('/', routes);
 // ! Otherwise, our error handler won't get called.
 // Catch all "server" (the ones in the routing flow) errors and and render generic error page
 // with the error message if the app runs in dev mode, or geneirc error if running in production.
-app.use((error, request, response, next) => {
-	if (response.headersSent) {
-		next(error);
-	}
+app.use(
+	/** @type {import('express').ErrorRequestHandler} */
+	(error, request, response, next) => {
+		if (response.headersSent) {
+			next(error);
+		}
 
-	response.status(500);
-	response.render('app/error', { error: error });
-});
+		response.status(500);
+		response.render('app/error', { error: error });
+	}
+);
 
 // Catch undefined routes (404) and render generic 404 not found page
 app.use((request, response) => {
