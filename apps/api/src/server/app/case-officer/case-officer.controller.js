@@ -19,7 +19,6 @@ const caseOfficerStatusesOnceQuestionnaireReceived = new Set([
 
 const getAppeals = async function (_request, response) {
 	const appeals = await appealRepository.getByStatusesWithAddresses(caseOfficerStatuses);
-	console.log('HERE ', appeals);
 	const formattedAppeals = appeals.map((appeal) => appealFormatter.formatAppealForAllAppeals(appeal));
 	response.send(formattedAppeals);
 };
