@@ -1,38 +1,15 @@
 import { createMachine, interpret } from "xstate";
 import { generateValidationStates } from "./validation-states.js";
+import { generateLpaQuestionnaireStates } from './lpa-questionnaire-states.js';
 
 const validationStates = generateValidationStates('awaiting_lpa_questionnaire_and_statements');
 
-const lpaQuestionnaireStates = {
+const lpaQuestionnaireStates = generateLpaQuestionnaireStates();
+
+const lpaQuestionnaireWithExtrasStates = {
     initial: "awaiting_lpa_questionnaire",
     states: {
-        awaiting_lpa_questionnaire: {
-            entry: ["sendLPAQuestionnaire"],
-            on: {
-                OVERDUE: "overdue_lpa_questionnaire",
-                RECEIVED: "received_lpa_questionnaire",
-            },
-        },
-        received_lpa_questionnaire: {
-            on: {
-                COMPLETE: "complete_lpa_questionnaire",
-                INCOMPLETE: "incomplete_lpa_questionnaire",
-            },
-        },
-        overdue_lpa_questionnaire: {
-            entry: ["nudgeLPAQuestionnaire"],
-            on: {
-                RECEIVED: "received_lpa_questionnaire",
-            },
-        },
-        complete_lpa_questionnaire: {
-            always: { target: 'available_for_inspector_pickup' }
-        },
-        incomplete_lpa_questionnaire: {
-            on: {
-                COMPLETE: "complete_lpa_questionnaire",
-            },
-        },
+        ...lpaQuestionnaireStates,
         available_for_inspector_pickup: {
             on: {
                 PICKUP: 'picked_up'
@@ -68,7 +45,7 @@ const lpaQuestionnaireAndStatementsStates = {
     awaiting_lpa_questionnaire_and_statements: {
         type: "parallel",
         states: {
-            lpaQuestionnaire: lpaQuestionnaireStates,
+            lpaQuestionnaire: lpaQuestionnaireWithExtrasStates,
             statementsAndFinalComments: statementsAndFinalCommentsStates,
         },
         onDone: "site_visit_not_yet_booked",
