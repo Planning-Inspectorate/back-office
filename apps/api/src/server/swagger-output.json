@@ -204,20 +204,19 @@
         }
       }
     },
-    "/inspector/book": {
+    "/inspector/{appealId}/book": {
       "post": {
         "description": "Book a site visit as an inspector.",
         "parameters": [
           {
-            "name": "userId",
-            "in": "header",
-            "type": "string",
-            "required": true
+            "name": "appealId",
+            "in": "path",
+            "required": true,
+            "type": "string"
           },
           {
-            "name": "appealId",
-            "in": "url",
-            "description": "Unique identifier for the appeal.",
+            "name": "userId",
+            "in": "header",
             "type": "string",
             "required": true
           },
@@ -227,6 +226,42 @@
             "description": "Book site visit payload.",
             "schema": {
               "$ref": "#/definitions/BookSiteVisit"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The updated appeal.",
+            "schema": {
+              "$ref": "#/definitions/AppealsForInspector"
+            }
+          }
+        }
+      }
+    },
+    "/inspector/{appealId}/issue-decision": {
+      "post": {
+        "description": "Book a site visit as an inspector.",
+        "parameters": [
+          {
+            "name": "appealId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "userId",
+            "in": "header",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "formData",
+            "in": "formData",
+            "description": "Issue decision payload.",
+            "schema": {
+              "$ref": "#/definitions/IssueDecision"
             },
             "required": true
           }
@@ -869,7 +904,7 @@
     "BookSiteVisit": {
       "type": "object",
       "properties": {
-        "SiteVisitType": {
+        "siteVisitType": {
           "required": true,
           "type": "string",
           "enum": [
@@ -878,7 +913,7 @@
             "access required"
           ]
         },
-        "SiteVisitDate": {
+        "siteVisitDate": {
           "type": "object",
           "properties": {
             "required": {
@@ -889,22 +924,17 @@
               "type": "string",
               "example": "string"
             },
-            "pattern": {
+            "format": {
               "type": "string",
-              "example": "^d{4}(0[1-9]|1[012])(0[1-9]|[12][0-9]|3[01])$"
+              "example": "date"
             },
-            "examples": {
-              "type": "array",
-              "example": [
-                "2022-01-01"
-              ],
-              "items": {
-                "type": "string"
-              }
+            "example": {
+              "type": "string",
+              "example": "2022-01-01"
             }
           }
         },
-        "SiteVisitTimeSlot": {
+        "siteVisitTimeSlot": {
           "required": true,
           "type": "string",
           "enum": [
@@ -922,9 +952,40 @@
         }
       },
       "required": [
-        "SiteVisitType",
-        "SiteVisitDate",
-        "SiteVisitTimeSlot"
+        "siteVisitType",
+        "siteVisitDate",
+        "siteVisitTimeSlot"
+      ]
+    },
+    "IssueDecision": {
+      "type": "object",
+      "properties": {
+        "decisionLetter": {
+          "type": "object",
+          "properties": {
+            "type": {
+              "type": "string",
+              "example": "file"
+            },
+            "required": {
+              "type": "boolean",
+              "example": true
+            }
+          }
+        },
+        "outcome": {
+          "required": true,
+          "type": "string",
+          "enum": [
+            "allowed",
+            "dismissed",
+            "split decision"
+          ]
+        }
+      },
+      "required": [
+        "decisionLetter",
+        "outcome"
       ]
     }
   }

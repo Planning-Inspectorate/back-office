@@ -1,8 +1,8 @@
 import express from 'express';
 import { param } from 'express-validator';
 import asyncHandler from '../middleware/async-handler.js';
-import { getAppeals, assignAppeals, bookSiteVisit } from './inspector.controller.js';
-import { validateBookSiteVisit, validateUserBelongsToAppeal } from './inspector.validators.js';
+import { getAppeals, assignAppeals, bookSiteVisit, issueDecision } from './inspector.controller.js';
+import { validateBookSiteVisit, validateIssueDecision, validateUserBelongsToAppeal } from './inspector.validators.js';
 
 const router = express.Router();
 
@@ -49,12 +49,6 @@ router.post(
             type: 'string',
             required: true
         }
-        #swagger.parameters['appealId'] = {
-            in: 'url',
-            description: 'Unique identifier for the appeal.',
-            type: 'string',
-            required: true
-        }
         #swagger.parameters['body'] = {
 			in: 'body',
 			description: 'Book site visit payload.',
@@ -70,6 +64,32 @@ router.post(
 	validateUserBelongsToAppeal,
 	validateBookSiteVisit,
 	asyncHandler(bookSiteVisit)
+);
+
+router.post(
+	'/:appealId/issue-decision',
+	/*
+        #swagger.description = 'Book a site visit as an inspector.'
+        #swagger.parameters['userId'] = {
+            in: 'header',
+            type: 'string',
+            required: true
+        }
+        #swagger.parameters['formData'] = {
+			in: 'formData',
+			description: 'Issue decision payload.',
+			schema: { $ref: "#/definitions/IssueDecision" },
+            required: true
+		}
+        #swagger.responses[200] = {
+            description: 'The updated appeal.',
+            schema: { $ref: '#/definitions/AppealsForInspector' }
+        }
+	*/
+	param('appealId').toInt(),
+	validateUserBelongsToAppeal,
+	validateIssueDecision,
+	asyncHandler(issueDecision)
 );
 
 export { router as inspectorRoutes };

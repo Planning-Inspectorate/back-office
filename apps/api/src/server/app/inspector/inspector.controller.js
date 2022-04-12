@@ -9,6 +9,7 @@ import transitionState from '../state-machine/household-appeal.machine.js';
 import daysBetweenDates from '../utils/days-between-dates.js';
 
 /** @typedef {import('@pins/inspector').Appeal} Appeal */
+/** @typedef {import('@pins/inspector').AppealOutcome} AppealOutcome */
 /** @typedef {import('@pins/inspector').SiteVisitType} SiteVisitType */
 
 const formatStatus = function(status) {
@@ -123,6 +124,26 @@ export const bookSiteVisit = async (request, response) => {
 			visitSlot: body.siteVisitTimeSlot,
 			visitType: body.siteVisitType
 		}
+	});
+
+	response.send(updatedAppeal);
+};
+
+/**
+ * @typedef {object} IssueDecisionRequestBody
+ * @property {AppealOutcome} outcome – The outcome for the appeal.
+ */
+
+/**
+ * Issue a decision for an appeal.
+ * 
+ * @type {import('express').RequestHandler<AppealParams, Appeal, IssueDecisionRequestBody>}
+ */
+export const issueDecision = async ({ file, body, params }, response) => {
+	const updatedAppeal = await inspector.issueDecision({
+		appealId: params.appealId,
+		outcome: body.outcome,
+		decisionLetter: file
 	});
 
 	response.send(updatedAppeal);
