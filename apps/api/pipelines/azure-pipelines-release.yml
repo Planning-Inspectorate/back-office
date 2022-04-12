@@ -11,7 +11,7 @@ parameters:
       - UK South
     default: UK West
   - name: schemaMigration
-    displayName: Run Schema migration?
+    displayName: Run Database Migration
     type: boolean
     default: true
 
