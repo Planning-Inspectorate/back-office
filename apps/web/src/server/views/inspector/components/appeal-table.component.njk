@@ -6,8 +6,8 @@
   {% set rows = [] %}
 
   {% for column in params.columns %}
-    {% if params.headerHidden and params.headerHidden | includes(column) %}
-      {% set head = (head.push({ html: '<span class="govuk-visually-hidden">' + column.name + '</span>' }), head) %}
+    {% if column.name === 'Status' %}
+      {% set head = (head.push({ html: '<span class="govuk-visually-hidden">Status</span>' }), head) %}
     {% else %}
       {% set head = (head.push({ text: column.name }), head) %}
     {% endif %}
@@ -56,7 +56,10 @@
             })
           } %}
         {% case 'Status' %}
-          {% set cell = { html: govukTag({ text: 'New', classes: 'govuk-tag--green' }) } %}
+          {% set status = params.statuses | find({ appealId: appeal.appealId }) %}
+          {% if status and status.text === 'New' %}
+            {% set cell = { html: govukTag({ text: 'New', classes: 'govuk-tag--green' }) } %}
+          {% endif %}          
       {% endswitch %}
 
       {% set cells = (cells.push(cell), cells) %}      

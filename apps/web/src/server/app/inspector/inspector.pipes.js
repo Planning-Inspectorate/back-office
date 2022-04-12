@@ -8,10 +8,18 @@ import { diskStorage } from '../../lib/multer.js';
 /** @typedef {import('@pins/inspector').SiteVisitType} SiteVisitType */
 
 /**
+ * @typedef {Object} InspectorLocals
+ * @property {object} constants - Any domain constants to make available to nunjucks.
+ * @property {'xl' | 'default'} containerSize - The width of the page in this domain.
+ * @property {string} serviceName - The name of the service to be displayed in the page header.
+ * @property {string} serviceUrl - The root url of the service.
+ */
+
+/**
  * Register the locals for templates under this domain.
  *
- * @type {import('express').RequestHandler}
- */
+ * @type {import('express').RequestHandler<any, any, any, any, InspectorLocals>}
+ **/
 export const registerInspectorLocals = (_, response, next) => {
 	response.locals.constants = { siteVisitTimeSlots };
 	response.locals.containerSize = 'xl';

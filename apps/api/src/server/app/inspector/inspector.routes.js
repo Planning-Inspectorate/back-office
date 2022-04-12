@@ -2,7 +2,14 @@ import express from 'express';
 import { param } from 'express-validator';
 import asyncHandler from '../middleware/async-handler.js';
 import { assignAppeals, bookSiteVisit, getAppeals, issueDecision } from './inspector.controller.js';
-import { validateBookSiteVisit, validateIssueDecision, validateStateTransition, validateUserBelongsToAppeal } from './inspector.validators.js';
+import {
+	validateAssignAppealsToInspector,
+	validateBookSiteVisit,
+	validateIssueDecision,
+	validateStateTransition,
+	validateUserBelongsToAppeal,
+	validateUserId
+} from './inspector.validators.js';
 
 const router = express.Router();
 
@@ -23,6 +30,7 @@ router.get(
 	asyncHandler(getAppeals)
 );
 
+
 router.post(
 	'/assign',
 	/*
@@ -37,6 +45,8 @@ router.post(
             schema: { $ref: '#/definitions/AppealsAssignedToInspector' }
         }
     */
+	validateUserId,
+	validateAssignAppealsToInspector,
 	asyncHandler(assignAppeals)
 );
 

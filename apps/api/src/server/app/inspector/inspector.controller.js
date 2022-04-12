@@ -25,6 +25,11 @@ const formatStatus = function(status) {
 	}
 };
 
+const provisionalAppealSiteVisitType = function(appeal) {
+	return (!appeal.lpaQuestionnaire.siteVisibleFromPublicLand || !appeal.appealDetailsFromAppellant.siteVisibleFromPublicLand) ? 
+		'access required' : 'unaccompanied'
+}
+
 const formatAppealForAllAppeals = function(appeal) {
 	return {
 		appealId: appeal.id,
@@ -35,10 +40,7 @@ const formatAppealForAllAppeals = function(appeal) {
 		...(!_.isEmpty(appeal.siteVisit) && { siteVisitDate: formatDate(appeal.siteVisit.visitDate) }),
 		...(!_.isEmpty(appeal.siteVisit) && { siteVisitSlot: appeal.siteVisit.visitSlot }),
 		...(!_.isEmpty(appeal.siteVisit) && { siteVisitType: appeal.siteVisit.visitType }),
-		...(_.isEmpty(appeal.siteVisit) && { 
-			provisionalVisitType: (appeal.lpaQuestionnaire.siteVisibleFromPublicLand || appeal.appealDetailsFromAppellant.siteVisibleFromPublicLand) ? 
-				'access required' : 'unaccompanied' 
-		}),
+		...(_.isEmpty(appeal.siteVisit) && { provisionalVisitType: provisionalAppealSiteVisitType(appeal) }),
 		status: formatStatus(appeal.status),
 	};
 };
@@ -61,24 +63,37 @@ const getAppeals = async function(request, response) {
 	return response.send(appealsForResponse);
 };
 
+const formatAppealForAssigningAppeals = function(appeal, reason) {
+	return {
+		appealId: appeal.id,
+		reference: appeal.reference,
+		appealType: 'HAS',
+		specialist: 'General',
+		provisionalVisitType: provisionalAppealSiteVisitType(appeal),
+		appealAge: daysBetweenDates(appeal.startedAt, new Date()),
+		appealSite: formatAddressLowerCase(appeal.address),
+		...(reason != undefined && {reason: reason})
+	}
+}
+
 const assignAppealsById = async function(userId, appealIds) {
 	const successfullyAssigned = [];
 	const unsuccessfullyAssigned = [];
 	await Promise.all(appealIds.map(async (appealId) => {
-		const appeal = await appealRepository.getById(appealId);
+		const appeal = await appealRepository.getByIdIncluding(appealId, { address: true, appellant: true, appealDetailsFromAppellant: true });
 		if (appeal.userId == undefined && appeal.status == 'available_for_inspector_pickup') {
 			try {
 				const nextState = transitionState({ appealId: appeal.id }, appeal.status, 'PICKUP');
 				await appealRepository.updateById(appeal.id, { status: nextState.value, user: { connect: { id: userId } } });
-				successfullyAssigned.push(appeal.id);
+				successfullyAssigned.push(formatAppealForAssigningAppeals(appeal));
 			} catch (error) {
 				console.error(error);
-				unsuccessfullyAssigned.push({ appealId: appeal.id, reason: error.message });
+				unsuccessfullyAssigned.push(formatAppealForAssigningAppeals(appeal, error.message));
 			}
 		} else if (appeal.status != 'available_for_inspector_pickup') {
-			unsuccessfullyAssigned.push({ appealId: appeal.id, reason: 'appeal in wrong state' });
+			unsuccessfullyAssigned.push(formatAppealForAssigningAppeals(appeal, 'appeal in wrong state'));
 		} else if (appeal.userId != undefined) {
-			unsuccessfullyAssigned.push({ appealId: appeal.id, reason: 'appeal already assigned' });
+			unsuccessfullyAssigned.push(formatAppealForAssigningAppeals(appeal, 'appeal already assigned'));
 		}
 	}));
 	return { successfullyAssigned: successfullyAssigned, unsuccessfullyAssigned: unsuccessfullyAssigned };
@@ -91,7 +106,7 @@ const validateAppealIdsPresent = function(body) {
 };
 
 const assignAppeals = async function(request, response) {
-	const userId = validateUserId(request.headers.userid);
+	const userId = Number.parseInt(request.headers.userid, 10)
 	validateAppealIdsPresent(request.body);
 	const resultantAppeals = await assignAppealsById(userId, request.body);
 	response.send(resultantAppeals);

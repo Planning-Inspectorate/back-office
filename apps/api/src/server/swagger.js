@@ -149,9 +149,33 @@ const document_ = {
 			$provisionalSiteVisitType: { '@enum': ['unaccompanied', 'access required'] }
 		},
 		AppealsAssignedToInspector: {
-			$successfullyAssigned: [1, 2, 3],
+			$successfullyAssigned: [{
+				$appealId: 1,
+				$reference: 'APP/Q9999/D/21/1345264',
+				$appealType: 'HAS',
+				$specialist: 'General',
+				$provisionalVisitType: { '@enum': ['unaccompanied', 'access required'] },
+				$appealSite: {
+					$addressLine1: '96 The Avenue',
+					$county: 'Kent',
+					$town: 'Maidstone',
+					$postCode: 'MD21 5XY'
+				},
+				$appealAge: 41
+			}],
 			$unsuccessfullyAssigned: [{
 				$appealId: 4,
+				$reference: 'APP/Q9999/D/21/1345264',
+				$appealType: 'HAS',
+				$specialist: 'General',
+				$provisionalVisitType: { '@enum': ['unaccompanied', 'access required'] },
+				$appealSite: {
+					$addressLine1: '96 The Avenue',
+					$county: 'Kent',
+					$town: 'Maidstone',
+					$postCode: 'MD21 5XY'
+				},
+				$appealAge: 41,
 				$reason: { '@enum': ['appeal in wrong state', 'appeal already assigned'] }
 			}]
 		},

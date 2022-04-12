@@ -52,9 +52,22 @@ const appeal_3 = {
 		town: 'Thurnscoe'
 	}
 };
+const appeal_4 = {
+	id: 4,
+	reference: 'APP/Q8874/D/23/4293472',
+	status: 'incomplete_lpa_questionnaire',
+	createdAt: new Date(2021, 12, 12),
+	addressId: 4,
+	startedAt: new Date(2022, 3, 20),
+	address: {
+		addressLine1: '180 Bloomfield Road',
+		postcode: 'BS4 3QX',
+		town: 'Bristol'
+	},
+};
 
 const findManyStub = sinon.stub();
-findManyStub.returns([appeal_1, appeal_2, appeal_3]);
+findManyStub.returns([appeal_1, appeal_2, appeal_3, appeal_4]);
 
 class MockDatabaseClass {
 	constructor(_parameters) {
@@ -74,9 +87,9 @@ test('gets the appeals information with received questionnaires', async (t) => {
 		AppealReference: 'APP/Q9999/D/21/1345264',
 		QuestionnaireDueDate: '01 Jun 2022',
 		AppealSite: {
-			AddressLine1: '96 The Avenue', 
-			AddressLine2: 'Maidstone', 
-			County: 'Kent', 
+			AddressLine1: '96 The Avenue',
+			AddressLine2: 'Maidstone',
+			County: 'Kent',
 			PostCode: 'MD21 5XY'
 		},
 		QuestionnaireStatus: 'awaiting'
@@ -86,8 +99,8 @@ test('gets the appeals information with received questionnaires', async (t) => {
 		AppealReference: 'APP/Q9999/D/21/5463281',
 		QuestionnaireDueDate: '05 Jun 2022',
 		AppealSite: {
-			AddressLine1: '55 Butcher Street', 
-			Town: 'Thurnscoe', 
+			AddressLine1: '55 Butcher Street',
+			Town: 'Thurnscoe',
 			PostCode: 'S63 0RB'
 		},
 		QuestionnaireStatus: 'received'
@@ -96,14 +109,24 @@ test('gets the appeals information with received questionnaires', async (t) => {
 		AppealId: 3,
 		AppealReference: 'APP/Q9999/D/21/5463281',
 		AppealSite: {
-			AddressLine1: '55 Butcher Street', 
-			Town: 'Thurnscoe', 
+			AddressLine1: '55 Butcher Street',
+			Town: 'Thurnscoe',
 			PostCode: 'S63 0RB'
 		},
 		QuestionnaireDueDate: '05 Jun 2022',
 		QuestionnaireStatus: 'overdue',
+	},
+	{
+		AppealId: 4,
+		AppealReference: 'APP/Q8874/D/23/4293472',
+		AppealSite: {
+			AddressLine1: '180 Bloomfield Road',
+			Town: 'Bristol',
+			PostCode: 'BS4 3QX'
+		},
+		QuestionnaireDueDate: '04 May 2022',
+		QuestionnaireStatus: 'incomplete_lpa_questionnaire',
 	}];
-
 	t.is(resp.status, 200);
 	t.deepEqual(resp.body, appealExample);
 });

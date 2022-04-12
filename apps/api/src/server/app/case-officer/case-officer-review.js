@@ -36,13 +36,8 @@ const invalidWithoutReasons = function (body) {
 		true : false);
 };
 
-// TODO: There is no need for this utility function, is not reused and Lodash can be used directly.
-const allArrayElementsInArray = function(arrayToCheck, arrayToCheckAgainst) {
-	return _.difference(arrayToCheck, arrayToCheckAgainst).length === 0;
-};
-
 const incompleteWithUnexpectedReasons = function (body) {
-	return !allArrayElementsInArray(Object.keys(body.reason), [
+	return (_.difference(Object.keys(body.reason), [
 		'applicationPlanningOfficersReportMissingOrIncorrect',
 		'applicationPlansToReachDecisionMissingOrIncorrect',
 		'applicationPlansToReachDecisionMissingOrIncorrectDescription',
@@ -65,7 +60,7 @@ const incompleteWithUnexpectedReasons = function (body) {
 		'thirdPartyAppealNotificationMissingOrIncorrect',
 		'thirdPartyAppealNotificationMissingOrIncorrectListOfAddresses',
 		'thirdPartyAppealNotificationMissingOrIncorrectCopyOfLetterOrSiteNotice'
-	]);
+	]).length === 0)? false : true;
 };
 
 const validateReviewRequest = function(body) {

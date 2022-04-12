@@ -200,6 +200,9 @@
             "schema": {
               "$ref": "#/definitions/AppealsAssignedToInspector"
             }
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         }
       }
@@ -863,13 +866,73 @@
       "properties": {
         "successfullyAssigned": {
           "type": "array",
-          "example": [
-            1,
-            2,
-            3
-          ],
           "items": {
-            "type": "number"
+            "type": "object",
+            "properties": {
+              "appealId": {
+                "type": "number",
+                "example": 1
+              },
+              "reference": {
+                "type": "string",
+                "example": "APP/Q9999/D/21/1345264"
+              },
+              "appealType": {
+                "type": "string",
+                "example": "HAS"
+              },
+              "specialist": {
+                "type": "string",
+                "example": "General"
+              },
+              "provisionalVisitType": {
+                "type": "string",
+                "enum": [
+                  "unaccompanied",
+                  "access required"
+                ]
+              },
+              "appealSite": {
+                "type": "object",
+                "properties": {
+                  "addressLine1": {
+                    "type": "string",
+                    "example": "96 The Avenue"
+                  },
+                  "county": {
+                    "type": "string",
+                    "example": "Kent"
+                  },
+                  "town": {
+                    "type": "string",
+                    "example": "Maidstone"
+                  },
+                  "postCode": {
+                    "type": "string",
+                    "example": "MD21 5XY"
+                  }
+                },
+                "required": [
+                  "addressLine1",
+                  "county",
+                  "town",
+                  "postCode"
+                ]
+              },
+              "appealAge": {
+                "type": "number",
+                "example": 41
+              }
+            },
+            "required": [
+              "appealId",
+              "reference",
+              "appealType",
+              "specialist",
+              "provisionalVisitType",
+              "appealSite",
+              "appealAge"
+            ]
           }
         },
         "unsuccessfullyAssigned": {
@@ -881,6 +944,56 @@
                 "type": "number",
                 "example": 4
               },
+              "reference": {
+                "type": "string",
+                "example": "APP/Q9999/D/21/1345264"
+              },
+              "appealType": {
+                "type": "string",
+                "example": "HAS"
+              },
+              "specialist": {
+                "type": "string",
+                "example": "General"
+              },
+              "provisionalVisitType": {
+                "type": "string",
+                "enum": [
+                  "unaccompanied",
+                  "access required"
+                ]
+              },
+              "appealSite": {
+                "type": "object",
+                "properties": {
+                  "addressLine1": {
+                    "type": "string",
+                    "example": "96 The Avenue"
+                  },
+                  "county": {
+                    "type": "string",
+                    "example": "Kent"
+                  },
+                  "town": {
+                    "type": "string",
+                    "example": "Maidstone"
+                  },
+                  "postCode": {
+                    "type": "string",
+                    "example": "MD21 5XY"
+                  }
+                },
+                "required": [
+                  "addressLine1",
+                  "county",
+                  "town",
+                  "postCode"
+                ]
+              },
+              "appealAge": {
+                "type": "number",
+                "example": 41
+              },
               "reason": {
                 "type": "string",
                 "enum": [
@@ -891,6 +1004,12 @@
             },
             "required": [
               "appealId",
+              "reference",
+              "appealType",
+              "specialist",
+              "provisionalVisitType",
+              "appealSite",
+              "appealAge",
               "reason"
             ]
           }
