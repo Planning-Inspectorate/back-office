@@ -1,4 +1,4 @@
-import { createMachine, assign } from "xstate";
+import { createMachine, interpret } from "xstate";
 
 const validationStates = {
     received_appeal: {
@@ -70,13 +70,13 @@ const validationStates = {
     states: {
       available_for_statements: {
         on: {
-          RECEIVED: "available_for_final_comments",
-          DID_NOT_RECEIVE: "closed_for_statements_and_final_comments",
+          RECEIVED_STATEMENTS: "available_for_final_comments",
+          DID_NOT_RECEIVE_STATEMENTS: "closed_for_statements_and_final_comments",
         },
       },
       available_for_final_comments: {
         on: {
-          RECEIVED: "closed_for_statements_and_final_comments",
+          RECEIVED_FINAL_COMMENTS: "closed_for_statements_and_final_comments",
         },
       },
       closed_for_statements_and_final_comments: {
@@ -118,13 +118,26 @@ const validationStates = {
     },
   };
   
-  const lightMachine = createMachine({
-    id: "household_appeal",
-    context: {},
-    initial: "received_appeal",
-    states: {
-      ...validationStates,
-      ...lpaQuestionnaireAndStatementsStates,
-      ...inspectorStates,
-    },
-  });
+const createFullPlanningAppealMachine = function (context) {
+    return createMachine({
+        id: "full_planning_appeal",
+        context: context,
+        initial: "received_appeal",
+        states: {
+            ...validationStates,
+            ...lpaQuestionnaireAndStatementsStates,
+            ...inspectorStates,
+        },
+    })
+}
+
+const transitionState = function(context, status, machineAction) {
+	const service = interpret(createFullPlanningAppealMachine(context));
+	service.start(status);
+	service.send({ type: machineAction });
+	const nextState = service.state;
+	service.stop();
+	return nextState;
+};
+
+export default transitionState;
