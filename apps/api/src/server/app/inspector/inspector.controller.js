@@ -1,4 +1,5 @@
 import _ from 'lodash';
+import * as inspector from './inspector.service.js';
 import appealRepository from '../repositories/appeal.repository.js';
 import { inspectorStatesStrings } from '../state-machine/inspector-states.js';
 import formatAddressLowerCase from '../utils/address-formatter-lowercase.js';
@@ -6,6 +7,9 @@ import formatDate from '../utils/date-formatter.js';
 import InspectorError from './inspector-error.js';
 import transitionState from '../state-machine/household-appeal.machine.js';
 import daysBetweenDates from '../utils/days-between-dates.js';
+
+/** @typedef {import('@pins/inspector').Appeal} Appeal */
+/** @typedef {import('@pins/inspector').SiteVisitType} SiteVisitType */
 
 const formatStatus = function(status) {
 	switch (status) {
@@ -90,6 +94,38 @@ const assignAppeals = async function(request, response) {
 	validateAppealIdsPresent(request.body);
 	const resultantAppeals = await assignAppealsById(userId, request.body);
 	response.send(resultantAppeals);
+};
+
+
+/**
+ * @typedef {object} BookSiteVisitRequestBody
+ * @property {Date} siteVisitDate - The date of the site visit (as YYYY-MM-DD).
+ * @property {string} siteVisitTimeSlot – The time slot of site visit.
+ * @property {SiteVisitType} siteVisitType – The type of site visit.
+ */
+
+/**
+ * @typedef {object} AppealParams
+ * @property {number} appealId - Unique identifier for the appeal.
+ */
+
+/**
+ * Create a site visit booking for an appeal.
+ * 
+ * @type {import('express').RequestHandler<AppealParams, Appeal, BookSiteVisitRequestBody>}
+ */
+export const bookSiteVisit = async (request, response) => {
+	const { body, params } = request;
+	const updatedAppeal = await inspector.bookSiteVisit({
+		appealId: params.appealId,
+		siteVisit: {
+			visitDate: body.siteVisitDate,
+			visitSlot: body.siteVisitTimeSlot,
+			visitType: body.siteVisitType
+		}
+	});
+
+	response.send(updatedAppeal);
 };
 
 export { getAppeals, assignAppeals };

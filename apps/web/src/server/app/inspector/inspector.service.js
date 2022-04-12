@@ -3,7 +3,17 @@ import { get, post } from './../../lib/request.js';
 /** @typedef {import('@pins/inspector').Appeal} Appeal */
 /** @typedef {import('@pins/inspector').AppealOutcome} AppealOutcome */
 /** @typedef {import('@pins/inspector').AppealSummary} AppealSummary */
-/** @typedef {import('@pins/inspector').SiteVisitType} siteVisitType */
+/** @typedef {import('@pins/inspector').SiteVisitType} SiteVisitType */
+
+const developmentOptions = {
+	hooks: {
+		beforeRequest: [
+			(options) => {
+				options.headers.userid = '1';
+			}
+		]
+	}
+};
 
 /**
  * Assign unassigned appeals to the user.
@@ -17,9 +27,9 @@ export function assignAppealsToUser(appealIds) {
 
 /**
  * @typedef {Object} BookSiteVisitData
- * @property {string} siteVisitDate - The date of the site visit.
+ * @property {string} siteVisitDate - The date of the site visit (YYYY-MM-DD).
  * @property {string} siteVisitTimeSlot – The time of site visit.
- * @property {siteVisitType} siteVisitType – The type of site visit.
+ * @property {SiteVisitType} siteVisitType – The type of site visit.
  */
 
 /**
@@ -39,7 +49,7 @@ export function bookSiteVisit(appealId, data) {
  * @returns {Promise<AppealSummary[]>} - A promise that resolves to a collection of appeal entities.
  */
 export function findAllAssignedAppeals() {
-	return get('inspector');
+	return get('inspector', developmentOptions);
 }
 
 /**

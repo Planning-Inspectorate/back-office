@@ -1,10 +1,13 @@
 import express from 'express';
+import { param } from 'express-validator';
 import asyncHandler from '../middleware/async-handler.js';
-import { getAppeals, assignAppeals } from './inspector.controller.js';
+import { getAppeals, assignAppeals, bookSiteVisit } from './inspector.controller.js';
+import { validateBookSiteVisit, validateUserBelongsToAppeal } from './inspector.validators.js';
 
 const router = express.Router();
 
-router.get('/', 
+router.get(
+	'/',
 	/*
         #swagger.description = 'Gets appeals assigned to inspector'
         #swagger.parameters['userid'] = {
@@ -17,9 +20,11 @@ router.get('/',
             schema: { $ref: '#/definitions/AppealsForInspector' }
         }
     */
-	asyncHandler(getAppeals));
+	asyncHandler(getAppeals)
+);
 
-router.post('/assign',
+router.post(
+	'/assign',
 	/*
         #swagger.description = 'Assigns appeals to inspector'
         #swagger.parameters['userId'] = {
@@ -32,6 +37,39 @@ router.post('/assign',
             schema: { $ref: '#/definitions/AppealsAssignedToInspector' }
         }
     */
-	asyncHandler(assignAppeals));
+	asyncHandler(assignAppeals)
+);
+
+router.post(
+	'/:appealId/book',
+	/*
+        #swagger.description = 'Book a site visit as an inspector.'
+        #swagger.parameters['userId'] = {
+            in: 'header',
+            type: 'string',
+            required: true
+        }
+        #swagger.parameters['appealId'] = {
+            in: 'url',
+            description: 'Unique identifier for the appeal.',
+            type: 'string',
+            required: true
+        }
+        #swagger.parameters['body'] = {
+			in: 'body',
+			description: 'Book site visit payload.',
+			schema: { $ref: "#/definitions/BookSiteVisit" },
+            required: true
+		}
+        #swagger.responses[200] = {
+            description: 'The updated appeal.',
+            schema: { $ref: '#/definitions/AppealsForInspector' }
+        }
+	*/
+	param('appealId').toInt(),
+	validateUserBelongsToAppeal,
+	validateBookSiteVisit,
+	asyncHandler(bookSiteVisit)
+);
 
 export { router as inspectorRoutes };

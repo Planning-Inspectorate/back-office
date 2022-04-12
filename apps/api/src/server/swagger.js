@@ -67,7 +67,7 @@ const document_ = {
 			}
 		}],
 		ChangeAppeal: {
-			$AppellandName: 'John Doe',
+			$AppellantName: 'John Doe',
 			$Address: {
 				$AddressLine1: '',
 				$AddressLine2: '',
@@ -154,7 +154,38 @@ const document_ = {
 				$appealId: 4,
 				$reason: { '@enum': ['appeal in wrong state', 'appeal already assigned'] }
 			}]
-		}
+		},
+		BookSiteVisit: {
+			$SiteVisitType: {
+				required: true,
+				'@enum': /** @type {import('@pins/inspector').SiteVisitType} */ ([
+					'accompanied',
+					'unaccompanied',
+					'access required'
+				])
+			},
+			$SiteVisitDate: {
+				required: true,
+				type: 'string',
+				format: 'date',
+				example: '2022-01-01'
+			},
+			$SiteVisitTimeSlot: {
+				required: true,
+				'@enum': [
+					'8am to 10am',
+					'9am to 11am',
+					'10am to midday',
+					'11am to 1pm',
+					'midday to 2pm',
+					'1pm to 3pm',
+					'2pm to 4pm',
+					'3pm to 5pm',
+					'4pm to 6pm',
+					'5pm to 7pm'
+				]
+			}		
+		},
 	},
 	components: {}
 };

@@ -7,9 +7,9 @@
 
   {% for column in params.columns %}
     {% if params.headerHidden and params.headerHidden | includes(column) %}
-      {% set head = (head.push({ html: '<span class="govuk-visually-hidden">' + column + '</span>' }), head) %}
+      {% set head = (head.push({ html: '<span class="govuk-visually-hidden">' + column.name + '</span>' }), head) %}
     {% else %}
-      {% set head = (head.push({ text: column }), head) %}
+      {% set head = (head.push({ text: column.name }), head) %}
     {% endif %}
   {% endfor %}
 
@@ -19,11 +19,15 @@
     {% for column in params.columns %}
       {% set cell = {} %}
 
-      {% switch column %}
+      {% switch column.name %}
         {% case 'Appeal age' %}
           {% set cell = { text: appeal.appealAge } %}
         {% case 'Appeal reference' %}
-          {% set cell = { text: appeal.reference } %}
+          {% if column.href %}
+            {% set cell = { html: createAppealLink(appeal) } %}
+          {% else %}
+            {% set cell = { text: appeal.reference } %}
+          {% endif %}
         {% case 'Appeal site' %}
           {% set cell = { text: appeal.appealSite | collapse(', ') } %}
         {% case 'Appeal type' %}
@@ -36,12 +40,12 @@
           {% set cell = { text: appeal.provisionalVisitType | capitalize } %}
         {% case 'Specialism' %}
           {% set cell = { text: 'Specialism' } %}
-        {% case 'Site visit data' %}
+        {% case 'Site visit date' %}
           {% set cell = { text: appeal.siteVisitDate } %}
         {% case 'Site visit time' %}
-          {% set cell = { text: appeal.siteVisitTimeSlot } %}
+          {% set cell = { text: appeal.siteVisitSlot } %}
         {% case 'Site visit type' %}
-          {% set cell = { text: appeal.siteVisitType } %}
+          {% set cell = { text: appeal.siteVisitType | capitalize } %}
         {% case 'Select' %}
           {% set cell = {
             attributes: { style: 'padding-top: 2px' },
@@ -53,7 +57,6 @@
           } %}
         {% case 'Status' %}
           {% set cell = { html: govukTag({ text: 'New', classes: 'govuk-tag--green' }) } %}
-        {
       {% endswitch %}
 
       {% set cells = (cells.push(cell), cells) %}      
@@ -69,6 +72,10 @@
       rows: rows
     })
   }}
+{% endmacro %}
+
+{% macro createAppealLink(appeal) %}
+  <a class="govuk-link" href="/inspector/appeals/{{ appeal.appealId }}">{{ appeal.reference }}</a>
 {% endmacro %}
 
 {% macro createCheckboxCell(params) %}

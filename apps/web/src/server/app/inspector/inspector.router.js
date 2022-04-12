@@ -17,7 +17,7 @@ import {
 	viewSiteVisitConfirmation
 } from './inspector.controller.js';
 import { bookSiteVisitGuard, canBookSiteVisitGuard, canIssueDecisionGuard, issueDecisionGuard } from './inspector.guards.js';
-import { handleDecision, validateAvailableAppeals, validateSiteVisit } from './inspector.pipes.js';
+import { handleDecision, validateAvailableAppeals, validateBookSiteVisit } from './inspector.pipes.js';
 
 const router = express.Router();
 
@@ -33,12 +33,12 @@ router.route('/appeals/:appealId').get(createAsyncHandler(viewAppealDetails));
 router
 	.route('/appeals/:appealId/book-site-visit')
 	.get(canBookSiteVisitGuard, createAsyncHandler(newSiteVisit))
-	.post(validateSiteVisit, expressValidationErrorsInterceptor, createAsyncHandler(createSiteVisit));
+	.post(validateBookSiteVisit, createAsyncHandler(createSiteVisit));
 
 router
 	.route('/appeals/:appealId/confirm-site-visit')
 	.get(bookSiteVisitGuard, createAsyncHandler(viewSiteVisitConfirmation))
-	.post(validateSiteVisit, expressValidationErrorsInterceptor, createAsyncHandler(confirmSiteVisit));
+	.post(bookSiteVisitGuard, createAsyncHandler(confirmSiteVisit));
 
 router
 	.route('/appeals/:appealId/issue-decision')

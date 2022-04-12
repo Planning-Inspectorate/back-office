@@ -1,57 +1,74 @@
 {% extends 'app/layouts/app.layout.njk' %}
 
+{% from "app/components/InfoBox.njk" import infoBox %}
 {% from "govuk/components/button/macro.njk" import govukButton %}
 {% from "inspector/components/appeal-table.component.njk" import appealTable %}
 
 {% set pageTitle = 'My appeals' %}
 
+{% set decisionsDue = appeals | filter({ status: 'decision due' }) %}
+{% set siteVisitsBooked = appeals | filter({ status: 'booked' }) %}
+{% set siteVisitsNotBooked = appeals | filter({ status: 'not yet booked' }) %}
+
 {% block pageContent %}
-  <h2 class="govuk-heading-l">Decisions due</h2>
-  {{
-    appealTable({
-      appeals: appeals | filter({ status: 'decision due' }),
-      columns: [
-        'Appeal reference',
-        'Appeal site',
-        'Appeal age',
-        'Appeal type',
-        'Site visit type',
-        'Site visit date'
-      ]
-    })
-  }}
+  <h2 class="govuk-heading-l govuk-!-margin-bottom-3">Decisions due</h2>
+  {% if decisionsDue.length > 0 %}
+    {{
+      appealTable({
+        appeals: decisionsDue,
+        columns: [
+          { name: 'Appeal reference', href: true },
+          { name: 'Appeal site' },
+          { name: 'Appeal age' },
+          { name: 'Appeal type' },
+          { name: 'Site visit type' },
+          { name: 'Site visit date' }
+        ]
+      })
+    }}
+  {% else %}
+    {{ infoBox({ text: 'No decisions due' }) }}
+  {% endif %}
 
-  <h2 class="govuk-heading-l">Decisions due</h2>
-  {{
-    appealTable({
-      appeals: appeals | filter({ status: 'booked' }),
-      columns: [
-        'Appeal reference',
-        'Appeal site',
-        'Appeal age',
-        'Appeal type',
-        'Site visit type',
-        'Site visit date',
-        'Site visit time'
-      ]
-    })
-  }}
+  <h2 class="govuk-heading-l govuk-!-margin-bottom-3">Site visits booked</h2>
+  {% if siteVisitsBooked.length > 0 %}
+    {{
+      appealTable({
+        appeals: siteVisitsBooked,
+        columns: [
+          { name: 'Appeal reference', href: true },
+          { name: 'Appeal site' },
+          { name: 'Appeal age' },
+          { name: 'Appeal type' },
+          { name: 'Site visit type' },
+          { name: 'Site visit date' },
+          { name: 'Site visit time' }
+        ]
+      })
+    }}
+  {% else %}
+    {{ infoBox({ text: 'No site visits booked' }) }}
+  {% endif %}
 
-  <h2 class="govuk-heading-l">Site visits not yet booked</h2>
-  {{
-    appealTable({
-      appeals: appeals | filter({ status: 'not yet booked' }),
-      columns: [
-        'Appeal reference',
-        'Status',
-        'Appeal site',
-        'Appeal age',
-        'Appeal type',
-        'Provisional site visit type'
-      ],
-      headerHidden: ['Status'] 
-    })
-  }}
+  <h2 class="govuk-heading-l govuk-!-margin-bottom-3">Site visits not yet booked</h2>
+  {% if siteVisitsNotBooked.length > 0 %}
+    {{
+      appealTable({
+        appeals: siteVisitsNotBooked,
+        columns: [
+          { name: 'Appeal reference', href: true },
+          { name: 'Status' },
+          { name: 'Appeal site' },
+          { name: 'Appeal age' },
+          { name: 'Appeal type' },
+          { name: 'Provisional site visit type' }
+        ],
+        headerHidden: ['Status'] 
+      })
+    }}
+  {% else %}
+    {{ infoBox({ text: 'No site visits to book' }) }}
+  {% endif %}
 
   {{
     govukButton({

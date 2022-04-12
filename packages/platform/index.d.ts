@@ -5,6 +5,7 @@ declare module '@pins/platform' {
 	export function validatePostcode(value: string): boolean;
 	export function validatePastDate(value: Date | string | number): boolean;
 	export function validateFutureDate(value: Date | string | number): boolean;
+	export function yesterday(): Date;
 }
 
 export type RequireAtLeastOneKey<T, Keys extends keyof T = keyof T> = Pick<T, Exclude<keyof T, Keys>> &
