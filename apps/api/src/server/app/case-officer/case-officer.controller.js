@@ -9,7 +9,8 @@ import CaseOfficerError from './case-officer-error.js';
 const caseOfficerStatuses = [
 	lpaQuestionnaireStatesStrings.awaiting_lpa_questionnaire,
 	lpaQuestionnaireStatesStrings.overdue_lpa_questionnaire,
-	lpaQuestionnaireStatesStrings.received_lpa_questionnaire
+	lpaQuestionnaireStatesStrings.received_lpa_questionnaire,
+	lpaQuestionnaireStatesStrings.incomplete_lpa_questionnaire
 ];
 
 const caseOfficerStatusesOnceQuestionnaireReceived = new Set([
