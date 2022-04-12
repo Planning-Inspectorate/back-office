@@ -46,6 +46,7 @@ class MockDatabaseClass {
 		this.pool = {
 			appeal: {
 				findUnique: getAppealByIdStub,
+				update: sinon.stub()
 			},
 			reviewQuestionnaire: {
 				create: addReviewStub
@@ -112,7 +113,9 @@ test('should submit confirmation of the outcome of LPA questionnaire', async (t)
 				thirdPartyAppealNotificationMissingOrIncorrect: false
 			}
 		});
+	console.log(resp.body);
 	t.is(resp.status, 200);
+
 	sinon.assert.calledWithExactly(addReviewStub, {  data: {
 		appealId: 11,
 		complete: true,
