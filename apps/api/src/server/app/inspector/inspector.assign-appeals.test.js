@@ -234,7 +234,20 @@ test('unable to assign appeals that are not in the appropriate state', async(t) 
 			town: 'Thurnscoe',
 			postCode: 'S63 0RB'
 		}
-	}], unsuccessfullyAssigned: [{ appealId: 4, reason: 'appeal in wrong state' }] });
+	}], unsuccessfullyAssigned: [{ 
+		appealId: 4, 
+		reason: 'appeal in wrong state',
+		reference: 'APP/Q9999/D/21/5463281',
+		appealType: 'HAS',
+		specialist: 'General',
+		appealAge: 22,
+		provisionalVisitType: 'access required',
+		appealSite: {
+			addressLine1: '55 Butcher Street',
+			town: 'Thurnscoe',
+			postCode: 'S63 0RB'
+		}
+	}] });
 });
 
 test('unable to assign appeals that are already assigned to someone', async (t) => {
@@ -257,7 +270,20 @@ test('unable to assign appeals that are already assigned to someone', async (t) 
 			postCode: 'MD21 5XY'
 		},
 		appealAge: 41
-	}], unsuccessfullyAssigned: [{ appealId: 5, reason: 'appeal already assigned' }] });
+	}], unsuccessfullyAssigned: [{
+		appealAge: 22,
+		appealId: 5,
+		appealSite: {
+			addressLine1: '55 Butcher Street',
+			postCode: 'S63 0RB',
+			town: 'Thurnscoe',
+		},
+		appealType: 'HAS',
+		provisionalVisitType: 'access required',
+		reason: 'appeal already assigned',
+		reference: 'APP/Q9999/D/21/5463281',
+		specialist: 'General',
+	}] });
 });
 
 test('throws error if no userid provided', async(t) => {
