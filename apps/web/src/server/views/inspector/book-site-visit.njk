@@ -1,0 +1,86 @@
+{% extends 'app/layouts/app-three-column.layout.njk' %}
+
+{% from "inspector/components/appeal-summary.component.njk" import appealSummary %}
+{% from "inspector/components/site-visit.component.njk" import siteVisit %}
+{% from "inspector/components/site-visit-details.component.njk" import siteVisitDetails %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/date-input/macro.njk" import govukDateInput %}
+{% from "govuk/components/details/macro.njk" import govukDetails %}
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% from "govuk/components/select/macro.njk" import govukSelect %}
+{% from "govuk/components/tag/macro.njk" import govukTag %}
+
+{% set pageTitle = 'Book site visit' %}
+{% set backLinkUrl = '/inspector/appeals/' + appeal.appealId %}
+{% set provisionalTag = govukTag({ text: "Provisional Type", classes: "govuk-tag--blue govuk-!-margin-left-3" }) %}
+
+{% block pageLeft %}
+  {{ appealSummary(appeal) }}
+{% endblock %}
+
+{% block pageContent %}
+  <h2 class="govuk-heading-l">Site visit details</h2>
+
+  <form method="post" novalidate>
+    {{
+      govukRadios({
+        idPrefix: "siteVisitType",
+        name: "siteVisitType",
+        errorMessage: errors.siteVisitType and { text: errors.siteVisitType.msg },
+        fieldset: {
+          legend: {
+            text: "Type of site visit",
+            classes: "govuk-fieldset__legend--m"
+          }
+        },
+        items: [
+          {
+            value: 'accessRequired',
+            html: 'Access required' + (provisionalTag if appeal.provisionalVisitType === 'access required' else ''),
+            checked: siteVisitType === 'access required'
+          },
+          { 
+            value: 'accompanied',
+            text: 'Accompanied',
+            checked: siteVisitType === 'accompanied'
+          },
+          {
+            value: 'unaccompanied',
+            html: 'Unaccompanied' + (provisionalTag if appeal.provisionalVisitType === 'unaccompanied' else ''),
+            checked: siteVisitType === 'unaccompanied'
+          }
+        ]
+      })
+    }}
+    {{ 
+      govukDateInput({
+        id: "siteVisitDate",
+        namePrefix: "siteVisitDate",
+        errorMessage: errors.siteVisitDate and { text: errors.siteVisitDate.msg },
+        fieldset: {
+          legend: {
+            text: "Date of site visit",
+            classes: "govuk-fieldset__legend--m"
+          }
+        }
+      })
+    }}
+    {{
+      govukSelect({
+        id: "siteVisitTimeSlot",
+        name: "siteVisitTimeSlot",
+        label: { text: "Time slot", classes: "govuk-label--m" },
+        errorMessage: errors.siteVisitTimeSlot and { text: errors.siteVisitTimeSlot.msg },
+        items: constants.siteVisitTimeSlots | selectItems({ placeholder: 'Please select', selectedValue: siteVisitTimeSlot })
+      })
+    }}
+    {{
+      govukDetails({
+        summaryText: 'Site visit details',
+        html: siteVisitDetails()
+      })
+    }}
+    {{ govukButton({ text: "Continue" }) }}
+  </form>
+
+{% endblock %}

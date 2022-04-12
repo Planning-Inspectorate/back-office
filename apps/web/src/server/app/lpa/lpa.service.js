@@ -1,4 +1,5 @@
 import request from './../../lib/request.js';
+import { camelCase } from 'lodash-es';
 
 /**
  * Call the API to get all incoming and incomplete questionnaires
@@ -40,6 +41,13 @@ export async function findQuestionnaireById(id) {
  * @param {string} id - numerical appeal id of the desired questionnaire
  * @returns {object} - response data
  */
-export async function confirmReview (id) {
-	return await request.post(`case-officer/${id}/confirm`);
+export async function confirmReview (id, fields) {
+	return await request.post(`case-officer/${id}/confirm`, {
+		json: {
+			reason: Object.keys(fields).reduce((accumulator, key) => {
+				if (fields[key]) accumulator[key] = fields[key] === 'true' ? true : fields[key];
+				return accumulator;
+			}, {})
+		}
+	});
 }

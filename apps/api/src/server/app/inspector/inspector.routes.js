@@ -1,6 +1,6 @@
 import express from 'express';
 import asyncHandler from '../middleware/async-handler.js';
-import { getAppeals } from './inspector.controller.js';
+import { getAppeals, assignAppeals } from './inspector.controller.js';
 
 const router = express.Router();
 
@@ -18,5 +18,20 @@ router.get('/',
         }
     */
 	asyncHandler(getAppeals));
+
+router.post('/assign',
+	/*
+        #swagger.description = 'Assigns appeals to inspector'
+        #swagger.parameters['userId'] = {
+            in: 'header',
+            type: 'integer',
+            required: true
+        }
+        #swagger.responses[200] = {
+            description: 'Appeals that were assigned to inspector and those that failed to be assigned',
+            schema: { $ref: '#/definitions/AppealsAssignedToInspector' }
+        }
+    */
+	asyncHandler(assignAppeals));
 
 export { router as inspectorRoutes };

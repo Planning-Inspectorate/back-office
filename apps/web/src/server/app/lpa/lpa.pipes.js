@@ -1,5 +1,12 @@
 import { body } from 'express-validator';
 
+export const registerLpaLocals = (_, response, next) => {
+	response.locals.containerSize = 'xl';
+	response.locals.serviceName = 'Appeal a planning decision';
+	response.locals.serviceUrl = '/lpa';
+	next();
+};
+
 // All validation pipes will save into the current request all the validation errors that would be used
 // by the `expressValidationErrorsInterceptor` to populate the body with.
 
@@ -9,8 +16,8 @@ import { body } from 'express-validator';
  * @returns {void}
  */
 export const lpaReviewQuestionnairePipe = [
-	body('plans-used-to-reach-decision-missing-or-incorrect-reason')
-		.if(body('plans-used-to-reach-decision-missing-or-incorrect').notEmpty())
+	body('applicationPlansToReachDecisionMissingOrIncorrectDescription')
+		.if(body('applicationPlansToReachDecisionMissingOrIncorrect').notEmpty())
 		.escape()
 		.trim()
 		.notEmpty()
@@ -18,8 +25,8 @@ export const lpaReviewQuestionnairePipe = [
 		.bail()
 		.isLength({ min: 1, max: 500 })
 		.withMessage('Word count exceeded'),
-	body('statutory-development-plan-policies-missing-or-incorrect-reason')
-		.if(body('statutory-development-plan-policies-missing-or-incorrect').notEmpty())
+	body('policiesStatutoryDevelopmentPlanPoliciesMissingOrIncorrectDescription')
+		.if(body('policiesStatutoryDevelopmentPlanPoliciesMissingOrIncorrect').notEmpty())
 		.escape()
 		.trim()
 		.notEmpty()
@@ -27,8 +34,8 @@ export const lpaReviewQuestionnairePipe = [
 		.bail()
 		.isLength({ min: 1, max: 500 })
 		.withMessage('Word count exceeded'),
-	body('other-relevant-policies-missing-or-incorrect-reason')
-		.if(body('other-relevant-policies-missing-or-incorrect').notEmpty())
+	body('policiesOtherRelevantPoliciesMissingOrIncorrectDescription')
+		.if(body('policiesOtherRelevantPoliciesMissingOrIncorrect').notEmpty())
 		.escape()
 		.trim()
 		.notEmpty()
@@ -36,8 +43,8 @@ export const lpaReviewQuestionnairePipe = [
 		.bail()
 		.isLength({ min: 1, max: 500 })
 		.withMessage('Word count exceeded'),
-	body('supplementary-planning-documents-missing-or-incorrect-reason')
-		.if(body('supplementary-planning-documents-missing-or-incorrect').notEmpty())
+	body('policiesSupplementaryPlanningDocumentsMissingOrIncorrectDescription')
+		.if(body('policiesSupplementaryPlanningDocumentsMissingOrIncorrect').notEmpty())
 		.escape()
 		.trim()
 		.notEmpty()
@@ -45,8 +52,8 @@ export const lpaReviewQuestionnairePipe = [
 		.bail()
 		.isLength({ min: 1, max: 500 })
 		.withMessage('Word count exceeded'),
-	body('conservation-area-guidance-missing-or-incorrect-reason')
-		.if(body('conservation-area-guidance-missing-or-incorrect').notEmpty())
+	body('siteConservationAreaMapAndGuidanceMissingOrIncorrectDescription')
+		.if(body('siteConservationAreaMapAndGuidanceMissingOrIncorrect').notEmpty())
 		.escape()
 		.trim()
 		.notEmpty()
@@ -54,8 +61,8 @@ export const lpaReviewQuestionnairePipe = [
 		.bail()
 		.isLength({ min: 1, max: 500 })
 		.withMessage('Word count exceeded'),
-	body('listed-building-description-missing-or-incorrect-reason')
-		.if(body('listed-building-description-missing-or-incorrect').notEmpty())
+	body('siteListedBuildingDescriptionMissingOrIncorrectDescription')
+		.if(body('siteListedBuildingDescriptionMissingOrIncorrect').notEmpty())
 		.escape()
 		.trim()
 		.notEmpty()
@@ -63,12 +70,12 @@ export const lpaReviewQuestionnairePipe = [
 		.bail()
 		.isLength({ min: 1, max: 500 })
 		.withMessage('Word count exceeded'),
-	body('application-notification-missing-or-incorrect-reason')
-		.if(body('application-notification-missing-or-incorrect').notEmpty())
+	body('thirdPartyApplicationNotificationMissingOrIncorrectDescription')
+		.if(body('thirdPartyApplicationNotificationMissingOrIncorrect').notEmpty())
 		.notEmpty()
 		.withMessage('Please provide details describing what is missing or wrong'),
-	body('representations-missing-or-incorrect-reason')
-		.if(body('representations-missing-or-incorrect').notEmpty())
+	body('thirdPartyRepresentationsMissingOrIncorrectDescription')
+		.if(body('thirdPartyRepresentationsMissingOrIncorrect').notEmpty())
 		.escape()
 		.trim()
 		.notEmpty()
@@ -76,8 +83,8 @@ export const lpaReviewQuestionnairePipe = [
 		.bail()
 		.isLength({ min: 1, max: 500 })
 		.withMessage('Word count exceeded'),
-	body('appeal-notification-missing-or-incorrect-reason')
-		.if(body('appeal-notification-missing-or-incorrect').notEmpty())
+	body('thirdPartyAppealNotificationMissingOrIncorrectDescription')
+		.if(body('thirdPartyAppealNotificationMissingOrIncorrect').notEmpty())
 		.notEmpty()
 		.withMessage('Please provide details describing what is missing or wrong')
 ];

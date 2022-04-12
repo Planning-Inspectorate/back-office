@@ -8,7 +8,7 @@ import DatabaseFactory from '../repositories/database.js';
 const request = supertest(app);
 
 const findUniqueStub = sinon.stub();
-findUniqueStub.withArgs({ where: { id: 1 }, include: { address: true } }).returns({
+findUniqueStub.withArgs({ where: { id: 1 }, include: { address: true, appellant: true } }).returns({
 	id: 1,
 	reference: 'APP/Q9999/D/21/1345264',
 	status: 'received_lpa_questionnaire',
@@ -16,7 +16,9 @@ findUniqueStub.withArgs({ where: { id: 1 }, include: { address: true } }).return
 	addressId: 1,
 	localPlanningDepartment: 'Maidstone Borough Council',
 	planningApplicationReference: '48269/APP/2021/1482',
-	appellantName: 'Lee Thornton',
+	appellant: {
+		name: 'Lee Thornton'
+	},
 	startedAt: new Date(2022, 4, 18),
 	address: {
 		addressLine1: 'line 1',
@@ -25,7 +27,7 @@ findUniqueStub.withArgs({ where: { id: 1 }, include: { address: true } }).return
 	}
 });
 
-findUniqueStub.withArgs({ where: { id: 2 }, include: { address: true } }).returns({
+findUniqueStub.withArgs({ where: { id: 2 }, include: { address: true, appellant: true } }).returns({
 	id: 2,
 	reference: 'APP/Q9999/D/21/1345264',
 	status: 'awaiting_lpa_questionnaire'
@@ -126,7 +128,7 @@ test.before('sets up mocking of database', () => {
 test('gets the appeals detailed information with received questionnaires', async (t) => {
 	const resp = await request.get('/case-officer/1');
 	const appealExampleDetail = {
-		AppealId : 1,
+		AppealId: 1,
 		AppealReference: 'APP/Q9999/D/21/1345264',
 		LocalPlanningDepartment:'Maidstone Borough Council',
 		PlanningApplicationreference:'48269/APP/2021/1482',

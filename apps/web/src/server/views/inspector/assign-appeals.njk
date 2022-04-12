@@ -1,0 +1,33 @@
+{% extends 'app/layouts/app.layout.njk' %}
+
+{% from "govuk/components/back-link/macro.njk" import govukBackLink %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/table/macro.njk" import govukTable %}
+{% from "inspector/components/appeal-table.component.njk" import appealTable %}
+
+{% set pageTitle = 'Available appeals' %}
+
+{% block backLink %}
+  {{ govukBackLink({ text: 'Back to my appeals', href: '/inspector' }) }}
+{% endblock %}
+
+{% block pageContent %}
+  <form method="post">
+    {{
+      appealTable({
+        appeals: appeals,
+        columns: [
+          'Select',
+          'Appeal reference',
+          'Postcode',
+          'Appeal age',
+          'Appeal type',
+          'Specialism',
+          'Recommended site visit'
+        ],
+        selected: selectedAppealIds
+      })
+    }}
+    {{ govukButton({ text: 'Assign selected appeals to me' }) }}
+  </form>
+{% endblock %}

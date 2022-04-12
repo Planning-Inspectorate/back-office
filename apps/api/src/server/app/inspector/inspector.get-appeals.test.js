@@ -14,7 +14,9 @@ const appeal_1 = {
 	createdAt: new Date(2022, 1, 23),
 	localPlanningDepartment: 'Maidstone Borough Council',
 	planningApplicationReference: '48269/APP/2021/1482',
-	appellantName: 'Lee Thornton',
+	appellant: {
+		name: 'Lee Thornton',
+	},
 	startedAt: new Date(2022, 1, 25),
 	address: {
 		addressLine1: '96 The Avenue',
@@ -217,7 +219,8 @@ test('gets all appeals assigned to inspector', async (t) => {
 			address: true,
 			siteVisit: true,
 			lpaQuestionnaire: true,
-			appealDetailsFromAppellant: true
+			appealDetailsFromAppellant: true,
+			appellant: true
 		}
 	});
 });

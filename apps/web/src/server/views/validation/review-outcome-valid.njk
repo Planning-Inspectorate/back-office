@@ -1,0 +1,34 @@
+{% extends "app/layouts/app-two-column.layout.njk" %}
+
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/character-count/macro.njk" import govukCharacterCount %}
+
+{% set pageTitle = 'Valid appeal details' %}
+{% set backLinkUrl = '/validation/appeals/' + appeal.AppealId + ('?edit=true' if appeal.AppealStatus === 'incomplete') %}
+
+{% block pageContent %}
+	<form method="post" novalidate="novalidate">
+		<p class="govuk-body">Appeal reference:
+			{{ appeal.AppealReference }}</p>
+			<input type="hidden" name="status" value="valid" />
+			{{
+				govukCharacterCount({
+					name: "descriptionOfDevelopment",
+					id: "descriptionOfDevelopment",
+					maxlength: 500,
+					label: {
+						text: "Description of development",
+						classes: "govuk-!-font-weight-bold"
+					},
+					value: reviewOutcome.descriptionOfDevelopment,
+					errorMessage: errors.descriptionOfDevelopment and {
+						text: errors.descriptionOfDevelopment.msg
+					}
+				})
+			}}
+		<div class="govuk-button-group">
+			{{ govukButton({ text: 'Continue' }) }}
+			<a class="govuk-link" href="{{ backLinkUrl }}">Change outcome</a>
+		</div>
+	</form>
+{% endblock %}

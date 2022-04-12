@@ -1,42 +1,59 @@
 {% extends "app/layouts/app.layout.njk" %}
 
-{% from "govuk/components/header/macro.njk" import govukHeader %}
 {% from "govuk/components/table/macro.njk" import govukTable %}
 {% from "app/components/infoBox.njk" import infoBox %}
 
 {% set pageTitle = 'Appeal submissions for review' %}
+{% set newAppeals = appeals | filter({ AppealStatus: 'new' }) %}
+{% set incompleteAppeals = appeals | filter ({ AppealStatus: 'incomplete' }) %}
 
 {% block pageContent %}
-	{% set tableHeadItems = [
-		{ text: "Appeal reference" },
-		{ text: "Received on" },
-		{ text: "Appeal site" }
-	]
-	%}
-
-	<h2 class="govuk-heading-l govuk-!-margin-bottom-1">
+	<h2 class="govuk-heading-l govuk-!-margin-bottom-3">
 		New appeals
 	</h2>
 
-	{% if appealsList.newAppeals.length > 0 %}
-		{{ govukTable({
-			head: tableHeadItems,
-			rows: appealsList.newAppeals })
-		}}
+	{% if newAppeals.length > 0 %}
+		{{ appealTable({ appeals: newAppeals }) }}
 	{% else %}
-		{{ infoBox("No New Appeals", classes="govuk-!-margin-bottom-8") }}
+		{{ infoBox({ text: "No new appeals", classes: "govuk-!-margin-bottom-8" }) }}
 	{% endif %}
 
-	<h2 class="govuk-heading-l govuk-!-margin-bottom-1">
+	<h2 class="govuk-heading-l govuk-!-margin-bottom-3">
 		Incomplete appeals
 	</h2>
 
-	{% if appealsList.incompleteAppeals.length > 0 %}
-		{{ govukTable({
-			head: tableHeadItems,
-			rows: appealsList.incompleteAppeals })
-		}}
+	{% if incompleteAppeals.length > 0 %}
+		{{ appealTable({ appeals: incompleteAppeals }) }}
 	{% else %}
-		{{ infoBox("No Incomplete Appeals") }}
+		{{ infoBox({ text: "No incomplete appeals" }) }}
 	{% endif %}
 {% endblock %}
+
+{% macro appealTable(params) %}
+	{% macro createReferenceCell(appeal) %}
+		<a class="govuk-link" href="/validation/appeals/{{appeal.AppealId}}">
+			{{ appeal.AppealReference }}
+		</a>
+	{% endmacro %}
+
+	{% set rows = [] %}
+	{% for appeal in params.appeals %}
+		{% set row = [
+			{ html: createReferenceCell(appeal) },
+			{ text: appeal.Received },
+			{ text: appeal.AppealSite | collapse(', ') }
+		] %}
+		{% set rows = (rows.push(row), rows) %}
+	{% endfor %}
+
+  {{
+    govukTable({
+      head: [
+      	{ text: "Appeal reference" },
+        { text: "Received on" },
+        { text: "Appeal site" }
+      ],
+			rows: rows
+    })
+  }}
+{% endmacro %}

@@ -1,4 +1,4 @@
-{% extends "app/layouts/app-wide.layout.njk" %}
+{% extends "app/layouts/app.layout.njk" %}
 
 {% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
 {% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
@@ -7,23 +7,23 @@
 
 {% macro missingOrIncorrectDocumentsList() %}
 	<ul class="govuk-list">
-		{%- for key, data in missingOrIncorrectDocuments -%}
-			<li>
-				{%- if data.value -%}
-					{{ missingOrIncorrectDocumentsLabelsMap[key] }}:<br>
-					{%- if key === 'applicationNotification' or key === 'appealNotification' -%}
+		{%- for key, value in fields -%}
+			{%- if key | endsWith('MissingOrIncorrect') and value === 'true' -%}
+				<li>
+					{%- if fields[key + 'Description'] -%}
+						{{ missingOrIncorrectDocumentsLabelsMap[key | replace('MissingOrIncorrect', '')] }}:<br />
+						{{ fields[key + 'Description'] }}
+					{%- elif fields[key + 'ListOfAddresses'] or fields[key + 'CopyOfLetterOrSiteNotice'] -%}
+						{{ missingOrIncorrectDocumentsLabelsMap[key | replace('MissingOrIncorrect', '')] }}:<br />
 						<ul class="govuk-list--bullet govuk-!-margin-top-0">
-							{%- for valueKey, valueData in data.value -%}
-								<li class="govuk-!-margin-bottom-0">{{ missingOrIncorrectDocumentsLabelsMap[valueKey] }}</li>
-							{%- endfor -%}
+							{%- if fields[key + 'ListOfAddresses'] -%}<li class="govuk-!-margin-bottom-0">{{ missingOrIncorrectDocumentsLabelsMap['listOfAddresses'] }}</li>{%- endif -%}
+							{%- if fields[key + 'CopyOfLetterOrSiteNotice'] -%}<li class="govuk-!-margin-bottom-0">{{ missingOrIncorrectDocumentsLabelsMap['copyOfLetterOrSiteNotice'] }}</li>{%- endif -%}
 						</ul>
 					{%- else -%}
-						{{ data.value }}
+						{{ missingOrIncorrectDocumentsLabelsMap[key | replace('MissingOrIncorrect', '')] }}
 					{%- endif -%}
-				{%- elif data === true -%}
-					{{ missingOrIncorrectDocumentsLabelsMap[key] }}
-				{%- endif -%}
-			</li>
+				</li>
+			{%- endif -%}
 		{%- endfor -%}
 	</ul>
 {% endmacro %}

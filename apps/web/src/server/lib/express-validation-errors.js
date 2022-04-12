@@ -12,7 +12,7 @@ export const expressValidationErrorsInterceptor = (request, response, next) => {
 	const errors = validationResult(request);
 
 	if (!errors.isEmpty()) {
-		request.validationErrors = errors.mapped();
+		response.locals.errors = errors.mapped();
 
 		request.body.errors = errors.mapped();
 		request.body.errorSummary = errors.errors.map(({ msg, param }) => ({

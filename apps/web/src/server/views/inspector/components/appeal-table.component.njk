@@ -1,0 +1,83 @@
+{% from "govuk/components/table/macro.njk" import govukTable %}
+{% from "govuk/components/tag/macro.njk" import govukTag %}
+
+{% macro appealTable(params) %}
+  {% set head = [] %}
+  {% set rows = [] %}
+
+  {% for column in params.columns %}
+    {% if params.headerHidden and params.headerHidden | includes(column) %}
+      {% set head = (head.push({ html: '<span class="govuk-visually-hidden">' + column + '</span>' }), head) %}
+    {% else %}
+      {% set head = (head.push({ text: column }), head) %}
+    {% endif %}
+  {% endfor %}
+
+  {% for appeal in params.appeals %}
+    {% set cells = [] %}
+    
+    {% for column in params.columns %}
+      {% set cell = {} %}
+
+      {% switch column %}
+        {% case 'Appeal age' %}
+          {% set cell = { text: appeal.appealAge } %}
+        {% case 'Appeal reference' %}
+          {% set cell = { text: appeal.reference } %}
+        {% case 'Appeal site' %}
+          {% set cell = { text: appeal.appealSite | collapse(', ') } %}
+        {% case 'Appeal type' %}
+          {% set cell = { text: appeal.appealType } %}
+        {% case 'Postcode' %}
+          {% set cell = { text: appeal.appealSite.postCode } %}
+        {% case 'Provisional site visit type' %}
+          {% set cell = { text: appeal.provisionalVisitType | capitalize } %}
+        {% case 'Recommended site visit' %}
+          {% set cell = { text: appeal.provisionalVisitType | capitalize } %}
+        {% case 'Specialism' %}
+          {% set cell = { text: 'Specialism' } %}
+        {% case 'Site visit data' %}
+          {% set cell = { text: appeal.siteVisitDate } %}
+        {% case 'Site visit time' %}
+          {% set cell = { text: appeal.siteVisitTimeSlot } %}
+        {% case 'Site visit type' %}
+          {% set cell = { text: appeal.siteVisitType } %}
+        {% case 'Select' %}
+          {% set cell = {
+            attributes: { style: 'padding-top: 2px' },
+            html: createCheckboxCell({
+              label: 'Select AppealReference',
+              checked: params.selected | includes(appeal.appealId),
+              value: appeal.appealId
+            })
+          } %}
+        {% case 'Status' %}
+          {% set cell = { html: govukTag({ text: 'New', classes: 'govuk-tag--green' }) } %}
+        {
+      {% endswitch %}
+
+      {% set cells = (cells.push(cell), cells) %}      
+    {% endfor %}
+
+    {% set rows = (rows.push(cells), rows) %}
+  {% endfor %}
+
+  {{
+    govukTable({
+      classes: 'govuk-!-margin-bottom-9',
+      head: head,
+      rows: rows
+    })
+  }}
+{% endmacro %}
+
+{% macro createCheckboxCell(params) %}
+  <div class="govuk-checkboxes govuk-checkboxes--small">
+    <div class="govuk-checkboxes__item">
+      <input id="{{ params.value }}" class="govuk-checkboxes__input" name="appealIds[]" type="checkbox" value="{{ params.value }}" {{-" checked" if params.checked }}>
+      <label class="govuk-label govuk-checkboxes__label" for="{{ params.value }}">
+        <span class="govuk-visually-hidden">{{ params.label }}</span>
+      </label>
+    </div>
+  </div>
+{% endmacro %}
