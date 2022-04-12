@@ -44,6 +44,14 @@ const appealRepository = (function() {
 				}
 			});
 		},
+		getByIdIncluding: function(id, including) {
+			return getPool().appeal.findUnique({
+				where: {
+					id: id
+				},
+				include: including
+			});
+		},
 		getByIdWithAddress: function(id) {
 			return getPool().appeal.findUnique({
 				where: {

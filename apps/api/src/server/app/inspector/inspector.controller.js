@@ -24,6 +24,11 @@ const formatStatus = function(status) {
 	}
 };
 
+const provisionalAppealSiteVisitType = function(appeal) {
+	return (!appeal.lpaQuestionnaire.siteVisibleFromPublicLand || !appeal.appealDetailsFromAppellant.siteVisibleFromPublicLand) ? 
+		'access required' : 'unaccompanied'
+}
+
 const formatAppealForAllAppeals = function(appeal) {
 	return {
 		appealId: appeal.id,
@@ -34,10 +39,7 @@ const formatAppealForAllAppeals = function(appeal) {
 		...(!_.isEmpty(appeal.siteVisit) && { siteVisitDate: formatDate(appeal.siteVisit.visitDate) }),
 		...(!_.isEmpty(appeal.siteVisit) && { siteVisitSlot: appeal.siteVisit.visitSlot }),
 		...(!_.isEmpty(appeal.siteVisit) && { siteVisitType: appeal.siteVisit.visitType }),
-		...(_.isEmpty(appeal.siteVisit) && { 
-			provisionalVisitType: (appeal.lpaQuestionnaire.siteVisibleFromPublicLand || appeal.appealDetailsFromAppellant.siteVisibleFromPublicLand) ? 
-				'access required' : 'unaccompanied' 
-		}),
+		...(_.isEmpty(appeal.siteVisit) && { provisionalVisitType: provisionalAppealSiteVisitType(appeal) }),
 		status: formatStatus(appeal.status),
 	};
 };
@@ -64,12 +66,20 @@ const assignAppealsById = async function(userId, appealIds) {
 	const successfullyAssigned = [];
 	const unsuccessfullyAssigned = [];
 	await Promise.all(appealIds.map(async (appealId) => {
-		const appeal = await appealRepository.getById(appealId);
+		const appeal = await appealRepository.getByIdIncluding(appealId, { address: true, appellant: true, appealDetailsFromAppellant: true });
 		if (appeal.userId == undefined && appeal.status == 'available_for_inspector_pickup') {
 			try {
 				const nextState = transitionState({ appealId: appeal.id }, appeal.status, 'PICKUP');
 				await appealRepository.updateById(appeal.id, { status: nextState.value, user: { connect: { id: userId } } });
-				successfullyAssigned.push(appeal.id);
+				successfullyAssigned.push({
+					appealId: appeal.id,
+					reference: appeal.reference,
+					appealType: 'HAS',
+					specialist: 'General',
+					provisionalVisitType: provisionalAppealSiteVisitType(appeal),
+					appealAge: daysBetweenDates(appeal.startedAt, new Date()),
+					appealSite: formatAddressLowerCase(appeal.address)
+				});
 			} catch (error) {
 				console.error(error);
 				unsuccessfullyAssigned.push({ appealId: appeal.id, reason: error.message });

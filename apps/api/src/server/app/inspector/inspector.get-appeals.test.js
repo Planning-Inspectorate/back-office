@@ -107,10 +107,10 @@ const appeal_5 = {
 	},
 	siteVisit: {},
 	lpaQuestionnaire: {
-		siteVisibleFromPublicLand: false
+		siteVisibleFromPublicLand: true
 	},
 	appealDetailsFromAppellant: {
-		siteVisibleFromPublicLand: false
+		siteVisibleFromPublicLand: true
 	}
 };
 
@@ -128,6 +128,8 @@ class MockDatabaseClass {
 
 test('gets all appeals assigned to inspector', async (t) => {
 	sinon.stub(DatabaseFactory, 'getInstance').callsFake((arguments_) => new MockDatabaseClass(arguments_));
+
+	const clock = sinon.useFakeTimers({ now: 1_649_319_144_000 });
 
 	const resp = await request.get('/inspector').set('userId', 1);
 
