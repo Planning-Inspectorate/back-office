@@ -29,7 +29,6 @@ const getAppealDetails = async function (request, response) {
 };
 
 const confirmingLPAQuestionnaire =  async function (request, response) {
-	console.log('HERE', request.body);
 	validateReviewRequest(request.body);
 	const reviewResult = reviewComplete(request.body);
 	const appeal = await getAppealForCaseOfficer(request.params.id);

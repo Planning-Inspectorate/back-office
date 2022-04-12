@@ -24,11 +24,13 @@ findUniqueStub.withArgs({ where: { id: 1 }, include: { address: true } }).return
 		postcode: 'some code'
 	}
 });
+
 findUniqueStub.withArgs({ where: { id: 2 }, include: { address: true } }).returns({
 	id: 2,
 	reference: 'APP/Q9999/D/21/1345264',
 	status: 'awaiting_lpa_questionnaire'
 });
+
 const listOfDocuments = [
 	{
 		Type: 'planning application form',
@@ -59,6 +61,51 @@ const listOfDocuments = [
 		Type: 'supporting document',
 		Filename: 'other-document-3.pdf',
 		URL: 'localhost:8080'
+	},
+	{
+		Type: 'planning officers report',
+		Filename: 'planning-officers-report.pdf',
+		URL: 'localhost:8080'
+	},
+	{
+		Type: 'plans used to reach decision',
+		Filename: 'plans-used-to-reach-decision.pdf',
+		URL: 'localhost:8080'
+	},
+	{
+		Type: 'statutory development plan policy',
+		Filename: 'policy-and-supporting-text-1.pdf',
+		URL: 'localhost:8080'
+	},
+	{
+		Type: 'statutory development plan policy',
+		Filename: 'policy-and-supporting-text-2.pdf',
+		URL: 'localhost:8080'
+	},
+	{
+		Type: 'statutory development plan policy',
+		Filename: 'policy-and-supporting-text-3.pdf',
+		URL: 'localhost:8080'
+	},
+	{
+		Type: 'other relevant policy',
+		Filename: 'policy-and-supporting-text-1.pdf',
+		URL: 'localhost:8080'
+	},
+	{
+		Type: 'other relevant policy',
+		Filename: 'policy-and-supporting-text-2.pdf',
+		URL: 'localhost:8080'
+	},
+	{
+		Type: 'other relevant policy',
+		Filename: 'policy-and-supporting-text-3.pdf',
+		URL: 'localhost:8080'
+	},
+	{
+		Type: 'conservation area guidance',
+		Filename: 'conservation-area-plan.pdf',
+		URL: 'localhost:8080'
 	}
 ];
 
@@ -83,18 +130,19 @@ test('gets the appeals detailed information with received questionnaires', async
 		AppealReference: 'APP/Q9999/D/21/1345264',
 		LocalPlanningDepartment:'Maidstone Borough Council',
 		PlanningApplicationreference:'48269/APP/2021/1482',
+		AppealSite: {
+			AddressLine1: 'line 1',
+			AddressLine2: 'line 2',
+			PostCode: 'some code'
+		},
 		AppealSiteNearConservationArea: false,
 		WouldDevelopmentAffectSettingOfListedBuilding: false,
 		ListedBuildingDesc: '',
-		AppealSite: {
-			AddressLine1: 'line 1', 
-			AddressLine2: 'line 2', 
-			PostCode: 'some code'
-		},
 		Documents: listOfDocuments
 	};
 	t.is(resp.status, 200);
 	t.deepEqual(resp.body, appealExampleDetail);
+
 });
 
 test('unable to retrieve details for an appeal which has yet to receive the questionnaire', async (t) => {
