@@ -45,6 +45,8 @@ const formatAppealForAllAppeals = function(appeal) {
 };
 
 const validateUserId = function(userid) {
+	console.log('validating user id')
+	console.log(userid);
 	if (userid == undefined) {
 		throw new InspectorError('Must provide userid', 400);
 	}

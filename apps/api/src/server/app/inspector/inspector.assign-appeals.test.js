@@ -215,31 +215,50 @@ test('assigns all appeals as they are all available', async(t) => {
 	}], unsuccessfullyAssigned: [] });
 });
 
-// test('unable to assign appeals that are not in the appropriate state', async(t) => {
-// 	const resp = await request.post('/inspector/assign').set('userId', 1).send([3, 4]);
-// 	t.is(resp.status, 200);
-// 	sinon.assert.calledWith(updateStub, {
-// 		where: { id: 3 },
-// 		data: { updatedAt: sinon.match.any, status: 'site_visit_not_yet_booked', user: { connect: { id: 1 } }  }
-// 	});
-// 	t.deepEqual(resp.body, { successfullyAssigned: [{
-// 		id: 3,
-// 		reference: 'APP/Q9999/D/21/5463281'
-// 	}], unsuccessfullyAssigned: [{ appealId: 4, reason: 'appeal in wrong state' }] });
-// });
+test('unable to assign appeals that are not in the appropriate state', async(t) => {
+	const resp = await request.post('/inspector/assign').set('userId', 1).send([3, 4]);
+	t.is(resp.status, 200);
+	sinon.assert.calledWith(updateStub, {
+		where: { id: 3 },
+		data: { updatedAt: sinon.match.any, status: 'site_visit_not_yet_booked', user: { connect: { id: 1 } }  }
+	});
+	t.deepEqual(resp.body, { successfullyAssigned: [{
+		appealId: 3,
+		reference: 'APP/Q9999/D/21/5463281',
+		appealType: 'HAS',
+		specialist: 'General',
+		appealAge: 22,
+		provisionalVisitType: 'access required',
+		appealSite: {
+			addressLine1: '55 Butcher Street',
+			town: 'Thurnscoe',
+			postCode: 'S63 0RB'
+		}
+	}], unsuccessfullyAssigned: [{ appealId: 4, reason: 'appeal in wrong state' }] });
+});
 
-// test('unable to assign appeals that are already assigned to someone', async (t) => {
-// 	const resp = await request.post('/inspector/assign').set('userId', 1).send([1, 5]);
-// 	t.is(resp.status, 200);
-// 	sinon.assert.calledWith(updateStub, {
-// 		where: { id: 1 },
-// 		data: { updatedAt: sinon.match.any, status: 'site_visit_not_yet_booked', user: { connect: { id: 1 } }  }
-// 	});
-// 	t.deepEqual(resp.body, { successfullyAssigned: [{
-// 		id: 1,
-// 		reference: 'APP/Q9999/D/21/1345264'
-// 	}], unsuccessfullyAssigned: [{ appealId: 5, reason: 'appeal already assigned' }] });
-// });
+test('unable to assign appeals that are already assigned to someone', async (t) => {
+	const resp = await request.post('/inspector/assign').set('userId', 1).send([1, 5]);
+	t.is(resp.status, 200);
+	sinon.assert.calledWith(updateStub, {
+		where: { id: 1 },
+		data: { updatedAt: sinon.match.any, status: 'site_visit_not_yet_booked', user: { connect: { id: 1 } }  }
+	});
+	t.deepEqual(resp.body, { successfullyAssigned: [{
+		appealId: 1,
+		reference: 'APP/Q9999/D/21/1345264',
+		appealType: 'HAS',
+		specialist: 'General',
+		provisionalVisitType: 'access required',
+		appealSite: {
+			addressLine1: '96 The Avenue',
+			county: 'Kent',
+			town: 'Maidstone',
+			postCode: 'MD21 5XY'
+		},
+		appealAge: 41
+	}], unsuccessfullyAssigned: [{ appealId: 5, reason: 'appeal already assigned' }] });
+});
 
 // test('throws error if no userid provided', async(t) => {
 // 	const resp = await request.post('/inspector/assign').send([1]);
