@@ -3,8 +3,8 @@ import got from 'got';
 import appealRepository from '../repositories/appeal.repository.js';
 import validationDecisionRepository from '../repositories/validation-decision.repository.js';
 import ValidationError from './validation-error.js';
-import transitionState from '../state-machine/household-appeal.machine.js';
-import { validationStatesStrings, validationActionsStrings } from '../state-machine/validation-states.js';
+import { transitionState, validationStatesStrings} from '../state-machine/household-appeal.machine.js';
+import { validationActionsStrings } from '../state-machine/validation-states.js';
 import appealFormatter from './appeal-formatter.js';
 import { validationDecisions, validateAppealValidatedRequest, validateUpdateValidationRequest } from './validate-request.js';
 

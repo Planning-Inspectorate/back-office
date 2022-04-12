@@ -5,7 +5,7 @@ import { inspectorStatesStrings } from '../state-machine/inspector-states.js';
 import formatAddressLowerCase from '../utils/address-formatter-lowercase.js';
 import formatDate from '../utils/date-formatter.js';
 import InspectorError from './inspector-error.js';
-import transitionState from '../state-machine/household-appeal.machine.js';
+import { transitionState } from '../state-machine/household-appeal.machine.js';
 import daysBetweenDates from '../utils/days-between-dates.js';
 
 /** @typedef {import('@pins/inspector').Appeal} Appeal */

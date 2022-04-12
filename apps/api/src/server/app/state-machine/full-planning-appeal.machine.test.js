@@ -1,7 +1,7 @@
 // eslint-disable-next-line import/no-unresolved
 import test from 'ava';
 import sinon from 'sinon';
-import transitionState from './full-planning-appeal.machine.js';
+import { transitionState } from './full-planning-appeal.machine.js';
 import inspectorActionsService from './inspector.actions.js';
 import lpaQuestionnaireActions from './lpa-questionnaire.actions.js';
 

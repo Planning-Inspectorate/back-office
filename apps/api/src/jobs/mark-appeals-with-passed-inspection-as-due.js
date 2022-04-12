@@ -1,5 +1,5 @@
 import appealRepository from '../server/app/repositories/appeal.repository.js';
-import transitionState from '../server/app/state-machine/household-appeal.machine.js';
+import { transitionState } from '../server/app/state-machine/household-appeal.machine.js';
 
 /**
  * @returns {Array} array of appeals that are in 'site_visit_booked' state which has passed inspection
