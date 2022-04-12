@@ -8,6 +8,7 @@ export { selectItems } from './select-items.js';
 export { makeQuestionnaireTableRows } from './make-questionnaire-table-rows.js';
 export { collapse } from './collapse.js';
 export { hasOneOf } from './object.js';
+export { endsWith } from './ends-with.js';
 
 // importing from domains like this is slightly sketchy
 // TODO: investigate a way to lazily add nunjucks filters from a domain

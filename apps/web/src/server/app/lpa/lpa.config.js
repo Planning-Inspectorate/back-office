@@ -4,17 +4,17 @@ export const questionnaireReviewOutcomeLabelsMap = {
 };
 
 export const missingOrIncorrectDocumentsLabelsMap = {
-	planningOfficersReport: 'Planning Officer\'s report',
-	plansUsedToReachDecision: 'Plans used to reach decision',
-	statutoryDevelopmentPlanPolicies: 'Statutory development plan policies',
-	otherRelevantPolicies: 'Other relevant policies',
-	supplementaryPlanningDocuments: 'Supplementary planning documents',
-	conservationAreaGuidance: 'Conservation area guidance',
-	listedBuildingDescription: 'Listed building description',
-	applicationNotification: 'Application notification',
-	applicationPublicity: 'Application publicity',
-	representations: 'Representations',
-	appealNotification: 'Appeal notification',
+	applicationPlanningOfficersReport: 'Planning Officer\'s report',
+	applicationPlansToReachDecision: 'Plans used to reach decision',
+	policiesStatutoryDevelopmentPlanPolicies: 'Statutory development plan policies',
+	policiesOtherRelevantPolicies: 'Other relevant policies',
+	policiesSupplementaryPlanningDocuments: 'Supplementary planning documents',
+	siteConservationAreaMapAndGuidance: 'Conservation area guidance',
+	siteListedBuildingDescription: 'Listed building description',
+	thirdPartyApplicationNotification: 'Application notification',
+	thirdPartyApplicationPublicity: 'Application publicity',
+	thirdPartyRepresentations: 'Representations',
+	thirdPartyAppealNotification: 'Appeal notification',
 	listOfAddresses: 'List of addresses',
 	copyOfLetterOrSiteNotice: 'Copy of letter or site notice'
 };
