@@ -53,3 +53,4 @@ pids
 
 # Other, system file
 .DS_Store
+.vscode/settings.json
