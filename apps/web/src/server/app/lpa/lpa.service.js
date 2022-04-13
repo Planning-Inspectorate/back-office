@@ -16,7 +16,7 @@ export async function findAllIncomingIncompleteQuestionnaires() {
 
 	// eslint-disable-next-line unicorn/no-array-for-each
 	data.forEach((item) => {
-		if (item.QuestionnaireStatus === 'incomplete') {
+		if (item.QuestionnaireStatus === 'incomplete_lpa_questionnaire') {
 			questionnairesListData.incompleteQuestionnaires.push(item);
 		} else {
 			questionnairesListData.incomingQuestionnaires.push(item);
