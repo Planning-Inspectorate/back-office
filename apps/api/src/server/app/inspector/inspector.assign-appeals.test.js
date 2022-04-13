@@ -298,7 +298,7 @@ test('throws error if no appeals provided', async(t) => {
 	const resp = await request.post('/inspector/assign').set('userId', 1);
 	t.is(resp.status, 400);
 	t.deepEqual(resp.body, { errors: {
-		'': 'Provide appeals to assign to the inspector',
+		'': 'Provide a non-empty array of appeals to assign to the inspector',
 	} });
 });
 
@@ -306,6 +306,6 @@ test('throws error if empty array of appeals provided', async(t) => {
 	const resp = await request.post('/inspector/assign').set('userId', 1).send([]);
 	t.is(resp.status, 400);
 	t.deepEqual(resp.body, { errors: {
-		'': 'Provide appeals to assign to the inspector',
+		'': 'Provide a non-empty array of appeals to assign to the inspector',
 	} });
 });
