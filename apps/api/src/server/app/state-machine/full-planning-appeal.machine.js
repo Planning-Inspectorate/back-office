@@ -1,23 +1,19 @@
 import { createMachine, interpret } from 'xstate';
 import { generateValidationStates } from './validation-states.js';
 import { generateLpaQuestionnaireStates } from './lpa-questionnaire-states.js';
+import { inspectorBookingStates, generateInspectorPickupStates } from './inspector-states.js'
 
 const validationStates = generateValidationStates('awaiting_lpa_questionnaire_and_statements');
 
 const lpaQuestionnaireStates = generateLpaQuestionnaireStates();
 
+const inspectorPickupStates = generateInspectorPickupStates('picked_up', { picked_up: { type: 'final' } });
+
 const lpaQuestionnaireWithExtrasStates = {
 	initial: 'awaiting_lpa_questionnaire',
 	states: {
 		...lpaQuestionnaireStates,
-		available_for_inspector_pickup: {
-			on: {
-				PICKUP: 'picked_up'
-			}
-		},
-		picked_up: {
-			type: 'final'
-		}
+		...inspectorPickupStates
 	},
 };
 
@@ -52,28 +48,6 @@ const lpaQuestionnaireAndStatementsStates = {
 	},
 };
 
-const inspectorStates = {
-	site_visit_not_yet_booked: {
-		on: {
-			BOOK: 'site_visit_booked',
-		},
-	},
-	site_visit_booked: {
-		entry: ['notifyAppellantOfBookedSiteVisit'],
-		on: {
-			BOOKING_PASSED: 'decision_due',
-		},
-	},
-	decision_due: {
-		on: {
-			DECIDE: 'appeal_decided',
-		},
-	},
-	appeal_decided: {
-		entry: ['notifyAppellantOfDecision'],
-	},
-};
-
 const createFullPlanningAppealMachine = function (context) {
 	return createMachine({
 		id: 'full_planning_appeal',
@@ -82,7 +56,7 @@ const createFullPlanningAppealMachine = function (context) {
 		states: {
 			...validationStates,
 			...lpaQuestionnaireAndStatementsStates,
-			...inspectorStates,
+			...inspectorBookingStates,
 		},
 	});
 };
