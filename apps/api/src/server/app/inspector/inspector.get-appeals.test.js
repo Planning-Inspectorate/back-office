@@ -232,3 +232,54 @@ test('throws error if userid is not provided in the header', async(t) => {
 	t.is(resp.status, 400);
 	t.deepEqual(resp.body, { error: 'Must provide userid' });
 });
+
+test('gets all appeals yet to be assigned to inspector', async (t) => {
+	sinon.stub(DatabaseFactory, 'getInstance').callsFake((arguments_) => new MockDatabaseClass(arguments_));
+	const resp = await request.get('/inspector/more-appeals');
+	t.is(resp.status, 200);
+	t.deepEqual(resp.body, [
+		{
+			appealId: 6,
+			reference: 'APP/Q9999/D/21/1087562',
+			status: 'available_for_inspector_pickup',
+			appealSite: {
+				addressLine1: '92 Huntsmoor Road',
+				county: 'Tadley',
+				postCode: 'RG26 4BX'
+			},
+			appealAge: 41,
+			siteVisitType: 'unaccompanied',
+			appealType: 'HAS',
+			specialism: 'General'
+		},
+		{
+			appealId: 25,
+			reference: 'APP/Q9999/D/21/5463281',
+			status: 'available_for_inspector_pickup',
+			appealSite: {
+				addressLine1: '92 Huntsmoor Road',
+				county: 'Tadley',
+				postCode: 'RG26 4BX'
+			},
+			appealAge: 22,
+			siteVisitType: 'accompanied',
+			appealType: 'HAS',
+			specialism: 'General'
+		}
+	]);
+
+	sinon.assert.calledWith(findManyStub, {
+		where: {
+			status: {
+				in: [
+					'available_for_inspector_pickup'
+				]
+			}
+		},
+		include: {
+			address: true,
+			lpaQuestionnaire: true,
+			appealDetailsFromAppellant: true
+		}
+	});
+});
