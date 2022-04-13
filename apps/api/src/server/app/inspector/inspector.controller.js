@@ -72,7 +72,7 @@ const formatAppealForAssigningAppeals = function(appeal, reason) {
 		provisionalVisitType: provisionalAppealSiteVisitType(appeal),
 		appealAge: daysBetweenDates(appeal.startedAt, new Date()),
 		appealSite: formatAddressLowerCase(appeal.address),
-		...(reason != undefined && { reason: reason })
+		...(reason !== undefined && { reason })
 	};
 };
 
@@ -90,9 +90,9 @@ const assignAppealsById = async function(userId, appealIds) {
 				console.error(error);
 				unsuccessfullyAssigned.push(formatAppealForAssigningAppeals(appeal, error.message));
 			}
-		} else if (appeal.status != 'available_for_inspector_pickup') {
+		} else if (appeal.status !== 'available_for_inspector_pickup') {
 			unsuccessfullyAssigned.push(formatAppealForAssigningAppeals(appeal, 'appeal in wrong state'));
-		} else if (appeal.userId != undefined) {
+		} else if (appeal.userId !== undefined) {
 			unsuccessfullyAssigned.push(formatAppealForAssigningAppeals(appeal, 'appeal already assigned'));
 		}
 	}));
@@ -106,7 +106,7 @@ const validateAppealIdsPresent = function(body) {
 };
 
 const assignAppeals = async function(request, response) {
-	const userId = Number.parseInt(request.headers.userid, 10);
+	const userId = request.get('userId');
 	validateAppealIdsPresent(request.body);
 	const resultantAppeals = await assignAppealsById(userId, request.body);
 	response.send(resultantAppeals);
