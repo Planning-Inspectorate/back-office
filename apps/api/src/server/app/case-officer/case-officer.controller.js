@@ -14,7 +14,8 @@ const caseOfficerStatuses = [
 ];
 
 const caseOfficerStatusesOnceQuestionnaireReceived = new Set([
-	lpaQuestionnaireStatesStrings.received_lpa_questionnaire
+	lpaQuestionnaireStatesStrings.received_lpa_questionnaire,
+	lpaQuestionnaireStatesStrings.incomplete_lpa_questionnaire
 ]);
 
 const getAppeals = async function (_request, response) {
