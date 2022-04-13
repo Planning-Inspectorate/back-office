@@ -15,7 +15,7 @@ import appealRepository from '../repositories/appeal.repository.js';
  * @param {InspectorState} status - The state to transition to
  * @returns {import('express').RequestHandler<{ appealId: number; }>} - A
  * validation middleware that handles invalid state transitions
- **/
+ */
 export const validateAppealState = (status) =>
 	async ({ params }, response, next) => {
 		const appeal = await appealRepository.getById(params.appealId);

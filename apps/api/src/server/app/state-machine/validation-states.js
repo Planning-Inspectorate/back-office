@@ -27,8 +27,8 @@ const generateValidationStates = function(finalState) {
 			entry: ['notifyAppellantOfInvalidAppeal', 'notifyLPAOfInvalidAppeal'],
 			type: 'final'
 		},
-	}
-}
+	};
+};
 
 const validationActions = {
 	notifyAppellantOfMissingAppealInfo: (_context, _event) => {

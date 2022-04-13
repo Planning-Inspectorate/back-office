@@ -39,7 +39,7 @@ const generateLpaQuestionnaireStates = function() {
 		complete_lpa_questionnaire: {
 			always: [{ target: 'available_for_inspector_pickup' }]
 		}
-	}
-}
+	};
+};
 
 export { generateLpaQuestionnaireStates, lpaQuestionnaireActions };

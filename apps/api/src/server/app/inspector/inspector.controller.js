@@ -27,8 +27,8 @@ const formatStatus = function(status) {
 
 const provisionalAppealSiteVisitType = function(appeal) {
 	return (!appeal.lpaQuestionnaire.siteVisibleFromPublicLand || !appeal.appealDetailsFromAppellant.siteVisibleFromPublicLand) ? 
-		'access required' : 'unaccompanied'
-}
+		'access required' : 'unaccompanied';
+};
 
 const formatAppealForAllAppeals = function(appeal) {
 	return {
@@ -72,9 +72,9 @@ const formatAppealForAssigningAppeals = function(appeal, reason) {
 		provisionalVisitType: provisionalAppealSiteVisitType(appeal),
 		appealAge: daysBetweenDates(appeal.startedAt, new Date()),
 		appealSite: formatAddressLowerCase(appeal.address),
-		...(reason != undefined && {reason: reason})
-	}
-}
+		...(reason != undefined && { reason: reason })
+	};
+};
 
 const assignAppealsById = async function(userId, appealIds) {
 	const successfullyAssigned = [];
@@ -106,7 +106,7 @@ const validateAppealIdsPresent = function(body) {
 };
 
 const assignAppeals = async function(request, response) {
-	const userId = Number.parseInt(request.headers.userid, 10)
+	const userId = Number.parseInt(request.headers.userid, 10);
 	validateAppealIdsPresent(request.body);
 	const resultantAppeals = await assignAppealsById(userId, request.body);
 	response.send(resultantAppeals);

@@ -1,5 +1,6 @@
 // @ts-check
 
+// eslint-disable-next-line import/no-unresolved
 import test from 'ava';
 import { find } from 'lodash-es';
 import path from 'path';
