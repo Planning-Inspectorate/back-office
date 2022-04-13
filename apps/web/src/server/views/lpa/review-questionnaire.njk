@@ -22,12 +22,18 @@
 	}) }}
 {% endmacro %}
 
-{% macro detailsCheckboxes(id, error, checkboxItems) %}
+{% macro detailsCheckboxes(id, error, checkboxItems, hint) %}
 	{{ govukCheckboxes({
 		id: id,
 		name: id,
 		errorMessage: error and { text: error.msg },
-		items: checkboxItems
+		items: checkboxItems,
+		fieldset: {
+			legend: {
+				text: hint,
+				isPageHeading: false
+			}
+		}
 	}) }}
 {% endmacro %}
 
@@ -144,7 +150,7 @@
 						errors['policiesStatutoryDevelopmentPlanPoliciesMissingOrIncorrectDescription'],
 						{ html: detailsTextarea(
 							'policiesStatutoryDevelopmentPlanPoliciesMissingOrIncorrectDescription',
-							'Which plans are missing?',
+							'Which policies are missing?',
 							fields['policiesStatutoryDevelopmentPlanPoliciesMissingOrIncorrectDescription'],
 							errors['policiesStatutoryDevelopmentPlanPoliciesMissingOrIncorrectDescription']
 						)}
@@ -174,7 +180,7 @@
 						errors['policiesSupplementaryPlanningDocumentsMissingOrIncorrectDescription'],
 						{ html: detailsTextarea(
 							'policiesSupplementaryPlanningDocumentsMissingOrIncorrectDescription',
-							'Which plans are missing?',
+							'Which documents are missing?',
 							fields['policiesSupplementaryPlanningDocumentsMissingOrIncorrectDescription'],
 							errors['policiesSupplementaryPlanningDocumentsMissingOrIncorrectDescription']
 						)}
@@ -201,7 +207,7 @@
 						errors['siteConservationAreaMapAndGuidanceMissingOrIncorrectDescription'],
 						{ html: detailsTextarea(
 							'siteConservationAreaMapAndGuidanceMissingOrIncorrectDescription',
-							'Which plans are missing?',
+							'What is missing or incorrect?',
 							fields['siteConservationAreaMapAndGuidanceMissingOrIncorrectDescription'],
 							errors['siteConservationAreaMapAndGuidanceMissingOrIncorrectDescription']
 						)}
@@ -221,7 +227,7 @@
 						errors['siteListedBuildingDescriptionMissingOrIncorrectDescription'],
 						{ html: detailsTextarea(
 							'siteListedBuildingDescriptionMissingOrIncorrectDescription',
-							'Which plans are missing?',
+							'What is missing or incorrect?',
 							fields['siteListedBuildingDescriptionMissingOrIncorrectDescription'],
 							errors['siteListedBuildingDescriptionMissingOrIncorrectDescription']
 						)}
@@ -255,7 +261,8 @@
 									text: "Copy of letter or site notice",
 									checked: fields['thirdPartyApplicationNotificationMissingOrIncorrectCopyOfLetterOrSiteNotice']
 								}
-							]
+							],
+							'What is missing or incorrect?'
 						)}
 					)}
 				],
@@ -277,7 +284,7 @@
 						errors['thirdPartyRepresentationsMissingOrIncorrectDescription'],
 						{ html: detailsTextarea(
 							'thirdPartyRepresentationsMissingOrIncorrectDescription',
-							'Which plans are missing?',
+							'Which representations are missing or incorrect?',
 							fields['thirdPartyRepresentationsMissingOrIncorrectDescription'],
 							errors['thirdPartyRepresentationsMissingOrIncorrectDescription']
 						)}
@@ -304,7 +311,8 @@
 									text: "Copy of letter or site notice",
 									checked: fields['thirdPartyAppealNotificationMissingOrIncorrectCopyOfLetterOrSiteNotice']
 								}
-							]
+							],
+							'What is missing or incorrect?'
 						)}
 					)}
 				]
