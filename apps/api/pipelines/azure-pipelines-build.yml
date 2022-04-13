@@ -1,7 +1,8 @@
 trigger:
   paths:
     include:
-      - app/api
+      - apps/api
+      - packages
 
 resources:
   repositories:
