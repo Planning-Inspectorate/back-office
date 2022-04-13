@@ -28,6 +28,6 @@ export const stateMachineErrorHandler = (error, _, response, next) => {
 			}
 		});
 	} else {
-		next();
+		next(error);
 	}
 };

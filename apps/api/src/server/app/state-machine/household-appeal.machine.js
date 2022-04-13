@@ -43,14 +43,14 @@ const createHouseholpAppealMachine = function (context) {
 	);
 };
 
-const transitionState = function (context, status, machineAction) {
+const transitionState = function (context, status, machineAction, throwError = false) {
 	const service = interpret(createHouseholpAppealMachine(context));
 	service.start(status);
 	service.send({ type: machineAction });
 	const nextState = service.state;
 	service.stop();
 
-	if (nextState.value === status) {
+	if (!nextState.changed && throwError) {
 		throw new TransitionStateError(`Could not transition '${status}' using '${machineAction}'.`, {
 			type: machineAction,
 			context
