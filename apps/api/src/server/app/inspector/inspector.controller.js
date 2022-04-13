@@ -1,6 +1,7 @@
 import _ from 'lodash';
 import * as inspector from './inspector.service.js';
 import appealRepository from '../repositories/appeal.repository.js';
+import { lpaQuestionnaireStatesStrings } from '../state-machine/lpa-questionnaire-states.js';
 import { inspectorStatesStrings } from '../state-machine/inspector-states.js';
 import formatAddressLowerCase from '../utils/address-formatter-lowercase.js';
 import formatDate from '../utils/date-formatter.js';
@@ -26,7 +27,7 @@ const formatStatus = function(status) {
 };
 
 const provisionalAppealSiteVisitType = function(appeal) {
-	return (!appeal.lpaQuestionnaire.siteVisibleFromPublicLand || !appeal.appealDetailsFromAppellant.siteVisibleFromPublicLand) ? 
+	return (!appeal.lpaQuestionnaire.siteVisibleFromPublicLand || !appeal.appealDetailsFromAppellant.siteVisibleFromPublicLand) ?
 		'access required' : 'unaccompanied'
 }
 
@@ -61,6 +62,11 @@ const getAppeals = async function(request, response) {
 	], userId);
 	const appealsForResponse = appeals.map((appeal) => formatAppealForAllAppeals(appeal));
 	return response.send(appealsForResponse);
+};
+
+const getMoreAppeals = async function(request, response) {
+	const moreAppeals = await appealRepository.getByStatusesWithAddresses();
+	return response.send(moreAppeals);
 };
 
 const formatAppealForAssigningAppeals = function(appeal, reason) {
@@ -127,7 +133,7 @@ const assignAppeals = async function(request, response) {
 
 /**
  * Create a site visit booking for an appeal.
- * 
+ *
  * @type {import('express').RequestHandler<AppealParams, Appeal, BookSiteVisitRequestBody>}
  */
 export const bookSiteVisit = async (request, response) => {
@@ -151,7 +157,7 @@ export const bookSiteVisit = async (request, response) => {
 
 /**
  * Issue a decision for an appeal.
- * 
+ *
  * @type {import('express').RequestHandler<AppealParams, Appeal, IssueDecisionRequestBody>}
  */
 export const issueDecision = async ({ file, body, params }, response) => {
@@ -164,4 +170,4 @@ export const issueDecision = async ({ file, body, params }, response) => {
 	response.send(updatedAppeal);
 };
 
-export { getAppeals, assignAppeals };
+export { getAppeals, getMoreAppeals, assignAppeals };

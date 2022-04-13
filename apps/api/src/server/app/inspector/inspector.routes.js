@@ -39,7 +39,7 @@ router.get(
             schema: { $ref: '#/definitions/AppealsForInspector' }
         }
     */
-	asyncHandler(getAppeals)
+	asyncHandler(getMoreAppeals)
 );
 
 
