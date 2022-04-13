@@ -180,7 +180,7 @@ const document_ = {
 			}]
 		},
 		BookSiteVisit: {
-			$SiteVisitType: {
+			$siteVisitType: {
 				required: true,
 				'@enum': /** @type {import('@pins/inspector').SiteVisitType} */ ([
 					'accompanied',
@@ -188,13 +188,13 @@ const document_ = {
 					'access required'
 				])
 			},
-			$SiteVisitDate: {
+			$siteVisitDate: {
 				required: true,
 				type: 'string',
 				format: 'date',
 				example: '2022-01-01'
 			},
-			$SiteVisitTimeSlot: {
+			$siteVisitTimeSlot: {
 				required: true,
 				'@enum': [
 					'8am to 10am',
@@ -210,6 +210,20 @@ const document_ = {
 				]
 			}		
 		},
+		IssueDecision: {
+			$decisionLetter: {
+				type: 'file',
+				required: true
+			},
+			$outcome: {
+				required: true,
+				'@enum': /** @type {import('@pins/inspector').AppealOutcome} */ ([
+					'allowed',
+					'dismissed',
+					'split decision'
+				])
+			}
+		}
 	},
 	components: {}
 };

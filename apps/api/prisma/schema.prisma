@@ -25,6 +25,7 @@ model Appeal {
   reviewQuestionnaire          ReviewQuestionnaire[]
   lpaQuestionnaire             LPAQuestionnaire?
   siteVisit                    SiteVisit?
+  inspectorDecision            InspectorDecision?
   user                         User?                       @relation(fields: [userId], references: [id])
   userId                       Int?
   appealDetailsFromAppellant   AppealDetailsFromAppellant?
@@ -137,6 +138,14 @@ model SiteVisit {
   visitDate DateTime
   visitSlot String
   visitType String?
+}
+
+model InspectorDecision {
+  id                     Int      @id @default(autoincrement())
+  appeal                 Appeal   @relation(fields: [appealId], references: [id])
+  appealId               Int      @unique
+  outcome                String   // can be 'allowed', 'dismissed' or 'split decision'
+  decisionLetterFilename String?
 }
 
 model User {
