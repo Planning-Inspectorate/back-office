@@ -1,5 +1,6 @@
 import formatAddress from '../utils/address-formatter.js';
 import formatDate from '../utils/date-formatter.js';
+import formatReviewQuestionnaire from '../utils/review-questionnaire-formatter.js';
 import { lpaQuestionnaireStatesStrings } from '../state-machine/lpa-questionnaire-states.js';
 
 const add2Weeks = function(date) {
@@ -46,6 +47,7 @@ const appealFormatter = {
 			AppealSiteNearConservationArea: false,
 			WouldDevelopmentAffectSettingOfListedBuilding: false,
 			...(true && { ListedBuildingDesc: '' }),
+			reviewQuestionnaire: appeal.reviewQuestionnaire[0] && formatReviewQuestionnaire(appeal.reviewQuestionnaire[0]),
 			Documents: [
 				{
 					Type: 'planning application form',

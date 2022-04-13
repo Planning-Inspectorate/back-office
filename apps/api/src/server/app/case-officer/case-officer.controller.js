@@ -46,7 +46,17 @@ const confirmingLPAQuestionnaire =  async function (request, response) {
  * @returns {object} appeal with given ID
  */
 async function getAppealForCaseOfficer(appealId) {
-	const appeal = await appealRepository.getByIdWithAddress(Number.parseInt(appealId, 10));
+	const appeal = await appealRepository.getByIdIncluding(Number.parseInt(appealId, 10), {
+		address: true,
+		appellant: true,
+		reviewQuestionnaire: {
+			take: 1,
+			orderBy: {
+				createdAt: 'desc'
+			}
+		},
+	});
+
 	if (!caseOfficerStatusesOnceQuestionnaireReceived.has(appeal.status)) {
 		throw new CaseOfficerError('Appeal has yet to receive LPA questionnaire', 400);
 	}
