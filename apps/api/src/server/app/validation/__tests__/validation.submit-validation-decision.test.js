@@ -373,7 +373,6 @@ test('should not be able to submit \'valid\' decision without DescriptionOfDevel
 test('should not be able to submit \'valid\' decision with empty DescriptionOfDevelopment', async (t) => {
 	const resp = await request.post('/validation/5')
 		.send({	AppealStatus:'valid', DescriptionOfDevelopment: '' });
-	console.log(resp.body);
 	t.is(resp.status, 409);
 	t.deepEqual(resp.body, {
 		errors: {

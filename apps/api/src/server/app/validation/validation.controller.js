@@ -6,8 +6,13 @@ import ValidationError from './validation-error.js';
 import { transitionState, appealStates } from '../state-machine/transition-state.js';
 import { validationActionsStrings } from '../state-machine/validation-states.js';
 import appealFormatter from './appeal-formatter.js';
-import { validationDecisions, validateAppealValidatedRequest, validateUpdateValidationRequest } from './validate-request.js';
 import { nullIfUndefined } from '../utils/null-if-undefined.js';
+
+const validationDecisions = {
+	valid: 'valid',
+	invalid: 'invalid',
+	incomplete: 'incomplete'
+};
 
 const validationStatuses = [
 	appealStates.received_appeal,
@@ -45,7 +50,6 @@ const updateAppeal = async function (request, response) {
 };
 
 const submitValidationDecision = async function (request, response) {
-	// validateAppealValidatedRequest(request.body);
 	const appeal = await appealRepository.getByIdWithValidationDecisionAndAddress(request.params.appealId);
 	const machineAction = mapAppealStatusToStateMachineAction(request.body.AppealStatus);
 	const nextState = transitionState('household', { appealId: appeal.id }, appeal.status, machineAction);
@@ -70,18 +74,6 @@ function mapAppealStatusToStateMachineAction(status) {
 			throw new ValidationError('Unknown AppealStatus', 400);
 	}
 }
-
-/**
- * @param {string} appealId appeal ID
- * @returns {object} appeal with given ID
- */
-// async function getAppealForValidation(appealId) {
-// 	const appeal = await appealRepository.getByIdWithValidationDecisionAndAddress(appealId);
-// 	if (!validationStatuses.includes(appeal.status)) {
-// 		throw new ValidationError('Appeal does not require validation', 400);
-// 	}
-// 	return appeal;
-// }
 
 /**
  * @typedef {object} LocalPlanningDepartmentResponse
