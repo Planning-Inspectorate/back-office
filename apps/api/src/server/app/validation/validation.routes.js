@@ -1,8 +1,8 @@
 import { getAppeals, getAppealDetails, updateAppeal, submitValidationDecision, getLPAList } from './validation.controller.js';
-import { param, validationResult } from 'express-validator';
+import { param } from 'express-validator';
 import asyncHandler from '../middleware/async-handler.js';
 import { appealStates } from '../state-machine/transition-state.js';
-import { validateAppealStatus, validateAppealAttributesToChange } from './validation.validators.js';
+import { validateAppealStatus, validateAppealAttributesToChange, validateAppealValidationDecision } from './validation.validators.js';
 
 const router = express.Router();
 
@@ -89,6 +89,7 @@ router.post('/:appealId',
 		}
 	*/
 	param('appealId').toInt(),
+	validateAppealValidationDecision,
 	validateAppealStatus([
 		appealStates.received_appeal,
 		appealStates.awaiting_validation_info

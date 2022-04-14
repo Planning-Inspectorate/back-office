@@ -27,7 +27,7 @@ const getAppeals = async function (_request, response) {
 };
 
 const updateAppeal = async function (request, response) {
-	const appeal = await getAppealForValidation(request.params.appealId);
+	const appeal = await appealRepository.getByIdWithValidationDecisionAndAddress(request.params.appealId);
 	const data = {
 		...(request.body.AppellantName && { appellant: { update: { name: request.body.AppellantName } } }),
 		...(request.body.Address && { address: { update: {
@@ -45,8 +45,8 @@ const updateAppeal = async function (request, response) {
 };
 
 const submitValidationDecision = async function (request, response) {
-	validateAppealValidatedRequest(request.body);
-	const appeal = await getAppealForValidation(request.params.appealId);
+	// validateAppealValidatedRequest(request.body);
+	const appeal = await appealRepository.getByIdWithValidationDecisionAndAddress(request.params.appealId);
 	const machineAction = mapAppealStatusToStateMachineAction(request.body.AppealStatus);
 	const nextState = transitionState('household', { appealId: appeal.id }, appeal.status, machineAction);
 	await appealRepository.updateStatusById(appeal.id, nextState.value);
@@ -75,13 +75,13 @@ function mapAppealStatusToStateMachineAction(status) {
  * @param {string} appealId appeal ID
  * @returns {object} appeal with given ID
  */
-async function getAppealForValidation(appealId) {
-	const appeal = await appealRepository.getByIdWithValidationDecisionAndAddress(Number.parseInt(appealId, 10));
-	if (!validationStatuses.includes(appeal.status)) {
-		throw new ValidationError('Appeal does not require validation', 400);
-	}
-	return appeal;
-}
+// async function getAppealForValidation(appealId) {
+// 	const appeal = await appealRepository.getByIdWithValidationDecisionAndAddress(appealId);
+// 	if (!validationStatuses.includes(appeal.status)) {
+// 		throw new ValidationError('Appeal does not require validation', 400);
+// 	}
+// 	return appeal;
+// }
 
 /**
  * @typedef {object} LocalPlanningDepartmentResponse

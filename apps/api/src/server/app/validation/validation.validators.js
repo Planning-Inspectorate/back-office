@@ -1,17 +1,23 @@
+import _ from 'lodash';
 import { composeMiddleware } from '@pins/express';
 import { body, validationResult } from 'express-validator';
 import appealRepository from '../repositories/appeal.repository.js';
+import stringEmptyOrUndefined from '../utils/string-validator.js';
+
+const sendInvalidStateMessage = function (response, message) {
+	response.status(409).send({
+		errors: {
+			status: message
+		}
+	});
+};
 
 export const validateAppealStatus = (statuses) =>
 	async ({ params }, response, next) => {
 		const appeal = await appealRepository.getById(params.appealId);
 
 		if (!statuses.includes(appeal?.status)) {
-			response.status(409).send({
-				errors: {
-					status: 'Appeal is in an invalid state'
-				}
-			});
+			sendInvalidStateMessage(response, 'Appeal is in an invalid state');
 		} else {
 			next();
 		}
@@ -19,13 +25,11 @@ export const validateAppealStatus = (statuses) =>
 
 export const validateAppealAttributesToChange = composeMiddleware(
 	body('AppellantName')
-		.isAlpha('en-US', { ignore: ' ' } )
-		.optional({ nullable: true })
-		.withMessage('Appellant Name must only contain letters'),
+		.isAlpha('en-US', { ignore: ' ' })
+		.optional({ nullable: true }),
 	body('LocalPlanningDepartment')
-		.isAlpha('en-US', { ignore: ' ' } )
-		.optional({ nullable: true })
-		.withMessage('Local Planning Department must only contain letters'),
+		.isAlpha('en-US', { ignore: ' ' })
+		.optional({ nullable: true }),
 	body('PlanningApplicationReference').optional({ nullable: true }),
 	body('Address.AddressLine1').optional({ nullable: true }),
 	body('Address.AddressLine2').optional({ nullable: true }),
@@ -35,13 +39,98 @@ export const validateAppealAttributesToChange = composeMiddleware(
 	handleValidationError
 );
 
+const validationDecisions = {
+	valid: 'valid',
+	invalid: 'invalid',
+	incomplete: 'incomplete'
+};
+
+const invalidAppealStatus = function (appealStatus) {
+	return !Object.values(validationDecisions).includes(appealStatus);
+};
+
+const allArrayElementsInArray = function (arrayToCheck, arrayToCheckAgainst) {
+	return _.difference(arrayToCheck, arrayToCheckAgainst).length === 0;
+};
+
+const invalidWithUnexpectedReasons = function (requestBody) {
+	return requestBody.AppealStatus == validationDecisions.invalid &&
+		!allArrayElementsInArray(Object.keys(requestBody.Reason), [
+			'outOfTime',
+			'noRightOfAppeal',
+			'notAppealable',
+			'lPADeemedInvalid',
+			'otherReasons'
+		]);
+};
+
+const incompleteWithUnexpectedReasons = function (requestBody) {
+	return requestBody.AppealStatus == validationDecisions.incomplete &&
+		!allArrayElementsInArray(Object.keys(requestBody.Reason), [
+			'namesDoNotMatch',
+			'sensitiveInfo',
+			'missingApplicationForm',
+			'missingDecisionNotice',
+			'missingGroundsForAppeal',
+			'missingSupportingDocuments',
+			'inflammatoryComments',
+			'openedInError',
+			'wrongAppealTypeUsed',
+			'otherReasons'
+		]);
+};
+
+const invalidWithoutReasons = function (requestBody) {
+	return (requestBody.AppealStatus == validationDecisions.invalid &&
+		requestBody.Reason.outOfTime !== true &&
+		requestBody.Reason.noRightOfAppeal !== true &&
+		requestBody.Reason.notAppealable !== true &&
+		requestBody.Reason.lPADeemedInvalid !== true &&
+		stringEmptyOrUndefined(requestBody.Reason.otherReasons)
+	);
+};
+
+const incompleteWithoutReasons = function (requestBody) {
+	return (requestBody.AppealStatus == validationDecisions.incomplete &&
+		requestBody.Reason.namesDoNotMatch !== true &&
+		requestBody.Reason.sensitiveInfo !== true &&
+		requestBody.Reason.missingApplicationForm !== true &&
+		requestBody.Reason.missingDecisionNotice !== true &&
+		requestBody.Reason.missingGroundsForAppeal !== true &&
+		requestBody.Reason.missingSupportingDocuments !== true &&
+		requestBody.Reason.inflammatoryComments !== true &&
+		requestBody.Reason.openedInError !== true &&
+		requestBody.Reason.wrongAppealTypeUsed !== true &&
+		stringEmptyOrUndefined(requestBody.Reason.otherReasons)
+	);
+};
+
+const validWithoutDescription = function (requestBody) {
+	return (requestBody.AppealStatus == validationDecisions.valid && stringEmptyOrUndefined(requestBody.descriptionOfDevelopment));
+};
+
+export const validateAppealValidationDecision = (request, response, next) => {
+	if (
+		invalidAppealStatus(request.body.AppealStatus) ||
+		invalidWithUnexpectedReasons(request.body) ||
+		invalidWithoutReasons(request.body) ||
+		incompleteWithUnexpectedReasons(request.body) ||
+		incompleteWithoutReasons(request.body) ||
+		validWithoutDescription(request.body)
+	) {
+		sendInvalidStateMessage(response, 'Invalid validation decision provided');
+	} else {
+		next();
+	}
+};
+
 /**
  * Evaluate any errors collected by express validation and return a 400 status
  * with the mapped errors.
  *
  * @type {import('express').RequestHandler}
  */
- function handleValidationError(request, response, next) {
+function handleValidationError(request, response, next) {
 	const result = validationResult(request).formatWith(({ msg }) => msg);
 
 	if (!result.isEmpty()) {
