@@ -1,9 +1,9 @@
 // eslint-disable-next-line import/no-unresolved
 import test from 'ava';
 import sinon from 'sinon';
-import { transitionState } from './transition-state.js';
-import inspectorActionsService from './inspector.actions.js';
-import lpaQuestionnaireActionsService from './lpa-questionnaire-actions.service.js';
+import { transitionState } from '../transition-state.js';
+import inspectorActionsService from '../inspector.actions.js';
+import lpaQuestionnaireActionsService from '../lpa-questionnaire-actions.service.js';
 
 const lpaQuestionnaireStub = sinon.stub();
 const inspectorSendBookingStub = sinon.stub();
