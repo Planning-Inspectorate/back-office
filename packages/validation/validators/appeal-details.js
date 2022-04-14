@@ -10,7 +10,6 @@ export const validateAppellantName = createValidator(
 		.withMessage('`AppellantName` is not a valid string')
 		.bail()
 		.trim()
-		.isAlphanumeric()
 		.withMessage('Enter a valid appellant name')
 		.isLength({ min: 1 })
 		.withMessage('Enter an appellant name')
