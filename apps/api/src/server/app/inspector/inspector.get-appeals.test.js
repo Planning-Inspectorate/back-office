@@ -114,6 +114,38 @@ const appeal_5 = {
 	}
 };
 
+const appeal_6 = {
+	appealId: 6,
+	reference: 'APP/Q9999/D/21/1087562',
+	status: 'available_for_inspector_pickup',
+	appealSite: {
+		addressLine1: '92 Huntsmoor Road',
+		county: 'Tadley',
+		postCode: 'RG26 4BX'
+	},
+	appealAge: 41,
+	siteVisitType: 'unaccompanied',
+	appealType: 'HAS',
+	specialism: 'General',
+	siteVisit: {}
+};
+
+const appeal_25 = {
+	appealId: 25,
+	reference: 'APP/Q9999/D/21/5463281',
+	status: 'available_for_inspector_pickup',
+	appealSite: {
+		addressLine1: '92 Huntsmoor Road',
+		county: 'Tadley',
+		postCode: 'RG26 4BX'
+		},
+	appealAge: 22,
+	siteVisitType: 'accompanied',
+	appealType: 'HAS',
+	specialism: 'General',
+	siteVisit: {}
+};
+
 const findManyStub = sinon.stub().returns([appeal_1, appeal_2, appeal_3, appeal_4, appeal_5]);
 
 class MockDatabaseClass {

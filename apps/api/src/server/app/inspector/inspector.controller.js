@@ -65,7 +65,9 @@ const getAppeals = async function(request, response) {
 };
 
 const getMoreAppeals = async function(request, response) {
-	const moreAppeals = await appealRepository.getByStatusesWithAddresses();
+	const moreAppeals = await appealRepository.getByStatusesWithAddresses(
+		lpaQuestionnaireStatesStrings.available_for_inspector_pickup
+		);
 	return response.send(moreAppeals);
 };
 
