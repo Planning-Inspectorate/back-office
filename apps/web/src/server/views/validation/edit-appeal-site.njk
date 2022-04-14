@@ -16,55 +16,55 @@
 			<legend class="govuk-visually-hidden">{{ pageTitle }}</legend>
 			{{ 
 				govukInput({
-					id: 'AddressLine1',
+					id: 'Address.AddressLine1',
 					type: 'text',
 					name: "AddressLine1",
 					label: { text: 'Building and street' },
-					errorMessage: errors.AddressLine1 and { text: errors.AddressLine1.msg },
-					value: appealSite.AddressLine1
+					errorMessage: errors['Address.AddressLine1'] and { text: errors['Address.AddressLine1'].msg },
+					value: Address.AddressLine1
 				})
 			}}
 			{{ 
 				govukInput({
-					id: 'AddressLine2',
+					id: 'Address.AddressLine2',
 					type: 'text',
 					name: "AddressLine2",
 					label: { text: 'Address line 2', classes: "govuk-visually-hidden" },
-					errorMessage: errors.AddressLine2 and { text: errors.AddressLine2.msg },
-					value: appealSite.AddressLine2
+					errorMessage: errors['Address.AddressLine2'] and { text: errors['Address.AddressLine2'].msg },
+					value: Address.AddressLine2
 				})
 			}}
 			{{ 
 				govukInput({
-					id: 'Town',
+					id: 'Address.Town',
 					type: 'text',
 					name: "Town",
 					label: { text: 'Town or city' },
 					classes: "govuk-input--width-20",
-					errorMessage: errors.Town and { text: errors.Town.msg },
-					value: appealSite.Town
+					errorMessage: errors['Address.Town'] and { text: errors['Address.Town'].msg },
+					value: Address.Town
 				})
 			}}
 			{{ 
 				govukInput({
-					id: 'County',
+					id: 'Address.County',
 					type: 'text',
 					name: "County",
 					label: { text: 'County' },
 					classes: "govuk-input--width-20",
-					errorMessage: errors.County and { text: errors.County.msg },
-					value: appealSite.County
+					errorMessage: errors['Address.County'] and { text: errors['Address.County'].msg },
+					value: Address.County
 				})
 			}}
 			{{ 
 				govukInput({
-					id: 'PostCode',
+					id: 'Address.PostCode',
 					type: 'text',
 					name: 'PostCode',
 					label: { text: 'Postcode' },
 					classes: "govuk-input--width-10",
-					errorMessage: errors.PostCode and { text: errors.PostCode.msg },
-					value: appealSite.PostCode
+					errorMessage: errors['Address.PostCode'] and { text: errors['Address.PostCode'].msg },
+					value: Address.PostCode
 				})
 			}}
 		</fieldset>

@@ -50,9 +50,10 @@ export const validateAppealSite = createValidator(
 		.isLength({ max: 500 }),
 	body('Address.PostCode')
 		.isString()
-		.withMessage('Enter a postcode')
 		.bail()
 		.trim()
+		.isLength({ min: 1 })
+		.withMessage('Enter a postcode')
 		.custom(validatePostcode)
 		.withMessage('Enter a real postcode')
 );

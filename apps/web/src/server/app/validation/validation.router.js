@@ -22,7 +22,7 @@ import {
 	viewReviewOutcomeConfirmation
 } from './validation.controller.js';
 import { hasReviewOutcome, hasReviewOutcomeStatus } from './validation.guards.js';
-import { handleUploadedDocuments, validateReviewOutcome, validateReviewOutcomeConfirmation } from './validation.pipes.js';
+import { handleUploadedDocuments, validateAppealSite, validateReviewOutcome, validateReviewOutcomeConfirmation } from './validation.pipes.js';
 
 const router = express.Router();
 
@@ -36,7 +36,7 @@ router
 router
 	.route('/appeals/:appealId/appeal-site')
 	.get(createAsyncHandler(editAppealSite))
-	.post(validation.validateAppealSite, createAsyncHandler(updateAppealSite));
+	.post(validateAppealSite, createAsyncHandler(updateAppealSite));
 
 router
 	.route('/appeals/:appealId/appellant-name')
