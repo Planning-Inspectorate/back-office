@@ -103,9 +103,12 @@ const appeal_4 = {
 };
 const getAppealByIdStub = sinon.stub();
 getAppealByIdStub.withArgs({ where: { id: 1 }, include: { validationDecision: true, address: true, appellant: true } }).returns(appeal_1);
+getAppealByIdStub.withArgs({ where: { id: 1 }, include: { appellant: false } }).returns(appeal_1);
 getAppealByIdStub.withArgs({ where: { id: 2 }, include: { validationDecision: true, address: true, appellant: true } }).returns(appeal_2);
-getAppealByIdStub.withArgs({ where: { id: 3 }, include: { validationDecision: true, address: true, appellant: true } }).returns(appeal_3);
+getAppealByIdStub.withArgs({ where: { id: 2 }, include: { appellant: false } }).returns(appeal_2);
+getAppealByIdStub.withArgs({ where: { id: 3 }, include: { appellant: false } }).returns(appeal_3);
 getAppealByIdStub.withArgs({ where: { id: 4 }, include: { validationDecision: true, address: true, appellant: true } }).returns(appeal_4);
+getAppealByIdStub.withArgs({ where: { id: 4 }, include: { appellant: false } }).returns(appeal_4);
 
 class MockDatabaseClass {
 	constructor(_parameters) {
@@ -175,10 +178,14 @@ test('gets appeal that requires validation', async (t) => {
 	t.deepEqual(resp.body, appealReviewInfo);
 });
 
-test('throws 400 when appeal does not require validation', async (t) => {
+test('throws 409 when appeal does not require validation', async (t) => {
 	const resp = await request.get('/validation/3');
-	t.is(resp.status, 400);
-	t.deepEqual(resp.body, { error: 'Appeal does not require validation' });
+	t.is(resp.status, 409);
+	t.deepEqual(resp.body, {
+		errors: {
+			status: 'Appeal is in an invalid state',
+		}
+	});
 });
 
 test('returns appeal with all reasons why it is in \'incomplete\' state', async (t) => {

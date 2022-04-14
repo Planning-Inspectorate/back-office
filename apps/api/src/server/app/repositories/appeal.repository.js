@@ -34,13 +34,13 @@ const appealRepository = (function() {
 				}
 			});
 		},
-		getById: function (id) {
+		getById: function (id, includeAppellant = false) {
 			return getPool().appeal.findUnique({
 				where: {
 					id: id
 				},
 				include: {
-					appellant: true
+					appellant: includeAppellant
 				}
 			});
 		},

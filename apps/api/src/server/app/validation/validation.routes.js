@@ -1,6 +1,6 @@
 import express from 'express';
 import { getAppeals, getAppealDetails, updateAppeal, submitValidationDecision, getLPAList } from './validation.controller.js';
-import { body } from 'express-validator';
+import { body, param } from 'express-validator';
 import asyncHandler from '../middleware/async-handler.js';
 import { appealStates } from '../state-machine/transition-state.js';
 import { validateAppealStatus } from './validation.validators.js';
@@ -30,7 +30,7 @@ router.get('/lpa-list',
 	*/
 	asyncHandler(getLPAList));
 
-router.get('/:id', 
+router.get('/:appealId', 
 	/* 
 		#swagger.description = 'Gets appeal to be validated by the Validation Officer'
 		#swagger.parameters['id'] = {
@@ -43,6 +43,7 @@ router.get('/:id',
 			schema: { $ref: '#/definitions/AppealToValidate' }
 		}
 	*/
+	param('appealId').toInt(),
 	validateAppealStatus([
 		appealStates.received_appeal,
 		appealStates.awaiting_validation_info
