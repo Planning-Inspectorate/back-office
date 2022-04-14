@@ -1,21 +1,20 @@
 import appealRepository from '../repositories/appeal.repository.js';
 import newReviewRepository from '../repositories/review-questionnaire.repository.js';
 import { reviewComplete, validateReviewRequest } from './case-officer-review.js';
-import { lpaQuestionnaireStatesStrings } from '../state-machine/household-appeal.machine.js';
-import { transitionState } from '../state-machine/transition-state.js';
+import { transitionState, appealStates } from '../state-machine/transition-state.js';
 import appealFormatter from './appeal-formatter.js';
 import CaseOfficerError from './case-officer-error.js';
 
 const caseOfficerStatuses = [
-	lpaQuestionnaireStatesStrings.awaiting_lpa_questionnaire,
-	lpaQuestionnaireStatesStrings.overdue_lpa_questionnaire,
-	lpaQuestionnaireStatesStrings.received_lpa_questionnaire,
-	lpaQuestionnaireStatesStrings.incomplete_lpa_questionnaire
+	appealStates.awaiting_lpa_questionnaire,
+	appealStates.overdue_lpa_questionnaire,
+	appealStates.received_lpa_questionnaire,
+	appealStates.incomplete_lpa_questionnaire
 ];
 
 const caseOfficerStatusesOnceQuestionnaireReceived = new Set([
-	lpaQuestionnaireStatesStrings.received_lpa_questionnaire,
-	lpaQuestionnaireStatesStrings.incomplete_lpa_questionnaire
+	appealStates.received_lpa_questionnaire,
+	appealStates.incomplete_lpa_questionnaire
 ]);
 
 const getAppeals = async function (_request, response) {

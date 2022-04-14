@@ -1,7 +1,7 @@
 import formatAddress from '../utils/address-formatter.js';
 import formatDate from '../utils/date-formatter.js';
 import formatReviewQuestionnaire from '../utils/review-questionnaire-formatter.js';
-import { lpaQuestionnaireStatesStrings } from '../state-machine/household-appeal.machine.js';
+import { appealStates } from '../state-machine/transition-state.js';
 
 const add2Weeks = function (date) {
 	const newDate = new Date(date.valueOf());
@@ -15,11 +15,11 @@ const add2Weeks = function (date) {
  */
 function mapAppealStatus(status) {
 	switch (status) {
-		case lpaQuestionnaireStatesStrings.awaiting_lpa_questionnaire:
+		case appealStates.awaiting_lpa_questionnaire:
 			return 'awaiting';
-		case lpaQuestionnaireStatesStrings.overdue_lpa_questionnaire:
+		case appealStates.overdue_lpa_questionnaire:
 			return 'overdue';
-		case lpaQuestionnaireStatesStrings.received_lpa_questionnaire:
+		case appealStates.received_lpa_questionnaire:
 			return 'received';
 		default:
 			return status;

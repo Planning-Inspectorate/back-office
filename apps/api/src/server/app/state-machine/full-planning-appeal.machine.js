@@ -3,6 +3,7 @@ import { generateValidationStates } from './validation-states.js';
 import { generateLpaQuestionnaireStates } from './lpa-questionnaire-states.js';
 import { inspectorBookingStates, generateInspectorPickupStates } from './inspector-states.js';
 import { statementsAndFinalCommentsStates } from './statements-and-final-comments-states.js';
+import mapObjectKeysToStrings from '../utils/map-states-to-strings.js';
 
 const validationStates = generateValidationStates('awaiting_lpa_questionnaire_and_statements');
 const lpaQuestionnaireStates = generateLpaQuestionnaireStates();
@@ -41,4 +42,10 @@ const createFullPlanningAppealMachine = function (context) {
 	});
 };
 
-export { createFullPlanningAppealMachine };
+const fullPlanningStates = {
+	...mapObjectKeysToStrings(validationStates),
+	...mapObjectKeysToStrings(lpaQuestionnaireAndStatementsStates),
+	...mapObjectKeysToStrings(inspectorBookingStates),
+};
+
+export { createFullPlanningAppealMachine, fullPlanningStates };

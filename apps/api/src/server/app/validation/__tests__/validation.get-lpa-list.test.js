@@ -4,7 +4,7 @@ import supertest from 'supertest';
 import sinon from 'sinon';
 // eslint-disable-next-line import/no-unresolved
 import got from 'got';
-import { app } from '../../app.js';
+import { app } from '../../../app.js';
 
 const request = supertest(app);
 const getStub = sinon.stub();

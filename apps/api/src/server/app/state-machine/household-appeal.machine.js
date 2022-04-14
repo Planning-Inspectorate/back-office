@@ -6,10 +6,7 @@ import { inspectorStates, inspectorActions } from './inspector-states.js';
 import mapObjectKeysToStrings from '../utils/map-states-to-strings.js';
 
 const validationStates = generateValidationStates('awaiting_lpa_questionnaire');
-const validationStatesStrings = mapObjectKeysToStrings(validationStates);
-
 const lpaQuestionnaireStates = generateLpaQuestionnaireStates();
-const lpaQuestionnaireStatesStrings = mapObjectKeysToStrings(lpaQuestionnaireStates);
 
 const createHouseholpAppealMachine = function (context) {
 	return createMachine({
@@ -30,4 +27,10 @@ const createHouseholpAppealMachine = function (context) {
 	});
 };
 
-export { createHouseholpAppealMachine, validationStates, validationStatesStrings, lpaQuestionnaireStatesStrings };
+const householdStates = {
+	...mapObjectKeysToStrings(validationStates),
+	...mapObjectKeysToStrings(lpaQuestionnaireStates),
+	...mapObjectKeysToStrings(inspectorStates)
+};
+
+export { createHouseholpAppealMachine, householdStates };

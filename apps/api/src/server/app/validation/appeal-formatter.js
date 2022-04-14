@@ -1,13 +1,13 @@
 import formatAddress from '../utils/address-formatter.js';
-import { validationStatesStrings } from '../state-machine/household-appeal.machine.js';
 import formatDate from '../utils/date-formatter.js';
+import { appealStates } from '../state-machine/transition-state.js';
 
 /**
  * @param {string} status appeal status
  * @returns {string} reformatted appeal status
  */
 function mapAppealStatus(status) {
-	return status == validationStatesStrings.received_appeal ? 'new' : 'incomplete';
+	return status == appealStates.received_appeal ? 'new' : 'incomplete';
 }
 
 const formatIncompleteReason = function(incompleteValidationDecision) {

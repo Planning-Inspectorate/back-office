@@ -1,6 +1,6 @@
 import { interpret } from 'xstate';
-import { createHouseholpAppealMachine } from './household-appeal.machine.js';
-import { createFullPlanningAppealMachine } from './full-planning-appeal.machine.js';
+import { createHouseholpAppealMachine, householdStates } from './household-appeal.machine.js';
+import { createFullPlanningAppealMachine, fullPlanningStates } from './full-planning-appeal.machine.js';
 
 /**
  * @typedef {object} TransitionStateErrorConfig
@@ -38,4 +38,9 @@ export const transitionState = function (appealType, context, status, machineAct
 		});
 	}
 	return nextState;
+};
+
+export const appealStates = {
+	...householdStates,
+	...fullPlanningStates
 };

@@ -3,15 +3,14 @@ import got from 'got';
 import appealRepository from '../repositories/appeal.repository.js';
 import validationDecisionRepository from '../repositories/validation-decision.repository.js';
 import ValidationError from './validation-error.js';
-import { validationStatesStrings } from '../state-machine/household-appeal.machine.js';
-import { transitionState } from '../state-machine/transition-state.js';
+import { transitionState, appealStates } from '../state-machine/transition-state.js';
 import { validationActionsStrings } from '../state-machine/validation-states.js';
 import appealFormatter from './appeal-formatter.js';
 import { validationDecisions, validateAppealValidatedRequest, validateUpdateValidationRequest } from './validate-request.js';
 
 const validationStatuses = [
-	validationStatesStrings.received_appeal,
-	validationStatesStrings.awaiting_validation_info
+	appealStates.received_appeal,
+	appealStates.awaiting_validation_info
 ];
 
 const getAppealDetails = async function (request, response) {

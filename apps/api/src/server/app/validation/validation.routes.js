@@ -2,6 +2,8 @@ import express from 'express';
 import { getAppeals, getAppealDetails, updateAppeal, submitValidationDecision, getLPAList } from './validation.controller.js';
 import { body } from 'express-validator';
 import asyncHandler from '../middleware/async-handler.js';
+import { appealStates } from '../state-machine/transition-state.js';
+import { validateAppealStatus } from './validation.validators.js';
 
 const router = express.Router();
 
@@ -41,6 +43,10 @@ router.get('/:id',
 			schema: { $ref: '#/definitions/AppealToValidate' }
 		}
 	*/
+	validateAppealStatus([
+		appealStates.received_appeal,
+		appealStates.awaiting_validation_info
+	]),
 	asyncHandler(getAppealDetails));
 
 router.patch('/:id', 
