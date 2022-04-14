@@ -30,27 +30,19 @@ export class TransitionStateError extends Error {
 
 const createHouseholpAppealMachine = function (context) {
 	return createMachine({
-			id: 'household_appeal',
-			context: context,
-			initial: 'received_appeal',
-			states: {
-				...validationStates,
-				...lpaQuestionnaireStates,
-				...inspectorStates
-			},
-<<<<<<< HEAD
-		}, {
+		id: 'household_appeal',
+		context: context,
+		initial: 'received_appeal',
+		states: {
+			...validationStates,
+			...lpaQuestionnaireStates,
+			...inspectorStates
+		},
+	}, {
 		actions: {
 			...validationActions,
 			...lpaQuestionnaireActions,
 			...inspectorActions
-=======
-			actions: {
-				...validationActions,
-				...lpaQuestionnaireActions,
-				...inspectorActions
-			}
->>>>>>> a062227 (BOCM-358 - generalise lpa questionnaire states)
 		}
 	});
 };
