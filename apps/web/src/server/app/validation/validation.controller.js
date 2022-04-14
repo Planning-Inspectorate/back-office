@@ -136,7 +136,7 @@ export async function updateAppellantName({ body, params }, response) {
 /**
  * @typedef {Object} EditAppealSiteRenderOptions
  * @property {number} appealId - Unique identifier for the appeal.
- * @property {Appeal['AppealSite']} appealSite - The appeal site used to populate the
+ * @property {Appeal['AppealSite']} Address - The appeal site used to populate the
  * edit form.
  */
 
@@ -150,11 +150,14 @@ export async function editAppealSite({ params }, response) {
 
 	response.render('validation/edit-appeal-site', {
 		appealId: appeal.AppealId,
-		appealSite: appeal.AppealSite
+		Address: appeal.AppealSite
 	});
 }
 
-/** @typedef {Appeal['AppealSite']} UpdateAppealSiteBody */
+/**
+ * @typedef {object} UpdateAppealSiteBody 
+ * @property {Appeal['AppealSite']} Address
+*/
 
 /**
  * Update the appeal site belonging to a given `appealId`.
@@ -165,12 +168,12 @@ export async function updateAppealSite({ body, params }, response) {
 	if (response.locals.errors) {
 		response.render('validation/edit-appeal-site', {
 			appealId: params.appealId,
-			appealSite: body
+			...body
 		});
 		return;
 	}
 
-	await validationService.updateAppealDetails(params.appealId, { Address: body });
+	await validationService.updateAppealDetails(params.appealId, body);
 
 	response.redirect(`/validation/appeals/${params.appealId}`);
 }

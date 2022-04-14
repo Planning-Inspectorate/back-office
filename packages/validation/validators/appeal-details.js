@@ -10,12 +10,11 @@ export const validateAppellantName = createValidator(
 		.withMessage('`AppellantName` is not a valid string')
 		.bail()
 		.trim()
-		.isAlphanumeric()
 		.withMessage('Enter a valid appellant name')
 		.isLength({ min: 1 })
 		.withMessage('Enter an appellant name')
-		.isLength({ max: 100 })
-		.withMessage('Appellant name must be 100 characters or fewer')
+		.isLength({ max: 500 })
+		.withMessage('Appellant name must be 500 characters or fewer')
 );
 
 export const validateAppealSite = createValidator(
@@ -50,9 +49,10 @@ export const validateAppealSite = createValidator(
 		.isLength({ max: 500 }),
 	body('Address.PostCode')
 		.isString()
-		.withMessage('Enter a postcode')
 		.bail()
 		.trim()
+		.isLength({ min: 1 })
+		.withMessage('Enter a postcode')
 		.custom(validatePostcode)
 		.withMessage('Enter a real postcode')
 );
