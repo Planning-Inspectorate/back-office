@@ -29,8 +29,7 @@ export class TransitionStateError extends Error {
 }
 
 const createHouseholpAppealMachine = function (context) {
-	return createMachine(
-		{
+	return createMachine({
 			id: 'household_appeal',
 			context: context,
 			initial: 'received_appeal',
@@ -39,13 +38,13 @@ const createHouseholpAppealMachine = function (context) {
 				...lpaQuestionnaireStates,
 				...inspectorStates
 			},
-			actions: {
-				...validationActions,
-				...lpaQuestionnaireActions,
-				...inspectorActions
-			}
+		}, {
+		actions: {
+			...validationActions,
+			...lpaQuestionnaireActions,
+			...inspectorActions
 		}
-	);
+	});
 };
 
 const transitionState = function (context, status, machineAction, throwError = false) {

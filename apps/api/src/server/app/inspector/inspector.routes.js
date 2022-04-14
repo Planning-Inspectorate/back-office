@@ -96,13 +96,6 @@ router.post(
         }
 	*/
 	param('appealId').toInt(),
-<<<<<<< HEAD
-=======
-	// TODO: replace this with an error thrown from `transitionState` else the
-	// route has to know about the intended state transition when that's the
-	// controller's responsibility
-	validateAppealState('decision_due'),
->>>>>>> 7b78b67 (BOCM-358 - fixes tests)
 	validateUserBelongsToAppeal,
 	validateIssueDecision,
 	asyncHandler(issueDecision)
