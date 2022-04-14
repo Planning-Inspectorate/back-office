@@ -1,11 +1,11 @@
+import { TransitionStateError } from '../state-machine/household-appeal.machine.js';
+
 /**
- * @param {Error} error error that requires handling
- * @param {Request} _request API request
- * @param {Response} response API response
- * @param {Function} next next
- * @returns {Response} API Response
+ * The default catch-all error handler.
+ *
+ * @type {import('express').ErrorRequestHandler}
  */
-function errorHandler(error, _request, response, next) {
+export function defaultErrorHandler(error, _request, response, next) {
 	if (response.headersSent) {
 		return next(error);
 	}
@@ -15,4 +15,19 @@ function errorHandler(error, _request, response, next) {
 	return response.send({ error: error.message });
 }
 
-export default errorHandler;
+/**
+ * Handle any requests thrown by failed state transitions within the state machine.
+ *
+ * @type {import('express').ErrorRequestHandler}
+ */
+export const stateMachineErrorHandler = (error, _, response, next) => {
+	if (error instanceof TransitionStateError) {
+		response.status(409).send({
+			errors: {
+				appeal: error.message
+			}
+		});
+	} else {
+		next(error);
+	}
+};

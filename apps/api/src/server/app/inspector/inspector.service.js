@@ -28,7 +28,7 @@ import transitionState from '../state-machine/household-appeal.machine.js';
  */
 export const bookSiteVisit = async ({ appealId, siteVisit }) => {
 	const appeal = await appealRepository.getById(appealId);
-	const nextState = transitionState({ appealId }, appeal.status, 'BOOK');
+	const nextState = transitionState({ appealId }, appeal.status, 'BOOK', true);
 
 	return appealRepository.updateById(appealId, {
 		status: nextState.value,
@@ -53,7 +53,7 @@ export const bookSiteVisit = async ({ appealId, siteVisit }) => {
  */
 export const issueDecision = async ({ appealId, outcome, decisionLetter }) => {
 	const appeal = await appealRepository.getById(appealId);
-	const nextState = transitionState({ appealId }, appeal.status, 'DECIDE');
+	const nextState = transitionState({ appealId }, appeal.status, 'DECIDE', true);
 
 	return appealRepository.updateById(appealId, {
 		status: nextState.value,
