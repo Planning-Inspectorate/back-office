@@ -1,6 +1,7 @@
 import { createMachine } from 'xstate';
 import { generateValidationStates, validationActions } from './validation-states.js';
-import { generateLpaQuestionnaireStates, lpaQuestionnaireActions } from './lpa-questionnaire-states.js';
+import { generateLpaQuestionnaireStates } from './lpa-questionnaire-states.js';
+import lpaQuestionnaireActions from './lpa-questionnaire-actions.js';
 import { inspectorStates, inspectorActions } from './inspector-states.js';
 import mapObjectKeysToStrings from '../utils/map-states-to-strings.js';
 

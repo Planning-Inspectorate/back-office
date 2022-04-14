@@ -1,14 +1,3 @@
-import lpaQuestionnaireActionsService from './lpa-questionnaire.actions.js';
-
-const lpaQuestionnaireActions = {
-	sendLPAQuestionnaire: async function(context, _event) {
-		await lpaQuestionnaireActionsService.sendLpaQuestionnaire(context.appealId);
-	},
-	nudgeLPAQuestionnaire: (_context, _event) => {
-		console.log('Sending an email to nudge LPA regarding questionnaire');
-	}
-};
-
 const generateLpaQuestionnaireStates = function() {
 	return {
 		awaiting_lpa_questionnaire: {
@@ -41,4 +30,4 @@ const generateLpaQuestionnaireStates = function() {
 	};
 };
 
-export { generateLpaQuestionnaireStates, lpaQuestionnaireActions };
+export { generateLpaQuestionnaireStates };
