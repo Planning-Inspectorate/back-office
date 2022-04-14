@@ -50,7 +50,7 @@ router.get('/:appealId',
 	]),
 	asyncHandler(getAppealDetails));
 
-router.patch('/:id', 
+router.patch('/:appealId', 
 	/*
 		#swagger.description = 'Updates appeal details'
 		#swagger.parameters['id'] = {
@@ -66,9 +66,14 @@ router.patch('/:id',
 		}
 	*/
 	body('AppellantName').trim().optional({ nullable: true }),
+	param('appealId').toInt(),
+	validateAppealStatus([
+		appealStates.received_appeal,
+		appealStates.awaiting_validation_info
+	]),
 	asyncHandler(updateAppeal));
 
-router.post('/:id', 
+router.post('/:appealId', 
 	/*
 		#swagger.description = 'Sends validation decision'
 		#swagger.parameters['id'] = {
@@ -83,6 +88,11 @@ router.post('/:id',
 			schema: { $ref: "#/definitions/ValidationDecision" } 
 		}
 	*/
+	param('appealId').toInt(),
+	validateAppealStatus([
+		appealStates.received_appeal,
+		appealStates.awaiting_validation_info
+	]),
 	asyncHandler(submitValidationDecision));
 
 export {

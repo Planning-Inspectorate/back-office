@@ -7,6 +7,7 @@ import { transitionState, appealStates } from '../state-machine/transition-state
 import { validationActionsStrings } from '../state-machine/validation-states.js';
 import appealFormatter from './appeal-formatter.js';
 import { validationDecisions, validateAppealValidatedRequest, validateUpdateValidationRequest } from './validate-request.js';
+import { nullIfUndefined } from '../utils/null-if-undefined.js';
 
 const validationStatuses = [
 	appealStates.received_appeal,
@@ -25,14 +26,9 @@ const getAppeals = async function (_request, response) {
 	response.send(formattedAppeals);
 };
 
-const nullIfUndefined = function(value) {
-	// eslint-disable-next-line unicorn/no-null
-	return value || null;
-};
-
 const updateAppeal = async function (request, response) {
 	validateUpdateValidationRequest(request);
-	const appeal = await getAppealForValidation(request.params.id);
+	const appeal = await getAppealForValidation(request.params.appealId);
 	const data = {
 		...(request.body.AppellantName && { appellant: { update: { name: request.body.AppellantName } } }),
 		...(request.body.Address && { address: { update: {
@@ -51,7 +47,7 @@ const updateAppeal = async function (request, response) {
 
 const submitValidationDecision = async function (request, response) {
 	validateAppealValidatedRequest(request.body);
-	const appeal = await getAppealForValidation(request.params.id);
+	const appeal = await getAppealForValidation(request.params.appealId);
 	const machineAction = mapAppealStatusToStateMachineAction(request.body.AppealStatus);
 	const nextState = transitionState('household', { appealId: appeal.id }, appeal.status, machineAction);
 	await appealRepository.updateStatusById(appeal.id, nextState.value);

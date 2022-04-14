@@ -11,6 +11,9 @@ const findUniqueStub = sinon.stub();
 findUniqueStub.withArgs({ where: { id: 1 }, include: { validationDecision: true, address: true, appellant: true } }).returns(
 	{ id: 1, status: 'received_appeal', addressId: 10 }
 );
+findUniqueStub.withArgs({ where: { id: 1 }, include: { appellant: false } }).returns(
+	{ id: 1, status: 'received_appeal', addressId: 10 }
+);
 
 const updateStub = sinon.stub();
 

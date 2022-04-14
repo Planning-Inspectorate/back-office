@@ -68,9 +68,15 @@ const getAppealByIdStub = sinon.stub();
 const updateStub = sinon.stub();
 
 getAppealByIdStub.withArgs({ where: { id: 1 }, include: { validationDecision: true, address: true, appellant: true } }).returns(appeal_1);
+getAppealByIdStub.withArgs({ where: { id: 1 }, include: { appellant: false } }).returns(appeal_1);
 getAppealByIdStub.withArgs({ where: { id: 2 }, include: { validationDecision: true, address: true, appellant: true } }).returns(appeal_2);
+getAppealByIdStub.withArgs({ where: { id: 2 }, include: { appellant: false } }).returns(appeal_2);
 getAppealByIdStub.withArgs({ where: { id: 3 }, include: { validationDecision: true, address: true, appellant: true } }).returns(appeal_3);
+getAppealByIdStub.withArgs({ where: { id: 3 }, include: { appellant: false } }).returns(appeal_3);
 getAppealByIdStub.withArgs({ where: { id: 4 }, include: { validationDecision: true, address: true, appellant: true } }).returns(appeal_4);
+getAppealByIdStub.withArgs({ where: { id: 4 }, include: { appellant: false } }).returns(appeal_4);
+getAppealByIdStub.withArgs({ where: { id: 5 }, include: { appellant: false } }).returns({ status: 'received_appeal' });
+getAppealByIdStub.withArgs({ where: { id: 6 }, include: { appellant: false } }).returns({ status: 'received_appeal' });
 
 updateStub.returns(updated_appeal_1);
 
@@ -200,15 +206,23 @@ test('should not be able to submit nonsensical decision decision', async(t) => {
 test('should not be able to submit validation decision for appeal that has been marked \'valid\'', async(t) => {
 	const resp = await request.post('/validation/2')
 		.send({ AppealStatus: 'invalid', Reason: { outOfTime: true } });
-	t.is(resp.status, 400);
-	t.deepEqual(resp.body, { error: 'Appeal does not require validation' } );
+	t.is(resp.status, 409);
+	t.deepEqual(resp.body, {
+		errors: {
+			status: 'Appeal is in an invalid state',
+		}
+	});
 });
 
 test('should not be able to submit validation decision for appeal that has been marked \'invalid\'', async(t) => {
 	const resp = await request.post('/validation/3')
 		.send({ AppealStatus: 'valid', descriptionOfDevelopment: 'Some desc' });
-	t.is(resp.status, 400);
-	t.deepEqual(resp.body, { error: 'Appeal does not require validation' } );
+	t.is(resp.status, 409);
+	t.deepEqual(resp.body, {
+		errors: {
+			status: 'Appeal is in an invalid state',
+		},
+	});
 });
 
 test('should be able to mark appeal with missing info as \'valid\'', async(t) => {
