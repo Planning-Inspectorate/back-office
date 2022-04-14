@@ -1,13 +1,12 @@
-import express from 'express';
 import { getAppeals, getAppealDetails, updateAppeal, submitValidationDecision, getLPAList } from './validation.controller.js';
-import { body, param } from 'express-validator';
+import { param, validationResult } from 'express-validator';
 import asyncHandler from '../middleware/async-handler.js';
 import { appealStates } from '../state-machine/transition-state.js';
-import { validateAppealStatus } from './validation.validators.js';
+import { validateAppealStatus, validateAppealAttributesToChange } from './validation.validators.js';
 
 const router = express.Router();
 
-router.get('/', 
+router.get('/',
 	/*
 		#swagger.description = 'Gets all appeals that need to be validated. The AppealStatus will be either \'new\' or \'incomplete\''
 		#swagger.responses[200] = {
@@ -17,7 +16,7 @@ router.get('/',
 	*/
 	asyncHandler(getAppeals));
 
-router.get('/lpa-list', 
+router.get('/lpa-list',
 	/* 
 		#swagger.description = 'Gets all LPAs from external API'
 		#swagger.responses[200] = {
@@ -30,7 +29,7 @@ router.get('/lpa-list',
 	*/
 	asyncHandler(getLPAList));
 
-router.get('/:appealId', 
+router.get('/:appealId',
 	/* 
 		#swagger.description = 'Gets appeal to be validated by the Validation Officer'
 		#swagger.parameters['id'] = {
@@ -50,7 +49,7 @@ router.get('/:appealId',
 	]),
 	asyncHandler(getAppealDetails));
 
-router.patch('/:appealId', 
+router.patch('/:appealId',
 	/*
 		#swagger.description = 'Updates appeal details'
 		#swagger.parameters['id'] = {
@@ -67,13 +66,14 @@ router.patch('/:appealId',
 	*/
 	body('AppellantName').trim().optional({ nullable: true }),
 	param('appealId').toInt(),
+	validateAppealAttributesToChange,
 	validateAppealStatus([
 		appealStates.received_appeal,
 		appealStates.awaiting_validation_info
 	]),
 	asyncHandler(updateAppeal));
 
-router.post('/:appealId', 
+router.post('/:appealId',
 	/*
 		#swagger.description = 'Sends validation decision'
 		#swagger.parameters['id'] = {

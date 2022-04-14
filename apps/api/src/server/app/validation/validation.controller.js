@@ -27,7 +27,6 @@ const getAppeals = async function (_request, response) {
 };
 
 const updateAppeal = async function (request, response) {
-	validateUpdateValidationRequest(request);
 	const appeal = await getAppealForValidation(request.params.appealId);
 	const data = {
 		...(request.body.AppellantName && { appellant: { update: { name: request.body.AppellantName } } }),
