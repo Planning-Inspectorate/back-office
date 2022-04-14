@@ -1,4 +1,4 @@
-import { TransitionStateError } from '../state-machine/household-appeal.machine.js';
+import { TransitionStateError } from '../state-machine/transition-state.js';
 
 /**
  * The default catch-all error handler.

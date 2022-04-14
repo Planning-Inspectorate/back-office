@@ -61,13 +61,4 @@ const createFullPlanningAppealMachine = function (context) {
 	});
 };
 
-const transitionState = function (context, status, machineAction) {
-	const service = interpret(createFullPlanningAppealMachine(context));
-	service.start(status);
-	service.send({ type: machineAction });
-	const nextState = service.state;
-	service.stop();
-	return nextState;
-};
-
-export { transitionState };
+export { createFullPlanningAppealMachine };

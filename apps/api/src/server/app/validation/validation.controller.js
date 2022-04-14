@@ -3,7 +3,8 @@ import got from 'got';
 import appealRepository from '../repositories/appeal.repository.js';
 import validationDecisionRepository from '../repositories/validation-decision.repository.js';
 import ValidationError from './validation-error.js';
-import { transitionState, validationStatesStrings } from '../state-machine/household-appeal.machine.js';
+import { validationStatesStrings } from '../state-machine/household-appeal.machine.js';
+import { transitionState } from '../state-machine/transition-state.js';
 import { validationActionsStrings } from '../state-machine/validation-states.js';
 import appealFormatter from './appeal-formatter.js';
 import { validationDecisions, validateAppealValidatedRequest, validateUpdateValidationRequest } from './validate-request.js';
@@ -53,7 +54,7 @@ const submitValidationDecision = async function (request, response) {
 	validateAppealValidatedRequest(request.body);
 	const appeal = await getAppealForValidation(request.params.id);
 	const machineAction = mapAppealStatusToStateMachineAction(request.body.AppealStatus);
-	const nextState = transitionState({ appealId: appeal.id }, appeal.status, machineAction);
+	const nextState = transitionState('household', { appealId: appeal.id }, appeal.status, machineAction);
 	await appealRepository.updateStatusById(appeal.id, nextState.value);
 	await validationDecisionRepository.addNewDecision(appeal.id, request.body.AppealStatus, request.body.Reason, request.body.descriptionOfDevelopment);
 	return response.send();

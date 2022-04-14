@@ -1,7 +1,7 @@
 // @ts-check
 
 import appealRepository from '../repositories/appeal.repository.js';
-import { transitionState } from '../state-machine/household-appeal.machine.js';
+import { transitionState } from '../state-machine/transition-state.js';
 
 /** @typedef {import('@pins/appeals').Inspector.Appeal} Appeal */
 /** @typedef {import('@pins/appeals').Inspector.AppealOutcome} AppealOutcome */
@@ -28,7 +28,7 @@ import { transitionState } from '../state-machine/household-appeal.machine.js';
  */
 export const bookSiteVisit = async ({ appealId, siteVisit }) => {
 	const appeal = await appealRepository.getById(appealId);
-	const nextState = transitionState({ appealId }, appeal.status, 'BOOK', true);
+	const nextState = transitionState('household', { appealId }, appeal.status, 'BOOK', true);
 
 	return appealRepository.updateById(appealId, {
 		status: nextState.value,
@@ -53,7 +53,7 @@ export const bookSiteVisit = async ({ appealId, siteVisit }) => {
  */
 export const issueDecision = async ({ appealId, outcome, decisionLetter }) => {
 	const appeal = await appealRepository.getById(appealId);
-	const nextState = transitionState({ appealId }, appeal.status, 'DECIDE', true);
+	const nextState = transitionState('household', { appealId }, appeal.status, 'DECIDE', true);
 
 	return appealRepository.updateById(appealId, {
 		status: nextState.value,

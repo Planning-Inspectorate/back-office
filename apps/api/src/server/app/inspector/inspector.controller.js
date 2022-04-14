@@ -5,7 +5,7 @@ import { inspectorStatesStrings } from '../state-machine/inspector-states.js';
 import formatAddressLowerCase from '../utils/address-formatter-lowercase.js';
 import formatDate from '../utils/date-formatter.js';
 import InspectorError from './inspector-error.js';
-import { transitionState } from '../state-machine/household-appeal.machine.js';
+import { transitionState } from '../state-machine/transition-state.js';
 import daysBetweenDates from '../utils/days-between-dates.js';
 
 /** @typedef {import('@pins/appeals').Inspector.Appeal} Appeal */
@@ -219,7 +219,7 @@ const assignAppealsById = async function(userId, appealIds) {
 		const appeal = await appealRepository.getByIdIncluding(appealId, { address: true, appellant: true, appealDetailsFromAppellant: true });
 		if (appeal.userId == undefined && appeal.status == 'available_for_inspector_pickup') {
 			try {
-				const nextState = transitionState({ appealId: appeal.id }, appeal.status, 'PICKUP');
+				const nextState = transitionState('household', { appealId: appeal.id }, appeal.status, 'PICKUP');
 				await appealRepository.updateById(appeal.id, { status: nextState.value, user: { connect: { id: userId } } });
 				successfullyAssigned.push(formatAppealForAssigningAppeals(appeal));
 			} catch (error) {
