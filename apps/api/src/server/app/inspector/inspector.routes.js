@@ -1,7 +1,7 @@
 import express from 'express';
 import { param } from 'express-validator';
 import asyncHandler from '../middleware/async-handler.js';
-import { assignAppeals, bookSiteVisit, getAppeals, issueDecision } from './inspector.controller.js';
+import { assignAppeals, bookSiteVisit, getAppeals, getMoreAppeals, issueDecision } from './inspector.controller.js';
 import {
 	validateAssignAppealsToInspector,
 	validateBookSiteVisit,

@@ -126,8 +126,11 @@ class MockDatabaseClass {
 	}
 }
 
-test('gets all appeals assigned to inspector', async (t) => {
+test.before('sets up mocking of database', () => {
 	sinon.stub(DatabaseFactory, 'getInstance').callsFake((arguments_) => new MockDatabaseClass(arguments_));
+});
+
+test('gets all appeals assigned to inspector', async (t) => {
 
 	const clock = sinon.useFakeTimers({ now: 1_649_319_144_000 });
 
@@ -234,7 +237,6 @@ test('throws error if userid is not provided in the header', async(t) => {
 });
 
 test('gets all appeals yet to be assigned to inspector', async (t) => {
-	sinon.stub(DatabaseFactory, 'getInstance').callsFake((arguments_) => new MockDatabaseClass(arguments_));
 	const resp = await request.get('/inspector/more-appeals');
 	t.is(resp.status, 200);
 	t.deepEqual(resp.body, [
