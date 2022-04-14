@@ -43,9 +43,9 @@ function applyAction(t, initial_state, action, expected_state, has_changed, cont
 	// }
 }
 
-const buildCompoundState = function(lpaQuestionnaireState, statementsAndFinalCommentsState) {
+const buildCompoundState = function(lpaQuestionnaireAndInspectorPickupState, statementsAndFinalCommentsState) {
 	return { awaiting_lpa_questionnaire_and_statements: {
-		lpaQuestionnaire: lpaQuestionnaireState,
+		lpaQuestionnaireAndInspectorPickup: lpaQuestionnaireAndInspectorPickupState,
 		statementsAndFinalComments: statementsAndFinalCommentsState,
 	}, };
 };
