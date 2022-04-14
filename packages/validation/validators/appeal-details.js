@@ -46,7 +46,8 @@ export const validateAppealSite = createValidator(
 		.isString()
 		.bail()
 		.trim()
-		.isLength({ max: 500 }),
+		.isLength({ max: 500 })
+		.withMessage('County must be 500 characters or fewer'),
 	body('Address.PostCode')
 		.isString()
 		.bail()
