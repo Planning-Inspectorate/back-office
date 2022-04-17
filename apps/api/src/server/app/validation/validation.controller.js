@@ -1,8 +1,7 @@
 import appealRepository from '../repositories/appeal.repository.js';
 import { appealStates } from '../state-machine/transition-state.js';
 import appealFormatter from './appeal-formatter.js';
-import { nullIfUndefined } from '../utils/null-if-undefined.js';
-import { submitValidationDecisionService, obtainLPAListService } from './validation.service.js';
+import { submitValidationDecisionService, obtainLPAListService, updateAppealService } from './validation.service.js';
 
 const validationStatuses = [
 	appealStates.received_appeal,
@@ -22,26 +21,18 @@ const getAppeals = async function (_request, response) {
 };
 
 const updateAppeal = async function (request, response) {
-	const appeal = await appealRepository.getByIdWithValidationDecisionAndAddress(request.params.appealId);
-	const data = {
-		...(request.body.AppellantName && { appellant: { update: { name: request.body.AppellantName } } }),
-		...(request.body.Address && { address: { update: {
-			addressLine1: nullIfUndefined(request.body.Address.AddressLine1),
-			addressLine2: nullIfUndefined(request.body.Address.AddressLine2),
-			town: nullIfUndefined(request.body.Address.Town),
-			county: nullIfUndefined(request.body.Address.County),
-			postcode: nullIfUndefined(request.body.Address.PostCode)
-		} } }),
-		...(request.body.LocalPlanningDepartment && { localPlanningDepartment: request.body.LocalPlanningDepartment } ),
-		...(request.body.PlanningApplicationReference && { planningApplicationReference: request.body.PlanningApplicationReference })
-	};
-	await appealRepository.updateById(appeal.id, data);
+	await updateAppealService(
+		request.params.appealId, 
+		request.body.AppellantName, 
+		request.body.Address, 
+		request.body.LocalPlanningDepartment,
+		request.body.PlanningApplicationReference
+	);
 	return response.send();
 };
 
 const submitValidationDecision = async function (request, response) {
-	const appeal = await appealRepository.getByIdWithValidationDecisionAndAddress(request.params.appealId);
-	submitValidationDecisionService(appeal, request.body.AppealStatus, request.body.Reason, request.body.descriptionOfDevelopment);
+	await submitValidationDecisionService(request.params.appealId, request.body.AppealStatus, request.body.Reason, request.body.descriptionOfDevelopment);
 	return response.send();
 };
 

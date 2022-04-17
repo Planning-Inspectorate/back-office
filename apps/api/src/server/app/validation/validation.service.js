@@ -5,6 +5,7 @@ import ValidationError from './validation-error.js';
 import { transitionState } from '../state-machine/transition-state.js';
 import appealRepository from '../repositories/appeal.repository.js';
 import validationDecisionRepository from '../repositories/validation-decision.repository.js';
+import { nullIfUndefined } from '../utils/null-if-undefined.js';
 
 const validationDecisions = {
 	valid: 'valid',
@@ -29,7 +30,8 @@ function mapAppealStatusToStateMachineAction(status) {
 	}
 }
 
-export const submitValidationDecisionService = async (appeal, appealStatus, reason, descriptionOfDevelopment) => {
+export const submitValidationDecisionService = async (appealId, appealStatus, reason, descriptionOfDevelopment) => {
+	const appeal = await appealRepository.getByIdWithValidationDecisionAndAddress(appealId);
 	const machineAction = mapAppealStatusToStateMachineAction(appealStatus);
 	const nextState = transitionState('household', { appealId: appeal.id }, appeal.status, machineAction);
 	await appealRepository.updateStatusById(appeal.id, nextState.value);
@@ -49,7 +51,7 @@ export const submitValidationDecisionService = async (appeal, appealStatus, reas
  *
  * @returns {Promise<string[]>} - A list of local planning department names.
  */
- export const obtainLPAListService = async function () {
+export const obtainLPAListService = async function () {
 	const { body } = await /** @type {Promise<import('got').Response<LocalPlanningDepartmentResponse>>} */ (
 		got.get('https://services1.arcgis.com/ESMARspQHYMw9BZ9/arcgis/rest/services/LPA_APR_2021_UK_NC/FeatureServer/0/query', {
 			responseType: 'json',
@@ -63,4 +65,21 @@ export const submitValidationDecisionService = async (appeal, appealStatus, reas
 	);
 
 	return body.features.map((feature) => feature.attributes.LPA21NM);
+};
+
+export const updateAppealService = async function(appealId, appellantName, address, localPlanningDepartment, planningApplicationReference) {
+	const appeal = await appealRepository.getByIdWithValidationDecisionAndAddress(appealId);
+	const data = {
+		...(appellantName && { appellant: { update: { name: appellantName } } }),
+		...(address && { address: { update: {
+			addressLine1: nullIfUndefined(address.AddressLine1),
+			addressLine2: nullIfUndefined(address.AddressLine2),
+			town: nullIfUndefined(address.Town),
+			county: nullIfUndefined(address.County),
+			postcode: nullIfUndefined(address.PostCode)
+		} } }),
+		...(localPlanningDepartment && { localPlanningDepartment: localPlanningDepartment } ),
+		...(planningApplicationReference && { planningApplicationReference: planningApplicationReference })
+	};
+	await appealRepository.updateById(appeal.id, data);
 };
