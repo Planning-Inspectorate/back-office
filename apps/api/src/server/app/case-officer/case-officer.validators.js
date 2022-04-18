@@ -1,13 +1,5 @@
-import CaseOfficerError from './case-officer-error.js';
 import _ from 'lodash';
 
-// the questionnaire review is not completed until all the points in the review are completed as well.
-// This validation establishes the status of an appeal as complete or incomplete according to this criteria
-const reviewComplete = function (body) {
-	return Object.keys(body.reason).every((index) => !body.reason[index])? true : false;
-};
-
-// TODO: Refactor this to make it more readable.
 const invalidWithoutReasons = function (body) {
 	return ((
 		(body.reason.applicationPlansToReachDecisionMissingOrIncorrect  === true &&
@@ -61,13 +53,20 @@ const incompleteWithUnexpectedReasons = function (body) {
 	]).length === 0)? false : true;
 };
 
-const validateReviewRequest = function(body) {
-	if (invalidWithoutReasons(body)) {
-		throw new CaseOfficerError('Incomplete Review requires a description', 400);
-	}
-	if (incompleteWithUnexpectedReasons(body)) {
-		throw new CaseOfficerError('Incomplete Review requires a known description', 400);
+export const validateReviewRequest = (request, response, next) => {
+	if (invalidWithoutReasons(request.body)) {
+		response.status(409).send({
+			errors: {
+				status: 'Incomplete Review requires a description'
+			}
+		});
+	} else if (incompleteWithUnexpectedReasons(request.body)) {
+		response.status(409).send({
+			errors: {
+				status: 'Incomplete Review requires a known description'
+			}
+		});
+	} else {
+		next();
 	}
 };
-
-export { reviewComplete, validateReviewRequest };

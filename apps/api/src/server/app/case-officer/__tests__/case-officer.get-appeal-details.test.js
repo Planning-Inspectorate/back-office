@@ -2,64 +2,66 @@
 import test from 'ava';
 import supertest from 'supertest';
 import sinon from 'sinon';
-import { app } from '../../app.js';
-import DatabaseFactory from '../repositories/database.js';
+import { app } from '../../../app.js';
+import DatabaseFactory from '../../repositories/database.js';
 
 const request = supertest(app);
 
-const findUniqueStub = sinon.stub();
-findUniqueStub
-	.withArgs({
-		where: { id: 1 },
-		include: {
-			address: true,
-			appellant: true,
-			reviewQuestionnaire: {
-				take: 1,
-				orderBy: {
-					createdAt: 'desc'
-				}
-			}
-		}
-	})
-	.returns({
-		id: 1,
-		reference: 'APP/Q9999/D/21/1345264',
+const appeal_1 = {
+	id: 1,
+	reference: 'APP/Q9999/D/21/1345264',
+	appealStatus: [{
 		status: 'received_lpa_questionnaire',
-		createdAt: new Date(2022, 1, 23),
-		addressId: 1,
-		localPlanningDepartment: 'Maidstone Borough Council',
-		planningApplicationReference: '48269/APP/2021/1482',
-		appellant: {
-			name: 'Lee Thornton'
-		},
-		startedAt: new Date(2022, 4, 18),
-		address: {
-			addressLine1: 'line 1',
-			addressLine2: 'line 2',
-			postcode: 'some code'
-		}
-	});
+		valid: true
+	}],
+	createdAt: new Date(2022, 1, 23),
+	addressId: 1,
+	localPlanningDepartment: 'Maidstone Borough Council',
+	planningApplicationReference: '48269/APP/2021/1482',
+	appellant: {
+		name: 'Lee Thornton'
+	},
+	startedAt: new Date(2022, 4, 18),
+	address: {
+		addressLine1: 'line 1',
+		addressLine2: 'line 2',
+		postcode: 'some code'
+	}
+};
 
-findUniqueStub
-	.withArgs({
-		where: { id: 2 },
-		include: {
-			address: true,
-			appellant: true,
-			reviewQuestionnaire: {
-				take: 1,
-				orderBy: {
-					createdAt: 'desc'
-				}
-			}
+const appeal_2 = {
+	id: 2,
+	reference: 'APP/Q9999/D/21/1345264',
+	appealStatus: [{
+		status: 'awaiting_lpa_questionnaire',
+		valid: true
+	}]
+};
+
+const includeDetails = {
+	address: true,
+	validationDecision: false,
+	appellant: true,
+	appealStatus: {
+		where: {
+			valid: true
 		}
-	})
-	.returns({
-		id: 2,
-		reference: 'APP/Q9999/D/21/1345264',
-		status: 'awaiting_lpa_questionnaire'
-	});
+	},
+	reviewQuestionnaire: {
+		take: 1,
+		orderBy: {
+			createdAt: 'desc'
+		}
+	}
+};
+
+const includingDetailsForValidtion = { appellant: false, appealStatus: { where: { valid: true } }, address: false, validationDecision: false };
+
+const findUniqueStub = sinon.stub();
+findUniqueStub.withArgs({ where: { id: 1 }, include: includeDetails }).returns(appeal_1);
+findUniqueStub.withArgs({ where: { id: 2 }, include: includeDetails }).returns(appeal_2);
+findUniqueStub.withArgs({ where: { id: 1 }, include: includingDetailsForValidtion }).returns(appeal_1);
+findUniqueStub.withArgs({ where: { id: 2 }, include: includingDetailsForValidtion }).returns(appeal_2);
 
 const listOfDocuments = [
 	{
@@ -170,12 +172,17 @@ test('gets the appeals detailed information with received questionnaires', async
 		ListedBuildingDesc: '',
 		Documents: listOfDocuments
 	};
+	console.log(resp.body);
 	t.is(resp.status, 200);
 	t.deepEqual(resp.body, appealExampleDetail);
 });
 
 test('unable to retrieve details for an appeal which has yet to receive the questionnaire', async (t) => {
 	const resp = await request.get('/case-officer/2');
-	t.is(resp.status, 400);
-	t.deepEqual(resp.body, { error: 'Appeal has yet to receive LPA questionnaire' });
+	t.is(resp.status, 409);
+	t.deepEqual(resp.body, {
+		errors: {
+			status: 'Appeal is in an invalid state',
+		}
+	});
 });

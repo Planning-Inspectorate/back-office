@@ -2,7 +2,8 @@ import { getAppeals, getAppealDetails, updateAppeal, submitValidationDecision, g
 import { param } from 'express-validator';
 import asyncHandler from '../middleware/async-handler.js';
 import { appealStates } from '../state-machine/transition-state.js';
-import { validateAppealStatus, validateAppealAttributesToChange, validateAppealValidationDecision } from './validation.validators.js';
+import { validateAppealAttributesToChange, validateAppealValidationDecision } from './validation.validators.js';
+import { validateAppealStatus } from '../middleware/validate-appeal-status.js';
 
 const router = express.Router();
 

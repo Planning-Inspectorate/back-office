@@ -2,15 +2,18 @@
 import test from 'ava';
 import supertest from 'supertest';
 import sinon from 'sinon';
-import { app } from '../../app.js';
-import DatabaseFactory from '../repositories/database.js';
+import { app } from '../../../app.js';
+import DatabaseFactory from '../../repositories/database.js';
 
 const request = supertest(app);
 
 const appeal_1 = {
 	id: 1,
 	reference: 'APP/Q9999/D/21/1345264',
-	status: 'awaiting_lpa_questionnaire',
+	appealStatus: [{
+		status: 'awaiting_lpa_questionnaire',
+		valid: true
+	}],
 	createdAt: new Date(2022, 1, 23),
 	addressId: 1,
 	localPlanningDepartment: 'Maidstone Borough Council',
@@ -29,7 +32,10 @@ const appeal_1 = {
 const appeal_2 = {
 	id: 2,
 	reference: 'APP/Q9999/D/21/5463281',
-	status: 'received_lpa_questionnaire',
+	appealStatus: [{
+		status: 'received_lpa_questionnaire',
+		valid: true
+	}],
 	createdAt: new Date(2022, 1, 25),
 	addressId: 2,
 	startedAt: new Date(2022, 4, 22),
@@ -42,7 +48,10 @@ const appeal_2 = {
 const appeal_3 = {
 	id: 3,
 	reference: 'APP/Q9999/D/21/5463281',
-	status: 'overdue_lpa_questionnaire',
+	appealStatus: [{
+		status: 'overdue_lpa_questionnaire',
+		valid: true
+	}],
 	createdAt: new Date(2022, 1, 25),
 	addressId: 2,
 	startedAt: new Date(2022, 4, 22),
@@ -55,7 +64,10 @@ const appeal_3 = {
 const appeal_4 = {
 	id: 4,
 	reference: 'APP/Q8874/D/23/4293472',
-	status: 'incomplete_lpa_questionnaire',
+	appealStatus: [{
+		status: 'incomplete_lpa_questionnaire',
+		valid: true
+	}],
 	createdAt: new Date(2021, 12, 12),
 	addressId: 4,
 	startedAt: new Date(2022, 3, 20),

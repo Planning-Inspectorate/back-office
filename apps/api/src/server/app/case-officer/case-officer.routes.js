@@ -1,6 +1,10 @@
 import express from 'express';
+import { param } from 'express-validator';
 import asyncHandler from '../middleware/async-handler.js';
-import { getAppeals, getAppealDetails, confirmingLPAQuestionnaire } from './case-officer.controller.js';
+import { getAppeals, getAppealDetails, confirmLPAQuestionnaire } from './case-officer.controller.js';
+import { validateAppealStatus } from '../middleware/validate-appeal-status.js';
+import { appealStates } from '../state-machine/transition-state.js';
+import { validateReviewRequest } from './case-officer.validators.js';
 
 const router = express.Router();
 
@@ -13,7 +17,7 @@ router.get('/',
 		}
 	*/
 	asyncHandler(getAppeals));
-router.get('/:id', 
+router.get('/:appealId', 
 	/*
 		#swagger.description = 'Gets appeal details for Case Officer to review'
 		#swagger.responses[200] = {
@@ -21,8 +25,20 @@ router.get('/:id',
 			schema: { $ref: '#/definitions/AppealForCaseOfficer' }
 		}
 	*/
+	param('appealId').toInt(),
+	validateAppealStatus([
+		appealStates.received_lpa_questionnaire,
+		appealStates.incomplete_lpa_questionnaire
+	]),
 	asyncHandler(getAppealDetails));
-router.post('/:id/confirm', asyncHandler(confirmingLPAQuestionnaire));
+router.post('/:appealId/confirm', 
+	param('appealId').toInt(),
+	validateAppealStatus([
+		appealStates.received_lpa_questionnaire,
+		appealStates.incomplete_lpa_questionnaire
+	]),
+	validateReviewRequest,
+	asyncHandler(confirmLPAQuestionnaire));
 
 
 export {
