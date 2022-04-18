@@ -10,7 +10,10 @@ const request = supertest(app);
 const appeal_1 = {
 	id: 1,
 	reference: 'APP/Q9999/D/21/1345264',
-	status: 'received_appeal',
+	appealStatus: [{
+		status: 'received_appeal',
+		valid: true
+	}],
 	createdAt: new Date(2022, 1, 23),
 	addressId: 1,
 	localPlanningDepartment: 'Maidstone Borough Council',
@@ -22,7 +25,10 @@ const appeal_1 = {
 const appeal_2 = {
 	id: 1,
 	reference: 'APP/Q9999/D/21/1345264',
-	status: 'valid_appeal',
+	appealStatus: [{
+		status: 'valid_appeal',
+		valid: true
+	}],
 	createdAt: new Date(2022, 1, 23),
 	addressId: 1,
 	localPlanningDepartment: 'Maidstone Borough Council',
@@ -34,7 +40,10 @@ const appeal_2 = {
 const appeal_3 = {
 	id: 1,
 	reference: 'APP/Q9999/D/21/1345264',
-	status: 'invalid_appeal',
+	appealStatus: [{
+		status: 'invalid_appeal',
+		valid: true
+	}],
 	createdAt: new Date(2022, 1, 23),
 	addressId: 1,
 	localPlanningDepartment: 'Maidstone Borough Council',
@@ -46,7 +55,10 @@ const appeal_3 = {
 const appeal_4 = {
 	id: 4,
 	reference: 'APP/Q9999/D/21/1345264',
-	status: 'awaiting_validation_info',
+	appealStatus: [{
+		status: 'awaiting_validation_info',
+		valid: true
+	}],
 	createdAt: new Date(2022, 1, 23),
 	addressId: 1,
 	localPlanningDepartment: 'Maidstone Borough Council',
@@ -59,7 +71,10 @@ const updated_appeal_1 = {
 	id: 1,
 	reference: 'REFERENCE',
 	apellantName: 'some name',
-	status: 'new status',
+	appealStatus: [{
+		status: 'new status',
+		valid: true
+	}],
 	createdAt: new Date(2022, 3, 15),
 	addressId: 1
 };
@@ -67,16 +82,18 @@ const updated_appeal_1 = {
 const getAppealByIdStub = sinon.stub();
 const updateStub = sinon.stub();
 
-getAppealByIdStub.withArgs({ where: { id: 1 }, include: { validationDecision: true, address: true, appellant: true } }).returns(appeal_1);
-getAppealByIdStub.withArgs({ where: { id: 1 }, include: { appellant: false } }).returns(appeal_1);
-getAppealByIdStub.withArgs({ where: { id: 2 }, include: { validationDecision: true, address: true, appellant: true } }).returns(appeal_2);
-getAppealByIdStub.withArgs({ where: { id: 2 }, include: { appellant: false } }).returns(appeal_2);
-getAppealByIdStub.withArgs({ where: { id: 3 }, include: { validationDecision: true, address: true, appellant: true } }).returns(appeal_3);
-getAppealByIdStub.withArgs({ where: { id: 3 }, include: { appellant: false } }).returns(appeal_3);
-getAppealByIdStub.withArgs({ where: { id: 4 }, include: { validationDecision: true, address: true, appellant: true } }).returns(appeal_4);
-getAppealByIdStub.withArgs({ where: { id: 4 }, include: { appellant: false } }).returns(appeal_4);
-getAppealByIdStub.withArgs({ where: { id: 5 }, include: { appellant: false } }).returns({ status: 'received_appeal' });
-getAppealByIdStub.withArgs({ where: { id: 6 }, include: { appellant: false } }).returns({ status: 'received_appeal' });
+const includingDetailsForResponse = { validationDecision: true, address: true, appellant: true, appealStatus: { where: { valid: true } } };
+const includingDetailsForValidtion = { appellant: false, appealStatus: { where: { valid: true } }, address: false, validationDecision: false };
+getAppealByIdStub.withArgs({ where: { id: 1 }, include: includingDetailsForResponse }).returns(appeal_1);
+getAppealByIdStub.withArgs({ where: { id: 1 }, include: includingDetailsForValidtion }).returns(appeal_1);
+getAppealByIdStub.withArgs({ where: { id: 2 }, include: includingDetailsForResponse }).returns(appeal_2);
+getAppealByIdStub.withArgs({ where: { id: 2 }, include: includingDetailsForValidtion }).returns(appeal_2);
+getAppealByIdStub.withArgs({ where: { id: 3 }, include: includingDetailsForResponse }).returns(appeal_3);
+getAppealByIdStub.withArgs({ where: { id: 3 }, include: includingDetailsForValidtion }).returns(appeal_3);
+getAppealByIdStub.withArgs({ where: { id: 4 }, include: includingDetailsForResponse }).returns(appeal_4);
+getAppealByIdStub.withArgs({ where: { id: 4 }, include: includingDetailsForValidtion }).returns(appeal_4);
+getAppealByIdStub.withArgs({ where: { id: 5 }, include: includingDetailsForValidtion }).returns({ status: 'received_appeal' });
+getAppealByIdStub.withArgs({ where: { id: 6 }, include: includingDetailsForValidtion }).returns({ status: 'received_appeal' });
 
 updateStub.returns(updated_appeal_1);
 
@@ -91,6 +108,8 @@ const newDecision = {
 addNewDecisionStub.returns(newDecision);
 
 const createLpaQuestionnaireStub = sinon.stub();
+const updateManyAppealStatusStub = sinon.stub();
+const createAppealStatusStub = sinon.stub();
 
 class MockDatabaseClass {
 	constructor(_parameters) {
@@ -104,7 +123,12 @@ class MockDatabaseClass {
 			},
 			lPAQuestionnaire: {
 				create: createLpaQuestionnaireStub
-			}
+			},
+			appealStatus: {
+				updateMany: updateManyAppealStatusStub,
+				create: createAppealStatusStub
+			},
+			$transaction: sinon.stub()
 		};
 	}
 }
@@ -117,11 +141,13 @@ test('should be able to submit \'valid\' decision', async (t) => {
 	const resp = await request.post('/validation/1')
 		.send({ AppealStatus: 'valid', descriptionOfDevelopment: 'Some Desc' });
 	t.is(resp.status, 200);
-	sinon.assert.calledWithExactly(updateStub, { where: { id: 1 }, data: {
-		status: 'awaiting_lpa_questionnaire',
-		statusUpdatedAt: sinon.match.any,
-		updatedAt: sinon.match.any
-	} });
+	sinon.assert.calledWithExactly(updateManyAppealStatusStub, {
+		where: { appealId: 1 },
+		data: { valid: false }
+	});
+	sinon.assert.calledWithExactly(createAppealStatusStub, {
+		data: { status: 'awaiting_lpa_questionnaire', appealId: 1 }
+	});
 	sinon.assert.calledWithExactly(addNewDecisionStub, {  data: {
 		appealId: 1,
 		decision: 'valid',
@@ -141,20 +167,22 @@ test('should be able to submit \'invalid\' decision', async(t) => {
 				otherReasons: '' }
 		});
 	t.is(resp.status, 200);
+	sinon.assert.calledWithExactly(updateManyAppealStatusStub, {
+		where: { appealId: 1 },
+		data: { valid: false }
+	});
+	sinon.assert.calledWithExactly(createAppealStatusStub, {
+		data: { status: 'invalid_appeal', appealId: 1 }
+	});
 	// TODO: calledOneWithExactly throws error
-	sinon.assert.calledWithExactly(updateStub, { where: { id: 1 }, data: {
-		status: 'invalid_appeal',
-		statusUpdatedAt: sinon.match.any,
-		updatedAt: sinon.match.any
-	} });
 	sinon.assert.calledWithExactly(addNewDecisionStub, {  data: {
 		appealId: 1,
 		decision: 'invalid',
 		descriptionOfDevelopment: undefined,
-		outOfTime:true,
-		noRightOfAppeal:true,
-		notAppealable:true,
-		lPADeemedInvalid:true,
+		outOfTime: true,
+		noRightOfAppeal: true,
+		notAppealable: true,
+		lPADeemedInvalid: true,
 		otherReasons: ''
 	} });
 });
@@ -174,12 +202,14 @@ test('should be able to submit \'missing appeal details\' decision', async(t) =>
 				wrongAppealTypeUsed: true }
 		} );
 	t.is(resp.status, 200);
+	sinon.assert.calledWithExactly(updateManyAppealStatusStub, {
+		where: { appealId: 1 },
+		data: { valid: false }
+	});
+	sinon.assert.calledWithExactly(createAppealStatusStub, {
+		data: { status: 'awaiting_validation_info', appealId: 1 }
+	});
 	// TODO: calledOneWithExactly throws error
-	sinon.assert.calledWithExactly(updateStub, { where: { id: 1 }, data: {
-		status: 'awaiting_validation_info',
-		statusUpdatedAt: sinon.match.any,
-		updatedAt: sinon.match.any
-	} });
 	sinon.assert.calledWithExactly(addNewDecisionStub, {  data: {
 		appealId: 1,
 		decision: 'incomplete',
@@ -193,6 +223,23 @@ test('should be able to submit \'missing appeal details\' decision', async(t) =>
 		inflammatoryComments: true,
 		openedInError: true,
 		wrongAppealTypeUsed: true
+	} });
+});
+
+test('should be able to mark appeal with missing info as \'valid\'', async(t) => {
+	const resp = await request.post('/validation/4').send({ AppealStatus: 'valid', descriptionOfDevelopment: 'some desc' });
+	t.is(resp.status, 200);
+	sinon.assert.calledWithExactly(updateManyAppealStatusStub, {
+		where: { appealId: 1 },
+		data: { valid: false }
+	});
+	sinon.assert.calledWithExactly(createAppealStatusStub, {
+		data: { status: 'awaiting_validation_info', appealId: 1 }
+	});
+	sinon.assert.calledWithExactly(addNewDecisionStub, {  data: {
+		appealId: 1,
+		decision: 'valid',
+		descriptionOfDevelopment: 'Some Desc'
 	} });
 });
 
@@ -229,16 +276,6 @@ test('should not be able to submit validation decision for appeal that has been 
 	});
 });
 
-test('should be able to mark appeal with missing info as \'valid\'', async(t) => {
-	const resp = await request.post('/validation/4').send({ AppealStatus: 'valid', descriptionOfDevelopment: 'some desc' });
-	t.is(resp.status, 200);
-	sinon.assert.calledWithExactly(updateStub, { where: { id: 4 }, data: {
-		status: 'awaiting_lpa_questionnaire',
-		statusUpdatedAt: sinon.match.any,
-		updatedAt: sinon.match.any
-	} });
-});
-
 test('should not be able to submit decision as \'invalid\' if there is no reason marked', async (t) => {
 	const resp = await request.post('/validation/5')
 		.send({
@@ -271,7 +308,6 @@ test('should not be able to submit decision as \'invalid\' if there is no reason
 		}
 	});
 });
-
 
 test('should not be able to submit decision as \'incomplete\' if there is no reason marked', async (t) => {
 	const resp = await request.post('/validation/6')

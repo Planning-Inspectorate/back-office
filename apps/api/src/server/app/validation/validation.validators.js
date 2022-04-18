@@ -3,6 +3,7 @@ import { composeMiddleware } from '@pins/express';
 import { body, validationResult } from 'express-validator';
 import appealRepository from '../repositories/appeal.repository.js';
 import stringEmptyOrUndefined from '../utils/string-validator.js';
+import { arrayOfStatusesContainsString } from '../utils/array-of-statuses-contains-string.js';
 
 const sendInvalidStateMessage = function (response, message) {
 	response.status(409).send({
@@ -15,8 +16,7 @@ const sendInvalidStateMessage = function (response, message) {
 export const validateAppealStatus = (statuses) =>
 	async ({ params }, response, next) => {
 		const appeal = await appealRepository.getById(params.appealId);
-
-		if (!statuses.includes(appeal?.status)) {
+		if (!arrayOfStatusesContainsString(appeal.appealStatus, statuses)) {
 			sendInvalidStateMessage(response, 'Appeal is in an invalid state');
 		} else {
 			next();

@@ -31,7 +31,7 @@ function mapAppealStatusToStateMachineAction(status) {
 }
 
 export const submitValidationDecisionService = async (appealId, appealStatus, reason, descriptionOfDevelopment) => {
-	const appeal = await appealRepository.getByIdWithValidationDecisionAndAddress(appealId);
+	const appeal = await appealRepository.getById(appealId, true, true, true);
 	const machineAction = mapAppealStatusToStateMachineAction(appealStatus);
 	const nextState = transitionState('household', { appealId: appeal.id }, appeal.status, machineAction);
 	await appealRepository.updateStatusById(appeal.id, nextState.value);
@@ -68,7 +68,7 @@ export const obtainLPAListService = async function () {
 };
 
 export const updateAppealService = async function(appealId, appellantName, address, localPlanningDepartment, planningApplicationReference) {
-	const appeal = await appealRepository.getByIdWithValidationDecisionAndAddress(appealId);
+	const appeal = await appealRepository.getById(appealId);
 	const data = {
 		...(appellantName && { appellant: { update: { name: appellantName } } }),
 		...(address && { address: { update: {

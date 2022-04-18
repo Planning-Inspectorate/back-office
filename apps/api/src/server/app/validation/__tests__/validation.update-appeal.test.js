@@ -7,13 +7,18 @@ import DatabaseFactory from '../../repositories/database.js';
 
 const request = supertest(app);
 
+const includingDetailsForValidtion = { appellant: false, appealStatus: { where: { valid: true } }, address: false, validationDecision: false };
+
 const findUniqueStub = sinon.stub();
-findUniqueStub.withArgs({ where: { id: 1 }, include: { validationDecision: true, address: true, appellant: true } }).returns(
-	{ id: 1, status: 'received_appeal', addressId: 10 }
-);
-findUniqueStub.withArgs({ where: { id: 1 }, include: { appellant: false } }).returns(
-	{ id: 1, status: 'received_appeal', addressId: 10 }
-);
+
+const appeal_1 = {
+	id: 1,
+	appealStatus: [{
+		status: 'received_appeal',
+		valid: true
+	}]
+};
+findUniqueStub.withArgs({ where: { id: 1 }, include: includingDetailsForValidtion }).returns(appeal_1);
 
 const updateStub = sinon.stub();
 

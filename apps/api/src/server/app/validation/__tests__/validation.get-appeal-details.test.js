@@ -10,7 +10,10 @@ const request = supertest(app);
 const appeal_1 = {
 	id: 1,
 	reference: 'APP/Q9999/D/21/1345264',
-	status: 'received_appeal',
+	appealStatus: [{
+		status: 'received_appeal',
+		valid: true
+	}],
 	createdAt: new Date(2022, 1, 23),
 	addressId: 1,
 	localPlanningDepartment: 'Maidstone Borough Council',
@@ -35,7 +38,10 @@ const appeal_2 = {
 	},
 	localPlanningDepartment: 'Waveney District Council',
 	planningApplicationReference: '18543/APP/2021/6627',
-	status: 'awaiting_validation_info',
+	appealStatus: [{
+		status: 'awaiting_validation_info',
+		valid: true
+	}],
 	createdAt: new Date(2022, 1, 23),
 	addressId: 2,
 	validationDecision: [
@@ -64,7 +70,10 @@ const appeal_2 = {
 };
 const appeal_3 = {
 	id: 3,
-	status: 'invalid'
+	appealStatus: [{
+		status: 'invalid',
+		valid: true
+	}]
 };
 const appeal_4 = {
 	id: 4,
@@ -74,7 +83,10 @@ const appeal_4 = {
 	},
 	localPlanningDepartment: 'Waveney District Council',
 	planningApplicationReference: '18543/APP/2021/6627',
-	status: 'awaiting_validation_info',
+	appealStatus: [{
+		status: 'awaiting_validation_info',
+		valid: true
+	}],
 	createdAt: new Date(2022, 1, 23),
 	addressId: 2,
 	validationDecision: [
@@ -102,13 +114,15 @@ const appeal_4 = {
 	}
 };
 const getAppealByIdStub = sinon.stub();
-getAppealByIdStub.withArgs({ where: { id: 1 }, include: { validationDecision: true, address: true, appellant: true } }).returns(appeal_1);
-getAppealByIdStub.withArgs({ where: { id: 1 }, include: { appellant: false } }).returns(appeal_1);
-getAppealByIdStub.withArgs({ where: { id: 2 }, include: { validationDecision: true, address: true, appellant: true } }).returns(appeal_2);
-getAppealByIdStub.withArgs({ where: { id: 2 }, include: { appellant: false } }).returns(appeal_2);
-getAppealByIdStub.withArgs({ where: { id: 3 }, include: { appellant: false } }).returns(appeal_3);
-getAppealByIdStub.withArgs({ where: { id: 4 }, include: { validationDecision: true, address: true, appellant: true } }).returns(appeal_4);
-getAppealByIdStub.withArgs({ where: { id: 4 }, include: { appellant: false } }).returns(appeal_4);
+const includingDetailsForResponse = { validationDecision: true, address: true, appellant: true, appealStatus: { where: { valid: true } } };
+const includingDetailsForValidtion = { appellant: false, appealStatus: { where: { valid: true } }, address: false, validationDecision: false };
+getAppealByIdStub.withArgs({ where: { id: 1 }, include: includingDetailsForResponse }).returns(appeal_1);
+getAppealByIdStub.withArgs({ where: { id: 1 }, include: includingDetailsForValidtion }).returns(appeal_1);
+getAppealByIdStub.withArgs({ where: { id: 2 }, include: includingDetailsForResponse }).returns(appeal_2);
+getAppealByIdStub.withArgs({ where: { id: 2 }, include: includingDetailsForValidtion }).returns(appeal_2);
+getAppealByIdStub.withArgs({ where: { id: 3 }, include: includingDetailsForValidtion }).returns(appeal_3);
+getAppealByIdStub.withArgs({ where: { id: 4 }, include: includingDetailsForResponse }).returns(appeal_4);
+getAppealByIdStub.withArgs({ where: { id: 4 }, include: includingDetailsForValidtion }).returns(appeal_4);
 
 class MockDatabaseClass {
 	constructor(_parameters) {
@@ -119,6 +133,39 @@ class MockDatabaseClass {
 		};
 	}
 }
+
+const documentsArray = [
+	{
+		Type: 'planning application form',
+		Filename: 'planning-application.pdf',
+		URL: 'localhost:8080'
+	},
+	{
+		Type: 'decision letter',
+		Filename: 'decision-letter.pdf',
+		URL: 'localhost:8080'
+	},
+	{
+		Type: 'appeal statement',
+		Filename: 'appeal-statement.pdf',
+		URL: 'localhost:8080'
+	},
+	{
+		Type: 'supporting document',
+		Filename: 'other-document-1.pdf',
+		URL: 'localhost:8080'
+	},
+	{
+		Type: 'supporting document',
+		Filename: 'other-document-2.pdf',
+		URL: 'localhost:8080'
+	},
+	{
+		Type: 'supporting document',
+		Filename: 'other-document-3.pdf',
+		URL: 'localhost:8080'
+	}
+];
 
 test.before('sets up mocking of database', () => {
 	sinon.stub(DatabaseFactory, 'getInstance').callsFake((arguments_) => new MockDatabaseClass(arguments_));
@@ -141,38 +188,7 @@ test('gets appeal that requires validation', async (t) => {
 		},
 		LocalPlanningDepartment: 'Maidstone Borough Council',
 		PlanningApplicationReference: '48269/APP/2021/1482',
-		Documents: [
-			{
-				Type: 'planning application form',
-				Filename: 'planning-application.pdf',
-				URL: 'localhost:8080'
-			},
-			{
-				Type: 'decision letter',
-				Filename: 'decision-letter.pdf',
-				URL: 'localhost:8080'
-			},
-			{
-				Type: 'appeal statement',
-				Filename: 'appeal-statement.pdf',
-				URL: 'localhost:8080'
-			},
-			{
-				Type: 'supporting document',
-				Filename: 'other-document-1.pdf',
-				URL: 'localhost:8080'
-			},
-			{
-				Type: 'supporting document',
-				Filename: 'other-document-2.pdf',
-				URL: 'localhost:8080'
-			},
-			{
-				Type: 'supporting document',
-				Filename: 'other-document-3.pdf',
-				URL: 'localhost:8080'
-			}
-		]
+		Documents: documentsArray
 	};
 	t.is(resp.status, 200);
 	t.deepEqual(resp.body, appealReviewInfo);
@@ -204,38 +220,7 @@ test('returns appeal with all reasons why it is in \'incomplete\' state', async 
 		},
 		LocalPlanningDepartment: 'Waveney District Council',
 		PlanningApplicationReference: '18543/APP/2021/6627',
-		Documents: [
-			{
-				Type: 'planning application form',
-				Filename: 'planning-application.pdf',
-				URL: 'localhost:8080'
-			},
-			{
-				Type: 'decision letter',
-				Filename: 'decision-letter.pdf',
-				URL: 'localhost:8080'
-			},
-			{
-				Type: 'appeal statement',
-				Filename: 'appeal-statement.pdf',
-				URL: 'localhost:8080'
-			},
-			{
-				Type: 'supporting document',
-				Filename: 'other-document-1.pdf',
-				URL: 'localhost:8080'
-			},
-			{
-				Type: 'supporting document',
-				Filename: 'other-document-2.pdf',
-				URL: 'localhost:8080'
-			},
-			{
-				Type: 'supporting document',
-				Filename: 'other-document-3.pdf',
-				URL: 'localhost:8080'
-			}
-		],
+		Documents: documentsArray,
 		reasons: {
 			inflammatoryComments: true,
 			missingApplicationForm: true,
@@ -270,38 +255,7 @@ test('returns appeal with one reason why it is in \'incomplete\' state', async (
 		},
 		LocalPlanningDepartment: 'Waveney District Council',
 		PlanningApplicationReference: '18543/APP/2021/6627',
-		Documents: [
-			{
-				Type: 'planning application form',
-				Filename: 'planning-application.pdf',
-				URL: 'localhost:8080'
-			},
-			{
-				Type: 'decision letter',
-				Filename: 'decision-letter.pdf',
-				URL: 'localhost:8080'
-			},
-			{
-				Type: 'appeal statement',
-				Filename: 'appeal-statement.pdf',
-				URL: 'localhost:8080'
-			},
-			{
-				Type: 'supporting document',
-				Filename: 'other-document-1.pdf',
-				URL: 'localhost:8080'
-			},
-			{
-				Type: 'supporting document',
-				Filename: 'other-document-2.pdf',
-				URL: 'localhost:8080'
-			},
-			{
-				Type: 'supporting document',
-				Filename: 'other-document-3.pdf',
-				URL: 'localhost:8080'
-			}
-		],
+		Documents: documentsArray,
 		reasons: {
 			inflammatoryComments: true
 		}

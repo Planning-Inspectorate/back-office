@@ -16,6 +16,9 @@ function getDateTwoWeeksAgo() {
 
 const newAppeals = [{
 	reference: 'APP/Q9999/D/21/1345264',
+	appealStatus: {
+		create: {}
+	},
 	appellant: {
 		create: {
 			name: 'Lee Thornton',
@@ -35,6 +38,9 @@ const newAppeals = [{
 },
 {
 	reference: 'APP/Q9999/D/21/5463281',
+	appealStatus: {
+		create: {}
+	},
 	appellant: {
 		create: {
 			name: 'Haley Eland',
@@ -53,6 +59,9 @@ const newAppeals = [{
 },
 {
 	reference: 'APP/Q9999/D/21/1203521',
+	appealStatus: {
+		create: {}
+	},
 	appellant: {
 		create: {
 			name: 'Roger Simmons',
@@ -71,6 +80,9 @@ const newAppeals = [{
 },
 {
 	reference: 'APP/Q9999/D/21/1154923',
+	appealStatus: {
+		create: {}
+	},
 	appellant: {
 		create: {
 			name: 'Sophie Skinner',
@@ -90,6 +102,9 @@ const newAppeals = [{
 },
 {
 	reference: 'APP/Q9999/D/21/1087562',
+	appealStatus: {
+		create: {}
+	},
 	appellant: {
 		create: {
 			name: 'Ryan Marshall',
@@ -108,6 +123,9 @@ const newAppeals = [{
 },
 {
 	reference: 'APP/Q9999/D/21/1365524',
+	appealStatus: {
+		create: {}
+	},
 	appellant: {
 		create: {
 			name: 'Fiona Burgess',
@@ -136,7 +154,11 @@ const appealsAwaitingValidationInfo = [
 		},
 		localPlanningDepartment: 'Waveney District Council',
 		planningApplicationReference: '18543/APP/2021/6627',
-		status: 'awaiting_validation_info',
+		appealStatus: {
+			create: {
+				status: 'awaiting_validation_info',
+			}
+		},
 		address: {
 			create: {
 				addressLine1: '1 Grove Cottage',
@@ -174,7 +196,11 @@ const invalidAppeals = [
 		},
 		localPlanningDepartment: 'Maidstone Borough Council',
 		planningApplicationReference: '48269/APP/2021/1482',
-		status: 'invalid_appeal',
+		appealStatus: {
+			create: {
+				status: 'invalid_appeal',
+			}
+		},
 		address: {
 			create: {
 				addressLine1: '96 The Avenue',
@@ -197,8 +223,12 @@ const appealsAwaitingLPAQuestionnaire = [
 		},
 		localPlanningDepartment: 'Maidstone Borough Council',
 		planningApplicationReference: '48269/APP/2021/1482',
-		status: 'awaiting_lpa_questionnaire',
-		statusUpdatedAt: getDateTwoWeeksAgo(),
+		appealStatus: {
+			create: {
+				status: 'awaiting_lpa_questionnaire',
+				createdAt: getDateTwoWeeksAgo()
+			}
+		},
 		startedAt: new Date(),
 		address: {
 			create: {
@@ -222,8 +252,12 @@ const appealsAwaitingLPAQuestionnaire = [
 		},
 		localPlanningDepartment: 'Maidstone Borough Council',
 		planningApplicationReference: '48269/APP/2021/1482',
-		status: 'awaiting_lpa_questionnaire',
-		statusUpdatedAt: getDateTwoWeeksAgo(),
+		appealStatus: {
+			create: {
+				status: 'awaiting_lpa_questionnaire',
+				createdAt: getDateTwoWeeksAgo()
+			}
+		},
 		startedAt: new Date(),
 		address: {
 			create: {
@@ -249,8 +283,12 @@ const appealsAwaitingLPAQuestionnaireOverdue = [
 		},
 		localPlanningDepartment: 'Bristol City Council',
 		planningApplicationReference: '48269/APP/2021/1010',
-		status: 'overdue_lpa_questionnaire',
-		statusUpdatedAt: getDateTwoWeeksAgo(),
+		appealStatus: {
+			create: {
+				status: 'overdue_lpa_questionnaire',
+				createdAt: getDateTwoWeeksAgo()
+			}
+		},
 		startedAt: new Date(2021, 10, 10),
 		address: {
 			create: {
@@ -276,8 +314,12 @@ const appealsReviewIncomplete = [
 		},
 		localPlanningDepartment: 'Bristol City Council',
 		planningApplicationReference: '48269/APP/2021/1482',
-		status: 'incomplete_lpa_questionnaire',
-		statusUpdatedAt: getDateTwoWeeksAgo(),
+		appealStatus: {
+			create: {
+				status: 'incomplete_lpa_questionnaire',
+				createdAt: getDateTwoWeeksAgo()
+			}
+		},
 		startedAt: new Date(2021, 12, 12),
 		address: {
 			create: {
@@ -337,8 +379,12 @@ const appealsAvailableForInspectorPickup = [
 		},
 		localPlanningDepartment: 'Maidstone Borough Council',
 		planningApplicationReference: '48269/APP/2021/1482',
-		status: 'available_for_inspector_pickup',
-		statusUpdatedAt: getDateTwoWeeksAgo(),
+		appealStatus: {
+			create: {
+				status: 'available_for_inspector_pickup',
+				createdAt: getDateTwoWeeksAgo()
+			}
+		},
 		startedAt: new Date(),
 		address: {
 			create: {
@@ -380,7 +426,11 @@ const appealsWithBookedSiteVisit = [
 		},
 		localPlanningDepartment: 'Maidstone Borough Council',
 		planningApplicationReference: '48269/APP/2021/1482',
-		status: 'site_visit_booked',
+		appealStatus: {
+			create: {
+				status: 'site_visit_booked',
+			}
+		},
 		startedAt: new Date(2022, 1, 1, 9),
 		address: {
 			create: {
@@ -451,8 +501,12 @@ const appealsReadyForConfirmationFromCaseOfficer = [
 		localPlanningDepartment: 'Maidstone Borough Council',
 		planningApplicationReference: '48269/APP/2021/1482',
 		startedAt: new Date(2022, 3, 1, 10),
-		status: 'received_lpa_questionnaire',
-		statusUpdatedAt: getDateTwoWeeksAgo(),
+		appealStatus: {
+			create: {
+				status: 'received_lpa_questionnaire',
+				createdAt: getDateTwoWeeksAgo()
+			}
+		},
 		address: {
 			create: {
 				addressLine1: '92 Huntsmoor Road',
@@ -564,7 +618,11 @@ const appealsSiteVisitNotYetBooked = [
 		reference: 'APP/2021/56789/3755470',
 		localPlanningDepartment: 'Some Department',
 		planningApplicationReference: 'ABC',
-		status: 'site_visit_not_yet_booked',
+		appealStatus: {
+			create: {
+				status: 'site_visit_not_yet_booked',
+			}
+		},	
 		appellant: {
 			create: {
 				name: 'Maria Sharma',
@@ -619,7 +677,11 @@ const appealsSiteVisitNotYetBooked = [
 		reference: 'APP/2021/56789/4909983',
 		localPlanningDepartment: 'some other department',
 		planningApplicationReference: 'XYZ',
-		status: 'site_visit_not_yet_booked',
+		appealStatus: {
+			create: {
+				status: 'site_visit_not_yet_booked',
+			}
+		},
 		appellant: {
 			create: {
 				name: 'Maria Sharma',
@@ -680,7 +742,11 @@ const appealsSiteVisitNotYetBooked = [
 const appealsWithDecisionDue = [
 	{
 		reference: 'APP/2021/56789/3266594',
-		status: 'decision_due',
+		appealStatus: {
+			create: {
+				status: 'decision_due',
+			}
+		},
 		localPlanningDepartment: 'some planning department',
 		planningApplicationReference: 'ABCDEFG',
 		startedAt: new Date(2022, 1, 5, 9),

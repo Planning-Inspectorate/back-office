@@ -9,13 +9,13 @@ const validationStatuses = [
 ];
 
 const getAppealDetails = async function (request, response) {
-	const appeal = await appealRepository.getByIdWithValidationDecisionAndAddress(request.params.appealId);
+	const appeal = await appealRepository.getById(request.params.appealId, true, true, true);
 	const formattedAppeal = appealFormatter.formatAppealForAppealDetails(appeal);
 	return response.send(formattedAppeal);
 };
 
 const getAppeals = async function (_request, response) {
-	const appeals = await appealRepository.getByStatusesWithAddresses(validationStatuses);
+	const appeals = await appealRepository.getByStatuses(validationStatuses, true, true);
 	const formattedAppeals = appeals.map((appeal) => appealFormatter.formatAppealForAllAppeals(appeal));
 	response.send(formattedAppeals);
 };
