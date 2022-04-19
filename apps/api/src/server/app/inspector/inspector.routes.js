@@ -1,7 +1,7 @@
 import express from 'express';
 import { param } from 'express-validator';
 import asyncHandler from '../middleware/async-handler.js';
-import { assignAppeals, bookSiteVisit, getAppeals, issueDecision } from './inspector.controller.js';
+import { assignAppeals, bookSiteVisit, getAppeals, issueDecision, getAppealDetails } from './inspector.controller.js';
 import {
 	validateAssignAppealsToInspector,
 	validateBookSiteVisit,
@@ -28,6 +28,13 @@ router.get(
         }
     */
 	asyncHandler(getAppeals)
+);
+
+router.get(
+	'/:appealId',
+	param('appealId').toInt(),
+	validateUserBelongsToAppeal,
+	asyncHandler(getAppealDetails)
 );
 
 router.post(

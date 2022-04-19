@@ -63,6 +63,132 @@ const getAppeals = async function(request, response) {
 	return response.send(appealsForResponse);
 };
 
+const getAppealDetails = async function(request, response) {
+	const appeal = await appealRepository.getByIdIncluding(request.params.appealId, {
+		appellant: true, 
+		validationDecision: {
+			where: {
+				decision: 'complete',
+			},
+		},
+		lpaQuestionnaire: true,
+		appealDetailsFromAppellant: true
+	});
+	const formattedAppeal = {
+		appealId: appeal.id,
+		reference: appeal.reference,
+		provisionalSiteVisitType: provisionalAppealSiteVisitType(appeal),
+		appellantName: appeal.appellant.name,
+		agentName: appeal.appellant.agentName,
+		email: appeal.appellant.email,
+		appealReceivedDate: formatDate(appeal.createdAt, false),
+		descriptionOfDevelopment: appeal.validationDecision[0].descriptionOfDevelopment,
+		extraConditions: appeal.lpaQuestionnaire.extraConditions,
+		affectsListedBuilding: appeal.lpaQuestionnaire.affectsListedBuilding,
+		inGreenBelt: appeal.lpaQuestionnaire.inGreenBelt,
+		inOrNearConservationArea: appeal.lpaQuestionnaire.inOrNearConservationArea,
+		emergingDevelopmentPlanOrNeighbourhoodPlan: appeal.lpaQuestionnaire.emergingDevelopmentPlanOrNeighbourhoodPlan,
+		emergingDevelopmentPlanOrNeighbourhoodPlanDescription: appeal.lpaQuestionnaire.emergingDevelopmentPlanOrNeighbourhoodPlanDescription,
+		lpaAnswers: {
+			canBeSeenFromPublic: appeal.lpaQuestionnaire.siteVisibleFromPublicLand,
+			canBeSeenFromPublicDescription: appeal.lpaQuestionnaire.siteVisibleFromPublicLandDescription,
+			inspectorNeedsToEnterSite: appeal.lpaQuestionnaire.doesInspectorNeedToEnterSite,
+			inspectorNeedsToEnterSiteDescription: appeal.lpaQuestionnaire.doesInspectorNeedToEnterSiteDescription,
+			inspectorNeedsAccessToNeighboursLand: appeal.lpaQuestionnaire.doesInspectorNeedToAccessNeighboursLand,
+			inspectorNeedsAccessToNeighboursLandDescription: appeal.lpaQuestionnaire.doesInspectorNeedToAccessNeighboursLandDescription,
+			healthAndSafetyIssues: appeal.lpaQuestionnaire.healthAndSafetyIssues,
+			healthAndSafetyIssuesDescription: appeal.lpaQuestionnaire.healthAndSafetyIsueesDescription,
+			appealsInImmediateArea: appeal.lpaQuestionnaire.appealsInImmediateAreaBeingConsidered
+		},
+		appellantAnswers: {
+			canBeSeenFromPublic: appeal.appealDetailsFromAppellant.siteVisibleFromPublicLand,
+			canBeSeenFromPublicDescription: appeal.appealDetailsFromAppellant.siteVisibleFromPublicLandDescription,
+			appellantOwnsWholeSite: appeal.appealDetailsFromAppellant.appellantOwnsWholeSite,
+			appellantOwnsWholeSiteDescription: appeal.appealDetailsFromAppellant.appellantOwnsWholeSiteDescription,
+			healthAndSafetyIssues: appeal.appealDetailsFromAppellant.healthAndSafetyIssues,
+			healthAndSafetyIssuesDescription: appeal.appealDetailsFromAppellant.healthAndSafetyIsueesDescription
+		},
+		Documents: [
+			{
+				Type: 'planning application form',
+				Filename: 'planning-application.pdf',
+				URL: 'localhost:8080'
+			},
+			{
+				Type: 'decision letter',
+				Filename: 'decision-letter.pdf',
+				URL: 'localhost:8080'
+			},
+			{
+				Type: 'appeal statement',
+				Filename: 'appeal-statement.pdf',
+				URL: 'localhost:8080'
+			},
+			{
+				Type: 'supporting document',
+				Filename: 'other-document-1.pdf',
+				URL: 'localhost:8080'
+			},
+			{
+				Type: 'supporting document',
+				Filename: 'other-document-2.pdf',
+				URL: 'localhost:8080'
+			},
+			{
+				Type: 'supporting document',
+				Filename: 'other-document-3.pdf',
+				URL: 'localhost:8080'
+			},
+			{
+				Type: 'planning officers report',
+				Filename: 'planning-officers-report.pdf',
+				URL: 'localhost:8080'
+			},
+			{
+				Type: 'plans used to reach decision',
+				Filename: 'plans-used-to-reach-decision.pdf',
+				URL: 'localhost:8080'
+			},
+			{
+				Type: 'statutory development plan policy',
+				Filename: 'policy-and-supporting-text-1.pdf',
+				URL: 'localhost:8080'
+			},
+			{
+				Type: 'statutory development plan policy',
+				Filename: 'policy-and-supporting-text-2.pdf',
+				URL: 'localhost:8080'
+			},
+			{
+				Type: 'statutory development plan policy',
+				Filename: 'policy-and-supporting-text-3.pdf',
+				URL: 'localhost:8080'
+			},
+			{
+				Type: 'other relevant policy',
+				Filename: 'policy-and-supporting-text-1.pdf',
+				URL: 'localhost:8080'
+			},
+			{
+				Type: 'other relevant policy',
+				Filename: 'policy-and-supporting-text-2.pdf',
+				URL: 'localhost:8080'
+			},
+			{
+				Type: 'other relevant policy',
+				Filename: 'policy-and-supporting-text-3.pdf',
+				URL: 'localhost:8080'
+			},
+			{
+				Type: 'conservation area guidance',
+				Filename: 'conservation-area-plan.pdf',
+				URL: 'localhost:8080'
+			}
+		]
+	};
+	response.send(formattedAppeal);
+};
+
 const formatAppealForAssigningAppeals = function(appeal, reason) {
 	return {
 		appealId: appeal.id,
@@ -164,4 +290,4 @@ export const issueDecision = async ({ file, body, params }, response) => {
 	response.send(updatedAppeal);
 };
 
-export { getAppeals, assignAppeals };
+export { getAppeals, assignAppeals, getAppealDetails };
