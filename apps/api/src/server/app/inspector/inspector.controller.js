@@ -27,7 +27,9 @@ const formatStatus = function(status) {
 	}
 };
 
+
 const provisionalAppealSiteVisitType = function(appeal) {
+
 	return (!appeal.lpaQuestionnaire.siteVisibleFromPublicLand || !appeal.appealDetailsFromAppellant.siteVisibleFromPublicLand) ?
 		'access required' : 'unaccompanied';
 };
