@@ -29,11 +29,14 @@ export const findAppealById = (appealId) =>
  * @param {LpaQuestionnaire} questionnaire
  * @returns {Promise<Appeal>}
  */
-export const confirmQuestionnaireReview = async (appealId, questionnaire) => {
-	await post(`case-officer/${appealId}/confirm`, { json: { reason: questionnaire } });
-	// todo: this should be the api response of the above post
-	return findAppealById(appealId);
-};
+export function confirmQuestionnaireReview(appealId, questionnaire) {
+	// todo: the updated appeal should be the api response
+	return post(`case-officer/${appealId}/confirm`, {
+		json: {
+			reason: questionnaire
+		}
+	});
+}
 
 /**
  * @typedef {object} UploadDocumentData
