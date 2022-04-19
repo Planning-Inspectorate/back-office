@@ -3,9 +3,9 @@
 import appealRepository from '../repositories/appeal.repository.js';
 import { transitionState } from '../state-machine/household-appeal.machine.js';
 
-/** @typedef {import('@pins/inspector').Appeal} Appeal */
-/** @typedef {import('@pins/inspector').AppealOutcome} AppealOutcome */
-/** @typedef {import('@pins/inspector').SiteVisitType} SiteVisitType */
+/** @typedef {import('@pins/appeals').Inspector.Appeal} Appeal */
+/** @typedef {import('@pins/appeals').Inspector.AppealOutcome} AppealOutcome */
+/** @typedef {import('@pins/appeals').Inspector.SiteVisitType} SiteVisitType */
 
 /**
  * @typedef {object} SiteVisitData

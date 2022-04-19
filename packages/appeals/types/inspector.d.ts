@@ -1,6 +1,3 @@
-declare module '@pins/inspector' {
-	export const siteVisitTimeSlots: string[];
-}
 
 type BookedAppealType<T extends AppealSummary> = T & {
 	siteVisitDate: string;

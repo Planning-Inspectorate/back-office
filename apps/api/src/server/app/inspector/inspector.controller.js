@@ -8,9 +8,9 @@ import InspectorError from './inspector-error.js';
 import { transitionState } from '../state-machine/household-appeal.machine.js';
 import daysBetweenDates from '../utils/days-between-dates.js';
 
-/** @typedef {import('@pins/inspector').Appeal} Appeal */
-/** @typedef {import('@pins/inspector').AppealOutcome} AppealOutcome */
-/** @typedef {import('@pins/inspector').SiteVisitType} SiteVisitType */
+/** @typedef {import('@pins/appeals').Inspector.Appeal} Appeal */
+/** @typedef {import('@pins/appeals').Inspector.AppealOutcome} AppealOutcome */
+/** @typedef {import('@pins/appeals').Inspector.SiteVisitType} SiteVisitType */
 
 const formatStatus = function(status) {
 	switch (status) {

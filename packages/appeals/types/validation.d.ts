@@ -1,26 +1,3 @@
-import { RequireAtLeastOneKey } from "@pins/platform";
-import { RequestHandler } from 'express';
-
-declare module '@pins/validation' {
-	export const validateAppealDetails: RequestHandler;
-	export const validateAppellantName: RequestHandler;
-	export const validateAppealSite: RequestHandler;
-	export const validateLocalPlanningDepartment: RequestHandler;
-	export const validatePlanningApplicationReference: RequestHandler;
-	export const validateReviewOutcomeStatus: RequestHandler;
-	export const validateIncompleteReviewOutcome: RequestHandler;
-	export const validateInvalidReviewOutcome: RequestHandler;
-	export const validateValidReviewOutcome: RequestHandler;
-}
-
-export interface Address {
-	AddressLine1: string;
-	AddressLine2?: string;
-	Town: string;
-	County?: string;
-	PostCode: string;
-};
-
 export interface Appeal {
 	AppealId: number;
 	AppealReference: string;

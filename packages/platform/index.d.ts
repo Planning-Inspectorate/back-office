@@ -1,14 +1,13 @@
-import { HandlerFunction } from 'got';
+import './config/dotenv';
+import './http/ttl';
+import './util/date';
+import './validators/date';
+import './validators/postcode';
 
 declare module '@pins/platform' {
-	export function createTtlHandler(): HandlerFunction;
-	export function validatePostcode(value: string): boolean;
-	export function validatePastDate(value: Date | string | number): boolean;
-	export function validateFutureDate(value: Date | string | number): boolean;
-	export function yesterday(): Date;
+	export * from './config/dotenv';
+	export * from './http/ttl';
+	export * from './util/date';
+	export * from './validators/date';
+	export * from './validators/postcode';
 }
-
-export type RequireAtLeastOneKey<T, Keys extends keyof T = keyof T> = Pick<T, Exclude<keyof T, Keys>> &
-	{
-		[K in Keys]-?: Required<Pick<T, K>> & Partial<Pick<T, Exclude<Keys, K>>>;
-	}[Keys];

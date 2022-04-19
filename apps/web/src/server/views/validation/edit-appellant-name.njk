@@ -6,9 +6,7 @@
 {% set pageTitle = 'Change apellant name' %}
 {% set backLinkUrl = '/validation/appeals/' + appealId %}
 
-{% block pageHeading %}
-	<h1 class="govuk-heading-l">{{ pageTitle }}</h1>
-{% endblock %}
+{% block pageHeading %}{% endblock %}
 
 {% block pageContent %}
 	<form method="post" novalidate>
@@ -17,8 +15,12 @@
 				id: 'AppellantName',
 				type: 'text',
 				name: "AppellantName",
-				label: { text: 'Appellant name', classes: "govuk-visually-hidden" },
-				errorMessage: errors.AppellantName and { text: errors.AppellantName.msg },
+				label: { 
+					text: pageTitle,
+					classes: "govuk-label--l",
+					isPageHeading: true
+				},
+				errorMessage: errors.AppellantName | errorMessage,
 				value: appellantName
 			})
 		}}

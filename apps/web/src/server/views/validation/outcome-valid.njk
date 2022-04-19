@@ -21,9 +21,7 @@
 						classes: "govuk-!-font-weight-bold"
 					},
 					value: reviewOutcome.descriptionOfDevelopment,
-					errorMessage: errors.descriptionOfDevelopment and {
-						text: errors.descriptionOfDevelopment.msg
-					}
+					errorMessage: errors.descriptionOfDevelopment | errorMessage
 				})
 			}}
 		<div class="govuk-button-group">

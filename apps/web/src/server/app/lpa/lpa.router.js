@@ -1,33 +1,97 @@
 import express from 'express';
-import { expressValidationErrorsInterceptor } from '../../lib/express-validation-errors.js';
-import { lpaRoutesConfig as routes } from '../../config/routes.js';
-import { lpaReviewQuestionnairePipe, lpaCheckAndConfirmQuestionnairePipe } from './lpa.pipes.js';
-import { decideQuestionnaireReviewOutcomeGuard, checkAndConfirmGuard, viewReviewCompleteGuard } from './lpa.guards.js';
-
+import { lowerCase } from 'lodash-es';
+import { createAsyncHandler } from '../../lib/async-error-handler.js';
 import {
+	confirmQuestionnaireReview,
+	createQuestionnaireReview,
+	editListedBuildingDescription,
+	newAppealDocuments,
+	updateListedBuildingDescription,
+	uploadAppealDocuments,
+	viewAppeal,
 	viewDashboard,
-	viewReviewQuestionnaire,
-	decideQuestionnaireReviewOutcome,
-	viewCheckAndConfirm,
-	confirmDecision,
-	viewReviewComplete
+	viewQuestionnaireReviewConfirmation
 } from './lpa.controller.js';
+import {
+	assertDocumentTypeMissingOrIncorrect,
+	assertListedBuildingDescriptionMissingOrIncorrect,
+	assertQuestionnaireReviewExists
+} from './lpa.guards.js';
+import {
+	validateAppealDocuments,
+	validateListedBuildingDescription,
+	validateQuestionnaireReview,
+	validateQuestionnaireReviewCompletion,
+	validateQuestionnaireReviewConfirmation
+} from './lpa.pipes.js';
+
+/** @typedef {import('@pins/appeals').DocumentType} DocumentType */
+
+/**
+ * @typedef {object} AppealParams
+ * @property {number} appealId
+ */
+
+/**
+ * @typedef {object} AppealDocumentParams
+ * @property {number} appealId
+ * @property {DocumentType} documentType
+ */
 
 const router = express.Router();
+
+
+router.param('appealId', (req, _, next, appealId) => {
+	req.params.appealId = Number.parseInt(appealId, 10);
+	next();
+});
+
+router.param('documentType', (request, _, next, documentType) => {
+	request.params.documentType = lowerCase(documentType);
+	next();
+});
 
 // Main lpa route `/lpa`
 router.route('/').get(viewDashboard);
 
-// Review questionnaire page
-router.route(`/${routes.reviewQuestionnaire.path}/:appealId`)
-	.get(viewReviewQuestionnaire)
-	.post(decideQuestionnaireReviewOutcomeGuard, lpaReviewQuestionnairePipe, expressValidationErrorsInterceptor, decideQuestionnaireReviewOutcome);
+router.route('/appeals/:appealId').get(viewAppeal);
 
-router.route(`/${routes.checkAndConfirm.path}/:appealId`)
-	.get(checkAndConfirmGuard, viewCheckAndConfirm)
-	.post(checkAndConfirmGuard, lpaCheckAndConfirmQuestionnairePipe, expressValidationErrorsInterceptor, confirmDecision);
+router
+	.route('/appeals/:appealId/questionnaire')
+	.post(validateQuestionnaireReview, createAsyncHandler(createQuestionnaireReview));
 
-router.route(`/${routes.reviewQuestionnaireComplete.path}/:appealId`)
-	.get(viewReviewCompleteGuard, viewReviewComplete);
+router
+	.route('/appeals/:appealId/questionnaire/complete')
+	.post(validateQuestionnaireReviewCompletion, createAsyncHandler(createQuestionnaireReview));
+
+router
+	.route('/appeals/:appealId/questionnaire/confirm')
+	.get(assertQuestionnaireReviewExists, viewQuestionnaireReviewConfirmation)
+	.post(
+		assertQuestionnaireReviewExists,
+		validateQuestionnaireReviewConfirmation,
+		createAsyncHandler(confirmQuestionnaireReview)
+	);
+
+router
+	.route('/appeals/:appealId/edit-listed-building-description')
+	.get(
+		assertListedBuildingDescriptionMissingOrIncorrect,
+		createAsyncHandler(editListedBuildingDescription)
+	)
+	.post(
+		assertListedBuildingDescriptionMissingOrIncorrect,
+		validateListedBuildingDescription,
+		createAsyncHandler(updateListedBuildingDescription)
+	);
+
+router
+	.route('/appeals/:appealId/documents/:documentType')
+	.get(assertDocumentTypeMissingOrIncorrect, createAsyncHandler(newAppealDocuments))
+	.post(
+		assertDocumentTypeMissingOrIncorrect,
+		validateAppealDocuments,
+		createAsyncHandler(uploadAppealDocuments)
+	);
 
 export default router;

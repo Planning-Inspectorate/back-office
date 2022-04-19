@@ -8,23 +8,32 @@
 {% set incompleteAppeals = appeals | filter ({ AppealStatus: 'incomplete' }) %}
 
 {% block pageContent %}
-	<h2 class="govuk-heading-l govuk-!-margin-bottom-3">
-		New appeals
-	</h2>
-
 	{% if newAppeals.length > 0 %}
-		{{ appealTable({ appeals: newAppeals }) }}
+		{{
+			appealTable({ 
+				appeals: newAppeals,
+				caption: 'New appeals'
+			}) 	
+		}}
 	{% else %}
-		{{ infoBox({ text: "No new appeals", classes: "govuk-!-margin-bottom-8" }) }}
+		<h2 class="govuk-heading-l govuk-!-margin-bottom-3">New appeals</h2>
+		{{
+			infoBox({
+				text: "No new appeals",
+				classes: "govuk-!-margin-bottom-8"
+			})
+		}}
 	{% endif %}
 
-	<h2 class="govuk-heading-l govuk-!-margin-bottom-3">
-		Incomplete appeals
-	</h2>
-
 	{% if incompleteAppeals.length > 0 %}
-		{{ appealTable({ appeals: incompleteAppeals }) }}
+		{{
+			appealTable({
+				appeals: incompleteAppeals,
+				caption: 'Incomplete appeals'
+			})
+		}}
 	{% else %}
+		<h2 class="govuk-heading-l govuk-!-margin-bottom-3">Incomplete appeals</h2>
 		{{ infoBox({ text: "No incomplete appeals" }) }}
 	{% endif %}
 {% endblock %}
@@ -43,14 +52,17 @@
 			{ text: appeal.Received },
 			{ text: appeal.AppealSite | collapse(', ') }
 		] %}
-		{% set rows = (rows.push(row), rows) %}
+		{% set rows = rows | concat([row]) %}
 	{% endfor %}
 
   {{
     govukTable({
+			caption: params.caption,
+			captionClasses: "govuk-table__caption--l",
+			classes: 'pins-table--fixed',
       head: [
-      	{ text: "Appeal reference" },
-        { text: "Received on" },
+      	{ text: "Appeal reference", classes: "pins-table__cell--l" },
+        { text: "Received on", classes: "pins-table__cell--s" },
         { text: "Appeal site" }
       ],
 			rows: rows

@@ -1,5 +1,3 @@
-// @ts-check
-
 /**
  * @callback ValidatorFn
  * @param {*} value - The value to validate.

@@ -1,33 +1,68 @@
+import { getReviewQuestionnaireDocumentTypeRequired } from '@pins/appeals';
+import { createAsyncHandler } from '../../lib/async-error-handler.js';
 import * as lpaSession from './lpa-session.service.js';
+import * as lpaService from './lpa.service.js';
 
-export function decideQuestionnaireReviewOutcomeGuard({ params, session }, response, next) {
-	if (params.appealId &&
-		lpaSession.getQuestionnaireData(session, params.appealId)
-	) {
-		return next();
+/** @typedef {import('@pins/appeals').DocumentType} DocumentType */
+/** @typedef {import('./lpa.router').AppealParams} AppealParams */
+/** @typedef {import('./lpa.router').AppealDocumentParams} AppealDocumentParams */
+
+/**
+ * Guard that protects routes from having further documents of a certain type
+ * added to an appeal when they are not recognised as missing or incorrect by
+ * the reviewed questionnaire.
+ */
+export const assertDocumentTypeMissingOrIncorrect = createAsyncHandler(
+	/** @type {import('express').RequestHandler<AppealDocumentParams>} */
+	async (request, response, next) => {
+		const { appealId, documentType } = request.params;
+		const { reviewQuestionnaire } = await lpaService.findAppealById(appealId);
+
+		if (
+			reviewQuestionnaire &&
+			getReviewQuestionnaireDocumentTypeRequired(reviewQuestionnaire, documentType)
+		) {
+			next();
+		} else {
+			response.redirect(`/lpa/appeals/${appealId}`);
+		}
 	}
+);
 
-	return response.redirect('/lpa');
-}
+/**
+ * Guard that ensures that a listed building description can be updated due to
+ * it having been marked as missing or incorrect when completing the
+ * questionnaire review.
+ */
+export const assertListedBuildingDescriptionMissingOrIncorrect = createAsyncHandler(
+	/** @type {import('express').RequestHandler<AppealDocumentParams>} */
+	async ({ params }, response, next) => {
+		const { reviewQuestionnaire } = await lpaService.findAppealById(params.appealId);
 
-export function checkAndConfirmGuard({ params, session }, response, next) {
-	if (params.appealId &&
-		lpaSession.getQuestionnaireData(session, params.appealId) &&
-		lpaSession.getReviewOutcome(session, params.appealId))
-	{
-		return next();
+		if (
+			reviewQuestionnaire &&
+			reviewQuestionnaire.siteListedBuildingDescriptionMissingOrIncorrect
+		) {
+			next();
+		} else {
+			response.redirect(`/lpa/appeals/${params.appealId}`);
+		}
 	}
+);
 
-	return response.redirect('/lpa');
-}
+/**
+ * Guard that ensures that a reviewed questionnaire exists within the session.
+ * This is used to determine that later stages of the review journey can be
+ * accessed.
+ *
+ * @type {import('express').RequestHandler<AppealParams>}
+ */
+export const assertQuestionnaireReviewExists = ({ params, session }, response, next) => {
+	const reviewQuestionnaire = lpaSession.getQuestionnaireReview(session, params.appealId);
 
-export function viewReviewCompleteGuard({ params, session }, response, next) {
-	if (params.appealId &&
-		lpaSession.getQuestionnaireData(session, params.appealId) &&
-		lpaSession.getReviewOutcome(session, params.appealId))
-	{
-		return next();
+	if (reviewQuestionnaire) {
+		next();
+	} else {
+		response.redirect(`/lpa/appeals/${params.appealId}`);
 	}
-
-	return response.redirect('/lpa');
-}
+};

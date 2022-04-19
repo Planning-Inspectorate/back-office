@@ -182,7 +182,7 @@ const document_ = {
 		BookSiteVisit: {
 			$siteVisitType: {
 				required: true,
-				'@enum': /** @type {import('@pins/inspector').SiteVisitType} */ ([
+				'@enum': /** @type {import('@pins/appeals').Inspector.SiteVisitType} */ ([
 					'accompanied',
 					'unaccompanied',
 					'access required'
@@ -217,7 +217,7 @@ const document_ = {
 			},
 			$outcome: {
 				required: true,
-				'@enum': /** @type {import('@pins/inspector').AppealOutcome} */ ([
+				'@enum': /** @type {import('@pins/appeals').Inspector.AppealOutcome} */ ([
 					'allowed',
 					'dismissed',
 					'split decision'

@@ -6,8 +6,8 @@ module.exports = {
 			'error',
 			{
 				'requireReturn': false,
-				'requireParamDescription': true,
-				'requireReturnDescription': true,
+				'requireParamDescription': false,
+				'requireReturnDescription': false,
 				'requireReturnType': true,
 				'requireParamType': true
 			}

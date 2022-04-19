@@ -23,7 +23,7 @@
 			value: { text: appeal.Received }
 		}, {
 			key: { text: "Appeal site" },
-			value: { html: appeal.AppealSite | address },
+			value: { html: appeal.AppealSite | collapse('<br>') },
 			actions: {
 				items: [
 					{ 
@@ -61,12 +61,12 @@
 	] %}
 
 	{% if appeal.AppealStatus === 'incomplete' %}
-		{% set appealSummaryListRows = (appealSummaryListRows.push({
+		{% set appealSummaryListRows = appealSummaryListRows |  concat({
 			key: { text: "Reasons why incomplete" },
 			value: {
 				html: incompleteReasonList(appeal.reasons)
 			}
-		}), appealSummaryListRows)
+		})
  	%}
 	{% endif %}
 

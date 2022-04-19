@@ -1,53 +1,74 @@
-import request from './../../lib/request.js';
-import { camelCase } from 'lodash-es';
+import FormData from 'form-data';
+import { get, patch, post } from './../../lib/request.js';
+
+/** @typedef {import('@pins/appeals').Lpa.Appeal} Appeal */
+/** @typedef {import('@pins/appeals').AppealDocument} AppealDocument */
+/** @typedef {import('@pins/appeals').Lpa.AppealSummary} AppealSummary */
+/** @typedef {import('@pins/appeals').DocumentType} DocumentType */
+/** @typedef {import('@pins/appeals').Lpa.Questionnaire} LpaQuestionnaire */
 
 /**
- * Call the API to get all incoming and incomplete questionnaires
- *
- * @returns {object} - questionnaires list data object containing two arrays, one for incoming questionnaires and one for incomplete questionnaires
+ * @returns {Promise<AppealSummary[]>}
  */
-export async function findAllIncomingIncompleteQuestionnaires() {
-	const data = await request('case-officer');
+export const findAllAppeals = () => get('case-officer');
 
-	const questionnairesListData = {
-		incomingQuestionnaires: [],
-		incompleteQuestionnaires: []
-	};
-
-	// eslint-disable-next-line unicorn/no-array-for-each
-	data.forEach((item) => {
-		if (item.QuestionnaireStatus === 'incomplete_lpa_questionnaire') {
-			questionnairesListData.incompleteQuestionnaires.push(item);
-		} else {
-			questionnairesListData.incomingQuestionnaires.push(item);
-		}
+/**
+ * @param {number} appealId
+ * @returns {Promise<Appeal>}
+ */
+export const findAppealById = (appealId) =>
+	get(`case-officer/${appealId}`, {
+		context: { ttl: 1000 }
 	});
 
-	return questionnairesListData;
-}
-
 /**
- * Call the API to get all incoming and incomplete questionnaires
+ * Mark a review questionnaire as completed. Internally, this marks all
+ * missingOrIncorrect flags to `false`.
  *
- * @param {string} id - numerical appeal id of the desired questionnaire
- * @returns {object} - questionnaires list data object containing two arrays, one for incoming questionnaires and one for incomplete questionnaires
+ * @param {number} appealId
+ * @param {LpaQuestionnaire} questionnaire
+ * @returns {Promise<Appeal>}
  */
-export async function findQuestionnaireById(id) {
-	return await request(`case-officer/${id}`);
-}
+export const confirmQuestionnaireReview = async (appealId, questionnaire) => {
+	await post(`case-officer/${appealId}/confirm`, { json: { reason: questionnaire } });
+	// todo: this should be the api response of the above post
+	return findAppealById(appealId);
+};
 
 /**
- * Confirms a questionnaire review as identified by the `appealId` parameter.
- * @param {string} id - numerical appeal id of the desired questionnaire
- * @returns {object} - response data
+ * @typedef {object} UploadDocumentData
+ * @property {DocumentType} documentType
+ * @property {Express.Multer.File} file
  */
-export async function confirmReview (id, fields) {
-	return await request.post(`case-officer/${id}/confirm`, {
-		json: {
-			reason: Object.keys(fields).reduce((accumulator, key) => {
-				if (fields[key]) accumulator[key] = fields[key] === 'true' ? true : fields[key];
-				return accumulator;
-			}, {})
-		}
+
+/**
+ * Upload a document to an appeal according to a given `documentType`.
+ *
+ * @param {number} appealId
+ * @param {UploadDocumentData} data
+ * @returns {Promise<AppealDocument>}
+ */
+export const uploadDocument = (appealId, { file, documentType }) => {
+	const formData = new FormData();
+	formData.append('documentType', documentType);
+	formData.append('file', file.buffer);
+
+	// lpa/${appealId}/documents is not yet implemented so mock created resource
+	return Promise.resolve({
+		Filename: file.originalname,
+		Type: documentType,
+		URL: '*'
 	});
-}
+};
+
+/**
+ * Update appeal details.
+ *
+ * @param {number} appealId
+ * @param {{ listedBuildingDescription: string }} data
+ * @returns {Promise<Appeal>}
+ */
+export const updateAppeal = (appealId, data) => {
+	// patch(`lpa/${appealId}`, { json: data });
+	return findAppealById(appealId);
+};

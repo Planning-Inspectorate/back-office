@@ -1,4 +1,4 @@
-const eslintConfig = require('eslint-config');
+const eslintConfig = require('@pins/eslint-config');
 
 eslintConfig.root = true;
 

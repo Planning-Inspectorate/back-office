@@ -21,7 +21,7 @@
 			govukCheckboxes({
 				idPrefix: "reasons",
 				name: "reasons[]",
-				errorMessage: errors.reasons and { text: errors.reasons.msg },
+				errorMessage: errors.reasons | errorMessage,
 				items: [
 					'namesDoNotMatch' | reasonCheckboxItem(reasons),
 					'sensitiveInfo' | reasonCheckboxItem(reasons),
@@ -38,7 +38,7 @@
 							html: govukCheckboxes({
 								idPrefix: "documentReasons",
 								name: "documentReasons[]",
-								errorMessage: errors.documentReasons and { text: errors.documentReasons.msg },
+								errorMessage: errors.documentReasons | errorMessage,
 								items: [
 									'missingApplicationForm' | reasonCheckboxItem(reasons),
 									'missingDecisionNotice' | reasonCheckboxItem(reasons),
@@ -58,10 +58,10 @@
 						conditional: {
 							html: govukInput({
 								type: 'text',
-								id: "reasons.otherReasons",
+								id: "otherReasons",
 								name: "otherReasons",
 								label: { text: 'List reasons' },
-								errorMessage: errors['reasons.otherReasons'] and { text: errors['reasons.otherReasons'].msg },
+								errorMessage: errors.otherReasons | errorMessage,
 								spellcheck: true,
 								value: reasons.otherReasons
 							})

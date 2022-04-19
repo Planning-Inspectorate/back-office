@@ -5,39 +5,87 @@
 
 {% set pageTitle = 'Questionnaires for review' %}
 
-{% block content %}
-	{%- set tableHeadItems = [
-		{ text: "Appeal reference" },
-		{ text: "Date due" },
-		{ text: "Appeal site" },
-		{ text: "Status" }
-	] -%}
+{% set incompleteAppeals = appeals | filter({QuestionnaireStatus: 'incomplete_lpa_questionnaire'}) %}
+{% set newAppeals = appeals | difference(incompleteAppeals) %}
 
-	{{ super() }}
+{% block pageContent %}
+		{% if newAppeals.length > 0 %}
+			{{ 
+				questionnairesTable({
+					caption: 'Incoming questionnaires',
+					appeals: newAppeals
+				})
+			}}
+		{% else %}
+			<h2 class="govuk-heading-l govuk-!-margin-bottom-3">
+				Incoming questionnaires
+			</h2>
+			{{ infoBox({ text: "No incoming questionnaires", classes: "govuk-!-margin-bottom-8" }) }}
+	{% endif %}
 
-	<h2 class="govuk-heading-l govuk-!-margin-bottom-1">
-		Incoming questionnaires
-	</h2>
-
-	{%- if questionnairesList.incomingQuestionnaires.length > 0 -%}
-		{{ govukTable({
-			head: tableHeadItems,
-			rows: questionnairesList.incomingQuestionnaires | makeQuestionnaireTableRows(reviewQuestionnairePath) })
-		}}
-	{%- else -%}
-		{{ infoBox({ text: "No incoming questionnaires", classes: "govuk-!-margin-bottom-8" }) }}
-	{%- endif -%}
-
-	<h2 class="govuk-heading-l govuk-!-margin-bottom-1">
-		Incomplete questionnaires
-	</h2>
-
-	{%- if questionnairesList.incompleteQuestionnaires.length > 0 -%}
-		{{ govukTable({
-			head: tableHeadItems,
-			rows: questionnairesList.incompleteQuestionnaires | makeQuestionnaireTableRows(reviewQuestionnairePath) })
-		}}
-	{%- else -%}
-		{{ infoBox({ text: "No incomplete questionnaires" }) }}
-	{%- endif -%}
+		{% if incompleteAppeals.length > 0 %}
+			{{ 
+				questionnairesTable({
+					caption: 'Incomplete questionnaires',
+					appeals: incompleteAppeals
+				})
+			}}
+		{% else %}
+			<h2 class="govuk-heading-l govuk-!-margin-bottom-3">
+					Incomplete questionnaires
+			</h2>
+			{{ infoBox({ text: "No incomplete questionnaires" }) }}
+		{% endif %}
 {% endblock %}
+
+{% macro questionnairesTable(params) %}
+		{% set rows = [] %}
+		{% for appeal in params.appeals %}
+			{% set row = [] %}
+			{% if['received', 'incomplete_lpa_questionnaire'] | includes(appeal.QuestionnaireStatus) %}
+				{% set row = row | concat({ html: createAppealLink(appeal) }) %}
+			{% else %}
+				{% set row = row | concat({ text: appeal.AppealReference }) %}
+			{% endif %}
+			{% set row = row | concat({ text: appeal.QuestionnaireDueDate }) %}
+			{% set row = row | concat({ text: appeal.AppealSite | collapse(', ') }) %}
+			{% set row = row | concat({ html: createStatusTag(appeal.QuestionnaireStatus) }) %}
+			{% set rows = rows | concat([row]) %}
+		{% endfor %}
+		{{
+			govukTable({
+				caption: params.caption,
+				captionClasses: "govuk-table__caption--l",
+				head: [
+					{ text: "Appeal reference", classes: 'pins-table__cell--l' },
+					{ text: "Date due", classes: 'pins-table__cell--m' },
+					{ text: "Appeal site" },
+					{ text: "Status", classes: 'pins-table__cell--s' }
+				],
+				rows: rows
+			})
+		}}
+{% endmacro %}
+
+{% macro createAppealLink(appeal) %}
+		<a class="govuk-link" href="/lpa/appeals/{{ appeal.AppealId }}">{{ appeal.AppealReference }}</a>
+{% endmacro %}
+
+{% macro createStatusTag(questionnaireStatus) %}
+		{% set statusTagColor = '' %}
+		{% set statusLabel = questionnaireStatus %}
+
+		{% switch (questionnaireStatus) %}
+			{% case 'awaiting' %}
+				{% set statusTagColor = 'blue' %}
+			{% case 'overdue' %}
+				{% set statusTagColor = 'red' %}
+			{% case 'incomplete_lpa_questionnaire' %}
+				{% set statusTagColor = 'yellow' %}
+				{% set statusLabel = 'incomplete' %}
+			{% case 'received' %}
+				{% set statusTagColor = 'green' %}
+		{% endswitch %}
+
+		<strong class="govuk-tag govuk-tag--{{statusTagColor}}">{{ statusLabel }}</strong>
+{% endmacro %}

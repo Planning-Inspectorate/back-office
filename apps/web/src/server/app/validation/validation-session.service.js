@@ -1,11 +1,18 @@
-/** @typedef {import('@pins/validation').AppealOutcomeStatus} AppealOutcomeStatus */
+/** @typedef {import('@pins/appeals').Validation.AppealOutcomeStatus} AppealOutcomeStatus */
 
 /**
- * Representation of the review outcome that captures the initial choice of the user.
- *
+ * @typedef {import('express-session').Session & { validation?: ValidationState }} SessionWithInspector
+ */
+
+/**
+ * @typedef {Object} ValidationState
+ * @property {(InitialReviewOutcomeState | ReviewOutcomeState)=} reviewOutcome
+ */
+
+/**
  * @typedef {Object} InitialReviewOutcomeState
- * @property {number} appealId - Unique identifier for the appeal.
- * @property {AppealOutcomeStatus=} status - Any initial outcome chosen by the user.
+ * @property {number} appealId
+ * @property {AppealOutcomeStatus=} status
  */
 
 /**
@@ -13,31 +20,22 @@
  */
 
 /**
- * @typedef {Object} ValidationState
- * @property {(InitialReviewOutcomeState | ReviewOutcomeState)=} reviewOutcome - The state representing data from the review outcome journey.
- */
-
-/**
- * @typedef {import('express-session').Session & { validation?: ValidationState }} SessionWithInspector
- */
-
-/**
  * Get the validation state from the session.
  *
- * @param {SessionWithInspector} session – The session containing a validation state.
- * @returns {ValidationState} - The validation state from the session.
+ * @param {SessionWithInspector} session
+ * @returns {ValidationState}
  */
-const getValidationState = (session) => session.validation || {};
+const getState = (session) => session.validation || {};
 
 /**
  * Get any review outcome recorded by the user for this appeal.
  *
- * @param {SessionWithInspector} session – The session containing a validation state.
- * @param {number} appealId - Unique identifier for the appeal.
- * @returns {(InitialReviewOutcomeState | ReviewOutcomeState)=} - The review outcome previously entered by the user.
+ * @param {SessionWithInspector} session
+ * @param {number} appealId
+ * @returns {(InitialReviewOutcomeState | ReviewOutcomeState)=}
  */
 const getReviewOutcomeState = (session, appealId) => {
-	const { reviewOutcome } = getValidationState(session);
+	const { reviewOutcome } = getState(session);
 	// If the appealId in the session differs, ignore the existing state,
 	// otherwise we strip the appealId as it's an internal property only and not
 	// part of the review outcome.
@@ -47,7 +45,7 @@ const getReviewOutcomeState = (session, appealId) => {
 /**
  * Clear the validation state from the session.
  *
- * @param {SessionWithInspector} session – The session containing an validation state.
+ * @param {SessionWithInspector} session
  * @returns {void}
  */
 export const destroyReviewOutcome = (session) => {
@@ -57,9 +55,9 @@ export const destroyReviewOutcome = (session) => {
 /**
  * Get the review outcome status recorded by the user for this appeal.
  *
- * @param {SessionWithInspector} session – The session containing a validation state.
- * @param {number} appealId - Unique identifier for the appeal.
- * @returns {AppealOutcomeStatus=} - The review outcome status chosen by the user.
+ * @param {SessionWithInspector} session
+ * @param {number} appealId
+ * @returns {AppealOutcomeStatus=}
  */
 export const getReviewOutcomeStatus = (session, appealId) => {
 	const reviewOutcome = getReviewOutcomeState(session, appealId);
@@ -70,9 +68,9 @@ export const getReviewOutcomeStatus = (session, appealId) => {
 /**
  * Get the review outcome recorded by the user for this appeal, regardless of its status.
  *
- * @param {SessionWithInspector} session – The session containing a validation state.
- * @param {number} appealId - Unique identifier for the appeal.
- * @returns {ReviewOutcomeState=} - The outcome details recorded by the user.
+ * @param {SessionWithInspector} session
+ * @param {number} appealId
+ * @returns {ReviewOutcomeState=}
  */
 export const getReviewOutcome = (session, appealId) => {
 	const state = getReviewOutcomeState(session, appealId);
@@ -83,12 +81,12 @@ export const getReviewOutcome = (session, appealId) => {
 /**
  * Store the completed outcome from reviewing an appeal.
  *
- * @param {SessionWithInspector} session – The session containing a validation state.
- * @param {ReviewOutcomeState} data – The completed review outcome entered by the user.
+ * @param {SessionWithInspector} session
+ * @param {ReviewOutcomeState} data
  * @returns {void}
  */
 export const setReviewOutcome = (session, data) => {
-	const state = getValidationState(session);
+	const state = getState(session);
 	state.reviewOutcome = data;
 	session.validation = state;
 };
@@ -96,12 +94,12 @@ export const setReviewOutcome = (session, data) => {
 /**
  * Store the outcome status from reviewing an appeal.
  *
- * @param {SessionWithInspector} session – The session containing a validation state.
- * @param {InitialReviewOutcomeState} data – The initial review outcome chosen by the user.
+ * @param {SessionWithInspector} session
+ * @param {InitialReviewOutcomeState} data
  * @returns {void}
  */
 export const setReviewOutcomeStatus = (session, data) => {
-	const state = getValidationState(session);
+	const state = getState(session);
 	state.reviewOutcome = data;
 	session.validation = state;
 };

@@ -26,7 +26,7 @@
 			govukCheckboxes({
 				idPrefix: 'confirmation',
 				name: 'confirmation',
-				errorMessage: errors.confirmation and { text: errors.confirmation.msg },
+				errorMessage: errors.confirmation | errorMessage,
 				items: [
 					{
 						value: 'true',

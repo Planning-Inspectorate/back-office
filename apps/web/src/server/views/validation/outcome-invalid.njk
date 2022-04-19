@@ -20,7 +20,7 @@
 			govukCheckboxes({
 				idPrefix: 'reasons',
 				name: 'reasons[]',
-				errorMessage: errors.reasons and { text: errors.reasons.msg },
+				errorMessage: errors.reasons | errorMessage,
 				fieldset: {
     			legend: {
       			text: "Reasons the appeal is invalid",
@@ -39,11 +39,11 @@
 						conditional: {
 							html: govukInput({
 								type: 'text',
-								id: 'reasons.otherReasons',
+								id: 'otherReasons',
 								name: 'otherReasons',
 								label: { text: 'List reasons' },
 								hint: { text: 'This will be sent to the appellant and LPA' },
-								errorMessage: errors['reasons.otherReasons'] and { text: errors['reasons.otherReasons'].msg },
+								errorMessage: errors.otherReasons | errorMessage,
 								spellcheck: true,
 								value: reasons.otherReasons
 							})

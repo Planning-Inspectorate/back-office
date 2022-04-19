@@ -5,22 +5,15 @@
 {% from "inspector/components/appeal-table.component.njk" import appealTable %}
 
 {% set pageTitle = 'My appeals' %}
-
 {% set decisionsDue = appeals | filter({ status: 'decision due' }) %}
 {% set siteVisitsBooked = appeals | filter({ status: 'booked' }) %}
 {% set siteVisitsNotBooked = appeals | filter({ status: 'not yet booked' }) %}
 
-{# Construct the statuses for the 'Site visits not yet booked' table #}
-{% set statuses = [] %}
-{% for appealId in assignedAppealIds %}
-  {% set statuses = (statuses.push({ appealId: appealId, text: 'New' }), statuses) %}
-{% endfor %}
-
 {% block pageContent %}
-  <h2 class="govuk-heading-l govuk-!-margin-bottom-3">Decisions due</h2>
   {% if decisionsDue.length > 0 %}
     {{
       appealTable({
+        caption: 'Decisions due',
         appeals: decisionsDue,
         columns: [
           { name: 'Appeal reference', href: true },
@@ -33,13 +26,14 @@
       })
     }}
   {% else %}
+    <h2 class="govuk-heading-l govuk-!-margin-bottom-3">Decisions due</h2>
     {{ infoBox({ text: 'No decisions due' }) }}
   {% endif %}
 
-  <h2 class="govuk-heading-l govuk-!-margin-bottom-3">Site visits booked</h2>
   {% if siteVisitsBooked.length > 0 %}
     {{
       appealTable({
+        caption: 'Site visits booked',
         appeals: siteVisitsBooked,
         columns: [
           { name: 'Appeal reference', href: true },
@@ -53,13 +47,19 @@
       })
     }}
   {% else %}
+    <h2 class="govuk-heading-l govuk-!-margin-bottom-3">Site visits booked</h2>
     {{ infoBox({ text: 'No site visits booked' }) }}
   {% endif %}
 
-  <h2 class="govuk-heading-l govuk-!-margin-bottom-3">Site visits not yet booked</h2>
   {% if siteVisitsNotBooked.length > 0 %}
+    {# Construct the statuses for the 'Site visits not yet booked' table #}
+    {% set statuses = [] %}
+    {% for appealId in assignedAppealIds %}
+      {% set statuses = statuses | concat({ appealId: appealId, text: 'New' }) %}
+    {% endfor %}
     {{
       appealTable({
+        caption: 'Site visits not yet booked',
         appeals: siteVisitsNotBooked,
         columns: [
           { name: 'Appeal reference', href: true },
@@ -73,13 +73,16 @@
       })
     }}
   {% else %}
+    <h2 class="govuk-heading-l govuk-!-margin-bottom-3">Site visits not yet booked</h2>
     {{ infoBox({ text: 'No site visits to book' }) }}
   {% endif %}
 
-  {{
-    govukButton({
-      text: 'Get more appeals',
-      href: '/inspector/available-appeals'
-    })
-  }}
+  <div style="margin-top: -20px">
+    {{
+      govukButton({
+        text: 'Get more appeals',
+        href: '/inspector/available-appeals'
+      })
+    }}
+  </div>
 {% endblock %}

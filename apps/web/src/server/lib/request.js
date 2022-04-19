@@ -8,6 +8,14 @@ const instance = got.extend({
 	prefixUrl: config.API_HOST,
 	responseType: 'json',
 	resolveBodyOnly: true,
+	hooks: {
+		// temporary pending implementation of authentication
+		beforeRequest: [
+			(options) => {
+				options.headers.userid = '1';
+			}
+		]
+	},
 	handlers: [
 		createTtlHandler(),
 		(options, next) => {
