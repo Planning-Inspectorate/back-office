@@ -7,6 +7,7 @@ import { app } from '../../../app.js';
 const request = supertest(app);
 
 const appeal = {
+	id: 1,
 	reference: 'APP/2021/56789/4909983',
 	localPlanningDepartment: 'some other department',
 	planningApplicationReference: 'XYZ',
@@ -61,6 +62,7 @@ test('returns appeal details', async (t) => {
 	const response = await request.get('/inspector/1').set('userId', '1');
 	t.is(response.status, 200);
 	t.deepEqual(response.body, {
+		appealId: 1,
 		reference: 'APP/2021/56789/4909983',
 		provisionalSiteVisitType: 'unaccompanied',
 		appellantName: 'Maria Sharma',

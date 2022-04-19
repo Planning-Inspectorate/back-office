@@ -32,6 +32,18 @@ router.get(
 
 router.get(
 	'/:appealId',
+	/*
+        #swagger.description = 'Gets details of appeal for inspector'
+        #swagger.parameters['userId'] = {
+            in: 'header',
+            type: 'integer',
+            required: true
+        }
+        #swagger.responses[200] = {
+            description: 'Appeal Details',
+            schema: { $ref: '#/definitions/AppealDetailsForInspector' }
+        } 
+    */
 	param('appealId').toInt(),
 	validateUserBelongsToAppeal,
 	asyncHandler(getAppealDetails)
