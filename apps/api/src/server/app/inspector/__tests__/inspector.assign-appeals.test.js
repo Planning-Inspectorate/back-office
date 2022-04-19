@@ -2,8 +2,8 @@
 import test from 'ava';
 import supertest from 'supertest';
 import sinon from 'sinon';
-import { app } from '../../app.js';
-import DatabaseFactory from '../repositories/database.js';
+import { app } from '../../../app.js';
+import DatabaseFactory from '../../repositories/database.js';
 
 const request = supertest(app);
 

@@ -169,8 +169,13 @@ const appealRepository = (function() {
 		getByStatusesAndUserId: function(statuses, userId) {
 			return getPool().appeal.findMany({
 				where: {
-					status: {
-						in: statuses
+					appealStatus: {
+						every: {
+							status: {
+								in: statuses
+							},
+							valid: true
+						}
 					},
 					userId: userId
 				},

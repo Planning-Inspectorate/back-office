@@ -8,7 +8,10 @@ const appeal_1 = {
 	id: 1,
 	reference: 'REFERENCE',
 	apellantName: 'some name',
-	status: 'site_visit_booked',
+	appealStatus: [{
+		status: 'site_visit_booked',
+		valid: true
+	}],
 	createdAt: new Date(2022, 3, 15),
 	addressId: 1
 };

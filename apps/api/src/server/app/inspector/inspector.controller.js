@@ -2,48 +2,9 @@ import _ from 'lodash';
 import * as inspector from './inspector.service.js';
 import appealRepository from '../repositories/appeal.repository.js';
 import { inspectorStatesStrings } from '../state-machine/inspector-states.js';
-import formatAddressLowerCase from '../utils/address-formatter-lowercase.js';
-import formatDate from '../utils/date-formatter.js';
 import InspectorError from './inspector-error.js';
 import { transitionState } from '../state-machine/transition-state.js';
-import daysBetweenDates from '../utils/days-between-dates.js';
-
-/** @typedef {import('@pins/appeals').Inspector.Appeal} Appeal */
-/** @typedef {import('@pins/appeals').Inspector.AppealOutcome} AppealOutcome */
-/** @typedef {import('@pins/appeals').Inspector.SiteVisitType} SiteVisitType */
-
-const formatStatus = function(status) {
-	switch (status) {
-		case inspectorStatesStrings.site_visit_booked:
-			return 'booked';
-		case inspectorStatesStrings.decision_due:
-			return 'decision due';
-		case inspectorStatesStrings.site_visit_not_yet_booked:
-			return 'not yet booked';
-		default:
-			throw new Error('Unknown status');
-	}
-};
-
-const provisionalAppealSiteVisitType = function(appeal) {
-	return (!appeal.lpaQuestionnaire.siteVisibleFromPublicLand || !appeal.appealDetailsFromAppellant.siteVisibleFromPublicLand) ? 
-		'access required' : 'unaccompanied';
-};
-
-const formatAppealForAllAppeals = function(appeal) {
-	return {
-		appealId: appeal.id,
-		appealAge: daysBetweenDates(appeal.startedAt, new Date()),
-		appealSite: formatAddressLowerCase(appeal.address),
-		appealType: 'HAS',
-		reference: appeal.reference,
-		...(!_.isEmpty(appeal.siteVisit) && { siteVisitDate: formatDate(appeal.siteVisit.visitDate) }),
-		...(!_.isEmpty(appeal.siteVisit) && { siteVisitSlot: appeal.siteVisit.visitSlot }),
-		...(!_.isEmpty(appeal.siteVisit) && { siteVisitType: appeal.siteVisit.visitType }),
-		...(_.isEmpty(appeal.siteVisit) && { provisionalVisitType: provisionalAppealSiteVisitType(appeal) }),
-		status: formatStatus(appeal.status),
-	};
-};
+import { appealFormatter } from './appeal-formatter.js';
 
 const validateUserId = function(userid) {
 	if (userid == undefined) {
@@ -59,7 +20,7 @@ const getAppeals = async function(request, response) {
 		inspectorStatesStrings.site_visit_booked,
 		inspectorStatesStrings.decision_due
 	], userId);
-	const appealsForResponse = appeals.map((appeal) => formatAppealForAllAppeals(appeal));
+	const appealsForResponse = appeals.map((appeal) => appealFormatter.formatAppealForAllAppeals(appeal));
 	return response.send(appealsForResponse);
 };
 
@@ -221,15 +182,15 @@ const assignAppealsById = async function(userId, appealIds) {
 			try {
 				const nextState = transitionState('household', { appealId: appeal.id }, appeal.status, 'PICKUP');
 				await appealRepository.updateById(appeal.id, { status: nextState.value, user: { connect: { id: userId } } });
-				successfullyAssigned.push(formatAppealForAssigningAppeals(appeal));
+				successfullyAssigned.push(appealFormatter.formatAppealForAssigningAppeals(appeal));
 			} catch (error) {
 				console.error(error);
-				unsuccessfullyAssigned.push(formatAppealForAssigningAppeals(appeal, error.message));
+				unsuccessfullyAssigned.push(appealFormatter.formatAppealForAssigningAppeals(appeal, error.message));
 			}
 		} else if (appeal.status !== 'available_for_inspector_pickup') {
-			unsuccessfullyAssigned.push(formatAppealForAssigningAppeals(appeal, 'appeal in wrong state'));
+			unsuccessfullyAssigned.push(appealFormatter.formatAppealForAssigningAppeals(appeal, 'appeal in wrong state'));
 		} else if (appeal.userId !== undefined) {
-			unsuccessfullyAssigned.push(formatAppealForAssigningAppeals(appeal, 'appeal already assigned'));
+			unsuccessfullyAssigned.push(appealFormatter.formatAppealForAssigningAppeals(appeal, 'appeal already assigned'));
 		}
 	}));
 	return { successfullyAssigned: successfullyAssigned, unsuccessfullyAssigned: unsuccessfullyAssigned };
@@ -247,7 +208,6 @@ const assignAppeals = async function(request, response) {
 	const resultantAppeals = await assignAppealsById(userId, request.body);
 	response.send(resultantAppeals);
 };
-
 
 /**
  * @typedef {object} BookSiteVisitRequestBody
