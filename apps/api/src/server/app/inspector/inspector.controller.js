@@ -67,7 +67,7 @@ const getAppeals = async function(request, response) {
 
 const getMoreAppeals = async function(request, response) {
 	const moreAppeals = await appealRepository.getByStatuses(
-		inspectorStatesStrings.available_for_inspector_pickup
+		[inspectorStatesStrings.available_for_inspector_pickup]
 	);
 	console.log('HERE', moreAppeals);
 	return response.send(moreAppeals);

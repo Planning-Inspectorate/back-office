@@ -114,39 +114,8 @@ const appeal_5 = {
 	}
 };
 
-const appeal_6 = {
-	id: 6,
-	reference: 'APP/Q9999/D/21/1087562',
-	status: 'available_for_inspector_pickup',
-	address: {
-		addressLine1: '92 Huntsmoor Road',
-		county: 'Tadley',
-		postCode: 'RG26 4BX'
-	},
-	appealAge: 31,
-	siteVisitType: 'unaccompanied',
-	appealType: 'HAS',
-	specialism: 'General',
-	siteVisit: {}
-};
 
-const appeal_25 = {
-	id: 25,
-	reference: 'APP/Q9999/D/21/5463281',
-	status: 'available_for_inspector_pickup',
-	address: {
-		addressLine1: '56 Vincent Square',
-		county: 'London',
-		postCode: 'SW1P 2NE'
-	},
-	appealAge: 22,
-	siteVisitType: 'accompanied',
-	appealType: 'HAS',
-	specialism: 'General',
-	siteVisit: {}
-};
-
-const findManyStub = sinon.stub().returns([appeal_1, appeal_2, appeal_3, appeal_4, appeal_5, appeal_6, appeal_25]);
+const findManyStub = sinon.stub().returns([appeal_1, appeal_2, appeal_3, appeal_4, appeal_5]);
 
 class MockDatabaseClass {
 	constructor(_parameters) {
@@ -266,50 +235,3 @@ test('throws error if userid is not provided in the header', async(t) => {
 	t.deepEqual(resp.body, { error: 'Must provide userid' });
 });
 
-test('gets all appeals yet to be assigned to inspector', async (t) => {
-	const resp = await request.get('/inspector/more-appeals');
-	t.is(resp.status, 200);
-	t.deepEqual(resp.body, [
-		{
-			appealId: 6,
-			reference: 'APP/Q9999/D/21/1087562',
-			status: 'available_for_inspector_pickup',
-			appealSite: {
-				addressLine1: '92 Huntsmoor Road',
-				county: 'Tadley',
-				postCode: 'RG26 4BX'
-			},
-			appealAge: 41,
-			siteVisitType: 'unaccompanied',
-			appealType: 'HAS',
-			specialism: 'General'
-		},
-		{
-			appealId: 25,
-			reference: 'APP/Q9999/D/21/5463281',
-			status: 'available_for_inspector_pickup',
-			appealSite: {
-				addressLine1: '56 Vincent Square',
-				county: 'London',
-				postCode: 'SW1P 2NE'
-			},
-			appealAge: 22,
-			siteVisitType: 'accompanied',
-			appealType: 'HAS',
-			specialism: 'General'
-		}
-	]);
-
-	sinon.assert.calledWith(findManyStub, {
-		where: {
-			status: {
-				in: [
-					'available_for_inspector_pickup'
-				]
-			}
-		},
-		include: {
-			address: true
-		}
-	});
-});
