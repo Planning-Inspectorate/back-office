@@ -30,4 +30,15 @@
       width: 330px;
     }
   }
+
+  &--questionnaire {
+    table-layout: fixed;
+    
+    tbody tr th {
+      width: 330px;
+    }
+    tbody tr td:last-child {
+      width: 400px;
+    }
+  }
 }
