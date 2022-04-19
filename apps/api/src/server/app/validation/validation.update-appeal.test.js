@@ -46,15 +46,6 @@ test('should be able to modify the appellant name', async (t) => {
 	});
 });
 
-test('should not be able to modify appellant name if provided numbers', async (t) => {
-	const resp = await request.patch('/validation/1')
-		.send({ AppellantName: '123456789' });
-	t.is(resp.status, 400);
-	t.deepEqual(resp.body, {
-		error: 'Invalid request'
-	});
-});
-
 test('should be able to modify address', async(t) => {
 	const resp = await request.patch('/validation/1')
 		.send({

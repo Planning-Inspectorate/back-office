@@ -183,6 +183,33 @@
         }
       }
     },
+    "/inspector/{appealId}": {
+      "get": {
+        "description": "Gets details of appeal for inspector",
+        "parameters": [
+          {
+            "name": "appealId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "userId",
+            "in": "header",
+            "type": "integer",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Appeal Details",
+            "schema": {
+              "$ref": "#/definitions/AppealDetailsForInspector"
+            }
+          }
+        }
+      }
+    },
     "/inspector/assign": {
       "post": {
         "description": "Assigns appeals to inspector",
@@ -860,6 +887,182 @@
         "siteVisitType",
         "provisionalSiteVisitType"
       ]
+    },
+    "AppealDetailsForInspector": {
+      "type": "object",
+      "properties": {
+        "appealId": {
+          "type": "number",
+          "example": 1
+        },
+        "reference": {
+          "type": "string",
+          "example": "APP/2021/56789/4909983"
+        },
+        "provisionalSiteVisitType": {
+          "type": "string",
+          "enum": [
+            "unaccompanied",
+            "access required"
+          ]
+        },
+        "appellantName": {
+          "type": "string",
+          "example": "Maria Sharma"
+        },
+        "email": {
+          "type": "string",
+          "example": "maria.sharma@gmail.com"
+        },
+        "descriptionOfDevelopment": {
+          "type": "string",
+          "example": "some description of development"
+        },
+        "appealReceivedDate": {
+          "type": "string",
+          "example": "12 December 2020"
+        },
+        "extraConditions": {
+          "type": "boolean",
+          "example": false
+        },
+        "affectsListedBuilding": {
+          "type": "boolean",
+          "example": false
+        },
+        "inGreenBelt": {
+          "type": "boolean",
+          "example": false
+        },
+        "inOrNearConservationArea": {
+          "type": "boolean",
+          "example": false
+        },
+        "emergingDevelopmentPlanOrNeighbourhoodPlan": {
+          "type": "boolean",
+          "example": false
+        },
+        "emergingDevelopmentPlanOrNeighbourhoodPlanDescription": {
+          "type": "string",
+          "example": "plans"
+        },
+        "appealAge": {
+          "type": "number",
+          "example": 12
+        },
+        "localPlanningDepartment": {
+          "type": "string",
+          "example": "some other department"
+        },
+        "bookedSiteVisit": {
+          "type": "object",
+          "properties": {
+            "visitDate": {
+              "type": "string",
+              "example": "12 December 2022"
+            },
+            "visitSlot": {
+              "type": "string",
+              "example": "1pm - 2pm"
+            },
+            "visitType": {
+              "type": "string",
+              "enum": [
+                "accompanied",
+                "unaccompanied",
+                "access required"
+              ]
+            }
+          }
+        },
+        "address": {
+          "type": "object",
+          "properties": {
+            "addressLine1": {
+              "type": "string",
+              "example": "66 Grove Road"
+            },
+            "postCode": {
+              "type": "string",
+              "example": "BS16 2BP"
+            },
+            "town": {
+              "type": "string",
+              "example": "Fishponds"
+            }
+          }
+        },
+        "lpaAnswers": {
+          "type": "object",
+          "properties": {
+            "canBeSeenFromPublic": {
+              "type": "boolean",
+              "example": true
+            },
+            "canBeSeenFromPublicDescription": {
+              "type": "string",
+              "example": "not visible from public land"
+            },
+            "inspectorNeedsToEnterSite": {
+              "type": "boolean",
+              "example": false
+            },
+            "inspectorNeedsToEnterSiteDescription": {
+              "type": "string",
+              "example": "inspector will want to enter site"
+            },
+            "inspectorNeedsAccessToNeighboursLand": {
+              "type": "boolean",
+              "example": false
+            },
+            "inspectorNeedsAccessToNeighboursLandDescription": {
+              "type": "string",
+              "example": "should be able to see ok"
+            },
+            "healthAndSafetyIssues": {
+              "type": "boolean",
+              "example": false
+            },
+            "healthAndSafetyIssuesDescription": {
+              "type": "string",
+              "example": "not really"
+            },
+            "appealsInImmediateArea": {
+              "type": "string",
+              "example": "abcd, ABC/DEF/GHI"
+            }
+          }
+        },
+        "appellantAnswers": {
+          "type": "object",
+          "properties": {
+            "canBeSeenFromPublic": {
+              "type": "boolean",
+              "example": true
+            },
+            "canBeSeenFromPublicDescription": {
+              "type": "string",
+              "example": "site visit description"
+            },
+            "appellantOwnsWholeSite": {
+              "type": "boolean",
+              "example": true
+            },
+            "appellantOwnsWholeSiteDescription": {
+              "type": "string",
+              "example": "i own the whole site"
+            },
+            "healthAndSafetyIssues": {
+              "type": "boolean",
+              "example": false
+            },
+            "healthAndSafetyIssuesDescription": {
+              "type": "string",
+              "example": "everything is super safe"
+            }
+          }
+        }
+      }
     },
     "AppealsAssignedToInspector": {
       "type": "object",

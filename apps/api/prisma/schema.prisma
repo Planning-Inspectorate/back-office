@@ -40,10 +40,15 @@ model Appellant {
 }
 
 model AppealDetailsFromAppellant {
-  id                        Int      @id @default(autoincrement())
-  appeal                    Appeal   @relation(fields: [appealId], references: [id])
-  appealId                  Int      @unique
-  siteVisibleFromPublicLand Boolean?
+  id                                   Int      @id @default(autoincrement())
+  appeal                               Appeal   @relation(fields: [appealId], references: [id])
+  appealId                             Int      @unique
+  siteVisibleFromPublicLand            Boolean?
+  siteVisibleFromPublicLandDescription String?
+  appellantOwnsWholeSite               Boolean?
+  appellantOwnsWholeSiteDescription    String?
+  healthAndSafetyIssues                Boolean?
+  healthAndSafetyIssuesDescription     String?
 }
 
 model Address {
@@ -80,25 +85,27 @@ model ValidationDecision {
 }
 
 model LPAQuestionnaire {
-  id                                                 Int       @id @default(autoincrement())
-  appeal                                             Appeal    @relation(fields: [appealId], references: [id])
-  appealId                                           Int       @unique
-  affectsListedBuilding                              Boolean?
-  listedBuildingDescription                          String?
-  extraConditions                                    Boolean?
-  inGreenBelt                                        Boolean?
-  inOrNearConservationArea                           Boolean?
-  siteVisibleFromPublicLand                          Boolean?
-  sideVisibleFromPublicLandDescription               String?
-  doesInspectorNeedToEnterSite                       Boolean?
-  doesInspectorNeedToEnterSideDescription            String?
-  doesInspectorNeedToAccessNeighboursLand            Boolean?
-  doesInspectorNeedToAccessNeighboursLandDescription String?
-  healthAndSafetyIssues                              Boolean?
-  healthAndSafetyIsueesDescription                   String?
-  appealsInImmediateAreaBeingConsidered              String?
-  sentAt                                             DateTime  @default(now())
-  receivedAt                                         DateTime?
+  id                                                    Int       @id @default(autoincrement())
+  appeal                                                Appeal    @relation(fields: [appealId], references: [id])
+  appealId                                              Int       @unique
+  affectsListedBuilding                                 Boolean?
+  listedBuildingDescription                             String?
+  extraConditions                                       Boolean?
+  inGreenBelt                                           Boolean?
+  inOrNearConservationArea                              Boolean?
+  siteVisibleFromPublicLand                             Boolean?
+  siteVisibleFromPublicLandDescription                  String?
+  doesInspectorNeedToEnterSite                          Boolean?
+  doesInspectorNeedToEnterSiteDescription               String?
+  doesInspectorNeedToAccessNeighboursLand               Boolean?
+  doesInspectorNeedToAccessNeighboursLandDescription    String?
+  healthAndSafetyIssues                                 Boolean?
+  healthAndSafetyIssuesDescription                      String?
+  emergingDevelopmentPlanOrNeighbourhoodPlan            Boolean?
+  emergingDevelopmentPlanOrNeighbourhoodPlanDescription String?
+  appealsInImmediateAreaBeingConsidered                 String?
+  sentAt                                                DateTime  @default(now())
+  receivedAt                                            DateTime?
 }
 
 model ReviewQuestionnaire {
@@ -141,10 +148,10 @@ model SiteVisit {
 }
 
 model InspectorDecision {
-  id                     Int      @id @default(autoincrement())
-  appeal                 Appeal   @relation(fields: [appealId], references: [id])
-  appealId               Int      @unique
-  outcome                String   // can be 'allowed', 'dismissed' or 'split decision'
+  id                     Int     @id @default(autoincrement())
+  appeal                 Appeal  @relation(fields: [appealId], references: [id])
+  appealId               Int     @unique
+  outcome                String // can be 'allowed', 'dismissed' or 'split decision'
   decisionLetterFilename String?
 }
 
