@@ -478,6 +478,83 @@ const appealsReadyForConfirmationFromCaseOfficer = [
 				receivedAt: new Date(2022, 3, 20)
 			}
 		}
+	},
+	{
+		reference: 'APP/Q9999/D/21/9876543',
+		appellant: {
+			create: {
+				name: 'Maggie Ross',
+				email: 'mags@gmail.com'
+			}
+		},
+		localPlanningDepartment: 'Wandsworth Borough Council',
+		planningApplicationReference: '48269/APP/2021/0777',
+		status: 'received_lpa_questionnaire',
+		statusUpdatedAt: getDateTwoWeeksAgo(),
+		address: {
+			create: {
+				addressLine1: '72 Clapham High St',
+				county: 'Wandsworth',
+				postcode: 'SW4 7UL'
+			}
+		},
+		lpaQuestionnaire: {
+			create: {
+				affectsListedBuilding: false,
+				extraConditions: false,
+				inGreenBelt: false,
+				inOrNearConservationArea: false,
+				siteVisibleFromPublicLand: false,
+				sideVisibleFromPublicLandDescription: 'The extension is to the read of the property, and the garden has high hedges',
+				doesInspectorNeedToEnterSite: true,
+				doesInspectorNeedToEnterSideDescription: 'The proposed development can only be viewed from the appellant\'s garden',
+				doesInspectorNeedToAccessNeighboursLand: true,
+				doesInspectorNeedToAccessNeighboursLandDescription: '72 Clapham High St',
+				healthAndSafetyIssues: true,
+				healthAndSafetyIsueesDescription: 'Unastable passage entrance',
+				appealsInImmediateAreaBeingConsidered: '893482, 372839',
+				sentAt: new Date(2022, 3, 2),
+				receivedAt: new Date(2022, 3, 21)
+			}
+		}
+	},
+	{
+		reference: 'APP/Q9999/D/21/3456789',
+		appellant: {
+			create: {
+				name: 'Elaine Madsen',
+				email: 'ellie@gmail.com'
+			}
+		},
+		localPlanningDepartment: 'Maidstone Borough Council',
+		planningApplicationReference: '48269/APP/2021/0666',
+		status: 'received_lpa_questionnaire',
+		statusUpdatedAt: getDateTwoWeeksAgo(),
+		address: {
+			create: {
+				addressLine1: '21 The Pavement',
+				county: 'Wandsworth',
+				postcode: 'SW4 0HY'
+			}
+		},
+		lpaQuestionnaire: {
+			create: {
+				affectsListedBuilding: false,
+				extraConditions: false,
+				inGreenBelt: false,
+				inOrNearConservationArea: false,
+				siteVisibleFromPublicLand: false,
+				sideVisibleFromPublicLandDescription: 'The extension is to the read of the property, and the garden has high hedges',
+				doesInspectorNeedToEnterSite: true,
+				doesInspectorNeedToEnterSideDescription: 'The proposed development can only be viewed from the appellant\'s garden',
+				doesInspectorNeedToAccessNeighboursLand: true,
+				doesInspectorNeedToAccessNeighboursLandDescription: '21 The Pavement',
+				healthAndSafetyIssues: false,
+				appealsInImmediateAreaBeingConsidered: '893482, 372839',
+				sentAt: new Date(2022, 3, 3),
+				receivedAt: new Date(2022, 3, 22)
+			}
+		}
 	}
 ];
 
