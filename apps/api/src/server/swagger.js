@@ -162,6 +162,18 @@ const document_ = {
 			inOrNearConservationArea: false,
 			emergingDevelopmentPlanOrNeighbourhoodPlan: false,
 			emergingDevelopmentPlanOrNeighbourhoodPlanDescription: 'plans',
+			appealAge: 12,
+			localPlanningDepartment: 'some other department',
+			bookedSiteVisit: {
+				visitDate: '12 December 2022',
+				visitSlot: '1pm - 2pm',
+				visitType: { '@enum': ['accompanied', 'unaccompanied', 'access required'] }
+			},
+			address: {
+				addressLine1: '66 Grove Road',
+				postCode: 'BS16 2BP',
+				town: 'Fishponds',
+			},
 			lpaAnswers: {
 				canBeSeenFromPublic: true,
 				canBeSeenFromPublicDescription: 'not visible from public land',

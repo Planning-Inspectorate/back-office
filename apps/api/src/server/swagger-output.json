@@ -946,6 +946,52 @@
           "type": "string",
           "example": "plans"
         },
+        "appealAge": {
+          "type": "number",
+          "example": 12
+        },
+        "localPlanningDepartment": {
+          "type": "string",
+          "example": "some other department"
+        },
+        "bookedSiteVisit": {
+          "type": "object",
+          "properties": {
+            "visitDate": {
+              "type": "string",
+              "example": "12 December 2022"
+            },
+            "visitSlot": {
+              "type": "string",
+              "example": "1pm - 2pm"
+            },
+            "visitType": {
+              "type": "string",
+              "enum": [
+                "accompanied",
+                "unaccompanied",
+                "access required"
+              ]
+            }
+          }
+        },
+        "address": {
+          "type": "object",
+          "properties": {
+            "addressLine1": {
+              "type": "string",
+              "example": "66 Grove Road"
+            },
+            "postCode": {
+              "type": "string",
+              "example": "BS16 2BP"
+            },
+            "town": {
+              "type": "string",
+              "example": "Fishponds"
+            }
+          }
+        },
         "lpaAnswers": {
           "type": "object",
           "properties": {

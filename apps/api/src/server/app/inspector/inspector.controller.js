@@ -72,7 +72,9 @@ const getAppealDetails = async function(request, response) {
 			},
 		},
 		lpaQuestionnaire: true,
-		appealDetailsFromAppellant: true
+		appealDetailsFromAppellant: true,
+		address: true,
+		siteVisit: true
 	});
 	const formattedAppeal = {
 		appealId: appeal.id,
@@ -82,6 +84,7 @@ const getAppealDetails = async function(request, response) {
 		agentName: appeal.appellant.agentName,
 		email: appeal.appellant.email,
 		appealReceivedDate: formatDate(appeal.createdAt, false),
+		appealAge: daysBetweenDates(appeal.startedAt, new Date()),
 		descriptionOfDevelopment: appeal.validationDecision[0].descriptionOfDevelopment,
 		extraConditions: appeal.lpaQuestionnaire.extraConditions,
 		affectsListedBuilding: appeal.lpaQuestionnaire.affectsListedBuilding,
@@ -89,6 +92,13 @@ const getAppealDetails = async function(request, response) {
 		inOrNearConservationArea: appeal.lpaQuestionnaire.inOrNearConservationArea,
 		emergingDevelopmentPlanOrNeighbourhoodPlan: appeal.lpaQuestionnaire.emergingDevelopmentPlanOrNeighbourhoodPlan,
 		emergingDevelopmentPlanOrNeighbourhoodPlanDescription: appeal.lpaQuestionnaire.emergingDevelopmentPlanOrNeighbourhoodPlanDescription,
+		address: formatAddressLowerCase(appeal.address),
+		localPlanningDepartment: appeal.localPlanningDepartment,
+		...(appeal.siteVisit && { bookedSiteVisit: {
+			visitDate: formatDate(appeal.siteVisit.visitDate, false),
+			visitSlot: appeal.siteVisit.visitSlot,
+			visitType: appeal.siteVisit.visitType
+		} }),
 		lpaAnswers: {
 			canBeSeenFromPublic: appeal.lpaQuestionnaire.siteVisibleFromPublicLand,
 			canBeSeenFromPublicDescription: appeal.lpaQuestionnaire.siteVisibleFromPublicLandDescription,
