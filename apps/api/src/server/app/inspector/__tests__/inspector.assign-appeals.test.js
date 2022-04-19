@@ -81,9 +81,6 @@ const appeal_3 = {
 	appealDetailsFromAppellant: {
 		siteVisibleFromPublicLand: true
 	},
-	appealDetailsFromAppellant: {
-		siteVisibleFromPublicLand: false
-	},
 	userId: undefined
 };
 
@@ -105,9 +102,6 @@ const appeal_4 = {
 	appealDetailsFromAppellant: {
 		siteVisibleFromPublicLand: false
 	},
-	appealDetailsFromAppellant: {
-		siteVisibleFromPublicLand: false
-	},
 	userId: undefined
 };
 
@@ -124,9 +118,6 @@ const appeal_5 = {
 	},
 	siteVisit: {},
 	lpaQuestionnaire: {
-		siteVisibleFromPublicLand: false
-	},
-	appealDetailsFromAppellant: {
 		siteVisibleFromPublicLand: false
 	},
 	appealDetailsFromAppellant: {
@@ -157,11 +148,12 @@ class MockDatabaseClass {
 
 test.before('setup mock', () => {
 	sinon.stub(DatabaseFactory, 'getInstance').callsFake((arguments_) => new MockDatabaseClass(arguments_));
-	const clock = sinon.useFakeTimers({ now: 1_649_319_144_000 });
+	sinon.useFakeTimers({ now: 1_649_319_144_000 });
 });
 
 test('assigns all appeals as they are all available', async(t) => {
 	const resp = await request.post('/inspector/assign').set('userId', 1).send([1, 2, 3]);
+	console.log(resp.body);
 	t.is(resp.status, 200);
 	sinon.assert.calledWith(updateStub, {
 		where: { id: 1 },

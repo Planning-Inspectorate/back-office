@@ -1,9 +1,8 @@
 import _ from 'lodash';
 import * as inspector from './inspector.service.js';
 import appealRepository from '../repositories/appeal.repository.js';
-import { inspectorStatesStrings } from '../state-machine/inspector-states.js';
+import { appealStates, transitionState } from '../state-machine/transition-state.js';
 import InspectorError from './inspector-error.js';
-import { transitionState } from '../state-machine/transition-state.js';
 import { appealFormatter } from './appeal-formatter.js';
 
 const validateUserId = function(userid) {
@@ -16,9 +15,9 @@ const validateUserId = function(userid) {
 const getAppeals = async function(request, response) {
 	const userId = validateUserId(request.headers.userid);
 	const appeals = await appealRepository.getByStatusesAndUserId([
-		inspectorStatesStrings.site_visit_not_yet_booked,
-		inspectorStatesStrings.site_visit_booked,
-		inspectorStatesStrings.decision_due
+		appealStates.site_visit_not_yet_booked,
+		appealStates.site_visit_booked,
+		appealStates.decision_due
 	], userId);
 	const appealsForResponse = appeals.map((appeal) => appealFormatter.formatAppealForAllAppeals(appeal));
 	return response.send(appealsForResponse);
@@ -177,7 +176,7 @@ const assignAppealsById = async function(userId, appealIds) {
 	const successfullyAssigned = [];
 	const unsuccessfullyAssigned = [];
 	await Promise.all(appealIds.map(async (appealId) => {
-		const appeal = await appealRepository.getByIdIncluding(appealId, { address: true, appellant: true, appealDetailsFromAppellant: true });
+		const appeal = await appealRepository.getById(appealId, true, false, true, false, true);
 		if (appeal.userId == undefined && appeal.status == 'available_for_inspector_pickup') {
 			try {
 				const nextState = transitionState('household', { appealId: appeal.id }, appeal.status, 'PICKUP');

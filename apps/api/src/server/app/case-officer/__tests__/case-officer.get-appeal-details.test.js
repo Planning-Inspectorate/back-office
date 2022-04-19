@@ -55,7 +55,13 @@ const includeDetails = {
 	}
 };
 
-const includingDetailsForValidtion = { appellant: false, appealStatus: { where: { valid: true } }, address: false, validationDecision: false };
+const includingDetailsForValidtion = { 
+	appellant: false, 
+	appealStatus: { where: { valid: true } }, 
+	address: false, 
+	validationDecision: false,
+	appealDetailsFromAppellant: false
+};
 
 const findUniqueStub = sinon.stub();
 findUniqueStub.withArgs({ where: { id: 1 }, include: includeDetails }).returns(appeal_1);
@@ -172,7 +178,6 @@ test('gets the appeals detailed information with received questionnaires', async
 		ListedBuildingDesc: '',
 		Documents: listOfDocuments
 	};
-	console.log(resp.body);
 	t.is(resp.status, 200);
 	t.deepEqual(resp.body, appealExampleDetail);
 });

@@ -208,12 +208,17 @@ test('gets all appeals assigned to inspector', async (t) => {
 	]);
 	sinon.assert.calledWith(findManyStub, {
 		where: {
-			status: {
-				in: [
-					'site_visit_not_yet_booked',
-					'site_visit_booked',
-					'decision_due'
-				]
+			appealStatus: {
+				every: {
+					status: {
+						in: [
+							'site_visit_not_yet_booked',
+							'site_visit_booked',
+							'decision_due'
+						]
+					},
+					valid: true
+				}
 			},
 			userId: 1
 		},
@@ -227,7 +232,7 @@ test('gets all appeals assigned to inspector', async (t) => {
 	});
 });
 
-test('throws error if userid is not provided in the header', async(t) => {
+test('throws error if userid is not provided in the header', async (t) => {
 	const resp = await request.get('/inspector');
 	t.is(resp.status, 400);
 	t.deepEqual(resp.body, { error: 'Must provide userid' });

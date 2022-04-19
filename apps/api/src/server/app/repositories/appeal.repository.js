@@ -53,7 +53,8 @@ const appealRepository = (function() {
 			includeAppellant = false,
 			includeValidationDecision = false,
 			includeAddress = false,
-			includeLatestLPAReviewQuestionnaire = false
+			includeLatestLPAReviewQuestionnaire = false,
+			includeAppealDetailsFromAppellant = false
 		) {
 			return getPool().appeal.findUnique({
 				where: {
@@ -68,6 +69,7 @@ const appealRepository = (function() {
 							valid: true
 						}
 					},
+					appealDetailsFromAppellant: includeAppealDetailsFromAppellant,
 					...( includeLatestLPAReviewQuestionnaire && includeLatestReviewQuestionnaireFilter )
 				}
 			});

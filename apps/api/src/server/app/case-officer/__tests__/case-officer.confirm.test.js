@@ -43,6 +43,7 @@ const includeForValidation = {
 	appellant: false,
 	validationDecision: false,
 	address: false,
+	appealDetailsFromAppellant: false,
 	appealStatus: {
 		where: {
 			valid: true
