@@ -29,7 +29,7 @@ const appeal = {
 		appellantOwnsWholeSite: true,
 		appellantOwnsWholeSiteDescription: 'i own the whole site',
 		healthAndSafetyIssues: false,
-		healthAndSafetyIsueesDescription: 'everything is super safe'
+		healthAndSafetyIssuesDescription: 'everything is super safe'
 	},
 	userId: 1,
 	lpaQuestionnaire: {
@@ -40,7 +40,7 @@ const appeal = {
 		doesInspectorNeedToAccessNeighboursLand: false,
 		doesInspectorNeedToAccessNeighboursLandDescription: 'should be able to see ok',
 		healthAndSafetyIssues: false,
-		healthAndSafetyIsueesDescription: 'not really',
+		healthAndSafetyIssuesDescription: 'not really',
 		appealsInImmediateAreaBeingConsidered: 'abcd, ABC/DEF/GHI',
 		emergingDevelopmentPlanOrNeighbourhoodPlan: false,
 		emergingDevelopmentPlanOrNeighbourhoodPlanDescription: 'plans',

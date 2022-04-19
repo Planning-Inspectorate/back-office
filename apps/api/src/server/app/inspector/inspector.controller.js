@@ -97,7 +97,7 @@ const getAppealDetails = async function(request, response) {
 			inspectorNeedsAccessToNeighboursLand: appeal.lpaQuestionnaire.doesInspectorNeedToAccessNeighboursLand,
 			inspectorNeedsAccessToNeighboursLandDescription: appeal.lpaQuestionnaire.doesInspectorNeedToAccessNeighboursLandDescription,
 			healthAndSafetyIssues: appeal.lpaQuestionnaire.healthAndSafetyIssues,
-			healthAndSafetyIssuesDescription: appeal.lpaQuestionnaire.healthAndSafetyIsueesDescription,
+			healthAndSafetyIssuesDescription: appeal.lpaQuestionnaire.healthAndSafetyIssuesDescription,
 			appealsInImmediateArea: appeal.lpaQuestionnaire.appealsInImmediateAreaBeingConsidered
 		},
 		appellantAnswers: {
@@ -106,7 +106,7 @@ const getAppealDetails = async function(request, response) {
 			appellantOwnsWholeSite: appeal.appealDetailsFromAppellant.appellantOwnsWholeSite,
 			appellantOwnsWholeSiteDescription: appeal.appealDetailsFromAppellant.appellantOwnsWholeSiteDescription,
 			healthAndSafetyIssues: appeal.appealDetailsFromAppellant.healthAndSafetyIssues,
-			healthAndSafetyIssuesDescription: appeal.appealDetailsFromAppellant.healthAndSafetyIsueesDescription
+			healthAndSafetyIssuesDescription: appeal.appealDetailsFromAppellant.healthAndSafetyIssuesDescription
 		},
 		Documents: [
 			{

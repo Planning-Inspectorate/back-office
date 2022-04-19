@@ -48,7 +48,7 @@ model AppealDetailsFromAppellant {
   appellantOwnsWholeSite               Boolean?
   appellantOwnsWholeSiteDescription    String?
   healthAndSafetyIssues                Boolean?
-  healthAndSafetyIsueesDescription     String?
+  healthAndSafetyIssuesDescription     String?
 }
 
 model Address {
@@ -100,7 +100,7 @@ model LPAQuestionnaire {
   doesInspectorNeedToAccessNeighboursLand               Boolean?
   doesInspectorNeedToAccessNeighboursLandDescription    String?
   healthAndSafetyIssues                                 Boolean?
-  healthAndSafetyIsueesDescription                      String?
+  healthAndSafetyIssuesDescription                      String?
   emergingDevelopmentPlanOrNeighbourhoodPlan            Boolean?
   emergingDevelopmentPlanOrNeighbourhoodPlanDescription String?
   appealsInImmediateAreaBeingConsidered                 String?

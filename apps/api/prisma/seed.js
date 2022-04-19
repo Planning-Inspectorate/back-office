@@ -299,7 +299,7 @@ const appealsReviewIncomplete = [
 				doesInspectorNeedToAccessNeighboursLand: true,
 				doesInspectorNeedToAccessNeighboursLandDescription: '54 Butcher Street',
 				healthAndSafetyIssues: true,
-				healthAndSafetyIsueesDescription: 'A defensive dog',
+				healthAndSafetyIssuesDescription: 'A defensive dog',
 				appealsInImmediateAreaBeingConsidered: '893482, 372839',
 				sentAt: new Date(2022, 3, 1),
 				receivedAt: new Date(2022, 3, 20)
@@ -360,7 +360,7 @@ const appealsAvailableForInspectorPickup = [
 				doesInspectorNeedToAccessNeighboursLand: true,
 				doesInspectorNeedToAccessNeighboursLandDescription: '54 Butcher Street',
 				healthAndSafetyIssues: true,
-				healthAndSafetyIsueesDescription: 'A defensive dog',
+				healthAndSafetyIssuesDescription: 'A defensive dog',
 				appealsInImmediateAreaBeingConsidered: '893482, 372839',
 				sentAt: new Date(2022, 3, 1),
 				receivedAt: new Date(2022, 3, 20)
@@ -437,7 +437,7 @@ const appealsReadyForConfirmationFromCaseOfficer = [
 				doesInspectorNeedToAccessNeighboursLand: true,
 				doesInspectorNeedToAccessNeighboursLandDescription: '54 Butcher Street',
 				healthAndSafetyIssues: true,
-				healthAndSafetyIsueesDescription: 'A defensive dog',
+				healthAndSafetyIssuesDescription: 'A defensive dog',
 				appealsInImmediateAreaBeingConsidered: '893482, 372839',
 				sentAt: new Date(2022, 3, 1),
 				receivedAt: new Date(2022, 3, 20)
@@ -474,7 +474,7 @@ const appealsSiteVisitNotYetBooked = [
 				appellantOwnsWholeSite: true,
 				appellantOwnsWholeSiteDescription: 'i own the whole site',
 				healthAndSafetyIssues: false,
-				healthAndSafetyIsueesDescription: 'everything is super safe'
+				healthAndSafetyIssuesDescription: 'everything is super safe'
 			}
 		},
 		user: {
@@ -491,7 +491,7 @@ const appealsSiteVisitNotYetBooked = [
 				doesInspectorNeedToAccessNeighboursLand: false,
 				doesInspectorNeedToAccessNeighboursLandDescription: 'should be able to see ok',
 				healthAndSafetyIssues: false,
-				healthAndSafetyIsueesDescription: 'not really',
+				healthAndSafetyIssuesDescription: 'not really',
 				appealsInImmediateAreaBeingConsidered: '123/456/789, ABC/DEF/GHI'
 			}
 		},
@@ -528,7 +528,7 @@ const appealsSiteVisitNotYetBooked = [
 				appellantOwnsWholeSite: true,
 				appellantOwnsWholeSiteDescription: 'i own the whole site',
 				healthAndSafetyIssues: false,
-				healthAndSafetyIsueesDescription: 'everything is super safe'
+				healthAndSafetyIssuesDescription: 'everything is super safe'
 			}
 		},
 		user: {
@@ -545,7 +545,7 @@ const appealsSiteVisitNotYetBooked = [
 				doesInspectorNeedToAccessNeighboursLand: false,
 				doesInspectorNeedToAccessNeighboursLandDescription: 'should be able to see ok',
 				healthAndSafetyIssues: false,
-				healthAndSafetyIsueesDescription: 'not really',
+				healthAndSafetyIssuesDescription: 'not really',
 				appealsInImmediateAreaBeingConsidered: 'abcd, ABC/DEF/GHI',
 				emergingDevelopmentPlanOrNeighbourhoodPlan: false,
 				emergingDevelopmentPlanOrNeighbourhoodPlanDescription: 'plans',
