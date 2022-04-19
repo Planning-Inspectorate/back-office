@@ -6,7 +6,7 @@ import multer from 'multer';
 import { body, header, validationResult } from 'express-validator';
 import appealRepository from '../repositories/appeal.repository.js';
 
-/** @typedef {import('@pins/inspector').SiteVisitType} SiteVisitType */
+/** @typedef {import('@pins/appeals').Inspector.SiteVisitType} SiteVisitType */
 /** @typedef {keyof typeof import('../state-machine/inspector-states').inspectorStates} InspectorState } */
 
 /**
@@ -15,8 +15,8 @@ import appealRepository from '../repositories/appeal.repository.js';
  * @param {InspectorState} status - The state to transition to
  * @returns {import('express').RequestHandler<{ appealId: number; }>} - A
  * validation middleware that handles invalid state transitions
- **/
-export const validateStateTransition = (status) =>
+ */
+export const validateAppealState = (status) =>
 	async ({ params }, response, next) => {
 		const appeal = await appealRepository.getById(params.appealId);
 
@@ -63,7 +63,7 @@ export const validateUserBelongsToAppeal = composeMiddleware(validateUserId, asy
 
 export const validateBookSiteVisit = composeMiddleware(
 	body('siteVisitType')
-		.isIn(/** @type {SiteVisitType[]} */ (['accompanied', 'unaccompanied', 'access required']))
+		.isIn(/** @type {SiteVisitType[]} */(['accompanied', 'unaccompanied', 'access required']))
 		.withMessage('Select a type of site visit'),
 	body('siteVisitDate')
 		.isDate({ format: 'YYYY-MM-DD' })
@@ -107,8 +107,11 @@ export const validateIssueDecision = composeMiddleware(
 	handleValidationError
 );
 
+const errorWhenNoAppealsProvided = 'Provide a non-empty array of appeals to assign to the inspector';
+
 export const validateAssignAppealsToInspector = composeMiddleware(
-	body().isArray().withMessage('Provide appeals to assign to the inspector'),
+	body().isArray().withMessage(errorWhenNoAppealsProvided),
+	body().notEmpty().withMessage(errorWhenNoAppealsProvided),
 	handleValidationError
 );
 

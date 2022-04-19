@@ -1,0 +1,22 @@
+{% extends "app/layouts/app-two-column.layout.njk" %}
+
+{% from "govuk/components/panel/macro.njk" import govukPanel %}
+
+{% set pageTitle = 'Confirmation of review questionnaire' %}
+
+{% block pageHeading %}{% endblock %}
+{% block pageContent %}
+	{{
+    govukPanel({
+		  titleText: 'Outcome confirmed',
+		  html: [
+        'Questionnaire complete',
+        '<strong>' + appeal.AppealReference + '</strong>'
+      ] | join('<br>')
+	  })
+  }}
+	<h2 class="govuk-heading-m">What next?</h2>
+	<ul class="govuk-list">
+		<li><a href="/lpa" class="govuk-link">Return to questionnaires for review</a></li>
+	</ul>
+{% endblock %}

@@ -1,5 +1,6 @@
 // @ts-check
 
+// eslint-disable-next-line import/no-unresolved
 import test from 'ava';
 import { find } from 'lodash-es';
 import path from 'path';
@@ -97,7 +98,7 @@ test('fails with a 409 status when the appeal in a state that cannot be be advan
 	t.is(response.status, 409);
 	t.deepEqual(response.body, {
 		errors: {
-			status: 'Appeal is in an invalid state'
+			appeal: 'Could not transition \'available_for_inspector_pickup\' using \'DECIDE\'.'
 		}
 	});
 });

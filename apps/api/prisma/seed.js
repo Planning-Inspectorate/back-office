@@ -568,7 +568,7 @@ const appealsData = [
  */
 async function main() {
 	try {
-		const user = await prisma.user.create({ data: {} });
+		await prisma.user.create({ data: {} });
 		const createdAppeals = [];
 		for (const appealData of appealsData) {
 			const appeal = prisma.appeal.create({ data: appealData });

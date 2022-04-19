@@ -1,5 +1,3 @@
-/* eslint-disable complexity */
-
 import CaseOfficerError from './case-officer-error.js';
 import _ from 'lodash';
 

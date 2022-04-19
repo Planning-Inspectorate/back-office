@@ -8,30 +8,58 @@ import DatabaseFactory from '../repositories/database.js';
 const request = supertest(app);
 
 const findUniqueStub = sinon.stub();
-findUniqueStub.withArgs({ where: { id: 1 }, include: { address: true, appellant: true } }).returns({
-	id: 1,
-	reference: 'APP/Q9999/D/21/1345264',
-	status: 'received_lpa_questionnaire',
-	createdAt: new Date(2022, 1, 23),
-	addressId: 1,
-	localPlanningDepartment: 'Maidstone Borough Council',
-	planningApplicationReference: '48269/APP/2021/1482',
-	appellant: {
-		name: 'Lee Thornton'
-	},
-	startedAt: new Date(2022, 4, 18),
-	address: {
-		addressLine1: 'line 1',
-		addressLine2: 'line 2',
-		postcode: 'some code'
-	}
-});
+findUniqueStub
+	.withArgs({
+		where: { id: 1 },
+		include: {
+			address: true,
+			appellant: true,
+			reviewQuestionnaire: {
+				take: 1,
+				orderBy: {
+					createdAt: 'desc'
+				}
+			}
+		}
+	})
+	.returns({
+		id: 1,
+		reference: 'APP/Q9999/D/21/1345264',
+		status: 'received_lpa_questionnaire',
+		createdAt: new Date(2022, 1, 23),
+		addressId: 1,
+		localPlanningDepartment: 'Maidstone Borough Council',
+		planningApplicationReference: '48269/APP/2021/1482',
+		appellant: {
+			name: 'Lee Thornton'
+		},
+		startedAt: new Date(2022, 4, 18),
+		address: {
+			addressLine1: 'line 1',
+			addressLine2: 'line 2',
+			postcode: 'some code'
+		}
+	});
 
-findUniqueStub.withArgs({ where: { id: 2 }, include: { address: true, appellant: true } }).returns({
-	id: 2,
-	reference: 'APP/Q9999/D/21/1345264',
-	status: 'awaiting_lpa_questionnaire'
-});
+findUniqueStub
+	.withArgs({
+		where: { id: 2 },
+		include: {
+			address: true,
+			appellant: true,
+			reviewQuestionnaire: {
+				take: 1,
+				orderBy: {
+					createdAt: 'desc'
+				}
+			}
+		}
+	})
+	.returns({
+		id: 2,
+		reference: 'APP/Q9999/D/21/1345264',
+		status: 'awaiting_lpa_questionnaire'
+	});
 
 const listOfDocuments = [
 	{
@@ -130,8 +158,8 @@ test('gets the appeals detailed information with received questionnaires', async
 	const appealExampleDetail = {
 		AppealId: 1,
 		AppealReference: 'APP/Q9999/D/21/1345264',
-		LocalPlanningDepartment:'Maidstone Borough Council',
-		PlanningApplicationreference:'48269/APP/2021/1482',
+		LocalPlanningDepartment: 'Maidstone Borough Council',
+		PlanningApplicationreference: '48269/APP/2021/1482',
 		AppealSite: {
 			AddressLine1: 'line 1',
 			AddressLine2: 'line 2',
@@ -144,7 +172,6 @@ test('gets the appeals detailed information with received questionnaires', async
 	};
 	t.is(resp.status, 200);
 	t.deepEqual(resp.body, appealExampleDetail);
-
 });
 
 test('unable to retrieve details for an appeal which has yet to receive the questionnaire', async (t) => {

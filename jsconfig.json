@@ -6,7 +6,13 @@
     "esModuleInterop": true,
     "moduleResolution": "node",
     "module": "ES2020",
-    "strict": true 
+    "strict": true
   },
-  "include": ["apps/web"]
+  "include": [
+    "apps/web",
+    "packages/*"
+  ],
+  "files": [
+    "packages/platform/types/utility.d.ts"
+  ]
 }

@@ -1,16 +1,17 @@
 import * as inspectorSession from './inspector-session.service.js';
 import * as inspectorService from './inspector.service.js';
 
-/** @typedef {import('@pins/inspector').Appeal} Appeal */
-/** @typedef {import('@pins/inspector').AppealOutcome} AppealOutcome */
-/** @typedef {import('@pins/inspector').AppealSummary} AppealSummary */
-/** @typedef {import('@pins/inspector').SiteVisitType} SiteVisitType */
-/** @typedef {import('./inspector-session.service').DecisionState} DecisionState} */
-/** @typedef {import('./inspector-session.service').SiteVisitState} SiteVisitState} */
+/** @typedef {import('@pins/appeals').Inspector.Appeal} Appeal */
+/** @typedef {import('@pins/appeals').Inspector.AppealOutcome} AppealOutcome */
+/** @typedef {import('@pins/appeals').Inspector.AppealSummary} AppealSummary */
+/** @typedef {import('@pins/appeals').Inspector.SiteVisitType} SiteVisitType */
+/** @typedef {import('./inspector-session.service').DecisionState} DecisionState */
+/** @typedef {import('./inspector-session.service').SiteVisitState} SiteVisitState */
+/** @typedef {import('./inspector.router').AppealParams} AppealParams */
 
 /**
  * @typedef {Object} ViewDashboardRenderOptions
- * @property {AppealSummary[]} appeals - A collection of appeals assigned to the user.
+ * @property {AppealSummary[]} appeals
  * @property {number[]} assignedAppealIds - A list of appeal ids assigned to the
  * user during this session. These will be used for denoting the 'New' status on
  * the dashboard.
@@ -30,10 +31,8 @@ export async function viewDashboard({ session }, response) {
 
 /**
  * @typedef {Object} ViewAvailableAppealsRenderOptions
- * @property {AppealSummary[]} appeals - A collection of appeals available for
- * assignment to the inspector.
- * @property {number[]=} selectedappealIds - An array of appeal ids already
- * selected in the page form.
+ * @property {AppealSummary[]} appeals
+ * @property {number[]=} selectedappealIds
  */
 
 /**
@@ -49,16 +48,18 @@ export async function viewAvailableAppeals(_, response) {
 
 /**
  * @typedef {Object} AssignAvailableAppealsBody
- * @property {number[]} appealIds - An array of appealIds to be assigned
+ * @property {number[]} appealIds
  */
 
 /**
  * @typedef {Object} AssignAppealsSuccessRenderOptions
- * @property {AppealSummary[]} appeals - The appeals successfully assigned to the user.
+ * @property {AppealSummary[]} appeals
  */
 
 /**
- * @type {import('@pins/express').CommandHandler<{}, ViewAvailableAppealsRenderOptions | AssignAppealsSuccessRenderOptions, AssignAvailableAppealsBody>}
+ * @type {import('@pins/express').CommandHandler<{},
+ * ViewAvailableAppealsRenderOptions | AssignAppealsSuccessRenderOptions,
+ * AssignAvailableAppealsBody>}
  */
 export async function assignAvailableAppeals({ body, session }, response) {
 	const appeals = await inspectorService.findAllUnassignedAppeals();
@@ -78,13 +79,8 @@ export async function assignAvailableAppeals({ body, session }, response) {
 }
 
 /**
- * @typedef {Object} AppealParams
- * @property {number} appealId – Unique identifier for the appeal.
- */
-
-/**
  * @typedef {Object} ViewAppealDetailsRenderOptions
- * @property {Appeal} appeal – The appeal entity.
+ * @property {Appeal} appeal
  */
 
 /**
@@ -100,10 +96,10 @@ export async function viewAppealDetails({ params }, response) {
 
 /**
  * @typedef {Object} NewSiteVisitRenderOptions
- * @property {Appeal} appeal – The appeal entity.
- * @property {string=} siteVisitDate - The date of the site to populate the form.
- * @property {string=} siteVisitTimeSlot – The time of site to populate the form.
- * @property {SiteVisitType} siteVisitType – The type of site to populate the form.
+ * @property {Appeal} appeal
+ * @property {string=} siteVisitDate
+ * @property {string=} siteVisitTimeSlot
+ * @property {SiteVisitType} siteVisitType
  */
 
 /**
@@ -124,15 +120,16 @@ export async function newSiteVisit({ params, session }, response) {
 
 /**
  * @typedef {Object} CreateSiteVisitBody
- * @property {string} siteVisitDate - The date of the site to populate the form.
- * @property {string} siteVisitTimeSlot – The time of site visit to populate the form.
- * @property {SiteVisitType} siteVisitType – The type of site visit to populate the form.
+ * @property {string} siteVisitDate
+ * @property {string} siteVisitTimeSlot
+ * @property {SiteVisitType} siteVisitType
  */
 
 /**
  * Book a site visit by entering the site visit details.
  *
- * @type {import('@pins/express').CommandHandler<AppealParams, NewSiteVisitRenderOptions, CreateSiteVisitBody>}
+ * @type {import('@pins/express').CommandHandler<AppealParams,
+ * NewSiteVisitRenderOptions, CreateSiteVisitBody>}
  */
 export async function createSiteVisit({ body, params, session }, response) {
 	if (response.locals.errors) {
@@ -148,36 +145,42 @@ export async function createSiteVisit({ body, params, session }, response) {
 
 /**
  * @typedef ViewSiteVisitConfirmationRenderOptions
- * @property {Appeal} appeal – The appeal entity.
- * @property {string} siteVisitDate - The date of the site visit for confirmation.
- * @property {string} siteVisitTimeSlot – The time of site visit for confirmation.
- * @property {SiteVisitType} siteVisitType – The type of site visit for confirmation.
+ * @property {Appeal} appeal
+ * @property {string} siteVisitDate
+ * @property {string} siteVisitTimeSlot
+ * @property {SiteVisitType} siteVisitType
  */
 
 /**
  * Display a confirmation page to the user using the site data from the session.
  *
- * @type {import('@pins/express').QueryHandler<AppealParams, ViewSiteVisitConfirmationRenderOptions>}
+ * @type {import('@pins/express').QueryHandler<AppealParams,
+ * ViewSiteVisitConfirmationRenderOptions>}
  */
 export async function viewSiteVisitConfirmation({ params, session }, response) {
 	const appeal = await inspectorService.findAppealById(params.appealId);
-	const siteVisitData = /** @type {SiteVisitState} */ (inspectorSession.getSiteVisit(session, params.appealId));
+	const siteVisitData = /** @type {SiteVisitState} */ (
+		inspectorSession.getSiteVisit(session, params.appealId)
+	);
 
 	response.render('inspector/book-site-visit-confirmation', { appeal, ...siteVisitData });
 }
 
 /**
  * @typedef ConfirmSiteVisitSuccessRenderOptions
- * @property {Appeal} appeal – The updated appeal entity.
+ * @property {Appeal} appeal
  */
 
 /**
  * Confirm a site visit using the data in the inspector session.
  *
- * @type {import('@pins/express').QueryHandler<AppealParams, ConfirmSiteVisitSuccessRenderOptions>}
+ * @type {import('@pins/express').QueryHandler<AppealParams,
+ * ConfirmSiteVisitSuccessRenderOptions>}
  */
 export async function confirmSiteVisit({ params, session }, response) {
-	const siteVisitData = /** @type {SiteVisitState} */ (inspectorSession.getSiteVisit(session, params.appealId));
+	const siteVisitData = /** @type {SiteVisitState} */ (
+		inspectorSession.getSiteVisit(session, params.appealId)
+	);
 	const updatedAppeal = await inspectorService.bookSiteVisit(params.appealId, siteVisitData);
 
 	inspectorSession.destroySiteVisit(session);
@@ -187,9 +190,9 @@ export async function confirmSiteVisit({ params, session }, response) {
 
 /**
  * @typedef {Object} NewDecisionRenderOptions
- * @property {Appeal} appeal – The appeal entity.
- * @property {AppealOutcome=} outcome - The outcome of the decision used to populate the form.
- * @property {Express.Multer.File=} decisionLetter - The outcome of the decision used to populate the form.
+ * @property {Appeal} appeal
+ * @property {AppealOutcome=} outcome
+ * @property {Express.Multer.File=} decisionLetter
  */
 
 /**
@@ -215,7 +218,8 @@ export async function newDecision({ params, session }, response) {
 /**
  * Book a site visit by entering the site visit details.
  *
- * @type {import('@pins/express').CommandHandler<AppealParams, NewDecisionRenderOptions, CreateDecisionBody>}
+ * @type {import('@pins/express').CommandHandler<AppealParams,
+ * NewDecisionRenderOptions, CreateDecisionBody>}
  */
 export async function createDecision({ body, file, params, session }, response) {
 	if (response.locals.errors) {
@@ -239,21 +243,23 @@ export async function createDecision({ body, file, params, session }, response) 
 
 /**
  * @typedef {Object} ViewDecisionConfirmationRenderOptions
- * @property {Appeal} appeal – The appeal entity.
- * @property {AppealOutcome} outcome - The outcome of the decision for
- * confirmation.
- * @property {Express.Multer.File} decisionLetter - File information for the
- * decision letter uploaded to temporary storage.
+ * @property {Appeal} appeal
+ * @property {AppealOutcome} outcome
+ * @property {Express.Multer.File} decisionLetter
  */
 
 /**
- * Display a confirmation page to the user using the decision data from the session.
+ * Display a confirmation page to the user using the decision data from the
+ * session.
  *
- * @type {import('@pins/express').QueryHandler<AppealParams, ViewDecisionConfirmationRenderOptions>}
+ * @type {import('@pins/express').QueryHandler<AppealParams,
+ * ViewDecisionConfirmationRenderOptions>}
  */
 export async function viewDecisionConfirmation({ params, session }, response) {
 	const appeal = await inspectorService.findAppealById(params.appealId);
-	const decisionData = /** @type {DecisionState} */ (inspectorSession.getDecision(session, params.appealId));
+	const decisionData = /** @type {DecisionState} */ (
+		inspectorSession.getDecision(session, params.appealId)
+	);
 
 	response.render('inspector/issue-decision-confirmation', { appeal, ...decisionData });
 }
@@ -264,7 +270,9 @@ export async function viewDecisionConfirmation({ params, session }, response) {
  * @type {import('@pins/express').QueryHandler<AppealParams>}
  */
 export function downloadDecisionLetter({ params, session }, response) {
-	const { decisionLetter } = /** @type {DecisionState} */ (inspectorSession.getDecision(session, params.appealId));
+	const { decisionLetter } = /** @type {DecisionState} */ (
+		inspectorSession.getDecision(session, params.appealId)
+	);
 
 	response.sendFile(decisionLetter.path, {
 		headers: {
@@ -275,16 +283,19 @@ export function downloadDecisionLetter({ params, session }, response) {
 
 /**
  * @typedef ConfirmDecisionSuccessRenderOptions
- * @property {Appeal} appeal – The updated appeal entity.
+ * @property {Appeal} appeal
  */
 
 /**
  * Confirm a site visit using the data in the inspector session.
  *
- * @type {import('@pins/express').CommandHandler<AppealParams, ConfirmDecisionSuccessRenderOptions>}
+ * @type {import('@pins/express').CommandHandler<AppealParams,
+ * ConfirmDecisionSuccessRenderOptions>}
  */
 export async function confirmDecision({ params, session }, response) {
-	const decisionData = /** @type {DecisionState} */ (inspectorSession.getDecision(session, params.appealId));
+	const decisionData = /** @type {DecisionState} */ (
+		inspectorSession.getDecision(session, params.appealId)
+	);
 	const updatedAppeal = await inspectorService.issueDecision(params.appealId, decisionData);
 
 	inspectorSession.destroyDecision(session);

@@ -5,12 +5,12 @@ import { inspectorStatesStrings } from '../state-machine/inspector-states.js';
 import formatAddressLowerCase from '../utils/address-formatter-lowercase.js';
 import formatDate from '../utils/date-formatter.js';
 import InspectorError from './inspector-error.js';
-import transitionState from '../state-machine/household-appeal.machine.js';
+import { transitionState } from '../state-machine/household-appeal.machine.js';
 import daysBetweenDates from '../utils/days-between-dates.js';
 
-/** @typedef {import('@pins/inspector').Appeal} Appeal */
-/** @typedef {import('@pins/inspector').AppealOutcome} AppealOutcome */
-/** @typedef {import('@pins/inspector').SiteVisitType} SiteVisitType */
+/** @typedef {import('@pins/appeals').Inspector.Appeal} Appeal */
+/** @typedef {import('@pins/appeals').Inspector.AppealOutcome} AppealOutcome */
+/** @typedef {import('@pins/appeals').Inspector.SiteVisitType} SiteVisitType */
 
 const formatStatus = function(status) {
 	switch (status) {
@@ -29,8 +29,7 @@ const formatStatus = function(status) {
 
 
 const provisionalAppealSiteVisitType = function(appeal) {
-
-	return (!appeal.lpaQuestionnaire.siteVisibleFromPublicLand || !appeal.appealDetailsFromAppellant.siteVisibleFromPublicLand) ?
+	return (!appeal.lpaQuestionnaire.siteVisibleFromPublicLand || !appeal.appealDetailsFromAppellant.siteVisibleFromPublicLand) ? 
 		'access required' : 'unaccompanied';
 };
 
@@ -84,7 +83,7 @@ const formatAppealForAssigningAppeals = function(appeal, reason) {
 		provisionalVisitType: provisionalAppealSiteVisitType(appeal),
 		appealAge: daysBetweenDates(appeal.startedAt, new Date()),
 		appealSite: formatAddressLowerCase(appeal.address),
-		...(reason != undefined && { reason: reason })
+		...(reason !== undefined && { reason })
 	};
 };
 
@@ -102,9 +101,9 @@ const assignAppealsById = async function(userId, appealIds) {
 				console.error(error);
 				unsuccessfullyAssigned.push(formatAppealForAssigningAppeals(appeal, error.message));
 			}
-		} else if (appeal.status != 'available_for_inspector_pickup') {
+		} else if (appeal.status !== 'available_for_inspector_pickup') {
 			unsuccessfullyAssigned.push(formatAppealForAssigningAppeals(appeal, 'appeal in wrong state'));
-		} else if (appeal.userId != undefined) {
+		} else if (appeal.userId !== undefined) {
 			unsuccessfullyAssigned.push(formatAppealForAssigningAppeals(appeal, 'appeal already assigned'));
 		}
 	}));
@@ -118,7 +117,7 @@ const validateAppealIdsPresent = function(body) {
 };
 
 const assignAppeals = async function(request, response) {
-	const userId = Number.parseInt(request.headers.userid, 10)
+	const userId = request.get('userId');
 	validateAppealIdsPresent(request.body);
 	const resultantAppeals = await assignAppealsById(userId, request.body);
 	response.send(resultantAppeals);

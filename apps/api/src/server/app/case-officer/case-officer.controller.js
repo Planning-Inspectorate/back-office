@@ -1,8 +1,7 @@
 import appealRepository from '../repositories/appeal.repository.js';
 import newReviewRepository from '../repositories/review-questionnaire.repository.js';
 import { reviewComplete, validateReviewRequest } from './case-officer-review.js';
-import { lpaQuestionnaireStatesStrings } from '../state-machine/lpa-questionnaire-states.js';
-import transitionState from '../state-machine/household-appeal.machine.js';
+import { transitionState, lpaQuestionnaireStatesStrings } from '../state-machine/household-appeal.machine.js';
 import appealFormatter from './appeal-formatter.js';
 import CaseOfficerError from './case-officer-error.js';
 
@@ -46,7 +45,17 @@ const confirmingLPAQuestionnaire =  async function (request, response) {
  * @returns {object} appeal with given ID
  */
 async function getAppealForCaseOfficer(appealId) {
-	const appeal = await appealRepository.getByIdWithAddress(Number.parseInt(appealId, 10));
+	const appeal = await appealRepository.getByIdIncluding(Number.parseInt(appealId, 10), {
+		address: true,
+		appellant: true,
+		reviewQuestionnaire: {
+			take: 1,
+			orderBy: {
+				createdAt: 'desc'
+			}
+		},
+	});
+
 	if (!caseOfficerStatusesOnceQuestionnaireReceived.has(appeal.status)) {
 		throw new CaseOfficerError('Appeal has yet to receive LPA questionnaire', 400);
 	}

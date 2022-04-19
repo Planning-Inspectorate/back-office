@@ -6,7 +6,7 @@ import {
 	validateAssignAppealsToInspector,
 	validateBookSiteVisit,
 	validateIssueDecision,
-	validateStateTransition,
+	validateAppealState,
 	validateUserBelongsToAppeal,
 	validateUserId
 } from './inspector.validators.js';
@@ -96,10 +96,6 @@ router.post(
         }
 	*/
 	param('appealId').toInt(),
-	// TODO: replace this with an error thrown from `transitionState` else the
-	// route has to know about the intended state transition when that's the
-	// controller's responsibility
-	validateStateTransition('appeal_decided'),
 	validateUserBelongsToAppeal,
 	validateIssueDecision,
 	asyncHandler(issueDecision)

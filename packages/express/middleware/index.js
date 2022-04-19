@@ -1,8 +1,9 @@
-// @ts-check
-
 import { checkSchema, validationResult } from 'express-validator';
 import { MulterError } from 'multer';
 
+/** @typedef {import('express-validator').ValidationError} ValidationError */
+
+/** @type {import('express').RequestHandler<?, ?, ?, ?, { errors?: Record<string, ValidationError> }>} */
 export const expressValidatorErrorHandler = (request, response, next) => {
 	const errors = validationResult(request);
 
@@ -14,7 +15,7 @@ export const expressValidatorErrorHandler = (request, response, next) => {
 
 /** @type {import('express').ErrorRequestHandler} */
 export const mapMulterErrorToValidationError = async (error, request, _, next) => {
-	if (error instanceof MulterError) {
+	if (error instanceof MulterError && error.field) {
 		await checkSchema({
 			[error.field]: {
 				custom: {

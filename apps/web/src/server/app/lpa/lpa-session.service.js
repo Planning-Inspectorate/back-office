@@ -1,55 +1,61 @@
+/** @typedef {import('@pins/appeals').Lpa.Questionnaire} LpaQuestionnaire */
+
 /**
- * Reset the LPA state in the session.
+ * @typedef {import('express-session').Session & { lpa?: LpaState }} SessionWithLpa
+ */
+
+/**
+ * @typedef {Object} LpaState
+ * @property {QuestionnaireReviewState=} questionnaireReview
+ */
+
+/**
+ * @typedef {Object} QuestionnaireReviewState
+ * @property {number} appealId
+ * @property {LpaQuestionnaire} reviewQuestionnaire
+ */
+
+/**
+ * Get the lpa state from the session.
  *
- * @param {object} session – The session containing an LPA state.
+ * @param {SessionWithLpa} session
+ * @returns {LpaState}
+ */
+const getState = (session) => session.lpa || {};
+
+/**
+ * @param {SessionWithLpa} session
  * @returns {void}
  */
-export const destroy = (session) => {
-	delete session.lpa;
+export const destroyQuestionnaireReview = (session) => {
+	delete session.lpa?.questionnaireReview;
 };
 
-const getLpaState = (session, appealId) => {
-	if (session.lpa && session.lpa.appealId === appealId) {
-		return session.lpa;
+/**
+ * Set the reviewed questionnaire data after completing a review.
+ *
+ * @param {SessionWithLpa} session
+ * @param {QuestionnaireReviewState} questionnaireReview
+ * @returns {void}
+ */
+export const setQuestionnaireReview = (session, questionnaireReview) => {
+	const state = getState(session);
+
+	session.lpa = { ...state, questionnaireReview };
+};
+
+/**
+ * Get the reviewed questionnaire data belonging to a completed review.
+ *
+ * @param {SessionWithLpa} session
+ * @param {number} appealId
+ * @returns {QuestionnaireReviewState=}
+ */
+export const getQuestionnaireReview = (session, appealId) => {
+	const { questionnaireReview } = getState(session);
+
+	if (questionnaireReview?.appealId !== appealId) {
+		destroyQuestionnaireReview(session);
 	}
-
-	destroy(session);
-
-	return { appealId };
-};
-
-export const getQuestionnaireData = (session, appealId) => {
-	const { questionnaireData } = getLpaState(session, appealId);
-
-	return questionnaireData;
-};
-
-export const getReviewFields = (session, appealId) => {
-	const { reviewFields } = getLpaState(session, appealId);
-
-	return reviewFields;
-};
-
-export const getReviewOutcome = (session, appealId) => {
-	const { reviewOutcome } = getLpaState(session, appealId);
-
-	return reviewOutcome;
-};
-
-export const setQuestionnaireData = (session, appealId, questionnaireData) => {
-	const state = getLpaState(session, appealId);
-
-	session.lpa = { ...state, questionnaireData };
-};
-
-export const setReviewFields = (session, appealId, reviewFields) => {
-	const state = getLpaState(session, appealId);
-
-	session.lpa = { ...state, reviewFields };
-};
-
-export const setReviewOutcome = (session, appealId, reviewOutcome) => {
-	const state = getLpaState(session, appealId);
-
-	session.lpa = { ...state, reviewOutcome };
+	return questionnaireReview?.appealId === appealId ? questionnaireReview : undefined;
 };

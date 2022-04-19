@@ -22,7 +22,7 @@
       govukRadios({
         idPrefix: "outcome",
         name: "outcome",
-        errorMessage: errors.outcome and { text: errors.outcome.msg },
+        errorMessage: errors.outcome | errorMessage,
         fieldset: {
           legend: {
             text: "Outcome",
@@ -52,7 +52,7 @@
       govukFileUpload({
         id: "decisionLetter",
         name: "decisionLetter",
-        errorMessage: errors.decisionLetter and { text: errors.decisionLetter.msg },
+        errorMessage: errors.decisionLetter | errorMessage,
         label: {
           text: "Upload decision letter",
           classes: 'govuk-label--m'

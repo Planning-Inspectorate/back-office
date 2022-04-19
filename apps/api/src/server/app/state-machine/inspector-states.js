@@ -17,33 +17,50 @@ const inspectorActions = {
 	}
 };
 
-const inspectorStates = {
-	available_for_inspector_pickup: {
-		on: {
-			PICKUP: 'site_visit_not_yet_booked'
-		}
-	},
+const inspectorBookingStates = {
 	site_visit_not_yet_booked: {
 		on: {
-			BOOK: 'site_visit_booked'
-		}
+			BOOK: 'site_visit_booked',
+		},
 	},
 	site_visit_booked: {
 		entry: ['notifyAppellantOfBookedSiteVisit'],
 		on: {
-			BOOKING_PASSED: 'decision_due'
-		}
+			BOOKING_PASSED: 'decision_due',
+		},
 	},
 	decision_due: {
 		on: {
-			DECIDE: 'appeal_decided'
-		}
+			DECIDE: 'appeal_decided',
+		},
 	},
 	appeal_decided: {
-		entry: ['notifyAppellantOfDecision']
+		entry: ['notifyAppellantOfDecision'],
+	},
+}
+
+const generateInspectorPickupStates = function(stateAfterPickup, additionalStates) {
+	return {
+		available_for_inspector_pickup: {
+			on: {
+				PICKUP: stateAfterPickup
+			}
+		},
+		...additionalStates
 	}
-};
+}
+
+const inspectorStates = generateInspectorPickupStates('site_visit_not_yet_booked', inspectorBookingStates)
+
+// const inspectorStates = {
+// 	available_for_inspector_pickup: {
+// 		on: {
+// 			PICKUP: 'site_visit_not_yet_booked'
+// 		}
+// 	},
+// 	...inspectorBookingStates
+// };
 
 const inspectorStatesStrings = mapObjectKeysToStrings(inspectorStates);
 
-export { inspectorStates, inspectorStatesStrings, inspectorActions };
+export { inspectorStates, inspectorStatesStrings, inspectorActions, inspectorBookingStates, generateInspectorPickupStates };

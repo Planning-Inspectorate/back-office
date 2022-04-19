@@ -1,8 +1,9 @@
 import formatAddress from '../utils/address-formatter.js';
 import formatDate from '../utils/date-formatter.js';
-import { lpaQuestionnaireStatesStrings } from '../state-machine/lpa-questionnaire-states.js';
+import formatReviewQuestionnaire from '../utils/review-questionnaire-formatter.js';
+import { lpaQuestionnaireStatesStrings } from '../state-machine/household-appeal.machine.js';
 
-const add2Weeks = function(date) {
+const add2Weeks = function (date) {
 	const newDate = new Date(date.valueOf());
 	newDate.setDate(newDate.getDate() + 14);
 	return newDate;
@@ -26,7 +27,7 @@ function mapAppealStatus(status) {
 }
 
 const appealFormatter = {
-	formatAppealForAllAppeals: function(appeal) {
+	formatAppealForAllAppeals: function (appeal) {
 		const appealStatus = mapAppealStatus(appeal.status);
 		return {
 			AppealId: appeal.id,
@@ -36,9 +37,9 @@ const appealFormatter = {
 			QuestionnaireDueDate: appeal.startedAt ? formatDate(add2Weeks(appeal.startedAt)) : ''
 		};
 	},
-	formatAppealForAppealDetails: function(appeal) {
+	formatAppealForAppealDetails: function (appeal) {
 		return {
-			AppealId : appeal.id,
+			AppealId: appeal.id,
 			AppealReference: appeal.reference,
 			LocalPlanningDepartment: appeal.localPlanningDepartment,
 			PlanningApplicationreference: appeal.planningApplicationReference,
@@ -46,6 +47,8 @@ const appealFormatter = {
 			AppealSiteNearConservationArea: false,
 			WouldDevelopmentAffectSettingOfListedBuilding: false,
 			...(true && { ListedBuildingDesc: '' }),
+			...(appeal.reviewQuestionnaire &&
+				appeal.reviewQuestionnaire[0] && { reviewQuestionnaire: formatReviewQuestionnaire(appeal.reviewQuestionnaire[0]) }),
 			Documents: [
 				{
 					Type: 'planning application form',

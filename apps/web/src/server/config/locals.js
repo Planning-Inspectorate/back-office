@@ -5,7 +5,7 @@ import { config } from './config.js';
  * Fetch the configuration for a resource in the _data folder.
  *
  * @param {string} filename - The filename of a resource in the _data folder.
- * @returns {{ path: string }} - The resource configuration.
+ * @returns {{ path: string }}
  */
 const getConfig = (filename) => {
 	const json = fs.readFileSync(new URL(`../_data/${filename}`, import.meta.url), { encoding: 'utf8' });
@@ -18,5 +18,13 @@ export default {
 	isProd: config.isProd,
 	isRelease: config.isRelease,
 	pathToCss: getConfig('resourceCSS.json').path,
-	pathToJs: getConfig('resourceJS.json').path
+	pathToJs: getConfig('resourceJS.json').path,
+	documentMimeTypes: [
+		'application/msword',
+		'application/pdf',
+		'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+		'image/jpeg',
+		'image/png',
+		'image/tiff'
+	]
 };

@@ -1,33 +1,33 @@
-import mapObjectKeysToStrings from '../utils/map-states-to-strings.js';
-
 const validationActionsStrings = {
 	invalid: 'INVALID',
 	valid: 'VALID',
 	information_missing: 'INFO_MISSING'
 };
 
-const validationStates = {
-	received_appeal: {
-		on: {
-			INVALID: 'invalid_appeal',
-			INFO_MISSING: 'awaiting_validation_info',
-			VALID: 'valid_appeal'
-		}
-	},
-	awaiting_validation_info: {
-		entry: ['notifyAppellantOfMissingAppealInfo'],
-		on: {
-			INVALID: 'invalid_appeal',
-			VALID: 'valid_appeal'
-		}
-	},
-	valid_appeal: {
-		always: [{ target: 'awaiting_lpa_questionnaire' }]
-	},
-	invalid_appeal: {
-		entry: ['notifyAppellantOfInvalidAppeal', 'notifyLPAOfInvalidAppeal'],
-		type: 'final'
-	},
+const generateValidationStates = function(finalState) {
+	return {
+		received_appeal: {
+			on: {
+				INVALID: 'invalid_appeal',
+				INFO_MISSING: 'awaiting_validation_info',
+				VALID: 'valid_appeal'
+			}
+		},
+		awaiting_validation_info: {
+			entry: ['notifyAppellantOfMissingAppealInfo'],
+			on: {
+				INVALID: 'invalid_appeal',
+				VALID: 'valid_appeal'
+			}
+		},
+		valid_appeal: {
+			always: [{ target: finalState }]
+		},
+		invalid_appeal: {
+			entry: ['notifyAppellantOfInvalidAppeal', 'notifyLPAOfInvalidAppeal'],
+			type: 'final'
+		},
+	};
 };
 
 const validationActions = {
@@ -42,6 +42,4 @@ const validationActions = {
 	}
 };
 
-const validationStatesStrings = mapObjectKeysToStrings(validationStates);
-
-export { validationStatesStrings, validationActionsStrings, validationStates, validationActions };
+export { validationActionsStrings, generateValidationStates, validationActions };

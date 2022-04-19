@@ -1,3 +1,3 @@
 'use strict';
 
-module.exports = require('eslint-config/node');
+module.exports = require('@pins/eslint-config/node');

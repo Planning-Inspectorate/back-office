@@ -1,6 +1,7 @@
 // @ts-check
 
 import { yesterday } from '@pins/platform';
+// eslint-disable-next-line import/no-unresolved
 import test from 'ava';
 import format from 'date-fns/format/index.js';
 import { find } from 'lodash-es';

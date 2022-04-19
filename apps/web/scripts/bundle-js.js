@@ -10,7 +10,7 @@ import rollupPluginReplace from '@rollup/plugin-replace';
 import rollupPluginBeep from '@rollup/plugin-beep';
 import { visualizer } from 'rollup-plugin-visualizer';
 import { getBabelOutputPlugin } from '@rollup/plugin-babel';
-import { loadEnvironment } from 'planning-inspectorate-libs';
+import { loadEnvironment } from '@pins/platform';
 import getLogger from '../lib/get-logger.js';
 import { minifySource } from '../lib/minify-js.js';
 import { notify } from '../lib/notifier.js';

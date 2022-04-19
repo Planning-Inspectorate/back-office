@@ -6,9 +6,7 @@
 {% set pageTitle = 'Change planning application reference' %}
 {% set backLinkUrl = '/validation/appeals/' + appealId %}
 
-{% block pageHeading %}
-	<h1 class="govuk-heading-l">{{ pageTitle }}</h1>
-{% endblock %}
+{% block pageHeading %}{% endblock %}
 
 {% block pageContent %}
 	<form method="post" novalidate>
@@ -17,8 +15,12 @@
 				id: "PlanningApplicationReference",
 				type: 'text',
 				name: "PlanningApplicationReference",
-				label: { text: 'Planning application reference', classes: "govuk-visually-hidden" },
-				errorMessage: errors.PlanningApplicationReference and { text: errors.PlanningApplicationReference.msg },
+				label: { 
+					text: pageTitle,
+					classes: "govuk-label--l",
+					isPageHeading: true
+				},
+				errorMessage: errors.PlanningApplicationReference | errorMessage,
 				value: planningApplicationReference
 			})
 		}}
