@@ -243,7 +243,12 @@ test('gets all appeals assigned to inspector', async (t) => {
 			siteVisit: true,
 			lpaQuestionnaire: true,
 			appealDetailsFromAppellant: true,
-			appellant: true
+			appellant: true,
+			appealStatus: {
+				where: {
+					valid: true
+				}
+			}
 		}
 	});
 });
