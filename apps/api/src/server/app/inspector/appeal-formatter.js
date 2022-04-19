@@ -3,6 +3,7 @@ import daysBetweenDates from '../utils/days-between-dates.js';
 import formatAddressLowerCase from '../utils/address-formatter-lowercase.js';
 import { inspectorStatesStrings } from '../state-machine/inspector-states.js';
 import formatDate from '../utils/date-formatter.js';
+import { arrayOfStatusesContainsString } from '../utils/array-of-statuses-contains-string.js';
 
 const provisionalAppealSiteVisitType = function (appeal) {
 	return (!appeal.lpaQuestionnaire.siteVisibleFromPublicLand || !appeal.appealDetailsFromAppellant.siteVisibleFromPublicLand) ?
@@ -13,16 +14,15 @@ const provisionalAppealSiteVisitType = function (appeal) {
 /** @typedef {import('@pins/inspector').AppealOutcome} AppealOutcome */
 /** @typedef {import('@pins/inspector').SiteVisitType} SiteVisitType */
 
-const formatStatus = function (status) {
-	switch (status) {
-		case inspectorStatesStrings.site_visit_booked:
-			return 'booked';
-		case inspectorStatesStrings.decision_due:
-			return 'decision due';
-		case inspectorStatesStrings.site_visit_not_yet_booked:
-			return 'not yet booked';
-		default:
-			throw new Error('Unknown status');
+const formatStatus = function (appealStatuses) {
+	if (arrayOfStatusesContainsString(appealStatuses, inspectorStatesStrings.site_visit_booked)) {
+		return 'booked';
+	} else if (arrayOfStatusesContainsString(appealStatuses, inspectorStatesStrings.decision_due)) {
+		return 'decision due';
+	} else if (arrayOfStatusesContainsString(appealStatuses, inspectorStatesStrings.site_visit_not_yet_booked)) {
+		return 'not yet booked';
+	} else {
+		throw new Error('Unknown status');
 	}
 };
 
@@ -50,7 +50,7 @@ export const appealFormatter = {
 			...(!_.isEmpty(appeal.siteVisit) && { siteVisitSlot: appeal.siteVisit.visitSlot }),
 			...(!_.isEmpty(appeal.siteVisit) && { siteVisitType: appeal.siteVisit.visitType }),
 			...(_.isEmpty(appeal.siteVisit) && { provisionalVisitType: provisionalAppealSiteVisitType(appeal) }),
-			status: formatStatus(appeal.status),
+			status: formatStatus(appeal.appealStatus),
 		};
 	}
 };

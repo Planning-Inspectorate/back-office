@@ -10,7 +10,10 @@ const request = supertest(app);
 const appeal_1 = {
 	id: 1,
 	reference: 'APP/Q9999/D/21/1345264',
-	status: 'decision_due',
+	appealStatus: [{
+		status: 'decision_due',
+		valid: true
+	}],
 	createdAt: new Date(2022, 1, 23),
 	localPlanningDepartment: 'Maidstone Borough Council',
 	planningApplicationReference: '48269/APP/2021/1482',
@@ -36,7 +39,10 @@ const appeal_1 = {
 const appeal_2 = {
 	id: 2,
 	reference: 'APP/Q9999/D/21/5463281',
-	status: 'site_visit_booked',
+	appealStatus: [{
+		status: 'site_visit_booked',
+		valid: true
+	}],
 	createdAt: new Date(2022, 1, 25),
 	startedAt: new Date(2022, 3, 29),
 	address: {
@@ -57,7 +63,10 @@ const appeal_2 = {
 const appeal_3 = {
 	id: 3,
 	reference: 'APP/Q9999/D/21/5463281',
-	status: 'site_visit_not_yet_booked',
+	appealStatus: [{
+		status: 'site_visit_not_yet_booked',
+		valid: true
+	}],
 	createdAt: new Date(2022, 1, 25),
 	startedAt: new Date(2022, 3, 29),
 	address: {
@@ -77,7 +86,10 @@ const appeal_3 = {
 const appeal_4 = {
 	id: 4,
 	reference: 'APP/Q9999/D/21/5463281',
-	status: 'site_visit_not_yet_booked',
+	appealStatus: [{
+		status: 'site_visit_not_yet_booked',
+		valid: true
+	}],
 	createdAt: new Date(2022, 1, 25),
 	startedAt: new Date(2022, 3, 29),
 	address: {
@@ -97,7 +109,10 @@ const appeal_4 = {
 const appeal_5 = {
 	id: 5,
 	reference: 'APP/Q9999/D/21/5463281',
-	status: 'site_visit_not_yet_booked',
+	appealStatus: [{
+		status: 'site_visit_not_yet_booked',
+		valid: true
+	}],
 	createdAt: new Date(2022, 1, 25),
 	startedAt: new Date(2022, 3, 29),
 	address: {
@@ -129,10 +144,11 @@ class MockDatabaseClass {
 test('gets all appeals assigned to inspector', async (t) => {
 	sinon.stub(DatabaseFactory, 'getInstance').callsFake((arguments_) => new MockDatabaseClass(arguments_));
 
-	const clock = sinon.useFakeTimers({ now: 1_649_319_144_000 });
+	sinon.useFakeTimers({ now: 1_649_319_144_000 });
 
 	const resp = await request.get('/inspector').set('userId', 1);
 
+	console.log(resp.body);
 	t.is(resp.status, 200);
 	t.deepEqual(resp.body, [
 		{
