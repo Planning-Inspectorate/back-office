@@ -114,13 +114,19 @@ const appeal_4 = {
 	}
 };
 const getAppealByIdStub = sinon.stub();
-const includingDetailsForResponse = { validationDecision: true, address: true, appellant: true, appealStatus: { where: { valid: true } } };
-const includingDetailsForValidtion = { 
-	appellant: false, 
-	appealStatus: { where: { valid: true } }, 
-	address: false, 
-	validationDecision: false, 
-	appealDetailsFromAppellant: false 
+const includingDetailsForResponse = { 
+	validationDecision: true, 
+	address: true, 
+	appellant: true, 
+	appealStatus: { where: { valid: true } },
+	appealDetailsFromAppellant: false
+};
+const includingDetailsForValidtion = {
+	appellant: false,
+	appealStatus: { where: { valid: true } },
+	address: false,
+	validationDecision: false,
+	appealDetailsFromAppellant: false
 };
 getAppealByIdStub.withArgs({ where: { id: 1 }, include: includingDetailsForResponse }).returns(appeal_1);
 getAppealByIdStub.withArgs({ where: { id: 1 }, include: includingDetailsForValidtion }).returns(appeal_1);

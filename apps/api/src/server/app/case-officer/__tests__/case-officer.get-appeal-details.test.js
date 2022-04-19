@@ -52,7 +52,8 @@ const includeDetails = {
 		orderBy: {
 			createdAt: 'desc'
 		}
-	}
+	},
+	appealDetailsFromAppellant: false
 };
 
 const includingDetailsForValidtion = { 

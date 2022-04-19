@@ -126,12 +126,24 @@ const appeal_5 = {
 	userId: 10
 };
 
+const includeRelations = { 
+	appellant: true, 
+	validationDecision: false,
+	address: true, 
+	appealDetailsFromAppellant: true,
+	appealStatus: {
+		where: {
+			valid: true
+		}
+	}
+};
+
 const findUniqueStub = sinon.stub();
-findUniqueStub.withArgs({ where: { id: 1 }, include: { address: true, appellant: true, appealDetailsFromAppellant: true } }).returns(appeal_1);
-findUniqueStub.withArgs({ where: { id: 2 }, include: { address: true, appellant: true, appealDetailsFromAppellant: true } }).returns(appeal_2);
-findUniqueStub.withArgs({ where: { id: 3 }, include: { address: true, appellant: true, appealDetailsFromAppellant: true } }).returns(appeal_3);
-findUniqueStub.withArgs({ where: { id: 4 }, include: { address: true, appellant: true, appealDetailsFromAppellant: true } }).returns(appeal_4);
-findUniqueStub.withArgs({ where: { id: 5 }, include: { address: true, appellant: true, appealDetailsFromAppellant: true } }).returns(appeal_5);
+findUniqueStub.withArgs({ where: { id: 1 }, include: includeRelations }).returns(appeal_1);
+findUniqueStub.withArgs({ where: { id: 2 }, include: includeRelations }).returns(appeal_2);
+findUniqueStub.withArgs({ where: { id: 3 }, include: includeRelations }).returns(appeal_3);
+findUniqueStub.withArgs({ where: { id: 4 }, include: includeRelations }).returns(appeal_4);
+findUniqueStub.withArgs({ where: { id: 5 }, include: includeRelations }).returns(appeal_5);
 
 const updateStub = sinon.stub();
 
@@ -153,7 +165,6 @@ test.before('setup mock', () => {
 
 test('assigns all appeals as they are all available', async(t) => {
 	const resp = await request.post('/inspector/assign').set('userId', 1).send([1, 2, 3]);
-	console.log(resp.body);
 	t.is(resp.status, 200);
 	sinon.assert.calledWith(updateStub, {
 		where: { id: 1 },
@@ -198,7 +209,7 @@ test('assigns all appeals as they are all available', async(t) => {
 		appealType: 'HAS',
 		specialist: 'General',
 		appealAge: 22,
-		provisionalVisitType: 'access required',
+		provisionalVisitType: 'unaccompanied',
 		appealSite: {
 			addressLine1: '55 Butcher Street',
 			town: 'Thurnscoe',
@@ -220,7 +231,7 @@ test('unable to assign appeals that are not in the appropriate state', async(t) 
 		appealType: 'HAS',
 		specialist: 'General',
 		appealAge: 22,
-		provisionalVisitType: 'access required',
+		provisionalVisitType: 'unaccompanied',
 		appealSite: {
 			addressLine1: '55 Butcher Street',
 			town: 'Thurnscoe',
