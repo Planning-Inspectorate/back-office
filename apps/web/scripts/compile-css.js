@@ -5,7 +5,7 @@ import kleur from 'kleur';
 import sassEngine from 'sass';
 import autoprefixer from 'autoprefixer';
 import postcss from 'postcss';
-import { loadEnvironment } from 'planning-inspectorate-libs';
+import { loadEnvironment } from '@pins/platform';
 import { hashForContent } from '../lib/hash.js';
 import { notify } from '../lib/notifier.js';
 import getLogger from '../lib/get-logger.js';

@@ -1,6 +1,4 @@
 
-// @ts-check
-
 /**
  * Determine whether a provided date is in the past. Note that today's date
  * counts as valid.
@@ -8,7 +6,7 @@
  * @param {Date | string | number} value - The date to be validated.
  * @returns {boolean} - The date is today or in the past.
  */
-export const validatePastDate = (value) => {
+export function validatePastDate (value) {
   return timeDiff(value, Date.now()) >= 0;
 };
 

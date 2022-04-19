@@ -1,215 +1,223 @@
-import { to } from 'planning-inspectorate-libs';
-import { findAllIncomingIncompleteQuestionnaires, findQuestionnaireById, confirmReview } from './lpa.service.js';
-import { lpaRoutesConfig as routes } from '../../config/routes.js';
-import { questionnaireReviewOutcomeLabelsMap, missingOrIncorrectDocumentsLabelsMap } from './lpa.config.js';
-import { upperFirst, flatten } from 'lodash-es';
 import * as lpaSession from './lpa-session.service.js';
+import * as lpaService from './lpa.service.js';
+
+/** @typedef {import('@pins/appeals').Lpa.Appeal} Appeal */
+/** @typedef {import('@pins/appeals').Lpa.AppealSummary} AppealSummary */
+/** @typedef {import('@pins/appeals').DocumentType} DocumentType */
+/** @typedef {import('@pins/appeals').Lpa.Questionnaire} LpaQuestionnaire */
+/** @typedef {import('./lpa.router').AppealParams} AppealParams */
+/** @typedef {import('./lpa-session.service').QuestionnaireReviewState} QuestionnaireReview */
 
 /**
- * GET the main dashboard.
- * It will fetch the questionnaires list (incoming, incomplete) and will render all.
- *
- * @param {import('express').Request} request - Express request object
- * @param {import('express').Response} response - Express request object
- * @param {Function} next  - Express function that calls then next middleware in the stack
- * @returns {void}
+ * @typedef {object} ViewDashboardRenderOptions
+ * @property {AppealSummary[]} appeals
  */
-export async function viewDashboard(request, response, next) {
-	const [error, questionnairesList] = await to(findAllIncomingIncompleteQuestionnaires());
 
-	if (error) {
-		next(new AggregateError([new Error('data fetch'), error], 'Fetch errors!'));
-		return;
-	}
+/** @type {import('@pins/express').QueryHandler<{}, ViewDashboardRenderOptions>}  */
+export const viewDashboard = async (_, response) => {
+	const appeals = await lpaService.findAllAppeals();
 
-	response.render(routes.home.view, {
-		questionnairesList,
-		reviewQuestionnairePath: routes.reviewQuestionnaire.path
-	});
-}
+	response.render('lpa/dashboard', { appeals });
+};
 
 /**
- * GET the questionnaire review page
- * It will fetch the questionnaire details for the specified ID and will render the review form.
+ * View the appeal and its accompanying questionnaire, which, if not yet
+ * completed, is available for inputting. If it has been previously been
+ * completed, the page displays a summary of the answers.
  *
- * @param {import('express').Request} request - Express request object
- * @param {import('express').Response} response - Express request object
- * @param {Function} next  - Express function that calls then next middleware in the stack
- * @returns {void}
+ * @typedef {object} ViewAppealRenderOptions
+ * @property {Appeal} appeal @property {LpaQuestionnaire=} reviewQuestionnaire
  */
-export async function viewReviewQuestionnaire(request, response, next) {
-	const appealId = request.params.appealId;
-	const fields = lpaSession.getReviewFields(request.session, appealId);
-	const [error, questionnaireData] = await to(findQuestionnaireById(appealId));
 
-	if (error) {
-		next(new AggregateError([new Error('data fetch'), error], 'Fetch errors!'));
-		return;
-	}
+/** @type {import('@pins/express').QueryHandler<AppealParams, ViewAppealRenderOptions>}  */
+export const viewAppeal = async ({ params, session }, response) => {
+	const appeal = await lpaService.findAppealById(params.appealId);
 
-	lpaSession.setQuestionnaireData(request.session, appealId, questionnaireData);
-
-	response.render(routes.reviewQuestionnaire.view, {
-		backURL: `/${routes.home.path}?direction=back`,
-		questionnaireData,
-		fields
-	});
-}
-
-/**
- * POST the questionnaire review page
- * If there are errors, it will reload the questionnaire review page and display the errors
- * If there are no errors, it will render the check and confirm page
- *
- * @param {object} request - Express request object
- * @param {object} response - Express request object
- * @returns {void}
- */
-export function decideQuestionnaireReviewOutcome(request, response) {
-	const appealId = request.params.appealId;
-	const questionnaireData = lpaSession.getQuestionnaireData(request.session, appealId);
-
-	const reviewFields = {
-		'applicationPlanningOfficersReportMissingOrIncorrect': request.body['applicationPlanningOfficersReportMissingOrIncorrect'],
-		'applicationPlansToReachDecisionMissingOrIncorrect': request.body['applicationPlansToReachDecisionMissingOrIncorrect'],
-		'applicationPlansToReachDecisionMissingOrIncorrectDescription': request.body['applicationPlansToReachDecisionMissingOrIncorrectDescription'],
-		'policiesStatutoryDevelopmentPlanPoliciesMissingOrIncorrect': request.body['policiesStatutoryDevelopmentPlanPoliciesMissingOrIncorrect'],
-		'policiesStatutoryDevelopmentPlanPoliciesMissingOrIncorrectDescription': request.body['policiesStatutoryDevelopmentPlanPoliciesMissingOrIncorrectDescription'],
-		'policiesOtherRelevantPoliciesMissingOrIncorrect': request.body['policiesOtherRelevantPoliciesMissingOrIncorrect'],
-		'policiesOtherRelevantPoliciesMissingOrIncorrectDescription': request.body['policiesOtherRelevantPoliciesMissingOrIncorrectDescription'],
-		'policiesSupplementaryPlanningDocumentsMissingOrIncorrect': request.body['policiesSupplementaryPlanningDocumentsMissingOrIncorrect'],
-		'policiesSupplementaryPlanningDocumentsMissingOrIncorrectDescription': request.body['policiesSupplementaryPlanningDocumentsMissingOrIncorrectDescription'],
-		'siteConservationAreaMapAndGuidanceMissingOrIncorrect': request.body['siteConservationAreaMapAndGuidanceMissingOrIncorrect'],
-		'siteConservationAreaMapAndGuidanceMissingOrIncorrectDescription': request.body['siteConservationAreaMapAndGuidanceMissingOrIncorrectDescription'],
-		'siteListedBuildingDescriptionMissingOrIncorrect': request.body['siteListedBuildingDescriptionMissingOrIncorrect'],
-		'siteListedBuildingDescriptionMissingOrIncorrectDescription': request.body['siteListedBuildingDescriptionMissingOrIncorrectDescription'],
-		'thirdPartyApplicationNotificationMissingOrIncorrect': request.body['thirdPartyApplicationNotificationMissingOrIncorrect'],
-		'thirdPartyApplicationNotificationMissingOrIncorrectListOfAddresses': flatten([request.body['thirdPartyApplicationNotificationMissingOrIncorrectDescription']]).includes('thirdPartyApplicationNotificationMissingOrIncorrectListOfAddresses') ? 'true' : '',
-		'thirdPartyApplicationNotificationMissingOrIncorrectCopyOfLetterOrSiteNotice': flatten([request.body['thirdPartyApplicationNotificationMissingOrIncorrectDescription']]).includes('thirdPartyApplicationNotificationMissingOrIncorrectCopyOfLetterOrSiteNotice') ? 'true' : '',
-		'thirdPartyApplicationPublicityMissingOrIncorrect': request.body['thirdPartyApplicationPublicityMissingOrIncorrect'],
-		'thirdPartyRepresentationsMissingOrIncorrect': request.body['thirdPartyRepresentationsMissingOrIncorrect'],
-		'thirdPartyRepresentationsMissingOrIncorrectDescription': request.body['thirdPartyRepresentationsMissingOrIncorrectDescription'],
-		'thirdPartyAppealNotificationMissingOrIncorrect': request.body['thirdPartyAppealNotificationMissingOrIncorrect'],
-		'thirdPartyAppealNotificationMissingOrIncorrectListOfAddresses': flatten([request.body['thirdPartyAppealNotificationMissingOrIncorrectDescription']]).includes('thirdPartyAppealNotificationMissingOrIncorrectListOfAddresses') ? 'true' : '',
-		'thirdPartyAppealNotificationMissingOrIncorrectCopyOfLetterOrSiteNotice': flatten([request.body['thirdPartyAppealNotificationMissingOrIncorrectDescription']]).includes('thirdPartyAppealNotificationMissingOrIncorrectCopyOfLetterOrSiteNotice') ? 'true' : '',
-	};
-
-	lpaSession.setReviewFields(request.session, appealId, reviewFields);
-
-	const {
-		body: { errors = {}, errorSummary = [] }
-	} = request;
-
-	if (Object.keys(errors).length > 0) {
-		return response.render(routes.reviewQuestionnaire.view, {
-			backURL: `${routes.home.path}?direction=back`,
-			errors,
-			errorSummary,
-			questionnaireData,
-			fields: lpaSession.getReviewFields(request.session, appealId)
+	if (appeal.reviewQuestionnaire) {
+		response.render('lpa/questionnaire-incomplete', {
+			appeal,
+			reviewQuestionnaire: appeal.reviewQuestionnaire
+		});
+	} else {
+		const state = /** @type {QuestionnaireReview} */ (
+			lpaSession.getQuestionnaireReview(session, params.appealId)
+		);
+		response.render('lpa/questionnaire', {
+			appeal,
+			reviewQuestionnaire: state?.reviewQuestionnaire
 		});
 	}
+};
 
-	lpaSession.setReviewOutcome(request.session, appealId, 'complete');
+/** @typedef {LpaQuestionnaire} CreateQuestionnaireReviewBody */
 
-	for (const key in reviewFields) {
-		if (!key.endsWith('Description') && reviewFields.hasOwnProperty(key) && reviewFields[key] === 'true') {
-			lpaSession.setReviewOutcome(request.session, appealId, 'incomplete');
-			break;
-		}
+/**
+ * Handle a user submitting a questionnaire review.
+ *
+ * @type {import('@pins/express').CommandHandler<AppealParams,
+ * ViewAppealRenderOptions, LpaQuestionnaire>}
+ */
+export const createQuestionnaireReview = async (
+	{ body: reviewQuestionnaire, params, session },
+	response
+) => {
+	const { appealId } = params;
+	const appeal = await lpaService.findAppealById(appealId);
+
+	if (response.locals.errors) {
+		const tpl = appeal.reviewQuestionnaire
+			? 'lpa/questionnaire-incomplete'
+			: 'lpa/questionnaire';
+
+		response.render(tpl, { appeal, reviewQuestionnaire });
+		return;
 	}
+	lpaSession.setQuestionnaireReview(session, { appealId, reviewQuestionnaire });
 
-	request.session.save(); // maybe this should have its own service function?
-
-	return response.redirect(`/lpa/${routes.checkAndConfirm.path}/${appealId}`);
-}
+	response.redirect(`/lpa/appeals/${appealId}/questionnaire/confirm`);
+};
 
 /**
- * GET the LPA check and confirm page.
- *
- * @param {import('express').Request} request - Express request object
- * @param {import('express').Response} response - Express request object
- * @returns {void}
+ * @typedef {object} ViewReviewQuestionnaireConfirmationRenderOptions
+ * @property {Appeal} appeal
+ * @property {LpaQuestionnaire} reviewQuestionnaire
  */
-export function viewCheckAndConfirm(request, response) {
-	const appealId = request.params.appealId;
-	const backURL = `/lpa/${routes.reviewQuestionnaire.path}/${appealId}?direction=back`;
-	const questionnaireData = lpaSession.getQuestionnaireData(request.session, appealId);
-	const reviewOutcome = lpaSession.getReviewOutcome(request.session, appealId);
-	const fields = lpaSession.getReviewFields(request.session, appealId);
 
-	response.render(routes.checkAndConfirm.view, {
-		backURL,
-		appealId,
-		questionnaireData,
-		reviewOutcome,
-		reviewOutcomeText: upperFirst(reviewOutcome),
-		fields,
-		missingOrIncorrectDocumentsLabelsMap
+/**
+ * Render the confirmation page for a new or completed questionnaire.
+ *
+ * @type {import('@pins/express').QueryHandler<AppealParams,
+ * ViewReviewQuestionnaireConfirmationRenderOptions>}
+ */
+export const viewQuestionnaireReviewConfirmation = async ({ params, session }, response) => {
+	const appeal = await lpaService.findAppealById(params.appealId);
+	const { reviewQuestionnaire } = /** @type {QuestionnaireReview} */ (
+		lpaSession.getQuestionnaireReview(session, params.appealId)
+	);
+
+	response.render('lpa/questionnaire-confirmation', {
+		appeal,
+		reviewQuestionnaire
 	});
-}
+};
 
 /**
- * POST the LPA check and confirm page
- *
- * @param {import('express').Request} request - Express request object
- * @param {import('express').Response} response - Express request object
- * @param {Function} next  - Express function that calls then next middleware in the stack
- * @returns {void}
+ * @typedef {object} ViewReviewQuestionnaireSuccessRenderOptions
+ * @property {Appeal} appeal
  */
- export async function confirmDecision(request, response, next) {
-	const appealId = request.params.appealId;
-	const backURL = `/lpa/${routes.reviewQuestionnaire.path}/${appealId}?direction=back`;
-	const questionnaireData = lpaSession.getQuestionnaireData(request.session, appealId);
-	const reviewOutcome = lpaSession.getReviewOutcome(request.session, appealId);
-	const fields = lpaSession.getReviewFields(request.session, appealId);
 
-	const {
-		body: { errors = {}, errorSummary = [] }
-	} = request;
+/**
+ * Create a new `reviewQuestionnaire` on the appeal based on the questionnaire
+ * answers.
+ *
+ * @type {import('@pins/express').QueryHandler<AppealParams,
+ * ViewReviewQuestionnaireConfirmationRenderOptions | ViewReviewQuestionnaireSuccessRenderOptions>}
+ */
+export const confirmQuestionnaireReview = async ({ params, session }, response) => {
+	const { reviewQuestionnaire } = /** @type {QuestionnaireReview} */ (
+		lpaSession.getQuestionnaireReview(session, params.appealId)
+	);
 
-	if (Object.keys(errors).length > 0) {
-		return response.render(routes.checkAndConfirm.view, {
-			errors,
-			errorSummary,
-			backURL,
-			appealId,
-			questionnaireData,
-			reviewOutcome,
-			reviewOutcomeText: upperFirst(reviewOutcome),
-			fields,
-			missingOrIncorrectDocumentsLabelsMap
+	if (response.locals.errors) {
+		const appeal = await lpaService.findAppealById(params.appealId);
+
+		response.render('lpa/questionnaire-confirmation', {
+			appeal,
+			reviewQuestionnaire
 		});
+	} else {
+		const appeal = await lpaService.confirmQuestionnaireReview(
+			params.appealId,
+			reviewQuestionnaire
+		);
+
+		response.render('lpa/questionnaire-success', { appeal });
 	}
-
-	const [error, updateStatus] = await to(confirmReview(appealId, fields));
-
-	if (error) {
-		next(new AggregateError([new Error('data fetch'), error], 'Fetch errors!'));
-
-		return error;
-	}
-
-	response.redirect(`/lpa/${routes.reviewQuestionnaireComplete.path}/${appealId}`);
-}
+};
 
 /**
- * GET the review questionnaire complete page that shows the status and a link to go back to the dashboard.
- *
- * @param {import('express').Request} request - Express request object
- * @param {import('express').Response} response - Express request object
- * @returns {void}
+ * @typedef {object} EditListedBuildingRenderOptions
+ * @property {Appeal} appeal
+ * @property {string} listedBuildingDescription
  */
-export function viewReviewComplete(request, response) {
-	const appealId = request.params.appealId;
-	const questionnaireData = lpaSession.getQuestionnaireData(request.session, appealId);
-	const reviewOutcome = lpaSession.getReviewOutcome(request.session, appealId);
 
-	lpaSession.destroy(request.session); // don't think this is needed anymore
+/** @type {import('@pins/express').QueryHandler<AppealParams, EditListedBuildingRenderOptions>} */
+export const editListedBuildingDescription = async ({ params }, response) => {
+	const appeal = await lpaService.findAppealById(params.appealId);
 
-	response.render(routes.reviewQuestionnaireComplete.view, {
-		questionnaireData,
-		reviewOutcome,
-		reviewOutcomeLabel: questionnaireReviewOutcomeLabelsMap[reviewOutcome]
+	response.render('lpa/edit-listed-building-description', {
+		appeal,
+		listedBuildingDescription: appeal.ListedBuildingDesc
 	});
-}
+};
+
+/**
+ * @typedef {object} ListedBuildingDescriptionBody
+ * @property {string} listedBuildingDescription
+ */
+
+/** @type {import('@pins/express').CommandHandler<AppealParams, EditListedBuildingRenderOptions, ListedBuildingDescriptionBody>} */
+export const updateListedBuildingDescription = async ({ body, params }, response) => {
+	if (response.locals.errors) {
+		const appeal = await lpaService.findAppealById(params.appealId);
+
+		response.render('lpa/edit-listed-building-description', {
+			appeal,
+			listedBuildingDescription: appeal.ListedBuildingDesc
+		});
+	} else {
+		await lpaService.updateAppeal(params.appealId, body);
+
+		response.redirect(`/lpa/appeals/${params.appealId}`);
+	}	
+};
+
+/**
+ * @typedef {object} NewAppealDocumentsParams
+ * @property {number} appealId
+ * @property {DocumentType} documentType
+ */
+
+/**
+ * @typedef {object} NewAppealDocumentsRenderOptions
+ * @property {Appeal} appeal
+ * @property {DocumentType} documentType
+ */
+
+/**
+ * Load a page allowing the user to upload documents to an incomplete review
+ * questionnaire.
+ *
+ * @type {import('@pins/express').QueryHandler<NewAppealDocumentsParams,
+ * NewAppealDocumentsRenderOptions>}
+ */
+export const newAppealDocuments = async ({ params }, response) => {
+	const appeal = await lpaService.findAppealById(params.appealId);
+
+	response.render('lpa/appeal-documents', { appeal, documentType: params.documentType });
+};
+
+/**
+ * Upload additional documents to an appeal, according to a given `appealId` and
+ * `documentType`.
+ *
+ * @type {import('@pins/express').CommandHandler<NewAppealDocumentsParams,
+ * NewAppealDocumentsRenderOptions>}
+ */
+export const uploadAppealDocuments = async ({ files, params }, response) => {
+	if (response.locals.errors) {
+		const appeal = await lpaService.findAppealById(params.appealId);
+
+		response.render('lpa/appeal-documents', { appeal, documentType: params.documentType });
+	} else {
+		await Promise.all(
+			/** @type {Express.Multer.File[]} **/ (files).map((file) =>
+				lpaService.uploadDocument(params.appealId, {
+					documentType: params.documentType,
+					file
+				})
+			)
+		);
+		response.redirect(`/lpa/appeals/${params.appealId}`);
+	}
+};

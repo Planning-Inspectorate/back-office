@@ -1,4 +1,4 @@
-import { loadEnvironment } from 'planning-inspectorate-libs';
+import { loadEnvironment } from '@pins/platform';
 
 // All env variables used by the app should be defined in this file.
 

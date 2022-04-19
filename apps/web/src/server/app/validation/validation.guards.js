@@ -1,11 +1,12 @@
 import * as validationSession from './validation-session.service.js';
 
-/** @typedef {import('@pins/validation').AppealOutcomeStatus} AppealOutcomeStatus */
+/** @typedef {import('@pins/appeals').Validation.AppealOutcomeStatus} AppealOutcomeStatus */
+/** @typedef {import('./validation.router').AppealParams} AppealParams */
 
 /**
  * A guard that forwards requests with any completed review outcome journey.
  *
- * @type {import('express').RequestHandler<any>}
+ * @type {import('express').RequestHandler<AppealParams>}
  */
 export const hasReviewOutcome = ({ params, session }, response, next) => {
 	if (validationSession.getReviewOutcome(session, params.appealId)) {
@@ -20,9 +21,9 @@ export const hasReviewOutcome = ({ params, session }, response, next) => {
 /**
  * A guard that forwards requests with any review outcome status.
  *
- * @type {import('express').RequestHandler<any>}
+ * @type {import('express').RequestHandler<AppealParams>}
  */
- export const hasReviewOutcomeStatus = ({ params, session }, response, next) => {
+export const hasReviewOutcomeStatus = ({ params, session }, response, next) => {
 	const sessionStatus = validationSession.getReviewOutcomeStatus(session, params.appealId);
 
 	if (sessionStatus) {

@@ -54,7 +54,7 @@
 				govukRadios({
 					idPrefix: "status",
 					name: "status",
-					errorMessage: errors.status and { text: errors.status.msg },
+					errorMessage: errors.status | errorMessage,
 					fieldset: {
 						legend: {
 							text: "Outcome of review",
@@ -83,7 +83,7 @@
 					govukRadios({
 						idPrefix: "status",
 						name: "status",
-						errorMessage: errors.status and { text: errors.status.msg },
+						errorMessage: errors.status | errorMessage,
 						fieldset: {
 							legend: {
 								text: "Outcome of review",
@@ -136,7 +136,7 @@
 				},
 				actions: { items: actionItems }
 			} %}
-		{% set summaryListRows = (summaryListRows.push(summaryListRow), summaryListRows) %}
+		{% set summaryListRows = summaryListRows | concat(summaryListRow) %}
 	{% endfor %}
 
 	{{ govukSummaryList({ rows: summaryListRows }) }}

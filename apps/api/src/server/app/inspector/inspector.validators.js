@@ -6,7 +6,7 @@ import multer from 'multer';
 import { body, header, validationResult } from 'express-validator';
 import appealRepository from '../repositories/appeal.repository.js';
 
-/** @typedef {import('@pins/inspector').SiteVisitType} SiteVisitType */
+/** @typedef {import('@pins/appeals').Inspector.SiteVisitType} SiteVisitType */
 /** @typedef {keyof typeof import('../state-machine/inspector-states').inspectorStates} InspectorState } */
 
 /** @type {import('express').RequestHandler } */

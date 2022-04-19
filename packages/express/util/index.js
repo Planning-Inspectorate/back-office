@@ -1,12 +1,10 @@
-// @ts-check
-
 import { flatten } from 'lodash-es';
 import { expressValidatorErrorHandler } from '../middleware/index.js';
 
-/** @typedef {import('express').ErrorRequestHandler} ErrorRequestHandler */
-/** @typedef {import('express').RequestHandler} RequestHandler */
+/** @typedef {import('express').ErrorRequestHandler<any>} ErrorRequestHandler */
+/** @typedef {import('express').RequestHandler<any>} RequestHandler */
 /** @typedef {import('express-validator').ValidationChain} ValidationChain */
-/** @typedef {ErrorRequestHandler | RequestHandler | ValidationChain} AnyRequestHandler */
+/** @typedef {ErrorRequestHandler | RequestHandler | RequestHandler[] | ValidationChain} AnyRequestHandler */
 
 /**
  * Combine multiple express middleware functions into one.
@@ -29,16 +27,22 @@ export const composeMiddleware = (...middleware) => {
 			if (!middlewareFn) {
 				done(error);
 			} else if (middlewareFn.length === 4) {
-				error ? /** @type {ErrorRequestHandler} */ (middlewareFn)(error, req, res, next) : goToNextFn(error, req, res, done);
+				error
+					? /** @type {ErrorRequestHandler} */ (middlewareFn)(error, req, res, next)
+					: goToNextFn(error, req, res, done);
 			} else {
-				error ? goToNextFn(error, req, res, done) : /** @type {RequestHandler} */ (middlewareFn)(req, res, next);
+				error
+					? goToNextFn(error, req, res, done)
+					: /** @type {RequestHandler} */ (middlewareFn)(req, res, next);
 			}
 		};
 
 		goToNextFn(...args);
 	};
 
-	return requestHandlers[0].length === 4 ? (error, req, res, done) => handle(error, req, res, done) : (req, res, done) => handle(null, req, res, done);
+	return requestHandlers[0].length === 4
+		? (error, req, res, done) => handle(error, req, res, done)
+		: (req, res, done) => handle(null, req, res, done);
 };
 
 /**
@@ -46,7 +50,7 @@ export const composeMiddleware = (...middleware) => {
  * validation handling middleware.
  *
  * @param {...AnyRequestHandler} middleware - An array of express middleware functions.
- * @returns {import('express').RequestHandler}
+ * @returns {RequestHandler}
  */
 export const createValidator = (...middleware) => {
 	return composeMiddleware(...middleware, expressValidatorErrorHandler);

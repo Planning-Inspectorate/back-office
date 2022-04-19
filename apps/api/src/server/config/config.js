@@ -1,4 +1,4 @@
-import { loadEnvironment } from 'planning-inspectorate-libs';
+import { loadEnvironment } from '@pins/platform';
 
 loadEnvironment(process.env.NODE_ENV);
 

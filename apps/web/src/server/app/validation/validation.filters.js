@@ -1,10 +1,10 @@
 import { capitalize } from 'lodash-es';
 
-/** @typedef {import('@pins/validation').AppealOutcomeStatus} AppealOutcomeStatus */
-/** @typedef {import('@pins/validation').IncompleteReasons} IncompleteReasons */
-/** @typedef {import('@pins/validation').InvalidReasons} InvalidReasons */
+/** @typedef {import('@pins/appeals').Validation.AppealOutcomeStatus} AppealOutcomeStatus */
+/** @typedef {import('@pins/appeals').Validation.IncompleteReasonType} IncompleteReasonType */
+/** @typedef {import('@pins/appeals').Validation.InvalidReasonType} InvalidReasonType */
 
-/** @type {Record<keyof IncompleteReasons, string>} */
+/** @type {Record<IncompleteReasonType, string>} */
 const labelsForIncompleteReasons = {
 	inflammatoryComments: 'Inflammatory comments made',
 	missingApplicationForm: 'Missing application form',
@@ -18,7 +18,7 @@ const labelsForIncompleteReasons = {
 	otherReasons: 'Other'
 };
 
-/** @type {Record<keyof InvalidReasons, string>} */
+/** @type {Record<InvalidReasonType, string>} */
 const labelsForInvalidReasons = {
 	notAppealable: 'Not appealable',
 	lPADeemedInvalid: 'LPA deemed application as invalid',
@@ -34,7 +34,7 @@ const labelsForReviewOutcomeStatus = {
 	incomplete: 'Something is missing or wrong'
 };
 
-/** @typedef {keyof IncompleteReasons | keyof InvalidReasons | AppealOutcomeStatus} LabelKey */
+/** @typedef {IncompleteReasonType | InvalidReasonType | AppealOutcomeStatus} LabelKey */
 
 /** @type {Record<LabelKey, string>} */
 const labels = {
@@ -46,29 +46,31 @@ const labels = {
 /**
  * Map a label key to a human readable string.
  *
- * @param {LabelKey} key - The reason key.
+ * @param {LabelKey} key
  * @param {boolean=} secondary – Whether the label should use a secondary
  * version (if it is exists). For example, 'Missing supporting documents'
  * becomes 'Supporting documents'.
- * @returns {string} - The label belonging to the key.
+ * @returns {string}
  */
 export function validationLabel(key, secondary = false) {
-	return secondary && key.startsWith('missing') ? capitalize(labels[key].split(' ').slice(1).join(' ')) : labels[key];
+	return secondary && key.startsWith('missing')
+		? capitalize(labels[key].split(' ').slice(1).join(' '))
+		: labels[key];
 }
 
 /**
  * @typedef {Object} CheckboxItem
- * @property {string} text - The label for the checkbox.
- * @property {string} value - The value of the checkbox.
- * @property {boolean} checked - The checked status of the checkbox.
+ * @property {string} text
+ * @property {string} value
+ * @property {boolean} checked
  */
 
 /**
- * Map a label key to a human readable string.
+ * Map a label key to a `govukCheckboxes` item.
  *
- * @param {LabelKey} key - The reason key.
- * @param {Record<LabelKey, boolean>=} reasons - The reason key.
- * @returns {CheckboxItem} - The label belonging to the key.
+ * @param {LabelKey} key
+ * @param {Record<LabelKey, boolean>=} reasons
+ * @returns {CheckboxItem}
  */
 export function reasonCheckboxItem(key, reasons = /** @type {Record<LabelKey, boolean>} */ ({})) {
 	return {

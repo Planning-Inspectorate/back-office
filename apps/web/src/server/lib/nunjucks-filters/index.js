@@ -1,16 +1,26 @@
-export { address } from './address.js';
-export { default as className } from './class-name.js';
-export { mapToErrorSummary } from './error-summary.js';
-export { concat, entries, find, filter, keys, has, lowerCase, kebabCase, includes } from 'lodash-es';
-export { default as stripQueryParamsDev } from './strip-query-parameters.js';
+export {
+	assign,
+	concat,
+	difference,
+	entries,
+	filter,
+	find,
+	has,
+	includes,
+	kebabCase,
+	keys,
+	lowerCase
+} from 'lodash-es';
 export { default as pluralize } from 'pluralize';
-export { selectItems } from './select-items.js';
-export { makeQuestionnaireTableRows } from './make-questionnaire-table-rows.js';
+export { default as className } from './class-name.js';
 export { collapse } from './collapse.js';
-export { hasOneOf } from './object.js';
 export { endsWith } from './ends-with.js';
+export { errorMessage } from './error-message.js';
+export { mapToErrorSummary } from './error-summary.js';
+export { hasOneOf } from './object.js';
+export { selectItems } from './select-items.js';
+export { default as stripQueryParamsDev } from './strip-query-parameters.js';
 
-// importing from domains like this is slightly sketchy
-// TODO: investigate a way to lazily add nunjucks filters from a domain
-
+// export domain-specific filters
+export * from '../../app/lpa/lpa.filters.js';
 export * from '../../app/validation/validation.filters.js';

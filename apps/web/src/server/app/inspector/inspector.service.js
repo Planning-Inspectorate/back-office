@@ -1,25 +1,17 @@
+import FormData from 'form-data';
+import fs from 'fs';
 import { get, post } from './../../lib/request.js';
 
-/** @typedef {import('@pins/inspector').Appeal} Appeal */
-/** @typedef {import('@pins/inspector').AppealOutcome} AppealOutcome */
-/** @typedef {import('@pins/inspector').AppealSummary} AppealSummary */
-/** @typedef {import('@pins/inspector').SiteVisitType} SiteVisitType */
-
-const developmentOptions = {
-	hooks: {
-		beforeRequest: [
-			(options) => {
-				options.headers.userid = '1';
-			}
-		]
-	}
-};
+/** @typedef {import('@pins/appeals').Inspector.Appeal} Appeal */
+/** @typedef {import('@pins/appeals').Inspector.AppealOutcome} AppealOutcome */
+/** @typedef {import('@pins/appeals').Inspector.AppealSummary} AppealSummary */
+/** @typedef {import('@pins/appeals').Inspector.SiteVisitType} SiteVisitType */
 
 /**
  * Assign unassigned appeals to the user.
  *
- * @param {number[]} appealIds - An array of appeal ids
- * @returns {Promise<AppealSummary[]>} - A promise that resolves to the appeals now assigned to the user.
+ * @param {number[]} appealIds
+ * @returns {Promise<AppealSummary[]>}
  */
 export function assignAppealsToUser(appealIds) {
 	return post('inspector/assign', { json: appealIds });
@@ -27,17 +19,17 @@ export function assignAppealsToUser(appealIds) {
 
 /**
  * @typedef {Object} BookSiteVisitData
- * @property {string} siteVisitDate - The date of the site visit (YYYY-MM-DD).
- * @property {string} siteVisitTimeSlot – The time of site visit.
- * @property {SiteVisitType} siteVisitType – The type of site visit.
+ * @property {string} siteVisitDate
+ * @property {string} siteVisitTimeSlot
+ * @property {SiteVisitType} siteVisitType
  */
 
 /**
  * Create a site visit booking for an appeal.
  *
- * @param {number} appealId - Unique identifier for the appeal.
- * @param {BookSiteVisitData} data – The data for creating the site visit booking.
- * @returns {Promise<Appeal>} - A promise that resolves to the updated appeal.
+ * @param {number} appealId
+ * @param {BookSiteVisitData} data
+ * @returns {Promise<Appeal>}
  */
 export function bookSiteVisit(appealId, data) {
 	return post(`inspector/${appealId}/book`, { json: data });
@@ -46,16 +38,16 @@ export function bookSiteVisit(appealId, data) {
 /**
  * Fetch a list of appeals that are assigned to the user.
  *
- * @returns {Promise<AppealSummary[]>} - A promise that resolves to a collection of appeal entities.
+ * @returns {Promise<AppealSummary[]>}
  */
 export function findAllAssignedAppeals() {
-	return get('inspector', developmentOptions);
+	return get('inspector');
 }
 
 /**
  * Fetch a list of appeals that are not yet assigned to an inspector.
  *
- * @returns {Promise<AppealSummary[]>} - A promise that resolves to a collection of appeal entities.
+ * @returns {Promise<AppealSummary[]>}
  */
 export function findAllUnassignedAppeals() {
 	return get('inspector/unassigned');
@@ -68,28 +60,38 @@ export function findAllUnassignedAppeals() {
  * functions can fetch the appeal during the lifecycle of handling a route
  * and an api call will occur only once.
  *
- * @param {number} appealId - Unique identifier for the appeal.
- * @returns {Promise<Appeal>} - A promise that resolves to the appeal entity.
+ * @param {number} appealId
+ * @returns {Promise<Appeal>}
  */
-export function findAppealById(appealId) {
-	return get(`inspector/${appealId}`, { context: { ttl: 1000 } });
+export async function findAppealById(appealId) {
+
+	// return get(`inspector/${appealId}`, { context: { ttl: 1000 } });
+	const appeals =  await findAllAssignedAppeals();
+	
+	return appeals.find(appeal => appealId === appeal.appealId);
 }
 
 /**
  * @typedef {Object} IssueDecisionData
- * @property {AppealOutcome} outcome - The outcome of the decision.
- * @property {Express.Multer.File} decisionLetter - The uploaded decision letter as a multer file.
+ * @property {AppealOutcome} outcome
+ * @property {Express.Multer.File} decisionLetter
  */
 
 /**
  * Issue a decision for an appeal.
  *
- * @param {number} appealId - Unique identifier for the appeal.
- * @param {IssueDecisionData} data – The data for creating the appeal decision.
- * @returns {Promise<Appeal>} - A promise that resolves to the updated appeal.
+ * @param {number} appealId
+ * @param {IssueDecisionData} data
+ * @returns {Promise<Appeal>}
  */
-export function issueDecision(appealId, { outcome }) {
-	// This endpoint currently won't accept files
+export function issueDecision(appealId, { outcome, decisionLetter }) {
+	const formData = new FormData();
+	formData.append('outcome', outcome);
+	formData.append('decisionLetter', fs.createReadStream(decisionLetter.path));
+	// This endpoint currently won't save files
 	// https://pins-ds.atlassian.net/browse/BOCM-301
-	return post(`inspector/${appealId}`, { json: { outcome } });
+	return post(`inspector/${appealId}/issue-decision`, {
+		body: formData,
+		headers: formData.getHeaders()
+	});
 }

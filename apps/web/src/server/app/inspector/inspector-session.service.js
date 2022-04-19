@@ -1,41 +1,41 @@
 import fs from 'fs';
 
-/** @typedef {import('@pins/inspector').AppealOutcome} AppealOutcome */
-/** @typedef {import('@pins/inspector').SiteVisitType} SiteVisitType */
-
-/**
- * @typedef {Object} SiteVisitState
- * @property {number} appealId - Unique identifier for the appeal.
- * @property {string} siteVisitDate - The date of the site visit.
- * @property {string} siteVisitTimeSlot – The time of site visit.
- * @property {SiteVisitType} siteVisitType – The type of site visit.
- */
-
-/**
- * @typedef {Object} DecisionState
- * @property {number} appealId - Unique identifier for the appeal.
- * @property {AppealOutcome} outcome - The outcome of the decision for confirmation.
- * @property {Express.Multer.File} decisionLetter - The uploaded decision letter for confirmation.
- */
-
-/**
- * @typedef {Object} InspectorState
- * @property {number[]} assignedAppealIds - Any appeal ids assigned to the user during the session.
- * @property {SiteVisitState=} siteVisit - The state representing data from the site visit booking form.
- * @property {DecisionState=} decision - The state representing data from the issue decision form.
- */
+/** @typedef {import('@pins/appeals').Inspector.AppealOutcome} AppealOutcome */
+/** @typedef {import('@pins/appeals').Inspector.SiteVisitType} SiteVisitType */
 
 /**
  * @typedef {import('express-session').Session & { inspector?: InspectorState }} SessionWithInspector
  */
 
 /**
+ * @typedef {Object} InspectorState
+ * @property {number[]} assignedAppealIds
+ * @property {SiteVisitState=} siteVisit
+ * @property {DecisionState=} decision
+ */
+
+/**
+ * @typedef {Object} DecisionState
+ * @property {number} appealId
+ * @property {AppealOutcome} outcome
+ * @property {Express.Multer.File} decisionLetter
+ */
+
+/**
+ * @typedef {Object} SiteVisitState
+ * @property {number} appealId
+ * @property {string} siteVisitDate
+ * @property {string} siteVisitTimeSlot
+ * @property {SiteVisitType} siteVisitType
+ */
+
+/**
  * Get the `inspector` state from a session.
  *
- * @param {SessionWithInspector} session – The session containing an inspector state.
- * @returns {InspectorState} - The slice of state belonging to this appeal id.
+ * @param {SessionWithInspector} session
+ * @returns {InspectorState}
  */
-const getInspectorState = (session) => {
+const getState = (session) => {
 	if (!session.inspector) {
 		session.inspector = {
 			assignedAppealIds: []
@@ -49,12 +49,12 @@ const getInspectorState = (session) => {
  * existing assigned appeal ids, as they are cumulative until the point where
  * the session expires.
  *
- * @param {SessionWithInspector} session – The session containing an inspector state.
- * @param {number[]} appealIds - Unique identifiers for appeals recently assigned to the user.
+ * @param {SessionWithInspector} session
+ * @param {number[]} appealIds
  * @returns {void}
  */
 export const addAssignedAppealIds = (session, appealIds) => {
-	const state = getInspectorState(session);
+	const state = getState(session);
 
 	state.assignedAppealIds = [...state.assignedAppealIds, ...appealIds];
 };
@@ -62,11 +62,11 @@ export const addAssignedAppealIds = (session, appealIds) => {
 /**
  * Get the unique identifiers of appeals assigned to the user during this session.
  *
- * @param {SessionWithInspector} session – The session containing an inspector state.
- * @returns {number[]} - Unique identifiers for appeals recently assigned to the user.
+ * @param {SessionWithInspector} session
+ * @returns {number[]}
  */
 export const getAssignedAppealIds = (session) => {
-	const state = getInspectorState(session);
+	const state = getState(session);
 
 	return state.assignedAppealIds;
 };
@@ -74,11 +74,11 @@ export const getAssignedAppealIds = (session) => {
 /**
  * Delete the `siteVisit` slice of state from the session.
  *
- * @param {SessionWithInspector} session – The session containing an inspector state.
+ * @param {SessionWithInspector} session
  * @returns {void}
  */
 export const destroySiteVisit = (session) => {
-	const state = getInspectorState(session);
+	const state = getState(session);
 
 	if (state?.siteVisit) {
 		delete state.siteVisit;
@@ -88,12 +88,12 @@ export const destroySiteVisit = (session) => {
 /**
  * Fetch the site visit form data for a given `appealId`.
  *
- * @param {SessionWithInspector} session – The session containing an inspector state.
- * @param {number} appealId - Unique identifier for the appeal.
- * @returns {SiteVisitState=} - The site visit data.
+ * @param {SessionWithInspector} session
+ * @param {number} appealId
+ * @returns {SiteVisitState=}
  */
 export const getSiteVisit = (session, appealId) => {
-	const state = getInspectorState(session);
+	const state = getState(session);
 
 	// If the request appealId is not in the session, clean up any residual site visit
 	if (state.siteVisit?.appealId !== appealId) {
@@ -105,12 +105,12 @@ export const getSiteVisit = (session, appealId) => {
 /**
  * Store the site visit data from the create booking form for a given appeal.
  *
- * @param {SessionWithInspector} session – The session containing an inspector state.
- * @param {SiteVisitState & { appealId: number }} siteVisit – The data for creating the site visit booking.
+ * @param {SessionWithInspector} session
+ * @param {SiteVisitState & { appealId: number }} siteVisit
  * @returns {void}
  */
 export const setSiteVisit = (session, siteVisit) => {
-	const state = getInspectorState(session);
+	const state = getState(session);
 
 	session.inspector = { ...state, siteVisit };
 };
@@ -118,11 +118,11 @@ export const setSiteVisit = (session, siteVisit) => {
 /**
  * Delete the `decision` slice of state from the session and clean up any associated files.
  *
- * @param {SessionWithInspector} session – The session containing an inspector state.
+ * @param {SessionWithInspector} session
  * @returns {void}
  */
 export const destroyDecision = (session) => {
-	const state = getInspectorState(session);
+	const state = getState(session);
 
 	if (state?.decision) {
 		fs.unlinkSync(state.decision.decisionLetter.path);
@@ -133,12 +133,12 @@ export const destroyDecision = (session) => {
 /**
  * Fetch the decision form data for a given `appealId`.
  *
- * @param {SessionWithInspector} session – The session containing an inspector state.
- * @param {number} appealId - Unique identifier for the appeal.
- * @returns {DecisionState=} - The site visit data.
+ * @param {SessionWithInspector} session
+ * @param {number} appealId
+ * @returns {DecisionState=}
  */
 export const getDecision = (session, appealId) => {
-	const state = getInspectorState(session);
+	const state = getState(session);
 
 	// If the request appealId is not in the session, clean up any residual decision
 	if (state.decision?.appealId !== appealId) {
@@ -150,12 +150,12 @@ export const getDecision = (session, appealId) => {
 /**
  * Store the decision data from the 'Issue decision' form for a given appeal.
  *
- * @param {SessionWithInspector} session – The session containing an inspector state.
- * @param {DecisionState & { appealId: number }} decision – The data for issuing a decision.
+ * @param {SessionWithInspector} session
+ * @param {DecisionState & { appealId: number }} decision
  * @returns {void}
  */
 export const setDecision = (session, decision) => {
-	const state = getInspectorState(session);
+	const state = getState(session);
 
 	session.inspector = { ...state, decision };
 };

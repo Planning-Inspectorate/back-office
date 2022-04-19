@@ -1,0 +1,62 @@
+{% extends "app/layouts/app-two-column.layout.njk" %}
+
+{% from "govuk/components/breadcrumbs/macro.njk" import govukBreadcrumbs %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/file-upload/macro.njk" import govukFileUpload %}
+{% from "app/components/document-list.component.njk" import documentList %}
+{% from "app/components/document-upload-info.njk" import documentUploadInfo %}
+
+{% set documentsForType = documents | filter({ Type: documentType }) %}
+{% if documentType === 'planning officers report' %}
+  {% set pageTitle = 'Update ' + documentType | lpaLabel %}
+{% else %}
+  {% set pageTitle = 'Update ' + documentType | lpaLabel | lower %}
+{% endif %}
+
+{% block beforeContent %}
+  {{
+		govukBreadcrumbs({
+			classes: 'govuk-!-margin-top-3',
+			items: [
+				{ href: '/lpa', text: 'Questionnaires for review' },
+				{ href: '/lpa/appeals/' + appeal.AppealId, text: appeal.AppealReference },
+        { text: pageTitle }
+			]
+		})	
+	}}
+{% endblock %}
+
+{% block pageHeading %}
+	<h1 class="govuk-heading-l">{{ pageTitle }}</h1>
+{% endblock %}
+
+{% block pageContent %}
+  <form method="post" enctype="multipart/form-data" novalidate="novalidate">
+    {{ 
+      govukFileUpload({
+        id: "files",
+        name: "files",
+        label: {
+          text: "Upload files",
+          classes: "govuk-label--m"
+        },
+        errorMessage: errors.files | errorMessage,
+        hint: { 
+          html: [
+            'Drag and drop files or select "choose files".',
+            'The uploaded files will be added to the questionnaire.'
+          ] | join('<br>')
+        },
+        attributes: {
+          accept: documentMimeTypes,
+          multiple: "multiple"
+        }
+      })
+    }}
+    {{ documentUploadInfo() }}
+    <div class="govuk-button-group">
+      {{ govukButton({ text: "Save and continue" }) }}
+      <a class="govuk-link" href="/lpa/appeals/{{ appeal.AppealId }}">Cancel</a>
+    </div>
+  </form>
+{% endblock %}

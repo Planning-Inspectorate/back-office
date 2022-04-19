@@ -3,17 +3,14 @@ import { ParsedQs } from 'qs';
 import { ValidationChain, ValidationError } from 'express-validator';
 import { RequestHandler } from 'express';
 
-declare module '@pins/express' {
-	export interface CreateWhitelistedKeysValidatorOptions {
-		errorMessage: string;
-		whitelist: string[];
-	}
+import './middleware';
+import './util';
+import './validators';
 
-	export const createWhitelistedKeysValidator: (options: CreateWhitelistedKeysValidatorOptions) => (value: unknown) => boolean;
-	export const composeMiddleware: (...middlewareFns: RequestHandler[]) => RequestHandler;
-	export const createValidator: (...validationFns: (ValidationChain[] | RequestHandler)[]) => RequestHandler;
-	export const expressValidatorErrorHandler: RequestHandler;
-	export const mapMulterErrorToValidationError: RequestHandler<any>;
+declare module '@pins/express' {
+	export * from './middleware';
+	export * from './util';
+	export * from './validators';
 }
 
 type LocalsWithValidationErrors = { errors?: Record<string, ValidationError> };

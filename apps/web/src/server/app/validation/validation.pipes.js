@@ -1,20 +1,18 @@
-import { composeMiddleware, createValidator, mapMulterErrorToValidationError } from '@pins/express';
-import * as validation from '@pins/validation';
-import { body, checkSchema, validationResult } from 'express-validator';
+import { createValidator, mapMulterErrorToValidationError } from '@pins/express';
+import { validatePostcode } from '@pins/platform';
+import { body } from 'express-validator';
 import multer from 'multer';
 import { memoryStorage } from '../../lib/multer.js';
 import * as validationSession from './validation-session.service.js';
 
-// The UI routes can interact with these validators directly without parsing the body
-export { validateAppellantName, validateLocalPlanningDepartment, validatePlanningApplicationReference } from '@pins/validation';
-
-/** @typedef {import('@pins/validation').IncompleteReasons} IncompleteReasons */
-/** @typedef {import('@pins/validation').IncompleteReasonType} IncompleteReasonType */
-/** @typedef {import('@pins/validation').InvalidReasons} InvalidReasons */
-/** @typedef {import('@pins/validation').InvalidReasonType} InvalidReasonType */
+/** @typedef {import('@pins/appeals').Validation.AppealOutcomeStatus} AppealOutcomeStatus */
+/** @typedef {import('@pins/appeals').Validation.IncompleteReasons} IncompleteReasons */
+/** @typedef {import('@pins/appeals').Validation.IncompleteReasonType} IncompleteReasonType */
+/** @typedef {import('@pins/appeals').Validation.InvalidReasons} InvalidReasons */
+/** @typedef {import('@pins/appeals').Validation.InvalidReasonType} InvalidReasonType */
 
 /**
- * @typedef {Object} ValidationLocals
+ * @typedef {object} ValidationLocals
  * @property {string} serviceName - The name of the service to be displayed in the page header.
  * @property {string} serviceUrl - The root url of the service.
  */
@@ -23,75 +21,145 @@ export { validateAppellantName, validateLocalPlanningDepartment, validatePlannin
  * Expose the default template locals to nunjucks for the validation domain.
  *
  * @type {import('express').RequestHandler<any, any, any, any, ValidationLocals>}
- * */
+ */
 export const registerValidationLocals = (_, response, next) => {
 	response.locals.serviceName = 'Appeal a planning decision';
 	response.locals.serviceUrl = '/validation';
 	next();
 };
 
-/** @typedef {import('@pins/validation').Address} UnparsedAppealSiteBody */
-/** @typedef {{ Address: import('@pins/validation').Address}} ParsedAppealSiteBody */
+export const validateAppellantName = createValidator(
+	body('AppellantName')
+		.trim()
+		.isLength({ min: 1 })
+		.withMessage('Enter an appellant name')
+		.isLength({ max: 500 })
+		.withMessage('Appellant name must be 500 characters or fewer')
+);
 
-export const validateAppealSite = composeMiddleware(function parseAppealSiteBody(request, _, next) {
-	request.body = { Address: request.body };
-	next();
-}, validation.validateAppealSite);
+export const validateAppealSite = createValidator(
+	body('AddressLine1')
+		.trim()
+		.isLength({ min: 1 })
+		.withMessage('Enter the first line of the address')
+		.isLength({ max: 500 })
+		.withMessage('First line of the address must be 500 characters or fewer'),
+	body('AddressLine2')
+		.trim()
+		.isLength({ max: 500 })
+		.withMessage('Second line of the address must be 500 characters or fewer'),
+	body('Town')
+		.trim()
+		.isLength({ min: 1 })
+		.withMessage('Enter a town or city')
+		.isLength({ max: 500 })
+		.withMessage('Town or city must be 500 characters or fewer'),
+	body('County')
+		.trim()
+		.isLength({ max: 500 })
+		.withMessage('County must be 500 characters or fewer'),
+	body('PostCode')
+		.trim()
+		.isLength({ min: 1 })
+		.withMessage('Enter a postcode')
+		.custom(validatePostcode)
+		.withMessage('Enter a real postcode')
+);
+
+export const validateLocalPlanningDepartment = createValidator(
+	body('LocalPlanningDepartment')
+		.trim()
+		.isLength({ min: 1 })
+		.withMessage('Select a local planning department')
+		.isLength({ max: 500 })
+		.withMessage('Enter a valid local planning department')
+);
+
+export const validatePlanningApplicationReference = createValidator(
+	body('PlanningApplicationReference')
+		.trim()
+		.isLength({ min: 1 })
+		.withMessage('Enter a planning application reference')
+		.isLength({ max: 50 })
+		.withMessage('Planning application reference must be 50 characters or fewer')
+);
 
 export const validateReviewOutcomeConfirmation = createValidator(
 	body('confirmation')
 		.custom((value, { req }) => {
-			const status = validationSession.getReviewOutcomeStatus(req.session, req.params?.appealId);
+			const status = validationSession.getReviewOutcomeStatus(
+				req.session,
+				req.params?.appealId
+			);
 
 			return status === 'incomplete' ? Boolean(value) : true;
 		})
 		.withMessage('Confirm you have completed all follow-up tasks and emails')
 );
 
-export const handleUploadedDocuments = createValidator(
-	checkSchema({
-		files: {
-			notEmpty: {
-				errorMessage: 'Select a file'
-			}
-		}
-	}),
+export const validateAppealDocuments = createValidator(
 	multer({
 		storage: memoryStorage,
 		limits: {
-			fileSize: 1 * Math.pow(1024, 2 /* MBs*/)
+			fileSize: 15 * Math.pow(1024, 2 /* MBs*/)
 		}
 	}).array('files'),
-	mapMulterErrorToValidationError
+	mapMulterErrorToValidationError,
+	body('files')
+		.custom((_, { req }) => req.files.length > 0)
+		.withMessage('Select a file')
+);
+
+export const validateReviewOutcomeStatus = createValidator(
+	body('status')
+		.isIn(['valid', 'invalid', 'incomplete'])
+		.withMessage('Select an outcome for the review')
+);
+
+export const validateValidReviewOutcome = createValidator(
+	body('descriptionOfDevelopment')
+		.trim()
+		.isLength({ min: 1 })
+		.withMessage('Enter a description of the development')
+		.isLength({ max: 500 })
+		.withMessage('Decscription of development must be 500 characters or fewer')
 );
 
 /**
- * @typedef {Object} UnparsedIncompleteOutcomeBody
- * @property {(IncompleteReasonType | 'missingDocuments')[]=} reasons - An array of incomplete reason types.
- * @property {IncompleteReasonType[]=} documentReasons - A subset of reason types belonging to missing documents.
- * @property {string=} otherReasons - Any text describing the other reasons when
- * the `reasons` contains and `otherReasons` entry.
+ * @typedef {object} UnparsedIncompleteOutcomeBody
+ * @property {(IncompleteReasonType | 'missingDocuments')[]=} reasons
+ * @property {IncompleteReasonType[]=} documentReasons
+ * @property {string=} otherReasons
  */
 
 /** @typedef {import('./validation.service').IncompleteAppealData} ParsedIncompleteOutcomeBody */
 
-const validateIncompleteOutcome = composeMiddleware(
-	// As the UI collects `missing*` reason types under a conditional selection of
-	// reasons belonging to a 'Missing documents' checkbox, we must first perform
-	// UI-only validation on this pattern.
+const validateIncompleteOutcome = createValidator(
+	body('reasons').isArray({ min: 1 }).withMessage('Choose at least one reason'),
 	body('documentReasons')
 		.if(body('reasons').custom((value = []) => value.includes('missingDocuments')))
 		.isArray({ min: 1 })
 		.withMessage('Select which documents are missing or wrong'),
-	/**
-	 * Transform the raw posted body generated by the form data into the schema
-	 * accepted by the api. This allows us to funnel the frontend data through
-	 * the api validators.
-	 *
-	 * @type {import('express').RequestHandler<any, any, UnparsedIncompleteOutcomeBody | ParsedIncompleteOutcomeBody>}
-	 */
-	function parseIncompleteOutcomeBody(request, _, next) {
-		const { reasons = [], documentReasons = [], otherReasons } = /** @type {UnparsedIncompleteOutcomeBody} */ (request.body);
+	body('otherReasons')
+		.if(
+			body('reasons').custom((/** @type {IncompleteReasonType[]} */ reasons) =>
+				reasons.includes('otherReasons')
+			)
+		)
+		.trim()
+		.isLength({ min: 1 })
+		.withMessage('Enter the reasons why something is missing or wrong')
+		.isLength({ max: 500 })
+		.withMessage('The list of reasons must be 500 characters or fewer'),
+	// Transform the raw posted body generated by the form data into the schema
+	// accepted by the api. This allows us to funnel the frontend data through the
+	// api validators.
+	(request, _, next) => {
+		const {
+			reasons = [],
+			documentReasons = [],
+			otherReasons
+		} = /** @type {UnparsedIncompleteOutcomeBody} */ (request.body);
 
 		request.body = {
 			status: 'incomplete',
@@ -99,6 +167,7 @@ const validateIncompleteOutcome = composeMiddleware(
 				// This 'Missing documents' reason, passed as part of the selected
 				// reasons but handled earlier in the validation, is now discarded
 				.filter((reasonType) => reasonType !== 'missingDocuments')
+				// eslint-disable-next-line unicorn/prefer-object-from-entries
 				.reduce(
 					(reasonsMap, reasonType) => ({
 						...reasonsMap,
@@ -108,26 +177,11 @@ const validateIncompleteOutcome = composeMiddleware(
 				)
 		};
 		next();
-	},
-	validation.validateIncompleteReviewOutcome,
-	(request, response, next) => {
-		const result = validationResult(request);
-
-		if (!result.isEmpty()) {
-			response.locals.errors = result.mapped();
-			// the local `documentReasons` is a specific subset of reasons that trumps
-			// any general reason, so discard any regular `reasons` error when this
-			// key is present
-			if (response.locals.errors.documentReasons) {
-				delete response.locals.errors.reasons;
-			}
-		}
-		next();
 	}
 );
 
 /**
- * @typedef {Object} UnparsedInvalidOutcomeBody
+ * @typedef {object} UnparsedInvalidOutcomeBody
  * @property {InvalidReasonType[]=} reasons - An array of invalid reason types.
  * @property {string=} otherReasons - Any text describing the other reasons when
  * the `reasons` contains and `otherReasons` entry.
@@ -136,18 +190,26 @@ const validateIncompleteOutcome = composeMiddleware(
 /** @typedef {import('./validation.service').InvalidAppealData} ParsedInvalidOutcomeBody */
 
 const validateInvalidOutcome = createValidator(
-	/**
-	 * Transform the raw posted body as generated by the form data into the schema
-	 * accepted by the package. This allows us to funnel the frontend data through
-	 * the api validators.
-	 *
-	 * @type {import('express').RequestHandler<any, any, UnparsedInvalidOutcomeBody | ParsedInvalidOutcomeBody>}
-	 */
-	function parseInvalidOutcomeBody(request, _, next) {
-		const { reasons = [], otherReasons } = /** @type {UnparsedInvalidOutcomeBody} */ (request.body);
+	body('reasons').isArray({ min: 1 }).withMessage('Choose at least one reason'),
+	body('otherReasons')
+		.if(
+			body('reasons').custom((/** @type {InvalidReasonType[]} */ reasons) =>
+				reasons.includes('otherReasons')
+			)
+		)
+		.trim()
+		.isLength({ min: 1 })
+		.withMessage('Enter the reasons why something is missing or wrong')
+		.isLength({ max: 500 })
+		.withMessage('The list of reasons must be 500 characters or fewer'),
+	(request, _, next) => {
+		const { reasons = [], otherReasons } = /** @type {UnparsedInvalidOutcomeBody} */ (
+			request.body
+		);
 
 		request.body = {
 			status: 'invalid',
+			// eslint-disable-next-line unicorn/prefer-object-from-entries
 			reasons: reasons.reduce(
 				(reasonsMap, reasonType) => ({
 					...reasonsMap,
@@ -157,28 +219,27 @@ const validateInvalidOutcome = createValidator(
 			)
 		};
 		next();
-	},
-	validation.validateInvalidReviewOutcome
+	}
 );
 
 /**
  * Interim validator that invokes the correct validator for the given review
  * outcome status.
  *
- * @type {import('express').RequestHandler}
+ * @type {import('express').RequestHandler<?, ?, { status: AppealOutcomeStatus }>}
  */
-export const validateReviewOutcome = (req, res, next) => {
-	switch (req.body.status) {
+export const validateReviewOutcome = (request, response, next) => {
+	switch (request.body.status) {
 		case 'incomplete':
-			validateIncompleteOutcome(req, res, next);
+			validateIncompleteOutcome(request, response, next);
 			break;
 
 		case 'invalid':
-			validateInvalidOutcome(req, res, next);
+			validateInvalidOutcome(request, response, next);
 			break;
 
 		case 'valid':
-			validation.validateValidReviewOutcome(req, res, next);
+			validateValidReviewOutcome(request, response, next);
 			break;
 
 		default:

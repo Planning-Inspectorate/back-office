@@ -2,9 +2,10 @@ import { createAsyncHandler } from '../../lib/async-error-handler.js';
 import * as inspectorSession from './inspector-session.service.js';
 import * as inspectorService from './inspector.service.js';
 
-/** @typedef {import('@pins/inspector').AppealStatus} AppealStatus */
+/** @typedef {import('@pins/appeals').Inspector.AppealStatus} AppealStatus */
+/** @typedef {import('./inspector.router').AppealParams} AppealParams */
 
-/** @type {import('express').RequestHandler<any>} */
+/** @type {import('express').RequestHandler<AppealParams>} */
 export function bookSiteVisitGuard({ params, session }, response, next) {
 	// if no site visit exists within the session, redirect to inspector root
 	if (inspectorSession.getSiteVisit(session, params.appealId)) {
@@ -14,7 +15,7 @@ export function bookSiteVisitGuard({ params, session }, response, next) {
 	}
 }
 
-/** @type {import('express').RequestHandler<any>} */
+/** @type {import('express').RequestHandler<AppealParams>} */
 export function issueDecisionGuard({ params, session }, response, next) {
 	// if no decision exists within the session, redirect to inspector root
 	if (inspectorSession.getDecision(session, params.appealId)) {
@@ -31,16 +32,15 @@ export const canIssueDecisionGuard = createAppealStateGuard('decision due');
  * Create a guard that ensures a requested appeal is in one of the expected states.
  *
  * @param {AppealStatus | AppealStatus[]} status - One or more states that validate the route.
- * @returns {import('express').RequestHandler} - A guard scoped to the provided statuses.
+ * @returns {import('express').RequestHandler<AppealParams>} - A guard scoped to the provided statuses.
  */
 function createAppealStateGuard(status) {
 	const statuses = Array.isArray(status) ? status : [status];
 
 	return createAsyncHandler(async ({ params }, response, next) => {
-		const appeal = await inspectorService.findAppealById(params);
+		const appeal = await inspectorService.findAppealById(params.appealId);
 
-		// TODO: inverted for now to allow fall through
-		if (statuses.includes(appeal.status)) {
+		if (!statuses.includes(appeal.status)) {
 			// In the first instance, attempt to redirect to the appeal page. If this
 			// page is also unavailable, then its own guard will handle it
 			response.redirect(`/inspector/appeals/${params.appealId}`);
