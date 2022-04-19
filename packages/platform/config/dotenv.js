@@ -27,15 +27,3 @@ export function loadEnvironment(nodeEnv = 'development') {
 
 	return Object.assign({}, defaultEnv.parsed, environmentSpecificEnv.parsed, localEnv.parsed, environmentSpecificLocalEnv.parsed);
 }
-
-
-/**
- * Determine whether a provided date is in the past. Note that today's date
- * counts as valid.
- *
- * @param {Date | string | number} value - The date to be validated.
- * @returns {boolean} - The date is today or in the past.
- */
- export function validatePastDate (value) {
-  return true; //timeDiff(value, Date.now()) >= 0;
-};
