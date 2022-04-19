@@ -183,6 +183,20 @@
         }
       }
     },
+    "/inspector/more-appeals": {
+      "get": {
+        "description": "Gets appeals yet to be assigned to inspector",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Appeals that are assigned to inspector",
+            "schema": {
+              "$ref": "#/definitions/AppealsForInspector"
+            }
+          }
+        }
+      }
+    },
     "/inspector/assign": {
       "post": {
         "description": "Assigns appeals to inspector",
