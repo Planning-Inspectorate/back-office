@@ -15,7 +15,7 @@ async function getAppealsWithPassedInspections() {
 async function markAppealsAsDecisionDue(appeals) {
 	const updatedAppeals = [];
 	for (const appeal of appeals) {
-		const newStatus = transitionState('household', { appealId: appeal.id }, appeal.status, 'BOOKING_PASSED');
+		const newStatus = transitionState('household', { appealId: appeal.id }, 'site_visit_booked', 'BOOKING_PASSED');
 		updatedAppeals.push(appealRepository.updateStatusById(appeal.id, newStatus.value));
 	}
 	await Promise.all(updatedAppeals);

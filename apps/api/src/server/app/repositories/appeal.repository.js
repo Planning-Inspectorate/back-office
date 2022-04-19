@@ -18,9 +18,6 @@ const appealRepository = (function() {
 	}
   
 	return {
-		getAll: function () {
-			return getPool().appeal.findMany();
-		},
 		getByStatuses: function (
 			statuses, 
 			includeAddress = false,
@@ -76,47 +73,6 @@ const appealRepository = (function() {
 				}
 			});
 		},
-		// getByIdIncluding: function(id, including) {
-		// 	return getPool().appeal.findUnique({
-		// 		where: {
-		// 			id: id
-		// 		},
-		// 		include: including
-		// 	});
-		// },
-		// getByIdWithAddress: function(id) {
-		// 	return getPool().appeal.findUnique({
-		// 		where: {
-		// 			id: id
-		// 		},
-		// 		include: {
-		// 			address: true,
-		// 			appellant: true
-		// 		}
-		// 	});
-		// },
-		// getByIdWithValidationDecision: function(id) {
-		// 	return getPool().appeal.findUnique({
-		// 		where: {
-		// 			id: id
-		// 		},
-		// 		include: {
-		// 			validationDecision: true
-		// 		}
-		// 	});
-		// },
-		// getByIdWithValidationDecisionAndAddress: function(id) {
-		// 	return getPool().appeal.findUnique({
-		// 		where: {
-		// 			id: id
-		// 		},
-		// 		include: {
-		// 			validationDecision: true,
-		// 			address: true,
-		// 			appellant: true
-		// 		}
-		// 	});
-		// },
 		invalidateAppealStatuses: function(id) {
 			return getPool().appealStatus.updateMany({
 				where: { appealId: id },
