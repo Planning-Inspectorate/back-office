@@ -58,7 +58,7 @@ router.patch('/:id',
 			schema: { $ref: "#/definitions/ChangeAppeal" }
 		}
 	*/
-	body('AppellantName').isAlpha('en-US', { ignore: ' ' } ).optional({ nullable: true }),
+	body('AppellantName').trim().optional({ nullable: true }),
 	asyncHandler(updateAppeal));
 
 router.post('/:id', 
