@@ -307,7 +307,7 @@ test('throws error if empty array of appeals provided', async(t) => {
 	t.is(resp.status, 400);
 	t.deepEqual(resp.body, {
 		errors: {
-			'': 'Provide appeals to assign to the inspector',
+			'': 'Provide a non-empty array of appeals to assign to the inspector',
 		}
 	});
 });
