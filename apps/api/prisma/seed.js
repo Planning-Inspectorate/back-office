@@ -450,6 +450,7 @@ const appealsReadyForConfirmationFromCaseOfficer = [
 		},
 		localPlanningDepartment: 'Maidstone Borough Council',
 		planningApplicationReference: '48269/APP/2021/1482',
+		startedAt: new Date(2022, 3, 1, 10),
 		status: 'received_lpa_questionnaire',
 		statusUpdatedAt: getDateTwoWeeksAgo(),
 		address: {
