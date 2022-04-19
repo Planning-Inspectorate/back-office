@@ -48,25 +48,14 @@ const includeForValidation = {
 		where: {
 			valid: true
 		}
-	}
+	},
+	lpaQuestionnaire: false
 };
-// const includeForDetails = {
-// 	address: true,
-// 	appellant: true,
-// 	reviewQuestionnaire: {
-// 		take: 1,
-// 		orderBy: {
-// 			createdAt: 'desc'
-// 		}
-// 	}
-// };
 
 const getAppealByIdStub = sinon.stub();
 
 getAppealByIdStub.withArgs({ where: { id: 11 },	include: includeForValidation }).returns(appeal_11);
-// getAppealByIdStub.withArgs({ where: { id: 11 },	include: includeForDetails }).returns(appeal_11);
 getAppealByIdStub.withArgs({ where: { id: 10 },	include: includeForValidation }).returns(appeal_10);
-// getAppealByIdStub.withArgs({ where: { id: 10 },	include: includeForDetails }).returns(appeal_10);
 
 const addReviewStub = sinon.stub();
 

@@ -53,7 +53,8 @@ const includeDetails = {
 			createdAt: 'desc'
 		}
 	},
-	appealDetailsFromAppellant: false
+	appealDetailsFromAppellant: false,
+	lpaQuestionnaire: false
 };
 
 const includingDetailsForValidtion = { 
@@ -61,7 +62,8 @@ const includingDetailsForValidtion = {
 	appealStatus: { where: { valid: true } }, 
 	address: false, 
 	validationDecision: false,
-	appealDetailsFromAppellant: false
+	appealDetailsFromAppellant: false,
+	lpaQuestionnaire: false
 };
 
 const findUniqueStub = sinon.stub();

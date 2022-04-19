@@ -2,6 +2,8 @@
 
 import appealRepository from '../repositories/appeal.repository.js';
 import { transitionState } from '../state-machine/transition-state.js';
+import { appealFormatter } from './appeal-formatter.js';
+import { arrayOfStatusesContainsString } from '../utils/array-of-statuses-contains-string.js';
 
 /** @typedef {import('@pins/appeals').Inspector.Appeal} Appeal */
 /** @typedef {import('@pins/appeals').Inspector.AppealOutcome} AppealOutcome */
@@ -28,14 +30,17 @@ import { transitionState } from '../state-machine/transition-state.js';
  */
 export const bookSiteVisit = async ({ appealId, siteVisit }) => {
 	const appeal = await appealRepository.getById(appealId);
-	const nextState = transitionState('household', { appealId }, appeal.status, 'BOOK', true);
-
-	return appealRepository.updateById(appealId, {
-		status: nextState.value,
+	const nextState = transitionState('household', { appealId }, appeal.appealStatus[0].status, 'BOOK', true);
+	await appealRepository.updateStatusAndDataById(appealId, nextState.value, {
 		siteVisit: {
 			create: siteVisit
 		}
 	});
+	return {
+		id: appeal.id,
+		status: nextState.value,
+		userId: appeal.userId
+	};
 };
 
 /**
@@ -66,4 +71,27 @@ export const issueDecision = async ({ appealId, outcome, decisionLetter }) => {
 			}
 		}
 	});
+};
+
+export const assignAppealsById = async function(userId, appealIds) {
+	const successfullyAssigned = [];
+	const unsuccessfullyAssigned = [];
+	await Promise.all(appealIds.map(async (appealId) => {
+		const appeal = await appealRepository.getById(appealId, true, false, true, true, true, true);
+		if (appeal.userId == undefined && arrayOfStatusesContainsString(appeal.appealStatus, 'available_for_inspector_pickup')) {
+			try {
+				const nextState = transitionState('household', { appealId: appeal.id }, 'available_for_inspector_pickup', 'PICKUP');
+				await appealRepository.updateStatusAndDataById(appeal.id, nextState.value, { user: { connect: { id: userId } } });
+				successfullyAssigned.push(appealFormatter.formatAppealForAssigningAppeals(appeal));
+			} catch (error) {
+				console.error(error);
+				unsuccessfullyAssigned.push(appealFormatter.formatAppealForAssigningAppeals(appeal, error.message));
+			}
+		} else if (!arrayOfStatusesContainsString(appeal.appealStatus, 'available_for_inspector_pickup')) {
+			unsuccessfullyAssigned.push(appealFormatter.formatAppealForAssigningAppeals(appeal, 'appeal in wrong state'));
+		} else if (appeal.userId !== undefined) {
+			unsuccessfullyAssigned.push(appealFormatter.formatAppealForAssigningAppeals(appeal, 'appeal already assigned'));
+		}
+	}));
+	return { successfullyAssigned: successfullyAssigned, unsuccessfullyAssigned: unsuccessfullyAssigned };
 };

@@ -22,7 +22,6 @@ const formatStatus = function (appealStatuses) {
 	} else if (arrayOfStatusesContainsString(appealStatuses, inspectorStatesStrings.site_visit_not_yet_booked)) {
 		return 'not yet booked';
 	} else {
-		console.log(appealStatuses);
 		throw new Error('Unknown status');
 	}
 };

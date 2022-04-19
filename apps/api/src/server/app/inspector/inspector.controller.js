@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import * as inspector from './inspector.service.js';
 import appealRepository from '../repositories/appeal.repository.js';
-import { appealStates, transitionState } from '../state-machine/transition-state.js';
+import { appealStates } from '../state-machine/transition-state.js';
 import InspectorError from './inspector-error.js';
 import { appealFormatter } from './appeal-formatter.js';
 
@@ -159,42 +159,6 @@ const getAppealDetails = async function(request, response) {
 	response.send(formattedAppeal);
 };
 
-const formatAppealForAssigningAppeals = function(appeal, reason) {
-	return {
-		appealId: appeal.id,
-		reference: appeal.reference,
-		appealType: 'HAS',
-		specialist: 'General',
-		provisionalVisitType: provisionalAppealSiteVisitType(appeal),
-		appealAge: daysBetweenDates(appeal.startedAt, new Date()),
-		appealSite: formatAddressLowerCase(appeal.address),
-		...(reason !== undefined && { reason })
-	};
-};
-
-const assignAppealsById = async function(userId, appealIds) {
-	const successfullyAssigned = [];
-	const unsuccessfullyAssigned = [];
-	await Promise.all(appealIds.map(async (appealId) => {
-		const appeal = await appealRepository.getById(appealId, true, false, true, false, true);
-		if (appeal.userId == undefined && appeal.status == 'available_for_inspector_pickup') {
-			try {
-				const nextState = transitionState('household', { appealId: appeal.id }, appeal.status, 'PICKUP');
-				await appealRepository.updateById(appeal.id, { status: nextState.value, user: { connect: { id: userId } } });
-				successfullyAssigned.push(appealFormatter.formatAppealForAssigningAppeals(appeal));
-			} catch (error) {
-				console.error(error);
-				unsuccessfullyAssigned.push(appealFormatter.formatAppealForAssigningAppeals(appeal, error.message));
-			}
-		} else if (appeal.status !== 'available_for_inspector_pickup') {
-			unsuccessfullyAssigned.push(appealFormatter.formatAppealForAssigningAppeals(appeal, 'appeal in wrong state'));
-		} else if (appeal.userId !== undefined) {
-			unsuccessfullyAssigned.push(appealFormatter.formatAppealForAssigningAppeals(appeal, 'appeal already assigned'));
-		}
-	}));
-	return { successfullyAssigned: successfullyAssigned, unsuccessfullyAssigned: unsuccessfullyAssigned };
-};
-
 const validateAppealIdsPresent = function(body) {
 	if (_.isEmpty(body)) {
 		throw new InspectorError('Must provide appeals to assign', 400);
@@ -204,7 +168,7 @@ const validateAppealIdsPresent = function(body) {
 const assignAppeals = async function(request, response) {
 	const userId = request.get('userId');
 	validateAppealIdsPresent(request.body);
-	const resultantAppeals = await assignAppealsById(userId, request.body);
+	const resultantAppeals = await inspector.assignAppealsById(userId, request.body);
 	response.send(resultantAppeals);
 };
 

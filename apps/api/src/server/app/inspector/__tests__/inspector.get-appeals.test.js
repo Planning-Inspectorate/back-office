@@ -148,7 +148,6 @@ test('gets all appeals assigned to inspector', async (t) => {
 
 	const resp = await request.get('/inspector').set('userId', 1);
 
-	console.log(resp.body);
 	t.is(resp.status, 200);
 	t.deepEqual(resp.body, [
 		{
