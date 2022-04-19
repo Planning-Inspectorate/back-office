@@ -80,7 +80,8 @@ export const validateQuestionnaireReview = createValidator(
 		}
 		/** Transform posted body into a {@link Questionnaire} entity */
 		request.body = {
-			...other,
+			// ignore empty strings from conditional descriptions that weren't used in the UI
+			...Object.fromEntries(Object.entries(other).filter(([, v]) => Boolean(v))),
 			...Object.fromEntries(allAnswers.map((answerType) => [answerType, true]))
 		};
 		next();

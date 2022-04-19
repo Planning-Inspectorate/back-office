@@ -104,6 +104,7 @@ export const viewQuestionnaireReviewConfirmation = async ({ params, session }, r
 /**
  * @typedef {object} ViewReviewQuestionnaireSuccessRenderOptions
  * @property {Appeal} appeal
+ * @property {boolean} complete
  */
 
 /**
@@ -117,21 +118,22 @@ export const confirmQuestionnaireReview = async ({ params, session }, response) 
 	const { reviewQuestionnaire } = /** @type {QuestionnaireReview} */ (
 		lpaSession.getQuestionnaireReview(session, params.appealId)
 	);
+	const appeal = await lpaService.findAppealById(params.appealId);
 
 	if (response.locals.errors) {
-		const appeal = await lpaService.findAppealById(params.appealId);
-
 		response.render('lpa/questionnaire-confirmation', {
 			appeal,
 			reviewQuestionnaire
 		});
 	} else {
-		const appeal = await lpaService.confirmQuestionnaireReview(
+		await lpaService.confirmQuestionnaireReview(
 			params.appealId,
 			reviewQuestionnaire
 		);
-
-		response.render('lpa/questionnaire-success', { appeal });
+		response.render('lpa/questionnaire-success', {
+			appeal,
+			complete: Object.keys(reviewQuestionnaire).length === 0
+		});
 	}
 };
 
