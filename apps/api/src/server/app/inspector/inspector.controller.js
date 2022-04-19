@@ -1,7 +1,6 @@
 import _ from 'lodash';
 import * as inspector from './inspector.service.js';
 import appealRepository from '../repositories/appeal.repository.js';
-import { lpaQuestionnaireStatesStrings } from '../state-machine/lpa-questionnaire-states.js';
 import { inspectorStatesStrings } from '../state-machine/inspector-states.js';
 import formatAddressLowerCase from '../utils/address-formatter-lowercase.js';
 import formatDate from '../utils/date-formatter.js';
@@ -15,6 +14,8 @@ import daysBetweenDates from '../utils/days-between-dates.js';
 
 const formatStatus = function(status) {
 	switch (status) {
+		case inspectorStatesStrings.available_for_inspector_pickup:
+			return 'available for inspector pickup';
 		case inspectorStatesStrings.site_visit_booked:
 			return 'booked';
 		case inspectorStatesStrings.decision_due:
@@ -28,8 +29,8 @@ const formatStatus = function(status) {
 
 const provisionalAppealSiteVisitType = function(appeal) {
 	return (!appeal.lpaQuestionnaire.siteVisibleFromPublicLand || !appeal.appealDetailsFromAppellant.siteVisibleFromPublicLand) ?
-		'access required' : 'unaccompanied'
-}
+		'access required' : 'unaccompanied';
+};
 
 const formatAppealForAllAppeals = function(appeal) {
 	return {
@@ -65,9 +66,10 @@ const getAppeals = async function(request, response) {
 };
 
 const getMoreAppeals = async function(request, response) {
-	const moreAppeals = await appealRepository.getByStatusesWithAddresses(
-		lpaQuestionnaireStatesStrings.available_for_inspector_pickup
-		);
+	const moreAppeals = await appealRepository.getByStatuses(
+		inspectorStatesStrings.available_for_inspector_pickup
+	);
+	console.log('HERE', moreAppeals);
 	return response.send(moreAppeals);
 };
 
@@ -80,9 +82,9 @@ const formatAppealForAssigningAppeals = function(appeal, reason) {
 		provisionalVisitType: provisionalAppealSiteVisitType(appeal),
 		appealAge: daysBetweenDates(appeal.startedAt, new Date()),
 		appealSite: formatAddressLowerCase(appeal.address),
-		...(reason != undefined && {reason: reason})
-	}
-}
+		...(reason != undefined && { reason: reason })
+	};
+};
 
 const assignAppealsById = async function(userId, appealIds) {
 	const successfullyAssigned = [];

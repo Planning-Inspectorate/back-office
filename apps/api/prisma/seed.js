@@ -328,23 +328,23 @@ const appealsReviewIncomplete = [
 
 const appealsAvailableForInspectorPickup = [
 	{
-		reference: 'APP/Q9999/D/21/1087562',
+		reference: 'APP/Q9999/D/21/5463281',
 		appellant: {
 			create: {
-				name: 'Bob Ross',
-				email: 'bob@gmail.com'
+				name: 'Maggie Ross',
+				email: 'mags@gmail.com'
 			}
 		},
-		localPlanningDepartment: 'Maidstone Borough Council',
+		localPlanningDepartment: 'City Of London',
 		planningApplicationReference: '48269/APP/2021/1482',
 		status: 'available_for_inspector_pickup',
 		statusUpdatedAt: getDateTwoWeeksAgo(),
 		startedAt: new Date(),
 		address: {
 			create: {
-				addressLine1: '92 Huntsmoor Road',
-				county: 'Tadley',
-				postcode: 'RG26 4BX'
+				addressLine1: '56 Vincent Square',
+				county: 'London',
+				postcode: 'SW1P 2NE'
 			}
 		},
 		lpaQuestionnaire: {
@@ -547,7 +547,7 @@ const appealsWithDecisionDue = [
 			}
 		}
 	}
-]
+];
 
 const appealsData = [
 	...newAppeals,

@@ -115,15 +115,15 @@ const appeal_5 = {
 };
 
 const appeal_6 = {
-	appealId: 6,
+	id: 6,
 	reference: 'APP/Q9999/D/21/1087562',
 	status: 'available_for_inspector_pickup',
-	appealSite: {
+	address: {
 		addressLine1: '92 Huntsmoor Road',
 		county: 'Tadley',
 		postCode: 'RG26 4BX'
 	},
-	appealAge: 41,
+	appealAge: 31,
 	siteVisitType: 'unaccompanied',
 	appealType: 'HAS',
 	specialism: 'General',
@@ -131,14 +131,14 @@ const appeal_6 = {
 };
 
 const appeal_25 = {
-	appealId: 25,
+	id: 25,
 	reference: 'APP/Q9999/D/21/5463281',
 	status: 'available_for_inspector_pickup',
-	appealSite: {
-		addressLine1: '92 Huntsmoor Road',
-		county: 'Tadley',
-		postCode: 'RG26 4BX'
-		},
+	address: {
+		addressLine1: '56 Vincent Square',
+		county: 'London',
+		postCode: 'SW1P 2NE'
+	},
 	appealAge: 22,
 	siteVisitType: 'accompanied',
 	appealType: 'HAS',
@@ -146,7 +146,7 @@ const appeal_25 = {
 	siteVisit: {}
 };
 
-const findManyStub = sinon.stub().returns([appeal_1, appeal_2, appeal_3, appeal_4, appeal_5]);
+const findManyStub = sinon.stub().returns([appeal_1, appeal_2, appeal_3, appeal_4, appeal_5, appeal_6, appeal_25]);
 
 class MockDatabaseClass {
 	constructor(_parameters) {
@@ -163,9 +163,7 @@ test.before('sets up mocking of database', () => {
 });
 
 test('gets all appeals assigned to inspector', async (t) => {
-
 	const clock = sinon.useFakeTimers({ now: 1_649_319_144_000 });
-
 	const resp = await request.get('/inspector').set('userId', 1);
 
 	t.is(resp.status, 200);
@@ -291,9 +289,9 @@ test('gets all appeals yet to be assigned to inspector', async (t) => {
 			reference: 'APP/Q9999/D/21/5463281',
 			status: 'available_for_inspector_pickup',
 			appealSite: {
-				addressLine1: '92 Huntsmoor Road',
-				county: 'Tadley',
-				postCode: 'RG26 4BX'
+				addressLine1: '56 Vincent Square',
+				county: 'London',
+				postCode: 'SW1P 2NE'
 			},
 			appealAge: 22,
 			siteVisitType: 'accompanied',
@@ -311,9 +309,7 @@ test('gets all appeals yet to be assigned to inspector', async (t) => {
 			}
 		},
 		include: {
-			address: true,
-			lpaQuestionnaire: true,
-			appealDetailsFromAppellant: true
+			address: true
 		}
 	});
 });

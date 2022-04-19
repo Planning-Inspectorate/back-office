@@ -7,7 +7,7 @@ const appealRepository = (function() {
 	function getPool () {
 		return DatabaseFactory.getInstance().pool;
 	}
-  
+
 	return {
 		getAll: function () {
 			return getPool().appeal.findMany();
