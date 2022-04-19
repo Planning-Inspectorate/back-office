@@ -1,5 +1,5 @@
 import appealRepository from '../server/app/repositories/appeal.repository.js';
-import transitionState from '../server/app/state-machine/household-appeal.machine.js';
+import { transitionState } from '../server/app/state-machine/household-appeal.machine.js';
 
 /**
  * @returns {Date} date two weeks ago

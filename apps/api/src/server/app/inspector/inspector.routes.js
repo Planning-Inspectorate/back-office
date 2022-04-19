@@ -6,6 +6,7 @@ import {
 	validateAssignAppealsToInspector,
 	validateBookSiteVisit,
 	validateIssueDecision,
+	validateAppealState,
 	validateUserBelongsToAppeal,
 	validateUserId
 } from './inspector.validators.js';

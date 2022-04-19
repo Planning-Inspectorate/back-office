@@ -1,8 +1,7 @@
 import appealRepository from '../repositories/appeal.repository.js';
 import newReviewRepository from '../repositories/review-questionnaire.repository.js';
 import { reviewComplete, validateReviewRequest } from './case-officer-review.js';
-import { lpaQuestionnaireStatesStrings } from '../state-machine/lpa-questionnaire-states.js';
-import transitionState from '../state-machine/household-appeal.machine.js';
+import { transitionState, lpaQuestionnaireStatesStrings } from '../state-machine/household-appeal.machine.js';
 import appealFormatter from './appeal-formatter.js';
 import CaseOfficerError from './case-officer-error.js';
 

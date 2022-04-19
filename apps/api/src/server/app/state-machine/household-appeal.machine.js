@@ -1,7 +1,14 @@
 import { createMachine, interpret } from 'xstate';
-import { validationStates, validationActions } from './validation-states.js';
-import { lpaQuestionnaireStates, lpaQuestionnaireActions } from './lpa-questionnaire-states.js';
+import { generateValidationStates, validationActions } from './validation-states.js';
+import { generateLpaQuestionnaireStates, lpaQuestionnaireActions } from './lpa-questionnaire-states.js';
 import { inspectorStates, inspectorActions } from './inspector-states.js';
+import mapObjectKeysToStrings from '../utils/map-states-to-strings.js';
+
+const validationStates = generateValidationStates('awaiting_lpa_questionnaire');
+const validationStatesStrings = mapObjectKeysToStrings(validationStates);
+
+const lpaQuestionnaireStates = generateLpaQuestionnaireStates();
+const lpaQuestionnaireStatesStrings = mapObjectKeysToStrings(lpaQuestionnaireStates);
 
 /**
  * @typedef {object} TransitionStateErrorConfig
@@ -22,8 +29,7 @@ export class TransitionStateError extends Error {
 }
 
 const createHouseholpAppealMachine = function (context) {
-	return createMachine(
-		{
+	return createMachine({
 			id: 'household_appeal',
 			context: context,
 			initial: 'received_appeal',
@@ -31,16 +37,14 @@ const createHouseholpAppealMachine = function (context) {
 				...validationStates,
 				...lpaQuestionnaireStates,
 				...inspectorStates
-			}
-		},
-		{
-			actions: {
-				...validationActions,
-				...lpaQuestionnaireActions,
-				...inspectorActions
-			}
+			},
+		}, {
+		actions: {
+			...validationActions,
+			...lpaQuestionnaireActions,
+			...inspectorActions
 		}
-	);
+	});
 };
 
 const transitionState = function (context, status, machineAction, throwError = false) {
@@ -59,4 +63,4 @@ const transitionState = function (context, status, machineAction, throwError = f
 	return nextState;
 };
 
-export default transitionState;
+export { transitionState, validationStates, validationStatesStrings, lpaQuestionnaireStatesStrings };

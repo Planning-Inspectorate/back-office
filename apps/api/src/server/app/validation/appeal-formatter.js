@@ -1,5 +1,5 @@
 import formatAddress from '../utils/address-formatter.js';
-import { validationStatesStrings } from '../state-machine/validation-states.js';
+import { validationStatesStrings } from '../state-machine/household-appeal.machine.js';
 import formatDate from '../utils/date-formatter.js';
 
 /**

@@ -1,7 +1,7 @@
 // @ts-check
 
 import appealRepository from '../repositories/appeal.repository.js';
-import transitionState from '../state-machine/household-appeal.machine.js';
+import { transitionState } from '../state-machine/household-appeal.machine.js';
 
 /** @typedef {import('@pins/inspector').Appeal} Appeal */
 /** @typedef {import('@pins/inspector').AppealOutcome} AppealOutcome */

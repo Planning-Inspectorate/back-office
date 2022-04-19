@@ -1,7 +1,7 @@
 import formatAddress from '../utils/address-formatter.js';
 import formatDate from '../utils/date-formatter.js';
 import formatReviewQuestionnaire from '../utils/review-questionnaire-formatter.js';
-import { lpaQuestionnaireStatesStrings } from '../state-machine/lpa-questionnaire-states.js';
+import { lpaQuestionnaireStatesStrings } from '../state-machine/household-appeal.machine.js';
 
 const add2Weeks = function (date) {
 	const newDate = new Date(date.valueOf());

@@ -3,8 +3,8 @@ import got from 'got';
 import appealRepository from '../repositories/appeal.repository.js';
 import validationDecisionRepository from '../repositories/validation-decision.repository.js';
 import ValidationError from './validation-error.js';
-import transitionState from '../state-machine/household-appeal.machine.js';
-import { validationStatesStrings, validationActionsStrings } from '../state-machine/validation-states.js';
+import { transitionState, validationStatesStrings } from '../state-machine/household-appeal.machine.js';
+import { validationActionsStrings } from '../state-machine/validation-states.js';
 import appealFormatter from './appeal-formatter.js';
 import { validationDecisions, validateAppealValidatedRequest, validateUpdateValidationRequest } from './validate-request.js';
 
@@ -91,7 +91,6 @@ async function getAppealForValidation(appealId) {
 /**
  * @typedef {object} LocalPlanningDepartmentResponse
  * @property {LocalPlanningDepartment[]} features - A collection of requested LPAs in schema format.
- *
  * @typedef {object} LocalPlanningDepartment
  * @property {object} attributes - A dictionary of request attributes
  * @property {string} attributes.LPA21NM - The name of the local planning department
