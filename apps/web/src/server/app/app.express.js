@@ -38,7 +38,7 @@ app.use(
 		directives: {
 			scriptSrc: [
 				"'self'", // eslint-disable-line quotes
-				() => `'nonce-EdcOUaJ8lczj9tIPO0lPow=='` // eslint-disable-line quotes
+				() => `'nonce-${locals.cspNonce}'` // eslint-disable-line quotes
 			]
 		}
 	})

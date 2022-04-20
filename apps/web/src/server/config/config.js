@@ -11,6 +11,9 @@ import { loadEnvironment } from '@pins/platform';
 
 loadEnvironment(process.env.NODE_ENV);
 
+// Import all config components after the env vars have been loaded.
+const { authConfig } = await import('./components/auth.js');
+
 const config = {
 	NODE_ENV: process.env.NODE_ENV,
 	APP_RELEASE: process.env.APP_RELEASE,
@@ -25,10 +28,10 @@ const config = {
 	isRelease: process.env.APP_RELEASE === 'true',
 
 	USE_MOCK_API: process.env.USE_MOCK_API,
-	API_HOST: process.env.API_HOST
+	API_HOST: process.env.API_HOST,
+
+	...authConfig
 };
 
 // Map env vars and make it visible outside module
-export {
-	config
-};
+export { config };

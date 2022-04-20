@@ -13,7 +13,7 @@ src/server
 │  └── resourceJS.json - This file will be generated automatically
 ├── app - Main app folder, this will host our entire application src
 │  ├── app.express.js - Main Express APP configuration
-│  ├── app.route.js
+│  ├── app.router.js
 │  ├── auth
 │  ├── routes.js
 │  └── validation - App module related to the validation step
