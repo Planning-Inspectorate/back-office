@@ -54,16 +54,22 @@
         }
       }
     },
-    "/validation/{id}": {
+    "/validation/{appealId}": {
       "get": {
         "description": "Gets appeal to be validated by the Validation Officer",
         "parameters": [
           {
-            "name": "id",
+            "name": "appealId",
             "in": "path",
             "required": true,
+            "type": "string"
+          },
+          {
+            "name": "id",
+            "description": "Appeal ID",
+            "required": true,
             "type": "integer",
-            "description": "Appeal ID"
+            "in": "query"
           }
         ],
         "responses": {
@@ -80,11 +86,17 @@
         "description": "Updates appeal details",
         "parameters": [
           {
+            "name": "appealId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
             "name": "id",
             "in": "url",
+            "description": "Appeal ID",
             "required": true,
-            "type": "integer",
-            "description": "Appeal ID"
+            "type": "integer"
           },
           {
             "name": "obj",
@@ -101,12 +113,18 @@
         "description": "Sends validation decision",
         "parameters": [
           {
-            "name": "id",
+            "name": "appealId",
             "in": "path",
             "required": true,
-            "type": "integer",
+            "type": "string"
+          },
+          {
+            "name": "id",
             "id": "url",
-            "description": "Appeal ID"
+            "description": "Appeal ID",
+            "required": true,
+            "type": "integer",
+            "in": "query"
           },
           {
             "name": "obj",
@@ -117,7 +135,11 @@
             }
           }
         ],
-        "responses": {}
+        "responses": {
+          "409": {
+            "description": "Conflict"
+          }
+        }
       }
     },
     "/case-officer/": {
@@ -134,12 +156,12 @@
         }
       }
     },
-    "/case-officer/{id}": {
+    "/case-officer/{appealId}": {
       "get": {
         "description": "Gets appeal details for Case Officer to review",
         "parameters": [
           {
-            "name": "id",
+            "name": "appealId",
             "in": "path",
             "required": true,
             "type": "string"
@@ -155,11 +177,22 @@
         }
       }
     },
-    "/case-officer/{id}/confirm": {
+    "/case-officer/{appealId}/confirm": {
       "post": {
         "description": "",
-        "parameters": [],
-        "responses": {}
+        "parameters": [
+          {
+            "name": "appealId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "409": {
+            "description": "Conflict"
+          }
+        }
       }
     },
     "/inspector/": {
@@ -894,6 +927,14 @@
         "appealId": {
           "type": "number",
           "example": 1
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "not yet booked",
+            "booked",
+            "decision due"
+          ]
         },
         "reference": {
           "type": "string",
