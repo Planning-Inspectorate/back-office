@@ -31,12 +31,13 @@ model Appeal {
 }
 
 model AppealStatus {
-  id        Int      @id @default(autoincrement())
-  status    String   @default("received_appeal")
-  createdAt DateTime @default(now())
-  valid     Boolean  @default(true)
-  appeal    Appeal   @relation(fields: [appealId], references: [id])
-  appealId  Int
+  id                  Int      @id @default(autoincrement())
+  status              String   @default("received_appeal")
+  createdAt           DateTime @default(now())
+  subStateMachineName String?
+  valid               Boolean  @default(true)
+  appeal              Appeal   @relation(fields: [appealId], references: [id])
+  appealId            Int
 }
 
 model Appellant {
