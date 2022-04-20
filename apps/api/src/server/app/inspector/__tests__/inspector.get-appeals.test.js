@@ -224,7 +224,7 @@ test('gets all appeals assigned to inspector', async (t) => {
 	sinon.assert.calledWith(findManyStub, {
 		where: {
 			appealStatus: {
-				every: {
+				some: {
 					status: {
 						in: [
 							'site_visit_not_yet_booked',
