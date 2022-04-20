@@ -4,6 +4,8 @@ import formatAddressLowerCase from '../utils/address-formatter-lowercase.js';
 import { inspectorStatesStrings } from '../state-machine/inspector-states.js';
 import formatDate from '../utils/date-formatter.js';
 import { arrayOfStatusesContainsString } from '../utils/array-of-statuses-contains-string.js';
+import { appealStates } from '../state-machine/transition-state.js';
+import { buildAppealCompundStatus } from '../utils/build-appeal-compound-status.js';
 
 const provisionalAppealSiteVisitType = function (appeal) {
 	return (!appeal.lpaQuestionnaire.siteVisibleFromPublicLand || !appeal.appealDetailsFromAppellant.siteVisibleFromPublicLand) ?
@@ -19,7 +21,10 @@ const formatStatus = function (appealStatuses) {
 		return 'booked';
 	} else if (arrayOfStatusesContainsString(appealStatuses, inspectorStatesStrings.decision_due)) {
 		return 'decision due';
-	} else if (arrayOfStatusesContainsString(appealStatuses, inspectorStatesStrings.site_visit_not_yet_booked)) {
+	} else if (
+		arrayOfStatusesContainsString(appealStatuses, inspectorStatesStrings.site_visit_not_yet_booked) ||
+		arrayOfStatusesContainsString(appealStatuses, 'picked_up')
+	) {
 		return 'not yet booked';
 	} else {
 		throw new Error('Unknown status');
@@ -44,13 +49,13 @@ export const appealFormatter = {
 			appealId: appeal.id,
 			appealAge: daysBetweenDates(appeal.startedAt, new Date()),
 			appealSite: formatAddressLowerCase(appeal.address),
-			appealType: 'HAS',
+			appealType: appeal.appealType.shorthand,
 			reference: appeal.reference,
 			...(!isEmpty(appeal.siteVisit) && { siteVisitDate: formatDate(appeal.siteVisit.visitDate) }),
 			...(!isEmpty(appeal.siteVisit) && { siteVisitSlot: appeal.siteVisit.visitSlot }),
 			...(!isEmpty(appeal.siteVisit) && { siteVisitType: appeal.siteVisit.visitType }),
 			...(isEmpty(appeal.siteVisit) && { provisionalVisitType: provisionalAppealSiteVisitType(appeal) }),
-			status: formatStatus(appeal.appealStatus),
+			status: formatStatus(appeal.appealStatus)
 		};
 	},
 	formatAppealForAppealDetails: function (appeal) {
@@ -60,6 +65,7 @@ export const appealFormatter = {
 			reference: appeal.reference,
 			provisionalSiteVisitType: provisionalAppealSiteVisitType(appeal),
 			status: formatStatus(appeal.appealStatus),
+			availableForSiteVisitBooking: buildAppealCompundStatus(appeal.appealStatus) == appealStates.site_visit_not_yet_booked,
 			appellantName: appeal.appellant.name,
 			agentName: appeal.appellant.agentName,
 			email: appeal.appellant.email,

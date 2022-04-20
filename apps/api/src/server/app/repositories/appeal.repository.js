@@ -166,6 +166,7 @@ const appealRepository = (function () {
 					userId: userId
 				},
 				include: {
+					appealType: true,
 					address: true,
 					siteVisit: true,
 					lpaQuestionnaire: true,

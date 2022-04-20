@@ -9,6 +9,8 @@ datasource db {
 
 model Appeal {
   id                           Int                         @id @default(autoincrement())
+  appealType                   AppealType                  @relation(fields: [appealTypeId], references: [id])
+  appealTypeId                 Int
   reference                    String
   address                      Address                     @relation(fields: [addressId], references: [id])
   addressId                    Int
@@ -28,6 +30,13 @@ model Appeal {
   user                         User?                       @relation(fields: [userId], references: [id])
   userId                       Int?
   appealDetailsFromAppellant   AppealDetailsFromAppellant?
+}
+
+model AppealType {
+  id        Int      @id @default(autoincrement())
+  type      String   @unique
+  shorthand String   @unique
+  Appeal    Appeal[]
 }
 
 model AppealStatus {
