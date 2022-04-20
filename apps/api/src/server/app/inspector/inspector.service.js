@@ -6,9 +6,9 @@ import { appealFormatter } from './appeal-formatter.js';
 import { arrayOfStatusesContainsString } from '../utils/array-of-statuses-contains-string.js';
 import { buildAppealCompundStatus } from '../utils/build-appeal-compound-status.js';
 
-/** @typedef {import('@pins/appeals').Inspector.Appeal} Appeal */
-/** @typedef {import('@pins/appeals').Inspector.AppealOutcome} AppealOutcome */
-/** @typedef {import('@pins/appeals').Inspector.SiteVisitType} SiteVisitType */
+/** @typedef {import('@pins/api').Schema.Appeal} Appeal */
+/** @typedef {import('@pins/api').Schema.InspectorDecisionOutcomeType} InspectorDecisionOutcomeType */
+/** @typedef {import('@pins/api').Schema.SiteVisitType} SiteVisitType */
 
 /**
  * @typedef {object} SiteVisitData
@@ -44,7 +44,7 @@ export const bookSiteVisit = async ({ appealId, siteVisit }) => {
 /**
  * @typedef {object} IssueDecisionData
  * @property {number} appealId
- * @property {AppealOutcome} outcome
+ * @property {InspectorDecisionOutcomeType} outcome
  * @property {Express.Multer.File} decisionLetter
  */
 

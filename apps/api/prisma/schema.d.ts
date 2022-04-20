@@ -1,21 +1,30 @@
-export interface Appeal {
-  id: number;
-  appealStatus: AppealStatus[];
-  reference: string;
-  localPlanningDepartment: string;
-  planningApplicationReference: string;
-  createdAt: Date;
-  updatedAt: Date;
-  startedAt?: Date;
-  userId?: number;
-  inspectorDecision?: InspectorDecision;
-  siteVisit?: SiteVisit;
+import * as schema from '@prisma/client';
+
+export {
+	Address,
+	AppealDetailsFromAppellant,
+	Appellant,
+	LPAQuestionnaire,
+	ReviewQuestionnaire
+} from '@prisma/client';
+
+export interface Appeal extends schema.Appeal, AppealRelations {
+	appealStatus: AppealStatus[];
 }
 
-export interface AppealStatus {
-  id: number;
-  valid: boolean;
-  status: AppealStatusType;
+export interface AppealRelations {
+	address?: schema.Address;
+	appellant?: schema.Appellant;
+	appealDetailsFromAppellant?: schema.AppealDetailsFromAppellant;
+	validationDecision?: ValidationDecision[];
+	reviewQuestionnaire?: schema.ReviewQuestionnaire[];
+	lpaQuestionnaire?: schema.LPAQuestionnaire;
+	inspectorDecision?: schema.InspectorDecision;
+	siteVisit?: SiteVisit;
+}
+
+export interface AppealStatus extends schema.AppealStatus {
+	status: AppealStatusType;
 }
 
 export type AppealStatusType =
@@ -35,21 +44,6 @@ export type AppealStatusType =
 	| 'decision_due'
 	| 'appeal_decided';
 
-export interface InspectorDecision {
-  id: number;
-  appealId: number;
-  outcome: string;
-  decisionLetterFilename?: string;
-}
-
-export interface SiteVisit {
-  id: number;
-  appealId: number;
-  visitDate: Date;
-  visitSlot: string;
-  visitType: string;
-}
-
 export type AppealDocumentType =
 	| 'plans used to reach decision'
 	| 'statutory development plan policy'
@@ -66,3 +60,21 @@ export type AppealDocumentType =
 	| 'decision letter'
 	| 'planning application form'
 	| 'supporting document';
+
+export type ValidationDecisionType = 'valid' | 'invalid' | 'incomplete';
+
+export interface ValidationDecision extends schema.ValidationDecision {
+	decision: ValidationDecisionType;
+}
+
+export interface SiteVisit extends schema.SiteVisit {
+	visitType: SiteVisitType
+}
+
+export type SiteVisitType = 'accompanied' | 'unaccompanied' | 'access required';
+
+export interface InspectorDecision extends schema.InspectorDecision {
+	outcome: InspectorDecisionOutcomeType;
+}
+
+export type InspectorDecisionOutcomeType = 'allowed' | 'dismissed' | 'split decision';

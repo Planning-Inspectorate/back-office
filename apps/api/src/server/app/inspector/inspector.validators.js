@@ -6,7 +6,7 @@ import multer from 'multer';
 import { body, header, validationResult } from 'express-validator';
 import appealRepository from '../repositories/appeal.repository.js';
 
-/** @typedef {import('@pins/appeals').Inspector.SiteVisitType} SiteVisitType */
+/** @typedef {import('@pins/api').Schema.SiteVisitType} SiteVisitType */
 
 /** @type {import('express').RequestHandler } */
 export const validateUserId = async (request, response, next) => {

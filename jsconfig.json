@@ -6,10 +6,7 @@
     "esModuleInterop": true,
     "moduleResolution": "node",
     "module": "ES2020",
-    "strict": true,
-    "paths": {
-      "@pins/api": ["apps/api"]
-    }
+    "strict": true
   },
   "include": [
     "apps/web",

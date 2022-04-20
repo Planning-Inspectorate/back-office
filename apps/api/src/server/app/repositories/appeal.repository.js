@@ -1,12 +1,6 @@
 import DatabaseFactory from './database.js';
 
-/** @typedef {import('@pins/api').Schema.Appeal} Appeal */
-
-/**
- * @typedef {object} AppealIncludeOptions
- * @property {boolean=} inspectorDecision
- * @property {boolean=} siteVisit
- */
+/** @typedef {keyof import('@pins/api').Schema.AppealRelations} AppealRelationType */
 
 const includeLatestReviewQuestionnaireFilter = {
 	reviewQuestionnaire: {
@@ -30,7 +24,7 @@ const appealRepository = (function () {
 		 * Query an appeal by its id, including any optional relations.
 		 *
 		 * @param {number} id
-		 * @param {AppealIncludeOptions} include
+		 * @param {Record<AppealRelationType, boolean>} include
 		 * @returns {Promise<Appeal>}
 		 */
 		getByIdIncluding: function (id, include) {
