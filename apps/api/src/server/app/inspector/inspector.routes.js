@@ -41,7 +41,7 @@ router.get(
         #swagger.responses[200] = {
             description: 'Appeal Details',
             schema: { $ref: '#/definitions/AppealDetailsForInspector' }
-        } 
+        }
     */
 	param('appealId').toInt(),
 	validateUserBelongsToAppeal,
@@ -117,6 +117,18 @@ router.post(
 	validateUserBelongsToAppeal,
 	validateIssueDecision,
 	asyncHandler(issueDecision)
+);
+
+router.get(
+	'/more-appeals',
+	/*
+        #swagger.description = 'Gets appeals yet to be assigned to inspector'
+        #swagger.responses[200] = {
+            description: 'Appeals that are yet to be assigned to inspector',
+            schema: { $ref: '#/definitions/AppealsForInspector' }
+        }
+    */
+	asyncHandler(getMoreAppeals)
 );
 
 export { router as inspectorRoutes };

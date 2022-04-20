@@ -27,10 +27,10 @@ const getAppeals = async function(request, response) {
 
 const getAppealDetails = async function(request, response) {
 	const appeal = await appealRepository.getById(request.params.appealId, {
-		includeAppellant: true, 
-		includeValidationDecision: true, 
-		includeAddress: true, 
-		includeLatestLPAReviewQuestionnaire: true, 
+		includeAppellant: true,
+		includeValidationDecision: true,
+		includeAddress: true,
+		includeLatestLPAReviewQuestionnaire: true,
 		includeAppealDetailsFromAppellant: true
 	});
 	const formattedAppeal = appealFormatter.formatAppealForAppealDetails(appeal);
@@ -50,6 +50,25 @@ const assignAppeals = async function(request, response) {
 	response.send(resultantAppeals);
 };
 
+const getMoreAppeals = async function(request, response) {
+	const moreAppeals = await appealRepository.getByStatusesWithAddresses(
+		[inspectorStatesStrings.available_for_inspector_pickup]
+	);
+	const moreAppealsFormatted = moreAppeals.map((appeal) => formatAppealForMoreAppeals(appeal));
+	return response.send(moreAppealsFormatted);
+ };
+
+ const formatAppealForMoreAppeals = function(appeal) {
+	return {
+		appealId: appeal.id,
+		reference: appeal.reference,
+		address: appeal.address,
+		appealType: 'HAS',
+		specialist: 'General',
+		provisionalVisitType: provisionalAppealSiteVisitType(appeal),
+		appealAge: daysBetweenDates(appeal.startedAt, new Date())
+	};
+ };
 /**
  * @typedef {object} BookSiteVisitRequestBody
  * @property {Date} siteVisitDate
@@ -64,7 +83,7 @@ const assignAppeals = async function(request, response) {
 
 /**
  * Create a site visit booking for an appeal and serve the updated appeal in response.
- * 
+ *
  * @type {import('express').RequestHandler<AppealParams, Appeal, BookSiteVisitRequestBody>}
  */
 export const bookSiteVisit = async ({ body, params }, response) => {
@@ -89,7 +108,7 @@ export const bookSiteVisit = async ({ body, params }, response) => {
 
 /**
  * Issue a decision for an appeal and serve the updated appeal in response.
- * 
+ *
  * @type {import('express').RequestHandler<AppealParams, Appeal, IssueDecisionRequestBody>}
  */
 export const issueDecision = async ({ body, file, params }, response) => {
@@ -104,4 +123,4 @@ export const issueDecision = async ({ body, file, params }, response) => {
 	response.send(formatAppeal(updatedAppeal));
 };
 
-export { getAppeals, assignAppeals, getAppealDetails };
+export { getAppeals, assignAppeals, getAppealDetails, getMoreAppeals };
