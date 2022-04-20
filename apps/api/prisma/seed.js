@@ -1,4 +1,5 @@
 import Prisma from '@prisma/client';
+import _ from 'lodash';
 
 const { PrismaClient } = Prisma;
 
@@ -544,8 +545,13 @@ const appealsReadyForConfirmationFromCaseOfficer = [
 		},
 		localPlanningDepartment: 'Wandsworth Borough Council',
 		planningApplicationReference: '48269/APP/2021/0777',
-		status: 'received_lpa_questionnaire',
-		statusUpdatedAt: getDateTwoWeeksAgo(),
+		appealStatus: {
+			create: {
+				status: 'received_lpa_questionnaire',
+				valid: true,
+				createdAt: getDateTwoWeeksAgo()
+			}
+		},
 		address: {
 			create: {
 				addressLine1: '72 Clapham High St',
@@ -583,8 +589,13 @@ const appealsReadyForConfirmationFromCaseOfficer = [
 		},
 		localPlanningDepartment: 'Maidstone Borough Council',
 		planningApplicationReference: '48269/APP/2021/0666',
-		status: 'received_lpa_questionnaire',
-		statusUpdatedAt: getDateTwoWeeksAgo(),
+		appealStatus: {
+			create: {
+				status: 'received_lpa_questionnaire',
+				valid: true,
+				createdAt: getDateTwoWeeksAgo()
+			}
+		},
 		address: {
 			create: {
 				addressLine1: '21 The Pavement',
