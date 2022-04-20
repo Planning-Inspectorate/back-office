@@ -19,13 +19,12 @@ const getAppeals = async function(request, response) {
 		appealStates.site_visit_booked,
 		appealStates.decision_due
 	], userId);
-	console.log(appeals);
 	const appealsForResponse = appeals.map((appeal) => appealFormatter.formatAppealForAllAppeals(appeal));
 	return response.send(appealsForResponse);
 };
 
 const getAppealDetails = async function(request, response) {
-	const appeal = await appealRepository.getById(request.params.appealId, true, true, true, false, true, true);
+	const appeal = await appealRepository.getById(request.params.appealId, true, true, true, false, true, true, true);
 	const formattedAppeal = appealFormatter.formatAppealForAppealDetails(appeal);
 	response.send(formattedAppeal);
 };

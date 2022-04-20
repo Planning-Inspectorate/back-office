@@ -13,7 +13,8 @@ const includingDetailsForValidtion = {
 	address: false, 
 	validationDecision: false,
 	appealDetailsFromAppellant: false,
-	lpaQuestionnaire: false
+	lpaQuestionnaire: false,
+	siteVisit: false
 };
 
 const findUniqueStub = sinon.stub();

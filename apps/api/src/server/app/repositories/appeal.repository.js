@@ -52,7 +52,8 @@ const appealRepository = (function() {
 			includeAddress = false,
 			includeLatestLPAReviewQuestionnaire = false,
 			includeAppealDetailsFromAppellant = false,
-			includeLpaQuestionnaire = false
+			includeLpaQuestionnaire = false,
+			includeSiteVisit = false
 		) {
 			return getPool().appeal.findUnique({
 				where: {
@@ -69,7 +70,8 @@ const appealRepository = (function() {
 					},
 					appealDetailsFromAppellant: includeAppealDetailsFromAppellant,
 					lpaQuestionnaire: includeLpaQuestionnaire,
-					...( includeLatestLPAReviewQuestionnaire && includeLatestReviewQuestionnaireFilter )
+					...( includeLatestLPAReviewQuestionnaire && includeLatestReviewQuestionnaireFilter ),
+					siteVisit: includeSiteVisit
 				}
 			});
 		},

@@ -157,7 +157,8 @@ const includeRelations = {
 		orderBy: {
 			createdAt: 'desc'
 		}
-	}
+	},
+	siteVisit: false
 };
 
 const findUniqueStub = sinon.stub();

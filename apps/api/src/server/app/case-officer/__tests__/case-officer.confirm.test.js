@@ -49,7 +49,8 @@ const includeForValidation = {
 			valid: true
 		}
 	},
-	lpaQuestionnaire: false
+	lpaQuestionnaire: false,
+	siteVisit: false
 };
 
 const getAppealByIdStub = sinon.stub();
