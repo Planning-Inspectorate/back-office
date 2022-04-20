@@ -1,65 +1,29 @@
 import appealRepository from '../repositories/appeal.repository.js';
-import newReviewRepository from '../repositories/review-questionnaire.repository.js';
-import { reviewComplete, validateReviewRequest } from './case-officer-review.js';
-import { transitionState, lpaQuestionnaireStatesStrings } from '../state-machine/household-appeal.machine.js';
+import { appealStates } from '../state-machine/transition-state.js';
 import appealFormatter from './appeal-formatter.js';
-import CaseOfficerError from './case-officer-error.js';
-
-const caseOfficerStatuses = [
-	lpaQuestionnaireStatesStrings.awaiting_lpa_questionnaire,
-	lpaQuestionnaireStatesStrings.overdue_lpa_questionnaire,
-	lpaQuestionnaireStatesStrings.received_lpa_questionnaire,
-	lpaQuestionnaireStatesStrings.incomplete_lpa_questionnaire
-];
-
-const caseOfficerStatusesOnceQuestionnaireReceived = new Set([
-	lpaQuestionnaireStatesStrings.received_lpa_questionnaire,
-	lpaQuestionnaireStatesStrings.incomplete_lpa_questionnaire
-]);
+import { confirmLPAQuestionnaireService } from './case-officer.service.js';
 
 const getAppeals = async function (_request, response) {
-	const appeals = await appealRepository.getByStatusesWithAddresses(caseOfficerStatuses);
+	const caseOfficerStatuses = [
+		appealStates.awaiting_lpa_questionnaire,
+		appealStates.overdue_lpa_questionnaire,
+		appealStates.received_lpa_questionnaire,
+		appealStates.incomplete_lpa_questionnaire
+	];
+	const appeals = await appealRepository.getByStatuses(caseOfficerStatuses, true, true);
 	const formattedAppeals = appeals.map((appeal) => appealFormatter.formatAppealForAllAppeals(appeal));
 	response.send(formattedAppeals);
 };
 
 const getAppealDetails = async function (request, response) {
-	const appeal = await getAppealForCaseOfficer(request.params.id);
+	const appeal = await appealRepository.getById(request.params.appealId, true, false, true, true);
 	const formattedAppeal = appealFormatter.formatAppealForAppealDetails(appeal);
 	return response.send(formattedAppeal);
 };
 
-const confirmingLPAQuestionnaire =  async function (request, response) {
-	validateReviewRequest(request.body);
-	const reviewResult = reviewComplete(request.body);
-	const appeal = await getAppealForCaseOfficer(request.params.id);
-	await newReviewRepository.addReview(appeal.id, reviewResult, request.body.reason);
-	const appealStatemachineStatus = reviewResult ?  'COMPLETE' : 'INCOMPLETE';
-	const nextState = transitionState({ appealId: appeal.id }, appeal.status, appealStatemachineStatus);
-	await appealRepository.updateStatusById(appeal.id, nextState.value);
+const confirmLPAQuestionnaire =  async function (request, response) {
+	await confirmLPAQuestionnaireService(request.body.reason, request.params.appealId);
 	return response.send();
 };
 
-/**
- * @param {string} appealId appeal ID
- * @returns {object} appeal with given ID
- */
-async function getAppealForCaseOfficer(appealId) {
-	const appeal = await appealRepository.getByIdIncluding(Number.parseInt(appealId, 10), {
-		address: true,
-		appellant: true,
-		reviewQuestionnaire: {
-			take: 1,
-			orderBy: {
-				createdAt: 'desc'
-			}
-		},
-	});
-
-	if (!caseOfficerStatusesOnceQuestionnaireReceived.has(appeal.status)) {
-		throw new CaseOfficerError('Appeal has yet to receive LPA questionnaire', 400);
-	}
-	return appeal;
-}
-
-export { getAppeals, getAppealDetails, confirmingLPAQuestionnaire };
+export { getAppeals, getAppealDetails, confirmLPAQuestionnaire };

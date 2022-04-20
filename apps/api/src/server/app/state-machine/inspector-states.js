@@ -37,7 +37,7 @@ const inspectorBookingStates = {
 	appeal_decided: {
 		entry: ['notifyAppellantOfDecision'],
 	},
-}
+};
 
 const generateInspectorPickupStates = function(stateAfterPickup, additionalStates) {
 	return {
@@ -47,20 +47,10 @@ const generateInspectorPickupStates = function(stateAfterPickup, additionalState
 			}
 		},
 		...additionalStates
-	}
-}
+	};
+};
 
 const inspectorStates = generateInspectorPickupStates('site_visit_not_yet_booked', inspectorBookingStates)
-
-// const inspectorStates = {
-// 	available_for_inspector_pickup: {
-// 		on: {
-// 			PICKUP: 'site_visit_not_yet_booked'
-// 		}
-// 	},
-// 	...inspectorBookingStates
-// };
-
 const inspectorStatesStrings = mapObjectKeysToStrings(inspectorStates);
 
 export { inspectorStates, inspectorStatesStrings, inspectorActions, inspectorBookingStates, generateInspectorPickupStates };

@@ -1,15 +1,15 @@
-import { createMachine, interpret } from 'xstate';
+import { createMachine } from 'xstate';
 import { generateValidationStates } from './validation-states.js';
 import { generateLpaQuestionnaireStates } from './lpa-questionnaire-states.js';
-import { inspectorBookingStates, generateInspectorPickupStates } from './inspector-states.js'
+import { inspectorBookingStates, generateInspectorPickupStates } from './inspector-states.js';
+import { statementsAndFinalCommentsStates } from './statements-and-final-comments-states.js';
+import mapObjectKeysToStrings from '../utils/map-states-to-strings.js';
 
 const validationStates = generateValidationStates('awaiting_lpa_questionnaire_and_statements');
-
 const lpaQuestionnaireStates = generateLpaQuestionnaireStates();
-
 const inspectorPickupStates = generateInspectorPickupStates('picked_up', { picked_up: { type: 'final' } });
 
-const lpaQuestionnaireWithExtrasStates = {
+const lpaQuestionnaireWithInspectorPickupStates = {
 	initial: 'awaiting_lpa_questionnaire',
 	states: {
 		...lpaQuestionnaireStates,
@@ -17,31 +17,12 @@ const lpaQuestionnaireWithExtrasStates = {
 	},
 };
 
-const statementsAndFinalCommentsStates = {
-	initial: 'available_for_statements',
-	states: {
-		available_for_statements: {
-			on: {
-				RECEIVED_STATEMENTS: 'available_for_final_comments',
-				DID_NOT_RECEIVE_STATEMENTS: 'closed_for_statements_and_final_comments',
-			},
-		},
-		available_for_final_comments: {
-			on: {
-				RECEIVED_FINAL_COMMENTS: 'closed_for_statements_and_final_comments',
-			},
-		},
-		closed_for_statements_and_final_comments: {
-			type: 'final',
-		},
-	},
-};
 
 const lpaQuestionnaireAndStatementsStates = {
 	awaiting_lpa_questionnaire_and_statements: {
 		type: 'parallel',
 		states: {
-			lpaQuestionnaire: lpaQuestionnaireWithExtrasStates,
+			lpaQuestionnaireAndInspectorPickup: lpaQuestionnaireWithInspectorPickupStates,
 			statementsAndFinalComments: statementsAndFinalCommentsStates,
 		},
 		onDone: 'site_visit_not_yet_booked',
@@ -61,13 +42,10 @@ const createFullPlanningAppealMachine = function (context) {
 	});
 };
 
-const transitionState = function (context, status, machineAction) {
-	const service = interpret(createFullPlanningAppealMachine(context));
-	service.start(status);
-	service.send({ type: machineAction });
-	const nextState = service.state;
-	service.stop();
-	return nextState;
+const fullPlanningStates = {
+	...mapObjectKeysToStrings(validationStates),
+	...mapObjectKeysToStrings(lpaQuestionnaireAndStatementsStates),
+	...mapObjectKeysToStrings(inspectorBookingStates),
 };
 
-export { transitionState };
+export { createFullPlanningAppealMachine, fullPlanningStates };

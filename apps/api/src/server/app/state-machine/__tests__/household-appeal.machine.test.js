@@ -1,16 +1,16 @@
 // eslint-disable-next-line import/no-unresolved
 import test from 'ava';
 import sinon from 'sinon';
-import { transitionState } from './household-appeal.machine.js';
-import inspectorActionsService from './inspector.actions.js';
-import lpaQuestionnaireActions from './lpa-questionnaire.actions.js';
+import { transitionState } from '../transition-state.js';
+import inspectorActionsService from '../inspector.actions.js';
+import lpaQuestionnaireActionsService from '../lpa-questionnaire-actions.service.js';
 
 const lpaQuestionnaireStub = sinon.stub();
 const inspectorSendBookingStub = sinon.stub();
 const notifyAppellantOfDecisionStub = sinon.stub();
 
 test.before('sets up mocking of actions', () => {
-	sinon.stub(lpaQuestionnaireActions, 'sendLpaQuestionnaire').callsFake(lpaQuestionnaireStub);
+	sinon.stub(lpaQuestionnaireActionsService, 'sendLpaQuestionnaire').callsFake(lpaQuestionnaireStub);
 	sinon.stub(inspectorActionsService, 'sendEmailToAppellantWithSiteVisitBooking').callsFake(inspectorSendBookingStub);
 	sinon.stub(inspectorActionsService, 'sendEmailToLPAAndAppellantWithDeciion').callsFake(notifyAppellantOfDecisionStub);
 });
@@ -25,7 +25,7 @@ test.before('sets up mocking of actions', () => {
  */
 function applyAction(t, initial_state, action, expected_state, has_changed, context) {
 	inspectorSendBookingStub.resetHistory();
-	const next_state = transitionState(context, initial_state, action);
+	const next_state = transitionState('household', context, initial_state, action);
 	t.is(next_state.value, expected_state);
 	t.is(next_state.changed, has_changed);
 	if (next_state.value == 'awaiting_lpa_questionnaire') {

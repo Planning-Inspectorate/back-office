@@ -1,7 +1,10 @@
 // @ts-check
 
 import appealRepository from '../repositories/appeal.repository.js';
-import { transitionState } from '../state-machine/household-appeal.machine.js';
+import { transitionState } from '../state-machine/transition-state.js';
+import { appealFormatter } from './appeal-formatter.js';
+import { arrayOfStatusesContainsString } from '../utils/array-of-statuses-contains-string.js';
+import { buildAppealCompundStatus } from '../utils/build-appeal-compound-status.js';
 
 /** @typedef {import('@pins/appeals').Inspector.Appeal} Appeal */
 /** @typedef {import('@pins/appeals').Inspector.AppealOutcome} AppealOutcome */
@@ -28,14 +31,18 @@ import { transitionState } from '../state-machine/household-appeal.machine.js';
  */
 export const bookSiteVisit = async ({ appealId, siteVisit }) => {
 	const appeal = await appealRepository.getById(appealId);
-	const nextState = transitionState({ appealId }, appeal.status, 'BOOK', true);
-
-	return appealRepository.updateById(appealId, {
-		status: nextState.value,
+	const appealStatus = buildAppealCompundStatus(appeal.appealStatus);
+	const nextState = transitionState('household', { appealId }, appealStatus, 'BOOK', true);
+	await appealRepository.updateStatusAndDataById(appealId, nextState.value, {
 		siteVisit: {
 			create: siteVisit
 		}
 	});
+	return {
+		id: appeal.id,
+		status: nextState.value,
+		userId: appeal.userId
+	};
 };
 
 /**
@@ -53,10 +60,10 @@ export const bookSiteVisit = async ({ appealId, siteVisit }) => {
  */
 export const issueDecision = async ({ appealId, outcome, decisionLetter }) => {
 	const appeal = await appealRepository.getById(appealId);
-	const nextState = transitionState({ appealId }, appeal.status, 'DECIDE', true);
+	const appealStatus = buildAppealCompundStatus(appeal.appealStatus);
+	const nextState = transitionState('household', { appealId }, appealStatus, 'DECIDE', true);
 
-	return appealRepository.updateById(appealId, {
-		status: nextState.value,
+	await appealRepository.updateStatusAndDataById(appealId, nextState.value, {
 		inspectorDecision: {
 			create: {
 				appealId,
@@ -66,4 +73,33 @@ export const issueDecision = async ({ appealId, outcome, decisionLetter }) => {
 			}
 		}
 	});
+	return {
+		id: appeal.id,
+		status: nextState.value,
+		userId: appeal.userId
+	};
+};
+
+export const assignAppealsById = async function(userId, appealIds) {
+	const successfullyAssigned = [];
+	const unsuccessfullyAssigned = [];
+	await Promise.all(appealIds.map(async (appealId) => {
+		const appeal = await appealRepository.getById(appealId, true, false, true, true, true, true);
+		if (appeal.userId == undefined && arrayOfStatusesContainsString(appeal.appealStatus, 'available_for_inspector_pickup')) {
+			try {
+				const appealStatus = buildAppealCompundStatus(appeal.appealStatus);
+				const nextState = transitionState('household', { appealId: appeal.id }, appealStatus, 'PICKUP');
+				await appealRepository.updateStatusAndDataById(appeal.id, nextState.value, { user: { connect: { id: userId } } });
+				successfullyAssigned.push(appealFormatter.formatAppealForAssigningAppeals(appeal));
+			} catch (error) {
+				console.error(error);
+				unsuccessfullyAssigned.push(appealFormatter.formatAppealForAssigningAppeals(appeal, error.message));
+			}
+		} else if (!arrayOfStatusesContainsString(appeal.appealStatus, 'available_for_inspector_pickup')) {
+			unsuccessfullyAssigned.push(appealFormatter.formatAppealForAssigningAppeals(appeal, 'appeal in wrong state'));
+		} else if (appeal.userId !== undefined) {
+			unsuccessfullyAssigned.push(appealFormatter.formatAppealForAssigningAppeals(appeal, 'appeal already assigned'));
+		}
+	}));
+	return { successfullyAssigned: successfullyAssigned, unsuccessfullyAssigned: unsuccessfullyAssigned };
 };

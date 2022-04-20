@@ -1,5 +1,5 @@
 import appealRepository from '../server/app/repositories/appeal.repository.js';
-import { transitionState } from '../server/app/state-machine/household-appeal.machine.js';
+import { transitionState } from '../server/app/state-machine/transition-state.js';
 
 /**
  * @returns {Array} array of appeals that are in 'site_visit_booked' state which has passed inspection
@@ -15,7 +15,7 @@ async function getAppealsWithPassedInspections() {
 async function markAppealsAsDecisionDue(appeals) {
 	const updatedAppeals = [];
 	for (const appeal of appeals) {
-		const newStatus = transitionState({ appealId: appeal.id }, appeal.status, 'BOOKING_PASSED');
+		const newStatus = transitionState('household', { appealId: appeal.id }, 'site_visit_booked', 'BOOKING_PASSED');
 		updatedAppeals.push(appealRepository.updateStatusById(appeal.id, newStatus.value));
 	}
 	await Promise.all(updatedAppeals);

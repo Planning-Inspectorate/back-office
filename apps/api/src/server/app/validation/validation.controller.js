@@ -1,125 +1,44 @@
-// eslint-disable-next-line import/no-unresolved
-import got from 'got';
 import appealRepository from '../repositories/appeal.repository.js';
-import validationDecisionRepository from '../repositories/validation-decision.repository.js';
-import ValidationError from './validation-error.js';
-import { transitionState, validationStatesStrings } from '../state-machine/household-appeal.machine.js';
-import { validationActionsStrings } from '../state-machine/validation-states.js';
+import { appealStates } from '../state-machine/transition-state.js';
 import appealFormatter from './appeal-formatter.js';
-import { validationDecisions, validateAppealValidatedRequest, validateUpdateValidationRequest } from './validate-request.js';
+import { submitValidationDecisionService, obtainLPAListService, updateAppealService } from './validation.service.js';
 
 const validationStatuses = [
-	validationStatesStrings.received_appeal,
-	validationStatesStrings.awaiting_validation_info
+	appealStates.received_appeal,
+	appealStates.awaiting_validation_info
 ];
 
 const getAppealDetails = async function (request, response) {
-	const appeal = await getAppealForValidation(request.params.id);
+	const appeal = await appealRepository.getById(request.params.appealId, true, true, true);
 	const formattedAppeal = appealFormatter.formatAppealForAppealDetails(appeal);
 	return response.send(formattedAppeal);
 };
 
 const getAppeals = async function (_request, response) {
-	const appeals = await appealRepository.getByStatusesWithAddresses(validationStatuses);
+	const appeals = await appealRepository.getByStatuses(validationStatuses, true, true);
 	const formattedAppeals = appeals.map((appeal) => appealFormatter.formatAppealForAllAppeals(appeal));
 	response.send(formattedAppeals);
 };
 
-const nullIfUndefined = function(value) {
-	// eslint-disable-next-line unicorn/no-null
-	return value || null;
-};
-
 const updateAppeal = async function (request, response) {
-	validateUpdateValidationRequest(request);
-	const appeal = await getAppealForValidation(request.params.id);
-	const data = {
-		...(request.body.AppellantName && { appellant: { update: { name: request.body.AppellantName } } }),
-		...(request.body.Address && { address: { update: {
-			addressLine1: nullIfUndefined(request.body.Address.AddressLine1),
-			addressLine2: nullIfUndefined(request.body.Address.AddressLine2),
-			town: nullIfUndefined(request.body.Address.Town),
-			county: nullIfUndefined(request.body.Address.County),
-			postcode: nullIfUndefined(request.body.Address.PostCode)
-		} } }),
-		...(request.body.LocalPlanningDepartment && { localPlanningDepartment: request.body.LocalPlanningDepartment } ),
-		...(request.body.PlanningApplicationReference && { planningApplicationReference: request.body.PlanningApplicationReference })
-	};
-	await appealRepository.updateById(appeal.id, data);
+	await updateAppealService(
+		request.params.appealId, 
+		request.body.AppellantName, 
+		request.body.Address, 
+		request.body.LocalPlanningDepartment,
+		request.body.PlanningApplicationReference
+	);
 	return response.send();
 };
 
 const submitValidationDecision = async function (request, response) {
-	validateAppealValidatedRequest(request.body);
-	const appeal = await getAppealForValidation(request.params.id);
-	const machineAction = mapAppealStatusToStateMachineAction(request.body.AppealStatus);
-	const nextState = transitionState({ appealId: appeal.id }, appeal.status, machineAction);
-	await appealRepository.updateStatusById(appeal.id, nextState.value);
-	await validationDecisionRepository.addNewDecision(appeal.id, request.body.AppealStatus, request.body.Reason, request.body.descriptionOfDevelopment);
+	await submitValidationDecisionService(request.params.appealId, request.body.AppealStatus, request.body.Reason, request.body.descriptionOfDevelopment);
 	return response.send();
-};
-
-/**
- * @param {string} status status change action received in request
- * @returns {string} status change as expected by state machine
- */
-function mapAppealStatusToStateMachineAction(status) {
-	switch (status) {
-		case validationDecisions.valid:
-			return validationActionsStrings.valid;
-		case validationDecisions.invalid:
-			return validationActionsStrings.invalid;
-		case validationDecisions.incomplete:
-			return validationActionsStrings.information_missing;
-		default:
-			throw new ValidationError('Unknown AppealStatus', 400);
-	}
-}
-
-/**
- * @param {string} appealId appeal ID
- * @returns {object} appeal with given ID
- */
-async function getAppealForValidation(appealId) {
-	const appeal = await appealRepository.getByIdWithValidationDecisionAndAddress(Number.parseInt(appealId, 10));
-	if (!validationStatuses.includes(appeal.status)) {
-		throw new ValidationError('Appeal does not require validation', 400);
-	}
-	return appeal;
-}
-
-/**
- * @typedef {object} LocalPlanningDepartmentResponse
- * @property {LocalPlanningDepartment[]} features - A collection of requested LPAs in schema format.
- * @typedef {object} LocalPlanningDepartment
- * @property {object} attributes - A dictionary of request attributes
- * @property {string} attributes.LPA21NM - The name of the local planning department
- */
-
-/**
- * Fetch a list of planning departments from the remote arcgis service.
- *
- * @returns {Promise<string[]>} - A list of local planning department names.
- */
-const obtainLPAList = async function () {
-	const { body } = await /** @type {Promise<import('got').Response<LocalPlanningDepartmentResponse>>} */ (
-		got.get('https://services1.arcgis.com/ESMARspQHYMw9BZ9/arcgis/rest/services/LPA_APR_2021_UK_NC/FeatureServer/0/query', {
-			responseType: 'json',
-			searchParams: {
-				where: '1=1',
-				outFields: 'LPA21NM',
-				outSR: 4326,
-				f: 'json'
-			}
-		})
-	);
-
-	return body.features.map((feature) => feature.attributes.LPA21NM);
 };
 
 /** @type {import('express').RequestHandler } */
 const getLPAList = async function (_request, response) {
-	const LPAList = await obtainLPAList();
+	const LPAList = await obtainLPAListService();
 	return response.send(LPAList);
 };
 

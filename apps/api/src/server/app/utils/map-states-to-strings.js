@@ -1,7 +1,7 @@
-import _ from 'lodash';
+import { mapValues } from 'lodash-es';
 
 const mapObjectKeysToStrings = function(object) {
-	return _.mapValues(object, function(_value, key) { 
+	return mapValues(object, function(_value, key) { 
 		return key;
 	});
 };

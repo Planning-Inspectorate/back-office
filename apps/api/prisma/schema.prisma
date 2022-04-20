@@ -12,14 +12,13 @@ model Appeal {
   reference                    String
   address                      Address                     @relation(fields: [addressId], references: [id])
   addressId                    Int
-  status                       String                      @default("received_appeal")
+  appealStatus                 AppealStatus[]
   appellant                    Appellant?                  @relation(fields: [appellantId], references: [id])
   appellantId                  Int?                        @unique
   localPlanningDepartment      String
   planningApplicationReference String
   createdAt                    DateTime                    @default(now())
   updatedAt                    DateTime                    @default(now())
-  statusUpdatedAt              DateTime                    @default(now())
   startedAt                    DateTime?
   validationDecision           ValidationDecision[]
   reviewQuestionnaire          ReviewQuestionnaire[]
@@ -29,6 +28,16 @@ model Appeal {
   user                         User?                       @relation(fields: [userId], references: [id])
   userId                       Int?
   appealDetailsFromAppellant   AppealDetailsFromAppellant?
+}
+
+model AppealStatus {
+  id                  Int      @id @default(autoincrement())
+  status              String   @default("received_appeal")
+  createdAt           DateTime @default(now())
+  subStateMachineName String?
+  valid               Boolean  @default(true)
+  appeal              Appeal   @relation(fields: [appealId], references: [id])
+  appealId            Int
 }
 
 model Appellant {

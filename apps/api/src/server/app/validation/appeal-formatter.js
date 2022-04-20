@@ -1,13 +1,18 @@
 import formatAddress from '../utils/address-formatter.js';
-import { validationStatesStrings } from '../state-machine/household-appeal.machine.js';
 import formatDate from '../utils/date-formatter.js';
+import { appealStates } from '../state-machine/transition-state.js';
+import { arrayOfStatusesContainsString } from '../utils/array-of-statuses-contains-string.js'
+
+const appealAwaitingValidationInfo = function(appeal) {
+	return arrayOfStatusesContainsString(appeal.appealStatus, [appealStates.awaiting_validation_info])
+};
 
 /**
  * @param {string} status appeal status
  * @returns {string} reformatted appeal status
  */
-function mapAppealStatus(status) {
-	return status == validationStatesStrings.received_appeal ? 'new' : 'incomplete';
+function mapAppealStatus(appeal) {
+	return appealAwaitingValidationInfo(appeal) ? 'incomplete' : 'new';
 }
 
 const formatIncompleteReason = function(incompleteValidationDecision) {
@@ -33,21 +38,21 @@ const appealFormatter = {
 		return {
 			AppealId: appeal.id,
 			AppealReference: appeal.reference,
-			AppealStatus: mapAppealStatus(appeal.status),
+			AppealStatus: mapAppealStatus(appeal),
 			Received: formatDate(appeal.createdAt),
 			AppealSite: formatAddress(appeal.address)
 		};
 	},
 	formatAppealForAppealDetails: function(appeal) {
 		const incompleteValidationDecision = appeal.validationDecision.find((decision) => decision.decision == 'incomplete');
-		const validationDecision = appeal.status == 'awaiting_validation_info' ?
+		const validationDecision = appealAwaitingValidationInfo(appeal) ?
 			formatIncompleteReason(incompleteValidationDecision) :
 			{};
 		return {
 			AppealId: appeal.id,
 			AppealReference: appeal.reference,
 			AppellantName: appeal.appellant.name,
-			AppealStatus: mapAppealStatus(appeal.status),
+			AppealStatus: mapAppealStatus(appeal),
 			Received: formatDate(appeal.createdAt),
 			AppealSite: formatAddress(appeal.address),
 			LocalPlanningDepartment: appeal.localPlanningDepartment,

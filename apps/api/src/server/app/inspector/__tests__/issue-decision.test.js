@@ -2,7 +2,6 @@
 
 // eslint-disable-next-line import/no-unresolved
 import test from 'ava';
-import { find } from 'lodash-es';
 import path from 'path';
 import sinon, { assert } from 'sinon';
 import supertest from 'supertest';
@@ -24,21 +23,29 @@ const request = supertest(app);
 const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
 const pathToFile = path.join(__dirname, './assets/simple.pdf');
 
-/** @type {TestAppeal[]} */
-const appeals = [
-	{ id: 1, status: 'decision_due', userId: 100 },
-	{ id: 2, status: 'available_for_inspector_pickup', userId: 100 }
-];
-const updateById = sinon.stub(appealRepository, 'updateById').callsFake((id, { status }) => {
-	const appeal = find(appeals, { id });
-	return Promise.resolve({ ...appeal, status });
-});
+const appeal_1 = {
+	id: 1,
+	appealStatus: [{
+		status: 'decision_due',
+		valid: true
+	}],
+	userId: 100
+};
+const appeal_2 = {
+	id: 2,
+	appealStatus: [{
+		status: 'available_for_inspector_pickup',
+		valid: true
+	}],
+	userId: 100
+};
 
-sinon.stub(appealRepository, 'getById').callsFake((id) => find(appeals, { id }));
-
-test.beforeEach(() => {
-	updateById.resetHistory();
-});
+const updateStatusAndDataByIdStub = sinon.stub();
+const appealRespositoryGetByIdStub = sinon.stub();
+appealRespositoryGetByIdStub.withArgs(1).returns(appeal_1);
+appealRespositoryGetByIdStub.withArgs(2).returns(appeal_2);
+sinon.stub(appealRepository, 'getById').callsFake(appealRespositoryGetByIdStub);
+sinon.stub(appealRepository, 'updateStatusAndDataById').callsFake(updateStatusAndDataByIdStub);
 
 test('succeeds with a 200 when issuing a decision', async (t) => {
 	const response = await request
@@ -47,8 +54,7 @@ test('succeeds with a 200 when issuing a decision', async (t) => {
 		.attach('decisionLetter', pathToFile)
 		.field('outcome', 'allowed');
 
-	assert.calledWith(updateById, 1, {
-		status: 'appeal_decided',
+	assert.calledWith(updateStatusAndDataByIdStub, 1, 'appeal_decided', {
 		inspectorDecision: {
 			create: {
 				appealId: 1,

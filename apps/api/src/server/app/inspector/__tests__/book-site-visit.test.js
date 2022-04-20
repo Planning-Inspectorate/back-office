@@ -4,7 +4,6 @@ import { yesterday } from '@pins/platform';
 // eslint-disable-next-line import/no-unresolved
 import test from 'ava';
 import format from 'date-fns/format/index.js';
-import { find } from 'lodash-es';
 import sinon, { assert } from 'sinon';
 import supertest from 'supertest';
 import { app } from '../../../app.js';
@@ -17,22 +16,36 @@ import { inspectorStates } from '../../state-machine/inspector-states.js';
  * @typedef {object} TestAppeal
  * @property {number} id
  * @property {number} userId
- * @property {InspectorState} status
+ * @property {array} appealStatus
  */
 
 const request = supertest(app);
 
-/** @type {TestAppeal[]} */
-const appeals = [{ id: 1, status: 'site_visit_not_yet_booked', userId: 100 }];
-const updateById = sinon.stub(appealRepository, 'updateById').callsFake((id, { status }) => {
-	const appeal = find(appeals, { id });
-	return Promise.resolve({ ...appeal, status });
-});
+/** @type {TestAppeal} */
+const appeal = {
+	id: 1, 
+	appealStatus: [{
+		status: 'site_visit_not_yet_booked',
+		valid: true
+	}],
+	userId: 100
+};
 
-sinon.stub(appealRepository, 'getById').callsFake((id) => find(appeals, { id }));
+const updatedAppeal = {
+	id: 1, 
+	appealStatus: [{
+		status: 'site_visit_booked',
+		valid: true
+	}],
+	userId: 100
+};
+
+const updateByIdStub = sinon.stub(appealRepository, 'updateStatusAndDataById').returns([undefined, undefined, updatedAppeal]);
+
+sinon.stub(appealRepository, 'getById').returns(appeal);
 
 test.beforeEach(() => {
-	updateById.resetHistory();
+	updateByIdStub.resetHistory();
 });
 
 const siteVisitBody = {
@@ -43,20 +56,19 @@ const siteVisitBody = {
 
 test('succeeds with a 200 when booking a site visit', async (t) => {
 	const response = await request.post('/inspector/1/book').set('userId', '100').send(siteVisitBody);
+	
+	t.is(response.status, 200);
+	t.deepEqual(response.body, { id: 1, status: 'site_visit_booked', userId: 100 });
 
-	assert.calledWith(updateById, 1, {
-		status: 'site_visit_booked',
+	assert.calledWith(updateByIdStub, 1, 'site_visit_booked', {
 		siteVisit: {
 			create: {
-				visitDate: new Date(siteVisitBody.siteVisitDate),
+				visitDate: new Date(2030, 0, 1),
 				visitSlot: '8am to 10am',
 				visitType: 'accompanied'
 			}
 		}
 	});
-
-	t.is(response.status, 200);
-	t.deepEqual(response.body, { id: 1, status: 'site_visit_booked', userId: 100 });
 });
 
 test('fails with a 401 status when no `userId` is present', async (t) => {

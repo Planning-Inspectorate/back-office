@@ -2,15 +2,18 @@
 import test from 'ava';
 import supertest from 'supertest';
 import sinon from 'sinon';
-import { app } from '../../app.js';
-import DatabaseFactory from '../repositories/database.js';
+import { app } from '../../../app.js';
+import DatabaseFactory from '../../repositories/database.js';
 
 const request = supertest(app);
 
 const appeal_1 = {
 	id: 1,
 	reference: 'APP/Q9999/D/21/1345264',
-	status: 'received_appeal',
+	appealStatus: [{
+		status: 'received_appeal',
+		valid: true
+	}],
 	createdAt: new Date(2022, 1, 23),
 	addressId: 1,
 	localPlanningDepartment: 'Maidstone Borough Council',
@@ -28,7 +31,10 @@ const appeal_1 = {
 const appeal_2 = {
 	id: 2,
 	reference: 'APP/Q9999/D/21/5463281',
-	status: 'awaiting_validation_info',
+	appealStatus: [{
+		status: 'awaiting_validation_info',
+		valid: true
+	}],
 	createdAt: new Date(2022, 1, 25),
 	addressId: 2,
 	address: {

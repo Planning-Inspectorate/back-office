@@ -1,5 +1,14 @@
 import DatabaseFactory from './database.js';
 
+const includeLatestReviewQuestionnaireFilter = {
+	reviewQuestionnaire: {
+		take: 1,
+		orderBy: {
+			createdAt: 'desc'
+		}
+	}
+};
+
 const appealRepository = (function() {
 	/**
 	 * @returns {object} connection to database
@@ -9,88 +18,80 @@ const appealRepository = (function() {
 	}
   
 	return {
-		getAll: function () {
-			return getPool().appeal.findMany();
-		},
-		getByStatuses: function (statuses) {
+		getByStatuses: function (
+			statuses, 
+			includeAddress = false,
+			includeAppellant = false
+		) {
 			return getPool().appeal.findMany({
 				where: {
-					status: {
-						in: statuses
+					appealStatus: {
+						every: {
+							status: {
+								in: statuses
+							},
+							valid: true
+						}
+					}
+				},
+				include: {
+					address: includeAddress,
+					appellant: includeAppellant,
+					appealStatus: {
+						where: {
+							valid: true
+						}
 					}
 				}
 			});
 		},
-		getByStatusesWithAddresses: function (statuses) {
-			return getPool().appeal.findMany({
+		getById: function (
+			id, 
+			includeAppellant = false,
+			includeValidationDecision = false,
+			includeAddress = false,
+			includeLatestLPAReviewQuestionnaire = false,
+			includeAppealDetailsFromAppellant = false,
+			includeLpaQuestionnaire = false
+		) {
+			return getPool().appeal.findUnique({
 				where: {
-					status: {
-						in: statuses
-					}
+					id: id
 				},
 				include: {
-					address: true,
-					appellant: true
+					appellant: includeAppellant,
+					validationDecision: includeValidationDecision,
+					address: includeAddress,
+					appealStatus: {
+						where: {
+							valid: true
+						}
+					},
+					appealDetailsFromAppellant: includeAppealDetailsFromAppellant,
+					lpaQuestionnaire: includeLpaQuestionnaire,
+					...( includeLatestLPAReviewQuestionnaire && includeLatestReviewQuestionnaireFilter )
 				}
 			});
 		},
-		getById: function (id) {
-			return getPool().appeal.findUnique({
-				where: {
-					id: id
-				},
-				include: {
-					appellant: true
-				}
+		invalidateAppealStatuses: function(id) {
+			return getPool().appealStatus.updateMany({
+				where: { appealId: id },
+				data: { valid: false }
 			});
 		},
-		getByIdIncluding: function(id, including) {
-			return getPool().appeal.findUnique({
-				where: {
-					id: id
-				},
-				include: including
-			});
-		},
-		getByIdWithAddress: function(id) {
-			return getPool().appeal.findUnique({
-				where: {
-					id: id
-				},
-				include: {
-					address: true,
-					appellant: true
-				}
-			});
-		},
-		getByIdWithValidationDecision: function(id) {
-			return getPool().appeal.findUnique({
-				where: {
-					id: id
-				},
-				include: {
-					validationDecision: true
-				}
-			});
-		},
-		getByIdWithValidationDecisionAndAddress: function(id) {
-			return getPool().appeal.findUnique({
-				where: {
-					id: id
-				},
-				include: {
-					validationDecision: true,
-					address: true,
-					appellant: true
+		createNewStatuses: function(id, status) {
+			return getPool().appealStatus.create({
+				data: {
+					status: status,
+					appealId: id
 				}
 			});
 		},
 		updateStatusById: function(id, status) {
-			const updatedAt = new Date();
-			return getPool().appeal.update({
-				where: { id: id },
-				data: { status: status, statusUpdatedAt: updatedAt, updatedAt: updatedAt }
-			});
+			return getPool().$transaction([
+				this.invalidateAppealStatuses(id),
+				this.createNewStatuses(id, status)
+			]);
 		},
 		updateById: function(id, data) {
 			const updatedAt = new Date();
@@ -99,12 +100,24 @@ const appealRepository = (function() {
 				data: { updatedAt: updatedAt, ...data }
 			});
 		},
+		updateStatusAndDataById: function(id, status, data) {
+			return getPool().$transaction([	
+				this.invalidateAppealStatuses(id),
+				this.createNewStatuses(id, status),
+				this.updateById(id, data)
+			]);
+		},
 		getByStatusAndLessThanStatusUpdatedAtDate: function(status, lessThanStatusUpdatedAt) {
 			return getPool().appeal.findMany({
 				where: {
-					status: status,
-					statusUpdatedAt: {
-						lt: lessThanStatusUpdatedAt
+					appealStatus: {
+						every: {
+							status: status,
+							valid: true,
+							createdAt: {
+								lt: lessThanStatusUpdatedAt
+							}
+						}
 					}
 				}
 			});
@@ -112,7 +125,12 @@ const appealRepository = (function() {
 		getByStatusAndInspectionBeforeDate: function(status, lessThanInspectionDate) {
 			return getPool().appeal.findMany({
 				where: {
-					status: status,
+					appealStatus: {
+						every: {
+							status: status,
+							valid: true
+						}
+					},
 					siteVisit: {
 						visitDate: {
 							lt: lessThanInspectionDate
@@ -124,8 +142,13 @@ const appealRepository = (function() {
 		getByStatusesAndUserId: function(statuses, userId) {
 			return getPool().appeal.findMany({
 				where: {
-					status: {
-						in: statuses
+					appealStatus: {
+						every: {
+							status: {
+								in: statuses
+							},
+							valid: true
+						}
 					},
 					userId: userId
 				},
@@ -134,7 +157,12 @@ const appealRepository = (function() {
 					siteVisit: true,
 					lpaQuestionnaire: true,
 					appealDetailsFromAppellant: true,
-					appellant: true
+					appellant: true,
+					appealStatus: {
+						where: {
+							valid: true
+						}
+					}
 				}
 			});
 		}

@@ -1,5 +1,6 @@
 import appealRepository from '../server/app/repositories/appeal.repository.js';
-import createHouseholpAppealMachine from '../server/app/state-machine/household-appeal.machine.js';
+import { transitionState } from '../server/app/state-machine/transition-state.js';
+import { arrayOfStatusesContainsString } from '../server/app/utils/array-of-statuses-contains-string.js';
 
 /**
  * @returns {Array} array of appeals that are in 'awaiting_lpa_questionnaire' or 'overdue_lpa_questionnaire' states
@@ -15,7 +16,9 @@ async function getAppealsAwaitingQuestionnaires() {
 async function markAppealsAsLPAReceived(appeals) {
 	const updatedAppeals = [];
 	for (const appeal of appeals) {
-		const newStatus = createHouseholpAppealMachine(appeal.id).transition(appeal.status, 'RECEIVED');
+		const appealStatus = arrayOfStatusesContainsString(appeal.appealStatus, 'awaiting_lpa_questionnaire') ? 
+			'awaiting_lpa_questionnaire' : 'overdue_lpa_questionnaire';
+		const newStatus = transitionState('household', { appealId: appeal.id }, appealStatus, 'RECEIVED');
 		updatedAppeals.push(appealRepository.updateStatusById(appeal.id, newStatus.value));
 	}
 	await Promise.all(updatedAppeals);

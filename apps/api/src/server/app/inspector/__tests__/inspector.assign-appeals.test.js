@@ -2,8 +2,8 @@
 import test from 'ava';
 import supertest from 'supertest';
 import sinon from 'sinon';
-import { app } from '../../app.js';
-import DatabaseFactory from '../repositories/database.js';
+import { app } from '../../../app.js';
+import DatabaseFactory from '../../repositories/database.js';
 
 const request = supertest(app);
 
@@ -11,7 +11,10 @@ const request = supertest(app);
 const appeal_1 = {
 	id: 1,
 	reference: 'APP/Q9999/D/21/1345264',
-	status: 'available_for_inspector_pickup',
+	appealStatus: [{
+		status: 'available_for_inspector_pickup',
+		valid: true
+	}],
 	createdAt: new Date(2022, 1, 23),
 	localPlanningDepartment: 'Maidstone Borough Council',
 	planningApplicationReference: '48269/APP/2021/1482',
@@ -41,7 +44,10 @@ const appeal_1 = {
 const appeal_2 = {
 	id: 2,
 	reference: 'APP/Q9999/D/21/5463281',
-	status: 'available_for_inspector_pickup',
+	appealStatus: [{
+		status: 'available_for_inspector_pickup',
+		valid: true
+	}],
 	createdAt: new Date(2022, 1, 25),
 	startedAt: new Date(2022, 3, 29),
 	address: {
@@ -66,7 +72,10 @@ const appeal_2 = {
 const appeal_3 = {
 	id: 3,
 	reference: 'APP/Q9999/D/21/5463281',
-	status: 'available_for_inspector_pickup',
+	appealStatus: [{
+		status: 'available_for_inspector_pickup',
+		valid: true
+	}],
 	createdAt: new Date(2022, 1, 25),
 	startedAt: new Date(2022, 3, 29),
 	address: {
@@ -80,9 +89,6 @@ const appeal_3 = {
 	},
 	appealDetailsFromAppellant: {
 		siteVisibleFromPublicLand: true
-	},
-	appealDetailsFromAppellant: {
-		siteVisibleFromPublicLand: false
 	},
 	userId: undefined
 };
@@ -90,7 +96,10 @@ const appeal_3 = {
 const appeal_4 = {
 	id: 4,
 	reference: 'APP/Q9999/D/21/5463281',
-	status: 'site_visit_not_yet_booked',
+	appealStatus: [{
+		status: 'site_visit_not_yet_booked',
+		valid: true
+	}],
 	createdAt: new Date(2022, 1, 25),
 	startedAt: new Date(2022, 3, 29),
 	address: {
@@ -101,9 +110,6 @@ const appeal_4 = {
 	siteVisit: {},
 	lpaQuestionnaire: {
 		siteVisibleFromPublicLand: true
-	},
-	appealDetailsFromAppellant: {
-		siteVisibleFromPublicLand: false
 	},
 	appealDetailsFromAppellant: {
 		siteVisibleFromPublicLand: false
@@ -114,7 +120,10 @@ const appeal_4 = {
 const appeal_5 = {
 	id: 5,
 	reference: 'APP/Q9999/D/21/5463281',
-	status: 'available_for_inspector_pickup',
+	appealStatus: [{
+		status: 'available_for_inspector_pickup',
+		valid: true
+	}],
 	createdAt: new Date(2022, 1, 25),
 	startedAt: new Date(2022, 3, 29),
 	address: {
@@ -129,20 +138,38 @@ const appeal_5 = {
 	appealDetailsFromAppellant: {
 		siteVisibleFromPublicLand: false
 	},
-	appealDetailsFromAppellant: {
-		siteVisibleFromPublicLand: false
-	},
 	userId: 10
 };
 
+const includeRelations = { 
+	appellant: true, 
+	validationDecision: false,
+	address: true, 
+	appealDetailsFromAppellant: true,
+	appealStatus: {
+		where: {
+			valid: true
+		}
+	},
+	lpaQuestionnaire: true,
+	reviewQuestionnaire: {
+		take: 1,
+		orderBy: {
+			createdAt: 'desc'
+		}
+	}
+};
+
 const findUniqueStub = sinon.stub();
-findUniqueStub.withArgs({ where: { id: 1 }, include: { address: true, appellant: true, appealDetailsFromAppellant: true } }).returns(appeal_1);
-findUniqueStub.withArgs({ where: { id: 2 }, include: { address: true, appellant: true, appealDetailsFromAppellant: true } }).returns(appeal_2);
-findUniqueStub.withArgs({ where: { id: 3 }, include: { address: true, appellant: true, appealDetailsFromAppellant: true } }).returns(appeal_3);
-findUniqueStub.withArgs({ where: { id: 4 }, include: { address: true, appellant: true, appealDetailsFromAppellant: true } }).returns(appeal_4);
-findUniqueStub.withArgs({ where: { id: 5 }, include: { address: true, appellant: true, appealDetailsFromAppellant: true } }).returns(appeal_5);
+findUniqueStub.withArgs({ where: { id: 1 }, include: includeRelations }).returns(appeal_1);
+findUniqueStub.withArgs({ where: { id: 2 }, include: includeRelations }).returns(appeal_2);
+findUniqueStub.withArgs({ where: { id: 3 }, include: includeRelations }).returns(appeal_3);
+findUniqueStub.withArgs({ where: { id: 4 }, include: includeRelations }).returns(appeal_4);
+findUniqueStub.withArgs({ where: { id: 5 }, include: includeRelations }).returns(appeal_5);
 
 const updateStub = sinon.stub();
+const updateManyAppealStatusStub = sinon.stub();
+const createAppealStatusStub = sinon.stub();
 
 class MockDatabaseClass {
 	constructor(_parameters) {
@@ -150,31 +177,33 @@ class MockDatabaseClass {
 			appeal: {
 				findUnique: findUniqueStub,
 				update: updateStub
-			}
+			},
+			appealStatus: {
+				updateMany: updateManyAppealStatusStub,
+				create: createAppealStatusStub
+			},
+			$transaction: sinon.stub()
 		};
 	}
 }
 
 test.before('setup mock', () => {
 	sinon.stub(DatabaseFactory, 'getInstance').callsFake((arguments_) => new MockDatabaseClass(arguments_));
-	const clock = sinon.useFakeTimers({ now: 1_649_319_144_000 });
+	sinon.useFakeTimers({ now: 1_649_319_144_000 });
 });
 
 test('assigns all appeals as they are all available', async(t) => {
 	const resp = await request.post('/inspector/assign').set('userId', 1).send([1, 2, 3]);
 	t.is(resp.status, 200);
-	sinon.assert.calledWith(updateStub, {
-		where: { id: 1 },
-		data: { updatedAt: sinon.match.any, status: 'site_visit_not_yet_booked', user: { connect: { id: 1 } } }
-	});
-	sinon.assert.calledWith(updateStub, {
-		where: { id: 2 },
-		data: { updatedAt: sinon.match.any, status: 'site_visit_not_yet_booked', user: { connect: { id: 1 } }  }
-	});
-	sinon.assert.calledWith(updateStub, {
-		where: { id: 3 },
-		data: { updatedAt: sinon.match.any, status: 'site_visit_not_yet_booked', user: { connect: { id: 1 } }  }
-	});
+	sinon.assert.calledWith(updateManyAppealStatusStub, { where: { appealId: 1 }, data: { valid: false } });
+	sinon.assert.calledWith(createAppealStatusStub, { data: { status: 'site_visit_not_yet_booked', appealId: 1 } });
+	sinon.assert.calledWith(updateStub, { where: { id: 1 }, data: { updatedAt: sinon.match.any, user: { connect: { id: 1 } } } });
+	sinon.assert.calledWith(updateManyAppealStatusStub, { where: { appealId: 2 }, data: { valid: false } });
+	sinon.assert.calledWith(createAppealStatusStub, { data: { status: 'site_visit_not_yet_booked', appealId: 2 } });
+	sinon.assert.calledWith(updateStub, { where: { id: 2 }, data: { updatedAt: sinon.match.any, user: { connect: { id: 1 } } } });
+	sinon.assert.calledWith(updateManyAppealStatusStub, { where: { appealId: 3 }, data: { valid: false } });
+	sinon.assert.calledWith(createAppealStatusStub, { data: { status: 'site_visit_not_yet_booked', appealId: 3 } });
+	sinon.assert.calledWith(updateStub, { where: { id: 3 }, data: { updatedAt: sinon.match.any, user: { connect: { id: 1 } } } });
 	t.deepEqual(resp.body, { successfullyAssigned: [{
 		appealId: 1,
 		reference: 'APP/Q9999/D/21/1345264',
@@ -206,7 +235,7 @@ test('assigns all appeals as they are all available', async(t) => {
 		appealType: 'HAS',
 		specialist: 'General',
 		appealAge: 22,
-		provisionalVisitType: 'access required',
+		provisionalVisitType: 'unaccompanied',
 		appealSite: {
 			addressLine1: '55 Butcher Street',
 			town: 'Thurnscoe',
@@ -218,17 +247,16 @@ test('assigns all appeals as they are all available', async(t) => {
 test('unable to assign appeals that are not in the appropriate state', async(t) => {
 	const resp = await request.post('/inspector/assign').set('userId', 1).send([3, 4]);
 	t.is(resp.status, 200);
-	sinon.assert.calledWith(updateStub, {
-		where: { id: 3 },
-		data: { updatedAt: sinon.match.any, status: 'site_visit_not_yet_booked', user: { connect: { id: 1 } }  }
-	});
+	sinon.assert.calledWith(updateManyAppealStatusStub, { where: { appealId: 3 }, data: { valid: false } });
+	sinon.assert.calledWith(createAppealStatusStub, { data: { status: 'site_visit_not_yet_booked', appealId: 3 } });
+	sinon.assert.calledWith(updateStub, { where: { id: 3 }, data: { updatedAt: sinon.match.any, user: { connect: { id: 1 } } } });
 	t.deepEqual(resp.body, { successfullyAssigned: [{
 		appealId: 3,
 		reference: 'APP/Q9999/D/21/5463281',
 		appealType: 'HAS',
 		specialist: 'General',
 		appealAge: 22,
-		provisionalVisitType: 'access required',
+		provisionalVisitType: 'unaccompanied',
 		appealSite: {
 			addressLine1: '55 Butcher Street',
 			town: 'Thurnscoe',
@@ -253,10 +281,9 @@ test('unable to assign appeals that are not in the appropriate state', async(t) 
 test('unable to assign appeals that are already assigned to someone', async (t) => {
 	const resp = await request.post('/inspector/assign').set('userId', 1).send([1, 5]);
 	t.is(resp.status, 200);
-	sinon.assert.calledWith(updateStub, {
-		where: { id: 1 },
-		data: { updatedAt: sinon.match.any, status: 'site_visit_not_yet_booked', user: { connect: { id: 1 } }  }
-	});
+	sinon.assert.calledWith(updateManyAppealStatusStub, { where: { appealId: 1 }, data: { valid: false } });
+	sinon.assert.calledWith(createAppealStatusStub, { data: { status: 'site_visit_not_yet_booked', appealId: 1 } });
+	sinon.assert.calledWith(updateStub, { where: { id: 1 }, data: { updatedAt: sinon.match.any, user: { connect: { id: 1 } } } });
 	t.deepEqual(resp.body, { successfullyAssigned: [{
 		appealId: 1,
 		reference: 'APP/Q9999/D/21/1345264',

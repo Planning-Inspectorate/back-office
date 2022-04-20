@@ -49,16 +49,21 @@ const appeal = {
 		affectsListedBuilding: false,
 		inOrNearConservationArea: false,
 	},
-	validationDecision: [{
-		decision: 'complete',
-		descriptionOfDevelopment: 'some description of development'
-	}]
+	validationDecision: [
+		{
+			decision: 'incomplete'
+		},
+		{
+			decision: 'complete',
+			descriptionOfDevelopment: 'some description of development'
+		}
+	]
 };
 
-sinon.stub(appealRepository, 'getByIdIncluding').returns(appeal);
 sinon.stub(appealRepository, 'getById').returns(appeal);
 
 test('returns appeal details', async (t) => {
+	sinon.useFakeTimers({ now: 1_649_319_144_000 });
 	const response = await request.get('/inspector/1').set('userId', '1');
 	t.is(response.status, 200);
 	t.deepEqual(response.body, {
@@ -69,7 +74,7 @@ test('returns appeal details', async (t) => {
 		email: 'maria.sharma@gmail.com',
 		descriptionOfDevelopment: 'some description of development',
 		appealReceivedDate: '12 December 2020',
-		appealAge: 12,
+		appealAge: 24,
 		extraConditions: false,
 		affectsListedBuilding: false,
 		inGreenBelt: false,

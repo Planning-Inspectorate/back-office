@@ -1,5 +1,5 @@
 import appealRepository from '../server/app/repositories/appeal.repository.js';
-import { transitionState } from '../server/app/state-machine/household-appeal.machine.js';
+import { transitionState } from '../server/app/state-machine/transition-state.js';
 
 /**
  * @returns {Date} date two weeks ago
@@ -29,7 +29,7 @@ async function getAppealsWithOverdueQuestionnaires() {
 async function markAppealsAsOverdue(appeals) {
 	const updatedAppeals = [];
 	for (const appeal of appeals) {
-		const newStatus = transitionState({ appealId: appeal.id }, appeal.status, 'OVERDUE');
+		const newStatus = transitionState('household', { appealId: appeal.id }, 'awaiting_lpa_questionnaire', 'OVERDUE');
 		updatedAppeals.push(appealRepository.updateStatusById(appeal.id, newStatus.value));
 	}
 	await Promise.all(updatedAppeals);

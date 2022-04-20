@@ -1,7 +1,8 @@
 import formatAddress from '../utils/address-formatter.js';
 import formatDate from '../utils/date-formatter.js';
 import formatReviewQuestionnaire from '../utils/review-questionnaire-formatter.js';
-import { lpaQuestionnaireStatesStrings } from '../state-machine/household-appeal.machine.js';
+import { appealStates } from '../state-machine/transition-state.js';
+import { arrayOfStatusesContainsString } from '../utils/array-of-statuses-contains-string.js';
 
 const add2Weeks = function (date) {
 	const newDate = new Date(date.valueOf());
@@ -10,25 +11,26 @@ const add2Weeks = function (date) {
 };
 
 /**
- * @param {string} status appeal status
+ * @param {Array} status appeal status array
  * @returns {string} reformatted appeal status
  */
-function mapAppealStatus(status) {
-	switch (status) {
-		case lpaQuestionnaireStatesStrings.awaiting_lpa_questionnaire:
-			return 'awaiting';
-		case lpaQuestionnaireStatesStrings.overdue_lpa_questionnaire:
-			return 'overdue';
-		case lpaQuestionnaireStatesStrings.received_lpa_questionnaire:
-			return 'received';
-		default:
-			return status;
+function mapAppealStatus(appealStatuses) {
+	if (arrayOfStatusesContainsString(appealStatuses, [appealStates.awaiting_lpa_questionnaire])) {
+		return 'awaiting';
+	} else if (arrayOfStatusesContainsString(appealStatuses, [appealStates.overdue_lpa_questionnaire])) {
+		return 'overdue';
+	} else if (arrayOfStatusesContainsString(appealStatuses, [appealStates.received_lpa_questionnaire])) {
+		return 'received';
+	} else if (arrayOfStatusesContainsString(appealStatuses, [appealStates.incomplete_lpa_questionnaire])) {
+		return 'incomplete_lpa_questionnaire';
+	} else {
+		return '';
 	}
 }
 
 const appealFormatter = {
 	formatAppealForAllAppeals: function (appeal) {
-		const appealStatus = mapAppealStatus(appeal.status);
+		const appealStatus = mapAppealStatus(appeal.appealStatus);
 		return {
 			AppealId: appeal.id,
 			AppealReference: appeal.reference,
