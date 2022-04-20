@@ -59,6 +59,7 @@ export const appealFormatter = {
 			appealId: appeal.id,
 			reference: appeal.reference,
 			provisionalSiteVisitType: provisionalAppealSiteVisitType(appeal),
+			status: formatStatus(appeal.appealStatus),
 			appellantName: appeal.appellant.name,
 			agentName: appeal.appellant.agentName,
 			email: appeal.appellant.email,

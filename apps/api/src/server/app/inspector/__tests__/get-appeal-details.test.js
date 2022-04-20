@@ -11,7 +11,9 @@ const appeal = {
 	reference: 'APP/2021/56789/4909983',
 	localPlanningDepartment: 'some other department',
 	planningApplicationReference: 'XYZ',
-	status: 'site_visit_not_yet_booked',
+	appealStatus: [{
+		status: 'site_visit_not_yet_booked'
+	}],
 	createdAt: new Date(2020, 11, 12, 9),
 	appellant: {
 		name: 'Maria Sharma',
@@ -68,6 +70,7 @@ test('returns appeal details', async (t) => {
 	t.is(response.status, 200);
 	t.deepEqual(response.body, {
 		appealId: 1,
+		status: 'not yet booked',
 		reference: 'APP/2021/56789/4909983',
 		provisionalSiteVisitType: 'unaccompanied',
 		appellantName: 'Maria Sharma',
