@@ -171,7 +171,7 @@ export const updateListedBuildingDescription = async ({ body, params }, response
 		await lpaService.updateAppeal(params.appealId, body);
 
 		response.redirect(`/lpa/appeals/${params.appealId}`);
-	}	
+	}
 };
 
 /**

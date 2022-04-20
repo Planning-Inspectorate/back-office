@@ -7,85 +7,117 @@
 
 {% set incompleteAppeals = appeals | filter({QuestionnaireStatus: 'incomplete_lpa_questionnaire'}) %}
 {% set newAppeals = appeals | difference(incompleteAppeals) %}
+{% set awaitingStatementsAppeals = appeals | difference(incompleteAppeals) %}
+{% set awaitingFinalCommentsAppeals = appeals | difference(incompleteAppeals) %}
 
 {% block pageContent %}
-		{% if newAppeals.length > 0 %}
-			{{ 
-				questionnairesTable({
-					caption: 'Incoming questionnaires',
-					appeals: newAppeals
-				})
-			}}
-		{% else %}
-			<h2 class="govuk-heading-l govuk-!-margin-bottom-3">
-				Incoming questionnaires
-			</h2>
-			{{ infoBox({ text: "No incoming questionnaires", classes: "govuk-!-margin-bottom-8" }) }}
+	{% if newAppeals.length > 0 %}
+		{{
+			questionnairesTable({
+				caption: 'Incoming questionnaires',
+				appeals: newAppeals
+			})
+		}}
+	{% else %}
+		<h2 class="govuk-heading-l govuk-!-margin-bottom-3">
+			Incoming questionnaires
+		</h2>
+		{{ infoBox({ text: "No incoming questionnaires", classes: "govuk-!-margin-bottom-8" }) }}
 	{% endif %}
-
-		{% if incompleteAppeals.length > 0 %}
-			{{ 
-				questionnairesTable({
-					caption: 'Incomplete questionnaires',
-					appeals: incompleteAppeals
-				})
-			}}
-		{% else %}
-			<h2 class="govuk-heading-l govuk-!-margin-bottom-3">
-					Incomplete questionnaires
-			</h2>
-			{{ infoBox({ text: "No incomplete questionnaires" }) }}
-		{% endif %}
+	{# -------------------------------- #}
+	{% if incompleteAppeals.length > 0 %}
+		{{
+			questionnairesTable({
+				caption: 'Incomplete questionnaires',
+				appeals: incompleteAppeals
+			})
+		}}
+	{% else %}
+		<h2 class="govuk-heading-l govuk-!-margin-bottom-3">
+			Incomplete questionnaires
+		</h2>
+		{{ infoBox({ text: "No incomplete questionnaires" }) }}
+	{% endif %}
+	{# -------------------------------- #}
+	{% if awaitingStatementsAppeals.length > 0 %}
+		{{
+			questionnairesTable({
+				caption: 'Appeals awaiting statements',
+				appeals: awaitingStatementsAppeals
+			})
+		}}
+	{% else %}
+		<h2 class="govuk-heading-l govuk-!-margin-bottom-3">
+			Appeals awaiting statements
+		</h2>
+		{{ infoBox({ text: "No appeals awaiting statements", classes: "govuk-!-margin-bottom-8" }) }}
+	{% endif %}
+	{# -------------------------------- #}
+	{% if awaitingFinalCommentsAppeals.length > 0 %}
+		{{
+			questionnairesTable({
+				caption: 'Appeals awaiting final comments',
+				appeals: awaitingFinalCommentsAppeals
+			})
+		}}
+	{% else %}
+		<h2 class="govuk-heading-l govuk-!-margin-bottom-3">
+			Appeals awaiting final comments
+		</h2>
+		{{ infoBox({ text: "No appeals awaiting final comments", classes: "govuk-!-margin-bottom-8" }) }}
+	{% endif %}
 {% endblock %}
 
 {% macro questionnairesTable(params) %}
-		{% set rows = [] %}
-		{% for appeal in params.appeals %}
-			{% set row = [] %}
-			{% if['received', 'incomplete_lpa_questionnaire'] | includes(appeal.QuestionnaireStatus) %}
-				{% set row = row | concat({ html: createAppealLink(appeal) }) %}
-			{% else %}
-				{% set row = row | concat({ text: appeal.AppealReference }) %}
-			{% endif %}
-			{% set row = row | concat({ text: appeal.QuestionnaireDueDate }) %}
-			{% set row = row | concat({ text: appeal.AppealSite | collapse(', ') }) %}
-			{% set row = row | concat({ html: createStatusTag(appeal.QuestionnaireStatus) }) %}
-			{% set rows = rows | concat([row]) %}
-		{% endfor %}
-		{{
-			govukTable({
-				caption: params.caption,
-				captionClasses: "govuk-table__caption--l",
-				head: [
-					{ text: "Appeal reference", classes: 'pins-table__cell--l' },
-					{ text: "Date due", classes: 'pins-table__cell--m' },
-					{ text: "Appeal site" },
-					{ text: "Status", classes: 'pins-table__cell--s' }
-				],
-				rows: rows
-			})
-		}}
+	{% set rows = [] %}
+	{% for appeal in params.appeals %}
+		{% set row = [] %}
+
+		{% if['received', 'incomplete_lpa_questionnaire'] | includes(appeal.QuestionnaireStatus) %}
+			{% set row = row | concat({ html: createAppealLink(appeal) }) %}
+		{% else %}
+			{% set row = row | concat({ text: appeal.AppealReference }) %}
+		{% endif %}
+
+		{% set row = row | concat({ text: appeal.QuestionnaireDueDate }) %}
+		{% set row = row | concat({ text: appeal.AppealSite | collapse(', ') }) %}
+		{% set row = row | concat({ html: createStatusTag(appeal.QuestionnaireStatus) }) %}
+		{% set rows = rows | concat([row]) %}
+	{% endfor %}
+	{{
+		govukTable({
+			caption: params.caption,
+			captionClasses: "govuk-table__caption--l",
+			head: [
+				{ text: "Appeal reference", classes: 'pins-table__cell--l' },
+				{ text: "Date due", classes: 'pins-table__cell--m' },
+				{ text: "Appeal site" },
+				{ text: "Status", classes: 'pins-table__cell--s' }
+			],
+			rows: rows
+		})
+	}}
 {% endmacro %}
 
 {% macro createAppealLink(appeal) %}
-		<a class="govuk-link" href="/lpa/appeals/{{ appeal.AppealId }}">{{ appeal.AppealReference }}</a>
+	<a class="govuk-link" href="/lpa/appeals/{{ appeal.AppealId }}">{{ appeal.AppealReference }}</a>
 {% endmacro %}
 
 {% macro createStatusTag(questionnaireStatus) %}
-		{% set statusTagColor = '' %}
-		{% set statusLabel = questionnaireStatus %}
+	{% set statusTagColor = '' %}
+	{% set statusLabel = questionnaireStatus %}
 
-		{% switch (questionnaireStatus) %}
-			{% case 'awaiting' %}
-				{% set statusTagColor = 'blue' %}
-			{% case 'overdue' %}
-				{% set statusTagColor = 'red' %}
-			{% case 'incomplete_lpa_questionnaire' %}
-				{% set statusTagColor = 'yellow' %}
-				{% set statusLabel = 'incomplete' %}
-			{% case 'received' %}
-				{% set statusTagColor = 'green' %}
-		{% endswitch %}
+	{% switch (questionnaireStatus) %}
+		{% case 'awaiting' %}
+			{% set statusTagColor = 'blue' %}
+		{% case 'overdue' %}
+			{% set statusTagColor = 'red' %}
+		{% case 'incomplete_lpa_questionnaire' %}
+			{% set statusTagColor = 'yellow' %}
+			{% set statusLabel = 'incomplete' %}
+		{% case 'received' %}
+			{% set statusTagColor = 'green' %}
+	{% endswitch %}
 
-		<strong class="govuk-tag govuk-tag--{{statusTagColor}}">{{ statusLabel }}</strong>
+	<strong class="govuk-tag govuk-tag--{{statusTagColor}}">{{ statusLabel }}</strong>
 {% endmacro %}
