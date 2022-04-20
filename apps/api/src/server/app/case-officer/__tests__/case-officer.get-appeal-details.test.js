@@ -190,7 +190,7 @@ test('unable to retrieve details for an appeal which has yet to receive the ques
 	t.is(resp.status, 409);
 	t.deepEqual(resp.body, {
 		errors: {
-			status: 'Appeal is in an invalid state',
+			appeal: 'Appeal is in an invalid state',
 		}
 	});
 });

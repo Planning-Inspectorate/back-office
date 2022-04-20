@@ -213,7 +213,7 @@ test('throws 409 when appeal does not require validation', async (t) => {
 	t.is(resp.status, 409);
 	t.deepEqual(resp.body, {
 		errors: {
-			status: 'Appeal is in an invalid state',
+			appeal: 'Appeal is in an invalid state',
 		}
 	});
 });

@@ -1,20 +1,35 @@
-import { arrayOfStatusesContainsString } from '../utils/array-of-statuses-contains-string.js';
+// @ts-check
+
 import appealRepository from '../repositories/appeal.repository.js';
+import { arrayOfStatusesContainsString } from '../utils/array-of-statuses-contains-string.js';
+import asyncHandler from './async-handler.js';
 
-const sendInvalidStateMessage = function (response, message) {
-	response.status(409).send({
-		errors: {
-			status: message
-		}
-	});
-};
+/** @typedef {import('@pins/appeals').AppealStatus} AppealStatus */
 
-export const validateAppealStatus = (statuses) =>
-	async ({ params }, response, next) => {
-		const appeal = await appealRepository.getById(params.appealId);
-		if (!arrayOfStatusesContainsString(appeal.appealStatus, statuses)) {
-			sendInvalidStateMessage(response, 'Appeal is in an invalid state');
-		} else {
-			next();
+/**
+ * Create an express middleware that validates an appeal against a given status or statuses.
+ *
+ * @param {AppealStatus | AppealStatus[]} status
+ * @param {{ errorMessage?: string }} options
+ * @returns {import('express').RequestHandler<{ appealId: number }>}
+ */
+export const validateAppealStatus = (status, { errorMessage = 'Appeal is in an invalid state' } = {}) =>
+	asyncHandler(
+		/** @type {import('express').RequestHandler<{ appealId: number }>} */
+		async ({ params }, response, next) => {
+			const statuses = Array.isArray(status) ? status : [status];
+			const appeal = await appealRepository.getById(params.appealId);
+
+			if (!appeal) {
+				response.status(404);
+			} else if (!arrayOfStatusesContainsString(appeal.appealStatus, statuses)) {
+				response.status(409).send({
+					errors: {
+						appeal: errorMessage
+					}
+				});
+			} else {
+				next();
+			}
 		}
-	}
+	);

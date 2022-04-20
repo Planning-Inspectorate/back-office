@@ -1,15 +1,16 @@
-import { difference } from 'lodash-es';
+// @ts-check
+
 import { composeMiddleware } from '@pins/express';
 import { body, validationResult } from 'express-validator';
+import { difference } from 'lodash-es';
+import { validateAppealStatus } from '../middleware/validate-appeal-status.js';
 import stringEmptyOrUndefined from '../utils/string-validator.js';
 
+export const validateAppealBelongsToValidation = validateAppealStatus(['received_appeal', 'awaiting_validation_info']);
+
 export const validateAppealAttributesToChange = composeMiddleware(
-	body('AppellantName')
-		.isAlpha('en-US', { ignore: ' ' })
-		.optional({ nullable: true }),
-	body('LocalPlanningDepartment')
-		.isAlpha('en-US', { ignore: ' ' })
-		.optional({ nullable: true }),
+	body('AppellantName').trim().optional({ nullable: true }),
+	body('LocalPlanningDepartment').trim().optional({ nullable: true }),
 	body('PlanningApplicationReference').optional({ nullable: true }),
 	body('Address.AddressLine1').optional({ nullable: true }),
 	body('Address.AddressLine2').optional({ nullable: true }),
@@ -34,18 +35,15 @@ const allArrayElementsInArray = function (arrayToCheck, arrayToCheckAgainst) {
 };
 
 const invalidWithUnexpectedReasons = function (requestBody) {
-	return requestBody.AppealStatus == validationDecisions.invalid &&
-		!allArrayElementsInArray(Object.keys(requestBody.Reason), [
-			'outOfTime',
-			'noRightOfAppeal',
-			'notAppealable',
-			'lPADeemedInvalid',
-			'otherReasons'
-		]);
+	return (
+		requestBody.AppealStatus == validationDecisions.invalid &&
+		!allArrayElementsInArray(Object.keys(requestBody.Reason), ['outOfTime', 'noRightOfAppeal', 'notAppealable', 'lPADeemedInvalid', 'otherReasons'])
+	);
 };
 
 const incompleteWithUnexpectedReasons = function (requestBody) {
-	return requestBody.AppealStatus == validationDecisions.incomplete &&
+	return (
+		requestBody.AppealStatus == validationDecisions.incomplete &&
 		!allArrayElementsInArray(Object.keys(requestBody.Reason), [
 			'namesDoNotMatch',
 			'sensitiveInfo',
@@ -57,11 +55,13 @@ const incompleteWithUnexpectedReasons = function (requestBody) {
 			'openedInError',
 			'wrongAppealTypeUsed',
 			'otherReasons'
-		]);
+		])
+	);
 };
 
 const invalidWithoutReasons = function (requestBody) {
-	return (requestBody.AppealStatus == validationDecisions.invalid &&
+	return (
+		requestBody.AppealStatus == validationDecisions.invalid &&
 		requestBody.Reason.outOfTime !== true &&
 		requestBody.Reason.noRightOfAppeal !== true &&
 		requestBody.Reason.notAppealable !== true &&
@@ -71,7 +71,8 @@ const invalidWithoutReasons = function (requestBody) {
 };
 
 const incompleteWithoutReasons = function (requestBody) {
-	return (requestBody.AppealStatus == validationDecisions.incomplete &&
+	return (
+		requestBody.AppealStatus == validationDecisions.incomplete &&
 		requestBody.Reason.namesDoNotMatch !== true &&
 		requestBody.Reason.sensitiveInfo !== true &&
 		requestBody.Reason.missingApplicationForm !== true &&
@@ -86,7 +87,7 @@ const incompleteWithoutReasons = function (requestBody) {
 };
 
 const validWithoutDescription = function (requestBody) {
-	return (requestBody.AppealStatus == validationDecisions.valid && stringEmptyOrUndefined(requestBody.descriptionOfDevelopment));
+	return requestBody.AppealStatus == validationDecisions.valid && stringEmptyOrUndefined(requestBody.descriptionOfDevelopment);
 };
 
 export const validateAppealValidationDecision = (request, response, next) => {

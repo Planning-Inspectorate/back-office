@@ -20,7 +20,7 @@ import {
 	viewDashboard,
 	viewReviewOutcomeConfirmation
 } from './validation.controller.js';
-import { hasReviewOutcome, hasReviewOutcomeStatus } from './validation.guards.js';
+import { canReviewAppeal, hasReviewOutcome, hasReviewOutcomeStatus } from './validation.guards.js';
 import * as validators from './validation.pipes.js';
 
 /** @typedef {import('@pins/appeals').Validation.AppealDocumentType} AppealDocumentType */
@@ -91,13 +91,18 @@ router
 
 router
 	.route('/appeals/:appealId/review-outcome')
-	.get(hasReviewOutcomeStatus, createAsyncHandler(newReviewOutcome))
-	.post(validators.validateReviewOutcome, createAsyncHandler(createReviewOutcome));
+	.get(canReviewAppeal, hasReviewOutcomeStatus, createAsyncHandler(newReviewOutcome))
+	.post(
+		canReviewAppeal,
+		validators.validateReviewOutcome,
+		createAsyncHandler(createReviewOutcome)
+	);
 
 router
 	.route('/appeals/:appealId/review-outcome/confirm')
-	.get(hasReviewOutcome, createAsyncHandler(viewReviewOutcomeConfirmation))
+	.get(canReviewAppeal, hasReviewOutcome, createAsyncHandler(viewReviewOutcomeConfirmation))
 	.post(
+		canReviewAppeal,
 		hasReviewOutcome,
 		validators.validateReviewOutcomeConfirmation,
 		createAsyncHandler(confirmReviewOutcome)
