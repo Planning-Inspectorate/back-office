@@ -6,6 +6,7 @@ import { transitionState } from '../state-machine/transition-state.js';
 import appealRepository from '../repositories/appeal.repository.js';
 import validationDecisionRepository from '../repositories/validation-decision.repository.js';
 import { nullIfUndefined } from '../utils/null-if-undefined.js';
+import { buildAppealCompundStatus } from '../utils/build-appeal-compound-status.js';
 
 const validationDecisions = {
 	valid: 'valid',
@@ -33,7 +34,8 @@ function mapAppealStatusToStateMachineAction(status) {
 export const submitValidationDecisionService = async (appealId, appealStatus, reason, descriptionOfDevelopment) => {
 	const appeal = await appealRepository.getById(appealId, true, true, true);
 	const machineAction = mapAppealStatusToStateMachineAction(appealStatus);
-	const nextState = transitionState('household', { appealId: appeal.id }, appeal.status, machineAction);
+	const appealStatusForMachine = buildAppealCompundStatus(appeal.appealStatus);
+	const nextState = transitionState('household', { appealId: appeal.id }, appealStatusForMachine, machineAction);
 	await appealRepository.updateStatusById(appeal.id, nextState.value);
 	await validationDecisionRepository.addNewDecision(appeal.id, appealStatus, reason, descriptionOfDevelopment);
 };
