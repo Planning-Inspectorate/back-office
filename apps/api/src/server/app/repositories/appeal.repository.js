@@ -26,7 +26,7 @@ const appealRepository = (function() {
 			return getPool().appeal.findMany({
 				where: {
 					appealStatus: {
-						every: {
+						some: {
 							status: {
 								in: statuses
 							},
