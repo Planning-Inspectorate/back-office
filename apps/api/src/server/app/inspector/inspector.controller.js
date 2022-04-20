@@ -51,10 +51,10 @@ const assignAppeals = async function(request, response) {
 };
 
 const getMoreAppeals = async function(request, response) {
-	const moreAppeals = await appealRepository.getByStatusesWithAddresses(
-		[inspectorStatesStrings.available_for_inspector_pickup]
+	const moreAppeals = await appealRepository.getByStatuses(
+		[appealStates.available_for_inspector_pickup]
 	);
-	const moreAppealsFormatted = moreAppeals.map((appeal) => formatAppealForMoreAppeals(appeal));
+	const moreAppealsFormatted = moreAppeals.map((appeal) => appealFormatter.formatAppealForMoreAppeals(appeal));
 	return response.send(moreAppealsFormatted);
  };
 

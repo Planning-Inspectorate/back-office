@@ -56,6 +56,8 @@ const appealRepository = (function () {
 				include: {
 					address: includeAddress,
 					appellant: includeAppellant,
+					lpaQuestionnaire: true,
+					appealDetailsFromAppellant: true,
 					appealStatus: {
 						where: {
 							valid: true
@@ -65,7 +67,7 @@ const appealRepository = (function () {
 			});
 		},
 		getById: function (
-			id, 
+			id,
 			inclusions = {}
 		) {
 			return getPool().appeal.findUnique({
