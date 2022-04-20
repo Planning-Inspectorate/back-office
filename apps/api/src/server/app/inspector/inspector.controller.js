@@ -29,7 +29,7 @@ const formatStatus = function(status) {
 
 
 const provisionalAppealSiteVisitType = function(appeal) {
-	return (!appeal.lpaQuestionnaire.siteVisibleFromPublicLand || !appeal.appealDetailsFromAppellant.siteVisibleFromPublicLand) ? 
+	return (!appeal.lpaQuestionnaire.siteVisibleFromPublicLand || !appeal.appealDetailsFromAppellant.siteVisibleFromPublicLand) ?
 		'access required' : 'unaccompanied';
 };
 
@@ -67,11 +67,23 @@ const getAppeals = async function(request, response) {
 };
 
 const getMoreAppeals = async function(request, response) {
-	const moreAppeals = await appealRepository.getByStatuses(
+	const moreAppeals = await appealRepository.getByStatusesWithAddresses(
 		[inspectorStatesStrings.available_for_inspector_pickup]
 	);
-	console.log('HERE', moreAppeals);
-	return response.send(moreAppeals);
+	const moreAppealsFormatted = moreAppeals.map((appeal) => formatAppealForMoreAppeals(appeal));
+	return response.send(moreAppealsFormatted);
+};
+
+const formatAppealForMoreAppeals = function(appeal) {
+	return {
+		appealId: appeal.id,
+		reference: appeal.reference,
+		address: appeal.address,
+		appealType: 'HAS',
+		specialist: 'General',
+		provisionalVisitType: provisionalAppealSiteVisitType(appeal),
+		appealAge: daysBetweenDates(appeal.startedAt, new Date())
+	};
 };
 
 const formatAppealForAssigningAppeals = function(appeal, reason) {

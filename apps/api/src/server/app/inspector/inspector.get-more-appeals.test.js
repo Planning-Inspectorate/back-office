@@ -17,10 +17,9 @@ const appeal_25 = {
 		postCode: 'SW1P 2NE'
 	},
 	appealAge: 22,
-	siteVisitType: 'accompanied',
 	appealType: 'HAS',
 	specialism: 'General',
-	siteVisit: {}
+	provisionalVisitType: 'accompanied'
 };
 
 
@@ -47,17 +46,15 @@ test('gets all appeals yet to be assigned to inspector', async (t) => {
 		{
 			id: 25,
 			reference: 'APP/Q9999/D/21/5463281',
-			status: 'available_for_inspector_pickup',
 			address: {
 				addressLine1: '56 Vincent Square',
 				county: 'London',
 				postCode: 'SW1P 2NE'
 			},
 			appealAge: 22,
-			siteVisit: {},
-			siteVisitType: 'accompanied',
 			appealType: 'HAS',
-			specialism: 'General'
+			specialism: 'General',
+			provisionalVisitType:'accompanied'
 		}
 	]);
 
