@@ -1,7 +1,30 @@
 import * as validationSession from './validation-session.service.js';
+import * as validationService from './validation.service.js';
 
 /** @typedef {import('@pins/appeals').Validation.AppealOutcomeStatus} AppealOutcomeStatus */
 /** @typedef {import('./validation.router').AppealParams} AppealParams */
+/** @typedef {import('got').RequestError} RequestError */
+
+/**
+ * A guard that ensures an appeal is in a state that can be reviewed, else
+ * render an error page.
+ *
+ * @type {import('express').RequestHandler<AppealParams>}
+ */
+export const canReviewAppeal = async (request, response, next) => {
+	try {
+		await validationService.findAppealById(request.params.appealId);
+		next();
+	} catch (error) {
+		const requestError = /** @type {RequestError} */ (error);
+
+		if (requestError.response?.statusCode === 409) {
+			response.render('validation/appeal-error', { errorMessage: 'Appeal already reviewed' });
+		} else {
+			next(error);
+		}
+	}
+};
 
 /**
  * A guard that forwards requests with any completed review outcome journey.

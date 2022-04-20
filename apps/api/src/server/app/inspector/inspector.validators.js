@@ -7,29 +7,6 @@ import { body, header, validationResult } from 'express-validator';
 import appealRepository from '../repositories/appeal.repository.js';
 
 /** @typedef {import('@pins/appeals').Inspector.SiteVisitType} SiteVisitType */
-/** @typedef {keyof typeof import('../state-machine/inspector-states').inspectorStates} InspectorState } */
-
-/**
- * Validate if a state can be transitioned to for the current appeal.
- *
- * @param {InspectorState} status - The state to transition to
- * @returns {import('express').RequestHandler<{ appealId: number; }>} - A
- * validation middleware that handles invalid state transitions
- */
-export const validateAppealState = (status) =>
-	async ({ params }, response, next) => {
-		const appeal = await appealRepository.getById(params.appealId);
-
-		if (appeal?.status !== status) {
-			response.status(409).send({
-				errors: {
-					status: 'Appeal is in an invalid state'
-				}
-			});
-		} else {
-			next();
-		}
-	};
 
 /** @type {import('express').RequestHandler } */
 export const validateUserId = async (request, response, next) => {

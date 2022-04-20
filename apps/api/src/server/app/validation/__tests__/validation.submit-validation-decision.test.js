@@ -274,7 +274,7 @@ test('should not be able to submit validation decision for appeal that has been 
 	t.is(resp.status, 409);
 	t.deepEqual(resp.body, {
 		errors: {
-			status: 'Appeal is in an invalid state',
+			appeal: 'Appeal is in an invalid state',
 		}
 	});
 });
@@ -285,7 +285,7 @@ test('should not be able to submit validation decision for appeal that has been 
 	t.is(resp.status, 409);
 	t.deepEqual(resp.body, {
 		errors: {
-			status: 'Appeal is in an invalid state',
+			appeal: 'Appeal is in an invalid state',
 		},
 	});
 });

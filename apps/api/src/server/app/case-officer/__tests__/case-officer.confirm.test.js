@@ -244,7 +244,7 @@ test('should not be able to submit review if appeal is not in a state ready to r
 	t.is(resp.status, 409);
 	t.deepEqual(resp.body, {
 		errors: {
-			status: 'Appeal is in an invalid state',
+			appeal: 'Appeal is in an invalid state',
 		}
 	});
 });

@@ -1,14 +1,18 @@
 import express from 'express';
-import { getAppeals, getAppealDetails, updateAppeal, submitValidationDecision, getLPAList } from './validation.controller.js';
-import { body, param } from 'express-validator';
+import { param } from 'express-validator';
 import asyncHandler from '../middleware/async-handler.js';
-import { appealStates } from '../state-machine/transition-state.js';
-import { validateAppealAttributesToChange, validateAppealValidationDecision } from './validation.validators.js';
-import { validateAppealStatus } from '../middleware/validate-appeal-status.js';
+import { getAppealDetails, getAppeals, getLPAList, submitValidationDecision, updateAppeal } from './validation.controller.js';
+import { validateAppealAttributesToChange, validateAppealBelongsToValidation, validateAppealValidationDecision } from './validation.validators.js';
 
 const router = express.Router();
 
-router.get('/',
+/**
+ * @typedef {object} AppealParams
+ * @property {number} appealId
+ */
+
+router.get(
+	'/',
 	/*
 		#swagger.description = 'Gets all appeals that need to be validated. The AppealStatus will be either \'new\' or \'incomplete\''
 		#swagger.responses[200] = {
@@ -16,9 +20,11 @@ router.get('/',
 			schema: { $ref: '#/definitions/AppealsToValidate' }
 		}
 	*/
-	asyncHandler(getAppeals));
+	asyncHandler(getAppeals)
+);
 
-router.get('/lpa-list',
+router.get(
+	'/lpa-list',
 	/* 
 		#swagger.description = 'Gets all LPAs from external API'
 		#swagger.responses[200] = {
@@ -29,9 +35,11 @@ router.get('/lpa-list',
 			]
 		}
 	*/
-	asyncHandler(getLPAList));
+	asyncHandler(getLPAList)
+);
 
-router.get('/:appealId',
+router.get(
+	'/:appealId',
 	/* 
 		#swagger.description = 'Gets appeal to be validated by the Validation Officer'
 		#swagger.parameters['id'] = {
@@ -45,13 +53,12 @@ router.get('/:appealId',
 		}
 	*/
 	param('appealId').toInt(),
-	validateAppealStatus([
-		appealStates.received_appeal,
-		appealStates.awaiting_validation_info
-	]),
-	asyncHandler(getAppealDetails));
+	validateAppealBelongsToValidation,
+	asyncHandler(getAppealDetails)
+);
 
-router.patch('/:appealId',
+router.patch(
+	'/:appealId',
 	/*
 		#swagger.description = 'Updates appeal details'
 		#swagger.parameters['id'] = {
@@ -66,16 +73,14 @@ router.patch('/:appealId',
 			schema: { $ref: "#/definitions/ChangeAppeal" }
 		}
 	*/
-	body('AppellantName').trim().optional({ nullable: true }),
 	param('appealId').toInt(),
 	validateAppealAttributesToChange,
-	validateAppealStatus([
-		appealStates.received_appeal,
-		appealStates.awaiting_validation_info
-	]),
-	asyncHandler(updateAppeal));
+	validateAppealBelongsToValidation,
+	asyncHandler(updateAppeal)
+);
 
-router.post('/:appealId',
+router.post(
+	'/:appealId',
 	/*
 		#swagger.description = 'Sends validation decision'
 		#swagger.parameters['id'] = {
@@ -92,12 +97,8 @@ router.post('/:appealId',
 	*/
 	param('appealId').toInt(),
 	validateAppealValidationDecision,
-	validateAppealStatus([
-		appealStates.received_appeal,
-		appealStates.awaiting_validation_info
-	]),
-	asyncHandler(submitValidationDecision));
+	validateAppealBelongsToValidation,
+	asyncHandler(submitValidationDecision)
+);
 
-export {
-	router as validationRoutes
-};
+export { router as validationRoutes };

@@ -33,7 +33,7 @@ export function findAllAppeals() {
  * @returns {Promise<Appeal>}
  */
 export function findAppealById(appealId) {
-	return get(`validation/${appealId}`);
+	return get(`validation/${appealId}`, { context: { ttl: 1000 } });
 }
 
 /**
