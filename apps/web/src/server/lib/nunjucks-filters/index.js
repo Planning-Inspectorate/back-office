@@ -9,11 +9,14 @@ export {
 	includes,
 	kebabCase,
 	keys,
-	lowerCase
+	lowerCase,
+	split
 } from 'lodash-es';
+export { booleanAnswer } from './boolean-answer.js';
 export { default as pluralize } from 'pluralize';
 export { default as className } from './class-name.js';
 export { collapse } from './collapse.js';
+export * from './date.js';
 export { endsWith } from './ends-with.js';
 export { errorMessage } from './error-message.js';
 export { mapToErrorSummary } from './error-summary.js';

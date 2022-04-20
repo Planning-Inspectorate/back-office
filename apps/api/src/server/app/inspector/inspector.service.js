@@ -12,51 +12,47 @@ import { buildAppealCompundStatus } from '../utils/build-appeal-compound-status.
 
 /**
  * @typedef {object} SiteVisitData
- * @property {Date} visitDate - The date of the site visit.
- * @property {string} visitSlot – The time slot of site visit.
- * @property {SiteVisitType} visitType – The type of site visit.
+ * @property {Date} visitDate
+ * @property {string} visitSlot
+ * @property {SiteVisitType} visitType
  */
 
 /**
  * @typedef {object} BookSiteVisitData
- * @property {number} appealId - Unique identifier for the appeal.
- * @property {SiteVisitData} siteVisit - The site visit data
+ * @property {number} appealId
+ * @property {SiteVisitData} siteVisit
  */
 
 /**
  * Book a site visit for an appeal.
  *
- * @param {BookSiteVisitData} data - The site visit data.
- * @returns {Promise<Appeal>} - A promise that resolves to the updated appeal entity.
+ * @param {BookSiteVisitData} data
+ * @returns {Promise<void>}
  */
 export const bookSiteVisit = async ({ appealId, siteVisit }) => {
 	const appeal = await appealRepository.getById(appealId);
 	const appealStatus = buildAppealCompundStatus(appeal.appealStatus);
 	const nextState = transitionState('household', { appealId }, appealStatus, 'BOOK', true);
+	
 	await appealRepository.updateStatusAndDataById(appealId, nextState.value, {
 		siteVisit: {
 			create: siteVisit
 		}
 	});
-	return {
-		id: appeal.id,
-		status: nextState.value,
-		userId: appeal.userId
-	};
 };
 
 /**
  * @typedef {object} IssueDecisionData
- * @property {number} appealId - Unique identifier for the appeal.
- * @property {AppealOutcome} outcome – The outcome for the appeal.
- * @property {Express.Multer.File} decisionLetter - The uploaded decision letter.
+ * @property {number} appealId
+ * @property {AppealOutcome} outcome
+ * @property {Express.Multer.File} decisionLetter
  */
 
 /**
  * Issue a decision for an appeal on behalf of a user.
  *
- * @param {IssueDecisionData} data - The site visit data.
- * @returns {Promise<Appeal>} - A promise that resolves to the updated appeal entity.
+ * @param {IssueDecisionData} data
+ * @returns {Promise<void>}
  */
 export const issueDecision = async ({ appealId, outcome, decisionLetter }) => {
 	const appeal = await appealRepository.getById(appealId);
@@ -66,18 +62,12 @@ export const issueDecision = async ({ appealId, outcome, decisionLetter }) => {
 	await appealRepository.updateStatusAndDataById(appealId, nextState.value, {
 		inspectorDecision: {
 			create: {
-				appealId,
-				outcome,
 				// TODO: Obtain a path to file after uploading the decision letter to azure storage
-				decisionLetterFilename: decisionLetter.originalname
+				decisionLetterFilename: decisionLetter.originalname,
+				outcome
 			}
 		}
 	});
-	return {
-		id: appeal.id,
-		status: nextState.value,
-		userId: appeal.userId
-	};
 };
 
 export const assignAppealsById = async function(userId, appealIds) {

@@ -13,7 +13,12 @@
 {% endblock %}
 
 {% block pageLeft %}
-  {{ appealSummary(appeal) }}
+  {{
+    appealSummary({
+      appeal: appeal,
+      dataTypes: { appellantName: false }
+    })
+  }}
 {% endblock %}
 
 {% block pageContent %}
@@ -27,7 +32,7 @@
       <h3 class="govuk-heading-m">Site visit</h3>
       <dl class="govuk-body">
         <dt class="govuk-!-font-weight-bold">Recommended type<dt>
-        <dd>{{ appeal.provisionalVisitType | capitalize }}</dd>
+        <dd>{{ appeal.provisionalSiteVisitType | capitalize }}</dd>
       </dl>
       {{
         govukButton({
@@ -52,7 +57,7 @@
     </div>
   {% endif %}
 
-  {% if appeal.status !== 'booked' %}
+  {% if appeal.status !== 'not yet booked' %}
     {{ siteVisit(appeal) }}
   {% endif %}
 {% endblock %}

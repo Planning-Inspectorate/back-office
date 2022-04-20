@@ -2,11 +2,12 @@
 
 import { some } from 'lodash-es';
 
-/** @typedef {import('@pins/appeals').AppealStatus} AppealStatus */
+/** @typedef {import('@pins/api').Schema.AppealStatus} AppealStatus */
+/** @typedef {import('@pins/api').Schema.AppealStatusType} AppealStatusType */
 
 /**
- * @param {Array<{ status: AppealStatus; }>} appealStatuses 
- * @param {AppealStatus[]} desiredAppealStatuses 
+ * @param {Array<AppealStatus>} appealStatuses 
+ * @param {AppealStatusType | AppealStatusType[]} desiredAppealStatuses 
  * @returns {boolean}
  */
 export const arrayOfStatusesContainsString = function(appealStatuses, desiredAppealStatuses) {

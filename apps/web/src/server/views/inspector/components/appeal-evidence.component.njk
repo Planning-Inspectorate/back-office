@@ -8,31 +8,33 @@
   {{ 
     govukAccordion({
       id: "appeal-details",
+      headingLevel: 3,
       items: [
         {
+          expanded: true,
           heading: { text: "Case details" },
           content: {
             html: govukSummaryList({
               rows: [
                 { 
                   key: { text: 'Appellant name' },
-                  value: { text: 'appeal.AppellantName' } 
+                  value: { text: appeal.appellantName } 
                 },
                 { 
                   key: { text: 'Agent name' },
-                  value: { text: 'appeal.AgentName' } 
+                  value: { text: appeal.agentName or '-' } 
                 },
                 { 
                   key: { text: 'Contact email address' },
-                  value: { html: '<a class="govuk-link" href="#">appeal.ContactEmail</a>' } 
+                  value: { html: '<a class="govuk-link" href="mailto:' + appeal.email + '">' + appeal.email  + '</a>' } 
                 },
                 {
                   key: { text: 'Date appeal received' },
-                  value: { text: 'appeal.DateAppealReceived' }
+                  value: { text: appeal.appealReceivedDate }
                 },
                 {
                   key: { text: 'Description of development' },
-                  value: { text: 'appeal.DevelopmentDescription' }
+                  value: { text: appeal.descriptionOfDevelopment }
                 }
               ]
             })
@@ -46,13 +48,13 @@
                 { 
 					        key: { text: 'Appeal statement' }, 
 					        value: {
-                    html: documentList(appeal.Documents | filter({ Type: 'appeal statement' }))
+                    html: documents(appeal.Documents | filter({ Type: 'appeal statement' }))
                   }
 				        },
 				        { 
                   key: { text: 'Supporting documents' },
                   value: {
-                    html: documentList(appeal.Documents | filter({ Type: 'supporting document' }))
+                    html: documents(appeal.Documents | filter({ Type: '?' }))
                   }
                 }
               ]
@@ -67,41 +69,41 @@
                 { 
                   key: { text: 'Appeal statement' }, 
                   value: {
-                    html: documentList(appeal.Documents | filter({ Type: 'appeal statement' }))
+                    html: documents(appeal.Documents | filter({ Type: 'appeal statement' }))
                   }
                 },
                 { 
                   key: { text: 'Supporting documents' },
                   html: {
-                    value: documentList(appeal.Documents | filter({ Type: 'supporting document' }))
+                    value: documents(appeal.Documents | filter({ Type: 'supporting document' }))
                   }
                 },
                 {
                   key: { text: 'Planning Officer\'s report' },
                   value: {
-                    html: documentList(appeal.Documents | filter({ Type: 'planning officer report' }))
+                    html: documents(appeal.Documents | filter({ Type: 'planning officer report' }))
                   }
                 },
                 {
                   key: { text: 'Decision notice' },
                   value: {
-                    html: documentList(appeal.Documents | filter({ Type: 'decision notice' }))
+                    html: documents(appeal.Documents | filter({ Type: 'decision notice' }))
                   }
                 },
                 {
                   key: { text: 'Extra conditions' },
-                  value: { text: 'appeal.ExtraConditions' }
+                  value: { text: appeal.extraConditions | booleanAnswer }
                 },
                 {
                   key: { text: 'Details of planning history' },
                   value: {
-                    html: documentList(appeal.Documents | filter({ Type: 'details of planning history' }))
+                    html: documents(appeal.Documents | filter({ Type: 'details of planning history' }))
                   }
                 },
                 {
                   key: { text: 'Supporting documents' },
                   value: {
-                    html: documentList(appeal.Documents | filter({ Type: 'supporting document' }))
+                    html: documents(appeal.Documents | filter({ Type: 'supporting document' }))
                   }
                 }
               ]
@@ -115,15 +117,15 @@
               rows: [
                 {
                   key: { text: 'Affects listed building' },
-                  value: { text: 'appeal.AffectsListedBuilding' }
+                  value: { text: appeal.affectsListedBuilding | booleanAnswer }
                 },
                 {
                   key: { text: 'In green belt' },
-                  value: { text: 'appeal.GreenBelt' }
+                  value: { text: appeal.inGreenBelt | booleanAnswer }
                 },
                 {
                   key: { text: 'In or near a conservation area' },
-                  value: { text: 'appeal.ConservationArea' }
+                  value: { text: appeal.inOrNearConservationArea | booleanAnswer }
                 }
               ]
             })
@@ -136,19 +138,31 @@
               rows: [
                 {
                   key: { text: 'Statutory development plan policy' },
-                  html: documentList(appeal.Documents | filter({ Type: 'statutory development plan policy' }))
+                  value: {
+                    html: documents(appeal.Documents | filter({ Type: 'statutory development plan policy' }))
+                  }
                 },
                 {
                   key: { text: 'Other relevant policies' },
-                  html: documentList(appeal.Documents | filter({ Type: 'other relevant policy' }))
+                  value: {
+                    html: documents(appeal.Documents | filter({ Type: 'other relevant policy' }))
+                  }
                 },
                 {
                   key: { text: 'Supplementary planning documents' },
-                  html: documentList(appeal.Documents | filter({ Type: 'supplementary planning document' }))
+                  value: {
+                    html: documents(appeal.Documents | filter({ Type: 'supplementary planning document' }))
+                  }
                 },
                 {
                   key: { text: 'Emerging development plan or neighbourhood plan' },
-                  html: 'appeal.DevelopmentPlan'
+                  value: {
+                    html: [
+                      appeal.emergingDevelopmentPlanOrNeighbourhoodPlan | booleanAnswer
+                    ] | concat(
+                      [appeal.emergingDevelopmentPlanOrNeighbourhoodPlan] if appeal.emergingDevelopmentPlanOrNeighbourhoodPlan else []
+                    ) | join('<br>')
+                  }
                 }
               ]
             })
@@ -161,7 +175,9 @@
               rows: [
                 {
                   key: { text: 'Representations' },
-                  html: documentList(appeal.Documents | filter({ Type: 'representation' }))
+                  value: {
+                    html: documents(appeal.Documents | filter({ Type: 'representation' }))
+                  }
                 }
               ]
             })
@@ -174,15 +190,21 @@
               rows: [
                 {
                   key: { text: 'Application notification' },
-                  html: documentList(appeal.Documents | filter({ Type: 'application notification' }))
+                  value: {
+                    html: documents(appeal.Documents | filter({ Type: 'application notification' }))
+                  }
                 },
                 {
                   key: { text: 'Application publicity' },
-                  html: documentList(appeal.Documents | filter({ Type: 'application publicity' }))
+                  value: {
+                    html: documents(appeal.Documents | filter({ Type: 'application publicity' }))
+                  }
                 },
                 {
                   key: { text: 'Appeal notification' },
-                  html: documentList(appeal.Documents | filter({ Type: 'appeal notification' }))
+                  value: {
+                    html: documents(appeal.Documents | filter({ Type: 'appeal notification' }))
+                  }
                 }
               ]
             })
@@ -198,3 +220,11 @@
     })
   }}
 {% endmacro %}
+
+{% macro documents(files) %}
+  {% if files.length > 0 %}
+    {{ documentList(files) }}
+  {% else %}
+    -
+  {% endif %}
+{% endmacro%}

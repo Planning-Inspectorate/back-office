@@ -4,18 +4,18 @@
 {% from "inspector/components/site-visit.component.njk" import siteVisit %}
 {% from "inspector/components/site-visit-details.component.njk" import siteVisitDetails %}
 {% from "govuk/components/button/macro.njk" import govukButton %}
-{% from "govuk/components/date-input/macro.njk" import govukDateInput %}
 {% from "govuk/components/details/macro.njk" import govukDetails %}
 {% from "govuk/components/radios/macro.njk" import govukRadios %}
 {% from "govuk/components/select/macro.njk" import govukSelect %}
 {% from "govuk/components/tag/macro.njk" import govukTag %}
+{% from "app/components/govuk-date-input-extended.njk" import govukDateInputExtended %}
 
 {% set pageTitle = 'Book site visit' %}
 {% set backLinkUrl = '/inspector/appeals/' + appeal.appealId %}
 {% set provisionalTag = govukTag({ text: "Provisional Type", classes: "govuk-tag--blue govuk-!-margin-left-3" }) %}
 
 {% block pageLeft %}
-  {{ appealSummary(appeal) }}
+  {{ appealSummary({ appeal: appeal }) }}
 {% endblock %}
 
 {% block pageContent %}
@@ -35,8 +35,8 @@
         },
         items: [
           {
-            value: 'accessRequired',
-            html: 'Access required' + (provisionalTag if appeal.provisionalVisitType === 'access required' else ''),
+            value: 'access required',
+            html: 'Access required' + (provisionalTag if appeal.provisionalSiteVisitType === 'access required' else ''),
             checked: siteVisitType === 'access required'
           },
           { 
@@ -46,17 +46,18 @@
           },
           {
             value: 'unaccompanied',
-            html: 'Unaccompanied' + (provisionalTag if appeal.provisionalVisitType === 'unaccompanied' else ''),
+            html: 'Unaccompanied' + (provisionalTag if appeal.provisionalSiteVisitType === 'unaccompanied' else ''),
             checked: siteVisitType === 'unaccompanied'
           }
         ]
       })
     }}
     {{ 
-      govukDateInput({
+      govukDateInputExtended({
         id: "siteVisitDate",
         namePrefix: "siteVisitDate",
         errorMessage: errors.siteVisitDate | errorMessage,
+        value: siteVisitDate,
         fieldset: {
           legend: {
             text: "Date of site visit",

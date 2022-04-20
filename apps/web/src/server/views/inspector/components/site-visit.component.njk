@@ -4,15 +4,15 @@
     <dl class="govuk-body">
       <div class="govuk-!-margin-bottom-3">
         <dt class="govuk-!-font-weight-bold">Date<dt>
-        <dd>{{ appeal.siteVisitDate }}</dd>
+        <dd>{{ appeal.bookedSiteVisit.visitDate }}</dd>
       </div>
       <div class="govuk-!-margin-bottom-3">
         <dt class="govuk-!-font-weight-bold">Time<dt>
-        <dd>{{ appeal.siteVisitTimeSlot }}</dd>
+        <dd>{{ appeal.bookedSiteVisit.visitSlot }}</dd>
       </div>
       <div class="govuk-!-margin-bottom-3">
         <dt class="govuk-!-font-weight-bold">Type<dt>
-        <dd>{{ appeal.siteVisitType | capitalize }}</dd>
+        <dd>{{ appeal.bookedSiteVisit.visitType | capitalize }}</dd>
       </div>
     </dl>
   </div>

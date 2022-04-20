@@ -9,7 +9,7 @@
 {% set backLinkUrl = '/inspector/appeals/' + appeal.appealId %}
 
 {% block pageLeft %}
-  {{ appealSummary(appeal) }}
+  {{ appealSummary({ appeal: appeal }) }}
 {% endblock %}
 
 {% block pageContent %}
@@ -17,7 +17,7 @@
 
   <form method="post" enctype="multipart/form-data" novalidate="novalidate">
     <h3 class="govuk-heading-m">Date</h3>
-    <p class="govuk-body">{{ today() }}</p>
+    <p class="govuk-body">{{ now() | displayDate }}</p>
     {{
       govukRadios({
         idPrefix: "outcome",

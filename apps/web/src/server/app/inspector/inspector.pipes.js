@@ -1,4 +1,4 @@
-import { createValidator, mapMulterErrorToValidationError } from '@pins/express';
+import { bodyForGovukDateInput, createValidator, mapMulterErrorToValidationError } from '@pins/express';
 import { validateFutureDate } from '@pins/platform';
 import { body } from 'express-validator';
 import multer from 'multer';
@@ -7,7 +7,7 @@ import { diskStorage } from '../../lib/multer.js';
 /** @typedef {import('@pins/appeals').Inspector.SiteVisitType} SiteVisitType */
 /** @typedef {import('./inspector.router').AppealParams} AppealParams */
 
-const	siteVisitTimeSlots = [
+const siteVisitTimeSlots = [
 	'8am to 10am',
 	'9am to 11am',
 	'10am to midday',
@@ -53,9 +53,11 @@ export const validateBookSiteVisit = createValidator(
 	body('siteVisitType')
 		.isIn(/** @type {SiteVisitType[]} */ (['accompanied', 'unaccompanied', 'access required']))
 		.withMessage('Select a type of site visit'),
-	body('siteVisitDate')
-		.isDate({ format: 'DD-MM-YYYY' })
+	bodyForGovukDateInput('siteVisitDate')
+		.isLength({ min: 1 })
 		.withMessage('Enter a site visit date')
+		.isDate({ format: 'YYYY-MM-DD' })
+		.withMessage('Enter a valid site visit date')
 		.bail()
 		.custom(validateFutureDate)
 		.withMessage('Site visit date must be in the future'),

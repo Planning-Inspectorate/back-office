@@ -9,7 +9,7 @@
 {% set backLinkUrl = '/inspector/appeals/' + appeal.appealId + '/issue-decision' %}
 
 {% block pageLeft %}
-  {{ appealSummary(appeal) }}
+  {{ appealSummary({ appeal: appeal }) }}
 {% endblock %}
 
 {% block pageContent %}
@@ -29,7 +29,7 @@
           },
           {
             key: { text: 'Date' },
-            value: { text: today() }
+            value: { text: now() | displayDate }
           }
         ]
       })

@@ -50,8 +50,8 @@
 
 {% macro getAnswerDescriptionHtml(answers, prefix) %}
   {% if answers[prefix] %}
-    {{ ['Yes', answers[prefix + 'Description']] | join('<br>') }}
+    Yes<br>{{ answers[prefix + 'Description'] }}
   {% else %}
-    {{ 'No' }}
+    No
   {% endif %}
 {% endmacro %}

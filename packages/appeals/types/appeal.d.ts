@@ -12,22 +12,6 @@ export interface AppealDocument {
 	URL: string;
 }
 
-export type AppealStatus =
-	| 'received_appeal'
-	| 'awaiting_validation_info'
-	| 'valid_appeal'
-	| 'invalid_appeal'
-	| 'awaiting_lpa_questionnaire'
-	| 'awaiting_lpa_questionnaire_and_statements'
-	| 'received_lpa_questionnaire'
-	| 'overdue_lpa_questionnaire'
-	| 'incomplete_lpa_questionnaire'
-	| 'complete_lpa_questionnaire'
-	| 'site_visit_not_yet_booked'
-	| 'site_visit_booked'
-	| 'decision_due'
-	| 'appeal_decided';
-
 export type DocumentType =
 	| 'plans used to reach decision'
 	| 'statutory development plan policy'

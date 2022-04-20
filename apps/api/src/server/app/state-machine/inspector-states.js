@@ -1,6 +1,8 @@
 import mapObjectKeysToStrings from '../utils/map-states-to-strings.js';
 import inspectorActionsService from './inspector.actions.js';
 
+/** @typedef {import('@pins/api').Schema.AppealStatusType} AppealStatusType */
+
 const inspectionTypesThatSendEmail = new Set([
 	'accompanied',
 	'access required'
@@ -51,6 +53,6 @@ const generateInspectorPickupStates = function(stateAfterPickup, additionalState
 };
 
 const inspectorStates = generateInspectorPickupStates('site_visit_not_yet_booked', inspectorBookingStates)
-const inspectorStatesStrings = mapObjectKeysToStrings(inspectorStates);
+const inspectorStatesStrings = /** @type {Record<AppealStatusType, AppealStatusType>} */ (mapObjectKeysToStrings(inspectorStates));
 
 export { inspectorStates, inspectorStatesStrings, inspectorActions, inspectorBookingStates, generateInspectorPickupStates };
