@@ -1,10 +1,11 @@
 // @ts-check
 
 import appealRepository from '../repositories/appeal.repository.js';
-import { transitionState } from '../state-machine/transition-state.js';
+import { transitionState, appealStates } from '../state-machine/transition-state.js';
 import { appealFormatter } from './appeal-formatter.js';
 import { arrayOfStatusesContainsString } from '../utils/array-of-statuses-contains-string.js';
 import { buildAppealCompundStatus } from '../utils/build-appeal-compound-status.js';
+import { breakUpCompoundStatus } from '../utils/break-up-compound-status.js';
 
 /** @typedef {import('@pins/api').Schema.Appeal} Appeal */
 /** @typedef {import('@pins/api').Schema.InspectorDecisionOutcomeType} InspectorDecisionOutcomeType */
@@ -74,18 +75,25 @@ export const assignAppealsById = async function(userId, appealIds) {
 	const successfullyAssigned = [];
 	const unsuccessfullyAssigned = [];
 	await Promise.all(appealIds.map(async (appealId) => {
-		const appeal = await appealRepository.getById(appealId, true, false, true, true, true, true);
-		if (appeal.userId == undefined && arrayOfStatusesContainsString(appeal.appealStatus, 'available_for_inspector_pickup')) {
+		const appeal = await appealRepository.getById(appealId, {
+			appellant: true,
+			address: true,
+			latestLPAReviewQuestionnaire: true,
+			appealDetailsFromAppellant: true,
+			lpaQuestionnaire: true
+		});
+		if (appeal.userId == undefined && arrayOfStatusesContainsString(appeal.appealStatus, [appealStates.available_for_inspector_pickup])) {
 			try {
 				const appealStatus = buildAppealCompundStatus(appeal.appealStatus);
-				const nextState = transitionState('household', { appealId: appeal.id }, appealStatus, 'PICKUP');
-				await appealRepository.updateStatusAndDataById(appeal.id, nextState.value, { user: { connect: { id: userId } } });
+				const nextState = transitionState(appeal.appealType.type, { appealId: appeal.id }, appealStatus, 'PICKUP');
+				const newState = breakUpCompoundStatus(nextState.value, appeal.id);
+				await appealRepository.updateStatusAndDataById(appeal.id, newState, { user: { connect: { id: userId } } });
 				successfullyAssigned.push(appealFormatter.formatAppealForAssigningAppeals(appeal));
 			} catch (error) {
 				console.error(error);
 				unsuccessfullyAssigned.push(appealFormatter.formatAppealForAssigningAppeals(appeal, error.message));
 			}
-		} else if (!arrayOfStatusesContainsString(appeal.appealStatus, 'available_for_inspector_pickup')) {
+		} else if (!arrayOfStatusesContainsString(appeal.appealStatus, [appealStates.available_for_inspector_pickup])) {
 			unsuccessfullyAssigned.push(appealFormatter.formatAppealForAssigningAppeals(appeal, 'appeal in wrong state'));
 		} else if (appeal.userId !== undefined) {
 			unsuccessfullyAssigned.push(appealFormatter.formatAppealForAssigningAppeals(appeal, 'appeal already assigned'));

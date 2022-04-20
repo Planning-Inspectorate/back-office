@@ -36,7 +36,7 @@ export const appealFormatter = {
 		return {
 			appealId: appeal.id,
 			reference: appeal.reference,
-			appealType: 'HAS',
+			appealType: appeal.appealType.shorthand,
 			specialist: 'General',
 			provisionalVisitType: provisionalAppealSiteVisitType(appeal),
 			appealAge: daysBetweenDates(appeal.startedAt, new Date()),

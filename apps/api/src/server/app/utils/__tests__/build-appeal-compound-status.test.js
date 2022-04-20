@@ -16,8 +16,10 @@ test('when appeal status has multiple compound statuses returns object', (t) => 
 		subStateMachineName: 'state_machine_2'
 	}]);
 	t.deepEqual(result, {
-		state_machine_1: 'first status',
-		state_machine_2: 'second status'
+		awaiting_lpa_questionnaire_and_statements: {
+			state_machine_1: 'first status',
+			state_machine_2: 'second status'
+		}
 	});
 });
 

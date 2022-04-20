@@ -6,10 +6,10 @@ export const buildAppealCompundStatus = function (appealStatus) {
 	} else if (appealStatus.length > 1 && every(appealStatus, function (status) {
 		return status.subStateMachineName != undefined;
 	})) {
-		return chain(appealStatus)
+		return { awaiting_lpa_questionnaire_and_statements: chain(appealStatus)
 			.keyBy('subStateMachineName')
 			.mapValues('status')
-			.value();
+			.value() };
 	} else {
 		throw new Error('Something wrong with appeal status');
 	}

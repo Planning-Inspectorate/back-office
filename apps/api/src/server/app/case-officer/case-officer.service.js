@@ -9,7 +9,7 @@ const reviewComplete = function (reviewReason) {
 
 export const confirmLPAQuestionnaireService = async function(reviewReason, appealId) {
 	const reviewResult = reviewComplete(reviewReason);
-	const appeal = await appealRepository.getById(appealId, false, false, false);
+	const appeal = await appealRepository.getById(appealId);
 	await newReviewRepository.addReview(appeal.id, reviewResult, reviewReason);
 	const appealStatemachineStatus = reviewResult ?  'COMPLETE' : 'INCOMPLETE';
 	const appealStatus = buildAppealCompundStatus(appeal.appealStatus);

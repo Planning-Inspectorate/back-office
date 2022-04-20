@@ -32,7 +32,11 @@ function mapAppealStatusToStateMachineAction(status) {
 }
 
 export const submitValidationDecisionService = async (appealId, appealStatus, reason, descriptionOfDevelopment) => {
-	const appeal = await appealRepository.getById(appealId, true, true, true);
+	const appeal = await appealRepository.getById(appealId, {
+		appellant: true, 
+		validationDecision: true, 
+		address: true
+	});
 	const machineAction = mapAppealStatusToStateMachineAction(appealStatus);
 	const appealStatusForMachine = buildAppealCompundStatus(appeal.appealStatus);
 	const nextState = transitionState('household', { appealId: appeal.id }, appealStatusForMachine, machineAction);

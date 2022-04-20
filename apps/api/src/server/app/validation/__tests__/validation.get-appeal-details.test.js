@@ -119,18 +119,11 @@ const includingDetailsForResponse = {
 	address: true, 
 	appellant: true, 
 	appealStatus: { where: { valid: true } },
-	appealDetailsFromAppellant: false,
-	lpaQuestionnaire: false,
-	siteVisit: false
+	appealType: true
 };
 const includingDetailsForValidtion = {
-	appellant: false,
 	appealStatus: { where: { valid: true } },
-	address: false,
-	validationDecision: false,
-	appealDetailsFromAppellant: false,
-	lpaQuestionnaire: false,
-	siteVisit: false
+	appealType: true
 };
 getAppealByIdStub.withArgs({ where: { id: 1 }, include: includingDetailsForResponse }).returns(appeal_1);
 getAppealByIdStub.withArgs({ where: { id: 1 }, include: includingDetailsForValidtion }).returns(appeal_1);

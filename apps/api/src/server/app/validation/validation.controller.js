@@ -9,7 +9,11 @@ const validationStatuses = [
 ];
 
 const getAppealDetails = async function (request, response) {
-	const appeal = await appealRepository.getById(request.params.appealId, true, true, true);
+	const appeal = await appealRepository.getById(request.params.appealId, {
+		appellant: true, 
+		validationDecision: true, 
+		address: true
+	});
 	const formattedAppeal = appealFormatter.formatAppealForAppealDetails(appeal);
 	return response.send(formattedAppeal);
 };

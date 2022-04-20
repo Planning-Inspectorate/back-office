@@ -16,7 +16,11 @@ const getAppeals = async function (_request, response) {
 };
 
 const getAppealDetails = async function (request, response) {
-	const appeal = await appealRepository.getById(request.params.appealId, true, false, true, true);
+	const appeal = await appealRepository.getById(request.params.appealId, {
+		appellant: true, 
+		address: true, 
+		latestLPAReviewQuestionnaire: true 
+	});
 	const formattedAppeal = appealFormatter.formatAppealForAppealDetails(appeal);
 	return response.send(formattedAppeal);
 };
