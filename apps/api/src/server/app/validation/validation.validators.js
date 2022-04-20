@@ -1,4 +1,4 @@
-import _ from 'lodash';
+import { difference } from 'lodash-es';
 import { composeMiddleware } from '@pins/express';
 import { body, validationResult } from 'express-validator';
 import stringEmptyOrUndefined from '../utils/string-validator.js';
@@ -30,7 +30,7 @@ const invalidAppealStatus = function (appealStatus) {
 };
 
 const allArrayElementsInArray = function (arrayToCheck, arrayToCheckAgainst) {
-	return _.difference(arrayToCheck, arrayToCheckAgainst).length === 0;
+	return difference(arrayToCheck, arrayToCheckAgainst).length === 0;
 };
 
 const invalidWithUnexpectedReasons = function (requestBody) {

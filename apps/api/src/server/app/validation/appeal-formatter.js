@@ -1,4 +1,3 @@
-import _ from 'lodash';
 import formatAddress from '../utils/address-formatter.js';
 import formatDate from '../utils/date-formatter.js';
 import { appealStates } from '../state-machine/transition-state.js';

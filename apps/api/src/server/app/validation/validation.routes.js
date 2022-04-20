@@ -1,5 +1,6 @@
+import express from 'express';
 import { getAppeals, getAppealDetails, updateAppeal, submitValidationDecision, getLPAList } from './validation.controller.js';
-import { param } from 'express-validator';
+import { body, param } from 'express-validator';
 import asyncHandler from '../middleware/async-handler.js';
 import { appealStates } from '../state-machine/transition-state.js';
 import { validateAppealAttributesToChange, validateAppealValidationDecision } from './validation.validators.js';

@@ -1,4 +1,4 @@
-import _ from 'lodash';
+import { difference } from 'lodash-es';
 
 const invalidWithoutReasons = function (body) {
 	return ((
@@ -27,7 +27,7 @@ const invalidWithoutReasons = function (body) {
 };
 
 const incompleteWithUnexpectedReasons = function (body) {
-	return (_.difference(Object.keys(body.reason), [
+	return (difference(Object.keys(body.reason), [
 		'applicationPlanningOfficersReportMissingOrIncorrect',
 		'applicationPlansToReachDecisionMissingOrIncorrect',
 		'applicationPlansToReachDecisionMissingOrIncorrectDescription',

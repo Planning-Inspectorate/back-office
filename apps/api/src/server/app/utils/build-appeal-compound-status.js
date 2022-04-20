@@ -1,12 +1,12 @@
-import _ from 'lodash';
+import { chain, every } from 'lodash-es';
 
 export const buildAppealCompundStatus = function (appealStatus) {
 	if (appealStatus.length == 1 && appealStatus[0].subStateMachineName == undefined) {
 		return appealStatus[0].status;
-	} else if (appealStatus.length > 1 && _.every(appealStatus, function (status) {
+	} else if (appealStatus.length > 1 && every(appealStatus, function (status) {
 		return status.subStateMachineName != undefined;
 	})) {
-		return _.chain(appealStatus)
+		return chain(appealStatus)
 			.keyBy('subStateMachineName')
 			.mapValues('status')
 			.value();

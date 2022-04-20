@@ -2,7 +2,6 @@
 
 // eslint-disable-next-line import/no-unresolved
 import test from 'ava';
-import { find } from 'lodash-es';
 import path from 'path';
 import sinon, { assert } from 'sinon';
 import supertest from 'supertest';
