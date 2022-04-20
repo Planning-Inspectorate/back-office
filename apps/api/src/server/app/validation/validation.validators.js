@@ -5,7 +5,6 @@ import stringEmptyOrUndefined from '../utils/string-validator.js';
 
 export const validateAppealAttributesToChange = composeMiddleware(
 	body('AppellantName')
-		.isAlpha('en-US', { ignore: ' ' })
 		.optional({ nullable: true }),
 	body('LocalPlanningDepartment')
 		.isAlpha('en-US', { ignore: ' ' })
