@@ -293,13 +293,13 @@ const appealsReviewIncomplete = [
 				inGreenBelt: false,
 				inOrNearConservationArea: false,
 				siteVisibleFromPublicLand: false,
-				sideVisibleFromPublicLandDescription: 'The extension is to the rear of the property, and the garden has high hedges.',
+				siteVisibleFromPublicLandDescription: 'The extension is to the rear of the property, and the garden has high hedges.',
 				doesInspectorNeedToEnterSite: true,
-				doesInspectorNeedToEnterSideDescription: 'The proposed development can only be viewed from the appellant\'s garden',
+				doesInspectorNeedToEnterSiteDescription: 'The proposed development can only be viewed from the appellant\'s garden',
 				doesInspectorNeedToAccessNeighboursLand: true,
 				doesInspectorNeedToAccessNeighboursLandDescription: '54 Butcher Street',
 				healthAndSafetyIssues: true,
-				healthAndSafetyIsueesDescription: 'A defensive dog',
+				healthAndSafetyIssuesDescription: 'A defensive dog',
 				appealsInImmediateAreaBeingConsidered: '893482, 372839',
 				sentAt: new Date(2022, 3, 1),
 				receivedAt: new Date(2022, 3, 20)
@@ -354,13 +354,13 @@ const appealsAvailableForInspectorPickup = [
 				inGreenBelt: false,
 				inOrNearConservationArea: false,
 				siteVisibleFromPublicLand: false,
-				sideVisibleFromPublicLandDescription: 'The extension is to the read of the property, and the garden has high hedges',
+				siteVisibleFromPublicLandDescription: 'The extension is to the read of the property, and the garden has high hedges',
 				doesInspectorNeedToEnterSite: true,
-				doesInspectorNeedToEnterSideDescription: 'The proposed development can only be viewed from the appellant\'s garden',
+				doesInspectorNeedToEnterSiteDescription: 'The proposed development can only be viewed from the appellant\'s garden',
 				doesInspectorNeedToAccessNeighboursLand: true,
 				doesInspectorNeedToAccessNeighboursLandDescription: '54 Butcher Street',
 				healthAndSafetyIssues: true,
-				healthAndSafetyIsueesDescription: 'A defensive dog',
+				healthAndSafetyIssuesDescription: 'A defensive dog',
 				appealsInImmediateAreaBeingConsidered: '893482, 372839',
 				sentAt: new Date(2022, 3, 1),
 				receivedAt: new Date(2022, 3, 20)
@@ -400,6 +400,41 @@ const appealsWithBookedSiteVisit = [
 			connect: {
 				id: 1
 			}
+		},
+		appealDetailsFromAppellant: {
+			create: {
+				siteVisibleFromPublicLand: true,
+				siteVisibleFromPublicLandDescription: 'site visit description',
+				appellantOwnsWholeSite: true,
+				appellantOwnsWholeSiteDescription: 'i own the whole site',
+				healthAndSafetyIssues: false,
+				healthAndSafetyIssuesDescription: 'everything is super safe'
+			}
+		},
+		lpaQuestionnaire: {
+			create: {
+				affectsListedBuilding: false,
+				extraConditions: false,
+				inGreenBelt: false,
+				inOrNearConservationArea: false,
+				siteVisibleFromPublicLand: false,
+				siteVisibleFromPublicLandDescription: 'The extension is to the read of the property, and the garden has high hedges',
+				doesInspectorNeedToEnterSite: true,
+				doesInspectorNeedToEnterSiteDescription: 'The proposed development can only be viewed from the appellant\'s garden',
+				doesInspectorNeedToAccessNeighboursLand: true,
+				doesInspectorNeedToAccessNeighboursLandDescription: '54 Butcher Street',
+				healthAndSafetyIssues: true,
+				healthAndSafetyIssuesDescription: 'A defensive dog',
+				appealsInImmediateAreaBeingConsidered: '893482, 372839',
+				sentAt: new Date(2022, 3, 1),
+				receivedAt: new Date(2022, 3, 20)
+			}
+		},
+		validationDecision: {
+			create: {
+				decision: 'complete',
+				descriptionOfDevelopment: 'some description'
+			}
 		}
 	}
 ];
@@ -415,6 +450,7 @@ const appealsReadyForConfirmationFromCaseOfficer = [
 		},
 		localPlanningDepartment: 'Maidstone Borough Council',
 		planningApplicationReference: '48269/APP/2021/1482',
+		startedAt: new Date(2022, 3, 1, 10),
 		status: 'received_lpa_questionnaire',
 		statusUpdatedAt: getDateTwoWeeksAgo(),
 		address: {
@@ -431,16 +467,93 @@ const appealsReadyForConfirmationFromCaseOfficer = [
 				inGreenBelt: false,
 				inOrNearConservationArea: false,
 				siteVisibleFromPublicLand: false,
-				sideVisibleFromPublicLandDescription: 'The extension is to the read of the property, and the garden has high hedges',
+				siteVisibleFromPublicLandDescription: 'The extension is to the read of the property, and the garden has high hedges',
 				doesInspectorNeedToEnterSite: true,
-				doesInspectorNeedToEnterSideDescription: 'The proposed development can only be viewed from the appellant\'s garden',
+				doesInspectorNeedToEnterSiteDescription: 'The proposed development can only be viewed from the appellant\'s garden',
 				doesInspectorNeedToAccessNeighboursLand: true,
 				doesInspectorNeedToAccessNeighboursLandDescription: '54 Butcher Street',
 				healthAndSafetyIssues: true,
-				healthAndSafetyIsueesDescription: 'A defensive dog',
+				healthAndSafetyIssuesDescription: 'A defensive dog',
 				appealsInImmediateAreaBeingConsidered: '893482, 372839',
 				sentAt: new Date(2022, 3, 1),
 				receivedAt: new Date(2022, 3, 20)
+			}
+		}
+	},
+	{
+		reference: 'APP/Q9999/D/21/9876543',
+		appellant: {
+			create: {
+				name: 'Maggie Ross',
+				email: 'mags@gmail.com'
+			}
+		},
+		localPlanningDepartment: 'Wandsworth Borough Council',
+		planningApplicationReference: '48269/APP/2021/0777',
+		status: 'received_lpa_questionnaire',
+		statusUpdatedAt: getDateTwoWeeksAgo(),
+		address: {
+			create: {
+				addressLine1: '72 Clapham High St',
+				county: 'Wandsworth',
+				postcode: 'SW4 7UL'
+			}
+		},
+		lpaQuestionnaire: {
+			create: {
+				affectsListedBuilding: false,
+				extraConditions: false,
+				inGreenBelt: false,
+				inOrNearConservationArea: false,
+				siteVisibleFromPublicLand: false,
+				siteVisibleFromPublicLandDescription: 'The extension is to the rear of the property, and the garden has high hedges',
+				doesInspectorNeedToEnterSite: true,
+				doesInspectorNeedToEnterSiteDescription: 'The proposed development can only be viewed from the appellant\'s garden',
+				doesInspectorNeedToAccessNeighboursLand: true,
+				doesInspectorNeedToAccessNeighboursLandDescription: '72 Clapham High St',
+				healthAndSafetyIssues: true,
+				healthAndSafetyIssuesDescription: 'Unastable passage entrance',
+				appealsInImmediateAreaBeingConsidered: '893482, 372839',
+				sentAt: new Date(2022, 3, 2),
+				receivedAt: new Date(2022, 3, 21)
+			}
+		}
+	},
+	{
+		reference: 'APP/Q9999/D/21/3456789',
+		appellant: {
+			create: {
+				name: 'Elaine Madsen',
+				email: 'ellie@gmail.com'
+			}
+		},
+		localPlanningDepartment: 'Maidstone Borough Council',
+		planningApplicationReference: '48269/APP/2021/0666',
+		status: 'received_lpa_questionnaire',
+		statusUpdatedAt: getDateTwoWeeksAgo(),
+		address: {
+			create: {
+				addressLine1: '21 The Pavement',
+				county: 'Wandsworth',
+				postcode: 'SW4 0HY'
+			}
+		},
+		lpaQuestionnaire: {
+			create: {
+				affectsListedBuilding: false,
+				extraConditions: false,
+				inGreenBelt: false,
+				inOrNearConservationArea: false,
+				siteVisibleFromPublicLand: false,
+				siteVisibleFromPublicLandDescription: 'The extension is to the read of the property, and the garden has high hedges',
+				doesInspectorNeedToEnterSite: true,
+				doesInspectorNeedToEnterSiteDescription: 'The proposed development can only be viewed from the appellant\'s garden',
+				doesInspectorNeedToAccessNeighboursLand: true,
+				doesInspectorNeedToAccessNeighboursLandDescription: '21 The Pavement',
+				healthAndSafetyIssues: false,
+				appealsInImmediateAreaBeingConsidered: '893482, 372839',
+				sentAt: new Date(2022, 3, 3),
+				receivedAt: new Date(2022, 3, 22)
 			}
 		}
 	}
@@ -469,7 +582,12 @@ const appealsSiteVisitNotYetBooked = [
 		startedAt: new Date(2022, 3, 1, 10),
 		appealDetailsFromAppellant: {
 			create: {
-				siteVisibleFromPublicLand: true
+				siteVisibleFromPublicLand: true,
+				siteVisibleFromPublicLandDescription: 'site visit description',
+				appellantOwnsWholeSite: true,
+				appellantOwnsWholeSiteDescription: 'i own the whole site',
+				healthAndSafetyIssues: false,
+				healthAndSafetyIssuesDescription: 'everything is super safe'
 			}
 		},
 		user: {
@@ -480,6 +598,20 @@ const appealsSiteVisitNotYetBooked = [
 		lpaQuestionnaire: {
 			create: {
 				siteVisibleFromPublicLand: false,
+				siteVisibleFromPublicLandDescription: 'not visible from public land',
+				doesInspectorNeedToEnterSite: true,
+				doesInspectorNeedToEnterSiteDescription: 'inspector will want to enter site',
+				doesInspectorNeedToAccessNeighboursLand: false,
+				doesInspectorNeedToAccessNeighboursLandDescription: 'should be able to see ok',
+				healthAndSafetyIssues: false,
+				healthAndSafetyIssuesDescription: 'not really',
+				appealsInImmediateAreaBeingConsidered: '123/456/789, ABC/DEF/GHI'
+			}
+		},
+		validationDecision: {
+			create: {
+				decision: 'complete',
+				descriptionOfDevelopment: 'some description'
 			}
 		}
 	},
@@ -504,7 +636,12 @@ const appealsSiteVisitNotYetBooked = [
 		startedAt: new Date(2022, 4, 1, 11),
 		appealDetailsFromAppellant: {
 			create: {
-				siteVisibleFromPublicLand: true
+				siteVisibleFromPublicLand: true,
+				siteVisibleFromPublicLandDescription: 'site visit description',
+				appellantOwnsWholeSite: true,
+				appellantOwnsWholeSiteDescription: 'i own the whole site',
+				healthAndSafetyIssues: false,
+				healthAndSafetyIssuesDescription: 'everything is super safe'
 			}
 		},
 		user: {
@@ -515,6 +652,26 @@ const appealsSiteVisitNotYetBooked = [
 		lpaQuestionnaire: {
 			create: {
 				siteVisibleFromPublicLand: true,
+				siteVisibleFromPublicLandDescription: 'not visible from public land',
+				doesInspectorNeedToEnterSite: false,
+				doesInspectorNeedToEnterSiteDescription: 'inspector will want to enter site',
+				doesInspectorNeedToAccessNeighboursLand: false,
+				doesInspectorNeedToAccessNeighboursLandDescription: 'should be able to see ok',
+				healthAndSafetyIssues: false,
+				healthAndSafetyIssuesDescription: 'not really',
+				appealsInImmediateAreaBeingConsidered: 'abcd, ABC/DEF/GHI',
+				emergingDevelopmentPlanOrNeighbourhoodPlan: false,
+				emergingDevelopmentPlanOrNeighbourhoodPlanDescription: 'plans',
+				inGreenBelt: false,
+				extraConditions: false,
+				affectsListedBuilding: false,
+				inOrNearConservationArea: false,
+			}
+		},
+		validationDecision: {
+			create: {
+				decision: 'complete',
+				descriptionOfDevelopment: 'some description of development'
 			}
 		}
 	}
@@ -544,6 +701,47 @@ const appealsWithDecisionDue = [
 		user: {
 			connect: {
 				id: 1
+			}
+		},
+		appellant: {
+			create: {
+				name: 'Maria Sharma',
+				email: 'maria.sharma@gmail.com'
+			}
+		},
+		lpaQuestionnaire: {
+			create: {
+				siteVisibleFromPublicLand: true,
+				siteVisibleFromPublicLandDescription: 'not visible from public land',
+				doesInspectorNeedToEnterSite: false,
+				doesInspectorNeedToEnterSiteDescription: 'inspector will want to enter site',
+				doesInspectorNeedToAccessNeighboursLand: false,
+				doesInspectorNeedToAccessNeighboursLandDescription: 'should be able to see ok',
+				healthAndSafetyIssues: false,
+				healthAndSafetyIssuesDescription: 'not really',
+				appealsInImmediateAreaBeingConsidered: 'abcd, ABC/DEF/GHI',
+				emergingDevelopmentPlanOrNeighbourhoodPlan: false,
+				emergingDevelopmentPlanOrNeighbourhoodPlanDescription: 'plans',
+				inGreenBelt: false,
+				extraConditions: false,
+				affectsListedBuilding: false,
+				inOrNearConservationArea: false,
+			}
+		},
+		validationDecision: {
+			create: {
+				decision: 'complete',
+				descriptionOfDevelopment: 'some description of development'
+			}
+		},
+		appealDetailsFromAppellant: {
+			create: {
+				siteVisibleFromPublicLand: true,
+				siteVisibleFromPublicLandDescription: 'site visit description',
+				appellantOwnsWholeSite: true,
+				appellantOwnsWholeSiteDescription: 'i own the whole site',
+				healthAndSafetyIssues: false,
+				healthAndSafetyIssuesDescription: 'everything is super safe'
 			}
 		}
 	}

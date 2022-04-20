@@ -1,7 +1,7 @@
 import express from 'express';
 import { param } from 'express-validator';
 import asyncHandler from '../middleware/async-handler.js';
-import { assignAppeals, bookSiteVisit, getAppeals, getMoreAppeals, issueDecision } from './inspector.controller.js';
+import { assignAppeals, bookSiteVisit, getAppeals, issueDecision, getAppealDetails, getMoreAppeals } from './inspector.controller.js';
 import {
 	validateAssignAppealsToInspector,
 	validateBookSiteVisit,
@@ -28,6 +28,25 @@ router.get(
         }
     */
 	asyncHandler(getAppeals)
+);
+
+router.get(
+	'/:appealId',
+	/*
+        #swagger.description = 'Gets details of appeal for inspector'
+        #swagger.parameters['userId'] = {
+            in: 'header',
+            type: 'integer',
+            required: true
+        }
+        #swagger.responses[200] = {
+            description: 'Appeal Details',
+            schema: { $ref: '#/definitions/AppealDetailsForInspector' }
+        }
+    */
+	param('appealId').toInt(),
+	validateUserBelongsToAppeal,
+	asyncHandler(getAppealDetails)
 );
 
 router.post(

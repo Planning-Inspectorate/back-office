@@ -80,8 +80,8 @@ export const validatePlanningApplicationReference = createValidator(
 		.trim()
 		.isLength({ min: 1 })
 		.withMessage('Enter a planning application reference')
-		.isLength({ max: 50 })
-		.withMessage('Planning application reference must be 50 characters or fewer')
+		.isLength({ max: 500 })
+		.withMessage('Planning application reference must be 500 characters or fewer')
 );
 
 export const validateReviewOutcomeConfirmation = createValidator(

@@ -3,6 +3,7 @@
 {% from "govuk/components/panel/macro.njk" import govukPanel %}
 
 {% set pageTitle = 'Confirmation of review questionnaire' %}
+{% set completionText = 'complete' if complete else 'incomplete' %}
 
 {% block pageHeading %}{% endblock %}
 {% block pageContent %}
@@ -10,7 +11,7 @@
     govukPanel({
 		  titleText: 'Outcome confirmed',
 		  html: [
-        'Questionnaire complete',
+        'Questionnaire ' + completionText,
         '<strong>' + appeal.AppealReference + '</strong>'
       ] | join('<br>')
 	  })

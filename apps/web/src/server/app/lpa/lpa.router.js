@@ -52,9 +52,9 @@ router.param('documentType', (request, _, next, documentType) => {
 });
 
 // Main lpa route `/lpa`
-router.route('/').get(viewDashboard);
+router.route('/').get(createAsyncHandler(viewDashboard));
 
-router.route('/appeals/:appealId').get(viewAppeal);
+router.route('/appeals/:appealId').get(createAsyncHandler(viewAppeal));
 
 router
 	.route('/appeals/:appealId/questionnaire')
@@ -66,7 +66,7 @@ router
 
 router
 	.route('/appeals/:appealId/questionnaire/confirm')
-	.get(assertQuestionnaireReviewExists, viewQuestionnaireReviewConfirmation)
+	.get(assertQuestionnaireReviewExists, createAsyncHandler(viewQuestionnaireReviewConfirmation))
 	.post(
 		assertQuestionnaireReviewExists,
 		validateQuestionnaireReviewConfirmation,

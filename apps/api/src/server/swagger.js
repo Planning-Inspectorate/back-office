@@ -148,6 +148,52 @@ const document_ = {
 			$siteVisitType: { '@enum': ['accompanied', 'unaccompanied', 'access required'] },
 			$provisionalSiteVisitType: { '@enum': ['unaccompanied', 'access required'] }
 		},
+		AppealDetailsForInspector: {
+			appealId: 1,
+			reference: 'APP/2021/56789/4909983',
+			provisionalSiteVisitType: { '@enum': ['unaccompanied', 'access required'] },
+			appellantName: 'Maria Sharma',
+			email: 'maria.sharma@gmail.com',
+			descriptionOfDevelopment: 'some description of development',
+			appealReceivedDate: '12 December 2020',
+			extraConditions: false,
+			affectsListedBuilding: false,
+			inGreenBelt: false,
+			inOrNearConservationArea: false,
+			emergingDevelopmentPlanOrNeighbourhoodPlan: false,
+			emergingDevelopmentPlanOrNeighbourhoodPlanDescription: 'plans',
+			appealAge: 12,
+			localPlanningDepartment: 'some other department',
+			bookedSiteVisit: {
+				visitDate: '12 December 2022',
+				visitSlot: '1pm - 2pm',
+				visitType: { '@enum': ['accompanied', 'unaccompanied', 'access required'] }
+			},
+			address: {
+				addressLine1: '66 Grove Road',
+				postCode: 'BS16 2BP',
+				town: 'Fishponds',
+			},
+			lpaAnswers: {
+				canBeSeenFromPublic: true,
+				canBeSeenFromPublicDescription: 'not visible from public land',
+				inspectorNeedsToEnterSite: false,
+				inspectorNeedsToEnterSiteDescription: 'inspector will want to enter site',
+				inspectorNeedsAccessToNeighboursLand: false,
+				inspectorNeedsAccessToNeighboursLandDescription: 'should be able to see ok',
+				healthAndSafetyIssues: false,
+				healthAndSafetyIssuesDescription: 'not really',
+				appealsInImmediateArea: 'abcd, ABC/DEF/GHI'
+			},
+			appellantAnswers: {
+				canBeSeenFromPublic: true,
+				canBeSeenFromPublicDescription: 'site visit description',
+				appellantOwnsWholeSite: true,
+				appellantOwnsWholeSiteDescription: 'i own the whole site',
+				healthAndSafetyIssues: false,
+				healthAndSafetyIssuesDescription: 'everything is super safe'
+			}
+		},
 		AppealsAssignedToInspector: {
 			$successfullyAssigned: [{
 				$appealId: 1,

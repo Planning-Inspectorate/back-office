@@ -51,7 +51,7 @@ router.param('documentType', (request, _, next, documentType) => {
 	next();
 });
 
-router.route('/').get(viewDashboard);
+router.route('/').get(createAsyncHandler(viewDashboard));
 
 router
 	.route('/appeals/:appealId')
@@ -91,7 +91,7 @@ router
 
 router
 	.route('/appeals/:appealId/review-outcome')
-	.get(hasReviewOutcomeStatus, newReviewOutcome)
+	.get(hasReviewOutcomeStatus, createAsyncHandler(newReviewOutcome))
 	.post(validators.validateReviewOutcome, createAsyncHandler(createReviewOutcome));
 
 router
