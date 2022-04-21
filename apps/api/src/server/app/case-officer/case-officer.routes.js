@@ -5,7 +5,8 @@ import {
 	confirmLPAQuestionnaire,
 	getAppealDetails,
 	getAppeals,
-	updateAppealDetails
+	updateAppealDetails,
+	uploadStatement
 } from './case-officer.controller.js';
 import {
 	validateAppealBelongsToCaseOfficer,
@@ -13,6 +14,7 @@ import {
 	validateAppealHasIncompleteQuestionnaire,
 	validateReviewRequest
 } from './case-officer.validators.js';
+import { validateAppealStatus } from '../middleware/validate-appeal-status.js';
 
 /**
  * @typedef {object} AppealParams
@@ -63,4 +65,11 @@ router.post(
 	asyncHandler(confirmLPAQuestionnaire)
 );
 
-export { router as caseOfficerRoutes };
+router.post('/:appealId/statement',
+	param('appealId').toInt(),
+	validateAppealStatus(['available_for_statements']),
+	asyncHandler(uploadStatement));
+
+export {
+	router as caseOfficerRoutes
+};

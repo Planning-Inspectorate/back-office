@@ -49,7 +49,7 @@ const getMoreAppeals = async function(request, response) {
 	);
 	const moreAppealsFormatted = moreAppeals.map((appeal) => appealFormatter.formatAppealForMoreAppeals(appeal));
 	return response.send(moreAppealsFormatted);
- };
+};
 
 /**
  * @typedef {object} BookSiteVisitRequestBody

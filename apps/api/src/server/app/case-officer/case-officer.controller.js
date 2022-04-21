@@ -48,3 +48,7 @@ export const updateAppealDetails = async ({ body, params }, response) => {
 
 	response.send(updatedAppeal);
 };
+
+export const uploadStatement = async function(request, response) {
+	response.send();
+};
