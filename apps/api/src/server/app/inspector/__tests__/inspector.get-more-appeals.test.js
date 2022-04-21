@@ -66,7 +66,7 @@ test('gets all appeals yet to be assigned to inspector', async (t) => {
    sinon.assert.calledWith(findManyStub, {
 	where: {
 		appealStatus: {
-			every: {
+			some: {
 				status: {
 					in: ['available_for_inspector_pickup']
 				},
