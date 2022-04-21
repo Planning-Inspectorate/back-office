@@ -36,7 +36,26 @@ function pickRandom(list) {
 	return list[Math.floor(Math.random()*list.length)];
 }
 
+const appealTypes = {
+	HAS: 'household',
+	FPA: 'full planning'
+};
+
+const buildCompoundState = function (lpaQuestionnaireAndInspectorPickupState, statementsAndFinalCommentsState, createdAt = new Date()) {
+	return [
+		{
+			status: lpaQuestionnaireAndInspectorPickupState, createdAt: createdAt,
+			subStateMachineName: 'lpaQuestionnaireAndInspectorPickup', compoundStateName: 'awaiting_lpa_questionnaire_and_statements'
+		},
+		{
+			status: statementsAndFinalCommentsState, createdAt: createdAt,
+			subStateMachineName: 'statementsAndFinalComments', compoundStateName: 'awaiting_lpa_questionnaire_and_statements'
+		}
+	];
+};
+
 const appealFactory = function(
+	typeShorthand,
 	statuses = {}, 
 	incompleteValidationDecision = false,
 	invalidValidationDecision = false,
@@ -49,6 +68,10 @@ const appealFactory = function(
 	siteVisitBooked = false
 ) {
 	return {
+		appealType: { connectOrCreate: { 
+			where: { shorthand: typeShorthand }, 
+			create: { shorthand: typeShorthand, type: appealTypes[typeShorthand] } 
+		} },
 		reference: generateAppealReference(),
 		startedAt: startedAt,
 		appealStatus: { create: statuses },
@@ -69,73 +92,125 @@ const appealFactory = function(
 };
 
 const newAppeals = [
-	appealFactory(),
-	appealFactory(),
-	appealFactory(),
-	appealFactory(),
-	appealFactory(),
-	appealFactory()
+	appealFactory('HAS'),
+	appealFactory('HAS'),
+	appealFactory('HAS'),
+	appealFactory('HAS'),
+	appealFactory('HAS'),
+	appealFactory('HAS'),
+	appealFactory('FPA'),
+	appealFactory('FPA'),
+	appealFactory('FPA'),
+	appealFactory('FPA'),
+	appealFactory('FPA'),
+	appealFactory('FPA')
 ];
 
 const appealsAwaitingValidationInfo = [
-	appealFactory({ status: 'awaiting_validation_info' }, true)
+	appealFactory('HAS', { status: 'awaiting_validation_info' }, true),
+	appealFactory('FPA', { status: 'awaiting_validation_info' }, true)
 ];
 
 const invalidAppeals = [
-	appealFactory({ status: 'invalid_appeal' }, false, true)
+	appealFactory('HAS', { status: 'invalid_appeal' }, false, true),
+	appealFactory('FPA', { status: 'invalid_appeal' }, false, true)
 ];
 
 const appealsAwaitingLPAQuestionnaire = [
-	appealFactory({ status: 'awaiting_lpa_questionnaire', createdAt: getDateTwoWeeksAgo() }, false, false, true, true, new Date())
+	appealFactory('HAS', { status: 'awaiting_lpa_questionnaire', createdAt: getDateTwoWeeksAgo() }, false, false, true, true, new Date()),
+	appealFactory('HAS', { status: 'awaiting_lpa_questionnaire', createdAt: getDateTwoWeeksAgo() }, false, false, true, true, new Date()),
+	appealFactory('HAS', { status: 'awaiting_lpa_questionnaire', createdAt: getDateTwoWeeksAgo() }, false, false, true, true, new Date()),
+	appealFactory('HAS', { status: 'awaiting_lpa_questionnaire', createdAt: getDateTwoWeeksAgo() }, false, false, true, true, new Date()),
+	appealFactory('FPA', buildCompoundState('awaiting_lpa_questionnaire', 'available_for_statements', getDateTwoWeeksAgo()), 
+		false, false, true, true, new Date()),
+	appealFactory('FPA', buildCompoundState('awaiting_lpa_questionnaire', 'available_for_statements', getDateTwoWeeksAgo()), 
+		false, false, true, true, new Date()),
+	appealFactory('FPA', buildCompoundState('awaiting_lpa_questionnaire', 'available_for_statements', getDateTwoWeeksAgo()), 
+		false, false, true, true, new Date())
 ];
 
 const appealsAwaitingLPAQuestionnaireOverdue = [
-	appealFactory({ status: 'overdue_lpa_questionnaire', createdAt: getDateTwoWeeksAgo() }, false, false, true, true, new Date(2021, 10, 10))
+	appealFactory('HAS', { status: 'overdue_lpa_questionnaire', createdAt: getDateTwoWeeksAgo() }, false, false, true, true, new Date(2021, 10, 10)),
+	appealFactory('HAS', { status: 'overdue_lpa_questionnaire', createdAt: getDateTwoWeeksAgo() }, false, false, true, true, new Date(2021, 10, 10)),
+	appealFactory('FPA', buildCompoundState('overdue_lpa_questionnaire', 'available_for_statements', getDateTwoWeeksAgo()), 
+		false, false, true, true, new Date(2021, 10, 10)),
+	appealFactory('FPA', buildCompoundState('overdue_lpa_questionnaire', 'available_for_statements', getDateTwoWeeksAgo()), 
+		false, false, true, true, new Date(2021, 10, 10))
 ];
 
 const appealsReadyForConfirmationFromCaseOfficer = [
-	appealFactory({ status: 'received_lpa_questionnaire', createdAt: getDateTwoWeeksAgo() }, false, false, true, true, new Date(2022, 3, 1, 10)),
-	appealFactory({ status: 'received_lpa_questionnaire', createdAt: getDateTwoWeeksAgo() }, false, false, true, true, new Date(2022, 3, 1, 10)),
-	appealFactory({ status: 'received_lpa_questionnaire', createdAt: getDateTwoWeeksAgo() }, false, false, true, true, new Date(2022, 3, 1, 10)),
-	appealFactory({ status: 'received_lpa_questionnaire', createdAt: getDateTwoWeeksAgo() }, false, false, true, true, new Date(2022, 3, 1, 10)),
-	appealFactory({ status: 'received_lpa_questionnaire', createdAt: getDateTwoWeeksAgo() }, false, false, true, true, new Date(2022, 3, 1, 10))
+	appealFactory('HAS', { status: 'received_lpa_questionnaire', createdAt: getDateTwoWeeksAgo() }, false, false, true, true, new Date(2022, 3, 1, 10)),
+	appealFactory('HAS', { status: 'received_lpa_questionnaire', createdAt: getDateTwoWeeksAgo() }, false, false, true, true, new Date(2022, 3, 1, 10)),
+	appealFactory('HAS', { status: 'received_lpa_questionnaire', createdAt: getDateTwoWeeksAgo() }, false, false, true, true, new Date(2022, 3, 1, 10)),
+	appealFactory('HAS', { status: 'received_lpa_questionnaire', createdAt: getDateTwoWeeksAgo() }, false, false, true, true, new Date(2022, 3, 1, 10)),
+	appealFactory('HAS', { status: 'received_lpa_questionnaire', createdAt: getDateTwoWeeksAgo() }, false, false, true, true, new Date(2022, 3, 1, 10)),
+	appealFactory('FPA', buildCompoundState('received_lpa_questionnaire', 'available_for_statements', getDateTwoWeeksAgo()), 
+		false, false, true, true, new Date(2022, 3, 1, 10)),
+	appealFactory('FPA', buildCompoundState('received_lpa_questionnaire', 'available_for_statements', getDateTwoWeeksAgo()), 
+		false, false, true, true, new Date(2022, 3, 1, 10))
 ];
 
 const appealsReviewIncomplete = [
-	appealFactory({ status: 'incomplete_lpa_questionnaire', createdAt: getDateTwoWeeksAgo() }, false, false, true, true, new Date(2022, 3, 1, 10), true),
-	appealFactory({ status: 'incomplete_lpa_questionnaire', createdAt: getDateTwoWeeksAgo() }, false, false, true, true, new Date(2022, 3, 1, 10), true),
-	appealFactory({ status: 'incomplete_lpa_questionnaire', createdAt: getDateTwoWeeksAgo() }, false, false, true, true, new Date(2022, 3, 1, 10), true),
+	appealFactory('HAS', { status: 'incomplete_lpa_questionnaire', createdAt: getDateTwoWeeksAgo() }, 
+		false, false, true, true, new Date(2022, 3, 1, 10), true),
+	appealFactory('HAS', { status: 'incomplete_lpa_questionnaire', createdAt: getDateTwoWeeksAgo() }, 
+		false, false, true, true, new Date(2022, 3, 1, 10), true),
+	appealFactory('HAS', { status: 'incomplete_lpa_questionnaire', createdAt: getDateTwoWeeksAgo() }, 
+		false, false, true, true, new Date(2022, 3, 1, 10), true),
+	appealFactory('FPA', buildCompoundState('incomplete_lpa_questionnaire', 'available_for_statements', getDateTwoWeeksAgo()), 
+		false, false, true, true, new Date(2022, 3, 1, 10), true),
+	appealFactory('FPA', buildCompoundState('incomplete_lpa_questionnaire', 'available_for_statements', getDateTwoWeeksAgo()), 
+		false, false, true, true, new Date(2022, 3, 1, 10), true),
+	appealFactory('FPA', buildCompoundState('incomplete_lpa_questionnaire', 'available_for_statements', getDateTwoWeeksAgo()), 
+		false, false, true, true, new Date(2022, 3, 1, 10), true),
 ];
 
 const appealsAvailableForInspectorPickup = [
-	appealFactory({ status: 'available_for_inspector_pickup', createdAt: getDateTwoWeeksAgo() }, 
+	appealFactory('HAS', { status: 'available_for_inspector_pickup', createdAt: getDateTwoWeeksAgo() }, 
 		false, false, true, true, new Date(2022, 3, 1, 10), false, true),
-	appealFactory({ status: 'available_for_inspector_pickup', createdAt: getDateTwoWeeksAgo() }, 
+	appealFactory('HAS', { status: 'available_for_inspector_pickup', createdAt: getDateTwoWeeksAgo() }, 
 		false, false, true, true, new Date(2022, 3, 1, 10), false, true),
-	appealFactory({ status: 'available_for_inspector_pickup', createdAt: getDateTwoWeeksAgo() }, 
+	appealFactory('HAS', { status: 'available_for_inspector_pickup', createdAt: getDateTwoWeeksAgo() }, 
 		false, false, true, true, new Date(2022, 3, 1, 10), false, true),
-	appealFactory({ status: 'available_for_inspector_pickup', createdAt: getDateTwoWeeksAgo() }, 
+	appealFactory('HAS', { status: 'available_for_inspector_pickup', createdAt: getDateTwoWeeksAgo() }, 
 		false, false, true, true, new Date(2022, 3, 1, 10), false, true),
-	appealFactory({ status: 'available_for_inspector_pickup', createdAt: getDateTwoWeeksAgo() }, 
+	appealFactory('HAS', { status: 'available_for_inspector_pickup', createdAt: getDateTwoWeeksAgo() }, 
 		false, false, true, true, new Date(2022, 3, 1, 10), false, true),
-	appealFactory({ status: 'available_for_inspector_pickup', createdAt: getDateTwoWeeksAgo() }, 
+	appealFactory('FPA', buildCompoundState('available_for_inspector_pickup', 'available_for_statements', getDateTwoWeeksAgo()), 
+		false, false, true, true, new Date(2022, 3, 1, 10), false, true),
+	appealFactory('FPA', buildCompoundState('available_for_inspector_pickup', 'available_for_final_comments', getDateTwoWeeksAgo()), 
+		false, false, true, true, new Date(2022, 3, 1, 10), false, true),
+	appealFactory('FPA', buildCompoundState('available_for_inspector_pickup', 'closed_for_statements_and_final_comments', getDateTwoWeeksAgo()), 
+		false, false, true, true, new Date(2022, 3, 1, 10), false, true),
+	appealFactory('FPA', buildCompoundState('available_for_inspector_pickup', 'closed_for_statements_and_final_comments', getDateTwoWeeksAgo()), 
+		false, false, true, true, new Date(2022, 3, 1, 10), false, true),
+	appealFactory('FPA', buildCompoundState('available_for_inspector_pickup', 'closed_for_statements_and_final_comments', getDateTwoWeeksAgo()), 
 		false, false, true, true, new Date(2022, 3, 1, 10), false, true)
 ];
 
-const appealsSiteVisitNotYetBooked = [
-	appealFactory({ status: 'site_visit_not_yet_booked' },
+const appealPickedUpButStillAcceptingFinalComments = [
+	appealFactory('FPA', buildCompoundState('picked_up', 'available_for_final_comments', getDateTwoWeeksAgo()), 
 		false, false, true, true, new Date(2022, 3, 1, 10), false, true, true),
-	appealFactory({ status: 'site_visit_not_yet_booked' },
-		false, false, true, true, new Date(2022, 4, 1, 11), false, true, true)
+	appealFactory('FPA', buildCompoundState('picked_up', 'available_for_statements', getDateTwoWeeksAgo()), 
+		false, false, true, true, new Date(2022, 3, 1, 10), false, true, true)	
+];
+
+const appealsSiteVisitNotYetBooked = [
+	appealFactory('HAS', { status: 'site_visit_not_yet_booked' },
+		false, false, true, true, new Date(2022, 3, 1, 10), false, true, true),
+	appealFactory('HAS', { status: 'site_visit_not_yet_booked' },
+		false, false, true, true, new Date(2022, 4, 1, 11), false, true, true),
+	appealFactory('FPA', { status: 'site_visit_not_yet_booked' },
+		false, false, true, true, new Date(2022, 4, 1, 11), false, true, true),
 ];
 
 const appealsWithBookedSiteVisit = [
-	appealFactory({ status: 'site_visit_booked' },
+	appealFactory('HAS', { status: 'site_visit_booked' },
 		false, false, true, true, new Date(2022, 4, 1, 11), false, true, true, true)
 ];
 
 const appealsWithDecisionDue = [
-	appealFactory({ status: 'decision_due' },
+	appealFactory('HAS', { status: 'decision_due' },
 		false, false, true, true, new Date(2022, 4, 1, 11), false, true, true, true)
 ];
 
@@ -148,6 +223,7 @@ const appealsData = [
 	...appealsReviewIncomplete,
 	...appealsReadyForConfirmationFromCaseOfficer,
 	...appealsAvailableForInspectorPickup,
+	...appealPickedUpButStillAcceptingFinalComments,
 	...appealsSiteVisitNotYetBooked,
 	...appealsWithBookedSiteVisit,
 	...appealsWithDecisionDue

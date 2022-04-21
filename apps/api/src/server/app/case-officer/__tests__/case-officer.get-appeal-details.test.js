@@ -40,7 +40,7 @@ const appeal_2 = {
 
 const includeDetails = {
 	address: true,
-	validationDecision: false,
+	appealType: true,
 	appellant: true,
 	appealStatus: {
 		where: {
@@ -53,19 +53,11 @@ const includeDetails = {
 			createdAt: 'desc'
 		}
 	},
-	appealDetailsFromAppellant: false,
-	lpaQuestionnaire: false,
-	siteVisit: false
 };
 
 const includingDetailsForValidtion = { 
-	appellant: false, 
 	appealStatus: { where: { valid: true } }, 
-	address: false, 
-	validationDecision: false,
-	appealDetailsFromAppellant: false,
-	lpaQuestionnaire: false,
-	siteVisit: false
+	appealType: true,
 };
 
 const findUniqueStub = sinon.stub();

@@ -18,14 +18,21 @@ const getAppeals = async function(request, response) {
 	const appeals = await appealRepository.getByStatusesAndUserId([
 		appealStates.site_visit_not_yet_booked,
 		appealStates.site_visit_booked,
-		appealStates.decision_due
+		appealStates.decision_due,
+		'picked_up'
 	], userId);
 	const appealsForResponse = appeals.map((appeal) => appealFormatter.formatAppealForAllAppeals(appeal));
 	return response.send(appealsForResponse);
 };
 
 const getAppealDetails = async function(request, response) {
-	const appeal = await appealRepository.getById(request.params.appealId, true, true, true, false, true, true, true);
+	const appeal = await appealRepository.getById(request.params.appealId, {
+		includeAppellant: true, 
+		includeValidationDecision: true, 
+		includeAddress: true, 
+		includeLatestLPAReviewQuestionnaire: true, 
+		includeAppealDetailsFromAppellant: true
+	});
 	const formattedAppeal = appealFormatter.formatAppealForAppealDetails(appeal);
 	response.send(formattedAppeal);
 };

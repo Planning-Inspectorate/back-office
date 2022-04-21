@@ -8,13 +8,8 @@ import DatabaseFactory from '../../repositories/database.js';
 const request = supertest(app);
 
 const includingDetailsForValidtion = { 
-	appellant: false, 
 	appealStatus: { where: { valid: true } }, 
-	address: false, 
-	validationDecision: false,
-	appealDetailsFromAppellant: false,
-	lpaQuestionnaire: false,
-	siteVisit: false
+	appealType: true
 };
 
 const findUniqueStub = sinon.stub();

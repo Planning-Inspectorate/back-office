@@ -1,3 +1,4 @@
+import { isString } from 'lodash-es';
 import DatabaseFactory from './database.js';
 
 /** @typedef {keyof import('@pins/api').Schema.AppealRelations} AppealRelationType */
@@ -64,32 +65,26 @@ const appealRepository = (function () {
 			});
 		},
 		getById: function (
-			id,
-			includeAppellant = false,
-			includeValidationDecision = false,
-			includeAddress = false,
-			includeLatestLPAReviewQuestionnaire = false,
-			includeAppealDetailsFromAppellant = false,
-			includeLpaQuestionnaire = false,
-			includeSiteVisit = false
+			id, 
+			inclusions = {}
 		) {
 			return getPool().appeal.findUnique({
 				where: {
 					id: id
 				},
 				include: {
-					appellant: includeAppellant,
-					validationDecision: includeValidationDecision,
-					address: includeAddress,
+					...( inclusions.appellant && { appellant: inclusions.appellant }),
+					...( inclusions.validationDecision && { validationDecision: inclusions.validationDecision }),
+					...( inclusions.address && { address: inclusions.address }),
+					...( inclusions.appealDetailsFromAppellant && { appealDetailsFromAppellant: inclusions.appealDetailsFromAppellant }),
+					...( inclusions.lpaQuestionnaire && { lpaQuestionnaire: inclusions.lpaQuestionnaire }),
+					...( inclusions.latestLPAReviewQuestionnaire && includeLatestReviewQuestionnaireFilter),
 					appealStatus: {
 						where: {
 							valid: true
 						}
 					},
-					appealDetailsFromAppellant: includeAppealDetailsFromAppellant,
-					lpaQuestionnaire: includeLpaQuestionnaire,
-					...(includeLatestLPAReviewQuestionnaire && includeLatestReviewQuestionnaireFilter),
-					siteVisit: includeSiteVisit
+					appealType: true
 				}
 			});
 		},
@@ -99,13 +94,13 @@ const appealRepository = (function () {
 				data: { valid: false }
 			});
 		},
-		createNewStatuses: function (id, status) {
-			return getPool().appealStatus.create({
+		createNewStatuses: function(id, status) {
+			return isString(status) ? getPool().appealStatus.create({
 				data: {
 					status: status,
 					appealId: id
 				}
-			});
+			}) : getPool().appealStatus.createMany({ data: status });
 		},
 		updateStatusById: function (id, status) {
 			return getPool().$transaction([this.invalidateAppealStatuses(id), this.createNewStatuses(id, status)]);
@@ -166,6 +161,7 @@ const appealRepository = (function () {
 					userId: userId
 				},
 				include: {
+					appealType: true,
 					address: true,
 					siteVisit: true,
 					lpaQuestionnaire: true,

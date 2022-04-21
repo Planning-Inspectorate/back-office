@@ -14,6 +14,9 @@ const appeal_1 = {
 		status: 'decision_due',
 		valid: true
 	}],
+	appealType: {
+		shorthand: 'HAS'
+	},
 	createdAt: new Date(2022, 1, 23),
 	localPlanningDepartment: 'Maidstone Borough Council',
 	planningApplicationReference: '48269/APP/2021/1482',
@@ -43,6 +46,9 @@ const appeal_2 = {
 		status: 'site_visit_booked',
 		valid: true
 	}],
+	appealType: {
+		shorthand: 'HAS'
+	},
 	createdAt: new Date(2022, 1, 25),
 	startedAt: new Date(2022, 3, 29),
 	address: {
@@ -67,6 +73,9 @@ const appeal_3 = {
 		status: 'site_visit_not_yet_booked',
 		valid: true
 	}],
+	appealType: {
+		shorthand: 'HAS'
+	},
 	createdAt: new Date(2022, 1, 25),
 	startedAt: new Date(2022, 3, 29),
 	address: {
@@ -90,6 +99,9 @@ const appeal_4 = {
 		status: 'site_visit_not_yet_booked',
 		valid: true
 	}],
+	appealType: {
+		shorthand: 'FPA'
+	},
 	createdAt: new Date(2022, 1, 25),
 	startedAt: new Date(2022, 3, 29),
 	address: {
@@ -113,6 +125,9 @@ const appeal_5 = {
 		status: 'site_visit_not_yet_booked',
 		valid: true
 	}],
+	appealType: {
+		shorthand: 'FPA'
+	},
 	createdAt: new Date(2022, 1, 25),
 	startedAt: new Date(2022, 3, 29),
 	address: {
@@ -202,7 +217,7 @@ test('gets all appeals assigned to inspector', async (t) => {
 				postCode: 'S63 0RB',
 				town: 'Thurnscoe',
 			},
-			appealType: 'HAS',
+			appealType: 'FPA',
 			reference: 'APP/Q9999/D/21/5463281',
 			status: 'not yet booked',
 			provisionalVisitType: 'access required'
@@ -215,7 +230,7 @@ test('gets all appeals assigned to inspector', async (t) => {
 				postCode: 'S63 0RB',
 				town: 'Thurnscoe',
 			},
-			appealType: 'HAS',
+			appealType: 'FPA',
 			reference: 'APP/Q9999/D/21/5463281',
 			status: 'not yet booked',
 			provisionalVisitType: 'unaccompanied'
@@ -229,7 +244,8 @@ test('gets all appeals assigned to inspector', async (t) => {
 						in: [
 							'site_visit_not_yet_booked',
 							'site_visit_booked',
-							'decision_due'
+							'decision_due',
+							'picked_up'
 						]
 					},
 					valid: true
@@ -247,7 +263,8 @@ test('gets all appeals assigned to inspector', async (t) => {
 				where: {
 					valid: true
 				}
-			}
+			},
+			appealType: true
 		}
 	});
 });

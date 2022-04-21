@@ -40,17 +40,12 @@ const appeal_11 = {
 };
 
 const includeForValidation = {
-	appellant: false,
-	validationDecision: false,
-	address: false,
-	appealDetailsFromAppellant: false,
 	appealStatus: {
 		where: {
 			valid: true
 		}
 	},
-	lpaQuestionnaire: false,
-	siteVisit: false
+	appealType: true
 };
 
 const getAppealByIdStub = sinon.stub();

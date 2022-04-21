@@ -73,6 +73,7 @@ test('returns appeal details', async (t) => {
 		status: 'not yet booked',
 		reference: 'APP/2021/56789/4909983',
 		provisionalSiteVisitType: 'unaccompanied',
+		availableForSiteVisitBooking: true,
 		appellantName: 'Maria Sharma',
 		email: 'maria.sharma@gmail.com',
 		descriptionOfDevelopment: 'some description of development',
