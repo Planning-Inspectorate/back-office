@@ -2,6 +2,11 @@ const getDateWithoutTime = function(date) {
 	return new Date(date.getFullYear(), date.getMonth(), date.getDate());
 };
 
+/**
+ * @param {Date | number | string} firstDate 
+ * @param {Date | number | string} secondDate 
+ * @returns {number}
+ */
 const daysBetweenDates = function(firstDate, secondDate) {
 	const firstDateWithoutTime = getDateWithoutTime(firstDate);
 	const secondDateWithoutTime = getDateWithoutTime(secondDate);

@@ -1,0 +1,33 @@
+{% from "govuk/components/date-input/macro.njk" import govukDateInput %}
+
+{% macro govukDateInputExtended(params) %}
+  {% set value = params.value if params.value else '--' %}
+  {% set optionalClasses = 'govuk-input--error' if params.errorMessage else '' %}
+  {% set parts = value | split('-') %}
+  {% set items = [] %}
+  {% set items = items.concat({
+    id: params.id,
+    name: "day",
+    classes: ["govuk-input--width-2", optionalClasses] | join(' '),
+    value: parts[2]
+  }) %}
+  {% set items = items.concat({
+    name: "month",
+    classes: ["govuk-input--width-2", optionalClasses] | join(' '),
+    value: parts[1]
+  }) %}
+  {% set items = items.concat({
+    name: "year",
+    classes: ["govuk-input--width-4", optionalClasses] | join(' '),
+    value: parts[0]
+  }) %}
+  {{
+     govukDateInput({
+      id: params.id + '-container',
+      namePrefix: params.namePrefix,
+      errorMessage: params.errorMessage,
+      fieldset: params.fieldset,
+      items: items
+    })
+  }}
+{% endmacro %}

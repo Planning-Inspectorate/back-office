@@ -4,6 +4,7 @@ import appealRepository from '../repositories/appeal.repository.js';
 import { appealStates } from '../state-machine/transition-state.js';
 import InspectorError from './inspector-error.js';
 import { appealFormatter } from './appeal-formatter.js';
+import { formatAppeal } from '../utils/appeal-formatter.js';
 
 const validateUserId = function(userid) {
 	if (userid == undefined) {
@@ -44,24 +45,23 @@ const assignAppeals = async function(request, response) {
 
 /**
  * @typedef {object} BookSiteVisitRequestBody
- * @property {Date} siteVisitDate - The date of the site visit (as YYYY-MM-DD).
- * @property {string} siteVisitTimeSlot – The time slot of site visit.
- * @property {SiteVisitType} siteVisitType – The type of site visit.
+ * @property {Date} siteVisitDate
+ * @property {string} siteVisitTimeSlot
+ * @property {SiteVisitType} siteVisitType
  */
 
 /**
  * @typedef {object} AppealParams
- * @property {number} appealId - Unique identifier for the appeal.
+ * @property {number} appealId
  */
 
 /**
- * Create a site visit booking for an appeal.
+ * Create a site visit booking for an appeal and serve the updated appeal in response.
  * 
  * @type {import('express').RequestHandler<AppealParams, Appeal, BookSiteVisitRequestBody>}
  */
-export const bookSiteVisit = async (request, response) => {
-	const { body, params } = request;
-	const updatedAppeal = await inspector.bookSiteVisit({
+export const bookSiteVisit = async ({ body, params }, response) => {
+	await inspector.bookSiteVisit({
 		appealId: params.appealId,
 		siteVisit: {
 			visitDate: body.siteVisitDate,
@@ -70,27 +70,31 @@ export const bookSiteVisit = async (request, response) => {
 		}
 	});
 
-	response.send(updatedAppeal);
+	const updatedAppeal = await appealRepository.getByIdIncluding(params.appealId, { siteVisit: true });
+
+	response.send(formatAppeal(updatedAppeal));
 };
 
 /**
  * @typedef {object} IssueDecisionRequestBody
- * @property {AppealOutcome} outcome – The outcome for the appeal.
+ * @property {AppealOutcome} outcome
  */
 
 /**
- * Issue a decision for an appeal.
+ * Issue a decision for an appeal and serve the updated appeal in response.
  * 
  * @type {import('express').RequestHandler<AppealParams, Appeal, IssueDecisionRequestBody>}
  */
-export const issueDecision = async ({ file, body, params }, response) => {
-	const updatedAppeal = await inspector.issueDecision({
+export const issueDecision = async ({ body, file, params }, response) => {
+	await inspector.issueDecision({
 		appealId: params.appealId,
 		outcome: body.outcome,
 		decisionLetter: file
 	});
 
-	response.send(updatedAppeal);
+	const updatedAppeal = await appealRepository.getByIdIncluding(params.appealId, { inspectorDecision: true });
+
+	response.send(formatAppeal(updatedAppeal));
 };
 
 export { getAppeals, assignAppeals, getAppealDetails };

@@ -8,7 +8,7 @@
 {% set backLinkUrl = '/inspector/appeals/' + appeal.appealId + '/book-site-visit' %}
 
 {% block pageLeft %}
-  {{ appealSummary(appeal) }}
+  {{ appealSummary({ appeal: appeal }) }}
 {% endblock %}
 
 {% block pageContent %}
@@ -19,15 +19,15 @@
         rows: [
           {
             key: { text: 'Type of site visit' },
-            value: { text: appeal.siteVisitType | capitalize }
+            value: { text: siteVisitType | capitalize }
           },
           {
             key: { text: 'Date of site visit' },
-            value: { text: appeal.siteVisitDate }
+            value: { text: siteVisitDate | displayDate }
           },
           {
             key: { text: 'Time slot' },
-            value: { text: appeal.siteVisitTimeSlot }
+            value: { text: siteVisitTimeSlot }
           }
         ]
       })

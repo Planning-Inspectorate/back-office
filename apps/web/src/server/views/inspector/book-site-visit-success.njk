@@ -2,7 +2,7 @@
 
 {% from "govuk/components/panel/macro.njk" import govukPanel %}
 
-{% set pageTitle = (appeal.siteVisitType | capitalize) + ' site visit booked' %}
+{% set pageTitle = (appeal.bookedSiteVisit.visitType | capitalize) + ' site visit booked' %}
 
 {% block pageHeading %}{% endblock %}
 {% block pageContent %}
@@ -10,10 +10,10 @@
 		govukPanel({
 			titleText: pageTitle,
 			html: [
-				appeal.appealSite | collapse(', '), 
+				appeal.address | collapse(', '), 
 				'',
-				appeal.siteVisitDate,
-				appeal.siteVisitTimeSlot
+				appeal.bookedSiteVisit.visitDate,
+				appeal.bookedSiteVisit.visitSlot
 			] | join('<br>')
 		})
 	}}

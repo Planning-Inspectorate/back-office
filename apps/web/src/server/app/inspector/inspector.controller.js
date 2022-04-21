@@ -113,7 +113,7 @@ export async function newSiteVisit({ params, session }, response) {
 
 	response.render('inspector/book-site-visit', {
 		appeal,
-		siteVisitType: appeal.provisionalVisitType,
+		siteVisitType: appeal.provisionalSiteVisitType,
 		...siteVisitData
 	});
 }

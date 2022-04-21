@@ -31,8 +31,10 @@ export function assignAppealsToUser(appealIds) {
  * @param {BookSiteVisitData} data
  * @returns {Promise<Appeal>}
  */
-export function bookSiteVisit(appealId, data) {
-	return post(`inspector/${appealId}/book`, { json: data });
+export async function bookSiteVisit(appealId, data) {
+	await post(`inspector/${appealId}/book`, { json: data });
+
+	return findAppealById(appealId);
 }
 
 /**
@@ -63,12 +65,8 @@ export function findAllUnassignedAppeals() {
  * @param {number} appealId
  * @returns {Promise<Appeal>}
  */
-export async function findAppealById(appealId) {
-
-	// return get(`inspector/${appealId}`, { context: { ttl: 1000 } });
-	const appeals =  await findAllAssignedAppeals();
-	
-	return appeals.find(appeal => appealId === appeal.appealId);
+export function findAppealById(appealId) {
+	return get(`inspector/${appealId}`, { context: { ttl: 1000 } });
 }
 
 /**

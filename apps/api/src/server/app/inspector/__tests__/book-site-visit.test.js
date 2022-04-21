@@ -8,45 +8,10 @@ import sinon, { assert } from 'sinon';
 import supertest from 'supertest';
 import { app } from '../../../app.js';
 import appealRepository from '../../repositories/appeal.repository.js';
-import { inspectorStates } from '../../state-machine/inspector-states.js';
 
-/** @typedef {keyof typeof inspectorStates} InspectorState */
-
-/**
- * @typedef {object} TestAppeal
- * @property {number} id
- * @property {number} userId
- * @property {array} appealStatus
- */
+/** @typedef {import('@pins/api').Schema.Appeal} Appeal */
 
 const request = supertest(app);
-
-/** @type {TestAppeal} */
-const appeal = {
-	id: 1, 
-	appealStatus: [{
-		status: 'site_visit_not_yet_booked',
-		valid: true
-	}],
-	userId: 100
-};
-
-const updatedAppeal = {
-	id: 1, 
-	appealStatus: [{
-		status: 'site_visit_booked',
-		valid: true
-	}],
-	userId: 100
-};
-
-const updateByIdStub = sinon.stub(appealRepository, 'updateStatusAndDataById').returns([undefined, undefined, updatedAppeal]);
-
-sinon.stub(appealRepository, 'getById').returns(appeal);
-
-test.beforeEach(() => {
-	updateByIdStub.resetHistory();
-});
 
 const siteVisitBody = {
 	siteVisitDate: '2030-01-01',
@@ -54,11 +19,50 @@ const siteVisitBody = {
 	siteVisitType: 'accompanied'
 };
 
+// todo: replace with factory
+/** @type {Appeal} */
+const originalAppeal = {
+	id: 1, 
+	reference: 'APP/Q9999/D/21/323259',
+	planningApplicationReference: '0181/811/8181',
+	localPlanningDepartment: 'Local planning dept',
+	appealStatus: [{
+		id: 1,
+		status: 'site_visit_not_yet_booked',
+		valid: true
+	}],
+	createdAt: new Date(2022, 0, 1),
+	updatedAt: new Date(2022, 0, 1),
+	userId: 100
+};
+
+/** @type {Appeal} */
+const updatedAppeal = {
+	...originalAppeal,
+	appealStatus: [{ id: 2, status: 'site_visit_booked', valid: true }],
+	siteVisit: {
+		id: 1,
+		appealId: originalAppeal.id,
+		visitDate: new Date(2030, 0, 1),
+		visitSlot: '8am to 10am',
+		visitType: 'accompanied'
+	}
+};
+
+const getByIdIncluding = sinon.stub(appealRepository, 'getByIdIncluding').returns(Promise.resolve(updatedAppeal));
+const updateByIdStub = sinon.stub(appealRepository, 'updateStatusAndDataById').returns([undefined, undefined, updatedAppeal]);
+
+sinon.stub(appealRepository, 'getById').returns(originalAppeal);
+
+test.beforeEach(() => {
+	updateByIdStub.resetHistory();
+});
+
 test('succeeds with a 200 when booking a site visit', async (t) => {
 	const response = await request.post('/inspector/1/book').set('userId', '100').send(siteVisitBody);
 	
 	t.is(response.status, 200);
-	t.deepEqual(response.body, { id: 1, status: 'site_visit_booked', userId: 100 });
+	t.snapshot(response.body);
 
 	assert.calledWith(updateByIdStub, 1, 'site_visit_booked', {
 		siteVisit: {
@@ -69,6 +73,7 @@ test('succeeds with a 200 when booking a site visit', async (t) => {
 			}
 		}
 	});
+	assert.calledWith(getByIdIncluding, 1, { siteVisit: true });
 });
 
 test('fails with a 401 status when no `userId` is present', async (t) => {

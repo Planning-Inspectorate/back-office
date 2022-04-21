@@ -1,14 +1,6 @@
-
-type BookedAppealType<T extends AppealSummary> = T & {
-	siteVisitDate: string;
-	siteVisitTimeSlot: string;
-	siteVisitType: SiteVisitType;
-};
-
 export interface UnbookedAppealSummary {
-	appealAge: string;
 	appealId: number;
-	appealSite: {
+	address: {
 		addressLine1: string;
 		addressLine2?: string;
 		town: string;
@@ -21,11 +13,26 @@ export interface UnbookedAppealSummary {
 	status: AppealStatus;
 }
 
-export type BookedAppealSummary = BookedAppealType<UnbookedAppealSummary>;
+export interface  BookedAppealSummary extends UnbookedAppealSummary {
+	siteVisitDate: string;
+	siteVisitTimeSlot: string;
+	siteVisitType: SiteVisitType;
+}
 
-export interface UnbookedAppeal extends UnbookedAppealSummary {
+export interface UnbookedAppeal {
+	appealId: number;
+	reference: string;
+	provisionalSiteVisitType: SiteVisitType;
 	appellantName: string;
 	agentName?: string;
+	appealSite: {
+		addressLine1: string;
+		addressLine2?: string;
+		town: string;
+		county?: string;
+		postCode: string;
+	};
+	appealAge: string;
 	email: string;
 	appealReceivedDate: string;
 	descriptionOfDevelopment: string;
@@ -37,14 +44,14 @@ export interface UnbookedAppeal extends UnbookedAppealSummary {
 	emergingDevelopmentPlanOrNeighbourhoodPlanDescription?: string;
 	lpaAnswers: {
 		canBeSeenFromPublic: boolean;
-		canBeSeenFromPublicDescription: string;
+		canBeSeenFromPublicDescription?: string;
 		inspectorNeedsToEnterSite: boolean;
-		inspectorNeedsToEnterSiteDescription: string;
+		inspectorNeedsToEnterSiteDescription?: string;
 		inspectorNeedsAccessToNeighboursLand: boolean;
-		inspectorNeedsAccessToNeighboursLandDescription: string;
+		inspectorNeedsAccessToNeighboursLandDescription?: string;
 		healthAndSafetyIssues: boolean;
-		healthAndSafetyIssuesDescription: string;
-		appealsInImmediateArea: string;
+		healthAndSafetyIssuesDescription?: string;
+		appealsInImmediateArea: boolean;
 	};
 	appellantAnswers: {
 		canBeSeenFromPublic: boolean;
@@ -54,14 +61,21 @@ export interface UnbookedAppeal extends UnbookedAppealSummary {
 		healthAndSafetyIssues: boolean;
 		healthAndSafetyIssuesDescription: string;
 	};
-  documents: AppealDocument[];
+	Documents: AppealDocument[];
 }
 
-export type BookedAppeal = BookedAppealType<UnbookedAppeal>;
+export interface BookedAppeal extends UnbookedAppeal {
+	bookedSiteVisit: {
+		visitDate: string;
+		visitTimeSlot: string;
+		visitType: SiteVisitType;
+	}
+}
+
 export interface AppealDocument {
-  filename: string;
-  type: string;
-  url: string;
+	filename: string;
+	type: string;
+	url: string;
 }
 
 export type Appeal = UnbookedAppeal | BookedAppeal;

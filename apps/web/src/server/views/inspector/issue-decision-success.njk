@@ -10,8 +10,7 @@
     govukPanel({
 		  titleText: pageTitle,
 		  html: [
-        '',
-        appeal.decision,
+        appeal.inspectorDecision.outcome | capitalize,
         appeal.reference
       ] | join('<br>')
     })
