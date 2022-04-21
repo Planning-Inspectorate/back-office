@@ -9,8 +9,8 @@ datasource db {
 
 model Appeal {
   id                           Int                         @id @default(autoincrement())
-  appealType                   AppealType                  @relation(fields: [appealTypeId], references: [id])
-  appealTypeId                 Int
+  appealType                   AppealType?                 @relation(fields: [appealTypeId], references: [id])
+  appealTypeId                 Int?
   reference                    String
   address                      Address                     @relation(fields: [addressId], references: [id])
   addressId                    Int
