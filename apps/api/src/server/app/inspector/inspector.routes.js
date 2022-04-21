@@ -15,6 +15,13 @@ const router = express.Router();
 
 router.get(
 	'/more-appeals',
+	/*
+        #swagger.description = 'Gets more appeals assigned to inspector'
+        #swagger.responses[200] = {
+            description: 'Appeals that are yet to be assigned to inspector',
+            schema: { $ref: '#/definitions/MoreAppealsForInspector' }
+        }
+    */
 	asyncHandler(getMoreAppeals)
 );
 

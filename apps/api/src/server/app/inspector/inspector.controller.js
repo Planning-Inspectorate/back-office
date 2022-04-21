@@ -53,23 +53,15 @@ const assignAppeals = async function(request, response) {
 const getMoreAppeals = async function(request, response) {
 	const moreAppeals = await appealRepository.getByStatuses(
 		[appealStates.available_for_inspector_pickup],
+		true,
+		false,
+		true,
 		true
 	);
 	const moreAppealsFormatted = moreAppeals.map((appeal) => appealFormatter.formatAppealForMoreAppeals(appeal));
 	return response.send(moreAppealsFormatted);
  };
 
- const formatAppealForMoreAppeals = function(appeal) {
-	return {
-		appealId: appeal.id,
-		reference: appeal.reference,
-		address: appeal.address,
-		appealType: 'HAS',
-		specialist: 'General',
-		provisionalVisitType: provisionalAppealSiteVisitType(appeal),
-		appealAge: daysBetweenDates(appeal.startedAt, new Date())
-	};
- };
 /**
  * @typedef {object} BookSiteVisitRequestBody
  * @property {Date} siteVisitDate

@@ -132,6 +132,20 @@ const document_ = {
 				$URL: ''
 			}]
 		},
+		MoreAppealsForInspector: {
+			$appealId: 1,
+			$appealAge: 10,
+			$address: {
+				$addressLine1: '',
+				$addressLine2: '',
+				$town: '',
+				$county: '',
+				$postCode: ''
+			},
+			$appealType: 'HAS',
+			specialist:'General',
+			$provisionalSiteVisitType: { '@enum': ['unaccompanied', 'access required'] }
+		},
 		AppealsForInspector: {
 			$appealId: 1,
 			$appealAge: 10,
@@ -256,7 +270,7 @@ const document_ = {
 					'4pm to 6pm',
 					'5pm to 7pm'
 				]
-			}		
+			}
 		},
 		IssueDecision: {
 			$decisionLetter: {

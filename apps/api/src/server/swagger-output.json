@@ -197,9 +197,16 @@
     },
     "/inspector/more-appeals": {
       "get": {
-        "description": "",
+        "description": "Gets more appeals assigned to inspector",
         "parameters": [],
-        "responses": {}
+        "responses": {
+          "200": {
+            "description": "Appeals that are yet to be assigned to inspector",
+            "schema": {
+              "$ref": "#/definitions/MoreAppealsForInspector"
+            }
+          }
+        }
       }
     },
     "/inspector/": {
@@ -840,6 +847,73 @@
         "ListedBuildingDesc",
         "AppealSite",
         "Documents"
+      ]
+    },
+    "MoreAppealsForInspector": {
+      "type": "object",
+      "properties": {
+        "appealId": {
+          "type": "number",
+          "example": 1
+        },
+        "appealAge": {
+          "type": "number",
+          "example": 10
+        },
+        "address": {
+          "type": "object",
+          "properties": {
+            "addressLine1": {
+              "type": "string",
+              "example": ""
+            },
+            "addressLine2": {
+              "type": "string",
+              "example": ""
+            },
+            "town": {
+              "type": "string",
+              "example": ""
+            },
+            "county": {
+              "type": "string",
+              "example": ""
+            },
+            "postCode": {
+              "type": "string",
+              "example": ""
+            }
+          },
+          "required": [
+            "addressLine1",
+            "addressLine2",
+            "town",
+            "county",
+            "postCode"
+          ]
+        },
+        "appealType": {
+          "type": "string",
+          "example": "HAS"
+        },
+        "specialist": {
+          "type": "string",
+          "example": "General"
+        },
+        "provisionalSiteVisitType": {
+          "type": "string",
+          "enum": [
+            "unaccompanied",
+            "access required"
+          ]
+        }
+      },
+      "required": [
+        "appealId",
+        "appealAge",
+        "address",
+        "appealType",
+        "provisionalSiteVisitType"
       ]
     },
     "AppealsForInspector": {
