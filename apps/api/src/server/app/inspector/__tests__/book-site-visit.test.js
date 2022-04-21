@@ -20,7 +20,7 @@ const siteVisitBody = {
 };
 
 // todo: replace with factory
-/** @type {Appeal} */
+/** @type {DeepPartial<Appeal>} */
 const originalAppeal = {
 	id: 1, 
 	reference: 'APP/Q9999/D/21/323259',
@@ -36,7 +36,7 @@ const originalAppeal = {
 	userId: 100
 };
 
-/** @type {Appeal} */
+/** @type {DeepPartial<Appeal>} */
 const updatedAppeal = {
 	...originalAppeal,
 	appealStatus: [{ id: 2, status: 'site_visit_booked', valid: true }],
@@ -49,13 +49,24 @@ const updatedAppeal = {
 	}
 };
 
-const getByIdIncluding = sinon.stub(appealRepository, 'getByIdIncluding').returns(Promise.resolve(updatedAppeal));
-const updateByIdStub = sinon.stub(appealRepository, 'updateStatusAndDataById').returns([undefined, undefined, updatedAppeal]);
+/** @type {DeepPartial<Appeal>} */
+const invalidAppeal = {
+	...originalAppeal,
+	userId: 101
+};
 
-sinon.stub(appealRepository, 'getById').returns(originalAppeal);
+const getByIdStub = sinon.stub();
+const updateStatusAndDataByIdStub = sinon.stub();
+
+getByIdStub.withArgs(1).returns(originalAppeal);
+getByIdStub.withArgs(1, { siteVisit: true }).returns(updatedAppeal);
+getByIdStub.withArgs(2).returns(invalidAppeal);
+
+sinon.stub(appealRepository, 'getById').callsFake(getByIdStub);
+sinon.stub(appealRepository, 'updateStatusAndDataById').callsFake(updateStatusAndDataByIdStub);
 
 test.beforeEach(() => {
-	updateByIdStub.resetHistory();
+	getByIdStub.resetHistory();
 });
 
 test('succeeds with a 200 when booking a site visit', async (t) => {
@@ -64,7 +75,7 @@ test('succeeds with a 200 when booking a site visit', async (t) => {
 	t.is(response.status, 200);
 	t.snapshot(response.body);
 
-	assert.calledWith(updateByIdStub, 1, 'site_visit_booked', {
+	assert.calledWith(updateStatusAndDataByIdStub, 1, 'site_visit_booked', {
 		siteVisit: {
 			create: {
 				visitDate: new Date(2030, 0, 1),
@@ -73,7 +84,7 @@ test('succeeds with a 200 when booking a site visit', async (t) => {
 			}
 		}
 	});
-	assert.calledWith(getByIdIncluding, 1, { siteVisit: true });
+	assert.calledWith(getByIdStub, 1, { siteVisit: true });
 });
 
 test('fails with a 401 status when no `userId` is present', async (t) => {

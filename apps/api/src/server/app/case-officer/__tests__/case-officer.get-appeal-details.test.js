@@ -22,6 +22,9 @@ const appeal_1 = {
 		name: 'Lee Thornton'
 	},
 	startedAt: new Date(2022, 4, 18),
+	lpaQuestionnaire: {
+		listedBuildingDescription: 'Listed!'
+	},
 	address: {
 		addressLine1: 'line 1',
 		addressLine2: 'line 2',
@@ -47,12 +50,13 @@ const includeDetails = {
 			valid: true
 		}
 	},
+	lpaQuestionnaire: true,
 	reviewQuestionnaire: {
 		take: 1,
 		orderBy: {
 			createdAt: 'desc'
 		}
-	},
+	}
 };
 
 const includingDetailsForValidtion = { 
@@ -172,7 +176,7 @@ test('gets the appeals detailed information with received questionnaires', async
 		},
 		AppealSiteNearConservationArea: false,
 		WouldDevelopmentAffectSettingOfListedBuilding: false,
-		ListedBuildingDesc: '',
+		ListedBuildingDesc: 'Listed!',
 		Documents: listOfDocuments
 	};
 	t.is(resp.status, 200);
