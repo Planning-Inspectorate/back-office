@@ -940,6 +940,10 @@
           "type": "string",
           "example": "APP/2021/56789/4909983"
         },
+        "availableForSiteVisitBooking": {
+          "type": "boolean",
+          "example": true
+        },
         "provisionalSiteVisitType": {
           "type": "string",
           "enum": [

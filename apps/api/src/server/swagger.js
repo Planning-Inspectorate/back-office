@@ -152,6 +152,7 @@ const document_ = {
 			appealId: 1,
 			status: { '@enum': ['not yet booked', 'booked', 'decision due'] },
 			reference: 'APP/2021/56789/4909983',
+			availableForSiteVisitBooking: true,
 			provisionalSiteVisitType: { '@enum': ['unaccompanied', 'access required'] },
 			appellantName: 'Maria Sharma',
 			email: 'maria.sharma@gmail.com',
