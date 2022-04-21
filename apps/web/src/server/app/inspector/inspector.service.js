@@ -11,7 +11,7 @@ import { get, post } from './../../lib/request.js';
  * Assign unassigned appeals to the user.
  *
  * @param {number[]} appealIds
- * @returns {Promise<AppealSummary[]>}
+ * @returns {Promise<{ successfullyAssigned: AppealSummary[]; unsuccessfullyAssigned: AppealSummary[] }>}
  */
 export function assignAppealsToUser(appealIds) {
 	return post('inspector/assign', { json: appealIds });
@@ -52,7 +52,7 @@ export function findAllAssignedAppeals() {
  * @returns {Promise<AppealSummary[]>}
  */
 export function findAllUnassignedAppeals() {
-	return get('inspector/unassigned');
+	return get('inspector/more-appeals');
 }
 
 /**

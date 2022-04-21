@@ -33,8 +33,10 @@
           {% set cell = { text: appeal.appealSite | collapse(', ') } %}
         {% case 'Appeal type' %}
           {% set cell = { text: appeal.appealType, classes: 'pins-table__cell--s' } %}
+        {% case 'Assigned to' %}
+          {% set cell = { text: appeal.assignedTo } %}
         {% case 'Postcode' %}
-          {% set cell = { text: appeal.appealSite.postCode } %}
+          {% set cell = { text: appeal.appealSite.postCode or appeal.address.postcode } %}
         {% case 'Provisional site visit type' %}
           {% set cell = { text: appeal.provisionalVisitType | capitalize, classes: 'pins-table__cell--m' } %}
         {% case 'Recommended site visit' %}
