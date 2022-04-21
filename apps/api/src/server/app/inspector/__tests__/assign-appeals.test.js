@@ -167,7 +167,6 @@ const includeRelations = {
 			createdAt: 'desc'
 		}
 	},
-	siteVisit: false
 };
 
 const findUniqueStub = sinon.stub();
