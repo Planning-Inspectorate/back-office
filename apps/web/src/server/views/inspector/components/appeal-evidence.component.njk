@@ -67,15 +67,15 @@
             html: govukSummaryList({
              rows: [
                 { 
-                  key: { text: 'Appeal statement' }, 
+                  key: { text: 'Plans used to reach decision' }, 
                   value: {
-                    html: documents(appeal.Documents | filter({ Type: 'appeal statement' }))
+                    html: documents(appeal.Documents | filter({ Type: 'plans used to reach decision' }))
                   }
                 },
                 { 
-                  key: { text: 'Supporting documents' },
-                  html: {
-                    value: documents(appeal.Documents | filter({ Type: 'supporting document' }))
+                  key: { text: 'Planning application form' },
+                  value: {
+                    html: documents(appeal.Documents | filter({ Type: 'planning application form' }))
                   }
                 },
                 {
