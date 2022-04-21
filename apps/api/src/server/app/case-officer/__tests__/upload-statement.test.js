@@ -35,7 +35,12 @@ test('Throws error if appeal is not accepting statements', async(t) => {
 	t.is(response.status, 409);
 	t.deepEqual(response.body, { errors: { appeal: 'Appeal is in an invalid state' } });
 });      
-        
+
+test('Throws error if no file provided', async(t) => {
+	const response = await request.post('/case-officer/1/statement');
+	t.is(response.status, 400);
+	t.deepEqual(response.body, { errors: { statement: 'Select a file' } });
+});   
 
 test('Returns 200 if successfully uploaded statement', async(t) => {
 	const response = await request.post('/case-officer/2/statement').attach('statement', pathToFile);

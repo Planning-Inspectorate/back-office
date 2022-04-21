@@ -285,6 +285,18 @@ const document_ = {
 					'split decision'
 				])
 			}
+		},
+		UploadStatement: {
+			$statement: {
+				type: 'file',
+				required: true
+			}
+		},
+		UploadFinalComment: {
+			$finalcomment: {
+				type: 'file',
+				required: true
+			}
 		}
 	},
 	components: {}

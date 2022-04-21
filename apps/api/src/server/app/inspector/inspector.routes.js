@@ -111,7 +111,7 @@ router.post(
 router.post(
 	'/:appealId/issue-decision',
 	/*
-        #swagger.description = 'Book a site visit as an inspector.'
+        #swagger.description = 'Issues decision for appeal.'
         #swagger.parameters['userId'] = {
             in: 'header',
             type: 'string',

@@ -67,14 +67,42 @@ router.post(
 );
 
 router.post('/:appealId/statement',
+	/*
+        #swagger.description = 'Uploads statement'
+        #swagger.parameters['userId'] = {
+            in: 'header',
+            type: 'string',
+            required: true
+        }
+        #swagger.parameters['formData'] = {
+			in: 'formData',
+			description: 'Statement upload payload',
+			schema: { $ref: "#/definitions/UploadStatement" },
+            required: true
+		}
+	*/
 	param('appealId').toInt(),
 	validateFileUpload('statement'),
 	validateAppealStatus(['available_for_statements']),
 	asyncHandler(uploadStatement));
 
 router.post('/:appealId/final-comment',
+/*
+        #swagger.description = 'Uploads final comment'
+        #swagger.parameters['userId'] = {
+            in: 'header',
+            type: 'string',
+            required: true
+        }
+        #swagger.parameters['formData'] = {
+			in: 'formData',
+			description: 'Final comment upload payload',
+			schema: { $ref: "#/definitions/UploadFinalComment" },
+            required: true
+		}
+	*/
 	param('appealId').toInt(),
-	validateFileUpload('final-comment'),
+	validateFileUpload('finalcomment'),
 	validateAppealStatus(['available_for_final_comments']),
 	asyncHandler(uploadFinalComment));
 
