@@ -1,6 +1,7 @@
 import express from 'express';
 import { param } from 'express-validator';
 import asyncHandler from '../middleware/async-handler.js';
+import { validateFileUpload } from '../middleware/validate-file-upload.js';
 import { assignAppeals, bookSiteVisit, getAppeals, issueDecision, getAppealDetails, getMoreAppeals } from './inspector.controller.js';
 import {
 	validateAssignAppealsToInspector,
@@ -129,6 +130,7 @@ router.post(
 	*/
 	param('appealId').toInt(),
 	validateUserBelongsToAppeal,
+	validateFileUpload('decisionLetter'),
 	validateIssueDecision,
 	asyncHandler(issueDecision)
 );

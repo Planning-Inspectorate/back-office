@@ -6,7 +6,8 @@ import {
 	getAppealDetails,
 	getAppeals,
 	updateAppealDetails,
-	uploadStatement
+	uploadStatement,
+	uploadFinalComment
 } from './case-officer.controller.js';
 import {
 	validateAppealBelongsToCaseOfficer,
@@ -15,7 +16,7 @@ import {
 	validateReviewRequest
 } from './case-officer.validators.js';
 import { validateAppealStatus } from '../middleware/validate-appeal-status.js';
-
+import { validateFileUpload } from '../middleware/validate-file-upload.js';
 /**
  * @typedef {object} AppealParams
  * @property {number} appealId
@@ -67,8 +68,15 @@ router.post(
 
 router.post('/:appealId/statement',
 	param('appealId').toInt(),
+	validateFileUpload('statement'),
 	validateAppealStatus(['available_for_statements']),
 	asyncHandler(uploadStatement));
+
+router.post('/:appealId/final-comment',
+	param('appealId').toInt(),
+	validateFileUpload('final-comment'),
+	validateAppealStatus(['available_for_final_comments']),
+	asyncHandler(uploadFinalComment));
 
 export {
 	router as caseOfficerRoutes
