@@ -36,6 +36,7 @@ class MockDatabaseClass {
                findMany: findManyStub
            }
        };
+
    }
 }
 
@@ -62,4 +63,28 @@ test('gets all appeals yet to be assigned to inspector', async (t) => {
            provisionalVisitType:'unaccompanied'
        }
    ]);
+   sinon.assert.calledWith(findManyStub, {
+	where: {
+		appealStatus: {
+			every: {
+				status: {
+					in: ['available_for_inspector_pickup']
+				},
+				valid: true
+			}
+		}
+	},
+	include: {
+		address: true,
+		appellant: false,
+		lpaQuestionnaire: true,
+		appealDetailsFromAppellant: true,
+		appealStatus: {
+			where: {
+				valid: true
+			}
+		}
+	}
+});
+
 });

@@ -52,7 +52,8 @@ const assignAppeals = async function(request, response) {
 
 const getMoreAppeals = async function(request, response) {
 	const moreAppeals = await appealRepository.getByStatuses(
-		[appealStates.available_for_inspector_pickup]
+		[appealStates.available_for_inspector_pickup],
+		true
 	);
 	const moreAppealsFormatted = moreAppeals.map((appeal) => appealFormatter.formatAppealForMoreAppeals(appeal));
 	return response.send(moreAppealsFormatted);
