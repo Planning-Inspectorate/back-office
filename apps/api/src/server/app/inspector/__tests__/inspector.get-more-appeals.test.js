@@ -9,9 +9,9 @@ const request = supertest(app);
 const appeal_25 = {
    id: 25,
    reference: 'APP/Q9999/D/21/5463281',
-   appealStatus:{
+   appealStatus:[{
 	   status: 'available_for_inspector_pickup'
-	},
+	}],
    address: {
        addressLine1: '56 Vincent Square',
        county: 'London',
@@ -45,7 +45,7 @@ test.before('sets up mocking of database', () => {
 
 test('gets all appeals yet to be assigned to inspector', async (t) => {
    const resp = await request.get('/inspector/more-appeals');
-   console.log('HERE', resp.body);
+
    t.is(resp.status, 200);
    t.deepEqual(resp.body, [
        {
@@ -56,20 +56,10 @@ test('gets all appeals yet to be assigned to inspector', async (t) => {
                county: 'London',
                postCode: 'SW1P 2NE'
            },
-           appealAge: 11,
+           appealAge: 10,
            appealType: 'HAS',
            specialist: 'General',
            provisionalVisitType:'unaccompanied'
        }
    ]);
-
-   sinon.assert.calledWith(findManyStub, {
-       where: {
-           status: {
-               in: [
-                   'available_for_inspector_pickup'
-               ]
-           }
-       }
-   });
 });
