@@ -30,7 +30,7 @@ async function markAppealsAsOverdue(appeals) {
 	const updatedAppeals = [];
 	for (const appeal of appeals) {
 		const newStatus = transitionState('household', { appealId: appeal.id }, 'awaiting_lpa_questionnaire', 'OVERDUE');
-		updatedAppeals.push(appealRepository.updateStatusById(appeal.id, newStatus.value));
+		updatedAppeals.push(appealRepository.updateStatusById(appeal.id, newStatus.value, appeal.appealStatus));
 	}
 	await Promise.all(updatedAppeals);
 }

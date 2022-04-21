@@ -9,6 +9,7 @@ const appeal_1 = {
 	reference: 'REFERENCE',
 	apellantName: 'some name',
 	appealStatus: [{
+		id: 1,
 		status: 'site_visit_booked',
 		valid: true
 	}],
@@ -63,6 +64,6 @@ test('finds appeals to mark as overdue as updates their statuses', async(t) => {
 			}
 		}
 	});
-	sinon.assert.calledWith(updateManyAppealStatusStub, { where: { appealId: 1 }, data: { valid: false } });
+	sinon.assert.calledWith(updateManyAppealStatusStub, { where: { id: { in: [1] } }, data: { valid: false } });
 	sinon.assert.calledWith(createAppealStatusStub, { data: { status: 'decision_due', appealId: 1 } });
 });

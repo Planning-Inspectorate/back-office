@@ -11,10 +11,12 @@ const appeal_1 = {
 	id: 1,
 	reference: 'APP/Q9999/D/21/1345264',
 	appealStatus: [{
+		id: 1,
 		status: 'available_for_inspector_pickup',
 		valid: true,
 		subStateMachineName: 'lpaQuestionnaireAndInspectorPickup'
 	}, {
+		id: 2,
 		status: 'available_for_final_comments',
 		valid: true,
 		subStateMachineName: 'statementsAndFinalComments'
@@ -50,6 +52,7 @@ const appeal_2 = {
 	id: 2,
 	reference: 'APP/Q9999/D/21/5463281',
 	appealStatus: [{
+		id: 3,
 		status: 'available_for_inspector_pickup',
 		valid: true
 	}],
@@ -80,6 +83,7 @@ const appeal_3 = {
 	appealType: { shorthand: 'HAS', type: 'household' },
 	reference: 'APP/Q9999/D/21/5463281',
 	appealStatus: [{
+		id: 4,
 		status: 'available_for_inspector_pickup',
 		valid: true
 	}],
@@ -105,6 +109,7 @@ const appeal_4 = {
 	appealType: { shorthand: 'HAS', type: 'household' },
 	reference: 'APP/Q9999/D/21/5463281',
 	appealStatus: [{
+		id: 5,
 		status: 'site_visit_not_yet_booked',
 		valid: true
 	}],
@@ -130,6 +135,7 @@ const appeal_5 = {
 	appealType: { shorthand: 'HAS', type: 'household' },
 	reference: 'APP/Q9999/D/21/5463281',
 	appealStatus: [{
+		id: 6,
 		status: 'available_for_inspector_pickup',
 		valid: true
 	}],
@@ -206,28 +212,20 @@ test.before('setup mock', () => {
 test('assigns all appeals as they are all available', async(t) => {
 	const resp = await request.post('/inspector/assign').set('userId', 1).send([1, 2, 3]);
 	t.is(resp.status, 200);
-	sinon.assert.calledWith(updateManyAppealStatusStub, { where: { appealId: 1 }, data: { valid: false } });
+	sinon.assert.calledWith(updateManyAppealStatusStub, { where: { id: { in: [1] } }, data: { valid: false } });
 	sinon.assert.calledWith(createManyAppealStatusStub, {
-		data: [
-			{
-				subStateMachineName: 'lpaQuestionnaireAndInspectorPickup',
-				status: 'picked_up',
-				compoundStateName: 'awaiting_lpa_questionnaire_and_statements',
-				appealId: 1
-			},
-			{
-				subStateMachineName: 'statementsAndFinalComments',
-				status: 'available_for_final_comments',
-				compoundStateName: 'awaiting_lpa_questionnaire_and_statements',
-				appealId: 1
-			}
-		]
+		data: [{
+			subStateMachineName: 'lpaQuestionnaireAndInspectorPickup',
+			status: 'picked_up',
+			compoundStateName: 'awaiting_lpa_questionnaire_and_statements',
+			appealId: 1
+		}]
 	});
 	sinon.assert.calledWith(updateStub, { where: { id: 1 }, data: { updatedAt: sinon.match.any, user: { connect: { id: 1 } } } });
-	sinon.assert.calledWith(updateManyAppealStatusStub, { where: { appealId: 2 }, data: { valid: false } });
+	sinon.assert.calledWith(updateManyAppealStatusStub, { where: { id: { in: [3] } }, data: { valid: false } });
 	sinon.assert.calledWith(createAppealStatusStub, { data: { status: 'site_visit_not_yet_booked', appealId: 2 } });
 	sinon.assert.calledWith(updateStub, { where: { id: 2 }, data: { updatedAt: sinon.match.any, user: { connect: { id: 1 } } } });
-	sinon.assert.calledWith(updateManyAppealStatusStub, { where: { appealId: 3 }, data: { valid: false } });
+	sinon.assert.calledWith(updateManyAppealStatusStub, { where: { id: { in: [4] } }, data: { valid: false } });
 	sinon.assert.calledWith(createAppealStatusStub, { data: { status: 'site_visit_not_yet_booked', appealId: 3 } });
 	sinon.assert.calledWith(updateStub, { where: { id: 3 }, data: { updatedAt: sinon.match.any, user: { connect: { id: 1 } } } });
 	t.deepEqual(resp.body, { successfullyAssigned: [{
@@ -273,7 +271,7 @@ test('assigns all appeals as they are all available', async(t) => {
 test('unable to assign appeals that are not in the appropriate state', async(t) => {
 	const resp = await request.post('/inspector/assign').set('userId', 1).send([3, 4]);
 	t.is(resp.status, 200);
-	sinon.assert.calledWith(updateManyAppealStatusStub, { where: { appealId: 3 }, data: { valid: false } });
+	sinon.assert.calledWith(updateManyAppealStatusStub, { where: { id: { in: [4] } }, data: { valid: false } });
 	sinon.assert.calledWith(createAppealStatusStub, { data: { status: 'site_visit_not_yet_booked', appealId: 3 } });
 	sinon.assert.calledWith(updateStub, { where: { id: 3 }, data: { updatedAt: sinon.match.any, user: { connect: { id: 1 } } } });
 	t.deepEqual(resp.body, { successfullyAssigned: [{
@@ -307,18 +305,12 @@ test('unable to assign appeals that are not in the appropriate state', async(t) 
 test('unable to assign appeals that are already assigned to someone', async (t) => {
 	const resp = await request.post('/inspector/assign').set('userId', 1).send([1, 5]);
 	t.is(resp.status, 200);
-	sinon.assert.calledWith(updateManyAppealStatusStub, { where: { appealId: 1 }, data: { valid: false } });
+	sinon.assert.calledWith(updateManyAppealStatusStub, { where: { id: { in: [1] } }, data: { valid: false } });
 	sinon.assert.calledWith(createManyAppealStatusStub, {
 		data: [
 			{
 				subStateMachineName: 'lpaQuestionnaireAndInspectorPickup',
 				status: 'picked_up',
-				compoundStateName: 'awaiting_lpa_questionnaire_and_statements',
-				appealId: 1
-			},
-			{
-				subStateMachineName: 'statementsAndFinalComments',
-				status: 'available_for_final_comments',
 				compoundStateName: 'awaiting_lpa_questionnaire_and_statements',
 				appealId: 1
 			}
