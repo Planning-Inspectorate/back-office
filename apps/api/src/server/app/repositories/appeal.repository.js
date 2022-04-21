@@ -41,7 +41,12 @@ const appealRepository = (function () {
 				}
 			});
 		},
-		getByStatuses: function (statuses, includeAddress = false, includeAppellant = false) {
+		getByStatuses: function (
+			statuses,
+			includeAddress = false,
+			includeAppellant = false,
+			includeLPAQuestionnaire = false,
+			includeAppealDetailsFromAppellant = false ) {
 			return getPool().appeal.findMany({
 				where: {
 					appealStatus: {
@@ -56,6 +61,8 @@ const appealRepository = (function () {
 				include: {
 					address: includeAddress,
 					appellant: includeAppellant,
+					lpaQuestionnaire: includeLPAQuestionnaire,
+					appealDetailsFromAppellant: includeAppealDetailsFromAppellant,
 					appealStatus: {
 						where: {
 							valid: true
@@ -65,7 +72,7 @@ const appealRepository = (function () {
 			});
 		},
 		getById: function (
-			id, 
+			id,
 			inclusions = {}
 		) {
 			return getPool().appeal.findUnique({

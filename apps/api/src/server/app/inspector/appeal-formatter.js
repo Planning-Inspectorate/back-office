@@ -58,6 +58,17 @@ export const appealFormatter = {
 			status: formatStatus(appeal.appealStatus)
 		};
 	},
+	formatAppealForMoreAppeals: function(appeal) {
+		return {
+			appealId: appeal.id,
+			reference: appeal.reference,
+			address: appeal.address,
+			appealType: 'HAS',
+			specialist: 'General',
+			provisionalVisitType: provisionalAppealSiteVisitType(appeal),
+			appealAge: daysBetweenDates(appeal.startedAt, new Date())
+		};
+	},
 	formatAppealForAppealDetails: function (appeal) {
 		const completeValidationDecision = filter(appeal.validationDecision, { decision: 'complete' })[0];
 		return {
@@ -181,6 +192,7 @@ export const appealFormatter = {
 					URL: 'localhost:8080'
 				}
 			]
-		}
-	}
+		};
+	},
+
 };

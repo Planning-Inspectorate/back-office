@@ -1,7 +1,7 @@
 import express from 'express';
 import { param } from 'express-validator';
 import asyncHandler from '../middleware/async-handler.js';
-import { assignAppeals, bookSiteVisit, getAppeals, issueDecision, getAppealDetails } from './inspector.controller.js';
+import { assignAppeals, bookSiteVisit, getAppeals, issueDecision, getAppealDetails, getMoreAppeals } from './inspector.controller.js';
 import {
 	validateAssignAppealsToInspector,
 	validateBookSiteVisit,
@@ -11,6 +11,19 @@ import {
 } from './inspector.validators.js';
 
 const router = express.Router();
+
+
+router.get(
+	'/more-appeals',
+	/*
+        #swagger.description = 'Gets more appeals assigned to inspector'
+        #swagger.responses[200] = {
+            description: 'Appeals that are yet to be assigned to inspector',
+            schema: { $ref: '#/definitions/MoreAppealsForInspector' }
+        }
+    */
+	asyncHandler(getMoreAppeals)
+);
 
 router.get(
 	'/',
@@ -41,7 +54,7 @@ router.get(
         #swagger.responses[200] = {
             description: 'Appeal Details',
             schema: { $ref: '#/definitions/AppealDetailsForInspector' }
-        } 
+        }
     */
 	param('appealId').toInt(),
 	validateUserBelongsToAppeal,
@@ -118,5 +131,6 @@ router.post(
 	validateIssueDecision,
 	asyncHandler(issueDecision)
 );
+
 
 export { router as inspectorRoutes };
