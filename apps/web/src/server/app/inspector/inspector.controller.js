@@ -62,19 +62,24 @@ export async function viewAvailableAppeals(_, response) {
  * AssignAvailableAppealsBody>}
  */
 export async function assignAvailableAppeals({ body, session }, response) {
-	const appeals = await inspectorService.findAllUnassignedAppeals();
-
 	if (response.locals.errors) {
+		const appeals = await inspectorService.findAllUnassignedAppeals();
+
 		response.render('inspector/assign-appeals', {
 			appeals,
 			selectedappealIds: body.appealIds || []
 		});
-	} else {
-		const assignedAppeals = await inspectorService.assignAppealsToUser(body.appealIds);
+		return;
+	}
+	const { successfullyAssigned, unsuccessfullyAssigned } = await inspectorService.assignAppealsToUser(body.appealIds);
+
+	if (unsuccessfullyAssigned.length === 0) {
 		// Save a copy of the assigned appeals so as to capture the 'New' status on the dashboard
 		inspectorSession.addAssignedAppealIds(session, body.appealIds);
 
-		response.render('inspector/assign-appeals-success', { appeals: assignedAppeals });
+		response.render('inspector/assign-appeals-success', { appeals: successfullyAssigned });
+	} else {
+		response.render('inspector/assign-appeals-error', { appeals: unsuccessfullyAssigned });
 	}
 }
 

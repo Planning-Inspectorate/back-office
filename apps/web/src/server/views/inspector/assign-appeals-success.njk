@@ -1,16 +1,15 @@
 {% extends "app/layouts/app.layout.njk" %}
 
 {% from "govuk/components/panel/macro.njk" import govukPanel %}
-{% from "govuk/components/table/macro.njk" import govukTable %}
 {% from "inspector/components/appeal-table.component.njk" import appealTable %}
 
-{% set pageTitle = (appeal.siteVisitType | capitalize) + ' site visit booked' %}
+{% set pageTitle = 'Appeals assigned' %}
 
 {% block pageHeading %}{% endblock %}
 {% block pageContent %}
 	{{ 
     govukPanel({
-      titleText: 'Appeals assigned',
+      titleText: pageTitle,
       classes: 'govuk-!-margin-bottom-7'
     })
   }}
@@ -25,8 +24,7 @@
         { name: 'Appeal type' },
         { name: 'Specialism' },
         { name: 'Recommended site visit' }
-      ],
-      selected: selectedAppealIds
+      ]
     })
   }}
   <h2 class="govuk-heading-m">What next?</h2>
