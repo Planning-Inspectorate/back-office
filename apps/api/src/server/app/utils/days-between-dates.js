@@ -3,8 +3,8 @@ const getDateWithoutTime = function(date) {
 };
 
 /**
- * @param {Date | number | string} firstDate 
- * @param {Date | number | string} secondDate 
+ * @param {Date | number | string} firstDate
+ * @param {Date | number | string} secondDate
  * @returns {number}
  */
 const daysBetweenDates = function(firstDate, secondDate) {

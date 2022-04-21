@@ -17,7 +17,7 @@ const appeal_25 = {
        county: 'London',
        postCode: 'SW1P 2NE'
    },
-   startedAt: new Date(2022, 4, 1),
+   startedAt: new Date(2022, 2, 3),
    appealType: 'HAS',
    specialism: 'General',
    lpaQuestionnaire: {
@@ -45,7 +45,9 @@ test.before('sets up mocking of database', () => {
 });
 
 test('gets all appeals yet to be assigned to inspector', async (t) => {
-   const resp = await request.get('/inspector/more-appeals');
+
+	sinon.useFakeTimers({ now: 1_649_319_144_000 });
+	const resp = await request.get('/inspector/more-appeals');
 
    t.is(resp.status, 200);
    t.deepEqual(resp.body, [
@@ -57,7 +59,7 @@ test('gets all appeals yet to be assigned to inspector', async (t) => {
                county: 'London',
                postCode: 'SW1P 2NE'
            },
-           appealAge: 10,
+           appealAge: 35,
            appealType: 'HAS',
            specialist: 'General',
            provisionalVisitType:'unaccompanied'
