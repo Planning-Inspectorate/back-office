@@ -8,7 +8,7 @@ resources:
   repositories:
     - repository: templates
       type: github
-      endpoint: Back Office Token
+      endpoint: Planning-Inspectorate
       name: Planning-Inspectorate/common-pipeline-templates
 
 extends:
