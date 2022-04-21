@@ -27,11 +27,12 @@ const getAppeals = async function(request, response) {
 
 const getAppealDetails = async function(request, response) {
 	const appeal = await appealRepository.getById(request.params.appealId, {
-		includeAppellant: true,
-		includeValidationDecision: true,
-		includeAddress: true,
-		includeLatestLPAReviewQuestionnaire: true,
-		includeAppealDetailsFromAppellant: true
+		appellant: true,
+		validationDecision: true,
+		address: true,
+		latestLPAReviewQuestionnaire: true,
+		appealDetailsFromAppellant: true,
+		lpaQuestionnaire: true
 	});
 	const formattedAppeal = appealFormatter.formatAppealForAppealDetails(appeal);
 	response.send(formattedAppeal);
