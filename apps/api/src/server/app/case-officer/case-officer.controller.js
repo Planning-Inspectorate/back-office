@@ -10,7 +10,7 @@ const getAppeals = async function (_request, response) {
 		appealStates.received_lpa_questionnaire,
 		appealStates.incomplete_lpa_questionnaire,
 		appealStates.available_for_statements,
-		//appealStates.awaiting_final_comments
+		appealStates.available_for_final_comments
 	];
 	const appeals = await appealRepository.getByStatuses(caseOfficerStatuses, true, true);
 	const formattedAppeals = appeals.map((appeal) => appealFormatter.formatAppealForAllAppeals(appeal));

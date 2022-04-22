@@ -26,7 +26,7 @@ function mapAppealStatus(appealStatuses) {
 	} else if (arrayOfStatusesContainsString(appealStatuses, [appealStates.available_for_statements])) {
 		return 'available for statements';
 	} else if (arrayOfStatusesContainsString(appealStatuses, [appealStates.awaiting_final_comments])) {
-		return 'awaiting final comments';
+		return 'available_for_final_comments';
 	} else {
 		return '';
 	}

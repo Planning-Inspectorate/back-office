@@ -26,8 +26,8 @@ export const appellantsList = [{
 	name: 'Eva Sharma',
 	email: 'eva.sharma@gmail.com'
 }, {
-    name: 'Elaine Madsen',
-    email: 'ellie@gmail.com'
+	name: 'Elaine Madsen',
+	email: 'ellie@gmail.com'
 }];
 
 export const localPlanningDepartmentList = [
@@ -77,22 +77,22 @@ export const addressesList = [{
 	town: 'Bristol',
 	postcode: 'BS7 8LQ'
 }, {
-    addressLine1: '92 Huntsmoor Road',
-    county: 'Tadley',
-    postcode: 'RG26 4BX'
+	addressLine1: '92 Huntsmoor Road',
+	county: 'Tadley',
+	postcode: 'RG26 4BX'
 }, {
-    addressLine1: '72 Clapham High St',
-    county: 'Wandsworth',
-    postcode: 'SW4 7UL'
+	addressLine1: '72 Clapham High St',
+	county: 'Wandsworth',
+	postcode: 'SW4 7UL'
 }, {
-    addressLine1: '21 The Pavement',
-    county: 'Wandsworth',
-    postcode: 'SW4 0HY'
+	addressLine1: '21 The Pavement',
+	county: 'Wandsworth',
+	postcode: 'SW4 0HY'
 }, {
-    addressLine1: 'Copthalls',
-    addressLine2: 'Clevedon Road',
-    town: 'West Hill',
-    postcode: 'BS48 1PN'
+	addressLine1: 'Copthalls',
+	addressLine2: 'Clevedon Road',
+	town: 'West Hill',
+	postcode: 'BS48 1PN'
 }];
 
 export const lpaQuestionnaireList = [{
@@ -143,71 +143,71 @@ export const lpaQuestionnaireList = [{
 	sentAt: new Date(2022, 3, 3),
 	receivedAt: new Date(2022, 3, 22)
 }, {
-    affectsListedBuilding: false,
-    extraConditions: false,
-    inGreenBelt: false,
-    inOrNearConservationArea: false,
-    siteVisibleFromPublicLand: false,
-    siteVisibleFromPublicLandDescription: 'The extension is to the rear of the property, and the garden has high hedges.',
-    doesInspectorNeedToEnterSite: true,
-    doesInspectorNeedToEnterSiteDescription: 'The proposed development can only be viewed from the appellant\'s garden',
-    doesInspectorNeedToAccessNeighboursLand: true,
-    doesInspectorNeedToAccessNeighboursLandDescription: '54 Butcher Street',
-    healthAndSafetyIssues: true,
-    healthAndSafetyIssuesDescription: 'A defensive dog',
-    appealsInImmediateAreaBeingConsidered: '893482, 372839',
-    sentAt: new Date(2022, 3, 1),
-    receivedAt: new Date(2022, 3, 20)
+	affectsListedBuilding: false,
+	extraConditions: false,
+	inGreenBelt: false,
+	inOrNearConservationArea: false,
+	siteVisibleFromPublicLand: false,
+	siteVisibleFromPublicLandDescription: 'The extension is to the rear of the property, and the garden has high hedges.',
+	doesInspectorNeedToEnterSite: true,
+	doesInspectorNeedToEnterSiteDescription: 'The proposed development can only be viewed from the appellant\'s garden',
+	doesInspectorNeedToAccessNeighboursLand: true,
+	doesInspectorNeedToAccessNeighboursLandDescription: '54 Butcher Street',
+	healthAndSafetyIssues: true,
+	healthAndSafetyIssuesDescription: 'A defensive dog',
+	appealsInImmediateAreaBeingConsidered: '893482, 372839',
+	sentAt: new Date(2022, 3, 1),
+	receivedAt: new Date(2022, 3, 20)
 }, {
-    affectsListedBuilding: false,
-    extraConditions: false,
-    inGreenBelt: false,
-    inOrNearConservationArea: false,
-    siteVisibleFromPublicLand: false,
-    siteVisibleFromPublicLandDescription: 'The extension is to the read of the property, and the garden has high hedges',
-    doesInspectorNeedToEnterSite: true,
-    doesInspectorNeedToEnterSiteDescription: 'The proposed development can only be viewed from the appellant\'s garden',
-    doesInspectorNeedToAccessNeighboursLand: true,
-    doesInspectorNeedToAccessNeighboursLandDescription: '54 Butcher Street',
-    healthAndSafetyIssues: true,
-    healthAndSafetyIssuesDescription: 'A defensive dog',
-    appealsInImmediateAreaBeingConsidered: '893482, 372839',
-    sentAt: new Date(2022, 3, 1),
-    receivedAt: new Date(2022, 3, 20)
+	affectsListedBuilding: false,
+	extraConditions: false,
+	inGreenBelt: false,
+	inOrNearConservationArea: false,
+	siteVisibleFromPublicLand: false,
+	siteVisibleFromPublicLandDescription: 'The extension is to the read of the property, and the garden has high hedges',
+	doesInspectorNeedToEnterSite: true,
+	doesInspectorNeedToEnterSiteDescription: 'The proposed development can only be viewed from the appellant\'s garden',
+	doesInspectorNeedToAccessNeighboursLand: true,
+	doesInspectorNeedToAccessNeighboursLandDescription: '54 Butcher Street',
+	healthAndSafetyIssues: true,
+	healthAndSafetyIssuesDescription: 'A defensive dog',
+	appealsInImmediateAreaBeingConsidered: '893482, 372839',
+	sentAt: new Date(2022, 3, 1),
+	receivedAt: new Date(2022, 3, 20)
 }];
 
 export const incompleteReviewQuestionnaireSample = {
-    createdAt: new Date(2022, 3, 20),
-    complete: false,
-    applicationPlanningOfficersReportMissingOrIncorrect: false,
-    applicationPlansToReachDecisionMissingOrIncorrect: true,
-    applicationPlansToReachDecisionMissingOrIncorrectDescription: 'Missing Documents XYZ',
-    policiesStatutoryDevelopmentPlanPoliciesMissingOrIncorrect: false,
-    policiesOtherRelevantPoliciesMissingOrIncorrect: false,
-    policiesSupplementaryPlanningDocumentsMissingOrIncorrect: false,
-    siteConservationAreaMapAndGuidanceMissingOrIncorrect: false,
-    siteListedBuildingDescriptionMissingOrIncorrect: false,
-    thirdPartyApplicationNotificationMissingOrIncorrect: false,
-    thirdPartyApplicationPublicityMissingOrIncorrect: false,
-    thirdPartyRepresentationsMissingOrIncorrect: false,
-    thirdPartyAppealNotificationMissingOrIncorrect: false
+	createdAt: new Date(2022, 3, 20),
+	complete: false,
+	applicationPlanningOfficersReportMissingOrIncorrect: false,
+	applicationPlansToReachDecisionMissingOrIncorrect: true,
+	applicationPlansToReachDecisionMissingOrIncorrectDescription: 'Missing Documents XYZ',
+	policiesStatutoryDevelopmentPlanPoliciesMissingOrIncorrect: false,
+	policiesOtherRelevantPoliciesMissingOrIncorrect: false,
+	policiesSupplementaryPlanningDocumentsMissingOrIncorrect: false,
+	siteConservationAreaMapAndGuidanceMissingOrIncorrect: false,
+	siteListedBuildingDescriptionMissingOrIncorrect: false,
+	thirdPartyApplicationNotificationMissingOrIncorrect: false,
+	thirdPartyApplicationPublicityMissingOrIncorrect: false,
+	thirdPartyRepresentationsMissingOrIncorrect: false,
+	thirdPartyAppealNotificationMissingOrIncorrect: false
 };
 
 export const appealDetailsFromAppellantList = [{
-    siteVisibleFromPublicLand: true,
-    siteVisibleFromPublicLandDescription: 'site visit description',
-    appellantOwnsWholeSite: true,
-    appellantOwnsWholeSiteDescription: 'i own the whole site',
-    healthAndSafetyIssues: false,
-    healthAndSafetyIssuesDescription: 'everything is super safe'
+	siteVisibleFromPublicLand: true,
+	siteVisibleFromPublicLandDescription: 'site visit description',
+	appellantOwnsWholeSite: true,
+	appellantOwnsWholeSiteDescription: 'i own the whole site',
+	healthAndSafetyIssues: false,
+	healthAndSafetyIssuesDescription: 'everything is super safe'
 }, {
-    siteVisibleFromPublicLand: true,
-    siteVisibleFromPublicLandDescription: 'site visit description',
-    appellantOwnsWholeSite: true,
-    appellantOwnsWholeSiteDescription: 'i own the whole site',
-    healthAndSafetyIssues: false,
-    healthAndSafetyIssuesDescription: 'everything is super safe'
-}]
+	siteVisibleFromPublicLand: true,
+	siteVisibleFromPublicLandDescription: 'site visit description',
+	appellantOwnsWholeSite: true,
+	appellantOwnsWholeSiteDescription: 'i own the whole site',
+	healthAndSafetyIssues: false,
+	healthAndSafetyIssuesDescription: 'everything is super safe'
+}];
 
 export const incompleteValidationDecisionSample = {
 	decision: 'incomplete',
