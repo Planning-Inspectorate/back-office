@@ -69,8 +69,8 @@ export function authSignIn(request, response, next) {
 		cryptoUtils.encryptData(
 			JSON.stringify({
 				stage: AppStages.SIGN_IN,
-				// TODO: Provide fallback
-				path: request.query.redirect_to,
+				// TODO: Provide fallback and redirect automatically to dashboard based on user group?
+				path: request.query.redirect_to ?? '/',
 				nonce: request.session.nonce
 			}),
 			key
