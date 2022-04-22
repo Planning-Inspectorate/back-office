@@ -1,15 +1,9 @@
-/*
-  Warnings:
-
-  - Added the required column `appealTypeId` to the `Appeal` table without a default value. This is not possible if the table is not empty.
-
-*/
 BEGIN TRY
 
 BEGIN TRAN;
 
 -- AlterTable
-ALTER TABLE [dbo].[Appeal] ADD [appealTypeId] INT NOT NULL;
+ALTER TABLE [dbo].[Appeal] ADD [appealTypeId] INT;
 
 -- CreateTable
 CREATE TABLE [dbo].[AppealType] (
@@ -22,7 +16,7 @@ CREATE TABLE [dbo].[AppealType] (
 );
 
 -- AddForeignKey
-ALTER TABLE [dbo].[Appeal] ADD CONSTRAINT [Appeal_appealTypeId_fkey] FOREIGN KEY ([appealTypeId]) REFERENCES [dbo].[AppealType]([id]) ON DELETE NO ACTION ON UPDATE CASCADE;
+ALTER TABLE [dbo].[Appeal] ADD CONSTRAINT [Appeal_appealTypeId_fkey] FOREIGN KEY ([appealTypeId]) REFERENCES [dbo].[AppealType]([id]) ON DELETE SET NULL ON UPDATE CASCADE;
 
 COMMIT TRAN;
 
