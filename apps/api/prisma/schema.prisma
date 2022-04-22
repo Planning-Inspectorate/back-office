@@ -12,8 +12,8 @@ model Appeal {
   appealType                   AppealType?                 @relation(fields: [appealTypeId], references: [id])
   appealTypeId                 Int?
   reference                    String
-  address                      Address                     @relation(fields: [addressId], references: [id])
-  addressId                    Int
+  address                      Address?                    @relation(fields: [addressId], references: [id])
+  addressId                    Int?
   appealStatus                 AppealStatus[]
   appellant                    Appellant?                  @relation(fields: [appellantId], references: [id])
   appellantId                  Int?                        @unique
