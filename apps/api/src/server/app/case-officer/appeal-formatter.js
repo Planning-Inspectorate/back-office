@@ -23,6 +23,10 @@ function mapAppealStatus(appealStatuses) {
 		return 'received';
 	} else if (arrayOfStatusesContainsString(appealStatuses, [appealStates.incomplete_lpa_questionnaire])) {
 		return 'incomplete_lpa_questionnaire';
+	} else if (arrayOfStatusesContainsString(appealStatuses, [appealStates.available_for_statements])) {
+		return 'available for statements';
+	} else if (arrayOfStatusesContainsString(appealStatuses, [appealStates.awaiting_final_comments])) {
+		return 'awaiting final comments';
 	} else {
 		return '';
 	}
