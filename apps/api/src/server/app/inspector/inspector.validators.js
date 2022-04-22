@@ -3,7 +3,8 @@
 import { composeMiddleware, mapMulterErrorToValidationError } from '@pins/express';
 import { validateFutureDate } from '@pins/platform';
 import multer from 'multer';
-import { body, header, validationResult } from 'express-validator';
+import { body, header } from 'express-validator';
+import { validationErrorHandler } from '../middleware/error-handler.js';
 import appealRepository from '../repositories/appeal.repository.js';
 
 /** @typedef {import('@pins/api').Schema.SiteVisitType} SiteVisitType */
@@ -40,7 +41,7 @@ export const validateUserBelongsToAppeal = composeMiddleware(validateUserId, asy
 
 export const validateBookSiteVisit = composeMiddleware(
 	body('siteVisitType')
-		.isIn(/** @type {SiteVisitType[]} */(['accompanied', 'unaccompanied', 'access required']))
+		.isIn(/** @type {SiteVisitType[]} */ (['accompanied', 'unaccompanied', 'access required']))
 		.withMessage('Select a type of site visit'),
 	body('siteVisitDate')
 		.isDate({ format: 'YYYY-MM-DD' })
@@ -63,7 +64,7 @@ export const validateBookSiteVisit = composeMiddleware(
 			'5pm to 7pm'
 		])
 		.withMessage('Select a valid time slot'),
-	handleValidationError
+	validationErrorHandler
 );
 
 // TODO: are there any validation rules on this decision letter upload? Added
@@ -81,29 +82,10 @@ export const validateIssueDecision = composeMiddleware(
 	body('decisionLetter')
 		.custom((_, { req }) => Boolean(req.file))
 		.withMessage('Select a decision letter'),
-	handleValidationError
+	validationErrorHandler
 );
-
-const errorWhenNoAppealsProvided = 'Provide a non-empty array of appeals to assign to the inspector';
 
 export const validateAssignAppealsToInspector = composeMiddleware(
-	body().isArray().withMessage(errorWhenNoAppealsProvided),
-	body().notEmpty().withMessage(errorWhenNoAppealsProvided),
-	handleValidationError
+	body().isArray({ min: 1 }).withMessage('Provide a non-empty array of appeals to assign to the inspector'),
+	validationErrorHandler
 );
-
-/**
- * Evaluate any errors collected by express validation and return a 400 status
- * with the mapped errors.
- *
- * @type {import('express').RequestHandler}
- */
-function handleValidationError(request, response, next) {
-	const result = validationResult(request).formatWith(({ msg }) => msg);
-
-	if (!result.isEmpty()) {
-		response.status(400).send({ errors: result.mapped() });
-	} else {
-		next();
-	}
-}

@@ -1,9 +1,13 @@
+// @ts-check
+
 import appealRepository from '../repositories/appeal.repository.js';
 import { appealStates } from '../state-machine/transition-state.js';
 import appealFormatter from './appeal-formatter.js';
-import { confirmLPAQuestionnaireService } from './case-officer.service.js';
+import * as caseOfficerService from './case-officer.service.js';
 
-const getAppeals = async function (_request, response) {
+/** @typedef {import('./case-officer.routes').AppealParams} AppealParams */
+
+export const getAppeals = async function (_request, response) {
 	const caseOfficerStatuses = [
 		appealStates.awaiting_lpa_questionnaire,
 		appealStates.overdue_lpa_questionnaire,
@@ -15,19 +19,32 @@ const getAppeals = async function (_request, response) {
 	response.send(formattedAppeals);
 };
 
-const getAppealDetails = async function (request, response) {
+export const getAppealDetails = async function (request, response) {
 	const appeal = await appealRepository.getById(request.params.appealId, {
 		appellant: true, 
 		address: true, 
-		latestLPAReviewQuestionnaire: true 
+		latestLPAReviewQuestionnaire: true,
+		lpaQuestionnaire: true
 	});
 	const formattedAppeal = appealFormatter.formatAppealForAppealDetails(appeal);
 	return response.send(formattedAppeal);
 };
 
-const confirmLPAQuestionnaire =  async function (request, response) {
-	await confirmLPAQuestionnaireService(request.body.reason, request.params.appealId);
+export const confirmLPAQuestionnaire = async function (request, response) {
+	await caseOfficerService.confirmLPAQuestionnaireService(request.body.reason, request.params.appealId);
 	return response.send();
 };
 
-export { getAppeals, getAppealDetails, confirmLPAQuestionnaire };
+/**
+ * @typedef {object} UpdateAppealDetailsBody
+ * @property {string} listedBuildingDescription
+ */
+
+/** @type {import('express').RequestHandler<AppealParams, ?, UpdateAppealDetailsBody>} */
+export const updateAppealDetails = async ({ body, params }, response) => {
+	await caseOfficerService.updateAppealDetails(params.appealId, body);
+
+	const updatedAppeal = await appealRepository.getById(params.appealId, { lpaQuestionnaire: true });
+
+	response.send(updatedAppeal);
+};

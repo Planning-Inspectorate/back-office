@@ -16,7 +16,7 @@ const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
 const pathToFile = path.join(__dirname, './assets/simple.pdf');
 
 // todo: replace with factory
-/** @type {Appeal} */
+/** @type {DeepPartial<Appeal>} */
 const validAppeal = {
 	id: 1,
 	reference: 'APP/Q9999/D/21/323259',
@@ -35,7 +35,7 @@ const validAppeal = {
 };
 
 // todo: replace with factory
-/** @type {Appeal} */
+/** @type {DeepPartial<Appeal>} */
 const invalidAppeal = {
 	...validAppeal,
 	id: 2,
@@ -48,7 +48,7 @@ const invalidAppeal = {
 	]
 };
 
-/** @type {Appeal} */
+/** @type {DeepPartial<Appeal>} */
 const updatedAppeal = {
 	...validAppeal,
 	appealStatus: [{ id: 2, status: 'site_visit_booked', valid: true }],
@@ -60,13 +60,14 @@ const updatedAppeal = {
 	}
 };
 
-const getByIdIncluding = sinon.stub(appealRepository, 'getByIdIncluding').returns(Promise.resolve(updatedAppeal));
-
+const getByIdStub = sinon.stub();
 const updateStatusAndDataByIdStub = sinon.stub();
-const appealRespositoryGetByIdStub = sinon.stub();
-appealRespositoryGetByIdStub.withArgs(1).returns(validAppeal);
-appealRespositoryGetByIdStub.withArgs(2).returns(invalidAppeal);
-sinon.stub(appealRepository, 'getById').callsFake(appealRespositoryGetByIdStub);
+
+getByIdStub.withArgs(1).returns(validAppeal);
+getByIdStub.withArgs(1, { inspectorDecision: true }).returns(updatedAppeal);
+getByIdStub.withArgs(2).returns(invalidAppeal);
+
+sinon.stub(appealRepository, 'getById').callsFake(getByIdStub);
 sinon.stub(appealRepository, 'updateStatusAndDataById').callsFake(updateStatusAndDataByIdStub);
 
 test('succeeds with a 200 when issuing a decision', async (t) => {
@@ -87,7 +88,7 @@ test('succeeds with a 200 when issuing a decision', async (t) => {
 			}
 		}
 	});
-	assert.calledWith(getByIdIncluding, 1, { inspectorDecision: true });
+	assert.calledWith(getByIdStub, 1, { inspectorDecision: true });
 });
 
 test('fails with a 401 status when no `userId` is present', async (t) => {

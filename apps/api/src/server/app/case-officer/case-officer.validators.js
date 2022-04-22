@@ -1,4 +1,28 @@
+import { body } from 'express-validator';
+import { composeMiddleware } from '@pins/express';
+import { validationErrorHandler } from '../middleware/error-handler.js';
 import { difference } from 'lodash-es';
+import { validateAppealStatus } from '../middleware/validate-appeal-status.js';
+import { appealStates } from '../state-machine/transition-state.js';
+
+export const validateAppealBelongsToCaseOfficer = validateAppealStatus([
+	appealStates.received_lpa_questionnaire,
+	appealStates.incomplete_lpa_questionnaire
+]);
+
+export const validateAppealHasIncompleteQuestionnaire = validateAppealStatus([
+	appealStates.incomplete_lpa_questionnaire
+]);
+
+export const validateAppealDetails = composeMiddleware(
+	body('listedBuildingDescription')
+		.trim()
+		.isLength({ min: 1 })
+		.withMessage('Enter a description')
+		.isLength({ max: 500 })
+		.withMessage('Description must be 500 characters or fewer'),
+	validationErrorHandler
+);
 
 const invalidWithoutReasons = function (body) {
 	return ((

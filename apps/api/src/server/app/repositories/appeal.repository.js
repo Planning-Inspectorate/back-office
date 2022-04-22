@@ -1,7 +1,19 @@
 import { isString } from 'lodash-es';
 import DatabaseFactory from './database.js';
 
-/** @typedef {keyof import('@pins/api').Schema.AppealRelations} AppealRelationType */
+/** @typedef {import('@pins/api').Schema.Appeal} Appeal */
+
+/**
+ * @typedef {object} AppealInclusionOptions
+ * @property {boolean=} address
+ * @property {boolean=} appealDetailsFromAppellant
+ * @property {boolean=} appellant
+ * @property {boolean=} inspectorDecision
+ * @property {boolean=} lpaQuestionnaire
+ * @property {boolean=} latestLPAReviewQuestionnaire,
+ * @property {boolean=} siteVisit
+ * @property {boolean=} validationDecision
+ */
 
 const includeLatestReviewQuestionnaireFilter = {
 	reviewQuestionnaire: {
@@ -21,26 +33,6 @@ const appealRepository = (function () {
 	}
 
 	return {
-		/**
-		 * Query an appeal by its id, including any optional relations.
-		 *
-		 * @param {number} id
-		 * @param {Record<AppealRelationType, boolean>} include
-		 * @returns {Promise<Appeal>}
-		 */
-		getByIdIncluding: function (id, include) {
-			return getPool().appeal.findUnique({
-				where: { id },
-				include: {
-					...include,
-					appealStatus: {
-						where: {
-							valid: true
-						}
-					}
-				}
-			});
-		},
 		getByStatuses: function (
 			statuses,
 			includeAddress = false,
@@ -71,21 +63,22 @@ const appealRepository = (function () {
 				}
 			});
 		},
-		getById: function (
-			id,
-			inclusions = {}
-		) {
+		/**
+		 * Query an appeal by its id, including any optional relations.
+		 *
+		 * @template T [T=Appeal]
+		 * @param {number} id
+		 * @param {AppealInclusionOptions} [inclusions={}]
+		 * @returns {Promise<T>}
+		 */
+		getById: function (id, { latestLPAReviewQuestionnaire, ...inclusions } = {}) {
 			return getPool().appeal.findUnique({
 				where: {
 					id: id
 				},
 				include: {
-					...( inclusions.appellant && { appellant: inclusions.appellant }),
-					...( inclusions.validationDecision && { validationDecision: inclusions.validationDecision }),
-					...( inclusions.address && { address: inclusions.address }),
-					...( inclusions.appealDetailsFromAppellant && { appealDetailsFromAppellant: inclusions.appealDetailsFromAppellant }),
-					...( inclusions.lpaQuestionnaire && { lpaQuestionnaire: inclusions.lpaQuestionnaire }),
-					...( inclusions.latestLPAReviewQuestionnaire && includeLatestReviewQuestionnaireFilter),
+					...inclusions,
+					...(latestLPAReviewQuestionnaire && includeLatestReviewQuestionnaireFilter),
 					appealStatus: {
 						where: {
 							valid: true

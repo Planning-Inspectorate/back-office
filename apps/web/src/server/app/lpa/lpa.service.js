@@ -71,7 +71,4 @@ export const uploadDocument = (appealId, { file, documentType }) => {
  * @param {{ listedBuildingDescription: string }} data
  * @returns {Promise<Appeal>}
  */
-export const updateAppeal = (appealId, data) => {
-	// patch(`lpa/${appealId}`, { json: data });
-	return findAppealById(appealId);
-};
+export const updateAppeal = (appealId, data) => patch(`case-officer/${appealId}`, { json: data });
