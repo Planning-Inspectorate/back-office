@@ -263,13 +263,10 @@ const deleteAllRecords = async function(){
 async function main() {
 	try {
 		await deleteAllRecords();
-		const createdAppeals = [];
 		await prisma.appealType.createMany({ data: [{ shorthand: 'FPA', type: appealTypes.FPA }, { shorthand: 'HAS', type: appealTypes.HAS }] });
 		for (const appealData of appealsData) {
-			const appeal = prisma.appeal.create({ data: appealData });
-			createdAppeals.push(appeal);
+			await prisma.appeal.create({ data: appealData });
 		}
-		await Promise.all(createdAppeals);
 	} catch (error) {
 		console.error(error);
 		throw error;
