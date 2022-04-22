@@ -34,3 +34,4 @@ extends:
           repository: $(repository)
           versionNumber: $(versionNumber)
           workingDirectory: $(Build.Repository.LocalPath)
+          runTests: false
