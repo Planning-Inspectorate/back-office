@@ -38,7 +38,7 @@ stages:
                   displayName: Build
                   workingDirectory: $(Build.Repository.LocalPath)/apps/api
                 - script: |
-                    npm run db:seed
+                    npm run db:reset
                   displayName: Seed Database
                   workingDirectory: $(Build.Repository.LocalPath)/apps/api
         workspace:
