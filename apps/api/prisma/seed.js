@@ -68,10 +68,7 @@ const appealFactory = function(
 	siteVisitBooked = false
 ) {
 	return {
-		appealType: { connectOrCreate: { 
-			where: { shorthand: typeShorthand }, 
-			create: { shorthand: typeShorthand, type: appealTypes[typeShorthand] } 
-		} },
+		appealType: { connect: { shorthand: typeShorthand } },
 		reference: generateAppealReference(),
 		startedAt: startedAt,
 		appealStatus: { create: statuses },
@@ -267,6 +264,7 @@ async function main() {
 	try {
 		await deleteAllRecords();
 		const createdAppeals = [];
+		await prisma.appealType.createMany({ data: [{ shorthand: 'FPA', type: appealTypes.FPA }, { shorthand: 'HAS', type: appealTypes.HAS }] });
 		for (const appealData of appealsData) {
 			const appeal = prisma.appeal.create({ data: appealData });
 			createdAppeals.push(appeal);
@@ -280,4 +278,4 @@ async function main() {
 	}
 }
 
-main();
+await main();
