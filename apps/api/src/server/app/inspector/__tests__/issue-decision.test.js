@@ -149,7 +149,7 @@ test('fails with a 400 status when the `decisionLetter` is missing', async (t) =
 	t.is(response.status, 400);
 	t.deepEqual(response.body, {
 		errors: {
-			decisionLetter: 'Select a decision letter'
+			decisionLetter: 'Select a file'
 		}
 	});
 });

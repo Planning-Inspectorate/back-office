@@ -1,8 +1,7 @@
 // @ts-check
 
-import { composeMiddleware, mapMulterErrorToValidationError } from '@pins/express';
+import { composeMiddleware } from '@pins/express';
 import { validateFutureDate } from '@pins/platform';
-import multer from 'multer';
 import { body, header } from 'express-validator';
 import { validationErrorHandler } from '../middleware/error-handler.js';
 import appealRepository from '../repositories/appeal.repository.js';
@@ -70,14 +69,6 @@ export const validateBookSiteVisit = composeMiddleware(
 // TODO: are there any validation rules on this decision letter upload? Added
 // size limit for now.
 export const validateIssueDecision = composeMiddleware(
-	multer({
-		// TODO: store this file in memory as it's just passing through
-		storage: multer.memoryStorage(),
-		limits: {
-			fileSize: 15 * Math.pow(1024, 2 /* MBs*/)
-		}
-	}).single('decisionLetter'),
-	mapMulterErrorToValidationError,
 	body('outcome').isIn(['allowed', 'dismissed', 'split decision']).withMessage('Select a valid decision'),
 	body('decisionLetter')
 		.custom((_, { req }) => Boolean(req.file))

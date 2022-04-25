@@ -11,6 +11,7 @@ const appeal_10 = {
 	id: 10,
 	reference: 'APP/Q9999/D/21/1345264',
 	appealStatus: [{
+		id: 1,
 		status: 'received_appeal',
 		valid: true
 	}],
@@ -27,6 +28,7 @@ const appeal_11 = {
 	id: 11,
 	reference: 'APP/Q9999/D/21/1087562',
 	appealStatus: [{
+		id: 2,
 		status: 'received_lpa_questionnaire',
 		valid: true
 	}],
@@ -121,7 +123,7 @@ test('should submit confirmation of an incomplete outcome of LPA questionnaire',
 		}
 	});
 	sinon.assert.calledWithExactly(updateManyAppealStatusStub, {
-		where: { appealId: 11 },
+		where: { id: { in: [2] } },
 		data: { valid: false }
 	});
 	sinon.assert.calledWithExactly(createAppealStatusStub, {
@@ -164,7 +166,7 @@ test('should submit confirmation of the outcome of LPA questionnaire', async (t)
 		}
 	});
 	sinon.assert.calledWithExactly(updateManyAppealStatusStub, {
-		where: { appealId: 11 },
+		where: { id: { in: [2] } },
 		data: { valid: false }
 	});
 	sinon.assert.calledWithExactly(createAppealStatusStub, {

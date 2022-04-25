@@ -11,6 +11,7 @@ const appeal_1 = {
 	id: 1,
 	reference: 'APP/Q9999/D/21/1345264',
 	appealStatus: [{
+		id: 1,
 		status: 'received_appeal',
 		valid: true
 	}],
@@ -23,9 +24,10 @@ const appeal_1 = {
 	}
 };
 const appeal_2 = {
-	id: 1,
+	id: 2,
 	reference: 'APP/Q9999/D/21/1345264',
 	appealStatus: [{
+		id: 2,
 		status: 'valid_appeal',
 		valid: true
 	}],
@@ -38,9 +40,10 @@ const appeal_2 = {
 	}
 };
 const appeal_3 = {
-	id: 1,
+	id: 3,
 	reference: 'APP/Q9999/D/21/1345264',
 	appealStatus: [{
+		id: 3,
 		status: 'invalid_appeal',
 		valid: true
 	}],
@@ -56,6 +59,7 @@ const appeal_4 = {
 	id: 4,
 	reference: 'APP/Q9999/D/21/1345264',
 	appealStatus: [{
+		id: 4,
 		status: 'awaiting_validation_info',
 		valid: true
 	}],
@@ -151,7 +155,7 @@ test('should be able to submit \'valid\' decision', async (t) => {
 		.send({ AppealStatus: 'valid', descriptionOfDevelopment: 'Some Desc' });
 	t.is(resp.status, 200);
 	sinon.assert.calledWithExactly(updateManyAppealStatusStub, {
-		where: { appealId: 1 },
+		where: { id: { in: [1] } },
 		data: { valid: false }
 	});
 	sinon.assert.calledWithExactly(createAppealStatusStub, {
@@ -177,7 +181,7 @@ test('should be able to submit \'invalid\' decision', async(t) => {
 		});
 	t.is(resp.status, 200);
 	sinon.assert.calledWithExactly(updateManyAppealStatusStub, {
-		where: { appealId: 1 },
+		where: { id: { in: [1] } },
 		data: { valid: false }
 	});
 	sinon.assert.calledWithExactly(createAppealStatusStub, {
@@ -212,7 +216,7 @@ test('should be able to submit \'missing appeal details\' decision', async(t) =>
 		} );
 	t.is(resp.status, 200);
 	sinon.assert.calledWithExactly(updateManyAppealStatusStub, {
-		where: { appealId: 1 },
+		where: { id: { in: [1] } },
 		data: { valid: false }
 	});
 	sinon.assert.calledWithExactly(createAppealStatusStub, {
@@ -239,7 +243,7 @@ test('should be able to mark appeal with missing info as \'valid\'', async(t) =>
 	const resp = await request.post('/validation/4').send({ AppealStatus: 'valid', descriptionOfDevelopment: 'some desc' });
 	t.is(resp.status, 200);
 	sinon.assert.calledWithExactly(updateManyAppealStatusStub, {
-		where: { appealId: 1 },
+		where: { id: { in: [4] } },
 		data: { valid: false }
 	});
 	sinon.assert.calledWithExactly(createAppealStatusStub, {

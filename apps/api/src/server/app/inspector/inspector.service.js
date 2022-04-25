@@ -87,7 +87,7 @@ export const assignAppealsById = async function(userId, appealIds) {
 				const appealStatus = buildAppealCompundStatus(appeal.appealStatus);
 				const nextState = transitionState(appeal.appealType.type, { appealId: appeal.id }, appealStatus, 'PICKUP');
 				const newState = breakUpCompoundStatus(nextState.value, appeal.id);
-				await appealRepository.updateStatusAndDataById(appeal.id, newState, { user: { connect: { id: userId } } });
+				await appealRepository.updateStatusAndDataById(appeal.id, newState, { user: { connect: { id: userId } } }, appeal.appealStatus);
 				successfullyAssigned.push(appealFormatter.formatAppealForAssigningAppeals(appeal));
 			} catch (error) {
 				console.error(error);
