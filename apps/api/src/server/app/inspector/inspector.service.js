@@ -34,8 +34,8 @@ export const bookSiteVisit = async ({ appealId, siteVisit }) => {
 	const appeal = await appealRepository.getById(appealId);
 	const appealStatus = buildAppealCompundStatus(appeal.appealStatus);
 	const nextState = transitionState(appeal.appealType.type, { appealId }, appealStatus, 'BOOK', true);
-	
-	await appealRepository.updateStatusAndDataById(appealId, nextState.value, {
+	const newState = breakUpCompoundStatus(nextState.value, appeal.id);
+	await appealRepository.updateStatusAndDataById(appealId, newState, {
 		siteVisit: {
 			create: siteVisit
 		}
@@ -59,8 +59,8 @@ export const issueDecision = async ({ appealId, outcome, decisionLetter }) => {
 	const appeal = await appealRepository.getById(appealId);
 	const appealStatus = buildAppealCompundStatus(appeal.appealStatus);
 	const nextState = transitionState(appeal.appealType.type, { appealId }, appealStatus, 'DECIDE', true);
-
-	await appealRepository.updateStatusAndDataById(appealId, nextState.value, {
+	const newState = breakUpCompoundStatus(nextState.value, appeal.id);
+	await appealRepository.updateStatusAndDataById(appealId, newState, {
 		inspectorDecision: {
 			create: {
 				// TODO: Obtain a path to file after uploading the decision letter to azure storage

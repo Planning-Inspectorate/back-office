@@ -4,46 +4,58 @@ import supertest from 'supertest';
 import sinon from 'sinon';
 import { app } from '../../../app.js';
 import DatabaseFactory from '../../repositories/database.js';
+import { appealFactoryForTests } from '../../utils/appeal-factory-for-tests.js';
 
 const request = supertest(app);
 
-const appeal_1 = {
+const appeal_1 = appealFactoryForTests(1, [{
 	id: 1,
-	reference: 'APP/Q9999/D/21/1345264',
-	appealStatus: [{
-		id: 1,
-		status: 'received_appeal',
-		valid: true
-	}],
-	appealType: {
-		type: 'household'
-	},
-	createdAt: new Date(2022, 1, 23),
-	addressId: 1,
-	localPlanningDepartment: 'Maidstone Borough Council',
-	planningApplicationReference: '48269/APP/2021/1482',
-	appellant: {
-		name: 'Lee Thornton'
-	}
-};
-const appeal_10 = {
+	status: 'received_appeal',
+	valid: true
+}], 'HAS');
+// const appeal_1 = {
+// 	id: 1,
+// 	reference: 'APP/Q9999/D/21/1345264',
+// 	appealStatus: [{
+// 		id: 1,
+// 		status: 'received_appeal',
+// 		valid: true
+// 	}],
+// 	appealType: {
+// 		type: 'household'
+// 	},
+// 	createdAt: new Date(2022, 1, 23),
+// 	addressId: 1,
+// 	localPlanningDepartment: 'Maidstone Borough Council',
+// 	planningApplicationReference: '48269/APP/2021/1482',
+// 	appellant: {
+// 		name: 'Lee Thornton'
+// 	}
+// };
+
+const appeal_10 = appealFactoryForTests(10, [{
 	id: 10,
-	reference: 'APP/Q9999/D/21/1345264',
-	appealStatus: [{
-		status: 'received_appeal',
-		valid: true
-	}],
-	appealType: {
-		type: 'full planning'
-	},
-	createdAt: new Date(2022, 1, 23),
-	addressId: 1,
-	localPlanningDepartment: 'Maidstone Borough Council',
-	planningApplicationReference: '48269/APP/2021/1482',
-	appellant: {
-		name: 'Lee Thornton'
-	}
-};
+	status: 'received_appeal',
+	valid: true
+}], 'FPA');
+// const appeal_10 = {
+// 	id: 10,
+// 	reference: 'APP/Q9999/D/21/1345264',
+// 	appealStatus: [{
+// 		status: 'received_appeal',
+// 		valid: true
+// 	}],
+// 	appealType: {
+// 		type: 'full planning'
+// 	},
+// 	createdAt: new Date(2022, 1, 23),
+// 	addressId: 1,
+// 	localPlanningDepartment: 'Maidstone Borough Council',
+// 	planningApplicationReference: '48269/APP/2021/1482',
+// 	appellant: {
+// 		name: 'Lee Thornton'
+// 	}
+// };
 const appeal_2 = {
 	id: 2,
 	reference: 'APP/Q9999/D/21/1345264',
@@ -158,6 +170,7 @@ addNewDecisionStub.returns(newDecision);
 const createLpaQuestionnaireStub = sinon.stub();
 const updateManyAppealStatusStub = sinon.stub();
 const createManyAppealStatusesStub = sinon.stub();
+const createAppealStatusStub = sinon.stub();
 
 class MockDatabaseClass {
 	constructor(_parameters) {
@@ -173,6 +186,7 @@ class MockDatabaseClass {
 				create: createLpaQuestionnaireStub
 			},
 			appealStatus: {
+				create: createAppealStatusStub,
 				updateMany: updateManyAppealStatusStub,
 				createMany: createManyAppealStatusesStub
 			},
@@ -206,14 +220,23 @@ test('should be able to submit \'valid\' decision for household appeal', async (
 test('should be able to submit \'valid\' decision for full planning appeal', async (t) => {
 	const resp = await request.post('/validation/10')
 		.send({ AppealStatus: 'valid', descriptionOfDevelopment: 'Some Desc' });
-	console.log(resp.body);
 	t.is(resp.status, 200);
 	sinon.assert.calledWithExactly(updateManyAppealStatusStub, {
-		where: { appealId: 1 },
+		where: { id: { in: [10] } },
 		data: { valid: false }
 	});
 	sinon.assert.calledWithExactly(createManyAppealStatusesStub, {
-		data: { status: 'awaiting_lpa_questionnaire', appealId: 10 }
+		data: [{ 
+			status: 'awaiting_lpa_questionnaire', 
+			appealId: 10,
+			subStateMachineName: 'lpaQuestionnaireAndInspectorPickup',
+			compoundStateName: 'awaiting_lpa_questionnaire_and_statements'
+		}, { 
+			status: 'available_for_statements', 
+			appealId: 10,
+			subStateMachineName: 'statementsAndFinalComments',
+			compoundStateName: 'awaiting_lpa_questionnaire_and_statements'
+		}]
 	});
 	sinon.assert.calledWithExactly(addNewDecisionStub, {  data: {
 		appealId: 10,
@@ -237,7 +260,7 @@ test('should be able to submit \'invalid\' decision', async(t) => {
 		where: { id: { in: [1] } },
 		data: { valid: false }
 	});
-	sinon.assert.calledWithExactly(createManyAppealStatusesStub, {
+	sinon.assert.calledWithExactly(createAppealStatusStub, {
 		data: { status: 'invalid_appeal', appealId: 1 }
 	});
 	// TODO: calledOneWithExactly throws error
@@ -272,11 +295,10 @@ test('should be able to submit \'missing appeal details\' decision', async(t) =>
 		where: { id: { in: [1] } },
 		data: { valid: false }
 	});
-	sinon.assert.calledWithExactly(createManyAppealStatusesStub, {
+	sinon.assert.calledWithExactly(createAppealStatusStub, {
 		data: { status: 'awaiting_validation_info', appealId: 1 }
 	});
-	// TODO: calledOneWithExactly throws error
-	sinon.assert.calledWithExactly(addNewDecisionStub, {  data: {
+	sinon.assert.calledWithExactly(addNewDecisionStub, { data: {
 		appealId: 1,
 		decision: 'incomplete',
 		descriptionOfDevelopment: undefined,
@@ -299,7 +321,7 @@ test('should be able to mark appeal with missing info as \'valid\'', async(t) =>
 		where: { id: { in: [4] } },
 		data: { valid: false }
 	});
-	sinon.assert.calledWithExactly(createManyAppealStatusesStub, {
+	sinon.assert.calledWithExactly(createAppealStatusStub, {
 		data: { status: 'awaiting_validation_info', appealId: 1 }
 	});
 	sinon.assert.calledWithExactly(addNewDecisionStub, {  data: {

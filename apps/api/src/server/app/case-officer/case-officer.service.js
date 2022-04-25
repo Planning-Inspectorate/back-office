@@ -2,6 +2,7 @@ import newReviewRepository from '../repositories/review-questionnaire.repository
 import { transitionState } from '../state-machine/transition-state.js';
 import appealRepository from '../repositories/appeal.repository.js';
 import { buildAppealCompundStatus } from '../utils/build-appeal-compound-status.js';
+import { breakUpCompoundStatus } from '../utils/break-up-compound-status.js';
 
 /** @typedef {import('@pins/api').Schema.Appeal} Appeal */
 
@@ -16,7 +17,8 @@ export const confirmLPAQuestionnaireService = async function(reviewReason, appea
 	const appealStatemachineStatus = reviewResult ?  'COMPLETE' : 'INCOMPLETE';
 	const appealStatus = buildAppealCompundStatus(appeal.appealStatus);
 	const nextState = transitionState(appeal.appealType.type, { appealId: appeal.id }, appealStatus, appealStatemachineStatus);
-	await appealRepository.updateStatusById(appeal.id, nextState.value, appeal.appealStatus);
+	const newState = breakUpCompoundStatus(nextState.value, appeal.id);
+	await appealRepository.updateStatusById(appeal.id, newState, appeal.appealStatus);
 };
 
 /**

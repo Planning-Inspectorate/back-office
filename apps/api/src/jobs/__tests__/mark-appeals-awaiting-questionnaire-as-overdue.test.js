@@ -3,6 +3,7 @@ import test from 'ava';
 import sinon from 'sinon';
 import findAndUpdateStatusForAppealsWithOverdueQuestionnaires from '../mark-appeals-awaiting-questionnaire-as-overdue.js';
 import DatabaseFactory from '../../server/app/repositories/database.js';
+import appealRepository from '../../server/app/repositories/appeal.repository.js';
 
 const appeal_1 = {
 	id: 1,
@@ -25,8 +26,17 @@ const appeal_2 = {
 	reference: 'REFERENCE',
 	apellantName: 'some name',
 	appealStatus: [{
+		id: 21,
 		status: 'awaiting_lpa_questionnaire',
+		subStateMachineName: 'lpaQuestionnaireAndInspectorPickup',
+		compoundStateName: 'awaiting_lpa_questionnaire_and_statements',
 		valid: true
+	}, {
+		id: 22,
+		status: 'available_for_statements',
+		valid: true,
+		subStateMachineName: 'statementsAndFinalComments',
+		compoundStateName: 'awaiting_lpa_questionnaire_and_statements'
 	}],
 	appealType: {
 		type: 'full planning'
@@ -53,7 +63,8 @@ class MockDatabaseClass {
 			},
 			appealStatus: {
 				updateMany: updateManyAppealStatusStub,
-				create: createAppealStatusStub
+				create: createAppealStatusStub,
+				createMany: sinon.stub()
 			},
 			$transaction: sinon.stub()
 		};
@@ -77,6 +88,14 @@ test('finds appeals to mark as overdue as updates their statuses', async(t) => {
 					createdAt: {
 						lt: sinon.match.any
 					}
+				}
+			}
+		},
+		include: {
+			appealType: true,
+			appealStatus: {
+				where: {
+					valid: true
 				}
 			}
 		}

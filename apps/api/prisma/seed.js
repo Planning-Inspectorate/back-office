@@ -88,35 +88,6 @@ const appealFactory = function(
 	};
 };
 
-export const appealFactoryForTests = function(
-	appealId,
-	statuses,
-	typeShorthand,
-	inclusions = {},
-	startedAt: new Date()
-) {
-	return {
-		id: appealId,
-		appealType: { shorthand: typeShorthand, type: appealTypes[typeShorthand] },
-		reference: generateAppealReference(),
-		startedAt: startedAt,
-		appealStatus: statuses,
-		appellant: pickRandom(appellantsList),
-		localPlanningDepartment: pickRandom(localPlanningDepartmentList),
-		planningApplicationReference: '48269/APP/2021/1482',
-		address: pickRandom(addressesList),
-		...(inclusions.incompleteValidationDecision && { validationDecision: incompleteValidationDecisionSample }),
-		...(inclusions.invalidValidationDecision && { validationDecision: invalidValidationDecisionSample }),
-		...(inclusions.completeValidationDecision && { validationDecision: completeValidationDecisionSample }),
-		...(inclusions.lpaQuestionnaire && { lpaQuestionnaire: pickRandom(lpaQuestionnaireList) }),
-		...(inclusions.incompleteReviewQuestionnaire && { reviewQuestionnaire: incompleteReviewQuestionnaireSample }),
-		...(inclusions.completeReviewQuestionnaire && { reviewQuestionnaire: { complete: true } }),
-		appealDetailsFromAppellant: pickRandom(appealDetailsFromAppellantList),
-		...(inclusions.connectToUser && { user: { id: 1 } }),
-		...(inclusions.siteVisitBooked && { siteVisit: { visitDate: new Date(2022, 3, 1), visitSlot: '1pm - 2pm', visitType: 'unaccompanied' } })
-	};
-};
-
 const newAppeals = [
 	appealFactory('HAS'),
 	appealFactory('HAS'),

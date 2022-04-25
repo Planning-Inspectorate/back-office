@@ -147,7 +147,7 @@ const appealRepository = (function () {
 			return getPool().appeal.findMany({
 				where: {
 					appealStatus: {
-						every: {
+						some: {
 							status: status,
 							valid: true,
 							createdAt: {
@@ -157,7 +157,12 @@ const appealRepository = (function () {
 					}
 				},
 				include: {
-					appealType: true
+					appealType: true,
+					appealStatus: {
+						where: {
+							valid: true
+						}
+					}
 				}
 			});
 		},
@@ -165,7 +170,7 @@ const appealRepository = (function () {
 			return getPool().appeal.findMany({
 				where: {
 					appealStatus: {
-						every: {
+						some: {
 							status: status,
 							valid: true
 						}

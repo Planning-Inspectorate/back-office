@@ -55,7 +55,7 @@ test('finds appeals to mark as overdue as updates their statuses', async(t) => {
 	sinon.assert.calledOnceWithExactly(findManyStub, {
 		where: {
 			appealStatus: {
-				every: {
+				some: {
 					status: 'site_visit_booked',
 					valid: true
 				}
@@ -65,6 +65,9 @@ test('finds appeals to mark as overdue as updates their statuses', async(t) => {
 					lt: sinon.match.any
 				}
 			}
+		},
+		include: {
+			appealType: true
 		}
 	});
 	sinon.assert.calledWith(updateManyAppealStatusStub, { where: { id: { in: [1] } }, data: { valid: false } });
