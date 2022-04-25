@@ -107,7 +107,7 @@ export const validateFilesUpload = function(filename) {
 		}).array(filename),
 		mapMulterErrorToValidationError,
 		body(filename)
-			.custom((_, { req }) => Boolean(req.files))
+			.custom((_, { req }) => req.files.length > 0)
 			.withMessage('Select a file'),
 		handleValidationError
 	);
