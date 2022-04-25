@@ -13,7 +13,7 @@ export const msalClient = new msal.ConfidentialClientApplication({
 		loggerOptions: {
 			loggerCallback(loglevel, message, containsPii) {
 				console.log(message);
-				console.log(containsPii);
+				// console.log(containsPii);
 			},
 			piiLoggingEnabled: false,
 			logLevel: msal.LogLevel.Verbose
@@ -34,16 +34,14 @@ export function checkAccessRule(method, rule, creds, credType) {
 	if (rule?.methods.includes(method)) {
 		switch (credType) {
 			case 'groups':
-				// eslint-disable-next-line unicorn/explicit-length-check
-				if (rule.groups.filter((element) => creds.includes(element)).length < 1) {
+				if (rule.groups?.filter((element) => creds.includes(element)).length === 0) {
 					console.error('User does not have this group');
 					return false;
 				}
 				break;
 
 			case 'roles':
-				// eslint-disable-next-line unicorn/explicit-length-check
-				if (rule.roles.filter((element) => creds.includes(element)).length < 1) {
+				if (rule.roles?.filter((element) => creds.includes(element)).length === 0) {
 					console.error('User does not have this role');
 					return false;
 				}
