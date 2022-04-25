@@ -8,6 +8,7 @@ import sinon, { assert } from 'sinon';
 import supertest from 'supertest';
 import { app } from '../../../app.js';
 import appealRepository from '../../repositories/appeal.repository.js';
+import { appealFactoryForTests } from '../../../../../prisma/seed.js';
 
 /** @typedef {import('@pins/api').Schema.Appeal} Appeal */
 
@@ -21,20 +22,26 @@ const siteVisitBody = {
 
 // todo: replace with factory
 /** @type {DeepPartial<Appeal>} */
-const originalAppeal = {
-	id: 1, 
-	reference: 'APP/Q9999/D/21/323259',
-	planningApplicationReference: '0181/811/8181',
-	localPlanningDepartment: 'Local planning dept',
-	appealStatus: [{
-		id: 1,
-		status: 'site_visit_not_yet_booked',
-		valid: true
-	}],
-	createdAt: new Date(2022, 0, 1),
-	updatedAt: new Date(2022, 0, 1),
-	userId: 100
-};
+const originalAppeal = appealFactoryForTests(1, [{
+	id: 1, status: 'site_visit_not_yet_booked', valid: true
+}], 'HAS', false, false, false, false, new Date(), false, false, false, false);
+// {
+// 	id: 1, 
+// 	reference: 'APP/Q9999/D/21/323259',
+// 	planningApplicationReference: '0181/811/8181',
+// 	localPlanningDepartment: 'Local planning dept',
+// 	appealStatus: [{
+// 		id: 1,
+// 		status: 'site_visit_not_yet_booked',
+// 		valid: true
+// 	}],
+// 	appealType: {
+// 		type: 'household'
+// 	},
+// 	createdAt: new Date(2022, 0, 1),
+// 	updatedAt: new Date(2022, 0, 1),
+// 	userId: 100
+// };
 
 /** @type {DeepPartial<Appeal>} */
 const updatedAppeal = {

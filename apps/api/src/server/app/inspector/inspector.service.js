@@ -33,7 +33,7 @@ import { breakUpCompoundStatus } from '../utils/break-up-compound-status.js';
 export const bookSiteVisit = async ({ appealId, siteVisit }) => {
 	const appeal = await appealRepository.getById(appealId);
 	const appealStatus = buildAppealCompundStatus(appeal.appealStatus);
-	const nextState = transitionState('household', { appealId }, appealStatus, 'BOOK', true);
+	const nextState = transitionState(appeal.appealType.type, { appealId }, appealStatus, 'BOOK', true);
 	
 	await appealRepository.updateStatusAndDataById(appealId, nextState.value, {
 		siteVisit: {
@@ -58,7 +58,7 @@ export const bookSiteVisit = async ({ appealId, siteVisit }) => {
 export const issueDecision = async ({ appealId, outcome, decisionLetter }) => {
 	const appeal = await appealRepository.getById(appealId);
 	const appealStatus = buildAppealCompundStatus(appeal.appealStatus);
-	const nextState = transitionState('household', { appealId }, appealStatus, 'DECIDE', true);
+	const nextState = transitionState(appeal.appealType.type, { appealId }, appealStatus, 'DECIDE', true);
 
 	await appealRepository.updateStatusAndDataById(appealId, nextState.value, {
 		inspectorDecision: {

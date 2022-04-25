@@ -13,6 +13,24 @@ const appeal_1 = {
 		status: 'awaiting_lpa_questionnaire',
 		valid: true
 	}],
+	appealType: {
+		type: 'household'
+	},
+	createdAt: new Date(2022, 3, 15),
+	addressId: 1
+};
+
+const appeal_2 = {
+	id: 2,
+	reference: 'REFERENCE',
+	apellantName: 'some name',
+	appealStatus: [{
+		status: 'awaiting_lpa_questionnaire',
+		valid: true
+	}],
+	appealType: {
+		type: 'full planning'
+	},
 	createdAt: new Date(2022, 3, 15),
 	addressId: 1
 };
@@ -21,7 +39,7 @@ const updateStub = sinon.stub();
 updateStub.returns(appeal_1);
 
 const findManyStub = sinon.stub();
-findManyStub.returns([appeal_1]);
+findManyStub.returns([appeal_1, appeal_2]);
 
 const updateManyAppealStatusStub = sinon.stub();
 const createAppealStatusStub = sinon.stub();
@@ -53,7 +71,7 @@ test('finds appeals to mark as overdue as updates their statuses', async(t) => {
 	sinon.assert.calledOnceWithExactly(findManyStub, {
 		where: {
 			appealStatus: {
-				every: {
+				some: {
 					status: 'awaiting_lpa_questionnaire',
 					valid: true,
 					createdAt: {

@@ -155,6 +155,9 @@ const appealRepository = (function () {
 							}
 						}
 					}
+				},
+				include: {
+					appealType: true
 				}
 			});
 		},
@@ -172,6 +175,9 @@ const appealRepository = (function () {
 							lt: lessThanInspectionDate
 						}
 					}
+				},
+				include: {
+					appealType: true
 				}
 			});
 		},

@@ -15,7 +15,7 @@ export const confirmLPAQuestionnaireService = async function(reviewReason, appea
 	await newReviewRepository.addReview(appeal.id, reviewResult, reviewReason);
 	const appealStatemachineStatus = reviewResult ?  'COMPLETE' : 'INCOMPLETE';
 	const appealStatus = buildAppealCompundStatus(appeal.appealStatus);
-	const nextState = transitionState('household', { appealId: appeal.id }, appealStatus, appealStatemachineStatus);
+	const nextState = transitionState(appeal.appealType.type, { appealId: appeal.id }, appealStatus, appealStatemachineStatus);
 	await appealRepository.updateStatusById(appeal.id, nextState.value, appeal.appealStatus);
 };
 

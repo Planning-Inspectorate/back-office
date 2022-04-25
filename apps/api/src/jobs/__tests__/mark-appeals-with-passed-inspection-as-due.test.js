@@ -13,6 +13,9 @@ const appeal_1 = {
 		status: 'site_visit_booked',
 		valid: true
 	}],
+	appealType: {
+		type: 'household'
+	},
 	createdAt: new Date(2022, 3, 15),
 	addressId: 1
 };

@@ -18,7 +18,7 @@ async function markAppealsAsLPAReceived(appeals) {
 	for (const appeal of appeals) {
 		const appealStatus = arrayOfStatusesContainsString(appeal.appealStatus, 'awaiting_lpa_questionnaire') ? 
 			'awaiting_lpa_questionnaire' : 'overdue_lpa_questionnaire';
-		const newStatus = transitionState('household', { appealId: appeal.id }, appealStatus, 'RECEIVED');
+		const newStatus = transitionState(appeal.appealType.type, { appealId: appeal.id }, appealStatus, 'RECEIVED');
 		updatedAppeals.push(appealRepository.updateStatusById(appeal.id, newStatus.value, appeal.appealStatus));
 	}
 	await Promise.all(updatedAppeals);

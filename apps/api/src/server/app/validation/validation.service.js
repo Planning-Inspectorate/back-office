@@ -39,7 +39,7 @@ export const submitValidationDecisionService = async (appealId, appealStatus, re
 	});
 	const machineAction = mapAppealStatusToStateMachineAction(appealStatus);
 	const appealStatusForMachine = buildAppealCompundStatus(appeal.appealStatus);
-	const nextState = transitionState('household', { appealId: appeal.id }, appealStatusForMachine, machineAction);
+	const nextState = transitionState(appeal.appealType.type, { appealId: appeal.id }, appealStatusForMachine, machineAction);
 	await appealRepository.updateStatusById(appeal.id, nextState.value, appeal.appealStatus);
 	await validationDecisionRepository.addNewDecision(appeal.id, appealStatus, reason, descriptionOfDevelopment);
 };
