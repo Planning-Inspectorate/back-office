@@ -31,18 +31,18 @@ test.before('sets up database mock', () => {
 });
 
 test('Throws error if appeal is not accepting statements', async(t) => {
-	const response = await request.post('/case-officer/1/statement').attach('statements', [pathToFile, pathToFile]);
+	const response = await request.post('/case-officer/1/statement').attach('statements', pathToFile).attach('statements', pathToFile);
 	t.is(response.status, 409);
 	t.deepEqual(response.body, { errors: { appeal: 'Appeal is in an invalid state' } });
 });      
 
 test('Throws error if no file provided', async(t) => {
-	const response = await request.post('/case-officer/1/statement');
+	const response = await request.post('/case-officer/2/statement');
 	t.is(response.status, 400);
 	t.deepEqual(response.body, { errors: { statements: 'Select a file' } });
 });   
 
 test('Returns 200 if successfully uploaded statement', async(t) => {
-	const response = await request.post('/case-officer/2/statement').attach('statements', [pathToFile, pathToFile]);
+	const response = await request.post('/case-officer/2/statement').attach('statements', pathToFile).attach('statements', pathToFile);
 	t.is(response.status, 200);
 });

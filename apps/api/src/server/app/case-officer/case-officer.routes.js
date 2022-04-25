@@ -1,5 +1,5 @@
 import express from 'express';
-import { param } from 'express-validator';
+import { param, body } from 'express-validator';
 import asyncHandler from '../middleware/async-handler.js';
 import {
 	confirmLPAQuestionnaire,
@@ -14,10 +14,11 @@ import {
 	validateAppealDetails,
 	validateAppealHasIncompleteQuestionnaire,
 	validateReviewRequest,
-	validateStatementsFileUpload
+	validateFilesUpload
 } from './case-officer.validators.js';
 import { validateAppealStatus } from '../middleware/validate-appeal-status.js';
 import { validateFileUpload } from '../middleware/validate-file-upload.js';
+
 /**
  * @typedef {object} AppealParams
  * @property {number} appealId
@@ -67,6 +68,9 @@ router.post(
 	asyncHandler(confirmLPAQuestionnaire)
 );
 
+
+
+
 router.post('/:appealId/statement',
 	/*
         #swagger.description = 'Uploads statement'
@@ -83,7 +87,7 @@ router.post('/:appealId/statement',
 		}
 	*/
 	param('appealId').toInt(),
-	validateStatementsFileUpload('statements'),
+	validateFilesUpload('statements'),
 	validateAppealStatus(['available_for_statements']),
 	asyncHandler(uploadStatement));
 
@@ -103,7 +107,7 @@ router.post('/:appealId/final-comment',
 		}
 	*/
 	param('appealId').toInt(),
-	validateFileUpload('finalcomment'),
+	validateFileUpload('finalcomments'),
 	validateAppealStatus(['available_for_final_comments']),
 	asyncHandler(uploadFinalComment));
 

@@ -97,7 +97,7 @@ export const validateReviewRequest = (request, response, next) => {
 	}
 };
 
-export const validateStatementsFileUpload = function(filename) {
+export const validateFilesUpload = function(filename) {
 	return composeMiddleware(
 		multer({
 			storage: multer.memoryStorage(),
@@ -107,7 +107,7 @@ export const validateStatementsFileUpload = function(filename) {
 		}).array(filename),
 		mapMulterErrorToValidationError,
 		body(filename)
-			.custom((_, { req }) => Boolean(req.file))
+			.custom((_, { req }) => Boolean(req.files))
 			.withMessage('Select a file'),
 		handleValidationError
 	);
