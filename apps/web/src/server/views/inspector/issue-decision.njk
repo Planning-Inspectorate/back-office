@@ -16,6 +16,8 @@
   <h2 class="govuk-heading-l">Decision details</h2>
 
   <form method="post" enctype="multipart/form-data" novalidate="novalidate">
+    {% include 'app/includes/csrf.njk' %}
+
     <h3 class="govuk-heading-m">Date</h3>
     <p class="govuk-body">{{ now() | displayDate }}</p>
     {{

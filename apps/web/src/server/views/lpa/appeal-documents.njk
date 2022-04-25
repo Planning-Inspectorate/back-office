@@ -32,6 +32,7 @@
 
 {% block pageContent %}
   <form method="post" enctype="multipart/form-data" novalidate="novalidate">
+    {% include 'app/includes/csrf.njk' %}
     {{ 
       govukFileUpload({
         id: "files",

@@ -3,6 +3,7 @@ import compression from 'compression';
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
 import express from 'express';
+import csurf from 'csurf';
 import requestID from 'express-request-id';
 import helmet from 'helmet';
 import morganLogger from 'morgan';
@@ -57,6 +58,15 @@ app.use(responseTime());
 
 // Session middleware
 app.use(session);
+
+// CSRF middleware via session
+app.use(
+	csurf({ cookie: false }),
+	(request, response, next) => {
+		response.locals.csrfToken = request.csrfToken();
+		next();
+	}
+);
 
 // Set the express view engine to nunjucks.
 nunjucksEnvironment.express(app);

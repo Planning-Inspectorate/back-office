@@ -16,6 +16,8 @@
 	</p>
 
 	<form method="post" novalidate>
+		{% include 'app/includes/csrf.njk' %}
+		
 		<input type="hidden" name="status" value="{{ reviewOutcome.status }}" />
 		{{ 
 			govukCheckboxes({

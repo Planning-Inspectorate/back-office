@@ -10,6 +10,7 @@
 
 {% block pageContent %}
 	<form method="post" novalidate>
+		{% include 'app/includes/csrf.njk' %}
 		{{ 
 			govukInput({
 				id: 'AppellantName',
