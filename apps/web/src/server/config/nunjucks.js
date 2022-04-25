@@ -9,18 +9,15 @@ const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
 const require = createRequire(import.meta.url);
 const govukFrontendRoot = path.resolve(require.resolve('govuk-frontend'), '../..');
 
-const nunjucksEnvironments = nunjucks.configure([
-  govukFrontendRoot,
-	path.join(__dirname, '../views')
-], {
-  // output with dangerous characters are escaped automatically
-	autoescape: true, 
-  // automatically remove trailing newlines from a block/tag
-	trimBlocks: true, 
-  // automatically remove leading whitespace from a block/tag
-	lstripBlocks: true, 
-  // never use a cache and recompile templates each time
-	noCache: true, 
+const nunjucksEnvironments = nunjucks.configure([govukFrontendRoot, path.join(__dirname, '../views')], {
+	// output with dangerous characters are escaped automatically
+	autoescape: true,
+	// automatically remove trailing newlines from a block/tag
+	trimBlocks: true,
+	// automatically remove leading whitespace from a block/tag
+	lstripBlocks: true,
+	// never use a cache and recompile templates each time
+	noCache: true
 });
 
 // Add all custom app filters

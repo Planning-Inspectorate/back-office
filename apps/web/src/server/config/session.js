@@ -8,6 +8,6 @@ export default session({
 	resave: false,
 	saveUninitialized: true,
 	cookie: {
-    secure: process.env.NODE_ENV === 'production'
-  }  
+		secure: process.env.NODE_ENV === 'production'
+	}
 });

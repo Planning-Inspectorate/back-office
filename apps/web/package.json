@@ -24,6 +24,7 @@
     "clean": "rimraf .turbo node_modules dist"
   },
   "dependencies": {
+    "@azure/msal-node": "1.8.0",
     "@hapi/boom": "9.1.4",
     "accessible-autocomplete": "2.0.4",
     "body-parser": "1.20.0",

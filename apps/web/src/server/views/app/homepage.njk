@@ -1,0 +1,24 @@
+{% extends "app/layouts/app.layout.njk" %}
+
+{% from "govuk/components/button/macro.njk" import govukButton %}
+
+{% set pageTitle = 'Welcome to the back office homepage' %}
+
+{% block pageContent %}
+	<h2>Chose an officer dashboard from bellow:</h2>
+
+	{{ govukButton({
+		text: "Validation officer",
+		href: "/validation"
+	}) }}
+
+	{{ govukButton({
+		text: "Case officer",
+		href: "/lpa"
+	}) }}
+
+	{{ govukButton({
+		text: "Inspector",
+		href: "/inspector"
+	}) }}
+{% endblock %}
