@@ -13,7 +13,8 @@ import {
 	validateAppealBelongsToCaseOfficer,
 	validateAppealDetails,
 	validateAppealHasIncompleteQuestionnaire,
-	validateReviewRequest
+	validateReviewRequest,
+	validateStatementsFileUpload
 } from './case-officer.validators.js';
 import { validateAppealStatus } from '../middleware/validate-appeal-status.js';
 import { validateFileUpload } from '../middleware/validate-file-upload.js';
@@ -82,7 +83,7 @@ router.post('/:appealId/statement',
 		}
 	*/
 	param('appealId').toInt(),
-	validateFileUpload('statement'),
+	validateStatementsFileUpload('statements'),
 	validateAppealStatus(['available_for_statements']),
 	asyncHandler(uploadStatement));
 
