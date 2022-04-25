@@ -13,120 +13,30 @@ const appeal_1 = appealFactoryForTests(1, [{
 	status: 'received_appeal',
 	valid: true
 }], 'HAS');
-// const appeal_1 = {
-// 	id: 1,
-// 	reference: 'APP/Q9999/D/21/1345264',
-// 	appealStatus: [{
-// 		id: 1,
-// 		status: 'received_appeal',
-// 		valid: true
-// 	}],
-// 	appealType: {
-// 		type: 'household'
-// 	},
-// 	createdAt: new Date(2022, 1, 23),
-// 	addressId: 1,
-// 	localPlanningDepartment: 'Maidstone Borough Council',
-// 	planningApplicationReference: '48269/APP/2021/1482',
-// 	appellant: {
-// 		name: 'Lee Thornton'
-// 	}
-// };
 
 const appeal_10 = appealFactoryForTests(10, [{
 	id: 10,
 	status: 'received_appeal',
 	valid: true
 }], 'FPA');
-// const appeal_10 = {
-// 	id: 10,
-// 	reference: 'APP/Q9999/D/21/1345264',
-// 	appealStatus: [{
-// 		status: 'received_appeal',
-// 		valid: true
-// 	}],
-// 	appealType: {
-// 		type: 'full planning'
-// 	},
-// 	createdAt: new Date(2022, 1, 23),
-// 	addressId: 1,
-// 	localPlanningDepartment: 'Maidstone Borough Council',
-// 	planningApplicationReference: '48269/APP/2021/1482',
-// 	appellant: {
-// 		name: 'Lee Thornton'
-// 	}
-// };
-const appeal_2 = {
+
+const appeal_2 = appealFactoryForTests(2, [{
 	id: 2,
-	reference: 'APP/Q9999/D/21/1345264',
-	appealStatus: [{
-		id: 2,
-		status: 'valid_appeal',
-		valid: true
-	}],
-	appealType: {
-		type: 'household'
-	},
-	createdAt: new Date(2022, 1, 23),
-	addressId: 1,
-	localPlanningDepartment: 'Maidstone Borough Council',
-	planningApplicationReference: '48269/APP/2021/1482',
-	appellant: {
-		name: 'Lee Thornton'
-	}
-};
-const appeal_3 = {
+	status: 'valid_appeal',
+	valid: true
+}], 'HAS');
+
+const appeal_3 = appealFactoryForTests(3, [{
 	id: 3,
-	reference: 'APP/Q9999/D/21/1345264',
-	appealStatus: [{
-		id: 3,
-		status: 'invalid_appeal',
-		valid: true
-	}],
-	appealType: {
-		type: 'household'
-	},
-	createdAt: new Date(2022, 1, 23),
-	addressId: 1,
-	localPlanningDepartment: 'Maidstone Borough Council',
-	planningApplicationReference: '48269/APP/2021/1482',
-	appellant: {
-		name: 'Lee Thornton'
-	}
-};
-const appeal_4 = {
+	status: 'invalid_appeal',
+	valid: true
+}], 'HAS');
+
+const appeal_4 = appealFactoryForTests(3, [{
 	id: 4,
-	reference: 'APP/Q9999/D/21/1345264',
-	appealStatus: [{
-		id: 4,
-		status: 'awaiting_validation_info',
-		valid: true
-	}],
-	appealType: {
-		type: 'household'
-	},
-	createdAt: new Date(2022, 1, 23),
-	addressId: 1,
-	localPlanningDepartment: 'Maidstone Borough Council',
-	planningApplicationReference: '48269/APP/2021/1482',
-	appellant: {
-		name: 'Lee Thornton'
-	}
-};
-const updated_appeal_1 = {
-	id: 1,
-	reference: 'REFERENCE',
-	apellantName: 'some name',
-	appealStatus: [{
-		status: 'new status',
-		valid: true
-	}],
-	appealType: {
-		type: 'household'
-	},
-	createdAt: new Date(2022, 3, 15),
-	addressId: 1
-};
+	status: 'awaiting_validation_info',
+	valid: true
+}], 'HAS');
 
 const getAppealByIdStub = sinon.stub();
 const updateStub = sinon.stub();
@@ -155,7 +65,7 @@ getAppealByIdStub.withArgs({ where: { id: 6 }, include: includingDetailsForValid
 getAppealByIdStub.withArgs({ where: { id: 10 }, include: includingDetailsForResponse }).returns(appeal_10);
 getAppealByIdStub.withArgs({ where: { id: 10 }, include: includingDetailsForValidtion }).returns(appeal_10);
 
-updateStub.returns(updated_appeal_1);
+updateStub.returns({ ...appeal_1 });
 
 const addNewDecisionStub = sinon.stub();
 

@@ -44,7 +44,6 @@ async function markAppealsAsOverdue(appeals) {
  */
 async function findAndUpdateStatusForAppealsWithOverdueQuestionnaires() {
 	const appeals = await getAppealsWithOverdueQuestionnaires();
-	console.log(JSON.stringify(appeals));
 	await markAppealsAsOverdue(appeals);
 }
 

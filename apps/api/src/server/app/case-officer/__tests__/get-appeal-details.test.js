@@ -4,42 +4,19 @@ import supertest from 'supertest';
 import sinon from 'sinon';
 import { app } from '../../../app.js';
 import DatabaseFactory from '../../repositories/database.js';
+import { appealFactoryForTests } from '../../utils/appeal-factory-for-tests.js';
 
 const request = supertest(app);
 
-const appeal_1 = {
-	id: 1,
-	reference: 'APP/Q9999/D/21/1345264',
-	appealStatus: [{
-		status: 'received_lpa_questionnaire',
-		valid: true
-	}],
-	createdAt: new Date(2022, 1, 23),
-	addressId: 1,
-	localPlanningDepartment: 'Maidstone Borough Council',
-	planningApplicationReference: '48269/APP/2021/1482',
-	appellant: {
-		name: 'Lee Thornton'
-	},
-	startedAt: new Date(2022, 4, 18),
-	lpaQuestionnaire: {
-		listedBuildingDescription: 'Listed!'
-	},
-	address: {
-		addressLine1: 'line 1',
-		addressLine2: 'line 2',
-		postcode: 'some code'
-	}
-};
+const appeal_1 = appealFactoryForTests(1, [{
+	status: 'received_lpa_questionnaire',
+	valid: true,
+}], 'HAS', { lpaQuestionnaire: true });
 
-const appeal_2 = {
-	id: 2,
-	reference: 'APP/Q9999/D/21/1345264',
-	appealStatus: [{
-		status: 'awaiting_lpa_questionnaire',
-		valid: true
-	}]
-};
+const appeal_2 = appealFactoryForTests(2, [{
+	status: 'awaiting_lpa_questionnaire',
+	valid: true,
+}], 'HAS');
 
 const includeDetails = {
 	address: true,
@@ -166,17 +143,19 @@ test('gets the appeals detailed information with received questionnaires', async
 	const resp = await request.get('/case-officer/1');
 	const appealExampleDetail = {
 		AppealId: 1,
-		AppealReference: 'APP/Q9999/D/21/1345264',
-		LocalPlanningDepartment: 'Maidstone Borough Council',
-		PlanningApplicationreference: '48269/APP/2021/1482',
+		AppealReference: appeal_1.reference,
+		LocalPlanningDepartment: appeal_1.localPlanningDepartment,
+		PlanningApplicationreference: appeal_1.planningApplicationReference,
 		AppealSite: {
-			AddressLine1: 'line 1',
-			AddressLine2: 'line 2',
-			PostCode: 'some code'
+			...(appeal_1.address.addressLine1 && { AddressLine1: appeal_1.address.addressLine1 }),
+			...(appeal_1.address.addressLine2 && { AddressLine2: appeal_1.addressLine2 }),
+			...(appeal_1.address.town && { Town: appeal_1.address.town }),
+			...(appeal_1.address.county && { County: appeal_1.address.county }),
+			PostCode: appeal_1.address.postcode
 		},
 		AppealSiteNearConservationArea: false,
 		WouldDevelopmentAffectSettingOfListedBuilding: false,
-		ListedBuildingDesc: 'Listed!',
+		ListedBuildingDesc: '',
 		Documents: listOfDocuments
 	};
 	t.is(resp.status, 200);

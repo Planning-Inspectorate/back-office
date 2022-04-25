@@ -29,23 +29,6 @@ const originalAppeal = appealFactoryForTests(
 	{ connectToUser: true },
 	{ createdAt: new Date(2022, 0, 1), updatedAt: new Date(2022, 0, 1) }
 );
-// {
-// 	id: 1, 
-// 	reference: 'APP/Q9999/D/21/323259',
-// 	planningApplicationReference: '0181/811/8181',
-// 	localPlanningDepartment: 'Local planning dept',
-// 	appealStatus: [{
-// 		id: 1,
-// 		status: 'site_visit_not_yet_booked',
-// 		valid: true
-// 	}],
-// 	appealType: {
-// 		type: 'household'
-// 	},
-// 	createdAt: new Date(2022, 0, 1),
-// 	updatedAt: new Date(2022, 0, 1),
-// 	userId: 100
-// };
 
 /** @type {DeepPartial<Appeal>} */
 const updatedAppeal = {

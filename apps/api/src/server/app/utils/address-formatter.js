@@ -4,10 +4,10 @@
  */
 function formatAddress(address) {
 	return {
-		AddressLine1: address.addressLine1,
-		AddressLine2: address.addressLine2,
-		Town: address.town,
-		County: address.county,
+		...(address.addressLine1 && { AddressLine1: address.addressLine1 }),
+		...(address.addressLine2 && { AddressLine2: address.addressLine2 }),
+		...(address.town && { Town: address.town }),
+		...(address.county && { County: address.county }),
 		PostCode: address.postcode
 	};
 }
