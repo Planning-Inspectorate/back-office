@@ -10,6 +10,7 @@
 
 {% block pageContent %}
 	<form method="post" novalidate>
+		{% include 'app/includes/csrf.njk' %}
 		<fieldset class="govuk-fieldset">
 			<legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
 				<h1 class="govuk-fieldset__heading">{{ pageTitle }}</h1>

@@ -11,7 +11,8 @@
 	<h2 class="govuk-heading-l">
 		Check and confirm
 	</h2>
-	<form action="" method="post" novalidate>
+	<form method="post" novalidate>
+		{% include 'app/includes/csrf.njk' %}
 		{% if (reviewQuestionnaire | keys).length === 0 %}
 			{{ 
 				govukSummaryList({

@@ -10,6 +10,7 @@
 
 {% block pageContent %}
 	<form method="post" novalidate="novalidate">
+		{% include 'app/includes/csrf.njk' %}
 		{{ 
 			govukSelect({
 				id: "LocalPlanningDepartment",
