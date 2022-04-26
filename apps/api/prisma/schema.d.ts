@@ -38,7 +38,7 @@ export type AppealStatusType =
 	| 'overdue_lpa_questionnaire'
 	| 'incomplete_lpa_questionnaire'
 	| 'available_for_statements'
-	| 'available_final_comments'
+	| 'available_for_final_comments'
 	| 'available_for_inspector_pickup'
 	| 'complete_lpa_questionnaire'
 	| 'site_visit_not_yet_booked'
