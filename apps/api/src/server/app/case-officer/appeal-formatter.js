@@ -24,7 +24,7 @@ function mapAppealStatus(appealStatuses) {
 	} else if (arrayOfStatusesContainsString(appealStatuses, [appealStates.incomplete_lpa_questionnaire])) {
 		return 'incomplete_lpa_questionnaire';
 	} else if (arrayOfStatusesContainsString(appealStatuses, [appealStates.available_for_statements])) {
-		return 'available for statements';
+		return 'available_for_statements';
 	} else if (arrayOfStatusesContainsString(appealStatuses, [appealStates.awaiting_final_comments])) {
 		return 'available_for_final_comments';
 	} else {

@@ -51,4 +51,3 @@ const fullPlanningStates = {
 
 export { createFullPlanningAppealMachine, fullPlanningStates };
 
-console.log( fullPlanningStates);
