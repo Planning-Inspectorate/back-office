@@ -175,17 +175,54 @@
             }
           }
         }
-      }
-    },
-    "/case-officer/{appealId}/confirm": {
-      "post": {
-        "description": "",
+      },
+      "patch": {
+        "description": "Updates appeal details",
         "parameters": [
           {
             "name": "appealId",
             "in": "path",
             "required": true,
             "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Details to update",
+            "schema": {
+              "$ref": "#/definitions/UpdateAppealDetailsByCaseOfficer"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Appeal after new details were sent over",
+            "schema": {
+              "$ref": "#/definitions/AppealAfterUpdateForCaseOfficer"
+            }
+          }
+        }
+      }
+    },
+    "/case-officer/{appealId}/confirm": {
+      "post": {
+        "description": "Updates appeal details",
+        "parameters": [
+          {
+            "name": "appealId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Details to update",
+            "schema": {
+              "$ref": "#/definitions/SendLPAQuestionnaireConfirmation"
+            },
+            "required": true
           }
         ],
         "responses": {
@@ -193,6 +230,64 @@
             "description": "Conflict"
           }
         }
+      }
+    },
+    "/case-officer/{appealId}/statement": {
+      "post": {
+        "description": "Uploads statement",
+        "parameters": [
+          {
+            "name": "appealId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "userId",
+            "in": "header",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "formData",
+            "in": "formData",
+            "description": "Statement upload payload",
+            "schema": {
+              "$ref": "#/definitions/UploadStatement"
+            },
+            "required": true
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/case-officer/{appealId}/final-comment": {
+      "post": {
+        "description": "Uploads final comment",
+        "parameters": [
+          {
+            "name": "appealId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "userId",
+            "in": "header",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "formData",
+            "in": "formData",
+            "description": "Final comment upload payload",
+            "schema": {
+              "$ref": "#/definitions/UploadFinalComment"
+            },
+            "required": true
+          }
+        ],
+        "responses": {}
       }
     },
     "/inspector/more-appeals": {
@@ -226,6 +321,9 @@
             "schema": {
               "$ref": "#/definitions/AppealsForInspector"
             }
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         }
       }
@@ -319,7 +417,7 @@
     },
     "/inspector/{appealId}/issue-decision": {
       "post": {
-        "description": "Book a site visit as an inspector.",
+        "description": "Issues decision for appeal.",
         "parameters": [
           {
             "name": "appealId",
@@ -1349,6 +1447,189 @@
         "unsuccessfullyAssigned"
       ]
     },
+    "UpdateAppealDetailsByCaseOfficer": {
+      "type": "object",
+      "properties": {
+        "listedBuildingDescription": {
+          "type": "string",
+          "example": ""
+        }
+      },
+      "required": [
+        "listedBuildingDescription"
+      ]
+    },
+    "AppealAfterUpdateForCaseOfficer": {
+      "type": "object",
+      "properties": {
+        "appealStatus": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "number",
+                "example": 2
+              },
+              "status": {
+                "type": "string",
+                "example": "incomplete_lpa_questionnaire"
+              },
+              "valid": {
+                "type": "boolean",
+                "example": true
+              }
+            },
+            "required": [
+              "id",
+              "status",
+              "valid"
+            ]
+          }
+        },
+        "createdAt": {
+          "type": "string",
+          "example": "2022-01-01T00:00:00.000Z"
+        },
+        "id": {
+          "type": "number",
+          "example": 1
+        },
+        "localPlanningDepartment": {
+          "type": "string",
+          "example": "Local planning dept"
+        },
+        "lpaQuestionnaire": {
+          "type": "object",
+          "properties": {
+            "listedBuildingDescription": {
+              "type": "string",
+              "example": "*"
+            }
+          },
+          "required": [
+            "listedBuildingDescription"
+          ]
+        },
+        "planningApplicationReference": {
+          "type": "string",
+          "example": "0181/811/8181"
+        },
+        "reference": {
+          "type": "string",
+          "example": "APP/Q9999/D/21/323259"
+        },
+        "updatedAt": {
+          "type": "string",
+          "example": "2022-01-01T00:00:00.000Z"
+        },
+        "userId": {
+          "type": "number",
+          "example": 100
+        }
+      },
+      "required": [
+        "appealStatus",
+        "createdAt",
+        "id",
+        "localPlanningDepartment",
+        "lpaQuestionnaire",
+        "planningApplicationReference",
+        "reference",
+        "updatedAt",
+        "userId"
+      ]
+    },
+    "SendLPAQuestionnaireConfirmation": {
+      "type": "object",
+      "properties": {
+        "reason": {
+          "type": "object",
+          "properties": {
+            "applicationPlansToReachDecisionMissingOrIncorrect": {
+              "type": "boolean",
+              "example": true
+            },
+            "applicationPlansToReachDecisionMissingOrIncorrectDescription": {
+              "type": "string",
+              "example": ""
+            },
+            "policiesStatutoryDevelopmentPlanPoliciesMissingOrIncorrect": {
+              "type": "boolean",
+              "example": true
+            },
+            "policiesStatutoryDevelopmentPlanPoliciesMissingOrIncorrectDescription": {
+              "type": "string",
+              "example": ""
+            },
+            "policiesOtherRelevanPoliciesMissingOrIncorrect": {
+              "type": "boolean",
+              "example": true
+            },
+            "policiesOtherRelevanPoliciesMissingOrIncorrectDescription": {
+              "type": "string",
+              "example": ""
+            },
+            "policiesSupplementaryPlanningDocumentsMissingOrIncorrect": {
+              "type": "boolean",
+              "example": true
+            },
+            "policiesSupplementaryPlanningDocumentsMissingOrIncorrectDescription": {
+              "type": "string",
+              "example": ""
+            },
+            "siteConservationAreaMapAndGuidanceMissingOrIncorrect": {
+              "type": "boolean",
+              "example": true
+            },
+            "siteConservationAreaMapAndGuidanceMissingOrIncorrectDescription": {
+              "type": "string",
+              "example": ""
+            },
+            "siteListedBuildingDescriptionMissingOrIncorrect": {
+              "type": "boolean",
+              "example": true
+            },
+            "siteListedBuildingDescriptionMissingOrIncorrectDescription": {
+              "type": "string",
+              "example": ""
+            },
+            "thirdPartyApplicationNotificationMissingOrIncorrect": {
+              "type": "boolean",
+              "example": true
+            },
+            "thirdPartyApplicationNotificationMissingOrIncorrectListOfAddresses": {
+              "type": "boolean",
+              "example": false
+            },
+            "thirdPartyApplicationNotificationMissingOrIncorrectCopyOfLetterOrSiteNotice": {
+              "type": "boolean",
+              "example": false
+            },
+            "thirdPartyRepresentationsMissingOrIncorrect": {
+              "type": "boolean",
+              "example": true
+            },
+            "thirdPartyRepresentationsMissingOrIncorrectDescription": {
+              "type": "string",
+              "example": ""
+            },
+            "thirdPartyAppealNotificationMissingOrIncorrect": {
+              "type": "boolean",
+              "example": true
+            },
+            "thirdPartyAppealNotificationMissingOrIncorrectListOfAddresses": {
+              "type": "boolean",
+              "example": false
+            },
+            "thirdPartyAppealNotificationMissingOrIncorrectCopyOfLetterOrSiteNotice": {
+              "type": "boolean",
+              "example": false
+            }
+          }
+        }
+      }
+    },
     "BookSiteVisit": {
       "type": "object",
       "properties": {
@@ -1434,6 +1715,48 @@
       "required": [
         "decisionLetter",
         "outcome"
+      ]
+    },
+    "UploadStatement": {
+      "type": "object",
+      "properties": {
+        "statement": {
+          "type": "object",
+          "properties": {
+            "type": {
+              "type": "string",
+              "example": "file"
+            },
+            "required": {
+              "type": "boolean",
+              "example": true
+            }
+          }
+        }
+      },
+      "required": [
+        "statement"
+      ]
+    },
+    "UploadFinalComment": {
+      "type": "object",
+      "properties": {
+        "finalcomment": {
+          "type": "object",
+          "properties": {
+            "type": {
+              "type": "string",
+              "example": "file"
+            },
+            "required": {
+              "type": "boolean",
+              "example": true
+            }
+          }
+        }
+      },
+      "required": [
+        "finalcomment"
       ]
     }
   }

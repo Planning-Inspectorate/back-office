@@ -137,6 +137,51 @@ test('should submit confirmation of an incomplete outcome of LPA questionnaire',
 	});
 });
 
+test('should submit confirmation of an incomplete if listed building desc is missing/incorrect', async (t) => {
+	const resp = await request.post('/case-officer/11/confirm').send({
+		reason: {
+			applicationPlanningOfficersReportMissingOrIncorrect: false,
+			applicationPlansToReachDecisionMissingOrIncorrect: false,
+			policiesStatutoryDevelopmentPlanPoliciesMissingOrIncorrect: false,
+			policiesOtherRelevantPoliciesMissingOrIncorrect: false,
+			policiesSupplementaryPlanningDocumentsMissingOrIncorrect: false,
+			siteConservationAreaMapAndGuidanceMissingOrIncorrect: false,
+			siteListedBuildingDescriptionMissingOrIncorrect: true,
+			siteListedBuildingDescriptionMissingOrIncorrectDescription: 'Some listed building desc',
+			thirdPartyApplicationNotificationMissingOrIncorrect: false,
+			thirdPartyApplicationPublicityMissingOrIncorrect: false,
+			thirdPartyRepresentationsMissingOrIncorrect: false,
+			thirdPartyAppealNotificationMissingOrIncorrect: false
+		}
+	});
+	t.is(resp.status, 200);
+	sinon.assert.calledWithExactly(addReviewStub, {
+		data: {
+			appealId: 11,
+			complete: false,
+			applicationPlanningOfficersReportMissingOrIncorrect: false,
+			applicationPlansToReachDecisionMissingOrIncorrect: false,
+			policiesStatutoryDevelopmentPlanPoliciesMissingOrIncorrect: false,
+			policiesOtherRelevantPoliciesMissingOrIncorrect: false,
+			policiesSupplementaryPlanningDocumentsMissingOrIncorrect: false,
+			siteConservationAreaMapAndGuidanceMissingOrIncorrect: false,
+			siteListedBuildingDescriptionMissingOrIncorrect: true,
+			siteListedBuildingDescriptionMissingOrIncorrectDescription: 'Some listed building desc',
+			thirdPartyApplicationNotificationMissingOrIncorrect: false,
+			thirdPartyApplicationPublicityMissingOrIncorrect: false,
+			thirdPartyRepresentationsMissingOrIncorrect: false,
+			thirdPartyAppealNotificationMissingOrIncorrect: false
+		}
+	});
+	sinon.assert.calledWithExactly(updateManyAppealStatusStub, {
+		where: { id: { in: [2] } },
+		data: { valid: false }
+	});
+	sinon.assert.calledWithExactly(createAppealStatusStub, {
+		data: { status: 'incomplete_lpa_questionnaire', appealId: 11 }
+	});
+});
+
 test('should submit confirmation of the outcome of LPA questionnaire', async (t) => {
 	const resp = await request.post('/case-officer/11/confirm').send({
 		reason: {
