@@ -14,6 +14,7 @@ import locals from '../config/locals.js';
 import nunjucksEnvironment from '../config/nunjucks.js';
 import session from '../config/session.js';
 import { routes } from './routes.js';
+import simulateUserGroups from './auth/auth.local.js';
 
 // Create a new Express app.
 const app = express();
@@ -58,6 +59,11 @@ app.use(responseTime());
 
 // Session middleware
 app.use(session);
+
+// In development only, integrate with locally defined user groups
+if (config.authDisabled) {
+	app.use(simulateUserGroups);
+}
 
 // CSRF middleware via session
 app.use(
