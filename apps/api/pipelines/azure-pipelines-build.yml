@@ -8,7 +8,7 @@ resources:
   repositories:
     - repository: templates
       type: github
-      endpoint: Back Office Token
+      endpoint: Planning-Inspectorate
       name: Planning-Inspectorate/common-pipeline-templates
 
 extends:
@@ -34,3 +34,4 @@ extends:
           repository: $(repository)
           versionNumber: $(versionNumber)
           workingDirectory: $(Build.Repository.LocalPath)
+          runTests: false

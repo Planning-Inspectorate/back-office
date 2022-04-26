@@ -52,7 +52,7 @@ const appealFormatter = {
 			AppealSite: formatAddress(appeal.address),
 			AppealSiteNearConservationArea: false,
 			WouldDevelopmentAffectSettingOfListedBuilding: false,
-			...(true && { ListedBuildingDesc: '' }),
+			...(appeal.lpaQuestionnaire && { ListedBuildingDesc: appeal.lpaQuestionnaire.listedBuildingDescription || '' }),
 			...(appeal.reviewQuestionnaire &&
 				appeal.reviewQuestionnaire[0] && { reviewQuestionnaire: formatReviewQuestionnaire(appeal.reviewQuestionnaire[0]) }),
 			Documents: [

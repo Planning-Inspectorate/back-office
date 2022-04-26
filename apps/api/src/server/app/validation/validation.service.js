@@ -7,6 +7,7 @@ import appealRepository from '../repositories/appeal.repository.js';
 import validationDecisionRepository from '../repositories/validation-decision.repository.js';
 import { nullIfUndefined } from '../utils/null-if-undefined.js';
 import { buildAppealCompundStatus } from '../utils/build-appeal-compound-status.js';
+import { breakUpCompoundStatus } from '../utils/break-up-compound-status.js';
 
 const validationDecisions = {
 	valid: 'valid',
@@ -39,8 +40,9 @@ export const submitValidationDecisionService = async (appealId, appealStatus, re
 	});
 	const machineAction = mapAppealStatusToStateMachineAction(appealStatus);
 	const appealStatusForMachine = buildAppealCompundStatus(appeal.appealStatus);
-	const nextState = transitionState('household', { appealId: appeal.id }, appealStatusForMachine, machineAction);
-	await appealRepository.updateStatusById(appeal.id, nextState.value);
+	const nextState = transitionState(appeal.appealType.type, { appealId: appeal.id }, appealStatusForMachine, machineAction);
+	const newState = breakUpCompoundStatus(nextState.value, appeal.id);
+	await appealRepository.updateStatusById(appeal.id, newState, appeal.appealStatus);
 	await validationDecisionRepository.addNewDecision(appeal.id, appealStatus, reason, descriptionOfDevelopment);
 };
 

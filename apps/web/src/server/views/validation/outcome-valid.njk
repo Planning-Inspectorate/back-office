@@ -8,6 +8,8 @@
 
 {% block pageContent %}
 	<form method="post" novalidate="novalidate">
+		{% include 'app/includes/csrf.njk' %}
+
 		<p class="govuk-body">Appeal reference:
 			{{ appeal.AppealReference }}</p>
 			<input type="hidden" name="status" value="valid" />

@@ -15,6 +15,7 @@
 {% block pageContent %}
   <h2 class="govuk-heading-l">Decision details</h2>
   <form method="post">
+    {% include 'app/includes/csrf.njk' %}
     {{
       govukSummaryList({
         classes: 'govuk-\!-margin-bottom-9',

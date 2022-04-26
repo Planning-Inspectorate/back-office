@@ -32,6 +32,8 @@
   {% endif %}
 
   <form method="post" enctype="multipart/form-data" novalidate="novalidate">
+    {% include 'app/includes/csrf.njk' %}
+
     {% if isUniqueDocument %}
       {{
         govukFileUpload({

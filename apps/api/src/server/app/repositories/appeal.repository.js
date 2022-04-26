@@ -1,7 +1,19 @@
-import { isString } from 'lodash-es';
+import { isString, map, filter, includes } from 'lodash-es';
 import DatabaseFactory from './database.js';
 
-/** @typedef {keyof import('@pins/api').Schema.AppealRelations} AppealRelationType */
+/** @typedef {import('@pins/api').Schema.Appeal} Appeal */
+
+/**
+ * @typedef {object} AppealInclusionOptions
+ * @property {boolean=} address
+ * @property {boolean=} appealDetailsFromAppellant
+ * @property {boolean=} appellant
+ * @property {boolean=} inspectorDecision
+ * @property {boolean=} lpaQuestionnaire
+ * @property {boolean=} latestLPAReviewQuestionnaire,
+ * @property {boolean=} siteVisit
+ * @property {boolean=} validationDecision
+ */
 
 const includeLatestReviewQuestionnaireFilter = {
 	reviewQuestionnaire: {
@@ -9,6 +21,25 @@ const includeLatestReviewQuestionnaireFilter = {
 		orderBy: {
 			createdAt: 'desc'
 		}
+	}
+};
+
+const separateStatusesToSaveAndInvalidate = function(newStatuses, currentStatuses) {
+	if (isString(newStatuses) || isString(currentStatuses)) {
+		const appealStateIdsToInvalidate = map(currentStatuses, 'id');
+		return {
+			appealStatesToInvalidate: appealStateIdsToInvalidate,
+			appealStatesToCreate: newStatuses	
+		};
+	} else {
+		const newStates = map(newStatuses, 'status');
+		const oldStates = map(currentStatuses, 'status');
+		const appealStateIdsToInvalidate = map(filter(currentStatuses, function (currentState) { return !includes(newStates, currentState.status) }), 'id');
+		const newStatesToCreate = filter(newStatuses, function (newStatus) { return !includes(oldStates, newStatus.status) });
+		return {
+			appealStatesToInvalidate: appealStateIdsToInvalidate,
+			appealStatesToCreate: newStatesToCreate
+		};
 	}
 };
 
@@ -21,26 +52,6 @@ const appealRepository = (function () {
 	}
 
 	return {
-		/**
-		 * Query an appeal by its id, including any optional relations.
-		 *
-		 * @param {number} id
-		 * @param {Record<AppealRelationType, boolean>} include
-		 * @returns {Promise<Appeal>}
-		 */
-		getByIdIncluding: function (id, include) {
-			return getPool().appeal.findUnique({
-				where: { id },
-				include: {
-					...include,
-					appealStatus: {
-						where: {
-							valid: true
-						}
-					}
-				}
-			});
-		},
 		getByStatuses: function (
 			statuses,
 			includeAddress = false,
@@ -71,21 +82,22 @@ const appealRepository = (function () {
 				}
 			});
 		},
-		getById: function (
-			id,
-			inclusions = {}
-		) {
+		/**
+		 * Query an appeal by its id, including any optional relations.
+		 *
+		 * @template T [T=Appeal]
+		 * @param {number} id
+		 * @param {AppealInclusionOptions} [inclusions={}]
+		 * @returns {Promise<T>}
+		 */
+		getById: function (id, { latestLPAReviewQuestionnaire, ...inclusions } = {}) {
 			return getPool().appeal.findUnique({
 				where: {
 					id: id
 				},
 				include: {
-					...( inclusions.appellant && { appellant: inclusions.appellant }),
-					...( inclusions.validationDecision && { validationDecision: inclusions.validationDecision }),
-					...( inclusions.address && { address: inclusions.address }),
-					...( inclusions.appealDetailsFromAppellant && { appealDetailsFromAppellant: inclusions.appealDetailsFromAppellant }),
-					...( inclusions.lpaQuestionnaire && { lpaQuestionnaire: inclusions.lpaQuestionnaire }),
-					...( inclusions.latestLPAReviewQuestionnaire && includeLatestReviewQuestionnaireFilter),
+					...inclusions,
+					...(latestLPAReviewQuestionnaire && includeLatestReviewQuestionnaireFilter),
 					appealStatus: {
 						where: {
 							valid: true
@@ -95,9 +107,9 @@ const appealRepository = (function () {
 				}
 			});
 		},
-		invalidateAppealStatuses: function (id) {
+		invalidateAppealStatuses: function (ids) {
 			return getPool().appealStatus.updateMany({
-				where: { appealId: id },
+				where: { id: { in: ids } },
 				data: { valid: false }
 			});
 		},
@@ -109,8 +121,12 @@ const appealRepository = (function () {
 				}
 			}) : getPool().appealStatus.createMany({ data: status });
 		},
-		updateStatusById: function (id, status) {
-			return getPool().$transaction([this.invalidateAppealStatuses(id), this.createNewStatuses(id, status)]);
+		updateStatusById: function (id, status, currentStates) {
+			const { appealStatesToInvalidate, appealStatesToCreate } = separateStatusesToSaveAndInvalidate(status, currentStates);
+			return getPool().$transaction([
+				this.invalidateAppealStatuses(appealStatesToInvalidate), 
+				this.createNewStatuses(id, appealStatesToCreate)
+			]);
 		},
 		updateById: function (id, data) {
 			const updatedAt = new Date();
@@ -119,19 +135,32 @@ const appealRepository = (function () {
 				data: { updatedAt: updatedAt, ...data }
 			});
 		},
-		updateStatusAndDataById: function (id, status, data) {
-			return getPool().$transaction([this.invalidateAppealStatuses(id), this.createNewStatuses(id, status), this.updateById(id, data)]);
+		updateStatusAndDataById: function (id, status, data, currentStates) {
+			const { appealStatesToInvalidate, appealStatesToCreate } = separateStatusesToSaveAndInvalidate(status, currentStates);
+			return getPool().$transaction([
+				this.invalidateAppealStatuses(appealStatesToInvalidate), 
+				this.createNewStatuses(id, appealStatesToCreate), 
+				this.updateById(id, data)
+			]);
 		},
 		getByStatusAndLessThanStatusUpdatedAtDate: function (status, lessThanStatusUpdatedAt) {
 			return getPool().appeal.findMany({
 				where: {
 					appealStatus: {
-						every: {
+						some: {
 							status: status,
 							valid: true,
 							createdAt: {
 								lt: lessThanStatusUpdatedAt
 							}
+						}
+					}
+				},
+				include: {
+					appealType: true,
+					appealStatus: {
+						where: {
+							valid: true
 						}
 					}
 				}
@@ -141,7 +170,7 @@ const appealRepository = (function () {
 			return getPool().appeal.findMany({
 				where: {
 					appealStatus: {
-						every: {
+						some: {
 							status: status,
 							valid: true
 						}
@@ -151,6 +180,9 @@ const appealRepository = (function () {
 							lt: lessThanInspectionDate
 						}
 					}
+				},
+				include: {
+					appealType: true
 				}
 			});
 		},

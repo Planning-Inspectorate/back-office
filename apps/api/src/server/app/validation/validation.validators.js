@@ -1,10 +1,11 @@
 // @ts-check
 
 import { composeMiddleware } from '@pins/express';
-import { body, validationResult } from 'express-validator';
+import { body } from 'express-validator';
 import { difference } from 'lodash-es';
 import { validateAppealStatus } from '../middleware/validate-appeal-status.js';
 import stringEmptyOrUndefined from '../utils/string-validator.js';
+import { handleValidationError } from '../middleware/handle-validation-error.js';
 
 export const validateAppealBelongsToValidation = validateAppealStatus(['received_appeal', 'awaiting_validation_info']);
 
@@ -108,19 +109,3 @@ export const validateAppealValidationDecision = (request, response, next) => {
 		next();
 	}
 };
-
-/**
- * Evaluate any errors collected by express validation and return a 400 status
- * with the mapped errors.
- *
- * @type {import('express').RequestHandler}
- */
-function handleValidationError(request, response, next) {
-	const result = validationResult(request).formatWith(({ msg }) => msg);
-
-	if (!result.isEmpty()) {
-		response.status(400).send({ errors: result.mapped() });
-	} else {
-		next();
-	}
-}

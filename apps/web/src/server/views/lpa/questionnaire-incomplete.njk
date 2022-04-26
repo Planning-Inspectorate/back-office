@@ -43,6 +43,7 @@
   }}
 
   <form action="/lpa/appeals/{{ appeal.AppealId }}/questionnaire/complete" method="post" novalidate>
+    {% include 'app/includes/csrf.njk' %}
     {{
       govukRadios({
         idPrefix: "reviewComplete",

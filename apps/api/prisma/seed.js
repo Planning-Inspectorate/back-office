@@ -68,10 +68,7 @@ const appealFactory = function(
 	siteVisitBooked = false
 ) {
 	return {
-		appealType: { connectOrCreate: { 
-			where: { shorthand: typeShorthand }, 
-			create: { shorthand: typeShorthand, type: appealTypes[typeShorthand] } 
-		} },
+		appealType: { connect: { shorthand: typeShorthand } },
 		reference: generateAppealReference(),
 		startedAt: startedAt,
 		appealStatus: { create: statuses },
@@ -86,7 +83,7 @@ const appealFactory = function(
 		...(incompleteReviewQuestionnaire && { reviewQuestionnaire: { create: incompleteReviewQuestionnaireSample } }),
 		...(completeReviewQuestionnaire && { reviewQuestionnaire: { create: { complete: true } } }),
 		appealDetailsFromAppellant: { create: pickRandom(appealDetailsFromAppellantList) },
-		...(connectToUser && { user: { connect: { id: 1 } } }),
+		...(connectToUser && { user: { connectOrCreate: { where: { id: 1 }, create: {} } } }),
 		...(siteVisitBooked && { siteVisit: { create: { visitDate: new Date(2022, 3, 1), visitSlot: '1pm - 2pm', visitType: 'unaccompanied' } }	})
 	};
 };
@@ -229,18 +226,47 @@ const appealsData = [
 	...appealsWithDecisionDue
 ];
 
+const deleteAllRecords = async function(){
+	const deleteAppeals = prisma.appeal.deleteMany();
+	const deleteUsers = prisma.user.deleteMany();
+	const deleteAppealTypes = prisma.appealType.deleteMany();
+	const deleteAddresses = prisma.address.deleteMany();
+	const deleteAppealDetailsFromAppellant = prisma.appealDetailsFromAppellant.deleteMany();
+	const deleteAppealStatus = prisma.appealStatus.deleteMany();
+	const deleteAppellant = prisma.appellant.deleteMany();
+	const deleteInspectorDecision = prisma.inspectorDecision.deleteMany();
+	const deleteLPAQuestionnaire = prisma.lPAQuestionnaire.deleteMany();
+	const deleteReviewQuestionnaire = prisma.reviewQuestionnaire.deleteMany();
+	const deleteSiteVisit = prisma.siteVisit.deleteMany();
+	const deleteValidationDecision = prisma.validationDecision.deleteMany();
+	
+	await prisma.$transaction([
+		deleteAppealDetailsFromAppellant, 
+		deleteAppealStatus,
+		deleteValidationDecision,
+		deleteLPAQuestionnaire,
+		deleteReviewQuestionnaire,
+		deleteSiteVisit,
+		deleteUsers,
+		deleteAppealTypes,
+		deleteAddresses,
+		deleteInspectorDecision,
+		deleteAppeals,
+		deleteAppellant
+	]);
+};
+
+
 /**
  *
  */
 async function main() {
 	try {
-		await prisma.user.create({ data: {} });
-		const createdAppeals = [];
+		await deleteAllRecords();
+		await prisma.appealType.createMany({ data: [{ shorthand: 'FPA', type: appealTypes.FPA }, { shorthand: 'HAS', type: appealTypes.HAS }] });
 		for (const appealData of appealsData) {
-			const appeal = prisma.appeal.create({ data: appealData });
-			createdAppeals.push(appeal);
+			await prisma.appeal.create({ data: appealData });
 		}
-		await Promise.all(createdAppeals);
 	} catch (error) {
 		console.error(error);
 		throw error;
@@ -249,4 +275,4 @@ async function main() {
 	}
 }
 
-main();
+await main();

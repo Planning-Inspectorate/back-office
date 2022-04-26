@@ -11,6 +11,7 @@
 
 {% block appealContent %}
 	<form action="/lpa/appeals/{{ appeal.AppealId }}/questionnaire" method="post" novalidate="novalidate">
+		{% include 'app/includes/csrf.njk' %}
 		{{
 			questionnaireTable({
 				caption: 'The planning application',

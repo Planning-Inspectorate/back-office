@@ -19,7 +19,7 @@ export interface AppealRelations {
 	validationDecision?: ValidationDecision[];
 	reviewQuestionnaire?: schema.ReviewQuestionnaire[];
 	lpaQuestionnaire?: schema.LPAQuestionnaire;
-	inspectorDecision?: schema.InspectorDecision;
+	inspectorDecision?: InspectorDecision;
 	siteVisit?: SiteVisit;
 }
 

@@ -8,6 +8,7 @@ import sinon, { assert } from 'sinon';
 import supertest from 'supertest';
 import { app } from '../../../app.js';
 import appealRepository from '../../repositories/appeal.repository.js';
+import { appealFactoryForTests } from '../../utils/appeal-factory-for-tests.js';
 
 /** @typedef {import('@pins/api').Schema.Appeal} Appeal */
 
@@ -20,23 +21,16 @@ const siteVisitBody = {
 };
 
 // todo: replace with factory
-/** @type {Appeal} */
-const originalAppeal = {
-	id: 1, 
-	reference: 'APP/Q9999/D/21/323259',
-	planningApplicationReference: '0181/811/8181',
-	localPlanningDepartment: 'Local planning dept',
-	appealStatus: [{
-		id: 1,
-		status: 'site_visit_not_yet_booked',
-		valid: true
-	}],
-	createdAt: new Date(2022, 0, 1),
-	updatedAt: new Date(2022, 0, 1),
-	userId: 100
-};
+/** @type {DeepPartial<Appeal>} */
+const originalAppeal = appealFactoryForTests(
+	1, 
+	[{ id: 1, status: 'site_visit_not_yet_booked', valid: true }], 
+	'HAS', 
+	{ connectToUser: true },
+	{ createdAt: new Date(2022, 0, 1), updatedAt: new Date(2022, 0, 1) }
+);
 
-/** @type {Appeal} */
+/** @type {DeepPartial<Appeal>} */
 const updatedAppeal = {
 	...originalAppeal,
 	appealStatus: [{ id: 2, status: 'site_visit_booked', valid: true }],
@@ -49,22 +43,46 @@ const updatedAppeal = {
 	}
 };
 
-const getByIdIncluding = sinon.stub(appealRepository, 'getByIdIncluding').returns(Promise.resolve(updatedAppeal));
-const updateByIdStub = sinon.stub(appealRepository, 'updateStatusAndDataById').returns([undefined, undefined, updatedAppeal]);
+/** @type {DeepPartial<Appeal>} */
+const invalidAppeal = {
+	...originalAppeal,
+	userId: 101
+};
 
-sinon.stub(appealRepository, 'getById').returns(originalAppeal);
+const getByIdStub = sinon.stub();
+const updateStatusAndDataByIdStub = sinon.stub();
+
+getByIdStub.withArgs(1).returns(originalAppeal);
+getByIdStub.withArgs(1, { siteVisit: true }).returns(updatedAppeal);
+getByIdStub.withArgs(2).returns(invalidAppeal);
+
+sinon.stub(appealRepository, 'getById').callsFake(getByIdStub);
+sinon.stub(appealRepository, 'updateStatusAndDataById').callsFake(updateStatusAndDataByIdStub);
 
 test.beforeEach(() => {
-	updateByIdStub.resetHistory();
+	getByIdStub.resetHistory();
 });
 
 test('succeeds with a 200 when booking a site visit', async (t) => {
-	const response = await request.post('/inspector/1/book').set('userId', '100').send(siteVisitBody);
+	const response = await request.post('/inspector/1/book').set('userId', '1').send(siteVisitBody);
 	
 	t.is(response.status, 200);
-	t.snapshot(response.body);
+	t.deepEqual(response.body, {
+		appealAge: 0,
+		appealId: 1,
+		appealReceivedDate: '01 January 2022',
+		bookedSiteVisit: {
+			visitDate: '01 January 2030',
+			visitSlot: '8am to 10am',
+			visitType: 'accompanied',
+		},
+		localPlanningDepartment: originalAppeal.localPlanningDepartment,
+		planningApplicationReference: originalAppeal.planningApplicationReference,
+		reference: originalAppeal.reference,
+		status: 'booked',
+	});
 
-	assert.calledWith(updateByIdStub, 1, 'site_visit_booked', {
+	assert.calledWith(updateStatusAndDataByIdStub, 1, 'site_visit_booked', {
 		siteVisit: {
 			create: {
 				visitDate: new Date(2030, 0, 1),
@@ -73,7 +91,7 @@ test('succeeds with a 200 when booking a site visit', async (t) => {
 			}
 		}
 	});
-	assert.calledWith(getByIdIncluding, 1, { siteVisit: true });
+	assert.calledWith(getByIdStub, 1, { siteVisit: true });
 });
 
 test('fails with a 401 status when no `userId` is present', async (t) => {
@@ -106,7 +124,7 @@ test('fails with a 403 status when the `userId` is different from the appeal use
 test('fails with a 400 status when an invalid `siteVisitDate` is present', async (t) => {
 	const response = await request
 		.post('/inspector/1/book')
-		.set('userId', '100')
+		.set('userId', '1')
 		.send({ ...siteVisitBody, siteVisitDate: '*' });
 
 	t.is(response.status, 400);
@@ -120,7 +138,7 @@ test('fails with a 400 status when an invalid `siteVisitDate` is present', async
 test('fails with a 400 status when  a `siteVisitDate` is in an incorrect format', async (t) => {
 	const response = await request
 		.post('/inspector/1/book')
-		.set('userId', '100')
+		.set('userId', '1')
 		.send({ ...siteVisitBody, siteVisitDate: '01-01-2030' });
 
 	t.is(response.status, 400);
@@ -134,7 +152,7 @@ test('fails with a 400 status when  a `siteVisitDate` is in an incorrect format'
 test('fails with a 400 status when a `siteVisitDate` is in the past', async (t) => {
 	const response = await request
 		.post('/inspector/1/book')
-		.set('userId', '100')
+		.set('userId', '1')
 		.send({ ...siteVisitBody, siteVisitDate: format(yesterday(), 'yyyy-MM-dd') });
 
 	t.is(response.status, 400);
@@ -148,7 +166,7 @@ test('fails with a 400 status when a `siteVisitDate` is in the past', async (t) 
 test('fails with a 400 status when an invalid `siteVisitTimeSlot` is present', async (t) => {
 	const response = await request
 		.post('/inspector/1/book')
-		.set('userId', '100')
+		.set('userId', '1')
 		.send({ ...siteVisitBody, siteVisitTimeSlot: '*' });
 
 	t.is(response.status, 400);
@@ -162,7 +180,7 @@ test('fails with a 400 status when an invalid `siteVisitTimeSlot` is present', a
 test('fails with a 400 status when an invalid `siteVisitType` is present', async (t) => {
 	const response = await request
 		.post('/inspector/1/book')
-		.set('userId', '100')
+		.set('userId', '1')
 		.send({ ...siteVisitBody, siteVisitType: '*' });
 
 	t.is(response.status, 400);

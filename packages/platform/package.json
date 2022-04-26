@@ -13,6 +13,6 @@
     "dotenv": "16.0.0"
   },
   "devDependencies": {
-    "got": "12.0.3"
+    "got": "12.0.4"
   }
 }

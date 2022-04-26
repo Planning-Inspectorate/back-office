@@ -66,10 +66,12 @@ export const validateQuestionnaireReview = createValidator(
 			.isArray({ min: 1 })
 			.withMessage('Select what is missing or incorrect')
 	),
+	/** @type {import('express').RequestHandler<?, ?, RequestBody>} */
 	(request, _, next) => {
 		/** @typedef {{ answers: Array<keyof Questionnaire> } & Record<string, ?>} RequestBody */
-		const { answers = [], ...other } = /** @type {RequestBody} */ (request.body);
+		const { answers = [], ...other } = request.body;
 		const allAnswers = /** @type {QuestionnaireKey[]} */ ([]);
+		const descriptions = /** @type {Object.<QuestionnaireKey, string>} */ ({});
 
 		for (const answerType of answers) {
 			allAnswers.push(answerType);
@@ -77,11 +79,17 @@ export const validateQuestionnaireReview = createValidator(
 			if (Array.isArray(other[answerType])) {
 				allAnswers.push(...other[answerType]);
 			}
+			// push any descriptions for which an answer exists
+			const descriptionKey = `${[answerType]}Description`;
+			
+			if (other[descriptionKey]) {
+				descriptions[descriptionKey] = other[descriptionKey];
+			}
 		}
 		/** Transform posted body into a {@link Questionnaire} entity */
 		request.body = {
-			// ignore empty strings from conditional descriptions that weren't used in the UI
-			...Object.fromEntries(Object.entries(other).filter(([, v]) => Boolean(v))),
+			// ignore strings from conditional descriptions that weren't used in the UI, 
+			...descriptions,
 			...Object.fromEntries(allAnswers.map((answerType) => [answerType, true]))
 		};
 		next();

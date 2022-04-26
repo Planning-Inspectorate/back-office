@@ -11,14 +11,15 @@
 	<h2 class="govuk-heading-l">
 		Check and confirm
 	</h2>
-	<form action="" method="post" novalidate>
+	<form method="post" novalidate>
+		{% include 'app/includes/csrf.njk' %}
 		{% if (reviewQuestionnaire | keys).length === 0 %}
 			{{ 
 				govukSummaryList({
 					rows: [
 						{ key: { text: "Review outcome" }, value: { text: 'Complete' } },
 						{ key: { text: "Appeal reference" }, value: { text: appeal.AppealReference } },
-						{ key: { text: "Appeal site" }, value: { text: appeal.AppealSite | collapse(', ') } },
+						{ key: { text: "Appeal site" }, value: { html: appeal.AppealSite | collapse('<br>') } },
 						{ key: { text: "Local planning department" }, value: { text: appeal.LocalPlanningDepartment } }
 					]
 				})
@@ -41,7 +42,7 @@
 							}
 						},
 						{ key: { text: "Appeal reference" }, value: { text: appeal.AppealReference } },
-						{ key: { text: "Appeal site" }, value: { text: appeal.AppealSite | collapse(', ') } },
+						{ key: { text: "Appeal site" }, value: { html: appeal.AppealSite | collapse('<br>') } },
 						{ key: { text: "Local planning department" }, value: { text: appeal.LocalPlanningDepartment } }
 					]
 				})

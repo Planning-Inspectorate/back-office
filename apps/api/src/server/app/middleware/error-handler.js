@@ -1,3 +1,4 @@
+import { validationResult } from 'express-validator';
 import { TransitionStateError } from '../state-machine/transition-state.js';
 
 /**
@@ -29,5 +30,21 @@ export const stateMachineErrorHandler = (error, _, response, next) => {
 		});
 	} else {
 		next(error);
+	}
+};
+
+/**
+ * Evaluate any errors collected by express validation and return a 400 status
+ * with the mapped errors.
+ *
+ * @type {import('express').RequestHandler}
+ */
+export const validationErrorHandler = (request, response, next) => {
+	const result = validationResult(request).formatWith(({ msg }) => msg);
+
+	if (!result.isEmpty()) {
+		response.status(400).send({ errors: result.mapped() });
+	} else {
+		next();
 	}
 };
