@@ -83,8 +83,10 @@ const appeal_5 = {
 	reference: 'APP/Q8874/D/23/1233427',
 	appealStatus: [{
 		status: 'available_for_statements',
-		valid: true
-	}],
+		valid: true },
+	{
+		status: 'incomplete_lpa_questionnaire',
+		valid: true }],
 	createdAt: new Date(2021, 12, 2),
 	addressId: 4,
 	startedAt: new Date(2022, 3, 2),
@@ -99,6 +101,9 @@ const appeal_6 = {
 	id: 6,
 	reference: 'APP/Q8874/D/23/7654321',
 	appealStatus: [{
+		status: 'available_for_statements',
+		valid: true },
+	{
 		status: 'available_for_final_comments',
 		valid: true
 	}],
@@ -182,7 +187,7 @@ test('gets the appeals information with received questionnaires', async (t) => {
 			Town: 'Brighton',
 		},
 		QuestionnaireDueDate: '16 Apr 2022',
-		QuestionnaireStatus: 'available_for_statements',
+		QuestionnaireStatus: 'incomplete_lpa_questionnaire',
 	},
 	{
 		AppealId: 6,
@@ -193,7 +198,7 @@ test('gets the appeals information with received questionnaires', async (t) => {
 			Town: 'Brighton',
 		},
 		QuestionnaireDueDate: '16 Apr 2022',
-		QuestionnaireStatus: '',
+		QuestionnaireStatus: 'available_for_statements',
 	}];
 	t.is(resp.status, 200);
 	t.deepEqual(resp.body, appealExample);
