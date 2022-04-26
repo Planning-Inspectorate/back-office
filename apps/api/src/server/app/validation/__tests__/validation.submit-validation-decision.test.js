@@ -113,6 +113,10 @@ test('should be able to submit \'valid\' decision for household appeal', async (
 	const resp = await request.post('/validation/1')
 		.send({ AppealStatus: 'valid', descriptionOfDevelopment: 'Some Desc' });
 	t.is(resp.status, 200);
+	sinon.assert.calledWithExactly(updateStub, {
+		where: { id: 1 },
+		data: { updatedAt: sinon.match.any, startedAt: sinon.match.any }
+	});
 	sinon.assert.calledWithExactly(updateManyAppealStatusStub, {
 		where: { id: { in: [1] } },
 		data: { valid: false }
@@ -134,6 +138,10 @@ test('should be able to submit \'valid\' decision for full planning appeal', asy
 	sinon.assert.calledWithExactly(updateManyAppealStatusStub, {
 		where: { id: { in: [10] } },
 		data: { valid: false }
+	});
+	sinon.assert.calledWithExactly(updateStub, {
+		where: { id: 10 },
+		data: { updatedAt: sinon.match.any, startedAt: sinon.match.any }
 	});
 	sinon.assert.calledWithExactly(createManyAppealStatusesStub, {
 		data: [{ 
