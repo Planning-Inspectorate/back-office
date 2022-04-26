@@ -29,6 +29,9 @@ const validAppeal = {
 			valid: true
 		}
 	],
+	appealType: {
+		type: 'household'
+	},
 	createdAt: new Date(2022, 0, 1),
 	updatedAt: new Date(2022, 0, 1),
 	userId: 100

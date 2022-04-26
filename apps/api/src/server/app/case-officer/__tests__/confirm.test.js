@@ -15,6 +15,9 @@ const appeal_10 = {
 		status: 'received_appeal',
 		valid: true
 	}],
+	appealType: {
+		type: 'household'
+	},
 	createdAt: new Date(2022, 1, 23),
 	addressId: 9,
 	localPlanningDepartment: 'Maidstone Borough Council',
@@ -32,6 +35,9 @@ const appeal_11 = {
 		status: 'received_lpa_questionnaire',
 		valid: true
 	}],
+	appealType: {
+		type: 'household'
+	},
 	createdAt: new Date(2022, 1, 23),
 	addressId: 11,
 	localPlanningDepartment: 'Maidstone Borough Council',

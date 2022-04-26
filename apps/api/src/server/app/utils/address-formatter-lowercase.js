@@ -1,9 +1,9 @@
 const formatAddressLowerCase = function(address) {
 	return {
-		addressLine1: address.addressLine1,
-		addressLine2: address.addressLine2,
-		town: address.town,
-		county: address.county,
+		...(address.addressLine1 && { addressLine1: address.addressLine1 }),
+		...(address.addressLine2 && { addressLine2: address.addressLine2 }),
+		...(address.town && { town: address.town }),
+		...(address.county && { county: address.county }),
 		postCode: address.postcode
 	};
 };

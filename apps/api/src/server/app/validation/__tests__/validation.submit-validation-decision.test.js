@@ -4,84 +4,39 @@ import supertest from 'supertest';
 import sinon from 'sinon';
 import { app } from '../../../app.js';
 import DatabaseFactory from '../../repositories/database.js';
+import { appealFactoryForTests } from '../../utils/appeal-factory-for-tests.js';
 
 const request = supertest(app);
 
-const appeal_1 = {
+const appeal_1 = appealFactoryForTests(1, [{
 	id: 1,
-	reference: 'APP/Q9999/D/21/1345264',
-	appealStatus: [{
-		id: 1,
-		status: 'received_appeal',
-		valid: true
-	}],
-	createdAt: new Date(2022, 1, 23),
-	addressId: 1,
-	localPlanningDepartment: 'Maidstone Borough Council',
-	planningApplicationReference: '48269/APP/2021/1482',
-	appellant: {
-		name: 'Lee Thornton'
-	}
-};
-const appeal_2 = {
+	status: 'received_appeal',
+	valid: true
+}], 'HAS');
+
+const appeal_10 = appealFactoryForTests(10, [{
+	id: 10,
+	status: 'received_appeal',
+	valid: true
+}], 'FPA');
+
+const appeal_2 = appealFactoryForTests(2, [{
 	id: 2,
-	reference: 'APP/Q9999/D/21/1345264',
-	appealStatus: [{
-		id: 2,
-		status: 'valid_appeal',
-		valid: true
-	}],
-	createdAt: new Date(2022, 1, 23),
-	addressId: 1,
-	localPlanningDepartment: 'Maidstone Borough Council',
-	planningApplicationReference: '48269/APP/2021/1482',
-	appellant: {
-		name: 'Lee Thornton'
-	}
-};
-const appeal_3 = {
+	status: 'valid_appeal',
+	valid: true
+}], 'HAS');
+
+const appeal_3 = appealFactoryForTests(3, [{
 	id: 3,
-	reference: 'APP/Q9999/D/21/1345264',
-	appealStatus: [{
-		id: 3,
-		status: 'invalid_appeal',
-		valid: true
-	}],
-	createdAt: new Date(2022, 1, 23),
-	addressId: 1,
-	localPlanningDepartment: 'Maidstone Borough Council',
-	planningApplicationReference: '48269/APP/2021/1482',
-	appellant: {
-		name: 'Lee Thornton'
-	}
-};
-const appeal_4 = {
+	status: 'invalid_appeal',
+	valid: true
+}], 'HAS');
+
+const appeal_4 = appealFactoryForTests(3, [{
 	id: 4,
-	reference: 'APP/Q9999/D/21/1345264',
-	appealStatus: [{
-		id: 4,
-		status: 'awaiting_validation_info',
-		valid: true
-	}],
-	createdAt: new Date(2022, 1, 23),
-	addressId: 1,
-	localPlanningDepartment: 'Maidstone Borough Council',
-	planningApplicationReference: '48269/APP/2021/1482',
-	appellant: {
-		name: 'Lee Thornton'
-	}
-};
-const updated_appeal_1 = {
-	id: 1,
-	reference: 'REFERENCE',
-	apellantName: 'some name',
-	appealStatus: [{
-		status: 'new status',
-		valid: true
-	}],
-	createdAt: new Date(2022, 3, 15),
-	addressId: 1
-};
+	status: 'awaiting_validation_info',
+	valid: true
+}], 'HAS');
 
 const getAppealByIdStub = sinon.stub();
 const updateStub = sinon.stub();
@@ -107,8 +62,10 @@ getAppealByIdStub.withArgs({ where: { id: 4 }, include: includingDetailsForRespo
 getAppealByIdStub.withArgs({ where: { id: 4 }, include: includingDetailsForValidtion }).returns(appeal_4);
 getAppealByIdStub.withArgs({ where: { id: 5 }, include: includingDetailsForValidtion }).returns({ status: 'received_appeal' });
 getAppealByIdStub.withArgs({ where: { id: 6 }, include: includingDetailsForValidtion }).returns({ status: 'received_appeal' });
+getAppealByIdStub.withArgs({ where: { id: 10 }, include: includingDetailsForResponse }).returns(appeal_10);
+getAppealByIdStub.withArgs({ where: { id: 10 }, include: includingDetailsForValidtion }).returns(appeal_10);
 
-updateStub.returns(updated_appeal_1);
+updateStub.returns({ ...appeal_1 });
 
 const addNewDecisionStub = sinon.stub();
 
@@ -122,6 +79,7 @@ addNewDecisionStub.returns(newDecision);
 
 const createLpaQuestionnaireStub = sinon.stub();
 const updateManyAppealStatusStub = sinon.stub();
+const createManyAppealStatusesStub = sinon.stub();
 const createAppealStatusStub = sinon.stub();
 
 class MockDatabaseClass {
@@ -138,8 +96,9 @@ class MockDatabaseClass {
 				create: createLpaQuestionnaireStub
 			},
 			appealStatus: {
+				create: createAppealStatusStub,
 				updateMany: updateManyAppealStatusStub,
-				create: createAppealStatusStub
+				createMany: createManyAppealStatusesStub
 			},
 			$transaction: sinon.stub()
 		};
@@ -150,7 +109,7 @@ test.before('sets up mocking of database', () => {
 	sinon.stub(DatabaseFactory, 'getInstance').callsFake((arguments_) => new MockDatabaseClass(arguments_));
 });
 
-test('should be able to submit \'valid\' decision', async (t) => {
+test('should be able to submit \'valid\' decision for household appeal', async (t) => {
 	const resp = await request.post('/validation/1')
 		.send({ AppealStatus: 'valid', descriptionOfDevelopment: 'Some Desc' });
 	t.is(resp.status, 200);
@@ -168,6 +127,33 @@ test('should be able to submit \'valid\' decision', async (t) => {
 	} });
 });
 
+test('should be able to submit \'valid\' decision for full planning appeal', async (t) => {
+	const resp = await request.post('/validation/10')
+		.send({ AppealStatus: 'valid', descriptionOfDevelopment: 'Some Desc' });
+	t.is(resp.status, 200);
+	sinon.assert.calledWithExactly(updateManyAppealStatusStub, {
+		where: { id: { in: [10] } },
+		data: { valid: false }
+	});
+	sinon.assert.calledWithExactly(createManyAppealStatusesStub, {
+		data: [{ 
+			status: 'awaiting_lpa_questionnaire', 
+			appealId: 10,
+			subStateMachineName: 'lpaQuestionnaireAndInspectorPickup',
+			compoundStateName: 'awaiting_lpa_questionnaire_and_statements'
+		}, { 
+			status: 'available_for_statements', 
+			appealId: 10,
+			subStateMachineName: 'statementsAndFinalComments',
+			compoundStateName: 'awaiting_lpa_questionnaire_and_statements'
+		}]
+	});
+	sinon.assert.calledWithExactly(addNewDecisionStub, {  data: {
+		appealId: 10,
+		decision: 'valid',
+		descriptionOfDevelopment: 'Some Desc'
+	} });
+});
 
 test('should be able to submit \'invalid\' decision', async(t) => {
 	const resp = await request.post('/validation/1')
@@ -222,8 +208,7 @@ test('should be able to submit \'missing appeal details\' decision', async(t) =>
 	sinon.assert.calledWithExactly(createAppealStatusStub, {
 		data: { status: 'awaiting_validation_info', appealId: 1 }
 	});
-	// TODO: calledOneWithExactly throws error
-	sinon.assert.calledWithExactly(addNewDecisionStub, {  data: {
+	sinon.assert.calledWithExactly(addNewDecisionStub, { data: {
 		appealId: 1,
 		decision: 'incomplete',
 		descriptionOfDevelopment: undefined,

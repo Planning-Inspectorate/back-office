@@ -32,6 +32,9 @@ class MockDatabaseClass {
 				findUnique: findUniqueStub,
 				update: updateStub
 			},
+			appealStatus: {
+				create: sinon.stub()
+			}
 		};
 	}
 }

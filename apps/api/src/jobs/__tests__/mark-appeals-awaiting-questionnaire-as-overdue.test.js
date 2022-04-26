@@ -3,25 +3,33 @@ import test from 'ava';
 import sinon from 'sinon';
 import findAndUpdateStatusForAppealsWithOverdueQuestionnaires from '../mark-appeals-awaiting-questionnaire-as-overdue.js';
 import DatabaseFactory from '../../server/app/repositories/database.js';
+import { appealFactoryForTests } from '../../server/app/utils/appeal-factory-for-tests.js';
 
-const appeal_1 = {
+const appeal_1 = appealFactoryForTests(1, [{
 	id: 1,
-	reference: 'REFERENCE',
-	apellantName: 'some name',
-	appealStatus: [{
-		id: 1,
-		status: 'awaiting_lpa_questionnaire',
-		valid: true
-	}],
-	createdAt: new Date(2022, 3, 15),
-	addressId: 1
-};
+	status: 'awaiting_lpa_questionnaire',
+	valid: true
+}], 'HAS');
+
+const appeal_2 = appealFactoryForTests(2, [{
+	id: 21,
+	status: 'awaiting_lpa_questionnaire',
+	subStateMachineName: 'lpaQuestionnaireAndInspectorPickup',
+	compoundStateName: 'awaiting_lpa_questionnaire_and_statements',
+	valid: true
+}, {
+	id: 22,
+	status: 'available_for_statements',
+	valid: true,
+	subStateMachineName: 'statementsAndFinalComments',
+	compoundStateName: 'awaiting_lpa_questionnaire_and_statements'
+}], 'FPA');
 
 const updateStub = sinon.stub();
 updateStub.returns(appeal_1);
 
 const findManyStub = sinon.stub();
-findManyStub.returns([appeal_1]);
+findManyStub.returns([appeal_1, appeal_2]);
 
 const updateManyAppealStatusStub = sinon.stub();
 const createAppealStatusStub = sinon.stub();
@@ -35,7 +43,8 @@ class MockDatabaseClass {
 			},
 			appealStatus: {
 				updateMany: updateManyAppealStatusStub,
-				create: createAppealStatusStub
+				create: createAppealStatusStub,
+				createMany: sinon.stub()
 			},
 			$transaction: sinon.stub()
 		};
@@ -53,12 +62,20 @@ test('finds appeals to mark as overdue as updates their statuses', async(t) => {
 	sinon.assert.calledOnceWithExactly(findManyStub, {
 		where: {
 			appealStatus: {
-				every: {
+				some: {
 					status: 'awaiting_lpa_questionnaire',
 					valid: true,
 					createdAt: {
 						lt: sinon.match.any
 					}
+				}
+			}
+		},
+		include: {
+			appealType: true,
+			appealStatus: {
+				where: {
+					valid: true
 				}
 			}
 		}

@@ -147,12 +147,20 @@ const appealRepository = (function () {
 			return getPool().appeal.findMany({
 				where: {
 					appealStatus: {
-						every: {
+						some: {
 							status: status,
 							valid: true,
 							createdAt: {
 								lt: lessThanStatusUpdatedAt
 							}
+						}
+					}
+				},
+				include: {
+					appealType: true,
+					appealStatus: {
+						where: {
+							valid: true
 						}
 					}
 				}
@@ -162,7 +170,7 @@ const appealRepository = (function () {
 			return getPool().appeal.findMany({
 				where: {
 					appealStatus: {
-						every: {
+						some: {
 							status: status,
 							valid: true
 						}
@@ -172,6 +180,9 @@ const appealRepository = (function () {
 							lt: lessThanInspectionDate
 						}
 					}
+				},
+				include: {
+					appealType: true
 				}
 			});
 		},

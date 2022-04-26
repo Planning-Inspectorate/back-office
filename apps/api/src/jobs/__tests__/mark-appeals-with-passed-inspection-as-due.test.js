@@ -3,19 +3,13 @@ import test from 'ava';
 import sinon from 'sinon';
 import findAndUpdateStatusForAppealsWithPassedInspection from '../mark-appeals-with-passed-inspection-as-due.js';
 import DatabaseFactory from '../../server/app/repositories/database.js';
+import { appealFactoryForTests } from '../../server/app/utils/appeal-factory-for-tests.js';
 
-const appeal_1 = {
+const appeal_1 = appealFactoryForTests(1, [{
 	id: 1,
-	reference: 'REFERENCE',
-	apellantName: 'some name',
-	appealStatus: [{
-		id: 1,
-		status: 'site_visit_booked',
-		valid: true
-	}],
-	createdAt: new Date(2022, 3, 15),
-	addressId: 1
-};
+	status: 'site_visit_booked',
+	valid: true
+}], 'HAS');
 
 const updateStub = sinon.stub();
 updateStub.returns(appeal_1);
@@ -52,7 +46,7 @@ test('finds appeals to mark as overdue as updates their statuses', async(t) => {
 	sinon.assert.calledOnceWithExactly(findManyStub, {
 		where: {
 			appealStatus: {
-				every: {
+				some: {
 					status: 'site_visit_booked',
 					valid: true
 				}
@@ -62,6 +56,9 @@ test('finds appeals to mark as overdue as updates their statuses', async(t) => {
 					lt: sinon.match.any
 				}
 			}
+		},
+		include: {
+			appealType: true
 		}
 	});
 	sinon.assert.calledWith(updateManyAppealStatusStub, { where: { id: { in: [1] } }, data: { valid: false } });

@@ -9,7 +9,8 @@ import { handleValidationError } from '../middleware/handle-validation-error.js'
 
 export const validateAppealBelongsToCaseOfficer = validateAppealStatus([
 	appealStates.received_lpa_questionnaire,
-	appealStates.incomplete_lpa_questionnaire
+	appealStates.incomplete_lpa_questionnaire,
+	appealStates.overdue_lpa_questionnaire
 ]);
 
 export const validateAppealHasIncompleteQuestionnaire = validateAppealStatus([

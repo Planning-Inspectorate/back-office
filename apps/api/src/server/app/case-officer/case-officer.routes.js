@@ -1,5 +1,5 @@
 import express from 'express';
-import { param, body } from 'express-validator';
+import { param } from 'express-validator';
 import asyncHandler from '../middleware/async-handler.js';
 import {
 	confirmLPAQuestionnaire,
@@ -67,9 +67,6 @@ router.post(
 	validateReviewRequest,
 	asyncHandler(confirmLPAQuestionnaire)
 );
-
-
-
 
 router.post('/:appealId/statement',
 	/*
