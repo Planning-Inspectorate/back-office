@@ -26,6 +26,7 @@ const config = {
 
 	isProd: process.env.NODE_ENV === 'production',
 	isRelease: process.env.APP_RELEASE === 'true',
+	authDisabled: process.env.AUTH_DISABLED === 'true',
 
 	USE_MOCK_API: process.env.USE_MOCK_API,
 	API_HOST: process.env.API_HOST,
