@@ -29,7 +29,7 @@ export const validateAppealDetails = composeMiddleware(
 
 const invalidWithoutReasons = function (body) {
 	return ((
-		(body.reason.applicationPlansToReachDecisionMissingOrIncorrect  === true &&
+		(body.reason.applicationPlansToReachDecisionMissingOrIncorrect === true &&
 		body.reason.applicationPlansToReachDecisionMissingOrIncorrectDescription === undefined) ||
 		(body.reason.policiesStatutoryDevelopmentPlanPoliciesMissingOrIncorrect === true &&
 		body.reason.policiesStatutoryDevelopmentPlanPoliciesMissingOrIncorrectDescription === undefined) ||

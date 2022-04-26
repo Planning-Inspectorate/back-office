@@ -54,6 +54,19 @@ router.get(
 
 router.patch(
 	'/:appealId',
+	/*
+		#swagger.description = 'Updates appeal details'
+		#swagger.parameters['body'] = {
+			in: 'body',
+			description: 'Details to update',
+			schema: { $ref: '#/definitions/UpdateAppealDetailsByCaseOfficer' },
+            required: true
+		}
+		#swagger.responses[200] = {
+			description: 'Appeal after new details were sent over',
+			schema: { $ref: '#/definitions/AppealAfterUpdateForCaseOfficer' }
+		}
+	*/
 	param('appealId').toInt(),
 	validateAppealHasIncompleteQuestionnaire,
 	validateAppealDetails,
@@ -62,6 +75,15 @@ router.patch(
 
 router.post(
 	'/:appealId/confirm',
+	/*
+		#swagger.description = 'Updates appeal details'
+		#swagger.parameters['body'] = {
+			in: 'body',
+			description: 'Details to update',
+			schema: { $ref: '#/definitions/SendLPAQuestionnaireConfirmation' },
+            required: true
+		}
+	*/
 	param('appealId').toInt(),
 	validateAppealBelongsToCaseOfficer,
 	validateReviewRequest,
