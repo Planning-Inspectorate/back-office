@@ -1,7 +1,11 @@
 # Stage 1/2 - Builder
 FROM node:16-alpine AS pins-web-builder
 
-# TODO: Remove this once https://github.com/vercel/turborepo/issues/1097 gets fixed.
+RUN apk update
+
+# TODO: Remove this once these get fixed:
+# - https://github.com/vercel/turborepo/issues/1097
+# - https://github.com/vercel/turborepo/issues/1103
 RUN apk add git
 
 WORKDIR /usr/src/app
