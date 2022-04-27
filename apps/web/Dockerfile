@@ -15,6 +15,10 @@ RUN npm ci --loglevel notice
 ENV NODE_ENV=production
 ENV APP_RELEASE=true
 
+# TODO: This should not be here
+# The .git folder although not copied should not be there.
+RUN rm -rf .git
+
 RUN npm run build:release
 
 # --------------------------------
