@@ -98,6 +98,17 @@ const document_ = {
 				$otherReasons: '',
 			}
 		},
+		AppealDetailsWhenUploadingStatementsAndFinalComments: {
+			reference: '',
+			appealSite: {
+				addressLine1: '',
+				addressLine2: '',
+				town: '',
+				county: '',
+				postCode: ''
+			},
+			localPlanningDepartment: ''
+		},
 		AppealsForCaseOfficer: {
 			$AppealId: 1,
 			$AppealReference: '',

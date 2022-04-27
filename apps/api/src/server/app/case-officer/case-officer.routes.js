@@ -92,6 +92,13 @@ router.post(
 );
 
 router.get('/:appealId/statements-comments',
+	/*
+		#swagger.description = 'Gets appeal details when uploading statements and final comments'
+		#swagger.responses[200] = {
+			description: 'Appeal details to show when uploading statements and final comments',
+			schema: { $ref: '#/definitions/AppealDetailsWhenUploadingStatementsAndFinalComments' }
+		}
+	*/
 	param('appealId').toInt(),
 	validateAppealStatus(['available_for_statements', 'available_for_final_comments']),
 	asyncHandler(getAppealDetailsForStatementsAndComments));
