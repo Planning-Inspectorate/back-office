@@ -4,6 +4,8 @@ import kleur from 'kleur';
 import { createTtlHandler } from '@pins/platform';
 import { config } from '../config/config.js';
 
+export const ttlCache = new Map();
+
 const instance = got.extend({
 	prefixUrl: config.API_HOST,
 	responseType: 'json',
@@ -17,7 +19,7 @@ const instance = got.extend({
 		]
 	},
 	handlers: [
-		createTtlHandler(),
+		createTtlHandler(ttlCache),
 		(options, next) => {
 			if (!options.context.servedFromCache) {
 				console.log(`Sending ${kleur.bgBlue(options.method)} to ${kleur.blue(options.url)}`);

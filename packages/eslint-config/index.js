@@ -11,7 +11,8 @@ module.exports = {
 		'jsdoc',
 		'promise',
 		'filenames',
-		'unicorn'
+		'unicorn',
+		'jest'
 	],
 	extends: [
 		'eslint:recommended',
@@ -34,7 +35,8 @@ module.exports = {
 		'es2022': true,
 		es6: true,
 		browser: true,
-		node: true
+		node: true,
+		'jest/globals': true
 	},
 	settings: {
 		'import/ignore': [

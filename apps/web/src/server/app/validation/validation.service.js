@@ -33,7 +33,7 @@ export function findAllAppeals() {
  * @returns {Promise<Appeal>}
  */
 export function findAppealById(appealId) {
-	return get(`validation/${appealId}`, { context: { ttl: 1000 } });
+	return get(`validation/${appealId}`, { context: { ttl: 10_000 } });
 }
 
 /**
@@ -89,7 +89,7 @@ export function recordOutcome(appealId, { status: AppealStatus, ...other }) {
 		json:
 			'reasons' in other
 				? { AppealStatus, Reason: other.reasons }
-				: { AppealStatus, ...other }
+				: { AppealStatus, descriptionOfDevelopment: other.descriptionOfDevelopment }
 	});
 }
 
