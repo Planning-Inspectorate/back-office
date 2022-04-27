@@ -20,8 +20,8 @@
 export function createTtlHandler(ttlCache) {
 	return (options, next) => {
 		if (options.method === 'GET') {
-      // (casting to a number is just to get jsdoc to recognise the type)
-      const ttl = Number(options.context.ttl);
+			// (casting to a number is just to get jsdoc to recognise the type)
+			const ttl = Number(options.context.ttl);
 
 			if (!isNaN(ttl)) {
 				const now = Date.now();
@@ -32,7 +32,7 @@ export function createTtlHandler(ttlCache) {
 					// If a previously cached response has not yet expired, we can serve
 					// this without performing an http request
 					if (cachedResponse.expires > now) {
-            options.context.servedFromCache = true;
+						options.context.servedFromCache = true;
 
 						return Promise.resolve(cachedResponse.data);
 					} else {
@@ -41,7 +41,7 @@ export function createTtlHandler(ttlCache) {
 					}
 				}
 				return next(options).then((data) => {
-          // Cache the response and expiry time upon successful request
+					// Cache the response and expiry time upon successful request
 					ttlCache.set(href, { data, expires: now + ttl });
 					return data;
 				});

@@ -17,7 +17,7 @@
     "sass": "node ./scripts/compile-css.js",
     "watch:rollup": "chokidar \"src/client/**/*.js\" --silent -c \"npm run rollup\"",
     "watch:sass": "chokidar \"src/styles/**/*.scss\" --silent -c \"npm run sass\"",
-    "test": "NODE_ENV=test NODE_OPTIONS=--experimental-vm-modules npx jest",
+    "test": "cross-env NODE_ENV=test NODE_OPTIONS=--experimental-vm-modules npx jest",
     "lint:js": "eslint src",
     "lint:js:fix": "eslint src --fix",
     "clean:dev": "rimraf dist src/server/static/scripts src/server/static/styles",
@@ -57,7 +57,7 @@
   "devDependencies": {
     "@babel/core": "^7.17.9",
     "@babel/preset-env": "^7.16.11",
-    "@faker-js/faker": "^6.2.0",
+    "@faker-js/faker": "6.2.0",
     "@pins/api": "file:../api",
     "@pins/web": "file:.",
     "@rollup/plugin-alias": "^3.1.9",
