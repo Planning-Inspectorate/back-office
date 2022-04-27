@@ -82,7 +82,7 @@ const appeal_5 = {
 	id: 5,
 	reference: 'APP/Q8874/D/23/1233427',
 	appealStatus: [{
-		status: 'incomplete_lpa_questionnaire',
+		status: 'awaiting_lpa_questionnaire',
 		valid: true },
 	{
 		status: 'available_for_statements',
@@ -101,7 +101,7 @@ const appeal_6 = {
 	id: 6,
 	reference: 'APP/Q8874/D/23/7654321',
 	appealStatus: [{
-		status: 'incomplete_lpa_questionnaire',
+		status: 'awaiting_lpa_questionnaire',
 		valid: true },
 	{
 		status: 'available_for_final_comments',
@@ -187,7 +187,18 @@ test('gets the appeals information with received questionnaires', async (t) => {
 			Town: 'Brighton',
 		},
 		QuestionnaireDueDate: '16 Apr 2022',
-		QuestionnaireStatus: 'incomplete_lpa_questionnaire',
+		QuestionnaireStatus: 'awaiting',
+	},
+	{
+		AppealId: 6,
+		AppealReference: 'APP/Q8874/D/23/7654321',
+		AppealSite: {
+			AddressLine1: '31 Somewhere Road',
+			PostCode: 'BN20 7AU',
+			Town: 'Eastbourne'
+		},
+		QuestionnaireDueDate: '16 Apr 2022',
+		QuestionnaireStatus: 'awaiting'
 	},
 	{
 		AppealId: 5,
@@ -199,17 +210,6 @@ test('gets the appeals information with received questionnaires', async (t) => {
 		},
 		QuestionnaireDueDate: '16 Apr 2022',
 		QuestionnaireStatus: 'available_for_statements',
-	},
-	{
-		AppealId: 6,
-		AppealReference: 'APP/Q8874/D/23/7654321',
-		AppealSite: {
-			AddressLine1: '31 Somewhere Road',
-			PostCode: 'BN20 7AU',
-			Town: 'Eastbourne'
-		},
-		QuestionnaireDueDate: '16 Apr 2022',
-		QuestionnaireStatus: 'incomplete_lpa_questionnaire'
 	},
 	{
 		AppealId: 6,

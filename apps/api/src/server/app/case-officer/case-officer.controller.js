@@ -13,18 +13,22 @@ export const getAppeals = async function (_request, response) {
 		appealStates.overdue_lpa_questionnaire,
 		appealStates.received_lpa_questionnaire,
 		appealStates.incomplete_lpa_questionnaire,
+	];
+	const caseOfficerStatusesParallel = [
 		appealStates.available_for_statements,
 		appealStates.available_for_final_comments
 	];
 	const appeals = await appealRepository.getByStatuses(caseOfficerStatuses, true, true);
-	const formattedAppeals = appeals.map((appeal) => appealFormatter.formatAppealForAllAppeals(appeal));
+	const appealsParallel = await appealRepository.getByStatuses(caseOfficerStatusesParallel, true, true);
+	const allAppeals = {appeals, ...appealsParallel}
+	const formattedAppeals = appeals.map((allAppeals) => appealFormatter.formatAppealForAllAppeals(allAppeals));
 	response.send(formattedAppeals);
 };
 
 export const getAppealDetails = async function (request, response) {
 	const appeal = await appealRepository.getById(request.params.appealId, {
-		appellant: true, 
-		address: true, 
+		appellant: true,
+		address: true,
 		latestLPAReviewQuestionnaire: true,
 		lpaQuestionnaire: true
 	});

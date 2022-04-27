@@ -50,4 +50,3 @@ const fullPlanningStates = {
 };
 
 export { createFullPlanningAppealMachine, fullPlanningStates };
-
