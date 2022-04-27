@@ -209,7 +209,7 @@ test('gets the appeals information with received questionnaires', async (t) => {
 			Town: 'Brighton',
 		},
 		QuestionnaireDueDate: '16 Apr 2022',
-		QuestionnaireStatus: 'available_for_statements',
+		StatementsAndFinalCommentsStatus: 'available_for_statements',
 	},
 	{
 		AppealId: 6,
@@ -220,7 +220,7 @@ test('gets the appeals information with received questionnaires', async (t) => {
 			Town: 'Eastbourne'
 		},
 		QuestionnaireDueDate: '16 Apr 2022',
-		QuestionnaireStatus: 'available_for_final_comments',
+		StatementsAndFinalCommentsStatus: 'available_for_final_comments',
 	}];
 	t.is(resp.status, 200);
 	t.deepEqual(resp.body, appealExample);
