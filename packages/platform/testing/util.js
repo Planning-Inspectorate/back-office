@@ -23,13 +23,3 @@ export const createUniqueId = (() => {
 		return id;
 	};
 })();
-
-/**
- * @param {number | string} value
- * @returns {string}
- */
-export const pad = (value) => {
-	const str = String(value);
-
-	return str.length >= 2 ? str : new Array(2 - str.length + 1).join('0') + str;
-};
