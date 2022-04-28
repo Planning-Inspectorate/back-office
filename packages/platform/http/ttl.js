@@ -13,15 +13,15 @@
  *
  * Note that this handler is not related to http caching through headers, but as
  * a means to rate limit requests that otherwise would not have been cached.
- *
+ 
+ * @param {Map<string, CacheItem>} ttlCache
  * @returns {import('got').HandlerFunction} 
  **/
-export function createTtlHandler() {
-	/** @type {Map<string, CacheItem>} */ const ttlCache = new Map();
+export function createTtlHandler(ttlCache) {
 	return (options, next) => {
 		if (options.method === 'GET') {
-      // (casting to a number is just to get jsdoc to recognise the type)
-      const ttl = Number(options.context.ttl);
+			// (casting to a number is just to get jsdoc to recognise the type)
+			const ttl = Number(options.context.ttl);
 
 			if (!isNaN(ttl)) {
 				const now = Date.now();
@@ -31,17 +31,17 @@ export function createTtlHandler() {
 				if (cachedResponse) {
 					// If a previously cached response has not yet expired, we can serve
 					// this without performing an http request
-					if (cachedResponse.expires > now + ttl) {
-            options.context.servedFromCache = true;
+					if (cachedResponse.expires > now) {
+						options.context.servedFromCache = true;
 
-						return Promise.resolve(cachedResponse);
+						return Promise.resolve(cachedResponse.data);
 					} else {
 						// As the previously cached response has expired, we can just delete it
 						ttlCache.delete(href);
 					}
 				}
 				return next(options).then((data) => {
-          // Cache the response and expiry time upon successful request
+					// Cache the response and expiry time upon successful request
 					ttlCache.set(href, { data, expires: now + ttl });
 					return data;
 				});

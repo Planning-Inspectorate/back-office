@@ -11,6 +11,9 @@ export interface Appeal {
 	reasons?: IncompleteReasons;
 }
 
+// todo: fix this definition
+export type AppealSummary = Appeal;
+
 export interface AppealDocument {
 	Type: AppealDocumentType;
 	Filename: string;

@@ -66,13 +66,15 @@ if (config.authDisabled) {
 }
 
 // CSRF middleware via session
-app.use(
-	csurf({ cookie: false }),
-	(request, response, next) => {
-		response.locals.csrfToken = request.csrfToken();
-		next();
-	}
-);
+if (process.env.NODE_ENV !== 'test') {
+	app.use(
+		csurf({ cookie: false }),
+		(request, response, next) => {
+			response.locals.csrfToken = request.csrfToken();
+			next();
+		}
+	);
+}
 
 // Set the express view engine to nunjucks.
 nunjucksEnvironment.express(app);
