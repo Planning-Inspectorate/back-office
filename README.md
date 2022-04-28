@@ -92,8 +92,8 @@ Run all apps in dev mode
 npm run dev
 
 # OR you can manually run them
-npm run dev --workspace=api
-npm run dev --workspace=web
+npm run dev --workspace=@pins/api
+npm run dev --workspace=@pins/web
 
 # OR you can cd into the folder and run
 cd apps/web

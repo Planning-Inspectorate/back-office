@@ -427,8 +427,6 @@ export async function confirmReviewOutcome({ params, session }, response) {
 	);
 	const appeal = await validationService.findAppealById(params.appealId);
 
-console.log({ reviewOutcome });
-
 	if (response.locals.errors) {
 		response.render(`validation/outcome-${reviewOutcome.status}-confirmation`, {
 			appeal,

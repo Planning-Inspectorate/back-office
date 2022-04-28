@@ -1901,8 +1901,6 @@ exports[`validation POST /validation/appeals/:appealId/review-outcome received a
 </main>"
 `;
 
-exports[`validation POST /validation/appeals/:appealId/review-outcome received appeal should redirect the user if the appeal was completed elsewhere 1`] = `"Check and confirm"`;
-
 exports[`validation POST /validation/appeals/:appealId/review-outcome received appeal valid outcome should display a confirmation page upon valid submission 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"govuk-grid-row\\">

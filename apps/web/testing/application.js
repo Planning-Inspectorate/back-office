@@ -1,7 +1,7 @@
 import express from 'express';
-import { ttlCache } from '../lib/request.js';
+import { ttlCache } from '../src/server/lib/request.js';
 import { noop } from 'lodash-es';
-import { app } from '../app/app.express.js';
+import { app } from '../src/server/app/app.express.js';
 import nock from 'nock';
 
 export const createTestApplication = () => {

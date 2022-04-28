@@ -17,7 +17,7 @@
     "sass": "node ./scripts/compile-css.js",
     "watch:rollup": "chokidar \"src/client/**/*.js\" --silent -c \"npm run rollup\"",
     "watch:sass": "chokidar \"src/styles/**/*.scss\" --silent -c \"npm run sass\"",
-    "test": "cross-env NODE_ENV=test NODE_OPTIONS=--experimental-vm-modules npx jest",
+    "test": "cross-env NODE_ENV=test NODE_OPTIONS=--experimental-vm-modules jest",
     "lint:js": "eslint src",
     "lint:js:fix": "eslint src --fix",
     "clean:dev": "rimraf dist src/server/static/scripts src/server/static/styles",
