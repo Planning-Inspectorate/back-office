@@ -182,6 +182,7 @@ const document_ = {
 			provisionalSiteVisitType: { '@enum': ['unaccompanied', 'access required'] },
 			appellantName: 'Maria Sharma',
 			email: 'maria.sharma@gmail.com',
+			expectedSiteVisitBookingAvailableFrom: '19 June 2022',
 			descriptionOfDevelopment: 'some description of development',
 			appealReceivedDate: '12 December 2020',
 			extraConditions: false,
