@@ -43,6 +43,16 @@ const appealFormatter = {
 			QuestionnaireDueDate: appeal.startedAt ? formatDate(add2Weeks(appeal.startedAt)) : ''
 		};
 	},
+	formatAppealForParallelAppeal: function (appeal) {
+		const appealStatus = mapAppealStatus(appeal.appealStatus);
+		return {
+			AppealId: appeal.id,
+			AppealReference: appeal.reference,
+			StatementsAndFinalCommentsStatus: appealStatus,
+			AppealSite: formatAddress(appeal.address),
+			QuestionnaireDueDate: appeal.startedAt ? formatDate(add2Weeks(appeal.startedAt)) : ''
+		};
+	},
 	formatAppealForAppealDetails: function (appeal) {
 		return {
 			AppealId: appeal.id,
