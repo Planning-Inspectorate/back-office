@@ -24,7 +24,7 @@ export const getAppeals = async function (_request, response) {
 	const appealsParallel = await appealRepository.getByStatuses(caseOfficerStatusesParallel, true, true);
 	const formattedParallelStateAppeals = appealsParallel.map((appeal) => appealFormatter.formatAppealForParallelAppeal(appeal));
 
-	const allAppeals = { formattedAppeals, ...formattedParallelStateAppeals };
+	const allAppeals = [formattedAppeals, formattedParallelStateAppeals];
 	response.send(allAppeals);
 };
 
