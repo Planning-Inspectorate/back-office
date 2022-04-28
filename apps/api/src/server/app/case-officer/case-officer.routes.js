@@ -18,7 +18,6 @@ import {
 	validateFilesUpload
 } from './case-officer.validators.js';
 import { validateAppealStatus } from '../middleware/validate-appeal-status.js';
-import { validateFileUpload } from '../middleware/validate-file-upload.js';
 
 /**
  * @typedef {object} AppealParams
@@ -139,7 +138,7 @@ router.post('/:appealId/final-comment',
 		}
 	*/
 	param('appealId').toInt(),
-	validateFileUpload('finalcomments'),
+	validateFilesUpload('finalcomments'),
 	validateAppealStatus(['available_for_final_comments']),
 	asyncHandler(uploadFinalComment));
 

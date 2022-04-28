@@ -31,7 +31,7 @@ test.before('sets up database mock', () => {
 });
 
 test('Throws error if appeal is not accepting final comments', async(t) => {
-	const response = await request.post('/case-officer/1/final-comment').attach('finalcomments', pathToFile);
+	const response = await request.post('/case-officer/1/final-comment').attach('finalcomments', pathToFile).attach('finalcomments', pathToFile);
 	t.is(response.status, 409);
 	t.deepEqual(response.body, { errors: { appeal: 'Appeal is in an invalid state' } });
 });      
@@ -43,6 +43,6 @@ test('Throws error if no file provided', async(t) => {
 });      
 
 test('Returns 200 if successfully uploaded final comment', async(t) => {
-	const response = await request.post('/case-officer/2/final-comment').attach('finalcomments', pathToFile);
+	const response = await request.post('/case-officer/2/final-comment').attach('finalcomments', pathToFile).attach('finalcomments', pathToFile);
 	t.is(response.status, 200);
 });
