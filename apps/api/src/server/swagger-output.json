@@ -806,6 +806,10 @@
     "AppealDetailsWhenUploadingStatementsAndFinalComments": {
       "type": "object",
       "properties": {
+        "id": {
+          "type": "number",
+          "example": 1
+        },
         "reference": {
           "type": "string",
           "example": ""

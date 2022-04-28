@@ -99,6 +99,7 @@ const document_ = {
 			}
 		},
 		AppealDetailsWhenUploadingStatementsAndFinalComments: {
+			id: 1,
 			reference: '',
 			appealSite: {
 				addressLine1: '',
