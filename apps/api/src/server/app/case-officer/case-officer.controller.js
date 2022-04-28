@@ -4,6 +4,7 @@ import appealRepository from '../repositories/appeal.repository.js';
 import { appealStates } from '../state-machine/transition-state.js';
 import appealFormatter from './appeal-formatter.js';
 import * as caseOfficerService from './case-officer.service.js';
+import formatAddressLowerCase from '../utils/address-formatter-lowercase.js';
 
 /** @typedef {import('./case-officer.routes').AppealParams} AppealParams */
 
@@ -28,6 +29,16 @@ export const getAppealDetails = async function (request, response) {
 	});
 	const formattedAppeal = appealFormatter.formatAppealForAppealDetails(appeal);
 	return response.send(formattedAppeal);
+};
+
+export const getAppealDetailsForStatementsAndComments = async function(request, response) {
+	const appeal = await appealRepository.getById(request.params.appealId, { address: true });
+	return response.send({
+		id: appeal.id,
+		reference: appeal.reference,
+		appealSite: formatAddressLowerCase(appeal.address),
+		localPlanningDepartment: appeal.localPlanningDepartment
+	});
 };
 
 export const confirmLPAQuestionnaire = async function (request, response) {

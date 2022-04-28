@@ -232,6 +232,27 @@
         }
       }
     },
+    "/case-officer/{appealId}/statements-comments": {
+      "get": {
+        "description": "Gets appeal details when uploading statements and final comments",
+        "parameters": [
+          {
+            "name": "appealId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Appeal details to show when uploading statements and final comments",
+            "schema": {
+              "$ref": "#/definitions/AppealDetailsWhenUploadingStatementsAndFinalComments"
+            }
+          }
+        }
+      }
+    },
     "/case-officer/{appealId}/statement": {
       "post": {
         "description": "Uploads statement",
@@ -781,6 +802,48 @@
         "descriptionOfDevelopment",
         "Reason"
       ]
+    },
+    "AppealDetailsWhenUploadingStatementsAndFinalComments": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "number",
+          "example": 1
+        },
+        "reference": {
+          "type": "string",
+          "example": ""
+        },
+        "appealSite": {
+          "type": "object",
+          "properties": {
+            "addressLine1": {
+              "type": "string",
+              "example": ""
+            },
+            "addressLine2": {
+              "type": "string",
+              "example": ""
+            },
+            "town": {
+              "type": "string",
+              "example": ""
+            },
+            "county": {
+              "type": "string",
+              "example": ""
+            },
+            "postCode": {
+              "type": "string",
+              "example": ""
+            }
+          }
+        },
+        "localPlanningDepartment": {
+          "type": "string",
+          "example": ""
+        }
+      }
     },
     "AppealsForCaseOfficer": {
       "type": "object",
