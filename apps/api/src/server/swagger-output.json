@@ -1201,6 +1201,10 @@
           "type": "string",
           "example": "maria.sharma@gmail.com"
         },
+        "expectedSiteVisitBookingAvailableFrom": {
+          "type": "string",
+          "example": "19 June 2022"
+        },
         "descriptionOfDevelopment": {
           "type": "string",
           "example": "some description of development"

@@ -31,6 +31,22 @@ const formatStatus = function (appealStatuses) {
 	}
 };
 
+const addWeeksToDate = function(date, weeks) {
+	const newDate = new Date(date);
+	newDate.setDate(newDate.getDate() + weeks * 7);
+	return newDate;
+};
+
+const calculateExpectedSiteVisitBookingAvailableDate = function(appealStatus) {
+	if (arrayOfStatusesContainsString(appealStatus, 'available_for_statements')) {
+		return addWeeksToDate(filter(appealStatus, { status: 'available_for_statements' })[0].createdAt, 7);
+	} else if (arrayOfStatusesContainsString(appealStatus, 'available_for_final_comments')) {
+		return addWeeksToDate(filter(appealStatus, { status: 'available_for_final_comments' })[0].createdAt, 2);	
+	} else {
+		throw new Error('Unknown status');
+	}
+};
+
 export const appealFormatter = {
 	formatAppealForAssigningAppeals: function (appeal, reason) {
 		return {
@@ -71,12 +87,16 @@ export const appealFormatter = {
 	},
 	formatAppealForAppealDetails: function (appeal) {
 		const completeValidationDecision = filter(appeal.validationDecision, { decision: 'complete' })[0];
+		const isAvailableForSiteBooking = buildAppealCompundStatus(appeal.appealStatus) == appealStates.site_visit_not_yet_booked;
 		return {
 			appealId: appeal.id,
 			reference: appeal.reference,
 			provisionalSiteVisitType: provisionalAppealSiteVisitType(appeal),
 			status: formatStatus(appeal.appealStatus),
-			availableForSiteVisitBooking: buildAppealCompundStatus(appeal.appealStatus) == appealStates.site_visit_not_yet_booked,
+			availableForSiteVisitBooking: isAvailableForSiteBooking,
+			...(!isAvailableForSiteBooking && { 
+				expectedSiteVisitBookingAvailableFrom: formatDate(calculateExpectedSiteVisitBookingAvailableDate(appeal.appealStatus), false) 
+			}),
 			appellantName: appeal.appellant.name,
 			agentName: appeal.appellant.agentName,
 			email: appeal.appellant.email,
