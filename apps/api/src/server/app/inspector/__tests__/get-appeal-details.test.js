@@ -3,38 +3,27 @@ import sinon from 'sinon';
 import supertest from 'supertest';
 import test from 'ava';
 import { app } from '../../../app.js';
+import { appealFactoryForTests } from '../../utils/appeal-factory-for-tests.js';
+import formatAddressLowerCase from '../../utils/address-formatter-lowercase.js';
 
 const request = supertest(app);
 
 const appeal = {
-	id: 1,
-	reference: 'APP/2021/56789/4909983',
-	localPlanningDepartment: 'some other department',
-	planningApplicationReference: 'XYZ',
-	appealStatus: [{
-		status: 'site_visit_not_yet_booked'
-	}],
-	createdAt: new Date(2020, 11, 12, 9),
-	appellant: {
-		name: 'Maria Sharma',
-		email: 'maria.sharma@gmail.com'
-	},
-	address: {
-		addressLine1: '66 Grove Road',
-		town: 'Fishponds',
-		postcode: 'BS16 2BP'
-	},
-	startedAt: new Date(2022, 4, 1, 11),
-	appealDetailsFromAppellant: {
-		siteVisibleFromPublicLand: true,
-		siteVisibleFromPublicLandDescription: 'site visit description',
-		appellantOwnsWholeSite: true,
-		appellantOwnsWholeSiteDescription: 'i own the whole site',
-		healthAndSafetyIssues: false,
-		healthAndSafetyIssuesDescription: 'everything is super safe'
-	},
-	userId: 1,
-	lpaQuestionnaire: {
+	...appealFactoryForTests(
+		1,
+		[{
+			status: 'site_visit_not_yet_booked',
+			valid: true
+		}],
+		'HAS',
+		{
+			connectToUser: true,
+			completeValidationDecision: true,
+			incompleteValidationDecision: true,
+			lpaQuestionnaire: true
+		},
+		{ createdAt: new Date(2020, 11, 12, 9), startedAt: new Date(2022, 4, 1, 11) }
+	), lpaQuestionnaire: {
 		siteVisibleFromPublicLand: true,
 		siteVisibleFromPublicLandDescription: 'not visible from public land',
 		doesInspectorNeedToEnterSite: false,
@@ -51,15 +40,14 @@ const appeal = {
 		affectsListedBuilding: false,
 		inOrNearConservationArea: false,
 	},
-	validationDecision: [
-		{
-			decision: 'incomplete'
-		},
-		{
-			decision: 'complete',
-			descriptionOfDevelopment: 'some description of development'
-		}
-	]
+	appealDetailsFromAppellant: {
+		siteVisibleFromPublicLand: true,
+		siteVisibleFromPublicLandDescription: 'site visit description',
+		appellantOwnsWholeSite: true,
+		appellantOwnsWholeSiteDescription: 'i own the whole site',
+		healthAndSafetyIssues: false,
+		healthAndSafetyIssuesDescription: 'everything is super safe'
+	},
 };
 
 sinon.stub(appealRepository, 'getById').returns(appeal);
@@ -71,12 +59,12 @@ test('returns appeal details', async (t) => {
 	t.deepEqual(response.body, {
 		appealId: 1,
 		status: 'not yet booked',
-		reference: 'APP/2021/56789/4909983',
+		reference: appeal.reference,
 		provisionalSiteVisitType: 'unaccompanied',
 		availableForSiteVisitBooking: true,
-		appellantName: 'Maria Sharma',
-		email: 'maria.sharma@gmail.com',
-		descriptionOfDevelopment: 'some description of development',
+		appellantName: appeal.appellant.name,
+		email: appeal.appellant.email,
+		descriptionOfDevelopment: 'Some Description',
 		appealReceivedDate: '12 December 2020',
 		appealAge: 24,
 		extraConditions: false,
@@ -85,12 +73,8 @@ test('returns appeal details', async (t) => {
 		inOrNearConservationArea: false,
 		emergingDevelopmentPlanOrNeighbourhoodPlan: false,
 		emergingDevelopmentPlanOrNeighbourhoodPlanDescription: 'plans',
-		localPlanningDepartment: 'some other department',
-		address: {
-			addressLine1: '66 Grove Road',
-			postCode: 'BS16 2BP',
-			town: 'Fishponds',
-		},
+		localPlanningDepartment: appeal.localPlanningDepartment,
+		address: formatAddressLowerCase(appeal.address),
 		lpaAnswers: {
 			canBeSeenFromPublic: true,
 			canBeSeenFromPublicDescription: 'not visible from public land',

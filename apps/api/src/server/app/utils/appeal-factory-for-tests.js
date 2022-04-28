@@ -1,3 +1,4 @@
+import { isEmpty } from 'lodash-es';
 import { 
 	appellantsList, 
 	localPlanningDepartmentList, 
@@ -33,6 +34,10 @@ export const appealFactoryForTests = function(
 	inclusions = {},
 	dates = {}
 ) {
+	const validationDecisions = [];
+	if (inclusions.completeValidationDecision) { validationDecisions.push(completeValidationDecisionSample) }
+	if (inclusions.incompleteValidationDecision) { validationDecisions.push(incompleteValidationDecisionSample) }
+	if (inclusions.invalidValidationDecision) { validationDecisions.push(invalidValidationDecisionSample) }
 	return {
 		id: appealId,
 		appealType: { shorthand: typeShorthand, type: appealTypes[typeShorthand] },
@@ -45,12 +50,10 @@ export const appealFactoryForTests = function(
 		localPlanningDepartment: pickRandom(localPlanningDepartmentList),
 		planningApplicationReference: '48269/APP/2021/1482',
 		address: pickRandom(addressesList),
-		...(inclusions.incompleteValidationDecision && { validationDecision: incompleteValidationDecisionSample }),
-		...(inclusions.invalidValidationDecision && { validationDecision: invalidValidationDecisionSample }),
-		...(inclusions.completeValidationDecision && { validationDecision: completeValidationDecisionSample }),
 		...(inclusions.lpaQuestionnaire && { lpaQuestionnaire: pickRandom(lpaQuestionnaireList) }),
-		...(inclusions.incompleteReviewQuestionnaire && { reviewQuestionnaire: incompleteReviewQuestionnaireSample }),
-		...(inclusions.completeReviewQuestionnaire && { reviewQuestionnaire: { complete: true } }),
+		...(!isEmpty(validationDecisions) && { validationDecision: validationDecisions }),
+		...(inclusions.incompleteReviewQuestionnaire && [{ reviewQuestionnaire: incompleteReviewQuestionnaireSample }]),
+		...(inclusions.completeReviewQuestionnaire && [{ reviewQuestionnaire: { complete: true } }]),
 		appealDetailsFromAppellant: pickRandom(appealDetailsFromAppellantList),
 		...(inclusions.connectToUser && { userId: 1 }),
 		...(inclusions.siteVisitBooked && { siteVisit: { visitDate: new Date(2022, 3, 1), visitSlot: '1pm - 2pm', visitType: 'unaccompanied' } })
