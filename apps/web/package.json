@@ -1,5 +1,5 @@
 {
-  "name": "web",
+  "name": "@pins/web",
   "version": "0.0.0",
   "private": true,
   "description": "PINS Back Office Web App",
@@ -58,8 +58,6 @@
     "@babel/core": "^7.17.9",
     "@babel/preset-env": "^7.16.11",
     "@faker-js/faker": "6.2.0",
-    "@pins/api": "file:../api",
-    "@pins/web": "file:.",
     "@rollup/plugin-alias": "^3.1.9",
     "@rollup/plugin-babel": "^5.3.1",
     "@rollup/plugin-beep": "^0.2.0",
