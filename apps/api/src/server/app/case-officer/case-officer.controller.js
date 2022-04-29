@@ -74,9 +74,11 @@ export const updateAppealDetails = async ({ body, params }, response) => {
 };
 
 export const uploadStatement = async function(request, response) {
-	response.send();
+	const appeal = await appealRepository.getById(request.params.appealId);
+	response.send(appealFormatter.formatAppealForAfterStatementUpload(appeal));
 };
 
 export const uploadFinalComment = async function(request, response) {
-	response.send();
+	const appeal = await appealRepository.getById(request.params.appealId);
+	response.send(appealFormatter.formatAppealAfterFinalCommentUpload(appeal));
 };

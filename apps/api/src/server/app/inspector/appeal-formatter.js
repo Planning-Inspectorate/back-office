@@ -6,6 +6,9 @@ import formatDate from '../utils/date-formatter.js';
 import { arrayOfStatusesContainsString } from '../utils/array-of-statuses-contains-string.js';
 import { appealStates } from '../state-machine/transition-state.js';
 import { buildAppealCompundStatus } from '../utils/build-appeal-compound-status.js';
+import { weeksReceivingDocuments } from '../state-machine/full-planning-appeal.machine.js';
+import { addWeeksToDate } from '../utils/add-weeks-to-date.js';
+import { getAppealStatusCreatedAt } from '../utils/get-appeal-status-created-at.js';
 
 const provisionalAppealSiteVisitType = function (appeal) {
 	return (!appeal.lpaQuestionnaire.siteVisibleFromPublicLand || !appeal.appealDetailsFromAppellant.siteVisibleFromPublicLand) ?
@@ -31,17 +34,17 @@ const formatStatus = function (appealStatuses) {
 	}
 };
 
-const addWeeksToDate = function(date, weeks) {
-	const newDate = new Date(date);
-	newDate.setDate(newDate.getDate() + weeks * 7);
-	return newDate;
-};
-
 const calculateExpectedSiteVisitBookingAvailableDate = function(appealStatus) {
 	if (arrayOfStatusesContainsString(appealStatus, 'available_for_statements')) {
-		return addWeeksToDate(filter(appealStatus, { status: 'available_for_statements' })[0].createdAt, 7);
+		return addWeeksToDate(
+			getAppealStatusCreatedAt(appealStatus, 'available_for_statements'), 
+			weeksReceivingDocuments.statements + weeksReceivingDocuments.finalComments
+		);
 	} else if (arrayOfStatusesContainsString(appealStatus, 'available_for_final_comments')) {
-		return addWeeksToDate(filter(appealStatus, { status: 'available_for_final_comments' })[0].createdAt, 2);	
+		return addWeeksToDate(
+			getAppealStatusCreatedAt(appealStatus, 'available_for_final_comments'), 
+			weeksReceivingDocuments.finalComments
+		);	
 	} else {
 		throw new Error('Unknown status');
 	}
