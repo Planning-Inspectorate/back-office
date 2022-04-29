@@ -25,6 +25,7 @@ resources:
       type: github
       endpoint: Planning-Inspectorate
       name: Planning-Inspectorate/common-pipeline-templates
+      ref: refs/tags/release/1.1.0
   pipelines:
     - pipeline: back-office-api-build
       source: Back Office API Build
