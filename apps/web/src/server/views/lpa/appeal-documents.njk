@@ -2,11 +2,11 @@
 
 {% from "govuk/components/breadcrumbs/macro.njk" import govukBreadcrumbs %}
 {% from "govuk/components/button/macro.njk" import govukButton %}
-{% from "govuk/components/file-upload/macro.njk" import govukFileUpload %}
 {% from "app/components/document-list.component.njk" import documentList %}
-{% from "app/components/document-upload-info.njk" import documentUploadInfo %}
+{% from "app/components/file-uploader.njk" import fileUploader %}
 
 {% set documentsForType = documents | filter({ Type: documentType }) %}
+
 {% if documentType === 'planning officers report' %}
   {% set pageTitle = 'Update ' + documentType | lpaLabel %}
 {% else %}
@@ -33,28 +33,14 @@
 {% block pageContent %}
   <form method="post" enctype="multipart/form-data" novalidate="novalidate">
     {% include 'app/includes/csrf.njk' %}
-    {{ 
-      govukFileUpload({
-        id: "files",
-        name: "files",
-        label: {
-          text: "Upload files",
-          classes: "govuk-label--m"
-        },
+    {{
+      fileUploader({
+        name: 'files',
         errorMessage: errors.files | errorMessage,
-        hint: { 
-          html: [
-            'Drag and drop files or select "choose files".',
-            'The uploaded files will be added to the questionnaire.'
-          ] | join('<br>')
-        },
-        attributes: {
-          accept: documentMimeTypes,
-          multiple: "multiple"
-        }
+        hintText: 'The uploaded files will be added to the questionnaire.',
+        multiple: true
       })
     }}
-    {{ documentUploadInfo() }}
     <div class="govuk-button-group">
       {{ govukButton({ text: "Save and continue" }) }}
       <a class="govuk-link" href="/lpa/appeals/{{ appeal.AppealId }}">Cancel</a>

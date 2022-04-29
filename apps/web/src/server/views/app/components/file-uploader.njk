@@ -1,0 +1,57 @@
+{% from "govuk/components/file-upload/macro.njk" import govukFileUpload %}
+{% from "app/components/document-upload-info.njk" import documentUploadInfo %}
+
+{% set documentMimeTypes = [
+  'application/msword',
+  'application/pdf',
+  'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+  'image/jpeg',
+  'image/png',
+  'image/tiff'
+]
+%}
+
+{% macro fileUploader(params) %}
+  {% if params.multiple %}
+    {{ 
+      govukFileUpload({
+        id: params.name,
+        name: params.name,
+        label: {
+          text: "Upload files",
+          classes: "govuk-label--m"
+        },
+        errorMessage: params.errorMessage,
+        hint: { 
+          html: [
+            'Drag and drop files or select "choose files".',
+            params.hintText
+          ] | join('<br>')
+        },
+        attributes: {
+          accept: documentMimeTypes,
+          multiple: "multiple"
+        }
+      })
+    }}
+  {% else %}
+    {{
+      govukFileUpload({
+        id: "files",
+        name: "files",
+        label: {
+          text: "Upload a new file",
+          classes: "govuk-label--m"
+        },
+        errorMessage: params.errorMessage,
+        hint: {
+          text: params.hintText
+        },
+        attributes: {
+          accept: documentMimeTypes
+        }
+      })
+    }}
+  {% endif %}
+  {{ documentUploadInfo() if params.legend !== false }}
+{% endmacro %}

@@ -30,17 +30,23 @@
   {% if appeal.status === 'not yet booked' %}
     <div class="pins-related">
       <h3 class="govuk-heading-m">Site visit</h3>
+
       <dl class="govuk-body">
         <dt class="govuk-!-font-weight-bold">Recommended type<dt>
         <dd>{{ appeal.provisionalSiteVisitType | capitalize }}</dd>
       </dl>
-      {{
-        govukButton({
-          text: 'Book site visit',
-          href: '/inspector/appeals/' + appeal.appealId + '/book-site-visit',
-          classes: 'govuk-!-margin-bottom-0'
-        })
-      }}
+
+      {% if appeal.availableForSiteVisitBooking %}
+        {{
+          govukButton({
+            text: 'Book site visit',
+            href: '/inspector/appeals/' + appeal.appealId + '/book-site-visit',
+            classes: 'govuk-!-margin-bottom-0'
+          })
+        }}
+      {% else %}
+        <p class="govuk-body">Awaiting statement and final comments until {{ appeal.expectedSiteVisitBookingAvailableFrom }}.</p>
+      {% endif %}
     </div>
   {% endif %}
 
