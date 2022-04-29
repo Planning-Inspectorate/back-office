@@ -279,7 +279,15 @@
             "required": true
           }
         ],
-        "responses": {}
+        "responses": {
+          "200": {
+            "desciption": "Appeal details",
+            "schema": {
+              "$ref": "#/definition/AppealDetailsAfterStatementUpload"
+            },
+            "description": "OK"
+          }
+        }
       }
     },
     "/case-officer/{appealId}/final-comment": {
@@ -308,7 +316,15 @@
             "required": true
           }
         ],
-        "responses": {}
+        "responses": {
+          "200": {
+            "desciption": "Appeal details",
+            "schema": {
+              "$ref": "#/definition/AppealDetailsAfterFinalCommentUpload"
+            },
+            "description": "OK"
+          }
+        }
       }
     },
     "/inspector/more-appeals": {
@@ -594,6 +610,40 @@
               "example": true
             }
           }
+        }
+      }
+    },
+    "AppealDetailsAfterStatementUpload": {
+      "type": "object",
+      "properties": {
+        "AppealId": {
+          "type": "number",
+          "example": 2
+        },
+        "AppealReference": {
+          "type": "string",
+          "example": "ABC"
+        },
+        "canUploadStatementsUntil": {
+          "type": "string",
+          "example": "08 March 2022"
+        }
+      }
+    },
+    "AppealDetailsAfterFinalCommentUpload": {
+      "type": "object",
+      "properties": {
+        "AppealId": {
+          "type": "number",
+          "example": 2
+        },
+        "AppealReference": {
+          "type": "string",
+          "example": "ABC"
+        },
+        "canUploadFinalCommentsUntil": {
+          "type": "string",
+          "example": "08 March 2022"
         }
       }
     },

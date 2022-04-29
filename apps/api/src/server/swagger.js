@@ -53,6 +53,16 @@ const document_ = {
 				wrongAppealTypeUsed: true,
 			}
 		},
+		AppealDetailsAfterStatementUpload: {
+			AppealId: 2,
+			AppealReference: 'ABC',
+			canUploadStatementsUntil: '08 March 2022'
+		},
+		AppealDetailsAfterFinalCommentUpload: {
+			AppealId: 2,
+			AppealReference: 'ABC',
+			canUploadFinalCommentsUntil: '08 March 2022'
+		},
 		AppealsToValidate: [{
 			AppealId: 1,
 			AppealReference: 'APP/Q9999/D/21/1345264',
