@@ -5,6 +5,7 @@ import { appealStates } from '../state-machine/transition-state.js';
 import appealFormatter from './appeal-formatter.js';
 import * as caseOfficerService from './case-officer.service.js';
 import formatAddressLowerCase from '../utils/address-formatter-lowercase.js';
+import { arrayOfStatusesContainsString } from '../utils/array-of-statuses-contains-string.js';
 
 /** @typedef {import('./case-officer.routes').AppealParams} AppealParams */
 
@@ -13,17 +14,27 @@ export const getAppeals = async function (_request, response) {
 		appealStates.awaiting_lpa_questionnaire,
 		appealStates.overdue_lpa_questionnaire,
 		appealStates.received_lpa_questionnaire,
-		appealStates.incomplete_lpa_questionnaire
+		appealStates.incomplete_lpa_questionnaire,
+	];
+	const caseOfficerStatusesParallel = [
+		appealStates.available_for_statements,
+		appealStates.available_for_final_comments
 	];
 	const appeals = await appealRepository.getByStatuses(caseOfficerStatuses, true, true);
 	const formattedAppeals = appeals.map((appeal) => appealFormatter.formatAppealForAllAppeals(appeal));
-	response.send(formattedAppeals);
+
+	const appealsParallel = await appealRepository.getByStatuses(caseOfficerStatusesParallel, true, true);
+	const formattedParallelStateAppeals = appealsParallel.map((appealParallelStates) => appealFormatter.formatAppealForParallelStates(appealParallelStates));
+
+	const allAppeals = Object.assign(formattedAppeals, formattedParallelStateAppeals);
+
+	response.send(allAppeals);
 };
 
 export const getAppealDetails = async function (request, response) {
 	const appeal = await appealRepository.getById(request.params.appealId, {
-		appellant: true, 
-		address: true, 
+		appellant: true,
+		address: true,
 		latestLPAReviewQuestionnaire: true,
 		lpaQuestionnaire: true
 	});
@@ -37,7 +48,9 @@ export const getAppealDetailsForStatementsAndComments = async function(request, 
 		id: appeal.id,
 		reference: appeal.reference,
 		appealSite: formatAddressLowerCase(appeal.address),
-		localPlanningDepartment: appeal.localPlanningDepartment
+		localPlanningDepartment: appeal.localPlanningDepartment,
+		acceptingStatements: arrayOfStatusesContainsString(appeal.appealStatus, [appealStates.available_for_statements]),
+		acceptingFinalComments: arrayOfStatusesContainsString(appeal.appealStatus, [appealStates.available_for_final_comments])
 	});
 };
 

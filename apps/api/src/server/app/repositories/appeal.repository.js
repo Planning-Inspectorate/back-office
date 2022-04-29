@@ -29,7 +29,7 @@ const separateStatusesToSaveAndInvalidate = function(newStatuses, currentStatuse
 		const appealStateIdsToInvalidate = map(currentStatuses, 'id');
 		return {
 			appealStatesToInvalidate: appealStateIdsToInvalidate,
-			appealStatesToCreate: newStatuses	
+			appealStatesToCreate: newStatuses
 		};
 	} else {
 		const newStates = map(newStatuses, 'status');
@@ -124,7 +124,7 @@ const appealRepository = (function () {
 		updateStatusById: function (id, status, currentStates) {
 			const { appealStatesToInvalidate, appealStatesToCreate } = separateStatusesToSaveAndInvalidate(status, currentStates);
 			return getPool().$transaction([
-				this.invalidateAppealStatuses(appealStatesToInvalidate), 
+				this.invalidateAppealStatuses(appealStatesToInvalidate),
 				this.createNewStatuses(id, appealStatesToCreate)
 			]);
 		},
@@ -138,8 +138,8 @@ const appealRepository = (function () {
 		updateStatusAndDataById: function (id, status, data, currentStates) {
 			const { appealStatesToInvalidate, appealStatesToCreate } = separateStatusesToSaveAndInvalidate(status, currentStates);
 			return getPool().$transaction([
-				this.invalidateAppealStatuses(appealStatesToInvalidate), 
-				this.createNewStatuses(id, appealStatesToCreate), 
+				this.invalidateAppealStatuses(appealStatesToInvalidate),
+				this.createNewStatuses(id, appealStatesToCreate),
 				this.updateById(id, data)
 			]);
 		},

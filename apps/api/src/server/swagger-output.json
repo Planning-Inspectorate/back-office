@@ -842,6 +842,14 @@
         "localPlanningDepartment": {
           "type": "string",
           "example": ""
+        },
+        "acceptingStatements": {
+          "type": "boolean",
+          "example": false
+        },
+        "acceptingFinalComments": {
+          "type": "boolean",
+          "example": true
         }
       }
     },

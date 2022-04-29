@@ -7,7 +7,7 @@ import { some } from 'lodash-es';
 
 /**
  * @param {Array<AppealStatus>} appealStatuses 
- * @param {AppealStatusType | AppealStatusType[]} desiredAppealStatuses 
+ * @param {AppealStatusType | AppealStatusType[] | String[]} desiredAppealStatuses 
  * @returns {boolean}
  */
 export const arrayOfStatusesContainsString = function(appealStatuses, desiredAppealStatuses) {

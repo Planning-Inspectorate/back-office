@@ -28,6 +28,20 @@ function mapAppealStatus(appealStatuses) {
 	}
 }
 
+/**
+ * @param {Array} status appeal status array
+ * @returns {string} reformatted appeal status
+ */
+function mapAppealParallelStatuses(appealStatusesParallel) {
+	if (arrayOfStatusesContainsString(appealStatusesParallel, [appealStates.available_for_statements])) {
+		return 'available_for_statements';
+	} else if (arrayOfStatusesContainsString(appealStatusesParallel, [appealStates.available_for_final_comments])) {
+		return 'available_for_final_comments';
+	} else {
+		return '';
+	}
+}
+
 const appealFormatter = {
 	formatAppealForAllAppeals: function (appeal) {
 		const appealStatus = mapAppealStatus(appeal.appealStatus);
@@ -35,6 +49,16 @@ const appealFormatter = {
 			AppealId: appeal.id,
 			AppealReference: appeal.reference,
 			QuestionnaireStatus: appealStatus,
+			AppealSite: formatAddress(appeal.address),
+			QuestionnaireDueDate: appeal.startedAt ? formatDate(add2Weeks(appeal.startedAt)) : ''
+		};
+	},
+	formatAppealForParallelStates: function (appeal) {
+		const appealStatusParallel = mapAppealParallelStatuses(appeal.appealStatus);
+		return {
+			AppealId: appeal.id,
+			AppealReference: appeal.reference,
+			StatementsAndFinalCommentsStatus: appealStatusParallel,
 			AppealSite: formatAddress(appeal.address),
 			QuestionnaireDueDate: appeal.startedAt ? formatDate(add2Weeks(appeal.startedAt)) : ''
 		};
