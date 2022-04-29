@@ -18,6 +18,7 @@ import {
 	validateFilesUpload
 } from './case-officer.validators.js';
 import { validateAppealStatus } from '../middleware/validate-appeal-status.js';
+import { appealStates } from '../state-machine/transition-state.js';
 
 /**
  * @typedef {object} AppealParams
@@ -99,7 +100,7 @@ router.get('/:appealId/statements-comments',
 		}
 	*/
 	param('appealId').toInt(),
-	validateAppealStatus(['available_for_statements', 'available_for_final_comments']),
+	validateAppealStatus([appealStates.available_for_statements, appealStates.available_for_final_comments]),
 	asyncHandler(getAppealDetailsForStatementsAndComments));
 
 router.post('/:appealId/statement',

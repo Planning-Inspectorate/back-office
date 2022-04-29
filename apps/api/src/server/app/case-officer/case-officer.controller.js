@@ -5,6 +5,7 @@ import { appealStates } from '../state-machine/transition-state.js';
 import appealFormatter from './appeal-formatter.js';
 import * as caseOfficerService from './case-officer.service.js';
 import formatAddressLowerCase from '../utils/address-formatter-lowercase.js';
+import { arrayOfStatusesContainsString } from '../utils/array-of-statuses-contains-string.js';
 
 /** @typedef {import('./case-officer.routes').AppealParams} AppealParams */
 
@@ -47,7 +48,9 @@ export const getAppealDetailsForStatementsAndComments = async function(request, 
 		id: appeal.id,
 		reference: appeal.reference,
 		appealSite: formatAddressLowerCase(appeal.address),
-		localPlanningDepartment: appeal.localPlanningDepartment
+		localPlanningDepartment: appeal.localPlanningDepartment,
+		acceptingStatements: arrayOfStatusesContainsString(appeal.appealStatus, [appealStates.available_for_statements]),
+		acceptingFinalComments: arrayOfStatusesContainsString(appeal.appealStatus, [appealStates.available_for_final_comments])
 	});
 };
 

@@ -108,7 +108,9 @@ const document_ = {
 				county: '',
 				postCode: ''
 			},
-			localPlanningDepartment: ''
+			localPlanningDepartment: '',
+			acceptingStatements: false,
+			acceptingFinalComments: true
 		},
 		AppealsForCaseOfficer: {
 			$AppealId: 1,
