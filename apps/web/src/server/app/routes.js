@@ -2,7 +2,7 @@ import express from 'express';
 import { config } from './../config/config.js';
 import appRouter from './app.router.js';
 // import { isAuthenticated, hasAccess } from './auth/auth.guards.js';
-import authRouter from './auth/auth.router.js';
+// import authRouter from './auth/auth.router.js';
 import { registerInspectorLocals } from './inspector/inspector.pipes.js';
 import inspectorRouter from './inspector/inspector.router.js';
 import { registerLpaLocals } from './lpa/lpa.pipes.js';
@@ -17,7 +17,7 @@ router.use('/', appRouter);
 
 // Add authentication check for all routes and mount auth specific routes at /auth
 // (this includes all paths / sub paths specific to the auth flow)
-router.use('/auth', authRouter);
+// router.use('/auth', authRouter);
 
 // Mount all validation step routes at `/validation` (these will be seen by validation officers)
 router.use(
