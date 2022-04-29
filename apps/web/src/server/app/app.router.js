@@ -6,13 +6,13 @@ import { viewHomepage } from './app.controller.js';
 const router = express.Router();
 
 router.route('/').get(
-	// isAuthenticated,
-	// hasAccess({
-	// 	accessRule: {
-	// 		methods: ['GET', 'POST'],
-	// 		groups: [config.auth.validationOfficerGroupID, config.auth.caseOfficerGroupID, config.auth.inspectorGroupID]
-	// 	}
-	// }),
+	isAuthenticated,
+	hasAccess({
+		accessRule: {
+			methods: ['GET', 'POST'],
+			groups: [config.auth.validationOfficerGroupID, config.auth.caseOfficerGroupID, config.auth.inspectorGroupID]
+		}
+	}),
 	viewHomepage
 );
 
