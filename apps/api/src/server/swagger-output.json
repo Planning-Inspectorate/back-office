@@ -867,23 +867,23 @@
         "AppealSite": {
           "type": "object",
           "properties": {
-            "addressLine1": {
+            "AddressLine1": {
               "type": "string",
               "example": ""
             },
-            "addressLine2": {
+            "AddressLine2": {
               "type": "string",
               "example": ""
             },
-            "town": {
+            "Town": {
               "type": "string",
               "example": ""
             },
-            "county": {
+            "County": {
               "type": "string",
               "example": ""
             },
-            "postCode": {
+            "PostCode": {
               "type": "string",
               "example": ""
             }

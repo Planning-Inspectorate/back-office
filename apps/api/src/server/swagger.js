@@ -112,11 +112,11 @@ const document_ = {
 			AppealId: 1,
 			AppealReference: '',
 			AppealSite: {
-				addressLine1: '',
-				addressLine2: '',
-				town: '',
-				county: '',
-				postCode: ''
+				AddressLine1: '',
+				AddressLine2: '',
+				Town: '',
+				County: '',
+				PostCode: ''
 			},
 			LocalPlanningDepartment: '',
 			acceptingStatements: false,

@@ -4,8 +4,8 @@ import appealRepository from '../repositories/appeal.repository.js';
 import { appealStates } from '../state-machine/transition-state.js';
 import appealFormatter from './appeal-formatter.js';
 import * as caseOfficerService from './case-officer.service.js';
-import formatAddressLowerCase from '../utils/address-formatter-lowercase.js';
 import { arrayOfStatusesContainsString } from '../utils/array-of-statuses-contains-string.js';
+import formatAddress from '../utils/address-formatter.js';
 
 /** @typedef {import('./case-officer.routes').AppealParams} AppealParams */
 
@@ -47,7 +47,7 @@ export const getAppealDetailsForStatementsAndComments = async function(request, 
 	return response.send({
 		AppealId: appeal.id,
 		AppealReference: appeal.reference,
-		AppealSite: formatAddressLowerCase(appeal.address),
+		AppealSite: formatAddress(appeal.address),
 		LocalPlanningDepartment: appeal.localPlanningDepartment,
 		acceptingStatements: arrayOfStatusesContainsString(appeal.appealStatus, [appealStates.available_for_statements]),
 		acceptingFinalComments: arrayOfStatusesContainsString(appeal.appealStatus, [appealStates.available_for_final_comments])

@@ -5,7 +5,7 @@ import sinon from 'sinon';
 import { app } from '../../../app.js';
 import DatabaseFactory from '../../repositories/database.js';
 import { appealFactoryForTests } from '../../utils/appeal-factory-for-tests.js';
-import formatAddressLowerCase from '../../utils/address-formatter-lowercase.js';
+import formatAddress from '../../utils/address-formatter.js';
 
 const request = supertest(app);
 
@@ -61,7 +61,7 @@ test('returns details for appeal awaiting statements', async (t) => {
 	t.deepEqual(resp.body, {
 		AppealId: 1,
 		AppealReference: appeal_1.reference,
-		AppealSite: formatAddressLowerCase(appeal_1.address),
+		AppealSite: formatAddress(appeal_1.address),
 		LocalPlanningDepartment: appeal_1.localPlanningDepartment,
 		acceptingStatements: true,
 		acceptingFinalComments: false
@@ -74,7 +74,7 @@ test('returns details for appeal awaiting final comments', async (t) => {
 	t.deepEqual(resp.body, {
 		AppealId: 2,
 		AppealReference: appeal_2.reference,
-		AppealSite: formatAddressLowerCase(appeal_2.address),
+		AppealSite: formatAddress(appeal_2.address),
 		LocalPlanningDepartment: appeal_2.localPlanningDepartment,
 		acceptingStatements: false,
 		acceptingFinalComments: true
