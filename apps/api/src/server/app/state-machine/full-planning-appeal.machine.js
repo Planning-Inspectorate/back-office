@@ -49,4 +49,9 @@ const fullPlanningStates = {
 	...mapObjectKeysToStrings(inspectorBookingStates),
 };
 
-export { createFullPlanningAppealMachine, fullPlanningStates };
+const weeksReceivingDocuments = {
+	statements: 5,
+	finalComments: 2
+};
+
+export { createFullPlanningAppealMachine, fullPlanningStates, weeksReceivingDocuments };

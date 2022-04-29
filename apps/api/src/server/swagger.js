@@ -53,6 +53,16 @@ const document_ = {
 				wrongAppealTypeUsed: true,
 			}
 		},
+		AppealDetailsAfterStatementUpload: {
+			AppealId: 2,
+			AppealReference: 'ABC',
+			canUploadStatementsUntil: '08 March 2022'
+		},
+		AppealDetailsAfterFinalCommentUpload: {
+			AppealId: 2,
+			AppealReference: 'ABC',
+			canUploadFinalCommentsUntil: '08 March 2022'
+		},
 		AppealsToValidate: [{
 			AppealId: 1,
 			AppealReference: 'APP/Q9999/D/21/1345264',
@@ -99,16 +109,16 @@ const document_ = {
 			}
 		},
 		AppealDetailsWhenUploadingStatementsAndFinalComments: {
-			id: 1,
-			reference: '',
-			appealSite: {
-				addressLine1: '',
-				addressLine2: '',
-				town: '',
-				county: '',
-				postCode: ''
+			AppealId: 1,
+			AppealReference: '',
+			AppealSite: {
+				AddressLine1: '',
+				AddressLine2: '',
+				Town: '',
+				County: '',
+				PostCode: ''
 			},
-			localPlanningDepartment: '',
+			LocalPlanningDepartment: '',
 			acceptingStatements: false,
 			acceptingFinalComments: true
 		},

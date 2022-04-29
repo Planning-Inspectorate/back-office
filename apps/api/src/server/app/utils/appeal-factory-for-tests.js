@@ -16,7 +16,7 @@ function generateAppealReference() {
 		Math.random() * (1 - 999_999) + 1
 	);
 	return `APP/Q9999/D/21/${number}`;
-};
+}
 
 const appealTypes = {
 	HAS: 'household',

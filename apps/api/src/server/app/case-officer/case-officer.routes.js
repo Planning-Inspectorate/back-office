@@ -117,6 +117,10 @@ router.post('/:appealId/statement',
 			schema: { $ref: "#/definitions/UploadStatement" },
             required: true
 		}
+		#swagger.responses[200] = {
+			desciption: 'Appeal details',
+			schema: { $ref: '#/definition/AppealDetailsAfterStatementUpload' }
+		}
 	*/
 	param('appealId').toInt(),
 	validateFilesUpload('statements'),
@@ -136,6 +140,10 @@ router.post('/:appealId/final-comment',
 			description: 'Final comment upload payload',
 			schema: { $ref: "#/definitions/UploadFinalComment" },
             required: true
+		}
+		#swagger.responses[200] = {
+			desciption: 'Appeal details',
+			schema: { $ref: '#/definition/AppealDetailsAfterFinalCommentUpload' }
 		}
 	*/
 	param('appealId').toInt(),

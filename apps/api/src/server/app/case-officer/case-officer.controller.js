@@ -4,8 +4,8 @@ import appealRepository from '../repositories/appeal.repository.js';
 import { appealStates } from '../state-machine/transition-state.js';
 import appealFormatter from './appeal-formatter.js';
 import * as caseOfficerService from './case-officer.service.js';
-import formatAddressLowerCase from '../utils/address-formatter-lowercase.js';
 import { arrayOfStatusesContainsString } from '../utils/array-of-statuses-contains-string.js';
+import formatAddress from '../utils/address-formatter.js';
 
 /** @typedef {import('./case-officer.routes').AppealParams} AppealParams */
 
@@ -45,10 +45,10 @@ export const getAppealDetails = async function (request, response) {
 export const getAppealDetailsForStatementsAndComments = async function(request, response) {
 	const appeal = await appealRepository.getById(request.params.appealId, { address: true });
 	return response.send({
-		id: appeal.id,
-		reference: appeal.reference,
-		appealSite: formatAddressLowerCase(appeal.address),
-		localPlanningDepartment: appeal.localPlanningDepartment,
+		AppealId: appeal.id,
+		AppealReference: appeal.reference,
+		AppealSite: formatAddress(appeal.address),
+		LocalPlanningDepartment: appeal.localPlanningDepartment,
 		acceptingStatements: arrayOfStatusesContainsString(appeal.appealStatus, [appealStates.available_for_statements]),
 		acceptingFinalComments: arrayOfStatusesContainsString(appeal.appealStatus, [appealStates.available_for_final_comments])
 	});
@@ -74,9 +74,11 @@ export const updateAppealDetails = async ({ body, params }, response) => {
 };
 
 export const uploadStatement = async function(request, response) {
-	response.send();
+	const appeal = await appealRepository.getById(request.params.appealId);
+	response.send(appealFormatter.formatAppealForAfterStatementUpload(appeal));
 };
 
 export const uploadFinalComment = async function(request, response) {
-	response.send();
+	const appeal = await appealRepository.getById(request.params.appealId);
+	response.send(appealFormatter.formatAppealAfterFinalCommentUpload(appeal));
 };

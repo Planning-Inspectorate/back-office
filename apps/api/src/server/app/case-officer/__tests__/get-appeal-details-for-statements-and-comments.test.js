@@ -5,7 +5,7 @@ import sinon from 'sinon';
 import { app } from '../../../app.js';
 import DatabaseFactory from '../../repositories/database.js';
 import { appealFactoryForTests } from '../../utils/appeal-factory-for-tests.js';
-import formatAddressLowerCase from '../../utils/address-formatter-lowercase.js';
+import formatAddress from '../../utils/address-formatter.js';
 
 const request = supertest(app);
 
@@ -59,10 +59,10 @@ test('returns details for appeal awaiting statements', async (t) => {
 	const resp = await request.get('/case-officer/1/statements-comments');
 	t.is(resp.status, 200);
 	t.deepEqual(resp.body, {
-		id: 1,
-		reference: appeal_1.reference,
-		appealSite: formatAddressLowerCase(appeal_1.address),
-		localPlanningDepartment: appeal_1.localPlanningDepartment,
+		AppealId: 1,
+		AppealReference: appeal_1.reference,
+		AppealSite: formatAddress(appeal_1.address),
+		LocalPlanningDepartment: appeal_1.localPlanningDepartment,
 		acceptingStatements: true,
 		acceptingFinalComments: false
 	});
@@ -72,10 +72,10 @@ test('returns details for appeal awaiting final comments', async (t) => {
 	const resp = await request.get('/case-officer/2/statements-comments');
 	t.is(resp.status, 200);
 	t.deepEqual(resp.body, {
-		id: 2,
-		reference: appeal_2.reference,
-		appealSite: formatAddressLowerCase(appeal_2.address),
-		localPlanningDepartment: appeal_2.localPlanningDepartment,
+		AppealId: 2,
+		AppealReference: appeal_2.reference,
+		AppealSite: formatAddress(appeal_2.address),
+		LocalPlanningDepartment: appeal_2.localPlanningDepartment,
 		acceptingStatements: false,
 		acceptingFinalComments: true
 	});

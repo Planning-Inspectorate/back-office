@@ -279,7 +279,15 @@
             "required": true
           }
         ],
-        "responses": {}
+        "responses": {
+          "200": {
+            "desciption": "Appeal details",
+            "schema": {
+              "$ref": "#/definition/AppealDetailsAfterStatementUpload"
+            },
+            "description": "OK"
+          }
+        }
       }
     },
     "/case-officer/{appealId}/final-comment": {
@@ -308,7 +316,15 @@
             "required": true
           }
         ],
-        "responses": {}
+        "responses": {
+          "200": {
+            "desciption": "Appeal details",
+            "schema": {
+              "$ref": "#/definition/AppealDetailsAfterFinalCommentUpload"
+            },
+            "description": "OK"
+          }
+        }
       }
     },
     "/inspector/more-appeals": {
@@ -597,6 +613,40 @@
         }
       }
     },
+    "AppealDetailsAfterStatementUpload": {
+      "type": "object",
+      "properties": {
+        "AppealId": {
+          "type": "number",
+          "example": 2
+        },
+        "AppealReference": {
+          "type": "string",
+          "example": "ABC"
+        },
+        "canUploadStatementsUntil": {
+          "type": "string",
+          "example": "08 March 2022"
+        }
+      }
+    },
+    "AppealDetailsAfterFinalCommentUpload": {
+      "type": "object",
+      "properties": {
+        "AppealId": {
+          "type": "number",
+          "example": 2
+        },
+        "AppealReference": {
+          "type": "string",
+          "example": "ABC"
+        },
+        "canUploadFinalCommentsUntil": {
+          "type": "string",
+          "example": "08 March 2022"
+        }
+      }
+    },
     "AppealsToValidate": {
       "type": "array",
       "items": {
@@ -806,40 +856,40 @@
     "AppealDetailsWhenUploadingStatementsAndFinalComments": {
       "type": "object",
       "properties": {
-        "id": {
+        "AppealId": {
           "type": "number",
           "example": 1
         },
-        "reference": {
+        "AppealReference": {
           "type": "string",
           "example": ""
         },
-        "appealSite": {
+        "AppealSite": {
           "type": "object",
           "properties": {
-            "addressLine1": {
+            "AddressLine1": {
               "type": "string",
               "example": ""
             },
-            "addressLine2": {
+            "AddressLine2": {
               "type": "string",
               "example": ""
             },
-            "town": {
+            "Town": {
               "type": "string",
               "example": ""
             },
-            "county": {
+            "County": {
               "type": "string",
               "example": ""
             },
-            "postCode": {
+            "PostCode": {
               "type": "string",
               "example": ""
             }
           }
         },
-        "localPlanningDepartment": {
+        "LocalPlanningDepartment": {
           "type": "string",
           "example": ""
         },

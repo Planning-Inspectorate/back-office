@@ -3,6 +3,9 @@ import formatDate from '../utils/date-formatter.js';
 import formatReviewQuestionnaire from '../utils/review-questionnaire-formatter.js';
 import { appealStates } from '../state-machine/transition-state.js';
 import { arrayOfStatusesContainsString } from '../utils/array-of-statuses-contains-string.js';
+import { addWeeksToDate } from '../utils/add-weeks-to-date.js';
+import { getAppealStatusCreatedAt } from '../utils/get-appeal-status-created-at.js';
+import { weeksReceivingDocuments } from '../state-machine/full-planning-appeal.machine.js';
 
 const add2Weeks = function (date) {
 	const newDate = new Date(date.valueOf());
@@ -61,6 +64,26 @@ const appealFormatter = {
 			StatementsAndFinalCommentsStatus: appealStatusParallel,
 			AppealSite: formatAddress(appeal.address),
 			QuestionnaireDueDate: appeal.startedAt ? formatDate(add2Weeks(appeal.startedAt)) : ''
+		};
+	},
+	formatAppealForAfterStatementUpload: function(appeal) {
+		return {
+			AppealId: appeal.id,
+			AppealReference: appeal.reference,
+			canUploadStatementsUntil: formatDate(addWeeksToDate(
+				getAppealStatusCreatedAt(appeal.appealStatus, appealStates.available_for_statements), 
+				weeksReceivingDocuments.statements
+			), false)
+		};
+	},
+	formatAppealAfterFinalCommentUpload: function(appeal) {
+		return {
+			AppealId: appeal.id,
+			AppealReference: appeal.reference,
+			canUploadFinalCommentsUntil: formatDate(addWeeksToDate(
+				getAppealStatusCreatedAt(appeal.appealStatus, appealStates.available_for_final_comments), 
+				weeksReceivingDocuments.finalComments
+			), false)
 		};
 	},
 	formatAppealForAppealDetails: function (appeal) {
