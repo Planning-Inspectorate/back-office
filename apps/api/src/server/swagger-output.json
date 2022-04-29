@@ -806,15 +806,15 @@
     "AppealDetailsWhenUploadingStatementsAndFinalComments": {
       "type": "object",
       "properties": {
-        "id": {
+        "AppealId": {
           "type": "number",
           "example": 1
         },
-        "reference": {
+        "AppealReference": {
           "type": "string",
           "example": ""
         },
-        "appealSite": {
+        "AppealSite": {
           "type": "object",
           "properties": {
             "addressLine1": {
@@ -839,7 +839,7 @@
             }
           }
         },
-        "localPlanningDepartment": {
+        "LocalPlanningDepartment": {
           "type": "string",
           "example": ""
         },

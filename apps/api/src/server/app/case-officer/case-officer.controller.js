@@ -45,10 +45,10 @@ export const getAppealDetails = async function (request, response) {
 export const getAppealDetailsForStatementsAndComments = async function(request, response) {
 	const appeal = await appealRepository.getById(request.params.appealId, { address: true });
 	return response.send({
-		id: appeal.id,
-		reference: appeal.reference,
-		appealSite: formatAddressLowerCase(appeal.address),
-		localPlanningDepartment: appeal.localPlanningDepartment,
+		AppealId: appeal.id,
+		AppealReference: appeal.reference,
+		AppealSite: formatAddressLowerCase(appeal.address),
+		LocalPlanningDepartment: appeal.localPlanningDepartment,
 		acceptingStatements: arrayOfStatusesContainsString(appeal.appealStatus, [appealStates.available_for_statements]),
 		acceptingFinalComments: arrayOfStatusesContainsString(appeal.appealStatus, [appealStates.available_for_final_comments])
 	});

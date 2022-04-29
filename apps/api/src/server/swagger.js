@@ -99,16 +99,16 @@ const document_ = {
 			}
 		},
 		AppealDetailsWhenUploadingStatementsAndFinalComments: {
-			id: 1,
-			reference: '',
-			appealSite: {
+			AppealId: 1,
+			AppealReference: '',
+			AppealSite: {
 				addressLine1: '',
 				addressLine2: '',
 				town: '',
 				county: '',
 				postCode: ''
 			},
-			localPlanningDepartment: '',
+			LocalPlanningDepartment: '',
 			acceptingStatements: false,
 			acceptingFinalComments: true
 		},
