@@ -22,9 +22,10 @@ const app = express();
 // Initialize app locals
 app.locals = locals;
 
-if (!config.isProd) {
-	app.use(morganLogger('dev'));
-}
+// 403BUG - TODO: Enable again - !config.isProd app.use(morganLogger('dev'));
+// if (!config.isProd) {
+	app.use(morganLogger('common'));
+// }
 
 // Parse incoming request bodies in a middleware before your handlers, available under the req.body property.
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -66,7 +67,7 @@ if (config.authDisabled) {
 }
 
 // CSRF middleware via session
-// TODO: Enable again
+// 403BUG - TODO: Enable again
 // if (process.env.NODE_ENV !== 'test') {
 // 	app.use(
 // 		csurf({ cookie: false }),
