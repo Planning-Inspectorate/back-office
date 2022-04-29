@@ -92,8 +92,8 @@ Run all apps in dev mode
 npm run dev
 
 # OR you can manually run them
-npm run dev --workspace=api
-npm run dev --workspace=web
+npm run dev --workspace=@pins/api
+npm run dev --workspace=@pins/web
 
 # OR you can cd into the folder and run
 cd apps/web
@@ -194,9 +194,25 @@ docker container run -dp 8080:8080 -t pins-back-office-web
 
 The image is built as a docker multi-stage build process, where first we compile the static assets and then we run the app.
 
+
 ## Configuration
 
-All required configurations are part of `.env` files or app specific config file that are used throughout the entire applications.
+All required configurations are part of `.env` files or app specific config file
+that are used throughout the entire applications. The web application will, by
+default, attempt to integrate with an Azure SSO, which is often undesirable when
+developing locally. Consequently, by specifying the following, the app would no
+longer require azure SSO and behave as if the user belonged to the inspector and
+case officer groups:
+
+```
+AUTH_DISABLED=true
+
+AUTH_INSPECTOR_GROUP_ID=inspector
+AUTH_CASEOFFICER_GROUP_ID=case_officer
+AUTH_VALIDATIONOFFICER_GROUP_ID=validation_officer
+
+AUTH_SIMULATED_GROUPS=inspector,case_officer
+```
 
 ## Tests
 

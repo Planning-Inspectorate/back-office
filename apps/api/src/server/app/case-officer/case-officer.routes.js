@@ -7,7 +7,8 @@ import {
 	getAppeals,
 	updateAppealDetails,
 	uploadStatement,
-	uploadFinalComment
+	uploadFinalComment,
+	getAppealDetailsForStatementsAndComments
 } from './case-officer.controller.js';
 import {
 	validateAppealBelongsToCaseOfficer,
@@ -17,7 +18,6 @@ import {
 	validateFilesUpload
 } from './case-officer.validators.js';
 import { validateAppealStatus } from '../middleware/validate-appeal-status.js';
-import { validateFileUpload } from '../middleware/validate-file-upload.js';
 
 /**
  * @typedef {object} AppealParams
@@ -54,6 +54,19 @@ router.get(
 
 router.patch(
 	'/:appealId',
+	/*
+		#swagger.description = 'Updates appeal details'
+		#swagger.parameters['body'] = {
+			in: 'body',
+			description: 'Details to update',
+			schema: { $ref: '#/definitions/UpdateAppealDetailsByCaseOfficer' },
+            required: true
+		}
+		#swagger.responses[200] = {
+			description: 'Appeal after new details were sent over',
+			schema: { $ref: '#/definitions/AppealAfterUpdateForCaseOfficer' }
+		}
+	*/
 	param('appealId').toInt(),
 	validateAppealHasIncompleteQuestionnaire,
 	validateAppealDetails,
@@ -62,11 +75,32 @@ router.patch(
 
 router.post(
 	'/:appealId/confirm',
+	/*
+		#swagger.description = 'Updates appeal details'
+		#swagger.parameters['body'] = {
+			in: 'body',
+			description: 'Details to update',
+			schema: { $ref: '#/definitions/SendLPAQuestionnaireConfirmation' },
+            required: true
+		}
+	*/
 	param('appealId').toInt(),
 	validateAppealBelongsToCaseOfficer,
 	validateReviewRequest,
 	asyncHandler(confirmLPAQuestionnaire)
 );
+
+router.get('/:appealId/statements-comments',
+	/*
+		#swagger.description = 'Gets appeal details when uploading statements and final comments'
+		#swagger.responses[200] = {
+			description: 'Appeal details to show when uploading statements and final comments',
+			schema: { $ref: '#/definitions/AppealDetailsWhenUploadingStatementsAndFinalComments' }
+		}
+	*/
+	param('appealId').toInt(),
+	validateAppealStatus(['available_for_statements', 'available_for_final_comments']),
+	asyncHandler(getAppealDetailsForStatementsAndComments));
 
 router.post('/:appealId/statement',
 	/*
@@ -104,7 +138,7 @@ router.post('/:appealId/final-comment',
 		}
 	*/
 	param('appealId').toInt(),
-	validateFileUpload('finalcomments'),
+	validateFilesUpload('finalcomments'),
 	validateAppealStatus(['available_for_final_comments']),
 	asyncHandler(uploadFinalComment));
 

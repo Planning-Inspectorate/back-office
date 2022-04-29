@@ -148,7 +148,7 @@ test('gets the appeals detailed information with received questionnaires', async
 		PlanningApplicationreference: appeal_1.planningApplicationReference,
 		AppealSite: {
 			...(appeal_1.address.addressLine1 && { AddressLine1: appeal_1.address.addressLine1 }),
-			...(appeal_1.address.addressLine2 && { AddressLine2: appeal_1.addressLine2 }),
+			...(appeal_1.address.addressLine2 && { AddressLine2: appeal_1.address.addressLine2 }),
 			...(appeal_1.address.town && { Town: appeal_1.address.town }),
 			...(appeal_1.address.county && { County: appeal_1.address.county }),
 			PostCode: appeal_1.address.postcode

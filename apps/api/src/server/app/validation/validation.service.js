@@ -2,12 +2,13 @@
 import got from 'got';
 import { validationActionsStrings } from '../state-machine/validation-states.js';
 import ValidationError from './validation-error.js';
-import { transitionState } from '../state-machine/transition-state.js';
+import { appealStates, transitionState } from '../state-machine/transition-state.js';
 import appealRepository from '../repositories/appeal.repository.js';
 import validationDecisionRepository from '../repositories/validation-decision.repository.js';
 import { nullIfUndefined } from '../utils/null-if-undefined.js';
 import { buildAppealCompundStatus } from '../utils/build-appeal-compound-status.js';
 import { breakUpCompoundStatus } from '../utils/break-up-compound-status.js';
+import { arrayOfStatusesContainsString } from '../utils/array-of-statuses-contains-string.js';
 
 const validationDecisions = {
 	valid: 'valid',
@@ -42,7 +43,10 @@ export const submitValidationDecisionService = async (appealId, appealStatus, re
 	const appealStatusForMachine = buildAppealCompundStatus(appeal.appealStatus);
 	const nextState = transitionState(appeal.appealType.type, { appealId: appeal.id }, appealStatusForMachine, machineAction);
 	const newState = breakUpCompoundStatus(nextState.value, appeal.id);
-	await appealRepository.updateStatusById(appeal.id, newState, appeal.appealStatus);
+	const newData = newState == appealStates.awaiting_lpa_questionnaire || 
+		arrayOfStatusesContainsString(newState, [appealStates.awaiting_lpa_questionnaire]) ? 
+		{ startedAt: new Date() } : {};
+	await appealRepository.updateStatusAndDataById(appeal.id, newState, newData, appeal.appealStatus);
 	await validationDecisionRepository.addNewDecision(appeal.id, appealStatus, reason, descriptionOfDevelopment);
 };
 

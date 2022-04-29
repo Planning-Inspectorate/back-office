@@ -1,5 +1,5 @@
 {
-  "name": "api",
+  "name": "@pins/api",
   "version": "0.0.0",
   "private": true,
   "description": "PINS Back Office API App",
@@ -50,7 +50,6 @@
     "date-fns": "2.28.0"
   },
   "devDependencies": {
-    "@pins/api": "file:.",
     "cross-env": "^7.0.3",
     "eslint": "8.14.0",
     "ava": "^4.2.0",

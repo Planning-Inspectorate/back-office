@@ -36,18 +36,18 @@
 {% endblock %}
 
 {% block content %}
-  <div class="govuk-grid-row">
-		<div class="govuk-grid-column-two-thirds">
-			{% if errors %}
+	{% if errors %}
+    <div class="govuk-grid-row">
+		  <div class="govuk-grid-column-two-thirds">
 				{{
 					govukErrorSummary({
 						titleText: "There is a problem",
 						errorList: errors | mapToErrorSummary
 					})
 				}}
-			{% endif %}
+      </div>
     </div>
-  </div>
+  {% endif %}
   {% block pageHeading %}
     <div class="govuk-grid-row">
       <div class="govuk-grid-column-full">

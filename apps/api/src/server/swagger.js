@@ -98,6 +98,18 @@ const document_ = {
 				$otherReasons: '',
 			}
 		},
+		AppealDetailsWhenUploadingStatementsAndFinalComments: {
+			id: 1,
+			reference: '',
+			appealSite: {
+				addressLine1: '',
+				addressLine2: '',
+				town: '',
+				county: '',
+				postCode: ''
+			},
+			localPlanningDepartment: ''
+		},
 		AppealsForCaseOfficer: {
 			$AppealId: 1,
 			$AppealReference: '',
@@ -170,6 +182,7 @@ const document_ = {
 			provisionalSiteVisitType: { '@enum': ['unaccompanied', 'access required'] },
 			appellantName: 'Maria Sharma',
 			email: 'maria.sharma@gmail.com',
+			expectedSiteVisitBookingAvailableFrom: '19 June 2022',
 			descriptionOfDevelopment: 'some description of development',
 			appealReceivedDate: '12 December 2020',
 			extraConditions: false,
@@ -240,6 +253,52 @@ const document_ = {
 				$appealAge: 41,
 				$reason: { '@enum': ['appeal in wrong state', 'appeal already assigned'] }
 			}]
+		},
+		UpdateAppealDetailsByCaseOfficer: {
+			$listedBuildingDescription: ''
+		},
+		AppealAfterUpdateForCaseOfficer: {
+			$appealStatus: [
+				{
+					$id: 2,
+					$status: 'incomplete_lpa_questionnaire',
+					$valid: true,
+				},
+			],
+			$createdAt: '2022-01-01T00:00:00.000Z',
+			$id: 1,
+			$localPlanningDepartment: 'Local planning dept',
+			$lpaQuestionnaire: {
+				$listedBuildingDescription: '*',
+			},
+			$planningApplicationReference: '0181/811/8181',
+			$reference: 'APP/Q9999/D/21/323259',
+			$updatedAt: '2022-01-01T00:00:00.000Z',
+			$userId: 100,
+		},
+		SendLPAQuestionnaireConfirmation: {
+			reason: {
+				applicationPlansToReachDecisionMissingOrIncorrect: true,
+				applicationPlansToReachDecisionMissingOrIncorrectDescription: '',
+				policiesStatutoryDevelopmentPlanPoliciesMissingOrIncorrect: true,
+				policiesStatutoryDevelopmentPlanPoliciesMissingOrIncorrectDescription: '',
+				policiesOtherRelevanPoliciesMissingOrIncorrect: true,
+				policiesOtherRelevanPoliciesMissingOrIncorrectDescription: '',
+				policiesSupplementaryPlanningDocumentsMissingOrIncorrect: true,
+				policiesSupplementaryPlanningDocumentsMissingOrIncorrectDescription: '',
+				siteConservationAreaMapAndGuidanceMissingOrIncorrect: true,
+				siteConservationAreaMapAndGuidanceMissingOrIncorrectDescription: '',
+				siteListedBuildingDescriptionMissingOrIncorrect: true,
+				siteListedBuildingDescriptionMissingOrIncorrectDescription: '',
+				thirdPartyApplicationNotificationMissingOrIncorrect: true,
+				thirdPartyApplicationNotificationMissingOrIncorrectListOfAddresses: false,
+				thirdPartyApplicationNotificationMissingOrIncorrectCopyOfLetterOrSiteNotice: false,
+				thirdPartyRepresentationsMissingOrIncorrect: true,
+				thirdPartyRepresentationsMissingOrIncorrectDescription: '',
+				thirdPartyAppealNotificationMissingOrIncorrect: true,
+				thirdPartyAppealNotificationMissingOrIncorrectListOfAddresses: false,
+				thirdPartyAppealNotificationMissingOrIncorrectCopyOfLetterOrSiteNotice: false
+			}
 		},
 		BookSiteVisit: {
 			$siteVisitType: {

@@ -20,7 +20,7 @@ import {
 	viewDashboard,
 	viewReviewOutcomeConfirmation
 } from './validation.controller.js';
-import { canReviewAppeal, hasReviewOutcome, hasReviewOutcomeStatus } from './validation.guards.js';
+import { assertIncompleteAppeal, canReviewAppeal, hasReviewOutcome, hasReviewOutcomeStatus } from './validation.guards.js';
 import * as validators from './validation.pipes.js';
 
 /** @typedef {import('@pins/appeals').Validation.AppealDocumentType} AppealDocumentType */
@@ -60,16 +60,19 @@ router
 
 router
 	.route('/appeals/:appealId/appeal-site')
+	.all(assertIncompleteAppeal)
 	.get(createAsyncHandler(editAppealSite))
 	.post(validators.validateAppealSite, createAsyncHandler(updateAppealSite));
 
 router
 	.route('/appeals/:appealId/appellant-name')
+	.all(assertIncompleteAppeal)
 	.get(createAsyncHandler(editAppellantName))
 	.post(validators.validateAppellantName, createAsyncHandler(updateAppellantName));
 
 router
 	.route('/appeals/:appealId/local-planning-department')
+	.all(assertIncompleteAppeal)
 	.get(createAsyncHandler(editLocalPlanningDepartment))
 	.post(
 		validators.validateLocalPlanningDepartment,
@@ -78,6 +81,7 @@ router
 
 router
 	.route('/appeals/:appealId/planning-application-reference')
+	.all(assertIncompleteAppeal)
 	.get(createAsyncHandler(editPlanningApplicationReference))
 	.post(
 		validators.validatePlanningApplicationReference,
@@ -86,6 +90,7 @@ router
 
 router
 	.route('/appeals/:appealId/documents/:documentType')
+	.all(assertIncompleteAppeal)
 	.get(createAsyncHandler(editDocuments))
 	.post(validators.validateAppealDocuments, createAsyncHandler(uploadDocuments));
 

@@ -81,7 +81,6 @@ export async function updateAppealOutcome({ body, params, session }, response) {
 		});
 		return;
 	}
-
 	validationSession.setReviewOutcomeStatus(session, {
 		appealId: params.appealId,
 		status: body.status
@@ -123,6 +122,7 @@ export async function editAppellantName({ params }, response) {
  * EditAppellantNameRenderOptions, UpdateAppellantNameBody>}
  */
 export async function updateAppellantName({ body, params }, response) {
+
 	if (response.locals.errors) {
 		response.render('validation/edit-appellant-name', {
 			appealId: params.appealId,
@@ -376,6 +376,7 @@ export async function createReviewOutcome({ body, params, session }, response) {
 		});
 		return;
 	}
+	
 	validationSession.setReviewOutcome(session, { appealId: params.appealId, ...body });
 
 	response.redirect(`/validation/appeals/${params.appealId}/review-outcome/confirm`);

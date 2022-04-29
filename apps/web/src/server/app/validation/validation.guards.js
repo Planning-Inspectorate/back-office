@@ -1,9 +1,27 @@
+import { createAsyncHandler } from '../../lib/async-error-handler.js';
 import * as validationSession from './validation-session.service.js';
 import * as validationService from './validation.service.js';
 
 /** @typedef {import('@pins/appeals').Validation.AppealOutcomeStatus} AppealOutcomeStatus */
 /** @typedef {import('./validation.router').AppealParams} AppealParams */
 /** @typedef {import('got').RequestError} RequestError */
+
+/**
+ * A guard that ensures an appeal is in an incomplete state.
+ *
+ * @type {import('express').RequestHandler<AppealParams>}
+ */
+export const assertIncompleteAppeal = createAsyncHandler(async (request, response, next) => {
+	const appeal = await validationService.findAppealById(request.params.appealId);
+
+	if (appeal.AppealStatus === 'incomplete') {
+		next();
+	} else {
+		// In the first instance, attempt to redirect to the appeal page. If this
+		// page is also unavailable, then its own guard will handle it
+		response.redirect(`/validation/appeals/${request.params.appealId}`);
+	}
+});
 
 /**
  * A guard that ensures an appeal is in a state that can be reviewed, else

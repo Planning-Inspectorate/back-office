@@ -1,18 +1,10 @@
 import * as schema from '@prisma/client';
 
-export {
-	Address,
-	AppealDetailsFromAppellant,
-	Appellant,
-	LPAQuestionnaire,
-	ReviewQuestionnaire
-} from '@prisma/client';
+export { Address, AppealDetailsFromAppellant, Appellant, LPAQuestionnaire, ReviewQuestionnaire } from '@prisma/client';
 
-export interface Appeal extends schema.Appeal, AppealRelations {
+export interface Appeal extends schema.Appeal {
 	appealStatus: AppealStatus[];
-}
-
-export interface AppealRelations {
+	appealType: AppealType;
 	address?: schema.Address;
 	appellant?: schema.Appellant;
 	appealDetailsFromAppellant?: schema.AppealDetailsFromAppellant;
@@ -21,11 +13,28 @@ export interface AppealRelations {
 	lpaQuestionnaire?: schema.LPAQuestionnaire;
 	inspectorDecision?: InspectorDecision;
 	siteVisit?: SiteVisit;
+	documents?: AppealDocument[];
+}
+
+export interface AppealDocument {
+	id: number,
+	type: AppealDocumentType;
+	filename: string;
+	url: string;
 }
 
 export interface AppealStatus extends schema.AppealStatus {
 	status: AppealStatusType;
+	subStateMachineName: AppealStatusMachineType | null;
 }
+
+export interface AppealType extends schema.AppealType {
+	shorthand: AppealTypeCode;
+}
+
+export type AppealTypeCode = 'HAS' | 'FPA';
+
+export type AppealStatusMachineType = 'lpaQuestionnaireAndInspectorPickup' | 'statementsAndFinalComments';
 
 export type AppealStatusType =
 	| 'received_appeal'
@@ -65,12 +74,47 @@ export type AppealDocumentType =
 
 export type ValidationDecisionType = 'valid' | 'invalid' | 'incomplete';
 
-export interface ValidationDecision extends schema.ValidationDecision {
-	decision: ValidationDecisionType;
+export interface ValidValidationDecision {
+	id: number;
+	appealId: number;
+	createdAt: Date;
+	decision: 'valid';
+	descriptionOfDevelopment: string;
 }
 
+export interface InvalidValidationDecision {
+	id: number;
+	appealId: number;
+	createdAt: Date;
+	decision: 'invalid';
+	outOfTime: boolean;
+	noRightOfAppeal: boolean;
+	notAppealable: boolean;
+	lPADeemedInvalid: boolean;
+	otherReasons: string | null;
+}
+
+export interface IncompleteValidationDecision {
+	id: number;
+	appealId: number;
+	createdAt: Date;
+	decision: 'incomplete';
+	namesDoNotMatch: boolean;
+	sensitiveInfo: boolean;
+	missingApplicationForm: boolean;
+	missingDecisionNotice: boolean;
+	missingGroundsForAppeal: boolean;
+	missingSupportingDocuments: boolean;
+	inflammatoryComments: boolean;
+	openedInError: boolean;
+	wrongAppealTypeUsed: boolean;
+	otherReasons: string | null;
+}
+
+export type ValidationDecision = ValidValidationDecision | InvalidValidationDecision | IncompleteValidationDecision;
+
 export interface SiteVisit extends schema.SiteVisit {
-	visitType: SiteVisitType
+	visitType: SiteVisitType;
 }
 
 export type SiteVisitType = 'accompanied' | 'unaccompanied' | 'access required';

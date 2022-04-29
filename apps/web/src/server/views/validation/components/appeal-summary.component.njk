@@ -2,10 +2,14 @@
 		
 {% macro appealSummary(params) %}
 	{% set appeal = params.appeal %}
+  {# Row value classes are just test identifiers as there is no way to pass attributes to the value using govukSummaryList #}
 	{% set appealSummaryListRows = [
 		{
 			key: { text: "Appellant name" },
-			value: { text: appeal.AppellantName },
+			value: {
+				text: appeal.AppellantName,
+				classes: "appellantName"
+			},
 			actions: {
 				items: [
 					{ 
@@ -23,7 +27,10 @@
 			value: { text: appeal.Received }
 		}, {
 			key: { text: "Appeal site" },
-			value: { html: appeal.AppealSite | collapse('<br>') },
+			value: {
+				html: appeal.AppealSite | collapse('<br>'),
+				classes: "appealSite"
+			},
 			actions: {
 				items: [
 					{ 
@@ -35,7 +42,10 @@
 			}
 		}, {
 			key: { text: "Local planning department" },
-			value: { text: appeal.LocalPlanningDepartment },
+			value: {
+				text: appeal.LocalPlanningDepartment,
+				classes: "localPlanningDepartment"
+			},
 			actions: {
 				items: [
 					{
@@ -47,7 +57,10 @@
 			}
 		}, {
 			key: { text: "Planning application reference" },
-			value: { text: appeal.PlanningApplicationReference },
+			value: {
+				text: appeal.PlanningApplicationReference,
+				classes: "planningApplicationReference"
+			},
 			actions: {
 				items: [
 					{

@@ -5,7 +5,9 @@ declare type DeepPartial<T> = T extends Function
     ? DeepPartial<T[number]>[]
     : { [P in keyof T]?: DeepPartial<T[P]> }
   : T;
-	
+
+declare type Only<T, K extends keyof T> = Partial<T> & Required<{ [key in K]: T[K] }>;
+  
 declare type RequireAtLeastOneKey<T, Keys extends keyof T = keyof T> = Pick<T, Exclude<keyof T, Keys>> &
 	{
 		[K in Keys]-?: Required<Pick<T, K>> & Partial<Pick<T, Exclude<Keys, K>>>;
