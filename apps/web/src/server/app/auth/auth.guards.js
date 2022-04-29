@@ -9,6 +9,8 @@ import { checkAccessRule } from '../../lib/sso.js';
  */
 // eslint-disable-next-line consistent-return
 export function isAuthenticated(request, response, next) {
+	console.log('isAuthenticated');
+
 	if (request.session) {
 		if (!request.session.isAuthenticated) {
 			console.error('Not permitted');
@@ -31,6 +33,8 @@ export function isAuthenticated(request, response, next) {
  * @returns {import('express').RequestHandler<T>} - A wrapped request handler.
  */
 export function hasAccess(options) {
+	console.log('hasAccess');
+
 	// eslint-disable-next-line consistent-return
 	return (request, response, next) => {
 		if (request.session) {
@@ -38,8 +42,9 @@ export function hasAccess(options) {
 
 			switch (checkFor) {
 				case 'groups':
-
+					console.log('groups');
 					if (request.session.account.idTokenClaims.groups === undefined) {
+						console.log('groups if');
 						if (request.session.account.idTokenClaims._claim_name || request.session.account.idTokenClaims._claim_sources) {
 							console.warn('User has too many groups. Groups overage claim occurred');
 
@@ -50,6 +55,7 @@ export function hasAccess(options) {
 							return response.redirect('/auth/unauthorized');
 						}
 					} else {
+						console.log('groups else');
 						const groups = request.session.account.idTokenClaims.groups;
 
 						if (!checkAccessRule(request.method, options.accessRule, groups, 'groups')) {

@@ -23,6 +23,7 @@ import * as validationSession from './validation-session.service.js';
  * @type {import('express').RequestHandler<any, any, any, any, ValidationLocals>}
  */
 export const registerValidationLocals = (_, response, next) => {
+	console.log('registerValidationLocals');
 	response.locals.serviceName = 'Appeal a planning decision';
 	response.locals.serviceUrl = '/validation';
 	next();
