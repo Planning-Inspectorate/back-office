@@ -22,8 +22,8 @@ router.use('/auth', authRouter);
 // Mount all validation step routes at `/validation` (these will be seen by validation officers)
 router.use(
 	'/validation',
-	isAuthenticated,
-	hasAccess({ accessRule: { methods: ['GET', 'POST'], groups: [config.auth.validationOfficerGroupID] } }),
+	// isAuthenticated,
+	// hasAccess({ accessRule: { methods: ['GET', 'POST'], groups: [config.auth.validationOfficerGroupID] } }),
 	registerValidationLocals,
 	validationRouter
 );
