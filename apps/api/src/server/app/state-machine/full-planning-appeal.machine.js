@@ -44,7 +44,8 @@ const createFullPlanningAppealMachine = function (context) {
 
 const fullPlanningStates = {
 	...mapObjectKeysToStrings(validationStates),
-	...mapObjectKeysToStrings(lpaQuestionnaireAndStatementsStates),
+	...mapObjectKeysToStrings(lpaQuestionnaireWithInspectorPickupStates.states),
+	...mapObjectKeysToStrings(statementsAndFinalCommentsStates.states),
 	...mapObjectKeysToStrings(inspectorBookingStates),
 };
 

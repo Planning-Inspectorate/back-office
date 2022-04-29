@@ -44,7 +44,7 @@ model AppealStatus {
   status              String   @default("received_appeal")
   createdAt           DateTime @default(now())
   subStateMachineName String?
-	compoundStateName   String?
+  compoundStateName   String?
   valid               Boolean  @default(true)
   appeal              Appeal   @relation(fields: [appealId], references: [id])
   appealId            Int
