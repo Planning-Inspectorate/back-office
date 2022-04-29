@@ -1,6 +1,6 @@
 import express from 'express';
 import { config } from './../config/config.js';
-import { isAuthenticated, hasAccess } from './auth/auth.guards.js';
+// import { isAuthenticated, hasAccess } from './auth/auth.guards.js';
 import { viewHomepage } from './app.controller.js';
 
 const router = express.Router();

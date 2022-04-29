@@ -1,7 +1,7 @@
 import express from 'express';
 import { config } from './../config/config.js';
 import appRouter from './app.router.js';
-import { isAuthenticated, hasAccess } from './auth/auth.guards.js';
+// import { isAuthenticated, hasAccess } from './auth/auth.guards.js';
 import authRouter from './auth/auth.router.js';
 import { registerInspectorLocals } from './inspector/inspector.pipes.js';
 import inspectorRouter from './inspector/inspector.router.js';
@@ -31,8 +31,8 @@ router.use(
 // Mount all LPA step routes at `/lpa` (these will be seen by case officers)
 router.use(
 	'/lpa',
-	isAuthenticated,
-	hasAccess({ accessRule: { methods: ['GET', 'POST'], groups: [config.auth.caseOfficerGroupID] } }),
+	// isAuthenticated,
+	// hasAccess({ accessRule: { methods: ['GET', 'POST'], groups: [config.auth.caseOfficerGroupID] } }),
 	registerLpaLocals,
 	lpaRouter
 );
@@ -40,8 +40,8 @@ router.use(
 // Mount all inspector step routes at `/inspector` (these will be seen by inspectors)
 router.use(
 	'/inspector',
-	isAuthenticated,
-	hasAccess({ accessRule: { methods: ['GET', 'POST'], groups: [config.auth.inspectorGroupID] } }),
+	// isAuthenticated,
+	// hasAccess({ accessRule: { methods: ['GET', 'POST'], groups: [config.auth.inspectorGroupID] } }),
 	registerInspectorLocals,
 	inspectorRouter
 );
