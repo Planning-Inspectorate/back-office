@@ -62,7 +62,9 @@ test('returns details for appeal awaiting statements', async (t) => {
 		id: 1,
 		reference: appeal_1.reference,
 		appealSite: formatAddressLowerCase(appeal_1.address),
-		localPlanningDepartment: appeal_1.localPlanningDepartment
+		localPlanningDepartment: appeal_1.localPlanningDepartment,
+		acceptingStatements: true,
+		acceptingFinalComments: false
 	});
 });
 
@@ -73,6 +75,8 @@ test('returns details for appeal awaiting final comments', async (t) => {
 		id: 2,
 		reference: appeal_2.reference,
 		appealSite: formatAddressLowerCase(appeal_2.address),
-		localPlanningDepartment: appeal_2.localPlanningDepartment
+		localPlanningDepartment: appeal_2.localPlanningDepartment,
+		acceptingStatements: false,
+		acceptingFinalComments: true
 	});
 });
