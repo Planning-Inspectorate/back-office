@@ -15,6 +15,7 @@ import nunjucksEnvironment from '../config/nunjucks.js';
 import session from '../config/session.js';
 import { routes } from './routes.js';
 import simulateUserGroups from './auth/auth.local.js';
+import multer from 'multer';
 
 // Create a new Express app.
 const app = express();
@@ -66,13 +67,17 @@ if (config.authDisabled) {
 }
 
 // CSRF middleware via session
-app.use(
-	csurf({ cookie: false }),
-	(request, response, next) => {
-		response.locals.csrfToken = request.csrfToken();
-		next();
-	}
-);
+if (process.env.NODE_ENV !== 'test') {
+	app.use(
+		// where request uses multipart form body, then extract csrf token before verifying it
+		multer(),
+		csurf({ cookie: false }),
+		(request, response, next) => {
+			response.locals.csrfToken = request.csrfToken();
+			next();
+		}
+	);
+}
 
 // Set the express view engine to nunjucks.
 nunjucksEnvironment.express(app);

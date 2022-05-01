@@ -20,7 +20,12 @@ import {
 	viewDashboard,
 	viewReviewOutcomeConfirmation
 } from './validation.controller.js';
-import { assertIncompleteAppeal, canReviewAppeal, hasReviewOutcome, hasReviewOutcomeStatus } from './validation.guards.js';
+import {
+	assertCanReviewAppeal,
+	assertIncompleteAppeal,
+	assertReviewOutcomeInSession,
+	assertReviewOutcomeStatusInSession
+} from './validation.guards.js';
 import * as validators from './validation.pipes.js';
 
 /** @typedef {import('@pins/appeals').Validation.AppealDocumentType} AppealDocumentType */
@@ -60,19 +65,16 @@ router
 
 router
 	.route('/appeals/:appealId/appeal-site')
-	.all(assertIncompleteAppeal)
 	.get(createAsyncHandler(editAppealSite))
 	.post(validators.validateAppealSite, createAsyncHandler(updateAppealSite));
 
 router
 	.route('/appeals/:appealId/appellant-name')
-	.all(assertIncompleteAppeal)
 	.get(createAsyncHandler(editAppellantName))
 	.post(validators.validateAppellantName, createAsyncHandler(updateAppellantName));
 
 router
 	.route('/appeals/:appealId/local-planning-department')
-	.all(assertIncompleteAppeal)
 	.get(createAsyncHandler(editLocalPlanningDepartment))
 	.post(
 		validators.validateLocalPlanningDepartment,
@@ -81,7 +83,6 @@ router
 
 router
 	.route('/appeals/:appealId/planning-application-reference')
-	.all(assertIncompleteAppeal)
 	.get(createAsyncHandler(editPlanningApplicationReference))
 	.post(
 		validators.validatePlanningApplicationReference,
@@ -96,21 +97,14 @@ router
 
 router
 	.route('/appeals/:appealId/review-outcome')
-	.get(canReviewAppeal, hasReviewOutcomeStatus, createAsyncHandler(newReviewOutcome))
-	.post(
-		canReviewAppeal,
-		validators.validateReviewOutcome,
-		createAsyncHandler(createReviewOutcome)
-	);
+	.all(assertCanReviewAppeal, assertReviewOutcomeStatusInSession)
+	.get(createAsyncHandler(newReviewOutcome))
+	.post(validators.validateReviewOutcome, createAsyncHandler(createReviewOutcome));
 
 router
 	.route('/appeals/:appealId/review-outcome/confirm')
-	.get(canReviewAppeal, hasReviewOutcome, createAsyncHandler(viewReviewOutcomeConfirmation))
-	.post(
-		canReviewAppeal,
-		hasReviewOutcome,
-		validators.validateReviewOutcomeConfirmation,
-		createAsyncHandler(confirmReviewOutcome)
-	);
+	.all(assertCanReviewAppeal, assertReviewOutcomeInSession)
+	.get(createAsyncHandler(viewReviewOutcomeConfirmation))
+	.post(validators.validateReviewOutcomeConfirmation, createAsyncHandler(confirmReviewOutcome));
 
 export default router;

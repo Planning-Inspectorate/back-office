@@ -188,22 +188,9 @@ describe('validation', () => {
 
 			expect(element.innerHTML).toMatchSnapshot();
 		});
-
-		it('should redirect to the appeal when trying to edit the appeal site for a new appeal', async () => {
-			nock('http://test/').get(`/validation/${receivedAppealDetails.AppealId}`).reply(200, receivedAppealDetails);
-
-			const response = await request.get(`/validation/appeals/${receivedAppealDetails.AppealId}/appeal-site`).redirects(1);
-			const element = parseHtml(response.text);
-
-			expect(element.querySelector('h1')?.innerHTML).toEqual('Review appeal submission');
-		});
 	});
 
 	describe('POST /validation/appeals/:appealId/appeal-site', () => {
-		beforeEach(() => {
-			nock('http://test/').get(`/validation/${incompleteAppealDetails.AppealId}`).reply(200, incompleteAppealDetails);
-		});
-
 		it('should validate that the required fields are present', async () => {
 			const response = await request.post(`/validation/appeals/${incompleteAppealDetails.AppealId}/appeal-site`).send(
 				/** @type {Address} */ ({
@@ -266,22 +253,9 @@ describe('validation', () => {
 
 			expect(element.innerHTML).toMatchSnapshot();
 		});
-
-		it('should redirect to the appeal when trying to edit the appellant name for a new appeal', async () => {
-			nock('http://test/').get(`/validation/${receivedAppealDetails.AppealId}`).reply(200, receivedAppealDetails);
-
-			const response = await request.get(`/validation/appeals/${receivedAppealDetails.AppealId}/appellant-name`).redirects(1);
-			const element = parseHtml(response.text);
-
-			expect(element.querySelector('h1')?.innerHTML).toEqual('Review appeal submission');
-		});
 	});
 
 	describe('POST /validation/appeals/:appealId/appellant-name', () => {
-		beforeEach(() => {
-			nock('http://test/').get(`/validation/${incompleteAppealDetails.AppealId}`).reply(200, incompleteAppealDetails);
-		});
-
 		it('should validate that an appellant name is provided', async () => {
 			const response = await request
 				.post(`/validation/appeals/${incompleteAppealDetails.AppealId}/appellant-name`)
@@ -319,22 +293,9 @@ describe('validation', () => {
 
 			expect(element.innerHTML).toMatchSnapshot();
 		});
-
-		it('should redirect to the appeal when trying to edit the planning application reference for a new appeal', async () => {
-			nock('http://test/').get(`/validation/${receivedAppealDetails.AppealId}`).reply(200, receivedAppealDetails);
-
-			const response = await request.get(`/validation/appeals/${receivedAppealDetails.AppealId}/planning-application-reference`).redirects(1);
-			const element = parseHtml(response.text);
-
-			expect(element.querySelector('h1')?.innerHTML).toEqual('Review appeal submission');
-		});
 	});
 
 	describe('POST /validation/appeals/:appealId/planning-application-reference', () => {
-		beforeEach(() => {
-			nock('http://test/').get(`/validation/${incompleteAppealDetails.AppealId}`).reply(200, incompleteAppealDetails);
-		});
-
 		it('should validate that a planning application reference is provided', async () => {
 			const response = await request.post(`/validation/appeals/${incompleteAppealDetails.AppealId}/planning-application-reference`).send(
 				/** @type {UpdatePlanningApplicationRefBody} */ ({
@@ -375,21 +336,11 @@ describe('validation', () => {
 
 			expect(element.innerHTML).toMatchSnapshot();
 		});
-
-		it('should redirect to the appeal when trying to edit the local planning department for a new appeal', async () => {
-			nock('http://test/').get(`/validation/${receivedAppealDetails.AppealId}`).reply(200, receivedAppealDetails);
-
-			const response = await request.get(`/validation/appeals/${receivedAppealDetails.AppealId}/local-planning-department`).redirects(1);
-			const element = parseHtml(response.text);
-
-			expect(element.querySelector('h1')?.innerHTML).toEqual('Review appeal submission');
-		});
 	});
 
 	describe('POST /validation/appeals/:appealId/local-planning-department', () => {
 		beforeEach(() => {
 			nock('http://test/').get('/validation/lpa-list').reply(200, localPlanningDepartments);
-			nock('http://test/').get(`/validation/${incompleteAppealDetails.AppealId}`).reply(200, incompleteAppealDetails);
 		});
 
 		it('should validate that a local planning department is chosen', async () => {
@@ -822,8 +773,10 @@ function installReviewOutcomeStatus(body) {
 
 /**
  * @param {ValidAppealData | InvalidOutcomeBody | IncompleteOutcomeBody} body
- * @returns {Promise<import('supertest').Response>}
+ * @returns {Promise<void>}
  */
-function installReviewOutcome(body) {
-	return request.post(`/validation/appeals/${receivedAppealDetails.AppealId}/review-outcome`).send(body);
+async function installReviewOutcome(body) {
+	// install review outcome status first else we won't pass the guard assertion for the review outcome
+	await installReviewOutcomeStatus(body);
+	await request.post(`/validation/appeals/${receivedAppealDetails.AppealId}/review-outcome`).send(body);
 }
