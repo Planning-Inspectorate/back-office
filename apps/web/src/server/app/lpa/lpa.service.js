@@ -1,3 +1,4 @@
+import { appendFilesToFormData } from '@pins/platform';
 import FormData from 'form-data';
 import { get, patch, post } from './../../lib/request.js';
 
@@ -18,7 +19,16 @@ export const findAllAppeals = () => get('case-officer');
  */
 export const findAppealById = (appealId) =>
 	get(`case-officer/${appealId}`, {
-		context: { ttl: 1000 }
+		context: { ttl: 10_000 }
+	});
+
+/**
+ * @param {number} appealId
+ * @returns {Promise<Appeal>}
+ */
+export const findFullPlanningAppealById = (appealId) =>
+	get(`case-officer/${appealId}/statements-comments`, {
+		context: { ttl: 10_000 }
 	});
 
 /**
@@ -41,28 +51,61 @@ export function confirmQuestionnaireReview(appealId, questionnaire) {
 /**
  * @typedef {object} UploadDocumentData
  * @property {DocumentType} documentType
- * @property {Express.Multer.File} file
+ * @property {Express.Multer.File[]} files
  */
 
 /**
- * Upload a document to an appeal according to a given `documentType`.
+ * Upload one or more documents to an appeal.
  *
  * @param {number} appealId
  * @param {UploadDocumentData} data
- * @returns {Promise<AppealDocument>}
+ * @returns {Promise<AppealDocument[]>}
  */
-export const uploadDocument = (appealId, { file, documentType }) => {
-	const formData = new FormData();
-	formData.append('documentType', documentType);
-	formData.append('file', file.buffer);
+export function uploadDocuments(appealId, { files, documentType }) {
+	return Promise.resolve([]);
+}
 
-	// lpa/${appealId}/documents is not yet implemented so mock created resource
-	return Promise.resolve({
-		Filename: file.originalname,
-		Type: documentType,
-		URL: '*'
-	});
-};
+/**
+ * @typedef {object} UploadFinalCommentsResponseBody
+ * @property {number} AppealId 
+ * @property {string} AppealReference
+ * @property {string} date
+ */
+
+/**
+ * Upload one or more final comments to the appeal.
+ *
+ * @param {number} appealId
+ * @param {Express.Multer.File[]} files
+ * @returns {Promise<UploadFinalCommentsResponseBody>}
+ */
+export function uploadFinalComments(appealId, files) {
+	const formData = new FormData();
+	appendFilesToFormData(formData, { key: 'finalcomments', files });
+
+	return post(`case-officer/${appealId}/final-comment`, { body: formData });
+}
+
+/**
+ * @typedef {object} UploadStatementsResponseBody
+ * @property {number} AppealId 
+ * @property {string} AppealReference
+ * @property {string} date 
+ */
+
+/**
+ * Upload one or more statements to the appeal.
+ *
+ * @param {number} appealId
+ * @param {Express.Multer.File[]} files
+ * @returns {Promise<UploadStatementsResponseBody>}
+ */
+export function uploadStatements(appealId, files) {
+	const formData = new FormData();
+	appendFilesToFormData(formData, { key: 'statements', files });
+
+	return post(`case-officer/${appealId}/statement`, { body: formData });
+}
 
 /**
  * Update appeal details.

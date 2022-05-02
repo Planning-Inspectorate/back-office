@@ -18,13 +18,5 @@ export default {
 	isProd: config.isProd,
 	isRelease: config.isRelease,
 	pathToCss: getConfig('resourceCSS.json').path,
-	pathToJs: getConfig('resourceJS.json').path,
-	documentMimeTypes: [
-		'application/msword',
-		'application/pdf',
-		'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
-		'image/jpeg',
-		'image/png',
-		'image/tiff'
-	]
+	pathToJs: getConfig('resourceJS.json').path
 };

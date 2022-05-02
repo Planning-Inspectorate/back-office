@@ -1,5 +1,6 @@
+import { appendFilesToFormData } from '@pins/platform';
 import FormData from 'form-data';
-import { get, post, patch } from './../../lib/request.js';
+import { get, patch, post } from './../../lib/request.js';
 
 /** @typedef {import('@pins/appeals').AppealDocument} AppealDocument */
 /** @typedef {import('@pins/appeals').Validation.Appeal} Appeal */
@@ -109,7 +110,7 @@ export function recordOutcome(appealId, { status: AppealStatus, ...other }) {
 export function uploadDocument(appealId, { file, documentType }) {
 	const formData = new FormData();
 	formData.append('documentType', documentType);
-	formData.append('file', file.buffer);
+	appendFilesToFormData(formData, { key: 'file', file });
 
 	// Awaiting https://pins-ds.atlassian.net/browse/BOCM-78
 	// lpa/${appealId}/documents is not yet implemented so mock created resource

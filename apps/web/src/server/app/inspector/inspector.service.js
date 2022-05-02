@@ -1,5 +1,5 @@
+import { appendFilesToFormData } from '@pins/platform';
 import FormData from 'form-data';
-import fs from 'fs';
 import { get, post } from './../../lib/request.js';
 
 /** @typedef {import('@pins/appeals').Inspector.Appeal} Appeal */
@@ -85,7 +85,7 @@ export function findAppealById(appealId) {
 export function issueDecision(appealId, { outcome, decisionLetter }) {
 	const formData = new FormData();
 	formData.append('outcome', outcome);
-	formData.append('decisionLetter', fs.createReadStream(decisionLetter.path));
+	appendFilesToFormData(formData, { key: 'decisionLetter', file: decisionLetter });
 	// This endpoint currently won't save files
 	// https://pins-ds.atlassian.net/browse/BOCM-301
 	return post(`inspector/${appealId}/issue-decision`, {

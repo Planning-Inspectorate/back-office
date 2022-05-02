@@ -17,10 +17,10 @@ import {
 	viewSiteVisitConfirmation
 } from './inspector.controller.js';
 import {
-	bookSiteVisitGuard,
-	canBookSiteVisitGuard,
-	canIssueDecisionGuard,
-	issueDecisionGuard
+	assertCanBookSiteVisit,
+	assertCanIssueDecision,
+	assertDecisionInSession,
+	assertSiteVisitInSession
 } from './inspector.guards.js';
 import {
 	validateAvailableAppeals,
@@ -40,7 +40,6 @@ router.param('appealId', (req, _, next, appealId) => {
 	next();
 });
 
-
 router.route('/').get(createAsyncHandler(viewDashboard));
 
 router
@@ -56,25 +55,26 @@ router.route('/appeals/:appealId').get(createAsyncHandler(viewAppealDetails));
 
 router
 	.route('/appeals/:appealId/book-site-visit')
-	.get(canBookSiteVisitGuard, createAsyncHandler(newSiteVisit))
+	.all(assertCanBookSiteVisit)
+	.get(createAsyncHandler(newSiteVisit))
 	.post(validateBookSiteVisit, createAsyncHandler(createSiteVisit));
 
 router
 	.route('/appeals/:appealId/confirm-site-visit')
-	.get(bookSiteVisitGuard, createAsyncHandler(viewSiteVisitConfirmation))
-	.post(bookSiteVisitGuard, createAsyncHandler(confirmSiteVisit));
+	.all(assertSiteVisitInSession, assertCanBookSiteVisit)
+	.get(createAsyncHandler(viewSiteVisitConfirmation))
+	.post(createAsyncHandler(confirmSiteVisit));
 
 router
 	.route('/appeals/:appealId/issue-decision')
-	.get(canIssueDecisionGuard, createAsyncHandler(newDecision))
-	.post(
-		validateIssueDecision,
-		createAsyncHandler(createDecision)
-	);
+	.all(assertCanIssueDecision)
+	.get(createAsyncHandler(newDecision))
+	.post(validateIssueDecision, createAsyncHandler(createDecision));
 
 router
 	.route('/appeals/:appealId/confirm-decision')
-	.get(issueDecisionGuard, createAsyncHandler(viewDecisionConfirmation))
+	.all(assertDecisionInSession, assertCanIssueDecision)
+	.get(createAsyncHandler(viewDecisionConfirmation))
 	.post(createAsyncHandler(confirmDecision));
 
 router

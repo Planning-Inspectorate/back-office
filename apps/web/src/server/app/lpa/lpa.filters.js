@@ -66,6 +66,12 @@ const labelData = {
 	'List of addresses': [
 		'thirdPartyAppealNotificationMissingOrIncorrectListOfAddresses',
 		'thirdPartyApplicationNotificationMissingOrIncorrectListOfAddresses'
+	],
+	'Final comments': [
+		'fpa final comment'
+	],
+	'Statements' : [
+		'fpa statement'
 	]
 };
 

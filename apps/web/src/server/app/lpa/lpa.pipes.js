@@ -19,7 +19,7 @@ export const registerLpaLocals = (_, response, next) => {
 	next();
 };
 
-export const validateAppealDocuments = createValidator(
+export const validateDocuments = createValidator(
 	multer({
 		storage: memoryStorage,
 		limits: {

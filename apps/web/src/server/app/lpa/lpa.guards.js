@@ -11,23 +11,35 @@ import * as lpaService from './lpa.service.js';
  * Guard that protects routes from having further documents of a certain type
  * added to an appeal when they are not recognised as missing or incorrect by
  * the reviewed questionnaire.
+ *
+ * @type {import('express').RequestHandler<AppealDocumentParams>}
  */
-export const assertDocumentTypeMissingOrIncorrect = createAsyncHandler(
-	/** @type {import('express').RequestHandler<AppealDocumentParams>} */
-	async (request, response, next) => {
-		const { appealId, documentType } = request.params;
-		const { reviewQuestionnaire } = await lpaService.findAppealById(appealId);
+export const assertDocumentTypeMissingOrIncorrect = createAsyncHandler(async (request, response, next) => {
+	const { appealId, documentType } = request.params;
+	const { reviewQuestionnaire } = await lpaService.findAppealById(appealId);
 
-		if (
-			reviewQuestionnaire &&
-			getReviewQuestionnaireDocumentTypeRequired(reviewQuestionnaire, documentType)
-		) {
-			next();
-		} else {
-			response.redirect(`/lpa/appeals/${appealId}`);
-		}
+	if (reviewQuestionnaire && getReviewQuestionnaireDocumentTypeRequired(reviewQuestionnaire, documentType)) {
+		next();
+	} else {
+		response.redirect(`/lpa/appeals/${appealId}`);
 	}
-);
+});
+
+/**
+ * Guard that ensures that an appeal is still accepting final comments as part
+ * of a full planning appeal.
+ *
+ * @type {import('express').RequestHandler<AppealParams>}
+ */
+export const assertFinalCommentsRequired = createAsyncHandler(async ({ params }, response, next) => {
+	const appeal = await lpaService.findFullPlanningAppealById(params.appealId);
+
+	if (appeal.acceptingFinalComments) {
+		next();
+	} else {
+		response.redirect('/lpa');
+	}
+});
 
 /**
  * Guard that ensures that a listed building description can be updated due to
@@ -39,16 +51,29 @@ export const assertListedBuildingDescriptionMissingOrIncorrect = createAsyncHand
 	async ({ params }, response, next) => {
 		const { reviewQuestionnaire } = await lpaService.findAppealById(params.appealId);
 
-		if (
-			reviewQuestionnaire &&
-			reviewQuestionnaire.siteListedBuildingDescriptionMissingOrIncorrect
-		) {
+		if (reviewQuestionnaire && reviewQuestionnaire.siteListedBuildingDescriptionMissingOrIncorrect) {
 			next();
 		} else {
 			response.redirect(`/lpa/appeals/${params.appealId}`);
 		}
 	}
 );
+
+/**
+ * Guard that ensures that an appeal is still accepting statements as part of a
+ * full planning appeal.
+ *
+ * @type {import('express').RequestHandler<AppealParams>}
+ */
+export const assertStatementsRequired = createAsyncHandler(async ({ params }, response, next) => {
+	const appeal = await lpaService.findFullPlanningAppealById(params.appealId);
+
+	if (appeal.acceptingStatements) {
+		next();
+	} else {
+		response.redirect('/lpa');
+	}
+});
 
 /**
  * Guard that ensures that a reviewed questionnaire exists within the session.

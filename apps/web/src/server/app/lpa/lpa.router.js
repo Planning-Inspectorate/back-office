@@ -6,19 +6,25 @@ import {
 	createQuestionnaireReview,
 	editListedBuildingDescription,
 	newAppealDocuments,
+	newFinalComments,
+	newStatements,
 	updateListedBuildingDescription,
 	uploadAppealDocuments,
+	uploadFinalComments,
+	uploadStatements,
 	viewAppeal,
 	viewDashboard,
 	viewQuestionnaireReviewConfirmation
 } from './lpa.controller.js';
 import {
 	assertDocumentTypeMissingOrIncorrect,
+	assertFinalCommentsRequired,
 	assertListedBuildingDescriptionMissingOrIncorrect,
-	assertQuestionnaireReviewExists
+	assertQuestionnaireReviewExists,
+	assertStatementsRequired
 } from './lpa.guards.js';
 import {
-	validateAppealDocuments,
+	validateDocuments,
 	validateListedBuildingDescription,
 	validateQuestionnaireReview,
 	validateQuestionnaireReviewCompletion,
@@ -39,7 +45,6 @@ import {
  */
 
 const router = express.Router();
-
 
 router.param('appealId', (req, _, next, appealId) => {
 	req.params.appealId = Number.parseInt(appealId, 10);
@@ -66,32 +71,32 @@ router
 
 router
 	.route('/appeals/:appealId/questionnaire/confirm')
-	.get(assertQuestionnaireReviewExists, createAsyncHandler(viewQuestionnaireReviewConfirmation))
-	.post(
-		assertQuestionnaireReviewExists,
-		validateQuestionnaireReviewConfirmation,
-		createAsyncHandler(confirmQuestionnaireReview)
-	);
+	.all(assertQuestionnaireReviewExists)
+	.get(createAsyncHandler(viewQuestionnaireReviewConfirmation))
+	.post(validateQuestionnaireReviewConfirmation, createAsyncHandler(confirmQuestionnaireReview));
+
+router
+	.route('/appeals/:appealId/final-comments')
+	.all(assertFinalCommentsRequired)
+	.get(createAsyncHandler(newFinalComments))
+	.post(validateDocuments, createAsyncHandler(uploadFinalComments));
+
+router
+	.route('/appeals/:appealId/statements')
+	.all(assertStatementsRequired)
+	.get(createAsyncHandler(newStatements))
+	.post(validateDocuments, createAsyncHandler(uploadStatements));
 
 router
 	.route('/appeals/:appealId/edit-listed-building-description')
-	.get(
-		assertListedBuildingDescriptionMissingOrIncorrect,
-		createAsyncHandler(editListedBuildingDescription)
-	)
-	.post(
-		assertListedBuildingDescriptionMissingOrIncorrect,
-		validateListedBuildingDescription,
-		createAsyncHandler(updateListedBuildingDescription)
-	);
+	.all(assertListedBuildingDescriptionMissingOrIncorrect)
+	.get(createAsyncHandler(editListedBuildingDescription))
+	.post(validateListedBuildingDescription, createAsyncHandler(updateListedBuildingDescription));
 
 router
 	.route('/appeals/:appealId/documents/:documentType')
-	.get(assertDocumentTypeMissingOrIncorrect, createAsyncHandler(newAppealDocuments))
-	.post(
-		assertDocumentTypeMissingOrIncorrect,
-		validateAppealDocuments,
-		createAsyncHandler(uploadAppealDocuments)
-	);
+	.all(assertDocumentTypeMissingOrIncorrect)
+	.get(createAsyncHandler(newAppealDocuments))
+	.post(validateDocuments, createAsyncHandler(uploadAppealDocuments));
 
 export default router;

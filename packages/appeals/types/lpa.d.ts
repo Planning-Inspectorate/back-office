@@ -11,6 +11,8 @@ export interface Appeal {
 	PlanningApplicationreference: string;
 	WouldDevelopmentAffectSettingOfListedBuilding: boolean;
 	reviewQuestionnaire?: Questionnaire;
+	acceptingStatements: boolean;
+	acceptingFinalComments: boolean;
 }
 
 export interface AppealSummary {

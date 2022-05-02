@@ -20,6 +20,7 @@ export interface  BookedAppealSummary extends UnbookedAppealSummary {
 }
 
 export interface UnbookedAppeal {
+	status: AppealStatus;
 	appealId: number;
 	reference: string;
 	provisionalSiteVisitType: SiteVisitType;
@@ -62,6 +63,10 @@ export interface UnbookedAppeal {
 		healthAndSafetyIssuesDescription: string;
 	};
 	Documents: AppealDocument[];
+	availableForSiteVisitBooking: boolean;
+	expectedSiteVisitBookingAvailableFrom?: string;
+	canUploadFinalCommentsUntil?: string;
+	canUploadStatementsUntil?: string;
 }
 
 export interface BookedAppeal extends UnbookedAppeal {

@@ -29,7 +29,7 @@ export const assertIncompleteAppeal = createAsyncHandler(async (request, respons
  *
  * @type {import('express').RequestHandler<AppealParams>}
  */
-export const canReviewAppeal = async (request, response, next) => {
+export const assertCanReviewAppeal = async (request, response, next) => {
 	try {
 		await validationService.findAppealById(request.params.appealId);
 		next();
@@ -49,7 +49,7 @@ export const canReviewAppeal = async (request, response, next) => {
  *
  * @type {import('express').RequestHandler<AppealParams>}
  */
-export const hasReviewOutcome = ({ params, session }, response, next) => {
+export const assertReviewOutcomeInSession = ({ params, session }, response, next) => {
 	if (validationSession.getReviewOutcome(session, params.appealId)) {
 		next();
 	} else {
@@ -64,7 +64,7 @@ export const hasReviewOutcome = ({ params, session }, response, next) => {
  *
  * @type {import('express').RequestHandler<AppealParams>}
  */
-export const hasReviewOutcomeStatus = ({ params, session }, response, next) => {
+export const assertReviewOutcomeStatusInSession = ({ params, session }, response, next) => {
 	const sessionStatus = validationSession.getReviewOutcomeStatus(session, params.appealId);
 
 	if (sessionStatus) {
