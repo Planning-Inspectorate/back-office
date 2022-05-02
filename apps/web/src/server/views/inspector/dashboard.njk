@@ -69,15 +69,16 @@
           { name: 'Appeal type' },
           { name: 'Provisional site visit type' }
         ],
-        statuses: statuses
+        statuses: statuses,
+		classes: 'govuk-!-margin-bottom-6'
       })
     }}
   {% else %}
     <h2 class="govuk-heading-l govuk-!-margin-bottom-3">Site visits not yet booked</h2>
-    {{ infoBox({ text: 'No site visits to book' }) }}
+    {{ infoBox({ text: 'No site visits to book', classes: 'govuk-!-margin-bottom-6' }) }}
   {% endif %}
 
-  <div style="margin-top: -20px">
+  <div>
     {{
       govukButton({
         text: 'Get more appeals',
