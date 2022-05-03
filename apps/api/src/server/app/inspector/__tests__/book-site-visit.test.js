@@ -46,14 +46,16 @@ const updatedAppeal = {
 /** @type {DeepPartial<Appeal>} */
 const invalidAppeal = {
 	...originalAppeal,
-	userId: 101
+	user: { id: 101, azureReference: 101 }
 };
 
 const getByIdStub = sinon.stub();
 const updateStatusAndDataByIdStub = sinon.stub();
 
+getByIdStub.withArgs(1, { user: true }).returns(originalAppeal);
 getByIdStub.withArgs(1).returns(originalAppeal);
 getByIdStub.withArgs(1, { siteVisit: true }).returns(updatedAppeal);
+getByIdStub.withArgs(2, { user: true }).returns(invalidAppeal);
 getByIdStub.withArgs(2).returns(invalidAppeal);
 
 sinon.stub(appealRepository, 'getById').callsFake(getByIdStub);

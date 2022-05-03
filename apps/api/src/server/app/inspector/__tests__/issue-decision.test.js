@@ -34,7 +34,7 @@ const validAppeal = {
 	},
 	createdAt: new Date(2022, 0, 1),
 	updatedAt: new Date(2022, 0, 1),
-	userId: 100
+	user: { azureReference: 100, id: 100 }
 };
 
 // todo: replace with factory
@@ -66,8 +66,10 @@ const updatedAppeal = {
 const getByIdStub = sinon.stub();
 const updateStatusAndDataByIdStub = sinon.stub();
 
+getByIdStub.withArgs(1, { user: true }).returns(validAppeal);
 getByIdStub.withArgs(1).returns(validAppeal);
 getByIdStub.withArgs(1, { inspectorDecision: true }).returns(updatedAppeal);
+getByIdStub.withArgs(2, { user: true }).returns(invalidAppeal);
 getByIdStub.withArgs(2).returns(invalidAppeal);
 
 sinon.stub(appealRepository, 'getById').callsFake(getByIdStub);

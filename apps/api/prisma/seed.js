@@ -83,7 +83,17 @@ const appealFactory = function(
 		...(incompleteReviewQuestionnaire && { reviewQuestionnaire: { create: incompleteReviewQuestionnaireSample } }),
 		...(completeReviewQuestionnaire && { reviewQuestionnaire: { create: { complete: true } } }),
 		appealDetailsFromAppellant: { create: pickRandom(appealDetailsFromAppellantList) },
-		...(connectToUser && { user: { connectOrCreate: { where: { id: 1 }, create: {} } } }),
+		...(connectToUser && {
+			user: {
+				connectOrCreate: {
+					create: {
+						azureReference: 1,
+					},
+					where: {
+						azureReference: 1,
+					}
+				}
+			} }),
 		...(siteVisitBooked && { siteVisit: { create: { visitDate: new Date(2022, 3, 1), visitSlot: '1pm - 2pm', visitType: 'unaccompanied' } }	})
 	};
 };

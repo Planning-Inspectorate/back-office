@@ -22,9 +22,9 @@ export const validateUserId = async (request, response, next) => {
 export const validateUserBelongsToAppeal = composeMiddleware(validateUserId, async (request, response, next) => {
 	const result = await header('userId')
 		.custom(async (/** @type {number} */ userId, { req }) => {
-			const appeal = await appealRepository.getById(req.params.appealId);
+			const appeal = await appealRepository.getById(req.params.appealId, { user: true });
 
-			if (appeal.userId === userId) {
+			if (appeal.user.azureReference === userId) {
 				return true;
 			}
 			throw new Error('User is not permitted to perform this action.');

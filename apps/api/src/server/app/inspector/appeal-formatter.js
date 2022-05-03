@@ -91,13 +91,18 @@ export const appealFormatter = {
 	formatAppealForAppealDetails: function (appeal) {
 		const completeValidationDecision = filter(appeal.validationDecision, { decision: 'complete' })[0];
 		const isAvailableForSiteBooking = buildAppealCompundStatus(appeal.appealStatus) == appealStates.site_visit_not_yet_booked;
+		const isPastBooking = [
+			appealStates.site_visit_booked, 
+			appealStates.decision_due, 
+			appealStates.decided
+		].includes(buildAppealCompundStatus(appeal.appealStatus));
 		return {
 			appealId: appeal.id,
 			reference: appeal.reference,
 			provisionalSiteVisitType: provisionalAppealSiteVisitType(appeal),
 			status: formatStatus(appeal.appealStatus),
 			availableForSiteVisitBooking: isAvailableForSiteBooking,
-			...(!isAvailableForSiteBooking && { 
+			...(!isAvailableForSiteBooking && !isPastBooking && { 
 				expectedSiteVisitBookingAvailableFrom: formatDate(calculateExpectedSiteVisitBookingAvailableDate(appeal.appealStatus), false) 
 			}),
 			appellantName: appeal.appellant.name,
