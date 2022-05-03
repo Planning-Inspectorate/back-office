@@ -136,13 +136,13 @@ test('assigns all appeals as they are all available', async(t) => {
 			appealId: 1
 		}]
 	});
-	sinon.assert.calledWith(updateStub, { where: { id: 1 }, data: { updatedAt: sinon.match.any, user: { connect: { id: 1 } } } });
+	sinon.assert.calledWith(updateStub, { where: { id: 1 }, data: { updatedAt: sinon.match.any, user: { connect: { azureReference: 1 } } } });
 	sinon.assert.calledWith(updateManyAppealStatusStub, { where: { id: { in: [3] } }, data: { valid: false } });
 	sinon.assert.calledWith(createAppealStatusStub, { data: { status: 'site_visit_not_yet_booked', appealId: 2 } });
-	sinon.assert.calledWith(updateStub, { where: { id: 2 }, data: { updatedAt: sinon.match.any, user: { connect: { id: 1 } } } });
+	sinon.assert.calledWith(updateStub, { where: { id: 2 }, data: { updatedAt: sinon.match.any, user: { connect: { azureReference: 1 } } } });
 	sinon.assert.calledWith(updateManyAppealStatusStub, { where: { id: { in: [4] } }, data: { valid: false } });
 	sinon.assert.calledWith(createAppealStatusStub, { data: { status: 'site_visit_not_yet_booked', appealId: 3 } });
-	sinon.assert.calledWith(updateStub, { where: { id: 3 }, data: { updatedAt: sinon.match.any, user: { connect: { id: 1 } } } });
+	sinon.assert.calledWith(updateStub, { where: { id: 3 }, data: { updatedAt: sinon.match.any, user: { connect: { azureReference: 1 } } } });
 	t.deepEqual(resp.body, { successfullyAssigned: [{
 		appealId: 1,
 		reference: appeal_1.reference,
@@ -175,7 +175,7 @@ test('unable to assign appeals that are not in the appropriate state', async(t) 
 	t.is(resp.status, 200);
 	sinon.assert.calledWith(updateManyAppealStatusStub, { where: { id: { in: [4] } }, data: { valid: false } });
 	sinon.assert.calledWith(createAppealStatusStub, { data: { status: 'site_visit_not_yet_booked', appealId: 3 } });
-	sinon.assert.calledWith(updateStub, { where: { id: 3 }, data: { updatedAt: sinon.match.any, user: { connect: { id: 1 } } } });
+	sinon.assert.calledWith(updateStub, { where: { id: 3 }, data: { updatedAt: sinon.match.any, user: { connect: { azureReference: 1 } } } });
 	t.deepEqual(resp.body, { successfullyAssigned: [{
 		appealId: 3,
 		reference: appeal_3.reference,
@@ -210,7 +210,7 @@ test('unable to assign appeals that are already assigned to someone', async (t) 
 			}
 		]
 	});
-	sinon.assert.calledWith(updateStub, { where: { id: 1 }, data: { updatedAt: sinon.match.any, user: { connect: { id: 1 } } } });
+	sinon.assert.calledWith(updateStub, { where: { id: 1 }, data: { updatedAt: sinon.match.any, user: { connect: { azureReference: 1 } } } });
 	t.deepEqual(resp.body, { successfullyAssigned: [{
 		appealId: 1,
 		reference: appeal_1.reference,

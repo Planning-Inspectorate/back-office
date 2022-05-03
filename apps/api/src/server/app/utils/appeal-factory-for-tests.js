@@ -55,7 +55,7 @@ export const appealFactoryForTests = function(
 		...(inclusions.incompleteReviewQuestionnaire && [{ reviewQuestionnaire: incompleteReviewQuestionnaireSample }]),
 		...(inclusions.completeReviewQuestionnaire && [{ reviewQuestionnaire: { complete: true } }]),
 		appealDetailsFromAppellant: pickRandom(appealDetailsFromAppellantList),
-		...(inclusions.connectToUser && { userId: 1 }),
+		...(inclusions.connectToUser && { user: { id: 1, azureReference: 1 }, userId: 1 }),
 		...(inclusions.siteVisitBooked && { siteVisit: { visitDate: new Date(2022, 3, 1), visitSlot: '1pm - 2pm', visitType: 'unaccompanied' } })
 	};
 };
