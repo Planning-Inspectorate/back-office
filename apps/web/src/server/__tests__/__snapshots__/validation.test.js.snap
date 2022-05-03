@@ -8,9 +8,9 @@ exports[`validation GET /validation should render a placeholder for empty appeal
         </div>
     </div>
     <h2 class=\\"govuk-heading-l govuk-!-margin-bottom-3\\">New appeals</h2>
-    <div class=\\"pi-info-box govuk-body govuk-!-padding-9 govuk-!-font-weight-regular govuk-!-font-size-24 govuk-!-margin-bottom-8\\">No new appeals</div>
+    <div class=\\"pins-info-box govuk-body govuk-!-padding-9 govuk-!-font-weight-regular govuk-!-font-size-24 govuk-!-margin-bottom-8\\">No new appeals</div>
     <h2 class=\\"govuk-heading-l govuk-!-margin-bottom-3\\">Incomplete appeals</h2>
-    <div class=\\"pi-info-box govuk-body govuk-!-padding-9 govuk-!-font-weight-regular govuk-!-font-size-24\\">No incomplete appeals</div>
+    <div class=\\"pins-info-box govuk-body govuk-!-padding-9 govuk-!-font-weight-regular govuk-!-font-size-24\\">No incomplete appeals</div>
 </main>"
 `;
 
