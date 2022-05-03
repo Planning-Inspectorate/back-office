@@ -251,7 +251,7 @@ test('gets all appeals assigned to inspector', async (t) => {
 					valid: true
 				}
 			},
-			userId: 1
+			user: { azureReference: 1 }
 		},
 		include: {
 			address: true,
