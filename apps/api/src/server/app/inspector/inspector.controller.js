@@ -27,7 +27,8 @@ const getAppealDetails = async function(request, response) {
 		address: true,
 		latestLPAReviewQuestionnaire: true,
 		appealDetailsFromAppellant: true,
-		lpaQuestionnaire: true
+		lpaQuestionnaire: true,
+		siteVisit: true
 	});
 	const formattedAppeal = appealFormatter.formatAppealForAppealDetails(appeal);
 	response.send(formattedAppeal);
