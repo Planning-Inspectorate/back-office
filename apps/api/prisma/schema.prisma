@@ -176,6 +176,6 @@ model InspectorDecision {
 
 model User {
   id             Int      @id @default(autoincrement())
-  azureReference Int?     
+  azureReference Int?     @unique
   appeal         Appeal[]
 }
