@@ -35,7 +35,7 @@ const siteVisitTimeSlots = [
  **/
 export const registerInspectorLocals = (_, response, next) => {
 	response.locals.containerSize = 'xl';
-	response.locals.serviceName = 'Appeal a householder planning decision';
+	response.locals.serviceName = 'Appeal a planning decision';
 	response.locals.serviceUrl = '/inspector';
 	response.locals.constants = { siteVisitTimeSlots };
 	next();
