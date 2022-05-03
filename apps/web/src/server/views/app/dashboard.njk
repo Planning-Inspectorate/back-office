@@ -1,0 +1,22 @@
+{% extends "app/layouts/app.layout.njk" %}
+
+{% set serviceName = 'Planning inspectorate' %}
+{% set pageTitle = 'Back office services' %}
+
+{% block main  %}
+  <div class="pins-masthead govuk-!-padding-top-9 govuk-!-padding-bottom-4">
+    <div class="govuk-width-container {{ containerClasses }}">
+      <h1 class="govuk-heading-xl">{{ pageTitle }}</h1>
+    </div>
+  </div>
+  <main class="govuk-main-wrapper {{ mainClasses }}" id="main-content" role="main"{% if mainLang %} lang="{{ mainLang }}"{% endif %}>
+    <div class="govuk-width-container {{ containerClasses }}">
+      <h2 class="govuk-heading-l">Appeals</h2>
+      <ul class="govuk-list">
+        <li><a href="/lpa" class="govuk-link">Case officer</a></li>
+        <li><a href="/inspector" class="govuk-link">Inspector</a></li>
+        <li><a href="/validation" class="govuk-link">Validation officer</a></li>
+      </ul>
+    </div>
+  </main>
+{% endblock %}
