@@ -42,12 +42,30 @@ export const assertFinalCommentsRequired = createAsyncHandler(async ({ params },
 });
 
 /**
+ * Guard that ensures that the requested appeal has an incomplete questionnaire.
+ * 
+ * @type {import('express').RequestHandler<AppealDocumentParams>}
+ */
+export const assertIncompleteQuestionnaire = createAsyncHandler(
+	async ({ params }, response, next) => {
+		const { reviewQuestionnaire } = await lpaService.findAppealById(params.appealId);
+
+		if (reviewQuestionnaire && !reviewQuestionnaire.complete) {
+			next();
+		} else {
+			response.redirect(`/lpa/appeals/${params.appealId}`);
+		}
+	}
+);
+
+/**
  * Guard that ensures that a listed building description can be updated due to
  * it having been marked as missing or incorrect when completing the
  * questionnaire review.
+ * 
+ * @type {import('express').RequestHandler<AppealDocumentParams>}
  */
 export const assertListedBuildingDescriptionMissingOrIncorrect = createAsyncHandler(
-	/** @type {import('express').RequestHandler<AppealDocumentParams>} */
 	async ({ params }, response, next) => {
 		const { reviewQuestionnaire } = await lpaService.findAppealById(params.appealId);
 

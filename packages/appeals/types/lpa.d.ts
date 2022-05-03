@@ -13,6 +13,8 @@ export interface Appeal {
 	reviewQuestionnaire?: Questionnaire;
 	acceptingStatements: boolean;
 	acceptingFinalComments: boolean;
+	canUploadFinalCommentsUntil?: string;
+	canUploadStatementsUntil?: string;
 }
 
 export interface AppealSummary {

@@ -1361,7 +1361,7 @@ exports[`validation POST /validation/appeals/:appealId/planning-application-refe
 </main>"
 `;
 
-exports[`validation POST /validation/appeals/:appealId/review-outcome received appeal incomplete outcome should display a confirmation page upon valid submission 1`] = `
+exports[`validation POST /validation/appeals/:appealId/review-outcome incomplete outcome should display a confirmation page upon valid submission 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"govuk-grid-row\\">
         <div class=\\"govuk-grid-column-two-thirds\\">
@@ -1413,7 +1413,7 @@ exports[`validation POST /validation/appeals/:appealId/review-outcome received a
 </main>"
 `;
 
-exports[`validation POST /validation/appeals/:appealId/review-outcome received appeal incomplete outcome should validate that a missing document is provided 1`] = `
+exports[`validation POST /validation/appeals/:appealId/review-outcome incomplete outcome should validate that a missing document is provided 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"govuk-grid-row\\">
         <div class=\\"govuk-grid-column-two-thirds\\">
@@ -1515,7 +1515,7 @@ exports[`validation POST /validation/appeals/:appealId/review-outcome received a
 </main>"
 `;
 
-exports[`validation POST /validation/appeals/:appealId/review-outcome received appeal incomplete outcome should validate that at least one reason is chosen 1`] = `
+exports[`validation POST /validation/appeals/:appealId/review-outcome incomplete outcome should validate that at least one reason is chosen 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"govuk-grid-row\\">
         <div class=\\"govuk-grid-column-two-thirds\\">
@@ -1619,7 +1619,7 @@ exports[`validation POST /validation/appeals/:appealId/review-outcome received a
 </main>"
 `;
 
-exports[`validation POST /validation/appeals/:appealId/review-outcome received appeal incomplete outcome should validate that the reason text is provided 1`] = `
+exports[`validation POST /validation/appeals/:appealId/review-outcome incomplete outcome should validate that the reason text is provided 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"govuk-grid-row\\">
         <div class=\\"govuk-grid-column-two-thirds\\">
@@ -1721,7 +1721,7 @@ exports[`validation POST /validation/appeals/:appealId/review-outcome received a
 </main>"
 `;
 
-exports[`validation POST /validation/appeals/:appealId/review-outcome received appeal invalid outcome should display a confirmation page upon valid submission 1`] = `
+exports[`validation POST /validation/appeals/:appealId/review-outcome invalid outcome should display a confirmation page upon valid submission 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"govuk-grid-row\\">
         <div class=\\"govuk-grid-column-two-thirds\\">
@@ -1791,7 +1791,7 @@ exports[`validation POST /validation/appeals/:appealId/review-outcome received a
 </main>"
 `;
 
-exports[`validation POST /validation/appeals/:appealId/review-outcome received appeal invalid outcome should validate that at least one reason is chosen 1`] = `
+exports[`validation POST /validation/appeals/:appealId/review-outcome invalid outcome should validate that at least one reason is chosen 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"govuk-grid-row\\">
         <div class=\\"govuk-grid-column-two-thirds\\">
@@ -1860,7 +1860,7 @@ exports[`validation POST /validation/appeals/:appealId/review-outcome received a
 </main>"
 `;
 
-exports[`validation POST /validation/appeals/:appealId/review-outcome received appeal invalid outcome should validate that the reason text is provided 1`] = `
+exports[`validation POST /validation/appeals/:appealId/review-outcome invalid outcome should validate that the reason text is provided 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"govuk-grid-row\\">
         <div class=\\"govuk-grid-column-two-thirds\\">
@@ -1930,7 +1930,7 @@ exports[`validation POST /validation/appeals/:appealId/review-outcome received a
 </main>"
 `;
 
-exports[`validation POST /validation/appeals/:appealId/review-outcome received appeal valid outcome should display a confirmation page upon valid submission 1`] = `
+exports[`validation POST /validation/appeals/:appealId/review-outcome valid outcome should display a confirmation page upon valid submission 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"govuk-grid-row\\">
         <div class=\\"govuk-grid-column-two-thirds\\">
@@ -1969,7 +1969,7 @@ exports[`validation POST /validation/appeals/:appealId/review-outcome received a
 </main>"
 `;
 
-exports[`validation POST /validation/appeals/:appealId/review-outcome received appeal valid outcome should validate that a description of development is provided 1`] = `
+exports[`validation POST /validation/appeals/:appealId/review-outcome valid outcome should validate that a description of development is provided 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"govuk-grid-row\\">
         <div class=\\"govuk-grid-column-two-thirds\\">
@@ -2011,7 +2011,7 @@ exports[`validation POST /validation/appeals/:appealId/review-outcome received a
 </main>"
 `;
 
-exports[`validation POST /validation/appeals/:appealId/review-outcome/confirm received appeal incomplete outcome should confirm the outcome with a success panel 1`] = `
+exports[`validation POST /validation/appeals/:appealId/review-outcome/confirm incomplete outcome should confirm the outcome with a success panel 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"govuk-grid-row\\">
         <div class=\\"govuk-grid-column-two-thirds\\">
@@ -2031,7 +2031,7 @@ exports[`validation POST /validation/appeals/:appealId/review-outcome/confirm re
 </main>"
 `;
 
-exports[`validation POST /validation/appeals/:appealId/review-outcome/confirm received appeal incomplete outcome should validate that the confirmation checkbox was checked 1`] = `
+exports[`validation POST /validation/appeals/:appealId/review-outcome/confirm incomplete outcome should validate that the confirmation checkbox was checked 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"govuk-grid-row\\">
         <div class=\\"govuk-grid-column-two-thirds\\">
@@ -2097,7 +2097,7 @@ exports[`validation POST /validation/appeals/:appealId/review-outcome/confirm re
 </main>"
 `;
 
-exports[`validation POST /validation/appeals/:appealId/review-outcome/confirm received appeal invalid outcome should confirm the outcome with a success panel 1`] = `
+exports[`validation POST /validation/appeals/:appealId/review-outcome/confirm invalid outcome should confirm the outcome with a success panel 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"govuk-grid-row\\">
         <div class=\\"govuk-grid-column-two-thirds\\">
@@ -2119,7 +2119,7 @@ exports[`validation POST /validation/appeals/:appealId/review-outcome/confirm re
 </main>"
 `;
 
-exports[`validation POST /validation/appeals/:appealId/review-outcome/confirm received appeal valid outcome should confirm the outcome with a success panel 1`] = `
+exports[`validation POST /validation/appeals/:appealId/review-outcome/confirm valid outcome should confirm the outcome with a success panel 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"govuk-grid-row\\">
         <div class=\\"govuk-grid-column-two-thirds\\">

@@ -129,7 +129,10 @@ export const validateQuestionnaireReviewConfirmation = createValidator(
 	body('confirmation')
 		.toBoolean()
 		.custom((value, { req }) => {
-			const review = lpaSession.getQuestionnaireReview(req.session, req.param('appealId'));
+			const review = lpaSession.getQuestionnaireReview(
+				req.session,
+				/** @type {AppealParams} */ (req.params).appealId
+			);
 
 			if (review?.reviewQuestionnaire) {
 				return Object.keys(review.reviewQuestionnaire).length === 0 ? true : value;

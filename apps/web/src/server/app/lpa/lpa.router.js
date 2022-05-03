@@ -19,6 +19,7 @@ import {
 import {
 	assertDocumentTypeMissingOrIncorrect,
 	assertFinalCommentsRequired,
+	assertIncompleteQuestionnaire,
 	assertListedBuildingDescriptionMissingOrIncorrect,
 	assertQuestionnaireReviewExists,
 	assertStatementsRequired
@@ -67,6 +68,7 @@ router
 
 router
 	.route('/appeals/:appealId/questionnaire/complete')
+	.all(assertIncompleteQuestionnaire)
 	.post(validateQuestionnaireReviewCompletion, createAsyncHandler(createQuestionnaireReview));
 
 router
