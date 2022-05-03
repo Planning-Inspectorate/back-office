@@ -9,27 +9,27 @@ datasource db {
 
 model Appeal {
   id                           Int                         @id @default(autoincrement())
-  appealType                   AppealType?                 @relation(fields: [appealTypeId], references: [id])
-  appealTypeId                 Int?
   reference                    String
-  address                      Address?                    @relation(fields: [addressId], references: [id])
-  addressId                    Int?
-  appealStatus                 AppealStatus[]
-  appellant                    Appellant?                  @relation(fields: [appellantId], references: [id])
-  appellantId                  Int?                        @unique
-  localPlanningDepartment      String
-  planningApplicationReference String
   createdAt                    DateTime                    @default(now())
   updatedAt                    DateTime                    @default(now())
+  addressId                    Int?
+  localPlanningDepartment      String
+  planningApplicationReference String
   startedAt                    DateTime?
-  validationDecision           ValidationDecision[]
-  reviewQuestionnaire          ReviewQuestionnaire[]
-  lpaQuestionnaire             LPAQuestionnaire?
-  siteVisit                    SiteVisit?
-  inspectorDecision            InspectorDecision?
-  user                         User?                       @relation(fields: [userId], references: [id])
   userId                       Int?
+  appellantId                  Int?                        @unique
+  appealTypeId                 Int?
+  address                      Address?                    @relation(fields: [addressId], references: [id])
+  appealType                   AppealType?                 @relation(fields: [appealTypeId], references: [id])
+  appellant                    Appellant?                  @relation(fields: [appellantId], references: [id])
+  user                         User?                       @relation(fields: [userId], references: [id])
   appealDetailsFromAppellant   AppealDetailsFromAppellant?
+  appealStatus                 AppealStatus[]
+  inspectorDecision            InspectorDecision?
+  lpaQuestionnaire             LPAQuestionnaire?
+  reviewQuestionnaire          ReviewQuestionnaire[]
+  siteVisit                    SiteVisit?
+  validationDecision           ValidationDecision[]
 }
 
 model AppealType {
@@ -43,11 +43,11 @@ model AppealStatus {
   id                  Int      @id @default(autoincrement())
   status              String   @default("received_appeal")
   createdAt           DateTime @default(now())
+  valid               Boolean  @default(true)
+  appealId            Int
   subStateMachineName String?
   compoundStateName   String?
-  valid               Boolean  @default(true)
   appeal              Appeal   @relation(fields: [appealId], references: [id])
-  appealId            Int
 }
 
 model Appellant {
@@ -60,32 +60,31 @@ model Appellant {
 
 model AppealDetailsFromAppellant {
   id                                   Int      @id @default(autoincrement())
-  appeal                               Appeal   @relation(fields: [appealId], references: [id])
   appealId                             Int      @unique
   siteVisibleFromPublicLand            Boolean?
-  siteVisibleFromPublicLandDescription String?
   appellantOwnsWholeSite               Boolean?
   appellantOwnsWholeSiteDescription    String?
   healthAndSafetyIssues                Boolean?
   healthAndSafetyIssuesDescription     String?
+  siteVisibleFromPublicLandDescription String?
+  appeal                               Appeal   @relation(fields: [appealId], references: [id])
 }
 
 model Address {
   id           Int      @id @default(autoincrement())
   addressLine1 String?
   addressLine2 String?
-  town         String?
-  county       String?
   postcode     String?
+  county       String?
+  town         String?
   Appeal       Appeal[]
 }
 
 model ValidationDecision {
   id                         Int      @id @default(autoincrement())
-  appeal                     Appeal   @relation(fields: [appealId], references: [id])
   appealId                   Int
   createdAt                  DateTime @default(now())
-  decision                   String //can be 'valid', 'invalid' or 'incomplete' ...  that can be managed with enum
+  decision                   String
   namesDoNotMatch            Boolean  @default(false)
   sensitiveInfo              Boolean  @default(false)
   missingApplicationForm     Boolean  @default(false)
@@ -101,11 +100,11 @@ model ValidationDecision {
   lPADeemedInvalid           Boolean  @default(false)
   otherReasons               String?
   descriptionOfDevelopment   String?
+  appeal                     Appeal   @relation(fields: [appealId], references: [id])
 }
 
 model LPAQuestionnaire {
   id                                                    Int       @id @default(autoincrement())
-  appeal                                                Appeal    @relation(fields: [appealId], references: [id])
   appealId                                              Int       @unique
   affectsListedBuilding                                 Boolean?
   listedBuildingDescription                             String?
@@ -113,23 +112,23 @@ model LPAQuestionnaire {
   inGreenBelt                                           Boolean?
   inOrNearConservationArea                              Boolean?
   siteVisibleFromPublicLand                             Boolean?
-  siteVisibleFromPublicLandDescription                  String?
   doesInspectorNeedToEnterSite                          Boolean?
-  doesInspectorNeedToEnterSiteDescription               String?
   doesInspectorNeedToAccessNeighboursLand               Boolean?
   doesInspectorNeedToAccessNeighboursLandDescription    String?
   healthAndSafetyIssues                                 Boolean?
-  healthAndSafetyIssuesDescription                      String?
+  appealsInImmediateAreaBeingConsidered                 String?
+  receivedAt                                            DateTime?
+  sentAt                                                DateTime  @default(now())
+  doesInspectorNeedToEnterSiteDescription               String?
   emergingDevelopmentPlanOrNeighbourhoodPlan            Boolean?
   emergingDevelopmentPlanOrNeighbourhoodPlanDescription String?
-  appealsInImmediateAreaBeingConsidered                 String?
-  sentAt                                                DateTime  @default(now())
-  receivedAt                                            DateTime?
+  healthAndSafetyIssuesDescription                      String?
+  siteVisibleFromPublicLandDescription                  String?
+  appeal                                                Appeal    @relation(fields: [appealId], references: [id])
 }
 
 model ReviewQuestionnaire {
   id                                                                          Int      @id @default(autoincrement())
-  appeal                                                                      Appeal   @relation(fields: [appealId], references: [id])
   appealId                                                                    Int
   createdAt                                                                   DateTime @default(now())
   complete                                                                    Boolean  @default(false)
@@ -155,26 +154,28 @@ model ReviewQuestionnaire {
   thirdPartyAppealNotificationMissingOrIncorrect                              Boolean  @default(false)
   thirdPartyAppealNotificationMissingOrIncorrectListOfAddresses               Boolean  @default(false)
   thirdPartyAppealNotificationMissingOrIncorrectCopyOfLetterOrSiteNotice      Boolean  @default(false)
+  appeal                                                                      Appeal   @relation(fields: [appealId], references: [id])
 }
 
 model SiteVisit {
   id        Int      @id @default(autoincrement())
-  appeal    Appeal   @relation(fields: [appealId], references: [id])
   appealId  Int      @unique
   visitDate DateTime
   visitSlot String
   visitType String?
+  appeal    Appeal   @relation(fields: [appealId], references: [id])
 }
 
 model InspectorDecision {
   id                     Int     @id @default(autoincrement())
-  appeal                 Appeal  @relation(fields: [appealId], references: [id])
   appealId               Int     @unique
-  outcome                String // can be 'allowed', 'dismissed' or 'split decision'
+  outcome                String
   decisionLetterFilename String?
+  appeal                 Appeal  @relation(fields: [appealId], references: [id])
 }
 
 model User {
-  id     Int      @id @default(autoincrement())
-  appeal Appeal[]
+  id             Int      @id @default(autoincrement())
+  azureReference Int?     @unique
+  appeal         Appeal[]
 }
