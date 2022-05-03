@@ -6,9 +6,6 @@ import { createDocument } from '../factory/document.js';
 import { createIncompleteValidationDecision } from '../factory/validation-decision.js';
 import { validation } from '../formatters/appeal.js';
 
-/** @typedef {import('@pins/appeals').Validation.Appeal} Appeal */
-/** @typedef {import('@pins/appeals').Validation.AppealSummary} AppealSummary */
-
 const receivedAppeal = createAppeal({
 	id: 1,
 	reference: 'APP/B7676/J/07/8431690',
