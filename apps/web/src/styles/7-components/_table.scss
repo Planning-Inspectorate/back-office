@@ -1,44 +1,47 @@
 .govuk-accordion__section-content {
-  .govuk-summary-list:last-child {
-    margin-bottom: 25px;
-  }
-  .govuk-table__row:last-child {
-    .govuk-table__header, .govuk-table__cell {
-      border-bottom: none;
-    }
-  }
+	.govuk-summary-list:last-child {
+		margin-bottom: 25px;
+	}
+
+	.govuk-table__row:last-child {
+		.govuk-table__header, .govuk-table__cell {
+			border-bottom: none;
+		}
+	}
 }
 
 .pins-table {
-  &--fixed {
-    table-layout: fixed;
-  }
-  &__cell {
-    &--xs {
-      width: 80px;
-    }
-    &--s {
-      width: 130px;
-    }
-    &--m {
-      width: 180px;
-    }
-    &--l {
-      width: 270px;
-    }
-    &--xl {
-      width: 330px;
-    }
-  }
+	&--fixed {
+		table-layout: fixed;
+	}
 
-  &--questionnaire {
-    table-layout: fixed;
-    
-    tbody tr th {
-      width: 330px;
-    }
-    tbody tr td:last-child {
-      width: 400px;
-    }
-  }
+	&__cell {
+		&--xs {
+			width: 80px;
+		}
+		&--s {
+			width: 140px;
+		}
+		&--m {
+			width: 180px;
+		}
+		&--l {
+			width: 270px;
+		}
+		&--xl {
+			width: 330px;
+		}
+	}
+
+	&--questionnaire {
+		table-layout: fixed;
+
+		tbody tr th {
+			width: 330px;
+		}
+
+		tbody tr td:last-child {
+			width: 400px;
+		}
+	}
 }
