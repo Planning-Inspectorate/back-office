@@ -5,6 +5,10 @@ import { viewHomepage } from './app.controller.js';
 
 const router = express.Router();
 
+router.route('/services').get((req, res) => {
+	res.render('app/dashboard');
+});
+
 router.route('/').get(
 	isAuthenticated,
 	hasAccess({

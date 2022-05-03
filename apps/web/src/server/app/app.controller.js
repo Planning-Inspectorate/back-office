@@ -16,7 +16,7 @@ export function viewHomepage(request, response) {
 	const creds = request.session.account?.idTokenClaims?.groups ?? [];
 
 	if (userGroups.filter((element) => creds.includes(element)).length > 1) {
-		response.render('app/homepage');
+		response.render('app/dashboard');
 	} else {
 		switch (creds[0]) {
 			case config.auth.validationOfficerGroupID:
