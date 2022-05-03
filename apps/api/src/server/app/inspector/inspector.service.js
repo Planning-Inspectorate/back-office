@@ -39,7 +39,7 @@ export const bookSiteVisit = async ({ appealId, siteVisit }) => {
 		siteVisit: {
 			create: siteVisit
 		}
-	});
+	}, appeal.appealStatus);
 };
 
 /**
