@@ -197,7 +197,9 @@ const appealRepository = (function () {
 							valid: true
 						}
 					},
-					userId: userId
+					user: {
+						azureReference: userId
+					}
 				},
 				include: {
 					appealType: true,
