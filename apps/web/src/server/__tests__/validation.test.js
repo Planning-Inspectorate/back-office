@@ -423,6 +423,18 @@ describe('validation', () => {
 
 				expect(element.querySelector('h1')?.innerHTML).toEqual('Sorry, there is a problem with the service');
 			});
+
+			it('should remember any existing review outcome when re-submitting an unchanged status', async () => {
+				await installReviewOutcome({ status: 'valid', descriptionOfDevelopment: 'Exists!' });
+
+				const response = await request
+					.post(`/validation/appeals/${receivedAppealDetails.AppealId}`)
+					.send(/** @type {AppealOutcomeBody} */ ({ status: 'valid' }))
+					.redirects(1);
+				const element = parseHtml(response.text);
+
+				expect(element.innerHTML).toMatchSnapshot();
+			})
 		});
 	});
 

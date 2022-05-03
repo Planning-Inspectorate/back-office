@@ -100,6 +100,11 @@ export const setReviewOutcome = (session, data) => {
  */
 export const setReviewOutcomeStatus = (session, data) => {
 	const state = getState(session);
-	state.reviewOutcome = data;
-	session.validation = state;
+	const isUnchanged = state.reviewOutcome?.appealId === data.appealId && state.reviewOutcome?.status === data.status;
+	// if we are setting an unchanged review outcome status for the same
+	// appealId then do nothing
+	if (!isUnchanged) {
+		state.reviewOutcome = data;
+		session.validation = state;
+	}
 };
