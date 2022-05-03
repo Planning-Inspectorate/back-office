@@ -95,7 +95,7 @@ export async function assignAvailableAppeals({ body, session }, response) {
  */
 export async function viewAppealDetails({ params }, response) {
 	const appeal = await inspectorService.findAppealById(params.appealId);
-
+	
 	response.render('inspector/appeal-details', { appeal });
 }
 
@@ -183,10 +183,10 @@ export async function viewSiteVisitConfirmation({ params, session }, response) {
  * ConfirmSiteVisitSuccessRenderOptions>}
  */
 export async function confirmSiteVisit({ params, session }, response) {
-	const siteVisitData = /** @type {SiteVisitState} */ (
+	const { appealId, ...siteVisitData } = /** @type {SiteVisitState} */ (
 		inspectorSession.getSiteVisit(session, params.appealId)
 	);
-	const updatedAppeal = await inspectorService.bookSiteVisit(params.appealId, siteVisitData);
+	const updatedAppeal = await inspectorService.bookSiteVisit(appealId, siteVisitData);
 
 	inspectorSession.destroySiteVisit(session);
 

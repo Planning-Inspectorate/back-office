@@ -1,3 +1,4 @@
+import sub from 'date-fns/sub/index.js';
 import { createAddress } from '../factory/address.js';
 import { createAppealStatus } from '../factory/appeal-status.js';
 import { createAppeal } from '../factory/appeal.js';
@@ -6,44 +7,49 @@ import { createDocument } from '../factory/document.js';
 import { createIncompleteValidationDecision } from '../factory/validation-decision.js';
 import { validation } from '../formatters/appeal.js';
 
-const receivedAppeal = createAppeal({
-	id: 1,
-	reference: 'APP/B7676/J/07/8431690',
-	planningApplicationReference: '53/70/5345',
-	localPlanningDepartment: 'Barnsley Metropolitan Borough Council',
-	createdAt: new Date(2022, 0, 1),
-	appellant: createAppellant({ name: 'Herbert Appleton' }),
-	address: createAddress({
-		addressLine1: 'Temple Quay House',
-		addressLine2: '2 The Square',
-		town: 'Bristol',
-		postcode: 'BS1 6PN'
-	}),
-	documents: [
-		createDocument({ type: 'appeal statement' }),
-		createDocument({ type: 'decision letter' }),
-		createDocument({ type: 'planning application form' }),
-		createDocument({ type: 'supporting document' })
-	]
+/** @typedef {import('../factory/appeal').Appeal} Appeal */
+/** @typedef {import('../factory/appeal').AppealData} AppealData */
+/** @typedef {import('@pins/appeals').Validation.Appeal} ValidationAppeal */
+/** @typedef {import('@pins/appeals').Validation.AppealSummary} ValidationAppealSummary */
+
+/**
+ * @param {Partial<AppealData> & { id: number }} appealData
+ * @returns {[ValidationAppealSummary, ValidationAppeal]}
+ */
+const createAppealFixtures = ({ id, ...appealData }) => {
+	const appeal = createAppeal({
+		id,
+		planningApplicationReference: `00/01/${String(id).padStart(4, '0')}`,
+		localPlanningDepartment: 'Barnsley Metropolitan Borough Council',
+		reference: `VAL/A0000/A/00/0000${id}`,
+		createdAt: sub(new Date(), { days: id }),
+		startedAt: sub(new Date(), { days: id }),
+		appellant: createAppellant({ name: `Cliff Montgomery ${id}` }),
+		address: createAddress({
+			addressLine1: `London Industrial Park – Unit ${id}`,
+			addressLine2: 'Alpine Way',
+			town: 'London',
+			postcode: 'E6 6LA'
+		}),
+		documents: [
+			createDocument({ type: 'appeal statement' }),
+			createDocument({ type: 'decision letter' }),
+			createDocument({ type: 'planning application form' }),
+			createDocument({ type: 'supporting document' })
+		],
+		...appealData
+	});
+
+	return [validation.formatAppealSummary(appeal), validation.formatAppealDetails(appeal)];
+};
+
+export const [receivedAppealSummary, receivedAppealDetails] = createAppealFixtures({
+	id: 101
 });
 
-export const receivedAppealDetails = validation.formatAppealDetails(receivedAppeal);
-export const receivedAppealSummary = validation.formatAppealSummary(receivedAppeal);
-
-const incompleteAppeal = createAppeal({
-	id: 2,
+export const [incompleteAppealSummary, incompleteAppealDetails] = createAppealFixtures({
+	id: 102,
 	appealStatus: [createAppealStatus({ status: 'awaiting_validation_info' })],
-	reference: 'APP/B7676/J/07/1000000',
-	planningApplicationReference: '39/77/1117',
-	localPlanningDepartment: 'Waveney District Council',
-	createdAt: new Date(2022, 0, 1),
-	appellant: createAppellant({ name: 'Jennifer Honey' }),
-	address: createAddress({
-		addressLine1: 'Temple Quay House',
-		addressLine2: '2 The Square',
-		town: 'Bristol',
-		postcode: 'BS1 6PN'
-	}),
 	validationDecision: [
 		createIncompleteValidationDecision({
 			appealId: 2,
@@ -60,6 +66,3 @@ const incompleteAppeal = createAppeal({
 		})
 	]
 });
-
-export const incompleteAppealDetails = validation.formatAppealDetails(incompleteAppeal);
-export const incompleteAppealSummary = validation.formatAppealSummary(incompleteAppeal);

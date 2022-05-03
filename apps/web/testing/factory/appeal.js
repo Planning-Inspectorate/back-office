@@ -29,7 +29,7 @@ export function createAppeal({
 	startedAt = min([new Date(), add(createdAt, { days: random(1, 42) })]),
 	updatedAt = startedAt || createdAt,
 	address = createAddress(),
-	reference = createAppealReference(),
+	reference = createAppealReference({ prefix: appealTypeCode }),
 	appellant = createAppellant(),
 	userId = null,
 	documents = [

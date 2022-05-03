@@ -9,39 +9,22 @@ import {
 	localPlanningDepartments,
 	receivedAppealDetails,
 	receivedAppealSummary
-} from '../../../testing/index.js';
+} from '../../../../../testing/index.js';
 
 /** @typedef {import('@pins/appeals').Address} Address */
-/** @typedef {import('../app/validation/validation.controller').AppealOutcomeBody} AppealOutcomeBody */
-/** @typedef {import('../app/validation/validation.service').ValidAppealData} ValidAppealData */
-/** @typedef {import('../app/validation/validation.pipes').UnparsedInvalidOutcomeBody} InvalidOutcomeBody */
-/** @typedef {import('../app/validation/validation.pipes').UnparsedIncompleteOutcomeBody} IncompleteOutcomeBody */
-/** @typedef {import('../app/validation/validation.controller').UpdateAppellantNameBody} UpdateAppellantNameBody */
-/** @typedef {import('../app/validation/validation.controller').UpdatePlanningApplicationRefBody} UpdatePlanningApplicationRefBody */
-/** @typedef {import('../app/validation/validation.controller').UpdateLocalPlanningDeptBody} UpdateLocalPlanningDeptBody */
+/** @typedef {import('../validation.controller').AppealOutcomeBody} AppealOutcomeBody */
+/** @typedef {import('../validation.service').ValidAppealData} ValidAppealData */
+/** @typedef {import('../validation.pipes').UnparsedInvalidOutcomeBody} InvalidOutcomeBody */
+/** @typedef {import('../validation.pipes').UnparsedIncompleteOutcomeBody} IncompleteOutcomeBody */
+/** @typedef {import('../validation.controller').UpdateAppellantNameBody} UpdateAppellantNameBody */
+/** @typedef {import('../validation.controller').UpdatePlanningApplicationRefBody} UpdatePlanningApplicationRefBody */
+/** @typedef {import('../validation.controller').UpdateLocalPlanningDeptBody} UpdateLocalPlanningDeptBody */
 
-const { app, teardown } = createTestApplication();
+const { app, clearHttpCache, teardown } = createTestApplication();
 const request = supertest(app);
 
 describe('validation', () => {
-	beforeEach(() => {
-		// received appeal
-		nock('http://test/')
-			.get(`/validation/${receivedAppealDetails.AppealId}`)
-			.reply(200, receivedAppealDetails);
-
-		// incomplete appeal
-		nock('http://test/')
-			.get(`/validation/${incompleteAppealDetails.AppealId}`)
-			.reply(200, incompleteAppealDetails);
-
-		// planning departments
-		nock('http://test/').get('/validation/lpa-list').reply(200, localPlanningDepartments);
-
-		// remote error
-		nock('http://test/').get('/validation/0').reply(500);
-	});
-
+	beforeEach(installMockApi);
 	afterEach(teardown);
 
 	describe('GET /validation', () => {
@@ -207,9 +190,9 @@ describe('validation', () => {
 
 	describe('GET /validation/appeals/:appealId/appeal-site', () => {
 		it('should render a page for editing the appeal site', async () => {
-			const response = await request
-				.get(`/validation/appeals/${incompleteAppealDetails.AppealId}/appeal-site`)
-				.redirects(1);
+			const response = await request.get(
+				`/validation/appeals/${incompleteAppealDetails.AppealId}/appeal-site`
+			);
 			const element = parseHtml(response.text);
 
 			expect(element.innerHTML).toMatchSnapshot();
@@ -224,7 +207,7 @@ describe('validation', () => {
 				/** @type {Address} */ ({
 					AddressLine1: ' ',
 					Town: ' ',
-					PostCode: ''
+					PostCode: ' '
 				})
 			);
 			const element = parseHtml(response.text);
@@ -276,9 +259,9 @@ describe('validation', () => {
 
 	describe('GET /validation/appeals/:appealId/appellant-name', () => {
 		it('should render a page for editing the appellant name', async () => {
-			const response = await request
-				.get(`/validation/appeals/${incompleteAppealDetails.AppealId}/appellant-name`)
-				.redirects(1);
+			const response = await request.get(
+				`/validation/appeals/${incompleteAppealDetails.AppealId}/appellant-name`
+			);
 			const element = parseHtml(response.text);
 
 			expect(element.innerHTML).toMatchSnapshot();
@@ -322,10 +305,9 @@ describe('validation', () => {
 
 	describe('GET /validation/appeals/:appealId/planning-application-reference', () => {
 		it('should render a page for editing the planning application reference', async () => {
-			const { AppealId } = incompleteAppealDetails;
-			const response = await request
-				.get(`/validation/appeals/${AppealId}/planning-application-reference`)
-				.redirects(1);
+			const response = await request.get(
+				`/validation/appeals/${incompleteAppealDetails.AppealId}/planning-application-reference`
+			);
 			const element = parseHtml(response.text);
 
 			expect(element.innerHTML).toMatchSnapshot();
@@ -349,17 +331,15 @@ describe('validation', () => {
 		});
 
 		it('should update the planning application reference and return to the appeal page', async () => {
-			nock.cleanAll();
-
 			const details = { PlanningApplicationReference: '*' };
 
-			nock('http://test/')
-				.patch(`/validation/${AppealId}`, details)
-				.reply(200, incompleteAppealDetails);
-
+			nock.cleanAll();
 			nock('http://test/')
 				.get(`/validation/${AppealId}`)
 				.reply(200, { ...incompleteAppealDetails, ...details });
+			nock('http://test/')
+				.patch(`/validation/${AppealId}`, details)
+				.reply(200, incompleteAppealDetails);
 
 			const response = await request
 				.post(`/validation/appeals/${AppealId}/planning-application-reference`)
@@ -373,10 +353,9 @@ describe('validation', () => {
 
 	describe('GET /validation/appeals/:appealId/local-planning-department', () => {
 		it('should render a page for editing the local planning department', async () => {
-			const { AppealId } = incompleteAppealDetails;
-			const response = await request
-				.get(`/validation/appeals/${AppealId}/local-planning-department`)
-				.redirects(1);
+			const response = await request.get(
+				`/validation/appeals/${incompleteAppealDetails.AppealId}/local-planning-department`
+			);
 			const element = parseHtml(response.text);
 
 			expect(element.innerHTML).toMatchSnapshot();
@@ -426,6 +405,13 @@ describe('validation', () => {
 		describe('received appeal', () => {
 			const { AppealId } = receivedAppealDetails;
 
+			it('should validate the review outcome', async () => {
+				const response = await request.post(`/validation/appeals/${AppealId}`);
+				const element = parseHtml(response.text);
+
+				expect(element.innerHTML).toMatchSnapshot();
+			});
+
 			it('should handle a valid review outcome', async () => {
 				const response = await request
 					.post(`/validation/appeals/${AppealId}`)
@@ -433,7 +419,7 @@ describe('validation', () => {
 					.redirects(1);
 				const element = parseHtml(response.text);
 
-				expect(element.innerHTML).toMatchSnapshot();
+				expect(element.querySelector('h1')?.innerHTML).toEqual('Valid appeal details');
 			});
 
 			it('should handle an invalid review outcome', async () => {
@@ -443,7 +429,7 @@ describe('validation', () => {
 					.redirects(1);
 				const element = parseHtml(response.text);
 
-				expect(element.innerHTML).toMatchSnapshot();
+				expect(element.querySelector('h1')?.innerHTML).toEqual('Invalid appeal details');
 			});
 
 			it('should handle an incomplete review outcome', async () => {
@@ -453,14 +439,7 @@ describe('validation', () => {
 					.redirects(1);
 				const element = parseHtml(response.text);
 
-				expect(element.innerHTML).toMatchSnapshot();
-			});
-
-			it('should handle an incomplete review outcome', async () => {
-				const response = await request.post(`/validation/appeals/${AppealId}`);
-				const element = parseHtml(response.text);
-
-				expect(element.innerHTML).toMatchSnapshot();
+				expect(element.querySelector('h1')?.innerHTML).toEqual('What is missing or wrong?');
 			});
 
 			it('should handle an asynchronous error during the request', async () => {
@@ -473,7 +452,10 @@ describe('validation', () => {
 			});
 
 			it('should remember any existing review outcome when re-submitting an unchanged status', async () => {
-				await installReviewOutcome({ status: 'valid', descriptionOfDevelopment: 'Exists!' });
+				await installReviewOutcome({
+					status: 'valid',
+					descriptionOfDevelopment: 'Exists!'
+				});
 
 				const response = await request
 					.post(`/validation/appeals/${receivedAppealDetails.AppealId}`)
@@ -482,7 +464,7 @@ describe('validation', () => {
 				const element = parseHtml(response.text);
 
 				expect(element.innerHTML).toMatchSnapshot();
-			})
+			});
 		});
 	});
 
@@ -496,7 +478,7 @@ describe('validation', () => {
 					.redirects(1);
 				const element = parseHtml(response.text);
 
-				expect(element.querySelector('h1')?.outerHTML).toMatchSnapshot();
+				expect(element.querySelector('h1')?.innerHTML).toEqual('Review appeal submission');
 			});
 
 			it('should render a valid review outcome page', async () => {
@@ -842,12 +824,33 @@ describe('validation', () => {
 	});
 });
 
+function installMockApi() {
+	// received appeal
+	nock('http://test/')
+		.get(`/validation/${receivedAppealDetails.AppealId}`)
+		.reply(200, receivedAppealDetails);
+
+	// incomplete appeal
+	nock('http://test/')
+		.get(`/validation/${incompleteAppealDetails.AppealId}`)
+		.reply(200, incompleteAppealDetails);
+
+	// planning departments
+	nock('http://test/').get('/validation/lpa-list').reply(200, localPlanningDepartments);
+
+	// remote error
+	nock('http://test/').get('/validation/0').reply(500);
+}
+
 /**
  * @param {AppealOutcomeBody} body
- * @returns {Promise<import('supertest').Response>}
+ * @returns {Promise<void>}
  */
-function installReviewOutcomeStatus(body) {
-	return request.post(`/validation/appeals/${receivedAppealDetails.AppealId}`).send(body);
+async function installReviewOutcomeStatus(body) {
+	await request.post(`/validation/appeals/${receivedAppealDetails.AppealId}`).send(body);
+	clearHttpCache();
+	nock.cleanAll();
+	installMockApi();
 }
 
 /**
@@ -860,4 +863,7 @@ async function installReviewOutcome(body) {
 	await request
 		.post(`/validation/appeals/${receivedAppealDetails.AppealId}/review-outcome`)
 		.send(body);
+	clearHttpCache();
+	nock.cleanAll();
+	installMockApi();
 }

@@ -13,7 +13,7 @@ export function createValidValidationDecision({
 	id = createUniqueId(),
 	appealId = createUniqueId(),
 	createdAt = new Date(),
-	decision = 'valid',
+	decision = 'complete',
 	descriptionOfDevelopment = faker.lorem.paragraph()
 }) {
 	return {
