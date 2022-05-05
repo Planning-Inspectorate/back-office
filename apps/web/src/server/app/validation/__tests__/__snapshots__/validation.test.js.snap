@@ -34,7 +34,7 @@ exports[`validation GET /validation should render new and incomplete appeals 1`]
             <tr class=\\"govuk-table__row\\">
                 <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link\\" href=\\"/validation/appeals/101\\"> VAL/A0000/A/00/0000101</a>
                 </td>
-                <td class=\\"govuk-table__cell\\">23 Jan 2022</td>
+                <td class=\\"govuk-table__cell\\">01 Jan 2022</td>
                 <td class=\\"govuk-table__cell\\">London Industrial Park – Unit 101, Alpine Way, London, E6 6LA</td>
             </tr>
         </tbody>
@@ -52,7 +52,7 @@ exports[`validation GET /validation should render new and incomplete appeals 1`]
             <tr class=\\"govuk-table__row\\">
                 <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link\\" href=\\"/validation/appeals/102\\"> VAL/A0000/A/00/0000102</a>
                 </td>
-                <td class=\\"govuk-table__cell\\">22 Jan 2022</td>
+                <td class=\\"govuk-table__cell\\">01 Jan 2022</td>
                 <td class=\\"govuk-table__cell\\">London Industrial Park – Unit 102, Alpine Way, London, E6 6LA</td>
             </tr>
         </tbody>
@@ -76,7 +76,7 @@ exports[`validation GET /validation/appeals/:appealId should render an appeal in
                     <dd class=\\"govuk-summary-list__value\\">VAL/A0000/A/00/0000101</dd>
                 </div>
                 <div class=\\"govuk-summary-list__row govuk-summary-list__row--no-actions\\"><dt class=\\"govuk-summary-list__key\\"> Received on</dt>
-                    <dd class=\\"govuk-summary-list__value\\">23 Jan 2022</dd>
+                    <dd class=\\"govuk-summary-list__value\\">01 Jan 2022</dd>
                 </div>
                 <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Appeal site</dt>
                     <dd class=\\"govuk-summary-list__value appealSite\\">London Industrial Park – Unit 101
@@ -166,7 +166,7 @@ exports[`validation GET /validation/appeals/:appealId should render an appeal in
                     <dd class=\\"govuk-summary-list__value\\">VAL/A0000/A/00/0000102</dd>
                 </div>
                 <div class=\\"govuk-summary-list__row govuk-summary-list__row--no-actions\\"><dt class=\\"govuk-summary-list__key\\"> Received on</dt>
-                    <dd class=\\"govuk-summary-list__value\\">22 Jan 2022</dd>
+                    <dd class=\\"govuk-summary-list__value\\">01 Jan 2022</dd>
                 </div>
                 <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Appeal site</dt>
                     <dd class=\\"govuk-summary-list__value appealSite\\">London Industrial Park – Unit 102
@@ -789,7 +789,7 @@ exports[`validation POST /validation/appeals/:appealId received appeal should va
                     <dd class=\\"govuk-summary-list__value\\">VAL/A0000/A/00/0000101</dd>
                 </div>
                 <div class=\\"govuk-summary-list__row govuk-summary-list__row--no-actions\\"><dt class=\\"govuk-summary-list__key\\"> Received on</dt>
-                    <dd class=\\"govuk-summary-list__value\\">23 Jan 2022</dd>
+                    <dd class=\\"govuk-summary-list__value\\">01 Jan 2022</dd>
                 </div>
                 <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Appeal site</dt>
                     <dd class=\\"govuk-summary-list__value appealSite\\">London Industrial Park – Unit 101

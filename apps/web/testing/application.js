@@ -1,24 +1,34 @@
 import express from 'express';
-import { jest } from '@jest/globals';
-import { noop } from 'lodash-es';
 import nock from 'nock';
 import { app } from '../src/server/app/app.express.js';
 import { ttlCache } from '../src/server/lib/request.js';
+import { installAuthMock } from './mocks/auth.js';
+import { installFixedDate } from './mocks/date.js';
+import { installMockApi } from './mocks/api.js';
+import { installSessionMock } from './mocks/session.js';
 
-export const createTestApplication = () => {
+let sessionId = 1;
+
+/**
+ * @param {object} [options]
+ * @param {boolean} [options.authenticated]
+ * @param {string[]} [options.groups]
+ */
+export const createTestApplication = ({
+	authenticated = true,
+	groups = ['case_officer', 'inspector', 'validation_officer']
+} = {}) => {
 	const testApp = express();
+	const getSessionID = () => sessionId;
 
-	let sessionIndex = 1;
-	let dateToday;
+	/** @type {import('./mocks/date').DateMock} */
+	let dateMock;
 
-	// Monkey patch sessionID so we can maintain a consistent session
-	testApp.use((request, _, next) => {
-		Object.defineProperty(request, 'sessionID', {
-			get: () => `TestSessionID${sessionIndex}`,
-			set: noop
-		});
-		next();
-	});
+	if (authenticated)	 {
+		testApp.use(installAuthMock({ groups, getSessionID }));
+	} else {
+		testApp.use(installSessionMock({ getSessionID }));
+	}
 
 	testApp.use(app);
 
@@ -26,34 +36,14 @@ export const createTestApplication = () => {
 		app: testApp,
 		clearHttpCache: () => ttlCache.clear(),
 		installFixedDate: (/** @type {Date} */ date) => {
-			jest.useFakeTimers({
-				doNotFake: [
-					'hrtime',
-					'nextTick',
-					'performance',
-					'queueMicrotask',
-					'requestAnimationFrame',
-					'cancelAnimationFrame',
-					'requestIdleCallback',
-					'cancelIdleCallback',
-					'setImmediate',
-					'clearImmediate',
-					'setInterval',
-					'clearInterval',
-					'setTimeout',
-					'clearTimeout'
-				]
-			});
-			jest.setSystemTime(date);
+			dateMock = installFixedDate(date)
 		},
+		installMockApi,
 		teardown: () => {
-			// "Reset" the session by incrementing the index used by the sessionID, thus
-			// leaving it no existing data in the sessionStore
-			sessionIndex += 1;
-			// clear any cached http requests
-			ttlCache.clear();
+			dateMock?.restore();
 			nock.cleanAll();
-			jest.useRealTimers();
+			sessionId++;
+			ttlCache.clear();
 		}
 	};
 };

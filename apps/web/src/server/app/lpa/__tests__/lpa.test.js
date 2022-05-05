@@ -16,7 +16,7 @@ import {
 	getPathToAsset
 } from '../../../../../testing/index.js';
 
-const { app, teardown } = createTestApplication();
+const { app, installMockApi, teardown } = createTestApplication();
 const request = supertest(app);
 
 describe('lpa', () => {
@@ -711,25 +711,6 @@ describe('lpa', () => {
 		});
 	});
 });
-
-function installMockApi() {
-	for (const appeal of [
-		appealDetailsForReceivedQuestionnaire,
-		appealDetailsForIncompleteQuestionnaire,
-		appealDetailsForFinalComments,
-		appealDetailsForStatements
-	]) {
-		nock('http://test/').get(`/case-officer/${appeal.AppealId}`).reply(200, appeal);
-	}
-	for (const appeal of [appealDetailsForFinalComments, appealDetailsForStatements]) {
-		nock('http://test/')
-			.get(`/case-officer/${appeal.AppealId}/statements-comments`)
-			.reply(200, appeal);
-	}
-	// Unknown appeals
-	nock('http://test/').get('/case-officer/0').reply(500);
-	nock('http://test/').get('/case-officer/0/statements-comments').reply(500);
-}
 
 /**
  * @param {number} appealId
