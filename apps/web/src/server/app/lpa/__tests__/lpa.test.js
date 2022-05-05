@@ -2,51 +2,25 @@ import { parseHtml } from '@pins/platform/testing';
 import nock from 'nock';
 import supertest from 'supertest';
 import {
-  appealDetailsForFinalComments,
-  appealDetailsForIncompleteQuestionnaire,
-  appealDetailsForReceivedQuestionnaire,
-  appealDetailsForStatements,
-  appealSummaryForIncompleteQuestionnaire,
-  appealSummaryForOverdueQuestionnaire,
-  appealSummaryForPendingFinalComments,
-  appealSummaryForPendingQuestionnaire,
-  appealSummaryForPendingStatements,
-  appealSummaryForReceivedQuestionnaire,
-  createTestApplication,
-  getPathToAsset
-} from '../../../testing/index.js';
-
+	appealDetailsForFinalComments,
+	appealDetailsForIncompleteQuestionnaire,
+	appealDetailsForReceivedQuestionnaire,
+	appealDetailsForStatements,
+	appealSummaryForIncompleteQuestionnaire,
+	appealSummaryForOverdueQuestionnaire,
+	appealSummaryForFinalComments,
+	appealSummaryForPendingQuestionnaire,
+	appealSummaryForStatements,
+	appealSummaryForReceivedQuestionnaire,
+	createTestApplication,
+	getPathToAsset
+} from '../../../../../testing/index.js';
 
 const { app, teardown } = createTestApplication();
 const request = supertest(app);
 
 describe('lpa', () => {
-	beforeEach(() => {
-		// Appeal with received questionnaire
-		nock('http://test/')
-			.get(`/case-officer/${appealDetailsForReceivedQuestionnaire.AppealId}`)
-			.reply(200, appealDetailsForReceivedQuestionnaire);
-
-		// Appeal with incomplete questionnaire
-		nock('http://test/')
-			.get(`/case-officer/${appealDetailsForIncompleteQuestionnaire.AppealId}`)
-			.reply(200, appealDetailsForIncompleteQuestionnaire);
-
-		// Appeal awaiting final comments
-		nock('http://test/')
-			.get(`/case-officer/${appealDetailsForFinalComments.AppealId}/statements-comments`)
-			.reply(200, appealDetailsForFinalComments);
-
-		// Appeal awaiting statements
-		nock('http://test/')
-			.get(`/case-officer/${appealDetailsForStatements.AppealId}/statements-comments`)
-			.reply(200, appealDetailsForStatements);
-
-		// Unknown appeals
-		nock('http://test/').get('/case-officer/0').reply(500);
-		nock('http://test/').get('/case-officer/0/statements-comments').reply(500);
-	});
-
+	beforeEach(installMockApi);
 	afterEach(teardown);
 
 	describe('GET /lpa', () => {
@@ -67,8 +41,8 @@ describe('lpa', () => {
 					appealSummaryForOverdueQuestionnaire,
 					appealSummaryForPendingQuestionnaire,
 					appealSummaryForIncompleteQuestionnaire,
-					appealSummaryForPendingFinalComments,
-					appealSummaryForPendingStatements
+					appealSummaryForFinalComments,
+					appealSummaryForStatements
 				]);
 
 			const response = await request.get('/lpa');
@@ -737,6 +711,25 @@ describe('lpa', () => {
 		});
 	});
 });
+
+function installMockApi() {
+	for (const appeal of [
+		appealDetailsForReceivedQuestionnaire,
+		appealDetailsForIncompleteQuestionnaire,
+		appealDetailsForFinalComments,
+		appealDetailsForStatements
+	]) {
+		nock('http://test/').get(`/case-officer/${appeal.AppealId}`).reply(200, appeal);
+	}
+	for (const appeal of [appealDetailsForFinalComments, appealDetailsForStatements]) {
+		nock('http://test/')
+			.get(`/case-officer/${appeal.AppealId}/statements-comments`)
+			.reply(200, appeal);
+	}
+	// Unknown appeals
+	nock('http://test/').get('/case-officer/0').reply(500);
+	nock('http://test/').get('/case-officer/0/statements-comments').reply(500);
+}
 
 /**
  * @param {number} appealId

@@ -2,9 +2,18 @@ import { randomLetter } from '@pins/platform/testing';
 import { sample, random } from 'lodash-es';
 import { localPlanningDepartments } from '../fixtures/referencedata';
 
-export const createAppealReference = () =>
+/**
+ * @typedef {object} AppealReferenceOptions
+ * @property {string} [prefix='APP']
+ */
+
+/**
+ * @param {AppealReferenceOptions} [options={}]
+ * @returns {string}
+ */
+export const createAppealReference = ({ prefix = 'HAS' } = {}) =>
 	[
-		'APP',
+		prefix,
 		`${randomLetter()}${random(1000, 9999)}`,
 		randomLetter(),
 		String(random(1, 99)).padStart(2, '0'),

@@ -1,6 +1,5 @@
 import express from 'express';
 import { createAsyncHandler } from '../../lib/async-error-handler.js';
-import { expressValidationErrorsInterceptor } from '../../lib/express-validation-errors.js';
 import {
 	assignAvailableAppeals,
 	confirmDecision,
@@ -45,11 +44,7 @@ router.route('/').get(createAsyncHandler(viewDashboard));
 router
 	.route('/available-appeals')
 	.get(createAsyncHandler(viewAvailableAppeals))
-	.post(
-		validateAvailableAppeals,
-		expressValidationErrorsInterceptor,
-		createAsyncHandler(assignAvailableAppeals)
-	);
+	.post(validateAvailableAppeals, createAsyncHandler(assignAvailableAppeals));
 
 router.route('/appeals/:appealId').get(createAsyncHandler(viewAppealDetails));
 

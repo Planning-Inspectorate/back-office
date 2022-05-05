@@ -1,10 +1,14 @@
 import validationFormatter from '@pins/api/src/server/app/validation/appeal-formatter.js';
 import caseOfficerFormatter from '@pins/api/src/server/app/case-officer/appeal-formatter.js';
+import { appealFormatter as inspectorFormatter } from '@pins/api/src/server/app/inspector/appeal-formatter.js';
 
 /** @typedef {import('@pins/api').Schema.Appeal} RawAppeal */
 /** @typedef {import('@pins/appeals').Validation.Appeal} ValidationAppeal */
+/** @typedef {import('@pins/appeals').Validation.AppealSummary} ValidationAppealSummary */
 /** @typedef {import('@pins/appeals').Lpa.Appeal} LpaAppeal */
 /** @typedef {import('@pins/appeals').Lpa.AppealSummary} LpaAppealSummary */
+/** @typedef {import('@pins/appeals').Inspector.Appeal} InspectorAppeal */
+/** @typedef {import('@pins/appeals').Inspector.AppealSummary} InspectorAppealSummary */
 
 /**
  * @param {RawAppeal} appeal
@@ -13,21 +17,22 @@ import caseOfficerFormatter from '@pins/api/src/server/app/case-officer/appeal-f
 const formatAppealDetailsForValidation = ({ documents = [], ...other }) => {
 	const formattedAppeal = validationFormatter.formatAppealForAppealDetails(other);
 
-	return {
+	return /** @type {ValidationAppeal} */ ({
 		...formattedAppeal,
 		Documents: documents.map((document) => ({
 			Type: document.type,
 			Filename: document.filename,
 			URL: document.url
 		}))
-	};
+	});
 };
 
 /**
- * @param {RawAppeal} appeal
- * @returns {AppealSummary} - TODO: Link this type to web/response definition
+ * @type {(appeal: RawAppeal) => ValidationAppealSummary}
  */
-const formatAppealSummaryForValidation = validationFormatter.formatAppealForAllAppeals;
+const formatAppealSummaryForValidation = /** @type {*} */ (
+	validationFormatter.formatAppealForAllAppeals
+);
 
 /**
  * @param {RawAppeal} appeal
@@ -61,6 +66,19 @@ const formatAppealSummaryForCaseOfficer = (appeal) => ({
 	...caseOfficerFormatter.formatAppealForParallelStates(appeal)
 });
 
+/**
+ * @type {(appeal: RawAppeal) => InspectorAppealSummary}
+ */
+const formatAppealSummaryForInspector = /** @type {*} */ (
+	inspectorFormatter.formatAppealForAllAppeals
+);
+
+/**
+ * @param {RawAppeal} appeal
+ * @returns {InspectorAppeal}
+ */
+const formatAppealDetailsForInspector = inspectorFormatter.formatAppealForAppealDetails;
+
 export const caseOfficer = {
 	formatAppealDetails: formatAppealDetailsForCaseOfficer,
 	formatAppealSummary: formatAppealSummaryForCaseOfficer
@@ -69,4 +87,9 @@ export const caseOfficer = {
 export const validation = {
 	formatAppealDetails: formatAppealDetailsForValidation,
 	formatAppealSummary: formatAppealSummaryForValidation
+};
+
+export const inspector = {
+	formatAppealSummary: formatAppealSummaryForInspector,
+	formatAppealDetails: formatAppealDetailsForInspector
 };

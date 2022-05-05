@@ -32,9 +32,7 @@ export function assignAppealsToUser(appealIds) {
  * @returns {Promise<Appeal>}
  */
 export async function bookSiteVisit(appealId, data) {
-	await post(`inspector/${appealId}/book`, { json: data });
-
-	return findAppealById(appealId);
+	return post(`inspector/${appealId}/book`, { json: data });
 }
 
 /**
@@ -66,7 +64,7 @@ export function findAllUnassignedAppeals() {
  * @returns {Promise<Appeal>}
  */
 export function findAppealById(appealId) {
-	return get(`inspector/${appealId}`, { context: { ttl: 1000 } });
+	return get(`inspector/${appealId}`, { context: { ttl: 10_000 } });
 }
 
 /**

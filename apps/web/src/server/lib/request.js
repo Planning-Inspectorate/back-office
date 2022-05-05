@@ -21,9 +21,9 @@ const instance = got.extend({
 	handlers: [
 		createTtlHandler(ttlCache),
 		(options, next) => {
-			if (!options.context.servedFromCache) {
-				console.log(`Sending ${kleur.bgBlue(options.method)} to ${kleur.blue(options.url)}`);
-			}
+			// if (!options.context.servedFromCache) {
+			// 	console.log(`Sending ${kleur.bgBlue(options.method)} to ${kleur.blue(options.url)}`);
+			// }
 			return next(options);
 		}
 	]

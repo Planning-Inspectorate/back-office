@@ -1,13 +1,15 @@
 import express from 'express';
-import { ttlCache } from '../src/server/lib/request.js';
+import { jest } from '@jest/globals';
 import { noop } from 'lodash-es';
-import { app } from '../src/server/app/app.express.js';
 import nock from 'nock';
+import { app } from '../src/server/app/app.express.js';
+import { ttlCache } from '../src/server/lib/request.js';
 
 export const createTestApplication = () => {
 	const testApp = express();
 
 	let sessionIndex = 1;
+	let dateToday;
 
 	// Monkey patch sessionID so we can maintain a consistent session
 	testApp.use((request, _, next) => {
@@ -22,6 +24,28 @@ export const createTestApplication = () => {
 
 	return {
 		app: testApp,
+		clearHttpCache: () => ttlCache.clear(),
+		installFixedDate: (/** @type {Date} */ date) => {
+			jest.useFakeTimers({
+				doNotFake: [
+					'hrtime',
+					'nextTick',
+					'performance',
+					'queueMicrotask',
+					'requestAnimationFrame',
+					'cancelAnimationFrame',
+					'requestIdleCallback',
+					'cancelIdleCallback',
+					'setImmediate',
+					'clearImmediate',
+					'setInterval',
+					'clearInterval',
+					'setTimeout',
+					'clearTimeout'
+				]
+			});
+			jest.setSystemTime(date);
+		},
 		teardown: () => {
 			// "Reset" the session by incrementing the index used by the sessionID, thus
 			// leaving it no existing data in the sessionStore
@@ -29,6 +53,7 @@ export const createTestApplication = () => {
 			// clear any cached http requests
 			ttlCache.clear();
 			nock.cleanAll();
+			jest.useRealTimers();
 		}
 	};
 };

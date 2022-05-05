@@ -14,7 +14,7 @@
     {% endif %}
   {% endblock %}
   <div class="govuk-grid-row">
-    <div class="govuk-grid-column-one-quarter pins-content--sticky">
+    <div data-test-id="pageLeft" class="govuk-grid-column-one-quarter pins-content--sticky">
       {% block pageLeft %}{% endblock %}
     </div>
     <div class="govuk-grid-column-one-half">
@@ -28,7 +28,7 @@
       {% endif %}
       {% block pageContent %}{% endblock %}
     </div>
-    <div class="govuk-grid-column-one-quarter">
+    <div data-test-id="pageRight" class="govuk-grid-column-one-quarter">
       {% block pageRight %}{% endblock %}
     </div>
   </div>  

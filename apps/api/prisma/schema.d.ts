@@ -72,13 +72,13 @@ export type AppealDocumentType =
 	| 'planning application form'
 	| 'supporting document';
 
-export type ValidationDecisionType = 'valid' | 'invalid' | 'incomplete';
+export type ValidationDecisionType = 'complete' | 'invalid' | 'incomplete';
 
 export interface ValidValidationDecision {
 	id: number;
 	appealId: number;
 	createdAt: Date;
-	decision: 'valid';
+	decision: 'complete';
 	descriptionOfDevelopment: string;
 }
 

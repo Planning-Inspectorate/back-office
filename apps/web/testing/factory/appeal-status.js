@@ -11,7 +11,7 @@ export function createAppealStatus({
 	id = createUniqueId(),
 	status = 'received_appeal',
 	createdAt = new Date(),
-	subStateMachineName = 'lpaQuestionnaireAndInspectorPickup',
+	subStateMachineName = null,
 	compoundStateName = null,
 	valid = true
 } = {}) {

@@ -32,10 +32,10 @@ exports[`validation GET /validation should render new and incomplete appeals 1`]
         </thead>
         <tbody class=\\"govuk-table__body\\">
             <tr class=\\"govuk-table__row\\">
-                <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link\\" href=\\"/validation/appeals/1\\"> APP/B7676/J/07/8431690</a>
+                <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link\\" href=\\"/validation/appeals/101\\"> VAL/A0000/A/00/0000101</a>
                 </td>
-                <td class=\\"govuk-table__cell\\">01 Jan 2022</td>
-                <td class=\\"govuk-table__cell\\">Temple Quay House, 2 The Square, Bristol, BS1 6PN</td>
+                <td class=\\"govuk-table__cell\\">23 Jan 2022</td>
+                <td class=\\"govuk-table__cell\\">London Industrial Park – Unit 101, Alpine Way, London, E6 6LA</td>
             </tr>
         </tbody>
     </table>
@@ -50,10 +50,10 @@ exports[`validation GET /validation should render new and incomplete appeals 1`]
         </thead>
         <tbody class=\\"govuk-table__body\\">
             <tr class=\\"govuk-table__row\\">
-                <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link\\" href=\\"/validation/appeals/2\\"> APP/B7676/J/07/1000000</a>
+                <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link\\" href=\\"/validation/appeals/102\\"> VAL/A0000/A/00/0000102</a>
                 </td>
-                <td class=\\"govuk-table__cell\\">01 Jan 2022</td>
-                <td class=\\"govuk-table__cell\\">Temple Quay House, 2 The Square, Bristol, BS1 6PN</td>
+                <td class=\\"govuk-table__cell\\">22 Jan 2022</td>
+                <td class=\\"govuk-table__cell\\">London Industrial Park – Unit 102, Alpine Way, London, E6 6LA</td>
             </tr>
         </tbody>
     </table>
@@ -68,32 +68,32 @@ exports[`validation GET /validation/appeals/:appealId should render an appeal in
             <h2 class=\\"govuk-visually-hidden\\"> Appeal details</h2>
             <dl class=\\"govuk-summary-list\\">
                 <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Appellant name</dt>
-                    <dd class=\\"govuk-summary-list__value appellantName\\">Herbert Appleton</dd>
-                    <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/validation/appeals/1/appellant-name\\"> Change<span class=\\"govuk-visually-hidden\\"> appellant name</span></a>
+                    <dd class=\\"govuk-summary-list__value appellantName\\">Cliff Montgomery 101</dd>
+                    <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/validation/appeals/101/appellant-name\\"> Change<span class=\\"govuk-visually-hidden\\"> appellant name</span></a>
                     </dd>
                 </div>
                 <div class=\\"govuk-summary-list__row govuk-summary-list__row--no-actions\\"><dt class=\\"govuk-summary-list__key\\"> Appeal reference</dt>
-                    <dd class=\\"govuk-summary-list__value\\">APP/B7676/J/07/8431690</dd>
+                    <dd class=\\"govuk-summary-list__value\\">VAL/A0000/A/00/0000101</dd>
                 </div>
                 <div class=\\"govuk-summary-list__row govuk-summary-list__row--no-actions\\"><dt class=\\"govuk-summary-list__key\\"> Received on</dt>
-                    <dd class=\\"govuk-summary-list__value\\">01 Jan 2022</dd>
+                    <dd class=\\"govuk-summary-list__value\\">23 Jan 2022</dd>
                 </div>
                 <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Appeal site</dt>
-                    <dd class=\\"govuk-summary-list__value appealSite\\">Temple Quay House
-                        <br>2 The Square
-                        <br>Bristol
-                        <br>BS1 6PN</dd>
-                    <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/validation/appeals/1/appeal-site\\"> Change<span class=\\"govuk-visually-hidden\\"> appeal site</span></a>
+                    <dd class=\\"govuk-summary-list__value appealSite\\">London Industrial Park – Unit 101
+                        <br>Alpine Way
+                        <br>London
+                        <br>E6 6LA</dd>
+                    <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/validation/appeals/101/appeal-site\\"> Change<span class=\\"govuk-visually-hidden\\"> appeal site</span></a>
                     </dd>
                 </div>
                 <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Local planning department</dt>
                     <dd                     class=\\"govuk-summary-list__value localPlanningDepartment\\">Barnsley Metropolitan Borough Council</dd>
-                        <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/validation/appeals/1/local-planning-department\\"> Change<span class=\\"govuk-visually-hidden\\"> local planning department</span></a>
+                        <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/validation/appeals/101/local-planning-department\\"> Change<span class=\\"govuk-visually-hidden\\"> local planning department</span></a>
                         </dd>
                 </div>
                 <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Planning application reference</dt>
-                    <dd                     class=\\"govuk-summary-list__value planningApplicationReference\\">53/70/5345</dd>
-                        <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/validation/appeals/1/planning-application-reference\\"> Change<span class=\\"govuk-visually-hidden\\"> planning application reference</span></a>
+                    <dd                     class=\\"govuk-summary-list__value planningApplicationReference\\">00/01/0101</dd>
+                        <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/validation/appeals/101/planning-application-reference\\"> Change<span class=\\"govuk-visually-hidden\\"> planning application reference</span></a>
                         </dd>
                 </div>
             </dl>
@@ -158,32 +158,32 @@ exports[`validation GET /validation/appeals/:appealId should render an appeal in
             <h2 class=\\"govuk-visually-hidden\\"> Appeal details</h2>
             <dl class=\\"govuk-summary-list\\">
                 <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Appellant name</dt>
-                    <dd class=\\"govuk-summary-list__value appellantName\\">Jennifer Honey</dd>
-                    <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/validation/appeals/2/appellant-name\\"> Change<span class=\\"govuk-visually-hidden\\"> appellant name</span></a>
+                    <dd class=\\"govuk-summary-list__value appellantName\\">Cliff Montgomery 102</dd>
+                    <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/validation/appeals/102/appellant-name\\"> Change<span class=\\"govuk-visually-hidden\\"> appellant name</span></a>
                     </dd>
                 </div>
                 <div class=\\"govuk-summary-list__row govuk-summary-list__row--no-actions\\"><dt class=\\"govuk-summary-list__key\\"> Appeal reference</dt>
-                    <dd class=\\"govuk-summary-list__value\\">APP/B7676/J/07/1000000</dd>
+                    <dd class=\\"govuk-summary-list__value\\">VAL/A0000/A/00/0000102</dd>
                 </div>
                 <div class=\\"govuk-summary-list__row govuk-summary-list__row--no-actions\\"><dt class=\\"govuk-summary-list__key\\"> Received on</dt>
-                    <dd class=\\"govuk-summary-list__value\\">01 Jan 2022</dd>
+                    <dd class=\\"govuk-summary-list__value\\">22 Jan 2022</dd>
                 </div>
                 <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Appeal site</dt>
-                    <dd class=\\"govuk-summary-list__value appealSite\\">Temple Quay House
-                        <br>2 The Square
-                        <br>Bristol
-                        <br>BS1 6PN</dd>
-                    <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/validation/appeals/2/appeal-site\\"> Change<span class=\\"govuk-visually-hidden\\"> appeal site</span></a>
+                    <dd class=\\"govuk-summary-list__value appealSite\\">London Industrial Park – Unit 102
+                        <br>Alpine Way
+                        <br>London
+                        <br>E6 6LA</dd>
+                    <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/validation/appeals/102/appeal-site\\"> Change<span class=\\"govuk-visually-hidden\\"> appeal site</span></a>
                     </dd>
                 </div>
                 <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Local planning department</dt>
-                    <dd                     class=\\"govuk-summary-list__value localPlanningDepartment\\">Waveney District Council</dd>
-                        <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/validation/appeals/2/local-planning-department\\"> Change<span class=\\"govuk-visually-hidden\\"> local planning department</span></a>
+                    <dd                     class=\\"govuk-summary-list__value localPlanningDepartment\\">Barnsley Metropolitan Borough Council</dd>
+                        <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/validation/appeals/102/local-planning-department\\"> Change<span class=\\"govuk-visually-hidden\\"> local planning department</span></a>
                         </dd>
                 </div>
                 <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Planning application reference</dt>
-                    <dd                     class=\\"govuk-summary-list__value planningApplicationReference\\">39/77/1117</dd>
-                        <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/validation/appeals/2/planning-application-reference\\"> Change<span class=\\"govuk-visually-hidden\\"> planning application reference</span></a>
+                    <dd                     class=\\"govuk-summary-list__value planningApplicationReference\\">00/01/0102</dd>
+                        <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/validation/appeals/102/planning-application-reference\\"> Change<span class=\\"govuk-visually-hidden\\"> planning application reference</span></a>
                         </dd>
                 </div>
                 <div class=\\"govuk-summary-list__row govuk-summary-list__row--no-actions\\"><dt class=\\"govuk-summary-list__key\\"> Reasons why incomplete</dt>
@@ -207,28 +207,31 @@ exports[`validation GET /validation/appeals/:appealId should render an appeal in
                 <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Planning application form</dt>
                     <dd                     class=\\"govuk-summary-list__value\\"><a href=\\"/path/to/file\\" class=\\"govuk-link\\" target=\\"_blank\\">planning_application_form.pdf</a>
                         </dd>
-                        <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/validation/appeals/2/documents/planning-application-form\\"> Change<span class=\\"govuk-visually-hidden\\"> planning application form</span></a>
+                        <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/validation/appeals/102/documents/planning-application-form\\"> Change<span class=\\"govuk-visually-hidden\\"> planning application form</span></a>
                         </dd>
                 </div>
                 <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Decision letter</dt>
-                    <dd class=\\"govuk-summary-list__value\\"></dd>
-                    <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/validation/appeals/2/documents/decision-letter\\"> Change<span class=\\"govuk-visually-hidden\\"> decision letter</span></a>
+                    <dd class=\\"govuk-summary-list__value\\"><a href=\\"/path/to/file\\" class=\\"govuk-link\\" target=\\"_blank\\">decision_letter.pdf</a>
+                    </dd>
+                    <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/validation/appeals/102/documents/decision-letter\\"> Change<span class=\\"govuk-visually-hidden\\"> decision letter</span></a>
                     </dd>
                 </div>
             </dl>
             <h2 class=\\"govuk-heading-l govuk-!-margin-top-9\\"> Appeal documents</h2>
             <dl class=\\"govuk-summary-list\\">
                 <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Appeal statement</dt>
-                    <dd class=\\"govuk-summary-list__value\\"></dd>
-                    <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/validation/appeals/2/documents/appeal-statement\\"> Change<span class=\\"govuk-visually-hidden\\"> appeal statement</span></a>
+                    <dd class=\\"govuk-summary-list__value\\"><a href=\\"/path/to/file\\" class=\\"govuk-link\\" target=\\"_blank\\">appeal_statement.pdf</a>
+                    </dd>
+                    <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/validation/appeals/102/documents/appeal-statement\\"> Change<span class=\\"govuk-visually-hidden\\"> appeal statement</span></a>
                     </dd>
                 </div>
                 <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Supporting documents</dt>
-                    <dd class=\\"govuk-summary-list__value\\"></dd>
-                    <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/validation/appeals/2/documents/supporting-document\\"> Change<span class=\\"govuk-visually-hidden\\"> supporting documents</span></a>
+                    <dd class=\\"govuk-summary-list__value\\"><a href=\\"/path/to/file\\" class=\\"govuk-link\\" target=\\"_blank\\">supporting_document.pdf</a>
+                    </dd>
+                    <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/validation/appeals/102/documents/supporting-document\\"> Change<span class=\\"govuk-visually-hidden\\"> supporting documents</span></a>
                     </dd>
                 </div>
-            </dl><a href=\\"/validation/appeals/2?edit=true\\" role=\\"button\\" draggable=\\"false\\"
+            </dl><a href=\\"/validation/appeals/102?edit=true\\" role=\\"button\\" draggable=\\"false\\"
             class=\\"govuk-button govuk-button--secondary\\" data-module=\\"govuk-button\\"> Change outcome</a>
         </div>
     </div>
@@ -255,7 +258,7 @@ exports[`validation GET /validation/appeals/:appealId should render an appeal in
                     </fieldset>
                 </div>
                 <div class=\\"govuk-button-group\\">
-                    <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Continue</button><a class=\\"govuk-link\\" href=\\"/validation/appeals/2\\">Cancel</a>
+                    <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Continue</button><a class=\\"govuk-link\\" href=\\"/validation/appeals/102\\">Cancel</a>
                 </div>
             "
 `;
@@ -272,17 +275,17 @@ exports[`validation GET /validation/appeals/:appealId/appeal-site should render 
                     <div class=\\"govuk-form-group\\">
                         <label class=\\"govuk-label\\" for=\\"AddressLine1\\">Building and street</label>
                         <input class=\\"govuk-input\\" id=\\"AddressLine1\\"
-                        name=\\"AddressLine1\\" type=\\"text\\" value=\\"Temple Quay House\\">
+                        name=\\"AddressLine1\\" type=\\"text\\" value=\\"London Industrial Park – Unit 102\\">
                     </div>
                     <div class=\\"govuk-form-group\\">
                         <label class=\\"govuk-label govuk-visually-hidden\\" for=\\"AddressLine2\\">Address line 2</label>
                         <input class=\\"govuk-input\\" id=\\"AddressLine2\\" name=\\"AddressLine2\\"
-                        type=\\"text\\" value=\\"2 The Square\\">
+                        type=\\"text\\" value=\\"Alpine Way\\">
                     </div>
                     <div class=\\"govuk-form-group\\">
                         <label class=\\"govuk-label\\" for=\\"Town\\">Town or city</label>
                         <input class=\\"govuk-input govuk-input--width-20\\" id=\\"Town\\"
-                        name=\\"Town\\" type=\\"text\\" value=\\"Bristol\\">
+                        name=\\"Town\\" type=\\"text\\" value=\\"London\\">
                     </div>
                     <div class=\\"govuk-form-group\\">
                         <label class=\\"govuk-label\\" for=\\"County\\">County</label>
@@ -292,11 +295,11 @@ exports[`validation GET /validation/appeals/:appealId/appeal-site should render 
                     <div class=\\"govuk-form-group\\">
                         <label class=\\"govuk-label\\" for=\\"PostCode\\">Postcode</label>
                         <input class=\\"govuk-input govuk-input--width-10\\" id=\\"PostCode\\"
-                        name=\\"PostCode\\" type=\\"text\\" value=\\"BS1 6PN\\">
+                        name=\\"PostCode\\" type=\\"text\\" value=\\"E6 6LA\\">
                     </div>
                 </fieldset>
                 <div class=\\"govuk-button-group\\">
-                    <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save changes</button><a class=\\"govuk-link\\" href=\\"/validation/appeals/2\\">Cancel</a>
+                    <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save changes</button><a class=\\"govuk-link\\" href=\\"/validation/appeals/102\\">Cancel</a>
                 </div>
             </form>
         </div>
@@ -312,10 +315,10 @@ exports[`validation GET /validation/appeals/:appealId/appellant-name should rend
                 <div class=\\"govuk-form-group\\">
                     <h1 class=\\"govuk-label-wrapper\\"><label class=\\"govuk-label govuk-label--l\\" for=\\"AppellantName\\"> Change apellant name</label></h1>
                     <input class=\\"govuk-input\\" id=\\"AppellantName\\" name=\\"AppellantName\\" type=\\"text\\"
-                    value=\\"Jennifer Honey\\">
+                    value=\\"Cliff Montgomery 102\\">
                 </div>
                 <div class=\\"govuk-button-group\\">
-                    <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save changes</button><a class=\\"govuk-link\\" href=\\"/validation/appeals/2\\">Cancel</a>
+                    <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save changes</button><a class=\\"govuk-link\\" href=\\"/validation/appeals/102\\">Cancel</a>
                 </div>
             </form>
         </div>
@@ -328,6 +331,12 @@ exports[`validation GET /validation/appeals/:appealId/documents/:documentType sh
     <div class=\\"govuk-grid-row\\">
         <div class=\\"govuk-grid-column-two-thirds\\">
             <h1 class=\\"govuk-heading-l\\">Change decision letter</h1>
+            <dl class=\\"govuk-summary-list\\">
+                <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Current file</dt>
+                    <dd class=\\"govuk-summary-list__value\\"><a href=\\"/path/to/file\\" class=\\"govuk-link\\" target=\\"_blank\\">decision_letter.pdf</a>
+                    </dd>
+                </div>
+            </dl>
             <form method=\\"post\\" enctype=\\"multipart/form-data\\" novalidate=\\"novalidate\\">
                 <div class=\\"govuk-form-group\\">
                     <label class=\\"govuk-label govuk-label--m\\" for=\\"files\\">Upload a new file</label>
@@ -355,7 +364,7 @@ exports[`validation GET /validation/appeals/:appealId/documents/:documentType sh
                     </div>
                 </details>
                 <div class=\\"govuk-button-group\\">
-                    <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save changes</button><a class=\\"govuk-link\\" href=\\"/validation/appeals/2\\">Cancel</a>
+                    <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save changes</button><a class=\\"govuk-link\\" href=\\"/validation/appeals/102\\">Cancel</a>
                 </div>
             </form>
         </div>
@@ -395,7 +404,7 @@ exports[`validation GET /validation/appeals/:appealId/documents/:documentType sh
                     </div>
                 </details>
                 <div class=\\"govuk-button-group\\">
-                    <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save changes</button><a class=\\"govuk-link\\" href=\\"/validation/appeals/2\\">Cancel</a>
+                    <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save changes</button><a class=\\"govuk-link\\" href=\\"/validation/appeals/102\\">Cancel</a>
                 </div>
             </form>
         </div>
@@ -408,6 +417,12 @@ exports[`validation GET /validation/appeals/:appealId/documents/:documentType sh
     <div class=\\"govuk-grid-row\\">
         <div class=\\"govuk-grid-column-two-thirds\\">
             <h1 class=\\"govuk-heading-l\\">Change supporting documents</h1>
+            <dl class=\\"govuk-summary-list\\">
+                <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Current files</dt>
+                    <dd class=\\"govuk-summary-list__value\\"><a href=\\"/path/to/file\\" class=\\"govuk-link\\" target=\\"_blank\\">supporting_document.pdf</a>
+                    </dd>
+                </div>
+            </dl>
             <form method=\\"post\\" enctype=\\"multipart/form-data\\" novalidate=\\"novalidate\\">
                 <div class=\\"govuk-form-group\\">
                     <label class=\\"govuk-label govuk-label--m\\" for=\\"files\\">Upload files</label>
@@ -437,7 +452,7 @@ exports[`validation GET /validation/appeals/:appealId/documents/:documentType sh
                     </div>
                 </details>
                 <div class=\\"govuk-button-group\\">
-                    <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save changes</button><a class=\\"govuk-link\\" href=\\"/validation/appeals/2\\">Cancel</a>
+                    <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save changes</button><a class=\\"govuk-link\\" href=\\"/validation/appeals/102\\">Cancel</a>
                 </div>
             </form>
         </div>
@@ -483,7 +498,7 @@ exports[`validation GET /validation/appeals/:appealId/documents/:documentType sh
                     </div>
                 </details>
                 <div class=\\"govuk-button-group\\">
-                    <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save changes</button><a class=\\"govuk-link\\" href=\\"/validation/appeals/2\\">Cancel</a>
+                    <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save changes</button><a class=\\"govuk-link\\" href=\\"/validation/appeals/102\\">Cancel</a>
                 </div>
             </form>
         </div>
@@ -503,17 +518,18 @@ exports[`validation GET /validation/appeals/:appealId/local-planning-department 
                     id=\\"LocalPlanningDepartment\\" name=\\"LocalPlanningDepartment\\" aria-describedby=\\"LocalPlanningDepartment-hint\\">
                         <option value=\\"\\">Select a local planning department</option>
                         <option value=\\"Maidstone Borough Council\\">Maidstone Borough Council</option>
-                        <option value=\\"Barnsley Metropolitan Borough Council\\">Barnsley Metropolitan Borough Council</option>
+                        <option value=\\"Barnsley Metropolitan Borough Council\\"
+                        selected>Barnsley Metropolitan Borough Council</option>
                         <option value=\\"Worthing Borough Council\\">Worthing Borough Council</option>
                         <option value=\\"Dorset Council\\">Dorset Council</option>
                         <option value=\\"Basingstoke and Deane Borough Council\\">Basingstoke and Deane Borough Council</option>
                         <option value=\\"Wiltshire Council\\">Wiltshire Council</option>
-                        <option value=\\"Waveney District Council\\" selected>Waveney District Council</option>
+                        <option value=\\"Waveney District Council\\">Waveney District Council</option>
                         <option value=\\"Bristol City Council\\">Bristol City Council</option>
                     </select>
                 </div>
                 <div class=\\"govuk-button-group\\">
-                    <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save changes</button><a class=\\"govuk-link\\" href=\\"/validation/appeals/2\\">Cancel</a>
+                    <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save changes</button><a class=\\"govuk-link\\" href=\\"/validation/appeals/102\\">Cancel</a>
                 </div>
             </form>
         </div>
@@ -529,10 +545,10 @@ exports[`validation GET /validation/appeals/:appealId/planning-application-refer
                 <div class=\\"govuk-form-group\\">
                     <h1 class=\\"govuk-label-wrapper\\"><label class=\\"govuk-label govuk-label--l\\" for=\\"PlanningApplicationReference\\"> Change planning application reference</label></h1>
                     <input class=\\"govuk-input\\" id=\\"PlanningApplicationReference\\" name=\\"PlanningApplicationReference\\"
-                    type=\\"text\\" value=\\"39/77/1117\\">
+                    type=\\"text\\" value=\\"00/01/0102\\">
                 </div>
                 <div class=\\"govuk-button-group\\">
-                    <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save changes</button><a class=\\"govuk-link\\" href=\\"/validation/appeals/2\\">Cancel</a>
+                    <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save changes</button><a class=\\"govuk-link\\" href=\\"/validation/appeals/102\\">Cancel</a>
                 </div>
             </form>
         </div>
@@ -540,15 +556,13 @@ exports[`validation GET /validation/appeals/:appealId/planning-application-refer
 </main>"
 `;
 
-exports[`validation GET /validation/appeals/:appealId/review-outcome received appeal should redirect when there is no review outcome in the session 1`] = `"<h1 class=\\"govuk-heading-xl\\">Review appeal submission</h1>"`;
-
 exports[`validation GET /validation/appeals/:appealId/review-outcome received appeal should render a valid review outcome page 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"govuk-grid-row\\">
         <div class=\\"govuk-grid-column-two-thirds\\">
             <h1 class=\\"govuk-heading-xl\\">Valid appeal details</h1>
             <form method=\\"post\\" novalidate=\\"novalidate\\">
-                <p class=\\"govuk-body\\">Appeal reference: APP/B7676/J/07/8431690</p>
+                <p class=\\"govuk-body\\">Appeal reference: VAL/A0000/A/00/0000101</p>
                 <input type=\\"hidden\\" name=\\"status\\"
                 value=\\"valid\\">
                 <div class=\\"govuk-character-count\\" data-module=\\"govuk-character-count\\"
@@ -563,7 +577,7 @@ exports[`validation GET /validation/appeals/:appealId/review-outcome received ap
                     aria-live=\\"polite\\">You can enter up to 500 characters</div>
                 </div>
                 <div class=\\"govuk-button-group\\">
-                    <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Continue</button><a class=\\"govuk-link\\" href=\\"/validation/appeals/1\\">Change outcome</a>
+                    <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Continue</button><a class=\\"govuk-link\\" href=\\"/validation/appeals/101\\">Change outcome</a>
                 </div>
             </form>
         </div>
@@ -576,7 +590,7 @@ exports[`validation GET /validation/appeals/:appealId/review-outcome received ap
     <div class=\\"govuk-grid-row\\">
         <div class=\\"govuk-grid-column-two-thirds\\">
             <h1 class=\\"govuk-heading-xl\\">What is missing or wrong?</h1>
-            <p class=\\"govuk-body\\">Appeal reference: APP/B7676/J/07/8431690</p>
+            <p class=\\"govuk-body\\">Appeal reference: VAL/A0000/A/00/0000101</p>
             <form method=\\"post\\" novalidate>
                 <input type=\\"hidden\\" name=\\"status\\" value=\\"incomplete\\">
                 <div class=\\"govuk-form-group\\">
@@ -654,7 +668,7 @@ exports[`validation GET /validation/appeals/:appealId/review-outcome received ap
                     </div>
                 </div>
                 <div class=\\"govuk-button-group\\">
-                    <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Continue</button><a class=\\"govuk-link\\" href=\\"/validation/appeals/1\\">Change outcome</a>
+                    <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Continue</button><a class=\\"govuk-link\\" href=\\"/validation/appeals/101\\">Change outcome</a>
                 </div>
             </form>
         </div>
@@ -667,7 +681,7 @@ exports[`validation GET /validation/appeals/:appealId/review-outcome received ap
     <div class=\\"govuk-grid-row\\">
         <div class=\\"govuk-grid-column-two-thirds\\">
             <h1 class=\\"govuk-heading-xl\\">Invalid appeal details</h1>
-            <p class=\\"govuk-body\\">Appeal reference: APP/B7676/J/07/8431690</p>
+            <p class=\\"govuk-body\\">Appeal reference: VAL/A0000/A/00/0000101</p>
             <form method=\\"post\\" novalidate>
                 <input type=\\"hidden\\" name=\\"status\\" value=\\"invalid\\">
                 <div class=\\"govuk-form-group\\">
@@ -712,7 +726,7 @@ exports[`validation GET /validation/appeals/:appealId/review-outcome received ap
                     </fieldset>
                 </div>
                 <div class=\\"govuk-button-group\\">
-                    <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Continue</button><a class=\\"govuk-link\\" href=\\"/validation/appeals/1\\">Change outcome</a>
+                    <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Continue</button><a class=\\"govuk-link\\" href=\\"/validation/appeals/101\\">Change outcome</a>
                 </div>
             </form>
         </div>
@@ -720,13 +734,13 @@ exports[`validation GET /validation/appeals/:appealId/review-outcome received ap
 </main>"
 `;
 
-exports[`validation POST /validation/appeals/:appealId received appeal should handle a valid review outcome 1`] = `
+exports[`validation POST /validation/appeals/:appealId received appeal should remember any existing review outcome when re-submitting an unchanged status 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"govuk-grid-row\\">
         <div class=\\"govuk-grid-column-two-thirds\\">
             <h1 class=\\"govuk-heading-xl\\">Valid appeal details</h1>
             <form method=\\"post\\" novalidate=\\"novalidate\\">
-                <p class=\\"govuk-body\\">Appeal reference: APP/B7676/J/07/8431690</p>
+                <p class=\\"govuk-body\\">Appeal reference: VAL/A0000/A/00/0000101</p>
                 <input type=\\"hidden\\" name=\\"status\\"
                 value=\\"valid\\">
                 <div class=\\"govuk-character-count\\" data-module=\\"govuk-character-count\\"
@@ -735,13 +749,13 @@ exports[`validation POST /validation/appeals/:appealId received appeal should ha
                         <label class=\\"govuk-label govuk-!-font-weight-bold\\" for=\\"descriptionOfDevelopment\\">Description of development</label>
                         <textarea class=\\"govuk-textarea govuk-js-character-count\\"
                         id=\\"descriptionOfDevelopment\\" name=\\"descriptionOfDevelopment\\" rows=\\"5\\"
-                        aria-describedby=\\"descriptionOfDevelopment-info\\"></textarea>
+                        aria-describedby=\\"descriptionOfDevelopment-info\\">Exists!</textarea>
                     </div>
                     <div id=\\"descriptionOfDevelopment-info\\" class=\\"govuk-hint govuk-character-count__message\\"
                     aria-live=\\"polite\\">You can enter up to 500 characters</div>
                 </div>
                 <div class=\\"govuk-button-group\\">
-                    <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Continue</button><a class=\\"govuk-link\\" href=\\"/validation/appeals/1\\">Change outcome</a>
+                    <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Continue</button><a class=\\"govuk-link\\" href=\\"/validation/appeals/101\\">Change outcome</a>
                 </div>
             </form>
         </div>
@@ -749,98 +763,7 @@ exports[`validation POST /validation/appeals/:appealId received appeal should ha
 </main>"
 `;
 
-exports[`validation POST /validation/appeals/:appealId received appeal should handle an incomplete review outcome 1`] = `
-"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
-    <div class=\\"govuk-grid-row\\">
-        <div class=\\"govuk-grid-column-two-thirds\\">
-            <h1 class=\\"govuk-heading-xl\\">What is missing or wrong?</h1>
-            <p class=\\"govuk-body\\">Appeal reference: APP/B7676/J/07/8431690</p>
-            <form method=\\"post\\" novalidate>
-                <input type=\\"hidden\\" name=\\"status\\" value=\\"incomplete\\">
-                <div class=\\"govuk-form-group\\">
-                    <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
-                        <div class=\\"govuk-checkboxes__item\\">
-                            <input class=\\"govuk-checkboxes__input\\" id=\\"reasons\\" name=\\"reasons[]\\" type=\\"checkbox\\"
-                            value=\\"namesDoNotMatch\\">
-                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"reasons\\">Names do not match</label>
-                        </div>
-                        <div class=\\"govuk-checkboxes__item\\">
-                            <input class=\\"govuk-checkboxes__input\\" id=\\"reasons-2\\" name=\\"reasons[]\\"
-                            type=\\"checkbox\\" value=\\"sensitiveInfo\\">
-                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"reasons-2\\">Sensitive information included</label>
-                        </div>
-                        <div class=\\"govuk-checkboxes__item\\">
-                            <input class=\\"govuk-checkboxes__input\\" id=\\"reasons-3\\" name=\\"reasons[]\\"
-                            type=\\"checkbox\\" value=\\"missingDocuments\\" data-aria-controls=\\"conditional-reasons-3\\">
-                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"reasons-3\\">Missing or wrong documents</label>
-                        </div>
-                        <div class=\\"govuk-checkboxes__conditional govuk-checkboxes__conditional--hidden\\"
-                        id=\\"conditional-reasons-3\\">
-                            <div class=\\"govuk-form-group\\">
-                                <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
-                                    <div class=\\"govuk-checkboxes__item\\">
-                                        <input class=\\"govuk-checkboxes__input\\" id=\\"documentReasons\\" name=\\"documentReasons[]\\"
-                                        type=\\"checkbox\\" value=\\"missingApplicationForm\\">
-                                        <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"documentReasons\\">Application form</label>
-                                    </div>
-                                    <div class=\\"govuk-checkboxes__item\\">
-                                        <input class=\\"govuk-checkboxes__input\\" id=\\"documentReasons-2\\" name=\\"documentReasons[]\\"
-                                        type=\\"checkbox\\" value=\\"missingDecisionNotice\\">
-                                        <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"documentReasons-2\\">Decision notice</label>
-                                    </div>
-                                    <div class=\\"govuk-checkboxes__item\\">
-                                        <input class=\\"govuk-checkboxes__input\\" id=\\"documentReasons-3\\" name=\\"documentReasons[]\\"
-                                        type=\\"checkbox\\" value=\\"missingGroundsForAppeal\\">
-                                        <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"documentReasons-3\\">Grounds of appeal</label>
-                                    </div>
-                                    <div class=\\"govuk-checkboxes__item\\">
-                                        <input class=\\"govuk-checkboxes__input\\" id=\\"documentReasons-4\\" name=\\"documentReasons[]\\"
-                                        type=\\"checkbox\\" value=\\"missingSupportingDocuments\\">
-                                        <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"documentReasons-4\\">Supporting documents</label>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class=\\"govuk-checkboxes__item\\">
-                            <input class=\\"govuk-checkboxes__input\\" id=\\"reasons-4\\" name=\\"reasons[]\\"
-                            type=\\"checkbox\\" value=\\"inflammatoryComments\\">
-                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"reasons-4\\">Inflammatory comments made</label>
-                        </div>
-                        <div class=\\"govuk-checkboxes__item\\">
-                            <input class=\\"govuk-checkboxes__input\\" id=\\"reasons-5\\" name=\\"reasons[]\\"
-                            type=\\"checkbox\\" value=\\"openedInError\\">
-                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"reasons-5\\">Opened in error</label>
-                        </div>
-                        <div class=\\"govuk-checkboxes__item\\">
-                            <input class=\\"govuk-checkboxes__input\\" id=\\"reasons-6\\" name=\\"reasons[]\\"
-                            type=\\"checkbox\\" value=\\"wrongAppealTypeUsed\\">
-                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"reasons-6\\">Wrong appeal type used</label>
-                        </div>
-                        <div class=\\"govuk-checkboxes__item\\">
-                            <input class=\\"govuk-checkboxes__input\\" id=\\"reasons-7\\" name=\\"reasons[]\\"
-                            type=\\"checkbox\\" value=\\"otherReasons\\" data-aria-controls=\\"conditional-reasons-7\\">
-                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"reasons-7\\">Other</label>
-                        </div>
-                        <div class=\\"govuk-checkboxes__conditional govuk-checkboxes__conditional--hidden\\"
-                        id=\\"conditional-reasons-7\\">
-                            <div class=\\"govuk-form-group\\">
-                                <label class=\\"govuk-label\\" for=\\"otherReasons\\">List reasons</label>
-                                <input class=\\"govuk-input\\" id=\\"otherReasons\\" name=\\"otherReasons\\"
-                                type=\\"text\\" spellcheck=\\"true\\">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class=\\"govuk-button-group\\">
-                    <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Continue</button><a class=\\"govuk-link\\" href=\\"/validation/appeals/1\\">Change outcome</a>
-                </div>
-            </form>
-        </div>
-    </div>
-</main>"
-`;
-
-exports[`validation POST /validation/appeals/:appealId received appeal should handle an incomplete review outcome 2`] = `
+exports[`validation POST /validation/appeals/:appealId received appeal should validate the review outcome 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"govuk-grid-row\\">
         <div class=\\"govuk-grid-column-two-thirds\\">
@@ -858,32 +781,32 @@ exports[`validation POST /validation/appeals/:appealId received appeal should ha
             <h2 class=\\"govuk-visually-hidden\\"> Appeal details</h2>
             <dl class=\\"govuk-summary-list\\">
                 <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Appellant name</dt>
-                    <dd class=\\"govuk-summary-list__value appellantName\\">Herbert Appleton</dd>
-                    <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/validation/appeals/1/appellant-name\\"> Change<span class=\\"govuk-visually-hidden\\"> appellant name</span></a>
+                    <dd class=\\"govuk-summary-list__value appellantName\\">Cliff Montgomery 101</dd>
+                    <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/validation/appeals/101/appellant-name\\"> Change<span class=\\"govuk-visually-hidden\\"> appellant name</span></a>
                     </dd>
                 </div>
                 <div class=\\"govuk-summary-list__row govuk-summary-list__row--no-actions\\"><dt class=\\"govuk-summary-list__key\\"> Appeal reference</dt>
-                    <dd class=\\"govuk-summary-list__value\\">APP/B7676/J/07/8431690</dd>
+                    <dd class=\\"govuk-summary-list__value\\">VAL/A0000/A/00/0000101</dd>
                 </div>
                 <div class=\\"govuk-summary-list__row govuk-summary-list__row--no-actions\\"><dt class=\\"govuk-summary-list__key\\"> Received on</dt>
-                    <dd class=\\"govuk-summary-list__value\\">01 Jan 2022</dd>
+                    <dd class=\\"govuk-summary-list__value\\">23 Jan 2022</dd>
                 </div>
                 <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Appeal site</dt>
-                    <dd class=\\"govuk-summary-list__value appealSite\\">Temple Quay House
-                        <br>2 The Square
-                        <br>Bristol
-                        <br>BS1 6PN</dd>
-                    <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/validation/appeals/1/appeal-site\\"> Change<span class=\\"govuk-visually-hidden\\"> appeal site</span></a>
+                    <dd class=\\"govuk-summary-list__value appealSite\\">London Industrial Park – Unit 101
+                        <br>Alpine Way
+                        <br>London
+                        <br>E6 6LA</dd>
+                    <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/validation/appeals/101/appeal-site\\"> Change<span class=\\"govuk-visually-hidden\\"> appeal site</span></a>
                     </dd>
                 </div>
                 <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Local planning department</dt>
                     <dd                     class=\\"govuk-summary-list__value localPlanningDepartment\\">Barnsley Metropolitan Borough Council</dd>
-                        <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/validation/appeals/1/local-planning-department\\"> Change<span class=\\"govuk-visually-hidden\\"> local planning department</span></a>
+                        <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/validation/appeals/101/local-planning-department\\"> Change<span class=\\"govuk-visually-hidden\\"> local planning department</span></a>
                         </dd>
                 </div>
                 <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Planning application reference</dt>
-                    <dd                     class=\\"govuk-summary-list__value planningApplicationReference\\">53/70/5345</dd>
-                        <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/validation/appeals/1/planning-application-reference\\"> Change<span class=\\"govuk-visually-hidden\\"> planning application reference</span></a>
+                    <dd                     class=\\"govuk-summary-list__value planningApplicationReference\\">00/01/0101</dd>
+                        <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/validation/appeals/101/planning-application-reference\\"> Change<span class=\\"govuk-visually-hidden\\"> planning application reference</span></a>
                         </dd>
                 </div>
             </dl>
@@ -936,93 +859,6 @@ exports[`validation POST /validation/appeals/:appealId received appeal should ha
                     </fieldset>
                 </div>
                 <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Continue</button>
-            </form>
-        </div>
-    </div>
-</main>"
-`;
-
-exports[`validation POST /validation/appeals/:appealId received appeal should handle an invalid review outcome 1`] = `
-"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
-    <div class=\\"govuk-grid-row\\">
-        <div class=\\"govuk-grid-column-two-thirds\\">
-            <h1 class=\\"govuk-heading-xl\\">Invalid appeal details</h1>
-            <p class=\\"govuk-body\\">Appeal reference: APP/B7676/J/07/8431690</p>
-            <form method=\\"post\\" novalidate>
-                <input type=\\"hidden\\" name=\\"status\\" value=\\"invalid\\">
-                <div class=\\"govuk-form-group\\">
-                    <fieldset class=\\"govuk-fieldset\\">
-                        <legend class=\\"govuk-fieldset__legend govuk-fieldset__legend--m\\">Reasons the appeal is invalid</legend>
-                        <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
-                            <div class=\\"govuk-checkboxes__item\\">
-                                <input class=\\"govuk-checkboxes__input\\" id=\\"reasons\\" name=\\"reasons[]\\" type=\\"checkbox\\"
-                                value=\\"outOfTime\\">
-                                <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"reasons\\">Out of time</label>
-                            </div>
-                            <div class=\\"govuk-checkboxes__item\\">
-                                <input class=\\"govuk-checkboxes__input\\" id=\\"reasons-2\\" name=\\"reasons[]\\"
-                                type=\\"checkbox\\" value=\\"noRightOfAppeal\\">
-                                <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"reasons-2\\">No right of appeal</label>
-                            </div>
-                            <div class=\\"govuk-checkboxes__item\\">
-                                <input class=\\"govuk-checkboxes__input\\" id=\\"reasons-3\\" name=\\"reasons[]\\"
-                                type=\\"checkbox\\" value=\\"notAppealable\\">
-                                <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"reasons-3\\">Not appealable</label>
-                            </div>
-                            <div class=\\"govuk-checkboxes__item\\">
-                                <input class=\\"govuk-checkboxes__input\\" id=\\"reasons-4\\" name=\\"reasons[]\\"
-                                type=\\"checkbox\\" value=\\"lPADeemedInvalid\\">
-                                <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"reasons-4\\">LPA deemed application as invalid</label>
-                            </div>
-                            <div class=\\"govuk-checkboxes__item\\">
-                                <input class=\\"govuk-checkboxes__input\\" id=\\"reasons-5\\" name=\\"reasons[]\\"
-                                type=\\"checkbox\\" value=\\"otherReasons\\" data-aria-controls=\\"conditional-reasons-5\\">
-                                <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"reasons-5\\">Other</label>
-                            </div>
-                            <div class=\\"govuk-checkboxes__conditional govuk-checkboxes__conditional--hidden\\"
-                            id=\\"conditional-reasons-5\\">
-                                <div class=\\"govuk-form-group\\">
-                                    <label class=\\"govuk-label\\" for=\\"otherReasons\\">List reasons</label>
-                                    <div id=\\"otherReasons-hint\\" class=\\"govuk-hint\\">This will be sent to the appellant and LPA</div>
-                                    <input class=\\"govuk-input\\"
-                                    id=\\"otherReasons\\" name=\\"otherReasons\\" type=\\"text\\" spellcheck=\\"true\\" aria-describedby=\\"otherReasons-hint\\">
-                                </div>
-                            </div>
-                        </div>
-                    </fieldset>
-                </div>
-                <div class=\\"govuk-button-group\\">
-                    <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Continue</button><a class=\\"govuk-link\\" href=\\"/validation/appeals/1\\">Change outcome</a>
-                </div>
-            </form>
-        </div>
-    </div>
-</main>"
-`;
-
-exports[`validation POST /validation/appeals/:appealId received appeal should remember any existing review outcome when re-submitting an unchanged status 1`] = `
-"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
-    <div class=\\"govuk-grid-row\\">
-        <div class=\\"govuk-grid-column-two-thirds\\">
-            <h1 class=\\"govuk-heading-xl\\">Valid appeal details</h1>
-            <form method=\\"post\\" novalidate=\\"novalidate\\">
-                <p class=\\"govuk-body\\">Appeal reference: APP/B7676/J/07/8431690</p>
-                <input type=\\"hidden\\" name=\\"status\\"
-                value=\\"valid\\">
-                <div class=\\"govuk-character-count\\" data-module=\\"govuk-character-count\\"
-                data-maxlength=\\"500\\">
-                    <div class=\\"govuk-form-group\\">
-                        <label class=\\"govuk-label govuk-!-font-weight-bold\\" for=\\"descriptionOfDevelopment\\">Description of development</label>
-                        <textarea class=\\"govuk-textarea govuk-js-character-count\\"
-                        id=\\"descriptionOfDevelopment\\" name=\\"descriptionOfDevelopment\\" rows=\\"5\\"
-                        aria-describedby=\\"descriptionOfDevelopment-info\\">Exists!</textarea>
-                    </div>
-                    <div id=\\"descriptionOfDevelopment-info\\" class=\\"govuk-hint govuk-character-count__message\\"
-                    aria-live=\\"polite\\">You can enter up to 500 characters</div>
-                </div>
-                <div class=\\"govuk-button-group\\">
-                    <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Continue</button><a class=\\"govuk-link\\" href=\\"/validation/appeals/1\\">Change outcome</a>
-                </div>
             </form>
         </div>
     </div>
@@ -1084,7 +920,7 @@ exports[`validation POST /validation/appeals/:appealId/appeal-site should valida
                     </div>
                 </fieldset>
                 <div class=\\"govuk-button-group\\">
-                    <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save changes</button><a class=\\"govuk-link\\" href=\\"/validation/appeals/2\\">Cancel</a>
+                    <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save changes</button><a class=\\"govuk-link\\" href=\\"/validation/appeals/102\\">Cancel</a>
                 </div>
             </form>
         </div>
@@ -1146,7 +982,7 @@ exports[`validation POST /validation/appeals/:appealId/appeal-site should valida
                     </div>
                 </fieldset>
                 <div class=\\"govuk-button-group\\">
-                    <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save changes</button><a class=\\"govuk-link\\" href=\\"/validation/appeals/2\\">Cancel</a>
+                    <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save changes</button><a class=\\"govuk-link\\" href=\\"/validation/appeals/102\\">Cancel</a>
                 </div>
             </form>
         </div>
@@ -1176,7 +1012,7 @@ exports[`validation POST /validation/appeals/:appealId/appellant-name should val
                     type=\\"text\\" aria-describedby=\\"AppellantName-error\\">
                 </div>
                 <div class=\\"govuk-button-group\\">
-                    <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save changes</button><a class=\\"govuk-link\\" href=\\"/validation/appeals/2\\">Cancel</a>
+                    <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save changes</button><a class=\\"govuk-link\\" href=\\"/validation/appeals/102\\">Cancel</a>
                 </div>
             </form>
         </div>
@@ -1199,6 +1035,12 @@ exports[`validation POST /validation/appeals/:appealId/documents/:documentType s
                 </div>
             </div>
             <h1 class=\\"govuk-heading-l\\">Change supporting documents</h1>
+            <dl class=\\"govuk-summary-list\\">
+                <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Current files</dt>
+                    <dd class=\\"govuk-summary-list__value\\"><a href=\\"/path/to/file\\" class=\\"govuk-link\\" target=\\"_blank\\">supporting_document.pdf</a>
+                    </dd>
+                </div>
+            </dl>
             <form method=\\"post\\" enctype=\\"multipart/form-data\\" novalidate=\\"novalidate\\">
                 <div class=\\"govuk-form-group govuk-form-group--error\\">
                     <label class=\\"govuk-label govuk-label--m\\" for=\\"files\\">Upload files</label>
@@ -1229,7 +1071,7 @@ exports[`validation POST /validation/appeals/:appealId/documents/:documentType s
                     </div>
                 </details>
                 <div class=\\"govuk-button-group\\">
-                    <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save changes</button><a class=\\"govuk-link\\" href=\\"/validation/appeals/2\\">Cancel</a>
+                    <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save changes</button><a class=\\"govuk-link\\" href=\\"/validation/appeals/102\\">Cancel</a>
                 </div>
             </form>
         </div>
@@ -1252,6 +1094,12 @@ exports[`validation POST /validation/appeals/:appealId/documents/:documentType s
                 </div>
             </div>
             <h1 class=\\"govuk-heading-l\\">Change supporting documents</h1>
+            <dl class=\\"govuk-summary-list\\">
+                <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Current files</dt>
+                    <dd class=\\"govuk-summary-list__value\\"><a href=\\"/path/to/file\\" class=\\"govuk-link\\" target=\\"_blank\\">supporting_document.pdf</a>
+                    </dd>
+                </div>
+            </dl>
             <form method=\\"post\\" enctype=\\"multipart/form-data\\" novalidate=\\"novalidate\\">
                 <div class=\\"govuk-form-group govuk-form-group--error\\">
                     <label class=\\"govuk-label govuk-label--m\\" for=\\"files\\">Upload files</label>
@@ -1282,7 +1130,7 @@ exports[`validation POST /validation/appeals/:appealId/documents/:documentType s
                     </div>
                 </details>
                 <div class=\\"govuk-button-group\\">
-                    <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save changes</button><a class=\\"govuk-link\\" href=\\"/validation/appeals/2\\">Cancel</a>
+                    <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save changes</button><a class=\\"govuk-link\\" href=\\"/validation/appeals/102\\">Cancel</a>
                 </div>
             </form>
         </div>
@@ -1322,7 +1170,7 @@ exports[`validation POST /validation/appeals/:appealId/local-planning-department
                     </select>
                 </div>
                 <div class=\\"govuk-button-group\\">
-                    <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save changes</button><a class=\\"govuk-link\\" href=\\"/validation/appeals/2\\">Cancel</a>
+                    <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save changes</button><a class=\\"govuk-link\\" href=\\"/validation/appeals/102\\">Cancel</a>
                 </div>
             </form>
         </div>
@@ -1353,7 +1201,7 @@ exports[`validation POST /validation/appeals/:appealId/planning-application-refe
                     name=\\"PlanningApplicationReference\\" type=\\"text\\" aria-describedby=\\"PlanningApplicationReference-error\\">
                 </div>
                 <div class=\\"govuk-button-group\\">
-                    <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save changes</button><a class=\\"govuk-link\\" href=\\"/validation/appeals/2\\">Cancel</a>
+                    <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save changes</button><a class=\\"govuk-link\\" href=\\"/validation/appeals/102\\">Cancel</a>
                 </div>
             </form>
         </div>
@@ -1372,16 +1220,16 @@ exports[`validation POST /validation/appeals/:appealId/review-outcome incomplete
                         <dd class=\\"govuk-summary-list__value\\">Something is missing or wrong</dd>
                     </div>
                     <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Appellant name</dt>
-                        <dd class=\\"govuk-summary-list__value\\">Herbert Appleton</dd>
+                        <dd class=\\"govuk-summary-list__value\\">Cliff Montgomery 101</dd>
                     </div>
                     <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Appeal reference</dt>
-                        <dd class=\\"govuk-summary-list__value\\">APP/B7676/J/07/8431690</dd>
+                        <dd class=\\"govuk-summary-list__value\\">VAL/A0000/A/00/0000101</dd>
                     </div>
                     <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Appeal site</dt>
-                        <dd class=\\"govuk-summary-list__value\\">Temple Quay House
-                            <br>2 The Square
-                            <br>Bristol
-                            <br>BS1 6PN</dd>
+                        <dd class=\\"govuk-summary-list__value\\">London Industrial Park – Unit 101
+                            <br>Alpine Way
+                            <br>London
+                            <br>E6 6LA</dd>
                     </div>
                     <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Reasons</dt>
                         <dd class=\\"govuk-summary-list__value\\">
@@ -1405,7 +1253,7 @@ exports[`validation POST /validation/appeals/:appealId/review-outcome incomplete
                     </div>
                 </div>
                 <div class=\\"govuk-button-group\\">
-                    <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Confirm and finish review</button><a class=\\"govuk-link\\" href=\\"/validation/appeals/1\\">Change outcome</a>
+                    <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Confirm and finish review</button><a class=\\"govuk-link\\" href=\\"/validation/appeals/101\\">Change outcome</a>
                 </div>
             </form>
         </div>
@@ -1428,7 +1276,7 @@ exports[`validation POST /validation/appeals/:appealId/review-outcome incomplete
                 </div>
             </div>
             <h1 class=\\"govuk-heading-xl\\">What is missing or wrong?</h1>
-            <p class=\\"govuk-body\\">Appeal reference: APP/B7676/J/07/8431690</p>
+            <p class=\\"govuk-body\\">Appeal reference: VAL/A0000/A/00/0000101</p>
             <form method=\\"post\\" novalidate>
                 <input type=\\"hidden\\" name=\\"status\\" value=\\"incomplete\\">
                 <div class=\\"govuk-form-group\\">
@@ -1507,7 +1355,7 @@ exports[`validation POST /validation/appeals/:appealId/review-outcome incomplete
                     </div>
                 </div>
                 <div class=\\"govuk-button-group\\">
-                    <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Continue</button><a class=\\"govuk-link\\" href=\\"/validation/appeals/1\\">Change outcome</a>
+                    <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Continue</button><a class=\\"govuk-link\\" href=\\"/validation/appeals/101\\">Change outcome</a>
                 </div>
             </form>
         </div>
@@ -1530,7 +1378,7 @@ exports[`validation POST /validation/appeals/:appealId/review-outcome incomplete
                 </div>
             </div>
             <h1 class=\\"govuk-heading-xl\\">What is missing or wrong?</h1>
-            <p class=\\"govuk-body\\">Appeal reference: APP/B7676/J/07/8431690</p>
+            <p class=\\"govuk-body\\">Appeal reference: VAL/A0000/A/00/0000101</p>
             <form method=\\"post\\" novalidate>
                 <input type=\\"hidden\\" name=\\"status\\" value=\\"incomplete\\">
                 <div class=\\"govuk-form-group govuk-form-group--error\\">
@@ -1611,7 +1459,7 @@ exports[`validation POST /validation/appeals/:appealId/review-outcome incomplete
                 </div>
         </div>
         <div class=\\"govuk-button-group\\">
-            <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Continue</button><a class=\\"govuk-link\\" href=\\"/validation/appeals/1\\">Change outcome</a>
+            <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Continue</button><a class=\\"govuk-link\\" href=\\"/validation/appeals/101\\">Change outcome</a>
         </div>
         </form>
     </div>
@@ -1634,7 +1482,7 @@ exports[`validation POST /validation/appeals/:appealId/review-outcome incomplete
                 </div>
             </div>
             <h1 class=\\"govuk-heading-xl\\">What is missing or wrong?</h1>
-            <p class=\\"govuk-body\\">Appeal reference: APP/B7676/J/07/8431690</p>
+            <p class=\\"govuk-body\\">Appeal reference: VAL/A0000/A/00/0000101</p>
             <form method=\\"post\\" novalidate>
                 <input type=\\"hidden\\" name=\\"status\\" value=\\"incomplete\\">
                 <div class=\\"govuk-form-group\\">
@@ -1713,7 +1561,7 @@ exports[`validation POST /validation/appeals/:appealId/review-outcome incomplete
                     </div>
                 </div>
                 <div class=\\"govuk-button-group\\">
-                    <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Continue</button><a class=\\"govuk-link\\" href=\\"/validation/appeals/1\\">Change outcome</a>
+                    <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Continue</button><a class=\\"govuk-link\\" href=\\"/validation/appeals/101\\">Change outcome</a>
                 </div>
             </form>
         </div>
@@ -1736,7 +1584,7 @@ exports[`validation POST /validation/appeals/:appealId/review-outcome invalid ou
                 </div>
             </div>
             <h1 class=\\"govuk-heading-xl\\">Invalid appeal details</h1>
-            <p class=\\"govuk-body\\">Appeal reference: APP/B7676/J/07/8431690</p>
+            <p class=\\"govuk-body\\">Appeal reference: VAL/A0000/A/00/0000101</p>
             <form method=\\"post\\" novalidate>
                 <input type=\\"hidden\\" name=\\"status\\" value=\\"invalid\\">
                 <div class=\\"govuk-form-group\\">
@@ -1783,7 +1631,7 @@ exports[`validation POST /validation/appeals/:appealId/review-outcome invalid ou
                     </fieldset>
                 </div>
                 <div class=\\"govuk-button-group\\">
-                    <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Continue</button><a class=\\"govuk-link\\" href=\\"/validation/appeals/1\\">Change outcome</a>
+                    <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Continue</button><a class=\\"govuk-link\\" href=\\"/validation/appeals/101\\">Change outcome</a>
                 </div>
             </form>
         </div>
@@ -1806,7 +1654,7 @@ exports[`validation POST /validation/appeals/:appealId/review-outcome invalid ou
                 </div>
             </div>
             <h1 class=\\"govuk-heading-xl\\">Invalid appeal details</h1>
-            <p class=\\"govuk-body\\">Appeal reference: APP/B7676/J/07/8431690</p>
+            <p class=\\"govuk-body\\">Appeal reference: VAL/A0000/A/00/0000101</p>
             <form method=\\"post\\" novalidate>
                 <input type=\\"hidden\\" name=\\"status\\" value=\\"invalid\\">
                 <div class=\\"govuk-form-group govuk-form-group--error\\">
@@ -1852,7 +1700,7 @@ exports[`validation POST /validation/appeals/:appealId/review-outcome invalid ou
                 </fieldset>
         </div>
         <div class=\\"govuk-button-group\\">
-            <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Continue</button><a class=\\"govuk-link\\" href=\\"/validation/appeals/1\\">Change outcome</a>
+            <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Continue</button><a class=\\"govuk-link\\" href=\\"/validation/appeals/101\\">Change outcome</a>
         </div>
         </form>
     </div>
@@ -1875,7 +1723,7 @@ exports[`validation POST /validation/appeals/:appealId/review-outcome invalid ou
                 </div>
             </div>
             <h1 class=\\"govuk-heading-xl\\">Invalid appeal details</h1>
-            <p class=\\"govuk-body\\">Appeal reference: APP/B7676/J/07/8431690</p>
+            <p class=\\"govuk-body\\">Appeal reference: VAL/A0000/A/00/0000101</p>
             <form method=\\"post\\" novalidate>
                 <input type=\\"hidden\\" name=\\"status\\" value=\\"invalid\\">
                 <div class=\\"govuk-form-group\\">
@@ -1922,7 +1770,7 @@ exports[`validation POST /validation/appeals/:appealId/review-outcome invalid ou
                     </fieldset>
                 </div>
                 <div class=\\"govuk-button-group\\">
-                    <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Continue</button><a class=\\"govuk-link\\" href=\\"/validation/appeals/1\\">Change outcome</a>
+                    <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Continue</button><a class=\\"govuk-link\\" href=\\"/validation/appeals/101\\">Change outcome</a>
                 </div>
             </form>
         </div>
@@ -1941,16 +1789,16 @@ exports[`validation POST /validation/appeals/:appealId/review-outcome valid outc
                         <dd class=\\"govuk-summary-list__value\\">Valid</dd>
                     </div>
                     <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Appellant name</dt>
-                        <dd class=\\"govuk-summary-list__value\\">Herbert Appleton</dd>
+                        <dd class=\\"govuk-summary-list__value\\">Cliff Montgomery 101</dd>
                     </div>
                     <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Appeal reference</dt>
-                        <dd class=\\"govuk-summary-list__value\\">APP/B7676/J/07/8431690</dd>
+                        <dd class=\\"govuk-summary-list__value\\">VAL/A0000/A/00/0000101</dd>
                     </div>
                     <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Appeal site</dt>
-                        <dd class=\\"govuk-summary-list__value\\">Temple Quay House
-                            <br>2 The Square
-                            <br>Bristol
-                            <br>BS1 6PN</dd>
+                        <dd class=\\"govuk-summary-list__value\\">London Industrial Park – Unit 101
+                            <br>Alpine Way
+                            <br>London
+                            <br>E6 6LA</dd>
                     </div>
                     <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Description of development</dt>
                         <dd                         class=\\"govuk-summary-list__value\\">*</dd>
@@ -1961,7 +1809,7 @@ exports[`validation POST /validation/appeals/:appealId/review-outcome valid outc
                         appeal as valid starts the appeal and sends the LPA questionnaire email.</strong>
                 </div>
                 <div class=\\"govuk-button-group\\">
-                    <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Confirm and start appeal</button><a class=\\"govuk-link\\" href=\\"/validation/appeals/1\\">Change outcome</a>
+                    <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Confirm and start appeal</button><a class=\\"govuk-link\\" href=\\"/validation/appeals/101\\">Change outcome</a>
                 </div>
             </form>
         </div>
@@ -1985,7 +1833,7 @@ exports[`validation POST /validation/appeals/:appealId/review-outcome valid outc
             </div>
             <h1 class=\\"govuk-heading-xl\\">Valid appeal details</h1>
             <form method=\\"post\\" novalidate=\\"novalidate\\">
-                <p class=\\"govuk-body\\">Appeal reference: APP/B7676/J/07/8431690</p>
+                <p class=\\"govuk-body\\">Appeal reference: VAL/A0000/A/00/0000101</p>
                 <input type=\\"hidden\\" name=\\"status\\"
                 value=\\"valid\\">
                 <div class=\\"govuk-character-count\\" data-module=\\"govuk-character-count\\"
@@ -2003,7 +1851,7 @@ exports[`validation POST /validation/appeals/:appealId/review-outcome valid outc
                     aria-live=\\"polite\\">You can enter up to 500 characters</div>
                 </div>
                 <div class=\\"govuk-button-group\\">
-                    <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Continue</button><a class=\\"govuk-link\\" href=\\"/validation/appeals/1\\">Change outcome</a>
+                    <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Continue</button><a class=\\"govuk-link\\" href=\\"/validation/appeals/101\\">Change outcome</a>
                 </div>
             </form>
         </div>
@@ -2018,7 +1866,7 @@ exports[`validation POST /validation/appeals/:appealId/review-outcome/confirm in
             <div class=\\"govuk-panel govuk-panel--confirmation govuk-!-margin-bottom-6\\">
                 <h1 class=\\"govuk-panel__title\\"> Review complete</h1>
                 <div class=\\"govuk-panel__body\\">Something is missing or wrong
-                    <br><strong>APP/B7676/J/07/8431690</strong>
+                    <br><strong>VAL/A0000/A/00/0000101</strong>
                 </div>
             </div>
             <h2 class=\\"govuk-heading-m\\">What next?</h2>
@@ -2052,16 +1900,16 @@ exports[`validation POST /validation/appeals/:appealId/review-outcome/confirm in
                         <dd class=\\"govuk-summary-list__value\\">Something is missing or wrong</dd>
                     </div>
                     <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Appellant name</dt>
-                        <dd class=\\"govuk-summary-list__value\\">Herbert Appleton</dd>
+                        <dd class=\\"govuk-summary-list__value\\">Cliff Montgomery 101</dd>
                     </div>
                     <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Appeal reference</dt>
-                        <dd class=\\"govuk-summary-list__value\\">APP/B7676/J/07/8431690</dd>
+                        <dd class=\\"govuk-summary-list__value\\">VAL/A0000/A/00/0000101</dd>
                     </div>
                     <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Appeal site</dt>
-                        <dd class=\\"govuk-summary-list__value\\">Temple Quay House
-                            <br>2 The Square
-                            <br>Bristol
-                            <br>BS1 6PN</dd>
+                        <dd class=\\"govuk-summary-list__value\\">London Industrial Park – Unit 101
+                            <br>Alpine Way
+                            <br>London
+                            <br>E6 6LA</dd>
                     </div>
                     <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Reasons</dt>
                         <dd class=\\"govuk-summary-list__value\\">
@@ -2089,7 +1937,7 @@ exports[`validation POST /validation/appeals/:appealId/review-outcome/confirm in
                     </div>
                 </div>
                 <div class=\\"govuk-button-group\\">
-                    <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Confirm and finish review</button><a class=\\"govuk-link\\" href=\\"/validation/appeals/1\\">Change outcome</a>
+                    <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Confirm and finish review</button><a class=\\"govuk-link\\" href=\\"/validation/appeals/101\\">Change outcome</a>
                 </div>
             </form>
         </div>
@@ -2104,7 +1952,7 @@ exports[`validation POST /validation/appeals/:appealId/review-outcome/confirm in
             <div class=\\"govuk-panel govuk-panel--confirmation govuk-!-margin-bottom-6\\">
                 <h1 class=\\"govuk-panel__title\\"> Review complete</h1>
                 <div class=\\"govuk-panel__body\\">Appeal invalid
-                    <br><strong>APP/B7676/J/07/8431690</strong>
+                    <br><strong>VAL/A0000/A/00/0000101</strong>
                 </div>
             </div>
             <p class=\\"govuk-body\\">The appeal has been turned away, and emails have been sent to the appellant
@@ -2126,7 +1974,7 @@ exports[`validation POST /validation/appeals/:appealId/review-outcome/confirm va
             <div class=\\"govuk-panel govuk-panel--confirmation govuk-!-margin-bottom-6\\">
                 <h1 class=\\"govuk-panel__title\\"> Review complete</h1>
                 <div class=\\"govuk-panel__body\\">Appeal valid
-                    <br><strong>APP/B7676/J/07/8431690</strong>
+                    <br><strong>VAL/A0000/A/00/0000101</strong>
                 </div>
             </div>
             <p class=\\"govuk-body\\">The appeal has been started and the LPA questionnaire email has been sent.</p>
