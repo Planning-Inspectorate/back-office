@@ -22,7 +22,7 @@ const createAppealFixtures = ({ id, ...appealData }) => {
 		planningApplicationReference: `00/01/${String(id).padStart(4, '0')}`,
 		localPlanningDepartment: 'Barnsley Metropolitan Borough Council',
 		reference: `VAL/A0000/A/00/0000${id}`,
-		createdAt: sub(new Date(), { days: id }),
+		createdAt: new Date(2022, 0, 1),
 		startedAt: sub(new Date(), { days: id }),
 		appellant: createAppellant({ name: `Cliff Montgomery ${id}` }),
 		address: createAddress({

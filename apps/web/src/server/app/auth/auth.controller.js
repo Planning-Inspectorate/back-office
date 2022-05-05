@@ -97,7 +97,7 @@ export function authSignIn(request, response, next) {
  * @param {import('express').NextFunction} next express next function
  */
 export async function handleRedirect(request, response, next) {
-	if (request.query.state) {
+	try {
 		const state = JSON.parse(cryptoUtils.decryptData(cryptoProvider.base64Decode(request.query.state), Buffer.from(request.session.key, 'hex')));
 
 		// Check if nonce matches
@@ -109,9 +109,12 @@ export async function handleRedirect(request, response, next) {
 
 					try {
 						// Exchange auth code for tokens
+
+
 						const tokenResponse = await msalClient.acquireTokenByCode(request.session.tokenRequest);
 						request.session.isAuthenticated = true;
 						request.session.account = tokenResponse.account;
+
 
 						response.redirect(state.path);
 					} catch (error) {
@@ -127,16 +130,16 @@ export async function handleRedirect(request, response, next) {
 
 				default:
 					console.error('Cannot determine application stage');
-					response.redirect('auth/error');
+					response.redirect('/auth/error');
 					break;
 			}
 		} else {
 			console.error('Nonce does not match');
-			response.redirect('auth/unauthorized');
+			response.redirect('/auth/unauthorized');
 		}
-	} else {
-		console.error('State not found');
-		response.redirect('auth/unauthorized');
+	} catch(error) {
+		// console.error('State not found');
+		response.redirect('/auth/unauthorized');
 	}
 }
 
@@ -147,7 +150,7 @@ export async function handleRedirect(request, response, next) {
  * @param {import('express').Response} response express response object
  */
 export function viewAuthUnauthorized(request, response) {
-	response.status(401).render('auth/unauthorized');
+	response.status(200).render('auth/unauthorized');
 }
 
 /**
@@ -157,5 +160,5 @@ export function viewAuthUnauthorized(request, response) {
  * @param {import('express').Response} response express response object
  */
 export function viewAuthError(request, response) {
-	response.status(500).render('auth/error');
+	response.status(200).render('auth/error');
 }
