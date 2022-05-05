@@ -168,7 +168,7 @@ exports[`inspector GET /inspector/:appealId should render the appeal details 1`]
                                 </dd>
                             </div>
                             <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Date appeal received</dt>
-                                <dd class=\\"govuk-summary-list__value\\">04 July 2021</dd>
+                                <dd class=\\"govuk-summary-list__value\\">01 January 2022</dd>
                             </div>
                             <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Description of development</dt>
                                 <dd                                 class=\\"govuk-summary-list__value\\">A nice grassy patch.</dd>

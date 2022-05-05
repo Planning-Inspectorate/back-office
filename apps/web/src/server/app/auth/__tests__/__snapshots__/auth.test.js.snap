@@ -1,0 +1,56 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`auth authentication should redirect to an error page when the azure redirect brings an unknown state 1`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <div class=\\"govuk-grid-row\\">
+        <div class=\\"govuk-grid-column-two-thirds\\">
+            <h1 class=\\"govuk-heading-xl\\">Sorry, there is a problem with your login</h1>
+            <p class=\\"govuk-body\\">You are not permitted to access this URL.</p>
+            <p class=\\"govuk-body\\"><a href=\\"https://has-appeal.herokuapp.com/help/contact\\" class=\\"govuk-link\\">Contact the Planning Inspectorate Customer Support</a> if
+                the problem persists.</p>
+        </div>
+    </div>
+</main>"
+`;
+
+exports[`auth authentication should redirect to an error page when the azure redirect is incomplete 1`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <div class=\\"govuk-grid-row\\">
+        <div class=\\"govuk-grid-column-two-thirds\\">
+            <h1 class=\\"govuk-heading-xl\\">Sorry, there is a problem with your login</h1>
+            <p class=\\"govuk-body\\">You are not permitted to access this URL.</p>
+            <p class=\\"govuk-body\\"><a href=\\"https://has-appeal.herokuapp.com/help/contact\\" class=\\"govuk-link\\">Contact the Planning Inspectorate Customer Support</a> if
+                the problem persists.</p>
+        </div>
+    </div>
+</main>"
+`;
+
+exports[`auth authentication should redirect to an error page when the azure redirect is incomplete 2`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <div class=\\"govuk-grid-row\\">
+        <div class=\\"govuk-grid-column-two-thirds\\">
+            <h1 class=\\"govuk-heading-xl\\">Sorry, there is a problem with your login</h1>
+            <p class=\\"govuk-body\\">You are not permitted to access this URL.</p>
+            <p class=\\"govuk-body\\"><a href=\\"https://has-appeal.herokuapp.com/help/contact\\" class=\\"govuk-link\\">Contact the Planning Inspectorate Customer Support</a> if
+                the problem persists.</p>
+        </div>
+    </div>
+</main>"
+`;
+
+exports[`auth authorization should display the services page when a user belongs to more than one group 1`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <div class=\\"govuk-width-container govuk-width-container\\">
+        <h2 class=\\"govuk-heading-l\\">Appeals</h2>
+        <ul class=\\"govuk-list\\">
+            <li><a href=\\"/lpa\\" class=\\"govuk-link\\">Case officer</a>
+            </li>
+            <li><a href=\\"/inspector\\" class=\\"govuk-link\\">Inspector</a>
+            </li>
+            <li><a href=\\"/validation\\" class=\\"govuk-link\\">Validation officer</a>
+            </li>
+        </ul>
+    </div>
+</main>"
+`;
