@@ -1,0 +1,28 @@
+{
+  "name": "eslint-plugin-pins",
+  "version": "0.0.0",
+  "main": "index.js",
+  "private": true,
+  "engines": {
+    "node": ">=16.14.0"
+  },
+  "scripts": {
+    "lint:js": "eslint .",
+    "lint:js:fix": "eslint . --fix",
+    "clean": "rimraf .turbo node_modules dist"
+  },
+  "dependencies": {
+    "escape-string-regexp": "^5.0.0",
+    "eslint": "^8.14.0",
+    "eslint-plugin-pins-eslint": "file:./plugin",
+    "eslint-plugin-eslint-comments": "^3.2.0",
+    "eslint-plugin-jest": "^26.1.5",
+    "eslint-plugin-jsdoc": "^39.2.9",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-simple-import-sort": "^7.0.0",
+    "eslint-plugin-unicorn": "^42.0.0"
+  },
+  "devDependencies": {
+    "rimraf": "^3.0.2"
+  }
+}

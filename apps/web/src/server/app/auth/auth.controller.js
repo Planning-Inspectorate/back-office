@@ -52,15 +52,9 @@ async function getAuthCode(request, response, next, params) {
 		console.error('Authorization code cannot be obtained');
 		next(error);
 	}
-}
+}∏
 
-/**
- * Initiates sign in flow
- *
- * @param {import('express').Request} request express request object
- * @param {import('express').Response} response express response object
- * @param {import('express').NextFunction} next express next function
- */
+/** @type {import('express').RequestHandler} */
 export function authSignIn(request, response, next) {
 	const key = cryptoUtils.createKey(request.session.nonce, cryptoUtils.generateSalt());
 	request.session.key = key.toString('hex');
