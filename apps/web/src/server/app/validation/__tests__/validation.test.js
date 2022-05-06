@@ -5,9 +5,7 @@ import {
 	createTestApplication,
 	getPathToAsset,
 	incompleteAppealDetails,
-	incompleteAppealSummary,
-	localPlanningDepartments,
-	receivedAppealDetails,
+	incompleteAppealSummary, receivedAppealDetails,
 	receivedAppealSummary
 } from '../../../../../testing/index.js';
 
@@ -20,7 +18,7 @@ import {
 /** @typedef {import('../validation.controller').UpdatePlanningApplicationRefBody} UpdatePlanningApplicationRefBody */
 /** @typedef {import('../validation.controller').UpdateLocalPlanningDeptBody} UpdateLocalPlanningDeptBody */
 
-const { app, clearHttpCache, teardown } = createTestApplication();
+const { app, clearHttpCache, installMockApi, teardown } = createTestApplication();
 const request = supertest(app);
 
 describe('validation', () => {
@@ -823,24 +821,6 @@ describe('validation', () => {
 		});
 	});
 });
-
-function installMockApi() {
-	// received appeal
-	nock('http://test/')
-		.get(`/validation/${receivedAppealDetails.AppealId}`)
-		.reply(200, receivedAppealDetails);
-
-	// incomplete appeal
-	nock('http://test/')
-		.get(`/validation/${incompleteAppealDetails.AppealId}`)
-		.reply(200, incompleteAppealDetails);
-
-	// planning departments
-	nock('http://test/').get('/validation/lpa-list').reply(200, localPlanningDepartments);
-
-	// remote error
-	nock('http://test/').get('/validation/0').reply(500);
-}
 
 /**
  * @param {AppealOutcomeBody} body

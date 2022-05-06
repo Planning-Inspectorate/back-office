@@ -13,7 +13,7 @@ import {
 	getPathToAsset
 } from '../../../../../testing/index.js';
 
-const { app, clearHttpCache, installFixedDate, teardown } = createTestApplication();
+const { app, clearHttpCache, installFixedDate, installMockApi, teardown } = createTestApplication();
 const request = supertest(app);
 
 describe('inspector', () => {
@@ -539,19 +539,6 @@ describe('inspector', () => {
 		});
 	});
 });
-
-function installMockApi() {
-	for (const appeal of [
-		appealDetailsForUnbookedSiteVisit,
-		appealDetailsForBookedSiteVisit,
-		appealDetailsForDecisionDue,
-		appealDetailsForPendingStatements
-	]) {
-		nock('http://test/').get(`/inspector/${appeal.appealId}`).reply(200, appeal);
-	}
-	// Unknown appeals
-	nock('http://test/').get('/inspector/0').reply(500);
-}
 
 /**
  * @param {number[]} appealIds
