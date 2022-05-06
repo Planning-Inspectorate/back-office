@@ -4,23 +4,21 @@
  */
 
 module.exports = {
-	plugins: ['node'],
-	extends: ['plugin:node/recommended'],
+	plugins: ['n'],
+	extends: ['plugin:n/recommended'],
 	rules: {
 		// enforce the style of file extensions in import declarations
 		// https://github.com/mysticatea/eslint-plugin-node/blob/HEAD/docs/rules/file-extension-in-import.md
-		'node/file-extension-in-import': [
+		'n/file-extension-in-import': [
 			'error',
 			'always',
 			{
 				'@pins/*': 'never'
 			}
-		],
-
-		'node/no-unsupported-features/es-syntax': ['error', { ignores: ['modules'] }]
+		]
 	},
 	settings: {
-		node: {
+		n: {
 			tryExtensions: ['.js', '.json', '.node']
 		}
 	}
