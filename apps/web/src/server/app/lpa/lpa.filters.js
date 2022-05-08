@@ -1,5 +1,6 @@
 /** @typedef {import('@pins/appeals').DocumentType} AppealDocumentType */
-/** @typedef {keyof import('@pins/appeals').Lpa.Questionnaire} QuestionnaireKey */
+/** @typedef {import('@pins/appeals').Lpa.Questionnaire} LpaQuestionnaire */
+/** @typedef {keyof LpaQuestionnaire} QuestionnaireKey */
 
 /** @type {Partial<Record<QuestionnaireKey, AppealDocumentType>>} */
 const answerTypeDocumentTypeMap = {
@@ -16,12 +17,9 @@ const answerTypeDocumentTypeMap = {
 	policiesSupplementaryPlanningDocumentsMissingOrIncorrect: 'supplementary planning document'
 };
 
-/** @type {Record<string, Array<AppealDocumentType | QuestionnaireKey>} */
+/** @type {Record<string, Array<AppealDocumentType | QuestionnaireKey>>} */
 const labelData = {
-	'Appeal notification': [
-		'appeal notification',
-		'thirdPartyAppealNotificationMissingOrIncorrect'
-	],
+	'Appeal notification': ['appeal notification', 'thirdPartyAppealNotificationMissingOrIncorrect'],
 	'Application notification': [
 		'application notification',
 		'thirdPartyApplicationNotificationMissingOrIncorrect'
@@ -68,21 +66,19 @@ const labelData = {
 		'thirdPartyApplicationNotificationMissingOrIncorrectListOfAddresses'
 	],
 	'Final comments': [
-		'fpa final comment'
+		/** @type {*} – documentType currently not created @ May 2022 */ ('fpa final comment')
 	],
-	'Statements' : [
-		'fpa statement'
-	]
+	Statements: [/** @type {*} – documentType currently not created @ May 2022 */ ('fpa statement')]
 };
 
-const lpaLabelMap = Object.entries(labelData).reduce(
-	(labels, [label, keys]) => ({
-		...labels,
-		// eslint-disable-next-line unicorn/prefer-object-from-entries
-		...keys.reduce((labelsForKey, key) => ({ ...labelsForKey, [key]: label }), {})
-	}),
-	/** @type {Record<AppealDocumentType | QuestionnaireKey, string>} */ ({})
-);
+/** @type {Partial<Record<AppealDocumentType | QuestionnaireKey, string>>} */
+const lpaLabelMap = {};
+
+for (const [key, values] of Object.entries(labelData)) {
+	for (const value of values) {
+		lpaLabelMap[value] = key;
+	}
+}
 
 /**
  * Map an answerType to its associated documentType.
@@ -98,8 +94,45 @@ export function lpaDocumentType(key) {
  * Map a label key to a human readable string.
  *
  * @param {AppealDocumentType | QuestionnaireKey} key
- * @returns {string}
+ * @returns {string=}
  */
 export function lpaLabel(key) {
 	return lpaLabelMap[key];
 }
+
+/**
+ * Determine if a review questionnaire has acknowledged is missing a given
+ * `documentType` on an appeal.
+ *
+ * @param {LpaQuestionnaire} reviewQuestionnaire
+ * @param {AppealDocumentType} documentType
+ * @returns {boolean}
+ */
+export const getReviewQuestionnaireDocumentTypeRequired = (reviewQuestionnaire, documentType) => {
+	switch (documentType) {
+		case 'appeal notification':
+			return reviewQuestionnaire.thirdPartyAppealNotificationMissingOrIncorrect;
+		case 'application notification':
+			return reviewQuestionnaire.thirdPartyApplicationNotificationMissingOrIncorrect;
+		case 'application publicity':
+			return reviewQuestionnaire.thirdPartyApplicationPublicityMissingOrIncorrect;
+		case 'conservation area guidance':
+			return reviewQuestionnaire.siteConservationAreaMapAndGuidanceMissingOrIncorrect;
+		case 'listed building description':
+			return reviewQuestionnaire.siteListedBuildingDescriptionMissingOrIncorrect;
+		case 'other relevant policy':
+			return reviewQuestionnaire.policiesOtherRelevantPoliciesMissingOrIncorrect;
+		case 'planning officers report':
+			return reviewQuestionnaire.applicationPlanningOfficersReportMissingOrIncorrect;
+		case 'plans used to reach decision':
+			return reviewQuestionnaire.applicationPlansToReachDecisionMissingOrIncorrect;
+		case 'representation':
+			return reviewQuestionnaire.thirdPartyRepresentationsMissingOrIncorrect;
+		case 'statutory development plan policy':
+			return reviewQuestionnaire.policiesStatutoryDevelopmentPlanPoliciesMissingOrIncorrect;
+		case 'supplementary planning document':
+			return reviewQuestionnaire.policiesSupplementaryPlanningDocumentsMissingOrIncorrect;
+		default:
+			throw new Error(`Unknown document type '${documentType}'.`);
+	}
+};

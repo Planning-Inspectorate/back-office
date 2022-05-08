@@ -1,12 +1,12 @@
-import express from 'express';
-import { config } from './../config/config.js';
-import { isAuthenticated, hasAccess } from './auth/auth.guards.js';
+import config from '@pins/web/environment/config.js';
+import { Router as createRouter } from 'express';
 import { viewHomepage } from './app.controller.js';
+import { hasAccess, isAuthenticated } from './auth/auth.guards.js';
 
-const router = express.Router();
+const router = createRouter();
 
-router.route('/services').get((req, res) => {
-	res.render('app/dashboard');
+router.route('/services').get((_, response) => {
+	response.render('app/dashboard');
 });
 
 router.route('/').get(
@@ -14,7 +14,11 @@ router.route('/').get(
 	hasAccess({
 		accessRule: {
 			methods: ['GET', 'POST'],
-			groups: [config.auth.validationOfficerGroupID, config.auth.caseOfficerGroupID, config.auth.inspectorGroupID]
+			groups: [
+				config.auth.validationOfficerGroupID,
+				config.auth.caseOfficerGroupID,
+				config.auth.inspectorGroupID
+			]
 		}
 	}),
 	viewHomepage

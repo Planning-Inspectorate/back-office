@@ -7,14 +7,14 @@ module.exports = {
 		'array-element-newline': 0,
 		'block-spacing': ['error', 'always'],
 		'brace-style': ['error', '1tbs', { allowSingleLine: true }],
-		'camelcase': 0,
+		camelcase: 0,
 		'capitalized-comments': 0,
 		'comma-dangle': 0,
 		'comma-spacing': [
 			'error',
 			{
-				'before': false,
-				'after': true
+				before: false,
+				after: true
 			}
 		],
 		'comma-style': ['error', 'last'],
@@ -30,14 +30,14 @@ module.exports = {
 		'id-length': 0,
 		'id-match': 0,
 		'implicit-arrow-linebreak': 0,
-		'indent': [
+		indent: [
 			2,
 			'tab',
 			{
-				'SwitchCase': 1,
-				'VariableDeclarator': 1,
-				'flatTernaryExpressions': false,
-				'ignoreComments': false
+				SwitchCase: 1,
+				VariableDeclarator: 1,
+				flatTernaryExpressions: false,
+				ignoreComments: false
 			}
 		],
 		'jsx-quotes': 0,
@@ -53,8 +53,8 @@ module.exports = {
 			156,
 			2,
 			{
-				'ignoreUrls': true,
-				'ignoreComments': true
+				ignoreUrls: true,
+				ignoreComments: true
 			}
 		],
 		'max-lines': 0,
@@ -81,10 +81,7 @@ module.exports = {
 		'no-nested-ternary': 0,
 		'no-new-object': 0,
 		'no-plusplus': 0,
-		'no-restricted-syntax': [
-			'error',
-			'WithStatement'
-		],
+		'no-restricted-syntax': ['error', 'WithStatement'],
 		'no-tabs': 0,
 		'no-ternary': 0,
 		'no-trailing-spaces': 0,
@@ -103,8 +100,8 @@ module.exports = {
 		'padding-line-between-statements': 0,
 		'prefer-object-spread': 0,
 		'quote-props': 0,
-		'quotes': [1, 'single'],
-		'semi': [2, 'always', { 'omitLastInOneLineBlock': true}],
+		quotes: [1, 'single'],
+		semi: [2, 'always', { omitLastInOneLineBlock: true }],
 		'semi-spacing': 0,
 		'semi-style': 0,
 		'sort-keys': 0,

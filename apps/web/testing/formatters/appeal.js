@@ -1,6 +1,6 @@
-import validationFormatter from '@pins/api/src/server/app/validation/appeal-formatter.js';
 import caseOfficerFormatter from '@pins/api/src/server/app/case-officer/appeal-formatter.js';
 import { appealFormatter as inspectorFormatter } from '@pins/api/src/server/app/inspector/appeal-formatter.js';
+import validationFormatter from '@pins/api/src/server/app/validation/appeal-formatter.js';
 
 /** @typedef {import('@pins/api').Schema.Appeal} RawAppeal */
 /** @typedef {import('@pins/appeals').Validation.Appeal} ValidationAppeal */

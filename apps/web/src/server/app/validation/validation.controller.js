@@ -1,5 +1,5 @@
-import * as validationSession from './validation-session.service.js';
 import * as validationService from './validation.service.js';
+import * as validationSession from './validation-session.service.js';
 
 /** @typedef {import('@pins/appeals').Validation.Appeal} Appeal */
 /** @typedef {import('@pins/appeals').Validation.AppealDocument} AppealDocument */
@@ -10,9 +10,10 @@ import * as validationService from './validation.service.js';
 /** @typedef {import('./validation.router').AppealDocumentsParams} AppealDocumentParams */
 /** @typedef {import('./validation-session.service').ReviewOutcomeState} ReviewOutcome */
 /** @typedef {import('./validation.service').OutcomeData} ReviewOutcomeData */
+/** @typedef {import('@pins/express').MulterFile} MulterFile */
 
 /**
- * @typedef {Object} ViewDashboardRenderOptions
+ * @typedef {object} ViewDashboardRenderOptions
  * @property {Appeal[]} appeals
  */
 
@@ -28,7 +29,7 @@ export async function viewDashboard(_, response) {
 }
 
 /**
- * @typedef {Object} ViewAppealRenderOptions
+ * @typedef {object} ViewAppealRenderOptions
  * @property {Appeal} appeal
  * @property {boolean} canEditReviewOutcomeStatus - A flag to determine whether
  * the outcome options be visible. This applies to 'incomplete' appeals only.
@@ -36,7 +37,7 @@ export async function viewDashboard(_, response) {
  */
 
 /**
- * @typedef {Object} ViewAppealQueryParams
+ * @typedef {object} ViewAppealQueryParams
  * @property {string=} edit - A UI flag as to whether the review outcome options
  * have been made visible by the user. This applies only to 'incomplete' appeals
  * where displaying the review outcome options first requires an additional
@@ -62,7 +63,7 @@ export async function viewAppeal({ query, session, params }, response) {
 }
 
 /**
- * @typedef {Object} AppealOutcomeBody
+ * @typedef {object} AppealOutcomeBody
  * @property {AppealOutcomeStatus} status
  */
 
@@ -90,7 +91,7 @@ export async function updateAppealOutcome({ body, params, session }, response) {
 }
 
 /**
- * @typedef {Object} EditAppellantNameRenderOptions
+ * @typedef {object} EditAppellantNameRenderOptions
  * @property {number} appealId
  * @property {string} appellantName
  */
@@ -111,7 +112,7 @@ export async function editAppellantName({ params }, response) {
 }
 
 /**
- * @typedef {Object} UpdateAppellantNameBody
+ * @typedef {object} UpdateAppellantNameBody
  * @property {string} AppellantName
  */
 
@@ -122,7 +123,6 @@ export async function editAppellantName({ params }, response) {
  * EditAppellantNameRenderOptions, UpdateAppellantNameBody>}
  */
 export async function updateAppellantName({ body, params }, response) {
-
 	if (response.locals.errors) {
 		response.render('validation/edit-appellant-name', {
 			appealId: params.appealId,
@@ -136,7 +136,7 @@ export async function updateAppellantName({ body, params }, response) {
 }
 
 /**
- * @typedef {Object} EditAppealSiteRenderOptions
+ * @typedef {object} EditAppealSiteRenderOptions
  * @property {number} appealId
  * @property {Appeal['AppealSite']} appealSite
  */
@@ -182,7 +182,7 @@ export async function updateAppealSite({ body, params }, response) {
 }
 
 /**
- * @typedef {Object} EditLocalPlanningDeptRenderOptions
+ * @typedef {object} EditLocalPlanningDeptRenderOptions
  * @property {number} appealId
  * @property {string} localPlanningDepartment
  * @property {string[]} source
@@ -209,7 +209,7 @@ export async function editLocalPlanningDepartment({ params }, response) {
 }
 
 /**
- * @typedef {Object} UpdateLocalPlanningDeptBody
+ * @typedef {object} UpdateLocalPlanningDeptBody
  * @property {string} LocalPlanningDepartment
  */
 
@@ -237,7 +237,7 @@ export async function updateLocalPlanningDepartment({ body, params }, response) 
 }
 
 /**
- * @typedef {Object} EditPlanningApplicationRefRenderOptions
+ * @typedef {object} EditPlanningApplicationRefRenderOptions
  * @property {number} appealId
  * @property {string} planningApplicationReference
  */
@@ -259,7 +259,7 @@ export async function editPlanningApplicationReference({ params }, response) {
 }
 
 /**
- * @typedef {Object} UpdatePlanningApplicationRefBody
+ * @typedef {object} UpdatePlanningApplicationRefBody
  * @property {string} PlanningApplicationReference
  */
 
@@ -284,7 +284,7 @@ export async function updatePlanningApplicationReference({ body, params }, respo
 }
 
 /**
- * @typedef {Object} EditDocumentsRenderOptions
+ * @typedef {object} EditDocumentsRenderOptions
  * @property {number} appealId
  * @property {AppealDocument[]} documents
  * @property {AppealDocumentType} documentType
@@ -326,7 +326,7 @@ export async function uploadDocuments({ files, params }, response) {
 	}
 
 	await Promise.all(
-		/** @type {Express.Multer.File[]} **/ (files).map((file) =>
+		/** @type {MulterFile[]} * */ (files).map((file) =>
 			validationService.uploadDocument(params.appealId, {
 				documentType: params.documentType,
 				file
@@ -337,7 +337,7 @@ export async function uploadDocuments({ files, params }, response) {
 }
 
 /**
- * @typedef {Object} NewReviewOutcomeRenderOptions
+ * @typedef {object} NewReviewOutcomeRenderOptions
  * @property {Appeal} appeal
  * @property {ReviewOutcomeData} reviewOutcome
  */
@@ -376,14 +376,14 @@ export async function createReviewOutcome({ body, params, session }, response) {
 		});
 		return;
 	}
-	
+
 	validationSession.setReviewOutcome(session, { appealId: params.appealId, ...body });
 
 	response.redirect(`/validation/appeals/${params.appealId}/review-outcome/confirm`);
 }
 
 /**
- * @typedef {Object} ViewReviewOutcomeConfirmationRenderOptions
+ * @typedef {object} ViewReviewOutcomeConfirmationRenderOptions
  * @property {Appeal} appeal
  * @property {import('./validation.service.js').OutcomeData} reviewOutcome
  */
@@ -435,7 +435,6 @@ export async function confirmReviewOutcome({ params, session }, response) {
 		return;
 	}
 	await validationService.recordOutcome(params.appealId, reviewOutcome);
-
 
 	validationSession.destroyReviewOutcome(session);
 

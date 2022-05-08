@@ -1,7 +1,7 @@
 import { faker } from '@faker-js/faker';
 import { camelCase, snakeCase } from 'lodash-es';
 
-/** @typedef {import('@azure/msal-node').AccountInfo} AccountInfo */
+/** @typedef {import('@pins/platform').PlanningInspectorAccountInfo} AccountInfo */
 /** @typedef {Omit<AccountInfo, 'idTokenClaims'> & { groups?: string[] }} AccountInfoOptions */
 
 /**

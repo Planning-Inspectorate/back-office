@@ -1,3 +1,8 @@
-export function endsWith (string, value) {
-	return string && string.endsWith(value);
+/**
+ * @param {string} sourceString
+ * @param {string} searchString
+ * @returns {boolean}
+ */
+export function endsWith(sourceString, searchString) {
+	return sourceString ? sourceString.endsWith(searchString) : false;
 }

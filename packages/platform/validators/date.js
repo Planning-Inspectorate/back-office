@@ -1,4 +1,3 @@
-
 /**
  * Determine whether a provided date is in the past. Note that today's date
  * counts as valid.
@@ -6,9 +5,9 @@
  * @param {Date | string | number} value - The date to be validated.
  * @returns {boolean} - The date is today or in the past.
  */
-export function validatePastDate (value) {
-  return timeDiff(value, Date.now()) >= 0;
-};
+export function validatePastDate(value) {
+	return timeDiff(value, Date.now()) >= 0;
+}
 
 /**
  * Determine whether a provided date is in the future. Note that today's date
@@ -18,7 +17,7 @@ export function validatePastDate (value) {
  * @returns {boolean} - The date is today or in the future.
  */
 export const validateFutureDate = (value) => {
-  return timeDiff(value, Date.now()) <= 0;
+	return timeDiff(value, Date.now()) <= 0;
 };
 
 /**
@@ -27,18 +26,19 @@ export const validateFutureDate = (value) => {
  * @param {Date | string | number} value - The date to be transformed.
  * @returns {number} - The date in milliseconds.
  */
- function toTimestamp(value) {
-  let date = value;
+function toTimestamp(value) {
+	let date = value;
 
-  if (typeof date === 'string') {
-    const [year, month, day] = date.split('-');
-    date = new Date(+year, +month - 1, +day);
-  } else {
-    date = new Date(value);
-  }
-  date.setHours(0, 0, 0, 0);
+	if (typeof date === 'string') {
+		const [year, month, day] = date.split('-');
 
-  return date.getTime();
+		date = new Date(+year, +month - 1, +day);
+	} else {
+		date = new Date(value);
+	}
+	date.setHours(0, 0, 0, 0);
+
+	return date.getTime();
 }
 
 /**
@@ -46,6 +46,6 @@ export const validateFutureDate = (value) => {
  * @param {Date | string | number} b - The date to be compared from.
  * @returns {number} - The time difference in milliseconds.
  */
- function timeDiff(a, b) {
-  return toTimestamp(b) - toTimestamp(a);
+function timeDiff(a, b) {
+	return toTimestamp(b) - toTimestamp(a);
 }

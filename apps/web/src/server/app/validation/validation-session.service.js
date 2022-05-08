@@ -5,12 +5,12 @@
  */
 
 /**
- * @typedef {Object} ValidationState
+ * @typedef {object} ValidationState
  * @property {(InitialReviewOutcomeState | ReviewOutcomeState)=} reviewOutcome
  */
 
 /**
- * @typedef {Object} InitialReviewOutcomeState
+ * @typedef {object} InitialReviewOutcomeState
  * @property {number} appealId
  * @property {AppealOutcomeStatus=} status
  */
@@ -36,10 +36,13 @@ const getState = (session) => session.validation || {};
  */
 const getReviewOutcomeState = (session, appealId) => {
 	const { reviewOutcome } = getState(session);
+
 	// If the appealId in the session differs, ignore the existing state,
 	// otherwise we strip the appealId as it's an internal property only and not
 	// part of the review outcome.
-	return reviewOutcome?.appealId === appealId ? reviewOutcome : undefined;
+	if (reviewOutcome?.appealId === appealId) {
+		return reviewOutcome;
+	}
 };
 
 /**
@@ -87,6 +90,7 @@ export const getReviewOutcome = (session, appealId) => {
  */
 export const setReviewOutcome = (session, data) => {
 	const state = getState(session);
+
 	state.reviewOutcome = data;
 	session.validation = state;
 };
@@ -100,9 +104,11 @@ export const setReviewOutcome = (session, data) => {
  */
 export const setReviewOutcomeStatus = (session, data) => {
 	const state = getState(session);
-	const isUnchanged = state.reviewOutcome?.appealId === data.appealId && state.reviewOutcome?.status === data.status;
-	// if we are setting an unchanged review outcome status for the same
-	// appealId then do nothing
+	const isUnchanged =
+		state.reviewOutcome?.appealId === data.appealId && state.reviewOutcome?.status === data.status;
+
+	// if we are setting an unchanged review outcome status for the same appealId
+	// then do nothing
 	if (!isUnchanged) {
 		state.reviewOutcome = data;
 		session.validation = state;

@@ -1,6 +1,6 @@
 import { createAsyncHandler } from '../../lib/async-error-handler.js';
-import * as validationSession from './validation-session.service.js';
 import * as validationService from './validation.service.js';
+import * as validationSession from './validation-session.service.js';
 
 /** @typedef {import('@pins/appeals').Validation.AppealOutcomeStatus} AppealOutcomeStatus */
 /** @typedef {import('./validation.router').AppealParams} AppealParams */

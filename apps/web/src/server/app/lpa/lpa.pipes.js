@@ -4,8 +4,8 @@ import { pickBy } from 'lodash-es';
 import multer from 'multer';
 import { createAsyncHandler } from '../../lib/async-error-handler.js';
 import { memoryStorage } from '../../lib/multer.js';
-import * as lpaSession from './lpa-session.service.js';
 import * as lpaService from './lpa.service.js';
+import * as lpaSession from './lpa-session.service.js';
 
 /** @typedef {import('./lpa.router').AppealParams} AppealParams */
 /** @typedef {import('@pins/appeals').Lpa.Questionnaire} Questionnaire */
@@ -23,7 +23,7 @@ export const validateDocuments = createValidator(
 	multer({
 		storage: memoryStorage,
 		limits: {
-			fileSize: 15 * Math.pow(1024, 2 /* MBs*/)
+			fileSize: 15 * 1024 ** 2
 		}
 	}).array('files'),
 	mapMulterErrorToValidationError,
@@ -71,7 +71,7 @@ export const validateQuestionnaireReview = createValidator(
 		/** @typedef {{ answers: Array<keyof Questionnaire> } & Record<string, ?>} RequestBody */
 		const { answers = [], ...other } = request.body;
 		const allAnswers = /** @type {QuestionnaireKey[]} */ ([]);
-		const descriptions = /** @type {Object.<QuestionnaireKey, string>} */ ({});
+		const descriptions = /** @type {Object<QuestionnaireKey, string>} */ ({});
 
 		for (const answerType of answers) {
 			allAnswers.push(answerType);
@@ -79,16 +79,17 @@ export const validateQuestionnaireReview = createValidator(
 			if (Array.isArray(other[answerType])) {
 				allAnswers.push(...other[answerType]);
 			}
+
 			// push any descriptions for which an answer exists
 			const descriptionKey = `${[answerType]}Description`;
-			
+
 			if (other[descriptionKey]) {
 				descriptions[descriptionKey] = other[descriptionKey];
 			}
 		}
 		/** Transform posted body into a {@link Questionnaire} entity */
 		request.body = {
-			// ignore strings from conditional descriptions that weren't used in the UI, 
+			// ignore strings from conditional descriptions that weren't used in the UI,
 			...descriptions,
 			...Object.fromEntries(allAnswers.map((answerType) => [answerType, true]))
 		};

@@ -1,28 +1,29 @@
-import fs from 'fs';
+import fs from 'node:fs';
 
 /** @typedef {import('@pins/appeals').Inspector.AppealOutcome} AppealOutcome */
 /** @typedef {import('@pins/appeals').Inspector.SiteVisitType} SiteVisitType */
+/** @typedef {import('@pins/express').MulterFile} MulterFile */
 
 /**
  * @typedef {import('express-session').Session & { inspector?: InspectorState }} SessionWithInspector
  */
 
 /**
- * @typedef {Object} InspectorState
+ * @typedef {object} InspectorState
  * @property {number[]} assignedAppealIds
  * @property {SiteVisitState=} siteVisit
  * @property {DecisionState=} decision
  */
 
 /**
- * @typedef {Object} DecisionState
+ * @typedef {object} DecisionState
  * @property {number} appealId
  * @property {AppealOutcome} outcome
- * @property {Express.Multer.File} decisionLetter
+ * @property {MulterFile} decisionLetter
  */
 
 /**
- * @typedef {Object} SiteVisitState
+ * @typedef {object} SiteVisitState
  * @property {number} appealId
  * @property {string} siteVisitDate
  * @property {string} siteVisitTimeSlot
@@ -124,7 +125,7 @@ export const setSiteVisit = (session, siteVisit) => {
 export const destroyDecision = (session) => {
 	const state = getState(session);
 
-	if (state?.decision) {
+	if (state?.decision && state.decision.decisionLetter.path) {
 		fs.unlinkSync(state.decision.decisionLetter.path);
 		delete state.decision;
 	}

@@ -1,8 +1,13 @@
-import express from 'express';
 import msalNode from '@azure/msal-node';
-import { authSignIn, viewAuthUnauthorized, viewAuthError, handleRedirect } from './auth.controller.js';
+import { Router as createRouter } from 'express';
+import {
+	authSignIn,
+	handleRedirect,
+	viewAuthError,
+	viewAuthUnauthorized
+} from './auth.controller.js';
 
-const router = express.Router();
+const router = createRouter();
 const cryptoProvider = new msalNode.CryptoProvider();
 
 // The order here is important as the redirect needs to be handled before a new session nonce is set.
@@ -13,7 +18,8 @@ router.route('/redirect').post(handleRedirect);
 // TODO: This should actually be run for each main route, not just `/auth`.
 router.use((request, response, next) => {
 	if (!request.session) {
-		throw new Error('No session found for this request'); // TODO: Handle this gracefully (not important)
+		// TODO: Handle this gracefully (not important)
+		throw new Error('No session found for this request');
 	}
 
 	// Add session nonce for crsf

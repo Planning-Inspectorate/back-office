@@ -1,4 +1,4 @@
-import { config } from '../config/config.js';
+import config from '@pins/web/environment/config.js';
 
 /**
  * View the hompage.
@@ -29,7 +29,9 @@ export function viewHomepage(request, response) {
 				response.redirect('/inspector');
 				break;
 			default:
-				console.error('This should never happen! User logged in successfully but the user group is valid.');
+				console.error(
+					'This should never happen! User logged in successfully but the user group is valid.'
+				);
 				break;
 		}
 	}

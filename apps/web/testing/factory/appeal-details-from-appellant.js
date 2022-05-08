@@ -1,4 +1,4 @@
-import { createUniqueId } from '@pins/platform/testing';
+import { fake } from '@pins/platform';
 
 /** @typedef {import('@pins/api').Schema.AppealDetailsFromAppellant} AppealDetailsFromAppellant */
 
@@ -7,23 +7,23 @@ import { createUniqueId } from '@pins/platform/testing';
  * @returns {AppealDetailsFromAppellant}
  */
 export function createAppealDetailsFromAppellant({
-	appealId = createUniqueId(),
-	id = createUniqueId(),
+	appealId = fake.createUniqueId(),
+	id = fake.createUniqueId(),
 	siteVisibleFromPublicLand = true,
-  appellantOwnsWholeSite = true,
-  appellantOwnsWholeSiteDescription = 'Purchased at auction',
-  healthAndSafetyIssues = false,
-  healthAndSafetyIssuesDescription = null,
-  siteVisibleFromPublicLandDescription = 'Site is partially visible from road'
+	appellantOwnsWholeSite = true,
+	appellantOwnsWholeSiteDescription = 'Purchased at auction',
+	healthAndSafetyIssues = false,
+	healthAndSafetyIssuesDescription = null,
+	siteVisibleFromPublicLandDescription = 'Site is partially visible from road'
 } = {}) {
 	return {
 		id,
 		appealId,
-    siteVisibleFromPublicLand,
-    appellantOwnsWholeSite,
-    appellantOwnsWholeSiteDescription,
-    healthAndSafetyIssues,
-    healthAndSafetyIssuesDescription,
-    siteVisibleFromPublicLandDescription
+		siteVisibleFromPublicLand,
+		appellantOwnsWholeSite,
+		appellantOwnsWholeSiteDescription,
+		healthAndSafetyIssues,
+		healthAndSafetyIssuesDescription,
+		siteVisibleFromPublicLandDescription
 	};
 }

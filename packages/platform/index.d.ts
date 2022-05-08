@@ -1,21 +1,27 @@
-import './config/dotenv';
+import './crypto/crypto-utils';
 import './http/ttl';
-import './util/CryptoUtils';
-import './util/date';
-import './util/filter';
-import './util/formdata';
-import './util/url';
+import './testing/assets/assets';
+import './testing/fake';
+import './testing/html-parser';
+import './utils/date';
+import './utils/dotenv';
+import './utils/filter';
+import './utils/url';
 import './validators/date';
 import './validators/postcode';
 
 declare module '@pins/platform' {
-	export * from './config/dotenv';
+	export * from './crypto/crypto-utils';
 	export * from './http/ttl';
-	export * from './util/CryptoUtils';
-	export * from './util/date';
-	export * from './util/filter';
-	export * from './util/formdata';
-	export * from './util/url';
+	export * from './testing/assets/assets';
+	export * from './testing/fake';
+	export * from './testing/html-parser';
+	export * from './utils/date';
+	export * from './utils/dotenv';
+	export * from './utils/filter';
+	export * from './utils/url';
 	export * from './validators/date';
 	export * from './validators/postcode';
 }
+
+export * from './types/account';

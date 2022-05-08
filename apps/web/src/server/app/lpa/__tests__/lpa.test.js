@@ -1,4 +1,4 @@
-import { parseHtml } from '@pins/platform/testing';
+import { getPathToAsset, parseHtml } from '@pins/platform';
 import nock from 'nock';
 import supertest from 'supertest';
 import {
@@ -6,14 +6,13 @@ import {
 	appealDetailsForIncompleteQuestionnaire,
 	appealDetailsForReceivedQuestionnaire,
 	appealDetailsForStatements,
+	appealSummaryForFinalComments,
 	appealSummaryForIncompleteQuestionnaire,
 	appealSummaryForOverdueQuestionnaire,
-	appealSummaryForFinalComments,
 	appealSummaryForPendingQuestionnaire,
-	appealSummaryForStatements,
 	appealSummaryForReceivedQuestionnaire,
-	createTestApplication,
-	getPathToAsset
+	appealSummaryForStatements,
+	createTestApplication
 } from '../../../../../testing/index.js';
 
 const { app, installMockApi, teardown } = createTestApplication();
@@ -160,10 +159,7 @@ describe('lpa', () => {
 		});
 
 		it('should handle an asynchronous error during the request', async () => {
-			const response = await request
-				.post('/lpa/appeals/0/questionnaire')
-				.send({})
-				.redirects(1);
+			const response = await request.post('/lpa/appeals/0/questionnaire').send({}).redirects(1);
 			const element = parseHtml(response.text);
 
 			expect(element.querySelector('h1')?.innerHTML).toEqual(
@@ -213,9 +209,7 @@ describe('lpa', () => {
 		});
 
 		it('should handle an asynchronous error during the request', async () => {
-			const response = await request
-				.post(`/lpa/appeals/0/questionnaire/complete`)
-				.redirects(1);
+			const response = await request.post(`/lpa/appeals/0/questionnaire/complete`).redirects(1);
 			const element = parseHtml(response.text);
 
 			expect(element.querySelector('h1')?.innerHTML).toEqual(
@@ -228,9 +222,7 @@ describe('lpa', () => {
 		const { AppealId } = appealDetailsForReceivedQuestionnaire;
 
 		it('should handle an asynchronous error during the request', async () => {
-			const response = await request
-				.post(`/lpa/appeals/0/questionnaire/confirm`)
-				.redirects(1);
+			const response = await request.post(`/lpa/appeals/0/questionnaire/confirm`).redirects(1);
 			const element = parseHtml(response.text);
 
 			expect(element.querySelector('h1')?.innerHTML).toEqual(
@@ -240,9 +232,7 @@ describe('lpa', () => {
 
 		describe('valid questionnaire review', () => {
 			beforeEach(async () => {
-				nock('http://test/')
-					.post(`/case-officer/${AppealId}/confirm`, { reason: {} })
-					.reply(200);
+				nock('http://test/').post(`/case-officer/${AppealId}/confirm`, { reason: {} }).reply(200);
 
 				await installQuestionnaireReview(AppealId, {});
 			});
@@ -273,9 +263,7 @@ describe('lpa', () => {
 			});
 
 			it('should validate the confirmation for an incomplete questionnaire', async () => {
-				const response = await request.post(
-					`/lpa/appeals/${AppealId}/questionnaire/confirm`
-				);
+				const response = await request.post(`/lpa/appeals/${AppealId}/questionnaire/confirm`);
 				const element = parseHtml(response.text);
 
 				expect(element.innerHTML).toMatchSnapshot();
@@ -335,9 +323,7 @@ describe('lpa', () => {
 				.redirects(1);
 			const element = parseHtml(response.text);
 
-			expect(element.querySelector('h1')?.innerHTML).toEqual(
-				'Review incomplete questionnaire'
-			);
+			expect(element.querySelector('h1')?.innerHTML).toEqual('Review incomplete questionnaire');
 		});
 
 		it('should handle an asynchronous error during the request', async () => {
@@ -381,9 +367,8 @@ describe('lpa', () => {
 			const element = parseHtml(response.text);
 
 			expect(
-				element.querySelector(
-					'[data-test-id="siteListedBuildingDescriptionMissingOrIncorrect"]'
-				)?.innerHTML
+				element.querySelector('[data-test-id="siteListedBuildingDescriptionMissingOrIncorrect"]')
+					?.innerHTML
 			).toMatchSnapshot();
 		});
 
@@ -405,9 +390,7 @@ describe('lpa', () => {
 				.redirects(1);
 			const element = parseHtml(response.text);
 
-			expect(element.querySelector('h1')?.innerHTML).toEqual(
-				'Review incomplete questionnaire'
-			);
+			expect(element.querySelector('h1')?.innerHTML).toEqual('Review incomplete questionnaire');
 		});
 
 		it('should handle an asynchronous error during the request', async () => {
@@ -435,6 +418,8 @@ describe('lpa', () => {
 		});
 
 		it('should redirect to the appeal page when the document type is not missing or incorrect', async () => {
+			const { reviewQuestionnaire } = appealDetailsForIncompleteQuestionnaire;
+
 			nock('http://test/')
 				.get(`/case-officer/1`)
 				.reply(
@@ -442,7 +427,7 @@ describe('lpa', () => {
 					/** @type {import('@pins/appeals').Lpa.Appeal} */ ({
 						...appealDetailsForIncompleteQuestionnaire,
 						reviewQuestionnaire: {
-							...appealDetailsForIncompleteQuestionnaire.reviewQuestionnaire,
+							...reviewQuestionnaire,
 							applicationPlansToReachDecisionMissingOrIncorrect: false
 						}
 					})
@@ -453,9 +438,7 @@ describe('lpa', () => {
 				.redirects(1);
 			const element = parseHtml(response.text);
 
-			expect(element.querySelector('h1')?.innerHTML).toEqual(
-				'Review incomplete questionnaire'
-			);
+			expect(element.querySelector('h1')?.innerHTML).toEqual('Review incomplete questionnaire');
 		});
 
 		it('should handle an asynchronous error during the request', async () => {
@@ -498,12 +481,12 @@ describe('lpa', () => {
 				.redirects(1);
 			const element = parseHtml(response.text);
 
-			expect(element.querySelector('h1')?.innerHTML).toEqual(
-				'Review incomplete questionnaire'
-			);
+			expect(element.querySelector('h1')?.innerHTML).toEqual('Review incomplete questionnaire');
 		});
 
 		it('should redirect to the appeal page when the document type is not missing or incorrect', async () => {
+			const { reviewQuestionnaire } = appealDetailsForIncompleteQuestionnaire;
+
 			nock('http://test/')
 				.get(`/case-officer/1`)
 				.reply(
@@ -511,7 +494,7 @@ describe('lpa', () => {
 					/** @type {import('@pins/appeals').Lpa.Appeal} */ ({
 						...appealDetailsForIncompleteQuestionnaire,
 						reviewQuestionnaire: {
-							...appealDetailsForIncompleteQuestionnaire.reviewQuestionnaire,
+							...reviewQuestionnaire,
 							applicationPlansToReachDecisionMissingOrIncorrect: false
 						}
 					})
@@ -522,9 +505,7 @@ describe('lpa', () => {
 				.redirects(1);
 			const element = parseHtml(response.text);
 
-			expect(element.querySelector('h1')?.innerHTML).toEqual(
-				'Review incomplete questionnaire'
-			);
+			expect(element.querySelector('h1')?.innerHTML).toEqual('Review incomplete questionnaire');
 		});
 
 		it('should handle an asynchronous error during the request', async () => {

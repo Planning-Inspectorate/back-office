@@ -1,4 +1,4 @@
-import express from 'express';
+import { Router as createRouter } from 'express';
 import { lowerCase } from 'lodash-es';
 import { createAsyncHandler } from '../../lib/async-error-handler.js';
 import {
@@ -41,18 +41,17 @@ import * as validators from './validation.pipes.js';
  * @property {AppealDocumentType} documentType
  */
 
-const router = express.Router();
+const router = createRouter();
 
-router.param(
-	'appealId',
-	(/** @type {import('express').Request<any>} */ request, _, next, appealId) => {
-		request.params.appealId = Number.parseInt(appealId, 10);
-		next();
-	}
-);
+router.param('appealId', ({ params }, _, next) => {
+	const appealId = Number.parseInt(params.appealId, 10);
 
-router.param('documentType', (request, _, next, documentType) => {
-	request.params.documentType = lowerCase(documentType);
+	params.appealId = /** @type {*} */ (appealId);
+	next();
+});
+
+router.param('documentType', ({ params }, _, next) => {
+	params.documentType = lowerCase(params.documentType);
 	next();
 });
 

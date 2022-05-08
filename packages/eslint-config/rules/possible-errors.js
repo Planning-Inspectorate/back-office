@@ -6,7 +6,7 @@ module.exports = {
 		'getter-return': [
 			'error',
 			{
-				'allowImplicit': true
+				allowImplicit: true
 			}
 		],
 		'no-async-promise-executor': 0,

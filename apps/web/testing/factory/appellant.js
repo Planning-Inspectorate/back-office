@@ -1,5 +1,5 @@
 import { faker } from '@faker-js/faker';
-import { createUniqueId } from '@pins/platform/testing';
+import { fake } from '@pins/platform';
 import { snakeCase } from 'lodash-es';
 
 /** @typedef {import('@pins/api').Schema.Appellant} AppellantData */
@@ -9,7 +9,7 @@ import { snakeCase } from 'lodash-es';
  * @returns {AppellantData}
  */
 export function createAppellant({
-	id = createUniqueId(),
+	id = fake.createUniqueId(),
 	name = `${faker.name.firstName()} ${faker.name.lastName()}`,
 	email = `${snakeCase(name)}@example.com`,
 	agentName = 'Agent Alma Adamson'

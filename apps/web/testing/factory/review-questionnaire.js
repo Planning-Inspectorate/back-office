@@ -1,5 +1,5 @@
 import { faker } from '@faker-js/faker';
-import { createUniqueId, randomBoolean } from '@pins/platform/testing';
+import { fake } from '@pins/platform';
 
 /** @typedef {import('@pins/api').Schema.ReviewQuestionnaire} ReviewQuestionnaire */
 
@@ -8,45 +8,45 @@ import { createUniqueId, randomBoolean } from '@pins/platform/testing';
  * @returns {ReviewQuestionnaire}
  */
 export function createReviewQuestionnaire({
-	id = createUniqueId(),
-	appealId = createUniqueId(),
+	id = fake.createUniqueId(),
+	appealId = fake.createUniqueId(),
 	createdAt = new Date(),
-	applicationPlanningOfficersReportMissingOrIncorrect = randomBoolean(),
-	applicationPlansToReachDecisionMissingOrIncorrect = randomBoolean(),
+	applicationPlanningOfficersReportMissingOrIncorrect = fake.randomBoolean(),
+	applicationPlansToReachDecisionMissingOrIncorrect = fake.randomBoolean(),
 	applicationPlansToReachDecisionMissingOrIncorrectDescription = createDescriptionFor(
 		applicationPlansToReachDecisionMissingOrIncorrect
 	),
-	policiesStatutoryDevelopmentPlanPoliciesMissingOrIncorrect = randomBoolean(),
+	policiesStatutoryDevelopmentPlanPoliciesMissingOrIncorrect = fake.randomBoolean(),
 	policiesStatutoryDevelopmentPlanPoliciesMissingOrIncorrectDescription = createDescriptionFor(
 		policiesStatutoryDevelopmentPlanPoliciesMissingOrIncorrect
 	),
-	policiesOtherRelevantPoliciesMissingOrIncorrect = randomBoolean(),
+	policiesOtherRelevantPoliciesMissingOrIncorrect = fake.randomBoolean(),
 	policiesOtherRelevantPoliciesMissingOrIncorrectDescription = createDescriptionFor(
 		policiesOtherRelevantPoliciesMissingOrIncorrect
 	),
-	policiesSupplementaryPlanningDocumentsMissingOrIncorrect = randomBoolean(),
+	policiesSupplementaryPlanningDocumentsMissingOrIncorrect = fake.randomBoolean(),
 	policiesSupplementaryPlanningDocumentsMissingOrIncorrectDescription = createDescriptionFor(
 		policiesSupplementaryPlanningDocumentsMissingOrIncorrect
 	),
-	siteConservationAreaMapAndGuidanceMissingOrIncorrect = randomBoolean(),
+	siteConservationAreaMapAndGuidanceMissingOrIncorrect = fake.randomBoolean(),
 	siteConservationAreaMapAndGuidanceMissingOrIncorrectDescription = createDescriptionFor(
 		siteConservationAreaMapAndGuidanceMissingOrIncorrect
 	),
-	siteListedBuildingDescriptionMissingOrIncorrect = randomBoolean(),
+	siteListedBuildingDescriptionMissingOrIncorrect = fake.randomBoolean(),
 	siteListedBuildingDescriptionMissingOrIncorrectDescription = createDescriptionFor(
 		siteListedBuildingDescriptionMissingOrIncorrect
 	),
-	thirdPartyApplicationNotificationMissingOrIncorrectListOfAddresses = randomBoolean(),
-	thirdPartyApplicationNotificationMissingOrIncorrectCopyOfLetterOrSiteNotice = randomBoolean(),
+	thirdPartyApplicationNotificationMissingOrIncorrectListOfAddresses = fake.randomBoolean(),
+	thirdPartyApplicationNotificationMissingOrIncorrectCopyOfLetterOrSiteNotice = fake.randomBoolean(),
 	thirdPartyApplicationNotificationMissingOrIncorrect = thirdPartyApplicationNotificationMissingOrIncorrectListOfAddresses ||
 		thirdPartyApplicationNotificationMissingOrIncorrectCopyOfLetterOrSiteNotice,
-	thirdPartyApplicationPublicityMissingOrIncorrect = randomBoolean(),
-	thirdPartyRepresentationsMissingOrIncorrect = randomBoolean(),
+	thirdPartyApplicationPublicityMissingOrIncorrect = fake.randomBoolean(),
+	thirdPartyRepresentationsMissingOrIncorrect = fake.randomBoolean(),
 	thirdPartyRepresentationsMissingOrIncorrectDescription = createDescriptionFor(
 		thirdPartyRepresentationsMissingOrIncorrect
 	),
-	thirdPartyAppealNotificationMissingOrIncorrectListOfAddresses = randomBoolean(),
-	thirdPartyAppealNotificationMissingOrIncorrectCopyOfLetterOrSiteNotice = randomBoolean(),
+	thirdPartyAppealNotificationMissingOrIncorrectListOfAddresses = fake.randomBoolean(),
+	thirdPartyAppealNotificationMissingOrIncorrectCopyOfLetterOrSiteNotice = fake.randomBoolean(),
 	thirdPartyAppealNotificationMissingOrIncorrect = thirdPartyAppealNotificationMissingOrIncorrectListOfAddresses ||
 		thirdPartyAppealNotificationMissingOrIncorrectCopyOfLetterOrSiteNotice
 } = {}) {

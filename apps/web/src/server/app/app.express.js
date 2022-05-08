@@ -1,21 +1,21 @@
+import config from '@pins/web/environment/config.js';
 import bodyParser from 'body-parser';
 import compression from 'compression';
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
-import express from 'express';
 import csurf from 'csurf';
+import express from 'express';
 import requestID from 'express-request-id';
 import helmet from 'helmet';
 import morganLogger from 'morgan';
+import multer from 'multer';
 import responseTime from 'response-time';
 import serveStatic from 'serve-static';
-import { config } from '../config/config.js';
 import locals from '../config/locals.js';
 import nunjucksEnvironment from '../config/nunjucks.js';
 import session from '../config/session.js';
-import { routes } from './routes.js';
 import simulateUserGroups from './auth/auth.local.js';
-import multer from 'multer';
+import { routes } from './routes.js';
 
 // Create a new Express app.
 const app = express();
@@ -39,10 +39,7 @@ app.use(helmet());
 app.use(
 	helmet.contentSecurityPolicy({
 		directives: {
-			scriptSrc: [
-				"'self'", // eslint-disable-line quotes
-				() => `'nonce-${locals.cspNonce}'` // eslint-disable-line quotes
-			]
+			scriptSrc: ["'self'", () => `'nonce-${locals.cspNonce}'`]
 		}
 	})
 );
@@ -67,10 +64,10 @@ if (config.authDisabled) {
 }
 
 // CSRF middleware via session
-if (process.env.NODE_ENV !== 'test') {
+if (!config.isTest) {
 	app.use(
 		// where request uses multipart form body, then extract csrf token before verifying it
-		multer(),
+		multer().none(),
 		csurf({ cookie: false }),
 		(request, response, next) => {
 			response.locals.csrfToken = request.csrfToken();
@@ -97,13 +94,13 @@ app.use('/', routes);
 // with the error message if the app runs in dev mode, or geneirc error if running in production.
 app.use(
 	/** @type {import('express').ErrorRequestHandler} */
-	(error, request, response, next) => {
-		if (response.headersSent) {
+	(error, req, res, next) => {
+		if (res.headersSent) {
 			next(error);
 		}
 
-		response.status(500);
-		response.render('app/error', { error: error });
+		res.status(500);
+		res.render('app/error', { error });
 	}
 );
 

@@ -1,11 +1,11 @@
-import { parseHtml } from '@pins/platform/testing';
+import { getPathToAsset, parseHtml } from '@pins/platform';
 import nock from 'nock';
 import supertest from 'supertest';
 import {
 	createTestApplication,
-	getPathToAsset,
 	incompleteAppealDetails,
-	incompleteAppealSummary, receivedAppealDetails,
+	incompleteAppealSummary,
+	receivedAppealDetails,
 	receivedAppealSummary
 } from '../../../../../testing/index.js';
 
@@ -97,9 +97,7 @@ describe('validation', () => {
 		const { AppealId } = incompleteAppealDetails;
 
 		it('should render a page for uploading appeal letters', async () => {
-			const response = await request.get(
-				`/validation/appeals/${AppealId}/documents/appeal-letter`
-			);
+			const response = await request.get(`/validation/appeals/${AppealId}/documents/appeal-letter`);
 			const element = parseHtml(response.text);
 
 			expect(element.innerHTML).toMatchSnapshot();
@@ -366,9 +364,7 @@ describe('validation', () => {
 		it('should validate that a local planning department is chosen', async () => {
 			const response = await request
 				.post(`/validation/appeals/${AppealId}/local-planning-department`)
-				.send(
-					/** @type {UpdateLocalPlanningDeptBody} */ ({ LocalPlanningDepartment: ' ' })
-				);
+				.send(/** @type {UpdateLocalPlanningDeptBody} */ ({ LocalPlanningDepartment: ' ' }));
 			const element = parseHtml(response.text);
 
 			expect(element.innerHTML).toMatchSnapshot();
@@ -456,7 +452,7 @@ describe('validation', () => {
 				});
 
 				const response = await request
-					.post(`/validation/appeals/${receivedAppealDetails.AppealId}`)
+					.post(`/validation/appeals/${AppealId}`)
 					.send(/** @type {AppealOutcomeBody} */ ({ status: 'valid' }))
 					.redirects(1);
 				const element = parseHtml(response.text);
@@ -482,9 +478,7 @@ describe('validation', () => {
 			it('should render a valid review outcome page', async () => {
 				await installReviewOutcomeStatus({ status: 'valid' });
 
-				const response = await request.get(
-					`/validation/appeals/${AppealId}/review-outcome`
-				);
+				const response = await request.get(`/validation/appeals/${AppealId}/review-outcome`);
 				const element = parseHtml(response.text);
 
 				expect(element.innerHTML).toMatchSnapshot();
@@ -493,9 +487,7 @@ describe('validation', () => {
 			it('should render an invalid review outcome page', async () => {
 				await installReviewOutcomeStatus({ status: 'invalid' });
 
-				const response = await request.get(
-					`/validation/appeals/${AppealId}/review-outcome`
-				);
+				const response = await request.get(`/validation/appeals/${AppealId}/review-outcome`);
 				const element = parseHtml(response.text);
 
 				expect(element.innerHTML).toMatchSnapshot();
@@ -504,9 +496,7 @@ describe('validation', () => {
 			it('should render an incomplete review outcome page', async () => {
 				await installReviewOutcomeStatus({ status: 'incomplete' });
 
-				const response = await request.get(
-					`/validation/appeals/${AppealId}/review-outcome`
-				);
+				const response = await request.get(`/validation/appeals/${AppealId}/review-outcome`);
 				const element = parseHtml(response.text);
 
 				expect(element.innerHTML).toMatchSnapshot();
@@ -550,14 +540,12 @@ describe('validation', () => {
 			});
 
 			it('should validate that a description of development is provided', async () => {
-				const response = await request
-					.post(`/validation/appeals/${AppealId}/review-outcome`)
-					.send(
-						/** @type {ValidAppealData} */ ({
-							status: 'valid',
-							descriptionOfDevelopment: ' '
-						})
-					);
+				const response = await request.post(`/validation/appeals/${AppealId}/review-outcome`).send(
+					/** @type {ValidAppealData} */ ({
+						status: 'valid',
+						descriptionOfDevelopment: ' '
+					})
+				);
 				const element = parseHtml(response.text);
 
 				expect(element.innerHTML).toMatchSnapshot();
@@ -585,29 +573,25 @@ describe('validation', () => {
 			});
 
 			it('should validate that at least one reason is chosen', async () => {
-				const response = await request
-					.post(`/validation/appeals/${AppealId}/review-outcome`)
-					.send(
-						/** @type {InvalidOutcomeBody} */ ({
-							status: 'invalid',
-							otherReasons: ''
-						})
-					);
+				const response = await request.post(`/validation/appeals/${AppealId}/review-outcome`).send(
+					/** @type {InvalidOutcomeBody} */ ({
+						status: 'invalid',
+						otherReasons: ''
+					})
+				);
 				const element = parseHtml(response.text);
 
 				expect(element.innerHTML).toMatchSnapshot();
 			});
 
 			it('should validate that the reason text is provided', async () => {
-				const response = await request
-					.post(`/validation/appeals/${AppealId}/review-outcome`)
-					.send(
-						/** @type {InvalidOutcomeBody} */ ({
-							status: 'invalid',
-							reasons: ['otherReasons'],
-							otherReasons: ' '
-						})
-					);
+				const response = await request.post(`/validation/appeals/${AppealId}/review-outcome`).send(
+					/** @type {InvalidOutcomeBody} */ ({
+						status: 'invalid',
+						reasons: ['otherReasons'],
+						otherReasons: ' '
+					})
+				);
 				const element = parseHtml(response.text);
 
 				expect(element.innerHTML).toMatchSnapshot();
@@ -635,44 +619,38 @@ describe('validation', () => {
 			});
 
 			it('should validate that at least one reason is chosen', async () => {
-				const response = await request
-					.post(`/validation/appeals/${AppealId}/review-outcome`)
-					.send(
-						/** @type {IncompleteOutcomeBody} */ ({
-							status: 'incomplete',
-							otherReasons: ''
-						})
-					);
+				const response = await request.post(`/validation/appeals/${AppealId}/review-outcome`).send(
+					/** @type {IncompleteOutcomeBody} */ ({
+						status: 'incomplete',
+						otherReasons: ''
+					})
+				);
 				const element = parseHtml(response.text);
 
 				expect(element.innerHTML).toMatchSnapshot();
 			});
 
 			it('should validate that the reason text is provided', async () => {
-				const response = await request
-					.post(`/validation/appeals/${AppealId}/review-outcome`)
-					.send(
-						/** @type {IncompleteOutcomeBody} */ ({
-							status: 'incomplete',
-							reasons: ['otherReasons'],
-							otherReasons: ' '
-						})
-					);
+				const response = await request.post(`/validation/appeals/${AppealId}/review-outcome`).send(
+					/** @type {IncompleteOutcomeBody} */ ({
+						status: 'incomplete',
+						reasons: ['otherReasons'],
+						otherReasons: ' '
+					})
+				);
 				const element = parseHtml(response.text);
 
 				expect(element.innerHTML).toMatchSnapshot();
 			});
 
 			it('should validate that a missing document is provided', async () => {
-				const response = await request
-					.post(`/validation/appeals/${AppealId}/review-outcome`)
-					.send(
-						/** @type {IncompleteOutcomeBody} */ ({
-							status: 'incomplete',
-							reasons: ['missingDocuments'],
-							otherReasons: ''
-						})
-					);
+				const response = await request.post(`/validation/appeals/${AppealId}/review-outcome`).send(
+					/** @type {IncompleteOutcomeBody} */ ({
+						status: 'incomplete',
+						reasons: ['missingDocuments'],
+						otherReasons: ''
+					})
+				);
 				const element = parseHtml(response.text);
 
 				expect(element.innerHTML).toMatchSnapshot();

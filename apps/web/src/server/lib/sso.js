@@ -1,7 +1,7 @@
 import msal from '@azure/msal-node';
-import { config } from '../config/config.js';
+import config from '@pins/web/environment/config.js';
 
-/** @typedef {import('@pins/express').Auth.AccessRule} AccessRule */
+/** @typedef {import('../app/auth/auth.guards').AccessRule} AccessRule */
 
 export const msalClient = new msal.ConfidentialClientApplication({
 	auth: {
@@ -11,7 +11,7 @@ export const msalClient = new msal.ConfidentialClientApplication({
 	},
 	system: {
 		loggerOptions: {
-			loggerCallback(loglevel, message, containsPii) {
+			loggerCallback(_, message) {
 				console.log(message);
 				// console.log(containsPii);
 			},

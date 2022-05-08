@@ -1,7 +1,4 @@
 {
-  "root": true,
-  "extends": [
-    "./index.js",
-    "./node.js"
-  ]
+	"root": true,
+	"extends": ["./index.js", "./node.js"]
 }

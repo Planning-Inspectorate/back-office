@@ -1,7 +1,7 @@
 import { composeMiddleware } from '@pins/express';
 import { createAsyncHandler } from '../../lib/async-error-handler.js';
-import * as inspectorSession from './inspector-session.service.js';
 import * as inspectorService from './inspector.service.js';
+import * as inspectorSession from './inspector-session.service.js';
 
 /** @typedef {import('@pins/appeals').Inspector.AppealStatus} AppealStatus */
 /** @typedef {import('./inspector.router').AppealParams} AppealParams */

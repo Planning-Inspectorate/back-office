@@ -14,8 +14,8 @@ export {
 } from 'lodash-es';
 export { booleanAnswer } from './boolean-answer.js';
 export { default as pluralize } from 'pluralize';
-export { default as className } from './class-name.js';
 export { collapse } from './collapse.js';
+export { default as className } from 'classnames';
 export * from './date.js';
 export { endsWith } from './ends-with.js';
 export { errorMessage } from './error-message.js';
@@ -25,5 +25,5 @@ export { selectItems } from './select-items.js';
 export { default as stripQueryParamsDev } from './strip-query-parameters.js';
 
 // export domain-specific filters
-export * from '../../app/lpa/lpa.filters.js';
+export { lpaLabel, lpaDocumentType } from '../../app/lpa/lpa.filters.js';
 export * from '../../app/validation/validation.filters.js';

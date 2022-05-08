@@ -1,8 +1,8 @@
 import sub from 'date-fns/sub/index.js';
 import { createAddress } from '../factory/address.js';
+import { createAppeal } from '../factory/appeal.js';
 import { createAppealDetailsFromAppellant } from '../factory/appeal-details-from-appellant.js';
 import { createAppealStatus } from '../factory/appeal-status.js';
-import { createAppeal } from '../factory/appeal.js';
 import { createAppellant } from '../factory/appellant.js';
 import { createSiteVisit } from '../factory/site-visit.js';
 import { createValidValidationDecision } from '../factory/validation-decision.js';
@@ -12,11 +12,9 @@ import { lpaQuestionnaire } from './lpa-questionnaire.js';
 
 /** @typedef {import('@pins/appeals').Inspector.Appeal} InspectorAppeal */
 /** @typedef {import('@pins/appeals').Inspector.AppealSummary} InspectorAppealSummary */
-/** @typedef {import('../factory/appeal').Appeal} Appeal */
-/** @typedef {import('../factory/appeal').AppealData} AppealData */
 
 /**
- * @param {Partial<AppealData> & { id: number }} appealData
+ * @param {Partial<import('../factory/appeal').AppealData> & { id: number }} appealData
  * @returns {[InspectorAppeal, InspectorAppealSummary]}
  */
 const createAppealFixtures = ({ id, ...appealData }) => {

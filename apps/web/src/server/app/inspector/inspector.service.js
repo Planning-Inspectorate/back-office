@@ -1,11 +1,12 @@
-import { appendFilesToFormData } from '@pins/platform';
+import { appendFilesToFormData } from '@pins/express';
 import FormData from 'form-data';
-import { get, post } from './../../lib/request.js';
+import { get, post } from '../../lib/request.js';
 
 /** @typedef {import('@pins/appeals').Inspector.Appeal} Appeal */
 /** @typedef {import('@pins/appeals').Inspector.AppealOutcome} AppealOutcome */
 /** @typedef {import('@pins/appeals').Inspector.AppealSummary} AppealSummary */
 /** @typedef {import('@pins/appeals').Inspector.SiteVisitType} SiteVisitType */
+/** @typedef {import('@pins/express').MulterFile} MulterFile */
 
 /**
  * Assign unassigned appeals to the user.
@@ -18,7 +19,7 @@ export function assignAppealsToUser(appealIds) {
 }
 
 /**
- * @typedef {Object} BookSiteVisitData
+ * @typedef {object} BookSiteVisitData
  * @property {string} siteVisitDate
  * @property {string} siteVisitTimeSlot
  * @property {SiteVisitType} siteVisitType
@@ -68,9 +69,9 @@ export function findAppealById(appealId) {
 }
 
 /**
- * @typedef {Object} IssueDecisionData
+ * @typedef {object} IssueDecisionData
  * @property {AppealOutcome} outcome
- * @property {Express.Multer.File} decisionLetter
+ * @property {MulterFile} decisionLetter
  */
 
 /**
@@ -82,6 +83,7 @@ export function findAppealById(appealId) {
  */
 export function issueDecision(appealId, { outcome, decisionLetter }) {
 	const formData = new FormData();
+
 	formData.append('outcome', outcome);
 	appendFilesToFormData(formData, { key: 'decisionLetter', file: decisionLetter });
 	// This endpoint currently won't save files

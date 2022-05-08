@@ -1,28 +1,26 @@
-import fs from 'fs';
-import path from 'path';
-import { createRequire } from 'module';
-import kleur from 'kleur';
-import sassEngine from 'sass';
+import { getLogger, hashForContent } from '@pins/rollup';
 import autoprefixer from 'autoprefixer';
+import kleur from 'kleur';
+import fs from 'node:fs';
+import { createRequire } from 'node:module';
+import path from 'node:path';
 import postcss from 'postcss';
-import { loadEnvironment } from '@pins/platform';
-import { hashForContent } from '../lib/hash.js';
-import { notify } from '../lib/notifier.js';
-import getLogger from '../lib/get-logger.js';
+import sassEngine from 'sass';
+import config from '../environment/config.js';
 
-loadEnvironment(process.env.NODE_ENV);
+/** @typedef {import('postcss').SourceMap} SourceMap */
 
-const isProduction = process.env.NODE_ENV === 'production';
-const isRelease = process.env.APP_RELEASE === 'true';
+const { isProd: isProduction, isRelease } = config;
 const logger = getLogger({ scope: 'Sass' });
 
 const appDirectory = fs.realpathSync(process.cwd());
-const resolvePath = (relativePath) => path.resolve(appDirectory, relativePath);
+const resolvePath = (/** @type {string} */ relativePath) =>
+	path.resolve(appDirectory, relativePath);
 const require = createRequire(import.meta.url);
 
 /**
  * @param {string} input filename to read for input
- * @returns {{css: !Buffer, map: !SourceMap}} CSS compiled object
+ * @returns {{ css: Buffer, map: SourceMap }} CSS compiled object
  */
 function compileCSS(input) {
 	// #1: Compile CSS with either engine.
@@ -40,8 +38,12 @@ function compileCSS(input) {
 		]
 	};
 
-	// eslint-disable-next-line max-len
-	logger.log(`Compiling (${isProduction ? kleur.magenta('production') : kleur.magenta('development')} / ${isRelease ? 'release' : 'dev'})`, kleur.blue(input));
+	logger.log(
+		`Compiling (${isProduction ? kleur.magenta('production') : kleur.magenta('development')} / ${
+			isRelease ? 'release' : 'dev'
+		})`,
+		kleur.blue(input)
+	);
 
 	const compiledResult = sassEngine.compile(input, compiledOptions);
 	const compiledMap = compiledResult.sourceMap;
@@ -77,22 +79,24 @@ function compileCSS(input) {
 		}
 	});
 
-	postcssResult.warnings().forEach((warn) => {
+	for (const warn of postcssResult.warnings()) {
 		logger.warn(warn.toString());
-	});
+	}
 
 	const { map: candidateMap, css } = postcssResult;
 
-	const map = JSON.parse(candidateMap.toString('utf8'));
+	const map = JSON.parse(candidateMap.toString());
+
 	return { map, css };
 }
 
 /**
- * @param {{css: !Buffer, map: !SourceMap}} result to render
+ * @param {{css: !Buffer, map: SourceMap }} result to render
  * @param {string} fileName to render to, with optional map in dev
  */
 function renderTo(result, fileName) {
 	fs.mkdirSync(path.dirname(fileName), { recursive: true });
+
 	const base = path.basename(fileName);
 
 	let out = result.css.toString('utf8');
@@ -100,7 +104,7 @@ function renderTo(result, fileName) {
 	result.map.file = base;
 	out += `\n/*# sourceMappingURL=${base}.map */`;
 
-	fs.writeFileSync(fileName + '.map', JSON.stringify(result.map));
+	fs.writeFileSync(`${fileName}.map`, JSON.stringify(result.map));
 	fs.writeFileSync(fileName, out);
 }
 
@@ -115,8 +119,14 @@ logger.log(`Writing generated file to ${kleur.blue(`src/server/static/styles/${r
 renderTo(out, `src/server/static/styles/${resourceName}`);
 
 // Write the CSS entrypoint to a known file, with a query hash, for NJ to read.
-fs.writeFileSync('src/server/_data/resourceCSS.json', JSON.stringify({ path: `/styles/${resourceName}` }));
+fs.writeFileSync(
+	'src/server/_data/resourceCSS.json',
+	JSON.stringify({ path: `/styles/${resourceName}` })
+);
 
-logger.log(`Writing resource JSON file ${kleur.blue('resourceCSS.json')} to ${kleur.blue('src/server/_data/resourceCSS.json')}`);
+logger.log(
+	`Writing resource JSON file ${kleur.blue('resourceCSS.json')} to ${kleur.blue(
+		'src/server/_data/resourceCSS.json'
+	)}`
+);
 logger.success(`Finished CSS! (${resourceName})`);
-notify('Compiled CSS files');

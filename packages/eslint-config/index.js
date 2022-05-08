@@ -5,15 +5,7 @@ module.exports = {
 		ecmaVersion: 'latest',
 		sourceType: 'module'
 	},
-	plugins: [
-		'import',
-		'eslint-comments',
-		'jsdoc',
-		'promise',
-		'filenames',
-		'unicorn',
-		'jest'
-	],
+	plugins: ['import', 'eslint-comments', 'jsdoc', 'promise', 'filenames', 'unicorn', 'jest'],
 	extends: [
 		'eslint:recommended',
 		...[
@@ -29,21 +21,17 @@ module.exports = {
 		'plugin:eslint-comments/recommended',
 		'plugin:promise/recommended',
 		'plugin:jsdoc/recommended',
-		'plugin:unicorn/recommended',
+		'plugin:unicorn/recommended'
 	],
 	env: {
-		'es2022': true,
+		es2022: true,
 		es6: true,
 		browser: true,
 		node: true,
 		'jest/globals': true
 	},
 	settings: {
-		'import/ignore': [
-			'node_modules',
-			'.json$',
-			'.(scss|less|css|styl)$'
-		]
+		'import/ignore': ['node_modules', '.json$', '.(scss|less|css|styl)$']
 	},
 	rules: {
 		'filenames/match-exported': 0,

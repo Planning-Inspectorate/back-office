@@ -1,5 +1,5 @@
-import * as lpaSession from './lpa-session.service.js';
 import * as lpaService from './lpa.service.js';
+import * as lpaSession from './lpa-session.service.js';
 
 /** @typedef {import('@pins/appeals').Lpa.Appeal} Appeal */
 /** @typedef {import('@pins/appeals').Lpa.AppealSummary} AppealSummary */
@@ -9,6 +9,7 @@ import * as lpaService from './lpa.service.js';
 /** @typedef {import('./lpa-session.service').QuestionnaireReviewState} QuestionnaireReview */
 /** @typedef {import('./lpa.service').UploadFinalCommentsResponseBody} UploadFinalCommentsResponseBody */
 /** @typedef {import('./lpa.service').UploadStatementsResponseBody} UploadStatementsResponseBody */
+/** @typedef {import('@pins/express').MulterFile} MulterFile */
 
 /**
  * @typedef {object} ViewDashboardRenderOptions
@@ -44,6 +45,7 @@ export const viewAppeal = async ({ params, session }, response) => {
 		const state = /** @type {QuestionnaireReview} */ (
 			lpaSession.getQuestionnaireReview(session, params.appealId)
 		);
+
 		response.render('lpa/questionnaire', {
 			appeal,
 			reviewQuestionnaire: state?.reviewQuestionnaire
@@ -67,9 +69,7 @@ export const createQuestionnaireReview = async (
 	const appeal = await lpaService.findAppealById(appealId);
 
 	if (response.locals.errors) {
-		const tpl = appeal.reviewQuestionnaire
-			? 'lpa/questionnaire-incomplete'
-			: 'lpa/questionnaire';
+		const tpl = appeal.reviewQuestionnaire ? 'lpa/questionnaire-incomplete' : 'lpa/questionnaire';
 
 		response.render(tpl, { appeal, reviewQuestionnaire });
 		return;
@@ -211,9 +211,11 @@ export const uploadAppealDocuments = async ({ files, params }, response) => {
 
 		response.render('lpa/appeal-documents', { appeal, documentType: params.documentType });
 	} else {
+		const multerFiles = /** @type {MulterFile[]} */ (files);
+
 		await lpaService.uploadDocuments(params.appealId, {
 			documentType: params.documentType,
-			files: /** @type {Express.Multer.File[]} **/ (files)
+			files: multerFiles
 		});
 		response.redirect(`/lpa/appeals/${params.appealId}`);
 	}
@@ -259,8 +261,9 @@ export const uploadFinalComments = async ({ files, params }, response) => {
 	} else {
 		const appeal = await lpaService.uploadFinalComments(
 			params.appealId,
-			/** @type {Express.Multer.File[]} **/ (files)
+			/** @type {MulterFile[]} * */ (files)
 		);
+
 		response.render('lpa/fpa-documents-success', {
 			appeal,
 			documentType: 'fpa final comment'
@@ -298,8 +301,9 @@ export const uploadStatements = async ({ files, params }, response) => {
 	} else {
 		const appeal = await lpaService.uploadStatements(
 			params.appealId,
-			/** @type {Express.Multer.File[]} **/ (files)
+			/** @type {MulterFile[]} * */ (files)
 		);
+
 		response.render('lpa/fpa-documents-success', { appeal, documentType: 'fpa statement' });
 	}
 };

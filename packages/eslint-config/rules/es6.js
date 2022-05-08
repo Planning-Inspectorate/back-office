@@ -2,10 +2,7 @@
 
 module.exports = {
 	rules: {
-		'arrow-body-style': [
-			1,
-			'as-needed'
-		],
+		'arrow-body-style': [1, 'as-needed'],
 		'arrow-parens': [2, 'always'],
 		'arrow-spacing': ['error', { before: true, after: true }],
 		'constructor-super': 2,

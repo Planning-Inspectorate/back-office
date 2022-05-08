@@ -1,5 +1,5 @@
-import fs from 'fs';
-import { config } from './config.js';
+import config from '@pins/web/environment/config.js';
+import fs from 'node:fs';
 
 /**
  * Fetch the configuration for a resource in the _data folder.
@@ -8,7 +8,9 @@ import { config } from './config.js';
  * @returns {{ path: string }}
  */
 const getConfig = (filename) => {
-	const json = fs.readFileSync(new URL(`../_data/${filename}`, import.meta.url), { encoding: 'utf8' });
+	const json = fs.readFileSync(new URL(`../_data/${filename}`, import.meta.url), {
+		encoding: 'utf8'
+	});
 
 	return JSON.parse(json);
 };

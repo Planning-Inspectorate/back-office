@@ -1,4 +1,4 @@
-import { createUniqueId } from '@pins/platform/testing';
+import { fake } from '@pins/platform';
 
 /** @typedef {import('@pins/api').Schema.AppealStatus} AppealStatus */
 
@@ -7,8 +7,8 @@ import { createUniqueId } from '@pins/platform/testing';
  * @returns {AppealStatus}
  */
 export function createAppealStatus({
-	appealId = createUniqueId(),
-	id = createUniqueId(),
+	appealId = fake.createUniqueId(),
+	id = fake.createUniqueId(),
 	status = 'received_appeal',
 	createdAt = new Date(),
 	subStateMachineName = null,

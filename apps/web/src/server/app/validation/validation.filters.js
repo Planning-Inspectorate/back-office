@@ -59,7 +59,7 @@ export function validationLabel(key, secondary = false) {
 }
 
 /**
- * @typedef {Object} CheckboxItem
+ * @typedef {object} CheckboxItem
  * @property {string} text
  * @property {string} value
  * @property {boolean} checked

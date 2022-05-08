@@ -7,9 +7,9 @@
     "node": ">=16.14.0"
   },
   "scripts": {
+    "clean": "rimraf .turbo node_modules dist",
     "lint:js": "eslint .",
-    "lint:js:fix": "eslint . --fix",
-    "clean": "rimraf .turbo node_modules dist"
+    "lint:js:fix": "eslint . --fix"
   },
   "dependencies": {
     "escape-string-regexp": "^5.0.0",

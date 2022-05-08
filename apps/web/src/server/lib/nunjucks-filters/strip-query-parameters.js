@@ -1,6 +1,10 @@
-import { config } from '../../config/config.js';
+import config from '@pins/web/environment/config.js';
+import { noop } from 'lodash-es';
 
-const noop = (url) => url;
+/**
+ * @param {string} url
+ * @returns {string=}
+ */
 const strip = (url) => url.split('?')[0];
 
 // Strip query params from URLs in dev only. Used for lazy cache-busting
