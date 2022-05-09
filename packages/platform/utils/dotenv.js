@@ -11,13 +11,18 @@ import path from 'node:path';
 export function loadEnvironment(environment = 'development') {
 	/** @type {Record<string, string>} */
 	const config = {};
-
-	for (const pathToFile of [
+	const sourceFiles = [
 		'.env',
-		`.env.${environment}`,
-		'.env.local',
-		`.env.${environment}.local`
-	]) {
+		`.env.${environment}`
+	];
+
+	// Ensure tests can run in a deterministic fashion regardless of changes made
+	// to local environment (such as during development)
+	if (environment !== 'test') {
+		sourceFiles.push('.env.local', `.env.${environment}.local`);
+	}
+	
+	for (const pathToFile of sourceFiles) {
 		Object.assign(config, dotenv.config({ path: path.resolve(pathToFile) }).parsed);
 	}
 	return config;
