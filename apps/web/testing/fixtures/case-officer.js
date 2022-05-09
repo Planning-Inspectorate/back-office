@@ -24,7 +24,7 @@ const createAppealFixtures = ({ id, ...appealData }) => {
 		localPlanningDepartment: 'Barnsley Metropolitan Borough Council',
 		reference: `LPA/A0000/A/00/0000${id}`,
 		createdAt: new Date(2022, 0, 1),
-		startedAt: new Date(2022, 0, 31),
+		startedAt: sub(new Date(), { days: id }),
 		appellant: createAppellant({ name: `Cliff Montgomery ${id}` }),
 		address: createAddress({
 			addressLine1: `London Industrial Park – Unit ${id}`,

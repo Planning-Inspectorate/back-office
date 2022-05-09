@@ -1,8 +1,7 @@
-// eslint-disable-next-line import/no-unresolved
 import got from 'got';
+import { config } from '../config/config.js';
 import kleur from 'kleur';
 import { createTtlHandler } from '@pins/platform';
-import { config } from '../config/config.js';
 
 export const ttlCache = new Map();
 
