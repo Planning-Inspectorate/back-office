@@ -41,6 +41,9 @@
 			],
 			"outputs": []
 		},
+		"tscheck": {
+			"cache": false
+		},
 		"dev": {
 			"cache": false
 		},
