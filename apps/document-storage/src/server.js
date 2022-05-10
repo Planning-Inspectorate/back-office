@@ -1,5 +1,6 @@
 import app from './server/app.js';
+import config from './server/config/config.js'
 
-app.listen(3000, () => {
-    console.log(`Server is live at http://localhost:3000`);
+app.listen(config.PORT, () => {
+    console.log(`Server is live at http://localhost:${config.PORT}`);
 });
