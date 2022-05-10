@@ -1,21 +1,18 @@
 import { BlobServiceClient } from '@azure/storage-blob';
 import express from 'express';
 import md5 from 'crypto-js/md5.js';
-const router = express.Router();
-
 import multer from 'multer';
-
 import getStream from 'into-stream';
-const ONE_MEGABYTE = 1024 * 1024;
-const uploadOptions = { bufferSize: 4 * ONE_MEGABYTE, maxBuffers: 20 };
-const ONE_MINUTE = 60 * 1000;
-
 import logger from 'morgan';
 import bodyParser from 'body-parser';
-const app = express();
+import config from './config/config.js';
 
-const connectionString = "DefaultEndpointsProtocol=http;AccountName=devstoreaccount1;AccountKey=Eby8vdM02xNOcqFlqUwJPLlmEtlCDXJ1OUzFT50uSRZ6IFsuFq2UVErCz4I6tq/K1SZFPTOtr/KBHBeksoGMGw==;BlobEndpoint=http://localhost:10000/devstoreaccount1;QueueEndpoint=http://localhost:10001/devstoreaccount1;";
-const containerName = "document-service-uploads";
+const app = express();
+const router = express.Router();
+
+const connectionString = config.blobStore.connectionString;
+const containerName = config.blobStore.container;
+
 const blobServiceClient = BlobServiceClient.fromConnectionString(connectionString);
 
 const getBlobName = originalName => {
@@ -63,7 +60,7 @@ router.post('/', upload.single('file'), async (req, res) => {
 
     try {
         await blockBlobClient.uploadStream(stream,
-            uploadOptions.bufferSize, uploadOptions.maxBuffers,
+            undefined, undefined,
             {
                 blobHTTPHeaders: {
                     blobContentType: "application/json",
