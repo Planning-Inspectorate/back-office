@@ -2,6 +2,35 @@ import { BlobServiceClient } from '@azure/storage-blob';
 import express from 'express';
 import md5 from 'crypto-js/md5.js';
 const router = express.Router();
+// const connectionString = "DefaultEndpointsProtocol=http;AccountName=devstoreaccount1;AccountKey=Eby8vdM02xNOcqFlqUwJPLlmEtlCDXJ1OUzFT50uSRZ6IFsuFq2UVErCz4I6tq/K1SZFPTOtr/KBHBeksoGMGw==;BlobEndpoint=http://localhost:10000/devstoreaccount1;QueueEndpoint=http://localhost:10001/devstoreaccount1;";
+// const container = "document-service-uploads";
+// const blobClient = BlobServiceClient.fromConnectionString(connectionString);
+// const containerClient = blobClient.getContainerClient(container);
+// await containerClient.createIfNotExists();
+
+// try {
+//     const filePath = '/Users/mayyabondarevskaya/pins/back-office/apps/api/src/server/app/case-officer/__tests__/assets/simple.pdf';
+//     const blobName = '1/test.pdf';
+
+//     const fileStream = fs.createReadStream(filePath);
+//     const md5Value = Uint8Array.from(md5(fileStream).toString());
+//     await containerClient.getBlockBlobClient(blobName).uploadStream(fileStream , undefined, undefined, {
+//         blobHTTPHeaders: {
+//             blobContentType: "application/pdf",
+//             blobContentMD5: md5Value
+//         },
+//         metadata: {fileType: 'test'}
+//     });
+
+//     for await (const blob of containerClient.listBlobsFlat({prefix: '1', includeMetadata: true})) {
+//         console.log(blob.name);
+//         console.log(blob.metadata);
+//       }
+
+// } catch (err) {
+//     console.log("ERROR BEING THROWN")
+//     throw err;
+// }
 
 import multer from 'multer';
 
