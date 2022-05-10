@@ -1664,34 +1664,29 @@ exports[`inspector POST /inspector/available-appeals should validate that at lea
                     </ul>
                 </div>
             </div>
-            <h1 class=\\"govuk-heading-l\\">Sorry, there is a problem with the service</h1>
-            <p class=\\"govuk-body\\">Try again later.</p>
-            <p class=\\"govuk-body\\"><a href=\\"https://has-appeal.herokuapp.com/help/contact\\" class=\\"govuk-link\\">Contact the Planning Inspectorate Customer Support</a> if
-                the problem persists.</p>
-            <hr>
-            <h1 class=\\"govuk-heading-m\\" style=\\"color: #d4351c;\\">Error (only seen in dev mode):</h1>
-            <div class=\\"govuk-grid-row\\">
-                <div class=\\"govuk-grid-column-full\\">
-                    <div>AggregateError: Fetch errors!</div><pre style=\\"border: 1px solid #ddd; overflow: scroll\\"> Error: data fetch
-    at /Users/ben/Documents/pins/back-office/apps/web/src/server/lib/async-error-handler.js:12:28
-    at processTicksAndRejections (node:internal/process/task_queues:96:5)</pre>
-                    <pre                     style=\\"border: 1px solid #ddd; overflow: scroll\\">RequestError: Nock: No match for request { &quot;method&quot;: &quot;GET&quot;,
-                        &quot;url&quot;: &quot;http://test/inspector/more-appeals&quot;, &quot;headers&quot;:
-                        { &quot;user-agent&quot;: &quot;got (https://github.com/sindresorhus/got)&quot;,
-                        &quot;accept&quot;: &quot;application/json&quot;, &quot;accept-encoding&quot;:
-                        &quot;gzip, deflate, br&quot;, &quot;userid&quot;: &quot;1&quot; } } at
-                        OverriddenClientRequest.&lt;anonymous&gt; (/Users/ben/Documents/pins/back-office/node_modules/got/dist/source/core/index.js:754:107)
-                        at Object.onceWrapper (node:events:646:26) at OverriddenClientRequest.emit
-                        (node:events:538:35) at Socket.&lt;anonymous&gt; (/Users/ben/Documents/pins/back-office/node_modules/propagate/index.js:64:17)
-                        at Socket.emit (node:events:526:28) at /Users/ben/Documents/pins/back-office/node_modules/nock/lib/socket.js:100:14
-                        at InterceptedRequestRouter.startPlayback (/Users/ben/Documents/pins/back-office/node_modules/nock/lib/intercepted_request_router.js:340:21)
-                        at InterceptedRequestRouter.maybeStartPlayback (/Users/ben/Documents/pins/back-office/node_modules/nock/lib/intercepted_request_router.js:262:12)
-                        at InterceptedRequestRouter.connectSocket (/Users/ben/Documents/pins/back-office/node_modules/nock/lib/intercepted_request_router.js:140:12)
-                        at /Users/ben/Documents/pins/back-office/node_modules/nock/lib/intercepted_request_router.js:78:33
-                        at processTicksAndRejections (node:internal/process/task_queues:78:11)</pre>
-                </div>
-            </div>
         </div>
     </div>
+    <div class=\\"govuk-grid-row\\">
+        <div class=\\"govuk-grid-column-full\\">
+            <h1 class=\\"govuk-heading-xl\\">Available appeals</h1>
+        </div>
+    </div>
+    <form method=\\"post\\">
+        <table class=\\"govuk-table govuk-!-margin-bottom-9\\">
+            <thead class=\\"govuk-table__head\\">
+                <tr class=\\"govuk-table__row\\">
+                    <th scope=\\"col\\" class=\\"govuk-table__header\\">Select</th>
+                    <th scope=\\"col\\" class=\\"govuk-table__header\\">Appeal reference</th>
+                    <th scope=\\"col\\" class=\\"govuk-table__header\\">Postcode</th>
+                    <th scope=\\"col\\" class=\\"govuk-table__header\\">Appeal age</th>
+                    <th scope=\\"col\\" class=\\"govuk-table__header\\">Appeal type</th>
+                    <th scope=\\"col\\" class=\\"govuk-table__header\\">Specialism</th>
+                    <th scope=\\"col\\" class=\\"govuk-table__header\\">Recommended site visit</th>
+                </tr>
+            </thead>
+            <tbody class=\\"govuk-table__body\\"></tbody>
+        </table>
+        <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Assign selected appeals to me</button>
+    </form>
 </main>"
 `;

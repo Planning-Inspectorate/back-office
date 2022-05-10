@@ -7,15 +7,48 @@ module.exports = {
 	plugins: ['n'],
 	extends: ['plugin:n/recommended'],
 	rules: {
-		// enforce the style of file extensions in import declarations
-		// https://github.com/mysticatea/eslint-plugin-node/blob/HEAD/docs/rules/file-extension-in-import.md
-		'n/file-extension-in-import': [
+		// disallow import declarations which import extraneous modules
+		// https://github.com/weiran-zsd/eslint-plugin-node/blob/master/docs/rules/no-extraneous-import.md
+		'n/no-extraneous-import': [
 			'error',
-			'always',
 			{
-				'@pins/*': 'never'
+				allowModules: [
+					'@jest/globals',
+					'@pins/api',
+					'@pins/appeals',
+					'@pins/express',
+					'@pins/platform',
+					'@pins/rollup',
+					'@pins/web'
+				]
 			}
-		]
+		],
+
+		// disallow import declarations which import non-existence modules
+		// https://github.com/mysticatea/eslint-plugin-node/blob/master/docs/rules/no-missing-import.md
+		'n/no-missing-import': [
+			'error',
+			{
+				allowModules: ['@pins/platform']
+			}
+		],
+
+		// deprecated
+		// https://github.com/weiran-zsd/eslint-plugin-node/blob/HEAD/docs/rules/no-unsupported-features/es-syntax.md
+		'n/no-unsupported-features/es-syntax': 'off',
+
+		// disallow import declarations which import private modules
+		// https://github.com/weiran-zsd/eslint-plugin-node/blob/cb4f099ae928d627abfc635966622cf4266a7b1c/docs/rules/no-unpublished-import.md
+		'n/no-unpublished-import': [
+			'error',
+			{
+				allowModules: ['@faker-js/faker', 'nock', 'supertest']
+			}
+		],
+
+		// enforce the style of file extensions in import declarations
+		// https://github.com/weiran-zsd/eslint-plugin-node/blob/master/docs/rules/file-extension-in-import.md
+		'n/file-extension-in-import': ['error', 'always']
 	},
 	settings: {
 		n: {

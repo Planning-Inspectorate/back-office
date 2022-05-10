@@ -1,5 +1,5 @@
 import { faker } from '@faker-js/faker';
-import { createPostcode, createUniqueId } from '@pins/platform/testing';
+import { fake } from '@pins/platform';
 
 /** @typedef {import('@pins/api').Schema.Address} AddressData */
 
@@ -8,12 +8,12 @@ import { createPostcode, createUniqueId } from '@pins/platform/testing';
  * @returns {AddressData}
  */
 export function createAddress({
-	id = createUniqueId(),
+	id = fake.createUniqueId(),
 	addressLine1 = faker.address.streetAddress(),
 	addressLine2 = '',
 	town = faker.address.city(),
 	county = '',
-	postcode = createPostcode()
+	postcode = fake.createPostcode()
 } = {}) {
 	return {
 		id,

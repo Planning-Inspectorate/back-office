@@ -1,5 +1,5 @@
-import { createUniqueId, randomBoolean } from '@pins/platform/testing';
 import { faker } from '@faker-js/faker';
+import { fake } from '@pins/platform';
 
 /** @typedef {import('@pins/api').Schema.ValidValidationDecision} ValidValidationDecision */
 /** @typedef {import('@pins/api').Schema.InvalidValidationDecision} InvalidValidationDecision */
@@ -10,8 +10,8 @@ import { faker } from '@faker-js/faker';
  * @returns {ValidValidationDecision}
  */
 export function createValidValidationDecision({
-	id = createUniqueId(),
-	appealId = createUniqueId(),
+	id = fake.createUniqueId(),
+	appealId = fake.createUniqueId(),
 	createdAt = new Date(),
 	decision = 'complete',
 	descriptionOfDevelopment = faker.lorem.paragraph()
@@ -30,18 +30,18 @@ export function createValidValidationDecision({
  * @returns {InvalidValidationDecision}
  */
 export function createInvalidValidationDecision({
-	id = createUniqueId(),
-	appealId = createUniqueId(),
+	id = fake.createUniqueId(),
+	appealId = fake.createUniqueId(),
 	decision = 'invalid',
 	createdAt = new Date(),
-	outOfTime = randomBoolean(),
-	noRightOfAppeal = randomBoolean(),
-	notAppealable = randomBoolean(),
-	lPADeemedInvalid = randomBoolean(),
+	outOfTime = fake.randomBoolean(),
+	noRightOfAppeal = fake.randomBoolean(),
+	notAppealable = fake.randomBoolean(),
+	lPADeemedInvalid = fake.randomBoolean(),
 	otherReasons = null
 }) {
 	const hasInvalidReason = outOfTime || noRightOfAppeal || notAppealable || lPADeemedInvalid;
-	const otherReasonsRequired = !hasInvalidReason || randomBoolean();
+	const otherReasonsRequired = !hasInvalidReason || fake.randomBoolean();
 
 	return {
 		id,
@@ -61,19 +61,19 @@ export function createInvalidValidationDecision({
  * @returns {IncompleteValidationDecision}
  */
 export function createIncompleteValidationDecision({
-	id = createUniqueId(),
-	appealId = createUniqueId(),
+	id = fake.createUniqueId(),
+	appealId = fake.createUniqueId(),
 	createdAt = new Date(),
 	decision = 'incomplete',
-	namesDoNotMatch = randomBoolean(),
-	sensitiveInfo = randomBoolean(),
-	missingApplicationForm = randomBoolean(),
-	missingDecisionNotice = randomBoolean(),
-	missingGroundsForAppeal = randomBoolean(),
-	missingSupportingDocuments = randomBoolean(),
-	inflammatoryComments = randomBoolean(),
-	openedInError = randomBoolean(),
-	wrongAppealTypeUsed = randomBoolean(),
+	namesDoNotMatch = fake.randomBoolean(),
+	sensitiveInfo = fake.randomBoolean(),
+	missingApplicationForm = fake.randomBoolean(),
+	missingDecisionNotice = fake.randomBoolean(),
+	missingGroundsForAppeal = fake.randomBoolean(),
+	missingSupportingDocuments = fake.randomBoolean(),
+	inflammatoryComments = fake.randomBoolean(),
+	openedInError = fake.randomBoolean(),
+	wrongAppealTypeUsed = fake.randomBoolean(),
 	otherReasons = null
 } = {}) {
 	const hasInvalidReason =
@@ -86,7 +86,7 @@ export function createIncompleteValidationDecision({
 		inflammatoryComments ||
 		openedInError ||
 		wrongAppealTypeUsed;
-	const otherReasonsRequired = !hasInvalidReason || randomBoolean();
+	const otherReasonsRequired = !hasInvalidReason || fake.randomBoolean();
 
 	return {
 		id,

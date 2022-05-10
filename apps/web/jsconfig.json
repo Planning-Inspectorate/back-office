@@ -1,0 +1,6 @@
+{
+	"extends": "../../jsconfig.json",
+	"include": ["**/*.js"],
+	"exclude": ["src/server/static"],
+	"files": ["typings.d.ts"]
+}

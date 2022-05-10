@@ -1,4 +1,4 @@
-import { createUniqueId } from '@pins/platform/testing';
+import { fake } from '@pins/platform';
 import add from 'date-fns/add/index.js';
 import { random } from 'lodash-es';
 
@@ -10,8 +10,8 @@ import { random } from 'lodash-es';
  */
 
 export const createSiteVisit = ({
-	id = createUniqueId(),
-	appealId = createUniqueId(),
+	id = fake.createUniqueId(),
+	appealId = fake.createUniqueId(),
 	visitDate = add(new Date(), { days: random(1, 7) }),
 	visitSlot = '1pm - 2pm',
 	visitType = 'accompanied'

@@ -5,12 +5,12 @@
  */
 
 /**
- * @typedef {Object} LpaState
+ * @typedef {object} LpaState
  * @property {QuestionnaireReviewState=} questionnaireReview
  */
 
 /**
- * @typedef {Object} QuestionnaireReviewState
+ * @typedef {object} QuestionnaireReviewState
  * @property {number} appealId
  * @property {LpaQuestionnaire} reviewQuestionnaire
  */
@@ -49,7 +49,7 @@ export const setQuestionnaireReview = (session, questionnaireReview) => {
  *
  * @param {SessionWithLpa} session
  * @param {number} appealId
- * @returns {QuestionnaireReviewState=}
+ * @returns {QuestionnaireReviewState | null}
  */
 export const getQuestionnaireReview = (session, appealId) => {
 	const { questionnaireReview } = getState(session);
@@ -57,5 +57,5 @@ export const getQuestionnaireReview = (session, appealId) => {
 	if (questionnaireReview?.appealId !== appealId) {
 		destroyQuestionnaireReview(session);
 	}
-	return questionnaireReview?.appealId === appealId ? questionnaireReview : undefined;
+	return questionnaireReview?.appealId === appealId ? questionnaireReview : null;
 };

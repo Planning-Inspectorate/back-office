@@ -1,26 +1,21 @@
-import * as fs from 'fs/promises';
-import path from 'path';
-import kleur from 'kleur';
-import { rollup } from 'rollup';
+import { buildVirtualJSON, getLogger, minifySource } from '@pins/rollup';
 import alias from '@rollup/plugin-alias';
-import { nodeResolve } from '@rollup/plugin-node-resolve';
-import rollupPluginCJS from '@rollup/plugin-commonjs';
-import rollupPluginVirtual from '@rollup/plugin-virtual';
-import rollupPluginReplace from '@rollup/plugin-replace';
-import rollupPluginBeep from '@rollup/plugin-beep';
-import { visualizer } from 'rollup-plugin-visualizer';
 import { getBabelOutputPlugin } from '@rollup/plugin-babel';
-import { loadEnvironment } from '@pins/platform';
-import getLogger from '../lib/get-logger.js';
-import { minifySource } from '../lib/minify-js.js';
-import { notify } from '../lib/notifier.js';
-import { buildVirtualJSON } from '../lib/rollup-plugin-virtual-json.js';
+import rollupPluginBeep from '@rollup/plugin-beep';
+import rollupPluginCJS from '@rollup/plugin-commonjs';
+import { nodeResolve } from '@rollup/plugin-node-resolve';
+import rollupPluginReplace from '@rollup/plugin-replace';
+import rollupPluginVirtual from '@rollup/plugin-virtual';
+import kleur from 'kleur';
+import fs from 'node:fs/promises';
+import path from 'node:path';
+import { rollup } from 'rollup';
+import { visualizer } from 'rollup-plugin-visualizer';
+import config from '../environment/config.js';
 
-loadEnvironment(process.env.NODE_ENV);
+const { NODE_ENV, bundleAnalyzer, isProd: isProduction, isRelease } = config;
 
-const isProduction = process.env.NODE_ENV === 'production';
-const isRelease = process.env.APP_RELEASE === 'true';
-const logger = getLogger({ scope: 'JS'});
+const logger = getLogger({ scope: 'JS' });
 
 process.on('unhandledRejection', (reason, p) => {
 	logger.error('Build had unhandled rejection', reason, p);
@@ -33,9 +28,8 @@ process.on('unhandledRejection', (reason, p) => {
 const virtualImports = {
 	pi_config: {
 		isProduction,
-		env: process.env.NODE_ENV || 'dev',
-		useMockApi: process.env.USE_MOCK_API === 'true',
-		version: 'v' + new Date().toISOString().replace(/[\D]/g, '').slice(0, 12)
+		env: NODE_ENV || 'dev',
+		version: `v${new Date().toISOString().replace(/\D/g, '').slice(0, 12)}`
 	}
 };
 
@@ -45,23 +39,26 @@ const virtualImports = {
 async function build() {
 	const input = 'src/client/app.js';
 
-	// eslint-disable-next-line max-len
-	logger.log(`Bundling (${isProduction ? kleur.magenta('production') : kleur.magenta('development')} / ${isRelease ? 'release' : 'dev'})`, kleur.blue(input));
+	logger.log(
+		`Bundling (${isProduction ? kleur.magenta('production') : kleur.magenta('development')} / ${
+			isRelease ? 'release' : 'dev'
+		})`,
+		kleur.blue(input)
+	);
 
 	const appBundle = await rollup({
-		input: input,
+		input,
 		plugins: [
 			nodeResolve(),
 			rollupPluginCJS({
-				include: [
-					'node_modules/**',
-					/node_modules\/govuk-frontend/
-				]
+				include: ['node_modules/**', /node_modules\/govuk-frontend/]
 			}),
 			rollupPluginReplace({
 				values: {
 					__buildEnv__: isProduction ? JSON.stringify('production') : JSON.stringify('development'),
-					'process.env.NODE_ENV': isProduction ? JSON.stringify('production') : JSON.stringify('development')
+					'process.env.NODE_ENV': isProduction
+						? JSON.stringify('production')
+						: JSON.stringify('development')
 				},
 				preventAssignment: true
 			}),
@@ -76,13 +73,17 @@ async function build() {
 			alias({
 				entries: {}
 			}),
-			...(process.env.BUNDLE_ANALYZER === 'true' ? [visualizer({
-				filename: 'bundle-stats.html',
-				open: true,
-				gzipSize: true
-			})] : [])
+			...(bundleAnalyzer
+				? [
+						visualizer({
+							filename: 'bundle-stats.html',
+							open: true,
+							gzipSize: true
+						})
+					]
+				: [])
 		],
-		manualChunks: (id) => {},
+		manualChunks: () => {},
 		// Controls if Rollup tries to ensure that entry chunks have the same exports as the underlying entry module.
 		// https://rollupjs.org/guide/en/#preserveentrysignatures
 		preserveEntrySignatures: false
@@ -103,6 +104,7 @@ async function build() {
 
 	// Save the "app.js" entrypoint (which has a hashed name) for the all-browser loader code.
 	const entrypoints = appGenerated.output.filter(({ isEntry }) => isEntry);
+
 	if (entrypoints.length !== 1) {
 		throw new Error(`expected single Rollup entrypoint, was: ${entrypoints.length}`);
 	}
@@ -110,20 +112,24 @@ async function build() {
 	const appPath = appGenerated.output[0].fileName;
 
 	// Write the bundle entrypoint to a known file for NJ to read.
-	logger.log(`Writing resource JSON file ${kleur.blue('resourceCSS.json')} to ${kleur.blue('src/server/_data/resourceJS.json')}`);
-	await fs.writeFile('src/server/_data/resourceJS.json', JSON.stringify({ path: `/scripts/${appPath}` }));
+	logger.log(
+		`Writing resource JSON file ${kleur.blue('resourceCSS.json')} to ${kleur.blue(
+			'src/server/_data/resourceJS.json'
+		)}`
+	);
+	await fs.writeFile(
+		'src/server/_data/resourceJS.json',
+		JSON.stringify({ path: `/scripts/${appPath}` })
+	);
 
 	// Compress the generated source here, as we need the final files and hashes for the Service Worker manifest.
 	if (isProduction) {
 		const ratio = await minifySource(outputFiles, 'src/server/static/scripts');
+
 		logger.log(`Minified site code is ${(ratio * 100).toFixed(2)}% of source`);
 	}
 
 	logger.success(`Bundled JS ${kleur.blue(appPath)}, total ${outputFiles.length} files`);
 }
 
-(async function () {
-	await build();
-
-	notify('Compiled client files');
-})();
+await build();

@@ -1,4 +1,4 @@
-import express from 'express';
+import { Router as createRouter } from 'express';
 import { createAsyncHandler } from '../../lib/async-error-handler.js';
 import {
 	assignAvailableAppeals,
@@ -32,10 +32,12 @@ import {
  * @property {number} appealId - Unique identifier for the appeal
  */
 
-const router = express.Router();
+const router = createRouter();
 
-router.param('appealId', (req, _, next, appealId) => {
-	req.params.appealId = Number.parseInt(appealId, 10);
+router.param('appealId', ({ params }, _, next) => {
+	const appealId = Number.parseInt(params.appealId, 10);
+
+	params.appealId = /** @type {*} */ (appealId);
 	next();
 });
 

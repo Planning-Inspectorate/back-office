@@ -1,20 +1,17 @@
-import sub from 'date-fns/sub/index.js';
 import { createAddress } from '../factory/address.js';
-import { createAppealStatus } from '../factory/appeal-status.js';
 import { createAppeal } from '../factory/appeal.js';
+import { createAppealStatus } from '../factory/appeal-status.js';
 import { createAppellant } from '../factory/appellant.js';
 import { createReviewQuestionnaire } from '../factory/review-questionnaire.js';
 import { caseOfficer } from '../formatters/appeal.js';
 import { documents } from './document.js';
 import { lpaQuestionnaire } from './lpa-questionnaire.js';
 
-/** @typedef {import('../factory/appeal').Appeal} Appeal */
-/** @typedef {import('../factory/appeal').AppealData} AppealData */
 /** @typedef {import('@pins/appeals').Lpa.Appeal} LpaAppeal */
 /** @typedef {import('@pins/appeals').Lpa.AppealSummary} LpaAppealSummary */
 
 /**
- * @param {Partial<AppealData> & { id: number }} appealData
+ * @param {Partial<import('../factory/appeal').AppealData> & { id: number }} appealData
  * @returns {[LpaAppealSummary, LpaAppeal]}
  */
 const createAppealFixtures = ({ id, ...appealData }) => {
@@ -24,7 +21,7 @@ const createAppealFixtures = ({ id, ...appealData }) => {
 		localPlanningDepartment: 'Barnsley Metropolitan Borough Council',
 		reference: `LPA/A0000/A/00/0000${id}`,
 		createdAt: new Date(2022, 0, 1),
-		startedAt: sub(new Date(), { days: id }),
+		startedAt: new Date(2022, 0, 7),
 		appellant: createAppellant({ name: `Cliff Montgomery ${id}` }),
 		address: createAddress({
 			addressLine1: `London Industrial Park – Unit ${id}`,

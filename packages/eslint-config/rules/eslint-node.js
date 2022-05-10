@@ -9,8 +9,8 @@ module.exports = {
 		'no-mixed-requires': [
 			'error',
 			{
-				'grouping': true,
-				'allowCall': false
+				grouping: true,
+				allowCall: false
 			}
 		],
 		'no-new-require': 2,

@@ -1,5 +1,5 @@
 import format from 'date-fns/format/index.js';
-import { enGB } from 'date-fns/locale/index.js';
+import enGB from 'date-fns/locale/en-GB/index.js';
 
 /**
  * @param {Date | number | string} date

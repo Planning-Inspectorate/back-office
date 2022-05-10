@@ -1,5 +1,5 @@
-import { createUniqueId, randomBoolean } from '@pins/platform/testing';
 import faker from '@faker-js/faker';
+import { fake } from '@pins/platform';
 import sub from 'date-fns/sub/index.js';
 import { random } from 'lodash-es';
 
@@ -10,24 +10,32 @@ import { random } from 'lodash-es';
  * @returns {LPAQuestionnaireData}
  */
 export function createLpaQuestionnaire({
-	id = createUniqueId(),
-	appealId = createUniqueId(),
-	affectsListedBuilding = randomBoolean(),
+	id = fake.createUniqueId(),
+	appealId = fake.createUniqueId(),
+	affectsListedBuilding = fake.randomBoolean(),
 	listedBuildingDescription = affectsListedBuilding ? faker.lorem.paragraph() : null,
-	extraConditions = randomBoolean(),
-	inGreenBelt = randomBoolean(),
-	inOrNearConservationArea = randomBoolean(),
-	siteVisibleFromPublicLand = randomBoolean(),
-	siteVisibleFromPublicLandDescription = siteVisibleFromPublicLand ? faker.lorem.sentences(2) : null,
-	doesInspectorNeedToEnterSite = randomBoolean(),
-	doesInspectorNeedToEnterSiteDescription = doesInspectorNeedToEnterSite ? faker.lorem.sentences(2) : null,
-	doesInspectorNeedToAccessNeighboursLand = randomBoolean(),
-	doesInspectorNeedToAccessNeighboursLandDescription = doesInspectorNeedToAccessNeighboursLand ? faker.lorem.sentences(2) : null,
-	healthAndSafetyIssues = randomBoolean(),
+	extraConditions = fake.randomBoolean(),
+	inGreenBelt = fake.randomBoolean(),
+	inOrNearConservationArea = fake.randomBoolean(),
+	siteVisibleFromPublicLand = fake.randomBoolean(),
+	siteVisibleFromPublicLandDescription = siteVisibleFromPublicLand
+		? faker.lorem.sentences(2)
+		: null,
+	doesInspectorNeedToEnterSite = fake.randomBoolean(),
+	doesInspectorNeedToEnterSiteDescription = doesInspectorNeedToEnterSite
+		? faker.lorem.sentences(2)
+		: null,
+	doesInspectorNeedToAccessNeighboursLand = fake.randomBoolean(),
+	doesInspectorNeedToAccessNeighboursLandDescription = doesInspectorNeedToAccessNeighboursLand
+		? faker.lorem.sentences(2)
+		: null,
+	healthAndSafetyIssues = fake.randomBoolean(),
 	healthAndSafetyIssuesDescription = healthAndSafetyIssues ? faker.lorem.sentences(2) : null,
-	emergingDevelopmentPlanOrNeighbourhoodPlan = randomBoolean(),
-	emergingDevelopmentPlanOrNeighbourhoodPlanDescription = emergingDevelopmentPlanOrNeighbourhoodPlan ? faker.lorem.sentences(2) : null,
-	appealsInImmediateAreaBeingConsidered = randomBoolean() ? faker.lorem.sentences(2) : null,
+	emergingDevelopmentPlanOrNeighbourhoodPlan = fake.randomBoolean(),
+	emergingDevelopmentPlanOrNeighbourhoodPlanDescription = emergingDevelopmentPlanOrNeighbourhoodPlan
+		? faker.lorem.sentences(2)
+		: null,
+	appealsInImmediateAreaBeingConsidered = fake.randomBoolean() ? faker.lorem.sentences(2) : null,
 	sentAt = sub(new Date(), { weeks: random(3, 6) }),
 	receivedAt = sub(new Date(), { days: random(1, 20) })
 } = {}) {

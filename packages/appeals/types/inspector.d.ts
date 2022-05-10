@@ -13,7 +13,7 @@ export interface UnbookedAppealSummary {
 	status: AppealStatus;
 }
 
-export interface  BookedAppealSummary extends UnbookedAppealSummary {
+export interface BookedAppealSummary extends UnbookedAppealSummary {
 	siteVisitDate: string;
 	siteVisitTimeSlot: string;
 	siteVisitType: SiteVisitType;
@@ -74,7 +74,7 @@ export interface BookedAppeal extends UnbookedAppeal {
 		visitDate: string;
 		visitTimeSlot: string;
 		visitType: SiteVisitType;
-	}
+	};
 }
 
 export interface AppealDocument {

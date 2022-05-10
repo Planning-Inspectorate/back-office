@@ -1,3 +1,5 @@
+import { RequireAtLeastOne } from 'type-fest';
+
 export interface Appeal {
 	AppealId: number;
 	AppealReference: string;
@@ -20,11 +22,18 @@ export interface AppealDocument {
 	URL: string;
 }
 
-export type AppealDocumentType = 'appeal statement' | 'decision letter' | 'planning application form' | 'supporting document';
+export type AppealDocumentType =
+	| 'appeal statement'
+	| 'decision letter'
+	| 'planning application form'
+	| 'supporting document';
 export type AppealStatus = 'new' | AppealOutcomeStatus;
 export type AppealOutcomeStatus = 'incomplete' | 'valid' | 'invalid';
 
-type ReasonType<Key extends string> = RequireAtLeastOneKey<Record<Key, boolean> & { otherReasons: string }>;
+type ReasonType<Key extends string> = RequireAtLeastOne<
+	Record<Key, boolean> & { otherReasons: string },
+	Key | 'otherReasons'
+>;
 
 export type IncompleteReasons = ReasonType<
 	| 'inflammatoryComments'
@@ -39,5 +48,7 @@ export type IncompleteReasons = ReasonType<
 >;
 export type IncompleteReasonType = keyof IncompleteReasons;
 
-export type InvalidReasons = ReasonType<'outOfTime' | 'noRightOfAppeal' | 'notAppealable' | 'lPADeemedInvalid'>;
+export type InvalidReasons = ReasonType<
+	'outOfTime' | 'noRightOfAppeal' | 'notAppealable' | 'lPADeemedInvalid'
+>;
 export type InvalidReasonType = keyof InvalidReasons;

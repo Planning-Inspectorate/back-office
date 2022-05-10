@@ -1,4 +1,4 @@
-import { createUniqueId } from '@pins/platform/testing';
+import { fake } from '@pins/platform';
 
 /** @typedef {import('@pins/api').Schema.AppealType} AppealType */
 
@@ -6,7 +6,7 @@ import { createUniqueId } from '@pins/platform/testing';
  * @param {Partial<AppealType>} [options={}]
  * @returns {AppealType}
  */
-export function createAppealType({ id = createUniqueId(), shorthand = 'HAS', type = '' }) {
+export function createAppealType({ id = fake.createUniqueId(), shorthand = 'HAS', type = '' }) {
 	return {
 		id,
 		shorthand,

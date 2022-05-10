@@ -1,4 +1,4 @@
-import { parseHtml } from '@pins/platform/testing';
+import { getPathToAsset, parseHtml } from '@pins/platform';
 import nock from 'nock';
 import supertest from 'supertest';
 import {
@@ -9,8 +9,7 @@ import {
 	appealSummaryForBookedSiteVisit,
 	appealSummaryForDecisionDue,
 	appealSummaryForUnbookedSiteVisit,
-	createTestApplication,
-	getPathToAsset
+	createTestApplication
 } from '../../../../../testing/index.js';
 
 const { app, clearHttpCache, installFixedDate, installMockApi, teardown } = createTestApplication();
@@ -96,6 +95,8 @@ describe('inspector', () => {
 		const { appealId } = appealSummaryForUnbookedSiteVisit;
 
 		it('should validate that at least one appeal was selected', async () => {
+			nock('http://test/').get('/inspector/more-appeals').reply(200, []);
+
 			const response = await request.post('/inspector/available-appeals');
 			const element = parseHtml(response.text);
 
@@ -162,6 +163,7 @@ describe('inspector', () => {
 			const { appealId } = appealDetailsForPendingStatements;
 			const response = await request.get(`/inspector/appeals/${appealId}`);
 			const element = parseHtml(response.text);
+
 			// Remove page actions so that appeal details snapshot is unaffected by dynamic content
 			element.querySelector('[data-test-id="pageRight"]')?.remove();
 
@@ -248,15 +250,13 @@ describe('inspector', () => {
 		});
 
 		it('should validate that the site visit date is in the future', async () => {
-			const response = await request
-				.post(`/inspector/appeals/${appealId}/book-site-visit`)
-				.send({
-					'siteVisitDate-day': '1',
-					'siteVisitDate-month': '5',
-					'siteVisitDate-year': '2022',
-					siteVisitTimeSlot: '1pm to 3pm',
-					siteVisitType: 'unaccompanied'
-				});
+			const response = await request.post(`/inspector/appeals/${appealId}/book-site-visit`).send({
+				'siteVisitDate-day': '1',
+				'siteVisitDate-month': '5',
+				'siteVisitDate-year': '2022',
+				siteVisitTimeSlot: '1pm to 3pm',
+				siteVisitType: 'unaccompanied'
+			});
 			const element = parseHtml(response.text);
 
 			expect(element.innerHTML).toMatchSnapshot();
@@ -314,6 +314,7 @@ describe('inspector', () => {
 		it('should handle an asynchronous error during the request', async () => {
 			nock.cleanAll();
 			nock('http://test/').get(`/inspector/${appealId}`).reply(500);
+
 			const response = await request
 				.get(`/inspector/appeals/${appealId}/book-site-visit`)
 				.redirects(1);
@@ -348,9 +349,7 @@ describe('inspector', () => {
 					}
 				});
 
-			const response = await request.post(
-				`/inspector/appeals/${appealId}/confirm-site-visit`
-			);
+			const response = await request.post(`/inspector/appeals/${appealId}/confirm-site-visit`);
 			const element = parseHtml(response.text);
 
 			expect(element.innerHTML).toMatchSnapshot();
@@ -456,7 +455,7 @@ describe('inspector', () => {
 
 	describe('GET /inspector/:appealId/confirm-decision', () => {
 		beforeEach(async () => {
-			// Used to handle today's date being printed in the page	
+			// Used to handle today's date being printed in the page
 			installFixedDate(new Date(2023, 0, 1));
 			await installDecision(appealId);
 		});
@@ -464,7 +463,6 @@ describe('inspector', () => {
 		const { appealId } = appealDetailsForDecisionDue;
 
 		it('should render a page for confirming a site visit', async () => {
-			const { appealId } = appealDetailsForDecisionDue;
 			const response = await request.get(`/inspector/appeals/${appealId}/confirm-decision`);
 			const element = parseHtml(response.text);
 
@@ -498,9 +496,7 @@ describe('inspector', () => {
 				.get(`/inspector/appeals/${appealId}/confirm-decision/download-decision-letter`)
 				.responseType('blob');
 
-			expect(response.get('content-disposition')).toEqual(
-				'attachment; filename="simple.pdf"'
-			);
+			expect(response.get('content-disposition')).toEqual('attachment; filename="simple.pdf"');
 		});
 	});
 

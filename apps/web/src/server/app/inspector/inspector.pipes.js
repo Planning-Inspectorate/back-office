@@ -1,4 +1,8 @@
-import { bodyForGovukDateInput, createValidator, mapMulterErrorToValidationError } from '@pins/express';
+import {
+	bodyForGovukDateInput,
+	createValidator,
+	mapMulterErrorToValidationError
+} from '@pins/express';
 import { validateFutureDate } from '@pins/platform';
 import { body } from 'express-validator';
 import multer from 'multer';
@@ -21,7 +25,7 @@ const siteVisitTimeSlots = [
 ];
 
 /**
- * @typedef {Object} InspectorLocals
+ * @typedef {object} InspectorLocals
  * @property {object} constants - Any domain constants to make available to nunjucks.
  * @property {'xl' | 'default'} containerSize - The width of the page in this domain.
  * @property {string} serviceName - The name of the service to be displayed in the page header.
@@ -32,7 +36,7 @@ const siteVisitTimeSlots = [
  * Register the locals for templates under this domain.
  *
  * @type {import('express').RequestHandler<any, any, any, any, InspectorLocals>}
- **/
+ */
 export const registerInspectorLocals = (_, response, next) => {
 	response.locals.containerSize = 'xl';
 	response.locals.serviceName = 'Appeal a planning decision';
@@ -68,13 +72,11 @@ export const validateIssueDecision = createValidator(
 	multer({
 		storage: diskStorage,
 		limits: {
-			fileSize: 15 * Math.pow(1024, 2 /* MBs*/)
+			fileSize: 15 * 1024 ** 2
 		}
 	}).single('decisionLetter'),
 	mapMulterErrorToValidationError,
-	body('outcome')
-		.isIn(['allowed', 'dismissed', 'split decision'])
-		.withMessage('Select a decision'),
+	body('outcome').isIn(['allowed', 'dismissed', 'split decision']).withMessage('Select a decision'),
 	body('decisionLetter')
 		.custom((_, { req }) => Boolean(req.file))
 		.withMessage('Select a decision letter')

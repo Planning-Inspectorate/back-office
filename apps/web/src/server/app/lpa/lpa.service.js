@@ -1,12 +1,13 @@
-import { appendFilesToFormData } from '@pins/platform';
+import { appendFilesToFormData } from '@pins/express';
 import FormData from 'form-data';
-import { get, patch, post } from './../../lib/request.js';
+import { get, patch, post } from '../../lib/request.js';
 
 /** @typedef {import('@pins/appeals').Lpa.Appeal} Appeal */
 /** @typedef {import('@pins/appeals').AppealDocument} AppealDocument */
 /** @typedef {import('@pins/appeals').Lpa.AppealSummary} AppealSummary */
 /** @typedef {import('@pins/appeals').DocumentType} DocumentType */
 /** @typedef {import('@pins/appeals').Lpa.Questionnaire} LpaQuestionnaire */
+/** @typedef {import('@pins/express').MulterFile} MulterFile */
 
 /**
  * @returns {Promise<AppealSummary[]>}
@@ -51,7 +52,7 @@ export function confirmQuestionnaireReview(appealId, questionnaire) {
 /**
  * @typedef {object} UploadDocumentData
  * @property {DocumentType} documentType
- * @property {Express.Multer.File[]} files
+ * @property {MulterFile[]} files
  */
 
 /**
@@ -62,12 +63,18 @@ export function confirmQuestionnaireReview(appealId, questionnaire) {
  * @returns {Promise<AppealDocument[]>}
  */
 export function uploadDocuments(appealId, { files, documentType }) {
-	return Promise.resolve([]);
+	return Promise.resolve(
+		files.map(({ originalname }) => ({
+			Type: documentType,
+			Filename: originalname,
+			URL: '#'
+		}))
+	);
 }
 
 /**
  * @typedef {object} UploadFinalCommentsResponseBody
- * @property {number} AppealId 
+ * @property {number} AppealId
  * @property {string} AppealReference
  * @property {string} date
  */
@@ -76,11 +83,12 @@ export function uploadDocuments(appealId, { files, documentType }) {
  * Upload one or more final comments to the appeal.
  *
  * @param {number} appealId
- * @param {Express.Multer.File[]} files
+ * @param {MulterFile[]} files
  * @returns {Promise<UploadFinalCommentsResponseBody>}
  */
 export function uploadFinalComments(appealId, files) {
 	const formData = new FormData();
+
 	appendFilesToFormData(formData, { key: 'finalcomments', files });
 
 	return post(`case-officer/${appealId}/final-comment`, { body: formData });
@@ -88,20 +96,21 @@ export function uploadFinalComments(appealId, files) {
 
 /**
  * @typedef {object} UploadStatementsResponseBody
- * @property {number} AppealId 
+ * @property {number} AppealId
  * @property {string} AppealReference
- * @property {string} date 
+ * @property {string} date
  */
 
 /**
  * Upload one or more statements to the appeal.
  *
  * @param {number} appealId
- * @param {Express.Multer.File[]} files
+ * @param {MulterFile[]} files
  * @returns {Promise<UploadStatementsResponseBody>}
  */
 export function uploadStatements(appealId, files) {
 	const formData = new FormData();
+
 	appendFilesToFormData(formData, { key: 'statements', files });
 
 	return post(`case-officer/${appealId}/statement`, { body: formData });

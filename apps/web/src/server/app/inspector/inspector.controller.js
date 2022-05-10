@@ -1,5 +1,5 @@
-import * as inspectorSession from './inspector-session.service.js';
 import * as inspectorService from './inspector.service.js';
+import * as inspectorSession from './inspector-session.service.js';
 
 /** @typedef {import('@pins/appeals').Inspector.Appeal} Appeal */
 /** @typedef {import('@pins/appeals').Inspector.AppealOutcome} AppealOutcome */
@@ -8,9 +8,10 @@ import * as inspectorService from './inspector.service.js';
 /** @typedef {import('./inspector-session.service').DecisionState} DecisionState */
 /** @typedef {import('./inspector-session.service').SiteVisitState} SiteVisitState */
 /** @typedef {import('./inspector.router').AppealParams} AppealParams */
+/** @typedef {import('@pins/express').MulterFile} MulterFile */
 
 /**
- * @typedef {Object} ViewDashboardRenderOptions
+ * @typedef {object} ViewDashboardRenderOptions
  * @property {AppealSummary[]} appeals
  * @property {number[]} assignedAppealIds - A list of appeal ids assigned to the
  * user during this session. These will be used for denoting the 'New' status on
@@ -30,7 +31,7 @@ export async function viewDashboard({ session }, response) {
 }
 
 /**
- * @typedef {Object} ViewAvailableAppealsRenderOptions
+ * @typedef {object} ViewAvailableAppealsRenderOptions
  * @property {AppealSummary[]} appeals
  * @property {number[]=} selectedappealIds
  */
@@ -47,12 +48,12 @@ export async function viewAvailableAppeals(_, response) {
 }
 
 /**
- * @typedef {Object} AssignAvailableAppealsBody
+ * @typedef {object} AssignAvailableAppealsBody
  * @property {number[]} appealIds
  */
 
 /**
- * @typedef {Object} AssignAppealsSuccessRenderOptions
+ * @typedef {object} AssignAppealsSuccessRenderOptions
  * @property {AppealSummary[]} appeals
  */
 
@@ -71,7 +72,9 @@ export async function assignAvailableAppeals({ body, session }, response) {
 		});
 		return;
 	}
-	const { successfullyAssigned, unsuccessfullyAssigned } = await inspectorService.assignAppealsToUser(body.appealIds);
+
+	const { successfullyAssigned, unsuccessfullyAssigned } =
+		await inspectorService.assignAppealsToUser(body.appealIds);
 
 	if (unsuccessfullyAssigned.length === 0) {
 		// Save a copy of the assigned appeals so as to capture the 'New' status on the dashboard
@@ -84,7 +87,7 @@ export async function assignAvailableAppeals({ body, session }, response) {
 }
 
 /**
- * @typedef {Object} ViewAppealDetailsRenderOptions
+ * @typedef {object} ViewAppealDetailsRenderOptions
  * @property {Appeal} appeal
  */
 
@@ -95,12 +98,12 @@ export async function assignAvailableAppeals({ body, session }, response) {
  */
 export async function viewAppealDetails({ params }, response) {
 	const appeal = await inspectorService.findAppealById(params.appealId);
-	
+
 	response.render('inspector/appeal-details', { appeal });
 }
 
 /**
- * @typedef {Object} NewSiteVisitRenderOptions
+ * @typedef {object} NewSiteVisitRenderOptions
  * @property {Appeal} appeal
  * @property {string=} siteVisitDate
  * @property {string=} siteVisitTimeSlot
@@ -124,7 +127,7 @@ export async function newSiteVisit({ params, session }, response) {
 }
 
 /**
- * @typedef {Object} CreateSiteVisitBody
+ * @typedef {object} CreateSiteVisitBody
  * @property {string} siteVisitDate
  * @property {string} siteVisitTimeSlot
  * @property {SiteVisitType} siteVisitType
@@ -194,10 +197,10 @@ export async function confirmSiteVisit({ params, session }, response) {
 }
 
 /**
- * @typedef {Object} NewDecisionRenderOptions
+ * @typedef {object} NewDecisionRenderOptions
  * @property {Appeal} appeal
  * @property {AppealOutcome=} outcome
- * @property {Express.Multer.File=} decisionLetter
+ * @property {MulterFile=} decisionLetter
  */
 
 /**
@@ -216,7 +219,7 @@ export async function newDecision({ params, session }, response) {
 }
 
 /**
- * @typedef {Object} CreateDecisionBody
+ * @typedef {object} CreateDecisionBody
  * @property {AppealOutcome} outcome - The outcome of the decision for confirmation.
  */
 
@@ -240,17 +243,17 @@ export async function createDecision({ body, file, params, session }, response) 
 	inspectorSession.setDecision(session, {
 		appealId: params.appealId,
 		outcome: body.outcome,
-		decisionLetter: /** @type {Express.Multer.File} */ (file)
+		decisionLetter: /** @type {MulterFile} */ (file)
 	});
 
 	response.redirect(`/inspector/appeals/${params.appealId}/confirm-decision`);
 }
 
 /**
- * @typedef {Object} ViewDecisionConfirmationRenderOptions
+ * @typedef {object} ViewDecisionConfirmationRenderOptions
  * @property {Appeal} appeal
  * @property {AppealOutcome} outcome
- * @property {Express.Multer.File} decisionLetter
+ * @property {MulterFile} decisionLetter
  */
 
 /**
@@ -279,11 +282,15 @@ export function downloadDecisionLetter({ params, session }, response) {
 		inspectorSession.getDecision(session, params.appealId)
 	);
 
-	response.sendFile(decisionLetter.path, {
-		headers: {
-			'Content-disposition': `attachment; filename="${decisionLetter.originalname}"`
-		}
-	});
+	if (decisionLetter.path) {
+		response.sendFile(decisionLetter.path, {
+			headers: {
+				'Content-disposition': `attachment; filename="${decisionLetter.originalname}"`
+			}
+		});
+	} else {
+		response.status(404).end();
+	}
 }
 
 /**

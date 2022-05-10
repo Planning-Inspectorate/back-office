@@ -9,10 +9,7 @@
     "module": "es2022",
     "strict": true
   },
-  "include": [
-    "apps/web",
-    "packages/*"
-  ],
+  "include": ["packages"],
   "files": [
     "packages/platform/types/utility.d.ts"
   ]

@@ -1,14 +1,14 @@
 /**
- * @typedef {Object} SelectItem
- * @property {string} value - Value for the option item.
- * @property {string} text - Text for the option item.
- * @property {boolean} selected - Sets the option as the selected.
- * @property {boolean} disabled - Sets the option item as disabled.
- * @property {Object} attributes - 	HTML attributes (for example data attributes) to add to the option.
+ * @typedef {object} SelectItem
+ * @property {string} value
+ * @property {string} text
+ * @property {boolean} selected
+ * @property {boolean=} disabled
+ * @property {object=} attributes
  */
 
 /**
- * @typedef {Object} FilterOptions
+ * @typedef {object} FilterOptions
  * @property {string} valueKey - The property of a source item that uniquely
  * identifies it. Only applies where source is an array of objects.
  * @property {string} labelKey - The property of a source item used to display
@@ -22,10 +22,9 @@
  * From a collection of values, onstruct a collection of items compatible with
  * the `govukSelect` component.
  *
- * @param {Object.<string, any>[] | string[]} source - Original array of source
- * data
- * @param {FilterOptions} options - The filter options.
- * @returns {SelectItem[]} - A collection of items compatible with `govukSelect`.
+ * @param {Object<string, any>[] | string[]} source
+ * @param {FilterOptions} options
+ * @returns {SelectItem[]}
  */
 export function selectItems(source, options) {
 	const items = source.map((sourceItem) => {
@@ -41,9 +40,13 @@ export function selectItems(source, options) {
 
 	if (options.placeholder) {
 		return [
-			{ value: '', text: options.placeholder, selected: options.selectedValue === '' },
+			{
+				value: '',
+				text: options.placeholder,
+				selected: options.selectedValue === ''
+			},
 			...items
-		];	
+		];
 	}
 	return items;
 }

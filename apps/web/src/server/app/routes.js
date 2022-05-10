@@ -1,7 +1,7 @@
-import express from 'express';
-import { config } from './../config/config.js';
+import config from '@pins/web/environment/config.js';
+import { Router as createRouter } from 'express';
 import appRouter from './app.router.js';
-import { isAuthenticated, hasAccess } from './auth/auth.guards.js';
+import { hasAccess, isAuthenticated } from './auth/auth.guards.js';
 import authRouter from './auth/auth.router.js';
 import { registerInspectorLocals } from './inspector/inspector.pipes.js';
 import inspectorRouter from './inspector/inspector.router.js';
@@ -10,7 +10,7 @@ import lpaRouter from './lpa/lpa.router.js';
 import { registerValidationLocals } from './validation/validation.pipes.js';
 import validationRouter from './validation/validation.router.js';
 
-const router = express.Router();
+const router = createRouter();
 
 // Mount app routes at / (this includes all sub paths specific to the general app)
 router.use('/', appRouter);
@@ -23,7 +23,9 @@ router.use('/auth', authRouter);
 router.use(
 	'/validation',
 	isAuthenticated,
-	hasAccess({ accessRule: { methods: ['GET', 'POST'], groups: [config.auth.validationOfficerGroupID] } }),
+	hasAccess({
+		accessRule: { methods: ['GET', 'POST'], groups: [config.auth.validationOfficerGroupID] }
+	}),
 	registerValidationLocals,
 	validationRouter
 );
@@ -47,4 +49,3 @@ router.use(
 );
 
 export { router as routes };
-

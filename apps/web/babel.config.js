@@ -1,4 +1,5 @@
-export default function() {
+/** @type {import('@babel/core').ConfigFunction} */
+export default function () {
 	const presets = [
 		[
 			'@babel/preset-env',
@@ -17,11 +18,8 @@ export default function() {
 		]
 	];
 
-	const plugins = [
-	];
-
 	return {
 		presets,
-		plugins
+		plugins: []
 	};
 }

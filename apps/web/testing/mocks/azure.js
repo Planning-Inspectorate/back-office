@@ -1,12 +1,13 @@
 import msal from '@azure/msal-node';
 import { jest } from '@jest/globals';
 import { last } from 'lodash-es';
-import { createAccountInfo } from '../factory/account-info';
+import { createAccountInfo } from '../factory/account-info.js';
 
 /** @type {ConfidentialClientApplication[]} */
-let confidentialClientApplications = [];
 
-class ConfidentialClientApplication extends msal.ConfidentialClientApplication {
+const confidentialClientApplications = [];
+
+export class ConfidentialClientApplication extends msal.ConfidentialClientApplication {
 	/** @param {import('@azure/msal-node').Configuration} config */
 	constructor(config) {
 		super(config);

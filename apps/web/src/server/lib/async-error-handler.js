@@ -8,7 +8,6 @@
  */
 export const createAsyncHandler = (requestHandler) => (request, response, next) => {
 	Promise.resolve(requestHandler(request, response, next)).catch((error) => {
-		// eslint-disable-next-line promise/no-callback-in-promise
 		next(new AggregateError([new Error('data fetch'), error], 'Fetch errors!'));
 	});
 };

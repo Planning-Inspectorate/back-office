@@ -87,10 +87,7 @@ export const validatePlanningApplicationReference = createValidator(
 export const validateReviewOutcomeConfirmation = createValidator(
 	body('confirmation')
 		.custom((value, { req }) => {
-			const status = validationSession.getReviewOutcomeStatus(
-				req.session,
-				req.params?.appealId
-			);
+			const status = validationSession.getReviewOutcomeStatus(req.session, req.params?.appealId);
 
 			return status === 'incomplete' ? Boolean(value) : true;
 		})
@@ -101,7 +98,7 @@ export const validateAppealDocuments = createValidator(
 	multer({
 		storage: memoryStorage,
 		limits: {
-			fileSize: 15 * Math.pow(1024, 2 /* MBs*/)
+			fileSize: 15 * 1024 ** 2
 		}
 	}).array('files'),
 	mapMulterErrorToValidationError,
@@ -165,18 +162,13 @@ const validateIncompleteOutcome = createValidator(
 
 		request.body = {
 			status: 'incomplete',
-			reasons: [...documentReasons, ...reasons]
-				// This 'Missing documents' reason, passed as part of the selected
-				// reasons but handled earlier in the validation, is now discarded
-				.filter((reasonType) => reasonType !== 'missingDocuments')
-				// eslint-disable-next-line unicorn/prefer-object-from-entries
-				.reduce(
-					(reasonsMap, reasonType) => ({
-						...reasonsMap,
-						[reasonType]: reasonType === 'otherReasons' ? otherReasons : true
-					}),
-					/** @type {IncompleteReasons} */ ({})
-				)
+			reasons: Object.fromEntries(
+				[...documentReasons, ...reasons]
+					// This 'Missing documents' reason, passed as part of the selected
+					// reasons but handled earlier in the validation, is now discarded
+					.filter((reasonType) => reasonType !== 'missingDocuments')
+					.map((reasonType) => [reasonType, reasonType === 'otherReasons' ? otherReasons : true])
+			)
 		};
 		next();
 	}
@@ -206,19 +198,15 @@ const validateInvalidOutcome = createValidator(
 		.withMessage('The list of reasons must be 500 characters or fewer'),
 	/** @type {import('express').RequestHandler} */
 	(request, _, next) => {
-		const { reasons = [], otherReasons } = /** @type {UnparsedInvalidOutcomeBody} */ (
-			request.body
-		);
+		const { reasons = [], otherReasons } = /** @type {UnparsedInvalidOutcomeBody} */ (request.body);
 
 		request.body = /** @type {ParsedInvalidOutcomeBody} */ ({
 			status: 'invalid',
-			// eslint-disable-next-line unicorn/prefer-object-from-entries
-			reasons: reasons.reduce(
-				(reasonsMap, reasonType) => ({
-					...reasonsMap,
-					[reasonType]: reasonType === 'otherReasons' ? otherReasons : true
-				}),
-				{}
+			reasons: Object.fromEntries(
+				reasons.map((reasonType) => [
+					reasonType,
+					reasonType === 'otherReasons' ? otherReasons : true
+				])
 			)
 		});
 		next();

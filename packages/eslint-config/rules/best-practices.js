@@ -6,16 +6,13 @@ module.exports = {
 		'array-callback-return': 2,
 		'block-scoped-var': 2,
 		'class-methods-use-this': 0,
-		'complexity': [
-			'error',
-			14
-		],
+		complexity: ['error', 14],
 		'consistent-return': 2,
-		'curly': 0,
+		curly: 0,
 		'default-case': 2,
 		'dot-location': 0,
 		'dot-notation': 2,
-		'eqeqeq': 0,
+		eqeqeq: 0,
 		'guard-for-in': 2,
 		'max-classes-per-file': 0,
 		'no-alert': 2,
@@ -72,21 +69,19 @@ module.exports = {
 		'no-warning-comments': [
 			'error',
 			{
-				'terms': [
-					'fixme'
-				],
-				'location': 'anywhere'
+				terms: ['fixme'],
+				location: 'anywhere'
 			}
 		],
 		'no-with': 0,
 		'prefer-named-capture-group': 0,
 		'prefer-promise-reject-errors': 0,
-		'radix': 2,
+		radix: 2,
 		'require-await': 2,
 		'require-unicode-regexp': 0,
 		'vars-on-top': 2,
 		'wrap-iife': 0,
-		'yoda': 2,
-		'strict': 2
+		yoda: 2,
+		strict: 2
 	}
 };

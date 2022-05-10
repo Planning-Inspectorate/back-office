@@ -1,6 +1,6 @@
-import { randomLetter } from '@pins/platform/testing';
-import { sample, random } from 'lodash-es';
-import { localPlanningDepartments } from '../fixtures/referencedata';
+import { fake } from '@pins/platform';
+import { random, sample } from 'lodash-es';
+import { localPlanningDepartments } from '../fixtures/referencedata.js';
 
 /**
  * @typedef {object} AppealReferenceOptions
@@ -14,8 +14,8 @@ import { localPlanningDepartments } from '../fixtures/referencedata';
 export const createAppealReference = ({ prefix = 'HAS' } = {}) =>
 	[
 		prefix,
-		`${randomLetter()}${random(1000, 9999)}`,
-		randomLetter(),
+		`${fake.randomLetter()}${random(1000, 9999)}`,
+		fake.randomLetter(),
 		String(random(1, 99)).padStart(2, '0'),
 		random(1_000_000, 9_999_999)
 	].join('/');

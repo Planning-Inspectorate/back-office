@@ -5,11 +5,11 @@ module.exports = {
 		'valid-jsdoc': [
 			'error',
 			{
-				'requireReturn': false,
-				'requireParamDescription': false,
-				'requireReturnDescription': false,
-				'requireReturnType': true,
-				'requireParamType': true
+				requireReturn: false,
+				requireParamDescription: false,
+				requireReturnDescription: false,
+				requireReturnType: true,
+				requireParamType: true
 			}
 		]
 	}

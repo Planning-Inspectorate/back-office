@@ -1,8 +1,8 @@
-import { parseHtml } from '@pins/platform/testing';
+import { parseHtml } from '@pins/platform';
 import nock from 'nock';
 import supertest from 'supertest';
-import { createTestApplication, createAccountInfo } from '../../../../../testing/index.js';
-import { getMock } from '../../../../../testing/mocks/azure.js';
+import { createAccountInfo, createTestApplication } from '../../../../../testing/index.js';
+import { ConfidentialClientApplication, getMock } from '../../../../../testing/mocks/azure.js';
 
 const { app, teardown } = createTestApplication({ authenticated: false });
 const request = supertest(app);
@@ -14,7 +14,9 @@ describe('auth', () => {
 	describe('authentication', () => {
 		it('should sign in an unauthenticated user via azure SSO', async () => {
 			const response = await request.get('/validation').redirects(1);
-			const client = azureMsalMock.confidentialClientApplications.last;
+			const client = /** @type {ConfidentialClientApplication} */ (
+				azureMsalMock.confidentialClientApplications.last
+			);
 
 			// Assert azure msal client was instantiated correctly
 
@@ -26,10 +28,14 @@ describe('auth', () => {
 
 			// Assert azure msal client's `getAuthCodeUrl` was invoked correctly
 
-			const [authOptions] = /** @type {*} */ (client?.getAuthCodeUrl.mock.lastCall);
+			const [authOptions] = /** @type {import('@azure/msal-node').AuthorizationUrlRequest[]} */ (
+				client.getAuthCodeUrl.mock.lastCall
+			);
 
 			expect(authOptions.authority).toEqual('auth_cloud_instance_id/auth_tenant_id');
-			expect(authOptions.redirectUri).toEqual(expect.stringMatching('^https?://.*/auth_redirect_uri'));
+			expect(authOptions.redirectUri).toEqual(
+				expect.stringMatching('^https?://.*/auth_redirect_uri')
+			);
 			expect(authOptions.scopes).toEqual(['user.read']);
 			expect(authOptions.state).toBeTruthy();
 
@@ -37,11 +43,18 @@ describe('auth', () => {
 
 			// Invoke the redirect from azure's SSO
 
-			const redirect = await request.get(`/auth/redirect?code=azure_code&state=${authOptions.state}`);
-			const [tokenOptions] = /** @type {*} */ (client?.acquireTokenByCode.mock.lastCall);
+			const redirect = await request.get(
+				`/auth/redirect?code=azure_code&state=${authOptions.state}`
+			);
+
+			const [tokenOptions] = /** @type {import('@azure/msal-node').AuthorizationCodeRequest[]} */ (
+				client.acquireTokenByCode.mock.lastCall
+			);
 
 			expect(tokenOptions.authority).toEqual('auth_cloud_instance_id/auth_tenant_id');
-			expect(tokenOptions.redirectUri).toEqual(expect.stringMatching('^https?://.*/auth_redirect_uri'));
+			expect(tokenOptions.redirectUri).toEqual(
+				expect.stringMatching('^https?://.*/auth_redirect_uri')
+			);
 			expect(tokenOptions.scopes).toEqual(['user.read']);
 			expect(tokenOptions.code).toEqual('azure_code');
 
@@ -63,13 +76,16 @@ describe('auth', () => {
 		});
 
 		it('should redirect to an error page when fetching the auth url fails', async () => {
-			azureMsalMock.confidentialClientApplications.last?.getAuthCodeUrl
-				.mockImplementationOnce(() => Promise.reject(new Error('*')));
+			azureMsalMock.confidentialClientApplications.last?.getAuthCodeUrl.mockImplementationOnce(() =>
+				Promise.reject(new Error('*'))
+			);
 
 			const response = await request.get(`/`).redirects(1);
 			const element = parseHtml(response.text);
 
-			expect(element.querySelector('h1')?.innerHTML).toEqual('Sorry, there is a problem with the service');
+			expect(element.querySelector('h1')?.innerHTML).toEqual(
+				'Sorry, there is a problem with the service'
+			);
 		});
 	});
 
@@ -85,7 +101,9 @@ describe('auth', () => {
 				const response = await request.get('/validation').redirects(1);
 				const element = parseHtml(response.text);
 
-				expect(element.querySelector('h1')?.innerHTML).toEqual('Sorry, there is a problem with your login');
+				expect(element.querySelector('h1')?.innerHTML).toEqual(
+					'Sorry, there is a problem with your login'
+				);
 			});
 
 			it('should permit access to the domain if the user has permission', async () => {
@@ -93,6 +111,8 @@ describe('auth', () => {
 
 				const response = await request.get('/validation');
 				const element = parseHtml(response.text);
+
+				console.log(element.innerHTML);
 
 				expect(element.querySelector('h1')?.innerHTML).toEqual('Appeal submissions for review');
 			});
@@ -118,7 +138,9 @@ describe('auth', () => {
 				const response = await request.get('/lpa').redirects(1);
 				const element = parseHtml(response.text);
 
-				expect(element.querySelector('h1')?.innerHTML).toEqual('Sorry, there is a problem with your login');
+				expect(element.querySelector('h1')?.innerHTML).toEqual(
+					'Sorry, there is a problem with your login'
+				);
 			});
 
 			it('should permit access to the domain if the user has permission', async () => {
@@ -151,7 +173,9 @@ describe('auth', () => {
 				const response = await request.get('/inspector').redirects(1);
 				const element = parseHtml(response.text);
 
-				expect(element.querySelector('h1')?.innerHTML).toEqual('Sorry, there is a problem with your login');
+				expect(element.querySelector('h1')?.innerHTML).toEqual(
+					'Sorry, there is a problem with your login'
+				);
 			});
 
 			it('should permit access to the domain if the user has permission', async () => {
@@ -189,9 +213,11 @@ describe('auth', () => {
  * @returns {Promise<void>}
  */
 async function signinWithGroups(groups) {
-	const client = azureMsalMock.confidentialClientApplications.last;
+	const client = /** @type {ConfidentialClientApplication} */ (
+		azureMsalMock.confidentialClientApplications.last
+	);
 
-	client?.acquireTokenByCode.mockReturnValueOnce(
+	client.acquireTokenByCode.mockReturnValueOnce(
 		Promise.resolve(
 			/** @type {import('@azure/msal-node').AuthenticationResult} */ ({
 				account: createAccountInfo({ groups })
@@ -200,7 +226,9 @@ async function signinWithGroups(groups) {
 	);
 	await request.get('/validation').redirects(1);
 
-	const [{ state }] = /** @type {*} */ (client?.getAuthCodeUrl.mock.lastCall);
+	const [{ state }] = /** @type {import('@azure/msal-node').AuthorizationUrlRequest[]} */ (
+		client.getAuthCodeUrl.mock.lastCall
+	);
 
 	await request.get(`/auth/redirect?code=*&state=${state}`);
 }

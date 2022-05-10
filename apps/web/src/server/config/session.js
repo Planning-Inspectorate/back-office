@@ -1,3 +1,4 @@
+import config from '@pins/web/environment/config.js';
 import session from 'express-session';
 
 export const store = new session.MemoryStore();
@@ -10,6 +11,6 @@ export default session({
 	saveUninitialized: true,
 	store,
 	cookie: {
-		secure: process.env.NODE_ENV === 'production'
+		secure: config.isProd
 	}
 });

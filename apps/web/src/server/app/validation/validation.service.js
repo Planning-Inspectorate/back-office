@@ -1,9 +1,10 @@
-import { appendFilesToFormData } from '@pins/platform';
+import { appendFilesToFormData } from '@pins/express';
 import FormData from 'form-data';
-import { get, patch, post } from './../../lib/request.js';
+import { get, patch, post } from '../../lib/request.js';
 
 /** @typedef {import('@pins/appeals').AppealDocument} AppealDocument */
 /** @typedef {import('@pins/appeals').Validation.Appeal} Appeal */
+/** @typedef {import('@pins/express').MulterFile} MulterFile */
 /** @typedef {import('@pins/appeals').Validation.AppealOutcomeStatus} AppealOutcomeStatus */
 /** @typedef {import('@pins/appeals').Validation.AppealDocumentType} AppealDocumentType */
 /** @typedef {import('@pins/appeals').Validation.IncompleteReasons} IncompleteReasons */
@@ -97,7 +98,7 @@ export function recordOutcome(appealId, { status: AppealStatus, ...other }) {
 /**
  * @typedef {object} UploadDocumentData
  * @property {AppealDocumentType} documentType
- * @property {Express.Multer.File} file
+ * @property {MulterFile} file
  */
 
 /**
@@ -109,6 +110,7 @@ export function recordOutcome(appealId, { status: AppealStatus, ...other }) {
  */
 export function uploadDocument(appealId, { file, documentType }) {
 	const formData = new FormData();
+
 	formData.append('documentType', documentType);
 	appendFilesToFormData(formData, { key: 'file', file });
 

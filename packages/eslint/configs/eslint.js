@@ -59,7 +59,7 @@ module.exports = {
 		// require-atomic-updates
 		// disallow assignments that can lead to race conditions due to usage of `await` or `yield`
 		// https://eslint.org/docs/rules/require-atomic-updates
-		'require-atomic-updates': 'error',
+		'require-atomic-updates': ['error', { allowProperties: true }],
 
 		// enforce comparing `typeof` expressions against valid strings
 		// https://eslint.org/docs/rules/valid-typeof
@@ -95,10 +95,6 @@ module.exports = {
 				}
 			}
 		],
-
-		// require return statements to either always or never specify values
-		// https://eslint.org/docs/rules/consistent-return
-		'consistent-return': 'error',
 
 		// enforce consistent naming when capturing the current execution context
 		// https://eslint.org/docs/rules/consistent-this
@@ -149,7 +145,7 @@ module.exports = {
 
 		// enforce a maximum number of parameters in function definitions
 		// https://eslint.org/docs/rules/max-params
-		'max-params': ['error', 3],
+		'max-params': ['error', 4],
 
 		// enforce a maximum number of statements allowed per line
 		// https://eslint.org/docs/rules/max-statements-per-line

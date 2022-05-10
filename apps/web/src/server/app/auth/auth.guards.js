@@ -1,13 +1,23 @@
+import { isUndefined } from 'lodash-es';
 import { checkAccessRule } from '../../lib/sso.js';
 
-/** @typedef {import('@pins/express').Auth.GuardOptions} GuardOptions */
+/**
+ * @typedef {object} AccessRule
+ * @property {string[]} methods
+ * @property {string[]=} roles
+ * @property {string[]=} groups
+ */
+
+/**
+ * @typedef {object} GuardOptions
+ * @property {AccessRule=} accessRule
+ */
 
 /**
  * Path to redirect to after successful login.
  *
  * @type {import('@pins/express').RequestHandler}
  */
-// eslint-disable-next-line consistent-return
 export function isAuthenticated(request, response, next) {
 	if (request.session) {
 		if (!request.session.isAuthenticated) {
@@ -31,16 +41,17 @@ export function isAuthenticated(request, response, next) {
  * @returns {import('express').RequestHandler<T>} - A wrapped request handler.
  */
 export function hasAccess(options) {
-	// eslint-disable-next-line consistent-return
 	return (request, response, next) => {
 		if (request.session) {
-			const checkFor = options.accessRule?.hasOwnProperty('groups') ? 'groups' : 'roles';
+			const checkFor = options.accessRule && 'groups' in options.accessRule ? 'groups' : 'roles';
 
 			switch (checkFor) {
 				case 'groups':
-
-					if (request.session.account.idTokenClaims.groups === undefined) {
-						if (request.session.account.idTokenClaims._claim_name || request.session.account.idTokenClaims._claim_sources) {
+					if (isUndefined(request.session.account?.idTokenClaims?.groups)) {
+						if (
+							request.session.account?.idTokenClaims?.claimName ||
+							request.session.account?.idTokenClaims?.claimSources
+						) {
 							console.warn('User has too many groups. Groups overage claim occurred');
 
 							// TODO: Should we handle overage?
@@ -49,8 +60,8 @@ export function hasAccess(options) {
 							console.error('User does not have any groups');
 							return response.redirect('/auth/unauthorized');
 						}
-					} else {
-						const groups = request.session.account.idTokenClaims.groups;
+					} else if (request.session.account?.idTokenClaims) {
+						const { groups } = request.session.account.idTokenClaims;
 
 						if (!checkAccessRule(request.method, options.accessRule, groups, 'groups')) {
 							return response.redirect('/auth/unauthorized');
@@ -60,20 +71,22 @@ export function hasAccess(options) {
 					next();
 					break;
 
-				case 'roles':
-					if (request.session.account.idTokenClaims.roles === undefined) {
+				case 'roles': {
+					if (isUndefined(request.session.account?.idTokenClaims.roles)) {
 						console.error('User does not have any roles');
 						return response.redirect('/auth/unauthorized');
-					} else {
-						const roles = request.session.account.idTokenClaims.roles;
-
-						if (!checkAccessRule(request.method, options.accessRule, roles, 'roles')) {
-							return response.redirect('/auth/unauthorized');
-						}
 					}
 
-					next();
-					break;
+					if (request.session.account) {
+						const { roles = [] } = request.session.account.idTokenClaims;
+
+						if (checkAccessRule(request.method, options.accessRule, roles, 'roles')) {
+							next();
+							break;
+						}
+					}
+					return response.redirect('/auth/unauthorized');
+				}
 
 				default:
 					break;

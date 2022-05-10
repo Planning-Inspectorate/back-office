@@ -6,6 +6,6 @@
 module.exports = {
 	plugins: ['pins'],
 	rules: {
-    'pins/require-should': 'error'
-  }
+		'pins/require-should': 'error'
+	}
 };

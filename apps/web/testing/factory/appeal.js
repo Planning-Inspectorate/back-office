@@ -1,14 +1,18 @@
-import { createUniqueId } from '@pins/platform/testing';
-import sub from 'date-fns/sub/index.js';
+import { fake } from '@pins/platform';
 import add from 'date-fns/add/index.js';
 import min from 'date-fns/min/index.js';
+import sub from 'date-fns/sub/index.js';
 import { random } from 'lodash-es';
 import { createAddress } from './address.js';
-import { createAppellant } from './appellant.js';
 import { createAppealStatus } from './appeal-status.js';
-import { createAppealReference, getRandomLocalPlanningDepartment, createPlanningApplicationReference } from './util.js';
 import { createAppealType } from './appeal-type.js';
+import { createAppellant } from './appellant.js';
 import { createDocument } from './document.js';
+import {
+	createAppealReference,
+	createPlanningApplicationReference,
+	getRandomLocalPlanningDepartment
+} from './util.js';
 
 /** @typedef {Omit<import('@pins/api').Schema.AppealStatus, 'appealId'>} AppealStatusData */
 /** @typedef {import('@pins/api').Schema.Appeal} Appeal */
@@ -20,7 +24,7 @@ import { createDocument } from './document.js';
  * @returns {Appeal}
  */
 export function createAppeal({
-	id = createUniqueId(),
+	id = fake.createUniqueId(),
 	appealTypeCode = 'HAS',
 	appealStatus = [createAppealStatus({ appealId: id })],
 	planningApplicationReference = createPlanningApplicationReference(),
@@ -32,9 +36,7 @@ export function createAppeal({
 	reference = createAppealReference({ prefix: appealTypeCode }),
 	appellant = createAppellant(),
 	userId = null,
-	documents = [
-		createDocument({ type: 'planning application form' })
-	],
+	documents = [createDocument({ type: 'planning application form' })],
 	validationDecision = [],
 	...other
 } = {}) {
