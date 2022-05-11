@@ -1,16 +1,13 @@
 {
-  "compilerOptions": {
-    "baseUrl": ".",
-    "allowSyntheticDefaultImports": true,
-    "checkJs": true,
-    "esModuleInterop": true,
-    "moduleResolution": "node",
-    "target": "esnext",
-    "module": "es2022",
-    "strict": true
-  },
-  "include": ["packages"],
-  "files": [
-    "packages/platform/types/utility.d.ts"
-  ]
+	"compilerOptions": {
+		"baseUrl": ".",
+		"allowSyntheticDefaultImports": true,
+		"checkJs": true,
+		"esModuleInterop": true,
+		"moduleResolution": "node",
+		"target": "esnext",
+		"module": "es2022",
+		"strict": true
+	},
+	"files": ["typings.d.ts"]
 }

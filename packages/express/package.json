@@ -9,7 +9,8 @@
   },
   "scripts": {
     "lint:js": "npx eslint .",
-    "lint:js:fix": "npx eslint . --fix"
+    "lint:js:fix": "npx eslint . --fix",
+    "tscheck": "npx tsc -p jsconfig.json --maxNodeModuleJsDepth 0"
   },
   "dependencies": {
     "express": "^4.18.1",
