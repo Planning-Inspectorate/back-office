@@ -4,6 +4,7 @@ import getStream from 'into-stream';
 import md5 from 'crypto-js/md5.js';
 import { BlobServiceClient } from '@azure/storage-blob';
 import config from '../config/config.js';
+import { asyncHandler } from './middleware/async-handler.js';
 
 const router = express.Router();
 
@@ -29,7 +30,7 @@ const getAllDocument = async function(req, res, next) {
     res.send(blobs);
 }
 
-router.get('/', getAllDocument)
+router.get('/', asyncHandler(getAllDocument));
 
 const upload = multer({ storage: multer.memoryStorage() })
 const validateDocumentUpload = upload.single('file')
@@ -53,6 +54,6 @@ const uploadDocument = async function(req, res) {
     res.send({ message: 'File uploaded to Azure Blob storage.' });
 }
 
-router.post('/', validateDocumentUpload, uploadDocument)
+router.post('/', validateDocumentUpload, asyncHandler(uploadDocument))
 
 export { router as documentsRouter };
