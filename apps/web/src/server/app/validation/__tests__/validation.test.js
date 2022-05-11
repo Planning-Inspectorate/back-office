@@ -45,17 +45,6 @@ describe('validation', () => {
 
 			expect(element.innerHTML).toMatchSnapshot();
 		});
-
-		it('should handle an asynchronous error during the request', async () => {
-			nock('http://test/').get('/validation').reply(500);
-
-			const response = await request.get('/validation');
-			const element = parseHtml(response.text);
-
-			expect(element.querySelector('h1')?.innerHTML).toEqual(
-				'Sorry, there is a problem with the service'
-			);
-		});
 	});
 
 	describe('GET /validation/appeals/:appealId', () => {
@@ -81,15 +70,6 @@ describe('validation', () => {
 			const element = parseHtml(response.text);
 
 			expect(element.querySelector('form')?.innerHTML).toMatchSnapshot();
-		});
-
-		it('should handle an asynchronous error during the request', async () => {
-			const response = await request.get('/validation/appeals/0');
-			const element = parseHtml(response.text);
-
-			expect(element.querySelector('h1')?.innerHTML).toEqual(
-				'Sorry, there is a problem with the service'
-			);
 		});
 	});
 
@@ -139,15 +119,6 @@ describe('validation', () => {
 			const element = parseHtml(response.text);
 
 			expect(element.querySelector('h1')?.innerHTML).toEqual('Review appeal submission');
-		});
-
-		it('should handle an asynchronous error during the request', async () => {
-			const response = await request.post('/validation/appeals/0');
-			const element = parseHtml(response.text);
-
-			expect(element.querySelector('h1')?.innerHTML).toEqual(
-				'Sorry, there is a problem with the service'
-			);
 		});
 	});
 
@@ -436,15 +407,6 @@ describe('validation', () => {
 				expect(element.querySelector('h1')?.innerHTML).toEqual('What is missing or wrong?');
 			});
 
-			it('should handle an asynchronous error during the request', async () => {
-				const response = await request.post('/validation/appeals/0');
-				const element = parseHtml(response.text);
-
-				expect(element.querySelector('h1')?.innerHTML).toEqual(
-					'Sorry, there is a problem with the service'
-				);
-			});
-
 			it('should remember any existing review outcome when re-submitting an unchanged status', async () => {
 				await installReviewOutcome({
 					status: 'valid',
@@ -500,15 +462,6 @@ describe('validation', () => {
 				const element = parseHtml(response.text);
 
 				expect(element.innerHTML).toMatchSnapshot();
-			});
-
-			it('should handle an asynchronous error during the request', async () => {
-				const response = await request.get('/validation/appeals/0/review-outcome');
-				const element = parseHtml(response.text);
-
-				expect(element.querySelector('h1')?.innerHTML).toEqual(
-					'Sorry, there is a problem with the service'
-				);
 			});
 		});
 	});

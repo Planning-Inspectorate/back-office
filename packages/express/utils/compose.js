@@ -3,7 +3,7 @@ import { flatten } from 'lodash-es';
 /** @typedef {import('express').ErrorRequestHandler<any>} ErrorRequestHandler */
 /** @typedef {import('express').RequestHandler<any>} RequestHandler */
 /** @typedef {import('express-validator').ValidationChain} ValidationChain */
-/** @typedef {ErrorRequestHandler | RequestHandler | RequestHandler[] | ValidationChain} AnyRequestHandler */
+/** @typedef {ErrorRequestHandler | RequestHandler | (ErrorRequestHandler | RequestHandler)[] | ValidationChain} AnyRequestHandler */
 
 /**
  * Combine multiple express middleware functions into one.

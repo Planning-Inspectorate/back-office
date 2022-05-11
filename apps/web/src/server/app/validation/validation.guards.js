@@ -1,4 +1,3 @@
-import { createAsyncHandler } from '../../lib/async-error-handler.js';
 import * as validationService from './validation.service.js';
 import * as validationSession from './validation-session.service.js';
 
@@ -11,7 +10,7 @@ import * as validationSession from './validation-session.service.js';
  *
  * @type {import('express').RequestHandler<AppealParams>}
  */
-export const assertIncompleteAppeal = createAsyncHandler(async (request, response, next) => {
+export const assertIncompleteAppeal = async (request, response, next) => {
 	const appeal = await validationService.findAppealById(request.params.appealId);
 
 	if (appeal.AppealStatus === 'incomplete') {
@@ -21,7 +20,7 @@ export const assertIncompleteAppeal = createAsyncHandler(async (request, respons
 		// page is also unavailable, then its own guard will handle it
 		response.redirect(`/validation/appeals/${request.params.appealId}`);
 	}
-});
+};
 
 /**
  * A guard that ensures an appeal is in a state that can be reviewed, else

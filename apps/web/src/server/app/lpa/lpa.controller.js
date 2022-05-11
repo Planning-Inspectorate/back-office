@@ -9,8 +9,6 @@ import * as lpaSession from './lpa-session.service.js';
 /** @typedef {import('./lpa-session.service').QuestionnaireReviewState} QuestionnaireReview */
 /** @typedef {import('./lpa.service').UploadFinalCommentsResponseBody} UploadFinalCommentsResponseBody */
 /** @typedef {import('./lpa.service').UploadStatementsResponseBody} UploadStatementsResponseBody */
-/** @typedef {import('@pins/express').MulterFile} MulterFile */
-
 /**
  * @typedef {object} ViewDashboardRenderOptions
  * @property {AppealSummary[]} appeals
@@ -203,19 +201,17 @@ export const newAppealDocuments = async ({ params }, response) => {
  * `documentType`.
  *
  * @type {import('@pins/express').CommandHandler<NewAppealDocumentsParams,
- * NewAppealDocumentsRenderOptions>}
+ * NewAppealDocumentsRenderOptions, { files: import('@pins/express').MulterFile[] }>}
  */
-export const uploadAppealDocuments = async ({ files, params }, response) => {
+export const uploadAppealDocuments = async ({ body, params }, response) => {
 	if (response.locals.errors) {
 		const appeal = await lpaService.findAppealById(params.appealId);
 
 		response.render('lpa/appeal-documents', { appeal, documentType: params.documentType });
 	} else {
-		const multerFiles = /** @type {MulterFile[]} */ (files);
-
 		await lpaService.uploadDocuments(params.appealId, {
 			documentType: params.documentType,
-			files: multerFiles
+			files: body.files
 		});
 		response.redirect(`/lpa/appeals/${params.appealId}`);
 	}
@@ -248,9 +244,9 @@ export const newFinalComments = async ({ params }, response) => {
  * Upload final comments as part of a full planning appeal.
  *
  * @type {import('@pins/express').CommandHandler<AppealParams,
- * NewFpaDocumentsRenderOptions>}
+ * NewFpaDocumentsRenderOptions, { files: import('@pins/express').MulterFile[] }>}
  */
-export const uploadFinalComments = async ({ files, params }, response) => {
+export const uploadFinalComments = async ({ body, params }, response) => {
 	if (response.locals.errors) {
 		const appeal = await lpaService.findFullPlanningAppealById(params.appealId);
 
@@ -259,10 +255,7 @@ export const uploadFinalComments = async ({ files, params }, response) => {
 			documentType: 'fpa final comment'
 		});
 	} else {
-		const appeal = await lpaService.uploadFinalComments(
-			params.appealId,
-			/** @type {MulterFile[]} * */ (files)
-		);
+		const appeal = await lpaService.uploadFinalComments(params.appealId, body.files);
 
 		response.render('lpa/fpa-documents-success', {
 			appeal,
@@ -288,9 +281,9 @@ export const newStatements = async ({ params }, response) => {
  * Upload final comments as part of a full planning appeal.
  *
  * @type {import('@pins/express').CommandHandler<AppealParams,
- * NewFpaDocumentsRenderOptions>}
+ * NewFpaDocumentsRenderOptions, { files: import('@pins/express').MulterFile[] }>}
  */
-export const uploadStatements = async ({ files, params }, response) => {
+export const uploadStatements = async ({ body, params }, response) => {
 	if (response.locals.errors) {
 		const appeal = await lpaService.findFullPlanningAppealById(params.appealId);
 
@@ -299,10 +292,7 @@ export const uploadStatements = async ({ files, params }, response) => {
 			documentType: 'fpa statement'
 		});
 	} else {
-		const appeal = await lpaService.uploadStatements(
-			params.appealId,
-			/** @type {MulterFile[]} * */ (files)
-		);
+		const appeal = await lpaService.uploadStatements(params.appealId, body.files);
 
 		response.render('lpa/fpa-documents-success', { appeal, documentType: 'fpa statement' });
 	}

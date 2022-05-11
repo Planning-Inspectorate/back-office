@@ -49,17 +49,6 @@ describe('lpa', () => {
 
 			expect(element.innerHTML).toMatchSnapshot();
 		});
-
-		it('should handle an asynchronous error during the request', async () => {
-			nock('http://test/').get('/case-officer').reply(500);
-
-			const response = await request.get('/lpa');
-			const element = parseHtml(response.text);
-
-			expect(element.querySelector('h1')?.innerHTML).toEqual(
-				'Sorry, there is a problem with the service'
-			);
-		});
 	});
 
 	describe('GET /lpa/appeals/:appealId', () => {
@@ -77,15 +66,6 @@ describe('lpa', () => {
 			const element = parseHtml(response.text);
 
 			expect(element.innerHTML).toMatchSnapshot();
-		});
-
-		it('should handle an asynchronous error during the request', async () => {
-			const response = await request.get('/lpa/appeals/0');
-			const element = parseHtml(response.text);
-
-			expect(element.querySelector('h1')?.innerHTML).toEqual(
-				'Sorry, there is a problem with the service'
-			);
 		});
 	});
 
@@ -157,15 +137,6 @@ describe('lpa', () => {
 
 			expect(element.innerHTML).toMatchSnapshot();
 		});
-
-		it('should handle an asynchronous error during the request', async () => {
-			const response = await request.post('/lpa/appeals/0/questionnaire').send({}).redirects(1);
-			const element = parseHtml(response.text);
-
-			expect(element.querySelector('h1')?.innerHTML).toEqual(
-				'Sorry, there is a problem with the service'
-			);
-		});
 	});
 
 	describe('POST /lpa/appeals/:appealId/questionnaire/complete', () => {
@@ -207,28 +178,10 @@ describe('lpa', () => {
 
 			expect(element.querySelector('h1')?.innerHTML).toEqual('Review questionnaire');
 		});
-
-		it('should handle an asynchronous error during the request', async () => {
-			const response = await request.post(`/lpa/appeals/0/questionnaire/complete`).redirects(1);
-			const element = parseHtml(response.text);
-
-			expect(element.querySelector('h1')?.innerHTML).toEqual(
-				'Sorry, there is a problem with the service'
-			);
-		});
 	});
 
 	describe('POST /lpa/appeals/:appealId/questionnaire/confirm', () => {
 		const { AppealId } = appealDetailsForReceivedQuestionnaire;
-
-		it('should handle an asynchronous error during the request', async () => {
-			const response = await request.post(`/lpa/appeals/0/questionnaire/confirm`).redirects(1);
-			const element = parseHtml(response.text);
-
-			expect(element.querySelector('h1')?.innerHTML).toEqual(
-				'Sorry, there is a problem with the service'
-			);
-		});
 
 		describe('valid questionnaire review', () => {
 			beforeEach(async () => {
@@ -325,17 +278,6 @@ describe('lpa', () => {
 
 			expect(element.querySelector('h1')?.innerHTML).toEqual('Review incomplete questionnaire');
 		});
-
-		it('should handle an asynchronous error during the request', async () => {
-			const response = await request
-				.get(`/lpa/appeals/0/edit-listed-building-description`)
-				.redirects(1);
-			const element = parseHtml(response.text);
-
-			expect(element.querySelector('h1')?.innerHTML).toEqual(
-				'Sorry, there is a problem with the service'
-			);
-		});
 	});
 
 	describe('POST /appeals/:appealId/edit-listed-building-description', () => {
@@ -392,17 +334,6 @@ describe('lpa', () => {
 
 			expect(element.querySelector('h1')?.innerHTML).toEqual('Review incomplete questionnaire');
 		});
-
-		it('should handle an asynchronous error during the request', async () => {
-			const response = await request
-				.post(`/lpa/appeals/0/edit-listed-building-description`)
-				.redirects(1);
-			const element = parseHtml(response.text);
-
-			expect(element.querySelector('h1')?.innerHTML).toEqual(
-				'Sorry, there is a problem with the service'
-			);
-		});
 	});
 
 	describe('GET /appeals/:appealId/documents/:documentType', () => {
@@ -439,17 +370,6 @@ describe('lpa', () => {
 			const element = parseHtml(response.text);
 
 			expect(element.querySelector('h1')?.innerHTML).toEqual('Review incomplete questionnaire');
-		});
-
-		it('should handle an asynchronous error during the request', async () => {
-			const response = await request
-				.get(`/lpa/appeals/0/documents/plans-used-to-reach-decision`)
-				.redirects(1);
-			const element = parseHtml(response.text);
-
-			expect(element.querySelector('h1')?.innerHTML).toEqual(
-				'Sorry, there is a problem with the service'
-			);
 		});
 	});
 
@@ -507,17 +427,6 @@ describe('lpa', () => {
 
 			expect(element.querySelector('h1')?.innerHTML).toEqual('Review incomplete questionnaire');
 		});
-
-		it('should handle an asynchronous error during the request', async () => {
-			const response = await request
-				.post(`/lpa/appeals/0/documents/plans-used-to-reach-decision`)
-				.redirects(1);
-			const element = parseHtml(response.text);
-
-			expect(element.querySelector('h1')?.innerHTML).toEqual(
-				'Sorry, there is a problem with the service'
-			);
-		});
 	});
 
 	describe('GET /appeals/:appealId/final-comments', () => {
@@ -538,15 +447,6 @@ describe('lpa', () => {
 			const element = parseHtml(response.text);
 
 			expect(element.querySelector('h1')?.innerHTML).toEqual('Questionnaires for review');
-		});
-
-		it('should handle an asynchronous error during the request', async () => {
-			const response = await request.get('/lpa/appeals/0/final-comments');
-			const element = parseHtml(response.text);
-
-			expect(element.querySelector('h1')?.innerHTML).toEqual(
-				'Sorry, there is a problem with the service'
-			);
 		});
 	});
 
@@ -595,15 +495,6 @@ describe('lpa', () => {
 
 			expect(element.querySelector('h1')?.innerHTML).toEqual('Questionnaires for review');
 		});
-
-		it('should handle an asynchronous error during the request', async () => {
-			const response = await request.post(`/lpa/appeals/0/final-comments`).redirects(1);
-			const element = parseHtml(response.text);
-
-			expect(element.querySelector('h1')?.innerHTML).toEqual(
-				'Sorry, there is a problem with the service'
-			);
-		});
 	});
 
 	describe('GET /appeals/:appealId/statements', () => {
@@ -624,15 +515,6 @@ describe('lpa', () => {
 			const element = parseHtml(response.text);
 
 			expect(element.querySelector('h1')?.innerHTML).toEqual('Questionnaires for review');
-		});
-
-		it('should handle an asynchronous error during the request', async () => {
-			const response = await request.get('/lpa/appeals/0/statements');
-			const element = parseHtml(response.text);
-
-			expect(element.querySelector('h1')?.innerHTML).toEqual(
-				'Sorry, there is a problem with the service'
-			);
 		});
 	});
 
@@ -680,15 +562,6 @@ describe('lpa', () => {
 			const element = parseHtml(response.text);
 
 			expect(element.querySelector('h1')?.innerHTML).toEqual('Questionnaires for review');
-		});
-
-		it('should handle an asynchronous error during the request', async () => {
-			const response = await request.post(`/lpa/appeals/0/statements`).redirects(1);
-			const element = parseHtml(response.text);
-
-			expect(element.querySelector('h1')?.innerHTML).toEqual(
-				'Sorry, there is a problem with the service'
-			);
 		});
 	});
 });

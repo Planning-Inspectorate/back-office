@@ -1,6 +1,5 @@
 import { Router as createRouter } from 'express';
 import { lowerCase } from 'lodash-es';
-import { createAsyncHandler } from '../../lib/async-error-handler.js';
 import {
 	confirmReviewOutcome,
 	createReviewOutcome,
@@ -55,55 +54,49 @@ router.param('documentType', ({ params }, _, next) => {
 	next();
 });
 
-router.route('/').get(createAsyncHandler(viewDashboard));
+router.route('/').get(viewDashboard);
 
 router
 	.route('/appeals/:appealId')
-	.get(createAsyncHandler(viewAppeal))
-	.post(validators.validateReviewOutcomeStatus, createAsyncHandler(updateAppealOutcome));
+	.get(viewAppeal)
+	.post(validators.validateReviewOutcomeStatus, updateAppealOutcome);
 
 router
 	.route('/appeals/:appealId/appeal-site')
-	.get(createAsyncHandler(editAppealSite))
-	.post(validators.validateAppealSite, createAsyncHandler(updateAppealSite));
+	.get(editAppealSite)
+	.post(validators.validateAppealSite, updateAppealSite);
 
 router
 	.route('/appeals/:appealId/appellant-name')
-	.get(createAsyncHandler(editAppellantName))
-	.post(validators.validateAppellantName, createAsyncHandler(updateAppellantName));
+	.get(editAppellantName)
+	.post(validators.validateAppellantName, updateAppellantName);
 
 router
 	.route('/appeals/:appealId/local-planning-department')
-	.get(createAsyncHandler(editLocalPlanningDepartment))
-	.post(
-		validators.validateLocalPlanningDepartment,
-		createAsyncHandler(updateLocalPlanningDepartment)
-	);
+	.get(editLocalPlanningDepartment)
+	.post(validators.validateLocalPlanningDepartment, updateLocalPlanningDepartment);
 
 router
 	.route('/appeals/:appealId/planning-application-reference')
-	.get(createAsyncHandler(editPlanningApplicationReference))
-	.post(
-		validators.validatePlanningApplicationReference,
-		createAsyncHandler(updatePlanningApplicationReference)
-	);
+	.get(editPlanningApplicationReference)
+	.post(validators.validatePlanningApplicationReference, updatePlanningApplicationReference);
 
 router
 	.route('/appeals/:appealId/documents/:documentType')
 	.all(assertIncompleteAppeal)
-	.get(createAsyncHandler(editDocuments))
-	.post(validators.validateAppealDocuments, createAsyncHandler(uploadDocuments));
+	.get(editDocuments)
+	.post(validators.validateAppealDocuments, uploadDocuments);
 
 router
 	.route('/appeals/:appealId/review-outcome')
 	.all(assertCanReviewAppeal, assertReviewOutcomeStatusInSession)
-	.get(createAsyncHandler(newReviewOutcome))
-	.post(validators.validateReviewOutcome, createAsyncHandler(createReviewOutcome));
+	.get(newReviewOutcome)
+	.post(validators.validateReviewOutcome, createReviewOutcome);
 
 router
 	.route('/appeals/:appealId/review-outcome/confirm')
 	.all(assertCanReviewAppeal, assertReviewOutcomeInSession)
-	.get(createAsyncHandler(viewReviewOutcomeConfirmation))
-	.post(validators.validateReviewOutcomeConfirmation, createAsyncHandler(confirmReviewOutcome));
+	.get(viewReviewOutcomeConfirmation)
+	.post(validators.validateReviewOutcomeConfirmation, confirmReviewOutcome);
 
 export default router;

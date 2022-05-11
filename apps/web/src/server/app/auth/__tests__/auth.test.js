@@ -112,8 +112,6 @@ describe('auth', () => {
 				const response = await request.get('/validation');
 				const element = parseHtml(response.text);
 
-				console.log(element.innerHTML);
-
 				expect(element.querySelector('h1')?.innerHTML).toEqual('Appeal submissions for review');
 			});
 
