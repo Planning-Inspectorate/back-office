@@ -19,7 +19,6 @@ test.afterEach.always(() => {
 });
 
 test.serial('uploads document', async(t) => {
-<<<<<<< HEAD
 	const uploadStreamStub = sinon.stub();
 	sinon.stub(BlobServiceClient, 'fromConnectionString').returns({
 		getContainerClient: sinon.stub().returns({
@@ -39,26 +38,6 @@ test.serial('uploads document', async(t) => {
 		metadata: { documentType: 'application' }
 	});
 });
-=======
-    const uploadStreamStub = sinon.stub();
-    sinon.stub(BlobServiceClient, 'fromConnectionString').returns({
-        getContainerClient: sinon.stub().returns({
-            getBlockBlobClient: sinon.stub().returns({
-                uploadStream: uploadStreamStub
-            })
-        })
-    });
-    const resp = await request.post('/').attach('file', pathToFile);
-    t.is(resp.status, 200);
-    t.deepEqual(resp.body, {message: 'File uploaded to Azure Blob storage.'});
-    sinon.assert.calledWith(uploadStreamStub, sinon.match.any, undefined, undefined, {
-        blobHTTPHeaders: {
-            blobContentType: "application/json",
-            blobContentMD5: Uint8Array.from("487f7b22f68312d2c1bbc93b1aea445b")
-        }
-    })
-})
->>>>>>> 0b74f19 (BOCM-486 - adds validation for type provided)
 
 test.serial('thows error if no file is provided', async(t) => {
 	const resp = await request.post('/').field('documentType', 'application').query({ type: 'appeal', id: 1 });
