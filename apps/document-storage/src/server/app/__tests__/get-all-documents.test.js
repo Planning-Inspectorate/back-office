@@ -27,7 +27,7 @@ test.afterEach.always(t => {
 
 test.serial('gets all files associated with appeal id', async(t) => {
     sinon.stub(BlobServiceClient, 'fromConnectionString').returns(blobServiceClientFromConnectionString);
-    const resp = await request.get('/');
+    const resp = await request.get('/').query({ type: 'appeal' });
     t.is(resp.status, 200);
     t.deepEqual(resp.body, [{
         name: '036075328008901675-simple.pdf',
@@ -39,7 +39,21 @@ test.serial('gets all files associated with appeal id', async(t) => {
 
 test.serial('returns error if error thrown', async(t) => {
     sinon.stub(BlobServiceClient, 'fromConnectionString').throws();
-    const resp = await request.get('/');
+    const resp = await request.get('/').query({ type: 'appeal' });
     t.is(resp.status, 500);
     t.deepEqual(resp.body, { error: 'Oops! Something went wrong' });
+})
+
+test.serial('throws error if no type provided', async(t) => {
+    sinon.stub(BlobServiceClient, 'fromConnectionString');
+    const resp = await request.get('/');
+    t.is(resp.status, 400);
+    t.deepEqual(resp.body, { errors: { type: 'Select a valid type' } }); 
+})
+
+test.serial('throws error if unfamiliar type provided', async(t) => {
+    sinon.stub(BlobServiceClient, 'fromConnectionString');
+    const resp = await request.get('/').query({ type: 'test' });
+    t.is(resp.status, 400);
+    t.deepEqual(resp.body, { errors: { type: 'Select a valid type' } }); 
 })

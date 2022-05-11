@@ -1,7 +1,7 @@
 import * as blobStoreService from './blob-store/service.js';
 
-export const getAllDocuments = async function(req, res, next) {
-    const blobsResponse = await blobStoreService.getListOfBlobs();
+export const getAllDocuments = async function(req, res) {
+    const blobsResponse = await blobStoreService.getListOfBlobs(req.type);
 
     const blobs = [];
     for await (const blob of blobsResponse.segment.blobItems) {
@@ -11,8 +11,12 @@ export const getAllDocuments = async function(req, res, next) {
     res.send(blobs);
 }
 
-export const uploadDocument = async function(req, res) {
-    await blobStoreService.uploadBlob(req.file.originalname, req.file.buffer);
+export const uploadDocument = async function (req, res) {
+    await blobStoreService.uploadBlob(
+        req.file.originalname,
+        req.file.buffer,
+        'application/json'
+    );
 
     res.send({ message: 'File uploaded to Azure Blob storage.' });
 }

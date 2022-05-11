@@ -1,6 +1,6 @@
 import multer from 'multer';
 import { composeMiddleware, mapMulterErrorToValidationError } from '@pins/express';
-import { body } from 'express-validator';
+import { body, query } from 'express-validator';
 import { handleValidationError } from './middleware/handle-validation-error.js';
 
 export const validateDocumentUpload = function(filename) {
@@ -18,3 +18,11 @@ export const validateDocumentUpload = function(filename) {
 		handleValidationError
 	);
 };
+
+export const validateGetAllDocuments = composeMiddleware(
+	query('type').isIn([
+		'appeal',
+		'application'
+	]).withMessage('Select a valid type'),
+	handleValidationError
+)

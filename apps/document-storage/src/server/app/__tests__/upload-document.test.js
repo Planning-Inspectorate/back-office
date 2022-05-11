@@ -31,7 +31,6 @@ test.serial('uploads document', async(t) => {
             blobContentType: "application/json",
             blobContentMD5: Uint8Array.from("487f7b22f68312d2c1bbc93b1aea445b")
         }
-
     })
 })
 

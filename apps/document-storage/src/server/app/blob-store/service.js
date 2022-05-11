@@ -11,26 +11,33 @@ const getBlobName = originalName => {
     return `${identifier}-${originalName}`;
 };
 
-export const getListOfBlobs = async function () {
+const getContainerClient = function () {
     const blobServiceClient = BlobServiceClient.fromConnectionString(connectionString);
-    const containerClient = blobServiceClient.getContainerClient(containerName);
+    return blobServiceClient.getContainerClient(containerName);
+}
+
+export const getListOfBlobs = async function (type, id) {
+    const containerClient = getContainerClient();
     return await containerClient.listBlobFlatSegment();
 }
 
-export const uploadBlob = async function (blobOriginalName, blobContent) {
-    const blobServiceClient = BlobServiceClient.fromConnectionString(connectionString);
+export const uploadBlob = async function (
+    blobOriginalName,
+    blobContent,
+    blobContentType
+) {
     const blobName = getBlobName(blobOriginalName);
     const stream = getStream(blobContent);
 
     const md5Value = Uint8Array.from(md5(stream).toString());
 
-    const containerClient = blobServiceClient.getContainerClient(containerName);;
+    const containerClient = getContainerClient();;
     const blockBlobClient = containerClient.getBlockBlobClient(blobName);
     await blockBlobClient.uploadStream(stream,
         undefined, undefined,
         {
             blobHTTPHeaders: {
-                blobContentType: "application/json",
+                blobContentType: blobContentType,
                 blobContentMD5: md5Value
             }
         }

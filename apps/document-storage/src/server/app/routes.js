@@ -1,11 +1,16 @@
 import express from 'express';
 import { asyncHandler } from './middleware/async-handler.js';
-import { validateDocumentUpload } from './validator.js';
+import { validateDocumentUpload, validateGetAllDocuments } from './validator.js';
 import { getAllDocuments, uploadDocument } from './controller.js';
 
 const router = express.Router();
 
-router.get('/', asyncHandler(getAllDocuments));
-router.post('/', validateDocumentUpload('file'), asyncHandler(uploadDocument))
+router.get('/', 
+    validateGetAllDocuments,
+    asyncHandler(getAllDocuments));
+
+router.post('/', 
+    validateDocumentUpload('file'), 
+    asyncHandler(uploadDocument))
 
 export { router as documentsRouter };
