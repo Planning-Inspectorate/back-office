@@ -1,8 +1,4 @@
-import {
-	bodyForGovukDateInput,
-	createValidator,
-	mapMulterErrorToValidationError
-} from '@pins/express';
+import { bodyForGovukDateInput, createValidator, handleMulterRequest } from '@pins/express';
 import { validateFutureDate } from '@pins/platform';
 import { body } from 'express-validator';
 import multer from 'multer';
@@ -75,9 +71,7 @@ export const validateIssueDecision = createValidator(
 			fileSize: 15 * 1024 ** 2
 		}
 	}).single('decisionLetter'),
-	mapMulterErrorToValidationError,
+	handleMulterRequest,
 	body('outcome').isIn(['allowed', 'dismissed', 'split decision']).withMessage('Select a decision'),
-	body('decisionLetter')
-		.custom((_, { req }) => Boolean(req.file))
-		.withMessage('Select a decision letter')
+	body('decisionLetter').exists().withMessage('Select a decision letter')
 );

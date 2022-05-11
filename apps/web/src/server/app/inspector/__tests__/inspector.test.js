@@ -54,17 +54,6 @@ describe('inspector', () => {
 
 			expect(element.querySelector('tbody tr')?.outerHTML).toMatchSnapshot();
 		});
-
-		it('should handle an asynchronous error during the request', async () => {
-			nock('http://test/').get('/inspector').reply(500);
-
-			const response = await request.get('/inspector');
-			const element = parseHtml(response.text);
-
-			expect(element.querySelector('h1')?.innerHTML).toEqual(
-				'Sorry, there is a problem with the service'
-			);
-		});
 	});
 
 	describe('GET /inspector/available-appeals', () => {
@@ -77,17 +66,6 @@ describe('inspector', () => {
 			const element = parseHtml(response.text);
 
 			expect(element.innerHTML).toMatchSnapshot();
-		});
-
-		it('should handle an asynchronous error during the request', async () => {
-			nock('http://test/').get('/inspector/more-appeals').reply(500);
-
-			const response = await request.get('/inspector/available-appeals');
-			const element = parseHtml(response.text);
-
-			expect(element.querySelector('h1')?.innerHTML).toEqual(
-				'Sorry, there is a problem with the service'
-			);
 		});
 	});
 
@@ -134,31 +112,9 @@ describe('inspector', () => {
 
 			expect(element.innerHTML).toMatchSnapshot();
 		});
-
-		it('should handle an asynchronous error during the request', async () => {
-			nock('http://test/').post('/inspector/assign', [appealId]).reply(500);
-
-			const response = await request
-				.post('/inspector/available-appeals')
-				.send({ appealIds: [appealId] });
-			const element = parseHtml(response.text);
-
-			expect(element.querySelector('h1')?.innerHTML).toEqual(
-				'Sorry, there is a problem with the service'
-			);
-		});
 	});
 
 	describe('GET /inspector/:appealId', () => {
-		it('should handle an asynchronous error during the request', async () => {
-			const response = await request.get('/inspector/appeals/0');
-			const element = parseHtml(response.text);
-
-			expect(element.querySelector('h1')?.innerHTML).toEqual(
-				'Sorry, there is a problem with the service'
-			);
-		});
-
 		it('should render the appeal details', async () => {
 			const { appealId } = appealDetailsForPendingStatements;
 			const response = await request.get(`/inspector/appeals/${appealId}`);
@@ -221,15 +177,6 @@ describe('inspector', () => {
 
 			expect(element.querySelector('h1')?.innerHTML).toEqual('Appeal details');
 		});
-
-		it('should handle an asynchronous error during the request', async () => {
-			const response = await request.get('/inspector/appeals/0/book-site-visit').redirects(1);
-			const element = parseHtml(response.text);
-
-			expect(element.querySelector('h1')?.innerHTML).toEqual(
-				'Sorry, there is a problem with the service'
-			);
-		});
 	});
 
 	describe('POST /inspector/:appealId/book-site-visit', () => {
@@ -277,24 +224,6 @@ describe('inspector', () => {
 
 			expect(element.querySelector('h1')?.innerHTML).toEqual('Check and confirm');
 		});
-
-		it('should handle an asynchronous error during the request', async () => {
-			const response = await request
-				.post('/inspector/appeals/0/book-site-visit')
-				.send({
-					'siteVisitDate-day': '1',
-					'siteVisitDate-month': '5',
-					'siteVisitDate-year': '2030',
-					siteVisitTimeSlot: '1pm to 3pm',
-					siteVisitType: 'unaccompanied'
-				})
-				.redirects(1);
-			const element = parseHtml(response.text);
-
-			expect(element.querySelector('h1')?.innerHTML).toEqual(
-				'Sorry, there is a problem with the service'
-			);
-		});
 	});
 
 	describe('GET /inspector/:appealId/confirm-site-visit', () => {
@@ -309,20 +238,6 @@ describe('inspector', () => {
 			const element = parseHtml(response.text);
 
 			expect(element.innerHTML).toMatchSnapshot();
-		});
-
-		it('should handle an asynchronous error during the request', async () => {
-			nock.cleanAll();
-			nock('http://test/').get(`/inspector/${appealId}`).reply(500);
-
-			const response = await request
-				.get(`/inspector/appeals/${appealId}/book-site-visit`)
-				.redirects(1);
-			const element = parseHtml(response.text);
-
-			expect(element.querySelector('h1')?.innerHTML).toEqual(
-				'Sorry, there is a problem with the service'
-			);
 		});
 	});
 
@@ -354,19 +269,6 @@ describe('inspector', () => {
 
 			expect(element.innerHTML).toMatchSnapshot();
 		});
-
-		it('should handle an asynchronous error during the request', async () => {
-			nock('http://test/').post(`/inspector/${appealId}/book`).reply(500);
-
-			const response = await request
-				.post(`/inspector/appeals/${appealId}/confirm-site-visit`)
-				.redirects(1);
-			const element = parseHtml(response.text);
-
-			expect(element.querySelector('h1')?.innerHTML).toEqual(
-				'Sorry, there is a problem with the service'
-			);
-		});
 	});
 
 	describe('GET /inspector/:appealId/issue-decision', () => {
@@ -391,15 +293,6 @@ describe('inspector', () => {
 			const element = parseHtml(response.text);
 
 			expect(element.querySelector('h1')?.innerHTML).toEqual('Appeal details');
-		});
-
-		it('should handle an asynchronous error during the request', async () => {
-			const response = await request.get('/inspector/appeals/0/issue-decision').redirects(1);
-			const element = parseHtml(response.text);
-
-			expect(element.querySelector('h1')?.innerHTML).toEqual(
-				'Sorry, there is a problem with the service'
-			);
 		});
 	});
 
@@ -438,19 +331,6 @@ describe('inspector', () => {
 
 			expect(element.querySelector('h1')?.innerHTML).toEqual('Check and confirm');
 		});
-
-		it('should handle an asynchronous error during the request', async () => {
-			const response = await request
-				.post(`/inspector/appeals/0/issue-decision`)
-				.field('outcome', 'allowed')
-				.attach('decisionLetter', getPathToAsset('simple.pdf'))
-				.redirects(1);
-			const element = parseHtml(response.text);
-
-			expect(element.querySelector('h1')?.innerHTML).toEqual(
-				'Sorry, there is a problem with the service'
-			);
-		});
 	});
 
 	describe('GET /inspector/:appealId/confirm-decision', () => {
@@ -467,20 +347,6 @@ describe('inspector', () => {
 			const element = parseHtml(response.text);
 
 			expect(element.innerHTML).toMatchSnapshot();
-		});
-
-		it('should handle an asynchronous error during the request', async () => {
-			nock.cleanAll();
-			nock('http://test/').get(`/inspector/${appealId}`).reply(500);
-
-			const response = await request
-				.get(`/inspector/appeals/${appealId}/confirm-decision`)
-				.redirects(1);
-			const element = parseHtml(response.text);
-
-			expect(element.querySelector('h1')?.innerHTML).toEqual(
-				'Sorry, there is a problem with the service'
-			);
 		});
 	});
 
@@ -519,19 +385,6 @@ describe('inspector', () => {
 			const element = parseHtml(response.text);
 
 			expect(element.innerHTML).toMatchSnapshot();
-		});
-
-		it('should handle an asynchronous error during the request', async () => {
-			nock('http://test/').post(`/inspector/${appealId}/issue-decision`).reply(500);
-
-			const response = await request
-				.post(`/inspector/appeals/${appealId}/confirm-decision`)
-				.redirects(1);
-			const element = parseHtml(response.text);
-
-			expect(element.querySelector('h1')?.innerHTML).toEqual(
-				'Sorry, there is a problem with the service'
-			);
 		});
 	});
 });

@@ -1,4 +1,4 @@
-import { createValidator, mapMulterErrorToValidationError } from '@pins/express';
+import { createValidator, handleMulterRequest } from '@pins/express';
 import { validatePostcode } from '@pins/platform';
 import { body } from 'express-validator';
 import multer from 'multer';
@@ -101,10 +101,8 @@ export const validateAppealDocuments = createValidator(
 			fileSize: 15 * 1024 ** 2
 		}
 	}).array('files'),
-	mapMulterErrorToValidationError,
-	body('files')
-		.custom((_, { req }) => req.files.length > 0)
-		.withMessage('Select a file')
+	handleMulterRequest,
+	body('files').isArray({ min: 1 }).withMessage('Select a file')
 );
 
 export const validateReviewOutcomeStatus = createValidator(

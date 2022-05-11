@@ -1,8 +1,7 @@
-import { createValidator, mapMulterErrorToValidationError } from '@pins/express';
-import { body, checkSchema } from 'express-validator';
+import { createValidator, handleMulterRequest } from '@pins/express';
+import { body } from 'express-validator';
 import { pickBy } from 'lodash-es';
 import multer from 'multer';
-import { createAsyncHandler } from '../../lib/async-error-handler.js';
 import { memoryStorage } from '../../lib/multer.js';
 import * as lpaService from './lpa.service.js';
 import * as lpaSession from './lpa-session.service.js';
@@ -26,15 +25,8 @@ export const validateDocuments = createValidator(
 			fileSize: 15 * 1024 ** 2
 		}
 	}).array('files'),
-	mapMulterErrorToValidationError,
-	checkSchema({
-		files: {
-			custom: {
-				errorMessage: 'Select a file',
-				options: (_, { req }) => req.files.length > 0
-			}
-		}
-	})
+	handleMulterRequest,
+	body('files').isArray({ min: 1 }).withMessage('Select a file')
 );
 
 export const validateQuestionnaireReview = createValidator(
@@ -109,21 +101,19 @@ export const validateQuestionnaireReviewCompletion = createValidator(
 	// the original questionnaire had been inputted again. Effectively, marking a
 	// review as complete or incomplete creates a "new" questionnaire using the
 	// existing questionnaire answers...
-	createAsyncHandler(
-		/** @type {import('express').RequestHandler<AppealParams>} */
-		async (request, _, next) => {
-			if (request.body.reviewComplete) {
-				request.body = {};
-			} else {
-				const appeal = await lpaService.findAppealById(request.params.appealId);
+	/** @type {import('express').RequestHandler<AppealParams>} */
+	async (request, _, next) => {
+		if (request.body.reviewComplete) {
+			request.body = {};
+		} else {
+			const appeal = await lpaService.findAppealById(request.params.appealId);
 
-				request.body = pickBy(appeal.reviewQuestionnaire, (value, key) =>
-					key.includes('MissingOrIncorrect')
-				);
-			}
-			next();
+			request.body = pickBy(appeal.reviewQuestionnaire, (value, key) =>
+				key.includes('MissingOrIncorrect')
+			);
 		}
-	)
+		next();
+	}
 );
 
 export const validateQuestionnaireReviewConfirmation = createValidator(
