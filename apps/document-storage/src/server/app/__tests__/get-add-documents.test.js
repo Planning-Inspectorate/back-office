@@ -21,6 +21,10 @@ const blobServiceClientFromConnectionString = {
     })
 };
 
+test.afterEach.always(t => {
+	BlobServiceClient.fromConnectionString.restore();
+});
+
 test.serial('gets all files associated with appeal id', async(t) => {
     sinon.stub(BlobServiceClient, 'fromConnectionString').returns(blobServiceClientFromConnectionString);
     const resp = await request.get('/');
@@ -31,13 +35,11 @@ test.serial('gets all files associated with appeal id', async(t) => {
     }, {
         name: '35481621312046846-simple.pdf'
     }]);
-    BlobServiceClient.fromConnectionString.restore();
 })
 
 test.serial('returns error if error thrown', async(t) => {
     sinon.stub(BlobServiceClient, 'fromConnectionString').throws();
     const resp = await request.get('/');
     t.is(resp.status, 500);
-    t.deepEqual(resp.body, { error: {} });
-    BlobServiceClient.fromConnectionString.restore();
+    t.deepEqual(resp.body, { error: 'Oops! Something went wrong' });
 })

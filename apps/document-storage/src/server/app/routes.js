@@ -6,6 +6,6 @@ import { getAllDocuments, uploadDocument } from './controller.js';
 const router = express.Router();
 
 router.get('/', asyncHandler(getAllDocuments));
-router.post('/', validateDocumentUpload, asyncHandler(uploadDocument))
+router.post('/', validateDocumentUpload('file'), asyncHandler(uploadDocument))
 
 export { router as documentsRouter };
