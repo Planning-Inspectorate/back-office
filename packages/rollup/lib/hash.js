@@ -21,7 +21,7 @@ function generateAndValidateHash(c) {
 /**
  * Hashes the passed content.
  *
- * @param {string} contents to hash
+ * @param {string | Buffer} contents to hash
  * @returns {string} hash value
  */
 function hashForContent(contents) {

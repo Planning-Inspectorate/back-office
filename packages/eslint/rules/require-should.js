@@ -11,7 +11,9 @@ module.exports = {
 		return {
 			CallExpression(node) {
 				if (
+					'name' in node.callee &&
 					node.callee.name === 'it' &&
+					'raw' in node.arguments[0] &&
 					node.arguments[0].raw &&
 					!node.arguments[0].raw.startsWith(`'should`)
 				) {

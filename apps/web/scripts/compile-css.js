@@ -8,6 +8,7 @@ import postcss from 'postcss';
 import sassEngine from 'sass';
 import config from '../environment/config.js';
 
+/** @typedef {import('source-map-js').RawSourceMap} RawSourceMap */
 /** @typedef {import('postcss').SourceMap} SourceMap */
 
 const { isProd: isProduction, isRelease } = config;
@@ -20,7 +21,7 @@ const require = createRequire(import.meta.url);
 
 /**
  * @param {string} input filename to read for input
- * @returns {{ css: Buffer, map: SourceMap }} CSS compiled object
+ * @returns {{ css: Buffer | string, map?: RawSourceMap | SourceMap }} CSS compiled object
  */
 function compileCSS(input) {
 	// #1: Compile CSS with either engine.
@@ -91,7 +92,7 @@ function compileCSS(input) {
 }
 
 /**
- * @param {{css: !Buffer, map: SourceMap }} result to render
+ * @param {{css: string | Buffer, map?: RawSourceMap | SourceMap }} result to render
  * @param {string} fileName to render to, with optional map in dev
  */
 function renderTo(result, fileName) {
@@ -101,10 +102,9 @@ function renderTo(result, fileName) {
 
 	let out = result.css.toString('utf8');
 
-	result.map.file = base;
 	out += `\n/*# sourceMappingURL=${base}.map */`;
 
-	fs.writeFileSync(`${fileName}.map`, JSON.stringify(result.map));
+	fs.writeFileSync(`${fileName}.map`, JSON.stringify({ ...result.map, file: base }));
 	fs.writeFileSync(fileName, out);
 }
 
