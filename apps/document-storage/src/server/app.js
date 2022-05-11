@@ -1,83 +1,15 @@
-import { BlobServiceClient } from '@azure/storage-blob';
 import express from 'express';
-import md5 from 'crypto-js/md5.js';
-import multer from 'multer';
-import getStream from 'into-stream';
 import logger from 'morgan';
 import bodyParser from 'body-parser';
-import config from './config/config.js';
+import { documentsRouter } from './app/routes.js';
 
 const app = express();
-const router = express.Router();
-
-const connectionString = config.blobStore.connectionString;
-const containerName = config.blobStore.container;
-
-const blobServiceClient = BlobServiceClient.fromConnectionString(connectionString);
-
-const getBlobName = originalName => {
-    const identifier = Math.random().toString().replace(/0\./, '');
-    return `${identifier}-${originalName}`;
-};
-
-router.get('/', async (req, res, next) => {
-
-    let viewData;
-
-    try {
-        const containerClient = blobServiceClient.getContainerClient(containerName);
-        const listBlobsResponse = await containerClient.listBlobFlatSegment();
-
-        const blobs = [];
-        for await (const blob of listBlobsResponse.segment.blobItems) {
-            blobs.push({ name: blob.name, metadata: blob.metadata });
-        }
-        viewData = blobs;
-    } catch (err) {
-        viewData = {
-            title: 'Error',
-            viewName: 'error',
-            message: 'There was an error contacting the blob storage container.',
-            error: err
-        };
-        console.error(err);
-        res.status(500);
-    } finally {
-        res.send(viewData);
-    }
-});
-
-const upload = multer({ storage: multer.memoryStorage() })
-
-router.post('/', upload.single('file'), async (req, res) => {
-    const blobName = getBlobName(req.file.originalname);
-    const stream = getStream(req.file.buffer);
-
-    const md5Value = Uint8Array.from(md5(stream).toString());
-
-    const containerClient = blobServiceClient.getContainerClient(containerName);;
-    const blockBlobClient = containerClient.getBlockBlobClient(blobName);
-
-    try {
-        await blockBlobClient.uploadStream(stream,
-            undefined, undefined,
-            {
-                blobHTTPHeaders: {
-                    blobContentType: "application/json",
-                    blobContentMD5: md5Value
-                }
-            });
-        res.send({ message: 'File uploaded to Azure Blob storage.' });
-    } catch (err) {
-        res.send({ message: err.message });
-    }
-});
 
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
-app.use('/', router);
+app.use('/', documentsRouter);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
