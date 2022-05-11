@@ -1,4 +1,4 @@
-export default /** @type {import('@jest/types').Config} */ ({
+export default {
 	setupFiles: ['<rootDir>/setup-tests.js'],
 	transform: {}
-});
+};

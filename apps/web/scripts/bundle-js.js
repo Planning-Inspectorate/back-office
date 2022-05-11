@@ -74,13 +74,7 @@ async function build() {
 				entries: {}
 			}),
 			...(bundleAnalyzer
-				? [
-						visualizer({
-							filename: 'bundle-stats.html',
-							open: true,
-							gzipSize: true
-						})
-					]
+				? [visualizer({ filename: 'bundle-stats.html', open: true, gzipSize: true })]
 				: [])
 		],
 		manualChunks: () => {},
@@ -103,6 +97,7 @@ async function build() {
 	const outputFiles = appGenerated.output.map(({ fileName }) => fileName);
 
 	// Save the "app.js" entrypoint (which has a hashed name) for the all-browser loader code.
+	// @ts-expect-error – package type signature is incorrect
 	const entrypoints = appGenerated.output.filter(({ isEntry }) => isEntry);
 
 	if (entrypoints.length !== 1) {

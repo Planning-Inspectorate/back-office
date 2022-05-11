@@ -1,7 +1,6 @@
 import { validationResult } from 'express-validator';
 import { composeMiddleware } from '../utils/compose.js';
 
-/** @typedef {import('express').RequestHandler} RequestHandler */
 /** @typedef {import('express-validator').ValidationError} ValidationError */
 
 /** @type {import('express').RequestHandler<?, ?, ?, ?, { errors?: Record<string, ValidationError> }>} */
