@@ -1,4 +1,3 @@
-// eslint-disable-next-line import/no-unresolved
 import test from 'ava';
 import supertest from 'supertest';
 import sinon from 'sinon';
