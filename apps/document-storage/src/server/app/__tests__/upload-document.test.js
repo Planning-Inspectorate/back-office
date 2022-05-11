@@ -15,16 +15,24 @@ test.afterEach.always(t => {
 });
 
 test.serial('uploads document', async(t) => {
+    const uploadStreamStub = sinon.stub();
     sinon.stub(BlobServiceClient, 'fromConnectionString').returns({
         getContainerClient: sinon.stub().returns({
             getBlockBlobClient: sinon.stub().returns({
-                uploadStream: sinon.stub()
+                uploadStream: uploadStreamStub
             })
         })
     });
     const resp = await request.post('/').attach('file', pathToFile);
     t.is(resp.status, 200);
     t.deepEqual(resp.body, {message: 'File uploaded to Azure Blob storage.'});
+    sinon.assert.calledWith(uploadStreamStub, sinon.match.any, undefined, undefined, {
+        blobHTTPHeaders: {
+            blobContentType: "application/json",
+            blobContentMD5: Uint8Array.from("487f7b22f68312d2c1bbc93b1aea445b")
+        }
+
+    })
 })
 
 test.serial('thows error if no file is provided', async(t) => {
