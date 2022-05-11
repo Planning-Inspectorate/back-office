@@ -1,7 +1,8 @@
 import * as blobStoreService from './blob-store/service.js';
 
 export const getAllDocuments = async function(req, res) {
-    const blobsResponse = await blobStoreService.getListOfBlobs(req.type);
+    console.log(req.query.id);
+    const blobsResponse = await blobStoreService.getListOfBlobs(req.type, req.id);
 
     const blobs = [];
     for await (const blob of blobsResponse.segment.blobItems) {

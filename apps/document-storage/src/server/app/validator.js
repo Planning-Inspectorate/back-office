@@ -24,5 +24,6 @@ export const validateGetAllDocuments = composeMiddleware(
 		'appeal',
 		'application'
 	]).withMessage('Select a valid type'),
+	query('id').isInt().toInt().withMessage('Provide appeal/application id'),
 	handleValidationError
 )
