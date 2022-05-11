@@ -1,9 +1,8 @@
-export const errorHandler = function(err, req, res, next) {
-    res.locals.message = err.message;
-    res.locals.error = req.app.get('env') === 'development' ? err : {};
+export const errorHandler = function(error, request, response, _next) {
+	response.locals.message = error.message;
+	response.locals.error = request.app.get('env') === 'development' ? error : {};
 
-    console.error(err);
-    console.log(err.message)
-    res.status(err.status || 500);
-    res.send({ 'error': 'Oops! Something went wrong' });
-}
+	console.error(error);
+	response.status(error.status || 500);
+	response.send({ 'error': 'Oops! Something went wrong' });
+};

@@ -29,7 +29,7 @@ export const validateGetAllDocuments = composeMiddleware(
 	]).withMessage('Select a valid type'),
 	query('id').isInt().toInt().withMessage('Provide appeal/application id'),
 	handleValidationError
-)
+);
 
 export const validateUploadDocument = composeMiddleware(
 	query('type').isIn([
@@ -38,4 +38,4 @@ export const validateUploadDocument = composeMiddleware(
 	]).withMessage('Select a valid type'),
 	query('id').isInt().toInt().withMessage('Provide appeal/application id'),
 	handleValidationError
-)
+);

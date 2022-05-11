@@ -9,7 +9,9 @@
     "type": "module",
     "scripts": {
         "dev": "nodemon -e js ./src/server.js",
-        "test": "cross-env NODE_ENV=test ava"
+        "test": "cross-env NODE_ENV=test ava",
+        "lint:js": "eslint src",
+        "lint:js:fix": "eslint src --fix"
     },
     "dependencies": {
         "@azure/storage-blob": "^12.1.2",
