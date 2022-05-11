@@ -35,6 +35,12 @@
 			],
 			"outputs": []
 		},
+		"lint:js:fix": {
+			"dependsOn": [
+				"^build"
+			],
+			"outputs": []
+		},
 		"dev": {
 			"cache": false
 		},
