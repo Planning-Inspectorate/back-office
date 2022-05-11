@@ -18,10 +18,13 @@ const getContainerClient = function () {
 
 export const getListOfBlobs = async function (type, id) {
     const containerClient = getContainerClient();
-    return await containerClient.listBlobFlatSegment();
+    return await containerClient.listBlobFlatSegment(undefined, { prefix: `${type}/${id}`});
 }
 
 export const uploadBlob = async function (
+    type,
+    id,
+    metadata,
     blobOriginalName,
     blobContent,
     blobContentType
@@ -32,14 +35,15 @@ export const uploadBlob = async function (
     const md5Value = Uint8Array.from(md5(stream).toString());
 
     const containerClient = getContainerClient();;
-    const blockBlobClient = containerClient.getBlockBlobClient(blobName);
+    const blockBlobClient = containerClient.getBlockBlobClient(`${type}/${id}/${blobName}`);
     await blockBlobClient.uploadStream(stream,
         undefined, undefined,
         {
             blobHTTPHeaders: {
                 blobContentType: blobContentType,
                 blobContentMD5: md5Value
-            }
+            },
+            metadata: metadata
         }
     );
 }

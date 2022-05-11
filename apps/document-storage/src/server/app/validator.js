@@ -15,11 +15,23 @@ export const validateDocumentUpload = function(filename) {
 		body(filename)
 			.custom((_, { req }) => Boolean(req.file))
 			.withMessage('Select a file'),
+		body('documentType').isIn([
+			'application'
+		]).withMessage('Select a valid document type'),
 		handleValidationError
 	);
 };
 
 export const validateGetAllDocuments = composeMiddleware(
+	query('type').isIn([
+		'appeal',
+		'application'
+	]).withMessage('Select a valid type'),
+	query('id').isInt().toInt().withMessage('Provide appeal/application id'),
+	handleValidationError
+)
+
+export const validateUploadDocument = composeMiddleware(
 	query('type').isIn([
 		'appeal',
 		'application'
