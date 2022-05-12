@@ -39,3 +39,8 @@ export const validateUploadDocument = composeMiddleware(
 	query('id').isInt().toInt().withMessage('Provide appeal/application id'),
 	handleValidationError
 );
+
+export const validateDocumentName = composeMiddleware(
+	query('documentName').notEmpty().withMessage('Provide a document name'),
+	handleValidationError
+);

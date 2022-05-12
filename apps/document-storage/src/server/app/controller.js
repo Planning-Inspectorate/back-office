@@ -25,3 +25,10 @@ export const uploadDocument = async function (request, response) {
 
 	response.send({ message: 'File uploaded to Azure Blob storage.' });
 };
+
+export const downloadDocument = async function(request, response) {
+	const documentBuffer = await blobStoreService.downloadBlob(request.query.documentName);
+	response.set('content-type', 'application/pdf');
+	response.set('x-original-file-name', request.query.documentName);
+	response.send(documentBuffer);
+}

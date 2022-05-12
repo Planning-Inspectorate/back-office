@@ -16,6 +16,10 @@ const getContainerClient = function () {
 	return blobServiceClient.getContainerClient(containerName);
 };
 
+const getBlockBlobClient = function(blobName) {
+	return getContainerClient().getBlockBlobClient(blobName);
+}
+
 export const getListOfBlobs = async function (type, id) {
 	const containerClient = getContainerClient();
 	const blobs = await containerClient.listBlobFlatSegment(undefined, { prefix: `${type}/${id}` });
@@ -35,8 +39,7 @@ export const uploadBlob = async function (
 
 	const md5Value = Uint8Array.from(md5(stream).toString());
 
-	const containerClient = getContainerClient();
-	const blockBlobClient = containerClient.getBlockBlobClient(`${type}/${id}/${blobName}`);
+	const blockBlobClient = getBlockBlobClient(`${type}/${id}/${blobName}`);
 	await blockBlobClient.uploadStream(stream,
 		undefined, undefined,
 		{
@@ -48,3 +51,8 @@ export const uploadBlob = async function (
 		}
 	);
 };
+
+export const downloadBlob = async function (blobName) {
+	const blobContent = await getBlockBlobClient(blobName).downloadToBuffer();
+	return blobContent
+}
