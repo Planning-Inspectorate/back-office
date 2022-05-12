@@ -1,5 +1,4 @@
 import { Router as createRouter } from 'express';
-import { createAsyncHandler } from '../../lib/async-error-handler.js';
 import {
 	assignAvailableAppeals,
 	confirmDecision,
@@ -41,38 +40,38 @@ router.param('appealId', ({ params }, _, next) => {
 	next();
 });
 
-router.route('/').get(createAsyncHandler(viewDashboard));
+router.route('/').get(viewDashboard);
 
 router
 	.route('/available-appeals')
-	.get(createAsyncHandler(viewAvailableAppeals))
-	.post(validateAvailableAppeals, createAsyncHandler(assignAvailableAppeals));
+	.get(viewAvailableAppeals)
+	.post(validateAvailableAppeals, assignAvailableAppeals);
 
-router.route('/appeals/:appealId').get(createAsyncHandler(viewAppealDetails));
+router.route('/appeals/:appealId').get(viewAppealDetails);
 
 router
 	.route('/appeals/:appealId/book-site-visit')
 	.all(assertCanBookSiteVisit)
-	.get(createAsyncHandler(newSiteVisit))
-	.post(validateBookSiteVisit, createAsyncHandler(createSiteVisit));
+	.get(newSiteVisit)
+	.post(validateBookSiteVisit, createSiteVisit);
 
 router
 	.route('/appeals/:appealId/confirm-site-visit')
 	.all(assertSiteVisitInSession, assertCanBookSiteVisit)
-	.get(createAsyncHandler(viewSiteVisitConfirmation))
-	.post(createAsyncHandler(confirmSiteVisit));
+	.get(viewSiteVisitConfirmation)
+	.post(confirmSiteVisit);
 
 router
 	.route('/appeals/:appealId/issue-decision')
 	.all(assertCanIssueDecision)
-	.get(createAsyncHandler(newDecision))
-	.post(validateIssueDecision, createAsyncHandler(createDecision));
+	.get(newDecision)
+	.post(validateIssueDecision, createDecision);
 
 router
 	.route('/appeals/:appealId/confirm-decision')
 	.all(assertDecisionInSession, assertCanIssueDecision)
-	.get(createAsyncHandler(viewDecisionConfirmation))
-	.post(createAsyncHandler(confirmDecision));
+	.get(viewDecisionConfirmation)
+	.post(confirmDecision);
 
 router
 	.route('/appeals/:appealId/confirm-decision/download-decision-letter')

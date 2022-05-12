@@ -10,7 +10,6 @@ import * as validationSession from './validation-session.service.js';
 /** @typedef {import('./validation.router').AppealDocumentsParams} AppealDocumentParams */
 /** @typedef {import('./validation-session.service').ReviewOutcomeState} ReviewOutcome */
 /** @typedef {import('./validation.service').OutcomeData} ReviewOutcomeData */
-/** @typedef {import('@pins/express').MulterFile} MulterFile */
 
 /**
  * @typedef {object} ViewDashboardRenderOptions
@@ -311,9 +310,9 @@ export async function editDocuments({ params }, response) {
  * `documentType`.
  *
  * @type {import('@pins/express').CommandHandler<AppealDocumentParams,
- * EditDocumentsRenderOptions>}
+ * EditDocumentsRenderOptions, { files: import('@pins/express').MulterFile[] }>}
  */
-export async function uploadDocuments({ files, params }, response) {
+export async function uploadDocuments({ body, params }, response) {
 	if (response.locals.errors) {
 		const appeal = await validationService.findAppealById(params.appealId);
 
@@ -326,7 +325,7 @@ export async function uploadDocuments({ files, params }, response) {
 	}
 
 	await Promise.all(
-		/** @type {MulterFile[]} * */ (files).map((file) =>
+		body.files.map((file) =>
 			validationService.uploadDocument(params.appealId, {
 				documentType: params.documentType,
 				file

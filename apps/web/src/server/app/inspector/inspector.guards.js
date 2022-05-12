@@ -1,5 +1,4 @@
 import { composeMiddleware } from '@pins/express';
-import { createAsyncHandler } from '../../lib/async-error-handler.js';
 import * as inspectorService from './inspector.service.js';
 import * as inspectorSession from './inspector-session.service.js';
 
@@ -53,7 +52,7 @@ export const assertCanIssueDecision = createAppealStateGuard('decision due');
 function createAppealStateGuard(status) {
 	const statuses = Array.isArray(status) ? status : [status];
 
-	return createAsyncHandler(async ({ params }, response, next) => {
+	return async ({ params }, response, next) => {
 		const appeal = await inspectorService.findAppealById(params.appealId);
 
 		if (!statuses.includes(appeal.status)) {
@@ -63,5 +62,5 @@ function createAppealStateGuard(status) {
 		} else {
 			next();
 		}
-	});
+	};
 }

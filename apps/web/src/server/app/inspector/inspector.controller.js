@@ -8,7 +8,6 @@ import * as inspectorSession from './inspector-session.service.js';
 /** @typedef {import('./inspector-session.service').DecisionState} DecisionState */
 /** @typedef {import('./inspector-session.service').SiteVisitState} SiteVisitState */
 /** @typedef {import('./inspector.router').AppealParams} AppealParams */
-/** @typedef {import('@pins/express').MulterFile} MulterFile */
 
 /**
  * @typedef {object} ViewDashboardRenderOptions
@@ -200,7 +199,7 @@ export async function confirmSiteVisit({ params, session }, response) {
  * @typedef {object} NewDecisionRenderOptions
  * @property {Appeal} appeal
  * @property {AppealOutcome=} outcome
- * @property {MulterFile=} decisionLetter
+ * @property {import('@pins/express').MulterFile=} decisionLetter
  */
 
 /**
@@ -220,7 +219,8 @@ export async function newDecision({ params, session }, response) {
 
 /**
  * @typedef {object} CreateDecisionBody
- * @property {AppealOutcome} outcome - The outcome of the decision for confirmation.
+ * @property {AppealOutcome} outcome
+ * @property {import('@pins/express').MulterFile} decisionLetter
  */
 
 /**
@@ -229,21 +229,20 @@ export async function newDecision({ params, session }, response) {
  * @type {import('@pins/express').CommandHandler<AppealParams,
  * NewDecisionRenderOptions, CreateDecisionBody>}
  */
-export async function createDecision({ body, file, params, session }, response) {
+export async function createDecision({ body, params, session }, response) {
 	if (response.locals.errors) {
 		const appeal = await inspectorService.findAppealById(params.appealId);
 
 		response.render('inspector/issue-decision', {
 			appeal,
 			outcome: body.outcome,
-			decisionLetter: file
+			decisionLetter: body.decisionLetter
 		});
 		return;
 	}
 	inspectorSession.setDecision(session, {
 		appealId: params.appealId,
-		outcome: body.outcome,
-		decisionLetter: /** @type {MulterFile} */ (file)
+		...body
 	});
 
 	response.redirect(`/inspector/appeals/${params.appealId}/confirm-decision`);
@@ -253,7 +252,7 @@ export async function createDecision({ body, file, params, session }, response) 
  * @typedef {object} ViewDecisionConfirmationRenderOptions
  * @property {Appeal} appeal
  * @property {AppealOutcome} outcome
- * @property {MulterFile} decisionLetter
+ * @property {import('@pins/express').MulterFile} decisionLetter
  */
 
 /**
@@ -283,11 +282,10 @@ export function downloadDecisionLetter({ params, session }, response) {
 	);
 
 	if (decisionLetter.path) {
-		response.sendFile(decisionLetter.path, {
-			headers: {
-				'Content-disposition': `attachment; filename="${decisionLetter.originalname}"`
-			}
-		});
+		response
+			.status(200)
+			.set('Content-disposition', `attachment; filename="${decisionLetter.originalname}"`)
+			.sendFile(decisionLetter.path);
 	} else {
 		response.status(404).end();
 	}
