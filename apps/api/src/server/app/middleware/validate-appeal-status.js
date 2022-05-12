@@ -2,7 +2,7 @@
 
 import appealRepository from '../repositories/appeal.repository.js';
 import { arrayOfStatusesContainsString } from '../utils/array-of-statuses-contains-string.js';
-import asyncHandler from './async-handler.js';
+import { asyncHandler } from './async-handler.js';
 
 /** @typedef {import('@pins/api').Schema.AppealStatusType} AppealStatusType */
 

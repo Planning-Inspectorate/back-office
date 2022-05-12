@@ -1,6 +1,6 @@
 import express from 'express';
 import { param } from 'express-validator';
-import asyncHandler from '../middleware/async-handler.js';
+import { asyncHandler } from '../middleware/async-handler.js';
 import {
 	confirmLPAQuestionnaire,
 	getAppealDetails,
