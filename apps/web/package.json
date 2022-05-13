@@ -46,6 +46,7 @@
     "govuk-frontend": "4.0.1",
     "helmet": "5.0.2",
     "humps": "^2.0.1",
+    "joi": "17.6.0",
     "kleur": "4.1.4",
     "lodash-es": "^4.17.21",
     "morgan": "1.10.0",
