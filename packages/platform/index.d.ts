@@ -1,4 +1,5 @@
 import './crypto/crypto-utils';
+import './http/hooks';
 import './http/ttl';
 import './testing/assets/assets';
 import './testing/fake';
@@ -12,6 +13,7 @@ import './validators/postcode';
 
 declare module '@pins/platform' {
 	export * from './crypto/crypto-utils';
+	export * from './http/hooks';
 	export * from './http/ttl';
 	export * from './testing/assets/assets';
 	export * from './testing/fake';

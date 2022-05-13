@@ -1,4 +1,5 @@
 export * from './crypto/crypto-utils.js';
+export * from './http/hooks.js';
 export * from './http/ttl.js';
 export * from './testing/assets/assets.js';
 export * from './testing/fake.js';

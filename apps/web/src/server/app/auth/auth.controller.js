@@ -3,6 +3,7 @@ import msalNode from '@azure/msal-node';
 import { CryptoUtils } from '@pins/platform';
 import config from '@pins/web/environment/config.js';
 import humps from 'humps';
+import pino from '../../lib/logger.js';
 import { msalClient } from '../../lib/sso.js';
 
 /** @typedef {import('@pins/platform').PlanningInspectorAccountInfo} AccountInfo */
@@ -62,7 +63,7 @@ async function getAuthCode(request, response, next, parameters) {
 
 		response.redirect(msalRedirectURL);
 	} catch (error) {
-		console.error('Authorization code cannot be obtained');
+		pino.error(error, 'Authentication failed. MSAL Authentication code could not be obtained.');
 		next(error);
 	}
 }
@@ -161,27 +162,34 @@ export async function handleRedirect(request, response, next) {
 							response.redirect(state.path);
 						}
 					} catch (error) {
-						console.error('Token acquisition failed');
+						pino.error(error, 'Authentication failed. Could not acquire token.');
 						next(error);
 					}
 					break;
 				}
 
-				// case AppStages.ACQUIRE_TOKEN: {
-				// TODO: Add implementation if needed.
-				// }
-
 				default:
-					console.error('Cannot determine application stage');
+					pino.error({ state }, 'Authentication failed. Could not determine application stage.');
 					response.redirect('/auth/error');
 					break;
 			}
 		} else {
-			console.error('Nonce does not match');
+			pino.error(
+				{ actual: request.session.nonce, expected: state.nonce },
+				'Authentication failed. Nonce did not match.'
+			);
 			response.redirect('/auth/unauthorized');
 		}
 	} else {
-		// console.error('State not found');
+		pino.error(
+			{
+				key: request.session.key,
+				msalAuthCode: request.query.code,
+				msalState: request.query.state,
+				tokenRequest: request.session.tokenRequest
+			},
+			'Authentication failed. Required data is missing or incorrect.'
+		);
 		response.redirect('/auth/unauthorized');
 	}
 }

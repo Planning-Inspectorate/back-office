@@ -1,9 +1,9 @@
 import config from '@pins/web/environment/config.js';
-import kleur from 'kleur';
 import fs from 'node:fs';
 import https from 'node:https';
 import path from 'node:path';
 import { app } from './app/app.express.js';
+import pino from './lib/logger.js';
 
 // Trust X-Forwarded-* headers so that when we are behind a reverse proxy,
 // our connection information is that of the original client (according to
@@ -19,11 +19,8 @@ app.set('http-port', config.HTTP_PORT);
 app.set('https-port', config.HTTPS_PORT);
 
 app.listen(app.get('http-port'), () => {
-	console.log(
-		'%s Server is running at http://localhost:%d in %s mode',
-		kleur.green('✓'),
-		app.get('http-port'),
-		app.get('env')
+	pino.info(
+		`Server is running at http://localhost:${app.get('http-port')} in ${app.get('env')} mode`
 	);
 });
 
@@ -37,11 +34,8 @@ if (config.HTTPS_ENABLED) {
 			app
 		)
 		.listen(app.get('https-port'), () => {
-			console.log(
-				'%s Server is running at https://localhost:%d in %s mode',
-				kleur.green('✓'),
-				app.get('https-port'),
-				app.get('env')
+			pino.info(
+				`Server is running at http://localhost:${app.get('https-port')} in ${app.get('env')} mode`
 			);
 		});
 }

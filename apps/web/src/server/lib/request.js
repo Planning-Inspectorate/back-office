@@ -1,31 +1,27 @@
-import { createTtlHandler } from '@pins/platform';
+import { createHttpLoggerHooks, createTtlHandler } from '@pins/platform';
 import config from '@pins/web/environment/config.js';
 import got from 'got';
-import kleur from 'kleur';
+import pino from './logger.js';
 
 export const ttlCache = new Map();
+
+const [requestLogger, responseLogger] = createHttpLoggerHooks(pino);
 
 const instance = got.extend({
 	prefixUrl: config.API_HOST,
 	responseType: 'json',
 	resolveBodyOnly: true,
+	handlers: [createTtlHandler(ttlCache)],
 	hooks: {
-		// temporary pending implementation of authentication
 		beforeRequest: [
+			requestLogger,
 			(options) => {
+				// temporary pending implementation of authentication
 				options.headers.userid = '1';
 			}
-		]
-	},
-	handlers: [
-		createTtlHandler(ttlCache),
-		(options, next) => {
-			if (!options.context.servedFromCache && typeof options.url === 'string') {
-				console.log(`Sending ${kleur.bgBlue(options.method)} to ${kleur.blue(options.url)}`);
-			}
-			return next(options);
-		}
-	]
+		],
+		afterResponse: [responseLogger]
+	}
 });
 
 /**

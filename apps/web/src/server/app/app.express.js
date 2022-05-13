@@ -14,6 +14,7 @@ import serveStatic from 'serve-static';
 import locals from '../config/locals.js';
 import nunjucksEnvironment from '../config/nunjucks.js';
 import session from '../config/session.js';
+import pino from '../lib/logger.js';
 import simulateUserGroups from './auth/auth.local.js';
 import { routes } from './routes.js';
 
@@ -23,7 +24,7 @@ const app = express();
 // Initialize app locals
 app.locals = locals;
 
-if (!config.isProd) {
+if (pino.isLevelEnabled('debug')) {
 	app.use(morganLogger('dev'));
 }
 

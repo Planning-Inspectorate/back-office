@@ -1,5 +1,6 @@
-import msal from '@azure/msal-node';
+import msal, { LogLevel } from '@azure/msal-node';
 import config from '@pins/web/environment/config.js';
+import pino from './logger.js';
 
 /** @typedef {import('../app/auth/auth.guards').AccessRule} AccessRule */
 
@@ -11,9 +12,27 @@ export const msalClient = new msal.ConfidentialClientApplication({
 	},
 	system: {
 		loggerOptions: {
-			loggerCallback(_, message) {
-				console.log(message);
-				// console.log(containsPii);
+			loggerCallback(logLevel, message) {
+				switch (logLevel) {
+					case LogLevel.Error:
+						pino.error(message);
+						break;
+
+					case LogLevel.Warning:
+						pino.warn(message);
+						break;
+
+					case LogLevel.Info:
+						pino.info(message);
+						break;
+
+					case LogLevel.Verbose:
+						pino.debug(message);
+						break;
+
+					default:
+						pino.trace(message);
+				}
 			},
 			piiLoggingEnabled: false,
 			logLevel: msal.LogLevel.Verbose
@@ -32,28 +51,34 @@ export const msalClient = new msal.ConfidentialClientApplication({
  */
 export function checkAccessRule(method, rule, creds, credType) {
 	if (rule?.methods.includes(method)) {
-		switch (credType) {
-			case 'groups':
-				if (rule.groups?.filter((element) => creds.includes(element)).length === 0) {
-					console.error('User does not have this group');
-					return false;
-				}
-				break;
+		// Groups
 
-			case 'roles':
-				if (rule.roles?.filter((element) => creds.includes(element)).length === 0) {
-					console.error('User does not have this role');
-					return false;
+		if (credType === 'groups' && rule.groups) {
+			for (const group of rule.groups) {
+				if (creds.includes(group)) {
+					return true;
 				}
-				break;
+			}
+			pino.warn({ rule, groups: creds }, 'Authorisation failed. User does not matching group.');
 
-			default:
-				break;
+			return false;
+		}
+
+		// Roles
+
+		if (credType === 'roles' && rule.roles) {
+			for (const group of rule.roles) {
+				if (creds.includes(group)) {
+					return true;
+				}
+			}
+			pino.warn({ rule, groups: creds }, 'Authorisation failed. User does not have matching role.');
+
+			return false;
 		}
 	} else {
-		console.error('Method not allowed for this route');
+		pino.warn('Authorisation failed. Method is not permitted for this route.');
 		return false;
 	}
-
 	return true;
 }
