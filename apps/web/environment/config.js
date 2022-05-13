@@ -14,7 +14,8 @@ const cwd = url.fileURLToPath(new URL('..', import.meta.url));
  * @property {boolean} HTTPS_ENABLED
  * @property {number} HTTP_PORT
  * @property {number} HTTPS_PORT
- * @property {LogLevel} LOG_LEVEL
+ * @property {LogLevel} LOG_LEVEL_FILE
+ * @property {LogLevel} LOG_LEVEL_STDOUT
  * @property {string} SSL_CERT_FILE
  * @property {string} SSL_KEY_FILE
  * @property {boolean} bundleAnalyzer
@@ -54,7 +55,8 @@ export default {
 	HTTPS_ENABLED: environment.HTTPS_ENABLED === 'true',
 	HTTP_PORT: Number(environment.HTTP_PORT) || 8080,
 	HTTPS_PORT: Number(environment.HTTPS_PORT) || 8443,
-	LOG_LEVEL: /** @type {LogLevel} */ (environment.LOG_LEVEL),
+	LOG_LEVEL_FILE: /** @type {LogLevel} */ (environment.LOG_LEVEL),
+	LOG_LEVEL_STDOUT: /** @type {LogLevel} */ (environment.LOG_LEVEL),
 	SSL_CERT_FILE: environment.SSL_CERT_FILE,
 	SSL_KEY_FILE: environment.SSL_KEY_FILE,
 
