@@ -1,8 +1,9 @@
 import config from '@pins/web/environment/config.js';
 import path from 'node:path';
 import pino from 'pino';
+import pinoHttp from 'pino-http';
 
-export default pino({
+const logger = pino({
 	timestamp: pino.stdTimeFunctions.isoTime,
 	level: 'trace',
 	transport: {
@@ -27,3 +28,7 @@ export default pino({
 		]
 	}
 });
+
+export const httpLogger = pinoHttp({ logger });
+
+export default logger;

@@ -7,14 +7,14 @@ import csurf from 'csurf';
 import express from 'express';
 import requestID from 'express-request-id';
 import helmet from 'helmet';
-import morganLogger from 'morgan';
+import morgan from 'morgan';
 import multer from 'multer';
 import responseTime from 'response-time';
 import serveStatic from 'serve-static';
 import locals from '../config/locals.js';
 import nunjucksEnvironment from '../config/nunjucks.js';
 import session from '../config/session.js';
-import pino from '../lib/logger.js';
+import { httpLogger } from '../lib/logger.js';
 import simulateUserGroups from './auth/auth.local.js';
 import { routes } from './routes.js';
 
@@ -24,8 +24,11 @@ const app = express();
 // Initialize app locals
 app.locals = locals;
 
-if (pino.isLevelEnabled('debug')) {
-	app.use(morganLogger('dev'));
+// Http logging to stdout
+if (config.isProduction) {
+	app.use(httpLogger);
+} else if (config.isDevelopment) {
+	app.use(morgan('dev'));
 }
 
 // Parse incoming request bodies in a middleware before your handlers, available under the req.body property.
