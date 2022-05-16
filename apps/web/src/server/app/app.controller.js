@@ -1,4 +1,5 @@
 import config from '@pins/web/environment/config.js';
+import pino from '../lib/logger.js';
 
 /**
  * View the hompage.
@@ -7,7 +8,7 @@ import config from '@pins/web/environment/config.js';
  *
  * @type {import('express').RequestHandler}
  */
-export function viewHomepage(request, response) {
+export function viewHomepage(request, response, next) {
 	const userGroups = [
 		config.referencedata.groups.validationOfficerGroupId,
 		config.referencedata.groups.caseOfficerGroupId,
@@ -28,11 +29,12 @@ export function viewHomepage(request, response) {
 			case config.referencedata.groups.inspectorGroupId:
 				response.redirect('/inspector');
 				break;
-			default:
-				console.error(
-					'This should never happen! User logged in successfully but the user group is valid.'
-				);
-				break;
+			default: {
+				const error = new Error('User logged in successfully but the user group is valid.');
+
+				pino.error(error);
+				next(error);
+			}
 		}
 	}
 }

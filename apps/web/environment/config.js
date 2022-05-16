@@ -1,4 +1,5 @@
 import { loadEnvironment } from '@pins/platform';
+import url from 'node:url';
 import schema from './schema.js';
 
 const environment = loadEnvironment(process.env.NODE_ENV);
@@ -10,6 +11,8 @@ const { value, error } = schema.validate({
 	bundleAnalyzer: environment.BUNDLE_ANALYZER,
 	env: environment.NODE_ENV,
 	isRelease: environment.APP_RELEASE,
+	logLevelFile: environment.LOG_LEVEL_FILE,
+	logLevelStdOut: environment.LOG_LEVEL_STDOUT,
 	msal: {
 		clientId: environment.AUTH_CLIENT_ID,
 		clientSecret: environment.AUTH_CLIENT_SECRET,
@@ -38,6 +41,7 @@ const { clientId = '', cloudInstanceId, tenantId, clientSecret = '' } = msal;
 
 export default {
 	...config,
+	cwd: url.fileURLToPath(new URL('..', import.meta.url)),
 	isProduction: value.env === 'production',
 	isDevelopment: value.env === 'development',
 	isTest: value.env === 'test',

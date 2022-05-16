@@ -1,12 +1,10 @@
+import config from '@pins/web/environment/config.js';
 import multer from 'multer';
 import crypto from 'node:crypto';
 import path from 'node:path';
-import url from 'node:url';
-
-const TMP_DIR = path.join(url.fileURLToPath(new URL('.', import.meta.url)), '../../../.tmp');
 
 export const diskStorage = multer.diskStorage({
-	destination: TMP_DIR,
+	destination: path.join(config.cwd, '.tmp'),
 	filename(_, file, done) {
 		const basename = crypto.randomBytes(16).toString('hex');
 

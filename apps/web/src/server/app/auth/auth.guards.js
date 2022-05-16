@@ -1,4 +1,5 @@
 import { isUndefined } from 'lodash-es';
+import pino from '../../lib/logger.js';
 import { checkAccessRule } from '../../lib/sso.js';
 
 /**
@@ -14,22 +15,17 @@ import { checkAccessRule } from '../../lib/sso.js';
  */
 
 /**
- * Path to redirect to after successful login.
+ * Assert the user is authenticated.
  *
  * @type {import('@pins/express').RequestHandler}
  */
 export function isAuthenticated(request, response, next) {
-	if (request.session) {
-		if (!request.session.isAuthenticated) {
-			console.error('Not permitted');
-			// return response.redirect('/auth/unauthorized');
-			return response.redirect(`/auth/signin?redirect_to=${request.originalUrl}`);
-		}
-
+	if (request.session?.isAuthenticated) {
 		next();
 	} else {
-		console.error('No session found for this request');
-		response.redirect('/auth/unauthorized');
+		pino.info(`Unauthenticated user redirected to sign in by '${request.originalUrl}'.`);
+
+		response.redirect(`/auth/signin?redirect_to=${request.originalUrl}`);
 	}
 }
 
@@ -52,15 +48,17 @@ export function hasAccess(options) {
 							request.session.account?.idTokenClaims?.claimName ||
 							request.session.account?.idTokenClaims?.claimSources
 						) {
-							console.warn('User has too many groups. Groups overage claim occurred');
-
 							// TODO: Should we handle overage?
-							response.redirect('/auth/unauthorized');
+							pino.error(
+								'Authorisation error. User has too many groups: groups overage claim occurred.'
+							);
 						} else {
-							console.error('User does not have any groups');
-							return response.redirect('/auth/unauthorized');
+							pino.warn('Authorisation error. User does not belong to any groups.');
 						}
-					} else if (request.session.account?.idTokenClaims) {
+						return response.redirect('/auth/unauthorized');
+					}
+
+					if (request.session.account?.idTokenClaims) {
 						const { groups } = request.session.account.idTokenClaims;
 
 						if (!checkAccessRule(request.method, options.accessRule, groups, 'groups')) {
@@ -73,7 +71,7 @@ export function hasAccess(options) {
 
 				case 'roles': {
 					if (isUndefined(request.session.account?.idTokenClaims.roles)) {
-						console.error('User does not have any roles');
+						pino.warn('Authorisation error. User does not have any roles.');
 						return response.redirect('/auth/unauthorized');
 					}
 

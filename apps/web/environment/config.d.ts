@@ -1,13 +1,18 @@
+import { LevelWithSilent } from 'pino';
+
 export interface EnvironmentConfig {
 	apiUrl: string;
 	authDisabled: boolean;
 	authRedirectTo: string;
 	bundleAnalyzer: boolean;
+	cwd: string;
 	env: 'development' | 'test' | 'production';
 	isProduction: boolean;
 	isDevelopment: boolean;
 	isTest: boolean;
 	isRelease?: boolean;
+	logLevelFile: LevelWithSilent;
+	logLevelStdOut: LevelWithSilent;
 	msal: {
 		authority: string;
 		clientId: string;

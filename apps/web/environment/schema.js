@@ -1,5 +1,7 @@
 import joi from 'joi';
 
+const logLevel = ['fatal', 'error', 'warn', 'info', 'debug', 'trace', 'silent'];
+
 export default joi
 	.object({
 		apiUrl: joi.string().uri(),
@@ -8,6 +10,8 @@ export default joi
 		bundleAnalyzer: joi.boolean(),
 		env: joi.string().valid('development', 'production', 'test'),
 		isRelease: joi.boolean().optional(),
+		logLevelFile: joi.string().valid(...logLevel),
+		logLevelStdOut: joi.string().valid(...logLevel),
 		msal: joi
 			.object({
 				clientId: joi.string(),
