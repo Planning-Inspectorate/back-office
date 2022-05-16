@@ -2,14 +2,14 @@
 
 import appealRepository from '../repositories/appeal.repository.js';
 import { appealStates } from '../state-machine/transition-state.js';
+import formatAddress from '../utils/address-formatter.js';
+import { arrayOfStatusesContainsString } from '../utils/array-of-statuses-contains-string.js';
 import appealFormatter from './appeal-formatter.js';
 import * as caseOfficerService from './case-officer.service.js';
-import { arrayOfStatusesContainsString } from '../utils/array-of-statuses-contains-string.js';
-import formatAddress from '../utils/address-formatter.js';
 
 /** @typedef {import('./case-officer.routes').AppealParams} AppealParams */
 
-export const getAppeals = async function (_request, response) {
+export const getAppeals = async (_request, response) => {
 	const caseOfficerStatuses = [
 		appealStates.awaiting_lpa_questionnaire,
 		appealStates.overdue_lpa_questionnaire,
@@ -31,7 +31,7 @@ export const getAppeals = async function (_request, response) {
 	response.send(allAppeals);
 };
 
-export const getAppealDetails = async function (request, response) {
+export const getAppealDetails = async (request, response) => {
 	const appeal = await appealRepository.getById(request.params.appealId, {
 		appellant: true,
 		address: true,
@@ -39,11 +39,13 @@ export const getAppealDetails = async function (request, response) {
 		lpaQuestionnaire: true
 	});
 	const formattedAppeal = appealFormatter.formatAppealForAppealDetails(appeal);
+
 	return response.send(formattedAppeal);
 };
 
-export const getAppealDetailsForStatementsAndComments = async function(request, response) {
+export const getAppealDetailsForStatementsAndComments = async (request, response) => {
 	const appeal = await appealRepository.getById(request.params.appealId, { address: true });
+
 	return response.send({
 		AppealId: appeal.id,
 		AppealReference: appeal.reference,
@@ -54,7 +56,7 @@ export const getAppealDetailsForStatementsAndComments = async function(request, 
 	});
 };
 
-export const confirmLPAQuestionnaire = async function (request, response) {
+export const confirmLPAQuestionnaire = async (request, response) => {
 	await caseOfficerService.confirmLPAQuestionnaireService(request.body.reason, request.params.appealId);
 	return response.send();
 };
@@ -73,12 +75,14 @@ export const updateAppealDetails = async ({ body, params }, response) => {
 	response.send(updatedAppeal);
 };
 
-export const uploadStatement = async function(request, response) {
+export const uploadStatement = async (request, response) => {
 	const appeal = await appealRepository.getById(request.params.appealId);
+
 	response.send(appealFormatter.formatAppealForAfterStatementUpload(appeal));
 };
 
-export const uploadFinalComment = async function(request, response) {
+export const uploadFinalComment = async (request, response) => {
 	const appeal = await appealRepository.getById(request.params.appealId);
+
 	response.send(appealFormatter.formatAppealAfterFinalCommentUpload(appeal));
 };

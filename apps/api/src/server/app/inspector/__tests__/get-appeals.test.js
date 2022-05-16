@@ -1,13 +1,13 @@
 // eslint-disable-next-line import/no-unresolved
 import test from 'ava';
-import supertest from 'supertest';
 import sinon from 'sinon';
+import supertest from 'supertest';
 import { app } from '../../../app.js';
 import DatabaseFactory from '../../repositories/database.js';
 
 const request = supertest(app);
 
-const appeal_1 = {
+const appeal1 = {
 	id: 1,
 	reference: 'APP/Q9999/D/21/1345264',
 	appealStatus: [{
@@ -39,7 +39,7 @@ const appeal_1 = {
 		siteVisibleFromPublicLand: false
 	}
 };
-const appeal_2 = {
+const appeal2 = {
 	id: 2,
 	reference: 'APP/Q9999/D/21/5463281',
 	appealStatus: [{
@@ -66,7 +66,7 @@ const appeal_2 = {
 	}
 };
 
-const appeal_3 = {
+const appeal3 = {
 	id: 3,
 	reference: 'APP/Q9999/D/21/5463281',
 	appealStatus: [{
@@ -92,7 +92,7 @@ const appeal_3 = {
 	}
 };
 
-const appeal_4 = {
+const appeal4 = {
 	id: 4,
 	reference: 'APP/Q9999/D/21/5463281',
 	appealStatus: [{
@@ -118,7 +118,7 @@ const appeal_4 = {
 	}
 };
 
-const appeal_5 = {
+const appeal5 = {
 	id: 5,
 	reference: 'APP/Q9999/D/21/5463281',
 	appealStatus: [{
@@ -144,7 +144,7 @@ const appeal_5 = {
 	}
 };
 
-const findManyStub = sinon.stub().returns([appeal_1, appeal_2, appeal_3, appeal_4, appeal_5]);
+const findManyStub = sinon.stub().returns([appeal1, appeal2, appeal3, appeal4, appeal5]);
 
 class MockDatabaseClass {
 	constructor(_parameters) {
@@ -271,6 +271,7 @@ test('gets all appeals assigned to inspector', async (t) => {
 
 test('throws error if userid is not provided in the header', async (t) => {
 	const resp = await request.get('/inspector');
+
 	t.is(resp.status, 401);
 	t.deepEqual(resp.body, { errors: { userid: 'Authentication error. Missing header `userId`.' } });
 });

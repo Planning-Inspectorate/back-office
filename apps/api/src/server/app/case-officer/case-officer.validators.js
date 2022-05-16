@@ -1,11 +1,11 @@
-import { body } from 'express-validator';
 import { composeMiddleware, mapMulterErrorToValidationError } from '@pins/express';
-import { validationErrorHandler } from '../middleware/error-handler.js';
+import { body } from 'express-validator';
 import { difference } from 'lodash-es';
+import multer from 'multer';
+import { validationErrorHandler } from '../middleware/error-handler.js';
+import { handleValidationError } from '../middleware/handle-validation-error.js';
 import { validateAppealStatus } from '../middleware/validate-appeal-status.js';
 import { appealStates } from '../state-machine/transition-state.js';
-import multer from 'multer';
-import { handleValidationError } from '../middleware/handle-validation-error.js';
 
 export const validateAppealBelongsToCaseOfficer = validateAppealStatus([
 	appealStates.received_lpa_questionnaire,
@@ -28,7 +28,7 @@ export const validateAppealDetails = composeMiddleware(
 );
 
 const invalidWithoutReasons = function (body) {
-	return ((
+	return (!!((
 		(body.reason.applicationPlansToReachDecisionMissingOrIncorrect === true &&
 		body.reason.applicationPlansToReachDecisionMissingOrIncorrectDescription === undefined) ||
 		(body.reason.policiesStatutoryDevelopmentPlanPoliciesMissingOrIncorrect === true &&
@@ -38,7 +38,7 @@ const invalidWithoutReasons = function (body) {
 		(body.reason.policiesSupplementaryPlanningDocumentsMissingOrIncorrect === true &&
 		body.reason.policiesSupplementaryPlanningDocumentsMissingOrIncorrectDescription === undefined) ||
 		(body.reason.siteConservationAreaMapAndGuidanceMissingOrIncorrect === true &&
-		body.reason.siteConservationAreaMapAndGuidanceMissingOrIncorrectDescription == undefined) ||
+		body.reason.siteConservationAreaMapAndGuidanceMissingOrIncorrectDescription === undefined) ||
 		(body.reason.siteListedBuildingDescriptionMissingOrIncorrect === true &&
 		body.reason.siteListedBuildingDescriptionMissingOrIncorrectDescription === undefined) ||
 		(body.reason.thirdPartyApplicationNotificationMissingOrIncorrect === true &&
@@ -49,12 +49,11 @@ const invalidWithoutReasons = function (body) {
 		(body.reason.thirdPartyAppealNotificationMissingOrIncorrect === true &&
 			(body.reason.thirdPartyAppealNotificationMissingOrIncorrectListOfAddresses === false &&
 			body.reason.thirdPartyAppealNotificationMissingOrIncorrectCopyOfLetterOrSiteNotice === false))
-	)?
-		true : false);
+	)));
 };
 
 const incompleteWithUnexpectedReasons = function (body) {
-	return (difference(Object.keys(body.reason), [
+	return difference(Object.keys(body.reason), [
 		'applicationPlanningOfficersReportMissingOrIncorrect',
 		'applicationPlansToReachDecisionMissingOrIncorrect',
 		'applicationPlansToReachDecisionMissingOrIncorrectDescription',
@@ -77,7 +76,7 @@ const incompleteWithUnexpectedReasons = function (body) {
 		'thirdPartyAppealNotificationMissingOrIncorrect',
 		'thirdPartyAppealNotificationMissingOrIncorrectListOfAddresses',
 		'thirdPartyAppealNotificationMissingOrIncorrectCopyOfLetterOrSiteNotice'
-	]).length === 0)? false : true;
+	]).length > 0;
 };
 
 export const validateReviewRequest = (request, response, next) => {
@@ -103,7 +102,7 @@ export const validateFilesUpload = function(filename) {
 		multer({
 			storage: multer.memoryStorage(),
 			limits: {
-				fileSize: 15 * Math.pow(1024, 2 /* MBs*/)
+				fileSize: 15 * Math.pow(1024, 2 /* MBs */)
 			}
 		}).array(filename),
 		mapMulterErrorToValidationError,

@@ -2,7 +2,7 @@ import express from 'express';
 import { param } from 'express-validator';
 import { asyncHandler } from '../middleware/async-handler.js';
 import { validateFileUpload } from '../middleware/validate-file-upload.js';
-import { assignAppeals, bookSiteVisit, getAppeals, issueDecision, getAppealDetails, getMoreAppeals } from './inspector.controller.js';
+import { assignAppeals, bookSiteVisit, getAppealDetails, getAppeals, getMoreAppeals,issueDecision } from './inspector.controller.js';
 import {
 	validateAssignAppealsToInspector,
 	validateBookSiteVisit,

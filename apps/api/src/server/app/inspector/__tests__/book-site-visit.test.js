@@ -1,7 +1,6 @@
 // @ts-check
 
 import { yesterday } from '@pins/platform';
-// eslint-disable-next-line import/no-unresolved
 import test from 'ava';
 import format from 'date-fns/format/index.js';
 import sinon, { assert } from 'sinon';
@@ -23,9 +22,9 @@ const siteVisitBody = {
 // todo: replace with factory
 /** @type {DeepPartial<Appeal>} */
 const originalAppeal = appealFactoryForTests(
-	1, 
-	[{ id: 1, status: 'site_visit_not_yet_booked', valid: true }], 
-	'HAS', 
+	1,
+	[{ id: 1, status: 'site_visit_not_yet_booked', valid: true }],
+	'HAS',
 	{ connectToUser: true },
 	{ createdAt: new Date(2022, 0, 1), updatedAt: new Date(2022, 0, 1) }
 );
@@ -67,7 +66,7 @@ test.beforeEach(() => {
 
 test('succeeds with a 200 when booking a site visit', async (t) => {
 	const response = await request.post('/inspector/1/book').set('userId', '1').send(siteVisitBody);
-	
+
 	t.is(response.status, 200);
 	t.deepEqual(response.body, {
 		appealAge: 0,

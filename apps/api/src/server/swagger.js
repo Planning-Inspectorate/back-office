@@ -1,24 +1,36 @@
 import swaggerAutogen from 'swagger-autogen';
 
-const document_ = {
+const document = {
 	info: {
-		version: '2.0', // by default: '1.0.0'
-		title: 'My PINS Project', // by default: 'REST API'
-		description: 'My PINS Project AOI documentation from Swagger', // by default: ''
+		// by default: '1.0.0'
+		version: '2.0',
+		// by default: 'REST API'
+		title: 'My PINS Project',
+		// by default: ''
+		description: 'My PINS Project AOI documentation from Swagger',
 	},
-	host: 'localhost:3000', // by default: 'localhost:3000'
-	basePath: '', // by default: '/'
-	schemes: [], // by default: ['http']
-	consumes: [], // by default: ['application/json']
-	produces: [], // by default: ['application/json']
-	tags: [ // by default: empty Array
+	// by default: 'localhost:3000'
+	host: 'localhost:3000',
+	// by default: '/'
+	basePath: '',
+	// by default: ['http']
+	schemes: [],
+	// by default: ['application/json']
+	consumes: [],
+	// by default: ['application/json']
+	produces: [],
+	// by default: empty Array
+	tags: [
 		{
-			name: '', // Tag name
-			description: '', // Tag description
+			// Tag name
+			name: '',
+			// Tag description
+			description: '',
 		},
 		// { ... }
 	],
-	securityDefinitions: {}, // by default: empty object (Swagger 2.0)
+	// by default: empty object (Swagger 2.0)
+	securityDefinitions: {},
 	definitions: {
 		AppealToValidate: {
 			AppealId: 1,
@@ -376,4 +388,4 @@ const document_ = {
 const outputFile = './src/server/swagger-output.json';
 const endpointsFiles = ['./src/server/app.js'];
 
-swaggerAutogen()(outputFile, endpointsFiles, document_);
+swaggerAutogen()(outputFile, endpointsFiles, document);

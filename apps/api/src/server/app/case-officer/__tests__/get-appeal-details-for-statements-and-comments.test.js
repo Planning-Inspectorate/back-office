@@ -1,11 +1,11 @@
 // eslint-disable-next-line import/no-unresolved
 import test from 'ava';
-import supertest from 'supertest';
 import sinon from 'sinon';
+import supertest from 'supertest';
 import { app } from '../../../app.js';
 import DatabaseFactory from '../../repositories/database.js';
-import { appealFactoryForTests } from '../../utils/appeal-factory-for-tests.js';
 import formatAddress from '../../utils/address-formatter.js';
+import { appealFactoryForTests } from '../../utils/appeal-factory-for-tests.js';
 
 const request = supertest(app);
 
@@ -35,6 +35,7 @@ const includingDetailsForValidtion = {
 };
 
 const findUniqueStub = sinon.stub();
+
 findUniqueStub.withArgs({ where: { id: 1 }, include: includeDetails }).returns(appeal_1);
 findUniqueStub.withArgs({ where: { id: 2 }, include: includeDetails }).returns(appeal_2);
 findUniqueStub.withArgs({ where: { id: 1 }, include: includingDetailsForValidtion }).returns(appeal_1);
@@ -57,6 +58,7 @@ test.before('sets up mocking of database', () => {
 
 test('returns details for appeal awaiting statements', async (t) => {
 	const resp = await request.get('/case-officer/1/statements-comments');
+
 	t.is(resp.status, 200);
 	t.deepEqual(resp.body, {
 		AppealId: 1,
@@ -70,6 +72,7 @@ test('returns details for appeal awaiting statements', async (t) => {
 
 test('returns details for appeal awaiting final comments', async (t) => {
 	const resp = await request.get('/case-officer/2/statements-comments');
+
 	t.is(resp.status, 200);
 	t.deepEqual(resp.body, {
 		AppealId: 2,

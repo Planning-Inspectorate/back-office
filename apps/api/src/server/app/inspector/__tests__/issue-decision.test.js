@@ -2,10 +2,10 @@
 
 // eslint-disable-next-line import/no-unresolved
 import test from 'ava';
-import path from 'path';
+import path from 'node:path';
+import * as url from 'node:url';
 import sinon, { assert } from 'sinon';
 import supertest from 'supertest';
-import * as url from 'url';
 import { app } from '../../../app.js';
 import appealRepository from '../../repositories/appeal.repository.js';
 

@@ -1,9 +1,8 @@
-// eslint-disable-next-line import/no-unresolved
 import test from 'ava';
 import sinon from 'sinon';
-import { transitionState } from '../transition-state.js';
 import inspectorActionsService from '../inspector.actions.js';
 import lpaQuestionnaireActionsService from '../lpa-questionnaire-actions.service.js';
+import { transitionState } from '../transition-state.js';
 
 const lpaQuestionnaireStub = sinon.stub();
 const inspectorSendBookingStub = sinon.stub();
@@ -17,35 +16,37 @@ test.before('sets up mocking of actions', () => {
 
 /**
  * @param {object} t unit test
- * @param {string} initial_state initial state in state machine
+ * @param {string} initialState initial state in state machine
  * @param {string} action action taken to proceed in state machine
- * @param {string} expected_state expected state after action was taken
- * @param {boolean} has_changed True if action was valid, False if action was invalid
+ * @param {string} expectedState expected state after action was taken
+ * @param {boolean} hasChanged True if action was valid, False if action was invalid
  * @param {object} context Context of transition
  */
-function applyAction(t, initial_state, action, expected_state, has_changed, context) {
+function applyAction(t, initialState, action, expectedState, hasChanged, context) {
 	inspectorSendBookingStub.resetHistory();
-	const next_state = transitionState('household', context, initial_state, action);
-	t.is(next_state.value, expected_state);
-	t.is(next_state.changed, has_changed);
-	if (next_state.value == 'awaiting_lpa_questionnaire') {
+
+	const nextState = transitionState('household', context, initialState, action);
+
+	t.is(nextState.value, expectedState);
+	t.is(nextState.changed, hasChanged);
+	if (nextState.value === 'awaiting_lpa_questionnaire') {
 		sinon.assert.calledWithExactly(lpaQuestionnaireStub, 1);
 	}
-	if (next_state.value == 'site_visit_booked') {
-		if (context.inspectionType == 'accompanied' || context.inspectionType == 'access required') {
+	if (nextState.value === 'site_visit_booked') {
+		if (context.inspectionType === 'accompanied' || context.inspectionType === 'access required') {
 			sinon.assert.calledWithExactly(inspectorSendBookingStub, 1);
 		} else {
 			sinon.assert.notCalled(inspectorSendBookingStub);
 		}
 	}
-	if (next_state.value == 'appeal_decided') {
+	if (nextState.value === 'appeal_decided') {
 		sinon.assert.calledWithExactly(notifyAppellantOfDecisionStub, 1, 'allowed');
 	}
 }
 
-applyAction.title = (providedTitle = '', initial_state, action, expected_state, has_changed, context) =>
-	`${providedTitle}: from state [${initial_state}] with context ${JSON.stringify(context)} action [${action}] produces state
-	[${expected_state}] ${has_changed ? '' : ' without'} having transitioned`;
+applyAction.title = (providedTitle = '', initialState, action, expectedState, hasChanged, context) =>
+	`${providedTitle}: from state [${initialState}] with context ${JSON.stringify(context)} action [${action}] produces state
+	[${expectedState}] ${hasChanged ? '' : ' without'} having transitioned`;
 
 for (const parameter of [
 	['received_appeal', 'INVALID', 'invalid_appeal', true, { appealId: 1 }],

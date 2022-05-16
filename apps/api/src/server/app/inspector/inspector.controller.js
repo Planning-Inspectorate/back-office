@@ -8,7 +8,7 @@ import * as inspector from './inspector.service.js';
 /** @typedef {import('@pins/api').Schema.InspectorDecisionOutcomeType} InspectorDecisionOutcomeType */
 /** @typedef {import('@pins/api').Schema.SiteVisitType} SiteVisitType */
 
-const getAppeals = async function(request, response) {
+const getAppeals = async (request, response) => {
 	const userId = request.get('userId');
 	const appeals = await appealRepository.getByStatusesAndUserId([
 		appealStates.site_visit_not_yet_booked,
@@ -17,10 +17,11 @@ const getAppeals = async function(request, response) {
 		'picked_up'
 	], userId);
 	const appealsForResponse = appeals.map((appeal) => appealFormatter.formatAppealForAllAppeals(appeal));
+
 	return response.send(appealsForResponse);
 };
 
-const getAppealDetails = async function(request, response) {
+const getAppealDetails = async (request, response) => {
 	const appeal = await appealRepository.getById(request.params.appealId, {
 		appellant: true,
 		validationDecision: true,
@@ -31,16 +32,18 @@ const getAppealDetails = async function(request, response) {
 		siteVisit: true
 	});
 	const formattedAppeal = appealFormatter.formatAppealForAppealDetails(appeal);
+
 	response.send(formattedAppeal);
 };
 
-const assignAppeals = async function(request, response) {
+const assignAppeals = async (request, response) => {
 	const userId = request.get('userId');
 	const resultantAppeals = await inspector.assignAppealsById(userId, request.body);
+
 	response.send(resultantAppeals);
 };
 
-const getMoreAppeals = async function(request, response) {
+const getMoreAppeals = async (request, response) => {
 	const moreAppeals = await appealRepository.getByStatuses(
 		[appealStates.available_for_inspector_pickup],
 		true,
@@ -49,6 +52,7 @@ const getMoreAppeals = async function(request, response) {
 		true
 	);
 	const moreAppealsFormatted = moreAppeals.map((appeal) => appealFormatter.formatAppealForMoreAppeals(appeal));
+
 	return response.send(moreAppealsFormatted);
 };
 
@@ -66,7 +70,7 @@ const getMoreAppeals = async function(request, response) {
 
 /**
  * Create a site visit booking for an appeal and serve the updated appeal in response.
- * 
+ *
  * @type {import('express').RequestHandler<AppealParams, *, BookSiteVisitRequestBody>}
  */
 export const bookSiteVisit = async ({ body, params }, response) => {
@@ -91,7 +95,7 @@ export const bookSiteVisit = async ({ body, params }, response) => {
 
 /**
  * Issue a decision for an appeal and serve the updated appeal in response.
- * 
+ *
  * @type {import('express').RequestHandler<AppealParams, *, IssueDecisionRequestBody>}
  */
 export const issueDecision = async ({ body, file, params }, response) => {

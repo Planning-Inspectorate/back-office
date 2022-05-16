@@ -1,4 +1,4 @@
-const generateLpaQuestionnaireStates = function() {
+const generateLpaQuestionnaireStates = () => {
 	return {
 		awaiting_lpa_questionnaire: {
 			entry: ['sendLPAQuestionnaire'],

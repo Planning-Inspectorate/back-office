@@ -1,9 +1,9 @@
 import { createMachine } from 'xstate';
-import { generateValidationStates } from './validation-states.js';
-import { generateLpaQuestionnaireStates } from './lpa-questionnaire-states.js';
-import { inspectorBookingStates, generateInspectorPickupStates } from './inspector-states.js';
-import { statementsAndFinalCommentsStates } from './statements-and-final-comments-states.js';
 import mapObjectKeysToStrings from '../utils/map-states-to-strings.js';
+import { generateInspectorPickupStates,inspectorBookingStates } from './inspector-states.js';
+import { generateLpaQuestionnaireStates } from './lpa-questionnaire-states.js';
+import { statementsAndFinalCommentsStates } from './statements-and-final-comments-states.js';
+import { generateValidationStates } from './validation-states.js';
 
 const validationStates = generateValidationStates('awaiting_lpa_questionnaire_and_statements');
 const lpaQuestionnaireStates = generateLpaQuestionnaireStates();
@@ -29,10 +29,10 @@ const lpaQuestionnaireAndStatementsStates = {
 	},
 };
 
-const createFullPlanningAppealMachine = function (context) {
+const createFullPlanningAppealMachine = (context) => {
 	return createMachine({
 		id: 'full_planning_appeal',
-		context: context,
+		context,
 		initial: 'received_appeal',
 		states: {
 			...validationStates,

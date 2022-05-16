@@ -1,6 +1,6 @@
 import test from 'ava';
-import supertest from 'supertest';
 import sinon from 'sinon';
+import supertest from 'supertest';
 import { app } from '../../../app.js';
 import DatabaseFactory from '../../repositories/database.js';
 
@@ -47,6 +47,7 @@ test.before('sets up mocking of database', () => {
 test('gets all appeals yet to be assigned to inspector', async (t) => {
 
 	sinon.useFakeTimers({ now: 1_649_319_144_000 });
+
 	const resp = await request.get('/inspector/more-appeals');
 
 	t.is(resp.status, 200);

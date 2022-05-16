@@ -6,12 +6,12 @@ import { some } from 'lodash-es';
 /** @typedef {import('@pins/api').Schema.AppealStatusType} AppealStatusType */
 
 /**
- * @param {Array<AppealStatus>} appealStatuses 
- * @param {AppealStatusType | AppealStatusType[] | String[]} desiredAppealStatuses 
+ * @param {Array<AppealStatus>} appealStatuses
+ * @param {AppealStatusType | AppealStatusType[] | string[]} desiredAppealStatuses
  * @returns {boolean}
  */
-export const arrayOfStatusesContainsString = function(appealStatuses, desiredAppealStatuses) {
-	return some(appealStatuses, function(status) {
+export const arrayOfStatusesContainsString = (appealStatuses, desiredAppealStatuses) => {
+	return some(appealStatuses, (status) => {
 		return desiredAppealStatuses.includes(status.status);
 	});
 };

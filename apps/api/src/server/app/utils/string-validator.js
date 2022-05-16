@@ -1,5 +1,5 @@
 const stringEmptyOrUndefined = function(string_) {
-	return (string_ == '' || string_ == undefined);
+	return (string_ === '' || string_ === undefined);
 };
 
 export default stringEmptyOrUndefined;

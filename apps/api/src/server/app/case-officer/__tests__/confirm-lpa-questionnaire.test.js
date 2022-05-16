@@ -1,7 +1,7 @@
 // eslint-disable-next-line import/no-unresolved
 import test from 'ava';
-import supertest from 'supertest';
 import sinon from 'sinon';
+import supertest from 'supertest';
 import { app } from '../../../app.js';
 import DatabaseFactory from '../../repositories/database.js';
 
@@ -109,6 +109,7 @@ test('should submit confirmation of an incomplete outcome of LPA questionnaire',
 			thirdPartyAppealNotificationMissingOrIncorrect: false
 		}
 	});
+
 	t.is(resp.status, 200);
 	sinon.assert.calledWithExactly(addReviewStub, {
 		data: {
@@ -154,6 +155,7 @@ test('should submit confirmation of an incomplete if listed building desc is mis
 			thirdPartyAppealNotificationMissingOrIncorrect: false
 		}
 	});
+
 	t.is(resp.status, 200);
 	sinon.assert.calledWithExactly(addReviewStub, {
 		data: {
@@ -198,6 +200,7 @@ test('should submit confirmation of the outcome of LPA questionnaire', async (t)
 			thirdPartyAppealNotificationMissingOrIncorrect: false
 		}
 	});
+
 	t.is(resp.status, 200);
 	sinon.assert.calledWithExactly(addReviewStub, {
 		data: {
@@ -241,6 +244,7 @@ test('should not be able to submit review as \'incomplete\' if there is no descr
 			thirdPartyAppealNotificationMissingOrIncorrect: false
 		}
 	});
+
 	t.is(resp.status, 409);
 	t.deepEqual(resp.body, {
 		errors: {
@@ -266,6 +270,7 @@ test('should not be able to submit review as \'incomplete\' if some unexpected b
 			someFakeReason: true
 		}
 	});
+
 	t.is(resp.status, 409);
 	t.deepEqual(resp.body, {
 		errors: {
@@ -290,6 +295,7 @@ test('should not be able to submit review if appeal is not in a state ready to r
 			thirdPartyAppealNotificationMissingOrIncorrect: false
 		}
 	});
+
 	t.is(resp.status, 409);
 	t.deepEqual(resp.body, {
 		errors: {

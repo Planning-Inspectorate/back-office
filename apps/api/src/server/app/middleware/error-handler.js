@@ -10,7 +10,9 @@ export function defaultErrorHandler(error, _request, response, next) {
 	if (response.headersSent) {
 		return next(error);
 	}
+
 	const code = error.code ? error.code : 500;
+
 	response.status(code);
 	console.error(error);
 	return response.send({ error: error.message });

@@ -1,21 +1,21 @@
-import formatAddress from '../utils/address-formatter.js';
-import formatDate from '../utils/date-formatter.js';
 import { appealStates } from '../state-machine/transition-state.js';
+import formatAddress from '../utils/address-formatter.js';
 import { arrayOfStatusesContainsString } from '../utils/array-of-statuses-contains-string.js'
+import formatDate from '../utils/date-formatter.js';
 
-const appealAwaitingValidationInfo = function(appeal) {
+const appealAwaitingValidationInfo = (appeal) => {
 	return arrayOfStatusesContainsString(appeal.appealStatus, [appealStates.awaiting_validation_info])
 };
 
 /**
- * @param {string} status appeal status
+ * @param {} appeal
  * @returns {string} reformatted appeal status
  */
 function mapAppealStatus(appeal) {
 	return appealAwaitingValidationInfo(appeal) ? 'incomplete' : 'new';
 }
 
-const formatIncompleteReason = function(incompleteValidationDecision) {
+const formatIncompleteReason = (incompleteValidationDecision) => {
 	return {
 		reasons: {
 			...(incompleteValidationDecision.namesDoNotMatch && { namesDoNotMatch: incompleteValidationDecision.namesDoNotMatch }),
@@ -34,7 +34,7 @@ const formatIncompleteReason = function(incompleteValidationDecision) {
 };
 
 const appealFormatter = {
-	formatAppealForAllAppeals: function(appeal) {
+	formatAppealForAllAppeals(appeal) {
 		return {
 			AppealId: appeal.id,
 			AppealReference: appeal.reference,
@@ -43,11 +43,12 @@ const appealFormatter = {
 			AppealSite: formatAddress(appeal.address)
 		};
 	},
-	formatAppealForAppealDetails: function(appeal) {
-		const incompleteValidationDecision = appeal.validationDecision.find((decision) => decision.decision == 'incomplete');
+	formatAppealForAppealDetails(appeal) {
+		const incompleteValidationDecision = appeal.validationDecision.find((decision) => decision.decision === 'incomplete');
 		const validationDecision = appealAwaitingValidationInfo(appeal) ?
 			formatIncompleteReason(incompleteValidationDecision) :
 			{};
+
 		return {
 			AppealId: appeal.id,
 			AppealReference: appeal.reference,

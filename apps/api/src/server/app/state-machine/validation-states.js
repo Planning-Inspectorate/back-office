@@ -4,7 +4,7 @@ const validationActionsStrings = {
 	information_missing: 'INFO_MISSING'
 };
 
-const generateValidationStates = function(finalState) {
+const generateValidationStates = (finalState) => {
 	return {
 		received_appeal: {
 			on: {

@@ -1,20 +1,23 @@
 import { isEmpty } from 'lodash-es';
-import { 
-	appellantsList, 
-	localPlanningDepartmentList, 
-	addressesList, 
-	lpaQuestionnaireList, 
-	appealDetailsFromAppellantList, 
+import {
+	addressesList,
+	appealDetailsFromAppellantList,
+	appellantsList,
+	completeValidationDecisionSample,
 	incompleteReviewQuestionnaireSample,
 	incompleteValidationDecisionSample,
 	invalidValidationDecisionSample,
-	completeValidationDecisionSample
-} from '../../../../prisma/seed-samples.js';
+	localPlanningDepartmentList,
+	lpaQuestionnaireList} from '../../../../prisma/seed-samples.js';
 
+/**
+ *
+ */
 function generateAppealReference() {
 	const number = Math.floor(
 		Math.random() * (1 - 999_999) + 1
 	);
+
 	return `APP/Q9999/D/21/${number}`;
 }
 
@@ -23,18 +26,23 @@ const appealTypes = {
 	FPA: 'full planning'
 };
 
+/**
+ *
+ * @param list
+ */
 function pickRandom(list) {
 	return list[Math.floor(Math.random()*list.length)];
 }
 
-export const appealFactoryForTests = function(
+export const appealFactoryForTests = (
 	appealId,
 	statuses,
 	typeShorthand,
 	inclusions = {},
 	dates = {}
-) {
+) => {
 	const validationDecisions = [];
+
 	if (inclusions.completeValidationDecision) { validationDecisions.push(completeValidationDecisionSample) }
 	if (inclusions.incompleteValidationDecision) { validationDecisions.push(incompleteValidationDecisionSample) }
 	if (inclusions.invalidValidationDecision) { validationDecisions.push(invalidValidationDecisionSample) }

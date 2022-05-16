@@ -3,7 +3,8 @@ import { buildAppealCompundStatus } from '../build-appeal-compound-status.js';
 
 test('when appeal status has a single array of core status returns string', (t) => {
 	const status = 'some status';
-	const result = buildAppealCompundStatus([{ status: status }]);
+	const result = buildAppealCompundStatus([{ status }]);
+
 	t.is(result, status);
 });
 
@@ -15,6 +16,7 @@ test('when appeal status has multiple compound statuses returns object', (t) => 
 		status: 'second status',
 		subStateMachineName: 'state_machine_2'
 	}]);
+
 	t.deepEqual(result, {
 		awaiting_lpa_questionnaire_and_statements: {
 			state_machine_1: 'first status',

@@ -10,7 +10,9 @@ import appealRepository from '../repositories/appeal.repository.js';
 
 /** @type {import('express').RequestHandler } */
 export const validateUserId = async (request, response, next) => {
-	const result = await header('userId').notEmpty().bail().withMessage('Authentication error. Missing header `userId`.').toInt().run(request);
+	const result = await header('userId').notEmpty().bail().withMessage('Authentication error. Missing header `userId`.')
+.toInt()
+.run(request);
 
 	if (!result.isEmpty()) {
 		response.status(401).send({ errors: result.formatWith(({ msg }) => msg).mapped() });

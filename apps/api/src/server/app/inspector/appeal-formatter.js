@@ -1,16 +1,16 @@
-import { isEmpty, filter } from 'lodash-es';
-import daysBetweenDates from '../utils/days-between-dates.js';
-import formatAddressLowerCase from '../utils/address-formatter-lowercase.js';
-import { inspectorStatesStrings } from '../state-machine/inspector-states.js';
-import formatDate from '../utils/date-formatter.js';
-import { arrayOfStatusesContainsString } from '../utils/array-of-statuses-contains-string.js';
-import { appealStates } from '../state-machine/transition-state.js';
-import { buildAppealCompundStatus } from '../utils/build-appeal-compound-status.js';
+import { filter,isEmpty } from 'lodash-es';
 import { weeksReceivingDocuments } from '../state-machine/full-planning-appeal.machine.js';
+import { inspectorStatesStrings } from '../state-machine/inspector-states.js';
+import { appealStates } from '../state-machine/transition-state.js';
 import { addWeeksToDate } from '../utils/add-weeks-to-date.js';
+import formatAddressLowerCase from '../utils/address-formatter-lowercase.js';
+import { arrayOfStatusesContainsString } from '../utils/array-of-statuses-contains-string.js';
+import { buildAppealCompundStatus } from '../utils/build-appeal-compound-status.js';
+import formatDate from '../utils/date-formatter.js';
+import daysBetweenDates from '../utils/days-between-dates.js';
 import { getAppealStatusCreatedAt } from '../utils/get-appeal-status-created-at.js';
 
-const provisionalAppealSiteVisitType = function (appeal) {
+const provisionalAppealSiteVisitType = (appeal) => {
 	return (!appeal.lpaQuestionnaire.siteVisibleFromPublicLand || !appeal.appealDetailsFromAppellant.siteVisibleFromPublicLand) ?
 		'access required' : 'unaccompanied';
 };
@@ -19,39 +19,39 @@ const provisionalAppealSiteVisitType = function (appeal) {
 /** @typedef {import('@pins/inspector').AppealOutcome} AppealOutcome */
 /** @typedef {import('@pins/inspector').SiteVisitType} SiteVisitType */
 
-const formatStatus = function (appealStatuses) {
+const formatStatus = (appealStatuses) => {
 	if (arrayOfStatusesContainsString(appealStatuses, inspectorStatesStrings.site_visit_booked)) {
 		return 'booked';
-	} else if (arrayOfStatusesContainsString(appealStatuses, inspectorStatesStrings.decision_due)) {
+	} if (arrayOfStatusesContainsString(appealStatuses, inspectorStatesStrings.decision_due)) {
 		return 'decision due';
-	} else if (
+	} if (
 		arrayOfStatusesContainsString(appealStatuses, inspectorStatesStrings.site_visit_not_yet_booked) ||
 		arrayOfStatusesContainsString(appealStatuses, 'picked_up')
 	) {
 		return 'not yet booked';
-	} else {
-		throw new Error('Unknown status');
 	}
+		throw new Error('Unknown status');
+
 };
 
-const calculateExpectedSiteVisitBookingAvailableDate = function(appealStatus) {
+const calculateExpectedSiteVisitBookingAvailableDate = (appealStatus) => {
 	if (arrayOfStatusesContainsString(appealStatus, 'available_for_statements')) {
 		return addWeeksToDate(
-			getAppealStatusCreatedAt(appealStatus, 'available_for_statements'), 
+			getAppealStatusCreatedAt(appealStatus, 'available_for_statements'),
 			weeksReceivingDocuments.statements + weeksReceivingDocuments.finalComments
 		);
-	} else if (arrayOfStatusesContainsString(appealStatus, 'available_for_final_comments')) {
+	} if (arrayOfStatusesContainsString(appealStatus, 'available_for_final_comments')) {
 		return addWeeksToDate(
-			getAppealStatusCreatedAt(appealStatus, 'available_for_final_comments'), 
+			getAppealStatusCreatedAt(appealStatus, 'available_for_final_comments'),
 			weeksReceivingDocuments.finalComments
-		);	
-	} else {
-		throw new Error('Unknown status');
+		);
 	}
+		throw new Error('Unknown status');
+
 };
 
 export const appealFormatter = {
-	formatAppealForAssigningAppeals: function (appeal, reason) {
+	formatAppealForAssigningAppeals (appeal, reason) {
 		return {
 			appealId: appeal.id,
 			reference: appeal.reference,
@@ -63,7 +63,7 @@ export const appealFormatter = {
 			...(reason !== undefined && { reason })
 		};
 	},
-	formatAppealForAllAppeals: function (appeal) {
+	formatAppealForAllAppeals (appeal) {
 		return {
 			appealId: appeal.id,
 			appealAge: daysBetweenDates(appeal.startedAt, new Date()),
@@ -77,7 +77,7 @@ export const appealFormatter = {
 			status: formatStatus(appeal.appealStatus)
 		};
 	},
-	formatAppealForMoreAppeals: function(appeal) {
+	formatAppealForMoreAppeals(appeal) {
 		return {
 			appealId: appeal.id,
 			reference: appeal.reference,
@@ -88,22 +88,23 @@ export const appealFormatter = {
 			appealAge: daysBetweenDates(appeal.startedAt, new Date())
 		};
 	},
-	formatAppealForAppealDetails: function (appeal) {
+	formatAppealForAppealDetails (appeal) {
 		const completeValidationDecision = filter(appeal.validationDecision, { decision: 'complete' })[0];
-		const isAvailableForSiteBooking = buildAppealCompundStatus(appeal.appealStatus) == appealStates.site_visit_not_yet_booked;
+		const isAvailableForSiteBooking = buildAppealCompundStatus(appeal.appealStatus) === appealStates.site_visit_not_yet_booked;
 		const isPastBooking = [
-			appealStates.site_visit_booked, 
-			appealStates.decision_due, 
+			appealStates.site_visit_booked,
+			appealStates.decision_due,
 			appealStates.decided
 		].includes(buildAppealCompundStatus(appeal.appealStatus));
+
 		return {
 			appealId: appeal.id,
 			reference: appeal.reference,
 			provisionalSiteVisitType: provisionalAppealSiteVisitType(appeal),
 			status: formatStatus(appeal.appealStatus),
 			availableForSiteVisitBooking: isAvailableForSiteBooking,
-			...(!isAvailableForSiteBooking && !isPastBooking && { 
-				expectedSiteVisitBookingAvailableFrom: formatDate(calculateExpectedSiteVisitBookingAvailableDate(appeal.appealStatus), false) 
+			...(!isAvailableForSiteBooking && !isPastBooking && {
+				expectedSiteVisitBookingAvailableFrom: formatDate(calculateExpectedSiteVisitBookingAvailableDate(appeal.appealStatus), false)
 			}),
 			appellantName: appeal.appellant.name,
 			agentName: appeal.appellant.agentName,

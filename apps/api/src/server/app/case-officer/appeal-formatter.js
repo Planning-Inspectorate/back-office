@@ -1,53 +1,57 @@
-import formatAddress from '../utils/address-formatter.js';
-import formatDate from '../utils/date-formatter.js';
-import formatReviewQuestionnaire from '../utils/review-questionnaire-formatter.js';
-import { appealStates } from '../state-machine/transition-state.js';
-import { arrayOfStatusesContainsString } from '../utils/array-of-statuses-contains-string.js';
-import { addWeeksToDate } from '../utils/add-weeks-to-date.js';
-import { getAppealStatusCreatedAt } from '../utils/get-appeal-status-created-at.js';
 import { weeksReceivingDocuments } from '../state-machine/full-planning-appeal.machine.js';
+import { appealStates } from '../state-machine/transition-state.js';
+import { addWeeksToDate } from '../utils/add-weeks-to-date.js';
+import formatAddress from '../utils/address-formatter.js';
+import { arrayOfStatusesContainsString } from '../utils/array-of-statuses-contains-string.js';
+import formatDate from '../utils/date-formatter.js';
+import { getAppealStatusCreatedAt } from '../utils/get-appeal-status-created-at.js';
+import formatReviewQuestionnaire from '../utils/review-questionnaire-formatter.js';
 
-const add2Weeks = function (date) {
+const add2Weeks = (date) => {
 	const newDate = new Date(date.valueOf());
+
 	newDate.setDate(newDate.getDate() + 14);
 	return newDate;
 };
 
 /**
  * @param {Array} status appeal status array
+ * @param appealStatuses
  * @returns {string} reformatted appeal status
  */
 function mapAppealStatus(appealStatuses) {
 	if (arrayOfStatusesContainsString(appealStatuses, [appealStates.awaiting_lpa_questionnaire])) {
 		return 'awaiting';
-	} else if (arrayOfStatusesContainsString(appealStatuses, [appealStates.overdue_lpa_questionnaire])) {
+	} if (arrayOfStatusesContainsString(appealStatuses, [appealStates.overdue_lpa_questionnaire])) {
 		return 'overdue';
-	} else if (arrayOfStatusesContainsString(appealStatuses, [appealStates.received_lpa_questionnaire])) {
+	} if (arrayOfStatusesContainsString(appealStatuses, [appealStates.received_lpa_questionnaire])) {
 		return 'received';
-	} else if (arrayOfStatusesContainsString(appealStatuses, [appealStates.incomplete_lpa_questionnaire])) {
+	} if (arrayOfStatusesContainsString(appealStatuses, [appealStates.incomplete_lpa_questionnaire])) {
 		return 'incomplete_lpa_questionnaire';
-	} else {
-		return '';
 	}
+		return '';
+
 }
 
 /**
  * @param {Array} status appeal status array
+ * @param appealStatusesParallel
  * @returns {string} reformatted appeal status
  */
 function mapAppealParallelStatuses(appealStatusesParallel) {
 	if (arrayOfStatusesContainsString(appealStatusesParallel, [appealStates.available_for_statements])) {
 		return 'available_for_statements';
-	} else if (arrayOfStatusesContainsString(appealStatusesParallel, [appealStates.available_for_final_comments])) {
+	} if (arrayOfStatusesContainsString(appealStatusesParallel, [appealStates.available_for_final_comments])) {
 		return 'available_for_final_comments';
-	} else {
-		return '';
 	}
+		return '';
+
 }
 
 const appealFormatter = {
-	formatAppealForAllAppeals: function (appeal) {
+	formatAppealForAllAppeals (appeal) {
 		const appealStatus = mapAppealStatus(appeal.appealStatus);
+
 		return {
 			AppealId: appeal.id,
 			AppealReference: appeal.reference,
@@ -56,8 +60,9 @@ const appealFormatter = {
 			QuestionnaireDueDate: appeal.startedAt ? formatDate(add2Weeks(appeal.startedAt)) : ''
 		};
 	},
-	formatAppealForParallelStates: function (appeal) {
+	formatAppealForParallelStates (appeal) {
 		const appealStatusParallel = mapAppealParallelStatuses(appeal.appealStatus);
+
 		return {
 			AppealId: appeal.id,
 			AppealReference: appeal.reference,
@@ -66,27 +71,27 @@ const appealFormatter = {
 			QuestionnaireDueDate: appeal.startedAt ? formatDate(add2Weeks(appeal.startedAt)) : ''
 		};
 	},
-	formatAppealForAfterStatementUpload: function(appeal) {
+	formatAppealForAfterStatementUpload(appeal) {
 		return {
 			AppealId: appeal.id,
 			AppealReference: appeal.reference,
 			canUploadStatementsUntil: formatDate(addWeeksToDate(
-				getAppealStatusCreatedAt(appeal.appealStatus, appealStates.available_for_statements), 
+				getAppealStatusCreatedAt(appeal.appealStatus, appealStates.available_for_statements),
 				weeksReceivingDocuments.statements
 			), false)
 		};
 	},
-	formatAppealAfterFinalCommentUpload: function(appeal) {
+	formatAppealAfterFinalCommentUpload(appeal) {
 		return {
 			AppealId: appeal.id,
 			AppealReference: appeal.reference,
 			canUploadFinalCommentsUntil: formatDate(addWeeksToDate(
-				getAppealStatusCreatedAt(appeal.appealStatus, appealStates.available_for_final_comments), 
+				getAppealStatusCreatedAt(appeal.appealStatus, appealStates.available_for_final_comments),
 				weeksReceivingDocuments.finalComments
 			), false)
 		};
 	},
-	formatAppealForAppealDetails: function (appeal) {
+	formatAppealForAppealDetails (appeal) {
 		return {
 			AppealId: appeal.id,
 			AppealReference: appeal.reference,

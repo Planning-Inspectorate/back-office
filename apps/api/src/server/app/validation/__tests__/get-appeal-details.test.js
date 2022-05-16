@@ -1,13 +1,12 @@
-// eslint-disable-next-line import/no-unresolved
 import test from 'ava';
-import supertest from 'supertest';
 import sinon from 'sinon';
+import supertest from 'supertest';
 import { app } from '../../../app.js';
 import DatabaseFactory from '../../repositories/database.js';
 
 const request = supertest(app);
 
-const appeal_1 = {
+const appeal1 = {
 	id: 1,
 	reference: 'APP/Q9999/D/21/1345264',
 	appealStatus: [{
@@ -30,7 +29,7 @@ const appeal_1 = {
 		postcode: 'post code'
 	}
 };
-const appeal_2 = {
+const appeal2 = {
 	id: 2,
 	reference: 'APP/Q9999/D/21/1224115',
 	appellant: {
@@ -68,14 +67,14 @@ const appeal_2 = {
 		postcode: 'NR35 2ND'
 	}
 };
-const appeal_3 = {
+const appeal3 = {
 	id: 3,
 	appealStatus: [{
 		status: 'invalid',
 		valid: true
 	}]
 };
-const appeal_4 = {
+const appeal4 = {
 	id: 4,
 	reference: 'APP/Q9999/D/21/1224115',
 	appellant: {
@@ -114,10 +113,10 @@ const appeal_4 = {
 	}
 };
 const getAppealByIdStub = sinon.stub();
-const includingDetailsForResponse = { 
-	validationDecision: true, 
-	address: true, 
-	appellant: true, 
+const includingDetailsForResponse = {
+	validationDecision: true,
+	address: true,
+	appellant: true,
 	appealStatus: { where: { valid: true } },
 	appealType: true
 };
@@ -125,13 +124,14 @@ const includingDetailsForValidtion = {
 	appealStatus: { where: { valid: true } },
 	appealType: true
 };
-getAppealByIdStub.withArgs({ where: { id: 1 }, include: includingDetailsForResponse }).returns(appeal_1);
-getAppealByIdStub.withArgs({ where: { id: 1 }, include: includingDetailsForValidtion }).returns(appeal_1);
-getAppealByIdStub.withArgs({ where: { id: 2 }, include: includingDetailsForResponse }).returns(appeal_2);
-getAppealByIdStub.withArgs({ where: { id: 2 }, include: includingDetailsForValidtion }).returns(appeal_2);
-getAppealByIdStub.withArgs({ where: { id: 3 }, include: includingDetailsForValidtion }).returns(appeal_3);
-getAppealByIdStub.withArgs({ where: { id: 4 }, include: includingDetailsForResponse }).returns(appeal_4);
-getAppealByIdStub.withArgs({ where: { id: 4 }, include: includingDetailsForValidtion }).returns(appeal_4);
+
+getAppealByIdStub.withArgs({ where: { id: 1 }, include: includingDetailsForResponse }).returns(appeal1);
+getAppealByIdStub.withArgs({ where: { id: 1 }, include: includingDetailsForValidtion }).returns(appeal1);
+getAppealByIdStub.withArgs({ where: { id: 2 }, include: includingDetailsForResponse }).returns(appeal2);
+getAppealByIdStub.withArgs({ where: { id: 2 }, include: includingDetailsForValidtion }).returns(appeal2);
+getAppealByIdStub.withArgs({ where: { id: 3 }, include: includingDetailsForValidtion }).returns(appeal3);
+getAppealByIdStub.withArgs({ where: { id: 4 }, include: includingDetailsForResponse }).returns(appeal4);
+getAppealByIdStub.withArgs({ where: { id: 4 }, include: includingDetailsForValidtion }).returns(appeal4);
 
 class MockDatabaseClass {
 	constructor(_parameters) {
@@ -199,12 +199,14 @@ test('gets appeal that requires validation', async (t) => {
 		PlanningApplicationReference: '48269/APP/2021/1482',
 		Documents: documentsArray
 	};
+
 	t.is(resp.status, 200);
 	t.deepEqual(resp.body, appealReviewInfo);
 });
 
 test('throws 409 when appeal does not require validation', async (t) => {
 	const resp = await request.get('/validation/3');
+
 	t.is(resp.status, 409);
 	t.deepEqual(resp.body, {
 		errors: {
@@ -243,6 +245,7 @@ test('returns appeal with all reasons why it is in \'incomplete\' state', async 
 			wrongAppealTypeUsed: true,
 		}
 	};
+
 	t.is(resp.status, 200);
 	t.deepEqual(resp.body, appealReviewInfo);
 });
@@ -269,6 +272,7 @@ test('returns appeal with one reason why it is in \'incomplete\' state', async (
 			inflammatoryComments: true
 		}
 	};
+
 	t.is(resp.status, 200);
 	t.deepEqual(resp.body, appealReviewInfo);
 });
