@@ -6,7 +6,7 @@ import kleur from 'kleur';
 export const ttlCache = new Map();
 
 const instance = got.extend({
-	prefixUrl: config.API_HOST,
+	prefixUrl: config.apiUrl,
 	responseType: 'json',
 	resolveBodyOnly: true,
 	hooks: {

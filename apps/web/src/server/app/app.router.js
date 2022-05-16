@@ -15,9 +15,9 @@ router.route('/').get(
 		accessRule: {
 			methods: ['GET', 'POST'],
 			groups: [
-				config.auth.validationOfficerGroupID,
-				config.auth.caseOfficerGroupID,
-				config.auth.inspectorGroupID
+				config.referencedata.groups.validationOfficerGroupId,
+				config.referencedata.groups.caseOfficerGroupId,
+				config.referencedata.groups.inspectorGroupId
 			]
 		}
 	}),

@@ -7,16 +7,16 @@ export default joi
 		authRedirectTo: joi.string(),
 		bundleAnalyzer: joi.boolean(),
 		env: joi.string().valid('development', 'production', 'test'),
+		isRelease: joi.boolean().optional(),
 		msal: joi
 			.object({
-				msalClientId: joi.string(),
-				msalCloudInstanceId: joi.string(),
-				msalTenantId: joi.string(),
-				msalClientSecret: joi.string()
+				clientId: joi.string(),
+				clientSecret: joi.string(),
+				cloudInstanceId: joi.string(),
+				tenantId: joi.string()
 			})
 			.options({ presence: 'required' })
 			.when('authDisabled', requireIf(false)),
-		release: joi.boolean(),
 		serverProtocol: joi.string().valid('http', 'https'),
 		serverPort: joi.number(),
 		sslCertificateFile: joi.string().when('serverProtocol', requireIf('https')),
@@ -24,12 +24,12 @@ export default joi
 		referencedata: joi.object({
 			groups: joi
 				.object({
+					caseOfficerGroupId: joi.string(),
 					inspectorGroupId: joi.string(),
-					caseOfficeGroupId: joi.string(),
 					validationOfficerGroupId: joi.string()
 				})
 				.options({ presence: 'required' })
-				.when('msalEnabled', requireIf(true))
+				.when('authDisabled', requireIf(false))
 		})
 	})
 	.options({ presence: 'required' });

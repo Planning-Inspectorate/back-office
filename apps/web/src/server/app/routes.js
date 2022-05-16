@@ -24,7 +24,10 @@ router.use(
 	'/validation',
 	isAuthenticated,
 	hasAccess({
-		accessRule: { methods: ['GET', 'POST'], groups: [config.auth.validationOfficerGroupID] }
+		accessRule: {
+			methods: ['GET', 'POST'],
+			groups: [config.referencedata.groups.validationOfficerGroupId]
+		}
 	}),
 	registerValidationLocals,
 	validationRouter
@@ -34,7 +37,12 @@ router.use(
 router.use(
 	'/lpa',
 	isAuthenticated,
-	hasAccess({ accessRule: { methods: ['GET', 'POST'], groups: [config.auth.caseOfficerGroupID] } }),
+	hasAccess({
+		accessRule: {
+			methods: ['GET', 'POST'],
+			groups: [config.referencedata.groups.caseOfficerGroupId]
+		}
+	}),
 	registerLpaLocals,
 	lpaRouter
 );
@@ -43,7 +51,9 @@ router.use(
 router.use(
 	'/inspector',
 	isAuthenticated,
-	hasAccess({ accessRule: { methods: ['GET', 'POST'], groups: [config.auth.inspectorGroupID] } }),
+	hasAccess({
+		accessRule: { methods: ['GET', 'POST'], groups: [config.referencedata.groups.inspectorGroupId] }
+	}),
 	registerInspectorLocals,
 	inspectorRouter
 );
