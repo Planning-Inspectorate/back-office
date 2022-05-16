@@ -11,6 +11,6 @@ export default session({
 	saveUninitialized: true,
 	store,
 	cookie: {
-		secure: config.isProd
+		secure: config.isProduction
 	}
 });

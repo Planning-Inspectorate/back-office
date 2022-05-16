@@ -17,7 +17,7 @@ const getConfig = (filename) => {
 
 export default {
 	cspNonce: 'EdcOUaJ8lczj9tIPO0lPow==',
-	isProd: config.isProd,
+	isProd: config.isProduction,
 	isRelease: config.isRelease,
 	pathToCss: getConfig('resourceCSS.json').path,
 	pathToJs: getConfig('resourceJS.json').path

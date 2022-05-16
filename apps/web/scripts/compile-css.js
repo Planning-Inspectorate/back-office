@@ -11,7 +11,7 @@ import config from '../environment/config.js';
 /** @typedef {import('source-map-js').RawSourceMap} RawSourceMap */
 /** @typedef {import('postcss').SourceMap} SourceMap */
 
-const { isProd: isProduction, isRelease } = config;
+const { isProduction, isRelease } = config;
 const logger = getLogger({ scope: 'Sass' });
 
 const appDirectory = fs.realpathSync(process.cwd());

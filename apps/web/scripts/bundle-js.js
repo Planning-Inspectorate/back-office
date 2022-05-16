@@ -13,7 +13,7 @@ import { rollup } from 'rollup';
 import { visualizer } from 'rollup-plugin-visualizer';
 import config from '../environment/config.js';
 
-const { NODE_ENV, bundleAnalyzer, isProd: isProduction, isRelease } = config;
+const { env, bundleAnalyzer, isProduction, isRelease } = config;
 
 const logger = getLogger({ scope: 'JS' });
 
@@ -28,7 +28,7 @@ process.on('unhandledRejection', (reason, p) => {
 const virtualImports = {
 	pi_config: {
 		isProduction,
-		env: NODE_ENV || 'dev',
+		env: env || 'dev',
 		version: `v${new Date().toISOString().replace(/\D/g, '').slice(0, 12)}`
 	}
 };

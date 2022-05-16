@@ -23,7 +23,7 @@ const app = express();
 // Initialize app locals
 app.locals = locals;
 
-if (!config.isProd) {
+if (!config.isProduction) {
 	app.use(morganLogger('dev'));
 }
 

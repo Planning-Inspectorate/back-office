@@ -5,9 +5,9 @@ import config from '@pins/web/environment/config.js';
 
 export const msalClient = new msal.ConfidentialClientApplication({
 	auth: {
-		clientId: config.auth.sso.clientId,
-		authority: `${config.auth.sso.cloudInstanceId}/${config.auth.sso.tenantId}`,
-		clientSecret: config.auth.sso.clientSecret
+		clientId: config.msal.clientId,
+		authority: config.msal.authority,
+		clientSecret: config.msal.clientSecret
 	},
 	system: {
 		loggerOptions: {
