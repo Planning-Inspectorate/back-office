@@ -111,10 +111,10 @@ export function authSignIn(request, response, next) {
 
 	/** @type {AuthCodeParams} */
 	const parameters = {
-		authority: `${config.auth.sso.cloudInstanceId}/${config.auth.sso.tenantId}`,
+		authority: config.msal.authority,
 		scopes: ['user.read'],
 		state,
-		redirect: ensureAbsoluteUrl(request, config.auth.redirectUri)
+		redirect: ensureAbsoluteUrl(request, config.authRedirectTo)
 	};
 
 	// Get url to sign user in

@@ -9,14 +9,14 @@ export default pino({
 		targets: [
 			{
 				target: 'pino/file',
-				level: config.LOG_LEVEL_FILE,
+				level: config.logLevelFile,
 				options: {
 					destination: path.join(config.cwd, './server.log')
 				}
 			},
 			{
 				target: 'pino-pretty',
-				level: config.LOG_LEVEL_STDOUT,
+				level: config.logLevelStdOut,
 				options: {
 					destination: 1,
 					ignore: 'pid,hostname',

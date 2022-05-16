@@ -15,21 +15,25 @@ app.set('trust proxy', true);
 app.set('etag', 'weak');
 
 // Express http/s ports
-app.set('http-port', config.HTTP_PORT);
-app.set('https-port', config.HTTPS_PORT);
 
-app.listen(app.get('http-port'), () => {
-	pino.info(
-		`Server is running at http://localhost:${app.get('http-port')} in ${app.get('env')} mode`
-	);
-});
+if (config.serverProtocol === 'http') {
+	app.set('http-port', config.serverPort);
 
-if (config.HTTPS_ENABLED) {
+	app.listen(app.get('http-port'), () => {
+		pino.info(
+			`Server is running at http://localhost:${app.get('http-port')} in ${app.get('env')} mode`
+		);
+	});
+}
+
+if (config.serverProtocol === 'https') {
+	app.set('https-port', config.serverPort);
+
 	https
 		.createServer(
 			{
-				cert: fs.readFileSync(path.resolve(config.SSL_CERT_FILE)),
-				key: fs.readFileSync(path.resolve(config.SSL_KEY_FILE))
+				cert: fs.readFileSync(path.resolve(config.sslCertificateFile)),
+				key: fs.readFileSync(path.resolve(config.sslCertificateKeyFile))
 			},
 			app
 		)

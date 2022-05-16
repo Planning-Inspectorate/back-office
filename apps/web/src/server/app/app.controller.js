@@ -10,9 +10,9 @@ import pino from '../lib/logger.js';
  */
 export function viewHomepage(request, response, next) {
 	const userGroups = [
-		config.auth.validationOfficerGroupID,
-		config.auth.caseOfficerGroupID,
-		config.auth.inspectorGroupID
+		config.referencedata.groups.validationOfficerGroupId,
+		config.referencedata.groups.caseOfficerGroupId,
+		config.referencedata.groups.inspectorGroupId
 	];
 	const creds = request.session.account?.idTokenClaims?.groups ?? [];
 
@@ -20,13 +20,13 @@ export function viewHomepage(request, response, next) {
 		response.render('app/dashboard');
 	} else {
 		switch (creds[0]) {
-			case config.auth.validationOfficerGroupID:
+			case config.referencedata.groups.validationOfficerGroupId:
 				response.redirect('/validation');
 				break;
-			case config.auth.caseOfficerGroupID:
+			case config.referencedata.groups.caseOfficerGroupId:
 				response.redirect('/lpa');
 				break;
-			case config.auth.inspectorGroupID:
+			case config.referencedata.groups.inspectorGroupId:
 				response.redirect('/inspector');
 				break;
 			default: {

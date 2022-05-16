@@ -8,7 +8,7 @@ export const ttlCache = new Map();
 const [requestLogger, responseLogger] = createHttpLoggerHooks(pino);
 
 const instance = got.extend({
-	prefixUrl: config.API_HOST,
+	prefixUrl: config.apiUrl,
 	responseType: 'json',
 	resolveBodyOnly: true,
 	handlers: [createTtlHandler(ttlCache)],
