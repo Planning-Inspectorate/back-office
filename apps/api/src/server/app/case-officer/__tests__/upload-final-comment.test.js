@@ -8,8 +8,8 @@ import DatabaseFactory from '../../repositories/database.js';
 import { appealFactoryForTests } from '../../utils/appeal-factory-for-tests.js';
 
 const request = supertest(app);
-const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
-const pathToFile = path.join(__dirname, './assets/simple.pdf');
+const dirname = url.fileURLToPath(new URL('.', import.meta.url));
+const pathToFile = path.join(dirname, './assets/simple.pdf');
 
 const appeal1 = appealFactoryForTests(1, [{
 	id: 1,

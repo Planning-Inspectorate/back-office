@@ -36,8 +36,10 @@ const separateStatusesToSaveAndInvalidate = (newStatuses, currentStatuses) => {
 
 		const newStates = map(newStatuses, 'status');
 		const oldStates = map(currentStatuses, 'status');
-		const appealStateIdsToInvalidate = map(filter(currentStatuses, (currentState) => { return !includes(newStates, currentState.status) }), 'id');
-		const newStatesToCreate = filter(newStatuses, (newStatus) => { return !includes(oldStates, newStatus.status) });
+		const appealStateIdsToInvalidate = map(filter(currentStatuses, (currentState) => {
+			return !includes(newStates, currentState.status) }),'id');
+		const newStatesToCreate = filter(newStatuses, (newStatus) => {
+			return !includes(oldStates, newStatus.status) });
 
 		return {
 			appealStatesToInvalidate: appealStateIdsToInvalidate,
