@@ -86,7 +86,7 @@ export const assignAppealsById = async (userId, appealIds) => {
 			lpaQuestionnaire: true
 		});
 
-		if (appeal.userId === undefined && arrayOfStatusesContainsString(appeal.appealStatus, [appealStates.available_for_inspector_pickup])) {
+		if (typeof(appeal.userId) === "undefined" && arrayOfStatusesContainsString(appeal.appealStatus, [appealStates.available_for_inspector_pickup])) {
 			try {
 				const appealStatus = buildAppealCompundStatus(appeal.appealStatus);
 				const nextState = transitionState(appeal.appealType.type, { appealId: appeal.id }, appealStatus, 'PICKUP');
@@ -100,7 +100,7 @@ export const assignAppealsById = async (userId, appealIds) => {
 			}
 		} else if (!arrayOfStatusesContainsString(appeal.appealStatus, [appealStates.available_for_inspector_pickup])) {
 			unsuccessfullyAssigned.push(appealFormatter.formatAppealForAssigningAppeals(appeal, 'appeal in wrong state'));
-		} else if (appeal.userId !== undefined) {
+		} else if (typeof(appeal.userId) !== "undefined") {
 			unsuccessfullyAssigned.push(appealFormatter.formatAppealForAssigningAppeals(appeal, 'appeal already assigned'));
 		}
 	}));

@@ -30,22 +30,22 @@ export const validateAppealDetails = composeMiddleware(
 const invalidWithoutReasons = (body) => {
 	return (!!((
 		(body.reason.applicationPlansToReachDecisionMissingOrIncorrect === true &&
-		body.reason.applicationPlansToReachDecisionMissingOrIncorrectDescription === undefined) ||
+		typeof(body.reason.applicationPlansToReachDecisionMissingOrIncorrectDescription) === "undefined") ||
 		(body.reason.policiesStatutoryDevelopmentPlanPoliciesMissingOrIncorrect === true &&
-		body.reason.policiesStatutoryDevelopmentPlanPoliciesMissingOrIncorrectDescription === undefined) ||
+		typeof(body.reason.policiesStatutoryDevelopmentPlanPoliciesMissingOrIncorrectDescription) === "undefined") ||
 		(body.reason.policiesOtherRelevanPoliciesMissingOrIncorrect === true &&
-		body.reason.policiesOtherRelevanPoliciesMissingOrIncorrectDescription === undefined) ||
+		typeof(body.reason.policiesOtherRelevanPoliciesMissingOrIncorrectDescription) === "undefined") ||
 		(body.reason.policiesSupplementaryPlanningDocumentsMissingOrIncorrect === true &&
-		body.reason.policiesSupplementaryPlanningDocumentsMissingOrIncorrectDescription === undefined) ||
+		typeof(body.reason.policiesSupplementaryPlanningDocumentsMissingOrIncorrectDescription) === "undefined") ||
 		(body.reason.siteConservationAreaMapAndGuidanceMissingOrIncorrect === true &&
-		body.reason.siteConservationAreaMapAndGuidanceMissingOrIncorrectDescription === undefined) ||
+		typeof(body.reason.siteConservationAreaMapAndGuidanceMissingOrIncorrectDescription) === "undefined") ||
 		(body.reason.siteListedBuildingDescriptionMissingOrIncorrect === true &&
-		body.reason.siteListedBuildingDescriptionMissingOrIncorrectDescription === undefined) ||
+		typeof(body.reason.siteListedBuildingDescriptionMissingOrIncorrectDescription) === "undefined") ||
 		(body.reason.thirdPartyApplicationNotificationMissingOrIncorrect === true &&
 			(body.reason.thirdPartyApplicationNotificationMissingOrIncorrectListOfAddresses === false &&
 			body.reason.thirdPartyApplicationNotificationMissingOrIncorrectCopyOfLetterOrSiteNotice === false)) ||
 		(body.reason.thirdPartyRepresentationsMissingOrIncorrect === true &&
-		body.reason.thirdPartyRepresentationsMissingOrIncorrectDescription === undefined) ||
+		typeof(body.reason.thirdPartyRepresentationsMissingOrIncorrectDescription) === "undefined") ||
 		(body.reason.thirdPartyAppealNotificationMissingOrIncorrect === true &&
 			(body.reason.thirdPartyAppealNotificationMissingOrIncorrectListOfAddresses === false &&
 			body.reason.thirdPartyAppealNotificationMissingOrIncorrectCopyOfLetterOrSiteNotice === false))
