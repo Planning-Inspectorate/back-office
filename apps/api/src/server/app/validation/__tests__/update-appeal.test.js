@@ -26,7 +26,7 @@ findUniqueStub.withArgs({ where: { id: 1 }, include: includingDetailsForValidtio
 const updateStub = sinon.stub();
 
 class MockDatabaseClass {
-	constructor(_parameters) {
+	constructor() {
 		this.pool = {
 			appeal: {
 				findUnique: findUniqueStub,

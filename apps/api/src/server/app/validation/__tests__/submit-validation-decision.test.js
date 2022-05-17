@@ -83,7 +83,7 @@ const createManyAppealStatusesStub = sinon.stub();
 const createAppealStatusStub = sinon.stub();
 
 class MockDatabaseClass {
-	constructor(_parameters) {
+	constructor() {
 		this.pool = {
 			appeal: {
 				findUnique: getAppealByIdStub,

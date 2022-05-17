@@ -15,7 +15,7 @@ const newDecision = {
 addNewDecision.returns(newDecision);
 
 class MockDatabaseClass {
-	constructor(_parameters) {
+	constructor() {
 		this.pool = {
 			validationDecision: {
 				create: addNewDecision

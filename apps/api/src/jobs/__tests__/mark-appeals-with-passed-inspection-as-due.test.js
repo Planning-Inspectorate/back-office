@@ -22,7 +22,7 @@ const updateManyAppealStatusStub = sinon.stub();
 const createAppealStatusStub = sinon.stub();
 
 class MockDatabaseClass {
-	constructor(_parameters) {
+	constructor() {
 		this.pool = {
 			appeal: {
 				update: updateStub,

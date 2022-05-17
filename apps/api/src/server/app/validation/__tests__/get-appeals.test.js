@@ -44,7 +44,7 @@ const appeal2 = {
 };
 
 class MockDatabaseClass {
-	constructor(_parameters) {
+	constructor() {
 		this.pool = {
 			appeal: {
 				findMany: sinon.stub().returns([appeal1, appeal2])

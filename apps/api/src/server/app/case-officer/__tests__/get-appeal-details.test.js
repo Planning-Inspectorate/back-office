@@ -126,7 +126,7 @@ const listOfDocuments = [
 ];
 
 class MockDatabaseClass {
-	constructor(_parameters) {
+	constructor() {
 		this.pool = {
 			appeal: {
 				findUnique: findUniqueStub

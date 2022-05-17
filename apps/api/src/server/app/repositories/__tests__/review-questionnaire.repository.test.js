@@ -16,7 +16,7 @@ const newReview = {
 addReview.returns(newReview);
 
 class MockDatabaseClass {
-	constructor(_parameters) {
+	constructor() {
 		this.pool = {
 			reviewQuestionnaire: {
 				create: addReview

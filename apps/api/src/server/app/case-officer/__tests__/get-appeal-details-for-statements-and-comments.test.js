@@ -42,7 +42,7 @@ findUniqueStub.withArgs({ where: { id: 2 }, include: includingDetailsForValidtio
 
 
 class MockDatabaseClass {
-	constructor(_parameters) {
+	constructor() {
 		this.pool = {
 			appeal: {
 				findUnique: findUniqueStub

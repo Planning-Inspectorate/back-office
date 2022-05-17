@@ -31,7 +31,7 @@ findUniqueStub.withArgs({ where: { id: 1 }, include: inclusions }).returns(appea
 findUniqueStub.withArgs({ where: { id: 2 }, include: inclusions }).returns(appeal2);
 
 class MockDatabaseClass {
-	constructor(_parameters) {
+	constructor() {
 		this.pool = {
 			appeal: {
 				findUnique: findUniqueStub,

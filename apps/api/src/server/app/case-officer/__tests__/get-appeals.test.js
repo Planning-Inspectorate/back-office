@@ -170,7 +170,7 @@ findManyStub.withArgs({
 }).returns([appeal5, appeal6]);
 
 class MockDatabaseClass {
-	constructor(_parameters) {
+	constructor() {
 		this.pool = {
 			appeal: {
 				findMany: findManyStub

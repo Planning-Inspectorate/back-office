@@ -134,7 +134,7 @@ getAppealByIdStub.withArgs({ where: { id: 4 }, include: includingDetailsForRespo
 getAppealByIdStub.withArgs({ where: { id: 4 }, include: includingDetailsForValidtion }).returns(appeal4);
 
 class MockDatabaseClass {
-	constructor(_parameters) {
+	constructor() {
 		this.pool = {
 			appeal: {
 				findUnique: getAppealByIdStub
