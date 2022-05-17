@@ -1,7 +1,7 @@
 import test from 'ava';
 import sinon from 'sinon';
-import DatabaseFactory from './database.js';
-import validationDecisionRepository from './validation-decision.repository.js';
+import DatabaseFactory from '../database.js';
+import validationDecisionRepository from '../validation-decision.repository.js';
 
 const addNewDecision = sinon.stub();
 

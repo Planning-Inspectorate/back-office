@@ -26,7 +26,7 @@ function getDateTwoWeeksAgo() {
 }
 
 /**
- *
+ * @returns {string}
  */
 function generateAppealReference() {
 	const number = Math.floor(
@@ -38,7 +38,8 @@ function generateAppealReference() {
 
 /**
  *
- * @param list
+ * @param {object[]} list
+ * @returns {object}
  */
 function pickRandom(list) {
 	return list[Math.floor(Math.random()*list.length)];
@@ -64,12 +65,12 @@ const buildCompoundState = (lpaQuestionnaireAndInspectorPickupState, statementsA
 
 const appealFactory = (
 	typeShorthand,
+	startedAt,
 	statuses = {},
 	incompleteValidationDecision = false,
 	invalidValidationDecision = false,
 	completeValidationDecision = false,
 	lpaQuestionnaire = false,
-	startedAt,
 	incompleteReviewQuestionnaire = false,
 	completeReviewQuestionnaire = false,
 	connectToUser = false,

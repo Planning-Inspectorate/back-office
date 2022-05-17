@@ -11,7 +11,7 @@ import {
 	lpaQuestionnaireList} from '../../../../prisma/seed-samples.js';
 
 /**
- *
+ * @returns {string}
  */
 function generateAppealReference() {
 	const number = Math.floor(
@@ -27,8 +27,8 @@ const appealTypes = {
 };
 
 /**
- *
- * @param list
+ * @param {object} list
+ * @returns {number} list
  */
 function pickRandom(list) {
 	return list[Math.floor(Math.random()*list.length)];

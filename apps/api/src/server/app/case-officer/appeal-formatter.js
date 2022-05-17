@@ -15,8 +15,7 @@ const add2Weeks = (date) => {
 };
 
 /**
- * @param {Array} status appeal status array
- * @param appealStatuses
+ * @param {object} appealStatuses
  * @returns {string} reformatted appeal status
  */
 function mapAppealStatus(appealStatuses) {
@@ -34,8 +33,7 @@ function mapAppealStatus(appealStatuses) {
 }
 
 /**
- * @param {Array} status appeal status array
- * @param appealStatusesParallel
+ * @param {object} appealStatusesParallel
  * @returns {string} reformatted appeal status
  */
 function mapAppealParallelStatuses(appealStatusesParallel) {

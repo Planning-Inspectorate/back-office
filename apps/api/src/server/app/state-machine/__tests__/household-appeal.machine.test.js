@@ -44,7 +44,7 @@ function applyAction(t, initialState, action, expectedState, hasChanged, context
 	}
 }
 
-applyAction.title = (providedTitle = '', initialState, action, expectedState, hasChanged, context) =>
+applyAction.title = (initialState, action, expectedState, hasChanged, context, providedTitle = '') =>
 	`${providedTitle}: from state [${initialState}] with context ${JSON.stringify(context)} action [${action}] produces state
 	[${expectedState}] ${hasChanged ? '' : ' without'} having transitioned`;
 

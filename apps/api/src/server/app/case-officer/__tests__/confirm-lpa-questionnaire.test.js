@@ -1,4 +1,3 @@
-// eslint-disable-next-line import/no-unresolved
 import test from 'ava';
 import sinon from 'sinon';
 import supertest from 'supertest';
@@ -7,7 +6,7 @@ import DatabaseFactory from '../../repositories/database.js';
 
 const request = supertest(app);
 
-const appeal_10 = {
+const appeal10 = {
 	id: 10,
 	reference: 'APP/Q9999/D/21/1345264',
 	appealStatus: [{
@@ -27,7 +26,7 @@ const appeal_10 = {
 	}
 };
 
-const appeal_11 = {
+const appeal11 = {
 	id: 11,
 	reference: 'APP/Q9999/D/21/1087562',
 	appealStatus: [{
@@ -58,8 +57,8 @@ const includeForValidation = {
 
 const getAppealByIdStub = sinon.stub();
 
-getAppealByIdStub.withArgs({ where: { id: 11 },	include: includeForValidation }).returns(appeal_11);
-getAppealByIdStub.withArgs({ where: { id: 10 },	include: includeForValidation }).returns(appeal_10);
+getAppealByIdStub.withArgs({ where: { id: 11 },	include: includeForValidation }).returns(appeal11);
+getAppealByIdStub.withArgs({ where: { id: 10 },	include: includeForValidation }).returns(appeal10);
 
 const addReviewStub = sinon.stub();
 

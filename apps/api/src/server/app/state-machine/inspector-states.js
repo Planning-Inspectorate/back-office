@@ -41,7 +41,7 @@ const inspectorBookingStates = {
 	},
 };
 
-const generateInspectorPickupStates = function(stateAfterPickup, additionalStates) {
+const generateInspectorPickupStates = (stateAfterPickup, additionalStates) => {
 	return {
 		available_for_inspector_pickup: {
 			on: {

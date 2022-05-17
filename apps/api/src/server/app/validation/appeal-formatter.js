@@ -8,7 +8,7 @@ const appealAwaitingValidationInfo = (appeal) => {
 };
 
 /**
- * @param {} appeal
+ * @param {string} appeal
  * @returns {string} reformatted appeal status
  */
 function mapAppealStatus(appeal) {

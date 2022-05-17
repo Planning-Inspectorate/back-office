@@ -1,4 +1,3 @@
-// eslint-disable-next-line import/no-unresolved
 import test from 'ava';
 import sinon from 'sinon';
 import supertest from 'supertest';
@@ -149,7 +148,7 @@ test('gets the appeals detailed information with received questionnaires', async
 		PlanningApplicationreference: appeal1.planningApplicationReference,
 		AppealSite: {
 			...(appeal1.address.addressLine1 && { AddressLine1: appeal1.address.addressLine1 }),
-			...(appeal1.address.addressLine2 && { AddressLine2: appeal_.address.addressLine2 }),
+			...(appeal1.address.addressLine2 && { AddressLine2: appeal1.address.addressLine2 }),
 			...(appeal1.address.town && { Town: appeal1.address.town }),
 			...(appeal1.address.county && { County: appeal1.address.county }),
 			PostCode: appeal1.address.postcode

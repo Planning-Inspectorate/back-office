@@ -1,6 +1,6 @@
 /**
  * @param {Date} date date object to be formatted for getValidation controller
- * @param shortened
+ * @param {object} shortened
  * @returns {string} merged date parts in format DD MMM YYYY
  */
 function formatDate(date, shortened = true) {

@@ -1,6 +1,4 @@
 // @ts-check
-
-// eslint-disable-next-line import/no-unresolved
 import test from 'ava';
 import sinon, { assert } from 'sinon';
 import supertest from 'supertest';
@@ -18,7 +16,9 @@ const appealDetailsBody = {
 };
 
 // todo: replace with factory
-/** @type {DeepPartial<Appeal>} */
+/**
+ * @type {DeepPartial<Appeal>}
+ */
 const originalAppeal = {
 	id: 1,
 	reference: 'APP/Q9999/D/21/323259',

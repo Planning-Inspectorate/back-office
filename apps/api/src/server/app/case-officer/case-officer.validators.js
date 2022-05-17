@@ -27,7 +27,7 @@ export const validateAppealDetails = composeMiddleware(
 	validationErrorHandler
 );
 
-const invalidWithoutReasons = function (body) {
+const invalidWithoutReasons = (body) => {
 	return (!!((
 		(body.reason.applicationPlansToReachDecisionMissingOrIncorrect === true &&
 		body.reason.applicationPlansToReachDecisionMissingOrIncorrectDescription === undefined) ||
@@ -52,7 +52,7 @@ const invalidWithoutReasons = function (body) {
 	)));
 };
 
-const incompleteWithUnexpectedReasons = function (body) {
+const incompleteWithUnexpectedReasons = (body) => {
 	return difference(Object.keys(body.reason), [
 		'applicationPlanningOfficersReportMissingOrIncorrect',
 		'applicationPlansToReachDecisionMissingOrIncorrect',
@@ -97,12 +97,13 @@ export const validateReviewRequest = (request, response, next) => {
 	}
 };
 
-export const validateFilesUpload = function(filename) {
+export const validateFilesUpload = (filename) => {
 	return composeMiddleware(
 		multer({
 			storage: multer.memoryStorage(),
 			limits: {
-				fileSize: 15 * Math.pow(1024, 2 /* MBs */)
+				/* MBs */
+				fileSize: 15 * (1024** 2)
 			}
 		}).array(filename),
 		mapMulterErrorToValidationError,

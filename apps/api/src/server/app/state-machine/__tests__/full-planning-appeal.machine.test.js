@@ -51,7 +51,7 @@ const buildCompoundState = (lpaQuestionnaireAndInspectorPickupState, statementsA
 	}, };
 };
 
-applyAction.title = (providedTitle = '', initialState, action, expectedState, hasChanged, context) =>
+applyAction.title = (initialState, action, expectedState, hasChanged, context, providedTitle = '') =>
 	`Full Planning Appeal State Machine: ${providedTitle}: from state [${JSON.stringify(initialState)}]
 	with context ${JSON.stringify(context)} action [${action}] produces state
 	[${JSON.stringify(expectedState)}] ${hasChanged ? '' : ' without'} having transitioned`;

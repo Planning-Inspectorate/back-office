@@ -1,4 +1,3 @@
-// eslint-disable-next-line import/no-unresolved
 import test from 'ava';
 import sinon from 'sinon';
 import DatabaseFactory from '../../server/app/repositories/database.js';

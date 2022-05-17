@@ -1,7 +1,8 @@
 import test from 'ava';
 import sinon from 'sinon';
-import DatabaseFactory from './database.js';
-import newReviewRepository from './review-questionnaire.repository.js';
+import supertest from 'supertest';
+import DatabaseFactory from '../database.js';
+import newReviewRepository from '../review-questionnaire.repository.js';
 
 const addReview = sinon.stub();
 

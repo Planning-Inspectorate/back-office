@@ -65,7 +65,7 @@ getAppealByIdStub.withArgs({ where: { id: 6 }, include: includingDetailsForValid
 getAppealByIdStub.withArgs({ where: { id: 10 }, include: includingDetailsForResponse }).returns(appeal10);
 getAppealByIdStub.withArgs({ where: { id: 10 }, include: includingDetailsForValidtion }).returns(appeal10);
 
-updateStub.returns({ ...appea1 });
+updateStub.returns({ ...appeal1 });
 
 const addNewDecisionStub = sinon.stub();
 
