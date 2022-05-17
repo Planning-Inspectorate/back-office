@@ -1,58 +1,100 @@
-import { BlobServiceClient } from '@azure/storage-blob';
-import getStream from 'into-stream';
+import { BlobServiceClient, BlockBlobClient,ContainerClient } from '@azure/storage-blob';
 import md5 from 'crypto-js/md5.js';
+import getStream from 'into-stream';
 import config from '../../config/config.js';
 
-const connectionString = config.blobStore.connectionString;
-const containerName = config.blobStore.container;
+const {connectionString, container} = config.blobStore;
 
-const getBlobName = (originalName) => {
+/**
+ *
+ * @param {string} originalName
+ * @returns {string}
+ */
+function getBlobName(originalName) {
 	const identifier = Math.random().toString().replace(/0\./, '');
+
 	return `${identifier}-${originalName}`;
-};
+}
 
-const getContainerClient = function () {
+/**
+ * @returns {ContainerClient}
+ */
+function getContainerClient() {
 	const blobServiceClient = BlobServiceClient.fromConnectionString(connectionString);
-	return blobServiceClient.getContainerClient(containerName);
-};
 
-const getBlockBlobClient = function(blobName) {
+	return blobServiceClient.getContainerClient(container);
+}
+
+/**
+ *
+ * @param {string} blobName
+ * @returns {BlockBlobClient}
+ */
+function getBlockBlobClient(blobName) {
 	return getContainerClient().getBlockBlobClient(blobName);
 }
 
-export const getListOfBlobs = async function (type, id) {
+/**
+ *
+ * @param {string} type
+ * @param {number} id
+ */
+export async function getListOfBlobs(type, id) {
 	const containerClient = getContainerClient();
-	const blobs = await containerClient.listBlobFlatSegment(undefined, { prefix: `${type}/${id}` });
-	return blobs;
-};
 
-export const uploadBlob = async function (
-	type,
-	id,
+	let marker;
+
+	const blobs = await containerClient.listBlobFlatSegment(undefined, { prefix: `${type}/${id}`, version: '2021-06-08' });
+
+	return blobs;
+}
+
+/**
+ *
+ * @param {object} association
+ * @param {string} association.type
+ * @param {number} association.id
+ * @param {object} metadata
+ * @param {object} blob
+ * @param {string} blob.originalName
+ * @param {any} blob.content
+ * @param {string} blob.contentType
+ */
+
+// {Buffer | NodeJS.TypedArray | ArrayBuffer | string | Iterable<Buffer | string> | undefined}
+export async function uploadBlob(
+	association,
 	metadata,
-	blobOriginalName,
-	blobContent,
-	blobContentType
+	blob
 ) {
-	const blobName = getBlobName(blobOriginalName);
-	const stream = getStream(blobContent);
+	const blobName = getBlobName(blob.originalName);
+	const stream = getStream(blob.content);
 
 	const md5Value = Uint8Array.from(md5(stream).toString());
 
-	const blockBlobClient = getBlockBlobClient(`${type}/${id}/${blobName}`);
+	const blockBlobClient = getBlockBlobClient(`${association.type}/${association.id}/${blobName}`);
+
+	let bufferSize;
+	let maxConcurrency;
+
 	await blockBlobClient.uploadStream(stream,
-		undefined, undefined,
+		bufferSize, maxConcurrency,
 		{
 			blobHTTPHeaders: {
-				blobContentType: blobContentType,
+				blobontentType: blob.contentType,
 				blobContentMD5: md5Value
 			},
-			metadata: metadata
+			metadata
 		}
 	);
-};
+}
 
-export const downloadBlob = async function (blobName) {
+/**
+ *
+ * @param {string} blobName
+ */
+export async function downloadBlob(blobName) {
 	const blobContent = await getBlockBlobClient(blobName).downloadToBuffer();
+
 	return blobContent
 }

@@ -1,8 +1,17 @@
-export const errorHandler = function(error, request, response, _next) {
-	response.locals.message = error.message;
-	response.locals.error = request.app.get('env') === 'development' ? error : {};
+import pino from '../lib/logger.js';
 
-	console.error(error);
-	response.status(error.status || 500);
-	response.send({ 'error': 'Oops! Something went wrong' });
-};
+/**
+ *
+ *  @type {import('express').ErrorRequestHandler}
+ */
+export function errorHandler(error, _request, response, next) {
+	if (response.headersSent) {
+		return next(error);
+	}
+
+	// const code = error.code ? parseInt(error.code) : 500;
+
+	response.status(500);
+	pino.error(error);
+	return response.send({ error: 'Oops! Something went wrong' });
+}
