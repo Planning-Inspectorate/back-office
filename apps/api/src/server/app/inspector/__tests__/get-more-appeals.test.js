@@ -6,7 +6,7 @@ import DatabaseFactory from '../../repositories/database.js';
 
 const request = supertest(app);
 
-const appeal_25 = {
+const appeal25 = {
 	id: 25,
 	reference: 'APP/Q9999/D/21/5463281',
 	appealStatus:[{
@@ -27,7 +27,7 @@ const appeal_25 = {
 };
 
 
-const findManyStub = sinon.stub().returns([appeal_25]);
+const findManyStub = sinon.stub().returns([appeal25]);
 
 class MockDatabaseClass {
 	constructor(_parameters) {

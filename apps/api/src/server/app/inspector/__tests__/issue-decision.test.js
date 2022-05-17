@@ -1,6 +1,5 @@
 // @ts-check
 
-// eslint-disable-next-line import/no-unresolved
 import test from 'ava';
 import path from 'node:path';
 import * as url from 'node:url';
