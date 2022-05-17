@@ -9,12 +9,12 @@ const inspectionTypesThatSendEmail = new Set([
 ]);
 
 const inspectorActions = {
-	async notifyAppellantOfBookedSiteVisit(context, _event) {
+	async notifyAppellantOfBookedSiteVisit(context) {
 		if (inspectionTypesThatSendEmail.has(context.inspectionType)) {
 			await inspectorActionsService.sendEmailToAppellantWithSiteVisitBooking(context.appealId);
 		}
 	},
-	async notifyAppellantOfDecision(context, _event) {
+	async notifyAppellantOfDecision(context) {
 		await inspectorActionsService.sendEmailToLPAAndAppellantWithDeciion(context.appealId, context.decision);
 	}
 };

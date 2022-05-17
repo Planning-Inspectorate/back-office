@@ -1,6 +1,5 @@
 import test from 'ava';
 import sinon from 'sinon';
-import supertest from 'supertest';
 import DatabaseFactory from '../database.js';
 import newReviewRepository from '../review-questionnaire.repository.js';
 

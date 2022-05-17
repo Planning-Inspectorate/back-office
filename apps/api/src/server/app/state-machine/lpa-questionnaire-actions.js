@@ -1,10 +1,10 @@
 import lpaQuestionnaireActionsService from './lpa-questionnaire-actions.service.js';
 
 const lpaQuestionnaireActions = {
-	async sendLPAQuestionnaire(context, _event) {
+	async sendLPAQuestionnaire(context) {
 		await lpaQuestionnaireActionsService.sendLpaQuestionnaire(context.appealId);
 	},
-	nudgeLPAQuestionnaire: (_context, _event) => {
+	nudgeLPAQuestionnaire: () => {
 		console.log('Sending an email to nudge LPA regarding questionnaire');
 	}
 };

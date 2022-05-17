@@ -31,13 +31,13 @@ const generateValidationStates = (finalState) => {
 };
 
 const validationActions = {
-	notifyAppellantOfMissingAppealInfo: (_context, _event) => {
+	notifyAppellantOfMissingAppealInfo: () => {
 		console.log('Letting Appellant know that info is missing...');
 	},
-	notifyAppellantOfInvalidAppeal: (_context, _event) => {
+	notifyAppellantOfInvalidAppeal: () => {
 		console.log('Letting Appellant know that their appeal is invalid...');
 	},
-	notifyLPAOfInvalidAppeal: (_context, _event) => {
+	notifyLPAOfInvalidAppeal: () => {
 		console.log('Letting LPA know that the appeal is invalid...');
 	}
 };
