@@ -22,14 +22,18 @@ export async function getAllDocuments(request, response) {
  */
 export async function uploadDocument(request, response) {
 	await blobStoreService.uploadBlob(
-		request.query.type,
-		request.query.id,
+		{
+			type: request.query.typ,
+			id: request.query.id
+		},
 		{
 			documentType: request.body.documentType
 		},
-		request.file.originalname,
-		request.file.buffer,
-		'application/json'
+		{
+			originalName: request.file.originalName,
+			content: request.file.buffer,
+			contentType: 'application/json'
+		}
 	);
 
 	response.send({ message: 'File uploaded to Azure Blob storage.' });

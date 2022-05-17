@@ -57,11 +57,12 @@ export async function getListOfBlobs(type, id) {
  * @param {object} metadata
  * @param {object} blob
  * @param {string} blob.originalName
- * @param {any} blob.content
+ * @param {*} blob.content
  * @param {string} blob.contentType
  */
 
 // {Buffer | NodeJS.TypedArray | ArrayBuffer | string | Iterable<Buffer | string> | undefined}
+
 export async function uploadBlob(
 	association,
 	metadata,
@@ -77,11 +78,10 @@ export async function uploadBlob(
 	let bufferSize;
 	let maxConcurrency;
 
-	await blockBlobClient.uploadStream(stream,
-		bufferSize, maxConcurrency,
+	await blockBlobClient.uploadStream(stream, bufferSize, maxConcurrency,
 		{
 			blobHTTPHeaders: {
-				blobontentType: blob.contentType,
+				blobContentType: blob.contentType,
 				blobContentMD5: md5Value
 			},
 			metadata
