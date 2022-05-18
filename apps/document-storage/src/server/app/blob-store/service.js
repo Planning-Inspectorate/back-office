@@ -44,7 +44,7 @@ export async function getListOfBlobs(type, id) {
 
 	let marker;
 
-	const blobs = await containerClient.listBlobFlatSegment(undefined, { prefix: `${type}/${id}`, version: '2021-06-08' });
+	const blobs = await containerClient.listBlobFlatSegment(marker, { prefix: `${type}/${id}`, version: '2021-06-08' });
 
 	return blobs;
 }
@@ -60,9 +60,6 @@ export async function getListOfBlobs(type, id) {
  * @param {*} blob.content
  * @param {string} blob.contentType
  */
-
-// {Buffer | NodeJS.TypedArray | ArrayBuffer | string | Iterable<Buffer | string> | undefined}
-
 export async function uploadBlob(
 	association,
 	metadata,
