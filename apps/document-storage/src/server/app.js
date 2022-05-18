@@ -1,13 +1,13 @@
 import bodyParser from 'body-parser';
-import express from 'express';
 import compression from 'compression';
-import morgan from 'morgan';
+import express from 'express';
 import helmet from 'helmet';
+import morgan from 'morgan';
+import fs from 'node:fs';
+import path from 'node:path';
+import swaggerUi from 'swagger-ui-express';
 import { errorHandler } from './app/middleware/error-handler.js';
 import { documentsRouter } from './app/routes.js';
-import swaggerUi from 'swagger-ui-express';
-import fs from 'fs';
-import path from 'path';
 import config from './config/config.js';
 
 const app = express();
@@ -15,6 +15,7 @@ const app = express();
 app.use(bodyParser.json());
 
 const swaggerAuto = JSON.parse(fs.readFileSync(path.resolve(config.SWAGGER_JSON_DIR)));
+
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerAuto));
 
 app.use(compression());
