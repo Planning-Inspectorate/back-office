@@ -20,7 +20,6 @@ const siteVisitBody = {
 };
 
 // todo: replace with factory
-/** @type {DeepPartial<Appeal>} */
 const originalAppeal = appealFactoryForTests(
 	1,
 	[{ id: 1, status: 'site_visit_not_yet_booked', valid: true }],
@@ -29,7 +28,6 @@ const originalAppeal = appealFactoryForTests(
 	{ createdAt: new Date(2022, 0, 1), updatedAt: new Date(2022, 0, 1) }
 );
 
-/** @type {DeepPartial<Appeal>} */
 const updatedAppeal = {
 	...originalAppeal,
 	appealStatus: [{ id: 2, status: 'site_visit_booked', valid: true }],
@@ -42,7 +40,6 @@ const updatedAppeal = {
 	}
 };
 
-/** @type {DeepPartial<Appeal>} */
 const invalidAppeal = {
 	...originalAppeal,
 	user: { id: 101, azureReference: 101 }

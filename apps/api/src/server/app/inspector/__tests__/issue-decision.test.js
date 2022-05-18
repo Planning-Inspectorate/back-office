@@ -11,11 +11,10 @@ import appealRepository from '../../repositories/appeal.repository.js';
 /** @typedef {import('@pins/api').Schema.Appeal} Appeal */
 
 const request = supertest(app);
-const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
-const pathToFile = path.join(__dirname, './assets/simple.pdf');
+const dirname = url.fileURLToPath(new URL('.', import.meta.url));
+const pathToFile = path.join(dirname, './assets/simple.pdf');
 
 // todo: replace with factory
-/** @type {DeepPartial<Appeal>} */
 const validAppeal = {
 	id: 1,
 	reference: 'APP/Q9999/D/21/323259',
@@ -37,7 +36,6 @@ const validAppeal = {
 };
 
 // todo: replace with factory
-/** @type {DeepPartial<Appeal>} */
 const invalidAppeal = {
 	...validAppeal,
 	id: 2,
@@ -50,7 +48,6 @@ const invalidAppeal = {
 	]
 };
 
-/** @type {DeepPartial<Appeal>} */
 const updatedAppeal = {
 	...validAppeal,
 	appealStatus: [{ id: 2, status: 'site_visit_booked', valid: true }],
@@ -162,7 +159,7 @@ test('fails with a 400 status when the `decisionLetter` is too large', async (t)
 	const response = await request
 		.post('/inspector/1/issue-decision')
 		.set('userId', '100')
-		.attach('decisionLetter', path.join(__dirname, './assets/anthropods.pdf'))
+		.attach('decisionLetter', path.join(dirname, './assets/anthropods.pdf'))
 		.field('outcome', 'allowed');
 
 	t.is(response.status, 400);
