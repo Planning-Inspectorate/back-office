@@ -20,18 +20,11 @@ const provisionalAppealSiteVisitType = (appeal) => {
 /** @typedef {import('@pins/inspector').SiteVisitType} SiteVisitType */
 
 const formatStatus = (appealStatuses) => {
-	if (arrayOfStatusesContainsString(appealStatuses, inspectorStatesStrings.site_visit_booked)) {
-		return 'booked';
-	} if (arrayOfStatusesContainsString(appealStatuses, inspectorStatesStrings.decision_due)) {
-		return 'decision due';
-	} if (
-		arrayOfStatusesContainsString(appealStatuses, inspectorStatesStrings.site_visit_not_yet_booked) ||
-		arrayOfStatusesContainsString(appealStatuses, 'picked_up')
-	) {
-		return 'not yet booked';
-	}
-		throw new Error('Unknown status');
-
+	if (arrayOfStatusesContainsString(appealStatuses, inspectorStatesStrings.site_visit_booked)) return 'booked';
+	if (arrayOfStatusesContainsString(appealStatuses, inspectorStatesStrings.decision_due)) return 'decision due';
+	if (arrayOfStatusesContainsString(appealStatuses, inspectorStatesStrings.site_visit_not_yet_booked) ||
+		arrayOfStatusesContainsString(appealStatuses, 'picked_up')) return 'not yet booked';
+	throw new Error('Unknown status');
 };
 
 const calculateExpectedSiteVisitBookingAvailableDate = (appealStatus) => {
@@ -60,7 +53,7 @@ export const appealFormatter = {
 			provisionalVisitType: provisionalAppealSiteVisitType(appeal),
 			appealAge: daysBetweenDates(appeal.startedAt, new Date()),
 			appealSite: formatAddressLowerCase(appeal.address),
-			...(reason !== undefined && { reason })
+			...(typeof reason !== "undefined" && { reason })
 		};
 	},
 	formatAppealForAllAppeals (appeal) {

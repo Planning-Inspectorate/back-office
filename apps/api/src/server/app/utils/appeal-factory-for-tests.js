@@ -43,9 +43,12 @@ export const appealFactoryForTests = (
 ) => {
 	const validationDecisions = [];
 
-	if (inclusions.completeValidationDecision) { validationDecisions.push(completeValidationDecisionSample) }
-	if (inclusions.incompleteValidationDecision) { validationDecisions.push(incompleteValidationDecisionSample) }
-	if (inclusions.invalidValidationDecision) { validationDecisions.push(invalidValidationDecisionSample) }
+	if (inclusions.completeValidationDecision)
+	{ validationDecisions.push(completeValidationDecisionSample) }
+	if (inclusions.incompleteValidationDecision)
+	{ validationDecisions.push(incompleteValidationDecisionSample) }
+	if (inclusions.invalidValidationDecision)
+	{ validationDecisions.push(invalidValidationDecisionSample) }
 	return {
 		id: appealId,
 		appealType: { shorthand: typeShorthand, type: appealTypes[typeShorthand] },

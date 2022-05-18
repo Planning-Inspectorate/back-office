@@ -102,7 +102,7 @@ const appeal4 = {
 			inflammatoryComments: true,
 			openedInError: false,
 			wrongAppealTypeUsed: false,
-			otherReasons: undefined
+			otherReasons: false
 		}
 	],
 	address: {

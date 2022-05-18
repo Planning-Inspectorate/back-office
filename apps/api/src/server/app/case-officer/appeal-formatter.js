@@ -19,21 +19,11 @@ const add2Weeks = (date) => {
  * @returns {string} reformatted appeal status
  */
 function mapAppealStatus(appealStatuses) {
-	if (arrayOfStatusesContainsString(appealStatuses,
-		[appealStates.awaiting_lpa_questionnaire])) {
-		return 'awaiting';
-	} if (arrayOfStatusesContainsString(appealStatuses,
-		[appealStates.overdue_lpa_questionnaire])) {
-		return 'overdue';
-	} if (arrayOfStatusesContainsString(appealStatuses,
-		[appealStates.received_lpa_questionnaire])) {
-		return 'received';
-	} if (arrayOfStatusesContainsString(appealStatuses,
-		[appealStates.incomplete_lpa_questionnaire])) {
-		return 'incomplete_lpa_questionnaire';
-	}
-		return '';
-
+	if (arrayOfStatusesContainsString(appealStatuses, [appealStates.awaiting_lpa_questionnaire])) return 'awaiting';
+	if (arrayOfStatusesContainsString(appealStatuses, [appealStates.overdue_lpa_questionnaire])) return 'overdue';
+	if (arrayOfStatusesContainsString(appealStatuses, [appealStates.received_lpa_questionnaire])) return 'received';
+	if (arrayOfStatusesContainsString(appealStatuses, [appealStates.incomplete_lpa_questionnaire])) return 'incomplete_lpa_questionnaire';
+	return '';
 }
 
 /**
@@ -41,10 +31,12 @@ function mapAppealStatus(appealStatuses) {
  * @returns {string} reformatted appeal status
  */
 function mapAppealParallelStatuses(appealStatusesParallel) {
-	if (arrayOfStatusesContainsString(appealStatusesParallel,
+	if (arrayOfStatusesContainsString(
+		appealStatusesParallel,
 		[appealStates.available_for_statements])) {
 		return 'available_for_statements';
-	} if (arrayOfStatusesContainsString(appealStatusesParallel,
+	} if (arrayOfStatusesContainsString(
+		appealStatusesParallel,
 		[appealStates.available_for_final_comments])) {
 		return 'available_for_final_comments';
 	}

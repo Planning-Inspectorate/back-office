@@ -58,19 +58,13 @@ function formatSiteVisit({ visitDate, visitSlot, visitType }) {
 }
 
 /**
- * @param {AppealStatus[]} appealStatuses 
+ * @param {AppealStatus[]} appealStatuses
  * @returns {string}
  */
 function formatStatus(appealStatuses) {
-	if (arrayOfStatusesContainsString(appealStatuses, 'site_visit_booked')) {
-		return 'booked';
-	} if (arrayOfStatusesContainsString(appealStatuses, 'decision_due')) {
-		return 'decision due';
-	} if (arrayOfStatusesContainsString(appealStatuses, 'site_visit_not_yet_booked')) {
-		return 'not yet booked';
-	} if (arrayOfStatusesContainsString(appealStatuses, 'appeal_decided')) {
-		return 'appeal decided';
-	} 
-		throw new Error('Unknown status');
-	
+	if (arrayOfStatusesContainsString(appealStatuses, 'site_visit_booked')) return 'booked';
+	if (arrayOfStatusesContainsString(appealStatuses, 'decision_due')) return 'decision due';
+	if (arrayOfStatusesContainsString(appealStatuses, 'site_visit_not_yet_booked')) return 'not yet booked';
+	if (arrayOfStatusesContainsString(appealStatuses, 'appeal_decided')) return 'appeal decided';
+	throw new Error('Unknown status');
 }
