@@ -31,17 +31,9 @@ function mapAppealStatus(appealStatuses) {
  * @returns {string} reformatted appeal status
  */
 function mapAppealParallelStatuses(appealStatusesParallel) {
-	if (arrayOfStatusesContainsString(
-		appealStatusesParallel,
-		[appealStates.available_for_statements])) {
-		return 'available_for_statements';
-	} if (arrayOfStatusesContainsString(
-		appealStatusesParallel,
-		[appealStates.available_for_final_comments])) {
-		return 'available_for_final_comments';
-	}
-		return '';
-
+	if (arrayOfStatusesContainsString(appealStatusesParallel,[appealStates.available_for_statements])) return 'available_for_statements';
+	if (arrayOfStatusesContainsString(appealStatusesParallel, [appealStates.available_for_final_comments])) return 'available_for_final_comments';
+	return '';
 }
 
 const appealFormatter = {

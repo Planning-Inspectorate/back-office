@@ -28,19 +28,9 @@ const formatStatus = (appealStatuses) => {
 };
 
 const calculateExpectedSiteVisitBookingAvailableDate = (appealStatus) => {
-	if (arrayOfStatusesContainsString(appealStatus, 'available_for_statements')) {
-		return addWeeksToDate(
-			getAppealStatusCreatedAt(appealStatus, 'available_for_statements'),
-			weeksReceivingDocuments.statements + weeksReceivingDocuments.finalComments
-		);
-	} if (arrayOfStatusesContainsString(appealStatus, 'available_for_final_comments')) {
-		return addWeeksToDate(
-			getAppealStatusCreatedAt(appealStatus, 'available_for_final_comments'),
-			weeksReceivingDocuments.finalComments
-		);
-	}
-		throw new Error('Unknown status');
-
+	if (arrayOfStatusesContainsString(appealStatus, 'available_for_statements')) return addWeeksToDate(getAppealStatusCreatedAt(appealStatus, 'available_for_statements'), weeksReceivingDocuments.statements + weeksReceivingDocuments.finalComments);
+	if (arrayOfStatusesContainsString(appealStatus, 'available_for_final_comments')) return addWeeksToDate(getAppealStatusCreatedAt(appealStatus, 'available_for_final_comments'), weeksReceivingDocuments.finalComments);
+	throw new Error('Unknown status');
 };
 
 export const appealFormatter = {
