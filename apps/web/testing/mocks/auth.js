@@ -7,7 +7,7 @@ import { createAccountInfo } from '../factory/account-info.js';
  *
  * @param {object} options
  * @param {string[]} options.groups
- * @param {() => string | number} [options.getSessionID]
+ * @param {(() => string | number)=} options.getSessionID
  * @returns {import('express').RequestHandler}
  */
 export const installAuthMock = ({ groups, getSessionID }) => {

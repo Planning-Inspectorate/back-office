@@ -5,7 +5,7 @@ import { snakeCase } from 'lodash-es';
 /** @typedef {import('@pins/api').Schema.Appellant} AppellantData */
 
 /**
- * @param {Partial<AppellantData>} [options={}]
+ * @param {Partial<AppellantData>} options
  * @returns {AppellantData}
  */
 export function createAppellant({

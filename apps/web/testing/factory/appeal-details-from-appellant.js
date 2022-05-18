@@ -3,7 +3,7 @@ import { fake } from '@pins/platform';
 /** @typedef {import('@pins/api').Schema.AppealDetailsFromAppellant} AppealDetailsFromAppellant */
 
 /**
- * @param {Partial<AppealDetailsFromAppellant>} [options={}]
+ * @param {Partial<AppealDetailsFromAppellant>} options
  * @returns {AppealDetailsFromAppellant}
  */
 export function createAppealDetailsFromAppellant({

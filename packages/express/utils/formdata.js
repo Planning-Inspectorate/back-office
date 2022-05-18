@@ -5,8 +5,8 @@ import fs from 'node:fs';
 /**
  * @typedef {object} AppendFilesToFormDataConfig
  * @property {string} key
- * @property {MulterFile} [file]
- * @property {MulterFile[]} [files]
+ * @property {MulterFile=} file
+ * @property {MulterFile[]=} files
  */
 
 /**

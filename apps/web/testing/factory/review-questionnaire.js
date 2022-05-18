@@ -4,7 +4,7 @@ import { fake } from '@pins/platform';
 /** @typedef {import('@pins/api').Schema.ReviewQuestionnaire} ReviewQuestionnaire */
 
 /**
- * @param {Partial<Omit<ReviewQuestionnaire, 'complete'>>} [options={}]
+ * @param {Partial<Omit<ReviewQuestionnaire, 'complete'>>} options
  * @returns {ReviewQuestionnaire}
  */
 export function createReviewQuestionnaire({

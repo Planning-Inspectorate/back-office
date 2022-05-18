@@ -19,9 +19,9 @@ let sessionId = 1;
  */
 
 /**
- * @param {object} [options]
- * @param {boolean} [options.authenticated]
- * @param {string[]} [options.groups]
+ * @param {object} options
+ * @param {boolean=} options.authenticated
+ * @param {string[]=} options.groups
  * @returns {TestApplication}
  */
 export const createTestApplication = ({

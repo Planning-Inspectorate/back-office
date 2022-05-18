@@ -4,11 +4,11 @@ import { localPlanningDepartments } from '../fixtures/referencedata.js';
 
 /**
  * @typedef {object} AppealReferenceOptions
- * @property {string} [prefix='APP']
+ * @property {string=} prefix
  */
 
 /**
- * @param {AppealReferenceOptions} [options={}]
+ * @param {AppealReferenceOptions} options
  * @returns {string}
  */
 export const createAppealReference = ({ prefix = 'HAS' } = {}) =>

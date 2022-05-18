@@ -6,7 +6,7 @@ import { random } from 'lodash-es';
 /** @typedef {import('@pins/api').Schema.LPAQuestionnaire} LPAQuestionnaireData */
 
 /**
- * @param {Partial<LPAQuestionnaireData>} [options={}]
+ * @param {Partial<LPAQuestionnaireData>} options
  * @returns {LPAQuestionnaireData}
  */
 export function createLpaQuestionnaire({

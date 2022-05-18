@@ -4,8 +4,8 @@ import { noopHandler } from '../utils/helpers.js';
 
 /**
  * @param {object} options
- * @param {Partial<import('express-session').SessionData>} [options.initialSession={}]
- * @param {() => string | number} [options.getSessionID]
+ * @param {Partial<import('express-session').SessionData>=} options.initialSession
+ * @param {(() => string | number)=} options.getSessionID
  * @returns {import('express').RequestHandler}
  */
 export const createSessionMockMiddleware = ({ initialSession = {}, getSessionID }) => {

@@ -5,7 +5,7 @@ import { camelCase, snakeCase } from 'lodash-es';
 /** @typedef {Omit<AccountInfo, 'idTokenClaims'> & { groups?: string[] }} AccountInfoOptions */
 
 /**
- * @param {Partial<AccountInfoOptions>} [options={}]
+ * @param {Partial<AccountInfoOptions>} options
  * @returns {AccountInfo}
  */
 export function createAccountInfo({

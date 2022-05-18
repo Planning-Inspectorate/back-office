@@ -4,7 +4,7 @@ import { snakeCase } from 'lodash-es';
 /** @typedef {import('@pins/api').Schema.AppealDocument} AppealDocument */
 
 /**
- * @param {Partial<AppealDocument>} [options={}]
+ * @param {Partial<AppealDocument>} options
  * @returns {AppealDocument}
  */
 export function createDocument({

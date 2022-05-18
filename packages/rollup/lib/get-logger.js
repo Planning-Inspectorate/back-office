@@ -2,7 +2,7 @@ import figures from 'figures';
 import signale from 'signale';
 
 /**
- * @param {{ scope?: string }} [scope={}]
+ * @param {{ scope?: string }} scope
  * @returns {import('signale').Signale}
  */
 export const getLogger = ({ scope = 'PI' } = {}) =>

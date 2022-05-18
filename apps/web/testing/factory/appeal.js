@@ -20,7 +20,7 @@ import {
 /** @typedef {Omit<Appeal, 'appealType' | 'appealTypeId' | 'appealStatus'> & { appealTypeCode: AppealTypeCode; appealStatus: AppealStatusData[] }} AppealData */
 
 /**
- * @param {Partial<AppealData>} [options={}]
+ * @param {Partial<AppealData>} options
  * @returns {Appeal}
  */
 export function createAppeal({

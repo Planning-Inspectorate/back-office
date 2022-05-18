@@ -6,7 +6,7 @@ import { fake } from '@pins/platform';
 /** @typedef {import('@pins/api').Schema.IncompleteValidationDecision} IncompleteValidationDecision */
 
 /**
- * @param {Partial<ValidValidationDecision>} [options={}]
+ * @param {Partial<ValidValidationDecision>} options
  * @returns {ValidValidationDecision}
  */
 export function createValidValidationDecision({
@@ -26,7 +26,7 @@ export function createValidValidationDecision({
 }
 
 /**
- * @param {Partial<InvalidValidationDecision>} [options={}]
+ * @param {Partial<InvalidValidationDecision>} options
  * @returns {InvalidValidationDecision}
  */
 export function createInvalidValidationDecision({
@@ -57,7 +57,7 @@ export function createInvalidValidationDecision({
 }
 
 /**
- * @param {Partial<IncompleteValidationDecision>} [options={}]
+ * @param {Partial<IncompleteValidationDecision>} options
  * @returns {IncompleteValidationDecision}
  */
 export function createIncompleteValidationDecision({

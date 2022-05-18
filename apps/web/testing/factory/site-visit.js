@@ -5,7 +5,7 @@ import { random } from 'lodash-es';
 /** @typedef {import('@pins/api').Schema.SiteVisit} SiteVisit */
 
 /**
- * @param {Partial<SiteVisit>} [options={}]
+ * @param {Partial<SiteVisit>} options
  * @returns {SiteVisit}
  */
 
