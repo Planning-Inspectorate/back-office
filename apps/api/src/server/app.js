@@ -7,6 +7,7 @@ import { caseOfficerRoutes } from './app/case-officer/case-officer.routes.js';
 import { inspectorRoutes } from './app/inspector/inspector.routes.js';
 import { defaultErrorHandler, stateMachineErrorHandler } from './app/middleware/error-handler.js';
 import config from './config/config.js';
+import versionRoutes from './app/middleware/version-routes.js';
 
 const app = express();
 
@@ -24,10 +25,19 @@ app.use(compression());
 app.use(morgan('combined'));
 app.use(helmet());
 
-app.use('/validation', validationRoutes);
-app.use('/case-officer', caseOfficerRoutes);
-app.use('/inspector', inspectorRoutes);
+const defaultApiVersion = '1';
 
+app.use('/validation', versionRoutes({
+	'1': validationRoutes
+}));
+
+app.use('/case-officer', versionRoutes({
+	'1': caseOfficerRoutes
+}));
+
+app.use('/inspector', versionRoutes({
+	'1': inspectorRoutes
+}));
 
 app.use(stateMachineErrorHandler);
 app.use(defaultErrorHandler);
