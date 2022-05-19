@@ -1,15 +1,20 @@
 import { loadEnvironment } from '@pins/platform';
+import schema from './schema.js';
 
-loadEnvironment(process.env.NODE_ENV);
+const environment = loadEnvironment(process.env.NODE_ENV);
 
-const config = {
-	NODE_ENV: process.env.NODE_ENV,
-	PORT: process.env.PORT,
-	SWAGGER_JSON_DIR: process.env.SWAGGER_JSON_DIR || './src/server/swagger-output.json',
+const { value, error } = schema.validate({
+	NODE_ENV: environment.NODE_ENV,
+	PORT: environment.PORT,
+	SWAGGER_JSON_DIR: environment.SWAGGER_JSON_DIR || './src/server/swagger-output.json',
 	blobStore: {
-		connectionString: process.env.AZURE_BLOB_STORE_CONNECTION_STRING,
-		container: process.env.AZURE_BLOB_STORE_CONTAINER
+		connectionString: environment.AZURE_BLOB_STORE_CONNECTION_STRING,
+		container: environment.AZURE_BLOB_STORE_CONTAINER
 	}
-};
+});
 
-export default config;
+if (error) {
+	throw error
+}
+
+export default value;

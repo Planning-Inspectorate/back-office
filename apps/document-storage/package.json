@@ -22,7 +22,8 @@
         "into-stream": "^5.1.1",
         "morgan": "^1.10.0",
         "multer": "^1.4.1",
-        "crypto-js": "4.1.1"
+        "crypto-js": "4.1.1",
+        "joi": "17.6.0"
     },
     "devDependencies": {
         "ava": "^4.2.0",
