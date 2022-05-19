@@ -6,6 +6,7 @@ import DatabaseFactory from '../../repositories/database.js';
 import { appealFactoryForTests } from '../../utils/appeal-factory-for-tests.js';
 
 const request = supertest(app);
+
 let descriptionOfDevelopment;
 
 const appeal1 = appealFactoryForTests(1, [{

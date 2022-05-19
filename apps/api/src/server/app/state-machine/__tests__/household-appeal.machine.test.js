@@ -19,8 +19,8 @@ test.before('sets up mocking of actions', () => {
  * @param {string} initialState initial state in state machine
  * @param {string} action action taken to proceed in state machine
  * @param {string} expectedState expected state after action was taken
- * @param {boolean} hasChanged True if action was valid, False if action was invalid
  * @param {object} context Context of transition
+ * @param {boolean} hasChanged True if action was valid, False if action was invalid
  */
 function applyAction(t, initialState, action, expectedState, context, hasChanged) {
 	inspectorSendBookingStub.resetHistory();
@@ -76,6 +76,6 @@ applyAction.title = (initialState, action, expectedState, context, hasChanged, p
 		['site_visit_not_yet_booked', 'BOOK', 'site_visit_booked', { appealId: 1, inspectionType: 'any other type' }, true],
 		['site_visit_booked', 'BOOKING_PASSED', 'decision_due', { appealId: 1 }, true],
 		['decision_due', 'DECIDE', 'appeal_decided', { appealId: 1, decision: 'allowed' }, true]
-	 ]) {
+	]) {
 		test(applyAction, ...parameter);
-	 }
+	}
