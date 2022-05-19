@@ -7,7 +7,8 @@ import formatDate from '../utils/date-formatter.js';
 import { getAppealStatusCreatedAt } from '../utils/get-appeal-status-created-at.js';
 import formatReviewQuestionnaire from '../utils/review-questionnaire-formatter.js';
 
-const add2Weeks = (date) => {
+
+const add2Weeks = ( date) => {
 	const newDate = new Date(date.valueOf());
 
 	newDate.setDate(newDate.getDate() + 14);
@@ -37,6 +38,10 @@ function mapAppealParallelStatuses(appealStatusesParallel) {
 }
 
 const appealFormatter = {
+	/**
+	 * @param {{ appealStatus: object; id: any; reference: any; address: object; startedAt: any; }} appeal
+	 * @returns {object}
+	 */
 	formatAppealForAllAppeals (appeal) {
 		const appealStatus = mapAppealStatus(appeal.appealStatus);
 
@@ -48,6 +53,10 @@ const appealFormatter = {
 			QuestionnaireDueDate: appeal.startedAt ? formatDate(add2Weeks(appeal.startedAt)) : ''
 		};
 	},
+	/**
+	 * @param {{ appealStatus: object; id: any; reference: any; address: object; startedAt: any; }} appeal
+	 *  @returns {object}
+	 */
 	formatAppealForParallelStates (appeal) {
 		const appealStatusParallel = mapAppealParallelStatuses(appeal.appealStatus);
 
@@ -59,6 +68,10 @@ const appealFormatter = {
 			QuestionnaireDueDate: appeal.startedAt ? formatDate(add2Weeks(appeal.startedAt)) : ''
 		};
 	},
+	/**
+	 * @param {{ id: any; reference: any; appealStatus: any; }} appeal
+	 *  @returns {object}
+	 */
 	formatAppealForAfterStatementUpload(appeal) {
 		return {
 			AppealId: appeal.id,
@@ -69,6 +82,10 @@ const appealFormatter = {
 			), false)
 		};
 	},
+	/**
+	 * @param {{ id: any; reference: any; appealStatus: any; }} appeal
+	 *  @returns {object}
+	 */
 	formatAppealAfterFinalCommentUpload(appeal) {
 		return {
 			AppealId: appeal.id,
@@ -79,6 +96,10 @@ const appealFormatter = {
 			), false)
 		};
 	},
+	/**
+	 * @param {{ id: any; reference: any; localPlanningDepartment: any; planningApplicationReference: any; address: object; lpaQuestionnaire: { listedBuildingDescription: any; }; reviewQuestionnaire: import("../utils/review-questionnaire-formatter.js").ReviewQuestionnare[]; }} appeal
+	 * @returns {object}
+	 */
 	formatAppealForAppealDetails (appeal) {
 		return {
 			AppealId: appeal.id,

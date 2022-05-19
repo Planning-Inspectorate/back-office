@@ -180,6 +180,7 @@ class MockDatabaseClass {
 }
 
 test('gets the appeals information with received questionnaires', async (t) => {
+	// @ts-ignore
 	sinon.stub(DatabaseFactory, 'getInstance').callsFake((arguments_) => new MockDatabaseClass(arguments_));
 
 	const resp = await request.get('/case-officer');

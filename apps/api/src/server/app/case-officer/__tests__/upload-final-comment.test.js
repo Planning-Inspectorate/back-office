@@ -41,6 +41,7 @@ class MockDatabaseClass {
 }
 
 test.before('sets up database mock', () => {
+	// @ts-ignore
 	sinon.stub(DatabaseFactory, 'getInstance').callsFake((arguments_) => new MockDatabaseClass(arguments_));
 });
 
