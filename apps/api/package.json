@@ -13,7 +13,7 @@
   "scripts": {
     "test": "cross-env NODE_ENV=test ava",
     "coverage": "c8 --reporter=html --reporter=text ava",
-    "dev": "nodemon --experimental-json-modules -e js ./src/server.js",
+    "dev": "npx prisma generate; nodemon --experimental-json-modules -e js ./src/server.js",
     "start": "node ./src/server.js",
     "lint:js": "eslint src prisma/seed.js",
     "lint:js:fix": "eslint src prisma/seed.js --fix",
@@ -48,7 +48,8 @@
     "@prisma/client": "3.13.0",
     "swagger-ui-express": "^4.3.0",
     "got": "12.0.4",
-    "date-fns": "2.28.0"
+    "date-fns": "2.28.0",
+    "joi": "17.6.0"
   },
   "devDependencies": {
     "cross-env": "^7.0.3",
