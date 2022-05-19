@@ -91,7 +91,10 @@ export async function handleSignout({ session }, response) {
 	const account = authSession.getAccount(session);
 
 	if (account) {
-		await Promise.all([promisify(session.destroy)(), authService.clearCacheForAccount(account)]);
+		await Promise.all([
+			promisify(session.destroy.bind(session))(),
+			authService.clearCacheForAccount(account)
+		]);
 	}
 	response.status(200).end();
 }

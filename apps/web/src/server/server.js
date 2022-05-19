@@ -39,7 +39,7 @@ if (config.serverProtocol === 'https') {
 		)
 		.listen(app.get('https-port'), () => {
 			pino.info(
-				`Server is running at http://localhost:${app.get('https-port')} in ${app.get('env')} mode`
+				`Server is running at https://localhost:${app.get('https-port')} in ${app.get('env')} mode`
 			);
 		});
 }
