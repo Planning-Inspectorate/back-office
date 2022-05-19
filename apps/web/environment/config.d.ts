@@ -22,6 +22,7 @@ export interface EnvironmentConfig {
 	serverPort: number;
 	sslCertificateFile: string;
 	sslCertificateKeyFile: string;
+	tmpDir: string;
 	referenceData: {
 		groups: {
 			inspectorGroupId: string;

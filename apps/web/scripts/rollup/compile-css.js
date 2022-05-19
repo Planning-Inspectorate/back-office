@@ -6,7 +6,7 @@ import { createRequire } from 'node:module';
 import path from 'node:path';
 import postcss from 'postcss';
 import sassEngine from 'sass';
-import config from '../environment/config.js';
+import config from '../../environment/config.js';
 
 /** @typedef {import('source-map-js').RawSourceMap} RawSourceMap */
 /** @typedef {import('postcss').SourceMap} SourceMap */

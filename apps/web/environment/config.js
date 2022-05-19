@@ -1,4 +1,5 @@
 import { loadEnvironment } from '@pins/platform';
+import path from 'node:path';
 import url from 'node:url';
 import schema from './schema.js';
 
@@ -36,12 +37,13 @@ if (error) {
 	throw error;
 }
 
+const cwd = url.fileURLToPath(new URL('..', import.meta.url));
 const { msal, ...config } = value;
 const { clientId = '', cloudInstanceId, redirectUri, tenantId, clientSecret = '' } = msal;
 
 export default {
 	...config,
-	cwd: url.fileURLToPath(new URL('..', import.meta.url)),
+	cwd,
 	isProduction: value.env === 'production',
 	isDevelopment: value.env === 'development',
 	isTest: value.env === 'test',
@@ -50,5 +52,6 @@ export default {
 		clientSecret,
 		authority: `${cloudInstanceId}/${tenantId}`,
 		redirectUri
-	}
+	},
+	tmpDir: path.join(cwd, '.tmp')
 };

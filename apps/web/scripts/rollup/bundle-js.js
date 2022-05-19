@@ -11,7 +11,7 @@ import fs from 'node:fs/promises';
 import path from 'node:path';
 import { rollup } from 'rollup';
 import { visualizer } from 'rollup-plugin-visualizer';
-import config from '../environment/config.js';
+import config from '../../environment/config.js';
 
 const { env, bundleAnalyzer, isProduction, isRelease } = config;
 
