@@ -27,33 +27,33 @@ export const validateAppealDetails = composeMiddleware(
 	validationErrorHandler
 );
 
-const invalidWithoutReasons = (body) => {
+const invalidWithoutReasons = (hasExplanation) => {
 	return (!!((
-		(body.reason.applicationPlansToReachDecisionMissingOrIncorrect === true &&
-		typeof(body.reason.applicationPlansToReachDecisionMissingOrIncorrectDescription) === "undefined") ||
-		(body.reason.policiesStatutoryDevelopmentPlanPoliciesMissingOrIncorrect === true &&
-		typeof(body.reason.policiesStatutoryDevelopmentPlanPoliciesMissingOrIncorrectDescription) === "undefined") ||
-		(body.reason.policiesOtherRelevanPoliciesMissingOrIncorrect === true &&
-		typeof(body.reason.policiesOtherRelevanPoliciesMissingOrIncorrectDescription) === "undefined") ||
-		(body.reason.policiesSupplementaryPlanningDocumentsMissingOrIncorrect === true &&
-		typeof(body.reason.policiesSupplementaryPlanningDocumentsMissingOrIncorrectDescription) === "undefined") ||
-		(body.reason.siteConservationAreaMapAndGuidanceMissingOrIncorrect === true &&
-		typeof(body.reason.siteConservationAreaMapAndGuidanceMissingOrIncorrectDescription) === "undefined") ||
-		(body.reason.siteListedBuildingDescriptionMissingOrIncorrect === true &&
-		typeof(body.reason.siteListedBuildingDescriptionMissingOrIncorrectDescription) === "undefined") ||
-		(body.reason.thirdPartyApplicationNotificationMissingOrIncorrect === true &&
-			(body.reason.thirdPartyApplicationNotificationMissingOrIncorrectListOfAddresses === false &&
-			body.reason.thirdPartyApplicationNotificationMissingOrIncorrectCopyOfLetterOrSiteNotice === false)) ||
-		(body.reason.thirdPartyRepresentationsMissingOrIncorrect === true &&
-		typeof(body.reason.thirdPartyRepresentationsMissingOrIncorrectDescription) === "undefined") ||
-		(body.reason.thirdPartyAppealNotificationMissingOrIncorrect === true &&
-			(body.reason.thirdPartyAppealNotificationMissingOrIncorrectListOfAddresses === false &&
-			body.reason.thirdPartyAppealNotificationMissingOrIncorrectCopyOfLetterOrSiteNotice === false))
+		(hasExplanation.reason.applicationPlansToReachDecisionMissingOrIncorrect === true &&
+		typeof(hasExplanation.reason.applicationPlansToReachDecisionMissingOrIncorrectDescription) === "undefined") ||
+		(hasExplanation.reason.policiesStatutoryDevelopmentPlanPoliciesMissingOrIncorrect === true &&
+		typeof(hasExplanation.reason.policiesStatutoryDevelopmentPlanPoliciesMissingOrIncorrectDescription) === "undefined") ||
+		(hasExplanation.reason.policiesOtherRelevanPoliciesMissingOrIncorrect === true &&
+		typeof(hasExplanation.reason.policiesOtherRelevanPoliciesMissingOrIncorrectDescription) === "undefined") ||
+		(hasExplanation.reason.policiesSupplementaryPlanningDocumentsMissingOrIncorrect === true &&
+		typeof(hasExplanation.reason.policiesSupplementaryPlanningDocumentsMissingOrIncorrectDescription) === "undefined") ||
+		(hasExplanation.reason.siteConservationAreaMapAndGuidanceMissingOrIncorrect === true &&
+		typeof(hasExplanation.reason.siteConservationAreaMapAndGuidanceMissingOrIncorrectDescription) === "undefined") ||
+		(hasExplanation.reason.siteListedBuildingDescriptionMissingOrIncorrect === true &&
+		typeof(hasExplanation.reason.siteListedBuildingDescriptionMissingOrIncorrectDescription) === "undefined") ||
+		(hasExplanation.reason.thirdPartyApplicationNotificationMissingOrIncorrect === true &&
+			(hasExplanation.reason.thirdPartyApplicationNotificationMissingOrIncorrectListOfAddresses === false &&
+			hasExplanation.reason.thirdPartyApplicationNotificationMissingOrIncorrectCopyOfLetterOrSiteNotice === false)) ||
+		(hasExplanation.reason.thirdPartyRepresentationsMissingOrIncorrect === true &&
+		typeof(hasExplanation.reason.thirdPartyRepresentationsMissingOrIncorrectDescription) === "undefined") ||
+		(hasExplanation.reason.thirdPartyAppealNotificationMissingOrIncorrect === true &&
+			(hasExplanation.reason.thirdPartyAppealNotificationMissingOrIncorrectListOfAddresses === false &&
+			hasExplanation.reason.thirdPartyAppealNotificationMissingOrIncorrectCopyOfLetterOrSiteNotice === false))
 	)));
 };
 
-const incompleteWithUnexpectedReasons = (body) => {
-	return difference(Object.keys(body.reason), [
+const incompleteWithUnexpectedReasons = (reasonListed) => {
+	return difference(Object.keys(reasonListed.reason), [
 		'applicationPlanningOfficersReportMissingOrIncorrect',
 		'applicationPlansToReachDecisionMissingOrIncorrect',
 		'applicationPlansToReachDecisionMissingOrIncorrectDescription',
