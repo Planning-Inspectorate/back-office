@@ -13,9 +13,8 @@ const DatabaseFactory = (function(){
 
 	return {
 		getInstance(){
-			if (instance === undefined) {
+			if (typeof(instance) === 'undefined') {
 				instance = new DatabaseClass();
-				instance.constructor = undefined;
 			}
 			return instance;
 		}

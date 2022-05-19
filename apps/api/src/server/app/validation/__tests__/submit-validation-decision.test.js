@@ -6,6 +6,7 @@ import DatabaseFactory from '../../repositories/database.js';
 import { appealFactoryForTests } from '../../utils/appeal-factory-for-tests.js';
 
 const request = supertest(app);
+let descriptionOfDevelopment;
 
 const appeal1 = appealFactoryForTests(1, [{
 	id: 1,
@@ -188,7 +189,7 @@ test('should be able to submit \'invalid\' decision', async(t) => {
 	sinon.assert.calledWithExactly(addNewDecisionStub, { data: {
 		appealId: 1,
 		decision: 'invalid',
-		descriptionOfDevelopment: undefined,
+		descriptionOfDevelopment,
 		outOfTime: true,
 		noRightOfAppeal: true,
 		notAppealable: true,
@@ -223,7 +224,7 @@ test('should be able to submit \'missing appeal details\' decision', async(t) =>
 	sinon.assert.calledWithExactly(addNewDecisionStub, { data: {
 		appealId: 1,
 		decision: 'incomplete',
-		descriptionOfDevelopment: undefined,
+		descriptionOfDevelopment,
 		namesDoNotMatch: true,
 		sensitiveInfo: true,
 		missingApplicationForm: true,

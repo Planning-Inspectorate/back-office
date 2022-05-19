@@ -5,10 +5,12 @@ import validationDecisionRepository from '../validation-decision.repository.js';
 
 const addNewDecision = sinon.stub();
 
+let descriptionOfDevelopment;
+
 const newDecision = {
 	appealId: 1,
 	decision: 'incomplete',
-	descriptionOfDevelopment: undefined,
+	descriptionOfDevelopment,
 	namesDoNotMatch: true
 };
 
@@ -36,7 +38,7 @@ test('adds new Validation decision', async(t) => {
 		data: {
 			appealId: 1,
 			decision: 'incomplete',
-			descriptionOfDevelopment: undefined,
+			descriptionOfDevelopment,
 			namesDoNotMatch: true
 		}
 	});
