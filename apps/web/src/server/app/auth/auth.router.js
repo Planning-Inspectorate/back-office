@@ -1,35 +1,27 @@
-import msalNode from '@azure/msal-node';
 import { Router as createRouter } from 'express';
 import {
-	authSignIn,
-	handleRedirect,
-	viewAuthError,
-	viewAuthUnauthorized
+	completeMsalAuthentication,
+	handleSignout,
+	startMsalAuthentication
 } from './auth.controller.js';
+import { assertIsUnauthenticated } from './auth.guards.js';
+import { clearAuthenticationData, registerAuthLocals } from './auth.pipes.js';
 
 const router = createRouter();
-const cryptoProvider = new msalNode.CryptoProvider();
 
-// The order here is important as the redirect needs to be handled before a new session nonce is set.
-// And a nonce should be set before anythig
-router.route('/redirect').get(handleRedirect);
-router.route('/redirect').post(handleRedirect);
+router.route('/auth/redirect').get(assertIsUnauthenticated, completeMsalAuthentication);
 
-// TODO: This should actually be run for each main route, not just `/auth`.
-router.use((request, response, next) => {
-	if (!request.session) {
-		// TODO: Handle this gracefully (not important)
-		throw new Error('No session found for this request');
-	}
+// If the request continues beyond the MSAL redirectUri, then set the locals
+// derived from the auth session and clear any pending auth data. The latter
+// prevents attackers from hitting /auth/redirect in any meaningful way.
+router.use(registerAuthLocals, clearAuthenticationData);
 
-	// Add session nonce for crsf
-	request.session.nonce = cryptoProvider.createNewGuid();
+router.route('/auth/signin').get(assertIsUnauthenticated, startMsalAuthentication);
 
-	next();
-});
-
-router.route('/signin').get(authSignIn);
-router.route('/unauthorized').get(viewAuthUnauthorized);
-router.route('/error').get(viewAuthError);
+// This route does not require authentication as it's registered as the Frontend
+// Logout Url with MSAL and could be called even if the user is not logged into
+// the back office. Internally, however, we just do nothing if the user is not
+// signed in.
+router.route('/auth/signout').get(handleSignout);
 
 export default router;

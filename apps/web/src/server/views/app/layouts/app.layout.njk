@@ -20,7 +20,9 @@
       homepageUrl: homepageUrl | default('https://www.gov.uk/'),
       serviceName: serviceName,
       serviceUrl: serviceUrl | default('/'),
-      containerClasses: containerClasses
+      containerClasses: containerClasses,
+      navigation: [{ href: "https://login.microsoftonline.com/common/oauth2/v2.0/logout", text: 'Sign out' }] if isAuthenticated else [],
+      navigationClasses: 'pins-header__navigation--align-right'
     })
   }}
 {% endblock %}

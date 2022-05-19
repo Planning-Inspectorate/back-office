@@ -6,7 +6,6 @@ export default joi
 	.object({
 		apiUrl: joi.string().uri(),
 		authDisabled: joi.boolean(),
-		authRedirectTo: joi.string(),
 		bundleAnalyzer: joi.boolean(),
 		env: joi.string().valid('development', 'production', 'test'),
 		isRelease: joi.boolean().optional(),
@@ -17,6 +16,7 @@ export default joi
 				clientId: joi.string(),
 				clientSecret: joi.string(),
 				cloudInstanceId: joi.string(),
+				redirectUri: joi.string(),
 				tenantId: joi.string()
 			})
 			.options({ presence: 'required' })
@@ -25,7 +25,7 @@ export default joi
 		serverPort: joi.number(),
 		sslCertificateFile: joi.string().when('serverProtocol', requireIf('https')),
 		sslCertificateKeyFile: joi.string().when('serverProtocol', requireIf('https')),
-		referencedata: joi.object({
+		referenceData: joi.object({
 			groups: joi
 				.object({
 					caseOfficerGroupId: joi.string(),

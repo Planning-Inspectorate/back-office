@@ -1,32 +1,46 @@
 import config from '@pins/web/environment/config.js';
+import { intersection } from 'lodash-es';
 import pino from '../lib/logger.js';
+import * as authSession from './auth/auth-session.service.js';
+
+/** @typedef {import('./auth/auth.service').AccountInfo} AccountInfo */
+
+const appealGroupIds = [
+	config.referenceData.groups.validationOfficerGroupId,
+	config.referenceData.groups.caseOfficerGroupId,
+	config.referenceData.groups.inspectorGroupId
+];
 
 /**
- * View the hompage.
- * If the user is part of multiple valid auth groups they will be shown the homepage.
- * If the user has only one group it will be redirected automatically to its dashboard based on it.
+ * @typedef {object} ViewHomepageRenderOptions
+ * @property {typeof config['referenceData']} referenceData
+ * @property {string[]} groupIds
+ */
+
+/**
+ * Display a homepage tailored to the user's group memberships.
  *
- * @type {import('express').RequestHandler}
+ * @type {import('@pins/express').QueryHandler<{}, ViewHomepageRenderOptions>}
  */
 export function viewHomepage(request, response, next) {
-	const userGroups = [
-		config.referencedata.groups.validationOfficerGroupId,
-		config.referencedata.groups.caseOfficerGroupId,
-		config.referencedata.groups.inspectorGroupId
-	];
-	const creds = request.session.account?.idTokenClaims?.groups ?? [];
+	const account = /** @type {AccountInfo} */ (authSession.getAccount(request.session));
+	// Determine those group ids the user belongs to for the appeals domain
+	const groupIds = intersection(appealGroupIds, account.idTokenClaims.groups ?? []);
 
-	if (userGroups.filter((element) => creds.includes(element)).length > 1) {
-		response.render('app/dashboard');
+	if (groupIds.length > 1) {
+		response.render('app/dashboard', {
+			referenceData: config.referenceData,
+			groupIds
+		});
 	} else {
-		switch (creds[0]) {
-			case config.referencedata.groups.validationOfficerGroupId:
+		switch (groupIds[0]) {
+			case config.referenceData.groups.validationOfficerGroupId:
 				response.redirect('/validation');
 				break;
-			case config.referencedata.groups.caseOfficerGroupId:
+			case config.referenceData.groups.caseOfficerGroupId:
 				response.redirect('/lpa');
 				break;
-			case config.referencedata.groups.inspectorGroupId:
+			case config.referenceData.groups.inspectorGroupId:
 				response.redirect('/inspector');
 				break;
 			default: {
@@ -37,4 +51,9 @@ export function viewHomepage(request, response, next) {
 			}
 		}
 	}
+}
+
+/** @type {import('express').RequestHandler} */
+export function viewUnauthenticatedError(_, response) {
+	response.status(200).render('app/401');
 }
