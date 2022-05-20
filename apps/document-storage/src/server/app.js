@@ -7,6 +7,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import swaggerUi from 'swagger-ui-express';
 import { errorHandler } from './app/middleware/error-handler.js';
+import versionRoutes from './app/middleware/version-routes.js';
 import { documentsRouter } from './app/routes.js';
 import config from './config/config.js';
 
@@ -22,7 +23,12 @@ app.use(compression());
 app.use(morgan('combined'));
 app.use(helmet());
 
-app.use('/', documentsRouter);
+app.use(
+	'/',
+	versionRoutes({
+		1: documentsRouter
+	})
+);
 
 app.use(errorHandler);
 

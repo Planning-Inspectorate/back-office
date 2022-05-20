@@ -2,23 +2,23 @@ import swaggerAutogen from 'swagger-autogen';
 
 const document_ = {
 	info: {
-		version: '2.0',      // by default: '1.0.0'
-		title: 'My PINS Project',        // by default: 'REST API'
-		description: 'My PINS Project AOI documentation from Swagger',  // by default: ''
+		version: '2.0', // by default: '1.0.0'
+		title: 'My PINS Project', // by default: 'REST API'
+		description: 'My PINS Project AOI documentation from Swagger', // by default: ''
 	},
-	host: 'localhost:3000',      // by default: 'localhost:3000'
-	basePath: '',  // by default: '/'
-	schemes: [],   // by default: ['http']
-	consumes: [],  // by default: ['application/json']
-	produces: [],  // by default: ['application/json']
-	tags: [        // by default: empty Array
+	host: 'localhost:3000', // by default: 'localhost:3000'
+	basePath: '', // by default: '/'
+	schemes: [], // by default: ['http']
+	consumes: [], // by default: ['application/json']
+	produces: [], // by default: ['application/json']
+	tags: [ // by default: empty Array
 		{
-			name: '',         // Tag name
-			description: '',  // Tag description
+			name: '', // Tag name
+			description: '', // Tag description
 		},
 		// { ... }
 	],
-	securityDefinitions: {},  // by default: empty object (Swagger 2.0)
+	securityDefinitions: {}, // by default: empty object (Swagger 2.0)
 	definitions: {
 		AppealToValidate: {
 			AppealId: 1,
