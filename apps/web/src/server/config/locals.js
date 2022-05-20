@@ -2,13 +2,13 @@ import config from '@pins/web/environment/config.js';
 import fs from 'node:fs';
 
 /**
- * Fetch the configuration for a resource in the _data folder.
+ * Fetch the configuration for a resource in the .build folder.
  *
  * @param {string} filename - The filename of a resource in the _data folder.
  * @returns {{ path: string }}
  */
 const getConfig = (filename) => {
-	const json = fs.readFileSync(new URL(`../_data/${filename}`, import.meta.url), {
+	const json = fs.readFileSync(`${config.buildDir}/${filename}`, {
 		encoding: 'utf8'
 	});
 

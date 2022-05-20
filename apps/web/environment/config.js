@@ -43,6 +43,7 @@ const { clientId = '', cloudInstanceId, redirectUri, tenantId, clientSecret = ''
 
 export default {
 	...config,
+	buildDir: path.join(cwd, '.build'),
 	cwd,
 	isProduction: value.env === 'production',
 	isDevelopment: value.env === 'development',

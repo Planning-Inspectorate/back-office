@@ -4,6 +4,7 @@ export interface EnvironmentConfig {
 	apiUrl: string;
 	authDisabled: boolean;
 	bundleAnalyzer: boolean;
+	buildDir: string;
 	cwd: string;
 	env: 'development' | 'test' | 'production';
 	isProduction: boolean;

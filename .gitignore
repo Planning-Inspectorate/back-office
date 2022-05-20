@@ -17,6 +17,7 @@ build-tmp
 size-plugin.json
 temp
 .turbo
+.build
 
 # Code coverage
 coverage
