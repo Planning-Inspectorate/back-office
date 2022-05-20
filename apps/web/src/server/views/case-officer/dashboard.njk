@@ -83,7 +83,7 @@
 			or (params.statusKey === 'QuestionnaireStatus' and ['received', 'incomplete_lpa_questionnaire'] | includes(appeal.QuestionnaireStatus))
 		%}
 			{% set row = row | concat({
-					html: '<a class="govuk-link" href="/lpa/appeals/' + appeal.AppealId + (params.hrefPath or '')  + '">' + appeal.AppealReference + '</a>'
+					html: '<a class="govuk-link" href="/case-officer/appeals/' + appeal.AppealId + (params.hrefPath or '')  + '">' + appeal.AppealReference + '</a>'
 				}) 
 			%}
 		{% else %}

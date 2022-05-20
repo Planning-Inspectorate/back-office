@@ -3,18 +3,18 @@ import { body } from 'express-validator';
 import { pickBy } from 'lodash-es';
 import multer from 'multer';
 import { memoryStorage } from '../../lib/multer.js';
-import * as lpaService from './lpa.service.js';
-import * as lpaSession from './lpa-session.service.js';
+import * as lpaService from './case-officer.service.js';
+import * as lpaSession from './case-officer-session.service.js';
 
-/** @typedef {import('./lpa.router').AppealParams} AppealParams */
-/** @typedef {import('@pins/appeals').Lpa.Questionnaire} Questionnaire */
-/** @typedef {keyof import('@pins/appeals').Lpa.Questionnaire} QuestionnaireKey */
+/** @typedef {import('./case-officer.router').AppealParams} AppealParams */
+/** @typedef {import('@pins/appeals').CaseOfficer.Questionnaire} Questionnaire */
+/** @typedef {keyof import('@pins/appeals').CaseOfficer.Questionnaire} QuestionnaireKey */
 
 /** @type {import('express').RequestHandler} */
-export const registerLpaLocals = (_, response, next) => {
+export const registerCaseOfficerLocals = (_, response, next) => {
 	response.locals.containerSize = 'xl';
 	response.locals.serviceName = 'Appeal a planning decision';
-	response.locals.serviceUrl = '/lpa';
+	response.locals.serviceUrl = '/case-officer';
 	next();
 };
 

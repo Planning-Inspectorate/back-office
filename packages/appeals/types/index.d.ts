@@ -1,6 +1,6 @@
+import * as CaseOfficer from './case-officer';
 import * as Inspector from './inspector';
-import * as Lpa from './lpa';
 import * as Validation from './validation';
 
 export * from './appeal';
-export { Inspector, Lpa, Validation };
+export { Inspector, CaseOfficer, Validation };

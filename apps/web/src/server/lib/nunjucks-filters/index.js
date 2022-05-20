@@ -25,5 +25,5 @@ export { selectItems } from './select-items.js';
 export { default as stripQueryParamsDev } from './strip-query-parameters.js';
 
 // export domain-specific filters
-export { lpaLabel, lpaDocumentType } from '../../app/lpa/lpa.filters.js';
+export { lpaLabel, lpaDocumentType } from '../../app/case-officer/case-officer.filters.js';
 export * from '../../app/validation/validation.filters.js';

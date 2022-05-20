@@ -227,7 +227,7 @@ describe('auth', () => {
 			});
 		});
 
-		describe('/lpa', () => {
+		describe('/case-officer', () => {
 			beforeEach(() => {
 				nock('http://test/').get('/case-officer').reply(200, []);
 			});
@@ -235,7 +235,7 @@ describe('auth', () => {
 			it('should deny access to the domain if the user does not have permission', async () => {
 				await signinWithGroups(['inspector', 'validation_officer']);
 
-				const response = await request.get('/lpa').redirects(1);
+				const response = await request.get('/case-officer').redirects(1);
 				const element = parseHtml(response.text);
 
 				expect(element.querySelector('h1')?.innerHTML).toEqual(
@@ -246,7 +246,7 @@ describe('auth', () => {
 			it('should permit access to the domain if the user has permission', async () => {
 				await signinWithGroups(['case_officer']);
 
-				const response = await request.get('/lpa');
+				const response = await request.get('/case-officer');
 				const element = parseHtml(response.text);
 
 				expect(element.querySelector('h1')?.innerHTML).toEqual('Questionnaires for review');

@@ -16,7 +16,7 @@ import { get, patch, post } from '../../lib/request.js';
  * @returns {Promise<string[]>}
  */
 export function findAllLocalPlanningDepartments() {
-	return get('validation/lpa-list');
+	return get('validation/case-officer-list');
 }
 
 /**
@@ -115,7 +115,7 @@ export function uploadDocument(appealId, { file, documentType }) {
 	appendFilesToFormData(formData, { key: 'file', file });
 
 	// Awaiting https://pins-ds.atlassian.net/browse/BOCM-78
-	// lpa/${appealId}/documents is not yet implemented so mock created resource
+	// case-officer/${appealId}/documents is not yet implemented so mock created resource
 	return Promise.resolve({
 		Filename: file.originalname,
 		Type: documentType,

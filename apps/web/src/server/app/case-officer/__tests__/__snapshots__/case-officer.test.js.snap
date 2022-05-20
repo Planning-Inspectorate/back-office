@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`lpa GET /appeals/:appealId/documents/:documentType should render a page for updating a document type 1`] = `
+exports[`case-officer GET /appeals/:appealId/documents/:documentType should render a page for updating a document type 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"govuk-grid-row\\">
         <div class=\\"govuk-grid-column-two-thirds\\">
@@ -34,7 +34,7 @@ exports[`lpa GET /appeals/:appealId/documents/:documentType should render a page
                     </div>
                 </details>
                 <div class=\\"govuk-button-group\\">
-                    <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and continue</button><a class=\\"govuk-link\\" href=\\"/lpa/appeals/204\\">Cancel</a>
+                    <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and continue</button><a class=\\"govuk-link\\" href=\\"/case-officer/appeals/204\\">Cancel</a>
                 </div>
             </form>
         </div>
@@ -42,7 +42,7 @@ exports[`lpa GET /appeals/:appealId/documents/:documentType should render a page
 </main>"
 `;
 
-exports[`lpa GET /appeals/:appealId/edit-listed-building-description should render a page for updating the listed building description 1`] = `
+exports[`case-officer GET /appeals/:appealId/edit-listed-building-description should render a page for updating the listed building description 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"govuk-grid-row\\">
         <div class=\\"govuk-grid-column-two-thirds\\">
@@ -59,7 +59,7 @@ exports[`lpa GET /appeals/:appealId/edit-listed-building-description should rend
                     aria-live=\\"polite\\">You can enter up to 500 characters</div>
                 </div>
                 <div class=\\"govuk-button-group\\">
-                    <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and continue</button><a class=\\"govuk-link\\" href=\\"/lpa/appeals/204\\">Cancel</a>
+                    <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and continue</button><a class=\\"govuk-link\\" href=\\"/case-officer/appeals/204\\">Cancel</a>
                 </div>
             </form>
         </div>
@@ -67,7 +67,7 @@ exports[`lpa GET /appeals/:appealId/edit-listed-building-description should rend
 </main>"
 `;
 
-exports[`lpa GET /appeals/:appealId/final-comments should render an appeal accepting final comments 1`] = `
+exports[`case-officer GET /appeals/:appealId/final-comments should render an appeal accepting final comments 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"govuk-grid-row\\">
         <div class=\\"govuk-grid-column-full\\">
@@ -121,13 +121,13 @@ exports[`lpa GET /appeals/:appealId/final-comments should render an appeal accep
             </div>
         </details>
         <div class=\\"govuk-button-group\\">
-            <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and continue</button><a class=\\"govuk-link\\" href=\\"/lpa\\">Cancel</a>
+            <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and continue</button><a class=\\"govuk-link\\" href=\\"/case-officer\\">Cancel</a>
         </div>
     </form>
 </main>"
 `;
 
-exports[`lpa GET /appeals/:appealId/statements should render an appeal accepting statements 1`] = `
+exports[`case-officer GET /appeals/:appealId/statements should render an appeal accepting statements 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"govuk-grid-row\\">
         <div class=\\"govuk-grid-column-full\\">
@@ -181,13 +181,13 @@ exports[`lpa GET /appeals/:appealId/statements should render an appeal accepting
             </div>
         </details>
         <div class=\\"govuk-button-group\\">
-            <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and continue</button><a class=\\"govuk-link\\" href=\\"/lpa\\">Cancel</a>
+            <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and continue</button><a class=\\"govuk-link\\" href=\\"/case-officer\\">Cancel</a>
         </div>
     </form>
 </main>"
 `;
 
-exports[`lpa GET /lpa should render a placeholder for empty appeals 1`] = `
+exports[`case-officer GET /case-officer should render a placeholder for empty appeals 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"govuk-grid-row\\">
         <div class=\\"govuk-grid-column-full\\">
@@ -205,7 +205,7 @@ exports[`lpa GET /lpa should render a placeholder for empty appeals 1`] = `
 </main>"
 `;
 
-exports[`lpa GET /lpa should render incoming and incomplete questionnaires 1`] = `
+exports[`case-officer GET /case-officer should render incoming and incomplete questionnaires 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"govuk-grid-row\\">
         <div class=\\"govuk-grid-column-full\\">
@@ -224,7 +224,7 @@ exports[`lpa GET /lpa should render incoming and incomplete questionnaires 1`] =
         </thead>
         <tbody class=\\"govuk-table__body\\">
             <tr class=\\"govuk-table__row\\">
-                <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link\\" href=\\"/lpa/appeals/201\\">LPA/A0000/A/00/0000201</a>
+                <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link\\" href=\\"/case-officer/appeals/201\\">LPA/A0000/A/00/0000201</a>
                 </td>
                 <td class=\\"govuk-table__cell\\">21 Jan 2022</td>
                 <td class=\\"govuk-table__cell\\">London Industrial Park – Unit 201, Alpine Way, London, E6 6LA</td>
@@ -259,7 +259,7 @@ exports[`lpa GET /lpa should render incoming and incomplete questionnaires 1`] =
         </thead>
         <tbody class=\\"govuk-table__body\\">
             <tr class=\\"govuk-table__row\\">
-                <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link\\" href=\\"/lpa/appeals/204\\">LPA/A0000/A/00/0000204</a>
+                <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link\\" href=\\"/case-officer/appeals/204\\">LPA/A0000/A/00/0000204</a>
                 </td>
                 <td class=\\"govuk-table__cell\\">21 Jan 2022</td>
                 <td class=\\"govuk-table__cell\\">London Industrial Park – Unit 204, Alpine Way, London, E6 6LA</td>
@@ -280,7 +280,7 @@ exports[`lpa GET /lpa should render incoming and incomplete questionnaires 1`] =
         </thead>
         <tbody class=\\"govuk-table__body\\">
             <tr class=\\"govuk-table__row\\">
-                <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link\\" href=\\"/lpa/appeals/206/statements\\">LPA/A0000/A/00/0000206</a>
+                <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link\\" href=\\"/case-officer/appeals/206/statements\\">LPA/A0000/A/00/0000206</a>
                 </td>
                 <td class=\\"govuk-table__cell\\">21 Jan 2022</td>
                 <td class=\\"govuk-table__cell\\">London Industrial Park – Unit 206, Alpine Way, London, E6 6LA</td>
@@ -301,7 +301,7 @@ exports[`lpa GET /lpa should render incoming and incomplete questionnaires 1`] =
         </thead>
         <tbody class=\\"govuk-table__body\\">
             <tr class=\\"govuk-table__row\\">
-                <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link\\" href=\\"/lpa/appeals/205/final-comments\\">LPA/A0000/A/00/0000205</a>
+                <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link\\" href=\\"/case-officer/appeals/205/final-comments\\">LPA/A0000/A/00/0000205</a>
                 </td>
                 <td class=\\"govuk-table__cell\\">21 Jan 2022</td>
                 <td class=\\"govuk-table__cell\\">London Industrial Park – Unit 205, Alpine Way, London, E6 6LA</td>
@@ -313,7 +313,7 @@ exports[`lpa GET /lpa should render incoming and incomplete questionnaires 1`] =
 </main>"
 `;
 
-exports[`lpa GET /lpa/appeals/:appealId should render a received questionnaire 1`] = `
+exports[`case-officer GET /case-officer/appeals/:appealId should render a received questionnaire 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"govuk-grid-row\\">
         <div class=\\"govuk-grid-column-full\\">
@@ -338,7 +338,7 @@ exports[`lpa GET /lpa/appeals/:appealId should render a received questionnaire 1
             </dl>
         </div>
     </div>
-    <form action=\\"/lpa/appeals/201/questionnaire\\" method=\\"post\\" novalidate=\\"novalidate\\">
+    <form action=\\"/case-officer/appeals/201/questionnaire\\" method=\\"post\\" novalidate=\\"novalidate\\">
         <table class=\\"govuk-table pins-table--questionnaire govuk-!-margin-bottom-9\\">
             <caption class=\\"govuk-table__caption govuk-table__caption--l\\">The planning application</caption>
             <tbody class=\\"govuk-table__body\\">
@@ -717,7 +717,7 @@ exports[`lpa GET /lpa/appeals/:appealId should render a received questionnaire 1
 </main>"
 `;
 
-exports[`lpa GET /lpa/appeals/:appealId should render an incomplete questionnaire 1`] = `
+exports[`case-officer GET /case-officer/appeals/:appealId should render an incomplete questionnaire 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"govuk-grid-row\\">
         <div class=\\"govuk-grid-column-full\\">
@@ -754,7 +754,7 @@ exports[`lpa GET /lpa/appeals/:appealId should render an incomplete questionnair
                     </div>
                 </dl>
                 </dd>
-                <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/lpa/appeals/204/documents/planning-officers-report\\"> Update</a>
+                <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/case-officer/appeals/204/documents/planning-officers-report\\"> Update</a>
                 </dd>
         </div>
         <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Plans used to reach decision</dt>
@@ -769,7 +769,7 @@ exports[`lpa GET /lpa/appeals/:appealId should render an incomplete questionnair
                     </div>
                 </dl>
                 </dd>
-                <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/lpa/appeals/204/documents/plans-used-to-reach-decision\\"> Update</a>
+                <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/case-officer/appeals/204/documents/plans-used-to-reach-decision\\"> Update</a>
                 </dd>
         </div>
         <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Statutory development plan policies</dt>
@@ -785,7 +785,7 @@ exports[`lpa GET /lpa/appeals/:appealId should render an incomplete questionnair
                     </div>
                 </dl>
                 </dd>
-                <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/lpa/appeals/204/documents/statutory-development-plan-policy\\"> Update</a>
+                <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/case-officer/appeals/204/documents/statutory-development-plan-policy\\"> Update</a>
                 </dd>
         </div>
         <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Other relevant policies</dt>
@@ -800,7 +800,7 @@ exports[`lpa GET /lpa/appeals/:appealId should render an incomplete questionnair
                     </div>
                 </dl>
             </dd>
-            <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/lpa/appeals/204/documents/other-relevant-policy\\"> Update</a>
+            <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/case-officer/appeals/204/documents/other-relevant-policy\\"> Update</a>
             </dd>
         </div>
         <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Supplementary planning documents</dt>
@@ -817,7 +817,7 @@ exports[`lpa GET /lpa/appeals/:appealId should render an incomplete questionnair
                     </div>
                 </dl>
                 </dd>
-                <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/lpa/appeals/204/documents/supplementary-planning-document\\"> Update</a>
+                <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/case-officer/appeals/204/documents/supplementary-planning-document\\"> Update</a>
                 </dd>
         </div>
         <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Conservation area map and guidance</dt>
@@ -833,7 +833,7 @@ exports[`lpa GET /lpa/appeals/:appealId should render an incomplete questionnair
                     </div>
                 </dl>
                 </dd>
-                <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/lpa/appeals/204/documents/conservation-area-guidance\\"> Update</a>
+                <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/case-officer/appeals/204/documents/conservation-area-guidance\\"> Update</a>
                 </dd>
         </div>
         <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Listed building description</dt>
@@ -847,7 +847,7 @@ exports[`lpa GET /lpa/appeals/:appealId should render an incomplete questionnair
                     </div>
                 </dl>
                 </dd>
-                <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/lpa/appeals/204/edit-listed-building-description\\"> Update<span class=\\"govuk-visually-hidden\\"> listed building description</span></a>
+                <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/case-officer/appeals/204/edit-listed-building-description\\"> Update<span class=\\"govuk-visually-hidden\\"> listed building description</span></a>
                 </dd>
         </div>
         <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Application notification</dt>
@@ -868,7 +868,7 @@ exports[`lpa GET /lpa/appeals/:appealId should render an incomplete questionnair
                     </div>
                 </dl>
                 </dd>
-                <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/lpa/appeals/204/documents/application-notification\\"> Update</a>
+                <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/case-officer/appeals/204/documents/application-notification\\"> Update</a>
                 </dd>
         </div>
         <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Application publicity</dt>
@@ -880,7 +880,7 @@ exports[`lpa GET /lpa/appeals/:appealId should render an incomplete questionnair
                     </div>
                 </dl>
             </dd>
-            <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/lpa/appeals/204/documents/application-publicity\\"> Update</a>
+            <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/case-officer/appeals/204/documents/application-publicity\\"> Update</a>
             </dd>
         </div>
         <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Representations</dt>
@@ -895,7 +895,7 @@ exports[`lpa GET /lpa/appeals/:appealId should render an incomplete questionnair
                     </div>
                 </dl>
             </dd>
-            <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/lpa/appeals/204/documents/representation\\"> Update</a>
+            <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/case-officer/appeals/204/documents/representation\\"> Update</a>
             </dd>
         </div>
         <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Appeal notification</dt>
@@ -915,11 +915,12 @@ exports[`lpa GET /lpa/appeals/:appealId should render an incomplete questionnair
                     </div>
                 </dl>
             </dd>
-            <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/lpa/appeals/204/documents/appeal-notification\\"> Update</a>
+            <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/case-officer/appeals/204/documents/appeal-notification\\"> Update</a>
             </dd>
         </div>
     </dl>
-    <form action=\\"/lpa/appeals/204/questionnaire/complete\\" method=\\"post\\" novalidate>
+    <form action=\\"/case-officer/appeals/204/questionnaire/complete\\" method=\\"post\\"
+    novalidate>
         <div class=\\"govuk-form-group\\">
             <fieldset class=\\"govuk-fieldset\\">
                 <legend class=\\"govuk-fieldset__legend govuk-fieldset__legend--l\\">Mark questionnaire as complete?</legend>
@@ -942,7 +943,7 @@ exports[`lpa GET /lpa/appeals/:appealId should render an incomplete questionnair
 </main>"
 `;
 
-exports[`lpa POST /appeals/:appealId/documents/:documentType should validate that a file is chosen 1`] = `
+exports[`case-officer POST /appeals/:appealId/documents/:documentType should validate that a file is chosen 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"govuk-grid-row\\">
         <div class=\\"govuk-grid-column-two-thirds\\">
@@ -988,7 +989,7 @@ exports[`lpa POST /appeals/:appealId/documents/:documentType should validate tha
                     </div>
                 </details>
                 <div class=\\"govuk-button-group\\">
-                    <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and continue</button><a class=\\"govuk-link\\" href=\\"/lpa/appeals/204\\">Cancel</a>
+                    <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and continue</button><a class=\\"govuk-link\\" href=\\"/case-officer/appeals/204\\">Cancel</a>
                 </div>
             </form>
         </div>
@@ -996,7 +997,7 @@ exports[`lpa POST /appeals/:appealId/documents/:documentType should validate tha
 </main>"
 `;
 
-exports[`lpa POST /appeals/:appealId/documents/:documentType should validate that a file is not in excess of 15mb 1`] = `
+exports[`case-officer POST /appeals/:appealId/documents/:documentType should validate that a file is not in excess of 15mb 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"govuk-grid-row\\">
         <div class=\\"govuk-grid-column-two-thirds\\">
@@ -1042,7 +1043,7 @@ exports[`lpa POST /appeals/:appealId/documents/:documentType should validate tha
                     </div>
                 </details>
                 <div class=\\"govuk-button-group\\">
-                    <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and continue</button><a class=\\"govuk-link\\" href=\\"/lpa/appeals/204\\">Cancel</a>
+                    <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and continue</button><a class=\\"govuk-link\\" href=\\"/case-officer/appeals/204\\">Cancel</a>
                 </div>
             </form>
         </div>
@@ -1050,7 +1051,7 @@ exports[`lpa POST /appeals/:appealId/documents/:documentType should validate tha
 </main>"
 `;
 
-exports[`lpa POST /appeals/:appealId/edit-listed-building-description should update the listed building description 1`] = `
+exports[`case-officer POST /appeals/:appealId/edit-listed-building-description should update the listed building description 1`] = `
 "
                     <div class=\\"govuk-!-margin-bottom-3\\"><dt class=\\"govuk-!-font-weight-bold\\">Description:</dt>
                         <dd>*</dd>
@@ -1061,7 +1062,7 @@ exports[`lpa POST /appeals/:appealId/edit-listed-building-description should upd
                 "
 `;
 
-exports[`lpa POST /appeals/:appealId/edit-listed-building-description should validate that a listed building description is provided 1`] = `
+exports[`case-officer POST /appeals/:appealId/edit-listed-building-description should validate that a listed building description is provided 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"govuk-grid-row\\">
         <div class=\\"govuk-grid-column-two-thirds\\">
@@ -1090,7 +1091,7 @@ exports[`lpa POST /appeals/:appealId/edit-listed-building-description should val
                     aria-live=\\"polite\\">You can enter up to 500 characters</div>
                 </div>
                 <div class=\\"govuk-button-group\\">
-                    <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and continue</button><a class=\\"govuk-link\\" href=\\"/lpa/appeals/204\\">Cancel</a>
+                    <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and continue</button><a class=\\"govuk-link\\" href=\\"/case-officer/appeals/204\\">Cancel</a>
                 </div>
             </form>
         </div>
@@ -1098,7 +1099,7 @@ exports[`lpa POST /appeals/:appealId/edit-listed-building-description should val
 </main>"
 `;
 
-exports[`lpa POST /appeals/:appealId/final-comments should upload a final comment with a success message 1`] = `
+exports[`case-officer POST /appeals/:appealId/final-comments should upload a final comment with a success message 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"govuk-grid-row\\">
         <div class=\\"govuk-grid-column-two-thirds\\">
@@ -1110,7 +1111,7 @@ exports[`lpa POST /appeals/:appealId/final-comments should upload a final commen
             </div>
             <h2 class=\\"govuk-heading-m\\">What next?</h2>
             <ul class=\\"govuk-list\\">
-                <li><a href=\\"/lpa\\" class=\\"govuk-link\\">Return to task list</a>
+                <li><a href=\\"/case-officer\\" class=\\"govuk-link\\">Return to task list</a>
                 </li>
             </ul>
         </div>
@@ -1118,7 +1119,7 @@ exports[`lpa POST /appeals/:appealId/final-comments should upload a final commen
 </main>"
 `;
 
-exports[`lpa POST /appeals/:appealId/final-comments should validate that a file is chosen 1`] = `
+exports[`case-officer POST /appeals/:appealId/final-comments should validate that a file is chosen 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"govuk-grid-row\\">
         <div class=\\"govuk-grid-column-two-thirds\\">
@@ -1188,13 +1189,13 @@ exports[`lpa POST /appeals/:appealId/final-comments should validate that a file 
             </div>
         </details>
         <div class=\\"govuk-button-group\\">
-            <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and continue</button><a class=\\"govuk-link\\" href=\\"/lpa\\">Cancel</a>
+            <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and continue</button><a class=\\"govuk-link\\" href=\\"/case-officer\\">Cancel</a>
         </div>
     </form>
 </main>"
 `;
 
-exports[`lpa POST /appeals/:appealId/final-comments should validate that a file is not in excess of 15mb 1`] = `
+exports[`case-officer POST /appeals/:appealId/final-comments should validate that a file is not in excess of 15mb 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"govuk-grid-row\\">
         <div class=\\"govuk-grid-column-two-thirds\\">
@@ -1264,13 +1265,13 @@ exports[`lpa POST /appeals/:appealId/final-comments should validate that a file 
             </div>
         </details>
         <div class=\\"govuk-button-group\\">
-            <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and continue</button><a class=\\"govuk-link\\" href=\\"/lpa\\">Cancel</a>
+            <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and continue</button><a class=\\"govuk-link\\" href=\\"/case-officer\\">Cancel</a>
         </div>
     </form>
 </main>"
 `;
 
-exports[`lpa POST /appeals/:appealId/statements should upload a statement with a success message 1`] = `
+exports[`case-officer POST /appeals/:appealId/statements should upload a statement with a success message 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"govuk-grid-row\\">
         <div class=\\"govuk-grid-column-two-thirds\\">
@@ -1282,7 +1283,7 @@ exports[`lpa POST /appeals/:appealId/statements should upload a statement with a
             </div>
             <h2 class=\\"govuk-heading-m\\">What next?</h2>
             <ul class=\\"govuk-list\\">
-                <li><a href=\\"/lpa\\" class=\\"govuk-link\\">Return to task list</a>
+                <li><a href=\\"/case-officer\\" class=\\"govuk-link\\">Return to task list</a>
                 </li>
             </ul>
         </div>
@@ -1290,7 +1291,7 @@ exports[`lpa POST /appeals/:appealId/statements should upload a statement with a
 </main>"
 `;
 
-exports[`lpa POST /appeals/:appealId/statements should validate that a file is chosen 1`] = `
+exports[`case-officer POST /appeals/:appealId/statements should validate that a file is chosen 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"govuk-grid-row\\">
         <div class=\\"govuk-grid-column-two-thirds\\">
@@ -1360,13 +1361,13 @@ exports[`lpa POST /appeals/:appealId/statements should validate that a file is c
             </div>
         </details>
         <div class=\\"govuk-button-group\\">
-            <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and continue</button><a class=\\"govuk-link\\" href=\\"/lpa\\">Cancel</a>
+            <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and continue</button><a class=\\"govuk-link\\" href=\\"/case-officer\\">Cancel</a>
         </div>
     </form>
 </main>"
 `;
 
-exports[`lpa POST /appeals/:appealId/statements should validate that a file is not in excess of 15mb 1`] = `
+exports[`case-officer POST /appeals/:appealId/statements should validate that a file is not in excess of 15mb 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"govuk-grid-row\\">
         <div class=\\"govuk-grid-column-two-thirds\\">
@@ -1436,13 +1437,13 @@ exports[`lpa POST /appeals/:appealId/statements should validate that a file is n
             </div>
         </details>
         <div class=\\"govuk-button-group\\">
-            <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and continue</button><a class=\\"govuk-link\\" href=\\"/lpa\\">Cancel</a>
+            <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and continue</button><a class=\\"govuk-link\\" href=\\"/case-officer\\">Cancel</a>
         </div>
     </form>
 </main>"
 `;
 
-exports[`lpa POST /lpa/appeals/:appealId/questionnaire should handle a questionnaire with nothing missing 1`] = `
+exports[`case-officer POST /case-officer/appeals/:appealId/questionnaire should handle a questionnaire with nothing missing 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"govuk-grid-row\\">
         <div class=\\"govuk-grid-column-two-thirds\\">
@@ -1471,7 +1472,7 @@ exports[`lpa POST /lpa/appeals/:appealId/questionnaire should handle a questionn
                         questionnaire as complete makes the appeal visible to inspectors.</strong>
                 </div>
                 <div class=\\"govuk-button-group\\">
-                    <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Confirm outcome</button><a class=\\"govuk-link\\" href=\\"/lpa/appeals/201\\">Go back to review questionnaire</a>
+                    <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Confirm outcome</button><a class=\\"govuk-link\\" href=\\"/case-officer/appeals/201\\">Go back to review questionnaire</a>
                 </div>
             </form>
         </div>
@@ -1479,7 +1480,7 @@ exports[`lpa POST /lpa/appeals/:appealId/questionnaire should handle a questionn
 </main>"
 `;
 
-exports[`lpa POST /lpa/appeals/:appealId/questionnaire should handle an incomplete questionnaire 1`] = `
+exports[`case-officer POST /case-officer/appeals/:appealId/questionnaire should handle an incomplete questionnaire 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"govuk-grid-row\\">
         <div class=\\"govuk-grid-column-two-thirds\\">
@@ -1533,7 +1534,7 @@ exports[`lpa POST /lpa/appeals/:appealId/questionnaire should handle an incomple
                     </div>
                 </div>
                 <div class=\\"govuk-button-group\\">
-                    <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Confirm outcome</button><a class=\\"govuk-link\\" href=\\"/lpa/appeals/201\\">Go back to review questionnaire</a>
+                    <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Confirm outcome</button><a class=\\"govuk-link\\" href=\\"/case-officer/appeals/201\\">Go back to review questionnaire</a>
                 </div>
             </form>
         </div>
@@ -1541,7 +1542,7 @@ exports[`lpa POST /lpa/appeals/:appealId/questionnaire should handle an incomple
 </main>"
 `;
 
-exports[`lpa POST /lpa/appeals/:appealId/questionnaire should validate a questionnaire with no nested reasons selected 1`] = `
+exports[`case-officer POST /case-officer/appeals/:appealId/questionnaire should validate a questionnaire with no nested reasons selected 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"govuk-grid-row\\">
         <div class=\\"govuk-grid-column-two-thirds\\">
@@ -1582,7 +1583,7 @@ exports[`lpa POST /lpa/appeals/:appealId/questionnaire should validate a questio
             </dl>
         </div>
     </div>
-    <form action=\\"/lpa/appeals/201/questionnaire\\" method=\\"post\\" novalidate=\\"novalidate\\">
+    <form action=\\"/case-officer/appeals/201/questionnaire\\" method=\\"post\\" novalidate=\\"novalidate\\">
         <table class=\\"govuk-table pins-table--questionnaire govuk-!-margin-bottom-9\\">
             <caption class=\\"govuk-table__caption govuk-table__caption--l\\">The planning application</caption>
             <tbody class=\\"govuk-table__body\\">
@@ -1963,7 +1964,7 @@ exports[`lpa POST /lpa/appeals/:appealId/questionnaire should validate a questio
 </main>"
 `;
 
-exports[`lpa POST /lpa/appeals/:appealId/questionnaire should validate a questionnaire with the descriptions missing 1`] = `
+exports[`case-officer POST /case-officer/appeals/:appealId/questionnaire should validate a questionnaire with the descriptions missing 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"govuk-grid-row\\">
         <div class=\\"govuk-grid-column-two-thirds\\">
@@ -2014,7 +2015,7 @@ exports[`lpa POST /lpa/appeals/:appealId/questionnaire should validate a questio
             </dl>
         </div>
     </div>
-    <form action=\\"/lpa/appeals/201/questionnaire\\" method=\\"post\\" novalidate=\\"novalidate\\">
+    <form action=\\"/case-officer/appeals/201/questionnaire\\" method=\\"post\\" novalidate=\\"novalidate\\">
         <table class=\\"govuk-table pins-table--questionnaire govuk-!-margin-bottom-9\\">
             <caption class=\\"govuk-table__caption govuk-table__caption--l\\">The planning application</caption>
             <tbody class=\\"govuk-table__body\\">
@@ -2407,7 +2408,7 @@ exports[`lpa POST /lpa/appeals/:appealId/questionnaire should validate a questio
 </main>"
 `;
 
-exports[`lpa POST /lpa/appeals/:appealId/questionnaire/complete should redirect to the confirm appeal when marking the questionnaire as completed 1`] = `
+exports[`case-officer POST /case-officer/appeals/:appealId/questionnaire/complete should redirect to the confirm appeal when marking the questionnaire as completed 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"govuk-grid-row\\">
         <div class=\\"govuk-grid-column-two-thirds\\">
@@ -2436,7 +2437,7 @@ exports[`lpa POST /lpa/appeals/:appealId/questionnaire/complete should redirect 
                         questionnaire as complete makes the appeal visible to inspectors.</strong>
                 </div>
                 <div class=\\"govuk-button-group\\">
-                    <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Confirm outcome</button><a class=\\"govuk-link\\" href=\\"/lpa/appeals/204\\">Go back to review questionnaire</a>
+                    <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Confirm outcome</button><a class=\\"govuk-link\\" href=\\"/case-officer/appeals/204\\">Go back to review questionnaire</a>
                 </div>
             </form>
         </div>
@@ -2444,7 +2445,7 @@ exports[`lpa POST /lpa/appeals/:appealId/questionnaire/complete should redirect 
 </main>"
 `;
 
-exports[`lpa POST /lpa/appeals/:appealId/questionnaire/complete should redirect to the confirmation page when marking the questionnaire as incomplete 1`] = `
+exports[`case-officer POST /case-officer/appeals/:appealId/questionnaire/complete should redirect to the confirmation page when marking the questionnaire as incomplete 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"govuk-grid-row\\">
         <div class=\\"govuk-grid-column-two-thirds\\">
@@ -2529,7 +2530,7 @@ exports[`lpa POST /lpa/appeals/:appealId/questionnaire/complete should redirect 
                     </div>
                 </div>
                 <div class=\\"govuk-button-group\\">
-                    <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Confirm outcome</button><a class=\\"govuk-link\\" href=\\"/lpa/appeals/204\\">Go back to review questionnaire</a>
+                    <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Confirm outcome</button><a class=\\"govuk-link\\" href=\\"/case-officer/appeals/204\\">Go back to review questionnaire</a>
                 </div>
             </form>
         </div>
@@ -2537,7 +2538,7 @@ exports[`lpa POST /lpa/appeals/:appealId/questionnaire/complete should redirect 
 </main>"
 `;
 
-exports[`lpa POST /lpa/appeals/:appealId/questionnaire/complete should validate that a decision is made 1`] = `
+exports[`case-officer POST /case-officer/appeals/:appealId/questionnaire/complete should validate that a decision is made 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"govuk-grid-row\\">
         <div class=\\"govuk-grid-column-two-thirds\\">
@@ -2588,7 +2589,7 @@ exports[`lpa POST /lpa/appeals/:appealId/questionnaire/complete should validate 
                     </div>
                 </dl>
                 </dd>
-                <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/lpa/appeals/204/documents/planning-officers-report\\"> Update</a>
+                <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/case-officer/appeals/204/documents/planning-officers-report\\"> Update</a>
                 </dd>
         </div>
         <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Plans used to reach decision</dt>
@@ -2603,7 +2604,7 @@ exports[`lpa POST /lpa/appeals/:appealId/questionnaire/complete should validate 
                     </div>
                 </dl>
                 </dd>
-                <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/lpa/appeals/204/documents/plans-used-to-reach-decision\\"> Update</a>
+                <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/case-officer/appeals/204/documents/plans-used-to-reach-decision\\"> Update</a>
                 </dd>
         </div>
         <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Statutory development plan policies</dt>
@@ -2619,7 +2620,7 @@ exports[`lpa POST /lpa/appeals/:appealId/questionnaire/complete should validate 
                     </div>
                 </dl>
                 </dd>
-                <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/lpa/appeals/204/documents/statutory-development-plan-policy\\"> Update</a>
+                <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/case-officer/appeals/204/documents/statutory-development-plan-policy\\"> Update</a>
                 </dd>
         </div>
         <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Other relevant policies</dt>
@@ -2634,7 +2635,7 @@ exports[`lpa POST /lpa/appeals/:appealId/questionnaire/complete should validate 
                     </div>
                 </dl>
             </dd>
-            <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/lpa/appeals/204/documents/other-relevant-policy\\"> Update</a>
+            <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/case-officer/appeals/204/documents/other-relevant-policy\\"> Update</a>
             </dd>
         </div>
         <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Supplementary planning documents</dt>
@@ -2651,7 +2652,7 @@ exports[`lpa POST /lpa/appeals/:appealId/questionnaire/complete should validate 
                     </div>
                 </dl>
                 </dd>
-                <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/lpa/appeals/204/documents/supplementary-planning-document\\"> Update</a>
+                <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/case-officer/appeals/204/documents/supplementary-planning-document\\"> Update</a>
                 </dd>
         </div>
         <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Conservation area map and guidance</dt>
@@ -2667,7 +2668,7 @@ exports[`lpa POST /lpa/appeals/:appealId/questionnaire/complete should validate 
                     </div>
                 </dl>
                 </dd>
-                <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/lpa/appeals/204/documents/conservation-area-guidance\\"> Update</a>
+                <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/case-officer/appeals/204/documents/conservation-area-guidance\\"> Update</a>
                 </dd>
         </div>
         <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Listed building description</dt>
@@ -2681,7 +2682,7 @@ exports[`lpa POST /lpa/appeals/:appealId/questionnaire/complete should validate 
                     </div>
                 </dl>
                 </dd>
-                <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/lpa/appeals/204/edit-listed-building-description\\"> Update<span class=\\"govuk-visually-hidden\\"> listed building description</span></a>
+                <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/case-officer/appeals/204/edit-listed-building-description\\"> Update<span class=\\"govuk-visually-hidden\\"> listed building description</span></a>
                 </dd>
         </div>
         <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Application notification</dt>
@@ -2702,7 +2703,7 @@ exports[`lpa POST /lpa/appeals/:appealId/questionnaire/complete should validate 
                     </div>
                 </dl>
                 </dd>
-                <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/lpa/appeals/204/documents/application-notification\\"> Update</a>
+                <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/case-officer/appeals/204/documents/application-notification\\"> Update</a>
                 </dd>
         </div>
         <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Application publicity</dt>
@@ -2714,7 +2715,7 @@ exports[`lpa POST /lpa/appeals/:appealId/questionnaire/complete should validate 
                     </div>
                 </dl>
             </dd>
-            <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/lpa/appeals/204/documents/application-publicity\\"> Update</a>
+            <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/case-officer/appeals/204/documents/application-publicity\\"> Update</a>
             </dd>
         </div>
         <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Representations</dt>
@@ -2729,7 +2730,7 @@ exports[`lpa POST /lpa/appeals/:appealId/questionnaire/complete should validate 
                     </div>
                 </dl>
             </dd>
-            <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/lpa/appeals/204/documents/representation\\"> Update</a>
+            <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/case-officer/appeals/204/documents/representation\\"> Update</a>
             </dd>
         </div>
         <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Appeal notification</dt>
@@ -2749,11 +2750,12 @@ exports[`lpa POST /lpa/appeals/:appealId/questionnaire/complete should validate 
                     </div>
                 </dl>
             </dd>
-            <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/lpa/appeals/204/documents/appeal-notification\\"> Update</a>
+            <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/case-officer/appeals/204/documents/appeal-notification\\"> Update</a>
             </dd>
         </div>
     </dl>
-    <form action=\\"/lpa/appeals/204/questionnaire/complete\\" method=\\"post\\" novalidate>
+    <form action=\\"/case-officer/appeals/204/questionnaire/complete\\" method=\\"post\\"
+    novalidate>
         <div class=\\"govuk-form-group govuk-form-group--error\\">
             <fieldset class=\\"govuk-fieldset\\" aria-describedby=\\"reviewComplete-error\\">
                 <legend class=\\"govuk-fieldset__legend govuk-fieldset__legend--l\\">Mark questionnaire as complete?</legend>
@@ -2778,7 +2780,7 @@ exports[`lpa POST /lpa/appeals/:appealId/questionnaire/complete should validate 
 </main>"
 `;
 
-exports[`lpa POST /lpa/appeals/:appealId/questionnaire/confirm incomplete questionnaire review should confirm an incomplete questionnaire 1`] = `
+exports[`case-officer POST /case-officer/appeals/:appealId/questionnaire/confirm incomplete questionnaire review should confirm an incomplete questionnaire 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"govuk-grid-row\\">
         <div class=\\"govuk-grid-column-two-thirds\\">
@@ -2790,7 +2792,7 @@ exports[`lpa POST /lpa/appeals/:appealId/questionnaire/confirm incomplete questi
             </div>
             <h2 class=\\"govuk-heading-m\\">What next?</h2>
             <ul class=\\"govuk-list\\">
-                <li><a href=\\"/lpa\\" class=\\"govuk-link\\">Return to questionnaires for review</a>
+                <li><a href=\\"/case-officer\\" class=\\"govuk-link\\">Return to questionnaires for review</a>
                 </li>
             </ul>
         </div>
@@ -2798,7 +2800,7 @@ exports[`lpa POST /lpa/appeals/:appealId/questionnaire/confirm incomplete questi
 </main>"
 `;
 
-exports[`lpa POST /lpa/appeals/:appealId/questionnaire/confirm incomplete questionnaire review should validate the confirmation for an incomplete questionnaire 1`] = `
+exports[`case-officer POST /case-officer/appeals/:appealId/questionnaire/confirm incomplete questionnaire review should validate the confirmation for an incomplete questionnaire 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"govuk-grid-row\\">
         <div class=\\"govuk-grid-column-two-thirds\\">
@@ -2865,7 +2867,7 @@ exports[`lpa POST /lpa/appeals/:appealId/questionnaire/confirm incomplete questi
                     </div>
                 </div>
                 <div class=\\"govuk-button-group\\">
-                    <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Confirm outcome</button><a class=\\"govuk-link\\" href=\\"/lpa/appeals/201\\">Go back to review questionnaire</a>
+                    <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Confirm outcome</button><a class=\\"govuk-link\\" href=\\"/case-officer/appeals/201\\">Go back to review questionnaire</a>
                 </div>
             </form>
         </div>
@@ -2873,7 +2875,7 @@ exports[`lpa POST /lpa/appeals/:appealId/questionnaire/confirm incomplete questi
 </main>"
 `;
 
-exports[`lpa POST /lpa/appeals/:appealId/questionnaire/confirm valid questionnaire review should confirm a valid questionnaire 1`] = `
+exports[`case-officer POST /case-officer/appeals/:appealId/questionnaire/confirm valid questionnaire review should confirm a valid questionnaire 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"govuk-grid-row\\">
         <div class=\\"govuk-grid-column-two-thirds\\">
@@ -2885,7 +2887,7 @@ exports[`lpa POST /lpa/appeals/:appealId/questionnaire/confirm valid questionnai
             </div>
             <h2 class=\\"govuk-heading-m\\">What next?</h2>
             <ul class=\\"govuk-list\\">
-                <li><a href=\\"/lpa\\" class=\\"govuk-link\\">Return to questionnaires for review</a>
+                <li><a href=\\"/case-officer\\" class=\\"govuk-link\\">Return to questionnaires for review</a>
                 </li>
             </ul>
         </div>

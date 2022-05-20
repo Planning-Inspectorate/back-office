@@ -3,10 +3,10 @@ import { Router as createRouter } from 'express';
 import { viewHomepage, viewUnauthenticatedError } from './app.controller.js';
 import { assertGroupAccess, assertIsAuthenticated } from './auth/auth.guards.js';
 import authRouter from './auth/auth.router.js';
+import { registerCaseOfficerLocals } from './case-officer/case-officer.pipes.js';
+import lpaRouter from './case-officer/case-officer.router.js';
 import { registerInspectorLocals } from './inspector/inspector.pipes.js';
 import inspectorRouter from './inspector/inspector.router.js';
-import { registerLpaLocals } from './lpa/lpa.pipes.js';
-import lpaRouter from './lpa/lpa.router.js';
 import { registerValidationLocals } from './validation/validation.pipes.js';
 import validationRouter from './validation/validation.router.js';
 
@@ -28,12 +28,12 @@ router.use(
 	validationRouter
 );
 
-// Mount all LPA step routes at `/lpa` (these will be seen by case officers)
+// Mount all case officer routes at `/case-officer` (these will be seen by case officers)
 router.use(
-	'/lpa',
+	'/case-officer',
 	assertIsAuthenticated,
 	assertGroupAccess(config.referenceData.groups.caseOfficerGroupId),
-	registerLpaLocals,
+	registerCaseOfficerLocals,
 	lpaRouter
 );
 
