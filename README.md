@@ -94,6 +94,7 @@ npm run dev
 # OR you can manually run them
 npm run dev --workspace=@pins/api
 npm run dev --workspace=@pins/web
+npm run dev --workspace=@pins/document-storage
 
 # OR you can cd into the folder and run
 cd apps/web
@@ -145,6 +146,14 @@ exit
 
 Next step will be to run the Prisma migrations and seed to get some test data. Pleas follow the [docs here](docs/database-migration.md).
 
+### Setting up Azure Blob Store emulator locally
+
+Run the following command:
+
+```shell
+docker run -p 10000:10000 -p 10001:10001 -p 10002:10002 --name blob-store-test -d mcr.microsoft.com/azure-storage/azurite:latest
+```
+
 ### Building
 
 Building the entire solution means running most of the dev tools into PROD mode.
@@ -194,6 +203,16 @@ docker container run -dp 8080:8080 -t pins-back-office-web
 
 The image is built as a docker multi-stage build process, where first we compile the static assets and then we run the app.
 
+#### Document Storage
+
+To run the Document Storage API with Docker, from the root directory run:
+
+```shell
+docker build . -t pins-back-office-document-storage -f apps/document-storage/Dockerfile
+docker container run -dp 3001:3001 -t pins-back-office-document-storage
+```
+
+which should create and run a container at `http://0.0.0.0:3001` on your machine.
 
 ## Configuration
 

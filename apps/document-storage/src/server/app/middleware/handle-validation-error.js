@@ -1,6 +1,10 @@
 import { validationResult } from 'express-validator';
 
-export const handleValidationError = function(request, response, next) {
+/**
+ *
+ * @type {import('express').RequestHandler}
+ */
+export function handleValidationError(request, response, next) {
 	const result = validationResult(request).formatWith(({ msg }) => msg);
 
 	if (!result.isEmpty()) {
@@ -8,4 +12,4 @@ export const handleValidationError = function(request, response, next) {
 	} else {
 		next();
 	}
-};
+}
