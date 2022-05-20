@@ -7,7 +7,8 @@ const { value, error } = schema.validate({
 	NODE_ENV: environment.NODE_ENV,
 	PORT: environment.PORT,
 	SWAGGER_JSON_DIR: environment.SWAGGER_JSON_DIR || './src/server/swagger-output.json',
-	DATABASE_URL: environment.DATABASE_URL
+	DATABASE_URL: environment.DATABASE_URL,
+	defaultApiVersion: environment.DEFAULT_API_VERSION || '1'
 });
 
 if (error) {
