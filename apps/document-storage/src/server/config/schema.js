@@ -7,5 +7,10 @@ export default joi.object({
 	blobStore: joi.object({
 		connectionString: joi.string(),
 		container: joi.string()
-	})
+	}),
+	log: joi.object({
+		levelFile: joi.string(),
+		levelStdOut: joi.string()
+	}),
+	cwd: joi.string()
 }).options({ presence: 'required' });
