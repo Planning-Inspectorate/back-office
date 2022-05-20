@@ -16,7 +16,8 @@ const { value, error } = schema.validate({
 		levelFile: environment.LOG_LEVEL_FILE || 'silent',
 		levelStdOut: environment.LOG_LEVEL_STDOUT || 'debug'
 	},
-	cwd: url.fileURLToPath(new URL('..', import.meta.url))
+	cwd: url.fileURLToPath(new URL('..', import.meta.url)),
+	defaultApiVersion: '1'
 });
 
 if (error) {
