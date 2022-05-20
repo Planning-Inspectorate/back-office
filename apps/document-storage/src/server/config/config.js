@@ -20,7 +20,7 @@ const { value, error } = schema.validate({
 });
 
 if (error) {
-	throw error
+	throw error;
 }
 
 export default value;
