@@ -30,7 +30,8 @@
         "pino-pretty": "^7.6.1",
         "swagger-ui-express": "^4.3.0",
         "compression": "1.7.4",
-        "helmet": "5.0.2"
+        "helmet": "5.0.2",
+        "joi": "17.6.0"
     },
     "devDependencies": {
         "ava": "^4.2.0",
