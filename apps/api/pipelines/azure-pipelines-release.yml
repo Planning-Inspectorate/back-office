@@ -38,7 +38,7 @@ extends:
         deploymentSteps:
           - ${{ if eq(parameters.schemaMigration, true) }}:
             - checkout: self
-            - template: ../steps/azure_get_secret_value.yml
+            - template: ../steps/azure_get_secrets.yml
               parameters:
                 secrets:
                   - back-office-sql-connection-string
