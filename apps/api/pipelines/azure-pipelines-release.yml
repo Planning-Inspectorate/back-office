@@ -21,7 +21,7 @@ resources:
       type: github
       endpoint: Planning-Inspectorate
       name: Planning-Inspectorate/common-pipeline-templates
-      ref: refs/tags/release/2.1.0
+      ref: refs/tags/release/2.1.1
   pipelines:
     - pipeline: back-office-api-build
       source: Back Office API Build
@@ -41,9 +41,12 @@ extends:
             - template: ../steps/azure_get_secrets.yml
               parameters:
                 secrets:
-                  - back-office-sql-connection-string
+                  - name: back-office-sql-connection-string
+                    variable: DATABASE_URL
             - template: ../steps/node_script.yml
               parameters:
+                environmentVariables:
+                  DATABASE_URL: $(DATABASE_URL)
                 script: npm run db:migrate:prod
                 workingDirectory: $(Build.Repository.LocalPath)/apps/api
           - template: ../steps/azure_web_app_deploy.yml

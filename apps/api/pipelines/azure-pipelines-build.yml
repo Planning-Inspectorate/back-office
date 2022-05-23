@@ -10,7 +10,7 @@ resources:
       type: github
       endpoint: Planning-Inspectorate
       name: Planning-Inspectorate/common-pipeline-templates
-      ref: refs/tags/release/2.1.0
+      ref: refs/tags/release/2.1.1
 
 extends:
   template: stages/wrapper_ci.yml@templates
