@@ -1,8 +1,4 @@
 parameters:
-  - name: deploymentTag
-    displayName: Deployment Tag
-    type: string
-    default: none
   - name: region
     displayName: Region
     type: string
