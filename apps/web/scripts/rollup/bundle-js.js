@@ -1,4 +1,3 @@
-import { buildVirtualJSON, getLogger, minifySource } from '@pins/rollup';
 import alias from '@rollup/plugin-alias';
 import { getBabelOutputPlugin } from '@rollup/plugin-babel';
 import rollupPluginBeep from '@rollup/plugin-beep';
@@ -7,14 +6,16 @@ import { nodeResolve } from '@rollup/plugin-node-resolve';
 import rollupPluginReplace from '@rollup/plugin-replace';
 import rollupPluginVirtual from '@rollup/plugin-virtual';
 import kleur from 'kleur';
-import fs from 'node:fs/promises';
+import fs from 'node:fs';
 import path from 'node:path';
 import { rollup } from 'rollup';
 import { visualizer } from 'rollup-plugin-visualizer';
-import config from '../environment/config.js';
+import config from '../../environment/config.js';
+import { getLogger } from './get-logger.js';
+import { minifySource } from './minify-js.js';
+import { buildVirtualJSON } from './rollup-plugin-virtual-json.js';
 
-const { env, bundleAnalyzer, isProduction, isRelease } = config;
-
+const { buildDir, env, bundleAnalyzer, isProduction, isRelease } = config;
 const logger = getLogger({ scope: 'JS' });
 
 process.on('unhandledRejection', (reason, p) => {
@@ -109,13 +110,15 @@ async function build() {
 	// Write the bundle entrypoint to a known file for NJ to read.
 	logger.log(
 		`Writing resource JSON file ${kleur.blue('resourceCSS.json')} to ${kleur.blue(
-			'src/server/_data/resourceJS.json'
+			'.build/resourceJS.json'
 		)}`
 	);
-	await fs.writeFile(
-		'src/server/_data/resourceJS.json',
-		JSON.stringify({ path: `/scripts/${appPath}` })
-	);
+
+	if (!fs.existsSync(buildDir)) {
+		fs.mkdirSync(buildDir);
+	}
+
+	fs.writeFileSync(`${buildDir}/resourceJS.json`, JSON.stringify({ path: `/scripts/${appPath}` }));
 
 	// Compress the generated source here, as we need the final files and hashes for the Service Worker manifest.
 	if (isProduction) {

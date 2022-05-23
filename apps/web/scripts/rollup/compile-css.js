@@ -1,4 +1,4 @@
-import { getLogger, hashForContent } from '@pins/rollup';
+import config from '@pins/web/environment/config.js';
 import autoprefixer from 'autoprefixer';
 import kleur from 'kleur';
 import fs from 'node:fs';
@@ -6,12 +6,13 @@ import { createRequire } from 'node:module';
 import path from 'node:path';
 import postcss from 'postcss';
 import sassEngine from 'sass';
-import config from '../environment/config.js';
+import { getLogger } from './get-logger.js';
+import { hashForContent } from './hash.js';
 
 /** @typedef {import('source-map-js').RawSourceMap} RawSourceMap */
 /** @typedef {import('postcss').SourceMap} SourceMap */
 
-const { isProduction, isRelease } = config;
+const { buildDir, isProduction, isRelease } = config;
 const logger = getLogger({ scope: 'Sass' });
 
 const appDirectory = fs.realpathSync(process.cwd());
@@ -118,15 +119,19 @@ logger.log(`Writing generated file to ${kleur.blue(`src/server/static/styles/${r
 // the CSS name (we see our old HTML cached longer than the assets are available).
 renderTo(out, `src/server/static/styles/${resourceName}`);
 
+if (!fs.existsSync(buildDir)) {
+	fs.mkdirSync(buildDir);
+}
+
 // Write the CSS entrypoint to a known file, with a query hash, for NJ to read.
 fs.writeFileSync(
-	'src/server/_data/resourceCSS.json',
+	`${buildDir}/resourceCSS.json`,
 	JSON.stringify({ path: `/styles/${resourceName}` })
 );
 
 logger.log(
 	`Writing resource JSON file ${kleur.blue('resourceCSS.json')} to ${kleur.blue(
-		'src/server/_data/resourceCSS.json'
+		'.build/resourceCSS.json'
 	)}`
 );
 logger.success(`Finished CSS! (${resourceName})`);

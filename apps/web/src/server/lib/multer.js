@@ -4,7 +4,7 @@ import crypto from 'node:crypto';
 import path from 'node:path';
 
 export const diskStorage = multer.diskStorage({
-	destination: path.join(config.cwd, '.tmp'),
+	destination: config.tmpDir,
 	filename(_, file, done) {
 		const basename = crypto.randomBytes(16).toString('hex');
 
