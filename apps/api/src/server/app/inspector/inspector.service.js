@@ -7,6 +7,7 @@ import { breakUpCompoundStatus } from '../utils/break-up-compound-status.js';
 import { buildAppealCompundStatus } from '../utils/build-appeal-compound-status.js';
 import { appealFormatter } from './appeal-formatter.js';
 
+/** @typedef {import('@pins/express').MulterFile} MulterFile */
 /** @typedef {import('@pins/api').Schema.Appeal} Appeal */
 /** @typedef {import('@pins/api').Schema.InspectorDecisionOutcomeType} InspectorDecisionOutcomeType */
 /** @typedef {import('@pins/api').Schema.SiteVisitType} SiteVisitType */
@@ -47,7 +48,6 @@ export const bookSiteVisit = async ({ appealId, siteVisit }) => {
  * @typedef {object} IssueDecisionData
  * @property {number} appealId
  * @property {InspectorDecisionOutcomeType} outcome
- * @property {Express.Multer.File} decisionLetter
  */
 
 /**

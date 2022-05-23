@@ -4,6 +4,7 @@ import { formatAppeal } from '../utils/appeal-formatter.js';
 import { appealFormatter } from './appeal-formatter.js';
 import * as inspector from './inspector.service.js';
 
+/** @typedef {import('@pins/express').MulterFile} MulterFile */
 /** @typedef {import('@pins/api').Schema.Appeal} Appeal */
 /** @typedef {import('@pins/api').Schema.InspectorDecisionOutcomeType} InspectorDecisionOutcomeType */
 /** @typedef {import('@pins/api').Schema.SiteVisitType} SiteVisitType */
@@ -97,12 +98,13 @@ export const bookSiteVisit = async ({ body, params }, response) => {
  * Issue a decision for an appeal and serve the updated appeal in response.
  *
  * @type {import('express').RequestHandler<AppealParams, *, IssueDecisionRequestBody>}
+ * @property {MulterFile} decisionLetter
  */
 export const issueDecision = async ({ body, file, params }, response) => {
 	await inspector.issueDecision({
 		appealId: params.appealId,
 		outcome: body.outcome,
-		decisionLetter: /** @type {Express.Multer.File} */ (file)
+		decisionLetter: {/** @type {Express.Multer.File} */} (file)
 	});
 
 	const updatedAppeal = await appealRepository.getById(params.appealId, { inspectorDecision: true });
