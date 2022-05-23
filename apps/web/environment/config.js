@@ -7,7 +7,6 @@ const environment = loadEnvironment(process.env.NODE_ENV);
 const { value, error } = schema.validate({
 	apiUrl: environment.API_HOST,
 	authDisabled: environment.AUTH_DISABLED,
-	authRedirectTo: environment.AUTH_REDIRECT_URI || '/auth/redirect',
 	bundleAnalyzer: environment.BUNDLE_ANALYZER,
 	env: environment.NODE_ENV,
 	isRelease: environment.APP_RELEASE,
@@ -17,13 +16,14 @@ const { value, error } = schema.validate({
 		clientId: environment.AUTH_CLIENT_ID,
 		clientSecret: environment.AUTH_CLIENT_SECRET,
 		cloudInstanceId: environment.AUTH_CLOUD_INSTANCE_ID,
+		redirectUri: environment.AUTH_REDIRECT_URI,
 		tenantId: environment.AUTH_TENANT_ID
 	},
 	serverPort: environment.HTTPS_ENABLED === 'true' ? environment.HTTPS_PORT : environment.HTTP_PORT,
 	serverProtocol: environment.HTTPS_ENABLED === 'true' ? 'https' : 'http',
 	sslCertificateFile: environment.SSL_CERT_FILE,
 	sslCertificateKeyFile: environment.SSL_KEY_FILE,
-	referencedata: {
+	referenceData: {
 		groups: {
 			inspectorGroupId: environment.AUTH_INSPECTOR_GROUP_ID,
 			caseOfficerGroupId: environment.AUTH_CASEOFFICER_GROUP_ID,
@@ -37,7 +37,7 @@ if (error) {
 }
 
 const { msal, ...config } = value;
-const { clientId = '', cloudInstanceId, tenantId, clientSecret = '' } = msal;
+const { clientId = '', cloudInstanceId, redirectUri, tenantId, clientSecret = '' } = msal;
 
 export default {
 	...config,
@@ -48,6 +48,7 @@ export default {
 	msal: {
 		clientId,
 		clientSecret,
-		authority: `${cloudInstanceId}/${tenantId}`
+		authority: `${cloudInstanceId}/${tenantId}`,
+		redirectUri
 	}
 };

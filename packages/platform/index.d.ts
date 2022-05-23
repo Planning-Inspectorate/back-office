@@ -1,4 +1,3 @@
-import './crypto/crypto-utils';
 import './http/hooks';
 import './http/ttl';
 import './testing/assets/assets';
@@ -12,7 +11,6 @@ import './validators/date';
 import './validators/postcode';
 
 declare module '@pins/platform' {
-	export * from './crypto/crypto-utils';
 	export * from './http/hooks';
 	export * from './http/ttl';
 	export * from './testing/assets/assets';

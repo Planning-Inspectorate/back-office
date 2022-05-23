@@ -1,11 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`auth authentication should redirect to an error page when the azure redirect brings an unknown state 1`] = `
+exports[`auth authentication should clear any pending authentication data if the MSAL redirect is not subsequently invoked 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"govuk-grid-row\\">
         <div class=\\"govuk-grid-column-two-thirds\\">
-            <h1 class=\\"govuk-heading-xl\\">Sorry, there is a problem with your login</h1>
-            <p class=\\"govuk-body\\">You are not permitted to access this URL.</p>
+            <h1 class=\\"govuk-heading-xl\\">Sorry, there is a problem with the service</h1>
+            <p class=\\"govuk-body\\">Try again later.</p>
             <p class=\\"govuk-body\\"><a href=\\"https://has-appeal.herokuapp.com/help/contact\\" class=\\"govuk-link\\">Contact the Planning Inspectorate Customer Support</a> if
                 the problem persists.</p>
         </div>
@@ -13,17 +13,27 @@ exports[`auth authentication should redirect to an error page when the azure red
 </main>"
 `;
 
-exports[`auth authentication should redirect to an error page when the azure redirect is incomplete 1`] = `
-"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
-    <div class=\\"govuk-grid-row\\">
-        <div class=\\"govuk-grid-column-two-thirds\\">
-            <h1 class=\\"govuk-heading-xl\\">Sorry, there is a problem with your login</h1>
-            <p class=\\"govuk-body\\">You are not permitted to access this URL.</p>
-            <p class=\\"govuk-body\\"><a href=\\"https://has-appeal.herokuapp.com/help/contact\\" class=\\"govuk-link\\">Contact the Planning Inspectorate Customer Support</a> if
-                the problem persists.</p>
-        </div>
-    </div>
-</main>"
+exports[`auth authentication should display a logout link in the header when the user is authenticated 1`] = `
+"<div class=\\"govuk-header__content\\">
+    <nav aria-label=\\"Menu\\" class=\\"govuk-header__navigation pins-header__navigation--align-right\\">
+        <button type=\\"button\\" class=\\"govuk-header__menu-button govuk-js-header-toggle\\"
+        aria-controls=\\"navigation\\" aria-label=\\"Show or hide menu\\">Menu</button>
+        <ul id=\\"navigation\\" class=\\"govuk-header__navigation-list\\"></ul>
+    </nav>
+</div>"
+`;
+
+exports[`auth authentication should display a logout link in the header when the user is authenticated 2`] = `
+"<div class=\\"govuk-header__content\\">
+    <nav aria-label=\\"Menu\\" class=\\"govuk-header__navigation pins-header__navigation--align-right\\">
+        <button type=\\"button\\" class=\\"govuk-header__menu-button govuk-js-header-toggle\\"
+        aria-controls=\\"navigation\\" aria-label=\\"Show or hide menu\\">Menu</button>
+        <ul id=\\"navigation\\" class=\\"govuk-header__navigation-list\\">
+            <li class=\\"govuk-header__navigation-item\\"><a class=\\"govuk-header__link\\" href=\\"https://login.microsoftonline.com/common/oauth2/v2.0/logout\\"> Sign out</a>
+            </li>
+        </ul>
+    </nav>
+</div>"
 `;
 
 exports[`auth authorization should display the services page when a user belongs to more than one group 1`] = `
@@ -32,8 +42,6 @@ exports[`auth authorization should display the services page when a user belongs
         <h2 class=\\"govuk-heading-l\\">Appeals</h2>
         <ul class=\\"govuk-list\\">
             <li><a href=\\"/lpa\\" class=\\"govuk-link\\">Case officer</a>
-            </li>
-            <li><a href=\\"/inspector\\" class=\\"govuk-link\\">Inspector</a>
             </li>
             <li><a href=\\"/validation\\" class=\\"govuk-link\\">Validation officer</a>
             </li>

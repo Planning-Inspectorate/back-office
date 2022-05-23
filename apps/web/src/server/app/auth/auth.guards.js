@@ -1,96 +1,92 @@
-import { isUndefined } from 'lodash-es';
 import pino from '../../lib/logger.js';
-import { checkAccessRule } from '../../lib/sso.js';
+import * as authService from './auth.service.js';
+import * as authSession from './auth-session.service.js';
 
 /**
- * @typedef {object} AccessRule
- * @property {string[]} methods
- * @property {string[]=} roles
- * @property {string[]=} groups
- */
-
-/**
- * @typedef {object} GuardOptions
- * @property {AccessRule=} accessRule
- */
-
-/**
- * Assert the user is authenticated.
+ * Assert the user is authenticated. As the web application depends on external
+ * authentication via MSAL, then the presence of an account alone in the session
+ * is not sufficient to say the user is still authenticated: The validity of the
+ * access token associated with that account must frequently be evaluated
+ * against MSAL.
  *
- * @type {import('@pins/express').RequestHandler}
+ * As the typical lifetime of an access token is 60 - 75 minutes, it must be
+ * refreshed silently to avoid the user having to directly reauthenticate. As a
+ * consequence, this guard will silently refresh the authentication result using
+ * the refresh token held internally by the @azure/msal-node package. (This
+ * refresh token has a longer expiry duration of about one day).
+ *
+ * The user is ultimately considered authenticated with the application if the
+ * existing authentication result could be silently refreshed.
+ *
+ * @type {import('express').RequestHandler}
  */
-export function isAuthenticated(request, response, next) {
-	if (request.session?.isAuthenticated) {
+export async function assertIsAuthenticated({ originalUrl, session }, response, next) {
+	const account = authSession.getAccount(session);
+
+	if (account) {
+		try {
+			// Eagerly invoke the `acquireTokenSilent` method: Internally,
+			// @azure/msal-node will evaluate if the access token has (or is close to)
+			// expired on the existing authentication result, and only then make a
+			// network call with the refresh token to acquire a new authentication
+			// result.
+			const refreshedAuthenticationResult = await authService.acquireTokenSilent(account);
+
+			if (refreshedAuthenticationResult) {
+				pino.debug('Refreshed MSAL authentication.');
+				authSession.setAccount(session, refreshedAuthenticationResult.account);
+				return next();
+			}
+		} catch (error) {
+			pino.info(error, 'Failed to refresh MSAL authentication.');
+		}
+	}
+	pino.info(`Unauthenticated user redirected to sign in from '${originalUrl}'.`);
+
+	response.redirect(`/auth/signin?redirect_to=${originalUrl}`);
+}
+
+/**
+ * Assert the user is unauthenticated.
+ *
+ * @type {import('express').RequestHandler}
+ */
+export function assertIsUnauthenticated({ session }, response, next) {
+	if (!authSession.getAccount(session)) {
 		next();
 	} else {
-		pino.info(`Unauthenticated user redirected to sign in by '${request.originalUrl}'.`);
-
-		response.redirect(`/auth/signin?redirect_to=${request.originalUrl}`);
+		response.redirect(`/`);
 	}
 }
 
 /**
- * Checks if the user has access for this route, defined in access matrix
+ * Assert that the user's authenticated account has access to the provided groups.
  *
- * @template {object} T
- * @param {GuardOptions} options options to modify this middleware
- * @returns {import('express').RequestHandler<T>} - A wrapped request handler.
+ * @param  {...string} groupIds
+ * @returns {import('express').RequestHandler}
  */
-export function hasAccess(options) {
-	return (request, response, next) => {
-		if (request.session) {
-			const checkFor = options.accessRule && 'groups' in options.accessRule ? 'groups' : 'roles';
+export function assertGroupAccess(...groupIds) {
+	return (req, res, next) => {
+		const account = authSession.getAccount(req.session);
 
-			switch (checkFor) {
-				case 'groups':
-					if (isUndefined(request.session.account?.idTokenClaims?.groups)) {
-						if (
-							request.session.account?.idTokenClaims?.claimName ||
-							request.session.account?.idTokenClaims?.claimSources
-						) {
-							// TODO: Should we handle overage?
-							pino.error(
-								'Authorisation error. User has too many groups: groups overage claim occurred.'
-							);
-						} else {
-							pino.warn('Authorisation error. User does not belong to any groups.');
-						}
-						return response.redirect('/auth/unauthorized');
-					}
-
-					if (request.session.account?.idTokenClaims) {
-						const { groups } = request.session.account.idTokenClaims;
-
-						if (!checkAccessRule(request.method, options.accessRule, groups, 'groups')) {
-							return response.redirect('/auth/unauthorized');
-						}
-					}
-
-					next();
-					break;
-
-				case 'roles': {
-					if (isUndefined(request.session.account?.idTokenClaims.roles)) {
-						pino.warn('Authorisation error. User does not have any roles.');
-						return response.redirect('/auth/unauthorized');
-					}
-
-					if (request.session.account) {
-						const { roles = [] } = request.session.account.idTokenClaims;
-
-						if (checkAccessRule(request.method, options.accessRule, roles, 'roles')) {
-							next();
-							break;
-						}
-					}
-					return response.redirect('/auth/unauthorized');
+		if (account?.idTokenClaims.groups) {
+			for (const groupId of groupIds) {
+				if (account.idTokenClaims.groups.includes(groupId)) {
+					return next();
 				}
-
-				default:
-					break;
 			}
-		} else {
-			response.redirect('/auth/unauthorized');
+			pino.warn(
+				{ actual: account?.idTokenClaims.groups, expected: groupIds },
+				'Authorisation failed. User does not belong to any of the expected groups.'
+			);
+			return res.render('app/403');
 		}
+		if (account?.idTokenClaims.claimName || account?.idTokenClaims.claimSources) {
+			// TODO: Should we handle overage?
+			pino.error('Authorisation error. User has too many groups: groups overage claim occurred.');
+		} else {
+			pino.warn('Authorisation error. User does not belong to any groups.');
+		}
+		res.render('app/403');
 	};
 }

@@ -1,4 +1,5 @@
 import { createSessionMockMiddleware } from '@pins/express';
+import config from '@pins/web/environment/config.js';
 import { createAccountInfo } from '../factory/account-info.js';
 
 /**
@@ -11,12 +12,13 @@ import { createAccountInfo } from '../factory/account-info.js';
  * @returns {import('express').RequestHandler}
  */
 export const installAuthMock = ({ groups, getSessionID }) => {
+	const requireAllGroups = groups.length === 1 && groups[0] === '*';
+
 	return createSessionMockMiddleware({
 		getSessionID,
 		initialSession: {
-			isAuthenticated: true,
 			account: createAccountInfo({
-				groups
+				groups: requireAllGroups ? Object.values(config.referenceData.groups) : groups
 			})
 		}
 	});

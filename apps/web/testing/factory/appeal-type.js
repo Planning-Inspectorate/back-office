@@ -6,7 +6,11 @@ import { fake } from '@pins/platform';
  * @param {Partial<AppealType>} [options={}]
  * @returns {AppealType}
  */
-export function createAppealType({ id = fake.createUniqueId(), shorthand = 'HAS', type = '' }) {
+export function createAppealType({
+	id = fake.createUniqueId(),
+	shorthand = 'HAS',
+	type = ''
+} = {}) {
 	return {
 		id,
 		shorthand,

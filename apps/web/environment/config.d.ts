@@ -3,7 +3,6 @@ import { LevelWithSilent } from 'pino';
 export interface EnvironmentConfig {
 	apiUrl: string;
 	authDisabled: boolean;
-	authRedirectTo: string;
 	bundleAnalyzer: boolean;
 	cwd: string;
 	env: 'development' | 'test' | 'production';
@@ -17,12 +16,13 @@ export interface EnvironmentConfig {
 		authority: string;
 		clientId: string;
 		clientSecret: string;
+		redirectUri: string;
 	};
 	serverProtocol: 'http' | 'https';
 	serverPort: number;
 	sslCertificateFile: string;
 	sslCertificateKeyFile: string;
-	referencedata: {
+	referenceData: {
 		groups: {
 			inspectorGroupId: string;
 			caseOfficerGroupId: string;

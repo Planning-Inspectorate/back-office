@@ -1,27 +1,42 @@
-import { noopHandler } from '../utils/helpers.js';
-
-/** @typedef {import('express-session').Session & Partial<import('express-session').SessionData>} Session */
+/** @typedef {Record<string, *> & import('express-session').SessionData } SessionData */
+/** @typedef {import('express-session').Session & SessionData} Session */
 
 /**
  * @param {object} options
- * @param {Partial<import('express-session').SessionData>} [options.initialSession={}]
+ * @param {Record<string, unknown>} [options.initialSession={}]
  * @param {() => string | number} [options.getSessionID]
  * @returns {import('express').RequestHandler}
  */
 export const createSessionMockMiddleware = ({ initialSession = {}, getSessionID }) => {
 	/** @type {Map<string, Session>} */
 	const sessions = new Map();
-	const sessionInitializer = getSessionID
-		? noopHandler
-		: createSessionInitializerMiddleware({ initialSession });
+	const sessionInitializer = createSessionInitializerMiddleware({ initialSession });
 
 	return (request, response, next) => {
 		// If we are using a mocked sessionID, such as in unit-testing, then use a
 		// locally-implemented session that does not integrate with the store
 		if (getSessionID) {
 			request.sessionID = String(getSessionID());
-			request.session =
-				sessions.get(request.sessionID) || /** @type {Session} */ ({ ...initialSession });
+
+			let session = sessions.get(request.sessionID);
+
+			if (!session) {
+				session = /** @type {Session} */ ({
+					...initialSession,
+					destroy(callback) {
+						for (const property in session) {
+							if (Object.prototype.hasOwnProperty.call(session, property)) {
+								delete session[property];
+							}
+						}
+						callback(null);
+						return this;
+					}
+				});
+				sessions.set(request.sessionID, session);
+			}
+			request.session = session;
+
 			response.on('finish', () => {
 				sessions.set(request.sessionID, request.session);
 			});
@@ -58,7 +73,7 @@ export const createSessionInitializerMiddleware = ({ initialSession }) => {
 	let originalStoreGenerateFunction;
 
 	return (/** @type {RequestWithSession} */ request, _, next) => {
-		if (request.sessionStore) {
+		if (request.sessionStore && !originalStoreGenerateFunction) {
 			// patch the generate method of the store to apply the initial session at
 			// the point of session creation
 			originalStoreGenerateFunction = request.sessionStore.generate;

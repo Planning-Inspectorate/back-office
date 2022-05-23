@@ -18,4 +18,3 @@ declare module '@pins/express' {
 
 export * from './types/express';
 export * from './types/multer';
-export * from './types/session';

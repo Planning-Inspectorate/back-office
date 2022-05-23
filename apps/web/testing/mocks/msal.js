@@ -3,27 +3,49 @@ import { jest } from '@jest/globals';
 import { last } from 'lodash-es';
 import { createAccountInfo } from '../factory/account-info.js';
 
-/** @type {ConfidentialClientApplication[]} */
+/** @typedef {import('@pins/platform').PlanningInspectorAccountInfo} AccountInfo */
 
+/** @type {ConfidentialClientApplication[]} */
 const confidentialClientApplications = [];
 
 export class ConfidentialClientApplication extends msal.ConfidentialClientApplication {
 	/** @param {import('@azure/msal-node').Configuration} config */
 	constructor(config) {
 		super(config);
+
+		/** @type {AccountInfo} account */
+		this.account = createAccountInfo({ name: 'Test user' });
+
+		/** @type {import('@azure/msal-node').Configuration} */
 		this.configuration = config;
+
 		confidentialClientApplications.push(this);
 	}
 
 	acquireTokenByCode = jest.fn(() =>
 		Promise.resolve(
 			/** @type {import('@azure/msal-node').AuthenticationResult} */ ({
-				account: createAccountInfo({ name: 'Test user' })
+				account: this.account,
+				idTokenClaims: {
+					nonce: this.nonce
+				}
 			})
 		)
 	);
 
-	getAuthCodeUrl = jest.fn(() => Promise.resolve('/test/azure-msal/signin'));
+	acquireTokenSilent = jest.fn(() =>
+		Promise.resolve(
+			/** @type {import('@azure/msal-node').AuthenticationResult} */ ({
+				account: this.account
+			})
+		)
+	);
+
+	getAuthCodeUrl = jest.fn(({ nonce }) => {
+		this.nonce = nonce;
+
+		return Promise.resolve('/test/azure-msal/signin');
+	});
 }
 
 const mock = {

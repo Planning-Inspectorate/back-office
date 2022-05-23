@@ -11,12 +11,13 @@ import morgan from 'morgan';
 import multer from 'multer';
 import responseTime from 'response-time';
 import serveStatic from 'serve-static';
+import { installAuthMock } from '../../../testing/mocks/auth.js';
 import locals from '../config/locals.js';
 import nunjucksEnvironment from '../config/nunjucks.js';
 import session from '../config/session.js';
-import { httpLogger } from '../lib/logger.js';
-import simulateUserGroups from './auth/auth.local.js';
-import { routes } from './routes.js';
+import logger, { httpLogger } from '../lib/logger.js';
+import { msalMiddleware } from '../lib/msal.js';
+import appRouter from './app.router.js';
 
 // Create a new Express app.
 const app = express();
@@ -59,12 +60,15 @@ app.use(requestID());
 // Response time header
 app.use(responseTime());
 
+// MSAL middleware
+app.use(msalMiddleware);
+
 // Session middleware
 app.use(session);
 
 // In development only, integrate with locally defined user groups
 if (config.authDisabled) {
-	app.use(simulateUserGroups);
+	app.use(installAuthMock({ groups: ['*'] }));
 }
 
 // CSRF middleware via session
@@ -89,7 +93,7 @@ app.use(serveStatic('src/server/static'));
 
 // Mount all routes on / path.
 // All the other subpaths will be defined in the `routes.js` file.
-app.use('/', routes);
+app.use('/', appRouter);
 
 // Error pages
 // ! Express middleware executes in order. We should define error handlers last, after all other middleware.
@@ -99,12 +103,13 @@ app.use('/', routes);
 app.use(
 	/** @type {import('express').ErrorRequestHandler} */
 	(error, req, res, next) => {
+		logger.error(error);
+
 		if (res.headersSent) {
 			next(error);
 		}
-
 		res.status(500);
-		res.render('app/error', { error });
+		res.render('app/500', { error });
 	}
 );
 

@@ -8,7 +8,7 @@ export const store = new session.MemoryStore();
 export default session({
 	secret: 'PINSBackOffice',
 	resave: false,
-	saveUninitialized: true,
+	saveUninitialized: false,
 	store,
 	cookie: {
 		secure: config.isProduction
