@@ -5,7 +5,7 @@ const logLevel = ['fatal', 'error', 'warn', 'info', 'debug', 'trace', 'silent'];
 export default joi
 	.object({
 		apiUrl: joi.string().uri(),
-		authDisabled: joi.boolean(),
+		authDisabled: joi.boolean().optional(),
 		bundleAnalyzer: joi.boolean(),
 		env: joi.string().valid('development', 'production', 'test'),
 		isRelease: joi.boolean().optional(),

@@ -6,24 +6,22 @@ import path from 'node:path';
  * defined variables.
  *
  * @param {string} [environment='development']
- * @returns {Record<string, string>}
+ * @returns {Record<string, string | undefined>}
  */
 export function loadEnvironment(environment = 'development') {
-	/** @type {Record<string, string>} */
+	/** @type {Record<string, string | undefined>} */
 	const config = {};
-	const sourceFiles = [
-		'.env',
-		`.env.${environment}`
-	];
+	const sourceFiles = ['.env', `.env.${environment}`];
 
 	// Ensure tests can run in a deterministic fashion regardless of changes made
 	// to local environment (such as during development)
 	if (environment !== 'test') {
 		sourceFiles.push('.env.local', `.env.${environment}.local`);
 	}
-	
+
 	for (const pathToFile of sourceFiles) {
 		Object.assign(config, dotenv.config({ path: path.resolve(pathToFile) }).parsed);
 	}
-	return config;
+
+	return { ...config, ...process.env };
 }
