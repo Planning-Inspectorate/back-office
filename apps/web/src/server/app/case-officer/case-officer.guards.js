@@ -1,10 +1,10 @@
-import { getReviewQuestionnaireDocumentTypeRequired } from './lpa.filters.js';
-import * as lpaService from './lpa.service.js';
-import * as lpaSession from './lpa-session.service.js';
+import { getReviewQuestionnaireDocumentTypeRequired } from './case-officer.filters.js';
+import * as lpaService from './case-officer.service.js';
+import * as lpaSession from './case-officer-session.service.js';
 
 /** @typedef {import('@pins/appeals').DocumentType} DocumentType */
-/** @typedef {import('./lpa.router').AppealParams} AppealParams */
-/** @typedef {import('./lpa.router').AppealDocumentParams} AppealDocumentParams */
+/** @typedef {import('./case-officer.router').AppealParams} AppealParams */
+/** @typedef {import('./case-officer.router').AppealDocumentParams} AppealDocumentParams */
 
 /**
  * Guard that protects routes from having further documents of a certain type
@@ -23,7 +23,7 @@ export const assertDocumentTypeMissingOrIncorrect = async (request, response, ne
 	) {
 		next();
 	} else {
-		response.redirect(`/lpa/appeals/${appealId}`);
+		response.redirect(`/case-officer/appeals/${appealId}`);
 	}
 };
 
@@ -39,7 +39,7 @@ export const assertFinalCommentsRequired = async ({ params }, response, next) =>
 	if (appeal.acceptingFinalComments) {
 		next();
 	} else {
-		response.redirect('/lpa');
+		response.redirect('/case-officer');
 	}
 };
 
@@ -54,7 +54,7 @@ export const assertIncompleteQuestionnaire = async ({ params }, response, next) 
 	if (reviewQuestionnaire && !reviewQuestionnaire.complete) {
 		next();
 	} else {
-		response.redirect(`/lpa/appeals/${params.appealId}`);
+		response.redirect(`/case-officer/appeals/${params.appealId}`);
 	}
 };
 
@@ -71,7 +71,7 @@ export const assertListedBuildingDescriptionMissingOrIncorrect = async (req, res
 	if (reviewQuestionnaire && reviewQuestionnaire.siteListedBuildingDescriptionMissingOrIncorrect) {
 		next();
 	} else {
-		res.redirect(`/lpa/appeals/${req.params.appealId}`);
+		res.redirect(`/case-officer/appeals/${req.params.appealId}`);
 	}
 };
 
@@ -87,7 +87,7 @@ export const assertStatementsRequired = async ({ params }, response, next) => {
 	if (appeal.acceptingStatements) {
 		next();
 	} else {
-		response.redirect('/lpa');
+		response.redirect('/case-officer');
 	}
 };
 
@@ -104,6 +104,6 @@ export const assertQuestionnaireReviewExists = ({ params, session }, response, n
 	if (reviewQuestionnaire) {
 		next();
 	} else {
-		response.redirect(`/lpa/appeals/${params.appealId}`);
+		response.redirect(`/case-officer/appeals/${params.appealId}`);
 	}
 };

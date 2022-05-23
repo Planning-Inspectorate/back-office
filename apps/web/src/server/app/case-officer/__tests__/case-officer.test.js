@@ -18,15 +18,15 @@ import {
 const { app, installMockApi, teardown } = createTestApplication();
 const request = supertest(app);
 
-describe('lpa', () => {
+describe('case-officer', () => {
 	beforeEach(installMockApi);
 	afterEach(teardown);
 
-	describe('GET /lpa', () => {
+	describe('GET /case-officer', () => {
 		it('should render a placeholder for empty appeals', async () => {
 			nock('http://test/').get('/case-officer').reply(200, []);
 
-			const response = await request.get('/lpa');
+			const response = await request.get('/case-officer');
 			const element = parseHtml(response.text);
 
 			expect(element.innerHTML).toMatchSnapshot();
@@ -44,17 +44,17 @@ describe('lpa', () => {
 					appealSummaryForStatements
 				]);
 
-			const response = await request.get('/lpa');
+			const response = await request.get('/case-officer');
 			const element = parseHtml(response.text);
 
 			expect(element.innerHTML).toMatchSnapshot();
 		});
 	});
 
-	describe('GET /lpa/appeals/:appealId', () => {
+	describe('GET /case-officer/appeals/:appealId', () => {
 		it('should render a received questionnaire', async () => {
 			const { AppealId } = appealDetailsForReceivedQuestionnaire;
-			const response = await request.get(`/lpa/appeals/${AppealId}`);
+			const response = await request.get(`/case-officer/appeals/${AppealId}`);
 			const element = parseHtml(response.text);
 
 			expect(element.innerHTML).toMatchSnapshot();
@@ -62,18 +62,18 @@ describe('lpa', () => {
 
 		it('should render an incomplete questionnaire', async () => {
 			const { AppealId } = appealDetailsForIncompleteQuestionnaire;
-			const response = await request.get(`/lpa/appeals/${AppealId}`);
+			const response = await request.get(`/case-officer/appeals/${AppealId}`);
 			const element = parseHtml(response.text);
 
 			expect(element.innerHTML).toMatchSnapshot();
 		});
 	});
 
-	describe('POST /lpa/appeals/:appealId/questionnaire', () => {
+	describe('POST /case-officer/appeals/:appealId/questionnaire', () => {
 		const { AppealId } = appealDetailsForReceivedQuestionnaire;
 
 		it('should validate a questionnaire with the descriptions missing', async () => {
-			const response = await request.post(`/lpa/appeals/${AppealId}/questionnaire`).send({
+			const response = await request.post(`/case-officer/appeals/${AppealId}/questionnaire`).send({
 				answers: [
 					'applicationPlansToReachDecisionMissingOrIncorrect',
 					'policiesOtherRelevantPoliciesMissingOrIncorrect',
@@ -97,7 +97,7 @@ describe('lpa', () => {
 		});
 
 		it('should validate a questionnaire with no nested reasons selected', async () => {
-			const response = await request.post(`/lpa/appeals/${AppealId}/questionnaire`).send({
+			const response = await request.post(`/case-officer/appeals/${AppealId}/questionnaire`).send({
 				answers: [
 					'thirdPartyAppealNotificationMissingOrIncorrect',
 					'thirdPartyApplicationNotificationMissingOrIncorrect'
@@ -110,7 +110,7 @@ describe('lpa', () => {
 
 		it('should handle an incomplete questionnaire', async () => {
 			const response = await request
-				.post(`/lpa/appeals/${AppealId}/questionnaire`)
+				.post(`/case-officer/appeals/${AppealId}/questionnaire`)
 				.send({
 					answers: [
 						'applicationPlansToReachDecisionMissingOrIncorrect',
@@ -130,7 +130,7 @@ describe('lpa', () => {
 
 		it('should handle a questionnaire with nothing missing', async () => {
 			const response = await request
-				.post(`/lpa/appeals/${AppealId}/questionnaire`)
+				.post(`/case-officer/appeals/${AppealId}/questionnaire`)
 				.send({})
 				.redirects(1);
 			const element = parseHtml(response.text);
@@ -139,11 +139,11 @@ describe('lpa', () => {
 		});
 	});
 
-	describe('POST /lpa/appeals/:appealId/questionnaire/complete', () => {
+	describe('POST /case-officer/appeals/:appealId/questionnaire/complete', () => {
 		const { AppealId } = appealDetailsForIncompleteQuestionnaire;
 
 		it('should validate that a decision is made', async () => {
-			const response = await request.post(`/lpa/appeals/${AppealId}/questionnaire/complete`);
+			const response = await request.post(`/case-officer/appeals/${AppealId}/questionnaire/complete`);
 			const element = parseHtml(response.text);
 
 			expect(element.innerHTML).toMatchSnapshot();
@@ -151,7 +151,7 @@ describe('lpa', () => {
 
 		it('should redirect to the confirm appeal when marking the questionnaire as completed', async () => {
 			const response = await request
-				.post(`/lpa/appeals/${AppealId}/questionnaire/complete`)
+				.post(`/case-officer/appeals/${AppealId}/questionnaire/complete`)
 				.send({ reviewComplete: 'true' })
 				.redirects(1);
 			const element = parseHtml(response.text);
@@ -161,7 +161,7 @@ describe('lpa', () => {
 
 		it('should redirect to the confirmation page when marking the questionnaire as incomplete', async () => {
 			const response = await request
-				.post(`/lpa/appeals/${AppealId}/questionnaire/complete`)
+				.post(`/case-officer/appeals/${AppealId}/questionnaire/complete`)
 				.send({ reviewComplete: 'false' })
 				.redirects(1);
 			const element = parseHtml(response.text);
@@ -172,7 +172,7 @@ describe('lpa', () => {
 		it('should redirect to the appeal page when the questionnaire is not incomplete', async () => {
 			const { AppealId: invalidAppealId } = appealDetailsForReceivedQuestionnaire;
 			const response = await request
-				.post(`/lpa/appeals/${invalidAppealId}/questionnaire/complete`)
+				.post(`/case-officer/appeals/${invalidAppealId}/questionnaire/complete`)
 				.redirects(1);
 			const element = parseHtml(response.text);
 
@@ -180,7 +180,7 @@ describe('lpa', () => {
 		});
 	});
 
-	describe('POST /lpa/appeals/:appealId/questionnaire/confirm', () => {
+	describe('POST /case-officer/appeals/:appealId/questionnaire/confirm', () => {
 		const { AppealId } = appealDetailsForReceivedQuestionnaire;
 
 		describe('valid questionnaire review', () => {
@@ -192,7 +192,7 @@ describe('lpa', () => {
 
 			it('should confirm a valid questionnaire', async () => {
 				const response = await request
-					.post(`/lpa/appeals/${AppealId}/questionnaire/confirm`)
+					.post(`/case-officer/appeals/${AppealId}/questionnaire/confirm`)
 					.redirects(1);
 				const element = parseHtml(response.text);
 
@@ -216,7 +216,7 @@ describe('lpa', () => {
 			});
 
 			it('should validate the confirmation for an incomplete questionnaire', async () => {
-				const response = await request.post(`/lpa/appeals/${AppealId}/questionnaire/confirm`);
+				const response = await request.post(`/case-officer/appeals/${AppealId}/questionnaire/confirm`);
 				const element = parseHtml(response.text);
 
 				expect(element.innerHTML).toMatchSnapshot();
@@ -236,7 +236,7 @@ describe('lpa', () => {
 					.reply(200);
 
 				const response = await request
-					.post(`/lpa/appeals/${AppealId}/questionnaire/confirm`)
+					.post(`/case-officer/appeals/${AppealId}/questionnaire/confirm`)
 					.send({ confirmation: true })
 					.redirects(1);
 				const element = parseHtml(response.text);
@@ -251,7 +251,7 @@ describe('lpa', () => {
 
 		it('should render a page for updating the listed building description', async () => {
 			const response = await request.get(
-				`/lpa/appeals/${AppealId}/edit-listed-building-description`
+				`/case-officer/appeals/${AppealId}/edit-listed-building-description`
 			);
 			const element = parseHtml(response.text);
 
@@ -263,7 +263,7 @@ describe('lpa', () => {
 				.get(`/case-officer/1`)
 				.reply(
 					200,
-					/** @type {import('@pins/appeals').Lpa.Appeal} */ ({
+					/** @type {import('@pins/appeals').CaseOfficer.Appeal} */ ({
 						...appealDetailsForIncompleteQuestionnaire,
 						reviewQuestionnaire: {
 							applicationPlanningOfficersReportMissingOrIncorrect: true
@@ -272,7 +272,7 @@ describe('lpa', () => {
 				);
 
 			const response = await request
-				.get(`/lpa/appeals/1/edit-listed-building-description`)
+				.get(`/case-officer/appeals/1/edit-listed-building-description`)
 				.redirects(1);
 			const element = parseHtml(response.text);
 
@@ -285,7 +285,7 @@ describe('lpa', () => {
 
 		it('should validate that a listed building description is provided', async () => {
 			const response = await request
-				.post(`/lpa/appeals/${AppealId}/edit-listed-building-description`)
+				.post(`/case-officer/appeals/${AppealId}/edit-listed-building-description`)
 				.send({ listedBuildingDescription: ' ' });
 			const element = parseHtml(response.text);
 
@@ -298,12 +298,12 @@ describe('lpa', () => {
 				.get(`/case-officer/${AppealId}`)
 				.reply(
 					200,
-					/** @type {import('@pins/appeals').Lpa.Appeal } */
+					/** @type {import('@pins/appeals').CaseOfficer.Appeal } */
 					({ ...appealDetailsForIncompleteQuestionnaire, ListedBuildingDesc: '*' })
 				);
 
 			const response = await request
-				.post(`/lpa/appeals/${AppealId}/edit-listed-building-description`)
+				.post(`/case-officer/appeals/${AppealId}/edit-listed-building-description`)
 				.send({ listedBuildingDescription: '*' })
 				.redirects(1);
 			const element = parseHtml(response.text);
@@ -319,7 +319,7 @@ describe('lpa', () => {
 				.get(`/case-officer/1`)
 				.reply(
 					200,
-					/** @type {import('@pins/appeals').Lpa.Appeal} */ ({
+					/** @type {import('@pins/appeals').CaseOfficer.Appeal} */ ({
 						...appealDetailsForIncompleteQuestionnaire,
 						reviewQuestionnaire: {
 							applicationPlanningOfficersReportMissingOrIncorrect: true
@@ -328,7 +328,7 @@ describe('lpa', () => {
 				);
 
 			const response = await request
-				.get(`/lpa/appeals/1/edit-listed-building-description`)
+				.get(`/case-officer/appeals/1/edit-listed-building-description`)
 				.redirects(1);
 			const element = parseHtml(response.text);
 
@@ -341,7 +341,7 @@ describe('lpa', () => {
 
 		it('should render a page for updating a document type', async () => {
 			const response = await request.get(
-				`/lpa/appeals/${AppealId}/documents/plans-used-to-reach-decision`
+				`/case-officer/appeals/${AppealId}/documents/plans-used-to-reach-decision`
 			);
 			const element = parseHtml(response.text);
 
@@ -355,7 +355,7 @@ describe('lpa', () => {
 				.get(`/case-officer/1`)
 				.reply(
 					200,
-					/** @type {import('@pins/appeals').Lpa.Appeal} */ ({
+					/** @type {import('@pins/appeals').CaseOfficer.Appeal} */ ({
 						...appealDetailsForIncompleteQuestionnaire,
 						reviewQuestionnaire: {
 							...reviewQuestionnaire,
@@ -365,7 +365,7 @@ describe('lpa', () => {
 				);
 
 			const response = await request
-				.get(`/lpa/appeals/1/documents/plans-used-to-reach-decision`)
+				.get(`/case-officer/appeals/1/documents/plans-used-to-reach-decision`)
 				.redirects(1);
 			const element = parseHtml(response.text);
 
@@ -378,7 +378,7 @@ describe('lpa', () => {
 
 		it('should validate that a file is chosen', async () => {
 			const response = await request.post(
-				`/lpa/appeals/${AppealId}/documents/plans-used-to-reach-decision`
+				`/case-officer/appeals/${AppealId}/documents/plans-used-to-reach-decision`
 			);
 			const element = parseHtml(response.text);
 
@@ -387,7 +387,7 @@ describe('lpa', () => {
 
 		it('should validate that a file is not in excess of 15mb', async () => {
 			const response = await request
-				.post(`/lpa/appeals/${AppealId}/documents/plans-used-to-reach-decision`)
+				.post(`/case-officer/appeals/${AppealId}/documents/plans-used-to-reach-decision`)
 				.attach('files', getPathToAsset('anthropods.pdf'));
 			const element = parseHtml(response.text);
 
@@ -396,7 +396,7 @@ describe('lpa', () => {
 
 		it('should redirect back to the appeal after a mock upload', async () => {
 			const response = await request
-				.post(`/lpa/appeals/${AppealId}/documents/plans-used-to-reach-decision`)
+				.post(`/case-officer/appeals/${AppealId}/documents/plans-used-to-reach-decision`)
 				.attach('files', getPathToAsset('simple.pdf'))
 				.redirects(1);
 			const element = parseHtml(response.text);
@@ -411,7 +411,7 @@ describe('lpa', () => {
 				.get(`/case-officer/1`)
 				.reply(
 					200,
-					/** @type {import('@pins/appeals').Lpa.Appeal} */ ({
+					/** @type {import('@pins/appeals').CaseOfficer.Appeal} */ ({
 						...appealDetailsForIncompleteQuestionnaire,
 						reviewQuestionnaire: {
 							...reviewQuestionnaire,
@@ -421,7 +421,7 @@ describe('lpa', () => {
 				);
 
 			const response = await request
-				.post(`/lpa/appeals/1/documents/plans-used-to-reach-decision`)
+				.post(`/case-officer/appeals/1/documents/plans-used-to-reach-decision`)
 				.redirects(1);
 			const element = parseHtml(response.text);
 
@@ -432,7 +432,7 @@ describe('lpa', () => {
 	describe('GET /appeals/:appealId/final-comments', () => {
 		it('should render an appeal accepting final comments', async () => {
 			const { AppealId } = appealDetailsForFinalComments;
-			const response = await request.get(`/lpa/appeals/${AppealId}/final-comments`);
+			const response = await request.get(`/case-officer/appeals/${AppealId}/final-comments`);
 			const element = parseHtml(response.text);
 
 			expect(element.innerHTML).toMatchSnapshot();
@@ -442,7 +442,7 @@ describe('lpa', () => {
 			nock('http://test/').get('/case-officer').reply(200, []);
 
 			const response = await request
-				.get(`/lpa/appeals/${appealDetailsForStatements.AppealId}/final-comments`)
+				.get(`/case-officer/appeals/${appealDetailsForStatements.AppealId}/final-comments`)
 				.redirects(1);
 			const element = parseHtml(response.text);
 
@@ -454,7 +454,7 @@ describe('lpa', () => {
 		const { AppealId } = appealDetailsForFinalComments;
 
 		it('should validate that a file is chosen', async () => {
-			const response = await request.post(`/lpa/appeals/${AppealId}/final-comments`);
+			const response = await request.post(`/case-officer/appeals/${AppealId}/final-comments`);
 			const element = parseHtml(response.text);
 
 			expect(element.innerHTML).toMatchSnapshot();
@@ -462,7 +462,7 @@ describe('lpa', () => {
 
 		it('should validate that a file is not in excess of 15mb', async () => {
 			const response = await request
-				.post(`/lpa/appeals/${AppealId}/final-comments`)
+				.post(`/case-officer/appeals/${AppealId}/final-comments`)
 				.attach('files', getPathToAsset('anthropods.pdf'));
 			const element = parseHtml(response.text);
 
@@ -477,7 +477,7 @@ describe('lpa', () => {
 			});
 
 			const response = await request
-				.post(`/lpa/appeals/${AppealId}/final-comments`)
+				.post(`/case-officer/appeals/${AppealId}/final-comments`)
 				.attach('files', getPathToAsset('simple.pdf'))
 				.redirects(1);
 			const element = parseHtml(response.text);
@@ -489,7 +489,7 @@ describe('lpa', () => {
 			nock('http://test/').get('/case-officer').reply(200, []);
 
 			const response = await request
-				.post(`/lpa/appeals/${appealDetailsForStatements.AppealId}/final-comments`)
+				.post(`/case-officer/appeals/${appealDetailsForStatements.AppealId}/final-comments`)
 				.redirects(1);
 			const element = parseHtml(response.text);
 
@@ -500,7 +500,7 @@ describe('lpa', () => {
 	describe('GET /appeals/:appealId/statements', () => {
 		it('should render an appeal accepting statements', async () => {
 			const { AppealId } = appealDetailsForStatements;
-			const response = await request.get(`/lpa/appeals/${AppealId}/statements`);
+			const response = await request.get(`/case-officer/appeals/${AppealId}/statements`);
 			const element = parseHtml(response.text);
 
 			expect(element.innerHTML).toMatchSnapshot();
@@ -510,7 +510,7 @@ describe('lpa', () => {
 			nock('http://test/').get('/case-officer').reply(200, []);
 
 			const response = await request
-				.get(`/lpa/appeals/${appealDetailsForFinalComments.AppealId}/statements`)
+				.get(`/case-officer/appeals/${appealDetailsForFinalComments.AppealId}/statements`)
 				.redirects(1);
 			const element = parseHtml(response.text);
 
@@ -522,7 +522,7 @@ describe('lpa', () => {
 		const { AppealId } = appealDetailsForStatements;
 
 		it('should validate that a file is chosen', async () => {
-			const response = await request.post(`/lpa/appeals/${AppealId}/statements`);
+			const response = await request.post(`/case-officer/appeals/${AppealId}/statements`);
 			const element = parseHtml(response.text);
 
 			expect(element.innerHTML).toMatchSnapshot();
@@ -530,7 +530,7 @@ describe('lpa', () => {
 
 		it('should validate that a file is not in excess of 15mb', async () => {
 			const response = await request
-				.post(`/lpa/appeals/${AppealId}/statements`)
+				.post(`/case-officer/appeals/${AppealId}/statements`)
 				.attach('files', getPathToAsset('anthropods.pdf'));
 			const element = parseHtml(response.text);
 
@@ -545,7 +545,7 @@ describe('lpa', () => {
 			});
 
 			const response = await request
-				.post(`/lpa/appeals/${AppealId}/statements`)
+				.post(`/case-officer/appeals/${AppealId}/statements`)
 				.attach('files', getPathToAsset('simple.pdf'))
 				.redirects(1);
 			const element = parseHtml(response.text);
@@ -557,7 +557,7 @@ describe('lpa', () => {
 			nock('http://test/').get('/case-officer').reply(200, []);
 
 			const response = await request
-				.post(`/lpa/appeals/${appealDetailsForFinalComments.AppealId}/statements`)
+				.post(`/case-officer/appeals/${appealDetailsForFinalComments.AppealId}/statements`)
 				.redirects(1);
 			const element = parseHtml(response.text);
 
@@ -572,5 +572,5 @@ describe('lpa', () => {
  * @returns {Promise<import('supertest').Response>}
  */
 function installQuestionnaireReview(appealId, questionnaireReview) {
-	return request.post(`/lpa/appeals/${appealId}/questionnaire`).send(questionnaireReview);
+	return request.post(`/case-officer/appeals/${appealId}/questionnaire`).send(questionnaireReview);
 }

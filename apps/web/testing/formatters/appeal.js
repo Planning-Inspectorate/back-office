@@ -8,8 +8,8 @@ import validationFormatter from '@pins/api/src/server/app/validation/appeal-form
 /** @typedef {import('@pins/api').Schema.Appeal} RawAppeal */
 /** @typedef {import('@pins/appeals').Validation.Appeal} ValidationAppeal */
 /** @typedef {import('@pins/appeals').Validation.AppealSummary} ValidationAppealSummary */
-/** @typedef {import('@pins/appeals').Lpa.Appeal} LpaAppeal */
-/** @typedef {import('@pins/appeals').Lpa.AppealSummary} LpaAppealSummary */
+/** @typedef {import('@pins/appeals').CaseOfficer.Appeal} CaseOfficerAppeal */
+/** @typedef {import('@pins/appeals').CaseOfficer.AppealSummary} CaseOfficerAppealSummary */
 /** @typedef {import('@pins/appeals').Inspector.Appeal} InspectorAppeal */
 /** @typedef {import('@pins/appeals').Inspector.AppealSummary} InspectorAppealSummary */
 
@@ -39,12 +39,12 @@ const formatAppealSummaryForValidation = /** @type {*} */ (
 
 /**
  * @param {RawAppeal} appeal
- * @returns {LpaAppeal} - TODO: Link this type to web/response definition
+ * @returns {CaseOfficerAppeal} - TODO: Link this type to web/response definition
  */
 const formatAppealDetailsForCaseOfficer = ({ documents = [], ...other }) => {
 	const formattedAppeal = caseOfficerFormatter.formatAppealForAppealDetails(other);
 
-	return /** @type {LpaAppeal} */ {
+	return /** @type {CaseOfficerAppeal} */ {
 		...formattedAppeal,
 		Documents: documents.map((document) => ({
 			Type: document.type,
@@ -62,7 +62,7 @@ const formatAppealDetailsForCaseOfficer = ({ documents = [], ...other }) => {
 
 /**
  * @param {RawAppeal} appeal
- * @returns {LpaAppealSummary}
+ * @returns {CaseOfficerAppealSummary}
  */
 const formatAppealSummaryForCaseOfficer = (appeal) => ({
 	...caseOfficerFormatter.formatAppealForAllAppeals(appeal),

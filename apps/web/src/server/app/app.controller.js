@@ -38,7 +38,7 @@ export function viewHomepage(request, response, next) {
 				response.redirect('/validation');
 				break;
 			case config.referenceData.groups.caseOfficerGroupId:
-				response.redirect('/lpa');
+				response.redirect('/case-officer');
 				break;
 			case config.referenceData.groups.inspectorGroupId:
 				response.redirect('/inspector');

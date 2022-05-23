@@ -7,12 +7,12 @@ import { caseOfficer } from '../formatters/appeal.js';
 import { documents } from './document.js';
 import { lpaQuestionnaire } from './lpa-questionnaire.js';
 
-/** @typedef {import('@pins/appeals').Lpa.Appeal} LpaAppeal */
-/** @typedef {import('@pins/appeals').Lpa.AppealSummary} LpaAppealSummary */
+/** @typedef {import('@pins/appeals').CaseOfficer.Appeal} CaseOfficerAppeal */
+/** @typedef {import('@pins/appeals').CaseOfficer.AppealSummary} CaseOfficerAppealSummary */
 
 /**
  * @param {Partial<import('../factory/appeal').AppealData> & { id: number }} appealData
- * @returns {[LpaAppealSummary, LpaAppeal]}
+ * @returns {[CaseOfficerAppealSummary, CaseOfficerAppeal]}
  */
 const createAppealFixtures = ({ id, ...appealData }) => {
 	const appeal = createAppeal({

@@ -1,14 +1,14 @@
-import * as lpaService from './lpa.service.js';
-import * as lpaSession from './lpa-session.service.js';
+import * as lpaService from './case-officer.service.js';
+import * as lpaSession from './case-officer-session.service.js';
 
-/** @typedef {import('@pins/appeals').Lpa.Appeal} Appeal */
-/** @typedef {import('@pins/appeals').Lpa.AppealSummary} AppealSummary */
+/** @typedef {import('@pins/appeals').CaseOfficer.Appeal} Appeal */
+/** @typedef {import('@pins/appeals').CaseOfficer.AppealSummary} AppealSummary */
 /** @typedef {import('@pins/appeals').DocumentType} DocumentType */
-/** @typedef {import('@pins/appeals').Lpa.Questionnaire} LpaQuestionnaire */
-/** @typedef {import('./lpa.router').AppealParams} AppealParams */
-/** @typedef {import('./lpa-session.service').QuestionnaireReviewState} QuestionnaireReview */
-/** @typedef {import('./lpa.service').UploadFinalCommentsResponseBody} UploadFinalCommentsResponseBody */
-/** @typedef {import('./lpa.service').UploadStatementsResponseBody} UploadStatementsResponseBody */
+/** @typedef {import('@pins/appeals').CaseOfficer.Questionnaire} CaseOfficerQuestionnaire */
+/** @typedef {import('./case-officer.router').AppealParams} AppealParams */
+/** @typedef {import('./case-officer-session.service').QuestionnaireReviewState} QuestionnaireReview */
+/** @typedef {import('./case-officer.service').UploadFinalCommentsResponseBody} UploadFinalCommentsResponseBody */
+/** @typedef {import('./case-officer.service').UploadStatementsResponseBody} UploadStatementsResponseBody */
 /**
  * @typedef {object} ViewDashboardRenderOptions
  * @property {AppealSummary[]} appeals
@@ -18,7 +18,7 @@ import * as lpaSession from './lpa-session.service.js';
 export const viewDashboard = async (_, response) => {
 	const appeals = await lpaService.findAllAppeals();
 
-	response.render('lpa/dashboard', { appeals });
+	response.render('case-officer/dashboard', { appeals });
 };
 
 /**
@@ -27,7 +27,7 @@ export const viewDashboard = async (_, response) => {
  * completed, the page displays a summary of the answers.
  *
  * @typedef {object} ViewAppealRenderOptions
- * @property {Appeal} appeal @property {LpaQuestionnaire=} reviewQuestionnaire
+ * @property {Appeal} appeal @property {CaseOfficerQuestionnaire=} reviewQuestionnaire
  */
 
 /** @type {import('@pins/express').QueryHandler<AppealParams, ViewAppealRenderOptions>}  */
@@ -35,7 +35,7 @@ export const viewAppeal = async ({ params, session }, response) => {
 	const appeal = await lpaService.findAppealById(params.appealId);
 
 	if (appeal.reviewQuestionnaire) {
-		response.render('lpa/questionnaire-incomplete', {
+		response.render('case-officer/questionnaire-incomplete', {
 			appeal,
 			reviewQuestionnaire: appeal.reviewQuestionnaire
 		});
@@ -44,20 +44,20 @@ export const viewAppeal = async ({ params, session }, response) => {
 			lpaSession.getQuestionnaireReview(session, params.appealId)
 		);
 
-		response.render('lpa/questionnaire', {
+		response.render('case-officer/questionnaire', {
 			appeal,
 			reviewQuestionnaire: state?.reviewQuestionnaire
 		});
 	}
 };
 
-/** @typedef {LpaQuestionnaire} CreateQuestionnaireReviewBody */
+/** @typedef {CaseOfficerQuestionnaire} CreateQuestionnaireReviewBody */
 
 /**
  * Handle a user submitting a questionnaire review.
  *
  * @type {import('@pins/express').CommandHandler<AppealParams,
- * ViewAppealRenderOptions, LpaQuestionnaire>}
+ * ViewAppealRenderOptions, CaseOfficerQuestionnaire>}
  */
 export const createQuestionnaireReview = async (
 	{ body: reviewQuestionnaire, params, session },
@@ -67,20 +67,20 @@ export const createQuestionnaireReview = async (
 	const appeal = await lpaService.findAppealById(appealId);
 
 	if (response.locals.errors) {
-		const tpl = appeal.reviewQuestionnaire ? 'lpa/questionnaire-incomplete' : 'lpa/questionnaire';
+		const tpl = appeal.reviewQuestionnaire ? 'case-officer/questionnaire-incomplete' : 'case-officer/questionnaire';
 
 		response.render(tpl, { appeal, reviewQuestionnaire });
 		return;
 	}
 	lpaSession.setQuestionnaireReview(session, { appealId, reviewQuestionnaire });
 
-	response.redirect(`/lpa/appeals/${appealId}/questionnaire/confirm`);
+	response.redirect(`/case-officer/appeals/${appealId}/questionnaire/confirm`);
 };
 
 /**
  * @typedef {object} ViewReviewQuestionnaireConfirmationRenderOptions
  * @property {Appeal} appeal
- * @property {LpaQuestionnaire} reviewQuestionnaire
+ * @property {CaseOfficerQuestionnaire} reviewQuestionnaire
  */
 
 /**
@@ -95,7 +95,7 @@ export const viewQuestionnaireReviewConfirmation = async ({ params, session }, r
 		lpaSession.getQuestionnaireReview(session, params.appealId)
 	);
 
-	response.render('lpa/questionnaire-confirmation', {
+	response.render('case-officer/questionnaire-confirmation', {
 		appeal,
 		reviewQuestionnaire
 	});
@@ -121,13 +121,13 @@ export const confirmQuestionnaireReview = async ({ params, session }, response) 
 	const appeal = await lpaService.findAppealById(params.appealId);
 
 	if (response.locals.errors) {
-		response.render('lpa/questionnaire-confirmation', {
+		response.render('case-officer/questionnaire-confirmation', {
 			appeal,
 			reviewQuestionnaire
 		});
 	} else {
 		await lpaService.confirmQuestionnaireReview(params.appealId, reviewQuestionnaire);
-		response.render('lpa/questionnaire-success', {
+		response.render('case-officer/questionnaire-success', {
 			appeal,
 			complete: Object.keys(reviewQuestionnaire).length === 0
 		});
@@ -144,7 +144,7 @@ export const confirmQuestionnaireReview = async ({ params, session }, response) 
 export const editListedBuildingDescription = async ({ params }, response) => {
 	const appeal = await lpaService.findAppealById(params.appealId);
 
-	response.render('lpa/edit-listed-building-description', {
+	response.render('case-officer/edit-listed-building-description', {
 		appeal,
 		listedBuildingDescription: appeal.ListedBuildingDesc
 	});
@@ -160,14 +160,14 @@ export const updateListedBuildingDescription = async ({ body, params }, response
 	if (response.locals.errors) {
 		const appeal = await lpaService.findAppealById(params.appealId);
 
-		response.render('lpa/edit-listed-building-description', {
+		response.render('case-officer/edit-listed-building-description', {
 			appeal,
 			listedBuildingDescription: appeal.ListedBuildingDesc
 		});
 	} else {
 		await lpaService.updateAppeal(params.appealId, body);
 
-		response.redirect(`/lpa/appeals/${params.appealId}`);
+		response.redirect(`/case-officer/appeals/${params.appealId}`);
 	}
 };
 
@@ -193,7 +193,7 @@ export const updateListedBuildingDescription = async ({ body, params }, response
 export const newAppealDocuments = async ({ params }, response) => {
 	const appeal = await lpaService.findAppealById(params.appealId);
 
-	response.render('lpa/appeal-documents', { appeal, documentType: params.documentType });
+	response.render('case-officer/appeal-documents', { appeal, documentType: params.documentType });
 };
 
 /**
@@ -207,13 +207,13 @@ export const uploadAppealDocuments = async ({ body, params }, response) => {
 	if (response.locals.errors) {
 		const appeal = await lpaService.findAppealById(params.appealId);
 
-		response.render('lpa/appeal-documents', { appeal, documentType: params.documentType });
+		response.render('case-officer/appeal-documents', { appeal, documentType: params.documentType });
 	} else {
 		await lpaService.uploadDocuments(params.appealId, {
 			documentType: params.documentType,
 			files: body.files
 		});
-		response.redirect(`/lpa/appeals/${params.appealId}`);
+		response.redirect(`/case-officer/appeals/${params.appealId}`);
 	}
 };
 
@@ -237,7 +237,7 @@ export const uploadAppealDocuments = async ({ body, params }, response) => {
 export const newFinalComments = async ({ params }, response) => {
 	const appeal = await lpaService.findFullPlanningAppealById(params.appealId);
 
-	response.render('lpa/fpa-documents', { appeal, documentType: 'fpa final comment' });
+	response.render('case-officer/fpa-documents', { appeal, documentType: 'fpa final comment' });
 };
 
 /**
@@ -250,14 +250,14 @@ export const uploadFinalComments = async ({ body, params }, response) => {
 	if (response.locals.errors) {
 		const appeal = await lpaService.findFullPlanningAppealById(params.appealId);
 
-		response.render('lpa/fpa-documents', {
+		response.render('case-officer/fpa-documents', {
 			appeal,
 			documentType: 'fpa final comment'
 		});
 	} else {
 		const appeal = await lpaService.uploadFinalComments(params.appealId, body.files);
 
-		response.render('lpa/fpa-documents-success', {
+		response.render('case-officer/fpa-documents-success', {
 			appeal,
 			documentType: 'fpa final comment'
 		});
@@ -274,7 +274,7 @@ export const uploadFinalComments = async ({ body, params }, response) => {
 export const newStatements = async ({ params }, response) => {
 	const appeal = await lpaService.findFullPlanningAppealById(params.appealId);
 
-	response.render('lpa/fpa-documents', { appeal, documentType: 'fpa statement' });
+	response.render('case-officer/fpa-documents', { appeal, documentType: 'fpa statement' });
 };
 
 /**
@@ -287,13 +287,13 @@ export const uploadStatements = async ({ body, params }, response) => {
 	if (response.locals.errors) {
 		const appeal = await lpaService.findFullPlanningAppealById(params.appealId);
 
-		response.render('lpa/fpa-documents', {
+		response.render('case-officer/fpa-documents', {
 			appeal,
 			documentType: 'fpa statement'
 		});
 	} else {
 		const appeal = await lpaService.uploadStatements(params.appealId, body.files);
 
-		response.render('lpa/fpa-documents-success', { appeal, documentType: 'fpa statement' });
+		response.render('case-officer/fpa-documents-success', { appeal, documentType: 'fpa statement' });
 	}
 };

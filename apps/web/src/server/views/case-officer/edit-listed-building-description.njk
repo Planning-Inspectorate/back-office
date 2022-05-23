@@ -5,14 +5,14 @@
 {% from "govuk/components/character-count/macro.njk" import govukCharacterCount %}
 
 {% set pageTitle = 'Update listed building description' %}
-{% set appealUrl = '/lpa/appeals/' + appeal.AppealId %}
+{% set appealUrl = '/case-officer/appeals/' + appeal.AppealId %}
 
 {% block beforeContent %}
   {{
 		govukBreadcrumbs({
 			classes: 'govuk-!-margin-top-3',
 			items: [
-				{ href: '/lpa', text: 'Questionnaires for review' },
+				{ href: '/case-officer', text: 'Questionnaires for review' },
 				{ href: appealUrl, text: appeal.AppealReference },
         { text: pageTitle }
 			]

@@ -31,7 +31,7 @@ export function installMockApi() {
 		.reply(200, incompleteAppealDetails);
 
 	// planning departments
-	nock('http://test/').get('/validation/lpa-list').reply(200, localPlanningDepartments);
+	nock('http://test/').get('/validation/case-officer-list').reply(200, localPlanningDepartments);
 
 	// remote error
 	nock('http://test/').get('/validation/0').reply(500);

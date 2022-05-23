@@ -14,7 +14,7 @@ import {
 	viewAppeal,
 	viewDashboard,
 	viewQuestionnaireReviewConfirmation
-} from './lpa.controller.js';
+} from './case-officer.controller.js';
 import {
 	assertDocumentTypeMissingOrIncorrect,
 	assertFinalCommentsRequired,
@@ -22,14 +22,14 @@ import {
 	assertListedBuildingDescriptionMissingOrIncorrect,
 	assertQuestionnaireReviewExists,
 	assertStatementsRequired
-} from './lpa.guards.js';
+} from './case-officer.guards.js';
 import {
 	validateDocuments,
 	validateListedBuildingDescription,
 	validateQuestionnaireReview,
 	validateQuestionnaireReviewCompletion,
 	validateQuestionnaireReviewConfirmation
-} from './lpa.pipes.js';
+} from './case-officer.pipes.js';
 
 /** @typedef {import('@pins/appeals').DocumentType} DocumentType */
 
@@ -58,7 +58,7 @@ router.param('documentType', (request, _, next, documentType) => {
 	next();
 });
 
-// Main lpa route `/lpa`
+// Main case-officer route `/case-officer`
 router.route('/').get(viewDashboard);
 
 router.route('/appeals/:appealId').get(viewAppeal);

@@ -2,11 +2,11 @@ import { appendFilesToFormData } from '@pins/express';
 import FormData from 'form-data';
 import { get, patch, post } from '../../lib/request.js';
 
-/** @typedef {import('@pins/appeals').Lpa.Appeal} Appeal */
+/** @typedef {import('@pins/appeals').CaseOfficer.Appeal} Appeal */
 /** @typedef {import('@pins/appeals').AppealDocument} AppealDocument */
-/** @typedef {import('@pins/appeals').Lpa.AppealSummary} AppealSummary */
+/** @typedef {import('@pins/appeals').CaseOfficer.AppealSummary} AppealSummary */
 /** @typedef {import('@pins/appeals').DocumentType} DocumentType */
-/** @typedef {import('@pins/appeals').Lpa.Questionnaire} LpaQuestionnaire */
+/** @typedef {import('@pins/appeals').CaseOfficer.Questionnaire} CaseOfficerQuestionnaire */
 /** @typedef {import('@pins/express').MulterFile} MulterFile */
 
 /**
@@ -37,7 +37,7 @@ export const findFullPlanningAppealById = (appealId) =>
  * missingOrIncorrect flags to `false`.
  *
  * @param {number} appealId
- * @param {LpaQuestionnaire} questionnaire
+ * @param {CaseOfficerQuestionnaire} questionnaire
  * @returns {Promise<Appeal>}
  */
 export function confirmQuestionnaireReview(appealId, questionnaire) {

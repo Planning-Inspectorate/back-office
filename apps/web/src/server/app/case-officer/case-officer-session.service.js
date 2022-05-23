@@ -1,53 +1,53 @@
-/** @typedef {import('@pins/appeals').Lpa.Questionnaire} LpaQuestionnaire */
+/** @typedef {import('@pins/appeals').CaseOfficer.Questionnaire} CaseOfficerQuestionnaire */
 
 /**
- * @typedef {import('express-session').Session & { lpa?: LpaState }} SessionWithLpa
+ * @typedef {import('express-session').Session & { caseOfficer?: CaseOfficerState }} SessionWithCaseOfficer
  */
 
 /**
- * @typedef {object} LpaState
+ * @typedef {object} CaseOfficerState
  * @property {QuestionnaireReviewState=} questionnaireReview
  */
 
 /**
  * @typedef {object} QuestionnaireReviewState
  * @property {number} appealId
- * @property {LpaQuestionnaire} reviewQuestionnaire
+ * @property {CaseOfficerQuestionnaire} reviewQuestionnaire
  */
 
 /**
- * Get the lpa state from the session.
+ * Get the case-officer state from the session.
  *
- * @param {SessionWithLpa} session
- * @returns {LpaState}
+ * @param {SessionWithCaseOfficer} session
+ * @returns {CaseOfficerState}
  */
-const getState = (session) => session.lpa || {};
+const getState = (session) => session.caseOfficer || {};
 
 /**
- * @param {SessionWithLpa} session
+ * @param {SessionWithCaseOfficer} session
  * @returns {void}
  */
 export const destroyQuestionnaireReview = (session) => {
-	delete session.lpa?.questionnaireReview;
+	delete session.caseOfficer?.questionnaireReview;
 };
 
 /**
  * Set the reviewed questionnaire data after completing a review.
  *
- * @param {SessionWithLpa} session
+ * @param {SessionWithCaseOfficer} session
  * @param {QuestionnaireReviewState} questionnaireReview
  * @returns {void}
  */
 export const setQuestionnaireReview = (session, questionnaireReview) => {
 	const state = getState(session);
 
-	session.lpa = { ...state, questionnaireReview };
+	session.caseOfficer = { ...state, questionnaireReview };
 };
 
 /**
  * Get the reviewed questionnaire data belonging to a completed review.
  *
- * @param {SessionWithLpa} session
+ * @param {SessionWithCaseOfficer} session
  * @param {number} appealId
  * @returns {QuestionnaireReviewState | null}
  */
