@@ -7,4 +7,4 @@ variables:
 
   dockerFilePath: $(Build.SourcesDirectory)/apps/web/Dockerfile
   repository: back-office/back-office-web
-  webAppNamePrefix: pins-app-back-office-wfe
+  webAppName: pins-app-back-office-wfe-$(ENVIRONMENT)-$(REGION_SHORT)-001
