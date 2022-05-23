@@ -11,7 +11,7 @@ import {
 	validateUserId
 } from './inspector.validators.js';
 
-const router = express.Router();
+const router = new express.Router();
 
 
 router.get(

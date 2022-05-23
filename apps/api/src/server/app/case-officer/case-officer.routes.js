@@ -23,7 +23,7 @@ import {
  * @property {number} appealId
  */
 
-const router = express.Router();
+const router = new express.Router();
 
 router.get(
 	'/',
