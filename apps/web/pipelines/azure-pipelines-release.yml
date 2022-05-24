@@ -1,8 +1,4 @@
 parameters:
-  - name: deploymentTag
-    displayName: Deployment Tag
-    type: string
-    default: none
   - name: region
     displayName: Region
     type: string
@@ -21,7 +17,7 @@ resources:
       type: github
       endpoint: Planning-Inspectorate
       name: Planning-Inspectorate/common-pipeline-templates
-      ref: refs/tags/release/1.1.0
+      ref: refs/tags/release/2.1.1
   pipelines:
     - pipeline: back-office-web-build
       source: Back Office Web Build
@@ -31,20 +27,22 @@ resources:
             - develop
 
 extends:
-  template: stages/wrapper_web_app_cd.yml@templates
+  template: stages/wrapper_cd.yml@templates
   parameters:
-    appName: $(webAppNamePrefix)-$(ENVIRONMENT)-$(REGION_SHORT)-001
-    artifactSourcePipeline: Back Office Web Build
-    azurecrName: $(azurecrName)
-    azurecrServiceConnection: $(azurecrServiceConnection)
-    deploymentTag: ${{ parameters.deploymentTag }}
+    deploymentStages:
+      - name: Deploy
+        deploymentSteps:
+          - script: |
+              buildName=$(versionNumber)_$(Build.BuildId)
+              echo "Setting the name of the build to '$buildName'."
+              echo "##vso[build.updatebuildnumber]$buildName"
+            displayName: Set Build Number
+          - template: ../steps/azure_web_app_deploy.yml
+            parameters:
+              appName: $(webAppName)
+              appResourceGroup: $(resourceGroup)
+              azurecrName: $(azurecrName)
+              repository: $(repository)
     globalVariables:
       - template: azure-pipelines-variables.yml@self
       - template: apps/web/pipelines/azure-pipelines-variables.yml@self
-    projectName: $(projectName)
-    releaseVersion: $(version.MajorMinor)
-    region: ${{ parameters.region }}
-    repository: $(repository)
-    ${{ if in(variables['Build.Reason'], 'IndividualCI', 'BatchedCI', 'ResourceTrigger') }}:
-      environments:
-        - name: Dev

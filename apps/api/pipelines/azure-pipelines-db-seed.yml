@@ -1,5 +1,6 @@
 parameters:
   - name: environment
+    displayName: Environment
     type: string
     default: Dev
     values:
@@ -12,34 +13,46 @@ pr: none
 
 trigger: none
 
-variables:
-  - group: key-vault-${{ parameters.environment }}
+resources:
+  repositories:
+    - repository: templates
+      type: github
+      endpoint: Planning-Inspectorate
+      name: Planning-Inspectorate/common-pipeline-templates
+      ref: refs/tags/release/2.1.1
 
-stages:
-  - stage: Seed_DB
+variables:
+  - template: variables/environments/${{ lower(parameters.environment )}}.yml@templates
+  - group: pipeline_secrets
+
+jobs:
+  - deployment: Seed_DB
     displayName: Seed ${{ parameters.environment }} Database
-    jobs:
-      - deployment: Seed_DB
-        displayName: Seed Database
-        environment: ${{ parameters.environment }}
-        strategy:
-          runOnce:
-            deploy:
-              steps:
-                - download: none
-                - checkout: self
-                - script: |
-                    npm ci
-                  displayName: Install dependencies
-                  workingDirectory: $(Build.Repository.LocalPath)
-                - script: echo "##vso[task.setvariable variable=DATABASE_URL]$(back-office-sql-connection-string)"
-                  displayName: Set DATABASE_URL variable
-                - script: npm run build
-                  displayName: Build
-                  workingDirectory: $(Build.Repository.LocalPath)/apps/api
-                - script: |
-                    npm run db:seed
-                  displayName: Seed Database
-                  workingDirectory: $(Build.Repository.LocalPath)/apps/api
-        workspace:
-          clean: all
+    environment: ${{ parameters.environment }}
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+            - download: none
+            - checkout: self
+            - template: steps/node_script.yml@templates
+              parameters:
+                script: npm ci
+            - template: steps/azure_auth.yml@templates
+            - template: steps/azure_get_secrets.yml@templates
+              parameters:
+                secrets:
+                  - name: back-office-sql-connection-string
+                    variable: DATABASE_URL
+            - template: steps/node_script.yml@templates
+              parameters:
+                script: npm run build
+                workingDirectory: $(Build.Repository.LocalPath)/apps/api
+            - template: steps/node_script.yml@templates
+              parameters:
+                environmentVariables:
+                  DATABASE_URL: $(DATABASE_URL)
+                script: npm run db:seed
+                workingDirectory: $(Build.Repository.LocalPath)/apps/api
+    workspace:
+      clean: all
