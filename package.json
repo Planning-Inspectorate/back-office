@@ -17,7 +17,7 @@
     "lint:js:fix": "turbo run lint:js:fix",
     "prepare": "node -e \"try { require('husky').install() } catch (e) {if (e.code !== 'MODULE_NOT_FOUND') throw e}\"",
     "test": "turbo run test",
-    "tscheck": "turbo run tscheck --parallel"
+    "tscheck": "turbo run prisma:generate && turbo run tscheck --parallel"
   },
   "devDependencies": {
     "eslint": "^8.14.0",
