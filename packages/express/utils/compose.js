@@ -1,7 +1,7 @@
 import { flatten } from 'lodash-es';
 
 /** @typedef {import('express').ErrorRequestHandler<any>} ErrorRequestHandler */
-/** @typedef {import('express').RequestHandler<any>} RequestHandler */
+/** @typedef {import('express').RequestHandler<*, *, *, *, *>} RequestHandler */
 /** @typedef {import('express-validator').ValidationChain} ValidationChain */
 /** @typedef {ErrorRequestHandler | RequestHandler | (ErrorRequestHandler | RequestHandler)[] | ValidationChain} AnyRequestHandler */
 

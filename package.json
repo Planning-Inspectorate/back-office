@@ -8,6 +8,7 @@
     "node": ">=16.14.0"
   },
   "scripts": {
+    "api": "npm run dev --workspace=@pins/api",
     "build": "turbo run build",
     "build:release": "turbo run build:release",
     "clean": "turbo run clean && rimraf node_modules",
@@ -15,9 +16,11 @@
     "format": "prettier --write \"**/*.{js}\"",
     "lint:js": "turbo run lint:js",
     "lint:js:fix": "turbo run lint:js:fix",
+    "postinstall": "npm run prisma:generate --workspace=@pins/api",
     "prepare": "node -e \"try { require('husky').install() } catch (e) {if (e.code !== 'MODULE_NOT_FOUND') throw e}\"",
     "test": "turbo run test",
-    "tscheck": "turbo run prisma:generate && turbo run tscheck --parallel"
+    "tscheck": "turbo run prisma:generate && turbo run tscheck --parallel",
+    "web": "npm run dev --workspace=@pins/web"
   },
   "devDependencies": {
     "eslint": "^8.14.0",

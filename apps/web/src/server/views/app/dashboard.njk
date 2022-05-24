@@ -14,13 +14,13 @@
       <h2 class="govuk-heading-l">Appeals</h2>
       <ul class="govuk-list">
         {% if groupIds | includes(referenceData.groups.caseOfficerGroupId) %}
-          <li><a href="/case-officer" class="govuk-link">Case officer</a></li>
+          <li><a href="/appeals-service/case-officer" class="govuk-link">Case officer</a></li>
         {% endif %}
         {% if groupIds | includes(referenceData.groups.inspectorGroupId) %}
-          <li><a href="/inspector" class="govuk-link">Inspector</a></li>
+          <li><a href="/appeals-service/inspector" class="govuk-link">Inspector</a></li>
         {% endif %}
        {% if groupIds | includes(referenceData.groups.validationOfficerGroupId) %}
-          <li><a href="/validation" class="govuk-link">Validation officer</a></li>
+          <li><a href="/appeals-service/validation" class="govuk-link">Validation officer</a></li>
         {% endif %}
       </ul>
     </div>

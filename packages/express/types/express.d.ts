@@ -1,47 +1,72 @@
-import { NextFunction, ParamsDictionary, Request, Response } from 'express-serve-static-core';
+import {
+	NextFunction,
+	ParamsDictionary,
+	Request as ExpressRequest,
+	Response
+} from 'express-serve-static-core';
 import { ValidationError } from 'express-validator';
 import { ParsedQs } from 'qs';
 
-type LocalsWithValidationErrors = { errors?: Record<string, ValidationError> };
+export type ValidationErrors = Record<string, ValidationError>;
 
-export interface CommandHandler<
-	P = ParamsDictionary,
-	RenderOptions extends Record<string, unknown> = {},
+declare global {
+	namespace Express {
+		interface Request {
+			locals: any;
+			errors?: ValidationErrors;
+		}
+	}
+}
+
+interface Request<
+	ReqLocals extends Record<string, any> = Record<string, any>,
+	Params = ParamsDictionary,
+	ResBody = unknown,
 	ReqBody = unknown,
-	Locals extends Record<string, any> = Record<string, any>
+	ReqQuery = ParsedQs,
+	ResLocals extends Record<string, any> = Record<string, any>
+> extends ExpressRequest<Params, ResBody, ReqBody, ReqQuery, ResLocals> {
+	locals: ReqLocals;
+}
+
+export interface RequestHandler<
+	ReqLocals extends Record<string, any>,
+	Params = ParamsDictionary,
+	ResBody = unknown,
+	ReqBody = unknown,
+	ReqQuery = ParsedQs,
+	ResLocals extends Record<string, any> = Record<string, any>
 > {
 	(
-		req: Request<P, string, ReqBody, unknown, Locals>,
-		res: RenderedResponse<RenderOptions, Locals>,
+		req: Request<ReqLocals, Params, ResBody, ReqBody, ReqQuery, Locals>,
+		res: RenderedResponse<RenderOptions, ResLocals>,
 		next: NextFunction
 	): void;
 }
 
-export interface QueryHandler<
-	P = ParamsDictionary,
-	RenderOptions extends Record<string, unknown> = {},
+export interface RenderHandler<
+	RenderOptions extends Record<string, any>,
+	ReqLocals extends Record<string, any> = undefined,
+	ReqBody = undefined,
 	ReqQuery extends ParsedQs = ParsedQs,
+	Params extends ParamsDictionary = ParamsDictionary,
 	Locals extends Record<string, any> = Record<string, any>
 > {
 	(
-		req: Request<P, string, unknown, ReqQuery, Locals>,
+		req: Request<ReqLocals, Params, string, ReqBody, ReqQuery, Locals>,
 		res: RenderedResponse<RenderOptions, Locals>,
 		next: NextFunction
 	): void;
 }
 
-export interface RenderedResponse<
-	RenderOptions extends Record<string, unknown> = {},
-	Locals extends Record<string, any> = unknown,
+interface RenderedResponse<
+	RenderOptions extends Record<string, any>,
+	Locals extends Record<string, any>,
 	StatusCode extends number = number
-> extends Response<string, Locals & LocalsWithValidationErrors, StatusCode> {
+> extends Response<string, Locals, StatusCode> {
 	render(
 		view: string,
 		options?: RenderOptions,
 		callback?: (err: Error, html: string) => void
 	): void;
-}
-
-export interface ErrorRenderOptions {
-	errors: Record<string, ValidationError>;
 }
