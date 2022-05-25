@@ -16,9 +16,8 @@
     "format": "prettier --write \"**/*.{js}\"",
     "lint:js": "turbo run lint:js",
     "lint:js:fix": "turbo run lint:js:fix",
-    "postinstall": "npm run prisma:generate --workspace=@pins/api",
     "prepare": "node -e \"try { require('husky').install() } catch (e) {if (e.code !== 'MODULE_NOT_FOUND') throw e}\"",
-    "test": "turbo run test",
+    "test": "turbo run test --filter=!@pins/api",
     "tscheck": "turbo run prisma:generate && turbo run tscheck --parallel",
     "web": "npm run dev --workspace=@pins/web"
   },
@@ -28,7 +27,7 @@
     "lint-staged": "^12.4.1",
     "prettier": "^2.6.2",
     "rimraf": "^3.0.2",
-    "turbo": "1.1.5",
+    "turbo": "1.2.12",
     "typescript": "^4.6.4"
   },
   "packageManager": "npm@8.5.1",
