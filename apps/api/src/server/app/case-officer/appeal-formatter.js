@@ -55,7 +55,7 @@ const appealFormatter = {
 	},
 	/**
 	 * @param {{ appealStatus: object; id: any; reference: any; address: object; startedAt: any; }} appeal
-	 *  @returns {object}
+	 * @returns {{AppealId: number; AppealReference: string; StatementsAndFinalCommentsStatus: string; AppealSite: object; QuestionnaireDueDate: any}}
 	 */
 	formatAppealForParallelStates (appeal) {
 		const appealStatusParallel = mapAppealParallelStatuses(appeal.appealStatus);

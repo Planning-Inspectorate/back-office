@@ -1,4 +1,5 @@
 import Prisma from '@prisma/client';
+import pino from 'pino';
 import {
 	addressesList,
 	appealDetailsFromAppellantList,
@@ -287,7 +288,7 @@ async function main() {
 			await prisma.appeal.create({ data: appealData });
 		}
 	} catch (error) {
-		console.error(error);
+		pino.error(error);
 		throw error;
 	} finally {
 		await prisma.$disconnect();
