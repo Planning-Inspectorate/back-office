@@ -7,7 +7,7 @@ import { buildAppealCompundStatus } from '../utils/build-appeal-compound-status.
 /** @typedef {import('@pins/api').Schema.Appeal} Appeal */
 
 const reviewComplete = (reviewReason) => {
-	return !!Object.keys(reviewReason).every((index) => !reviewReason[index]);
+	return Object.keys(reviewReason).every((index) => !reviewReason[index]);
 };
 
 export const confirmLPAQuestionnaireService = async (reviewReason, appealId) => {

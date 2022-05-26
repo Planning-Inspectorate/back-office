@@ -29,19 +29,6 @@ function applyAction(t, initialState, action, expectedState, context, hasChanged
 
 	t.deepEqual(nextState.value, expectedState);
 	t.is(nextState.changed, hasChanged);
-	// if (nextState.value == 'awaiting_lpa_questionnaire') {
-	// 	sinon.assert.calledWithExactly(lpaQuestionnaireStub, 1);
-	// }
-	// if (nextState.value == 'site_visit_booked') {
-	// 	if (context.inspectionType == 'accompanied' || context.inspectionType == 'access required') {
-	// 		sinon.assert.calledWithExactly(inspectorSendBookingStub, 1);
-	// 	} else {
-	// 		sinon.assert.notCalled(inspectorSendBookingStub);
-	// 	}
-	// }
-	// if (nextState.value == 'appeal_decided') {
-	// 	sinon.assert.calledWithExactly(notifyAppellantOfDecisionStub, 1, 'allowed');
-	// }
 }
 
 const buildCompoundState = (lpaQuestionnaireAndInspectorPickupState, statementsAndFinalCommentsState) => {
