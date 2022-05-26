@@ -4,11 +4,17 @@ import DatabaseFactory from '../../server/app/repositories/database.js';
 import { appealFactoryForTests } from '../../server/app/utils/appeal-factory-for-tests.js';
 import findAndUpdateStatusForAppealsWithPassedInspection from '../mark-appeals-with-passed-inspection-as-due.js';
 
-const appeal1 = appealFactoryForTests(1, [{
-	id: 1,
-	status: 'site_visit_booked',
-	valid: true
-}], 'HAS');
+const appeal1 = appealFactoryForTests(
+	1,
+	[
+		{
+			id: 1,
+			status: 'site_visit_booked',
+			valid: true
+		}
+	],
+	'HAS'
+);
 
 const updateStub = sinon.stub();
 
@@ -38,10 +44,12 @@ class MockDatabaseClass {
 }
 
 test.before('sets up mocking of database', () => {
-	sinon.stub(DatabaseFactory, 'getInstance').callsFake((arguments_) => new MockDatabaseClass(arguments_));
+	sinon
+		.stub(DatabaseFactory, 'getInstance')
+		.callsFake((arguments_) => new MockDatabaseClass(arguments_));
 });
 
-test('finds appeals to mark as overdue as updates their statuses', async(t) => {
+test('finds appeals to mark as overdue as updates their statuses', async (t) => {
 	await findAndUpdateStatusForAppealsWithPassedInspection();
 	// This is needed because otherwise AVA complains that there are no assertions in the test :(
 	t.is(true, true);
@@ -63,6 +71,11 @@ test('finds appeals to mark as overdue as updates their statuses', async(t) => {
 			appealType: true
 		}
 	});
-	sinon.assert.calledWith(updateManyAppealStatusStub, { where: { id: { in: [1] } }, data: { valid: false } });
-	sinon.assert.calledWith(createAppealStatusStub, { data: { status: 'decision_due', appealId: 1 } });
+	sinon.assert.calledWith(updateManyAppealStatusStub, {
+		where: { id: { in: [1] } },
+		data: { valid: false }
+	});
+	sinon.assert.calledWith(createAppealStatusStub, {
+		data: { status: 'decision_due', appealId: 1 }
+	});
 });

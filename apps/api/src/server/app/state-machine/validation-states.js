@@ -28,7 +28,7 @@ const generateValidationStates = (finalState) => {
 		invalid_appeal: {
 			entry: ['notifyAppellantOfInvalidAppeal', 'notifyLPAOfInvalidAppeal'],
 			type: 'final'
-		},
+		}
 	};
 };
 

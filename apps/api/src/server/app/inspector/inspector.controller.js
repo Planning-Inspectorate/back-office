@@ -11,13 +11,18 @@ import * as inspector from './inspector.service.js';
 
 const getAppeals = async (request, response) => {
 	const userId = request.get('userId');
-	const appeals = await appealRepository.getByStatusesAndUserId([
-		appealStates.site_visit_not_yet_booked,
-		appealStates.site_visit_booked,
-		appealStates.decision_due,
-		'picked_up'
-	], userId);
-	const appealsForResponse = appeals.map((appeal) => appealFormatter.formatAppealForAllAppeals(appeal));
+	const appeals = await appealRepository.getByStatusesAndUserId(
+		[
+			appealStates.site_visit_not_yet_booked,
+			appealStates.site_visit_booked,
+			appealStates.decision_due,
+			'picked_up'
+		],
+		userId
+	);
+	const appealsForResponse = appeals.map((appeal) =>
+		appealFormatter.formatAppealForAllAppeals(appeal)
+	);
 
 	return response.send(appealsForResponse);
 };
@@ -52,7 +57,9 @@ const getMoreAppeals = async (request, response) => {
 		true,
 		true
 	);
-	const moreAppealsFormatted = moreAppeals.map((appeal) => appealFormatter.formatAppealForMoreAppeals(appeal));
+	const moreAppealsFormatted = moreAppeals.map((appeal) =>
+		appealFormatter.formatAppealForMoreAppeals(appeal)
+	);
 
 	return response.send(moreAppealsFormatted);
 };
@@ -107,7 +114,9 @@ export const issueDecision = async ({ body, file, params }, response) => {
 		decisionLetter: /** @type {Express.Multer.File} */ (file)
 	});
 
-	const updatedAppeal = await appealRepository.getById(params.appealId, { inspectorDecision: true });
+	const updatedAppeal = await appealRepository.getById(params.appealId, {
+		inspectorDecision: true
+	});
 
 	response.send(formatAppeal(updatedAppeal));
 };

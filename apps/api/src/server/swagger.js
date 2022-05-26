@@ -7,7 +7,7 @@ const document = {
 		// by default: 'REST API'
 		title: 'My PINS Project',
 		// by default: ''
-		description: 'My PINS Project AOI documentation from Swagger',
+		description: 'My PINS Project AOI documentation from Swagger'
 	},
 	// by default: 'localhost:3000'
 	host: 'localhost:3000',
@@ -25,8 +25,8 @@ const document = {
 			// Tag name
 			name: '',
 			// Tag description
-			description: '',
-		},
+			description: ''
+		}
 		// { ... }
 	],
 	// by default: empty object (Swagger 2.0)
@@ -47,11 +47,13 @@ const document = {
 			},
 			LocalPlanningDepartment: 'Maidstone Borough Council',
 			PlanningApplicationReference: '48269/APP/2021/1482',
-			Documents: [{
-				Type: '',
-				Filename: '',
-				URL: ''
-			}],
+			Documents: [
+				{
+					Type: '',
+					Filename: '',
+					URL: ''
+				}
+			],
 			reason: {
 				inflammatoryComments: true,
 				missingApplicationForm: true,
@@ -62,7 +64,7 @@ const document = {
 				openedInError: true,
 				otherReasons: 'Some other weird reason',
 				sensitiveInfo: true,
-				wrongAppealTypeUsed: true,
+				wrongAppealTypeUsed: true
 			}
 		},
 		AppealDetailsAfterStatementUpload: {
@@ -75,19 +77,21 @@ const document = {
 			AppealReference: 'ABC',
 			canUploadFinalCommentsUntil: '08 March 2022'
 		},
-		AppealsToValidate: [{
-			AppealId: 1,
-			AppealReference: 'APP/Q9999/D/21/1345264',
-			AppealStatus: { '@enum': ['new', 'incomplete'] },
-			Received: '18 Mar 2022',
-			AppealSite: {
-				AddressLine1: '96 The Avenue',
-				AddressLine2: '',
-				Town: 'Maidstone',
-				County: 'Kent',
-				PostCode: 'MD21 5XY'
+		AppealsToValidate: [
+			{
+				AppealId: 1,
+				AppealReference: 'APP/Q9999/D/21/1345264',
+				AppealStatus: { '@enum': ['new', 'incomplete'] },
+				Received: '18 Mar 2022',
+				AppealSite: {
+					AddressLine1: '96 The Avenue',
+					AddressLine2: '',
+					Town: 'Maidstone',
+					County: 'Kent',
+					PostCode: 'MD21 5XY'
+				}
 			}
-		}],
+		],
 		ChangeAppeal: {
 			$AppellantName: 'John Doe',
 			$Address: {
@@ -108,7 +112,7 @@ const document = {
 				$sensitiveInfo: true,
 				$missingApplicationForm: true,
 				$missingDecisionNotice: true,
-				$missingGroundsForAppeal:true,
+				$missingGroundsForAppeal: true,
 				$missingSupportingDocuments: true,
 				$inflammatoryComments: true,
 				$openedInError: true,
@@ -117,7 +121,7 @@ const document = {
 				$noRightOfAppeal: true,
 				$notAppealable: true,
 				$lPADeemedInvalid: true,
-				$otherReasons: '',
+				$otherReasons: ''
 			}
 		},
 		AppealDetailsWhenUploadingStatementsAndFinalComments: {
@@ -162,11 +166,13 @@ const document = {
 				$County: 'Kent',
 				$PostCode: 'MD21 5XY'
 			},
-			$Documents: [{
-				$Type: '',
-				$Filename: '',
-				$URL: ''
-			}]
+			$Documents: [
+				{
+					$Type: '',
+					$Filename: '',
+					$URL: ''
+				}
+			]
 		},
 		MoreAppealsForInspector: {
 			$appealId: 1,
@@ -179,7 +185,7 @@ const document = {
 				$postCode: ''
 			},
 			$appealType: 'HAS',
-			specialist:'General',
+			specialist: 'General',
 			$provisionalSiteVisitType: { '@enum': ['unaccompanied', 'access required'] }
 		},
 		AppealsForInspector: {
@@ -225,7 +231,7 @@ const document = {
 			address: {
 				addressLine1: '66 Grove Road',
 				postCode: 'BS16 2BP',
-				town: 'Fishponds',
+				town: 'Fishponds'
 			},
 			lpaAnswers: {
 				canBeSeenFromPublic: true,
@@ -248,35 +254,39 @@ const document = {
 			}
 		},
 		AppealsAssignedToInspector: {
-			$successfullyAssigned: [{
-				$appealId: 1,
-				$reference: 'APP/Q9999/D/21/1345264',
-				$appealType: 'HAS',
-				$specialist: 'General',
-				$provisionalVisitType: { '@enum': ['unaccompanied', 'access required'] },
-				$appealSite: {
-					$addressLine1: '96 The Avenue',
-					$county: 'Kent',
-					$town: 'Maidstone',
-					$postCode: 'MD21 5XY'
-				},
-				$appealAge: 41
-			}],
-			$unsuccessfullyAssigned: [{
-				$appealId: 4,
-				$reference: 'APP/Q9999/D/21/1345264',
-				$appealType: 'HAS',
-				$specialist: 'General',
-				$provisionalVisitType: { '@enum': ['unaccompanied', 'access required'] },
-				$appealSite: {
-					$addressLine1: '96 The Avenue',
-					$county: 'Kent',
-					$town: 'Maidstone',
-					$postCode: 'MD21 5XY'
-				},
-				$appealAge: 41,
-				$reason: { '@enum': ['appeal in wrong state', 'appeal already assigned'] }
-			}]
+			$successfullyAssigned: [
+				{
+					$appealId: 1,
+					$reference: 'APP/Q9999/D/21/1345264',
+					$appealType: 'HAS',
+					$specialist: 'General',
+					$provisionalVisitType: { '@enum': ['unaccompanied', 'access required'] },
+					$appealSite: {
+						$addressLine1: '96 The Avenue',
+						$county: 'Kent',
+						$town: 'Maidstone',
+						$postCode: 'MD21 5XY'
+					},
+					$appealAge: 41
+				}
+			],
+			$unsuccessfullyAssigned: [
+				{
+					$appealId: 4,
+					$reference: 'APP/Q9999/D/21/1345264',
+					$appealType: 'HAS',
+					$specialist: 'General',
+					$provisionalVisitType: { '@enum': ['unaccompanied', 'access required'] },
+					$appealSite: {
+						$addressLine1: '96 The Avenue',
+						$county: 'Kent',
+						$town: 'Maidstone',
+						$postCode: 'MD21 5XY'
+					},
+					$appealAge: 41,
+					$reason: { '@enum': ['appeal in wrong state', 'appeal already assigned'] }
+				}
+			]
 		},
 		UpdateAppealDetailsByCaseOfficer: {
 			$listedBuildingDescription: ''
@@ -286,19 +296,19 @@ const document = {
 				{
 					$id: 2,
 					$status: 'incomplete_lpa_questionnaire',
-					$valid: true,
-				},
+					$valid: true
+				}
 			],
 			$createdAt: '2022-01-01T00:00:00.000Z',
 			$id: 1,
 			$localPlanningDepartment: 'Local planning dept',
 			$lpaQuestionnaire: {
-				$listedBuildingDescription: '*',
+				$listedBuildingDescription: '*'
 			},
 			$planningApplicationReference: '0181/811/8181',
 			$reference: 'APP/Q9999/D/21/323259',
 			$updatedAt: '2022-01-01T00:00:00.000Z',
-			$userId: 100,
+			$userId: 100
 		},
 		SendLPAQuestionnaireConfirmation: {
 			reason: {

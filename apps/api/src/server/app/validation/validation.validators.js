@@ -7,7 +7,10 @@ import { handleValidationError } from '../middleware/handle-validation-error.js'
 import { validateAppealStatus } from '../middleware/validate-appeal-status.js';
 import stringEmptyOrUndefined from '../utils/string-validator.js';
 
-export const validateAppealBelongsToValidation = validateAppealStatus(['received_appeal', 'awaiting_validation_info']);
+export const validateAppealBelongsToValidation = validateAppealStatus([
+	'received_appeal',
+	'awaiting_validation_info'
+]);
 
 export const validateAppealAttributesToChange = composeMiddleware(
 	body('AppellantName').trim().optional({ nullable: true }),
@@ -38,7 +41,13 @@ const allArrayElementsInArray = (arrayToCheck, arrayToCheckAgainst) => {
 const invalidWithUnexpectedReasons = (requestBody) => {
 	return (
 		requestBody.AppealStatus === validationDecisions.invalid &&
-		!allArrayElementsInArray(Object.keys(requestBody.Reason), ['outOfTime', 'noRightOfAppeal', 'notAppealable', 'lPADeemedInvalid', 'otherReasons'])
+		!allArrayElementsInArray(Object.keys(requestBody.Reason), [
+			'outOfTime',
+			'noRightOfAppeal',
+			'notAppealable',
+			'lPADeemedInvalid',
+			'otherReasons'
+		])
 	);
 };
 
@@ -88,7 +97,10 @@ const incompleteWithoutReasons = (requestBody) => {
 };
 
 const validWithoutDescription = (requestBody) => {
-	return requestBody.AppealStatus === validationDecisions.valid && stringEmptyOrUndefined(requestBody.descriptionOfDevelopment);
+	return (
+		requestBody.AppealStatus === validationDecisions.valid &&
+		stringEmptyOrUndefined(requestBody.descriptionOfDevelopment)
+	);
 };
 
 export const validateAppealValidationDecision = (request, response, next) => {

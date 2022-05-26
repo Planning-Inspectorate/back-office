@@ -10,9 +10,12 @@ import appealRepository from '../repositories/appeal.repository.js';
 
 /** @type {import('express').RequestHandler } */
 export const validateUserId = async (request, response, next) => {
-	const result = await header('userId').notEmpty().bail().withMessage('Authentication error. Missing header `userId`.')
-.toInt()
-.run(request);
+	const result = await header('userId')
+		.notEmpty()
+		.bail()
+		.withMessage('Authentication error. Missing header `userId`.')
+		.toInt()
+		.run(request);
 
 	if (!result.isEmpty()) {
 		response.status(401).send({ errors: result.formatWith(({ msg }) => msg).mapped() });
@@ -21,24 +24,27 @@ export const validateUserId = async (request, response, next) => {
 	}
 };
 
-export const validateUserBelongsToAppeal = composeMiddleware(validateUserId, async (request, response, next) => {
-	const result = await header('userId')
-		.custom(async (/** @type {number} */ userId, { req }) => {
-			const appeal = await appealRepository.getById(req.params.appealId, { user: true });
+export const validateUserBelongsToAppeal = composeMiddleware(
+	validateUserId,
+	async (request, response, next) => {
+		const result = await header('userId')
+			.custom(async (/** @type {number} */ userId, { req }) => {
+				const appeal = await appealRepository.getById(req.params.appealId, { user: true });
 
-			if (appeal.user.azureReference === userId) {
-				return true;
-			}
-			throw new Error('User is not permitted to perform this action.');
-		})
-		.run(request);
+				if (appeal.user.azureReference === userId) {
+					return true;
+				}
+				throw new Error('User is not permitted to perform this action.');
+			})
+			.run(request);
 
-	if (!result.isEmpty()) {
-		response.status(403).send({ errors: result.formatWith(({ msg }) => msg).mapped() });
-	} else {
-		next();
+		if (!result.isEmpty()) {
+			response.status(403).send({ errors: result.formatWith(({ msg }) => msg).mapped() });
+		} else {
+			next();
+		}
 	}
-});
+);
 
 export const validateBookSiteVisit = composeMiddleware(
 	body('siteVisitType')
@@ -71,7 +77,9 @@ export const validateBookSiteVisit = composeMiddleware(
 // TODO: are there any validation rules on this decision letter upload? Added
 // size limit for now.
 export const validateIssueDecision = composeMiddleware(
-	body('outcome').isIn(['allowed', 'dismissed', 'split decision']).withMessage('Select a valid decision'),
+	body('outcome')
+		.isIn(['allowed', 'dismissed', 'split decision'])
+		.withMessage('Select a valid decision'),
 	body('decisionLetter')
 		.custom((_, { req }) => Boolean(req.file))
 		.withMessage('Select a decision letter'),
@@ -79,6 +87,8 @@ export const validateIssueDecision = composeMiddleware(
 );
 
 export const validateAssignAppealsToInspector = composeMiddleware(
-	body().isArray({ min: 1 }).withMessage('Provide a non-empty array of appeals to assign to the inspector'),
+	body()
+		.isArray({ min: 1 })
+		.withMessage('Provide a non-empty array of appeals to assign to the inspector'),
 	validationErrorHandler
 );

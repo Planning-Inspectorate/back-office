@@ -9,9 +9,11 @@ const request = supertest(app);
 const appeal25 = {
 	id: 25,
 	reference: 'APP/Q9999/D/21/5463281',
-	appealStatus:[{
-		status: 'available_for_inspector_pickup'
-	}],
+	appealStatus: [
+		{
+			status: 'available_for_inspector_pickup'
+		}
+	],
 	address: {
 		addressLine1: '56 Vincent Square',
 		county: 'London',
@@ -21,11 +23,12 @@ const appeal25 = {
 	appealType: 'HAS',
 	specialism: 'General',
 	lpaQuestionnaire: {
-		siteVisibleFromPublicLand: true },
+		siteVisibleFromPublicLand: true
+	},
 	appealDetailsFromAppellant: {
-		siteVisibleFromPublicLand: true }
+		siteVisibleFromPublicLand: true
+	}
 };
-
 
 const findManyStub = sinon.stub().returns([appeal25]);
 
@@ -36,16 +39,16 @@ class MockDatabaseClass {
 				findMany: findManyStub
 			}
 		};
-
 	}
 }
 
 test.before('sets up mocking of database', () => {
-	sinon.stub(DatabaseFactory, 'getInstance').callsFake((arguments_) => new MockDatabaseClass(arguments_));
+	sinon
+		.stub(DatabaseFactory, 'getInstance')
+		.callsFake((arguments_) => new MockDatabaseClass(arguments_));
 });
 
 test('gets all appeals yet to be assigned to inspector', async (t) => {
-
 	sinon.useFakeTimers({ now: 1_649_319_144_000 });
 
 	const resp = await request.get('/inspector/more-appeals');
@@ -63,7 +66,7 @@ test('gets all appeals yet to be assigned to inspector', async (t) => {
 			appealAge: 35,
 			appealType: 'HAS',
 			specialist: 'General',
-			provisionalVisitType:'unaccompanied'
+			provisionalVisitType: 'unaccompanied'
 		}
 	]);
 	sinon.assert.calledWith(findManyStub, {
@@ -89,5 +92,4 @@ test('gets all appeals yet to be assigned to inspector', async (t) => {
 			}
 		}
 	});
-
 });

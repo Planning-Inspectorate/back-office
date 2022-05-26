@@ -1,12 +1,13 @@
 import appealRepository from '../repositories/appeal.repository.js';
 import { appealStates } from '../state-machine/transition-state.js';
 import appealFormatter from './appeal-formatter.js';
-import { obtainLPAListService, submitValidationDecisionService, updateAppealService } from './validation.service.js';
+import {
+	obtainLPAListService,
+	submitValidationDecisionService,
+	updateAppealService
+} from './validation.service.js';
 
-const validationStatuses = [
-	appealStates.received_appeal,
-	appealStates.awaiting_validation_info
-];
+const validationStatuses = [appealStates.received_appeal, appealStates.awaiting_validation_info];
 
 const getAppealDetails = async (request, response) => {
 	const appeal = await appealRepository.getById(request.params.appealId, {
@@ -21,7 +22,9 @@ const getAppealDetails = async (request, response) => {
 
 const getAppeals = async (_request, response) => {
 	const appeals = await appealRepository.getByStatuses(validationStatuses, true, true);
-	const formattedAppeals = appeals.map((appeal) => appealFormatter.formatAppealForAllAppeals(appeal));
+	const formattedAppeals = appeals.map((appeal) =>
+		appealFormatter.formatAppealForAllAppeals(appeal)
+	);
 
 	response.send(formattedAppeals);
 };
@@ -38,7 +41,12 @@ const updateAppeal = async (request, response) => {
 };
 
 const submitValidationDecision = async (request, response) => {
-	await submitValidationDecisionService(request.params.appealId, request.body.AppealStatus, request.body.Reason, request.body.descriptionOfDevelopment);
+	await submitValidationDecisionService(
+		request.params.appealId,
+		request.body.AppealStatus,
+		request.body.Reason,
+		request.body.descriptionOfDevelopment
+	);
 	return response.send();
 };
 

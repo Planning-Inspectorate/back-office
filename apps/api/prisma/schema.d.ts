@@ -1,6 +1,12 @@
 import * as schema from '@prisma/client';
 
-export { Address, AppealDetailsFromAppellant, Appellant, LPAQuestionnaire, ReviewQuestionnaire } from '@prisma/client';
+export {
+	Address,
+	AppealDetailsFromAppellant,
+	Appellant,
+	LPAQuestionnaire,
+	ReviewQuestionnaire
+} from '@prisma/client';
 
 export interface Appeal extends schema.Appeal {
 	appealStatus: AppealStatus[];
@@ -17,7 +23,7 @@ export interface Appeal extends schema.Appeal {
 }
 
 export interface AppealDocument {
-	id: number,
+	id: number;
 	type: AppealDocumentType;
 	filename: string;
 	url: string;
@@ -34,7 +40,9 @@ export interface AppealType extends schema.AppealType {
 
 export type AppealTypeCode = 'HAS' | 'FPA';
 
-export type AppealStatusMachineType = 'lpaQuestionnaireAndInspectorPickup' | 'statementsAndFinalComments';
+export type AppealStatusMachineType =
+	| 'lpaQuestionnaireAndInspectorPickup'
+	| 'statementsAndFinalComments';
 
 export type AppealStatusType =
 	| 'received_appeal'
@@ -111,7 +119,10 @@ export interface IncompleteValidationDecision {
 	otherReasons: string | null;
 }
 
-export type ValidationDecision = ValidValidationDecision | InvalidValidationDecision | IncompleteValidationDecision;
+export type ValidationDecision =
+	| ValidValidationDecision
+	| InvalidValidationDecision
+	| IncompleteValidationDecision;
 
 export interface SiteVisit extends schema.SiteVisit {
 	visitType: SiteVisitType;

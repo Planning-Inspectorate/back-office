@@ -11,10 +11,12 @@ const request = supertest(app);
 const appeal1 = {
 	...appealFactoryForTests(
 		1,
-		[{
-			status: 'site_visit_not_yet_booked',
-			valid: true
-		}],
+		[
+			{
+				status: 'site_visit_not_yet_booked',
+				valid: true
+			}
+		],
 		'HAS',
 		{
 			connectToUser: true,
@@ -23,7 +25,8 @@ const appeal1 = {
 			lpaQuestionnaire: true
 		},
 		{ createdAt: new Date(2020, 11, 12, 9), startedAt: new Date(2022, 4, 1, 11) }
-	), lpaQuestionnaire: {
+	),
+	lpaQuestionnaire: {
 		siteVisibleFromPublicLand: true,
 		siteVisibleFromPublicLandDescription: 'not visible from public land',
 		doesInspectorNeedToEnterSite: false,
@@ -38,7 +41,7 @@ const appeal1 = {
 		inGreenBelt: false,
 		extraConditions: false,
 		affectsListedBuilding: false,
-		inOrNearConservationArea: false,
+		inOrNearConservationArea: false
 	},
 	appealDetailsFromAppellant: {
 		siteVisibleFromPublicLand: true,
@@ -47,21 +50,24 @@ const appeal1 = {
 		appellantOwnsWholeSiteDescription: 'i own the whole site',
 		healthAndSafetyIssues: false,
 		healthAndSafetyIssuesDescription: 'everything is super safe'
-	},
+	}
 };
 const appeal2 = {
 	...appealFactoryForTests(
 		2,
-		[{
-			status: 'picked_up',
-			subStateMachineName: 'lpaQuestionnaireAndInspectorPickup',
-			valid: true
-		}, {
-			status: 'available_for_statements',
-			subStateMachineName: 'statementsAndFinalComments',
-			createdAt: new Date(2022, 4, 1, 11),
-			valid: true
-		}],
+		[
+			{
+				status: 'picked_up',
+				subStateMachineName: 'lpaQuestionnaireAndInspectorPickup',
+				valid: true
+			},
+			{
+				status: 'available_for_statements',
+				subStateMachineName: 'statementsAndFinalComments',
+				createdAt: new Date(2022, 4, 1, 11),
+				valid: true
+			}
+		],
 		'FPA',
 		{
 			connectToUser: true,
@@ -70,7 +76,8 @@ const appeal2 = {
 			lpaQuestionnaire: true
 		},
 		{ createdAt: new Date(2020, 11, 12, 9), startedAt: new Date(2022, 4, 1, 11) }
-	), lpaQuestionnaire: {
+	),
+	lpaQuestionnaire: {
 		siteVisibleFromPublicLand: true,
 		siteVisibleFromPublicLandDescription: 'not visible from public land',
 		doesInspectorNeedToEnterSite: false,
@@ -85,7 +92,7 @@ const appeal2 = {
 		inGreenBelt: false,
 		extraConditions: false,
 		affectsListedBuilding: false,
-		inOrNearConservationArea: false,
+		inOrNearConservationArea: false
 	},
 	appealDetailsFromAppellant: {
 		siteVisibleFromPublicLand: true,
@@ -94,22 +101,25 @@ const appeal2 = {
 		appellantOwnsWholeSiteDescription: 'i own the whole site',
 		healthAndSafetyIssues: false,
 		healthAndSafetyIssuesDescription: 'everything is super safe'
-	},
+	}
 };
 
 const appeal3 = {
 	...appealFactoryForTests(
 		3,
-		[{
-			status: 'picked_up',
-			subStateMachineName: 'lpaQuestionnaireAndInspectorPickup',
-			valid: true
-		}, {
-			status: 'available_for_final_comments',
-			subStateMachineName: 'statementsAndFinalComments',
-			createdAt: new Date(2022, 4, 1, 11),
-			valid: true
-		}],
+		[
+			{
+				status: 'picked_up',
+				subStateMachineName: 'lpaQuestionnaireAndInspectorPickup',
+				valid: true
+			},
+			{
+				status: 'available_for_final_comments',
+				subStateMachineName: 'statementsAndFinalComments',
+				createdAt: new Date(2022, 4, 1, 11),
+				valid: true
+			}
+		],
 		'FPA',
 		{
 			connectToUser: true,
@@ -118,7 +128,8 @@ const appeal3 = {
 			lpaQuestionnaire: true
 		},
 		{ createdAt: new Date(2020, 11, 12, 9), startedAt: new Date(2022, 4, 1, 11) }
-	), lpaQuestionnaire: {
+	),
+	lpaQuestionnaire: {
 		siteVisibleFromPublicLand: true,
 		siteVisibleFromPublicLandDescription: 'not visible from public land',
 		doesInspectorNeedToEnterSite: false,
@@ -133,7 +144,7 @@ const appeal3 = {
 		inGreenBelt: false,
 		extraConditions: false,
 		affectsListedBuilding: false,
-		inOrNearConservationArea: false,
+		inOrNearConservationArea: false
 	},
 	appealDetailsFromAppellant: {
 		siteVisibleFromPublicLand: true,
@@ -142,7 +153,7 @@ const appeal3 = {
 		appellantOwnsWholeSiteDescription: 'i own the whole site',
 		healthAndSafetyIssues: false,
 		healthAndSafetyIssuesDescription: 'everything is super safe'
-	},
+	}
 };
 
 const inclusions = {

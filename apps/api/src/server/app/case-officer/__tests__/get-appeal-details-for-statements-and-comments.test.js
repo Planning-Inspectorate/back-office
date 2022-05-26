@@ -8,15 +8,27 @@ import { appealFactoryForTests } from '../../utils/appeal-factory-for-tests.js';
 
 const request = supertest(app);
 
-const appeal1 = appealFactoryForTests(1, [{
-	status: 'available_for_statements',
-	valid: true,
-}], 'FPA');
+const appeal1 = appealFactoryForTests(
+	1,
+	[
+		{
+			status: 'available_for_statements',
+			valid: true
+		}
+	],
+	'FPA'
+);
 
-const appeal2 = appealFactoryForTests(2, [{
-	status: 'available_for_final_comments',
-	valid: true,
-}], 'FPA');
+const appeal2 = appealFactoryForTests(
+	2,
+	[
+		{
+			status: 'available_for_final_comments',
+			valid: true
+		}
+	],
+	'FPA'
+);
 
 const includeDetails = {
 	address: true,
@@ -30,16 +42,19 @@ const includeDetails = {
 
 const includingDetailsForValidtion = {
 	appealStatus: { where: { valid: true } },
-	appealType: true,
+	appealType: true
 };
 
 const findUniqueStub = sinon.stub();
 
 findUniqueStub.withArgs({ where: { id: 1 }, include: includeDetails }).returns(appeal1);
 findUniqueStub.withArgs({ where: { id: 2 }, include: includeDetails }).returns(appeal2);
-findUniqueStub.withArgs({ where: { id: 1 }, include: includingDetailsForValidtion }).returns(appeal1);
-findUniqueStub.withArgs({ where: { id: 2 }, include: includingDetailsForValidtion }).returns(appeal2);
-
+findUniqueStub
+	.withArgs({ where: { id: 1 }, include: includingDetailsForValidtion })
+	.returns(appeal1);
+findUniqueStub
+	.withArgs({ where: { id: 2 }, include: includingDetailsForValidtion })
+	.returns(appeal2);
 
 class MockDatabaseClass {
 	constructor() {
@@ -51,10 +66,11 @@ class MockDatabaseClass {
 	}
 }
 
-
 test.before('sets up mocking of database', () => {
 	// @ts-ignore
-	sinon.stub(DatabaseFactory, 'getInstance').callsFake((arguments_) => new MockDatabaseClass(arguments_));
+	sinon
+		.stub(DatabaseFactory, 'getInstance')
+		.callsFake((arguments_) => new MockDatabaseClass(arguments_));
 });
 
 test('returns details for appeal awaiting statements', async (t) => {

@@ -1,6 +1,6 @@
 import express from 'express';
 import { param } from 'express-validator';
-import {asyncHandler} from '../middleware/async-handler.js';
+import { asyncHandler } from '../middleware/async-handler.js';
 import { validateAppealStatus } from '../middleware/validate-appeal-status.js';
 import { appealStates } from '../state-machine/transition-state.js';
 import {
@@ -10,13 +10,15 @@ import {
 	getAppeals,
 	updateAppealDetails,
 	uploadFinalComment,
-	uploadStatement} from './case-officer.controller.js';
+	uploadStatement
+} from './case-officer.controller.js';
 import {
 	validateAppealBelongsToCaseOfficer,
 	validateAppealDetails,
 	validateAppealHasIncompleteQuestionnaire,
 	validateFilesUpload,
-	validateReviewRequest} from './case-officer.validators.js';
+	validateReviewRequest
+} from './case-officer.validators.js';
 
 /**
  * @typedef {object} AppealParams
@@ -89,7 +91,8 @@ router.post(
 	asyncHandler(confirmLPAQuestionnaire)
 );
 
-router.get('/:appealId/statements-comments',
+router.get(
+	'/:appealId/statements-comments',
 	/*
 		#swagger.description = 'Gets appeal details when uploading statements and final comments'
 		#swagger.responses[200] = {
@@ -98,10 +101,15 @@ router.get('/:appealId/statements-comments',
 		}
 	*/
 	param('appealId').toInt(),
-	validateAppealStatus([appealStates.available_for_statements, appealStates.available_for_final_comments]),
-	asyncHandler(getAppealDetailsForStatementsAndComments));
+	validateAppealStatus([
+		appealStates.available_for_statements,
+		appealStates.available_for_final_comments
+	]),
+	asyncHandler(getAppealDetailsForStatementsAndComments)
+);
 
-router.post('/:appealId/statement',
+router.post(
+	'/:appealId/statement',
 	/*
         #swagger.description = 'Uploads statement'
         #swagger.parameters['userId'] = {
@@ -123,10 +131,12 @@ router.post('/:appealId/statement',
 	param('appealId').toInt(),
 	validateFilesUpload('statements'),
 	validateAppealStatus(['available_for_statements']),
-	asyncHandler(uploadStatement));
+	asyncHandler(uploadStatement)
+);
 
-router.post('/:appealId/final-comment',
-/*
+router.post(
+	'/:appealId/final-comment',
+	/*
         #swagger.description = 'Uploads final comment'
         #swagger.parameters['userId'] = {
             in: 'header',
@@ -147,8 +157,7 @@ router.post('/:appealId/final-comment',
 	param('appealId').toInt(),
 	validateFilesUpload('finalcomments'),
 	validateAppealStatus(['available_for_final_comments']),
-	asyncHandler(uploadFinalComment));
+	asyncHandler(uploadFinalComment)
+);
 
-export {
-	router as caseOfficerRoutes
-};
+export { router as caseOfficerRoutes };

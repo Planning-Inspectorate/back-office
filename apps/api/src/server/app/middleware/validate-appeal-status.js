@@ -13,7 +13,10 @@ import { asyncHandler } from './async-handler.js';
  * @param {{ errorMessage?: string }} options
  * @returns {import('express').RequestHandler<{ appealId: number }>}
  */
-export const validateAppealStatus = (status, { errorMessage = 'Appeal is in an invalid state' } = {}) =>
+export const validateAppealStatus = (
+	status,
+	{ errorMessage = 'Appeal is in an invalid state' } = {}
+) =>
 	asyncHandler(
 		/** @type {import('express').RequestHandler<{ appealId: number }>} */
 		async ({ params }, response, next) => {

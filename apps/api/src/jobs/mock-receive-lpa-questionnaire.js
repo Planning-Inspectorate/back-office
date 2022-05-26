@@ -7,7 +7,10 @@ import { breakUpCompoundStatus } from '../server/app/utils/break-up-compound-sta
  * @returns {Array} array of appeals that are in 'awaiting_lpa_questionnaire' or 'overdue_lpa_questionnaire' states
  */
 async function getAppealsAwaitingQuestionnaires() {
-	const appeals = await appealRepository.getByStatuses(['awaiting_lpa_questionnaire', 'overdue_lpa_questionnaire']);
+	const appeals = await appealRepository.getByStatuses([
+		'awaiting_lpa_questionnaire',
+		'overdue_lpa_questionnaire'
+	]);
 
 	return appeals;
 }
@@ -19,12 +22,23 @@ async function markAppealsAsLPAReceived(appeals) {
 	const updatedAppeals = [];
 
 	for (const appeal of appeals) {
-		const appealStatus = arrayOfStatusesContainsString(appeal.appealStatus, 'awaiting_lpa_questionnaire') ? 
-			'awaiting_lpa_questionnaire' : 'overdue_lpa_questionnaire';
-		const nextState = transitionState(appeal.appealType.type, { appealId: appeal.id }, appealStatus, 'RECEIVED');
+		const appealStatus = arrayOfStatusesContainsString(
+			appeal.appealStatus,
+			'awaiting_lpa_questionnaire'
+		)
+			? 'awaiting_lpa_questionnaire'
+			: 'overdue_lpa_questionnaire';
+		const nextState = transitionState(
+			appeal.appealType.type,
+			{ appealId: appeal.id },
+			appealStatus,
+			'RECEIVED'
+		);
 		const newState = breakUpCompoundStatus(nextState.value, appeal.id);
 
-		updatedAppeals.push(appealRepository.updateStatusById(appeal.id, newState, appeal.appealStatus));
+		updatedAppeals.push(
+			appealRepository.updateStatusById(appeal.id, newState, appeal.appealStatus)
+		);
 	}
 	await Promise.all(updatedAppeals);
 }

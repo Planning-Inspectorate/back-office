@@ -9,10 +9,12 @@ const request = supertest(app);
 const appeal1 = {
 	id: 1,
 	reference: 'APP/Q9999/D/21/1345264',
-	appealStatus: [{
-		status: 'received_appeal',
-		valid: true
-	}],
+	appealStatus: [
+		{
+			status: 'received_appeal',
+			valid: true
+		}
+	],
 	createdAt: new Date(2022, 1, 23),
 	addressId: 1,
 	localPlanningDepartment: 'Maidstone Borough Council',
@@ -37,10 +39,12 @@ const appeal2 = {
 	},
 	localPlanningDepartment: 'Waveney District Council',
 	planningApplicationReference: '18543/APP/2021/6627',
-	appealStatus: [{
-		status: 'awaiting_validation_info',
-		valid: true
-	}],
+	appealStatus: [
+		{
+			status: 'awaiting_validation_info',
+			valid: true
+		}
+	],
 	createdAt: new Date(2022, 1, 23),
 	addressId: 2,
 	validationDecision: [
@@ -69,10 +73,12 @@ const appeal2 = {
 };
 const appeal3 = {
 	id: 3,
-	appealStatus: [{
-		status: 'invalid',
-		valid: true
-	}]
+	appealStatus: [
+		{
+			status: 'invalid',
+			valid: true
+		}
+	]
 };
 const appeal4 = {
 	id: 4,
@@ -82,10 +88,12 @@ const appeal4 = {
 	},
 	localPlanningDepartment: 'Waveney District Council',
 	planningApplicationReference: '18543/APP/2021/6627',
-	appealStatus: [{
-		status: 'awaiting_validation_info',
-		valid: true
-	}],
+	appealStatus: [
+		{
+			status: 'awaiting_validation_info',
+			valid: true
+		}
+	],
 	createdAt: new Date(2022, 1, 23),
 	addressId: 2,
 	validationDecision: [
@@ -125,13 +133,27 @@ const includingDetailsForValidtion = {
 	appealType: true
 };
 
-getAppealByIdStub.withArgs({ where: { id: 1 }, include: includingDetailsForResponse }).returns(appeal1);
-getAppealByIdStub.withArgs({ where: { id: 1 }, include: includingDetailsForValidtion }).returns(appeal1);
-getAppealByIdStub.withArgs({ where: { id: 2 }, include: includingDetailsForResponse }).returns(appeal2);
-getAppealByIdStub.withArgs({ where: { id: 2 }, include: includingDetailsForValidtion }).returns(appeal2);
-getAppealByIdStub.withArgs({ where: { id: 3 }, include: includingDetailsForValidtion }).returns(appeal3);
-getAppealByIdStub.withArgs({ where: { id: 4 }, include: includingDetailsForResponse }).returns(appeal4);
-getAppealByIdStub.withArgs({ where: { id: 4 }, include: includingDetailsForValidtion }).returns(appeal4);
+getAppealByIdStub
+	.withArgs({ where: { id: 1 }, include: includingDetailsForResponse })
+	.returns(appeal1);
+getAppealByIdStub
+	.withArgs({ where: { id: 1 }, include: includingDetailsForValidtion })
+	.returns(appeal1);
+getAppealByIdStub
+	.withArgs({ where: { id: 2 }, include: includingDetailsForResponse })
+	.returns(appeal2);
+getAppealByIdStub
+	.withArgs({ where: { id: 2 }, include: includingDetailsForValidtion })
+	.returns(appeal2);
+getAppealByIdStub
+	.withArgs({ where: { id: 3 }, include: includingDetailsForValidtion })
+	.returns(appeal3);
+getAppealByIdStub
+	.withArgs({ where: { id: 4 }, include: includingDetailsForResponse })
+	.returns(appeal4);
+getAppealByIdStub
+	.withArgs({ where: { id: 4 }, include: includingDetailsForValidtion })
+	.returns(appeal4);
 
 class MockDatabaseClass {
 	constructor() {
@@ -177,7 +199,9 @@ const documentsArray = [
 ];
 
 test.before('sets up mocking of database', () => {
-	sinon.stub(DatabaseFactory, 'getInstance').callsFake((arguments_) => new MockDatabaseClass(arguments_));
+	sinon
+		.stub(DatabaseFactory, 'getInstance')
+		.callsFake((arguments_) => new MockDatabaseClass(arguments_));
 });
 
 test('gets appeal that requires validation', async (t) => {
@@ -210,12 +234,12 @@ test('throws 409 when appeal does not require validation', async (t) => {
 	t.is(resp.status, 409);
 	t.deepEqual(resp.body, {
 		errors: {
-			appeal: 'Appeal is in an invalid state',
+			appeal: 'Appeal is in an invalid state'
 		}
 	});
 });
 
-test('returns appeal with all reasons why it is in \'incomplete\' state', async (t) => {
+test("returns appeal with all reasons why it is in 'incomplete' state", async (t) => {
 	const resp = await request.get('/validation/2');
 	const appealReviewInfo = {
 		AppealId: 2,
@@ -242,7 +266,7 @@ test('returns appeal with all reasons why it is in \'incomplete\' state', async 
 			openedInError: true,
 			otherReasons: 'Some other weird reason',
 			sensitiveInfo: true,
-			wrongAppealTypeUsed: true,
+			wrongAppealTypeUsed: true
 		}
 	};
 
@@ -250,8 +274,7 @@ test('returns appeal with all reasons why it is in \'incomplete\' state', async 
 	t.deepEqual(resp.body, appealReviewInfo);
 });
 
-
-test('returns appeal with one reason why it is in \'incomplete\' state', async (t) => {
+test("returns appeal with one reason why it is in 'incomplete' state", async (t) => {
 	const resp = await request.get('/validation/4');
 	const appealReviewInfo = {
 		AppealId: 4,

@@ -22,7 +22,10 @@ function getDateTwoWeeksAgo() {
  */
 async function getAppealsWithOverdueQuestionnaires() {
 	const twoWeeksAgo = getDateTwoWeeksAgo();
-	const appeals = await appealRepository.getByStatusAndLessThanStatusUpdatedAtDate('awaiting_lpa_questionnaire', twoWeeksAgo);
+	const appeals = await appealRepository.getByStatusAndLessThanStatusUpdatedAtDate(
+		'awaiting_lpa_questionnaire',
+		twoWeeksAgo
+	);
 
 	return appeals;
 }
@@ -35,10 +38,17 @@ async function markAppealsAsOverdue(appeals) {
 
 	for (const appeal of appeals) {
 		const appealStatus = buildAppealCompundStatus(appeal.appealStatus);
-		const nextState = transitionState(appeal.appealType.type, { appealId: appeal.id }, appealStatus, 'OVERDUE');
+		const nextState = transitionState(
+			appeal.appealType.type,
+			{ appealId: appeal.id },
+			appealStatus,
+			'OVERDUE'
+		);
 		const newState = breakUpCompoundStatus(nextState.value, appeal.id);
 
-		updatedAppeals.push(appealRepository.updateStatusById(appeal.id, newState, appeal.appealStatus));
+		updatedAppeals.push(
+			appealRepository.updateStatusById(appeal.id, newState, appeal.appealStatus)
+		);
 	}
 	await Promise.all(updatedAppeals);
 }

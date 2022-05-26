@@ -72,12 +72,12 @@ test('succeeds with a 200 when booking a site visit', async (t) => {
 		bookedSiteVisit: {
 			visitDate: '01 January 2030',
 			visitSlot: '8am to 10am',
-			visitType: 'accompanied',
+			visitType: 'accompanied'
 		},
 		localPlanningDepartment: originalAppeal.localPlanningDepartment,
 		planningApplicationReference: originalAppeal.planningApplicationReference,
 		reference: originalAppeal.reference,
-		status: 'booked',
+		status: 'booked'
 	});
 
 	assert.calledWith(updateStatusAndDataByIdStub, 1, 'site_visit_booked', {
@@ -93,9 +93,7 @@ test('succeeds with a 200 when booking a site visit', async (t) => {
 });
 
 test('fails with a 401 status when no `userId` is present', async (t) => {
-	const response = await request
-		.post('/inspector/1/book')
-		.send(siteVisitBody);
+	const response = await request.post('/inspector/1/book').send(siteVisitBody);
 
 	t.is(response.status, 401);
 	t.deepEqual(response.body, {
@@ -106,10 +104,7 @@ test('fails with a 401 status when no `userId` is present', async (t) => {
 });
 
 test('fails with a 403 status when the `userId` is different from the appeal user', async (t) => {
-	const response = await request
-		.post('/inspector/1/book')
-		.set('userId', '101')
-		.send(siteVisitBody);
+	const response = await request.post('/inspector/1/book').set('userId', '101').send(siteVisitBody);
 
 	t.is(response.status, 403);
 	t.deepEqual(response.body, {

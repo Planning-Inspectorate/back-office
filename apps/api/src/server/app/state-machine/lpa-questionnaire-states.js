@@ -21,7 +21,7 @@ const generateLpaQuestionnaireStates = () => {
 		},
 		incomplete_lpa_questionnaire: {
 			on: {
-				COMPLETE: 'complete_lpa_questionnaire',
+				COMPLETE: 'complete_lpa_questionnaire'
 			}
 		},
 		complete_lpa_questionnaire: {

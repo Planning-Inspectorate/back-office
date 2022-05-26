@@ -25,21 +25,28 @@ app.use(compression());
 app.use(morgan('combined'));
 app.use(helmet());
 
-app.use('/validation', versionRoutes({
-	1: validationRoutes
-}));
+app.use(
+	'/validation',
+	versionRoutes({
+		1: validationRoutes
+	})
+);
 
-app.use('/case-officer', versionRoutes({
-	1: caseOfficerRoutes
-}));
+app.use(
+	'/case-officer',
+	versionRoutes({
+		1: caseOfficerRoutes
+	})
+);
 
-app.use('/inspector', versionRoutes({
-	1: inspectorRoutes
-}));
+app.use(
+	'/inspector',
+	versionRoutes({
+		1: inspectorRoutes
+	})
+);
 
 app.use(stateMachineErrorHandler);
 app.use(defaultErrorHandler);
 
-export {
-	app
-};
+export { app };

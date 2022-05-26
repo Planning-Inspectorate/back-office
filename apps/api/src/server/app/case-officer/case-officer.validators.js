@@ -28,55 +28,68 @@ export const validateAppealDetails = composeMiddleware(
 );
 
 const invalidWithoutReasons = (hasExplanation) => {
-	return (!!((
+	return !!(
 		(hasExplanation.reason.applicationPlansToReachDecisionMissingOrIncorrect === true &&
-		typeof(hasExplanation.reason.applicationPlansToReachDecisionMissingOrIncorrectDescription) === "undefined") ||
+			typeof hasExplanation.reason.applicationPlansToReachDecisionMissingOrIncorrectDescription ===
+				'undefined') ||
 		(hasExplanation.reason.policiesStatutoryDevelopmentPlanPoliciesMissingOrIncorrect === true &&
-		typeof(hasExplanation.reason.policiesStatutoryDevelopmentPlanPoliciesMissingOrIncorrectDescription) === "undefined") ||
+			typeof hasExplanation.reason
+				.policiesStatutoryDevelopmentPlanPoliciesMissingOrIncorrectDescription === 'undefined') ||
 		(hasExplanation.reason.policiesOtherRelevanPoliciesMissingOrIncorrect === true &&
-		typeof(hasExplanation.reason.policiesOtherRelevanPoliciesMissingOrIncorrectDescription) === "undefined") ||
+			typeof hasExplanation.reason.policiesOtherRelevanPoliciesMissingOrIncorrectDescription ===
+				'undefined') ||
 		(hasExplanation.reason.policiesSupplementaryPlanningDocumentsMissingOrIncorrect === true &&
-		typeof(hasExplanation.reason.policiesSupplementaryPlanningDocumentsMissingOrIncorrectDescription) === "undefined") ||
+			typeof hasExplanation.reason
+				.policiesSupplementaryPlanningDocumentsMissingOrIncorrectDescription === 'undefined') ||
 		(hasExplanation.reason.siteConservationAreaMapAndGuidanceMissingOrIncorrect === true &&
-		typeof(hasExplanation.reason.siteConservationAreaMapAndGuidanceMissingOrIncorrectDescription) === "undefined") ||
+			typeof hasExplanation.reason
+				.siteConservationAreaMapAndGuidanceMissingOrIncorrectDescription === 'undefined') ||
 		(hasExplanation.reason.siteListedBuildingDescriptionMissingOrIncorrect === true &&
-		typeof(hasExplanation.reason.siteListedBuildingDescriptionMissingOrIncorrectDescription) === "undefined") ||
+			typeof hasExplanation.reason.siteListedBuildingDescriptionMissingOrIncorrectDescription ===
+				'undefined') ||
 		(hasExplanation.reason.thirdPartyApplicationNotificationMissingOrIncorrect === true &&
-			(hasExplanation.reason.thirdPartyApplicationNotificationMissingOrIncorrectListOfAddresses === false &&
-			hasExplanation.reason.thirdPartyApplicationNotificationMissingOrIncorrectCopyOfLetterOrSiteNotice === false)) ||
+			hasExplanation.reason.thirdPartyApplicationNotificationMissingOrIncorrectListOfAddresses ===
+				false &&
+			hasExplanation.reason
+				.thirdPartyApplicationNotificationMissingOrIncorrectCopyOfLetterOrSiteNotice === false) ||
 		(hasExplanation.reason.thirdPartyRepresentationsMissingOrIncorrect === true &&
-		typeof(hasExplanation.reason.thirdPartyRepresentationsMissingOrIncorrectDescription) === "undefined") ||
+			typeof hasExplanation.reason.thirdPartyRepresentationsMissingOrIncorrectDescription ===
+				'undefined') ||
 		(hasExplanation.reason.thirdPartyAppealNotificationMissingOrIncorrect === true &&
-			(hasExplanation.reason.thirdPartyAppealNotificationMissingOrIncorrectListOfAddresses === false &&
-			hasExplanation.reason.thirdPartyAppealNotificationMissingOrIncorrectCopyOfLetterOrSiteNotice === false))
-	)));
+			hasExplanation.reason.thirdPartyAppealNotificationMissingOrIncorrectListOfAddresses ===
+				false &&
+			hasExplanation.reason
+				.thirdPartyAppealNotificationMissingOrIncorrectCopyOfLetterOrSiteNotice === false)
+	);
 };
 
 const incompleteWithUnexpectedReasons = (reasonListed) => {
-	return difference(Object.keys(reasonListed.reason), [
-		'applicationPlanningOfficersReportMissingOrIncorrect',
-		'applicationPlansToReachDecisionMissingOrIncorrect',
-		'applicationPlansToReachDecisionMissingOrIncorrectDescription',
-		'policiesStatutoryDevelopmentPlanPoliciesMissingOrIncorrect',
-		'policiesStatutoryDevelopmentPlanPoliciesMissingOrIncorrectDescription',
-		'policiesOtherRelevantPoliciesMissingOrIncorrect',
-		'policiesOtherRelevantPoliciesMissingOrIncorrectDescription',
-		'policiesSupplementaryPlanningDocumentsMissingOrIncorrect',
-		'policiesSupplementaryPlanningDocumentsMissingOrIncorrectDescription',
-		'siteConservationAreaMapAndGuidanceMissingOrIncorrect',
-		'siteConservationAreaMapAndGuidanceMissingOrIncorrectDescription',
-		'siteListedBuildingDescriptionMissingOrIncorrect',
-		'siteListedBuildingDescriptionMissingOrIncorrectDescription',
-		'thirdPartyApplicationNotificationMissingOrIncorrect',
-		'thirdPartyApplicationNotificationMissingOrIncorrectListOfAddresses',
-		'thirdPartyApplicationNotificationMissingOrIncorrectCopyOfLetterOrSiteNotice',
-		'thirdPartyApplicationPublicityMissingOrIncorrect',
-		'thirdPartyRepresentationsMissingOrIncorrect',
-		'thirdPartyRepresentationsMissingOrIncorrectDescription',
-		'thirdPartyAppealNotificationMissingOrIncorrect',
-		'thirdPartyAppealNotificationMissingOrIncorrectListOfAddresses',
-		'thirdPartyAppealNotificationMissingOrIncorrectCopyOfLetterOrSiteNotice'
-	]).length > 0;
+	return (
+		difference(Object.keys(reasonListed.reason), [
+			'applicationPlanningOfficersReportMissingOrIncorrect',
+			'applicationPlansToReachDecisionMissingOrIncorrect',
+			'applicationPlansToReachDecisionMissingOrIncorrectDescription',
+			'policiesStatutoryDevelopmentPlanPoliciesMissingOrIncorrect',
+			'policiesStatutoryDevelopmentPlanPoliciesMissingOrIncorrectDescription',
+			'policiesOtherRelevantPoliciesMissingOrIncorrect',
+			'policiesOtherRelevantPoliciesMissingOrIncorrectDescription',
+			'policiesSupplementaryPlanningDocumentsMissingOrIncorrect',
+			'policiesSupplementaryPlanningDocumentsMissingOrIncorrectDescription',
+			'siteConservationAreaMapAndGuidanceMissingOrIncorrect',
+			'siteConservationAreaMapAndGuidanceMissingOrIncorrectDescription',
+			'siteListedBuildingDescriptionMissingOrIncorrect',
+			'siteListedBuildingDescriptionMissingOrIncorrectDescription',
+			'thirdPartyApplicationNotificationMissingOrIncorrect',
+			'thirdPartyApplicationNotificationMissingOrIncorrectListOfAddresses',
+			'thirdPartyApplicationNotificationMissingOrIncorrectCopyOfLetterOrSiteNotice',
+			'thirdPartyApplicationPublicityMissingOrIncorrect',
+			'thirdPartyRepresentationsMissingOrIncorrect',
+			'thirdPartyRepresentationsMissingOrIncorrectDescription',
+			'thirdPartyAppealNotificationMissingOrIncorrect',
+			'thirdPartyAppealNotificationMissingOrIncorrectListOfAddresses',
+			'thirdPartyAppealNotificationMissingOrIncorrectCopyOfLetterOrSiteNotice'
+		]).length > 0
+	);
 };
 
 export const validateReviewRequest = (request, response, next) => {
@@ -103,7 +116,7 @@ export const validateFilesUpload = (filename) => {
 			storage: multer.memoryStorage(),
 			limits: {
 				/* MBs */
-				fileSize: 15 * (1024** 2)
+				fileSize: 15 * 1024 ** 2
 			}
 		}).array(filename),
 		mapMulterErrorToValidationError,

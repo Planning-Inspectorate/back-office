@@ -1,8 +1,18 @@
 import express from 'express';
 import { param } from 'express-validator';
 import { asyncHandler } from '../middleware/async-handler.js';
-import { getAppealDetails, getAppeals, getLPAList, submitValidationDecision, updateAppeal } from './validation.controller.js';
-import { validateAppealAttributesToChange, validateAppealBelongsToValidation, validateAppealValidationDecision } from './validation.validators.js';
+import {
+	getAppealDetails,
+	getAppeals,
+	getLPAList,
+	submitValidationDecision,
+	updateAppeal
+} from './validation.controller.js';
+import {
+	validateAppealAttributesToChange,
+	validateAppealBelongsToValidation,
+	validateAppealValidationDecision
+} from './validation.validators.js';
 
 const router = new express.Router();
 

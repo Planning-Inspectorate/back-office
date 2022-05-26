@@ -4,12 +4,34 @@
  * @returns {string} merged date parts in format DD MMM YYYY
  */
 function formatDate(date, shortened = true) {
-	const shortenedMonthNames =['Jan', 'Feb', 'Mar', 'Apr',
-		'May', 'Jun', 'Jul', 'Aug',
-		'Sep', 'Oct', 'Nov', 'Dec'];
-	const fullMonthNames =['January', 'February', 'March', 'April',
-		'May', 'June', 'July', 'August',
-		'September', 'October', 'November', 'December'];
+	const shortenedMonthNames = [
+		'Jan',
+		'Feb',
+		'Mar',
+		'Apr',
+		'May',
+		'Jun',
+		'Jul',
+		'Aug',
+		'Sep',
+		'Oct',
+		'Nov',
+		'Dec'
+	];
+	const fullMonthNames = [
+		'January',
+		'February',
+		'March',
+		'April',
+		'May',
+		'June',
+		'July',
+		'August',
+		'September',
+		'October',
+		'November',
+		'December'
+	];
 
 	const day = date.getDate().toString().padStart(2, '0');
 
