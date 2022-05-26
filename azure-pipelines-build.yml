@@ -31,6 +31,10 @@ extends:
           - template: ../steps/node_script.yml
             parameters:
               condition: always()
+              script: npx commitlint --from=HEAD~1
+          - template: ../steps/node_script.yml
+            parameters:
+              condition: always()
               script: npm run tscheck
           - template: ../steps/node_script.yml
             parameters:
