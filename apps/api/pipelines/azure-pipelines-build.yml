@@ -10,7 +10,7 @@ resources:
       type: github
       endpoint: Planning-Inspectorate
       name: Planning-Inspectorate/common-pipeline-templates
-      ref: refs/tags/release/2.1.2
+      ref: fix/acr-push-artifact-name-2
 
 extends:
   template: stages/wrapper_ci.yml@templates
