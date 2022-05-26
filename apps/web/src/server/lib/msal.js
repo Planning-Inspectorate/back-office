@@ -1,3 +1,4 @@
+import { UrlString } from '@azure/msal-common';
 import msal, { LogLevel } from '@azure/msal-node';
 import config from '@pins/web/environment/config.js';
 import pino from './logger.js';
@@ -39,19 +40,24 @@ export const msalClient = new msal.ConfidentialClientApplication({
 });
 
 /**
- * Set the MSAL redirectUri as an absolute url if exists only as a path. Unless
- * provided as an absolute url in the .env file, this can only be done at
+ * Set the MSAL redirectUri as an absolute url if it exists only as a path.
+ * Unless provided as an absolute url in the .env file, this can only be done at
  * runtime once the protocol and host is known.
  *
  * @type {import('express').RequestHandler}
  */
 export const msalMiddleware = (req, _, next) => {
-	if (!/^https?/.test(config.msal.redirectUri)) {
-		const redirectPath = config.msal.redirectUri.startsWith('/')
-			? config.msal.redirectUri
-			: `/${config.msal.redirectUri}`;
+	const { redirectUri } = config.msal;
+	const components = new UrlString(redirectUri).getUrlComponents();
 
-		config.msal.redirectUri = `${req.protocol}://${req.get('host')}${redirectPath}`;
+	if (!components.Protocol) {
+		if (!components.HostNameAndPort && !redirectUri.startsWith('www')) {
+			const path = redirectUri.startsWith('/') ? redirectUri : `/${redirectUri}`;
+
+			config.msal.redirectUri = `${req.protocol}://${req.get('host')}${path}`;
+		} else {
+			config.msal.redirectUri = `${req.protocol}://${redirectUri}`;
+		}
 	}
 	next();
 };
