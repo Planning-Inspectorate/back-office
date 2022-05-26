@@ -65,12 +65,12 @@ const buildCompoundState = (lpaQuestionnaireAndInspectorPickupState, statementsA
 
 const appealFactory = (
 	typeShorthand,
-	startedAt,
 	statuses = {},
 	incompleteValidationDecision = false,
 	invalidValidationDecision = false,
 	completeValidationDecision = false,
 	lpaQuestionnaire = false,
+	startedAt = null,
 	incompleteReviewQuestionnaire = false,
 	completeReviewQuestionnaire = false,
 	connectToUser = false,
