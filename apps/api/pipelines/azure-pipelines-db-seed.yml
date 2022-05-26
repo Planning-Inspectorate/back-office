@@ -19,7 +19,7 @@ resources:
       type: github
       endpoint: Planning-Inspectorate
       name: Planning-Inspectorate/common-pipeline-templates
-      ref: fix/acr-push-artifact-name-2
+      ref: refs/tags/release/2.1.3
 
 variables:
   - template: variables/environments/${{ lower(parameters.environment )}}.yml@templates
