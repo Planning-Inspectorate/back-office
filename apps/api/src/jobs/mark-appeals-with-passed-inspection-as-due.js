@@ -7,6 +7,7 @@ import { breakUpCompoundStatus } from '../server/app/utils/break-up-compound-sta
  */
 async function getAppealsWithPassedInspections() {
 	const appeals = await appealRepository.getByStatusAndInspectionBeforeDate('site_visit_booked', new Date());
+
 	return appeals;
 }
 
@@ -15,9 +16,11 @@ async function getAppealsWithPassedInspections() {
  */
 async function markAppealsAsDecisionDue(appeals) {
 	const updatedAppeals = [];
+
 	for (const appeal of appeals) {
 		const nextState = transitionState(appeal.appealType.type, { appealId: appeal.id }, 'site_visit_booked', 'BOOKING_PASSED');
 		const newState = breakUpCompoundStatus(nextState.value, appeal.id);
+
 		updatedAppeals.push(appealRepository.updateStatusById(appeal.id, newState, appeal.appealStatus));
 	}
 	await Promise.all(updatedAppeals);
@@ -28,6 +31,7 @@ async function markAppealsAsDecisionDue(appeals) {
  */
 async function findAndUpdateStatusForAppealsWithPassedInspection() {
 	const appeals = await getAppealsWithPassedInspections();
+
 	await markAppealsAsDecisionDue(appeals);
 }
 

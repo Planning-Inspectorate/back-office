@@ -9,12 +9,12 @@ const inspectionTypesThatSendEmail = new Set([
 ]);
 
 const inspectorActions = {
-	notifyAppellantOfBookedSiteVisit: async function(context, _event) {
+	async notifyAppellantOfBookedSiteVisit(context) {
 		if (inspectionTypesThatSendEmail.has(context.inspectionType)) {
 			await inspectorActionsService.sendEmailToAppellantWithSiteVisitBooking(context.appealId);
 		}
 	},
-	notifyAppellantOfDecision: async function(context, _event) {
+	async notifyAppellantOfDecision(context) {
 		await inspectorActionsService.sendEmailToLPAAndAppellantWithDeciion(context.appealId, context.decision);
 	}
 };
@@ -41,7 +41,7 @@ const inspectorBookingStates = {
 	},
 };
 
-const generateInspectorPickupStates = function(stateAfterPickup, additionalStates) {
+const generateInspectorPickupStates = (stateAfterPickup, additionalStates) => {
 	return {
 		available_for_inspector_pickup: {
 			on: {

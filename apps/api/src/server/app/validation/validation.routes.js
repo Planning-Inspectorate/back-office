@@ -4,7 +4,7 @@ import { asyncHandler } from '../middleware/async-handler.js';
 import { getAppealDetails, getAppeals, getLPAList, submitValidationDecision, updateAppeal } from './validation.controller.js';
 import { validateAppealAttributesToChange, validateAppealBelongsToValidation, validateAppealValidationDecision } from './validation.validators.js';
 
-const router = express.Router();
+const router = new express.Router();
 
 /**
  * @typedef {object} AppealParams
@@ -25,7 +25,7 @@ router.get(
 
 router.get(
 	'/lpa-list',
-	/* 
+	/*
 		#swagger.description = 'Gets all LPAs from external API'
 		#swagger.responses[200] = {
 			description: 'All available LPAs',
@@ -40,7 +40,7 @@ router.get(
 
 router.get(
 	'/:appealId',
-	/* 
+	/*
 		#swagger.description = 'Gets appeal to be validated by the Validation Officer'
 		#swagger.parameters['id'] = {
 			description: 'Appeal ID',
@@ -92,7 +92,7 @@ router.post(
 		#swagger.parameters['obj'] = {
 			in: 'body',
 			description: 'Validation Decision',
-			schema: { $ref: "#/definitions/ValidationDecision" } 
+			schema: { $ref: "#/definitions/ValidationDecision" }
 		}
 	*/
 	param('appealId').toInt(),

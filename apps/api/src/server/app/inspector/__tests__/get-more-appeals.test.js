@@ -1,12 +1,12 @@
 import test from 'ava';
-import supertest from 'supertest';
 import sinon from 'sinon';
+import supertest from 'supertest';
 import { app } from '../../../app.js';
 import DatabaseFactory from '../../repositories/database.js';
 
 const request = supertest(app);
 
-const appeal_25 = {
+const appeal25 = {
 	id: 25,
 	reference: 'APP/Q9999/D/21/5463281',
 	appealStatus:[{
@@ -27,10 +27,10 @@ const appeal_25 = {
 };
 
 
-const findManyStub = sinon.stub().returns([appeal_25]);
+const findManyStub = sinon.stub().returns([appeal25]);
 
 class MockDatabaseClass {
-	constructor(_parameters) {
+	constructor() {
 		this.pool = {
 			appeal: {
 				findMany: findManyStub
@@ -47,6 +47,7 @@ test.before('sets up mocking of database', () => {
 test('gets all appeals yet to be assigned to inspector', async (t) => {
 
 	sinon.useFakeTimers({ now: 1_649_319_144_000 });
+
 	const resp = await request.get('/inspector/more-appeals');
 
 	t.is(resp.status, 200);

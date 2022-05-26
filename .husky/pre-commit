@@ -1,5 +1,5 @@
 #!/usr/bin/env sh
 . "$(dirname -- "$0")/_/husky.sh"
 
-npx turbo run tscheck
+npx turbo run tscheck --filter=!@pins/api
 npx lint-staged

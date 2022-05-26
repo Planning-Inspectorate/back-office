@@ -1,19 +1,18 @@
-// eslint-disable-next-line import/no-unresolved
 import test from 'ava';
-import supertest from 'supertest';
 import sinon from 'sinon';
+import supertest from 'supertest';
 import { app } from '../../../app.js';
 import DatabaseFactory from '../../repositories/database.js';
 import { appealFactoryForTests } from '../../utils/appeal-factory-for-tests.js';
 
 const request = supertest(app);
 
-const appeal_1 = appealFactoryForTests(1, [{
+const appeal1 = appealFactoryForTests(1, [{
 	status: 'received_lpa_questionnaire',
 	valid: true,
 }], 'HAS', { lpaQuestionnaire: true });
 
-const appeal_2 = appealFactoryForTests(2, [{
+const appeal2 = appealFactoryForTests(2, [{
 	status: 'awaiting_lpa_questionnaire',
 	valid: true,
 }], 'HAS');
@@ -36,16 +35,17 @@ const includeDetails = {
 	}
 };
 
-const includingDetailsForValidtion = { 
-	appealStatus: { where: { valid: true } }, 
+const includingDetailsForValidtion = {
+	appealStatus: { where: { valid: true } },
 	appealType: true,
 };
 
 const findUniqueStub = sinon.stub();
-findUniqueStub.withArgs({ where: { id: 1 }, include: includeDetails }).returns(appeal_1);
-findUniqueStub.withArgs({ where: { id: 2 }, include: includeDetails }).returns(appeal_2);
-findUniqueStub.withArgs({ where: { id: 1 }, include: includingDetailsForValidtion }).returns(appeal_1);
-findUniqueStub.withArgs({ where: { id: 2 }, include: includingDetailsForValidtion }).returns(appeal_2);
+
+findUniqueStub.withArgs({ where: { id: 1 }, include: includeDetails }).returns(appeal1);
+findUniqueStub.withArgs({ where: { id: 2 }, include: includeDetails }).returns(appeal2);
+findUniqueStub.withArgs({ where: { id: 1 }, include: includingDetailsForValidtion }).returns(appeal1);
+findUniqueStub.withArgs({ where: { id: 2 }, include: includingDetailsForValidtion }).returns(appeal2);
 
 const listOfDocuments = [
 	{
@@ -126,7 +126,7 @@ const listOfDocuments = [
 ];
 
 class MockDatabaseClass {
-	constructor(_parameters) {
+	constructor() {
 		this.pool = {
 			appeal: {
 				findUnique: findUniqueStub
@@ -136,6 +136,7 @@ class MockDatabaseClass {
 }
 
 test.before('sets up mocking of database', () => {
+	// @ts-ignore
 	sinon.stub(DatabaseFactory, 'getInstance').callsFake((arguments_) => new MockDatabaseClass(arguments_));
 });
 
@@ -143,27 +144,29 @@ test('gets the appeals detailed information with received questionnaires', async
 	const resp = await request.get('/case-officer/1');
 	const appealExampleDetail = {
 		AppealId: 1,
-		AppealReference: appeal_1.reference,
-		LocalPlanningDepartment: appeal_1.localPlanningDepartment,
-		PlanningApplicationreference: appeal_1.planningApplicationReference,
+		AppealReference: appeal1.reference,
+		LocalPlanningDepartment: appeal1.localPlanningDepartment,
+		PlanningApplicationreference: appeal1.planningApplicationReference,
 		AppealSite: {
-			...(appeal_1.address.addressLine1 && { AddressLine1: appeal_1.address.addressLine1 }),
-			...(appeal_1.address.addressLine2 && { AddressLine2: appeal_1.address.addressLine2 }),
-			...(appeal_1.address.town && { Town: appeal_1.address.town }),
-			...(appeal_1.address.county && { County: appeal_1.address.county }),
-			PostCode: appeal_1.address.postcode
+			...(appeal1.address.addressLine1 && { AddressLine1: appeal1.address.addressLine1 }),
+			...(appeal1.address.addressLine2 && { AddressLine2: appeal1.address.addressLine2 }),
+			...(appeal1.address.town && { Town: appeal1.address.town }),
+			...(appeal1.address.county && { County: appeal1.address.county }),
+			PostCode: appeal1.address.postcode
 		},
 		AppealSiteNearConservationArea: false,
 		WouldDevelopmentAffectSettingOfListedBuilding: false,
 		ListedBuildingDesc: '',
 		Documents: listOfDocuments
 	};
+
 	t.is(resp.status, 200);
 	t.deepEqual(resp.body, appealExampleDetail);
 });
 
 test('unable to retrieve details for an appeal which has yet to receive the questionnaire', async (t) => {
 	const resp = await request.get('/case-officer/2');
+
 	t.is(resp.status, 409);
 	t.deepEqual(resp.body, {
 		errors: {

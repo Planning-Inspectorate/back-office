@@ -1,4 +1,4 @@
-const formatAddressLowerCase = function(address) {
+const formatAddressLowerCase = (address) => {
 	return {
 		...(address.addressLine1 && { addressLine1: address.addressLine1 }),
 		...(address.addressLine2 && { addressLine2: address.addressLine2 }),

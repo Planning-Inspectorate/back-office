@@ -1,22 +1,23 @@
-// eslint-disable-next-line import/no-unresolved
 import test from 'ava';
-import validationDecisionRepository from './validation-decision.repository.js';
 import sinon from 'sinon';
-import DatabaseFactory from './database.js';
+import DatabaseFactory from '../database.js';
+import validationDecisionRepository from '../validation-decision.repository.js';
 
 const addNewDecision = sinon.stub();
+
+let descriptionOfDevelopment;
 
 const newDecision = {
 	appealId: 1,
 	decision: 'incomplete',
-	descriptionOfDevelopment: undefined,
+	descriptionOfDevelopment,
 	namesDoNotMatch: true
 };
 
 addNewDecision.returns(newDecision);
 
 class MockDatabaseClass {
-	constructor(_parameters) {
+	constructor() {
 		this.pool = {
 			validationDecision: {
 				create: addNewDecision
@@ -30,13 +31,14 @@ test.before('sets up Database connection mock', () => {
 });
 
 test('adds new Validation decision', async(t) => {
-	const decision = await validationDecisionRepository.addNewDecision(1, 'incomplete',  { 	namesDoNotMatch: true });
+	const decision = await validationDecisionRepository.addNewDecision(1, 'incomplete', { 	namesDoNotMatch: true });
+
 	t.deepEqual(decision, newDecision);
 	sinon.assert.calledWith(addNewDecision, {
 		data: {
 			appealId: 1,
 			decision: 'incomplete',
-			descriptionOfDevelopment: undefined,
+			descriptionOfDevelopment,
 			namesDoNotMatch: true
 		}
 	});

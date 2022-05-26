@@ -1,13 +1,12 @@
-// eslint-disable-next-line import/no-unresolved
 import test from 'ava';
-import supertest from 'supertest';
 import sinon from 'sinon';
+import supertest from 'supertest';
 import { app } from '../../../app.js';
 import DatabaseFactory from '../../repositories/database.js';
 
 const request = supertest(app);
 
-const appeal_1 = {
+const appeal1 = {
 	id: 1,
 	reference: 'APP/Q9999/D/21/1345264',
 	appealStatus: [{
@@ -29,7 +28,7 @@ const appeal_1 = {
 		county: 'Kent'
 	}
 };
-const appeal_2 = {
+const appeal2 = {
 	id: 2,
 	reference: 'APP/Q9999/D/21/5463281',
 	appealStatus: [{
@@ -45,7 +44,7 @@ const appeal_2 = {
 		town: 'Thurnscoe'
 	}
 };
-const appeal_3 = {
+const appeal3 = {
 	id: 3,
 	reference: 'APP/Q9999/D/21/5463281',
 	appealStatus: [{
@@ -61,7 +60,7 @@ const appeal_3 = {
 		town: 'Thurnscoe'
 	}
 };
-const appeal_4 = {
+const appeal4 = {
 	id: 4,
 	reference: 'APP/Q8874/D/23/4293472',
 	appealStatus: [{
@@ -78,7 +77,7 @@ const appeal_4 = {
 	},
 };
 
-const appeal_5 = {
+const appeal5 = {
 	id: 5,
 	reference: 'APP/Q8874/D/23/1233427',
 	appealStatus: [{
@@ -97,7 +96,7 @@ const appeal_5 = {
 	},
 };
 
-const appeal_6 = {
+const appeal6 = {
 	id: 6,
 	reference: 'APP/Q8874/D/23/7654321',
 	appealStatus: [{
@@ -118,6 +117,7 @@ const appeal_6 = {
 };
 
 const findManyStub = sinon.stub();
+
 findManyStub.withArgs({
 	where: {
 		appealStatus: {
@@ -143,7 +143,7 @@ findManyStub.withArgs({
 			}
 		}
 	}
-}).returns([appeal_1, appeal_2, appeal_3, appeal_4, appeal_5, appeal_6]);
+}).returns([appeal1, appeal2, appeal3, appeal4, appeal5, appeal6]);
 findManyStub.withArgs({
 	where: {
 		appealStatus: {
@@ -167,10 +167,10 @@ findManyStub.withArgs({
 			}
 		}
 	}
-}).returns([appeal_5, appeal_6]);
+}).returns([appeal5, appeal6]);
 
 class MockDatabaseClass {
-	constructor(_parameters) {
+	constructor() {
 		this.pool = {
 			appeal: {
 				findMany: findManyStub
@@ -180,7 +180,9 @@ class MockDatabaseClass {
 }
 
 test('gets the appeals information with received questionnaires', async (t) => {
+	// @ts-ignore
 	sinon.stub(DatabaseFactory, 'getInstance').callsFake((arguments_) => new MockDatabaseClass(arguments_));
+
 	const resp = await request.get('/case-officer');
 	const appealExample = [{
 		AppealId : 1,
@@ -271,6 +273,7 @@ test('gets the appeals information with received questionnaires', async (t) => {
 		QuestionnaireDueDate: '16 Apr 2022',
 		StatementsAndFinalCommentsStatus: 'available_for_final_comments',
 	}];
+
 	t.is(resp.status, 200);
 	t.deepEqual(resp.body, appealExample);
 });

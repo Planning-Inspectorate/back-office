@@ -9,16 +9,16 @@ const validationDecisionRepository = (function() {
 	}
 
 	return {
-		addNewDecision: function(appealId, decision, reason, descriptionOfDevelopment) {
+		addNewDecision(appealId, decision, reason, descriptionOfDevelopment) {
 			return getPool().validationDecision.create({
 				data: {
-					appealId: appealId,
-					decision: decision,
-					descriptionOfDevelopment: descriptionOfDevelopment,
+					appealId,
+					decision,
+					descriptionOfDevelopment,
 					...reason }
 			});
 		}
 	};
-})();
+}());
 
 export default validationDecisionRepository;

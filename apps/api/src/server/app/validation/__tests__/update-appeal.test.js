@@ -1,32 +1,32 @@
-// eslint-disable-next-line import/no-unresolved
 import test from 'ava';
-import supertest from 'supertest';
 import sinon from 'sinon';
+import supertest from 'supertest';
 import { app } from '../../../app.js';
 import DatabaseFactory from '../../repositories/database.js';
 
 const request = supertest(app);
 
-const includingDetailsForValidtion = { 
-	appealStatus: { where: { valid: true } }, 
+const includingDetailsForValidtion = {
+	appealStatus: { where: { valid: true } },
 	appealType: true
 };
 
 const findUniqueStub = sinon.stub();
 
-const appeal_1 = {
+const appeal1 = {
 	id: 1,
 	appealStatus: [{
 		status: 'received_appeal',
 		valid: true
 	}]
 };
-findUniqueStub.withArgs({ where: { id: 1 }, include: includingDetailsForValidtion }).returns(appeal_1);
+
+findUniqueStub.withArgs({ where: { id: 1 }, include: includingDetailsForValidtion }).returns(appeal1);
 
 const updateStub = sinon.stub();
 
 class MockDatabaseClass {
-	constructor(_parameters) {
+	constructor() {
 		this.pool = {
 			appeal: {
 				findUnique: findUniqueStub,
@@ -46,10 +46,11 @@ test.before('sets up mocking of database', () => {
 test('should be able to modify the appellant name', async (t) => {
 	const resp = await request.patch('/validation/1')
 		.send({ AppellantName: 'Leah Thornton' });
+
 	t.is(resp.status, 200);
 	sinon.assert.calledWithExactly(updateStub, {
 		where: { id: 1 },
-		data: { 
+		data: {
 			appellant: {
 				update: {
 					name: 'Leah Thornton'
@@ -68,9 +69,10 @@ test('should be able to modify address', async(t) => {
 				AddressLine2: 'some more addr',
 				Town: 'town',
 				County: 'county',
-				PostCode: 'POST CODE'	
+				PostCode: 'POST CODE'
 			}
 		});
+
 	t.is(resp.status, 200);
 	sinon.assert.calledWithExactly(updateStub, {
 		where: { id: 1 },
@@ -97,6 +99,7 @@ test('should be able to modify address even when some parts are null', async(t) 
 				Town: 'town',
 			}
 		});
+
 	t.is(resp.status, 200);
 	sinon.assert.calledWithExactly(updateStub, {
 		where: { id: 1 },
@@ -105,12 +108,9 @@ test('should be able to modify address even when some parts are null', async(t) 
 			address: {
 				update: {
 					addressLine1: 'some new addr',
-					// eslint-disable-next-line unicorn/no-null
 					addressLine2: null,
-					// eslint-disable-next-line unicorn/no-null
 					county: null,
 					town: 'town',
-					// eslint-disable-next-line unicorn/no-null
 					postcode: null
 				}
 			}
@@ -123,6 +123,7 @@ test('should be able to modify local planning department', async(t) => {
 		.send({
 			LocalPlanningDepartment: 'New Planning Department'
 		});
+
 	t.is(resp.status, 200);
 	sinon.assert.calledWithExactly(updateStub, {
 		where: { id: 1 },
@@ -138,6 +139,7 @@ test('should be able to modify planning application reference', async(t) => {
 		.send({
 			PlanningApplicationReference: 'New Planning Application Reference'
 		});
+
 	t.is(resp.status, 200);
 	sinon.assert.calledWithExactly(updateStub, {
 		where: { id: 1 },

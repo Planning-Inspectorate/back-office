@@ -1,4 +1,4 @@
-const getDateWithoutTime = function(date) {
+const getDateWithoutTime = (date) => {
 	return new Date(date.getFullYear(), date.getMonth(), date.getDate());
 };
 
@@ -7,10 +7,11 @@ const getDateWithoutTime = function(date) {
  * @param {Date | number | string} secondDate
  * @returns {number}
  */
-const daysBetweenDates = function(firstDate, secondDate) {
+const daysBetweenDates = (firstDate, secondDate) => {
 	const firstDateWithoutTime = getDateWithoutTime(firstDate);
 	const secondDateWithoutTime = getDateWithoutTime(secondDate);
 	const oneDay = 24 * 60 * 60 * 1000;
+
 	return Math.round(Math.abs((firstDateWithoutTime - secondDateWithoutTime) / oneDay));
 };
 

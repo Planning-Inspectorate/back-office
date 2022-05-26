@@ -1,13 +1,12 @@
-// eslint-disable-next-line import/no-unresolved
 import test from 'ava';
-import supertest from 'supertest';
 import sinon from 'sinon';
+import supertest from 'supertest';
 import { app } from '../../../app.js';
 import DatabaseFactory from '../../repositories/database.js';
 
 const request = supertest(app);
 
-const appeal_1 = {
+const appeal1 = {
 	id: 1,
 	reference: 'APP/Q9999/D/21/1345264',
 	appealStatus: [{
@@ -28,7 +27,7 @@ const appeal_1 = {
 		postcode: 'MD21 5XY'
 	}
 };
-const appeal_2 = {
+const appeal2 = {
 	id: 2,
 	reference: 'APP/Q9999/D/21/5463281',
 	appealStatus: [{
@@ -45,10 +44,10 @@ const appeal_2 = {
 };
 
 class MockDatabaseClass {
-	constructor(_parameters) {
+	constructor() {
 		this.pool = {
 			appeal: {
-				findMany: sinon.stub().returns([appeal_1, appeal_2])
+				findMany: sinon.stub().returns([appeal1, appeal2])
 			}
 		};
 	}
@@ -65,7 +64,7 @@ test('gets all new and incomplete validation appeals', async (t) => {
 		AppealStatus: 'new',
 		Received: '23 Feb 2022',
 		AppealSite: {
-			AddressLine1: '96 The Avenue', 
+			AddressLine1: '96 The Avenue',
 			Town: 'Maidstone',
 			County: 'Kent',
 			PostCode: 'MD21 5XY'
@@ -77,11 +76,12 @@ test('gets all new and incomplete validation appeals', async (t) => {
 		AppealStatus: 'incomplete',
 		Received: '25 Feb 2022',
 		AppealSite: {
-			AddressLine1: '55 Butcher Street', 
-			Town: 'Thurnscoe', 
+			AddressLine1: '55 Butcher Street',
+			Town: 'Thurnscoe',
 			PostCode: 'S63 0RB'
 		}
 	};
+
 	t.is(resp.status, 200);
 	t.deepEqual(resp.body, [validationLineNew, validationLineIncomplete]);
 });

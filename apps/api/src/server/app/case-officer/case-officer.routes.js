@@ -1,31 +1,29 @@
 import express from 'express';
 import { param } from 'express-validator';
-import { asyncHandler } from '../middleware/async-handler.js';
+import {asyncHandler} from '../middleware/async-handler.js';
+import { validateAppealStatus } from '../middleware/validate-appeal-status.js';
+import { appealStates } from '../state-machine/transition-state.js';
 import {
 	confirmLPAQuestionnaire,
 	getAppealDetails,
+	getAppealDetailsForStatementsAndComments,
 	getAppeals,
 	updateAppealDetails,
-	uploadStatement,
 	uploadFinalComment,
-	getAppealDetailsForStatementsAndComments
-} from './case-officer.controller.js';
+	uploadStatement} from './case-officer.controller.js';
 import {
 	validateAppealBelongsToCaseOfficer,
 	validateAppealDetails,
 	validateAppealHasIncompleteQuestionnaire,
-	validateReviewRequest,
-	validateFilesUpload
-} from './case-officer.validators.js';
-import { validateAppealStatus } from '../middleware/validate-appeal-status.js';
-import { appealStates } from '../state-machine/transition-state.js';
+	validateFilesUpload,
+	validateReviewRequest} from './case-officer.validators.js';
 
 /**
  * @typedef {object} AppealParams
  * @property {number} appealId
  */
 
-const router = express.Router();
+const router = new express.Router();
 
 router.get(
 	'/',

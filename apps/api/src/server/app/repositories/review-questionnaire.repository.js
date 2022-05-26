@@ -12,16 +12,16 @@ const newReviewRepository = (function() {
 	}
 
 	return {
-		addReview: function(appealId, complete, reason) {
+		addReview(appealId, complete, reason) {
 			return getPool().reviewQuestionnaire.create({
 				data: {
-					appealId: appealId,
-					complete: complete,
+					appealId,
+					complete,
 					...reason
 				}
 			});
 		},
 	};
-})();
+}());
 
 export default newReviewRepository;

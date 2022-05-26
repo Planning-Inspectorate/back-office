@@ -1,15 +1,15 @@
 import Prisma from '@prisma/client';
-import { 
-	appellantsList, 
-	localPlanningDepartmentList, 
-	addressesList, 
-	lpaQuestionnaireList, 
-	appealDetailsFromAppellantList, 
+import pino from 'pino';
+import {
+	addressesList,
+	appealDetailsFromAppellantList,
+	appellantsList,
+	completeValidationDecisionSample,
 	incompleteReviewQuestionnaireSample,
 	incompleteValidationDecisionSample,
 	invalidValidationDecisionSample,
-	completeValidationDecisionSample
-} from './seed-samples.js';
+	localPlanningDepartmentList,
+	lpaQuestionnaireList} from './seed-samples.js';
 
 const { PrismaClient } = Prisma;
 
@@ -20,18 +20,28 @@ const prisma = new PrismaClient();
  */
 function getDateTwoWeeksAgo() {
 	const date = new Date();
+
 	date.setDate(date.getDate() - 14);
 	date.setHours(23);
 	return date;
 }
 
+/**
+ * @returns {string}
+ */
 function generateAppealReference() {
 	const number = Math.floor(
 		Math.random() * (999_999) + 1
 	);
+
 	return `APP/Q9999/D/21/${number}`;
 }
 
+/**
+ *
+ * @param {object[]} list
+ * @returns {object}
+ */
 function pickRandom(list) {
 	return list[Math.floor(Math.random()*list.length)];
 }
@@ -41,36 +51,36 @@ const appealTypes = {
 	FPA: 'full planning'
 };
 
-const buildCompoundState = function (lpaQuestionnaireAndInspectorPickupState, statementsAndFinalCommentsState, createdAt = new Date()) {
+const buildCompoundState = (lpaQuestionnaireAndInspectorPickupState, statementsAndFinalCommentsState, createdAt = new Date()) => {
 	return [
 		{
-			status: lpaQuestionnaireAndInspectorPickupState, createdAt: createdAt,
+			status: lpaQuestionnaireAndInspectorPickupState, createdAt,
 			subStateMachineName: 'lpaQuestionnaireAndInspectorPickup', compoundStateName: 'awaiting_lpa_questionnaire_and_statements'
 		},
 		{
-			status: statementsAndFinalCommentsState, createdAt: createdAt,
+			status: statementsAndFinalCommentsState, createdAt,
 			subStateMachineName: 'statementsAndFinalComments', compoundStateName: 'awaiting_lpa_questionnaire_and_statements'
 		}
 	];
 };
 
-const appealFactory = function(
+const appealFactory = (
 	typeShorthand,
-	statuses = {}, 
+	statuses = {},
 	incompleteValidationDecision = false,
 	invalidValidationDecision = false,
 	completeValidationDecision = false,
 	lpaQuestionnaire = false,
-	startedAt = undefined,
+	startedAt = null,
 	incompleteReviewQuestionnaire = false,
 	completeReviewQuestionnaire = false,
 	connectToUser = false,
 	siteVisitBooked = false
-) {
+) => {
 	return {
 		appealType: { connect: { shorthand: typeShorthand } },
 		reference: generateAppealReference(),
-		startedAt: startedAt,
+		startedAt,
 		appealStatus: { create: statuses },
 		appellant: { create: pickRandom(appellantsList) },
 		localPlanningDepartment: pickRandom(localPlanningDepartmentList),
@@ -128,20 +138,20 @@ const appealsAwaitingLPAQuestionnaire = [
 	appealFactory('HAS', { status: 'awaiting_lpa_questionnaire', createdAt: getDateTwoWeeksAgo() }, false, false, true, true, new Date()),
 	appealFactory('HAS', { status: 'awaiting_lpa_questionnaire', createdAt: getDateTwoWeeksAgo() }, false, false, true, true, new Date()),
 	appealFactory('HAS', { status: 'awaiting_lpa_questionnaire', createdAt: getDateTwoWeeksAgo() }, false, false, true, true, new Date()),
-	appealFactory('FPA', buildCompoundState('awaiting_lpa_questionnaire', 'available_for_statements', getDateTwoWeeksAgo()), 
+	appealFactory('FPA', buildCompoundState('awaiting_lpa_questionnaire', 'available_for_statements', getDateTwoWeeksAgo()),
 		false, false, true, true, new Date()),
-	appealFactory('FPA', buildCompoundState('awaiting_lpa_questionnaire', 'available_for_statements', getDateTwoWeeksAgo()), 
+	appealFactory('FPA', buildCompoundState('awaiting_lpa_questionnaire', 'available_for_statements', getDateTwoWeeksAgo()),
 		false, false, true, true, new Date()),
-	appealFactory('FPA', buildCompoundState('awaiting_lpa_questionnaire', 'available_for_statements', getDateTwoWeeksAgo()), 
+	appealFactory('FPA', buildCompoundState('awaiting_lpa_questionnaire', 'available_for_statements', getDateTwoWeeksAgo()),
 		false, false, true, true, new Date())
 ];
 
 const appealsAwaitingLPAQuestionnaireOverdue = [
 	appealFactory('HAS', { status: 'overdue_lpa_questionnaire', createdAt: getDateTwoWeeksAgo() }, false, false, true, true, new Date(2021, 10, 10)),
 	appealFactory('HAS', { status: 'overdue_lpa_questionnaire', createdAt: getDateTwoWeeksAgo() }, false, false, true, true, new Date(2021, 10, 10)),
-	appealFactory('FPA', buildCompoundState('overdue_lpa_questionnaire', 'available_for_statements', getDateTwoWeeksAgo()), 
+	appealFactory('FPA', buildCompoundState('overdue_lpa_questionnaire', 'available_for_statements', getDateTwoWeeksAgo()),
 		false, false, true, true, new Date(2021, 10, 10)),
-	appealFactory('FPA', buildCompoundState('overdue_lpa_questionnaire', 'available_for_statements', getDateTwoWeeksAgo()), 
+	appealFactory('FPA', buildCompoundState('overdue_lpa_questionnaire', 'available_for_statements', getDateTwoWeeksAgo()),
 		false, false, true, true, new Date(2021, 10, 10))
 ];
 
@@ -151,55 +161,55 @@ const appealsReadyForConfirmationFromCaseOfficer = [
 	appealFactory('HAS', { status: 'received_lpa_questionnaire', createdAt: getDateTwoWeeksAgo() }, false, false, true, true, new Date(2022, 3, 1, 10)),
 	appealFactory('HAS', { status: 'received_lpa_questionnaire', createdAt: getDateTwoWeeksAgo() }, false, false, true, true, new Date(2022, 3, 1, 10)),
 	appealFactory('HAS', { status: 'received_lpa_questionnaire', createdAt: getDateTwoWeeksAgo() }, false, false, true, true, new Date(2022, 3, 1, 10)),
-	appealFactory('FPA', buildCompoundState('received_lpa_questionnaire', 'available_for_statements', getDateTwoWeeksAgo()), 
+	appealFactory('FPA', buildCompoundState('received_lpa_questionnaire', 'available_for_statements', getDateTwoWeeksAgo()),
 		false, false, true, true, new Date(2022, 3, 1, 10)),
-	appealFactory('FPA', buildCompoundState('received_lpa_questionnaire', 'available_for_statements', getDateTwoWeeksAgo()), 
+	appealFactory('FPA', buildCompoundState('received_lpa_questionnaire', 'available_for_statements', getDateTwoWeeksAgo()),
 		false, false, true, true, new Date(2022, 3, 1, 10))
 ];
 
 const appealsReviewIncomplete = [
-	appealFactory('HAS', { status: 'incomplete_lpa_questionnaire', createdAt: getDateTwoWeeksAgo() }, 
+	appealFactory('HAS', { status: 'incomplete_lpa_questionnaire', createdAt: getDateTwoWeeksAgo() },
 		false, false, true, true, new Date(2022, 3, 1, 10), true),
-	appealFactory('HAS', { status: 'incomplete_lpa_questionnaire', createdAt: getDateTwoWeeksAgo() }, 
+	appealFactory('HAS', { status: 'incomplete_lpa_questionnaire', createdAt: getDateTwoWeeksAgo() },
 		false, false, true, true, new Date(2022, 3, 1, 10), true),
-	appealFactory('HAS', { status: 'incomplete_lpa_questionnaire', createdAt: getDateTwoWeeksAgo() }, 
+	appealFactory('HAS', { status: 'incomplete_lpa_questionnaire', createdAt: getDateTwoWeeksAgo() },
 		false, false, true, true, new Date(2022, 3, 1, 10), true),
-	appealFactory('FPA', buildCompoundState('incomplete_lpa_questionnaire', 'available_for_statements', getDateTwoWeeksAgo()), 
+	appealFactory('FPA', buildCompoundState('incomplete_lpa_questionnaire', 'available_for_statements', getDateTwoWeeksAgo()),
 		false, false, true, true, new Date(2022, 3, 1, 10), true),
-	appealFactory('FPA', buildCompoundState('incomplete_lpa_questionnaire', 'available_for_statements', getDateTwoWeeksAgo()), 
+	appealFactory('FPA', buildCompoundState('incomplete_lpa_questionnaire', 'available_for_statements', getDateTwoWeeksAgo()),
 		false, false, true, true, new Date(2022, 3, 1, 10), true),
-	appealFactory('FPA', buildCompoundState('incomplete_lpa_questionnaire', 'available_for_statements', getDateTwoWeeksAgo()), 
+	appealFactory('FPA', buildCompoundState('incomplete_lpa_questionnaire', 'available_for_statements', getDateTwoWeeksAgo()),
 		false, false, true, true, new Date(2022, 3, 1, 10), true),
 ];
 
 const appealsAvailableForInspectorPickup = [
-	appealFactory('HAS', { status: 'available_for_inspector_pickup', createdAt: getDateTwoWeeksAgo() }, 
+	appealFactory('HAS', { status: 'available_for_inspector_pickup', createdAt: getDateTwoWeeksAgo() },
 		false, false, true, true, new Date(2022, 3, 1, 10), false, true),
-	appealFactory('HAS', { status: 'available_for_inspector_pickup', createdAt: getDateTwoWeeksAgo() }, 
+	appealFactory('HAS', { status: 'available_for_inspector_pickup', createdAt: getDateTwoWeeksAgo() },
 		false, false, true, true, new Date(2022, 3, 1, 10), false, true),
-	appealFactory('HAS', { status: 'available_for_inspector_pickup', createdAt: getDateTwoWeeksAgo() }, 
+	appealFactory('HAS', { status: 'available_for_inspector_pickup', createdAt: getDateTwoWeeksAgo() },
 		false, false, true, true, new Date(2022, 3, 1, 10), false, true),
-	appealFactory('HAS', { status: 'available_for_inspector_pickup', createdAt: getDateTwoWeeksAgo() }, 
+	appealFactory('HAS', { status: 'available_for_inspector_pickup', createdAt: getDateTwoWeeksAgo() },
 		false, false, true, true, new Date(2022, 3, 1, 10), false, true),
-	appealFactory('HAS', { status: 'available_for_inspector_pickup', createdAt: getDateTwoWeeksAgo() }, 
+	appealFactory('HAS', { status: 'available_for_inspector_pickup', createdAt: getDateTwoWeeksAgo() },
 		false, false, true, true, new Date(2022, 3, 1, 10), false, true),
-	appealFactory('FPA', buildCompoundState('available_for_inspector_pickup', 'available_for_statements', getDateTwoWeeksAgo()), 
+	appealFactory('FPA', buildCompoundState('available_for_inspector_pickup', 'available_for_statements', getDateTwoWeeksAgo()),
 		false, false, true, true, new Date(2022, 3, 1, 10), false, true),
-	appealFactory('FPA', buildCompoundState('available_for_inspector_pickup', 'available_for_final_comments', getDateTwoWeeksAgo()), 
+	appealFactory('FPA', buildCompoundState('available_for_inspector_pickup', 'available_for_final_comments', getDateTwoWeeksAgo()),
 		false, false, true, true, new Date(2022, 3, 1, 10), false, true),
-	appealFactory('FPA', buildCompoundState('available_for_inspector_pickup', 'closed_for_statements_and_final_comments', getDateTwoWeeksAgo()), 
+	appealFactory('FPA', buildCompoundState('available_for_inspector_pickup', 'closed_for_statements_and_final_comments', getDateTwoWeeksAgo()),
 		false, false, true, true, new Date(2022, 3, 1, 10), false, true),
-	appealFactory('FPA', buildCompoundState('available_for_inspector_pickup', 'closed_for_statements_and_final_comments', getDateTwoWeeksAgo()), 
+	appealFactory('FPA', buildCompoundState('available_for_inspector_pickup', 'closed_for_statements_and_final_comments', getDateTwoWeeksAgo()),
 		false, false, true, true, new Date(2022, 3, 1, 10), false, true),
-	appealFactory('FPA', buildCompoundState('available_for_inspector_pickup', 'closed_for_statements_and_final_comments', getDateTwoWeeksAgo()), 
+	appealFactory('FPA', buildCompoundState('available_for_inspector_pickup', 'closed_for_statements_and_final_comments', getDateTwoWeeksAgo()),
 		false, false, true, true, new Date(2022, 3, 1, 10), false, true)
 ];
 
 const appealPickedUpButStillAcceptingFinalComments = [
-	appealFactory('FPA', buildCompoundState('picked_up', 'available_for_final_comments', getDateTwoWeeksAgo()), 
+	appealFactory('FPA', buildCompoundState('picked_up', 'available_for_final_comments', getDateTwoWeeksAgo()),
 		false, false, true, true, new Date(2022, 3, 1, 10), false, true, true),
-	appealFactory('FPA', buildCompoundState('picked_up', 'available_for_statements', getDateTwoWeeksAgo()), 
-		false, false, true, true, new Date(2022, 3, 1, 10), false, true, true)	
+	appealFactory('FPA', buildCompoundState('picked_up', 'available_for_statements', getDateTwoWeeksAgo()),
+		false, false, true, true, new Date(2022, 3, 1, 10), false, true, true)
 ];
 
 const appealsSiteVisitNotYetBooked = [
@@ -236,7 +246,7 @@ const appealsData = [
 	...appealsWithDecisionDue
 ];
 
-const deleteAllRecords = async function(){
+const deleteAllRecords = async () => {
 	const deleteAppeals = prisma.appeal.deleteMany();
 	const deleteUsers = prisma.user.deleteMany();
 	const deleteAppealTypes = prisma.appealType.deleteMany();
@@ -249,9 +259,9 @@ const deleteAllRecords = async function(){
 	const deleteReviewQuestionnaire = prisma.reviewQuestionnaire.deleteMany();
 	const deleteSiteVisit = prisma.siteVisit.deleteMany();
 	const deleteValidationDecision = prisma.validationDecision.deleteMany();
-	
+
 	await prisma.$transaction([
-		deleteAppealDetailsFromAppellant, 
+		deleteAppealDetailsFromAppellant,
 		deleteAppealStatus,
 		deleteValidationDecision,
 		deleteLPAQuestionnaire,
@@ -278,7 +288,7 @@ async function main() {
 			await prisma.appeal.create({ data: appealData });
 		}
 	} catch (error) {
-		console.error(error);
+		pino.error(error);
 		throw error;
 	} finally {
 		await prisma.$disconnect();

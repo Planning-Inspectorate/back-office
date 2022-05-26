@@ -12,7 +12,7 @@ import daysBetweenDates from './days-between-dates.js';
 
 /**
  * @param {Appeal} appeal
- * @returns {Object.<string, ?>} - TODO: Link this type to web/response definition
+ * @returns {Object<string, ?>} - TODO: Link this type to web/response definition
  */
 export const formatAppeal = ({
 	inspectorDecision,
@@ -39,7 +39,7 @@ export const formatAppeal = ({
 
 /**
  * @param {InspectorDecision} inspectorDecision
- * @returns {Object.<string, ?>} - TODO: Link this type to web definition
+ * @returns {Object<string, ?>} - TODO: Link this type to web definition
  */
 function formatInspector({ outcome }) {
 	return { outcome };
@@ -47,7 +47,7 @@ function formatInspector({ outcome }) {
 
 /**
  * @param {SiteVisit} siteVisit
- * @returns {Object.<string, ?>} - TODO: Link this type to web definition
+ * @returns {Object<string, ?>} - TODO: Link this type to web definition
  */
 function formatSiteVisit({ visitDate, visitSlot, visitType }) {
 	return {
@@ -58,19 +58,13 @@ function formatSiteVisit({ visitDate, visitSlot, visitType }) {
 }
 
 /**
- * @param {AppealStatus[]} appealStatuses 
+ * @param {AppealStatus[]} appealStatuses
  * @returns {string}
  */
 function formatStatus(appealStatuses) {
-	if (arrayOfStatusesContainsString(appealStatuses, 'site_visit_booked')) {
-		return 'booked';
-	} else if (arrayOfStatusesContainsString(appealStatuses, 'decision_due')) {
-		return 'decision due';
-	} else if (arrayOfStatusesContainsString(appealStatuses, 'site_visit_not_yet_booked')) {
-		return 'not yet booked';
-	} else if (arrayOfStatusesContainsString(appealStatuses, 'appeal_decided')) {
-		return 'appeal decided';
-	} else {
-		throw new Error('Unknown status');
-	}
+	if (arrayOfStatusesContainsString(appealStatuses, 'site_visit_booked')) return 'booked';
+	if (arrayOfStatusesContainsString(appealStatuses, 'decision_due')) return 'decision due';
+	if (arrayOfStatusesContainsString(appealStatuses, 'site_visit_not_yet_booked')) return 'not yet booked';
+	if (arrayOfStatusesContainsString(appealStatuses, 'appeal_decided')) return 'appeal decided';
+	throw new Error('Unknown status');
 }

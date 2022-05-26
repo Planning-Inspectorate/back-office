@@ -5,5 +5,4 @@
  */
 export const asyncHandler = (requestHandler) => (request, response, next) =>
 	Promise.resolve(requestHandler(request, response, next))
-		// eslint-disable-next-line promise/no-callback-in-promise
 		.catch(next);

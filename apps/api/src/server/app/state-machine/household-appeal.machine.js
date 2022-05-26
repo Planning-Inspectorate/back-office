@@ -1,17 +1,17 @@
 import { createMachine } from 'xstate';
-import { generateValidationStates, validationActions } from './validation-states.js';
-import { generateLpaQuestionnaireStates } from './lpa-questionnaire-states.js';
-import lpaQuestionnaireActions from './lpa-questionnaire-actions.js';
-import { inspectorStates, inspectorActions } from './inspector-states.js';
 import mapObjectKeysToStrings from '../utils/map-states-to-strings.js';
+import { inspectorActions,inspectorStates } from './inspector-states.js';
+import lpaQuestionnaireActions from './lpa-questionnaire-actions.js';
+import { generateLpaQuestionnaireStates } from './lpa-questionnaire-states.js';
+import { generateValidationStates, validationActions } from './validation-states.js';
 
 const validationStates = generateValidationStates('awaiting_lpa_questionnaire');
 const lpaQuestionnaireStates = generateLpaQuestionnaireStates();
 
-const createHouseholpAppealMachine = function (context) {
+const createHouseholpAppealMachine = (context) => {
 	return createMachine({
 		id: 'household_appeal',
-		context: context,
+		context,
 		initial: 'received_appeal',
 		states: {
 			...validationStates,

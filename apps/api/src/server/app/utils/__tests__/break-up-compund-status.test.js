@@ -8,6 +8,7 @@ test('when appeal status is compound', (t) => {
 			statementsAndFinalComments: 'available_for_statements'
 		}
 	}, 1);
+
 	t.deepEqual(result, [{
 		compoundStateName: 'awaiting_lpa_questionnaire_and_statements',
 		status: 'picked_up',
