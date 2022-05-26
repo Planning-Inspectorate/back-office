@@ -1,4 +1,5 @@
 import { validationResult } from 'express-validator';
+import pino from 'pino';
 import { TransitionStateError } from '../state-machine/transition-state.js';
 
 /**
@@ -14,7 +15,7 @@ export function defaultErrorHandler(error, _request, response, next) {
 	const code = error.code ? error.code : 500;
 
 	response.status(code);
-	console.error(error);
+	pino.error(error);
 	return response.send({ error: error.message });
 }
 

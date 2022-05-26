@@ -1,5 +1,6 @@
 // @ts-check
 
+import pino from 'pino';
 import appealRepository from '../repositories/appeal.repository.js';
 import { appealStates,transitionState } from '../state-machine/transition-state.js';
 import { arrayOfStatusesContainsString } from '../utils/array-of-statuses-contains-string.js';
@@ -95,7 +96,7 @@ export const assignAppealsById = async (userId, appealIds) => {
 				await appealRepository.updateStatusAndDataById(appeal.id, newState, { user: { connect: { azureReference: userId } } }, appeal.appealStatus);
 				successfullyAssigned.push(appealFormatter.formatAppealForAssigningAppeals(appeal));
 			} catch (error) {
-				console.error(error);
+				pino.error(error);
 				unsuccessfullyAssigned.push(appealFormatter.formatAppealForAssigningAppeals(appeal, error.message));
 			}
 		} else if (!arrayOfStatusesContainsString(appeal.appealStatus, [appealStates.available_for_inspector_pickup])) {
