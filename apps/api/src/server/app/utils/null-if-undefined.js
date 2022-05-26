@@ -1,4 +1,3 @@
-export const nullIfUndefined = function(value) {
-	// eslint-disable-next-line unicorn/no-null
+export const nullIfUndefined = (value) => {
 	return value || null;
 };

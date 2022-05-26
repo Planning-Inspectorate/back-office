@@ -1,12 +1,13 @@
 // @ts-check
 
 import appealRepository from '../repositories/appeal.repository.js';
-import { transitionState, appealStates } from '../state-machine/transition-state.js';
-import { appealFormatter } from './appeal-formatter.js';
+import { appealStates,transitionState } from '../state-machine/transition-state.js';
 import { arrayOfStatusesContainsString } from '../utils/array-of-statuses-contains-string.js';
-import { buildAppealCompundStatus } from '../utils/build-appeal-compound-status.js';
 import { breakUpCompoundStatus } from '../utils/break-up-compound-status.js';
+import { buildAppealCompundStatus } from '../utils/build-appeal-compound-status.js';
+import { appealFormatter } from './appeal-formatter.js';
 
+/** @typedef {import('@pins/express').MulterFile} MulterFile */
 /** @typedef {import('@pins/api').Schema.Appeal} Appeal */
 /** @typedef {import('@pins/api').Schema.InspectorDecisionOutcomeType} InspectorDecisionOutcomeType */
 /** @typedef {import('@pins/api').Schema.SiteVisitType} SiteVisitType */
@@ -35,6 +36,7 @@ export const bookSiteVisit = async ({ appealId, siteVisit }) => {
 	const appealStatus = buildAppealCompundStatus(appeal.appealStatus);
 	const nextState = transitionState(appeal.appealType.type, { appealId }, appealStatus, 'BOOK', true);
 	const newState = breakUpCompoundStatus(nextState.value, appeal.id);
+
 	await appealRepository.updateStatusAndDataById(appealId, newState, {
 		siteVisit: {
 			create: siteVisit
@@ -46,7 +48,6 @@ export const bookSiteVisit = async ({ appealId, siteVisit }) => {
  * @typedef {object} IssueDecisionData
  * @property {number} appealId
  * @property {InspectorDecisionOutcomeType} outcome
- * @property {Express.Multer.File} decisionLetter
  */
 
 /**
@@ -60,6 +61,7 @@ export const issueDecision = async ({ appealId, outcome, decisionLetter }) => {
 	const appealStatus = buildAppealCompundStatus(appeal.appealStatus);
 	const nextState = transitionState(appeal.appealType.type, { appealId }, appealStatus, 'DECIDE', true);
 	const newState = breakUpCompoundStatus(nextState.value, appeal.id);
+
 	await appealRepository.updateStatusAndDataById(appealId, newState, {
 		inspectorDecision: {
 			create: {
@@ -71,9 +73,10 @@ export const issueDecision = async ({ appealId, outcome, decisionLetter }) => {
 	});
 };
 
-export const assignAppealsById = async function(userId, appealIds) {
+export const assignAppealsById = async (userId, appealIds) => {
 	const successfullyAssigned = [];
 	const unsuccessfullyAssigned = [];
+
 	await Promise.all(appealIds.map(async (appealId) => {
 		const appeal = await appealRepository.getById(appealId, {
 			appellant: true,
@@ -82,11 +85,13 @@ export const assignAppealsById = async function(userId, appealIds) {
 			appealDetailsFromAppellant: true,
 			lpaQuestionnaire: true
 		});
-		if (appeal.userId == undefined && arrayOfStatusesContainsString(appeal.appealStatus, [appealStates.available_for_inspector_pickup])) {
+
+		if (typeof(appeal.userId) === "undefined" && arrayOfStatusesContainsString(appeal.appealStatus, [appealStates.available_for_inspector_pickup])) {
 			try {
 				const appealStatus = buildAppealCompundStatus(appeal.appealStatus);
 				const nextState = transitionState(appeal.appealType.type, { appealId: appeal.id }, appealStatus, 'PICKUP');
 				const newState = breakUpCompoundStatus(nextState.value, appeal.id);
+
 				await appealRepository.updateStatusAndDataById(appeal.id, newState, { user: { connect: { azureReference: userId } } }, appeal.appealStatus);
 				successfullyAssigned.push(appealFormatter.formatAppealForAssigningAppeals(appeal));
 			} catch (error) {
@@ -95,9 +100,9 @@ export const assignAppealsById = async function(userId, appealIds) {
 			}
 		} else if (!arrayOfStatusesContainsString(appeal.appealStatus, [appealStates.available_for_inspector_pickup])) {
 			unsuccessfullyAssigned.push(appealFormatter.formatAppealForAssigningAppeals(appeal, 'appeal in wrong state'));
-		} else if (appeal.userId !== undefined) {
+		} else if (typeof(appeal.userId) !== "undefined") {
 			unsuccessfullyAssigned.push(appealFormatter.formatAppealForAssigningAppeals(appeal, 'appeal already assigned'));
 		}
 	}));
-	return { successfullyAssigned: successfullyAssigned, unsuccessfullyAssigned: unsuccessfullyAssigned };
+	return { successfullyAssigned, unsuccessfullyAssigned };
 };

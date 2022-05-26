@@ -8,6 +8,7 @@ import { buildAppealCompundStatus } from '../server/app/utils/build-appeal-compo
  */
 function getDateTwoWeeksAgo() {
 	const date = new Date();
+
 	date.setDate(date.getDate() - 14);
 	date.setHours(23);
 	date.setMinutes(59);
@@ -22,6 +23,7 @@ function getDateTwoWeeksAgo() {
 async function getAppealsWithOverdueQuestionnaires() {
 	const twoWeeksAgo = getDateTwoWeeksAgo();
 	const appeals = await appealRepository.getByStatusAndLessThanStatusUpdatedAtDate('awaiting_lpa_questionnaire', twoWeeksAgo);
+
 	return appeals;
 }
 
@@ -30,10 +32,12 @@ async function getAppealsWithOverdueQuestionnaires() {
  */
 async function markAppealsAsOverdue(appeals) {
 	const updatedAppeals = [];
+
 	for (const appeal of appeals) {
 		const appealStatus = buildAppealCompundStatus(appeal.appealStatus);
 		const nextState = transitionState(appeal.appealType.type, { appealId: appeal.id }, appealStatus, 'OVERDUE');
 		const newState = breakUpCompoundStatus(nextState.value, appeal.id);
+
 		updatedAppeals.push(appealRepository.updateStatusById(appeal.id, newState, appeal.appealStatus));
 	}
 	await Promise.all(updatedAppeals);
@@ -44,6 +48,7 @@ async function markAppealsAsOverdue(appeals) {
  */
 async function findAndUpdateStatusForAppealsWithOverdueQuestionnaires() {
 	const appeals = await getAppealsWithOverdueQuestionnaires();
+
 	await markAppealsAsOverdue(appeals);
 }
 

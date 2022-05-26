@@ -1,38 +1,39 @@
-// eslint-disable-next-line import/no-unresolved
 import test from 'ava';
-import supertest from 'supertest';
 import sinon from 'sinon';
+import supertest from 'supertest';
 import { app } from '../../../app.js';
 import DatabaseFactory from '../../repositories/database.js';
 import { appealFactoryForTests } from '../../utils/appeal-factory-for-tests.js';
 
 const request = supertest(app);
 
-const appeal_1 = appealFactoryForTests(1, [{
+let descriptionOfDevelopment;
+
+const appeal1 = appealFactoryForTests(1, [{
 	id: 1,
 	status: 'received_appeal',
 	valid: true
 }], 'HAS');
 
-const appeal_10 = appealFactoryForTests(10, [{
+const appeal10 = appealFactoryForTests(10, [{
 	id: 10,
 	status: 'received_appeal',
 	valid: true
 }], 'FPA');
 
-const appeal_2 = appealFactoryForTests(2, [{
+const appeal2 = appealFactoryForTests(2, [{
 	id: 2,
 	status: 'valid_appeal',
 	valid: true
 }], 'HAS');
 
-const appeal_3 = appealFactoryForTests(3, [{
+const appeal3 = appealFactoryForTests(3, [{
 	id: 3,
 	status: 'invalid_appeal',
 	valid: true
 }], 'HAS');
 
-const appeal_4 = appealFactoryForTests(3, [{
+const appeal4 = appealFactoryForTests(3, [{
 	id: 4,
 	status: 'awaiting_validation_info',
 	valid: true
@@ -41,31 +42,32 @@ const appeal_4 = appealFactoryForTests(3, [{
 const getAppealByIdStub = sinon.stub();
 const updateStub = sinon.stub();
 
-const includingDetailsForResponse = { 
-	validationDecision: true, 
+const includingDetailsForResponse = {
+	validationDecision: true,
 	address: true,
-	appellant: true, 
+	appellant: true,
 	appealStatus: { where: { valid: true } },
 	appealType: true
 };
-const includingDetailsForValidtion = { 
-	appealStatus: { where: { valid: true } }, 
+const includingDetailsForValidtion = {
+	appealStatus: { where: { valid: true } },
 	appealType: true
 };
-getAppealByIdStub.withArgs({ where: { id: 1 }, include: includingDetailsForResponse }).returns(appeal_1);
-getAppealByIdStub.withArgs({ where: { id: 1 }, include: includingDetailsForValidtion }).returns(appeal_1);
-getAppealByIdStub.withArgs({ where: { id: 2 }, include: includingDetailsForResponse }).returns(appeal_2);
-getAppealByIdStub.withArgs({ where: { id: 2 }, include: includingDetailsForValidtion }).returns(appeal_2);
-getAppealByIdStub.withArgs({ where: { id: 3 }, include: includingDetailsForResponse }).returns(appeal_3);
-getAppealByIdStub.withArgs({ where: { id: 3 }, include: includingDetailsForValidtion }).returns(appeal_3);
-getAppealByIdStub.withArgs({ where: { id: 4 }, include: includingDetailsForResponse }).returns(appeal_4);
-getAppealByIdStub.withArgs({ where: { id: 4 }, include: includingDetailsForValidtion }).returns(appeal_4);
+
+getAppealByIdStub.withArgs({ where: { id: 1 }, include: includingDetailsForResponse }).returns(appeal1);
+getAppealByIdStub.withArgs({ where: { id: 1 }, include: includingDetailsForValidtion }).returns(appeal1);
+getAppealByIdStub.withArgs({ where: { id: 2 }, include: includingDetailsForResponse }).returns(appeal2);
+getAppealByIdStub.withArgs({ where: { id: 2 }, include: includingDetailsForValidtion }).returns(appeal2);
+getAppealByIdStub.withArgs({ where: { id: 3 }, include: includingDetailsForResponse }).returns(appeal3);
+getAppealByIdStub.withArgs({ where: { id: 3 }, include: includingDetailsForValidtion }).returns(appeal3);
+getAppealByIdStub.withArgs({ where: { id: 4 }, include: includingDetailsForResponse }).returns(appeal4);
+getAppealByIdStub.withArgs({ where: { id: 4 }, include: includingDetailsForValidtion }).returns(appeal4);
 getAppealByIdStub.withArgs({ where: { id: 5 }, include: includingDetailsForValidtion }).returns({ status: 'received_appeal' });
 getAppealByIdStub.withArgs({ where: { id: 6 }, include: includingDetailsForValidtion }).returns({ status: 'received_appeal' });
-getAppealByIdStub.withArgs({ where: { id: 10 }, include: includingDetailsForResponse }).returns(appeal_10);
-getAppealByIdStub.withArgs({ where: { id: 10 }, include: includingDetailsForValidtion }).returns(appeal_10);
+getAppealByIdStub.withArgs({ where: { id: 10 }, include: includingDetailsForResponse }).returns(appeal10);
+getAppealByIdStub.withArgs({ where: { id: 10 }, include: includingDetailsForValidtion }).returns(appeal10);
 
-updateStub.returns({ ...appeal_1 });
+updateStub.returns({ ...appeal1 });
 
 const addNewDecisionStub = sinon.stub();
 
@@ -83,7 +85,7 @@ const createManyAppealStatusesStub = sinon.stub();
 const createAppealStatusStub = sinon.stub();
 
 class MockDatabaseClass {
-	constructor(_parameters) {
+	constructor() {
 		this.pool = {
 			appeal: {
 				findUnique: getAppealByIdStub,
@@ -112,6 +114,7 @@ test.before('sets up mocking of database', () => {
 test('should be able to submit \'valid\' decision for household appeal', async (t) => {
 	const resp = await request.post('/validation/1')
 		.send({ AppealStatus: 'valid', descriptionOfDevelopment: 'Some Desc' });
+
 	t.is(resp.status, 200);
 	sinon.assert.calledWithExactly(updateStub, {
 		where: { id: 1 },
@@ -124,7 +127,7 @@ test('should be able to submit \'valid\' decision for household appeal', async (
 	sinon.assert.calledWithExactly(createAppealStatusStub, {
 		data: { status: 'awaiting_lpa_questionnaire', appealId: 1 }
 	});
-	sinon.assert.calledWithExactly(addNewDecisionStub, {  data: {
+	sinon.assert.calledWithExactly(addNewDecisionStub, { data: {
 		appealId: 1,
 		decision: 'valid',
 		descriptionOfDevelopment: 'Some Desc'
@@ -134,6 +137,7 @@ test('should be able to submit \'valid\' decision for household appeal', async (
 test('should be able to submit \'valid\' decision for full planning appeal', async (t) => {
 	const resp = await request.post('/validation/10')
 		.send({ AppealStatus: 'valid', descriptionOfDevelopment: 'Some Desc' });
+
 	t.is(resp.status, 200);
 	sinon.assert.calledWithExactly(updateManyAppealStatusStub, {
 		where: { id: { in: [10] } },
@@ -144,19 +148,19 @@ test('should be able to submit \'valid\' decision for full planning appeal', asy
 		data: { updatedAt: sinon.match.any, startedAt: sinon.match.any }
 	});
 	sinon.assert.calledWithExactly(createManyAppealStatusesStub, {
-		data: [{ 
-			status: 'awaiting_lpa_questionnaire', 
+		data: [{
+			status: 'awaiting_lpa_questionnaire',
 			appealId: 10,
 			subStateMachineName: 'lpaQuestionnaireAndInspectorPickup',
 			compoundStateName: 'awaiting_lpa_questionnaire_and_statements'
-		}, { 
-			status: 'available_for_statements', 
+		}, {
+			status: 'available_for_statements',
 			appealId: 10,
 			subStateMachineName: 'statementsAndFinalComments',
 			compoundStateName: 'awaiting_lpa_questionnaire_and_statements'
 		}]
 	});
-	sinon.assert.calledWithExactly(addNewDecisionStub, {  data: {
+	sinon.assert.calledWithExactly(addNewDecisionStub, { data: {
 		appealId: 10,
 		decision: 'valid',
 		descriptionOfDevelopment: 'Some Desc'
@@ -173,6 +177,7 @@ test('should be able to submit \'invalid\' decision', async(t) => {
 				lPADeemedInvalid:true,
 				otherReasons: '' }
 		});
+
 	t.is(resp.status, 200);
 	sinon.assert.calledWithExactly(updateManyAppealStatusStub, {
 		where: { id: { in: [1] } },
@@ -182,10 +187,10 @@ test('should be able to submit \'invalid\' decision', async(t) => {
 		data: { status: 'invalid_appeal', appealId: 1 }
 	});
 	// TODO: calledOneWithExactly throws error
-	sinon.assert.calledWithExactly(addNewDecisionStub, {  data: {
+	sinon.assert.calledWithExactly(addNewDecisionStub, { data: {
 		appealId: 1,
 		decision: 'invalid',
-		descriptionOfDevelopment: undefined,
+		descriptionOfDevelopment,
 		outOfTime: true,
 		noRightOfAppeal: true,
 		notAppealable: true,
@@ -208,6 +213,7 @@ test('should be able to submit \'missing appeal details\' decision', async(t) =>
 				openedInError: true,
 				wrongAppealTypeUsed: true }
 		} );
+
 	t.is(resp.status, 200);
 	sinon.assert.calledWithExactly(updateManyAppealStatusStub, {
 		where: { id: { in: [1] } },
@@ -219,7 +225,7 @@ test('should be able to submit \'missing appeal details\' decision', async(t) =>
 	sinon.assert.calledWithExactly(addNewDecisionStub, { data: {
 		appealId: 1,
 		decision: 'incomplete',
-		descriptionOfDevelopment: undefined,
+		descriptionOfDevelopment,
 		namesDoNotMatch: true,
 		sensitiveInfo: true,
 		missingApplicationForm: true,
@@ -234,6 +240,7 @@ test('should be able to submit \'missing appeal details\' decision', async(t) =>
 
 test('should be able to mark appeal with missing info as \'valid\'', async(t) => {
 	const resp = await request.post('/validation/4').send({ AppealStatus: 'valid', descriptionOfDevelopment: 'some desc' });
+
 	t.is(resp.status, 200);
 	sinon.assert.calledWithExactly(updateManyAppealStatusStub, {
 		where: { id: { in: [4] } },
@@ -242,7 +249,7 @@ test('should be able to mark appeal with missing info as \'valid\'', async(t) =>
 	sinon.assert.calledWithExactly(createAppealStatusStub, {
 		data: { status: 'awaiting_validation_info', appealId: 1 }
 	});
-	sinon.assert.calledWithExactly(addNewDecisionStub, {  data: {
+	sinon.assert.calledWithExactly(addNewDecisionStub, { data: {
 		appealId: 1,
 		decision: 'valid',
 		descriptionOfDevelopment: 'Some Desc'
@@ -252,6 +259,7 @@ test('should be able to mark appeal with missing info as \'valid\'', async(t) =>
 test('should not be able to submit nonsensical decision decision', async(t) => {
 	const resp = await request.post('/validation/1')
 		.send({ AppealStatus: 'some unknown status' });
+
 	t.is(resp.status, 409);
 	t.deepEqual(resp.body, {
 		errors: {
@@ -263,6 +271,7 @@ test('should not be able to submit nonsensical decision decision', async(t) => {
 test('should not be able to submit validation decision for appeal that has been marked \'valid\'', async(t) => {
 	const resp = await request.post('/validation/2')
 		.send({ AppealStatus: 'invalid', Reason: { outOfTime: true } });
+
 	t.is(resp.status, 409);
 	t.deepEqual(resp.body, {
 		errors: {
@@ -274,6 +283,7 @@ test('should not be able to submit validation decision for appeal that has been 
 test('should not be able to submit validation decision for appeal that has been marked \'invalid\'', async(t) => {
 	const resp = await request.post('/validation/3')
 		.send({ AppealStatus: 'valid', descriptionOfDevelopment: 'Some desc' });
+
 	t.is(resp.status, 409);
 	t.deepEqual(resp.body, {
 		errors: {
@@ -293,6 +303,7 @@ test('should not be able to submit decision as \'invalid\' if there is no reason
 				lPADeemedInvalid: false,
 				otherReasons: '' }
 		});
+
 	t.is(resp.status, 409);
 	t.deepEqual(resp.body, {
 		errors: {
@@ -307,6 +318,7 @@ test('should not be able to submit decision as \'invalid\' if there is no reason
 			AppealStatus:'invalid',
 			Reason:{}
 		});
+
 	t.is(resp.status, 409);
 	t.deepEqual(resp.body, {
 		errors: {
@@ -327,6 +339,7 @@ test('should not be able to submit decision as \'incomplete\' if there is no rea
 				otherReasons: ''
 			}
 		});
+
 	t.is(resp.status, 409);
 	t.deepEqual(resp.body, {
 		errors: {
@@ -352,6 +365,7 @@ test('should not be able to submit decision as \'incomplete\' if providing inval
 				otherReasons: ''
 			}
 		});
+
 	t.is(resp.status, 409);
 	t.deepEqual(resp.body, {
 		errors: {
@@ -368,6 +382,7 @@ test('should not be able to submit decision as \'invalid\' if providing incomple
 				someFakeReason: true
 			}
 		});
+
 	t.is(resp.status, 409);
 	t.deepEqual(resp.body, {
 		errors: {
@@ -382,6 +397,7 @@ test('should not be able to submit decision as \'incomplete\' if there is no rea
 			AppealStatus:'incomplete',
 			Reason:{}
 		});
+
 	t.is(resp.status, 409);
 	t.deepEqual(resp.body, {
 		errors: {
@@ -393,6 +409,7 @@ test('should not be able to submit decision as \'incomplete\' if there is no rea
 test('should not be able to submit an unknown decision string', async (t) => {
 	const resp = await request.post('/validation/5')
 		.send({	AppealStatus:'blah blah blah' });
+
 	t.is(resp.status, 409);
 	t.deepEqual(resp.body, {
 		errors: {
@@ -404,6 +421,7 @@ test('should not be able to submit an unknown decision string', async (t) => {
 test('should not be able to submit \'valid\' decision without DescriptionOfDevelopment', async (t) => {
 	const resp = await request.post('/validation/5')
 		.send({	AppealStatus:'valid' });
+
 	t.is(resp.status, 409);
 	t.deepEqual(resp.body, {
 		errors: {
@@ -415,6 +433,7 @@ test('should not be able to submit \'valid\' decision without DescriptionOfDevel
 test('should not be able to submit \'valid\' decision with empty DescriptionOfDevelopment', async (t) => {
 	const resp = await request.post('/validation/5')
 		.send({	AppealStatus:'valid', DescriptionOfDevelopment: '' });
+
 	t.is(resp.status, 409);
 	t.deepEqual(resp.body, {
 		errors: {

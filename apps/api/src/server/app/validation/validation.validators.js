@@ -3,9 +3,9 @@
 import { composeMiddleware } from '@pins/express';
 import { body } from 'express-validator';
 import { difference } from 'lodash-es';
+import { handleValidationError } from '../middleware/handle-validation-error.js';
 import { validateAppealStatus } from '../middleware/validate-appeal-status.js';
 import stringEmptyOrUndefined from '../utils/string-validator.js';
-import { handleValidationError } from '../middleware/handle-validation-error.js';
 
 export const validateAppealBelongsToValidation = validateAppealStatus(['received_appeal', 'awaiting_validation_info']);
 
@@ -27,24 +27,24 @@ const validationDecisions = {
 	incomplete: 'incomplete'
 };
 
-const invalidAppealStatus = function (appealStatus) {
+const invalidAppealStatus = (appealStatus) => {
 	return !Object.values(validationDecisions).includes(appealStatus);
 };
 
-const allArrayElementsInArray = function (arrayToCheck, arrayToCheckAgainst) {
+const allArrayElementsInArray = (arrayToCheck, arrayToCheckAgainst) => {
 	return difference(arrayToCheck, arrayToCheckAgainst).length === 0;
 };
 
-const invalidWithUnexpectedReasons = function (requestBody) {
+const invalidWithUnexpectedReasons = (requestBody) => {
 	return (
-		requestBody.AppealStatus == validationDecisions.invalid &&
+		requestBody.AppealStatus === validationDecisions.invalid &&
 		!allArrayElementsInArray(Object.keys(requestBody.Reason), ['outOfTime', 'noRightOfAppeal', 'notAppealable', 'lPADeemedInvalid', 'otherReasons'])
 	);
 };
 
-const incompleteWithUnexpectedReasons = function (requestBody) {
+const incompleteWithUnexpectedReasons = (requestBody) => {
 	return (
-		requestBody.AppealStatus == validationDecisions.incomplete &&
+		requestBody.AppealStatus === validationDecisions.incomplete &&
 		!allArrayElementsInArray(Object.keys(requestBody.Reason), [
 			'namesDoNotMatch',
 			'sensitiveInfo',
@@ -60,9 +60,9 @@ const incompleteWithUnexpectedReasons = function (requestBody) {
 	);
 };
 
-const invalidWithoutReasons = function (requestBody) {
+const invalidWithoutReasons = (requestBody) => {
 	return (
-		requestBody.AppealStatus == validationDecisions.invalid &&
+		requestBody.AppealStatus === validationDecisions.invalid &&
 		requestBody.Reason.outOfTime !== true &&
 		requestBody.Reason.noRightOfAppeal !== true &&
 		requestBody.Reason.notAppealable !== true &&
@@ -71,9 +71,9 @@ const invalidWithoutReasons = function (requestBody) {
 	);
 };
 
-const incompleteWithoutReasons = function (requestBody) {
+const incompleteWithoutReasons = (requestBody) => {
 	return (
-		requestBody.AppealStatus == validationDecisions.incomplete &&
+		requestBody.AppealStatus === validationDecisions.incomplete &&
 		requestBody.Reason.namesDoNotMatch !== true &&
 		requestBody.Reason.sensitiveInfo !== true &&
 		requestBody.Reason.missingApplicationForm !== true &&
@@ -87,8 +87,8 @@ const incompleteWithoutReasons = function (requestBody) {
 	);
 };
 
-const validWithoutDescription = function (requestBody) {
-	return requestBody.AppealStatus == validationDecisions.valid && stringEmptyOrUndefined(requestBody.descriptionOfDevelopment);
+const validWithoutDescription = (requestBody) => {
+	return requestBody.AppealStatus === validationDecisions.valid && stringEmptyOrUndefined(requestBody.descriptionOfDevelopment);
 };
 
 export const validateAppealValidationDecision = (request, response, next) => {

@@ -1,14 +1,15 @@
 import { composeMiddleware, mapMulterErrorToValidationError } from '@pins/express';
-import multer from 'multer';
 import { body } from 'express-validator';
+import multer from 'multer';
 import { handleValidationError } from './handle-validation-error.js';
 
-export const validateFileUpload = function(filename) {
+export const validateFileUpload = (filename) => {
 	return composeMiddleware(
 		multer({
 			storage: multer.memoryStorage(),
 			limits: {
-				fileSize: 15 * Math.pow(1024, 2 /* MBs*/)
+				/* MBs */
+				fileSize: 15 * (1024**2)
 			}
 		}).single(filename),
 		mapMulterErrorToValidationError,

@@ -1,26 +1,28 @@
-// eslint-disable-next-line import/no-unresolved
 import test from 'ava';
 import sinon from 'sinon';
-import findAndUpdateStatusForAppealsWithPassedInspection from '../mark-appeals-with-passed-inspection-as-due.js';
 import DatabaseFactory from '../../server/app/repositories/database.js';
 import { appealFactoryForTests } from '../../server/app/utils/appeal-factory-for-tests.js';
+import findAndUpdateStatusForAppealsWithPassedInspection from '../mark-appeals-with-passed-inspection-as-due.js';
 
-const appeal_1 = appealFactoryForTests(1, [{
+const appeal1 = appealFactoryForTests(1, [{
 	id: 1,
 	status: 'site_visit_booked',
 	valid: true
 }], 'HAS');
 
 const updateStub = sinon.stub();
-updateStub.returns(appeal_1);
+
+updateStub.returns(appeal1);
 
 const findManyStub = sinon.stub();
-findManyStub.returns([appeal_1]);
+
+findManyStub.returns([appeal1]);
+
 const updateManyAppealStatusStub = sinon.stub();
 const createAppealStatusStub = sinon.stub();
 
 class MockDatabaseClass {
-	constructor(_parameters) {
+	constructor() {
 		this.pool = {
 			appeal: {
 				update: updateStub,

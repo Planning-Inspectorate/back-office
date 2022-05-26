@@ -15,6 +15,7 @@ function getVersion(request) {
 export default function versionRoutes(versionToControllerPairs) {
     return function (request, response, next) {
         const version = getVersion(request);
+
         return versionToControllerPairs[version](request, response, next);
     };
 }

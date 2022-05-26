@@ -1,8 +1,7 @@
-// eslint-disable-next-line import/no-unresolved
 import test from 'ava';
-import newReviewRepository from './review-questionnaire.repository.js';
 import sinon from 'sinon';
-import DatabaseFactory from './database.js';
+import DatabaseFactory from '../database.js';
+import newReviewRepository from '../review-questionnaire.repository.js';
 
 const addReview = sinon.stub();
 
@@ -16,7 +15,7 @@ const newReview = {
 addReview.returns(newReview);
 
 class MockDatabaseClass {
-	constructor(_parameters) {
+	constructor() {
 		this.pool = {
 			reviewQuestionnaire: {
 				create: addReview
@@ -35,6 +34,7 @@ test('adds new review decision', async(t) => {
 		false,
 		{ applicationPlansToReachDecisionMissingOrIncorrect: true,
 			applicationPlansToReachDecisionMissingOrIncorrectDescription: 'Some description' });
+
 	t.deepEqual(review, newReview);
 	sinon.assert.calledWith(addReview, {
 		data: {

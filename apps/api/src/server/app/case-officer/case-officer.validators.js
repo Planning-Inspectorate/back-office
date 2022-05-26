@@ -1,11 +1,11 @@
-import { body } from 'express-validator';
 import { composeMiddleware, mapMulterErrorToValidationError } from '@pins/express';
-import { validationErrorHandler } from '../middleware/error-handler.js';
+import { body } from 'express-validator';
 import { difference } from 'lodash-es';
+import multer from 'multer';
+import { validationErrorHandler } from '../middleware/error-handler.js';
+import { handleValidationError } from '../middleware/handle-validation-error.js';
 import { validateAppealStatus } from '../middleware/validate-appeal-status.js';
 import { appealStates } from '../state-machine/transition-state.js';
-import multer from 'multer';
-import { handleValidationError } from '../middleware/handle-validation-error.js';
 
 export const validateAppealBelongsToCaseOfficer = validateAppealStatus([
 	appealStates.received_lpa_questionnaire,
@@ -27,34 +27,33 @@ export const validateAppealDetails = composeMiddleware(
 	validationErrorHandler
 );
 
-const invalidWithoutReasons = function (body) {
-	return ((
-		(body.reason.applicationPlansToReachDecisionMissingOrIncorrect === true &&
-		body.reason.applicationPlansToReachDecisionMissingOrIncorrectDescription === undefined) ||
-		(body.reason.policiesStatutoryDevelopmentPlanPoliciesMissingOrIncorrect === true &&
-		body.reason.policiesStatutoryDevelopmentPlanPoliciesMissingOrIncorrectDescription === undefined) ||
-		(body.reason.policiesOtherRelevanPoliciesMissingOrIncorrect === true &&
-		body.reason.policiesOtherRelevanPoliciesMissingOrIncorrectDescription === undefined) ||
-		(body.reason.policiesSupplementaryPlanningDocumentsMissingOrIncorrect === true &&
-		body.reason.policiesSupplementaryPlanningDocumentsMissingOrIncorrectDescription === undefined) ||
-		(body.reason.siteConservationAreaMapAndGuidanceMissingOrIncorrect === true &&
-		body.reason.siteConservationAreaMapAndGuidanceMissingOrIncorrectDescription == undefined) ||
-		(body.reason.siteListedBuildingDescriptionMissingOrIncorrect === true &&
-		body.reason.siteListedBuildingDescriptionMissingOrIncorrectDescription === undefined) ||
-		(body.reason.thirdPartyApplicationNotificationMissingOrIncorrect === true &&
-			(body.reason.thirdPartyApplicationNotificationMissingOrIncorrectListOfAddresses === false &&
-			body.reason.thirdPartyApplicationNotificationMissingOrIncorrectCopyOfLetterOrSiteNotice === false)) ||
-		(body.reason.thirdPartyRepresentationsMissingOrIncorrect === true &&
-		body.reason.thirdPartyRepresentationsMissingOrIncorrectDescription === undefined) ||
-		(body.reason.thirdPartyAppealNotificationMissingOrIncorrect === true &&
-			(body.reason.thirdPartyAppealNotificationMissingOrIncorrectListOfAddresses === false &&
-			body.reason.thirdPartyAppealNotificationMissingOrIncorrectCopyOfLetterOrSiteNotice === false))
-	)?
-		true : false);
+const invalidWithoutReasons = (hasExplanation) => {
+	return (!!((
+		(hasExplanation.reason.applicationPlansToReachDecisionMissingOrIncorrect === true &&
+		typeof(hasExplanation.reason.applicationPlansToReachDecisionMissingOrIncorrectDescription) === "undefined") ||
+		(hasExplanation.reason.policiesStatutoryDevelopmentPlanPoliciesMissingOrIncorrect === true &&
+		typeof(hasExplanation.reason.policiesStatutoryDevelopmentPlanPoliciesMissingOrIncorrectDescription) === "undefined") ||
+		(hasExplanation.reason.policiesOtherRelevanPoliciesMissingOrIncorrect === true &&
+		typeof(hasExplanation.reason.policiesOtherRelevanPoliciesMissingOrIncorrectDescription) === "undefined") ||
+		(hasExplanation.reason.policiesSupplementaryPlanningDocumentsMissingOrIncorrect === true &&
+		typeof(hasExplanation.reason.policiesSupplementaryPlanningDocumentsMissingOrIncorrectDescription) === "undefined") ||
+		(hasExplanation.reason.siteConservationAreaMapAndGuidanceMissingOrIncorrect === true &&
+		typeof(hasExplanation.reason.siteConservationAreaMapAndGuidanceMissingOrIncorrectDescription) === "undefined") ||
+		(hasExplanation.reason.siteListedBuildingDescriptionMissingOrIncorrect === true &&
+		typeof(hasExplanation.reason.siteListedBuildingDescriptionMissingOrIncorrectDescription) === "undefined") ||
+		(hasExplanation.reason.thirdPartyApplicationNotificationMissingOrIncorrect === true &&
+			(hasExplanation.reason.thirdPartyApplicationNotificationMissingOrIncorrectListOfAddresses === false &&
+			hasExplanation.reason.thirdPartyApplicationNotificationMissingOrIncorrectCopyOfLetterOrSiteNotice === false)) ||
+		(hasExplanation.reason.thirdPartyRepresentationsMissingOrIncorrect === true &&
+		typeof(hasExplanation.reason.thirdPartyRepresentationsMissingOrIncorrectDescription) === "undefined") ||
+		(hasExplanation.reason.thirdPartyAppealNotificationMissingOrIncorrect === true &&
+			(hasExplanation.reason.thirdPartyAppealNotificationMissingOrIncorrectListOfAddresses === false &&
+			hasExplanation.reason.thirdPartyAppealNotificationMissingOrIncorrectCopyOfLetterOrSiteNotice === false))
+	)));
 };
 
-const incompleteWithUnexpectedReasons = function (body) {
-	return (difference(Object.keys(body.reason), [
+const incompleteWithUnexpectedReasons = (reasonListed) => {
+	return difference(Object.keys(reasonListed.reason), [
 		'applicationPlanningOfficersReportMissingOrIncorrect',
 		'applicationPlansToReachDecisionMissingOrIncorrect',
 		'applicationPlansToReachDecisionMissingOrIncorrectDescription',
@@ -77,7 +76,7 @@ const incompleteWithUnexpectedReasons = function (body) {
 		'thirdPartyAppealNotificationMissingOrIncorrect',
 		'thirdPartyAppealNotificationMissingOrIncorrectListOfAddresses',
 		'thirdPartyAppealNotificationMissingOrIncorrectCopyOfLetterOrSiteNotice'
-	]).length === 0)? false : true;
+	]).length > 0;
 };
 
 export const validateReviewRequest = (request, response, next) => {
@@ -98,12 +97,13 @@ export const validateReviewRequest = (request, response, next) => {
 	}
 };
 
-export const validateFilesUpload = function(filename) {
+export const validateFilesUpload = (filename) => {
 	return composeMiddleware(
 		multer({
 			storage: multer.memoryStorage(),
 			limits: {
-				fileSize: 15 * Math.pow(1024, 2 /* MBs*/)
+				/* MBs */
+				fileSize: 15 * (1024** 2)
 			}
 		}).array(filename),
 		mapMulterErrorToValidationError,

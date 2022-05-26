@@ -9,7 +9,7 @@ const lpaQuestionnaireRepository = (function() {
 	}
   
 	return {
-		createNewLpaQuestionnaire: function(appealId) {
+		createNewLpaQuestionnaire(appealId) {
 			return getPool().lPAQuestionnaire.create({
 				data: {
 					appeal: { connect: {
@@ -18,13 +18,13 @@ const lpaQuestionnaireRepository = (function() {
 				}
 			});
 		},
-		updateById: function(id, data) {
+		updateById(id, data) {
 			return getPool().lPAQuestionnaire.update({
-				where: { id: id },
-				data: data
+				where: { id },
+				data
 			});
 		}
 	};
-})();
+}());
 
 export default lpaQuestionnaireRepository;

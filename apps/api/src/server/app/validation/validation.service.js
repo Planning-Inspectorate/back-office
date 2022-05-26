@@ -1,14 +1,13 @@
-// eslint-disable-next-line import/no-unresolved
 import got from 'got';
-import { validationActionsStrings } from '../state-machine/validation-states.js';
-import ValidationError from './validation-error.js';
-import { appealStates, transitionState } from '../state-machine/transition-state.js';
 import appealRepository from '../repositories/appeal.repository.js';
 import validationDecisionRepository from '../repositories/validation-decision.repository.js';
-import { nullIfUndefined } from '../utils/null-if-undefined.js';
-import { buildAppealCompundStatus } from '../utils/build-appeal-compound-status.js';
-import { breakUpCompoundStatus } from '../utils/break-up-compound-status.js';
+import { appealStates, transitionState } from '../state-machine/transition-state.js';
+import { validationActionsStrings } from '../state-machine/validation-states.js';
 import { arrayOfStatusesContainsString } from '../utils/array-of-statuses-contains-string.js';
+import { breakUpCompoundStatus } from '../utils/break-up-compound-status.js';
+import { buildAppealCompundStatus } from '../utils/build-appeal-compound-status.js';
+import { nullIfUndefined } from '../utils/null-if-undefined.js';
+import ValidationError from './validation-error.js';
 
 const validationDecisions = {
 	valid: 'valid',
@@ -33,19 +32,22 @@ function mapAppealStatusToStateMachineAction(status) {
 	}
 }
 
+// @ts-ignore
 export const submitValidationDecisionService = async (appealId, appealStatus, reason, descriptionOfDevelopment) => {
 	const appeal = await appealRepository.getById(appealId, {
-		appellant: true, 
-		validationDecision: true, 
+		appellant: true,
+		validationDecision: true,
 		address: true
 	});
 	const machineAction = mapAppealStatusToStateMachineAction(appealStatus);
 	const appealStatusForMachine = buildAppealCompundStatus(appeal.appealStatus);
 	const nextState = transitionState(appeal.appealType.type, { appealId: appeal.id }, appealStatusForMachine, machineAction);
 	const newState = breakUpCompoundStatus(nextState.value, appeal.id);
-	const newData = newState == appealStates.awaiting_lpa_questionnaire || 
-		arrayOfStatusesContainsString(newState, [appealStates.awaiting_lpa_questionnaire]) ? 
+	const newData = newState === appealStates.awaiting_lpa_questionnaire ||
+		// @ts-ignore
+		arrayOfStatusesContainsString(newState, [appealStates.awaiting_lpa_questionnaire]) ?
 		{ startedAt: new Date() } : {};
+
 	await appealRepository.updateStatusAndDataById(appeal.id, newState, newData, appeal.appealStatus);
 	await validationDecisionRepository.addNewDecision(appeal.id, appealStatus, reason, descriptionOfDevelopment);
 };
@@ -63,7 +65,7 @@ export const submitValidationDecisionService = async (appealId, appealStatus, re
  *
  * @returns {Promise<string[]>} - A list of local planning department names.
  */
-export const obtainLPAListService = async function () {
+export const obtainLPAListService = async () => {
 	const { body } = await /** @type {Promise<import('got').Response<LocalPlanningDepartmentResponse>>} */ (
 		got.get('https://services1.arcgis.com/ESMARspQHYMw9BZ9/arcgis/rest/services/LPA_APR_2021_UK_NC/FeatureServer/0/query', {
 			responseType: 'json',
@@ -79,7 +81,8 @@ export const obtainLPAListService = async function () {
 	return body.features.map((feature) => feature.attributes.LPA21NM);
 };
 
-export const updateAppealService = async function(appealId, appellantName, address, localPlanningDepartment, planningApplicationReference) {
+// @ts-ignore
+export const updateAppealService = async (appealId, appellantName, address, localPlanningDepartment, planningApplicationReference) => {
 	const appeal = await appealRepository.getById(appealId);
 	const data = {
 		...(appellantName && { appellant: { update: { name: appellantName } } }),
@@ -90,8 +93,9 @@ export const updateAppealService = async function(appealId, appellantName, addre
 			county: nullIfUndefined(address.County),
 			postcode: nullIfUndefined(address.PostCode)
 		} } }),
-		...(localPlanningDepartment && { localPlanningDepartment: localPlanningDepartment } ),
-		...(planningApplicationReference && { planningApplicationReference: planningApplicationReference })
+		...(localPlanningDepartment && { localPlanningDepartment } ),
+		...(planningApplicationReference && { planningApplicationReference })
 	};
+
 	await appealRepository.updateById(appeal.id, data);
 };

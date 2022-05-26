@@ -1,13 +1,12 @@
-// eslint-disable-next-line import/no-unresolved
 import test from 'ava';
-import supertest from 'supertest';
 import sinon from 'sinon';
+import supertest from 'supertest';
 import { app } from '../../../app.js';
 import DatabaseFactory from '../../repositories/database.js';
 
 const request = supertest(app);
 
-const appeal_10 = {
+const appeal10 = {
 	id: 10,
 	reference: 'APP/Q9999/D/21/1345264',
 	appealStatus: [{
@@ -27,7 +26,7 @@ const appeal_10 = {
 	}
 };
 
-const appeal_11 = {
+const appeal11 = {
 	id: 11,
 	reference: 'APP/Q9999/D/21/1087562',
 	appealStatus: [{
@@ -58,8 +57,8 @@ const includeForValidation = {
 
 const getAppealByIdStub = sinon.stub();
 
-getAppealByIdStub.withArgs({ where: { id: 11 },	include: includeForValidation }).returns(appeal_11);
-getAppealByIdStub.withArgs({ where: { id: 10 },	include: includeForValidation }).returns(appeal_10);
+getAppealByIdStub.withArgs({ where: { id: 11 },	include: includeForValidation }).returns(appeal11);
+getAppealByIdStub.withArgs({ where: { id: 10 },	include: includeForValidation }).returns(appeal10);
 
 const addReviewStub = sinon.stub();
 
@@ -70,7 +69,7 @@ const createAppealStatusStub = sinon.stub();
 
 addReviewStub.returns(newReview);
 class MockDatabaseClass {
-	constructor(_parameters) {
+	constructor() {
 		this.pool = {
 			appeal: {
 				findUnique: getAppealByIdStub,
@@ -109,6 +108,7 @@ test('should submit confirmation of an incomplete outcome of LPA questionnaire',
 			thirdPartyAppealNotificationMissingOrIncorrect: false
 		}
 	});
+
 	t.is(resp.status, 200);
 	sinon.assert.calledWithExactly(addReviewStub, {
 		data: {
@@ -154,6 +154,7 @@ test('should submit confirmation of an incomplete if listed building desc is mis
 			thirdPartyAppealNotificationMissingOrIncorrect: false
 		}
 	});
+
 	t.is(resp.status, 200);
 	sinon.assert.calledWithExactly(addReviewStub, {
 		data: {
@@ -198,6 +199,7 @@ test('should submit confirmation of the outcome of LPA questionnaire', async (t)
 			thirdPartyAppealNotificationMissingOrIncorrect: false
 		}
 	});
+
 	t.is(resp.status, 200);
 	sinon.assert.calledWithExactly(addReviewStub, {
 		data: {
@@ -241,6 +243,7 @@ test('should not be able to submit review as \'incomplete\' if there is no descr
 			thirdPartyAppealNotificationMissingOrIncorrect: false
 		}
 	});
+
 	t.is(resp.status, 409);
 	t.deepEqual(resp.body, {
 		errors: {
@@ -266,6 +269,7 @@ test('should not be able to submit review as \'incomplete\' if some unexpected b
 			someFakeReason: true
 		}
 	});
+
 	t.is(resp.status, 409);
 	t.deepEqual(resp.body, {
 		errors: {
@@ -290,6 +294,7 @@ test('should not be able to submit review if appeal is not in a state ready to r
 			thirdPartyAppealNotificationMissingOrIncorrect: false
 		}
 	});
+
 	t.is(resp.status, 409);
 	t.deepEqual(resp.body, {
 		errors: {

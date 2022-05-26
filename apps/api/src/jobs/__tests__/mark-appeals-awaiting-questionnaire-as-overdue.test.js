@@ -1,17 +1,16 @@
-// eslint-disable-next-line import/no-unresolved
 import test from 'ava';
 import sinon from 'sinon';
-import findAndUpdateStatusForAppealsWithOverdueQuestionnaires from '../mark-appeals-awaiting-questionnaire-as-overdue.js';
 import DatabaseFactory from '../../server/app/repositories/database.js';
 import { appealFactoryForTests } from '../../server/app/utils/appeal-factory-for-tests.js';
+import findAndUpdateStatusForAppealsWithOverdueQuestionnaires from '../mark-appeals-awaiting-questionnaire-as-overdue.js';
 
-const appeal_1 = appealFactoryForTests(1, [{
+const appeal1 = appealFactoryForTests(1, [{
 	id: 1,
 	status: 'awaiting_lpa_questionnaire',
 	valid: true
 }], 'HAS');
 
-const appeal_2 = appealFactoryForTests(2, [{
+const appeal2 = appealFactoryForTests(2, [{
 	id: 21,
 	status: 'awaiting_lpa_questionnaire',
 	subStateMachineName: 'lpaQuestionnaireAndInspectorPickup',
@@ -26,16 +25,18 @@ const appeal_2 = appealFactoryForTests(2, [{
 }], 'FPA');
 
 const updateStub = sinon.stub();
-updateStub.returns(appeal_1);
+
+updateStub.returns(appeal1);
 
 const findManyStub = sinon.stub();
-findManyStub.returns([appeal_1, appeal_2]);
+
+findManyStub.returns([appeal1, appeal2]);
 
 const updateManyAppealStatusStub = sinon.stub();
 const createAppealStatusStub = sinon.stub();
 
 class MockDatabaseClass {
-	constructor(_parameters) {
+	constructor() {
 		this.pool = {
 			appeal: {
 				update: updateStub,
