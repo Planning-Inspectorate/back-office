@@ -8,6 +8,5 @@
 		"target": "esnext",
 		"module": "es2022",
 		"strict": true
-	},
-	"files": ["typings.d.ts"]
+	}
 }

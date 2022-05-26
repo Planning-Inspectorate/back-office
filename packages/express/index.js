@@ -1,3 +1,4 @@
+export * from './middleware/locals.js';
 export * from './middleware/multer.js';
 export * from './middleware/session.js';
 export * from './middleware/validation.js';

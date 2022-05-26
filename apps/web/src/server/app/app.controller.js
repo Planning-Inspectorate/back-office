@@ -20,7 +20,7 @@ const appealGroupIds = [
 /**
  * Display a homepage tailored to the user's group memberships.
  *
- * @type {import('@pins/express').QueryHandler<{}, ViewHomepageRenderOptions>}
+ * @type {import('@pins/express').RenderHandler<ViewHomepageRenderOptions>}
  */
 export function viewHomepage(request, response, next) {
 	const account = /** @type {AccountInfo} */ (authSession.getAccount(request.session));
@@ -35,13 +35,13 @@ export function viewHomepage(request, response, next) {
 	} else {
 		switch (groupIds[0]) {
 			case config.referenceData.groups.validationOfficerGroupId:
-				response.redirect('/validation');
+				response.redirect('/appeals-service/validation');
 				break;
 			case config.referenceData.groups.caseOfficerGroupId:
-				response.redirect('/case-officer');
+				response.redirect('/appeals-service/case-officer');
 				break;
 			case config.referenceData.groups.inspectorGroupId:
-				response.redirect('/inspector');
+				response.redirect('/appeals-service/inspector');
 				break;
 			default: {
 				const error = new Error('User logged in successfully but the user group is valid.');
@@ -51,6 +51,11 @@ export function viewHomepage(request, response, next) {
 			}
 		}
 	}
+}
+
+/** @type {import('express').RequestHandler} */
+export function handleHeathCheck(_, response) {
+	response.send('OK');
 }
 
 /** @type {import('express').RequestHandler} */

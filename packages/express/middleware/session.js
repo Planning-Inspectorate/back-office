@@ -82,6 +82,7 @@ export const createSessionInitializerMiddleware = ({ initialSession }) => {
 				originalStoreGenerateFunction(request_);
 				Object.assign(request_.session, initialSession);
 			};
+			request.sessionStore.generate(request);
 		}
 		next();
 	};

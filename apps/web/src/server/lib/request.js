@@ -1,4 +1,4 @@
-import { createHttpLoggerHooks, createTtlHandler } from '@pins/platform';
+import { createHttpLoggerHooks } from '@pins/platform';
 import config from '@pins/web/environment/config.js';
 import got from 'got';
 import pino from './logger.js';
@@ -11,7 +11,6 @@ const instance = got.extend({
 	prefixUrl: config.apiUrl,
 	responseType: 'json',
 	resolveBodyOnly: true,
-	handlers: [createTtlHandler(ttlCache)],
 	hooks: {
 		beforeRequest: [
 			requestLogger,

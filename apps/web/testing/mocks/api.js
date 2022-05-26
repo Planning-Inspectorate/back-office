@@ -23,18 +23,20 @@ export function installMockApi() {
 	// received appeal
 	nock('http://test/')
 		.get(`/validation/${receivedAppealDetails.AppealId}`)
-		.reply(200, receivedAppealDetails);
+		.reply(200, receivedAppealDetails)
+		.persist();
 
 	// incomplete appeal
 	nock('http://test/')
 		.get(`/validation/${incompleteAppealDetails.AppealId}`)
-		.reply(200, incompleteAppealDetails);
+		.reply(200, incompleteAppealDetails)
+		.persist();
 
 	// planning departments
-	nock('http://test/').get('/validation/case-officer-list').reply(200, localPlanningDepartments);
+	nock('http://test/').get('/validation/lpa-list').reply(200, localPlanningDepartments).persist();
 
 	// remote error
-	nock('http://test/').get('/validation/0').reply(500);
+	nock('http://test/').get('/validation/0').reply(500).persist();
 
 	// Case officer
 
@@ -44,16 +46,17 @@ export function installMockApi() {
 		appealDetailsForFinalComments,
 		appealDetailsForStatements
 	]) {
-		nock('http://test/').get(`/case-officer/${appeal.AppealId}`).reply(200, appeal);
+		nock('http://test/').get(`/case-officer/${appeal.AppealId}`).reply(200, appeal).persist();
 	}
 	for (const appeal of [appealDetailsForFinalComments, appealDetailsForStatements]) {
 		nock('http://test/')
 			.get(`/case-officer/${appeal.AppealId}/statements-comments`)
-			.reply(200, appeal);
+			.reply(200, appeal)
+			.persist();
 	}
 	// Unknown appeals
-	nock('http://test/').get('/case-officer/0').reply(500);
-	nock('http://test/').get('/case-officer/0/statements-comments').reply(500);
+	nock('http://test/').get('/case-officer/0').reply(500).persist();
+	nock('http://test/').get('/case-officer/0/statements-comments').reply(500).persist();
 
 	// Inspector
 
@@ -63,9 +66,9 @@ export function installMockApi() {
 		appealDetailsForDecisionDue,
 		appealDetailsForPendingStatements
 	]) {
-		nock('http://test/').get(`/inspector/${appeal.appealId}`).reply(200, appeal);
+		nock('http://test/').get(`/inspector/${appeal.appealId}`).reply(200, appeal).persist();
 	}
-	nock('http://test/').get('/inspector/0').reply(500);
+	nock('http://test/').get('/inspector/0').reply(500).persist();
 
 	return {
 		destroy: () => {

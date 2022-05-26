@@ -13,7 +13,7 @@ describe('auth', () => {
 
 	describe('authentication', () => {
 		it('should sign in an unauthenticated user via azure SSO', async () => {
-			const response = await request.get('/validation').redirects(1);
+			const response = await request.get('/appeals-service/validation').redirects(1);
 			const client = getConfidentialClientApplication();
 
 			// Assert azure msal client was instantiated correctly
@@ -53,7 +53,7 @@ describe('auth', () => {
 			expect(tokenOptions.scopes).toEqual(['user.read']);
 			expect(tokenOptions.code).toEqual('msal_code');
 
-			expect(redirect.get('Location')).toEqual('/validation');
+			expect(redirect.get('Location')).toEqual('/appeals-service/validation');
 		});
 
 		it('should redirect to an error page when the redirect from MSAL is incomplete', async () => {
@@ -200,7 +200,7 @@ describe('auth', () => {
 			it('should deny access to the domain if the user does not have permission', async () => {
 				await signinWithGroups(['inspector', 'case_officer']);
 
-				const response = await request.get('/validation').redirects(1);
+				const response = await request.get('/appeals-service/validation').redirects(1);
 				const element = parseHtml(response.text);
 
 				expect(element.querySelector('h1')?.innerHTML).toEqual(
@@ -211,7 +211,7 @@ describe('auth', () => {
 			it('should permit access to the domain if the user has permission', async () => {
 				await signinWithGroups(['validation_officer']);
 
-				const response = await request.get('/validation');
+				const response = await request.get('/appeals-service/validation');
 				const element = parseHtml(response.text);
 
 				expect(element.querySelector('h1')?.innerHTML).toEqual('Appeal submissions for review');
@@ -235,7 +235,7 @@ describe('auth', () => {
 			it('should deny access to the domain if the user does not have permission', async () => {
 				await signinWithGroups(['inspector', 'validation_officer']);
 
-				const response = await request.get('/case-officer').redirects(1);
+				const response = await request.get('/appeals-service/case-officer').redirects(1);
 				const element = parseHtml(response.text);
 
 				expect(element.querySelector('h1')?.innerHTML).toEqual(
@@ -246,7 +246,7 @@ describe('auth', () => {
 			it('should permit access to the domain if the user has permission', async () => {
 				await signinWithGroups(['case_officer']);
 
-				const response = await request.get('/case-officer');
+				const response = await request.get('/appeals-service/case-officer');
 				const element = parseHtml(response.text);
 
 				expect(element.querySelector('h1')?.innerHTML).toEqual('Questionnaires for review');
@@ -270,7 +270,7 @@ describe('auth', () => {
 			it('should deny access to the domain if the user does not have permission', async () => {
 				await signinWithGroups(['validation_officer', 'case_officer']);
 
-				const response = await request.get('/inspector').redirects(1);
+				const response = await request.get('/appeals-service/inspector').redirects(1);
 				const element = parseHtml(response.text);
 
 				expect(element.querySelector('h1')?.innerHTML).toEqual(
@@ -281,7 +281,7 @@ describe('auth', () => {
 			it('should permit access to the domain if the user has permission', async () => {
 				await signinWithGroups(['inspector']);
 
-				const response = await request.get('/inspector');
+				const response = await request.get('/appeals-service/inspector');
 				const element = parseHtml(response.text);
 
 				expect(element.querySelector('h1')?.innerHTML).toEqual('My appeals');
