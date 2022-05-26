@@ -9,7 +9,7 @@ export const validateFileUpload = (filename) => {
 			storage: multer.memoryStorage(),
 			limits: {
 				/* MBs */
-				fileSize: 15 * (1024** 2 )
+				fileSize: 15 * (1024**2)
 			}
 		}).single(filename),
 		mapMulterErrorToValidationError,
