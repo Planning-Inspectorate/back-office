@@ -47,7 +47,7 @@ export const msalClient = new msal.ConfidentialClientApplication({
  */
 export const msalMiddleware = (req, _, next) => {
 	if (!config.msal.redirectUri?.startsWith(req.protocol)) {
-		config.msal.redirectUri = `${req.protocol}://${req.get('host')}'/auth/redirect'`;
+		config.msal.redirectUri = `${req.protocol}://${req.get('host')}/auth/redirect`;
 	}
 	next();
 };
