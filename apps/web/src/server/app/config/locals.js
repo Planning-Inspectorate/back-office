@@ -4,8 +4,8 @@ import fs from 'node:fs';
 /**
  * Fetch the configuration for a resource in the .build folder.
  *
- * @param {string} filename - The filename of a resource in the _data folder.
- * @returns {string=}
+ * @param {string} filename - The filename of a resource in the .build folder
+ * @returns {string}
  */
 const getConfig = (filename) => {
 	try {
