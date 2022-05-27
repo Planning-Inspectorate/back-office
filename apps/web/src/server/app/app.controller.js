@@ -14,6 +14,7 @@ export const viewEnvironmentConfig = (_, res) => {
 	res.send({
 		process: loadEnvironment(process.env.NODE_ENV),
 		config,
+		locals: res.locals,
 		files: fs.readdirSync(config.buildDir),
 		...(fs.readdirSync(config.buildDir).reduce((all, filename) => {
 			const contents = fs.readFileSync(`${config.buildDir}/${filename}`, { encoding: 'utf8' });
