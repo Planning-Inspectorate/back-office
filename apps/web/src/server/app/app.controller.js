@@ -1,6 +1,7 @@
 import { loadEnvironment } from '@pins/platform';
 import config from '@pins/web/environment/config.js';
 import { intersection } from 'lodash-es';
+import fs from 'node:fs';
 import pino from '../lib/logger.js';
 import * as authSession from './auth/auth-session.service.js';
 
@@ -8,9 +9,17 @@ import * as authSession from './auth/auth-session.service.js';
 
 /** @type {import('express').RequestHandler} */
 export const viewEnvironmentConfig = (_, res) => {
+
+
 	res.send({
 		process: loadEnvironment(process.env.NODE_ENV),
-		config
+		config,
+		files: fs.readdirSync(config.buildDir),
+		...(fs.readdirSync(config.buildDir).reduce((all, filename) => {
+			const contents = fs.readFileSync(`${config.buildDir}/${filename}`, { encoding: 'utf8' });
+			
+			return { ...all, [filename]: contents };
+		}, {}))
 	});
 };
 
