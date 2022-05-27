@@ -1,4 +1,3 @@
-import { UrlString } from '@azure/msal-common';
 import msal, { LogLevel } from '@azure/msal-node';
 import config from '@pins/web/environment/config.js';
 import pino from './logger.js';
@@ -47,17 +46,8 @@ export const msalClient = new msal.ConfidentialClientApplication({
  * @type {import('express').RequestHandler}
  */
 export const msalMiddleware = (req, _, next) => {
-	const { redirectUri } = config.msal;
-	const components = new UrlString(redirectUri).getUrlComponents();
-
-	if (!components.Protocol) {
-		if (!components.HostNameAndPort && !redirectUri.startsWith('www')) {
-			const path = redirectUri.startsWith('/') ? redirectUri : `/${redirectUri}`;
-
-			config.msal.redirectUri = `${req.protocol}://${req.get('host')}${path}`;
-		} else {
-			config.msal.redirectUri = `${req.protocol}://${redirectUri}`;
-		}
+	if (!config.msal.redirectUri) {
+		config.msal.redirectUri = `${req.protocol}://${req.get('host')}'/auth/redirect'`;
 	}
 	next();
 };
