@@ -1,3 +1,4 @@
+import { loadEnvironment } from '@pins/platform';
 import config from '@pins/web/environment/config.js';
 import path from 'node:path';
 import pino from 'pino';
@@ -30,5 +31,9 @@ const logger = pino({
 });
 
 export const httpLogger = pinoHttp({ logger });
+
+logger.info(
+	loadEnvironment(process.env.NODE_ENV)
+);
 
 export default logger;
