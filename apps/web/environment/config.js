@@ -17,7 +17,6 @@ const { value, error } = schema.validate({
 		clientId: environment.AUTH_CLIENT_ID,
 		clientSecret: environment.AUTH_CLIENT_SECRET,
 		cloudInstanceId: environment.AUTH_CLOUD_INSTANCE_ID,
-		redirectUri: environment.AUTH_REDIRECT_URI,
 		tenantId: environment.AUTH_TENANT_ID
 	},
 	serverPort: environment.HTTPS_ENABLED === 'true' ? environment.HTTPS_PORT : environment.HTTP_PORT,
@@ -39,7 +38,7 @@ if (error) {
 
 const cwd = url.fileURLToPath(new URL('..', import.meta.url));
 const { msal, ...config } = value;
-const { clientId = '', cloudInstanceId, redirectUri, tenantId, clientSecret = '' } = msal;
+const { clientId = '', cloudInstanceId, tenantId, clientSecret = '' } = msal;
 
 export default {
 	...config,
@@ -51,8 +50,7 @@ export default {
 	msal: {
 		clientId,
 		clientSecret,
-		authority: `${cloudInstanceId}/${tenantId}`,
-		redirectUri
+		authority: `${cloudInstanceId}/${tenantId}`
 	},
 	tmpDir: path.join(cwd, '.tmp')
 };
