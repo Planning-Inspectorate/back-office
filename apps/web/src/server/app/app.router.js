@@ -3,7 +3,12 @@ import { Router as createRouter } from 'express';
 import { installAuthMock } from '../../../testing/mocks/auth.js';
 import appealsRouter from '../appeals/appeals.router.js';
 import lpaRouter from '../appeals/case-officer/case-officer.router.js';
-import { handleHeathCheck, viewHomepage, viewUnauthenticatedError } from './app.controller.js';
+import {
+	handleHeathCheck,
+	viewEnvironmentConfig,
+	viewHomepage,
+	viewUnauthenticatedError
+} from './app.controller.js';
 import { assertIsAuthenticated } from './auth/auth.guards.js';
 import authRouter from './auth/auth.router.js';
 
@@ -14,6 +19,8 @@ const router = createRouter();
 if (config.authDisabled) {
 	router.use(installAuthMock({ groups: ['*'] }));
 }
+
+router.route('/config').get(viewEnvironmentConfig);
 
 router.use(authRouter);
 

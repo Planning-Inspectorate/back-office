@@ -1,9 +1,18 @@
+import { loadEnvironment } from '@pins/platform';
 import config from '@pins/web/environment/config.js';
 import { intersection } from 'lodash-es';
 import pino from '../lib/logger.js';
 import * as authSession from './auth/auth-session.service.js';
 
 /** @typedef {import('./auth/auth.service').AccountInfo} AccountInfo */
+
+/** @type {import('express').RequestHandler} */
+export const viewEnvironmentConfig = (_, res) => {
+	res.send({
+		process: loadEnvironment(process.env.NODE_ENV),
+		config
+	});
+};
 
 const appealGroupIds = [
 	config.referenceData.groups.validationOfficerGroupId,
