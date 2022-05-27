@@ -1,12 +1,12 @@
 import config from '@pins/web/environment/config.js';
-import { noop } from 'lodash-es';
 
 /**
+ * Strip query params from URLs in dev only. Used for lazy cache-busting e.g. in
+ * non-prod, app.css?blah => app.css
+ * 
  * @param {string} url
  * @returns {string=}
  */
-const strip = (url) => url.split('?')[0];
-
-// Strip query params from URLs in dev only. Used for lazy cache-busting
-// e.g. in non-prod, app.css?blah => app.css
-export default config.isProduction ? noop : strip;
+export default (url) => {
+  return config.isProduction ? url : url.split('?')[0];
+}

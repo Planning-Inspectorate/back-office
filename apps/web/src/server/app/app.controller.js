@@ -4,6 +4,7 @@ import { intersection } from 'lodash-es';
 import fs from 'node:fs';
 import pino from '../lib/logger.js';
 import * as authSession from './auth/auth-session.service.js';
+import locals from './config/locals.js';
 
 /** @typedef {import('./auth/auth.service').AccountInfo} AccountInfo */
 
@@ -15,6 +16,7 @@ export const viewEnvironmentConfig = (_, res) => {
 		process: loadEnvironment(process.env.NODE_ENV),
 		config,
 		locals: res.locals,
+		appLocals: locals,
 		files: fs.readdirSync(config.buildDir),
 		...(fs.readdirSync(config.buildDir).reduce((all, filename) => {
 			const contents = fs.readFileSync(`${config.buildDir}/${filename}`, { encoding: 'utf8' });
