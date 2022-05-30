@@ -1,4 +1,4 @@
-import pino from 'pino';
+import logger from '../../app/lib/logger.js';
 
 const validationActionsStrings = {
 	invalid: 'INVALID',
@@ -34,13 +34,13 @@ const generateValidationStates = (finalState) => {
 
 const validationActions = {
 	notifyAppellantOfMissingAppealInfo: () => {
-		pino.log('Letting Appellant know that info is missing...');
+		logger.info('Letting Appellant know that info is missing...');
 	},
 	notifyAppellantOfInvalidAppeal: () => {
-		pino.log('Letting Appellant know that their appeal is invalid...');
+		logger.info('Letting Appellant know that their appeal is invalid...');
 	},
 	notifyLPAOfInvalidAppeal: () => {
-		pino.log('Letting LPA know that the appeal is invalid...');
+		logger.info('Letting LPA know that the appeal is invalid...');
 	}
 };
 

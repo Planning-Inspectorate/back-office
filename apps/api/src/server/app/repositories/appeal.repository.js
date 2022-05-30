@@ -130,7 +130,7 @@ const appealRepository = (function () {
 							status,
 							appealId: id
 						}
-				  })
+					})
 				: getPool().appealStatus.createMany({ data: status });
 		},
 		updateStatusById(id, status, currentStates) {

@@ -31,7 +31,7 @@ export const transitionState = (appealType, context, status, machineAction, thro
 			? createFullPlanningAppealMachine(context)
 			: (function () {
 					throw new TransitionStateError(`Unknown Appeal Type ${appealType}`);
-			  }()));
+				}));
 
 	const service = interpret(stateMachine);
 

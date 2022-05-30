@@ -1,4 +1,4 @@
-import pino from 'pino';
+import logger from '../../app/lib/logger.js';
 import lpaQuestionnaireActionsService from './lpa-questionnaire-actions.service.js';
 
 const lpaQuestionnaireActions = {
@@ -6,7 +6,7 @@ const lpaQuestionnaireActions = {
 		await lpaQuestionnaireActionsService.sendLpaQuestionnaire(context.appealId);
 	},
 	nudgeLPAQuestionnaire: () => {
-		pino.log('Sending an email to nudge LPA regarding questionnaire');
+		logger.info('Sending an email to nudge LPA regarding questionnaire');
 	}
 };
 
