@@ -28,7 +28,7 @@ test.before('sets up mocking of actions', () => {
  * @param {object} context Context of transition
  * @param {boolean} hasChanged True if action was valid, False if action was invalid
  */
-function applyAction(t, initialState, action, expectedState, context, hasChanged) {
+const applyAction = (t, initialState, action, expectedState, context, hasChanged) => {
 	inspectorSendBookingStub.resetHistory();
 
 	const nextState = transitionState('household', context, initialState, action);
@@ -50,14 +50,14 @@ function applyAction(t, initialState, action, expectedState, context, hasChanged
 	}
 }
 
-applyAction.title = (
+applyAction.title = ({
 	initialState,
 	action,
 	expectedState,
 	context,
 	hasChanged,
 	providedTitle = ''
-) =>
+}) =>
 	`${providedTitle}: from state [${initialState}] with context ${JSON.stringify(
 		context
 	)} action [${action}] produces state

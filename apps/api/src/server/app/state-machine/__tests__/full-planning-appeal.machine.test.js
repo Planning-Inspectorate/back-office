@@ -28,7 +28,7 @@ test.before('sets up mocking of actions', () => {
  * @param {object} context Context of transition
  * @param {boolean} hasChanged True if action was valid, False if action was invalid
  */
-function applyAction(t, initialState, action, expectedState, context, hasChanged) {
+const applyAction = (t, initialState, action, expectedState, context, hasChanged) => {
 	inspectorSendBookingStub.resetHistory();
 
 	const nextState = transitionState('full planning', context, initialState, action);
@@ -49,14 +49,14 @@ const buildCompoundState = (
 	};
 };
 
-applyAction.title = (
+applyAction.title = ({
 	initialState,
 	action,
 	expectedState,
 	context,
 	hasChanged,
 	providedTitle = ''
-) =>
+}) =>
 	`Full Planning Appeal State Machine: ${providedTitle}: from state [${JSON.stringify(
 		initialState
 	)}]
