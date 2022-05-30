@@ -71,7 +71,7 @@ const buildCompoundState = (
 	];
 };
 
-const appealFactory = ({
+const appealFactory = (
 	typeShorthand,
 	statuses = {},
 	incompleteValidationDecision = false,
@@ -83,7 +83,7 @@ const appealFactory = ({
 	completeReviewQuestionnaire = false,
 	connectToUser = false,
 	siteVisitBooked = false
-}) => {
+) => {
 	return {
 		appealType: { connect: { shorthand: typeShorthand } },
 		reference: generateAppealReference(),

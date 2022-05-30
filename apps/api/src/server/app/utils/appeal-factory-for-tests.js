@@ -33,13 +33,13 @@ function pickRandom(list) {
 	return list[Math.floor(Math.random() * list.length)];
 }
 
-export const appealFactoryForTests = ({
+export const appealFactoryForTests = (
 	appealId,
 	statuses,
 	typeShorthand,
 	inclusions = {},
 	dates = {}
-}) => {
+) => {
 	const validationDecisions = [];
 
 	if (inclusions.completeValidationDecision) {

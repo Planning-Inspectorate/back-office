@@ -103,13 +103,13 @@ export const obtainLPAListService = async () => {
 };
 
 // @ts-ignore
-export const updateAppealService = async ({
+export const updateAppealService = async (
 	appealId,
 	appellantName,
 	address,
 	localPlanningDepartment,
 	planningApplicationReference
-}) => {
+) => {
 	const appeal = await appealRepository.getById(appealId);
 	const data = {
 		...(appellantName && { appellant: { update: { name: appellantName } } }),
