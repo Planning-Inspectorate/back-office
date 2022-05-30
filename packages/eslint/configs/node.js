@@ -24,6 +24,10 @@ module.exports = {
 			}
 		],
 
+		// allow dev dependencies in common js files, as they're exclusively used for build/pre-build steps
+		// https://github.com/weiran-zsd/eslint-plugin-node/blob/cb4f099ae928d627abfc635966622cf4266a7b1c/docs/rules/no-unpublished-require.md
+		'n/no-unpublished-require': 'off',
+
 		// deprecated
 		// https://github.com/weiran-zsd/eslint-plugin-node/blob/HEAD/docs/rules/no-unsupported-features/es-syntax.md
 		'n/no-unsupported-features/es-syntax': 'off',

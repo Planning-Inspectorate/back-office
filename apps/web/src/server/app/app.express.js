@@ -1,3 +1,4 @@
+import { installRequestLocalsMiddleware } from '@pins/express';
 import config from '@pins/web/environment/config.js';
 import bodyParser from 'body-parser';
 import compression from 'compression';
@@ -11,16 +12,17 @@ import morgan from 'morgan';
 import multer from 'multer';
 import responseTime from 'response-time';
 import serveStatic from 'serve-static';
-import { installAuthMock } from '../../../testing/mocks/auth.js';
-import locals from '../config/locals.js';
-import nunjucksEnvironment from '../config/nunjucks.js';
-import session from '../config/session.js';
 import logger, { httpLogger } from '../lib/logger.js';
 import { msalMiddleware } from '../lib/msal.js';
 import appRouter from './app.router.js';
+import locals from './config/locals.js';
+import nunjucksEnvironment from './config/nunjucks.js';
+import session from './config/session.js';
 
 // Create a new Express app.
 const app = express();
+
+app.use(installRequestLocalsMiddleware());
 
 // Initialize app locals
 app.locals = locals;
@@ -65,11 +67,6 @@ app.use(msalMiddleware);
 
 // Session middleware
 app.use(session);
-
-// In development only, integrate with locally defined user groups
-if (config.authDisabled) {
-	app.use(installAuthMock({ groups: ['*'] }));
-}
 
 // CSRF middleware via session
 if (!config.isTest) {

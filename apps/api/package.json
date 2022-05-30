@@ -15,7 +15,7 @@
     "coverage": "c8 --reporter=html --reporter=text ava",
     "dev": "npx prisma generate; nodemon --experimental-json-modules -e js ./src/server.js",
     "start": "node ./src/server.js",
-    "lint:js": "exit 0",
+    "lint:js": "eslint src prisma/seed.js",
     "lint:js:fix": "eslint src prisma/seed.js --fix",
     "clean": "rimraf .turbo node_modules dist",
     "swagger-autogen": "node ./src/server/swagger.js",
@@ -26,7 +26,7 @@
     "prisma:format": "npx prisma format",
     "prisma:generate": "npx prisma generate",
     "build": "npm run prisma:generate",
-    "tscheck": "exit 0"
+    "tscheck": "npx tsc -p jsconfig.json --maxNodeModuleJsDepth 0"
   },
   "dependencies": {
     "@prisma/client": "3.13.0",

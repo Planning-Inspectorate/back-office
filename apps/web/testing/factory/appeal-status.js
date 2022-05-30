@@ -3,7 +3,7 @@ import { fake } from '@pins/platform';
 /** @typedef {import('@pins/api').Schema.AppealStatus} AppealStatus */
 
 /**
- * @param {Partial<AppealStatus>} [options={}]
+ * @param {Partial<AppealStatus>} options
  * @returns {AppealStatus}
  */
 export function createAppealStatus({

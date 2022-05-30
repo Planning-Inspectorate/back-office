@@ -16,7 +16,6 @@ export default joi
 				clientId: joi.string(),
 				clientSecret: joi.string(),
 				cloudInstanceId: joi.string(),
-				redirectUri: joi.string(),
 				tenantId: joi.string()
 			})
 			.options({ presence: 'required' })

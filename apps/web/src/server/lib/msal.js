@@ -39,19 +39,15 @@ export const msalClient = new msal.ConfidentialClientApplication({
 });
 
 /**
- * Set the MSAL redirectUri as an absolute url if exists only as a path. Unless
- * provided as an absolute url in the .env file, this can only be done at
+ * Set the MSAL redirectUri as an absolute url if it exists only as a path.
+ * Unless provided as an absolute url in the .env file, this can only be done at
  * runtime once the protocol and host is known.
  *
  * @type {import('express').RequestHandler}
  */
 export const msalMiddleware = (req, _, next) => {
-	if (!/^https?/.test(config.msal.redirectUri)) {
-		const redirectPath = config.msal.redirectUri.startsWith('/')
-			? config.msal.redirectUri
-			: `/${config.msal.redirectUri}`;
-
-		config.msal.redirectUri = `${req.protocol}://${req.get('host')}${redirectPath}`;
+	if (!config.msal.redirectUri?.startsWith(req.protocol)) {
+		config.msal.redirectUri = `${req.protocol}://${req.get('host')}/auth/redirect`;
 	}
 	next();
 };

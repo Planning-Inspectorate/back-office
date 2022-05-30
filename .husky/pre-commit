@@ -1,5 +1,5 @@
 #!/usr/bin/env sh
 . "$(dirname -- "$0")/_/husky.sh"
 
-npx turbo run tscheck
+npm run tscheck
 npx lint-staged

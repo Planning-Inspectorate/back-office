@@ -3,12 +3,12 @@ import { composeMiddleware } from '../utils/compose.js';
 
 /** @typedef {import('express-validator').ValidationError} ValidationError */
 
-/** @type {import('express').RequestHandler<?, ?, ?, ?, { errors?: Record<string, ValidationError> }>} */
-const expressValidatorErrorHandler = (request, response, next) => {
+/** @type {import('../types/express').RenderHandler<any>} */
+const expressValidatorErrorHandler = (request, _, next) => {
 	const errors = validationResult(request);
 
 	if (!errors.isEmpty()) {
-		response.locals.errors = errors.mapped();
+		request.errors = errors.mapped();
 	}
 	next();
 };
