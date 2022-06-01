@@ -42,8 +42,8 @@ test.serial('returns 500 if unable to get list of LPAs', async (t) => {
 	const resp = await request.get('/validation/lpa-list');
 
 	t.is(resp.status, 500);
-	t.deepEqual(resp.body, {
-		error: 'Unable to get data'
-	});
+	t.deepEqual(resp.body,
+		{error: 'Unable to get data'}
+	);
 	got.get.restore();
 });
