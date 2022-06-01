@@ -2,7 +2,14 @@ import express from 'express';
 import { param } from 'express-validator';
 import { asyncHandler } from '../middleware/async-handler.js';
 import { validateFileUpload } from '../middleware/validate-file-upload.js';
-import { assignAppeals, bookSiteVisit, getAppealDetails, getAppeals, getMoreAppeals,issueDecision } from './inspector.controller.js';
+import {
+	assignAppeals,
+	bookSiteVisit,
+	getAppealDetails,
+	getAppeals,
+	getMoreAppeals,
+	issueDecision
+} from './inspector.controller.js';
 import {
 	validateAssignAppealsToInspector,
 	validateBookSiteVisit,
@@ -12,7 +19,6 @@ import {
 } from './inspector.validators.js';
 
 const router = new express.Router();
-
 
 router.get(
 	'/more-appeals',
@@ -134,6 +140,5 @@ router.post(
 	validateIssueDecision,
 	asyncHandler(issueDecision)
 );
-
 
 export { router as inspectorRoutes };

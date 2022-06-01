@@ -33,7 +33,12 @@ function mapAppealStatusToStateMachineAction(status) {
 }
 
 // @ts-ignore
-export const submitValidationDecisionService = async (appealId, appealStatus, reason, descriptionOfDevelopment) => {
+export const submitValidationDecisionService = async (
+	appealId,
+	appealStatus,
+	reason,
+	descriptionOfDevelopment
+) => {
 	const appeal = await appealRepository.getById(appealId, {
 		appellant: true,
 		validationDecision: true,
@@ -41,15 +46,27 @@ export const submitValidationDecisionService = async (appealId, appealStatus, re
 	});
 	const machineAction = mapAppealStatusToStateMachineAction(appealStatus);
 	const appealStatusForMachine = buildAppealCompundStatus(appeal.appealStatus);
-	const nextState = transitionState(appeal.appealType.type, { appealId: appeal.id }, appealStatusForMachine, machineAction);
+	const nextState = transitionState(
+		appeal.appealType.type,
+		{ appealId: appeal.id },
+		appealStatusForMachine,
+		machineAction
+	);
 	const newState = breakUpCompoundStatus(nextState.value, appeal.id);
-	const newData = newState === appealStates.awaiting_lpa_questionnaire ||
+	const newData =
+		newState === appealStates.awaiting_lpa_questionnaire ||
 		// @ts-ignore
-		arrayOfStatusesContainsString(newState, [appealStates.awaiting_lpa_questionnaire]) ?
-		{ startedAt: new Date() } : {};
+		arrayOfStatusesContainsString(newState, [appealStates.awaiting_lpa_questionnaire])
+			? { startedAt: new Date() }
+			: {};
 
 	await appealRepository.updateStatusAndDataById(appeal.id, newState, newData, appeal.appealStatus);
-	await validationDecisionRepository.addNewDecision(appeal.id, appealStatus, reason, descriptionOfDevelopment);
+	await validationDecisionRepository.addNewDecision(
+		appeal.id,
+		appealStatus,
+		reason,
+		descriptionOfDevelopment
+	);
 };
 
 /**
@@ -66,34 +83,48 @@ export const submitValidationDecisionService = async (appealId, appealStatus, re
  * @returns {Promise<string[]>} - A list of local planning department names.
  */
 export const obtainLPAListService = async () => {
-	const { body } = await /** @type {Promise<import('got').Response<LocalPlanningDepartmentResponse>>} */ (
-		got.get('https://services1.arcgis.com/ESMARspQHYMw9BZ9/arcgis/rest/services/LPA_APR_2021_UK_NC/FeatureServer/0/query', {
-			responseType: 'json',
-			searchParams: {
-				where: '1=1',
-				outFields: 'LPA21NM',
-				outSR: 4326,
-				f: 'json'
-			}
-		})
-	);
+	const { body } =
+		await /** @type {Promise<import('got').Response<LocalPlanningDepartmentResponse>>} */ (
+			got.get(
+				'https://services1.arcgis.com/ESMARspQHYMw9BZ9/arcgis/rest/services/LPA_APR_2021_UK_NC/FeatureServer/0/query',
+				{
+					responseType: 'json',
+					searchParams: {
+						where: '1=1',
+						outFields: 'LPA21NM',
+						outSR: 4326,
+						f: 'json'
+					}
+				}
+			)
+		);
 
 	return body.features.map((feature) => feature.attributes.LPA21NM);
 };
 
 // @ts-ignore
-export const updateAppealService = async (appealId, appellantName, address, localPlanningDepartment, planningApplicationReference) => {
+export const updateAppealService = async (
+	appealId,
+	appellantName,
+	address,
+	localPlanningDepartment,
+	planningApplicationReference
+) => {
 	const appeal = await appealRepository.getById(appealId);
 	const data = {
 		...(appellantName && { appellant: { update: { name: appellantName } } }),
-		...(address && { address: { update: {
-			addressLine1: nullIfUndefined(address.AddressLine1),
-			addressLine2: nullIfUndefined(address.AddressLine2),
-			town: nullIfUndefined(address.Town),
-			county: nullIfUndefined(address.County),
-			postcode: nullIfUndefined(address.PostCode)
-		} } }),
-		...(localPlanningDepartment && { localPlanningDepartment } ),
+		...(address && {
+			address: {
+				update: {
+					addressLine1: nullIfUndefined(address.AddressLine1),
+					addressLine2: nullIfUndefined(address.AddressLine2),
+					town: nullIfUndefined(address.Town),
+					county: nullIfUndefined(address.County),
+					postcode: nullIfUndefined(address.PostCode)
+				}
+			}
+		}),
+		...(localPlanningDepartment && { localPlanningDepartment }),
 		...(planningApplicationReference && { planningApplicationReference })
 	};
 

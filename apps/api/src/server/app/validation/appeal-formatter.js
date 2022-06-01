@@ -1,10 +1,12 @@
 import { appealStates } from '../state-machine/transition-state.js';
 import formatAddress from '../utils/address-formatter.js';
-import { arrayOfStatusesContainsString } from '../utils/array-of-statuses-contains-string.js'
+import { arrayOfStatusesContainsString } from '../utils/array-of-statuses-contains-string.js';
 import formatDate from '../utils/date-formatter.js';
 
 const appealAwaitingValidationInfo = (appeal) => {
-	return arrayOfStatusesContainsString(appeal.appealStatus, [appealStates.awaiting_validation_info])
+	return arrayOfStatusesContainsString(appeal.appealStatus, [
+		appealStates.awaiting_validation_info
+	]);
 };
 
 /**
@@ -18,17 +20,36 @@ function mapAppealStatus(appeal) {
 const formatIncompleteReason = (incompleteValidationDecision) => {
 	return {
 		reasons: {
-			...(incompleteValidationDecision.namesDoNotMatch && { namesDoNotMatch: incompleteValidationDecision.namesDoNotMatch }),
-			...(incompleteValidationDecision.sensitiveInfo && { sensitiveInfo: incompleteValidationDecision.sensitiveInfo }),
-			...(incompleteValidationDecision.missingApplicationForm && { missingApplicationForm: incompleteValidationDecision.missingApplicationForm }),
-			...(incompleteValidationDecision.missingDecisionNotice && { missingDecisionNotice: incompleteValidationDecision.missingDecisionNotice }),
-			...(incompleteValidationDecision.missingGroundsForAppeal && { missingGroundsForAppeal: incompleteValidationDecision.missingGroundsForAppeal }),
+			...(incompleteValidationDecision.namesDoNotMatch && {
+				namesDoNotMatch: incompleteValidationDecision.namesDoNotMatch
+			}),
+			...(incompleteValidationDecision.sensitiveInfo && {
+				sensitiveInfo: incompleteValidationDecision.sensitiveInfo
+			}),
+			...(incompleteValidationDecision.missingApplicationForm && {
+				missingApplicationForm: incompleteValidationDecision.missingApplicationForm
+			}),
+			...(incompleteValidationDecision.missingDecisionNotice && {
+				missingDecisionNotice: incompleteValidationDecision.missingDecisionNotice
+			}),
+			...(incompleteValidationDecision.missingGroundsForAppeal && {
+				missingGroundsForAppeal: incompleteValidationDecision.missingGroundsForAppeal
+			}),
 			...(incompleteValidationDecision.missingSupportingDocuments && {
-				missingSupportingDocuments: incompleteValidationDecision.missingSupportingDocuments }),
-			...(incompleteValidationDecision.inflammatoryComments && { inflammatoryComments: incompleteValidationDecision.inflammatoryComments }),
-			...(incompleteValidationDecision.openedInError && { openedInError: incompleteValidationDecision.openedInError }),
-			...(incompleteValidationDecision.wrongAppealTypeUsed && { wrongAppealTypeUsed: incompleteValidationDecision.wrongAppealTypeUsed }),
-			...(incompleteValidationDecision.otherReasons && { otherReasons: incompleteValidationDecision.otherReasons })
+				missingSupportingDocuments: incompleteValidationDecision.missingSupportingDocuments
+			}),
+			...(incompleteValidationDecision.inflammatoryComments && {
+				inflammatoryComments: incompleteValidationDecision.inflammatoryComments
+			}),
+			...(incompleteValidationDecision.openedInError && {
+				openedInError: incompleteValidationDecision.openedInError
+			}),
+			...(incompleteValidationDecision.wrongAppealTypeUsed && {
+				wrongAppealTypeUsed: incompleteValidationDecision.wrongAppealTypeUsed
+			}),
+			...(incompleteValidationDecision.otherReasons && {
+				otherReasons: incompleteValidationDecision.otherReasons
+			})
 		}
 	};
 };
@@ -44,10 +65,12 @@ const appealFormatter = {
 		};
 	},
 	formatAppealForAppealDetails(appeal) {
-		const incompleteValidationDecision = appeal.validationDecision.find((decision) => decision.decision === 'incomplete');
-		const validationDecision = appealAwaitingValidationInfo(appeal) ?
-			formatIncompleteReason(incompleteValidationDecision) :
-			{};
+		const incompleteValidationDecision = appeal.validationDecision.find(
+			(decision) => decision.decision === 'incomplete'
+		);
+		const validationDecision = appealAwaitingValidationInfo(appeal)
+			? formatIncompleteReason(incompleteValidationDecision)
+			: {};
 
 		return {
 			AppealId: appeal.id,

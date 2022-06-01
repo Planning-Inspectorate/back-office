@@ -1,3 +1,5 @@
+import logger from '../../app/lib/logger.js';
+
 const validationActionsStrings = {
 	invalid: 'INVALID',
 	valid: 'VALID',
@@ -26,19 +28,19 @@ const generateValidationStates = (finalState) => {
 		invalid_appeal: {
 			entry: ['notifyAppellantOfInvalidAppeal', 'notifyLPAOfInvalidAppeal'],
 			type: 'final'
-		},
+		}
 	};
 };
 
 const validationActions = {
 	notifyAppellantOfMissingAppealInfo: () => {
-		console.log('Letting Appellant know that info is missing...');
+		logger.info('Letting Appellant know that info is missing...');
 	},
 	notifyAppellantOfInvalidAppeal: () => {
-		console.log('Letting Appellant know that their appeal is invalid...');
+		logger.info('Letting Appellant know that their appeal is invalid...');
 	},
 	notifyLPAOfInvalidAppeal: () => {
-		console.log('Letting LPA know that the appeal is invalid...');
+		logger.info('Letting LPA know that the appeal is invalid...');
 	}
 };
 

@@ -9,13 +9,12 @@ function getVersion(request) {
 	return request.headers['accept-version']?.toString() || config.defaultApiVersion;
 }
 
-
 /** @typedef {Record<number | string, import('express').Router>} ApiVersionConfig */
 /** @type {(config: ApiVersionConfig) => import('express').RequestHandler} */
 export default function versionRoutes(versionToControllerPairs) {
-    return function (request, response, next) {
-        const version = getVersion(request);
+	return function (request, response, next) {
+		const version = getVersion(request);
 
-        return versionToControllerPairs[version](request, response, next);
-    };
+		return versionToControllerPairs[version](request, response, next);
+	};
 }

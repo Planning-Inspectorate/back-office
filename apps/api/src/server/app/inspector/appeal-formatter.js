@@ -1,4 +1,4 @@
-import { filter,isEmpty } from 'lodash-es';
+import { filter, isEmpty } from 'lodash-es';
 import { weeksReceivingDocuments } from '../state-machine/full-planning-appeal.machine.js';
 import { inspectorStatesStrings } from '../state-machine/inspector-states.js';
 import { appealStates } from '../state-machine/transition-state.js';
@@ -11,8 +11,10 @@ import daysBetweenDates from '../utils/days-between-dates.js';
 import { getAppealStatusCreatedAt } from '../utils/get-appeal-status-created-at.js';
 
 const provisionalAppealSiteVisitType = (appeal) => {
-	return (!appeal.lpaQuestionnaire.siteVisibleFromPublicLand || !appeal.appealDetailsFromAppellant.siteVisibleFromPublicLand) ?
-		'access required' : 'unaccompanied';
+	return !appeal.lpaQuestionnaire.siteVisibleFromPublicLand ||
+		!appeal.appealDetailsFromAppellant.siteVisibleFromPublicLand
+		? 'access required'
+		: 'unaccompanied';
 };
 
 /** @typedef {import('@pins/inspector').Appeal} Appeal */
@@ -22,19 +24,30 @@ const provisionalAppealSiteVisitType = (appeal) => {
 const formatStatus = (appealStatuses) => {
 	if (arrayOfStatusesContainsString(appealStatuses, inspectorStatesStrings.site_visit_booked)) return 'booked';
 	if (arrayOfStatusesContainsString(appealStatuses, inspectorStatesStrings.decision_due)) return 'decision due';
-	if (arrayOfStatusesContainsString(appealStatuses, inspectorStatesStrings.site_visit_not_yet_booked) ||
-		arrayOfStatusesContainsString(appealStatuses, 'picked_up')) return 'not yet booked';
+	if (
+		arrayOfStatusesContainsString(
+			appealStatuses,
+			inspectorStatesStrings.site_visit_not_yet_booked
+		) ||
+		arrayOfStatusesContainsString(appealStatuses, 'picked_up')
+	) return 'not yet booked';
 	throw new Error('Unknown status');
 };
 
 const calculateExpectedSiteVisitBookingAvailableDate = (appealStatus) => {
-	if (arrayOfStatusesContainsString(appealStatus, 'available_for_statements')) return addWeeksToDate(getAppealStatusCreatedAt(appealStatus, 'available_for_statements'), weeksReceivingDocuments.statements + weeksReceivingDocuments.finalComments);
-	if (arrayOfStatusesContainsString(appealStatus, 'available_for_final_comments')) return addWeeksToDate(getAppealStatusCreatedAt(appealStatus, 'available_for_final_comments'), weeksReceivingDocuments.finalComments);
+	if (arrayOfStatusesContainsString(appealStatus, 'available_for_statements')) return addWeeksToDate(
+			getAppealStatusCreatedAt(appealStatus, 'available_for_statements'),
+			weeksReceivingDocuments.statements + weeksReceivingDocuments.finalComments
+		);
+	if (arrayOfStatusesContainsString(appealStatus, 'available_for_final_comments')) return addWeeksToDate(
+			getAppealStatusCreatedAt(appealStatus, 'available_for_final_comments'),
+			weeksReceivingDocuments.finalComments
+		);
 	throw new Error('Unknown status');
 };
 
 export const appealFormatter = {
-	formatAppealForAssigningAppeals (appeal, reason) {
+	formatAppealForAssigningAppeals(appeal, reason) {
 		return {
 			appealId: appeal.id,
 			reference: appeal.reference,
@@ -43,10 +56,10 @@ export const appealFormatter = {
 			provisionalVisitType: provisionalAppealSiteVisitType(appeal),
 			appealAge: daysBetweenDates(appeal.startedAt, new Date()),
 			appealSite: formatAddressLowerCase(appeal.address),
-			...(typeof reason !== "undefined" && { reason })
+			...(typeof reason !== 'undefined' && { reason })
 		};
 	},
-	formatAppealForAllAppeals (appeal) {
+	formatAppealForAllAppeals(appeal) {
 		return {
 			appealId: appeal.id,
 			appealAge: daysBetweenDates(appeal.startedAt, new Date()),
@@ -56,7 +69,9 @@ export const appealFormatter = {
 			...(!isEmpty(appeal.siteVisit) && { siteVisitDate: formatDate(appeal.siteVisit.visitDate) }),
 			...(!isEmpty(appeal.siteVisit) && { siteVisitSlot: appeal.siteVisit.visitSlot }),
 			...(!isEmpty(appeal.siteVisit) && { siteVisitType: appeal.siteVisit.visitType }),
-			...(isEmpty(appeal.siteVisit) && { provisionalVisitType: provisionalAppealSiteVisitType(appeal) }),
+			...(isEmpty(appeal.siteVisit) && {
+				provisionalVisitType: provisionalAppealSiteVisitType(appeal)
+			}),
 			status: formatStatus(appeal.appealStatus)
 		};
 	},
@@ -71,9 +86,12 @@ export const appealFormatter = {
 			appealAge: daysBetweenDates(appeal.startedAt, new Date())
 		};
 	},
-	formatAppealForAppealDetails (appeal) {
-		const completeValidationDecision = filter(appeal.validationDecision, { decision: 'complete' })[0];
-		const isAvailableForSiteBooking = buildAppealCompundStatus(appeal.appealStatus) === appealStates.site_visit_not_yet_booked;
+	formatAppealForAppealDetails(appeal) {
+		const completeValidationDecision = filter(appeal.validationDecision, {
+			decision: 'complete'
+		})[0];
+		const isAvailableForSiteBooking =
+			buildAppealCompundStatus(appeal.appealStatus) === appealStates.site_visit_not_yet_booked;
 		const isPastBooking = [
 			appealStates.site_visit_booked,
 			appealStates.decision_due,
@@ -86,9 +104,13 @@ export const appealFormatter = {
 			provisionalSiteVisitType: provisionalAppealSiteVisitType(appeal),
 			status: formatStatus(appeal.appealStatus),
 			availableForSiteVisitBooking: isAvailableForSiteBooking,
-			...(!isAvailableForSiteBooking && !isPastBooking && {
-				expectedSiteVisitBookingAvailableFrom: formatDate(calculateExpectedSiteVisitBookingAvailableDate(appeal.appealStatus), false)
-			}),
+			...(!isAvailableForSiteBooking &&
+				!isPastBooking && {
+					expectedSiteVisitBookingAvailableFrom: formatDate(
+						calculateExpectedSiteVisitBookingAvailableDate(appeal.appealStatus),
+						false
+					)
+				}),
 			appellantName: appeal.appellant.name,
 			agentName: appeal.appellant.agentName,
 			email: appeal.appellant.email,
@@ -99,33 +121,44 @@ export const appealFormatter = {
 			affectsListedBuilding: appeal.lpaQuestionnaire.affectsListedBuilding,
 			inGreenBelt: appeal.lpaQuestionnaire.inGreenBelt,
 			inOrNearConservationArea: appeal.lpaQuestionnaire.inOrNearConservationArea,
-			emergingDevelopmentPlanOrNeighbourhoodPlan: appeal.lpaQuestionnaire.emergingDevelopmentPlanOrNeighbourhoodPlan,
-			emergingDevelopmentPlanOrNeighbourhoodPlanDescription: appeal.lpaQuestionnaire.emergingDevelopmentPlanOrNeighbourhoodPlanDescription,
+			emergingDevelopmentPlanOrNeighbourhoodPlan:
+				appeal.lpaQuestionnaire.emergingDevelopmentPlanOrNeighbourhoodPlan,
+			emergingDevelopmentPlanOrNeighbourhoodPlanDescription:
+				appeal.lpaQuestionnaire.emergingDevelopmentPlanOrNeighbourhoodPlanDescription,
 			address: formatAddressLowerCase(appeal.address),
 			localPlanningDepartment: appeal.localPlanningDepartment,
-			...(appeal.siteVisit && { bookedSiteVisit: {
-				visitDate: formatDate(appeal.siteVisit.visitDate, false),
-				visitSlot: appeal.siteVisit.visitSlot,
-				visitType: appeal.siteVisit.visitType
-			} }),
+			...(appeal.siteVisit && {
+				bookedSiteVisit: {
+					visitDate: formatDate(appeal.siteVisit.visitDate, false),
+					visitSlot: appeal.siteVisit.visitSlot,
+					visitType: appeal.siteVisit.visitType
+				}
+			}),
 			lpaAnswers: {
 				canBeSeenFromPublic: appeal.lpaQuestionnaire.siteVisibleFromPublicLand,
-				canBeSeenFromPublicDescription: appeal.lpaQuestionnaire.siteVisibleFromPublicLandDescription,
+				canBeSeenFromPublicDescription:
+					appeal.lpaQuestionnaire.siteVisibleFromPublicLandDescription,
 				inspectorNeedsToEnterSite: appeal.lpaQuestionnaire.doesInspectorNeedToEnterSite,
-				inspectorNeedsToEnterSiteDescription: appeal.lpaQuestionnaire.doesInspectorNeedToEnterSiteDescription,
-				inspectorNeedsAccessToNeighboursLand: appeal.lpaQuestionnaire.doesInspectorNeedToAccessNeighboursLand,
-				inspectorNeedsAccessToNeighboursLandDescription: appeal.lpaQuestionnaire.doesInspectorNeedToAccessNeighboursLandDescription,
+				inspectorNeedsToEnterSiteDescription:
+					appeal.lpaQuestionnaire.doesInspectorNeedToEnterSiteDescription,
+				inspectorNeedsAccessToNeighboursLand:
+					appeal.lpaQuestionnaire.doesInspectorNeedToAccessNeighboursLand,
+				inspectorNeedsAccessToNeighboursLandDescription:
+					appeal.lpaQuestionnaire.doesInspectorNeedToAccessNeighboursLandDescription,
 				healthAndSafetyIssues: appeal.lpaQuestionnaire.healthAndSafetyIssues,
 				healthAndSafetyIssuesDescription: appeal.lpaQuestionnaire.healthAndSafetyIssuesDescription,
 				appealsInImmediateArea: appeal.lpaQuestionnaire.appealsInImmediateAreaBeingConsidered
 			},
 			appellantAnswers: {
 				canBeSeenFromPublic: appeal.appealDetailsFromAppellant.siteVisibleFromPublicLand,
-				canBeSeenFromPublicDescription: appeal.appealDetailsFromAppellant.siteVisibleFromPublicLandDescription,
+				canBeSeenFromPublicDescription:
+					appeal.appealDetailsFromAppellant.siteVisibleFromPublicLandDescription,
 				appellantOwnsWholeSite: appeal.appealDetailsFromAppellant.appellantOwnsWholeSite,
-				appellantOwnsWholeSiteDescription: appeal.appealDetailsFromAppellant.appellantOwnsWholeSiteDescription,
+				appellantOwnsWholeSiteDescription:
+					appeal.appealDetailsFromAppellant.appellantOwnsWholeSiteDescription,
 				healthAndSafetyIssues: appeal.appealDetailsFromAppellant.healthAndSafetyIssues,
-				healthAndSafetyIssuesDescription: appeal.appealDetailsFromAppellant.healthAndSafetyIssuesDescription
+				healthAndSafetyIssuesDescription:
+					appeal.appealDetailsFromAppellant.healthAndSafetyIssuesDescription
 			},
 			Documents: [
 				{
@@ -205,6 +238,5 @@ export const appealFormatter = {
 				}
 			]
 		};
-	},
-
+	}
 };

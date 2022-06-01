@@ -9,10 +9,12 @@ const request = supertest(app);
 const appeal1 = {
 	id: 1,
 	reference: 'APP/Q9999/D/21/1345264',
-	appealStatus: [{
-		status: 'received_appeal',
-		valid: true
-	}],
+	appealStatus: [
+		{
+			status: 'received_appeal',
+			valid: true
+		}
+	],
 	createdAt: new Date(2022, 1, 23),
 	addressId: 1,
 	localPlanningDepartment: 'Maidstone Borough Council',
@@ -30,10 +32,12 @@ const appeal1 = {
 const appeal2 = {
 	id: 2,
 	reference: 'APP/Q9999/D/21/5463281',
-	appealStatus: [{
-		status: 'awaiting_validation_info',
-		valid: true
-	}],
+	appealStatus: [
+		{
+			status: 'awaiting_validation_info',
+			valid: true
+		}
+	],
 	createdAt: new Date(2022, 1, 25),
 	addressId: 2,
 	address: {
@@ -54,7 +58,9 @@ class MockDatabaseClass {
 }
 
 test('gets all new and incomplete validation appeals', async (t) => {
-	sinon.stub(DatabaseFactory, 'getInstance').callsFake((arguments_) => new MockDatabaseClass(arguments_));
+	sinon
+		.stub(DatabaseFactory, 'getInstance')
+		.callsFake((arguments_) => new MockDatabaseClass(arguments_));
 
 	const resp = await request.get('/validation');
 

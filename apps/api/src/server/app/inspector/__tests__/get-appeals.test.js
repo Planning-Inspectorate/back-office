@@ -9,10 +9,12 @@ const request = supertest(app);
 const appeal1 = {
 	id: 1,
 	reference: 'APP/Q9999/D/21/1345264',
-	appealStatus: [{
-		status: 'decision_due',
-		valid: true
-	}],
+	appealStatus: [
+		{
+			status: 'decision_due',
+			valid: true
+		}
+	],
 	appealType: {
 		shorthand: 'HAS'
 	},
@@ -20,7 +22,7 @@ const appeal1 = {
 	localPlanningDepartment: 'Maidstone Borough Council',
 	planningApplicationReference: '48269/APP/2021/1482',
 	appellant: {
-		name: 'Lee Thornton',
+		name: 'Lee Thornton'
 	},
 	startedAt: new Date(2022, 1, 25),
 	address: {
@@ -41,10 +43,12 @@ const appeal1 = {
 const appeal2 = {
 	id: 2,
 	reference: 'APP/Q9999/D/21/5463281',
-	appealStatus: [{
-		status: 'site_visit_booked',
-		valid: true
-	}],
+	appealStatus: [
+		{
+			status: 'site_visit_booked',
+			valid: true
+		}
+	],
 	appealType: {
 		shorthand: 'HAS'
 	},
@@ -68,10 +72,12 @@ const appeal2 = {
 const appeal3 = {
 	id: 3,
 	reference: 'APP/Q9999/D/21/5463281',
-	appealStatus: [{
-		status: 'site_visit_not_yet_booked',
-		valid: true
-	}],
+	appealStatus: [
+		{
+			status: 'site_visit_not_yet_booked',
+			valid: true
+		}
+	],
 	appealType: {
 		shorthand: 'HAS'
 	},
@@ -94,10 +100,12 @@ const appeal3 = {
 const appeal4 = {
 	id: 4,
 	reference: 'APP/Q9999/D/21/5463281',
-	appealStatus: [{
-		status: 'site_visit_not_yet_booked',
-		valid: true
-	}],
+	appealStatus: [
+		{
+			status: 'site_visit_not_yet_booked',
+			valid: true
+		}
+	],
 	appealType: {
 		shorthand: 'FPA'
 	},
@@ -120,10 +128,12 @@ const appeal4 = {
 const appeal5 = {
 	id: 5,
 	reference: 'APP/Q9999/D/21/5463281',
-	appealStatus: [{
-		status: 'site_visit_not_yet_booked',
-		valid: true
-	}],
+	appealStatus: [
+		{
+			status: 'site_visit_not_yet_booked',
+			valid: true
+		}
+	],
 	appealType: {
 		shorthand: 'FPA'
 	},
@@ -156,7 +166,9 @@ class MockDatabaseClass {
 }
 
 test('gets all appeals assigned to inspector', async (t) => {
-	sinon.stub(DatabaseFactory, 'getInstance').callsFake((arguments_) => new MockDatabaseClass(arguments_));
+	sinon
+		.stub(DatabaseFactory, 'getInstance')
+		.callsFake((arguments_) => new MockDatabaseClass(arguments_));
 
 	sinon.useFakeTimers({ now: 1_649_319_144_000 });
 
@@ -172,7 +184,7 @@ test('gets all appeals assigned to inspector', async (t) => {
 				addressLine1: '96 The Avenue',
 				county: 'Kent',
 				postCode: 'MD21 5XY',
-				town: 'Maidstone',
+				town: 'Maidstone'
 			},
 			appealAge: 41,
 			siteVisitType: 'unaccompanied',
@@ -187,13 +199,13 @@ test('gets all appeals assigned to inspector', async (t) => {
 			appealSite: {
 				addressLine1: '55 Butcher Street',
 				postCode: 'S63 0RB',
-				town: 'Thurnscoe',
+				town: 'Thurnscoe'
 			},
 			appealAge: 22,
 			siteVisitType: 'accompanied',
 			appealType: 'HAS',
 			siteVisitDate: '10 Jan 2022',
-			siteVisitSlot: '10am - 11am',
+			siteVisitSlot: '10am - 11am'
 		},
 		{
 			appealAge: 22,
@@ -201,7 +213,7 @@ test('gets all appeals assigned to inspector', async (t) => {
 			appealSite: {
 				addressLine1: '55 Butcher Street',
 				postCode: 'S63 0RB',
-				town: 'Thurnscoe',
+				town: 'Thurnscoe'
 			},
 			appealType: 'HAS',
 			reference: 'APP/Q9999/D/21/5463281',
@@ -214,7 +226,7 @@ test('gets all appeals assigned to inspector', async (t) => {
 			appealSite: {
 				addressLine1: '55 Butcher Street',
 				postCode: 'S63 0RB',
-				town: 'Thurnscoe',
+				town: 'Thurnscoe'
 			},
 			appealType: 'FPA',
 			reference: 'APP/Q9999/D/21/5463281',
@@ -227,7 +239,7 @@ test('gets all appeals assigned to inspector', async (t) => {
 			appealSite: {
 				addressLine1: '55 Butcher Street',
 				postCode: 'S63 0RB',
-				town: 'Thurnscoe',
+				town: 'Thurnscoe'
 			},
 			appealType: 'FPA',
 			reference: 'APP/Q9999/D/21/5463281',
@@ -240,12 +252,7 @@ test('gets all appeals assigned to inspector', async (t) => {
 			appealStatus: {
 				some: {
 					status: {
-						in: [
-							'site_visit_not_yet_booked',
-							'site_visit_booked',
-							'decision_due',
-							'picked_up'
-						]
+						in: ['site_visit_not_yet_booked', 'site_visit_booked', 'decision_due', 'picked_up']
 					},
 					valid: true
 				}

@@ -93,7 +93,10 @@ test('succeeds with a 200 when issuing a decision', async (t) => {
 });
 
 test('fails with a 401 status when no `userId` is present', async (t) => {
-	const response = await request.post('/inspector/1/issue-decision').attach('decisionLetter', pathToFile).field('outcome', 'allowed');
+	const response = await request
+		.post('/inspector/1/issue-decision')
+		.attach('decisionLetter', pathToFile)
+		.field('outcome', 'allowed');
 
 	t.is(response.status, 401);
 	t.deepEqual(response.body, {
@@ -134,7 +137,11 @@ test('fails with a 409 status when the appeal in a state that cannot be be advan
 });
 
 test('fails with a 400 status when an invalid `outcome` is present', async (t) => {
-	const response = await request.post('/inspector/1/issue-decision').set('userId', '100').attach('decisionLetter', pathToFile).field('outcome', '*');
+	const response = await request
+		.post('/inspector/1/issue-decision')
+		.set('userId', '100')
+		.attach('decisionLetter', pathToFile)
+		.field('outcome', '*');
 
 	t.is(response.status, 400);
 	t.deepEqual(response.body, {
@@ -145,7 +152,10 @@ test('fails with a 400 status when an invalid `outcome` is present', async (t) =
 });
 
 test('fails with a 400 status when the `decisionLetter` is missing', async (t) => {
-	const response = await request.post('/inspector/1/issue-decision').set('userId', '100').field('outcome', 'allowed');
+	const response = await request
+		.post('/inspector/1/issue-decision')
+		.set('userId', '100')
+		.field('outcome', 'allowed');
 
 	t.is(response.status, 400);
 	t.deepEqual(response.body, {

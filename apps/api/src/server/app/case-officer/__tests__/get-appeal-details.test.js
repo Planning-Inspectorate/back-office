@@ -7,15 +7,28 @@ import { appealFactoryForTests } from '../../utils/appeal-factory-for-tests.js';
 
 const request = supertest(app);
 
-const appeal1 = appealFactoryForTests(1, [{
-	status: 'received_lpa_questionnaire',
-	valid: true,
-}], 'HAS', { lpaQuestionnaire: true });
+const appeal1 = appealFactoryForTests(
+	1,
+	[
+		{
+			status: 'received_lpa_questionnaire',
+			valid: true
+		}
+	],
+	'HAS',
+	{ lpaQuestionnaire: true }
+);
 
-const appeal2 = appealFactoryForTests(2, [{
-	status: 'awaiting_lpa_questionnaire',
-	valid: true,
-}], 'HAS');
+const appeal2 = appealFactoryForTests(
+	2,
+	[
+		{
+			status: 'awaiting_lpa_questionnaire',
+			valid: true
+		}
+	],
+	'HAS'
+);
 
 const includeDetails = {
 	address: true,
@@ -37,15 +50,19 @@ const includeDetails = {
 
 const includingDetailsForValidtion = {
 	appealStatus: { where: { valid: true } },
-	appealType: true,
+	appealType: true
 };
 
 const findUniqueStub = sinon.stub();
 
 findUniqueStub.withArgs({ where: { id: 1 }, include: includeDetails }).returns(appeal1);
 findUniqueStub.withArgs({ where: { id: 2 }, include: includeDetails }).returns(appeal2);
-findUniqueStub.withArgs({ where: { id: 1 }, include: includingDetailsForValidtion }).returns(appeal1);
-findUniqueStub.withArgs({ where: { id: 2 }, include: includingDetailsForValidtion }).returns(appeal2);
+findUniqueStub
+	.withArgs({ where: { id: 1 }, include: includingDetailsForValidtion })
+	.returns(appeal1);
+findUniqueStub
+	.withArgs({ where: { id: 2 }, include: includingDetailsForValidtion })
+	.returns(appeal2);
 
 const listOfDocuments = [
 	{
@@ -137,7 +154,9 @@ class MockDatabaseClass {
 
 test.before('sets up mocking of database', () => {
 	// @ts-ignore
-	sinon.stub(DatabaseFactory, 'getInstance').callsFake((arguments_) => new MockDatabaseClass(arguments_));
+	sinon
+		.stub(DatabaseFactory, 'getInstance')
+		.callsFake((arguments_) => new MockDatabaseClass(arguments_));
 });
 
 test('gets the appeals detailed information with received questionnaires', async (t) => {
@@ -170,7 +189,7 @@ test('unable to retrieve details for an appeal which has yet to receive the ques
 	t.is(resp.status, 409);
 	t.deepEqual(resp.body, {
 		errors: {
-			appeal: 'Appeal is in an invalid state',
+			appeal: 'Appeal is in an invalid state'
 		}
 	});
 });

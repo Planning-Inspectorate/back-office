@@ -9,11 +9,13 @@ const request = supertest(app);
 const appeal10 = {
 	id: 10,
 	reference: 'APP/Q9999/D/21/1345264',
-	appealStatus: [{
-		id: 1,
-		status: 'received_appeal',
-		valid: true
-	}],
+	appealStatus: [
+		{
+			id: 1,
+			status: 'received_appeal',
+			valid: true
+		}
+	],
 	appealType: {
 		type: 'household'
 	},
@@ -29,11 +31,13 @@ const appeal10 = {
 const appeal11 = {
 	id: 11,
 	reference: 'APP/Q9999/D/21/1087562',
-	appealStatus: [{
-		id: 2,
-		status: 'received_lpa_questionnaire',
-		valid: true
-	}],
+	appealStatus: [
+		{
+			id: 2,
+			status: 'received_lpa_questionnaire',
+			valid: true
+		}
+	],
 	appealType: {
 		type: 'household'
 	},
@@ -57,12 +61,12 @@ const includeForValidation = {
 
 const getAppealByIdStub = sinon.stub();
 
-getAppealByIdStub.withArgs({ where: { id: 11 },	include: includeForValidation }).returns(appeal11);
-getAppealByIdStub.withArgs({ where: { id: 10 },	include: includeForValidation }).returns(appeal10);
+getAppealByIdStub.withArgs({ where: { id: 11 }, include: includeForValidation }).returns(appeal11);
+getAppealByIdStub.withArgs({ where: { id: 10 }, include: includeForValidation }).returns(appeal10);
 
 const addReviewStub = sinon.stub();
 
-const newReview = {	reason: {} };
+const newReview = { reason: {} };
 
 const updateManyAppealStatusStub = sinon.stub();
 const createAppealStatusStub = sinon.stub();
@@ -88,7 +92,9 @@ class MockDatabaseClass {
 }
 
 test.before('sets up mocking of database', () => {
-	sinon.stub(DatabaseFactory, 'getInstance').callsFake((arguments_) => new MockDatabaseClass(arguments_));
+	sinon
+		.stub(DatabaseFactory, 'getInstance')
+		.callsFake((arguments_) => new MockDatabaseClass(arguments_));
 });
 
 test('should submit confirmation of an incomplete outcome of LPA questionnaire', async (t) => {
@@ -227,7 +233,7 @@ test('should submit confirmation of the outcome of LPA questionnaire', async (t)
 	});
 });
 
-test('should not be able to submit review as \'incomplete\' if there is no description being sent', async (t) => {
+test("should not be able to submit review as 'incomplete' if there is no description being sent", async (t) => {
 	const resp = await request.post('/case-officer/11/confirm').send({
 		reason: {
 			applicationPlanningOfficersReportMissingOrIncorrect: false,
@@ -247,7 +253,7 @@ test('should not be able to submit review as \'incomplete\' if there is no descr
 	t.is(resp.status, 409);
 	t.deepEqual(resp.body, {
 		errors: {
-			status: 'Incomplete Review requires a description',
+			status: 'Incomplete Review requires a description'
 		}
 	});
 });
@@ -273,7 +279,7 @@ test('should not be able to submit review as \'incomplete\' if some unexpected b
 	t.is(resp.status, 409);
 	t.deepEqual(resp.body, {
 		errors: {
-			status: 'Incomplete Review requires a known description',
+			status: 'Incomplete Review requires a known description'
 		}
 	});
 });
@@ -298,7 +304,7 @@ test('should not be able to submit review if appeal is not in a state ready to r
 	t.is(resp.status, 409);
 	t.deepEqual(resp.body, {
 		errors: {
-			appeal: 'Appeal is in an invalid state',
+			appeal: 'Appeal is in an invalid state'
 		}
 	});
 });

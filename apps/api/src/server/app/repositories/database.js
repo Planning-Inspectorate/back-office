@@ -1,7 +1,7 @@
 import Prisma from '@prisma/client';
 const { PrismaClient } = Prisma;
 
-const DatabaseFactory = (function(){
+const DatabaseFactory = (function () {
 	/**
 	 *
 	 */
@@ -12,8 +12,8 @@ const DatabaseFactory = (function(){
 	let instance;
 
 	return {
-		getInstance(){
-			if (typeof(instance) === 'undefined') {
+		getInstance() {
+			if (typeof instance === 'undefined') {
 				instance = new DatabaseClass();
 			}
 			return instance;

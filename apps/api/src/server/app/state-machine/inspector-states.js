@@ -3,10 +3,7 @@ import inspectorActionsService from './inspector.actions.js';
 
 /** @typedef {import('@pins/api').Schema.AppealStatusType} AppealStatusType */
 
-const inspectionTypesThatSendEmail = new Set([
-	'accompanied',
-	'access required'
-]);
+const inspectionTypesThatSendEmail = new Set(['accompanied', 'access required']);
 
 const inspectorActions = {
 	async notifyAppellantOfBookedSiteVisit(context) {
@@ -15,30 +12,33 @@ const inspectorActions = {
 		}
 	},
 	async notifyAppellantOfDecision(context) {
-		await inspectorActionsService.sendEmailToLPAAndAppellantWithDeciion(context.appealId, context.decision);
+		await inspectorActionsService.sendEmailToLPAAndAppellantWithDeciion(
+			context.appealId,
+			context.decision
+		);
 	}
 };
 
 const inspectorBookingStates = {
 	site_visit_not_yet_booked: {
 		on: {
-			BOOK: 'site_visit_booked',
-		},
+			BOOK: 'site_visit_booked'
+		}
 	},
 	site_visit_booked: {
 		entry: ['notifyAppellantOfBookedSiteVisit'],
 		on: {
-			BOOKING_PASSED: 'decision_due',
-		},
+			BOOKING_PASSED: 'decision_due'
+		}
 	},
 	decision_due: {
 		on: {
-			DECIDE: 'appeal_decided',
-		},
+			DECIDE: 'appeal_decided'
+		}
 	},
 	appeal_decided: {
-		entry: ['notifyAppellantOfDecision'],
-	},
+		entry: ['notifyAppellantOfDecision']
+	}
 };
 
 const generateInspectorPickupStates = (stateAfterPickup, additionalStates) => {
@@ -52,7 +52,18 @@ const generateInspectorPickupStates = (stateAfterPickup, additionalStates) => {
 	};
 };
 
-const inspectorStates = generateInspectorPickupStates('site_visit_not_yet_booked', inspectorBookingStates)
-const inspectorStatesStrings = /** @type {Record<AppealStatusType, AppealStatusType>} */ (mapObjectKeysToStrings(inspectorStates));
+const inspectorStates = generateInspectorPickupStates(
+	'site_visit_not_yet_booked',
+	inspectorBookingStates
+);
+const inspectorStatesStrings = /** @type {Record<AppealStatusType, AppealStatusType>} */ (
+	mapObjectKeysToStrings(inspectorStates)
+);
 
-export { inspectorStates, inspectorStatesStrings, inspectorActions, inspectorBookingStates, generateInspectorPickupStates };
+export {
+	inspectorStates,
+	inspectorStatesStrings,
+	inspectorActions,
+	inspectorBookingStates,
+	generateInspectorPickupStates
+};

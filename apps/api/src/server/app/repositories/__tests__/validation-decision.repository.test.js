@@ -27,11 +27,15 @@ class MockDatabaseClass {
 }
 
 test.before('sets up Database connection mock', () => {
-	sinon.stub(DatabaseFactory, 'getInstance').callsFake((arguments_) => new MockDatabaseClass(arguments_));
+	sinon
+		.stub(DatabaseFactory, 'getInstance')
+		.callsFake((arguments_) => new MockDatabaseClass(arguments_));
 });
 
-test('adds new Validation decision', async(t) => {
-	const decision = await validationDecisionRepository.addNewDecision(1, 'incomplete', { 	namesDoNotMatch: true });
+test('adds new Validation decision', async (t) => {
+	const decision = await validationDecisionRepository.addNewDecision(1, 'incomplete', {
+		namesDoNotMatch: true
+	});
 
 	t.deepEqual(decision, newDecision);
 	sinon.assert.calledWith(addNewDecision, {

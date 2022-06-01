@@ -7,8 +7,7 @@ import formatDate from '../utils/date-formatter.js';
 import { getAppealStatusCreatedAt } from '../utils/get-appeal-status-created-at.js';
 import formatReviewQuestionnaire from '../utils/review-questionnaire-formatter.js';
 
-
-const add2Weeks = ( date) => {
+const add2Weeks = (date) => {
 	const newDate = new Date(date.valueOf());
 
 	newDate.setDate(newDate.getDate() + 14);
@@ -32,8 +31,14 @@ function mapAppealStatus(appealStatuses) {
  * @returns {string} reformatted appeal status
  */
 function mapAppealParallelStatuses(appealStatusesParallel) {
-	if (arrayOfStatusesContainsString(appealStatusesParallel,[appealStates.available_for_statements])) return 'available_for_statements';
-	if (arrayOfStatusesContainsString(appealStatusesParallel, [appealStates.available_for_final_comments])) return 'available_for_final_comments';
+	if (
+		arrayOfStatusesContainsString(appealStatusesParallel, [appealStates.available_for_statements])
+	) return 'available_for_statements';
+	if (
+		arrayOfStatusesContainsString(appealStatusesParallel, [
+			appealStates.available_for_final_comments
+		])
+	) return 'available_for_final_comments';
 	return '';
 }
 
@@ -42,7 +47,7 @@ const appealFormatter = {
 	 * @param {{ appealStatus: object; id: any; reference: any; address: object; startedAt: any; }} appeal
 	 * @returns {object}
 	 */
-	formatAppealForAllAppeals (appeal) {
+	formatAppealForAllAppeals(appeal) {
 		const appealStatus = mapAppealStatus(appeal.appealStatus);
 
 		return {
@@ -57,7 +62,7 @@ const appealFormatter = {
 	 * @param {{ appealStatus: object; id: any; reference: any; address: object; startedAt: any; }} appeal
 	 * @returns {{AppealId: number; AppealReference: string; StatementsAndFinalCommentsStatus: string; AppealSite: object; QuestionnaireDueDate: any}}
 	 */
-	formatAppealForParallelStates (appeal) {
+	formatAppealForParallelStates(appeal) {
 		const appealStatusParallel = mapAppealParallelStatuses(appeal.appealStatus);
 
 		return {
@@ -76,10 +81,13 @@ const appealFormatter = {
 		return {
 			AppealId: appeal.id,
 			AppealReference: appeal.reference,
-			canUploadStatementsUntil: formatDate(addWeeksToDate(
-				getAppealStatusCreatedAt(appeal.appealStatus, appealStates.available_for_statements),
-				weeksReceivingDocuments.statements
-			), false)
+			canUploadStatementsUntil: formatDate(
+				addWeeksToDate(
+					getAppealStatusCreatedAt(appeal.appealStatus, appealStates.available_for_statements),
+					weeksReceivingDocuments.statements
+				),
+				false
+			)
 		};
 	},
 	/**
@@ -90,17 +98,20 @@ const appealFormatter = {
 		return {
 			AppealId: appeal.id,
 			AppealReference: appeal.reference,
-			canUploadFinalCommentsUntil: formatDate(addWeeksToDate(
-				getAppealStatusCreatedAt(appeal.appealStatus, appealStates.available_for_final_comments),
-				weeksReceivingDocuments.finalComments
-			), false)
+			canUploadFinalCommentsUntil: formatDate(
+				addWeeksToDate(
+					getAppealStatusCreatedAt(appeal.appealStatus, appealStates.available_for_final_comments),
+					weeksReceivingDocuments.finalComments
+				),
+				false
+			)
 		};
 	},
 	/**
 	 * @param {{ id: any; reference: any; localPlanningDepartment: any; planningApplicationReference: any; address: object; lpaQuestionnaire: { listedBuildingDescription: any; }; reviewQuestionnaire: import("../utils/review-questionnaire-formatter.js").ReviewQuestionnare[]; }} appeal
 	 * @returns {object}
 	 */
-	formatAppealForAppealDetails (appeal) {
+	formatAppealForAppealDetails(appeal) {
 		return {
 			AppealId: appeal.id,
 			AppealReference: appeal.reference,
@@ -109,9 +120,13 @@ const appealFormatter = {
 			AppealSite: formatAddress(appeal.address),
 			AppealSiteNearConservationArea: false,
 			WouldDevelopmentAffectSettingOfListedBuilding: false,
-			...(appeal.lpaQuestionnaire && { ListedBuildingDesc: appeal.lpaQuestionnaire.listedBuildingDescription || '' }),
+			...(appeal.lpaQuestionnaire && {
+				ListedBuildingDesc: appeal.lpaQuestionnaire.listedBuildingDescription || ''
+			}),
 			...(appeal.reviewQuestionnaire &&
-				appeal.reviewQuestionnaire[0] && { reviewQuestionnaire: formatReviewQuestionnaire(appeal.reviewQuestionnaire[0]) }),
+				appeal.reviewQuestionnaire[0] && {
+					reviewQuestionnaire: formatReviewQuestionnaire(appeal.reviewQuestionnaire[0])
+				}),
 			Documents: [
 				{
 					Type: 'planning application form',

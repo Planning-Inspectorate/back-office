@@ -14,17 +14,25 @@ export const getAppeals = async (_request, response) => {
 		appealStates.awaiting_lpa_questionnaire,
 		appealStates.overdue_lpa_questionnaire,
 		appealStates.received_lpa_questionnaire,
-		appealStates.incomplete_lpa_questionnaire,
+		appealStates.incomplete_lpa_questionnaire
 	];
 	const caseOfficerStatusesParallel = [
 		appealStates.available_for_statements,
 		appealStates.available_for_final_comments
 	];
 	const appeals = await appealRepository.getByStatuses(caseOfficerStatuses, true, true);
-	const formattedAppeals = appeals.map((appeal) => appealFormatter.formatAppealForAllAppeals(appeal));
+	const formattedAppeals = appeals.map((appeal) =>
+		appealFormatter.formatAppealForAllAppeals(appeal)
+	);
 
-	const appealsParallel = await appealRepository.getByStatuses(caseOfficerStatusesParallel, true, true);
-	const formattedParallelStateAppeals = appealsParallel.map((appealParallelStates) => appealFormatter.formatAppealForParallelStates(appealParallelStates));
+	const appealsParallel = await appealRepository.getByStatuses(
+		caseOfficerStatusesParallel,
+		true,
+		true
+	);
+	const formattedParallelStateAppeals = appealsParallel.map((appealParallelStates) =>
+		appealFormatter.formatAppealForParallelStates(appealParallelStates)
+	);
 
 	const allAppeals = [...formattedAppeals, ...formattedParallelStateAppeals];
 
@@ -51,13 +59,20 @@ export const getAppealDetailsForStatementsAndComments = async (request, response
 		AppealReference: appeal.reference,
 		AppealSite: formatAddress(appeal.address),
 		LocalPlanningDepartment: appeal.localPlanningDepartment,
-		acceptingStatements: arrayOfStatusesContainsString(appeal.appealStatus, [appealStates.available_for_statements]),
-		acceptingFinalComments: arrayOfStatusesContainsString(appeal.appealStatus, [appealStates.available_for_final_comments])
+		acceptingStatements: arrayOfStatusesContainsString(appeal.appealStatus, [
+			appealStates.available_for_statements
+		]),
+		acceptingFinalComments: arrayOfStatusesContainsString(appeal.appealStatus, [
+			appealStates.available_for_final_comments
+		])
 	});
 };
 
 export const confirmLPAQuestionnaire = async (request, response) => {
-	await caseOfficerService.confirmLPAQuestionnaireService(request.body.reason, request.params.appealId);
+	await caseOfficerService.confirmLPAQuestionnaireService(
+		request.body.reason,
+		request.params.appealId
+	);
 	return response.send();
 };
 

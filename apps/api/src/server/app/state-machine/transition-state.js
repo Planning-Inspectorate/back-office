@@ -1,5 +1,8 @@
 import { interpret } from 'xstate';
-import { createFullPlanningAppealMachine, fullPlanningStates } from './full-planning-appeal.machine.js';
+import {
+	createFullPlanningAppealMachine,
+	fullPlanningStates
+} from './full-planning-appeal.machine.js';
 import { createHouseholpAppealMachine, householdStates } from './household-appeal.machine.js';
 
 /**
@@ -21,9 +24,14 @@ export class TransitionStateError extends Error {
 }
 
 export const transitionState = (appealType, context, status, machineAction, throwError = false) => {
-	const stateMachine = appealType === 'household' ? createHouseholpAppealMachine(context)
-		: (appealType === 'full planning' ? createFullPlanningAppealMachine(context)
-			: (function(){ throw new TransitionStateError(`Unknown Appeal Type ${appealType}`) }()));
+	const stateMachine =
+		appealType === 'household'
+			? createHouseholpAppealMachine(context)
+			: (appealType === 'full planning'
+			? createFullPlanningAppealMachine(context)
+			: (function () {
+					throw new TransitionStateError(`Unknown Appeal Type ${appealType}`);
+				}));
 
 	const service = interpret(stateMachine);
 

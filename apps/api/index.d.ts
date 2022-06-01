@@ -1,3 +1,3 @@
 import * as Schema from './prisma/schema';
 
-export { Schema }
+export { Schema };

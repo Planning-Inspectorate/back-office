@@ -1,13 +1,13 @@
 import DatabaseFactory from './database.js';
 
-const newReviewRepository = (function() {
+const newReviewRepository = (function () {
 	/**
 	 * Retun the connection pool of database connections
 	 * TODO: This should be a utility function part of the main db lib.
 	 *
 	 * @returns {object} connection to database
 	 */
-	function getPool () {
+	function getPool() {
 		return DatabaseFactory.getInstance().pool;
 	}
 
@@ -20,7 +20,7 @@ const newReviewRepository = (function() {
 					...reason
 				}
 			});
-		},
+		}
 	};
 }());
 

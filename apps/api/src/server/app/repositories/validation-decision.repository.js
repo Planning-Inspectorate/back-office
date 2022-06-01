@@ -1,10 +1,10 @@
 import DatabaseFactory from './database.js';
 
-const validationDecisionRepository = (function() {
+const validationDecisionRepository = (function () {
 	/**
 	 * @returns {object} connection to database
 	 */
-	function getPool () {
+	function getPool() {
 		return DatabaseFactory.getInstance().pool;
 	}
 
@@ -15,7 +15,8 @@ const validationDecisionRepository = (function() {
 					appealId,
 					decision,
 					descriptionOfDevelopment,
-					...reason }
+					...reason
+				}
 			});
 		}
 	};
