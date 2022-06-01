@@ -14,7 +14,7 @@
     "clean": "turbo run clean && rimraf node_modules",
     "dev": "turbo run dev --no-cache --parallel --continue",
     "format": "prettier --write \"**/*.{js}\"",
-    "lint:js": "turbo run lint:js --filter=!@pins/api",
+    "lint:js": "turbo run lint:js --parallel",
     "lint:js:fix": "turbo run lint:js:fix",
     "prepare": "node -e \"try { require('husky').install() } catch (e) {if (e.code !== 'MODULE_NOT_FOUND') throw e}\"",
     "test": "turbo run test --filter=!@pins/api",

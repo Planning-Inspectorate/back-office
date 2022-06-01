@@ -31,9 +31,7 @@ describe('auth', () => {
 			);
 
 			expect(authOptions.authority).toEqual('auth_cloud_instance_id/auth_tenant_id');
-			expect(authOptions.redirectUri).toEqual(
-				expect.stringMatching('^https?://.*/auth_redirect_uri')
-			);
+			expect(authOptions.redirectUri).toEqual(expect.stringMatching('^https?://.*/auth/redirect'));
 			expect(authOptions.scopes).toEqual(['user.read']);
 			expect(authOptions.nonce).toBeTruthy();
 
@@ -47,9 +45,7 @@ describe('auth', () => {
 			);
 
 			expect(tokenOptions.authority).toEqual('auth_cloud_instance_id/auth_tenant_id');
-			expect(tokenOptions.redirectUri).toEqual(
-				expect.stringMatching('^https?://.*/auth_redirect_uri')
-			);
+			expect(tokenOptions.redirectUri).toEqual(expect.stringMatching('^https?://.*/auth/redirect'));
 			expect(tokenOptions.scopes).toEqual(['user.read']);
 			expect(tokenOptions.code).toEqual('msal_code');
 

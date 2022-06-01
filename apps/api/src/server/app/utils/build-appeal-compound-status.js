@@ -1,14 +1,12 @@
 import { chain, every } from 'lodash-es';
 
 export const buildAppealCompundStatus = (appealStatus) => {
-	if (appealStatus.length === 1 && typeof appealStatus[0].subStateMachineName === 'undefined') {
+	if (appealStatus.length === 1 && !appealStatus[0].subStateMachineName) {
 		return appealStatus[0].status;
 	}
 	if (
 		appealStatus.length > 1 &&
-		every(appealStatus, (status) => {
-			return typeof status.subStateMachineName !== 'undefined';
-		})
+		every(appealStatus, (status) => Boolean(status.subStateMachineName))
 	) {
 		return {
 			awaiting_lpa_questionnaire_and_statements: chain(appealStatus)
