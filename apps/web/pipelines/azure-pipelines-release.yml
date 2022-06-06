@@ -37,12 +37,16 @@ extends:
               echo "Setting the name of the build to '$buildName'."
               echo "##vso[build.updatebuildnumber]$buildName"
             displayName: Set Build Number
-          - template: ../steps/azure_web_app_deploy.yml
+          - template: ../steps/azure_web_app_slot_deploy.yml
             parameters:
               appName: $(webAppName)
               appResourceGroup: $(resourceGroup)
               azurecrName: $(azurecrName)
               repository: $(repository)
+          - template: ../steps/azure_web_app_slot_swap.yml
+            parameters:
+              appName: $(webAppName)
+              appResourceGroup: $(resourceGroup)
     globalVariables:
       - template: azure-pipelines-variables.yml@self
       - template: apps/web/pipelines/azure-pipelines-variables.yml@self
