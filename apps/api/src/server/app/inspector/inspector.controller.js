@@ -111,7 +111,7 @@ export const issueDecision = async ({ body, file, params }, response) => {
 	await inspector.issueDecision({
 		appealId: params.appealId,
 		outcome: body.outcome,
-		decisionLetter: /** @type {Express.Multer.File} */ (file)
+		decisionLetter: (file)
 	});
 
 	const updatedAppeal = await appealRepository.getById(params.appealId, {
