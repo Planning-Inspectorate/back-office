@@ -21,7 +21,7 @@ resources:
       type: github
       endpoint: Planning-Inspectorate
       name: Planning-Inspectorate/common-pipeline-templates
-      ref: refs/tags/release/2.2.0
+      ref: refs/tags/release/2.2.1
   pipelines:
     - pipeline: back-office-api-build
       source: Back Office API Build
@@ -49,17 +49,13 @@ extends:
                   DATABASE_URL: $(DATABASE_URL)
                 script: npm run db:migrate:prod
                 workingDirectory: $(Build.Repository.LocalPath)/apps/api
-          - template: ../steps/azure_web_app_slot_deploy.yml
+          - template: ../steps/azure_web_app_slot_swap_deploy.yml
             parameters:
               appName: $(webAppName)
               appResourceGroup: $(resourceGroup)
               azurecrName: $(azurecrName)
               repository: $(repository)
               tag: develop
-          - template: ../steps/azure_web_app_slot_swap.yml
-            parameters:
-              appName: $(webAppName)
-              appResourceGroup: $(resourceGroup)
     globalVariables:
       - template: azure-pipelines-variables.yml@self
       - template: apps/api/pipelines/azure-pipelines-variables.yml@self
