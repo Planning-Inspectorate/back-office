@@ -59,15 +59,14 @@ const appealRepository = (function () {
 	function getPool() {
 		return DatabaseFactory.getInstance().pool;
 	}
-
 	return {
-		getByStatuses(
+		getByStatuses({
 			statuses,
 			includeAddress = false,
 			includeAppellant = false,
 			includeLPAQuestionnaire = false,
 			includeAppealDetailsFromAppellant = false
-		) {
+		}) {
 			return getPool().appeal.findMany({
 				where: {
 					appealStatus: {
