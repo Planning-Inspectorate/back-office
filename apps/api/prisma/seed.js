@@ -1,5 +1,5 @@
 import Prisma from '@prisma/client';
-import pino from 'pino';
+import logger from '../src/server/app/lib/logger.js';
 import {
 	addressesList,
 	appealDetailsFromAppellantList,
@@ -723,7 +723,7 @@ async function main() {
 			await prisma.appeal.create({ data: appealData });
 		}
 	} catch (error) {
-		pino.error(error);
+		logger.error(error);
 		throw error;
 	} finally {
 		await prisma.$disconnect();
