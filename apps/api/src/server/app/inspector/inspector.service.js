@@ -1,6 +1,5 @@
 // @ts-check
-
-import pino from 'pino';
+import logger from '../../app/lib/logger.js';
 import appealRepository from '../repositories/appeal.repository.js';
 import { appealStates, transitionState } from '../state-machine/transition-state.js';
 import { arrayOfStatusesContainsString } from '../utils/array-of-statuses-contains-string.js';
@@ -130,7 +129,7 @@ export const assignAppealsById = async (userId, appealIds) => {
 					);
 					successfullyAssigned.push(appealFormatter.formatAppealForAssigningAppeals(appeal));
 				} catch (error) {
-					pino.error(error);
+					logger.error(error);
 					unsuccessfullyAssigned.push(
 						appealFormatter.formatAppealForAssigningAppeals(appeal, error.message)
 					);

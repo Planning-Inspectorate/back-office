@@ -1,5 +1,4 @@
 // @ts-check
-
 import appealRepository from '../repositories/appeal.repository.js';
 import { appealStates } from '../state-machine/transition-state.js';
 import formatAddress from '../utils/address-formatter.js';
