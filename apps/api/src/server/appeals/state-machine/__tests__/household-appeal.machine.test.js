@@ -51,12 +51,12 @@ function applyAction(t, initialState, action, expectedState, context, hasChanged
 }
 
 applyAction.title = (
+	providedTitle,
 	initialState,
 	action,
 	expectedState,
 	context,
-	hasChanged,
-	providedTitle = ''
+	hasChanged
 ) =>
 	`${providedTitle}: from state [${initialState}] with context ${JSON.stringify(
 		context

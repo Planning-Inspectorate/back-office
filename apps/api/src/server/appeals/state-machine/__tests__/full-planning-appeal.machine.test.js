@@ -50,12 +50,12 @@ const buildCompoundState = (
 };
 
 applyAction.title = (
+	providedTitle,
 	initialState,
 	action,
 	expectedState,
 	context,
 	hasChanged,
-	providedTitle = ''
 ) =>
 	`Full Planning Appeal State Machine: ${providedTitle}: from state [${JSON.stringify(
 		initialState
