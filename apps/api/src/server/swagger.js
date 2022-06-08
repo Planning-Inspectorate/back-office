@@ -396,6 +396,6 @@ const document = {
 };
 
 const outputFile = './src/server/swagger-output.json';
-const endpointsFiles = ['./src/server/app.js'];
+const endpointsFiles = ['./src/server/appeals/**/*.routes.js'];
 
 swaggerAutogen()(outputFile, endpointsFiles, document);

@@ -30,11 +30,13 @@ const router = new express.Router();
 router.get(
 	'/',
 	/*
-		 #swagger.description = 'Gets all appeals for a Case Officer to review'
-		 #swagger.responses[200] = {
-			 description: 'Appeals the require Case Officer to check',
-			 schema: { $ref: '#/definitions/AppealsForCaseOfficer' }
-		 }
+		#swagger.tags = ['Appeals']
+		#swagger.path = '/appeals/case-officer'
+		#swagger.description = 'Gets all appeals for a Case Officer to review'
+		#swagger.responses[200] = {
+			description: 'Appeals the require Case Officer to check',
+			schema: { $ref: '#/definitions/AppealsForCaseOfficer' }
+		}
 	 */
 	asyncHandler(getAppeals)
 );
@@ -42,11 +44,13 @@ router.get(
 router.get(
 	'/:appealId',
 	/*
-		 #swagger.description = 'Gets appeal details for Case Officer to review'
-		 #swagger.responses[200] = {
-			 description: 'Appeal that requires a Case Officer to check over',
-			 schema: { $ref: '#/definitions/AppealForCaseOfficer' }
-		 }
+		#swagger.tags = ['Appeals']
+		#swagger.path = '/appeals/case-officer/:appealId'
+		#swagger.description = 'Gets appeal details for Case Officer to review'
+		#swagger.responses[200] = {
+			description: 'Appeal that requires a Case Officer to check over',
+			schema: { $ref: '#/definitions/AppealForCaseOfficer' }
+		}
 	 */
 	param('appealId').toInt(),
 	validateAppealBelongsToCaseOfficer,
@@ -56,6 +60,8 @@ router.get(
 router.patch(
 	'/:appealId',
 	/*
+		#swagger.tags = ['Appeals']
+		#swagger.path = '/appeals/case-officer/:appealId'
 		#swagger.description = 'Updates appeal details'
 		#swagger.parameters['body'] = {
 			in: 'body',
@@ -77,6 +83,8 @@ router.patch(
 router.post(
 	'/:appealId/confirm',
 	/*
+		#swagger.tags = ['Appeals']
+		#swagger.path = '/appeals/case-officer/:appealId/confirm'
 		#swagger.description = 'Updates appeal details'
 		#swagger.parameters['body'] = {
 			in: 'body',
@@ -94,6 +102,8 @@ router.post(
 router.get(
 	'/:appealId/statements-comments',
 	/*
+		#swagger.tags = ['Appeals']
+		#swagger.path = '/appeals/case-officer/:appealId/statements-comments'
 		#swagger.description = 'Gets appeal details when uploading statements and final comments'
 		#swagger.responses[200] = {
 			description: 'Appeal details to show when uploading statements and final comments',
@@ -111,6 +121,8 @@ router.get(
 router.post(
 	'/:appealId/statement',
 	/*
+		#swagger.tags = ['Appeals']
+		#swagger.path = '/appeals/case-officer/:appealId/statement'
         #swagger.description = 'Uploads statement'
         #swagger.parameters['userId'] = {
             in: 'header',
@@ -137,6 +149,8 @@ router.post(
 router.post(
 	'/:appealId/final-comment',
 	/*
+		#swagger.tags = ['Appeals']
+		#swagger.path = '/appeals/case-officer/:appealId/final-comment'
         #swagger.description = 'Uploads final comment'
         #swagger.parameters['userId'] = {
             in: 'header',
