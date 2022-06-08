@@ -38,12 +38,12 @@ async function markAppealsAsOverdue(appeals) {
 
 	for (const appeal of appeals) {
 		const appealStatus = buildAppealCompundStatus(appeal.appealStatus);
-		const nextState = transitionState(
-			appeal.appealType.type,
-			{ appealId: appeal.id },
-			appealStatus,
-			'OVERDUE'
-		);
+		const nextState = transitionState({
+			appealType: appeal.appealType.type,
+			context:{ appealId: appeal.id },
+			status: appealStatus,
+			machineAction: 'OVERDUE'
+		});
 		const newState = breakUpCompoundStatus(nextState.value, appeal.id);
 
 		updatedAppeals.push(

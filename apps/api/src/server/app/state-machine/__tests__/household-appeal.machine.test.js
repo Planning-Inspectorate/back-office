@@ -21,17 +21,23 @@ test.before('sets up mocking of actions', () => {
 });
 
 /**
- * @param {object} t unit test
- * @param {string} initialState initial state in state machine
- * @param {string} action action taken to proceed in state machine
- * @param {string} expectedState expected state after action was taken
- * @param {object} context Context of transition
- * @param {boolean} hasChanged True if action was valid, False if action was invalid
+ * @param {object} t
+ * @param {object} t.t unit test
+ * @param {object} t.initialState initial state in state machine
+ * @param {object} t.action action taken to proceed in state machine
+ * @param {object} t.expectedState expected state after action was taken
+ * @param {object} t.context Context of transition
+ * @param {object} t.hasChanged True if action was valid, False if action was invalid
  */
-function applyAction(t, initialState, action, expectedState, context, hasChanged) {
+function applyAction({t, initialState, action, expectedState, context, hasChanged}) {
 	inspectorSendBookingStub.resetHistory();
 
-	const nextState = transitionState('household', context, initialState, action);
+	const nextState = transitionState({
+		appealType: 'household',
+		context,
+		status: initialState,
+		machineAction: action
+	});
 
 	t.is(nextState.value, expectedState);
 	t.is(nextState.changed, hasChanged);
@@ -50,14 +56,14 @@ function applyAction(t, initialState, action, expectedState, context, hasChanged
 	}
 }
 
-applyAction.title = (
+applyAction.title = ({
 	initialState,
 	action,
 	expectedState,
 	context,
 	hasChanged,
 	providedTitle = ''
-) =>
+}) =>
 	`${providedTitle}: from state [${initialState}] with context ${JSON.stringify(
 		context
 	)} action [${action}] produces state

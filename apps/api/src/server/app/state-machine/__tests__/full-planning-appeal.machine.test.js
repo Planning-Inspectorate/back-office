@@ -21,17 +21,23 @@ test.before('sets up mocking of actions', () => {
 });
 
 /**
- * @param {object} t unit test
- * @param {string} initialState initial state in state machine
- * @param {string} action action taken to proceed in state machine
- * @param {string} expectedState expected state after action was taken
- * @param {object} context Context of transition
- * @param {boolean} hasChanged True if action was valid, False if action was invalid
+ * @param {object} t
+ * @param {object} t.t unit test
+ * @param {object} t.initialState initial state in state machine
+ * @param {object} t.action action taken to proceed in state machine
+ * @param {object} t.expectedState expected state after action was taken
+ * @param {object} t.context Context of transition
+ * @param {object} t.hasChanged True if action was valid, False if action was invalid
  */
-function applyAction(t, initialState, action, expectedState, context, hasChanged) {
+function applyAction({t, initialState, action, expectedState, context, hasChanged}) {
 	inspectorSendBookingStub.resetHistory();
 
-	const nextState = transitionState('full planning', context, initialState, action);
+	const nextState = transitionState({
+		appealType: 'full planning',
+		context,
+		status: initialState,
+		machineAction: action
+	});
 
 	t.deepEqual(nextState.value, expectedState);
 	t.is(nextState.changed, hasChanged);
@@ -49,14 +55,14 @@ const buildCompoundState = (
 	};
 };
 
-applyAction.title = (
+applyAction.title = ({
 	initialState,
 	action,
 	expectedState,
 	context,
 	hasChanged,
 	providedTitle = ''
-) =>
+}) =>
 	`Full Planning Appeal State Machine: ${providedTitle}: from state [${JSON.stringify(
 		initialState
 	)}]

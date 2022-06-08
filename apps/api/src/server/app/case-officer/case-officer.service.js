@@ -18,12 +18,12 @@ export const confirmLPAQuestionnaireService = async (reviewReason, appealId) => 
 
 	const appealStatemachineStatus = reviewResult ? 'COMPLETE' : 'INCOMPLETE';
 	const appealStatus = buildAppealCompundStatus(appeal.appealStatus);
-	const nextState = transitionState(
-		appeal.appealType.type,
-		{ appealId: appeal.id },
-		appealStatus,
-		appealStatemachineStatus
-	);
+	const nextState = transitionState({
+		appealType: appeal.appealType.type,
+		context:{ appealId: appeal.id },
+		status: appealStatus,
+		machineAction: appealStatemachineStatus
+	});
 	const newState = breakUpCompoundStatus(nextState.value, appeal.id);
 
 	await appealRepository.updateStatusById(appeal.id, newState, appeal.appealStatus);

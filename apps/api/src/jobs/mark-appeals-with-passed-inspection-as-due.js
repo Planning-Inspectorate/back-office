@@ -21,12 +21,12 @@ async function markAppealsAsDecisionDue(appeals) {
 	const updatedAppeals = [];
 
 	for (const appeal of appeals) {
-		const nextState = transitionState(
-			appeal.appealType.type,
-			{ appealId: appeal.id },
-			'site_visit_booked',
-			'BOOKING_PASSED'
-		);
+		const nextState = transitionState({
+			appealType: appeal.appealType.type,
+			context:{ appealId: appeal.id },
+			status: 'site_visit_booked',
+			machineAction: 'BOOKING_PASSED'
+		});
 		const newState = breakUpCompoundStatus(nextState.value, appeal.id);
 
 		updatedAppeals.push(

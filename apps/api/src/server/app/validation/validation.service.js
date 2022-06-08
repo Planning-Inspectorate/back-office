@@ -46,12 +46,12 @@ export const submitValidationDecisionService = async (
 	});
 	const machineAction = mapAppealStatusToStateMachineAction(appealStatus);
 	const appealStatusForMachine = buildAppealCompundStatus(appeal.appealStatus);
-	const nextState = transitionState(
-		appeal.appealType.type,
-		{ appealId: appeal.id },
-		appealStatusForMachine,
+	const nextState = transitionState({
+		appealType: appeal.appealType.type,
+		context:{ appealId: appeal.id },
+		status: appealStatusForMachine,
 		machineAction
-	);
+	});
 	const newState = breakUpCompoundStatus(nextState.value, appeal.id);
 	const newData =
 		newState === appealStates.awaiting_lpa_questionnaire ||

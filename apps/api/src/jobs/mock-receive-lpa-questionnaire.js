@@ -28,12 +28,12 @@ async function markAppealsAsLPAReceived(appeals) {
 		)
 			? 'awaiting_lpa_questionnaire'
 			: 'overdue_lpa_questionnaire';
-		const nextState = transitionState(
-			appeal.appealType.type,
-			{ appealId: appeal.id },
-			appealStatus,
-			'RECEIVED'
-		);
+		const nextState = transitionState({
+			appealType: appeal.appealType.type,
+			context:{ appealId: appeal.id },
+			status: appealStatus,
+			machineAction: 'RECEIVED'
+		});
 		const newState = breakUpCompoundStatus(nextState.value, appeal.id);
 
 		updatedAppeals.push(
