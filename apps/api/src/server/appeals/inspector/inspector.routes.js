@@ -23,6 +23,8 @@ const router = new express.Router();
 router.get(
 	'/more-appeals',
 	/*
+		#swagger.tags = ['Appeals']
+		#swagger.path = '/appeals/inspector/more-appeals'
         #swagger.description = 'Gets more appeals assigned to inspector'
         #swagger.responses[200] = {
             description: 'Appeals that are yet to be assigned to inspector',
@@ -35,6 +37,8 @@ router.get(
 router.get(
 	'/',
 	/*
+		#swagger.tags = ['Appeals']
+		#swagger.path = '/appeals/inspector'
         #swagger.description = 'Gets appeals assigned to inspector'
         #swagger.parameters['userid'] = {
             in: 'header',
@@ -53,6 +57,8 @@ router.get(
 router.get(
 	'/:appealId',
 	/*
+		#swagger.tags = ['Appeals']
+		#swagger.path = '/appeals/inspector/:appealId'
         #swagger.description = 'Gets details of appeal for inspector'
         #swagger.parameters['userId'] = {
             in: 'header',
@@ -72,6 +78,8 @@ router.get(
 router.post(
 	'/assign',
 	/*
+		#swagger.tags = ['Appeals']
+		#swagger.path = '/appeals/inspector/assign'
         #swagger.description = 'Assigns appeals to inspector'
         #swagger.parameters['userId'] = {
             in: 'header',
@@ -91,6 +99,8 @@ router.post(
 router.post(
 	'/:appealId/book',
 	/*
+		#swagger.tags = ['Appeals']
+		#swagger.path = '/appeals/inspector/:appealId/book'
         #swagger.description = 'Book a site visit as an inspector.'
         #swagger.parameters['userId'] = {
             in: 'header',
@@ -117,6 +127,8 @@ router.post(
 router.post(
 	'/:appealId/issue-decision',
 	/*
+		#swagger.tags = ['Appeals']
+		#swagger.path = '/appeals/inspector/:appealId/issue-decision'
         #swagger.description = 'Issues decision for appeal.'
         #swagger.parameters['userId'] = {
             in: 'header',

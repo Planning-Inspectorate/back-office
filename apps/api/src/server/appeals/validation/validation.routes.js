@@ -24,6 +24,8 @@ const router = new express.Router();
 router.get(
 	'/',
 	/*
+		#swagger.tags = ['Appeals']
+		#swagger.path = '/appeals/validation/'
 		#swagger.description = 'Gets all appeals that need to be validated. The AppealStatus will be either \'new\' or \'incomplete\''
 		#swagger.responses[200] = {
 			description: 'Appeals that require validation',
@@ -36,6 +38,8 @@ router.get(
 router.get(
 	'/lpa-list',
 	/*
+		#swagger.tags = ['Appeals']
+		#swagger.path = '/appeals/validation/lpa-list'
 		#swagger.description = 'Gets all LPAs from external API'
 		#swagger.responses[200] = {
 			description: 'All available LPAs',
@@ -51,6 +55,8 @@ router.get(
 router.get(
 	'/:appealId',
 	/*
+		#swagger.tags = ['Appeals']
+		#swagger.path = '/appeals/validation/:appealId'
 		#swagger.description = 'Gets appeal to be validated by the Validation Officer'
 		#swagger.parameters['id'] = {
 			description: 'Appeal ID',
@@ -70,6 +76,8 @@ router.get(
 router.patch(
 	'/:appealId',
 	/*
+		#swagger.tags = ['Appeals']
+		#swagger.path = '/appeals/validation/:appealId'
 		#swagger.description = 'Updates appeal details'
 		#swagger.parameters['id'] = {
 			in: 'url',
@@ -92,6 +100,8 @@ router.patch(
 router.post(
 	'/:appealId',
 	/*
+		#swagger.tags = ['Appeals']
+		#swagger.path = '/appeals/validation/:appealId'
 		#swagger.description = 'Sends validation decision'
 		#swagger.parameters['id'] = {
 			id: 'url',
