@@ -34,7 +34,7 @@ extends:
   template: stages/wrapper_cd.yml@templates
   parameters:
     deploymentStages:
-      - name: Deploy
+      - name: Stage
         deploymentSteps:
           - ${{ if eq(parameters.schemaMigration, true) }}:
             - checkout: self
@@ -57,6 +57,10 @@ extends:
               azurecrName: $(azurecrName)
               repository: $(repository)
               tag: develop
+      - name: Deploy
+        dependsOn:
+          - Stage
+        deploymentSteps:
           - template: ../steps/azure_web_app_slot_swap.yml
             parameters:
               appName: $(webAppName)
