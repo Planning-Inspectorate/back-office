@@ -44,6 +44,7 @@ extends:
               appSlotName: staging
               azurecrName: $(azurecrName)
               repository: $(repository)
+              tag: develop
           - template: ../steps/azure_web_app_slot_swap.yml
             parameters:
               appName: $(webAppName)
