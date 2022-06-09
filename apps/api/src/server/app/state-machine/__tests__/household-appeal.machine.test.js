@@ -23,13 +23,13 @@ test.before('sets up mocking of actions', () => {
 /**
  * @param {object} t
  * @param {object} t.t unit test
- * @param {object} t.initialState initial state in state machine
- * @param {object} t.action action taken to proceed in state machine
- * @param {object} t.expectedState expected state after action was taken
- * @param {object} t.context Context of transition
- * @param {object} t.hasChanged True if action was valid, False if action was invalid
+ * @param {object} t.t.initialState initial state in state machine
+ * @param {object} t.t.action action taken to proceed in state machine
+ * @param {object} t.t.expectedState expected state after action was taken
+ * @param {object} t.t.context Context of transition
+ * @param {object} t.t.hasChanged True if action was valid, False if action was invalid
  */
-function applyAction({t, initialState, action, expectedState, context, hasChanged}) {
+function applyAction(t, { initialState, action, expectedState, context, hasChanged }) {
 	inspectorSendBookingStub.resetHistory();
 
 	const nextState = transitionState({
@@ -56,17 +56,12 @@ function applyAction({t, initialState, action, expectedState, context, hasChange
 	}
 }
 
-applyAction.title = ({
-	initialState,
-	action,
-	expectedState,
-	context,
-	hasChanged,
-	providedTitle = ''
-}) =>
-	`${providedTitle}: from state [${initialState}] with context ${JSON.stringify(
-		context
-	)} action [${action}] produces state
+applyAction.title = (
+	providedTitle,
+	{ initialState, action, expectedState, context, hasChanged }
+) => `${providedTitle}: from state [${initialState}] with context ${JSON.stringify(
+	context
+)} action [${action}] produces state
 	[${expectedState}] ${hasChanged ? '' : ' without'} having transitioned`;
 
 for (const parameter of [
@@ -146,5 +141,11 @@ for (const parameter of [
 	['site_visit_booked', 'BOOKING_PASSED', 'decision_due', { appealId: 1 }, true],
 	['decision_due', 'DECIDE', 'appeal_decided', { appealId: 1, decision: 'allowed' }, true]
 ]) {
-	test(applyAction, ...parameter);
+	test(applyAction, {
+		initialState: parameter[0],
+		action: parameter[1],
+		expectedState: parameter[2],
+		context: parameter[3],
+		hasChanged: parameter[4]
+	});
 }

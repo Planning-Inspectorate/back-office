@@ -1,7 +1,7 @@
 import { chain, every } from 'lodash-es';
 
 export const buildAppealCompundStatus = (appealStatus) => {
-	if (appealStatus.length === 1 && typeof appealStatus[0].subStateMachineName === 'undefined') {
+	if (appealStatus.length === 1 && appealStatus[0].subStateMachineName == null) {
 		return appealStatus[0].status;
 	}
 	if (

@@ -4,21 +4,21 @@ import DatabaseFactory from '../../server/app/repositories/database.js';
 import { appealFactoryForTests } from '../../server/app/utils/appeal-factory-for-tests.js';
 import findAndUpdateStatusForAppealsWithOverdueQuestionnaires from '../mark-appeals-awaiting-questionnaire-as-overdue.js';
 
-const appeal1 = appealFactoryForTests(
-	1,
-	[
+const appeal1 = appealFactoryForTests({
+	appealId: 1,
+	statuses: [
 		{
 			id: 1,
 			status: 'awaiting_lpa_questionnaire',
 			valid: true
 		}
 	],
-	'HAS'
-);
+	typeShorthand: 'HAS'
+});
 
-const appeal2 = appealFactoryForTests(
-	2,
-	[
+const appeal2 = appealFactoryForTests({
+	appealId: 2,
+	statuses: [
 		{
 			id: 21,
 			status: 'awaiting_lpa_questionnaire',
@@ -34,8 +34,8 @@ const appeal2 = appealFactoryForTests(
 			compoundStateName: 'awaiting_lpa_questionnaire_and_statements'
 		}
 	],
-	'FPA'
-);
+	typeShorthand: 'FPA'
+});
 
 const updateStub = sinon.stub();
 

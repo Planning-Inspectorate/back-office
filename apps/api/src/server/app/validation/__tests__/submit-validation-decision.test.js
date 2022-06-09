@@ -9,65 +9,65 @@ const request = supertest(app);
 
 let descriptionOfDevelopment;
 
-const appeal1 = appealFactoryForTests(
-	1,
-	[
+const appeal1 = appealFactoryForTests({
+	appealId: 1,
+	statuses: [
 		{
 			id: 1,
 			status: 'received_appeal',
 			valid: true
 		}
 	],
-	'HAS'
-);
+	typeShorthand: 'HAS'
+});
 
-const appeal10 = appealFactoryForTests(
-	10,
-	[
+const appeal10 = appealFactoryForTests({
+	appealId: 10,
+	statuses: [
 		{
 			id: 10,
 			status: 'received_appeal',
 			valid: true
 		}
 	],
-	'FPA'
-);
+	typeShorthand: 'FPA'
+});
 
-const appeal2 = appealFactoryForTests(
-	2,
-	[
+const appeal2 = appealFactoryForTests({
+	appealId: 2,
+	statuses: [
 		{
 			id: 2,
 			status: 'valid_appeal',
 			valid: true
 		}
 	],
-	'HAS'
-);
+	typeShorthand: 'HAS'
+});
 
-const appeal3 = appealFactoryForTests(
-	3,
-	[
+const appeal3 = appealFactoryForTests({
+	appealId: 3,
+	statuses: [
 		{
 			id: 3,
 			status: 'invalid_appeal',
 			valid: true
 		}
 	],
-	'HAS'
-);
+	typeShorthand: 'HAS'
+});
 
-const appeal4 = appealFactoryForTests(
-	3,
-	[
+const appeal4 = appealFactoryForTests({
+	appealId: 3,
+	statuses: [
 		{
 			id: 4,
 			status: 'awaiting_validation_info',
 			valid: true
 		}
 	],
-	'HAS'
-);
+	typeShorthand: 'HAS'
+});
 
 const getAppealByIdStub = sinon.stub();
 const updateStub = sinon.stub();

@@ -20,13 +20,13 @@ const siteVisitBody = {
 };
 
 // todo: replace with factory
-const originalAppeal = appealFactoryForTests(
-	1,
-	[{ id: 1, status: 'site_visit_not_yet_booked', valid: true }],
-	'HAS',
-	{ connectToUser: true },
-	{ createdAt: new Date(2022, 0, 1), updatedAt: new Date(2022, 0, 1) }
-);
+const originalAppeal = appealFactoryForTests({
+	appealId: 1,
+	statuses: [{ id: 1, status: 'site_visit_not_yet_booked', valid: true }],
+	typeShorthand: 'HAS',
+	inclusions: { connectToUser: true },
+	dates: { createdAt: new Date(2022, 0, 1), updatedAt: new Date(2022, 0, 1) }
+});
 
 const updatedAppeal = {
 	...originalAppeal,

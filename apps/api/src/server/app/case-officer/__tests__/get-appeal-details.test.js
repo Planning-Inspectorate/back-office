@@ -7,28 +7,28 @@ import { appealFactoryForTests } from '../../utils/appeal-factory-for-tests.js';
 
 const request = supertest(app);
 
-const appeal1 = appealFactoryForTests(
-	1,
-	[
+const appeal1 = appealFactoryForTests({
+	appealId: 1,
+	statuses: [
 		{
 			status: 'received_lpa_questionnaire',
 			valid: true
 		}
 	],
-	'HAS',
-	{ lpaQuestionnaire: true }
-);
+	typeShorthand: 'HAS',
+	inclusions: { lpaQuestionnaire: true }
+});
 
-const appeal2 = appealFactoryForTests(
-	2,
-	[
+const appeal2 = appealFactoryForTests({
+	appealId: 2,
+	statuses: [
 		{
 			status: 'awaiting_lpa_questionnaire',
 			valid: true
 		}
 	],
-	'HAS'
-);
+	typeShorthand: 'HAS'
+});
 
 const includeDetails = {
 	address: true,

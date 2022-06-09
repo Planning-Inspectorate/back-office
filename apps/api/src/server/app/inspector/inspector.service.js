@@ -37,9 +37,9 @@ export const bookSiteVisit = async ({ appealId, siteVisit }) => {
 	const appealStatus = buildAppealCompundStatus(appeal.appealStatus);
 	const nextState = transitionState({
 		appealType: appeal.appealType.type,
-		context:{ appealId: appeal.id },
+		context: { appealId: appeal.id },
 		status: appealStatus,
-		machineAction: 'BOOK',
+		machineAction: 'BOOK'
 		// true
 	});
 	const newState = breakUpCompoundStatus(nextState.value, appeal.id);
@@ -71,12 +71,13 @@ export const bookSiteVisit = async ({ appealId, siteVisit }) => {
 export const issueDecision = async ({ appealId, outcome, decisionLetter }) => {
 	const appeal = await appealRepository.getById(appealId);
 	const appealStatus = buildAppealCompundStatus(appeal.appealStatus);
+
 	const nextState = transitionState({
 		appealType: appeal.appealType.type,
-		context:{ appealId: appeal.id },
+		context: { appealId: appeal.id },
 		status: appealStatus,
 		machineAction: 'DECIDE',
-		// true
+		throwError: true
 	});
 	const newState = breakUpCompoundStatus(nextState.value, appeal.id);
 
@@ -115,7 +116,7 @@ export const assignAppealsById = async (userId, appealIds) => {
 					const appealStatus = buildAppealCompundStatus(appeal.appealStatus);
 					const nextState = transitionState({
 						appealType: appeal.appealType.type,
-						context:{ appealId: appeal.id },
+						context: { appealId: appeal.id },
 						status: appealStatus,
 						machineAction: 'PICKUP'
 					});

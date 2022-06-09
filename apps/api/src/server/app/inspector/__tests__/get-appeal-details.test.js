@@ -9,23 +9,23 @@ import { appealFactoryForTests } from '../../utils/appeal-factory-for-tests.js';
 const request = supertest(app);
 
 const appeal1 = {
-	...appealFactoryForTests(
-		1,
-		[
+	...appealFactoryForTests({
+		appealId: 1,
+		statuses: [
 			{
 				status: 'site_visit_not_yet_booked',
 				valid: true
 			}
 		],
-		'HAS',
-		{
+		typeShorthand: 'HAS',
+		inclusions: {
 			connectToUser: true,
 			completeValidationDecision: true,
 			incompleteValidationDecision: true,
 			lpaQuestionnaire: true
 		},
-		{ createdAt: new Date(2020, 11, 12, 9), startedAt: new Date(2022, 4, 1, 11) }
-	),
+		dates: { createdAt: new Date(2020, 11, 12, 9), startedAt: new Date(2022, 4, 1, 11) }
+	}),
 	lpaQuestionnaire: {
 		siteVisibleFromPublicLand: true,
 		siteVisibleFromPublicLandDescription: 'not visible from public land',
@@ -53,9 +53,9 @@ const appeal1 = {
 	}
 };
 const appeal2 = {
-	...appealFactoryForTests(
-		2,
-		[
+	...appealFactoryForTests({
+		appealId: 2,
+		statuses: [
 			{
 				status: 'picked_up',
 				subStateMachineName: 'lpaQuestionnaireAndInspectorPickup',
@@ -68,15 +68,15 @@ const appeal2 = {
 				valid: true
 			}
 		],
-		'FPA',
-		{
+		typeShorthand: 'FPA',
+		inclusions: {
 			connectToUser: true,
 			completeValidationDecision: true,
 			incompleteValidationDecision: true,
 			lpaQuestionnaire: true
 		},
-		{ createdAt: new Date(2020, 11, 12, 9), startedAt: new Date(2022, 4, 1, 11) }
-	),
+		dates: { createdAt: new Date(2020, 11, 12, 9), startedAt: new Date(2022, 4, 1, 11) }
+	}),
 	lpaQuestionnaire: {
 		siteVisibleFromPublicLand: true,
 		siteVisibleFromPublicLandDescription: 'not visible from public land',
@@ -105,9 +105,9 @@ const appeal2 = {
 };
 
 const appeal3 = {
-	...appealFactoryForTests(
-		3,
-		[
+	...appealFactoryForTests({
+		appealId: 3,
+		statuses: [
 			{
 				status: 'picked_up',
 				subStateMachineName: 'lpaQuestionnaireAndInspectorPickup',
@@ -120,15 +120,15 @@ const appeal3 = {
 				valid: true
 			}
 		],
-		'FPA',
-		{
+		typeShorthand: 'FPA',
+		inclusions: {
 			connectToUser: true,
 			completeValidationDecision: true,
 			incompleteValidationDecision: true,
 			lpaQuestionnaire: true
 		},
-		{ createdAt: new Date(2020, 11, 12, 9), startedAt: new Date(2022, 4, 1, 11) }
-	),
+		dates: { createdAt: new Date(2020, 11, 12, 9), startedAt: new Date(2022, 4, 1, 11) }
+	}),
 	lpaQuestionnaire: {
 		siteVisibleFromPublicLand: true,
 		siteVisibleFromPublicLandDescription: 'not visible from public land',

@@ -9,9 +9,9 @@ import { appealFactoryForTests } from '../../utils/appeal-factory-for-tests.js';
 const request = supertest(app);
 
 const appeal1 = {
-	...appealFactoryForTests(
-		1,
-		[
+	...appealFactoryForTests({
+		appealId: 1,
+		statuses: [
 			{
 				id: 1,
 				status: 'available_for_inspector_pickup',
@@ -25,88 +25,88 @@ const appeal1 = {
 				subStateMachineName: 'statementsAndFinalComments'
 			}
 		],
-		'FPA',
-		{ siteVisitBooked: true, lpaQuestionnaire: true },
-		{
+		typeShorthand: 'FPA',
+		inclusions: { siteVisitBooked: true, lpaQuestionnaire: true },
+		dates: {
 			createdAt: new Date(2022, 1, 23),
 			startedAt: new Date(2022, 1, 25)
 		}
-	),
+	}),
 	lpaQuestionnaire: { siteVisibleFromPublicLand: false },
 	appealDetailsFromAppellant: { siteVisibleFromPublicLand: true }
 };
 
 const appeal2 = {
-	...appealFactoryForTests(
-		2,
-		[
+	...appealFactoryForTests({
+		appealId: 2,
+		statuses: [
 			{
 				id: 3,
 				status: 'available_for_inspector_pickup',
 				valid: true
 			}
 		],
-		'HAS',
-		{ siteVisitBooked: true, lpaQuestionnaire: true },
-		{
+		typeShorthand: 'HAS',
+		inclusions: { siteVisitBooked: true, lpaQuestionnaire: true },
+		dates: {
 			createdAt: new Date(2022, 1, 25),
 			startedAt: new Date(2022, 3, 29)
 		}
-	),
+	}),
 	lpaQuestionnaire: { siteVisibleFromPublicLand: true },
 	appealDetailsFromAppellant: { siteVisibleFromPublicLand: true }
 };
 
 const appeal3 = {
-	...appealFactoryForTests(
-		3,
-		[
+	...appealFactoryForTests({
+		appealId: 3,
+		statuses: [
 			{
 				id: 4,
 				status: 'available_for_inspector_pickup',
 				valid: true
 			}
 		],
-		'HAS',
-		{ lpaQuestionnaire: true },
-		{ createdAt: new Date(2022, 1, 25), startedAt: new Date(2022, 3, 29) }
-	),
+		typeShorthand: 'HAS',
+		inclusions: { lpaQuestionnaire: true },
+		dates: { createdAt: new Date(2022, 1, 25), startedAt: new Date(2022, 3, 29) }
+	}),
 	lpaQuestionnaire: { siteVisibleFromPublicLand: true },
 	appealDetailsFromAppellant: { siteVisibleFromPublicLand: true }
 };
 
 const appeal4 = {
-	...appealFactoryForTests(
-		4,
-		[
+	...appealFactoryForTests({
+		appealId: 4,
+		statuses: [
 			{
 				id: 5,
 				status: 'site_visit_not_yet_booked',
 				valid: true
 			}
 		],
-		'HAS',
-		{ lpaQuestionnaire: true },
-		{ createdAt: new Date(2022, 1, 25), startedAt: new Date(2022, 3, 29) }
-	),
+		typeShorthand: 'HAS',
+		inclusions: { lpaQuestionnaire: true },
+		dates: { createdAt: new Date(2022, 1, 25), startedAt: new Date(2022, 3, 29) }
+	}),
 	lpaQuestionnaire: { siteVisibleFromPublicLand: true },
 	appealDetailsFromAppellant: { siteVisibleFromPublicLand: false }
 };
 
 const appeal5 = {
-	...appealFactoryForTests(
-		5,
-		[
+	...appealFactoryForTests({
+		appealId: 5,
+		statuses: [
 			{
 				id: 6,
 				status: 'available_for_inspector_pickup',
 				valid: true
 			}
 		],
-		'HAS',
-		{ lpaQuestionnaire: true, connectToUser: true },
-		{ createdAt: new Date(2022, 1, 25), startedAt: new Date(2022, 3, 29) }
-	),
+		typeShorthand: 'HAS',
+		inclusions: { lpaQuestionnaire: true, connectToUser: true },
+		dates: { createdAt: new Date(2022, 1, 25), startedAt: new Date(2022, 3, 29) }
+	}),
 	lpaQuestionnaire: { siteVisibleFromPublicLand: false },
 	appealDetailsFromAppellant: { siteVisibleFromPublicLand: false }
 };
