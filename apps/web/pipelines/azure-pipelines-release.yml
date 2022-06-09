@@ -44,7 +44,6 @@ extends:
               appSlotName: staging
               azurecrName: $(azurecrName)
               repository: $(repository)
-              tag: develop
       - name: Deploy
         dependsOn:
           - Stage
