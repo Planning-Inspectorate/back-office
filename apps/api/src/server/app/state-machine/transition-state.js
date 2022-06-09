@@ -23,7 +23,7 @@ export class TransitionStateError extends Error {
 	}
 }
 
-export const transitionState = (appealType, context, status, machineAction, throwError = false) => {
+export const transitionState = ({appealType, context, status, machineAction, throwError = false}) => {
 	const stateMachine =
 		appealType === 'household'
 			? createHouseholpAppealMachine(context)

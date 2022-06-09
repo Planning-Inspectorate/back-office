@@ -8,27 +8,27 @@ import { appealFactoryForTests } from '../../utils/appeal-factory-for-tests.js';
 
 const request = supertest(app);
 
-const appeal1 = appealFactoryForTests(
-	1,
-	[
+const appeal1 = appealFactoryForTests({
+	appealId: 1,
+	statuses: [
 		{
 			status: 'available_for_statements',
 			valid: true
 		}
 	],
-	'FPA'
-);
+	typeShorthand: 'FPA'
+});
 
-const appeal2 = appealFactoryForTests(
-	2,
-	[
+const appeal2 = appealFactoryForTests({
+	appealId: 2,
+	statuses: [
 		{
 			status: 'available_for_final_comments',
 			valid: true
 		}
 	],
-	'FPA'
-);
+	typeShorthand: 'FPA'
+});
 
 const includeDetails = {
 	address: true,

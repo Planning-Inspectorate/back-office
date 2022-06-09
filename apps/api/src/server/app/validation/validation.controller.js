@@ -30,13 +30,13 @@ const getAppeals = async (_request, response) => {
 };
 
 const updateAppeal = async (request, response) => {
-	await updateAppealService(
-		request.params.appealId,
-		request.body.AppellantName,
-		request.body.Address,
-		request.body.LocalPlanningDepartment,
-		request.body.PlanningApplicationReference
-	);
+	await updateAppealService({
+		appealId:request.params.appealId,
+		appellantName: request.body.AppellantName,
+		address: request.body.Address,
+		localPlanningDepartment: request.body.LocalPlanningDepartment,
+		planningApplicationReference: request.body.PlanningApplicationReference
+	});
 	return response.send();
 };
 

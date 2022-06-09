@@ -10,7 +10,7 @@ import DatabaseFactory from './database.js';
  * @property {boolean=} appellant
  * @property {boolean=} inspectorDecision
  * @property {boolean=} lpaQuestionnaire
- * @property {boolean=} latestLPAReviewQuestionnaire,
+ * @property {boolean=} latestLPAReviewQuestionnaire
  * @property {boolean=} siteVisit
  * @property {boolean=} validationDecision
  */
@@ -59,15 +59,14 @@ const appealRepository = (function () {
 	function getPool() {
 		return DatabaseFactory.getInstance().pool;
 	}
-
 	return {
-		getByStatuses(
+		getByStatuses({
 			statuses,
 			includeAddress = false,
 			includeAppellant = false,
 			includeLPAQuestionnaire = false,
 			includeAppealDetailsFromAppellant = false
-		) {
+		}) {
 			return getPool().appeal.findMany({
 				where: {
 					appealStatus: {

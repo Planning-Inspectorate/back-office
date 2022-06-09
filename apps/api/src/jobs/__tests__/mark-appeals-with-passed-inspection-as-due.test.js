@@ -4,17 +4,17 @@ import DatabaseFactory from '../../server/app/repositories/database.js';
 import { appealFactoryForTests } from '../../server/app/utils/appeal-factory-for-tests.js';
 import findAndUpdateStatusForAppealsWithPassedInspection from '../mark-appeals-with-passed-inspection-as-due.js';
 
-const appeal1 = appealFactoryForTests(
-	1,
-	[
+const appeal1 = appealFactoryForTests({
+	appealId: 1,
+	statuses: [
 		{
 			id: 1,
 			status: 'site_visit_booked',
 			valid: true
 		}
 	],
-	'HAS'
-);
+	typeShorthand: 'HAS'
+});
 
 const updateStub = sinon.stub();
 

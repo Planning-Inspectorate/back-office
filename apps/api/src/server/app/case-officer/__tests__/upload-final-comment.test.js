@@ -11,21 +11,21 @@ const request = supertest(app);
 const dirname = url.fileURLToPath(new URL('.', import.meta.url));
 const pathToFile = path.join(dirname, './assets/simple.pdf');
 
-const appeal1 = appealFactoryForTests(
-	1,
-	[
+const appeal1 = appealFactoryForTests({
+	appealId: 1,
+	statuses: [
 		{
 			id: 1,
 			status: 'site_visit_not_yet_booked',
 			valid: true
 		}
 	],
-	'FPA'
-);
+	typeShorthand: 'FPA'
+});
 
-const appeal2 = appealFactoryForTests(
-	2,
-	[
+const appeal2 = appealFactoryForTests({
+	appealId: 2,
+	statuses: [
 		{
 			id: 2,
 			status: 'available_for_final_comments',
@@ -33,8 +33,8 @@ const appeal2 = appealFactoryForTests(
 			createdAt: new Date(2022, 1, 1, 9)
 		}
 	],
-	'FPA'
-);
+	typeShorthand: 'FPA'
+});
 
 const inclusions = { appealStatus: { where: { valid: true } }, appealType: true };
 const findUniqueStub = sinon.stub();

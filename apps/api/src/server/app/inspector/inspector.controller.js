@@ -50,13 +50,13 @@ const assignAppeals = async (request, response) => {
 };
 
 const getMoreAppeals = async (request, response) => {
-	const moreAppeals = await appealRepository.getByStatuses(
-		[appealStates.available_for_inspector_pickup],
-		true,
-		false,
-		true,
-		true
-	);
+	const moreAppeals = await appealRepository.getByStatuses({
+		statuses:[appealStates.available_for_inspector_pickup],
+		includeAddress: true,
+		includeAppellant: false,
+		includeLPAQuestionnaire: true,
+		includeAppealDetailsFromAppellant: true
+	});
 	const moreAppealsFormatted = moreAppeals.map((appeal) =>
 		appealFormatter.formatAppealForMoreAppeals(appeal)
 	);
@@ -111,7 +111,7 @@ export const issueDecision = async ({ body, file, params }, response) => {
 	await inspector.issueDecision({
 		appealId: params.appealId,
 		outcome: body.outcome,
-		decisionLetter: /** @type {Express.Multer.File} */ (file)
+		decisionLetter: file
 	});
 
 	const updatedAppeal = await appealRepository.getById(params.appealId, {

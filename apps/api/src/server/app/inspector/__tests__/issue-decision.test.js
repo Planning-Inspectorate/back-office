@@ -42,7 +42,7 @@ const invalidAppeal = {
 	appealStatus: [
 		{
 			id: 1,
-			status: 'available_for_inspector_pickup',
+			status: 'site_visit_not_yet_booked',
 			valid: true
 		}
 	]
@@ -131,7 +131,7 @@ test('fails with a 409 status when the appeal in a state that cannot be be advan
 	t.is(response.status, 409);
 	t.deepEqual(response.body, {
 		errors: {
-			appeal: "Could not transition 'available_for_inspector_pickup' using 'DECIDE'."
+			appeal: "Could not transition 'site_visit_not_yet_booked' using 'DECIDE'."
 		}
 	});
 });

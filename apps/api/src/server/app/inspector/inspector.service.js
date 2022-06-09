@@ -35,13 +35,13 @@ import { appealFormatter } from './appeal-formatter.js';
 export const bookSiteVisit = async ({ appealId, siteVisit }) => {
 	const appeal = await appealRepository.getById(appealId);
 	const appealStatus = buildAppealCompundStatus(appeal.appealStatus);
-	const nextState = transitionState(
-		appeal.appealType.type,
-		{ appealId },
-		appealStatus,
-		'BOOK',
-		true
-	);
+	const nextState = transitionState({
+		appealType: appeal.appealType.type,
+		context: { appealId: appeal.id },
+		status: appealStatus,
+		machineAction: 'BOOK'
+		// true
+	});
 	const newState = breakUpCompoundStatus(nextState.value, appeal.id);
 
 	await appealRepository.updateStatusAndDataById(
@@ -71,13 +71,14 @@ export const bookSiteVisit = async ({ appealId, siteVisit }) => {
 export const issueDecision = async ({ appealId, outcome, decisionLetter }) => {
 	const appeal = await appealRepository.getById(appealId);
 	const appealStatus = buildAppealCompundStatus(appeal.appealStatus);
-	const nextState = transitionState(
-		appeal.appealType.type,
-		{ appealId },
-		appealStatus,
-		'DECIDE',
-		true
-	);
+
+	const nextState = transitionState({
+		appealType: appeal.appealType.type,
+		context: { appealId: appeal.id },
+		status: appealStatus,
+		machineAction: 'DECIDE',
+		throwError: true
+	});
 	const newState = breakUpCompoundStatus(nextState.value, appeal.id);
 
 	await appealRepository.updateStatusAndDataById(appealId, newState, {
@@ -113,12 +114,12 @@ export const assignAppealsById = async (userId, appealIds) => {
 			) {
 				try {
 					const appealStatus = buildAppealCompundStatus(appeal.appealStatus);
-					const nextState = transitionState(
-						appeal.appealType.type,
-						{ appealId: appeal.id },
-						appealStatus,
-						'PICKUP'
-					);
+					const nextState = transitionState({
+						appealType: appeal.appealType.type,
+						context: { appealId: appeal.id },
+						status: appealStatus,
+						machineAction: 'PICKUP'
+					});
 					const newState = breakUpCompoundStatus(nextState.value, appeal.id);
 
 					await appealRepository.updateStatusAndDataById(
