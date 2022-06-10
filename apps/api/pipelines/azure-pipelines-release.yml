@@ -21,7 +21,7 @@ resources:
       type: github
       endpoint: Planning-Inspectorate
       name: Planning-Inspectorate/common-pipeline-templates
-      ref: refs/tags/release/2.2.1
+      ref: refs/tags/release/2.5.1
   pipelines:
     - pipeline: back-office-api-build
       source: Back Office API Build
@@ -34,7 +34,7 @@ extends:
   template: stages/wrapper_cd.yml@templates
   parameters:
     deploymentStages:
-      - name: Deploy
+      - name: Stage
         deploymentSteps:
           - ${{ if eq(parameters.schemaMigration, true) }}:
             - checkout: self
@@ -49,12 +49,23 @@ extends:
                   DATABASE_URL: $(DATABASE_URL)
                 script: npm run db:migrate:prod
                 workingDirectory: $(Build.Repository.LocalPath)/apps/api
-          - template: ../steps/azure_web_app_slot_swap_deploy.yml
+          - template: ../steps/azure_web_app_deploy.yml
             parameters:
               appName: $(webAppName)
               appResourceGroup: $(resourceGroup)
+              appSlotName: staging
               azurecrName: $(azurecrName)
               repository: $(repository)
+      - name: Deploy
+        dependsOn:
+          - Stage
+        deploymentSteps:
+          - template: ../steps/azure_web_app_slot_swap.yml
+            parameters:
+              appName: $(webAppName)
+              appResourceGroup: $(resourceGroup)
+              appStagingSlotName: staging
+              appTargetSlotName: production
     globalVariables:
       - template: azure-pipelines-variables.yml@self
       - template: apps/api/pipelines/azure-pipelines-variables.yml@self
