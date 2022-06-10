@@ -31,7 +31,7 @@ extends:
           - template: ../steps/node_script.yml
             parameters:
               condition: always()
-              script: npx commitlint --from=HEAD~1
+              script: npx commitlint --from=$(git merge-base remotes/origin/develop --fork-point)
           - template: ../steps/node_script.yml
             parameters:
               condition: always()
@@ -109,3 +109,4 @@ extends:
               runTests: false
         variables:
           - template: apps/api/pipelines/azure-pipelines-variables.yml@self
+
