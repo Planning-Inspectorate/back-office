@@ -1,12 +1,15 @@
 import { parseHtml } from '@pins/platform';
 import nock from 'nock';
 import supertest from 'supertest';
-import { createAccountInfo, createTestApplication } from '../../../../../testing/index.js';
-import { ConfidentialClientApplication, getMock } from '../../../../../testing/mocks/msal.js';
+import {
+	ConfidentialClientApplication,
+	createAccountInfo
+} from '../../../../../testing/app/app.js';
+import { createTestApplication } from '../../../../../testing/index.js';
 
 const { app, teardown } = createTestApplication({ authenticated: false });
 const request = supertest(app);
-const azureMsalMock = getMock();
+const azureMsalMock = ConfidentialClientApplication.getMock();
 
 describe('auth', () => {
 	afterEach(teardown);
@@ -19,7 +22,7 @@ describe('auth', () => {
 			// Assert azure msal client was instantiated correctly
 
 			expect(client?.configuration.auth).toEqual({
-				authority: 'auth_cloud_instance_id/auth_tenant_id',
+				authority: 'https://login.microsoftonline.com/auth_tenant_id',
 				clientId: 'auth_client_id',
 				clientSecret: 'auth_client_secret'
 			});
@@ -30,7 +33,7 @@ describe('auth', () => {
 				client.getAuthCodeUrl.mock.lastCall
 			);
 
-			expect(authOptions.authority).toEqual('auth_cloud_instance_id/auth_tenant_id');
+			expect(authOptions.authority).toEqual('https://login.microsoftonline.com/auth_tenant_id');
 			expect(authOptions.redirectUri).toEqual(expect.stringMatching('^https?://.*/auth/redirect'));
 			expect(authOptions.scopes).toEqual(['user.read']);
 			expect(authOptions.nonce).toBeTruthy();
@@ -44,7 +47,7 @@ describe('auth', () => {
 				client.acquireTokenByCode.mock.lastCall
 			);
 
-			expect(tokenOptions.authority).toEqual('auth_cloud_instance_id/auth_tenant_id');
+			expect(tokenOptions.authority).toEqual('https://login.microsoftonline.com/auth_tenant_id');
 			expect(tokenOptions.redirectUri).toEqual(expect.stringMatching('^https?://.*/auth/redirect'));
 			expect(tokenOptions.scopes).toEqual(['user.read']);
 			expect(tokenOptions.code).toEqual('msal_code');
@@ -138,7 +141,7 @@ describe('auth', () => {
 		});
 
 		it('should silently reacquire a token on each route navigation', async () => {
-			await signinWithGroups(['validation_officer']);
+			await signinWithGroups(['appeals_validation_officer']);
 			await request.get('/');
 
 			const client = getConfidentialClientApplication();
@@ -169,7 +172,7 @@ describe('auth', () => {
 
 			expect(element.innerHTML).toMatchSnapshot();
 
-			await signinWithGroups(['validation_officer']);
+			await signinWithGroups(['appeals_validation_officer']);
 			response = await request.get(`/unauthenticated`);
 			element = parseHtml(response.text, { rootElement: '.govuk-header__content' });
 
@@ -177,7 +180,7 @@ describe('auth', () => {
 		});
 
 		it('should destroy the msal token cache and session upon logging out', async () => {
-			await signinWithGroups(['validation_officer']);
+			await signinWithGroups(['appeals_validation_officer']);
 			await request.get('/auth/signout');
 
 			// access an authenticated route to determine if we're signed out
@@ -188,13 +191,22 @@ describe('auth', () => {
 	});
 
 	describe('authorization', () => {
-		beforeEach(() => {
-			nock('http://test/').get('/validation').reply(200, []);
+		it('should display the services page when a user belongs to more than one group', async () => {
+			await signinWithGroups(['appeals_validation_officer', 'applications_case_officer']);
+
+			const response = await request.get('/');
+			const element = parseHtml(response.text);
+
+			expect(element.innerHTML).toMatchSnapshot();
 		});
 
-		describe('/validation', () => {
+		describe('/appeals-service/validation', () => {
+			beforeEach(() => {
+				nock('http://test/').get('/appeals/validation').reply(200, []);
+			});
+
 			it('should deny access to the domain if the user does not have permission', async () => {
-				await signinWithGroups(['inspector', 'case_officer']);
+				await signinWithGroups(['appeals_inspector', 'appeals_case_officer']);
 
 				const response = await request.get('/appeals-service/validation').redirects(1);
 				const element = parseHtml(response.text);
@@ -205,7 +217,7 @@ describe('auth', () => {
 			});
 
 			it('should permit access to the domain if the user has permission', async () => {
-				await signinWithGroups(['validation_officer']);
+				await signinWithGroups(['appeals_validation_officer']);
 
 				const response = await request.get('/appeals-service/validation');
 				const element = parseHtml(response.text);
@@ -214,7 +226,7 @@ describe('auth', () => {
 			});
 
 			it('should redirect to the validation page from the root path', async () => {
-				await signinWithGroups(['validation_officer']);
+				await signinWithGroups(['appeals_validation_officer']);
 
 				const response = await request.get('/').redirects(1);
 				const element = parseHtml(response.text);
@@ -223,13 +235,13 @@ describe('auth', () => {
 			});
 		});
 
-		describe('/case-officer', () => {
+		describe('/appeals-service/case-officer', () => {
 			beforeEach(() => {
-				nock('http://test/').get('/case-officer').reply(200, []);
+				nock('http://test/').get('/appeals/case-officer').reply(200, []);
 			});
 
 			it('should deny access to the domain if the user does not have permission', async () => {
-				await signinWithGroups(['inspector', 'validation_officer']);
+				await signinWithGroups(['appeals_inspector', 'appeals_validation_officer']);
 
 				const response = await request.get('/appeals-service/case-officer').redirects(1);
 				const element = parseHtml(response.text);
@@ -240,7 +252,7 @@ describe('auth', () => {
 			});
 
 			it('should permit access to the domain if the user has permission', async () => {
-				await signinWithGroups(['case_officer']);
+				await signinWithGroups(['appeals_case_officer']);
 
 				const response = await request.get('/appeals-service/case-officer');
 				const element = parseHtml(response.text);
@@ -249,7 +261,7 @@ describe('auth', () => {
 			});
 
 			it('should redirect to the case officer page from the root path', async () => {
-				await signinWithGroups(['case_officer']);
+				await signinWithGroups(['appeals_case_officer']);
 
 				const response = await request.get('/').redirects(1);
 				const element = parseHtml(response.text);
@@ -258,13 +270,13 @@ describe('auth', () => {
 			});
 		});
 
-		describe('/inspector', () => {
+		describe('/appeals-service/inspector', () => {
 			beforeEach(() => {
-				nock('http://test/').get('/inspector').reply(200, []);
+				nock('http://test/').get('/appeals/inspector').reply(200, []);
 			});
 
 			it('should deny access to the domain if the user does not have permission', async () => {
-				await signinWithGroups(['validation_officer', 'case_officer']);
+				await signinWithGroups(['appeals_validation_officer', 'appeals_case_officer']);
 
 				const response = await request.get('/appeals-service/inspector').redirects(1);
 				const element = parseHtml(response.text);
@@ -275,7 +287,7 @@ describe('auth', () => {
 			});
 
 			it('should permit access to the domain if the user has permission', async () => {
-				await signinWithGroups(['inspector']);
+				await signinWithGroups(['appeals_inspector']);
 
 				const response = await request.get('/appeals-service/inspector');
 				const element = parseHtml(response.text);
@@ -284,7 +296,7 @@ describe('auth', () => {
 			});
 
 			it('should redirect to the inspector page from the root path', async () => {
-				await signinWithGroups(['inspector']);
+				await signinWithGroups(['appeals_inspector']);
 
 				const response = await request.get('/').redirects(1);
 				const element = parseHtml(response.text);
@@ -293,13 +305,109 @@ describe('auth', () => {
 			});
 		});
 
-		it('should display the services page when a user belongs to more than one group', async () => {
-			await signinWithGroups(['validation_officer', 'case_officer']);
+		describe('/applications-service/case-admin-officer', () => {
+			beforeEach(() => {
+				nock('http://test/').get('/applications/case-admin-officer').reply(200, []);
+			});
 
-			const response = await request.get('/');
-			const element = parseHtml(response.text);
+			it('should deny access to the domain if the user does not have permission', async () => {
+				await signinWithGroups(['applications_case_officer', 'applications_case_officer']);
 
-			expect(element.innerHTML).toMatchSnapshot();
+				const response = await request.get('/applications-service/inspector').redirects(1);
+				const element = parseHtml(response.text);
+
+				expect(element.querySelector('h1')?.innerHTML).toEqual(
+					'Sorry, there is a problem with your login'
+				);
+			});
+
+			it('should permit access to the domain if the user has permission', async () => {
+				await signinWithGroups(['applications_case_admin_officer']);
+
+				const response = await request.get('/applications-service/case-admin-officer');
+				const element = parseHtml(response.text);
+
+				expect(element.querySelector('h1')?.innerHTML).toContain('Applications');
+			});
+
+			it('should redirect to the case admin officer page from the root path', async () => {
+				await signinWithGroups(['applications_case_admin_officer']);
+
+				const response = await request.get('/').redirects(1);
+				const element = parseHtml(response.text);
+
+				expect(element.querySelector('h1')?.innerHTML).toContain('Applications');
+			});
+		});
+
+		describe('/applications-service/case-officer', () => {
+			beforeEach(() => {
+				nock('http://test/').get('/applications/case-officer').reply(200, []);
+			});
+
+			it('should deny access to the domain if the user does not have permission', async () => {
+				await signinWithGroups(['applications_case_admin_officer', 'applications_inspector']);
+
+				const response = await request.get('/applications-service/case-officer').redirects(1);
+				const element = parseHtml(response.text);
+
+				expect(element.querySelector('h1')?.innerHTML).toEqual(
+					'Sorry, there is a problem with your login'
+				);
+			});
+
+			it('should permit access to the domain if the user has permission', async () => {
+				await signinWithGroups(['applications_case_officer']);
+
+				const response = await request.get('/applications-service/case-officer');
+				const element = parseHtml(response.text);
+
+				expect(element.querySelector('h1')?.innerHTML).toContain('Applications');
+			});
+
+			it('should redirect to the case officer page from the root path', async () => {
+				await signinWithGroups(['applications_case_officer']);
+
+				const response = await request.get('/').redirects(1);
+				const element = parseHtml(response.text);
+
+				expect(element.querySelector('h1')?.innerHTML).toContain('Applications');
+			});
+		});
+
+		describe('/applications-service/inspector', () => {
+			beforeEach(() => {
+				nock('http://test/').get('/applications/inspector').reply(200, []);
+			});
+
+			it('should deny access to the domain if the user does not have permission', async () => {
+				await signinWithGroups(['applications_case_admin_officer', 'applications_case_officer']);
+
+				const response = await request.get('/applications-service/inspector').redirects(1);
+				const element = parseHtml(response.text);
+
+				expect(element.querySelector('h1')?.innerHTML).toEqual(
+					'Sorry, there is a problem with your login'
+				);
+			});
+
+			it('should permit access to the domain if the user has permission', async () => {
+				await signinWithGroups(['applications_inspector']);
+
+				const response = await request.get('/applications-service/inspector');
+				const element = parseHtml(response.text);
+
+				expect(element.querySelector('h1')?.innerHTML).toContain('Applications');
+			});
+
+			it('should redirect to the inspector page from the root path', async () => {
+				await signinWithGroups(['applications_inspector']);
+
+				const response = await request.get('/').redirects(1);
+				const element = parseHtml(response.text);
+
+				expect(element.querySelector('h1')?.innerHTML).toContain('Applications');
+			});
 		});
 	});
 });
@@ -311,8 +419,11 @@ function getConfidentialClientApplication() {
 	);
 }
 
+/** @typedef {'appeals_validation_officer' | 'appeals_case_officer' | 'appeals_inspector'} AppealGroupId  */
+/** @typedef {'applications_case_admin_officer' | 'applications_case_officer' | 'applications_inspector'} ApplicationsGroupId  */
+
 /**
- * @param {Array<'validation_officer' | 'case_officer' | 'inspector'>} groups
+ * @param {Array<AppealGroupId | ApplicationsGroupId>} groups
  * @returns {Promise<void>}
  */
 async function signinWithGroups(groups) {

@@ -17,7 +17,7 @@ import { get, patch, post } from '../../lib/request.js';
  * @returns {Promise<string[]>}
  */
 export function findAllLocalPlanningDepartments() {
-	return get('validation/lpa-list');
+	return get('appeals/validation/lpa-list');
 }
 
 /**
@@ -26,7 +26,7 @@ export function findAllLocalPlanningDepartments() {
  * @returns {Promise<Appeal[]>}
  */
 export function findAllAppeals() {
-	return get('validation');
+	return get('appeals/validation');
 }
 
 /**
@@ -36,7 +36,7 @@ export function findAllAppeals() {
  * @returns {Promise<Appeal>}
  */
 export function findAppealById(appealId) {
-	return get(`validation/${appealId}`, { context: { ttl: 10_000 } });
+	return get(`appeals/validation/${appealId}`, { context: { ttl: 10_000 } });
 }
 
 /**
@@ -56,7 +56,7 @@ export function findAppealById(appealId) {
  * @returns {Promise<Appeal>}
  */
 export function updateAppealDetails(appealId, details) {
-	return patch(`validation/${appealId}`, { json: details });
+	return patch(`appeals/validation/${appealId}`, { json: details });
 }
 
 /**
@@ -87,7 +87,7 @@ export function updateAppealDetails(appealId, details) {
  * @returns {Promise<Appeal>}
  */
 export function recordOutcome(appealId, { status: AppealStatus, ...other }) {
-	return post(`validation/${appealId}`, {
+	return post(`appeals/validation/${appealId}`, {
 		// TODO: have api align the posted property names of these values with the model
 		json:
 			'reasons' in other

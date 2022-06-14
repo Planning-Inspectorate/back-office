@@ -1,4 +1,5 @@
 import nock from 'nock';
+import { localPlanningDepartments } from '../../app/fixtures/referencedata.js';
 import {
 	appealDetailsForFinalComments,
 	appealDetailsForIncompleteQuestionnaire,
@@ -11,32 +12,34 @@ import {
 	appealDetailsForPendingStatements,
 	appealDetailsForUnbookedSiteVisit
 } from '../fixtures/inspector.js';
-import { localPlanningDepartments } from '../fixtures/referencedata.js';
 import { incompleteAppealDetails, receivedAppealDetails } from '../fixtures/validation.js';
 
 /**
  * @returns {{ destroy: () => void }}
  */
-export function installMockApi() {
+export function installMockAppealsService() {
 	// Validation
 
 	// received appeal
 	nock('http://test/')
-		.get(`/validation/${receivedAppealDetails.AppealId}`)
+		.get(`/appeals/validation/${receivedAppealDetails.AppealId}`)
 		.reply(200, receivedAppealDetails)
 		.persist();
 
 	// incomplete appeal
 	nock('http://test/')
-		.get(`/validation/${incompleteAppealDetails.AppealId}`)
+		.get(`/appeals/validation/${incompleteAppealDetails.AppealId}`)
 		.reply(200, incompleteAppealDetails)
 		.persist();
 
 	// planning departments
-	nock('http://test/').get('/validation/lpa-list').reply(200, localPlanningDepartments).persist();
+	nock('http://test/')
+		.get('/appeals/validation/lpa-list')
+		.reply(200, localPlanningDepartments)
+		.persist();
 
 	// remote error
-	nock('http://test/').get('/validation/0').reply(500).persist();
+	nock('http://test/').get('/appeals/validation/0').reply(500).persist();
 
 	// Case officer
 
@@ -46,17 +49,20 @@ export function installMockApi() {
 		appealDetailsForFinalComments,
 		appealDetailsForStatements
 	]) {
-		nock('http://test/').get(`/case-officer/${appeal.AppealId}`).reply(200, appeal).persist();
+		nock('http://test/')
+			.get(`/appeals/case-officer/${appeal.AppealId}`)
+			.reply(200, appeal)
+			.persist();
 	}
 	for (const appeal of [appealDetailsForFinalComments, appealDetailsForStatements]) {
 		nock('http://test/')
-			.get(`/case-officer/${appeal.AppealId}/statements-comments`)
+			.get(`/appeals/case-officer/${appeal.AppealId}/statements-comments`)
 			.reply(200, appeal)
 			.persist();
 	}
 	// Unknown appeals
-	nock('http://test/').get('/case-officer/0').reply(500).persist();
-	nock('http://test/').get('/case-officer/0/statements-comments').reply(500).persist();
+	nock('http://test/').get('/appeals/case-officer/0').reply(500).persist();
+	nock('http://test/').get('/appeals/case-officer/0/statements-comments').reply(500).persist();
 
 	// Inspector
 
@@ -66,9 +72,9 @@ export function installMockApi() {
 		appealDetailsForDecisionDue,
 		appealDetailsForPendingStatements
 	]) {
-		nock('http://test/').get(`/inspector/${appeal.appealId}`).reply(200, appeal).persist();
+		nock('http://test/').get(`/appeals/inspector/${appeal.appealId}`).reply(200, appeal).persist();
 	}
-	nock('http://test/').get('/inspector/0').reply(500).persist();
+	nock('http://test/').get('/appeals/inspector/0').reply(500).persist();
 
 	return {
 		destroy: () => {

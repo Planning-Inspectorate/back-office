@@ -6,7 +6,6 @@ export default joi
 	.object({
 		apiUrl: joi.string().uri(),
 		authDisabled: joi.boolean().optional(),
-		bundleAnalyzer: joi.boolean(),
 		env: joi.string().valid('development', 'production', 'test'),
 		isRelease: joi.boolean().optional(),
 		logLevelFile: joi.string().valid(...logLevel),
@@ -15,7 +14,6 @@ export default joi
 			.object({
 				clientId: joi.string(),
 				clientSecret: joi.string(),
-				cloudInstanceId: joi.string(),
 				tenantId: joi.string()
 			})
 			.options({ presence: 'required' })
@@ -24,16 +22,24 @@ export default joi
 		serverPort: joi.number(),
 		sslCertificateFile: joi.string().when('serverProtocol', requireIf('https')),
 		sslCertificateKeyFile: joi.string().when('serverProtocol', requireIf('https')),
-		referenceData: joi.object({
-			groups: joi
-				.object({
-					caseOfficerGroupId: joi.string(),
-					inspectorGroupId: joi.string(),
-					validationOfficerGroupId: joi.string()
-				})
-				.options({ presence: 'required' })
-				.when('authDisabled', requireIf(false))
-		})
+		referenceData: joi
+			.object({
+				appeals: joi
+					.object({
+						caseOfficerGroupId: joi.string(),
+						inspectorGroupId: joi.string(),
+						validationOfficerGroupId: joi.string()
+					})
+					.options({ presence: 'required' }),
+				applications: joi
+					.object({
+						caseAdminOfficerGroupId: joi.string(),
+						caseOfficerGroupId: joi.string(),
+						inspectorGroupId: joi.string()
+					})
+					.options({ presence: 'required' })
+			})
+			.when('authDisabled', requireIf(false))
 	})
 	.options({ presence: 'required' });
 

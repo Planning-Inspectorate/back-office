@@ -1,0 +1,16 @@
+.pins-summary-list--inline {
+  .govuk-summary-list__row {
+    display: flex;
+    justify-content: space-between;
+  }
+  .govuk-summary-list__key {
+    display: block;
+    width: auto;
+  }
+  .govuk-summary-list__value {
+    display: block;
+    padding-right: 0;
+    text-align: right;
+    width: auto;
+  }
+}
