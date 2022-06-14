@@ -12,7 +12,7 @@ import { get, post } from '../../lib/request.js';
  * @returns {Promise<{ successfullyAssigned: AppealSummary[]; unsuccessfullyAssigned: AppealSummary[] }>}
  */
 export function assignAppealsToUser(appealIds) {
-	return post('inspector/assign', { json: appealIds });
+	return post('appeals/inspector/assign', { json: appealIds });
 }
 
 /**
@@ -30,7 +30,7 @@ export function assignAppealsToUser(appealIds) {
  * @returns {Promise<Appeal>}
  */
 export async function bookSiteVisit(appealId, data) {
-	return post(`inspector/${appealId}/book`, { json: data });
+	return post(`appeals/inspector/${appealId}/book`, { json: data });
 }
 
 /**
@@ -39,7 +39,7 @@ export async function bookSiteVisit(appealId, data) {
  * @returns {Promise<AppealSummary[]>}
  */
 export function findAllAssignedAppeals() {
-	return get('inspector');
+	return get('appeals/inspector');
 }
 
 /**
@@ -48,7 +48,7 @@ export function findAllAssignedAppeals() {
  * @returns {Promise<AppealSummary[]>}
  */
 export function findAllUnassignedAppeals() {
-	return get('inspector/more-appeals');
+	return get('appeals/inspector/more-appeals');
 }
 
 /**
@@ -62,7 +62,7 @@ export function findAllUnassignedAppeals() {
  * @returns {Promise<Appeal>}
  */
 export function findAppealById(appealId) {
-	return get(`inspector/${appealId}`, { context: { ttl: 10_000 } });
+	return get(`appeals/inspector/${appealId}`, { context: { ttl: 10_000 } });
 }
 
 /**
@@ -85,7 +85,7 @@ export function issueDecision(appealId, { outcome, decisionLetter }) {
 	appendFilesToFormData(formData, { key: 'decisionLetter', file: decisionLetter });
 	// This endpoint currently won't save files
 	// https://pins-ds.atlassian.net/browse/BOCM-301
-	return post(`inspector/${appealId}/issue-decision`, {
+	return post(`appeals/inspector/${appealId}/issue-decision`, {
 		body: formData,
 		headers: formData.getHeaders()
 	});
