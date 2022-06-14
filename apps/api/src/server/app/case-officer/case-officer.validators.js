@@ -28,39 +28,27 @@ export const validateAppealDetails = composeMiddleware(
 );
 
 const invalidWithoutReasons = (hasExplanation) => {
-	return !!(
-		(hasExplanation.reason.applicationPlansToReachDecisionMissingOrIncorrect === true &&
-			typeof hasExplanation.reason.applicationPlansToReachDecisionMissingOrIncorrectDescription ===
-				'undefined') ||
-		(hasExplanation.reason.policiesStatutoryDevelopmentPlanPoliciesMissingOrIncorrect === true &&
-			typeof hasExplanation.reason
-				.policiesStatutoryDevelopmentPlanPoliciesMissingOrIncorrectDescription === 'undefined') ||
-		(hasExplanation.reason.policiesOtherRelevanPoliciesMissingOrIncorrect === true &&
-			typeof hasExplanation.reason.policiesOtherRelevanPoliciesMissingOrIncorrectDescription ===
-				'undefined') ||
-		(hasExplanation.reason.policiesSupplementaryPlanningDocumentsMissingOrIncorrect === true &&
-			typeof hasExplanation.reason
-				.policiesSupplementaryPlanningDocumentsMissingOrIncorrectDescription === 'undefined') ||
-		(hasExplanation.reason.siteConservationAreaMapAndGuidanceMissingOrIncorrect === true &&
-			typeof hasExplanation.reason
-				.siteConservationAreaMapAndGuidanceMissingOrIncorrectDescription === 'undefined') ||
-		(hasExplanation.reason.siteListedBuildingDescriptionMissingOrIncorrect === true &&
-			typeof hasExplanation.reason.siteListedBuildingDescriptionMissingOrIncorrectDescription ===
-				'undefined') ||
-		(hasExplanation.reason.thirdPartyApplicationNotificationMissingOrIncorrect === true &&
-			hasExplanation.reason.thirdPartyApplicationNotificationMissingOrIncorrectListOfAddresses ===
-				false &&
-			hasExplanation.reason
-				.thirdPartyApplicationNotificationMissingOrIncorrectCopyOfLetterOrSiteNotice === false) ||
-		(hasExplanation.reason.thirdPartyRepresentationsMissingOrIncorrect === true &&
-			typeof hasExplanation.reason.thirdPartyRepresentationsMissingOrIncorrectDescription ===
-				'undefined') ||
-		(hasExplanation.reason.thirdPartyAppealNotificationMissingOrIncorrect === true &&
-			hasExplanation.reason.thirdPartyAppealNotificationMissingOrIncorrectListOfAddresses ===
-				false &&
-			hasExplanation.reason
-				.thirdPartyAppealNotificationMissingOrIncorrectCopyOfLetterOrSiteNotice === false)
-	);
+	for (const [questionnaireKey, questionnaireValue] of Object.entries(hasExplanation.reason)) {
+		if (questionnaireValue === true) {
+			for (const [questionnaireSecondaryKey, questionnaireSecondaryValue] of Object.entries(
+				hasExplanation.reason
+			)) {
+				if (
+					questionnaireSecondaryKey === `${questionnaireKey}Description` &&
+					typeof questionnaireSecondaryValue === 'undefined'
+				) {
+					return false;
+				}
+				if (
+					(questionnaireSecondaryKey === `${questionnaireKey}ListOfAddresses` ||
+						questionnaireSecondaryKey === `${questionnaireKey}CopyOfLetterOrSiteNotice`) &&
+					questionnaireSecondaryValue === false
+				) {
+					return false;
+				}
+			}
+		}
+	}
 };
 
 const incompleteWithUnexpectedReasons = (reasonListed) => {
