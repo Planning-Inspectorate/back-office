@@ -189,7 +189,7 @@ describe('auth', () => {
 
 	describe('authorization', () => {
 		beforeEach(() => {
-			nock('http://test/').get('/validation').reply(200, []);
+			nock('http://test/').get('/appeals/validation').reply(200, []);
 		});
 
 		describe('/validation', () => {
@@ -225,7 +225,7 @@ describe('auth', () => {
 
 		describe('/case-officer', () => {
 			beforeEach(() => {
-				nock('http://test/').get('/case-officer').reply(200, []);
+				nock('http://test/').get('/appeals/case-officer').reply(200, []);
 			});
 
 			it('should deny access to the domain if the user does not have permission', async () => {
@@ -260,7 +260,7 @@ describe('auth', () => {
 
 		describe('/inspector', () => {
 			beforeEach(() => {
-				nock('http://test/').get('/inspector').reply(200, []);
+				nock('http://test/').get('/appeals/inspector').reply(200, []);
 			});
 
 			it('should deny access to the domain if the user does not have permission', async () => {
