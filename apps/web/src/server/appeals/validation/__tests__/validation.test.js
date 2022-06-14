@@ -28,7 +28,7 @@ describe('validation', () => {
 
 	describe('GET /', () => {
 		it('should render a placeholder for empty appeals', async () => {
-			nock('http://test/').get('/validation').reply(200, []);
+			nock('http://test/').get('/appeals/validation').reply(200, []);
 
 			const response = await request.get(baseUrl);
 			const element = parseHtml(response.text);
@@ -38,7 +38,7 @@ describe('validation', () => {
 
 		it('should render new and incomplete appeals', async () => {
 			nock('http://test/')
-				.get('/validation')
+				.get('/appeals/validation')
 				.reply(200, [incompleteAppealSummary, receivedAppealSummary]);
 
 			const response = await request.get(baseUrl);
@@ -207,14 +207,16 @@ describe('validation', () => {
 				PostCode: 'N1 9BE'
 			};
 
-			nock('http://test/').get(`/validation/${AppealId}`).reply(200, incompleteAppealDetails);
-
 			nock('http://test/')
-				.patch(`/validation/${AppealId}`, { Address: address })
+				.get(`/appeals/validation/${AppealId}`)
 				.reply(200, incompleteAppealDetails);
 
 			nock('http://test/')
-				.get(`/validation/${AppealId}`)
+				.patch(`/appeals/validation/${AppealId}`, { Address: address })
+				.reply(200, incompleteAppealDetails);
+
+			nock('http://test/')
+				.get(`/appeals/validation/${AppealId}`)
 				.reply(200, { ...incompleteAppealDetails, AppealSite: address });
 
 			const response = await request
@@ -255,14 +257,16 @@ describe('validation', () => {
 
 			nock.cleanAll();
 
-			nock('http://test/').get(`/validation/${AppealId}`).reply(200, incompleteAppealDetails);
-
 			nock('http://test/')
-				.patch(`/validation/${AppealId}`, appellant)
+				.get(`/appeals/validation/${AppealId}`)
 				.reply(200, incompleteAppealDetails);
 
 			nock('http://test/')
-				.get(`/validation/${AppealId}`)
+				.patch(`/appeals/validation/${AppealId}`, appellant)
+				.reply(200, incompleteAppealDetails);
+
+			nock('http://test/')
+				.get(`/appeals/validation/${AppealId}`)
 				.reply(200, { ...incompleteAppealDetails, ...appellant });
 
 			const response = await request
@@ -307,14 +311,16 @@ describe('validation', () => {
 
 			nock.cleanAll();
 
-			nock('http://test/').get(`/validation/${AppealId}`).reply(200, incompleteAppealDetails);
+			nock('http://test/')
+				.get(`/appeals/validation/${AppealId}`)
+				.reply(200, incompleteAppealDetails);
 
 			nock('http://test/')
-				.get(`/validation/${AppealId}`)
+				.get(`/appeals/validation/${AppealId}`)
 				.reply(200, { ...incompleteAppealDetails, ...details });
 
 			nock('http://test/')
-				.patch(`/validation/${AppealId}`, details)
+				.patch(`/appeals/validation/${AppealId}`, details)
 				.reply(200, incompleteAppealDetails);
 
 			const response = await request
@@ -355,14 +361,16 @@ describe('validation', () => {
 
 			nock.cleanAll();
 
-			nock('http://test/').get(`/validation/${AppealId}`).reply(200, incompleteAppealDetails);
-
 			nock('http://test/')
-				.patch(`/validation/${AppealId}`, details)
+				.get(`/appeals/validation/${AppealId}`)
 				.reply(200, incompleteAppealDetails);
 
 			nock('http://test/')
-				.get(`/validation/${AppealId}`)
+				.patch(`/appeals/validation/${AppealId}`, details)
+				.reply(200, incompleteAppealDetails);
+
+			nock('http://test/')
+				.get(`/appeals/validation/${AppealId}`)
 				.reply(200, { ...incompleteAppealDetails, ...details });
 
 			const response = await request
@@ -482,7 +490,7 @@ describe('validation', () => {
 
 		it('should redirect the user if the appeal was completed elsewhere', async () => {
 			nock.cleanAll();
-			nock('http://test/').get(`/validation/${AppealId}`).reply(409);
+			nock('http://test/').get(`/appeals/validation/${AppealId}`).reply(409);
 
 			const response = await request
 				.post(`${baseUrl}/appeals/${AppealId}/review-outcome`)
@@ -652,7 +660,7 @@ describe('validation', () => {
 
 		it('should redirect the user if the appeal was completed elsewhere', async () => {
 			nock.cleanAll();
-			nock('http://test/').get(`/validation/${AppealId}`).reply(409);
+			nock('http://test/').get(`/appeals/validation/${AppealId}`).reply(409);
 
 			const response = await request
 				.post(`${baseUrl}/appeals/${AppealId}/review-outcome/confirm`)
@@ -674,7 +682,7 @@ describe('validation', () => {
 
 			it('should confirm the outcome with a success panel', async () => {
 				nock('http://test/')
-					.post(`/validation/${AppealId}`, {
+					.post(`/appeals/validation/${AppealId}`, {
 						AppealStatus: 'valid',
 						descriptionOfDevelopment: '*'
 					})
@@ -702,7 +710,7 @@ describe('validation', () => {
 
 			it('should confirm the outcome with a success panel', async () => {
 				nock('http://test/')
-					.post(`/validation/${AppealId}`, {
+					.post(`/appeals/validation/${AppealId}`, {
 						AppealStatus: 'invalid',
 						Reason: {
 							outOfTime: true,
@@ -743,7 +751,7 @@ describe('validation', () => {
 
 			it('should confirm the outcome with a success panel', async () => {
 				nock('http://test/')
-					.post(`/validation/${AppealId}`, {
+					.post(`/appeals/validation/${AppealId}`, {
 						AppealStatus: 'incomplete',
 						Reason: {
 							inflammatoryComments: true,

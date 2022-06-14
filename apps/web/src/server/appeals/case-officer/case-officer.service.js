@@ -12,14 +12,14 @@ import { get, patch, post } from '../../lib/request.js';
 /**
  * @returns {Promise<AppealSummary[]>}
  */
-export const findAllAppeals = () => get('case-officer');
+export const findAllAppeals = () => get('appeals/case-officer');
 
 /**
  * @param {number} appealId
  * @returns {Promise<Appeal>}
  */
 export const findAppealById = (appealId) =>
-	get(`case-officer/${appealId}`, {
+	get(`appeals/case-officer/${appealId}`, {
 		context: { ttl: 10_000 }
 	});
 
@@ -28,7 +28,7 @@ export const findAppealById = (appealId) =>
  * @returns {Promise<Appeal>}
  */
 export const findFullPlanningAppealById = (appealId) =>
-	get(`case-officer/${appealId}/statements-comments`, {
+	get(`appeals/case-officer/${appealId}/statements-comments`, {
 		context: { ttl: 10_000 }
 	});
 
@@ -42,7 +42,7 @@ export const findFullPlanningAppealById = (appealId) =>
  */
 export function confirmQuestionnaireReview(appealId, questionnaire) {
 	// todo: the updated appeal should be the api response
-	return post(`case-officer/${appealId}/confirm`, {
+	return post(`appeals/case-officer/${appealId}/confirm`, {
 		json: {
 			reason: questionnaire
 		}
@@ -91,7 +91,7 @@ export function uploadFinalComments(appealId, files) {
 
 	appendFilesToFormData(formData, { key: 'finalcomments', files });
 
-	return post(`case-officer/${appealId}/final-comment`, { body: formData });
+	return post(`appeals/case-officer/${appealId}/final-comment`, { body: formData });
 }
 
 /**
@@ -106,7 +106,7 @@ export function uploadStatements(appealId, files) {
 
 	appendFilesToFormData(formData, { key: 'statements', files });
 
-	return post(`case-officer/${appealId}/statement`, { body: formData });
+	return post(`appeals/case-officer/${appealId}/statement`, { body: formData });
 }
 
 /**
@@ -116,4 +116,5 @@ export function uploadStatements(appealId, files) {
  * @param {{ listedBuildingDescription: string }} data
  * @returns {Promise<Appeal>}
  */
-export const updateAppeal = (appealId, data) => patch(`case-officer/${appealId}`, { json: data });
+export const updateAppeal = (appealId, data) =>
+	patch(`appeals/case-officer/${appealId}`, { json: data });

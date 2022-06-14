@@ -22,7 +22,7 @@ describe('inspector', () => {
 
 	describe('GET /', () => {
 		it('should render placeholders for empty appeals', async () => {
-			nock('http://test/').get(`/inspector`).reply(200, []);
+			nock('http://test/').get(`/appeals/inspector`).reply(200, []);
 
 			const response = await request.get(baseUrl);
 			const element = parseHtml(response.text);
@@ -32,7 +32,7 @@ describe('inspector', () => {
 
 		it('should render appeals according to their status', async () => {
 			nock('http://test/')
-				.get('/inspector')
+				.get('/appeals/inspector')
 				.reply(200, [
 					appealSummaryForDecisionDue,
 					appealSummaryForBookedSiteVisit,
@@ -48,7 +48,9 @@ describe('inspector', () => {
 		it('should show the "NEW" status for an unbooked appeal that was assigned to the user this session', async () => {
 			await installAssignedAppealIds([appealSummaryForUnbookedSiteVisit.appealId]);
 
-			nock('http://test/').get(`/inspector`).reply(200, [appealSummaryForUnbookedSiteVisit]);
+			nock('http://test/')
+				.get(`/appeals/inspector`)
+				.reply(200, [appealSummaryForUnbookedSiteVisit]);
 
 			const response = await request.get(baseUrl);
 			const element = parseHtml(response.text);
@@ -60,7 +62,7 @@ describe('inspector', () => {
 	describe('GET /available-appeals', () => {
 		it('should render a page for assigning appeals to the user', async () => {
 			nock('http://test/')
-				.get('/inspector/more-appeals')
+				.get('/appeals/inspector/more-appeals')
 				.reply(200, [appealSummaryForUnbookedSiteVisit]);
 
 			const response = await request.get('/appeals-service/inspector/available-appeals');
@@ -74,7 +76,7 @@ describe('inspector', () => {
 		const { appealId } = appealSummaryForUnbookedSiteVisit;
 
 		it('should validate that at least one appeal was selected', async () => {
-			nock('http://test/').get('/inspector/more-appeals').reply(200, []);
+			nock('http://test/').get('/appeals/inspector/more-appeals').reply(200, []);
 
 			const response = await request.post('/appeals-service/inspector/available-appeals');
 			const element = parseHtml(response.text);
@@ -84,7 +86,7 @@ describe('inspector', () => {
 
 		it('should handle a successful assignment and display a success page', async () => {
 			nock('http://test/')
-				.post('/inspector/assign', [appealId])
+				.post('/appeals/inspector/assign', [appealId])
 				.reply(200, {
 					successfullyAssigned: [appealSummaryForUnbookedSiteVisit],
 					unsuccessfullyAssigned: []
@@ -100,7 +102,7 @@ describe('inspector', () => {
 
 		it('should handle an unsuccessful assignment and display a notification page', async () => {
 			nock('http://test/')
-				.post('/inspector/assign', [appealId])
+				.post('/appeals/inspector/assign', [appealId])
 				.reply(200, {
 					successfullyAssigned: [],
 					unsuccessfullyAssigned: [appealSummaryForUnbookedSiteVisit]
@@ -251,7 +253,7 @@ describe('inspector', () => {
 
 		it('should confirm a site visit and render a success page', async () => {
 			nock('http://test/')
-				.post(`/inspector/${appealId}/book`, {
+				.post(`/appeals/inspector/${appealId}/book`, {
 					siteVisitDate: '2030-01-01',
 					siteVisitTimeSlot: '1pm to 3pm',
 					siteVisitType: 'unaccompanied'
@@ -376,7 +378,7 @@ describe('inspector', () => {
 
 		it('should confirm a decision and render a success page', async () => {
 			nock('http://test/')
-				.post(`/inspector/${appealId}/issue-decision`)
+				.post(`/appeals/inspector/${appealId}/issue-decision`)
 				.reply(200, {
 					...appealDetailsForDecisionDue,
 					inspectorDecision: { outcome: 'allowed' }
@@ -395,7 +397,7 @@ describe('inspector', () => {
  * @returns {Promise<void>}
  */
 async function installAssignedAppealIds(appealIds) {
-	nock('http://test/').post('/inspector/assign', appealIds).reply(200, {
+	nock('http://test/').post('/appeals/inspector/assign', appealIds).reply(200, {
 		successfullyAssigned: appealIds,
 		unsuccessfullyAssigned: []
 	});
