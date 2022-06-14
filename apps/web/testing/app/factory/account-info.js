@@ -15,7 +15,14 @@ export function createAccountInfo({
 	tenantId = 'PlanningInspectorate',
 	username = snakeCase(name),
 	localAccountId = camelCase(name),
-	groups = ['case_officer', 'inspector', 'validation_officer']
+	groups = [
+		'appeals_case_officer',
+		'appeals_inspector',
+		'appeals_validation_officer',
+		'applications_case_officer',
+		'applications_case_admin_officer',
+		'applications_inspector'
+	]
 } = {}) {
 	return {
 		homeAccountId,

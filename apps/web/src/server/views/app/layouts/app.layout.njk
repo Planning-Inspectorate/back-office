@@ -33,29 +33,33 @@
       {{ govukBackLink({ href: backLinkUrl }) }}
     {% elseif backURL %}
       {{ govukBackLink({ href: backURL }) }}
-    {% endif%}
+      {% endif %}
+    {% endblock %}
   {% endblock %}
-{% endblock %}
 
-{% block content %}
-	{% if errors %}
-    <div class="govuk-grid-row">
-		  <div class="govuk-grid-column-two-thirds">
-				{{
+  {% block content %}
+    {% if errors %}
+      <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+          {{
 					govukErrorSummary({
 						titleText: "There is a problem",
 						errorList: errors | mapToErrorSummary
 					})
 				}}
+        </div>
       </div>
-    </div>
-  {% endif %}
-  {% block pageHeading %}
-    <div class="govuk-grid-row">
-      <div class="govuk-grid-column-full">
-        <h1 class="govuk-heading-xl">{{ pageTitle }}</h1>
+    {% endif %}
+    {% block pageHeading %}
+      <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full">
+          <h1 class="govuk-heading-xl">
+            {% if pageCaption %}
+              <span class="govuk-caption-xl">{{ pageCaption }}</span>
+            {% endif %}{{ pageHeading or pageTitle }}
+          </h1>
+        </div>
       </div>
-    </div>
+    {% endblock %}
+    {% block pageContent %}{% endblock %}
   {% endblock %}
-  {% block pageContent %}{% endblock %}
-{% endblock %}

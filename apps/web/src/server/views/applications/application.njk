@@ -1,0 +1,105 @@
+{% extends "app/layouts/app.layout.njk" %}
+
+{% from "applications/components/application-summary.component.njk" import applicationSummary %}
+{% from "govuk/components/accordion/macro.njk" import govukAccordion %}
+{% from "govuk/components/breadcrumbs/macro.njk" import govukBreadcrumbs %}
+{% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
+
+{% set pageCaption = domainType | displayValue %}
+{% set pageTitle = 'Case details' %}
+
+{% block beforeContent %}
+  {{
+		govukBreadcrumbs({
+			classes: 'govuk-!-margin-top-3',
+			items: [
+				{ href: '/applications-service/' + domainType, text: 'Applications' },
+        { text: pageTitle }
+			]
+		})	
+	}}
+{% endblock %}
+
+{% block pageContent %}
+	<div class="govuk-grid-row">
+		<div class="govuk-grid-column-one-third">
+      {{ applicationSummary({ application: application }) }}
+    </div>
+    <div class="govuk-grid-column-two-thirds">
+      {{
+        govukAccordion({ 
+          items: [
+            { 
+              heading: { text: 'Project documents' },
+              content: {
+                html: documentsSummary(application.documents)
+              }
+            },
+            { 
+              heading: { text: 'Case details' },
+              content: {
+                html: caseDetails(application)
+              }
+            },
+            { 
+              heading: { text: 'Deadlines' },
+              content: {
+                html: deadlines(application)
+              }
+            }
+          ]
+        })
+      }}
+    </div>
+  </div>
+{% endblock %}
+
+{% macro caseDetails(application) %}
+  {{
+    govukSummaryList({
+      classes: 'pins-summary-list--inline',
+      rows: [
+        { 
+          key: { text: 'Project type' },
+          value: { text: application.sector.displayNameEn }
+        },
+        { 
+          key: { text: 'Description' },
+          value: { text: application.sector.displayNameEn }
+        },
+        { 
+          key: { text: 'Stage' },
+          value: { text: application.sector.displayNameEn }
+        },
+        { 
+          key: { text: 'Date application submitted' },
+          value: { text: application.sector.displayNameEn }
+        },
+        { 
+          key: { text: 'Examination start date' },
+          value: { text: application.sector.displayNameEn }
+        },
+        { 
+          key: { text: 'Deadline for close of examination' },
+          value: { text: application.sector.displayNameEn }
+        },
+        { 
+          key: { text: 'Deadline submission of recommendation' },
+          value: { text: application.sector.displayNameEn }
+        },
+            { 
+          key: { text: 'Deadline decision' },
+          value: { text: application.sector.displayNameEn }
+        }
+      ]
+    })
+  }}
+{% endmacro %}
+
+{% macro deadlines(application) %}
+  <p class="govuk-body">Deadlines are not yet modelled (<a class="govuk-link" href="https://pins-ds.atlassian.net/browse/BOAS-48">BOAS-48</a>).</p>
+{% endmacro %}
+
+{% macro documentsSummary(documents) %}
+  <p class="govuk-body">Documents are not yet modelled (<a class="govuk-link" href="https://pins-ds.atlassian.net/browse/BOAS-48">BOAS-48</a>).</p>
+{% endmacro %}

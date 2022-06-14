@@ -3,6 +3,7 @@ import { LevelWithSilent } from 'pino';
 export interface EnvironmentConfig {
 	apiUrl: string;
 	authDisabled: boolean;
+	authDisabledGroupIds: string[];
 	bundleAnalyzer: boolean;
 	buildDir: string;
 	cwd: string;
@@ -25,10 +26,15 @@ export interface EnvironmentConfig {
 	sslCertificateKeyFile: string;
 	tmpDir: string;
 	referenceData: {
-		groups: {
-			inspectorGroupId: string;
+		appeals: {
 			caseOfficerGroupId: string;
+			inspectorGroupId: string;
 			validationOfficerGroupId: string;
+		};
+		applications: {
+			caseAdminOfficerGroupId: string;
+			caseOfficerGroupId: string;
+			inspectorGroupId: string;
 		};
 	};
 }
