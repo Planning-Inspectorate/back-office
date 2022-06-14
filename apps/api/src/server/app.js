@@ -6,8 +6,8 @@ import fs from 'node:fs';
 import path from 'node:path';
 import swaggerUi from 'swagger-ui-express';
 import { appealsRoutes } from './appeals/appeals.routes.js';
-import config from './config/config.js';
 import { defaultErrorHandler, stateMachineErrorHandler } from './appeals/middleware/error-handler.js';
+import config from './config/config.js';
 
 const app = express();
 
