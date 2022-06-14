@@ -1,5 +1,5 @@
 import Prisma from '@prisma/client';
-import logger from '../src/server/app/lib/logger.js';
+import logger from '../src/server/lib/logger.js';
 import {
 	addressesList,
 	appealDetailsFromAppellantList,
