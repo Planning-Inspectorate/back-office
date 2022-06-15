@@ -1,39 +1,39 @@
 /**
- * 
+ *
  * @returns {string}
  */
 const generateApplicationReference = () => {
-    const number = Math.floor(Math.random() * (1 - 999_999) + 1);
+	const number = Math.floor(Math.random() * (1 - 999_999) + 1);
 
 	return `APP/Q9999/D/21/${number}`;
-}
+};
 
 /**
- * @template T
- * @param {T[]} list
- * @returns {T} list
+ *
+ * @param {{id: number, status: string, modifiedAt: Date}} arg
+ * @returns {import('@pins/api').Schema.Application}
  */
- function pickRandom(list) {
-	return list[Math.floor(Math.random() * list.length)];
-}
-
-/**
- * 
- * @param {number} applicationId 
- * @param {string} status
- * @param {Date} modifiedAt
- * @returns 
- */
-export const applicationFactorForTests = ({
-    applicationId,
-    status = 'open',
-    modifiedAt = new Date()
-}) => {
-    return {
-        id: applicationId,
-        reference: generateApplicationReference(),
-        status,
-        modifiedAt,
-
-    }
-}
+export const applicationFactoryForTests = ({ id, status = 'open', modifiedAt = new Date() }) => {
+	return {
+		id,
+		reference: generateApplicationReference(),
+		status,
+		modifiedAt,
+		subSectorId: 1,
+		subSector: {
+			id: 1,
+			abbreviation: 'AA',
+			name: 'sub_sector',
+			displayNameEn: 'Sub Sector Name En',
+			displayNameCy: 'Sub Sector Name Cy',
+			sectorId: 1,
+			sector: {
+				id: 1,
+				abbreviation: 'BB',
+				name: 'sector',
+				displayNameEn: 'Sector Name En',
+				displayNameCy: 'Sector Name Cy'
+			}
+		}
+	};
+};
