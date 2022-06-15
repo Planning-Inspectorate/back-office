@@ -1,5 +1,5 @@
 import Prisma from '@prisma/client';
-import logger from '../src/server/lib/logger.js';
+import logger from '../src/server/utils/logger.js';
 import {
 	addressesList,
 	appealDetailsFromAppellantList,
@@ -623,6 +623,7 @@ async function main() {
 		for (const appealData of appealsData) {
 			await prisma.appeal.create({ data: appealData });
 		}
+		prisma.application.create({ data: { status: 'open' } })
 	} catch (error) {
 		logger.error(error);
 		throw error;

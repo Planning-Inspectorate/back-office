@@ -1,11 +1,11 @@
+import { addWeeksToDate } from '../../utils/add-weeks-to-date.js';
+import formatAddress from '../../utils/address-formatter.js';
+import { arrayOfStatusesContainsString } from '../../utils/array-of-statuses-contains-string.js';
+import formatDate from '../../utils/date-formatter.js';
+import { getAppealStatusCreatedAt } from '../../utils/get-appeal-status-created-at.js';
+import formatReviewQuestionnaire from '../../utils/review-questionnaire-formatter.js';
 import { weeksReceivingDocuments } from '../state-machine/full-planning-appeal.machine.js';
 import { appealStates } from '../state-machine/transition-state.js';
-import { addWeeksToDate } from '../utils/add-weeks-to-date.js';
-import formatAddress from '../utils/address-formatter.js';
-import { arrayOfStatusesContainsString } from '../utils/array-of-statuses-contains-string.js';
-import formatDate from '../utils/date-formatter.js';
-import { getAppealStatusCreatedAt } from '../utils/get-appeal-status-created-at.js';
-import formatReviewQuestionnaire from '../utils/review-questionnaire-formatter.js';
 
 const add2Weeks = (date) => {
 	const newDate = new Date(date.valueOf());

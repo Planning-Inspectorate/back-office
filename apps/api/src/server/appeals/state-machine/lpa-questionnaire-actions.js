@@ -1,4 +1,4 @@
-import logger from '../../lib/logger.js';
+import logger from '../../utils/logger.js';
 import lpaQuestionnaireActionsService from './lpa-questionnaire-actions.service.js';
 
 const lpaQuestionnaireActions = {

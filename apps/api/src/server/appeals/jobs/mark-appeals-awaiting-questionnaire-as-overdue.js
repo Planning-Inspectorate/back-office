@@ -1,7 +1,7 @@
-import appealRepository from '../repositories/appeal.repository.js';
+import appealRepository from '../../repositories/appeal.repository.js';
+import { breakUpCompoundStatus } from '../../utils/break-up-compound-status.js';
+import { buildAppealCompundStatus } from '../../utils/build-appeal-compound-status.js';
 import { transitionState } from '../state-machine/transition-state.js';
-import { breakUpCompoundStatus } from '../utils/break-up-compound-status.js';
-import { buildAppealCompundStatus } from '../utils/build-appeal-compound-status.js';
 
 /**
  * @returns {Date} date two weeks ago

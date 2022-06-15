@@ -1,6 +1,6 @@
-import appealRepository from '../repositories/appeal.repository.js';
+import appealRepository from '../../repositories/appeal.repository.js';
+import { formatAppeal } from '../../utils/appeal-formatter.js';
 import { appealStates } from '../state-machine/transition-state.js';
-import { formatAppeal } from '../utils/appeal-formatter.js';
 import { appealFormatter } from './appeal-formatter.js';
 import * as inspector from './inspector.service.js';
 

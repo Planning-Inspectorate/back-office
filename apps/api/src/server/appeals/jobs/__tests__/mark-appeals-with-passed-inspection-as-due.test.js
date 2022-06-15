@@ -1,7 +1,7 @@
 import test from 'ava';
 import sinon from 'sinon';
-import DatabaseFactory from '../../repositories/database.js';
-import { appealFactoryForTests } from '../../utils/appeal-factory-for-tests.js';
+import DatabaseFactory from '../../../repositories/database.js';
+import { appealFactoryForTests } from '../../../utils/appeal-factory-for-tests.js';
 import findAndUpdateStatusForAppealsWithPassedInspection from '../mark-appeals-with-passed-inspection-as-due.js';
 
 const appeal1 = appealFactoryForTests({

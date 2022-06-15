@@ -2,9 +2,9 @@ import { composeMiddleware, mapMulterErrorToValidationError } from '@pins/expres
 import { body } from 'express-validator';
 import { difference } from 'lodash-es';
 import multer from 'multer';
-import { validationErrorHandler } from '../middleware/error-handler.js';
-import { handleValidationError } from '../middleware/handle-validation-error.js';
-import { validateAppealStatus } from '../middleware/validate-appeal-status.js';
+import { validationErrorHandler } from '../../middleware/error-handler.js';
+import { handleValidationError } from '../../middleware/handle-validation-error.js';
+import { validateAppealStatus } from '../../middleware/validate-appeal-status.js';
 import { appealStates } from '../state-machine/transition-state.js';
 
 export const validateAppealBelongsToCaseOfficer = validateAppealStatus([

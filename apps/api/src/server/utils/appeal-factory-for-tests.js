@@ -9,7 +9,7 @@ import {
 	invalidValidationDecisionSample,
 	localPlanningDepartmentList,
 	lpaQuestionnaireList
-} from '../../../../prisma/seed-samples.js';
+} from '../../../prisma/seed-samples.js';
 
 /**
  * @returns {string}

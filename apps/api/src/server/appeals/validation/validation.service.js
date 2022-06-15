@@ -1,12 +1,12 @@
 import got from 'got';
-import appealRepository from '../repositories/appeal.repository.js';
-import validationDecisionRepository from '../repositories/validation-decision.repository.js';
+import appealRepository from '../../repositories/appeal.repository.js';
+import validationDecisionRepository from '../../repositories/validation-decision.repository.js';
+import { arrayOfStatusesContainsString } from '../../utils/array-of-statuses-contains-string.js';
+import { breakUpCompoundStatus } from '../../utils/break-up-compound-status.js';
+import { buildAppealCompundStatus } from '../../utils/build-appeal-compound-status.js';
+import { nullIfUndefined } from '../../utils/null-if-undefined.js';
 import { appealStates, transitionState } from '../state-machine/transition-state.js';
 import { validationActionsStrings } from '../state-machine/validation-states.js';
-import { arrayOfStatusesContainsString } from '../utils/array-of-statuses-contains-string.js';
-import { breakUpCompoundStatus } from '../utils/break-up-compound-status.js';
-import { buildAppealCompundStatus } from '../utils/build-appeal-compound-status.js';
-import { nullIfUndefined } from '../utils/null-if-undefined.js';
 import ValidationError from './validation-error.js';
 
 const validationDecisions = {

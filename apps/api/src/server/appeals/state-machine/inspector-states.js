@@ -1,4 +1,4 @@
-import mapObjectKeysToStrings from '../utils/map-states-to-strings.js';
+import mapObjectKeysToStrings from '../../utils/map-states-to-strings.js';
 import inspectorActionsService from './inspector.actions.js';
 
 /** @typedef {import('@pins/api').Schema.AppealStatusType} AppealStatusType */

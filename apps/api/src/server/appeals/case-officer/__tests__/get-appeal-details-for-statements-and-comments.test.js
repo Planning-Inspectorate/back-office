@@ -2,9 +2,9 @@ import test from 'ava';
 import sinon from 'sinon';
 import supertest from 'supertest';
 import { app } from '../../../app.js';
-import DatabaseFactory from '../../repositories/database.js';
-import formatAddress from '../../utils/address-formatter.js';
-import { appealFactoryForTests } from '../../utils/appeal-factory-for-tests.js';
+import DatabaseFactory from '../../../repositories/database.js';
+import formatAddress from '../../../utils/address-formatter.js';
+import { appealFactoryForTests } from '../../../utils/appeal-factory-for-tests.js';
 
 const request = supertest(app);
 

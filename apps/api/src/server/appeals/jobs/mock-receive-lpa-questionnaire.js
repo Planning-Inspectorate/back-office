@@ -1,4 +1,4 @@
-import appealRepository from '../repositories/appeal.repository.js';
+import appealRepository from '../../repositories/appeal.repository.js';
 import { transitionState } from '../state-machine/transition-state.js';
 import { arrayOfStatusesContainsString } from '../utils/array-of-statuses-contains-string.js';
 import { breakUpCompoundStatus } from '../utils/break-up-compound-status.js';

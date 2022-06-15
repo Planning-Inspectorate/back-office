@@ -6,8 +6,8 @@ import format from 'date-fns/format/index.js';
 import sinon, { assert } from 'sinon';
 import supertest from 'supertest';
 import { app } from '../../../app.js';
-import appealRepository from '../../repositories/appeal.repository.js';
-import { appealFactoryForTests } from '../../utils/appeal-factory-for-tests.js';
+import appealRepository from '../../../repositories/appeal.repository.js';
+import { appealFactoryForTests } from '../../../utils/appeal-factory-for-tests.js';
 
 /** @typedef {import('@pins/api').Schema.Appeal} Appeal */
 

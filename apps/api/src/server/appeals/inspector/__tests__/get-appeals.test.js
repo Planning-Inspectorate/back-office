@@ -2,7 +2,7 @@ import test from 'ava';
 import sinon from 'sinon';
 import supertest from 'supertest';
 import { app } from '../../../app.js';
-import DatabaseFactory from '../../repositories/database.js';
+import DatabaseFactory from '../../../repositories/database.js';
 
 const request = supertest(app);
 

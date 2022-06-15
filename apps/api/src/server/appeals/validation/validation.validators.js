@@ -3,9 +3,9 @@
 import { composeMiddleware } from '@pins/express';
 import { body } from 'express-validator';
 import { difference } from 'lodash-es';
-import { handleValidationError } from '../middleware/handle-validation-error.js';
-import { validateAppealStatus } from '../middleware/validate-appeal-status.js';
-import stringEmptyOrUndefined from '../utils/string-validator.js';
+import { handleValidationError } from '../../middleware/handle-validation-error.js';
+import { validateAppealStatus } from '../../middleware/validate-appeal-status.js';
+import stringEmptyOrUndefined from '../../utils/string-validator.js';
 
 export const validateAppealBelongsToValidation = validateAppealStatus([
 	'received_appeal',

@@ -1,11 +1,11 @@
 // @ts-check
 
 import pino from 'pino';
-import appealRepository from '../repositories/appeal.repository.js';
+import appealRepository from '../../repositories/appeal.repository.js';
+import { arrayOfStatusesContainsString } from '../../utils/array-of-statuses-contains-string.js';
+import { breakUpCompoundStatus } from '../../utils/break-up-compound-status.js';
+import { buildAppealCompundStatus } from '../../utils/build-appeal-compound-status.js';
 import { appealStates, transitionState } from '../state-machine/transition-state.js';
-import { arrayOfStatusesContainsString } from '../utils/array-of-statuses-contains-string.js';
-import { breakUpCompoundStatus } from '../utils/break-up-compound-status.js';
-import { buildAppealCompundStatus } from '../utils/build-appeal-compound-status.js';
 import { appealFormatter } from './appeal-formatter.js';
 
 /** @typedef {import('@pins/express').MulterFile} MulterFile */

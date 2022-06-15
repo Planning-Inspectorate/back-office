@@ -1,5 +1,5 @@
 import { createMachine } from 'xstate';
-import mapObjectKeysToStrings from '../utils/map-states-to-strings.js';
+import mapObjectKeysToStrings from '../../utils/map-states-to-strings.js';
 import { inspectorActions, inspectorStates } from './inspector-states.js';
 import lpaQuestionnaireActions from './lpa-questionnaire-actions.js';
 import { generateLpaQuestionnaireStates } from './lpa-questionnaire-states.js';

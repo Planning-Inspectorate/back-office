@@ -1,7 +1,7 @@
 import express from 'express';
 import { param } from 'express-validator';
-import { asyncHandler } from '../middleware/async-handler.js';
-import { validateAppealStatus } from '../middleware/validate-appeal-status.js';
+import { asyncHandler } from '../../middleware/async-handler.js';
+import { validateAppealStatus } from '../../middleware/validate-appeal-status.js';
 import { appealStates } from '../state-machine/transition-state.js';
 import {
 	confirmLPAQuestionnaire,
