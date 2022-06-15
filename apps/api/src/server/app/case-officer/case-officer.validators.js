@@ -39,6 +39,9 @@ const invalidWithoutReasons = (hasExplanation) => {
 				) {
 					return false;
 				}
+				if (`${questionnaireKey}Description` in Object.entries(hasExplanation.reason) === false) {
+					return false;
+				}
 				if (
 					(questionnaireSecondaryKey === `${questionnaireKey}ListOfAddresses` ||
 						questionnaireSecondaryKey === `${questionnaireKey}CopyOfLetterOrSiteNotice`) &&
