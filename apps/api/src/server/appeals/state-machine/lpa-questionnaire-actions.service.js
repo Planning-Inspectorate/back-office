@@ -1,5 +1,5 @@
-import logger from '../../utils/logger.js';
 import lpaQuestionnaireRepository from '../../repositories/lpa-questionnaire.repository.js';
+import logger from '../../utils/logger.js';
 
 const lpaQuestionnaireActionsService = {
 	async sendLpaQuestionnaire(appealId) {

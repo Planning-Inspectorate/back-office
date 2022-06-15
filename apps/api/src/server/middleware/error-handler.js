@@ -1,6 +1,6 @@
 import { validationResult } from 'express-validator';
-import logger from '../utils/logger.js';
 import { TransitionStateError } from '../appeals/state-machine/transition-state.js';
+import logger from '../utils/logger.js';
 
 /**
  * The default catch-all error handler.
