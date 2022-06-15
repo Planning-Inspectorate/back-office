@@ -15,10 +15,7 @@
 
 .pins-table {
 	&--fixed {
-		border-bottom: 1px solid color.govuk-colour("mid-grey")
-	}
-
-	&--fixed {
+		border-bottom: 1px solid color.govuk-colour("mid-grey");
 		table-layout: fixed;
 	}
 
