@@ -620,7 +620,6 @@ async function main() {
 				{ shorthand: 'HAS', type: appealTypes.HAS }
 			]
 		});
-		// await prisma.appeal.create({ data: appealsData[3] });
 		for (const appealData of appealsData) {
 			await prisma.appeal.create({ data: appealData });
 		}
