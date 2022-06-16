@@ -18,7 +18,7 @@ import { createTestApplication } from '../../../../../testing/index.js';
 /** @typedef {import('../validation.controller').UpdatePlanningApplicationRefBody} UpdatePlanningApplicationRefBody */
 /** @typedef {import('../validation.controller').UpdateLocalPlanningDeptBody} UpdateLocalPlanningDeptBody */
 
-const { app, clearHttpCache, installMockApi, teardown } = createTestApplication();
+const { app, installMockApi, teardown } = createTestApplication();
 const request = supertest(app);
 const baseUrl = '/appeals-service/validation';
 
@@ -778,7 +778,6 @@ describe('validation', () => {
  */
 async function installReviewOutcomeStatus(body) {
 	await request.post(`${baseUrl}/appeals/${receivedAppealDetails.AppealId}`).send(body);
-	clearHttpCache();
 	nock.cleanAll();
 	installMockApi();
 }
@@ -793,7 +792,6 @@ async function installReviewOutcome(body) {
 	await request
 		.post(`${baseUrl}/appeals/${receivedAppealDetails.AppealId}/review-outcome`)
 		.send(body);
-	clearHttpCache();
 	nock.cleanAll();
 	installMockApi();
 }
