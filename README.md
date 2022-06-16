@@ -3,7 +3,6 @@
 > This is the Planning Inspectorate Back Office monorepo that holds the API and WEB apps plus any additional required packages.
 
 - [Planning Inspectorate Back Office](#planning-inspectorate-back-office)
-	- [Features](#features)
 	- [Installing / Getting started](#installing--getting-started)
 	- [Developing](#developing)
 		- [Built With](#built-with)
@@ -20,19 +19,6 @@
 	- [Style guide](#style-guide)
 	- [Licensing](#licensing)
 
-## Features
-
-- CSS with superpowers via [Scss](https://sass-lang.com/)
-- CSS [Autoprefixing](https://github.com/postcss/autoprefixer), [PostCSS](http://postcss.org/)
-- Built in CSS architecture bet practices with utility classes and sensitive settings
-- Bundled JS code using [rollup.js](https://rollupjs.org/)
-- Enable [ES2015 features](https://babeljs.io/docs/learn-es2015/) using [Babel](https://babeljs.io)
-- Map compiled CSS/JS to source stylesheets/js with source maps
-- [browserslist](http://browserl.ist/) support for babel and friends
-- Linting done with [eslint](https://eslint.org/) and [stylelint](https://stylelint.io/) using internal configs
-- Monorepo management using [NPM workspaces](https://docs.npmjs.com/cli/v7/using-npm/workspaces) and [Turborepo](https://turborepo.org/) (is a high-performance build system)
-- Custom task runner using promises
-
 ## Installing / Getting started
 
 In order to get started you will need to run the LTS version of [Node.js](https://nodejs.org/en/).
@@ -40,16 +26,6 @@ In order to get started you will need to run the LTS version of [Node.js](https:
 Additionaly you can run the entire solution using Docker containers so a local [Docker](https://www.docker.com/products/docker-desktop) instance is required.
 
 The repository is structured like a monorepo with two main folders `apps` and `packages`.
-
-```
-.
-├── apps
-│  ├── api
-│  └── web
-├── packages
-│  └── eslint-config
-│  └── planning-inspectorate-libs
-```
 
 `apps` - Holds the main Express.js applications responsible for the DB access API backend and the front facing web app.
 `packages` - Holds the common packages that can be used by all apps.
@@ -63,8 +39,6 @@ The entire solution is built on top [Express.js](https://expressjs.com/) and [Nu
 ### Prerequisites
 
 Before you get started you need to make sure you are running the latest Node LTS version and latest NPM version.
-
-If you want to change the local env variables defaults create a `.env.local` local environment file within both the web and api apps folders and override the predefined ones.
 
 ### Setting up Dev
 
@@ -101,9 +75,7 @@ cd apps/web
 npm run dev
 ```
 
-This will run all apps in dev mode. For example the Web app will run the Sass compiler, Rollup for JS bundling and various other tools (most of them in watch mode).
-
-Then you can open the local dev server `http://localhost:8080`.
+You can then open the local development server at `http://localhost:8080`.
 
 ### Setting up Database locally
 
@@ -216,22 +188,10 @@ which should create and run a container at `http://0.0.0.0:3001` on your machine
 
 ## Configuration
 
-All required configurations are part of `.env` files or app specific config file
-that are used throughout the entire applications. The web application will, by
-default, attempt to integrate with an Azure SSO, which is often undesirable when
-developing locally. Consequently, by specifying the following, the app would no
-longer require azure SSO and behave as if the user belonged to the inspector and
-case officer groups:
-
-```
-AUTH_DISABLED=true
-
-AUTH_INSPECTOR_GROUP_ID=inspector
-AUTH_CASEOFFICER_GROUP_ID=case_officer
-AUTH_VALIDATIONOFFICER_GROUP_ID=validation_officer
-
-AUTH_SIMULATED_GROUPS=inspector,case_officer
-```
+All required configurations are part of dotenv files found in each application's
+root folder. If you want to change any of the variables used for the environment
+under which you're running, create an `.env.local` file in the root of the
+application to extend the configuration.
 
 ## Tests
 
