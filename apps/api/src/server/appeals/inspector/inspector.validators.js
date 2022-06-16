@@ -3,8 +3,8 @@
 import { composeMiddleware } from '@pins/express';
 import { validateFutureDate } from '@pins/platform';
 import { body, header } from 'express-validator';
-import { validationErrorHandler } from '../middleware/error-handler.js';
-import appealRepository from '../repositories/appeal.repository.js';
+import { validationErrorHandler } from '../../middleware/error-handler.js';
+import appealRepository from '../../repositories/appeal.repository.js';
 
 /** @typedef {import('@pins/api').Schema.SiteVisitType} SiteVisitType */
 

@@ -1,6 +1,6 @@
-import appealRepository from '../repositories/appeal.repository.js';
+import appealRepository from '../../repositories/appeal.repository.js';
+import { breakUpCompoundStatus } from '../../utils/break-up-compound-status.js';
 import { transitionState } from '../state-machine/transition-state.js';
-import { breakUpCompoundStatus } from '../utils/break-up-compound-status.js';
 
 /**
  * @returns {Array} array of appeals that are in 'site_visit_booked' state which has passed inspection

@@ -5,8 +5,17 @@ export {
 	AppealDetailsFromAppellant,
 	Appellant,
 	LPAQuestionnaire,
-	ReviewQuestionnaire
+	ReviewQuestionnaire,
+	Sector
 } from '@prisma/client';
+
+export interface Application extends schema.Application {
+	subSector: SubSector
+}
+
+export interface SubSector extends schema.SubSector {
+	sector: schema.Sector
+}
 
 export interface Appeal extends schema.Appeal {
 	appealStatus: AppealStatus[];

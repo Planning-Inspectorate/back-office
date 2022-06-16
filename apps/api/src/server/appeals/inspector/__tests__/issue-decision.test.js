@@ -6,7 +6,7 @@ import * as url from 'node:url';
 import sinon, { assert } from 'sinon';
 import supertest from 'supertest';
 import { app } from '../../../app.js';
-import appealRepository from '../../repositories/appeal.repository.js';
+import appealRepository from '../../../repositories/appeal.repository.js';
 
 /** @typedef {import('@pins/api').Schema.Appeal} Appeal */
 

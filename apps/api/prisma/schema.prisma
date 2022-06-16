@@ -70,6 +70,35 @@ model AppealDetailsFromAppellant {
   appeal                               Appeal   @relation(fields: [appealId], references: [id])
 }
 
+model Application {
+  id          Int       @id @default(autoincrement())
+  status      String    @default("open")
+  reference   String
+  modifiedAt  DateTime
+  subSectorId Int
+  subSector   SubSector @relation(fields: [subSectorId], references: [id])
+}
+
+model Sector {
+  id            Int         @id @default(autoincrement())
+  abbreviation  String
+  name          String
+  displayNameEn String
+  displayNameCy String
+  SubSector     SubSector[]
+}
+
+model SubSector {
+  id            Int           @id @default(autoincrement())
+  abbreviation  String
+  name          String
+  displayNameEn String
+  displayNameCy String
+  sectorId      Int
+  sector        Sector        @relation(fields: [sectorId], references: [id])
+  Application   Application[]
+}
+
 model Address {
   id           Int      @id @default(autoincrement())
   addressLine1 String?

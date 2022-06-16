@@ -11,7 +11,7 @@
   },
   "type": "module",
   "scripts": {
-    "test": "NODE_ENV=test cross-env ava",
+    "test": "NODE_ENV=test cross-env ava --no-worker-threads",
     "coverage": "c8 --reporter=html --reporter=text ava",
     "dev": "npx prisma generate; nodemon --experimental-json-modules -e js ./src/server.js",
     "start": "node ./src/server.js",

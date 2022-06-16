@@ -32,6 +32,63 @@ const document = {
 	// by default: empty object (Swagger 2.0)
 	securityDefinitions: {},
 	definitions: {
+		ApplicationsForCaseOfficer: [
+			{
+				id: 1,
+				modifiedDate: 1_655_298_882,
+				reference: 'REFERENCE',
+				sector: {
+					abbreviation: 'BB',
+					displayNameCy: 'Sector Name Cy',
+					displayNameEn: 'Sector Name En',
+					name: 'sector'
+				},
+				subSector: {
+					abbreviation: 'AA',
+					displayNameCy: 'Sub Sector Name Cy',
+					displayNameEn: 'Sub Sector Name En',
+					name: 'sub_sector'
+				}
+			}
+		],
+		ApplicationsForCaseOfficerAdmin: [
+			{
+				id: 1,
+				modifiedDate: 1_655_298_882,
+				reference: 'REFERENCE',
+				sector: {
+					abbreviation: 'BB',
+					displayNameCy: 'Sector Name Cy',
+					displayNameEn: 'Sector Name En',
+					name: 'sector'
+				},
+				subSector: {
+					abbreviation: 'AA',
+					displayNameCy: 'Sub Sector Name Cy',
+					displayNameEn: 'Sub Sector Name En',
+					name: 'sub_sector'
+				}
+			}
+		],
+		ApplicationsForInspector: [
+			{
+				id: 1,
+				modifiedDate: 1_655_298_882,
+				reference: 'REFERENCE',
+				sector: {
+					abbreviation: 'BB',
+					displayNameCy: 'Sector Name Cy',
+					displayNameEn: 'Sector Name En',
+					name: 'sector'
+				},
+				subSector: {
+					abbreviation: 'AA',
+					displayNameCy: 'Sub Sector Name Cy',
+					displayNameEn: 'Sub Sector Name En',
+					name: 'sub_sector'
+				}
+			}
+		],
 		AppealToValidate: {
 			AppealId: 1,
 			AppealReference: 'APP/Q9999/D/21/1345264',
@@ -396,6 +453,9 @@ const document = {
 };
 
 const outputFile = './src/server/swagger-output.json';
-const endpointsFiles = ['./src/server/appeals/**/*.routes.js'];
+const endpointsFiles = [
+	'./src/server/appeals/**/*.routes.js',
+	'./src/server/applications/**/*.routes.js'
+];
 
 swaggerAutogen()(outputFile, endpointsFiles, document);

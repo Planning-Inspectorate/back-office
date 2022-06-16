@@ -1,8 +1,8 @@
-import appealRepository from '../repositories/appeal.repository.js';
-import newReviewRepository from '../repositories/review-questionnaire.repository.js';
+import appealRepository from '../../repositories/appeal.repository.js';
+import newReviewRepository from '../../repositories/review-questionnaire.repository.js';
+import { breakUpCompoundStatus } from '../../utils/break-up-compound-status.js';
+import { buildAppealCompundStatus } from '../../utils/build-appeal-compound-status.js';
 import { transitionState } from '../state-machine/transition-state.js';
-import { breakUpCompoundStatus } from '../utils/break-up-compound-status.js';
-import { buildAppealCompundStatus } from '../utils/build-appeal-compound-status.js';
 
 /** @typedef {import('@pins/api').Schema.Appeal} Appeal */
 

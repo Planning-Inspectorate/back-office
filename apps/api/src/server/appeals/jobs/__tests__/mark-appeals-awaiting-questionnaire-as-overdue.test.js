@@ -1,7 +1,7 @@
 import test from 'ava';
 import sinon from 'sinon';
-import DatabaseFactory from '../../repositories/database.js';
-import { appealFactoryForTests } from '../../utils/appeal-factory-for-tests.js';
+import DatabaseFactory from '../../../repositories/database.js';
+import { appealFactoryForTests } from '../../../utils/appeal-factory-for-tests.js';
 import findAndUpdateStatusForAppealsWithOverdueQuestionnaires from '../mark-appeals-awaiting-questionnaire-as-overdue.js';
 
 const appeal1 = appealFactoryForTests({

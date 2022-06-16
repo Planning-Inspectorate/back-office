@@ -1,9 +1,9 @@
 // @ts-check
 
-import appealRepository from '../repositories/appeal.repository.js';
+import appealRepository from '../../repositories/appeal.repository.js';
+import formatAddress from '../../utils/address-formatter.js';
+import { arrayOfStatusesContainsString } from '../../utils/array-of-statuses-contains-string.js';
 import { appealStates } from '../state-machine/transition-state.js';
-import formatAddress from '../utils/address-formatter.js';
-import { arrayOfStatusesContainsString } from '../utils/array-of-statuses-contains-string.js';
 import appealFormatter from './appeal-formatter.js';
 import * as caseOfficerService from './case-officer.service.js';
 

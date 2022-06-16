@@ -1,5 +1,5 @@
 import Prisma from '@prisma/client';
-import logger from '../src/server/lib/logger.js';
+import logger from '../src/server/utils/logger.js';
 import {
 	addressesList,
 	appealDetailsFromAppellantList,
@@ -133,28 +133,44 @@ const appealFactory = ({
 };
 
 const newAppeals = [
-	appealFactory({typeShorthand: 'HAS'}),
-	appealFactory({typeShorthand: 'HAS'}),
-	appealFactory({typeShorthand: 'HAS'}),
-	appealFactory({typeShorthand: 'HAS'}),
-	appealFactory({typeShorthand: 'HAS'}),
-	appealFactory({typeShorthand: 'HAS'}),
-	appealFactory({typeShorthand: 'FPA'}),
-	appealFactory({typeShorthand: 'FPA'}),
-	appealFactory({typeShorthand: 'FPA'}),
-	appealFactory({typeShorthand: 'FPA'}),
-	appealFactory({typeShorthand: 'FPA'}),
-	appealFactory({typeShorthand: 'FPA'})
+	appealFactory({ typeShorthand: 'HAS' }),
+	appealFactory({ typeShorthand: 'HAS' }),
+	appealFactory({ typeShorthand: 'HAS' }),
+	appealFactory({ typeShorthand: 'HAS' }),
+	appealFactory({ typeShorthand: 'HAS' }),
+	appealFactory({ typeShorthand: 'HAS' }),
+	appealFactory({ typeShorthand: 'FPA' }),
+	appealFactory({ typeShorthand: 'FPA' }),
+	appealFactory({ typeShorthand: 'FPA' }),
+	appealFactory({ typeShorthand: 'FPA' }),
+	appealFactory({ typeShorthand: 'FPA' }),
+	appealFactory({ typeShorthand: 'FPA' })
 ];
 
 const appealsAwaitingValidationInfo = [
-	appealFactory({ typeShorthand: 'HAS', statuses: { status: 'awaiting_validation_info' }, incompleteValidationDecision: true}),
-	appealFactory({ typeShorthand: 'FPA', statuses: { status: 'awaiting_validation_info' }, incompleteValidationDecision: true})
+	appealFactory({
+		typeShorthand: 'HAS',
+		statuses: { status: 'awaiting_validation_info' },
+		incompleteValidationDecision: true
+	}),
+	appealFactory({
+		typeShorthand: 'FPA',
+		statuses: { status: 'awaiting_validation_info' },
+		incompleteValidationDecision: true
+	})
 ];
 
 const invalidAppeals = [
-	appealFactory({ typeShorthand: 'HAS', statuses: { status: 'invalid_appeal' }, invalidValidationDecision: true }),
-	appealFactory({ typeShorthand: 'FPA', statuses: { status: 'invalid_appeal' }, invalidValidationDecision: true })
+	appealFactory({
+		typeShorthand: 'HAS',
+		statuses: { status: 'invalid_appeal' },
+		invalidValidationDecision: true
+	}),
+	appealFactory({
+		typeShorthand: 'FPA',
+		statuses: { status: 'invalid_appeal' },
+		invalidValidationDecision: true
+	})
 ];
 
 const appealsAwaitingLPAQuestionnaire = [
@@ -623,6 +639,28 @@ async function main() {
 		for (const appealData of appealsData) {
 			await prisma.appeal.create({ data: appealData });
 		}
+		await prisma.application.create({
+			data: {
+				reference: 'TEST REFERENCE',
+				modifiedAt: new Date(),
+				subSector: {
+					create: {
+						abbreviation: 'BC01',
+						name: 'office_use',
+						displayNameEn: 'Office Use',
+						displayNameCy: 'Office Use',
+						sector: {
+							create: {
+								abbreviation: 'BC',
+								name: 'business_and_commercial',
+								displayNameEn: 'Business and Commercial',
+								displayNameCy: 'Business and Commercial'
+							}
+						}
+					}
+				}
+			}
+		});
 	} catch (error) {
 		logger.error(error);
 		throw error;

@@ -1,14 +1,14 @@
 import { filter, isEmpty } from 'lodash-es';
+import { addWeeksToDate } from '../../utils/add-weeks-to-date.js';
+import formatAddressLowerCase from '../../utils/address-formatter-lowercase.js';
+import { arrayOfStatusesContainsString } from '../../utils/array-of-statuses-contains-string.js';
+import { buildAppealCompundStatus } from '../../utils/build-appeal-compound-status.js';
+import formatDate from '../../utils/date-formatter.js';
+import daysBetweenDates from '../../utils/days-between-dates.js';
+import { getAppealStatusCreatedAt } from '../../utils/get-appeal-status-created-at.js';
 import { weeksReceivingDocuments } from '../state-machine/full-planning-appeal.machine.js';
 import { inspectorStatesStrings } from '../state-machine/inspector-states.js';
 import { appealStates } from '../state-machine/transition-state.js';
-import { addWeeksToDate } from '../utils/add-weeks-to-date.js';
-import formatAddressLowerCase from '../utils/address-formatter-lowercase.js';
-import { arrayOfStatusesContainsString } from '../utils/array-of-statuses-contains-string.js';
-import { buildAppealCompundStatus } from '../utils/build-appeal-compound-status.js';
-import formatDate from '../utils/date-formatter.js';
-import daysBetweenDates from '../utils/days-between-dates.js';
-import { getAppealStatusCreatedAt } from '../utils/get-appeal-status-created-at.js';
 
 const provisionalAppealSiteVisitType = (appeal) => {
 	return !appeal.lpaQuestionnaire.siteVisibleFromPublicLand ||
