@@ -18,7 +18,9 @@ export const installAuthMock = ({ groups, getSessionID }) => {
 		getSessionID,
 		initialSession: {
 			account: createAccountInfo({
-				groups: requireAllGroups ? Object.values(config.referenceData.groups) : groups
+				groups: requireAllGroups
+					? Object.values({ ...config.referenceData.appeals, ...config.referenceData.applications })
+					: groups
 			})
 		}
 	});

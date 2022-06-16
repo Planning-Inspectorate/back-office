@@ -2,12 +2,12 @@ import { getPathToAsset, parseHtml } from '@pins/platform';
 import nock from 'nock';
 import supertest from 'supertest';
 import {
-	createTestApplication,
 	incompleteAppealDetails,
 	incompleteAppealSummary,
 	receivedAppealDetails,
 	receivedAppealSummary
-} from '../../../../../testing/index.js';
+} from '../../../../../testing/appeals/appeals.js';
+import { createTestApplication } from '../../../../../testing/index.js';
 
 /** @typedef {import('@pins/appeals').Address} Address */
 /** @typedef {import('../validation.controller').AppealOutcomeBody} AppealOutcomeBody */

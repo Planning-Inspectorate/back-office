@@ -8,9 +8,9 @@ import {
 	appealDetailsForUnbookedSiteVisit,
 	appealSummaryForBookedSiteVisit,
 	appealSummaryForDecisionDue,
-	appealSummaryForUnbookedSiteVisit,
-	createTestApplication
-} from '../../../../../testing/index.js';
+	appealSummaryForUnbookedSiteVisit
+} from '../../../../../testing/appeals/appeals.js';
+import { createTestApplication } from '../../../../../testing/index.js';
 
 const { app, clearHttpCache, installFixedDate, installMockApi, teardown } = createTestApplication();
 const request = supertest(app);

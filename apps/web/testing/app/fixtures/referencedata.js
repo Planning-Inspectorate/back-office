@@ -1,3 +1,5 @@
+import { sample } from 'lodash-es';
+
 export const localPlanningDepartments = [
 	'Maidstone Borough Council',
 	'Barnsley Metropolitan Borough Council',
@@ -8,3 +10,6 @@ export const localPlanningDepartments = [
 	'Waveney District Council',
 	'Bristol City Council'
 ];
+
+export const getRandomLocalPlanningDepartment = () =>
+	/** @type {string} */ (sample(localPlanningDepartments));

@@ -9,19 +9,19 @@ const router = createRouter();
 
 router.use(
 	'/validation',
-	assertGroupAccess(config.referenceData.groups.validationOfficerGroupId),
+	assertGroupAccess(config.referenceData.appeals.validationOfficerGroupId),
 	validationRouter
 );
 
 router.use(
 	'/case-officer',
-	assertGroupAccess(config.referenceData.groups.caseOfficerGroupId),
+	assertGroupAccess(config.referenceData.appeals.caseOfficerGroupId),
 	caseOfficerRouter
 );
 
 router.use(
 	'/inspector',
-	assertGroupAccess(config.referenceData.groups.inspectorGroupId),
+	assertGroupAccess(config.referenceData.appeals.inspectorGroupId),
 	inspectorRouter
 );
 

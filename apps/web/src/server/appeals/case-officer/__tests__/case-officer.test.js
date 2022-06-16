@@ -11,9 +11,9 @@ import {
 	appealSummaryForOverdueQuestionnaire,
 	appealSummaryForPendingQuestionnaire,
 	appealSummaryForReceivedQuestionnaire,
-	appealSummaryForStatements,
-	createTestApplication
-} from '../../../../../testing/index.js';
+	appealSummaryForStatements
+} from '../../../../../testing/appeals/appeals.js';
+import { createTestApplication } from '../../../../../testing/index.js';
 
 const { app, installMockApi, teardown } = createTestApplication();
 const request = supertest(app);

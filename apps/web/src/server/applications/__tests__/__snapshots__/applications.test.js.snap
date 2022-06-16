@@ -1,0 +1,259 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`applications GET /case-admin-officer should render a placeholder when there are no open applications 1`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <div class=\\"govuk-grid-row\\">
+        <div class=\\"govuk-grid-column-full\\">
+            <h1 class=\\"govuk-heading-xl\\"><span class=\\"govuk-caption-xl\\">Case admin officer</span>Applications</h1>
+        </div>
+    </div>
+    <h2 class=\\"govuk-heading-l\\">Open applications</h2>
+    <div class=\\"govuk-accordion\\" data-module=\\"govuk-accordion\\" id=\\"\\"></div>
+</main>"
+`;
+
+exports[`applications GET /case-admin-officer should render the open applications belonging to the user 1`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <div class=\\"govuk-grid-row\\">
+        <div class=\\"govuk-grid-column-full\\">
+            <h1 class=\\"govuk-heading-xl\\"><span class=\\"govuk-caption-xl\\">Case admin officer</span>Applications</h1>
+        </div>
+    </div>
+    <h2 class=\\"govuk-heading-l\\">Open applications</h2>
+    <div class=\\"govuk-accordion\\" data-module=\\"govuk-accordion\\" id=\\"\\">
+        <div class=\\"govuk-accordion__section \\">
+            <div class=\\"govuk-accordion__section-header\\">
+                <h2 class=\\"govuk-accordion__section-heading\\"><span class=\\"govuk-accordion__section-button\\" id=\\"-heading-1\\"> Sector 1</span></h2>
+            </div>
+            <div id=\\"-content-1\\" class=\\"govuk-accordion__section-content\\" aria-labelledby=\\"-heading-1\\">
+                <details class=\\"govuk-details\\" data-module=\\"govuk-details\\">
+                    <summary class=\\"govuk-details__summary\\"><span class=\\"govuk-details__summary-text\\"> EN Sector 2</span>
+                    </summary>
+                    <div class=\\"govuk-details__text\\">
+                        <table class=\\"govuk-table pins-table--fixed pins-table--bordered\\">
+                            <thead class=\\"govuk-table__head\\">
+                                <tr class=\\"govuk-table__row\\">
+                                    <th scope=\\"col\\" class=\\"govuk-table__header\\">Application reference</th>
+                                    <th scope=\\"col\\" class=\\"govuk-table__header pins-table__cell--s\\">Modified</th>
+                                </tr>
+                            </thead>
+                            <tbody class=\\"govuk-table__body\\">
+                                <tr class=\\"govuk-table__row\\">
+                                    <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case-admin-officer/applications/1\\"> APPLICATION/01</a>
+                                    </td>
+                                    <td class=\\"govuk-table__cell\\">01/01/2022</td>
+                                </tr>
+                                <tr class=\\"govuk-table__row\\">
+                                    <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case-admin-officer/applications/2\\"> APPLICATION/02</a>
+                                    </td>
+                                    <td class=\\"govuk-table__cell\\">31/01/2022</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </details>
+            </div>
+        </div>
+        <div class=\\"govuk-accordion__section \\">
+            <div class=\\"govuk-accordion__section-header\\">
+                <h2 class=\\"govuk-accordion__section-heading\\"><span class=\\"govuk-accordion__section-button\\" id=\\"-heading-2\\"> Sector 3</span></h2>
+            </div>
+            <div id=\\"-content-2\\" class=\\"govuk-accordion__section-content\\" aria-labelledby=\\"-heading-2\\">
+                <details class=\\"govuk-details\\" data-module=\\"govuk-details\\">
+                    <summary class=\\"govuk-details__summary\\"><span class=\\"govuk-details__summary-text\\"> EN Sector 4</span>
+                    </summary>
+                    <div class=\\"govuk-details__text\\">
+                        <table class=\\"govuk-table pins-table--fixed pins-table--bordered\\">
+                            <thead class=\\"govuk-table__head\\">
+                                <tr class=\\"govuk-table__row\\">
+                                    <th scope=\\"col\\" class=\\"govuk-table__header\\">Application reference</th>
+                                    <th scope=\\"col\\" class=\\"govuk-table__header pins-table__cell--s\\">Modified</th>
+                                </tr>
+                            </thead>
+                            <tbody class=\\"govuk-table__body\\">
+                                <tr class=\\"govuk-table__row\\">
+                                    <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case-admin-officer/applications/3\\"> APPLICATION/03</a>
+                                    </td>
+                                    <td class=\\"govuk-table__cell\\">01/01/2022</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </details>
+            </div>
+        </div>
+    </div>
+</main>"
+`;
+
+exports[`applications GET /case-officer should render a placeholder when there are no open applications 1`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <div class=\\"govuk-grid-row\\">
+        <div class=\\"govuk-grid-column-full\\">
+            <h1 class=\\"govuk-heading-xl\\"><span class=\\"govuk-caption-xl\\">Case officer</span>Applications</h1>
+        </div>
+    </div>
+    <h2 class=\\"govuk-heading-l\\">Open applications</h2>
+    <div class=\\"govuk-accordion\\" data-module=\\"govuk-accordion\\" id=\\"\\"></div>
+</main>"
+`;
+
+exports[`applications GET /case-officer should render the open applications belonging to the user 1`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <div class=\\"govuk-grid-row\\">
+        <div class=\\"govuk-grid-column-full\\">
+            <h1 class=\\"govuk-heading-xl\\"><span class=\\"govuk-caption-xl\\">Case officer</span>Applications</h1>
+        </div>
+    </div>
+    <h2 class=\\"govuk-heading-l\\">Open applications</h2>
+    <div class=\\"govuk-accordion\\" data-module=\\"govuk-accordion\\" id=\\"\\">
+        <div class=\\"govuk-accordion__section \\">
+            <div class=\\"govuk-accordion__section-header\\">
+                <h2 class=\\"govuk-accordion__section-heading\\"><span class=\\"govuk-accordion__section-button\\" id=\\"-heading-1\\"> Sector 1</span></h2>
+            </div>
+            <div id=\\"-content-1\\" class=\\"govuk-accordion__section-content\\" aria-labelledby=\\"-heading-1\\">
+                <details class=\\"govuk-details\\" data-module=\\"govuk-details\\">
+                    <summary class=\\"govuk-details__summary\\"><span class=\\"govuk-details__summary-text\\"> EN Sector 2</span>
+                    </summary>
+                    <div class=\\"govuk-details__text\\">
+                        <table class=\\"govuk-table pins-table--fixed pins-table--bordered\\">
+                            <thead class=\\"govuk-table__head\\">
+                                <tr class=\\"govuk-table__row\\">
+                                    <th scope=\\"col\\" class=\\"govuk-table__header\\">Application reference</th>
+                                    <th scope=\\"col\\" class=\\"govuk-table__header pins-table__cell--s\\">Modified</th>
+                                </tr>
+                            </thead>
+                            <tbody class=\\"govuk-table__body\\">
+                                <tr class=\\"govuk-table__row\\">
+                                    <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case-officer/applications/1\\"> APPLICATION/01</a>
+                                    </td>
+                                    <td class=\\"govuk-table__cell\\">01/01/2022</td>
+                                </tr>
+                                <tr class=\\"govuk-table__row\\">
+                                    <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case-officer/applications/2\\"> APPLICATION/02</a>
+                                    </td>
+                                    <td class=\\"govuk-table__cell\\">31/01/2022</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </details>
+            </div>
+        </div>
+        <div class=\\"govuk-accordion__section \\">
+            <div class=\\"govuk-accordion__section-header\\">
+                <h2 class=\\"govuk-accordion__section-heading\\"><span class=\\"govuk-accordion__section-button\\" id=\\"-heading-2\\"> Sector 3</span></h2>
+            </div>
+            <div id=\\"-content-2\\" class=\\"govuk-accordion__section-content\\" aria-labelledby=\\"-heading-2\\">
+                <details class=\\"govuk-details\\" data-module=\\"govuk-details\\">
+                    <summary class=\\"govuk-details__summary\\"><span class=\\"govuk-details__summary-text\\"> EN Sector 4</span>
+                    </summary>
+                    <div class=\\"govuk-details__text\\">
+                        <table class=\\"govuk-table pins-table--fixed pins-table--bordered\\">
+                            <thead class=\\"govuk-table__head\\">
+                                <tr class=\\"govuk-table__row\\">
+                                    <th scope=\\"col\\" class=\\"govuk-table__header\\">Application reference</th>
+                                    <th scope=\\"col\\" class=\\"govuk-table__header pins-table__cell--s\\">Modified</th>
+                                </tr>
+                            </thead>
+                            <tbody class=\\"govuk-table__body\\">
+                                <tr class=\\"govuk-table__row\\">
+                                    <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case-officer/applications/3\\"> APPLICATION/03</a>
+                                    </td>
+                                    <td class=\\"govuk-table__cell\\">01/01/2022</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </details>
+            </div>
+        </div>
+    </div>
+</main>"
+`;
+
+exports[`applications GET /inspector should render a placeholder when there are no open applications 1`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <div class=\\"govuk-grid-row\\">
+        <div class=\\"govuk-grid-column-full\\">
+            <h1 class=\\"govuk-heading-xl\\"><span class=\\"govuk-caption-xl\\">Inspector</span>Applications</h1>
+        </div>
+    </div>
+    <h2 class=\\"govuk-heading-l\\">Open applications</h2>
+    <div class=\\"govuk-accordion\\" data-module=\\"govuk-accordion\\" id=\\"\\"></div>
+</main>"
+`;
+
+exports[`applications GET /inspector should render the open applications belonging to the user 1`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <div class=\\"govuk-grid-row\\">
+        <div class=\\"govuk-grid-column-full\\">
+            <h1 class=\\"govuk-heading-xl\\"><span class=\\"govuk-caption-xl\\">Inspector</span>Applications</h1>
+        </div>
+    </div>
+    <h2 class=\\"govuk-heading-l\\">Open applications</h2>
+    <div class=\\"govuk-accordion\\" data-module=\\"govuk-accordion\\" id=\\"\\">
+        <div class=\\"govuk-accordion__section \\">
+            <div class=\\"govuk-accordion__section-header\\">
+                <h2 class=\\"govuk-accordion__section-heading\\"><span class=\\"govuk-accordion__section-button\\" id=\\"-heading-1\\"> Sector 1</span></h2>
+            </div>
+            <div id=\\"-content-1\\" class=\\"govuk-accordion__section-content\\" aria-labelledby=\\"-heading-1\\">
+                <details class=\\"govuk-details\\" data-module=\\"govuk-details\\">
+                    <summary class=\\"govuk-details__summary\\"><span class=\\"govuk-details__summary-text\\"> EN Sector 2</span>
+                    </summary>
+                    <div class=\\"govuk-details__text\\">
+                        <table class=\\"govuk-table pins-table--fixed pins-table--bordered\\">
+                            <thead class=\\"govuk-table__head\\">
+                                <tr class=\\"govuk-table__row\\">
+                                    <th scope=\\"col\\" class=\\"govuk-table__header\\">Application reference</th>
+                                    <th scope=\\"col\\" class=\\"govuk-table__header pins-table__cell--s\\">Modified</th>
+                                </tr>
+                            </thead>
+                            <tbody class=\\"govuk-table__body\\">
+                                <tr class=\\"govuk-table__row\\">
+                                    <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link\\" href=\\"/applications-service/inspector/applications/1\\"> APPLICATION/01</a>
+                                    </td>
+                                    <td class=\\"govuk-table__cell\\">01/01/2022</td>
+                                </tr>
+                                <tr class=\\"govuk-table__row\\">
+                                    <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link\\" href=\\"/applications-service/inspector/applications/2\\"> APPLICATION/02</a>
+                                    </td>
+                                    <td class=\\"govuk-table__cell\\">31/01/2022</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </details>
+            </div>
+        </div>
+        <div class=\\"govuk-accordion__section \\">
+            <div class=\\"govuk-accordion__section-header\\">
+                <h2 class=\\"govuk-accordion__section-heading\\"><span class=\\"govuk-accordion__section-button\\" id=\\"-heading-2\\"> Sector 3</span></h2>
+            </div>
+            <div id=\\"-content-2\\" class=\\"govuk-accordion__section-content\\" aria-labelledby=\\"-heading-2\\">
+                <details class=\\"govuk-details\\" data-module=\\"govuk-details\\">
+                    <summary class=\\"govuk-details__summary\\"><span class=\\"govuk-details__summary-text\\"> EN Sector 4</span>
+                    </summary>
+                    <div class=\\"govuk-details__text\\">
+                        <table class=\\"govuk-table pins-table--fixed pins-table--bordered\\">
+                            <thead class=\\"govuk-table__head\\">
+                                <tr class=\\"govuk-table__row\\">
+                                    <th scope=\\"col\\" class=\\"govuk-table__header\\">Application reference</th>
+                                    <th scope=\\"col\\" class=\\"govuk-table__header pins-table__cell--s\\">Modified</th>
+                                </tr>
+                            </thead>
+                            <tbody class=\\"govuk-table__body\\">
+                                <tr class=\\"govuk-table__row\\">
+                                    <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link\\" href=\\"/applications-service/inspector/applications/3\\"> APPLICATION/03</a>
+                                    </td>
+                                    <td class=\\"govuk-table__cell\\">01/01/2022</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </details>
+            </div>
+        </div>
+    </div>
+</main>"
+`;

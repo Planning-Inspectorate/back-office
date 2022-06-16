@@ -1,0 +1,34 @@
+{% set dataTypeDefaults = {
+  address: true,
+  localPlanningDepartment: true,
+  reference: true
+} %}
+
+{% macro applicationSummary(params) %}
+  {% set application = params.application %}
+  {% set dataTypes = dataTypeDefaults | assign(params.dataTypes or {}) %}
+
+  <aside class="govuk-!-margin-bottom-8">
+    <h3 class="govuk-heading-m">Summary</h3>
+    <dl class="govuk-body-s">
+      {% if dataTypes.reference %}
+        <div class="govuk-!-margin-bottom-3">
+          <dt class="govuk-!-font-weight-bold">Reference</dt>
+          <dd>{{ application.reference }}</dd>
+        </div>
+      {% endif %}
+      {% if dataTypes.address %}
+        <div class="govuk-!-margin-bottom-3">
+          <dt class="govuk-!-font-weight-bold">Address</dt>
+          <dd>{{ application.address | collapse(', ') }}</dd>
+        </div>
+      {% endif %}
+      {% if dataTypes.localPlanningDepartment %}
+        <div class="govuk-!-margin-bottom-3">
+          <dt class="govuk-!-font-weight-bold">Local planning department</dt>
+          <dd>{{ application.localPlanningDepartment }}</dd>
+        </div>
+      {% endif %}
+    </dl>
+  </aside>
+{% endmacro %}

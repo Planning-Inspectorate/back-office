@@ -6,8 +6,8 @@ import { createAppealStatus } from '../factory/appeal-status.js';
 import { createAppellant } from '../factory/appellant.js';
 import { createSiteVisit } from '../factory/site-visit.js';
 import { createValidValidationDecision } from '../factory/validation-decision.js';
-import { documents } from '../fixtures/document.js';
 import { inspector } from '../formatters/appeal.js';
+import { documents } from './document.js';
 import { lpaQuestionnaire } from './lpa-questionnaire.js';
 
 /** @typedef {import('@pins/appeals').Inspector.Appeal} InspectorAppeal */

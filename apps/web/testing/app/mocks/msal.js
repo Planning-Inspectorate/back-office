@@ -3,8 +3,6 @@ import { jest } from '@jest/globals';
 import { last } from 'lodash-es';
 import { createAccountInfo } from '../factory/account-info.js';
 
-/** @typedef {import('@pins/platform').PlanningInspectorAccountInfo} AccountInfo */
-
 /** @type {ConfidentialClientApplication[]} */
 const confidentialClientApplications = [];
 
@@ -13,7 +11,7 @@ export class ConfidentialClientApplication extends msal.ConfidentialClientApplic
 	constructor(config) {
 		super(config);
 
-		/** @type {AccountInfo} account */
+		/** @type {import('@pins/platform').PlanningInspectorAccountInfo} account */
 		this.account = createAccountInfo({ name: 'Test user' });
 
 		/** @type {import('@azure/msal-node').Configuration} */
@@ -56,6 +54,6 @@ const mock = {
 	}
 };
 
-export const getMock = () => mock;
+ConfidentialClientApplication.getMock = () => mock;
 
 msal.ConfidentialClientApplication = ConfidentialClientApplication;

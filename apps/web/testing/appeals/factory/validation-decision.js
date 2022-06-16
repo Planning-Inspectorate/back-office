@@ -15,7 +15,7 @@ export function createValidValidationDecision({
 	createdAt = new Date(),
 	decision = 'complete',
 	descriptionOfDevelopment = faker.lorem.paragraph()
-}) {
+} = {}) {
 	return {
 		id,
 		appealId,
