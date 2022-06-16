@@ -51,6 +51,44 @@ const document = {
 				}
 			}
 		],
+		ApplicationsForCaseOfficerAdmin: [
+			{
+				id: 1,
+				modifiedDate: 1_655_298_882,
+				reference: 'REFERENCE',
+				sector: {
+					abbreviation: 'BB',
+					displayNameCy: 'Sector Name Cy',
+					displayNameEn: 'Sector Name En',
+					name: 'sector'
+				},
+				subSector: {
+					abbreviation: 'AA',
+					displayNameCy: 'Sub Sector Name Cy',
+					displayNameEn: 'Sub Sector Name En',
+					name: 'sub_sector'
+				}
+			}
+		],
+		ApplicationsForInspector: [
+			{
+				id: 1,
+				modifiedDate: 1_655_298_882,
+				reference: 'REFERENCE',
+				sector: {
+					abbreviation: 'BB',
+					displayNameCy: 'Sector Name Cy',
+					displayNameEn: 'Sector Name En',
+					name: 'sector'
+				},
+				subSector: {
+					abbreviation: 'AA',
+					displayNameCy: 'Sub Sector Name Cy',
+					displayNameEn: 'Sub Sector Name En',
+					name: 'sub_sector'
+				}
+			}
+		],
 		AppealToValidate: {
 			AppealId: 1,
 			AppealReference: 'APP/Q9999/D/21/1345264',
