@@ -9,3 +9,11 @@ import enGB from 'date-fns/locale/en-GB/index.js';
 export function displayDate(date, { condensed = false } = {}) {
 	return format(new Date(date), condensed ? 'd MMM yyyy' : 'd MMMM yyyy', { locale: enGB });
 }
+
+/**
+ * @param {Date | number | string} date
+ * @returns {string}
+ */
+export function datestamp(date) {
+	return format(new Date(date), 'dd/MM/yyyy', { locale: enGB });
+}

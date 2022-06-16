@@ -23,5 +23,7 @@ export function loadEnvironment(environment = 'development') {
 		Object.assign(config, dotenv.config({ path: path.resolve(pathToFile) }).parsed);
 	}
 
-	return { ...config, ...process.env };
+	return Object.fromEntries(
+		Object.entries({ ...config, ...process.env }).filter(([, value]) => Boolean(value))
+	);
 }

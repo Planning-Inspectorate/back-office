@@ -9,20 +9,61 @@
       <h1 class="govuk-heading-xl">{{ pageTitle }}</h1>
     </div>
   </div>
-  <main class="govuk-main-wrapper {{ mainClasses }}" id="main-content" role="main"{% if mainLang %} lang="{{ mainLang }}"{% endif %}>
+  <main class="govuk-main-wrapper {{ mainClasses }}" id="main-content" role="main" {% if mainLang %} lang="{{ mainLang }}" {% endif %}>
     <div class="govuk-width-container {{ containerClasses }}">
-      <h2 class="govuk-heading-l">Appeals</h2>
-      <ul class="govuk-list">
-        {% if groupIds | includes(referenceData.groups.caseOfficerGroupId) %}
-          <li><a href="/appeals-service/case-officer" class="govuk-link">Case officer</a></li>
+      <div class="govuk-grid-row">
+        {% if applicationGroupIds.length > 0 %}
+          <div class="govuk-grid-column-one-half">
+            <h2 class="govuk-heading-m">Applications</h2>
+            <ul class="govuk-list">
+              {% if applicationGroupIds | includes(referenceData.applications.caseOfficerGroupId) %}
+                <li>
+                  <a href="/applications-service/case-officer" class="govuk-link">Case officer</a>
+                </li>
+              {% endif %}
+              {% if applicationGroupIds | includes(referenceData.applications.caseAdminOfficerGroupId) %}
+                <li>
+                  <a href="/applications-service/case-admin-officer" class="govuk-link">Case admin officer</a>
+                </li>
+              {% endif %}
+              {% if applicationGroupIds | includes(referenceData.applications.inspectorGroupId) %}
+                <li>
+                  <a href="/applications-service/inspector" class="govuk-link">Inspector</a>
+                </li>
+              {% endif %}
+            </ul>
+          </div>
         {% endif %}
-        {% if groupIds | includes(referenceData.groups.inspectorGroupId) %}
-          <li><a href="/appeals-service/inspector" class="govuk-link">Inspector</a></li>
+
+        {% if appealGroupIds.length > 0 %}
+          <div class="govuk-grid-column-one-half">
+            <h2 class="govuk-heading-m">Appeals</h2>
+            <ul class="govuk-list">
+              {% if appealGroupIds | includes(referenceData.appeals.caseOfficerGroupId) %}
+                <li>
+                  <a href="/appeals-service/case-officer" class="govuk-link">Case officer</a>
+                </li>
+              {% endif %}
+              {% if appealGroupIds | includes(referenceData.appeals.inspectorGroupId) %}
+                <li>
+                  <a href="/appeals-service/inspector" class="govuk-link">Inspector</a>
+                </li>
+              {% endif %}
+              {% if appealGroupIds | includes(referenceData.appeals.validationOfficerGroupId) %}
+                <li>
+                  <a href="/appeals-service/validation" class="govuk-link">Validation officer</a>
+                </li>
+              {% endif %}
+            </ul>
+          </div>
         {% endif %}
-       {% if groupIds | includes(referenceData.groups.validationOfficerGroupId) %}
-          <li><a href="/appeals-service/validation" class="govuk-link">Validation officer</a></li>
+
+        {% if applicationGroupdIds.length === 0 and appealGroupIds.length === 0 %}
+          <div class="govuk-grid-column-two-thirds">
+            <p class="govuk-body">No groups found.</p>
+          </div>
         {% endif %}
-      </ul>
+      </div>
     </div>
   </main>
 {% endblock %}

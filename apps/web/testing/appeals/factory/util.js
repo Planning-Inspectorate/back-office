@@ -1,10 +1,10 @@
 import { fake } from '@pins/platform';
 import { random, sample } from 'lodash-es';
-import { localPlanningDepartments } from '../fixtures/referencedata.js';
+import { localPlanningDepartments } from '../../app/fixtures/referencedata.js';
 
 /**
  * @typedef {object} AppealReferenceOptions
- * @property {string} [prefix='APP']
+ * @property {string} [prefix='HAS']
  */
 
 /**

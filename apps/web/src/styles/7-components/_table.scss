@@ -1,3 +1,5 @@
+@use "govuk-frontend/govuk/helpers/_colour" as color;
+
 .govuk-accordion__section-content {
 	.govuk-summary-list:last-child {
 		margin-bottom: 25px;
@@ -13,6 +15,7 @@
 
 .pins-table {
 	&--fixed {
+		border-bottom: 1px solid color.govuk-colour("mid-grey");
 		table-layout: fixed;
 	}
 

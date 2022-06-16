@@ -1,4 +1,5 @@
 import nock from 'nock';
+import { localPlanningDepartments } from '../../app/fixtures/referencedata.js';
 import {
 	appealDetailsForFinalComments,
 	appealDetailsForIncompleteQuestionnaire,
@@ -11,13 +12,12 @@ import {
 	appealDetailsForPendingStatements,
 	appealDetailsForUnbookedSiteVisit
 } from '../fixtures/inspector.js';
-import { localPlanningDepartments } from '../fixtures/referencedata.js';
 import { incompleteAppealDetails, receivedAppealDetails } from '../fixtures/validation.js';
 
 /**
  * @returns {{ destroy: () => void }}
  */
-export function installMockApi() {
+export function installMockAppealsService() {
 	// Validation
 
 	// received appeal
