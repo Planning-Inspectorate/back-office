@@ -35,7 +35,7 @@ test('gets applications for case officer with open status', async (t) => {
 		return { findMany: findManyStub };
 	});
 
-	const response = await request.get('/applications/case-officer-admin');
+	const response = await request.get('/applications/case-admin-officer');
 
 	t.is(response.status, 200);
 	t.deepEqual(response.body, [

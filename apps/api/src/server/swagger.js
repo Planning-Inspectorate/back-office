@@ -51,7 +51,7 @@ const document = {
 				}
 			}
 		],
-		ApplicationsForCaseOfficerAdmin: [
+		ApplicationsForCaseAdminOfficer: [
 			{
 				id: 1,
 				modifiedDate: 1_655_298_882,
