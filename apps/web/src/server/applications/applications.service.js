@@ -12,21 +12,21 @@ export const findApplicationById = (id) => {
 };
 
 /**
- * @returns {Promise<import('./applications.types').PaginatedResponse<ApplicationSummary>>}
+ * @returns {Promise<import('./applications.types').ApplicationSummary[]>}
  */
 export const findOpenApplicationsForCaseOfficer = () => {
 	return get('applications/case-officer');
 };
 
 /**
- * @returns {Promise<import('./applications.types').PaginatedResponse<ApplicationSummary>>}
+ * @returns {Promise<import('./applications.types').ApplicationSummary[]>}
  */
 export const findOpenApplicationsForCaseAdminOfficer = () => {
 	return get('applications/case-admin-officer');
 };
 
 /**
- * @returns {Promise<import('./applications.types').PaginatedResponse<ApplicationSummary>>}
+ * @returns {Promise<import('./applications.types').ApplicationSummary[]>}
  */
 export const findOpenApplicationsForInspector = () => {
 	return get('applications/inspector');
