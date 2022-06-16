@@ -15,9 +15,7 @@ describe('applications', () => {
 		const baseUrl = '/applications-service/case-officer';
 
 		it('should render a placeholder when there are no open applications', async () => {
-			nock('http://test/').get('/applications/case-officer').reply(200, {
-				items: []
-			});
+			nock('http://test/').get('/applications/case-officer').reply(200, []);
 
 			const response = await request.get(baseUrl);
 			const element = parseHtml(response.text);
@@ -26,9 +24,7 @@ describe('applications', () => {
 		});
 
 		it('should render the open applications belonging to the user', async () => {
-			nock('http://test/')
-				.get('/applications/case-officer')
-				.reply(200, { items: applicationSummaries });
+			nock('http://test/').get('/applications/case-officer').reply(200, applicationSummaries);
 
 			const response = await request.get(baseUrl);
 			const element = parseHtml(response.text);
@@ -41,9 +37,7 @@ describe('applications', () => {
 		const baseUrl = '/applications-service/case-admin-officer';
 
 		it('should render a placeholder when there are no open applications', async () => {
-			nock('http://test/').get('/applications/case-admin-officer').reply(200, {
-				items: []
-			});
+			nock('http://test/').get('/applications/case-admin-officer').reply(200, []);
 
 			const response = await request.get(baseUrl);
 			const element = parseHtml(response.text);
@@ -52,9 +46,7 @@ describe('applications', () => {
 		});
 
 		it('should render the open applications belonging to the user', async () => {
-			nock('http://test/')
-				.get('/applications/case-admin-officer')
-				.reply(200, { items: applicationSummaries });
+			nock('http://test/').get('/applications/case-admin-officer').reply(200, applicationSummaries);
 
 			const response = await request.get(baseUrl);
 			const element = parseHtml(response.text);
@@ -67,9 +59,7 @@ describe('applications', () => {
 		const baseUrl = '/applications-service/inspector';
 
 		it('should render a placeholder when there are no open applications', async () => {
-			nock('http://test/').get('/applications/inspector').reply(200, {
-				items: []
-			});
+			nock('http://test/').get('/applications/inspector').reply(200, []);
 
 			const response = await request.get(baseUrl);
 			const element = parseHtml(response.text);
@@ -78,9 +68,7 @@ describe('applications', () => {
 		});
 
 		it('should render the open applications belonging to the user', async () => {
-			nock('http://test/')
-				.get('/applications/inspector')
-				.reply(200, { items: applicationSummaries });
+			nock('http://test/').get('/applications/inspector').reply(200, applicationSummaries);
 
 			const response = await request.get(baseUrl);
 			const element = parseHtml(response.text);

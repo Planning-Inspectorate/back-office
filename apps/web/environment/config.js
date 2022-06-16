@@ -42,7 +42,7 @@ if (error) {
 const cwd = url.fileURLToPath(new URL('..', import.meta.url));
 const { AUTH_DISABLED_GROUP_IDS = '' } = environment;
 const { msal, ...config } = validatedConfig;
-const { clientId = '', tenantId, clientSecret = '' } = msal;
+const { clientId = '*', tenantId = '*', clientSecret = '*' } = msal;
 
 export default {
 	...config,
