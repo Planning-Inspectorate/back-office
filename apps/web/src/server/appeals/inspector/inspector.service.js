@@ -62,7 +62,7 @@ export function findAllUnassignedAppeals() {
  * @returns {Promise<Appeal>}
  */
 export function findAppealById(appealId) {
-	return get(`appeals/inspector/${appealId}`, { context: { ttl: 10_000 } });
+	return get(`appeals/inspector/${appealId}`);
 }
 
 /**

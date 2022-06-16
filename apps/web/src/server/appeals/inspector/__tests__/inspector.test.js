@@ -12,7 +12,7 @@ import {
 } from '../../../../../testing/appeals/appeals.js';
 import { createTestApplication } from '../../../../../testing/index.js';
 
-const { app, clearHttpCache, installFixedDate, installMockApi, teardown } = createTestApplication();
+const { app, installFixedDate, installMockApi, teardown } = createTestApplication();
 const request = supertest(app);
 const baseUrl = '/appeals-service/inspector';
 
@@ -403,7 +403,6 @@ async function installAssignedAppealIds(appealIds) {
 	});
 	await request.post('/appeals-service/inspector/available-appeals').send({ appealIds });
 	// reset http / api subsequent to test setup
-	clearHttpCache();
 	installMockApi();
 }
 
@@ -417,7 +416,6 @@ async function installDecision(appealId) {
 		.field('outcome', 'allowed')
 		.attach('decisionLetter', getPathToAsset('simple.pdf'));
 	// reset http / api subsequent to test setup
-	clearHttpCache();
 	installMockApi();
 }
 
@@ -434,6 +432,5 @@ async function installSiteVisit(appealId) {
 		'siteVisitDate-year': '2030'
 	});
 	// reset http / api subsequent to test setup
-	clearHttpCache();
 	installMockApi();
 }

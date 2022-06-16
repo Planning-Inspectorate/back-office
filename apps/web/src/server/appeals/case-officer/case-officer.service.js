@@ -18,19 +18,14 @@ export const findAllAppeals = () => get('appeals/case-officer');
  * @param {number} appealId
  * @returns {Promise<Appeal>}
  */
-export const findAppealById = (appealId) =>
-	get(`appeals/case-officer/${appealId}`, {
-		context: { ttl: 10_000 }
-	});
+export const findAppealById = (appealId) => get(`appeals/case-officer/${appealId}`);
 
 /**
  * @param {number} appealId
  * @returns {Promise<Appeal>}
  */
 export const findFullPlanningAppealById = (appealId) =>
-	get(`appeals/case-officer/${appealId}/statements-comments`, {
-		context: { ttl: 10_000 }
-	});
+	get(`appeals/case-officer/${appealId}/statements-comments`);
 
 /**
  * Mark a review questionnaire as completed. Internally, this marks all
