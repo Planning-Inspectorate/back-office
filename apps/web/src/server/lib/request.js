@@ -3,8 +3,6 @@ import config from '@pins/web/environment/config.js';
 import got from 'got';
 import pino from './logger.js';
 
-export const ttlCache = new Map();
-
 const [requestLogger, responseLogger] = createHttpLoggerHooks(pino);
 
 const instance = got.extend({

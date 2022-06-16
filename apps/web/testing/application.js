@@ -2,7 +2,6 @@ import { createSessionMockMiddleware } from '@pins/express';
 import express from 'express';
 import nock from 'nock';
 import { app } from '../src/server/app/app.express.js';
-import { ttlCache } from '../src/server/lib/request.js';
 import { installAuthMock } from './app/mocks/auth.js';
 import { installMockAppealsService } from './appeals/mocks/api.js';
 import { installFixedDate } from './util/date.js';
@@ -15,7 +14,6 @@ let sessionId = 1;
 /**
  * @typedef {object} TestApplication
  * @property {import('express').Application} app
- * @property {() => void} clearHttpCache
  * @property {(date: Date) => void} installFixedDate
  * @property {() => void} installMockApi
  * @property {() => void} teardown
@@ -54,7 +52,6 @@ export const createTestApplication = ({
 
 	return {
 		app: testApp,
-		clearHttpCache: () => ttlCache.clear(),
 		installFixedDate: (/** @type {Date} */ date) => {
 			dateMock = installFixedDate(date);
 		},
@@ -65,7 +62,6 @@ export const createTestApplication = ({
 			dateMock?.restore();
 			nock.cleanAll();
 			sessionId += 1;
-			ttlCache.clear();
 		}
 	};
 };
