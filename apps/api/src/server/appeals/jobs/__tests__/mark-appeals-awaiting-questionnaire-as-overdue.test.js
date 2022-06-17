@@ -1,7 +1,8 @@
+import Prisma from '@prisma/client';
 import test from 'ava';
 import sinon from 'sinon';
-import DatabaseFactory from '../../../repositories/database.js';
 import { appealFactoryForTests } from '../../../utils/appeal-factory-for-tests.js';
+import { databaseConnector } from '../../../utils/database-connector.js';
 import findAndUpdateStatusForAppealsWithOverdueQuestionnaires from '../mark-appeals-awaiting-questionnaire-as-overdue.js';
 
 const appeal1 = appealFactoryForTests({
@@ -48,27 +49,21 @@ findManyStub.returns([appeal1, appeal2]);
 const updateManyAppealStatusStub = sinon.stub();
 const createAppealStatusStub = sinon.stub();
 
-class MockDatabaseClass {
-	constructor() {
-		this.pool = {
-			appeal: {
-				update: updateStub,
-				findMany: findManyStub
-			},
-			appealStatus: {
-				updateMany: updateManyAppealStatusStub,
-				create: createAppealStatusStub,
-				createMany: sinon.stub()
-			},
-			$transaction: sinon.stub()
-		};
-	}
-}
-
 test.before('sets up mocking of database', () => {
-	sinon
-		.stub(DatabaseFactory, 'getInstance')
-		.callsFake((arguments_) => new MockDatabaseClass(arguments_));
+	sinon.stub(databaseConnector, 'appeal').get(() => {
+		return {
+			update: updateStub,
+			findMany: findManyStub
+		};
+	});
+	sinon.stub(databaseConnector, 'appealStatus').get(() => {
+		return {
+			updateMany: updateManyAppealStatusStub,
+			create: createAppealStatusStub,
+			createMany: sinon.stub()
+		};
+	});
+	sinon.stub(Prisma.PrismaClient.prototype, '$transaction');
 });
 
 test('finds appeals to mark as overdue as updates their statuses', async (t) => {

@@ -1,10 +1,11 @@
+import Prisma from '@prisma/client';
 import test from 'ava';
 import sinon from 'sinon';
 import supertest from 'supertest';
 import { app } from '../../../app.js';
-import DatabaseFactory from '../../../repositories/database.js';
 import formatAddressLowerCase from '../../../utils/address-formatter-lowercase.js';
 import { appealFactoryForTests } from '../../../utils/appeal-factory-for-tests.js';
+import { databaseConnector } from '../../../utils/database-connector.js';
 
 const request = supertest(app);
 
@@ -143,27 +144,21 @@ const updateManyAppealStatusStub = sinon.stub();
 const createAppealStatusStub = sinon.stub();
 const createManyAppealStatusStub = sinon.stub();
 
-class MockDatabaseClass {
-	constructor() {
-		this.pool = {
-			appeal: {
-				findUnique: findUniqueStub,
-				update: updateStub
-			},
-			appealStatus: {
-				updateMany: updateManyAppealStatusStub,
-				create: createAppealStatusStub,
-				createMany: createManyAppealStatusStub
-			},
-			$transaction: sinon.stub()
-		};
-	}
-}
-
 test.before('setup mock', () => {
-	sinon
-		.stub(DatabaseFactory, 'getInstance')
-		.callsFake((arguments_) => new MockDatabaseClass(arguments_));
+	sinon.stub(databaseConnector, 'appeal').get(() => {
+		return {
+			findUnique: findUniqueStub,
+			update: updateStub
+		};
+	});
+	sinon.stub(databaseConnector, 'appealStatus').get(() => {
+		return {
+			updateMany: updateManyAppealStatusStub,
+			create: createAppealStatusStub,
+			createMany: createManyAppealStatusStub
+		};
+	});
+	sinon.stub(Prisma.PrismaClient.prototype, '$transaction');
 	sinon.useFakeTimers({ now: 1_649_319_144_000 });
 });
 

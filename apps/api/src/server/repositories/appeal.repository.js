@@ -1,5 +1,5 @@
 import { filter, includes, isString, map } from 'lodash-es';
-import DatabaseFactory from './database.js';
+import { databaseConnector } from '../utils/database-connector.js';
 
 /** @typedef {import('@pins/api').Schema.Appeal} Appeal */
 
@@ -53,12 +53,6 @@ const separateStatusesToSaveAndInvalidate = (newStatuses, currentStatuses) => {
 };
 
 const appealRepository = (function () {
-	/**
-	 * @returns {object} connection to database
-	 */
-	function getPool() {
-		return DatabaseFactory.getInstance().pool;
-	}
 	return {
 		getByStatuses({
 			statuses,
@@ -67,7 +61,7 @@ const appealRepository = (function () {
 			includeLPAQuestionnaire = false,
 			includeAppealDetailsFromAppellant = false
 		}) {
-			return getPool().appeal.findMany({
+			return databaseConnector.appeal.findMany({
 				where: {
 					appealStatus: {
 						some: {
@@ -94,13 +88,12 @@ const appealRepository = (function () {
 		/**
 		 * Query an appeal by its id, including any optional relations.
 		 *
-		 * @template T [T=Appeal]
 		 * @param {number} id
 		 * @param {AppealInclusionOptions} [inclusions={}]
-		 * @returns {Promise<T>}
+		 * @returns {import('@prisma/client').PrismaPromise<import('@pins/api').Schema.Appeal>}
 		 */
 		getById(id, { latestLPAReviewQuestionnaire, ...inclusions } = {}) {
-			return getPool().appeal.findUnique({
+			return databaseConnector.appeal.findUnique({
 				where: {
 					id
 				},
@@ -117,26 +110,21 @@ const appealRepository = (function () {
 			});
 		},
 		invalidateAppealStatuses(ids) {
-			return getPool().appealStatus.updateMany({
+			return databaseConnector.appealStatus.updateMany({
 				where: { id: { in: ids } },
 				data: { valid: false }
 			});
 		},
 		createNewStatuses(id, status) {
 			return isString(status)
-				? getPool().appealStatus.create({
-						data: {
-							status,
-							appealId: id
-						}
-					})
-				: getPool().appealStatus.createMany({ data: status });
+				? databaseConnector.appealStatus.create({ data: { status, appealId: id } })
+				: databaseConnector.appealStatus.createMany({ data: status });
 		},
 		updateStatusById(id, status, currentStates) {
 			const { appealStatesToInvalidate, appealStatesToCreate } =
 				separateStatusesToSaveAndInvalidate(status, currentStates);
 
-			return getPool().$transaction([
+			return databaseConnector.$transaction([
 				this.invalidateAppealStatuses(appealStatesToInvalidate),
 				this.createNewStatuses(id, appealStatesToCreate)
 			]);
@@ -144,7 +132,7 @@ const appealRepository = (function () {
 		updateById(id, data) {
 			const updatedAt = new Date();
 
-			return getPool().appeal.update({
+			return databaseConnector.appeal.update({
 				where: { id },
 				data: { updatedAt, ...data }
 			});
@@ -153,14 +141,14 @@ const appealRepository = (function () {
 			const { appealStatesToInvalidate, appealStatesToCreate } =
 				separateStatusesToSaveAndInvalidate(status, currentStates);
 
-			return getPool().$transaction([
+			return databaseConnector.$transaction([
 				this.invalidateAppealStatuses(appealStatesToInvalidate),
 				this.createNewStatuses(id, appealStatesToCreate),
 				this.updateById(id, data)
 			]);
 		},
 		getByStatusAndLessThanStatusUpdatedAtDate(status, lessThanStatusUpdatedAt) {
-			return getPool().appeal.findMany({
+			return databaseConnector.appeal.findMany({
 				where: {
 					appealStatus: {
 						some: {
@@ -183,7 +171,7 @@ const appealRepository = (function () {
 			});
 		},
 		getByStatusAndInspectionBeforeDate(status, lessThanInspectionDate) {
-			return getPool().appeal.findMany({
+			return databaseConnector.appeal.findMany({
 				where: {
 					appealStatus: {
 						some: {
@@ -203,7 +191,7 @@ const appealRepository = (function () {
 			});
 		},
 		getByStatusesAndUserId(statuses, userId) {
-			return getPool().appeal.findMany({
+			return databaseConnector.appeal.findMany({
 				where: {
 					appealStatus: {
 						some: {

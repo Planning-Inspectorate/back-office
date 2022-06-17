@@ -1,16 +1,9 @@
-import DatabaseFactory from './database.js';
+import { databaseConnector } from '../utils/database-connector.js';
 
 const validationDecisionRepository = (function () {
-	/**
-	 * @returns {object} connection to database
-	 */
-	function getPool() {
-		return DatabaseFactory.getInstance().pool;
-	}
-
 	return {
 		addNewDecision(appealId, decision, reason, descriptionOfDevelopment) {
-			return getPool().validationDecision.create({
+			return databaseConnector.validationDecision.create({
 				data: {
 					appealId,
 					decision,

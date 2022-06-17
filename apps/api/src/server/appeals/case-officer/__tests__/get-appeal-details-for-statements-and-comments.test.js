@@ -2,9 +2,9 @@ import test from 'ava';
 import sinon from 'sinon';
 import supertest from 'supertest';
 import { app } from '../../../app.js';
-import DatabaseFactory from '../../../repositories/database.js';
 import formatAddress from '../../../utils/address-formatter.js';
 import { appealFactoryForTests } from '../../../utils/appeal-factory-for-tests.js';
+import { databaseConnector } from '../../../utils/database-connector.js';
 
 const request = supertest(app);
 
@@ -56,21 +56,10 @@ findUniqueStub
 	.withArgs({ where: { id: 2 }, include: includingDetailsForValidtion })
 	.returns(appeal2);
 
-class MockDatabaseClass {
-	constructor() {
-		this.pool = {
-			appeal: {
-				findUnique: findUniqueStub
-			}
-		};
-	}
-}
-
 test.before('sets up mocking of database', () => {
-	// @ts-ignore
-	sinon
-		.stub(DatabaseFactory, 'getInstance')
-		.callsFake((arguments_) => new MockDatabaseClass(arguments_));
+	sinon.stub(databaseConnector, 'appeal').get(() => {
+		return { findUnique: findUniqueStub };
+	});
 });
 
 test('returns details for appeal awaiting statements', async (t) => {

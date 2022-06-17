@@ -23,7 +23,7 @@ async function markAppealsAsDecisionDue(appeals) {
 	for (const appeal of appeals) {
 		const nextState = transitionState({
 			appealType: appeal.appealType.type,
-			context:{ appealId: appeal.id },
+			context: { appealId: appeal.id },
 			status: 'site_visit_booked',
 			machineAction: 'BOOKING_PASSED'
 		});
@@ -44,7 +44,5 @@ async function findAndUpdateStatusForAppealsWithPassedInspection() {
 
 	await markAppealsAsDecisionDue(appeals);
 }
-
-await findAndUpdateStatusForAppealsWithPassedInspection();
 
 export default findAndUpdateStatusForAppealsWithPassedInspection;

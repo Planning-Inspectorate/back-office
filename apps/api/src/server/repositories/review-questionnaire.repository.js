@@ -1,19 +1,9 @@
-import DatabaseFactory from './database.js';
+import { databaseConnector } from '../utils/database-connector.js';
 
 const newReviewRepository = (function () {
-	/**
-	 * Retun the connection pool of database connections
-	 * TODO: This should be a utility function part of the main db lib.
-	 *
-	 * @returns {object} connection to database
-	 */
-	function getPool() {
-		return DatabaseFactory.getInstance().pool;
-	}
-
 	return {
 		addReview(appealId, complete, reason) {
-			return getPool().reviewQuestionnaire.create({
+			return databaseConnector.reviewQuestionnaire.create({
 				data: {
 					appealId,
 					complete,

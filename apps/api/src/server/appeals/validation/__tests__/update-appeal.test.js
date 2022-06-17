@@ -2,7 +2,7 @@ import test from 'ava';
 import sinon from 'sinon';
 import supertest from 'supertest';
 import { app } from '../../../app.js';
-import DatabaseFactory from '../../../repositories/database.js';
+import { databaseConnector } from '../../../utils/database-connector.js';
 
 const request = supertest(app);
 
@@ -29,28 +29,19 @@ findUniqueStub
 
 const updateStub = sinon.stub();
 
-class MockDatabaseClass {
-	constructor() {
-		this.pool = {
-			appeal: {
-				findUnique: findUniqueStub,
-				update: updateStub
-			},
-			appealStatus: {
-				create: sinon.stub()
-			}
-		};
-	}
-}
-
 test.before('sets up mocking of database', () => {
-	sinon
-		.stub(DatabaseFactory, 'getInstance')
-		.callsFake((arguments_) => new MockDatabaseClass(arguments_));
+	sinon.stub(databaseConnector, 'appeal').get(() => {
+		return { findUnique: findUniqueStub, update: updateStub };
+	});
+	sinon.stub(databaseConnector, 'appealStatus').get(() => {
+		return { create: sinon.stub() };
+	});
 });
 
 test('should be able to modify the appellant name', async (t) => {
-	const resp = await request.patch('/appeals/validation/1').send({ AppellantName: 'Leah Thornton' });
+	const resp = await request
+		.patch('/appeals/validation/1')
+		.send({ AppellantName: 'Leah Thornton' });
 
 	t.is(resp.status, 200);
 	sinon.assert.calledWithExactly(updateStub, {

@@ -1,6 +1,6 @@
 import test from 'ava';
 import sinon from 'sinon';
-import DatabaseFactory from '../database.js';
+import { databaseConnector } from '../../utils/database-connector.js';
 import validationDecisionRepository from '../validation-decision.repository.js';
 
 const addNewDecision = sinon.stub();
@@ -16,20 +16,10 @@ const newDecision = {
 
 addNewDecision.returns(newDecision);
 
-class MockDatabaseClass {
-	constructor() {
-		this.pool = {
-			validationDecision: {
-				create: addNewDecision
-			}
-		};
-	}
-}
-
 test.before('sets up Database connection mock', () => {
-	sinon
-		.stub(DatabaseFactory, 'getInstance')
-		.callsFake((arguments_) => new MockDatabaseClass(arguments_));
+	sinon.stub(databaseConnector, 'validationDecision').get(() => {
+		return { create: addNewDecision };
+	});
 });
 
 test('adds new Validation decision', async (t) => {

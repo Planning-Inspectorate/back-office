@@ -2,7 +2,7 @@ import test from 'ava';
 import sinon from 'sinon';
 import supertest from 'supertest';
 import { app } from '../../../app.js';
-import DatabaseFactory from '../../../repositories/database.js';
+import { databaseConnector } from '../../../utils/database-connector.js';
 
 const request = supertest(app);
 
@@ -47,20 +47,10 @@ const appeal2 = {
 	}
 };
 
-class MockDatabaseClass {
-	constructor() {
-		this.pool = {
-			appeal: {
-				findMany: sinon.stub().returns([appeal1, appeal2])
-			}
-		};
-	}
-}
-
 test('gets all new and incomplete validation appeals', async (t) => {
-	sinon
-		.stub(DatabaseFactory, 'getInstance')
-		.callsFake((arguments_) => new MockDatabaseClass(arguments_));
+	sinon.stub(databaseConnector, 'appeal').get(() => {
+		return { findMany: sinon.stub().returns([appeal1, appeal2]) };
+	});
 
 	const resp = await request.get('/appeals/validation');
 

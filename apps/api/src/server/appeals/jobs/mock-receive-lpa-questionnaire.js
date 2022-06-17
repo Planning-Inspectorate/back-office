@@ -52,6 +52,4 @@ async function findAndUpdateStatusForAppealsAwaitingQuestionnaires() {
 	await markAppealsAsLPAReceived(appeals);
 }
 
-await findAndUpdateStatusForAppealsAwaitingQuestionnaires();
-
 export default findAndUpdateStatusForAppealsAwaitingQuestionnaires;

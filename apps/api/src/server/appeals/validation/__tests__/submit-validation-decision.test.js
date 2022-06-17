@@ -1,9 +1,10 @@
+import Prisma from '@prisma/client';
 import test from 'ava';
 import sinon from 'sinon';
 import supertest from 'supertest';
 import { app } from '../../../app.js';
-import DatabaseFactory from '../../../repositories/database.js';
 import { appealFactoryForTests } from '../../../utils/appeal-factory-for-tests.js';
+import { databaseConnector } from '../../../utils/database-connector.js';
 
 const request = supertest(app);
 
@@ -138,33 +139,24 @@ const updateManyAppealStatusStub = sinon.stub();
 const createManyAppealStatusesStub = sinon.stub();
 const createAppealStatusStub = sinon.stub();
 
-class MockDatabaseClass {
-	constructor() {
-		this.pool = {
-			appeal: {
-				findUnique: getAppealByIdStub,
-				update: updateStub
-			},
-			validationDecision: {
-				create: addNewDecisionStub
-			},
-			lPAQuestionnaire: {
-				create: createLpaQuestionnaireStub
-			},
-			appealStatus: {
-				create: createAppealStatusStub,
-				updateMany: updateManyAppealStatusStub,
-				createMany: createManyAppealStatusesStub
-			},
-			$transaction: sinon.stub()
-		};
-	}
-}
-
 test.before('sets up mocking of database', () => {
-	sinon
-		.stub(DatabaseFactory, 'getInstance')
-		.callsFake((arguments_) => new MockDatabaseClass(arguments_));
+	sinon.stub(databaseConnector, 'appeal').get(() => {
+		return { findUnique: getAppealByIdStub, update: updateStub };
+	});
+	sinon.stub(databaseConnector, 'validationDecision').get(() => {
+		return { create: addNewDecisionStub };
+	});
+	sinon.stub(databaseConnector, 'lPAQuestionnaire').get(() => {
+		return { create: createLpaQuestionnaireStub };
+	});
+	sinon.stub(databaseConnector, 'appealStatus').get(() => {
+		return {
+			create: createAppealStatusStub,
+			updateMany: updateManyAppealStatusStub,
+			createMany: createManyAppealStatusesStub
+		};
+	});
+	sinon.stub(Prisma.PrismaClient.prototype, '$transaction');
 });
 
 test("should be able to submit 'valid' decision for household appeal", async (t) => {
@@ -332,7 +324,9 @@ test("should be able to mark appeal with missing info as 'valid'", async (t) => 
 });
 
 test('should not be able to submit nonsensical decision decision', async (t) => {
-	const resp = await request.post('/appeals/validation/1').send({ AppealStatus: 'some unknown status' });
+	const resp = await request
+		.post('/appeals/validation/1')
+		.send({ AppealStatus: 'some unknown status' });
 
 	t.is(resp.status, 409);
 	t.deepEqual(resp.body, {
