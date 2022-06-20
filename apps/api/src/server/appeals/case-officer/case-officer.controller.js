@@ -20,13 +20,17 @@ export const getAppeals = async (_request, response) => {
 		appealStates.available_for_statements,
 		appealStates.available_for_final_comments
 	];
-	const appeals = await appealRepository.getByStatuses({statuses:caseOfficerStatuses, includeAddress: true, includeAppellant: true});
+	const appeals = await appealRepository.getByStatuses({
+		statuses: caseOfficerStatuses,
+		includeAddress: true,
+		includeAppellant: true
+	});
 	const formattedAppeals = appeals.map((appeal) =>
 		appealFormatter.formatAppealForAllAppeals(appeal)
 	);
 
 	const appealsParallel = await appealRepository.getByStatuses({
-		statuses:caseOfficerStatusesParallel,
+		statuses: caseOfficerStatusesParallel,
 		includeAddress: true,
 		includeAppellant: true
 	});

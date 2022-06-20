@@ -2,8 +2,8 @@ import test from 'ava';
 import sinon from 'sinon';
 import supertest from 'supertest';
 import { app } from '../../../app.js';
-import DatabaseFactory from '../../../repositories/database.js';
 import { appealFactoryForTests } from '../../../utils/appeal-factory-for-tests.js';
+import { databaseConnector } from '../../../utils/database-connector.js';
 
 const request = supertest(app);
 
@@ -142,21 +142,10 @@ const listOfDocuments = [
 	}
 ];
 
-class MockDatabaseClass {
-	constructor() {
-		this.pool = {
-			appeal: {
-				findUnique: findUniqueStub
-			}
-		};
-	}
-}
-
 test.before('sets up mocking of database', () => {
-	// @ts-ignore
-	sinon
-		.stub(DatabaseFactory, 'getInstance')
-		.callsFake((arguments_) => new MockDatabaseClass(arguments_));
+	sinon.stub(databaseConnector, 'appeal').get(() => {
+		return { findUnique: findUniqueStub };
+	});
 });
 
 test('gets the appeals detailed information with received questionnaires', async (t) => {

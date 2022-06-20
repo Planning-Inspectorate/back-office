@@ -1,8 +1,9 @@
+import Prisma from '@prisma/client';
 import test from 'ava';
 import sinon from 'sinon';
 import supertest from 'supertest';
 import { app } from '../../../app.js';
-import DatabaseFactory from '../../../repositories/database.js';
+import { databaseConnector } from '../../../utils/database-connector.js';
 
 const request = supertest(app);
 
@@ -72,29 +73,18 @@ const updateManyAppealStatusStub = sinon.stub();
 const createAppealStatusStub = sinon.stub();
 
 addReviewStub.returns(newReview);
-class MockDatabaseClass {
-	constructor() {
-		this.pool = {
-			appeal: {
-				findUnique: getAppealByIdStub,
-				update: sinon.stub()
-			},
-			reviewQuestionnaire: {
-				create: addReviewStub
-			},
-			appealStatus: {
-				updateMany: updateManyAppealStatusStub,
-				create: createAppealStatusStub
-			},
-			$transaction: sinon.stub()
-		};
-	}
-}
 
 test.before('sets up mocking of database', () => {
-	sinon
-		.stub(DatabaseFactory, 'getInstance')
-		.callsFake((arguments_) => new MockDatabaseClass(arguments_));
+	sinon.stub(databaseConnector, 'appeal').get(() => {
+		return { findUnique: getAppealByIdStub, update: sinon.stub() };
+	});
+	sinon.stub(databaseConnector, 'reviewQuestionnaire').get(() => {
+		return { create: addReviewStub };
+	});
+	sinon.stub(databaseConnector, 'appealStatus').get(() => {
+		return { updateMany: updateManyAppealStatusStub, create: createAppealStatusStub };
+	});
+	sinon.stub(Prisma.PrismaClient.prototype, '$transaction');
 });
 
 test('should submit confirmation of an incomplete outcome of LPA questionnaire', async (t) => {
@@ -258,7 +248,7 @@ test("should not be able to submit review as 'incomplete' if there is no descrip
 	});
 });
 
-test('should not be able to submit review as \'incomplete\' if some unexpected body attributes are provided', async (t) => {
+test("should not be able to submit review as 'incomplete' if some unexpected body attributes are provided", async (t) => {
 	const resp = await request.post('/appeals/case-officer/11/confirm').send({
 		reason: {
 			applicationPlanningOfficersReportMissingOrIncorrect: false,

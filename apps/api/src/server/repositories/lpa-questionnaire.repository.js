@@ -1,16 +1,9 @@
-import DatabaseFactory from './database.js';
+import { databaseConnector } from '../utils/database-connector.js';
 
 const lpaQuestionnaireRepository = (function () {
-	/**
-	 * @returns {object} connection to database
-	 */
-	function getPool() {
-		return DatabaseFactory.getInstance().pool;
-	}
-
 	return {
 		createNewLpaQuestionnaire(appealId) {
-			return getPool().lPAQuestionnaire.create({
+			return databaseConnector.lPAQuestionnaire.create({
 				data: {
 					appeal: {
 						connect: {
@@ -21,7 +14,7 @@ const lpaQuestionnaireRepository = (function () {
 			});
 		},
 		updateById(id, data) {
-			return getPool().lPAQuestionnaire.update({
+			return databaseConnector.lPAQuestionnaire.update({
 				where: { id },
 				data
 			});

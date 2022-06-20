@@ -1,6 +1,6 @@
 import test from 'ava';
 import sinon from 'sinon';
-import DatabaseFactory from '../database.js';
+import { databaseConnector } from '../../utils/database-connector.js';
 import newReviewRepository from '../review-questionnaire.repository.js';
 
 const addReview = sinon.stub();
@@ -14,20 +14,10 @@ const newReview = {
 
 addReview.returns(newReview);
 
-class MockDatabaseClass {
-	constructor() {
-		this.pool = {
-			reviewQuestionnaire: {
-				create: addReview
-			}
-		};
-	}
-}
-
 test.before('sets up Database connection mock', () => {
-	sinon
-		.stub(DatabaseFactory, 'getInstance')
-		.callsFake((arguments_) => new MockDatabaseClass(arguments_));
+	sinon.stub(databaseConnector, 'reviewQuestionnaire').get(() => {
+		return { create: addReview };
+	});
 });
 
 test('adds new review decision', async (t) => {

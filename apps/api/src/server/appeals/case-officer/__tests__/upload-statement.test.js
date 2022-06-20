@@ -4,8 +4,8 @@ import * as url from 'node:url';
 import sinon from 'sinon';
 import supertest from 'supertest';
 import { app } from '../../../app.js';
-import DatabaseFactory from '../../../repositories/database.js';
 import { appealFactoryForTests } from '../../../utils/appeal-factory-for-tests.js';
+import { databaseConnector } from '../../../utils/database-connector.js';
 
 const request = supertest(app);
 const dirname = url.fileURLToPath(new URL('.', import.meta.url));
@@ -42,21 +42,10 @@ const findUniqueStub = sinon.stub();
 findUniqueStub.withArgs({ where: { id: 1 }, include: inclusions }).returns(appeal1);
 findUniqueStub.withArgs({ where: { id: 2 }, include: inclusions }).returns(appeal2);
 
-class MockDatabaseClass {
-	constructor() {
-		this.pool = {
-			appeal: {
-				findUnique: findUniqueStub
-			}
-		};
-	}
-}
-
 test.before('sets up mocks', () => {
-	// @ts-ignore
-	sinon
-		.stub(DatabaseFactory, 'getInstance')
-		.callsFake((arguments_) => new MockDatabaseClass(arguments_));
+	sinon.stub(databaseConnector, 'appeal').get(() => {
+		return { findUnique: findUniqueStub };
+	});
 });
 
 test('Throws error if appeal is not accepting statements', async (t) => {

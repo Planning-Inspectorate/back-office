@@ -40,7 +40,7 @@ async function markAppealsAsOverdue(appeals) {
 		const appealStatus = buildAppealCompundStatus(appeal.appealStatus);
 		const nextState = transitionState({
 			appealType: appeal.appealType.type,
-			context:{ appealId: appeal.id },
+			context: { appealId: appeal.id },
 			status: appealStatus,
 			machineAction: 'OVERDUE'
 		});
@@ -61,7 +61,5 @@ async function findAndUpdateStatusForAppealsWithOverdueQuestionnaires() {
 
 	await markAppealsAsOverdue(appeals);
 }
-
-await findAndUpdateStatusForAppealsWithOverdueQuestionnaires();
 
 export default findAndUpdateStatusForAppealsWithOverdueQuestionnaires;

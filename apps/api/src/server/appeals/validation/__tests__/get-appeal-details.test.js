@@ -2,7 +2,7 @@ import test from 'ava';
 import sinon from 'sinon';
 import supertest from 'supertest';
 import { app } from '../../../app.js';
-import DatabaseFactory from '../../../repositories/database.js';
+import { databaseConnector } from '../../../utils/database-connector.js';
 
 const request = supertest(app);
 
@@ -155,16 +155,6 @@ getAppealByIdStub
 	.withArgs({ where: { id: 4 }, include: includingDetailsForValidtion })
 	.returns(appeal4);
 
-class MockDatabaseClass {
-	constructor() {
-		this.pool = {
-			appeal: {
-				findUnique: getAppealByIdStub
-			}
-		};
-	}
-}
-
 const documentsArray = [
 	{
 		Type: 'planning application form',
@@ -199,9 +189,9 @@ const documentsArray = [
 ];
 
 test.before('sets up mocking of database', () => {
-	sinon
-		.stub(DatabaseFactory, 'getInstance')
-		.callsFake((arguments_) => new MockDatabaseClass(arguments_));
+	sinon.stub(databaseConnector, 'appeal').get(() => {
+		return { findUnique: getAppealByIdStub };
+	});
 });
 
 test('gets appeal that requires validation', async (t) => {
