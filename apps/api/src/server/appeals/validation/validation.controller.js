@@ -21,7 +21,11 @@ const getAppealDetails = async (request, response) => {
 };
 
 const getAppeals = async (_request, response) => {
-	const appeals = await appealRepository.getByStatuses(validationStatuses, true, true);
+	const appeals = await appealRepository.getByStatuses({
+		statuses: validationStatuses,
+		includeAddress: true,
+		includeAppellant: true
+	});
 	const formattedAppeals = appeals.map((appeal) =>
 		appealFormatter.formatAppealForAllAppeals(appeal)
 	);
@@ -31,7 +35,7 @@ const getAppeals = async (_request, response) => {
 
 const updateAppeal = async (request, response) => {
 	await updateAppealService({
-		appealId:request.params.appealId,
+		appealId: request.params.appealId,
 		appellantName: request.body.AppellantName,
 		address: request.body.Address,
 		localPlanningDepartment: request.body.LocalPlanningDepartment,
