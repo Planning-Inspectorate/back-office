@@ -7,10 +7,9 @@ import { transitionState } from '../state-machine/transition-state.js';
  * @returns {Array} array of appeals that are in 'awaiting_lpa_questionnaire' or 'overdue_lpa_questionnaire' states
  */
 async function getAppealsAwaitingQuestionnaires() {
-	const appeals = await appealRepository.getByStatuses([
-		'awaiting_lpa_questionnaire',
-		'overdue_lpa_questionnaire'
-	]);
+	const appeals = await appealRepository.getByStatuses({
+		statuses: ['awaiting_lpa_questionnaire', 'overdue_lpa_questionnaire']
+	});
 
 	return appeals;
 }
