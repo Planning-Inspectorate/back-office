@@ -33,13 +33,13 @@ const invalidWithoutReasons = (hasExplanation) => {
 			for (const [questionnaireSecondaryKey, questionnaireSecondaryValue] of Object.entries(
 				hasExplanation.reason
 			)) {
+				if (`${questionnaireKey}Description` in Object.keys(hasExplanation.reason) === false) {
+					return false;
+				}
 				if (
 					questionnaireSecondaryKey === `${questionnaireKey}Description` &&
 					typeof questionnaireSecondaryValue === 'undefined'
 				) {
-					return false;
-				}
-				if (`${questionnaireKey}Description` in Object.entries(hasExplanation.reason) === false) {
 					return false;
 				}
 				if (
@@ -84,16 +84,16 @@ const incompleteWithUnexpectedReasons = (reasonListed) => {
 };
 
 export const validateReviewRequest = (request, response, next) => {
-	if (invalidWithoutReasons(request.body)) {
-		response.status(409).send({
-			errors: {
-				status: 'Incomplete Review requires a description'
-			}
-		});
-	} else if (incompleteWithUnexpectedReasons(request.body)) {
+	if (incompleteWithUnexpectedReasons(request.body)) {
 		response.status(409).send({
 			errors: {
 				status: 'Incomplete Review requires a known description'
+			}
+		});
+	} else if (invalidWithoutReasons(request.body)) {
+		response.status(409).send({
+			errors: {
+				status: 'Incomplete Review requires a description'
 			}
 		});
 	} else {

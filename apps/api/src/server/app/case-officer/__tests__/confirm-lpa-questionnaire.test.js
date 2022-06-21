@@ -237,8 +237,8 @@ test("should not be able to submit review as 'incomplete' if there is no descrip
 	const resp = await request.post('/case-officer/11/confirm').send({
 		reason: {
 			applicationPlanningOfficersReportMissingOrIncorrect: false,
-			applicationPlansToReachDecisionMissingOrIncorrect: true,
-			policiesStatutoryDevelopmentPlanPoliciesMissingOrIncorrect: false,
+			applicationPlansToReachDecisionMissingOrIncorrect: false,
+			policiesStatutoryDevelopmentPlanPoliciesMissingOrIncorrect: true,
 			policiesOtherRelevantPoliciesMissingOrIncorrect: false,
 			policiesSupplementaryPlanningDocumentsMissingOrIncorrect: false,
 			siteConservationAreaMapAndGuidanceMissingOrIncorrect: false,
@@ -258,7 +258,7 @@ test("should not be able to submit review as 'incomplete' if there is no descrip
 	});
 });
 
-test('should not be able to submit review as \'incomplete\' if some unexpected body attributes are provided', async (t) => {
+test("should not be able to submit review as 'incomplete' if some unexpected body attributes are provided", async (t) => {
 	const resp = await request.post('/case-officer/11/confirm').send({
 		reason: {
 			applicationPlanningOfficersReportMissingOrIncorrect: false,
