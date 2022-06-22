@@ -1,5 +1,3 @@
-import * as applicationsService from './applications.service.js';
-
 /** @typedef {import('@pins/express').ValidationErrors} ValidationErrors */
 /** @typedef {import('./applications.locals').ApplicationLocals} ApplicationLocals */
 /** @typedef {import('./applications.router').DomainParams} DomainParams */
@@ -8,8 +6,14 @@ import * as applicationsService from './applications.service.js';
 /** @typedef {import('./applications.types').DomainType} DomainType */
 
 /**
+ * @typedef {object} ViewDashboardErrors
+ * @property {string} text
+ */
+
+/**
  * @typedef {object} ViewDashboardRenderProps
- * @property {ApplicationSummary[]} applications
+ * @property {ApplicationSummary[]|null} applications
+ * @property {ViewDashboardErrors=} searchApplicationsError
  */
 
 /**
@@ -18,25 +22,30 @@ import * as applicationsService from './applications.service.js';
  * @type {import('@pins/express').RenderHandler<ViewDashboardRenderProps,
  * {}, {}, {}, DomainParams>}
  */
-export async function viewDashboard({ params }, res) {
-	switch (params.domainType) {
-		case 'case-admin-officer': {
-			const applications = await applicationsService.findOpenApplicationsForCaseAdminOfficer();
+export async function viewDashboard(req, res) {
+	if (res.locals.applications !== null) {
+		return res.render('applications/dashboard', { applications: res.locals.applications });
+	}
+	res.render('app/404');
+}
 
-			return res.render('applications/dashboard', { applications });
-		}
-		case 'case-officer': {
-			const applications = await applicationsService.findOpenApplicationsForCaseOfficer();
+/**
+ * Search applications.
+ *
+ * @type {import('@pins/express').RenderHandler<ViewDashboardRenderProps,
+  {}, {}, {}, DomainParams>} */
+export async function searchApplications(req, response) {
+	if (req.errors) {
+		const { locals } = response;
+		const { SearchApplications } = req.errors;
+		const searchApplicationsError = SearchApplications?.msg
+			? { text: SearchApplications?.msg }
+			: SearchApplications?.msg;
 
-			return res.render('applications/dashboard', { applications });
-		}
-		case 'inspector': {
-			const applications = await applicationsService.findOpenApplicationsForInspector();
-
-			return res.render('applications/dashboard', { applications });
-		}
-		default:
-			res.render('app/404');
+		return response.render('applications/dashboard', {
+			applications: locals.applications,
+			searchApplicationsError
+		});
 	}
 }
 

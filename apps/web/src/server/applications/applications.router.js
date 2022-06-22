@@ -1,4 +1,5 @@
 import { Router as createRouter } from 'express';
+import * as validators from './application.validators.js';
 import * as controller from './applications.controller.js';
 import * as guards from './applications.guards.js';
 import * as locals from './applications.locals.js';
@@ -17,7 +18,10 @@ const domainRouter = createRouter({ mergeParams: true });
 router.use('/:domainType', guards.assertDomainTypeAccess, domainRouter);
 
 domainRouter.use(locals.registerLocals);
-domainRouter.route('/').get(controller.viewDashboard);
+domainRouter
+	.route('/')
+	.get(controller.viewDashboard)
+	.post(validators.validateSearchText, controller.searchApplications);
 
 domainRouter.param('applicationId', locals.loadApplication);
 domainRouter.route('/applications/:applicationId').get(controller.viewApplication);
