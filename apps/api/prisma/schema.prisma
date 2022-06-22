@@ -74,7 +74,11 @@ model Application {
   id          Int       @id @default(autoincrement())
   status      String    @default("open")
   reference   String
-  modifiedAt  DateTime
+	title 			String
+	description String
+	createdAt   DateTime @default(now())
+	modifiedAt  DateTime
+	publishedAt DateTime
   subSectorId Int
   subSector   SubSector @relation(fields: [subSectorId], references: [id])
 	regionId    Int?
