@@ -476,6 +476,34 @@
 		}
 	},
 	"definitions": {
+		"ApplicationsForSearchCriteria": {
+			"type": "array",
+			"items": {
+				"type": "object",
+				"properties": {
+					"id": {
+						"type": "number",
+						"example": 1
+					},
+					"title":{
+						"type": "string",
+						"example" : "EN010001 - NI Case Name"
+					},
+					"reference": {
+						"type": "string",
+						"example": "EN010001"
+					},
+					"modifiedDate": {
+						"type": "number",
+						"example": 1655298882
+					},
+					"publishedDate": {
+						"type": "number",
+						"example": 1655298882
+					}
+				}
+			}
+		},
 		"ApplicationsForCaseOfficer": {
 			"type": "array",
 			"items": {
