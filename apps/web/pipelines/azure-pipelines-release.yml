@@ -30,7 +30,7 @@ extends:
   template: stages/wrapper_cd.yml@templates
   parameters:
     deploymentStages:
-      - name: Stage
+      - name: Deploy
         deploymentSteps:
           - script: |
               buildName=$(versionNumber)_$(Build.BuildId)
@@ -41,19 +41,8 @@ extends:
             parameters:
               appName: $(webAppName)
               appResourceGroup: $(resourceGroup)
-              appSlotName: staging
               azurecrName: $(azurecrName)
               repository: $(repository)
-      - name: Deploy
-        dependsOn:
-          - Stage
-        deploymentSteps:
-          - template: ../steps/azure_web_app_slot_swap.yml
-            parameters:
-              appName: $(webAppName)
-              appResourceGroup: $(resourceGroup)
-              appStagingSlotName: staging
-              appTargetSlotName: production
     globalVariables:
       - template: azure-pipelines-variables.yml@self
       - template: apps/web/pipelines/azure-pipelines-variables.yml@self
