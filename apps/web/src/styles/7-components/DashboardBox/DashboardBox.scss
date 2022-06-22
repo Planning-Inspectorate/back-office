@@ -1,0 +1,9 @@
+@import "govuk-frontend/govuk/settings/_colours-applied";
+@import "govuk-frontend/govuk/settings/_spacing";
+@import "govuk-frontend/govuk/helpers/_spacing";
+
+.pins-dashboard-box {
+  border: 2px solid $govuk-border-colour;
+  border-top: 5px solid govuk-colour("blue");
+  padding: govuk-spacing(4);
+}

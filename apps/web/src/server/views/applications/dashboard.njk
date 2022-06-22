@@ -3,58 +3,97 @@
 {% from "govuk/components/accordion/macro.njk" import govukAccordion %}
 {% from "govuk/components/details/macro.njk" import govukDetails %}
 {% from "govuk/components/table/macro.njk" import govukTable %}
+{% from "govuk/components/input/macro.njk" import govukInput %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
 
-{% set pageCaption = domainType | displayValue  %}
+{% set pageCaption = domainType | displayValue %}
 {% set pageTitle = 'Applications' %}
 
 {% block pageContent %}
-  <h2 class="govuk-heading-l">Open applications</h2>
 
-  {% set items = [] %}
 
-  {% for name, groupedApplications in applications | groupBy('sector.name') %}
-    {% set items = items.concat({
-        heading: {
-          text: groupedApplications[0].sector.displayNameEn
-        },
-        content: {
-          html: createSectorContent(groupedApplications)
-        }
-      })
-    %}
-  {% endfor %}
+	<div class="govuk-grid-row">
+		<div class="govuk-grid-column-two-thirds ">
+			<form method="post" novalidate class="pins-dashboard-box">
+				{% include 'app/includes/csrf.njk' %}
+				<h3 class="govuk-heading-l">Search applications</h3>
+				<div class="govuk-grid-row govuk-footer__meta">
+					<div class="govuk-grid-column-two-thirds">
+						{{ govukInput({
+							label: {
+								text: "Enter reference, or something else indicative",
+								isPageHeading: false
+							},
+							errorMessage:searchApplicationsError,
+							inputmode: "search",
+							id: "SearchApplications",
+							name: "SearchApplications"
+						}) }}
+					</div>
+					<div class="govuk-grid-column-one-third">
+						{{ govukButton({
+							text: "Continue"
+						}) }}
+					</div>
+				</div>
+			</form>
+		</div>
+		<div class="govuk-grid-column-one-third">
+			<div class="pins-dashboard-box">
+				<h3 class="govuk-heading-m">Create new case</h3>
+			</div>
+		</div>
+	</div>
 
-  {{ govukAccordion({ items: items }) }}
+
+
+
+
+
+	<h2 class="govuk-heading-l">Open applications</h2>
+
+	{% set items = [] %}
+
+	{% for name, groupedApplications in applications | groupBy('sector.name') %}
+		{% set items = items.concat({
+			heading: {
+				text: groupedApplications[0].sector.displayNameEn
+			},
+			content: {
+				html: createSectorContent(groupedApplications)
+			}
+		}) %}
+	{% endfor %}
+
+	{{ govukAccordion({ items: items }) }}
 {% endblock %}
 
 {% macro createSectorContent(applicationsForSector) %}
-  {% for name, groupedApplications in applicationsForSector | groupBy('subSector.name') %}
-    {% set subSector = groupedApplications[0].subSector %}
-    {% set rows = [] %}
-    {% for application in groupedApplications %}
-      {% set rows = rows | concat ([[
-        { html: applicationLink(application) },
-        { text: application.modifiedDate | datestamp } 
-      ]]) %}
-    {% endfor %}
-    {{
-      govukDetails({
-        summaryText: subSector.abbreviation + ' ' + subSector.displayNameEn,
-        html: govukTable({
-          classes: 'pins-table--fixed pins-table--bordered',
-          head: [
-            { text: "Application reference" },
-            { text: "Modified", classes: 'pins-table__cell--s' }
-          ],
-          rows: rows
-        })
-      })
-    }}
-  {% endfor %}
+	{% for name, groupedApplications in applicationsForSector | groupBy('subSector.name') %}
+		{% set subSector = groupedApplications[0].subSector %}
+		{% set rows = [] %}
+		{% for application in groupedApplications %}
+			{% set rows = rows | concat ([[
+				{ html: applicationLink(application) },
+				{ text: application.modifiedDate | datestamp }
+			]]) %}
+		{% endfor %}
+		{{ govukDetails({
+			summaryText: subSector.abbreviation + ' ' + subSector.displayNameEn,
+			html: govukTable({
+				classes: 'pins-table--fixed pins-table--bordered',
+				head: [
+					{ text: "Application reference" },
+					{ text: "Modified", classes: 'pins-table__cell--s' }
+				],
+				rows: rows
+			})
+		}) }}
+	{% endfor %}
 {% endmacro %}
 
 {% macro applicationLink(application) %}
-  <a class="govuk-link" href="/applications-service/{{ domainType }}/applications/{{ application.id }}">
-    {{ application.reference }}
-  </a>
+	<a class="govuk-link" href="/applications-service/{{ domainType }}/applications/{{ application.id }}">
+		{{ application.reference }}
+	</a>
 {% endmacro %}
