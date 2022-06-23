@@ -642,6 +642,8 @@ async function main() {
 		await prisma.application.create({
 			data: {
 				reference: 'TEST REFERENCE',
+				title: 'BC010001 - Test NI Case',
+				description: 'A test NI case from seed',
 				modifiedAt: new Date(),
 				subSector: {
 					create: {
