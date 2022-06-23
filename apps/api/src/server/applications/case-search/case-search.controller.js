@@ -1,20 +1,28 @@
+// import { request } from 'express';
 import * as applicationRepository from '../../repositories/application.repository.js';
-import { mapApplicationWithSeachCriteria} from '../../utils/mapping/map-application-with-sector-and-subsector.js';
+import { mapApplicationWithSearchCriteria} from '../../utils/mapping/map-application-with-search-criteria.js';
 
 /**
- * @typedef {{id: number, modifiedDate: number, reference: string, state: string, PublishDate: number}} ApplicationWithSearchCriteria
+ * @typedef {{id: number, reference: string, title: string, description: string, state: string, modifiedDate: number, stage: string}} ApplicationWithSearchCriteriaResponse
  */
 
 /**
  *
  * @param {import('@pins/api').Schema.Application[]} applications
- * @returns {ApplicationWithSearchCriteria[]}
+ * @returns {ApplicationWithSearchCriteriaResponse}
  */
- const getBySearchCriteria = (applications) => {
-	return applications.map((application) => mapApplicationWithSeachCriteria(application));
+ const mapApplicationsWithSearchCriteria = (applications) => {
+	return applications.map((application) => mapApplicationWithSearchCriteria(application));
 };
-export const getApplications = async (_request, response) => {
-	const applications = await applicationRepository.getBySearchCriteria(searchCriteria);
 
-	return response.send(mapApplicationsByCriteria(applications));
+export const getApplications = async (_request, response) => {
+	const validRoles = ['inspector', 'case-manager', 'case-officer' ];
+
+	if (!validRoles.includes(_request.role)) {
+		throw '403 - Role is not valid';
+	}
+
+	const applications = await applicationRepository.getBySearchCriteria(_request.searchCriteria);
+
+	return response.send(mapApplicationsWithSearchCriteria(applications));
 };
