@@ -18,3 +18,18 @@ export const getByStatus = (status) => {
 		}
 	});
 };
+
+/**
+ * @param {string} searchCriteria
+ * @returns {Promise<import('@pins/api').Schema.Application[]>}
+ */
+ export const getBySearchCriteria = (searchCriteria) => {
+	return databaseConnector.application.findMany({
+		where: {
+			searchCriteria
+		},
+		include: {
+			reference: true
+		}
+	});
+};
