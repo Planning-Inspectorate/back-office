@@ -500,6 +500,10 @@
 					"publishedDate": {
 						"type": "number",
 						"example": 1655298882
+					},
+					"stage":{
+						"type": "string",
+						"example" : "Pre-application"
 					}
 				}
 			}
