@@ -170,7 +170,7 @@ To build and run the WEB with Docker in `PRODUCTION RELEASE` mode, from the root
 
 ```shell
 docker build . -t pins-web -f apps/web/Dockerfile
-docker container run -dp 8080:8080 -t pins-back-office-web
+docker container run -dp 8080:8080 -t pins-web
 ```
 
 The image is built as a docker multi-stage build process, where first we compile the static assets and then we run the app.
