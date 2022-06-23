@@ -6,7 +6,7 @@
 /** @typedef {import('./applications.types').DomainType} DomainType */
 
 /**
- * @typedef {object} ViewDashboardErrors
+ * @typedef {object|boolean} ViewDashboardErrors
  * @property {string} text
  */
 
@@ -40,7 +40,7 @@ export async function searchApplications(req, response) {
 		const { SearchApplications } = req.errors;
 		const searchApplicationsError = SearchApplications?.msg
 			? { text: SearchApplications?.msg }
-			: SearchApplications?.msg;
+			: false;
 
 		return response.render('applications/dashboard', {
 			applications: locals.applications,
