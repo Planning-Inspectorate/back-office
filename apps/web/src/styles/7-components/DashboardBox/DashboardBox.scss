@@ -5,5 +5,21 @@
 .pins-dashboard-box {
   border: 2px solid $govuk-border-colour;
   border-top: 5px solid govuk-colour("blue");
-  padding: govuk-spacing(4);
+  padding: govuk-spacing(3) govuk-spacing(3) 0;
+}
+
+.pins-dashboard-form {
+  position: relative;
+
+  .govuk-form-group {
+	width: calc(100% - 100px - 1rem);
+  }
+
+  .govuk-button {
+	position: absolute;
+	right: 0;
+	width: 100px;
+	bottom: 2px;
+	margin: 0;
+  }
 }

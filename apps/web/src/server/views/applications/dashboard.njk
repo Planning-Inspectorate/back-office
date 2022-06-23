@@ -13,34 +13,32 @@
 
 
 	<div class="govuk-grid-row">
-		<div class="govuk-grid-column-two-thirds ">
-			<form method="post" novalidate class="pins-dashboard-box">
+		<div class="govuk-grid-column-two-thirds">
+			<div class="pins-dashboard-box">
 				{% include 'app/includes/csrf.njk' %}
 				<h3 class="govuk-heading-l">Search applications</h3>
-				<div class="govuk-grid-row govuk-footer__meta">
-					<div class="govuk-grid-column-two-thirds">
-						{{ govukInput({
-							label: {
-								text: "Enter reference, or something else indicative",
-								isPageHeading: false
-							},
-							errorMessage:searchApplicationsError,
-							inputmode: "search",
-							id: "SearchApplications",
-							name: "SearchApplications"
-						}) }}
-					</div>
-					<div class="govuk-grid-column-one-third">
-						{{ govukButton({
-							text: "Continue"
-						}) }}
-					</div>
-				</div>
-			</form>
+				<form method="post" novalidate  class="pins-dashboard-form">
+
+					{{ govukInput({
+						label: {
+							text: "Enter reference, or something else indicative",
+							isPageHeading: false
+						},
+						errorMessage:searchApplicationsError,
+						inputmode: "search",
+						id: "SearchApplications",
+						name: "SearchApplications"
+					}) }}
+
+					{{ govukButton({
+						text: "Continue"
+					}) }}
+				</form>
+			</div>
 		</div>
 		<div class="govuk-grid-column-one-third">
 			<div class="pins-dashboard-box">
-				<h3 class="govuk-heading-m">Create new case</h3>
+				<h3 class="govuk-heading-m">Create new project folder</h3>
 			</div>
 		</div>
 	</div>
