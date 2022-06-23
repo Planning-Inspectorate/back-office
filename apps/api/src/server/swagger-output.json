@@ -485,9 +485,9 @@
 						"type": "number",
 						"example": 1
 					},
-					"title":{
+					"title": {
 						"type": "string",
-						"example" : "EN010001 - NI Case Name"
+						"example": "EN010001 - NI Case Name"
 					},
 					"reference": {
 						"type": "string",
@@ -500,6 +500,10 @@
 					"publishedDate": {
 						"type": "number",
 						"example": 1655298882
+					},
+					"stage": {
+						"type": "string",
+						"example": "Pre-application"
 					}
 				}
 			}
