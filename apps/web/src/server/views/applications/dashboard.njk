@@ -8,7 +8,7 @@
 {% set pageCaption = domainType | displayValue %}
 {% set pageTitle = 'Applications' %}
 
-{% set searchParameters = {domainType: domainType, value: "", searchApplicationsError: searchApplicationsError, csrfToken: csrfToken, label: "Enter keyword, case reference or case title"} %}
+{% set searchParameters = {role: domainType, query: "", searchApplicationsError: searchApplicationsError, csrfToken: csrfToken, label: "Enter keyword, case reference or case title"} %}
 
 {% block pageContent %}
 
