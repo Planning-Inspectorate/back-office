@@ -9,10 +9,8 @@ const request = supertest(app);
 
 const application = applicationFactoryForTests({
 	id: 3,
-	title: 'EN010003 - NI Case 3 Name',
-	reference: 'EN010003',
-	modifiedAt: new Date(1_655_298_882_000),
-	publishedAt: new Date(1_655_298_882_000),
+	status: 'open',
+	modifiedAt: new Date(1_655_298_882_000)
 });
 
 const findManyStub = sinon.stub();
@@ -25,7 +23,7 @@ findManyStub
 	})
 	.returns([application]);
 
-test('gets applications wit search citeria on case ID', async (t) => {
+test('gets applications wit search criteria on case ID', async (t) => {
 	sinon.stub(databaseConnector, 'application').get(() => {
 		return { findMany: findManyStub };
 	});
@@ -36,10 +34,10 @@ test('gets applications wit search citeria on case ID', async (t) => {
 	t.deepEqual(response.body, [
 		{
 			id: 3,
-			title: 'EN010003 - NI Case 3 Name',
 			reference: 'EN010003',
-			modifiedDate: 1_655_298_882,
-			publishedDate: 1_655_298_882
+			title: 'EN010003 - NI Case 3 Name',
+			description: 'EN010003 - NI Case 3 Name Description',
+			modifiedAt: new Date(1_655_298_882_000)
 		}
 	]);
 });
