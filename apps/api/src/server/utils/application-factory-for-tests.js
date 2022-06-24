@@ -18,6 +18,8 @@ export const applicationFactoryForTests = ({ id, status = 'open', modifiedAt = n
 		id,
 		reference: generateApplicationReference(),
 		status,
+		title: 'EN010003 - NI Case 3 Name',
+		description: 'EN010003 - NI Case 3 Name Description',
 		modifiedAt,
 		subSectorId: 1,
 		subSector: {

@@ -81,8 +81,11 @@ model Application {
 	publishedAt DateTime?
   subSectorId Int
   subSector   SubSector @relation(fields: [subSectorId], references: [id])
+<<<<<<< HEAD
 	regionId    Int?
   region      Region?   @relation(fields: [regionId], references: [id])
+=======
+>>>>>>> 5a3686ef (feat(api/applications): no stage, just status WIP (BOAS-92))
 }
 
 model Sector {
