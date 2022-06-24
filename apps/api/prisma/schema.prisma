@@ -81,7 +81,6 @@ model Application {
 	publishedAt DateTime?
   subSectorId Int
   subSector   SubSector @relation(fields: [subSectorId], references: [id])
-	stage 			String		@default("Pre-application")
 }
 
 model Sector {
