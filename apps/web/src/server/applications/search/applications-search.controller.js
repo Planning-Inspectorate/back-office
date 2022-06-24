@@ -13,10 +13,10 @@ import * as applicationsService from './application-search.service.js';
 
 /**
  * @typedef {object} SearchApplicationsRenderProps
- * @property {SearchApplicationItem[]} searchResults
+ * @property {SearchApplicationItem[]=} searchApplicationsItems
  * @property {ViewSearchResultsErrors=} searchApplicationsError
  * @property {string=} query
- * @property {DomainType} domainType
+ * @property {DomainType} role
  */
 
 /**
@@ -33,8 +33,7 @@ export async function searchApplications(req, response) {
 
 		return response.render('applications/search-results', {
 			searchApplicationsError,
-			domainType: role,
-			searchResults: []
+			role
 		});
 	}
 
@@ -47,11 +46,11 @@ export async function searchApplications(req, response) {
 		pageSize,
 		pageNumber
 	});
-	const resultApplications = searchResponse?.items || [];
+	const searchApplicationsItems = searchResponse?.items || [];
 
 	return response.render('applications/search-results', {
-		searchResults: resultApplications,
-		domainType: role,
+		searchApplicationsItems,
+		role,
 		query
 	});
 }
