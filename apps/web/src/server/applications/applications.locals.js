@@ -1,17 +1,14 @@
 import nunjucks from '../app/config/nunjucks.js';
 import { findApplicationById } from './applications.service.js';
-import * as applicationsService from './applications.service.js';
 
 /** @typedef {import('./applications.router').DomainParams} DomainParams */
 /** @typedef {import('./applications.types').DomainType} DomainType */
-/** @typedef {import('./applications.types').ApplicationSummary} ApplicationSummary */
 
 /**
  * @typedef {object} ApplicationsLocals
  * @property {DomainType} domainType
  * @property {string} serviceName - The name of the service to be displayed in the page header.
  * @property {string} serviceUrl - The root url of the service.
- * @property {ApplicationSummary[]} applications
  */
 
 /**
@@ -19,28 +16,10 @@ import * as applicationsService from './applications.service.js';
  *
  * @type {import('express').RequestHandler<DomainParams, *, *, *, ApplicationsLocals>}
  */
-export const registerLocals = async ({ baseUrl, params, locals }, response, next) => {
+export const registerLocals = ({ baseUrl, params }, response, next) => {
 	response.locals.domainType = params.domainType;
 	response.locals.serviceName = 'Planning Inspectorate Applications';
 	response.locals.serviceUrl = baseUrl;
-
-	switch (params.domainType) {
-		case 'case-admin-officer': {
-			response.locals.applications =
-				await applicationsService.findOpenApplicationsForCaseAdminOfficer();
-			break;
-		}
-		case 'case-officer': {
-			response.locals.applications = await applicationsService.findOpenApplicationsForCaseOfficer();
-			break;
-		}
-		case 'inspector': {
-			response.locals.applications = await applicationsService.findOpenApplicationsForInspector();
-			break;
-		}
-		default:
-			locals.applications = null;
-	}
 
 	nunjucks.addFilter('displayValue', (/** @type {DomainType} */ key) => {
 		switch (key) {
