@@ -14,7 +14,7 @@ resources:
       type: github
       endpoint: Planning-Inspectorate
       name: Planning-Inspectorate/common-pipeline-templates
-      ref: refs/tags/release/2.5.3
+      ref: refs/tags/release/3.0.1
 
 extends:
   template: stages/wrapper_ci.yml@templates
@@ -24,29 +24,27 @@ extends:
     validationJobs:
       - name: Run Linting & Tests
         steps:
-          - template: ../steps/check_branch_name.yml
           - template: ../steps/node_script.yml
             parameters:
               script: npm ci
           - template: ../steps/node_script.yml
             parameters:
-              condition: always()
-              script: npx commitlint --from=$(git merge-base remotes/origin/develop --fork-point)
+              condition: ne(variables['Build.SourceBranchName'], 'main')
+              script: npm run commitlint
           - template: ../steps/node_script.yml
             parameters:
-              condition: always()
+              condition: succeededOrFailed()
               script: npm run tscheck
           - template: ../steps/node_script.yml
             parameters:
-              condition: always()
+              condition: succeededOrFailed()
               script: npm run lint:js
           - template: ../steps/node_script.yml
             parameters:
-              condition: always()
+              condition: succeededOrFailed()
               script: npm run test
           - template: ../steps/check_changed_files.yml
             parameters:
-              developmentBranch: develop
               pathFilters:
                 - name: packages
                   path: packages
@@ -55,33 +53,6 @@ extends:
                 - name: api
                   path: apps/api
               stepName: check_files
-      - name: Build Web
-        condition: >-
-          and(
-            succeeded(),
-            or(
-              and(
-                eq(variables['Build.Reason'], 'Manual'),
-                eq(${{ parameters.buildWeb }}, 'true')
-              ),
-              or(
-                eq(dependencies.Run_Linting_And_Tests.outputs['check_files.packages'], 'true'),
-                eq(dependencies.Run_Linting_And_Tests.outputs['check_files.web'], 'true')
-              )
-            )
-          )
-        dependsOn:
-          - Run Linting & Tests
-        steps:
-          - template: ../steps/azure_web_app_acr_push.yml@templates
-            parameters:
-              azurecrName: $(azurecrName)
-              dockerfilePath: $(dockerFilePath)
-              repository: $(repository)
-              workingDirectory: $(Build.Repository.LocalPath)
-              runTests: false
-        variables:
-          - template: apps/web/pipelines/azure-pipelines-variables.yml@self
       - name: Build API
         condition: >-
           and(
@@ -92,21 +63,39 @@ extends:
                 eq(${{ parameters.buildAPI }}, 'true')
               ),
               or(
-                eq(dependencies.Run_Linting_And_Tests.outputs['check_files.packages'], 'true'),
-                eq(dependencies.Run_Linting_And_Tests.outputs['check_files.api'], 'true')
+                eq(dependencies.run_linting_and_tests.outputs['check_files.packages'], 'true'),
+                eq(dependencies.run_linting_and_tests.outputs['check_files.api'], 'true')
               )
             )
           )
         dependsOn:
           - Run Linting & Tests
         steps:
-          - template: ../steps/azure_web_app_acr_push.yml@templates
+          - template: ../steps/azure_web_app_docker_build_push.yml@templates
             parameters:
               azurecrName: $(azurecrName)
-              dockerfilePath: $(dockerFilePath)
-              repository: $(repository)
-              workingDirectory: $(Build.Repository.LocalPath)
-              runTests: false
-        variables:
-          - template: apps/api/pipelines/azure-pipelines-variables.yml@self
-
+              dockerfilePath: $(Build.SourcesDirectory)/apps/api/Dockerfile
+              repository: back-office/back-office-api
+      - name: Build Web
+        condition: >-
+          and(
+            succeeded(),
+            or(
+              and(
+                eq(variables['Build.Reason'], 'Manual'),
+                eq(${{ parameters.buildWeb }}, 'true')
+              ),
+              or(
+                eq(dependencies.run_linting_and_tests.outputs['check_files.packages'], 'true'),
+                eq(dependencies.run_linting_and_tests.outputs['check_files.web'], 'true')
+              )
+            )
+          )
+        dependsOn:
+          - Run Linting & Tests
+        steps:
+          - template: ../steps/azure_web_app_docker_build_push.yml@templates
+            parameters:
+              azurecrName: $(azurecrName)
+              dockerfilePath: $(Build.SourcesDirectory)/apps/web/Dockerfile
+              repository: back-office/back-office-web
