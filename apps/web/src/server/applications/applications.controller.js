@@ -1,3 +1,6 @@
+import * as applicationsService from './applications.service.js';
+
+/** @typedef {import('@pins/express').ValidationErrors} ValidationErrors */
 /** @typedef {import('./applications.locals').ApplicationLocals} ApplicationLocals */
 /** @typedef {import('./applications.router').DomainParams} DomainParams */
 /** @typedef {import('./applications.types').Application} Application */
@@ -6,13 +9,7 @@
 
 /**
  * @typedef {object} ViewDashboardRenderProps
- * @property {ApplicationSummary[]=} applications
- * @property {DomainType} domainType
- */
-
-/**
- * @typedef {object} ViewApplicationRenderProps
- * @property {Application} application
+ * @property {ApplicationSummary[]} applications
  */
 
 /**
@@ -21,14 +18,32 @@
  * @type {import('@pins/express').RenderHandler<ViewDashboardRenderProps,
  * {}, {}, {}, DomainParams>}
  */
-export async function viewDashboard(req, res) {
-	if (res.locals.applications.length >= 0) {
-		const { domainType, applications } = res.locals;
+export async function viewDashboard({ params }, res) {
+	switch (params.domainType) {
+		case 'case-admin-officer': {
+			const applications = await applicationsService.findOpenApplicationsForCaseAdminOfficer();
 
-		return res.render('applications/dashboard', { applications, domainType });
+			return res.render('applications/dashboard', { applications });
+		}
+		case 'case-officer': {
+			const applications = await applicationsService.findOpenApplicationsForCaseOfficer();
+
+			return res.render('applications/dashboard', { applications });
+		}
+		case 'inspector': {
+			const applications = await applicationsService.findOpenApplicationsForInspector();
+
+			return res.render('applications/dashboard', { applications });
+		}
+		default:
+			res.render('app/404');
 	}
-	res.render('app/404');
 }
+
+/**
+ * @typedef {object} ViewApplicationRenderProps
+ * @property {Application} application
+ */
 
 /**
  * View the details for a single application.
