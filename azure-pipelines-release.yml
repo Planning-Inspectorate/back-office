@@ -1,0 +1,136 @@
+parameters:
+  - name: region
+    displayName: Region
+    type: string
+    values:
+      - UK West
+      - UK South
+    default: UK West
+
+pr: none
+trigger: none
+
+resources:
+  repositories:
+    - repository: templates
+      type: github
+      endpoint: Planning-Inspectorate
+      name: Planning-Inspectorate/common-pipeline-templates
+      ref: refs/tags/release/3.0.1
+
+extends:
+  template: stages/wrapper_cd.yml@templates
+  parameters:
+    deploymentStages:
+      - name: Stage
+        condition: eq(dependencies.semantic_release.outputs['run_semantic_release.versions.release'], 'true')
+        deploymentJobs:
+          - name: Stage API
+            condition: eq(dependencies.semantic_release.outputs['run_semantic_release.versions.apiRelease'], 'true')
+            steps:
+              - template: ../steps/azure_web_app_docker_tag.yml
+                parameters:
+                  azurecrName: $(azurecrName)
+                  repository: back-office/back-office-api
+                  tag: v$(apiVersion)
+              - template: ../steps/azure_web_app_deploy.yml
+                parameters:
+                  appName: pins-app-back-office-api-$(ENVIRONMENT)-$(REGION_SHORT)-001
+                  appResourceGroup: $(resourceGroup)
+                  appSlotName: staging
+                  azurecrName: $(azurecrName)
+                  repository: back-office/back-office-api
+                  tag: v$(apiVersion)
+            variables:
+              - name: apiVersion
+                value: $[ stageDependencies.semantic_release.run_semantic_release.outputs['versions.apiVersion'] ]
+          - name: Stage Web
+            condition: eq(dependencies.semantic_release.outputs['run_semantic_release.versions.webRelease'], 'true')
+            steps:
+              - template: ../steps/azure_web_app_docker_tag.yml
+                parameters:
+                  azurecrName: $(azurecrName)
+                  repository: back-office/back-office-web
+                  tag: v$(webVersion)
+              - template: ../steps/azure_web_app_deploy.yml
+                parameters:
+                  appName: pins-app-back-office-wfe-$(ENVIRONMENT)-$(REGION_SHORT)-001
+                  appResourceGroup: $(resourceGroup)
+                  appSlotName: staging
+                  azurecrName: $(azurecrName)
+                  repository: back-office/back-office-web
+                  tag: v$(webVersion)
+            variables:
+              - name: webVersion
+                value: $[ stageDependencies.semantic_release.run_semantic_release.outputs['versions.webVersion'] ]
+      - name: Deploy
+        dependsOn:
+          - Stage
+        deploymentJobs:
+          - name: Deploy API
+            steps:
+              - template: ../steps/azure_web_app_slot_swap.yml
+                parameters:
+                  appName: pins-app-back-offce-api-$(ENVIRONMENT)-$(REGION_SHORT)-001
+                  appResourceGroup: $(resourceGroup)
+                  appStagingSlotName: staging
+                  appTargetSlotName: production
+          - name: Deploy Web
+            steps:
+              - template: ../steps/azure_web_app_slot_swap.yml
+                parameters:
+                  appName: pins-app-back-office-wfe-$(ENVIRONMENT)-$(REGION_SHORT)-001
+                  appResourceGroup: $(resourceGroup)
+                  appStagingSlotName: staging
+                  appTargetSlotName: production
+    preDeploymentStages:
+      - name: Semantic Release
+        jobs:
+          - name: Run Semantic Release
+            steps:
+              - checkout: self
+                clean: true
+                persistCredentials: true
+              - template: ../steps/node_script.yml
+                parameters:
+                  script: npm ci
+              - template: ../steps/node_script.yml
+                parameters:
+                  script: npm run release
+                  environmentVariables:
+                    GH_TOKEN: $(GH_TOKEN)
+              - script: |
+                  API_VERSION=$(cat apps/api/.release-version)
+                  WEB_VERSION=$(cat apps/web/.release-version)
+
+                  RELEASE=false
+
+                  if [[ ! -z "$API_VERSION" ]]; then
+                    echo "API version: $API_VERSION"
+                    echo "##vso[task.setvariable variable=apiVersion;isOutput=true]$API_VERSION"
+                    echo "##vso[task.setvariable variable=apiRelease;isOutput=true]true"
+                    RELEASE=true
+                  else
+                    API_VERSION=$(git describe --match "api@*" --abbrev=0 --tags $(git rev-list --tags --max-count=1))
+                    echo "API version: $API_VERSION (No change)"
+                  fi
+
+                  if [[ ! -z "$WEB_VERSION" ]]; then
+                    echo "Web version: $WEB_VERSION"
+                    echo "##vso[task.setvariable variable=webVersion;isOutput=true]$WEB_VERSION"
+                    echo "##vso[task.setvariable variable=webRelease;isOutput=true]true"
+                    RELEASE=true
+                  else
+                    WEB_VERSION=$(git describe --match "web@*" --abbrev=0 --tags $(git rev-list --tags --max-count=1))
+                    echo "API version: $WEB_VERSION (No change)"
+                  fi
+
+                  if [[ $RELEASE == true ]]; then
+                    echo "##vso[task.setvariable variable=release;isOutput=true]true"
+                  fi
+                displayName: Display next versions
+                name: versions
+    environments:
+      - name: Prod
+    globalVariables:
+      - template: azure-pipelines-variables.yml@self
