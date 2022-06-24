@@ -3,23 +3,38 @@
 @import "govuk-frontend/govuk/helpers/_spacing";
 
 .pins-dashboard-box {
-  border: 2px solid $govuk-border-colour;
-  border-top: 5px solid govuk-colour("blue");
-  padding: govuk-spacing(3) govuk-spacing(3) 0;
-}
+  padding: govuk-spacing(5) govuk-spacing(5) 1px;
+  margin-bottom: govuk-spacing(7);
+  box-shadow: 0 2px 0 govuk-colour('mid-grey'), inset 2px 0 0 govuk-colour('mid-grey'), inset -2px 0 0 govuk-colour('mid-grey'), inset 0 4px 0 govuk-colour('blue');
 
-.pins-dashboard-form {
-  position: relative;
-
-  .govuk-form-group {
-	width: calc(100% - 100px - 1rem);
+  &--title {
+	margin-bottom: govuk-spacing(4);
   }
 
-  .govuk-button {
+  &--form {
+	position: relative;
+  }
+}
+
+
+
+.pins-dashboard-form {
+
+  $pins-dashboard-form-button-width: 6rem;
+
+  &--label {
+	color: govuk-colour("dark-grey");
+  }
+
+  &--input {
+	width: calc(100% - #{$pins-dashboard-form-button-width} - #{govuk-spacing(2)});
+  }
+
+  &--btn {
 	position: absolute;
 	right: 0;
-	width: 100px;
-	bottom: 2px;
+	width: $pins-dashboard-form-button-width;
+	bottom: 2px; /* Need this offset the box-shadow. */
 	margin: 0;
   }
 }

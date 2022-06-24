@@ -3,49 +3,28 @@
 {% from "govuk/components/accordion/macro.njk" import govukAccordion %}
 {% from "govuk/components/details/macro.njk" import govukDetails %}
 {% from "govuk/components/table/macro.njk" import govukTable %}
-{% from "govuk/components/input/macro.njk" import govukInput %}
-{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "./components/application-search.component.njk" import applicationSearch %}
 
 {% set pageCaption = domainType | displayValue %}
 {% set pageTitle = 'Applications' %}
+
+{% set searchParameters = {domainType: domainType, value: "", searchApplicationsError: searchApplicationsError, csrfToken: csrfToken, label: "Enter keyword, case reference or case title"} %}
 
 {% block pageContent %}
 
 
 	<div class="govuk-grid-row">
-		<div class="govuk-grid-column-two-thirds">
+		<div class="govuk-grid-column-one-half">
 			<div class="pins-dashboard-box">
-				{% include 'app/includes/csrf.njk' %}
-				<h3 class="govuk-heading-l">Search applications</h3>
-				<form method="post" novalidate  class="pins-dashboard-form">
-
-					{{ govukInput({
-						label: {
-							text: "Enter reference, or something else indicative",
-							isPageHeading: false
-						},
-						errorMessage:searchApplicationsError,
-						inputmode: "search",
-						id: "SearchApplications",
-						name: "SearchApplications"
-					}) }}
-
-					{{ govukButton({
-						text: "Continue"
-					}) }}
-				</form>
+				<h3 class="govuk-heading-l pins-dashboard-box--title">Search applications</h3>
+				{{ applicationSearch(searchParameters) }}
 			</div>
 		</div>
 		<div class="govuk-grid-column-one-third">
 			<div class="pins-dashboard-box">
-				<h3 class="govuk-heading-m">Create new project folder</h3>
 			</div>
 		</div>
 	</div>
-
-
-
-
 
 
 	<h2 class="govuk-heading-l">Open applications</h2>
