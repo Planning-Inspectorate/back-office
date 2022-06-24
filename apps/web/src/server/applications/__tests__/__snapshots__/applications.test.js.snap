@@ -17,7 +17,7 @@ exports[`applications GET /case-admin-officer should render a placeholder when t
                         <input class=\\"govuk-input pins-dashboard-form--input\\"
                         id=\\"searchApplications\\" name=\\"query\\" type=\\"text\\" inputmode=\\"search\\">
                     </div>
-                    <input type=\\"hidden\\" name=\\"domainType\\" value=\\"case-admin-officer\\">
+                    <input type=\\"hidden\\" name=\\"role\\" value=\\"case-admin-officer\\">
                     <button class=\\"govuk-button pins-dashboard-form--btn\\" data-module=\\"govuk-button\\">Search</button>
                 </form>
             </div>
@@ -48,7 +48,7 @@ exports[`applications GET /case-admin-officer should render the open application
                         <input class=\\"govuk-input pins-dashboard-form--input\\"
                         id=\\"searchApplications\\" name=\\"query\\" type=\\"text\\" inputmode=\\"search\\">
                     </div>
-                    <input type=\\"hidden\\" name=\\"domainType\\" value=\\"case-admin-officer\\">
+                    <input type=\\"hidden\\" name=\\"role\\" value=\\"case-admin-officer\\">
                     <button class=\\"govuk-button pins-dashboard-form--btn\\" data-module=\\"govuk-button\\">Search</button>
                 </form>
             </div>
@@ -141,7 +141,7 @@ exports[`applications GET /case-officer should render a placeholder when there a
                         <input class=\\"govuk-input pins-dashboard-form--input\\"
                         id=\\"searchApplications\\" name=\\"query\\" type=\\"text\\" inputmode=\\"search\\">
                     </div>
-                    <input type=\\"hidden\\" name=\\"domainType\\" value=\\"case-officer\\">
+                    <input type=\\"hidden\\" name=\\"role\\" value=\\"case-officer\\">
                     <button class=\\"govuk-button pins-dashboard-form--btn\\" data-module=\\"govuk-button\\">Search</button>
                 </form>
             </div>
@@ -172,7 +172,7 @@ exports[`applications GET /case-officer should render the open applications belo
                         <input class=\\"govuk-input pins-dashboard-form--input\\"
                         id=\\"searchApplications\\" name=\\"query\\" type=\\"text\\" inputmode=\\"search\\">
                     </div>
-                    <input type=\\"hidden\\" name=\\"domainType\\" value=\\"case-officer\\">
+                    <input type=\\"hidden\\" name=\\"role\\" value=\\"case-officer\\">
                     <button class=\\"govuk-button pins-dashboard-form--btn\\" data-module=\\"govuk-button\\">Search</button>
                 </form>
             </div>
@@ -265,7 +265,7 @@ exports[`applications GET /inspector should render a placeholder when there are 
                         <input class=\\"govuk-input pins-dashboard-form--input\\"
                         id=\\"searchApplications\\" name=\\"query\\" type=\\"text\\" inputmode=\\"search\\">
                     </div>
-                    <input type=\\"hidden\\" name=\\"domainType\\" value=\\"inspector\\">
+                    <input type=\\"hidden\\" name=\\"role\\" value=\\"inspector\\">
                     <button class=\\"govuk-button pins-dashboard-form--btn\\" data-module=\\"govuk-button\\">Search</button>
                 </form>
             </div>
@@ -296,7 +296,7 @@ exports[`applications GET /inspector should render the open applications belongi
                         <input class=\\"govuk-input pins-dashboard-form--input\\"
                         id=\\"searchApplications\\" name=\\"query\\" type=\\"text\\" inputmode=\\"search\\">
                     </div>
-                    <input type=\\"hidden\\" name=\\"domainType\\" value=\\"inspector\\">
+                    <input type=\\"hidden\\" name=\\"role\\" value=\\"inspector\\">
                     <button class=\\"govuk-button pins-dashboard-form--btn\\" data-module=\\"govuk-button\\">Search</button>
                 </form>
             </div>
