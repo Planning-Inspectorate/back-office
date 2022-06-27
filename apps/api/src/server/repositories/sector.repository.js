@@ -7,3 +7,11 @@ import { databaseConnector } from '../utils/database-connector.js';
 export const getAll = () => {
 	return databaseConnector.sector.findMany();
 };
+
+/**
+ * @param {string} name
+ * @returns {Promise<import('@pins/api').Schema.Sector | null>}
+ */
+export const getByName = async (name) => {
+	return databaseConnector.sector.findUnique({ where: { name } });
+};

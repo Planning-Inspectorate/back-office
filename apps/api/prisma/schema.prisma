@@ -81,8 +81,8 @@ model Application {
 
 model Sector {
   id            Int         @id @default(autoincrement())
-  abbreviation  String
-  name          String
+  abbreviation  String      @unique
+  name          String      @unique
   displayNameEn String
   displayNameCy String
   SubSector     SubSector[]
@@ -90,8 +90,8 @@ model Sector {
 
 model SubSector {
   id            Int           @id @default(autoincrement())
-  abbreviation  String
-  name          String
+  abbreviation  String        @unique
+  name          String        @unique
   displayNameEn String
   displayNameCy String
   sectorId      Int

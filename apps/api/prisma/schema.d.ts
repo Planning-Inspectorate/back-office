@@ -6,15 +6,16 @@ export {
 	Appellant,
 	LPAQuestionnaire,
 	ReviewQuestionnaire,
-	Sector
+	Sector,
+	SubSector
 } from '@prisma/client';
 
 export interface Application extends schema.Application {
-	subSector: SubSector
+	subSector: SubSector;
 }
 
 export interface SubSector extends schema.SubSector {
-	sector: schema.Sector
+	sector?: schema.Sector;
 }
 
 export interface Appeal extends schema.Appeal {
