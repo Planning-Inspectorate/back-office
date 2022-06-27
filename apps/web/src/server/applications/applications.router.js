@@ -18,6 +18,7 @@ const domainRouter = createRouter({ mergeParams: true });
 // At the moment we're following both the methods (domain-driven urls and functionality urls)
 
 router.use(filters.registerFilters);
+router.use(locals.registerLocals);
 
 /** Functionality-driven URLS */
 
@@ -33,7 +34,6 @@ router.use('/create-new-case', createNewRouter);
  */
 router.use('/:domainType', guards.assertDomainTypeAccess, domainRouter);
 
-domainRouter.use(locals.registerLocals);
 domainRouter.route('/').get(controller.viewDashboard);
 
 domainRouter.param('applicationId', locals.loadApplication);

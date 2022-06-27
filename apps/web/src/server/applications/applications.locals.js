@@ -1,7 +1,11 @@
+import config from '@pins/web/environment/config.js';
+import { intersection } from 'lodash-es';
+import * as authSession from '../app/auth/auth-session.service.js';
 import { findApplicationById } from './applications.service.js';
 
 /** @typedef {import('./applications.router').DomainParams} DomainParams */
 /** @typedef {import('./applications.types').DomainType} DomainType */
+/** @typedef {import('../app/auth/auth.service').AccountInfo} AccountInfo */
 
 /**
  * @typedef {object} ApplicationsLocals
@@ -15,10 +19,33 @@ import { findApplicationById } from './applications.service.js';
  *
  * @type {import('express').RequestHandler<DomainParams, *, *, *, ApplicationsLocals>}
  */
-export const registerLocals = ({ baseUrl, params }, response, next) => {
-	response.locals.domainType = params.domainType;
+export const registerLocals = ({ baseUrl, session }, response, next) => {
 	response.locals.serviceName = 'Planning Inspectorate Applications';
 	response.locals.serviceUrl = baseUrl;
+
+	const account = /** @type {AccountInfo} */ (authSession.getAccount(session));
+	const userGroups = account.idTokenClaims.groups ?? [];
+
+	// Determine those group ids the user belongs to for the applications domain
+	const applicationGroupIds = intersection(
+		Object.values(config.referenceData.applications),
+		userGroups
+	) ?? [''];
+
+	const userApplicationGroup = applicationGroupIds[0];
+
+	/** @type {Record<string, DomainType>} */
+	const domainMap = {
+		[config.referenceData.applications.caseAdminOfficerGroupId]: 'case-admin-officer',
+		[config.referenceData.applications.caseOfficerGroupId]: 'case-officer',
+		[config.referenceData.applications.inspectorGroupId]: 'inspector'
+	};
+
+	const domainType = domainMap[userApplicationGroup];
+
+	if (domainType) {
+		response.locals.domainType = domainType;
+	}
 
 	next();
 };

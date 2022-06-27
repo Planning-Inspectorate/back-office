@@ -16,7 +16,6 @@ import * as applicationsService from './application-search.service.js';
  * @property {SearchApplicationItem[]=} searchApplicationsItems
  * @property {ViewSearchResultsErrors=} searchApplicationsError
  * @property {string=} query
- * @property {DomainType} role
  */
 
 /**
@@ -26,14 +25,14 @@ import * as applicationsService from './application-search.service.js';
   {}, SearchApplicationsRequestBody, {}, DomainParams>} */
 export async function searchApplications(req, response) {
 	const { errors, body } = req;
-	const { query, role } = body;
+	const { query } = body;
+	const role = response.locals.domainType;
 
 	if (errors) {
 		const searchApplicationsError = errors.query?.msg ? { text: errors.query?.msg } : false;
 
 		return response.render('applications/search-results', {
-			searchApplicationsError,
-			role
+			searchApplicationsError
 		});
 	}
 
@@ -50,7 +49,6 @@ export async function searchApplications(req, response) {
 
 	return response.render('applications/search-results', {
 		searchApplicationsItems,
-		role,
 		query
 	});
 }
