@@ -20,8 +20,10 @@
 				{{ applicationSearch(searchParameters) }}
 			</div>
 		</div>
-		<div class="govuk-grid-column-one-third">
+		<div class="govuk-grid-column-one-half">
 			<div class="pins-dashboard-box">
+				<h3 class="govuk-heading-l pins-dashboard-box--title">Create new case</h3>
+				<a class="govuk-button govuk-button--secondary pins-dashboard-box--btn" href="{{ 'create-new-application'|url }}">Create new case here</a>
 			</div>
 		</div>
 	</div>
@@ -70,7 +72,7 @@
 {% endmacro %}
 
 {% macro applicationLink(application) %}
-	<a class="govuk-link" href="/applications-service/{{ domainType }}/applications/{{ application.id }}">
+	<a class="govuk-link" href="{{ 'view-application'|url({domainType: domainType, applicationId: application.id}) }}">
 		{{ application.reference }}
 	</a>
 {% endmacro %}

@@ -1,0 +1,20 @@
+{% extends "app/layouts/app.layout.njk" %}
+
+{% from "govuk/components/breadcrumbs/macro.njk" import govukBreadcrumbs %}
+
+
+{% set pageTitle = 'Create new case' %}
+
+{% block beforeContent %}
+	{{ govukBreadcrumbs({
+		classes: 'govuk-!-margin-top-3',
+		items: [
+			{ href: 'dashboard'|url({domainType:domainType}), text: 'Applications' },
+			{ text: 'Case information' }
+		]
+	}) }}
+{% endblock %}
+
+
+{% block pageContent %}
+{% endblock %}

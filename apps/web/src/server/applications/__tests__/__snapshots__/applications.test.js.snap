@@ -22,8 +22,11 @@ exports[`applications GET /case-admin-officer should render a placeholder when t
                 </form>
             </div>
         </div>
-        <div class=\\"govuk-grid-column-one-third\\">
-            <div class=\\"pins-dashboard-box\\"></div>
+        <div class=\\"govuk-grid-column-one-half\\">
+            <div class=\\"pins-dashboard-box\\">
+                <h3 class=\\"govuk-heading-l pins-dashboard-box--title\\">Create new case</h3><a class=\\"govuk-button govuk-button--secondary pins-dashboard-box--btn\\"
+                href=\\"/applications-service/create-new-case\\">Create new case here</a>
+            </div>
         </div>
     </div>
     <h2 class=\\"govuk-heading-l\\">Open applications</h2>
@@ -53,8 +56,11 @@ exports[`applications GET /case-admin-officer should render the open application
                 </form>
             </div>
         </div>
-        <div class=\\"govuk-grid-column-one-third\\">
-            <div class=\\"pins-dashboard-box\\"></div>
+        <div class=\\"govuk-grid-column-one-half\\">
+            <div class=\\"pins-dashboard-box\\">
+                <h3 class=\\"govuk-heading-l pins-dashboard-box--title\\">Create new case</h3><a class=\\"govuk-button govuk-button--secondary pins-dashboard-box--btn\\"
+                href=\\"/applications-service/create-new-case\\">Create new case here</a>
+            </div>
         </div>
     </div>
     <h2 class=\\"govuk-heading-l\\">Open applications</h2>
@@ -146,8 +152,11 @@ exports[`applications GET /case-officer should render a placeholder when there a
                 </form>
             </div>
         </div>
-        <div class=\\"govuk-grid-column-one-third\\">
-            <div class=\\"pins-dashboard-box\\"></div>
+        <div class=\\"govuk-grid-column-one-half\\">
+            <div class=\\"pins-dashboard-box\\">
+                <h3 class=\\"govuk-heading-l pins-dashboard-box--title\\">Create new case</h3><a class=\\"govuk-button govuk-button--secondary pins-dashboard-box--btn\\"
+                href=\\"/applications-service/create-new-case\\">Create new case here</a>
+            </div>
         </div>
     </div>
     <h2 class=\\"govuk-heading-l\\">Open applications</h2>
@@ -177,8 +186,11 @@ exports[`applications GET /case-officer should render the open applications belo
                 </form>
             </div>
         </div>
-        <div class=\\"govuk-grid-column-one-third\\">
-            <div class=\\"pins-dashboard-box\\"></div>
+        <div class=\\"govuk-grid-column-one-half\\">
+            <div class=\\"pins-dashboard-box\\">
+                <h3 class=\\"govuk-heading-l pins-dashboard-box--title\\">Create new case</h3><a class=\\"govuk-button govuk-button--secondary pins-dashboard-box--btn\\"
+                href=\\"/applications-service/create-new-case\\">Create new case here</a>
+            </div>
         </div>
     </div>
     <h2 class=\\"govuk-heading-l\\">Open applications</h2>
@@ -270,8 +282,11 @@ exports[`applications GET /inspector should render a placeholder when there are 
                 </form>
             </div>
         </div>
-        <div class=\\"govuk-grid-column-one-third\\">
-            <div class=\\"pins-dashboard-box\\"></div>
+        <div class=\\"govuk-grid-column-one-half\\">
+            <div class=\\"pins-dashboard-box\\">
+                <h3 class=\\"govuk-heading-l pins-dashboard-box--title\\">Create new case</h3><a class=\\"govuk-button govuk-button--secondary pins-dashboard-box--btn\\"
+                href=\\"/applications-service/create-new-case\\">Create new case here</a>
+            </div>
         </div>
     </div>
     <h2 class=\\"govuk-heading-l\\">Open applications</h2>
@@ -301,8 +316,11 @@ exports[`applications GET /inspector should render the open applications belongi
                 </form>
             </div>
         </div>
-        <div class=\\"govuk-grid-column-one-third\\">
-            <div class=\\"pins-dashboard-box\\"></div>
+        <div class=\\"govuk-grid-column-one-half\\">
+            <div class=\\"pins-dashboard-box\\">
+                <h3 class=\\"govuk-heading-l pins-dashboard-box--title\\">Create new case</h3><a class=\\"govuk-button govuk-button--secondary pins-dashboard-box--btn\\"
+                href=\\"/applications-service/create-new-case\\">Create new case here</a>
+            </div>
         </div>
     </div>
     <h2 class=\\"govuk-heading-l\\">Open applications</h2>

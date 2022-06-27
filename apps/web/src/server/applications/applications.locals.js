@@ -1,4 +1,3 @@
-import nunjucks from '../app/config/nunjucks.js';
 import { findApplicationById } from './applications.service.js';
 
 /** @typedef {import('./applications.router').DomainParams} DomainParams */
@@ -21,19 +20,6 @@ export const registerLocals = ({ baseUrl, params }, response, next) => {
 	response.locals.serviceName = 'Planning Inspectorate Applications';
 	response.locals.serviceUrl = baseUrl;
 
-	nunjucks.addFilter('displayValue', (/** @type {DomainType} */ key) => {
-		switch (key) {
-			case 'case-admin-officer':
-				return 'Case admin officer';
-			case 'case-officer':
-				return 'Case officer';
-			case 'inspector':
-				return 'Inspector';
-			default:
-				return '';
-		}
-	});
-
 	next();
 };
 
@@ -52,5 +38,6 @@ export const registerLocals = ({ baseUrl, params }, response, next) => {
 export const loadApplication = async (req, _, next) => {
 	req.locals.applicationId = Number(req.params.applicationId);
 	req.locals.application = await findApplicationById(req.locals.applicationId);
+
 	next();
 };
