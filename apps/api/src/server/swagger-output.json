@@ -474,11 +474,33 @@
 				}
 			}
 		},
-		"/applications/search": {
-			"post": {
+		"/applications/testsearch": {
+			"get": {
 				"tags": ["Applications"],
 				"description": "Gets all applications as per search criteria",
 				"parameters": [],
+				"responses": {
+					"200": {
+						"description": "List of applications as per search criteria",
+						"schema": {
+							"$ref": "#/definitions/ApplicationsForSearchCriteria"
+						}
+					}
+				}
+			}
+		},
+		"/applications/search": {
+			"get": {
+				"tags": ["Applications"],
+				"description": "Gets all applications as per search criteria",
+				"parameters": [
+					{
+						"name": "searchCriteria",
+						"in": "header",
+						"type": "string",
+						"required": true
+					}
+				],
 				"responses": {
 					"200": {
 						"description": "List of applications as per search criteria",
