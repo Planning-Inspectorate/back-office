@@ -6,11 +6,16 @@ import { getApplicationsByCriteria } from './case-search.controller.js';
 const router = new express.Router();
 
 router.post(
-	'/search',
+	'/',
 	/*
         #swagger.tags = ['Applications']
         #swagger.path = '/applications/search'
         #swagger.description = 'Gets all applications as per search criteria'
+		#swagger.parameters['searchCriteria'] = {
+            in: 'header',
+            type: 'string',
+            required: true
+        }
         #swagger.responses[200] = {
             description: 'List of applications as per search criteria',
             schema: { $ref: '#/definitions/ApplicationsForSearchCriteria' }

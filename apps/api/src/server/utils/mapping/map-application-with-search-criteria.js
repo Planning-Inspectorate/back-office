@@ -1,7 +1,7 @@
 import { mapApplication } from './map-application.js';
 
 /**
- * @typedef {{id: number, reference: string, title: string, description: string, modifiedDate: number}} ApplicationWithSearchCriteriaResponse
+ * @typedef {{id: number, reference: string, modifiedDate: number, title: string, description: string, status: string}} ApplicationWithSearchCriteriaResponse
  */
 
 /**
@@ -16,5 +16,6 @@ export const mapApplicationWithSearchCriteria = (application) => {
 		...applicationData,
 		title: application.title,
 		description: application.description,
+		status: application.status,
 	};
 };

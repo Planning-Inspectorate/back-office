@@ -5,7 +5,7 @@ import { mapValuesUsingObject } from '../../utils/mapping/map-values-using-objec
 
 /**
  *
- * @typedef {{id: number, reference: string, title: string, description: string, modifiedDate: number, status: string}} ApplicationResponse
+ * @typedef {{id: number, reference: string, title:string, description: string, status: string, modifiedDate: number}} ApplicationResponse
  */
 
 /**
@@ -14,8 +14,8 @@ import { mapValuesUsingObject } from '../../utils/mapping/map-values-using-objec
  * @returns {ApplicationResponse}
  */
 export const mapApplication = (application) => {
-	/** @type {{id: number, reference: string, title: string, description: string, modifiedAt: Date}} */
-	const filtered = pick(application, ['id', 'reference', 'modifiedAt']);
+	/** @type {{id: number, reference: string, title:string, description: string, status: string, modifiedAt: Date}} */
+	const filtered = pick(application, ['id', 'reference', 'modifiedAt', 'title', 'description', 'status']);
 
 	/** @type {ApplicationResponse} */
 	const mappedKeys = mapKeysUsingObject(filtered, { modifiedAt: 'modifiedDate' });
