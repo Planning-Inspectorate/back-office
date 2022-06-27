@@ -1,6 +1,6 @@
 import { Router as createRouter } from 'express';
 import * as controller from './applications.controller.js';
-import { registerFilters } from './applications.filters.js';
+import * as filters from './applications.filters.js';
 import * as guards from './applications.guards.js';
 import * as locals from './applications.locals.js';
 import createNewRouter from './create-new/applications-create-new.router.js';
@@ -17,7 +17,7 @@ const domainRouter = createRouter({ mergeParams: true });
 // Therefore the current routes structure is NOT definitive
 // At the moment we're following both the methods (domain-driven urls and functionality urls)
 
-router.use(registerFilters);
+router.use(filters.registerFilters);
 
 /** Functionality-driven URLS */
 
