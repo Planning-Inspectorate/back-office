@@ -132,7 +132,7 @@ exports[`applications GET /case-officer should render a placeholder when there a
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"govuk-grid-row\\">
         <div class=\\"govuk-grid-column-full\\">
-            <h1 class=\\"govuk-heading-xl\\"><span class=\\"govuk-caption-xl\\">Case admin officer</span>Applications</h1>
+            <h1 class=\\"govuk-heading-xl\\"><span class=\\"govuk-caption-xl\\">Case officer</span>Applications</h1>
         </div>
     </div>
     <div class=\\"govuk-grid-row\\">
@@ -165,7 +165,7 @@ exports[`applications GET /case-officer should render the open applications belo
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"govuk-grid-row\\">
         <div class=\\"govuk-grid-column-full\\">
-            <h1 class=\\"govuk-heading-xl\\"><span class=\\"govuk-caption-xl\\">Case admin officer</span>Applications</h1>
+            <h1 class=\\"govuk-heading-xl\\"><span class=\\"govuk-caption-xl\\">Case officer</span>Applications</h1>
         </div>
     </div>
     <div class=\\"govuk-grid-row\\">
@@ -209,12 +209,12 @@ exports[`applications GET /case-officer should render the open applications belo
                             </thead>
                             <tbody class=\\"govuk-table__body\\">
                                 <tr class=\\"govuk-table__row\\">
-                                    <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case-admin-officer/applications/1\\"> APPLICATION/01</a>
+                                    <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case-officer/applications/1\\"> APPLICATION/01</a>
                                     </td>
                                     <td class=\\"govuk-table__cell\\">01/01/2022</td>
                                 </tr>
                                 <tr class=\\"govuk-table__row\\">
-                                    <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case-admin-officer/applications/2\\"> APPLICATION/02</a>
+                                    <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case-officer/applications/2\\"> APPLICATION/02</a>
                                     </td>
                                     <td class=\\"govuk-table__cell\\">31/01/2022</td>
                                 </tr>
@@ -242,7 +242,7 @@ exports[`applications GET /case-officer should render the open applications belo
                             </thead>
                             <tbody class=\\"govuk-table__body\\">
                                 <tr class=\\"govuk-table__row\\">
-                                    <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case-admin-officer/applications/3\\"> APPLICATION/03</a>
+                                    <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case-officer/applications/3\\"> APPLICATION/03</a>
                                     </td>
                                     <td class=\\"govuk-table__cell\\">01/01/2022</td>
                                 </tr>
@@ -260,11 +260,11 @@ exports[`applications GET /inspector should render a placeholder when there are 
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"govuk-grid-row\\">
         <div class=\\"govuk-grid-column-full\\">
-            <h1 class=\\"govuk-heading-xl\\"><span class=\\"govuk-caption-xl\\">Case admin officer</span>Applications</h1>
+            <h1 class=\\"govuk-heading-xl\\"><span class=\\"govuk-caption-xl\\">Inspector</span>Applications</h1>
         </div>
     </div>
     <div class=\\"govuk-grid-row\\">
-        <div class=\\"govuk-grid-column-one-half\\">
+        <div class=\\"govuk-grid-column-full\\">
             <div class=\\"pins-dashboard-box\\">
                 <h3 class=\\"govuk-heading-l pins-dashboard-box--title\\">Search applications</h3>
                 <form method=\\"post\\" action=\\"search-results\\" novalidate class=\\"pins-dashboard-box--form pins-dashboard-form\\">
@@ -275,12 +275,6 @@ exports[`applications GET /inspector should render a placeholder when there are 
                     </div>
                     <button class=\\"govuk-button pins-dashboard-form--btn\\" data-module=\\"govuk-button\\">Search</button>
                 </form>
-            </div>
-        </div>
-        <div class=\\"govuk-grid-column-one-half\\">
-            <div class=\\"pins-dashboard-box\\">
-                <h3 class=\\"govuk-heading-l pins-dashboard-box--title\\">Create new case</h3><a class=\\"govuk-button govuk-button--secondary pins-dashboard-box--btn\\"
-                href=\\"/applications-service/create-new-case\\">Create new case here</a>
             </div>
         </div>
     </div>
@@ -293,11 +287,11 @@ exports[`applications GET /inspector should render the open applications belongi
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"govuk-grid-row\\">
         <div class=\\"govuk-grid-column-full\\">
-            <h1 class=\\"govuk-heading-xl\\"><span class=\\"govuk-caption-xl\\">Case admin officer</span>Applications</h1>
+            <h1 class=\\"govuk-heading-xl\\"><span class=\\"govuk-caption-xl\\">Inspector</span>Applications</h1>
         </div>
     </div>
     <div class=\\"govuk-grid-row\\">
-        <div class=\\"govuk-grid-column-one-half\\">
+        <div class=\\"govuk-grid-column-full\\">
             <div class=\\"pins-dashboard-box\\">
                 <h3 class=\\"govuk-heading-l pins-dashboard-box--title\\">Search applications</h3>
                 <form method=\\"post\\" action=\\"search-results\\" novalidate class=\\"pins-dashboard-box--form pins-dashboard-form\\">
@@ -308,12 +302,6 @@ exports[`applications GET /inspector should render the open applications belongi
                     </div>
                     <button class=\\"govuk-button pins-dashboard-form--btn\\" data-module=\\"govuk-button\\">Search</button>
                 </form>
-            </div>
-        </div>
-        <div class=\\"govuk-grid-column-one-half\\">
-            <div class=\\"pins-dashboard-box\\">
-                <h3 class=\\"govuk-heading-l pins-dashboard-box--title\\">Create new case</h3><a class=\\"govuk-button govuk-button--secondary pins-dashboard-box--btn\\"
-                href=\\"/applications-service/create-new-case\\">Create new case here</a>
             </div>
         </div>
     </div>
@@ -337,12 +325,12 @@ exports[`applications GET /inspector should render the open applications belongi
                             </thead>
                             <tbody class=\\"govuk-table__body\\">
                                 <tr class=\\"govuk-table__row\\">
-                                    <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case-admin-officer/applications/1\\"> APPLICATION/01</a>
+                                    <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link\\" href=\\"/applications-service/inspector/applications/1\\"> APPLICATION/01</a>
                                     </td>
                                     <td class=\\"govuk-table__cell\\">01/01/2022</td>
                                 </tr>
                                 <tr class=\\"govuk-table__row\\">
-                                    <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case-admin-officer/applications/2\\"> APPLICATION/02</a>
+                                    <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link\\" href=\\"/applications-service/inspector/applications/2\\"> APPLICATION/02</a>
                                     </td>
                                     <td class=\\"govuk-table__cell\\">31/01/2022</td>
                                 </tr>
@@ -370,7 +358,7 @@ exports[`applications GET /inspector should render the open applications belongi
                             </thead>
                             <tbody class=\\"govuk-table__body\\">
                                 <tr class=\\"govuk-table__row\\">
-                                    <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case-admin-officer/applications/3\\"> APPLICATION/03</a>
+                                    <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link\\" href=\\"/applications-service/inspector/applications/3\\"> APPLICATION/03</a>
                                     </td>
                                     <td class=\\"govuk-table__cell\\">01/01/2022</td>
                                 </tr>

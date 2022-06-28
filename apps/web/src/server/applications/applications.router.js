@@ -22,9 +22,18 @@ router.use(locals.registerLocals);
 
 /** Functionality-driven URLS */
 
-router.use('/search-results', searchRouter);
+// These URLs don't contain any information about the role of the user
+// However their views sometimes require the local variable domainType to be defined
+// How is domainType defined for functionality_driven URLs?
+// 1. If the user has landed at least once on the dashboard
+// THEN the domainType is saved in the session (through registerDomainLocals) and copied in the locals (through registerLocals)
+//
+// 2. If the user has never been in the dashboard and does not have the value of it in the session
+// THEN the app redirects to the root page through the guard assertDomainTypExists
 
-router.use('/create-new-case', createNewRouter);
+router.use('/search-results', guards.assertDomainTypeExists, searchRouter);
+
+router.use('/create-new-case', guards.assertDomainTypeExists, createNewRouter);
 
 /** Domain-driven URLS */
 
@@ -33,6 +42,7 @@ router.use('/create-new-case', createNewRouter);
  * @property {import('./applications.types').DomainType} domainType
  */
 router.use('/:domainType', guards.assertDomainTypeAccess, domainRouter);
+domainRouter.use(locals.registerDomainLocals);
 
 domainRouter.route('/').get(controller.viewDashboard);
 

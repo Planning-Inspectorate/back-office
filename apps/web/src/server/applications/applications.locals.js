@@ -1,7 +1,8 @@
-import config from '@pins/web/environment/config.js';
-import { intersection } from 'lodash-es';
-import * as authSession from '../app/auth/auth-session.service.js';
 import { findApplicationById } from './applications.service.js';
+import {
+	getSessionApplicationsDomainType,
+	setSessionApplicationsDomainType
+} from './applications-session.service.js';
 
 /** @typedef {import('./applications.router').DomainParams} DomainParams */
 /** @typedef {import('./applications.types').DomainType} DomainType */
@@ -15,7 +16,13 @@ import { findApplicationById } from './applications.service.js';
  */
 
 /**
- * Register the locals for templates under this domain.
+ * @typedef {object} ApplicationLocals
+ * @property {number} applicationId
+ * @property {import('./applications.types').Application} application
+ */
+
+/**
+ * Register the non-domain locals for the Applications scope.
  *
  * @type {import('express').RequestHandler<DomainParams, *, *, *, ApplicationsLocals>}
  */
@@ -23,38 +30,26 @@ export const registerLocals = ({ baseUrl, session }, response, next) => {
 	response.locals.serviceName = 'Planning Inspectorate Applications';
 	response.locals.serviceUrl = baseUrl;
 
-	const account = /** @type {AccountInfo} */ (authSession.getAccount(session));
-	const userGroups = account.idTokenClaims.groups ?? [];
+	const applicationsDomainType = getSessionApplicationsDomainType(session);
 
-	// Determine those group ids the user belongs to for the applications domain
-	const applicationGroupIds = intersection(
-		Object.values(config.referenceData.applications),
-		userGroups
-	) ?? [''];
-
-	const userApplicationGroup = applicationGroupIds[0];
-
-	/** @type {Record<string, DomainType>} */
-	const domainMap = {
-		[config.referenceData.applications.caseAdminOfficerGroupId]: 'case-admin-officer',
-		[config.referenceData.applications.caseOfficerGroupId]: 'case-officer',
-		[config.referenceData.applications.inspectorGroupId]: 'inspector'
-	};
-
-	const domainType = domainMap[userApplicationGroup];
-
-	if (domainType) {
-		response.locals.domainType = domainType;
+	if (applicationsDomainType) {
+		response.locals.domainType = applicationsDomainType;
 	}
 
 	next();
 };
 
 /**
- * @typedef {object} ApplicationLocals
- * @property {number} applicationId
- * @property {import('./applications.types').Application} application
+ * Register the domain type and save it for non-domain pages in the Applications scope.
+ *
+ * @type {import('express').RequestHandler<DomainParams, *, *, *, ApplicationsLocals>}
  */
+export const registerDomainLocals = ({ params, session }, response, next) => {
+	response.locals.domainType = params.domainType;
+	setSessionApplicationsDomainType(session, params.domainType);
+
+	next();
+};
 
 /**
  * Use the `applicationId` parameter to install the application onto the request

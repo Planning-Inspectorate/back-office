@@ -31,6 +31,15 @@ describe('applications', () => {
 
 			expect(element.innerHTML).toMatchSnapshot();
 		});
+
+		it('should render the `create new case` button', async () => {
+			nock('http://test/').get('/applications/case-officer').reply(200, applicationSummaries);
+
+			const response = await request.get(baseUrl);
+			const element = parseHtml(response.text);
+
+			expect(element.innerHTML).toContain('Create new case');
+		});
 	});
 
 	describe('GET /case-admin-officer', () => {
@@ -53,6 +62,15 @@ describe('applications', () => {
 
 			expect(element.innerHTML).toMatchSnapshot();
 		});
+
+		it('should render the `create new case` button', async () => {
+			nock('http://test/').get('/applications/case-admin-officer').reply(200, applicationSummaries);
+
+			const response = await request.get(baseUrl);
+			const element = parseHtml(response.text);
+
+			expect(element.innerHTML).toContain('Create new case');
+		});
 	});
 
 	describe('GET /inspector', () => {
@@ -74,6 +92,15 @@ describe('applications', () => {
 			const element = parseHtml(response.text);
 
 			expect(element.innerHTML).toMatchSnapshot();
+		});
+
+		it('should NOT render the `create new case` button', async () => {
+			nock('http://test/').get('/applications/inspector').reply(200, applicationSummaries);
+
+			const response = await request.get(baseUrl);
+			const element = parseHtml(response.text);
+
+			expect(element.innerHTML).not.toContain('Create new case');
 		});
 	});
 });
