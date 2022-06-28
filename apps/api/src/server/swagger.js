@@ -32,6 +32,14 @@ const document = {
 	// by default: empty object (Swagger 2.0)
 	securityDefinitions: {},
 	definitions: {
+		Sectors: [
+			{
+				abbreviation: 'BB',
+				displayNameCy: 'Sector Name Cy',
+				displayNameEn: 'Sector Name En',
+				name: 'sector'
+			}
+		],
 		ApplicationsForCaseOfficer: [
 			{
 				id: 1,
