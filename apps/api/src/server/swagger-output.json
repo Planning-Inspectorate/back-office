@@ -474,23 +474,8 @@
 				}
 			}
 		},
-		"/applications/testsearch": {
-			"get": {
-				"tags": ["Applications"],
-				"description": "Gets all applications as per search criteria",
-				"parameters": [],
-				"responses": {
-					"200": {
-						"description": "List of applications as per search criteria",
-						"schema": {
-							"$ref": "#/definitions/ApplicationsForSearchCriteria"
-						}
-					}
-				}
-			}
-		},
 		"/applications/search": {
-			"get": {
+			"post": {
 				"tags": ["Applications"],
 				"description": "Gets all applications as per search criteria",
 				"parameters": [
