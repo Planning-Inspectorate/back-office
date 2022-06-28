@@ -50,7 +50,7 @@ test('gets applications with search criteria on case ID', async (t) => {
 
 	const response = await request
 		.post('/applications/search')
-		.send({ searchCriteria: 'EN010003 - NI Case 3 Name' });
+		.send({ query: 'EN010003 - NI Case 3 Name' });
 
 	t.is(response.status, 200);
 	t.deepEqual(response.body, [

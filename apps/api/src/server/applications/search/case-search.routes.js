@@ -21,7 +21,7 @@ router.post(
             schema: { $ref: '#/definitions/ApplicationsForSearchCriteria' }
         }
     */
-	param('searchCriteria'),
+	param('query'),
 	asyncHandler(getApplicationsByCriteria)
 );
 
