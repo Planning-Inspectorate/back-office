@@ -571,7 +571,9 @@
 					}
 				}
 			}
-		},
+		}
+	},
+	"definitions": {
 		"ApplicationsForCaseOfficer": {
 			"type": "array",
 			"items": {

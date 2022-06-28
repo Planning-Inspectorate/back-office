@@ -1,11 +1,12 @@
 import express from 'express';
+import { param } from 'express-validator';
 import { asyncHandler } from '../../middleware/async-handler.js';
-import { getApplications } from './case-search.controller.js';
+import { getApplicationsByCriteria } from './case-search.controller.js';
 
 const router = new express.Router();
 
-router.get(
-	'/',
+router.post(
+	'/search',
 	/*
         #swagger.tags = ['Applications']
         #swagger.path = '/applications/search'
@@ -15,7 +16,8 @@ router.get(
             schema: { $ref: '#/definitions/ApplicationsForSearchCriteria' }
         }
     */
-	asyncHandler(getApplications)
+	param('searchCriteria'),
+	asyncHandler(getApplicationsByCriteria)
 );
 
 export { router as caseSearchRoutes };
