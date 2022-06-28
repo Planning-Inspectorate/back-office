@@ -444,7 +444,7 @@
 				}
 			}
 		},
-		"/applications/case-officer-admin": {
+		"/applications/case-admin-officer": {
 			"get": {
 				"tags": ["Applications"],
 				"description": "Gets all applications associated with case officer admin",
@@ -453,7 +453,7 @@
 					"200": {
 						"description": "List of applications assigned to case officer",
 						"schema": {
-							"$ref": "#/definitions/ApplicationsForCaseOfficerAdmin"
+							"$ref": "#/definitions/ApplicationsForCaseAdminOfficer"
 						}
 					}
 				}
@@ -473,9 +473,48 @@
 					}
 				}
 			}
+		},
+		"/applications/region": {
+			"get": {
+				"tags": ["Applications"],
+				"description": "Gets all regions available",
+				"parameters": [],
+				"responses": {
+					"200": {
+						"description": "List of regions",
+						"schema": {
+							"$ref": "#/definitions/RegionsForApplications"
+						}
+					}
+				}
+			}
 		}
 	},
 	"definitions": {
+		"RegionsForApplications": {
+			"type": "array",
+			"items": {
+				"type": "object",
+				"properties": {
+					"id": {
+						"type": "number",
+						"example": 1
+					},
+					"name": {
+						"type": "string",
+						"example": "Region Name"
+					},
+					"displayNameEn": {
+						"type": "string",
+						"example": "Region Name En"
+					},
+					"displayNameCy": {
+						"type": "string",
+						"example": "Region Name Cy"
+					}
+				}
+			}
+		},
 		"ApplicationsForCaseOfficer": {
 			"type": "array",
 			"items": {
@@ -538,7 +577,7 @@
 				}
 			}
 		},
-		"ApplicationsForCaseOfficerAdmin": {
+		"ApplicationsForCaseAdminOfficer": {
 			"type": "array",
 			"items": {
 				"type": "object",

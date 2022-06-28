@@ -32,6 +32,14 @@ const document = {
 	// by default: empty object (Swagger 2.0)
 	securityDefinitions: {},
 	definitions: {
+		RegionsForApplications: [
+			{
+				id: 1,
+				name: 'Region Name',
+				displayNameEn: 'Region Name En',
+				displayNameCy: 'Region Name Cy'
+			}
+		],
 		ApplicationsForCaseOfficer: [
 			{
 				id: 1,

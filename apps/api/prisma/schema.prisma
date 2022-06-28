@@ -77,26 +77,8 @@ model Application {
   modifiedAt  DateTime
   subSectorId Int
   subSector   SubSector @relation(fields: [subSectorId], references: [id])
-}
-
-model Sector {
-  id            Int         @id @default(autoincrement())
-  abbreviation  String
-  name          String      @unique
-  displayNameEn String
-  displayNameCy String
-  SubSector     SubSector[]
-}
-
-model SubSector {
-  id            Int           @id @default(autoincrement())
-  abbreviation  String
-  name          String        @unique
-  displayNameEn String
-  displayNameCy String
-  sectorId      Int
-  sector        Sector        @relation(fields: [sectorId], references: [id])
-  Application   Application[]
+  regionId    Int?
+  region      Region?   @relation(fields: [regionId], references: [id])
 }
 
 model Address {
@@ -156,6 +138,14 @@ model LPAQuestionnaire {
   appeal                                                Appeal    @relation(fields: [appealId], references: [id])
 }
 
+model Region {
+  id            Int           @id @default(autoincrement())
+  name          String        @unique
+  displayNameEn String
+  displayNameCy String
+  Application   Application[]
+}
+
 model ReviewQuestionnaire {
   id                                                                          Int      @id @default(autoincrement())
   appealId                                                                    Int
@@ -186,6 +176,15 @@ model ReviewQuestionnaire {
   appeal                                                                      Appeal   @relation(fields: [appealId], references: [id])
 }
 
+model Sector {
+  id            Int         @id @default(autoincrement())
+  abbreviation  String
+  name          String      @unique
+  displayNameEn String
+  displayNameCy String
+  SubSector     SubSector[]
+}
+
 model SiteVisit {
   id        Int      @id @default(autoincrement())
   appealId  Int      @unique
@@ -193,6 +192,17 @@ model SiteVisit {
   visitSlot String
   visitType String?
   appeal    Appeal   @relation(fields: [appealId], references: [id])
+}
+
+model SubSector {
+  id            Int           @id @default(autoincrement())
+  abbreviation  String
+  name          String        @unique
+  displayNameEn String
+  displayNameCy String
+  sectorId      Int
+  sector        Sector        @relation(fields: [sectorId], references: [id])
+  Application   Application[]
 }
 
 model InspectorDecision {

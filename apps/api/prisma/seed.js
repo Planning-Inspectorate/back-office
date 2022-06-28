@@ -10,6 +10,7 @@ import {
 	invalidValidationDecisionSample,
 	localPlanningDepartmentList,
 	lpaQuestionnaireList,
+	regions,
 	sectors,
 	subSectors
 } from './seed-samples.js';
@@ -600,6 +601,7 @@ const deleteAllRecords = async () => {
 	const deleteApplications = prisma.application.deleteMany();
 	const deleteSubSectos = prisma.subSector.deleteMany();
 	const deleteSectors = prisma.sector.deleteMany();
+	const deleteRegions = prisma.region.deleteMany();
 	const deleteAppeals = prisma.appeal.deleteMany();
 	const deleteUsers = prisma.user.deleteMany();
 	const deleteAppealTypes = prisma.appealType.deleteMany();
@@ -617,6 +619,7 @@ const deleteAllRecords = async () => {
 		deleteApplications,
 		deleteSubSectos,
 		deleteSectors,
+		deleteRegions,
 		deleteAppealDetailsFromAppellant,
 		deleteAppealStatus,
 		deleteValidationDecision,
@@ -655,11 +658,21 @@ async function main() {
 				data: { ...subSector, sector: { connect: { name: sectorName } } }
 			});
 		}
+		for (const region of regions) {
+			await prisma.region.create({
+				data: region
+			});
+		}
 		for (const { subSector } of subSectors) {
 			await prisma.application.create({
 				data: {
 					reference: generateAppealReference(),
 					modifiedAt: new Date(),
+					region: {
+						connect: {
+							name: pickRandom(regions).name
+						}
+					},
 					subSector: {
 						connect: {
 							name: subSector.name
@@ -671,6 +684,11 @@ async function main() {
 				data: {
 					reference: generateAppealReference(),
 					modifiedAt: new Date(),
+					region: {
+						connect: {
+							name: pickRandom(regions).name
+						}
+					},
 					subSector: {
 						connect: {
 							name: subSector.name
@@ -682,6 +700,11 @@ async function main() {
 				data: {
 					reference: generateAppealReference(),
 					modifiedAt: new Date(),
+					region: {
+						connect: {
+							name: pickRandom(regions).name
+						}
+					},
 					subSector: {
 						connect: {
 							name: subSector.name
