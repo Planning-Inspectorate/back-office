@@ -10,6 +10,8 @@ const request = supertest(app);
 const application = applicationFactoryForTests({
 	id: 3,
 	status: 'open',
+	title: 'EN010003 - NI Case 3 Name',
+	description: 'EN010003 - NI Case 3 Name Description',
 	modifiedAt: new Date(1_655_298_882_000)
 });
 
@@ -18,22 +20,23 @@ const findManyStub = sinon.stub();
 findManyStub
 	.withArgs({
 		where: {
-			caseId: 3
+			title: 'EN010003 - NI Case 3 Name'
 		}
 	})
 	.returns([application]);
 
-test('gets applications wit search criteria on case ID', async (t) => {
+test('gets applications with search criteria on case ID', async (t) => {
 	sinon.stub(databaseConnector, 'application').get(() => {
 		return { findMany: findManyStub };
 	});
 
-	const response = await request.get('/applications/search');
+	const response = await request.post('/applications/search');
 
 	t.is(response.status, 200);
 	t.deepEqual(response.body, [
 		{
 			id: 3,
+			status: 'open',
 			reference: 'EN010003',
 			title: 'EN010003 - NI Case 3 Name',
 			description: 'EN010003 - NI Case 3 Name Description',
