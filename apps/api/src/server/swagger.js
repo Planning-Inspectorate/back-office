@@ -40,6 +40,14 @@ const document = {
 				name: 'sector'
 			}
 		],
+		RegionsForApplications: [
+			{
+				id: 1,
+				name: 'Region Name',
+				displayNameEn: 'Region Name En',
+				displayNameCy: 'Region Name Cy'
+			}
+		],
 		ApplicationsForCaseOfficer: [
 			{
 				id: 1,

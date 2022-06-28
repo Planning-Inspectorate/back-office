@@ -474,6 +474,21 @@
 				}
 			}
 		},
+		"/applications/region": {
+			"get": {
+				"tags": ["Applications"],
+				"description": "Gets all regions available",
+				"parameters": [],
+				"responses": {
+					"200": {
+						"description": "List of regions",
+						"schema": {
+							"$ref": "#/definitions/RegionsForApplications"
+						}
+					}
+				}
+			}
+		},
 		"/applications/sector": {
 			"get": {
 				"tags": ["Applications"],
@@ -509,6 +524,30 @@
 		}
 	},
 	"definitions": {
+	  "RegionsForApplications": {
+		"type": "array",
+		"items": {
+		  "type": "object",
+		  "properties": {
+			"id": {
+			  "type": "number",
+			  "example": 1
+			},
+			"name": {
+			  "type": "string",
+			  "example": "Region Name"
+			},
+			"displayNameEn": {
+			  "type": "string",
+			  "example": "Region Name En"
+			},
+			"displayNameCy": {
+			  "type": "string",
+			  "example": "Region Name Cy"
+			}
+		  }
+		}
+	  },
 		"Sectors": {
 			"type": "array",
 			"items": {

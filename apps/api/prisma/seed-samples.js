@@ -537,3 +537,56 @@ export const subSectors = [
 		sectorName: 'water'
 	}
 ];
+
+export const regions = [
+	{
+		name: 'east_midlands',
+		displayNameEn: 'East Midlands',
+		displayNameCy: 'East Midlands'
+	},
+	{
+		name: 'eastern',
+		displayNameEn: 'Eastern',
+		displayNameCy: 'Eastern'
+	},
+	{
+		name: 'london',
+		displayNameEn: 'London',
+		displayNameCy: 'London'
+	},
+	{
+		name: 'north_east',
+		displayNameEn: 'North East',
+		displayNameCy: 'North East'
+	},
+	{
+		name: 'north_west',
+		displayNameEn: 'North West',
+		displayNameCy: 'North West'
+	},
+	{
+		name: 'south_east',
+		displayNameEn: 'South East',
+		displayNameCy: 'South East'
+	},
+	{
+		name: 'south_west',
+		displayNameEn: 'South West',
+		displayNameCy: 'South West'
+	},
+	{
+		name: 'wales',
+		displayNameEn: 'Wales',
+		displayNameCy: 'Wales'
+	},
+	{
+		name: 'west_midlands',
+		displayNameEn: 'West Midlands',
+		displayNameCy: 'West Midlands'
+	},
+	{
+		name: 'yorkshire_and_the_humber',
+		displayNameEn: 'Yorkshire and the Humber',
+		displayNameCy: 'Yorkshire and the Humber'
+	}
+];
