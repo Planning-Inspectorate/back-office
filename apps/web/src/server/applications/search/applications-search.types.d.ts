@@ -1,4 +1,4 @@
-import { ApplicationSummary, DomainType } from '../applications.types';
+import { DomainType } from '../applications.types';
 
 export type SearchApplicationsRequestBody = {
 	query: string;
