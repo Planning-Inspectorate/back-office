@@ -3,58 +3,74 @@
 {% from "govuk/components/accordion/macro.njk" import govukAccordion %}
 {% from "govuk/components/details/macro.njk" import govukDetails %}
 {% from "govuk/components/table/macro.njk" import govukTable %}
+{% from "./components/application-search.component.njk" import applicationSearch %}
 
-{% set pageCaption = domainType | displayValue  %}
+{% set pageCaption = domainType | displayValue %}
 {% set pageTitle = 'Applications' %}
 
+{% set searchParameters = {role: domainType, query: "", searchApplicationsError: searchApplicationsError, csrfToken: csrfToken, label: "Enter keyword, case reference or case title"} %}
+
 {% block pageContent %}
-  <h2 class="govuk-heading-l">Open applications</h2>
 
-  {% set items = [] %}
 
-  {% for name, groupedApplications in applications | groupBy('sector.name') %}
-    {% set items = items.concat({
-        heading: {
-          text: groupedApplications[0].sector.displayNameEn
-        },
-        content: {
-          html: createSectorContent(groupedApplications)
-        }
-      })
-    %}
-  {% endfor %}
+	<div class="govuk-grid-row">
+		<div class="govuk-grid-column-one-half">
+			<div class="pins-dashboard-box">
+				<h3 class="govuk-heading-l pins-dashboard-box--title">Search applications</h3>
+				{{ applicationSearch(searchParameters) }}
+			</div>
+		</div>
+		<div class="govuk-grid-column-one-third">
+			<div class="pins-dashboard-box">
+			</div>
+		</div>
+	</div>
 
-  {{ govukAccordion({ items: items }) }}
+
+	<h2 class="govuk-heading-l">Open applications</h2>
+
+	{% set items = [] %}
+
+	{% for name, groupedApplications in applications | groupBy('sector.name') %}
+		{% set items = items.concat({
+			heading: {
+				text: groupedApplications[0].sector.displayNameEn
+			},
+			content: {
+				html: createSectorContent(groupedApplications)
+			}
+		}) %}
+	{% endfor %}
+
+	{{ govukAccordion({ items: items }) }}
 {% endblock %}
 
 {% macro createSectorContent(applicationsForSector) %}
-  {% for name, groupedApplications in applicationsForSector | groupBy('subSector.name') %}
-    {% set subSector = groupedApplications[0].subSector %}
-    {% set rows = [] %}
-    {% for application in groupedApplications %}
-      {% set rows = rows | concat ([[
-        { html: applicationLink(application) },
-        { text: application.modifiedDate | datestamp } 
-      ]]) %}
-    {% endfor %}
-    {{
-      govukDetails({
-        summaryText: subSector.abbreviation + ' ' + subSector.displayNameEn,
-        html: govukTable({
-          classes: 'pins-table--fixed pins-table--bordered',
-          head: [
-            { text: "Application reference" },
-            { text: "Modified", classes: 'pins-table__cell--s' }
-          ],
-          rows: rows
-        })
-      })
-    }}
-  {% endfor %}
+	{% for name, groupedApplications in applicationsForSector | groupBy('subSector.name') %}
+		{% set subSector = groupedApplications[0].subSector %}
+		{% set rows = [] %}
+		{% for application in groupedApplications %}
+			{% set rows = rows | concat ([[
+				{ html: applicationLink(application) },
+				{ text: application.modifiedDate | datestamp }
+			]]) %}
+		{% endfor %}
+		{{ govukDetails({
+			summaryText: subSector.abbreviation + ' ' + subSector.displayNameEn,
+			html: govukTable({
+				classes: 'pins-table--fixed pins-table--bordered',
+				head: [
+					{ text: "Application reference" },
+					{ text: "Modified", classes: 'pins-table__cell--s' }
+				],
+				rows: rows
+			})
+		}) }}
+	{% endfor %}
 {% endmacro %}
 
 {% macro applicationLink(application) %}
-  <a class="govuk-link" href="/applications-service/{{ domainType }}/applications/{{ application.id }}">
-    {{ application.reference }}
-  </a>
+	<a class="govuk-link" href="/applications-service/{{ domainType }}/applications/{{ application.id }}">
+		{{ application.reference }}
+	</a>
 {% endmacro %}

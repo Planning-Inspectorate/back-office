@@ -7,6 +7,25 @@ exports[`applications GET /case-admin-officer should render a placeholder when t
             <h1 class=\\"govuk-heading-xl\\"><span class=\\"govuk-caption-xl\\">Case admin officer</span>Applications</h1>
         </div>
     </div>
+    <div class=\\"govuk-grid-row\\">
+        <div class=\\"govuk-grid-column-one-half\\">
+            <div class=\\"pins-dashboard-box\\">
+                <h3 class=\\"govuk-heading-l pins-dashboard-box--title\\">Search applications</h3>
+                <form method=\\"post\\" action=\\"search-results\\" novalidate class=\\"pins-dashboard-box--form pins-dashboard-form\\">
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label pins-dashboard-form--label\\" for=\\"searchApplications\\">Enter keyword, case reference or case title</label>
+                        <input class=\\"govuk-input pins-dashboard-form--input\\"
+                        id=\\"searchApplications\\" name=\\"query\\" type=\\"text\\" inputmode=\\"search\\">
+                    </div>
+                    <input type=\\"hidden\\" name=\\"role\\" value=\\"case-admin-officer\\">
+                    <button class=\\"govuk-button pins-dashboard-form--btn\\" data-module=\\"govuk-button\\">Search</button>
+                </form>
+            </div>
+        </div>
+        <div class=\\"govuk-grid-column-one-third\\">
+            <div class=\\"pins-dashboard-box\\"></div>
+        </div>
+    </div>
     <h2 class=\\"govuk-heading-l\\">Open applications</h2>
     <div class=\\"govuk-accordion\\" data-module=\\"govuk-accordion\\" id=\\"\\"></div>
 </main>"
@@ -17,6 +36,25 @@ exports[`applications GET /case-admin-officer should render the open application
     <div class=\\"govuk-grid-row\\">
         <div class=\\"govuk-grid-column-full\\">
             <h1 class=\\"govuk-heading-xl\\"><span class=\\"govuk-caption-xl\\">Case admin officer</span>Applications</h1>
+        </div>
+    </div>
+    <div class=\\"govuk-grid-row\\">
+        <div class=\\"govuk-grid-column-one-half\\">
+            <div class=\\"pins-dashboard-box\\">
+                <h3 class=\\"govuk-heading-l pins-dashboard-box--title\\">Search applications</h3>
+                <form method=\\"post\\" action=\\"search-results\\" novalidate class=\\"pins-dashboard-box--form pins-dashboard-form\\">
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label pins-dashboard-form--label\\" for=\\"searchApplications\\">Enter keyword, case reference or case title</label>
+                        <input class=\\"govuk-input pins-dashboard-form--input\\"
+                        id=\\"searchApplications\\" name=\\"query\\" type=\\"text\\" inputmode=\\"search\\">
+                    </div>
+                    <input type=\\"hidden\\" name=\\"role\\" value=\\"case-admin-officer\\">
+                    <button class=\\"govuk-button pins-dashboard-form--btn\\" data-module=\\"govuk-button\\">Search</button>
+                </form>
+            </div>
+        </div>
+        <div class=\\"govuk-grid-column-one-third\\">
+            <div class=\\"pins-dashboard-box\\"></div>
         </div>
     </div>
     <h2 class=\\"govuk-heading-l\\">Open applications</h2>
@@ -93,6 +131,25 @@ exports[`applications GET /case-officer should render a placeholder when there a
             <h1 class=\\"govuk-heading-xl\\"><span class=\\"govuk-caption-xl\\">Case officer</span>Applications</h1>
         </div>
     </div>
+    <div class=\\"govuk-grid-row\\">
+        <div class=\\"govuk-grid-column-one-half\\">
+            <div class=\\"pins-dashboard-box\\">
+                <h3 class=\\"govuk-heading-l pins-dashboard-box--title\\">Search applications</h3>
+                <form method=\\"post\\" action=\\"search-results\\" novalidate class=\\"pins-dashboard-box--form pins-dashboard-form\\">
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label pins-dashboard-form--label\\" for=\\"searchApplications\\">Enter keyword, case reference or case title</label>
+                        <input class=\\"govuk-input pins-dashboard-form--input\\"
+                        id=\\"searchApplications\\" name=\\"query\\" type=\\"text\\" inputmode=\\"search\\">
+                    </div>
+                    <input type=\\"hidden\\" name=\\"role\\" value=\\"case-officer\\">
+                    <button class=\\"govuk-button pins-dashboard-form--btn\\" data-module=\\"govuk-button\\">Search</button>
+                </form>
+            </div>
+        </div>
+        <div class=\\"govuk-grid-column-one-third\\">
+            <div class=\\"pins-dashboard-box\\"></div>
+        </div>
+    </div>
     <h2 class=\\"govuk-heading-l\\">Open applications</h2>
     <div class=\\"govuk-accordion\\" data-module=\\"govuk-accordion\\" id=\\"\\"></div>
 </main>"
@@ -103,6 +160,25 @@ exports[`applications GET /case-officer should render the open applications belo
     <div class=\\"govuk-grid-row\\">
         <div class=\\"govuk-grid-column-full\\">
             <h1 class=\\"govuk-heading-xl\\"><span class=\\"govuk-caption-xl\\">Case officer</span>Applications</h1>
+        </div>
+    </div>
+    <div class=\\"govuk-grid-row\\">
+        <div class=\\"govuk-grid-column-one-half\\">
+            <div class=\\"pins-dashboard-box\\">
+                <h3 class=\\"govuk-heading-l pins-dashboard-box--title\\">Search applications</h3>
+                <form method=\\"post\\" action=\\"search-results\\" novalidate class=\\"pins-dashboard-box--form pins-dashboard-form\\">
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label pins-dashboard-form--label\\" for=\\"searchApplications\\">Enter keyword, case reference or case title</label>
+                        <input class=\\"govuk-input pins-dashboard-form--input\\"
+                        id=\\"searchApplications\\" name=\\"query\\" type=\\"text\\" inputmode=\\"search\\">
+                    </div>
+                    <input type=\\"hidden\\" name=\\"role\\" value=\\"case-officer\\">
+                    <button class=\\"govuk-button pins-dashboard-form--btn\\" data-module=\\"govuk-button\\">Search</button>
+                </form>
+            </div>
+        </div>
+        <div class=\\"govuk-grid-column-one-third\\">
+            <div class=\\"pins-dashboard-box\\"></div>
         </div>
     </div>
     <h2 class=\\"govuk-heading-l\\">Open applications</h2>
@@ -179,6 +255,25 @@ exports[`applications GET /inspector should render a placeholder when there are 
             <h1 class=\\"govuk-heading-xl\\"><span class=\\"govuk-caption-xl\\">Inspector</span>Applications</h1>
         </div>
     </div>
+    <div class=\\"govuk-grid-row\\">
+        <div class=\\"govuk-grid-column-one-half\\">
+            <div class=\\"pins-dashboard-box\\">
+                <h3 class=\\"govuk-heading-l pins-dashboard-box--title\\">Search applications</h3>
+                <form method=\\"post\\" action=\\"search-results\\" novalidate class=\\"pins-dashboard-box--form pins-dashboard-form\\">
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label pins-dashboard-form--label\\" for=\\"searchApplications\\">Enter keyword, case reference or case title</label>
+                        <input class=\\"govuk-input pins-dashboard-form--input\\"
+                        id=\\"searchApplications\\" name=\\"query\\" type=\\"text\\" inputmode=\\"search\\">
+                    </div>
+                    <input type=\\"hidden\\" name=\\"role\\" value=\\"inspector\\">
+                    <button class=\\"govuk-button pins-dashboard-form--btn\\" data-module=\\"govuk-button\\">Search</button>
+                </form>
+            </div>
+        </div>
+        <div class=\\"govuk-grid-column-one-third\\">
+            <div class=\\"pins-dashboard-box\\"></div>
+        </div>
+    </div>
     <h2 class=\\"govuk-heading-l\\">Open applications</h2>
     <div class=\\"govuk-accordion\\" data-module=\\"govuk-accordion\\" id=\\"\\"></div>
 </main>"
@@ -189,6 +284,25 @@ exports[`applications GET /inspector should render the open applications belongi
     <div class=\\"govuk-grid-row\\">
         <div class=\\"govuk-grid-column-full\\">
             <h1 class=\\"govuk-heading-xl\\"><span class=\\"govuk-caption-xl\\">Inspector</span>Applications</h1>
+        </div>
+    </div>
+    <div class=\\"govuk-grid-row\\">
+        <div class=\\"govuk-grid-column-one-half\\">
+            <div class=\\"pins-dashboard-box\\">
+                <h3 class=\\"govuk-heading-l pins-dashboard-box--title\\">Search applications</h3>
+                <form method=\\"post\\" action=\\"search-results\\" novalidate class=\\"pins-dashboard-box--form pins-dashboard-form\\">
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label pins-dashboard-form--label\\" for=\\"searchApplications\\">Enter keyword, case reference or case title</label>
+                        <input class=\\"govuk-input pins-dashboard-form--input\\"
+                        id=\\"searchApplications\\" name=\\"query\\" type=\\"text\\" inputmode=\\"search\\">
+                    </div>
+                    <input type=\\"hidden\\" name=\\"role\\" value=\\"inspector\\">
+                    <button class=\\"govuk-button pins-dashboard-form--btn\\" data-module=\\"govuk-button\\">Search</button>
+                </form>
+            </div>
+        </div>
+        <div class=\\"govuk-grid-column-one-third\\">
+            <div class=\\"pins-dashboard-box\\"></div>
         </div>
     </div>
     <h2 class=\\"govuk-heading-l\\">Open applications</h2>
