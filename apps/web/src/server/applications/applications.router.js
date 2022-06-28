@@ -1,7 +1,9 @@
 import { Router as createRouter } from 'express';
 import * as controller from './applications.controller.js';
+import * as filters from './applications.filters.js';
 import * as guards from './applications.guards.js';
 import * as locals from './applications.locals.js';
+import createNewRouter from './create-new/applications-create-new.router.js';
 import searchRouter from './search/applications-search.router.js';
 
 const router = createRouter();
@@ -15,9 +17,23 @@ const domainRouter = createRouter({ mergeParams: true });
 // Therefore the current routes structure is NOT definitive
 // At the moment we're following both the methods (domain-driven urls and functionality urls)
 
+router.use(filters.registerFilters);
+router.use(locals.registerLocals);
+
 /** Functionality-driven URLS */
 
-router.use('/search-results', searchRouter);
+// These URLs don't contain any information about the role of the user
+// However their views sometimes require the local variable domainType to be defined
+// How is domainType defined for functionality_driven URLs?
+// 1. If the user has landed at least once on the dashboard
+// THEN the domainType is saved in the session (through registerDomainLocals) and copied in the locals (through registerLocals)
+//
+// 2. If the user has never been in the dashboard and does not have the value of it in the session
+// THEN the app redirects to the root page through the guard assertDomainTypExists
+
+router.use('/search-results', guards.assertDomainTypeExists, searchRouter);
+
+router.use('/create-new-case', guards.assertDomainTypeExists, createNewRouter);
 
 /** Domain-driven URLS */
 
@@ -26,8 +42,8 @@ router.use('/search-results', searchRouter);
  * @property {import('./applications.types').DomainType} domainType
  */
 router.use('/:domainType', guards.assertDomainTypeAccess, domainRouter);
+domainRouter.use(locals.registerDomainLocals);
 
-domainRouter.use(locals.registerLocals);
 domainRouter.route('/').get(controller.viewDashboard);
 
 domainRouter.param('applicationId', locals.loadApplication);

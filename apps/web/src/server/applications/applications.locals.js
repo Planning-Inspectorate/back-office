@@ -1,8 +1,12 @@
-import nunjucks from '../app/config/nunjucks.js';
 import { findApplicationById } from './applications.service.js';
+import {
+	getSessionApplicationsDomainType,
+	setSessionApplicationsDomainType
+} from './applications-session.service.js';
 
 /** @typedef {import('./applications.router').DomainParams} DomainParams */
 /** @typedef {import('./applications.types').DomainType} DomainType */
+/** @typedef {import('../app/auth/auth.service').AccountInfo} AccountInfo */
 
 /**
  * @typedef {object} ApplicationsLocals
@@ -12,36 +16,40 @@ import { findApplicationById } from './applications.service.js';
  */
 
 /**
- * Register the locals for templates under this domain.
+ * @typedef {object} ApplicationLocals
+ * @property {number} applicationId
+ * @property {import('./applications.types').Application} application
+ */
+
+/**
+ * Register the non-domain locals for the Applications scope.
  *
  * @type {import('express').RequestHandler<DomainParams, *, *, *, ApplicationsLocals>}
  */
-export const registerLocals = ({ baseUrl, params }, response, next) => {
-	response.locals.domainType = params.domainType;
+export const registerLocals = ({ baseUrl, session }, response, next) => {
 	response.locals.serviceName = 'Planning Inspectorate Applications';
 	response.locals.serviceUrl = baseUrl;
 
-	nunjucks.addFilter('displayValue', (/** @type {DomainType} */ key) => {
-		switch (key) {
-			case 'case-admin-officer':
-				return 'Case admin officer';
-			case 'case-officer':
-				return 'Case officer';
-			case 'inspector':
-				return 'Inspector';
-			default:
-				return '';
-		}
-	});
+	const applicationsDomainType = getSessionApplicationsDomainType(session);
+
+	if (applicationsDomainType) {
+		response.locals.domainType = applicationsDomainType;
+	}
 
 	next();
 };
 
 /**
- * @typedef {object} ApplicationLocals
- * @property {number} applicationId
- * @property {import('./applications.types').Application} application
+ * Register the domain type and save it for non-domain pages in the Applications scope.
+ *
+ * @type {import('express').RequestHandler<DomainParams, *, *, *, ApplicationsLocals>}
  */
+export const registerDomainLocals = ({ params, session }, response, next) => {
+	response.locals.domainType = params.domainType;
+	setSessionApplicationsDomainType(session, params.domainType);
+
+	next();
+};
 
 /**
  * Use the `applicationId` parameter to install the application onto the request
@@ -52,5 +60,6 @@ export const registerLocals = ({ baseUrl, params }, response, next) => {
 export const loadApplication = async (req, _, next) => {
 	req.locals.applicationId = Number(req.params.applicationId);
 	req.locals.application = await findApplicationById(req.locals.applicationId);
+
 	next();
 };
