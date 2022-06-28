@@ -444,7 +444,7 @@
 				}
 			}
 		},
-		"/applications/case-officer-admin": {
+		"/applications/case-admin-officer": {
 			"get": {
 				"tags": ["Applications"],
 				"description": "Gets all applications associated with case officer admin",
@@ -453,7 +453,7 @@
 					"200": {
 						"description": "List of applications assigned to case officer",
 						"schema": {
-							"$ref": "#/definitions/ApplicationsForCaseOfficerAdmin"
+							"$ref": "#/definitions/ApplicationsForCaseAdminOfficer"
 						}
 					}
 				}
@@ -473,9 +473,66 @@
 					}
 				}
 			}
+		},
+		"/applications/sector": {
+			"get": {
+				"tags": ["Applications"],
+				"description": "Gets all sectors and sub-sectors",
+				"parameters": [
+					{
+						"name": "obj",
+						"in": "query",
+						"description": "Sector Name",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"sectorName": {
+									"type": "string",
+									"example": ""
+								}
+							}
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "List of sectors or sub-sectors",
+						"schema": {
+							"$ref": "#/definitions/Sectors"
+						}
+					},
+					"404": {
+						"description": "Not Found"
+					}
+				}
+			}
 		}
 	},
 	"definitions": {
+		"Sectors": {
+			"type": "array",
+			"items": {
+				"type": "object",
+				"properties": {
+					"abbreviation": {
+						"type": "string",
+						"example": "BB"
+					},
+					"displayNameCy": {
+						"type": "string",
+						"example": "Sector Name Cy"
+					},
+					"displayNameEn": {
+						"type": "string",
+						"example": "Sector Name En"
+					},
+					"name": {
+						"type": "string",
+						"example": "sector"
+					}
+				}
+			}
+		},
 		"ApplicationsForCaseOfficer": {
 			"type": "array",
 			"items": {
@@ -538,7 +595,7 @@
 				}
 			}
 		},
-		"ApplicationsForCaseOfficerAdmin": {
+		"ApplicationsForCaseAdminOfficer": {
 			"type": "array",
 			"items": {
 				"type": "object",
