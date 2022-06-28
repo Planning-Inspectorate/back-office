@@ -21,9 +21,7 @@ export const getApplicationsByCriteria = async (_request, response) => {
 	// 	throw new Error('403 - Role is not valid');
 	// }
 
-	const applications = await applicationRepository.getBySearchCriteria(
-		_request.body.searchCriteria
-	);
+	const applications = await applicationRepository.getBySearchCriteria(_request.body.query);
 
 	return response.send(mapApplicationsWithSearchCriteria(applications));
 };

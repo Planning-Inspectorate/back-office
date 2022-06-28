@@ -20,21 +20,21 @@ export const getByStatus = (status) => {
 };
 
 /**
- * @param {string} searchCriteria
+ * @param {string} query
  * @returns {Promise<import('@pins/api').Schema.Application[]>}
  */
-export const getBySearchCriteria = (searchCriteria) => {
+export const getBySearchCriteria = (query) => {
 	return databaseConnector.application.findMany({
 		where: {
 			OR: [
 				{
-					title: { contains: searchCriteria }
+					title: { contains: query }
 				},
 				{
-					reference: { contains: searchCriteria }
+					reference: { contains: query }
 				},
 				{
-					description: { contains: searchCriteria }
+					description: { contains: query }
 				}
 			]
 		},
