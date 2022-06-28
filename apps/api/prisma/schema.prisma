@@ -76,9 +76,9 @@ model Application {
   reference   String
 	title 			String
 	description String
-	createdAt   DateTime @default(now())
+	createdAt   DateTime 	@default(now())
 	modifiedAt  DateTime
-	publishedAt DateTime
+	publishedAt DateTime?
   subSectorId Int
   subSector   SubSector @relation(fields: [subSectorId], references: [id])
 	regionId    Int?
