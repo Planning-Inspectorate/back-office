@@ -474,7 +474,7 @@
 				}
 			}
 		},
-    "/applications/search": {
+		"/applications/search": {
       "post": {
         "tags": [
           "Applications"
@@ -534,8 +534,7 @@
           }
         }
       }
-    }
-  },
+    },
 		"/applications/sector": {
 			"get": {
 				"tags": ["Applications"],
