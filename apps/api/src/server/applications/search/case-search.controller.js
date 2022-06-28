@@ -7,11 +7,10 @@ import { mapApplicationWithSearchCriteria } from '../../utils/mapping/map-applic
  */
 
 /**
- *
  * @param {import('@pins/api').Schema.Application[]} applications
  * @returns {ApplicationWithSearchCriteriaResponse}
  */
- const mapApplicationsWithSearchCriteria = (applications) => {
+const mapApplicationsWithSearchCriteria = (applications) => {
 	return applications.map((application) => mapApplicationWithSearchCriteria(application));
 };
 
@@ -22,7 +21,9 @@ export const getApplicationsByCriteria = async (_request, response) => {
 	// 	throw new Error('403 - Role is not valid');
 	// }
 
-	const applications = await applicationRepository.getBySearchCriteria(_request.query.searchCriteria);
+	const applications = await applicationRepository.getBySearchCriteria(
+		_request.body.searchCriteria
+	);
 
 	return response.send(mapApplicationsWithSearchCriteria(applications));
 };
