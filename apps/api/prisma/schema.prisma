@@ -77,6 +77,8 @@ model Application {
   modifiedAt  DateTime
   subSectorId Int
   subSector   SubSector @relation(fields: [subSectorId], references: [id])
+	regionId    Int?
+  region      Region?   @relation(fields: [regionId], references: [id])
 }
 
 model Sector {
@@ -154,6 +156,14 @@ model LPAQuestionnaire {
   healthAndSafetyIssuesDescription                      String?
   siteVisibleFromPublicLandDescription                  String?
   appeal                                                Appeal    @relation(fields: [appealId], references: [id])
+}
+
+model Region {
+  id            Int           @id @default(autoincrement())
+  name          String        @unique
+  displayNameEn String
+  displayNameCy String
+  Application   Application[]
 }
 
 model ReviewQuestionnaire {
