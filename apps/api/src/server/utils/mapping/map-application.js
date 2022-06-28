@@ -4,25 +4,16 @@ import { mapKeysUsingObject } from '../../utils/mapping/map-keys-using-object.js
 import { mapValuesUsingObject } from '../../utils/mapping/map-values-using-object.js';
 
 /**
- *
  * @typedef {{id: number, reference: string, title:string, description: string, status: string, modifiedDate: number}} ApplicationResponse
  */
 
 /**
- *
  * @param {import('@pins/api').Schema.Application} application
  * @returns {ApplicationResponse}
  */
 export const mapApplication = (application) => {
-	/** @type {{id: number, reference: string, title: string, description: string, modifiedAt: Date, stage: string}} */
-	const filtered = pick(application, [
-		'id',
-		'reference',
-		'title',
-		'description',
-		'modifiedAt',
-		'stage'
-	]);
+	/** @type {{id: number, reference: string, title:string, description: string, status: string, modifiedAt: Date}} */
+	const filtered = pick(application, ['id', 'reference', 'modifiedAt']);
 
 	/** @type {ApplicationResponse} */
 	const mappedKeys = mapKeysUsingObject(filtered, { modifiedAt: 'modifiedDate' });

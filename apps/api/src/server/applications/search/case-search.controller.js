@@ -14,8 +14,16 @@ const mapApplicationsWithSearchCriteria = (applications) => {
 	return applications.map((application) => mapApplicationWithSearchCriteria(application));
 };
 
-export const getApplications = async (_request, response) => {
-	const applications = await applicationRepository.getBySearchCriteria(_request.searchCriteria);
+export const getApplicationsByCriteria = async (_request, response) => {
+	// const validRoles = ['inspector', 'case-manager', 'case-officer'];
+
+	// if (!validRoles.includes(_request.role)) {
+	// 	throw new Error('403 - Role is not valid');
+	// }
+
+	const applications = await applicationRepository.getBySearchCriteria(
+		_request.body.searchCriteria
+	);
 
 	return response.send(mapApplicationsWithSearchCriteria(applications));
 };
