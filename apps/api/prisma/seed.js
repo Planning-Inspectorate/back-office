@@ -647,27 +647,6 @@ async function main() {
 		for (const appealData of appealsData) {
 			await prisma.appeal.create({ data: appealData });
 		}
-<<<<<<< feature/BOAS-92-be-find-a-case-by-a-case-officer-case-admin-and-inspector
-		await prisma.application.create({
-			data: {
-				reference: 'TEST REFERENCE',
-				title: 'BC010001 - Test NI Case',
-				description: 'A test NI case from seed',
-				modifiedAt: new Date(),
-				subSector: {
-					create: {
-						abbreviation: 'BC01',
-						name: 'office_use',
-						displayNameEn: 'Office Use',
-						displayNameCy: 'Office Use',
-						sector: {
-							create: {
-								abbreviation: 'BC',
-								name: 'business_and_commercial',
-								displayNameEn: 'Business and Commercial',
-								displayNameCy: 'Business and Commercial'
-							}
-=======
 		for (const sector of sectors) {
 			await prisma.sector.create({ data: sector });
 		}
@@ -684,7 +663,6 @@ async function main() {
 					subSector: {
 						connect: {
 							name: subSector.name
->>>>>>> main
 						}
 					}
 				}
