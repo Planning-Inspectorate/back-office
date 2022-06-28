@@ -9,7 +9,9 @@ import {
 	incompleteValidationDecisionSample,
 	invalidValidationDecisionSample,
 	localPlanningDepartmentList,
-	lpaQuestionnaireList
+	lpaQuestionnaireList,
+	sectors,
+	subSectors
 } from './seed-samples.js';
 
 const { PrismaClient } = Prisma;
@@ -595,6 +597,9 @@ const appealsData = [
 ];
 
 const deleteAllRecords = async () => {
+	const deleteApplications = prisma.application.deleteMany();
+	const deleteSubSectos = prisma.subSector.deleteMany();
+	const deleteSectors = prisma.sector.deleteMany();
 	const deleteAppeals = prisma.appeal.deleteMany();
 	const deleteUsers = prisma.user.deleteMany();
 	const deleteAppealTypes = prisma.appealType.deleteMany();
@@ -609,6 +614,9 @@ const deleteAllRecords = async () => {
 	const deleteValidationDecision = prisma.validationDecision.deleteMany();
 
 	await prisma.$transaction([
+		deleteApplications,
+		deleteSubSectos,
+		deleteSectors,
 		deleteAppealDetailsFromAppellant,
 		deleteAppealStatus,
 		deleteValidationDecision,
@@ -639,6 +647,7 @@ async function main() {
 		for (const appealData of appealsData) {
 			await prisma.appeal.create({ data: appealData });
 		}
+<<<<<<< feature/BOAS-92-be-find-a-case-by-a-case-officer-case-admin-and-inspector
 		await prisma.application.create({
 			data: {
 				reference: 'TEST REFERENCE',
@@ -658,11 +667,51 @@ async function main() {
 								displayNameEn: 'Business and Commercial',
 								displayNameCy: 'Business and Commercial'
 							}
+=======
+		for (const sector of sectors) {
+			await prisma.sector.create({ data: sector });
+		}
+		for (const { subSector, sectorName } of subSectors) {
+			await prisma.subSector.create({
+				data: { ...subSector, sector: { connect: { name: sectorName } } }
+			});
+		}
+		for (const { subSector } of subSectors) {
+			await prisma.application.create({
+				data: {
+					reference: generateAppealReference(),
+					modifiedAt: new Date(),
+					subSector: {
+						connect: {
+							name: subSector.name
+>>>>>>> main
 						}
 					}
 				}
-			}
-		});
+			});
+			await prisma.application.create({
+				data: {
+					reference: generateAppealReference(),
+					modifiedAt: new Date(),
+					subSector: {
+						connect: {
+							name: subSector.name
+						}
+					}
+				}
+			});
+			await prisma.application.create({
+				data: {
+					reference: generateAppealReference(),
+					modifiedAt: new Date(),
+					subSector: {
+						connect: {
+							name: subSector.name
+						}
+					}
+				}
+			});
+		}
 	} catch (error) {
 		logger.error(error);
 		throw error;
