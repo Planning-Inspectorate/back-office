@@ -32,3 +32,7 @@ export const applicationSummaries = [
 		subSector: sectors[3]
 	})
 ];
+
+export const applicationsSectors = [...Array.from({ length: 10 }).keys()].map((k) =>
+	createSector({ id: k })
+);

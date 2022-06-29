@@ -7,6 +7,7 @@ import nunjucks from '../app/config/nunjucks.js';
  * @typedef {object} urlFilterArguments
  * @property {DomainType=} domainType
  * @property {number=} applicationId
+ * @property {string=} step
  */
 
 /**
@@ -51,13 +52,13 @@ const setUrlFilter = () =>
 		(/** @type {string} */ key, /** @type {urlFilterArguments} */ filterArguments) => {
 			const domainUrl = '/applications-service';
 
-			const { domainType, applicationId } = filterArguments || {};
+			const { domainType, applicationId, step } = filterArguments || {};
 
 			switch (key) {
 				case 'dashboard':
 					return `${domainUrl}/${domainType || ''}`;
-				case 'create-new-application':
-					return `${domainUrl}/create-new-case`;
+				case 'create-application':
+					return `${domainUrl}/create-new-case${!applicationId ? '' : `/${applicationId}/${step}`}`;
 				case 'view-application':
 					return `${domainUrl}/${domainType || ''}/applications/${applicationId || ''}`;
 				default:

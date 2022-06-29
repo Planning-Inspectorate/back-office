@@ -1,0 +1,40 @@
+{% extends "app/layouts/app.layout.njk" %}
+
+{% from "govuk/components/breadcrumbs/macro.njk" import govukBreadcrumbs %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+
+
+{% block beforeContent %}
+	{{ govukBreadcrumbs({
+		classes: 'govuk-!-margin-top-3',
+		items: [
+			{ href: 'dashboard'|url({domainType:domainType}), text: 'Applications' },
+			{ text: 'Case information' }
+		]
+	}) }}
+{% endblock %}
+
+{% block pageHeading %}{% endblock %}
+
+
+{% block pageContent %}
+	<h2 class="govuk-heading-l">
+		{% block stepTitle %}{% endblock %}
+	</h2>
+
+
+
+	<form method="post" action="" novalidate="novalidate">
+		{% include 'app/includes/csrf.njk' %}
+
+		{% block stepForm%}{% endblock %}
+
+
+		<div class="govuk-grid-row">
+			<div class="govuk-button-group pins-button-group govuk-grid-column-one-half">
+				<a class="govuk-link" href="{{ backLink }}">Back</a>
+				{{ govukButton({ text: "Save and continue" }) }}
+			</div>
+		</div>
+	</form>
+{% endblock %}

@@ -1,0 +1,120 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`applications create GET /create-new-case When role is: Case admin officer should render form 1`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <h2 class=\\"govuk-heading-l\\"> Name and description</h2>
+    <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\">Work in progress
+        <div class=\\"govuk-grid-row\\">
+            <div class=\\"govuk-button-group pins-button-group govuk-grid-column-one-half\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case-admin-officer\\">Back</a>
+                <button                 class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and continue</button>
+            </div>
+        </div>
+    </form>
+</main>"
+`;
+
+exports[`applications create GET /create-new-case When role is: Case officer should render form 1`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <h2 class=\\"govuk-heading-l\\"> Name and description</h2>
+    <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\">Work in progress
+        <div class=\\"govuk-grid-row\\">
+            <div class=\\"govuk-button-group pins-button-group govuk-grid-column-one-half\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case-officer\\">Back</a>
+                <button                 class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and continue</button>
+            </div>
+        </div>
+    </form>
+</main>"
+`;
+
+exports[`applications create GET /create-new-case When role is: Inspector should NOT render the form 1`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <div class=\\"govuk-grid-row\\">
+        <div class=\\"govuk-grid-column-two-thirds\\">
+            <h1 class=\\"govuk-heading-xl\\">Sorry, there is a problem with your login</h1>
+            <p class=\\"govuk-body\\">You are not permitted to access this URL.</p>
+            <p class=\\"govuk-body\\"><a href=\\"https://has-appeal.herokuapp.com/help/contact\\" class=\\"govuk-link\\">Contact the Planning Inspectorate Customer Support</a> if
+                the problem persists.</p>
+        </div>
+    </div>
+</main>"
+`;
+
+exports[`applications create GET /create-new-case/:applicationId/sector When applicationId is: Not provided should NOT render the page 1`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <div class=\\"govuk-grid-row\\">
+        <div class=\\"govuk-grid-column-two-thirds\\">
+            <h1 class=\\"govuk-heading-xl\\">Sorry, there is a problem with your login</h1>
+            <p class=\\"govuk-body\\">You are not permitted to access this URL.</p>
+            <p class=\\"govuk-body\\"><a href=\\"https://has-appeal.herokuapp.com/help/contact\\" class=\\"govuk-link\\">Contact the Planning Inspectorate Customer Support</a> if
+                the problem persists.</p>
+        </div>
+    </div>
+</main>"
+`;
+
+exports[`applications create GET /create-new-case/:applicationId/sector When applicationId is: Provided should render the page 1`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <h2 class=\\"govuk-heading-l\\"> Choose a sector</h2>
+    <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\">
+        <div class=\\"govuk-form-group\\">
+            <div class=\\"govuk-radios\\" data-module=\\"govuk-radios\\">
+                <div class=\\"govuk-radios__item\\">
+                    <input class=\\"govuk-radios__input\\" id=\\"sector\\" name=\\"sector\\" type=\\"radio\\"
+                    value=\\"sector_0\\">
+                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"sector\\">Sector 0</label>
+                </div>
+                <div class=\\"govuk-radios__item\\">
+                    <input class=\\"govuk-radios__input\\" id=\\"sector-2\\" name=\\"sector\\" type=\\"radio\\"
+                    value=\\"sector_1\\">
+                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"sector-2\\">Sector 1</label>
+                </div>
+                <div class=\\"govuk-radios__item\\">
+                    <input class=\\"govuk-radios__input\\" id=\\"sector-3\\" name=\\"sector\\" type=\\"radio\\"
+                    value=\\"sector_2\\">
+                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"sector-3\\">Sector 2</label>
+                </div>
+                <div class=\\"govuk-radios__item\\">
+                    <input class=\\"govuk-radios__input\\" id=\\"sector-4\\" name=\\"sector\\" type=\\"radio\\"
+                    value=\\"sector_3\\">
+                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"sector-4\\">Sector 3</label>
+                </div>
+                <div class=\\"govuk-radios__item\\">
+                    <input class=\\"govuk-radios__input\\" id=\\"sector-5\\" name=\\"sector\\" type=\\"radio\\"
+                    value=\\"sector_4\\">
+                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"sector-5\\">Sector 4</label>
+                </div>
+                <div class=\\"govuk-radios__item\\">
+                    <input class=\\"govuk-radios__input\\" id=\\"sector-6\\" name=\\"sector\\" type=\\"radio\\"
+                    value=\\"sector_5\\">
+                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"sector-6\\">Sector 5</label>
+                </div>
+                <div class=\\"govuk-radios__item\\">
+                    <input class=\\"govuk-radios__input\\" id=\\"sector-7\\" name=\\"sector\\" type=\\"radio\\"
+                    value=\\"sector_6\\">
+                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"sector-7\\">Sector 6</label>
+                </div>
+                <div class=\\"govuk-radios__item\\">
+                    <input class=\\"govuk-radios__input\\" id=\\"sector-8\\" name=\\"sector\\" type=\\"radio\\"
+                    value=\\"sector_7\\">
+                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"sector-8\\">Sector 7</label>
+                </div>
+                <div class=\\"govuk-radios__item\\">
+                    <input class=\\"govuk-radios__input\\" id=\\"sector-9\\" name=\\"sector\\" type=\\"radio\\"
+                    value=\\"sector_8\\">
+                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"sector-9\\">Sector 8</label>
+                </div>
+                <div class=\\"govuk-radios__item\\">
+                    <input class=\\"govuk-radios__input\\" id=\\"sector-10\\" name=\\"sector\\" type=\\"radio\\"
+                    value=\\"sector_9\\">
+                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"sector-10\\">Sector 9</label>
+                </div>
+            </div>
+        </div>
+        <div class=\\"govuk-grid-row\\">
+            <div class=\\"govuk-button-group pins-button-group govuk-grid-column-one-half\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case-officer\\">Back</a>
+                <button                 class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and continue</button>
+            </div>
+        </div>
+    </form>
+</main>"
+`;
