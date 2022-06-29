@@ -1,0 +1,19 @@
+{% extends "./applications-create-layout.njk" %}
+
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+
+{% block stepTitle %}
+	Choose a sector
+{% endblock %}
+
+
+
+{% block stepForm %}
+	{{ govukRadios({
+		name: "sector",
+		errorMessage: (errors !== undefined and errors !== false),
+		items: sectors | selectItems({valueKey: 'name', labelKey: 'displayNameEn'})
+	}) }}
+{% endblock %}
+
+{% set backLink = 'dashboard'|url({domainType:domainType}) %}

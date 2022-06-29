@@ -3,8 +3,8 @@ import * as controller from './applications.controller.js';
 import * as filters from './applications.filters.js';
 import * as guards from './applications.guards.js';
 import * as locals from './applications.locals.js';
-import createNewRouter from './create-new/applications-create-new.router.js';
-import searchRouter from './search/applications-search.router.js';
+import applicationsCreateRouter from './create/applications-create.router.js';
+import applicationsSearchRouter from './search/applications-search.router.js';
 
 const router = createRouter();
 const domainRouter = createRouter({ mergeParams: true });
@@ -31,15 +31,16 @@ router.use(locals.registerLocals);
 // 2. If the user has never been in the dashboard and does not have the value of it in the session
 // THEN the app redirects to the root page through the guard assertDomainTypExists
 
-router.use('/search-results', guards.assertDomainTypeExists, searchRouter);
+router.use('/search-results', guards.assertDomainTypeExists, applicationsSearchRouter);
 
-router.use('/create-new-case', guards.assertDomainTypeExists, createNewRouter);
+router.use('/create-new-case', guards.assertDomainTypeExists, applicationsCreateRouter);
 
 /** Domain-driven URLS */
 
 /**
  * @typedef {object} DomainParams
  * @property {import('./applications.types').DomainType} domainType
+ * @property {string=} applicationId
  */
 router.use('/:domainType', guards.assertDomainTypeAccess, domainRouter);
 domainRouter.use(locals.registerDomainLocals);
