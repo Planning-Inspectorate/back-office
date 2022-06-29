@@ -29,6 +29,7 @@ export async function searchApplications(req, response) {
 	const role = response.locals.domainType;
 
 	if (errors) {
+		// TODO: use the errorMsg filter instead
 		const searchApplicationsError = errors.query?.msg ? { text: errors.query?.msg } : false;
 
 		return response.render('applications/search-results', {
