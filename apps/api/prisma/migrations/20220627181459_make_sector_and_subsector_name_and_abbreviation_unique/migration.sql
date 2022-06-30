@@ -15,13 +15,7 @@ BEGIN TRAN;
 CREATE UNIQUE NONCLUSTERED INDEX [Sector_abbreviation_key] ON [dbo].[Sector]([abbreviation]);
 
 -- CreateIndex
-CREATE UNIQUE NONCLUSTERED INDEX [Sector_name_key] ON [dbo].[Sector]([name]);
-
--- CreateIndex
 CREATE UNIQUE NONCLUSTERED INDEX [SubSector_abbreviation_key] ON [dbo].[SubSector]([abbreviation]);
-
--- CreateIndex
-CREATE UNIQUE NONCLUSTERED INDEX [SubSector_name_key] ON [dbo].[SubSector]([name]);
 
 COMMIT TRAN;
 
