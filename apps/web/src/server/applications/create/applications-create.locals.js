@@ -12,7 +12,7 @@
  */
 export const registerApplicationId = ({ params }, response, next) => {
 	if (!params.applicationId) {
-		return response.redirect('/app/404');
+		return response.render('applications/create/_name');
 	}
 	response.locals.applicationId = params.applicationId;
 	next();

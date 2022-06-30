@@ -24,7 +24,7 @@ exports[`applications GET /case-admin-officer should render a placeholder when t
         <div class=\\"govuk-grid-column-one-half\\">
             <div class=\\"pins-dashboard-box\\">
                 <h3 class=\\"govuk-heading-l pins-dashboard-box--title\\">Create new case</h3><a class=\\"govuk-button govuk-button--secondary pins-dashboard-box--btn\\"
-                href=\\"/applications-service/create-new-case\\">Create new case here</a>
+                href=\\"/applications-service/create-new-case/\\">Create new case here</a>
             </div>
         </div>
     </div>
@@ -57,7 +57,7 @@ exports[`applications GET /case-admin-officer should render the open application
         <div class=\\"govuk-grid-column-one-half\\">
             <div class=\\"pins-dashboard-box\\">
                 <h3 class=\\"govuk-heading-l pins-dashboard-box--title\\">Create new case</h3><a class=\\"govuk-button govuk-button--secondary pins-dashboard-box--btn\\"
-                href=\\"/applications-service/create-new-case\\">Create new case here</a>
+                href=\\"/applications-service/create-new-case/\\">Create new case here</a>
             </div>
         </div>
     </div>
@@ -69,7 +69,7 @@ exports[`applications GET /case-admin-officer should render the open application
             </div>
             <div id=\\"-content-1\\" class=\\"govuk-accordion__section-content\\" aria-labelledby=\\"-heading-1\\">
                 <details class=\\"govuk-details\\" data-module=\\"govuk-details\\">
-                    <summary class=\\"govuk-details__summary\\"><span class=\\"govuk-details__summary-text\\"> EN Sector 2</span>
+                    <summary class=\\"govuk-details__summary\\"><span class=\\"govuk-details__summary-text\\"> 2 Sector 2</span>
                     </summary>
                     <div class=\\"govuk-details__text\\">
                         <table class=\\"govuk-table pins-table--fixed pins-table--bordered\\">
@@ -102,7 +102,7 @@ exports[`applications GET /case-admin-officer should render the open application
             </div>
             <div id=\\"-content-2\\" class=\\"govuk-accordion__section-content\\" aria-labelledby=\\"-heading-2\\">
                 <details class=\\"govuk-details\\" data-module=\\"govuk-details\\">
-                    <summary class=\\"govuk-details__summary\\"><span class=\\"govuk-details__summary-text\\"> EN Sector 4</span>
+                    <summary class=\\"govuk-details__summary\\"><span class=\\"govuk-details__summary-text\\"> 4 Sector 4</span>
                     </summary>
                     <div class=\\"govuk-details__text\\">
                         <table class=\\"govuk-table pins-table--fixed pins-table--bordered\\">
@@ -152,7 +152,7 @@ exports[`applications GET /case-officer should render a placeholder when there a
         <div class=\\"govuk-grid-column-one-half\\">
             <div class=\\"pins-dashboard-box\\">
                 <h3 class=\\"govuk-heading-l pins-dashboard-box--title\\">Create new case</h3><a class=\\"govuk-button govuk-button--secondary pins-dashboard-box--btn\\"
-                href=\\"/applications-service/create-new-case\\">Create new case here</a>
+                href=\\"/applications-service/create-new-case/\\">Create new case here</a>
             </div>
         </div>
     </div>
@@ -185,7 +185,7 @@ exports[`applications GET /case-officer should render the open applications belo
         <div class=\\"govuk-grid-column-one-half\\">
             <div class=\\"pins-dashboard-box\\">
                 <h3 class=\\"govuk-heading-l pins-dashboard-box--title\\">Create new case</h3><a class=\\"govuk-button govuk-button--secondary pins-dashboard-box--btn\\"
-                href=\\"/applications-service/create-new-case\\">Create new case here</a>
+                href=\\"/applications-service/create-new-case/\\">Create new case here</a>
             </div>
         </div>
     </div>
@@ -197,7 +197,7 @@ exports[`applications GET /case-officer should render the open applications belo
             </div>
             <div id=\\"-content-1\\" class=\\"govuk-accordion__section-content\\" aria-labelledby=\\"-heading-1\\">
                 <details class=\\"govuk-details\\" data-module=\\"govuk-details\\">
-                    <summary class=\\"govuk-details__summary\\"><span class=\\"govuk-details__summary-text\\"> EN Sector 2</span>
+                    <summary class=\\"govuk-details__summary\\"><span class=\\"govuk-details__summary-text\\"> 2 Sector 2</span>
                     </summary>
                     <div class=\\"govuk-details__text\\">
                         <table class=\\"govuk-table pins-table--fixed pins-table--bordered\\">
@@ -230,7 +230,7 @@ exports[`applications GET /case-officer should render the open applications belo
             </div>
             <div id=\\"-content-2\\" class=\\"govuk-accordion__section-content\\" aria-labelledby=\\"-heading-2\\">
                 <details class=\\"govuk-details\\" data-module=\\"govuk-details\\">
-                    <summary class=\\"govuk-details__summary\\"><span class=\\"govuk-details__summary-text\\"> EN Sector 4</span>
+                    <summary class=\\"govuk-details__summary\\"><span class=\\"govuk-details__summary-text\\"> 4 Sector 4</span>
                     </summary>
                     <div class=\\"govuk-details__text\\">
                         <table class=\\"govuk-table pins-table--fixed pins-table--bordered\\">
@@ -313,7 +313,7 @@ exports[`applications GET /inspector should render the open applications belongi
             </div>
             <div id=\\"-content-1\\" class=\\"govuk-accordion__section-content\\" aria-labelledby=\\"-heading-1\\">
                 <details class=\\"govuk-details\\" data-module=\\"govuk-details\\">
-                    <summary class=\\"govuk-details__summary\\"><span class=\\"govuk-details__summary-text\\"> EN Sector 2</span>
+                    <summary class=\\"govuk-details__summary\\"><span class=\\"govuk-details__summary-text\\"> 2 Sector 2</span>
                     </summary>
                     <div class=\\"govuk-details__text\\">
                         <table class=\\"govuk-table pins-table--fixed pins-table--bordered\\">
@@ -346,7 +346,7 @@ exports[`applications GET /inspector should render the open applications belongi
             </div>
             <div id=\\"-content-2\\" class=\\"govuk-accordion__section-content\\" aria-labelledby=\\"-heading-2\\">
                 <details class=\\"govuk-details\\" data-module=\\"govuk-details\\">
-                    <summary class=\\"govuk-details__summary\\"><span class=\\"govuk-details__summary-text\\"> EN Sector 4</span>
+                    <summary class=\\"govuk-details__summary\\"><span class=\\"govuk-details__summary-text\\"> 4 Sector 4</span>
                     </summary>
                     <div class=\\"govuk-details__text\\">
                         <table class=\\"govuk-table pins-table--fixed pins-table--bordered\\">

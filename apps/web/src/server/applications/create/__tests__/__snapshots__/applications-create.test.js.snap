@@ -2,8 +2,21 @@
 
 exports[`applications create GET /create-new-case When role is: Case admin officer should render form 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
-    <h2 class=\\"govuk-heading-l\\"> Name and description</h2>
-    <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\">Work in progress
+    <h2 class=\\"govuk-heading-l\\"> Enter name and description</h2>
+    <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\">
+        <div class=\\"govuk-form-group\\">
+            <label class=\\"govuk-label font-weight--700\\" for=\\"applicationName\\">Name of the case</label>
+            <div id=\\"applicationName-hint\\" class=\\"govuk-hint\\">for example, Bridge over a very long canyon</div>
+            <input class=\\"govuk-input govuk-!-width-one-third\\"
+            id=\\"applicationName\\" name=\\"applicationName\\" type=\\"text\\" aria-describedby=\\"applicationName-hint\\">
+        </div>
+        <div class=\\"govuk-form-group\\">
+            <label class=\\"govuk-label font-weight--700\\" for=\\"applicationDescription\\">Description of the case</label>
+            <div id=\\"applicationDescription-hint\\" class=\\"govuk-hint\\">for example, An offshore wind generating station of capacity up to 285
+                MW</div>
+            <textarea class=\\"govuk-textarea govuk-!-width-three-quarters\\" id=\\"applicationDescription\\"
+            name=\\"applicationDescription\\" rows=\\"5\\" aria-describedby=\\"applicationDescription-hint\\"></textarea>
+        </div>
         <div class=\\"govuk-grid-row\\">
             <div class=\\"govuk-button-group pins-button-group govuk-grid-column-one-half\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case-admin-officer\\">Back</a>
                 <button                 class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and continue</button>
@@ -15,8 +28,21 @@ exports[`applications create GET /create-new-case When role is: Case admin offic
 
 exports[`applications create GET /create-new-case When role is: Case officer should render form 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
-    <h2 class=\\"govuk-heading-l\\"> Name and description</h2>
-    <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\">Work in progress
+    <h2 class=\\"govuk-heading-l\\"> Enter name and description</h2>
+    <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\">
+        <div class=\\"govuk-form-group\\">
+            <label class=\\"govuk-label font-weight--700\\" for=\\"applicationName\\">Name of the case</label>
+            <div id=\\"applicationName-hint\\" class=\\"govuk-hint\\">for example, Bridge over a very long canyon</div>
+            <input class=\\"govuk-input govuk-!-width-one-third\\"
+            id=\\"applicationName\\" name=\\"applicationName\\" type=\\"text\\" aria-describedby=\\"applicationName-hint\\">
+        </div>
+        <div class=\\"govuk-form-group\\">
+            <label class=\\"govuk-label font-weight--700\\" for=\\"applicationDescription\\">Description of the case</label>
+            <div id=\\"applicationDescription-hint\\" class=\\"govuk-hint\\">for example, An offshore wind generating station of capacity up to 285
+                MW</div>
+            <textarea class=\\"govuk-textarea govuk-!-width-three-quarters\\" id=\\"applicationDescription\\"
+            name=\\"applicationDescription\\" rows=\\"5\\" aria-describedby=\\"applicationDescription-hint\\"></textarea>
+        </div>
         <div class=\\"govuk-grid-row\\">
             <div class=\\"govuk-button-group pins-button-group govuk-grid-column-one-half\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case-officer\\">Back</a>
                 <button                 class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and continue</button>
@@ -60,58 +86,58 @@ exports[`applications create GET /create-new-case/:applicationId/sector When app
             <div class=\\"govuk-radios\\" data-module=\\"govuk-radios\\">
                 <div class=\\"govuk-radios__item\\">
                     <input class=\\"govuk-radios__input\\" id=\\"sector\\" name=\\"sector\\" type=\\"radio\\"
-                    value=\\"sector_0\\">
+                    value=\\"0\\">
                     <label class=\\"govuk-label govuk-radios__label\\" for=\\"sector\\">Sector 0</label>
                 </div>
                 <div class=\\"govuk-radios__item\\">
                     <input class=\\"govuk-radios__input\\" id=\\"sector-2\\" name=\\"sector\\" type=\\"radio\\"
-                    value=\\"sector_1\\">
+                    value=\\"1\\">
                     <label class=\\"govuk-label govuk-radios__label\\" for=\\"sector-2\\">Sector 1</label>
                 </div>
                 <div class=\\"govuk-radios__item\\">
                     <input class=\\"govuk-radios__input\\" id=\\"sector-3\\" name=\\"sector\\" type=\\"radio\\"
-                    value=\\"sector_2\\">
+                    value=\\"2\\">
                     <label class=\\"govuk-label govuk-radios__label\\" for=\\"sector-3\\">Sector 2</label>
                 </div>
                 <div class=\\"govuk-radios__item\\">
                     <input class=\\"govuk-radios__input\\" id=\\"sector-4\\" name=\\"sector\\" type=\\"radio\\"
-                    value=\\"sector_3\\">
+                    value=\\"3\\">
                     <label class=\\"govuk-label govuk-radios__label\\" for=\\"sector-4\\">Sector 3</label>
                 </div>
                 <div class=\\"govuk-radios__item\\">
                     <input class=\\"govuk-radios__input\\" id=\\"sector-5\\" name=\\"sector\\" type=\\"radio\\"
-                    value=\\"sector_4\\">
+                    value=\\"4\\">
                     <label class=\\"govuk-label govuk-radios__label\\" for=\\"sector-5\\">Sector 4</label>
                 </div>
                 <div class=\\"govuk-radios__item\\">
                     <input class=\\"govuk-radios__input\\" id=\\"sector-6\\" name=\\"sector\\" type=\\"radio\\"
-                    value=\\"sector_5\\">
+                    value=\\"5\\">
                     <label class=\\"govuk-label govuk-radios__label\\" for=\\"sector-6\\">Sector 5</label>
                 </div>
                 <div class=\\"govuk-radios__item\\">
                     <input class=\\"govuk-radios__input\\" id=\\"sector-7\\" name=\\"sector\\" type=\\"radio\\"
-                    value=\\"sector_6\\">
+                    value=\\"6\\">
                     <label class=\\"govuk-label govuk-radios__label\\" for=\\"sector-7\\">Sector 6</label>
                 </div>
                 <div class=\\"govuk-radios__item\\">
                     <input class=\\"govuk-radios__input\\" id=\\"sector-8\\" name=\\"sector\\" type=\\"radio\\"
-                    value=\\"sector_7\\">
+                    value=\\"7\\">
                     <label class=\\"govuk-label govuk-radios__label\\" for=\\"sector-8\\">Sector 7</label>
                 </div>
                 <div class=\\"govuk-radios__item\\">
                     <input class=\\"govuk-radios__input\\" id=\\"sector-9\\" name=\\"sector\\" type=\\"radio\\"
-                    value=\\"sector_8\\">
+                    value=\\"8\\">
                     <label class=\\"govuk-label govuk-radios__label\\" for=\\"sector-9\\">Sector 8</label>
                 </div>
                 <div class=\\"govuk-radios__item\\">
                     <input class=\\"govuk-radios__input\\" id=\\"sector-10\\" name=\\"sector\\" type=\\"radio\\"
-                    value=\\"sector_9\\">
+                    value=\\"9\\">
                     <label class=\\"govuk-label govuk-radios__label\\" for=\\"sector-10\\">Sector 9</label>
                 </div>
             </div>
         </div>
         <div class=\\"govuk-grid-row\\">
-            <div class=\\"govuk-button-group pins-button-group govuk-grid-column-one-half\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case-officer\\">Back</a>
+            <div class=\\"govuk-button-group pins-button-group govuk-grid-column-one-half\\"><a class=\\"govuk-link\\" href=\\"/applications-service/create-new-case/123/\\">Back</a>
                 <button                 class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and continue</button>
             </div>
         </div>

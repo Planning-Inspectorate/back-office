@@ -9,6 +9,18 @@ const sectors = [
 	createSector({ id: 5 })
 ];
 
+export const mockedApplication = {
+	...createApplicationSummary({
+		id: 1,
+		modifiedDate: new Date(2022, 0, 1).toISOString(),
+		reference: 'APPLICATION/01',
+		sector: sectors[0],
+		subSector: sectors[1]
+	}),
+	name: 'Bridge',
+	description: 'Description of the bridge application'
+};
+
 export const applicationSummaries = [
 	createApplicationSummary({
 		id: 1,

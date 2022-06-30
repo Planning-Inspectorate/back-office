@@ -11,7 +11,7 @@ import { fake } from '@pins/platform';
  */
 export function createSector({
 	id = fake.createUniqueId(),
-	abbreviation = 'EN',
+	abbreviation = `${id}`,
 	displayNameEn = `Sector ${id}`,
 	name = `sector_${id}`
 } = {}) {

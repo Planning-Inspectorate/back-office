@@ -17,7 +17,8 @@
 		},
 		id: "applicationName",
 		name: "applicationName",
-		classes: "govuk-!-width-one-half",
+		classes: "govuk-!-width-one-third",
+		value: applicationName,
 		errorMessage: errors.applicationName | errorMessage,
 		hint: {
 			text: "for example, Bridge over a very long canyon"
@@ -29,11 +30,11 @@
 		id: "applicationDescription",
 		label: {
 			text: "Description of the case",
-			classes: "font-weight--700",
-			isPageHeading: true
+			classes: 'font-weight--700'
 		},
 		errorMessage: errors.applicationDescription | errorMessage,
-		classes: 'width--75',
+		classes: "govuk-!-width-three-quarters",
+		value: applicationDescription,
 		hint: {
 			text: "for example, An offshore wind generating station of capacity up to 285 MW"
 		}
