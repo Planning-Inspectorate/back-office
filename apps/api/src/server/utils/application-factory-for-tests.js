@@ -1,16 +1,15 @@
 /**
- *
  * @returns {string}
  */
 const generateApplicationReference = () => {
 	const number = Math.floor(Math.random() * (1 - 999_999) + 1);
 
-	return `APP/Q9999/D/21/${number}`;
+	return `EN01${number}`;
 };
 
 /**
  *
- * @param {{id: number, reference: string, status: string, title: string, description: string, modifiedAt: Date}} arg
+ * @param {{id: number, reference: string, status: string, title: string, description: string, createdAt: Date, modifiedAt: Date, publishedAt?: Date}} arg
  * @returns {import('@pins/api').Schema.Application}
  */
 export const applicationFactoryForTests = ({ id, status = 'open', modifiedAt = new Date() }) => {
@@ -20,7 +19,9 @@ export const applicationFactoryForTests = ({ id, status = 'open', modifiedAt = n
 		status,
 		title: 'EN010003 - NI Case 3 Name',
 		description: 'EN010003 - NI Case 3 Name Description',
+		createdAt: new Date(),
 		modifiedAt,
+		publishedAt: null,
 		subSectorId: 1,
 		subSector: {
 			id: 1,

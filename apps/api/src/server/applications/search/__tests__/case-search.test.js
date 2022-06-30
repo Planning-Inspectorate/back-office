@@ -13,6 +13,7 @@ const application = applicationFactoryForTests({
 	reference: 'EN010003',
 	title: 'EN010003 - NI Case 3 Name',
 	description: 'EN010003 - NI Case 3 Name Description',
+	createdAt: new Date(1_655_298_882_000),
 	modifiedAt: new Date(1_655_298_882_000)
 });
 
@@ -20,6 +21,13 @@ const findManyStub = sinon.stub();
 
 findManyStub
 	.withArgs({
+		skip: 0,
+		take: 1,
+		orderBy: [
+			{
+				createdAt: 'desc'
+			}
+		],
 		where: {
 			OR: [
 				{
@@ -43,14 +51,14 @@ findManyStub
 	})
 	.returns([application]);
 
-test('gets applications with search criteria on case ID', async (t) => {
+test('gets applications using search criteria', async (t) => {
 	sinon.stub(databaseConnector, 'application').get(() => {
 		return { findMany: findManyStub };
 	});
 
 	const response = await request
 		.post('/applications/search')
-		.send({ query: 'EN010003 - NI Case 3 Name' });
+		.send({ query: 'EN010003 - NI Case 3 Name', role: 'case-officer', pageNumber: 1, pageSize: 1 });
 
 	t.is(response.status, 200);
 	t.deepEqual(response.body, [

@@ -15,13 +15,36 @@ const mapApplicationsWithSearchCriteria = (applications) => {
 };
 
 export const getApplicationsByCriteria = async (_request, response) => {
-	// const validRoles = ['inspector', 'case-manager', 'case-officer'];
+	const validRoles = ['inspector', 'case-manager', 'case-officer'];
+	const MAXRESULTS_PERPAGE = 20;
+	const MAX_PAGES = 30;
 
-	// if (!validRoles.includes(_request.role)) {
-	// 	throw new Error('403 - Role is not valid');
-	// }
+	let skipValue = 0;
+	let resultsPerPage = MAXRESULTS_PERPAGE;
 
-	const applications = await applicationRepository.getBySearchCriteria(_request.body.query);
+	if (!validRoles.includes(_request.body.role)) {
+		throw new Error('403 - Role is not valid');
+	}
+	if (_request.body.pageSize != null) {
+		if (_request.body.pageSize < 1 || _request.body.pageSize > MAXRESULTS_PERPAGE) {
+			throw new Error('400 - pageSize not in valid range');
+		} else {
+			resultsPerPage = _request.body.pageSize;
+		}
+	}
+	if (_request.body.pageNumber != null) {
+		if (_request.body.pageNumber < 1 || _request.body.pageNumber > MAX_PAGES) {
+			throw new Error('400 - pageNumber not in valid range');
+		} else {
+			skipValue = (_request.body.pageNumber - 1) * resultsPerPage;
+		}
+	}
+
+	const applications = await applicationRepository.getBySearchCriteria(
+		_request.body.query,
+		skipValue,
+		Number(resultsPerPage)
+	);
 
 	return response.send(mapApplicationsWithSearchCriteria(applications));
 };
