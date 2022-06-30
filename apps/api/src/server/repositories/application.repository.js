@@ -21,10 +21,19 @@ export const getByStatus = (status) => {
 
 /**
  * @param {string} query
+ * @param {number} skipValue
+ * @param {number} pageSize
  * @returns {Promise<import('@pins/api').Schema.Application[]>}
  */
-export const getBySearchCriteria = (query) => {
+export const getBySearchCriteria = (query, skipValue, pageSize) => {
 	return databaseConnector.application.findMany({
+		skip: skipValue,
+		take: pageSize,
+		orderBy: [
+			{
+				createdAt: 'desc',
+			},
+		],
 		where: {
 			OR: [
 				{
