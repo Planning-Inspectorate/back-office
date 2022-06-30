@@ -3,6 +3,7 @@ import { caseAdminOfficerRoutes } from './case-admin-officer/case-admin-officer.
 import { caseOfficerRoutes } from './case-officer/case-officer.routes.js';
 import { inspectorRoutes } from './inspector/inspector.routes.js';
 import { caseSearchRoutes } from './search/case-search.routes.js';
+import { sectorRoutes } from './sector/sector.routes.js';
 
 const router = new express.Router();
 
@@ -13,5 +14,7 @@ router.use('/case-admin-officer', caseAdminOfficerRoutes);
 router.use('/inspector', inspectorRoutes);
 
 router.use('/search', caseSearchRoutes);
+
+router.use('/sector', sectorRoutes);
 
 export { router as applicationsRoutes };
