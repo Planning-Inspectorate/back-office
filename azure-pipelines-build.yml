@@ -62,9 +62,13 @@ extends:
                 eq(variables['Build.Reason'], 'Manual'),
                 eq(${{ parameters.buildAPI }}, 'true')
               ),
-              or(
-                eq(dependencies.run_linting_and_tests.outputs['check_files.packages'], 'true'),
-                eq(dependencies.run_linting_and_tests.outputs['check_files.api'], 'true')
+              and(
+                ne(variables['Build.Reason'], 'Manual'),
+                or(
+                  eq(variables['Build.SourceBranchName'], 'main'),
+                  eq(dependencies.run_linting_and_tests.outputs['check_files.packages'], 'true'),
+                  eq(dependencies.run_linting_and_tests.outputs['check_files.api'], 'true')
+                )
               )
             )
           )
@@ -85,9 +89,13 @@ extends:
                 eq(variables['Build.Reason'], 'Manual'),
                 eq(${{ parameters.buildWeb }}, 'true')
               ),
-              or(
-                eq(dependencies.run_linting_and_tests.outputs['check_files.packages'], 'true'),
-                eq(dependencies.run_linting_and_tests.outputs['check_files.web'], 'true')
+              and(
+                ne(variables['Build.Reason'], 'Manual'),
+                or(
+                  eq(variables['Build.SourceBranchName'], 'main'),
+                  eq(dependencies.run_linting_and_tests.outputs['check_files.packages'], 'true'),
+                  eq(dependencies.run_linting_and_tests.outputs['check_files.web'], 'true')
+                )
               )
             )
           )
