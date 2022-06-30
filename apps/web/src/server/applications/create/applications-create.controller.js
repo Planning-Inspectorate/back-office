@@ -12,15 +12,15 @@ import * as applicationsCreateService from './applications-create.service.js';
  */
 
 /**
- * @typedef {object} ViewApplicationsCreateSectorProps
- * @property {Sector[]} sectors
- * @property {ValidationErrors=} errors
- */
-
-/**
  * @typedef {object} ApplicationsCreateNameBody
  * @property {string=} applicationName
  * @property {string=} applicationDescription
+ */
+
+/**
+ * @typedef {object} ApplicationsCreateSectorProps
+ * @property {Sector[]} sectors
+ * @property {ValidationErrors=} errors
  */
 
 /**
@@ -76,7 +76,7 @@ export async function newApplicationsCreateName({ errors, body, params }, respon
 /**
  * View the sector choice step of the application creation
  *
- * @type {import('@pins/express').RenderHandler<ViewApplicationsCreateSectorProps,
+ * @type {import('@pins/express').RenderHandler<ApplicationsCreateSectorProps,
  * {}, {}, {}, DomainParams>}
  */
 export async function viewApplicationsCreateSector({ params }, response) {
@@ -101,7 +101,7 @@ export async function viewApplicationsCreateSector({ params }, response) {
  * Save the sector for the application being created
  *
  *
- * @type {import('@pins/express').RenderHandler<ViewApplicationsCreateSectorProps,
+ * @type {import('@pins/express').RenderHandler<ApplicationsCreateSectorProps,
  * {}, {}, {}, DomainParams>}
  */
 export async function newApplicationsCreateSector({ errors }, response) {
