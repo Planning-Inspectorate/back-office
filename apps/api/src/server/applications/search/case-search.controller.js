@@ -1,9 +1,9 @@
-// import { request } from 'express';
 import * as applicationRepository from '../../repositories/application.repository.js';
 import { mapApplicationWithSearchCriteria } from '../../utils/mapping/map-application-with-search-criteria.js';
 
 /**
  * @typedef {{id: number, reference: string, modifiedDate: number, title: string, description: string, status: string}} ApplicationWithSearchCriteriaResponse
+ * @typedef {{page:number, pageSize: number, pageCount: number, itemCount: number, items: object}} paginationInfo
  */
 
 /**
@@ -46,5 +46,17 @@ export const getApplicationsByCriteria = async (_request, response) => {
 		Number(resultsPerPage)
 	);
 
-	return response.send(mapApplicationsWithSearchCriteria(applications));
+	const applicationsCount = await applicationRepository.getApplicationsCountBySearchCriteria(
+		_request.body.query
+	);
+
+	const pageInfo = {
+		page: skipValue / resultsPerPage + 1,
+		pageSize: applications.length,
+		pageCount: Math.ceil(applicationsCount / _request.body.pageSize),
+		itemCount: applicationsCount,
+		items: mapApplicationsWithSearchCriteria(applications)
+	};
+
+	return response.send(pageInfo);
 };

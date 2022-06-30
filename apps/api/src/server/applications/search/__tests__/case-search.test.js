@@ -17,6 +17,8 @@ const application = applicationFactoryForTests({
 	modifiedAt: new Date(1_655_298_882_000)
 });
 
+const applicationsCount = 1;
+
 const findManyStub = sinon.stub();
 
 findManyStub
@@ -51,9 +53,32 @@ findManyStub
 	})
 	.returns([application]);
 
+const countStub = sinon.stub();
+
+countStub
+	.withArgs({
+		where: {
+			OR: [
+				{
+					title: { contains: 'EN010003 - NI Case 3 Name' }
+				},
+				{
+					reference: { contains: 'EN010003 - NI Case 3 Name' }
+				},
+				{
+					description: { contains: 'EN010003 - NI Case 3 Name' }
+				}
+			]
+		}
+	})
+	.returns(applicationsCount);
+
 test('gets applications using search criteria', async (t) => {
 	sinon.stub(databaseConnector, 'application').get(() => {
-		return { findMany: findManyStub };
+		return {
+			findMany: findManyStub,
+			count: countStub
+		};
 	});
 
 	const response = await request
@@ -61,14 +86,20 @@ test('gets applications using search criteria', async (t) => {
 		.send({ query: 'EN010003 - NI Case 3 Name', role: 'case-officer', pageNumber: 1, pageSize: 1 });
 
 	t.is(response.status, 200);
-	t.deepEqual(response.body, [
-		{
-			id: 3,
-			status: 'open',
-			reference: application.reference,
-			title: 'EN010003 - NI Case 3 Name',
-			description: 'EN010003 - NI Case 3 Name Description',
-			modifiedDate: 1_655_298_882
-		}
-	]);
+	t.deepEqual(response.body, {
+		page: 1,
+		pageSize: 1,
+		pageCount: 1,
+		itemCount: 1,
+		items: [
+			{
+				id: 3,
+				status: 'open',
+				reference: application.reference,
+				title: 'EN010003 - NI Case 3 Name',
+				modifiedDate: 1_655_298_882,
+				publishedDate: null
+			}
+		]
+	});
 });
