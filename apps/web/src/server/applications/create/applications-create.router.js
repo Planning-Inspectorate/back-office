@@ -11,7 +11,10 @@ applicationsCreateRouter.use(guards.assertDomainTypeIsNotInspector);
 applicationsCreateRouter
 	.route('/')
 	.get(controller.viewApplicationsCreateName)
-	.post(controller.newApplicationsCreateName);
+	.post(
+		[validators.validateApplicationsCreateName, validators.validateApplicationsCreateDescription],
+		controller.newApplicationsCreateName
+	);
 
 applicationsCreateRouter.use('/:applicationId', applicationsCreateResumedStepsRouter);
 applicationsCreateResumedStepsRouter.use(locals.registerApplicationId);

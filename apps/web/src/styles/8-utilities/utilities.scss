@@ -1,14 +1,11 @@
-dd {
-	margin-inline-start: 0;
-}
-
-
 @import "govuk-frontend/govuk/settings/media-queries";
 @import "govuk-frontend/govuk/helpers/media-queries";
 
+//@import "govuk-frontend/govuk/settings/media-queries";
+
 
 $font-weight-attrs: (
-		700: 700,
+		700: '700',
 );
 
 @each $key, $val in $font-weight-attrs {
@@ -32,5 +29,3 @@ $width-attrs: (
 	}
   }
 }
-
-
