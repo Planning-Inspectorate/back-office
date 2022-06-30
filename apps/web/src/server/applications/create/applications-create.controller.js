@@ -24,9 +24,12 @@ export async function viewApplicationsCreateName(req, response) {
  *
  * @type {import('@pins/express').RenderHandler<{}, {}>}
  */
-export async function newApplicationsCreateName(req, response) {
+export async function newApplicationsCreateName({ errors }, response) {
 	const { id: newApplicationId } = await applicationsCreateService.createApplication();
 
+	if (errors) {
+		return response.render('applications/create/_name', { errors });
+	}
 	response.redirect(`create-new-case/${newApplicationId}/sector`);
 }
 
