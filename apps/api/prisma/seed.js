@@ -39,6 +39,18 @@ function generateAppealReference() {
 	return `APP/Q9999/D/21/${number}`;
 }
 
+// Application reference should be in the format (subSector)(4 digit sequential_number) eg EN010001
+/**
+ * @param {string} subSector
+ * @param {number} referenceNumber
+ * @returns {string}
+ */
+function generateApplicationReference(subSector, referenceNumber) {
+	const formattedReferenceNumber = `000${referenceNumber}`.slice(-4);
+
+	return `${subSector}${formattedReferenceNumber}`;
+}
+
 /**
  *
  * @param {object[]} list
