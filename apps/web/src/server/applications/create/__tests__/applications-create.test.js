@@ -49,7 +49,6 @@ describe('applications create', () => {
 				});
 			});
 		});
-		// TODO: actually test page once it's done
 	});
 
 	describe('POST /create-new-case', () => {

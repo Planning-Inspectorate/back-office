@@ -1,21 +1,10 @@
-@import "govuk-frontend/govuk/settings/media-queries";
-@import "govuk-frontend/govuk/helpers/media-queries";
-
 //@import "govuk-frontend/govuk/settings/media-queries";
+//@import "govuk-frontend/govuk/helpers/media-queries";
 
 
-$font-weight-attrs: (
-		700: '700',
-);
-
-@each $key, $val in $font-weight-attrs {
-  .font-weight--#{$key} {
-	font-weight: #{$val};
-  }
-}
 
 
-$width-attrs: (
+/*$width-attrs: (
 		33: 33%,
 		75: 75%,
 );
@@ -28,4 +17,4 @@ $width-attrs: (
 	  float: left;
 	}
   }
-}
+}*/

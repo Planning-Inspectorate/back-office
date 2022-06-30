@@ -20,6 +20,14 @@ applicationsCreateRouter.use('/:applicationId', applicationsCreateResumedStepsRo
 applicationsCreateResumedStepsRouter.use(locals.registerApplicationId);
 
 applicationsCreateResumedStepsRouter
+	.route('/')
+	.get(controller.viewApplicationsCreateName)
+	.post(
+		[validators.validateApplicationsCreateName, validators.validateApplicationsCreateDescription],
+		controller.newApplicationsCreateName
+	);
+
+applicationsCreateResumedStepsRouter
 	.route('/sector')
 	.get(controller.viewApplicationsCreateSector)
 	.post(validators.validateApplicationsCreateSector, controller.newApplicationsCreateSector);

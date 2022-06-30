@@ -2,35 +2,3 @@ dd {
 	margin-inline-start: 0;
 }
 
-
-@import "govuk-frontend/govuk/settings/media-queries";
-@import "govuk-frontend/govuk/helpers/media-queries";
-
-
-$font-weight-attrs: (
-		700: 700,
-);
-
-@each $key, $val in $font-weight-attrs {
-  .font-weight--#{$key} {
-	font-weight: #{$val};
-  }
-}
-
-
-$width-attrs: (
-		33: 33%,
-		75: 75%,
-);
-
-@each $key, $val in $width-attrs {
-  .width--#{$key} {
-	width: 100%;
-	@include govuk-media-query($from: map-get($govuk-breakpoints, tablet)) {
-	  width: $val;
-	  float: left;
-	}
-  }
-}
-
-

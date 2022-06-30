@@ -2,6 +2,7 @@
  * @typedef {object} SelectItem
  * @property {string} value
  * @property {string} text
+ * @property {boolean=} checked
  * @property {boolean} selected
  * @property {boolean=} disabled
  * @property {object=} attributes
@@ -22,7 +23,7 @@
  * From a collection of values, onstruct a collection of items compatible with
  * the `govukSelect` component.
  *
- * @param {Object<string, any>[] | string[]} source
+ * @param {Object<any, any>[] | string[]} source
  * @param {FilterOptions} options
  * @returns {SelectItem[]}
  */
@@ -34,6 +35,7 @@ export function selectItems(source, options) {
 		return {
 			value,
 			text,
+			checked: sourceItem['checked'] || false,
 			selected: value === options.selectedValue
 		};
 	});
