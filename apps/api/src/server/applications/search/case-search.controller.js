@@ -1,9 +1,9 @@
-// import { request } from 'express';
 import * as applicationRepository from '../../repositories/application.repository.js';
 import { mapApplicationWithSearchCriteria } from '../../utils/mapping/map-application-with-search-criteria.js';
 
 /**
  * @typedef {{id: number, reference: string, modifiedDate: number, title: string, description: string, status: string}} ApplicationWithSearchCriteriaResponse
+ * @typedef {{page:number, pageSize: number, pageCount: number, itemCount: number, items: object}} paginationInfo
  */
 
 /**
@@ -26,23 +26,37 @@ export const getApplicationsByCriteria = async (_request, response) => {
 		throw new Error('403 - Role is not valid');
 	}
 	if (_request.body.pageSize != null) {
-		if (_request.body.pageSize < 1 || _request.body.pageSize > MAXRESULTS_PERPAGE ) {
+		if (_request.body.pageSize < 1 || _request.body.pageSize > MAXRESULTS_PERPAGE) {
 			throw new Error('400 - pageSize not in valid range');
-		}
-		else {
+		} else {
 			resultsPerPage = _request.body.pageSize;
 		}
 	}
 	if (_request.body.pageNumber != null) {
-		if (_request.body.pageNumber < 1 || _request.body.pageNumber > MAX_PAGES ) {
+		if (_request.body.pageNumber < 1 || _request.body.pageNumber > MAX_PAGES) {
 			throw new Error('400 - pageNumber not in valid range');
-		}
-		else {
-			skipValue = (_request.body.pageNumber -1) * resultsPerPage;
+		} else {
+			skipValue = (_request.body.pageNumber - 1) * resultsPerPage;
 		}
 	}
 
-	const applications = await applicationRepository.getBySearchCriteria(_request.body.query, skipValue, Number(resultsPerPage));
+	const applications = await applicationRepository.getBySearchCriteria(
+		_request.body.query,
+		skipValue,
+		Number(resultsPerPage)
+	);
 
-	return response.send(mapApplicationsWithSearchCriteria(applications));
+	const applicationsCount = await applicationRepository.getApplicationsCountBySearchCriteria(
+		_request.body.query
+	);
+
+	const pageInfo = {
+		page: skipValue / resultsPerPage + 1,
+		pageSize: applications.length,
+		pageCount: Math.ceil(applicationsCount / _request.body.pageSize),
+		itemCount: applicationsCount,
+		items: mapApplicationsWithSearchCriteria(applications)
+	};
+
+	return response.send(pageInfo);
 };

@@ -31,8 +31,8 @@ export const getBySearchCriteria = (query, skipValue, pageSize) => {
 		take: pageSize,
 		orderBy: [
 			{
-				createdAt: 'desc',
-			},
+				createdAt: 'desc'
+			}
 		],
 		where: {
 			OR: [
@@ -53,6 +53,28 @@ export const getBySearchCriteria = (query, skipValue, pageSize) => {
 					sector: true
 				}
 			}
+		}
+	});
+};
+
+/**
+ * @param {string} query
+ * @returns {Promise<number>}
+ */
+export const getApplicationsCountBySearchCriteria = (query) => {
+	return databaseConnector.application.count({
+		where: {
+			OR: [
+				{
+					title: { contains: query }
+				},
+				{
+					reference: { contains: query }
+				},
+				{
+					description: { contains: query }
+				}
+			]
 		}
 	});
 };

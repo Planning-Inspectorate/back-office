@@ -4,7 +4,7 @@ import { mapKeysUsingObject } from '../../utils/mapping/map-keys-using-object.js
 import { mapValuesUsingObject } from '../../utils/mapping/map-values-using-object.js';
 
 /**
- * @typedef {{id: number, reference: string, title:string, description: string, status: string, modifiedDate: number}} ApplicationResponse
+ * @typedef {{id: number, reference: string, title:string, description: string, status: string, modifiedDate: number, publishedDate?}} ApplicationResponse
  */
 
 /**
