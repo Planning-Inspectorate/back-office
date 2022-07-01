@@ -114,12 +114,11 @@ test('should not be able to submit a search if the role is not valid', async (t)
 			pageSize: 1
 		});
 
-	// t.is(resp.status, 403);
+	t.is(resp.status, 403);
 	t.deepEqual(resp.body, {
-		error: 'ERROR 403 - Role is not valid'
-		// errors: {
-		// 	status: 'ERROR 403 - Role is not valid'
-		// }
+		errors: {
+			status: 'Role is not valid'
+		}
 	});
 });
 
@@ -133,12 +132,11 @@ test('should not be able to submit a search if the pageNumber is negative', asyn
 			pageSize: 1
 		});
 
-	// t.is(resp.status, 400);
+	t.is(resp.status, 400);
 	t.deepEqual(resp.body, {
-		error: 'ERROR 400 - pageNumber not in valid range'
-		// errors: {
-		// 	status: 'ERROR 400 - pageNumber not in valid range'
-		// }
+		errors: {
+			status: 'Page Number not in valid range'
+		}
 	});
 });
 
@@ -152,12 +150,11 @@ test('should not be able to submit a search if the pageSize is negative', async 
 			pageSize: -3
 		});
 
-	// t.is(resp.status, 400);
+	t.is(resp.status, 400);
 	t.deepEqual(resp.body, {
-		error: 'ERROR 400 - pageSize not in valid range'
-		// errors: {
-		// 	status: 'ERROR 400 - pageNumber not in valid range'
-		// }
+		errors: {
+			status: 'Page Size not in valid range'
+		}
 	});
 });
 
@@ -166,11 +163,10 @@ test('should not be able to submit a search if query does not have a value', asy
 		.post('/applications/search')
 		.send({ query: '', role: 'case-admin-officer', pageNumber: 1, pageSize: 5 });
 
-	// t.is(resp.status, 400);
+	t.is(resp.status, 400);
 	t.deepEqual(resp.body, {
-		error: 'ERROR 400 - query cannot be blank'
-		// errors: {
-		// 	status: 'ERROR 400 - pageNumber not in valid range'
-		// }
+		errors: {
+			status: 'Query cannot be blank'
+		}
 	});
 });
