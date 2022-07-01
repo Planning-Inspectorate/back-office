@@ -103,3 +103,74 @@ test('gets applications using search criteria', async (t) => {
 		]
 	});
 });
+
+test('should not be able to submit a search if the role is not valid', async (t) => {
+	const resp = await request
+		.post('/applications/search')
+		.send({
+			query: 'EN010003 - NI Case 3 Name',
+			role: 'validation-officer',
+			pageNumber: 1,
+			pageSize: 1
+		});
+
+	// t.is(resp.status, 403);
+	t.deepEqual(resp.body, {
+		error: 'ERROR 403 - Role is not valid'
+		// errors: {
+		// 	status: 'ERROR 403 - Role is not valid'
+		// }
+	});
+});
+
+test('should not be able to submit a search if the pageNumber is negative', async (t) => {
+	const resp = await request
+		.post('/applications/search')
+		.send({
+			query: 'EN010003 - NI Case 3 Name',
+			role: 'case-admin-officer',
+			pageNumber: -5,
+			pageSize: 1
+		});
+
+	// t.is(resp.status, 400);
+	t.deepEqual(resp.body, {
+		error: 'ERROR 400 - pageNumber not in valid range'
+		// errors: {
+		// 	status: 'ERROR 400 - pageNumber not in valid range'
+		// }
+	});
+});
+
+test('should not be able to submit a search if the pageSize is negative', async (t) => {
+	const resp = await request
+		.post('/applications/search')
+		.send({
+			query: 'EN010003 - NI Case 3 Name',
+			role: 'case-admin-officer',
+			pageNumber: 1,
+			pageSize: -3
+		});
+
+	// t.is(resp.status, 400);
+	t.deepEqual(resp.body, {
+		error: 'ERROR 400 - pageSize not in valid range'
+		// errors: {
+		// 	status: 'ERROR 400 - pageNumber not in valid range'
+		// }
+	});
+});
+
+test('should not be able to submit a search if query does not have a value', async (t) => {
+	const resp = await request
+		.post('/applications/search')
+		.send({ query: '', role: 'case-admin-officer', pageNumber: 1, pageSize: 5 });
+
+	// t.is(resp.status, 400);
+	t.deepEqual(resp.body, {
+		error: 'ERROR 400 - query cannot be blank'
+		// errors: {
+		// 	status: 'ERROR 400 - pageNumber not in valid range'
+		// }
+	});
+});
