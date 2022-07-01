@@ -521,6 +521,65 @@
 					}
 				}
 			}
+		},
+		"/applications/search": {
+			"post": {
+				"tags": ["Applications"],
+				"description": "Gets all applications as per search criteria",
+				"parameters": [
+					{
+						"name": "query",
+						"in": "body",
+						"description": "search criteria searched in Application Reference, Title, or Description",
+						"example": "EN01",
+						"required": true,
+						"schema": {
+							"type": "object",
+							"properties": {}
+						}
+					},
+					{
+						"name": "role",
+						"in": "body",
+						"description": "a valid role",
+						"required": true,
+						"schema": {
+							"type": "object",
+							"properties": {}
+						}
+					},
+					{
+						"name": "pageNumber",
+						"in": "body",
+						"description": "page number of the paginated data to return, starting at 1 [default]",
+						"example": "1",
+						"required": false,
+						"schema": {
+							"type": "object",
+							"properties": {}
+						}
+					},
+					{
+						"name": "pageSize",
+						"in": "body",
+						"description": "number of results per page of paginated results. Defaults to 20",
+						"example": "20",
+						"required": false,
+						"schema": {
+							"type": "object",
+							"properties": {}
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "List of applications as per search criteria",
+						"schema": {
+							"$ref": "#/definitions/ApplicationsForSearchCriteria"
+						}
+					}
+				}
+			}
 		}
 	},
 	"definitions": {
@@ -571,68 +630,7 @@
 					}
 				}
 			}
-		}
-		,"/applications/search": {
-			"post": {
-			  "tags": [
-				"Applications"
-			  ],
-			  "description": "Gets all applications as per search criteria",
-			  "parameters": [
-				{
-				  "name": "query",
-				  "in": "body",
-				  "description": "search criteria searched in Application Reference, Title, or Description",
-				  "example": "EN01",
-				  "required": true,
-				  "schema": {
-					"type": "object",
-					"properties": {}
-				  }
-				},
-				{
-				  "name": "role",
-				  "in": "body",
-				  "description": "a valid role",
-				  "required": true,
-				  "schema": {
-					"type": "object",
-					"properties": {}
-				  }
-				},
-				{
-				  "name": "pageNumber",
-				  "in": "body",
-				  "description": "page number of the paginated data to return, starting at 1 [default]",
-				  "example": "1",
-				  "required": false,
-				  "schema": {
-					"type": "object",
-					"properties": {}
-				  }
-				},
-				{
-				  "name": "pageSize",
-				  "in": "body",
-				  "description": "number of results per page of paginated results. Defaults to 20",
-				  "example": "20",
-				  "required": false,
-				  "schema": {
-					"type": "object",
-					"properties": {}
-				  }
-				}
-			  ],
-			  "responses": {
-				"200": {
-				  "description": "List of applications as per search criteria",
-				  "schema": {
-					"$ref": "#/definitions/ApplicationsForSearchCriteria"
-				  }
-				}
-			  }
-			}
-		  },
+		},
 		"ApplicationsForCaseOfficer": {
 			"type": "array",
 			"items": {
