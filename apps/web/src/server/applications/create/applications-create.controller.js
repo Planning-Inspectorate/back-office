@@ -227,7 +227,7 @@ export async function newApplicationsCreateGeographicalInformation(
 }
 
 /**
- * View the geographical information step of the application creation
+ * Make sure that URL contains applicationId or fail
  *
  * @param {{applicationId?: string}} params
  * @param {any} response
@@ -238,7 +238,7 @@ function getParametersApplicationIdOrFail({ applicationId }, response) {
 }
 
 /**
- * Handles draft updating and return error view
+ * Handles the update of the draft application and possible server errors
  *
  * @param {UpdateOrCreateCallback} updateOrCreateDraftApplication
  * @param {{templateName: string, templateData: object}} errorsViewParameters
