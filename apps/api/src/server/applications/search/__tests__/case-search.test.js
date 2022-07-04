@@ -19,6 +19,8 @@ const application = applicationFactoryForTests({
 
 const applicationsCount = 1;
 
+const searchString = 'EN010003 - NI Case 3 Name';
+
 const findManyStub = sinon.stub();
 
 findManyStub
@@ -33,13 +35,13 @@ findManyStub
 		where: {
 			OR: [
 				{
-					title: { contains: 'EN010003 - NI Case 3 Name' }
+					title: { contains: searchString }
 				},
 				{
-					reference: { contains: 'EN010003 - NI Case 3 Name' }
+					reference: { contains: searchString }
 				},
 				{
-					description: { contains: 'EN010003 - NI Case 3 Name' }
+					description: { contains: searchString }
 				}
 			]
 		},
@@ -60,13 +62,13 @@ countStub
 		where: {
 			OR: [
 				{
-					title: { contains: 'EN010003 - NI Case 3 Name' }
+					title: { contains: searchString }
 				},
 				{
-					reference: { contains: 'EN010003 - NI Case 3 Name' }
+					reference: { contains: searchString }
 				},
 				{
-					description: { contains: 'EN010003 - NI Case 3 Name' }
+					description: { contains: searchString }
 				}
 			]
 		}
@@ -105,14 +107,12 @@ test('gets applications using search criteria', async (t) => {
 });
 
 test('should not be able to submit a search if the role is not valid', async (t) => {
-	const resp = await request
-		.post('/applications/search')
-		.send({
-			query: 'EN010003 - NI Case 3 Name',
-			role: 'validation-officer',
-			pageNumber: 1,
-			pageSize: 1
-		});
+	const resp = await request.post('/applications/search').send({
+		query: 'EN010003 - NI Case 3 Name',
+		role: 'validation-officer',
+		pageNumber: 1,
+		pageSize: 1
+	});
 
 	t.is(resp.status, 403);
 	t.deepEqual(resp.body, {
@@ -123,14 +123,12 @@ test('should not be able to submit a search if the role is not valid', async (t)
 });
 
 test('should not be able to submit a search if the pageNumber is negative', async (t) => {
-	const resp = await request
-		.post('/applications/search')
-		.send({
-			query: 'EN010003 - NI Case 3 Name',
-			role: 'case-admin-officer',
-			pageNumber: -5,
-			pageSize: 1
-		});
+	const resp = await request.post('/applications/search').send({
+		query: 'EN010003 - NI Case 3 Name',
+		role: 'case-admin-officer',
+		pageNumber: -5,
+		pageSize: 1
+	});
 
 	t.is(resp.status, 400);
 	t.deepEqual(resp.body, {
@@ -141,14 +139,12 @@ test('should not be able to submit a search if the pageNumber is negative', asyn
 });
 
 test('should not be able to submit a search if the pageSize is negative', async (t) => {
-	const resp = await request
-		.post('/applications/search')
-		.send({
-			query: 'EN010003 - NI Case 3 Name',
-			role: 'case-admin-officer',
-			pageNumber: 1,
-			pageSize: -3
-		});
+	const resp = await request.post('/applications/search').send({
+		query: 'EN010003 - NI Case 3 Name',
+		role: 'case-admin-officer',
+		pageNumber: 1,
+		pageSize: -3
+	});
 
 	t.is(resp.status, 400);
 	t.deepEqual(resp.body, {
