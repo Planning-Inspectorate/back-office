@@ -1,32 +1,20 @@
-/** @typedef {import('./applications-search.types').SearchApplicationsRequestBody} SearchApplicationsRequestBody */
+import { fixtureApplications } from '../../../../testing/applications/fixtures/applications.js';
+
+/** @typedef {import('./applications-search.types').ApplicationsSearchResultsBody} ApplicationsSearchResultsBody */
 /** @typedef {import('../applications.types').Application} Application */
+/** @typedef {import('../applications.types').PaginatedResponse<Application>} PaginatedApplicationsResponse */
 
 /**
- * @param {SearchApplicationsRequestBody} body
- * @returns {Promise<import('./applications-search.types').SearchApplicationResponse>}
+ * @param {ApplicationsSearchResultsBody} payload
+ * @returns {Promise<PaginatedApplicationsResponse>}
  */
-export const searchApplications = (body) => {
+export const searchApplications = (payload) => {
 	const mockResponse = {
-		page: body.pageNumber,
-		pageSize: body.pageSize,
+		page: payload.pageNumber,
+		pageSize: payload.pageSize,
 		pageCount: 1,
 		itemCount: 2,
-		items: [
-			{
-				id: 1,
-				title: 'Bridge',
-				reference: 'abc',
-				modifiedDate: '2022-06-22T09:09:56.866Z',
-				publishedDate: '2022-06-22T09:09:56.866Z'
-			},
-			{
-				id: 2,
-				title: 'Road',
-				reference: 'xyz',
-				modifiedDate: '2022-06-22T09:09:56.866Z',
-				publishedDate: '2022-06-22T09:09:56.866Z'
-			}
-		]
+		items: fixtureApplications
 	};
 
 	return new Promise((resolve) => {

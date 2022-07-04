@@ -1,24 +1,15 @@
-import { DomainType } from '../applications.types';
+import { Application, DomainType } from '../applications.types';
+import { ValidationErrors } from '@pins/express';
 
-export type SearchApplicationsRequestBody = {
+export type ApplicationsSearchResultsBody = {
 	query: string;
 	role: DomainType;
 	pageNumber: number;
 	pageSize: number;
 };
 
-export type SearchApplicationResponse = {
-	page: number;
-	pageSize: number;
-	pageCount: number;
-	itemCount: number;
-	items: SearchApplicationItem[];
-};
-
-export type SearchApplicationItem = {
-	id: number;
-	title: string;
-	reference: string;
-	modifiedDate: string;
-	publishedDate: string;
+export type ApplicationsSearchResultsProps = {
+	searchApplicationsItems?: Partial<Application>[];
+	query?: string;
+	errors?: ValidationErrors;
 };

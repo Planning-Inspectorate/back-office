@@ -1,7 +1,7 @@
 import { parseHtml } from '@pins/platform';
 import nock from 'nock';
 import supertest from 'supertest';
-import { applicationsSectors } from '../../../../../testing/applications/fixtures/case-officer.js';
+import { fixtureSectors } from '../../../../../testing/applications/fixtures/sectors.js';
 import { createTestApplication } from '../../../../../testing/index.js';
 
 const { app, installMockApi, teardown } = createTestApplication();
@@ -62,7 +62,7 @@ describe('applications create', () => {
 		describe('When applicationId is:', () => {
 			describe('Provided', () => {
 				it('should render the page', async () => {
-					nock('http://test/').get('/applications/sector').reply(200, applicationsSectors);
+					nock('http://test/').get('/applications/sector').reply(200, fixtureSectors);
 
 					const response = await request.get(baseUrl('123'));
 					const element = parseHtml(response.text);
@@ -73,7 +73,7 @@ describe('applications create', () => {
 			});
 			describe('Not provided', () => {
 				it('should NOT render the page', async () => {
-					nock('http://test/').get('/applications/sector').reply(200, applicationsSectors);
+					nock('http://test/').get('/applications/sector').reply(200, fixtureSectors);
 
 					const response = await request.get(baseUrl(''));
 					const element = parseHtml(response.text);
