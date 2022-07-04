@@ -4,7 +4,7 @@
 @import "govuk-frontend/govuk/helpers/_media-queries";
 
 
-.govuk-form-group {
+.pins-applications-create .govuk-form-group {
   @include govuk-responsive-margin(7, "bottom");
 
   .govuk-form-group:last-of-type {
