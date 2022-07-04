@@ -44,6 +44,7 @@ export type DocumentType =
 
 export interface Application {
 	id: number;
+	name: string;
 	reference: string;
 	sector: Sector;
 	subSector: Sector;

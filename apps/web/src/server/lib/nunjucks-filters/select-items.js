@@ -35,7 +35,7 @@ export function selectItems(source, options) {
 		return {
 			value,
 			text,
-			checked: sourceItem['checked'] || false,
+			checked: value === options.selectedValue,
 			selected: value === options.selectedValue
 		};
 	});

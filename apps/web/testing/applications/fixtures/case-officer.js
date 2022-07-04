@@ -2,11 +2,11 @@ import { createApplicationSummary } from '../factory/application-summary.js';
 import { createSector } from '../factory/sector.js';
 
 const sectors = [
-	createSector({ id: 1 }),
-	createSector({ id: 2 }),
-	createSector({ id: 3 }),
-	createSector({ id: 4 }),
-	createSector({ id: 5 })
+	createSector({ name: 'transport' }),
+	createSector({ name: 'water' }),
+	createSector({ name: 'waste' }),
+	createSector({ name: 'energy' }),
+	createSector({ name: 'waste_water' })
 ];
 
 export const mockedApplication = {

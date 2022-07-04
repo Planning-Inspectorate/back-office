@@ -51,10 +51,6 @@ describe('applications create', () => {
 		});
 	});
 
-	describe('POST /create-new-case', () => {
-		// TODO: actually test page once API exists
-	});
-
 	describe('GET /create-new-case/:applicationId/sector', () => {
 		const baseUrl = (/** @type {string} */ id) =>
 			`/applications-service/create-new-case/${id}/sector`;
