@@ -7,7 +7,7 @@ export const validateApplicationsCreateName = createValidator(
 		.isLength({ min: 1 })
 		.withMessage('Enter the name')
 		.isLength({ max: 500 })
-		.withMessage('Search term must be 500 characters or fewer')
+		.withMessage('Name must be 500 characters or fewer')
 );
 
 export const validateApplicationsCreateDescription = createValidator(
@@ -16,9 +16,13 @@ export const validateApplicationsCreateDescription = createValidator(
 		.isLength({ min: 1 })
 		.withMessage('Enter the description')
 		.isLength({ max: 500 })
-		.withMessage('Search term must be 500 characters or fewer')
+		.withMessage('Description must be 500 characters or fewer')
 );
 
 export const validateApplicationsCreateSector = createValidator(
-	body('sector').trim().isLength({ min: 1 }).withMessage('Select a sector')
+	body('selectedSectorName').trim().isLength({ min: 1 }).withMessage('Select a sector')
+);
+
+export const validateApplicationsCreateSubSector = createValidator(
+	body('selectedSubSectorName').trim().isLength({ min: 1 }).withMessage('Select a subsector')
 );

@@ -2,6 +2,7 @@ import { mockedApplication } from '../../../../testing/applications/fixtures/cas
 import { get } from '../../lib/request.js';
 
 /** @typedef {import('../applications.types').Sector} Sector */
+/** @typedef {import('../applications.types').Application} Application */
 
 /**
  * Get the list of sector for an application
@@ -13,17 +14,42 @@ export const getAllSectors = () => {
 };
 
 /**
+ * Get all sub-sectors associated with existing sector
+ *
+ * @param {Sector} sector
+ * @returns {Promise<Sector[]>}
+ */
+export const getSubSectorsBySector = (sector) => {
+	const sectorName = sector?.name || '';
+
+	return get(`applications/sector?sectorName=${sectorName}`);
+};
+
+/**
+ * // TODO: this is just a mock.
+ *
+ * @param {string} applicationId
+ * @param {any} newData
+ * @returns {Promise<any>}
+ */
+export const updateApplicationDraft = async (applicationId, newData) => {
+	return new Promise((resolve) => {
+		setTimeout(() => {
+			resolve({ id: applicationId, ...newData });
+		}, 1000);
+	});
+};
+
+/**
  * // TODO: this is just a mock.
  *
  * @param {any} payload
  * @returns {Promise<any>}
  */
-export const updateApplicationDraft = (payload) => {
-	const mockedResponse = !payload.id ? { id: 123 } : mockedApplication;
-
+export const createApplicationDraft = (payload) => {
 	return new Promise((resolve) => {
 		setTimeout(() => {
-			resolve(mockedResponse);
+			resolve({ ...payload, id: 123 });
 		}, 1000);
 	});
 };
@@ -32,10 +58,12 @@ export const updateApplicationDraft = (payload) => {
  * // TODO: this is just a mock.
  *
  * @param {string} id
+ * @param {string} sectorName
  * @returns {Promise<any>}
  */
-export const getApplicationDraft = (id) => {
-	const mockedResponse = id === '123' ? { id: 123 } : mockedApplication;
+export const getApplicationDraft = (id, sectorName = '') => {
+	const mockedResponse =
+		id === '123' ? { id: 123, sector: { name: sectorName } } : mockedApplication;
 
 	return new Promise((resolve) => {
 		setTimeout(() => {

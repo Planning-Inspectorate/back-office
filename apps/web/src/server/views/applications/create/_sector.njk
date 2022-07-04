@@ -8,9 +8,10 @@
 
 {% block stepForm %}
 	{{ govukRadios({
-		name: "sector",
+		name: "selectedSectorName",
+		id: "selectedSectorName",
 		errorMessage: (errors !== undefined and errors !== false),
-		items: sectors | selectItems({valueKey: 'abbreviation', labelKey: 'displayNameEn'})
+		items: sectors | selectItems({valueKey: 'name', labelKey: 'displayNameEn', selectedValue: selectedValue})
 	}) }}
 {% endblock %}
 

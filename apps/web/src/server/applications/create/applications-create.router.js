@@ -34,6 +34,11 @@ applicationsCreateResumedStepsRouter
 
 applicationsCreateResumedStepsRouter
 	.route('/sub-sector')
-	.get(controller.viewApplicationsCreateSubSector);
+	.get(controller.viewApplicationsCreateSubSector)
+	.post(validators.validateApplicationsCreateSubSector, controller.newApplicationsCreateSubSector);
+
+applicationsCreateResumedStepsRouter
+	.route('/geographical-information')
+	.get(controller.viewApplicationsCreateGeographicalInformation);
 
 export default applicationsCreateRouter;
