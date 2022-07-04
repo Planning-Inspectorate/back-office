@@ -3,7 +3,7 @@
 exports[`applications create GET /create-new-case When role is: Case admin officer should render form 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <h2 class=\\"govuk-heading-l\\"> Enter name and description</h2>
-    <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\">
+    <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
         <div class=\\"govuk-form-group\\">
             <label class=\\"govuk-label font-weight--700\\" for=\\"applicationName\\">Name of the case</label>
             <div id=\\"applicationName-hint\\" class=\\"govuk-hint\\">for example, Bridge over a very long canyon</div>
@@ -29,7 +29,7 @@ exports[`applications create GET /create-new-case When role is: Case admin offic
 exports[`applications create GET /create-new-case When role is: Case officer should render form 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <h2 class=\\"govuk-heading-l\\"> Enter name and description</h2>
-    <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\">
+    <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
         <div class=\\"govuk-form-group\\">
             <label class=\\"govuk-label font-weight--700\\" for=\\"applicationName\\">Name of the case</label>
             <div id=\\"applicationName-hint\\" class=\\"govuk-hint\\">for example, Bridge over a very long canyon</div>
@@ -68,7 +68,7 @@ exports[`applications create GET /create-new-case When role is: Inspector should
 exports[`applications create GET /create-new-case/:applicationId/geographical-information should render the page 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <h2 class=\\"govuk-heading-l\\"> Enter geographical information</h2>
-    <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\">
+    <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
         <div class=\\"govuk-form-group\\">
             <label class=\\"govuk-label font-weight--700\\" for=\\"applicationLocation\\">Case Location</label>
             <div id=\\"applicationLocation-hint\\" class=\\"govuk-hint govuk-!-width-three-quarters\\">for example “approximately 8km off the coast of Kent, in areas surrounding
@@ -113,7 +113,7 @@ exports[`applications create GET /create-new-case/:applicationId/sector When app
 exports[`applications create GET /create-new-case/:applicationId/sector When applicationId is: Provided should render the page 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <h2 class=\\"govuk-heading-l\\"> Choose a sector</h2>
-    <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\">
+    <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
         <div class=\\"govuk-form-group\\">
             <div class=\\"govuk-radios\\" data-module=\\"govuk-radios\\">
                 <div class=\\"govuk-radios__item\\">
@@ -155,7 +155,7 @@ exports[`applications create GET /create-new-case/:applicationId/sector When app
 exports[`applications create GET /create-new-case/:applicationId/sub-sector should render the page 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <h2 class=\\"govuk-heading-l\\"> Choose a subsector</h2>
-    <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\">
+    <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
         <div class=\\"govuk-form-group\\">
             <div class=\\"govuk-radios\\" data-module=\\"govuk-radios\\">
                 <div class=\\"govuk-radios__item\\">
