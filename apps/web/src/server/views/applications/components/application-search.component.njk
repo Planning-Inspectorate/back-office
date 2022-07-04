@@ -13,7 +13,7 @@
 				classes: "pins-dashboard-form--label",
 				isPageHeading: false
 			},
-			errorMessage: params.searchApplicationsError,
+			errorMessage: params.errors.query | errorMessage,
 			inputmode: "search",
 			classes: 'pins-dashboard-form--input',
 			id: "searchApplications",

@@ -2,64 +2,15 @@ import * as applicationsCreateService from './applications-create.service.js';
 
 /** @typedef {import('../applications.router').DomainParams} DomainParams */
 /** @typedef {import('../applications.types').Sector} Sector */
-/** @typedef {import('@pins/express').ValidationErrors} ValidationErrors */
-
-/**
- *  @callback updateOrCreateCallback
- *  @returns {Promise<{errors?: object, id?: string}>}
- */
-
-/**
- * @typedef {object} ApplicationsCreateNameProps
- * @property {string=} applicationName
- * @property {string=} applicationDescription
- * @property {ValidationErrors=} errors
- */
-
-/**
- * @typedef {object} ApplicationsCreateNameBody
- * @property {string=} applicationName
- * @property {string=} applicationDescription
- */
-
-/**
- * @typedef {object} ApplicationsCreateSectorProps
- * @property {Sector[]} sectors
- * @property {string=} selectedValue
- * @property {ValidationErrors=} errors
- */
-
-/**
- * @typedef {object} ApplicationsCreateSectorBody
- * @property {string} selectedSectorName
- */
-
-/**
- * @typedef {object} ApplicationsCreateSubSectorProps
- * @property {Sector[]} subSectors
- * @property {string=} selectedValue
- * @property {ValidationErrors=} errors
- */
-
-/**
- * @typedef {object} ApplicationsCreateSubSectorBody
- * @property {string} selectedSubSectorName
- */
-
-/**
- * @typedef {object} ApplicationsCreateGeographicalInformationProps
- * @property {string=} applicationLocation
- * @property {string=} applicationEasting
- * @property {string=} applicationNorthing
- * @property {ValidationErrors=} errors
- */
-
-/**
- * @typedef {object} ApplicationsCreateGeographicalInformationBody
- * @property {string=} applicationLocation
- * @property {string=} applicationEasting
- * @property {string=} applicationNorthing
- */
+/** @typedef {import('./applications-create.types').ApplicationsCreateNameProps} ApplicationsCreateNameProps */
+/** @typedef {import('./applications-create.types').ApplicationsCreateNameBody} ApplicationsCreateNameBody */
+/** @typedef {import('./applications-create.types').ApplicationsCreateSectorProps} ApplicationsCreateSectorProps */
+/** @typedef {import('./applications-create.types').ApplicationsCreateSectorBody} ApplicationsCreateSectorBody */
+/** @typedef {import('./applications-create.types').ApplicationsCreateSubSectorProps} ApplicationsCreateSubSectorProps */
+/** @typedef {import('./applications-create.types').ApplicationsCreateSubSectorBody} ApplicationsCreateSubSectorBody */
+/** @typedef {import('./applications-create.types').ApplicationsCreateGeographicalInformationProps} ApplicationsCreateGeographicalInformationProps */
+/** @typedef {import('./applications-create.types').ApplicationsCreateGeographicalInformationBody} ApplicationsCreateGeographicalInformationBody */
+/** @typedef {import('./applications-create.types').UpdateOrCreateCallback} UpdateOrCreateCallback */
 
 /**
  * View the first step (name & description) of the application creation
@@ -289,7 +240,7 @@ function getParametersApplicationIdOrFail({ applicationId }, response) {
 /**
  * Handles draft updating and return error view
  *
- * @param {updateOrCreateCallback} updateOrCreateDraftApplication
+ * @param {UpdateOrCreateCallback} updateOrCreateDraftApplication
  * @param {{templateName: string, templateData: object}} errorsViewParameters
  * @param {any} response
  * @returns {Promise<string>}

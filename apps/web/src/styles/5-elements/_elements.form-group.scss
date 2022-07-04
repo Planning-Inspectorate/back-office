@@ -1,19 +1,7 @@
-/*
-.govuk-form-group {
-  @include govuk-clearfix;
-  @include govuk-responsive-margin(6, "bottom");
-
-  .govuk-form-group:last-of-type {
-	margin-bottom: 0; // Remove margin from last item in nested groups
-  }
-}*/
-
-
 @import "govuk-frontend/govuk/settings/_spacing";
 @import "govuk-frontend/govuk/settings/media-queries";
 @import "govuk-frontend/govuk/helpers/_spacing";
 @import "govuk-frontend/govuk/helpers/_media-queries";
-
 
 
 .govuk-form-group {
