@@ -26,3 +26,26 @@ export const validateApplicationsCreateSector = createValidator(
 export const validateApplicationsCreateSubSector = createValidator(
 	body('selectedSubSectorName').trim().isLength({ min: 1 }).withMessage('Select a subsector')
 );
+
+export const validateApplicationsCreateLocation = createValidator(
+	body('applicationLocation')
+		.trim()
+		.isLength({ min: 1 })
+		.withMessage('Enter the location')
+		.isLength({ max: 500 })
+		.withMessage('Location must be 500 characters or fewer')
+);
+
+export const validateApplicationsCreateEasting = createValidator(
+	body('applicationEasting')
+		.trim()
+		.isLength({ min: 6, max: 6 })
+		.withMessage('Enter grid reference Easting')
+);
+
+export const validateApplicationsCreateNorthing = createValidator(
+	body('applicationNorthing')
+		.trim()
+		.isLength({ min: 6, max: 6 })
+		.withMessage('Enter grid reference Northing')
+);

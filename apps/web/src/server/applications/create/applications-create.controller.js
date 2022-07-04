@@ -47,6 +47,21 @@ import * as applicationsCreateService from './applications-create.service.js';
  */
 
 /**
+ * @typedef {object} ApplicationsCreateGeographicalInformationProps
+ * @property {string=} applicationLocation
+ * @property {string=} applicationEasting
+ * @property {string=} applicationNorthing
+ * @property {ValidationErrors=} errors
+ */
+
+/**
+ * @typedef {object} ApplicationsCreateGeographicalInformationBody
+ * @property {string=} applicationLocation
+ * @property {string=} applicationEasting
+ * @property {string=} applicationNorthing
+ */
+
+/**
  * View the first step (name & description) of the application creation
  *
  * @type {import('@pins/express').RenderHandler<ApplicationsCreateNameProps,
@@ -117,7 +132,7 @@ export async function viewApplicationsCreateSector({ params }, response) {
 }
 
 /**
- * Save the sector for the application being created
+ * Save the sector for the draft application
  *
  *
  * @type {import('@pins/express').RenderHandler<ApplicationsCreateSectorProps,
@@ -169,7 +184,7 @@ export async function viewApplicationsCreateSubSector({ params }, response) {
 }
 
 /**
- * Save the sub-sector for the application being created
+ * Save the sub-sector for the draft application
  *
  *
  * @type {import('@pins/express').RenderHandler<ApplicationsCreateSubSectorProps,
@@ -210,10 +225,54 @@ export async function newApplicationsCreateSubSector({ errors, params, body }, r
 /**
  * View the geographical information step of the application creation
  *
- * @type {import('@pins/express').RenderHandler<{}, {}>}
+ * @type {import('@pins/express').RenderHandler<ApplicationsCreateGeographicalInformationProps,
+ * {}, {}, {}, DomainParams>}
  */
-export async function viewApplicationsCreateGeographicalInformation(req, response) {
-	response.render('applications/create/_geographical-information');
+export async function viewApplicationsCreateGeographicalInformation({ params }, response) {
+	const applicationId = getParametersApplicationIdOrFail(params, response);
+	const { geographicalInformation } = await applicationsCreateService.getApplicationDraft(
+		applicationId
+	);
+	const { locationDescription: applicationLocation, gridReference } = geographicalInformation || {};
+	const { northing: applicationNorthing, easting: applicationEasting } = gridReference || {};
+	const templateData = { applicationLocation, applicationEasting, applicationNorthing };
+
+	response.render('applications/create/_geographical-information', templateData);
+}
+
+/**
+ * Save the geographical location for the draft application
+ *
+ * @type {import('@pins/express').RenderHandler<ApplicationsCreateGeographicalInformationProps,
+ * {}, ApplicationsCreateGeographicalInformationBody, {}, DomainParams>}
+ */
+export async function newApplicationsCreateGeographicalInformation(
+	{ errors, params, body },
+	response
+) {
+	const applicationId = getParametersApplicationIdOrFail(params, response);
+	const { applicationLocation, applicationEasting, applicationNorthing } = body;
+	const templateData = { applicationLocation, applicationEasting, applicationNorthing };
+	const updateGeographicalInformation = () =>
+		applicationsCreateService.updateApplicationDraft(applicationId, templateData);
+
+	if (errors) {
+		return response.render('applications/create/_geographical-information', {
+			errors,
+			...templateData
+		});
+	}
+
+	await getUpdatedApplicationIdOrFail(
+		updateGeographicalInformation,
+		{
+			templateName: '_geographical-information',
+			templateData
+		},
+		response
+	);
+
+	response.redirect(`/applications-service/create-new-case/${applicationId}/regions`);
 }
 
 /**

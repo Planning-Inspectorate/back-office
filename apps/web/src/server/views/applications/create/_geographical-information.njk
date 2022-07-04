@@ -1,12 +1,59 @@
 {% extends "./applications-create-layout.njk" %}
 
+{% from "govuk/components/input/macro.njk" import govukInput %}
+{% from "govuk/components/textarea/macro.njk" import govukTextarea %}
+
 {% block stepTitle %}
 	Enter geographical information
 {% endblock %}
 
 
 {% block stepForm %}
-	work in progress
+	{{ govukTextarea({
+		label: {
+			text: "Case Location",
+			classes: 'font-weight--700'
+		},
+		id: "applicationLocation",
+		name: "applicationLocation",
+		classes: "govuk-!-width-three-quarters",
+		value: applicationLocation,
+		errorMessage: errors.applicationLocation | errorMessage,
+		hint: {
+			classes: "govuk-!-width-three-quarters",
+			text: "for example “approximately 8km off the coast of Kent, in areas surrounding Thanet Offshore Wind Farm"
+		}
+	}) }}
+
+	{{ govukInput({
+		name: "applicationEasting",
+		id: "applicationEasting",
+		label: {
+			text: "Grid reference Easting",
+			classes: 'font-weight--700'
+		},
+		errorMessage: errors.applicationEasting | errorMessage,
+		classes: "govuk-!-width-one-third",
+		value: applicationEasting,
+		hint: {
+			text: "for example, 345678"
+		}
+	}) }}
+
+	{{ govukInput({
+		name: "applicationNorthing",
+		id: "applicationNorthing",
+		label: {
+			text: "Grid reference Northing",
+			classes: 'font-weight--700'
+		},
+		errorMessage: errors.applicationNorthing | errorMessage,
+		classes: "govuk-!-width-one-third",
+		value: applicationNorthing,
+		hint: {
+			text: "for example, 345678"
+		}
+	}) }}
 {% endblock %}
 
 {% set backLink = 'applications-create'|url({applicationId:applicationId, step: 'sub-sector'}) %}

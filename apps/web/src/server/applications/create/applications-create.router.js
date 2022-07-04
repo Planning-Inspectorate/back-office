@@ -39,6 +39,14 @@ applicationsCreateResumedStepsRouter
 
 applicationsCreateResumedStepsRouter
 	.route('/geographical-information')
-	.get(controller.viewApplicationsCreateGeographicalInformation);
+	.get(controller.viewApplicationsCreateGeographicalInformation)
+	.post(
+		[
+			validators.validateApplicationsCreateLocation,
+			validators.validateApplicationsCreateEasting,
+			validators.validateApplicationsCreateNorthing
+		],
+		controller.newApplicationsCreateGeographicalInformation
+	);
 
 export default applicationsCreateRouter;
