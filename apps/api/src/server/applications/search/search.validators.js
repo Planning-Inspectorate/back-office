@@ -1,11 +1,13 @@
 // constants
-const validRoles = new Set (['inspector', 'case-officer', 'case-admin-officer']);
+const validRoles = new Set(['inspector', 'case-officer', 'case-admin-officer']);
+
+Object.freeze(validRoles);
+
 const maxResultsPerPage = 20;
 const maxPages = 30;
 
 /** @type {import('express').RequestHandler } */
 export const validateSearchCriteria = async (request, response, next) => {
-
 	if (!validQuery(request.body.query)) {
 		response.status(400).send({
 			errors: {
@@ -37,11 +39,11 @@ export const validateSearchCriteria = async (request, response, next) => {
 
 const validQuery = (query) => {
 	return !(!query || query.trim() === '');
-}
+};
 
 const validRole = (role) => {
 	return validRoles.has(role);
-}
+};
 
 // allows  blank or missing value
 // if it has a value, it must be numberic, and within range
@@ -52,7 +54,7 @@ const validPageNumber = (pageNumber) => {
 		valid = Number(pageNumber) ? !!(pageNumber > 0 && pageNumber <= maxResultsPerPage) : false;
 	}
 	return valid;
-}
+};
 
 // allows  blank or missing value
 // if it has a value, it must be numberic, and within range
@@ -63,4 +65,4 @@ const validPageSize = (pageSize) => {
 		valid = Number(pageSize) ? !!(pageSize > 0 && pageSize <= maxPages) : false;
 	}
 	return valid;
-}
+};
