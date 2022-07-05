@@ -10,6 +10,9 @@ import * as applicationsCreateService from './applications-create.service.js';
 /** @typedef {import('./applications-create.types').ApplicationsCreateSubSectorBody} ApplicationsCreateSubSectorBody */
 /** @typedef {import('./applications-create.types').ApplicationsCreateGeographicalInformationProps} ApplicationsCreateGeographicalInformationProps */
 /** @typedef {import('./applications-create.types').ApplicationsCreateGeographicalInformationBody} ApplicationsCreateGeographicalInformationBody */
+/** @typedef {import('./applications-create.types').ApplicationsCreateRegionsProps} ApplicationsCreateRegionsProps */
+/** @typedef {import('./applications-create.types').ApplicationsCreateRegionsBody} ApplicationsCreateRegionsBody */
+
 /** @typedef {import('./applications-create.types').UpdateOrCreateCallback} UpdateOrCreateCallback */
 
 /**
@@ -224,6 +227,58 @@ export async function newApplicationsCreateGeographicalInformation(
 	);
 
 	response.redirect(`/applications-service/create-new-case/${applicationId}/regions`);
+}
+
+/**
+ * View the regions step of the application creation
+ *
+ * @type {import('@pins/express').RenderHandler<ApplicationsCreateRegionsProps,
+ * {}, {}, {}, DomainParams>}
+ */
+export async function viewApplicationsCreateGeographicalRegions(req, response) {
+	const allRegions = await applicationsCreateService.getAllRegions();
+
+	return response.render('applications/create/_region', { regions: allRegions });
+}
+
+/**
+ * Save the regions for the draft application
+ *
+ * @type {import('@pins/express').RenderHandler<ApplicationsCreateRegionsProps,
+ * {}, ApplicationsCreateRegionsBody, {}, DomainParams>}
+ */
+export async function newApplicationsCreateRegions({ errors, params, body }, response) {
+	const applicationId = getParametersApplicationIdOrFail(params, response);
+	const { selectedRegionsNames } = body;
+	const allRegions = await applicationsCreateService.getAllRegions();
+	const selectedRegions = allRegions.filter((region) =>
+		(selectedRegionsNames || []).includes(region.name)
+	);
+	const updateRegion = () =>
+		applicationsCreateService.updateApplicationDraft(applicationId, { regions: selectedRegions });
+
+	if (errors) {
+		return response.render('applications/create/_region', { errors, regions: allRegions });
+	}
+
+	await getUpdatedApplicationIdOrFail(
+		updateRegion,
+		{
+			templateName: 'region',
+			templateData: { regions: allRegions }
+		},
+		response
+	);
+	response.redirect(`/applications-service/create-new-case/${applicationId}/zoom-level`);
+}
+
+/**
+ * View the zoom-level step of the application creation
+ *
+ * @type {import('@pins/express').RenderHandler<{},{}>}
+ */
+export async function viewApplicationsCreateZoomLevel(req, response) {
+	return response.render('applications/create/_zoom-level');
 }
 
 /**

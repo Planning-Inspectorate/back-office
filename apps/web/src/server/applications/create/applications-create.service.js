@@ -3,6 +3,7 @@ import { get } from '../../lib/request.js';
 
 /** @typedef {import('../applications.types').Sector} Sector */
 /** @typedef {import('../applications.types').Application} Application */
+/** @typedef {import('../applications.types').Region} Region */
 
 /**
  * Get the list of sector for an application
@@ -23,6 +24,15 @@ export const getSubSectorsBySector = (sector) => {
 	const sectorName = sector?.name || '';
 
 	return get(`applications/sector?sectorName=${sectorName}`);
+};
+
+/**
+ * Get all geographical regions
+ *
+ * @returns {Promise<Region[]>}
+ */
+export const getAllRegions = () => {
+	return get(`applications/region`);
 };
 
 /**
