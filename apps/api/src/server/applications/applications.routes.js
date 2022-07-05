@@ -2,8 +2,8 @@ import express from 'express';
 import { caseAdminOfficerRoutes } from './case-admin-officer/case-admin-officer.routes.js';
 import { caseOfficerRoutes } from './case-officer/case-officer.routes.js';
 import { inspectorRoutes } from './inspector/inspector.routes.js';
-import { sectorRoutes } from './sector/sector.routes.js';
 import { regionRoutes } from './region/region.routes.js';
+import { sectorRoutes } from './sector/sector.routes.js';
 
 const router = new express.Router();
 
