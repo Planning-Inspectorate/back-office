@@ -8,16 +8,16 @@ const maxPages = 30;
 
 /** @type {import('express').RequestHandler } */
 export const validateSearchCriteria = async (request, response, next) => {
-	if (!validQuery(request.body.query)) {
-		response.status(400).send({
-			errors: {
-				status: 'Query cannot be blank'
-			}
-		});
-	} else if (!validRole(request.body.role)) {
+	if (!validRole(request.body.role)) {
 		response.status(403).send({
 			errors: {
 				status: 'Role is not valid'
+			}
+		});
+	} else if (!validQuery(request.body.query)) {
+		response.status(400).send({
+			errors: {
+				status: 'Query cannot be blank'
 			}
 		});
 	} else if (!validPageNumber(request.body.pageNumber)) {
@@ -37,12 +37,12 @@ export const validateSearchCriteria = async (request, response, next) => {
 	}
 };
 
-const validQuery = (query) => {
-	return !(!query || query.trim() === '');
-};
-
 const validRole = (role) => {
 	return validRoles.has(role);
+};
+
+const validQuery = (query) => {
+	return !(!query || query.trim() === '');
 };
 
 // allows  blank or missing value

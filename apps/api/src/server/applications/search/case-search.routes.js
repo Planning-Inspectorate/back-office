@@ -1,7 +1,7 @@
 import express from 'express';
 import { asyncHandler } from '../../middleware/async-handler.js';
 import { getApplicationsByCriteria } from './case-search.controller.js';
-import { validateSearchCriteria} from './search.validators.js';
+import { validateSearchCriteria } from './case-search.validators.js';
 
 const router = new express.Router();
 
