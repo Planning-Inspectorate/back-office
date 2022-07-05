@@ -27,6 +27,10 @@ export const validateApplicationsCreateSubSector = createValidator(
 	body('selectedSubSectorName').trim().isLength({ min: 1 }).withMessage('Select a subsector')
 );
 
+export const validateApplicationsCreateRegions = createValidator(
+	body('selectedRegionsNames').isArray({ min: 1 }).withMessage('Choose at least one region')
+);
+
 export const validateApplicationsCreateLocation = createValidator(
 	body('applicationLocation')
 		.trim()

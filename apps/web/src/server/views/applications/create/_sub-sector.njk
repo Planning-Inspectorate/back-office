@@ -10,7 +10,7 @@
 {% block stepForm %}
 	{{ govukRadios({
 		name: "selectedSubSectorName",
-		id: "selectedSubSectorName",
+		idPrefix: "selectedSubSectorName",
 		errorMessage: (errors !== undefined and errors !== false),
 		items: subSectors | selectItems({valueKey: 'name', labelKey: 'displayNameEn', selectedValue: selectedValue})
 	}) }}
