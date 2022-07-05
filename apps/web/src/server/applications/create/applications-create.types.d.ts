@@ -1,4 +1,4 @@
-import { Sector } from '../applications.types';
+import { Region, Sector } from '../applications.types';
 import { ValidationErrors } from '@pins/express';
 
 export type ApplicationsCreateNameProps = {
@@ -43,6 +43,15 @@ export type ApplicationsCreateGeographicalInformationBody = {
 	applicationLocation: string;
 	applicationEasting: string;
 	applicationNorthing: string;
+};
+
+export type ApplicationsCreateRegionsProps = {
+	regions: Region[];
+	errors?: ValidationErrors;
+};
+
+export type ApplicationsCreateRegionsBody = {
+	selectedRegionsNames: any;
 };
 
 export type UpdateOrCreateCallback = () => Promise<{

@@ -28,3 +28,10 @@ export interface Application {
 	sector?: Sector;
 	subSector?: Sector;
 }
+
+export interface Region {
+	id: number;
+	name: string;
+	displayNameEn: string;
+	displayNameCy: string;
+}

@@ -2,7 +2,7 @@ import { fake } from '@pins/platform';
 import sub from 'date-fns/sub/index.js';
 import { random } from 'lodash-es';
 import { createSector } from './sector.js';
-import { createApplicationReference } from './util.js';
+import { createApplicationReference, createRandomDescription } from './util.js';
 
 /** @typedef {import('../../../src/server/applications/applications.types').Application} Application */
 
@@ -21,7 +21,7 @@ export function createApplication({
 		id,
 		reference,
 		title: `Title ${reference}`,
-		description: `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.`,
+		description: createRandomDescription({ wordsNumber: 40, startOffset: id }),
 		status: `Status ${id}000`,
 		modifiedDate,
 		sector,

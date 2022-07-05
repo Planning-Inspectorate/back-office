@@ -1,6 +1,7 @@
 import { parseHtml } from '@pins/platform';
 import nock from 'nock';
 import supertest from 'supertest';
+import { fixtureRegions } from '../../../../../testing/applications/fixtures/regions.js';
 import { fixtureSectors } from '../../../../../testing/applications/fixtures/sectors.js';
 import { createTestApplication } from '../../../../../testing/index.js';
 
@@ -114,6 +115,23 @@ describe('applications create', () => {
 		});
 
 		it('should render the page', async () => {
+			const response = await request.get(baseUrl);
+			const element = parseHtml(response.text);
+
+			expect(element.innerHTML).toMatchSnapshot();
+			expect(element.innerHTML).toContain('Save and continue');
+		});
+	});
+
+	describe('GET /create-new-case/:applicationId/regions', () => {
+		beforeEach(async () => {
+			await request.get('/applications-service/case-officer');
+		});
+
+		it('should render the page', async () => {
+			nock('http://test/').get('/applications/region').reply(200, fixtureRegions);
+
+			const baseUrl = `/applications-service/create-new-case/123/regions`;
 			const response = await request.get(baseUrl);
 			const element = parseHtml(response.text);
 

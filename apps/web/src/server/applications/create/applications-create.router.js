@@ -49,4 +49,13 @@ applicationsCreateResumedStepsRouter
 		controller.newApplicationsCreateGeographicalInformation
 	);
 
+applicationsCreateResumedStepsRouter
+	.route('/regions')
+	.get(controller.viewApplicationsCreateGeographicalRegions)
+	.post(validators.validateApplicationsCreateRegions, controller.newApplicationsCreateRegions);
+
+applicationsCreateResumedStepsRouter
+	.route('/zoom-level')
+	.get(controller.viewApplicationsCreateZoomLevel);
+
 export default applicationsCreateRouter;

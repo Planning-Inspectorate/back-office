@@ -97,6 +97,53 @@ exports[`applications create GET /create-new-case/:applicationId/geographical-in
 </main>"
 `;
 
+exports[`applications create GET /create-new-case/:applicationId/regions should render the page 1`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <h2 class=\\"govuk-heading-l\\"> Choose one or multiple regions</h2>
+    <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
+        <div class=\\"govuk-form-group\\">
+            <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
+                <div class=\\"govuk-checkboxes__item\\">
+                    <input class=\\"govuk-checkboxes__input\\" id=\\"selectedRegionsNames\\" name=\\"selectedRegionsNames\\"
+                    type=\\"checkbox\\" value=\\"london\\">
+                    <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"selectedRegionsNames\\">Region EN 1</label>
+                </div>
+                <div class=\\"govuk-checkboxes__item\\">
+                    <input class=\\"govuk-checkboxes__input\\" id=\\"selectedRegionsNames-2\\" name=\\"selectedRegionsNames\\"
+                    type=\\"checkbox\\" value=\\"yorkshire\\">
+                    <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"selectedRegionsNames-2\\">Region EN 2</label>
+                </div>
+                <div class=\\"govuk-checkboxes__item\\">
+                    <input class=\\"govuk-checkboxes__input\\" id=\\"selectedRegionsNames-3\\" name=\\"selectedRegionsNames\\"
+                    type=\\"checkbox\\" value=\\"east\\">
+                    <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"selectedRegionsNames-3\\">Region EN 3</label>
+                </div>
+                <div class=\\"govuk-checkboxes__item\\">
+                    <input class=\\"govuk-checkboxes__input\\" id=\\"selectedRegionsNames-4\\" name=\\"selectedRegionsNames\\"
+                    type=\\"checkbox\\" value=\\"north\\">
+                    <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"selectedRegionsNames-4\\">Region EN 4</label>
+                </div>
+                <div class=\\"govuk-checkboxes__item\\">
+                    <input class=\\"govuk-checkboxes__input\\" id=\\"selectedRegionsNames-5\\" name=\\"selectedRegionsNames\\"
+                    type=\\"checkbox\\" value=\\"south\\">
+                    <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"selectedRegionsNames-5\\">Region EN 5</label>
+                </div>
+                <div class=\\"govuk-checkboxes__item\\">
+                    <input class=\\"govuk-checkboxes__input\\" id=\\"selectedRegionsNames-6\\" name=\\"selectedRegionsNames\\"
+                    type=\\"checkbox\\" value=\\"west\\">
+                    <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"selectedRegionsNames-6\\">Region EN 6</label>
+                </div>
+            </div>
+        </div>
+        <div class=\\"govuk-grid-row\\">
+            <div class=\\"govuk-button-group pins-button-group govuk-grid-column-one-half\\"><a class=\\"govuk-link\\" href=\\"/applications-service/create-new-case/123/geographical-information/\\">Back</a>
+                <button                 class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and continue</button>
+            </div>
+        </div>
+    </form>
+</main>"
+`;
+
 exports[`applications create GET /create-new-case/:applicationId/sector When applicationId is: Not provided should NOT render the page 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"govuk-grid-row\\">
@@ -119,27 +166,27 @@ exports[`applications create GET /create-new-case/:applicationId/sector When app
                 <div class=\\"govuk-radios__item\\">
                     <input class=\\"govuk-radios__input\\" id=\\"selectedSectorName\\" name=\\"selectedSectorName\\"
                     type=\\"radio\\" value=\\"transport\\">
-                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"selectedSectorName\\">Sector 1</label>
+                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"selectedSectorName\\">Sector EN 7</label>
                 </div>
                 <div class=\\"govuk-radios__item\\">
                     <input class=\\"govuk-radios__input\\" id=\\"selectedSectorName-2\\" name=\\"selectedSectorName\\"
                     type=\\"radio\\" value=\\"water\\">
-                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"selectedSectorName-2\\">Sector 2</label>
+                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"selectedSectorName-2\\">Sector EN 8</label>
                 </div>
                 <div class=\\"govuk-radios__item\\">
                     <input class=\\"govuk-radios__input\\" id=\\"selectedSectorName-3\\" name=\\"selectedSectorName\\"
                     type=\\"radio\\" value=\\"waste\\">
-                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"selectedSectorName-3\\">Sector 3</label>
+                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"selectedSectorName-3\\">Sector EN 9</label>
                 </div>
                 <div class=\\"govuk-radios__item\\">
                     <input class=\\"govuk-radios__input\\" id=\\"selectedSectorName-4\\" name=\\"selectedSectorName\\"
                     type=\\"radio\\" value=\\"energy\\">
-                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"selectedSectorName-4\\">Sector 4</label>
+                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"selectedSectorName-4\\">Sector EN 10</label>
                 </div>
                 <div class=\\"govuk-radios__item\\">
                     <input class=\\"govuk-radios__input\\" id=\\"selectedSectorName-5\\" name=\\"selectedSectorName\\"
                     type=\\"radio\\" value=\\"waste_water\\">
-                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"selectedSectorName-5\\">Sector 5</label>
+                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"selectedSectorName-5\\">Sector EN 11</label>
                 </div>
             </div>
         </div>
@@ -161,27 +208,27 @@ exports[`applications create GET /create-new-case/:applicationId/sub-sector shou
                 <div class=\\"govuk-radios__item\\">
                     <input class=\\"govuk-radios__input\\" id=\\"selectedSubSectorName\\" name=\\"selectedSubSectorName\\"
                     type=\\"radio\\" value=\\"transport\\">
-                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"selectedSubSectorName\\">Sector 1</label>
+                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"selectedSubSectorName\\">Sector EN 7</label>
                 </div>
                 <div class=\\"govuk-radios__item\\">
                     <input class=\\"govuk-radios__input\\" id=\\"selectedSubSectorName-2\\" name=\\"selectedSubSectorName\\"
                     type=\\"radio\\" value=\\"water\\">
-                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"selectedSubSectorName-2\\">Sector 2</label>
+                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"selectedSubSectorName-2\\">Sector EN 8</label>
                 </div>
                 <div class=\\"govuk-radios__item\\">
                     <input class=\\"govuk-radios__input\\" id=\\"selectedSubSectorName-3\\" name=\\"selectedSubSectorName\\"
                     type=\\"radio\\" value=\\"waste\\">
-                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"selectedSubSectorName-3\\">Sector 3</label>
+                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"selectedSubSectorName-3\\">Sector EN 9</label>
                 </div>
                 <div class=\\"govuk-radios__item\\">
                     <input class=\\"govuk-radios__input\\" id=\\"selectedSubSectorName-4\\" name=\\"selectedSubSectorName\\"
                     type=\\"radio\\" value=\\"energy\\">
-                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"selectedSubSectorName-4\\">Sector 4</label>
+                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"selectedSubSectorName-4\\">Sector EN 10</label>
                 </div>
                 <div class=\\"govuk-radios__item\\">
                     <input class=\\"govuk-radios__input\\" id=\\"selectedSubSectorName-5\\" name=\\"selectedSubSectorName\\"
                     type=\\"radio\\" value=\\"waste_water\\">
-                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"selectedSubSectorName-5\\">Sector 5</label>
+                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"selectedSubSectorName-5\\">Sector EN 11</label>
                 </div>
             </div>
         </div>
