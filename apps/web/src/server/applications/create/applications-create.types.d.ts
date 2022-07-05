@@ -51,7 +51,7 @@ export type ApplicationsCreateRegionsProps = {
 };
 
 export type ApplicationsCreateRegionsBody = {
-	selectedRegionsNames: any;
+	selectedRegionsNames: string[];
 };
 
 export type UpdateOrCreateCallback = () => Promise<{

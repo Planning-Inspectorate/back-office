@@ -51,7 +51,7 @@ applicationsCreateResumedStepsRouter
 
 applicationsCreateResumedStepsRouter
 	.route('/regions')
-	.get(controller.viewApplicationsCreateGeographicalRegions)
+	.get(controller.viewApplicationsCreateRegions)
 	.post(validators.validateApplicationsCreateRegions, controller.newApplicationsCreateRegions);
 
 applicationsCreateResumedStepsRouter
