@@ -12,7 +12,6 @@ import * as applicationsCreateService from './applications-create.service.js';
 /** @typedef {import('./applications-create.types').ApplicationsCreateGeographicalInformationBody} ApplicationsCreateGeographicalInformationBody */
 /** @typedef {import('./applications-create.types').ApplicationsCreateRegionsProps} ApplicationsCreateRegionsProps */
 /** @typedef {import('./applications-create.types').ApplicationsCreateRegionsBody} ApplicationsCreateRegionsBody */
-
 /** @typedef {import('./applications-create.types').UpdateOrCreateCallback} UpdateOrCreateCallback */
 
 /**
@@ -235,7 +234,7 @@ export async function newApplicationsCreateGeographicalInformation(
  * @type {import('@pins/express').RenderHandler<ApplicationsCreateRegionsProps,
  * {}, {}, {}, DomainParams>}
  */
-export async function viewApplicationsCreateGeographicalRegions(req, response) {
+export async function viewApplicationsCreateRegions(req, response) {
 	const allRegions = await applicationsCreateService.getAllRegions();
 
 	return response.render('applications/create/_region', { regions: allRegions });
