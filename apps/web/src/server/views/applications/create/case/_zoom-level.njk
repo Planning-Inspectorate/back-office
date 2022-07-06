@@ -1,11 +1,18 @@
 {% extends "../applications-create-layout.njk" %}
 
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+
 {% block stepTitle %}
 	Choose map zoom level
 {% endblock %}
 
 {% block stepForm %}
-	work in progress
+	{{ govukRadios({
+		name: "selectedZoomLevelName",
+		idPrefix: "selectedZoomLevelName",
+		errorMessage: (errors !== undefined and errors !== false),
+		items: zoomLevels | selectItems({valueKey: 'name', labelKey: 'displayNameEn', selectedValue: selectedValue})
+	}) }}
 {% endblock %}
 
 {% set backLink = 'applications-create'|url({applicationId:applicationId, step: 'regions'}) %}
