@@ -183,18 +183,40 @@ test('should not be able to submit a search if the pageNumber is zero', async (t
 	});
 });
 
-// test('should not be able to submit a search if the pageSize is zero', async (t) => {
-// 	const resp = await request.post('/applications/search').send({
-// 		query: 'EN010003 - NI Case 3 Name',
-// 		role: 'case-admin-officer',
-// 		pageNumber: 1,
-// 		pageSize: 0
+test('should not be able to submit a search if the pageSize is zero', async (t) => {
+	const resp = await request.post('/applications/search').send({
+		query: 'EN010003 - NI Case 3 Name',
+		role: 'case-admin-officer',
+		pageNumber: 1,
+		pageSize: 0
+	});
+
+	t.is(resp.status, 400);
+	t.deepEqual(resp.body, {
+		errors: {
+			status: 'Page Size not in valid range'
+		}
+	});
+});
+
+// test('gets empty results using search criteria with no matching results', async (t) => {
+// 	sinon.stub(databaseConnector, 'application').get(() => {
+// 		return {
+// 			findMany: findManyStub,
+// 			count: countStub
+// 		};
 // 	});
 
-// 	t.is(resp.status, 400);
-// 	t.deepEqual(resp.body, {
-// 		errors: {
-// 			status: 'Page Size not in valid range'
-// 		}
+// 	const response = await request
+// 		.post('/applications/search')
+// 		.send({ query: 'bcd', role: 'case-officer', pageNumber: 1, pageSize: 1 });
+
+// 	t.is(response.status, 200);
+// 	t.deepEqual(response.body, {
+// 		page: 1,
+// 		pageSize: 1,
+// 		pageCount: 0,
+// 		itemCount: 0,
+// 		items: []
 // 	});
 // });

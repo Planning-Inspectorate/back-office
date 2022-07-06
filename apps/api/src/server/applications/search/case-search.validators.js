@@ -46,6 +46,10 @@ const validRole = (role) => {
 	return validRoles.has(role);
 };
 
+/**
+ *@param {string} query
+ * @returns {boolean} validQuery
+ */
 const validQuery = (query) => {
 	return !(!query || query.trim() === '');
 };
@@ -60,7 +64,9 @@ const validPageNumber = (pageNumber) => {
 	let validPage = true;
 
 	if (pageNumber) {
-		validPage = Number(pageNumber) ? !!(pageNumber > 0 && pageNumber <= maxResultsPerPage) : false;
+		validPage = Number(pageNumber) ? !!(pageNumber > 0 && pageNumber <= maxPages) : false;
+	} else {
+		validPage = false;
 	}
 
 	return validPage;
@@ -76,7 +82,9 @@ const validPageSize = (pageSize) => {
 	let validSize = true;
 
 	if (pageSize) {
-		validSize = Number(pageSize) ? !!(pageSize > 0 && pageSize <= maxPages) : false;
+		validSize = Number(pageSize) ? !!(pageSize > 0 && pageSize <= maxResultsPerPage) : false;
+	} else {
+		validSize = false;
 	}
 	return validSize;
 };
