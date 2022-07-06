@@ -1,9 +1,12 @@
 import { fixtureApplications } from '../../../../../testing/applications/fixtures/applications.js';
+import { fixtureZoomLevels } from '../../../../../testing/applications/fixtures/options-item.js';
 import { get } from '../../../lib/request.js';
 
 /** @typedef {import('../../applications.types.js').Sector} Sector */
 /** @typedef {import('../../applications.types.js').Application} Application */
 /** @typedef {import('../../applications.types.js').Region} Region */
+/** @typedef {import('../../applications.types').ZoomLevel} ZoomLevel */
+
 
 /**
  * Get the list of sector for an application
@@ -33,6 +36,20 @@ export const getSubSectorsBySector = (sector) => {
  */
 export const getAllRegions = () => {
 	return get(`applications/region`);
+};
+
+/**
+ * Get all zoom levels
+ *
+ * @returns {Promise<ZoomLevel[]>}
+ */
+export const getAllZoomLevels = () => {
+	return new Promise((resolve) => {
+		setTimeout(() => {
+			resolve(fixtureZoomLevels);
+		}, 1000);
+	});
+	// return get(`applications/zoom-level`);
 };
 
 /**

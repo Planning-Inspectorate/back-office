@@ -16,3 +16,11 @@ export const fixtureSectors = [
 	createOptionsItem({ name: 'energy' }),
 	createOptionsItem({ name: 'waste_water' })
 ];
+
+export const fixtureZoomLevels = [
+	createOptionsItem({ name: 'city' }),
+	createOptionsItem({ name: 'county' }),
+	createOptionsItem({ name: 'junction' }),
+	createOptionsItem({ name: 'country' }),
+	createOptionsItem({ name: 'region' })
+];
