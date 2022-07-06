@@ -38,13 +38,24 @@ export const obtainSearchResults = async (_request) => {
 		_request.body.query.trim()
 	);
 
-	const pageInfo = {
-		page: skipValue / resultsPerPage + 1,
-		pageSize: applications.length,
-		pageCount: Math.ceil(applicationsCount / resultsPerPage),
-		itemCount: applicationsCount,
-		items: mapApplicationsWithSearchCriteria(applications)
+	// return zero data if no results found
+	let pageInfo = {
+		page: 1,
+		pageSize: 0,
+		pageCount: 0,
+		itemCount: 0,
+		items: []
 	};
+
+	if (applications) {
+		pageInfo = {
+			page: skipValue / resultsPerPage + 1,
+			pageSize: applications.length,
+			pageCount: Math.ceil(applicationsCount / resultsPerPage),
+			itemCount: applicationsCount,
+			items: mapApplicationsWithSearchCriteria(applications)
+		};
+	}
 
 	return pageInfo;
 };

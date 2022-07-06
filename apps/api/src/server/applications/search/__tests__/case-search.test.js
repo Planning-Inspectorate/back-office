@@ -199,24 +199,24 @@ test('should not be able to submit a search if the pageSize is zero', async (t) 
 	});
 });
 
-// test('gets empty results using search criteria with no matching results', async (t) => {
-// 	sinon.stub(databaseConnector, 'application').get(() => {
-// 		return {
-// 			findMany: findManyStub,
-// 			count: countStub
-// 		};
-// 	});
+test('gets empty results using search criteria with no matching results', async (t) => {
+	sinon.stub(databaseConnector, 'application').get(() => {
+		return {
+			findMany: findManyStub,
+			count: countStub
+		};
+	});
 
-// 	const response = await request
-// 		.post('/applications/search')
-// 		.send({ query: 'bcd', role: 'case-officer', pageNumber: 1, pageSize: 1 });
+	const response = await request
+		.post('/applications/search')
+		.send({ query: 'bcd', role: 'case-officer', pageNumber: 1, pageSize: 1 });
 
-// 	t.is(response.status, 200);
-// 	t.deepEqual(response.body, {
-// 		page: 1,
-// 		pageSize: 1,
-// 		pageCount: 0,
-// 		itemCount: 0,
-// 		items: []
-// 	});
-// });
+	t.is(response.status, 200);
+	t.deepEqual(response.body, {
+		page: 1,
+		pageSize: 0,
+		pageCount: 0,
+		itemCount: 0,
+		items: []
+	});
+});
