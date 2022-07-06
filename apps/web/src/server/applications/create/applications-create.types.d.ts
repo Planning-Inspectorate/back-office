@@ -1,4 +1,4 @@
-import { Region, Sector } from '../applications.types';
+import { Region, Sector, ZoomLevel } from '../applications.types';
 import { ValidationErrors } from '@pins/express';
 
 export type ApplicationsCreateNameProps = {
@@ -52,6 +52,14 @@ export type ApplicationsCreateRegionsProps = {
 
 export type ApplicationsCreateRegionsBody = {
 	selectedRegionsNames: string[];
+};
+export type ApplicationsCreateZoomLevelProps = {
+	zoomLevels: ZoomLevel[];
+	errors?: ValidationErrors;
+};
+
+export type ApplicationsCreateZoomLevelBody = {
+	selectedZoomLevelName: string;
 };
 
 export type ApplicationsCreateTeamEmailProps = {

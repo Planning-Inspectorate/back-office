@@ -12,9 +12,10 @@ import * as applicationsCreateService from './applications-create.service.js';
 /** @typedef {import('./applications-create.types').ApplicationsCreateGeographicalInformationBody} ApplicationsCreateGeographicalInformationBody */
 /** @typedef {import('./applications-create.types').ApplicationsCreateRegionsProps} ApplicationsCreateRegionsProps */
 /** @typedef {import('./applications-create.types').ApplicationsCreateRegionsBody} ApplicationsCreateRegionsBody */
+/** @typedef {import('./applications-create.types').ApplicationsCreateZoomLevelProps} ApplicationsCreateZoomLevelProps */
+/** @typedef {import('./applications-create.types').ApplicationsCreateZoomLevelBody} ApplicationsCreateZoomLevelBody */
 /** @typedef {import('./applications-create.types').ApplicationsCreateTeamEmailProps} ApplicationsCreateTeamEmailProps */
 /** @typedef {import('./applications-create.types').ApplicationsCreateTeamEmailBody} ApplicationsCreateTeamEmailBody */
-
 /** @typedef {import('./applications-create.types').UpdateOrCreateCallback} UpdateOrCreateCallback */
 
 /**
@@ -277,20 +278,44 @@ export async function newApplicationsCreateRegions({ errors, params, body }, res
 /**
  * View the zoom-level step of the application creation
  *
- * @type {import('@pins/express').RenderHandler<{},{}>}
+ * @type {import('@pins/express').RenderHandler<ApplicationsCreateZoomLevelProps,
+ * {}, {}, {}, DomainParams>}
  */
 export async function viewApplicationsCreateZoomLevel(req, response) {
-	return response.render('applications/create/_zoom-level');
+	const allZoomLevels = await applicationsCreateService.getAllZoomLevels();
+
+	return response.render('applications/create/_zoom-level', { zoomLevels: allZoomLevels });
 }
 
 /**
  * Save the zoom-level for the draft application
  *
- * @type {import('@pins/express').RenderHandler<{}, {}>}
+ * @type {import('@pins/express').RenderHandler<ApplicationsCreateZoomLevelProps,
+ * {}, ApplicationsCreateZoomLevelBody, {}, DomainParams>}
  */
-export async function newApplicationsCreateZoomLevel(req, response) {
-	response.redirect(`/applications-service/create-new-case/123/team-email`);
+export async function newApplicationsCreateZoomLevel({ params, body }, response) {
+	const applicationId = getParametersApplicationIdOrFail(params, response);
+	const { selectedZoomLevelName } = body;
+	const allZoomLevels = await applicationsCreateService.getAllZoomLevels();
+	const selectedZoomLevel = allZoomLevels.filter(
+		(zoomLevel) => selectedZoomLevelName === zoomLevel.name
+	);
+	const updateZoomLevel = () =>
+		applicationsCreateService.updateApplicationDraft(applicationId, {
+			zoomLevel: selectedZoomLevel
+		});
+
+	await getUpdatedApplicationIdOrFail(
+		updateZoomLevel,
+		{
+			templateName: 'zoom-level',
+			templateData: { zoomLevels: allZoomLevels }
+		},
+		response
+	);
+	response.redirect(`/applications-service/create-new-case/${applicationId}/email`);
 }
+
 
 /**
  * View the case-team email address step of the application creation
