@@ -57,8 +57,10 @@ const setUrlFilter = () =>
 			switch (key) {
 				case 'dashboard':
 					return `${domainUrl}/${domainType || ''}`;
-				case 'create-application':
-					return `${domainUrl}/create-new-case${!applicationId ? '' : `/${applicationId}/${step}`}`;
+				case 'applications-create':
+					return `${domainUrl}/create-new-case/${applicationId ? `${applicationId}/` : ''}${
+						step ? `${step}/` : ''
+					}`;
 				case 'view-application':
 					return `${domainUrl}/${domainType || ''}/applications/${applicationId || ''}`;
 				default:

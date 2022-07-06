@@ -1,17 +1,44 @@
 {% extends "./applications-create-layout.njk" %}
 
+{% from "govuk/components/input/macro.njk" import govukInput %}
+{% from "govuk/components/textarea/macro.njk" import govukTextarea %}
+
 {% block stepTitle %}
-	Name and description
+	Enter name and description
 {% endblock %}
 
 
 {% block stepForm %}
-	Work in progress
+
+	{{ govukInput({
+		label: {
+			text: "Name of the case",
+			classes: 'font-weight--700'
+		},
+		id: "applicationName",
+		name: "applicationName",
+		classes: "govuk-!-width-one-third",
+		value: applicationName,
+		errorMessage: errors.applicationName | errorMessage,
+		hint: {
+			text: "for example, Bridge over a very long canyon"
+		}
+	}) }}
+
+	{{ govukTextarea({
+		name: "applicationDescription",
+		id: "applicationDescription",
+		label: {
+			text: "Description of the case",
+			classes: 'font-weight--700'
+		},
+		errorMessage: errors.applicationDescription | errorMessage,
+		classes: "govuk-!-width-three-quarters",
+		value: applicationDescription,
+		hint: {
+			text: "for example, An offshore wind generating station of capacity up to 285 MW"
+		}
+	}) }}
 {% endblock %}
 
 {% set backLink = 'dashboard'|url({domainType:domainType}) %}
-
-
-
-
-

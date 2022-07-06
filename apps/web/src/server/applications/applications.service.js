@@ -1,7 +1,6 @@
 import { get } from '../lib/request.js';
 
 /** @typedef {import('./applications.types').Application} Application */
-/** @typedef {import('./applications.types').ApplicationSummary} ApplicationSummary */
 
 /**
  * @param {number} id
@@ -12,21 +11,21 @@ export const findApplicationById = (id) => {
 };
 
 /**
- * @returns {Promise<import('./applications.types').ApplicationSummary[]>}
+ * @returns {Promise<import('./applications.types').Application[]>}
  */
 export const findOpenApplicationsForCaseOfficer = () => {
 	return get('applications/case-officer');
 };
 
 /**
- * @returns {Promise<import('./applications.types').ApplicationSummary[]>}
+ * @returns {Promise<import('./applications.types').Application[]>}
  */
 export const findOpenApplicationsForCaseAdminOfficer = () => {
 	return get('applications/case-admin-officer');
 };
 
 /**
- * @returns {Promise<import('./applications.types').ApplicationSummary[]>}
+ * @returns {Promise<import('./applications.types').Application[]>}
  */
 export const findOpenApplicationsForInspector = () => {
 	return get('applications/inspector');

@@ -38,6 +38,7 @@
   {% endblock %}
 
   {% block content %}
+	  {% block errorSummary %}
     {% if errors %}
       <div class="govuk-grid-row">
         <div class="govuk-grid-column-two-thirds">
@@ -50,6 +51,7 @@
         </div>
       </div>
     {% endif %}
+		  {% endblock %}
     {% block pageHeading %}
       <div class="govuk-grid-row">
         <div class="govuk-grid-column-full">

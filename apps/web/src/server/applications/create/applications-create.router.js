@@ -11,10 +11,21 @@ applicationsCreateRouter.use(guards.assertDomainTypeIsNotInspector);
 applicationsCreateRouter
 	.route('/')
 	.get(controller.viewApplicationsCreateName)
-	.post(controller.newApplicationsCreateName);
+	.post(
+		[validators.validateApplicationsCreateName, validators.validateApplicationsCreateDescription],
+		controller.newApplicationsCreateName
+	);
 
 applicationsCreateRouter.use('/:applicationId', applicationsCreateResumedStepsRouter);
 applicationsCreateResumedStepsRouter.use(locals.registerApplicationId);
+
+applicationsCreateResumedStepsRouter
+	.route('/')
+	.get(controller.viewApplicationsCreateName)
+	.post(
+		[validators.validateApplicationsCreateName, validators.validateApplicationsCreateDescription],
+		controller.newApplicationsCreateName
+	);
 
 applicationsCreateResumedStepsRouter
 	.route('/sector')
@@ -23,6 +34,28 @@ applicationsCreateResumedStepsRouter
 
 applicationsCreateResumedStepsRouter
 	.route('/sub-sector')
-	.get(controller.viewApplicationsCreateSubSector);
+	.get(controller.viewApplicationsCreateSubSector)
+	.post(validators.validateApplicationsCreateSubSector, controller.newApplicationsCreateSubSector);
+
+applicationsCreateResumedStepsRouter
+	.route('/geographical-information')
+	.get(controller.viewApplicationsCreateGeographicalInformation)
+	.post(
+		[
+			validators.validateApplicationsCreateLocation,
+			validators.validateApplicationsCreateEasting,
+			validators.validateApplicationsCreateNorthing
+		],
+		controller.newApplicationsCreateGeographicalInformation
+	);
+
+applicationsCreateResumedStepsRouter
+	.route('/regions')
+	.get(controller.viewApplicationsCreateRegions)
+	.post(validators.validateApplicationsCreateRegions, controller.newApplicationsCreateRegions);
+
+applicationsCreateResumedStepsRouter
+	.route('/zoom-level')
+	.get(controller.viewApplicationsCreateZoomLevel);
 
 export default applicationsCreateRouter;

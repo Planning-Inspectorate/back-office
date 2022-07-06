@@ -10,7 +10,9 @@
 
 {% set pageTitle = 'Search results' %}
 
-{% set searchParameters = {query: query, searchApplicationsError: searchApplicationsError, csrfToken: csrfToken, label: ""} %}
+{% set searchParameters = {query: query, errors: errors, csrfToken: csrfToken, label: ""} %}
+
+{% block errorSummary %}{% endblock %}
 
 {% block pageContent %}
 

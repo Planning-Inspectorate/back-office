@@ -4,12 +4,11 @@ import * as applicationsService from './applications.service.js';
 /** @typedef {import('./applications.locals').ApplicationLocals} ApplicationLocals */
 /** @typedef {import('./applications.router').DomainParams} DomainParams */
 /** @typedef {import('./applications.types').Application} Application */
-/** @typedef {import('./applications.types').ApplicationSummary} ApplicationSummary */
 /** @typedef {import('./applications.types').DomainType} DomainType */
 
 /**
  * @typedef {object} ViewDashboardRenderProps
- * @property {ApplicationSummary[]} applications
+ * @property {Application[]} applications
  */
 
 /**

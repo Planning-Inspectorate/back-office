@@ -6,14 +6,13 @@
 	Choose a sector
 {% endblock %}
 
-
-
 {% block stepForm %}
 	{{ govukRadios({
-		name: "sector",
+		name: "selectedSectorName",
+		idPrefix: "selectedSectorName",
 		errorMessage: (errors !== undefined and errors !== false),
-		items: sectors | selectItems({valueKey: 'name', labelKey: 'displayNameEn'})
+		items: sectors | selectItems({valueKey: 'name', labelKey: 'displayNameEn', selectedValue: selectedValue})
 	}) }}
 {% endblock %}
 
-{% set backLink = 'dashboard'|url({domainType:domainType}) %}
+{% set backLink = 'applications-create'|url({applicationId:applicationId}) %}
