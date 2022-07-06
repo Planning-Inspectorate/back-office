@@ -1,17 +1,11 @@
 import { fake } from '@pins/platform';
-import { random, sample } from 'lodash-es';
-import { localPlanningDepartments } from '../../app/fixtures/referencedata.js';
+import { random } from 'lodash-es';
 
 /**
- * @typedef {object} ApplicationReferenceOptions
- * @property {string} [prefix='APP']
- */
-
-/**
- * @param {ApplicationReferenceOptions} [options={}]
+ * @param {{prefix: string}} [options={prefix: 'APP'}]
  * @returns {string}
  */
-export const createApplicationReference = ({ prefix = 'APP' } = {}) =>
+export const createApplicationReference = ({ prefix = 'APP' }) =>
 	[
 		prefix,
 		`${fake.randomLetter()}${random(1000, 9999)}`,
@@ -20,6 +14,10 @@ export const createApplicationReference = ({ prefix = 'APP' } = {}) =>
 		random(1_000_000, 9_999_999)
 	].join('/');
 
+/**
+ * @param {{wordsNumber: number, startOffset: number}} [options={}]
+ * @returns {string}
+ */
 export const createRandomDescription = ({ wordsNumber = 40, startOffset = 0 }) => {
 	const loremIpsumString =
 		'Lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua Ut enim ad minim veniam quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat';
@@ -28,6 +26,3 @@ export const createRandomDescription = ({ wordsNumber = 40, startOffset = 0 }) =
 
 	return result.charAt(0).toUpperCase() + result.slice(1);
 };
-
-export const getRandomLocalPlanningDepartment = () =>
-	/** @type {string} */ (sample(localPlanningDepartments));
