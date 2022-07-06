@@ -37,6 +37,11 @@ export const validateSearchCriteria = async (request, response, next) => {
 	}
 };
 
+/**
+ *
+ * @param {string} role
+ * @returns {boolean} validRole
+ */
 const validRole = (role) => {
 	return validRoles.has(role);
 };
@@ -47,22 +52,31 @@ const validQuery = (query) => {
 
 // allows  blank or missing value
 // if it has a value, it must be numberic, and within range
+/**
+ * @param {number} pageNumber
+ * @returns {boolean} validPage
+ */
 const validPageNumber = (pageNumber) => {
-	let valid = true;
+	let validPage = true;
 
 	if (pageNumber) {
-		valid = Number(pageNumber) ? !!(pageNumber > 0 && pageNumber <= maxResultsPerPage) : false;
+		validPage = Number(pageNumber) ? !!(pageNumber > 0 && pageNumber <= maxResultsPerPage) : false;
 	}
-	return valid;
+
+	return validPage;
 };
 
 // allows  blank or missing value
 // if it has a value, it must be numberic, and within range
+/**
+ * @param {number} pageSize
+ * @returns {boolean} validSize
+ */
 const validPageSize = (pageSize) => {
-	let valid = true;
+	let validSize = true;
 
 	if (pageSize) {
-		valid = Number(pageSize) ? !!(pageSize > 0 && pageSize <= maxPages) : false;
+		validSize = Number(pageSize) ? !!(pageSize > 0 && pageSize <= maxPages) : false;
 	}
-	return valid;
+	return validSize;
 };

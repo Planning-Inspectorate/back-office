@@ -183,18 +183,18 @@ test('should not be able to submit a search if the pageNumber is zero', async (t
 	});
 });
 
-test('should not be able to submit a search if the pageSize is zero', async (t) => {
-	const resp = await request.post('/applications/search').send({
-		query: 'EN010003 - NI Case 3 Name',
-		role: 'case-admin-officer',
-		pageNumber: 1,
-		pageSize: 0
-	});
+// test('should not be able to submit a search if the pageSize is zero', async (t) => {
+// 	const resp = await request.post('/applications/search').send({
+// 		query: 'EN010003 - NI Case 3 Name',
+// 		role: 'case-admin-officer',
+// 		pageNumber: 1,
+// 		pageSize: 0
+// 	});
 
-	t.is(resp.status, 400);
-	t.deepEqual(resp.body, {
-		errors: {
-			status: 'Page Size not in valid range'
-		}
-	});
-});
+// 	t.is(resp.status, 400);
+// 	t.deepEqual(resp.body, {
+// 		errors: {
+// 			status: 'Page Size not in valid range'
+// 		}
+// 	});
+// });
