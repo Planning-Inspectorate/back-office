@@ -3,7 +3,8 @@ import nock from 'nock';
 import supertest from 'supertest';
 import {
 	fixtureRegions,
-	fixtureSectors
+	fixtureSectors,
+	fixtureZoomLevels
 } from '../../../../../../testing/applications/fixtures/options-item.js';
 import { createTestApplication } from '../../../../../../testing/index.js';
 
@@ -134,6 +135,23 @@ describe('applications create', () => {
 			nock('http://test/').get('/applications/region').reply(200, fixtureRegions);
 
 			const baseUrl = `/applications-service/create-new-case/123/regions`;
+			const response = await request.get(baseUrl);
+			const element = parseHtml(response.text);
+
+			expect(element.innerHTML).toMatchSnapshot();
+			expect(element.innerHTML).toContain('Save and continue');
+		});
+	});
+
+	describe('GET /create-new-case/:applicationId/zoom-level', () => {
+		beforeEach(async () => {
+			await request.get('/applications-service/case-officer');
+		});
+
+		it('should render the page', async () => {
+			nock('http://test/').get('/applications/zoom-level').reply(200, fixtureZoomLevels);
+
+			const baseUrl = `/applications-service/create-new-case/123/zoom-level`;
 			const response = await request.get(baseUrl);
 			const element = parseHtml(response.text);
 
