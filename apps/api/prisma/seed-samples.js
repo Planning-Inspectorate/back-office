@@ -493,6 +493,15 @@ export const subSectors = [
 	},
 	{
 		subSector: {
+			name: 'railways',
+			abbreviation: 'TR04',
+			displayNameEn: 'Railways',
+			displayNameCy: 'Railways'
+		},
+		sectorName: 'transport'
+	},
+	{
+		subSector: {
 			name: 'rail_freight_interchanges',
 			abbreviation: 'TR05',
 			displayNameEn: 'Rail Freight Interchanges',
