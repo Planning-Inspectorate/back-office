@@ -47,7 +47,7 @@ const validRole = (role) => {
 };
 
 /**
- *@param {string} query
+ * @param {string} query
  * @returns {boolean} validQuery
  */
 const validQuery = (query) => {
@@ -55,7 +55,7 @@ const validQuery = (query) => {
 };
 
 // allows  blank or missing value
-// if it has a value, it must be numberic, and within range
+// if it has a value, it must be numeric, and within range
 /**
  * @param {number} pageNumber
  * @returns {boolean} validPage
@@ -73,7 +73,7 @@ const validPageNumber = (pageNumber) => {
 };
 
 // allows  blank or missing value
-// if it has a value, it must be numberic, and within range
+// if it has a value, it must be numeric, and within range
 /**
  * @param {number} pageSize
  * @returns {boolean} validSize
