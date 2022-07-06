@@ -8,7 +8,7 @@ import { mapValuesUsingObject } from '../../utils/mapping/map-values-using-objec
  */
 
 /**
- * @param {import('@pins/api').Schema.Application[]} application
+ * @param {import('@pins/api').Schema.Application} application
  * @returns {ApplicationResponse}
  */
 export const mapApplication = (application) => {
