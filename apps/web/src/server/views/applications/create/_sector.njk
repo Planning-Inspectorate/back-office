@@ -10,7 +10,7 @@
 	{{ govukRadios({
 		name: "selectedSectorName",
 		idPrefix: "selectedSectorName",
-		errorMessage: (errors !== undefined and errors !== false),
+		errorMessage: errors.selectedSectorName | errorMessage,
 		items: sectors | selectItems({valueKey: 'name', labelKey: 'displayNameEn', selectedValue: selectedValue})
 	}) }}
 {% endblock %}

@@ -54,6 +54,15 @@ export type ApplicationsCreateRegionsBody = {
 	selectedRegionsNames: string[];
 };
 
+export type ApplicationsCreateTeamEmailProps = {
+	applicationTeamEmail: string;
+	errors?: ValidationErrors;
+};
+
+export type ApplicationsCreateTeamEmailBody = {
+	applicationTeamEmail: string;
+};
+
 export type UpdateOrCreateCallback = () => Promise<{
 	errors?: ValidationErrors;
 	id?: string;
