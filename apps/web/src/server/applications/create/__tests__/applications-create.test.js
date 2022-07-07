@@ -139,4 +139,19 @@ describe('applications create', () => {
 			expect(element.innerHTML).toContain('Save and continue');
 		});
 	});
+
+	describe('GET /create-new-case/:applicationId/team-email', () => {
+		beforeEach(async () => {
+			await request.get('/applications-service/case-officer');
+		});
+
+		it('should render the page', async () => {
+			const baseUrl = `/applications-service/create-new-case/123/team-email`;
+			const response = await request.get(baseUrl);
+			const element = parseHtml(response.text);
+
+			expect(element.innerHTML).toMatchSnapshot();
+			expect(element.innerHTML).toContain('Save and continue');
+		});
+	});
 });
