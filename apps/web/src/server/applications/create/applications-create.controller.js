@@ -330,7 +330,7 @@ export async function newApplicationsCreateTeamEmail({ body, errors, params }, r
 	await getUpdatedApplicationIdOrFail(
 		updateTeamEmail,
 		{
-			templateName: '_team-email',
+			templateName: 'team-email',
 			templateData
 		},
 		response

@@ -104,32 +104,32 @@ exports[`applications create GET /create-new-case/:applicationId/regions should 
         <div class=\\"govuk-form-group\\">
             <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
                 <div class=\\"govuk-checkboxes__item\\">
-                    <input class=\\"govuk-checkboxes__input\\" id=\\"selectedRegionsNames\\" name=\\"selectedRegionsNames\\"
+                    <input class=\\"govuk-checkboxes__input\\" id=\\"selectedRegionsNames\\" name=\\"selectedRegionsNames[]\\"
                     type=\\"checkbox\\" value=\\"london\\">
                     <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"selectedRegionsNames\\">Region EN 1</label>
                 </div>
                 <div class=\\"govuk-checkboxes__item\\">
-                    <input class=\\"govuk-checkboxes__input\\" id=\\"selectedRegionsNames-2\\" name=\\"selectedRegionsNames\\"
+                    <input class=\\"govuk-checkboxes__input\\" id=\\"selectedRegionsNames-2\\" name=\\"selectedRegionsNames[]\\"
                     type=\\"checkbox\\" value=\\"yorkshire\\">
                     <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"selectedRegionsNames-2\\">Region EN 2</label>
                 </div>
                 <div class=\\"govuk-checkboxes__item\\">
-                    <input class=\\"govuk-checkboxes__input\\" id=\\"selectedRegionsNames-3\\" name=\\"selectedRegionsNames\\"
+                    <input class=\\"govuk-checkboxes__input\\" id=\\"selectedRegionsNames-3\\" name=\\"selectedRegionsNames[]\\"
                     type=\\"checkbox\\" value=\\"east\\">
                     <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"selectedRegionsNames-3\\">Region EN 3</label>
                 </div>
                 <div class=\\"govuk-checkboxes__item\\">
-                    <input class=\\"govuk-checkboxes__input\\" id=\\"selectedRegionsNames-4\\" name=\\"selectedRegionsNames\\"
+                    <input class=\\"govuk-checkboxes__input\\" id=\\"selectedRegionsNames-4\\" name=\\"selectedRegionsNames[]\\"
                     type=\\"checkbox\\" value=\\"north\\">
                     <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"selectedRegionsNames-4\\">Region EN 4</label>
                 </div>
                 <div class=\\"govuk-checkboxes__item\\">
-                    <input class=\\"govuk-checkboxes__input\\" id=\\"selectedRegionsNames-5\\" name=\\"selectedRegionsNames\\"
+                    <input class=\\"govuk-checkboxes__input\\" id=\\"selectedRegionsNames-5\\" name=\\"selectedRegionsNames[]\\"
                     type=\\"checkbox\\" value=\\"south\\">
                     <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"selectedRegionsNames-5\\">Region EN 5</label>
                 </div>
                 <div class=\\"govuk-checkboxes__item\\">
-                    <input class=\\"govuk-checkboxes__input\\" id=\\"selectedRegionsNames-6\\" name=\\"selectedRegionsNames\\"
+                    <input class=\\"govuk-checkboxes__input\\" id=\\"selectedRegionsNames-6\\" name=\\"selectedRegionsNames[]\\"
                     type=\\"checkbox\\" value=\\"west\\">
                     <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"selectedRegionsNames-6\\">Region EN 6</label>
                 </div>
@@ -234,6 +234,24 @@ exports[`applications create GET /create-new-case/:applicationId/sub-sector shou
         </div>
         <div class=\\"govuk-grid-row\\">
             <div class=\\"govuk-button-group pins-button-group govuk-grid-column-one-half\\"><a class=\\"govuk-link\\" href=\\"/applications-service/create-new-case/123/sector/\\">Back</a>
+                <button                 class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and continue</button>
+            </div>
+        </div>
+    </form>
+</main>"
+`;
+
+exports[`applications create GET /create-new-case/:applicationId/team-email should render the page 1`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <h2 class=\\"govuk-heading-l\\"> What is the case team email address?</h2>
+    <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
+        <div class=\\"govuk-form-group\\">
+            <div id=\\"applicationTeamEmail-hint\\" class=\\"govuk-hint\\">for example, NIEnquiries@planninginspectorate.gsi.gov.uk</div>
+            <input class=\\"govuk-input govuk-!-width-one-third\\"
+            id=\\"applicationTeamEmail\\" name=\\"applicationTeamEmail\\" type=\\"text\\" aria-describedby=\\"applicationTeamEmail-hint\\">
+        </div>
+        <div class=\\"govuk-grid-row\\">
+            <div class=\\"govuk-button-group pins-button-group govuk-grid-column-one-half\\"><a class=\\"govuk-link\\" href=\\"/applications-service/create-new-case/123/zoom-level/\\">Back</a>
                 <button                 class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and continue</button>
             </div>
         </div>
