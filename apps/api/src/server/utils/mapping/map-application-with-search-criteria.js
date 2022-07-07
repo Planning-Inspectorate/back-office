@@ -6,7 +6,7 @@ import { mapApplication } from './map-application.js';
 
 /**
  *
- * @param {import('@pins/api').Schema.Application} application
+ * @param {import('@pins/api').Schema.Application[]} application
  * @returns {ApplicationWithSearchCriteriaResponse}
  */
 export const mapApplicationWithSearchCriteria = (application) => {

@@ -105,6 +105,24 @@ const document = {
 				}
 			}
 		],
+		ApplicationsForSearchCriteria: [
+			{
+				page: 1,
+				pageSize: 1,
+				pageCount: 1,
+				itemCount: 1,
+				items: [
+					{
+						id: 3,
+						status: 'open',
+						reference: 'EN010003',
+						title: 'EN010003 - NI Case 3 Name',
+						modifiedDate: 1_655_298_882,
+						publishedDate: null
+					}
+				]
+			}
+		],
 		AppealToValidate: {
 			AppealId: 1,
 			AppealReference: 'APP/Q9999/D/21/1345264',
