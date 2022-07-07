@@ -316,7 +316,6 @@ export async function newApplicationsCreateZoomLevel({ params, body }, response)
 	response.redirect(`/applications-service/create-new-case/${applicationId}/email`);
 }
 
-
 /**
  * View the case-team email address step of the application creation
  *

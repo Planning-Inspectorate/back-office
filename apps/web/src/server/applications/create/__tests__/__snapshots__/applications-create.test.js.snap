@@ -258,3 +258,50 @@ exports[`applications create GET /create-new-case/:applicationId/team-email shou
     </form>
 </main>"
 `;
+
+exports[`applications create GET /create-new-case/:applicationId/zoom-level should render the page 1`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <h2 class=\\"govuk-heading-l\\"> Choose map zoom level</h2>
+    <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
+        <div class=\\"govuk-form-group\\">
+            <div class=\\"govuk-radios\\" data-module=\\"govuk-radios\\">
+                <div class=\\"govuk-radios__item\\">
+                    <input class=\\"govuk-radios__input\\" id=\\"selectedZoomLevelName\\" name=\\"selectedZoomLevelName\\"
+                    type=\\"radio\\" value=\\"london\\">
+                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"selectedZoomLevelName\\">London EN</label>
+                </div>
+                <div class=\\"govuk-radios__item\\">
+                    <input class=\\"govuk-radios__input\\" id=\\"selectedZoomLevelName-2\\" name=\\"selectedZoomLevelName\\"
+                    type=\\"radio\\" value=\\"yorkshire\\">
+                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"selectedZoomLevelName-2\\">Yorkshire EN</label>
+                </div>
+                <div class=\\"govuk-radios__item\\">
+                    <input class=\\"govuk-radios__input\\" id=\\"selectedZoomLevelName-3\\" name=\\"selectedZoomLevelName\\"
+                    type=\\"radio\\" value=\\"east\\">
+                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"selectedZoomLevelName-3\\">East EN</label>
+                </div>
+                <div class=\\"govuk-radios__item\\">
+                    <input class=\\"govuk-radios__input\\" id=\\"selectedZoomLevelName-4\\" name=\\"selectedZoomLevelName\\"
+                    type=\\"radio\\" value=\\"north\\">
+                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"selectedZoomLevelName-4\\">North EN</label>
+                </div>
+                <div class=\\"govuk-radios__item\\">
+                    <input class=\\"govuk-radios__input\\" id=\\"selectedZoomLevelName-5\\" name=\\"selectedZoomLevelName\\"
+                    type=\\"radio\\" value=\\"south\\">
+                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"selectedZoomLevelName-5\\">South EN</label>
+                </div>
+                <div class=\\"govuk-radios__item\\">
+                    <input class=\\"govuk-radios__input\\" id=\\"selectedZoomLevelName-6\\" name=\\"selectedZoomLevelName\\"
+                    type=\\"radio\\" value=\\"west\\">
+                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"selectedZoomLevelName-6\\">West EN</label>
+                </div>
+            </div>
+        </div>
+        <div class=\\"govuk-grid-row\\">
+            <div class=\\"govuk-button-group pins-button-group govuk-grid-column-one-half\\"><a class=\\"govuk-link\\" href=\\"/applications-service/create-new-case/123/regions/\\">Back</a>
+                <button                 class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and continue</button>
+            </div>
+        </div>
+    </form>
+</main>"
+`;
