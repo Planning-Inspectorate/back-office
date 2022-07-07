@@ -39,6 +39,18 @@ function generateAppealReference() {
 	return `APP/Q9999/D/21/${number}`;
 }
 
+// Application reference should be in the format (subSector)(4 digit sequential_number) eg EN010001
+/**
+ * @param {string} subSector
+ * @param {number} referenceNumber
+ * @returns {string}
+ */
+ function generateApplicationReference(subSector, referenceNumber) {
+	const formattedReferenceNumber = `000${referenceNumber}`.slice(-4);
+
+	return `${subSector}${formattedReferenceNumber}`;
+}
+
 /**
  *
  * @param {object[]} list
@@ -664,54 +676,31 @@ async function main() {
 			});
 		}
 		for (const { subSector } of subSectors) {
-			await prisma.application.create({
-				data: {
-					reference: generateAppealReference(),
-					modifiedAt: new Date(),
-					region: {
-						connect: {
-							name: pickRandom(regions).name
-						}
-					},
-					subSector: {
-						connect: {
-							name: subSector.name
-						}
-					}
-				}
-			});
-			await prisma.application.create({
-				data: {
-					reference: generateAppealReference(),
-					modifiedAt: new Date(),
-					region: {
-						connect: {
-							name: pickRandom(regions).name
-						}
-					},
-					subSector: {
-						connect: {
-							name: subSector.name
+			// make three of each
+			for (let uniqueCtr = 1; uniqueCtr < 4; uniqueCtr+=1) {
+
+				const applicationReference = generateApplicationReference(subSector.abbreviation, uniqueCtr);
+				const applicationTitle = `${applicationReference} - ${subSector.displayNameEn} Test Application ${uniqueCtr}`;
+
+				await prisma.application.create({
+					data: {
+						reference: applicationReference,
+						title: applicationTitle,
+						description: `A description of test case ${uniqueCtr} which is a case of subsector type ${subSector.displayNameEn}`,
+						modifiedAt: new Date(),
+						region: {
+							connect: {
+								name: pickRandom(regions).name
+							}
+						},
+						subSector: {
+							connect: {
+								name: subSector.name
+							}
 						}
 					}
-				}
-			});
-			await prisma.application.create({
-				data: {
-					reference: generateAppealReference(),
-					modifiedAt: new Date(),
-					region: {
-						connect: {
-							name: pickRandom(regions).name
-						}
-					},
-					subSector: {
-						connect: {
-							name: subSector.name
-						}
-					}
-				}
-			});
+				});
+			}
 		}
 	} catch (error) {
 		logger.error(error);
