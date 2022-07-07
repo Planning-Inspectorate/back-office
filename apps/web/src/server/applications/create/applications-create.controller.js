@@ -12,6 +12,9 @@ import * as applicationsCreateService from './applications-create.service.js';
 /** @typedef {import('./applications-create.types').ApplicationsCreateGeographicalInformationBody} ApplicationsCreateGeographicalInformationBody */
 /** @typedef {import('./applications-create.types').ApplicationsCreateRegionsProps} ApplicationsCreateRegionsProps */
 /** @typedef {import('./applications-create.types').ApplicationsCreateRegionsBody} ApplicationsCreateRegionsBody */
+/** @typedef {import('./applications-create.types').ApplicationsCreateTeamEmailProps} ApplicationsCreateTeamEmailProps */
+/** @typedef {import('./applications-create.types').ApplicationsCreateTeamEmailBody} ApplicationsCreateTeamEmailBody */
+
 /** @typedef {import('./applications-create.types').UpdateOrCreateCallback} UpdateOrCreateCallback */
 
 /**
@@ -139,7 +142,6 @@ export async function viewApplicationsCreateSubSector({ params }, response) {
 /**
  * Save the sub-sector for the draft application
  *
- *
  * @type {import('@pins/express').RenderHandler<ApplicationsCreateSubSectorProps,
  * {}, ApplicationsCreateSubSectorBody, {}, DomainParams>}
  */
@@ -147,7 +149,8 @@ export async function newApplicationsCreateSubSector({ errors, params, body }, r
 	const applicationId = getParametersApplicationIdOrFail(params, response);
 	const { selectedSubSectorName } = body;
 	const { sector: applicationSector } = await applicationsCreateService.getApplicationDraft(
-		applicationId
+		applicationId,
+		'transport'
 	);
 	const subSectors = await applicationsCreateService.getSubSectorsBySector(applicationSector);
 	const selectedSubSector = subSectors.find(
@@ -278,6 +281,62 @@ export async function newApplicationsCreateRegions({ errors, params, body }, res
  */
 export async function viewApplicationsCreateZoomLevel(req, response) {
 	return response.render('applications/create/_zoom-level');
+}
+
+/**
+ * Save the zoom-level for the draft application
+ *
+ * @type {import('@pins/express').RenderHandler<{}, {}>}
+ */
+export async function newApplicationsCreateZoomLevel(req, response) {
+	response.redirect(`/applications-service/create-new-case/123/team-email`);
+}
+
+/**
+ * View the case-team email address step of the application creation
+ *
+ * @type {import('@pins/express').RenderHandler<ApplicationsCreateTeamEmailProps,
+ * {}, {}, {}, DomainParams>}
+ */
+export async function viewApplicationsCreateTeamEmail({ params }, response) {
+	const applicationId = getParametersApplicationIdOrFail(params, response);
+	const { teamEmail: applicationTeamEmail } = applicationId
+		? await applicationsCreateService.getApplicationDraft(applicationId)
+		: { teamEmail: '' };
+
+	return response.render('applications/create/_team-email', { applicationTeamEmail });
+}
+
+/**
+ * View the case-team email address step of the application creation
+ *
+ * @type {import('@pins/express').RenderHandler<ApplicationsCreateTeamEmailProps,
+ * {}, ApplicationsCreateTeamEmailBody, {}, DomainParams>}
+ */
+export async function newApplicationsCreateTeamEmail({ body, errors, params }, response) {
+	const applicationId = getParametersApplicationIdOrFail(params, response);
+	const { applicationTeamEmail } = body;
+	const templateData = { applicationTeamEmail };
+	const updateTeamEmail = () =>
+		applicationsCreateService.updateApplicationDraft(applicationId, templateData);
+
+	if (errors) {
+		return response.render('applications/create/_team-email', {
+			errors,
+			...templateData
+		});
+	}
+
+	await getUpdatedApplicationIdOrFail(
+		updateTeamEmail,
+		{
+			templateName: '_team-email',
+			templateData
+		},
+		response
+	);
+
+	response.redirect(`/applications-service/create-new-case/${applicationId}/applicant-type`);
 }
 
 /**

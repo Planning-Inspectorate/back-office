@@ -56,6 +56,12 @@ applicationsCreateResumedStepsRouter
 
 applicationsCreateResumedStepsRouter
 	.route('/zoom-level')
-	.get(controller.viewApplicationsCreateZoomLevel);
+	.get(controller.viewApplicationsCreateZoomLevel)
+	.post(controller.newApplicationsCreateZoomLevel);
+
+applicationsCreateResumedStepsRouter
+	.route('/team-email')
+	.get(controller.viewApplicationsCreateTeamEmail)
+	.post(validators.validateApplicationsTeamEmail, controller.newApplicationsCreateTeamEmail);
 
 export default applicationsCreateRouter;

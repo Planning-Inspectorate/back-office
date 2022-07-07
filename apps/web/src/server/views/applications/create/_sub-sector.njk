@@ -11,7 +11,7 @@
 	{{ govukRadios({
 		name: "selectedSubSectorName",
 		idPrefix: "selectedSubSectorName",
-		errorMessage: (errors !== undefined and errors !== false),
+		errorMessage: errors.selectedSubSectorName | errorMessage,
 		items: subSectors | selectItems({valueKey: 'name', labelKey: 'displayNameEn', selectedValue: selectedValue})
 	}) }}
 {% endblock %}

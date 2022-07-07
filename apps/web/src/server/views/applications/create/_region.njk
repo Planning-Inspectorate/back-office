@@ -9,7 +9,7 @@
 {% block stepForm %}
 	{{ govukCheckboxes({
 		idPrefix: "selectedRegionsNames",
-		name: "selectedRegionsNames",
+		name: "selectedRegionsNames[]",
 		items: regions | selectItems({valueKey: 'name', labelKey: 'displayNameEn'})
 	}) }}
 {% endblock %}
