@@ -1,6 +1,6 @@
 /**
- * @param {object} address address object
- * @returns {string} merged address parts into single string
+ * @param {{addressLine1: string, addressLine2: string, town: string, county: string, postcode: string}} address
+ * @returns {{AddressLine1?: string, AddressLine2?: string, Town?: string, County?: string, PostCode: string}}
  */
 function formatAddress(address) {
 	return {

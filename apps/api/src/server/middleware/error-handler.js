@@ -16,7 +16,7 @@ export function defaultErrorHandler(error, _request, response, next) {
 
 	response.status(code);
 	logger.error(error);
-	return response.send({ error: error.message });
+	response.send({ error: error.message });
 }
 
 /**

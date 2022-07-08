@@ -1,4 +1,4 @@
-import * as applicationRepository from '../../repositories/application.repository.js';
+import * as caseRepository from '../../repositories/case.repository.js';
 import { mapApplicationWithSearchCriteria } from '../../utils/mapping/map-application-with-search-criteria.js';
 
 /**
@@ -7,7 +7,7 @@ import { mapApplicationWithSearchCriteria } from '../../utils/mapping/map-applic
  */
 
 /**
- * @param {import('@pins/api').Schema.Application[]} applications
+ * @param {import('@pins/api').Schema.Case[]} applications
  * @returns {ApplicationWithSearchCriteriaResponse[]}
  */
 const mapApplicationsWithSearchCriteria = (applications) => {
@@ -28,13 +28,13 @@ export const obtainSearchResults = async (_request) => {
 		skipValue = (_request.body.pageNumber - 1) * resultsPerPage;
 	}
 
-	const applications = await applicationRepository.getBySearchCriteria(
+	const applications = await caseRepository.getBySearchCriteria(
 		_request.body.query.trim(),
 		skipValue,
 		Number(resultsPerPage)
 	);
 
-	const applicationsCount = await applicationRepository.getApplicationsCountBySearchCriteria(
+	const applicationsCount = await caseRepository.getApplicationsCountBySearchCriteria(
 		_request.body.query.trim()
 	);
 

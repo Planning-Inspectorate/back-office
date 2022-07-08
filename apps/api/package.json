@@ -13,7 +13,7 @@
   "scripts": {
     "test": "NODE_ENV=test cross-env ava --no-worker-threads",
     "coverage": "c8 --reporter=html --reporter=text ava",
-    "dev": "npx prisma generate && nodemon --experimental-json-modules -e js ./src/server.js",
+    "dev": "npm run prisma:generate && nodemon --experimental-json-modules -e js ./src/server.js",
     "start": "node ./src/server.js",
     "lint:js": "eslint src prisma/seed.js",
     "lint:js:fix": "eslint src prisma/seed.js --fix",
@@ -22,7 +22,7 @@
     "db:migrate": "npx prisma migrate dev",
     "db:migrate:prod": "npx prisma migrate deploy",
     "db:reset": "npx prisma migrate reset",
-    "db:seed": "npx prisma db seed",
+    "db:seed": "npm run prisma:generate && npx prisma db seed",
     "prisma:format": "npx prisma format",
     "prisma:generate": "npx prisma generate",
     "build": "npm run prisma:generate",

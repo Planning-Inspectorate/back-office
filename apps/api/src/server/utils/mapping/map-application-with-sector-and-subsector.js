@@ -8,7 +8,7 @@ import { mapSector } from './map-sector.js';
 
 /**
  *
- * @param {import('@pins/api').Schema.Application[]} application
+ * @param {import('@pins/api').Schema.Case} application
  * @returns {ApplicationWithSectorResponse}
  */
 export const mapApplicationWithSectorAndSubSector = (application) => {
@@ -16,7 +16,7 @@ export const mapApplicationWithSectorAndSubSector = (application) => {
 
 	return {
 		...applicationData,
-		subSector: mapSector(application.subSector),
-		sector: mapSector(application.subSector.sector)
+		subSector: mapSector(application.ApplicationDetails.subSector),
+		sector: mapSector(application.ApplicationDetails.subSector.sector)
 	};
 };

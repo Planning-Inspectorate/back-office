@@ -30,7 +30,7 @@ extends:
         condition: eq(dependencies.semantic_release.outputs['run_semantic_release.versions.release'], 'true')
         deploymentJobs:
           - name: Stage API
-            condition: eq(dependencies.semantic_release.outputs['run_semantic_release.versions.apiRelease'], 'true')
+            condition: eq(stageDependencies.semantic_release.run_semantic_release.outputs['versions.apiRelease'], 'true')
             steps:
               - template: ../steps/azure_web_app_docker_tag.yml
                 parameters:
@@ -62,7 +62,7 @@ extends:
               - name: apiVersion
                 value: $[ stageDependencies.semantic_release.run_semantic_release.outputs['versions.apiVersion'] ]
           - name: Stage Web
-            condition: eq(dependencies.semantic_release.outputs['run_semantic_release.versions.webRelease'], 'true')
+            condition: eq(stageDependencies.semantic_release.run_semantic_release.outputs['versions.webRelease'], 'true')
             steps:
               - template: ../steps/azure_web_app_docker_tag.yml
                 parameters:

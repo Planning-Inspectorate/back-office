@@ -2,17 +2,26 @@ import { databaseConnector } from '../utils/database-connector.js';
 
 /**
  * @param {string} status
- * @returns {Promise<import('@pins/api').Schema.Application[]>}
+ * @returns {Promise<import('@pins/api').Schema.Case[]>}
  */
 export const getByStatus = (status) => {
-	return databaseConnector.application.findMany({
+	return databaseConnector.case.findMany({
 		where: {
-			status
+			CaseStatus: {
+				some: {
+					status,
+					valid: true
+				}
+			}
 		},
 		include: {
-			subSector: {
+			ApplicationDetails: {
 				include: {
-					sector: true
+					subSector: {
+						include: {
+							sector: true
+						}
+					}
 				}
 			}
 		}
@@ -23,10 +32,10 @@ export const getByStatus = (status) => {
  * @param {string} query
  * @param {number} skipValue
  * @param {number} pageSize
- * @returns {Promise<import('@pins/api').Schema.Application[]>}
+ * @returns {Promise<import('@pins/api').Schema.Case[]>}
  */
 export const getBySearchCriteria = (query, skipValue, pageSize) => {
-	return databaseConnector.application.findMany({
+	return databaseConnector.case.findMany({
 		skip: skipValue,
 		take: pageSize,
 		orderBy: [
@@ -48,11 +57,16 @@ export const getBySearchCriteria = (query, skipValue, pageSize) => {
 			]
 		},
 		include: {
-			subSector: {
+			ApplicationDetails: {
 				include: {
-					sector: true
+					subSector: {
+						include: {
+							sector: true
+						}
+					}
 				}
-			}
+			},
+			CaseStatus: true
 		}
 	});
 };
@@ -62,7 +76,7 @@ export const getBySearchCriteria = (query, skipValue, pageSize) => {
  * @returns {Promise<number>}
  */
 export const getApplicationsCountBySearchCriteria = (query) => {
-	return databaseConnector.application.count({
+	return databaseConnector.case.count({
 		where: {
 			OR: [
 				{

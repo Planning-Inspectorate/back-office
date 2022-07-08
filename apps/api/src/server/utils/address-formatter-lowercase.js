@@ -1,3 +1,8 @@
+/**
+ *
+ * @param {{addressLine1: string, addressLine2: string, town: string, county: string, postcode: string}} address
+ * @returns {{addressLine1?: string, addressLine2?: string, town?: string, county?: string, postCode: string}}
+ */
 const formatAddressLowerCase = (address) => {
 	return {
 		...(address.addressLine1 && { addressLine1: address.addressLine1 }),

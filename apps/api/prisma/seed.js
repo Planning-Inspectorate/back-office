@@ -1,4 +1,4 @@
-import Prisma from '@prisma/client';
+import { databaseConnector } from '../src/server/utils/database-connector.js';
 import logger from '../src/server/utils/logger.js';
 import {
 	addressesList,
@@ -14,10 +14,6 @@ import {
 	sectors,
 	subSectors
 } from './seed-samples.js';
-
-const { PrismaClient } = Prisma;
-
-const prisma = new PrismaClient();
 
 /**
  * @returns {Date} date two weeks ago
@@ -41,14 +37,14 @@ function generateAppealReference() {
 
 // Application reference should be in the format (subSector)(4 digit sequential_number) eg EN010001
 /**
- * @param {string} subSector
+ * @param {{name: string}} subSector
  * @param {number} referenceNumber
  * @returns {string}
  */
- function generateApplicationReference(subSector, referenceNumber) {
+function generateApplicationReference(subSector, referenceNumber) {
 	const formattedReferenceNumber = `000${referenceNumber}`.slice(-4);
 
-	return `${subSector}${formattedReferenceNumber}`;
+	return `${subSector.name}${formattedReferenceNumber}`;
 }
 
 /**
@@ -610,25 +606,30 @@ const appealsData = [
 ];
 
 const deleteAllRecords = async () => {
-	const deleteApplications = prisma.application.deleteMany();
-	const deleteSubSectos = prisma.subSector.deleteMany();
-	const deleteSectors = prisma.sector.deleteMany();
-	const deleteRegions = prisma.region.deleteMany();
-	const deleteAppeals = prisma.appeal.deleteMany();
-	const deleteUsers = prisma.user.deleteMany();
-	const deleteAppealTypes = prisma.appealType.deleteMany();
-	const deleteAddresses = prisma.address.deleteMany();
-	const deleteAppealDetailsFromAppellant = prisma.appealDetailsFromAppellant.deleteMany();
-	const deleteAppealStatus = prisma.appealStatus.deleteMany();
-	const deleteAppellant = prisma.appellant.deleteMany();
-	const deleteInspectorDecision = prisma.inspectorDecision.deleteMany();
-	const deleteLPAQuestionnaire = prisma.lPAQuestionnaire.deleteMany();
-	const deleteReviewQuestionnaire = prisma.reviewQuestionnaire.deleteMany();
-	const deleteSiteVisit = prisma.siteVisit.deleteMany();
-	const deleteValidationDecision = prisma.validationDecision.deleteMany();
+	const deleteCases = databaseConnector.case.deleteMany();
+	const deleteCaseStatuses = databaseConnector.caseStatus.deleteMany();
+	const deleteApplicationDetails = databaseConnector.applicationDetails.deleteMany();
+	const deleteSubSectos = databaseConnector.subSector.deleteMany();
+	const deleteSectors = databaseConnector.sector.deleteMany();
+	const deleteRegions = databaseConnector.region.deleteMany();
+	const deleteAppeals = databaseConnector.appeal.deleteMany();
+	const deleteUsers = databaseConnector.user.deleteMany();
+	const deleteAppealTypes = databaseConnector.appealType.deleteMany();
+	const deleteAddresses = databaseConnector.address.deleteMany();
+	const deleteAppealDetailsFromAppellant =
+		databaseConnector.appealDetailsFromAppellant.deleteMany();
+	const deleteAppealStatus = databaseConnector.appealStatus.deleteMany();
+	const deleteAppellant = databaseConnector.appellant.deleteMany();
+	const deleteInspectorDecision = databaseConnector.inspectorDecision.deleteMany();
+	const deleteLPAQuestionnaire = databaseConnector.lPAQuestionnaire.deleteMany();
+	const deleteReviewQuestionnaire = databaseConnector.reviewQuestionnaire.deleteMany();
+	const deleteSiteVisit = databaseConnector.siteVisit.deleteMany();
+	const deleteValidationDecision = databaseConnector.validationDecision.deleteMany();
 
-	await prisma.$transaction([
-		deleteApplications,
+	await databaseConnector.$transaction([
+		deleteApplicationDetails,
+		deleteCaseStatuses,
+		deleteCases,
 		deleteSubSectos,
 		deleteSectors,
 		deleteRegions,
@@ -649,64 +650,82 @@ const deleteAllRecords = async () => {
 
 /**
  *
+ * @param {{name: string, displayNameEn: string}} subSector
+ * @param {number} index
+ */
+const createApplication = async (subSector, index) => {
+	const reference = generateApplicationReference(subSector, index);
+	const title = `${reference} - ${subSector.displayNameEn} Test Application ${index}`;
+
+	await databaseConnector.case.create({
+		data: {
+			reference,
+			modifiedAt: new Date(),
+			description: `A description of test case ${index} which is a case of subsector type ${subSector.displayNameEn}`,
+			title,
+			ApplicationDetails: {
+				create: {
+					subSector: {
+						connect: {
+							name: subSector.name
+						}
+					},
+					region: {
+						connect: {
+							name: pickRandom(regions).name
+						}
+					}
+				}
+			},
+			CaseStatus: {
+				create: [
+					{
+						status: 'open'
+					}
+				]
+			}
+		}
+	});
+};
+
+/**
+ *
  */
 async function main() {
 	try {
 		await deleteAllRecords();
-		await prisma.appealType.createMany({
+		await databaseConnector.appealType.createMany({
 			data: [
 				{ shorthand: 'FPA', type: appealTypes.FPA },
 				{ shorthand: 'HAS', type: appealTypes.HAS }
 			]
 		});
 		for (const appealData of appealsData) {
-			await prisma.appeal.create({ data: appealData });
+			await databaseConnector.appeal.create({ data: appealData });
 		}
 		for (const sector of sectors) {
-			await prisma.sector.create({ data: sector });
+			await databaseConnector.sector.create({ data: sector });
 		}
 		for (const { subSector, sectorName } of subSectors) {
-			await prisma.subSector.create({
+			await databaseConnector.subSector.create({
 				data: { ...subSector, sector: { connect: { name: sectorName } } }
 			});
 		}
 		for (const region of regions) {
-			await prisma.region.create({
+			await databaseConnector.region.create({
 				data: region
 			});
 		}
 		for (const { subSector } of subSectors) {
-			// make three of each
-			for (let uniqueCtr = 1; uniqueCtr < 4; uniqueCtr+=1) {
-
-				const applicationReference = generateApplicationReference(subSector.abbreviation, uniqueCtr);
-				const applicationTitle = `${applicationReference} - ${subSector.displayNameEn} Test Application ${uniqueCtr}`;
-
-				await prisma.application.create({
-					data: {
-						reference: applicationReference,
-						title: applicationTitle,
-						description: `A description of test case ${uniqueCtr} which is a case of subsector type ${subSector.displayNameEn}`,
-						modifiedAt: new Date(),
-						region: {
-							connect: {
-								name: pickRandom(regions).name
-							}
-						},
-						subSector: {
-							connect: {
-								name: subSector.name
-							}
-						}
-					}
-				});
+			for (let index = 1; index < 4; index += 1) {
+				await createApplication(subSector, index);
 			}
 		}
 	} catch (error) {
 		logger.error(error);
 		throw error;
 	} finally {
-		await prisma.$disconnect();
+		await databaseConnector.$disconnect();
 	}
 }
 
