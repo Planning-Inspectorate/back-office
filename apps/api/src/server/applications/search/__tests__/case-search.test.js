@@ -220,3 +220,65 @@ test('gets empty results using search criteria with no matching results', async 
 		items: []
 	});
 });
+
+test('uses default vaue for PageNumber when there is no info sent in the search criteria', async (t) => {
+	sinon.stub(databaseConnector, 'application').get(() => {
+		return {
+			findMany: findManyStub,
+			count: countStub
+		};
+	});
+
+	const response = await request
+		.post('/applications/search')
+		.send({ query: 'bcd', role: 'case-officer', pageSize: 1 });
+
+	t.is(response.status, 200);
+	t.deepEqual(response.body, {
+		page: 1,
+		pageSize: 1,
+		pageCount: 1,
+		itemCount: 1,
+		items: [
+			{
+				id: 3,
+				status: 'open',
+				reference: application.reference,
+				title: 'EN010003 - NI Case 3 Name',
+				modifiedDate: 1_655_298_882,
+				publishedDate: null
+			}
+		]
+	});
+});
+
+test('uses default vaue for PageSize when there is no info sent in the search criteria', async (t) => {
+	sinon.stub(databaseConnector, 'application').get(() => {
+		return {
+			findMany: findManyStub,
+			count: countStub
+		};
+	});
+
+	const response = await request
+		.post('/applications/search')
+		.send({ query: 'bcd', role: 'case-officer', pageNumber: 1 });
+
+	t.is(response.status, 200);
+	t.deepEqual(response.body, {
+		page: 1,
+		pageSize: 1,
+		pageCount: 1,
+		itemCount: 1,
+		items: [
+			{
+				id: 3,
+				status: 'open',
+				reference: application.reference,
+				title: 'EN010003 - NI Case 3 Name',
+				modifiedDate: 1_655_298_882,
+				publishedDate: null
+			}
+		]
+	});
+});
