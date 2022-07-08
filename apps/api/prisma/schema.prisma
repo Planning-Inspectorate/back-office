@@ -94,9 +94,9 @@ model CaseStatus {
 }
 
 model ApplicationDetails {
-  id          Int        @id @default(autoincrement())
-  caseId      Int        @unique
-  case        Case       @relation(fields: [caseId], references: [id])
+  id          Int       @id @default(autoincrement())
+  caseId      Int       @unique
+  case        Case      @relation(fields: [caseId], references: [id])
   subSectorId Int
   subSector   SubSector @relation(fields: [subSectorId], references: [id])
   regionId    Int
