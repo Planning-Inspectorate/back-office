@@ -1,0 +1,260 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`applications create GET /create-new-case When role is: Case admin officer should render form 1`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <h2 class=\\"govuk-heading-l\\"> Enter name and description</h2>
+    <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
+        <div class=\\"govuk-form-group\\">
+            <label class=\\"govuk-label font-weight--700\\" for=\\"applicationName\\">Name of the case</label>
+            <div id=\\"applicationName-hint\\" class=\\"govuk-hint\\">for example, Bridge over a very long canyon</div>
+            <input class=\\"govuk-input govuk-!-width-one-third\\"
+            id=\\"applicationName\\" name=\\"applicationName\\" type=\\"text\\" aria-describedby=\\"applicationName-hint\\">
+        </div>
+        <div class=\\"govuk-form-group\\">
+            <label class=\\"govuk-label font-weight--700\\" for=\\"applicationDescription\\">Description of the case</label>
+            <div id=\\"applicationDescription-hint\\" class=\\"govuk-hint\\">for example, An offshore wind generating station of capacity up to 285
+                MW</div>
+            <textarea class=\\"govuk-textarea govuk-!-width-three-quarters\\" id=\\"applicationDescription\\"
+            name=\\"applicationDescription\\" rows=\\"5\\" aria-describedby=\\"applicationDescription-hint\\"></textarea>
+        </div>
+        <div class=\\"govuk-grid-row\\">
+            <div class=\\"govuk-button-group pins-button-group govuk-grid-column-one-half\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case-admin-officer\\">Back</a>
+                <button                 class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and continue</button>
+            </div>
+        </div>
+    </form>
+</main>"
+`;
+
+exports[`applications create GET /create-new-case When role is: Case officer should render form 1`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <h2 class=\\"govuk-heading-l\\"> Enter name and description</h2>
+    <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
+        <div class=\\"govuk-form-group\\">
+            <label class=\\"govuk-label font-weight--700\\" for=\\"applicationName\\">Name of the case</label>
+            <div id=\\"applicationName-hint\\" class=\\"govuk-hint\\">for example, Bridge over a very long canyon</div>
+            <input class=\\"govuk-input govuk-!-width-one-third\\"
+            id=\\"applicationName\\" name=\\"applicationName\\" type=\\"text\\" aria-describedby=\\"applicationName-hint\\">
+        </div>
+        <div class=\\"govuk-form-group\\">
+            <label class=\\"govuk-label font-weight--700\\" for=\\"applicationDescription\\">Description of the case</label>
+            <div id=\\"applicationDescription-hint\\" class=\\"govuk-hint\\">for example, An offshore wind generating station of capacity up to 285
+                MW</div>
+            <textarea class=\\"govuk-textarea govuk-!-width-three-quarters\\" id=\\"applicationDescription\\"
+            name=\\"applicationDescription\\" rows=\\"5\\" aria-describedby=\\"applicationDescription-hint\\"></textarea>
+        </div>
+        <div class=\\"govuk-grid-row\\">
+            <div class=\\"govuk-button-group pins-button-group govuk-grid-column-one-half\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case-officer\\">Back</a>
+                <button                 class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and continue</button>
+            </div>
+        </div>
+    </form>
+</main>"
+`;
+
+exports[`applications create GET /create-new-case When role is: Inspector should NOT render the form 1`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <div class=\\"govuk-grid-row\\">
+        <div class=\\"govuk-grid-column-two-thirds\\">
+            <h1 class=\\"govuk-heading-xl\\">Sorry, there is a problem with your login</h1>
+            <p class=\\"govuk-body\\">You are not permitted to access this URL.</p>
+            <p class=\\"govuk-body\\"><a href=\\"https://has-appeal.herokuapp.com/help/contact\\" class=\\"govuk-link\\">Contact the Planning Inspectorate Customer Support</a> if
+                the problem persists.</p>
+        </div>
+    </div>
+</main>"
+`;
+
+exports[`applications create GET /create-new-case/:applicationId/geographical-information should render the page 1`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <h2 class=\\"govuk-heading-l\\"> Enter geographical information</h2>
+    <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
+        <div class=\\"govuk-form-group\\">
+            <label class=\\"govuk-label font-weight--700\\" for=\\"applicationLocation\\">Case Location</label>
+            <div id=\\"applicationLocation-hint\\" class=\\"govuk-hint govuk-!-width-three-quarters\\">for example “approximately 8km off the coast of Kent, in areas surrounding
+                Thanet Offshore Wind Farm</div>
+            <textarea class=\\"govuk-textarea govuk-!-width-three-quarters\\"
+            id=\\"applicationLocation\\" name=\\"applicationLocation\\" rows=\\"5\\" aria-describedby=\\"applicationLocation-hint\\"></textarea>
+        </div>
+        <div class=\\"govuk-form-group\\">
+            <label class=\\"govuk-label font-weight--700\\" for=\\"applicationEasting\\">Grid reference Easting</label>
+            <div id=\\"applicationEasting-hint\\" class=\\"govuk-hint\\">for example, 345678</div>
+            <input class=\\"govuk-input govuk-!-width-one-third\\"
+            id=\\"applicationEasting\\" name=\\"applicationEasting\\" type=\\"text\\" aria-describedby=\\"applicationEasting-hint\\">
+        </div>
+        <div class=\\"govuk-form-group\\">
+            <label class=\\"govuk-label font-weight--700\\" for=\\"applicationNorthing\\">Grid reference Northing</label>
+            <div id=\\"applicationNorthing-hint\\" class=\\"govuk-hint\\">for example, 345678</div>
+            <input class=\\"govuk-input govuk-!-width-one-third\\"
+            id=\\"applicationNorthing\\" name=\\"applicationNorthing\\" type=\\"text\\" aria-describedby=\\"applicationNorthing-hint\\">
+        </div>
+        <div class=\\"govuk-grid-row\\">
+            <div class=\\"govuk-button-group pins-button-group govuk-grid-column-one-half\\"><a class=\\"govuk-link\\" href=\\"/applications-service/create-new-case/123/sub-sector/\\">Back</a>
+                <button                 class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and continue</button>
+            </div>
+        </div>
+    </form>
+</main>"
+`;
+
+exports[`applications create GET /create-new-case/:applicationId/regions should render the page 1`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <h2 class=\\"govuk-heading-l\\"> Choose one or multiple regions</h2>
+    <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
+        <div class=\\"govuk-form-group\\">
+            <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
+                <div class=\\"govuk-checkboxes__item\\">
+                    <input class=\\"govuk-checkboxes__input\\" id=\\"selectedRegionsNames\\" name=\\"selectedRegionsNames[]\\"
+                    type=\\"checkbox\\" value=\\"london\\">
+                    <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"selectedRegionsNames\\">London EN</label>
+                </div>
+                <div class=\\"govuk-checkboxes__item\\">
+                    <input class=\\"govuk-checkboxes__input\\" id=\\"selectedRegionsNames-2\\" name=\\"selectedRegionsNames[]\\"
+                    type=\\"checkbox\\" value=\\"yorkshire\\">
+                    <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"selectedRegionsNames-2\\">Yorkshire EN</label>
+                </div>
+                <div class=\\"govuk-checkboxes__item\\">
+                    <input class=\\"govuk-checkboxes__input\\" id=\\"selectedRegionsNames-3\\" name=\\"selectedRegionsNames[]\\"
+                    type=\\"checkbox\\" value=\\"east\\">
+                    <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"selectedRegionsNames-3\\">East EN</label>
+                </div>
+                <div class=\\"govuk-checkboxes__item\\">
+                    <input class=\\"govuk-checkboxes__input\\" id=\\"selectedRegionsNames-4\\" name=\\"selectedRegionsNames[]\\"
+                    type=\\"checkbox\\" value=\\"north\\">
+                    <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"selectedRegionsNames-4\\">North EN</label>
+                </div>
+                <div class=\\"govuk-checkboxes__item\\">
+                    <input class=\\"govuk-checkboxes__input\\" id=\\"selectedRegionsNames-5\\" name=\\"selectedRegionsNames[]\\"
+                    type=\\"checkbox\\" value=\\"south\\">
+                    <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"selectedRegionsNames-5\\">South EN</label>
+                </div>
+                <div class=\\"govuk-checkboxes__item\\">
+                    <input class=\\"govuk-checkboxes__input\\" id=\\"selectedRegionsNames-6\\" name=\\"selectedRegionsNames[]\\"
+                    type=\\"checkbox\\" value=\\"west\\">
+                    <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"selectedRegionsNames-6\\">West EN</label>
+                </div>
+            </div>
+        </div>
+        <div class=\\"govuk-grid-row\\">
+            <div class=\\"govuk-button-group pins-button-group govuk-grid-column-one-half\\"><a class=\\"govuk-link\\" href=\\"/applications-service/create-new-case/123/geographical-information/\\">Back</a>
+                <button                 class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and continue</button>
+            </div>
+        </div>
+    </form>
+</main>"
+`;
+
+exports[`applications create GET /create-new-case/:applicationId/sector When applicationId is: Not provided should NOT render the page 1`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <div class=\\"govuk-grid-row\\">
+        <div class=\\"govuk-grid-column-two-thirds\\">
+            <h1 class=\\"govuk-heading-xl\\">Sorry, there is a problem with your login</h1>
+            <p class=\\"govuk-body\\">You are not permitted to access this URL.</p>
+            <p class=\\"govuk-body\\"><a href=\\"https://has-appeal.herokuapp.com/help/contact\\" class=\\"govuk-link\\">Contact the Planning Inspectorate Customer Support</a> if
+                the problem persists.</p>
+        </div>
+    </div>
+</main>"
+`;
+
+exports[`applications create GET /create-new-case/:applicationId/sector When applicationId is: Provided should render the page 1`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <h2 class=\\"govuk-heading-l\\"> Choose a sector</h2>
+    <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
+        <div class=\\"govuk-form-group\\">
+            <div class=\\"govuk-radios\\" data-module=\\"govuk-radios\\">
+                <div class=\\"govuk-radios__item\\">
+                    <input class=\\"govuk-radios__input\\" id=\\"selectedSectorName\\" name=\\"selectedSectorName\\"
+                    type=\\"radio\\" value=\\"transport\\">
+                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"selectedSectorName\\">Transport EN</label>
+                </div>
+                <div class=\\"govuk-radios__item\\">
+                    <input class=\\"govuk-radios__input\\" id=\\"selectedSectorName-2\\" name=\\"selectedSectorName\\"
+                    type=\\"radio\\" value=\\"water\\">
+                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"selectedSectorName-2\\">Water EN</label>
+                </div>
+                <div class=\\"govuk-radios__item\\">
+                    <input class=\\"govuk-radios__input\\" id=\\"selectedSectorName-3\\" name=\\"selectedSectorName\\"
+                    type=\\"radio\\" value=\\"waste\\">
+                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"selectedSectorName-3\\">Waste EN</label>
+                </div>
+                <div class=\\"govuk-radios__item\\">
+                    <input class=\\"govuk-radios__input\\" id=\\"selectedSectorName-4\\" name=\\"selectedSectorName\\"
+                    type=\\"radio\\" value=\\"energy\\">
+                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"selectedSectorName-4\\">Energy EN</label>
+                </div>
+                <div class=\\"govuk-radios__item\\">
+                    <input class=\\"govuk-radios__input\\" id=\\"selectedSectorName-5\\" name=\\"selectedSectorName\\"
+                    type=\\"radio\\" value=\\"waste_water\\">
+                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"selectedSectorName-5\\">Waste_water EN</label>
+                </div>
+            </div>
+        </div>
+        <div class=\\"govuk-grid-row\\">
+            <div class=\\"govuk-button-group pins-button-group govuk-grid-column-one-half\\"><a class=\\"govuk-link\\" href=\\"/applications-service/create-new-case/123/\\">Back</a>
+                <button                 class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and continue</button>
+            </div>
+        </div>
+    </form>
+</main>"
+`;
+
+exports[`applications create GET /create-new-case/:applicationId/sub-sector should render the page 1`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <h2 class=\\"govuk-heading-l\\"> Choose a subsector</h2>
+    <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
+        <div class=\\"govuk-form-group\\">
+            <div class=\\"govuk-radios\\" data-module=\\"govuk-radios\\">
+                <div class=\\"govuk-radios__item\\">
+                    <input class=\\"govuk-radios__input\\" id=\\"selectedSubSectorName\\" name=\\"selectedSubSectorName\\"
+                    type=\\"radio\\" value=\\"transport\\">
+                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"selectedSubSectorName\\">Transport EN</label>
+                </div>
+                <div class=\\"govuk-radios__item\\">
+                    <input class=\\"govuk-radios__input\\" id=\\"selectedSubSectorName-2\\" name=\\"selectedSubSectorName\\"
+                    type=\\"radio\\" value=\\"water\\">
+                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"selectedSubSectorName-2\\">Water EN</label>
+                </div>
+                <div class=\\"govuk-radios__item\\">
+                    <input class=\\"govuk-radios__input\\" id=\\"selectedSubSectorName-3\\" name=\\"selectedSubSectorName\\"
+                    type=\\"radio\\" value=\\"waste\\">
+                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"selectedSubSectorName-3\\">Waste EN</label>
+                </div>
+                <div class=\\"govuk-radios__item\\">
+                    <input class=\\"govuk-radios__input\\" id=\\"selectedSubSectorName-4\\" name=\\"selectedSubSectorName\\"
+                    type=\\"radio\\" value=\\"energy\\">
+                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"selectedSubSectorName-4\\">Energy EN</label>
+                </div>
+                <div class=\\"govuk-radios__item\\">
+                    <input class=\\"govuk-radios__input\\" id=\\"selectedSubSectorName-5\\" name=\\"selectedSubSectorName\\"
+                    type=\\"radio\\" value=\\"waste_water\\">
+                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"selectedSubSectorName-5\\">Waste_water EN</label>
+                </div>
+            </div>
+        </div>
+        <div class=\\"govuk-grid-row\\">
+            <div class=\\"govuk-button-group pins-button-group govuk-grid-column-one-half\\"><a class=\\"govuk-link\\" href=\\"/applications-service/create-new-case/123/sector/\\">Back</a>
+                <button                 class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and continue</button>
+            </div>
+        </div>
+    </form>
+</main>"
+`;
+
+exports[`applications create GET /create-new-case/:applicationId/team-email should render the page 1`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <h2 class=\\"govuk-heading-l\\"> What is the case team email address?</h2>
+    <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
+        <div class=\\"govuk-form-group\\">
+            <div id=\\"applicationTeamEmail-hint\\" class=\\"govuk-hint\\">for example, NIEnquiries@planninginspectorate.gsi.gov.uk</div>
+            <input class=\\"govuk-input govuk-!-width-one-third\\"
+            id=\\"applicationTeamEmail\\" name=\\"applicationTeamEmail\\" type=\\"text\\" aria-describedby=\\"applicationTeamEmail-hint\\">
+        </div>
+        <div class=\\"govuk-grid-row\\">
+            <div class=\\"govuk-button-group pins-button-group govuk-grid-column-one-half\\"><a class=\\"govuk-link\\" href=\\"/applications-service/create-new-case/123/zoom-level/\\">Back</a>
+                <button                 class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and continue</button>
+            </div>
+        </div>
+    </form>
+</main>"
+`;
