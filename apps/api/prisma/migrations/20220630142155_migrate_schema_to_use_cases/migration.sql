@@ -27,8 +27,8 @@ CREATE TABLE [dbo].[Case] (
 CREATE TABLE [dbo].[ApplicationDetails] (
     [id] INT NOT NULL IDENTITY(1,1),
     [caseId] INT NOT NULL,
-    [subSectorId] INT NOT NULL,
-    [regionId] INT NOT NULL,
+    [subSectorId] INT,
+    [regionId] INT,
     CONSTRAINT [ApplicationDetails_pkey] PRIMARY KEY CLUSTERED ([id])
 );
 
@@ -45,17 +45,17 @@ CREATE TABLE [dbo].[CaseStatus] (
 );
 
 -- AddForeignKey
-ALTER TABLE [dbo].[ApplicationDetails] ADD CONSTRAINT [ApplicationDetails_regionId_fkey] FOREIGN KEY ([regionId]) REFERENCES [dbo].[Region]([id]) ON DELETE NO ACTION ON UPDATE CASCADE;
-
--- AddForeignKey
 ALTER TABLE [dbo].[ApplicationDetails] ADD CONSTRAINT [ApplicationDetails_caseId_fkey] FOREIGN KEY ([caseId]) REFERENCES [dbo].[Case]([id]) ON DELETE NO ACTION ON UPDATE CASCADE;
 CREATE UNIQUE NONCLUSTERED INDEX [ApplicationDetails_caseId_key] ON [dbo].[ApplicationDetails]([caseId]);
 
 -- AddForeignKey
-ALTER TABLE [dbo].[ApplicationDetails] ADD CONSTRAINT [ApplicationDetails_subSectorId_fkey] FOREIGN KEY ([subSectorId]) REFERENCES [dbo].[SubSector]([id]) ON DELETE NO ACTION ON UPDATE CASCADE;
+ALTER TABLE [dbo].[ApplicationDetails] ADD CONSTRAINT [ApplicationDetails_subSectorId_fkey] FOREIGN KEY ([subSectorId]) REFERENCES [dbo].[SubSector]([id]) ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE [dbo].[CaseStatus] ADD CONSTRAINT [CaseStatus_caseId_fkey] FOREIGN KEY ([caseId]) REFERENCES [dbo].[Case]([id]) ON DELETE NO ACTION ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE [dbo].[ApplicationDetails] ADD CONSTRAINT [ApplicationDetails_regionId_fkey] FOREIGN KEY ([regionId]) REFERENCES [dbo].[Region]([id]) ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- Adds data to Case table
 INSERT INTO [dbo].[Case] (reference, modifiedAt, title, description)
