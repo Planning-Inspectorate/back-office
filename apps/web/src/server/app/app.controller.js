@@ -19,7 +19,7 @@ import * as authSession from './auth/auth-session.service.js';
  */
 export function viewHomepage(request, response, next) {
 	const account = /** @type {AccountInfo} */ (authSession.getAccount(request.session));
-	const userGroups = account.idTokenClaims.groups ?? [];
+	const userGroups = account?.idTokenClaims?.groups ?? [];
 
 	// Determine those group ids the user belongs to for the appeals domain
 	const appealGroupIds = intersection(Object.values(config.referenceData.appeals), userGroups);

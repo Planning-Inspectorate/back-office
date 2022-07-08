@@ -1,9 +1,9 @@
 import { parseHtml } from '@pins/platform';
 import nock from 'nock';
 import supertest from 'supertest';
-import { fixtureRegions } from '../../../../../testing/applications/fixtures/regions.js';
-import { fixtureSectors } from '../../../../../testing/applications/fixtures/sectors.js';
-import { createTestApplication } from '../../../../../testing/index.js';
+import { fixtureRegions } from '../../../../../../testing/applications/fixtures/regions.js';
+import { fixtureSectors } from '../../../../../../testing/applications/fixtures/sectors.js';
+import { createTestApplication } from '../../../../../../testing/index.js';
 
 const { app, installMockApi, teardown } = createTestApplication();
 const request = supertest(app);
