@@ -70,19 +70,37 @@ model AppealDetailsFromAppellant {
   appeal                               Appeal   @relation(fields: [appealId], references: [id])
 }
 
-model Application {
-  id          Int       @id @default(autoincrement())
-  status      String    @default("open")
-  reference   String
-	title 			String
-	description String
-	createdAt   DateTime 	@default(now())
-	modifiedAt  DateTime
-	publishedAt DateTime?
+model Case {
+  id                 Int                 @id @default(autoincrement())
+  reference          String?
+  title              String?
+  description        String?
+  createdAt          DateTime            @default(now())
+  modifiedAt         DateTime            @default(now())
+  publishedAt        DateTime?
+  ApplicationDetails ApplicationDetails?
+  CaseStatus         CaseStatus[]
+}
+
+model CaseStatus {
+  id                  Int      @id @default(autoincrement())
+  status              String
+  createdAt           DateTime @default(now())
+  valid               Boolean  @default(true)
+  subStateMachineName String?
+  compoundStateName   String?
+  caseId              Int
+  case                Case     @relation(fields: [caseId], references: [id])
+}
+
+model ApplicationDetails {
+  id          Int        @id @default(autoincrement())
+  caseId      Int        @unique
+  case        Case       @relation(fields: [caseId], references: [id])
   subSectorId Int
   subSector   SubSector @relation(fields: [subSectorId], references: [id])
-	regionId    Int?
-  region      Region?   @relation(fields: [regionId], references: [id])
+  regionId    Int
+  region      Region    @relation(fields: [regionId], references: [id])
 }
 
 model Sector {
@@ -91,18 +109,18 @@ model Sector {
   name          String      @unique
   displayNameEn String
   displayNameCy String
-  SubSector     SubSector[]
+  subSector     SubSector[]
 }
 
 model SubSector {
-  id            Int           @id @default(autoincrement())
-  abbreviation  String        @unique
-  name          String        @unique
-  displayNameEn String
-  displayNameCy String
-  sectorId      Int
-  sector        Sector        @relation(fields: [sectorId], references: [id])
-  Application   Application[]
+  id                 Int                  @id @default(autoincrement())
+  abbreviation       String               @unique
+  name               String               @unique
+  displayNameEn      String
+  displayNameCy      String
+  sectorId           Int
+  sector             Sector               @relation(fields: [sectorId], references: [id])
+  applicationDetails ApplicationDetails[]
 }
 
 model Address {
@@ -163,11 +181,11 @@ model LPAQuestionnaire {
 }
 
 model Region {
-  id            Int           @id @default(autoincrement())
-  name          String        @unique
-  displayNameEn String
-  displayNameCy String
-  Application   Application[]
+  id                 Int                  @id @default(autoincrement())
+  name               String               @unique
+  displayNameEn      String
+  displayNameCy      String
+  ApplicationDetails ApplicationDetails[]
 }
 
 model ReviewQuestionnaire {

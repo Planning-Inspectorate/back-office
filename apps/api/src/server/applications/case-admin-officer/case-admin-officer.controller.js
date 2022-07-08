@@ -1,4 +1,4 @@
-import * as applicationRepository from '../../repositories/application.repository.js';
+import * as caseRepository from '../../repositories/case.repository.js';
 import { mapApplicationWithSectorAndSubSector } from '../../utils/mapping/map-application-with-sector-and-subsector.js';
 
 /**
@@ -8,7 +8,7 @@ import { mapApplicationWithSectorAndSubSector } from '../../utils/mapping/map-ap
 
 /**
  *
- * @param {import('@pins/api').Schema.Application[]} applications
+ * @param {import('@pins/api').Schema.Case[]} applications
  * @returns {ApplicationWithSectorResponse[]}
  */
 const mapApplicationsWithSectorAndSubSector = (applications) => {
@@ -16,7 +16,7 @@ const mapApplicationsWithSectorAndSubSector = (applications) => {
 };
 
 export const getApplications = async (_request, response) => {
-	const applications = await applicationRepository.getByStatus('open');
+	const applications = await caseRepository.getByStatus('open');
 
 	return response.send(mapApplicationsWithSectorAndSubSector(applications));
 };

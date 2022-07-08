@@ -11,7 +11,12 @@ export {
 	SubSector
 } from '@prisma/client';
 
-export interface Application extends schema.Application {
+export interface Case extends schema.Case {
+	caseStatus?: CaseStatus;
+	ApplicationDetails?: ApplicationDetails;
+}
+
+export interface ApplicationDetails extends schema.ApplicationDetails {
 	subSector: SubSector;
 	region?: Region;
 }
