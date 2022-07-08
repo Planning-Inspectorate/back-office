@@ -58,14 +58,15 @@ ALTER TABLE [dbo].[ApplicationDetails] ADD CONSTRAINT [ApplicationDetails_subSec
 ALTER TABLE [dbo].[CaseStatus] ADD CONSTRAINT [CaseStatus_caseId_fkey] FOREIGN KEY ([caseId]) REFERENCES [dbo].[Case]([id]) ON DELETE NO ACTION ON UPDATE CASCADE;
 
 -- Adds data to Case table
-INSERT INTO [dbo].[Case] (reference, modifiedAt)
-SELECT reference, modifiedAt
+INSERT INTO [dbo].[Case] (reference, modifiedAt, title, description)
+SELECT reference, modifiedAt, title, description
 FROM [dbo].[Application];
 
 -- Adds data to ApplicationDetails table
-INSERT INTO [dbo].[ApplicationDetails] (caseId, subSectorId)
+INSERT INTO [dbo].[ApplicationDetails] (caseId, subSectorId, regionId)
 SELECT case_table.id as caseId, 
-    application_table.subSectorId as subSectorId
+    application_table.subSectorId as subSectorId,
+    application_table.regionId
 FROM [dbo].[Application] as application_table
 JOIN [dbo].[Case] as case_table
 ON application_table.reference = case_table.reference;
