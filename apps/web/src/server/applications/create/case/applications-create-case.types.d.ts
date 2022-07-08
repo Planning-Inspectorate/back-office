@@ -1,65 +1,65 @@
-import { Region, Sector } from '../applications.types';
+import { Region, Sector } from '../../applications.types';
 import { ValidationErrors } from '@pins/express';
 
-export type ApplicationsCreateNameProps = {
+export type ApplicationsCreateCaseNameProps = {
 	applicationName?: string;
 	applicationDescription?: string;
 	errors?: ValidationErrors;
 };
 
-export type ApplicationsCreateNameBody = {
+export type ApplicationsCreateCaseNameBody = {
 	applicationName: string;
 	applicationDescription: string;
 };
 
-export type ApplicationsCreateSectorProps = {
+export type ApplicationsCreateCaseSectorProps = {
 	sectors: Sector[];
 	selectedValue?: string;
 	errors?: ValidationErrors;
 };
 
-export type ApplicationsCreateSectorBody = {
+export type ApplicationsCreateCaseSectorBody = {
 	selectedSectorName: string;
 };
 
-export type ApplicationsCreateSubSectorProps = {
+export type ApplicationsCreateCaseSubSectorProps = {
 	subSectors: Sector[];
 	selectedValue?: string;
 	errors?: ValidationErrors;
 };
 
-export type ApplicationsCreateSubSectorBody = {
+export type ApplicationsCreateCaseSubSectorBody = {
 	selectedSubSectorName: string;
 };
 
-export type ApplicationsCreateGeographicalInformationProps = {
+export type ApplicationsCreateCaseGeographicalInformationProps = {
 	applicationLocation?: string;
 	applicationEasting?: string;
 	applicationNorthing?: string;
 	errors?: ValidationErrors;
 };
 
-export type ApplicationsCreateGeographicalInformationBody = {
+export type ApplicationsCreateCaseGeographicalInformationBody = {
 	applicationLocation: string;
 	applicationEasting: string;
 	applicationNorthing: string;
 };
 
-export type ApplicationsCreateRegionsProps = {
+export type ApplicationsCreateCaseRegionsProps = {
 	regions: Region[];
 	errors?: ValidationErrors;
 };
 
-export type ApplicationsCreateRegionsBody = {
+export type ApplicationsCreateCaseRegionsBody = {
 	selectedRegionsNames: string[];
 };
 
-export type ApplicationsCreateTeamEmailProps = {
+export type ApplicationsCreateCaseTeamEmailProps = {
 	applicationTeamEmail: string;
 	errors?: ValidationErrors;
 };
 
-export type ApplicationsCreateTeamEmailBody = {
+export type ApplicationsCreateCaseTeamEmailBody = {
 	applicationTeamEmail: string;
 };
 

@@ -11,9 +11,6 @@
  * @type {import('express').RequestHandler<DomainParams, *, *, *, ApplicationsCreateLocals>}
  */
 export const registerApplicationId = ({ params }, response, next) => {
-	if (!params.applicationId) {
-		return response.render('applications/create/_name');
-	}
-	response.locals.applicationId = params.applicationId;
+	response.locals.applicationId = params.applicationId || '';
 	next();
 };

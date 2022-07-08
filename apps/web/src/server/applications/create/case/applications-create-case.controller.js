@@ -1,50 +1,49 @@
-import * as applicationsCreateService from './applications-create.service.js';
+import * as applicationsCreateService from './applications-create-case.service.js';
 
-/** @typedef {import('../applications.router').DomainParams} DomainParams */
-/** @typedef {import('../applications.types').Sector} Sector */
-/** @typedef {import('./applications-create.types').ApplicationsCreateNameProps} ApplicationsCreateNameProps */
-/** @typedef {import('./applications-create.types').ApplicationsCreateNameBody} ApplicationsCreateNameBody */
-/** @typedef {import('./applications-create.types').ApplicationsCreateSectorProps} ApplicationsCreateSectorProps */
-/** @typedef {import('./applications-create.types').ApplicationsCreateSectorBody} ApplicationsCreateSectorBody */
-/** @typedef {import('./applications-create.types').ApplicationsCreateSubSectorProps} ApplicationsCreateSubSectorProps */
-/** @typedef {import('./applications-create.types').ApplicationsCreateSubSectorBody} ApplicationsCreateSubSectorBody */
-/** @typedef {import('./applications-create.types').ApplicationsCreateGeographicalInformationProps} ApplicationsCreateGeographicalInformationProps */
-/** @typedef {import('./applications-create.types').ApplicationsCreateGeographicalInformationBody} ApplicationsCreateGeographicalInformationBody */
-/** @typedef {import('./applications-create.types').ApplicationsCreateRegionsProps} ApplicationsCreateRegionsProps */
-/** @typedef {import('./applications-create.types').ApplicationsCreateRegionsBody} ApplicationsCreateRegionsBody */
-/** @typedef {import('./applications-create.types').ApplicationsCreateTeamEmailProps} ApplicationsCreateTeamEmailProps */
-/** @typedef {import('./applications-create.types').ApplicationsCreateTeamEmailBody} ApplicationsCreateTeamEmailBody */
-
-/** @typedef {import('./applications-create.types').UpdateOrCreateCallback} UpdateOrCreateCallback */
+/** @typedef {import('../../applications.router').DomainParams} DomainParams */
+/** @typedef {import('../../applications.types').Sector} Sector */
+/** @typedef {import('./applications-create-case.types').ApplicationsCreateCaseNameProps} ApplicationsCreateCaseNameProps */
+/** @typedef {import('./applications-create-case.types').ApplicationsCreateCaseNameBody} ApplicationsCreateCaseNameBody */
+/** @typedef {import('./applications-create-case.types').ApplicationsCreateCaseSectorProps} ApplicationsCreateCaseSectorProps */
+/** @typedef {import('./applications-create-case.types').ApplicationsCreateCaseSectorBody} ApplicationsCreateCaseSectorBody */
+/** @typedef {import('./applications-create-case.types').ApplicationsCreateCaseSubSectorProps} ApplicationsCreateCaseSubSectorProps */
+/** @typedef {import('./applications-create-case.types').ApplicationsCreateCaseSubSectorBody} ApplicationsCreateCaseSubSectorBody */
+/** @typedef {import('./applications-create-case.types').ApplicationsCreateCaseGeographicalInformationProps} ApplicationsCreateCaseGeographicalInformationProps */
+/** @typedef {import('./applications-create-case.types').ApplicationsCreateCaseGeographicalInformationBody} ApplicationsCreateCaseGeographicalInformationBody */
+/** @typedef {import('./applications-create-case.types').ApplicationsCreateCaseRegionsProps} ApplicationsCreateCaseRegionsProps */
+/** @typedef {import('./applications-create-case.types').ApplicationsCreateCaseRegionsBody} ApplicationsCreateCaseRegionsBody */
+/** @typedef {import('./applications-create-case.types').ApplicationsCreateCaseTeamEmailProps} ApplicationsCreateCaseTeamEmailProps */
+/** @typedef {import('./applications-create-case.types').ApplicationsCreateCaseTeamEmailBody} ApplicationsCreateCaseTeamEmailBody */
+/** @typedef {import('./applications-create-case.types').UpdateOrCreateCallback} UpdateOrCreateCallback */
 
 /**
  * View the first step (name & description) of the application creation
  *
- * @type {import('@pins/express').RenderHandler<ApplicationsCreateNameProps,
+ * @type {import('@pins/express').RenderHandler<ApplicationsCreateCaseNameProps,
  * {}, {}, {}, DomainParams>}
  */
-export async function viewApplicationsCreateName({ params }, response) {
-	const { applicationId } = params;
+export async function viewApplicationsCreateCaseName(req, response) {
+	const { applicationId } = response.locals || {};
 	const { name: applicationName, description: applicationDescription } = applicationId
 		? await applicationsCreateService.getApplicationDraft(applicationId)
 		: { name: '', description: '' };
 
-	response.render('applications/create/_name', { applicationName, applicationDescription });
+	response.render('applications/create/case/_name', { applicationName, applicationDescription });
 }
 
 /**
  * Create the application with name and description
  *
- * @type {import('@pins/express').RenderHandler<ApplicationsCreateNameProps,
- *   {}, ApplicationsCreateNameBody, {}, DomainParams>}
+ * @type {import('@pins/express').RenderHandler<ApplicationsCreateCaseNameProps,
+ *   {}, ApplicationsCreateCaseNameBody, {}, DomainParams>}
  */
-export async function newApplicationsCreateName({ errors, body, params }, response) {
+export async function updateApplicationsCreateCaseName({ errors, body }, response) {
 	const { applicationName, applicationDescription } = body;
-	const { applicationId } = params;
+	const { applicationId } = response.locals;
 	const updatedData = { name: applicationName, description: applicationDescription };
 
 	if (errors) {
-		return response.render('applications/create/_name', {
+		return response.render('applications/create/case/_name', {
 			errors,
 			applicationDescription,
 			applicationName
@@ -70,18 +69,18 @@ export async function newApplicationsCreateName({ errors, body, params }, respon
 /**
  * View the sector choice step of the application creation
  *
- * @type {import('@pins/express').RenderHandler<ApplicationsCreateSectorProps,
+ * @type {import('@pins/express').RenderHandler<ApplicationsCreateCaseSectorProps,
  * {}, {}, {}, DomainParams>}
  */
-export async function viewApplicationsCreateSector({ params }, response) {
-	const applicationId = getParametersApplicationIdOrFail(params, response);
+export async function viewApplicationsCreateCaseSector(req, response) {
+	const { applicationId } = response.locals;
 	const allSectors = await applicationsCreateService.getAllSectors();
 
 	const { sector: selectedSector } = await applicationsCreateService.getApplicationDraft(
 		applicationId
 	);
 
-	response.render('applications/create/_sector', {
+	response.render('applications/create/case/_sector', {
 		sectors: allSectors,
 		selectedValue: selectedSector?.name || ''
 	});
@@ -91,11 +90,11 @@ export async function viewApplicationsCreateSector({ params }, response) {
  * Save the sector for the draft application
  *
  *
- * @type {import('@pins/express').RenderHandler<ApplicationsCreateSectorProps,
- * {}, ApplicationsCreateSectorBody, {}, DomainParams>}
+ * @type {import('@pins/express').RenderHandler<ApplicationsCreateCaseSectorProps,
+ * {}, ApplicationsCreateCaseSectorBody, {}, DomainParams>}
  */
-export async function newApplicationsCreateSector({ errors, params, body }, response) {
-	const applicationId = getParametersApplicationIdOrFail(params, response);
+export async function updateApplicationsCreateCaseSector({ errors, body }, response) {
+	const { applicationId } = response.locals;
 	const { selectedSectorName } = body;
 	const allSectors = await applicationsCreateService.getAllSectors();
 	const selectedSector = allSectors.find((sector) => sector.name === selectedSectorName);
@@ -103,7 +102,7 @@ export async function newApplicationsCreateSector({ errors, params, body }, resp
 		applicationsCreateService.updateApplicationDraft(applicationId, { sector: selectedSector });
 
 	if (errors) {
-		return response.render('applications/create/_sector', { errors, sectors: allSectors });
+		return response.render('applications/create/case/_sector', { errors, sectors: allSectors });
 	}
 
 	await getUpdatedApplicationIdOrFail(
@@ -120,11 +119,11 @@ export async function newApplicationsCreateSector({ errors, params, body }, resp
 /**
  * View the sub-sector choice step of the application creation
  *
- * @type {import('@pins/express').RenderHandler<ApplicationsCreateSubSectorProps,
+ * @type {import('@pins/express').RenderHandler<ApplicationsCreateCaseSubSectorProps,
  * {}, {}, {}, DomainParams>}
  */
-export async function viewApplicationsCreateSubSector({ params }, response) {
-	const applicationId = getParametersApplicationIdOrFail(params, response);
+export async function viewApplicationsCreateCaseSubSector(req, response) {
+	const { applicationId } = response.locals;
 	const {
 		sector,
 		subSector: applicationSubSector
@@ -133,7 +132,7 @@ export async function viewApplicationsCreateSubSector({ params }, response) {
 
 	const subSectors = await applicationsCreateService.getSubSectorsBySector(sector);
 
-	response.render('applications/create/_sub-sector', {
+	response.render('applications/create/case/_sub-sector', {
 		subSectors,
 		selectedValue: applicationSubSector?.name
 	});
@@ -142,11 +141,11 @@ export async function viewApplicationsCreateSubSector({ params }, response) {
 /**
  * Save the sub-sector for the draft application
  *
- * @type {import('@pins/express').RenderHandler<ApplicationsCreateSubSectorProps,
- * {}, ApplicationsCreateSubSectorBody, {}, DomainParams>}
+ * @type {import('@pins/express').RenderHandler<ApplicationsCreateCaseSubSectorProps,
+ * {}, ApplicationsCreateCaseSubSectorBody, {}, DomainParams>}
  */
-export async function newApplicationsCreateSubSector({ errors, params, body }, response) {
-	const applicationId = getParametersApplicationIdOrFail(params, response);
+export async function updateApplicationsCreateCaseSubSector({ errors, body }, response) {
+	const { applicationId } = response.locals;
 	const { selectedSubSectorName } = body;
 	const { sector: applicationSector } = await applicationsCreateService.getApplicationDraft(
 		applicationId,
@@ -162,7 +161,7 @@ export async function newApplicationsCreateSubSector({ errors, params, body }, r
 		});
 
 	if (errors) {
-		return response.render('applications/create/_sub-sector', { errors, subSectors });
+		return response.render('applications/create/case/_sub-sector', { errors, subSectors });
 	}
 
 	await getUpdatedApplicationIdOrFail(
@@ -181,11 +180,11 @@ export async function newApplicationsCreateSubSector({ errors, params, body }, r
 /**
  * View the geographical information step of the application creation
  *
- * @type {import('@pins/express').RenderHandler<ApplicationsCreateGeographicalInformationProps,
+ * @type {import('@pins/express').RenderHandler<ApplicationsCreateCaseGeographicalInformationProps,
  * {}, {}, {}, DomainParams>}
  */
-export async function viewApplicationsCreateGeographicalInformation({ params }, response) {
-	const applicationId = getParametersApplicationIdOrFail(params, response);
+export async function viewApplicationsCreateCaseGeographicalInformation(req, response) {
+	const { applicationId } = response.locals;
 	const { geographicalInformation } = await applicationsCreateService.getApplicationDraft(
 		applicationId
 	);
@@ -193,27 +192,27 @@ export async function viewApplicationsCreateGeographicalInformation({ params }, 
 	const { northing: applicationNorthing, easting: applicationEasting } = gridReference || {};
 	const templateData = { applicationLocation, applicationEasting, applicationNorthing };
 
-	response.render('applications/create/_geographical-information', templateData);
+	response.render('applications/create/case/_geographical-information', templateData);
 }
 
 /**
  * Save the geographical location for the draft application
  *
- * @type {import('@pins/express').RenderHandler<ApplicationsCreateGeographicalInformationProps,
- * {}, ApplicationsCreateGeographicalInformationBody, {}, DomainParams>}
+ * @type {import('@pins/express').RenderHandler<ApplicationsCreateCaseGeographicalInformationProps,
+ * {}, ApplicationsCreateCaseGeographicalInformationBody, {}, DomainParams>}
  */
-export async function newApplicationsCreateGeographicalInformation(
-	{ errors, params, body },
+export async function updateApplicationsCreateCaseGeographicalInformation(
+	{ errors, body },
 	response
 ) {
-	const applicationId = getParametersApplicationIdOrFail(params, response);
+	const { applicationId } = response.locals;
 	const { applicationLocation, applicationEasting, applicationNorthing } = body;
 	const templateData = { applicationLocation, applicationEasting, applicationNorthing };
 	const updateGeographicalInformation = () =>
 		applicationsCreateService.updateApplicationDraft(applicationId, templateData);
 
 	if (errors) {
-		return response.render('applications/create/_geographical-information', {
+		return response.render('applications/create/case/_geographical-information', {
 			errors,
 			...templateData
 		});
@@ -234,23 +233,23 @@ export async function newApplicationsCreateGeographicalInformation(
 /**
  * View the regions step of the application creation
  *
- * @type {import('@pins/express').RenderHandler<ApplicationsCreateRegionsProps,
+ * @type {import('@pins/express').RenderHandler<ApplicationsCreateCaseRegionsProps,
  * {}, {}, {}, DomainParams>}
  */
-export async function viewApplicationsCreateRegions(req, response) {
+export async function viewApplicationsCreateCaseRegions(req, response) {
 	const allRegions = await applicationsCreateService.getAllRegions();
 
-	return response.render('applications/create/_region', { regions: allRegions });
+	return response.render('applications/create/case/_region', { regions: allRegions });
 }
 
 /**
  * Save the regions for the draft application
  *
- * @type {import('@pins/express').RenderHandler<ApplicationsCreateRegionsProps,
- * {}, ApplicationsCreateRegionsBody, {}, DomainParams>}
+ * @type {import('@pins/express').RenderHandler<ApplicationsCreateCaseRegionsProps,
+ * {}, ApplicationsCreateCaseRegionsBody, {}, DomainParams>}
  */
-export async function newApplicationsCreateRegions({ errors, params, body }, response) {
-	const applicationId = getParametersApplicationIdOrFail(params, response);
+export async function updateApplicationsCreateCaseRegions({ errors, body }, response) {
+	const { applicationId } = response.locals;
 	const { selectedRegionsNames } = body;
 	const allRegions = await applicationsCreateService.getAllRegions();
 	const selectedRegions = allRegions.filter((region) =>
@@ -260,7 +259,7 @@ export async function newApplicationsCreateRegions({ errors, params, body }, res
 		applicationsCreateService.updateApplicationDraft(applicationId, { regions: selectedRegions });
 
 	if (errors) {
-		return response.render('applications/create/_region', { errors, regions: allRegions });
+		return response.render('applications/create/case/_region', { errors, regions: allRegions });
 	}
 
 	await getUpdatedApplicationIdOrFail(
@@ -279,8 +278,8 @@ export async function newApplicationsCreateRegions({ errors, params, body }, res
  *
  * @type {import('@pins/express').RenderHandler<{},{}>}
  */
-export async function viewApplicationsCreateZoomLevel(req, response) {
-	return response.render('applications/create/_zoom-level');
+export async function viewApplicationsCreateCaseZoomLevel(req, response) {
+	return response.render('applications/create/case/_zoom-level');
 }
 
 /**
@@ -288,40 +287,40 @@ export async function viewApplicationsCreateZoomLevel(req, response) {
  *
  * @type {import('@pins/express').RenderHandler<{}, {}>}
  */
-export async function newApplicationsCreateZoomLevel(req, response) {
+export async function updateApplicationsCreateCaseZoomLevel(req, response) {
 	response.redirect(`/applications-service/create-new-case/123/team-email`);
 }
 
 /**
  * View the case-team email address step of the application creation
  *
- * @type {import('@pins/express').RenderHandler<ApplicationsCreateTeamEmailProps,
+ * @type {import('@pins/express').RenderHandler<ApplicationsCreateCaseTeamEmailProps,
  * {}, {}, {}, DomainParams>}
  */
-export async function viewApplicationsCreateTeamEmail({ params }, response) {
-	const applicationId = getParametersApplicationIdOrFail(params, response);
-	const { teamEmail: applicationTeamEmail } = applicationId
-		? await applicationsCreateService.getApplicationDraft(applicationId)
-		: { teamEmail: '' };
+export async function viewApplicationsCreateCaseTeamEmail(req, response) {
+	const { applicationId } = response.locals;
+	const { teamEmail: applicationTeamEmail } = await applicationsCreateService.getApplicationDraft(
+		applicationId
+	);
 
-	return response.render('applications/create/_team-email', { applicationTeamEmail });
+	return response.render('applications/create/case/_team-email', { applicationTeamEmail });
 }
 
 /**
  * View the case-team email address step of the application creation
  *
- * @type {import('@pins/express').RenderHandler<ApplicationsCreateTeamEmailProps,
- * {}, ApplicationsCreateTeamEmailBody, {}, DomainParams>}
+ * @type {import('@pins/express').RenderHandler<ApplicationsCreateCaseTeamEmailProps,
+ * {}, ApplicationsCreateCaseTeamEmailBody, {}, DomainParams>}
  */
-export async function newApplicationsCreateTeamEmail({ body, errors, params }, response) {
-	const applicationId = getParametersApplicationIdOrFail(params, response);
+export async function updateApplicationsCreateCaseTeamEmail({ body, errors }, response) {
+	const { applicationId } = response.locals;
 	const { applicationTeamEmail } = body;
 	const templateData = { applicationTeamEmail };
 	const updateTeamEmail = () =>
 		applicationsCreateService.updateApplicationDraft(applicationId, templateData);
 
 	if (errors) {
-		return response.render('applications/create/_team-email', {
+		return response.render('applications/create/case/_team-email', {
 			errors,
 			...templateData
 		});
@@ -337,17 +336,6 @@ export async function newApplicationsCreateTeamEmail({ body, errors, params }, r
 	);
 
 	response.redirect(`/applications-service/create-new-case/${applicationId}/applicant-type`);
-}
-
-/**
- * Make sure that URL contains applicationId or fail
- *
- * @param {{applicationId?: string}} params
- * @param {any} response
- * @returns {string}
- */
-function getParametersApplicationIdOrFail({ applicationId }, response) {
-	return applicationId ?? response.redirect('/app/404');
 }
 
 /**
@@ -368,7 +356,10 @@ async function getUpdatedApplicationIdOrFail(
 	const { errors, id: updatedApplicationId } = outcome;
 
 	if (!updatedApplicationId) {
-		return response.render(`/applications/create/_${templateName}`, { ...errors, ...templateData });
+		return response.render(`/applications/create/case/_${templateName}`, {
+			...errors,
+			...templateData
+		});
 	}
 
 	return updatedApplicationId;

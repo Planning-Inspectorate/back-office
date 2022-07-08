@@ -1,9 +1,9 @@
-import { fixtureApplications } from '../../../../testing/applications/fixtures/applications.js';
-import { get } from '../../lib/request.js';
+import { fixtureApplications } from '../../../../../testing/applications/fixtures/applications.js';
+import { get } from '../../../lib/request.js';
 
-/** @typedef {import('../applications.types').Sector} Sector */
-/** @typedef {import('../applications.types').Application} Application */
-/** @typedef {import('../applications.types').Region} Region */
+/** @typedef {import('../../applications.types.js').Sector} Sector */
+/** @typedef {import('../../applications.types.js').Application} Application */
+/** @typedef {import('../../applications.types.js').Region} Region */
 
 /**
  * Get the list of sector for an application
