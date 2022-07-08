@@ -6,14 +6,6 @@ export type PaginatedResponse<T> = {
 	itemCount: number;
 };
 
-export interface Sector {
-	id: number;
-	abbreviation: string;
-	displayNameEn: string;
-	displayNameCy?: string;
-	name: string;
-}
-
 export type DomainType = 'case-officer' | 'case-admin-officer' | 'inspector';
 
 export interface Application {
@@ -29,9 +21,13 @@ export interface Application {
 	subSector?: Sector;
 }
 
-export interface Region {
+export interface OptionsItem {
 	id: number;
 	name: string;
 	displayNameEn: string;
 	displayNameCy: string;
+	abbreviation?: string;
 }
+
+export interface Sector extends OptionsItem {}
+export interface Region extends OptionsItem {}

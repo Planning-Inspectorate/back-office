@@ -9,9 +9,9 @@
  */
 export async function viewApplicationsCreateApplicantTypes(req, response) {
 	const applicantInfoTypes = [
-		{ name: 'name', displayNameEn: 'Name' },
-		{ name: 'email', displayNameEn: 'Email' },
-		{ name: 'address', displayNameEn: 'Address' }
+		{ id: 1, name: 'name', displayNameEn: 'Name', displayNameCy: 'Name' },
+		{ id: 2, name: 'email', displayNameEn: 'Email', displayNameCy: 'Name' },
+		{ id: 3, name: 'address', displayNameEn: 'Address', displayNameCy: 'Name' }
 	];
 
 	response.render('applications/create/applicant/_types', { applicantInfoTypes });

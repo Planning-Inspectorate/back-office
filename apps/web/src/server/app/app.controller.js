@@ -21,6 +21,10 @@ export function viewHomepage(request, response, next) {
 	const account = /** @type {AccountInfo} */ (authSession.getAccount(request.session));
 	const userGroups = account?.idTokenClaims?.groups ?? [];
 
+	if (userGroups.length === 0) {
+		pino.warn('IdTokenClaims is empty. User is redirect to 403 page');
+	}
+
 	// Determine those group ids the user belongs to for the appeals domain
 	const appealGroupIds = intersection(Object.values(config.referenceData.appeals), userGroups);
 

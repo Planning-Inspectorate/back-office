@@ -1,5 +1,5 @@
 import { createApplication } from '../factory/application.js';
-import { fixtureSectors } from './sectors.js';
+import { fixtureSectors } from './options-item.js';
 
 export const fixtureApplications = [
 	createApplication({

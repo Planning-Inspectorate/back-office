@@ -335,7 +335,9 @@ export async function updateApplicationsCreateCaseTeamEmail({ body, errors }, re
 		response
 	);
 
-	response.redirect(`/applications-service/create-new-case/${applicationId}/applicant-type`);
+	response.redirect(
+		`/applications-service/create-new-case/${applicationId}/applicant-information-types`
+	);
 }
 
 /**
