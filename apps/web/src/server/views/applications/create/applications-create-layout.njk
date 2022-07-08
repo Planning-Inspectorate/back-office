@@ -3,6 +3,8 @@
 {% from "govuk/components/breadcrumbs/macro.njk" import govukBreadcrumbs %}
 {% from "govuk/components/button/macro.njk" import govukButton %}
 
+{% block pageHeading %}{% endblock %}
+
 
 {% block beforeContent %}
 	{{ govukBreadcrumbs({
@@ -13,8 +15,6 @@
 		]
 	}) }}
 {% endblock %}
-
-{% block pageHeading %}{% endblock %}
 
 
 {% block pageContent %}

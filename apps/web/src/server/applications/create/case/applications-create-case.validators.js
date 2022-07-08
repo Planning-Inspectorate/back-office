@@ -1,7 +1,7 @@
 import { createValidator } from '@pins/express';
 import { body } from 'express-validator';
 
-export const validateApplicationsCreateName = createValidator(
+export const validateApplicationsCreateCaseName = createValidator(
 	body('applicationName')
 		.trim()
 		.isLength({ min: 1 })
@@ -10,7 +10,7 @@ export const validateApplicationsCreateName = createValidator(
 		.withMessage('The name must be 500 characters or fewer')
 );
 
-export const validateApplicationsCreateDescription = createValidator(
+export const validateApplicationsCreateCaseDescription = createValidator(
 	body('applicationDescription')
 		.trim()
 		.isLength({ min: 1 })
@@ -19,25 +19,25 @@ export const validateApplicationsCreateDescription = createValidator(
 		.withMessage('The description of the project must be 500 characters or fewer')
 );
 
-export const validateApplicationsCreateSector = createValidator(
+export const validateApplicationsCreateCaseSector = createValidator(
 	body('selectedSectorName')
 		.trim()
 		.isLength({ min: 1 })
 		.withMessage('Choose the sector of the project')
 );
 
-export const validateApplicationsCreateSubSector = createValidator(
+export const validateApplicationsCreateCaseSubSector = createValidator(
 	body('selectedSubSectorName')
 		.trim()
 		.isLength({ min: 1 })
 		.withMessage('Choose the subsector of the project')
 );
 
-export const validateApplicationsCreateRegions = createValidator(
+export const validateApplicationsCreateCaseRegions = createValidator(
 	body('selectedRegionsNames').isArray({ min: 1 }).withMessage('Choose one or multiple regions')
 );
 
-export const validateApplicationsCreateLocation = createValidator(
+export const validateApplicationsCreateCaseLocation = createValidator(
 	body('applicationLocation')
 		.trim()
 		.isLength({ min: 1 })
@@ -46,14 +46,14 @@ export const validateApplicationsCreateLocation = createValidator(
 		.withMessage('The Case location must be 500 characters or fewer')
 );
 
-export const validateApplicationsCreateEasting = createValidator(
+export const validateApplicationsCreateCaseEasting = createValidator(
 	body('applicationEasting')
 		.trim()
 		.isLength({ min: 6, max: 6 })
 		.withMessage('Enter the Grid reference Easting')
 );
 
-export const validateApplicationsCreateNorthing = createValidator(
+export const validateApplicationsCreateCaseNorthing = createValidator(
 	body('applicationNorthing')
 		.trim()
 		.isLength({ min: 6, max: 6 })
