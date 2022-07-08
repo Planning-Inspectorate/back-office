@@ -7,19 +7,19 @@ import { databaseConnector } from '../../../utils/database-connector.js';
 
 const request = supertest(app);
 
+const searchString = 'EN010003 - NI Case 3 Name';
+
 const application = applicationFactoryForTests({
 	id: 3,
 	status: 'open',
 	reference: 'EN010003',
-	title: 'EN010003 - NI Case 3 Name',
+	title: searchString,
 	description: 'EN010003 - NI Case 3 Name Description',
 	createdAt: new Date(1_655_298_882_000),
 	modifiedAt: new Date(1_655_298_882_000)
 });
 
 const applicationsCount = 1;
-
-const searchString = 'EN010003 - NI Case 3 Name';
 
 const findManyStub = sinon.stub();
 
@@ -46,11 +46,16 @@ findManyStub
 			]
 		},
 		include: {
-			subSector: {
+			ApplicationDetails: {
 				include: {
-					sector: true
+					subSector: {
+						include: {
+							sector: true
+						}
+					}
 				}
-			}
+			},
+			CaseStatus: true
 		}
 	})
 	.returns([application]);
@@ -76,7 +81,7 @@ countStub
 	.returns(applicationsCount);
 
 test('gets applications using search criteria', async (t) => {
-	sinon.stub(databaseConnector, 'application').get(() => {
+	sinon.stub(databaseConnector, 'case').get(() => {
 		return {
 			findMany: findManyStub,
 			count: countStub
@@ -85,7 +90,7 @@ test('gets applications using search criteria', async (t) => {
 
 	const response = await request
 		.post('/applications/search')
-		.send({ query: 'EN010003 - NI Case 3 Name', role: 'case-officer', pageNumber: 1, pageSize: 1 });
+		.send({ query: searchString, role: 'case-officer', pageNumber: 1, pageSize: 1 });
 
 	t.is(response.status, 200);
 	t.deepEqual(response.body, {
@@ -98,7 +103,7 @@ test('gets applications using search criteria', async (t) => {
 				id: 3,
 				status: 'open',
 				reference: application.reference,
-				title: 'EN010003 - NI Case 3 Name',
+				title: searchString,
 				modifiedDate: 1_655_298_882,
 				publishedDate: null
 			}
@@ -108,7 +113,7 @@ test('gets applications using search criteria', async (t) => {
 
 test('should not be able to submit a search if the role is not valid', async (t) => {
 	const resp = await request.post('/applications/search').send({
-		query: 'EN010003 - NI Case 3 Name',
+		query: searchString,
 		role: 'validation-officer',
 		pageNumber: 1,
 		pageSize: 1
@@ -124,7 +129,7 @@ test('should not be able to submit a search if the role is not valid', async (t)
 
 test('should not be able to submit a search if the pageNumber is negative', async (t) => {
 	const resp = await request.post('/applications/search').send({
-		query: 'EN010003 - NI Case 3 Name',
+		query: searchString,
 		role: 'case-admin-officer',
 		pageNumber: -5,
 		pageSize: 1
@@ -140,7 +145,7 @@ test('should not be able to submit a search if the pageNumber is negative', asyn
 
 test('should not be able to submit a search if the pageSize is negative', async (t) => {
 	const resp = await request.post('/applications/search').send({
-		query: 'EN010003 - NI Case 3 Name',
+		query: searchString,
 		role: 'case-admin-officer',
 		pageNumber: 1,
 		pageSize: -3
@@ -169,7 +174,7 @@ test('should not be able to submit a search if query does not have a value', asy
 
 test('should not be able to submit a search if the pageNumber is zero', async (t) => {
 	const resp = await request.post('/applications/search').send({
-		query: 'EN010003 - NI Case 3 Name',
+		query: searchString,
 		role: 'case-admin-officer',
 		pageNumber: 0,
 		pageSize: 1
@@ -185,7 +190,7 @@ test('should not be able to submit a search if the pageNumber is zero', async (t
 
 test('should not be able to submit a search if the pageSize is zero', async (t) => {
 	const resp = await request.post('/applications/search').send({
-		query: 'EN010003 - NI Case 3 Name',
+		query: searchString,
 		role: 'case-admin-officer',
 		pageNumber: 1,
 		pageSize: 0
@@ -200,7 +205,7 @@ test('should not be able to submit a search if the pageSize is zero', async (t) 
 });
 
 test('gets empty results using search criteria with no matching results', async (t) => {
-	sinon.stub(databaseConnector, 'application').get(() => {
+	sinon.stub(databaseConnector, 'case').get(() => {
 		return {
 			findMany: findManyStub,
 			count: countStub

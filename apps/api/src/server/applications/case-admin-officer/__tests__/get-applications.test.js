@@ -18,12 +18,21 @@ const findManyStub = sinon.stub();
 findManyStub
 	.withArgs({
 		where: {
-			status: 'open'
+			CaseStatus: {
+				some: {
+					status: 'open',
+					valid: true
+				}
+			}
 		},
 		include: {
-			subSector: {
+			ApplicationDetails: {
 				include: {
-					sector: true
+					subSector: {
+						include: {
+							sector: true
+						}
+					}
 				}
 			}
 		}
@@ -31,7 +40,7 @@ findManyStub
 	.returns([application]);
 
 test('gets applications for case officer with open status', async (t) => {
-	sinon.stub(databaseConnector, 'application').get(() => {
+	sinon.stub(databaseConnector, 'case').get(() => {
 		return { findMany: findManyStub };
 	});
 
