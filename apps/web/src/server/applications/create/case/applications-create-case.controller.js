@@ -1,4 +1,4 @@
-import * as applicationsCreateService from './applications-create-case.service.js';
+import * as applicationsCreateCaseService from './applications-create-case.service.js';
 
 /** @typedef {import('../../applications.router').DomainParams} DomainParams */
 /** @typedef {import('../../applications.types').Sector} Sector */
@@ -28,7 +28,7 @@ import * as applicationsCreateService from './applications-create-case.service.j
 export async function viewApplicationsCreateCaseName(req, response) {
 	const { applicationId } = response.locals || {};
 	const { name: applicationName, description: applicationDescription } = applicationId
-		? await applicationsCreateService.getApplicationDraft(applicationId)
+		? await applicationsCreateCaseService.getApplicationDraft(applicationId)
 		: { name: '', description: '' };
 
 	response.render('applications/create/case/_name', { applicationName, applicationDescription });
@@ -54,8 +54,8 @@ export async function updateApplicationsCreateCaseName({ errors, body }, respons
 	}
 
 	const updateApplicationName = applicationId
-		? () => applicationsCreateService.updateApplicationDraft(applicationId, updatedData)
-		: () => applicationsCreateService.createApplicationDraft(updatedData);
+		? () => applicationsCreateCaseService.updateApplicationDraft(applicationId, updatedData)
+		: () => applicationsCreateCaseService.createApplicationDraft(updatedData);
 
 	const updatedApplicationId = await getUpdatedApplicationIdOrFail(
 		updateApplicationName,
@@ -77,9 +77,9 @@ export async function updateApplicationsCreateCaseName({ errors, body }, respons
  */
 export async function viewApplicationsCreateCaseSector(req, response) {
 	const { applicationId } = response.locals;
-	const allSectors = await applicationsCreateService.getAllSectors();
+	const allSectors = await applicationsCreateCaseService.getAllSectors();
 
-	const { sector: selectedSector } = await applicationsCreateService.getApplicationDraft(
+	const { sector: selectedSector } = await applicationsCreateCaseService.getApplicationDraft(
 		applicationId
 	);
 
@@ -99,10 +99,10 @@ export async function viewApplicationsCreateCaseSector(req, response) {
 export async function updateApplicationsCreateCaseSector({ errors, body }, response) {
 	const { applicationId } = response.locals;
 	const { selectedSectorName } = body;
-	const allSectors = await applicationsCreateService.getAllSectors();
+	const allSectors = await applicationsCreateCaseService.getAllSectors();
 	const selectedSector = allSectors.find((sector) => sector.name === selectedSectorName);
 	const updateSector = () =>
-		applicationsCreateService.updateApplicationDraft(applicationId, { sector: selectedSector });
+		applicationsCreateCaseService.updateApplicationDraft(applicationId, { sector: selectedSector });
 
 	if (errors) {
 		return response.render('applications/create/case/_sector', { errors, sectors: allSectors });
@@ -131,9 +131,9 @@ export async function viewApplicationsCreateCaseSubSector(req, response) {
 		sector,
 		subSector: applicationSubSector
 		// the hardcoded 'transport' value is just temporary. will be replaced once the resume api will be working
-	} = await applicationsCreateService.getApplicationDraft(applicationId, 'transport');
+	} = await applicationsCreateCaseService.getApplicationDraft(applicationId, 'transport');
 
-	const subSectors = await applicationsCreateService.getSubSectorsBySector(sector);
+	const subSectors = await applicationsCreateCaseService.getSubSectorsBySector(sector);
 
 	response.render('applications/create/case/_sub-sector', {
 		subSectors,
@@ -150,16 +150,16 @@ export async function viewApplicationsCreateCaseSubSector(req, response) {
 export async function updateApplicationsCreateCaseSubSector({ errors, body }, response) {
 	const { applicationId } = response.locals;
 	const { selectedSubSectorName } = body;
-	const { sector: applicationSector } = await applicationsCreateService.getApplicationDraft(
+	const { sector: applicationSector } = await applicationsCreateCaseService.getApplicationDraft(
 		applicationId,
 		'transport'
 	);
-	const subSectors = await applicationsCreateService.getSubSectorsBySector(applicationSector);
+	const subSectors = await applicationsCreateCaseService.getSubSectorsBySector(applicationSector);
 	const selectedSubSector = subSectors.find(
 		(subSector) => subSector.name === selectedSubSectorName
 	);
 	const updateSubSector = () =>
-		applicationsCreateService.updateApplicationDraft(applicationId, {
+		applicationsCreateCaseService.updateApplicationDraft(applicationId, {
 			subSector: selectedSubSector
 		});
 
@@ -188,7 +188,7 @@ export async function updateApplicationsCreateCaseSubSector({ errors, body }, re
  */
 export async function viewApplicationsCreateCaseGeographicalInformation(req, response) {
 	const { applicationId } = response.locals;
-	const { geographicalInformation } = await applicationsCreateService.getApplicationDraft(
+	const { geographicalInformation } = await applicationsCreateCaseService.getApplicationDraft(
 		applicationId
 	);
 	const { locationDescription: applicationLocation, gridReference } = geographicalInformation || {};
@@ -212,7 +212,7 @@ export async function updateApplicationsCreateCaseGeographicalInformation(
 	const { applicationLocation, applicationEasting, applicationNorthing } = body;
 	const templateData = { applicationLocation, applicationEasting, applicationNorthing };
 	const updateGeographicalInformation = () =>
-		applicationsCreateService.updateApplicationDraft(applicationId, templateData);
+		applicationsCreateCaseService.updateApplicationDraft(applicationId, templateData);
 
 	if (errors) {
 		return response.render('applications/create/case/_geographical-information', {
@@ -240,7 +240,7 @@ export async function updateApplicationsCreateCaseGeographicalInformation(
  * {}, {}, {}, DomainParams>}
  */
 export async function viewApplicationsCreateCaseRegions(req, response) {
-	const allRegions = await applicationsCreateService.getAllRegions();
+	const allRegions = await applicationsCreateCaseService.getAllRegions();
 
 	return response.render('applications/create/case/_region', { regions: allRegions });
 }
@@ -254,12 +254,14 @@ export async function viewApplicationsCreateCaseRegions(req, response) {
 export async function updateApplicationsCreateCaseRegions({ errors, body }, response) {
 	const { applicationId } = response.locals;
 	const { selectedRegionsNames } = body;
-	const allRegions = await applicationsCreateService.getAllRegions();
+	const allRegions = await applicationsCreateCaseService.getAllRegions();
 	const selectedRegions = allRegions.filter((region) =>
 		(selectedRegionsNames || []).includes(region.name)
 	);
 	const updateRegion = () =>
-		applicationsCreateService.updateApplicationDraft(applicationId, { regions: selectedRegions });
+		applicationsCreateCaseService.updateApplicationDraft(applicationId, {
+			regions: selectedRegions
+		});
 
 	if (errors) {
 		return response.render('applications/create/case/_region', { errors, regions: allRegions });
@@ -327,9 +329,8 @@ export async function updateApplicationsCreateCaseZoomLevel({ body }, response) 
  */
 export async function viewApplicationsCreateCaseTeamEmail(req, response) {
 	const { applicationId } = response.locals;
-	const { teamEmail: applicationTeamEmail } = await applicationsCreateService.getApplicationDraft(
-		applicationId
-	);
+	const { teamEmail: applicationTeamEmail } =
+		await applicationsCreateCaseService.getApplicationDraft(applicationId);
 
 	return response.render('applications/create/case/_team-email', { applicationTeamEmail });
 }
@@ -345,7 +346,7 @@ export async function updateApplicationsCreateCaseTeamEmail({ body, errors }, re
 	const { applicationTeamEmail } = body;
 	const templateData = { applicationTeamEmail };
 	const updateTeamEmail = () =>
-		applicationsCreateService.updateApplicationDraft(applicationId, templateData);
+		applicationsCreateCaseService.updateApplicationDraft(applicationId, templateData);
 
 	if (errors) {
 		return response.render('applications/create/case/_team-email', {
@@ -363,7 +364,9 @@ export async function updateApplicationsCreateCaseTeamEmail({ body, errors }, re
 		response
 	);
 
-	response.redirect(`/applications-service/create-new-case/${applicationId}/applicant-type`);
+	response.redirect(
+		`/applications-service/create-new-case/${applicationId}/applicant-information-types`
+	);
 }
 
 /**

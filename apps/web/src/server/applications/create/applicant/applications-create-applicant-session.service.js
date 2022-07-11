@@ -1,0 +1,24 @@
+/**
+ * @typedef {import('express-session').Session & { infoTypes?: string[] }} SessionWithApplicationsCreateApplicantInfoTypes
+ */
+
+/**
+ * Save in the session the list of information types to be provided in the create-new-applicant form.
+ *
+ * @param {SessionWithApplicationsCreateApplicantInfoTypes} session
+ * @param {string[]} infoTypes
+ * @returns {void}
+ */
+export const setSessionApplicantInfoTypes = (session, infoTypes) => {
+	session.infoTypes = infoTypes;
+};
+
+/**
+ * Retrieve the applicant information types from the session.
+ *
+ * @param {SessionWithApplicationsCreateApplicantInfoTypes} session
+ * @returns {string[]|null}
+ */
+export const getSessionApplicantInfoTypes = (session) => {
+	return session.infoTypes ?? null;
+};

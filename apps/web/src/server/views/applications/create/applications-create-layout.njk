@@ -11,7 +11,8 @@
 		classes: 'govuk-!-margin-top-3',
 		items: [
 			{ href: 'dashboard'|url({domainType:domainType}), text: 'Applications' },
-			{ text: 'Case information' }
+			{ text: 'Case information', href: 'applications-create'|url({applicationId: applicationId}) if depth > 0 else ''  },
+			{ text: 'Applicant information' }
 		]
 	}) }}
 {% endblock %}
