@@ -528,46 +528,24 @@
 				"description": "Gets all applications as per search criteria",
 				"parameters": [
 					{
-						"name": "query",
+						"name": "body",
 						"in": "body",
-						"description": "search criteria searched in Application Reference, Title, or Description",
-						"example": "EN01",
-						"required": true,
 						"schema": {
 							"type": "object",
-							"properties": {}
-						}
-					},
-					{
-						"name": "role",
-						"in": "body",
-						"description": "a valid role",
-						"required": true,
-						"schema": {
-							"type": "object",
-							"properties": {}
-						}
-					},
-					{
-						"name": "pageNumber",
-						"in": "body",
-						"description": "page number of the paginated data to return, starting at 1 [default]",
-						"example": "1",
-						"required": false,
-						"schema": {
-							"type": "object",
-							"properties": {}
-						}
-					},
-					{
-						"name": "pageSize",
-						"in": "body",
-						"description": "number of results per page of paginated results. Defaults to 20",
-						"example": "20",
-						"required": false,
-						"schema": {
-							"type": "object",
-							"properties": {}
+							"properties": {
+								"role": {
+									"example": "any"
+								},
+								"query": {
+									"example": "any"
+								},
+								"pageNumber": {
+									"example": "any"
+								},
+								"pageSize": {
+									"example": "any"
+								}
+							}
 						}
 					}
 				],
@@ -577,36 +555,18 @@
 						"schema": {
 							"$ref": "#/definitions/ApplicationsForSearchCriteria"
 						}
+					},
+					"400": {
+						"description": "Bad Request"
+					},
+					"403": {
+						"description": "Forbidden"
 					}
 				}
 			}
 		}
 	},
 	"definitions": {
-	  "RegionsForApplications": {
-		"type": "array",
-		"items": {
-		  "type": "object",
-		  "properties": {
-			"id": {
-			  "type": "number",
-			  "example": 1
-			},
-			"name": {
-			  "type": "string",
-			  "example": "Region Name"
-			},
-			"displayNameEn": {
-			  "type": "string",
-			  "example": "Region Name En"
-			},
-			"displayNameCy": {
-			  "type": "string",
-			  "example": "Region Name Cy"
-			}
-		  }
-		}
-	  },
 		"Sectors": {
 			"type": "array",
 			"items": {
@@ -627,6 +587,30 @@
 					"name": {
 						"type": "string",
 						"example": "sector"
+					}
+				}
+			}
+		},
+		"RegionsForApplications": {
+			"type": "array",
+			"items": {
+				"type": "object",
+				"properties": {
+					"id": {
+						"type": "number",
+						"example": 1
+					},
+					"name": {
+						"type": "string",
+						"example": "Region Name"
+					},
+					"displayNameEn": {
+						"type": "string",
+						"example": "Region Name En"
+					},
+					"displayNameCy": {
+						"type": "string",
+						"example": "Region Name Cy"
 					}
 				}
 			}
@@ -811,6 +795,59 @@
 							"name": {
 								"type": "string",
 								"example": "sub_sector"
+							}
+						}
+					}
+				}
+			}
+		},
+		"ApplicationsForSearchCriteria": {
+			"type": "array",
+			"items": {
+				"type": "object",
+				"properties": {
+					"page": {
+						"type": "number",
+						"example": 1
+					},
+					"pageSize": {
+						"type": "number",
+						"example": 1
+					},
+					"pageCount": {
+						"type": "number",
+						"example": 1
+					},
+					"itemCount": {
+						"type": "number",
+						"example": 1
+					},
+					"items": {
+						"type": "array",
+						"items": {
+							"type": "object",
+							"properties": {
+								"id": {
+									"type": "number",
+									"example": 3
+								},
+								"status": {
+									"type": "string",
+									"example": "open"
+								},
+								"reference": {
+									"type": "string",
+									"example": "EN010003"
+								},
+								"title": {
+									"type": "string",
+									"example": "EN010003 - NI Case 3 Name"
+								},
+								"modifiedDate": {
+									"type": "number",
+									"example": 1655298882
+								},
+								"publishedDate": {}
 							}
 						}
 					}
