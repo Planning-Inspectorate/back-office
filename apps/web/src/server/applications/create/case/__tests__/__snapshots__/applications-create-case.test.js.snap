@@ -267,33 +267,28 @@ exports[`applications create GET /create-new-case/:applicationId/zoom-level shou
             <div class=\\"govuk-radios\\" data-module=\\"govuk-radios\\">
                 <div class=\\"govuk-radios__item\\">
                     <input class=\\"govuk-radios__input\\" id=\\"selectedZoomLevelName\\" name=\\"selectedZoomLevelName\\"
-                    type=\\"radio\\" value=\\"london\\">
-                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"selectedZoomLevelName\\">London EN</label>
+                    type=\\"radio\\" value=\\"city\\">
+                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"selectedZoomLevelName\\">City EN</label>
                 </div>
                 <div class=\\"govuk-radios__item\\">
                     <input class=\\"govuk-radios__input\\" id=\\"selectedZoomLevelName-2\\" name=\\"selectedZoomLevelName\\"
-                    type=\\"radio\\" value=\\"yorkshire\\">
-                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"selectedZoomLevelName-2\\">Yorkshire EN</label>
+                    type=\\"radio\\" value=\\"county\\">
+                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"selectedZoomLevelName-2\\">County EN</label>
                 </div>
                 <div class=\\"govuk-radios__item\\">
                     <input class=\\"govuk-radios__input\\" id=\\"selectedZoomLevelName-3\\" name=\\"selectedZoomLevelName\\"
-                    type=\\"radio\\" value=\\"east\\">
-                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"selectedZoomLevelName-3\\">East EN</label>
+                    type=\\"radio\\" value=\\"junction\\">
+                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"selectedZoomLevelName-3\\">Junction EN</label>
                 </div>
                 <div class=\\"govuk-radios__item\\">
                     <input class=\\"govuk-radios__input\\" id=\\"selectedZoomLevelName-4\\" name=\\"selectedZoomLevelName\\"
-                    type=\\"radio\\" value=\\"north\\">
-                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"selectedZoomLevelName-4\\">North EN</label>
+                    type=\\"radio\\" value=\\"country\\">
+                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"selectedZoomLevelName-4\\">Country EN</label>
                 </div>
                 <div class=\\"govuk-radios__item\\">
                     <input class=\\"govuk-radios__input\\" id=\\"selectedZoomLevelName-5\\" name=\\"selectedZoomLevelName\\"
-                    type=\\"radio\\" value=\\"south\\">
-                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"selectedZoomLevelName-5\\">South EN</label>
-                </div>
-                <div class=\\"govuk-radios__item\\">
-                    <input class=\\"govuk-radios__input\\" id=\\"selectedZoomLevelName-6\\" name=\\"selectedZoomLevelName\\"
-                    type=\\"radio\\" value=\\"west\\">
-                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"selectedZoomLevelName-6\\">West EN</label>
+                    type=\\"radio\\" value=\\"region\\">
+                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"selectedZoomLevelName-5\\">Region EN</label>
                 </div>
             </div>
         </div>
