@@ -29,7 +29,7 @@ extends:
               script: npm ci
           - template: ../steps/node_script.yml
             parameters:
-              condition: ne(variables['Build.SourceBranchName'], 'main')
+              condition: or(ne(variables['Build.SourceBranchName'], 'main'), ne(contains(variables['Build.SourceBranchName'], 'release/'), true))
               script: npm run commitlint
           - template: ../steps/node_script.yml
             parameters:
