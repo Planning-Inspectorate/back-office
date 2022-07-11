@@ -66,7 +66,7 @@ const validPageNumber = (pageNumber) => {
 	if (pageNumber) {
 		validPage = Number(pageNumber) ? !!(pageNumber > 0 && pageNumber <= maxPages) : false;
 	} else {
-		validPage = false;
+		validPage = true;
 	}
 
 	return validPage;
@@ -84,7 +84,8 @@ const validPageSize = (pageSize) => {
 	if (pageSize) {
 		validSize = Number(pageSize) ? !!(pageSize > 0 && pageSize <= maxResultsPerPage) : false;
 	} else {
-		validSize = false;
+		console.log('PAGE SIZE null or undefined value is OK');
+		validSize = true;
 	}
 	return validSize;
 };

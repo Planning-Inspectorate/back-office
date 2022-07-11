@@ -24,8 +24,16 @@ export const obtainSearchResults = async (_request) => {
 	if (_request.body.pageSize) {
 		resultsPerPage = _request.body.pageSize;
 	}
+	else {
+		// value was undefined - use default
+		resultsPerPage = maxResultsPerPage;
+	}
 	if (_request.body.pageNumber) {
 		skipValue = (_request.body.pageNumber - 1) * resultsPerPage;
+	}
+	else {
+		// value was undefined - use default
+		skipValue = 0;
 	}
 
 	const applications = await caseRepository.getBySearchCriteria(

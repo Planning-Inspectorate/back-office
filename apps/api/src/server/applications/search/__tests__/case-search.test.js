@@ -225,3 +225,34 @@ test('gets empty results using search criteria with no matching results', async 
 		items: []
 	});
 });
+
+test('gets applications using search criteria with default page number and size', async (t) => {
+	sinon.stub(databaseConnector, 'case').get(() => {
+		return {
+			findMany: findManyStub,
+			count: countStub
+		};
+	});
+
+	const response = await request
+		.post('/applications/search')
+		.send({ query: searchString, role: 'case-officer'});
+
+	t.is(response.status, 200);
+	t.deepEqual(response.body, {
+		page: 1,
+		pageSize: 1,
+		pageCount: 1,
+		itemCount: 1,
+		items: [
+			{
+				id: 3,
+				status: 'open',
+				reference: application.reference,
+				title: searchString,
+				modifiedDate: 1_655_298_882,
+				publishedDate: null
+			}
+		]
+		});
+	});

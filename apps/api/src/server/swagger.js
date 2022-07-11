@@ -105,6 +105,12 @@ const document = {
 				}
 			}
 		],
+		ApplicationsForSearchCriteriaRequestBody: {
+			query: 'BC',
+			role: 'case-officer',
+			pageNumber: 1,
+			pageSize: 1,
+		},
 		ApplicationsForSearchCriteria: [
 			{
 				page: 1,
