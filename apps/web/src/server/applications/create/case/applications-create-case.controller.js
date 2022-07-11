@@ -12,8 +12,8 @@ import * as applicationsCreateService from './applications-create-case.service.j
 /** @typedef {import('./applications-create-case.types').ApplicationsCreateCaseGeographicalInformationBody} ApplicationsCreateCaseGeographicalInformationBody */
 /** @typedef {import('./applications-create-case.types').ApplicationsCreateCaseRegionsProps} ApplicationsCreateCaseRegionsProps */
 /** @typedef {import('./applications-create-case.types').ApplicationsCreateCaseRegionsBody} ApplicationsCreateCaseRegionsBody */
-/** @typedef {import('./applications-create.types').ApplicationsCreateCaseZoomLevelProps} ApplicationsCreateZoomLevelProps */
-/** @typedef {import('./applications-create.types').ApplicationsCreateCaseZoomLevelBody} ApplicationsCreateZoomLevelBody */
+/** @typedef {import('./applications-create-case.types').ApplicationsCreateCaseZoomLevelProps} ApplicationsCreateCaseZoomLevelProps */
+/** @typedef {import('./applications-create-case.types').ApplicationsCreateCaseZoomLevelBody} ApplicationsCreateCaseZoomLevelBody */
 /** @typedef {import('./applications-create-case.types').ApplicationsCreateCaseTeamEmailProps} ApplicationsCreateCaseTeamEmailProps */
 /** @typedef {import('./applications-create-case.types').ApplicationsCreateCaseTeamEmailBody} ApplicationsCreateCaseTeamEmailBody */
 /** @typedef {import('./applications-create-case.types').UpdateOrCreateCallback} UpdateOrCreateCallback */
@@ -281,7 +281,7 @@ export async function updateApplicationsCreateCaseRegions({ errors, body }, resp
  * @type {import('@pins/express').RenderHandler<ApplicationsCreateCaseZoomLevelProps,
  * {}, {}, {}, DomainParams>}
  */
-export async function viewApplicationsCreateZoomLevel(req, response) {
+export async function viewApplicationsCreateCaseZoomLevel(req, response) {
 	const allZoomLevels = await applicationsCreateService.getAllZoomLevels();
 
 	return response.render('applications/create/case/_zoom-level', { zoomLevels: allZoomLevels });
@@ -293,8 +293,8 @@ export async function viewApplicationsCreateZoomLevel(req, response) {
  * @type {import('@pins/express').RenderHandler<ApplicationsCreateCaseZoomLevelProps,
  * {}, ApplicationsCreateCaseZoomLevelBody, {}, DomainParams>}
  */
-export async function newApplicationsCreateZoomLevel({ params, body }, response) {
-	const applicationId = getParametersApplicationIdOrFail(params, response);
+export async function updateApplicationsCreateCaseZoomLevel({ body }, response) {
+	const { applicationId } = response.locals;
 	const { selectedZoomLevelName } = body;
 	const allZoomLevels = await applicationsCreateService.getAllZoomLevels();
 	const selectedZoomLevel = allZoomLevels.filter(
@@ -313,7 +313,7 @@ export async function newApplicationsCreateZoomLevel({ params, body }, response)
 		},
 		response
 	);
-	response.redirect(`/applications-service/create-new-case/${applicationId}/email`);
+	response.redirect(`/applications-service/create-new-case/${applicationId}/team-email`);
 }
 
 /**
