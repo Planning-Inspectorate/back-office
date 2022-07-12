@@ -15,13 +15,13 @@ export const getAllApplicantInfoTypes = () => {
 		},
 		{
 			id: 2,
-			name: 'applicant-name',
+			name: 'applicant-full-name',
 			displayNameEn: 'First and last name of the Applicant',
 			displayNameCy: 'First and last name of the Applicant'
 		},
 		{
 			id: 3,
-			name: 'applicant-email-address',
+			name: 'applicant-email',
 			displayNameEn: 'Applicant or organisation email address',
 			displayNameCy: 'Applicant or organisation email address'
 		},
