@@ -197,7 +197,7 @@ test('should get no results using search criteria which will not yield cases', a
 	const response = await request
 		.post('/applications/search')
 		.send({
-			query: 'BCDE',
+			query: 'BCDEF',
 			role: 'case-officer',
 			pageNumber: 1,
 			pageSize: 1 });
