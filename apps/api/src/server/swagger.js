@@ -5,7 +5,7 @@ const document = {
 		// by default: '1.0.0'
 		version: '2.0',
 		// by default: 'REST API'
-		title: 'My PINS Project',
+		title: 'PINS Back Office API',
 		// by default: ''
 		description: 'My PINS Project AOI documentation from Swagger'
 	},

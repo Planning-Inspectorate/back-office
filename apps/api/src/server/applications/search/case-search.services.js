@@ -14,6 +14,10 @@ const mapApplicationsWithSearchCriteria = (applications) => {
 	return applications.map((application) => mapApplicationWithSearchCriteria(application));
 };
 
+/**
+ * @param {*} _request
+ * @returns {Promise<paginationInfo>}
+ */
 export const obtainSearchResults = async (_request) => {
 	// default
 	const maxResultsPerPage = 20;
@@ -21,25 +25,22 @@ export const obtainSearchResults = async (_request) => {
 	let skipValue = 0;
 	let resultsPerPage = maxResultsPerPage;
 
-	console.log('REQUEST', _request.body);
-
 	resultsPerPage = _request.body.pageSize ? _request.body.pageSize : maxResultsPerPage;
 	skipValue = _request.body.pageNumber ? (_request.body.pageNumber - 1) * resultsPerPage : 0;
-	console.log('PAGES VALUES', _request.body.query.trim(),
-	skipValue,
-	resultsPerPage);
+
+	const applicationsCount = await caseRepository.getApplicationsCountBySearchCriteria(
+		_request.body.query.trim()
+	);
+
+	if (resultsPerPage > applicationsCount) {
+		resultsPerPage = applicationsCount;
+	}
 
 	const applications = await caseRepository.getBySearchCriteria(
 		_request.body.query.trim(),
 		skipValue,
 		resultsPerPage
 	);
-	console.log('APPLICATIONS', applications);
-
-	const applicationsCount = await caseRepository.getApplicationsCountBySearchCriteria(
-		_request.body.query.trim()
-	);
-	console.log('APPLICATIONS COUNT', applicationsCount);
 
 	// return zero data if no results found
 	let pageInfo = {
@@ -59,8 +60,6 @@ export const obtainSearchResults = async (_request) => {
 			items: mapApplicationsWithSearchCriteria(applications)
 		};
 	}
-
-	console.log('PAGE INFO', pageInfo);
 
 	return pageInfo;
 };

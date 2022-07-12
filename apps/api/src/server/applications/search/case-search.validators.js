@@ -66,6 +66,9 @@ const validPageNumber = (pageNumber) => {
 	if (pageNumber <= 0 || pageNumber > maxPages) {
 		validPage = false;
 	}
+	else if (typeof pageNumber !== 'undefined' && !Number(pageNumber)) {
+		validPage = false;
+	}
 
 	return validPage;
 };
@@ -80,6 +83,9 @@ const validPageSize = (pageSize) => {
 	let validSize = true;
 
 	if (pageSize <= 0 || pageSize > maxResultsPerPage) {
+		validSize = false;
+	}
+	else if (typeof pageSize !== 'undefined' && !Number(pageSize)) {
 		validSize = false;
 	}
 
