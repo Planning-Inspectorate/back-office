@@ -63,10 +63,8 @@ const validQuery = (query) => {
 const validPageNumber = (pageNumber) => {
 	let validPage = true;
 
-	if (pageNumber) {
-		validPage = Number(pageNumber) ? !!(pageNumber > 0 && pageNumber <= maxPages) : false;
-	} else {
-		validPage = true;
+	if (pageNumber <= 0 || pageNumber > maxPages) {
+		validPage = false;
 	}
 
 	return validPage;
@@ -81,11 +79,9 @@ const validPageNumber = (pageNumber) => {
 const validPageSize = (pageSize) => {
 	let validSize = true;
 
-	if (pageSize) {
-		validSize = Number(pageSize) ? !!(pageSize > 0 && pageSize <= maxResultsPerPage) : false;
-	} else {
-		console.log('PAGE SIZE null or undefined value is OK');
-		validSize = true;
+	if (pageSize <= 0 || pageSize > maxResultsPerPage) {
+		validSize = false;
 	}
+
 	return validSize;
 };
