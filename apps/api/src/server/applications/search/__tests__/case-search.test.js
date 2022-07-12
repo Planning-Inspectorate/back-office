@@ -13,7 +13,7 @@ const application = applicationFactoryForTests({
 	id: 3,
 	status: 'open',
 	reference: 'EN010003',
-	title: searchString,
+	title: 'EN010003 - NI Case 3',
 	description: 'EN010003 - NI Case 3 Name Description',
 	createdAt: new Date(1_655_298_882_000),
 	modifiedAt: new Date(1_655_298_882_000)
@@ -90,7 +90,11 @@ test('gets applications using search criteria', async (t) => {
 
 	const response = await request
 		.post('/applications/search')
-		.send({ query: searchString, role: 'case-officer', pageNumber: 1, pageSize: 1 });
+		.send({
+			query: searchString,
+			role: 'case-officer',
+			pageNumber: 1,
+			pageSize: 1 });
 
 	t.is(response.status, 200);
 	t.deepEqual(response.body, {
@@ -162,7 +166,11 @@ test('should not be able to submit a search if the pageSize is negative', async 
 test('should not be able to submit a search if query does not have a value', async (t) => {
 	const resp = await request
 		.post('/applications/search')
-		.send({ query: '', role: 'case-admin-officer', pageNumber: 1, pageSize: 5 });
+		.send({
+			query: '',
+			role: 'case-admin-officer',
+			pageNumber: 1,
+			pageSize: 5 });
 
 	t.is(resp.status, 400);
 	t.deepEqual(resp.body, {
@@ -214,7 +222,11 @@ test('gets empty results using search criteria with no matching results', async 
 
 	const response = await request
 		.post('/applications/search')
-		.send({ query: 'bcd', role: 'case-officer', pageNumber: 1, pageSize: 1 });
+		.send({
+			query: 'BCDE',
+			role: 'case-officer',
+			pageNumber: 1,
+			pageSize: 1 });
 
 	t.is(response.status, 200);
 	t.deepEqual(response.body, {
@@ -236,7 +248,10 @@ test('gets applications using search criteria with default page number and size'
 
 	const response = await request
 		.post('/applications/search')
-		.send({ query: searchString, role: 'case-officer'});
+		.send({
+			query: 'EN010003 - NI Case 3 Name',
+			role: 'case-officer'
+		});
 
 	t.is(response.status, 200);
 	t.deepEqual(response.body, {
@@ -248,8 +263,8 @@ test('gets applications using search criteria with default page number and size'
 			{
 				id: 3,
 				status: 'open',
-				reference: application.reference,
-				title: searchString,
+				reference: 'EN010003',
+				title: 'EN010003 - NI Case 3',
 				modifiedDate: 1_655_298_882,
 				publishedDate: null
 			}
