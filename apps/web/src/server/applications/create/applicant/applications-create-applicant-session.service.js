@@ -17,8 +17,8 @@ export const setSessionApplicantInfoTypes = (session, infoTypes) => {
  * Retrieve the applicant information types from the session.
  *
  * @param {SessionWithApplicationsCreateApplicantInfoTypes} session
- * @returns {string[]|null}
+ * @returns {string[]}
  */
 export const getSessionApplicantInfoTypes = (session) => {
-	return session.infoTypes ?? null;
+	return session.infoTypes ?? [];
 };
