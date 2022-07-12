@@ -2,7 +2,7 @@
   "swagger": "2.0",
   "info": {
     "version": "2.0",
-    "title": "My PINS Project",
+    "title": "PINS Back Office API",
     "description": "My PINS Project AOI documentation from Swagger"
   },
   "host": "localhost:3000",
