@@ -7,12 +7,7 @@
 {% endblock %}
 
 {% block stepForm %}
-	{{ govukRadios({
-		name: "selectedZoomLevelName",
-		idPrefix: "selectedZoomLevelName",
-		errorMessage: (errors !== undefined and errors !== false),
-		items: zoomLevels | selectItems({valueKey: 'name', labelKey: 'displayNameEn', selectedValue: selectedValue})
-	}) }}
+	work in progress
 {% endblock %}
 
 {% set backLink = 'applications-create'|url({applicationId:applicationId, step: 'regions'}) %}

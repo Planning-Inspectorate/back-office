@@ -8,11 +8,10 @@ import csurf from 'csurf';
 import express from 'express';
 import requestID from 'express-request-id';
 import helmet from 'helmet';
-import morgan from 'morgan';
 import multer from 'multer';
 import responseTime from 'response-time';
 import serveStatic from 'serve-static';
-import logger, { httpLogger } from '../lib/logger.js';
+import pino from '../lib/logger.js';
 import { msalMiddleware } from '../lib/msal.js';
 import appRouter from './app.router.js';
 import locals from './config/locals.js';
@@ -27,12 +26,14 @@ app.use(installRequestLocalsMiddleware());
 // Initialize app locals
 app.locals = locals;
 
-// Http logging to stdout
-if (config.isProduction) {
-	app.use(httpLogger);
-} else if (config.isDevelopment) {
-	app.use(morgan('dev'));
-}
+app.use((request, response, next) => {
+	const { req, statusCode } = response;
+
+	if (!/((\bfonts\b)|(\bimages\b)|(\bstyles\b)|(\bscripts\b))/.test(req.originalUrl)) {
+		pino.info(`[WEB] ${req.method} ${req.originalUrl.toString()} (Response code: ${statusCode})`);
+	}
+	next();
+});
 
 // Parse incoming request bodies in a middleware before your handlers, available under the req.body property.
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -100,18 +101,46 @@ app.use('/', appRouter);
 app.use(
 	/** @type {import('express').ErrorRequestHandler} */
 	(error, req, res, next) => {
-		logger.error(error);
+		if (error.options?.method) {
+			const apiError = `[API] ${error.options?.method} ${error.options?.url?.pathname}${
+				error.options?.url?.search
+			} (Response code: ${error.response?.statusCode}) - ${JSON.stringify(
+				error.response?.body?.errors || { error: `Error ${error.response?.statusCode}` }
+			)}`;
+
+			pino.error(apiError);
+		} else {
+			const javascriptError = `[WEB] ${error.message || 'Unknown error'} (Response code: ${
+				error.statusCode
+			})`;
+
+			pino.error(javascriptError);
+		}
 
 		if (res.headersSent) {
 			next(error);
 		}
-		res.status(500);
-		res.render('app/500', { error });
+
+		switch (error.statusCode) {
+			case 401:
+				res.status(401);
+				return res.render(`app/401.njk`, { error });
+			case 403:
+				res.status(403);
+				return res.render(`app/403.njk`, { error });
+			case 404:
+				res.status(403);
+				return res.render(`app/404.njk`, { error });
+			default:
+				res.status(500);
+				return res.render(`app/500.njk`, { error });
+		}
 	}
 );
 
 // Catch undefined routes (404) and render generic 404 not found page
 app.use((request, response) => {
+	pino.warn(`[WEB] Page ${response.req.originalUrl} does not exist. Render 404 page`);
 	response.status(404).render('app/404');
 });
 
