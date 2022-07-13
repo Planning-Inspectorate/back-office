@@ -5,6 +5,7 @@ import { inspectorRoutes } from './inspector/inspector.routes.js';
 import { regionRoutes } from './region/region.routes.js';
 import { caseSearchRoutes } from './search/case-search.routes.js';
 import { sectorRoutes } from './sector/sector.routes.js';
+import { zoomLevelRoutes } from './zoom/zoom.routes.js';
 
 const router = new express.Router();
 
@@ -20,5 +21,6 @@ router.use('/sector', sectorRoutes);
 
 router.use('/search', caseSearchRoutes);
 
+router.use('/zoom-level', zoomLevelRoutes);
 
 export { router as applicationsRoutes };

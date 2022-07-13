@@ -70,6 +70,7 @@ model AppealDetailsFromAppellant {
   appeal                               Appeal   @relation(fields: [appealId], references: [id])
 }
 
+<<<<<<< HEAD
 model Case {
   id                 Int                 @id @default(autoincrement())
   reference          String?
@@ -101,6 +102,19 @@ model ApplicationDetails {
   subSector   SubSector? @relation(fields: [subSectorId], references: [id])
   regionId    Int?
   region      Region?    @relation(fields: [regionId], references: [id])
+=======
+model Application {
+  id          	Int       @id @default(autoincrement())
+  status      	String    @default("open")
+  reference   	String
+  modifiedAt  	DateTime
+  subSectorId 	Int
+  subSector   	SubSector @relation(fields: [subSectorId], references: [id])
+	regionId    	Int?
+  region      	Region?   @relation(fields: [regionId], references: [id])
+	zoomLevelId		Int?
+  zooomLevel		ZoomLevel?   @relation(fields: [zoomLevelId], references: [id])
+>>>>>>> 969d245e (feat(api/applications): zoom levels working and tested (BOAS-181))
 }
 
 model Sector {
@@ -239,4 +253,12 @@ model User {
   id             Int      @id @default(autoincrement())
   azureReference Int?     @unique
   appeal         Appeal[]
+}
+
+model ZoomLevel {
+  id            Int           @id
+  name          String        @unique
+  displayNameEn String
+  displayNameCy String
+  Application   Application[]
 }
