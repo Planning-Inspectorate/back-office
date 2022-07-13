@@ -11,7 +11,7 @@ router.get(
         #swagger.path = '/applications/zoom-level'
         #swagger.description = 'Gets all map zoom levels available'
         #swagger.responses[200] = {
-            description: 'List of map zoom level',
+            description: 'List of map zoom levels',
             schema: { $ref: '#/definitions/MapZoomLevelForApplications' }
         }
     */
