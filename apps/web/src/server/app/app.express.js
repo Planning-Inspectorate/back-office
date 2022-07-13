@@ -1,5 +1,4 @@
 import { installRequestLocalsMiddleware } from '@pins/express';
-import config from '@pins/web/environment/config.js';
 import bodyParser from 'body-parser';
 import compression from 'compression';
 import cookieParser from 'cookie-parser';
@@ -70,17 +69,15 @@ app.use(msalMiddleware);
 app.use(session);
 
 // CSRF middleware via session
-if (!config.isTest) {
-	app.use(
-		// where request uses multipart form body, then extract csrf token before verifying it
-		multer().none(),
-		csurf({ cookie: false }),
-		(request, response, next) => {
-			response.locals.csrfToken = request.csrfToken();
-			next();
-		}
-	);
-}
+app.use(
+	// @ts-ignore – Multer cannot be a string
+	multer(),
+	csurf({ cookie: false }),
+	(request, response, next) => {
+		response.locals.csrfToken = request.csrfToken();
+		next();
+	}
+);
 
 // Set the express view engine to nunjucks.
 nunjucksEnvironment.express(app);
