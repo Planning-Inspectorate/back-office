@@ -12,7 +12,8 @@ import {
 	lpaQuestionnaireList,
 	regions,
 	sectors,
-	subSectors
+	subSectors,
+	zoomLevels
 } from './seed-samples.js';
 
 /**
@@ -716,10 +717,78 @@ async function main() {
 				data: region
 			});
 		}
+		for (const zoomLevel of zoomLevels) {
+			await prisma.zoomLevel.create({
+				data: zoomLevel
+			});
+		}
 		for (const { subSector } of subSectors) {
 			for (let index = 1; index < 4; index += 1) {
 				await createApplication(subSector, index);
 			}
+			await prisma.application.create({
+				data: {
+					reference: generateAppealReference(),
+					modifiedAt: new Date(),
+					region: {
+						connect: {
+							name: pickRandom(regions).name
+						}
+					},
+					subSector: {
+						connect: {
+							name: subSector.name
+						}
+					},
+					zoomLevel: {
+						connect: {
+							name: pickRandom(zoomLevels).name
+						}
+					}
+				}
+			});
+			await prisma.application.create({
+				data: {
+					reference: generateAppealReference(),
+					modifiedAt: new Date(),
+					region: {
+						connect: {
+							name: pickRandom(regions).name
+						}
+					},
+					subSector: {
+						connect: {
+							name: subSector.name
+						}
+					},
+					zoomLevel: {
+						connect: {
+							name: pickRandom(zoomLevels).name
+						}
+					}
+				}
+			});
+			await prisma.application.create({
+				data: {
+					reference: generateAppealReference(),
+					modifiedAt: new Date(),
+					region: {
+						connect: {
+							name: pickRandom(regions).name
+						}
+					},
+					subSector: {
+						connect: {
+							name: subSector.name
+						}
+					},
+					zoomLevel: {
+						connect: {
+							name: pickRandom(zoomLevels).name
+						}
+					}
+				}
+			});
 		}
 	} catch (error) {
 		logger.error(error);
