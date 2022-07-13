@@ -2,7 +2,7 @@ import { loadEnvironment } from '@pins/platform';
 import url from 'node:url';
 import schema from './schema.js';
 
-const environment = loadEnvironment('test');
+const environment = loadEnvironment(process.env.NODE_ENV);
 
 const { value, error } = schema.validate({
 	NODE_ENV: environment.NODE_ENV,
