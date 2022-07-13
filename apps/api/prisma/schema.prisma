@@ -71,14 +71,16 @@ model AppealDetailsFromAppellant {
 }
 
 model Application {
-  id          Int       @id @default(autoincrement())
-  status      String    @default("open")
-  reference   String
-  modifiedAt  DateTime
-  subSectorId Int
-  subSector   SubSector @relation(fields: [subSectorId], references: [id])
-	regionId    Int?
-  region      Region?   @relation(fields: [regionId], references: [id])
+  id          	Int       @id @default(autoincrement())
+  status      	String    @default("open")
+  reference   	String
+  modifiedAt  	DateTime
+  subSectorId 	Int
+  subSector   	SubSector @relation(fields: [subSectorId], references: [id])
+	regionId    	Int?
+  region      	Region?   @relation(fields: [regionId], references: [id])
+	zoomLevelId		Int?
+  zooomLevel		ZoomLevel?   @relation(fields: [zoomLevelId], references: [id])
 }
 
 model Sector {
@@ -217,4 +219,12 @@ model User {
   id             Int      @id @default(autoincrement())
   azureReference Int?     @unique
   appeal         Appeal[]
+}
+
+model ZoomLevel {
+  id            Int           @id
+  name          String        @unique
+  displayNameEn String
+  displayNameCy String
+  Application   Application[]
 }
