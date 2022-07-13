@@ -12,7 +12,8 @@ import {
 	lpaQuestionnaireList,
 	regions,
 	sectors,
-	subSectors
+	subSectors,
+	zoomLevels
 } from './seed-samples.js';
 
 const { PrismaClient } = Prisma;
@@ -663,6 +664,11 @@ async function main() {
 				data: region
 			});
 		}
+		for (const zoomLevel of zoomLevels) {
+			await prisma.zoomLevel.create({
+				data: zoomLevel
+			});
+		}
 		for (const { subSector } of subSectors) {
 			await prisma.application.create({
 				data: {
@@ -677,6 +683,11 @@ async function main() {
 						connect: {
 							name: subSector.name
 						}
+					},
+					zoomLevel: {
+						connect: {
+							name: pickRandom(zoomLevels).name
+						}
 					}
 				}
 			});
@@ -693,6 +704,11 @@ async function main() {
 						connect: {
 							name: subSector.name
 						}
+					},
+					zoomLevel: {
+						connect: {
+							name: pickRandom(zoomLevels).name
+						}
 					}
 				}
 			});
@@ -708,6 +724,11 @@ async function main() {
 					subSector: {
 						connect: {
 							name: subSector.name
+						}
+					},
+					zoomLevel: {
+						connect: {
+							name: pickRandom(zoomLevels).name
 						}
 					}
 				}

@@ -80,7 +80,7 @@ model Application {
 	regionId    	Int?
   region      	Region?   @relation(fields: [regionId], references: [id])
 	zoomLevelId		Int?
-  zooomLevel		ZoomLevel?   @relation(fields: [zoomLevelId], references: [id])
+  zoomLevel			ZoomLevel?   @relation(fields: [zoomLevelId], references: [id])
 }
 
 model Sector {

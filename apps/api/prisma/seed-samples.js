@@ -599,3 +599,48 @@ export const regions = [
 		displayNameCy: 'Yorkshire and the Humber'
 	}
 ];
+
+export const zoomLevels = [
+	{
+		id: 127,
+		name: 'null',
+		displayNameEn: 'NULL',
+		displayNameCy: 'NULL'
+	},
+	{
+		id: 7,
+		name: 'borough',
+		displayNameEn: 'Borough',
+		displayNameCy: 'Borough'
+	},
+	{
+		id: 12,
+		name: 'country',
+		displayNameEn: 'Country',
+		displayNameCy: 'Country'
+	},
+	{
+		id: 29,
+		name: 'county',
+		displayNameEn: 'County',
+		displayNameCy: 'County'
+	},
+	{
+		id: 2,
+		name: 'district',
+		displayNameEn: 'District',
+		displayNameCy: 'District'
+	},
+	{
+		id: 105,
+		name: 'region',
+		displayNameEn: 'Region',
+		displayNameCy: 'Region'
+	},
+	{
+		id: 1,
+		name: 'town',
+		displayNameEn: 'Town',
+		displayNameCy: 'Town'
+	}
+];
