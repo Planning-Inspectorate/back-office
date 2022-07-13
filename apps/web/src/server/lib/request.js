@@ -3,7 +3,7 @@ import config from '@pins/web/environment/config.js';
 import got from 'got';
 import pino from './logger.js';
 
-const [requestLogger, responseLogger] = createHttpLoggerHooks(pino);
+const [requestLogger, responseLogger] = createHttpLoggerHooks(pino, config.logLevelStdOut);
 
 const instance = got.extend({
 	prefixUrl: config.apiUrl,

@@ -1,5 +1,6 @@
 import config from '@pins/web/environment/config.js';
 import { assertGroupAccess } from '../app/auth/auth.guards.js';
+import pino from '../lib/logger.js';
 import { getSessionApplicationsDomainType } from './applications-session.service.js';
 
 /** @typedef {import('./applications.router').DomainParams} DomainParams */
@@ -35,6 +36,7 @@ export const assertDomainTypeExists = (req, res, next) => {
 	if (domainType) {
 		next();
 	} else {
+		pino.warn(`Domain type is ${domainType}. User is redirected to root`);
 		return res.redirect('/');
 	}
 };
