@@ -521,33 +521,24 @@
 					}
 				}
 			}
+		},
+		"/applications/zoom-level": {
+			"get": {
+				"tags": ["Applications"],
+				"description": "Gets all map zoom levels available",
+				"parameters": [],
+				"responses": {
+					"200": {
+						"description": "List of map zoom level",
+						"schema": {
+							"$ref": "#/definitions/MapZoomLevelForApplications"
+						}
+					}
+				}
+			}
 		}
 	},
 	"definitions": {
-	  "RegionsForApplications": {
-		"type": "array",
-		"items": {
-		  "type": "object",
-		  "properties": {
-			"id": {
-			  "type": "number",
-			  "example": 1
-			},
-			"name": {
-			  "type": "string",
-			  "example": "Region Name"
-			},
-			"displayNameEn": {
-			  "type": "string",
-			  "example": "Region Name En"
-			},
-			"displayNameCy": {
-			  "type": "string",
-			  "example": "Region Name Cy"
-			}
-		  }
-		}
-	  },
 		"Sectors": {
 			"type": "array",
 			"items": {
@@ -568,6 +559,30 @@
 					"name": {
 						"type": "string",
 						"example": "sector"
+					}
+				}
+			}
+		},
+		"RegionsForApplications": {
+			"type": "array",
+			"items": {
+				"type": "object",
+				"properties": {
+					"id": {
+						"type": "number",
+						"example": 1
+					},
+					"name": {
+						"type": "string",
+						"example": "Region Name"
+					},
+					"displayNameEn": {
+						"type": "string",
+						"example": "Region Name En"
+					},
+					"displayNameCy": {
+						"type": "string",
+						"example": "Region Name Cy"
 					}
 				}
 			}
