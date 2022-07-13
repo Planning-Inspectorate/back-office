@@ -70,7 +70,6 @@ model AppealDetailsFromAppellant {
   appeal                               Appeal   @relation(fields: [appealId], references: [id])
 }
 
-<<<<<<< HEAD
 model Case {
   id                 Int                 @id @default(autoincrement())
   reference          String?
@@ -102,7 +101,7 @@ model ApplicationDetails {
   subSector   SubSector? @relation(fields: [subSectorId], references: [id])
   regionId    Int?
   region      Region?    @relation(fields: [regionId], references: [id])
-=======
+
 model Application {
   id          	Int       @id @default(autoincrement())
   status      	String    @default("open")
@@ -112,9 +111,8 @@ model Application {
   subSector   	SubSector @relation(fields: [subSectorId], references: [id])
 	regionId    	Int?
   region      	Region?   @relation(fields: [regionId], references: [id])
-	zoomLevelId		Int?
-  zooomLevel		ZoomLevel?   @relation(fields: [zoomLevelId], references: [id])
->>>>>>> 969d245e (feat(api/applications): zoom levels working and tested (BOAS-181))
+	zoomLevelId		Int
+  zoomLevel			ZoomLevel   @relation(fields: [zoomLevelId], references: [id])
 }
 
 model Sector {
