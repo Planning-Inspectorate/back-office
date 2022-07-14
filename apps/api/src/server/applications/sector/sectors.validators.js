@@ -1,27 +1,23 @@
+import { composeMiddleware } from '@pins/express';
 import { query } from 'express-validator';
-import { isEmpty } from 'lodash-es';
+import { validationErrorHandler } from '../../middleware/error-handler.js';
 import * as sectorRepository from '../../repositories/sector.repository.js';
 
-/** @type {import('express').RequestHandler } */
-export const validateSectorName = async (request, response, next) => {
-	const result = await query('sectorName')
-		.custom(async (sectorName) => {
-			if (!sectorName) {
-				return true;
-			}
+/**
+ * @param {string} value
+ */
+const validateSectorName = async (value) => {
+	const subSector = await sectorRepository.getByName(value);
 
-			const sector = await sectorRepository.getByName(sectorName);
-
-			if (!isEmpty(sector)) {
-				return true;
-			}
-			throw new Error('Sector name not recognised');
-		})
-		.run(request);
-
-	if (!result.isEmpty()) {
-		response.status(404).send({ errors: result.formatWith(({ msg }) => msg).mapped() });
-	} else {
-		next();
+	if (subSector === null) {
+		throw new Error('Unknown Sector');
 	}
 };
+
+export const validateGetSubSectors = composeMiddleware(
+	query('sectorName')
+		.custom(validateSectorName)
+		.withMessage('Sector name not recognised')
+		.optional({ nullable: true }),
+	validationErrorHandler
+);
