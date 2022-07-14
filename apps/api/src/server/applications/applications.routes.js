@@ -1,4 +1,5 @@
 import express from 'express';
+import { applicationRoutes } from './application/application.routes.js';
 import { caseAdminOfficerRoutes } from './case-admin-officer/case-admin-officer.routes.js';
 import { caseOfficerRoutes } from './case-officer/case-officer.routes.js';
 import { inspectorRoutes } from './inspector/inspector.routes.js';
@@ -22,5 +23,7 @@ router.use('/sector', sectorRoutes);
 router.use('/search', caseSearchRoutes);
 
 router.use('/zoom-level', zoomLevelRoutes);
+
+router.use('/', applicationRoutes);
 
 export { router as applicationsRoutes };

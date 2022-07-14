@@ -13,3 +13,16 @@ export const getBySector = ({ name }) => {
 		}
 	});
 };
+
+/**
+ *
+ * @param {string} name
+ * @returns {Promise<import('@pins/api').Schema.SubSector | null>}
+ */
+export const getByName = (name) => {
+	return databaseConnector.subSector.findUnique({
+		where: {
+			name
+		}
+	});
+};

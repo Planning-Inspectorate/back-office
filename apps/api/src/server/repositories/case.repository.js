@@ -1,3 +1,4 @@
+import { isEmpty } from 'lodash-es';
 import { databaseConnector } from '../utils/database-connector.js';
 
 /**
@@ -89,6 +90,48 @@ export const getApplicationsCountBySearchCriteria = (query) => {
 					description: { contains: query }
 				}
 			]
+		}
+	});
+};
+
+/**
+ * @param {{
+ *  caseDetails?: import('@pins/api').Schema.Case,
+ * 	gridReference?: import('@pins/api').Schema.GridReference,
+ *  application?: import('@pins/api').Schema.ApplicationDetails,
+ *  subSectorName?: string,
+ *  applicant?: import('@pins/api').Schema.ServiceCustomer,
+ *  applicantAddress?: import('@pins/api').Schema.Address}} caseInfo
+ * @returns {Promise<import('@pins/api').Schema.Case>}
+ */
+export const createApplication = ({
+	caseDetails,
+	gridReference,
+	application,
+	subSectorName,
+	applicant,
+	applicantAddress
+}) => {
+	return databaseConnector.case.create({
+		data: {
+			...caseDetails,
+			...(!isEmpty(gridReference) && { gridReference: { create: gridReference } }),
+			...((!isEmpty(application) || subSectorName) && {
+				ApplicationDetails: {
+					create: {
+						...application,
+						...(subSectorName && { subSector: { connect: { name: subSectorName } } })
+					}
+				}
+			}),
+			...((!isEmpty(applicant) || !isEmpty(applicantAddress)) && {
+				serviceCustomer: {
+					create: {
+						...applicant,
+						...(!isEmpty(applicantAddress) && { address: { create: applicantAddress } })
+					}
+				}
+			})
 		}
 	});
 };

@@ -8,7 +8,8 @@ export {
 	ReviewQuestionnaire,
 	Region,
 	Sector,
-	SubSector
+	SubSector,
+	GridReference
 } from '@prisma/client';
 
 export interface Case extends schema.Case {
@@ -23,6 +24,11 @@ export interface ApplicationDetails extends schema.ApplicationDetails {
 
 export interface SubSector extends schema.SubSector {
 	sector?: schema.Sector;
+}
+
+export interface ServiceCustomer extends schema.ServiceCustomer {
+	address?: schema.Address;
+	case?: schema.Case;
 }
 
 export interface Appeal extends schema.Appeal {
