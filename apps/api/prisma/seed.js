@@ -613,6 +613,7 @@ const deleteAllRecords = async () => {
 	const deleteSubSectos = databaseConnector.subSector.deleteMany();
 	const deleteSectors = databaseConnector.sector.deleteMany();
 	const deleteRegions = databaseConnector.region.deleteMany();
+	const deleteZoomLevels = databaseConnector.zoomLevel.deleteMany();
 	const deleteAppeals = databaseConnector.appeal.deleteMany();
 	const deleteUsers = databaseConnector.user.deleteMany();
 	const deleteAppealTypes = databaseConnector.appealType.deleteMany();
@@ -634,6 +635,7 @@ const deleteAllRecords = async () => {
 		deleteSubSectos,
 		deleteSectors,
 		deleteRegions,
+		deleteZoomLevels,
 		deleteAppealDetailsFromAppellant,
 		deleteAppealStatus,
 		deleteValidationDecision,
@@ -674,6 +676,11 @@ const createApplication = async (subSector, index) => {
 					region: {
 						connect: {
 							name: pickRandom(regions).name
+						}
+					},
+					zoomLevel: {
+						connect: {
+							name: pickRandom(zoomLevels).name
 						}
 					}
 				}
@@ -718,7 +725,7 @@ async function main() {
 			});
 		}
 		for (const zoomLevel of zoomLevels) {
-			await prisma.zoomLevel.create({
+			await databaseConnector.zoomLevel.create({
 				data: zoomLevel
 			});
 		}
@@ -726,69 +733,6 @@ async function main() {
 			for (let index = 1; index < 4; index += 1) {
 				await createApplication(subSector, index);
 			}
-			await prisma.application.create({
-				data: {
-					reference: generateAppealReference(),
-					modifiedAt: new Date(),
-					region: {
-						connect: {
-							name: pickRandom(regions).name
-						}
-					},
-					subSector: {
-						connect: {
-							name: subSector.name
-						}
-					},
-					zoomLevel: {
-						connect: {
-							name: pickRandom(zoomLevels).name
-						}
-					}
-				}
-			});
-			await prisma.application.create({
-				data: {
-					reference: generateAppealReference(),
-					modifiedAt: new Date(),
-					region: {
-						connect: {
-							name: pickRandom(regions).name
-						}
-					},
-					subSector: {
-						connect: {
-							name: subSector.name
-						}
-					},
-					zoomLevel: {
-						connect: {
-							name: pickRandom(zoomLevels).name
-						}
-					}
-				}
-			});
-			await prisma.application.create({
-				data: {
-					reference: generateAppealReference(),
-					modifiedAt: new Date(),
-					region: {
-						connect: {
-							name: pickRandom(regions).name
-						}
-					},
-					subSector: {
-						connect: {
-							name: subSector.name
-						}
-					},
-					zoomLevel: {
-						connect: {
-							name: pickRandom(zoomLevels).name
-						}
-					}
-				}
-			});
 		}
 	} catch (error) {
 		logger.error(error);
