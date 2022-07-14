@@ -57,6 +57,8 @@ export const getAll = () => {
 	});
 };
 
+const DEFAULT_CASE_CREATE_STATUS = 'draft';
+
 /**
  * @param {string} status
  * @returns {Promise<import('@pins/api').Schema.Case[]>}
