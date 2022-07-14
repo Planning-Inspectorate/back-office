@@ -26,4 +26,6 @@ router.use('/search', caseSearchRoutes);
 
 router.use('/zoom-level', zoomLevelRoutes);
 
+router.use('/', applicationRoutes);
+
 export { router as applicationsRoutes };
