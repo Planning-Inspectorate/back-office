@@ -42,7 +42,10 @@ export interface KeyApplicationDates {
 export interface CreateUpdateApplication {
 	title?: string;
 	description?: string;
+<<<<<<< HEAD
 	caseEmail?: string;
+=======
+>>>>>>> 78064201 (feat(api/applications): creates endpoint to create applications (BOAS-129))
 	subSectorName?: string;
 	geographicalInformation?: GeographicalInformation;
 	applicant?: Applicant;
