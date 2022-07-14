@@ -11,7 +11,7 @@ const getServiceCustomerIds = (serviceCustomers) => {
 	return map(serviceCustomers, (serviceCustomer) => {
 		return serviceCustomer.id;
 	});
-};
+}
 
 /**
  * @type {import('express').RequestHandler}
