@@ -94,25 +94,15 @@ model CaseStatus {
 }
 
 model ApplicationDetails {
-  id          Int        @id @default(autoincrement())
+  id         	Int        @id @default(autoincrement())
   caseId      Int        @unique
   case        Case       @relation(fields: [caseId], references: [id])
   subSectorId Int?
   subSector   SubSector? @relation(fields: [subSectorId], references: [id])
   regionId    Int?
   region      Region?    @relation(fields: [regionId], references: [id])
-
-model Application {
-  id          	Int       @id @default(autoincrement())
-  status      	String    @default("open")
-  reference   	String
-  modifiedAt  	DateTime
-  subSectorId 	Int
-  subSector   	SubSector @relation(fields: [subSectorId], references: [id])
-	regionId    	Int?
-  region      	Region?   @relation(fields: [regionId], references: [id])
-	zoomLevelId		Int
-  zoomLevel			ZoomLevel   @relation(fields: [zoomLevelId], references: [id])
+	zoomLevelId		Int?
+  zoomLevel			ZoomLevel?   @relation(fields: [zoomLevelId], references: [id])
 }
 
 model Sector {
@@ -258,5 +248,5 @@ model ZoomLevel {
   name          String        @unique
   displayNameEn String
   displayNameCy String
-  Application   Application[]
+  Application   ApplicationDetails[]
 }
