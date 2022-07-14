@@ -2,46 +2,26 @@
 	"npmClient": "npm",
 	"pipeline": {
 		"build": {
-			"outputs": [
-				"src/server/static/scripts/**",
-				"src/server/static/styles/**"
-			],
-			"dependsOn": [
-				"^build",
-				"$NODE_ENV",
-				"$APP_RELEASE"
-			]
+			"outputs": ["src/server/static/scripts/**", "src/server/static/styles/**"],
+			"dependsOn": ["^build", "$NODE_ENV", "$APP_RELEASE"]
 		},
 		"build:release": {
-			"outputs": [
-				"src/server/static/scripts/**",
-				"src/server/static/styles/**"
-			],
-			"dependsOn": [
-				"^build",
-				"$NODE_ENV",
-				"$APP_RELEASE"
-			]
+			"outputs": ["src/server/static/scripts/**", "src/server/static/styles/**"],
+			"dependsOn": ["^build", "$NODE_ENV", "$APP_RELEASE"]
 		},
 		"test": {
-			"outputs": [
-				"coverage/**"
-			],
+			"outputs": ["coverage/**"],
 			"dependsOn": []
 		},
 		"lint:js": {
-			"dependsOn": [
-				"^build"
-			],
+			"dependsOn": ["^build"],
 			"outputs": []
 		},
 		"lint:js:fix": {
-			"dependsOn": [
-				"^build"
-			],
+			"dependsOn": ["^build"],
 			"outputs": []
 		},
-		"prisma:generate": {
+		"prisma-generate": {
 			"cache": false
 		},
 		"tscheck": {
