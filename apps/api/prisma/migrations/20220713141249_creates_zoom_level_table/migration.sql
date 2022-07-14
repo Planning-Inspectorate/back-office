@@ -3,7 +3,7 @@ BEGIN TRY
 BEGIN TRAN;
 
 -- AlterTable
-ALTER TABLE [dbo].[Application] ADD [zoomLevelId] INT;
+ALTER TABLE [dbo].[ApplicationDetails] ADD [zoomLevelId] INT;
 
 -- CreateTable
 CREATE TABLE [dbo].[ZoomLevel] (
@@ -16,7 +16,7 @@ CREATE TABLE [dbo].[ZoomLevel] (
 );
 
 -- AddForeignKey
-ALTER TABLE [dbo].[Application] ADD CONSTRAINT [Application_zoomLevelId_fkey] FOREIGN KEY ([zoomLevelId]) REFERENCES [dbo].[ZoomLevel]([id]) ON DELETE SET NULL ON UPDATE CASCADE;
+ALTER TABLE [dbo].[ApplicationDetails] ADD CONSTRAINT [ApplicationDetails_zoomLevelId_fkey] FOREIGN KEY ([zoomLevelId]) REFERENCES [dbo].[ZoomLevel]([id]) ON DELETE SET NULL ON UPDATE CASCADE;
 
 COMMIT TRAN;
 
