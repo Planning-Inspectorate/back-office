@@ -11,7 +11,8 @@ export {
 	SubSector,
 	GridReference,
 	ZoomLevel,
-	BatchPayload
+	BatchPayload,
+	GridReference
 } from '@prisma/client';
 
 export interface Case extends schema.Case {
