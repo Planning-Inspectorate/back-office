@@ -1,6 +1,8 @@
 import { isEmpty } from 'lodash-es';
 import { databaseConnector } from '../utils/database-connector.js';
 
+const DEFAULT_CASE_CREATE_STATUS = 'draft';
+
 /**
  * @returns {Promise<import('@pins/api').Schema.Case[]>}
  */
@@ -160,7 +162,12 @@ export const createApplication = ({
 						...(!isEmpty(applicantAddress) && { address: { create: applicantAddress } })
 					}
 				}
-			})
+			}),
+			CaseStatus: {
+				create: {
+					status: DEFAULT_CASE_CREATE_STATUS
+				}
+			}
 		}
 	});
 };
