@@ -1,7 +1,7 @@
 import express from 'express';
 import { asyncHandler } from '../../middleware/async-handler.js';
 import { getSectors } from './sector.controller.js';
-import { validateSectorName } from './sectors.validators.js';
+import { validateGetSubSectors } from './sectors.validators.js';
 
 const router = new express.Router();
 
@@ -21,7 +21,7 @@ router.get(
             schema: { $ref: '#/definitions/Sectors' }
         }
 	 */
-	validateSectorName,
+	validateGetSubSectors,
 	asyncHandler(getSectors)
 );
 
