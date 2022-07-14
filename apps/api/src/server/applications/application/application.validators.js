@@ -43,7 +43,7 @@ export const validateCreateApplication = composeMiddleware(
 		.withMessage('Email must be a valid email')
 		.optional({ nullable: true }),
 	body('applicant.phoneNumber')
-		.isMobilePhone('en-GB')
+		.matches('^0\\d{10}$')
 		.withMessage('Phone Number must be a valid UK number')
 		.optional({ nullable: true }),
 	body('applicant.address.postcode')
