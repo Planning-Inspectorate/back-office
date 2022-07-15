@@ -656,3 +656,14 @@ export const zoomLevels = [
 		displayNameCy: 'None'
 	}
 ];
+
+export const caseStatusNames = [
+	{ name: 'Pre-application' },
+	{ name: 'Acceptance' },
+	{ name: 'Pre-examination' },
+	{ name: 'Examination' },
+	{ name: 'Recommendation' },
+	{ name: 'Decision' },
+	{ name: 'Post decision' },
+	{ name: 'Withdrawn' }
+];
