@@ -503,6 +503,41 @@
         }
       }
     },
+    "/applications/:id": {
+      "patch": {
+        "tags": [
+          "Applications"
+        ],
+        "description": "Updates application",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Application Details",
+            "schema": {
+              "$ref": "#/definitions/UpdateApplication"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ID of application",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "number",
+                  "example": 1
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          }
+        }
+      }
+    },
     "/applications/case-officer": {
       "get": {
         "tags": [
@@ -655,6 +690,124 @@
     }
   },
   "definitions": {
+    "UpdateApplication": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string",
+          "example": ""
+        },
+        "description": {
+          "type": "string",
+          "example": ""
+        },
+        "subSectorName": {
+          "type": "string",
+          "example": ""
+        },
+        "geographicalInformation": {
+          "type": "object",
+          "properties": {
+            "mapZoomLevel": {
+              "type": "string",
+              "example": ""
+            },
+            "locationDescription": {
+              "type": "string",
+              "example": ""
+            },
+            "gridReference": {
+              "type": "object",
+              "properties": {
+                "easting": {
+                  "type": "string",
+                  "example": "123456"
+                },
+                "northing": {
+                  "type": "string",
+                  "example": "098765"
+                }
+              }
+            }
+          }
+        },
+        "applicant": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "number",
+              "example": 1
+            },
+            "organisationName": {
+              "type": "string",
+              "example": ""
+            },
+            "firstName": {
+              "type": "string",
+              "example": ""
+            },
+            "middleName": {
+              "type": "string",
+              "example": ""
+            },
+            "lastName": {
+              "type": "string",
+              "example": ""
+            },
+            "email": {
+              "type": "string",
+              "example": ""
+            },
+            "address": {
+              "type": "object",
+              "properties": {
+                "addressLine1": {
+                  "type": "string",
+                  "example": ""
+                },
+                "addressLine2": {
+                  "type": "string",
+                  "example": ""
+                },
+                "town": {
+                  "type": "string",
+                  "example": ""
+                },
+                "county": {
+                  "type": "string",
+                  "example": ""
+                },
+                "postcode": {
+                  "type": "string",
+                  "example": ""
+                }
+              }
+            },
+            "website": {
+              "type": "string",
+              "example": ""
+            },
+            "phoneNumber": {
+              "type": "string",
+              "example": ""
+            }
+          }
+        },
+        "keyDates": {
+          "type": "object",
+          "properties": {
+            "firstNotifiedDate": {
+              "type": "number",
+              "example": 123
+            },
+            "submissionDate": {
+              "type": "number",
+              "example": 123
+            }
+          }
+        }
+      }
+    },
     "CreateApplication": {
       "type": "object",
       "properties": {
