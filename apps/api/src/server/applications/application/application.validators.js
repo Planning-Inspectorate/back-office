@@ -1,7 +1,9 @@
 import { composeMiddleware } from '@pins/express';
 import { validateFutureDate, validatePastDate } from '@pins/platform';
-import { body } from 'express-validator';
+import { body, param } from 'express-validator';
 import { validationErrorHandler } from '../../middleware/error-handler.js';
+import * as caseRepository from '../../repositories/case.repository.js';
+import * as serviceCustomerRepository from '../../repositories/service-customer.repository.js';
 import * as subSectorRepository from '../../repositories/sub-sector.repository.js';
 
 /**
@@ -18,6 +20,35 @@ const validateExistingSubsector = async (value) => {
 
 /**
  *
+ * @param {number} caseId
+ */
+const validateExistingApplication = async (caseId) => {
+	const application = await caseRepository.getById(caseId);
+
+	if (application === null) {
+		throw new Error('Unknown Application');
+	}
+};
+
+/**
+ *
+ * @param {number} value
+ * @param {{req: any}} requestInfo
+ */
+const validateExistingApplicantThatBelongsToCase = async (value, { req }) => {
+	const applicant = await serviceCustomerRepository.getById(value);
+
+	if (applicant === null) {
+		throw new Error('Unknown Applicant');
+	}
+
+	if (applicant.caseId !== Number.parseInt(req.params.id, 10)) {
+		throw new Error('Applicant does not belong to case');
+	}
+};
+
+/**
+ *
  * @param {number} value
  * @returns {Date}
  */
@@ -25,7 +56,7 @@ const timestampToDate = (value) => {
 	return new Date(value);
 };
 
-export const validateCreateApplication = composeMiddleware(
+export const validateCreateUpdateApplication = composeMiddleware(
 	body('geographicalInformation.gridReference.easting')
 		.isLength({ min: 6, max: 6 })
 		.toInt()
@@ -67,6 +98,23 @@ export const validateCreateApplication = composeMiddleware(
 	body('subSectorName')
 		.custom(validateExistingSubsector)
 		.withMessage('Must be existing sub-sector')
+		.optional({ nullable: true }),
+	validationErrorHandler
+);
+
+export const validateApplicationId = composeMiddleware(
+	param('id')
+		.toInt()
+		.custom(validateExistingApplication)
+		.withMessage('Must be existing application'),
+	validationErrorHandler
+);
+
+export const validateApplicantId = composeMiddleware(
+	body('applicant.id')
+		.toInt()
+		.custom(validateExistingApplicantThatBelongsToCase)
+		.withMessage('Must be existing applicant that belongs to this case')
 		.optional({ nullable: true }),
 	validationErrorHandler
 );
