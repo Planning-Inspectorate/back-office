@@ -1,0 +1,313 @@
+import test from 'ava';
+import sinon from 'sinon';
+import supertest from 'supertest';
+import { app } from '../../../app.js';
+import { databaseConnector } from '../../../utils/database-connector.js';
+
+const request = supertest(app);
+
+const updateStub = sinon.stub().returns({ id: 1 });
+
+const findUniqueSubSectorStub = sinon.stub();
+
+findUniqueSubSectorStub.withArgs({ where: { name: 'some_sub_sector' } }).returns({});
+findUniqueSubSectorStub.withArgs({ where: { name: 'some unknown subsector' } }).returns(null);
+
+const findUniqueStub = sinon.stub();
+
+findUniqueStub.withArgs({ where: { id: 1 } }).returns({ id: 1 });
+findUniqueStub.withArgs({ where: { id: 2 } }).returns(null);
+
+const findUniqueServiceCustomerStub = sinon.stub();
+
+findUniqueServiceCustomerStub.withArgs({ where: { id: 1 } }).returns({ id: 1, caseId: 1 });
+findUniqueServiceCustomerStub.withArgs({ where: { id: 2 } }).returns({ id: 2, caseId: 2 });
+findUniqueServiceCustomerStub.withArgs({ where: { id: 2 } }).returns(null);
+
+test.before('set up mocks', () => {
+	sinon.stub(databaseConnector, 'case').get(() => {
+		return { update: updateStub, findUnique: findUniqueStub };
+	});
+
+	sinon.stub(databaseConnector, 'subSector').get(() => {
+		return { findUnique: findUniqueSubSectorStub };
+	});
+
+	sinon.stub(databaseConnector, 'serviceCustomer').get(() => {
+		return { findUnique: findUniqueServiceCustomerStub };
+	});
+
+	sinon.useFakeTimers({ now: 1_649_319_144_000 });
+});
+
+test('updates application with just title and first notified date', async (t) => {
+	const response = await request.patch('/applications/1').send({
+		title: 'some title',
+		keyDates: {
+			firstNotifiedDate: 123_456_789
+		}
+	});
+
+	t.is(response.status, 200);
+	t.deepEqual(response.body, { id: 1 });
+	sinon.assert.calledWith(updateStub, {
+		where: { id: 1 },
+		data: {
+			modifiedAt: new Date(1_649_319_144_000),
+			title: 'some title',
+			ApplicationDetails: {
+				upsert: {
+					create: {
+						firstNotifiedAt: new Date(123_456_789)
+					},
+					update: {
+						firstNotifiedAt: new Date(123_456_789)
+					}
+				}
+			}
+		}
+	});
+});
+
+test('updates application with just easting and sub-sector name', async (t) => {
+	const response = await request.patch('/applications/1').send({
+		geographicalInformation: {
+			gridReference: {
+				easting: 123_456
+			}
+		},
+		subSectorName: 'some_sub_sector'
+	});
+
+	t.is(response.status, 200);
+	t.deepEqual(response.body, { id: 1 });
+	sinon.assert.calledWith(updateStub, {
+		where: { id: 1 },
+		data: {
+			modifiedAt: new Date(1_649_319_144_000),
+			gridReference: { upsert: { create: { easting: 123_456 }, update: { easting: 123_456 } } },
+			ApplicationDetails: {
+				upsert: {
+					create: { subSector: { connect: { name: 'some_sub_sector' } } },
+					update: { subSector: { connect: { name: 'some_sub_sector' } } }
+				}
+			}
+		}
+	});
+});
+
+test('updates application when all possible details provided', async (t) => {
+	const response = await request.patch('/applications/1').send({
+		title: 'title',
+		description: 'description',
+		subSectorName: 'some_sub_sector',
+		applicant: {
+			id: 1,
+			firstName: 'first',
+			middleName: 'middle',
+			lastName: 'last',
+			organisationName: 'org',
+			email: 'test@test.com',
+			website: 'www.google.com',
+			phoneNumber: '02036579785',
+			address: {
+				addressLine1: 'address line 1',
+				addressLine2: 'address line 2',
+				town: 'town',
+				county: 'county',
+				postcode: 'N1 9BE'
+			}
+		},
+		geographicalInformation: {
+			mapZoomLevel: 'some zoom level',
+			locationDescription: 'location description',
+			gridReference: {
+				easting: '123456',
+				northing: '987654'
+			}
+		},
+		keyDates: {
+			firstNotifiedDate: 123,
+			submissionDate: 1_689_262_804_000
+		}
+	});
+
+	t.is(response.status, 200);
+	t.deepEqual(response.body, { id: 1 });
+	sinon.assert.calledWith(updateStub, {
+		where: { id: 1 },
+		data: {
+			modifiedAt: new Date(1_649_319_144_000),
+			title: 'title',
+			description: 'description',
+			gridReference: {
+				upsert: {
+					create: { easting: 123_456, northing: 987_654 },
+					update: { easting: 123_456, northing: 987_654 }
+				}
+			},
+			ApplicationDetails: {
+				upsert: {
+					create: {
+						mapZoomLevel: 'some zoom level',
+						locationDescription: 'location description',
+						firstNotifiedAt: new Date(123),
+						submissionAt: new Date(1_689_262_804_000),
+						subSector: { connect: { name: 'some_sub_sector' } }
+					},
+					update: {
+						mapZoomLevel: 'some zoom level',
+						locationDescription: 'location description',
+						firstNotifiedAt: new Date(123),
+						submissionAt: new Date(1_689_262_804_000),
+						subSector: { connect: { name: 'some_sub_sector' } }
+					}
+				}
+			},
+			serviceCustomer: {
+				update: {
+					data: {
+						organisationName: 'org',
+						firstName: 'first',
+						middleName: 'middle',
+						lastName: 'last',
+						email: 'test@test.com',
+						website: 'www.google.com',
+						phoneNumber: '02036579785',
+						address: {
+							upsert: {
+								create: {
+									addressLine1: 'address line 1',
+									addressLine2: 'address line 2',
+									town: 'town',
+									county: 'county',
+									postcode: 'N1 9BE'
+								},
+								update: {
+									addressLine1: 'address line 1',
+									addressLine2: 'address line 2',
+									town: 'town',
+									county: 'county',
+									postcode: 'N1 9BE'
+								}
+							}
+						}
+					},
+					where: { id: 1 }
+				}
+			}
+		}
+	});
+});
+
+test(`updates application with new applicant using first and last name,
+        address line, map zoom level`, async (t) => {
+	const response = await request.patch('/applications/1').send({
+		applicant: {
+			firstName: 'first',
+			lastName: 'last',
+			address: {
+				addressLine1: 'some addr'
+			}
+		},
+		geographicalInformation: {
+			mapZoomLevel: 'some zoom level'
+		}
+	});
+
+	t.is(response.status, 200);
+	t.deepEqual(response.body, { id: 1 });
+	sinon.assert.calledWith(updateStub, {
+		where: { id: 1 },
+		data: {
+			modifiedAt: new Date(1_649_319_144_000),
+			serviceCustomer: {
+				create: {
+					firstName: 'first',
+					lastName: 'last',
+					address: { create: { addressLine1: 'some addr' } }
+				}
+			},
+			ApplicationDetails: {
+				upsert: {
+					create: {
+						mapZoomLevel: 'some zoom level'
+					},
+					update: {
+						mapZoomLevel: 'some zoom level'
+					}
+				}
+			}
+		}
+	});
+});
+
+test('returns error if any validated values are invalid', async (t) => {
+	const response = await request.patch('/applications/1').send({
+		geographicalInformation: {
+			gridReference: {
+				easting: '123',
+				northing: '12345879'
+			}
+		},
+		applicant: {
+			email: 'not a real email',
+			phoneNumber: '10235',
+			address: {
+				postcode: '191187'
+			}
+		},
+		keyDates: {
+			firstNotifiedDate: 4_294_967_295_000,
+			submissionDate: 123
+		},
+		subSectorName: 'some unknown subsector'
+	});
+
+	t.is(response.status, 400);
+	t.deepEqual(response.body, {
+		errors: {
+			'applicant.address.postcode': 'Postcode must be a valid UK postcode',
+			'applicant.email': 'Email must be a valid email',
+			'applicant.phoneNumber': 'Phone Number must be a valid UK number',
+			'geographicalInformation.gridReference.easting': 'Easting must be integer with 6 digits',
+			'geographicalInformation.gridReference.northing': 'Northing must be integer with 6 digits',
+			'keyDates.firstNotifiedDate': 'First notified date must be in the past',
+			'keyDates.submissionDate': 'Submission date must be in the future',
+			subSectorName: 'Must be existing sub-sector'
+		}
+	});
+});
+
+test('throws error if unknown application id provided', async (t) => {
+	const response = await request.patch('/applications/2');
+
+	t.is(response.status, 400);
+	t.deepEqual(response.body, {
+		errors: {
+			id: 'Must be existing application'
+		}
+	});
+});
+
+test('throws error if unknown applicant id provided', async (t) => {
+	const response = await request.patch('/applications/1').send({ applicant: { id: 3 } });
+
+	t.is(response.status, 400);
+	t.deepEqual(response.body, {
+		errors: {
+			'applicant.id': 'Must be existing applicant that belongs to this case'
+		}
+	});
+});
+
+test('throws error if applicant id that doesnt belong to case provided', async (t) => {
+	const response = await request.patch('/applications/1').send({ applicant: { id: 2 } });
+
+	t.is(response.status, 400);
+	t.deepEqual(response.body, {
+		errors: {
+			'applicant.id': 'Must be existing applicant that belongs to this case'
+		}
+	});
+});
