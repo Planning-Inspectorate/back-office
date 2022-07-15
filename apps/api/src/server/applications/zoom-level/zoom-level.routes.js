@@ -1,6 +1,6 @@
 import express from 'express';
 import { asyncHandler } from '../../middleware/async-handler.js';
-import { getZoomLevels } from './zoom.controller.js';
+import { getZoomLevels } from './zoom-level.controller.js';
 
 const router = new express.Router();
 

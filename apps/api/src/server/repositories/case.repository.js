@@ -130,6 +130,7 @@ export const getApplicationsCountBySearchCriteria = (query) => {
  *  caseDetails?: import('@pins/api').Schema.Case,
  * 	gridReference?: import('@pins/api').Schema.GridReference,
  *  application?: import('@pins/api').Schema.ApplicationDetails,
+ *  mapZoomLevelName?: string,
  *  subSectorName?: string,
  *  applicant?: import('@pins/api').Schema.ServiceCustomer,
  *  applicantAddress?: import('@pins/api').Schema.Address}} caseInfo
@@ -139,6 +140,7 @@ export const createApplication = ({
 	caseDetails,
 	gridReference,
 	application,
+	mapZoomLevelName,
 	subSectorName,
 	applicant,
 	applicantAddress
@@ -147,11 +149,12 @@ export const createApplication = ({
 		data: {
 			...caseDetails,
 			...(!isEmpty(gridReference) && { gridReference: { create: gridReference } }),
-			...((!isEmpty(application) || subSectorName) && {
+			...((!isEmpty(application) || subSectorName || mapZoomLevelName) && {
 				ApplicationDetails: {
 					create: {
 						...application,
-						...(subSectorName && { subSector: { connect: { name: subSectorName } } })
+						...(subSectorName && { subSector: { connect: { name: subSectorName } } }),
+						...(mapZoomLevelName && { zoomLevel: { connect: { name: mapZoomLevelName } } })
 					}
 				}
 			}),
@@ -180,6 +183,7 @@ export const createApplication = ({
  * 	gridReference?: import('@pins/api').Schema.GridReference,
  *  application?: import('@pins/api').Schema.ApplicationDetails,
  *  subSectorName?: string,
+ *  mapZoomLevelName?: string,
  *  applicant?: import('@pins/api').Schema.ServiceCustomer,
  *  applicantAddress?: import('@pins/api').Schema.Address}} caseInfo
  * @returns {Promise<import('@pins/api').Schema.Case>}
@@ -191,6 +195,7 @@ export const updateApplication = ({
 	gridReference,
 	application,
 	subSectorName,
+	mapZoomLevelName,
 	applicant,
 	applicantAddress
 }) => {
@@ -207,16 +212,18 @@ export const updateApplication = ({
 					}
 				}
 			}),
-			...((!isEmpty(application) || subSectorName) && {
+			...((!isEmpty(application) || subSectorName || mapZoomLevelName) && {
 				ApplicationDetails: {
 					upsert: {
 						create: {
 							...application,
-							...(subSectorName && { subSector: { connect: { name: subSectorName } } })
+							...(subSectorName && { subSector: { connect: { name: subSectorName } } }),
+							...(mapZoomLevelName && { zoomLevel: { connect: { name: mapZoomLevelName } } })
 						},
 						update: {
 							...application,
-							...(subSectorName && { subSector: { connect: { name: subSectorName } } })
+							...(subSectorName && { subSector: { connect: { name: subSectorName } } }),
+							...(mapZoomLevelName && { zoomLevel: { connect: { name: mapZoomLevelName } } })
 						}
 					}
 				}

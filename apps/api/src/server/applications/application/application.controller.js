@@ -28,7 +28,7 @@ const mapCreateApplicationRequestToRepository = (applicationDetails) => {
 				submissionDate: 'submissionAt'
 			})
 		},
-		['mapZoomLevel', 'locationDescription', 'firstNotifiedAt', 'submissionAt']
+		['locationDescription', 'firstNotifiedAt', 'submissionAt']
 	);
 
 	const formattedApplicantDetails = pick(applicationDetails.applicant, [
@@ -57,6 +57,9 @@ const mapCreateApplicationRequestToRepository = (applicationDetails) => {
 		}),
 		...(!isEmpty(formattedApplicationDetails) && { application: formattedApplicationDetails }),
 		...(applicationDetails.subSectorName && { subSectorName: applicationDetails.subSectorName }),
+		...(applicationDetails?.geographicalInformation?.mapZoomLevelName && {
+			mapZoomLevelName: applicationDetails?.geographicalInformation?.mapZoomLevelName
+		}),
 		...(!isEmpty(formattedApplicantDetails) && { applicant: formattedApplicantDetails }),
 		...(!isEmpty(formattedApplicantAddressDetails) && {
 			applicantAddress: formattedApplicantAddressDetails
