@@ -52,6 +52,7 @@ const document = {
 			{
 				id: 1,
 				name: 'Region Name',
+				displayOrder: 'Display Order',
 				displayNameEn: 'Region Name En',
 				displayNameCy: 'Region Name Cy'
 			}
@@ -117,7 +118,7 @@ const document = {
 			query: 'BC',
 			role: 'case-officer',
 			pageNumber: 1,
-			pageSize: 1,
+			pageSize: 1
 		},
 		ApplicationsForSearchCriteria: [
 			{
