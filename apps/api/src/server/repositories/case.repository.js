@@ -171,3 +171,92 @@ export const createApplication = ({
 		}
 	});
 };
+
+/**
+ * @param {{
+ *  caseId: number,
+ *  applicantId?: number,
+ *  caseDetails?: import('@pins/api').Schema.Case,
+ * 	gridReference?: import('@pins/api').Schema.GridReference,
+ *  application?: import('@pins/api').Schema.ApplicationDetails,
+ *  subSectorName?: string,
+ *  applicant?: import('@pins/api').Schema.ServiceCustomer,
+ *  applicantAddress?: import('@pins/api').Schema.Address}} caseInfo
+ * @returns {Promise<import('@pins/api').Schema.Case>}
+ */
+export const updateApplication = ({
+	caseId,
+	applicantId,
+	caseDetails,
+	gridReference,
+	application,
+	subSectorName,
+	applicant,
+	applicantAddress
+}) => {
+	return databaseConnector.case.update({
+		where: { id: caseId },
+		data: {
+			modifiedAt: new Date(),
+			...caseDetails,
+			...(!isEmpty(gridReference) && {
+				gridReference: {
+					upsert: {
+						create: gridReference,
+						update: gridReference
+					}
+				}
+			}),
+			...((!isEmpty(application) || subSectorName) && {
+				ApplicationDetails: {
+					upsert: {
+						create: {
+							...application,
+							...(subSectorName && { subSector: { connect: { name: subSectorName } } })
+						},
+						update: {
+							...application,
+							...(subSectorName && { subSector: { connect: { name: subSectorName } } })
+						}
+					}
+				}
+			}),
+			...((!isEmpty(applicant) || !isEmpty(applicantAddress)) &&
+				applicantId && {
+					serviceCustomer: {
+						update: {
+							data: {
+								...applicant,
+								...(!isEmpty(applicantAddress) && {
+									address: { upsert: { create: applicantAddress, update: applicantAddress } }
+								})
+							},
+							where: {
+								id: applicantId
+							}
+						}
+					}
+				}),
+			...((!isEmpty(applicant) || !isEmpty(applicantAddress)) &&
+				!applicantId && {
+					serviceCustomer: {
+						create: {
+							...applicant,
+							...(!isEmpty(applicantAddress) && {
+								address: { create: applicantAddress }
+							})
+						}
+					}
+				})
+		}
+	});
+};
+
+/**
+ *
+ * @param {number} id
+ * @returns {Promise<import('@pins/api').Schema.Case | null>}
+ */
+export const getById = (id) => {
+	return databaseConnector.case.findUnique({ where: { id } });
+};

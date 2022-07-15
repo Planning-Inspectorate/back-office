@@ -74,3 +74,18 @@ export const createApplication = async (request, response) => {
 
 	response.send({ id: application.id });
 };
+
+/**
+ * @type {import('express').RequestHandler}
+ */
+export const updateApplication = async (request, response) => {
+	const mappedApplicationDetails = mapCreateApplicationRequestToRepository(request.body);
+
+	const application = await caseRepository.updateApplication({
+		caseId: request.params.id,
+		applicantId: request.body.applicant?.id,
+		...mappedApplicationDetails
+	});
+
+	response.send({ id: application.id });
+};
