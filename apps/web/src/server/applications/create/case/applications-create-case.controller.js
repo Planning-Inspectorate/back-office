@@ -16,6 +16,7 @@ import * as applicationsCreateService from './applications-create-case.service.j
 /** @typedef {import('./applications-create-case.types').ApplicationsCreateCaseZoomLevelBody} ApplicationsCreateCaseZoomLevelBody */
 /** @typedef {import('./applications-create-case.types').ApplicationsCreateCaseTeamEmailProps} ApplicationsCreateCaseTeamEmailProps */
 /** @typedef {import('./applications-create-case.types').ApplicationsCreateCaseTeamEmailBody} ApplicationsCreateCaseTeamEmailBody */
+
 /** @typedef {import('./applications-create-case.types').UpdateOrCreateCallback} UpdateOrCreateCallback */
 
 /**
@@ -283,6 +284,8 @@ export async function updateApplicationsCreateCaseRegions({ errors, body }, resp
  */
 export async function viewApplicationsCreateCaseZoomLevel(req, response) {
 	const allZoomLevels = await applicationsCreateService.getAllZoomLevels();
+
+	allZoomLevels.sort((a, b) => ((a.displayOrder || '') < (b.displayOrder || '') ? 1 : -1));
 
 	return response.render('applications/create/case/_zoom-level', { zoomLevels: allZoomLevels });
 }
