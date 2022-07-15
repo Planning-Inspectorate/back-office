@@ -6,7 +6,7 @@ import { inspectorRoutes } from './inspector/inspector.routes.js';
 import { regionRoutes } from './region/region.routes.js';
 import { caseSearchRoutes } from './search/case-search.routes.js';
 import { sectorRoutes } from './sector/sector.routes.js';
-import { zoomLevelRoutes } from './zoom/zoom.routes.js';
+import { zoomLevelRoutes } from './zoom-level/zoom-level.routes.js';
 
 const router = new express.Router();
 

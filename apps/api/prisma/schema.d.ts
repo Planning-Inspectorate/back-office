@@ -9,7 +9,8 @@ export {
 	Region,
 	Sector,
 	SubSector,
-	GridReference
+	GridReference,
+	ZoomLevel
 } from '@prisma/client';
 
 export interface Case extends schema.Case {
