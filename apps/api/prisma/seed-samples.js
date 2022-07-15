@@ -650,9 +650,9 @@ export const zoomLevels = [
 		displayNameCy: 'Junction'
 	},
 	{
-		name: 'null',
+		name: 'none',
 		displayOrder: 0,
-		displayNameEn: 'NULL',
-		displayNameCy: 'NULL'
+		displayNameEn: 'None',
+		displayNameCy: 'None'
 	}
 ];
