@@ -119,19 +119,18 @@ model CaseStatus {
 }
 
 model ApplicationDetails {
-  id         	Int        @id @default(autoincrement())
-  mapZoomLevel        String?
+  id                  Int        @id @default(autoincrement())
   locationDescription String?
   firstNotifiedAt     DateTime?
   submissionAt        DateTime?
-  caseId      Int        @unique
-  case        Case       @relation(fields: [caseId], references: [id])
-  subSectorId Int?
-  subSector   SubSector? @relation(fields: [subSectorId], references: [id])
-  regionId    Int?
-  region      Region?    @relation(fields: [regionId], references: [id])
-	zoomLevelId		Int?
-  zoomLevel			ZoomLevel?   @relation(fields: [zoomLevelId], references: [id])
+  caseId              Int        @unique
+  case                Case       @relation(fields: [caseId], references: [id])
+  subSectorId         Int?
+  subSector           SubSector? @relation(fields: [subSectorId], references: [id])
+  regionId            Int?
+  region              Region?    @relation(fields: [regionId], references: [id])
+  zoomLevelId         Int?
+  zoomLevel           ZoomLevel? @relation(fields: [zoomLevelId], references: [id])
 }
 
 model Sector {
@@ -274,9 +273,9 @@ model User {
 }
 
 model ZoomLevel {
-  id            Int           @id @default(autoincrement())
-  name          String        @unique
-	displayOrder	Int						@unique
+  id            Int                  @id @default(autoincrement())
+  name          String               @unique
+  displayOrder  Int                  @unique
   displayNameEn String
   displayNameCy String
   Application   ApplicationDetails[]
