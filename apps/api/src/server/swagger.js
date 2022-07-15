@@ -32,6 +32,40 @@ const document = {
 	// by default: empty object (Swagger 2.0)
 	securityDefinitions: {},
 	definitions: {
+		UpdateApplication: {
+			title: '',
+			description: '',
+			subSectorName: '',
+			geographicalInformation: {
+				mapZoomLevel: '',
+				locationDescription: '',
+				gridReference: {
+					easting: '123456',
+					northing: '098765'
+				}
+			},
+			applicant: {
+				id: 1,
+				organisationName: '',
+				firstName: '',
+				middleName: '',
+				lastName: '',
+				email: '',
+				address: {
+					addressLine1: '',
+					addressLine2: '',
+					town: '',
+					county: '',
+					postcode: ''
+				},
+				website: '',
+				phoneNumber: ''
+			},
+			keyDates: {
+				firstNotifiedDate: 123,
+				submissionDate: 123
+			}
+		},
 		CreateApplication: {
 			title: '',
 			description: '',
