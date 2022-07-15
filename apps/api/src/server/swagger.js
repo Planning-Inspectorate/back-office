@@ -37,7 +37,7 @@ const document = {
 			description: '',
 			subSectorName: '',
 			geographicalInformation: {
-				mapZoomLevel: '',
+				mapZoomLevelName: '',
 				locationDescription: '',
 				gridReference: {
 					easting: '123456',
@@ -71,7 +71,7 @@ const document = {
 			description: '',
 			subSectorName: '',
 			geographicalInformation: {
-				mapZoomLevel: '',
+				mapZoomLevelName: '',
 				locationDescription: '',
 				gridReference: {
 					easting: '123456',

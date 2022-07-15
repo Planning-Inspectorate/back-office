@@ -5,6 +5,7 @@ import { validationErrorHandler } from '../../middleware/error-handler.js';
 import * as caseRepository from '../../repositories/case.repository.js';
 import * as serviceCustomerRepository from '../../repositories/service-customer.repository.js';
 import * as subSectorRepository from '../../repositories/sub-sector.repository.js';
+import * as zoomLevelRepository from '../../repositories/zoom-level.repository.js';
 
 /**
  *
@@ -49,6 +50,18 @@ const validateExistingApplicantThatBelongsToCase = async (value, { req }) => {
 
 /**
  *
+ * @param {string} value
+ */
+const validateExistingMapZoomLevel = async (value) => {
+	const mapZoomLevel = await zoomLevelRepository.getByName(value);
+
+	if (mapZoomLevel == null) {
+		throw new Error('Unknown map zoom level');
+	}
+};
+
+/**
+ *
  * @param {number} value
  * @returns {Date}
  */
@@ -67,8 +80,10 @@ export const validateCreateUpdateApplication = composeMiddleware(
 		.toInt()
 		.withMessage('Northing must be integer with 6 digits')
 		.optional({ nullable: true }),
-	// TODO: add validation once we have map zoom levels in a table
-	// body('geographicalInformation.mapZoomLevel').withMessage('Must be a valid map zoom level').optional({nullable: true}),
+	body('geographicalInformation.mapZoomLevelName')
+		.custom(validateExistingMapZoomLevel)
+		.withMessage('Must be a valid map zoom level')
+		.optional({ nullable: true }),
 	body('applicant.email')
 		.isEmail()
 		.withMessage('Email must be a valid email')
