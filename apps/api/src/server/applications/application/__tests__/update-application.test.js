@@ -24,6 +24,11 @@ findUniqueServiceCustomerStub.withArgs({ where: { id: 1 } }).returns({ id: 1, ca
 findUniqueServiceCustomerStub.withArgs({ where: { id: 2 } }).returns({ id: 2, caseId: 2 });
 findUniqueServiceCustomerStub.withArgs({ where: { id: 2 } }).returns(null);
 
+const findUniqueZoomLevelStub = sinon.stub();
+
+findUniqueZoomLevelStub.withArgs({ where: { name: 'some-unknown-map-zoom-level' } }).returns(null);
+findUniqueZoomLevelStub.withArgs({ where: { name: 'some-known-map-zoom-level' } }).returns({});
+
 test.before('set up mocks', () => {
 	sinon.stub(databaseConnector, 'case').get(() => {
 		return { update: updateStub, findUnique: findUniqueStub };
@@ -35,6 +40,10 @@ test.before('set up mocks', () => {
 
 	sinon.stub(databaseConnector, 'serviceCustomer').get(() => {
 		return { findUnique: findUniqueServiceCustomerStub };
+	});
+
+	sinon.stub(databaseConnector, 'zoomLevel').get(() => {
+		return { findUnique: findUniqueZoomLevelStub };
 	});
 
 	sinon.useFakeTimers({ now: 1_649_319_144_000 });
@@ -119,7 +128,7 @@ test('updates application when all possible details provided', async (t) => {
 			}
 		},
 		geographicalInformation: {
-			mapZoomLevel: 'some zoom level',
+			mapZoomLevelName: 'some-known-map-zoom-level',
 			locationDescription: 'location description',
 			gridReference: {
 				easting: '123456',
@@ -149,18 +158,18 @@ test('updates application when all possible details provided', async (t) => {
 			ApplicationDetails: {
 				upsert: {
 					create: {
-						mapZoomLevel: 'some zoom level',
 						locationDescription: 'location description',
 						firstNotifiedAt: new Date(123),
 						submissionAt: new Date(1_689_262_804_000),
-						subSector: { connect: { name: 'some_sub_sector' } }
+						subSector: { connect: { name: 'some_sub_sector' } },
+						zoomLevel: { connect: { name: 'some-known-map-zoom-level' } }
 					},
 					update: {
-						mapZoomLevel: 'some zoom level',
 						locationDescription: 'location description',
 						firstNotifiedAt: new Date(123),
 						submissionAt: new Date(1_689_262_804_000),
-						subSector: { connect: { name: 'some_sub_sector' } }
+						subSector: { connect: { name: 'some_sub_sector' } },
+						zoomLevel: { connect: { name: 'some-known-map-zoom-level' } }
 					}
 				}
 			},
@@ -211,7 +220,7 @@ test(`updates application with new applicant using first and last name,
 			}
 		},
 		geographicalInformation: {
-			mapZoomLevel: 'some zoom level'
+			mapZoomLevelName: 'some-known-map-zoom-level'
 		}
 	});
 
@@ -231,10 +240,10 @@ test(`updates application with new applicant using first and last name,
 			ApplicationDetails: {
 				upsert: {
 					create: {
-						mapZoomLevel: 'some zoom level'
+						zoomLevel: { connect: { name: 'some-known-map-zoom-level' } }
 					},
 					update: {
-						mapZoomLevel: 'some zoom level'
+						zoomLevel: { connect: { name: 'some-known-map-zoom-level' } }
 					}
 				}
 			}
@@ -248,7 +257,8 @@ test('returns error if any validated values are invalid', async (t) => {
 			gridReference: {
 				easting: '123',
 				northing: '12345879'
-			}
+			},
+			mapZoomLevelName: 'some-unknown-map-zoom-level'
 		},
 		applicant: {
 			email: 'not a real email',
@@ -272,6 +282,7 @@ test('returns error if any validated values are invalid', async (t) => {
 			'applicant.phoneNumber': 'Phone Number must be a valid UK number',
 			'geographicalInformation.gridReference.easting': 'Easting must be integer with 6 digits',
 			'geographicalInformation.gridReference.northing': 'Northing must be integer with 6 digits',
+			'geographicalInformation.mapZoomLevelName': 'Must be a valid map zoom level',
 			'keyDates.firstNotifiedDate': 'First notified date must be in the past',
 			'keyDates.submissionDate': 'Submission date must be in the future',
 			subSectorName: 'Must be existing sub-sector'
