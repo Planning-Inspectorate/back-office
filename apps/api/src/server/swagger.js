@@ -73,7 +73,8 @@ const document = {
 					displayNameCy: 'Sub Sector Name Cy',
 					displayNameEn: 'Sub Sector Name En',
 					name: 'sub_sector'
-				}
+				},
+				status: 'status'
 			}
 		],
 		ApplicationsForCaseAdminOfficer: [
@@ -92,7 +93,8 @@ const document = {
 					displayNameCy: 'Sub Sector Name Cy',
 					displayNameEn: 'Sub Sector Name En',
 					name: 'sub_sector'
-				}
+				},
+				status: 'status'
 			}
 		],
 		ApplicationsForInspector: [
@@ -111,7 +113,8 @@ const document = {
 					displayNameCy: 'Sub Sector Name Cy',
 					displayNameEn: 'Sub Sector Name En',
 					name: 'sub_sector'
-				}
+				},
+				status: 'status'
 			}
 		],
 		ApplicationsForSearchCriteriaRequestBody: {
