@@ -6,7 +6,7 @@ export interface GridReference {
 }
 
 export interface GeographicalInformation {
-	mapZoomLevel?: MapZoomLevelType;
+	mapZoomLevelName?: MapZoomLevelType;
 	locationDescription?: string;
 	gridReference?: GridReference;
 }
