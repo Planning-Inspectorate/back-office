@@ -57,7 +57,8 @@
 		{% for application in groupedApplications %}
 			{% set rows = rows | concat ([[
 				{ html: applicationLink(application) },
-				{ text: application.modifiedDate | datestamp }
+				{ text: application.modifiedDate | datestamp },
+				{ html: createStatusTag(application.status), classes: 'govuk-!-width-one-quarter text-align--right' }
 			]]) %}
 		{% endfor %}
 		{{ govukDetails({
@@ -66,7 +67,8 @@
 				classes: 'pins-table--fixed pins-table--bordered',
 				head: [
 					{ text: "Application reference" },
-					{ text: "Modified", classes: 'pins-table__cell--s' }
+					{ text: "Modified", classes: 'pins-table__cell--s' },
+					{ text: "Stage", classes: 'text-align--right' }
 				],
 				rows: rows
 			})
@@ -78,4 +80,31 @@
 	<a class="govuk-link" href="{{ 'view-application'|url({domainType: domainType, applicationId: application.id}) }}">
 		{{ application.reference }}
 	</a>
+{% endmacro %}
+
+
+{% macro createStatusTag(status) %}
+	{% set statusTagColor = '' %}
+	{% set statusLabel = status %}
+
+	{% switch (status) %}
+	{% case 'Pre-examination' %}
+		{% set statusTagColor = 'yellow' %}
+	{% case 'Acceptance' %}
+		{% set statusTagColor = 'orange' %}
+	{% case 'Pre-examination' %}
+		{% set statusTagColor = 'red' %}
+	{% case 'Examination' %}
+		{% set statusTagColor = 'blue' %}
+	{% case 'Recommendation' %}
+		{% set statusTagColor = 'purple' %}
+	{% case 'Decision' %}
+		{% set statusTagColor = 'pink' %}
+	{% case 'Post decision' %}
+		{% set statusTagColor = 'green' %}
+	{% case 'Withdrawn' %}
+		{% set statusTagColor = 'grey' %}
+	{% endswitch %}
+
+	<strong class="govuk-tag govuk-tag--{{statusTagColor}}">{{ statusLabel }}</strong>
 {% endmacro %}

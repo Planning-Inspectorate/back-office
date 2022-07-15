@@ -18,25 +18,10 @@ import * as applicationsService from './applications.service.js';
  * {}, {}, {}, DomainParams>}
  */
 export async function viewDashboard({ params }, res) {
-	switch (params.domainType) {
-		case 'case-admin-officer': {
-			const applications = await applicationsService.findOpenApplicationsForCaseAdminOfficer();
+	const { domainType } = params;
+	const applications = await applicationsService.findOpenApplicationsByDomainType(domainType);
 
-			return res.render('applications/dashboard', { applications });
-		}
-		case 'case-officer': {
-			const applications = await applicationsService.findOpenApplicationsForCaseOfficer();
-
-			return res.render('applications/dashboard', { applications });
-		}
-		case 'inspector': {
-			const applications = await applicationsService.findOpenApplicationsForInspector();
-
-			return res.render('applications/dashboard', { applications });
-		}
-		default:
-			res.render('app/404');
-	}
+	return res.render('applications/dashboard', { applications });
 }
 
 /**
