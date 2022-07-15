@@ -4,6 +4,7 @@ import {
 	addressesList,
 	appealDetailsFromAppellantList,
 	appellantsList,
+	caseStatusNames,
 	completeValidationDecisionSample,
 	incompleteReviewQuestionnaireSample,
 	incompleteValidationDecisionSample,
@@ -688,7 +689,7 @@ const createApplication = async (subSector, index) => {
 			CaseStatus: {
 				create: [
 					{
-						status: 'open'
+						status: pickRandom(caseStatusNames).name
 					}
 				]
 			}
