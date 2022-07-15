@@ -599,3 +599,14 @@ export const regions = [
 		displayNameCy: 'Yorkshire and the Humber'
 	}
 ];
+
+export const caseStatusNames = [
+	{ name: 'Pre-application' },
+	{ name: 'Acceptance' },
+	{ name: 'Pre-examination' },
+	{ name: 'Examination' },
+	{ name: 'Recommendation' },
+	{ name: 'Decision' },
+	{ name: 'Post decision' },
+	{ name: 'Withdrawn' }
+];

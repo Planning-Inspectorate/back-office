@@ -152,3 +152,13 @@ export interface InspectorDecision extends schema.InspectorDecision {
 }
 
 export type InspectorDecisionOutcomeType = 'allowed' | 'dismissed' | 'split decision';
+
+export type CaseStatusNameType =
+	| 'Pre-application'
+	| 'Acceptance'
+	| 'Pre-examination'
+	| 'Examination'
+	| 'Recommendation'
+	| 'Decision'
+	| 'Post decision'
+	| 'Withdrawn';
