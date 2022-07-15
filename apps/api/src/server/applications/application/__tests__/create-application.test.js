@@ -222,7 +222,7 @@ test('creates new application when all possible details provided', async (t) => 
 			}
 		},
 		geographicalInformation: {
-			mapZoomLevel: 'some zoom level',
+			mapZoomLevelName: 'some-known-map-zoom-level',
 			locationDescription: 'location description',
 			gridReference: {
 				easting: '123456',
@@ -244,7 +244,7 @@ test('creates new application when all possible details provided', async (t) => 
 			gridReference: { create: { easting: 123_456, northing: 987_654 } },
 			ApplicationDetails: {
 				create: {
-					mapZoomLevel: 'some zoom level',
+					zoomLevel: { connect: { name: 'some-known-map-zoom-level' } },
 					locationDescription: 'location description',
 					firstNotifiedAt: new Date(123),
 					submissionAt: new Date(1_689_262_804_000),
