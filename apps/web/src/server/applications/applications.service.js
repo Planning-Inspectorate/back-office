@@ -1,6 +1,7 @@
 import { get } from '../lib/request.js';
 
 /** @typedef {import('./applications.types').Application} Application */
+/** @typedef {import('./applications.types').DomainType} DomainType */
 
 /**
  * @param {number} id
@@ -11,22 +12,30 @@ export const findApplicationById = (id) => {
 };
 
 /**
+ * @param {DomainType} domainType
  * @returns {Promise<import('./applications.types').Application[]>}
  */
-export const findOpenApplicationsForCaseOfficer = () => {
-	return get('applications/case-officer');
-};
+export const findOpenApplicationsByDomainType = (domainType) => {
+	let rnd = 0;
 
-/**
- * @returns {Promise<import('./applications.types').Application[]>}
- */
-export const findOpenApplicationsForCaseAdminOfficer = () => {
-	return get('applications/case-admin-officer');
-};
+	return get(`applications/${domainType}`).then((results) => {
+		// @ts-ignore
+		return results.map((a) => {
+			const statusesList = [
+				'Pre-application',
+				'Acceptance',
+				'Pre-examination',
+				'Examination',
+				'Recommendation',
+				'Decision',
+				'Post decision',
+				'Withdrawn'
+			];
 
-/**
- * @returns {Promise<import('./applications.types').Application[]>}
- */
-export const findOpenApplicationsForInspector = () => {
-	return get('applications/inspector');
+			rnd = rnd > 6 ? 0 : rnd + 1;
+			return { ...a, status: statusesList[rnd] };
+		});
+	});
+
+	// return get(`applications/${domainType}`)
 };
