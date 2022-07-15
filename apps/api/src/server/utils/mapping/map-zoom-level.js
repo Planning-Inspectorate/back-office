@@ -1,7 +1,6 @@
 import { pick } from 'lodash-es';
 
 /**
- *
  * @param {import('@pins/api').Schema.ZoomLevel} zoomLevel
  * @returns {{name: string, displayOrder: number, displayNameEn: string, displayNameCy: string}}
  */
