@@ -27,6 +27,7 @@ export interface OptionsItem {
 	displayNameEn: string;
 	displayNameCy: string;
 	abbreviation?: string;
+	displayOrder?: number;
 }
 
 export interface Sector extends OptionsItem {}

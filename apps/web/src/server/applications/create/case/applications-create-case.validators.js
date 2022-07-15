@@ -49,15 +49,19 @@ export const validateApplicationsCreateCaseLocation = createValidator(
 export const validateApplicationsCreateCaseEasting = createValidator(
 	body('applicationEasting')
 		.trim()
-		.isLength({ min: 6, max: 6 })
+		.isLength({ min: 1 })
 		.withMessage('Enter the Grid reference Easting')
+		.isLength({ min: 6, max: 6 })
+		.withMessage('Enter a valid Grid reference Easting')
 );
 
 export const validateApplicationsCreateCaseNorthing = createValidator(
 	body('applicationNorthing')
 		.trim()
+		.isLength({ min: 1 })
+		.withMessage('Enter the Grid reference Northing')
 		.isLength({ min: 6, max: 6 })
-		.withMessage('Enter the Grid reference Easting')
+		.withMessage('Enter a valid Grid reference Northing')
 );
 
 export const validateApplicationsTeamEmail = createValidator(
