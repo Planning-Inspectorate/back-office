@@ -602,45 +602,57 @@ export const regions = [
 
 export const zoomLevels = [
 	{
-		id: 127,
-		name: 'null',
-		displayNameEn: 'NULL',
-		displayNameCy: 'NULL'
-	},
-	{
-		id: 7,
-		name: 'borough',
-		displayNameEn: 'Borough',
-		displayNameCy: 'Borough'
-	},
-	{
-		id: 12,
 		name: 'country',
+		displayOrder: 900,
 		displayNameEn: 'Country',
 		displayNameCy: 'Country'
 	},
 	{
-		id: 29,
-		name: 'county',
-		displayNameEn: 'County',
-		displayNameCy: 'County'
-	},
-	{
-		id: 2,
-		name: 'district',
-		displayNameEn: 'District',
-		displayNameCy: 'District'
-	},
-	{
-		id: 105,
 		name: 'region',
+		displayOrder: 800,
 		displayNameEn: 'Region',
 		displayNameCy: 'Region'
 	},
 	{
-		id: 1,
+		name: 'county',
+		displayOrder: 700,
+		displayNameEn: 'County',
+		displayNameCy: 'County'
+	},
+	{
+		name: 'borough',
+		displayOrder: 600,
+		displayNameEn: 'Borough',
+		displayNameCy: 'Borough'
+	},
+	{
+		name: 'district',
+		displayOrder: 500,
+		displayNameEn: 'District',
+		displayNameCy: 'District'
+	},
+	{
+		name: 'city',
+		displayOrder: 400,
+		displayNameEn: 'City',
+		displayNameCy: 'City'
+	},
+	{
 		name: 'town',
+		displayOrder: 300,
 		displayNameEn: 'Town',
 		displayNameCy: 'Town'
+	},
+	{
+		name: 'junction',
+		displayOrder: 200,
+		displayNameEn: 'Junction',
+		displayNameCy: 'Junction'
+	},
+	{
+		name: 'null',
+		displayOrder: 0,
+		displayNameEn: 'NULL',
+		displayNameCy: 'NULL'
 	}
 ];

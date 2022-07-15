@@ -2,7 +2,7 @@
 	"swagger": "2.0",
 	"info": {
 		"version": "2.0",
-		"title": "My PINS Project",
+		"title": "PINS Back Office API",
 		"description": "My PINS Project AOI documentation from Swagger"
 	},
 	"host": "localhost:3000",
@@ -530,23 +530,11 @@
 					{
 						"name": "body",
 						"in": "body",
+						"description": "case query parameters",
 						"schema": {
-							"type": "object",
-							"properties": {
-								"role": {
-									"example": "any"
-								},
-								"query": {
-									"example": "any"
-								},
-								"pageNumber": {
-									"example": "any"
-								},
-								"pageSize": {
-									"example": "any"
-								}
-							}
-						}
+							"$ref": "#/definitions/ApplicationsForSearchCriteriaRequestBody"
+						},
+						"required": true
 					}
 				],
 				"responses": {
@@ -642,6 +630,10 @@
 					"name": {
 						"type": "string",
 						"example": "Region Name"
+					},
+					"displayOrder": {
+						"type": "string",
+						"example": "Display Order"
 					},
 					"displayNameEn": {
 						"type": "string",
@@ -837,6 +829,27 @@
 							}
 						}
 					}
+				}
+			}
+		},
+		"ApplicationsForSearchCriteriaRequestBody": {
+			"type": "object",
+			"properties": {
+				"query": {
+					"type": "string",
+					"example": "BC"
+				},
+				"role": {
+					"type": "string",
+					"example": "case-officer"
+				},
+				"pageNumber": {
+					"type": "number",
+					"example": 1
+				},
+				"pageSize": {
+					"type": "number",
+					"example": 1
 				}
 			}
 		},
