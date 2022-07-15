@@ -9,6 +9,7 @@ const request = supertest(app);
 const mapZoomLevels = {
 	id: 1,
 	name: 'test',
+	displayOrder: 1,
 	displayNameEn: 'test name en',
 	displayNameCy: 'test name cy'
 };
@@ -27,6 +28,7 @@ test('gets all map zoom levels', async (t) => {
 		{
 			id: mapZoomLevels.id,
 			name: mapZoomLevels.name,
+			displayOrder: mapZoomLevels.displayOrder,
 			displayNameEn: mapZoomLevels.displayNameEn,
 			displayNameCy: mapZoomLevels.displayNameCy
 		}
