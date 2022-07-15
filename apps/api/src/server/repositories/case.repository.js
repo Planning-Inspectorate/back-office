@@ -1,6 +1,26 @@
 import { databaseConnector } from '../utils/database-connector.js';
 
 /**
+ * @returns {Promise<import('@pins/api').Schema.Case[]>}
+ */
+export const getAll = () => {
+	return databaseConnector.case.findMany({
+		include: {
+			ApplicationDetails: {
+				include: {
+					subSector: {
+						include: {
+							sector: true
+						}
+					}
+				}
+			},
+			CaseStatus: true
+		}
+	});
+};
+
+/**
  * @param {string} status
  * @returns {Promise<import('@pins/api').Schema.Case[]>}
  */
@@ -23,7 +43,8 @@ export const getByStatus = (status) => {
 						}
 					}
 				}
-			}
+			},
+			CaseStatus: true
 		}
 	});
 };
