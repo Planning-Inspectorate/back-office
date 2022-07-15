@@ -12,7 +12,7 @@ const searchString = 'EN010003 - NI Case 3 Name';
 const application = applicationFactoryForTests({
 	id: 3,
 	status: 'open',
-	reference: 'EN010003',
+	reference: 'randomly assigned',
 	title: 'EN010003 - NI Case 3',
 	description: 'EN010003 - NI Case 3 Name Description',
 	createdAt: new Date(1_655_298_882_000),
@@ -88,13 +88,11 @@ test('should get applications using search criteria', async (t) => {
 		};
 	});
 
-	const response = await request
-		.post('/applications/search')
-		.send({
-			query: searchString,
-			role: 'case-officer',
-			pageNumber: 1,
-			pageSize: 1
+	const response = await request.post('/applications/search').send({
+		query: searchString,
+		role: 'case-officer',
+		pageNumber: 1,
+		pageSize: 1
 	});
 
 	t.is(response.status, 200);
@@ -124,13 +122,11 @@ test('should get applications using search criteria with default page number', a
 		};
 	});
 
-	const response = await request
-		.post('/applications/search')
-		.send({
-			query: searchString,
-			role: 'case-officer',
-			pageSize: '20'
-		});
+	const response = await request.post('/applications/search').send({
+		query: searchString,
+		role: 'case-officer',
+		pageSize: '20'
+	});
 
 	t.is(response.status, 200);
 	t.deepEqual(response.body, {
@@ -159,13 +155,11 @@ test('should get applications using search criteria with default page size', asy
 		};
 	});
 
-	const response = await request
-		.post('/applications/search')
-		.send({
-			query: searchString,
-			role: 'case-officer',
-			pageNumber: 1
-		});
+	const response = await request.post('/applications/search').send({
+		query: searchString,
+		role: 'case-officer',
+		pageNumber: 1
+	});
 
 	t.is(response.status, 200);
 	t.deepEqual(response.body, {
@@ -194,13 +188,12 @@ test('should get no results using search criteria which will not yield cases', a
 		};
 	});
 
-	const response = await request
-		.post('/applications/search')
-		.send({
-			query: 'BCDEF',
-			role: 'case-officer',
-			pageNumber: 1,
-			pageSize: 1 });
+	const response = await request.post('/applications/search').send({
+		query: 'BCDEF',
+		role: 'case-officer',
+		pageNumber: 1,
+		pageSize: 1
+	});
 
 	t.is(response.status, 200);
 	t.deepEqual(response.body, {
@@ -261,13 +254,11 @@ test('should not be able to submit a search if the pageSize is negative', async 
 });
 
 test('should not be able to submit a search if query does not have a value', async (t) => {
-	const resp = await request
-		.post('/applications/search')
-		.send({
-			query: '',
-			role: 'case-admin-officer',
-			pageNumber: 1,
-			pageSize: 5
+	const resp = await request.post('/applications/search').send({
+		query: '',
+		role: 'case-admin-officer',
+		pageNumber: 1,
+		pageSize: 5
 	});
 
 	t.is(resp.status, 400);
@@ -341,4 +332,3 @@ test('should not be able to submit a search if the pageNumber is non numeric', a
 		}
 	});
 });
-

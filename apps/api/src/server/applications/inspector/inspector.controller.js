@@ -3,7 +3,7 @@ import { mapApplicationWithSectorAndSubSector } from '../../utils/mapping/map-ap
 
 /**
  * @typedef {{name: string, displayNameEn: string, displayNameCy: string, abbreviation: string}} SectorResponse
- * @typedef {{id: number, modifiedDate: number, reference: string, sector: SectorResponse, subSector: SectorResponse}} ApplicationWithSectorResponse
+ * @typedef {{id: number, modifiedDate: number, reference: string, status: string | object, sector: SectorResponse, subSector: SectorResponse}} ApplicationWithSectorResponse
  */
 
 /**
@@ -15,8 +15,13 @@ const mapApplicationsWithSectorAndSubSector = (applications) => {
 	return applications.map((application) => mapApplicationWithSectorAndSubSector(application));
 };
 
+/**
+ *
+ * @param {*} _request
+ * @param {*} response
+ */
 export const getApplications = async (_request, response) => {
-	const applications = await caseRepository.getByStatus('open');
+	const applications = await caseRepository.getAll();
 
 	return response.send(mapApplicationsWithSectorAndSubSector(applications));
 };

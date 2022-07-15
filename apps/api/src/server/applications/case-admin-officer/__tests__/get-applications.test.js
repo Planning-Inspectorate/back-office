@@ -10,6 +10,10 @@ const request = supertest(app);
 const application = applicationFactoryForTests({
 	id: 1,
 	status: 'open',
+	reference: 'randomly assigned',
+	title: '',
+	description: '',
+	createdAt: new Date(1_655_298_882_000),
 	modifiedAt: new Date(1_655_298_882_000)
 });
 
@@ -17,14 +21,6 @@ const findManyStub = sinon.stub();
 
 findManyStub
 	.withArgs({
-		where: {
-			CaseStatus: {
-				some: {
-					status: 'open',
-					valid: true
-				}
-			}
-		},
 		include: {
 			ApplicationDetails: {
 				include: {
@@ -34,12 +30,13 @@ findManyStub
 						}
 					}
 				}
-			}
+			},
+			CaseStatus: true
 		}
 	})
 	.returns([application]);
 
-test('gets applications for case officer with open status', async (t) => {
+test('gets all applications for case admin officer', async (t) => {
 	sinon.stub(databaseConnector, 'case').get(() => {
 		return { findMany: findManyStub };
 	});
@@ -63,7 +60,8 @@ test('gets applications for case officer with open status', async (t) => {
 				displayNameCy: 'Sub Sector Name Cy',
 				displayNameEn: 'Sub Sector Name En',
 				name: 'sub_sector'
-			}
+			},
+			status: 'open'
 		}
 	]);
 });
