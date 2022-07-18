@@ -7,7 +7,7 @@ import { databaseConnector } from '../../../utils/database-connector.js';
 
 const request = supertest(app);
 
-const updateStub = sinon.stub().returns({ id: 1 });
+const updateStub = sinon.stub().returns({ id: 1, serviceCustomer: [{ id: 2 }, { id: 3 }] });
 
 const findUniqueSubSectorStub = sinon.stub();
 
@@ -63,7 +63,9 @@ test.before('set up mocks', () => {
 		return { deleteMany: deleteManyStub };
 	});
 
-	sinon.stub(Prisma.PrismaClient.prototype, '$transaction').returns([{ id: 1 }]);
+	sinon
+		.stub(Prisma.PrismaClient.prototype, '$transaction')
+		.returns([{ id: 1, serviceCustomer: [{ id: 2 }, { id: 3 }] }]);
 
 	sinon.useFakeTimers({ now: 1_649_319_144_000 });
 });
@@ -77,7 +79,7 @@ test('updates application with just title and first notified date', async (t) =>
 	});
 
 	t.is(response.status, 200);
-	t.deepEqual(response.body, { id: 1 });
+	t.deepEqual(response.body, { id: 1, applicantIds: [2, 3] });
 	sinon.assert.calledWith(updateStub, {
 		where: { id: 1 },
 		data: {
@@ -93,6 +95,9 @@ test('updates application with just title and first notified date', async (t) =>
 					}
 				}
 			}
+		},
+		include: {
+			serviceCustomer: true
 		}
 	});
 });
@@ -108,7 +113,7 @@ test('updates application with just easting and sub-sector name', async (t) => {
 	});
 
 	t.is(response.status, 200);
-	t.deepEqual(response.body, { id: 1 });
+	t.deepEqual(response.body, { id: 1, applicantIds: [2, 3] });
 	sinon.assert.calledWith(updateStub, {
 		where: { id: 1 },
 		data: {
@@ -120,6 +125,9 @@ test('updates application with just easting and sub-sector name', async (t) => {
 					update: { subSector: { connect: { name: 'some_sub_sector' } } }
 				}
 			}
+		},
+		include: {
+			serviceCustomer: true
 		}
 	});
 });
@@ -162,7 +170,7 @@ test('updates application when all possible details provided', async (t) => {
 	});
 
 	t.is(response.status, 200);
-	t.deepEqual(response.body, { id: 1 });
+	t.deepEqual(response.body, { id: 1, applicantIds: [2, 3] });
 	sinon.assert.calledWith(deleteManyStub, {
 		where: {
 			applicationDetails: {
@@ -244,6 +252,9 @@ test('updates application when all possible details provided', async (t) => {
 					where: { id: 1 }
 				}
 			}
+		},
+		include: {
+			serviceCustomer: true
 		}
 	});
 });
@@ -264,7 +275,7 @@ test(`updates application with new applicant using first and last name,
 	});
 
 	t.is(response.status, 200);
-	t.deepEqual(response.body, { id: 1 });
+	t.deepEqual(response.body, { id: 1, applicantIds: [2, 3] });
 	sinon.assert.calledWith(updateStub, {
 		where: { id: 1 },
 		data: {
@@ -286,6 +297,9 @@ test(`updates application with new applicant using first and last name,
 					}
 				}
 			}
+		},
+		include: {
+			serviceCustomer: true
 		}
 	});
 });
