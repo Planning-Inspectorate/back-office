@@ -1,6 +1,17 @@
-import { filter } from 'lodash-es';
+import { filter, map } from 'lodash-es';
 import * as caseRepository from '../../repositories/case.repository.js';
 import { mapCreateApplicationRequestToRepository } from './application.mapper.js';
+
+/**
+ *
+ * @param {import('@pins/api').Schema.ServiceCustomer[] | undefined} serviceCustomers
+ * @returns {number[]}
+ */
+const getServiceCustomerIds = (serviceCustomers) => {
+	return map(serviceCustomers, (serviceCustomer) => {
+		return serviceCustomer.id;
+	});
+};
 
 /**
  * @type {import('express').RequestHandler}
@@ -10,7 +21,9 @@ export const createApplication = async (request, response) => {
 
 	const application = await caseRepository.createApplication(mappedApplicationDetails);
 
-	response.send({ id: application.id });
+	const applicantIds = getServiceCustomerIds(application.serviceCustomer);
+
+	response.send({ id: application.id, applicantIds });
 };
 
 /**
@@ -38,5 +51,7 @@ export const updateApplication = async (request, response) => {
 
 	const updatedCase = getCaseAfterUpdate(updateResponse);
 
-	response.send({ id: updatedCase.id });
+	const applicantIds = getServiceCustomerIds(updatedCase.serviceCustomer);
+
+	response.send({ id: updatedCase.id, applicantIds });
 };
