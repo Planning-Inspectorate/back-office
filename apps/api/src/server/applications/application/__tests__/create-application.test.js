@@ -6,7 +6,7 @@ import { databaseConnector } from '../../../utils/database-connector.js';
 
 const request = supertest(app);
 
-const createStub = sinon.stub().returns({ id: 1 });
+const createStub = sinon.stub().returns({ id: 1, serviceCustomer: [{ id: 4 }] });
 
 const findUniqueSubSectorStub = sinon.stub();
 
@@ -51,7 +51,7 @@ test('creates new application with just title and first notified date', async (t
 	});
 
 	t.is(response.status, 200);
-	t.deepEqual(response.body, { id: 1 });
+	t.deepEqual(response.body, { id: 1, applicantIds: [4] });
 	sinon.assert.calledWith(createStub, {
 		data: {
 			title: 'some title',
@@ -65,6 +65,9 @@ test('creates new application with just title and first notified date', async (t
 					status: 'draft'
 				}
 			}
+		},
+		include: {
+			serviceCustomer: true
 		}
 	});
 });
@@ -80,7 +83,7 @@ test('creates new application with just easting and sub-sector name', async (t) 
 	});
 
 	t.is(response.status, 200);
-	t.deepEqual(response.body, { id: 1 });
+	t.deepEqual(response.body, { id: 1, applicantIds: [4] });
 	sinon.assert.calledWith(createStub, {
 		data: {
 			gridReference: {
@@ -102,6 +105,9 @@ test('creates new application with just easting and sub-sector name', async (t) 
 					status: 'draft'
 				}
 			}
+		},
+		include: {
+			serviceCustomer: true
 		}
 	});
 });
@@ -143,7 +149,7 @@ test('creates new application when all possible details provided', async (t) => 
 	});
 
 	t.is(response.status, 200);
-	t.deepEqual(response.body, { id: 1 });
+	t.deepEqual(response.body, { id: 1, applicantIds: [4] });
 	sinon.assert.calledWith(createStub, {
 		data: {
 			title: 'title',
@@ -185,6 +191,9 @@ test('creates new application when all possible details provided', async (t) => 
 				}
 			},
 			CaseStatus: { create: { status: 'draft' } }
+		},
+		include: {
+			serviceCustomer: true
 		}
 	});
 });
@@ -205,7 +214,7 @@ test(`creates new application with application first and last name,
 	});
 
 	t.is(response.status, 200);
-	t.deepEqual(response.body, { id: 1 });
+	t.deepEqual(response.body, { id: 1, applicantIds: [4] });
 	sinon.assert.calledWith(createStub, {
 		data: {
 			serviceCustomer: {
@@ -229,6 +238,9 @@ test(`creates new application with application first and last name,
 					status: 'draft'
 				}
 			}
+		},
+		include: {
+			serviceCustomer: true
 		}
 	});
 });

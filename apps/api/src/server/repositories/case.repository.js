@@ -149,6 +149,9 @@ export const createApplication = ({
 					status: DEFAULT_CASE_CREATE_STATUS
 				}
 			}
+		},
+		include: {
+			serviceCustomer: true
 		}
 	});
 };
@@ -259,6 +262,9 @@ export const updateApplication = ({
 							}
 						}
 					})
+			},
+			include: {
+				serviceCustomer: true
 			}
 		})
 	);
