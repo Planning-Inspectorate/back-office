@@ -17,6 +17,7 @@ export {
 export interface Case extends schema.Case {
 	CaseStatus?: CaseStatus;
 	ApplicationDetails?: ApplicationDetails;
+	serviceCustomer?: ServiceCustomer[];
 }
 
 export interface ApplicationDetails extends schema.ApplicationDetails {
