@@ -224,6 +224,7 @@ test('creates new application when all possible details provided', async (t) => 
 		geographicalInformation: {
 			mapZoomLevelName: 'some-known-map-zoom-level',
 			locationDescription: 'location description',
+			regionNames: ['region1', 'region2'],
 			gridReference: {
 				easting: '123456',
 				northing: '987654'
@@ -248,7 +249,13 @@ test('creates new application when all possible details provided', async (t) => 
 					locationDescription: 'location description',
 					firstNotifiedAt: new Date(123),
 					submissionAt: new Date(1_689_262_804_000),
-					subSector: { connect: { name: 'some_sub_sector' } }
+					subSector: { connect: { name: 'some_sub_sector' } },
+					regions: {
+						create: [
+							{ region: { connect: { name: 'region1' } } },
+							{ region: { connect: { name: 'region2' } } }
+						]
+					}
 				}
 			},
 			serviceCustomer: {
