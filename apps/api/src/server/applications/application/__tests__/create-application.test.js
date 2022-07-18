@@ -237,7 +237,7 @@ test('creates new application when all possible details provided', async (t) => 
 	});
 
 	t.is(response.status, 200);
-	t.deepEqual(response.body, { id: 1 });
+	t.deepEqual(response.body, { id: 1, applicantIds: [4] });
 	sinon.assert.calledWith(createStub, {
 		data: {
 			title: 'title',
@@ -279,6 +279,9 @@ test('creates new application when all possible details provided', async (t) => 
 				}
 			},
 			CaseStatus: { create: { status: 'draft' } }
+		},
+		include: {
+			serviceCustomer: true
 		}
 	});
 });
