@@ -9,6 +9,7 @@ export interface GeographicalInformation {
 	mapZoomLevelName?: MapZoomLevelType;
 	locationDescription?: string;
 	gridReference?: GridReference;
+	regionNames?: string[];
 }
 
 export type MapZoomLevelType =

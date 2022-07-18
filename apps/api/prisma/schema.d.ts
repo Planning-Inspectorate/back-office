@@ -10,7 +10,8 @@ export {
 	Sector,
 	SubSector,
 	GridReference,
-	ZoomLevel
+	ZoomLevel,
+	BatchPayload
 } from '@prisma/client';
 
 export interface Case extends schema.Case {
