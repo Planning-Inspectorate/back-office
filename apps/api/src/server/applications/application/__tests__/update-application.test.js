@@ -1,3 +1,4 @@
+import Prisma from '@prisma/client';
 import test from 'ava';
 import sinon from 'sinon';
 import supertest from 'supertest';
@@ -29,6 +30,14 @@ const findUniqueZoomLevelStub = sinon.stub();
 findUniqueZoomLevelStub.withArgs({ where: { name: 'some-unknown-map-zoom-level' } }).returns(null);
 findUniqueZoomLevelStub.withArgs({ where: { name: 'some-known-map-zoom-level' } }).returns({});
 
+const findUniqueRegionStub = sinon.stub();
+
+findUniqueRegionStub.withArgs({ where: { name: 'region1' } }).returns({});
+findUniqueRegionStub.withArgs({ where: { name: 'region2' } }).returns({});
+findUniqueRegionStub.withArgs({ where: { name: 'some-unknown-region' } }).returns(null);
+
+const deleteManyStub = sinon.stub();
+
 test.before('set up mocks', () => {
 	sinon.stub(databaseConnector, 'case').get(() => {
 		return { update: updateStub, findUnique: findUniqueStub };
@@ -45,6 +54,16 @@ test.before('set up mocks', () => {
 	sinon.stub(databaseConnector, 'zoomLevel').get(() => {
 		return { findUnique: findUniqueZoomLevelStub };
 	});
+
+	sinon.stub(databaseConnector, 'region').get(() => {
+		return { findUnique: findUniqueRegionStub };
+	});
+
+	sinon.stub(databaseConnector, 'regionsOnApplicationDetails').get(() => {
+		return { deleteMany: deleteManyStub };
+	});
+
+	sinon.stub(Prisma.PrismaClient.prototype, '$transaction').returns([{ id: 1 }]);
 
 	sinon.useFakeTimers({ now: 1_649_319_144_000 });
 });
@@ -130,6 +149,7 @@ test('updates application when all possible details provided', async (t) => {
 		geographicalInformation: {
 			mapZoomLevelName: 'some-known-map-zoom-level',
 			locationDescription: 'location description',
+			regionNames: ['region1', 'region2'],
 			gridReference: {
 				easting: '123456',
 				northing: '987654'
@@ -143,6 +163,13 @@ test('updates application when all possible details provided', async (t) => {
 
 	t.is(response.status, 200);
 	t.deepEqual(response.body, { id: 1 });
+	sinon.assert.calledWith(deleteManyStub, {
+		where: {
+			applicationDetails: {
+				caseId: 1
+			}
+		}
+	});
 	sinon.assert.calledWith(updateStub, {
 		where: { id: 1 },
 		data: {
@@ -162,14 +189,26 @@ test('updates application when all possible details provided', async (t) => {
 						firstNotifiedAt: new Date(123),
 						submissionAt: new Date(1_689_262_804_000),
 						subSector: { connect: { name: 'some_sub_sector' } },
-						zoomLevel: { connect: { name: 'some-known-map-zoom-level' } }
+						zoomLevel: { connect: { name: 'some-known-map-zoom-level' } },
+						regions: {
+							create: [
+								{ region: { connect: { name: 'region1' } } },
+								{ region: { connect: { name: 'region2' } } }
+							]
+						}
 					},
 					update: {
 						locationDescription: 'location description',
 						firstNotifiedAt: new Date(123),
 						submissionAt: new Date(1_689_262_804_000),
 						subSector: { connect: { name: 'some_sub_sector' } },
-						zoomLevel: { connect: { name: 'some-known-map-zoom-level' } }
+						zoomLevel: { connect: { name: 'some-known-map-zoom-level' } },
+						regions: {
+							create: [
+								{ region: { connect: { name: 'region1' } } },
+								{ region: { connect: { name: 'region2' } } }
+							]
+						}
 					}
 				}
 			},
@@ -258,7 +297,8 @@ test('returns error if any validated values are invalid', async (t) => {
 				easting: '123',
 				northing: '12345879'
 			},
-			mapZoomLevelName: 'some-unknown-map-zoom-level'
+			mapZoomLevelName: 'some-unknown-map-zoom-level',
+			regionNames: ['some-unknown-region']
 		},
 		applicant: {
 			email: 'not a real email',
@@ -283,6 +323,7 @@ test('returns error if any validated values are invalid', async (t) => {
 			'geographicalInformation.gridReference.easting': 'Easting must be integer with 6 digits',
 			'geographicalInformation.gridReference.northing': 'Northing must be integer with 6 digits',
 			'geographicalInformation.mapZoomLevelName': 'Must be a valid map zoom level',
+			'geographicalInformation.regionNames': 'Unknown region',
 			'keyDates.firstNotifiedDate': 'First notified date must be in the past',
 			'keyDates.submissionDate': 'Submission date must be in the future',
 			subSectorName: 'Must be existing sub-sector'

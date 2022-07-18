@@ -186,14 +186,14 @@ export const createApplication = ({
  * @param {{
  *  caseId: number,
  *  applicantId?: number,
- *  caseDetails?: import('@pins/api').Schema.Case,
- * 	gridReference?: import('@pins/api').Schema.GridReference,
- *  application?: import('@pins/api').Schema.ApplicationDetails,
- *  subSectorName?: string,
- *  mapZoomLevelName?: string,
- *  regionNames?: {name: string}[],
- *  applicant?: import('@pins/api').Schema.ServiceCustomer,
- *  applicantAddress?: import('@pins/api').Schema.Address}} caseInfo
+ *  caseDetails?: { title?: string | undefined, description?: string | undefined },
+ * 	gridReference?: { easting?: number | undefined, northing?: number | undefined },
+ *  application?: { locationDescription?: string | undefined, firstNotifiedAt?: Date | undefined, submissionAt?: Date | undefined },
+ *  subSectorName?: string | undefined,
+ *  applicant?: { organisationName?: string | undefined, firstName?: string | undefined, middleName?: string | undefined, lastName?: string | undefined, email?: string | undefined, website?: string | undefined, phoneNumber?: string | undefined},
+ *  mapZoomLevelName?: string | undefined,
+ *  regionNames?: string[],
+ *  applicantAddress?: { addressLine1?: string | undefined, addressLine2?: string | undefined, town?: string | undefined, county?: string | undefined, postcode?: string | undefined}}} caseInfo
  * @returns {Promise<import('@pins/api').Schema.BatchPayload>}
  */
 export const updateApplication = ({
