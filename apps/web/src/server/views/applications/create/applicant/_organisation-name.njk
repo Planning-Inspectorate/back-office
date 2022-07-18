@@ -1,4 +1,4 @@
-{% extends "../applications-create-layout.njk" %}
+{% extends "./applications-create-applicant-layout.njk" %}
 
 {% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
 
@@ -7,7 +7,6 @@
 {% endblock %}
 
 {% block stepForm %}
+	{{ previousAndNextPaths | dump }}
 	work in progress
 {% endblock %}
-
-{% set backLink = 'applications-create'|url({applicationId:applicationId, step: 'geographical-information'}) %}

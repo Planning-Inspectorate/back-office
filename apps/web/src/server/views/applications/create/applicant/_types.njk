@@ -1,4 +1,4 @@
-{% extends "../applications-create-layout.njk" %}
+{% extends "./applications-create-applicant-layout.njk" %}
 
 {% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
 
@@ -10,8 +10,6 @@
 	{{ govukCheckboxes({
 		idPrefix: "selectedApplicantInfoTypes",
 		name: "selectedApplicantInfoTypes[]",
-		items: applicantInfoTypes | selectItems({valueKey: 'name', labelKey: 'displayNameEn'})
+		items: applicantInfoTypes
 	}) }}
 {% endblock %}
-
-{% set backLink = 'applications-create'|url({applicationId:applicationId, step: 'geographical-information'}) %}

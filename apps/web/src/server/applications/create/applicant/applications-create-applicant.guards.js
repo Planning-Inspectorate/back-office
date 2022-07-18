@@ -1,3 +1,4 @@
+import * as applicationsCreateApplicantService from './applications-create-applicant.service.js';
 import { getSessionApplicantInfoTypes } from './applications-create-applicant-session.service.js';
 
 /**
@@ -6,29 +7,18 @@ import { getSessionApplicantInfoTypes } from './applications-create-applicant-se
  *
  *  @type {import('express').RequestHandler<{}>}
  */
-export const assertStepIsBeingProvided = (req, res, next) => {
+export const assertStepIsBeingProvided = ({ session, path }, res, next) => {
 	const { applicationId } = res.locals;
-	const applicantPages = [
-		'applicant-organisation-name',
-		'applicant-full-name',
-		'applicant-address',
-		'applicant-website',
-		'applicant-email',
-		'applicant-telephone-number',
-		'key-dates'
-	];
-	const applicantInfoTypes = [
-		'applicant-information-types',
-		...getSessionApplicantInfoTypes(req.session)
-	];
-
-	const currentStepPath = req.path.slice(1);
-	const currentStepPathIndex = applicantPages.indexOf(currentStepPath);
-	const nextPathIndex =
-		currentStepPathIndex > -1 ? currentStepPathIndex + 1 : applicantPages.length - 1;
-	const nextStepPath = applicantPages[nextPathIndex];
+	const applicantInfoTypes = getSessionApplicantInfoTypes(session);
+	const currentStepPath = path.replace(/\//g, '');
 
 	if (!applicantInfoTypes.includes(currentStepPath)) {
+		const nextStepPath = applicationsCreateApplicantService.getAllowedDestinationPath({
+			session,
+			path,
+			goToNextPage: true
+		});
+
 		return res.redirect(`/applications-service/create-new-case/${applicationId}/${nextStepPath}`);
 	}
 

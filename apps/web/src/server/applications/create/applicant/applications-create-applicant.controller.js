@@ -1,8 +1,12 @@
 import * as applicationsCreateApplicantService from './applications-create-applicant.service.js';
-import { setSessionApplicantInfoTypes } from './applications-create-applicant-session.service.js';
+import {
+	getSessionApplicantInfoTypes,
+	setSessionApplicantInfoTypes
+} from './applications-create-applicant-session.service.js';
 
 /** @typedef {import('../../applications.router').DomainParams} DomainParams */
 /** @typedef {import('./applications-create-applicant.types').ApplicationsCreateApplicantTypesProps} ApplicationsCreateApplicantTypesProps */
+
 /** @typedef {import('./applications-create-applicant.types').ApplicationsCreateApplicantTypesBody} ApplicationsCreateApplicantTypesBody */
 
 /**
@@ -11,30 +15,30 @@ import { setSessionApplicantInfoTypes } from './applications-create-applicant-se
  * @type {import('@pins/express').RenderHandler<ApplicationsCreateApplicantTypesProps,
  * {}, {}, {}, DomainParams>}
  */
-export function viewApplicationsCreateApplicantTypes(req, response) {
-	const applicantInfoTypes = applicationsCreateApplicantService.getAllApplicantInfoTypes();
+export function viewApplicationsCreateApplicantTypes({ session }, response) {
+	const allApplicantInfoTypes = applicationsCreateApplicantService.getAllApplicantInfoTypes();
+	const selectedApplicantInfoTypes = getSessionApplicantInfoTypes(session);
 
-	response.render('applications/create/applicant/_types', { applicantInfoTypes, depth: 1 });
+	const checkboxApplicantInfoTypes = allApplicantInfoTypes.map((infoType) => ({
+		text: infoType.displayNameEn,
+		value: infoType.name,
+		checked: selectedApplicantInfoTypes.includes(infoType.name)
+	}));
+
+	response.render('applications/create/applicant/_types', {
+		applicantInfoTypes: checkboxApplicantInfoTypes
+	});
 }
 
 /**
- * Save the applicant information types in the session (todo: ?)
+ * Save the applicant information types in the session
  *
  * @type {import('@pins/express').RenderHandler<ApplicationsCreateApplicantTypesProps,
  * {}, ApplicationsCreateApplicantTypesBody, {}, DomainParams>}
  */
-export async function updateApplicationsCreateApplicantTypes({ errors, session, body }, response) {
+export async function updateApplicationsCreateApplicantTypes({ session, body }, response) {
 	const { applicationId } = response.locals;
 	const { selectedApplicantInfoTypes } = body;
-	const applicantInfoTypes = applicationsCreateApplicantService.getAllApplicantInfoTypes();
-
-	if (errors) {
-		return response.render(`applications/create/applicant/_types`, {
-			errors,
-			applicantInfoTypes,
-			depth: 1
-		});
-	}
 
 	setSessionApplicantInfoTypes(session, selectedApplicantInfoTypes);
 
@@ -49,7 +53,7 @@ export async function updateApplicationsCreateApplicantTypes({ errors, session, 
  * @type {import('@pins/express').RenderHandler<{}, {}>}
  */
 export async function viewApplicationsCreateApplicantOrganisationName(req, response) {
-	response.render('applications/create/applicant/_organisation-name', { depth: 1 });
+	response.render('applications/create/applicant/_organisation-name');
 }
 
 /**
@@ -69,7 +73,7 @@ export async function updateApplicationsCreateApplicantOrganisationName(req, res
 @type {import('@pins/express').RenderHandler<{}, {}>}
  */
 export async function viewApplicationsCreateApplicantFullName(req, response) {
-	response.render('applications/create/applicant/_full-name', { depth: 1 });
+	response.render('applications/create/applicant/_full-name');
 }
 
 /**
@@ -89,7 +93,7 @@ export async function updateApplicationsCreateApplicantFullName(req, response) {
  * @type {import('@pins/express').RenderHandler<{}, {}>}
  */
 export async function viewApplicationsCreateApplicantAddress(req, response) {
-	response.render('applications/create/applicant/_address', { depth: 1 });
+	response.render('applications/create/applicant/_address');
 }
 
 /**
@@ -109,7 +113,7 @@ export async function updateApplicationsCreateApplicantAddress(req, response) {
  * @type {import('@pins/express').RenderHandler<{}, {}>}
  */
 export async function viewApplicationsCreateApplicantWebsite(req, response) {
-	response.render('applications/create/applicant/_website', { depth: 1 });
+	response.render('applications/create/applicant/_website');
 }
 
 /**
@@ -129,7 +133,7 @@ export async function updateApplicationsCreateApplicantWebsite(req, response) {
  * @type {import('@pins/express').RenderHandler<{}, {}>}
  */
 export async function viewApplicationsCreateApplicantEmail(req, response) {
-	response.render('applications/create/applicant/_email', { depth: 1 });
+	response.render('applications/create/applicant/_email');
 }
 
 /**
@@ -151,7 +155,7 @@ export async function updateApplicationsCreateApplicantEmail(req, response) {
  * @type {import('@pins/express').RenderHandler<{}, {}>}
  */
 export async function viewApplicationsCreateApplicantTelephoneNumber(req, response) {
-	response.render('applications/create/applicant/_telephone-number', { depth: 1 });
+	response.render('applications/create/applicant/_telephone-number');
 }
 
 /**

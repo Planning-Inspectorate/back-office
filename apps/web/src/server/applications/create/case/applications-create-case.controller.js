@@ -285,7 +285,7 @@ export async function updateApplicationsCreateCaseRegions({ errors, body }, resp
  * {}, {}, {}, DomainParams>}
  */
 export async function viewApplicationsCreateCaseZoomLevel(req, response) {
-	const allZoomLevels = await applicationsCreateService.getAllZoomLevels();
+	const allZoomLevels = await applicationsCreateCaseService.getAllZoomLevels();
 
 	allZoomLevels.sort((a, b) => ((a.displayOrder || '') < (b.displayOrder || '') ? 1 : -1));
 
@@ -301,12 +301,12 @@ export async function viewApplicationsCreateCaseZoomLevel(req, response) {
 export async function updateApplicationsCreateCaseZoomLevel({ body }, response) {
 	const { applicationId } = response.locals;
 	const { selectedZoomLevelName } = body;
-	const allZoomLevels = await applicationsCreateService.getAllZoomLevels();
+	const allZoomLevels = await applicationsCreateCaseService.getAllZoomLevels();
 	const selectedZoomLevel = allZoomLevels.filter(
 		(zoomLevel) => selectedZoomLevelName === zoomLevel.name
 	);
 	const updateZoomLevel = () =>
-		applicationsCreateService.updateApplicationDraft(applicationId, {
+		applicationsCreateCaseService.updateApplicationDraft(applicationId, {
 			zoomLevel: selectedZoomLevel
 		});
 

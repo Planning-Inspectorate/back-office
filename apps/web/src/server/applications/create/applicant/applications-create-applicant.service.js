@@ -1,4 +1,7 @@
+import { getSessionApplicantInfoTypes } from './applications-create-applicant-session.service.js';
+
 /** @typedef {import('../../applications.types.js').OptionsItem} OptionsItem */
+/** @typedef {import('./applications-create-applicant-session.service.js').SessionWithApplicationsCreateApplicantInfoTypes} SessionWithApplicationsCreateApplicantInfoTypes */
 
 /**
  * Get the list of types of applicant info
@@ -8,30 +11,61 @@
 export const getAllApplicantInfoTypes = () => {
 	return [
 		{
-			id: 1,
 			name: 'applicant-organisation-name',
 			displayNameEn: 'Organisation name',
 			displayNameCy: 'Organisation name'
 		},
 		{
-			id: 2,
 			name: 'applicant-full-name',
 			displayNameEn: 'First and last name of the Applicant',
 			displayNameCy: 'First and last name of the Applicant'
 		},
 		{
-			id: 3,
 			name: 'applicant-email',
 			displayNameEn: 'Applicant or organisation email address',
 			displayNameCy: 'Applicant or organisation email address'
 		},
-		{ id: 4, name: 'applicant-address', displayNameEn: 'Address', displayNameCy: 'Address' },
-		{ id: 5, name: 'applicant-website', displayNameEn: 'Website', displayNameCy: 'Website' },
+		{ name: 'applicant-address', displayNameEn: 'Address', displayNameCy: 'Address' },
+		{ name: 'applicant-website', displayNameEn: 'Website', displayNameCy: 'Website' },
 		{
-			id: 6,
 			name: 'applicant-telephone-number',
 			displayNameEn: 'Telephone number',
 			displayNameCy: 'Telephone number'
 		}
 	];
 };
+
+/**
+ * Returns the prev/next allowed step in the Applicant Information form according to the data
+ * saved in the session in the information types page.
+ *
+ * @param {{session: SessionWithApplicationsCreateApplicantInfoTypes, path: string, goToNextPage: boolean}} params
+ * @returns {string}
+ */
+export function getAllowedDestinationPath({ session, path, goToNextPage }) {
+	// TODO: this will be false if the API returns already existing data for the applicant
+	const noInformationTypesFromAPI = true;
+	const canShowInfoTypesPage = session !== null && noInformationTypesFromAPI;
+	const allApplicantPaths = [
+		canShowInfoTypesPage ? 'applicant-information-types' : 'team-email',
+		...getAllApplicantInfoTypes().map((infoType) => infoType.name),
+		'key-dates'
+	];
+	const allowedApplicantPaths = getSessionApplicantInfoTypes(session);
+	const currentPathIndex = allApplicantPaths.indexOf(path.replace(/\//g, ''));
+
+	let pathsToSkip = 0;
+	let destinationPath = '';
+
+	while (
+		!allowedApplicantPaths.includes(destinationPath) &&
+		Math.abs(pathsToSkip) < allApplicantPaths.length
+	) {
+		pathsToSkip += goToNextPage ? 1 : -1;
+
+		const destinationPathIndex = currentPathIndex + pathsToSkip;
+
+		destinationPath = allApplicantPaths[destinationPathIndex];
+	}
+	return destinationPath;
+}
