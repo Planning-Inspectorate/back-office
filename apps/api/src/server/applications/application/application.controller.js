@@ -16,6 +16,17 @@ const getServiceCustomerIds = (serviceCustomers) => {
 }
 
 /**
+ *
+ * @param {import('@pins/api').Schema.ServiceCustomer[] | undefined} serviceCustomers
+ * @returns {number[]}
+ */
+const getServiceCustomerIds = (serviceCustomers) => {
+	return map(serviceCustomers, (serviceCustomer) => {
+		return serviceCustomer.id;
+	});
+};
+
+/**
  * @type {import('express').RequestHandler}
  */
 export const createApplication = async (request, response) => {
