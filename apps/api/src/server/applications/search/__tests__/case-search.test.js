@@ -11,11 +11,7 @@ const searchString = 'EN010003 - NI Case 3 Name';
 
 const application = applicationFactoryForTests({
 	id: 3,
-	status: 'open',
-	reference: 'randomly assigned',
-	title: 'EN010003 - NI Case 3',
-	description: 'EN010003 - NI Case 3 Name Description',
-	createdAt: new Date(1_655_298_882_000),
+	status: 'Pre-application',
 	modifiedAt: new Date(1_655_298_882_000)
 });
 
@@ -104,7 +100,7 @@ test('should get applications using search criteria', async (t) => {
 		items: [
 			{
 				id: 3,
-				status: 'open',
+				status: 'Pre-application',
 				reference: application.reference,
 				title: searchString,
 				modifiedDate: 1_655_298_882,
@@ -137,7 +133,7 @@ test('should get applications using search criteria with default page number', a
 		items: [
 			{
 				id: 3,
-				status: 'open',
+				status: 'Pre-application',
 				reference: application.reference,
 				title: searchString,
 				modifiedDate: 1_655_298_882,
@@ -170,7 +166,7 @@ test('should get applications using search criteria with default page size', asy
 		items: [
 			{
 				id: 3,
-				status: 'open',
+				status: 'Pre-application',
 				reference: application.reference,
 				title: searchString,
 				modifiedDate: 1_655_298_882,

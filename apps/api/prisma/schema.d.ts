@@ -12,7 +12,7 @@ export {
 } from '@prisma/client';
 
 export interface Case extends schema.Case {
-	caseStatus?: CaseStatus;
+	CaseStatus?: CaseStatus;
 	ApplicationDetails?: ApplicationDetails;
 }
 

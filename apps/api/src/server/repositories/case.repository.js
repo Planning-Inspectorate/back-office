@@ -15,7 +15,11 @@ export const getAll = () => {
 					}
 				}
 			},
-			CaseStatus: true
+			CaseStatus: {
+				where: {
+					valid: true
+				}
+			}
 		}
 	});
 };
@@ -44,7 +48,11 @@ export const getByStatus = (status) => {
 					}
 				}
 			},
-			CaseStatus: true
+			CaseStatus: {
+				where: {
+					valid: true
+				}
+			}
 		}
 	});
 };

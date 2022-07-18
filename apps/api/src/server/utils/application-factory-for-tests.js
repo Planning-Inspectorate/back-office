@@ -9,7 +9,7 @@ const generateApplicationReference = () => {
 
 /**
  *
- * @param {{id: number, reference: string, status: string, title: string, description: string, createdAt: Date, modifiedAt: Date, publishedAt?: Date}} arg
+ * @param {{id: number, status: string, modifiedAt: Date}} arg
  * @returns {import('@pins/api').Schema.Case}
  */
 export const applicationFactoryForTests = ({ id, status = 'open', modifiedAt = new Date() }) => {
