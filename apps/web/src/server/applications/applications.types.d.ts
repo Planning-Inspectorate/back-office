@@ -6,6 +6,13 @@ export type PaginatedResponse<T> = {
 	itemCount: number;
 };
 
+export type SelectItem = {
+	value: string;
+	text: string;
+	checked?: boolean;
+	selected?: boolean;
+};
+
 export type DomainType = 'case-officer' | 'case-admin-officer' | 'inspector';
 
 export interface Application {
@@ -22,7 +29,7 @@ export interface Application {
 }
 
 export interface OptionsItem {
-	id: number;
+	id?: number;
 	name: string;
 	displayNameEn: string;
 	displayNameCy: string;

@@ -10,7 +10,7 @@
  * @returns {void}
  */
 export const setSessionApplicantInfoTypes = (session, infoTypes) => {
-	session.infoTypes = infoTypes;
+	session.infoTypes = ['applicant-information-types', ...infoTypes];
 };
 
 /**
