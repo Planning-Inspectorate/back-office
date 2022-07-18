@@ -3,6 +3,7 @@ import { validateFutureDate, validatePastDate } from '@pins/platform';
 import { body, param } from 'express-validator';
 import { validationErrorHandler } from '../../middleware/error-handler.js';
 import * as caseRepository from '../../repositories/case.repository.js';
+import * as regionRepository from '../../repositories/region.repository.js';
 import * as serviceCustomerRepository from '../../repositories/service-customer.repository.js';
 import * as subSectorRepository from '../../repositories/sub-sector.repository.js';
 import * as zoomLevelRepository from '../../repositories/zoom-level.repository.js';
@@ -16,6 +17,20 @@ const validateExistingSubsector = async (value) => {
 
 	if (subSector === null) {
 		throw new Error('Unknown Sub-Sector');
+	}
+};
+
+/**
+ *
+ * @param {string[]} value
+ */
+const validateExistingRegions = async (value) => {
+	for (const regionName of value) {
+		const region = await regionRepository.getByName(regionName);
+
+		if (region === null) {
+			throw new Error('Unknown region');
+		}
 	}
 };
 
@@ -83,6 +98,10 @@ export const validateCreateUpdateApplication = composeMiddleware(
 	body('geographicalInformation.mapZoomLevelName')
 		.custom(validateExistingMapZoomLevel)
 		.withMessage('Must be a valid map zoom level')
+		.optional({ nullable: true }),
+	body('geographicalInformation.regionNames')
+		.isArray()
+		.custom(validateExistingRegions)
 		.optional({ nullable: true }),
 	body('applicant.email')
 		.isEmail()
