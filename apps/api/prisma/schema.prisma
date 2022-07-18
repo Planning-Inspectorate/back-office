@@ -119,18 +119,26 @@ model CaseStatus {
 }
 
 model ApplicationDetails {
-  id                  Int        @id @default(autoincrement())
+  id                  Int                           @id @default(autoincrement())
   locationDescription String?
   firstNotifiedAt     DateTime?
   submissionAt        DateTime?
-  caseId              Int        @unique
-  case                Case       @relation(fields: [caseId], references: [id])
+  caseId              Int                           @unique
+  case                Case                          @relation(fields: [caseId], references: [id])
   subSectorId         Int?
-  subSector           SubSector? @relation(fields: [subSectorId], references: [id])
-  regionId            Int?
-  region              Region?    @relation(fields: [regionId], references: [id])
+  subSector           SubSector?                    @relation(fields: [subSectorId], references: [id])
   zoomLevelId         Int?
-  zoomLevel           ZoomLevel? @relation(fields: [zoomLevelId], references: [id])
+  zoomLevel           ZoomLevel?                    @relation(fields: [zoomLevelId], references: [id])
+  regions             RegionsOnApplicationDetails[]
+}
+
+model RegionsOnApplicationDetails {
+  applicationDetails   ApplicationDetails @relation(fields: [applicationDetailsId], references: [id])
+  applicationDetailsId Int
+  region               Region             @relation(fields: [regionId], references: [id])
+  regionId             Int
+
+  @@id([applicationDetailsId, regionId])
 }
 
 model Sector {
@@ -212,11 +220,11 @@ model LPAQuestionnaire {
 }
 
 model Region {
-  id                 Int                  @id @default(autoincrement())
-  name               String               @unique
+  id                 Int                           @id @default(autoincrement())
+  name               String                        @unique
   displayNameEn      String
   displayNameCy      String
-  ApplicationDetails ApplicationDetails[]
+  ApplicationDetails RegionsOnApplicationDetails[]
 }
 
 model ReviewQuestionnaire {
