@@ -659,6 +659,13 @@
 							"type": "string",
 							"example": ""
 						},
+						"regionNames": {
+							"type": "array",
+							"example": [""],
+							"items": {
+								"type": "string"
+							}
+						},
 						"gridReference": {
 							"type": "object",
 							"properties": {
@@ -776,6 +783,13 @@
 						"locationDescription": {
 							"type": "string",
 							"example": ""
+						},
+						"regionNames": {
+							"type": "array",
+							"example": [""],
+							"items": {
+								"type": "string"
+							}
 						},
 						"gridReference": {
 							"type": "object",

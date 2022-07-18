@@ -1,4 +1,4 @@
-import { isEmpty } from 'lodash-es';
+import { isEmpty, map } from 'lodash-es';
 import { databaseConnector } from '../utils/database-connector.js';
 
 const DEFAULT_CASE_CREATE_STATUS = 'draft';
@@ -127,13 +127,14 @@ export const getApplicationsCountBySearchCriteria = (query) => {
 
 /**
  * @param {{
- *  caseDetails?: import('@pins/api').Schema.Case,
- * 	gridReference?: import('@pins/api').Schema.GridReference,
- *  application?: import('@pins/api').Schema.ApplicationDetails,
- *  mapZoomLevelName?: string,
- *  subSectorName?: string,
- *  applicant?: import('@pins/api').Schema.ServiceCustomer,
- *  applicantAddress?: import('@pins/api').Schema.Address}} caseInfo
+ *  caseDetails?: { title?: string | undefined, description?: string | undefined },
+ * 	gridReference?: { easting?: number | undefined, northing?: number | undefined },
+ *  application?: { locationDescription?: string | undefined, firstNotifiedAt?: Date | undefined, submissionAt?: Date | undefined },
+ *  subSectorName?: string | undefined,
+ *  applicant?: { organisationName?: string | undefined, firstName?: string | undefined, middleName?: string | undefined, lastName?: string | undefined, email?: string | undefined, website?: string | undefined, phoneNumber?: string | undefined},
+ *  mapZoomLevelName?: string | undefined,
+ *  regionNames?: string[],
+ *  applicantAddress?: { addressLine1?: string | undefined, addressLine2?: string | undefined, town?: string | undefined, county?: string | undefined, postcode?: string | undefined}}} caseInfo
  * @returns {Promise<import('@pins/api').Schema.Case>}
  */
 export const createApplication = ({
@@ -142,19 +143,25 @@ export const createApplication = ({
 	application,
 	mapZoomLevelName,
 	subSectorName,
+	regionNames,
 	applicant,
 	applicantAddress
 }) => {
+	const formattedRegionNames = map(regionNames, (/** @type {string} */ regionName) => {
+		return { region: { connect: { name: regionName } } };
+	});
+
 	return databaseConnector.case.create({
 		data: {
 			...caseDetails,
 			...(!isEmpty(gridReference) && { gridReference: { create: gridReference } }),
-			...((!isEmpty(application) || subSectorName || mapZoomLevelName) && {
+			...((!isEmpty(application) || subSectorName || mapZoomLevelName || regionNames) && {
 				ApplicationDetails: {
 					create: {
 						...application,
 						...(subSectorName && { subSector: { connect: { name: subSectorName } } }),
-						...(mapZoomLevelName && { zoomLevel: { connect: { name: mapZoomLevelName } } })
+						...(mapZoomLevelName && { zoomLevel: { connect: { name: mapZoomLevelName } } }),
+						...(regionNames && { regions: { create: formattedRegionNames } })
 					}
 				}
 			}),
@@ -184,9 +191,10 @@ export const createApplication = ({
  *  application?: import('@pins/api').Schema.ApplicationDetails,
  *  subSectorName?: string,
  *  mapZoomLevelName?: string,
+ *  regionNames?: {name: string}[],
  *  applicant?: import('@pins/api').Schema.ServiceCustomer,
  *  applicantAddress?: import('@pins/api').Schema.Address}} caseInfo
- * @returns {Promise<import('@pins/api').Schema.Case>}
+ * @returns {Promise<import('@pins/api').Schema.BatchPayload>}
  */
 export const updateApplication = ({
 	caseId,
@@ -195,68 +203,96 @@ export const updateApplication = ({
 	gridReference,
 	application,
 	subSectorName,
+	regionNames,
 	mapZoomLevelName,
 	applicant,
 	applicantAddress
 }) => {
-	return databaseConnector.case.update({
-		where: { id: caseId },
-		data: {
-			modifiedAt: new Date(),
-			...caseDetails,
-			...(!isEmpty(gridReference) && {
-				gridReference: {
-					upsert: {
-						create: gridReference,
-						update: gridReference
+	const formattedRegionNames = map(regionNames, (/** @type {string} */ regionName) => {
+		return { region: { connect: { name: regionName } } };
+	});
+
+	const transactions = [];
+
+	if (typeof regionNames !== 'undefined') {
+		transactions.push(
+			databaseConnector.regionsOnApplicationDetails.deleteMany({
+				where: {
+					applicationDetails: {
+						caseId
 					}
 				}
-			}),
-			...((!isEmpty(application) || subSectorName || mapZoomLevelName) && {
-				ApplicationDetails: {
-					upsert: {
-						create: {
-							...application,
-							...(subSectorName && { subSector: { connect: { name: subSectorName } } }),
-							...(mapZoomLevelName && { zoomLevel: { connect: { name: mapZoomLevelName } } })
-						},
-						update: {
-							...application,
-							...(subSectorName && { subSector: { connect: { name: subSectorName } } }),
-							...(mapZoomLevelName && { zoomLevel: { connect: { name: mapZoomLevelName } } })
+			})
+		);
+	}
+
+	transactions.push(
+		databaseConnector.case.update({
+			where: { id: caseId },
+			data: {
+				modifiedAt: new Date(),
+				...caseDetails,
+				...(!isEmpty(gridReference) && {
+					gridReference: {
+						upsert: {
+							create: gridReference,
+							update: gridReference
 						}
 					}
-				}
-			}),
-			...((!isEmpty(applicant) || !isEmpty(applicantAddress)) &&
-				applicantId && {
-					serviceCustomer: {
-						update: {
-							data: {
-								...applicant,
-								...(!isEmpty(applicantAddress) && {
-									address: { upsert: { create: applicantAddress, update: applicantAddress } }
-								})
+				}),
+				...((!isEmpty(application) ||
+					subSectorName ||
+					mapZoomLevelName ||
+					typeof regionNames !== 'undefined') && {
+					ApplicationDetails: {
+						upsert: {
+							create: {
+								...application,
+								...(subSectorName && { subSector: { connect: { name: subSectorName } } }),
+								...(mapZoomLevelName && { zoomLevel: { connect: { name: mapZoomLevelName } } }),
+								...(regionNames && { regions: { create: formattedRegionNames } })
 							},
-							where: {
-								id: applicantId
+							update: {
+								...application,
+								...(subSectorName && { subSector: { connect: { name: subSectorName } } }),
+								...(mapZoomLevelName && { zoomLevel: { connect: { name: mapZoomLevelName } } }),
+								...(regionNames && { regions: { create: formattedRegionNames } })
 							}
 						}
 					}
 				}),
-			...((!isEmpty(applicant) || !isEmpty(applicantAddress)) &&
-				!applicantId && {
-					serviceCustomer: {
-						create: {
-							...applicant,
-							...(!isEmpty(applicantAddress) && {
-								address: { create: applicantAddress }
-							})
+				...((!isEmpty(applicant) || !isEmpty(applicantAddress)) &&
+					applicantId && {
+						serviceCustomer: {
+							update: {
+								data: {
+									...applicant,
+									...(!isEmpty(applicantAddress) && {
+										address: { upsert: { create: applicantAddress, update: applicantAddress } }
+									})
+								},
+								where: {
+									id: applicantId
+								}
+							}
 						}
-					}
-				})
-		}
-	});
+					}),
+				...((!isEmpty(applicant) || !isEmpty(applicantAddress)) &&
+					!applicantId && {
+						serviceCustomer: {
+							create: {
+								...applicant,
+								...(!isEmpty(applicantAddress) && {
+									address: { create: applicantAddress }
+								})
+							}
+						}
+					})
+			}
+		})
+	);
+
+	return databaseConnector.$transaction(transactions);
 };
 
 /**
