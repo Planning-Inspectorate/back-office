@@ -22,7 +22,7 @@ router.post(
         }
         #swagger.responses[200] = {
             description: 'ID of application',
-            schema: { id: 1 }
+            schema: { id: 1, applicantIds: [2] }
         }
     */
 	validateCreateUpdateApplication,
@@ -42,7 +42,7 @@ router.patch(
         }
         #swagger.responses[200] = {
             description: 'ID of application',
-            schema: { id: 1 }
+            schema: { id: 1, applicantIds: [2] }
         }
     */
 	validateApplicationId,

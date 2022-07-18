@@ -452,6 +452,13 @@
 								"id": {
 									"type": "number",
 									"example": 1
+								},
+								"applicantIds": {
+									"type": "array",
+									"example": [2],
+									"items": {
+										"type": "number"
+									}
 								}
 							},
 							"xml": {
@@ -485,6 +492,13 @@
 								"id": {
 									"type": "number",
 									"example": 1
+								},
+								"applicantIds": {
+									"type": "array",
+									"example": [2],
+									"items": {
+										"type": "number"
+									}
 								}
 							},
 							"xml": {
