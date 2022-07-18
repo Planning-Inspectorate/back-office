@@ -9,11 +9,7 @@ const request = supertest(app);
 
 const application = applicationFactoryForTests({
 	id: 1,
-	status: 'open',
-	reference: 'randomly assigned',
-	title: '',
-	description: '',
-	createdAt: new Date(1_655_298_882_000),
+	status: 'Pre-application',
 	modifiedAt: new Date(1_655_298_882_000)
 });
 
@@ -31,7 +27,11 @@ findManyStub
 					}
 				}
 			},
-			CaseStatus: true
+			CaseStatus: {
+				where: {
+					valid: true
+				}
+			}
 		}
 	})
 	.returns([application]);
@@ -61,7 +61,7 @@ test('gets all applications for case admin officer', async (t) => {
 				displayNameEn: 'Sub Sector Name En',
 				name: 'sub_sector'
 			},
-			status: 'open'
+			status: 'Pre-application'
 		}
 	]);
 });
