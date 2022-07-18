@@ -614,6 +614,9 @@ const deleteAllRecords = async () => {
 	const deleteSectors = databaseConnector.sector.deleteMany();
 	const deleteRegions = databaseConnector.region.deleteMany();
 	const deleteZoomLevels = databaseConnector.zoomLevel.deleteMany();
+	const deleteRegionsOnApplicationDetails =
+		databaseConnector.regionsOnApplicationDetails.deleteMany();
+
 	const deleteAppeals = databaseConnector.appeal.deleteMany();
 	const deleteUsers = databaseConnector.user.deleteMany();
 	const deleteAppealTypes = databaseConnector.appealType.deleteMany();
@@ -635,6 +638,7 @@ const deleteAllRecords = async () => {
 		deleteSubSectos,
 		deleteSectors,
 		deleteRegions,
+		deleteRegionsOnApplicationDetails,
 		deleteZoomLevels,
 		deleteAppealDetailsFromAppellant,
 		deleteAppealStatus,
@@ -673,10 +677,16 @@ const createApplication = async (subSector, index) => {
 							name: subSector.name
 						}
 					},
-					region: {
-						connect: {
-							name: pickRandom(regions).name
-						}
+					regions: {
+						create: [
+							{
+								region: {
+									connect: {
+										name: pickRandom(regions).name
+									}
+								}
+							}
+						]
 					},
 					zoomLevel: {
 						connect: {

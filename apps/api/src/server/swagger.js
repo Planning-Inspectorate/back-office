@@ -39,6 +39,7 @@ const document = {
 			geographicalInformation: {
 				mapZoomLevelName: '',
 				locationDescription: '',
+				regionNames: [''],
 				gridReference: {
 					easting: '123456',
 					northing: '098765'
@@ -73,6 +74,7 @@ const document = {
 			geographicalInformation: {
 				mapZoomLevelName: '',
 				locationDescription: '',
+				regionNames: [''],
 				gridReference: {
 					easting: '123456',
 					northing: '098765'
