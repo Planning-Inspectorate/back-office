@@ -2,12 +2,12 @@ import * as applicationsCreateApplicantService from './applications-create-appli
 import { getSessionApplicantInfoTypes } from './applications-create-applicant-session.service.js';
 
 /**
- *  Make sure the domainType of the user is either case-officer or case-admin-officer.
+ *  Make sure the step is among the applicant info types selected to be provided
  *  OR show 403 page
  *
  *  @type {import('express').RequestHandler<{}>}
  */
-export const assertStepIsBeingProvided = ({ session, path }, res, next) => {
+export const assertStepIsAllowed = ({ session, path }, res, next) => {
 	const { applicationId } = res.locals;
 	const applicantInfoTypes = getSessionApplicantInfoTypes(session);
 	const currentStepPath = path.replace(/\//g, '');

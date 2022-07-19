@@ -14,32 +14,32 @@ applicationsCreateApplicantRouter
 
 applicationsCreateApplicantRouter
 	.route('/applicant-organisation-name')
-	.get(guards.assertStepIsBeingProvided, controller.viewApplicationsCreateApplicantOrganisationName)
+	.get(guards.assertStepIsAllowed, controller.viewApplicationsCreateApplicantOrganisationName)
 	.post(controller.updateApplicationsCreateApplicantOrganisationName);
 
 applicationsCreateApplicantRouter
 	.route('/applicant-full-name')
-	.get(guards.assertStepIsBeingProvided, controller.viewApplicationsCreateApplicantFullName)
+	.get(guards.assertStepIsAllowed, controller.viewApplicationsCreateApplicantFullName)
 	.post(controller.updateApplicationsCreateApplicantFullName);
 
 applicationsCreateApplicantRouter
 	.route('/applicant-address')
-	.get(guards.assertStepIsBeingProvided, controller.viewApplicationsCreateApplicantAddress)
+	.get(guards.assertStepIsAllowed, controller.viewApplicationsCreateApplicantAddress)
 	.post(controller.updateApplicationsCreateApplicantAddress);
 
 applicationsCreateApplicantRouter
 	.route('/applicant-website')
-	.get(guards.assertStepIsBeingProvided, controller.viewApplicationsCreateApplicantWebsite)
+	.get(guards.assertStepIsAllowed, controller.viewApplicationsCreateApplicantWebsite)
 	.post(controller.updateApplicationsCreateApplicantWebsite);
 
 applicationsCreateApplicantRouter
 	.route('/applicant-email')
-	.get(guards.assertStepIsBeingProvided, controller.viewApplicationsCreateApplicantEmail)
+	.get(guards.assertStepIsAllowed, controller.viewApplicationsCreateApplicantEmail)
 	.post(controller.updateApplicationsCreateApplicantEmail);
 
 applicationsCreateApplicantRouter
 	.route('/applicant-telephone-number')
-	.get(guards.assertStepIsBeingProvided, controller.viewApplicationsCreateApplicantTelephoneNumber)
+	.get(guards.assertStepIsAllowed, controller.viewApplicationsCreateApplicantTelephoneNumber)
 	.post(controller.updateApplicationsCreateApplicantTelephoneNumber);
 
 export default applicationsCreateApplicantRouter;
