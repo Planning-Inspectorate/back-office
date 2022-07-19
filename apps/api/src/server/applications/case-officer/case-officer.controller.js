@@ -16,12 +16,10 @@ const mapApplicationsWithSectorAndSubSector = (applications) => {
 };
 
 /**
- *
- * @param {*} _request
- * @param {*} response
+ * @type {import('express').RequestHandler}
  */
-export const getApplications = async (_request, response) => {
+export const getApplications = async (request, response) => {
 	const applications = await caseRepository.getAll();
 
-	return response.send(mapApplicationsWithSectorAndSubSector(applications));
+	response.send(mapApplicationsWithSectorAndSubSector(applications));
 };
