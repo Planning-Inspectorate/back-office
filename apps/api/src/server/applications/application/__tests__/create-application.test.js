@@ -117,6 +117,7 @@ test('creates new application when all possible details provided', async (t) => 
 		title: 'title',
 		description: 'description',
 		subSectorName: 'some_sub_sector',
+		caseEmail: 'caseEmail@pins.com',
 		applicant: {
 			firstName: 'first',
 			middleName: 'middle',
@@ -157,6 +158,7 @@ test('creates new application when all possible details provided', async (t) => 
 			gridReference: { create: { easting: 123_456, northing: 987_654 } },
 			ApplicationDetails: {
 				create: {
+					caseEmail: 'caseEmail@pins.com',
 					zoomLevel: { connect: { name: 'some-known-map-zoom-level' } },
 					locationDescription: 'location description',
 					firstNotifiedAt: new Date(123),
@@ -247,6 +249,7 @@ test(`creates new application with application first and last name,
 
 test('returns error if any validated values are invalid', async (t) => {
 	const response = await request.post('/applications').send({
+		caseEmail: 'not a real email',
 		geographicalInformation: {
 			gridReference: {
 				easting: '123',
@@ -272,6 +275,7 @@ test('returns error if any validated values are invalid', async (t) => {
 	t.is(response.status, 400);
 	t.deepEqual(response.body, {
 		errors: {
+			caseEmail: 'Case email must be a valid email address',
 			'applicant.address.postcode': 'Postcode must be a valid UK postcode',
 			'applicant.email': 'Email must be a valid email',
 			'applicant.phoneNumber': 'Phone Number must be a valid UK number',
