@@ -54,18 +54,16 @@ export function getAllowedDestinationPath({ session, path, goToNextPage }) {
 	const allowedApplicantPaths = getSessionApplicantInfoTypes(session);
 	const currentPathIndex = allApplicantPaths.indexOf(path.replace(/\//g, ''));
 
-	let pathsToSkip = 0;
 	let destinationPath = '';
+	let destinationPathIndex = currentPathIndex;
 
 	while (
 		!allowedApplicantPaths.includes(destinationPath) &&
-		Math.abs(pathsToSkip) < allApplicantPaths.length
+		Math.abs(destinationPathIndex) < allApplicantPaths.length - 1
 	) {
-		pathsToSkip += goToNextPage ? 1 : -1;
-
-		const destinationPathIndex = currentPathIndex + pathsToSkip;
-
+		destinationPathIndex += goToNextPage ? 1 : -1;
 		destinationPath = allApplicantPaths[destinationPathIndex];
 	}
-	return destinationPath;
+
+	return destinationPath || '';
 }
