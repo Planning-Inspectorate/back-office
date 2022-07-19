@@ -15,11 +15,6 @@ const mapApplicationsWithSectorAndSubSector = (applications) => {
 	return applications.map((application) => mapApplicationWithSectorAndSubSector(application));
 };
 
-/**
- *
- * @param {*} _request
- * @param {*} response
- */
 export const getApplications = async (_request, response) => {
 	const applications = await caseRepository.getAll();
 
