@@ -88,22 +88,22 @@
 	{% set statusLabel = status %}
 
 	{% switch (status) %}
-	{% case 'Pre-examination' %}
-		{% set statusTagColor = 'yellow' %}
-	{% case 'Acceptance' %}
-		{% set statusTagColor = 'orange' %}
-	{% case 'Pre-examination' %}
-		{% set statusTagColor = 'red' %}
-	{% case 'Examination' %}
-		{% set statusTagColor = 'blue' %}
-	{% case 'Recommendation' %}
-		{% set statusTagColor = 'purple' %}
 	{% case 'Decision' %}
 		{% set statusTagColor = 'pink' %}
 	{% case 'Post decision' %}
-		{% set statusTagColor = 'green' %}
-	{% case 'Withdrawn' %}
 		{% set statusTagColor = 'grey' %}
+	{% case 'Pre-application' %}
+		{% set statusTagColor = 'green' %}
+	{% case 'Acceptance' %}
+		{% set statusTagColor = 'turquoise' %}
+	{% case 'Pre-examination' %}
+		{% set statusTagColor = 'blue' %}
+	{% case 'Examination' %}
+		{% set statusTagColor = 'purple' %}
+	{% case 'Recommendation' %}
+		{% set statusTagColor = 'yellow' %}
+	{% case 'Withdrawn' %}
+		{% set statusTagColor = 'orange' %}
 	{% endswitch %}
 
 	<strong class="govuk-tag govuk-tag--{{statusTagColor}}">{{ statusLabel }}</strong>
