@@ -5,7 +5,7 @@ import * as locals from './applications-create-applicant.locals.js';
 
 const applicationsCreateApplicantRouter = createRouter();
 
-applicationsCreateApplicantRouter.use(locals.registerBackLink);
+applicationsCreateApplicantRouter.use(locals.registerBackPath);
 
 applicationsCreateApplicantRouter
 	.route('/applicant-information-types')

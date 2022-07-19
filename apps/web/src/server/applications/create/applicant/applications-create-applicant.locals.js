@@ -3,16 +3,17 @@ import * as applicationsCreateApplicantService from './applications-create-appli
 /** @typedef {import('../../applications.router').DomainParams} DomainParams */
 
 /**
- * Register the applicationID retrieved from the URL for the resumed step of the ApplicationsCreate process.
+ * Register the first allowed previous path.
  *
  * @type {import('express').RequestHandler<DomainParams, *, *, *, *>}
  */
-export const registerBackLink = ({ session, path }, response, next) => {
-	response.locals.backLink = applicationsCreateApplicantService.getAllowedDestinationPath({
-		session,
-		path,
-		goToNextPage: false
-	});
+export const registerBackPath = ({ session, path }, response, next) => {
+	response.locals.backPath =
+		applicationsCreateApplicantService.getAllowedDestinationPath({
+			session,
+			path,
+			goToNextPage: false
+		}) || 'team-email';
 
 	next();
 };
