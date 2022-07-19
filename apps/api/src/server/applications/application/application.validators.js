@@ -156,20 +156,3 @@ export const validateApplicantId = composeMiddleware(
 		.optional({ nullable: true }),
 	validationErrorHandler
 );
-
-export const validateApplicationId = composeMiddleware(
-	param('id')
-		.toInt()
-		.custom(validateExistingApplication)
-		.withMessage('Must be existing application'),
-	validationErrorHandler
-);
-
-export const validateApplicantId = composeMiddleware(
-	body('applicant.id')
-		.toInt()
-		.custom(validateExistingApplicantThatBelongsToCase)
-		.withMessage('Must be existing applicant that belongs to this case')
-		.optional({ nullable: true }),
-	validationErrorHandler
-);
