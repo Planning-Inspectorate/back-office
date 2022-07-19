@@ -46,10 +46,6 @@ jobs:
                     variable: DATABASE_URL
             - template: steps/node_script.yml@templates
               parameters:
-                script: npm run build
-                workingDirectory: $(Build.Repository.LocalPath)/apps/api
-            - template: steps/node_script.yml@templates
-              parameters:
                 environmentVariables:
                   DATABASE_URL: $(DATABASE_URL)
                 script: npm run db:seed
