@@ -1,3 +1,4 @@
+import pino from '../../../lib/logger.js';
 import * as applicationsCreateApplicantService from './applications-create-applicant.service.js';
 import { getSessionApplicantInfoTypes } from './applications-create-applicant-session.service.js';
 
@@ -18,6 +19,8 @@ export const assertStepIsAllowed = ({ session, path }, res, next) => {
 			path,
 			goToNextPage: true
 		});
+
+		pino.warn(`[WEB] Step ${currentStepPath} is not allowed, redirect to ${nextStepPath}`);
 
 		return res.redirect(`/applications-service/create-new-case/${applicationId}/${nextStepPath}`);
 	}
