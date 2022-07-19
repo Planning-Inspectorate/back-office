@@ -43,9 +43,13 @@ export interface CreateUpdateApplication {
 	title?: string;
 	description?: string;
 <<<<<<< HEAD
+<<<<<<< HEAD
 	caseEmail?: string;
 =======
 >>>>>>> 78064201 (feat(api/applications): creates endpoint to create applications (BOAS-129))
+=======
+	caseEmail?: string;
+>>>>>>> 0767511d (feat(api/applications): adds caseEmail to application (BOAS-129))
 	subSectorName?: string;
 	geographicalInformation?: GeographicalInformation;
 	applicant?: Applicant;
