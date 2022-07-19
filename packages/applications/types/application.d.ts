@@ -42,6 +42,7 @@ export interface KeyApplicationDates {
 export interface CreateUpdateApplication {
 	title?: string;
 	description?: string;
+	caseEmail?: string;
 	subSectorName?: string;
 	geographicalInformation?: GeographicalInformation;
 	applicant?: Applicant;

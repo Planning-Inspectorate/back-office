@@ -36,6 +36,7 @@ const document = {
 			title: '',
 			description: '',
 			subSectorName: '',
+			caseEmail: '',
 			geographicalInformation: {
 				mapZoomLevelName: '',
 				locationDescription: '',
@@ -71,6 +72,7 @@ const document = {
 			title: '',
 			description: '',
 			subSectorName: '',
+			caseEmail: '',
 			geographicalInformation: {
 				mapZoomLevelName: '',
 				locationDescription: '',

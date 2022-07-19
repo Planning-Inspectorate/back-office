@@ -7,7 +7,7 @@ import { mapValuesUsingObject } from '../../utils/mapping/map-values-using-objec
  * @returns {{
  *  caseDetails?: { title?: string | undefined, description?: string | undefined },
  * 	gridReference?: { easting?: number | undefined, northing?: number | undefined },
- *  application?: { locationDescription?: string | undefined, firstNotifiedAt?: Date | undefined, submissionAt?: Date | undefined },
+ *  application?: { locationDescription?: string | undefined, firstNotifiedAt?: Date | undefined, submissionAt?: Date | undefined, caseEmail?: string | undefined },
  *  subSectorName?: string | undefined,
  *  applicant?: { organisationName?: string | undefined, firstName?: string | undefined, middleName?: string | undefined, lastName?: string | undefined, email?: string | undefined, website?: string | undefined, phoneNumber?: string | undefined},
  *  mapZoomLevelName?: string | undefined,
@@ -31,7 +31,7 @@ export const mapCreateApplicationRequestToRepository = (applicationDetails) => {
 				submissionDate: 'submissionAt'
 			})
 		},
-		['locationDescription', 'firstNotifiedAt', 'submissionAt']
+		['locationDescription', 'firstNotifiedAt', 'submissionAt', 'caseEmail']
 	);
 
 	const formattedApplicantDetails = pick(applicationDetails.applicant, [
