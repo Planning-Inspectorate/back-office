@@ -689,6 +689,7 @@ const createApplication = async (subSector, index) => {
 			CaseStatus: {
 				create: [
 					{
+						// TODO: for now, randomly apply statuses
 						status: pickRandom(caseStatusNames).name
 					}
 				]
