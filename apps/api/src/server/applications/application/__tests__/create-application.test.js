@@ -245,6 +245,7 @@ test('creates new application when all possible details provided', async (t) => 
 			gridReference: { create: { easting: 123_456, northing: 987_654 } },
 			ApplicationDetails: {
 				create: {
+					caseEmail: 'caseEmail@pins.com',
 					zoomLevel: { connect: { name: 'some-known-map-zoom-level' } },
 					locationDescription: 'location description',
 					firstNotifiedAt: new Date(123),
@@ -326,11 +327,6 @@ test(`creates new application with application first and last name,
 					status: 'draft'
 				}
 			},
-			CaseStatus: {
-				create: {
-					status: 'draft'
-				}
-			}
 		},
 		include: {
 			serviceCustomer: true
