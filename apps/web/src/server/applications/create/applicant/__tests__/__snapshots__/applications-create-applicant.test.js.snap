@@ -13,12 +13,12 @@ exports[`applications create applicant GET /applicant-information-types should r
                 </div>
                 <div class=\\"govuk-checkboxes__item\\">
                     <input class=\\"govuk-checkboxes__input\\" id=\\"selectedApplicantInfoTypes-2\\"
-                    name=\\"selectedApplicantInfoTypes[]\\" type=\\"checkbox\\" value=\\"applicant-name\\">
+                    name=\\"selectedApplicantInfoTypes[]\\" type=\\"checkbox\\" value=\\"applicant-full-name\\">
                     <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"selectedApplicantInfoTypes-2\\">First and last name of the Applicant</label>
                 </div>
                 <div class=\\"govuk-checkboxes__item\\">
                     <input class=\\"govuk-checkboxes__input\\" id=\\"selectedApplicantInfoTypes-3\\"
-                    name=\\"selectedApplicantInfoTypes[]\\" type=\\"checkbox\\" value=\\"applicant-email-address\\">
+                    name=\\"selectedApplicantInfoTypes[]\\" type=\\"checkbox\\" value=\\"applicant-email\\">
                     <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"selectedApplicantInfoTypes-3\\">Applicant or organisation email address</label>
                 </div>
                 <div class=\\"govuk-checkboxes__item\\">
@@ -39,7 +39,7 @@ exports[`applications create applicant GET /applicant-information-types should r
             </div>
         </div>
         <div class=\\"govuk-grid-row\\">
-            <div class=\\"govuk-button-group pins-button-group govuk-grid-column-one-half\\"><a class=\\"govuk-link\\" href=\\"/applications-service/create-new-case/123/geographical-information/\\">Back</a>
+            <div class=\\"govuk-button-group pins-button-group govuk-grid-column-one-half\\"><a class=\\"govuk-link\\" href=\\"/applications-service/create-new-case/123//applications-service/create-new-case/123/team-email//\\">Back</a>
                 <button                 class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and continue</button>
             </div>
         </div>

@@ -13,3 +13,5 @@
 		items: applicantInfoTypes
 	}) }}
 {% endblock %}
+
+{% set backLink = 'applications-create'|url({applicationId:applicationId, step: 'team-email'}) %}
