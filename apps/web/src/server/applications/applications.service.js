@@ -16,26 +16,5 @@ export const findApplicationById = (id) => {
  * @returns {Promise<import('./applications.types').Application[]>}
  */
 export const findOpenApplicationsByDomainType = (domainType) => {
-	let rnd = 0;
-
-	return get(`applications/${domainType}`).then((results) => {
-		// @ts-ignore
-		return results.map((a) => {
-			const statusesList = [
-				'Pre-application',
-				'Acceptance',
-				'Pre-examination',
-				'Examination',
-				'Recommendation',
-				'Decision',
-				'Post decision',
-				'Withdrawn'
-			];
-
-			rnd = rnd > 6 ? 0 : rnd + 1;
-			return { ...a, status: statusesList[rnd] };
-		});
-	});
-
-	// return get(`applications/${domainType}`)
+	return get(`applications/${domainType}`);
 };
