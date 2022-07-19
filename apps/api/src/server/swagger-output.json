@@ -662,6 +662,10 @@
 					"type": "string",
 					"example": ""
 				},
+				"caseEmail": {
+					"type": "string",
+					"example": ""
+				},
 				"geographicalInformation": {
 					"type": "object",
 					"properties": {
@@ -784,6 +788,10 @@
 					"example": ""
 				},
 				"subSectorName": {
+					"type": "string",
+					"example": ""
+				},
+				"caseEmail": {
 					"type": "string",
 					"example": ""
 				},
