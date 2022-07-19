@@ -123,6 +123,7 @@ model ApplicationDetails {
   locationDescription String?
   firstNotifiedAt     DateTime?
   submissionAt        DateTime?
+  caseEmail           String?
   caseId              Int                           @unique
   case                Case                          @relation(fields: [caseId], references: [id])
   subSectorId         Int?
