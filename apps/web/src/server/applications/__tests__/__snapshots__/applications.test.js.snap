@@ -85,14 +85,14 @@ exports[`applications GET /case-admin-officer should render the open application
                                     <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case-admin-officer/applications/1\\"> APPLICATION/01</a>
                                     </td>
                                     <td class=\\"govuk-table__cell\\">01/01/2022</td>
-                                    <td class=\\"govuk-table__cell govuk-!-width-one-quarter text-align--right\\"><strong class=\\"govuk-tag govuk-tag--orange\\">Acceptance</strong>
+                                    <td class=\\"govuk-table__cell govuk-!-width-one-quarter text-align--right\\"><strong class=\\"govuk-tag govuk-tag--\\">Status 1000</strong>
                                     </td>
                                 </tr>
                                 <tr class=\\"govuk-table__row\\">
                                     <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case-admin-officer/applications/2\\"> APPLICATION/02</a>
                                     </td>
                                     <td class=\\"govuk-table__cell\\">31/01/2022</td>
-                                    <td class=\\"govuk-table__cell govuk-!-width-one-quarter text-align--right\\"><strong class=\\"govuk-tag govuk-tag--yellow\\">Pre-examination</strong>
+                                    <td class=\\"govuk-table__cell govuk-!-width-one-quarter text-align--right\\"><strong class=\\"govuk-tag govuk-tag--\\">Status 2000</strong>
                                     </td>
                                 </tr>
                             </tbody>
@@ -123,7 +123,7 @@ exports[`applications GET /case-admin-officer should render the open application
                                     <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case-admin-officer/applications/3\\"> APPLICATION/03</a>
                                     </td>
                                     <td class=\\"govuk-table__cell\\">01/01/2022</td>
-                                    <td class=\\"govuk-table__cell govuk-!-width-one-quarter text-align--right\\"><strong class=\\"govuk-tag govuk-tag--blue\\">Examination</strong>
+                                    <td class=\\"govuk-table__cell govuk-!-width-one-quarter text-align--right\\"><strong class=\\"govuk-tag govuk-tag--\\">Status 3000</strong>
                                     </td>
                                 </tr>
                             </tbody>
@@ -221,14 +221,14 @@ exports[`applications GET /case-officer should render the open applications belo
                                     <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case-officer/applications/1\\"> APPLICATION/01</a>
                                     </td>
                                     <td class=\\"govuk-table__cell\\">01/01/2022</td>
-                                    <td class=\\"govuk-table__cell govuk-!-width-one-quarter text-align--right\\"><strong class=\\"govuk-tag govuk-tag--orange\\">Acceptance</strong>
+                                    <td class=\\"govuk-table__cell govuk-!-width-one-quarter text-align--right\\"><strong class=\\"govuk-tag govuk-tag--\\">Status 1000</strong>
                                     </td>
                                 </tr>
                                 <tr class=\\"govuk-table__row\\">
                                     <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case-officer/applications/2\\"> APPLICATION/02</a>
                                     </td>
                                     <td class=\\"govuk-table__cell\\">31/01/2022</td>
-                                    <td class=\\"govuk-table__cell govuk-!-width-one-quarter text-align--right\\"><strong class=\\"govuk-tag govuk-tag--yellow\\">Pre-examination</strong>
+                                    <td class=\\"govuk-table__cell govuk-!-width-one-quarter text-align--right\\"><strong class=\\"govuk-tag govuk-tag--\\">Status 2000</strong>
                                     </td>
                                 </tr>
                             </tbody>
@@ -259,7 +259,7 @@ exports[`applications GET /case-officer should render the open applications belo
                                     <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case-officer/applications/3\\"> APPLICATION/03</a>
                                     </td>
                                     <td class=\\"govuk-table__cell\\">01/01/2022</td>
-                                    <td class=\\"govuk-table__cell govuk-!-width-one-quarter text-align--right\\"><strong class=\\"govuk-tag govuk-tag--blue\\">Examination</strong>
+                                    <td class=\\"govuk-table__cell govuk-!-width-one-quarter text-align--right\\"><strong class=\\"govuk-tag govuk-tag--\\">Status 3000</strong>
                                     </td>
                                 </tr>
                             </tbody>
@@ -345,14 +345,14 @@ exports[`applications GET /inspector should render the open applications belongi
                                     <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link\\" href=\\"/applications-service/inspector/applications/1\\"> APPLICATION/01</a>
                                     </td>
                                     <td class=\\"govuk-table__cell\\">01/01/2022</td>
-                                    <td class=\\"govuk-table__cell govuk-!-width-one-quarter text-align--right\\"><strong class=\\"govuk-tag govuk-tag--orange\\">Acceptance</strong>
+                                    <td class=\\"govuk-table__cell govuk-!-width-one-quarter text-align--right\\"><strong class=\\"govuk-tag govuk-tag--\\">Status 1000</strong>
                                     </td>
                                 </tr>
                                 <tr class=\\"govuk-table__row\\">
                                     <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link\\" href=\\"/applications-service/inspector/applications/2\\"> APPLICATION/02</a>
                                     </td>
                                     <td class=\\"govuk-table__cell\\">31/01/2022</td>
-                                    <td class=\\"govuk-table__cell govuk-!-width-one-quarter text-align--right\\"><strong class=\\"govuk-tag govuk-tag--yellow\\">Pre-examination</strong>
+                                    <td class=\\"govuk-table__cell govuk-!-width-one-quarter text-align--right\\"><strong class=\\"govuk-tag govuk-tag--\\">Status 2000</strong>
                                     </td>
                                 </tr>
                             </tbody>
@@ -383,7 +383,7 @@ exports[`applications GET /inspector should render the open applications belongi
                                     <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link\\" href=\\"/applications-service/inspector/applications/3\\"> APPLICATION/03</a>
                                     </td>
                                     <td class=\\"govuk-table__cell\\">01/01/2022</td>
-                                    <td class=\\"govuk-table__cell govuk-!-width-one-quarter text-align--right\\"><strong class=\\"govuk-tag govuk-tag--blue\\">Examination</strong>
+                                    <td class=\\"govuk-table__cell govuk-!-width-one-quarter text-align--right\\"><strong class=\\"govuk-tag govuk-tag--\\">Status 3000</strong>
                                     </td>
                                 </tr>
                             </tbody>
