@@ -26,8 +26,8 @@
     "web": "npm run dev --workspace=@pins/web"
   },
   "devDependencies": {
-    "@commitlint/cli": "^17.0.1",
-    "@commitlint/config-conventional": "^17.0.0",
+    "@commitlint/cli": "17.0.1",
+    "@commitlint/config-conventional": "17.0.0",
     "@semantic-release/exec": "^6.0.3",
     "commitizen": "^4.2.4",
     "cz-conventional-changelog": "^3.3.0",
