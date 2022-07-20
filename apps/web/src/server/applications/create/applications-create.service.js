@@ -1,4 +1,5 @@
 import { fixtureApplications } from '../../../../testing/applications/fixtures/applications.js';
+import { post } from '../../lib/request.js';
 import { setSessionApplicantId } from './applicant/applications-create-applicant-session.service.js';
 
 /** @typedef {import('./applicant/applications-create-applicant-session.service.js').SessionWithApplicationsCreateApplicantId} SessionWithApplicationsCreateApplicantId */
@@ -26,15 +27,12 @@ export const updateApplicationDraft = async (applicationId, newData) => {
  * @returns {Promise<any>}
  */
 export const createApplicationDraft = async (payload, session) => {
-	const mockGet = () =>
-		new Promise((resolve) => {
-			setTimeout(() => {
-				resolve({ ...payload, id: 123, applicantIds: [2] });
-			}, 1000);
-		});
-	const newApplication = await mockGet();
+	const newApplication = await post('applications', {
+		json: payload
+	});
 
 	setSessionApplicantId(session, newApplication.applicantIds[0]);
+	// console.log('newApplication.applicantIds[0]', newApplication.applicantIds[0])
 	return newApplication;
 };
 
