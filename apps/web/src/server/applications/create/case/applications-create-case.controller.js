@@ -49,7 +49,7 @@ export async function viewApplicationsCreateCaseName(req, response) {
 export async function updateApplicationsCreateCaseName({ errors, session, body }, response) {
 	const { applicationName, applicationDescription } = body;
 	const { applicationId } = response.locals;
-	const updatedData = { name: applicationName, description: applicationDescription };
+	const updatedData = { title: applicationName, description: applicationDescription };
 
 	if (errors) {
 		return response.render('applications/create/case/_name', {
