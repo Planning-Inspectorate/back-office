@@ -40,7 +40,7 @@ export async function updateApplicationsCreateApplicantTypes({ path, session, bo
 	const { applicationId } = response.locals;
 	const { selectedApplicantInfoTypes } = body;
 
-	setSessionApplicantInfoTypes(session, selectedApplicantInfoTypes);
+	setSessionApplicantInfoTypes(session, selectedApplicantInfoTypes || []);
 
 	goToNextStep(applicationId, path, session, response);
 }
