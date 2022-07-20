@@ -1,4 +1,5 @@
-import * as applicationsCreateService from './applications-create-case.service.js';
+import * as applicationsCreateService from '../applications-create.service.js';
+import * as applicationsCreateCaseService from './applications-create-case.service.js';
 
 /** @typedef {import('../../applications.router').DomainParams} DomainParams */
 /** @typedef {import('../../applications.types').Sector} Sector */
@@ -77,7 +78,7 @@ export async function updateApplicationsCreateCaseName({ errors, body }, respons
  */
 export async function viewApplicationsCreateCaseSector(req, response) {
 	const { applicationId } = response.locals;
-	const allSectors = await applicationsCreateService.getAllSectors();
+	const allSectors = await applicationsCreateCaseService.getAllSectors();
 
 	const { sector: selectedSector } = await applicationsCreateService.getApplicationDraft(
 		applicationId
@@ -99,7 +100,7 @@ export async function viewApplicationsCreateCaseSector(req, response) {
 export async function updateApplicationsCreateCaseSector({ errors, body }, response) {
 	const { applicationId } = response.locals;
 	const { selectedSectorName } = body;
-	const allSectors = await applicationsCreateService.getAllSectors();
+	const allSectors = await applicationsCreateCaseService.getAllSectors();
 	const selectedSector = allSectors.find((sector) => sector.name === selectedSectorName);
 	const updateSector = () =>
 		applicationsCreateService.updateApplicationDraft(applicationId, { sector: selectedSector });
@@ -133,7 +134,7 @@ export async function viewApplicationsCreateCaseSubSector(req, response) {
 		// the hardcoded 'transport' value is just temporary. will be replaced once the resume api will be working
 	} = await applicationsCreateService.getApplicationDraft(applicationId, 'transport');
 
-	const subSectors = await applicationsCreateService.getSubSectorsBySector(sector);
+	const subSectors = await applicationsCreateCaseService.getSubSectorsBySector(sector);
 
 	response.render('applications/create/case/_sub-sector', {
 		subSectors,
@@ -154,7 +155,7 @@ export async function updateApplicationsCreateCaseSubSector({ errors, body }, re
 		applicationId,
 		'transport'
 	);
-	const subSectors = await applicationsCreateService.getSubSectorsBySector(applicationSector);
+	const subSectors = await applicationsCreateCaseService.getSubSectorsBySector(applicationSector);
 	const selectedSubSector = subSectors.find(
 		(subSector) => subSector.name === selectedSubSectorName
 	);
@@ -240,7 +241,7 @@ export async function updateApplicationsCreateCaseGeographicalInformation(
  * {}, {}, {}, DomainParams>}
  */
 export async function viewApplicationsCreateCaseRegions(req, response) {
-	const allRegions = await applicationsCreateService.getAllRegions();
+	const allRegions = await applicationsCreateCaseService.getAllRegions();
 
 	return response.render('applications/create/case/_region', { regions: allRegions });
 }
@@ -254,7 +255,7 @@ export async function viewApplicationsCreateCaseRegions(req, response) {
 export async function updateApplicationsCreateCaseRegions({ errors, body }, response) {
 	const { applicationId } = response.locals;
 	const { selectedRegionsNames } = body;
-	const allRegions = await applicationsCreateService.getAllRegions();
+	const allRegions = await applicationsCreateCaseService.getAllRegions();
 	const selectedRegions = allRegions.filter((region) =>
 		(selectedRegionsNames || []).includes(region.name)
 	);
@@ -283,7 +284,7 @@ export async function updateApplicationsCreateCaseRegions({ errors, body }, resp
  * {}, {}, {}, DomainParams>}
  */
 export async function viewApplicationsCreateCaseZoomLevel(req, response) {
-	const allZoomLevels = await applicationsCreateService.getAllZoomLevels();
+	const allZoomLevels = await applicationsCreateCaseService.getAllZoomLevels();
 
 	allZoomLevels.sort((a, b) => ((a.displayOrder || '') < (b.displayOrder || '') ? 1 : -1));
 
@@ -299,7 +300,7 @@ export async function viewApplicationsCreateCaseZoomLevel(req, response) {
 export async function updateApplicationsCreateCaseZoomLevel({ body }, response) {
 	const { applicationId } = response.locals;
 	const { selectedZoomLevelName } = body;
-	const allZoomLevels = await applicationsCreateService.getAllZoomLevels();
+	const allZoomLevels = await applicationsCreateCaseService.getAllZoomLevels();
 	const selectedZoomLevel = allZoomLevels.filter(
 		(zoomLevel) => selectedZoomLevelName === zoomLevel.name
 	);
