@@ -2,7 +2,7 @@
 
 exports[`applications create applicant GET /applicant-information-types should render the page 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
-    <h2 class=\\"govuk-heading-l\\"> Choose the type Applicant information you can give</h2>
+    <h2 class=\\"govuk-heading-l\\"> Choose the type of Applicant information you can give</h2>
     <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
         <div class=\\"govuk-form-group\\">
             <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
