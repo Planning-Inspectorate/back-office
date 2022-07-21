@@ -278,5 +278,30 @@ export const updateApplication = ({
  * @returns {Promise<import('@pins/api').Schema.Case | null>}
  */
 export const getById = (id) => {
-	return databaseConnector.case.findUnique({ where: { id } });
-};
+	return databaseConnector.case.findUnique({ 
+		where: { id },
+		include: {
+			ApplicationDetails: {
+				include: {
+					subSector: {
+						include: {
+							sector: true,
+						}},
+					regions: {
+						include: {
+							region: true,
+						}},
+					zoomLevel: true,
+				}
+			},
+			serviceCustomer: {
+				include: {
+					address: true,
+				}
+			},
+			CaseStatus: true,
+			gridReference: true,
+	},
+}
+)};
+

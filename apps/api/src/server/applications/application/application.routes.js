@@ -1,6 +1,6 @@
 import express from 'express';
 import { asyncHandler } from '../../middleware/async-handler.js';
-import { createApplication, updateApplication } from './application.controller.js';
+import { createApplication, getApplicationDetails, updateApplication } from './application.controller.js';
 import {
 	validateApplicantId,
 	validateApplicationId,
@@ -50,5 +50,25 @@ router.patch(
 	validateCreateUpdateApplication,
 	asyncHandler(updateApplication)
 );
+
+router.get(
+	'/:id',
+	/*
+        #swagger.tags = ['Applications']
+        #swagger.path = '/applications/:id'
+        #swagger.description = 'Gets all application details'
+        #swagger.parameters['body'] = {
+            in: 'body',
+            description: 'Application Details',
+            schema: { $ref: '#/definitions/GetApplicationDetails' }
+        }
+        #swagger.responses[200] = {
+            description: 'ID of application',
+            schema: { id: 1, applicantIds: [2] }
+        }
+    */
+	asyncHandler(getApplicationDetails)
+);
+
 
 export { router as applicationRoutes };
