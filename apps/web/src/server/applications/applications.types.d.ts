@@ -26,7 +26,15 @@ export interface Application {
 	createdDate?: string;
 	sector?: Sector;
 	subSector?: Sector;
+	teamEmail?: string;
 	applicants?: Applicant[];
+	geographicalInformation?: {
+		locationDescription: string;
+		gridReference: {
+			northing: string;
+			easting: string;
+		};
+	};
 }
 
 export interface Applicant {
