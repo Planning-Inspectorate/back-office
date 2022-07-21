@@ -2,19 +2,7 @@ import { filter, map } from 'lodash-es';
 import * as caseRepository from '../../repositories/case.repository.js';
 import { mapCaseStatusString } from '../../utils/mapping/map-case-status-string.js';
 import { mapCreateApplicationRequestToRepository } from './application.mapper.js';
-import { startApplication } from './application.service.js';
-
-/**
- *
- * @param {import('@pins/api').Schema.ServiceCustomer[] | undefined} serviceCustomers
- * @returns {number[]}
- */
-const getServiceCustomerIds = (serviceCustomers) => {
-	return map(serviceCustomers, (serviceCustomer) => {
-		return serviceCustomer.id;
-	});
-}
-
+import { mapCaseDetails } from '../../utils/mapping/map-case-details.js';
 /**
  *
  * @param {import('@pins/api').Schema.ServiceCustomer[] | undefined} serviceCustomers
@@ -76,4 +64,27 @@ export const startCase = async ({ params }, response) => {
 	const { id, reference, status } = await startApplication(params.id);
 
 	response.send({ id, reference, status: mapCaseStatusString(status.toString()) });
+};
+
+/** 
+ * @type {import('express').RequestHandler}
+*/
+export const getApplicationDetails = async (request, response) => {
+	const getCaseDetails = await caseRepository.getById(
+		Number.parseInt(request.params.id));
+	
+	// let mapCaseDetails = pick(getCaseDetails, ['id', 
+	// 								'reference', 
+	// 								'status', 
+	// 								'title', 
+	// 								'description', 
+	// 								'ApplicationDetails',
+	// 								'ApplicationDetails.subSector.sector', 
+	// 								'ApplicationDetails.subSector',
+	// 								'ApplicationDetails.regions',
+	// 								'serviceCustomer'
+	// 								]);
+
+   response.send(mapCaseDetails(getCaseDetails))
+
 };

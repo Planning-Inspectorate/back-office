@@ -358,6 +358,7 @@ export const updateApplication = ({
  * @param {{subSector?: boolean, applicationDetails?: boolean, zoomLevel?: boolean, regions?: boolean, caseStatus?: boolean}} inclusions
  * @returns {Promise<import('@pins/api').Schema.Case | null>}
  */
+
 export const getById = (
 	id,
 	{
@@ -487,3 +488,4 @@ export const assignApplicationReference = (id) => {
 
 	return databaseConnector.$executeRawUnsafe(formattedSqlQuery);
 };
+
