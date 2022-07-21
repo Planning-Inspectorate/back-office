@@ -26,6 +26,14 @@ export interface Application {
 	createdDate?: string;
 	sector?: Sector;
 	subSector?: Sector;
+	teamEmail?: string;
+	geographicalInformation?: {
+		locationDescription: string;
+		gridReference: {
+			northing: string;
+			easting: string;
+		};
+	};
 }
 
 export interface OptionsItem {

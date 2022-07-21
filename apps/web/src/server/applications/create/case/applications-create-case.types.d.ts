@@ -63,7 +63,7 @@ export type ApplicationsCreateCaseZoomLevelBody = {
 };
 
 export type ApplicationsCreateCaseTeamEmailProps = {
-	applicationTeamEmail: string;
+	applicationTeamEmail?: string;
 	errors?: ValidationErrors;
 };
 
@@ -73,5 +73,6 @@ export type ApplicationsCreateCaseTeamEmailBody = {
 
 export type UpdateOrCreateCallback = () => Promise<{
 	errors?: ValidationErrors;
-	id?: string;
+	id?: number;
+	applicantIds?: Array<number>;
 }>;
