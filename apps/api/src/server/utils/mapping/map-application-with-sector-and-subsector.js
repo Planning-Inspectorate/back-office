@@ -19,8 +19,8 @@ export const mapApplicationWithSectorAndSubSector = (application) => {
 
 	return {
 		...applicationData,
-		subSector: mapSector(application.ApplicationDetails.subSector),
-		sector: mapSector(application.ApplicationDetails.subSector.sector),
+		subSector: mapSector(application.ApplicationDetails?.subSector),
+		sector: mapSector(application.ApplicationDetails?.subSector?.sector),
 		status: applicationStatus
 	};
 };
