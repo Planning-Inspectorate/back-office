@@ -86,13 +86,11 @@ const timestampToDate = (value) => {
 
 export const validateCreateUpdateApplication = composeMiddleware(
 	body('geographicalInformation.gridReference.easting')
-		.isLength({ min: 6, max: 6 })
-		.toInt()
+		.isInt({ min: 6, max: 6 })
 		.withMessage('Easting must be integer with 6 digits')
 		.optional({ nullable: true }),
 	body('geographicalInformation.gridReference.northing')
-		.isLength({ min: 6, max: 6 })
-		.toInt()
+		.isInt({ min: 6, max: 6 })
 		.withMessage('Northing must be integer with 6 digits')
 		.optional({ nullable: true }),
 	body('geographicalInformation.mapZoomLevelName')
