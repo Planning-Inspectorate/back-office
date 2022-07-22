@@ -1,4 +1,4 @@
-import { bodyToPayload,bodyToValues } from '../../../lib/body-formatter.js';
+import { bodyToPayload, bodyToValues } from '../../../lib/body-formatter.js';
 import * as applicationsCreateService from '../applications-create.service.js';
 import * as applicationsCreateCaseService from './applications-create-case.service.js';
 import {
@@ -34,50 +34,40 @@ import {
  */
 export async function viewApplicationsCreateCaseName(req, response) {
 	const { applicationId } = response.locals || {};
-	const { title: applicationName, description: applicationDescription } = applicationId
+	const resumedApplication = applicationId
 		? await applicationsCreateService.getApplicationDraft(applicationId)
 		: { title: '', description: '' };
+	const templateData = { values: resumedApplication };
 
-	response.render('applications/create/case/_name', { applicationName, applicationDescription });
+	response.render('applications/create/case/_name', templateData);
 }
 
 /**
  * Create the application with name and description
  *
- * @type {import('@pins/express').RenderHandler<ApplicationsCreateCaseNameProps,
- *   {}, ApplicationsCreateCaseNameBody, {}, DomainParams>}
+ * @type {import('@pins/express').RenderHandler<*, *>}
  */
-export async function updateApplicationsCreateCaseName({ errors, session, body }, response) {
-	const { applicationName, applicationDescription } = body;
+export async function updateApplicationsCreateCaseName(
+	{ errors: validationErrors, session, body },
+	response
+) {
 	const { applicationId } = response.locals;
-	const updatedData = {
-		title: applicationName,
-		description: applicationDescription,
-		applicant: {
-			organisationName: ''
-		}
-	};
+	const templateData = bodyToValues(body);
+	const payload = bodyToPayload(body);
+
+	const updateOrCreateApplicationName = applicationId
+		? () => applicationsCreateService.updateApplicationDraft(applicationId, payload)
+		: () => applicationsCreateService.createApplicationDraft(payload, session);
+
+	const { errors: apiErrors, id: updatedApplicationId } = await updateOrCreateApplicationName();
+	const errors = validationErrors || apiErrors;
 
 	if (errors) {
 		return response.render('applications/create/case/_name', {
 			errors,
-			applicationDescription,
-			applicationName
+			...templateData
 		});
 	}
-
-	const updateApplicationName = applicationId
-		? () => applicationsCreateService.updateApplicationDraft(applicationId, updatedData)
-		: () => applicationsCreateService.createApplicationDraft(updatedData, session);
-
-	const updatedApplicationId = await getUpdatedApplicationIdOrFail(
-		updateApplicationName,
-		{
-			templateName: 'name',
-			templateData: { applicationDescription, applicationName }
-		},
-		response
-	);
 
 	response.redirect(`/applications-service/create-new-case/${updatedApplicationId}/sector`);
 }
@@ -126,8 +116,7 @@ export async function updateApplicationsCreateCaseSector({ errors, session, body
 /**
  * View the sub-sector choice step of the application creation
  *
- * @type {import('@pins/express').RenderHandler<ApplicationsCreateCaseSubSectorProps,
- * {}, {}, {}, DomainParams>}
+ * @type {import('@pins/express').RenderHandler<*, *>}
  */
 export async function viewApplicationsCreateCaseSubSector({ session }, response) {
 	const { applicationId } = response.locals;
@@ -145,19 +134,22 @@ export async function viewApplicationsCreateCaseSubSector({ session }, response)
 
 	response.render('applications/create/case/_sub-sector', {
 		subSectors,
-		selectedValue: selectedSubSector?.name
+		values: { subSectorName: selectedSubSector.name }
 	});
 }
 
 /**
  * Save the sub-sector for the draft application
  *
- * @type {import('@pins/express').RenderHandler<ApplicationsCreateCaseSubSectorProps,
- * {}, ApplicationsCreateCaseSubSectorBody, {}, DomainParams>}
+ * @type {import('@pins/express').RenderHandler<*, *>}
  */
-export async function updateApplicationsCreateCaseSubSector({ session, errors, body }, response) {
+export async function updateApplicationsCreateCaseSubSector(
+	{ session, error: validationErrors, body },
+	response
+) {
 	const { applicationId } = response.locals;
-	const { selectedSubSectorName } = body;
+	const templateData = bodyToValues(body);
+	const payload = bodyToPayload(body);
 	const { sector: selectedSector } = await applicationsCreateService.getApplicationDraft(
 		applicationId
 	);
@@ -166,26 +158,22 @@ export async function updateApplicationsCreateCaseSubSector({ session, errors, b
 	const subSectors = await applicationsCreateCaseService.getSubSectorsBySectorName(
 		selectedSectorName || ''
 	);
-	const updateSubSector = () =>
-		applicationsCreateService.updateApplicationDraft(applicationId, {
-			subSectorName: selectedSubSectorName
-		});
+
+	const { errors: apiErrors, id: updatedApplicationId } =
+		await applicationsCreateService.updateApplicationDraft(applicationId, payload);
+	const errors = validationErrors || apiErrors;
 
 	if (errors) {
-		return response.render('applications/create/case/_sub-sector', { errors, subSectors });
+		return response.render('applications/create/case/_sub-sector', {
+			errors,
+			subSectors,
+			...templateData
+		});
 	}
 
-	await getUpdatedApplicationIdOrFail(
-		updateSubSector,
-		{
-			templateName: 'sub-sector',
-			templateData: { subSectors }
-		},
-		response
-	);
 	destroySessionCaseSectorName(session);
 	response.redirect(
-		`/applications-service/create-new-case/${applicationId}/geographical-information`
+		`/applications-service/create-new-case/${updatedApplicationId}/geographical-information`
 	);
 }
 
