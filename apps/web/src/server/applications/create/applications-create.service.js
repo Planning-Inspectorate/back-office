@@ -5,7 +5,8 @@ import { setSessionApplicantId } from './applicant/applications-create-applicant
 /** @typedef {import('../applications.types').Application} Application */
 
 /**
- * // TODO: this is just a mock.
+ *
+ * Update application draft and return id and applicant ids if success or errors if fail
  *
  * @param {string} applicationId
  * @param {any} payload
@@ -20,22 +21,7 @@ export const updateApplicationDraft = async (applicationId, payload) => {
 		});
 	} catch (/** @type {*} */ error) {
 		response = new Promise((resolve) => {
-			const rawErrors = error?.response?.body?.errors;
-			const rawErrorsKeys = Object.keys(rawErrors);
-
-			let errors = {};
-
-			for (const rawErrorKey of rawErrorsKeys) {
-				const key =
-					{
-						'geographicalInformation.gridReference.easting': 'applicationEasting',
-						'geographicalInformation.gridReference.northing': 'applicationNorthing'
-					}[rawErrorKey] ?? rawErrorKey;
-
-				errors = { ...errors, [key]: { msg: rawErrors[rawErrorKey] } };
-			}
-
-			resolve({ errors });
+			resolve({ errors: error?.response?.body?.errors });
 		});
 	}
 
