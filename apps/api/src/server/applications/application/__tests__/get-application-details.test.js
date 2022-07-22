@@ -94,3 +94,9 @@ test('gets all data for a case when everything is available', async (t) => {
 		}
 	});
 });
+
+test('gets applications details when only case id present');
+
+test('throws an error if we send an unknown case id');
+
+test('throws an error if the id provided is a string/characters');
