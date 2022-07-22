@@ -28,19 +28,45 @@ test('gets all data for a case when everything is available', async (t) => {
 	t.deepEqual(response.body, {
 		id: 1,
 		title: 'EN010003 - NI Case 3 Name',
-		address: {},
-		applicant: {},
-		caseDetails: {
-			description: 'EN010003 - NI Case 3 Name Description',
-			id: 1,
-			reference: application.reference,
-			title: 'EN010003 - NI Case 3 Name'
+		description: 'EN010003 - NI Case 3 Name Description',
+		geographicalInformation: {
+			applicant: {
+				address: {
+					addressLine1: 'Addr Line 1',
+					addressLine2: 'Addr Line 2',
+					town: 'Town',
+					county: 'County',
+					postcode: 'Postcode'
+				},
+				email: 'service.customer@email.com',
+				firstName: 'Service Customer First Name',
+				lastName: 'Service Customer Last Name',
+				middleName: 'Service Customer Middle Name',
+				phoneNumber: '01234567890',
+				website: 'Service Customer Website'
+			},
+			mapZoomLevel: {
+				displayNameCy: 'Zoom Level Name Cy',
+				displayNameEn: 'Zoom Level Name En'
+			},
+			regions: {
+				displayNameCy: 'Region Name Cy',
+				displayNameEn: 'Region Name En'
+			}
 		},
-		geographicalInformation: {},
-		gridReference: {},
 		keyDates: {},
-		mapZoomLevel: {},
-		sector: {},
-		subSector: {}
+		reference: application.reference,
+		sector: {
+			abbreviation: 'BB',
+			displayNameCy: 'Sector Name Cy',
+			displayNameEn: 'Sector Name En',
+			name: 'sector'
+		},
+		subSector: {
+			abbreviation: 'AA',
+			displayNameCy: 'Sub Sector Name Cy',
+			displayNameEn: 'Sub Sector Name En',
+			name: 'sub_sector'
+		}
 	});
 });
