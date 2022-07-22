@@ -31,13 +31,14 @@ export const updateApplicationDraft = async (applicationId, payload) => {
 /**
  * Create new draft application and return id and applicant ids
  *
- * @param {{title: string, description: string}} payload
+ * @param {any} payload
  * @param {SessionWithApplicationsCreateApplicantId} session
  * @returns {Promise<{id: number, applicantIds: Array<number>}>}
  */
 export const createApplicationDraft = async (payload, session) => {
+	const payloadWithEmptyApplicant = { ...payload, applicant: { organisationName: '' } };
 	const newApplication = await post('applications', {
-		json: payload
+		json: payloadWithEmptyApplicant
 	});
 
 	setSessionApplicantId(session, newApplication.applicantIds[0]);

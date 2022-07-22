@@ -2,7 +2,7 @@ import { createValidator } from '@pins/express';
 import { body } from 'express-validator';
 
 export const validateApplicationsCreateCaseName = createValidator(
-	body('applicationName')
+	body('title')
 		.trim()
 		.isLength({ min: 1 })
 		.withMessage('Enter the name of the project')
@@ -11,7 +11,7 @@ export const validateApplicationsCreateCaseName = createValidator(
 );
 
 export const validateApplicationsCreateCaseDescription = createValidator(
-	body('applicationDescription')
+	body('description')
 		.trim()
 		.isLength({ min: 1 })
 		.withMessage('Enter the description of the project')
@@ -27,7 +27,7 @@ export const validateApplicationsCreateCaseSector = createValidator(
 );
 
 export const validateApplicationsCreateCaseSubSector = createValidator(
-	body('selectedSubSectorName')
+	body('subSectorName')
 		.trim()
 		.isLength({ min: 1 })
 		.withMessage('Choose the subsector of the project')
