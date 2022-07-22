@@ -2,7 +2,7 @@ import { chain, every } from 'lodash-es';
 
 /**
  *
- * @param {import('@pins/api').Schema.AppealStatus[]} appealStatus
+ * @param {import('@pins/api').Schema.AppealStatus[] | import('@pins/api').Schema.CaseStatus[]} appealStatus
  * @returns {object | string}
  */
 export const buildAppealCompundStatus = (appealStatus) => {
