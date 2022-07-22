@@ -1,9 +1,17 @@
 /**
  * Map an express validator message to a human readable string.
  *
- * @param {{ msg: string }=} error
+ * @param {string | { msg: string }} error
  * @returns {{ text: string } | null}
  */
 export function errorMessage(error) {
-	return error?.msg ? { text: error.msg } : null;
+	let message = null;
+
+	if (typeof error === 'string') {
+		message = { text: error };
+	} else if (error?.msg) {
+		message = { text: error.msg };
+	}
+
+	return message;
 }

@@ -38,7 +38,7 @@ export const validateApplicationsCreateCaseRegions = createValidator(
 );
 
 export const validateApplicationsCreateCaseLocation = createValidator(
-	body('applicationLocation')
+	body('geographicalInformation.locationDescription')
 		.trim()
 		.isLength({ min: 1 })
 		.withMessage('Enter the Case location')
@@ -47,7 +47,7 @@ export const validateApplicationsCreateCaseLocation = createValidator(
 );
 
 export const validateApplicationsCreateCaseEasting = createValidator(
-	body('applicationEasting')
+	body('geographicalInformation.gridReference.easting')
 		.trim()
 		.isLength({ min: 1 })
 		.withMessage('Enter the Grid reference Easting')
@@ -56,7 +56,7 @@ export const validateApplicationsCreateCaseEasting = createValidator(
 );
 
 export const validateApplicationsCreateCaseNorthing = createValidator(
-	body('applicationNorthing')
+	body('geographicalInformation.gridReference.northing')
 		.trim()
 		.isLength({ min: 1 })
 		.withMessage('Enter the Grid reference Northing')
