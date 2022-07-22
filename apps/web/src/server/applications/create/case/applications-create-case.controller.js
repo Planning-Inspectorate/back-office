@@ -1,3 +1,4 @@
+import { bodyToPayload,bodyToValues } from '../../../lib/body-formatter.js';
 import * as applicationsCreateService from '../applications-create.service.js';
 import * as applicationsCreateCaseService from './applications-create-case.service.js';
 import {
@@ -213,28 +214,20 @@ export async function viewApplicationsCreateCaseGeographicalInformation(req, res
  * {}, ApplicationsCreateCaseGeographicalInformationBody, {}, DomainParams>}
  */
 export async function updateApplicationsCreateCaseGeographicalInformation(
-	{ errors, body },
+	{ errors: validationErrors, body },
 	response
 ) {
 	const { applicationId } = response.locals;
-	const { applicationLocation, applicationEasting, applicationNorthing } = body;
-	const templateData = { applicationLocation, applicationEasting, applicationNorthing };
-	const payload = {
-		geographicalInformation: {
-			locationDescription: applicationLocation,
-			gridReference: {
-				easting: applicationEasting,
-				northing: applicationNorthing
-			}
-		}
-	};
+	const templateData = { values: bodyToValues(body) };
+	const payload = bodyToPayload(body);
 
-	const { errors: templateErrors, id: updatedApplicationId } =
+	const { errors: apiErrors, id: updatedApplicationId } =
 		await applicationsCreateService.updateApplicationDraft(applicationId, payload);
+	const errors = validationErrors || apiErrors;
 
-	if (errors || templateErrors) {
+	if (errors) {
 		return response.render('applications/create/case/_geographical-information', {
-			errors: errors || templateErrors,
+			errors,
 			...templateData
 		});
 	}
