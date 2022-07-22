@@ -8,6 +8,8 @@ import {
 /** @typedef {import('./applications-create-applicant.types').ApplicationsCreateApplicantTypesProps} ApplicationsCreateApplicantTypesProps */
 /** @typedef {import('./applications-create-applicant.types').ApplicationsCreateApplicantTypesBody} ApplicationsCreateApplicantTypesBody */
 /** @typedef {import('./applications-create-applicant-session.service.js').SessionWithApplicationsCreateApplicantInfoTypes} SessionWithApplicationsCreateApplicantInfoTypes */
+/** @typedef {import('./applications-create-applicant.types').ApplicationsCreateApplicantOrganisationNameProps} ApplicationsCreateApplicantOrganisationNameProps */
+/** @typedef {import('./applications-create-applicant.types').ApplicationsCreateApplicantOrganisationNameBody} ApplicationsCreateApplicantOrganisationNameBody */
 
 /**
  * View the form step for the applicant information types
@@ -48,7 +50,7 @@ export async function updateApplicationsCreateApplicantTypes({ path, session, bo
 /**
  * View the form step for the applicant organisation name
  *
- * @type {import('@pins/express').RenderHandler<{}, {}>}
+ * @type {import('@pins/express').RenderHandler<ApplicationsCreateApplicantOrganisationNameProps, {}, {}, {}, DomainParams>}
  */
 export async function viewApplicationsCreateApplicantOrganisationName(req, response) {
 	response.render('applications/create/applicant/_organisation-name');
@@ -57,13 +59,12 @@ export async function viewApplicationsCreateApplicantOrganisationName(req, respo
 /**
  * Update the applicant organisation name
  *
- * @type {import('@pins/express').RenderHandler<{}, {}>}
+ * @type {import('@pins/express').RenderHandler<ApplicationsCreateApplicantOrganisationNameProps, {}, ApplicationsCreateApplicantOrganisationNameBody, {}, DomainParams>}
  */
-export async function updateApplicationsCreateApplicantOrganisationName(
-	{ session, path },
-	response
-) {
+export async function updateApplicationsCreateApplicantOrganisationName({ path, session, body }, response) {
 	const { applicationId } = response.locals;
+
+	// const { applicantOrganisationName } = body;
 
 	goToNextStep(applicationId, path, session, response);
 }

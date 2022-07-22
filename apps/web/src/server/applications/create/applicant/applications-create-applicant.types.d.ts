@@ -9,3 +9,12 @@ export type ApplicationsCreateApplicantTypesProps = {
 export type ApplicationsCreateApplicantTypesBody = {
 	selectedApplicantInfoTypes: string[];
 };
+
+export type ApplicationsCreateApplicantOrganisationNameProps = {
+	applicantOrganisationName?: string;
+	errors?: ValidationErrors;
+};
+
+export type ApplicationsCreateApplicantOrganisationNameBody = {
+	applicantOrganisationName?: string;
+};
