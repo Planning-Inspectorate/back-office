@@ -15,26 +15,26 @@
 			text: "Name of the case",
 			classes: 'font-weight--700'
 		},
-		id: "applicationName",
-		name: "applicationName",
+		id: "title",
+		name: "title",
 		classes: "govuk-!-width-one-third",
-		value: applicationName,
-		errorMessage: errors.applicationName | errorMessage,
+		value: values.title,
+		errorMessage: errors.title | errorMessage,
 		hint: {
 			text: "for example, Bridge over a very long canyon"
 		}
 	}) }}
 
 	{{ govukTextarea({
-		name: "applicationDescription",
-		id: "applicationDescription",
+		name: "description",
+		id: "description",
 		label: {
 			text: "Description of the case",
 			classes: 'font-weight--700'
 		},
-		errorMessage: errors.applicationDescription | errorMessage,
+		errorMessage: errors.description | errorMessage,
 		classes: "govuk-!-width-three-quarters",
-		value: applicationDescription,
+		value: values.description,
 		hint: {
 			text: "for example, An offshore wind generating station of capacity up to 285 MW"
 		}
