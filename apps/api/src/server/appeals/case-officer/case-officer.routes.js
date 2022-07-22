@@ -2,7 +2,7 @@ import express from 'express';
 import { param } from 'express-validator';
 import { asyncHandler } from '../../middleware/async-handler.js';
 import { validateAppealStatus } from '../../middleware/validate-appeal-status.js';
-import { appealStates } from '../state-machine/transition-state.js';
+import { appealStates } from '../../utils/transition-state.js';
 import {
 	confirmLPAQuestionnaire,
 	getAppealDetails,
