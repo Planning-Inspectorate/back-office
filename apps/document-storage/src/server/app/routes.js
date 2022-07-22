@@ -1,11 +1,16 @@
-import express from 'express';
+import { Router as createRouter } from 'express';
 import { downloadDocument, getAllDocuments, uploadDocument } from './controller.js';
 import { asyncHandler } from './middleware/async-handler.js';
-import { validateDocumentName,validateGetAllDocuments, validateUploadDocument } from './validator.js';
+import {
+	validateDocumentName,
+	validateGetAllDocuments,
+	validateUploadDocument
+} from './validator.js';
 
-const router = new express.Router();
+const router = createRouter();
 
-router.get('/', 
+router.get(
+	'/',
 	/*
 		#swagger.description = 'Lists all documents assigned to appeal/application'
 		#swagger.parameters['id'] = {
@@ -27,9 +32,11 @@ router.get('/',
 		}
 	*/
 	validateGetAllDocuments,
-	asyncHandler(getAllDocuments));
+	asyncHandler(getAllDocuments)
+);
 
-router.get('/document',
+router.get(
+	'/document',
 	/*
 		#swagger.description = 'Gets content of file'
 		#swagger.parameters['documentName'] = {
@@ -43,9 +50,11 @@ router.get('/document',
 		}
 	*/
 	validateDocumentName,
-	asyncHandler(downloadDocument));
+	asyncHandler(downloadDocument)
+);
 
-router.post('/',
+router.post(
+	'/',
 	/*
 		#swagger.description = 'Uploads new document'
 		#swagger.parameters['file'] = {
@@ -75,6 +84,7 @@ router.post('/',
 		}
 	*/
 	validateUploadDocument,
-	asyncHandler(uploadDocument));
+	asyncHandler(uploadDocument)
+);
 
 export { router as documentsRouter };
