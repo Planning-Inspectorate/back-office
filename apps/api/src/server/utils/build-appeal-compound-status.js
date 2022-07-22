@@ -1,5 +1,10 @@
 import { chain, every } from 'lodash-es';
 
+/**
+ *
+ * @param {import('@pins/api').Schema.AppealStatus[]} appealStatus
+ * @returns {object | string}
+ */
 export const buildAppealCompundStatus = (appealStatus) => {
 	if (appealStatus.length === 1 && !appealStatus[0].subStateMachineName) {
 		return appealStatus[0].status;

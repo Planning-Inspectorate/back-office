@@ -1,7 +1,7 @@
 import appealRepository from '../../repositories/appeal.repository.js';
 import { breakUpCompoundStatus } from '../../utils/break-up-compound-status.js';
 import { buildAppealCompundStatus } from '../../utils/build-appeal-compound-status.js';
-import { transitionState } from '../state-machine/transition-state.js';
+import { transitionState } from '../../utils/transition-state.js';
 
 /**
  * @returns {Date} date two weeks ago
@@ -39,7 +39,7 @@ async function markAppealsAsOverdue(appeals) {
 	for (const appeal of appeals) {
 		const appealStatus = buildAppealCompundStatus(appeal.appealStatus);
 		const nextState = transitionState({
-			appealType: appeal.appealType.type,
+			caseType: appeal.appealType.type,
 			context: { appealId: appeal.id },
 			status: appealStatus,
 			machineAction: 'OVERDUE'

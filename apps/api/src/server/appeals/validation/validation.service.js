@@ -5,7 +5,7 @@ import { arrayOfStatusesContainsString } from '../../utils/array-of-statuses-con
 import { breakUpCompoundStatus } from '../../utils/break-up-compound-status.js';
 import { buildAppealCompundStatus } from '../../utils/build-appeal-compound-status.js';
 import { nullIfUndefined } from '../../utils/null-if-undefined.js';
-import { appealStates, transitionState } from '../state-machine/transition-state.js';
+import { appealStates, transitionState } from '../../utils/transition-state.js';
 import { validationActionsStrings } from '../state-machine/validation-states.js';
 import ValidationError from './validation-error.js';
 
@@ -47,8 +47,8 @@ export const submitValidationDecisionService = async (
 	const machineAction = mapAppealStatusToStateMachineAction(appealStatus);
 	const appealStatusForMachine = buildAppealCompundStatus(appeal.appealStatus);
 	const nextState = transitionState({
-		appealType: appeal.appealType.type,
-		context:{ appealId: appeal.id },
+		caseType: appeal.appealType.type,
+		context: { appealId: appeal.id },
 		status: appealStatusForMachine,
 		machineAction
 	});

@@ -2,7 +2,7 @@ import { filter } from 'lodash-es';
 
 /**
  *
- * @param {{createdAt: any}[]} appealStatuses
+ * @param {import('@pins/api').Schema.AppealStatus[]} appealStatuses
  * @param {string} status
  * @returns {any}
  */
