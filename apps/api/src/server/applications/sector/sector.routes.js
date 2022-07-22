@@ -1,9 +1,9 @@
-import express from 'express';
+import { Router as createRouter } from 'express';
 import { asyncHandler } from '../../middleware/async-handler.js';
 import { getSectors } from './sector.controller.js';
 import { validateGetSubSectors } from './sectors.validators.js';
 
-const router = new express.Router();
+const router = createRouter();
 
 router.get(
 	'/',

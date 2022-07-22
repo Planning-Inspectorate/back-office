@@ -60,6 +60,7 @@ export const bookSiteVisit = async ({ appealId, siteVisit }) => {
  * @typedef {object} IssueDecisionData
  * @property {number} appealId
  * @property {InspectorDecisionOutcomeType} outcome
+ * @property {any} decisionLetter
  */
 
 /**
