@@ -55,3 +55,16 @@ export const updateApplication = async (request, response) => {
 
 	response.send({ id: updatedCase.id, applicantIds });
 };
+
+/**
+ * @type {import('express').RequestHandler}
+ */
+export const startCase = async (request, response) => {
+	// TODO: verify that all the application details are present and in the expected state
+
+	// TODO: transition through state machine
+
+	// TODO: save new state to state machine and generate and save reference
+
+	response.send({ id: 1, reference: '', status: 'Pre-Application' });
+};
