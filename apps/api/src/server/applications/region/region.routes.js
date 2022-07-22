@@ -1,8 +1,8 @@
-import express from 'express';
+import { Router as createRouter } from 'express';
 import { asyncHandler } from '../../middleware/async-handler.js';
 import { getRegions } from './region.controller.js';
 
-const router = new express.Router();
+const router = createRouter();
 
 router.get(
 	'/',
