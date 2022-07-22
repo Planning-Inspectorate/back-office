@@ -1,11 +1,16 @@
 {% extends "./applications-create-applicant-layout.njk" %}
 
-{% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
+{% from "govuk/components/input/macro.njk" import govukInput %}
 
 {% block stepTitle %}
 	What is the applicant’s organisation?
 {% endblock %}
 
 {% block stepForm %}
-	work in progress
+	{{ govukInput({
+		id: "applicantOrganisationName",
+		name: "applicantOrganisationName",
+		classes: "govuk-!-width-one-third",
+		value: applicantOrganisationName
+	}) }}
 {% endblock %}
