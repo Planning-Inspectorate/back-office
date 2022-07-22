@@ -1,3 +1,4 @@
+// @ts-nocheck
 /** @typedef {Record<string, *> & import('express-session').SessionData } SessionData */
 /** @typedef {import('express-session').Session & SessionData} Session */
 
