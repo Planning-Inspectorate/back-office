@@ -54,6 +54,11 @@ const separateStatusesToSaveAndInvalidate = (newStatuses, currentStatuses) => {
 
 const appealRepository = (function () {
 	return {
+		/**
+		 *
+		 * @param {{statuses: string[], includeAddress: boolean, includeAppellant: boolean, includeLPAQuestionnaire: boolean, includeAppealDetailsFromAppellant: boolean}} param0
+		 * @returns {Promise<import('@pins/api').Schema.Appeal[]>}
+		 */
 		getByStatuses({
 			statuses,
 			includeAddress = false,

@@ -1,6 +1,6 @@
 import appealRepository from '../../repositories/appeal.repository.js';
 import { breakUpCompoundStatus } from '../../utils/break-up-compound-status.js';
-import { transitionState } from '../state-machine/transition-state.js';
+import { transitionState } from '../../utils/transition-state.js';
 
 /**
  * @returns {Array} array of appeals that are in 'site_visit_booked' state which has passed inspection
@@ -22,7 +22,7 @@ async function markAppealsAsDecisionDue(appeals) {
 
 	for (const appeal of appeals) {
 		const nextState = transitionState({
-			appealType: appeal.appealType.type,
+			caseType: appeal.appealType.type,
 			context: { appealId: appeal.id },
 			status: 'site_visit_booked',
 			machineAction: 'BOOKING_PASSED'

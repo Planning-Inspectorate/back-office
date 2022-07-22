@@ -5,7 +5,7 @@ import appealRepository from '../../repositories/appeal.repository.js';
 import { arrayOfStatusesContainsString } from '../../utils/array-of-statuses-contains-string.js';
 import { breakUpCompoundStatus } from '../../utils/break-up-compound-status.js';
 import { buildAppealCompundStatus } from '../../utils/build-appeal-compound-status.js';
-import { appealStates, transitionState } from '../state-machine/transition-state.js';
+import { appealStates, transitionState } from '../../utils/transition-state.js';
 import { appealFormatter } from './appeal-formatter.js';
 
 /** @typedef {import('@pins/express').MulterFile} MulterFile */
@@ -36,7 +36,7 @@ export const bookSiteVisit = async ({ appealId, siteVisit }) => {
 	const appeal = await appealRepository.getById(appealId);
 	const appealStatus = buildAppealCompundStatus(appeal.appealStatus);
 	const nextState = transitionState({
-		appealType: appeal.appealType.type,
+		caseType: appeal.appealType.type,
 		context: { appealId: appeal.id },
 		status: appealStatus,
 		machineAction: 'BOOK'
@@ -73,7 +73,7 @@ export const issueDecision = async ({ appealId, outcome, decisionLetter }) => {
 	const appealStatus = buildAppealCompundStatus(appeal.appealStatus);
 
 	const nextState = transitionState({
-		appealType: appeal.appealType.type,
+		caseType: appeal.appealType.type,
 		context: { appealId: appeal.id },
 		status: appealStatus,
 		machineAction: 'DECIDE',
@@ -115,7 +115,7 @@ export const assignAppealsById = async (userId, appealIds) => {
 				try {
 					const appealStatus = buildAppealCompundStatus(appeal.appealStatus);
 					const nextState = transitionState({
-						appealType: appeal.appealType.type,
+						caseType: appeal.appealType.type,
 						context: { appealId: appeal.id },
 						status: appealStatus,
 						machineAction: 'PICKUP'
