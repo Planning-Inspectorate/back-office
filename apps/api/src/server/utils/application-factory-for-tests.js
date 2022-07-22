@@ -21,9 +21,38 @@ export const applicationFactoryForTests = ({ id, status = 'open', modifiedAt = n
 		createdAt: new Date(),
 		modifiedAt,
 		publishedAt: null,
+		serviceCustomer: [
+			{
+				firstName: 'Service Customer First Name',
+				middleName: 'Service Customer Middle Name',
+				lastName: 'Service Customer Last Name',
+				email: 'service.customer@email.com',
+				website: 'Service Customer Website',
+				phoneNumber: '01234567890',
+				address: {
+					addressLine1: 'Addr Line 1',
+					addressLine2: 'Addr Line 2',
+					town: 'Town',
+					county: 'County',
+					postcode: 'Postcode'
+				}
+			}
+		],
 		ApplicationDetails: {
 			id,
 			caseId: id,
+			regions: [
+				{
+					region: {
+						displayNameEn: 'Region Name En',
+						displayNameCy: 'Region Name Cy'
+					}
+				}
+			],
+			zoomLevel: {
+				displayNameEn: 'Zoom Level Name En',
+				displayNameCy: 'Zoom Level Name Cy'
+			},
 			subSector: {
 				id: 1,
 				abbreviation: 'AA',
