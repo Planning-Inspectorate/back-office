@@ -24,6 +24,12 @@ export const applicationFactoryForTests = ({ id, status = 'open', modifiedAt = n
 		ApplicationDetails: {
 			id,
 			caseId: id,
+			locationDescription: 'some desc',
+			firstNotifiedAt: new Date(),
+			submissionAt: new Date(),
+			caseEmail: 'test@test.com',
+			subSectorId: 1,
+			zoomLevelId: 1,
 			subSector: {
 				id: 1,
 				abbreviation: 'AA',

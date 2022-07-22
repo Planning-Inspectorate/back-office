@@ -1,6 +1,6 @@
 import express from 'express';
 import { asyncHandler } from '../../middleware/async-handler.js';
-import { createApplication, updateApplication } from './application.controller.js';
+import { createApplication, startCase, updateApplication } from './application.controller.js';
 import {
 	validateApplicantId,
 	validateApplicationId,
@@ -50,5 +50,7 @@ router.patch(
 	validateCreateUpdateApplication,
 	asyncHandler(updateApplication)
 );
+
+router.post('/:id/start', validateApplicationId, asyncHandler(startCase));
 
 export { router as applicationRoutes };

@@ -1,15 +1,15 @@
 /**
  *
- * @param {Date} date
- * @returns {Date}
+ * @param {any} date
+ * @returns {any}
  */
 const getDateWithoutTime = (date) => {
 	return new Date(date.getFullYear(), date.getMonth(), date.getDate());
 };
 
 /**
- * @param {Date} firstDate
- * @param {Date} secondDate
+ * @param {any} firstDate
+ * @param {any} secondDate
  * @returns {number}
  */
 const daysBetweenDates = (firstDate, secondDate) => {
