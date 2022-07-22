@@ -13,7 +13,7 @@ import { mapValuesUsingObject } from '../../utils/mapping/map-values-using-objec
  */
 export const mapApplication = (application) => {
 	/** @type {{id: number, reference: string, modifiedAt: Date}} */
-	const filtered = pick(application, ['id', 'reference', 'modifiedAt']);
+	const filtered = pick(application, ['id', 'reference', 'title', 'description', 'modifiedAt']);
 
 	/** @type {ApplicationResponse} */
 	const mappedKeys = mapKeysUsingObject(filtered, { modifiedAt: 'modifiedDate' });

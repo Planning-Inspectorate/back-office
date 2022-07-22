@@ -19,7 +19,7 @@ export const bodyToValues = (body) => {
  * Create the application with name and description
  *
  * @param {Record<*, string>} body
- * @returns {object}
+ * @returns {Record<string, string>}
  */
 export const bodyToPayload = (body) => {
 	/** @type {Record<*, *>} */ let payload = {};
@@ -44,6 +44,8 @@ export const bodyToPayload = (body) => {
 				break;
 			default:
 				payload = { ...payload };
+				payload[keys[0]] = body[fieldKey];
+
 				break;
 		}
 	}
