@@ -1,4 +1,3 @@
-// @ts-nocheck
 /** @typedef {Record<string, *> & import('express-session').SessionData } SessionData */
 /** @typedef {import('express-session').Session & SessionData} Session */
 
@@ -79,7 +78,7 @@ export const createSessionInitializerMiddleware = ({ initialSession }) => {
 			// the point of session creation
 			originalStoreGenerateFunction = request.sessionStore.generate;
 
-			request.sessionStore.generate = (request_) => {
+			request.sessionStore.generate = (/** @type {*} */ request_) => {
 				originalStoreGenerateFunction(request_);
 				Object.assign(request_.session, initialSession);
 			};

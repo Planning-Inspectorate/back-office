@@ -4,8 +4,8 @@ import { createApplication, getApplicationDetails, startCase, updateApplication 
 import {
 	validateApplicantId,
 	validateApplicationId,
-	validateCreateUpdateApplication
-} from './application.validators.js';
+	validateApplicationIdType,
+	validateCreateUpdateApplication} from './application.validators.js';
 
 const router = createRouter();
 
@@ -94,8 +94,10 @@ router.get(
             schema: { id: 1, applicantIds: [2] }
         }
     */
+	validateApplicationIdType,
+	validateApplicationId,
+
 	asyncHandler(getApplicationDetails)
 );
-
 
 export { router as applicationRoutes };
