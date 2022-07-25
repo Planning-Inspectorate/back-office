@@ -1,5 +1,6 @@
-import { isEmpty, map } from 'lodash-es';
+import { isEmpty, isString, map } from 'lodash-es';
 import { databaseConnector } from '../utils/database-connector.js';
+import { separateStatusesToSaveAndInvalidate } from './separate-statuses-to-save-and-invalidate.js';
 
 const DEFAULT_CASE_CREATE_STATUS = 'draft';
 
@@ -308,4 +309,49 @@ export const updateApplication = ({
  */
 export const getById = (id) => {
 	return databaseConnector.case.findUnique({ where: { id } });
+};
+
+/**
+ *
+ * @param {number[]} ids
+ * @returns {Promise<import('@pins/api').Schema.CaseStatus[]>}
+ */
+export const invalidateCaseStatuses = (ids) => {
+	return databaseConnector.caseStatus.updateMany({
+		where: { id: { in: ids } },
+		data: { valid: false }
+	});
+};
+
+/**
+ *
+ * @param {number} id
+ * @param {string} status
+ * @returns {Promise<import('@pins/api').Schema.CaseStatus[]> | Promise<import('@pins/api').Schema.CaseStatus>}
+ */
+export const createNewStatuses = (id, status) => {
+	return isString(status)
+		? databaseConnector.caseStatus.create({ data: { status, caseId: id } })
+		: databaseConnector.caseStatus.createMany({ data: status });
+};
+
+/**
+ *
+ * @param {number} id
+ * @param {string | object} status
+ * @param {object} data
+ * @param {object[]} currentStatuses
+ * @returns {any}
+ */
+export const updateApplicationStatusAndDataById = (id, status, data, currentStatuses) => {
+	const { caseStatesToInvalidate, caseStatesToCreate } = separateStatusesToSaveAndInvalidate(
+		status,
+		currentStatuses
+	);
+
+	return databaseConnector.$transaction([
+		invalidateCaseStatuses(caseStatesToInvalidate),
+		createNewStatuses(id, caseStatesToCreate),
+		updateApplication({ caseId: id, ...data })
+	]);
 };
