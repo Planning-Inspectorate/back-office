@@ -95,8 +95,31 @@ test('gets all data for a case when everything is available', async (t) => {
 	});
 });
 
-test('gets applications details when only case id present');
+test('gets applications details when only case id present', async (t) => {
+	const response = await request.get('/applications/2');
 
-test('throws an error if we send an unknown case id');
+	t.is(response.status, 200);
+	t.deepEqual(response.body, {
+		id: 2
+	});
+});
 
-test('throws an error if the id provided is a string/characters');
+test('throws an error if we send an unknown case id', async (t) => {
+	const response = await request.get('/applications/3');
+
+	t.is(response.status, 400);
+	t.deepEqual(response.body, {
+		id: 1
+	});
+});
+
+test('throws an error if the id provided is a string/characters', async (t) => {
+	const response = await request.get('/applications/hi');
+
+	t.is(response.status, 400);
+	t.deepEqual(response.body, {
+		errors: {
+			id: 'Must be valid numerical case'
+		}
+	});
+});
