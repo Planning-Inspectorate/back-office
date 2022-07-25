@@ -2,10 +2,13 @@ import { chain, every } from 'lodash-es';
 
 /**
  *
- * @param {import('@pins/api').Schema.AppealStatus[] | import('@pins/api').Schema.CaseStatus[]} appealStatus
+ * @param {import('@pins/api').Schema.AppealStatus[] | import('@pins/api').Schema.CaseStatus[] | null} appealStatus
  * @returns {object | string}
  */
 export const buildAppealCompundStatus = (appealStatus) => {
+	if (typeof appealStatus === 'undefined' || appealStatus === null) {
+		throw new TypeError('No Status Provided');
+	}
 	if (appealStatus.length === 1 && !appealStatus[0].subStateMachineName) {
 		return appealStatus[0].status;
 	}
