@@ -1,7 +1,7 @@
 import { filter, map } from 'lodash-es';
 import * as caseRepository from '../../repositories/case.repository.js';
-import { mapCreateApplicationRequestToRepository } from './application.mapper.js';
 import { mapCaseDetails } from '../../utils/mapping/map-case-details.js';
+import { mapCreateApplicationRequestToRepository } from './application.mapper.js';
 /**
  *
  * @param {import('@pins/api').Schema.ServiceCustomer[] | undefined} serviceCustomers
@@ -56,27 +56,11 @@ export const updateApplication = async (request, response) => {
 	response.send({ id: updatedCase.id, applicantIds });
 };
 
-/** 
+/**
  * @type {import('express').RequestHandler}
-*/
+ */
 export const getApplicationDetails = async (request, response) => {
-	const getCaseDetails = await caseRepository.getById(
-		Number.parseInt(request.params.id));
-	
-	// let mapCaseDetails = pick(getCaseDetails, ['id', 
-	// 								'reference', 
-	// 								'status', 
-	// 								'title', 
-	// 								'description', 
-	// 								'ApplicationDetails',
-	// 								'ApplicationDetails.subSector.sector', 
-	// 								'ApplicationDetails.subSector',
-	// 								'ApplicationDetails.regions',
-	// 								'serviceCustomer'
-	// 								]);
+	const getCaseDetails = await caseRepository.getById(Number.parseInt(request.params.id, 10));
 
-   response.send(mapCaseDetails(getCaseDetails))
-
+	response.send(mapCaseDetails(getCaseDetails));
 };
-
-

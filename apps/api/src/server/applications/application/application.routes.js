@@ -1,11 +1,15 @@
 import express from 'express';
 import { asyncHandler } from '../../middleware/async-handler.js';
-import { createApplication, getApplicationDetails, updateApplication } from './application.controller.js';
+import {
+	createApplication,
+	getApplicationDetails,
+	updateApplication
+} from './application.controller.js';
 import {
 	validateApplicantId,
 	validateApplicationId,
-	validateCreateUpdateApplication
-} from './application.validators.js';
+	validateApplicationIdType,
+	validateCreateUpdateApplication} from './application.validators.js';
 
 const router = new express.Router();
 
@@ -67,8 +71,10 @@ router.get(
             schema: { id: 1, applicantIds: [2] }
         }
     */
+	validateApplicationIdType,
+	validateApplicationId,
+
 	asyncHandler(getApplicationDetails)
 );
-
 
 export { router as applicationRoutes };
