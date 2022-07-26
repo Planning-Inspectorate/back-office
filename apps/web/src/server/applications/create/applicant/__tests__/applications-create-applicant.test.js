@@ -28,7 +28,7 @@ describe('applications create applicant', () => {
 	describe('GET /applicant-organisation-name', () => {
 		const baseUrl = '/applications-service/create-new-case/123/applicant-organisation-name';
 
-		it('should render the page', async () => {
+		it('should render the page if there is data in the session', async () => {
 			await request
 				.post('/applications-service/create-new-case/123/applicant-information-types')
 				.send({
@@ -40,6 +40,15 @@ describe('applications create applicant', () => {
 
 			expect(element.innerHTML).toMatchSnapshot();
 			expect(element.innerHTML).toContain('Save and continue');
+		});
+
+		it('should show not render the page if there is no session data', async () => {
+			const response = await request.get(baseUrl);
+
+			// @ts-ignore - not liking response.res
+			expect(response?.res?.headers?.location).toMatch(
+				'/applications-service/create-new-case/123/key-dates'
+			);
 		});
 	});
 });
