@@ -11,7 +11,7 @@ export type ApplicationsCreateApplicantTypesBody = {
 };
 
 export type ApplicationsCreateApplicantOrganisationNameProps = {
-	applicantOrganisationName?: string;
+	values: { 'applicant.organisationName'?: string };
 	errors?: ValidationErrors;
 };
 
