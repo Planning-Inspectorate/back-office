@@ -8,10 +8,10 @@
 
 {% block stepForm %}
 	{{ govukRadios({
-		name: "selectedZoomLevelName",
-		idPrefix: "selectedZoomLevelName",
-		errorMessage: (errors !== undefined and errors !== false),
-		items: zoomLevels | selectItems({valueKey: 'name', labelKey: 'displayNameEn', selectedValue: selectedValue})
+		name: "geographicalInformation.mapZoomLevelName",
+		idPrefix: "geographicalInformation.mapZoomLevelName",
+		errorMessage: errors['geographicalInformation.mapZoomLevelName'] | errorMessage,
+		items: zoomLevels | selectItems({valueKey: 'name', labelKey: 'displayNameEn', selectedValue: values['geographicalInformation.mapZoomLevelName']})
 	}) }}
 {% endblock %}
 

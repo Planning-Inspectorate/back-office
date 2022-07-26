@@ -17,11 +17,11 @@ export const getAllSectors = () => {
 /**
  * Get all sub-sectors associated with existing sector
  *
- * @param {string} sectorName
+ * @param {string?} sectorName
  * @returns {Promise<Sector[]>}
  */
 export const getSubSectorsBySectorName = (sectorName) => {
-	return get(`applications/sector?sectorName=${sectorName}`);
+	return get(`applications/sector?sectorName=${sectorName||''}`);
 };
 
 /**
