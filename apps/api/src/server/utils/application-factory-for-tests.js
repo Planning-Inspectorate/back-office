@@ -9,15 +9,49 @@ const generateApplicationReference = () => {
 
 /**
  *
- * @param {{id: number, status: string, modifiedAt: Date}} arg
+ * @param {{
+ * 	id?: number,
+ * 	status?: string,
+ * 	modifiedAt?: Date,
+ * 	title?: string | null,
+ *  description?: string | null,
+ * 	regions?: object[],
+ *  subSectorId?: number | null,
+ * 	subSector?: import('@pins/api').Schema.SubSector,
+ * 	zoomLevelId?: number | null
+ * }} arg
  * @returns {import('@pins/api').Schema.Case}
  */
-export const applicationFactoryForTests = ({ id, status = 'open', modifiedAt = new Date() }) => {
+export const applicationFactoryForTests = ({
+	id = 1,
+	status = 'open',
+	modifiedAt = new Date(),
+	title = 'EN010003 - NI Case 3 Name',
+	description = 'EN010003 - NI Case 3 Name Description',
+	regions = [{ id: 1 }],
+	subSectorId = 1,
+	subSector = {
+		id: 1,
+		abbreviation: 'AA',
+		name: 'sub_sector',
+		displayNameEn: 'Sub Sector Name En',
+		displayNameCy: 'Sub Sector Name Cy',
+		sectorId: 1,
+		sector: {
+			id: 1,
+			abbreviation: 'BB',
+			name: 'sector',
+			displayNameEn: 'Sector Name En',
+			displayNameCy: 'Sector Name Cy'
+		}
+	},
+	zoomLevelId = 1
+} = {}) => {
 	return {
 		id,
 		reference: generateApplicationReference(),
-		title: 'EN010003 - NI Case 3 Name',
-		description: 'EN010003 - NI Case 3 Name Description',
+		title,
+		description,
 		createdAt: new Date(),
 		modifiedAt,
 		publishedAt: null,
@@ -28,23 +62,10 @@ export const applicationFactoryForTests = ({ id, status = 'open', modifiedAt = n
 			firstNotifiedAt: new Date(),
 			submissionAt: new Date(),
 			caseEmail: 'test@test.com',
-			subSectorId: 1,
-			zoomLevelId: 1,
-			subSector: {
-				id: 1,
-				abbreviation: 'AA',
-				name: 'sub_sector',
-				displayNameEn: 'Sub Sector Name En',
-				displayNameCy: 'Sub Sector Name Cy',
-				sectorId: 1,
-				sector: {
-					id: 1,
-					abbreviation: 'BB',
-					name: 'sector',
-					displayNameEn: 'Sector Name En',
-					displayNameCy: 'Sector Name Cy'
-				}
-			}
+			subSectorId,
+			zoomLevelId,
+			regions,
+			subSector
 		},
 		CaseStatus: [
 			{

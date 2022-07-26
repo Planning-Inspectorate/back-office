@@ -45,7 +45,7 @@ const mapStateMachine = (caseType) => {
 };
 
 /**
- * @param {{caseType: import('@pins/api').CaseType, context: object, status: string | import('xstate').State<any, any, any, any, any>, machineAction: string, throwError: boolean}} transitionParams
+ * @param {{caseType: import('@pins/api').CaseType, context: object, status: string | object, machineAction: string, throwError: boolean}} transitionParams
  * @returns {import('xstate').State<any, any, any, any, any>}
  */
 export const transitionState = ({
