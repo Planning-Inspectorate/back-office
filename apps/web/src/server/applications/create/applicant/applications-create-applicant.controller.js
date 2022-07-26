@@ -61,9 +61,13 @@ export async function viewApplicationsCreateApplicantOrganisationName(req, respo
  *
  * @type {import('@pins/express').RenderHandler<ApplicationsCreateApplicantOrganisationNameProps, {}, ApplicationsCreateApplicantOrganisationNameBody, {}, DomainParams>}
  */
-export async function updateApplicationsCreateApplicantOrganisationName({ path, session, body }, response) {
+export async function updateApplicationsCreateApplicantOrganisationName(
+	{ path, session },
+	response
+) {
 	const { applicationId } = response.locals;
 
+	// TODO - should be written to DB
 	// const { applicantOrganisationName } = body;
 
 	goToNextStep(applicationId, path, session, response);
