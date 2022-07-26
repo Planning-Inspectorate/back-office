@@ -17,10 +17,18 @@ export const mapApplicationWithSectorAndSubSector = (application) => {
 
 	const applicationStatus = mapCaseStatus(application.CaseStatus);
 
+	const geographicalInformation = {
+		locationDescription: application.ApplicationDetails?.locationDescription,
+		gridReference: application?.gridReference,
+		regions: application.regions,
+		mapZoomLevel: application.ApplicationDetails?.zoomLevel
+	}
+
 	return {
 		...applicationData,
 		subSector: mapSector(application.ApplicationDetails?.subSector),
 		sector: mapSector(application.ApplicationDetails?.subSector?.sector),
+		geographicalInformation,
 		status: applicationStatus
 	};
 };
