@@ -29,6 +29,8 @@ router.post(
 	asyncHandler(createApplication)
 );
 
+router.post('/:id/start', validateApplicationId, asyncHandler(startCase));
+
 router.patch(
 	'/:id',
 	/*
@@ -50,7 +52,5 @@ router.patch(
 	validateCreateUpdateApplication,
 	asyncHandler(updateApplication)
 );
-
-router.post('/:id/start', validateApplicationId, asyncHandler(startCase));
 
 export { router as applicationRoutes };
