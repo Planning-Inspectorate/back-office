@@ -1,5 +1,6 @@
-import { filter, get, map } from 'lodash-es';
+import { filter, map } from 'lodash-es';
 import * as caseRepository from '../../repositories/case.repository.js';
+import { mapCaseStatusString } from '../../utils/mapping/map-case-status-string.js';
 import { mapCreateApplicationRequestToRepository } from './application.mapper.js';
 import { startApplication } from './application.service.js';
 
@@ -39,14 +40,14 @@ const getCaseAfterUpdate = (updateResponse) => {
 };
 
 /**
- * @type {import('express').RequestHandler}
+ * @type {import('express').RequestHandler<{id: number}, ?, import('@pins/applications').CreateUpdateApplication>}
  */
-export const updateApplication = async (request, response) => {
-	const mappedApplicationDetails = mapCreateApplicationRequestToRepository(request.body);
+export const updateApplication = async ({ params, body }, response) => {
+	const mappedApplicationDetails = mapCreateApplicationRequestToRepository(body);
 
 	const updateResponse = await caseRepository.updateApplication({
-		caseId: Number.parseInt(request.params.id, 10),
-		applicantId: request.body.applicant?.id,
+		caseId: params.id,
+		applicantId: body.applicant?.id,
 		...mappedApplicationDetails
 	});
 
@@ -58,23 +59,10 @@ export const updateApplication = async (request, response) => {
 };
 
 /**
- *
- * @param {string} caseStatus
- * @returns {string}
- */
-const mapCaseStatus = (caseStatus) => {
-	const caseStatusMap = {
-		pre_application: 'Pre-Application'
-	};
-
-	return get(caseStatusMap, caseStatus, caseStatus);
-};
-
-/**
  * @type {import('express').RequestHandler<{id: number}>}
  */
 export const startCase = async ({ params }, response) => {
 	const { id, reference, status } = await startApplication(params.id);
 
-	response.send({ id, reference, status: mapCaseStatus(status.toString()) });
+	response.send({ id, reference, status: mapCaseStatusString(status.toString()) });
 };
