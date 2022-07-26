@@ -68,7 +68,7 @@ export async function updateApplicationsCreateApplicantOrganisationName(
 	const { applicationId } = response.locals;
 
 	// TODO - should be written to DB
-	// const { applicantOrganisationName } = body;
+	// const { applicant.organisationName } = body;
 
 	goToNextStep(applicationId, path, session, response);
 }

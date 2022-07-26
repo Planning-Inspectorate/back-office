@@ -8,9 +8,9 @@
 
 {% block stepForm %}
 	{{ govukInput({
-		id: "applicantOrganisationName",
-		name: "applicantOrganisationName",
+		id: "applicant.organisationName",
+		name: "applicant.organisationName",
 		classes: "govuk-!-width-one-third",
-		value: applicantOrganisationName
+		value: values['applicant.organisationName']
 	}) }}
 {% endblock %}
