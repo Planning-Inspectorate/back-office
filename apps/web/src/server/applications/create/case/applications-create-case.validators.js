@@ -20,7 +20,7 @@ export const validateApplicationsCreateCaseDescription = createValidator(
 );
 
 export const validateApplicationsCreateCaseSector = createValidator(
-	body('selectedSectorName')
+	body('sectorName')
 		.trim()
 		.isLength({ min: 1 })
 		.withMessage('Choose the sector of the project')
@@ -34,7 +34,7 @@ export const validateApplicationsCreateCaseSubSector = createValidator(
 );
 
 export const validateApplicationsCreateCaseRegions = createValidator(
-	body('selectedRegionsNames').isArray({ min: 1 }).withMessage('Choose one or multiple regions')
+	body('geographicalInformation.regionNames').isArray({ min: 1 }).withMessage('Choose one or multiple regions')
 );
 
 export const validateApplicationsCreateCaseLocation = createValidator(
@@ -51,6 +51,7 @@ export const validateApplicationsCreateCaseEasting = createValidator(
 		.trim()
 		.isLength({ min: 1 })
 		.withMessage('Enter the Grid reference Easting')
+		.toInt()
 		.isLength({ min: 6, max: 6 })
 		.withMessage('Enter a valid Grid reference Easting')
 );
@@ -60,6 +61,7 @@ export const validateApplicationsCreateCaseNorthing = createValidator(
 		.trim()
 		.isLength({ min: 1 })
 		.withMessage('Enter the Grid reference Northing')
+		.toInt()
 		.isLength({ min: 6, max: 6 })
 		.withMessage('Enter a valid Grid reference Northing')
 );

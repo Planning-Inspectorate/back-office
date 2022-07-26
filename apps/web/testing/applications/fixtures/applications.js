@@ -1,14 +1,24 @@
-import { createApplication } from '../factory/application.js';
-import { fixtureSectors } from './options-item.js';
+import {createApplication} from '../factory/application.js';
+import {fixtureSectors} from './options-item.js';
+import {createRandomDescription} from "../factory/util.js";
 
 export const fixtureApplications = [
-	createApplication({
-		id: 1,
-		modifiedDate: new Date(2022, 0, 1).toISOString(),
-		reference: 'APPLICATION/01',
-		sector: fixtureSectors[0],
-		subSector: fixtureSectors[1]
-	}),
+	{
+		...createApplication({
+			id: 1,
+			modifiedDate: new Date(2022, 0, 1).toISOString(),
+			reference: 'APPLICATION/01',
+			sector: fixtureSectors[0],
+			subSector: fixtureSectors[1]
+		}),
+		geographicalInformation: {
+			locationDescription: 'London',
+			gridReference: {
+				easting: '123456',
+				northing: '987654'
+			}
+		}
+	},
 	createApplication({
 		id: 2,
 		modifiedDate: new Date(2022, 0, 31).toISOString(),
@@ -22,5 +32,18 @@ export const fixtureApplications = [
 		reference: 'APPLICATION/03',
 		sector: fixtureSectors[2],
 		subSector: fixtureSectors[3]
-	})
+	}),
+	{
+		id: 4,
+		reference: 'APPLICATION/04',
+		title: `Application with no sector`,
+		status: 'draft'
+	},
+	{
+		id: 5,
+		reference: 'APPLICATION/05',
+		title: `Application with no subsector`,
+		sector: fixtureSectors[0],
+		status: 'draft'
+	},
 ];
