@@ -48,6 +48,7 @@ export const applicationFactoryForTests = ({ id, status = 'open', modifiedAt = n
 		},
 		CaseStatus: [
 			{
+				id: 1,
 				status
 			}
 		]
