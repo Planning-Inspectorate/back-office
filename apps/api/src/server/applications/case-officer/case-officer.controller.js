@@ -1,5 +1,6 @@
 import * as caseRepository from '../../repositories/case.repository.js';
 import { mapApplicationWithSectorAndSubSector } from '../../utils/mapping/map-application-with-sector-and-subsector.js';
+import {databaseConnector} from "../../utils/database-connector.js";
 
 /**
  * @typedef {{name: string, displayNameEn: string, displayNameCy: string, abbreviation: string}} SectorResponse
