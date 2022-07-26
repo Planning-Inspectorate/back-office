@@ -230,6 +230,105 @@ describe('applications create', () => {
 				})
 			});
 		});
+
+		describe('GET /create-new-case/1', () => {
+			const baseUrl = '/applications-service/create-new-case/1';
+
+			beforeEach(async () => {
+				await request.get('/applications-service/case-officer');
+				nocks();
+			});
+
+			it('should render page with resumed data', async () => {
+				const response = await request.get(baseUrl);
+				const element = parseHtml(response.text);
+
+				expect(element.innerHTML).toMatchSnapshot();
+				expect(element.innerHTML).toContain(fixtureApplications[0].description.slice(0, 20));
+			})
+		})
+
+		describe('POST /create-new-case/:id', () => {
+			const baseUrl = '/applications-service/create-new-case';
+
+			beforeEach(async () => {
+				await request.get('/applications-service/case-officer');
+				nocks();
+			});
+
+			describe('Web-side validation:', () => {
+				it('should show validation errors if something missing', async () => {
+					const response = await request.post(baseUrl);
+					const element = parseHtml(response.text);
+
+					expect(element.innerHTML).toMatchSnapshot();
+					expect(element.innerHTML).toContain('title-error');
+					expect(element.innerHTML).toContain('description-error');
+				});
+			})
+
+			describe('Api-side validation:', () => {
+				const failResponse = {errors: {title: 'Some error message from API', description: 'Same'}};
+
+				describe('When creating new case', () => {
+					it('should show validation errors if API returns error', async () => {
+
+						nock('http://test/').post('/applications').reply(500, failResponse);
+
+						const response = await request.post(baseUrl).send({
+							title: 'A title',
+							description: 'A description'
+						});
+						const element = parseHtml(response.text);
+
+						expect(element.innerHTML).toMatchSnapshot();
+						expect(element.innerHTML).toContain('title-error');
+						expect(element.innerHTML).toContain('description-error');
+					});
+
+					it('should go to sector page if API does not returns error', async () => {
+
+						nock('http://test/').post('/applications').reply(200, successResponse);
+
+						const response = await request.post(baseUrl).send({
+							title: 'A title',
+							description: 'A description'
+						});
+
+						expect(response?.res?.headers?.location).toContain('1/sector');
+					});
+				})
+
+				describe('When updating resumed case', () => {
+					it('should show validation errors if API returns error', async () => {
+
+						nock('http://test/').patch('/applications/1').reply(500, failResponse);
+
+						const response = await request.post(`${baseUrl}/1`).send({
+							title: 'A title',
+							description: 'A description'
+						});
+						const element = parseHtml(response.text);
+
+						expect(element.innerHTML).toMatchSnapshot();
+						expect(element.innerHTML).toContain('title-error');
+						expect(element.innerHTML).toContain('description-error');
+					});
+
+					it('should go to sector page if API does not returns error', async () => {
+
+						nock('http://test/').patch('/applications/1').reply(200, successResponse);
+
+						const response = await request.post(`${baseUrl}/1`).send({
+							title: 'A title',
+							description: 'A description'
+						});
+
+						expect(response?.res?.headers?.location).toContain('1/sector');
+					});
+				})
+			})
+		});
 	});
 
 	describe('Sub-sector', () => {
@@ -372,6 +471,12 @@ describe('applications create', () => {
 					expect(element.innerHTML).toContain('geographicalInformation.gridReference.easting-error');
 					expect(element.innerHTML).toContain('geographicalInformation.gridReference.northing-error');
 				});
+
+				it('should go to subsector page if something was selected', async () => {
+					const response = await request.post(baseUrl('1')).send({sectorName: 'transport'});
+
+					expect(response?.res?.headers?.location).toContain('1/sub-sector');
+				})
 			});
 
 			describe('API-side validation:', () => {
