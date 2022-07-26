@@ -24,4 +24,22 @@ describe('applications create applicant', () => {
 			expect(element.innerHTML).toContain('Save and continue');
 		});
 	});
+
+	describe('GET /applicant-organisation-name', () => {
+		const baseUrl = '/applications-service/create-new-case/123/applicant-organisation-name';
+
+		it('should render the page', async () => {
+			await request
+				.post('/applications-service/create-new-case/123/applicant-information-types')
+				.send({
+					selectedApplicantInfoTypes: ['applicant-organisation-name']
+				});
+
+			const response = await request.get(baseUrl);
+			const element = parseHtml(response.text);
+
+			expect(element.innerHTML).toMatchSnapshot();
+			expect(element.innerHTML).toContain('Save and continue');
+		});
+	});
 });
