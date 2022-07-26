@@ -16,7 +16,16 @@ export function defaultErrorHandler(error, _request, response, next) {
 
 	response.status(code);
 	logger.error(error);
-	response.send({ error: error.message });
+
+	let errorMessage = error.message;
+
+	try {
+		errorMessage = JSON.parse(error.message);
+	} catch {
+		logger.debug('Error Message not JSON parsable');
+	}
+
+	response.send({ error: errorMessage });
 }
 
 /**
