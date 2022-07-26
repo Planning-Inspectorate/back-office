@@ -75,7 +75,7 @@ exports[`applications GET /case-admin-officer should render the open application
                         <table class=\\"govuk-table pins-table--fixed pins-table--bordered\\">
                             <thead class=\\"govuk-table__head\\">
                                 <tr class=\\"govuk-table__row\\">
-                                    <th scope=\\"col\\" class=\\"govuk-table__header\\">Application reference</th>
+                                    <th scope=\\"col\\" class=\\"govuk-table__header\\">Name</th>
                                     <th scope=\\"col\\" class=\\"govuk-table__header pins-table__cell--s\\">Modified</th>
                                     <th scope=\\"col\\" class=\\"govuk-table__header text-align--right\\">Stage</th>
                                 </tr>
@@ -113,7 +113,7 @@ exports[`applications GET /case-admin-officer should render the open application
                         <table class=\\"govuk-table pins-table--fixed pins-table--bordered\\">
                             <thead class=\\"govuk-table__head\\">
                                 <tr class=\\"govuk-table__row\\">
-                                    <th scope=\\"col\\" class=\\"govuk-table__header\\">Application reference</th>
+                                    <th scope=\\"col\\" class=\\"govuk-table__header\\">Name</th>
                                     <th scope=\\"col\\" class=\\"govuk-table__header pins-table__cell--s\\">Modified</th>
                                     <th scope=\\"col\\" class=\\"govuk-table__header text-align--right\\">Stage</th>
                                 </tr>
@@ -211,7 +211,7 @@ exports[`applications GET /case-officer should render the open applications belo
                         <table class=\\"govuk-table pins-table--fixed pins-table--bordered\\">
                             <thead class=\\"govuk-table__head\\">
                                 <tr class=\\"govuk-table__row\\">
-                                    <th scope=\\"col\\" class=\\"govuk-table__header\\">Application reference</th>
+                                    <th scope=\\"col\\" class=\\"govuk-table__header\\">Name</th>
                                     <th scope=\\"col\\" class=\\"govuk-table__header pins-table__cell--s\\">Modified</th>
                                     <th scope=\\"col\\" class=\\"govuk-table__header text-align--right\\">Stage</th>
                                 </tr>
@@ -249,7 +249,7 @@ exports[`applications GET /case-officer should render the open applications belo
                         <table class=\\"govuk-table pins-table--fixed pins-table--bordered\\">
                             <thead class=\\"govuk-table__head\\">
                                 <tr class=\\"govuk-table__row\\">
-                                    <th scope=\\"col\\" class=\\"govuk-table__header\\">Application reference</th>
+                                    <th scope=\\"col\\" class=\\"govuk-table__header\\">Name</th>
                                     <th scope=\\"col\\" class=\\"govuk-table__header pins-table__cell--s\\">Modified</th>
                                     <th scope=\\"col\\" class=\\"govuk-table__header text-align--right\\">Stage</th>
                                 </tr>
@@ -335,7 +335,7 @@ exports[`applications GET /inspector should render the open applications belongi
                         <table class=\\"govuk-table pins-table--fixed pins-table--bordered\\">
                             <thead class=\\"govuk-table__head\\">
                                 <tr class=\\"govuk-table__row\\">
-                                    <th scope=\\"col\\" class=\\"govuk-table__header\\">Application reference</th>
+                                    <th scope=\\"col\\" class=\\"govuk-table__header\\">Name</th>
                                     <th scope=\\"col\\" class=\\"govuk-table__header pins-table__cell--s\\">Modified</th>
                                     <th scope=\\"col\\" class=\\"govuk-table__header text-align--right\\">Stage</th>
                                 </tr>
@@ -373,7 +373,7 @@ exports[`applications GET /inspector should render the open applications belongi
                         <table class=\\"govuk-table pins-table--fixed pins-table--bordered\\">
                             <thead class=\\"govuk-table__head\\">
                                 <tr class=\\"govuk-table__row\\">
-                                    <th scope=\\"col\\" class=\\"govuk-table__header\\">Application reference</th>
+                                    <th scope=\\"col\\" class=\\"govuk-table__header\\">Name</th>
                                     <th scope=\\"col\\" class=\\"govuk-table__header pins-table__cell--s\\">Modified</th>
                                     <th scope=\\"col\\" class=\\"govuk-table__header text-align--right\\">Stage</th>
                                 </tr>

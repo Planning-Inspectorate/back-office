@@ -18,18 +18,18 @@ exports[`applications create applicant GET /applicant-information-types should r
                 </div>
                 <div class=\\"govuk-checkboxes__item\\">
                     <input class=\\"govuk-checkboxes__input\\" id=\\"selectedApplicantInfoTypes-3\\"
-                    name=\\"selectedApplicantInfoTypes[]\\" type=\\"checkbox\\" value=\\"applicant-email\\">
-                    <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"selectedApplicantInfoTypes-3\\">Applicant or organisation email address</label>
+                    name=\\"selectedApplicantInfoTypes[]\\" type=\\"checkbox\\" value=\\"applicant-address\\">
+                    <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"selectedApplicantInfoTypes-3\\">Address</label>
                 </div>
                 <div class=\\"govuk-checkboxes__item\\">
                     <input class=\\"govuk-checkboxes__input\\" id=\\"selectedApplicantInfoTypes-4\\"
-                    name=\\"selectedApplicantInfoTypes[]\\" type=\\"checkbox\\" value=\\"applicant-address\\">
-                    <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"selectedApplicantInfoTypes-4\\">Address</label>
+                    name=\\"selectedApplicantInfoTypes[]\\" type=\\"checkbox\\" value=\\"applicant-website\\">
+                    <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"selectedApplicantInfoTypes-4\\">Website</label>
                 </div>
                 <div class=\\"govuk-checkboxes__item\\">
                     <input class=\\"govuk-checkboxes__input\\" id=\\"selectedApplicantInfoTypes-5\\"
-                    name=\\"selectedApplicantInfoTypes[]\\" type=\\"checkbox\\" value=\\"applicant-website\\">
-                    <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"selectedApplicantInfoTypes-5\\">Website</label>
+                    name=\\"selectedApplicantInfoTypes[]\\" type=\\"checkbox\\" value=\\"applicant-email\\">
+                    <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"selectedApplicantInfoTypes-5\\">Email address</label>
                 </div>
                 <div class=\\"govuk-checkboxes__item\\">
                     <input class=\\"govuk-checkboxes__input\\" id=\\"selectedApplicantInfoTypes-6\\"
