@@ -10,15 +10,45 @@ const request = supertest(app);
 
 const findUniqueStub = sinon.stub();
 
-const application = applicationFactoryForTests({ id: 1, status: 'draft' });
+const applicationReadyToStart = applicationFactoryForTests({
+	id: 1,
+	status: 'draft',
+	modifiedAt: new Date()
+});
+const applicationWithMissingInformation = applicationFactoryForTests({
+	id: 3,
+	status: 'draft',
+	modifiedAt: new Date(),
+	title: null,
+	description: null,
+	subSectorId: null,
+	zoomLevelId: null,
+	regions: []
+});
 
-findUniqueStub.withArgs({ where: { id: 1 } }).returns(application);
+const validationCaseDetailsInclusions = {
+	ApplicationDetails: { include: { subSector: false, zoomLevel: false, regions: true } },
+	CaseStatus: { where: { valid: true } }
+};
+
+findUniqueStub.withArgs({ where: { id: 1 } }).returns(applicationReadyToStart);
+findUniqueStub
+	.withArgs({
+		where: { id: 1 },
+		include: validationCaseDetailsInclusions
+	})
+	.returns(applicationReadyToStart);
 findUniqueStub.withArgs({ where: { id: 2 } }).returns(null);
+findUniqueStub.withArgs({ where: { id: 3 } }).returns(applicationWithMissingInformation);
+findUniqueStub
+	.withArgs({
+		where: { id: 3 },
+		include: validationCaseDetailsInclusions
+	})
+	.returns(applicationWithMissingInformation);
 
 const updateStub = sinon.stub();
-
 const updateManyCaseStatusStub = sinon.stub();
-
 const createCaseStatusStub = sinon.stub();
 
 test.before('set up mocks', () => {
@@ -28,6 +58,10 @@ test.before('set up mocks', () => {
 
 	sinon.stub(databaseConnector, 'caseStatus').get(() => {
 		return { updateMany: updateManyCaseStatusStub, create: createCaseStatusStub };
+	});
+
+	sinon.stub(databaseConnector, 'regionsOnApplicationDetails').get(() => {
+		return { deleteMany: sinon.stub() };
 	});
 
 	sinon.stub(Prisma.PrismaClient.prototype, '$transaction');
@@ -64,11 +98,18 @@ test('throws an error if the application id is not recognised', async (t) => {
 	t.is(response.status, 400);
 	t.deepEqual(response.body, {
 		errors: {
-			id: 'Must be existing application'
+			id: 'Must be an existing application'
 		}
 	});
 });
 
-test.todo('throws an error if the application does not have all the required information to start');
+test('throws an error if the application does not have all the required information to start', async (t) => {
+	const response = await request.post('/applications/3/start');
+
+	t.is(response.status, 400);
+	t.deepEqual(response.body, {
+		errors: {}
+	});
+});
 
 test.todo('throws an error if the application is not in draft state');
