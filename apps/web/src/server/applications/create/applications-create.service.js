@@ -1,5 +1,6 @@
-import { get, patch, post } from '../../lib/request.js';
-import { setSessionApplicantId } from './applicant/applications-create-applicant-session.service.js';
+import {get, patch, post} from '../../lib/request.js';
+import {setSessionApplicantId} from './applicant/applications-create-applicant-session.service.js';
+import {destroySessionCaseSectorName} from "./case/applications-create-case-session.service.js";
 
 /** @typedef {import('./applicant/applications-create-applicant-session.service.js').SessionWithApplicationsCreateApplicantId} SessionWithApplicationsCreateApplicantId */
 /** @typedef {import('../applications.types').Application} Application */
@@ -21,7 +22,7 @@ export const updateApplicationDraft = async (applicationId, payload) => {
 		});
 	} catch (/** @type {*} */ error) {
 		response = new Promise((resolve) => {
-			resolve({ errors: error?.response?.body?.errors });
+			resolve({errors: error?.response?.body?.errors || {}});
 		});
 	}
 
@@ -36,14 +37,24 @@ export const updateApplicationDraft = async (applicationId, payload) => {
  * @returns {Promise<{id: number, applicantIds: Array<number>}>}
  */
 export const createApplicationDraft = async (payload, session) => {
-	const payloadWithEmptyApplicant = { ...payload, applicant: { organisationName: '' } };
-	const newApplication = await post('applications', {
-		json: payloadWithEmptyApplicant
-	});
+	const payloadWithEmptyApplicant = {...payload, applicant: {organisationName: ''}};
 
-	setSessionApplicantId(session, newApplication.applicantIds[0]);
-	// console.log('newApplication.applicantIds[0]', newApplication.applicantIds[0])
-	return newApplication;
+	let response;
+
+	try {
+		response = await post('applications', {
+			json: payloadWithEmptyApplicant
+		});
+		setSessionApplicantId(session, response.applicantIds[0]);
+		destroySessionCaseSectorName(session);
+	} catch (/** @type {*} */ error) {
+		response = new Promise((resolve) => {
+			resolve({errors: error?.response?.body?.errors || {}});
+		});
+	}
+
+	return response;
+
 };
 
 /**
@@ -54,7 +65,17 @@ export const createApplicationDraft = async (payload, session) => {
  */
 export const getApplicationDraft = async (id = '') => {
 	const allApps = /** @type {Array<Application>} */ await get(`applications/case-officer`);
-	const myApp = allApps.find((/** @type {Application} */ app) => `${app.id}` === `${id}`);
+	let myApp = allApps.find((/** @type {Application} */ app) => `${app.id}` === `${id}`);
+
+	console.log('ges', myApp);
+	/*myApp = {...myApp, geographicalInformation: {
+			locationDescription: 'London',
+			gridReference: {
+				easting: 123456,
+				northing: 987654
+			}
+		}}*/
+
 
 	return myApp;
 };
