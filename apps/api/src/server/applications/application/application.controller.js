@@ -1,9 +1,7 @@
-import { filter, map } from 'lodash-es';
+import { filter, get, map } from 'lodash-es';
 import * as caseRepository from '../../repositories/case.repository.js';
-import { breakUpCompoundStatus } from '../../utils/break-up-compound-status.js';
-import { mapCaseStatus } from '../../utils/mapping/map-case-status.js';
-import { transitionState } from '../../utils/transition-state.js';
 import { mapCreateApplicationRequestToRepository } from './application.mapper.js';
+import { startApplication } from './application.service.js';
 
 /**
  *
@@ -60,31 +58,23 @@ export const updateApplication = async (request, response) => {
 };
 
 /**
- * @type {import('express').RequestHandler}
+ *
+ * @param {string} caseStatus
+ * @returns {string}
  */
-export const startCase = async (request, response) => {
-	const caseDetails = await caseRepository.getById(Number.parseInt(request.params.id, 10));
+const mapCaseStatus = (caseStatus) => {
+	const caseStatusMap = {
+		pre_application: 'Pre-Application'
+	};
 
-	// TODO: verify that all the application details are present and in the expected state
+	return get(caseStatusMap, caseStatus, caseStatus);
+};
 
-	const applicationStatus = mapCaseStatus(caseDetails?.CaseStatus);
+/**
+ * @type {import('express').RequestHandler<{id: number}>}
+ */
+export const startCase = async ({ params }, response) => {
+	const { id, reference, status } = await startApplication(params.id);
 
-	const nextStatusInStateMachine = transitionState({
-		caseType: 'application',
-		status: applicationStatus,
-		machineAction: 'START'
-	});
-
-	const nextStatusForRepository = breakUpCompoundStatus(
-		nextStatusInStateMachine.value,
-		caseDetails.id
-	);
-
-	await caseRepository.updateApplicationStatusAndDataById(
-		caseDetails.id,
-		nextStatusForRepository,
-		caseDetails.CaseStatus
-	);
-
-	response.send({ id: 1, reference: '', status: 'Pre-Application' });
+	response.send({ id, reference, status: mapCaseStatus(status.toString()) });
 };
