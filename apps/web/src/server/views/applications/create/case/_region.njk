@@ -8,9 +8,10 @@
 
 {% block stepForm %}
 	{{ govukCheckboxes({
-		idPrefix: "selectedRegionsNames",
-		name: "selectedRegionsNames[]",
-		items: regions | selectItems({valueKey: 'name', labelKey: 'displayNameEn'})
+		idPrefix: "geographicalInformation.regionNames",
+		name: "geographicalInformation.regionNames[]",
+		items: regions,
+		errorMessage: errors['geographicalInformation.regionNames'] | errorMessage
 	}) }}
 {% endblock %}
 
