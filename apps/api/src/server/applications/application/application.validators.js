@@ -39,7 +39,7 @@ const validateExistingRegions = async (value) => {
  * @param {number} caseId
  */
 const validateExistingApplication = async (caseId) => {
-	const application = await caseRepository.getById(caseId);
+	const application = await caseRepository.getById(caseId, {});
 
 	if (application === null) {
 		throw new Error('Unknown Application');
@@ -144,7 +144,7 @@ export const validateApplicationId = composeMiddleware(
 	param('id')
 		.toInt()
 		.custom(validateExistingApplication)
-		.withMessage('Must be existing application'),
+		.withMessage('Must be an existing application'),
 	validationErrorHandler
 );
 
