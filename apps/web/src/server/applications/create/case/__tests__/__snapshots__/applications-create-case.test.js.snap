@@ -546,6 +546,7 @@ exports[`applications create Regions GET /create-new-case/:applicationId/regions
                 </div>
             </div>
         </div>
+<<<<<<< HEAD
     </div>
     <h2 class=\\"govuk-heading-l\\"> Enter name and description</h2>
     <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
@@ -565,6 +566,8 @@ exports[`applications create Regions GET /create-new-case/:applicationId/regions
             <textarea class=\\"govuk-textarea govuk-textarea--error govuk-!-width-three-quarters\\"
             id=\\"description\\" name=\\"description\\" rows=\\"5\\" aria-describedby=\\"description-hint description-error\\">A description</textarea>
         </div>
+=======
+>>>>>>> bb9f6680 (refactor(web/applications): refactor types for createCase controllers (boas-167))
         <div class=\\"govuk-grid-row\\">
             <div class=\\"govuk-button-group pins-button-group govuk-grid-column-one-half\\"><a class=\\"govuk-link\\" href=\\"/applications-service/create-new-case/1/geographical-information/\\">Back</a>
                 <button                 class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and continue</button>
