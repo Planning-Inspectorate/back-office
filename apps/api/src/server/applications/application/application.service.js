@@ -1,7 +1,7 @@
 import { isArray, isEmpty } from 'lodash-es';
 import * as caseRepository from '../../repositories/case.repository.js';
 import { breakUpCompoundStatus } from '../../utils/break-up-compound-status.js';
-import { mapCaseStatus } from '../../utils/mapping/map-case-status.js';
+import { buildAppealCompundStatus } from '../../utils/build-appeal-compound-status.js';
 import { transitionState } from '../../utils/transition-state.js';
 
 /**
@@ -64,7 +64,7 @@ const verifyAllApplicationDetailsPresent = async (id) => {
 export const startApplication = async (id) => {
 	const caseDetails = await verifyAllApplicationDetailsPresent(id);
 
-	const applicationStatus = mapCaseStatus(caseDetails?.CaseStatus);
+	const applicationStatus = buildAppealCompundStatus(caseDetails?.CaseStatus);
 
 	const nextStatusInStateMachine = transitionState({
 		caseType: 'application',
