@@ -12,18 +12,20 @@ const findUniqueStub = sinon.stub();
 
 const applicationReadyToStart = applicationFactoryForTests({
 	id: 1,
-	status: 'draft',
-	modifiedAt: new Date()
+	status: 'draft'
 });
 const applicationWithMissingInformation = applicationFactoryForTests({
 	id: 3,
 	status: 'draft',
-	modifiedAt: new Date(),
 	title: null,
 	description: null,
 	subSectorId: null,
 	zoomLevelId: null,
 	regions: []
+});
+const applicationInPreApplicationState = applicationFactoryForTests({
+	id: 4,
+	status: 'pre_application'
 });
 
 const validationCaseDetailsInclusions = {
@@ -33,19 +35,17 @@ const validationCaseDetailsInclusions = {
 
 findUniqueStub.withArgs({ where: { id: 1 } }).returns(applicationReadyToStart);
 findUniqueStub
-	.withArgs({
-		where: { id: 1 },
-		include: validationCaseDetailsInclusions
-	})
+	.withArgs({ where: { id: 1 }, include: validationCaseDetailsInclusions })
 	.returns(applicationReadyToStart);
 findUniqueStub.withArgs({ where: { id: 2 } }).returns(null);
 findUniqueStub.withArgs({ where: { id: 3 } }).returns(applicationWithMissingInformation);
 findUniqueStub
-	.withArgs({
-		where: { id: 3 },
-		include: validationCaseDetailsInclusions
-	})
+	.withArgs({ where: { id: 3 }, include: validationCaseDetailsInclusions })
 	.returns(applicationWithMissingInformation);
+findUniqueStub.withArgs({ where: { id: 4 } }).returns(applicationInPreApplicationState);
+findUniqueStub
+	.withArgs({ where: { id: 4 }, include: validationCaseDetailsInclusions })
+	.returns(applicationInPreApplicationState);
 
 const updateStub = sinon.stub();
 const updateManyCaseStatusStub = sinon.stub();
@@ -108,8 +108,23 @@ test('throws an error if the application does not have all the required informat
 
 	t.is(response.status, 400);
 	t.deepEqual(response.body, {
-		errors: {}
+		error: {
+			description: 'Missing description',
+			mapZoomLevel: 'Missing mapZoomLevel',
+			regions: 'Missing regions',
+			subSector: 'Missing subSector',
+			title: 'Missing title'
+		}
 	});
 });
 
-test.todo('throws an error if the application is not in draft state');
+test('throws an error if the application is not in draft state', async (t) => {
+	const response = await request.post('/applications/4/start');
+
+	t.is(response.status, 409);
+	t.deepEqual(response.body, {
+		errors: {
+			application: "Could not transition 'pre_application' using 'START'."
+		}
+	});
+});
