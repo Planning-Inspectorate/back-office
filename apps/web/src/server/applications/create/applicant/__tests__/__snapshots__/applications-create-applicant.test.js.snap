@@ -1,5 +1,33 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`applications create applicant GET /applicant-full-name should render the page if there is data in the session 1`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <h2 class=\\"govuk-heading-l\\"> What is the applicant’s full name?</h2>
+    <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
+        <div class=\\"govuk-form-group\\">
+            <label class=\\"govuk-label font-weight--700\\" for=\\"applicant.firstName\\">First name</label>
+            <input class=\\"govuk-input govuk-!-width-one-third\\" id=\\"applicant.firstName\\"
+            name=\\"applicant.firstName\\" type=\\"text\\">
+        </div>
+        <div class=\\"govuk-form-group\\">
+            <label class=\\"govuk-label font-weight--700\\" for=\\"applicant.middleName\\">Middle name (optional)</label>
+            <input class=\\"govuk-input govuk-!-width-one-third\\"
+            id=\\"applicant.middleName\\" name=\\"applicant.middleName\\" type=\\"text\\">
+        </div>
+        <div class=\\"govuk-form-group\\">
+            <label class=\\"govuk-label font-weight--700\\" for=\\"applicant.lastName\\">Last name</label>
+            <input class=\\"govuk-input govuk-!-width-one-third\\" id=\\"applicant.lastName\\"
+            name=\\"applicant.lastName\\" type=\\"text\\">
+        </div>
+        <div class=\\"govuk-grid-row\\">
+            <div class=\\"govuk-button-group pins-button-group govuk-grid-column-one-half\\"><a class=\\"govuk-link\\" href=\\"/applications-service/create-new-case/123/applicant-information-types/\\">Back</a>
+                <button                 class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and continue</button>
+            </div>
+        </div>
+    </form>
+</main>"
+`;
+
 exports[`applications create applicant GET /applicant-information-types should render the page 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <h2 class=\\"govuk-heading-l\\"> Choose the type of Applicant information you can give</h2>

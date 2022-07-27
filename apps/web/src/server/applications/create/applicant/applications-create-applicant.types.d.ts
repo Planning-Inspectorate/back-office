@@ -18,3 +18,18 @@ export type ApplicationsCreateApplicantOrganisationNameProps = {
 export type ApplicationsCreateApplicantOrganisationNameBody = {
 	applicantOrganisationName?: string;
 };
+
+export type ApplicationsCreateApplicantFullNameProps = {
+	values: {
+		'applicant.firstName'?: string;
+		'applicant.middleName'?: string;
+		'applicant.lastName'?: string;
+	};
+	errors?: ValidationErrors;
+};
+
+export type ApplicationsCreateApplicantFullNameBody = {
+	applicantfirstName?: string;
+	applicantmiddleName?: string;
+	applicantlastName?: string;
+};
