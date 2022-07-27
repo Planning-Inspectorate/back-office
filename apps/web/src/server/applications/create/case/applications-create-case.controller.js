@@ -10,7 +10,7 @@ import {
 	getAllSectors,
 	getAllZoomLevels,
 	getSubSectorsBySectorName
-} from './applications-create-case.service.js';
+} from "./applications-create-case.service.js";
 import {
 	destroySessionCaseSectorName,
 	getSessionCaseSectorName,
@@ -133,9 +133,6 @@ export async function viewApplicationsCreateCaseSubSector({ session }, response)
 
 	if (!selectedSectorName) {
 		pino.warn('Trying to change subsector with no sector value registered. Redirect to sector');
-
-		return response.redirect(`/applications-service/create-new-case/${applicationId}/sector`);
-		pino.warn('Trying to change subsector with no sector value registered. Redirect to sector')
 
 		return response.redirect(`/applications-service/create-new-case/${applicationId}/sector`);
 	}
