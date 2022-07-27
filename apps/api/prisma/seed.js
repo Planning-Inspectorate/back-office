@@ -617,7 +617,6 @@ const deleteAllRecords = async () => {
 	const deleteZoomLevels = databaseConnector.zoomLevel.deleteMany();
 	const deleteRegionsOnApplicationDetails =
 		databaseConnector.regionsOnApplicationDetails.deleteMany();
-
 	const deleteAppeals = databaseConnector.appeal.deleteMany();
 	const deleteUsers = databaseConnector.user.deleteMany();
 	const deleteAppealTypes = databaseConnector.appealType.deleteMany();
@@ -633,13 +632,13 @@ const deleteAllRecords = async () => {
 	const deleteValidationDecision = databaseConnector.validationDecision.deleteMany();
 
 	await databaseConnector.$transaction([
+		deleteRegionsOnApplicationDetails,
 		deleteApplicationDetails,
 		deleteCaseStatuses,
 		deleteCases,
 		deleteSubSectos,
 		deleteSectors,
 		deleteRegions,
-		deleteRegionsOnApplicationDetails,
 		deleteZoomLevels,
 		deleteAppealDetailsFromAppellant,
 		deleteAppealStatus,
