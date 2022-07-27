@@ -10,6 +10,8 @@ import {
 /** @typedef {import('./applications-create-applicant-session.service.js').SessionWithApplicationsCreateApplicantInfoTypes} SessionWithApplicationsCreateApplicantInfoTypes */
 /** @typedef {import('./applications-create-applicant.types').ApplicationsCreateApplicantOrganisationNameProps} ApplicationsCreateApplicantOrganisationNameProps */
 /** @typedef {import('./applications-create-applicant.types').ApplicationsCreateApplicantOrganisationNameBody} ApplicationsCreateApplicantOrganisationNameBody */
+/** @typedef {import('./applications-create-applicant.types').ApplicationsCreateApplicantFullNameProps} ApplicationsCreateApplicantFullNameProps */
+/** @typedef {import('./applications-create-applicant.types').ApplicationsCreateApplicantFullNameBody} ApplicationsCreateApplicantFullNameBody */
 
 /**
  * View the form step for the applicant information types
@@ -76,7 +78,7 @@ export async function updateApplicationsCreateApplicantOrganisationName(
 /**
  * View the form step for the applicant's full name
  *
-@type {import('@pins/express').RenderHandler<{}, {}>}
+ * @type {import('@pins/express').RenderHandler<ApplicationsCreateApplicantFullNameProps, {}, {}, {}, DomainParams>}
  */
 export async function viewApplicationsCreateApplicantFullName(req, response) {
 	response.render('applications/create/applicant/_full-name');
@@ -85,7 +87,7 @@ export async function viewApplicationsCreateApplicantFullName(req, response) {
 /**
  * Update the applicant's full name
  *
- * @type {import('@pins/express').RenderHandler<{}, {}>}
+ * @type {import('@pins/express').RenderHandler<ApplicationsCreateApplicantFullNameProps, {}, ApplicationsCreateApplicantFullNameBody, {}, DomainParams>}
  */
 export async function updateApplicationsCreateApplicantFullName({ path, session }, response) {
 	const { applicationId } = response.locals;
