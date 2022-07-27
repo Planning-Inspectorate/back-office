@@ -20,6 +20,7 @@ import * as applicationsService from './applications.service.js';
 export async function viewDashboard({ params }, res) {
 	const { domainType } = params;
 	const allApplications = await applicationsService.findOpenApplicationsByDomainType(domainType);
+	console.log(allApplications)
 	const readyApplications = allApplications.filter((application) => application.status !== 'draft');
 
 	return res.render('applications/dashboard', { applications: readyApplications });
