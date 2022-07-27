@@ -25,7 +25,7 @@ export function defaultErrorHandler(error, _request, response, next) {
 		logger.debug('Error Message not JSON parsable');
 	}
 
-	response.send({ error: errorMessage });
+	response.send({ errors: errorMessage });
 }
 
 /**
