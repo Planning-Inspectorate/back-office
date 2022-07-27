@@ -56,7 +56,7 @@ export async function viewApplicationsCreateCaseName(req, response) {
  * {}, ApplicationsCreateCaseNameBody, {}, DomainParams>}
  */
 export async function updateApplicationsCreateCaseName(
-	{errors: validationErrors, session, body},
+	{ errors: validationErrors, session, body },
 	response
 ) {
 	const { applicationId } = response.locals;
@@ -135,9 +135,6 @@ export async function viewApplicationsCreateCaseSubSector({ session }, response)
 		pino.warn('Trying to change subsector with no sector value registered. Redirect to sector');
 
 		return response.redirect(`/applications-service/create-new-case/${applicationId}/sector`);
-		pino.warn('Trying to change subsector with no sector value registered. Redirect to sector')
-
-		return response.redirect(`/applications-service/create-new-case/${applicationId}/sector`);
 	}
 
 	const subSectors = await getSubSectorsBySectorName(selectedSectorName);
@@ -211,7 +208,7 @@ export async function viewApplicationsCreateCaseGeographicalInformation(req, res
  * {}, ApplicationsCreateCaseGeographicalInformationBody, {}, DomainParams>}
  */
 export async function updateApplicationsCreateCaseGeographicalInformation(
-	{errors: validationErrors, body},
+	{ errors: validationErrors, body },
 	response
 ) {
 	const { applicationId } = response.locals;

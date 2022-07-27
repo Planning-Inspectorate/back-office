@@ -23,7 +23,6 @@ export function createApplication({
 		title: `Title ${reference}`,
 		description: createRandomDescription({ wordsNumber: 40, startOffset: id }),
 		status: `Status ${id}000`,
-		// modifiedDate: random(Number.parseInt(`727113570`,10), Number.parseInt(`1658937622`, 10)),
 		modifiedDate,
 		sector,
 		subSector
