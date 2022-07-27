@@ -18,7 +18,7 @@ test.afterEach.always(() => {
 	}
 });
 
-test.serial('uploads document', async(t) => {
+test.serial('uploads document', async (t) => {
 	const uploadStreamStub = sinon.stub();
 
 	sinon.stub(BlobServiceClient, 'fromConnectionString').returns({
@@ -29,7 +29,8 @@ test.serial('uploads document', async(t) => {
 		})
 	});
 
-	const resp = await request.post('/')
+	const resp = await request
+		.post('/')
 		.attach('file', pathToFile)
 		.field('documentType', 'application')
 		.field('type', 'appeal')
@@ -50,8 +51,9 @@ test.serial('uploads document', async(t) => {
 	});
 });
 
-test.serial('thows error if no file is provided', async(t) => {
-	const resp = await request.post('/')
+test.serial('thows error if no file is provided', async (t) => {
+	const resp = await request
+		.post('/')
 		.field('documentType', 'application')
 		.field('type', 'appeal')
 		.field('id', 1);
@@ -60,21 +62,23 @@ test.serial('thows error if no file is provided', async(t) => {
 	t.deepEqual(resp.body, { errors: { file: 'Select a file' } });
 });
 
-test.serial('returns error if error thrown', async(t) => {
+test.serial('returns error if error thrown', async (t) => {
 	sinon.stub(BlobServiceClient, 'fromConnectionString').throws();
 
-	const resp = await request.post('/')
+	const resp = await request
+		.post('/')
 		.attach('file', pathToFile)
 		.field('documentType', 'application')
 		.field('type', 'appeal')
 		.field('id', 1);
 
 	t.is(resp.status, 500);
-	t.deepEqual(resp.body, { error: 'Oops! Something went wrong' });
+	t.deepEqual(resp.body, { errors: 'Oops! Something went wrong' });
 });
 
-test.serial('thows error if no document type provided', async(t) => {
-	const resp = await request.post('/')
+test.serial('thows error if no document type provided', async (t) => {
+	const resp = await request
+		.post('/')
 		.attach('file', pathToFile)
 		.field('type', 'appeal')
 		.field('id', 1);
@@ -83,8 +87,11 @@ test.serial('thows error if no document type provided', async(t) => {
 	t.deepEqual(resp.body, { errors: { documentType: 'Select a valid document type' } });
 });
 
-test.serial('thows error if type and id provided', async(t) => {
-	const resp = await request.post('/').attach('file', pathToFile).field('documentType', 'application');
+test.serial('thows error if type and id provided', async (t) => {
+	const resp = await request
+		.post('/')
+		.attach('file', pathToFile)
+		.field('documentType', 'application');
 
 	t.is(resp.status, 400);
 	t.deepEqual(resp.body, {
