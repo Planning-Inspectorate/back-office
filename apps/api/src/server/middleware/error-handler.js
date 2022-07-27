@@ -45,7 +45,7 @@ const getCaseTypeFromUrl = (url) => {
 export const stateMachineErrorHandler = (error, request, response, next) => {
 	if (error instanceof TransitionStateError) {
 		const caseType = getCaseTypeFromUrl(request.originalUrl);
-		const errorMessage = {};
+		/** @type {Object<string, string>} */ const errorMessage = {};
 
 		errorMessage[caseType] = error.message;
 		response.status(409).send({

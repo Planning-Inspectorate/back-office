@@ -356,7 +356,7 @@ test('throws error if unknown application id provided', async (t) => {
 	t.is(response.status, 400);
 	t.deepEqual(response.body, {
 		errors: {
-			id: 'Must be existing application'
+			id: 'Must be an existing application'
 		}
 	});
 });
