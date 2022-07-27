@@ -5,6 +5,7 @@ import {fixtureApplications} from "../../../../../../testing/applications/fixtur
 import {
 	fixtureRegions,
 	fixtureSectors,
+	fixtureSubSectors,
 	fixtureZoomLevels
 } from '../../../../../../testing/applications/fixtures/options-item.js';
 import {createTestApplication} from '../../../../../../testing/index.js';
@@ -18,12 +19,16 @@ const nocks = () => {
 	nock('http://test/').get('/applications/sector').reply(200, fixtureSectors);
 	nock('http://test/')
 		.get('/applications/sector?sectorName=transport')
-		.reply(200, fixtureSectors);
+		.reply(200, fixtureSubSectors);
 }
 
 describe('applications create', () => {
 	beforeEach(installMockApi);
 	afterEach(teardown);
+
+	afterAll(() => {
+		nock.cleanAll()
+	})
 
 	describe('Name and description', () => {
 		describe('GET /create-new-case', () => {
@@ -130,7 +135,7 @@ describe('applications create', () => {
 							description: 'A description'
 						});
 
-						expect(response?.res?.headers?.location).toContain('1/sector');
+						expect(response?.headers?.location).toContain('1/sector');
 					});
 				})
 
@@ -159,7 +164,7 @@ describe('applications create', () => {
 							description: 'A description'
 						});
 
-						expect(response?.res?.headers?.location).toContain('1/sector');
+						expect(response?.headers?.location).toContain('1/sector');
 					});
 				})
 			})
@@ -167,7 +172,7 @@ describe('applications create', () => {
 	});
 
 	describe('Sector', () => {
-		const baseUrl = (/** @type {string} */ id) => `/applications-service/create-new-case/${id}/sector`;
+		const baseUrl = ( /** @type {string} */ id) => `/applications-service/create-new-case/${id}/sector`;
 
 		beforeEach(async () => {
 			await request.get('/applications-service/case-officer');
@@ -221,14 +226,14 @@ describe('applications create', () => {
 				it('should go to subsector page if something was selected', async () => {
 					const response = await request.post(baseUrl('1')).send({sectorName: 'transport'});
 
-					expect(response?.res?.headers?.location).toContain('1/sub-sector');
+					expect(response?.headers?.location).toContain('1/sub-sector');
 				})
 			});
 		});
 	});
 
 	describe('Sub-sector', () => {
-		const baseUrl = (/** @type {string} */ id) => `/applications-service/create-new-case/${id}/sub-sector`;
+		const baseUrl = ( /** @type {string} */ id) => `/applications-service/create-new-case/${id}/sub-sector`;
 
 		beforeEach(async () => {
 			await request.get('/applications-service/case-officer');
@@ -240,7 +245,17 @@ describe('applications create', () => {
 			it('should redirect to sector page if the sectorName is null', async () => {
 				const response = await request.get(baseUrl('4'));
 
-				expect(response?.res?.headers?.location).toContain('4/sector');
+				expect(response?.headers?.location).toContain('4/sector');
+			});
+
+			it('should render subsectors matching with the sectorName in the session', async () => {
+				await request.post('/applications-service/create-new-case/1/sector').send({sectorName: 'transport'});
+
+				const response = await request.get(baseUrl('1'));
+				const element = parseHtml(response.text);
+
+				expect(element.innerHTML).toMatchSnapshot();
+				expect(element.innerHTML).toContain('highways');
 			});
 
 			it('should display an option as _checked_ if the API returns a resumed value', async () => {
@@ -248,7 +263,7 @@ describe('applications create', () => {
 				const element = parseHtml(response.text);
 
 				expect(element.innerHTML).toMatchSnapshot();
-				expect(element.innerHTML).toContain('value="water" checked');
+				expect(element.innerHTML).toContain('value="highways" checked');
 			});
 
 			it('should not display a _checked_ option if the API does NOT return a resumed value', async () => {
@@ -293,14 +308,14 @@ describe('applications create', () => {
 
 					const response = await request.post(baseUrl('1')).send({subSectorName: 'transport'});
 
-					expect(response?.res?.headers?.location).toContain('1/geographical-information');
+					expect(response?.headers?.location).toContain('1/geographical-information');
 				})
 			})
 		});
 	});
 
 	describe('Geographical Information', () => {
-		const baseUrl = (/** @type {string} */ id) => `/applications-service/create-new-case/${id}/geographical-information`;
+		const baseUrl = ( /** @type {string} */ id) => `/applications-service/create-new-case/${id}/geographical-information`;
 
 		beforeEach(async () => {
 			await request.get('/applications-service/case-officer');
@@ -309,7 +324,7 @@ describe('applications create', () => {
 
 		describe('GET /create-new-case/:applicationId/geographical-information', () => {
 			it('should display resumed data if the API returns something', async () => {
-				const response = await request.get(baseUrl(1));
+				const response = await request.get(baseUrl('1'));
 				const element = parseHtml(response.text);
 
 				expect(element.innerHTML).toMatchSnapshot();
@@ -319,9 +334,9 @@ describe('applications create', () => {
 
 		describe('POST /create-new-case/:applicationId/geographical-information', () => {
 			describe('Web-side validation', () => {
-				it('should not render validation error if nothgin missing', async () => {
+				it('should not render validation error if nothing missing', async () => {
 
-					const response = await request.post(baseUrl(1)).send({
+					const response = await request.post(baseUrl('1')).send({
 						'geographicalInformation.locationDescription': 'Location desc',
 						'geographicalInformation.gridReference.easting': '123456',
 						'geographicalInformation.gridReference.northing': '789123'
@@ -336,7 +351,7 @@ describe('applications create', () => {
 
 				it('should render validation error if something missing', async () => {
 
-					const response = await request.post(baseUrl(1));
+					const response = await request.post(baseUrl('1'));
 					const element = parseHtml(response.text);
 
 					expect(element.innerHTML).toMatchSnapshot();
@@ -347,7 +362,7 @@ describe('applications create', () => {
 
 				it('should render validation error if easting and northing are not valid', async () => {
 
-					const response = await request.post(baseUrl(1)).send({
+					const response = await request.post(baseUrl('1')).send({
 						'geographicalInformation.gridReference.easting': 1234,
 						'geographicalInformation.gridReference.northing': '123dfe'
 					});
@@ -362,15 +377,17 @@ describe('applications create', () => {
 			describe('API-side validation:', () => {
 
 				it('should show validation errors if API returns error', async () => {
-					const failResponse = {errors: {
-						'geographicalInformation.locationDescription': 'Error msg',
-						'geographicalInformation.gridReference.easting': 'Error msg',
-						'geographicalInformation.gridReference.northing': 'Error msg'
-					}}
+					const failResponse = {
+						errors: {
+							'geographicalInformation.locationDescription': 'Error msg',
+							'geographicalInformation.gridReference.easting': 'Error msg',
+							'geographicalInformation.gridReference.northing': 'Error msg'
+						}
+					}
 
 					nock('http://test/').patch('/applications/1').reply(500, failResponse);
 
-					const response = await request.post(baseUrl(1)).send({
+					const response = await request.post(baseUrl('1')).send({
 						'geographicalInformation.locationDescription': 'Location desc',
 						'geographicalInformation.gridReference.easting': '123456',
 						'geographicalInformation.gridReference.northing': '789123'
@@ -386,70 +403,261 @@ describe('applications create', () => {
 				it('should go to regions page if nothing is missing', async () => {
 					nock('http://test/').patch('/applications/1').reply(200, successResponse);
 
-					const response = await request.post(baseUrl(1)).send({
+					const response = await request.post(baseUrl('1')).send({
 						'geographicalInformation.locationDescription': 'Location desc',
 						'geographicalInformation.gridReference.easting': '123456',
 						'geographicalInformation.gridReference.northing': '789123'
 					});
 
-					expect(response?.res?.headers?.location).toContain('1/regions');
+					expect(response?.headers?.location).toContain('1/regions');
 				})
 			})
 		});
 	});
 
-	/*
 
+	describe('Regions', () => {
+		// const baseUrl = ( /** @type {string} */ id) => `/applications-service/create-new-case/${id}/regions`;
+		const baseUrl = ( /** @type {string} */ id) => `/applications-service/create-new-case/${id}/regions`;
 
-
-	describe('GET /create-new-case/:applicationId/regions', () => {
 		beforeEach(async () => {
 			await request.get('/applications-service/case-officer');
-		});
-
-		it('should render the page', async () => {
+			nocks();
 			nock('http://test/').get('/applications/region').reply(200, fixtureRegions);
 
-			const baseUrl = `/applications-service/create-new-case/123/regions`;
-			const response = await request.get(baseUrl);
-			const element = parseHtml(response.text);
-
-			expect(element.innerHTML).toMatchSnapshot();
-			expect(element.innerHTML).toContain('Save and continue');
 		});
-	});
 
-	describe('GET /create-new-case/:applicationId/zoom-level', () => {
+		describe('GET /create-new-case/:applicationId/regions', () => {
+
+			it('should render the page with checked options if the api returns something', async () => {
+				const response = await request.get(baseUrl('1'));
+				const element = parseHtml(response.text);
+
+				expect(element.innerHTML).toMatchSnapshot();
+				expect(element.innerHTML).toContain('value="london"\n' +
+					'                    checked');
+				expect(element.innerHTML).toContain('value="yorkshire"\n' +
+					'                    checked');
+			});
+
+			it('should render the page without checked options', async () => {
+				const response = await request.get(baseUrl('2'));
+				const element = parseHtml(response.text);
+
+				expect(element.innerHTML).toMatchSnapshot();
+				expect(element.innerHTML).not.toContain('checked');
+			});
+		});
+
+		describe('POST /create-new-case/:applicationId/regions', () => {
+			describe('Web-validation', () => {
+				it('should not render validation error if nothing missing', async () => {
+
+					const responseWithOneRegion = await request.post(baseUrl('1')).send({
+						'geographicalInformation.regionNames': ['london'],
+					});
+
+					let element = parseHtml(responseWithOneRegion.text);
+
+					expect(element.innerHTML).toMatchSnapshot();
+					expect(element.innerHTML).not.toContain('geographicalInformation.regionNames-error');
+
+					const responseWithTwoRegions = await request.post(baseUrl('1')).send({
+						'geographicalInformation.regionNames': ['london', 'yorkshire'],
+					});
+
+					element = parseHtml(responseWithTwoRegions.text);
+
+					expect(element.innerHTML).not.toContain('geographicalInformation.regionNames-error');
+				});
+
+				it('should render validation error if something missing', async () => {
+					const response = await request.post(baseUrl('1'));
+					const element = parseHtml(response.text);
+
+					expect(element.innerHTML).toMatchSnapshot();
+					expect(element.innerHTML).toContain('geographicalInformation.regionNames-error');
+				});
+			});
+
+			describe('Api validation', () => {
+				it('should show validation errors if API returns error', async () => {
+					const failResponse = {errors: {'geographicalInformation.regionNames': 'Error msg'}}
+
+					nock('http://test/').patch('/applications/1').reply(500, failResponse);
+
+					const response = await request.post(baseUrl('1')).send({
+						'geographicalInformation.regionNames': ['london'],
+					});
+					const element = parseHtml(response.text);
+
+					expect(element.innerHTML).toMatchSnapshot();
+					expect(element.innerHTML).toContain('geographicalInformation.regionNames-error');
+				});
+
+				it('should go to zoom level page if api returns 200', async () => {
+
+					nock('http://test/').patch('/applications/1').reply(200, successResponse);
+
+					const response = await request.post(baseUrl('1')).send({
+						'geographicalInformation.regionNames': ['london'],
+					});
+
+					expect(response?.headers?.location).toContain('1/zoom-level');
+				});
+			})
+		})
+	})
+
+
+	describe('Zoom Level', () => {
+		const baseUrl = ( /** @type {string} */ id) => `/applications-service/create-new-case/${id}/zoom-level`;
+
 		beforeEach(async () => {
 			await request.get('/applications-service/case-officer');
-		});
-
-		it('should render the page', async () => {
+			nocks();
 			nock('http://test/').get('/applications/zoom-level').reply(200, fixtureZoomLevels);
 
-			const baseUrl = `/applications-service/create-new-case/123/zoom-level`;
-			const response = await request.get(baseUrl);
-			const element = parseHtml(response.text);
-
-			expect(element.innerHTML).toMatchSnapshot();
-			expect(element.innerHTML).toContain('Save and continue');
 		});
+
+		describe('GET /create-new-case/:applicationId/zoom-level', () => {
+
+			it('should render the page with None checked if the api does not return resumed data', async () => {
+				const response = await request.get(baseUrl('2'));
+				const element = parseHtml(response.text);
+
+				expect(element.innerHTML).toMatchSnapshot();
+				expect(element.innerHTML).toContain('value="none"\n' +
+					'                    checked');
+			});
+
+			it('should render the page with the checked option from the resumed data', async () => {
+				const response = await request.get(baseUrl('1'));
+				const element = parseHtml(response.text);
+
+				expect(element.innerHTML).toMatchSnapshot();
+				expect(element.innerHTML).toContain('value="city"\n' +
+					'                    checked');
+			});
+		});
+
+		describe('POST /create-new-case/:applicationId/zoom-level', () => {
+
+			describe('Api validation', () => {
+				it('should show validation errors if API returns error', async () => {
+					const failResponse = {errors: {'geographicalInformation.mapZoomLevelName': 'Error msg'}}
+
+					nock('http://test/').patch('/applications/1').reply(500, failResponse);
+
+					const response = await request.post(baseUrl('1')).send({
+						'geographicalInformation.mapZoomLevelName': 'something wrong',
+					});
+					const element = parseHtml(response.text);
+
+					expect(element.innerHTML).toMatchSnapshot();
+					expect(element.innerHTML).toContain('geographicalInformation.mapZoomLevelName-error');
+				});
+
+				it('should go to zoom level page if api returns 200', async () => {
+
+					nock('http://test/').patch('/applications/1').reply(200, successResponse);
+
+					const response = await request.post(baseUrl('1')).send({
+						'geographicalInformation.regionNames': ['london'],
+					});
+
+					expect(response?.headers?.location).toContain('1/team-email');
+				});
+			})
+		})
 	});
 
-	describe('GET /create-new-case/:applicationId/team-email', () => {
+	describe('Team email', () => {
+		const baseUrl = ( /** @type {string} */ id) => `/applications-service/create-new-case/${id}/team-email`;
+
 		beforeEach(async () => {
 			await request.get('/applications-service/case-officer');
+			nocks();
+			nock('http://test/').get('/applications/zoom-level').reply(200, fixtureZoomLevels);
+
 		});
 
-		it('should render the page', async () => {
-			const baseUrl = `/applications-service/create-new-case/123/team-email`;
-			const response = await request.get(baseUrl);
-			const element = parseHtml(response.text);
+		describe('GET /create-new-case/:applicationId/team-email', () => {
+			it('should render the page with the resumed data if the api returns something', async () => {
+				const response = await request.get(baseUrl('1'));
+				const element = parseHtml(response.text);
 
-			expect(element.innerHTML).toMatchSnapshot();
-			expect(element.innerHTML).toContain('Save and continue');
+				expect(element.innerHTML).toMatchSnapshot();
+				expect(element.innerHTML).toContain('some@ema.il');
+			});
+
+			it('should render the page with no value inside the text input if api does not return resumed data', async () => {
+				const response = await request.get(baseUrl('2'));
+				const element = parseHtml(response.text);
+
+				expect(element.innerHTML).toMatchSnapshot();
+				expect(element.innerHTML).not.toContain("value='");
+			});
 		});
-	});
-	*/
+
+		describe('POST /create-new-case/:applicationId/team-email', () => {
+			describe('Web-validation', () => {
+				it('should not render validation error if nothing missing', async () => {
+					const response = await request.post(baseUrl('1')).send({
+						caseEmail: 'valid@ema.il',
+					});
+
+					const element = parseHtml(response.text);
+
+					expect(element.innerHTML).toMatchSnapshot();
+					expect(element.innerHTML).not.toContain('caseEmail-error');
+				});
+
+				it('should render validation error if email is missing', async () => {
+					const response = await request.post(baseUrl('1'));
+					const element = parseHtml(response.text);
+
+					expect(element.innerHTML).toMatchSnapshot();
+					expect(element.innerHTML).toContain('caseEmail-error');
+				});
+
+				it('should render validation error if email is not valid', async () => {
+					const response = await request.post(baseUrl('1')).send({caseEmail: 'notvalidemail'});
+					const element = parseHtml(response.text);
+
+					expect(element.innerHTML).toMatchSnapshot();
+					expect(element.innerHTML).toContain('caseEmail-error');
+				});
+			});
+
+			describe('Api validation', () => {
+				it('should show validation errors if API returns error', async () => {
+					const failResponse = {errors: {caseEmail: 'Error msg'}}
+
+					nock('http://test/').patch('/applications/1').reply(500, failResponse);
+
+					const response = await request.post(baseUrl('1')).send({
+						caseEmail: 'valid@ema.il',
+					});
+					const element = parseHtml(response.text);
+
+					expect(element.innerHTML).toMatchSnapshot();
+					expect(element.innerHTML).toContain('caseEmail-error');
+				});
+
+				it('should go to applciant info types page if api returns 200', async () => {
+
+					nock('http://test/').patch('/applications/1').reply(200, successResponse);
+
+					const response = await request.post(baseUrl('1')).send({
+						caseEmail: 'valid@ema.il',
+					});
+
+					expect(response?.headers?.location).toContain('/applications-service/create-new-case/1/applicant-information-types');
+				});
+			})
+		})
+	})
+
 })
 ;

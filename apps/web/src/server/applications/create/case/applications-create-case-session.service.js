@@ -6,7 +6,7 @@
  * Save in the session the list of information types to be provided in the create-new-applicant form.
  *
  * @param {SessionWithCaseSectorName} session
- * @param {string} selectedCaseSectorName
+ * @param {string|undefined} selectedCaseSectorName
  * @returns {void}
  */
 export const setSessionCaseSectorName = (session, selectedCaseSectorName) => {

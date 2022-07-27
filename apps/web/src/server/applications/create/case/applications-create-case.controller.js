@@ -1,4 +1,5 @@
 import {bodyToPayload} from '../../../lib/body-formatter.js';
+import pino from '../../../lib/logger.js';
 import {createApplicationDraft, getApplicationDraft, updateApplicationDraft} from "../applications-create.service.js";
 import {
 	getAllRegions,
@@ -11,7 +12,6 @@ import {
 	getSessionCaseSectorName,
 	setSessionCaseSectorName
 } from './applications-create-case-session.service.js';
-import pino from '../../../lib/logger.js';
 
 /** @typedef {import('../../applications.router').DomainParams} DomainParams */
 /** @typedef {import('../../applications.types').Sector} Sector */
@@ -30,7 +30,6 @@ import pino from '../../../lib/logger.js';
 /** @typedef {import('./applications-create-case.types').ApplicationsCreateCaseTeamEmailProps} ApplicationsCreateCaseTeamEmailProps */
 /** @typedef {import('./applications-create-case.types').ApplicationsCreateCaseTeamEmailBody} ApplicationsCreateCaseTeamEmailBody */
 
-/** @typedef {import('./applications-create-case.types').UpdateOrCreateCallback} UpdateOrCreateCallback */
 
 /**
  * View the first step (name & description) of the application creation
@@ -50,7 +49,8 @@ export async function viewApplicationsCreateCaseName(req, response) {
 /**
  * Create the application with name and description
  *
- * @type {import('@pins/express').RenderHandler<*, *>}
+ * @type {import('@pins/express').RenderHandler<ApplicationsCreateCaseNameProps,
+ * {}, ApplicationsCreateCaseNameBody, {}, DomainParams>}
  */
 export async function updateApplicationsCreateCaseName(
 	{errors: validationErrors, session, body},
@@ -87,7 +87,8 @@ export async function viewApplicationsCreateCaseSector({session}, response) {
 
 	const {sector} = await getApplicationDraft(applicationId);
 
-	// todo: o il contrario?
+	// the api always returns the correct sector
+	// so when db value and session value are different, db has the priority
 	const selectedSectorName = sector?.name || getSessionCaseSectorName(session);
 
 	response.render('applications/create/case/_sector', {
@@ -129,6 +130,8 @@ export async function updateApplicationsCreateCaseSector({errors, session, body}
 export async function viewApplicationsCreateCaseSubSector({session}, response) {
 	const {applicationId} = response.locals;
 	const {sector, subSector} = await getApplicationDraft(applicationId);
+	// at this step the db value of sector could be not updated yet
+	// so when db value and session value are different, session has the priority
 	const selectedSectorName = getSessionCaseSectorName(session) || sector?.name;
 
 	if (!selectedSectorName) {
@@ -148,13 +151,15 @@ export async function viewApplicationsCreateCaseSubSector({session}, response) {
 /**
  * Save the sub-sector for the draft application
  *
- * @type {import('@pins/express').RenderHandler<*, *>}
+ * @type {import('@pins/express').RenderHandler<ApplicationsCreateCaseSubSectorProps,
+ * {}, ApplicationsCreateCaseSubSectorBody, {}, DomainParams>}
  */
 export async function updateApplicationsCreateCaseSubSector(
 	{session, errors: validationErrors, body},
 	response
 ) {
 	const {applicationId} = response.locals;
+	// todo
 	const values = {subSector: body.subSectorName};
 	const payload = bodyToPayload(body);
 
@@ -256,7 +261,7 @@ export async function viewApplicationsCreateCaseRegions(req, response) {
  */
 export async function updateApplicationsCreateCaseRegions({errors: validationErrors, body}, response) {
 	const {applicationId} = response.locals;
-	const selectedRegionNames = body['geographicalInformation.regionNames'];
+	const selectedRegionNames = new Set(body['geographicalInformation.regionNames'] || []);
 	const payload = bodyToPayload(body);
 
 	const {errors: apiErrors, id: updatedApplicationId} = await updateApplicationDraft(applicationId, payload);
@@ -266,7 +271,7 @@ export async function updateApplicationsCreateCaseRegions({errors: validationErr
 		const checkBoxRegions = allRegions.map((region) => ({
 			text: region.displayNameEn,
 			value: region.name,
-			checked: selectedRegionNames.includes(region.name)
+			checked: selectedRegionNames.has(region.name)
 		}));
 
 		return response.render('applications/create/case/_region', {
