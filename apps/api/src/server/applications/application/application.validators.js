@@ -68,10 +68,6 @@ const validateExistingApplicantThatBelongsToCase = async (value, { req }) => {
  * @param {string} value
  */
 const validateExistingMapZoomLevel = async (value) => {
-	console.log(' yo non')
-
-	throw new Error('Unknown map zoom level');
-	console.log('io volevo unamore')
 	const mapZoomLevel = await zoomLevelRepository.getByName(value);
 
 	if (mapZoomLevel == null) {
@@ -87,7 +83,7 @@ const validateExistingMapZoomLevel = async (value) => {
 const timestampToDate = (value) => {
 	return new Date(value);
 };
-// todo: LT:: remove this comment
+
 export const validateCreateUpdateApplication = composeMiddleware(
 	body('geographicalInformation.gridReference.easting')
 		.toInt()
