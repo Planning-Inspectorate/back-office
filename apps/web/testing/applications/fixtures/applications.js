@@ -1,6 +1,10 @@
 import {createApplication} from '../factory/application.js';
-import {fixtureSectors} from './options-item.js';
+import {fixtureRegions, fixtureSectors, fixtureSubSectors, fixtureZoomLevels} from './options-item.js';
 
+/** @typedef {import('../../../src/server/applications/applications.types').Application} Application */
+
+
+/** @type {Application[]} */
 export const fixtureApplications = [
 	{
 		...createApplication({
@@ -8,7 +12,7 @@ export const fixtureApplications = [
 			modifiedDate: `${new Date(2022, 0, 1).getTime() / 1000}`,
 			reference: 'APPLICATION/01',
 			sector: fixtureSectors[0],
-			subSector: fixtureSectors[1]
+			subSector: fixtureSubSectors[0]
 		}),
 		applicants: [{ id: 2 }],
 		geographicalInformation: {
@@ -16,8 +20,11 @@ export const fixtureApplications = [
 			gridReference: {
 				easting: '123456',
 				northing: '987654'
-			}
-		}
+			},
+			regions: [fixtureRegions[0], fixtureRegions[1]],
+			mapZoomLevel: fixtureZoomLevels[0]
+		},
+		caseEmail: 'some@ema.il'
 	},
 	createApplication({
 		id: 2,
@@ -37,12 +44,14 @@ export const fixtureApplications = [
 		id: 4,
 		reference: 'APPLICATION/04',
 		title: `Application with no sector`,
+		description: 'Application with no sector description',
 		status: 'draft'
 	},
 	{
 		id: 5,
 		reference: 'APPLICATION/05',
 		title: `Application with no subsector`,
+		description: 'Application with no subsector description',
 		sector: fixtureSectors[0],
 		status: 'draft'
 	},
