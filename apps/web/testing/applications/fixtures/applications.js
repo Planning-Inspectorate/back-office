@@ -58,5 +58,6 @@ export const fixtureApplications = [
 		description: 'Application with no subsector description',
 		sector: fixtureSectors[0],
 		status: 'draft'
-	},
+	}
+
 ];

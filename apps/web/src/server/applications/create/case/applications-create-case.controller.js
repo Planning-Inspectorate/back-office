@@ -16,7 +16,6 @@ import {
 	getSessionCaseSectorName,
 	setSessionCaseSectorName
 } from './applications-create-case-session.service.js';
-import pino from '../../../lib/logger.js';
 
 /** @typedef {import('../../applications.router').DomainParams} DomainParams */
 /** @typedef {import('../../applications.types').Sector} Sector */
