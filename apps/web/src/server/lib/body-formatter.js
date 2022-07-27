@@ -1,23 +1,5 @@
 /**
- * Create the application with name and description
- *
- * @param {Record<string, string|undefined>} body
- * @returns {object}
- */
-/*export const bodyToValues = (body) => {
-	/!** @type {Record<*, string>} *!/ const values = {};
-	const bodyKeys = Object.keys(body);
-
-	for (const key of bodyKeys) {
-		values[key] = body[key] ;
-	}
-
-	return values;
-};*/
-
-/**
- * Create the application with name and description
- * transform an object shaped like:
+ * Transform an object shaped like:
  * {
  *   'A1.B1.C1': 'v1',
  *   'A1.B1.C2': 'v2',
@@ -50,19 +32,19 @@ export const bodyToPayload = (body) => {
 
 		switch (fieldDepth) {
 			case 3:
-				payload = {...payload};
-				payload[keys[0]] = {...payload[keys[0]]};
-				payload[keys[0]][keys[1]] = {...payload[keys[0]][keys[1]]};
+				payload = { ...payload };
+				payload[keys[0]] = { ...payload[keys[0]] };
+				payload[keys[0]][keys[1]] = { ...payload[keys[0]][keys[1]] };
 				payload[keys[0]][keys[1]][keys[2]] = body[fieldKey] || '';
 				break;
 			case 2:
-				payload = {...payload};
-				payload[keys[0]] = {...payload[keys[0]]};
+				payload = { ...payload };
+				payload[keys[0]] = { ...payload[keys[0]] };
 				payload[keys[0]][keys[1]] = body[fieldKey] || '';
 				break;
 			default:
 				// case 1
-				payload = {...payload};
+				payload = { ...payload };
 				payload[keys[0]] = body[fieldKey] || '';
 
 				break;
