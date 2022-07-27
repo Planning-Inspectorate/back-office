@@ -108,7 +108,7 @@ test('throws an error if the application does not have all the required informat
 
 	t.is(response.status, 400);
 	t.deepEqual(response.body, {
-		error: {
+		errors: {
 			description: 'Missing description',
 			mapZoomLevel: 'Missing mapZoomLevel',
 			regions: 'Missing regions',
