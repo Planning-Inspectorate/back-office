@@ -1,4 +1,5 @@
 import { buildAppealCompundStatus } from '../build-appeal-compound-status.js';
+import { mapCaseStatusString } from './map-case-status-string.js';
 
 /**
  *
@@ -6,5 +7,10 @@ import { buildAppealCompundStatus } from '../build-appeal-compound-status.js';
  * @returns {string | object}
  */
 export const mapCaseStatus = (caseStatus) => {
-	return buildAppealCompundStatus(caseStatus);
+	const builtStatuses = buildAppealCompundStatus(caseStatus);
+
+	if (typeof builtStatuses === 'string') {
+		return mapCaseStatusString(builtStatuses);
+	}
+	return builtStatuses;
 };
