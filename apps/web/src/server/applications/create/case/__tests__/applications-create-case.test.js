@@ -232,7 +232,7 @@ describe('applications create', () => {
 							description: 'A description'
 						});
 
-						expect(response?.res?.headers?.location).toContain('1/sector');
+						expect(response?.headers?.location).toContain('1/sector');
 					});
 				})
 
@@ -261,7 +261,7 @@ describe('applications create', () => {
 							description: 'A description'
 						});
 
-						expect(response?.res?.headers?.location).toContain('1/sector');
+						expect(response?.headers?.location).toContain('1/sector');
 					});
 				})
 			})
@@ -329,7 +329,7 @@ describe('applications create', () => {
 				it('should go to subsector page if something was selected', async () => {
 					const response = await request.post(baseUrl('1')).send({sectorName: 'transport'});
 
-					expect(response?.res?.headers?.location).toContain('1/sub-sector');
+					expect(response?.headers?.location).toContain('1/sub-sector');
 				})
 			});
 		});
@@ -617,7 +617,6 @@ describe('applications create', () => {
 				});
 			});
 		});
-	});
 
 	describe('Zoom Level', () => {
 		const baseUrl = (/** @type {string} */ id) =>
@@ -676,6 +675,57 @@ describe('applications create', () => {
 				});
 			});
 		});
+
+		describe('GET /create-new-case/:applicationId/zoom-level', () => {
+
+			it('should render the page with None checked if the api does not return resumed data', async () => {
+				const response = await request.get(baseUrl('2'));
+				const element = parseHtml(response.text);
+
+				expect(element.innerHTML).toMatchSnapshot();
+				expect(element.innerHTML).toContain('value="none"\n' +
+					'                    checked');
+			});
+
+			it('should render the page with the checked option from the resumed data', async () => {
+				const response = await request.get(baseUrl('1'));
+				const element = parseHtml(response.text);
+
+				expect(element.innerHTML).toMatchSnapshot();
+				expect(element.innerHTML).toContain('value="city"\n' +
+					'                    checked');
+			});
+		});
+
+		describe('POST /create-new-case/:applicationId/zoom-level', () => {
+
+			describe('Api validation', () => {
+				it('should show validation errors if API returns error', async () => {
+					const failResponse = {errors: {'geographicalInformation.mapZoomLevelName': 'Error msg'}}
+
+					nock('http://test/').patch('/applications/1').reply(500, failResponse);
+
+					const response = await request.post(baseUrl('1')).send({
+						'geographicalInformation.mapZoomLevelName': 'something wrong',
+					});
+					const element = parseHtml(response.text);
+
+					expect(element.innerHTML).toMatchSnapshot();
+					expect(element.innerHTML).toContain('geographicalInformation.mapZoomLevelName-error');
+				});
+
+				it('should go to zoom level page if api returns 200', async () => {
+
+					nock('http://test/').patch('/applications/1').reply(200, successResponse);
+
+					const response = await request.post(baseUrl('1')).send({
+						'geographicalInformation.regionNames': ['london'],
+					});
+
+					expect(response?.headers?.location).toContain('1/team-email');
+				});
+			})
+		})
 	});
 
 	describe('Team email', () => {
@@ -764,7 +814,65 @@ describe('applications create', () => {
 				});
 			});
 		});
-	});
-	*/
+
+		describe('POST /create-new-case/:applicationId/team-email', () => {
+			describe('Web-validation', () => {
+				it('should not render validation error if nothing missing', async () => {
+					const response = await request.post(baseUrl('1')).send({
+						caseEmail: 'valid@ema.il',
+					});
+
+					const element = parseHtml(response.text);
+
+					expect(element.innerHTML).toMatchSnapshot();
+					expect(element.innerHTML).not.toContain('caseEmail-error');
+				});
+
+				it('should render validation error if email is missing', async () => {
+					const response = await request.post(baseUrl('1'));
+					const element = parseHtml(response.text);
+
+					expect(element.innerHTML).toMatchSnapshot();
+					expect(element.innerHTML).toContain('caseEmail-error');
+				});
+
+				it('should render validation error if email is not valid', async () => {
+					const response = await request.post(baseUrl('1')).send({caseEmail: 'notvalidemail'});
+					const element = parseHtml(response.text);
+
+					expect(element.innerHTML).toMatchSnapshot();
+					expect(element.innerHTML).toContain('caseEmail-error');
+				});
+			});
+
+			describe('Api validation', () => {
+				it('should show validation errors if API returns error', async () => {
+					const failResponse = {errors: {caseEmail: 'Error msg'}}
+
+					nock('http://test/').patch('/applications/1').reply(500, failResponse);
+
+					const response = await request.post(baseUrl('1')).send({
+						caseEmail: 'valid@ema.il',
+					});
+					const element = parseHtml(response.text);
+
+					expect(element.innerHTML).toMatchSnapshot();
+					expect(element.innerHTML).toContain('caseEmail-error');
+				});
+
+				it('should go to applciant info types page if api returns 200', async () => {
+
+					nock('http://test/').patch('/applications/1').reply(200, successResponse);
+
+					const response = await request.post(baseUrl('1')).send({
+						caseEmail: 'valid@ema.il',
+					});
+
+					expect(response?.headers?.location).toContain('/applications-service/create-new-case/1/applicant-information-types');
+				});
+			})
+		})
+	})
+
 })
 ;
