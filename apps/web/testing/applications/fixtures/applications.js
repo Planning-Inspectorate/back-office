@@ -58,5 +58,4 @@ export const fixtureApplications = [
 		sector: fixtureSectors[0],
 		status: 'draft'
 	}
-
 ];
