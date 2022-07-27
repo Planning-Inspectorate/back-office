@@ -10,6 +10,8 @@ import { zoomLevelRoutes } from './zoom-level/zoom-level.routes.js';
 
 const router = createRouter();
 
+router.use('/', applicationRoutes);
+
 router.use('/case-officer', caseOfficerRoutes);
 
 router.use('/case-admin-officer', caseAdminOfficerRoutes);
@@ -23,7 +25,5 @@ router.use('/sector', sectorRoutes);
 router.use('/search', caseSearchRoutes);
 
 router.use('/zoom-level', zoomLevelRoutes);
-
-router.use('/', applicationRoutes);
 
 export { router as applicationsRoutes };
