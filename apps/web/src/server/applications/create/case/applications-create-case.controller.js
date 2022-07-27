@@ -11,6 +11,7 @@ import {
 	getSessionCaseSectorName,
 	setSessionCaseSectorName
 } from './applications-create-case-session.service.js';
+import pino from '../../../lib/logger.js';
 
 /** @typedef {import('../../applications.router').DomainParams} DomainParams */
 /** @typedef {import('../../applications.types').Sector} Sector */
@@ -62,12 +63,11 @@ export async function updateApplicationsCreateCaseName(
 	const {errors: apiErrors, id: updatedApplicationId} = await (applicationId
 			? () => updateApplicationDraft(applicationId, payload)
 			: () => createApplicationDraft(payload, session)
-	);
-	const errors = validationErrors || apiErrors;
+	)();
 
-	if (errors || !updatedApplicationId) {
+	if ((validationErrors || apiErrors) || !updatedApplicationId) {
 		return response.render('applications/create/case/_name', {
-			errors,
+			errors: validationErrors || apiErrors,
 			values: {description, title}
 		});
 	}
@@ -85,10 +85,10 @@ export async function viewApplicationsCreateCaseSector({session}, response) {
 	const {applicationId} = response.locals;
 	const allSectors = await getAllSectors();
 
-	const {sector: selectedSector} = await getApplicationDraft(applicationId);
+	const {sector} = await getApplicationDraft(applicationId);
 
 	// todo: o il contrario?
-	const selectedSectorName = selectedSector?.name || getSessionCaseSectorName(session);
+	const selectedSectorName = sector?.name || getSessionCaseSectorName(session);
 
 	response.render('applications/create/case/_sector', {
 		sectors: allSectors,
@@ -113,7 +113,7 @@ export async function updateApplicationsCreateCaseSector({errors, session, body}
 		return response.render('applications/create/case/_sector', {
 			errors, sectors:
 			allSectors,
-			values: {sectorName: sectorName || ''}
+			values: {sectorName}
 		});
 	}
 
@@ -132,8 +132,9 @@ export async function viewApplicationsCreateCaseSubSector({session}, response) {
 	const selectedSectorName = getSessionCaseSectorName(session) || sector?.name;
 
 	if (!selectedSectorName) {
-		return response.redirect(`/applications-service/create-new-case/${applicationId}/sector`);
 		pino.warn('Trying to change subsector with no sector value registered. Redirect to sector')
+
+		return response.redirect(`/applications-service/create-new-case/${applicationId}/sector`);
 	}
 
 	const subSectors = await getSubSectorsBySectorName(selectedSectorName);
@@ -207,12 +208,12 @@ export async function updateApplicationsCreateCaseGeographicalInformation(
 	response
 ) {
 	const {applicationId} = response.locals;
+	const payload = bodyToPayload(body);
 	const values = {
 		'geographicalInformation.locationDescription': body['geographicalInformation.locationDescription'],
 		'geographicalInformation.gridReference.easting': body['geographicalInformation.gridReference.easting'],
 		'geographicalInformation.gridReference.northing': body['geographicalInformation.gridReference.northing'],
 	};
-	const payload = bodyToPayload(body);
 
 	const {errors: apiErrors, id: updatedApplicationId} = await updateApplicationDraft(applicationId, payload);
 
@@ -285,10 +286,8 @@ export async function updateApplicationsCreateCaseRegions({errors: validationErr
  */
 export async function viewApplicationsCreateCaseZoomLevel(req, response) {
 	const {applicationId} = response.locals;
-	const {geographicalInformation} = await applicationsCreateService.getApplicationDraft(
-		applicationId
-	);
-	const allZoomLevels = await applicationsCreateCaseService.getAllZoomLevels();
+	const {geographicalInformation} = await getApplicationDraft(applicationId);
+	const allZoomLevels = await getAllZoomLevels();
 	const values = {
 		'geographicalInformation.mapZoomLevelName': geographicalInformation?.mapZoomLevel?.name || 'none'
 	}
@@ -314,7 +313,10 @@ export async function updateApplicationsCreateCaseZoomLevel({body}, response) {
 	const {errors, id: updatedApplicationId} = await updateApplicationDraft(applicationId, payload);
 
 	if (errors || !updatedApplicationId) {
-		return response.render('applications/create/case/_zoom-level', {zoomLevels: allZoomLevels, values});
+		return response.render('applications/create/case/_zoom-level', {
+			errors,
+			zoomLevels: allZoomLevels,
+			values});
 	}
 
 	response.redirect(`/applications-service/create-new-case/${applicationId}/team-email`);
@@ -328,11 +330,10 @@ export async function updateApplicationsCreateCaseZoomLevel({body}, response) {
  */
 export async function viewApplicationsCreateCaseTeamEmail(req, response) {
 	const {applicationId} = response.locals;
-	const {teamEmail: applicationTeamEmail} = await applicationsCreateService.getApplicationDraft(
-		applicationId
-	);
+	const {caseEmail} = await getApplicationDraft(applicationId);
+	const values = {caseEmail}
 
-	return response.render('applications/create/case/_team-email', {applicationTeamEmail});
+	return response.render('applications/create/case/_team-email', {values});
 }
 
 /**
@@ -341,53 +342,21 @@ export async function viewApplicationsCreateCaseTeamEmail(req, response) {
  * @type {import('@pins/express').RenderHandler<ApplicationsCreateCaseTeamEmailProps,
  * {}, ApplicationsCreateCaseTeamEmailBody, {}, DomainParams>}
  */
-export async function updateApplicationsCreateCaseTeamEmail({body, errors}, response) {
+export async function updateApplicationsCreateCaseTeamEmail({body, errors: validationErrors}, response) {
 	const {applicationId} = response.locals;
-	const {applicationTeamEmail} = body;
-	const templateData = {applicationTeamEmail};
-	const updateTeamEmail = () =>
-		applicationsCreateService.updateApplicationDraft(applicationId, templateData);
+	const values = {caseEmail: body.caseEmail}
+	const payload = bodyToPayload(body);
 
-	if (errors) {
+	const {errors: apiErrors, id: updatedApplicationId} = await updateApplicationDraft(applicationId, payload);
+
+	if ((validationErrors || apiErrors) || !updatedApplicationId) {
 		return response.render('applications/create/case/_team-email', {
-			errors,
-			...templateData
+			errors: (validationErrors || apiErrors),
+			values
 		});
 	}
-
-	await getUpdatedApplicationIdOrFail(
-		updateTeamEmail,
-		{
-			templateName: 'team-email',
-			templateData
-		},
-		response
-	);
 
 	response.redirect(
 		`/applications-service/create-new-case/${applicationId}/applicant-information-types`
 	);
-}
-
-/**
- * Handles the update of the draft application and possible server errors
- *
- * @param {UpdateOrCreateCallback} updateOrCreateDraftApplication
- * @param {{templateName: string, templateData: object}} errorsViewParameters
- * @param {any} response
- * @returns {Promise<number>}
- */
-async function getUpdatedApplicationIdOrFail(
-	updateOrCreateDraftApplication,
-	errorsViewParameters,
-	response
-) {
-	const {templateName} = errorsViewParameters;
-	const {id: updatedApplicationId} = await updateOrCreateDraftApplication();
-
-	if (!updatedApplicationId) {
-		return response.render(`applications/create/case/_${templateName}`);
-	}
-
-	return updatedApplicationId;
 }
