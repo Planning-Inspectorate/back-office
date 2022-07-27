@@ -1,6 +1,6 @@
-import {get, patch, post} from '../../lib/request.js';
-import {setSessionApplicantId} from './applicant/applications-create-applicant-session.service.js';
-import {destroySessionCaseSectorName} from "./case/applications-create-case-session.service.js";
+import { get, patch, post } from '../../lib/request.js';
+import { setSessionApplicantId } from './applicant/applications-create-applicant-session.service.js';
+import { destroySessionCaseSectorName } from './case/applications-create-case-session.service.js';
 
 /** @typedef {import('./applicant/applications-create-applicant-session.service.js').SessionWithApplicationsCreateApplicantId} SessionWithApplicationsCreateApplicantId */
 /** @typedef {import('../applications.types').Application} Application */
@@ -11,7 +11,7 @@ import {destroySessionCaseSectorName} from "./case/applications-create-case-sess
  * Update application draft and return id and applicant ids if success or errors if fail
  *
  * @param {string} applicationId
- * @param {any} payload
+ * @param {Record<string, *>} payload
  * @returns {Promise<{id?: number, applicantIds?: Array<number>, errors?: ValidationErrors}>}
  */
 export const updateApplicationDraft = async (applicationId, payload) => {
@@ -23,7 +23,7 @@ export const updateApplicationDraft = async (applicationId, payload) => {
 		});
 	} catch (/** @type {*} */ error) {
 		response = new Promise((resolve) => {
-			resolve({errors: error?.response?.body?.errors || {}});
+			resolve({ errors: error?.response?.body?.errors || {} });
 		});
 	}
 
@@ -33,12 +33,12 @@ export const updateApplicationDraft = async (applicationId, payload) => {
 /**
  * Create new draft application and return id and applicant ids
  *
- * @param {any} payload
+ * @param {Record<string, *>} payload
  * @param {SessionWithApplicationsCreateApplicantId} session
  * @returns {Promise<{id?: number, applicantIds?: Array<number>, errors?: ValidationErrors}>}
  */
 export const createApplicationDraft = async (payload, session) => {
-	const payloadWithEmptyApplicant = {...payload, applicant: {organisationName: ''}};
+	const payloadWithEmptyApplicant = { ...payload, applicant: { organisationName: '' } };
 
 	let response;
 
@@ -50,12 +50,11 @@ export const createApplicationDraft = async (payload, session) => {
 		destroySessionCaseSectorName(session);
 	} catch (/** @type {*} */ error) {
 		response = new Promise((resolve) => {
-			resolve({errors: error?.response?.body?.errors || {}});
+			resolve({ errors: error?.response?.body?.errors || {} });
 		});
 	}
 
 	return response;
-
 };
 
 /**
