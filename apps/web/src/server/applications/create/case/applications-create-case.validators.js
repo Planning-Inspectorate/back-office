@@ -67,7 +67,7 @@ export const validateApplicationsCreateCaseNorthing = createValidator(
 );
 
 export const validateApplicationsTeamEmail = createValidator(
-	body('applicationTeamEmail')
+	body('caseEmail')
 		.trim()
 		.isLength({ min: 1 })
 		.withMessage('Enter the case team email address')
