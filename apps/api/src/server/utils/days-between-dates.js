@@ -1,15 +1,15 @@
 /**
  *
- * @param {any} date
- * @returns {any}
+ * @param {Date} date
+ * @returns {Date}
  */
 const getDateWithoutTime = (date) => {
 	return new Date(date.getFullYear(), date.getMonth(), date.getDate());
 };
 
 /**
- * @param {any} firstDate
- * @param {any} secondDate
+ * @param {Date} firstDate
+ * @param {Date} secondDate
  * @returns {number}
  */
 const daysBetweenDates = (firstDate, secondDate) => {
@@ -17,7 +17,9 @@ const daysBetweenDates = (firstDate, secondDate) => {
 	const secondDateWithoutTime = getDateWithoutTime(secondDate);
 	const oneDay = 24 * 60 * 60 * 1000;
 
-	return Math.round(Math.abs((firstDateWithoutTime - secondDateWithoutTime) / oneDay));
+	return Math.round(
+		Math.abs((firstDateWithoutTime.valueOf() - secondDateWithoutTime.valueOf()) / oneDay)
+	);
 };
 
 export default daysBetweenDates;
