@@ -15,16 +15,14 @@ export const getAll = () => {
 						include: {
 							sector: true
 						}
-					},
-					zoomLevel: true
+					}
 				}
 			},
 			CaseStatus: {
 				where: {
 					valid: true
 				}
-			},
-			gridReference: true,
+			}
 		}
 	});
 };

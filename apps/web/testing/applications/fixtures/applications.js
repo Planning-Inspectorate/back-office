@@ -1,15 +1,19 @@
-import {createApplication} from '../factory/application.js';
-import {fixtureRegions, fixtureSectors, fixtureSubSectors, fixtureZoomLevels} from './options-item.js';
+import { createApplication } from '../factory/application.js';
+import {
+	fixtureRegions,
+	fixtureSectors,
+	fixtureSubSectors,
+	fixtureZoomLevels
+} from './options-item.js';
 
 /** @typedef {import('../../../src/server/applications/applications.types').Application} Application */
-
 
 /** @type {Application[]} */
 export const fixtureApplications = [
 	{
 		...createApplication({
 			id: 1,
-			modifiedDate: new Date(2022, 0, 1).getTime() / 1000,
+			modifiedDate: `${new Date(2022, 0, 1).getTime() / 1000}`,
 			reference: 'APPLICATION/01',
 			sector: fixtureSectors[0],
 			subSector: fixtureSubSectors[0]
@@ -27,14 +31,14 @@ export const fixtureApplications = [
 	},
 	createApplication({
 		id: 2,
-		modifiedDate: new Date(2022, 0, 31).getTime() / 1000,
+		modifiedDate: `${new Date(2022, 0, 31).getTime() / 1000}`,
 		reference: 'APPLICATION/02',
 		sector: fixtureSectors[0],
 		subSector: fixtureSectors[1]
 	}),
 	createApplication({
 		id: 3,
-		modifiedDate: new Date(2022, 0, 1).getTime() / 1000,
+		modifiedDate: `${new Date(2022, 0, 1).getTime() / 1000}`,
 		reference: 'APPLICATION/03',
 		sector: fixtureSectors[2],
 		subSector: fixtureSectors[3]
@@ -54,5 +58,4 @@ export const fixtureApplications = [
 		sector: fixtureSectors[0],
 		status: 'draft'
 	}
-
 ];
