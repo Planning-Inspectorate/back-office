@@ -1,28 +1,46 @@
 /**
  * Create the application with name and description
  *
- * @param {Record<*, string>} body
+ * @param {Record<string, string|undefined>} body
  * @returns {object}
  */
-export const bodyToValues = (body) => {
-	/** @type {Record<*, string>} */ const values = {};
+/*export const bodyToValues = (body) => {
+	/!** @type {Record<*, string>} *!/ const values = {};
 	const bodyKeys = Object.keys(body);
 
 	for (const key of bodyKeys) {
-		values[key] = body[key];
+		values[key] = body[key] ;
 	}
 
 	return values;
-};
+};*/
 
 /**
  * Create the application with name and description
+ * transform an object shaped like:
+ * {
+ *   'A1.B1.C1': 'v1',
+ *   'A1.B1.C2': 'v2',
+ *   'A1.B2.C3': 'v3'
+ * }
+ * in an object shaped like
+ * {
+ * 	A1: {
+ * 		B1: {
+ * 			C1: 'v1'
+ * 			C2: 'v2'
+ * 		},
+ * 		B2: {
+ * 		 C3: 'v3'
+ * 		}
+ * 	}
+ * }
  *
- * @param {Record<*, string>} body
- * @returns {Record<string, string>}
+ * @param {Record<string, string|undefined>} body
+ * @returns {Record<string, *>}
  */
 export const bodyToPayload = (body) => {
-	/** @type {Record<*, *>} */ let payload = {};
+	/** @type {Record<string, *>} */ let payload = {};
 
 	const fieldsKeys = Object.keys(body);
 
@@ -31,20 +49,21 @@ export const bodyToPayload = (body) => {
 		const fieldDepth = keys.length;
 
 		switch (fieldDepth) {
-			case 2:
-				payload = { ...payload };
-				payload[keys[0]] = { ...payload[keys[0]] };
-				payload[keys[0]][keys[1]] = body[fieldKey];
-				break;
 			case 3:
-				payload = { ...payload };
-				payload[keys[0]] = { ...payload[keys[0]] };
-				payload[keys[0]][keys[1]] = { ...payload[keys[0]][keys[1]] };
-				payload[keys[0]][keys[1]][keys[2]] = body[fieldKey];
+				payload = {...payload};
+				payload[keys[0]] = {...payload[keys[0]]};
+				payload[keys[0]][keys[1]] = {...payload[keys[0]][keys[1]]};
+				payload[keys[0]][keys[1]][keys[2]] = body[fieldKey] || '';
+				break;
+			case 2:
+				payload = {...payload};
+				payload[keys[0]] = {...payload[keys[0]]};
+				payload[keys[0]][keys[1]] = body[fieldKey] || '';
 				break;
 			default:
-				payload = { ...payload };
-				payload[keys[0]] = body[fieldKey];
+				// case 1
+				payload = {...payload};
+				payload[keys[0]] = body[fieldKey] || '';
 
 				break;
 		}

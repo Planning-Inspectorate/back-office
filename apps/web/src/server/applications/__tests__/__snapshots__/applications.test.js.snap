@@ -69,7 +69,7 @@ exports[`applications GET /case-admin-officer should render the open application
             </div>
             <div id=\\"-content-1\\" class=\\"govuk-accordion__section-content\\" aria-labelledby=\\"-heading-1\\">
                 <details class=\\"govuk-details\\" data-module=\\"govuk-details\\">
-                    <summary class=\\"govuk-details__summary\\"><span class=\\"govuk-details__summary-text\\"> WAT Water EN</span>
+                    <summary class=\\"govuk-details__summary\\"><span class=\\"govuk-details__summary-text\\"> HIG Highways EN</span>
                     </summary>
                     <div class=\\"govuk-details__text\\">
                         <table class=\\"govuk-table pins-table--fixed pins-table--bordered\\">
@@ -88,6 +88,23 @@ exports[`applications GET /case-admin-officer should render the open application
                                     <td class=\\"govuk-table__cell govuk-!-width-one-quarter text-align--right\\"><strong class=\\"govuk-tag govuk-tag--\\">Status 1000</strong>
                                     </td>
                                 </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </details>
+                <details class=\\"govuk-details\\" data-module=\\"govuk-details\\">
+                    <summary class=\\"govuk-details__summary\\"><span class=\\"govuk-details__summary-text\\"> WAT Water EN</span>
+                    </summary>
+                    <div class=\\"govuk-details__text\\">
+                        <table class=\\"govuk-table pins-table--fixed pins-table--bordered\\">
+                            <thead class=\\"govuk-table__head\\">
+                                <tr class=\\"govuk-table__row\\">
+                                    <th scope=\\"col\\" class=\\"govuk-table__header\\">Application reference</th>
+                                    <th scope=\\"col\\" class=\\"govuk-table__header pins-table__cell--s\\">Modified</th>
+                                    <th scope=\\"col\\" class=\\"govuk-table__header text-align--right\\">Stage</th>
+                                </tr>
+                            </thead>
+                            <tbody class=\\"govuk-table__body\\">
                                 <tr class=\\"govuk-table__row\\">
                                     <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case-admin-officer/applications/2\\"> APPLICATION/02</a>
                                     </td>
@@ -205,7 +222,7 @@ exports[`applications GET /case-officer should render the open applications belo
             </div>
             <div id=\\"-content-1\\" class=\\"govuk-accordion__section-content\\" aria-labelledby=\\"-heading-1\\">
                 <details class=\\"govuk-details\\" data-module=\\"govuk-details\\">
-                    <summary class=\\"govuk-details__summary\\"><span class=\\"govuk-details__summary-text\\"> WAT Water EN</span>
+                    <summary class=\\"govuk-details__summary\\"><span class=\\"govuk-details__summary-text\\"> HIG Highways EN</span>
                     </summary>
                     <div class=\\"govuk-details__text\\">
                         <table class=\\"govuk-table pins-table--fixed pins-table--bordered\\">
@@ -224,6 +241,23 @@ exports[`applications GET /case-officer should render the open applications belo
                                     <td class=\\"govuk-table__cell govuk-!-width-one-quarter text-align--right\\"><strong class=\\"govuk-tag govuk-tag--\\">Status 1000</strong>
                                     </td>
                                 </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </details>
+                <details class=\\"govuk-details\\" data-module=\\"govuk-details\\">
+                    <summary class=\\"govuk-details__summary\\"><span class=\\"govuk-details__summary-text\\"> WAT Water EN</span>
+                    </summary>
+                    <div class=\\"govuk-details__text\\">
+                        <table class=\\"govuk-table pins-table--fixed pins-table--bordered\\">
+                            <thead class=\\"govuk-table__head\\">
+                                <tr class=\\"govuk-table__row\\">
+                                    <th scope=\\"col\\" class=\\"govuk-table__header\\">Application reference</th>
+                                    <th scope=\\"col\\" class=\\"govuk-table__header pins-table__cell--s\\">Modified</th>
+                                    <th scope=\\"col\\" class=\\"govuk-table__header text-align--right\\">Stage</th>
+                                </tr>
+                            </thead>
+                            <tbody class=\\"govuk-table__body\\">
                                 <tr class=\\"govuk-table__row\\">
                                     <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case-officer/applications/2\\"> APPLICATION/02</a>
                                     </td>
@@ -329,7 +363,7 @@ exports[`applications GET /inspector should render the open applications belongi
             </div>
             <div id=\\"-content-1\\" class=\\"govuk-accordion__section-content\\" aria-labelledby=\\"-heading-1\\">
                 <details class=\\"govuk-details\\" data-module=\\"govuk-details\\">
-                    <summary class=\\"govuk-details__summary\\"><span class=\\"govuk-details__summary-text\\"> WAT Water EN</span>
+                    <summary class=\\"govuk-details__summary\\"><span class=\\"govuk-details__summary-text\\"> HIG Highways EN</span>
                     </summary>
                     <div class=\\"govuk-details__text\\">
                         <table class=\\"govuk-table pins-table--fixed pins-table--bordered\\">
@@ -348,6 +382,23 @@ exports[`applications GET /inspector should render the open applications belongi
                                     <td class=\\"govuk-table__cell govuk-!-width-one-quarter text-align--right\\"><strong class=\\"govuk-tag govuk-tag--\\">Status 1000</strong>
                                     </td>
                                 </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </details>
+                <details class=\\"govuk-details\\" data-module=\\"govuk-details\\">
+                    <summary class=\\"govuk-details__summary\\"><span class=\\"govuk-details__summary-text\\"> WAT Water EN</span>
+                    </summary>
+                    <div class=\\"govuk-details__text\\">
+                        <table class=\\"govuk-table pins-table--fixed pins-table--bordered\\">
+                            <thead class=\\"govuk-table__head\\">
+                                <tr class=\\"govuk-table__row\\">
+                                    <th scope=\\"col\\" class=\\"govuk-table__header\\">Application reference</th>
+                                    <th scope=\\"col\\" class=\\"govuk-table__header pins-table__cell--s\\">Modified</th>
+                                    <th scope=\\"col\\" class=\\"govuk-table__header text-align--right\\">Stage</th>
+                                </tr>
+                            </thead>
+                            <tbody class=\\"govuk-table__body\\">
                                 <tr class=\\"govuk-table__row\\">
                                     <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link\\" href=\\"/applications-service/inspector/applications/2\\"> APPLICATION/02</a>
                                     </td>
