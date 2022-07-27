@@ -16,6 +16,7 @@ import {
 	getSessionCaseSectorName,
 	setSessionCaseSectorName
 } from './applications-create-case-session.service.js';
+import pino from '../../../lib/logger.js';
 
 /** @typedef {import('../../applications.router').DomainParams} DomainParams */
 /** @typedef {import('../../applications.types').Sector} Sector */
@@ -136,6 +137,8 @@ export async function viewApplicationsCreateCaseSubSector({ session }, response)
 
 		return response.redirect(`/applications-service/create-new-case/${applicationId}/sector`);
 		pino.warn('Trying to change subsector with no sector value registered. Redirect to sector')
+
+		return response.redirect(`/applications-service/create-new-case/${applicationId}/sector`);
 	}
 
 	const subSectors = await getSubSectorsBySectorName(selectedSectorName);
