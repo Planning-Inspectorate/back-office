@@ -1,8 +1,12 @@
-import {createApplication} from '../factory/application.js';
-import {fixtureRegions, fixtureSectors, fixtureSubSectors, fixtureZoomLevels} from './options-item.js';
+import { createApplication } from '../factory/application.js';
+import {
+	fixtureRegions,
+	fixtureSectors,
+	fixtureSubSectors,
+	fixtureZoomLevels
+} from './options-item.js';
 
 /** @typedef {import('../../../src/server/applications/applications.types').Application} Application */
-
 
 /** @type {Application[]} */
 export const fixtureApplications = [
