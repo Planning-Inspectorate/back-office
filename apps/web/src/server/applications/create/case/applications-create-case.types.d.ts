@@ -1,78 +1,68 @@
-import { Region, Sector, ZoomLevel } from '../../applications.types';
+import {Sector, SelectItem, ZoomLevel} from '../../applications.types';
 import { ValidationErrors } from '@pins/express';
 
-export type ApplicationsCreateCaseNameProps = {
-	applicationName?: string;
-	applicationDescription?: string;
-	errors?: ValidationErrors;
-};
 
-export type ApplicationsCreateCaseNameBody = {
-	applicationName: string;
-	applicationDescription: string;
-};
+export interface ApplicationCreateProps<BodyValues> {
+	errors?: ValidationErrors,
+	values: BodyValues
+}
 
-export type ApplicationsCreateCaseSectorProps = {
+// Name and description
+export interface ApplicationsCreateCaseNameBody extends Record<string, string|undefined> {
+	title: string,
+	description: string
+}
+export interface ApplicationsCreateCaseNameProps extends ApplicationCreateProps<ApplicationsCreateCaseNameBody>{}
+
+
+// Sector
+export interface ApplicationsCreateCaseSectorBody extends Record<string, string|undefined>{
+	sectorName?: string;
+}
+export interface ApplicationsCreateCaseSectorProps extends ApplicationCreateProps<ApplicationsCreateCaseSectorBody>{
 	sectors: Sector[];
-	selectedValue?: string;
-	errors?: ValidationErrors;
-};
+}
 
-export type ApplicationsCreateCaseSectorBody = {
-	selectedSectorName: string;
-};
 
-export type ApplicationsCreateCaseSubSectorProps = {
+// Sub sector
+export interface ApplicationsCreateCaseSubSectorBody extends Record<string, string|undefined> {
+	subSectorName?: string;
+}
+export interface ApplicationsCreateCaseSubSectorProps extends ApplicationCreateProps<ApplicationsCreateCaseSubSectorBody>{
 	subSectors: Sector[];
-	selectedValue?: string;
-	errors?: ValidationErrors;
-};
+}
 
-export type ApplicationsCreateCaseSubSectorBody = {
-	selectedSubSectorName: string;
-};
 
-export type ApplicationsCreateCaseGeographicalInformationProps = {
-	applicationLocation?: string;
-	applicationEasting?: string;
-	applicationNorthing?: string;
-	errors?: ValidationErrors;
-};
+//Geo Info
+export interface ApplicationsCreateCaseGeographicalInformationBody extends Record<string, string|undefined> {
+	'geographicalInformation.locationDescription'?: string,
+	'geographicalInformation.gridReference.easting'?: string,
+	'geographicalInformation.gridReference.northing'?: string
+}
+export interface ApplicationsCreateCaseGeographicalInformationProps extends ApplicationCreateProps<ApplicationsCreateCaseGeographicalInformationBody>{}
 
-export type ApplicationsCreateCaseGeographicalInformationBody = {
-	applicationLocation: string;
-	applicationEasting: string;
-	applicationNorthing: string;
-};
 
-export type ApplicationsCreateCaseRegionsProps = {
-	regions: Region[];
-	errors?: ValidationErrors;
-};
+// Regions
+export interface ApplicationsCreateCaseRegionsBody extends Record<string, string|undefined> {
+	'geographicalInformation.regionNames'?: string[];
+}
+export interface ApplicationsCreateCaseRegionsProps {
+	regions: SelectItem[],
+	errors?: ValidationErrors,
+}
 
-export type ApplicationsCreateCaseRegionsBody = {
-	selectedRegionsNames: string[];
-};
-export type ApplicationsCreateCaseZoomLevelProps = {
+
+// Zoom Level
+export interface ApplicationsCreateCaseZoomLevelBody extends Record<string, string|undefined> {
+	'geographicalInformation.mapZoomLevelName'?: string;
+}
+export interface ApplicationsCreateCaseZoomLevelProps extends ApplicationCreateProps<ApplicationsCreateCaseZoomLevelBody> {
 	zoomLevels: ZoomLevel[];
-	errors?: ValidationErrors;
-};
+}
 
-export type ApplicationsCreateCaseZoomLevelBody = {
-	selectedZoomLevelName: string;
-};
 
-export type ApplicationsCreateCaseTeamEmailProps = {
-	applicationTeamEmail?: string;
-	errors?: ValidationErrors;
-};
-
-export type ApplicationsCreateCaseTeamEmailBody = {
-	applicationTeamEmail: string;
-};
-
-export type UpdateOrCreateCallback = () => Promise<{
-	errors?: ValidationErrors;
-	id?: number;
-	applicantIds?: Array<number>;
-}>;
+// Team email
+export interface ApplicationsCreateCaseTeamEmailBody extends Record<string, string|undefined>{
+	caseEmail?: string;
+}
+export interface ApplicationsCreateCaseTeamEmailProps extends ApplicationCreateProps<ApplicationsCreateCaseTeamEmailBody>{}

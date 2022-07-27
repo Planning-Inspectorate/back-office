@@ -4,6 +4,7 @@ import {destroySessionCaseSectorName} from "./case/applications-create-case-sess
 
 /** @typedef {import('./applicant/applications-create-applicant-session.service.js').SessionWithApplicationsCreateApplicantId} SessionWithApplicationsCreateApplicantId */
 /** @typedef {import('../applications.types').Application} Application */
+/** @typedef {import('@pins/express').ValidationErrors} ValidationErrors */
 
 /**
  *
@@ -11,7 +12,7 @@ import {destroySessionCaseSectorName} from "./case/applications-create-case-sess
  *
  * @param {string} applicationId
  * @param {any} payload
- * @returns {Promise<{id: number, applicantIds: Array<number>, errors?: any}>}
+ * @returns {Promise<{id?: number, applicantIds?: Array<number>, errors?: ValidationErrors}>}
  */
 export const updateApplicationDraft = async (applicationId, payload) => {
 	let response;
@@ -34,7 +35,7 @@ export const updateApplicationDraft = async (applicationId, payload) => {
  *
  * @param {any} payload
  * @param {SessionWithApplicationsCreateApplicantId} session
- * @returns {Promise<{id: number, applicantIds: Array<number>}>}
+ * @returns {Promise<{id?: number, applicantIds?: Array<number>, errors?: ValidationErrors}>}
  */
 export const createApplicationDraft = async (payload, session) => {
 	const payloadWithEmptyApplicant = {...payload, applicant: {organisationName: ''}};
@@ -65,17 +66,6 @@ export const createApplicationDraft = async (payload, session) => {
  */
 export const getApplicationDraft = async (id = '') => {
 	const allApps = /** @type {Array<Application>} */ await get(`applications/case-officer`);
-	let myApp = allApps.find((/** @type {Application} */ app) => `${app.id}` === `${id}`);
 
-	console.log('ges', myApp);
-	/*myApp = {...myApp, geographicalInformation: {
-			locationDescription: 'London',
-			gridReference: {
-				easting: 123456,
-				northing: 987654
-			}
-		}}*/
-
-
-	return myApp;
+	return allApps.find((/** @type {Application} */ app) => `${app.id}` === `${id}`);
 };
