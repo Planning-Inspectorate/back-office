@@ -29,16 +29,27 @@ export function defaultErrorHandler(error, _request, response, next) {
 }
 
 /**
+ *
+ * @param {string} url
+ * @returns {string}
+ */
+const getCaseTypeFromUrl = (url) => {
+	return url.split('/')[1].slice(0, -1);
+};
+
+/**
  * Handle any requests thrown by failed state transitions within the state machine.
  *
  * @type {import('express').ErrorRequestHandler}
  */
-export const stateMachineErrorHandler = (error, _, response, next) => {
+export const stateMachineErrorHandler = (error, request, response, next) => {
 	if (error instanceof TransitionStateError) {
+		const caseType = getCaseTypeFromUrl(request.originalUrl);
+		const errorMessage = {};
+
+		errorMessage[caseType] = error.message;
 		response.status(409).send({
-			errors: {
-				appeal: error.message
-			}
+			errors: errorMessage
 		});
 	} else {
 		next(error);
