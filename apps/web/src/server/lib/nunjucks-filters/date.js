@@ -7,7 +7,7 @@ import enGB from 'date-fns/locale/en-GB/index.js';
  * @returns {string}
  */
 export function displayDate(date, { condensed = false } = {}) {
-	return format(new Date(date), condensed ? 'd MMM yyyy' : 'd MMMM yyyy', { locale: enGB });
+	return format(new Date(date ), condensed ? 'd MMM yyyy' : 'd MMMM yyyy', { locale: enGB });
 }
 
 /**
