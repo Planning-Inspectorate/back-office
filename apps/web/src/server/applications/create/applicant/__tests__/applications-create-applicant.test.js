@@ -45,7 +45,7 @@ describe('applications create applicant', () => {
 		it('should show not render the page if there is no session data', async () => {
 			const response = await request.get(baseUrl);
 
-			expect(response?.res?.headers?.location).toMatch(
+			expect(response?.headers?.location).toMatch(
 				'/applications-service/create-new-case/123/key-dates'
 			);
 		});
