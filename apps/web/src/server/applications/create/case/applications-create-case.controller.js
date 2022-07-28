@@ -88,10 +88,7 @@ export async function viewApplicationsCreateCaseSector({ session }, response) {
 	const allSectors = await getAllSectors();
 
 	const { sector } = await getApplicationDraft(applicationId);
-
-	// the api always returns the correct sector
-	// so when db value and session value are different, db has the priority
-	const selectedSectorName = sector?.name || getSessionCaseSectorName(session);
+	const selectedSectorName = getSessionCaseSectorName(session) || sector?.name;
 
 	response.render('applications/create/case/_sector', {
 		sectors: allSectors,
@@ -132,8 +129,6 @@ export async function updateApplicationsCreateCaseSector({ errors, session, body
 export async function viewApplicationsCreateCaseSubSector({ session }, response) {
 	const { applicationId } = response.locals;
 	const { sector, subSector } = await getApplicationDraft(applicationId);
-	// at this step the db value of sector could be not updated yet
-	// so when db value and session value are different, session has the priority
 	const selectedSectorName = getSessionCaseSectorName(session) || sector?.name;
 
 	if (!selectedSectorName) {
