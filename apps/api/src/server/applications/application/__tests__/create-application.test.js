@@ -200,93 +200,6 @@ test('creates new application when all possible details provided', async (t) => 
 	});
 });
 
-test('creates new application when all possible details provided', async (t) => {
-	const response = await request.post('/applications').send({
-		title: 'title',
-		description: 'description',
-		subSectorName: 'some_sub_sector',
-		applicant: {
-			firstName: 'first',
-			middleName: 'middle',
-			lastName: 'last',
-			organisationName: 'org',
-			email: 'test@test.com',
-			website: 'www.google.com',
-			phoneNumber: '02036579785',
-			address: {
-				addressLine1: 'address line 1',
-				addressLine2: 'address line 2',
-				town: 'town',
-				county: 'county',
-				postcode: 'N1 9BE'
-			}
-		},
-		geographicalInformation: {
-			mapZoomLevelName: 'some-known-map-zoom-level',
-			locationDescription: 'location description',
-			regionNames: ['region1', 'region2'],
-			gridReference: {
-				easting: '123456',
-				northing: '987654'
-			}
-		},
-		keyDates: {
-			firstNotifiedDate: 123,
-			submissionDate: 1_689_262_804_000
-		}
-	});
-
-	t.is(response.status, 200);
-	t.deepEqual(response.body, { id: 1, applicantIds: [4] });
-	sinon.assert.calledWith(createStub, {
-		data: {
-			title: 'title',
-			description: 'description',
-			gridReference: { create: { easting: 123_456, northing: 987_654 } },
-			ApplicationDetails: {
-				create: {
-					caseEmail: 'caseEmail@pins.com',
-					zoomLevel: { connect: { name: 'some-known-map-zoom-level' } },
-					locationDescription: 'location description',
-					firstNotifiedAt: new Date(123),
-					submissionAt: new Date(1_689_262_804_000),
-					subSector: { connect: { name: 'some_sub_sector' } },
-					regions: {
-						create: [
-							{ region: { connect: { name: 'region1' } } },
-							{ region: { connect: { name: 'region2' } } }
-						]
-					}
-				}
-			},
-			serviceCustomer: {
-				create: {
-					organisationName: 'org',
-					firstName: 'first',
-					middleName: 'middle',
-					lastName: 'last',
-					email: 'test@test.com',
-					website: 'www.google.com',
-					phoneNumber: '02036579785',
-					address: {
-						create: {
-							addressLine1: 'address line 1',
-							addressLine2: 'address line 2',
-							town: 'town',
-							county: 'county',
-							postcode: 'N1 9BE'
-						}
-					}
-				}
-			},
-			CaseStatus: { create: { status: 'draft' } }
-		},
-		include: {
-			serviceCustomer: true
-		}
-	});
-});
-
 test(`creates new application with application first and last name,
         address line, map zoom level`, async (t) => {
 	const response = await request.post('/applications').send({
@@ -326,7 +239,7 @@ test(`creates new application with application first and last name,
 				create: {
 					status: 'draft'
 				}
-			},
+			}
 		},
 		include: {
 			serviceCustomer: true
