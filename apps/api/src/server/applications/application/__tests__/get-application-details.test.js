@@ -147,13 +147,13 @@ test('throws an error if we send an unknown case id', async (t) => {
 	});
 });
 
-test.only('throws an error if the id provided is a string/characters', async (t) => {
+test('throws an error if the id provided is a string/characters', async (t) => {
 	const response = await request.get('/applications/hi');
 
 	t.is(response.status, 400);
 	t.deepEqual(response.body, {
 		errors: {
-			id: 'Must be valid numerical case'
+			id: 'Application id must be a number'
 		}
 	});
 });
