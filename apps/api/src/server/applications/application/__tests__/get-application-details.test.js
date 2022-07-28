@@ -9,8 +9,13 @@ const request = supertest(app);
 
 const application = applicationFactoryForTests({
 	id: 1,
-	status: 'draft',
-	modifiedAt: new Date()
+	title: 'EN010003 - NI Case 3 Name',
+	description: 'EN010003 - NI Case 3 Name Description',
+	inclusions: {
+		serviceCustomer: true,
+		ApplicationDetails: true,
+		CaseStatus: true
+	}
 });
 
 const findUniqueStub = sinon.stub().returns(application);
@@ -21,7 +26,7 @@ test.before('set up mocks', () => {
 	});
 });
 
-test('gets all data for a case when everything is available', async (t) => {
+test.only('gets all data for a case when everything is available', async (t) => {
 	const response = await request.get('/applications/1');
 
 	t.is(response.status, 200);
@@ -109,7 +114,7 @@ test('throws an error if we send an unknown case id', async (t) => {
 
 	t.is(response.status, 400);
 	t.deepEqual(response.body, {
-		id: 1
+		id: 3
 	});
 });
 
