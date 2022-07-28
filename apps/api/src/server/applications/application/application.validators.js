@@ -41,7 +41,7 @@ const validateExistingRegions = async (value) => {
 export const validateExistingApplication = async (caseId) => {
 	const application = await caseRepository.getById(caseId);
 
-	if (application === null) {
+	if (application === null || typeof application === 'undefined') {
 		throw new Error('Unknown Application');
 	}
 };
@@ -51,9 +51,7 @@ export const validateExistingApplication = async (caseId) => {
  * @param {number} caseId
  */
 export const validateExistingApplicationIdType = async (caseId) => {
-	const application = await caseRepository.getById(caseId);
-
-	if (typeof application === 'string') {
+	if (typeof caseId === 'string') {
 		throw new TypeError('Application id must be a number');
 	}
 };
@@ -154,6 +152,8 @@ export const validateCreateUpdateApplication = composeMiddleware(
 
 export const validateApplicationId = composeMiddleware(
 	param('id')
+		.isInt()
+		.withMessage('Application id must be a number')
 		.toInt()
 		.custom(validateExistingApplication)
 		.withMessage('Must be existing application'),

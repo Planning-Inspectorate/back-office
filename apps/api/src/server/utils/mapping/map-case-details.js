@@ -25,19 +25,19 @@ import { mapZoomLevel } from './map-zoom-level.js';
  */
 export const mapCaseDetails = (caseDetails) => {
 	const caseDetailsFormatted = pick(caseDetails, ['id', 'reference', 'title', 'description']);
-	const sectorFormatted = mapSector(caseDetails.ApplicationDetails.subSector.sector);
-	const subSectorFormatted = mapSector(caseDetails.ApplicationDetails.subSector);
-	const zoomLevelFormatted = mapZoomLevel(caseDetails.ApplicationDetails.zoomLevel);
-	const regionsFormatted = caseDetails.ApplicationDetails.regions.map((region) =>
+	const sectorFormatted = mapSector(caseDetails?.ApplicationDetails?.subSector?.sector);
+	const subSectorFormatted = mapSector(caseDetails?.ApplicationDetails?.subSector);
+	const zoomLevelFormatted = mapZoomLevel(caseDetails?.ApplicationDetails?.zoomLevel);
+	const regionsFormatted = caseDetails?.ApplicationDetails?.regions?.map((region) =>
 		mapRegion(region.region)
 	);
-	const applicantsFormatted = caseDetails.serviceCustomer.map((serviceCustomer) =>
+	const applicantsFormatted = caseDetails?.serviceCustomer?.map((serviceCustomer) =>
 		mapServiceCustomer(serviceCustomer)
 	);
-	const gridReferenceFormatted = mapGridReference(caseDetails.ApplicationDetails.gridReference);
+	const gridReferenceFormatted = mapGridReference(caseDetails?.ApplicationDetails?.gridReference);
 
 	const keyDates = mapValuesUsingObject(
-		mapKeysUsingObject(pick(caseDetails.ApplicationDetails, ['firstNotifiedAt', 'submissionAt']), {
+		mapKeysUsingObject(pick(caseDetails?.ApplicationDetails, ['firstNotifiedAt', 'submissionAt']), {
 			firstNotifiedAt: 'firstNotifiedDate',
 			submissionAt: 'submissionDate'
 		}),
@@ -50,13 +50,13 @@ export const mapCaseDetails = (caseDetails) => {
 	return {
 		...caseDetailsFormatted,
 		status: mapCaseStatus(caseDetails.CaseStatus),
-		caseEmail: caseDetails.ApplicationDetails.caseEmail,
+		caseEmail: caseDetails?.ApplicationDetails?.caseEmail,
 		sector: sectorFormatted,
 		subSector: subSectorFormatted,
 		applicant: applicantsFormatted,
 		geographicalInformation: {
 			mapZoomLevel: zoomLevelFormatted,
-			locationDescription: caseDetails.ApplicationDetails.locationDescription,
+			locationDescription: caseDetails?.ApplicationDetails?.locationDescription,
 			gridReference: gridReferenceFormatted,
 			regions: regionsFormatted
 		},

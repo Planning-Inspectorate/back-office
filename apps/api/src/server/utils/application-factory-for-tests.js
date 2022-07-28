@@ -7,12 +7,6 @@ const generateApplicationReference = () => {
 	return `EN01${number}`;
 };
 
-/**
- *
- * @param {{id: number, reference: string, status: string, title: string, description: string, createdAt: Date, modifiedAt: Date, publishedAt?: Date}} arg
- * @returns {import('@pins/api').Schema.Case[]}
- */
-
 const serviceCustomer = {
 	firstName: 'Service Customer First Name',
 	middleName: 'Service Customer Middle Name',
@@ -87,6 +81,11 @@ const caseStatus = {
 	status: 'draft'
 };
 
+/**
+ *
+ * @param {{id: number, title: string, description: string, dates: {createdAt: Date, modifiedAt: Date, publishedAt: Date}, inclusions: {serviceCustomer?: boolean, ApplicationDetails?: boolean, CaseStatus?: boolean}}} arg
+ * @returns {import('@pins/api').Schema.Case}
+ */
 export const applicationFactoryForTests = ({
 	id,
 	title,
