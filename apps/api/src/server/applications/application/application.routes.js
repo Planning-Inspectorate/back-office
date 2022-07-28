@@ -9,7 +9,8 @@ import {
 	validateApplicantId,
 	validateApplicationId,
 	validateApplicationIdType,
-	validateCreateUpdateApplication} from './application.validators.js';
+	validateCreateUpdateApplication
+} from './application.validators.js';
 
 const router = new express.Router();
 
@@ -73,7 +74,6 @@ router.get(
     */
 	validateApplicationIdType,
 	validateApplicationId,
-
 	asyncHandler(getApplicationDetails)
 );
 
