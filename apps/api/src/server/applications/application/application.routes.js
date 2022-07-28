@@ -5,7 +5,8 @@ import {
 	validateApplicantId,
 	validateApplicationId,
 	validateApplicationIdType,
-	validateCreateUpdateApplication} from './application.validators.js';
+	validateCreateUpdateApplication
+} from './application.validators.js';
 
 const router = createRouter();
 
@@ -96,7 +97,6 @@ router.get(
     */
 	validateApplicationIdType,
 	validateApplicationId,
-
 	asyncHandler(getApplicationDetails)
 );
 
