@@ -1,8 +1,7 @@
 import { get, patch, post } from '../../lib/request.js';
-import { setSessionApplicantId } from './applicant/applications-create-applicant-session.service.js';
 import { destroySessionCaseSectorName } from './case/applications-create-case-session.service.js';
 
-/** @typedef {import('./applicant/applications-create-applicant-session.service.js').SessionWithApplicationsCreateApplicantId} SessionWithApplicationsCreateApplicantId */
+/** @typedef {import('./case/applications-create-case-session.service.js').SessionWithCaseSectorName} SessionWithCaseSectorName */
 /** @typedef {import('../applications.types').Application} Application */
 /** @typedef {import('@pins/express').ValidationErrors} ValidationErrors */
 
@@ -34,7 +33,7 @@ export const updateApplicationDraft = async (applicationId, payload) => {
  * Create new draft application and return id and applicant ids
  *
  * @param {Record<string, *>} payload
- * @param {SessionWithApplicationsCreateApplicantId} session
+ * @param {SessionWithCaseSectorName} session
  * @returns {Promise<{id?: number, applicantIds?: Array<number>, errors?: ValidationErrors}>}
  */
 export const createApplicationDraft = async (payload, session) => {
@@ -46,7 +45,6 @@ export const createApplicationDraft = async (payload, session) => {
 		response = await post('applications', {
 			json: payloadWithEmptyApplicant
 		});
-		setSessionApplicantId(session, response.applicantIds[0]);
 		destroySessionCaseSectorName(session);
 	} catch (/** @type {*} */ error) {
 		response = new Promise((resolve) => {
