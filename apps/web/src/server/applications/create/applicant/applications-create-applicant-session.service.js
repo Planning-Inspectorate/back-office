@@ -1,6 +1,5 @@
 /**
  * @typedef {import('express-session').Session & { infoTypes?: string[] }} SessionWithApplicationsCreateApplicantInfoTypes
- * @typedef {import('express-session').Session & { applicantId?: string }} SessionWithApplicationsCreateApplicantId
  */
 
 /**
@@ -24,35 +23,4 @@ export const getSessionApplicantInfoTypes = (session) => {
 	return session.infoTypes ?? [];
 };
 
-/**
- * Save in the session the applicant id.
- *
- * @param {SessionWithApplicationsCreateApplicantId} session
- * @param {string} applicantId
- * @returns {void}
- */
-export const setSessionApplicantId = (session, applicantId) => {
-	session.applicantId = applicantId;
-};
-
-/**
- * Retrieve the applicant id;
- *
- * @param {SessionWithApplicationsCreateApplicantId} session
- * @returns {string|undefined}
- */
-export const getSessionApplicantId = (session) => {
-	return session.applicantId;
-};
-
-/**
- * Clear the applicant id from the session.
- *
- * @param {SessionWithApplicationsCreateApplicantId} session
- * @returns {void}
- */
-export const destroySessionApplicantId = (session) => {
-	if (session.applicantId) {
-		delete session.applicantId;
-	}
-};
+// TODO: destroy session.infotype when get to summary page
