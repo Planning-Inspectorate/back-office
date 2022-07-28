@@ -25,5 +25,8 @@ export const getSectors = async (request, response) => {
 		? await sectorRepository.getAll()
 		: await subSectorRepository.getBySector({ name: request.query.sectorName?.toString() });
 
+	// sort ascending order of subsector abbreviation, BC, EN, ... WA, WS, WW
+	sectors.sort((a, b) => (a.abbreviation > b.abbreviation ? 1 : -1));
+
 	response.send(mapSectors(sectors));
 };

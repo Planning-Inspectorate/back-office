@@ -21,5 +21,13 @@ const mapApplicationsWithSectorAndSubSector = (applications) => {
 export const getApplications = async (request, response) => {
 	const applications = await caseRepository.getAll();
 
+	// sort ascending order of subsector abbreviation, BC, EN, ... WA, WS, WW
+	applications.sort((a, b) =>
+		((a.ApplicationDetails?.subSector.abbreviation || '') >
+		(b.ApplicationDetails?.subSector.abbreviation || '')
+			? 1
+			: -1)
+	);
+
 	response.send(mapApplicationsWithSectorAndSubSector(applications));
 };
