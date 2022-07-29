@@ -26,6 +26,16 @@ export interface Application {
 	createdDate?: string;
 	sector?: Sector;
 	subSector?: Sector;
+	caseEmail?: string;
+	geographicalInformation?: {
+		mapZoomLevel: ZoomLevel,
+		regions: Region[],
+		locationDescription: string;
+		gridReference: {
+			northing: string;
+			easting: string;
+		};
+	};
 }
 
 export interface OptionsItem {

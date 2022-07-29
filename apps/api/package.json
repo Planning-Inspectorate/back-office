@@ -11,7 +11,7 @@
   },
   "type": "module",
   "scripts": {
-    "test": "NODE_ENV=test cross-env ava --no-worker-threads",
+    "test": "npm run prisma-generate && NODE_ENV=test cross-env ava --no-worker-threads",
     "coverage": "c8 --reporter=html --reporter=text ava",
     "dev": "npm run prisma-generate && nodemon --experimental-json-modules -e js ./src/server.js",
     "start": "node ./src/server.js",

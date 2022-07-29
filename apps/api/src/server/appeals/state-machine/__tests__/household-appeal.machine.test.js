@@ -1,8 +1,8 @@
 import test from 'ava';
 import sinon from 'sinon';
+import { transitionState } from '../../../utils/transition-state.js';
 import inspectorActionsService from '../inspector.actions.js';
 import lpaQuestionnaireActionsService from '../lpa-questionnaire-actions.service.js';
-import { transitionState } from '../transition-state.js';
 
 const lpaQuestionnaireStub = sinon.stub();
 const inspectorSendBookingStub = sinon.stub();
@@ -33,7 +33,7 @@ function applyAction(t, { initialState, action, expectedState, context, hasChang
 	inspectorSendBookingStub.resetHistory();
 
 	const nextState = transitionState({
-		appealType: 'household',
+		caseType: 'household',
 		context,
 		status: initialState,
 		machineAction: action

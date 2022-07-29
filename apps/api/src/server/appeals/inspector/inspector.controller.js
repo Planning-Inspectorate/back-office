@@ -1,6 +1,6 @@
 import appealRepository from '../../repositories/appeal.repository.js';
 import { formatAppeal } from '../../utils/appeal-formatter.js';
-import { appealStates } from '../state-machine/transition-state.js';
+import { appealStates } from '../../utils/transition-state.js';
 import { appealFormatter } from './appeal-formatter.js';
 import * as inspector from './inspector.service.js';
 
@@ -9,6 +9,9 @@ import * as inspector from './inspector.service.js';
 /** @typedef {import('@pins/api').Schema.InspectorDecisionOutcomeType} InspectorDecisionOutcomeType */
 /** @typedef {import('@pins/api').Schema.SiteVisitType} SiteVisitType */
 
+/**
+ * @type {import('express').RequestHandler}
+ */
 const getAppeals = async (request, response) => {
 	const userId = request.get('userId');
 	const appeals = await appealRepository.getByStatusesAndUserId(
@@ -24,9 +27,12 @@ const getAppeals = async (request, response) => {
 		appealFormatter.formatAppealForAllAppeals(appeal)
 	);
 
-	return response.send(appealsForResponse);
+	response.send(appealsForResponse);
 };
 
+/**
+ * @type {import('express').RequestHandler}
+ */
 const getAppealDetails = async (request, response) => {
 	const appeal = await appealRepository.getById(request.params.appealId, {
 		appellant: true,
@@ -42,6 +48,9 @@ const getAppealDetails = async (request, response) => {
 	response.send(formattedAppeal);
 };
 
+/**
+ * @type {import('express').RequestHandler}
+ */
 const assignAppeals = async (request, response) => {
 	const userId = request.get('userId');
 	const resultantAppeals = await inspector.assignAppealsById(userId, request.body);
@@ -49,9 +58,12 @@ const assignAppeals = async (request, response) => {
 	response.send(resultantAppeals);
 };
 
+/**
+ * @type {import('express').RequestHandler}
+ */
 const getMoreAppeals = async (request, response) => {
 	const moreAppeals = await appealRepository.getByStatuses({
-		statuses:[appealStates.available_for_inspector_pickup],
+		statuses: [appealStates.available_for_inspector_pickup],
 		includeAddress: true,
 		includeAppellant: false,
 		includeLPAQuestionnaire: true,
@@ -61,7 +73,7 @@ const getMoreAppeals = async (request, response) => {
 		appealFormatter.formatAppealForMoreAppeals(appeal)
 	);
 
-	return response.send(moreAppealsFormatted);
+	response.send(moreAppealsFormatted);
 };
 
 /**

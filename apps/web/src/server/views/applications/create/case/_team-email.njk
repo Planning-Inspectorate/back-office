@@ -8,11 +8,11 @@
 
 {% block stepForm %}
 	{{ govukInput({
-		id: "applicationTeamEmail",
-		name: "applicationTeamEmail",
+		id: "caseEmail",
+		name: "caseEmail",
 		classes: "govuk-!-width-one-third",
-		value: applicationTeamEmail,
-		errorMessage: errors.applicationTeamEmail | errorMessage,
+		value: values.caseEmail,
+		errorMessage: errors.caseEmail | errorMessage,
 		hint: {
 			text: "for example, NIEnquiries@planninginspectorate.gsi.gov.uk"
 		}

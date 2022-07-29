@@ -4,9 +4,14 @@ import { arrayOfStatusesContainsString } from '../../utils/array-of-statuses-con
 import formatDate from '../../utils/date-formatter.js';
 import { getAppealStatusCreatedAt } from '../../utils/get-appeal-status-created-at.js';
 import formatReviewQuestionnaire from '../../utils/review-questionnaire-formatter.js';
+import { appealStates } from '../../utils/transition-state.js';
 import { weeksReceivingDocuments } from '../state-machine/full-planning-appeal.machine.js';
-import { appealStates } from '../state-machine/transition-state.js';
 
+/**
+ *
+ * @param {Date} date
+ * @returns {Date}
+ */
 const add2Weeks = (date) => {
 	const newDate = new Date(date.valueOf());
 
@@ -15,8 +20,8 @@ const add2Weeks = (date) => {
 };
 
 /**
- * @param {object} appealStatuses
- * @returns {string} reformatted appeal status
+ * @param {import('@pins/api').Schema.AppealStatus[]} appealStatuses
+ * @returns {string}
  */
 function mapAppealStatus(appealStatuses) {
 	if (arrayOfStatusesContainsString(appealStatuses, [appealStates.awaiting_lpa_questionnaire])) return 'awaiting';
@@ -27,8 +32,8 @@ function mapAppealStatus(appealStatuses) {
 }
 
 /**
- * @param {object} appealStatusesParallel
- * @returns {string} reformatted appeal status
+ * @param {import('@pins/api').Schema.AppealStatus[]} appealStatusesParallel
+ * @returns {string}
  */
 function mapAppealParallelStatuses(appealStatusesParallel) {
 	if (
@@ -44,8 +49,8 @@ function mapAppealParallelStatuses(appealStatusesParallel) {
 
 const appealFormatter = {
 	/**
-	 * @param {{ appealStatus: object; id: any; reference: any; address: object; startedAt: any; }} appeal
-	 * @returns {object}
+	 * @param {import('@pins/api').Schema.Appeal} appeal
+	 * @returns {{AppealId: number, AppealReference: string, QuestionnaireStatus: string, AppealSite: {AddressLine1?: string, AddressLine2?: string, Town?: string, County?: string, PostCode?: string | null}, QuestionnaireDueDate: string}}}
 	 */
 	formatAppealForAllAppeals(appeal) {
 		const appealStatus = mapAppealStatus(appeal.appealStatus);
@@ -59,7 +64,7 @@ const appealFormatter = {
 		};
 	},
 	/**
-	 * @param {{ appealStatus: object; id: any; reference: any; address: object; startedAt: any; }} appeal
+	 * @param {import('@pins/api').Schema.Appeal} appeal
 	 * @returns {{AppealId: number; AppealReference: string; StatementsAndFinalCommentsStatus: string; AppealSite: object; QuestionnaireDueDate: any}}
 	 */
 	formatAppealForParallelStates(appeal) {
@@ -74,7 +79,7 @@ const appealFormatter = {
 		};
 	},
 	/**
-	 * @param {{ id: any; reference: any; appealStatus: any; }} appeal
+	 * @param {import('@pins/api').Schema.Appeal} appeal
 	 *  @returns {object}
 	 */
 	formatAppealForAfterStatementUpload(appeal) {
@@ -91,7 +96,7 @@ const appealFormatter = {
 		};
 	},
 	/**
-	 * @param {{ id: any; reference: any; appealStatus: any; }} appeal
+	 * @param {import('@pins/api').Schema.Appeal} appeal
 	 *  @returns {object}
 	 */
 	formatAppealAfterFinalCommentUpload(appeal) {
@@ -108,8 +113,8 @@ const appealFormatter = {
 		};
 	},
 	/**
-	 * @param {{ id: any; reference: any; localPlanningDepartment: any; planningApplicationReference: any; address: object; lpaQuestionnaire: { listedBuildingDescription: any; }; reviewQuestionnaire: import("../utils/review-questionnaire-formatter.js").ReviewQuestionnare[]; }} appeal
-	 * @returns {object}
+	 * @param {import('@pins/api').Schema.Appeal} appeal
+	 * @returns {import('@pins/appeals').CaseOfficer.Appeal}
 	 */
 	formatAppealForAppealDetails(appeal) {
 		return {

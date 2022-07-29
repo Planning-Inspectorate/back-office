@@ -8,7 +8,12 @@ import { generateValidationStates, validationActions } from './validation-states
 const validationStates = generateValidationStates('awaiting_lpa_questionnaire');
 const lpaQuestionnaireStates = generateLpaQuestionnaireStates();
 
-const createHouseholpAppealMachine = (context) => {
+/**
+ *
+ * @param {object} context
+ * @returns {import('xstate').StateMachine<any, any, any>}
+ */
+export const createHouseholdAppealMachine = (context) => {
 	return createMachine(
 		{
 			id: 'household_appeal',
@@ -30,10 +35,8 @@ const createHouseholpAppealMachine = (context) => {
 	);
 };
 
-const householdStates = {
+export const householdStates = {
 	...mapObjectKeysToStrings(validationStates),
 	...mapObjectKeysToStrings(lpaQuestionnaireStates),
 	...mapObjectKeysToStrings(inspectorStates)
 };
-
-export { createHouseholpAppealMachine, householdStates };

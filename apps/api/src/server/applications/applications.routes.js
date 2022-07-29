@@ -1,13 +1,16 @@
-import express from 'express';
+import { Router as createRouter } from 'express';
+import { applicationRoutes } from './application/application.routes.js';
 import { caseAdminOfficerRoutes } from './case-admin-officer/case-admin-officer.routes.js';
 import { caseOfficerRoutes } from './case-officer/case-officer.routes.js';
 import { inspectorRoutes } from './inspector/inspector.routes.js';
 import { regionRoutes } from './region/region.routes.js';
 import { caseSearchRoutes } from './search/case-search.routes.js';
 import { sectorRoutes } from './sector/sector.routes.js';
-import { zoomLevelRoutes } from './zoom/zoom.routes.js';
+import { zoomLevelRoutes } from './zoom-level/zoom-level.routes.js';
 
-const router = new express.Router();
+const router = createRouter();
+
+router.use('/', applicationRoutes);
 
 router.use('/case-officer', caseOfficerRoutes);
 

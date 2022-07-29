@@ -17,10 +17,17 @@ export const fixtureSectors = [
 	createOptionsItem({ name: 'waste_water' })
 ];
 
+export const fixtureSubSectors = [
+	createOptionsItem({ name: 'highways' }),
+	createOptionsItem({ name: 'airports' }),
+	createOptionsItem({ name: 'railways' }),
+];
+
 export const fixtureZoomLevels = [
 	createOptionsItem({ name: 'city' }),
 	createOptionsItem({ name: 'county' }),
 	createOptionsItem({ name: 'junction' }),
 	createOptionsItem({ name: 'country' }),
-	createOptionsItem({ name: 'region' })
+	createOptionsItem({ name: 'region' }),
+	createOptionsItem({ name: 'none' })
 ];

@@ -8,21 +8,33 @@ export {
 	ReviewQuestionnaire,
 	Region,
 	Sector,
-	SubSector
+	SubSector,
+	GridReference,
+	ZoomLevel,
+	BatchPayload,
+	GridReference,
+	CaseStatus,
+	RegionsOnApplicationDetails
 } from '@prisma/client';
 
 export interface Case extends schema.Case {
 	CaseStatus?: CaseStatus;
 	ApplicationDetails?: ApplicationDetails;
+	serviceCustomer?: ServiceCustomer[];
 }
 
 export interface ApplicationDetails extends schema.ApplicationDetails {
 	subSector: SubSector;
-	region?: Region;
+	regions?: Region[];
 }
 
 export interface SubSector extends schema.SubSector {
 	sector?: schema.Sector;
+}
+
+export interface ServiceCustomer extends schema.ServiceCustomer {
+	address?: schema.Address;
+	case?: schema.Case;
 }
 
 export interface Appeal extends schema.Appeal {

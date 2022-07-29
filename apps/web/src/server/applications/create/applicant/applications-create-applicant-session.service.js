@@ -22,3 +22,5 @@ export const setSessionApplicantInfoTypes = (session, infoTypes) => {
 export const getSessionApplicantInfoTypes = (session) => {
 	return session.infoTypes ?? [];
 };
+
+// TODO: destroy session.infotype when get to summary page

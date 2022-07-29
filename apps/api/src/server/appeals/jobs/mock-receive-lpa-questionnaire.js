@@ -1,7 +1,7 @@
 import appealRepository from '../../repositories/appeal.repository.js';
 import { arrayOfStatusesContainsString } from '../../utils/array-of-statuses-contains-string.js';
 import { breakUpCompoundStatus } from '../../utils/break-up-compound-status.js';
-import { transitionState } from '../state-machine/transition-state.js';
+import { transitionState } from '../../utils/transition-state.js';
 
 /**
  * @returns {Array} array of appeals that are in 'awaiting_lpa_questionnaire' or 'overdue_lpa_questionnaire' states
@@ -28,7 +28,7 @@ async function markAppealsAsLPAReceived(appeals) {
 			? 'awaiting_lpa_questionnaire'
 			: 'overdue_lpa_questionnaire';
 		const nextState = transitionState({
-			appealType: appeal.appealType.type,
+			caseType: appeal.appealType.type,
 			context: { appealId: appeal.id },
 			status: appealStatus,
 			machineAction: 'RECEIVED'

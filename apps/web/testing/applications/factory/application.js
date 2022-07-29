@@ -12,7 +12,7 @@ import { createApplicationReference, createRandomDescription } from './util.js';
  */
 export function createApplication({
 	id = fake.createUniqueId(),
-	modifiedDate = sub(new Date(), { weeks: random(1, 6) }).toISOString(),
+	modifiedDate = `${sub(new Date(), { weeks: random(1, 6) }).getTime() / 1000}`,
 	reference = createApplicationReference(),
 	sector = createOptionsItem(),
 	subSector = createOptionsItem()

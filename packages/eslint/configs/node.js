@@ -16,6 +16,7 @@ module.exports = {
 					'@jest/globals',
 					'@pins/api',
 					'@pins/appeals',
+					'@pins/applications',
 					'@pins/express',
 					'@pins/platform',
 					'@pins/rollup',

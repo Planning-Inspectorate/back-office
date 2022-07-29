@@ -1,9 +1,9 @@
-import express from 'express';
+import { Router as createRouter } from 'express';
 import { asyncHandler } from '../../middleware/async-handler.js';
 import { getApplicationsByCriteria } from './case-search.controller.js';
 import { validateSearchCriteria } from './case-search.validators.js';
 
-const router = new express.Router();
+const router = createRouter();
 
 router.post(
 	'/',

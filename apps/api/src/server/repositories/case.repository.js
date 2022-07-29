@@ -1,4 +1,8 @@
+import { isEmpty, isString, map } from 'lodash-es';
 import { databaseConnector } from '../utils/database-connector.js';
+import { separateStatusesToSaveAndInvalidate } from './separate-statuses-to-save-and-invalidate.js';
+
+const DEFAULT_CASE_CREATE_STATUS = 'draft';
 
 /**
  * @returns {Promise<import('@pins/api').Schema.Case[]>}
@@ -120,4 +124,294 @@ export const getApplicationsCountBySearchCriteria = (query) => {
 			]
 		}
 	});
+};
+
+/**
+ * @param {{
+ *  caseDetails?: { title?: string | undefined, description?: string | undefined },
+ * 	gridReference?: { easting?: number | undefined, northing?: number | undefined },
+ *  application?: { locationDescription?: string | undefined, firstNotifiedAt?: Date | undefined, submissionAt?: Date | undefined, caseEmail?: string | undefined },
+ *  subSectorName?: string | undefined,
+ *  applicant?: { organisationName?: string | undefined, firstName?: string | undefined, middleName?: string | undefined, lastName?: string | undefined, email?: string | undefined, website?: string | undefined, phoneNumber?: string | undefined},
+ *  mapZoomLevelName?: string | undefined,
+ *  regionNames?: string[],
+ *  applicantAddress?: { addressLine1?: string | undefined, addressLine2?: string | undefined, town?: string | undefined, county?: string | undefined, postcode?: string | undefined}}} caseInfo
+ * @returns {Promise<import('@pins/api').Schema.Case>}
+ */
+export const createApplication = ({
+	caseDetails,
+	gridReference,
+	application,
+	mapZoomLevelName,
+	subSectorName,
+	regionNames,
+	applicant,
+	applicantAddress
+}) => {
+	const formattedRegionNames = map(regionNames, (/** @type {string} */ regionName) => {
+		return { region: { connect: { name: regionName } } };
+	});
+
+	return databaseConnector.case.create({
+		data: {
+			...caseDetails,
+			...(!isEmpty(gridReference) && { gridReference: { create: gridReference } }),
+			...((!isEmpty(application) || subSectorName || mapZoomLevelName || regionNames) && {
+				ApplicationDetails: {
+					create: {
+						...application,
+						...(subSectorName && { subSector: { connect: { name: subSectorName } } }),
+						...(mapZoomLevelName && { zoomLevel: { connect: { name: mapZoomLevelName } } }),
+						...(regionNames && { regions: { create: formattedRegionNames } })
+					}
+				}
+			}),
+			...((!isEmpty(applicant) || !isEmpty(applicantAddress)) && {
+				serviceCustomer: {
+					create: {
+						...applicant,
+						...(!isEmpty(applicantAddress) && { address: { create: applicantAddress } })
+					}
+				}
+			}),
+			CaseStatus: {
+				create: {
+					status: DEFAULT_CASE_CREATE_STATUS
+				}
+			}
+		},
+		include: {
+			serviceCustomer: true
+		}
+	});
+};
+
+/**
+ *
+ * @param {number} caseId
+ * @returns {Promise<import('@pins/api').Schema.RegionsOnApplicationDetails>}
+ */
+const removeRegions = (caseId) => {
+	return databaseConnector.regionsOnApplicationDetails.deleteMany({
+		where: {
+			applicationDetails: {
+				caseId
+			}
+		}
+	});
+};
+
+const updateApplicationSansRegionsRemoval = ({
+	caseId,
+	applicantId,
+	caseDetails,
+	gridReference,
+	application,
+	subSectorName,
+	regionNames,
+	mapZoomLevelName,
+	applicant,
+	applicantAddress
+}) => {
+	const formattedRegionNames = map(regionNames, (/** @type {string} */ regionName) => {
+		return { region: { connect: { name: regionName } } };
+	});
+
+	return databaseConnector.case.update({
+		where: { id: caseId },
+		data: {
+			modifiedAt: new Date(),
+			...caseDetails,
+			...(!isEmpty(gridReference) && {
+				gridReference: {
+					upsert: {
+						create: gridReference,
+						update: gridReference
+					}
+				}
+			}),
+			...((!isEmpty(application) ||
+				subSectorName ||
+				mapZoomLevelName ||
+				typeof regionNames !== 'undefined') && {
+				ApplicationDetails: {
+					upsert: {
+						create: {
+							...application,
+							...(subSectorName && { subSector: { connect: { name: subSectorName } } }),
+							...(mapZoomLevelName && { zoomLevel: { connect: { name: mapZoomLevelName } } }),
+							...(regionNames && { regions: { create: formattedRegionNames } })
+						},
+						update: {
+							...application,
+							...(subSectorName && { subSector: { connect: { name: subSectorName } } }),
+							...(mapZoomLevelName && { zoomLevel: { connect: { name: mapZoomLevelName } } }),
+							...(regionNames && { regions: { create: formattedRegionNames } })
+						}
+					}
+				}
+			}),
+			...((!isEmpty(applicant) || !isEmpty(applicantAddress)) &&
+				applicantId && {
+					serviceCustomer: {
+						update: {
+							data: {
+								...applicant,
+								...(!isEmpty(applicantAddress) && {
+									address: { upsert: { create: applicantAddress, update: applicantAddress } }
+								})
+							},
+							where: {
+								id: applicantId
+							}
+						}
+					}
+				}),
+			...((!isEmpty(applicant) || !isEmpty(applicantAddress)) &&
+				!applicantId && {
+					serviceCustomer: {
+						create: {
+							...applicant,
+							...(!isEmpty(applicantAddress) && {
+								address: { create: applicantAddress }
+							})
+						}
+					}
+				})
+		},
+		include: {
+			serviceCustomer: true
+		}
+	});
+};
+
+/**
+ * @param {{
+ *  caseId: number,
+ *  applicantId?: number,
+ *  caseDetails?: { title?: string | undefined, description?: string | undefined },
+ * 	gridReference?: { easting?: number | undefined, northing?: number | undefined },
+ *  application?: { locationDescription?: string | undefined, firstNotifiedAt?: Date | undefined, submissionAt?: Date | undefined, caseEmail?: string | undefined },
+ *  subSectorName?: string | undefined,
+ *  applicant?: { organisationName?: string | undefined, firstName?: string | undefined, middleName?: string | undefined, lastName?: string | undefined, email?: string | undefined, website?: string | undefined, phoneNumber?: string | undefined},
+ *  mapZoomLevelName?: string | undefined,
+ *  regionNames?: string[],
+ *  applicantAddress?: { addressLine1?: string | undefined, addressLine2?: string | undefined, town?: string | undefined, county?: string | undefined, postcode?: string | undefined}}} caseInfo
+ * @returns {Promise<import('@pins/api').Schema.BatchPayload>}
+ */
+export const updateApplication = ({
+	caseId,
+	applicantId,
+	caseDetails,
+	gridReference,
+	application,
+	subSectorName,
+	regionNames,
+	mapZoomLevelName,
+	applicant,
+	applicantAddress
+}) => {
+	const transactions = [];
+
+	if (typeof regionNames !== 'undefined') {
+		transactions.push(removeRegions(caseId));
+	}
+
+	transactions.push(
+		updateApplicationSansRegionsRemoval({
+			caseId,
+			applicantId,
+			caseDetails,
+			gridReference,
+			application,
+			subSectorName,
+			regionNames,
+			mapZoomLevelName,
+			applicant,
+			applicantAddress
+		})
+	);
+
+	return databaseConnector.$transaction(transactions);
+};
+
+/**
+ *
+ * @param {number} id
+ * @param {{subSector?: boolean, applicationDetails?: boolean, zoomLevel?: boolean, regions?: boolean, caseStatus?: boolean}} inclusions
+ * @returns {Promise<import('@pins/api').Schema.Case | null>}
+ */
+export const getById = (
+	id,
+	{
+		subSector = false,
+		applicationDetails = false,
+		zoomLevel = false,
+		regions = false,
+		caseStatus = false
+	} = {}
+) => {
+	return databaseConnector.case.findUnique({
+		where: { id },
+		...((applicationDetails || subSector || zoomLevel || regions || caseStatus) && {
+			include: {
+				...((applicationDetails || subSector || zoomLevel || regions) && {
+					ApplicationDetails: { include: { subSector, zoomLevel, regions } }
+				}),
+				...(caseStatus && { CaseStatus: { where: { valid: true } } })
+			}
+		})
+	});
+};
+
+/**
+ *
+ * @param {number[]} ids
+ * @returns {Promise<import('@pins/api').Schema.CaseStatus[]>}
+ */
+export const invalidateCaseStatuses = (ids) => {
+	return databaseConnector.caseStatus.updateMany({
+		where: { id: { in: ids } },
+		data: { valid: false }
+	});
+};
+
+/**
+ *
+ * @param {number} id
+ * @param {string} status
+ * @returns {Promise<import('@pins/api').Schema.CaseStatus[]> | Promise<import('@pins/api').Schema.CaseStatus>}
+ */
+export const createNewStatuses = (id, status) => {
+	return isString(status)
+		? databaseConnector.caseStatus.create({ data: { status, caseId: id } })
+		: databaseConnector.caseStatus.createMany({ data: status });
+};
+
+/**
+ *
+ * @param {number} id
+ * @param {string | object} status
+ * @param {object} data
+ * @param {object[]} currentStatuses
+ * @returns {any}
+ */
+export const updateApplicationStatusAndDataById = (id, status, data, currentStatuses) => {
+	const { caseStatesToInvalidate, caseStatesToCreate } = separateStatusesToSaveAndInvalidate(
+		status,
+		currentStatuses
+	);
+
+	const transactions = [
+		invalidateCaseStatuses(caseStatesToInvalidate),
+		createNewStatuses(id, caseStatesToCreate)
+	];
+
+	if (typeof data.regionNames !== 'undefined') {
+		transactions.push(removeRegions(id));
+	}
+
+	transactions.push(updateApplicationSansRegionsRemoval({ caseId: id, ...data }));
+
+	return databaseConnector.$transaction(transactions);
 };

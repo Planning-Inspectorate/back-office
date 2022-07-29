@@ -1,7 +1,7 @@
 import formatAddress from '../../utils/address-formatter.js';
 import { arrayOfStatusesContainsString } from '../../utils/array-of-statuses-contains-string.js';
 import formatDate from '../../utils/date-formatter.js';
-import { appealStates } from '../state-machine/transition-state.js';
+import { appealStates } from '../../utils/transition-state.js';
 
 const appealAwaitingValidationInfo = (appeal) => {
 	return arrayOfStatusesContainsString(appeal.appealStatus, [

@@ -658,12 +658,13 @@ export const zoomLevels = [
 ];
 
 export const caseStatusNames = [
-	{ name: 'Pre-application' },
-	{ name: 'Acceptance' },
-	{ name: 'Pre-examination' },
-	{ name: 'Examination' },
-	{ name: 'Recommendation' },
-	{ name: 'Decision' },
-	{ name: 'Post decision' },
-	{ name: 'Withdrawn' }
+	{ name: 'draft' },
+	{ name: 'pre_application' },
+	{ name: 'acceptance' },
+	{ name: 'pre_examination' },
+	{ name: 'examination' },
+	{ name: 'recommendation' },
+	{ name: 'decision' },
+	{ name: 'post_decision' },
+	{ name: 'withdrawn' }
 ];

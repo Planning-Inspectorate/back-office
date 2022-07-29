@@ -9,10 +9,10 @@
 
 {% block stepForm %}
 	{{ govukRadios({
-		name: "selectedSubSectorName",
-		idPrefix: "selectedSubSectorName",
-		errorMessage: errors.selectedSubSectorName | errorMessage,
-		items: subSectors | selectItems({valueKey: 'name', labelKey: 'displayNameEn', selectedValue: selectedValue})
+		name: "subSectorName",
+		idPrefix: "subSectorName",
+		errorMessage: errors.subSectorName | errorMessage,
+		items: subSectors | selectItems({valueKey: 'name', labelKey: 'displayNameEn', selectedValue: values.subSectorName})
 	}) }}
 {% endblock %}
 

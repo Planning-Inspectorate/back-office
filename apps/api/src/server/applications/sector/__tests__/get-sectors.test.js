@@ -57,7 +57,7 @@ findManySubSectorStub
 const findUniqueSectorStub = sinon.stub();
 
 findUniqueSectorStub.withArgs({ where: { name: sector.name } }).returns(sector);
-findUniqueSectorStub.withArgs({ where: { name: unknownSectorName } }).returns({});
+findUniqueSectorStub.withArgs({ where: { name: unknownSectorName } }).returns(null);
 
 test.before('set up stubbing', () => {
 	sinon.stub(databaseConnector, 'sector').get(() => {
@@ -103,7 +103,7 @@ test('fails to get any subsectors when an unknown sector name is provided', asyn
 		.get('/applications/sector')
 		.query({ sectorName: unknownSectorName });
 
-	t.is(response.status, 404);
+	t.is(response.status, 400);
 	t.deepEqual(response.body, {
 		errors: {
 			sectorName: 'Sector name not recognised'

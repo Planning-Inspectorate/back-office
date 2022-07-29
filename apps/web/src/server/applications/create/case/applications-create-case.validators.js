@@ -2,7 +2,7 @@ import { createValidator } from '@pins/express';
 import { body } from 'express-validator';
 
 export const validateApplicationsCreateCaseName = createValidator(
-	body('applicationName')
+	body('title')
 		.trim()
 		.isLength({ min: 1 })
 		.withMessage('Enter the name of the project')
@@ -11,7 +11,7 @@ export const validateApplicationsCreateCaseName = createValidator(
 );
 
 export const validateApplicationsCreateCaseDescription = createValidator(
-	body('applicationDescription')
+	body('description')
 		.trim()
 		.isLength({ min: 1 })
 		.withMessage('Enter the description of the project')
@@ -20,25 +20,25 @@ export const validateApplicationsCreateCaseDescription = createValidator(
 );
 
 export const validateApplicationsCreateCaseSector = createValidator(
-	body('selectedSectorName')
+	body('sectorName')
 		.trim()
 		.isLength({ min: 1 })
 		.withMessage('Choose the sector of the project')
 );
 
 export const validateApplicationsCreateCaseSubSector = createValidator(
-	body('selectedSubSectorName')
+	body('subSectorName')
 		.trim()
 		.isLength({ min: 1 })
 		.withMessage('Choose the subsector of the project')
 );
 
 export const validateApplicationsCreateCaseRegions = createValidator(
-	body('selectedRegionsNames').isArray({ min: 1 }).withMessage('Choose one or multiple regions')
+	body('geographicalInformation.regionNames').isArray({ min: 1 }).withMessage('Choose one or multiple regions')
 );
 
 export const validateApplicationsCreateCaseLocation = createValidator(
-	body('applicationLocation')
+	body('geographicalInformation.locationDescription')
 		.trim()
 		.isLength({ min: 1 })
 		.withMessage('Enter the Case location')
@@ -47,25 +47,27 @@ export const validateApplicationsCreateCaseLocation = createValidator(
 );
 
 export const validateApplicationsCreateCaseEasting = createValidator(
-	body('applicationEasting')
+	body('geographicalInformation.gridReference.easting')
 		.trim()
 		.isLength({ min: 1 })
 		.withMessage('Enter the Grid reference Easting')
+		.toInt()
 		.isLength({ min: 6, max: 6 })
 		.withMessage('Enter a valid Grid reference Easting')
 );
 
 export const validateApplicationsCreateCaseNorthing = createValidator(
-	body('applicationNorthing')
+	body('geographicalInformation.gridReference.northing')
 		.trim()
 		.isLength({ min: 1 })
 		.withMessage('Enter the Grid reference Northing')
+		.toInt()
 		.isLength({ min: 6, max: 6 })
 		.withMessage('Enter a valid Grid reference Northing')
 );
 
 export const validateApplicationsTeamEmail = createValidator(
-	body('applicationTeamEmail')
+	body('caseEmail')
 		.trim()
 		.isLength({ min: 1 })
 		.withMessage('Enter the case team email address')

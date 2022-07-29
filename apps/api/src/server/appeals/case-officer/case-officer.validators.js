@@ -5,7 +5,7 @@ import multer from 'multer';
 import { validationErrorHandler } from '../../middleware/error-handler.js';
 import { handleValidationError } from '../../middleware/handle-validation-error.js';
 import { validateAppealStatus } from '../../middleware/validate-appeal-status.js';
-import { appealStates } from '../state-machine/transition-state.js';
+import { appealStates } from '../../utils/transition-state.js';
 
 export const validateAppealBelongsToCaseOfficer = validateAppealStatus([
 	appealStates.received_lpa_questionnaire,

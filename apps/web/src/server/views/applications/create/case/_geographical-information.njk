@@ -14,11 +14,11 @@
 			text: "Case Location",
 			classes: 'font-weight--700'
 		},
-		id: "applicationLocation",
-		name: "applicationLocation",
+		id: "geographicalInformation.locationDescription",
+		name: "geographicalInformation.locationDescription",
 		classes: "govuk-!-width-three-quarters",
-		value: applicationLocation,
-		errorMessage: errors.applicationLocation | errorMessage,
+		value: values['geographicalInformation.locationDescription'],
+		errorMessage: errors['geographicalInformation.locationDescription'] | errorMessage,
 		hint: {
 			classes: "govuk-!-width-three-quarters",
 			text: "for example “approximately 8km off the coast of Kent, in areas surrounding Thanet Offshore Wind Farm"
@@ -26,30 +26,30 @@
 	}) }}
 
 	{{ govukInput({
-		name: "applicationEasting",
-		id: "applicationEasting",
+		name: "geographicalInformation.gridReference.easting",
+		id: "geographicalInformation.gridReference.easting",
 		label: {
 			text: "Grid reference Easting",
 			classes: 'font-weight--700'
 		},
-		errorMessage: errors.applicationEasting | errorMessage,
+		errorMessage: errors['geographicalInformation.gridReference.easting'] | errorMessage,
 		classes: "govuk-!-width-one-third",
-		value: applicationEasting,
+		value: values['geographicalInformation.gridReference.easting'],
 		hint: {
 			text: "for example, 345678"
 		}
 	}) }}
 
 	{{ govukInput({
-		name: "applicationNorthing",
-		id: "applicationNorthing",
+		name: "geographicalInformation.gridReference.northing",
+		id: "geographicalInformation.gridReference.northing",
 		label: {
 			text: "Grid reference Northing",
 			classes: 'font-weight--700'
 		},
-		errorMessage: errors.applicationNorthing | errorMessage,
+		errorMessage: errors['geographicalInformation.gridReference.northing'] | errorMessage,
 		classes: "govuk-!-width-one-third",
-		value: applicationNorthing,
+		value: values['geographicalInformation.gridReference.northing'],
 		hint: {
 			text: "for example, 345678"
 		}

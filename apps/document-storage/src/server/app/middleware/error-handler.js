@@ -13,5 +13,5 @@ export function errorHandler(error, _request, response, next) {
 
 	response.status(500);
 	pino.error(error);
-	return response.send({ error: 'Oops! Something went wrong' });
+	return response.send({ errors: 'Oops! Something went wrong' });
 }

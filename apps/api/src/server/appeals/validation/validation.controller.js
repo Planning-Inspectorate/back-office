@@ -1,5 +1,5 @@
 import appealRepository from '../../repositories/appeal.repository.js';
-import { appealStates } from '../state-machine/transition-state.js';
+import { appealStates } from '../../utils/transition-state.js';
 import appealFormatter from './appeal-formatter.js';
 import {
 	obtainLPAListService,
