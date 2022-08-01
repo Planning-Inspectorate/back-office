@@ -157,3 +157,13 @@ test('throws an error if the id provided is a string/characters', async (t) => {
 		}
 	});
 });
+
+test.only('only returns description field when description query made', async (t) => {
+	const response = await request.get('/applications/1?query={description:true}');
+
+	t.is(response.status, 200);
+	t.deepEqual(response.body, {
+		id: 1,
+		description: 'EN010003 - NI Case 3 Name Description'
+	});
+});
