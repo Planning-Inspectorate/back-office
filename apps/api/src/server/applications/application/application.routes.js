@@ -29,14 +29,39 @@ router.post(
 	asyncHandler(createApplication)
 );
 
-router.post('/:id/start', validateApplicationId, asyncHandler(startCase));
+router.post(
+	'/:id/start',
+	/*
+        #swagger.tags = ['Applications']
+        #swagger.path = '/applications/{id}/start'
+        #swagger.description = 'Moves application from Draft state to Pre-Application state'
+        #swagger.parameters['id'] = {
+            in: 'path',
+            description: 'Application ID',
+            required: true,
+            type: 'integer'
+        }
+        #swagger.responses[200] = {
+            description: 'Application Details',
+            schema: { id: 1, reference: 'AB01102030', status: 'Pre-Application'}
+        }
+    */
+	validateApplicationId,
+	asyncHandler(startCase)
+);
 
 router.patch(
 	'/:id',
 	/*
         #swagger.tags = ['Applications']
-        #swagger.path = '/applications/:id'
+        #swagger.path = '/applications/{id}'
         #swagger.description = 'Updates application'
+        #swagger.parameters['id'] = {
+            in: 'path',
+			description: 'Application ID',
+			required: true,
+			type: 'integer'
+		}
         #swagger.parameters['body'] = {
             in: 'body',
             description: 'Application Details',
