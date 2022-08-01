@@ -1,4 +1,4 @@
-import { filter, map } from 'lodash-es';
+import { filter, map, pick, pickBy } from 'lodash-es';
 import * as caseRepository from '../../repositories/case.repository.js';
 import { mapCaseDetails } from '../../utils/mapping/map-case-details.js';
 import { mapCaseStatusString } from '../../utils/mapping/map-case-status-string.js';
@@ -75,13 +75,15 @@ export const startCase = async ({ params }, response) => {
 export const getApplicationDetails = async (request, response) => {
 	const getCaseDetails = await caseRepository.getById(Number.parseInt(request.params.id, 10));
 
-	// const queryParams = JSON.parse(request.query.query);
-	// const caseDetailsFormatted = mapCaseDetails(getCaseDetails);
+	const queryParameters = JSON.parse(request.query.query);
+	const caseDetailsFormatted = mapCaseDetails(getCaseDetails);
 
-	// const findKey1 = pickBy(queryParams, function(value) {return value });
-	// const findKey2 = Object.keys(findKey1);
+	const findTruthyValues = pickBy(queryParameters, (value) => {
+		return value;
+	});
+	const findKey = Object.keys(findTruthyValues);
 
-	// const detailsExtracted = pick(caseDetailsFormatted, findKey2);
+	const detailsExtracted = pick(caseDetailsFormatted, findKey);
 
-	response.send(mapCaseDetails(getCaseDetails));
+	response.send(detailsExtracted);
 };
