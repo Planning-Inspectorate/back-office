@@ -59,7 +59,7 @@ const verifyAllApplicationDetailsPresent = async (id) => {
 
 /**
  * @param {number} id
- * @returns {Promise<{id: number, reference: string, status: import('xstate').StateValue}>}
+ * @returns {Promise<{id: number | undefined, reference: string | null | undefined, status: import('xstate').StateValue}>}
  */
 export const startApplication = async (id) => {
 	const caseDetails = await verifyAllApplicationDetailsPresent(id);
@@ -79,14 +79,18 @@ export const startApplication = async (id) => {
 		caseDetails.id
 	);
 
-	const reference = 'some new reference';
+	await caseRepository.updateApplicationStatusAndDataById(caseDetails.id, {
+		status: nextStatusForRepository,
+		data: {},
+		currentStatuses: caseDetails.CaseStatus,
+		setReference: true
+	});
 
-	await caseRepository.updateApplicationStatusAndDataById(
-		caseDetails.id,
-		nextStatusForRepository,
-		{ reference },
-		caseDetails.CaseStatus
-	);
+	const updatedCase = await caseRepository.getById(caseDetails.id);
 
-	return { id, reference, status: nextStatusInStateMachine.value };
+	return {
+		id: updatedCase?.id,
+		reference: updatedCase?.reference,
+		status: nextStatusInStateMachine.value
+	};
 };
