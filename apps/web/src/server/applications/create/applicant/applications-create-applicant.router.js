@@ -2,6 +2,7 @@ import { Router as createRouter } from 'express';
 import * as controller from './applications-create-applicant.controller.js';
 import * as guards from './applications-create-applicant.guards.js';
 import * as locals from './applications-create-applicant.locals.js';
+import * as validators from './applications-create-applicant.validators.js';
 
 const applicationsCreateApplicantRouter = createRouter();
 
@@ -30,7 +31,10 @@ applicationsCreateApplicantRouter
 applicationsCreateApplicantRouter
 	.route('/applicant-website')
 	.get(guards.assertStepIsAllowed, controller.viewApplicationsCreateApplicantWebsite)
-	.post(controller.updateApplicationsCreateApplicantWebsite);
+	.post(
+		validators.validateApplicationsCreateApplicantWebsite,
+		controller.updateApplicationsCreateApplicantWebsite
+	);
 
 applicationsCreateApplicantRouter
 	.route('/applicant-email')
