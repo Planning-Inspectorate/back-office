@@ -10,6 +10,9 @@ const request = supertest(app);
 
 const findUniqueStub = sinon.stub();
 
+const referenceSettingSqlQuery =
+	'declare @sub_sector_abbreviation nchar(4), @max_reference int, @reference_number int;declare @minimum_new_reference int = 10000;declare @id int = 1;select @sub_sector_abbreviation = sub_sector_table.abbreviation FROM [dbo].[Case] as case_table     join [dbo].[ApplicationDetails] as application_details_table     on case_table.id = application_details_table.caseId     join [dbo].[SubSector] as sub_sector_table     on application_details_table.subSectorId = sub_sector_table.id where case_table.id = @id; SELECT @max_reference = max(cast(SUBSTRING(case_table.reference, 5, len(case_table.reference)) as int)) FROM [dbo].[Case] as case_table     join [dbo].[ApplicationDetails] as application_details_table     on case_table.id = application_details_table.caseId     join [dbo].[SubSector] as sub_sector_table     on application_details_table.subSectorId = sub_sector_table.id         and sub_sector_table.abbreviation = @sub_sector_abbreviation; if(@max_reference < @minimum_new_reference) select @reference_number = @minimum_new_reference else select @reference_number = @max_reference + 1;update [dbo].[Case]     set reference = @sub_sector_abbreviation + cast(@reference_number as nchar(5))     where id = @id;';
+
 const applicationReadyToStart = applicationFactoryForTests({
 	id: 1,
 	status: 'draft'
@@ -51,6 +54,8 @@ const updateStub = sinon.stub();
 const updateManyCaseStatusStub = sinon.stub();
 const createCaseStatusStub = sinon.stub();
 
+let executeRawStub = sinon.stub();
+
 test.before('set up mocks', () => {
 	sinon.stub(databaseConnector, 'case').get(() => {
 		return { findUnique: findUniqueStub, update: updateStub };
@@ -65,16 +70,17 @@ test.before('set up mocks', () => {
 	});
 
 	sinon.stub(Prisma.PrismaClient.prototype, '$transaction');
+	executeRawStub = sinon.stub(Prisma.PrismaClient.prototype, '$executeRawUnsafe');
 	sinon.useFakeTimers({ now: 1_649_319_144_000 });
 });
 
-test('starts application if all needed information is present', async (t) => {
+test.only('starts application if all needed information is present', async (t) => {
 	const response = await request.post('/applications/1/start');
 
 	t.is(response.status, 200);
 	t.deepEqual(response.body, {
 		id: 1,
-		reference: 'some new reference',
+		reference: applicationReadyToStart.reference,
 		status: 'Pre-Application'
 	});
 
@@ -85,11 +91,9 @@ test('starts application if all needed information is present', async (t) => {
 
 	sinon.assert.calledWith(createCaseStatusStub, { data: { status: 'pre_application', caseId: 1 } });
 
-	sinon.assert.calledWith(updateStub, {
-		where: { id: 1 },
-		data: { modifiedAt: new Date(1_649_319_144_000) },
-		include: { serviceCustomer: true }
-	});
+	sinon.assert.notCalled(updateStub);
+
+	sinon.assert.calledWith(executeRawStub, referenceSettingSqlQuery);
 });
 
 test('throws an error if the application id is not recognised', async (t) => {
