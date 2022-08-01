@@ -58,8 +58,14 @@ router.get(
 	'/:appealId',
 	/*
 		#swagger.tags = ['Appeals']
-		#swagger.path = '/appeals/inspector/:appealId'
+		#swagger.path = '/appeals/inspector/{appealId}'
         #swagger.description = 'Gets details of appeal for inspector'
+        #swagger.parameters['appealId'] = {
+			id: 'path',
+			description: 'Appeal ID',
+			required: true,
+			type: 'integer'
+		}
         #swagger.parameters['userId'] = {
             in: 'header',
             type: 'integer',
@@ -100,8 +106,14 @@ router.post(
 	'/:appealId/book',
 	/*
 		#swagger.tags = ['Appeals']
-		#swagger.path = '/appeals/inspector/:appealId/book'
+		#swagger.path = '/appeals/inspector/{appealId}/book'
         #swagger.description = 'Book a site visit as an inspector.'
+        #swagger.parameters['appealId'] = {
+			id: 'path',
+			description: 'Appeal ID',
+			required: true,
+			type: 'integer'
+		}
         #swagger.parameters['userId'] = {
             in: 'header',
             type: 'string',
@@ -128,8 +140,14 @@ router.post(
 	'/:appealId/issue-decision',
 	/*
 		#swagger.tags = ['Appeals']
-		#swagger.path = '/appeals/inspector/:appealId/issue-decision'
+		#swagger.path = '/appeals/inspector/{appealId}/issue-decision'
         #swagger.description = 'Issues decision for appeal.'
+        #swagger.parameters['appealId'] = {
+			id: 'path',
+			description: 'Appeal ID',
+			required: true,
+			type: 'integer'
+		}
         #swagger.parameters['userId'] = {
             in: 'header',
             type: 'string',
