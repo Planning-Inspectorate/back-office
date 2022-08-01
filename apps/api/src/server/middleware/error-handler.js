@@ -12,7 +12,7 @@ export function defaultErrorHandler(error, _request, response, next) {
 		return next(error);
 	}
 
-	const code = error.code ? error.code : 500;
+	const code = error.code && Number.isInteger(error.code) ? error.code : 500;
 
 	response.status(code);
 	logger.error(error);
