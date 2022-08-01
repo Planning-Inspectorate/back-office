@@ -33,3 +33,12 @@ export type ApplicationsCreateApplicantFullNameBody = {
 	applicantmiddleName?: string;
 	applicantlastName?: string;
 };
+
+export type ApplicationsCreateApplicantWebsiteProps = {
+	values: { 'applicant.website'?: string };
+	errors?: ValidationErrors;
+};
+
+export type ApplicationsCreateApplicantWebsiteBody = {
+	'applicant.website'?: string;
+};

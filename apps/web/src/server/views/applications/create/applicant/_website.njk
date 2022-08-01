@@ -1,11 +1,20 @@
 {% extends "./applications-create-applicant-layout.njk" %}
 
-{% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
+{% from "govuk/components/input/macro.njk" import govukInput %}
 
 {% block stepTitle %}
 	What’s the applicant’s website?
 {% endblock %}
 
 {% block stepForm %}
-	work in progress
+	{{ govukInput({
+		id: "applicant.website",
+		name: "applicant.website",
+		classes: "govuk-!-width-one-third",
+		value: values['applicant.website'],
+		errorMessage: errors['applicant.website'] | errorMessage,
+		hint: {
+			text: "for example, https://www.heathrow.com"
+		}
+	}) }}
 {% endblock %}

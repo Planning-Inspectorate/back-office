@@ -76,4 +76,30 @@ describe('applications create applicant', () => {
 			);
 		});
 	});
+
+	describe('GET /applicant-website', () => {
+		const baseUrl = '/applications-service/create-new-case/123/applicant-website';
+
+		it('should render the page if there is data in the session', async () => {
+			await request
+				.post('/applications-service/create-new-case/123/applicant-information-types')
+				.send({
+					selectedApplicantInfoTypes: ['applicant-website']
+				});
+
+			const response = await request.get(baseUrl);
+			const element = parseHtml(response.text);
+
+			expect(element.innerHTML).toMatchSnapshot();
+			expect(element.innerHTML).toContain('Save and continue');
+		});
+
+		it('should show not render the page if there is no session data', async () => {
+			const response = await request.get(baseUrl);
+
+			expect(response?.headers?.location).toMatch(
+				'/applications-service/create-new-case/123/key-dates'
+			);
+		});
+	});
 });

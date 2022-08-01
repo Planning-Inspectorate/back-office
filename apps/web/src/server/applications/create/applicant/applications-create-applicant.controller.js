@@ -12,6 +12,8 @@ import {
 /** @typedef {import('./applications-create-applicant.types').ApplicationsCreateApplicantOrganisationNameBody} ApplicationsCreateApplicantOrganisationNameBody */
 /** @typedef {import('./applications-create-applicant.types').ApplicationsCreateApplicantFullNameProps} ApplicationsCreateApplicantFullNameProps */
 /** @typedef {import('./applications-create-applicant.types').ApplicationsCreateApplicantFullNameBody} ApplicationsCreateApplicantFullNameBody */
+/** @typedef {import('./applications-create-applicant.types').ApplicationsCreateApplicantWebsiteProps} ApplicationsCreateApplicantWebsiteProps */
+/** @typedef {import('./applications-create-applicant.types').ApplicationsCreateApplicantWebsiteBody} ApplicationsCreateApplicantWebsiteBody */
 
 /**
  * View the form step for the applicant information types
@@ -138,7 +140,7 @@ export async function updateApplicationsCreateApplicantAddress({ path, session }
 /**
  * View the form step for the applicant website
  *
- * @type {import('@pins/express').RenderHandler<{}, {}>}
+ * @type {import('@pins/express').RenderHandler<ApplicationsCreateApplicantWebsiteProps, {}, {}, {}, DomainParams>}
  */
 export async function viewApplicationsCreateApplicantWebsite(req, response) {
 	response.render('applications/create/applicant/_website');
@@ -147,11 +149,21 @@ export async function viewApplicationsCreateApplicantWebsite(req, response) {
 /**
  * Update the applicant website
  *
- * @type {import('@pins/express').RenderHandler<{}, {}>}
+ * @type {import('@pins/express').RenderHandler<ApplicationsCreateApplicantWebsiteProps, {}, ApplicationsCreateApplicantWebsiteBody, {}, DomainParams>}
  */
-export async function updateApplicationsCreateApplicantWebsite({ path, session }, response) {
+export async function updateApplicationsCreateApplicantWebsite(
+	{ path, session, body, errors },
+	response
+) {
 	const { applicationId } = response.locals;
+	const values = body;
 
+	if (errors) {
+		return response.render('applications/create/applicant/_website', {
+			errors,
+			values
+		});
+	}
 	goToNextStep(applicationId, path, session, response);
 }
 
