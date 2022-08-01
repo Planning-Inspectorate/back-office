@@ -102,4 +102,25 @@ describe('applications create applicant', () => {
 			);
 		});
 	});
+
+	describe('POST /application-website', () => {
+		const baseUrl = '/applications-service/create-new-case/123/applicant-website';
+
+		beforeEach(async () => {
+			await request.get('/applications-service/case-officer');
+		});
+
+		describe('Web-side validation:', () => {
+			it('should show validation errors if an invalid URL is input', async () => {
+				const response = await request.post(baseUrl).send({
+					'applicant.website': 'bad_url'
+				});
+				const element = parseHtml(response.text);
+
+				expect(element.innerHTML).toMatchSnapshot();
+				expect(element.innerHTML).toContain('error-summary-title');
+				expect(element.innerHTML).toContain('applicant.website-error');
+			});
+		});
+	});
 });
