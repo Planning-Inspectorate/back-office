@@ -1,8 +1,25 @@
-import { isEmpty, isString, map } from 'lodash-es';
+import { forEach, isEmpty, isString, map } from 'lodash-es';
+import fs from 'node:fs';
+import path from 'node:path';
+import url from 'node:url';
 import { databaseConnector } from '../utils/database-connector.js';
 import { separateStatusesToSaveAndInvalidate } from './separate-statuses-to-save-and-invalidate.js';
 
 const DEFAULT_CASE_CREATE_STATUS = 'draft';
+
+/**
+ * @typedef {{
+ *  caseId: number,
+ *  applicantId?: number,
+ *  caseDetails?: { title?: string | null, description?: string | null },
+ * 	gridReference?: { easting?: number | null, northing?: number | null },
+ *  application?: { locationDescription?: string | null, firstNotifiedAt?: Date | null, submissionAt?: Date | null, caseEmail?: string | null },
+ *  subSectorName?: string | null,
+ *  applicant?: { organisationName?: string | null, firstName?: string | null, middleName?: string | null, lastName?: string | null, email?: string | null, website?: string | null, phoneNumber?: string | null},
+ *  mapZoomLevelName?: string | null,
+ *  regionNames?: string[],
+ *  applicantAddress?: { addressLine1?: string | null, addressLine2?: string | null, town?: string | null, county?: string | null, postcode?: string | null}}} UpdateApplicationParams
+ */
 
 /**
  * @returns {Promise<import('@pins/api').Schema.Case[]>}
@@ -189,7 +206,7 @@ export const createApplication = ({
 /**
  *
  * @param {number} caseId
- * @returns {Promise<import('@pins/api').Schema.RegionsOnApplicationDetails>}
+ * @returns {Promise<import('@pins/api').Schema.BatchPayload>}
  */
 const removeRegions = (caseId) => {
 	return databaseConnector.regionsOnApplicationDetails.deleteMany({
@@ -201,6 +218,10 @@ const removeRegions = (caseId) => {
 	});
 };
 
+/**
+ * @param {UpdateApplicationParams} data
+ * @returns {Promise<import('@pins/api').Schema.Case>}
+ */
 const updateApplicationSansRegionsRemoval = ({
 	caseId,
 	applicantId,
@@ -286,17 +307,7 @@ const updateApplicationSansRegionsRemoval = ({
 };
 
 /**
- * @param {{
- *  caseId: number,
- *  applicantId?: number,
- *  caseDetails?: { title?: string | undefined, description?: string | undefined },
- * 	gridReference?: { easting?: number | undefined, northing?: number | undefined },
- *  application?: { locationDescription?: string | undefined, firstNotifiedAt?: Date | undefined, submissionAt?: Date | undefined, caseEmail?: string | undefined },
- *  subSectorName?: string | undefined,
- *  applicant?: { organisationName?: string | undefined, firstName?: string | undefined, middleName?: string | undefined, lastName?: string | undefined, email?: string | undefined, website?: string | undefined, phoneNumber?: string | undefined},
- *  mapZoomLevelName?: string | undefined,
- *  regionNames?: string[],
- *  applicantAddress?: { addressLine1?: string | undefined, addressLine2?: string | undefined, town?: string | undefined, county?: string | undefined, postcode?: string | undefined}}} caseInfo
+ * @param {UpdateApplicationParams} caseInfo
  * @returns {Promise<import('@pins/api').Schema.BatchPayload>}
  */
 export const updateApplication = ({
@@ -367,7 +378,7 @@ export const getById = (
 /**
  *
  * @param {number[]} ids
- * @returns {Promise<import('@pins/api').Schema.CaseStatus[]>}
+ * @returns {Promise<import('@pins/api').Schema.BatchPayload>}
  */
 export const invalidateCaseStatuses = (ids) => {
 	return databaseConnector.caseStatus.updateMany({
@@ -380,7 +391,7 @@ export const invalidateCaseStatuses = (ids) => {
  *
  * @param {number} id
  * @param {string} status
- * @returns {Promise<import('@pins/api').Schema.CaseStatus[]> | Promise<import('@pins/api').Schema.CaseStatus>}
+ * @returns {Promise<import('@pins/api').Schema.BatchPayload>}
  */
 export const createNewStatuses = (id, status) => {
 	return isString(status)
@@ -391,18 +402,19 @@ export const createNewStatuses = (id, status) => {
 /**
  *
  * @param {number} id
- * @param {string | object} status
- * @param {object} data
- * @param {object[]} currentStatuses
+ * @param {{status: string | object, data: {regionNames?: string[]}, currentStatuses: object[], setReference: boolean}} updateData
  * @returns {any}
  */
-export const updateApplicationStatusAndDataById = (id, status, data, currentStatuses) => {
+export const updateApplicationStatusAndDataById = (
+	id,
+	{ status, data, currentStatuses, setReference = false }
+) => {
 	const { caseStatesToInvalidate, caseStatesToCreate } = separateStatusesToSaveAndInvalidate(
 		status,
 		currentStatuses
 	);
 
-	const transactions = [
+	/** @type {Promise<any>[]} */ const transactions = [
 		invalidateCaseStatuses(caseStatesToInvalidate),
 		createNewStatuses(id, caseStatesToCreate)
 	];
@@ -411,7 +423,61 @@ export const updateApplicationStatusAndDataById = (id, status, data, currentStat
 		transactions.push(removeRegions(id));
 	}
 
-	transactions.push(updateApplicationSansRegionsRemoval({ caseId: id, ...data }));
+	if (!isEmpty(data)) {
+		transactions.push(updateApplicationSansRegionsRemoval({ caseId: id, ...data }));
+	}
+
+	if (setReference) {
+		transactions.push(assignApplicationReference(id));
+	}
 
 	return databaseConnector.$transaction(transactions);
+};
+
+/**
+ * @returns {string}
+ */
+const getCurrentDirectory = () => {
+	return path.dirname(url.fileURLToPath(import.meta.url));
+};
+
+/**
+ *
+ * @param {string} queryFileName
+ * @returns {string}
+ */
+const getSqlQuery = (queryFileName) => {
+	const currentDirectory = getCurrentDirectory();
+
+	return `${currentDirectory}/raw_sql_queries/${queryFileName}.sql`;
+};
+
+/**
+ *
+ * @param {string} inputString
+ * @param {Object<string, string>} keysToReplace
+ * @returns {string}
+ */
+const replaceValueInString = (inputString, keysToReplace) => {
+	let formattedString = inputString;
+
+	forEach(keysToReplace, (value, key) => {
+		formattedString = formattedString.replace(key, value);
+	});
+	return formattedString;
+};
+
+/**
+ *
+ * @param {number} id
+ * @returns {Promise<any>}
+ */
+export const assignApplicationReference = (id) => {
+	const sqlQueryAbsolutePath = getSqlQuery('update-application-reference');
+
+	const data = fs.readFileSync(sqlQueryAbsolutePath, 'utf8').replace(/\r|\n/g, '');
+
+	const formattedSqlQuery = replaceValueInString(data, { CASE_ID: id.toString() });
+
+	return databaseConnector.$executeRawUnsafe(formattedSqlQuery);
 };
