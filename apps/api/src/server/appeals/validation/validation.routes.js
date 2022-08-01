@@ -56,9 +56,10 @@ router.get(
 	'/:appealId',
 	/*
 		#swagger.tags = ['Appeals']
-		#swagger.path = '/appeals/validation/:appealId'
+		#swagger.path = '/appeals/validation/{appealId}'
 		#swagger.description = 'Gets appeal to be validated by the Validation Officer'
-		#swagger.parameters['id'] = {
+		#swagger.parameters['appealId'] = {
+			id: 'path',
 			description: 'Appeal ID',
 			required: true,
 			type: 'integer'
@@ -77,10 +78,10 @@ router.patch(
 	'/:appealId',
 	/*
 		#swagger.tags = ['Appeals']
-		#swagger.path = '/appeals/validation/:appealId'
+		#swagger.path = '/appeals/validation/{appealId}'
 		#swagger.description = 'Updates appeal details'
-		#swagger.parameters['id'] = {
-			in: 'url',
+		#swagger.parameters['appealId'] = {
+			id: 'path',
 			description: 'Appeal ID',
 			required: true,
 			type: 'integer'
@@ -101,10 +102,10 @@ router.post(
 	'/:appealId',
 	/*
 		#swagger.tags = ['Appeals']
-		#swagger.path = '/appeals/validation/:appealId'
+		#swagger.path = '/appeals/validation/{appealId}'
 		#swagger.description = 'Sends validation decision'
 		#swagger.parameters['id'] = {
-			id: 'url',
+			id: 'path',
 			description: 'Appeal ID',
 			required: true,
 			type: 'integer'
