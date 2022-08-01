@@ -75,5 +75,13 @@ export const startCase = async ({ params }, response) => {
 export const getApplicationDetails = async (request, response) => {
 	const getCaseDetails = await caseRepository.getById(Number.parseInt(request.params.id, 10));
 
+	// const queryParams = JSON.parse(request.query.query);
+	// const caseDetailsFormatted = mapCaseDetails(getCaseDetails);
+
+	// const findKey1 = pickBy(queryParams, function(value) {return value });
+	// const findKey2 = Object.keys(findKey1);
+
+	// const detailsExtracted = pick(caseDetailsFormatted, findKey2);
+
 	response.send(mapCaseDetails(getCaseDetails));
 };
