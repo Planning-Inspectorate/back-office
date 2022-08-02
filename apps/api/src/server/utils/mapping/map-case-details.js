@@ -12,7 +12,10 @@ import { mapZoomLevel } from './map-zoom-level.js';
 /**
  * @param {import('@pins/api').Schema.Case} caseDetails
  * @returns {{
- *  caseDetails?: { title?: string | undefined, description?: string | undefined, caseEmail?: string | undefined },
+ *  title?: string | undefined,
+ *  description?: string | undefined,
+ *  caseEmail?: string | undefined,
+ *  status?: string | undefined,
  * 	gridReference?: { easting?: number | undefined, northing?: number | undefined },
  *  regions: { displayNameEn?: string | undefined, displayNameCy?: string | undefined }
  *  keyDates?: { firstNotifiedDate?: number | undefined, submissionDate?: number | undefined }
