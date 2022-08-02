@@ -159,7 +159,7 @@ test('throws an error if the id provided is a string/characters', async (t) => {
 });
 
 test.only('only returns description field when description query made', async (t) => {
-	const response = await request.get('/applications/1?query={description:true}');
+	const response = await request.get('/applications/1?query={"description":true}');
 
 	t.is(response.status, 200);
 	t.deepEqual(response.body, {

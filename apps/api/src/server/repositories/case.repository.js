@@ -7,65 +7,6 @@ import { separateStatusesToSaveAndInvalidate } from './separate-statuses-to-save
 
 const DEFAULT_CASE_CREATE_STATUS = 'draft';
 
-export const getById = (id) => {
-	return databaseConnector.case.findUnique({
-		where: { id },
-		include: {
-			ApplicationDetails: {
-				include: {
-					subSector: {
-						include: {
-							sector: true
-						}
-					},
-					regions: {
-						include: {
-							region: true
-						}
-					},
-					zoomLevel: true
-				}
-			},
-			serviceCustomer: {
-				include: {
-					address: true
-				}
-			},
-			CaseStatus: true,
-			gridReference: true
-		}
-	});
-};
-
-/**
- *
- * @param {number} id
- * @param {{subSector?: boolean, applicationDetails?: boolean, zoomLevel?: boolean, regions?: boolean, caseStatus?: boolean}} inclusions
- * @returns {Promise<import('@pins/api').Schema.Case | null>}
- */
-//  export const getById = (
-// 	id,
-// 	{
-// 		subSector = false,
-// 		applicationDetails = false,
-// 		zoomLevel = false,
-// 		regions = false,
-// 		caseStatus = false
-// 	} = {}
-// ) => {
-// 	return databaseConnector.case.findUnique({
-// 		where: { id },
-// 		...((applicationDetails || subSector || zoomLevel || regions || caseStatus) && {
-// 			include: {
-// 				...((applicationDetails || subSector || zoomLevel || regions) && {
-// 					ApplicationDetails: { include: { subSector, zoomLevel, regions } }
-// 				}),
-// 				...(caseStatus && { CaseStatus: { where: { valid: true } } })
-// 			}
-// 		})
-// 	});
-// };
-
 /**
  * @typedef {{
  *  caseDetails?: { title?: string | null, description?: string | null },
@@ -115,8 +56,6 @@ export const getAll = () => {
 		}
 	});
 };
-
-const DEFAULT_CASE_CREATE_STATUS = 'draft';
 
 /**
  * @param {string} status

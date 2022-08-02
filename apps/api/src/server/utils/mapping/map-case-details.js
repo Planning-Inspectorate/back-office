@@ -49,7 +49,7 @@ export const mapCaseDetails = (caseDetails) => {
 
 	return {
 		...caseDetailsFormatted,
-		status: mapCaseStatus(caseDetails.CaseStatus),
+		...(caseDetails.CaseStatus && { status: mapCaseStatus(caseDetails.CaseStatus) }),
 		caseEmail: caseDetails?.ApplicationDetails?.caseEmail,
 		sector: sectorFormatted,
 		subSector: subSectorFormatted,
