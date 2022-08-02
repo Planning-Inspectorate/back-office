@@ -68,14 +68,28 @@ export const startCase = async ({ params }, response) => {
 	response.send({ id, reference, status: mapCaseStatusString(status.toString()) });
 };
 
-/** 
+/**
  *
  * @type {import('express').RequestHandler}
  */
 export const getApplicationDetails = async (request, response) => {
-	const getCaseDetails = await caseRepository.getById(Number.parseInt(request.params.id, 10));
+	const modelsToInclude = {
+		subSector: true,
+		sector: true,
+		applicationDetails: true,
+		zoomLevel: true,
+		regions: true,
+		caseStatus: true,
+		serviceCustomer: true,
+		serviceCustomerAddress: true,
+		gridReference: true
+	};
+	const queryParameters = request.query.query ? JSON.parse(request.query.query) : modelsToInclude;
+	const getCaseDetails = await caseRepository.getById(
+		Number.parseInt(request.params.id, 10),
+		queryParameters
+	);
 
-	const queryParameters = JSON.parse(request.query.query);
 	const caseDetailsFormatted = mapCaseDetails(getCaseDetails);
 
 	const findTruthyValues = pickBy(queryParameters, (value) => {
