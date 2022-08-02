@@ -174,4 +174,6 @@ test('only returns description field when description query made', async (t) => 
 		id: 1,
 		description: 'EN010003 - NI Case 3 Name Description'
 	});
+
+	sinon.assert.calledWith(findUniqueStub, { where: { id: 1 } });
 });
