@@ -102,7 +102,7 @@ export async function updateApplicationsCreateApplicantFullName({ path, session 
 /**
  * View the form step for the applicant email address
  *
- *  @type {import('@pins/express').RenderHandler<ApplicationsCreateApplicantWebsiteProps, {}, {}, {}, DomainParams>}
+ *  @type {import('@pins/express').RenderHandler<ApplicationsCreateApplicantEmailProps, {}, {}, {}, DomainParams>}
  */
 export async function viewApplicationsCreateApplicantEmail(req, response) {
 	response.render('applications/create/applicant/_email');
@@ -111,7 +111,7 @@ export async function viewApplicationsCreateApplicantEmail(req, response) {
 /**
  * Update the applicant email address
  *
- * @type {import('@pins/express').RenderHandler<ApplicationsCreateApplicantWebsiteProps, {}, ApplicationsCreateApplicantWebsiteBody, {}, DomainParams>}
+ * @type {import('@pins/express').RenderHandler<ApplicationsCreateApplicantEmailProps, {}, ApplicationsCreateApplicantEmailBody, {}, DomainParams>}
  */
 export async function updateApplicationsCreateApplicantEmail(
 	{ path, session, body, errors },
