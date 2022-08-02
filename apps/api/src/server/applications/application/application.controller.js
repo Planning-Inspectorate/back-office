@@ -68,12 +68,27 @@ export const startCase = async ({ params }, response) => {
 	response.send({ id, reference, status: mapCaseStatusString(status.toString()) });
 };
 
+const findModelsToInclude = (query) => {
+	return {
+		subSector: query.subSector,
+		sector: query.sector,
+		applicationDetails: query.keyDates !== false,
+		zoomLevel: query.mapZoomLevel !== false,
+		regions: query.regions !== false && typeof query !== 'undefined',
+		caseStatus: query.status,
+		serviceCustomer: query.applicant !== false && typeof query.applicant !== 'undefined',
+		serviceCustomerAddress:
+			query?.applicant?.address !== false && typeof query?.applicant?.address !== 'undefined',
+		gridReference: query.gridReference !== false && typeof query.gridReference !== 'undefined'
+	};
+};
+
 /**
  *
  * @type {import('express').RequestHandler}
  */
 export const getApplicationDetails = async (request, response) => {
-	const modelsToInclude = {
+	const defaultModelsToInclude = {
 		subSector: true,
 		sector: true,
 		applicationDetails: true,
@@ -84,20 +99,28 @@ export const getApplicationDetails = async (request, response) => {
 		serviceCustomerAddress: true,
 		gridReference: true
 	};
-	const queryParameters = request.query.query ? JSON.parse(request.query.query) : modelsToInclude;
+
+	const modelsToInclude = request.query.query
+		? findModelsToInclude(JSON.parse(request.query.query))
+		: defaultModelsToInclude;
+
 	const getCaseDetails = await caseRepository.getById(
 		Number.parseInt(request.params.id, 10),
-		queryParameters
+		modelsToInclude
 	);
 
 	const caseDetailsFormatted = mapCaseDetails(getCaseDetails);
 
-	const findTruthyValues = pickBy(queryParameters, (value) => {
-		return value;
-	});
-	const findKey = Object.keys(findTruthyValues);
+	if (request.query.query) {
+		const findTruthyValues = pickBy({ id: true, ...JSON.parse(request.query.query) }, (value) => {
+			return value;
+		});
+		const findKey = Object.keys(findTruthyValues);
 
-	const detailsExtracted = pick(caseDetailsFormatted, findKey);
+		const detailsExtracted = pick(caseDetailsFormatted, findKey);
 
-	response.send(detailsExtracted);
+		response.send(detailsExtracted);
+	} else {
+		response.send(caseDetailsFormatted);
+	}
 };

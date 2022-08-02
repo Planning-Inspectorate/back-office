@@ -18,6 +18,12 @@ const application1 = applicationFactoryForTests({
 	}
 });
 
+const application1SansInclusions = applicationFactoryForTests({
+	id: 1,
+	title: 'EN010003 - NI Case 3 Name',
+	description: 'EN010003 - NI Case 3 Name Description'
+});
+
 let blankTitle;
 let blankDescription;
 let blankReference;
@@ -37,7 +43,9 @@ const application2 = {
 const findUniqueStub = sinon.stub();
 
 findUniqueStub.withArgs({ where: { id: 1 }, include: sinon.match.any }).returns(application1);
+findUniqueStub.withArgs({ where: { id: 1 } }).returns(application1SansInclusions);
 findUniqueStub.withArgs({ where: { id: 2 }, include: sinon.match.any }).returns(application2);
+findUniqueStub.withArgs({ where: { id: 2 } }).returns(application2);
 
 test.before('set up mocks', () => {
 	sinon.stub(databaseConnector, 'case').get(() => {
@@ -53,7 +61,7 @@ test('gets all data for a case when everything is available', async (t) => {
 		id: 1,
 		title: 'EN010003 - NI Case 3 Name',
 		description: 'EN010003 - NI Case 3 Name Description',
-		status: 'draft',
+		status: 'Draft',
 		applicant: [
 			{
 				address: {
@@ -131,7 +139,7 @@ test('gets applications details when only case id present', async (t) => {
 		id: 2,
 		keyDates: {},
 		sector: {},
-		status: 'draft',
+		status: 'Draft',
 		subSector: {}
 	});
 });
@@ -142,7 +150,7 @@ test('throws an error if we send an unknown case id', async (t) => {
 	t.is(response.status, 400);
 	t.deepEqual(response.body, {
 		errors: {
-			id: 'Must be existing application'
+			id: 'Must be an existing application'
 		}
 	});
 });
@@ -158,7 +166,7 @@ test('throws an error if the id provided is a string/characters', async (t) => {
 	});
 });
 
-test.only('only returns description field when description query made', async (t) => {
+test('only returns description field when description query made', async (t) => {
 	const response = await request.get('/applications/1?query={"description":true}');
 
 	t.is(response.status, 200);
