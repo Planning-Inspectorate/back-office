@@ -42,3 +42,12 @@ export type ApplicationsCreateApplicantWebsiteProps = {
 export type ApplicationsCreateApplicantWebsiteBody = {
 	'applicant.website'?: string;
 };
+
+export type ApplicationsCreateApplicantEmailProps = {
+	values: { 'applicant.email'?: string };
+	errors?: ValidationErrors;
+};
+
+export type ApplicationsCreateApplicantEmailBody = {
+	'applicant.email'?: string;
+};

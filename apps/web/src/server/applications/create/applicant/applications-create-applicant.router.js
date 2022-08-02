@@ -39,7 +39,10 @@ applicationsCreateApplicantRouter
 applicationsCreateApplicantRouter
 	.route('/applicant-email')
 	.get(guards.assertStepIsAllowed, controller.viewApplicationsCreateApplicantEmail)
-	.post(controller.updateApplicationsCreateApplicantEmail);
+	.post(
+		validators.validateApplicationsCreateApplicantEmail,
+		controller.updateApplicationsCreateApplicantEmail
+	);
 
 applicationsCreateApplicantRouter
 	.route('/applicant-telephone-number')

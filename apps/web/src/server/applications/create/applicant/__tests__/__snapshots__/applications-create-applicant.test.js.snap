@@ -1,5 +1,23 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`applications create applicant GET /applicant-email should render the page if there is data in the session 1`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <h2 class=\\"govuk-heading-l\\"> What’s the applicant’s email address?</h2>
+    <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
+        <div class=\\"govuk-form-group\\">
+            <div id=\\"applicant.email-hint\\" class=\\"govuk-hint\\">for example, contact@buildinganewbridge.com</div>
+            <input class=\\"govuk-input govuk-!-width-one-third\\"
+            id=\\"applicant.email\\" name=\\"applicant.email\\" type=\\"text\\" aria-describedby=\\"applicant.email-hint\\">
+        </div>
+        <div class=\\"govuk-grid-row\\">
+            <div class=\\"govuk-button-group pins-button-group govuk-grid-column-one-half\\"><a class=\\"govuk-link\\" href=\\"/applications-service/create-new-case/123/applicant-information-types/\\">Back</a>
+                <button                 class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and continue</button>
+            </div>
+        </div>
+    </form>
+</main>"
+`;
+
 exports[`applications create applicant GET /applicant-full-name should render the page if there is data in the session 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <h2 class=\\"govuk-heading-l\\"> What is the applicant’s full name?</h2>
@@ -110,7 +128,7 @@ exports[`applications create applicant GET /applicant-website should render the 
 </main>"
 `;
 
-exports[`applications create applicant POST /application-website Web-side validation: should show validation errors if an invalid URL is input 1`] = `
+exports[`applications create applicant POST /application-email Web-side validation: should show validation errors if an invalid email is input 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"govuk-grid-row\\">
         <div class=\\"govuk-grid-column-two-thirds\\">
@@ -119,21 +137,21 @@ exports[`applications create applicant POST /application-website Web-side valida
                 <h2 class=\\"govuk-error-summary__title\\" id=\\"error-summary-title\\"> There is a problem</h2>
                 <div class=\\"govuk-error-summary__body\\">
                     <ul class=\\"govuk-list govuk-error-summary__list\\">
-                        <li><a href=\\"#applicant.website\\">Enter a valid website</a>
+                        <li><a href=\\"#applicant.email\\">Enter a valid email address</a>
                         </li>
                     </ul>
                 </div>
             </div>
         </div>
     </div>
-    <h2 class=\\"govuk-heading-l\\"> What’s the applicant’s website?</h2>
+    <h2 class=\\"govuk-heading-l\\"> What’s the applicant’s email address?</h2>
     <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
         <div class=\\"govuk-form-group govuk-form-group--error\\">
-            <div id=\\"applicant.website-hint\\" class=\\"govuk-hint\\">for example, https://www.heathrow.com</div>
-            <p id=\\"applicant.website-error\\"
-            class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> Enter a valid website</p>
-            <input             class=\\"govuk-input govuk-!-width-one-third govuk-input--error\\" id=\\"applicant.website\\"
-            name=\\"applicant.website\\" type=\\"text\\" value=\\"not_a_url\\" aria-describedby=\\"applicant.website-hint applicant.website-error\\">
+            <div id=\\"applicant.email-hint\\" class=\\"govuk-hint\\">for example, contact@buildinganewbridge.com</div>
+            <p id=\\"applicant.email-error\\"
+            class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> Enter a valid email address</p>
+            <input             class=\\"govuk-input govuk-!-width-one-third govuk-input--error\\" id=\\"applicant.email\\"
+            name=\\"applicant.email\\" type=\\"text\\" value=\\"bad_email_address\\" aria-describedby=\\"applicant.email-hint applicant.email-error\\">
         </div>
         <div class=\\"govuk-grid-row\\">
             <div class=\\"govuk-button-group pins-button-group govuk-grid-column-one-half\\"><a class=\\"govuk-link\\" href=\\"/applications-service/create-new-case/123/team-email/\\">Back</a>

@@ -1,11 +1,20 @@
 {% extends "./applications-create-applicant-layout.njk" %}
 
-{% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
+{% from "govuk/components/input/macro.njk" import govukInput %}
 
 {% block stepTitle %}
 	What’s the applicant’s email address?
 {% endblock %}
 
 {% block stepForm %}
-	work in progress
+	{{ govukInput({
+		id: "applicant.email",
+		name: "applicant.email",
+		classes: "govuk-!-width-one-third",
+		value: values['applicant.email'],
+		errorMessage: errors['applicant.email'] | errorMessage,
+		hint: {
+			text: "for example, contact@buildinganewbridge.com"
+		}
+	}) }}
 {% endblock %}

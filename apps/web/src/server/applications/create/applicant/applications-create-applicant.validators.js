@@ -18,3 +18,15 @@ export const validateApplicationsCreateApplicantWebsite = createValidator(
 		})
 		.withMessage('Enter a valid website')
 );
+
+export const validateApplicationsCreateApplicantEmail = createValidator(
+	body('applicant.email')
+		.optional({ checkFalsy: true })
+		.trim()
+		.isEmail({
+			allow_display_name: false,
+			require_tld: true,
+			allow_ip_domain: false
+		})
+		.withMessage('Enter a valid email address')
+);
