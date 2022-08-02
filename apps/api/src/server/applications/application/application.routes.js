@@ -43,7 +43,7 @@ router.post(
         }
         #swagger.responses[200] = {
             description: 'Application Details',
-            schema: { id: 1, reference: 'AB01102030', status: 'Pre-Application'}
+            schema: { id: 1, reference: 'AB0110203', status: 'Pre-Application'}
         }
     */
 	validateApplicationId,

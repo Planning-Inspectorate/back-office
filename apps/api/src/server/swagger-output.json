@@ -576,7 +576,7 @@
 								},
 								"reference": {
 									"type": "string",
-									"example": "AB01102030"
+									"example": "AB0110203"
 								},
 								"status": {
 									"type": "string",
