@@ -14,6 +14,8 @@ import {
 /** @typedef {import('./applications-create-applicant.types').ApplicationsCreateApplicantFullNameBody} ApplicationsCreateApplicantFullNameBody */
 /** @typedef {import('./applications-create-applicant.types').ApplicationsCreateApplicantWebsiteProps} ApplicationsCreateApplicantWebsiteProps */
 /** @typedef {import('./applications-create-applicant.types').ApplicationsCreateApplicantWebsiteBody} ApplicationsCreateApplicantWebsiteBody */
+/** @typedef {import('./applications-create-applicant.types').ApplicationsCreateApplicantWebsiteProps} ApplicationsCreateApplicantEmailProps */
+/** @typedef {import('./applications-create-applicant.types').ApplicationsCreateApplicantWebsiteBody} ApplicationsCreateApplicantEmailBody */
 
 /**
  * View the form step for the applicant information types
@@ -100,7 +102,7 @@ export async function updateApplicationsCreateApplicantFullName({ path, session 
 /**
  * View the form step for the applicant email address
  *
- * @type {import('@pins/express').RenderHandler<{}, {}>}
+ *  @type {import('@pins/express').RenderHandler<ApplicationsCreateApplicantWebsiteProps, {}, {}, {}, DomainParams>}
  */
 export async function viewApplicationsCreateApplicantEmail(req, response) {
 	response.render('applications/create/applicant/_email');
@@ -109,10 +111,21 @@ export async function viewApplicationsCreateApplicantEmail(req, response) {
 /**
  * Update the applicant email address
  *
- * @type {import('@pins/express').RenderHandler<{}, {}>}
+ * @type {import('@pins/express').RenderHandler<ApplicationsCreateApplicantWebsiteProps, {}, ApplicationsCreateApplicantWebsiteBody, {}, DomainParams>}
  */
-export async function updateApplicationsCreateApplicantEmail({ path, session }, response) {
+export async function updateApplicationsCreateApplicantEmail(
+	{ path, session, body, errors },
+	response
+) {
 	const { applicationId } = response.locals;
+	const values = body;
+
+	if (errors) {
+		return response.render('applications/create/applicant/_email', {
+			errors,
+			values
+		});
+	}
 
 	goToNextStep(applicationId, path, session, response);
 }
