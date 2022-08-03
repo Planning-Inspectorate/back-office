@@ -556,35 +556,6 @@ exports[`validation GET /appeals/:appealId/planning-application-reference should
 </main>"
 `;
 
-exports[`validation GET /appeals/:appealId/review-outcome received appeal should redirect when there is no review outcome in the session 1`] = `
-"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
-    <div class=\\"govuk-grid-row\\">
-        <div class=\\"govuk-grid-column-two-thirds\\">
-            <h1 class=\\"govuk-heading-xl\\">Valid appeal details</h1>
-            <form method=\\"post\\" novalidate=\\"novalidate\\">
-                <p class=\\"govuk-body\\">Appeal reference: VAL/A0000/A/00/0000101</p>
-                <input type=\\"hidden\\" name=\\"status\\"
-                value=\\"valid\\">
-                <div class=\\"govuk-character-count\\" data-module=\\"govuk-character-count\\"
-                data-maxlength=\\"500\\">
-                    <div class=\\"govuk-form-group\\">
-                        <label class=\\"govuk-label govuk-!-font-weight-bold\\" for=\\"descriptionOfDevelopment\\">Description of development</label>
-                        <textarea class=\\"govuk-textarea govuk-js-character-count\\"
-                        id=\\"descriptionOfDevelopment\\" name=\\"descriptionOfDevelopment\\" rows=\\"5\\"
-                        aria-describedby=\\"descriptionOfDevelopment-info\\">Exists!</textarea>
-                    </div>
-                    <div id=\\"descriptionOfDevelopment-info\\" class=\\"govuk-hint govuk-character-count__message\\"
-                    aria-live=\\"polite\\">You can enter up to 500 characters</div>
-                </div>
-                <div class=\\"govuk-button-group\\">
-                    <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Continue</button><a class=\\"govuk-link\\" href=\\"/appeals-service/validation/appeals/101\\">Change outcome</a>
-                </div>
-            </form>
-        </div>
-    </div>
-</main>"
-`;
-
 exports[`validation GET /appeals/:appealId/review-outcome received appeal should render a valid review outcome page 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"govuk-grid-row\\">
