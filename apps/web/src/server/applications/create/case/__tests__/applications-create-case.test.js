@@ -1,18 +1,18 @@
-import {parseHtml} from '@pins/platform';
+import { parseHtml } from '@pins/platform';
 import nock from 'nock';
 import supertest from 'supertest';
-import {fixtureApplications} from "../../../../../../testing/applications/fixtures/applications.js";
+import { fixtureApplications } from '../../../../../../testing/applications/fixtures/applications.js';
 import {
 	fixtureRegions,
 	fixtureSectors,
 	fixtureSubSectors,
 	fixtureZoomLevels
 } from '../../../../../../testing/applications/fixtures/options-item.js';
-import {createTestApplication} from '../../../../../../testing/index.js';
+import { createTestApplication } from '../../../../../../testing/index.js';
 
-const {app, installMockApi, teardown} = createTestApplication();
+const { app, installMockApi, teardown } = createTestApplication();
 const request = supertest(app);
-const successResponse = {id: 1, applicantIds: [1]};
+const successResponse = { id: 1, applicantIds: [1] };
 
 const nocks = () => {
 	nock('http://test/').get('/applications/case-officer').reply(200, fixtureApplications);
@@ -20,15 +20,15 @@ const nocks = () => {
 	nock('http://test/')
 		.get('/applications/sector?sectorName=transport')
 		.reply(200, fixtureSubSectors);
-}
+};
 
 describe('applications create', () => {
 	beforeEach(installMockApi);
 	afterEach(teardown);
 
 	afterAll(() => {
-		nock.cleanAll()
-	})
+		nock.cleanAll();
+	});
 
 	describe('Name and description', () => {
 		describe('GET /create-new-case', () => {
@@ -85,8 +85,8 @@ describe('applications create', () => {
 
 				expect(element.innerHTML).toMatchSnapshot();
 				expect(element.innerHTML).toContain(fixtureApplications[0].description.slice(0, 20));
-			})
-		})
+			});
+		});
 
 		describe('POST /create-new-case/:id', () => {
 			const baseUrl = '/applications-service/create-new-case';
@@ -105,14 +105,15 @@ describe('applications create', () => {
 					expect(element.innerHTML).toContain('title-error');
 					expect(element.innerHTML).toContain('description-error');
 				});
-			})
+			});
 
 			describe('Api-side validation:', () => {
-				const failResponse = {errors: {title: 'Some error message from API', description: 'Same'}};
+				const failResponse = {
+					errors: { title: 'Some error message from API', description: 'Same' }
+				};
 
 				describe('When creating new case', () => {
 					it('should show validation errors if API returns error', async () => {
-
 						nock('http://test/').post('/applications').reply(500, failResponse);
 
 						const response = await request.post(baseUrl).send({
@@ -127,7 +128,6 @@ describe('applications create', () => {
 					});
 
 					it('should go to sector page if API does not returns error', async () => {
-
 						nock('http://test/').post('/applications').reply(200, successResponse);
 
 						const response = await request.post(baseUrl).send({
@@ -137,11 +137,10 @@ describe('applications create', () => {
 
 						expect(response?.headers?.location).toContain('1/sector');
 					});
-				})
+				});
 
 				describe('When updating resumed case', () => {
 					it('should show validation errors if API returns error', async () => {
-
 						nock('http://test/').patch('/applications/1').reply(500, failResponse);
 
 						const response = await request.post(`${baseUrl}/1`).send({
@@ -156,7 +155,6 @@ describe('applications create', () => {
 					});
 
 					it('should go to sector page if API does not returns error', async () => {
-
 						nock('http://test/').patch('/applications/1').reply(200, successResponse);
 
 						const response = await request.post(`${baseUrl}/1`).send({
@@ -166,13 +164,14 @@ describe('applications create', () => {
 
 						expect(response?.headers?.location).toContain('1/sector');
 					});
-				})
-			})
+				});
+			});
 		});
 	});
 
 	describe('Sector', () => {
-		const baseUrl = ( /** @type {string} */ id) => `/applications-service/create-new-case/${id}/sector`;
+		const baseUrl = (/** @type {string} */ id) =>
+			`/applications-service/create-new-case/${id}/sector`;
 
 		beforeEach(async () => {
 			await request.get('/applications-service/case-officer');
@@ -213,10 +212,9 @@ describe('applications create', () => {
 		});
 
 		describe('POST /create-new-case/:applicationId/sector', () => {
-
 			describe('Web-side validation:', () => {
 				it('should show validation error if nothing was selected', async () => {
-					const response = await request.post(baseUrl('1')).send({sectorName: null});
+					const response = await request.post(baseUrl('1')).send({ sectorName: null });
 					const element = parseHtml(response.text);
 
 					expect(element.innerHTML).toMatchSnapshot();
@@ -224,115 +222,17 @@ describe('applications create', () => {
 				});
 
 				it('should go to subsector page if something was selected', async () => {
-					const response = await request.post(baseUrl('1')).send({sectorName: 'transport'});
+					const response = await request.post(baseUrl('1')).send({ sectorName: 'transport' });
 
 					expect(response?.headers?.location).toContain('1/sub-sector');
-				})
-			});
-		});
-
-		describe('GET /create-new-case/1', () => {
-			const baseUrl = '/applications-service/create-new-case/1';
-
-			beforeEach(async () => {
-				await request.get('/applications-service/case-officer');
-				nocks();
-			});
-
-			it('should render page with resumed data', async () => {
-				const response = await request.get(baseUrl);
-				const element = parseHtml(response.text);
-
-				expect(element.innerHTML).toMatchSnapshot();
-				expect(element.innerHTML).toContain(fixtureApplications[0].description.slice(0, 20));
-			})
-		})
-
-		describe('POST /create-new-case/:id', () => {
-			const baseUrl = '/applications-service/create-new-case';
-
-			beforeEach(async () => {
-				await request.get('/applications-service/case-officer');
-				nocks();
-			});
-
-			describe('Web-side validation:', () => {
-				it('should show validation errors if something missing', async () => {
-					const response = await request.post(baseUrl);
-					const element = parseHtml(response.text);
-
-					expect(element.innerHTML).toMatchSnapshot();
-					expect(element.innerHTML).toContain('title-error');
-					expect(element.innerHTML).toContain('description-error');
 				});
-			})
-
-			describe('Api-side validation:', () => {
-				const failResponse = {errors: {title: 'Some error message from API', description: 'Same'}};
-
-				describe('When creating new case', () => {
-					it('should show validation errors if API returns error', async () => {
-
-						nock('http://test/').post('/applications').reply(500, failResponse);
-
-						const response = await request.post(baseUrl).send({
-							title: 'A title',
-							description: 'A description'
-						});
-						const element = parseHtml(response.text);
-
-						expect(element.innerHTML).toMatchSnapshot();
-						expect(element.innerHTML).toContain('title-error');
-						expect(element.innerHTML).toContain('description-error');
-					});
-
-					it('should go to sector page if API does not returns error', async () => {
-
-						nock('http://test/').post('/applications').reply(200, successResponse);
-
-						const response = await request.post(baseUrl).send({
-							title: 'A title',
-							description: 'A description'
-						});
-
-						expect(response?.res?.headers?.location).toContain('1/sector');
-					});
-				})
-
-				describe('When updating resumed case', () => {
-					it('should show validation errors if API returns error', async () => {
-
-						nock('http://test/').patch('/applications/1').reply(500, failResponse);
-
-						const response = await request.post(`${baseUrl}/1`).send({
-							title: 'A title',
-							description: 'A description'
-						});
-						const element = parseHtml(response.text);
-
-						expect(element.innerHTML).toMatchSnapshot();
-						expect(element.innerHTML).toContain('title-error');
-						expect(element.innerHTML).toContain('description-error');
-					});
-
-					it('should go to sector page if API does not returns error', async () => {
-
-						nock('http://test/').patch('/applications/1').reply(200, successResponse);
-
-						const response = await request.post(`${baseUrl}/1`).send({
-							title: 'A title',
-							description: 'A description'
-						});
-
-						expect(response?.res?.headers?.location).toContain('1/sector');
-					});
-				})
-			})
+			});
 		});
 	});
 
 	describe('Sub-sector', () => {
-		const baseUrl = ( /** @type {string} */ id) => `/applications-service/create-new-case/${id}/sub-sector`;
+		const baseUrl = (/** @type {string} */ id) =>
+			`/applications-service/create-new-case/${id}/sub-sector`;
 
 		beforeEach(async () => {
 			await request.get('/applications-service/case-officer');
@@ -340,7 +240,6 @@ describe('applications create', () => {
 		});
 
 		describe('GET /create-new-case/:applicationId/sub-sector', () => {
-
 			it('should redirect to sector page if the sectorName is null', async () => {
 				const response = await request.get(baseUrl('4'));
 
@@ -348,7 +247,9 @@ describe('applications create', () => {
 			});
 
 			it('should render subsectors matching with the sectorName in the session', async () => {
-				await request.post('/applications-service/create-new-case/1/sector').send({sectorName: 'transport'});
+				await request
+					.post('/applications-service/create-new-case/1/sector')
+					.send({ sectorName: 'transport' });
 
 				const response = await request.get(baseUrl('1'));
 				const element = parseHtml(response.text);
@@ -375,27 +276,23 @@ describe('applications create', () => {
 		});
 
 		describe('POST /create-new-case/:applicationId/sub-sector', () => {
-
 			describe('Web-side validation:', () => {
 				it('should show validation error if nothing was selected', async () => {
 					const response = await request.post(baseUrl('1'));
 					const element = parseHtml(response.text);
 
-
 					expect(element.innerHTML).toMatchSnapshot();
 					expect(element.innerHTML).toContain('subSectorName-error');
 				});
-
 			});
 
 			describe('API-side validation:', () => {
-
 				it('should show validation errors if API returns error', async () => {
-					const failResponse = {errors: {subSectorName: 'Must be existing sub-sector'}}
+					const failResponse = { errors: { subSectorName: 'Must be existing sub-sector' } };
 
 					nock('http://test/').patch('/applications/1').reply(500, failResponse);
 
-					const response = await request.post(baseUrl('1')).send({subSectorName: 'transport'});
+					const response = await request.post(baseUrl('1')).send({ subSectorName: 'transport' });
 					const element = parseHtml(response.text);
 
 					expect(element.innerHTML).toMatchSnapshot();
@@ -405,16 +302,17 @@ describe('applications create', () => {
 				it('should go to geographical info page nothing is missing', async () => {
 					nock('http://test/').patch('/applications/1').reply(200, successResponse);
 
-					const response = await request.post(baseUrl('1')).send({subSectorName: 'transport'});
+					const response = await request.post(baseUrl('1')).send({ subSectorName: 'transport' });
 
 					expect(response?.headers?.location).toContain('1/geographical-information');
-				})
-			})
+				});
+			});
 		});
 	});
 
 	describe('Geographical Information', () => {
-		const baseUrl = ( /** @type {string} */ id) => `/applications-service/create-new-case/${id}/geographical-information`;
+		const baseUrl = (/** @type {string} */ id) =>
+			`/applications-service/create-new-case/${id}/geographical-information`;
 
 		beforeEach(async () => {
 			await request.get('/applications-service/case-officer');
@@ -434,7 +332,6 @@ describe('applications create', () => {
 		describe('POST /create-new-case/:applicationId/geographical-information', () => {
 			describe('Web-side validation', () => {
 				it('should not render validation error if nothing missing', async () => {
-
 					const response = await request.post(baseUrl('1')).send({
 						'geographicalInformation.locationDescription': 'Location desc',
 						'geographicalInformation.gridReference.easting': '123456',
@@ -443,24 +340,32 @@ describe('applications create', () => {
 					const element = parseHtml(response.text);
 
 					expect(element.innerHTML).toMatchSnapshot();
-					expect(element.innerHTML).not.toContain('geographicalInformation.locationDescription-error');
-					expect(element.innerHTML).not.toContain('geographicalInformation.gridReference.easting-error');
-					expect(element.innerHTML).not.toContain('geographicalInformation.gridReference.northing-error');
+					expect(element.innerHTML).not.toContain(
+						'geographicalInformation.locationDescription-error'
+					);
+					expect(element.innerHTML).not.toContain(
+						'geographicalInformation.gridReference.easting-error'
+					);
+					expect(element.innerHTML).not.toContain(
+						'geographicalInformation.gridReference.northing-error'
+					);
 				});
 
 				it('should render validation error if something missing', async () => {
-
 					const response = await request.post(baseUrl('1'));
 					const element = parseHtml(response.text);
 
 					expect(element.innerHTML).toMatchSnapshot();
 					expect(element.innerHTML).toContain('geographicalInformation.locationDescription-error');
-					expect(element.innerHTML).toContain('geographicalInformation.gridReference.easting-error');
-					expect(element.innerHTML).toContain('geographicalInformation.gridReference.northing-error');
+					expect(element.innerHTML).toContain(
+						'geographicalInformation.gridReference.easting-error'
+					);
+					expect(element.innerHTML).toContain(
+						'geographicalInformation.gridReference.northing-error'
+					);
 				});
 
 				it('should render validation error if easting and northing are not valid', async () => {
-
 					const response = await request.post(baseUrl('1')).send({
 						'geographicalInformation.gridReference.easting': 1234,
 						'geographicalInformation.gridReference.northing': '123dfe'
@@ -468,19 +373,16 @@ describe('applications create', () => {
 					const element = parseHtml(response.text);
 
 					expect(element.innerHTML).toMatchSnapshot();
-					expect(element.innerHTML).toContain('geographicalInformation.gridReference.easting-error');
-					expect(element.innerHTML).toContain('geographicalInformation.gridReference.northing-error');
+					expect(element.innerHTML).toContain(
+						'geographicalInformation.gridReference.easting-error'
+					);
+					expect(element.innerHTML).toContain(
+						'geographicalInformation.gridReference.northing-error'
+					);
 				});
-
-				it('should go to subsector page if something was selected', async () => {
-					const response = await request.post(baseUrl('1')).send({sectorName: 'transport'});
-
-					expect(response?.res?.headers?.location).toContain('1/sub-sector');
-				})
 			});
 
 			describe('API-side validation:', () => {
-
 				it('should show validation errors if API returns error', async () => {
 					const failResponse = {
 						errors: {
@@ -488,7 +390,7 @@ describe('applications create', () => {
 							'geographicalInformation.gridReference.easting': 'Error msg',
 							'geographicalInformation.gridReference.northing': 'Error msg'
 						}
-					}
+					};
 
 					nock('http://test/').patch('/applications/1').reply(500, failResponse);
 
@@ -501,8 +403,12 @@ describe('applications create', () => {
 
 					expect(element.innerHTML).toMatchSnapshot();
 					expect(element.innerHTML).toContain('geographicalInformation.locationDescription-error');
-					expect(element.innerHTML).toContain('geographicalInformation.gridReference.easting-error');
-					expect(element.innerHTML).toContain('geographicalInformation.gridReference.northing-error');
+					expect(element.innerHTML).toContain(
+						'geographicalInformation.gridReference.easting-error'
+					);
+					expect(element.innerHTML).toContain(
+						'geographicalInformation.gridReference.northing-error'
+					);
 				});
 
 				it('should go to regions page if nothing is missing', async () => {
@@ -515,34 +421,30 @@ describe('applications create', () => {
 					});
 
 					expect(response?.headers?.location).toContain('1/regions');
-				})
-			})
+				});
+			});
 		});
 	});
 
-
 	describe('Regions', () => {
 		// const baseUrl = ( /** @type {string} */ id) => `/applications-service/create-new-case/${id}/regions`;
-		const baseUrl = ( /** @type {string} */ id) => `/applications-service/create-new-case/${id}/regions`;
+		const baseUrl = (/** @type {string} */ id) =>
+			`/applications-service/create-new-case/${id}/regions`;
 
 		beforeEach(async () => {
 			await request.get('/applications-service/case-officer');
 			nocks();
 			nock('http://test/').get('/applications/region').reply(200, fixtureRegions);
-
 		});
 
 		describe('GET /create-new-case/:applicationId/regions', () => {
-
 			it('should render the page with checked options if the api returns something', async () => {
 				const response = await request.get(baseUrl('1'));
 				const element = parseHtml(response.text);
 
 				expect(element.innerHTML).toMatchSnapshot();
-				expect(element.innerHTML).toContain('value="london"\n' +
-					'                    checked');
-				expect(element.innerHTML).toContain('value="yorkshire"\n' +
-					'                    checked');
+				expect(element.innerHTML).toContain('value="london"\n                    checked');
+				expect(element.innerHTML).toContain('value="yorkshire"\n                    checked');
 			});
 
 			it('should render the page without checked options', async () => {
@@ -557,9 +459,8 @@ describe('applications create', () => {
 		describe('POST /create-new-case/:applicationId/regions', () => {
 			describe('Web-validation', () => {
 				it('should not render validation error if nothing missing', async () => {
-
 					const responseWithOneRegion = await request.post(baseUrl('1')).send({
-						'geographicalInformation.regionNames': ['london'],
+						'geographicalInformation.regionNames': ['london']
 					});
 
 					let element = parseHtml(responseWithOneRegion.text);
@@ -568,7 +469,7 @@ describe('applications create', () => {
 					expect(element.innerHTML).not.toContain('geographicalInformation.regionNames-error');
 
 					const responseWithTwoRegions = await request.post(baseUrl('1')).send({
-						'geographicalInformation.regionNames': ['london', 'yorkshire'],
+						'geographicalInformation.regionNames': ['london', 'yorkshire']
 					});
 
 					element = parseHtml(responseWithTwoRegions.text);
@@ -587,12 +488,12 @@ describe('applications create', () => {
 
 			describe('Api validation', () => {
 				it('should show validation errors if API returns error', async () => {
-					const failResponse = {errors: {'geographicalInformation.regionNames': 'Error msg'}}
+					const failResponse = { errors: { 'geographicalInformation.regionNames': 'Error msg' } };
 
 					nock('http://test/').patch('/applications/1').reply(500, failResponse);
 
 					const response = await request.post(baseUrl('1')).send({
-						'geographicalInformation.regionNames': ['london'],
+						'geographicalInformation.regionNames': ['london']
 					});
 					const element = parseHtml(response.text);
 
@@ -601,39 +502,35 @@ describe('applications create', () => {
 				});
 
 				it('should go to zoom level page if api returns 200', async () => {
-
 					nock('http://test/').patch('/applications/1').reply(200, successResponse);
 
 					const response = await request.post(baseUrl('1')).send({
-						'geographicalInformation.regionNames': ['london'],
+						'geographicalInformation.regionNames': ['london']
 					});
 
 					expect(response?.headers?.location).toContain('1/zoom-level');
 				});
-			})
-		})
-	})
-
+			});
+		});
+	});
 
 	describe('Zoom Level', () => {
-		const baseUrl = ( /** @type {string} */ id) => `/applications-service/create-new-case/${id}/zoom-level`;
+		const baseUrl = (/** @type {string} */ id) =>
+			`/applications-service/create-new-case/${id}/zoom-level`;
 
 		beforeEach(async () => {
 			await request.get('/applications-service/case-officer');
 			nocks();
 			nock('http://test/').get('/applications/zoom-level').reply(200, fixtureZoomLevels);
-
 		});
 
 		describe('GET /create-new-case/:applicationId/zoom-level', () => {
-
 			it('should render the page with None checked if the api does not return resumed data', async () => {
 				const response = await request.get(baseUrl('2'));
 				const element = parseHtml(response.text);
 
 				expect(element.innerHTML).toMatchSnapshot();
-				expect(element.innerHTML).toContain('value="none"\n' +
-					'                    checked');
+				expect(element.innerHTML).toContain('value="none"\n                    checked');
 			});
 
 			it('should render the page with the checked option from the resumed data', async () => {
@@ -641,21 +538,21 @@ describe('applications create', () => {
 				const element = parseHtml(response.text);
 
 				expect(element.innerHTML).toMatchSnapshot();
-				expect(element.innerHTML).toContain('value="city"\n' +
-					'                    checked');
+				expect(element.innerHTML).toContain('value="city"\n                    checked');
 			});
 		});
 
 		describe('POST /create-new-case/:applicationId/zoom-level', () => {
-
 			describe('Api validation', () => {
 				it('should show validation errors if API returns error', async () => {
-					const failResponse = {errors: {'geographicalInformation.mapZoomLevelName': 'Error msg'}}
+					const failResponse = {
+						errors: { 'geographicalInformation.mapZoomLevelName': 'Error msg' }
+					};
 
 					nock('http://test/').patch('/applications/1').reply(500, failResponse);
 
 					const response = await request.post(baseUrl('1')).send({
-						'geographicalInformation.mapZoomLevelName': 'something wrong',
+						'geographicalInformation.mapZoomLevelName': 'something wrong'
 					});
 					const element = parseHtml(response.text);
 
@@ -664,27 +561,26 @@ describe('applications create', () => {
 				});
 
 				it('should go to zoom level page if api returns 200', async () => {
-
 					nock('http://test/').patch('/applications/1').reply(200, successResponse);
 
 					const response = await request.post(baseUrl('1')).send({
-						'geographicalInformation.regionNames': ['london'],
+						'geographicalInformation.regionNames': ['london']
 					});
 
 					expect(response?.headers?.location).toContain('1/team-email');
 				});
-			})
-		})
+			});
+		});
 	});
 
 	describe('Team email', () => {
-		const baseUrl = ( /** @type {string} */ id) => `/applications-service/create-new-case/${id}/team-email`;
+		const baseUrl = (/** @type {string} */ id) =>
+			`/applications-service/create-new-case/${id}/team-email`;
 
 		beforeEach(async () => {
 			await request.get('/applications-service/case-officer');
 			nocks();
 			nock('http://test/').get('/applications/zoom-level').reply(200, fixtureZoomLevels);
-
 		});
 
 		describe('GET /create-new-case/:applicationId/team-email', () => {
@@ -709,7 +605,7 @@ describe('applications create', () => {
 			describe('Web-validation', () => {
 				it('should not render validation error if nothing missing', async () => {
 					const response = await request.post(baseUrl('1')).send({
-						caseEmail: 'valid@ema.il',
+						caseEmail: 'valid@ema.il'
 					});
 
 					const element = parseHtml(response.text);
@@ -727,7 +623,7 @@ describe('applications create', () => {
 				});
 
 				it('should render validation error if email is not valid', async () => {
-					const response = await request.post(baseUrl('1')).send({caseEmail: 'notvalidemail'});
+					const response = await request.post(baseUrl('1')).send({ caseEmail: 'notvalidemail' });
 					const element = parseHtml(response.text);
 
 					expect(element.innerHTML).toMatchSnapshot();
@@ -737,12 +633,12 @@ describe('applications create', () => {
 
 			describe('Api validation', () => {
 				it('should show validation errors if API returns error', async () => {
-					const failResponse = {errors: {caseEmail: 'Error msg'}}
+					const failResponse = { errors: { caseEmail: 'Error msg' } };
 
 					nock('http://test/').patch('/applications/1').reply(500, failResponse);
 
 					const response = await request.post(baseUrl('1')).send({
-						caseEmail: 'valid@ema.il',
+						caseEmail: 'valid@ema.il'
 					});
 					const element = parseHtml(response.text);
 
@@ -751,18 +647,17 @@ describe('applications create', () => {
 				});
 
 				it('should go to applciant info types page if api returns 200', async () => {
-
 					nock('http://test/').patch('/applications/1').reply(200, successResponse);
 
 					const response = await request.post(baseUrl('1')).send({
-						caseEmail: 'valid@ema.il',
+						caseEmail: 'valid@ema.il'
 					});
 
-					expect(response?.headers?.location).toContain('/applications-service/create-new-case/1/applicant-information-types');
+					expect(response?.headers?.location).toContain(
+						'/applications-service/create-new-case/1/applicant-information-types'
+					);
 				});
-			})
-		})
-	})
-
-})
-;
+			});
+		});
+	});
+});
