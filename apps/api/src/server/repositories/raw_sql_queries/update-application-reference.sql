@@ -1,6 +1,6 @@
 declare @sub_sector_abbreviation nchar(4), @max_reference int, @reference_number int;
 
-declare @minimum_new_reference int = 10000;
+declare @minimum_new_reference int = 10001;
 declare @id int = CASE_ID;
 
 select @sub_sector_abbreviation = sub_sector_table.abbreviation 
