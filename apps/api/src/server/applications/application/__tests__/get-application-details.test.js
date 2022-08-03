@@ -177,3 +177,93 @@ test('only returns description field when description query made', async (t) => 
 
 	sinon.assert.calledWith(findUniqueStub, { where: { id: 1 } });
 });
+
+test('only returns title field when title query made', async (t) => {
+	const response = await request.get('/applications/1?query={"title":true}');
+
+	t.is(response.status, 200);
+	t.deepEqual(response.body, {
+		id: 1,
+		title: 'EN010003 - NI Case 3 Name'
+	});
+
+	sinon.assert.calledWith(findUniqueStub, { where: { id: 1 } });
+});
+
+test('returns multiple field when multiple queries made', async (t) => {
+	const response = await request.get('/applications/1?query={"title":true,"description":true}');
+
+	t.is(response.status, 200);
+	t.deepEqual(response.body, {
+		description: 'EN010003 - NI Case 3 Name Description',
+		id: 1,
+		title: 'EN010003 - NI Case 3 Name'
+	});
+	sinon.assert.calledWith(findUniqueStub, { where: { id: 1 } });
+});
+
+test('does not return query marked false', async (t) => {
+	const response = await request.get('/applications/1?query={"title":false,"description":true}');
+
+	t.is(response.status, 200);
+	t.deepEqual(response.body, {
+		description: 'EN010003 - NI Case 3 Name Description',
+		id: 1
+	});
+	sinon.assert.calledWith(findUniqueStub, { where: { id: 1 } });
+});
+
+test('only returns subsector field when subSector query made', async (t) => {
+	const response = await request.get('/applications/1?query={"subSector":true}');
+
+	t.is(response.status, 200);
+	t.deepEqual(response.body, {
+		id: 1,
+		subSector: {
+			abbreviation: 'AA',
+			displayNameCy: 'Sub Sector Name Cy',
+			displayNameEn: 'Sub Sector Name En',
+			name: 'sub_sector'
+		}
+	});
+
+	sinon.assert.calledWith(findUniqueStub, { where: { id: 1 } });
+});
+
+test('only returns geographical inf field when query made', async (t) => {
+	const response = await request.get('/applications/1?query={"geographicalInformation":true}');
+
+	t.is(response.status, 200);
+	t.deepEqual(response.body, {
+		geographicalInformation: {
+			gridReference: {
+				easting: 123_456,
+				northing: 987_654
+			},
+			locationDescription: 'Some Location',
+			mapZoomLevel: {
+				displayNameCy: 'Zoom Level Name Cy',
+				displayNameEn: 'Zoom Level Name En',
+				displayOrder: 100,
+				id: 1,
+				name: 'zoom-level'
+			},
+			regions: [
+				{
+					displayNameCy: 'Region Name 1 Cy',
+					displayNameEn: 'Region Name 1 En',
+					id: 1,
+					name: 'region1'
+				},
+				{
+					displayNameCy: 'Region Name 2 Cy',
+					displayNameEn: 'Region Name 2 En',
+					id: 2,
+					name: 'region2'
+				}
+			]
+		},
+		id: 1
+	});
+	sinon.assert.calledWith(findUniqueStub, { where: { id: 1 } });
+});
