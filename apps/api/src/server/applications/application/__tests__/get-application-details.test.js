@@ -166,7 +166,7 @@ test('throws an error if the id provided is a string/characters', async (t) => {
 	});
 });
 
-test('only returns description field when description query made', async (t) => {
+test('returns only description field when description query made', async (t) => {
 	const response = await request.get('/applications/1?query={"description":true}');
 
 	t.is(response.status, 200);
@@ -178,13 +178,35 @@ test('only returns description field when description query made', async (t) => 
 	sinon.assert.calledWith(findUniqueStub, { where: { id: 1 } });
 });
 
-test('only returns title field when title query made', async (t) => {
+test('does not return description field when description query false', async (t) => {
+	const response = await request.get('/applications/1?query={"description":false}');
+
+	t.is(response.status, 200);
+	t.deepEqual(response.body, {
+		id: 1
+	});
+
+	sinon.assert.calledWith(findUniqueStub, { where: { id: 1 } });
+});
+
+test('returns only title field when title query made', async (t) => {
 	const response = await request.get('/applications/1?query={"title":true}');
 
 	t.is(response.status, 200);
 	t.deepEqual(response.body, {
 		id: 1,
 		title: 'EN010003 - NI Case 3 Name'
+	});
+
+	sinon.assert.calledWith(findUniqueStub, { where: { id: 1 } });
+});
+
+test('does not return title field when title query false', async (t) => {
+	const response = await request.get('/applications/1?query={"title":false}');
+
+	t.is(response.status, 200);
+	t.deepEqual(response.body, {
+		id: 1
 	});
 
 	sinon.assert.calledWith(findUniqueStub, { where: { id: 1 } });
@@ -213,7 +235,7 @@ test('does not return query marked false', async (t) => {
 	sinon.assert.calledWith(findUniqueStub, { where: { id: 1 } });
 });
 
-test('only returns subsector field when subSector query made', async (t) => {
+test('returns only subsector field when subSector query made', async (t) => {
 	const response = await request.get('/applications/1?query={"subSector":true}');
 
 	t.is(response.status, 200);
@@ -230,7 +252,18 @@ test('only returns subsector field when subSector query made', async (t) => {
 	sinon.assert.calledWith(findUniqueStub, { where: { id: 1 } });
 });
 
-test('only returns geographical inf field when query made', async (t) => {
+test('does not return subsector field when subSector query false', async (t) => {
+	const response = await request.get('/applications/1?query={"subSector":false}');
+
+	t.is(response.status, 200);
+	t.deepEqual(response.body, {
+		id: 1
+	});
+
+	sinon.assert.calledWith(findUniqueStub, { where: { id: 1 } });
+});
+
+test('returns only geographical inf field when query made', async (t) => {
 	const response = await request.get('/applications/1?query={"geographicalInformation":true}');
 
 	t.is(response.status, 200);
@@ -263,6 +296,16 @@ test('only returns geographical inf field when query made', async (t) => {
 				}
 			]
 		},
+		id: 1
+	});
+	sinon.assert.calledWith(findUniqueStub, { where: { id: 1 } });
+});
+
+test('does not return geographical inf field when query false', async (t) => {
+	const response = await request.get('/applications/1?query={"geographicalInformation":false}');
+
+	t.is(response.status, 200);
+	t.deepEqual(response.body, {
 		id: 1
 	});
 	sinon.assert.calledWith(findUniqueStub, { where: { id: 1 } });

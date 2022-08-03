@@ -48,16 +48,6 @@ const validateExistingApplication = async (caseId) => {
 
 /**
  *
- * @param {number} caseId
- */
-export const validateExistingApplicationIdType = async (caseId) => {
-	if (typeof caseId === 'string') {
-		throw new TypeError('Application id must be a number');
-	}
-};
-
-/**
- *
  * @param {number} value
  * @param {{req: any}} requestInfo
  */
@@ -152,14 +142,6 @@ export const validateApplicationId = composeMiddleware(
 		.toInt()
 		.custom(validateExistingApplication)
 		.withMessage('Must be an existing application'),
-	validationErrorHandler
-);
-
-export const validateApplicationIdType = composeMiddleware(
-	param('id')
-		.toInt()
-		.custom(validateExistingApplicationIdType)
-		.withMessage('Application id must be a number'),
 	validationErrorHandler
 );
 
