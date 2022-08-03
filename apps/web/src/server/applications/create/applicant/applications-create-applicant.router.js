@@ -6,7 +6,7 @@ import * as validators from './applications-create-applicant.validators.js';
 
 const applicationsCreateApplicantRouter = createRouter();
 
-applicationsCreateApplicantRouter.use(locals.registerBackPath);
+applicationsCreateApplicantRouter.use([locals.registerBackPath, locals.registerApplicantId]);
 
 applicationsCreateApplicantRouter
 	.route('/applicant-information-types')
@@ -26,7 +26,10 @@ applicationsCreateApplicantRouter
 applicationsCreateApplicantRouter
 	.route('/applicant-address')
 	.get(guards.assertStepIsAllowed, controller.viewApplicationsCreateApplicantAddress)
-	.post(controller.updateApplicationsCreateApplicantAddress);
+	.post(
+		validators.validateApplicationsCreateApplicantPostCode,
+		controller.updateApplicationsCreateApplicantAddress
+	);
 
 applicationsCreateApplicantRouter
 	.route('/applicant-website')
