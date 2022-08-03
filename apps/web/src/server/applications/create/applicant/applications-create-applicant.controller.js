@@ -14,8 +14,8 @@ import {
 /** @typedef {import('./applications-create-applicant.types').ApplicationsCreateApplicantFullNameBody} ApplicationsCreateApplicantFullNameBody */
 /** @typedef {import('./applications-create-applicant.types').ApplicationsCreateApplicantWebsiteProps} ApplicationsCreateApplicantWebsiteProps */
 /** @typedef {import('./applications-create-applicant.types').ApplicationsCreateApplicantWebsiteBody} ApplicationsCreateApplicantWebsiteBody */
-/** @typedef {import('./applications-create-applicant.types').ApplicationsCreateApplicantWebsiteProps} ApplicationsCreateApplicantEmailProps */
-/** @typedef {import('./applications-create-applicant.types').ApplicationsCreateApplicantWebsiteBody} ApplicationsCreateApplicantEmailBody */
+/** @typedef {import('./applications-create-applicant.types').ApplicationsCreateApplicantEmailProps} ApplicationsCreateApplicantEmailProps */
+/** @typedef {import('./applications-create-applicant.types').ApplicationsCreateApplicantEmailBody} ApplicationsCreateApplicantEmailBody */
 
 /**
  * View the form step for the applicant information types
