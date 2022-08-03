@@ -1409,6 +1409,87 @@ exports[`inspector POST /appeals/:appealId/confirm-site-visit should confirm a s
 </main>"
 `;
 
+exports[`inspector POST /appeals/:appealId/issue-decision should display a confirmation page upon valid submission 1`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <div class=\\"govuk-grid-row\\">
+        <div class=\\"govuk-grid-column-full\\">
+            <h1 class=\\"govuk-heading-xl\\">Issue a decision</h1>
+        </div>
+    </div>
+    <div class=\\"govuk-grid-row\\">
+        <div data-test-id=\\"pageLeft\\" class=\\"govuk-grid-column-one-quarter pins-content--sticky\\">
+            <aside class=\\"govuk-!-margin-bottom-8\\">
+                <h3 class=\\"govuk-heading-m\\">Summary</h3>
+                <dl class=\\"govuk-body-s\\">
+                    <div class=\\"govuk-!-margin-bottom-3\\"><dt class=\\"govuk-!-font-weight-bold\\">Appellant name</dt>
+                        <dd>Cliff Montgomery 303</dd>
+                    </div>
+                    <div class=\\"govuk-!-margin-bottom-3\\"><dt class=\\"govuk-!-font-weight-bold\\">Appeal reference</dt>
+                        <dd>INS/A0000/A/00/0000303</dd>
+                    </div>
+                    <div class=\\"govuk-!-margin-bottom-3\\"><dt class=\\"govuk-!-font-weight-bold\\">Appeal age</dt>
+                        <dd>303 days</dd>
+                    </div>
+                    <div class=\\"govuk-!-margin-bottom-3\\"><dt class=\\"govuk-!-font-weight-bold\\">Site address</dt>
+                        <dd>London Industrial Park – Unit 303, Alpine Way, London, E6 6LA</dd>
+                    </div>
+                    <div class=\\"govuk-!-margin-bottom-3\\"><dt class=\\"govuk-!-font-weight-bold\\">Local planning department</dt>
+                        <dd>Barnsley Metropolitan Borough Council</dd>
+                    </div>
+                </dl>
+            </aside>
+        </div>
+        <div class=\\"govuk-grid-column-one-half\\">
+            <div class=\\"govuk-error-summary\\" aria-labelledby=\\"error-summary-title\\"
+            role=\\"alert\\" data-module=\\"govuk-error-summary\\">
+                <h2 class=\\"govuk-error-summary__title\\" id=\\"error-summary-title\\"> There is a problem</h2>
+                <div class=\\"govuk-error-summary__body\\">
+                    <ul class=\\"govuk-list govuk-error-summary__list\\">
+                        <li><a href=\\"#decisionLetter\\">File too large</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <h2 class=\\"govuk-heading-l\\">Decision details</h2>
+            <form method=\\"post\\" enctype=\\"multipart/form-data\\" novalidate=\\"novalidate\\">
+                <h3 class=\\"govuk-heading-m\\">Date</h3>
+                <p class=\\"govuk-body\\">1 January 2023</p>
+                <div class=\\"govuk-form-group\\">
+                    <fieldset class=\\"govuk-fieldset\\">
+                        <legend class=\\"govuk-fieldset__legend govuk-fieldset__legend--m\\">Outcome</legend>
+                        <div class=\\"govuk-radios\\" data-module=\\"govuk-radios\\">
+                            <div class=\\"govuk-radios__item\\">
+                                <input class=\\"govuk-radios__input\\" id=\\"outcome\\" name=\\"outcome\\" type=\\"radio\\"
+                                value=\\"allowed\\" checked>
+                                <label class=\\"govuk-label govuk-radios__label\\" for=\\"outcome\\">Allowed</label>
+                            </div>
+                            <div class=\\"govuk-radios__item\\">
+                                <input class=\\"govuk-radios__input\\" id=\\"outcome-2\\" name=\\"outcome\\" type=\\"radio\\"
+                                value=\\"dismissed\\">
+                                <label class=\\"govuk-label govuk-radios__label\\" for=\\"outcome-2\\">Dismissed</label>
+                            </div>
+                            <div class=\\"govuk-radios__item\\">
+                                <input class=\\"govuk-radios__input\\" id=\\"outcome-3\\" name=\\"outcome\\" type=\\"radio\\"
+                                value=\\"split decision\\">
+                                <label class=\\"govuk-label govuk-radios__label\\" for=\\"outcome-3\\">Split decision</label>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+                <div class=\\"govuk-form-group govuk-form-group--error\\">
+                    <label class=\\"govuk-label govuk-label--m\\" for=\\"decisionLetter\\">Upload decision letter</label>
+                    <p id=\\"decisionLetter-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> File too large</p>
+                    <input                     class=\\"govuk-file-upload govuk-file-upload--error\\" id=\\"decisionLetter\\"
+                    name=\\"decisionLetter\\" type=\\"file\\" aria-describedby=\\"decisionLetter-error\\">
+                </div>
+                <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Continue</button>
+            </form>
+        </div>
+        <div data-test-id=\\"pageRight\\" class=\\"govuk-grid-column-one-quarter\\"></div>
+    </div>
+</main>"
+`;
+
 exports[`inspector POST /appeals/:appealId/issue-decision should validate that a file is not in excess of 15mb 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"govuk-grid-row\\">
