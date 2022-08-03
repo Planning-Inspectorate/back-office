@@ -42,7 +42,7 @@ describe('applications create applicant', () => {
 			expect(element.innerHTML).toContain('Save and continue');
 		});
 
-		it('should show not render the page if there is no session data', async () => {
+		it('should not render the page if there is no session data', async () => {
 			const response = await request.get(baseUrl);
 
 			expect(response?.headers?.location).toMatch(
@@ -68,7 +68,7 @@ describe('applications create applicant', () => {
 			expect(element.innerHTML).toContain('Save and continue');
 		});
 
-		it('should show not render the page if there is no session data', async () => {
+		it('should not render the page if there is no session data', async () => {
 			const response = await request.get(baseUrl);
 
 			expect(response?.headers?.location).toMatch(
@@ -95,7 +95,7 @@ describe('applications create applicant', () => {
 				expect(element.innerHTML).toContain('Save and continue');
 			});
 
-			it('should show not render the page if there is no session data', async () => {
+			it('should not render the page if there is no session data', async () => {
 				const response = await request.get(baseUrl);
 
 				expect(response?.headers?.location).toMatch(
@@ -142,7 +142,7 @@ describe('applications create applicant', () => {
 				expect(element.innerHTML).toContain('Save and continue');
 			});
 
-			it('should show not render the page if there is no session data', async () => {
+			it('should not render the page if there is no session data', async () => {
 				const response = await request.get(baseUrl);
 
 				expect(response?.headers?.location).toMatch(
@@ -189,7 +189,7 @@ describe('applications create applicant', () => {
 				expect(element.innerHTML).toContain('Save and continue');
 			});
 
-			it('should show not render the page if there is no session data', async () => {
+			it('should not render the page if there is no session data', async () => {
 				const response = await request.get(baseUrl);
 
 				expect(response?.headers?.location).toMatch(
