@@ -383,7 +383,7 @@ exports[`inspector GET /appeals/:appealId should render the appeal details 1`] =
                 </div>
             </div>
         </div>
-
+        
     </div>
 </main>"
 `;
