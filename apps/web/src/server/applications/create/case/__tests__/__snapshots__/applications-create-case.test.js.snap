@@ -546,25 +546,6 @@ exports[`applications create Regions GET /create-new-case/:applicationId/regions
                 </div>
             </div>
         </div>
-    </div>
-    <h2 class=\\"govuk-heading-l\\"> Enter name and description</h2>
-    <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
-        <div class=\\"govuk-form-group govuk-form-group--error\\">
-            <label class=\\"govuk-label font-weight--700\\" for=\\"title\\">Name of the case</label>
-            <div id=\\"title-hint\\" class=\\"govuk-hint\\">for example, Bridge over a very long canyon</div>
-            <p id=\\"title-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> Some error message from
-                API</p>
-            <input class=\\"govuk-input govuk-!-width-one-third govuk-input--error\\"
-            id=\\"title\\" name=\\"title\\" type=\\"text\\" value=\\"A title\\" aria-describedby=\\"title-hint title-error\\">
-        </div>
-        <div class=\\"govuk-form-group govuk-form-group--error\\">
-            <label class=\\"govuk-label font-weight--700\\" for=\\"description\\">Description of the case</label>
-            <div id=\\"description-hint\\" class=\\"govuk-hint\\">for example, An offshore wind generating station of capacity up to 285
-                MW</div>
-            <p id=\\"description-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> Same</p>
-            <textarea class=\\"govuk-textarea govuk-textarea--error govuk-!-width-three-quarters\\"
-            id=\\"description\\" name=\\"description\\" rows=\\"5\\" aria-describedby=\\"description-hint description-error\\">A description</textarea>
-        </div>
         <div class=\\"govuk-grid-row\\">
             <div class=\\"govuk-button-group pins-button-group govuk-grid-column-one-half\\"><a class=\\"govuk-link\\" href=\\"/applications-service/create-new-case/1/geographical-information/\\">Back</a>
                 <button                 class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and continue</button>
