@@ -100,6 +100,68 @@ exports[`applications create Geographical Information POST /create-new-case/:app
 </main>"
 `;
 
+exports[`applications create Geographical Information POST /create-new-case/:applicationId/geographical-information API-side validation: should show validation errors if API returns error 2`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <div class=\\"govuk-grid-row\\">
+        <div class=\\"govuk-grid-column-two-thirds\\">
+            <div class=\\"govuk-error-summary\\" aria-labelledby=\\"error-summary-title\\"
+            role=\\"alert\\" data-module=\\"govuk-error-summary\\">
+                <h2 class=\\"govuk-error-summary__title\\" id=\\"error-summary-title\\"> There is a problem</h2>
+                <div class=\\"govuk-error-summary__body\\">
+                    <ul class=\\"govuk-list govuk-error-summary__list\\">
+                        <li><a href=\\"#geographicalInformation.locationDescription\\">Error msg</a>
+                        </li>
+                        <li><a href=\\"#geographicalInformation.gridReference.easting\\">Error msg</a>
+                        </li>
+                        <li><a href=\\"#geographicalInformation.gridReference.northing\\">Error msg</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <h2 class=\\"govuk-heading-l\\"> Enter geographical information</h2>
+    <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
+        <div class=\\"govuk-form-group govuk-form-group--error\\">
+            <label class=\\"govuk-label font-weight--700\\" for=\\"geographicalInformation.locationDescription\\">Case Location</label>
+            <div id=\\"geographicalInformation.locationDescription-hint\\"
+            class=\\"govuk-hint govuk-!-width-three-quarters\\">for example “approximately 8km off the coast of Kent, in areas surrounding
+                Thanet Offshore Wind Farm</div>
+            <p id=\\"geographicalInformation.locationDescription-error\\"
+            class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> Error msg</p>
+            <textarea             class=\\"govuk-textarea govuk-textarea--error govuk-!-width-three-quarters\\"
+            id=\\"geographicalInformation.locationDescription\\" name=\\"geographicalInformation.locationDescription\\"
+            rows=\\"5\\" aria-describedby=\\"geographicalInformation.locationDescription-hint geographicalInformation.locationDescription-error\\">Location desc</textarea>
+        </div>
+        <div class=\\"govuk-form-group govuk-form-group--error\\">
+            <label class=\\"govuk-label font-weight--700\\" for=\\"geographicalInformation.gridReference.easting\\">Grid reference Easting</label>
+            <div id=\\"geographicalInformation.gridReference.easting-hint\\"
+            class=\\"govuk-hint\\">for example, 345678</div>
+            <p id=\\"geographicalInformation.gridReference.easting-error\\"
+            class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> Error msg</p>
+            <input class=\\"govuk-input govuk-!-width-one-third govuk-input--error\\"
+            id=\\"geographicalInformation.gridReference.easting\\" name=\\"geographicalInformation.gridReference.easting\\"
+            type=\\"text\\" value=\\"123456\\" aria-describedby=\\"geographicalInformation.gridReference.easting-hint geographicalInformation.gridReference.easting-error\\">
+        </div>
+        <div class=\\"govuk-form-group govuk-form-group--error\\">
+            <label class=\\"govuk-label font-weight--700\\" for=\\"geographicalInformation.gridReference.northing\\">Grid reference Northing</label>
+            <div id=\\"geographicalInformation.gridReference.northing-hint\\"
+            class=\\"govuk-hint\\">for example, 345678</div>
+            <p id=\\"geographicalInformation.gridReference.northing-error\\"
+            class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> Error msg</p>
+            <input class=\\"govuk-input govuk-!-width-one-third govuk-input--error\\"
+            id=\\"geographicalInformation.gridReference.northing\\" name=\\"geographicalInformation.gridReference.northing\\"
+            type=\\"text\\" value=\\"789123\\" aria-describedby=\\"geographicalInformation.gridReference.northing-hint geographicalInformation.gridReference.northing-error\\">
+        </div>
+        <div class=\\"govuk-grid-row\\">
+            <div class=\\"govuk-button-group pins-button-group govuk-grid-column-one-half\\"><a class=\\"govuk-link\\" href=\\"/applications-service/create-new-case/1/sub-sector/\\">Back</a>
+                <button                 class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and continue</button>
+            </div>
+        </div>
+    </form>
+</main>"
+`;
+
 exports[`applications create Geographical Information POST /create-new-case/:applicationId/geographical-information Web-side validation should not render validation error if nothing missing 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"govuk-grid-row\\">

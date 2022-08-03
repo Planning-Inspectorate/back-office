@@ -1,10 +1,14 @@
+import { findAddressListByPostcode } from '@planning-inspectorate/address-lookup';
+import { bodyToPayload } from '../../../lib/body-formatter.js';
+import { updateApplicationDraft } from '../applications-create.service.js';
 import * as applicationsCreateApplicantService from './applications-create-applicant.service.js';
 import {
 	getSessionApplicantInfoTypes,
 	setSessionApplicantInfoTypes
 } from './applications-create-applicant-session.service.js';
 
-/** @typedef {import('../../applications.router').DomainParams} DomainParams */
+/** @typedef {import('@pins/express').ValidationErrors} ValidationErrors */
+/** @typedef {import('../../applications.types').ApplicationsAddress} ApplicationsAddress */
 /** @typedef {import('./applications-create-applicant.types').ApplicationsCreateApplicantTypesProps} ApplicationsCreateApplicantTypesProps */
 /** @typedef {import('./applications-create-applicant.types').ApplicationsCreateApplicantTypesBody} ApplicationsCreateApplicantTypesBody */
 /** @typedef {import('./applications-create-applicant-session.service.js').SessionWithApplicationsCreateApplicantInfoTypes} SessionWithApplicationsCreateApplicantInfoTypes */
@@ -12,12 +16,15 @@ import {
 /** @typedef {import('./applications-create-applicant.types').ApplicationsCreateApplicantOrganisationNameBody} ApplicationsCreateApplicantOrganisationNameBody */
 /** @typedef {import('./applications-create-applicant.types').ApplicationsCreateApplicantFullNameProps} ApplicationsCreateApplicantFullNameProps */
 /** @typedef {import('./applications-create-applicant.types').ApplicationsCreateApplicantFullNameBody} ApplicationsCreateApplicantFullNameBody */
+/** @typedef {import('./applications-create-applicant.types').ApplicationsCreateApplicantAddressProps} ApplicationsCreateApplicantAddressProps */
+/** @typedef {import('./applications-create-applicant.types').ApplicationsCreateApplicantAddressBody} ApplicationsCreateApplicantAddressBody */
+/** @typedef {import('./applications-create-applicant.types').ApplicationCreateApplicantAddressStage} ApplicationCreateApplicantAddressStage */
 
 /**
  * View the form step for the applicant information types
  *
  * @type {import('@pins/express').RenderHandler<ApplicationsCreateApplicantTypesProps,
- * {}, {}, {}, DomainParams>}
+ * {}, {}, {}, {}>}
  */
 export function viewApplicationsCreateApplicantTypes({ session }, response) {
 	const allApplicantInfoTypes = applicationsCreateApplicantService.getAllApplicantInfoTypes();
@@ -38,7 +45,7 @@ export function viewApplicationsCreateApplicantTypes({ session }, response) {
  * Save the applicant information types in the session
  *
  * @type {import('@pins/express').RenderHandler<ApplicationsCreateApplicantTypesProps,
- * {}, ApplicationsCreateApplicantTypesBody, {}, DomainParams>}
+ * {}, ApplicationsCreateApplicantTypesBody, {}, {}>}
  */
 export async function updateApplicationsCreateApplicantTypes({ path, session, body }, response) {
 	const { applicationId } = response.locals;
@@ -52,7 +59,7 @@ export async function updateApplicationsCreateApplicantTypes({ path, session, bo
 /**
  * View the form step for the applicant organisation name
  *
- * @type {import('@pins/express').RenderHandler<ApplicationsCreateApplicantOrganisationNameProps, {}, {}, {}, DomainParams>}
+ * @type {import('@pins/express').RenderHandler<ApplicationsCreateApplicantOrganisationNameProps, {}, {}, {}, {}>}
  */
 export async function viewApplicationsCreateApplicantOrganisationName(req, response) {
 	response.render('applications/create/applicant/_organisation-name');
@@ -61,7 +68,7 @@ export async function viewApplicationsCreateApplicantOrganisationName(req, respo
 /**
  * Update the applicant organisation name
  *
- * @type {import('@pins/express').RenderHandler<ApplicationsCreateApplicantOrganisationNameProps, {}, ApplicationsCreateApplicantOrganisationNameBody, {}, DomainParams>}
+ * @type {import('@pins/express').RenderHandler<ApplicationsCreateApplicantOrganisationNameProps, {}, ApplicationsCreateApplicantOrganisationNameBody, {}, {}>}
  */
 export async function updateApplicationsCreateApplicantOrganisationName(
 	{ path, session },
@@ -78,7 +85,7 @@ export async function updateApplicationsCreateApplicantOrganisationName(
 /**
  * View the form step for the applicant's full name
  *
- * @type {import('@pins/express').RenderHandler<ApplicationsCreateApplicantFullNameProps, {}, {}, {}, DomainParams>}
+ * @type {import('@pins/express').RenderHandler<ApplicationsCreateApplicantFullNameProps, {}, {}, {}, {}>}
  */
 export async function viewApplicationsCreateApplicantFullName(req, response) {
 	response.render('applications/create/applicant/_full-name');
@@ -87,7 +94,7 @@ export async function viewApplicationsCreateApplicantFullName(req, response) {
 /**
  * Update the applicant's full name
  *
- * @type {import('@pins/express').RenderHandler<ApplicationsCreateApplicantFullNameProps, {}, ApplicationsCreateApplicantFullNameBody, {}, DomainParams>}
+ * @type {import('@pins/express').RenderHandler<ApplicationsCreateApplicantFullNameProps, {}, ApplicationsCreateApplicantFullNameBody, {}, {}>}
  */
 export async function updateApplicationsCreateApplicantFullName({ path, session }, response) {
 	const { applicationId } = response.locals;
@@ -118,19 +125,83 @@ export async function updateApplicationsCreateApplicantEmail({ path, session }, 
 /**
  * View the form step for the applicant address
  *
- * @type {import('@pins/express').RenderHandler<{}, {}>}
+ * @type {import('@pins/express').RenderHandler<ApplicationsCreateApplicantAddressProps,
+  {}, {}, {postcode: string}, {}>}
  */
-export async function viewApplicationsCreateApplicantAddress(req, response) {
-	response.render('applications/create/applicant/_address');
+export async function viewApplicationsCreateApplicantAddress({ query }, response) {
+	const { postcode } = query;
+	const formStage = postcode ? 'manualAddress' : 'searchPostcode';
+
+	response.render('applications/create/applicant/_address', { formStage, postcode });
 }
 
 /**
  * Update the applicant address
  *
- * @type {import('@pins/express').RenderHandler<{}, {}>}
+ * @type {import('@pins/express').RenderHandler<ApplicationsCreateApplicantAddressProps,
+ * {}, ApplicationsCreateApplicantAddressBody, {}, {}>}
  */
-export async function updateApplicationsCreateApplicantAddress({ path, session }, response) {
-	const { applicationId } = response.locals;
+export async function updateApplicationsCreateApplicantAddress(
+	{ path, session, errors: validationErrors, body },
+	response
+) {
+	const { postcode, apiReference, currentFormStage } = body;
+	const { applicationId, applicantId } = response.locals;
+
+	const {
+		/** @type {ValidationErrors} */ errors: apiErrors,
+		/** @type {ApplicationsAddress[]} */ addressList: matchingAddressList,
+		/** @type {ApplicationCreateApplicantAddressStage} */ formStage = currentFormStage
+	} = await (async () => {
+		switch (currentFormStage) {
+			case 'searchPostcode': {
+				const { errors, addressList } = await findAddressListByPostcode(postcode, {
+					maxResults: 50,
+					minMatch: 0.9
+				});
+				const newFormStage = errors ? 'searchPostcode' : 'selectAddress';
+
+				return { errors, addressList, formStage: newFormStage };
+			}
+			case 'selectAddress': {
+				const { errors: serviceErrors, addressList } = await findAddressListByPostcode(postcode, {
+					maxResults: 50,
+					minMatch: 0.9
+				});
+				const selectedAddress = addressList.find(
+					(address) => address.apiReference === apiReference
+				);
+				const payload = { applicant: { id: applicantId, address: selectedAddress } };
+				const { errors: updateErrors } = await updateApplicationDraft(applicationId, payload);
+
+				return { errors: serviceErrors || updateErrors, addressList };
+			}
+			case 'manualAddress': {
+				const payload = bodyToPayload(body);
+
+				payload.applicant.address.postcode = postcode;
+				payload.applicant.id = applicantId;
+
+				const { errors } = await updateApplicationDraft(applicationId, payload);
+
+				return { errors };
+			}
+			default: {
+				return { errors: { formStage: { msg: 'An error occurred, please try again later' } } };
+			}
+		}
+	})();
+
+	const errors = validationErrors || apiErrors;
+
+	if (errors || (!apiReference && formStage === 'selectAddress')) {
+		return response.render('applications/create/applicant/_address', {
+			errors,
+			formStage,
+			postcode,
+			addressList: matchingAddressList
+		});
+	}
 
 	goToNextStep(applicationId, path, session, response);
 }

@@ -27,15 +27,28 @@ export interface Application {
 	sector?: Sector;
 	subSector?: Sector;
 	caseEmail?: string;
+	applicants?: Applicant[];
 	geographicalInformation?: {
-		mapZoomLevel: ZoomLevel,
-		regions: Region[],
+		mapZoomLevel: ZoomLevel;
+		regions: Region[];
 		locationDescription: string;
 		gridReference: {
 			northing: string;
 			easting: string;
 		};
 	};
+}
+
+export interface Applicant {
+	id: number;
+	address?: ApplicationsAddress;
+}
+// TODO: unify with appeals address
+export interface ApplicationsAddress {
+	postcode: string;
+	addressLine1: string;
+	addressLine2?: string;
+	town: string;
 }
 
 export interface OptionsItem {

@@ -1,5 +1,5 @@
 import { ValidationErrors } from '@pins/express';
-import { SelectItem } from '../../applications.types';
+import { ApplicationsAddress, SelectItem } from '../../applications.types';
 
 export type ApplicationsCreateApplicantTypesProps = {
 	applicantInfoTypes: SelectItem[];
@@ -32,4 +32,24 @@ export type ApplicationsCreateApplicantFullNameBody = {
 	applicantfirstName?: string;
 	applicantmiddleName?: string;
 	applicantlastName?: string;
+};
+
+export type ApplicationCreateApplicantAddressStage =
+	| 'searchPostcode'
+	| 'selectAddress'
+	| 'manualAddress';
+export type ApplicationsCreateApplicantAddressProps = {
+	formStage: ApplicationCreateApplicantAddressStage;
+	errors?: Record<string, { msg: string }> | ValidationErrors;
+	postcode: string;
+	addressList?: ApplicationAddress[];
+};
+
+export type ApplicationsCreateApplicantAddressBody = {
+	postcode: string;
+	apiReference?: string;
+	currentFormStage: ApplicationCreateApplicantAddressStage;
+	'applicant.address.addressLine1'?: string;
+	'applicant.address.addressLine2'?: string;
+	'applicant.address.town'?: string;
 };

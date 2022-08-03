@@ -27,6 +27,11 @@ export const fixtureApplications = [
 			regions: [fixtureRegions[0], fixtureRegions[1]],
 			mapZoomLevel: fixtureZoomLevels[0]
 		},
+		applicants: [
+			{
+				id: 2
+			}
+		],
 		caseEmail: 'some@ema.il'
 	},
 	createApplication({

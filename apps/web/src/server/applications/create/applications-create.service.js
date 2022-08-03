@@ -64,5 +64,7 @@ export const createApplicationDraft = async (payload, session) => {
 export const getApplicationDraft = async (id = '') => {
 	const allApps = /** @type {Array<Application>} */ await get(`applications/case-officer`);
 
-	return allApps.find((/** @type {Application} */ app) => `${app.id}` === `${id}`);
+	const myApp = allApps.find((/** @type {Application} */ app) => `${app.id}` === `${id}`);
+
+	return { ...myApp, applicants: [{ id: 2 }] };
 };

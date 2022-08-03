@@ -25,13 +25,13 @@
 	<form method="post" action="" novalidate="novalidate" class="pins-applications-create">
 		{% include 'app/includes/csrf.njk' %}
 
-		{% block stepForm%}{% endblock %}
+		{% block stepForm %}{% endblock %}
 
 
 		<div class="govuk-grid-row">
 			<div class="govuk-button-group pins-button-group govuk-grid-column-one-half">
 				<a class="govuk-link" href="{{ backLink }}">Back</a>
-				{{ govukButton({ text: "Save and continue" }) }}
+				{% block stepButton %}{{ govukButton({ text: "Save and continue" }) }} {% endblock %}
 			</div>
 		</div>
 	</form>
