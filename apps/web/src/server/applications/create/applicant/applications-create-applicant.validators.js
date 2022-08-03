@@ -30,3 +30,12 @@ export const validateApplicationsCreateApplicantEmail = createValidator(
 		})
 		.withMessage('Enter a valid email address')
 );
+
+// validate telephone number: digits or + or space only (+ only allowed 1st char). between 10-12 digits.
+export const validateApplicationsCreateApplicantTelephoneNumber = createValidator(
+	body('applicant.phoneNumber')
+		.optional({ checkFalsy: true })
+		.trim()
+		.matches(/^\+?(?:\d\s?){10,12}$/g)
+		.withMessage('Enter a phone number e.g. 01632 960 001, 07700 900 982 or +44 808 157 0192')
+);

@@ -1,11 +1,20 @@
 {% extends "./applications-create-applicant-layout.njk" %}
 
-{% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
+{% from "govuk/components/input/macro.njk" import govukInput %}
 
 {% block stepTitle %}
 	What’s the applicant’s phone number?
 {% endblock %}
 
 {% block stepForm %}
-	work in progress
+	{{ govukInput({
+		id: "applicant.phoneNumber",
+		name: "applicant.phoneNumber",
+		classes: "govuk-!-width-one-third",
+		value: values['applicant.phoneNumber'],
+		errorMessage: errors['applicant.phoneNumber'] | errorMessage,
+		hint: {
+			text: "for example, 0300 123 3000"
+		}
+	}) }}
 {% endblock %}

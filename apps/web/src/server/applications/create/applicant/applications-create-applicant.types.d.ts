@@ -51,3 +51,12 @@ export type ApplicationsCreateApplicantEmailProps = {
 export type ApplicationsCreateApplicantEmailBody = {
 	'applicant.email'?: string;
 };
+
+export type ApplicationsCreateApplicantTelephoneNumberProps = {
+	values: { 'applicant.phoneNumber'?: string };
+	errors?: ValidationErrors;
+};
+
+export type ApplicationsCreateApplicantTelephoneNumberBody = {
+	'applicant.phoneNumber'?: string;
+};

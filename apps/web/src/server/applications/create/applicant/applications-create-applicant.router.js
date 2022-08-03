@@ -47,6 +47,9 @@ applicationsCreateApplicantRouter
 applicationsCreateApplicantRouter
 	.route('/applicant-telephone-number')
 	.get(guards.assertStepIsAllowed, controller.viewApplicationsCreateApplicantTelephoneNumber)
-	.post(controller.updateApplicationsCreateApplicantTelephoneNumber);
+	.post(
+		validators.validateApplicationsCreateApplicantTelephoneNumber,
+		controller.updateApplicationsCreateApplicantTelephoneNumber
+	);
 
 export default applicationsCreateApplicantRouter;

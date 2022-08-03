@@ -16,6 +16,8 @@ import {
 /** @typedef {import('./applications-create-applicant.types').ApplicationsCreateApplicantWebsiteBody} ApplicationsCreateApplicantWebsiteBody */
 /** @typedef {import('./applications-create-applicant.types').ApplicationsCreateApplicantEmailProps} ApplicationsCreateApplicantEmailProps */
 /** @typedef {import('./applications-create-applicant.types').ApplicationsCreateApplicantEmailBody} ApplicationsCreateApplicantEmailBody */
+/** @typedef {import('./applications-create-applicant.types').ApplicationsCreateApplicantTelephoneNumberProps} ApplicationsCreateApplicantTelephoneNumberProps */
+/** @typedef {import('./applications-create-applicant.types').ApplicationsCreateApplicantTelephoneNumberBody} ApplicationsCreateApplicantTelephoneNumberBody */
 
 /**
  * View the form step for the applicant information types
@@ -183,7 +185,7 @@ export async function updateApplicationsCreateApplicantWebsite(
 /**
  * View the form step for the applicant telephone number
  *
- * @type {import('@pins/express').RenderHandler<{}, {}>}
+ * @type {import('@pins/express').RenderHandler<ApplicationsCreateApplicantTelephoneNumberProps, {}, {}, {}, DomainParams>}
  */
 export async function viewApplicationsCreateApplicantTelephoneNumber(req, response) {
 	response.render('applications/create/applicant/_telephone-number');
@@ -192,11 +194,18 @@ export async function viewApplicationsCreateApplicantTelephoneNumber(req, respon
 /**
  * Update the applicant telephone number
  *
- * @type {import('@pins/express').RenderHandler<{}, {}>}
+ * @type {import('@pins/express').RenderHandler<ApplicationsCreateApplicantTelephoneNumberProps, {}, ApplicationsCreateApplicantTelephoneNumberBody, {}, DomainParams>}
  */
-export async function updateApplicationsCreateApplicantTelephoneNumber(req, response) {
+export async function updateApplicationsCreateApplicantTelephoneNumber({ body, errors }, response) {
 	const { applicationId } = response.locals;
+	const values = body;
 
+	if (errors) {
+		return response.render('applications/create/applicant/_telephone-number', {
+			errors,
+			values
+		});
+	}
 	response.redirect(`/applications-service/create-new-case/${applicationId}/key-dates`);
 }
 
