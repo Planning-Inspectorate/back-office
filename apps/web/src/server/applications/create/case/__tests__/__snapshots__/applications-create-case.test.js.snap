@@ -97,6 +97,38 @@ exports[`applications create GET /create-new-case/:applicationId/geographical-in
 </main>"
 `;
 
+exports[`applications create GET /create-new-case/:applicationId/geographical-information should render the page 2`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <h2 class=\\"govuk-heading-l\\"> Enter geographical information</h2>
+    <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
+        <div class=\\"govuk-form-group\\">
+            <label class=\\"govuk-label font-weight--700\\" for=\\"applicationLocation\\">Case Location</label>
+            <div id=\\"applicationLocation-hint\\" class=\\"govuk-hint govuk-!-width-three-quarters\\">for example “approximately 8km off the coast of Kent, in areas surrounding
+                Thanet Offshore Wind Farm</div>
+            <textarea class=\\"govuk-textarea govuk-!-width-three-quarters\\"
+            id=\\"applicationLocation\\" name=\\"applicationLocation\\" rows=\\"5\\" aria-describedby=\\"applicationLocation-hint\\"></textarea>
+        </div>
+        <div class=\\"govuk-form-group\\">
+            <label class=\\"govuk-label font-weight--700\\" for=\\"applicationEasting\\">Grid reference Easting</label>
+            <div id=\\"applicationEasting-hint\\" class=\\"govuk-hint\\">for example, 345678</div>
+            <input class=\\"govuk-input govuk-!-width-one-third\\"
+            id=\\"applicationEasting\\" name=\\"applicationEasting\\" type=\\"text\\" aria-describedby=\\"applicationEasting-hint\\">
+        </div>
+        <div class=\\"govuk-form-group\\">
+            <label class=\\"govuk-label font-weight--700\\" for=\\"applicationNorthing\\">Grid reference Northing</label>
+            <div id=\\"applicationNorthing-hint\\" class=\\"govuk-hint\\">for example, 345678</div>
+            <input class=\\"govuk-input govuk-!-width-one-third\\"
+            id=\\"applicationNorthing\\" name=\\"applicationNorthing\\" type=\\"text\\" aria-describedby=\\"applicationNorthing-hint\\">
+        </div>
+        <div class=\\"govuk-grid-row\\">
+            <div class=\\"govuk-button-group pins-button-group govuk-grid-column-one-half\\"><a class=\\"govuk-link\\" href=\\"/applications-service/create-new-case/123/sub-sector/\\">Back</a>
+                <button                 class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and continue</button>
+            </div>
+        </div>
+    </form>
+</main>"
+`;
+
 exports[`applications create GET /create-new-case/:applicationId/regions should render the page 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <h2 class=\\"govuk-heading-l\\"> Choose one or multiple regions</h2>
