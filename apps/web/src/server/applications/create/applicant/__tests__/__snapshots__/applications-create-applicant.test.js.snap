@@ -1,5 +1,97 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`applications create applicant Applicant address GET /applicant-address should render the page if there is data in the session 1`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <h2 class=\\"govuk-heading-l\\"> What’s the applicant’s address?</h2>
+    <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
+        <input type=\\"hidden\\" name='currentFormStage' value=\\"searchPostcode\\">
+        <div class=\\"govuk-form-group\\">
+            <h1 class=\\"govuk-label-wrapper\\"><label class=\\"govuk-label font-weight--700\\" for=\\"postcode\\"> Postcode</label></h1>
+            <input class=\\"govuk-input govuk-!-width-one-third\\" id=\\"postcode\\" name=\\"postcode\\"
+            type=\\"text\\">
+        </div>
+        <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Find address</button>
+        <div class=\\"govuk-grid-row\\">
+            <div class=\\"govuk-button-group pins-button-group govuk-grid-column-one-half\\"><a class=\\"govuk-link\\" href=\\"/applications-service/create-new-case/123/applicant-information-types/\\">Back</a>
+            </div>
+        </div>
+    </form>
+</main>"
+`;
+
+exports[`applications create applicant Applicant address GET /applicant-address should render the page with the manual inputs for address 1`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <h2 class=\\"govuk-heading-l\\"> What’s the applicant’s address?</h2>
+    <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
+        <input type=\\"hidden\\" name='currentFormStage' value=\\"manualAddress\\">
+        <input type=\\"hidden\\" name=\\"postcode\\" value=\\"aa1xx2\\">
+        <div class=\\"govuk-form-group\\">
+            <p class=\\"govuk-label\\">Postcode</p>
+            <div class=\\"govuk-grid-row\\">
+                <div class=\\"govuk-grid-column-one-third\\">
+                    <div class=\\"govuk-grid-row govuk-button-group\\">
+                        <p class='govuk-body govuk-grid-column-one-half font-weight--700'>AA1XX2</p>
+                        <div class=\\"govuk-grid-column-one-half\\"><a class=\\"govuk-link \\" href=\\"?\\">Change</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class=\\"govuk-form-group\\">
+            <h1 class=\\"govuk-label-wrapper\\"><label class=\\"govuk-label\\" for=\\"applicant.address.addressLine1\\"> Building and street</label></h1>
+            <input class=\\"govuk-input govuk-!-width-one-half\\" id=\\"address1\\" name=\\"applicant.address.addressLine1\\"
+            type=\\"text\\">
+            <label class=\\"govuk-label\\" for=\\"applicant.address.addressLine2\\"></label>
+            <input class=\\"govuk-input govuk-!-width-one-half\\" id=\\"address2\\"
+            name=\\"applicant.address.addressLine2\\" type=\\"text\\">
+        </div>
+        <div class=\\"govuk-form-group\\">
+            <h1 class=\\"govuk-label-wrapper\\"><label class=\\"govuk-label\\" for=\\"applicant.address.town\\"> Town or city</label></h1>
+            <input class=\\"govuk-input govuk-!-width-one-half\\" id=\\"applicant.address.town\\"
+            name=\\"applicant.address.town\\" type=\\"text\\">
+        </div>
+        <div class=\\"govuk-grid-row\\">
+            <div class=\\"govuk-button-group pins-button-group govuk-grid-column-one-half\\"><a class=\\"govuk-link\\" href=\\"/applications-service/create-new-case/123/applicant-information-types/\\">Back</a>
+                <button                 class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and continue</button>
+            </div>
+        </div>
+    </form>
+</main>"
+`;
+
+exports[`applications create applicant Applicant address POST /applicant-address Web-side validation: should show validation errors if an invalid postcode is input 1`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <div class=\\"govuk-grid-row\\">
+        <div class=\\"govuk-grid-column-two-thirds\\">
+            <div class=\\"govuk-error-summary\\" aria-labelledby=\\"error-summary-title\\"
+            role=\\"alert\\" data-module=\\"govuk-error-summary\\">
+                <h2 class=\\"govuk-error-summary__title\\" id=\\"error-summary-title\\"> There is a problem</h2>
+                <div class=\\"govuk-error-summary__body\\">
+                    <ul class=\\"govuk-list govuk-error-summary__list\\">
+                        <li><a href=\\"#postcode\\">Enter a valid postcode</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <h2 class=\\"govuk-heading-l\\"> What’s the applicant’s address?</h2>
+    <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
+        <input type=\\"hidden\\" name='currentFormStage' value=\\"searchPostcode\\">
+        <div class=\\"govuk-form-group\\">
+            <h1 class=\\"govuk-label-wrapper\\"><label class=\\"govuk-label font-weight--700\\" for=\\"postcode\\"> Postcode</label></h1>
+            <input class=\\"govuk-input govuk-!-width-one-third\\" id=\\"postcode\\" name=\\"postcode\\"
+            type=\\"text\\">
+        </div>
+        <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Find address</button>
+        <div class=\\"govuk-grid-row\\">
+            <div class=\\"govuk-button-group pins-button-group govuk-grid-column-one-half\\"><a class=\\"govuk-link\\" href=\\"/applications-service/create-new-case/123/team-email/\\">Back</a>
+            </div>
+        </div>
+    </form>
+</main>"
+`;
+
 exports[`applications create applicant Applicant email GET /applicant-email should render the page if there is data in the session 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <h2 class=\\"govuk-heading-l\\"> What’s the applicant’s email address?</h2>

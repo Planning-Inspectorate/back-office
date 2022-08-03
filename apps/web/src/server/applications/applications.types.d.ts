@@ -26,6 +26,19 @@ export interface Application {
 	createdDate?: string;
 	sector?: Sector;
 	subSector?: Sector;
+	applicants?: Applicant[];
+}
+
+export interface Applicant {
+	id: number;
+	address?: ApplicationsAddress;
+}
+// TODO: unify with appeals address
+export interface ApplicationsAddress {
+	postcode: string;
+	addressLine1: string;
+	addressLine2?: string;
+	town: string;
 }
 
 export interface OptionsItem {

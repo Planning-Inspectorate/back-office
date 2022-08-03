@@ -39,3 +39,14 @@ export const validateApplicationsCreateApplicantTelephoneNumber = createValidato
 		.matches(/^\+?(?:\d\s?){10,12}$/g)
 		.withMessage('Enter a phone number e.g. 01632 960 001, 07700 900 982 or +44 808 157 0192')
 );
+
+export const validateApplicationsCreateApplicantPostCode = createValidator(
+	body('postcode')
+		.trim()
+		.matches(
+			/^([Gg][Ii][Rr] 0[Aa]{2})|((([A-Za-z]\d{1,2})|(([A-Za-z][A-HJ-Ya-hj-y]\d{1,2})|(([A-Za-z]\d[A-Za-z])|([A-Za-z][A-HJ-Ya-hj-y]\d[A-Za-z]?))))\s?\d[A-Za-z]{2})$/
+		)
+		.withMessage('Enter a valid postcode'),
+	body('apiReference').trim().not().equals('-1')
+.withMessage('Choose an address from the list')
+);

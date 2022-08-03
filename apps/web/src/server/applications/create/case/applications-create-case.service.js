@@ -82,8 +82,11 @@ export const createApplicationDraft = (payload) => {
  * @returns {Promise<any>}
  */
 export const getApplicationDraft = (id, sectorName = '') => {
+	const applicants = [{ id: 2 }];
 	const mockedResponse =
-		id === '123' ? { id: 123, sector: { name: sectorName } } : fixtureApplications[0];
+		id === '123'
+			? { id: 123, sector: { name: sectorName }, ...applicants }
+			: fixtureApplications[0];
 
 	return new Promise((resolve) => {
 		setTimeout(() => {

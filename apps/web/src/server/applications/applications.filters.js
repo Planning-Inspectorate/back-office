@@ -4,20 +4,12 @@ import nunjucks from '../app/config/nunjucks.js';
 /** @typedef {import('nunjucks').Environment} Environment */
 
 /**
- * @typedef {object} urlFilterArguments
- * @property {DomainType=} domainType
- * @property {number=} applicationId
- * @property {string=} step
- */
-
-/**
  * Register all the filters under this domain.
  *
  * @type {import('express').RequestHandler<{}, *, *, *, {}>}
  */
 export const registerFilters = (req, response, next) => {
 	setDisplayValueFilter();
-	setUrlFilter();
 
 	next();
 };
@@ -40,31 +32,3 @@ const setDisplayValueFilter = () =>
 				return '';
 		}
 	});
-
-/**
- * Register the url filter
- *
- * @returns {Environment}
- */
-const setUrlFilter = () =>
-	nunjucks.addFilter(
-		'url',
-		(/** @type {string} */ key, /** @type {urlFilterArguments} */ filterArguments) => {
-			const domainUrl = '/applications-service';
-
-			const { domainType, applicationId, step } = filterArguments || {};
-
-			switch (key) {
-				case 'dashboard':
-					return `${domainUrl}/${domainType || ''}`;
-				case 'applications-create':
-					return `${domainUrl}/create-new-case/${applicationId ? `${applicationId}/` : ''}${
-						step ? `${step}/` : ''
-					}`;
-				case 'view-application':
-					return `${domainUrl}/${domainType || ''}/applications/${applicationId || ''}`;
-				default:
-					return 'app/404';
-			}
-		}
-	);
