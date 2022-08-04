@@ -147,10 +147,10 @@ test('gets applications details when only case id present', async (t) => {
 test('throws an error if we send an unknown case id', async (t) => {
 	const response = await request.get('/applications/3');
 
-	t.is(response.status, 400);
+	t.is(response.status, 404);
 	t.deepEqual(response.body, {
 		errors: {
-			id: 'Must be an existing application'
+			status: 'Application not found'
 		}
 	});
 });
@@ -161,7 +161,7 @@ test('throws an error if the id provided is a string/characters', async (t) => {
 	t.is(response.status, 400);
 	t.deepEqual(response.body, {
 		errors: {
-			id: 'Application id must be a number'
+			id: 'Application id must be a valid numerical value'
 		}
 	});
 });
@@ -309,4 +309,26 @@ test('does not return geographical inf field when query false', async (t) => {
 		id: 1
 	});
 	sinon.assert.calledWith(findUniqueStub, { where: { id: 1 } });
+});
+
+test('return error 404 if application id not found', async (t) => {
+	const response = await request.get('/applications/1234');
+
+	t.is(response.status, 404);
+	t.deepEqual(response.body, {
+		errors: {
+			status: 'Application not found'
+		}
+	});
+});
+
+test('return error if application id is blank', async (t) => {
+	const response = await request.get('/applications/');
+
+	t.is(response.status, 400);
+	t.deepEqual(response.body, {
+		errors: {
+			id: 'Application id must be a valid numerical value'
+		}
+	});
 });
