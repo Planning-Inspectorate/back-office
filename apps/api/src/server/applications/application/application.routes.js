@@ -9,7 +9,8 @@ import {
 import {
 	validateApplicantId,
 	validateApplicationId,
-	validateCreateUpdateApplication
+	validateCreateUpdateApplication,
+	validateExistingApplication
 } from './application.validators.js';
 
 const router = createRouter();
@@ -84,7 +85,7 @@ router.patch(
 );
 
 router.get(
-	'/:id',
+	'/:id?',
 	/*
         #swagger.tags = ['Applications']
         #swagger.path = '/applications/:id'
@@ -100,6 +101,7 @@ router.get(
         }
     */
 	validateApplicationId,
+	validateExistingApplication,
 	asyncHandler(getApplicationDetails)
 );
 
