@@ -105,58 +105,6 @@ exports[`applications create applicant Applicant telephone number POST /applicat
 </main>"
 `;
 
-exports[`applications create applicant Applicant website GET /applicant-website should render the page if there is data in the session 1`] = `
-"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
-    <h2 class=\\"govuk-heading-l\\"> What’s the applicant’s website?</h2>
-    <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
-        <div class=\\"govuk-form-group\\">
-            <div id=\\"applicant.website-hint\\" class=\\"govuk-hint\\">for example, https://www.heathrow.com</div>
-            <input class=\\"govuk-input govuk-!-width-one-third\\"
-            id=\\"applicant.website\\" name=\\"applicant.website\\" type=\\"text\\" aria-describedby=\\"applicant.website-hint\\">
-        </div>
-        <div class=\\"govuk-grid-row\\">
-            <div class=\\"govuk-button-group pins-button-group govuk-grid-column-one-half\\"><a class=\\"govuk-link\\" href=\\"/applications-service/create-new-case/123/applicant-information-types/\\">Back</a>
-                <button                 class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and continue</button>
-            </div>
-        </div>
-    </form>
-</main>"
-`;
-
-exports[`applications create applicant Applicant website POST /application-website Web-side validation: should show validation errors if an invalid URL is input 1`] = `
-"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
-    <div class=\\"govuk-grid-row\\">
-        <div class=\\"govuk-grid-column-two-thirds\\">
-            <div class=\\"govuk-error-summary\\" aria-labelledby=\\"error-summary-title\\"
-            role=\\"alert\\" data-module=\\"govuk-error-summary\\">
-                <h2 class=\\"govuk-error-summary__title\\" id=\\"error-summary-title\\"> There is a problem</h2>
-                <div class=\\"govuk-error-summary__body\\">
-                    <ul class=\\"govuk-list govuk-error-summary__list\\">
-                        <li><a href=\\"#applicant.website\\">Enter a valid website</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-    <h2 class=\\"govuk-heading-l\\"> What’s the applicant’s website?</h2>
-    <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
-        <div class=\\"govuk-form-group govuk-form-group--error\\">
-            <div id=\\"applicant.website-hint\\" class=\\"govuk-hint\\">for example, https://www.heathrow.com</div>
-            <p id=\\"applicant.website-error\\"
-            class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> Enter a valid website</p>
-            <input             class=\\"govuk-input govuk-!-width-one-third govuk-input--error\\" id=\\"applicant.website\\"
-            name=\\"applicant.website\\" type=\\"text\\" value=\\"bad_url\\" aria-describedby=\\"applicant.website-hint applicant.website-error\\">
-        </div>
-        <div class=\\"govuk-grid-row\\">
-            <div class=\\"govuk-button-group pins-button-group govuk-grid-column-one-half\\"><a class=\\"govuk-link\\" href=\\"/applications-service/create-new-case/123/team-email/\\">Back</a>
-                <button                 class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and continue</button>
-            </div>
-        </div>
-    </form>
-</main>"
-`;
-
 exports[`applications create applicant GET /applicant-full-name should render the page if there is data in the session 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <h2 class=\\"govuk-heading-l\\"> What is the applicant’s full name?</h2>
