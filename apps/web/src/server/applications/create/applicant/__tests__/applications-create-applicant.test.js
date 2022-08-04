@@ -77,8 +77,6 @@ describe('applications create applicant', () => {
 		});
 	});
 
-	// TODO: restore this
-	/*
 	describe('Applicant website', () => {
 		const baseUrl = '/applications-service/create-new-case/123/applicant-website';
 
@@ -125,7 +123,7 @@ describe('applications create applicant', () => {
 			});
 		});
 	});
-	 */
+
 	describe('Applicant email', () => {
 		const baseUrl = '/applications-service/create-new-case/123/applicant-email';
 
