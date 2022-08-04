@@ -34,16 +34,20 @@ const validateExistingRegions = async (value) => {
 	}
 };
 
-/**
- *
- * @param {number} caseId
- */
-const validateExistingApplication = async (caseId) => {
+/** @type {import('express').RequestHandler } */
+export const validateExistingApplication = async (request, response, next) => {
+	const caseId = Number.parseInt(request.params.id, 10);
+
 	const application = await caseRepository.getById(caseId, {});
 
-	if (application === null || typeof application === 'undefined') {
-		throw new Error('Unknown Application');
+	if (!application) {
+		return response.status(404).send({
+			errors: {
+				status: 'Application not found in database'
+			}
+		});
 	}
+	next();
 };
 
 /**
@@ -136,12 +140,7 @@ export const validateCreateUpdateApplication = composeMiddleware(
 );
 
 export const validateApplicationId = composeMiddleware(
-	param('id')
-		.isInt()
-		.withMessage('Application id must be a number')
-		.toInt()
-		.custom(validateExistingApplication)
-		.withMessage('Must be an existing application'),
+	param('id').isInt().withMessage('Application id must be a valid numerical value'),
 	validationErrorHandler
 );
 
