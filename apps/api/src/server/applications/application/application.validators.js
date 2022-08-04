@@ -43,7 +43,7 @@ export const validateExistingApplication = async (request, response, next) => {
 	if (!application) {
 		return response.status(404).send({
 			errors: {
-				status: 'Application not found in database'
+				status: 'Application not found'
 			}
 		});
 	}
