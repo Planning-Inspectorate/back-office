@@ -8,7 +8,9 @@ export const validateApplicationsCreateApplicantWebsite = createValidator(
 		.trim()
 		.matches(/^[^@]*$/)
 		.withMessage('Enter a valid website')
-		.isURL({
+		.matches(/^(?!(^(http|https):\/\/))(.*)$/g)
+		.withMessage('Remove https from the website')
+	/* .isURL({
 			require_tld: true,
 			require_port: false,
 			allow_trailing_dot: false,
@@ -17,6 +19,7 @@ export const validateApplicationsCreateApplicantWebsite = createValidator(
 			allow_fragments: false
 		})
 		.withMessage('Enter a valid website')
+		 */
 );
 
 export const validateApplicationsCreateApplicantEmail = createValidator(
