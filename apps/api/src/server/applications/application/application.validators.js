@@ -1,5 +1,5 @@
 import { composeMiddleware } from '@pins/express';
-import { validateFutureDate, validatePastDate } from '@pins/platform';
+import { validatePastDate } from '@pins/platform';
 import { body, param } from 'express-validator';
 import { validationErrorHandler } from '../../middleware/error-handler.js';
 import * as caseRepository from '../../repositories/case.repository.js';
@@ -123,11 +123,6 @@ export const validateCreateUpdateApplication = composeMiddleware(
 		.customSanitizer(timestampToDate)
 		.custom(validatePastDate)
 		.withMessage('First notified date must be in the past')
-		.optional({ nullable: true }),
-	body('keyDates.submissionDate')
-		.customSanitizer(timestampToDate)
-		.custom(validateFutureDate)
-		.withMessage('Submission date must be in the future')
 		.optional({ nullable: true }),
 	body('subSectorName')
 		.custom(validateExistingSubsector)
