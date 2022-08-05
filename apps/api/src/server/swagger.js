@@ -65,7 +65,7 @@ const document = {
 			},
 			keyDates: {
 				firstNotifiedDate: 123,
-				submissionDate: 123
+				submissionDate: 'Q1 2023'
 			}
 		},
 		CreateApplication: {
@@ -100,7 +100,7 @@ const document = {
 			},
 			keyDates: {
 				firstNotifiedDate: 123,
-				submissionDate: 123
+				submissionDate: 'Q1 2023'
 			}
 		},
 		Sectors: [
