@@ -8,7 +8,7 @@ exports[`applications create applicant Applicant address GET /applicant-address 
         <div class=\\"govuk-form-group\\">
             <h1 class=\\"govuk-label-wrapper\\"><label class=\\"govuk-label font-weight--700\\" for=\\"postcode\\"> Postcode</label></h1>
             <input class=\\"govuk-input govuk-!-width-one-third\\" id=\\"postcode\\" name=\\"postcode\\"
-            type=\\"text\\">
+            type=\\"text\\" value=\\"\\">
         </div>
         <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Find address</button>
         <div class=\\"govuk-grid-row\\">
@@ -81,7 +81,7 @@ exports[`applications create applicant Applicant address POST /applicant-address
         <div class=\\"govuk-form-group\\">
             <h1 class=\\"govuk-label-wrapper\\"><label class=\\"govuk-label font-weight--700\\" for=\\"postcode\\"> Postcode</label></h1>
             <input class=\\"govuk-input govuk-!-width-one-third\\" id=\\"postcode\\" name=\\"postcode\\"
-            type=\\"text\\">
+            type=\\"text\\" value=\\"abc\\">
         </div>
         <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Find address</button>
         <div class=\\"govuk-grid-row\\">
