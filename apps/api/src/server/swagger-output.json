@@ -898,8 +898,8 @@
 							"example": 123
 						},
 						"submissionDate": {
-							"type": "number",
-							"example": 123
+							"type": "string",
+							"example": "Q1 2023"
 						}
 					}
 				}
@@ -1023,8 +1023,8 @@
 							"example": 123
 						},
 						"submissionDate": {
-							"type": "number",
-							"example": 123
+							"type": "string",
+							"example": "Q1 2023"
 						}
 					}
 				}

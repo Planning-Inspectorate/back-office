@@ -145,7 +145,7 @@ test('creates new application when all possible details provided', async (t) => 
 		},
 		keyDates: {
 			firstNotifiedDate: 123,
-			submissionDate: 1_689_262_804_000
+			submissionDate: 'Q1 2023'
 		}
 	});
 
@@ -162,7 +162,7 @@ test('creates new application when all possible details provided', async (t) => 
 					zoomLevel: { connect: { name: 'some-known-map-zoom-level' } },
 					locationDescription: 'location description',
 					firstNotifiedAt: new Date(123),
-					submissionAt: new Date(1_689_262_804_000),
+					submissionAt: 'Q1 2023',
 					subSector: { connect: { name: 'some_sub_sector' } },
 					regions: {
 						create: [
@@ -266,8 +266,7 @@ test('returns error if any validated values are invalid', async (t) => {
 			}
 		},
 		keyDates: {
-			firstNotifiedDate: 4_294_967_295_000,
-			submissionDate: 123
+			firstNotifiedDate: 4_294_967_295_000
 		},
 		subSectorName: 'some unknown subsector'
 	});
@@ -284,7 +283,6 @@ test('returns error if any validated values are invalid', async (t) => {
 			'geographicalInformation.mapZoomLevelName': 'Must be a valid map zoom level',
 			'geographicalInformation.regionNames': 'Unknown region',
 			'keyDates.firstNotifiedDate': 'First notified date must be in the past',
-			'keyDates.submissionDate': 'Submission date must be in the future',
 			subSectorName: 'Must be existing sub-sector'
 		}
 	});
