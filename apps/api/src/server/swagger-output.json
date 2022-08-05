@@ -638,6 +638,49 @@
 				}
 			}
 		},
+		"/applications/:id": {
+			"get": {
+				"tags": ["Applications"],
+				"description": "Gets all application details",
+				"parameters": [
+					{
+						"name": "body",
+						"in": "body",
+						"description": "Application Details",
+						"schema": {
+							"$ref": "#/definitions/GetApplicationDetails"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "ID of application",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"id": {
+									"type": "number",
+									"example": 1
+								},
+								"applicantIds": {
+									"type": "array",
+									"example": [2],
+									"items": {
+										"type": "number"
+									}
+								}
+							},
+							"xml": {
+								"name": "main"
+							}
+						}
+					},
+					"404": {
+						"description": "Not Found"
+					}
+				}
+			}
+		},
 		"/applications/case-officer": {
 			"get": {
 				"tags": ["Applications"],
