@@ -172,10 +172,11 @@ export async function updateApplicationsCreateApplicantAddress(
 	} = await (async () => {
 		switch (currentFormStage) {
 			case 'searchPostcode': {
-				const { errors, addressList } = await findAddressListByPostcode(postcode, {
+				const { errors: serviceErrors, addressList } = await findAddressListByPostcode(postcode, {
 					maxResults: 50,
 					minMatch: 0.9
 				});
+				const errors = validationErrors || serviceErrors;
 				const newFormStage = errors ? 'searchPostcode' : 'selectAddress';
 
 				return { errors, addressList, formStage: newFormStage };
