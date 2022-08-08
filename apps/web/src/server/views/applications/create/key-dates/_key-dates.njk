@@ -1,0 +1,106 @@
+{% extends "../applications-create-layout.njk" %}
+
+{% from "govuk/components/input/macro.njk" import govukInput %}
+
+{% block beforeContent %}
+	{{ govukBreadcrumbs({
+		classes: 'govuk-!-margin-top-3',
+		items: [
+			{ text: 'Applications', href: 'dashboard'|url({domainType:domainType}) },
+			{ text: 'Case information', href: 'applications-create'|url({applicationId: applicationId})},
+			{ text: 'Applicant Information', href: 'applications-create'|url({applicationId: applicationId, step: 'applicant-organisation-name'})},
+			{ text: 'Key dates'}
+		]
+	}) }}
+{% endblock %}
+
+{% block stepTitle %}
+	What are the key dates of the case?
+{% endblock %}
+
+
+{% block stepForm %}
+	<div class="govuk-form-group">
+		<label class="govuk-label font-weight--700" for="applicationName">
+			Date first notified of the case
+		</label>
+		<div id="applicationName-hint" class="govuk-hint">
+			for example, 27 3 2009
+		</div>
+		<div class="govuk-grid-column-one-third">
+			<div class="govuk-grid-row pins-date-form-group">
+				{{ govukInput({
+					id: "firstNotifiedDay",
+					name: "firstNotifiedDay",
+					value: values['keyDates.firstNotifiedDate'] |datestamp({format: 'dd'}),
+					errorMessage: (errors['keyDates.firstNotifiedDate'] !== undefined and errors['keyDates.firstNotifiedDate'] !== false),
+					hint: {
+						text: "Day"
+					}
+				}) }}
+				{{ govukInput({
+					id: "firstNotifiedMonth",
+					name: "firstNotifiedMonth",
+					value: values['keyDates.firstNotifiedDate'] |datestamp({format: 'MM'}),
+					errorMessage: (errors['keyDates.firstNotifiedDate'] !== undefined and errors['keyDates.firstNotifiedDate'] !== false),
+					hint: {
+						text: "Month"
+					}
+				}) }}
+				{{ govukInput({
+					id: "firstNotifiedYear",
+					name: "firstNotifiedYear",
+					value: values['keyDates.firstNotifiedDate'] |datestamp({format: 'yyyy'}),
+					errorMessage: (errors['keyDates.firstNotifiedDate'] !== undefined and errors['keyDates.firstNotifiedDate'] !== false),
+					hint: {
+						text: "Year"
+					}
+				}) }}
+			</div>
+		</div>
+	</div>
+
+	<div class="govuk-form-group">
+		<label class="govuk-label font-weight--700" for="applicationName">
+			Anticipated submission date
+		</label>
+		<div id="applicationName-hint" class="govuk-hint">
+			for example, 27 3 2023
+		</div>
+		<div class="govuk-grid-column-one-third">
+			<div class="govuk-grid-row pins-date-form-group">
+				{{ govukInput({
+					id: "submissionDay",
+					name: "submissionDay",
+					value: values['keyDates.submissionDate'] |datestamp({format: 'dd'}),
+					errorMessage: (errors['keyDates.submissionDate'] !== undefined and errors['keyDates.submissionDate'] !== false),
+					hint: {
+						text: "Day"
+					}
+				}) }}
+				{{ govukInput({
+					id: "submissionMonth",
+					name: "submissionMonth",
+					value: values['keyDates.submissionDate'] |datestamp({format: 'MM'}),
+					errorMessage: (errors['keyDates.submissionDate'] !== undefined and errors['keyDates.submissionDate'] !== false),
+					hint: {
+						text: "Month"
+					}
+				}) }}
+				{{ govukInput({
+					id: "submissionYear",
+					name: "submissionYear",
+					value: values['keyDates.submissionDate'] |datestamp({format: 'yyyy'}),
+					errorMessage: (errors['keyDates.submissionDate'] !== undefined and errors['keyDates.submissionDate'] !== false),
+					hint: {
+						text: "Year"
+					}
+				}) }}
+			</div>
+		</div>
+	</div>
+
+
+{% endblock %}
+
+{% set backLink = 'applications-create'|url({applicationId:applicationId, step: backPath}) %}

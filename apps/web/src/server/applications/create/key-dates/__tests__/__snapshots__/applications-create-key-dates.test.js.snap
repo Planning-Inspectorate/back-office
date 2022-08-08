@@ -1,0 +1,237 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Applications create key dates GET /key-dates should render the page 1`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <h2 class=\\"govuk-heading-l\\"> What are the key dates of the case?</h2>
+    <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
+        <div class=\\"govuk-form-group\\">
+            <label class=\\"govuk-label font-weight--700\\" for=\\"applicationName\\">Date first notified of the case</label>
+            <div id=\\"applicationName-hint\\"
+            class=\\"govuk-hint\\">for example, 27 3 2009</div>
+            <div class=\\"govuk-grid-column-one-third\\">
+                <div class=\\"govuk-grid-row pins-date-form-group\\">
+                    <div class=\\"govuk-form-group\\">
+                        <div id=\\"firstNotifiedDay-hint\\" class=\\"govuk-hint\\">Day</div>
+                        <input class=\\"govuk-input\\" id=\\"firstNotifiedDay\\" name=\\"firstNotifiedDay\\"
+                        type=\\"text\\" aria-describedby=\\"firstNotifiedDay-hint\\">
+                    </div>
+                    <div class=\\"govuk-form-group\\">
+                        <div id=\\"firstNotifiedMonth-hint\\" class=\\"govuk-hint\\">Month</div>
+                        <input class=\\"govuk-input\\" id=\\"firstNotifiedMonth\\" name=\\"firstNotifiedMonth\\"
+                        type=\\"text\\" aria-describedby=\\"firstNotifiedMonth-hint\\">
+                    </div>
+                    <div class=\\"govuk-form-group\\">
+                        <div id=\\"firstNotifiedYear-hint\\" class=\\"govuk-hint\\">Year</div>
+                        <input class=\\"govuk-input\\" id=\\"firstNotifiedYear\\" name=\\"firstNotifiedYear\\"
+                        type=\\"text\\" aria-describedby=\\"firstNotifiedYear-hint\\">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class=\\"govuk-form-group\\">
+            <label class=\\"govuk-label font-weight--700\\" for=\\"applicationName\\">Anticipated submission date</label>
+            <div id=\\"applicationName-hint\\" class=\\"govuk-hint\\">for example, 27 3 2023</div>
+            <div class=\\"govuk-grid-column-one-third\\">
+                <div class=\\"govuk-grid-row pins-date-form-group\\">
+                    <div class=\\"govuk-form-group\\">
+                        <div id=\\"submissionDay-hint\\" class=\\"govuk-hint\\">Day</div>
+                        <input class=\\"govuk-input\\" id=\\"submissionDay\\" name=\\"submissionDay\\"
+                        type=\\"text\\" aria-describedby=\\"submissionDay-hint\\">
+                    </div>
+                    <div class=\\"govuk-form-group\\">
+                        <div id=\\"submissionMonth-hint\\" class=\\"govuk-hint\\">Month</div>
+                        <input class=\\"govuk-input\\" id=\\"submissionMonth\\" name=\\"submissionMonth\\"
+                        type=\\"text\\" aria-describedby=\\"submissionMonth-hint\\">
+                    </div>
+                    <div class=\\"govuk-form-group\\">
+                        <div id=\\"submissionYear-hint\\" class=\\"govuk-hint\\">Year</div>
+                        <input class=\\"govuk-input\\" id=\\"submissionYear\\" name=\\"submissionYear\\"
+                        type=\\"text\\" aria-describedby=\\"submissionYear-hint\\">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class=\\"govuk-grid-row\\">
+            <div class=\\"govuk-button-group pins-button-group govuk-grid-column-one-half\\"><a class=\\"govuk-link\\" href=\\"/applications-service/create-new-case/123/applicant-information-types/\\">Back</a>
+                <button                 class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and continue</button>
+            </div>
+        </div>
+    </form>
+</main>"
+`;
+
+exports[`Applications create key dates POST /key-dates Web-side validation: should show validation errors if dates are not valid 1`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <div class=\\"govuk-grid-row\\">
+        <div class=\\"govuk-grid-column-two-thirds\\">
+            <div class=\\"govuk-error-summary\\" aria-labelledby=\\"error-summary-title\\"
+            role=\\"alert\\" data-module=\\"govuk-error-summary\\">
+                <h2 class=\\"govuk-error-summary__title\\" id=\\"error-summary-title\\"> There is a problem</h2>
+                <div class=\\"govuk-error-summary__body\\">
+                    <ul class=\\"govuk-list govuk-error-summary__list\\">
+                        <li><a href=\\"#keyDates.firstNotifiedDate\\">Enter a valid day for the first notified date</a>
+                        </li>
+                        <li><a href=\\"#keyDates.submissionDate\\">Enter a valid day for the submission date</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <h2 class=\\"govuk-heading-l\\"> What are the key dates of the case?</h2>
+    <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
+        <div class=\\"govuk-form-group\\">
+            <label class=\\"govuk-label font-weight--700\\" for=\\"applicationName\\">Date first notified of the case</label>
+            <div id=\\"applicationName-hint\\"
+            class=\\"govuk-hint\\">for example, 27 3 2009</div>
+            <div class=\\"govuk-grid-column-one-third\\">
+                <div class=\\"govuk-grid-row pins-date-form-group\\">
+                    <div class=\\"govuk-form-group govuk-form-group--error\\">
+                        <div id=\\"firstNotifiedDay-hint\\" class=\\"govuk-hint\\">Day</div>
+                        <p id=\\"firstNotifiedDay-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
+                        </p>
+                        <input class=\\"govuk-input govuk-input--error\\" id=\\"firstNotifiedDay\\" name=\\"firstNotifiedDay\\"
+                        type=\\"text\\" aria-describedby=\\"firstNotifiedDay-hint firstNotifiedDay-error\\">
+                    </div>
+                    <div class=\\"govuk-form-group govuk-form-group--error\\">
+                        <div id=\\"firstNotifiedMonth-hint\\" class=\\"govuk-hint\\">Month</div>
+                        <p id=\\"firstNotifiedMonth-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
+                        </p>
+                        <input class=\\"govuk-input govuk-input--error\\" id=\\"firstNotifiedMonth\\"
+                        name=\\"firstNotifiedMonth\\" type=\\"text\\" aria-describedby=\\"firstNotifiedMonth-hint firstNotifiedMonth-error\\">
+                    </div>
+                    <div class=\\"govuk-form-group govuk-form-group--error\\">
+                        <div id=\\"firstNotifiedYear-hint\\" class=\\"govuk-hint\\">Year</div>
+                        <p id=\\"firstNotifiedYear-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
+                        </p>
+                        <input class=\\"govuk-input govuk-input--error\\" id=\\"firstNotifiedYear\\" name=\\"firstNotifiedYear\\"
+                        type=\\"text\\" aria-describedby=\\"firstNotifiedYear-hint firstNotifiedYear-error\\">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class=\\"govuk-form-group\\">
+            <label class=\\"govuk-label font-weight--700\\" for=\\"applicationName\\">Anticipated submission date</label>
+            <div id=\\"applicationName-hint\\" class=\\"govuk-hint\\">for example, 27 3 2023</div>
+            <div class=\\"govuk-grid-column-one-third\\">
+                <div class=\\"govuk-grid-row pins-date-form-group\\">
+                    <div class=\\"govuk-form-group govuk-form-group--error\\">
+                        <div id=\\"submissionDay-hint\\" class=\\"govuk-hint\\">Day</div>
+                        <p id=\\"submissionDay-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
+                        </p>
+                        <input class=\\"govuk-input govuk-input--error\\" id=\\"submissionDay\\" name=\\"submissionDay\\"
+                        type=\\"text\\" value=\\"01\\" aria-describedby=\\"submissionDay-hint submissionDay-error\\">
+                    </div>
+                    <div class=\\"govuk-form-group govuk-form-group--error\\">
+                        <div id=\\"submissionMonth-hint\\" class=\\"govuk-hint\\">Month</div>
+                        <p id=\\"submissionMonth-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
+                        </p>
+                        <input class=\\"govuk-input govuk-input--error\\" id=\\"submissionMonth\\" name=\\"submissionMonth\\"
+                        type=\\"text\\" value=\\"01\\" aria-describedby=\\"submissionMonth-hint submissionMonth-error\\">
+                    </div>
+                    <div class=\\"govuk-form-group govuk-form-group--error\\">
+                        <div id=\\"submissionYear-hint\\" class=\\"govuk-hint\\">Year</div>
+                        <p id=\\"submissionYear-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
+                        </p>
+                        <input class=\\"govuk-input govuk-input--error\\" id=\\"submissionYear\\" name=\\"submissionYear\\"
+                        type=\\"text\\" value=\\"2032\\" aria-describedby=\\"submissionYear-hint submissionYear-error\\">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class=\\"govuk-grid-row\\">
+            <div class=\\"govuk-button-group pins-button-group govuk-grid-column-one-half\\"><a class=\\"govuk-link\\" href=\\"/applications-service/create-new-case/123/applicant-information-types/\\">Back</a>
+                <button                 class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and continue</button>
+            </div>
+        </div>
+    </form>
+</main>"
+`;
+
+exports[`Applications create key dates POST /key-dates Web-side validation: should show validation errors if submission date is not in the future 1`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <div class=\\"govuk-grid-row\\">
+        <div class=\\"govuk-grid-column-two-thirds\\">
+            <div class=\\"govuk-error-summary\\" aria-labelledby=\\"error-summary-title\\"
+            role=\\"alert\\" data-module=\\"govuk-error-summary\\">
+                <h2 class=\\"govuk-error-summary__title\\" id=\\"error-summary-title\\"> There is a problem</h2>
+                <div class=\\"govuk-error-summary__body\\">
+                    <ul class=\\"govuk-list govuk-error-summary__list\\">
+                        <li><a href=\\"#keyDates.firstNotifiedDate\\">Enter a valid day for the first notified date</a>
+                        </li>
+                        <li><a href=\\"#keyDates.submissionDate\\">The submission date should be in the future</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <h2 class=\\"govuk-heading-l\\"> What are the key dates of the case?</h2>
+    <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
+        <div class=\\"govuk-form-group\\">
+            <label class=\\"govuk-label font-weight--700\\" for=\\"applicationName\\">Date first notified of the case</label>
+            <div id=\\"applicationName-hint\\"
+            class=\\"govuk-hint\\">for example, 27 3 2009</div>
+            <div class=\\"govuk-grid-column-one-third\\">
+                <div class=\\"govuk-grid-row pins-date-form-group\\">
+                    <div class=\\"govuk-form-group govuk-form-group--error\\">
+                        <div id=\\"firstNotifiedDay-hint\\" class=\\"govuk-hint\\">Day</div>
+                        <p id=\\"firstNotifiedDay-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
+                        </p>
+                        <input class=\\"govuk-input govuk-input--error\\" id=\\"firstNotifiedDay\\" name=\\"firstNotifiedDay\\"
+                        type=\\"text\\" aria-describedby=\\"firstNotifiedDay-hint firstNotifiedDay-error\\">
+                    </div>
+                    <div class=\\"govuk-form-group govuk-form-group--error\\">
+                        <div id=\\"firstNotifiedMonth-hint\\" class=\\"govuk-hint\\">Month</div>
+                        <p id=\\"firstNotifiedMonth-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
+                        </p>
+                        <input class=\\"govuk-input govuk-input--error\\" id=\\"firstNotifiedMonth\\"
+                        name=\\"firstNotifiedMonth\\" type=\\"text\\" aria-describedby=\\"firstNotifiedMonth-hint firstNotifiedMonth-error\\">
+                    </div>
+                    <div class=\\"govuk-form-group govuk-form-group--error\\">
+                        <div id=\\"firstNotifiedYear-hint\\" class=\\"govuk-hint\\">Year</div>
+                        <p id=\\"firstNotifiedYear-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
+                        </p>
+                        <input class=\\"govuk-input govuk-input--error\\" id=\\"firstNotifiedYear\\" name=\\"firstNotifiedYear\\"
+                        type=\\"text\\" aria-describedby=\\"firstNotifiedYear-hint firstNotifiedYear-error\\">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class=\\"govuk-form-group\\">
+            <label class=\\"govuk-label font-weight--700\\" for=\\"applicationName\\">Anticipated submission date</label>
+            <div id=\\"applicationName-hint\\" class=\\"govuk-hint\\">for example, 27 3 2023</div>
+            <div class=\\"govuk-grid-column-one-third\\">
+                <div class=\\"govuk-grid-row pins-date-form-group\\">
+                    <div class=\\"govuk-form-group govuk-form-group--error\\">
+                        <div id=\\"submissionDay-hint\\" class=\\"govuk-hint\\">Day</div>
+                        <p id=\\"submissionDay-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
+                        </p>
+                        <input class=\\"govuk-input govuk-input--error\\" id=\\"submissionDay\\" name=\\"submissionDay\\"
+                        type=\\"text\\" aria-describedby=\\"submissionDay-hint submissionDay-error\\">
+                    </div>
+                    <div class=\\"govuk-form-group govuk-form-group--error\\">
+                        <div id=\\"submissionMonth-hint\\" class=\\"govuk-hint\\">Month</div>
+                        <p id=\\"submissionMonth-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
+                        </p>
+                        <input class=\\"govuk-input govuk-input--error\\" id=\\"submissionMonth\\" name=\\"submissionMonth\\"
+                        type=\\"text\\" aria-describedby=\\"submissionMonth-hint submissionMonth-error\\">
+                    </div>
+                    <div class=\\"govuk-form-group govuk-form-group--error\\">
+                        <div id=\\"submissionYear-hint\\" class=\\"govuk-hint\\">Year</div>
+                        <p id=\\"submissionYear-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
+                        </p>
+                        <input class=\\"govuk-input govuk-input--error\\" id=\\"submissionYear\\" name=\\"submissionYear\\"
+                        type=\\"text\\" aria-describedby=\\"submissionYear-hint submissionYear-error\\">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class=\\"govuk-grid-row\\">
+            <div class=\\"govuk-button-group pins-button-group govuk-grid-column-one-half\\"><a class=\\"govuk-link\\" href=\\"/applications-service/create-new-case/123/applicant-information-types/\\">Back</a>
+                <button                 class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and continue</button>
+            </div>
+        </div>
+    </form>
+</main>"
+`;
