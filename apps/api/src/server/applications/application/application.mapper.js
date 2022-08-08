@@ -4,15 +4,7 @@ import { mapValuesUsingObject } from '../../utils/mapping/map-values-using-objec
 
 /**
  * @param {import('@pins/applications').CreateUpdateApplication} applicationDetails
- * @returns {{
- *  caseDetails?: { title?: string | undefined, description?: string | undefined },
- * 	gridReference?: { easting?: number | undefined, northing?: number | undefined },
- *  application?: { locationDescription?: string | undefined, firstNotifiedAt?: Date | undefined, submissionAt?: Date | undefined, caseEmail?: string | undefined },
- *  subSectorName?: string | undefined,
- *  applicant?: { organisationName?: string | undefined, firstName?: string | undefined, middleName?: string | undefined, lastName?: string | undefined, email?: string | undefined, website?: string | undefined, phoneNumber?: string | undefined},
- *  mapZoomLevelName?: string | undefined,
- *  regionNames?: string[],
- *  applicantAddress?: { addressLine1?: string | undefined, addressLine2?: string | undefined, town?: string | undefined, county?: string | undefined, postcode?: string | undefined}}}
+ * @returns {import('../../repositories/case.repository').CreateApplicationParams}
  */
 export const mapCreateApplicationRequestToRepository = (applicationDetails) => {
 	const formattedCaseDetails = pick(applicationDetails, ['title', 'description']);
@@ -27,11 +19,11 @@ export const mapCreateApplicationRequestToRepository = (applicationDetails) => {
 			...applicationDetails,
 			...applicationDetails.geographicalInformation,
 			...mapKeysUsingObject(applicationDetails.keyDates, {
-				firstNotifiedDate: 'firstNotifiedAt',
-				submissionDate: 'submissionAt'
+				submissionDateInternal: 'submissionAtInternal',
+				submissionDatePublished: 'submissionAtPublished'
 			})
 		},
-		['locationDescription', 'firstNotifiedAt', 'submissionAt', 'caseEmail']
+		['locationDescription', 'submissionAtInternal', 'submissionAtPublished', 'caseEmail']
 	);
 
 	const formattedApplicantDetails = pick(applicationDetails.applicant, [
@@ -61,7 +53,9 @@ export const mapCreateApplicationRequestToRepository = (applicationDetails) => {
 		...(!isEmpty(formattedGridReferenceDetails) && {
 			gridReference: formattedGridReferenceDetails
 		}),
-		...(!isEmpty(formattedApplicationDetails) && { application: formattedApplicationDetails }),
+		...(!isEmpty(formattedApplicationDetails) && {
+			applicationDetails: formattedApplicationDetails
+		}),
 		...(applicationDetails.subSectorName && { subSectorName: applicationDetails.subSectorName }),
 		...(mapZoomLevelName && { mapZoomLevelName }),
 		...(typeof regionNames !== 'undefined' && { regionNames }),

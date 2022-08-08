@@ -9,11 +9,23 @@ const DEFAULT_CASE_CREATE_STATUS = 'draft';
 
 /**
  * @typedef {{
+ *  caseDetails?: { title?: string | null, description?: string | null },
+ * 	gridReference?: { easting?: number | null, northing?: number | null },
+ *  applicationDetails?: { locationDescription?: string | null, submissionAtInternal?: Date | null, submissionAtPublished?: string | null, caseEmail?: string | null },
+ *  subSectorName?: string | null,
+ *  applicant?: { organisationName?: string | null, firstName?: string | null, middleName?: string | null, lastName?: string | null, email?: string | null, website?: string | null, phoneNumber?: string | null},
+ *  mapZoomLevelName?: string | null,
+ *  regionNames?: string[],
+ *  applicantAddress?: { addressLine1?: string | null, addressLine2?: string | null, town?: string | null, county?: string | null, postcode?: string | null}}} CreateApplicationParams
+ */
+
+/**
+ * @typedef {{
  *  caseId: number,
  *  applicantId?: number,
  *  caseDetails?: { title?: string | null, description?: string | null },
  * 	gridReference?: { easting?: number | null, northing?: number | null },
- *  application?: { locationDescription?: string | null, firstNotifiedAt?: Date | null, submissionAt?: Date | null, caseEmail?: string | null },
+ *  applicationDetails?: { locationDescription?: string | null, submissionAtInternal?: Date | null, submissionAtPublished?: string | null, caseEmail?: string | null },
  *  subSectorName?: string | null,
  *  applicant?: { organisationName?: string | null, firstName?: string | null, middleName?: string | null, lastName?: string | null, email?: string | null, website?: string | null, phoneNumber?: string | null},
  *  mapZoomLevelName?: string | null,
@@ -144,21 +156,13 @@ export const getApplicationsCountBySearchCriteria = (query) => {
 };
 
 /**
- * @param {{
- *  caseDetails?: { title?: string | undefined, description?: string | undefined },
- * 	gridReference?: { easting?: number | undefined, northing?: number | undefined },
- *  application?: { locationDescription?: string | undefined, firstNotifiedAt?: Date | undefined, submissionAt?: Date | undefined, caseEmail?: string | undefined },
- *  subSectorName?: string | undefined,
- *  applicant?: { organisationName?: string | undefined, firstName?: string | undefined, middleName?: string | undefined, lastName?: string | undefined, email?: string | undefined, website?: string | undefined, phoneNumber?: string | undefined},
- *  mapZoomLevelName?: string | undefined,
- *  regionNames?: string[],
- *  applicantAddress?: { addressLine1?: string | undefined, addressLine2?: string | undefined, town?: string | undefined, county?: string | undefined, postcode?: string | undefined}}} caseInfo
+ * @param {CreateApplicationParams} caseInfo
  * @returns {Promise<import('@pins/api').Schema.Case>}
  */
 export const createApplication = ({
 	caseDetails,
 	gridReference,
-	application,
+	applicationDetails,
 	mapZoomLevelName,
 	subSectorName,
 	regionNames,
@@ -173,10 +177,10 @@ export const createApplication = ({
 		data: {
 			...caseDetails,
 			...(!isEmpty(gridReference) && { gridReference: { create: gridReference } }),
-			...((!isEmpty(application) || subSectorName || mapZoomLevelName || regionNames) && {
+			...((!isEmpty(applicationDetails) || subSectorName || mapZoomLevelName || regionNames) && {
 				ApplicationDetails: {
 					create: {
-						...application,
+						...applicationDetails,
 						...(subSectorName && { subSector: { connect: { name: subSectorName } } }),
 						...(mapZoomLevelName && { zoomLevel: { connect: { name: mapZoomLevelName } } }),
 						...(regionNames && { regions: { create: formattedRegionNames } })
@@ -227,7 +231,7 @@ const updateApplicationSansRegionsRemoval = ({
 	applicantId,
 	caseDetails,
 	gridReference,
-	application,
+	applicationDetails,
 	subSectorName,
 	regionNames,
 	mapZoomLevelName,
@@ -251,20 +255,20 @@ const updateApplicationSansRegionsRemoval = ({
 					}
 				}
 			}),
-			...((!isEmpty(application) ||
+			...((!isEmpty(applicationDetails) ||
 				subSectorName ||
 				mapZoomLevelName ||
 				typeof regionNames !== 'undefined') && {
 				ApplicationDetails: {
 					upsert: {
 						create: {
-							...application,
+							...applicationDetails,
 							...(subSectorName && { subSector: { connect: { name: subSectorName } } }),
 							...(mapZoomLevelName && { zoomLevel: { connect: { name: mapZoomLevelName } } }),
 							...(regionNames && { regions: { create: formattedRegionNames } })
 						},
 						update: {
-							...application,
+							...applicationDetails,
 							...(subSectorName && { subSector: { connect: { name: subSectorName } } }),
 							...(mapZoomLevelName && { zoomLevel: { connect: { name: mapZoomLevelName } } }),
 							...(regionNames && { regions: { create: formattedRegionNames } })
@@ -315,7 +319,7 @@ export const updateApplication = ({
 	applicantId,
 	caseDetails,
 	gridReference,
-	application,
+	applicationDetails,
 	subSectorName,
 	regionNames,
 	mapZoomLevelName,
@@ -334,7 +338,7 @@ export const updateApplication = ({
 			applicantId,
 			caseDetails,
 			gridReference,
-			application,
+			applicationDetails,
 			subSectorName,
 			regionNames,
 			mapZoomLevelName,
