@@ -28,9 +28,13 @@ export interface Application {
 	subSector?: Sector;
 	caseEmail?: string;
 	applicants?: Applicant[];
+	keyDates?: {
+		submissionDatePublished: string;
+		submissionDateInternal: string;
+	};
 	geographicalInformation?: {
-		mapZoomLevel: ZoomLevel,
-		regions: Region[],
+		mapZoomLevel: ZoomLevel;
+		regions: Region[];
 		locationDescription: string;
 		gridReference: {
 			northing: string;
