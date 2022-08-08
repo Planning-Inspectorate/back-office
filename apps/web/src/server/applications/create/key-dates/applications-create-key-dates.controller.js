@@ -12,11 +12,11 @@ import * as applicationsCreateCaseService from '../case/applications-create-case
 export async function viewApplicationsCreateKeyDates(req, response) {
 	const { applicationId } = response.locals;
 	const { keyDates } = await applicationsCreateCaseService.getApplicationDraft(applicationId);
-	const { firstNotifiedDate, submissionDate } = keyDates || {};
+	const { submissionDatePublished, submissionDateInternal } = keyDates || {};
 
 	const values = {
-		'keyDates.firstNotifiedDate': firstNotifiedDate,
-		'keyDates.submissionDate': submissionDate
+		'keyDates.submissionDatePublished': submissionDatePublished,
+		'keyDates.submissionDateInternal': submissionDateInternal
 	};
 
 	return response.render('applications/create/key-dates/_key-dates', { values });
@@ -34,29 +34,26 @@ export async function updateApplicationsCreateKeyDates(
 ) {
 	const { applicationId } = response.locals;
 	const {
-		firstNotifiedDay,
-		firstNotifiedMonth,
-		firstNotifiedYear,
-		submissionDay,
-		submissionMonth,
-		submissionYear
+		submissionDatePublished,
+		submissionInternalDay,
+		submissionInternalMonth,
+		submissionInternalYear
 	} = body;
 
-	const firstNotifiedSeconds =
-		(Date.parse(`${firstNotifiedYear}-${firstNotifiedMonth}-${firstNotifiedDay}`) || 0) / 1000;
-	const submissionDateSeconds =
-		(Date.parse(`${submissionYear}-${submissionMonth}-${submissionDay}`) || 0) / 1000;
-	const firstNotifiedDate = firstNotifiedSeconds > 0 ? `${firstNotifiedSeconds}` : '';
-	const submissionDate = submissionDateSeconds > 0 ? `${submissionDateSeconds}` : '';
+	const submissionInternalDateSeconds =
+		(Date.parse(`${submissionInternalYear}-${submissionInternalMonth}-${submissionInternalDay}`) ||
+			0) / 1000;
+	const submissionDateInternal =
+		submissionInternalDateSeconds > 0 ? `${submissionInternalDateSeconds}` : '';
 	const values = {
-		'keyDates.firstNotifiedDate': firstNotifiedDate,
-		'keyDates.submissionDate': submissionDate
+		'keyDates.submissionDatePublished': submissionDatePublished,
+		'keyDates.submissionDateInternal': submissionDateInternal
 	};
 
 	const payload = {
 		keyDates: {
-			submissionDate,
-			firstNotifiedDate
+			submissionDatePublished,
+			submissionDateInternal
 		}
 	};
 
