@@ -29,26 +29,28 @@ describe('Applications create key dates', () => {
 		describe('Web-side validation:', () => {
 			it('should show validation errors if dates are not valid', async () => {
 				const response = await request.post(baseUrl).send({
-					firstNotifiedDay: 'not_a_number',
-					submissionDay: 32
+					submissionInternalDay: 32
 				});
 				const element = parseHtml(response.text);
 
 				expect(element.innerHTML).toMatchSnapshot();
-				expect(element.innerHTML).toContain('Enter a valid day for the first notified date');
-				expect(element.innerHTML).toContain('Enter a valid day for the submission date');
+				expect(element.innerHTML).toContain(
+					'Enter a valid day for the anticipated submission date internal'
+				);
 			});
 
 			it('should show validation errors if submission date is not in the future', async () => {
 				const response = await request.post(baseUrl).send({
-					submissionDay: '14',
-					submissionMonth: '7',
-					submissionYear: '1789'
+					submissionInternalDay: '14',
+					submissionInternalMonth: '7',
+					submissionInternalYear: '1789'
 				});
 				const element = parseHtml(response.text);
 
 				expect(element.innerHTML).toMatchSnapshot();
-				expect(element.innerHTML).toContain('The submission date should be in the future');
+				expect(element.innerHTML).toContain(
+					'The anticipated submission date internal must be in the future'
+				);
 			});
 		});
 	});

@@ -5,48 +5,33 @@ exports[`Applications create key dates GET /key-dates should render the page 1`]
     <h2 class=\\"govuk-heading-l\\"> What are the key dates of the case?</h2>
     <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
         <div class=\\"govuk-form-group\\">
-            <label class=\\"govuk-label font-weight--700\\" for=\\"applicationName\\">Date first notified of the case</label>
-            <div id=\\"applicationName-hint\\"
-            class=\\"govuk-hint\\">for example, 27 3 2009</div>
-            <div class=\\"govuk-grid-column-one-third\\">
-                <div class=\\"govuk-grid-row pins-date-form-group\\">
-                    <div class=\\"govuk-form-group\\">
-                        <div id=\\"firstNotifiedDay-hint\\" class=\\"govuk-hint\\">Day</div>
-                        <input class=\\"govuk-input\\" id=\\"firstNotifiedDay\\" name=\\"firstNotifiedDay\\"
-                        type=\\"text\\" aria-describedby=\\"firstNotifiedDay-hint\\">
-                    </div>
-                    <div class=\\"govuk-form-group\\">
-                        <div id=\\"firstNotifiedMonth-hint\\" class=\\"govuk-hint\\">Month</div>
-                        <input class=\\"govuk-input\\" id=\\"firstNotifiedMonth\\" name=\\"firstNotifiedMonth\\"
-                        type=\\"text\\" aria-describedby=\\"firstNotifiedMonth-hint\\">
-                    </div>
-                    <div class=\\"govuk-form-group\\">
-                        <div id=\\"firstNotifiedYear-hint\\" class=\\"govuk-hint\\">Year</div>
-                        <input class=\\"govuk-input\\" id=\\"firstNotifiedYear\\" name=\\"firstNotifiedYear\\"
-                        type=\\"text\\" aria-describedby=\\"firstNotifiedYear-hint\\">
-                    </div>
-                </div>
-            </div>
+            <label class=\\"govuk-label font-weight--700\\" for=\\"keyDates.submissionDatePublished\\">Anticipated submission date published</label>
+            <div id=\\"keyDates.submissionDatePublished-hint\\"
+            class=\\"govuk-hint\\">for example, Q4 2023</div>
+            <input class=\\"govuk-input govuk-!-width-one-third\\"
+            id=\\"keyDates.submissionDatePublished\\" name=\\"keyDates.submissionDatePublished\\"
+            type=\\"text\\" aria-describedby=\\"keyDates.submissionDatePublished-hint\\">
         </div>
-        <div class=\\"govuk-form-group\\">
-            <label class=\\"govuk-label font-weight--700\\" for=\\"applicationName\\">Anticipated submission date</label>
-            <div id=\\"applicationName-hint\\" class=\\"govuk-hint\\">for example, 27 3 2023</div>
+        <div class=\\"govuk-form-group \\">
+            <label class=\\"govuk-label font-weight--700\\" for=\\"submissionDateInternal\\">Anticipated submission date internal</label>
+            <div id=\\"applicationName-hint\\"
+            class=\\"govuk-hint\\">for example, 27 3 2023</div>
             <div class=\\"govuk-grid-column-one-third\\">
                 <div class=\\"govuk-grid-row pins-date-form-group\\">
                     <div class=\\"govuk-form-group\\">
-                        <div id=\\"submissionDay-hint\\" class=\\"govuk-hint\\">Day</div>
-                        <input class=\\"govuk-input\\" id=\\"submissionDay\\" name=\\"submissionDay\\"
-                        type=\\"text\\" aria-describedby=\\"submissionDay-hint\\">
+                        <div id=\\"submissionInternalDay-hint\\" class=\\"govuk-hint\\">Day</div>
+                        <input class=\\"govuk-input\\" id=\\"submissionInternalDay\\" name=\\"submissionInternalDay\\"
+                        type=\\"text\\" aria-describedby=\\"submissionInternalDay-hint\\">
                     </div>
                     <div class=\\"govuk-form-group\\">
-                        <div id=\\"submissionMonth-hint\\" class=\\"govuk-hint\\">Month</div>
-                        <input class=\\"govuk-input\\" id=\\"submissionMonth\\" name=\\"submissionMonth\\"
-                        type=\\"text\\" aria-describedby=\\"submissionMonth-hint\\">
+                        <div id=\\"submissionInternalMonth-hint\\" class=\\"govuk-hint\\">Month</div>
+                        <input class=\\"govuk-input\\" id=\\"submissionInternalMonth\\" name=\\"submissionInternalMonth\\"
+                        type=\\"text\\" aria-describedby=\\"submissionInternalMonth-hint\\">
                     </div>
                     <div class=\\"govuk-form-group\\">
-                        <div id=\\"submissionYear-hint\\" class=\\"govuk-hint\\">Year</div>
-                        <input class=\\"govuk-input\\" id=\\"submissionYear\\" name=\\"submissionYear\\"
-                        type=\\"text\\" aria-describedby=\\"submissionYear-hint\\">
+                        <div id=\\"submissionInternalYear-hint\\" class=\\"govuk-hint\\">Year</div>
+                        <input class=\\"govuk-input\\" id=\\"submissionInternalYear\\" name=\\"submissionInternalYear\\"
+                        type=\\"text\\" aria-describedby=\\"submissionInternalYear-hint\\">
                     </div>
                 </div>
             </div>
@@ -69,9 +54,7 @@ exports[`Applications create key dates POST /key-dates Web-side validation: shou
                 <h2 class=\\"govuk-error-summary__title\\" id=\\"error-summary-title\\"> There is a problem</h2>
                 <div class=\\"govuk-error-summary__body\\">
                     <ul class=\\"govuk-list govuk-error-summary__list\\">
-                        <li><a href=\\"#keyDates.firstNotifiedDate\\">Enter a valid day for the first notified date</a>
-                        </li>
-                        <li><a href=\\"#keyDates.submissionDate\\">Enter a valid day for the submission date</a>
+                        <li><a href=\\"#keyDates.submissionDateInternal\\">Enter a valid day for the anticipated submission date internal</a>
                         </li>
                     </ul>
                 </div>
@@ -81,60 +64,41 @@ exports[`Applications create key dates POST /key-dates Web-side validation: shou
     <h2 class=\\"govuk-heading-l\\"> What are the key dates of the case?</h2>
     <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
         <div class=\\"govuk-form-group\\">
-            <label class=\\"govuk-label font-weight--700\\" for=\\"applicationName\\">Date first notified of the case</label>
-            <div id=\\"applicationName-hint\\"
-            class=\\"govuk-hint\\">for example, 27 3 2009</div>
-            <div class=\\"govuk-grid-column-one-third\\">
-                <div class=\\"govuk-grid-row pins-date-form-group\\">
-                    <div class=\\"govuk-form-group govuk-form-group--error\\">
-                        <div id=\\"firstNotifiedDay-hint\\" class=\\"govuk-hint\\">Day</div>
-                        <p id=\\"firstNotifiedDay-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
-                        </p>
-                        <input class=\\"govuk-input govuk-input--error\\" id=\\"firstNotifiedDay\\" name=\\"firstNotifiedDay\\"
-                        type=\\"text\\" aria-describedby=\\"firstNotifiedDay-hint firstNotifiedDay-error\\">
-                    </div>
-                    <div class=\\"govuk-form-group govuk-form-group--error\\">
-                        <div id=\\"firstNotifiedMonth-hint\\" class=\\"govuk-hint\\">Month</div>
-                        <p id=\\"firstNotifiedMonth-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
-                        </p>
-                        <input class=\\"govuk-input govuk-input--error\\" id=\\"firstNotifiedMonth\\"
-                        name=\\"firstNotifiedMonth\\" type=\\"text\\" aria-describedby=\\"firstNotifiedMonth-hint firstNotifiedMonth-error\\">
-                    </div>
-                    <div class=\\"govuk-form-group govuk-form-group--error\\">
-                        <div id=\\"firstNotifiedYear-hint\\" class=\\"govuk-hint\\">Year</div>
-                        <p id=\\"firstNotifiedYear-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
-                        </p>
-                        <input class=\\"govuk-input govuk-input--error\\" id=\\"firstNotifiedYear\\" name=\\"firstNotifiedYear\\"
-                        type=\\"text\\" aria-describedby=\\"firstNotifiedYear-hint firstNotifiedYear-error\\">
-                    </div>
-                </div>
-            </div>
+            <label class=\\"govuk-label font-weight--700\\" for=\\"keyDates.submissionDatePublished\\">Anticipated submission date published</label>
+            <div id=\\"keyDates.submissionDatePublished-hint\\"
+            class=\\"govuk-hint\\">for example, Q4 2023</div>
+            <input class=\\"govuk-input govuk-!-width-one-third\\"
+            id=\\"keyDates.submissionDatePublished\\" name=\\"keyDates.submissionDatePublished\\"
+            type=\\"text\\" aria-describedby=\\"keyDates.submissionDatePublished-hint\\">
         </div>
-        <div class=\\"govuk-form-group\\">
-            <label class=\\"govuk-label font-weight--700\\" for=\\"applicationName\\">Anticipated submission date</label>
-            <div id=\\"applicationName-hint\\" class=\\"govuk-hint\\">for example, 27 3 2023</div>
+        <div class=\\"govuk-form-group govuk-form-group--error\\">
+            <label class=\\"govuk-label font-weight--700\\" for=\\"submissionDateInternal\\">Anticipated submission date internal</label>
+            <div id=\\"applicationName-hint\\"
+            class=\\"govuk-hint\\">for example, 27 3 2023</div>
+            <p id=\\"submissionDateInternal-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> Enter a valid day for
+                the anticipated submission date internal</p>
             <div class=\\"govuk-grid-column-one-third\\">
                 <div class=\\"govuk-grid-row pins-date-form-group\\">
                     <div class=\\"govuk-form-group govuk-form-group--error\\">
-                        <div id=\\"submissionDay-hint\\" class=\\"govuk-hint\\">Day</div>
-                        <p id=\\"submissionDay-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
+                        <div id=\\"submissionInternalDay-hint\\" class=\\"govuk-hint\\">Day</div>
+                        <p id=\\"submissionInternalDay-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
                         </p>
-                        <input class=\\"govuk-input govuk-input--error\\" id=\\"submissionDay\\" name=\\"submissionDay\\"
-                        type=\\"text\\" value=\\"01\\" aria-describedby=\\"submissionDay-hint submissionDay-error\\">
+                        <input class=\\"govuk-input govuk-input--error\\" id=\\"submissionInternalDay\\"
+                        name=\\"submissionInternalDay\\" type=\\"text\\" aria-describedby=\\"submissionInternalDay-hint submissionInternalDay-error\\">
                     </div>
                     <div class=\\"govuk-form-group govuk-form-group--error\\">
-                        <div id=\\"submissionMonth-hint\\" class=\\"govuk-hint\\">Month</div>
-                        <p id=\\"submissionMonth-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
+                        <div id=\\"submissionInternalMonth-hint\\" class=\\"govuk-hint\\">Month</div>
+                        <p id=\\"submissionInternalMonth-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
                         </p>
-                        <input class=\\"govuk-input govuk-input--error\\" id=\\"submissionMonth\\" name=\\"submissionMonth\\"
-                        type=\\"text\\" value=\\"01\\" aria-describedby=\\"submissionMonth-hint submissionMonth-error\\">
+                        <input class=\\"govuk-input govuk-input--error\\" id=\\"submissionInternalMonth\\"
+                        name=\\"submissionInternalMonth\\" type=\\"text\\" aria-describedby=\\"submissionInternalMonth-hint submissionInternalMonth-error\\">
                     </div>
                     <div class=\\"govuk-form-group govuk-form-group--error\\">
-                        <div id=\\"submissionYear-hint\\" class=\\"govuk-hint\\">Year</div>
-                        <p id=\\"submissionYear-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
+                        <div id=\\"submissionInternalYear-hint\\" class=\\"govuk-hint\\">Year</div>
+                        <p id=\\"submissionInternalYear-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
                         </p>
-                        <input class=\\"govuk-input govuk-input--error\\" id=\\"submissionYear\\" name=\\"submissionYear\\"
-                        type=\\"text\\" value=\\"2032\\" aria-describedby=\\"submissionYear-hint submissionYear-error\\">
+                        <input class=\\"govuk-input govuk-input--error\\" id=\\"submissionInternalYear\\"
+                        name=\\"submissionInternalYear\\" type=\\"text\\" aria-describedby=\\"submissionInternalYear-hint submissionInternalYear-error\\">
                     </div>
                 </div>
             </div>
@@ -157,9 +121,7 @@ exports[`Applications create key dates POST /key-dates Web-side validation: shou
                 <h2 class=\\"govuk-error-summary__title\\" id=\\"error-summary-title\\"> There is a problem</h2>
                 <div class=\\"govuk-error-summary__body\\">
                     <ul class=\\"govuk-list govuk-error-summary__list\\">
-                        <li><a href=\\"#keyDates.firstNotifiedDate\\">Enter a valid day for the first notified date</a>
-                        </li>
-                        <li><a href=\\"#keyDates.submissionDate\\">The submission date should be in the future</a>
+                        <li><a href=\\"#keyDates.submissionDateInternal\\">The anticipated submission date internal must be in the future</a>
                         </li>
                     </ul>
                 </div>
@@ -169,60 +131,41 @@ exports[`Applications create key dates POST /key-dates Web-side validation: shou
     <h2 class=\\"govuk-heading-l\\"> What are the key dates of the case?</h2>
     <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
         <div class=\\"govuk-form-group\\">
-            <label class=\\"govuk-label font-weight--700\\" for=\\"applicationName\\">Date first notified of the case</label>
-            <div id=\\"applicationName-hint\\"
-            class=\\"govuk-hint\\">for example, 27 3 2009</div>
-            <div class=\\"govuk-grid-column-one-third\\">
-                <div class=\\"govuk-grid-row pins-date-form-group\\">
-                    <div class=\\"govuk-form-group govuk-form-group--error\\">
-                        <div id=\\"firstNotifiedDay-hint\\" class=\\"govuk-hint\\">Day</div>
-                        <p id=\\"firstNotifiedDay-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
-                        </p>
-                        <input class=\\"govuk-input govuk-input--error\\" id=\\"firstNotifiedDay\\" name=\\"firstNotifiedDay\\"
-                        type=\\"text\\" aria-describedby=\\"firstNotifiedDay-hint firstNotifiedDay-error\\">
-                    </div>
-                    <div class=\\"govuk-form-group govuk-form-group--error\\">
-                        <div id=\\"firstNotifiedMonth-hint\\" class=\\"govuk-hint\\">Month</div>
-                        <p id=\\"firstNotifiedMonth-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
-                        </p>
-                        <input class=\\"govuk-input govuk-input--error\\" id=\\"firstNotifiedMonth\\"
-                        name=\\"firstNotifiedMonth\\" type=\\"text\\" aria-describedby=\\"firstNotifiedMonth-hint firstNotifiedMonth-error\\">
-                    </div>
-                    <div class=\\"govuk-form-group govuk-form-group--error\\">
-                        <div id=\\"firstNotifiedYear-hint\\" class=\\"govuk-hint\\">Year</div>
-                        <p id=\\"firstNotifiedYear-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
-                        </p>
-                        <input class=\\"govuk-input govuk-input--error\\" id=\\"firstNotifiedYear\\" name=\\"firstNotifiedYear\\"
-                        type=\\"text\\" aria-describedby=\\"firstNotifiedYear-hint firstNotifiedYear-error\\">
-                    </div>
-                </div>
-            </div>
+            <label class=\\"govuk-label font-weight--700\\" for=\\"keyDates.submissionDatePublished\\">Anticipated submission date published</label>
+            <div id=\\"keyDates.submissionDatePublished-hint\\"
+            class=\\"govuk-hint\\">for example, Q4 2023</div>
+            <input class=\\"govuk-input govuk-!-width-one-third\\"
+            id=\\"keyDates.submissionDatePublished\\" name=\\"keyDates.submissionDatePublished\\"
+            type=\\"text\\" aria-describedby=\\"keyDates.submissionDatePublished-hint\\">
         </div>
-        <div class=\\"govuk-form-group\\">
-            <label class=\\"govuk-label font-weight--700\\" for=\\"applicationName\\">Anticipated submission date</label>
-            <div id=\\"applicationName-hint\\" class=\\"govuk-hint\\">for example, 27 3 2023</div>
+        <div class=\\"govuk-form-group govuk-form-group--error\\">
+            <label class=\\"govuk-label font-weight--700\\" for=\\"submissionDateInternal\\">Anticipated submission date internal</label>
+            <div id=\\"applicationName-hint\\"
+            class=\\"govuk-hint\\">for example, 27 3 2023</div>
+            <p id=\\"submissionDateInternal-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> The anticipated submission
+                date internal must be in the future</p>
             <div class=\\"govuk-grid-column-one-third\\">
                 <div class=\\"govuk-grid-row pins-date-form-group\\">
                     <div class=\\"govuk-form-group govuk-form-group--error\\">
-                        <div id=\\"submissionDay-hint\\" class=\\"govuk-hint\\">Day</div>
-                        <p id=\\"submissionDay-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
+                        <div id=\\"submissionInternalDay-hint\\" class=\\"govuk-hint\\">Day</div>
+                        <p id=\\"submissionInternalDay-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
                         </p>
-                        <input class=\\"govuk-input govuk-input--error\\" id=\\"submissionDay\\" name=\\"submissionDay\\"
-                        type=\\"text\\" aria-describedby=\\"submissionDay-hint submissionDay-error\\">
+                        <input class=\\"govuk-input govuk-input--error\\" id=\\"submissionInternalDay\\"
+                        name=\\"submissionInternalDay\\" type=\\"text\\" aria-describedby=\\"submissionInternalDay-hint submissionInternalDay-error\\">
                     </div>
                     <div class=\\"govuk-form-group govuk-form-group--error\\">
-                        <div id=\\"submissionMonth-hint\\" class=\\"govuk-hint\\">Month</div>
-                        <p id=\\"submissionMonth-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
+                        <div id=\\"submissionInternalMonth-hint\\" class=\\"govuk-hint\\">Month</div>
+                        <p id=\\"submissionInternalMonth-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
                         </p>
-                        <input class=\\"govuk-input govuk-input--error\\" id=\\"submissionMonth\\" name=\\"submissionMonth\\"
-                        type=\\"text\\" aria-describedby=\\"submissionMonth-hint submissionMonth-error\\">
+                        <input class=\\"govuk-input govuk-input--error\\" id=\\"submissionInternalMonth\\"
+                        name=\\"submissionInternalMonth\\" type=\\"text\\" aria-describedby=\\"submissionInternalMonth-hint submissionInternalMonth-error\\">
                     </div>
                     <div class=\\"govuk-form-group govuk-form-group--error\\">
-                        <div id=\\"submissionYear-hint\\" class=\\"govuk-hint\\">Year</div>
-                        <p id=\\"submissionYear-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
+                        <div id=\\"submissionInternalYear-hint\\" class=\\"govuk-hint\\">Year</div>
+                        <p id=\\"submissionInternalYear-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
                         </p>
-                        <input class=\\"govuk-input govuk-input--error\\" id=\\"submissionYear\\" name=\\"submissionYear\\"
-                        type=\\"text\\" aria-describedby=\\"submissionYear-hint submissionYear-error\\">
+                        <input class=\\"govuk-input govuk-input--error\\" id=\\"submissionInternalYear\\"
+                        name=\\"submissionInternalYear\\" type=\\"text\\" aria-describedby=\\"submissionInternalYear-hint submissionInternalYear-error\\">
                     </div>
                 </div>
             </div>
