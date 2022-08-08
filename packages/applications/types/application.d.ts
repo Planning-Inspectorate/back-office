@@ -24,6 +24,7 @@ export type MapZoomLevelType =
 	| 'None';
 
 export interface Applicant {
+	id?: number;
 	organisationName?: string;
 	firstName?: string;
 	middleName?: string;

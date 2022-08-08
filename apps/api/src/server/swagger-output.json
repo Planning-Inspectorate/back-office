@@ -893,13 +893,13 @@
 				"keyDates": {
 					"type": "object",
 					"properties": {
-						"firstNotifiedDate": {
-							"type": "number",
-							"example": 123
-						},
-						"submissionDate": {
+						"submissionDatePublished": {
 							"type": "string",
 							"example": "Q1 2023"
+						},
+						"submissionDateInternal": {
+							"type": "number",
+							"example": 123
 						}
 					}
 				}
@@ -1018,13 +1018,13 @@
 				"keyDates": {
 					"type": "object",
 					"properties": {
-						"firstNotifiedDate": {
-							"type": "number",
-							"example": 123
-						},
-						"submissionDate": {
+						"submissionDatePublished": {
 							"type": "string",
 							"example": "Q1 2023"
+						},
+						"submissionDateInternal": {
+							"type": "number",
+							"example": 123
 						}
 					}
 				}
