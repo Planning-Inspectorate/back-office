@@ -526,7 +526,7 @@ describe('applications create', () => {
 
 		describe('GET /create-new-case/:applicationId/zoom-level', () => {
 			it('should render the page with None checked if the api does not return resumed data', async () => {
-				const response = await request.get(baseUrl('2'));
+				const response = await request.get(baseUrl('3'));
 				const element = parseHtml(response.text);
 
 				expect(element.innerHTML).toMatchSnapshot();
@@ -593,7 +593,7 @@ describe('applications create', () => {
 			});
 
 			it('should render the page with no value inside the text input if api does not return resumed data', async () => {
-				const response = await request.get(baseUrl('2'));
+				const response = await request.get(baseUrl('3'));
 				const element = parseHtml(response.text);
 
 				expect(element.innerHTML).toMatchSnapshot();

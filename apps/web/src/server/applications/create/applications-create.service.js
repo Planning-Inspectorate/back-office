@@ -1,4 +1,5 @@
-import { get, patch, post } from '../../lib/request.js';
+import { fixtureApplications } from '../../../../testing/applications/fixtures/applications.js';
+import { patch, post } from '../../lib/request.js';
 import { destroySessionCaseSectorName } from './case/applications-create-case-session.service.js';
 
 /** @typedef {import('./case/applications-create-case-session.service.js').SessionWithCaseSectorName} SessionWithCaseSectorName */
@@ -61,8 +62,13 @@ export const createApplicationDraft = async (payload, session) => {
  * @param {string} id
  * @returns {Promise<Application>}
  */
-export const getApplicationDraft = async (id = '') => {
-	const allApps = /** @type {Array<Application>} */ await get(`applications/case-officer`);
+export const getApplicationDraft = (id = '') => {
+	const mockedResumedResponse = fixtureApplications.find((a) => `${a.id}` === id);
+	const mockedResponse = mockedResumedResponse ?? fixtureApplications[3];
 
-	return allApps.find((/** @type {Application} */ app) => `${app.id}` === `${id}`);
+	return new Promise((resolve) => {
+		setTimeout(() => {
+			resolve(mockedResponse);
+		}, 1000);
+	});
 };
