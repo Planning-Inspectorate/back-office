@@ -1,5 +1,5 @@
 import { findAddressListByPostcode } from '@planning-inspectorate/address-lookup';
-import { updateApplicationDraft } from '../case/applications-create-case.service.js';
+import { updateApplicationDraft } from '../applications-create.service.js';
 import * as applicationsCreateApplicantService from './applications-create-applicant.service.js';
 import {
 	getSessionApplicantInfoTypes,

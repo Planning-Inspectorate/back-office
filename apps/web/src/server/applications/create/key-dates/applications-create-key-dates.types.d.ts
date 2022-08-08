@@ -2,8 +2,8 @@ import { ValidationErrors } from '@pins/express';
 
 export type ApplicationsCreateKeyDatesProps = {
 	values: {
-		'keyDates.submissionDatePublished': string;
-		'keyDates.submissionDateInternal': string;
+		'keyDates.submissionDatePublished'?: string;
+		'keyDates.submissionDateInternal'?: string;
 	};
 	errors?: ValidationErrors;
 };
