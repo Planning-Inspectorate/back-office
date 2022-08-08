@@ -136,7 +136,7 @@ exports[`applications create applicant Applicant email POST /application-email W
             name=\\"applicant.email\\" type=\\"text\\" value=\\"bad_email_address\\" aria-describedby=\\"applicant.email-hint applicant.email-error\\">
         </div>
         <div class=\\"govuk-grid-row\\">
-            <div class=\\"govuk-button-group pins-button-group govuk-grid-column-one-half\\"><a class=\\"govuk-link\\" href=\\"/applications-service/create-new-case/123/team-email/\\">Back</a>
+            <div class=\\"govuk-button-group pins-button-group govuk-grid-column-one-half\\"><a class=\\"govuk-link\\" href=\\"/applications-service/create-new-case/123/applicant-information-types/\\">Back</a>
                 <button                 class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and continue</button>
             </div>
         </div>
@@ -189,7 +189,7 @@ exports[`applications create applicant Applicant telephone number POST /applicat
             aria-describedby=\\"applicant.phoneNumber-hint applicant.phoneNumber-error\\">
         </div>
         <div class=\\"govuk-grid-row\\">
-            <div class=\\"govuk-button-group pins-button-group govuk-grid-column-one-half\\"><a class=\\"govuk-link\\" href=\\"/applications-service/create-new-case/123/team-email/\\">Back</a>
+            <div class=\\"govuk-button-group pins-button-group govuk-grid-column-one-half\\"><a class=\\"govuk-link\\" href=\\"/applications-service/create-new-case/123/applicant-information-types/\\">Back</a>
                 <button                 class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and continue</button>
             </div>
         </div>
@@ -241,7 +241,7 @@ exports[`applications create applicant Applicant website POST /application-websi
             name=\\"applicant.website\\" type=\\"text\\" value=\\"bad_url\\" aria-describedby=\\"applicant.website-hint applicant.website-error\\">
         </div>
         <div class=\\"govuk-grid-row\\">
-            <div class=\\"govuk-button-group pins-button-group govuk-grid-column-one-half\\"><a class=\\"govuk-link\\" href=\\"/applications-service/create-new-case/123/team-email/\\">Back</a>
+            <div class=\\"govuk-button-group pins-button-group govuk-grid-column-one-half\\"><a class=\\"govuk-link\\" href=\\"/applications-service/create-new-case/123/applicant-information-types/\\">Back</a>
                 <button                 class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and continue</button>
             </div>
         </div>

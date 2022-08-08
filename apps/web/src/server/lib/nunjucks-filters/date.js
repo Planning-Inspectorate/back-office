@@ -1,19 +1,29 @@
-import format from 'date-fns/format/index.js';
+import formatDate from 'date-fns/format/index.js';
 import enGB from 'date-fns/locale/en-GB/index.js';
+import { isDateInstance } from '../dates.js';
 
+// TODO: remove this and always use the function below
 /**
  * @param {Date | number | string} date
  * @param {{ condensed?: boolean }} options
  * @returns {string}
  */
 export function displayDate(date, { condensed = false } = {}) {
-	return format(new Date(date), condensed ? 'd MMM yyyy' : 'd MMMM yyyy', { locale: enGB });
+	return formatDate(new Date(date), condensed ? 'd MMM yyyy' : 'd MMMM yyyy', { locale: enGB });
 }
 
 /**
- * @param {string|number} date
+ * @param {string|number} unixDate
+ * @param {{format: string}=} options
  * @returns {string}
  */
-export function datestamp(date) {
-	return format(new Date(Number.parseInt(`${date}`, 10) * 1000), 'dd/MM/yyyy', { locale: enGB });
+export function datestamp(unixDate, options) {
+	const { format = 'dd/MM/yyyy' } = options || {};
+	const date = new Date(Number.parseInt(`${unixDate}`, 10) * 1000);
+
+	if (!isDateInstance(date)) {
+		return '';
+	}
+
+	return formatDate(date, format, { locale: enGB }) || '';
 }

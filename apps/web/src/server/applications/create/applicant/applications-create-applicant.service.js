@@ -59,10 +59,10 @@ export function getAllowedDestinationPath({ session, path, goToNextPage }) {
 
 	while (
 		!allowedApplicantPaths.includes(destinationPath) &&
-		Math.abs(destinationPathIndex) < allApplicantPaths.length - 1
+		Math.abs(destinationPathIndex) < allApplicantPaths.length
 	) {
 		destinationPathIndex += goToNextPage ? 1 : -1;
-		destinationPath = allApplicantPaths[destinationPathIndex];
+		destinationPath = allApplicantPaths[destinationPathIndex] ?? destinationPath;
 	}
 
 	return destinationPath || '';
