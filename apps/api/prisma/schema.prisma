@@ -72,12 +72,12 @@ model AppealDetailsFromAppellant {
 
 model Case {
   id                 Int                 @id @default(autoincrement())
-  reference          String?             @unique
-  title              String?
-  description        String?
-  createdAt          DateTime            @default(now())
+  reference          String? // @unique OR NULL defined in migrations
   modifiedAt         DateTime            @default(now())
+  createdAt          DateTime            @default(now())
+  description        String?
   publishedAt        DateTime?
+  title              String?
   ApplicationDetails ApplicationDetails?
   CaseStatus         CaseStatus[]
   gridReference      GridReference?
@@ -94,9 +94,9 @@ model ServiceCustomer {
   website          String?
   phoneNumber      String?
   addressId        Int?
-  address          Address? @relation(fields: [addressId], references: [id])
   caseId           Int
-  case             Case?    @relation(fields: [caseId], references: [id])
+  address          Address? @relation(fields: [addressId], references: [id])
+  case             Case     @relation(fields: [caseId], references: [id])
 }
 
 model GridReference {
@@ -119,25 +119,25 @@ model CaseStatus {
 }
 
 model ApplicationDetails {
-  id                  Int                           @id @default(autoincrement())
-  locationDescription String?
-  firstNotifiedAt     DateTime?
-  submissionAt        String?
-  caseEmail           String?
-  caseId              Int                           @unique
-  case                Case                          @relation(fields: [caseId], references: [id])
-  subSectorId         Int?
-  subSector           SubSector?                    @relation(fields: [subSectorId], references: [id])
-  zoomLevelId         Int?
-  zoomLevel           ZoomLevel?                    @relation(fields: [zoomLevelId], references: [id])
-  regions             RegionsOnApplicationDetails[]
+  id                    Int                           @id @default(autoincrement())
+  caseId                Int                           @unique
+  subSectorId           Int?
+  locationDescription   String?
+  submissionAtPublished String?
+  submissionAtInternal  DateTime?
+  zoomLevelId           Int?
+  caseEmail             String?
+  case                  Case                          @relation(fields: [caseId], references: [id])
+  subSector             SubSector?                    @relation(fields: [subSectorId], references: [id])
+  zoomLevel             ZoomLevel?                    @relation(fields: [zoomLevelId], references: [id])
+  regions               RegionsOnApplicationDetails[]
 }
 
 model RegionsOnApplicationDetails {
-  applicationDetails   ApplicationDetails @relation(fields: [applicationDetailsId], references: [id])
   applicationDetailsId Int
-  region               Region             @relation(fields: [regionId], references: [id])
   regionId             Int
+  applicationDetails   ApplicationDetails @relation(fields: [applicationDetailsId], references: [id])
+  region               Region             @relation(fields: [regionId], references: [id])
 
   @@id([applicationDetailsId, regionId])
 }

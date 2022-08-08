@@ -74,7 +74,7 @@ test('updates application with just title and first notified date', async (t) =>
 	const response = await request.patch('/applications/1').send({
 		title: 'some title',
 		keyDates: {
-			firstNotifiedDate: 123_456_789
+			submissionDateInternal: 1_649_319_344_000
 		}
 	});
 
@@ -88,10 +88,10 @@ test('updates application with just title and first notified date', async (t) =>
 			ApplicationDetails: {
 				upsert: {
 					create: {
-						firstNotifiedAt: new Date(123_456_789)
+						submissionAtInternal: new Date(1_649_319_344_000)
 					},
 					update: {
-						firstNotifiedAt: new Date(123_456_789)
+						submissionAtInternal: new Date(1_649_319_344_000)
 					}
 				}
 			}
@@ -165,8 +165,8 @@ test('updates application when all possible details provided', async (t) => {
 			}
 		},
 		keyDates: {
-			firstNotifiedDate: 123,
-			submissionDate: 'Q1 2023'
+			submissionDateInternal: 1_649_319_344_000,
+			submissionDatePublished: 'Q1 2023'
 		}
 	});
 
@@ -196,8 +196,8 @@ test('updates application when all possible details provided', async (t) => {
 					create: {
 						caseEmail: 'caseEmail@pins.com',
 						locationDescription: 'location description',
-						firstNotifiedAt: new Date(123),
-						submissionAt: 'Q1 2023',
+						submissionAtInternal: new Date(1_649_319_344_000),
+						submissionAtPublished: 'Q1 2023',
 						subSector: { connect: { name: 'some_sub_sector' } },
 						zoomLevel: { connect: { name: 'some-known-map-zoom-level' } },
 						regions: {
@@ -210,8 +210,8 @@ test('updates application when all possible details provided', async (t) => {
 					update: {
 						caseEmail: 'caseEmail@pins.com',
 						locationDescription: 'location description',
-						firstNotifiedAt: new Date(123),
-						submissionAt: 'Q1 2023',
+						submissionAtInternal: new Date(1_649_319_344_000),
+						submissionAtPublished: 'Q1 2023',
 						subSector: { connect: { name: 'some_sub_sector' } },
 						zoomLevel: { connect: { name: 'some-known-map-zoom-level' } },
 						regions: {
@@ -326,7 +326,7 @@ test('returns error if any validated values are invalid', async (t) => {
 			}
 		},
 		keyDates: {
-			firstNotifiedDate: 4_294_967_295_000
+			submissionDateInternal: 100_000
 		},
 		subSectorName: 'some unknown subsector'
 	});
@@ -342,7 +342,7 @@ test('returns error if any validated values are invalid', async (t) => {
 			'geographicalInformation.gridReference.northing': 'Northing must be integer with 6 digits',
 			'geographicalInformation.mapZoomLevelName': 'Must be a valid map zoom level',
 			'geographicalInformation.regionNames': 'Unknown region',
-			'keyDates.firstNotifiedDate': 'First notified date must be in the past',
+			'keyDates.submissionDateInternal': 'Submission date internal must be in the future',
 			subSectorName: 'Must be existing sub-sector'
 		}
 	});

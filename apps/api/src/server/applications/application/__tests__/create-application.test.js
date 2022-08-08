@@ -40,13 +40,15 @@ test.before('set up mocks', () => {
 	sinon.stub(databaseConnector, 'region').get(() => {
 		return { findUnique: findUniqueRegionStub };
 	});
+
+	sinon.useFakeTimers({ now: 1_649_319_144_000 });
 });
 
 test('creates new application with just title and first notified date', async (t) => {
 	const response = await request.post('/applications').send({
 		title: 'some title',
 		keyDates: {
-			firstNotifiedDate: 123_456_789
+			submissionDateInternal: 1_649_319_344_000
 		}
 	});
 
@@ -57,7 +59,7 @@ test('creates new application with just title and first notified date', async (t
 			title: 'some title',
 			ApplicationDetails: {
 				create: {
-					firstNotifiedAt: new Date(123_456_789)
+					submissionAtInternal: new Date(1_649_319_344_000)
 				}
 			},
 			CaseStatus: {
@@ -144,8 +146,8 @@ test('creates new application when all possible details provided', async (t) => 
 			}
 		},
 		keyDates: {
-			firstNotifiedDate: 123,
-			submissionDate: 'Q1 2023'
+			submissionDateInternal: 1_649_319_344_000,
+			submissionDatePublished: 'Q1 2023'
 		}
 	});
 
@@ -161,8 +163,8 @@ test('creates new application when all possible details provided', async (t) => 
 					caseEmail: 'caseEmail@pins.com',
 					zoomLevel: { connect: { name: 'some-known-map-zoom-level' } },
 					locationDescription: 'location description',
-					firstNotifiedAt: new Date(123),
-					submissionAt: 'Q1 2023',
+					submissionAtInternal: new Date(1_649_319_344_000),
+					submissionAtPublished: 'Q1 2023',
 					subSector: { connect: { name: 'some_sub_sector' } },
 					regions: {
 						create: [
@@ -266,7 +268,7 @@ test('returns error if any validated values are invalid', async (t) => {
 			}
 		},
 		keyDates: {
-			firstNotifiedDate: 4_294_967_295_000
+			submissionDateInternal: 1_000_000
 		},
 		subSectorName: 'some unknown subsector'
 	});
@@ -282,7 +284,7 @@ test('returns error if any validated values are invalid', async (t) => {
 			'geographicalInformation.gridReference.northing': 'Northing must be integer with 6 digits',
 			'geographicalInformation.mapZoomLevelName': 'Must be a valid map zoom level',
 			'geographicalInformation.regionNames': 'Unknown region',
-			'keyDates.firstNotifiedDate': 'First notified date must be in the past',
+			'keyDates.submissionDateInternal': 'Submission date internal must be in the future',
 			subSectorName: 'Must be existing sub-sector'
 		}
 	});
