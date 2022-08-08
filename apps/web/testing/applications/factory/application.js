@@ -25,6 +25,7 @@ export function createApplication({
 		status: `Status ${id}000`,
 		modifiedDate,
 		sector,
-		subSector
+		subSector,
+		applicants: [{ id: 2 }]
 	};
 }

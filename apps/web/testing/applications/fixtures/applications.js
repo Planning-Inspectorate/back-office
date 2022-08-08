@@ -18,7 +18,6 @@ export const fixtureApplications = [
 			sector: fixtureSectors[0],
 			subSector: fixtureSubSectors[0]
 		}),
-		applicants: [{ id: 2 }],
 		geographicalInformation: {
 			locationDescription: 'London',
 			gridReference: {
@@ -49,7 +48,8 @@ export const fixtureApplications = [
 		reference: 'APPLICATION/04',
 		title: `Application with no sector`,
 		description: 'Application with no sector description',
-		status: 'draft'
+		status: 'draft',
+		applicants: [{ id: 2 }]
 	},
 	{
 		id: 5,
