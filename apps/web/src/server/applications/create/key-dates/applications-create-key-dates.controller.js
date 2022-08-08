@@ -1,4 +1,4 @@
-import * as applicationsCreateCaseService from '../case/applications-create-case.service.js';
+import { getApplicationDraft, updateApplicationDraft } from '../applications-create.service.js';
 
 /** @typedef {import('./applications-create-key-dates.types').ApplicationsCreateKeyDatesProps} ApplicationsCreateKeyDatesProps */
 /** @typedef {import('./applications-create-key-dates.types').ApplicationsCreateKeyDatesBody} ApplicationsCreateKeyDatesBody */
@@ -11,7 +11,7 @@ import * as applicationsCreateCaseService from '../case/applications-create-case
  */
 export async function viewApplicationsCreateKeyDates(req, response) {
 	const { applicationId } = response.locals;
-	const { keyDates } = await applicationsCreateCaseService.getApplicationDraft(applicationId);
+	const { keyDates } = await getApplicationDraft(applicationId);
 	const { submissionDatePublished, submissionDateInternal } = keyDates || {};
 
 	const values = {
@@ -57,8 +57,10 @@ export async function updateApplicationsCreateKeyDates(
 		}
 	};
 
-	const { errors: apiErrors, id: updatedDraftId } =
-		await applicationsCreateCaseService.updateApplicationDraft(applicationId, payload);
+	const { errors: apiErrors, id: updatedDraftId } = await updateApplicationDraft(
+		applicationId,
+		payload
+	);
 
 	if (validationErrors || apiErrors) {
 		return response.render('applications/create/key-dates/_key-dates', {

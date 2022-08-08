@@ -1,4 +1,4 @@
-import { getApplicationDraft } from '../case/applications-create-case.service.js';
+import { getApplicationDraft } from '../applications-create.service.js';
 import * as applicationsCreateApplicantService from './applications-create-applicant.service.js';
 
 /**
