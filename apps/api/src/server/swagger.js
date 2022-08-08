@@ -64,8 +64,8 @@ const document = {
 				phoneNumber: ''
 			},
 			keyDates: {
-				firstNotifiedDate: 123,
-				submissionDate: 'Q1 2023'
+				submissionDatePublished: 'Q1 2023',
+				submissionDateInternal: 123
 			}
 		},
 		CreateApplication: {
@@ -99,8 +99,8 @@ const document = {
 				phoneNumber: ''
 			},
 			keyDates: {
-				firstNotifiedDate: 123,
-				submissionDate: 'Q1 2023'
+				submissionDatePublished: 'Q1 2023',
+				submissionDateInternal: 123
 			}
 		},
 		Sectors: [
