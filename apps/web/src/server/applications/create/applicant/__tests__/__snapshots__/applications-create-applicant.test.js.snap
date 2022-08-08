@@ -85,7 +85,7 @@ exports[`applications create applicant Applicant address POST /applicant-address
         </div>
         <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Find address</button>
         <div class=\\"govuk-grid-row\\">
-            <div class=\\"govuk-button-group pins-button-group govuk-grid-column-one-half\\"><a class=\\"govuk-link\\" href=\\"/applications-service/create-new-case/123/team-email/\\">Back</a>
+            <div class=\\"govuk-button-group pins-button-group govuk-grid-column-one-half\\"><a class=\\"govuk-link\\" href=\\"/applications-service/create-new-case/123/applicant-information-types/\\">Back</a>
             </div>
         </div>
     </form>
