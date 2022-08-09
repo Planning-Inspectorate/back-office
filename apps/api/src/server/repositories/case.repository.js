@@ -361,25 +361,32 @@ export const getById = (
 	id,
 	{
 		subSector = false,
+		sector = false,
 		applicationDetails = false,
 		zoomLevel = false,
 		regions = false,
-		caseStatus = false
-	} = {}
+		caseStatus = false,
+		serviceCustomer = false,
+		serviceCustomerAddress = false,
+		gridReference = false
+	}
 ) => {
 	return databaseConnector.case.findUnique({
 		where: { id },
-		...((applicationDetails || subSector || zoomLevel || regions || caseStatus) && {
+		...((applicationDetails || subSector || sector || zoomLevel || regions || caseStatus) && {
 			include: {
 				...((applicationDetails || subSector || zoomLevel || regions) && {
 					ApplicationDetails: { include: { subSector, zoomLevel, regions } }
 				}),
-				...(caseStatus && { CaseStatus: { where: { valid: true } } })
+				...(caseStatus && { CaseStatus: { where: { valid: true } } }),
+				...((serviceCustomer || serviceCustomerAddress) && {
+					serviceCustomer: { include: { address: serviceCustomerAddress } }
+				}),
+				...(gridReference && { gridReference: true })
 			}
 		})
 	});
 };
-
 /**
  *
  * @param {number[]} ids
@@ -486,4 +493,3 @@ export const assignApplicationReference = (id) => {
 
 	return databaseConnector.$executeRawUnsafe(formattedSqlQuery);
 };
-

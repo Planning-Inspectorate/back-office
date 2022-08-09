@@ -88,17 +88,19 @@ router.get(
 	'/:id?',
 	/*
         #swagger.tags = ['Applications']
-        #swagger.path = '/applications/:id'
-        #swagger.description = 'Gets all application details'
-        #swagger.parameters['body'] = {
-            in: 'body',
-            description: 'Application Details',
-            schema: { $ref: '#/definitions/GetApplicationDetails' }
-        }
-        #swagger.responses[200] = {
-            description: 'ID of application',
-            schema: { id: 1, applicantIds: [2] }
-        }
+        #swagger.path = '/applications/{id}'
+        #swagger.description = 'Gets all of the application details'
+        #swagger.parameters['id'] = {
+            in: 'path',
+			description: 'Application ID here',
+			required: true,
+			type: 'integer'
+		}
+		#swagger.parameters['query'] = {
+            in: 'query',
+            description: 'Application details',
+            schema: { }
+    	}
     */
 	validateApplicationId,
 	validateExistingApplication,

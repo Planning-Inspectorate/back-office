@@ -140,7 +140,7 @@ export const validateCreateUpdateApplication = composeMiddleware(
 );
 
 export const validateApplicationId = composeMiddleware(
-	param('id').isInt().withMessage('Application id must be a valid numerical value'),
+	param('id').toInt().isInt().withMessage('Application id must be a valid numerical value'),
 	validationErrorHandler
 );
 
