@@ -636,45 +636,34 @@
 						}
 					}
 				}
-			}
-		},
-		"/applications/:id": {
+			},
 			"get": {
 				"tags": ["Applications"],
-				"description": "Gets all application details",
+				"description": "Gets all of the application details",
 				"parameters": [
 					{
-						"name": "body",
-						"in": "body",
-						"description": "Application Details",
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"type": "integer",
+						"description": "Application ID here"
+					},
+					{
+						"name": "query",
+						"in": "query",
+						"description": "Application details",
 						"schema": {
-							"$ref": "#/definitions/GetApplicationDetails"
+							"type": "object",
+							"properties": {
+								"description": {
+									"type": "boolean",
+									"example": true
+								}
+							}
 						}
 					}
 				],
 				"responses": {
-					"200": {
-						"description": "ID of application",
-						"schema": {
-							"type": "object",
-							"properties": {
-								"id": {
-									"type": "number",
-									"example": 1
-								},
-								"applicantIds": {
-									"type": "array",
-									"example": [2],
-									"items": {
-										"type": "number"
-									}
-								}
-							},
-							"xml": {
-								"name": "main"
-							}
-						}
-					},
 					"404": {
 						"description": "Not Found"
 					}
