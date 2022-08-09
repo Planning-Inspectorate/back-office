@@ -53,7 +53,7 @@ test.before('set up mocks', () => {
 	});
 });
 
-test('gets all data for a case when everything is available', async (t) => {
+test.only('gets all data for a case when everything is available', async (t) => {
 	const response = await request.get('/applications/1');
 
 	t.is(response.status, 200);
@@ -62,8 +62,9 @@ test('gets all data for a case when everything is available', async (t) => {
 		title: 'EN010003 - NI Case 3 Name',
 		description: 'EN010003 - NI Case 3 Name Description',
 		status: 'Draft',
-		applicant: [
+		applicants: [
 			{
+				id: 1,
 				address: {
 					addressLine1: 'Addr Line 1',
 					addressLine2: 'Addr Line 2',
