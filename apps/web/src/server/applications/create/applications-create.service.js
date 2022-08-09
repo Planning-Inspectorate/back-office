@@ -1,5 +1,4 @@
-import { fixtureApplications } from '../../../../testing/applications/fixtures/applications.js';
-import { patch, post } from '../../lib/request.js';
+import { get, patch, post } from '../../lib/request.js';
 import { destroySessionCaseSectorName } from './case/applications-create-case-session.service.js';
 
 /** @typedef {import('./case/applications-create-case-session.service.js').SessionWithCaseSectorName} SessionWithCaseSectorName */
@@ -23,7 +22,13 @@ export const updateApplicationDraft = async (applicationId, payload) => {
 		});
 	} catch (/** @type {*} */ error) {
 		response = new Promise((resolve) => {
-			resolve({ errors: error?.response?.body?.errors || {} });
+			const apiErrors = error?.response?.body?.errors;
+
+			if (typeof apiErrors === 'object' && typeof Object.values(apiErrors)[0] === 'string') {
+				resolve({ errors: error?.response?.body?.errors || {} });
+			} else {
+				resolve({ errors: {} });
+			}
 		});
 	}
 
@@ -62,13 +67,9 @@ export const createApplicationDraft = async (payload, session) => {
  * @param {string} id
  * @returns {Promise<Application>}
  */
-export const getApplicationDraft = (id = '') => {
-	const mockedResumedResponse = fixtureApplications.find((a) => `${a.id}` === id);
-	const mockedResponse = mockedResumedResponse ?? fixtureApplications[3];
+export const getApplicationDraft = async (id = '') => {
+	const pp = await get(`applications/${id}`);
+	// console.log(pp);
 
-	return new Promise((resolve) => {
-		setTimeout(() => {
-			resolve(mockedResponse);
-		}, 1000);
-	});
+	return pp;
 };
