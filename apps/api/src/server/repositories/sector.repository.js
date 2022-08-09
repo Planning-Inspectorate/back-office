@@ -15,3 +15,11 @@ export const getAll = () => {
 export const getByName = async (name) => {
 	return databaseConnector.sector.findUnique({ where: { name } });
 };
+
+/**
+ * @param {number} id
+ * @returns {Promise<import('@pins/api').Schema.Sector | null>}
+ */
+export const getSectorById = async (id) => {
+	return databaseConnector.sector.findUnique({ where: { id } });
+};
