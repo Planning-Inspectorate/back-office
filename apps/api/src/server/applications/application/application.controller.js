@@ -1,6 +1,6 @@
 import { filter, map, pick, pickBy } from 'lodash-es';
 import * as caseRepository from '../../repositories/case.repository.js';
-import { mapCaseDetails } from '../../utils/mapping/map-case-details.js';
+import { mapApplicationDetails } from '../../utils/mapping/map-case-details.js';
 import { mapCaseStatusString } from '../../utils/mapping/map-case-status-string.js';
 import { mapCreateApplicationRequestToRepository } from './application.mapper.js';
 import { startApplication } from './application.service.js';
@@ -109,7 +109,7 @@ export const getApplicationDetails = async (request, response) => {
 		modelsToInclude
 	);
 
-	const caseDetailsFormatted = mapCaseDetails(getCaseDetails);
+	const applicationDetailsFormatted = mapApplicationDetails(getCaseDetails);
 
 	if (request.query.query) {
 		const findTruthyValues = pickBy({ id: true, ...JSON.parse(request.query.query) }, (value) => {
@@ -117,10 +117,10 @@ export const getApplicationDetails = async (request, response) => {
 		});
 		const findKey = Object.keys(findTruthyValues);
 
-		const detailsExtracted = pick(caseDetailsFormatted, findKey);
+		const detailsExtracted = pick(applicationDetailsFormatted, findKey);
 
 		response.send(detailsExtracted);
 	} else {
-		response.send(caseDetailsFormatted);
+		response.send(applicationDetailsFormatted);
 	}
 };
