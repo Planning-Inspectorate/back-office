@@ -36,10 +36,16 @@ export const mapApplicationDetails = async (applicationDetails) => {
 		'description'
 	]);
 
-	const sectorUnformatted = await getSectorById(
-		applicationDetails?.ApplicationDetails?.subSector?.sectorId
-	);
-	const sectorFormatted = mapSector(sectorUnformatted);
+	let sectorFormatted;
+
+	if (applicationDetails?.ApplicationDetails?.subSector?.sectorId) {
+		const sectorUnformatted = await getSectorById(
+			applicationDetails?.ApplicationDetails?.subSector?.sectorId
+		);
+
+		sectorFormatted = mapSector(sectorUnformatted);
+	}
+
 	const subSectorFormatted = mapSector(applicationDetails?.ApplicationDetails?.subSector);
 	const zoomLevelFormatted = mapZoomLevel(applicationDetails?.ApplicationDetails?.zoomLevel);
 	const regionsFormatted = await Promise.all(

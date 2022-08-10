@@ -70,7 +70,7 @@ export const startCase = async ({ params }, response) => {
 
 const findModelsToInclude = (query) => {
 	return {
-		subSector: query.subSector,
+		subSector: query.subSector || query.sector,
 		sector: query.sector,
 		applicationDetails: query.keyDates !== false,
 		zoomLevel: query.mapZoomLevel !== false,
@@ -79,7 +79,9 @@ const findModelsToInclude = (query) => {
 		serviceCustomer: query.applicant !== false && typeof query.applicant !== 'undefined',
 		serviceCustomerAddress:
 			query?.applicant?.address !== false && typeof query?.applicant?.address !== 'undefined',
-		gridReference: query.gridReference !== false && typeof query.gridReference !== 'undefined'
+		gridReference:
+			query.geographicalInformation !== false &&
+			typeof query.geographicalInformation !== 'undefined'
 	};
 };
 
