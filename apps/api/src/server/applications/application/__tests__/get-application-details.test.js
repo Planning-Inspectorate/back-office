@@ -53,7 +53,7 @@ test.before('set up mocks', () => {
 	});
 });
 
-test.only('gets all data for a case when everything is available', async (t) => {
+test('gets all data for a case when everything is available', async (t) => {
 	const response = await request.get('/applications/1');
 
 	t.is(response.status, 200);
