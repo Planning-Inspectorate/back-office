@@ -99,7 +99,7 @@ router.get(
 		#swagger.parameters['query'] = {
             in: 'query',
             description: 'Application details',
-            schema: { }
+			example: '\{ &ldquo;title&rdquo;\:true, &ldquo;description&rdquo;\:true\, &ldquo;reference&rdquo;\:true, &ldquo;status&rdquo;\:true, &ldquo;caseEmail&rdquo;\:true, &ldquo;sector&rdquo;\:true, &ldquo;subSector&rdquo;\:true, &ldquo;applicants&rdquo;\:true, &ldquo;geographicalInformation&rdquo;\:true, &ldquo;keyDates&rdquo;\:true \}',
     	}
       #swagger.responses[200] = {
             description: 'IDs of application',
