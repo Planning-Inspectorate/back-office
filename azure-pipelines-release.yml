@@ -104,6 +104,7 @@ extends:
       - name: Semantic Release
         jobs:
           - name: Run Semantic Release
+            timeoutInMinutes: 200
             steps:
               - checkout: self
                 clean: true
