@@ -49,11 +49,13 @@ export const mapApplicationDetails = async (applicationDetails) => {
 	const subSectorFormatted = mapSector(applicationDetails?.ApplicationDetails?.subSector);
 	const zoomLevelFormatted = mapZoomLevel(applicationDetails?.ApplicationDetails?.zoomLevel);
 	const regionsFormatted = await Promise.all(
-		applicationDetails?.ApplicationDetails?.regions?.map(async (region) => {
-			const getRegById = await getRegionById(region.regionId);
+		(applicationDetails?.ApplicationDetails?.regions || [])
+			.filter((region) => typeof region.regionId !== 'undefined')
+			.map(async (region) => {
+				const getRegById = await getRegionById(region.regionId);
 
-			return mapRegion(getRegById);
-		})
+				return mapRegion(getRegById);
+			})
 	);
 
 	const applicantsFormatted = applicationDetails?.serviceCustomer?.map((serviceCustomer) =>
