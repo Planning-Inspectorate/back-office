@@ -10,9 +10,12 @@ const request = supertest(app);
 const searchString = 'EN010003 - NI Case 3 Name';
 
 const application = applicationFactoryForTests({
+	title: searchString,
 	id: 3,
-	status: 'Pre-application',
-	modifiedAt: new Date(1_655_298_882_000)
+	dates: { modifiedAt: new Date(1_655_298_882_000) },
+	inclusions: {
+		CaseStatus: true
+	}
 });
 
 const applicationsCount = 1;
@@ -100,7 +103,7 @@ test('should get applications using search criteria', async (t) => {
 		items: [
 			{
 				id: 3,
-				status: 'Pre-application',
+				status: 'Draft',
 				reference: application.reference,
 				title: searchString,
 				modifiedDate: 1_655_298_882,
@@ -133,7 +136,7 @@ test('should get applications using search criteria with default page number', a
 		items: [
 			{
 				id: 3,
-				status: 'Pre-application',
+				status: 'Draft',
 				reference: application.reference,
 				title: searchString,
 				modifiedDate: 1_655_298_882,
@@ -166,7 +169,7 @@ test('should get applications using search criteria with default page size', asy
 		items: [
 			{
 				id: 3,
-				status: 'Pre-application',
+				status: 'Draft',
 				reference: application.reference,
 				title: searchString,
 				modifiedDate: 1_655_298_882,
