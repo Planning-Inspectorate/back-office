@@ -15,39 +15,41 @@ const referenceSettingSqlQuery =
 
 const applicationReadyToStart = applicationFactoryForTests({
 	id: 1,
-	status: 'draft'
+	title: 'Title',
+	description: 'Description',
+	inclusions: {
+		CaseStatus: true,
+		ApplicationDetails: true
+	}
 });
 const applicationWithMissingInformation = applicationFactoryForTests({
 	id: 3,
-	status: 'draft',
 	title: null,
 	description: null,
-	subSectorId: null,
-	zoomLevelId: null,
-	regions: []
+	inclusions: {
+		CaseStatus: true,
+		ApplicationDetails: true
+	}
 });
 const applicationInPreApplicationState = applicationFactoryForTests({
 	id: 4,
-	status: 'pre_application'
+	inclusions: {
+		CaseStatus: true
+	}
 });
-
-const validationCaseDetailsInclusions = {
-	ApplicationDetails: { include: { subSector: false, zoomLevel: false, regions: true } },
-	CaseStatus: { where: { valid: true } }
-};
 
 findUniqueStub.withArgs({ where: { id: 1 } }).returns(applicationReadyToStart);
 findUniqueStub
-	.withArgs({ where: { id: 1 }, include: validationCaseDetailsInclusions })
+	.withArgs({ where: { id: 1 }, include: sinon.match.any })
 	.returns(applicationReadyToStart);
 findUniqueStub.withArgs({ where: { id: 2 } }).returns(null);
 findUniqueStub.withArgs({ where: { id: 3 } }).returns(applicationWithMissingInformation);
 findUniqueStub
-	.withArgs({ where: { id: 3 }, include: validationCaseDetailsInclusions })
+	.withArgs({ where: { id: 3 }, include: sinon.match.any })
 	.returns(applicationWithMissingInformation);
 findUniqueStub.withArgs({ where: { id: 4 } }).returns(applicationInPreApplicationState);
 findUniqueStub
-	.withArgs({ where: { id: 4 }, include: validationCaseDetailsInclusions })
+	.withArgs({ where: { id: 4 }, include: sinon.match.any })
 	.returns(applicationInPreApplicationState);
 
 const updateStub = sinon.stub();
@@ -74,7 +76,7 @@ test.before('set up mocks', () => {
 	sinon.useFakeTimers({ now: 1_649_319_144_000 });
 });
 
-test.only('starts application if all needed information is present', async (t) => {
+test('starts application if all needed information is present', async (t) => {
 	const response = await request.post('/applications/1/start');
 
 	t.is(response.status, 200);
@@ -99,7 +101,7 @@ test.only('starts application if all needed information is present', async (t) =
 test('throws an error if the application id is not recognised', async (t) => {
 	const response = await request.post('/applications/2/start');
 
-	t.is(response.status, 400);
+	t.is(response.status, 404);
 	t.deepEqual(response.body, {
 		errors: {
 			id: 'Must be an existing application'
@@ -107,7 +109,7 @@ test('throws an error if the application id is not recognised', async (t) => {
 	});
 });
 
-test('throws an error if the application does not have all the required information to start', async (t) => {
+test.only('throws an error if the application does not have all the required information to start', async (t) => {
 	const response = await request.post('/applications/3/start');
 
 	t.is(response.status, 400);
