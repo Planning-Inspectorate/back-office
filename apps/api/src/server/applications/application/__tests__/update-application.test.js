@@ -351,7 +351,7 @@ test('returns error if any validated values are invalid', async (t) => {
 test('throws error if unknown application id provided', async (t) => {
 	const response = await request.patch('/applications/2');
 
-	t.is(response.status, 400);
+	t.is(response.status, 404);
 	t.deepEqual(response.body, {
 		errors: {
 			id: 'Must be an existing application'
