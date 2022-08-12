@@ -59,72 +59,68 @@ test('gets all data for a case when everything is available', async (t) => {
 	t.is(response.status, 200);
 	t.deepEqual(response.body, {
 		id: 1,
+		reference: application1.reference,
 		title: 'EN010003 - NI Case 3 Name',
 		description: 'EN010003 - NI Case 3 Name Description',
 		status: 'Draft',
+		sector: {
+			name: 'business_and_commercial',
+			abbreviation: 'BC',
+			displayNameEn: 'Business and Commercial',
+			displayNameCy: 'Business and Commercial'
+		},
+		subSector: {
+			name: 'sub_sector',
+			abbreviation: 'AA',
+			displayNameEn: 'Sub Sector Name En',
+			displayNameCy: 'Sub Sector Name Cy'
+		},
 		applicants: [
 			{
-				id: 1,
+				firstName: 'Service Customer First Name',
+				middleName: 'Service Customer Middle Name',
+				lastName: 'Service Customer Last Name',
+				email: 'service.customer@email.com',
 				address: {
 					addressLine1: 'Addr Line 1',
 					addressLine2: 'Addr Line 2',
-					town: 'Town',
 					county: 'County',
-					postCode: 'Postcode'
+					postCode: 'Postcode',
+					town: 'Town'
 				},
-				email: 'service.customer@email.com',
-				firstName: 'Service Customer First Name',
-				lastName: 'Service Customer Last Name',
-				middleName: 'Service Customer Middle Name',
-				phoneNumber: '01234567890',
-				website: 'Service Customer Website'
+				website: 'Service Customer Website',
+				phoneNumber: '01234567890'
 			}
 		],
 		geographicalInformation: {
+			mapZoomLevel: {
+				id: 1,
+				name: 'zoom-level',
+				displayOrder: 100,
+				displayNameEn: 'Zoom Level Name En',
+				displayNameCy: 'Zoom Level Name Cy'
+			},
+			locationDescription: 'Some Location',
 			gridReference: {
 				easting: 123_456,
 				northing: 987_654
 			},
-			mapZoomLevel: {
-				displayNameCy: 'Zoom Level Name Cy',
-				displayNameEn: 'Zoom Level Name En',
-				displayOrder: 100,
-				id: 1,
-				name: 'zoom-level'
-			},
 			regions: [
 				{
-					id: 1,
-					name: 'region1',
 					displayNameCy: 'Region Name 1 Cy',
-					displayNameEn: 'Region Name 1 En'
+					displayNameEn: 'Region Name 1 En',
+					id: 1,
+					name: 'region1'
 				},
 				{
-					id: 2,
-					name: 'region2',
 					displayNameCy: 'Region Name 2 Cy',
-					displayNameEn: 'Region Name 2 En'
+					displayNameEn: 'Region Name 2 En',
+					id: 2,
+					name: 'region2'
 				}
-			],
-			locationDescription: 'Some Location'
+			]
 		},
-		keyDates: {
-			firstNotifiedDate: 1_658_486_313,
-			submissionDate: 1_658_486_313
-		},
-		reference: application1.reference,
-		sector: {
-			abbreviation: 'BB',
-			displayNameCy: 'Sector Name Cy',
-			displayNameEn: 'Sector Name En',
-			name: 'sector'
-		},
-		subSector: {
-			abbreviation: 'AA',
-			displayNameCy: 'Sub Sector Name Cy',
-			displayNameEn: 'Sub Sector Name En',
-			name: 'sub_sector'
-		}
+		keyDates: {}
 	});
 });
 
@@ -139,19 +135,18 @@ test('gets applications details when only case id present', async (t) => {
 		},
 		id: 2,
 		keyDates: {},
-		sector: {},
 		status: 'Draft',
 		subSector: {}
 	});
 });
 
-test('throws an error if we send an unknown case id', async (t) => {
+test('throws an error if case does not exist', async (t) => {
 	const response = await request.get('/applications/3');
 
 	t.is(response.status, 404);
 	t.deepEqual(response.body, {
 		errors: {
-			status: 'Application not found'
+			id: 'Must be an existing application'
 		}
 	});
 });
@@ -159,7 +154,7 @@ test('throws an error if we send an unknown case id', async (t) => {
 test('throws an error if the id provided is a string/characters', async (t) => {
 	const response = await request.get('/applications/hi');
 
-	t.is(response.status, 400);
+	t.is(response.status, 404);
 	t.deepEqual(response.body, {
 		errors: {
 			id: 'Application id must be a valid numerical value'
@@ -318,7 +313,7 @@ test('return error 404 if application id not found', async (t) => {
 	t.is(response.status, 404);
 	t.deepEqual(response.body, {
 		errors: {
-			status: 'Application not found'
+			id: 'Must be an existing application'
 		}
 	});
 });
@@ -326,7 +321,7 @@ test('return error 404 if application id not found', async (t) => {
 test('return error if application id is blank', async (t) => {
 	const response = await request.get('/applications/');
 
-	t.is(response.status, 400);
+	t.is(response.status, 404);
 	t.deepEqual(response.body, {
 		errors: {
 			id: 'Application id must be a valid numerical value'
