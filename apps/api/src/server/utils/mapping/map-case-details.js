@@ -1,6 +1,4 @@
 import { pick } from 'lodash-es';
-import { getRegionById } from '../../repositories/region.repository.js';
-import { getSectorById } from '../../repositories/sector.repository.js';
 import { mapSector } from '../../utils/mapping/map-sector.js';
 import { mapCaseStatus } from './map-case-status.js';
 import { mapDateStringToUnixTimestamp } from './map-date-string-to-unix-timestamp.js';
@@ -28,7 +26,7 @@ import { mapZoomLevel } from './map-zoom-level.js';
  *  regionNames?: string[],
  *  address?: { addressLine1?: string | undefined, addressLine2?: string | undefined, town?: string | undefined, county?: string | undefined, postcode?: string | undefined}}}
  */
-export const mapApplicationDetails = async (applicationDetails) => {
+export const mapApplicationDetails = (applicationDetails) => {
 	const caseDetailsFormatted = pick(applicationDetails, [
 		'id',
 		'reference',
@@ -36,32 +34,19 @@ export const mapApplicationDetails = async (applicationDetails) => {
 		'description'
 	]);
 
-	let sectorFormatted;
-
-	if (applicationDetails?.ApplicationDetails?.subSector?.sectorId) {
-		const sectorUnformatted = await getSectorById(
-			applicationDetails?.ApplicationDetails?.subSector?.sectorId
-		);
-
-		sectorFormatted = mapSector(sectorUnformatted);
-	}
-
+	const sectorFormatted = mapSector(applicationDetails?.ApplicationDetails?.subSector?.sector);
 	const subSectorFormatted = mapSector(applicationDetails?.ApplicationDetails?.subSector);
 	const zoomLevelFormatted = mapZoomLevel(applicationDetails?.ApplicationDetails?.zoomLevel);
-	const regionsFormatted = await Promise.all(
-		(applicationDetails?.ApplicationDetails?.regions || [])
-			.filter((region) => typeof region.regionId !== 'undefined')
-			.map(async (region) => {
-				const getRegById = await getRegionById(region.regionId);
-
-				return mapRegion(getRegById);
-			})
+	const regionsFormatted = applicationDetails?.ApplicationDetails?.regions?.map((region) =>
+		mapRegion(region.region)
 	);
 
 	const applicantsFormatted = applicationDetails?.serviceCustomer?.map((serviceCustomer) =>
 		mapServiceCustomer(serviceCustomer)
 	);
-	const gridReferenceFormatted = mapGridReference(applicationDetails?.gridReference);
+	const gridReferenceFormatted = mapGridReference(
+		applicationDetails?.ApplicationDetails?.gridReference
+	);
 
 	const unmappedKeyDates = mapValuesUsingObject(
 		mapKeysUsingObject(

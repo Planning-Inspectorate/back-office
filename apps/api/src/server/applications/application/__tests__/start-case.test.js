@@ -17,24 +17,34 @@ const applicationReadyToStart = applicationFactoryForTests({
 	id: 1,
 	title: 'Title',
 	description: 'Description',
+	caseStatus: 'draft',
 	inclusions: {
-		CaseStatus: true,
-		ApplicationDetails: true
+		ApplicationDetails: true,
+		regions: true
 	}
 });
+
 const applicationWithMissingInformation = applicationFactoryForTests({
 	id: 3,
 	title: null,
 	description: null,
+	caseStatus: 'draft',
 	inclusions: {
-		CaseStatus: true,
-		ApplicationDetails: true
+		ApplicationDetails: true,
+		mapZoomLevel: false,
+		subSector: false,
+		regions: false
 	}
 });
+
 const applicationInPreApplicationState = applicationFactoryForTests({
 	id: 4,
+	title: 'Title',
+	description: 'Description',
+	caseStatus: 'pre_application',
 	inclusions: {
-		CaseStatus: true
+		ApplicationDetails: true,
+		regions: true
 	}
 });
 
@@ -65,10 +75,6 @@ test.before('set up mocks', () => {
 
 	sinon.stub(databaseConnector, 'caseStatus').get(() => {
 		return { updateMany: updateManyCaseStatusStub, create: createCaseStatusStub };
-	});
-
-	sinon.stub(databaseConnector, 'regionsOnApplicationDetails').get(() => {
-		return { deleteMany: sinon.stub() };
 	});
 
 	sinon.stub(Prisma.PrismaClient.prototype, '$transaction');
@@ -109,7 +115,7 @@ test('throws an error if the application id is not recognised', async (t) => {
 	});
 });
 
-test.only('throws an error if the application does not have all the required information to start', async (t) => {
+test('throws an error if the application does not have all the required information to start', async (t) => {
 	const response = await request.post('/applications/3/start');
 
 	t.is(response.status, 400);

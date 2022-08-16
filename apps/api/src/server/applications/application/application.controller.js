@@ -111,7 +111,7 @@ export const getApplicationDetails = async (request, response) => {
 		modelsToInclude
 	);
 
-	const applicationDetailsFormatted = await mapApplicationDetails(getCaseDetails);
+	const applicationDetailsFormatted = mapApplicationDetails(getCaseDetails);
 
 	if (request.query.query) {
 		const findTruthyValues = pickBy({ id: true, ...JSON.parse(request.query.query) }, (value) => {
