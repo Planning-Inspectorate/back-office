@@ -1,9 +1,8 @@
-import { filter, map, pick, pickBy } from 'lodash-es';
+import { filter, map } from 'lodash-es';
 import * as caseRepository from '../../repositories/case.repository.js';
-import { mapApplicationDetails } from '../../utils/mapping/map-case-details.js';
 import { mapCaseStatusString } from '../../utils/mapping/map-case-status-string.js';
 import { mapCreateApplicationRequestToRepository } from './application.mapper.js';
-import { startApplication } from './application.service.js';
+import { getCaseDetails, startApplication } from './application.service.js';
 /**
  *
  * @param {import('@pins/api').Schema.ServiceCustomer[] | undefined} serviceCustomers
@@ -68,61 +67,12 @@ export const startCase = async ({ params }, response) => {
 	response.send({ id, reference, status: mapCaseStatusString(status.toString()) });
 };
 
-const findModelsToInclude = (query) => {
-	return {
-		subSector: query.subSector || query.sector,
-		sector: query.sector,
-		applicationDetails: query.keyDates !== false,
-		zoomLevel: query.mapZoomLevel !== false,
-		regions: query.regions !== false && typeof query !== 'undefined',
-		caseStatus: query.status,
-		serviceCustomer: query.applicant !== false && typeof query.applicant !== 'undefined',
-		serviceCustomerAddress:
-			query?.applicant?.address !== false && typeof query?.applicant?.address !== 'undefined',
-		gridReference:
-			query.geographicalInformation !== false &&
-			typeof query.geographicalInformation !== 'undefined'
-	};
-};
-
 /**
  *
- * @type {import('express').RequestHandler}
+ * @type {import('express').RequestHandler<{id: number}, ?, ?, any>}
  */
-export const getApplicationDetails = async (request, response) => {
-	const defaultModelsToInclude = {
-		subSector: true,
-		sector: true,
-		applicationDetails: true,
-		zoomLevel: true,
-		regions: true,
-		caseStatus: true,
-		serviceCustomer: true,
-		serviceCustomerAddress: true,
-		gridReference: true
-	};
+export const getApplicationDetails = async ({ params, query }, response) => {
+	const applicationDetails = await getCaseDetails(params.id, query);
 
-	const modelsToInclude = request.query.query
-		? findModelsToInclude(JSON.parse(request.query.query))
-		: defaultModelsToInclude;
-
-	const getCaseDetails = await caseRepository.getById(
-		Number.parseInt(request.params.id, 10),
-		modelsToInclude
-	);
-
-	const applicationDetailsFormatted = mapApplicationDetails(getCaseDetails);
-
-	if (request.query.query) {
-		const findTruthyValues = pickBy({ id: true, ...JSON.parse(request.query.query) }, (value) => {
-			return value;
-		});
-		const findKey = Object.keys(findTruthyValues);
-
-		const detailsExtracted = pick(applicationDetailsFormatted, findKey);
-
-		response.send(detailsExtracted);
-	} else {
-		response.send(applicationDetailsFormatted);
-	}
+	response.send(applicationDetails);
 };

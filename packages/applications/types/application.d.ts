@@ -1,8 +1,10 @@
 import { Address } from './address';
 
 export interface GridReference {
-	easting?: string;
-	northing?: string;
+	id: number;
+	easting: number | null;
+	northing: number | null;
+	caseId?: number;
 }
 
 export interface GeographicalInformation {

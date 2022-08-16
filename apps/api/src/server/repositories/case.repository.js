@@ -353,10 +353,9 @@ export const updateApplication = ({
 /**
  *
  * @param {number} id
- * @param {{subSector?: boolean, applicationDetails?: boolean, zoomLevel?: boolean, regions?: boolean, caseStatus?: boolean}} inclusions
+ * @param {{subSector?: boolean, sector?: boolean, applicationDetails?: boolean, zoomLevel?: boolean, regions?: boolean, caseStatus?: boolean, serviceCustomer?: boolean, serviceCustomerAddress?: boolean, gridReference?: boolean}} inclusions
  * @returns {Promise<import('@pins/api').Schema.Case | null>}
  */
-
 export const getById = (
 	id,
 	{
