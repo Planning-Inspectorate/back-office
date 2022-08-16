@@ -86,7 +86,7 @@ export const startApplication = async (id) => {
 		setReference: true
 	});
 
-	const updatedCase = await caseRepository.getById(caseDetails.id);
+	const updatedCase = await caseRepository.getById(caseDetails.id, {});
 
 	return {
 		id: updatedCase?.id,
