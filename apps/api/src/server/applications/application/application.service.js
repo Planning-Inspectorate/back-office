@@ -1,7 +1,8 @@
-import { isArray, isEmpty } from 'lodash-es';
+import { isArray, isEmpty, pick, pickBy } from 'lodash-es';
 import * as caseRepository from '../../repositories/case.repository.js';
 import { breakUpCompoundStatus } from '../../utils/break-up-compound-status.js';
 import { buildAppealCompundStatus } from '../../utils/build-appeal-compound-status.js';
+import { mapApplicationDetails } from '../../utils/mapping/map-case-details.js';
 import { transitionState } from '../../utils/transition-state.js';
 
 /**
@@ -93,4 +94,87 @@ export const startApplication = async (id) => {
 		reference: updatedCase?.reference,
 		status: nextStatusInStateMachine.value
 	};
+};
+
+/**
+ *
+ * @param {any} value
+ * @returns {boolean}
+ */
+const notFalseOrUndefined = (value) => {
+	return value !== false && typeof value !== 'undefined';
+};
+
+const defaultInclusions = {
+	subSector: true,
+	sector: true,
+	applicationDetails: true,
+	zoomLevel: true,
+	regions: true,
+	caseStatus: true,
+	serviceCustomer: true,
+	serviceCustomerAddress: true,
+	gridReference: true
+};
+
+const inclusionsUsingQuery = (query) => {
+	return {
+		subSector: notFalseOrUndefined(query?.subSector) || notFalseOrUndefined(query?.sector),
+		sector: notFalseOrUndefined(query?.sector),
+		applicationDetails:
+			notFalseOrUndefined(query?.keyDates) ||
+			notFalseOrUndefined(query?.geographicalInformation?.locationDescription),
+		zoomLevel: notFalseOrUndefined(query?.geographicalInformation),
+		regions:
+			notFalseOrUndefined(query?.regions) || notFalseOrUndefined(query?.geographicalInformation),
+		caseStatus: query?.status,
+		serviceCustomer: notFalseOrUndefined(query.applicant),
+		serviceCustomerAddress: notFalseOrUndefined(query?.applicant?.address),
+		gridReference: notFalseOrUndefined(query.geographicalInformation)
+	};
+};
+
+/**
+ *
+ * @param {{subSector?: any, sector?: any, keyDates?: any, geographicalInformation?: any, regions?: any, status?: any, applicant?: any}} query
+ * @returns {object}
+ */
+const findModelsToInclude = (query) => {
+	return typeof query === 'undefined' ? defaultInclusions : inclusionsUsingQuery(query);
+};
+
+/**
+ *
+ * @param {object} parsedQuery
+ * @param {object} applicationDetailsFormatted
+ * @returns {object}
+ */
+const filterOutResponse = (parsedQuery, applicationDetailsFormatted) => {
+	const findTruthyValues = pickBy({ id: true, ...parsedQuery }, (value) => {
+		return value !== false;
+	});
+	const findKey = Object.keys(findTruthyValues);
+
+	return pick(applicationDetailsFormatted, findKey);
+};
+
+/**
+ *
+ * @param {number} id
+ * @param {{query?: any}} query
+ * @returns {Promise<object>}
+ */
+export const getCaseDetails = async (id, query) => {
+	let emptyQuery;
+
+	const parsedQuery = !isEmpty(query) ? JSON.parse(query.query) : emptyQuery;
+	const modelsToInclude = findModelsToInclude(parsedQuery);
+
+	const caseDetails = await caseRepository.getById(id, modelsToInclude);
+
+	const applicationDetailsFormatted = mapApplicationDetails(caseDetails);
+
+	return typeof parsedQuery !== 'undefined'
+		? filterOutResponse(parsedQuery, applicationDetailsFormatted)
+		: applicationDetailsFormatted;
 };
