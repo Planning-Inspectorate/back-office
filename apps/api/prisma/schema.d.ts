@@ -1,4 +1,6 @@
 import * as schema from '@prisma/client';
+import { ZoomLevel } from '@prisma/client';
+import { GridReference } from 'packages/applications';
 
 export {
 	Address,
@@ -26,6 +28,8 @@ export interface Case extends schema.Case {
 export interface ApplicationDetails extends schema.ApplicationDetails {
 	subSector: SubSector;
 	regions?: Region[];
+	zoomLevel?: ZoomLevel;
+	gridReference?: GridReference;
 }
 
 export interface SubSector extends schema.SubSector {

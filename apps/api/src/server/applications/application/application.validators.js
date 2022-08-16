@@ -1,7 +1,10 @@
 import { composeMiddleware } from '@pins/express';
 import { validateFutureDate } from '@pins/platform';
 import { body, param } from 'express-validator';
-import { validationErrorHandler } from '../../middleware/error-handler.js';
+import {
+	validationErrorHandler,
+	validationErrorHandlerMissing
+} from '../../middleware/error-handler.js';
 import * as caseRepository from '../../repositories/case.repository.js';
 import * as regionRepository from '../../repositories/region.repository.js';
 import * as serviceCustomerRepository from '../../repositories/service-customer.repository.js';
@@ -34,20 +37,16 @@ const validateExistingRegions = async (value) => {
 	}
 };
 
-/** @type {import('express').RequestHandler } */
-export const validateExistingApplication = async (request, response, next) => {
-	const caseId = Number.parseInt(request.params.id, 10);
+/**
+ *
+ * @param {number} value
+ */
+const validateExistingApplication = async (value) => {
+	const caseFromDatabase = await caseRepository.getById(value, {});
 
-	const application = await caseRepository.getById(caseId, {});
-
-	if (!application) {
-		return response.status(404).send({
-			errors: {
-				status: 'Application not found'
-			}
-		});
+	if (caseFromDatabase === null || typeof caseFromDatabase === 'undefined') {
+		throw new Error('Unknown case');
 	}
-	next();
 };
 
 /**
@@ -140,8 +139,13 @@ export const validateCreateUpdateApplication = composeMiddleware(
 );
 
 export const validateApplicationId = composeMiddleware(
-	param('id').toInt().isInt().withMessage('Application id must be a valid numerical value'),
-	validationErrorHandler
+	param('id')
+		.toInt()
+		.isInt()
+		.withMessage('Application id must be a valid numerical value')
+		.custom(validateExistingApplication)
+		.withMessage('Must be an existing application'),
+	validationErrorHandlerMissing
 );
 
 export const validateApplicantId = composeMiddleware(

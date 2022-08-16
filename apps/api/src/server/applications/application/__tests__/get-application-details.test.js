@@ -11,6 +11,7 @@ const application1 = applicationFactoryForTests({
 	id: 1,
 	title: 'EN010003 - NI Case 3 Name',
 	description: 'EN010003 - NI Case 3 Name Description',
+	caseStatus: 'draft',
 	inclusions: {
 		serviceCustomer: true,
 		ApplicationDetails: true,
@@ -21,7 +22,8 @@ const application1 = applicationFactoryForTests({
 const application1SansInclusions = applicationFactoryForTests({
 	id: 1,
 	title: 'EN010003 - NI Case 3 Name',
-	description: 'EN010003 - NI Case 3 Name Description'
+	description: 'EN010003 - NI Case 3 Name Description',
+	caseStatus: 'draft'
 });
 
 let blankTitle;
@@ -33,6 +35,7 @@ const application2 = {
 		id: 2,
 		title: blankTitle,
 		description: blankDescription,
+		caseStatus: 'draft',
 		inclusions: {
 			CaseStatus: true
 		}
@@ -64,10 +67,10 @@ test('gets all data for a case when everything is available', async (t) => {
 		description: 'EN010003 - NI Case 3 Name Description',
 		status: 'Draft',
 		sector: {
-			name: 'business_and_commercial',
-			abbreviation: 'BC',
-			displayNameEn: 'Business and Commercial',
-			displayNameCy: 'Business and Commercial'
+			name: 'sector',
+			abbreviation: 'BB',
+			displayNameEn: 'Sector Name En',
+			displayNameCy: 'Sector Name Cy'
 		},
 		subSector: {
 			name: 'sub_sector',
@@ -136,7 +139,8 @@ test('gets applications details when only case id present', async (t) => {
 		id: 2,
 		keyDates: {},
 		status: 'Draft',
-		subSector: {}
+		subSector: {},
+		sector: {}
 	});
 });
 
@@ -314,17 +318,6 @@ test('return error 404 if application id not found', async (t) => {
 	t.deepEqual(response.body, {
 		errors: {
 			id: 'Must be an existing application'
-		}
-	});
-});
-
-test('return error if application id is blank', async (t) => {
-	const response = await request.get('/applications/');
-
-	t.is(response.status, 404);
-	t.deepEqual(response.body, {
-		errors: {
-			id: 'Application id must be a valid numerical value'
 		}
 	});
 });

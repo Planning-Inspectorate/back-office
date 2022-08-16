@@ -57,17 +57,32 @@ export const stateMachineErrorHandler = (error, request, response, next) => {
 };
 
 /**
- * Evaluate any errors collected by express validation and return a 400 status
- * with the mapped errors.
  *
- * @type {import('express').RequestHandler}
+ * @param {import('express').Request} request
+ * @param {import('express').Response} response
+ * @param {import('express').NextFunction} next
+ * @param {number} status
  */
-export const validationErrorHandler = (request, response, next) => {
+const validationErrorHandlerTemplate = (request, response, next, status) => {
 	const result = validationResult(request).formatWith(({ msg }) => msg);
 
 	if (!result.isEmpty()) {
-		response.status(400).send({ errors: result.mapped() });
+		response.status(status).send({ errors: result.mapped() });
 	} else {
 		next();
 	}
+};
+
+/**
+ * @type {import('express').RequestHandler}
+ */
+export const validationErrorHandler = (request, response, next) => {
+	validationErrorHandlerTemplate(request, response, next, 400);
+};
+
+/**
+ * @type {import('express').RequestHandler}
+ */
+export const validationErrorHandlerMissing = (request, response, next) => {
+	validationErrorHandlerTemplate(request, response, next, 404);
 };
