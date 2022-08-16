@@ -9,8 +9,16 @@ const request = supertest(app);
 
 const application = applicationFactoryForTests({
 	id: 1,
-	status: 'Pre-application',
-	modifiedAt: new Date(1_655_298_882_000)
+	title: 'Title',
+	description: 'Description',
+	caseStatus: 'pre_application',
+	dates: {
+		modifiedAt: new Date(1_655_298_882_000)
+	},
+	inclusions: {
+		ApplicationDetails: true,
+		subSector: true
+	}
 });
 
 const findManyStub = sinon.stub();
@@ -61,7 +69,7 @@ test('gets all applications for inspector', async (t) => {
 				displayNameEn: 'Sub Sector Name En',
 				name: 'sub_sector'
 			},
-			status: 'Pre-application'
+			status: 'Pre-Application'
 		}
 	]);
 });
