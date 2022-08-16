@@ -12,6 +12,7 @@ const searchString = 'EN010003 - NI Case 3 Name';
 const application = applicationFactoryForTests({
 	title: searchString,
 	id: 3,
+	caseStatus: 'draft',
 	dates: { modifiedAt: new Date(1_655_298_882_000) },
 	inclusions: {
 		CaseStatus: true

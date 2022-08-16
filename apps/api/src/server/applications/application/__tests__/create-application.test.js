@@ -249,7 +249,7 @@ test(`creates new application with application first and last name,
 	});
 });
 
-test.only('returns error if any validated values are invalid', async (t) => {
+test('returns error if any validated values are invalid', async (t) => {
 	const response = await request.post('/applications').send({
 		caseEmail: 'not a real email',
 		geographicalInformation: {
