@@ -1,0 +1,42 @@
+{
+	"swagger": "2.0",
+	"info": {
+		"version": "2.0",
+		"title": "Document Storage API",
+		"description": "Document Storage API documentation"
+	},
+	"host": "localhost:3001",
+	"basePath": "",
+	"tags": [
+		{
+			"name": "",
+			"description": ""
+		}
+	],
+	"schemes": [],
+	"securityDefinitions": {},
+	"paths": {},
+	"definitions": {
+		"Documents": {
+			"type": "array",
+			"items": {
+				"type": "object",
+				"properties": {
+					"name": {
+						"type": "string",
+						"example": "filename.pdf"
+					},
+					"metadata": {
+						"type": "object",
+						"properties": {
+							"documentType": {
+								"type": "string",
+								"example": "application"
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}
