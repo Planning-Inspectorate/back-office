@@ -33,8 +33,9 @@ const getApplicationDetails = ({ regions = true, mapZoomLevel = true, subSector 
 	return {
 		id: 1,
 		caseId: 1,
-		firstNotifiedAt: new Date(1_658_486_313_000),
-		submissionAt: new Date(1_658_486_313_000),
+		caseEmail: 'test@test.com',
+		submissionAtInternal: new Date(1_658_486_313_000),
+		submissionAtPublished: 'Q1 2023',
 		locationDescription: 'Some Location',
 		...(regions && {
 			regions: [

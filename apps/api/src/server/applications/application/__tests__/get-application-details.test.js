@@ -66,6 +66,7 @@ test('gets all data for a case when everything is available', async (t) => {
 		title: 'EN010003 - NI Case 3 Name',
 		description: 'EN010003 - NI Case 3 Name Description',
 		status: 'Draft',
+		caseEmail: 'test@test.com',
 		sector: {
 			name: 'sector',
 			abbreviation: 'BB',
@@ -123,7 +124,10 @@ test('gets all data for a case when everything is available', async (t) => {
 				}
 			]
 		},
-		keyDates: {}
+		keyDates: {
+			submissionDatePublished: 'Q1 2023',
+			submissionDateInternal: 1_658_486_313
+		}
 	});
 });
 
@@ -249,7 +253,12 @@ test('returns only subsector field when subSector query made', async (t) => {
 		}
 	});
 
-	sinon.assert.calledWith(findUniqueStub, { where: { id: 1 } });
+	sinon.assert.calledWith(findUniqueStub, {
+		where: { id: 1 },
+		include: {
+			ApplicationDetails: { include: { subSector: true, zoomLevel: false, regions: false } }
+		}
+	});
 });
 
 test('does not return subsector field when subSector query false', async (t) => {

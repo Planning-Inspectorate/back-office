@@ -44,31 +44,26 @@ export const mapApplicationDetails = (applicationDetails) => {
 	const applicantsFormatted = applicationDetails?.serviceCustomer?.map((serviceCustomer) =>
 		mapServiceCustomer(serviceCustomer)
 	);
+
 	const gridReferenceFormatted = mapGridReference(
 		applicationDetails?.ApplicationDetails?.gridReference
 	);
 
-	const unmappedKeyDates = mapValuesUsingObject(
+	const keyDates = mapValuesUsingObject(
 		mapKeysUsingObject(
 			pick(applicationDetails?.ApplicationDetails, [
 				'submissionAtInternal',
 				'submissionAtPublished'
 			]),
 			{
-				firstNotifiedAt: 'submissionAtInternal',
-				submissionAt: 'submissionAtPublished'
+				submissionAtInternal: 'submissionDateInternal',
+				submissionAtPublished: 'submissionDatePublished'
 			}
 		),
 		{
-			firstNotifiedDate: mapDateStringToUnixTimestamp,
-			submissionDate: mapDateStringToUnixTimestamp
+			submissionDateInternal: mapDateStringToUnixTimestamp
 		}
 	);
-
-	const keyDates = {
-		submissionDatePublished: unmappedKeyDates?.submissionAtPublished,
-		submissionDateInternal: unmappedKeyDates?.submissionAtInternal
-	};
 
 	return {
 		...caseDetailsFormatted,
