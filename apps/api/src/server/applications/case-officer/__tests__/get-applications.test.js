@@ -9,9 +9,13 @@ const request = supertest(app);
 
 const application = applicationFactoryForTests({
 	id: 1,
+	title: 'Title',
+	description: 'Description',
+	caseStatus: 'draft',
 	dates: { modifiedAt: new Date(1_655_298_882_000) },
 	inclusions: {
-		CaseStatus: true
+		ApplicationDetails: true,
+		subSector: true
 	}
 });
 
