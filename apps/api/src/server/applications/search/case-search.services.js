@@ -3,7 +3,7 @@ import { mapApplicationWithSearchCriteria } from '../../utils/mapping/map-applic
 
 /**
  * @typedef {{id: number, reference: string, modifiedDate: number, title: string, description: string, status: string}} ApplicationWithSearchCriteriaResponse
- * @typedef {{page:number, pageSize: number, pageCount: number, itemCount: number, items: object}} paginationInfo
+ * @typedef {{page:number, pageSize: number, pageCount: number, itemCount: number, items: ApplicationWithSearchCriteriaResponse[]}} paginationInfo
  */
 
 /**
@@ -15,51 +15,53 @@ const mapApplicationsWithSearchCriteria = (applications) => {
 };
 
 /**
- * @param {*} _request
+ *
+ * @param {number} pageNumber
+ * @param {number} pageSize
+ * @returns {number}
+ */
+const getSkipValue = (pageNumber, pageSize) => {
+	return (pageNumber - 1) * pageSize;
+};
+
+/**
+ * @param {string} query
+ * @returns {string}
+ */
+const tidyQuery = (query) => {
+	return query.trim();
+};
+
+/**
+ *
+ * @param {number} applicationsCount
+ * @param {number} pageSize
+ * @returns {number}
+ */
+const getPageCount = (applicationsCount, pageSize) => {
+	return Math.ceil(applicationsCount / pageSize);
+};
+
+/**
+ * @param {string} query
+ * @param {number} pageNumber
+ * @param {number} pageSize
  * @returns {Promise<paginationInfo>}
  */
-export const obtainSearchResults = async (_request) => {
-	// default
-	const maxResultsPerPage = 20;
+export const obtainSearchResults = async (query, pageNumber = 1, pageSize = 50) => {
+	const tidiedQuery = tidyQuery(query);
 
-	let skipValue = 0;
-	let resultsPerPage = maxResultsPerPage;
+	const skipValue = getSkipValue(pageNumber, pageSize);
 
-	resultsPerPage = _request.body.pageSize ? _request.body.pageSize : maxResultsPerPage;
-	skipValue = _request.body.pageNumber ? (_request.body.pageNumber - 1) * resultsPerPage : 0;
+	const applicationsCount = await caseRepository.getApplicationsCountBySearchCriteria(tidiedQuery);
 
-	const applicationsCount = await caseRepository.getApplicationsCountBySearchCriteria(
-		_request.body.query.trim()
-	);
+	const applications = await caseRepository.getBySearchCriteria(tidiedQuery, skipValue, pageSize);
 
-	if (resultsPerPage > applicationsCount) {
-		resultsPerPage = applicationsCount;
-	}
-
-	const applications = await caseRepository.getBySearchCriteria(
-		_request.body.query.trim(),
-		skipValue,
-		resultsPerPage
-	);
-
-	// return zero data if no results found
-	let pageInfo = {
-		page: 1,
-		pageSize: 0,
-		pageCount: 0,
-		itemCount: 0,
-		items: []
+	return {
+		page: pageNumber,
+		pageSize: applications.length,
+		pageCount: getPageCount(applicationsCount, pageSize),
+		itemCount: applicationsCount,
+		items: mapApplicationsWithSearchCriteria(applications)
 	};
-
-	if (applications) {
-		pageInfo = {
-			page: skipValue / resultsPerPage + 1,
-			pageSize: applications.length,
-			pageCount: Math.ceil(applicationsCount / resultsPerPage),
-			itemCount: applicationsCount,
-			items: mapApplicationsWithSearchCriteria(applications)
-		};
-	}
-
-	return pageInfo;
 };

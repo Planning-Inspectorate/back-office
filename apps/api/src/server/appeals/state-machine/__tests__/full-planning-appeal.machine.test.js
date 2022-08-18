@@ -21,13 +21,8 @@ test.before('sets up mocking of actions', () => {
 });
 
 /**
- * @param {object} t
- * @param {object} t.t unit test
- * @param {object} t.t.initialState initial state in state machine
- * @param {object} t.t.action action taken to proceed in state machine
- * @param {object} t.t.expectedState expected state after action was taken
- * @param {object} t.t.context Context of transition
- * @param {object} t.t.hasChanged True if action was valid, False if action was invalid
+ * @param {any} t
+ * @param {{initialState: string, action: string, expectedState: string, context: object, hasChanged: boolean}} args
  */
 function applyAction(t, { initialState, action, expectedState, context, hasChanged }) {
 	inspectorSendBookingStub.resetHistory();

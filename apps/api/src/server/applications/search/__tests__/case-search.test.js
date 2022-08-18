@@ -8,10 +8,11 @@ import { databaseConnector } from '../../../utils/database-connector.js';
 const request = supertest(app);
 
 const searchString = 'EN010003 - NI Case 3 Name';
+const notFoundSearchString = 'BCDEF';
 
 const application = applicationFactoryForTests({
 	id: 3,
-	status: 'Pre-application',
+	status: 'pre_application',
 	modifiedAt: new Date(1_655_298_882_000)
 });
 
@@ -21,13 +22,9 @@ const findManyStub = sinon.stub();
 
 findManyStub
 	.withArgs({
-		skip: 0,
-		take: 1,
-		orderBy: [
-			{
-				createdAt: 'desc'
-			}
-		],
+		skip: sinon.match.any,
+		take: sinon.match.any,
+		orderBy: sinon.match.any,
 		where: {
 			OR: [
 				{
@@ -41,20 +38,30 @@ findManyStub
 				}
 			]
 		},
-		include: {
-			ApplicationDetails: {
-				include: {
-					subSector: {
-						include: {
-							sector: true
-						}
-					}
-				}
-			},
-			CaseStatus: true
-		}
+		include: sinon.match.any
 	})
 	.returns([application]);
+findManyStub
+	.withArgs({
+		skip: sinon.match.any,
+		take: sinon.match.any,
+		orderBy: sinon.match.any,
+		where: {
+			OR: [
+				{
+					title: { contains: notFoundSearchString }
+				},
+				{
+					reference: { contains: notFoundSearchString }
+				},
+				{
+					description: { contains: notFoundSearchString }
+				}
+			]
+		},
+		include: sinon.match.any
+	})
+	.returns([]);
 
 const countStub = sinon.stub();
 
@@ -75,15 +82,78 @@ countStub
 		}
 	})
 	.returns(applicationsCount);
+countStub
+	.withArgs({
+		where: {
+			OR: [
+				{
+					title: { contains: notFoundSearchString }
+				},
+				{
+					reference: { contains: notFoundSearchString }
+				},
+				{
+					description: { contains: notFoundSearchString }
+				}
+			]
+		}
+	})
+	.returns(0);
 
-test('should get applications using search criteria', async (t) => {
+/**
+ *
+ * @param {number} skip
+ * @param {number} take
+ * @param {string} query
+ * @returns {object}
+ */
+const expectedSearchParameters = (skip, take, query) => {
+	return {
+		skip,
+		take,
+		orderBy: [
+			{
+				createdAt: 'desc'
+			}
+		],
+		where: {
+			OR: [
+				{
+					title: { contains: query }
+				},
+				{
+					reference: { contains: query }
+				},
+				{
+					description: { contains: query }
+				}
+			]
+		},
+		include: {
+			ApplicationDetails: {
+				include: {
+					subSector: {
+						include: {
+							sector: true
+						}
+					}
+				}
+			},
+			CaseStatus: true
+		}
+	};
+};
+
+test.before('set up stubs', () => {
 	sinon.stub(databaseConnector, 'case').get(() => {
 		return {
 			findMany: findManyStub,
 			count: countStub
 		};
 	});
+});
 
+test('should get applications using search criteria', async (t) => {
 	const response = await request.post('/applications/search').send({
 		query: searchString,
 		role: 'case-officer',
@@ -100,28 +170,22 @@ test('should get applications using search criteria', async (t) => {
 		items: [
 			{
 				id: 3,
-				status: 'Pre-application',
+				status: 'pre_application',
+				description: 'EN010003 - NI Case 3 Name Description',
 				reference: application.reference,
-				title: searchString,
-				modifiedDate: 1_655_298_882,
-				publishedDate: null
+				title: searchString
 			}
 		]
 	});
+
+	sinon.assert.calledWith(findManyStub, expectedSearchParameters(0, 1, searchString));
 });
 
 test('should get applications using search criteria with default page number', async (t) => {
-	sinon.stub(databaseConnector, 'case').get(() => {
-		return {
-			findMany: findManyStub,
-			count: countStub
-		};
-	});
-
 	const response = await request.post('/applications/search').send({
 		query: searchString,
 		role: 'case-officer',
-		pageSize: '20'
+		pageSize: 20
 	});
 
 	t.is(response.status, 200);
@@ -133,57 +197,45 @@ test('should get applications using search criteria with default page number', a
 		items: [
 			{
 				id: 3,
-				status: 'Pre-application',
+				status: 'pre_application',
+				description: 'EN010003 - NI Case 3 Name Description',
 				reference: application.reference,
-				title: searchString,
-				modifiedDate: 1_655_298_882,
-				publishedDate: null
+				title: searchString
 			}
 		]
 	});
+
+	sinon.assert.calledWith(findManyStub, expectedSearchParameters(0, 20, searchString));
 });
 
 test('should get applications using search criteria with default page size', async (t) => {
-	sinon.stub(databaseConnector, 'case').get(() => {
-		return {
-			findMany: findManyStub,
-			count: countStub
-		};
-	});
-
 	const response = await request.post('/applications/search').send({
 		query: searchString,
 		role: 'case-officer',
-		pageNumber: 1
+		pageNumber: 2
 	});
 
 	t.is(response.status, 200);
 	t.deepEqual(response.body, {
-		page: 1,
+		page: 2,
 		pageSize: 1,
 		pageCount: 1,
 		itemCount: 1,
 		items: [
 			{
 				id: 3,
-				status: 'Pre-application',
+				status: 'pre_application',
+				description: 'EN010003 - NI Case 3 Name Description',
 				reference: application.reference,
-				title: searchString,
-				modifiedDate: 1_655_298_882,
-				publishedDate: null
+				title: searchString
 			}
 		]
 	});
+
+	sinon.assert.calledWith(findManyStub, expectedSearchParameters(50, 50, searchString));
 });
 
 test('should get no results using search criteria which will not yield cases', async (t) => {
-	sinon.stub(databaseConnector, 'case').get(() => {
-		return {
-			findMany: findManyStub,
-			count: countStub
-		};
-	});
-
 	const response = await request.post('/applications/search').send({
 		query: 'BCDEF',
 		role: 'case-officer',
@@ -199,6 +251,8 @@ test('should get no results using search criteria which will not yield cases', a
 		itemCount: 0,
 		items: []
 	});
+
+	sinon.assert.calledWith(findManyStub, expectedSearchParameters(0, 1, notFoundSearchString));
 });
 
 test('should not be able to submit a search if the role is not valid', async (t) => {
@@ -212,39 +266,7 @@ test('should not be able to submit a search if the role is not valid', async (t)
 	t.is(resp.status, 403);
 	t.deepEqual(resp.body, {
 		errors: {
-			status: 'Role is not valid'
-		}
-	});
-});
-
-test('should not be able to submit a search if the pageNumber is negative', async (t) => {
-	const resp = await request.post('/applications/search').send({
-		query: searchString,
-		role: 'case-admin-officer',
-		pageNumber: -5,
-		pageSize: 1
-	});
-
-	t.is(resp.status, 400);
-	t.deepEqual(resp.body, {
-		errors: {
-			status: 'Page Number not in valid range'
-		}
-	});
-});
-
-test('should not be able to submit a search if the pageSize is negative', async (t) => {
-	const resp = await request.post('/applications/search').send({
-		query: searchString,
-		role: 'case-admin-officer',
-		pageNumber: 1,
-		pageSize: -3
-	});
-
-	t.is(resp.status, 400);
-	t.deepEqual(resp.body, {
-		errors: {
-			status: 'Page Size not in valid range'
+			role: 'Role is not valid'
 		}
 	});
 });
@@ -260,71 +282,42 @@ test('should not be able to submit a search if query does not have a value', asy
 	t.is(resp.status, 400);
 	t.deepEqual(resp.body, {
 		errors: {
-			status: 'Query cannot be blank'
+			query: 'Query cannot be blank'
 		}
 	});
 });
 
-test('should not be able to submit a search if the pageNumber is zero', async (t) => {
+/**
+ *
+ * @param {any} t
+ * @param {string | number} input
+ */
+const applyAction = async (t, input) => {
 	const resp = await request.post('/applications/search').send({
 		query: searchString,
 		role: 'case-admin-officer',
-		pageNumber: 0,
-		pageSize: 1
+		pageNumber: input,
+		pageSize: input
 	});
 
 	t.is(resp.status, 400);
 	t.deepEqual(resp.body, {
 		errors: {
-			status: 'Page Number not in valid range'
+			pageNumber: 'Page Number is not valid',
+			pageSize: 'Page Size is not valid'
 		}
 	});
-});
+};
 
-test('should not be able to submit a search if the pageSize is zero', async (t) => {
-	const resp = await request.post('/applications/search').send({
-		query: searchString,
-		role: 'case-admin-officer',
-		pageNumber: 1,
-		pageSize: 0
-	});
+/**
+ *
+ * @param {string} providedTitle
+ * @param {number | string} parameter
+ * @returns {string}
+ */
+applyAction.title = (providedTitle, parameter) =>
+	`Search Case: ${providedTitle}: Sending invalid ${parameter} as pageSize and pageNumber throws error`;
 
-	t.is(resp.status, 400);
-	t.deepEqual(resp.body, {
-		errors: {
-			status: 'Page Size not in valid range'
-		}
-	});
-});
-
-test('should not be able to submit a search if the pageSize is non numeric', async (t) => {
-	const resp = await request.post('/applications/search').send({
-		query: searchString,
-		role: 'case-admin-officer',
-		pageNumber: 1,
-		pageSize: 'text'
-	});
-
-	t.is(resp.status, 400);
-	t.deepEqual(resp.body, {
-		errors: {
-			status: 'Page Size not in valid range'
-		}
-	});
-});
-
-test('should not be able to submit a search if the pageNumber is non numeric', async (t) => {
-	const resp = await request.post('/applications/search').send({
-		query: searchString,
-		role: 'case-admin-officer',
-		pageNumber: 'text',
-		pageSize: 1
-	});
-
-	t.is(resp.status, 400);
-	t.deepEqual(resp.body, {
-		errors: {
-			status: 'Page Number not in valid range'
-		}
-	});
-});
+for (const parameter of [-3, 0, 'text']) {
+	test(applyAction, parameter);
+}
