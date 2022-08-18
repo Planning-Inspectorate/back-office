@@ -1,3 +1,4 @@
+import { sortBy } from 'lodash-es';
 import * as caseRepository from '../../repositories/case.repository.js';
 import { mapApplicationWithSectorAndSubSector } from '../../utils/mapping/map-application-with-sector-and-subsector.js';
 
@@ -16,18 +17,21 @@ const mapApplicationsWithSectorAndSubSector = (applications) => {
 };
 
 /**
+ *
+ * @param {import('@pins/api').Schema.Case[]} applications
+ * @returns {import('@pins/api').Schema.Case[]}
+ */
+const sortApplications = (applications) => {
+	return sortBy(applications, ['ApplicationDetails.subSector.abbreviation']);
+};
+
+/**
  * @type {import('express').RequestHandler}
  */
 export const getApplications = async (request, response) => {
 	const applications = await caseRepository.getAll();
 
-	// sort ascending order of subsector abbreviation, BC, EN, ... WA, WS, WW
-	applications.sort((a, b) =>
-		((a.ApplicationDetails?.subSector?.abbreviation || '') >
-		(b.ApplicationDetails?.subSector?.abbreviation || '')
-			? 1
-			: -1)
-	);
+	const sortedApplications = sortApplications(applications);
 
-	response.send(mapApplicationsWithSectorAndSubSector(applications));
+	response.send(mapApplicationsWithSectorAndSubSector(sortedApplications));
 };
