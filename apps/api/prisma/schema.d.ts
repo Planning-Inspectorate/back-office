@@ -13,11 +13,11 @@ export {
 
 export interface Case extends schema.Case {
 	CaseStatus?: CaseStatus;
-	ApplicationDetails?: ApplicationDetails;
+	ApplicationDetails?: ApplicationDetails | null;
 }
 
 export interface ApplicationDetails extends schema.ApplicationDetails {
-	subSector: SubSector;
+	subSector?: SubSector | null;
 	region?: Region;
 }
 

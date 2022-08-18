@@ -3,8 +3,8 @@ import { mapCaseStatus } from './map-case-status.js';
 import { mapSector } from './map-sector.js';
 
 /**
- * @typedef {{name: string, displayNameEn: string, displayNameCy: string, abbreviation: string}} SectorResponse
- * @typedef {{id: number, modifiedDate: number, reference: string, status: string | object, sector: SectorResponse, subSector: SectorResponse}} ApplicationWithSectorResponse
+ * @typedef {import('./map-sector').SectorResponse} SectorResponse
+ * @typedef {{id: number, modifiedDate: number, reference: string, status: string | object, sector: SectorResponse | null | undefined, subSector?: SectorResponse | null | undefined}} ApplicationWithSectorResponse
  */
 
 /**
@@ -13,14 +13,14 @@ import { mapSector } from './map-sector.js';
  * @returns {ApplicationWithSectorResponse}
  */
 export const mapApplicationWithSectorAndSubSector = (application) => {
-	const applicationData = mapApplication(application);
+	const applicationData = mapApplication(application, ['id', 'reference', 'modifiedAt']);
 
 	const applicationStatus = mapCaseStatus(application.CaseStatus);
 
 	return {
 		...applicationData,
-		subSector: mapSector(application.ApplicationDetails.subSector),
-		sector: mapSector(application.ApplicationDetails.subSector.sector),
+		subSector: mapSector(application?.ApplicationDetails?.subSector),
+		sector: mapSector(application?.ApplicationDetails?.subSector?.sector),
 		status: applicationStatus
 	};
 };

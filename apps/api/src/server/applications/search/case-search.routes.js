@@ -1,7 +1,7 @@
 import express from 'express';
 import { asyncHandler } from '../../middleware/async-handler.js';
 import { getApplicationsByCriteria } from './case-search.controller.js';
-import { validateSearchCriteria } from './case-search.validators.js';
+import { validateRole, validateSearchCriteria } from './case-search.validators.js';
 
 const router = new express.Router();
 
@@ -22,6 +22,7 @@ router.post(
             schema: { $ref: '#/definitions/ApplicationsForSearchCriteria' }
         }
     */
+	validateRole,
 	validateSearchCriteria,
 	asyncHandler(getApplicationsByCriteria)
 );
