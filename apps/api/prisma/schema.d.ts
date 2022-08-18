@@ -14,22 +14,21 @@ export {
 	GridReference,
 	ZoomLevel,
 	BatchPayload,
-	GridReference,
 	CaseStatus,
 	RegionsOnApplicationDetails
 } from '@prisma/client';
 
 export interface Case extends schema.Case {
 	CaseStatus?: CaseStatus;
-	ApplicationDetails?: ApplicationDetails;
 	serviceCustomer?: ServiceCustomer[];
+	ApplicationDetails?: ApplicationDetails | null;
 }
 
 export interface ApplicationDetails extends schema.ApplicationDetails {
-	subSector?: SubSector;
 	regions?: Region[];
 	zoomLevel?: ZoomLevel;
 	gridReference?: GridReference;
+	subSector?: SubSector | null;
 }
 
 export interface SubSector extends schema.SubSector {

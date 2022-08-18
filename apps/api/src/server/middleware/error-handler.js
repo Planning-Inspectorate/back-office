@@ -76,6 +76,13 @@ const validationErrorHandlerTemplate = (request, response, next, status) => {
 /**
  * @type {import('express').RequestHandler}
  */
+export const validationErrorHandlerMissing = (request, response, next) => {
+	validationErrorHandlerTemplate(request, response, next, 404);
+};
+
+/**
+ * @type {import('express').RequestHandler}
+ */
 export const validationErrorHandler = (request, response, next) => {
 	validationErrorHandlerTemplate(request, response, next, 400);
 };
@@ -83,6 +90,6 @@ export const validationErrorHandler = (request, response, next) => {
 /**
  * @type {import('express').RequestHandler}
  */
-export const validationErrorHandlerMissing = (request, response, next) => {
-	validationErrorHandlerTemplate(request, response, next, 404);
+export const validationErrorHandlerUnauthorised = (request, response, next) => {
+	validationErrorHandlerTemplate(request, response, next, 403);
 };
