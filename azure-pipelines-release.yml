@@ -88,7 +88,7 @@ extends:
             steps:
               - template: ../steps/azure_web_app_slot_swap.yml
                 parameters:
-                  appName: pins-app-back-offce-api-$(ENVIRONMENT)-$(REGION_SHORT)-001
+                  appName: pins-app-back-office-api-$(ENVIRONMENT)-$(REGION_SHORT)-001
                   appResourceGroup: $(resourceGroup)
                   appStagingSlotName: staging
                   appTargetSlotName: production
