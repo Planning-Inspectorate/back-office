@@ -48,6 +48,6 @@ export interface CreateUpdateApplication {
 	caseEmail?: string;
 	subSectorName?: string;
 	geographicalInformation?: GeographicalInformation;
-	applicant?: Applicant;
+	applicants?: Applicant[];
 	keyDates?: KeyApplicationDates;
 }

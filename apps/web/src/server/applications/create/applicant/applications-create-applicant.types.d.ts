@@ -16,7 +16,7 @@ export type ApplicationsCreateApplicantOrganisationNameProps = {
 };
 
 export type ApplicationsCreateApplicantOrganisationNameBody = {
-	applicantOrganisationName?: string;
+	'applicant.organisationName'?: string;
 };
 
 export type ApplicationsCreateApplicantFullNameProps = {
