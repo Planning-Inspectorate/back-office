@@ -84,7 +84,7 @@ const validateExistingMapZoomLevel = async (value) => {
  * @returns {Date}
  */
 const timestampToDate = (value) => {
-	return new Date(value);
+	return new Date(value * 1000);
 };
 
 export const validateCreateUpdateApplication = composeMiddleware(
