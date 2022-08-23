@@ -291,15 +291,25 @@ export async function updateApplicationsCreateApplicantWebsite(
 	{ path, session, body, errors },
 	response
 ) {
-	const { applicationId } = response.locals;
+	const { applicationId, applicantId } = response.locals;
 	const values = body;
 
-	if (errors) {
+	const { errors: apiErrors } = await updateApplicationDraft(applicationId, {
+		applicants: [
+			{
+				id: applicantId,
+				website: body['applicant.website']
+			}
+		]
+	});
+
+	if (errors || apiErrors) {
 		return response.render('applications/create/applicant/_website', {
 			errors,
 			values
 		});
 	}
+
 	goToNextStep(applicationId, path, session, response);
 }
 
@@ -318,10 +328,19 @@ export async function viewApplicationsCreateApplicantTelephoneNumber(req, respon
  * @type {import('@pins/express').RenderHandler<ApplicationsCreateApplicantTelephoneNumberProps, {}, ApplicationsCreateApplicantTelephoneNumberBody, {}, {}>}
  */
 export async function updateApplicationsCreateApplicantTelephoneNumber({ body, errors }, response) {
-	const { applicationId } = response.locals;
+	const { applicationId, applicantId } = response.locals;
 	const values = body;
 
-	if (errors) {
+	const { errors: apiErrors } = await updateApplicationDraft(applicationId, {
+		applicants: [
+			{
+				id: applicantId,
+				phoneNumber: body['applicant.phoneNumber']
+			}
+		]
+	});
+
+	if (errors || apiErrors) {
 		return response.render('applications/create/applicant/_telephone-number', {
 			errors,
 			values
