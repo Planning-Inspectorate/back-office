@@ -1,4 +1,4 @@
-import { filter, map } from 'lodash-es';
+import { filter, head, map } from 'lodash-es';
 import * as caseRepository from '../../repositories/case.repository.js';
 import { mapCaseStatusString } from '../../utils/mapping/map-case-status-string.js';
 import { mapCreateApplicationRequestToRepository } from './application.mapper.js';
@@ -46,7 +46,7 @@ export const updateApplication = async ({ params, body }, response) => {
 
 	const updateResponse = await caseRepository.updateApplication({
 		caseId: params.id,
-		applicantId: body?.applicants[0]?.id,
+		applicantId: head(body?.applicants)?.id,
 		...mappedApplicationDetails
 	});
 
