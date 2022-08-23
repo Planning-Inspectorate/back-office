@@ -116,8 +116,26 @@ export async function viewApplicationsCreateApplicantFullName(req, response) {
  *
  * @type {import('@pins/express').RenderHandler<ApplicationsCreateApplicantFullNameProps, {}, ApplicationsCreateApplicantFullNameBody, {}, {}>}
  */
-export async function updateApplicationsCreateApplicantFullName({ path, session }, response) {
-	const { applicationId } = response.locals;
+export async function updateApplicationsCreateApplicantFullName({ path, session, body }, response) {
+	const { applicationId, applicantId } = response.locals;
+
+	const { errors } = await updateApplicationDraft(applicationId, {
+		applicants: [
+			{
+				id: applicantId,
+				firstName: body['applicant.firstName'],
+				middleName: body['applicant.middleName'],
+				lastName: body['applicant.lastName']
+			}
+		]
+	});
+
+	if (errors) {
+		return response.render('applications/create/applicant/_full-name', {
+			errors,
+			values: body
+		});
+	}
 
 	goToNextStep(applicationId, path, session, response);
 }
