@@ -23,8 +23,8 @@ export const getApplications = async (request, response) => {
 
 	// sort ascending order of subsector abbreviation, BC, EN, ... WA, WS, WW
 	applications.sort((a, b) =>
-		((a.ApplicationDetails?.subSector.abbreviation || '') >
-		(b.ApplicationDetails?.subSector.abbreviation || '')
+		((a.ApplicationDetails?.subSector?.abbreviation || '') >
+		(b.ApplicationDetails?.subSector?.abbreviation || '')
 			? 1
 			: -1)
 	);
