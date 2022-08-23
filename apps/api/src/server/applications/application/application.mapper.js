@@ -26,7 +26,7 @@ export const mapCreateApplicationRequestToRepository = (applicationDetails) => {
 		['locationDescription', 'submissionAtInternal', 'submissionAtPublished', 'caseEmail']
 	);
 
-	const formattedApplicantDetails = pick(applicationDetails.applicant, [
+	const formattedApplicantDetails = pick(applicationDetails?.applicants[0], [
 		'organisationName',
 		'firstName',
 		'middleName',
@@ -36,7 +36,7 @@ export const mapCreateApplicationRequestToRepository = (applicationDetails) => {
 		'phoneNumber'
 	]);
 
-	const formattedApplicantAddressDetails = pick(applicationDetails.applicant?.address, [
+	const formattedApplicantAddressDetails = pick(applicationDetails?.applicants[0].address, [
 		'addressLine1',
 		'addressLine2',
 		'town',
