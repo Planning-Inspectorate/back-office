@@ -43,7 +43,7 @@ export const updateApplicationDraft = async (applicationId, payload) => {
  * @returns {Promise<{id?: number, applicantIds?: Array<number>, errors?: ValidationErrors}>}
  */
 export const createApplicationDraft = async (payload, session) => {
-	const payloadWithEmptyApplicant = { ...payload, applicant: { organisationName: '' } };
+	const payloadWithEmptyApplicant = { ...payload, applicants: [{ organisationName: '' }] };
 
 	let response;
 
