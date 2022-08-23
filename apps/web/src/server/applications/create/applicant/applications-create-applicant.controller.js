@@ -158,10 +158,19 @@ export async function updateApplicationsCreateApplicantEmail(
 	{ path, session, body, errors },
 	response
 ) {
-	const { applicationId } = response.locals;
+	const { applicationId, applicantId } = response.locals;
 	const values = body;
 
-	if (errors) {
+	const { errors: apiErrors } = await updateApplicationDraft(applicationId, {
+		applicants: [
+			{
+				id: applicantId,
+				email: body['applicant.email']
+			}
+		]
+	});
+
+	if (errors || apiErrors) {
 		return response.render('applications/create/applicant/_email', {
 			errors,
 			values
