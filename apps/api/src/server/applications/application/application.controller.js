@@ -46,7 +46,7 @@ export const updateApplication = async ({ params, body }, response) => {
 
 	const updateResponse = await caseRepository.updateApplication({
 		caseId: params.id,
-		applicantId: body.applicant?.id,
+		applicantId: body?.applicants[0]?.id,
 		...mappedApplicationDetails
 	});
 
