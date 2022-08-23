@@ -29,9 +29,9 @@ export type ApplicationsCreateApplicantFullNameProps = {
 };
 
 export type ApplicationsCreateApplicantFullNameBody = {
-	applicantfirstName?: string;
-	applicantmiddleName?: string;
-	applicantlastName?: string;
+	'applicant.firstName'?: string;
+	'applicant.middleName'?: string;
+	'applicant.lastName'?: string;
 };
 
 export type ApplicationCreateApplicantAddressStage =
