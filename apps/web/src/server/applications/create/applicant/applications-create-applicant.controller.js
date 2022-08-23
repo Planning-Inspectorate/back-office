@@ -77,13 +77,27 @@ export async function viewApplicationsCreateApplicantOrganisationName(req, respo
  * @type {import('@pins/express').RenderHandler<ApplicationsCreateApplicantOrganisationNameProps, {}, ApplicationsCreateApplicantOrganisationNameBody, {}, {}>}
  */
 export async function updateApplicationsCreateApplicantOrganisationName(
-	{ path, session },
+	{ path, session, body },
 	response
 ) {
-	const { applicationId } = response.locals;
+	const { applicationId, applicantId } = response.locals;
+	const applicantOrganisationName = body['applicant.organisationName'];
 
-	// TODO - should be written to DB
-	// const { applicant.organisationName } = body;
+	const { errors } = await updateApplicationDraft(applicationId, {
+		applicants: [
+			{
+				id: applicantId,
+				organisationName: applicantOrganisationName
+			}
+		]
+	});
+
+	if (errors) {
+		return response.render('applications/create/applicant/_organisation-name', {
+			errors,
+			values: { 'applicant.organisationName': applicantOrganisationName }
+		});
+	}
 
 	goToNextStep(applicationId, path, session, response);
 }
@@ -196,11 +210,17 @@ export async function updateApplicationsCreateApplicantAddress(
 				return { errors: serviceErrors || updateErrors, addressList };
 			}
 			case 'manualAddress': {
-				// TODO: this will change with API integration
-				const payload = body;
-
-				// payload.applicant.address.postcode = postcode;
-				// payload.applicant.id = applicantId;
+				const payload = {
+					applicant: {
+						id: applicantId,
+						address: {
+							postcode,
+							addressLine1: body['applicant.address.addressLine1'],
+							addressLine2: body['applicant.address.addressLine2'],
+							town: body['applicant.address.town']
+						}
+					}
+				};
 
 				const { errors } = await updateApplicationDraft(applicationId, payload);
 
