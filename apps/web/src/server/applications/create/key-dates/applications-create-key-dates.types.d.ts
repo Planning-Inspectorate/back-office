@@ -9,7 +9,7 @@ export type ApplicationsCreateKeyDatesProps = {
 };
 
 export type ApplicationsCreateKeyDatesBody = {
-	submissionDatePublished: string;
+	'keyDates.submissionDatePublished': string;
 	submissionInternalDay: string;
 	submissionInternalMonth: string;
 	submissionInternalYear: string;

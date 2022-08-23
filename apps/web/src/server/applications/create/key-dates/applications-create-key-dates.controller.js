@@ -33,12 +33,9 @@ export async function updateApplicationsCreateKeyDates(
 	response
 ) {
 	const { applicationId } = response.locals;
-	const {
-		submissionDatePublished,
-		submissionInternalDay,
-		submissionInternalMonth,
-		submissionInternalYear
-	} = body;
+	const { submissionInternalDay, submissionInternalMonth, submissionInternalYear } = body;
+
+	const submissionDatePublished = body['keyDates.submissionDatePublished'];
 
 	const submissionInternalDateSeconds =
 		(Date.parse(`${submissionInternalYear}-${submissionInternalMonth}-${submissionInternalDay}`) ||
