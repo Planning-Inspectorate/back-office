@@ -45,7 +45,7 @@ export const validateApplicationsCreateKeyDates = createValidator(
 			const { submissionInternalDay, submissionInternalMonth, submissionInternalYear } = req.body;
 			const submissionInternalDate = new Date(
 				submissionInternalYear,
-				submissionInternalMonth - 1,
+				Number.parseInt(submissionInternalMonth, 10) - 1,
 				submissionInternalDay
 			);
 
