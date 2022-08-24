@@ -88,10 +88,10 @@ test('updates application with just title and first notified date', async (t) =>
 			ApplicationDetails: {
 				upsert: {
 					create: {
-						submissionAtInternal: new Date(1_649_319_344_000)
+						submissionAtInternal: new Date(1_649_319_344_000_000)
 					},
 					update: {
-						submissionAtInternal: new Date(1_649_319_344_000)
+						submissionAtInternal: new Date(1_649_319_344_000_000)
 					}
 				}
 			}
@@ -138,23 +138,25 @@ test('updates application when all possible details provided', async (t) => {
 		description: 'description',
 		subSectorName: 'some_sub_sector',
 		caseEmail: 'caseEmail@pins.com',
-		applicant: {
-			id: 1,
-			firstName: 'first',
-			middleName: 'middle',
-			lastName: 'last',
-			organisationName: 'org',
-			email: 'test@test.com',
-			website: 'www.google.com',
-			phoneNumber: '02036579785',
-			address: {
-				addressLine1: 'address line 1',
-				addressLine2: 'address line 2',
-				town: 'town',
-				county: 'county',
-				postcode: 'N1 9BE'
+		applicants: [
+			{
+				id: 1,
+				firstName: 'first',
+				middleName: 'middle',
+				lastName: 'last',
+				organisationName: 'org',
+				email: 'test@test.com',
+				website: 'www.google.com',
+				phoneNumber: '02036579785',
+				address: {
+					addressLine1: 'address line 1',
+					addressLine2: 'address line 2',
+					town: 'town',
+					county: 'county',
+					postcode: 'N1 9BE'
+				}
 			}
-		},
+		],
 		geographicalInformation: {
 			mapZoomLevelName: 'some-known-map-zoom-level',
 			locationDescription: 'location description',
@@ -179,6 +181,7 @@ test('updates application when all possible details provided', async (t) => {
 			}
 		}
 	});
+
 	sinon.assert.calledWith(updateStub, {
 		where: { id: 1 },
 		data: {
@@ -196,7 +199,7 @@ test('updates application when all possible details provided', async (t) => {
 					create: {
 						caseEmail: 'caseEmail@pins.com',
 						locationDescription: 'location description',
-						submissionAtInternal: new Date(1_649_319_344_000),
+						submissionAtInternal: new Date(1_649_319_344_000_000),
 						submissionAtPublished: 'Q1 2023',
 						subSector: { connect: { name: 'some_sub_sector' } },
 						zoomLevel: { connect: { name: 'some-known-map-zoom-level' } },
@@ -210,7 +213,7 @@ test('updates application when all possible details provided', async (t) => {
 					update: {
 						caseEmail: 'caseEmail@pins.com',
 						locationDescription: 'location description',
-						submissionAtInternal: new Date(1_649_319_344_000),
+						submissionAtInternal: new Date(1_649_319_344_000_000),
 						submissionAtPublished: 'Q1 2023',
 						subSector: { connect: { name: 'some_sub_sector' } },
 						zoomLevel: { connect: { name: 'some-known-map-zoom-level' } },
@@ -265,13 +268,15 @@ test('updates application when all possible details provided', async (t) => {
 test(`updates application with new applicant using first and last name,
         address line, map zoom level`, async (t) => {
 	const response = await request.patch('/applications/1').send({
-		applicant: {
-			firstName: 'first',
-			lastName: 'last',
-			address: {
-				addressLine1: 'some addr'
+		applicants: [
+			{
+				firstName: 'first',
+				lastName: 'last',
+				address: {
+					addressLine1: 'some addr'
+				}
 			}
-		},
+		],
 		geographicalInformation: {
 			mapZoomLevelName: 'some-known-map-zoom-level'
 		}
@@ -318,13 +323,15 @@ test('returns error if any validated values are invalid', async (t) => {
 			mapZoomLevelName: 'some-unknown-map-zoom-level',
 			regionNames: ['some-unknown-region']
 		},
-		applicant: {
-			email: 'not a real email',
-			phoneNumber: '10235',
-			address: {
-				postcode: '191187'
+		applicants: [
+			{
+				email: 'not a real email',
+				phoneNumber: '10235',
+				address: {
+					postcode: '191187'
+				}
 			}
-		},
+		],
 		keyDates: {
 			submissionDateInternal: 100_000
 		},
@@ -335,9 +342,9 @@ test('returns error if any validated values are invalid', async (t) => {
 	t.deepEqual(response.body, {
 		errors: {
 			caseEmail: 'Case email must be a valid email address',
-			'applicant.address.postcode': 'Postcode must be a valid UK postcode',
-			'applicant.email': 'Email must be a valid email',
-			'applicant.phoneNumber': 'Phone Number must be a valid UK number',
+			'applicants[0].address.postcode': 'Postcode must be a valid UK postcode',
+			'applicants[0].email': 'Email must be a valid email',
+			'applicants[0].phoneNumber': 'Phone Number must be a valid UK number',
 			'geographicalInformation.gridReference.easting': 'Easting must be integer with 6 digits',
 			'geographicalInformation.gridReference.northing': 'Northing must be integer with 6 digits',
 			'geographicalInformation.mapZoomLevelName': 'Must be a valid map zoom level',
