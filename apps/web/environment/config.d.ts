@@ -7,7 +7,7 @@ export interface EnvironmentConfig {
 	bundleAnalyzer: boolean;
 	buildDir: string;
 	cwd: string;
-	env: 'development' | 'test' | 'production';
+	env: 'development' | 'test' | 'production' | 'local';
 	isProduction: boolean;
 	isDevelopment: boolean;
 	isTest: boolean;
