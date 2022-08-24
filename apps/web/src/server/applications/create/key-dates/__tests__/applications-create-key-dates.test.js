@@ -1,9 +1,19 @@
 import { parseHtml } from '@pins/platform';
+import nock from 'nock';
 import supertest from 'supertest';
 import { createTestApplication } from '../../../../../../testing/index.js';
 
 const { app, installMockApi, teardown } = createTestApplication();
 const request = supertest(app);
+
+const successPatchPostResponse = { id: 123, applicantIds: [1] };
+const successGetResponse = { id: 123, applicants: [{ id: 1 }] };
+
+const nocks = () => {
+	nock('http://test/').post('/applications').reply(200, successPatchPostResponse);
+	nock('http://test/').patch('/applications/123').reply(200, successPatchPostResponse);
+	nock('http://test/').get('/applications/123').times(2).reply(200, successGetResponse);
+};
 
 describe('Applications create key dates', () => {
 	beforeEach(installMockApi);
@@ -11,6 +21,11 @@ describe('Applications create key dates', () => {
 
 	beforeEach(async () => {
 		await request.get('/applications-service/case-officer');
+		nocks();
+	});
+
+	afterAll(() => {
+		nock.cleanAll();
 	});
 
 	const baseUrl = '/applications-service/create-new-case/123/key-dates';
