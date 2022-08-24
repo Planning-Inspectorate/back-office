@@ -69,7 +69,6 @@ export const createApplicationDraft = async (payload, session) => {
  */
 export const getApplicationDraft = async (id = '') => {
 	const pp = await get(`applications/${id}`);
-	// console.log(pp);
 
 	return pp;
 };
