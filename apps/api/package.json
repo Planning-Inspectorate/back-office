@@ -28,7 +28,7 @@
     "tscheck": "npx tsc -p jsconfig.json --maxNodeModuleJsDepth 0"
   },
   "dependencies": {
-    "@prisma/client": "4.0.0",
+    "@prisma/client": "^4.2.1",
     "body-parser": "1.20.0",
     "c8": "^7.11.3",
     "compression": "1.7.4",
@@ -47,7 +47,6 @@
     "pino": "^8.1.0",
     "pino-http": "^8.1.0",
     "pino-pretty": "^8.1.0",
-    "prisma": "4.0.0",
     "swagger-ui-express": "^4.4.0",
     "xstate": "4.32.1"
   },
@@ -58,6 +57,7 @@
     "cross-env": "^7.0.3",
     "eslint": "8.18.0",
     "nodemon": "^2.0.18",
+    "prisma": "^4.2.1",
     "rimraf": "^3.0.2",
     "sinon": "14.0.0",
     "supertest": "6.2.3",
