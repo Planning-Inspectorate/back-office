@@ -1,13 +1,27 @@
 import { parseHtml } from '@pins/platform';
+import nock from 'nock';
 import supertest from 'supertest';
 import { createTestApplication } from '../../../../../../testing/index.js';
 
 const { app, installMockApi, teardown } = createTestApplication();
 const request = supertest(app);
+const successGetResponse = { id: 1, applicants: [{ id: 1 }] };
+const successPatchPostResponse = { id: 1, applicantIds: [1] };
+
+const nocks = () => {
+	nock('http://test/').get('/applications/case-officer').reply(200, successGetResponse);
+	nock('http://test/').post('/applications').reply(200, successPatchPostResponse);
+	nock('http://test/').patch('/applications/123').reply(200, successPatchPostResponse);
+	nock('http://test/').get('/applications/123').times(2).reply(200, successGetResponse);
+};
 
 describe('applications create applicant', () => {
 	beforeEach(installMockApi);
 	afterEach(teardown);
+
+	afterAll(() => {
+		nock.cleanAll();
+	});
 
 	beforeEach(async () => {
 		await request.get('/applications-service/case-officer');
@@ -15,6 +29,10 @@ describe('applications create applicant', () => {
 
 	describe('GET /applicant-information-types', () => {
 		const baseUrl = '/applications-service/create-new-case/123/applicant-information-types';
+
+		beforeEach(async () => {
+			nocks();
+		});
 
 		it('should render the page', async () => {
 			const response = await request.get(baseUrl);
@@ -27,6 +45,10 @@ describe('applications create applicant', () => {
 
 	describe('GET /applicant-organisation-name', () => {
 		const baseUrl = '/applications-service/create-new-case/123/applicant-organisation-name';
+
+		beforeEach(async () => {
+			nocks();
+		});
 
 		it('should render the page if there is data in the session', async () => {
 			await request
@@ -54,6 +76,10 @@ describe('applications create applicant', () => {
 	describe('GET /applicant-full-name', () => {
 		const baseUrl = '/applications-service/create-new-case/123/applicant-full-name';
 
+		beforeEach(async () => {
+			nocks();
+		});
+
 		it('should render the page if there is data in the session', async () => {
 			await request
 				.post('/applications-service/create-new-case/123/applicant-information-types')
@@ -79,6 +105,10 @@ describe('applications create applicant', () => {
 
 	describe('Applicant website', () => {
 		const baseUrl = '/applications-service/create-new-case/123/applicant-website';
+
+		beforeEach(async () => {
+			nocks();
+		});
 
 		describe('GET /applicant-website', () => {
 			it('should render the page if there is data in the session', async () => {
@@ -127,6 +157,10 @@ describe('applications create applicant', () => {
 	describe('Applicant email', () => {
 		const baseUrl = '/applications-service/create-new-case/123/applicant-email';
 
+		beforeEach(async () => {
+			nocks();
+		});
+
 		describe('GET /applicant-email', () => {
 			it('should render the page if there is data in the session', async () => {
 				await request
@@ -174,6 +208,10 @@ describe('applications create applicant', () => {
 	describe('Applicant telephone number', () => {
 		const baseUrl = '/applications-service/create-new-case/123/applicant-telephone-number';
 
+		beforeEach(async () => {
+			nocks();
+		});
+
 		describe('GET /applicant-telephone-number', () => {
 			it('should render the page if there is data in the session', async () => {
 				await request
@@ -220,6 +258,10 @@ describe('applications create applicant', () => {
 
 	describe('Applicant address', () => {
 		const baseUrl = '/applications-service/create-new-case/123/applicant-address';
+
+		beforeEach(async () => {
+			nocks();
+		});
 
 		describe('GET /applicant-address', () => {
 			it('should render the page if there is data in the session', async () => {
