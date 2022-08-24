@@ -106,19 +106,19 @@ export const validateCreateUpdateApplication = composeMiddleware(
 		.isArray()
 		.custom(validateExistingRegions)
 		.optional({ nullable: true }),
-	body('applicant.email')
+	body('applicants.*.email')
 		.isEmail()
 		.withMessage('Email must be a valid email')
 		.optional({ nullable: true }),
-	body('applicant.phoneNumber')
+	body('applicants.*.phoneNumber')
 		.matches('^0\\d{10}$')
 		.withMessage('Phone Number must be a valid UK number')
 		.optional({ nullable: true }),
-	body('applicant.address.postcode')
+	body('applicants.*.address.postcode')
 		.isPostalCode('GB')
 		.withMessage('Postcode must be a valid UK postcode')
 		.optional({ nullable: true }),
-	body('applicant.website')
+	body('applicant.*.website')
 		.isURL()
 		.withMessage('Website must be a valid website')
 		.optional({ nullable: true }),
