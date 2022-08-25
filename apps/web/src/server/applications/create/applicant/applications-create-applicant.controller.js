@@ -231,22 +231,24 @@ export async function updateApplicationsCreateApplicantAddress(
 				const selectedAddress = addressList.find(
 					(address) => address.apiReference === apiReference
 				);
-				const payload = { applicant: { id: applicantId, address: selectedAddress } };
+				const payload = { applicants: [{ id: applicantId, address: selectedAddress }] };
 				const { errors: updateErrors } = await updateApplicationDraft(applicationId, payload);
 
 				return { errors: serviceErrors || updateErrors, addressList };
 			}
 			case 'manualAddress': {
 				const payload = {
-					applicant: {
-						id: applicantId,
-						address: {
-							postcode,
-							addressLine1: body['applicant.address.addressLine1'],
-							addressLine2: body['applicant.address.addressLine2'],
-							town: body['applicant.address.town']
+					applicants: [
+						{
+							id: applicantId,
+							address: {
+								postcode,
+								addressLine1: body['applicant.address.addressLine1'],
+								addressLine2: body['applicant.address.addressLine2'],
+								town: body['applicant.address.town']
+							}
 						}
-					}
+					]
 				};
 
 				const { errors } = await updateApplicationDraft(applicationId, payload);
