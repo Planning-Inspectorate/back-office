@@ -15,7 +15,8 @@ const application1 = applicationFactoryForTests({
 	inclusions: {
 		serviceCustomer: true,
 		ApplicationDetails: true,
-		CaseStatus: true
+		CaseStatus: true,
+		gridReference: true
 	}
 });
 
@@ -26,21 +27,17 @@ const application1SansInclusions = applicationFactoryForTests({
 	caseStatus: 'draft'
 });
 
-let blankTitle;
-let blankDescription;
-let blankReference;
-
 const application2 = {
 	...applicationFactoryForTests({
 		id: 2,
-		title: blankTitle,
-		description: blankDescription,
+		title: null,
+		description: null,
 		caseStatus: 'draft',
 		inclusions: {
 			CaseStatus: true
 		}
 	}),
-	reference: blankReference
+	reference: null
 };
 
 const findUniqueStub = sinon.stub();
@@ -136,6 +133,9 @@ test('gets applications details when only case id present', async (t) => {
 
 	t.is(response.status, 200);
 	t.deepEqual(response.body, {
+		description: null,
+		reference: null,
+		title: null,
 		geographicalInformation: {
 			gridReference: {},
 			mapZoomLevel: {}
@@ -256,7 +256,7 @@ test('returns only subsector field when subSector query made', async (t) => {
 	sinon.assert.calledWith(findUniqueStub, {
 		where: { id: 1 },
 		include: {
-			ApplicationDetails: { include: { subSector: true, zoomLevel: false, regions: false } }
+			ApplicationDetails: { include: { subSector: true, zoomLevel: false } }
 		}
 	});
 });

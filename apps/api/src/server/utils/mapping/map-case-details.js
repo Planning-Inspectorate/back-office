@@ -10,7 +10,7 @@ import { mapValuesUsingObject } from './map-values-using-object.js';
 import { mapZoomLevel } from './map-zoom-level.js';
 
 /**
- * @param {import('@pins/api').Schema.Case} applicationDetails
+ * @param {import('@pins/api').Schema.Case} caseDetails
  * @returns {{
  *  title?: string | undefined,
  *  description?: string | undefined,
@@ -26,35 +26,25 @@ import { mapZoomLevel } from './map-zoom-level.js';
  *  regionNames?: string[],
  *  address?: { addressLine1?: string | undefined, addressLine2?: string | undefined, town?: string | undefined, county?: string | undefined, postcode?: string | undefined}}}
  */
-export const mapApplicationDetails = (applicationDetails) => {
-	const caseDetailsFormatted = pick(applicationDetails, [
-		'id',
-		'reference',
-		'title',
-		'description'
-	]);
+export const mapApplicationDetails = (caseDetails) => {
+	const caseDetailsFormatted = pick(caseDetails, ['id', 'reference', 'title', 'description']);
 
-	const sectorFormatted = mapSector(applicationDetails?.ApplicationDetails?.subSector?.sector);
-	const subSectorFormatted = mapSector(applicationDetails?.ApplicationDetails?.subSector);
-	const zoomLevelFormatted = mapZoomLevel(applicationDetails?.ApplicationDetails?.zoomLevel);
-	const regionsFormatted = applicationDetails?.ApplicationDetails?.regions?.map((region) =>
+	const sectorFormatted = mapSector(caseDetails?.ApplicationDetails?.subSector?.sector);
+	const subSectorFormatted = mapSector(caseDetails?.ApplicationDetails?.subSector);
+	const zoomLevelFormatted = mapZoomLevel(caseDetails?.ApplicationDetails?.zoomLevel);
+	const regionsFormatted = caseDetails?.ApplicationDetails?.regions?.map((region) =>
 		mapRegion(region.region)
 	);
 
-	const applicantsFormatted = applicationDetails?.serviceCustomer?.map((serviceCustomer) =>
+	const applicantsFormatted = caseDetails?.serviceCustomer?.map((serviceCustomer) =>
 		mapServiceCustomer(serviceCustomer)
 	);
 
-	const gridReferenceFormatted = mapGridReference(
-		applicationDetails?.ApplicationDetails?.gridReference
-	);
+	const gridReferenceFormatted = mapGridReference(caseDetails?.gridReference);
 
 	const keyDates = mapValuesUsingObject(
 		mapKeysUsingObject(
-			pick(applicationDetails?.ApplicationDetails, [
-				'submissionAtInternal',
-				'submissionAtPublished'
-			]),
+			pick(caseDetails?.ApplicationDetails, ['submissionAtInternal', 'submissionAtPublished']),
 			{
 				submissionAtInternal: 'submissionDateInternal',
 				submissionAtPublished: 'submissionDatePublished'
@@ -67,14 +57,14 @@ export const mapApplicationDetails = (applicationDetails) => {
 
 	return {
 		...caseDetailsFormatted,
-		...(applicationDetails.CaseStatus && { status: mapCaseStatus(applicationDetails.CaseStatus) }),
-		caseEmail: applicationDetails?.ApplicationDetails?.caseEmail,
+		...(caseDetails.CaseStatus && { status: mapCaseStatus(caseDetails.CaseStatus) }),
+		caseEmail: caseDetails?.ApplicationDetails?.caseEmail,
 		sector: sectorFormatted,
 		subSector: subSectorFormatted,
 		applicants: applicantsFormatted,
 		geographicalInformation: {
 			mapZoomLevel: zoomLevelFormatted,
-			locationDescription: applicationDetails?.ApplicationDetails?.locationDescription,
+			locationDescription: caseDetails?.ApplicationDetails?.locationDescription,
 			gridReference: gridReferenceFormatted,
 			regions: regionsFormatted
 		},
