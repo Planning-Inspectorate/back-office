@@ -26,7 +26,7 @@ export interface Case extends schema.Case {
 }
 
 export interface ApplicationDetails extends schema.ApplicationDetails {
-	subSector: SubSector;
+	subSector?: SubSector;
 	regions?: Region[];
 	zoomLevel?: ZoomLevel;
 	gridReference?: GridReference;

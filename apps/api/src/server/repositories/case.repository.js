@@ -372,10 +372,24 @@ export const getById = (
 ) => {
 	return databaseConnector.case.findUnique({
 		where: { id },
-		...((applicationDetails || subSector || sector || zoomLevel || regions || caseStatus) && {
+		...((applicationDetails ||
+			subSector ||
+			sector ||
+			zoomLevel ||
+			regions ||
+			caseStatus ||
+			serviceCustomerAddress) && {
 			include: {
-				...((applicationDetails || subSector || zoomLevel || regions) && {
-					ApplicationDetails: { include: { subSector, zoomLevel, regions } }
+				...((applicationDetails || subSector || zoomLevel || regions || sector) && {
+					ApplicationDetails: {
+						include: {
+							...((sector || subSector) && {
+								subSector: sector ? { include: { sector: true } } : true
+							}),
+							zoomLevel,
+							...(regions && { regions: { include: { region: true } } })
+						}
+					}
 				}),
 				...(caseStatus && { CaseStatus: { where: { valid: true } } }),
 				...((serviceCustomer || serviceCustomerAddress) && {

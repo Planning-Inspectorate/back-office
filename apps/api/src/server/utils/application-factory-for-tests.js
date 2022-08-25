@@ -84,12 +84,7 @@ const getApplicationDetails = ({ regions = true, mapZoomLevel = true, subSector 
 					displayNameCy: 'Sector Name Cy'
 				}
 			}
-		}),
-		gridReference: {
-			id: 1,
-			easting: 123_456,
-			northing: 987_654
-		}
+		})
 	};
 };
 
@@ -101,7 +96,7 @@ const getApplicationDetails = ({ regions = true, mapZoomLevel = true, subSector 
  *  description: string | null,
  *  caseStatus: string,
  *  dates?: {createdAt?: Date, modifiedAt?: Date, publishedAt?: Date},
- *  inclusions?: {serviceCustomer?: boolean, ApplicationDetails?: boolean, regions?: boolean, CaseStatus?: boolean, mapZoomLevel?: boolean, subSector?: boolean}
+ *  inclusions?: {serviceCustomer?: boolean, ApplicationDetails?: boolean, regions?: boolean, CaseStatus?: boolean, mapZoomLevel?: boolean, subSector?: boolean, gridReference?: boolean}
  * }} arg
  * @returns {import('@pins/api').Schema.Case}
  */
@@ -127,6 +122,13 @@ export const applicationFactoryForTests = ({
 				status: caseStatus
 			}
 		],
+		...(inclusions.gridReference && {
+			gridReference: {
+				id: 1,
+				easting: 123_456,
+				northing: 987_654
+			}
+		}),
 		...(inclusions.serviceCustomer && { serviceCustomer: [serviceCustomer] }),
 		...(inclusions.ApplicationDetails && {
 			ApplicationDetails: getApplicationDetails({
