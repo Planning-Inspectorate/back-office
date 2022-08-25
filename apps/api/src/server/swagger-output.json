@@ -551,46 +551,6 @@
 				}
 			}
 		},
-		"/applications/{id}/start": {
-			"post": {
-				"tags": ["Applications"],
-				"description": "Moves application from Draft state to Pre-Application state",
-				"parameters": [
-					{
-						"name": "id",
-						"in": "path",
-						"required": true,
-						"type": "integer",
-						"description": "Application ID"
-					}
-				],
-				"responses": {
-					"200": {
-						"description": "Application Details",
-						"schema": {
-							"type": "object",
-							"properties": {
-								"id": {
-									"type": "number",
-									"example": 1
-								},
-								"reference": {
-									"type": "string",
-									"example": "AB0110203"
-								},
-								"status": {
-									"type": "string",
-									"example": "Pre-Application"
-								}
-							},
-							"xml": {
-								"name": "main"
-							}
-						}
-					}
-				}
-			}
-		},
 		"/applications/{id}": {
 			"patch": {
 				"tags": ["Applications"],
@@ -766,9 +726,46 @@
 								"name": "main"
 							}
 						}
-					},
-					"404": {
-						"description": "Not Found"
+					}
+				}
+			}
+		},
+		"/applications/{id}/start": {
+			"post": {
+				"tags": ["Applications"],
+				"description": "Moves application from Draft state to Pre-Application state",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"type": "integer",
+						"description": "Application ID"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Application Details",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"id": {
+									"type": "number",
+									"example": 1
+								},
+								"reference": {
+									"type": "string",
+									"example": "AB0110203"
+								},
+								"status": {
+									"type": "string",
+									"example": "Pre-Application"
+								}
+							},
+							"xml": {
+								"name": "main"
+							}
+						}
 					}
 				}
 			}
@@ -963,65 +960,68 @@
 						}
 					}
 				},
-				"applicant": {
-					"type": "object",
-					"properties": {
-						"id": {
-							"type": "number",
-							"example": 1
-						},
-						"organisationName": {
-							"type": "string",
-							"example": ""
-						},
-						"firstName": {
-							"type": "string",
-							"example": ""
-						},
-						"middleName": {
-							"type": "string",
-							"example": ""
-						},
-						"lastName": {
-							"type": "string",
-							"example": ""
-						},
-						"email": {
-							"type": "string",
-							"example": ""
-						},
-						"address": {
-							"type": "object",
-							"properties": {
-								"addressLine1": {
-									"type": "string",
-									"example": ""
-								},
-								"addressLine2": {
-									"type": "string",
-									"example": ""
-								},
-								"town": {
-									"type": "string",
-									"example": ""
-								},
-								"county": {
-									"type": "string",
-									"example": ""
-								},
-								"postcode": {
-									"type": "string",
-									"example": ""
+				"applicants": {
+					"type": "array",
+					"items": {
+						"type": "object",
+						"properties": {
+							"id": {
+								"type": "number",
+								"example": 1
+							},
+							"organisationName": {
+								"type": "string",
+								"example": ""
+							},
+							"firstName": {
+								"type": "string",
+								"example": ""
+							},
+							"middleName": {
+								"type": "string",
+								"example": ""
+							},
+							"lastName": {
+								"type": "string",
+								"example": ""
+							},
+							"email": {
+								"type": "string",
+								"example": ""
+							},
+							"address": {
+								"type": "object",
+								"properties": {
+									"addressLine1": {
+										"type": "string",
+										"example": ""
+									},
+									"addressLine2": {
+										"type": "string",
+										"example": ""
+									},
+									"town": {
+										"type": "string",
+										"example": ""
+									},
+									"county": {
+										"type": "string",
+										"example": ""
+									},
+									"postcode": {
+										"type": "string",
+										"example": ""
+									}
 								}
+							},
+							"website": {
+								"type": "string",
+								"example": ""
+							},
+							"phoneNumber": {
+								"type": "string",
+								"example": ""
 							}
-						},
-						"website": {
-							"type": "string",
-							"example": ""
-						},
-						"phoneNumber": {
-							"type": "string",
-							"example": ""
 						}
 					}
 				},
@@ -1092,61 +1092,64 @@
 						}
 					}
 				},
-				"applicant": {
-					"type": "object",
-					"properties": {
-						"organisationName": {
-							"type": "string",
-							"example": ""
-						},
-						"firstName": {
-							"type": "string",
-							"example": ""
-						},
-						"middleName": {
-							"type": "string",
-							"example": ""
-						},
-						"lastName": {
-							"type": "string",
-							"example": ""
-						},
-						"email": {
-							"type": "string",
-							"example": ""
-						},
-						"address": {
-							"type": "object",
-							"properties": {
-								"addressLine1": {
-									"type": "string",
-									"example": ""
-								},
-								"addressLine2": {
-									"type": "string",
-									"example": ""
-								},
-								"town": {
-									"type": "string",
-									"example": ""
-								},
-								"county": {
-									"type": "string",
-									"example": ""
-								},
-								"postcode": {
-									"type": "string",
-									"example": ""
+				"applicants": {
+					"type": "array",
+					"items": {
+						"type": "object",
+						"properties": {
+							"organisationName": {
+								"type": "string",
+								"example": ""
+							},
+							"firstName": {
+								"type": "string",
+								"example": ""
+							},
+							"middleName": {
+								"type": "string",
+								"example": ""
+							},
+							"lastName": {
+								"type": "string",
+								"example": ""
+							},
+							"email": {
+								"type": "string",
+								"example": ""
+							},
+							"address": {
+								"type": "object",
+								"properties": {
+									"addressLine1": {
+										"type": "string",
+										"example": ""
+									},
+									"addressLine2": {
+										"type": "string",
+										"example": ""
+									},
+									"town": {
+										"type": "string",
+										"example": ""
+									},
+									"county": {
+										"type": "string",
+										"example": ""
+									},
+									"postcode": {
+										"type": "string",
+										"example": ""
+									}
 								}
+							},
+							"website": {
+								"type": "string",
+								"example": ""
+							},
+							"phoneNumber": {
+								"type": "string",
+								"example": ""
 							}
-						},
-						"website": {
-							"type": "string",
-							"example": ""
-						},
-						"phoneNumber": {
-							"type": "string",
-							"example": ""
 						}
 					}
 				},
