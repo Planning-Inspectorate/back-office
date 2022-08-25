@@ -111,7 +111,8 @@ export const validateCreateUpdateApplication = composeMiddleware(
 		.withMessage('Email must be a valid email')
 		.optional({ nullable: true }),
 	body('applicants.*.phoneNumber')
-		.matches('^0\\d{10}$')
+		.trim()
+		.matches(/^\+?(?:\d\s?){10,12}$/g)
 		.withMessage('Phone Number must be a valid UK number')
 		.optional({ nullable: true }),
 	body('applicants.*.address.postcode')
