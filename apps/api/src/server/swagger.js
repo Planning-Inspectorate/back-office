@@ -46,23 +46,25 @@ const document = {
 					northing: '098765'
 				}
 			},
-			applicant: {
-				id: 1,
-				organisationName: '',
-				firstName: '',
-				middleName: '',
-				lastName: '',
-				email: '',
-				address: {
-					addressLine1: '',
-					addressLine2: '',
-					town: '',
-					county: '',
-					postcode: ''
-				},
-				website: '',
-				phoneNumber: ''
-			},
+			applicants: [
+				{
+					id: 1,
+					organisationName: '',
+					firstName: '',
+					middleName: '',
+					lastName: '',
+					email: '',
+					address: {
+						addressLine1: '',
+						addressLine2: '',
+						town: '',
+						county: '',
+						postcode: ''
+					},
+					website: '',
+					phoneNumber: ''
+				}
+			],
 			keyDates: {
 				submissionDatePublished: 'Q1 2023',
 				submissionDateInternal: 123
@@ -82,22 +84,24 @@ const document = {
 					northing: '098765'
 				}
 			},
-			applicant: {
-				organisationName: '',
-				firstName: '',
-				middleName: '',
-				lastName: '',
-				email: '',
-				address: {
-					addressLine1: '',
-					addressLine2: '',
-					town: '',
-					county: '',
-					postcode: ''
-				},
-				website: '',
-				phoneNumber: ''
-			},
+			applicants: [
+				{
+					organisationName: '',
+					firstName: '',
+					middleName: '',
+					lastName: '',
+					email: '',
+					address: {
+						addressLine1: '',
+						addressLine2: '',
+						town: '',
+						county: '',
+						postcode: ''
+					},
+					website: '',
+					phoneNumber: ''
+				}
+			],
 			keyDates: {
 				submissionDatePublished: 'Q1 2023',
 				submissionDateInternal: 123
