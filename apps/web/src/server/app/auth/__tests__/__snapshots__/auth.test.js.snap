@@ -8,6 +8,23 @@ exports[`auth authentication should clear any pending authentication data if the
             <p class=\\"govuk-body\\">Try again later.</p>
             <p class=\\"govuk-body\\"><a href=\\"https://has-appeal.herokuapp.com/help/contact\\" class=\\"govuk-link\\">Contact the Planning Inspectorate Customer Support</a> if
                 the problem persists.</p>
+            <hr>
+            <h1 class=\\"govuk-heading-m\\" style=\\"color: #d4351c;\\">Error (only seen in dev mode):</h1>
+            <div class=\\"govuk-grid-row\\">
+                <div class=\\"govuk-grid-column-full\\">
+                    <div>Error: Authentication does not exist.</div>}<pre style=\\"border: 1px solid #ddd; overflow: scroll\\"> Error: Authentication does not exist.
+    at Module.getAuthenticationData (/Users/francescobrenci/Documents/DEVELOPMENT/back-office/apps/web/src/server/app/auth/auth-session.service.js:32:8)
+    at completeMsalAuthentication (/Users/francescobrenci/Documents/DEVELOPMENT/back-office/apps/web/src/server/app/auth/auth.controller.js:57:55)
+    at Layer.handleRequest (/Users/francescobrenci/Documents/DEVELOPMENT/back-office/node_modules/router/lib/layer.js:101:15)
+    at next (/Users/francescobrenci/Documents/DEVELOPMENT/back-office/node_modules/router/lib/route.js:142:13)
+    at assertIsUnauthenticated (/Users/francescobrenci/Documents/DEVELOPMENT/back-office/apps/web/src/server/app/auth/auth.guards.js:56:3)
+    at Layer.handleRequest (/Users/francescobrenci/Documents/DEVELOPMENT/back-office/node_modules/router/lib/layer.js:101:15)
+    at next (/Users/francescobrenci/Documents/DEVELOPMENT/back-office/node_modules/router/lib/route.js:142:13)
+    at Route.dispatch (/Users/francescobrenci/Documents/DEVELOPMENT/back-office/node_modules/router/lib/route.js:107:3)
+    at handle (/Users/francescobrenci/Documents/DEVELOPMENT/back-office/node_modules/router/index.js:421:11)
+    at Layer.handleRequest (/Users/francescobrenci/Documents/DEVELOPMENT/back-office/node_modules/router/lib/layer.js:101:15)</pre>
+                </div>
+            </div>
         </div>
     </div>
 </main>"
