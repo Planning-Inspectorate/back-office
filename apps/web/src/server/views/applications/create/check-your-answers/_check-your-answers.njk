@@ -1,0 +1,27 @@
+{% extends "../applications-create-layout.njk" %}
+
+{% from "govuk/components/input/macro.njk" import govukInput %}
+
+{% block beforeContent %}
+	{{ govukBreadcrumbs({
+		classes: 'govuk-!-margin-top-3',
+		items: [
+			{ text: 'Applications', href: 'dashboard'|url({domainType:domainType}) },
+			{ text: 'Case information', href: 'applications-create'|url({applicationId: applicationId})},
+			{ text: 'Applicant Information', href: 'applications-create'|url({applicationId: applicationId, step: 'applicant-organisation-name'})},
+			{ text: 'Key dates', href: 'applications-create'|url({applicationId: applicationId, step: 'key-dates'})},
+			{ text: 'Check your answers'}
+		]
+	}) }}
+{% endblock %}
+
+{% block stepTitle %}
+	Check you answers before creating a new case
+{% endblock %}
+
+
+{% block stepForm %}
+
+{% endblock %}
+
+{% set backLink = 'applications-create'|url({applicationId:applicationId, step: backPath}) %}

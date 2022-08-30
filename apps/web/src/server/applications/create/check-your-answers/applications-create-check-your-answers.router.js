@@ -7,4 +7,8 @@ applicationsCreateCheckYourAnswersRouter
 	.route('/case-created')
 	.get(controller.viewApplicationsCreateConfirmation);
 
+applicationsCreateCheckYourAnswersRouter
+	.route('/check-your-answers')
+	.get(controller.viewApplicationsCreateCheckYourAnswers);
+
 export default applicationsCreateCheckYourAnswersRouter;
