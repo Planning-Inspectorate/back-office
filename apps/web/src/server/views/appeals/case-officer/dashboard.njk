@@ -78,13 +78,13 @@
 	{% set rows = [] %}
 	{% for appeal in params.appeals %}
 		{% set row = [] %}
-		{% 
+		{%
 			if params.statusKey === 'StatementsAndFinalCommentsStatus'
 			or (params.statusKey === 'QuestionnaireStatus' and ['received', 'incomplete_lpa_questionnaire'] | includes(appeal.QuestionnaireStatus))
 		%}
 			{% set row = row | concat({
 					html: '<a class="govuk-link" href="/appeals-service/case-officer/appeals/' + appeal.AppealId + (params.hrefPath or '')  + '">' + appeal.AppealReference + '</a>'
-				}) 
+				})
 			%}
 		{% else %}
 			{% set row = row | concat({ text: appeal.AppealReference }) %}

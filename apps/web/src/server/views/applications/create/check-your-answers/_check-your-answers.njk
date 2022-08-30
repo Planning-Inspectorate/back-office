@@ -1,6 +1,8 @@
 {% extends "../applications-create-layout.njk" %}
 
+
 {% from "govuk/components/input/macro.njk" import govukInput %}
+{% from "govuk/components/table/macro.njk" import govukTable %}
 
 {% block beforeContent %}
 	{{ govukBreadcrumbs({
@@ -21,18 +23,113 @@
 
 
 {% block stepForm %}
-	<h2>Case information</h2>
 
-	<div class="govuk-grid-row">
-	<div class="govuk-grid-column-one-third">
-		<p>Case name</p>
-	</div>
-	<div class="govuk-grid-column-one-third">
-		<p>{{ values['case.title'] }}</p>
-	</div>
-	<div class="govuk-grid-column-one-third">
-		<a class="govuk-link " href="?">Change</a>
-	</div>
+	<h2 class="govuk-heading-m govuk-!-margin-bottom-3">Case information</h2>
+
+	{% set rows = [] %}
+		{% set row = [] %}
+		{% set row = row | concat({ text: 'Case name' }) %}
+		{% set row = row | concat({ text: values['case.title'] }) %}
+			{% set row = row | concat({
+					html: '<a class="govuk-link" href="?' + '">' + 'Change' + '</a>'
+				})
+			%}
+		{% set rows = rows | concat([row]) %}
+
+		{% set row = [] %}
+		{% set row = row | concat({ text: 'Case description' }) %}
+		{% set row = row | concat({ text: values['case.description'] }) %}
+			{% set row = row | concat({
+					html: '<a class="govuk-link" href="?' + '">' + 'Change' + '</a>'
+				})
+			%}
+		{% set rows = rows | concat([row]) %}
+
+		{% set row = [] %}
+		{% set row = row | concat({ text: 'Sector' }) %}
+		{% set row = row | concat({ text: values['case.sector'] }) %}
+			{% set row = row | concat({
+					html: '<a class="govuk-link" href="?' + '">' + 'Change' + '</a>'
+				})
+			%}
+		{% set rows = rows | concat([row]) %}
+
+		{% set row = [] %}
+		{% set row = row | concat({ text: 'Subsector' }) %}
+		{% set row = row | concat({ text: values['case.subSector'] }) %}
+			{% set row = row | concat({
+					html: '<a class="govuk-link" href="?' + '">' + 'Change' + '</a>'
+				})
+			%}
+		{% set rows = rows | concat([row]) %}
+
+		{% set row = [] %}
+		{% set row = row | concat({ text: 'Location' }) %}
+		{% set row = row | concat({ text: values['case.location'] }) %}
+			{% set row = row | concat({
+					html: '<a class="govuk-link" href="?' + '">' + 'Change' + '</a>'
+				})
+			%}
+		{% set rows = rows | concat([row]) %}
+
+		{% set row = [] %}
+		{% set row = row | concat({ text: 'Easting' }) %}
+		{% set row = row | concat({ text: values['case.easting'] }) %}
+			{% set row = row | concat({
+					html: '<a class="govuk-link" href="?' + '">' + 'Change' + '</a>'
+				})
+			%}
+		{% set rows = rows | concat([row]) %}
+
+		{% set row = [] %}
+		{% set row = row | concat({ text: 'Northing' }) %}
+		{% set row = row | concat({ text: values['case.northing'] }) %}
+			{% set row = row | concat({
+					html: '<a class="govuk-link" href="?' + '">' + 'Change' + '</a>'
+				})
+			%}
+		{% set rows = rows | concat([row]) %}
+
+		{% set row = [] %}
+		{% set row = row | concat({ text: 'Regions' }) %}
+		{% set row = row | concat({ text: values['case.regions'] }) %}
+			{% set row = row | concat({
+					html: '<a class="govuk-link" href="?' + '">' + 'Change' + '</a>'
+				})
+			%}
+		{% set rows = rows | concat([row]) %}
+
+		{% set row = [] %}
+		{% set row = row | concat({ text: 'Map Zoom Level' }) %}
+		{% set row = row | concat({ text: values['case.mapZoomLevel'] }) %}
+			{% set row = row | concat({
+					html: '<a class="govuk-link" href="?' + '">' + 'Change' + '</a>'
+				})
+			%}
+		{% set rows = rows | concat([row]) %}
+
+		{% set row = [] %}
+		{% set row = row | concat({ text: 'Case Email' }) %}
+		{% set row = row | concat({ text: values['case.caseEmail'] }) %}
+			{% set row = row | concat({
+					html: '<a class="govuk-link" href="?' + '">' + 'Change' + '</a>'
+				})
+			%}
+		{% set rows = rows | concat([row]) %}
+
+		{{
+		govukTable({
+			caption: params.caption,
+			captionClasses: "govuk-table__caption--l",
+			head: [
+				{ text: "", classes: 'pins-table__cell--m' },
+				{ text: "", classes: 'pins-table__cell--m' },
+				{ text: "", classes: 'pins-table__cell--m' }
+			],
+			rows: rows
+		})
+	}}
+
 {% endblock %}
 
 {% set backLink = 'applications-create'|url({applicationId:applicationId, step: backPath}) %}
