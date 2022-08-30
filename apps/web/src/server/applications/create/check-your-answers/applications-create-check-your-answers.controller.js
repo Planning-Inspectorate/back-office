@@ -36,6 +36,28 @@ export async function viewApplicationsCreateCheckYourAnswers(req, response) {
 	const { submissionDatePublished, submissionDateInternal } = keyDates || {};
 
 	const values = {
+		'case.title': 'case title',
+		'case.description': '',
+		'case.sector': '',
+		'case.subSector': '',
+		'case.location': '',
+		'case.easting': '',
+		'case.northing': '',
+		'case.regions': '',
+		'case.zoomLevel': '',
+		'case.teamEmail': '',
+
+		'applicant.organisationName': '',
+		'applicant.firstName': '',
+		'applicant.middleName': '',
+		'applicant.lastName': '',
+		'applicant.address.addressLine1': '',
+		'applicant.address.addressLine2': '',
+		'applicant.address.town': '',
+		'applicant.address.postcode': '',
+		'applicant.website': '',
+		'applicant.email': '',
+		'applicant.phoneNumber': '',
 		'keyDates.submissionDatePublished': submissionDatePublished,
 		'keyDates.submissionDateInternal': submissionDateInternal
 	};
