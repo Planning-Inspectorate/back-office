@@ -16,12 +16,23 @@
 {% endblock %}
 
 {% block stepTitle %}
-	Check you answers before creating a new case
+	Check your answers before creating a new case
 {% endblock %}
 
 
 {% block stepForm %}
+	<h2>Case information</h2>
 
+	<div class="govuk-grid-row">
+	<div class="govuk-grid-column-one-third">
+		<p>Case name</p>
+	</div>
+	<div class="govuk-grid-column-one-third">
+		<p>Heathrow Terminal 9</p>
+	</div>
+	<div class="govuk-grid-column-one-third">
+		<p>Change</p>
+	</div>
 {% endblock %}
 
 {% set backLink = 'applications-create'|url({applicationId:applicationId, step: backPath}) %}
