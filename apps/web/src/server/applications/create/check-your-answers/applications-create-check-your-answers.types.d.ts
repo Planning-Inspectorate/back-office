@@ -12,7 +12,7 @@ export type ApplicationsCreateCheckYourAnswersProps = {
 		'case.location'?: string;
 		'case.easting'?: string;
 		'case.northing'?: string;
-		'case.regions'?: string;
+		'case.regions'?: string[];
 		'case.zoomLevel'?: string;
 		'case.teamEmail'?: string;
 
