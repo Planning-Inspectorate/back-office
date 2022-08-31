@@ -23,96 +23,66 @@
 
 
 {% block stepForm %}
-
+	{% set baseUrl = '/applications-service/create-new-case/' + applicationId %}
 	{% set rows = [] %}
 		{% set row = [] %}
 		{% set row = row | concat({ text: 'Case name' }) %}
 		{% set row = row | concat({ text: values['case.title'] }) %}
-			{% set row = row | concat({
-					html: '<a class="govuk-link" href="?' + '">' + 'Change' + '</a>'
-				})
-			%}
+		{% set row = row | concat({ html: '<a class="govuk-link" href="' + baseUrl + '">' + 'Change' + '</a>' }) %}
 		{% set rows = rows | concat([row]) %}
 
 		{% set row = [] %}
 		{% set row = row | concat({ text: 'Case description', style: 'font-weight=bold' }) %}
 		{% set row = row | concat({ text: values['case.description'] }) %}
-			{% set row = row | concat({
-					html: '<a class="govuk-link" href="?' + '">' + 'Change' + '</a>'
-				})
-			%}
+		{% set row = row | concat({ html: '<a class="govuk-link" href="' + baseUrl + '">' + 'Change' + '</a>' }) %}
 		{% set rows = rows | concat([row]) %}
 
 		{% set row = [] %}
 		{% set row = row | concat({ text: 'Sector' }) %}
 		{% set row = row | concat({ text: values['case.sector'] }) %}
-			{% set row = row | concat({
-					html: '<a class="govuk-link" href="?' + '">' + 'Change' + '</a>'
-				})
-			%}
+		{% set row = row | concat({ html: '<a class="govuk-link" href="' + baseUrl + '/sector">' + 'Change' + '</a>' }) %}
 		{% set rows = rows | concat([row]) %}
 
 		{% set row = [] %}
 		{% set row = row | concat({ text: 'Subsector' }) %}
 		{% set row = row | concat({ text: values['case.subSector'] }) %}
-			{% set row = row | concat({
-					html: '<a class="govuk-link" href="?' + '">' + 'Change' + '</a>'
-				})
-			%}
+		{% set row = row | concat({ html: '<a class="govuk-link" href="' + baseUrl + '/sub-sector">' + 'Change' + '</a>' }) %}
 		{% set rows = rows | concat([row]) %}
 
 		{% set row = [] %}
 		{% set row = row | concat({ text: 'Case location' }) %}
 		{% set row = row | concat({ text: values['case.location'] }) %}
-			{% set row = row | concat({
-					html: '<a class="govuk-link" href="?' + '">' + 'Change' + '</a>'
-				})
-			%}
+		{% set row = row | concat({ html: '<a class="govuk-link" href="' + baseUrl + '/geographical-location">' + 'Change' + '</a>' }) %}
 		{% set rows = rows | concat([row]) %}
 
 		{% set row = [] %}
 		{% set row = row | concat({ text: 'Grid reference Easting' }) %}
 		{% set row = row | concat({ text: values['case.easting'] }) %}
-			{% set row = row | concat({
-					html: '<a class="govuk-link" href="?' + '">' + 'Change' + '</a>'
-				})
-			%}
+		{% set row = row | concat({ html: '<a class="govuk-link" href="' + baseUrl + '/geographical-location">' + 'Change' + '</a>' }) %}
 		{% set rows = rows | concat([row]) %}
 
 		{% set row = [] %}
 		{% set row = row | concat({ text: 'Grid reference Northing' }) %}
 		{% set row = row | concat({ text: values['case.northing'] }) %}
-			{% set row = row | concat({
-					html: '<a class="govuk-link" href="?' + '">' + 'Change' + '</a>'
-				})
-			%}
+		{% set row = row | concat({ html: '<a class="govuk-link" href="' + baseUrl + '/geographical-location">' + 'Change' + '</a>' }) %}
 		{% set rows = rows | concat([row]) %}
 
 		{% set row = [] %}
 		{% set row = row | concat({ text: 'Region' }) %}
 		{% set row = row | concat({ text: values['case.regions'] }) %}
-			{% set row = row | concat({
-					html: '<a class="govuk-link" href="?' + '">' + 'Change' + '</a>'
-				})
-			%}
+		{% set row = row | concat({ html: '<a class="govuk-link" href="' + baseUrl + '/regions">' + 'Change' + '</a>' }) %}
 		{% set rows = rows | concat([row]) %}
 
 		{% set row = [] %}
 		{% set row = row | concat({ text: 'Map zoom Level' }) %}
 		{% set row = row | concat({ text: values['case.mapZoomLevel'] }) %}
-			{% set row = row | concat({
-					html: '<a class="govuk-link" href="?' + '">' + 'Change' + '</a>'
-				})
-			%}
+		{% set row = row | concat({ html: '<a class="govuk-link" href="' + baseUrl + '/zoom-level">' + 'Change' + '</a>' }) %}
 		{% set rows = rows | concat([row]) %}
 
 		{% set row = [] %}
 		{% set row = row | concat({ text: 'Case email address' }) %}
 		{% set row = row | concat({ text: values['case.caseEmail'] }) %}
-			{% set row = row | concat({
-					html: '<a class="govuk-link" href="?' + '">' + 'Change' + '</a>'
-				})
-			%}
+		{% set row = row | concat({ html: '<a class="govuk-link" href="' + baseUrl + '/team-email">' + 'Change' + '</a>' }) %}
 		{% set rows = rows | concat([row]) %}
 
 		{{
@@ -132,75 +102,51 @@
 	{% set row = [] %}
 		{% set row = row | concat({ text: 'First name' }) %}
 		{% set row = row | concat({ text: values['applicant.firstName'] }) %}
-			{% set row = row | concat({
-					html: '<a class="govuk-link" href="?' + '">' + 'Change' + '</a>'
-				})
-			%}
+		{% set row = row | concat({ html: '<a class="govuk-link" href="' + baseUrl + '/applicant-full-name">' + 'Change' + '</a>' }) %}
 		{% set rows = rows | concat([row]) %}
 
 	{% set row = [] %}
 		{% set row = row | concat({ text: 'Middle name' }) %}
 		{% set row = row | concat({ text: values['applicant.middleName'] }) %}
-			{% set row = row | concat({
-					html: '<a class="govuk-link" href="?' + '">' + 'Change' + '</a>'
-				})
-			%}
+		{% set row = row | concat({ html: '<a class="govuk-link" href="' + baseUrl + '/applicant-full-name">' + 'Change' + '</a>' }) %}
 		{% set rows = rows | concat([row]) %}
 
 
 	{% set row = [] %}
 		{% set row = row | concat({ text: 'Last name' }) %}
 		{% set row = row | concat({ text: values['applicant.lastName'] }) %}
-			{% set row = row | concat({
-					html: '<a class="govuk-link" href="?' + '">' + 'Change' + '</a>'
-				})
-			%}
+		{% set row = row | concat({ html: '<a class="govuk-link" href="' + baseUrl + '/applicant-full-name">' + 'Change' + '</a>' }) %}
 		{% set rows = rows | concat([row]) %}
 
 
 	{% set row = [] %}
 		{% set row = row | concat({ text: 'Organisation name' }) %}
 		{% set row = row | concat({ text: values['applicant.organisationName'] }) %}
-			{% set row = row | concat({
-					html: '<a class="govuk-link" href="?' + '">' + 'Change' + '</a>'
-				})
-			%}
+		{% set row = row | concat({ html: '<a class="govuk-link" href="' + baseUrl + '/applicant-organisation-name">' + 'Change' + '</a>' }) %}
 		{% set rows = rows | concat([row]) %}
 
 	{% set row = [] %}
 		{% set row = row | concat({ text: 'Address' }) %}
 		{% set row = row | concat({ text: values['applicant.address'] }) %}
-			{% set row = row | concat({
-					html: '<a class="govuk-link" href="?' + '">' + 'Change' + '</a>'
-				})
-			%}
+		{% set row = row | concat({ html: '<a class="govuk-link" href="' + baseUrl + '/applicant-address">' + 'Change' + '</a>' }) %}
 		{% set rows = rows | concat([row]) %}
 
 	{% set row = [] %}
 		{% set row = row | concat({ text: 'Website' }) %}
 		{% set row = row | concat({ text: values['applicant.website'] }) %}
-			{% set row = row | concat({
-					html: '<a class="govuk-link" href="?' + '">' + 'Change' + '</a>'
-				})
-			%}
+		{% set row = row | concat({ html: '<a class="govuk-link" href="' + baseUrl + '/applicant-website">' + 'Change' + '</a>' }) %}
 		{% set rows = rows | concat([row]) %}
 
 	{% set row = [] %}
 		{% set row = row | concat({ text: 'Email address' }) %}
 		{% set row = row | concat({ text: values['applicant.email'] }) %}
-			{% set row = row | concat({
-					html: '<a class="govuk-link" href="?' + '">' + 'Change' + '</a>'
-				})
-			%}
+		{% set row = row | concat({ html: '<a class="govuk-link" href="' + baseUrl + '/applicant-email">' + 'Change' + '</a>' }) %}
 		{% set rows = rows | concat([row]) %}
 
 	{% set row = [] %}
 		{% set row = row | concat({ text: 'Telephone number' }) %}
 		{% set row = row | concat({ text: values['applicant.phoneNumber'] }) %}
-			{% set row = row | concat({
-					html: '<a class="govuk-link" href="?' + '">' + 'Change' + '</a>'
-				})
-			%}
+		{% set row = row | concat({ html: '<a class="govuk-link" href="' + baseUrl + '/applicant-telephone-number">' + 'Change' + '</a>' }) %}
 		{% set rows = rows | concat([row]) %}
 
 			{{
@@ -220,19 +166,13 @@
 	{% set row = [] %}
 		{% set row = row | concat({ text: 'Anticipated submission date published' }) %}
 		{% set row = row | concat({ text: values['keyDates.subissionDatePublished'] }) %}
-			{% set row = row | concat({
-					html: '<a class="govuk-link" href="?' + '">' + 'Change' + '</a>'
-				})
-			%}
+		{% set row = row | concat({ html: '<a class="govuk-link" href="' + baseUrl + '/key-dates">' + 'Change' + '</a>' }) %}
 		{% set rows = rows | concat([row]) %}
 
 		{% set row = [] %}
 		{% set row = row | concat({ text: 'Anticipated submission date internal' }) %}
 		{% set row = row | concat({ text: values['keyDates.submissionDateInternal'] }) %}
-			{% set row = row | concat({
-					html: '<a class="govuk-link" href="?' + '">' + 'Change' + '</a>'
-				})
-			%}
+		{% set row = row | concat({ html: '<a class="govuk-link" href="' + baseUrl + '/key-dates">' + 'Change' + '</a>' }) %}
 		{% set rows = rows | concat([row]) %}
 
 		{{
