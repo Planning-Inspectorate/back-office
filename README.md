@@ -192,6 +192,7 @@ All required configurations are part of dotenv files found in each application's
 root folder. If you want to change any of the variables used for the environment
 under which you're running, create an `.env.local` file in the root of the
 application to extend the configuration.
+The Web application requires an `.env.local` with configuration for the local dev environment.
 
 ## Tests
 
