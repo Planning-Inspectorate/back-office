@@ -1,6 +1,7 @@
 import pino from '../../../lib/logger.js';
 import { getApplicationDraft } from '../applications-create.service.js';
 import * as applicationsCreateCaseService from '../case/applications-create-case.service.js';
+import * as applicationsCreateCheckYourAnswersService from '../check-your-answers/applications-create-check-your-answers.service.js';
 
 /** @typedef {import('./applications-create-check-your-answers.types').ApplicationsCreateConfirmationProps} ApplicationsCreateConfirmationProps */
 /** @typedef {import('./applications-create-check-your-answers.types').ApplicationsCreateCheckYourAnswersProps} ApplicationsCreateCheckYourAnswersProps */
@@ -31,36 +32,9 @@ export async function viewApplicationsCreateConfirmation(req, response) {
  * {}, {}, {}, {}>}
  */
 export async function viewApplicationsCreateCheckYourAnswers(req, response) {
-	const { applicationId } = response.locals;
-	const { keyDates } = await applicationsCreateCaseService.getApplicationDraft(applicationId);
-	const { submissionDatePublished, submissionDateInternal } = keyDates || {};
-
-	const values = {
-		'case.title': 'case title',
-		'case.description': '',
-		'case.sector': '',
-		'case.subSector': '',
-		'case.location': '',
-		'case.easting': '',
-		'case.northing': '',
-		'case.regions': '',
-		'case.zoomLevel': '',
-		'case.teamEmail': '',
-
-		'applicant.organisationName': '',
-		'applicant.firstName': '',
-		'applicant.middleName': '',
-		'applicant.lastName': '',
-		'applicant.address.addressLine1': '',
-		'applicant.address.addressLine2': '',
-		'applicant.address.town': '',
-		'applicant.address.postcode': '',
-		'applicant.website': '',
-		'applicant.email': '',
-		'applicant.phoneNumber': '',
-		'keyDates.submissionDatePublished': submissionDatePublished,
-		'keyDates.submissionDateInternal': submissionDateInternal
-	};
+	// const { applicationId } = response.locals;
+	// temp const { values } = applicationsCreateCheckYourAnswersService.getApplicationDraft(applicationId);
+	const { values } = applicationsCreateCheckYourAnswersService.getApplicationDraft();
 
 	return response.render('applications/create/check-your-answers/_check-your-answers', { values });
 }
