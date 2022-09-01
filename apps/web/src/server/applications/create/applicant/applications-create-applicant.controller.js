@@ -1,6 +1,7 @@
 import { findAddressListByPostcode } from '@planning-inspectorate/address-lookup';
-import { getApplicationDraft, updateApplicationDraft } from '../applications-create.service.js';
+import { updateApplicationDraft } from '../applications-create.service.js';
 import * as applicationsCreateApplicantService from './applications-create-applicant.service.js';
+import { getNthApplicant } from './applications-create-applicant.service.js';
 import {
 	getSessionApplicantInfoTypes,
 	setSessionApplicantInfoTypes
@@ -69,8 +70,7 @@ export async function updateApplicationsCreateApplicantTypes({ path, session, bo
 export async function viewApplicationsCreateApplicantOrganisationName(req, response) {
 	const { applicationId } = response.locals;
 
-	const { applicants } = await getApplicationDraft(applicationId);
-	const applicant = applicants && applicants.length > 0 ? applicants[0] : null;
+	const applicant = await getNthApplicant(applicationId, 0);
 	const values = {
 		'applicant.organisationName': applicant?.organisationName
 	};
@@ -117,8 +117,7 @@ export async function updateApplicationsCreateApplicantOrganisationName(
 export async function viewApplicationsCreateApplicantFullName(req, response) {
 	const { applicationId } = response.locals;
 
-	const { applicants } = await getApplicationDraft(applicationId);
-	const applicant = applicants && applicants.length > 0 ? applicants[0] : null;
+	const applicant = await getNthApplicant(applicationId, 0);
 	const values = {
 		'applicant.firstName': applicant?.firstName,
 		'applicant.middleName': applicant?.middleName,
@@ -165,8 +164,7 @@ export async function updateApplicationsCreateApplicantFullName({ path, session,
 export async function viewApplicationsCreateApplicantEmail(req, response) {
 	const { applicationId } = response.locals;
 
-	const { applicants } = await getApplicationDraft(applicationId);
-	const applicant = applicants && applicants.length > 0 ? applicants[0] : null;
+	const applicant = await getNthApplicant(applicationId, 0);
 	const values = {
 		'applicant.email': applicant?.email
 	};
@@ -215,9 +213,7 @@ export async function viewApplicationsCreateApplicantAddress({ query }, response
 	const { postcode: queryPostcode } = query;
 	const { applicationId } = response.locals;
 
-	const { applicants } = await getApplicationDraft(applicationId);
-	const applicant = applicants && applicants.length > 0 ? applicants[0] : null;
-
+	const applicant = await getNthApplicant(applicationId, 0);
 	const postcode = queryPostcode || applicant?.address?.postCode;
 	const formStage = queryPostcode ? 'manualAddress' : 'searchPostcode';
 
@@ -314,8 +310,7 @@ export async function updateApplicationsCreateApplicantAddress(
 export async function viewApplicationsCreateApplicantWebsite(req, response) {
 	const { applicationId } = response.locals;
 
-	const { applicants } = await getApplicationDraft(applicationId);
-	const applicant = applicants && applicants.length > 0 ? applicants[0] : null;
+	const applicant = await getNthApplicant(applicationId, 0);
 	const values = {
 		'applicant.website': applicant?.website
 	};
@@ -362,8 +357,7 @@ export async function updateApplicationsCreateApplicantWebsite(
 export async function viewApplicationsCreateApplicantTelephoneNumber(req, response) {
 	const { applicationId } = response.locals;
 
-	const { applicants } = await getApplicationDraft(applicationId);
-	const applicant = applicants && applicants.length > 0 ? applicants[0] : null;
+	const applicant = await getNthApplicant(applicationId, 0);
 	const values = {
 		'applicant.phoneNumber': applicant?.phoneNumber
 	};

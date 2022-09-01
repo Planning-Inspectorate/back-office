@@ -1,4 +1,5 @@
 import { get, patch, post } from '../../lib/request.js';
+import { destroySessionApplicantInfoTypes } from './applicant/applications-create-applicant-session.service.js';
 import {
 	destroySessionCaseSectorName,
 	setSessionCaseHasNeverBeenResumed
@@ -55,6 +56,7 @@ export const createApplicationDraft = async (payload, session) => {
 			json: payloadWithEmptyApplicant
 		});
 		setSessionCaseHasNeverBeenResumed(session);
+		destroySessionApplicantInfoTypes(session);
 		destroySessionCaseSectorName(session);
 	} catch (/** @type {*} */ error) {
 		response = new Promise((resolve) => {
@@ -68,9 +70,9 @@ export const createApplicationDraft = async (payload, session) => {
 /**
  * Get draft application by id
  *
- * @param {string} id
+ * @param {number} id
  * @returns {Promise<Application>}
  */
-export const getApplicationDraft = async (id = '') => {
+export const getApplicationDraft = async (id) => {
 	return get(`applications/${id}`);
 };
