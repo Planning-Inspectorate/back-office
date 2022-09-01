@@ -1,3 +1,4 @@
+import { getSessionCaseHasNeverBeenResumed } from '../case/applications-create-case-session.service.js';
 import { getSessionApplicantInfoTypes } from './applications-create-applicant-session.service.js';
 
 /** @typedef {import('../../applications.types.js').OptionsItem} OptionsItem */
@@ -43,15 +44,15 @@ export const getAllApplicantInfoTypes = () => {
  * @returns {string}
  */
 export function getAllowedDestinationPath({ session, path, goToNextPage }) {
-	// TODO: this will be false if the API returns already existing data for the applicant
-	const noInformationTypesFromAPI = true;
-	const canShowInfoTypesPage = session !== null && noInformationTypesFromAPI;
+	const canShowInfoTypesPage = getSessionCaseHasNeverBeenResumed(session);
 	const allApplicantPaths = [
 		canShowInfoTypesPage ? 'applicant-information-types' : 'team-email',
 		...getAllApplicantInfoTypes().map((infoType) => infoType.name),
 		'key-dates'
 	];
-	const allowedApplicantPaths = getSessionApplicantInfoTypes(session);
+	const allowedApplicantPaths = canShowInfoTypesPage
+		? getSessionApplicantInfoTypes(session)
+		: allApplicantPaths;
 	const currentPathIndex = allApplicantPaths.indexOf(path.replace(/\//g, ''));
 
 	let destinationPath = '';

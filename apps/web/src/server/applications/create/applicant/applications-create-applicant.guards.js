@@ -1,4 +1,5 @@
 import pino from '../../../lib/logger.js';
+import { getSessionCaseHasNeverBeenResumed } from '../case/applications-create-case-session.service.js';
 import * as applicationsCreateApplicantService from './applications-create-applicant.service.js';
 import { getSessionApplicantInfoTypes } from './applications-create-applicant-session.service.js';
 
@@ -12,8 +13,9 @@ export const assertStepIsAllowed = ({ session, path }, res, next) => {
 	const { applicationId } = res.locals;
 	const applicantInfoTypes = getSessionApplicantInfoTypes(session);
 	const currentStepPath = path.replace(/\//g, '');
+	const hasNeverBeenResumed = getSessionCaseHasNeverBeenResumed(session);
 
-	if (!applicantInfoTypes.includes(currentStepPath)) {
+	if (hasNeverBeenResumed && !applicantInfoTypes.includes(currentStepPath)) {
 		const nextStepPath = applicationsCreateApplicantService.getAllowedDestinationPath({
 			session,
 			path,

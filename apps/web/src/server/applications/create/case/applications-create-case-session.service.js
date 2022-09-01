@@ -1,5 +1,6 @@
 /**
  * @typedef {import('express-session').Session & { caseSectorName?: string }} SessionWithCaseSectorName
+ * @typedef {import('express-session').Session & { caseHasNeverBeenResumed?: boolean }} SessionWithCaseHasNeverBeenResumed
  */
 
 /**
@@ -31,4 +32,34 @@ export const getSessionCaseSectorName = (session) => {
  */
 export const destroySessionCaseSectorName = (session) => {
 	delete session.caseSectorName;
+};
+
+/**
+ * Save in the session whether is the first time filling the form or it has been resumed.
+ *
+ * @param {SessionWithCaseHasNeverBeenResumed} session
+ * @returns {void}
+ */
+export const setSessionCaseHasNeverBeenResumed = (session) => {
+	session.caseHasNeverBeenResumed = true;
+};
+
+/**
+ * Retrieve the session info about the form being resumed or not.
+ *
+ * @param {SessionWithCaseHasNeverBeenResumed} session
+ * @returns {boolean|undefined}
+ */
+export const getSessionCaseHasNeverBeenResumed = (session) => {
+	return session.caseHasNeverBeenResumed;
+};
+
+/**
+ * Destroy session info when form gets resumed.
+ *
+ * @param {SessionWithCaseHasNeverBeenResumed} session
+ * @returns {void}
+ */
+export const destroySessionCaseHasNeverBeenResumed = (session) => {
+	delete session.caseHasNeverBeenResumed;
 };

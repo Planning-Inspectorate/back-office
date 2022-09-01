@@ -49,7 +49,17 @@ export const fixtureApplications = [
 		title: `Application with no sector`,
 		description: 'Application with no sector description',
 		status: 'draft',
-		applicants: [{ id: 2 }]
+		applicants: [
+			{
+				id: 2,
+				organisationName: 'Org name',
+				firstName: 'Lorem',
+				lastName: 'Ipsum',
+				website: 'website.web',
+				email: 'email@email.co',
+				phoneNumber: '001'
+			}
+		]
 	},
 	{
 		id: 5,

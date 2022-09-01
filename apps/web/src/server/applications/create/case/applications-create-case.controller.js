@@ -10,9 +10,10 @@ import {
 	getAllSectors,
 	getAllZoomLevels,
 	getSubSectorsBySectorName
-} from "./applications-create-case.service.js";
+} from './applications-create-case.service.js';
 import {
 	destroySessionCaseSectorName,
+	getSessionCaseHasNeverBeenResumed,
 	getSessionCaseSectorName,
 	setSessionCaseSectorName
 } from './applications-create-case-session.service.js';
@@ -56,7 +57,7 @@ export async function viewApplicationsCreateCaseName(req, response) {
  * {}, ApplicationsCreateCaseNameBody, {}, DomainParams>}
  */
 export async function updateApplicationsCreateCaseName(
-	{errors: validationErrors, session, body},
+	{ errors: validationErrors, session, body },
 	response
 ) {
 	const { applicationId } = response.locals;
@@ -208,7 +209,7 @@ export async function viewApplicationsCreateCaseGeographicalInformation(req, res
  * {}, ApplicationsCreateCaseGeographicalInformationBody, {}, DomainParams>}
  */
 export async function updateApplicationsCreateCaseGeographicalInformation(
-	{errors: validationErrors, body},
+	{ errors: validationErrors, body },
 	response
 ) {
 	const { applicationId } = response.locals;
@@ -366,7 +367,7 @@ export async function viewApplicationsCreateCaseTeamEmail(req, response) {
  * {}, ApplicationsCreateCaseTeamEmailBody, {}, DomainParams>}
  */
 export async function updateApplicationsCreateCaseTeamEmail(
-	{ body, errors: validationErrors },
+	{ session, body, errors: validationErrors },
 	response
 ) {
 	const { applicationId } = response.locals;
@@ -385,7 +386,9 @@ export async function updateApplicationsCreateCaseTeamEmail(
 		});
 	}
 
-	response.redirect(
-		`/applications-service/create-new-case/${applicationId}/applicant-information-types`
-	);
+	const nextPath = getSessionCaseHasNeverBeenResumed(session)
+		? 'applicant-information-types'
+		: 'applicant-organisation-name';
+
+	response.redirect(`/applications-service/create-new-case/${applicationId}/${nextPath}`);
 }

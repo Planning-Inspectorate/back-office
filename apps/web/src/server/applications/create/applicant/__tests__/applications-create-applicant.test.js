@@ -50,13 +50,7 @@ describe('applications create applicant', () => {
 			nocks();
 		});
 
-		it('should render the page if there is data in the session', async () => {
-			await request
-				.post('/applications-service/create-new-case/123/applicant-information-types')
-				.send({
-					selectedApplicantInfoTypes: ['applicant-organisation-name']
-				});
-
+		it('should render the page when resumed or when there is session data', async () => {
 			const response = await request.get(baseUrl);
 			const element = parseHtml(response.text);
 
@@ -65,6 +59,11 @@ describe('applications create applicant', () => {
 		});
 
 		it('should not render the page if there is no session data', async () => {
+			await request.post('/applications-service/create-new-case').send({
+				title: 'title',
+				description: 'description'
+			});
+
 			const response = await request.get(baseUrl);
 
 			expect(response?.headers?.location).toMatch(
@@ -80,13 +79,7 @@ describe('applications create applicant', () => {
 			nocks();
 		});
 
-		it('should render the page if there is data in the session', async () => {
-			await request
-				.post('/applications-service/create-new-case/123/applicant-information-types')
-				.send({
-					selectedApplicantInfoTypes: ['applicant-full-name']
-				});
-
+		it('should render the page when resumed or if there is data in the session', async () => {
 			const response = await request.get(baseUrl);
 			const element = parseHtml(response.text);
 
@@ -95,6 +88,11 @@ describe('applications create applicant', () => {
 		});
 
 		it('should not render the page if there is no session data', async () => {
+			await request.post('/applications-service/create-new-case').send({
+				title: 'title',
+				description: 'description'
+			});
+
 			const response = await request.get(baseUrl);
 
 			expect(response?.headers?.location).toMatch(
@@ -111,13 +109,7 @@ describe('applications create applicant', () => {
 		});
 
 		describe('GET /applicant-website', () => {
-			it('should render the page if there is data in the session', async () => {
-				await request
-					.post('/applications-service/create-new-case/123/applicant-information-types')
-					.send({
-						selectedApplicantInfoTypes: ['applicant-website']
-					});
-
+			it('should render the page when resumed or if there is data in the session', async () => {
 				const response = await request.get(baseUrl);
 				const element = parseHtml(response.text);
 
@@ -126,6 +118,11 @@ describe('applications create applicant', () => {
 			});
 
 			it('should not render the page if there is no session data', async () => {
+				await request.post('/applications-service/create-new-case').send({
+					title: 'title',
+					description: 'description'
+				});
+
 				const response = await request.get(baseUrl);
 
 				expect(response?.headers?.location).toMatch(
@@ -162,13 +159,7 @@ describe('applications create applicant', () => {
 		});
 
 		describe('GET /applicant-email', () => {
-			it('should render the page if there is data in the session', async () => {
-				await request
-					.post('/applications-service/create-new-case/123/applicant-information-types')
-					.send({
-						selectedApplicantInfoTypes: ['applicant-email']
-					});
-
+			it('should render the page when resumed or if there is data in the session', async () => {
 				const response = await request.get(baseUrl);
 				const element = parseHtml(response.text);
 
@@ -177,6 +168,11 @@ describe('applications create applicant', () => {
 			});
 
 			it('should not render the page if there is no session data', async () => {
+				await request.post('/applications-service/create-new-case').send({
+					title: 'title',
+					description: 'description'
+				});
+
 				const response = await request.get(baseUrl);
 
 				expect(response?.headers?.location).toMatch(
@@ -213,13 +209,7 @@ describe('applications create applicant', () => {
 		});
 
 		describe('GET /applicant-telephone-number', () => {
-			it('should render the page if there is data in the session', async () => {
-				await request
-					.post('/applications-service/create-new-case/123/applicant-information-types')
-					.send({
-						selectedApplicantInfoTypes: ['applicant-telephone-number']
-					});
-
+			it('should render the page when resumed or if there is data in the session', async () => {
 				const response = await request.get(baseUrl);
 				const element = parseHtml(response.text);
 
@@ -228,6 +218,11 @@ describe('applications create applicant', () => {
 			});
 
 			it('should not render the page if there is no session data', async () => {
+				await request.post('/applications-service/create-new-case').send({
+					title: 'title',
+					description: 'description'
+				});
+
 				const response = await request.get(baseUrl);
 
 				expect(response?.headers?.location).toMatch(
@@ -264,13 +259,7 @@ describe('applications create applicant', () => {
 		});
 
 		describe('GET /applicant-address', () => {
-			it('should render the page if there is data in the session', async () => {
-				await request
-					.post('/applications-service/create-new-case/123/applicant-information-types')
-					.send({
-						selectedApplicantInfoTypes: ['applicant-address']
-					});
-
+			it('should render the page when resumed or if there is data in the session', async () => {
 				const response = await request.get(baseUrl);
 				const element = parseHtml(response.text);
 
@@ -279,12 +268,6 @@ describe('applications create applicant', () => {
 			});
 
 			it('should render the page with the manual inputs for address', async () => {
-				await request
-					.post('/applications-service/create-new-case/123/applicant-information-types')
-					.send({
-						selectedApplicantInfoTypes: ['applicant-address']
-					});
-
 				const response = await request.get(`${baseUrl}?postcode=aa1xx2`);
 				const element = parseHtml(response.text);
 
@@ -292,7 +275,12 @@ describe('applications create applicant', () => {
 				expect(element.innerHTML).toContain('Save and continue');
 			});
 
-			it('should show not render the page if there is no session data', async () => {
+			it('should not render the page if there is no session data', async () => {
+				await request.post('/applications-service/create-new-case').send({
+					title: 'title',
+					description: 'description'
+				});
+
 				const response = await request.get(baseUrl);
 
 				expect(response?.headers?.location).toMatch(

@@ -44,11 +44,18 @@ export interface Application {
 }
 export interface Applicant {
 	id: number;
+	organisationName: string;
+	firstName: string;
+	middleName?: string;
+	lastName: string;
+	email: string;
+	website: string;
+	phoneNumber: string;
 	address?: ApplicationsAddress;
 }
 // TODO: unify with appeals address
 export interface ApplicationsAddress {
-	postcode: string;
+	postCode: string;
 	addressLine1: string;
 	addressLine2?: string;
 	town: string;

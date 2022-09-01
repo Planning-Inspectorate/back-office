@@ -1,4 +1,5 @@
 import { getApplicationDraft, updateApplicationDraft } from '../applications-create.service.js';
+import { destroySessionCaseHasNeverBeenResumed } from '../case/applications-create-case-session.service.js';
 
 /** @typedef {import('./applications-create-key-dates.types').ApplicationsCreateKeyDatesProps} ApplicationsCreateKeyDatesProps */
 /** @typedef {import('./applications-create-key-dates.types').ApplicationsCreateKeyDatesBody} ApplicationsCreateKeyDatesBody */
@@ -29,7 +30,7 @@ export async function viewApplicationsCreateKeyDates(req, response) {
  * {}, ApplicationsCreateKeyDatesBody, {}, {}>}
  */
 export async function updateApplicationsCreateKeyDates(
-	{ body, errors: validationErrors },
+	{ session, body, errors: validationErrors },
 	response
 ) {
 	const { applicationId } = response.locals;
@@ -65,6 +66,8 @@ export async function updateApplicationsCreateKeyDates(
 			values
 		});
 	}
+
+	destroySessionCaseHasNeverBeenResumed(session);
 
 	return response.redirect(`/applications-service/create-new-case/${updatedDraftId}/summary`);
 }
