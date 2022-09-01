@@ -1,7 +1,9 @@
+import { getApplicationDraft } from '../applications-create.service.js';
 import { getSessionCaseHasNeverBeenResumed } from '../case/applications-create-case-session.service.js';
 import { getSessionApplicantInfoTypes } from './applications-create-applicant-session.service.js';
 
 /** @typedef {import('../../applications.types.js').OptionsItem} OptionsItem */
+/** @typedef {import('../../applications.types.js').Applicant} Applicant */
 /** @typedef {import('./applications-create-applicant-session.service.js').SessionWithApplicationsCreateApplicantInfoTypes} SessionWithApplicationsCreateApplicantInfoTypes */
 
 /**
@@ -67,4 +69,17 @@ export function getAllowedDestinationPath({ session, path, goToNextPage }) {
 	}
 
 	return destinationPath || '';
+}
+
+/**
+ * Returns the nth applicant of a draft application
+ *
+ * @param {number} applicationId
+ * @param {number} applicantNumber
+ * @returns {Promise<Applicant|null>}
+ */
+export async function getNthApplicant(applicationId, applicantNumber) {
+	const { applicants } = await getApplicationDraft(applicationId);
+
+	return applicants && applicants.length > 0 ? applicants[applicantNumber] : null;
 }
