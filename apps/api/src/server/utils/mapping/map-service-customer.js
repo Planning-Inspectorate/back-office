@@ -9,6 +9,7 @@ import formatAddressLowerCase from '../address-formatter-lowercase.js';
 export const mapServiceCustomer = (serviceCustomer) => {
 	const applicantInfo = pick(serviceCustomer, [
 		'id',
+		'organisationName',
 		'firstName',
 		'middleName',
 		'lastName',
