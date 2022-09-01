@@ -1,5 +1,5 @@
 import { findAddressListByPostcode } from '@planning-inspectorate/address-lookup';
-import { updateApplicationDraft } from '../applications-create.service.js';
+import { getApplicationDraft, updateApplicationDraft } from '../applications-create.service.js';
 import * as applicationsCreateApplicantService from './applications-create-applicant.service.js';
 import {
 	getSessionApplicantInfoTypes,
@@ -23,7 +23,6 @@ import {
 /** @typedef {import('./applications-create-applicant.types').ApplicationsCreateApplicantTelephoneNumberBody} ApplicationsCreateApplicantTelephoneNumberBody */
 /** @typedef {import('./applications-create-applicant.types').ApplicationsCreateApplicantAddressProps} ApplicationsCreateApplicantAddressProps */
 /** @typedef {import('./applications-create-applicant.types').ApplicationsCreateApplicantAddressBody} ApplicationsCreateApplicantAddressBody */
-
 /** @typedef {import('./applications-create-applicant.types').ApplicationCreateApplicantAddressStage} ApplicationCreateApplicantAddressStage */
 
 /**
@@ -68,7 +67,15 @@ export async function updateApplicationsCreateApplicantTypes({ path, session, bo
  * @type {import('@pins/express').RenderHandler<ApplicationsCreateApplicantOrganisationNameProps, {}, {}, {}, {}>}
  */
 export async function viewApplicationsCreateApplicantOrganisationName(req, response) {
-	response.render('applications/create/applicant/_organisation-name');
+	const { applicationId } = response.locals;
+
+	const { applicants } = await getApplicationDraft(applicationId);
+	const applicant = applicants && applicants.length > 0 ? applicants[0] : null;
+	const values = {
+		'applicant.organisationName': applicant?.organisationName
+	};
+
+	response.render('applications/create/applicant/_organisation-name', { values });
 }
 
 /**
@@ -108,7 +115,17 @@ export async function updateApplicationsCreateApplicantOrganisationName(
  * @type {import('@pins/express').RenderHandler<ApplicationsCreateApplicantFullNameProps, {}, {}, {}, {}>}
  */
 export async function viewApplicationsCreateApplicantFullName(req, response) {
-	response.render('applications/create/applicant/_full-name');
+	const { applicationId } = response.locals;
+
+	const { applicants } = await getApplicationDraft(applicationId);
+	const applicant = applicants && applicants.length > 0 ? applicants[0] : null;
+	const values = {
+		'applicant.firstName': applicant?.firstName,
+		'applicant.middleName': applicant?.middleName,
+		'applicant.lastName': applicant?.lastName
+	};
+
+	response.render('applications/create/applicant/_full-name', { values });
 }
 
 /**
@@ -146,7 +163,15 @@ export async function updateApplicationsCreateApplicantFullName({ path, session,
  *  @type {import('@pins/express').RenderHandler<ApplicationsCreateApplicantEmailProps, {}, {}, {}, {}>}
  */
 export async function viewApplicationsCreateApplicantEmail(req, response) {
-	response.render('applications/create/applicant/_email');
+	const { applicationId } = response.locals;
+
+	const { applicants } = await getApplicationDraft(applicationId);
+	const applicant = applicants && applicants.length > 0 ? applicants[0] : null;
+	const values = {
+		'applicant.email': applicant?.email
+	};
+
+	response.render('applications/create/applicant/_email', { values });
 }
 
 /**
@@ -187,8 +212,14 @@ export async function updateApplicationsCreateApplicantEmail(
   {}, {}, {postcode: string}, {}>}
  */
 export async function viewApplicationsCreateApplicantAddress({ query }, response) {
-	const { postcode } = query;
-	const formStage = postcode ? 'manualAddress' : 'searchPostcode';
+	const { postcode: queryPostcode } = query;
+	const { applicationId } = response.locals;
+
+	const { applicants } = await getApplicationDraft(applicationId);
+	const applicant = applicants && applicants.length > 0 ? applicants[0] : null;
+
+	const postcode = queryPostcode || applicant?.address?.postCode;
+	const formStage = queryPostcode ? 'manualAddress' : 'searchPostcode';
 
 	response.render('applications/create/applicant/_address', { formStage, postcode });
 }
@@ -281,7 +312,15 @@ export async function updateApplicationsCreateApplicantAddress(
  * @type {import('@pins/express').RenderHandler<ApplicationsCreateApplicantWebsiteProps, {}, {}, {}, {}>}
  */
 export async function viewApplicationsCreateApplicantWebsite(req, response) {
-	response.render('applications/create/applicant/_website');
+	const { applicationId } = response.locals;
+
+	const { applicants } = await getApplicationDraft(applicationId);
+	const applicant = applicants && applicants.length > 0 ? applicants[0] : null;
+	const values = {
+		'applicant.website': applicant?.website
+	};
+
+	response.render('applications/create/applicant/_website', { values });
 }
 
 /**
@@ -321,7 +360,15 @@ export async function updateApplicationsCreateApplicantWebsite(
  * @type {import('@pins/express').RenderHandler<ApplicationsCreateApplicantTelephoneNumberProps, {}, {}, {}, {}>}
  */
 export async function viewApplicationsCreateApplicantTelephoneNumber(req, response) {
-	response.render('applications/create/applicant/_telephone-number');
+	const { applicationId } = response.locals;
+
+	const { applicants } = await getApplicationDraft(applicationId);
+	const applicant = applicants && applicants.length > 0 ? applicants[0] : null;
+	const values = {
+		'applicant.phoneNumber': applicant?.phoneNumber
+	};
+
+	response.render('applications/create/applicant/_telephone-number', { values });
 }
 
 /**

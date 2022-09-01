@@ -652,7 +652,7 @@ describe('applications create', () => {
 					expect(element.innerHTML).toContain('caseEmail-error');
 				});
 
-				it('should go to applciant info types page if api returns 200', async () => {
+				it('should go to applicant organisation name page if api returns 200', async () => {
 					nock('http://test/').patch('/applications/1').reply(200, successResponse);
 
 					const response = await request.post(baseUrl('1')).send({
@@ -660,7 +660,7 @@ describe('applications create', () => {
 					});
 
 					expect(response?.headers?.location).toContain(
-						'/applications-service/create-new-case/1/applicant-information-types'
+						'/applications-service/create-new-case/1/applicant-organisation-name'
 					);
 				});
 			});

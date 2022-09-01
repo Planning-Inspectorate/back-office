@@ -1,5 +1,5 @@
 import { ValidationErrors } from '@pins/express';
-import { ApplicationsAddress, SelectItem } from '../../applications.types';
+import { SelectItem } from '../../applications.types';
 
 export type ApplicationsCreateApplicantTypesProps = {
 	applicantInfoTypes: SelectItem[];
@@ -41,7 +41,7 @@ export type ApplicationCreateApplicantAddressStage =
 export type ApplicationsCreateApplicantAddressProps = {
 	formStage: ApplicationCreateApplicantAddressStage;
 	errors?: Record<string, { msg: string }> | ValidationErrors;
-	postcode: string;
+	postcode?: string;
 	addressList?: ApplicationAddress[];
 };
 
