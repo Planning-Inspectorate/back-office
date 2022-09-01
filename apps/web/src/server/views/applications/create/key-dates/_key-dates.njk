@@ -52,7 +52,7 @@
 				{{ govukInput({
 					id: "submissionInternalDay",
 					name: "submissionInternalDay",
-					value: values['keyDates.submissionDate'] |datestamp({format: 'dd'}),
+					value: values['keyDates.submissionDateInternal'] |datestamp({format: 'dd'}),
 					errorMessage: (errors['keyDates.submissionDateInternal'] !== undefined and errors['keyDates.submissionDateInternal'] !== false),
 					hint: {
 						text: "Day"
@@ -61,7 +61,7 @@
 				{{ govukInput({
 					id: "submissionInternalMonth",
 					name: "submissionInternalMonth",
-					value: values['keyDates.submissionDate'] |datestamp({format: 'MM'}),
+					value: values['keyDates.submissionDateInternal'] |datestamp({format: 'MM'}),
 					errorMessage: (errors['keyDates.submissionDateInternal'] !== undefined and errors['keyDates.submissionDateInternal'] !== false),
 					hint: {
 						text: "Month"
@@ -70,7 +70,7 @@
 				{{ govukInput({
 					id: "submissionInternalYear",
 					name: "submissionInternalYear",
-					value: values['keyDates.submissionDate'] |datestamp({format: 'yyyy'}),
+					value: values['keyDates.submissionDateInternal'] |datestamp({format: 'yyyy'}),
 					errorMessage: (errors['keyDates.submissionDateInternal'] !== undefined and errors['keyDates.submissionDateInternal'] !== false),
 					hint: {
 						text: "Year"
