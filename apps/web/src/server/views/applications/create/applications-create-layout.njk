@@ -31,7 +31,11 @@
 		<div class="govuk-grid-row">
 			<div class="govuk-button-group pins-button-group govuk-grid-column-one-half">
 				<a class="govuk-link" href="{{ backLink }}">Back</a>
-				{% block stepButton %}{{ govukButton({ text: "Save and continue" }) }} {% endblock %}
+				{% block stepButton %}
+				{% if not stepButtonText %}
+					{% set stepButtonText = 'Save and continue' %}
+				{% endif %}
+				{{ govukButton({ text: stepButtonText }) }} {% endblock %}
 			</div>
 		</div>
 	</form>
