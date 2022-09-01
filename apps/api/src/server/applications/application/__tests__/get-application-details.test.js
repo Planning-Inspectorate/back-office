@@ -78,6 +78,7 @@ test('gets all data for a case when everything is available', async (t) => {
 		},
 		applicants: [
 			{
+				organisationName: 'Organisation',
 				firstName: 'Service Customer First Name',
 				middleName: 'Service Customer Middle Name',
 				lastName: 'Service Customer Last Name',
