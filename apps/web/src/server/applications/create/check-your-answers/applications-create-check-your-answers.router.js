@@ -9,6 +9,7 @@ applicationsCreateCheckYourAnswersRouter
 
 applicationsCreateCheckYourAnswersRouter
 	.route('/check-your-answers')
-	.get(controller.viewApplicationsCreateCheckYourAnswers);
+	.get(controller.viewApplicationsCreateCheckYourAnswers)
+	.post(controller.updateApplicationsCreateCase);
 
 export default applicationsCreateCheckYourAnswersRouter;
