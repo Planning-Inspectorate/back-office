@@ -1,5 +1,8 @@
 import { get, patch, post } from '../../lib/request.js';
-import { destroySessionCaseSectorName } from './case/applications-create-case-session.service.js';
+import {
+	destroySessionCaseSectorName,
+	setSessionCaseHasNeverBeenResumed
+} from './case/applications-create-case-session.service.js';
 
 /** @typedef {import('./case/applications-create-case-session.service.js').SessionWithCaseSectorName} SessionWithCaseSectorName */
 /** @typedef {import('../applications.types').Application} Application */
@@ -51,6 +54,7 @@ export const createApplicationDraft = async (payload, session) => {
 		response = await post('applications', {
 			json: payloadWithEmptyApplicant
 		});
+		setSessionCaseHasNeverBeenResumed(session);
 		destroySessionCaseSectorName(session);
 	} catch (/** @type {*} */ error) {
 		response = new Promise((resolve) => {
@@ -62,13 +66,11 @@ export const createApplicationDraft = async (payload, session) => {
 };
 
 /**
- * // TODO: this is just a mock.
+ * Get draft application by id
  *
  * @param {string} id
  * @returns {Promise<Application>}
  */
 export const getApplicationDraft = async (id = '') => {
-	const pp = await get(`applications/${id}`);
-
-	return pp;
+	return get(`applications/${id}`);
 };

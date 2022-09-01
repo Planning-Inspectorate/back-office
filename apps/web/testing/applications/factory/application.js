@@ -26,6 +26,16 @@ export function createApplication({
 		modifiedDate,
 		sector,
 		subSector,
-		applicants: [{ id: 2 }]
+		applicants: [
+			{
+				id: 2,
+				organisationName: 'Org name',
+				firstName: 'John',
+				lastName: 'Smith',
+				website: 'website.web',
+				email: 'email@email.co',
+				phoneNumber: '001'
+			}
+		]
 	};
 }
