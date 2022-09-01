@@ -23,4 +23,12 @@ export const getSessionApplicantInfoTypes = (session) => {
 	return session.infoTypes ?? [];
 };
 
-// TODO: destroy session.infotype when get to summary page
+/**
+ * Clear the list of applicant information types
+ *
+ * @param {SessionWithApplicationsCreateApplicantInfoTypes} session
+ * @returns {void}
+ */
+export const destroySessionApplicantInfoTypes = (session) => {
+	delete session.infoTypes;
+};
