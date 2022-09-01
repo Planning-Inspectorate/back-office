@@ -1,6 +1,6 @@
 import pino from '../../../lib/logger.js';
 import { getApplicationDraft } from '../applications-create.service.js';
-import * as applicationsCreateCaseService from '../case/applications-create-case.service.js';
+// import * as applicationsCreateCaseService from '../case/applications-create-case.service.js';
 import * as applicationsCreateCheckYourAnswersService from '../check-your-answers/applications-create-check-your-answers.service.js';
 
 /** @typedef {import('./applications-create-check-your-answers.types').ApplicationsCreateConfirmationProps} ApplicationsCreateConfirmationProps */
@@ -37,4 +37,41 @@ export async function viewApplicationsCreateCheckYourAnswers(req, response) {
 	const { values } = applicationsCreateCheckYourAnswersService.getApplicationDraft();
 
 	return response.render('applications/create/check-your-answers/_check-your-answers', { values });
+}
+
+/**
+ * Update the case from a draft application to a real case
+ *
+ * @type {import('@pins/express').RenderHandler<ApplicationsCreateCheckYourAnswersProps,
+ * {}, {}, {}, {}>}
+ */
+export async function updateApplicationsCreateCase({ errors }, response) {
+	// get the draft case record
+	const { applicationId } = response.locals;
+	// const caseData = applicationsCreateCaseService.getApplicationDraft(applicationId);
+
+	// try to save the case as a real case
+	/*	const updateState = () =>
+		applicationsCreateCaseService.updateApplicationDraft(applicationId, { state: 'open' });
+
+ 	await getUpdatedApplicationIdOrFail(
+		updateState,
+		{
+			templateName: '_check-your-answers',
+			templateData
+		},
+		response
+	); */
+
+	// re-display page if there are any errors
+	if (errors) {
+		return response.render('applications/create/check-your-answers/_check-your-answers', {
+			errors
+		});
+	}
+
+	// on success continue to the confirmation page
+	response.redirect(
+		`/applications-service/create-new-case/${applicationId}/case-creation-confirmation`
+	);
 }

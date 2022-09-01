@@ -4,7 +4,7 @@ export type ApplicationsCreateConfirmationProps = {
 }
 
 export type ApplicationsCreateCheckYourAnswersProps = {
-	values: {
+	values?: {
 		'case.title': string;
 		'case.description': string;
 		'case.sector'?: string;
@@ -29,11 +29,4 @@ export type ApplicationsCreateCheckYourAnswersProps = {
 		'keyDates.submissionDateInternal': string;
 	};
 	errors?: ValidationErrors;
-};
-
-export type ApplicationsCreateCheckYourAnswersBody = {
-	submissionDatePublished: string;
-	submissionInternalDay: string;
-	submissionInternalMonth: string;
-	submissionInternalYear: string;
 };
