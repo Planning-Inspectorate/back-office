@@ -166,7 +166,7 @@
 	{% set rows = [] %}
 	{% set row = [] %}
 		{% set row = row | concat({ text: 'Anticipated submission date published' }) %}
-		{% set row = row | concat({ text: values['keyDates.subissionDatePublished'] }) %}
+		{% set row = row | concat({ text: values['keyDates.submissionDatePublished'] }) %}
 		{% set row = row | concat({ html: '<a class="govuk-link" href="' + baseUrl + '/key-dates">' + 'Change' + '</a>' }) %}
 		{% set rows = rows | concat([row]) %}
 
