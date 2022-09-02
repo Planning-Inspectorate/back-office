@@ -3,6 +3,7 @@ import applicationsCreateApplicantRouter from './applicant/applications-create-a
 import * as guards from './applications-create.guards.js';
 import * as locals from './applications-create.locals.js';
 import applicationsCreateCaseRouter from './case/applications-create-case.router.js';
+import applicationsCreateCheckYourAnswersRouter from './check-your-answers/applications-create-check-your-answers.router.js';
 import applicationsCreateKeyDatesRouter from './key-dates/applications-create-key-dates.router.js';
 
 const applicationsCreateRouter = createRouter();
@@ -16,7 +17,8 @@ applicationsCreateResumedRouter.use(locals.registerApplicationId);
 applicationsCreateResumedRouter.use('/', [
 	applicationsCreateCaseRouter,
 	applicationsCreateApplicantRouter,
-	applicationsCreateKeyDatesRouter
+	applicationsCreateKeyDatesRouter,
+	applicationsCreateCheckYourAnswersRouter
 ]);
 
 export default applicationsCreateRouter;
