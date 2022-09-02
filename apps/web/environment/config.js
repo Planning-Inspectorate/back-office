@@ -50,7 +50,7 @@ export default {
 	buildDir: path.join(cwd, '.build'),
 	cwd,
 	isProduction: validatedConfig.env === 'production',
-	isDevelopment: validatedConfig.env === ('development' || 'local'),
+	isDevelopment: validatedConfig.env === 'development' || validatedConfig.env === 'local',
 	isTest: validatedConfig.env === 'test',
 	msal: {
 		clientId,
