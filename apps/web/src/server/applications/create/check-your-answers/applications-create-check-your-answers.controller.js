@@ -32,9 +32,11 @@ export async function viewApplicationsCreateConfirmation(req, response) {
  * {}, {}, {}, {}>}
  */
 export async function viewApplicationsCreateCheckYourAnswers(req, response) {
-	// const { applicationId } = response.locals;
-	// temp const { values } = applicationsCreateCheckYourAnswersService.getApplicationDraft(applicationId);
-	const { values } = applicationsCreateCheckYourAnswersService.getApplicationDraft();
+	const { applicationId } = response.locals;
+	const caseData = await getApplicationDraft(applicationId);
+
+	// console.log('CASEDATA:', caseData);
+	const { values } = applicationsCreateCheckYourAnswersService.mapCaseData(caseData);
 
 	return response.render('applications/create/check-your-answers/_check-your-answers', { values });
 }

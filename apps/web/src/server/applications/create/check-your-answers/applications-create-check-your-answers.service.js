@@ -1,43 +1,65 @@
 /** @typedef {import('./applications-create-check-your-answers.types').ApplicationsCreateCheckYourAnswersProps} ApplicationsCreateCheckYourAnswersProps */
+/** @typedef {import('../../applications.types').ApplicationsAddress} ApplicationsAddress */
 
 /**
- * // TODO: - temp version - need to read real case data from DB
+ * converts the draft aplication case data to values array for display
  *
- * tmp not used yet param {string} id
- *
+ * @param {*} caseData
  * @returns {ApplicationsCreateCheckYourAnswersProps}
  */
-// export const getApplicationDraft = (id) => {
-export const getApplicationDraft = () => {
+export const mapCaseData = (caseData) => {
 	// read the draft case from DB
 	// and set up the values array for rendering
-	const caseData = {
+	const displayData = {
 		values: {
-			'case.title': 'Heathrow Terminal 9',
-			'case.description':
-				'A new terminal for Heathrow airport on the south side next to terminal 8',
-			'case.sector': 'Transport',
-			'case.subSector': 'Airports',
-			'case.location': 'Approximately 8km off the coast of Kent',
-			'case.easting': '123456',
-			'case.northing': '654321',
-			'case.regions': ['South East', 'North West'],
-			'case.zoomLevel': 'Region',
-			'case.teamEmail': 'NIEnquiries@planninginspectorate.gov.uk',
+			'case.title': caseData.title,
+			'case.description': caseData.description,
+			'case.sector': caseData?.sector?.displayNameEn,
+			'case.subSector': caseData?.subSector?.displayNameEn,
+			'case.location': caseData?.geographicalInformation?.locationDescription,
+			'case.easting': caseData?.geographicalInformation?.gridReference?.easting,
+			'case.northing': caseData?.geographicalInformation?.gridReference?.northing,
+			'case.regions': caseData?.geographicalInformation?.gridReference?.regions,
+			'case.zoomLevel': caseData?.geographicalInformation?.mapZoomLevel,
+			'case.teamEmail': caseData?.caseEmail,
 
-			'applicant.organisationName': 'Heathrow Airport',
-			'applicant.firstName': 'John',
-			'applicant.middleName': '',
-			'applicant.lastName': 'Appleseed',
-			'applicant.address': 'Nelson Road, Hounslow, TW6 2GW',
-			'applicant.website': 'heathrow.com/company/about-heathrow/expansion',
-			'applicant.email': 'contact.heathrowairport@fly.com',
-			'applicant.phoneNumber': '0300 123 3000',
+			'applicant.organisationName': caseData?.applicants[0].organisationName,
+			'applicant.firstName': caseData?.applicants[0].firstName,
+			'applicant.middleName': caseData?.applicants[0].middleName,
+			'applicant.lastName': caseData?.applicants[0].lastName,
+			'applicant.address': caseData?.applicants[0].address
+				? addressToString(caseData?.applicants[0].address)
+				: '',
+			'applicant.website': caseData?.applicants[0].website,
+			'applicant.email': caseData?.applicants[0].email,
+			'applicant.phoneNumber': caseData?.applicants[0].phoneNumber,
 
-			'keyDates.submissionDatePublished': 'Q4 2024',
-			'keyDates.submissionDateInternal': '20 April 2024'
+			'keyDates.submissionDatePublished': caseData?.keyDates?.submissionDatePublished,
+			'keyDates.submissionDateInternal': caseData?.keyDates?.submissionDateInternal
 		}
 	};
 
-	return caseData;
+	return displayData;
 };
+
+/**
+ * converts a multi part address to a single string
+ *
+ * @param {ApplicationsAddress} address
+ * @returns {string}
+ */
+function addressToString(address) {
+	let returnValue = '';
+
+	const addressParts = [];
+
+	if (address) {
+		if (address.addressLine1) addressParts.push(address.addressLine1.trim());
+		if (address.addressLine2) addressParts.push(address.addressLine2.trim());
+		if (address.town) addressParts.push(address.town.trim());
+		if (address.postCode) addressParts.push(address.postCode.trim());
+
+		returnValue = addressParts.join(', ');
+	}
+	return returnValue;
+}
