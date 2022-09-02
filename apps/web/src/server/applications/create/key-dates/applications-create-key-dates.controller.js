@@ -66,5 +66,7 @@ export async function updateApplicationsCreateKeyDates(
 		});
 	}
 
-	return response.redirect(`/applications-service/create-new-case/${updatedDraftId}/summary`);
+	return response.redirect(
+		`/applications-service/create-new-case/${updatedDraftId}/check-your-answers`
+	);
 }
