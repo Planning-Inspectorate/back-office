@@ -1,3 +1,4 @@
+/** @typedef {import('../../applications.types').regions} Region */
 import { ValidationErrors } from '@pins/express';
 export type ApplicationsCreateConfirmationProps = {
 	values: { reference: string };
@@ -26,7 +27,7 @@ export type ApplicationsCreateCheckYourAnswersProps = {
 		'applicant.phoneNumber'?: string;
 
 		'keyDates.submissionDatePublished': string;
-		'keyDates.submissionDateInternal': Date;
+		'keyDates.submissionDateInternal': string;
 	};
 	errors?: ValidationErrors;
 };
