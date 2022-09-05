@@ -37,7 +37,9 @@ export const mapCaseData = (caseData) => {
 			'applicant.phoneNumber': caseData?.applicants[0].phoneNumber,
 
 			'keyDates.submissionDatePublished': caseData?.keyDates?.submissionDatePublished,
-			'keyDates.submissionDateInternal': caseData?.keyDates?.submissionDateInternal
+			'keyDates.submissionDateInternal': new Date(
+				caseData?.keyDates?.submissionDateInternal * 1000
+			).toLocaleDateString('en-GB')
 		}
 	};
 
