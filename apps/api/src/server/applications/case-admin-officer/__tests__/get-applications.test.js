@@ -25,6 +25,26 @@ const findManyStub = sinon.stub();
 
 findManyStub
 	.withArgs({
+		where: {
+			CaseStatus: {
+				some: {
+					status: {
+						in: [
+							'draft',
+							'pre_application',
+							'acceptance',
+							'pre_examination',
+							'examination',
+							'recommendation',
+							'decision',
+							'post_decision',
+							'withdrawn'
+						]
+					},
+					valid: true
+				}
+			}
+		},
 		include: {
 			ApplicationDetails: {
 				include: {

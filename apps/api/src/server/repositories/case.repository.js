@@ -34,39 +34,17 @@ const DEFAULT_CASE_CREATE_STATUS = 'draft';
  */
 
 /**
+ * @param {string[]} statusArray
  * @returns {Promise<import('@pins/api').Schema.Case[]>}
  */
-export const getAll = () => {
-	return databaseConnector.case.findMany({
-		include: {
-			ApplicationDetails: {
-				include: {
-					subSector: {
-						include: {
-							sector: true
-						}
-					}
-				}
-			},
-			CaseStatus: {
-				where: {
-					valid: true
-				}
-			}
-		}
-	});
-};
-
-/**
- * @param {string} status
- * @returns {Promise<import('@pins/api').Schema.Case[]>}
- */
-export const getByStatus = (status) => {
+export const getByStatus = (statusArray) => {
 	return databaseConnector.case.findMany({
 		where: {
 			CaseStatus: {
 				some: {
-					status,
+					status: {
+						in: statusArray
+					},
 					valid: true
 				}
 			}
