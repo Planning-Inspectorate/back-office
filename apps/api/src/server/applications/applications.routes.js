@@ -130,25 +130,4 @@ router.get(
 	asyncHandler(getApplicationDetails)
 );
 
-router.post(
-	'/:id/start',
-	/*
-        #swagger.tags = ['Applications']
-        #swagger.path = '/applications/{id}/start'
-        #swagger.description = 'Moves application from Draft state to Pre-Application state'
-        #swagger.parameters['id'] = {
-            in: 'path',
-            description: 'Application ID',
-            required: true,
-            type: 'integer'
-        }
-        #swagger.responses[200] = {
-            description: 'Application Details',
-            schema: { id: 1, reference: 'AB0110203', status: 'Pre-Application'}
-        }
-    */
-	validateApplicationId,
-	asyncHandler(startCase)
-);
-
 export { router as applicationsRoutes };
