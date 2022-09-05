@@ -1,6 +1,8 @@
 import { sortBy } from 'lodash-es';
+import { keys, without } from 'lodash-es';
 import * as caseRepository from '../../repositories/case.repository.js';
 import { mapApplicationWithSectorAndSubSector } from '../../utils/mapping/map-application-with-sector-and-subsector.js';
+import { applicationStates } from '../state-machine/application.machine.js';
 
 /**
  * @typedef {{name: string, displayNameEn: string, displayNameCy: string, abbreviation: string}} SectorResponse
@@ -26,10 +28,18 @@ const sortApplications = (applications) => {
 };
 
 /**
+ *
+ * @returns {string[]}
+ */
+const getListOfStatusesWithoutDraft = () => {
+	return without(keys(applicationStates), 'draft');
+};
+
+/**
  * @type {import('express').RequestHandler}
  */
 export const getApplications = async (request, response) => {
-	const applications = await caseRepository.getAll();
+	const applications = await caseRepository.getByStatus(getListOfStatusesWithoutDraft());
 
 	const sortedApplications = sortApplications(applications);
 
