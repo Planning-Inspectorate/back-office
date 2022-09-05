@@ -7,7 +7,14 @@ const applicationStatesForMachine = {
 			START: 'pre_application'
 		}
 	},
-	pre_application: {}
+	pre_application: {},
+	acceptance: {},
+	pre_examination: {},
+	examination: {},
+	recommendation: {},
+	decision: {},
+	post_decision: {},
+	withdrawn: {}
 };
 
 /**
