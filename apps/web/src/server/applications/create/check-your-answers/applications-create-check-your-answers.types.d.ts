@@ -27,7 +27,7 @@ export type ApplicationsCreateCheckYourAnswersProps = {
 		'applicant.phoneNumber'?: string;
 
 		'keyDates.submissionDatePublished': string;
-		'keyDates.submissionDateInternal': Date;
+		'keyDates.submissionDateInternal': string;
 	};
 	errors?: ValidationErrors;
 };
