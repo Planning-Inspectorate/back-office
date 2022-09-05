@@ -76,3 +76,23 @@ export const createApplicationDraft = async (payload, session) => {
 export const getApplicationDraft = async (id) => {
 	return get(`applications/${id}`);
 };
+
+/**
+ * Move draft application to pre-application
+ *
+ * @param {number} id
+ * @returns {Promise<{id?: number, applicantIds?: Array<number>, errors?: ValidationErrors}>}
+ */
+export const moveStateToPreApplication = async (id) => {
+	let response;
+
+	try {
+		response = await post(`applications/${id}/start`);
+	} catch (/** @type {*} */ error) {
+		response = new Promise((resolve) => {
+			resolve({ errors: error?.response?.body?.errors || {} });
+		});
+	}
+
+	return response;
+};

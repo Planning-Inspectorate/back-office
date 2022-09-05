@@ -76,13 +76,13 @@
 
 	{% set row = [] %}
 		{% set row = row | concat({ text: 'Map zoom Level' }) %}
-		{% set row = row | concat({ text: values['case.mapZoomLevel'] }) %}
+		{% set row = row | concat({ text: values['case.zoomLevel'] }) %}
 		{% set row = row | concat({ html: '<a class="govuk-link" href="' + baseUrl + '/zoom-level">' + 'Change' + '</a>' }) %}
 		{% set rows = rows | concat([row]) %}
 
 	{% set row = [] %}
 		{% set row = row | concat({ text: 'Case email address' }) %}
-		{% set row = row | concat({ text: values['case.caseEmail'] }) %}
+		{% set row = row | concat({ text: values['case.teamEmail'] }) %}
 		{% set row = row | concat({ html: '<a class="govuk-link" href="' + baseUrl + '/team-email">' + 'Change' + '</a>' }) %}
 		{% set rows = rows | concat([row]) %}
 

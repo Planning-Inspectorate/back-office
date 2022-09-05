@@ -1,6 +1,5 @@
 import pino from '../../../lib/logger.js';
-import { getApplicationDraft } from '../applications-create.service.js';
-// import * as applicationsCreateCaseService from '../case/applications-create-case.service.js';
+import { getApplicationDraft, moveStateToPreApplication } from '../applications-create.service.js';
 import * as applicationsCreateCheckYourAnswersService from '../check-your-answers/applications-create-check-your-answers.service.js';
 
 /** @typedef {import('./applications-create-check-your-answers.types').ApplicationsCreateConfirmationProps} ApplicationsCreateConfirmationProps */
@@ -35,7 +34,6 @@ export async function viewApplicationsCreateCheckYourAnswers(req, response) {
 	const { applicationId } = response.locals;
 	const caseData = await getApplicationDraft(applicationId);
 
-	// console.log('CASEDATA:', caseData);
 	const { values } = applicationsCreateCheckYourAnswersService.mapCaseData(caseData);
 
 	return response.render('applications/create/check-your-answers/_check-your-answers', { values });
@@ -47,26 +45,15 @@ export async function viewApplicationsCreateCheckYourAnswers(req, response) {
  * @type {import('@pins/express').RenderHandler<ApplicationsCreateCheckYourAnswersProps,
  * {}, {}, {}, {}>}
  */
-export async function updateApplicationsCreateCase({ errors }, response) {
-	// get the draft case record
+export async function confirmCreateCase(req, response) {
+	// get the id
 	const { applicationId } = response.locals;
-	// const caseData = applicationsCreateCaseService.getApplicationDraft(applicationId);
 
-	// try to save the case as a real case
-	/*	const updateState = () =>
-		applicationsCreateCaseService.updateApplicationDraft(applicationId, { state: 'open' });
-
- 	await getUpdatedApplicationIdOrFail(
-		updateState,
-		{
-			templateName: '_check-your-answers',
-			templateData
-		},
-		response
-	); */
+	// move the case to a pre-application state
+	const { errors, id: updatedApplicationId } = await moveStateToPreApplication(applicationId);
 
 	// re-display page if there are any errors
-	if (errors) {
+	if (errors || !updatedApplicationId) {
 		return response.render('applications/create/check-your-answers/_check-your-answers', {
 			errors
 		});

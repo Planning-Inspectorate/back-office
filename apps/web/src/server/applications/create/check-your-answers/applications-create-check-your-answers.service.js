@@ -19,8 +19,10 @@ export const mapCaseData = (caseData) => {
 			'case.location': caseData?.geographicalInformation?.locationDescription,
 			'case.easting': caseData?.geographicalInformation?.gridReference?.easting,
 			'case.northing': caseData?.geographicalInformation?.gridReference?.northing,
-			'case.regions': caseData?.geographicalInformation?.gridReference?.regions,
-			'case.zoomLevel': caseData?.geographicalInformation?.mapZoomLevel,
+			'case.regions': caseData?.geographicalInformation?.regions.map(
+				(/** @type {{ displayNameEn: string; }} */ region) => region.displayNameEn
+			),
+			'case.zoomLevel': caseData?.geographicalInformation?.mapZoomLevel?.displayNameEn,
 			'case.teamEmail': caseData?.caseEmail,
 
 			'applicant.organisationName': caseData?.applicants[0].organisationName,
@@ -35,7 +37,9 @@ export const mapCaseData = (caseData) => {
 			'applicant.phoneNumber': caseData?.applicants[0].phoneNumber,
 
 			'keyDates.submissionDatePublished': caseData?.keyDates?.submissionDatePublished,
-			'keyDates.submissionDateInternal': caseData?.keyDates?.submissionDateInternal
+			'keyDates.submissionDateInternal': new Date(
+				caseData?.keyDates?.submissionDateInternal * 1000
+			).toLocaleDateString('en-GB')
 		}
 	};
 
