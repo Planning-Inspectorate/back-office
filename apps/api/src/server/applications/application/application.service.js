@@ -36,7 +36,10 @@ const verifyAllApplicationDetailsPresent = async (id) => {
 	const caseDetails = await caseRepository.getById(id, {
 		applicationDetails: true,
 		caseStatus: true,
-		regions: true
+		regions: true,
+		subSector: true,
+		sector: true,
+		gridReference: true
 	});
 
 	if (caseDetails === null) {
@@ -47,9 +50,16 @@ const verifyAllApplicationDetailsPresent = async (id) => {
 
 	addErrorIfMissing(errors, caseDetails?.title, 'title');
 	addErrorIfMissing(errors, caseDetails?.description, 'description');
+	addErrorIfMissing(
+		errors,
+		caseDetails?.ApplicationDetails?.locationDescription,
+		'project location'
+	);
 	addErrorIfMissing(errors, caseDetails?.ApplicationDetails?.subSectorId, 'subSector');
-	addErrorIfMissing(errors, caseDetails?.ApplicationDetails?.zoomLevelId, 'mapZoomLevel');
-	addErrorIfMissing(errors, caseDetails?.ApplicationDetails?.regions, 'regions');
+	addErrorIfMissing(errors, caseDetails?.ApplicationDetails?.subSector?.sectorId, 'sector');
+	addErrorIfMissing(errors, caseDetails?.ApplicationDetails?.regions, 'one or more regions');
+	addErrorIfMissing(errors, caseDetails?.gridReference?.easting, 'grid reference easting');
+	addErrorIfMissing(errors, caseDetails?.gridReference?.northing, 'grid reference northing');
 
 	if (!isEmpty(errors)) {
 		throw new StartApplicationError(JSON.stringify(errors), 400);
