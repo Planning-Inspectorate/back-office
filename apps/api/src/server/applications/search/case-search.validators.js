@@ -3,7 +3,7 @@ const validRoles = new Set(['inspector', 'case-officer', 'case-admin-officer']);
 
 Object.freeze(validRoles);
 
-const maxResultsPerPage = 20;
+const maxResultsPerPage = 50;
 const maxPages = 30;
 
 /** @type {import('express').RequestHandler } */
@@ -65,8 +65,7 @@ const validPageNumber = (pageNumber) => {
 
 	if (pageNumber <= 0 || pageNumber > maxPages) {
 		validPage = false;
-	}
-	else if (typeof pageNumber !== 'undefined' && !Number(pageNumber)) {
+	} else if (typeof pageNumber !== 'undefined' && !Number(pageNumber)) {
 		validPage = false;
 	}
 
@@ -84,8 +83,7 @@ const validPageSize = (pageSize) => {
 
 	if (pageSize <= 0 || pageSize > maxResultsPerPage) {
 		validSize = false;
-	}
-	else if (typeof pageSize !== 'undefined' && !Number(pageSize)) {
+	} else if (typeof pageSize !== 'undefined' && !Number(pageSize)) {
 		validSize = false;
 	}
 

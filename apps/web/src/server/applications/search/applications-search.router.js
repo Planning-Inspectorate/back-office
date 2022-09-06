@@ -8,7 +8,9 @@ import * as controller from './applications-search.controller.js';
 const searchRouter = createRouter();
 
 searchRouter
-	.route('/')
+	.route('/:pageNumber?')
 	.post(validators.validateSearchApplicationsTerm, controller.searchApplications);
+
+searchRouter.route('/:pageNumber?').get(controller.searchApplications);
 
 export default searchRouter;

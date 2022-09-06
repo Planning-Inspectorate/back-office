@@ -20,7 +20,7 @@ const mapApplicationsWithSearchCriteria = (applications) => {
  */
 export const obtainSearchResults = async (_request) => {
 	// default
-	const maxResultsPerPage = 20;
+	const maxResultsPerPage = 50;
 
 	let skipValue = 0;
 	let resultsPerPage = maxResultsPerPage;
