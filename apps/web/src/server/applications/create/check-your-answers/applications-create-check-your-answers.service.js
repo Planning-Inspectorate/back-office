@@ -19,7 +19,7 @@ export const mapCaseData = (caseData) => {
 			'case.location': caseData?.geographicalInformation?.locationDescription,
 			'case.easting': caseData?.geographicalInformation?.gridReference?.easting,
 			'case.northing': caseData?.geographicalInformation?.gridReference?.northing,
-			'case.regions': caseData?.geographicalInformation?.regions.map(
+			'case.regions': caseData?.geographicalInformation?.regions?.map(
 				(/** @type {{ displayNameEn: string; }} */ region) => region.displayNameEn
 			),
 			'case.zoomLevel': caseData?.geographicalInformation?.mapZoomLevel?.displayNameEn,
