@@ -17,7 +17,7 @@ exports[`auth authentication should display a logout link in the header when the
 "<div class=\\"govuk-header__content\\">
     <nav aria-label=\\"Menu\\" class=\\"govuk-header__navigation pins-header__navigation--align-right\\">
         <button type=\\"button\\" class=\\"govuk-header__menu-button govuk-js-header-toggle\\"
-        aria-controls=\\"navigation\\" aria-label=\\"Show or hide menu\\">Menu</button>
+        aria-controls=\\"navigation\\" aria-label=\\"Show or hide menu\\" hidden>Menu</button>
         <ul id=\\"navigation\\" class=\\"govuk-header__navigation-list\\"></ul>
     </nav>
 </div>"
@@ -27,7 +27,7 @@ exports[`auth authentication should display a logout link in the header when the
 "<div class=\\"govuk-header__content\\">
     <nav aria-label=\\"Menu\\" class=\\"govuk-header__navigation pins-header__navigation--align-right\\">
         <button type=\\"button\\" class=\\"govuk-header__menu-button govuk-js-header-toggle\\"
-        aria-controls=\\"navigation\\" aria-label=\\"Show or hide menu\\">Menu</button>
+        aria-controls=\\"navigation\\" aria-label=\\"Show or hide menu\\" hidden>Menu</button>
         <ul id=\\"navigation\\" class=\\"govuk-header__navigation-list\\">
             <li class=\\"govuk-header__navigation-item\\"><a class=\\"govuk-header__link\\" href=\\"https://login.microsoftonline.com/common/oauth2/v2.0/logout\\"> Sign out</a>
             </li>

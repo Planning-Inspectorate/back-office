@@ -207,7 +207,7 @@ exports[`case-officer GET /appeals/:appealId should render a received questionna
                                             rows=\\"3\\" spellcheck=\\"true\\" aria-describedby=\\"applicationPlansToReachDecisionMissingOrIncorrectDescription-info\\"></textarea>
                                         </div>
                                         <div id=\\"applicationPlansToReachDecisionMissingOrIncorrectDescription-info\\"
-                                        class=\\"govuk-hint govuk-character-count__message\\" aria-live=\\"polite\\">You can enter up to 500 characters</div>
+                                        class=\\"govuk-hint govuk-character-count__message\\">You can enter up to 500 characters</div>
                                     </div>
                                 </div>
                             </div>
@@ -244,7 +244,7 @@ exports[`case-officer GET /appeals/:appealId should render a received questionna
                                             rows=\\"3\\" spellcheck=\\"true\\" aria-describedby=\\"policiesStatutoryDevelopmentPlanPoliciesMissingOrIncorrectDescription-info\\"></textarea>
                                         </div>
                                         <div id=\\"policiesStatutoryDevelopmentPlanPoliciesMissingOrIncorrectDescription-info\\"
-                                        class=\\"govuk-hint govuk-character-count__message\\" aria-live=\\"polite\\">You can enter up to 500 characters</div>
+                                        class=\\"govuk-hint govuk-character-count__message\\">You can enter up to 500 characters</div>
                                     </div>
                                 </div>
                             </div>
@@ -275,7 +275,7 @@ exports[`case-officer GET /appeals/:appealId should render a received questionna
                                             rows=\\"3\\" spellcheck=\\"true\\" aria-describedby=\\"policiesOtherRelevantPoliciesMissingOrIncorrectDescription-info\\"></textarea>
                                         </div>
                                         <div id=\\"policiesOtherRelevantPoliciesMissingOrIncorrectDescription-info\\"
-                                        class=\\"govuk-hint govuk-character-count__message\\" aria-live=\\"polite\\">You can enter up to 500 characters</div>
+                                        class=\\"govuk-hint govuk-character-count__message\\">You can enter up to 500 characters</div>
                                     </div>
                                 </div>
                             </div>
@@ -306,7 +306,7 @@ exports[`case-officer GET /appeals/:appealId should render a received questionna
                                             rows=\\"3\\" spellcheck=\\"true\\" aria-describedby=\\"policiesSupplementaryPlanningDocumentsMissingOrIncorrectDescription-info\\"></textarea>
                                         </div>
                                         <div id=\\"policiesSupplementaryPlanningDocumentsMissingOrIncorrectDescription-info\\"
-                                        class=\\"govuk-hint govuk-character-count__message\\" aria-live=\\"polite\\">You can enter up to 500 characters</div>
+                                        class=\\"govuk-hint govuk-character-count__message\\">You can enter up to 500 characters</div>
                                     </div>
                                 </div>
                             </div>
@@ -347,7 +347,7 @@ exports[`case-officer GET /appeals/:appealId should render a received questionna
                                             rows=\\"3\\" spellcheck=\\"true\\" aria-describedby=\\"siteConservationAreaMapAndGuidanceMissingOrIncorrectDescription-info\\"></textarea>
                                         </div>
                                         <div id=\\"siteConservationAreaMapAndGuidanceMissingOrIncorrectDescription-info\\"
-                                        class=\\"govuk-hint govuk-character-count__message\\" aria-live=\\"polite\\">You can enter up to 500 characters</div>
+                                        class=\\"govuk-hint govuk-character-count__message\\">You can enter up to 500 characters</div>
                                     </div>
                                 </div>
                             </div>
@@ -382,7 +382,7 @@ exports[`case-officer GET /appeals/:appealId should render a received questionna
                                             rows=\\"3\\" spellcheck=\\"true\\" aria-describedby=\\"siteListedBuildingDescriptionMissingOrIncorrectDescription-info\\"></textarea>
                                         </div>
                                         <div id=\\"siteListedBuildingDescriptionMissingOrIncorrectDescription-info\\"
-                                        class=\\"govuk-hint govuk-character-count__message\\" aria-live=\\"polite\\">You can enter up to 500 characters</div>
+                                        class=\\"govuk-hint govuk-character-count__message\\">You can enter up to 500 characters</div>
                                     </div>
                                 </div>
                             </div>
@@ -474,7 +474,7 @@ exports[`case-officer GET /appeals/:appealId should render a received questionna
                                             rows=\\"3\\" spellcheck=\\"true\\" aria-describedby=\\"thirdPartyRepresentationsMissingOrIncorrectDescription-info\\"></textarea>
                                         </div>
                                         <div id=\\"thirdPartyRepresentationsMissingOrIncorrectDescription-info\\"
-                                        class=\\"govuk-hint govuk-character-count__message\\" aria-live=\\"polite\\">You can enter up to 500 characters</div>
+                                        class=\\"govuk-hint govuk-character-count__message\\">You can enter up to 500 characters</div>
                                     </div>
                                 </div>
                             </div>
@@ -812,8 +812,7 @@ exports[`case-officer GET /appeals/:appealId/edit-listed-building-description sh
                         <textarea                         class=\\"govuk-textarea govuk-js-character-count\\" id=\\"listedBuildingDescription\\"
                         name=\\"listedBuildingDescription\\" rows=\\"5\\" aria-describedby=\\"listedBuildingDescription-info listedBuildingDescription-hint\\">Description of listed building</textarea>
                     </div>
-                    <div id=\\"listedBuildingDescription-info\\" class=\\"govuk-hint govuk-character-count__message\\"
-                    aria-live=\\"polite\\">You can enter up to 500 characters</div>
+                    <div id=\\"listedBuildingDescription-info\\" class=\\"govuk-hint govuk-character-count__message\\">You can enter up to 500 characters</div>
                 </div>
                 <div class=\\"govuk-button-group\\">
                     <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and continue</button><a class=\\"govuk-link\\" href=\\"/case-officer/appeals/204\\">Cancel</a>
@@ -1088,8 +1087,7 @@ exports[`case-officer POST /appeals/:appealId/edit-listed-building-description s
                             id=\\"listedBuildingDescription\\" name=\\"listedBuildingDescription\\" rows=\\"5\\"
                             aria-describedby=\\"listedBuildingDescription-info listedBuildingDescription-hint listedBuildingDescription-error\\">Description of listed building</textarea>
                     </div>
-                    <div id=\\"listedBuildingDescription-info\\" class=\\"govuk-hint govuk-character-count__message\\"
-                    aria-live=\\"polite\\">You can enter up to 500 characters</div>
+                    <div id=\\"listedBuildingDescription-info\\" class=\\"govuk-hint govuk-character-count__message\\">You can enter up to 500 characters</div>
                 </div>
                 <div class=\\"govuk-button-group\\">
                     <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and continue</button><a class=\\"govuk-link\\" href=\\"/case-officer/appeals/204\\">Cancel</a>
@@ -1468,7 +1466,7 @@ exports[`case-officer POST /appeals/:appealId/questionnaire should validate a qu
                                             rows=\\"3\\" spellcheck=\\"true\\" aria-describedby=\\"applicationPlansToReachDecisionMissingOrIncorrectDescription-info\\"></textarea>
                                         </div>
                                         <div id=\\"applicationPlansToReachDecisionMissingOrIncorrectDescription-info\\"
-                                        class=\\"govuk-hint govuk-character-count__message\\" aria-live=\\"polite\\">You can enter up to 500 characters</div>
+                                        class=\\"govuk-hint govuk-character-count__message\\">You can enter up to 500 characters</div>
                                     </div>
                                 </div>
                             </div>
@@ -1505,7 +1503,7 @@ exports[`case-officer POST /appeals/:appealId/questionnaire should validate a qu
                                             rows=\\"3\\" spellcheck=\\"true\\" aria-describedby=\\"policiesStatutoryDevelopmentPlanPoliciesMissingOrIncorrectDescription-info\\"></textarea>
                                         </div>
                                         <div id=\\"policiesStatutoryDevelopmentPlanPoliciesMissingOrIncorrectDescription-info\\"
-                                        class=\\"govuk-hint govuk-character-count__message\\" aria-live=\\"polite\\">You can enter up to 500 characters</div>
+                                        class=\\"govuk-hint govuk-character-count__message\\">You can enter up to 500 characters</div>
                                     </div>
                                 </div>
                             </div>
@@ -1536,7 +1534,7 @@ exports[`case-officer POST /appeals/:appealId/questionnaire should validate a qu
                                             rows=\\"3\\" spellcheck=\\"true\\" aria-describedby=\\"policiesOtherRelevantPoliciesMissingOrIncorrectDescription-info\\"></textarea>
                                         </div>
                                         <div id=\\"policiesOtherRelevantPoliciesMissingOrIncorrectDescription-info\\"
-                                        class=\\"govuk-hint govuk-character-count__message\\" aria-live=\\"polite\\">You can enter up to 500 characters</div>
+                                        class=\\"govuk-hint govuk-character-count__message\\">You can enter up to 500 characters</div>
                                     </div>
                                 </div>
                             </div>
@@ -1567,7 +1565,7 @@ exports[`case-officer POST /appeals/:appealId/questionnaire should validate a qu
                                             rows=\\"3\\" spellcheck=\\"true\\" aria-describedby=\\"policiesSupplementaryPlanningDocumentsMissingOrIncorrectDescription-info\\"></textarea>
                                         </div>
                                         <div id=\\"policiesSupplementaryPlanningDocumentsMissingOrIncorrectDescription-info\\"
-                                        class=\\"govuk-hint govuk-character-count__message\\" aria-live=\\"polite\\">You can enter up to 500 characters</div>
+                                        class=\\"govuk-hint govuk-character-count__message\\">You can enter up to 500 characters</div>
                                     </div>
                                 </div>
                             </div>
@@ -1608,7 +1606,7 @@ exports[`case-officer POST /appeals/:appealId/questionnaire should validate a qu
                                             rows=\\"3\\" spellcheck=\\"true\\" aria-describedby=\\"siteConservationAreaMapAndGuidanceMissingOrIncorrectDescription-info\\"></textarea>
                                         </div>
                                         <div id=\\"siteConservationAreaMapAndGuidanceMissingOrIncorrectDescription-info\\"
-                                        class=\\"govuk-hint govuk-character-count__message\\" aria-live=\\"polite\\">You can enter up to 500 characters</div>
+                                        class=\\"govuk-hint govuk-character-count__message\\">You can enter up to 500 characters</div>
                                     </div>
                                 </div>
                             </div>
@@ -1643,7 +1641,7 @@ exports[`case-officer POST /appeals/:appealId/questionnaire should validate a qu
                                             rows=\\"3\\" spellcheck=\\"true\\" aria-describedby=\\"siteListedBuildingDescriptionMissingOrIncorrectDescription-info\\"></textarea>
                                         </div>
                                         <div id=\\"siteListedBuildingDescriptionMissingOrIncorrectDescription-info\\"
-                                        class=\\"govuk-hint govuk-character-count__message\\" aria-live=\\"polite\\">You can enter up to 500 characters</div>
+                                        class=\\"govuk-hint govuk-character-count__message\\">You can enter up to 500 characters</div>
                                     </div>
                                 </div>
                             </div>
@@ -1736,7 +1734,7 @@ exports[`case-officer POST /appeals/:appealId/questionnaire should validate a qu
                                             rows=\\"3\\" spellcheck=\\"true\\" aria-describedby=\\"thirdPartyRepresentationsMissingOrIncorrectDescription-info\\"></textarea>
                                         </div>
                                         <div id=\\"thirdPartyRepresentationsMissingOrIncorrectDescription-info\\"
-                                        class=\\"govuk-hint govuk-character-count__message\\" aria-live=\\"polite\\">You can enter up to 500 characters</div>
+                                        class=\\"govuk-hint govuk-character-count__message\\">You can enter up to 500 characters</div>
                                     </div>
                                 </div>
                             </div>
@@ -1903,7 +1901,7 @@ exports[`case-officer POST /appeals/:appealId/questionnaire should validate a qu
                                             rows=\\"3\\" spellcheck=\\"true\\" aria-describedby=\\"applicationPlansToReachDecisionMissingOrIncorrectDescription-info applicationPlansToReachDecisionMissingOrIncorrectDescription-error\\"></textarea>
                                         </div>
                                         <div id=\\"applicationPlansToReachDecisionMissingOrIncorrectDescription-info\\"
-                                        class=\\"govuk-hint govuk-character-count__message\\" aria-live=\\"polite\\">You can enter up to 500 characters</div>
+                                        class=\\"govuk-hint govuk-character-count__message\\">You can enter up to 500 characters</div>
                                     </div>
                                 </div>
                             </div>
@@ -1942,7 +1940,7 @@ exports[`case-officer POST /appeals/:appealId/questionnaire should validate a qu
                                             rows=\\"3\\" spellcheck=\\"true\\" aria-describedby=\\"policiesStatutoryDevelopmentPlanPoliciesMissingOrIncorrectDescription-info policiesStatutoryDevelopmentPlanPoliciesMissingOrIncorrectDescription-error\\"></textarea>
                                         </div>
                                         <div id=\\"policiesStatutoryDevelopmentPlanPoliciesMissingOrIncorrectDescription-info\\"
-                                        class=\\"govuk-hint govuk-character-count__message\\" aria-live=\\"polite\\">You can enter up to 500 characters</div>
+                                        class=\\"govuk-hint govuk-character-count__message\\">You can enter up to 500 characters</div>
                                     </div>
                                 </div>
                             </div>
@@ -1975,7 +1973,7 @@ exports[`case-officer POST /appeals/:appealId/questionnaire should validate a qu
                                             rows=\\"3\\" spellcheck=\\"true\\" aria-describedby=\\"policiesOtherRelevantPoliciesMissingOrIncorrectDescription-info policiesOtherRelevantPoliciesMissingOrIncorrectDescription-error\\"></textarea>
                                         </div>
                                         <div id=\\"policiesOtherRelevantPoliciesMissingOrIncorrectDescription-info\\"
-                                        class=\\"govuk-hint govuk-character-count__message\\" aria-live=\\"polite\\">You can enter up to 500 characters</div>
+                                        class=\\"govuk-hint govuk-character-count__message\\">You can enter up to 500 characters</div>
                                     </div>
                                 </div>
                             </div>
@@ -2008,7 +2006,7 @@ exports[`case-officer POST /appeals/:appealId/questionnaire should validate a qu
                                             rows=\\"3\\" spellcheck=\\"true\\" aria-describedby=\\"policiesSupplementaryPlanningDocumentsMissingOrIncorrectDescription-info policiesSupplementaryPlanningDocumentsMissingOrIncorrectDescription-error\\"></textarea>
                                         </div>
                                         <div id=\\"policiesSupplementaryPlanningDocumentsMissingOrIncorrectDescription-info\\"
-                                        class=\\"govuk-hint govuk-character-count__message\\" aria-live=\\"polite\\">You can enter up to 500 characters</div>
+                                        class=\\"govuk-hint govuk-character-count__message\\">You can enter up to 500 characters</div>
                                     </div>
                                 </div>
                             </div>
@@ -2051,7 +2049,7 @@ exports[`case-officer POST /appeals/:appealId/questionnaire should validate a qu
                                             rows=\\"3\\" spellcheck=\\"true\\" aria-describedby=\\"siteConservationAreaMapAndGuidanceMissingOrIncorrectDescription-info siteConservationAreaMapAndGuidanceMissingOrIncorrectDescription-error\\"></textarea>
                                         </div>
                                         <div id=\\"siteConservationAreaMapAndGuidanceMissingOrIncorrectDescription-info\\"
-                                        class=\\"govuk-hint govuk-character-count__message\\" aria-live=\\"polite\\">You can enter up to 500 characters</div>
+                                        class=\\"govuk-hint govuk-character-count__message\\">You can enter up to 500 characters</div>
                                     </div>
                                 </div>
                             </div>
@@ -2088,7 +2086,7 @@ exports[`case-officer POST /appeals/:appealId/questionnaire should validate a qu
                                             rows=\\"3\\" spellcheck=\\"true\\" aria-describedby=\\"siteListedBuildingDescriptionMissingOrIncorrectDescription-info siteListedBuildingDescriptionMissingOrIncorrectDescription-error\\"></textarea>
                                         </div>
                                         <div id=\\"siteListedBuildingDescriptionMissingOrIncorrectDescription-info\\"
-                                        class=\\"govuk-hint govuk-character-count__message\\" aria-live=\\"polite\\">You can enter up to 500 characters</div>
+                                        class=\\"govuk-hint govuk-character-count__message\\">You can enter up to 500 characters</div>
                                     </div>
                                 </div>
                             </div>
@@ -2182,7 +2180,7 @@ exports[`case-officer POST /appeals/:appealId/questionnaire should validate a qu
                                             rows=\\"3\\" spellcheck=\\"true\\" aria-describedby=\\"thirdPartyRepresentationsMissingOrIncorrectDescription-info thirdPartyRepresentationsMissingOrIncorrectDescription-error\\"></textarea>
                                         </div>
                                         <div id=\\"thirdPartyRepresentationsMissingOrIncorrectDescription-info\\"
-                                        class=\\"govuk-hint govuk-character-count__message\\" aria-live=\\"polite\\">You can enter up to 500 characters</div>
+                                        class=\\"govuk-hint govuk-character-count__message\\">You can enter up to 500 characters</div>
                                     </div>
                                 </div>
                             </div>

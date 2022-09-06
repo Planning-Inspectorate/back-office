@@ -573,8 +573,7 @@ exports[`validation GET /appeals/:appealId/review-outcome received appeal should
                         id=\\"descriptionOfDevelopment\\" name=\\"descriptionOfDevelopment\\" rows=\\"5\\"
                         aria-describedby=\\"descriptionOfDevelopment-info\\"></textarea>
                     </div>
-                    <div id=\\"descriptionOfDevelopment-info\\" class=\\"govuk-hint govuk-character-count__message\\"
-                    aria-live=\\"polite\\">You can enter up to 500 characters</div>
+                    <div id=\\"descriptionOfDevelopment-info\\" class=\\"govuk-hint govuk-character-count__message\\">You can enter up to 500 characters</div>
                 </div>
                 <div class=\\"govuk-button-group\\">
                     <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Continue</button><a class=\\"govuk-link\\" href=\\"/appeals-service/validation/appeals/101\\">Change outcome</a>
@@ -751,8 +750,7 @@ exports[`validation POST /appeals/:appealId received appeal should remember any 
                         id=\\"descriptionOfDevelopment\\" name=\\"descriptionOfDevelopment\\" rows=\\"5\\"
                         aria-describedby=\\"descriptionOfDevelopment-info\\">Exists!</textarea>
                     </div>
-                    <div id=\\"descriptionOfDevelopment-info\\" class=\\"govuk-hint govuk-character-count__message\\"
-                    aria-live=\\"polite\\">You can enter up to 500 characters</div>
+                    <div id=\\"descriptionOfDevelopment-info\\" class=\\"govuk-hint govuk-character-count__message\\">You can enter up to 500 characters</div>
                 </div>
                 <div class=\\"govuk-button-group\\">
                     <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Continue</button><a class=\\"govuk-link\\" href=\\"/appeals-service/validation/appeals/101\\">Change outcome</a>
@@ -1847,8 +1845,7 @@ exports[`validation POST /appeals/:appealId/review-outcome valid outcome should 
                         id=\\"descriptionOfDevelopment\\" name=\\"descriptionOfDevelopment\\" rows=\\"5\\"
                         aria-describedby=\\"descriptionOfDevelopment-info descriptionOfDevelopment-error\\"></textarea>
                     </div>
-                    <div id=\\"descriptionOfDevelopment-info\\" class=\\"govuk-hint govuk-character-count__message\\"
-                    aria-live=\\"polite\\">You can enter up to 500 characters</div>
+                    <div id=\\"descriptionOfDevelopment-info\\" class=\\"govuk-hint govuk-character-count__message\\">You can enter up to 500 characters</div>
                 </div>
                 <div class=\\"govuk-button-group\\">
                     <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Continue</button><a class=\\"govuk-link\\" href=\\"/appeals-service/validation/appeals/101\\">Change outcome</a>
