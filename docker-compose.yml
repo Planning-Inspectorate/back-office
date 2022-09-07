@@ -1,18 +1,10 @@
 version: "3.9"
 
 services: 
-  db:
-    image: "mcr.microsoft.com/mssql/server:2019-latest"
-    ports: 
-      - "1433:1433"
-    environment:
-      SA_PASSWORD: "<YourStrong@Passw0rd>"
-      ACCEPT_EULA: "Y"
-  api:
-    build:
-      context: .
-      dockerfile: ./apps/api/Dockerfile
+  rabbitmq:
+    image: rabbitmq:3.10-management
     ports:
-      - "3000:3000"
-    environment: 
-      DATABASE_URL: "sqlserver://db:1433;database=pins_development;user=sa;password=<YourStrong@Passw0rd>;trustServerCertificate=true"
+      - 5672:5672
+      - 15672:15672
+    volumes:
+      - ./rabbitmq_config:/etc/rabbitmq
