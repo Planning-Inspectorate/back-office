@@ -1,3 +1,4 @@
+import { sortBy } from 'lodash-es';
 import * as applicationsService from './applications.service.js';
 
 /** @typedef {import('@pins/express').ValidationErrors} ValidationErrors */
@@ -22,7 +23,8 @@ export async function viewDashboard({ params }, res) {
 	const { domainType } = params;
 	const allApplications = await applicationsService.findOpenApplicationsByDomainType(domainType);
 	const readyApplications = [];
-	const draftApplications = [];
+
+	let draftApplications = [];
 
 	for (const application of allApplications) {
 		if (application.status === 'Draft') {
@@ -31,6 +33,8 @@ export async function viewDashboard({ params }, res) {
 			readyApplications.push(application);
 		}
 	}
+
+	draftApplications = sortBy(draftApplications, ['modifiedDate']);
 
 	return res.render('applications/dashboard', {
 		applications: readyApplications,
