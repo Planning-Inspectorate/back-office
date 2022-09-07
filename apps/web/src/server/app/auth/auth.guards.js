@@ -71,7 +71,7 @@ export function assertGroupAccess(...groupIds) {
 
 		if (account?.idTokenClaims.groups) {
 			for (const groupId of groupIds) {
-				if (account.idTokenClaims.groups.includes(groupId)) {
+				if (groupId && account.idTokenClaims.groups.includes(groupId)) {
 					return next();
 				}
 			}
