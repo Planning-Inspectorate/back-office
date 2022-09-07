@@ -1,4 +1,4 @@
-@use "govuk-frontend/govuk/helpers/_colour" as color;
+@use "../govuk-frontend/govuk/helpers/_colour" as color;
 
 .pins-masthead {
 	border-bottom: 1px solid color.govuk-colour("blue");
