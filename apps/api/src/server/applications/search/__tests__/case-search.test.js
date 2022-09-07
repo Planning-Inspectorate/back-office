@@ -175,7 +175,6 @@ test('should get applications using search criteria', async (t) => {
 			{
 				id: 3,
 				status: 'Draft',
-				description: 'EN010003 - NI Case 3 Name Description',
 				reference: application.reference,
 				title: searchString
 			}
@@ -202,7 +201,6 @@ test('should get applications using search criteria with default page number', a
 			{
 				id: 3,
 				status: 'Draft',
-				description: 'EN010003 - NI Case 3 Name Description',
 				reference: application.reference,
 				title: searchString
 			}
@@ -229,7 +227,6 @@ test('should get applications using search criteria with default page size', asy
 			{
 				id: 3,
 				status: 'Draft',
-				description: 'EN010003 - NI Case 3 Name Description',
 				reference: application.reference,
 				title: searchString
 			}
