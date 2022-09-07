@@ -4,6 +4,7 @@
  * @property {DomainType=} domainType
  * @property {number=} applicationId
  * @property {string=} step
+ * @property {string=} query
  */
 
 /**
@@ -16,7 +17,7 @@
 export const url = (key, filterArguments) => {
 	const domainUrl = '/applications-service';
 
-	const { domainType, applicationId, step } = filterArguments || {};
+	const { domainType, applicationId, step, query } = filterArguments || {};
 
 	switch (key) {
 		case 'dashboard':
@@ -27,6 +28,8 @@ export const url = (key, filterArguments) => {
 			}`;
 		case 'view-application':
 			return `${domainUrl}/${domainType || ''}/applications/${applicationId || ''}`;
+		case 'search-results':
+			return `${domainUrl}/search-results/${step}?q=${query}`;
 		default:
 			return 'app/404';
 	}

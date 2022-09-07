@@ -1,4 +1,4 @@
-import { fixtureApplications } from '../../../../testing/applications/fixtures/applications.js';
+import { post } from '../../lib/request.js';
 
 /** @typedef {import('./applications-search.types').ApplicationsSearchResultsBody} ApplicationsSearchResultsBody */
 /** @typedef {import('../applications.types').Application} Application */
@@ -8,20 +8,6 @@ import { fixtureApplications } from '../../../../testing/applications/fixtures/a
  * @param {ApplicationsSearchResultsBody} payload
  * @returns {Promise<PaginatedApplicationsResponse>}
  */
-export const searchApplications = (payload) => {
-	const mockResponse = {
-		page: payload.pageNumber,
-		pageSize: payload.pageSize,
-		pageCount: 1,
-		itemCount: 2,
-		items: fixtureApplications
-	};
-
-	return new Promise((resolve) => {
-		setTimeout(() => {
-			resolve(mockResponse);
-		}, 1000);
-	});
-
-	// return post('applications/search', {body});
+export const searchApplications = async (payload) => {
+	return post('applications/search', { json: payload });
 };

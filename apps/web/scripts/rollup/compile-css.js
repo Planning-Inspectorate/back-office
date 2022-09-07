@@ -34,9 +34,11 @@ function compileCSS(input) {
 			resolvePath(`src/styles/env/${isProduction ? 'production' : 'development'}`),
 			resolvePath(`src/styles/dev/${isRelease ? 'release' : 'dev'}`),
 			// TODO: Find a better way to include the `node_modules` folder.
-			// We are including the govuk-frontend to be fix the NPM workspaces module resolution issues
-			// as we can't import files directly from the node_modules folder.
-			path.resolve(require.resolve('govuk-frontend/package.json'), '../..')
+			// external modules need to be imported in the css with this syntax:
+			// "../name_of_the_module/path-to-the-actual-scss
+			// there must be a way to get rid of the initial '../'
+			path.resolve(require.resolve('govuk-frontend'), '../..'),
+			path.resolve(require.resolve('accessible-autocomplete'), '../..')
 		]
 	};
 

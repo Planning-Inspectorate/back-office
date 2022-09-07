@@ -1,0 +1,79 @@
+{% extends "app/layouts/app.layout.njk" %}
+
+{% from "govuk/components/table/macro.njk" import govukTable %}
+{% from "govuk/components/pagination/macro.njk" import govukPagination %}
+{% from "../components/status-tag.component.njk" import statusTag %}
+{% from "./application-search.component.njk" import applicationSearch %}
+
+
+{% set pageTitle = 'Search results' %}
+
+{% set searchParameters = {query: query, errors: errors, csrfToken: csrfToken, label: ""} %}
+
+{% block errorSummary %}{% endblock %}
+
+{% block pageContent %}
+
+
+	<div class="govuk-grid-row">
+		<div class="govuk-grid-column-one-half">
+			{{ applicationSearch(searchParameters) }}
+		</div>
+	</div>
+
+	<div>
+		<p class="govuk-heading-s"> {{ itemCount if itemCount > 0 else 0 }}
+			results
+		</p>
+
+		{% set rows = [] %}
+		{% for searchItem in searchApplicationsItems %}
+			{% set rows = rows | concat ([[
+				{ html: applicationLink(searchItem) },
+				{ text: searchItem.modifiedDate | datestamp },
+				{ html: statusTag(searchItem.status), classes: 'govuk-!-width-one-quarter text-align--right' }
+			]]) %}
+		{% endfor %}
+
+		{% if itemCount > 0 %}
+			{{ govukTable({
+				classes: 'pins-table--fixed pins-table--bordered',
+				head: [
+					{ text: "Name", classes: 'govuk-!-width-one-half' },
+					{ text: "Modified", classes: 'pins-table__cell--s' },
+					{ text: "Stage", classes: 'text-align--right' }
+				],
+				rows: rows
+			}) }}
+
+			{% if pagination.items.length > 1 %}
+				{{ govukPagination(pagination) }}
+			{% endif %}
+
+		{% endif %}
+		{% if itemCount === 0 and query.length > 0 %}
+			<hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible">
+			<p class="govuk-heading-s"> There are no matching results</p>
+
+			<p class="govuk-body">Improve your search by:</p>
+			<ul class="govuk-list govuk-list--bullet">
+				<li>double-checking your spelling</li>
+				<li>make sure you have the case reference number right</li>
+			</ul>
+		{% endif %}
+	</div>
+
+{% endblock %}
+
+
+{% macro applicationLink(searchItem) %}
+	{% set viewApplicationLink = 'view-application'|url({domainType: domainType, applicationId: searchItem.id}) %}
+	{% set checkYourAnswersLink = 'applications-create'|url({domainType: domainType, applicationId: searchItem.id, step: 'check-your-answers'}) %}
+	{% set rowHref = viewApplicationLink if searchItem.reference else checkYourAnswersLink %}
+	{% set rowTitle = [searchItem.reference, " - "]|join if searchItem.reference else "" %}
+
+
+	<a class="govuk-body" href="{{ rowHref }}">
+		{{ [rowTitle, searchItem.title]|join }}
+	</a>
+{% endmacro %}
