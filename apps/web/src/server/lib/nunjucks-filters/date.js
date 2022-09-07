@@ -19,9 +19,10 @@ export function displayDate(date, { condensed = false } = {}) {
  */
 export function datestamp(unixDate, options) {
 	const { format = 'dd/MM/yyyy' } = options || {};
-	const date = new Date(Number.parseInt(`${unixDate}`, 10) * 1000);
+	const unixDateNumber = Number.parseInt(`${unixDate}`, 10);
+	const date = new Date(unixDateNumber * 1000);
 
-	if (!isDateInstance(date)) {
+	if (Number.isNaN(unixDateNumber) || !isDateInstance(date)) {
 		return '';
 	}
 
