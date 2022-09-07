@@ -2,6 +2,7 @@
 
 {% from "govuk/components/table/macro.njk" import govukTable %}
 {% from "govuk/components/pagination/macro.njk" import govukPagination %}
+{% from "govuk/components/back-link/macro.njk" import govukBackLink %}
 {% from "../components/status-tag.component.njk" import statusTag %}
 {% from "./application-search.component.njk" import applicationSearch %}
 
@@ -11,6 +12,13 @@
 {% set searchParameters = {query: query, errors: errors, csrfToken: csrfToken, label: ""} %}
 
 {% block errorSummary %}{% endblock %}
+
+{% block beforeContent %}
+	{{ govukBackLink({
+		text: "Back to cases",
+		href: 'dashboard'|url({domainType:domainType})
+	}) }}
+{% endblock %}
 
 {% block pageContent %}
 
