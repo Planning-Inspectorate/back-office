@@ -1,9 +1,8 @@
 import { checkSchema } from 'express-validator';
-import { MulterError } from 'multer';
 
 /** @type {import('express').ErrorRequestHandler} */
 export const mapMulterErrorToValidationError = async (error, request, _, next) => {
-	if (error instanceof MulterError && error.field) {
+	if (error.constructor.name === 'MulterError') {
 		await checkSchema({
 			[error.field]: {
 				custom: {
