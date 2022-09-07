@@ -22,12 +22,12 @@ export interface Case extends schema.Case {
 	CaseStatus?: CaseStatus;
 	serviceCustomer?: ServiceCustomer[];
 	ApplicationDetails?: ApplicationDetails | null;
+	gridReference?: GridReference;
 }
 
 export interface ApplicationDetails extends schema.ApplicationDetails {
 	regions?: Region[];
 	zoomLevel?: ZoomLevel;
-	gridReference?: GridReference;
 	subSector?: SubSector | null;
 }
 

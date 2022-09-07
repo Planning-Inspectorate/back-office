@@ -57,7 +57,7 @@ const verifyAllApplicationDetailsPresent = async (id) => {
 	);
 	addErrorIfMissing(errors, caseDetails?.ApplicationDetails?.subSectorId, 'subSector');
 	addErrorIfMissing(errors, caseDetails?.ApplicationDetails?.subSector?.sectorId, 'sector');
-	addErrorIfMissing(errors, caseDetails?.ApplicationDetails?.regions, 'one or more regions');
+	addErrorIfMissing(errors, caseDetails?.ApplicationDetails?.regions, 'regions');
 	addErrorIfMissing(errors, caseDetails?.gridReference?.easting, 'grid reference easting');
 	addErrorIfMissing(errors, caseDetails?.gridReference?.northing, 'grid reference northing');
 

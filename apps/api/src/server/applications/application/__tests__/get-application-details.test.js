@@ -12,6 +12,10 @@ const application1 = applicationFactoryForTests({
 	title: 'EN010003 - NI Case 3 Name',
 	description: 'EN010003 - NI Case 3 Name Description',
 	caseStatus: 'draft',
+	gridReference: {
+		easting: 123_456,
+		northing: 987_654
+	},
 	inclusions: {
 		serviceCustomer: true,
 		ApplicationDetails: true,
@@ -78,6 +82,7 @@ test('gets all data for a case when everything is available', async (t) => {
 		},
 		applicants: [
 			{
+				id: 1,
 				organisationName: 'Organisation',
 				firstName: 'Service Customer First Name',
 				middleName: 'Service Customer Middle Name',
@@ -105,7 +110,7 @@ test('gets all data for a case when everything is available', async (t) => {
 			locationDescription: 'Some Location',
 			gridReference: {
 				easting: 123_456,
-				northing: 987_654
+				northing: 654_321
 			},
 			regions: [
 				{
@@ -281,7 +286,7 @@ test('returns only geographical inf field when query made', async (t) => {
 		geographicalInformation: {
 			gridReference: {
 				easting: 123_456,
-				northing: 987_654
+				northing: 654_321
 			},
 			locationDescription: 'Some Location',
 			mapZoomLevel: {

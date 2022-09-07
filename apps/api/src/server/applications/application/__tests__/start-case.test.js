@@ -20,7 +20,8 @@ const applicationReadyToStart = applicationFactoryForTests({
 	caseStatus: 'draft',
 	inclusions: {
 		ApplicationDetails: true,
-		regions: true
+		regions: true,
+		gridReference: true
 	}
 });
 
@@ -33,7 +34,8 @@ const applicationWithMissingInformation = applicationFactoryForTests({
 		ApplicationDetails: true,
 		mapZoomLevel: false,
 		subSector: false,
-		regions: false
+		regions: false,
+		gridReference: false
 	}
 });
 
@@ -44,7 +46,8 @@ const applicationInPreApplicationState = applicationFactoryForTests({
 	caseStatus: 'pre_application',
 	inclusions: {
 		ApplicationDetails: true,
-		regions: true
+		regions: true,
+		gridReference: true
 	}
 });
 
@@ -122,10 +125,12 @@ test('throws an error if the application does not have all the required informat
 	t.deepEqual(response.body, {
 		errors: {
 			description: 'Missing description',
-			mapZoomLevel: 'Missing mapZoomLevel',
 			regions: 'Missing regions',
+			sector: 'Missing sector',
 			subSector: 'Missing subSector',
-			title: 'Missing title'
+			title: 'Missing title',
+			'grid reference easting': 'Missing grid reference easting',
+			'grid reference northing': 'Missing grid reference northing'
 		}
 	});
 });
