@@ -14,23 +14,50 @@
 {% block pageContent %}
 
 
-	<div class="govuk-grid-row">
-		<div class="{{ 'govuk-grid-column-full' if userIsInspector else 'govuk-grid-column-one-half' }}">
+<div class="govuk-grid-row">
+	<div class="{{ 'govuk-grid-column-full' if userIsInspector else 'govuk-grid-column-one-half' }}">
+		<div class="pins-dashboard-box">
+			<h3 class="govuk-heading-l pins-dashboard-box--title">Search applications</h3>
+			{{ applicationSearch(searchParameters) }}
+		</div>
+	</div>
+	{% if not userIsInspector %}
+		<div class="govuk-grid-column-one-half">
 			<div class="pins-dashboard-box">
-				<h3 class="govuk-heading-l pins-dashboard-box--title">Search applications</h3>
-				{{ applicationSearch(searchParameters) }}
+				<h3 class="govuk-heading-l pins-dashboard-box--title">Create new case</h3>
+				<a class="govuk-button govuk-button--secondary pins-dashboard-box--btn"
+				   href="{{ 'applications-create'|url }}">Create new case here</a>
 			</div>
 		</div>
-		{% if not userIsInspector %}
-			<div class="govuk-grid-column-one-half">
-				<div class="pins-dashboard-box">
-					<h3 class="govuk-heading-l pins-dashboard-box--title">Create new case</h3>
-					<a class="govuk-button govuk-button--secondary pins-dashboard-box--btn"
-					   href="{{ 'applications-create'|url }}">Create new case here</a>
-				</div>
-			</div>
-		{% endif %}
-	</div>
+	{% endif %}
+</div>
+<div class="pins-dashboard-list--drafts">
+	<h2 class="govuk-heading-l">Draft cases</h2>
+
+	{% set draftRows = [] %}
+	{% for application in draftApplications %}
+		{% set draftRows = draftRows | concat ([[
+			{ html: applicationLink(application) },
+			{ text: application.modifiedDate | datestamp }
+		]]) %}
+	{% endfor %}
+
+
+	{{ govukAccordion({
+		items: [{
+			content: {
+				html: govukTable({
+					head: [
+						{ text: "Name" },
+						{ text: "Created", classes: 'pins-table__cell--s' }
+					],
+					rows: drows
+				})
+			}
+		}]
+	}) }}
+</div>
+<div class="pins-dashboard-list--open">
 
 
 	<h2 class="govuk-heading-l">Open applications</h2>
@@ -49,36 +76,50 @@
 	{% endfor %}
 
 	{{ govukAccordion({ items: items }) }}
-{% endblock %}
+	{% endblock %}
 
-{% macro createSectorContent(applicationsForSector) %}
-	{% for name, groupedApplications in applicationsForSector | groupBy('subSector.name') %}
-		{% set subSector = groupedApplications[0].subSector %}
-		{% set rows = [] %}
-		{% for application in groupedApplications %}
-			{% set rows = rows | concat ([[
-				{ html: applicationLink(application) },
-				{ text: application.modifiedDate | datestamp },
-				{ html: statusTag(application.status), classes: 'govuk-!-width-one-quarter text-align--right' }
-			]]) %}
+	{% macro createSectorContent(applicationsForSector) %}
+		{% for name, groupedApplications in applicationsForSector | groupBy('subSector.name') %}
+			{% set subSector = groupedApplications[0].subSector %}
+			{% set rows = [] %}
+			{% for application in groupedApplications %}
+				{% set rows = rows | concat ([[
+					{ html: applicationLink(application) },
+					{ text: application.modifiedDate | datestamp },
+					{ html: statusTag(application.status), classes: 'govuk-!-width-one-quarter text-align--right' }
+				]]) %}
+			{% endfor %}
+			{{ govukDetails({
+				summaryText: subSector.abbreviation + ' ' + subSector.displayNameEn,
+				html: govukTable({
+					classes: 'pins-table--fixed pins-table--bordered',
+					head: [
+						{ text: "Name" },
+						{ text: "Modified", classes: 'pins-table__cell--s' },
+						{ text: "Stage", classes: 'text-align--right' }
+					],
+					rows: rows
+				})
+			}) }}
 		{% endfor %}
-		{{ govukDetails({
-			summaryText: subSector.abbreviation + ' ' + subSector.displayNameEn,
-			html: govukTable({
-				classes: 'pins-table--fixed pins-table--bordered',
-				head: [
-					{ text: "Name" },
-					{ text: "Modified", classes: 'pins-table__cell--s' },
-					{ text: "Stage", classes: 'text-align--right' }
-				],
-				rows: rows
-			})
-		}) }}
-	{% endfor %}
-{% endmacro %}
+	{% endmacro %}
 
-{% macro applicationLink(application) %}
-	<a class="govuk-link" href="{{ 'view-application'|url({domainType: domainType, applicationId: application.id}) }}">
-		{{ application.reference }}
-	</a>
-{% endmacro %}
+	{% macro applicationLink(application) %}
+		<a class="govuk-link"
+		   href="{{ 'view-application'|url({domainType: domainType, applicationId: application.id}) }}">
+			{{ application.reference }}
+		</a>
+	{% endmacro %}
+
+	{% macro applicationLink(application) %}
+		{% set viewApplicationLink = 'view-application'|url({domainType: domainType, applicationId: application.id}) %}
+		{% set checkYourAnswersLink = 'applications-create'|url({domainType: domainType, applicationId: application.id, step: 'check-your-answers'}) %}
+		{% set rowHref = checkYourAnswersLink if application.status == 'Draft' else viewApplicationLink %}
+		{% set rowTitle = application.title if application.status == 'Draft' else application.reference %}
+
+		<a class="govuk-body" href="{{ rowHref }}">
+			{{ rowTitle }}
+		</a>
+	{% endmacro %}
+
+</div>
