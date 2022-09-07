@@ -518,8 +518,7 @@ exports[`inspector GET /appeals/:appealId/book-site-visit should render a page f
                                 <div class=\\"govuk-form-group\\">
                                     <label class=\\"govuk-label govuk-date-input__label\\" for=\\"siteVisitDate\\">Day</label>
                                     <input class=\\"govuk-input govuk-date-input__input govuk-input--width-2 \\"
-                                    id=\\"siteVisitDate\\" name=\\"siteVisitDate-day\\" type=\\"text\\" pattern=\\"[0-9]*\\"
-                                    inputmode=\\"numeric\\">
+                                    id=\\"siteVisitDate\\" name=\\"siteVisitDate-day\\" type=\\"text\\" inputmode=\\"numeric\\">
                                 </div>
                             </div>
                             <div class=\\"govuk-date-input__item\\">
@@ -527,7 +526,7 @@ exports[`inspector GET /appeals/:appealId/book-site-visit should render a page f
                                     <label class=\\"govuk-label govuk-date-input__label\\" for=\\"siteVisitDate-container-month\\">Month</label>
                                     <input class=\\"govuk-input govuk-date-input__input govuk-input--width-2 \\"
                                     id=\\"siteVisitDate-container-month\\" name=\\"siteVisitDate-month\\" type=\\"text\\"
-                                    pattern=\\"[0-9]*\\" inputmode=\\"numeric\\">
+                                    inputmode=\\"numeric\\">
                                 </div>
                             </div>
                             <div class=\\"govuk-date-input__item\\">
@@ -535,7 +534,7 @@ exports[`inspector GET /appeals/:appealId/book-site-visit should render a page f
                                     <label class=\\"govuk-label govuk-date-input__label\\" for=\\"siteVisitDate-container-year\\">Year</label>
                                     <input class=\\"govuk-input govuk-date-input__input govuk-input--width-4 \\"
                                     id=\\"siteVisitDate-container-year\\" name=\\"siteVisitDate-year\\" type=\\"text\\"
-                                    pattern=\\"[0-9]*\\" inputmode=\\"numeric\\">
+                                    inputmode=\\"numeric\\">
                                 </div>
                             </div>
                         </div>
@@ -918,8 +917,7 @@ exports[`inspector POST /appeals/:appealId/book-site-visit should validate that 
                                 <div class=\\"govuk-form-group\\">
                                     <label class=\\"govuk-label govuk-date-input__label\\" for=\\"siteVisitDate\\">Day</label>
                                     <input class=\\"govuk-input govuk-date-input__input govuk-input--width-2 govuk-input--error\\"
-                                    id=\\"siteVisitDate\\" name=\\"siteVisitDate-day\\" type=\\"text\\" value=\\"01\\" pattern=\\"[0-9]*\\"
-                                    inputmode=\\"numeric\\">
+                                    id=\\"siteVisitDate\\" name=\\"siteVisitDate-day\\" type=\\"text\\" value=\\"01\\" inputmode=\\"numeric\\">
                                 </div>
                             </div>
                             <div class=\\"govuk-date-input__item\\">
@@ -927,7 +925,7 @@ exports[`inspector POST /appeals/:appealId/book-site-visit should validate that 
                                     <label class=\\"govuk-label govuk-date-input__label\\" for=\\"siteVisitDate-container-month\\">Month</label>
                                     <input class=\\"govuk-input govuk-date-input__input govuk-input--width-2 govuk-input--error\\"
                                     id=\\"siteVisitDate-container-month\\" name=\\"siteVisitDate-month\\" type=\\"text\\"
-                                    value=\\"05\\" pattern=\\"[0-9]*\\" inputmode=\\"numeric\\">
+                                    value=\\"05\\" inputmode=\\"numeric\\">
                                 </div>
                             </div>
                             <div class=\\"govuk-date-input__item\\">
@@ -935,7 +933,7 @@ exports[`inspector POST /appeals/:appealId/book-site-visit should validate that 
                                     <label class=\\"govuk-label govuk-date-input__label\\" for=\\"siteVisitDate-container-year\\">Year</label>
                                     <input class=\\"govuk-input govuk-date-input__input govuk-input--width-4 govuk-input--error\\"
                                     id=\\"siteVisitDate-container-year\\" name=\\"siteVisitDate-year\\" type=\\"text\\"
-                                    value=\\"2022\\" pattern=\\"[0-9]*\\" inputmode=\\"numeric\\">
+                                    value=\\"2022\\" inputmode=\\"numeric\\">
                                 </div>
                             </div>
                         </div>
@@ -1093,8 +1091,7 @@ exports[`inspector POST /appeals/:appealId/book-site-visit should validate that 
                                 <div class=\\"govuk-form-group\\">
                                     <label class=\\"govuk-label govuk-date-input__label\\" for=\\"siteVisitDate\\">Day</label>
                                     <input class=\\"govuk-input govuk-date-input__input govuk-input--width-2 govuk-input--error\\"
-                                    id=\\"siteVisitDate\\" name=\\"siteVisitDate-day\\" type=\\"text\\" pattern=\\"[0-9]*\\"
-                                    inputmode=\\"numeric\\">
+                                    id=\\"siteVisitDate\\" name=\\"siteVisitDate-day\\" type=\\"text\\" inputmode=\\"numeric\\">
                                 </div>
                             </div>
                             <div class=\\"govuk-date-input__item\\">
@@ -1102,7 +1099,7 @@ exports[`inspector POST /appeals/:appealId/book-site-visit should validate that 
                                     <label class=\\"govuk-label govuk-date-input__label\\" for=\\"siteVisitDate-container-month\\">Month</label>
                                     <input class=\\"govuk-input govuk-date-input__input govuk-input--width-2 govuk-input--error\\"
                                     id=\\"siteVisitDate-container-month\\" name=\\"siteVisitDate-month\\" type=\\"text\\"
-                                    pattern=\\"[0-9]*\\" inputmode=\\"numeric\\">
+                                    inputmode=\\"numeric\\">
                                 </div>
                             </div>
                             <div class=\\"govuk-date-input__item\\">
@@ -1110,7 +1107,7 @@ exports[`inspector POST /appeals/:appealId/book-site-visit should validate that 
                                     <label class=\\"govuk-label govuk-date-input__label\\" for=\\"siteVisitDate-container-year\\">Year</label>
                                     <input class=\\"govuk-input govuk-date-input__input govuk-input--width-4 govuk-input--error\\"
                                     id=\\"siteVisitDate-container-year\\" name=\\"siteVisitDate-year\\" type=\\"text\\"
-                                    pattern=\\"[0-9]*\\" inputmode=\\"numeric\\">
+                                    inputmode=\\"numeric\\">
                                 </div>
                             </div>
                 </div>
@@ -1270,8 +1267,7 @@ exports[`inspector POST /appeals/:appealId/book-site-visit should validate the r
                                 <div class=\\"govuk-form-group\\">
                                     <label class=\\"govuk-label govuk-date-input__label\\" for=\\"siteVisitDate\\">Day</label>
                                     <input class=\\"govuk-input govuk-date-input__input govuk-input--width-2 govuk-input--error\\"
-                                    id=\\"siteVisitDate\\" name=\\"siteVisitDate-day\\" type=\\"text\\" pattern=\\"[0-9]*\\"
-                                    inputmode=\\"numeric\\">
+                                    id=\\"siteVisitDate\\" name=\\"siteVisitDate-day\\" type=\\"text\\" inputmode=\\"numeric\\">
                                 </div>
                             </div>
                             <div class=\\"govuk-date-input__item\\">
@@ -1279,7 +1275,7 @@ exports[`inspector POST /appeals/:appealId/book-site-visit should validate the r
                                     <label class=\\"govuk-label govuk-date-input__label\\" for=\\"siteVisitDate-container-month\\">Month</label>
                                     <input class=\\"govuk-input govuk-date-input__input govuk-input--width-2 govuk-input--error\\"
                                     id=\\"siteVisitDate-container-month\\" name=\\"siteVisitDate-month\\" type=\\"text\\"
-                                    pattern=\\"[0-9]*\\" inputmode=\\"numeric\\">
+                                    inputmode=\\"numeric\\">
                                 </div>
                             </div>
                             <div class=\\"govuk-date-input__item\\">
@@ -1287,7 +1283,7 @@ exports[`inspector POST /appeals/:appealId/book-site-visit should validate the r
                                     <label class=\\"govuk-label govuk-date-input__label\\" for=\\"siteVisitDate-container-year\\">Year</label>
                                     <input class=\\"govuk-input govuk-date-input__input govuk-input--width-4 govuk-input--error\\"
                                     id=\\"siteVisitDate-container-year\\" name=\\"siteVisitDate-year\\" type=\\"text\\"
-                                    pattern=\\"[0-9]*\\" inputmode=\\"numeric\\">
+                                    inputmode=\\"numeric\\">
                                 </div>
                             </div>
                 </div>
