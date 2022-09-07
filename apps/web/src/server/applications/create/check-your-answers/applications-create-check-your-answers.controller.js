@@ -55,7 +55,7 @@ export async function confirmCreateCase(req, response) {
 	// re-display page if there are any errors
 	if (errors || !updatedApplicationId) {
 		// and re-pull the case data to re-show all the fields
-		const caseData = await applicationsCreateService.getApplicationDraft(applicationId);
+		const caseData = await getApplicationDraft(applicationId);
 		const { values } = applicationsCreateCheckYourAnswersService.mapCaseData(caseData);
 
 		return response.render('applications/create/check-your-answers/_check-your-answers', {
