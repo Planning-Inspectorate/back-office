@@ -74,6 +74,7 @@ test('gets all applications for inspector', async (t) => {
 	t.deepEqual(response.body, [
 		{
 			id: 1,
+			title: 'Title',
 			modifiedDate: 1_655_298_882,
 			reference: application.reference,
 			sector: {
