@@ -3,6 +3,7 @@ import * as caseRepository from '../../repositories/case.repository.js';
 import { breakUpCompoundStatus } from '../../utils/break-up-compound-status.js';
 import { buildAppealCompundStatus } from '../../utils/build-appeal-compound-status.js';
 import { mapApplicationDetails } from '../../utils/mapping/map-case-details.js';
+// import { sendMessage } from '../../utils/service-bus-sender.js';
 import { transitionState } from '../../utils/transition-state.js';
 
 /**
@@ -89,6 +90,8 @@ export const startApplication = async (id) => {
 		nextStatusInStateMachine.value,
 		caseDetails.id
 	);
+
+	// sendMessage({test: 'test'}, 'test')
 
 	await caseRepository.updateApplicationStatusAndDataById(caseDetails.id, {
 		status: nextStatusForRepository,
