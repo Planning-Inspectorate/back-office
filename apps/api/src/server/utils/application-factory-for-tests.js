@@ -8,6 +8,8 @@ const generateApplicationReference = () => {
 };
 
 const serviceCustomer = {
+	id: 1,
+	caseId: 1,
 	firstName: 'Service Customer First Name',
 	middleName: 'Service Customer Middle Name',
 	lastName: 'Service Customer Last Name',
@@ -15,7 +17,9 @@ const serviceCustomer = {
 	website: 'Service Customer Website',
 	phoneNumber: '01234567890',
 	organisationName: 'Organisation',
+	addressId: 1,
 	address: {
+		id: 1,
 		addressLine1: 'Addr Line 1',
 		addressLine2: 'Addr Line 2',
 		town: 'Town',
@@ -26,7 +30,7 @@ const serviceCustomer = {
 
 /**
  *
- * @param {{regions: boolean, mapZoomLevel: boolean, subSector: boolean}} param0
+ * @param {{regions?: boolean, mapZoomLevel?: boolean, subSector?: boolean}} param0
  * @returns {import('@pins/api').Schema.ApplicationDetails}
  */
 const getApplicationDetails = ({ regions = true, mapZoomLevel = true, subSector = true }) => {
@@ -57,8 +61,8 @@ const getApplicationDetails = ({ regions = true, mapZoomLevel = true, subSector 
 				}
 			]
 		}),
+		zoomLevelId: mapZoomLevel ? 1 : null,
 		...(mapZoomLevel && {
-			zoomLevelId: 1,
 			zoomLevel: {
 				id: 1,
 				displayOrder: 100,
@@ -67,8 +71,8 @@ const getApplicationDetails = ({ regions = true, mapZoomLevel = true, subSector 
 				displayNameCy: 'Zoom Level Name Cy'
 			}
 		}),
+		subSectorId: subSector ? 1 : null,
 		...(subSector && {
-			subSectorId: 1,
 			subSector: {
 				id: 1,
 				abbreviation: 'AA',
@@ -96,6 +100,7 @@ const getApplicationDetails = ({ regions = true, mapZoomLevel = true, subSector 
  *  description: string | null,
  *  caseStatus: string,
  *  dates?: {createdAt?: Date, modifiedAt?: Date, publishedAt?: Date},
+ *  gridReference?: {easting?: Number, northing?: Number}
  *  inclusions?: {serviceCustomer?: boolean, ApplicationDetails?: boolean, regions?: boolean, CaseStatus?: boolean, mapZoomLevel?: boolean, subSector?: boolean, gridReference?: boolean}
  * }} arg
  * @returns {import('@pins/api').Schema.Case}
@@ -126,7 +131,7 @@ export const applicationFactoryForTests = ({
 			gridReference: {
 				id: 1,
 				easting: 123_456,
-				northing: 987_654
+				northing: 654_321
 			}
 		}),
 		...(inclusions.serviceCustomer && { serviceCustomer: [serviceCustomer] }),
