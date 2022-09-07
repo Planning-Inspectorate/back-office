@@ -2,7 +2,7 @@
 import { ValidationErrors } from '@pins/express';
 export type ApplicationsCreateConfirmationProps = {
 	values: { reference: string };
-}
+};
 
 export type ApplicationsCreateCheckYourAnswersProps = {
 	values?: {
@@ -27,7 +27,7 @@ export type ApplicationsCreateCheckYourAnswersProps = {
 		'applicant.phoneNumber'?: string;
 
 		'keyDates.submissionDatePublished': string;
-		'keyDates.submissionDateInternal': string;
+		'keyDates.submissionDateInternal': Date;
 	};
 	errors?: ValidationErrors;
 };
