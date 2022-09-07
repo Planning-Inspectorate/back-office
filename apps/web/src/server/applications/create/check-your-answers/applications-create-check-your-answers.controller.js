@@ -65,7 +65,5 @@ export async function confirmCreateCase(req, response) {
 	}
 
 	// on success continue to the confirmation page
-	response.redirect(
-		`/applications-service/create-new-case/${applicationId}/case-creation-confirmation`
-	);
+	response.redirect(`/applications-service/create-new-case/${applicationId}/case-created`);
 }
