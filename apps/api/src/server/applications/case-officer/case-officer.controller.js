@@ -1,5 +1,4 @@
-import { sortBy } from 'lodash-es';
-import { keys } from 'lodash-es';
+import { keys, sortBy } from 'lodash-es';
 import * as caseRepository from '../../repositories/case.repository.js';
 import { mapApplicationWithSectorAndSubSector } from '../../utils/mapping/map-application-with-sector-and-subsector.js';
 import { applicationStates } from '../state-machine/application.machine.js';
