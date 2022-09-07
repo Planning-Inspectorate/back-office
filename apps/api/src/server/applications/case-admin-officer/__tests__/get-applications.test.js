@@ -75,6 +75,7 @@ test('gets all applications for case admin officer', async (t) => {
 	t.deepEqual(response.body, [
 		{
 			id: 1,
+			title: 'Title',
 			modifiedDate: 1_655_298_882,
 			reference: application.reference,
 			sector: {
