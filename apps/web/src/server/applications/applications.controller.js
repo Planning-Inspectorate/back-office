@@ -9,6 +9,7 @@ import * as applicationsService from './applications.service.js';
 /**
  * @typedef {object} ViewDashboardRenderProps
  * @property {Application[]} applications
+ * @property {Application[]} draftApplications
  */
 
 /**
@@ -20,9 +21,21 @@ import * as applicationsService from './applications.service.js';
 export async function viewDashboard({ params }, res) {
 	const { domainType } = params;
 	const allApplications = await applicationsService.findOpenApplicationsByDomainType(domainType);
-	const readyApplications = allApplications.filter((application) => application.status !== 'draft');
+	const readyApplications = [];
+	const draftApplications = [];
 
-	return res.render('applications/dashboard', { applications: readyApplications });
+	for (const application of allApplications) {
+		if (application.status === 'Draft') {
+			draftApplications.push(application);
+		} else {
+			readyApplications.push(application);
+		}
+	}
+
+	return res.render('applications/dashboard', {
+		applications: readyApplications,
+		draftApplications
+	});
 }
 
 /**
