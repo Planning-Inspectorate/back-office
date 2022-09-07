@@ -63,10 +63,13 @@ export async function updateApplicationsCreateCaseName(
 	const { applicationId } = response.locals;
 	const { description, title } = body;
 	const payload = bodyToPayload(body);
-
-	const { errors: apiErrors, id: updatedApplicationId } = await (applicationId
+	const action = applicationId
 		? () => updateApplicationDraft(applicationId, payload)
-		: () => createApplicationDraft(payload, session))();
+		: () => createApplicationDraft(payload, session);
+
+	const { errors: apiErrors, id: updatedApplicationId } = validationErrors
+		? { id: null, errors: validationErrors }
+		: await action();
 
 	if (validationErrors || apiErrors || !updatedApplicationId) {
 		return response.render('applications/create/case/_name', {

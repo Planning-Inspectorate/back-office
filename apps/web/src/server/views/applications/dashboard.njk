@@ -14,69 +14,72 @@
 {% block pageContent %}
 
 
-<div class="govuk-grid-row">
-	<div class="{{ 'govuk-grid-column-full' if userIsInspector else 'govuk-grid-column-one-half' }}">
-		<div class="pins-dashboard-box">
-			<h3 class="govuk-heading-l pins-dashboard-box--title">Search applications</h3>
-			{{ applicationSearch(searchParameters) }}
-		</div>
-	</div>
-	{% if not userIsInspector %}
-		<div class="govuk-grid-column-one-half">
+	<div class="govuk-grid-row">
+		<div class="{{ 'govuk-grid-column-full' if userIsInspector else 'govuk-grid-column-one-half' }}">
 			<div class="pins-dashboard-box">
-				<h3 class="govuk-heading-l pins-dashboard-box--title">Create new case</h3>
-				<a class="govuk-button govuk-button--secondary pins-dashboard-box--btn"
-				   href="{{ 'applications-create'|url }}">Create new case here</a>
+				<h3 class="govuk-heading-l pins-dashboard-box--title">Search applications</h3>
+				{{ applicationSearch(searchParameters) }}
 			</div>
 		</div>
+		{% if not userIsInspector %}
+			<div class="govuk-grid-column-one-half">
+				<div class="pins-dashboard-box">
+					<h3 class="govuk-heading-l pins-dashboard-box--title">Create new case</h3>
+					<a class="govuk-button govuk-button--secondary pins-dashboard-box--btn"
+					   href="{{ 'applications-create'|url }}">Create new case here</a>
+				</div>
+			</div>
+		{% endif %}
+	</div>
+	{% if draftApplications.length > 0 %}
+		<div class="pins-dashboard-list--drafts">
+			<h2 class="govuk-heading-l">Draft cases</h2>
+
+			{% set draftRows = [] %}
+			{% for application in draftApplications %}
+				{% set draftRows = draftRows | concat ([[
+					{ html: applicationLink(application) },
+					{ text: application.modifiedDate | datestamp }
+				]]) %}
+			{% endfor %}
+
+
+			{{ govukAccordion({
+				items: [{
+					content: {
+						html: govukTable({
+							head: [
+								{ text: "Name" },
+								{ text: "Created", classes: 'pins-table__cell--s' }
+							],
+							rows: draftRows
+						})
+					}
+				}]
+			}) }}
+		</div>
 	{% endif %}
-</div>
-<div class="pins-dashboard-list--drafts">
-	<h2 class="govuk-heading-l">Draft cases</h2>
+	<div class="pins-dashboard-list--open">
 
-	{% set draftRows = [] %}
-	{% for application in draftApplications %}
-		{% set draftRows = draftRows | concat ([[
-			{ html: applicationLink(application) },
-			{ text: application.modifiedDate | datestamp }
-		]]) %}
-	{% endfor %}
+		<h2 class="govuk-heading-l">Open applications</h2>
 
+		{% set items = [] %}
 
-	{{ govukAccordion({
-		items: [{
-			content: {
-				html: govukTable({
-					head: [
-						{ text: "Name" },
-						{ text: "Created", classes: 'pins-table__cell--s' }
-					],
-					rows: drows
-				})
-			}
-		}]
-	}) }}
-</div>
-<div class="pins-dashboard-list--open">
+		{% for name, groupedApplications in applications | groupBy('sector.name') %}
+			{% set items = items.concat({
+				heading: {
+					text: groupedApplications[0].sector.displayNameEn
+				},
+				content: {
+					html: createSectorContent(groupedApplications)
+				}
+			}) %}
+		{% endfor %}
 
+		{{ govukAccordion({ items: items }) }}
+	</div>
 
-	<h2 class="govuk-heading-l">Open applications</h2>
-
-	{% set items = [] %}
-
-	{% for name, groupedApplications in applications | groupBy('sector.name') %}
-		{% set items = items.concat({
-			heading: {
-				text: groupedApplications[0].sector.displayNameEn
-			},
-			content: {
-				html: createSectorContent(groupedApplications)
-			}
-		}) %}
-	{% endfor %}
-
-	{{ govukAccordion({ items: items }) }}
-	{% endblock %}
+{% endblock %}
 
 	{% macro createSectorContent(applicationsForSector) %}
 		{% for name, groupedApplications in applicationsForSector | groupBy('subSector.name') %}
@@ -115,11 +118,10 @@
 		{% set viewApplicationLink = 'view-application'|url({domainType: domainType, applicationId: application.id}) %}
 		{% set checkYourAnswersLink = 'applications-create'|url({domainType: domainType, applicationId: application.id, step: 'check-your-answers'}) %}
 		{% set rowHref = checkYourAnswersLink if application.status == 'Draft' else viewApplicationLink %}
-		{% set rowTitle = application.title if application.status == 'Draft' else application.reference %}
+		{% set rowTitle = application.title if application.status == 'Draft' else [application.reference, " - ", application.title]|join %}
 
 		<a class="govuk-body" href="{{ rowHref }}">
 			{{ rowTitle }}
 		</a>
 	{% endmacro %}
 
-</div>

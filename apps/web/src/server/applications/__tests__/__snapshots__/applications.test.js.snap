@@ -28,8 +28,10 @@ exports[`applications GET /case-admin-officer should render a placeholder when t
             </div>
         </div>
     </div>
-    <h2 class=\\"govuk-heading-l\\">Open applications</h2>
-    <div class=\\"govuk-accordion\\" data-module=\\"govuk-accordion\\" id=\\"\\"></div>
+    <div class=\\"pins-dashboard-list--open\\">
+        <h2 class=\\"govuk-heading-l\\">Open applications</h2>
+        <div class=\\"govuk-accordion\\" data-module=\\"govuk-accordion\\" id=\\"\\"></div>
+    </div>
 </main>"
 `;
 
@@ -61,92 +63,149 @@ exports[`applications GET /case-admin-officer should render the open application
             </div>
         </div>
     </div>
-    <h2 class=\\"govuk-heading-l\\">Open applications</h2>
-    <div class=\\"govuk-accordion\\" data-module=\\"govuk-accordion\\" id=\\"\\">
-        <div class=\\"govuk-accordion__section \\">
-            <div class=\\"govuk-accordion__section-header\\">
-                <h2 class=\\"govuk-accordion__section-heading\\"><span class=\\"govuk-accordion__section-button\\" id=\\"-heading-1\\"> Transport EN</span></h2>
+    <div class=\\"pins-dashboard-list--open\\">
+        <h2 class=\\"govuk-heading-l\\">Open applications</h2>
+        <div class=\\"govuk-accordion\\" data-module=\\"govuk-accordion\\" id=\\"\\">
+            <div class=\\"govuk-accordion__section \\">
+                <div class=\\"govuk-accordion__section-header\\">
+                    <h2 class=\\"govuk-accordion__section-heading\\"><span class=\\"govuk-accordion__section-button\\" id=\\"-heading-1\\"> Transport EN</span></h2>
+                </div>
+                <div id=\\"-content-1\\" class=\\"govuk-accordion__section-content\\" aria-labelledby=\\"-heading-1\\">
+                    <details class=\\"govuk-details\\" data-module=\\"govuk-details\\">
+                        <summary class=\\"govuk-details__summary\\"><span class=\\"govuk-details__summary-text\\"> HIG Highways EN</span>
+                        </summary>
+                        <div class=\\"govuk-details__text\\">
+                            <table class=\\"govuk-table pins-table--fixed pins-table--bordered\\">
+                                <thead class=\\"govuk-table__head\\">
+                                    <tr class=\\"govuk-table__row\\">
+                                        <th scope=\\"col\\" class=\\"govuk-table__header\\">Name</th>
+                                        <th scope=\\"col\\" class=\\"govuk-table__header pins-table__cell--s\\">Modified</th>
+                                        <th scope=\\"col\\" class=\\"govuk-table__header text-align--right\\">Stage</th>
+                                    </tr>
+                                </thead>
+                                <tbody class=\\"govuk-table__body\\">
+                                    <tr class=\\"govuk-table__row\\">
+                                        <td class=\\"govuk-table__cell\\"><a class=\\"govuk-body\\" href=\\"/applications-service/case-admin-officer/applications/1\\"> APPLICATION/01 - Title APPLICATION/01</a>
+                                        </td>
+                                        <td class=\\"govuk-table__cell\\">01/01/2022</td>
+                                        <td class=\\"govuk-table__cell govuk-!-width-one-quarter text-align--right\\"><strong class=\\"govuk-tag govuk-tag--\\">Status 1000</strong>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </details>
+                    <details class=\\"govuk-details\\" data-module=\\"govuk-details\\">
+                        <summary class=\\"govuk-details__summary\\"><span class=\\"govuk-details__summary-text\\"> WAT Water EN</span>
+                        </summary>
+                        <div class=\\"govuk-details__text\\">
+                            <table class=\\"govuk-table pins-table--fixed pins-table--bordered\\">
+                                <thead class=\\"govuk-table__head\\">
+                                    <tr class=\\"govuk-table__row\\">
+                                        <th scope=\\"col\\" class=\\"govuk-table__header\\">Name</th>
+                                        <th scope=\\"col\\" class=\\"govuk-table__header pins-table__cell--s\\">Modified</th>
+                                        <th scope=\\"col\\" class=\\"govuk-table__header text-align--right\\">Stage</th>
+                                    </tr>
+                                </thead>
+                                <tbody class=\\"govuk-table__body\\">
+                                    <tr class=\\"govuk-table__row\\">
+                                        <td class=\\"govuk-table__cell\\"><a class=\\"govuk-body\\" href=\\"/applications-service/case-admin-officer/applications/2\\"> APPLICATION/02 - Title APPLICATION/02</a>
+                                        </td>
+                                        <td class=\\"govuk-table__cell\\">31/01/2022</td>
+                                        <td class=\\"govuk-table__cell govuk-!-width-one-quarter text-align--right\\"><strong class=\\"govuk-tag govuk-tag--\\">Status 2000</strong>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </details>
+                    <details class=\\"govuk-details\\" data-module=\\"govuk-details\\">
+                        <summary class=\\"govuk-details__summary\\"><span class=\\"govuk-details__summary-text\\"> undefined undefined</span>
+                        </summary>
+                        <div class=\\"govuk-details__text\\">
+                            <table class=\\"govuk-table pins-table--fixed pins-table--bordered\\">
+                                <thead class=\\"govuk-table__head\\">
+                                    <tr class=\\"govuk-table__row\\">
+                                        <th scope=\\"col\\" class=\\"govuk-table__header\\">Name</th>
+                                        <th scope=\\"col\\" class=\\"govuk-table__header pins-table__cell--s\\">Modified</th>
+                                        <th scope=\\"col\\" class=\\"govuk-table__header text-align--right\\">Stage</th>
+                                    </tr>
+                                </thead>
+                                <tbody class=\\"govuk-table__body\\">
+                                    <tr class=\\"govuk-table__row\\">
+                                        <td class=\\"govuk-table__cell\\"><a class=\\"govuk-body\\" href=\\"/applications-service/case-admin-officer/applications/5\\"> APPLICATION/05 - Application with no subsector</a>
+                                        </td>
+                                        <td class=\\"govuk-table__cell\\"></td>
+                                        <td class=\\"govuk-table__cell govuk-!-width-one-quarter text-align--right\\"><strong class=\\"govuk-tag govuk-tag--\\">draft</strong>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </details>
+                </div>
             </div>
-            <div id=\\"-content-1\\" class=\\"govuk-accordion__section-content\\" aria-labelledby=\\"-heading-1\\">
-                <details class=\\"govuk-details\\" data-module=\\"govuk-details\\">
-                    <summary class=\\"govuk-details__summary\\"><span class=\\"govuk-details__summary-text\\"> HIG Highways EN</span>
-                    </summary>
-                    <div class=\\"govuk-details__text\\">
-                        <table class=\\"govuk-table pins-table--fixed pins-table--bordered\\">
-                            <thead class=\\"govuk-table__head\\">
-                                <tr class=\\"govuk-table__row\\">
-                                    <th scope=\\"col\\" class=\\"govuk-table__header\\">Name</th>
-                                    <th scope=\\"col\\" class=\\"govuk-table__header pins-table__cell--s\\">Modified</th>
-                                    <th scope=\\"col\\" class=\\"govuk-table__header text-align--right\\">Stage</th>
-                                </tr>
-                            </thead>
-                            <tbody class=\\"govuk-table__body\\">
-                                <tr class=\\"govuk-table__row\\">
-                                    <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case-admin-officer/applications/1\\"> APPLICATION/01</a>
-                                    </td>
-                                    <td class=\\"govuk-table__cell\\">01/01/2022</td>
-                                    <td class=\\"govuk-table__cell govuk-!-width-one-quarter text-align--right\\"><strong class=\\"govuk-tag govuk-tag--\\">Status 1000</strong>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </details>
-                <details class=\\"govuk-details\\" data-module=\\"govuk-details\\">
-                    <summary class=\\"govuk-details__summary\\"><span class=\\"govuk-details__summary-text\\"> WAT Water EN</span>
-                    </summary>
-                    <div class=\\"govuk-details__text\\">
-                        <table class=\\"govuk-table pins-table--fixed pins-table--bordered\\">
-                            <thead class=\\"govuk-table__head\\">
-                                <tr class=\\"govuk-table__row\\">
-                                    <th scope=\\"col\\" class=\\"govuk-table__header\\">Name</th>
-                                    <th scope=\\"col\\" class=\\"govuk-table__header pins-table__cell--s\\">Modified</th>
-                                    <th scope=\\"col\\" class=\\"govuk-table__header text-align--right\\">Stage</th>
-                                </tr>
-                            </thead>
-                            <tbody class=\\"govuk-table__body\\">
-                                <tr class=\\"govuk-table__row\\">
-                                    <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case-admin-officer/applications/2\\"> APPLICATION/02</a>
-                                    </td>
-                                    <td class=\\"govuk-table__cell\\">31/01/2022</td>
-                                    <td class=\\"govuk-table__cell govuk-!-width-one-quarter text-align--right\\"><strong class=\\"govuk-tag govuk-tag--\\">Status 2000</strong>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </details>
+            <div class=\\"govuk-accordion__section \\">
+                <div class=\\"govuk-accordion__section-header\\">
+                    <h2 class=\\"govuk-accordion__section-heading\\"><span class=\\"govuk-accordion__section-button\\" id=\\"-heading-2\\"> Waste EN</span></h2>
+                </div>
+                <div id=\\"-content-2\\" class=\\"govuk-accordion__section-content\\" aria-labelledby=\\"-heading-2\\">
+                    <details class=\\"govuk-details\\" data-module=\\"govuk-details\\">
+                        <summary class=\\"govuk-details__summary\\"><span class=\\"govuk-details__summary-text\\"> ENE Energy EN</span>
+                        </summary>
+                        <div class=\\"govuk-details__text\\">
+                            <table class=\\"govuk-table pins-table--fixed pins-table--bordered\\">
+                                <thead class=\\"govuk-table__head\\">
+                                    <tr class=\\"govuk-table__row\\">
+                                        <th scope=\\"col\\" class=\\"govuk-table__header\\">Name</th>
+                                        <th scope=\\"col\\" class=\\"govuk-table__header pins-table__cell--s\\">Modified</th>
+                                        <th scope=\\"col\\" class=\\"govuk-table__header text-align--right\\">Stage</th>
+                                    </tr>
+                                </thead>
+                                <tbody class=\\"govuk-table__body\\">
+                                    <tr class=\\"govuk-table__row\\">
+                                        <td class=\\"govuk-table__cell\\"><a class=\\"govuk-body\\" href=\\"/applications-service/case-admin-officer/applications/3\\"> APPLICATION/03 - Title APPLICATION/03</a>
+                                        </td>
+                                        <td class=\\"govuk-table__cell\\">01/01/2022</td>
+                                        <td class=\\"govuk-table__cell govuk-!-width-one-quarter text-align--right\\"><strong class=\\"govuk-tag govuk-tag--\\">Status 3000</strong>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </details>
+                </div>
             </div>
-        </div>
-        <div class=\\"govuk-accordion__section \\">
-            <div class=\\"govuk-accordion__section-header\\">
-                <h2 class=\\"govuk-accordion__section-heading\\"><span class=\\"govuk-accordion__section-button\\" id=\\"-heading-2\\"> Waste EN</span></h2>
-            </div>
-            <div id=\\"-content-2\\" class=\\"govuk-accordion__section-content\\" aria-labelledby=\\"-heading-2\\">
-                <details class=\\"govuk-details\\" data-module=\\"govuk-details\\">
-                    <summary class=\\"govuk-details__summary\\"><span class=\\"govuk-details__summary-text\\"> ENE Energy EN</span>
-                    </summary>
-                    <div class=\\"govuk-details__text\\">
-                        <table class=\\"govuk-table pins-table--fixed pins-table--bordered\\">
-                            <thead class=\\"govuk-table__head\\">
-                                <tr class=\\"govuk-table__row\\">
-                                    <th scope=\\"col\\" class=\\"govuk-table__header\\">Name</th>
-                                    <th scope=\\"col\\" class=\\"govuk-table__header pins-table__cell--s\\">Modified</th>
-                                    <th scope=\\"col\\" class=\\"govuk-table__header text-align--right\\">Stage</th>
-                                </tr>
-                            </thead>
-                            <tbody class=\\"govuk-table__body\\">
-                                <tr class=\\"govuk-table__row\\">
-                                    <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case-admin-officer/applications/3\\"> APPLICATION/03</a>
-                                    </td>
-                                    <td class=\\"govuk-table__cell\\">01/01/2022</td>
-                                    <td class=\\"govuk-table__cell govuk-!-width-one-quarter text-align--right\\"><strong class=\\"govuk-tag govuk-tag--\\">Status 3000</strong>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </details>
+            <div class=\\"govuk-accordion__section \\">
+                <div class=\\"govuk-accordion__section-header\\">
+                    <h2 class=\\"govuk-accordion__section-heading\\"><span class=\\"govuk-accordion__section-button\\" id=\\"-heading-3\\"></span></h2>
+                </div>
+                <div id=\\"-content-3\\" class=\\"govuk-accordion__section-content\\" aria-labelledby=\\"-heading-3\\">
+                    <details class=\\"govuk-details\\" data-module=\\"govuk-details\\">
+                        <summary class=\\"govuk-details__summary\\"><span class=\\"govuk-details__summary-text\\"> undefined undefined</span>
+                        </summary>
+                        <div class=\\"govuk-details__text\\">
+                            <table class=\\"govuk-table pins-table--fixed pins-table--bordered\\">
+                                <thead class=\\"govuk-table__head\\">
+                                    <tr class=\\"govuk-table__row\\">
+                                        <th scope=\\"col\\" class=\\"govuk-table__header\\">Name</th>
+                                        <th scope=\\"col\\" class=\\"govuk-table__header pins-table__cell--s\\">Modified</th>
+                                        <th scope=\\"col\\" class=\\"govuk-table__header text-align--right\\">Stage</th>
+                                    </tr>
+                                </thead>
+                                <tbody class=\\"govuk-table__body\\">
+                                    <tr class=\\"govuk-table__row\\">
+                                        <td class=\\"govuk-table__cell\\"><a class=\\"govuk-body\\" href=\\"/applications-service/case-admin-officer/applications/4\\"> APPLICATION/04 - Application with no sector</a>
+                                        </td>
+                                        <td class=\\"govuk-table__cell\\"></td>
+                                        <td class=\\"govuk-table__cell govuk-!-width-one-quarter text-align--right\\"><strong class=\\"govuk-tag govuk-tag--\\">draft</strong>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </details>
+                </div>
             </div>
         </div>
     </div>
@@ -181,8 +240,10 @@ exports[`applications GET /case-officer should render a placeholder when there a
             </div>
         </div>
     </div>
-    <h2 class=\\"govuk-heading-l\\">Open applications</h2>
-    <div class=\\"govuk-accordion\\" data-module=\\"govuk-accordion\\" id=\\"\\"></div>
+    <div class=\\"pins-dashboard-list--open\\">
+        <h2 class=\\"govuk-heading-l\\">Open applications</h2>
+        <div class=\\"govuk-accordion\\" data-module=\\"govuk-accordion\\" id=\\"\\"></div>
+    </div>
 </main>"
 `;
 
@@ -214,92 +275,149 @@ exports[`applications GET /case-officer should render the open applications belo
             </div>
         </div>
     </div>
-    <h2 class=\\"govuk-heading-l\\">Open applications</h2>
-    <div class=\\"govuk-accordion\\" data-module=\\"govuk-accordion\\" id=\\"\\">
-        <div class=\\"govuk-accordion__section \\">
-            <div class=\\"govuk-accordion__section-header\\">
-                <h2 class=\\"govuk-accordion__section-heading\\"><span class=\\"govuk-accordion__section-button\\" id=\\"-heading-1\\"> Transport EN</span></h2>
+    <div class=\\"pins-dashboard-list--open\\">
+        <h2 class=\\"govuk-heading-l\\">Open applications</h2>
+        <div class=\\"govuk-accordion\\" data-module=\\"govuk-accordion\\" id=\\"\\">
+            <div class=\\"govuk-accordion__section \\">
+                <div class=\\"govuk-accordion__section-header\\">
+                    <h2 class=\\"govuk-accordion__section-heading\\"><span class=\\"govuk-accordion__section-button\\" id=\\"-heading-1\\"> Transport EN</span></h2>
+                </div>
+                <div id=\\"-content-1\\" class=\\"govuk-accordion__section-content\\" aria-labelledby=\\"-heading-1\\">
+                    <details class=\\"govuk-details\\" data-module=\\"govuk-details\\">
+                        <summary class=\\"govuk-details__summary\\"><span class=\\"govuk-details__summary-text\\"> HIG Highways EN</span>
+                        </summary>
+                        <div class=\\"govuk-details__text\\">
+                            <table class=\\"govuk-table pins-table--fixed pins-table--bordered\\">
+                                <thead class=\\"govuk-table__head\\">
+                                    <tr class=\\"govuk-table__row\\">
+                                        <th scope=\\"col\\" class=\\"govuk-table__header\\">Name</th>
+                                        <th scope=\\"col\\" class=\\"govuk-table__header pins-table__cell--s\\">Modified</th>
+                                        <th scope=\\"col\\" class=\\"govuk-table__header text-align--right\\">Stage</th>
+                                    </tr>
+                                </thead>
+                                <tbody class=\\"govuk-table__body\\">
+                                    <tr class=\\"govuk-table__row\\">
+                                        <td class=\\"govuk-table__cell\\"><a class=\\"govuk-body\\" href=\\"/applications-service/case-officer/applications/1\\"> APPLICATION/01 - Title APPLICATION/01</a>
+                                        </td>
+                                        <td class=\\"govuk-table__cell\\">01/01/2022</td>
+                                        <td class=\\"govuk-table__cell govuk-!-width-one-quarter text-align--right\\"><strong class=\\"govuk-tag govuk-tag--\\">Status 1000</strong>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </details>
+                    <details class=\\"govuk-details\\" data-module=\\"govuk-details\\">
+                        <summary class=\\"govuk-details__summary\\"><span class=\\"govuk-details__summary-text\\"> WAT Water EN</span>
+                        </summary>
+                        <div class=\\"govuk-details__text\\">
+                            <table class=\\"govuk-table pins-table--fixed pins-table--bordered\\">
+                                <thead class=\\"govuk-table__head\\">
+                                    <tr class=\\"govuk-table__row\\">
+                                        <th scope=\\"col\\" class=\\"govuk-table__header\\">Name</th>
+                                        <th scope=\\"col\\" class=\\"govuk-table__header pins-table__cell--s\\">Modified</th>
+                                        <th scope=\\"col\\" class=\\"govuk-table__header text-align--right\\">Stage</th>
+                                    </tr>
+                                </thead>
+                                <tbody class=\\"govuk-table__body\\">
+                                    <tr class=\\"govuk-table__row\\">
+                                        <td class=\\"govuk-table__cell\\"><a class=\\"govuk-body\\" href=\\"/applications-service/case-officer/applications/2\\"> APPLICATION/02 - Title APPLICATION/02</a>
+                                        </td>
+                                        <td class=\\"govuk-table__cell\\">31/01/2022</td>
+                                        <td class=\\"govuk-table__cell govuk-!-width-one-quarter text-align--right\\"><strong class=\\"govuk-tag govuk-tag--\\">Status 2000</strong>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </details>
+                    <details class=\\"govuk-details\\" data-module=\\"govuk-details\\">
+                        <summary class=\\"govuk-details__summary\\"><span class=\\"govuk-details__summary-text\\"> undefined undefined</span>
+                        </summary>
+                        <div class=\\"govuk-details__text\\">
+                            <table class=\\"govuk-table pins-table--fixed pins-table--bordered\\">
+                                <thead class=\\"govuk-table__head\\">
+                                    <tr class=\\"govuk-table__row\\">
+                                        <th scope=\\"col\\" class=\\"govuk-table__header\\">Name</th>
+                                        <th scope=\\"col\\" class=\\"govuk-table__header pins-table__cell--s\\">Modified</th>
+                                        <th scope=\\"col\\" class=\\"govuk-table__header text-align--right\\">Stage</th>
+                                    </tr>
+                                </thead>
+                                <tbody class=\\"govuk-table__body\\">
+                                    <tr class=\\"govuk-table__row\\">
+                                        <td class=\\"govuk-table__cell\\"><a class=\\"govuk-body\\" href=\\"/applications-service/case-officer/applications/5\\"> APPLICATION/05 - Application with no subsector</a>
+                                        </td>
+                                        <td class=\\"govuk-table__cell\\"></td>
+                                        <td class=\\"govuk-table__cell govuk-!-width-one-quarter text-align--right\\"><strong class=\\"govuk-tag govuk-tag--\\">draft</strong>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </details>
+                </div>
             </div>
-            <div id=\\"-content-1\\" class=\\"govuk-accordion__section-content\\" aria-labelledby=\\"-heading-1\\">
-                <details class=\\"govuk-details\\" data-module=\\"govuk-details\\">
-                    <summary class=\\"govuk-details__summary\\"><span class=\\"govuk-details__summary-text\\"> HIG Highways EN</span>
-                    </summary>
-                    <div class=\\"govuk-details__text\\">
-                        <table class=\\"govuk-table pins-table--fixed pins-table--bordered\\">
-                            <thead class=\\"govuk-table__head\\">
-                                <tr class=\\"govuk-table__row\\">
-                                    <th scope=\\"col\\" class=\\"govuk-table__header\\">Name</th>
-                                    <th scope=\\"col\\" class=\\"govuk-table__header pins-table__cell--s\\">Modified</th>
-                                    <th scope=\\"col\\" class=\\"govuk-table__header text-align--right\\">Stage</th>
-                                </tr>
-                            </thead>
-                            <tbody class=\\"govuk-table__body\\">
-                                <tr class=\\"govuk-table__row\\">
-                                    <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case-officer/applications/1\\"> APPLICATION/01</a>
-                                    </td>
-                                    <td class=\\"govuk-table__cell\\">01/01/2022</td>
-                                    <td class=\\"govuk-table__cell govuk-!-width-one-quarter text-align--right\\"><strong class=\\"govuk-tag govuk-tag--\\">Status 1000</strong>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </details>
-                <details class=\\"govuk-details\\" data-module=\\"govuk-details\\">
-                    <summary class=\\"govuk-details__summary\\"><span class=\\"govuk-details__summary-text\\"> WAT Water EN</span>
-                    </summary>
-                    <div class=\\"govuk-details__text\\">
-                        <table class=\\"govuk-table pins-table--fixed pins-table--bordered\\">
-                            <thead class=\\"govuk-table__head\\">
-                                <tr class=\\"govuk-table__row\\">
-                                    <th scope=\\"col\\" class=\\"govuk-table__header\\">Name</th>
-                                    <th scope=\\"col\\" class=\\"govuk-table__header pins-table__cell--s\\">Modified</th>
-                                    <th scope=\\"col\\" class=\\"govuk-table__header text-align--right\\">Stage</th>
-                                </tr>
-                            </thead>
-                            <tbody class=\\"govuk-table__body\\">
-                                <tr class=\\"govuk-table__row\\">
-                                    <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case-officer/applications/2\\"> APPLICATION/02</a>
-                                    </td>
-                                    <td class=\\"govuk-table__cell\\">31/01/2022</td>
-                                    <td class=\\"govuk-table__cell govuk-!-width-one-quarter text-align--right\\"><strong class=\\"govuk-tag govuk-tag--\\">Status 2000</strong>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </details>
+            <div class=\\"govuk-accordion__section \\">
+                <div class=\\"govuk-accordion__section-header\\">
+                    <h2 class=\\"govuk-accordion__section-heading\\"><span class=\\"govuk-accordion__section-button\\" id=\\"-heading-2\\"> Waste EN</span></h2>
+                </div>
+                <div id=\\"-content-2\\" class=\\"govuk-accordion__section-content\\" aria-labelledby=\\"-heading-2\\">
+                    <details class=\\"govuk-details\\" data-module=\\"govuk-details\\">
+                        <summary class=\\"govuk-details__summary\\"><span class=\\"govuk-details__summary-text\\"> ENE Energy EN</span>
+                        </summary>
+                        <div class=\\"govuk-details__text\\">
+                            <table class=\\"govuk-table pins-table--fixed pins-table--bordered\\">
+                                <thead class=\\"govuk-table__head\\">
+                                    <tr class=\\"govuk-table__row\\">
+                                        <th scope=\\"col\\" class=\\"govuk-table__header\\">Name</th>
+                                        <th scope=\\"col\\" class=\\"govuk-table__header pins-table__cell--s\\">Modified</th>
+                                        <th scope=\\"col\\" class=\\"govuk-table__header text-align--right\\">Stage</th>
+                                    </tr>
+                                </thead>
+                                <tbody class=\\"govuk-table__body\\">
+                                    <tr class=\\"govuk-table__row\\">
+                                        <td class=\\"govuk-table__cell\\"><a class=\\"govuk-body\\" href=\\"/applications-service/case-officer/applications/3\\"> APPLICATION/03 - Title APPLICATION/03</a>
+                                        </td>
+                                        <td class=\\"govuk-table__cell\\">01/01/2022</td>
+                                        <td class=\\"govuk-table__cell govuk-!-width-one-quarter text-align--right\\"><strong class=\\"govuk-tag govuk-tag--\\">Status 3000</strong>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </details>
+                </div>
             </div>
-        </div>
-        <div class=\\"govuk-accordion__section \\">
-            <div class=\\"govuk-accordion__section-header\\">
-                <h2 class=\\"govuk-accordion__section-heading\\"><span class=\\"govuk-accordion__section-button\\" id=\\"-heading-2\\"> Waste EN</span></h2>
-            </div>
-            <div id=\\"-content-2\\" class=\\"govuk-accordion__section-content\\" aria-labelledby=\\"-heading-2\\">
-                <details class=\\"govuk-details\\" data-module=\\"govuk-details\\">
-                    <summary class=\\"govuk-details__summary\\"><span class=\\"govuk-details__summary-text\\"> ENE Energy EN</span>
-                    </summary>
-                    <div class=\\"govuk-details__text\\">
-                        <table class=\\"govuk-table pins-table--fixed pins-table--bordered\\">
-                            <thead class=\\"govuk-table__head\\">
-                                <tr class=\\"govuk-table__row\\">
-                                    <th scope=\\"col\\" class=\\"govuk-table__header\\">Name</th>
-                                    <th scope=\\"col\\" class=\\"govuk-table__header pins-table__cell--s\\">Modified</th>
-                                    <th scope=\\"col\\" class=\\"govuk-table__header text-align--right\\">Stage</th>
-                                </tr>
-                            </thead>
-                            <tbody class=\\"govuk-table__body\\">
-                                <tr class=\\"govuk-table__row\\">
-                                    <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case-officer/applications/3\\"> APPLICATION/03</a>
-                                    </td>
-                                    <td class=\\"govuk-table__cell\\">01/01/2022</td>
-                                    <td class=\\"govuk-table__cell govuk-!-width-one-quarter text-align--right\\"><strong class=\\"govuk-tag govuk-tag--\\">Status 3000</strong>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </details>
+            <div class=\\"govuk-accordion__section \\">
+                <div class=\\"govuk-accordion__section-header\\">
+                    <h2 class=\\"govuk-accordion__section-heading\\"><span class=\\"govuk-accordion__section-button\\" id=\\"-heading-3\\"></span></h2>
+                </div>
+                <div id=\\"-content-3\\" class=\\"govuk-accordion__section-content\\" aria-labelledby=\\"-heading-3\\">
+                    <details class=\\"govuk-details\\" data-module=\\"govuk-details\\">
+                        <summary class=\\"govuk-details__summary\\"><span class=\\"govuk-details__summary-text\\"> undefined undefined</span>
+                        </summary>
+                        <div class=\\"govuk-details__text\\">
+                            <table class=\\"govuk-table pins-table--fixed pins-table--bordered\\">
+                                <thead class=\\"govuk-table__head\\">
+                                    <tr class=\\"govuk-table__row\\">
+                                        <th scope=\\"col\\" class=\\"govuk-table__header\\">Name</th>
+                                        <th scope=\\"col\\" class=\\"govuk-table__header pins-table__cell--s\\">Modified</th>
+                                        <th scope=\\"col\\" class=\\"govuk-table__header text-align--right\\">Stage</th>
+                                    </tr>
+                                </thead>
+                                <tbody class=\\"govuk-table__body\\">
+                                    <tr class=\\"govuk-table__row\\">
+                                        <td class=\\"govuk-table__cell\\"><a class=\\"govuk-body\\" href=\\"/applications-service/case-officer/applications/4\\"> APPLICATION/04 - Application with no sector</a>
+                                        </td>
+                                        <td class=\\"govuk-table__cell\\"></td>
+                                        <td class=\\"govuk-table__cell govuk-!-width-one-quarter text-align--right\\"><strong class=\\"govuk-tag govuk-tag--\\">draft</strong>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </details>
+                </div>
             </div>
         </div>
     </div>
@@ -328,8 +446,10 @@ exports[`applications GET /inspector should render a placeholder when there are 
             </div>
         </div>
     </div>
-    <h2 class=\\"govuk-heading-l\\">Open applications</h2>
-    <div class=\\"govuk-accordion\\" data-module=\\"govuk-accordion\\" id=\\"\\"></div>
+    <div class=\\"pins-dashboard-list--open\\">
+        <h2 class=\\"govuk-heading-l\\">Open applications</h2>
+        <div class=\\"govuk-accordion\\" data-module=\\"govuk-accordion\\" id=\\"\\"></div>
+    </div>
 </main>"
 `;
 
@@ -355,92 +475,149 @@ exports[`applications GET /inspector should render the open applications belongi
             </div>
         </div>
     </div>
-    <h2 class=\\"govuk-heading-l\\">Open applications</h2>
-    <div class=\\"govuk-accordion\\" data-module=\\"govuk-accordion\\" id=\\"\\">
-        <div class=\\"govuk-accordion__section \\">
-            <div class=\\"govuk-accordion__section-header\\">
-                <h2 class=\\"govuk-accordion__section-heading\\"><span class=\\"govuk-accordion__section-button\\" id=\\"-heading-1\\"> Transport EN</span></h2>
+    <div class=\\"pins-dashboard-list--open\\">
+        <h2 class=\\"govuk-heading-l\\">Open applications</h2>
+        <div class=\\"govuk-accordion\\" data-module=\\"govuk-accordion\\" id=\\"\\">
+            <div class=\\"govuk-accordion__section \\">
+                <div class=\\"govuk-accordion__section-header\\">
+                    <h2 class=\\"govuk-accordion__section-heading\\"><span class=\\"govuk-accordion__section-button\\" id=\\"-heading-1\\"> Transport EN</span></h2>
+                </div>
+                <div id=\\"-content-1\\" class=\\"govuk-accordion__section-content\\" aria-labelledby=\\"-heading-1\\">
+                    <details class=\\"govuk-details\\" data-module=\\"govuk-details\\">
+                        <summary class=\\"govuk-details__summary\\"><span class=\\"govuk-details__summary-text\\"> HIG Highways EN</span>
+                        </summary>
+                        <div class=\\"govuk-details__text\\">
+                            <table class=\\"govuk-table pins-table--fixed pins-table--bordered\\">
+                                <thead class=\\"govuk-table__head\\">
+                                    <tr class=\\"govuk-table__row\\">
+                                        <th scope=\\"col\\" class=\\"govuk-table__header\\">Name</th>
+                                        <th scope=\\"col\\" class=\\"govuk-table__header pins-table__cell--s\\">Modified</th>
+                                        <th scope=\\"col\\" class=\\"govuk-table__header text-align--right\\">Stage</th>
+                                    </tr>
+                                </thead>
+                                <tbody class=\\"govuk-table__body\\">
+                                    <tr class=\\"govuk-table__row\\">
+                                        <td class=\\"govuk-table__cell\\"><a class=\\"govuk-body\\" href=\\"/applications-service/inspector/applications/1\\"> APPLICATION/01 - Title APPLICATION/01</a>
+                                        </td>
+                                        <td class=\\"govuk-table__cell\\">01/01/2022</td>
+                                        <td class=\\"govuk-table__cell govuk-!-width-one-quarter text-align--right\\"><strong class=\\"govuk-tag govuk-tag--\\">Status 1000</strong>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </details>
+                    <details class=\\"govuk-details\\" data-module=\\"govuk-details\\">
+                        <summary class=\\"govuk-details__summary\\"><span class=\\"govuk-details__summary-text\\"> WAT Water EN</span>
+                        </summary>
+                        <div class=\\"govuk-details__text\\">
+                            <table class=\\"govuk-table pins-table--fixed pins-table--bordered\\">
+                                <thead class=\\"govuk-table__head\\">
+                                    <tr class=\\"govuk-table__row\\">
+                                        <th scope=\\"col\\" class=\\"govuk-table__header\\">Name</th>
+                                        <th scope=\\"col\\" class=\\"govuk-table__header pins-table__cell--s\\">Modified</th>
+                                        <th scope=\\"col\\" class=\\"govuk-table__header text-align--right\\">Stage</th>
+                                    </tr>
+                                </thead>
+                                <tbody class=\\"govuk-table__body\\">
+                                    <tr class=\\"govuk-table__row\\">
+                                        <td class=\\"govuk-table__cell\\"><a class=\\"govuk-body\\" href=\\"/applications-service/inspector/applications/2\\"> APPLICATION/02 - Title APPLICATION/02</a>
+                                        </td>
+                                        <td class=\\"govuk-table__cell\\">31/01/2022</td>
+                                        <td class=\\"govuk-table__cell govuk-!-width-one-quarter text-align--right\\"><strong class=\\"govuk-tag govuk-tag--\\">Status 2000</strong>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </details>
+                    <details class=\\"govuk-details\\" data-module=\\"govuk-details\\">
+                        <summary class=\\"govuk-details__summary\\"><span class=\\"govuk-details__summary-text\\"> undefined undefined</span>
+                        </summary>
+                        <div class=\\"govuk-details__text\\">
+                            <table class=\\"govuk-table pins-table--fixed pins-table--bordered\\">
+                                <thead class=\\"govuk-table__head\\">
+                                    <tr class=\\"govuk-table__row\\">
+                                        <th scope=\\"col\\" class=\\"govuk-table__header\\">Name</th>
+                                        <th scope=\\"col\\" class=\\"govuk-table__header pins-table__cell--s\\">Modified</th>
+                                        <th scope=\\"col\\" class=\\"govuk-table__header text-align--right\\">Stage</th>
+                                    </tr>
+                                </thead>
+                                <tbody class=\\"govuk-table__body\\">
+                                    <tr class=\\"govuk-table__row\\">
+                                        <td class=\\"govuk-table__cell\\"><a class=\\"govuk-body\\" href=\\"/applications-service/inspector/applications/5\\"> APPLICATION/05 - Application with no subsector</a>
+                                        </td>
+                                        <td class=\\"govuk-table__cell\\"></td>
+                                        <td class=\\"govuk-table__cell govuk-!-width-one-quarter text-align--right\\"><strong class=\\"govuk-tag govuk-tag--\\">draft</strong>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </details>
+                </div>
             </div>
-            <div id=\\"-content-1\\" class=\\"govuk-accordion__section-content\\" aria-labelledby=\\"-heading-1\\">
-                <details class=\\"govuk-details\\" data-module=\\"govuk-details\\">
-                    <summary class=\\"govuk-details__summary\\"><span class=\\"govuk-details__summary-text\\"> HIG Highways EN</span>
-                    </summary>
-                    <div class=\\"govuk-details__text\\">
-                        <table class=\\"govuk-table pins-table--fixed pins-table--bordered\\">
-                            <thead class=\\"govuk-table__head\\">
-                                <tr class=\\"govuk-table__row\\">
-                                    <th scope=\\"col\\" class=\\"govuk-table__header\\">Name</th>
-                                    <th scope=\\"col\\" class=\\"govuk-table__header pins-table__cell--s\\">Modified</th>
-                                    <th scope=\\"col\\" class=\\"govuk-table__header text-align--right\\">Stage</th>
-                                </tr>
-                            </thead>
-                            <tbody class=\\"govuk-table__body\\">
-                                <tr class=\\"govuk-table__row\\">
-                                    <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link\\" href=\\"/applications-service/inspector/applications/1\\"> APPLICATION/01</a>
-                                    </td>
-                                    <td class=\\"govuk-table__cell\\">01/01/2022</td>
-                                    <td class=\\"govuk-table__cell govuk-!-width-one-quarter text-align--right\\"><strong class=\\"govuk-tag govuk-tag--\\">Status 1000</strong>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </details>
-                <details class=\\"govuk-details\\" data-module=\\"govuk-details\\">
-                    <summary class=\\"govuk-details__summary\\"><span class=\\"govuk-details__summary-text\\"> WAT Water EN</span>
-                    </summary>
-                    <div class=\\"govuk-details__text\\">
-                        <table class=\\"govuk-table pins-table--fixed pins-table--bordered\\">
-                            <thead class=\\"govuk-table__head\\">
-                                <tr class=\\"govuk-table__row\\">
-                                    <th scope=\\"col\\" class=\\"govuk-table__header\\">Name</th>
-                                    <th scope=\\"col\\" class=\\"govuk-table__header pins-table__cell--s\\">Modified</th>
-                                    <th scope=\\"col\\" class=\\"govuk-table__header text-align--right\\">Stage</th>
-                                </tr>
-                            </thead>
-                            <tbody class=\\"govuk-table__body\\">
-                                <tr class=\\"govuk-table__row\\">
-                                    <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link\\" href=\\"/applications-service/inspector/applications/2\\"> APPLICATION/02</a>
-                                    </td>
-                                    <td class=\\"govuk-table__cell\\">31/01/2022</td>
-                                    <td class=\\"govuk-table__cell govuk-!-width-one-quarter text-align--right\\"><strong class=\\"govuk-tag govuk-tag--\\">Status 2000</strong>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </details>
+            <div class=\\"govuk-accordion__section \\">
+                <div class=\\"govuk-accordion__section-header\\">
+                    <h2 class=\\"govuk-accordion__section-heading\\"><span class=\\"govuk-accordion__section-button\\" id=\\"-heading-2\\"> Waste EN</span></h2>
+                </div>
+                <div id=\\"-content-2\\" class=\\"govuk-accordion__section-content\\" aria-labelledby=\\"-heading-2\\">
+                    <details class=\\"govuk-details\\" data-module=\\"govuk-details\\">
+                        <summary class=\\"govuk-details__summary\\"><span class=\\"govuk-details__summary-text\\"> ENE Energy EN</span>
+                        </summary>
+                        <div class=\\"govuk-details__text\\">
+                            <table class=\\"govuk-table pins-table--fixed pins-table--bordered\\">
+                                <thead class=\\"govuk-table__head\\">
+                                    <tr class=\\"govuk-table__row\\">
+                                        <th scope=\\"col\\" class=\\"govuk-table__header\\">Name</th>
+                                        <th scope=\\"col\\" class=\\"govuk-table__header pins-table__cell--s\\">Modified</th>
+                                        <th scope=\\"col\\" class=\\"govuk-table__header text-align--right\\">Stage</th>
+                                    </tr>
+                                </thead>
+                                <tbody class=\\"govuk-table__body\\">
+                                    <tr class=\\"govuk-table__row\\">
+                                        <td class=\\"govuk-table__cell\\"><a class=\\"govuk-body\\" href=\\"/applications-service/inspector/applications/3\\"> APPLICATION/03 - Title APPLICATION/03</a>
+                                        </td>
+                                        <td class=\\"govuk-table__cell\\">01/01/2022</td>
+                                        <td class=\\"govuk-table__cell govuk-!-width-one-quarter text-align--right\\"><strong class=\\"govuk-tag govuk-tag--\\">Status 3000</strong>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </details>
+                </div>
             </div>
-        </div>
-        <div class=\\"govuk-accordion__section \\">
-            <div class=\\"govuk-accordion__section-header\\">
-                <h2 class=\\"govuk-accordion__section-heading\\"><span class=\\"govuk-accordion__section-button\\" id=\\"-heading-2\\"> Waste EN</span></h2>
-            </div>
-            <div id=\\"-content-2\\" class=\\"govuk-accordion__section-content\\" aria-labelledby=\\"-heading-2\\">
-                <details class=\\"govuk-details\\" data-module=\\"govuk-details\\">
-                    <summary class=\\"govuk-details__summary\\"><span class=\\"govuk-details__summary-text\\"> ENE Energy EN</span>
-                    </summary>
-                    <div class=\\"govuk-details__text\\">
-                        <table class=\\"govuk-table pins-table--fixed pins-table--bordered\\">
-                            <thead class=\\"govuk-table__head\\">
-                                <tr class=\\"govuk-table__row\\">
-                                    <th scope=\\"col\\" class=\\"govuk-table__header\\">Name</th>
-                                    <th scope=\\"col\\" class=\\"govuk-table__header pins-table__cell--s\\">Modified</th>
-                                    <th scope=\\"col\\" class=\\"govuk-table__header text-align--right\\">Stage</th>
-                                </tr>
-                            </thead>
-                            <tbody class=\\"govuk-table__body\\">
-                                <tr class=\\"govuk-table__row\\">
-                                    <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link\\" href=\\"/applications-service/inspector/applications/3\\"> APPLICATION/03</a>
-                                    </td>
-                                    <td class=\\"govuk-table__cell\\">01/01/2022</td>
-                                    <td class=\\"govuk-table__cell govuk-!-width-one-quarter text-align--right\\"><strong class=\\"govuk-tag govuk-tag--\\">Status 3000</strong>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </details>
+            <div class=\\"govuk-accordion__section \\">
+                <div class=\\"govuk-accordion__section-header\\">
+                    <h2 class=\\"govuk-accordion__section-heading\\"><span class=\\"govuk-accordion__section-button\\" id=\\"-heading-3\\"></span></h2>
+                </div>
+                <div id=\\"-content-3\\" class=\\"govuk-accordion__section-content\\" aria-labelledby=\\"-heading-3\\">
+                    <details class=\\"govuk-details\\" data-module=\\"govuk-details\\">
+                        <summary class=\\"govuk-details__summary\\"><span class=\\"govuk-details__summary-text\\"> undefined undefined</span>
+                        </summary>
+                        <div class=\\"govuk-details__text\\">
+                            <table class=\\"govuk-table pins-table--fixed pins-table--bordered\\">
+                                <thead class=\\"govuk-table__head\\">
+                                    <tr class=\\"govuk-table__row\\">
+                                        <th scope=\\"col\\" class=\\"govuk-table__header\\">Name</th>
+                                        <th scope=\\"col\\" class=\\"govuk-table__header pins-table__cell--s\\">Modified</th>
+                                        <th scope=\\"col\\" class=\\"govuk-table__header text-align--right\\">Stage</th>
+                                    </tr>
+                                </thead>
+                                <tbody class=\\"govuk-table__body\\">
+                                    <tr class=\\"govuk-table__row\\">
+                                        <td class=\\"govuk-table__cell\\"><a class=\\"govuk-body\\" href=\\"/applications-service/inspector/applications/4\\"> APPLICATION/04 - Application with no sector</a>
+                                        </td>
+                                        <td class=\\"govuk-table__cell\\"></td>
+                                        <td class=\\"govuk-table__cell govuk-!-width-one-quarter text-align--right\\"><strong class=\\"govuk-tag govuk-tag--\\">draft</strong>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </details>
+                </div>
             </div>
         </div>
     </div>
