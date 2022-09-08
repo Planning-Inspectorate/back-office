@@ -103,7 +103,7 @@ export const moveStateToPreApplication = async (id) => {
  * returns the exising error message if key not found
  *
  * @param {string} fieldName
- * @param {import('@pins/express').ValidationError} existingError
+ * @param {import('@pins/express').ValidationError | null} existingError
  * @returns {string}
  */
 export const getErrorMessageCaseCreate = (fieldName, existingError) => {
@@ -129,7 +129,7 @@ export const getErrorMessageCaseCreate = (fieldName, existingError) => {
 			errorMessage = 'Choose the subsector of the project';
 			break;
 		default:
-			errorMessage = existingError.toString();
+			errorMessage = existingError ? existingError.toString() : 'Unknown Error';
 	}
 	return errorMessage;
 };
