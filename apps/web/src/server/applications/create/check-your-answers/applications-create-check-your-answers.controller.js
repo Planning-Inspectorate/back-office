@@ -1,7 +1,7 @@
 import pino from '../../../lib/logger.js';
 import { getApplicationDraft, moveStateToPreApplication } from '../applications-create.service.js';
 import { destroySessionCaseHasNeverBeenResumed } from '../case/applications-create-case-session.service.js';
-import * as applicationsCreateCheckYourAnswersService from '../check-your-answers/applications-create-check-your-answers.service.js';
+import * as applicationsCreateCheckYourAnswersService from './applications-create-check-your-answers.service.js';
 
 /** @typedef {import('./applications-create-check-your-answers.types').ApplicationsCreateConfirmationProps} ApplicationsCreateConfirmationProps */
 /** @typedef {import('./applications-create-check-your-answers.types').ApplicationsCreateCheckYourAnswersProps} ApplicationsCreateCheckYourAnswersProps */
@@ -56,6 +56,13 @@ export async function confirmCreateCase(req, response) {
 	// move the case to a pre-application state
 	const { errors, id: updatedApplicationId } = await moveStateToPreApplication(applicationId);
 
+	// here we replace the API error messages with our user-display versions
+	let errorsUpdated;
+
+	if (errors) {
+		errorsUpdated = applicationsCreateCheckYourAnswersService.mapErrorsToDisplayErrors(errors);
+	}
+
 	// re-display page if there are any errors
 	if (errors || !updatedApplicationId) {
 		// and re-pull the case data to re-show all the fields
@@ -63,7 +70,7 @@ export async function confirmCreateCase(req, response) {
 		const { values } = applicationsCreateCheckYourAnswersService.mapCaseData(caseData);
 
 		return response.render('applications/create/check-your-answers/_check-your-answers', {
-			errors,
+			errors: errorsUpdated || errors,
 			values
 		});
 	}
