@@ -1,3 +1,5 @@
+import { getErrorMessageCaseCreate } from '../applications-create.service.js';
+
 /** @typedef {import('./applications-create-check-your-answers.types').ApplicationsCreateCheckYourAnswersProps} ApplicationsCreateCheckYourAnswersProps */
 /** @typedef {import('../../applications.types').ApplicationsAddress} ApplicationsAddress */
 
@@ -67,3 +69,21 @@ function addressToString(address) {
 	}
 	return returnValue;
 }
+
+/**
+ * converts api error messages to user display versions
+ *
+ * @param {import('@pins/express').ValidationErrors} errors
+ * @returns {import('@pins/express').ValidationErrors}
+ */
+export const mapErrorsToDisplayErrors = (errors) => {
+	const errorFieldKeys = Object.keys(errors);
+
+	for (const aField of errorFieldKeys) {
+		// TODO: Fix this conversion of string to ValdationError
+		// @ts-ignore
+		errors[aField] = getErrorMessageCaseCreate(aField, errors[aField]);
+	}
+
+	return errors;
+};

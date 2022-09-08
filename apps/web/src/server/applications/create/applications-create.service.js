@@ -96,3 +96,40 @@ export const moveStateToPreApplication = async (id) => {
 
 	return response;
 };
+
+/**
+ * returns a user-friendly error message for a particular case field.
+ * Used by the check your answers page, and each of the draft case create pages.
+ * returns the exising error message if key not found
+ *
+ * @param {string} fieldName
+ * @param {import('@pins/express').ValidationError} existingError
+ * @returns {string}
+ */
+export const getErrorMessageCaseCreate = (fieldName, existingError) => {
+	let errorMessage = 'Unknown Error';
+
+	switch (fieldName) {
+		case 'grid reference easting':
+			errorMessage = 'Enter the Grid reference Easting';
+			break;
+		case 'grid reference northing':
+			errorMessage = 'Enter the Grid reference Northing';
+			break;
+		case 'project location':
+			errorMessage = 'Enter the case location';
+			break;
+		case 'regions':
+			errorMessage = 'Choose one or multiple regions';
+			break;
+		case 'sector':
+			errorMessage = 'Choose the sector of the project';
+			break;
+		case 'subSector':
+			errorMessage = 'Choose the subsector of the project';
+			break;
+		default:
+			errorMessage = existingError.toString();
+	}
+	return errorMessage;
+};

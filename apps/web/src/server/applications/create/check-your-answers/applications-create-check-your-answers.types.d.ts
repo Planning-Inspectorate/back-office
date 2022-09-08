@@ -1,5 +1,6 @@
 /** @typedef {import('../../applications.types').regions} Region */
 import { ValidationErrors } from '@pins/express';
+
 export type ApplicationsCreateConfirmationProps = {
 	values: { reference: string };
 };
