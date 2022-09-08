@@ -20,10 +20,7 @@ export const validateApplicationsCreateCaseDescription = createValidator(
 );
 
 export const validateApplicationsCreateCaseSector = createValidator(
-	body('sectorName')
-		.trim()
-		.isLength({ min: 1 })
-		.withMessage('Choose the sector of the project')
+	body('sectorName').trim().isLength({ min: 1 }).withMessage('Choose the sector of the project')
 );
 
 export const validateApplicationsCreateCaseSubSector = createValidator(
@@ -34,7 +31,9 @@ export const validateApplicationsCreateCaseSubSector = createValidator(
 );
 
 export const validateApplicationsCreateCaseRegions = createValidator(
-	body('geographicalInformation.regionNames').isArray({ min: 1 }).withMessage('Choose one or multiple regions')
+	body('geographicalInformation.regionNames')
+		.isArray({ min: 1 })
+		.withMessage('Choose one or multiple regions')
 );
 
 export const validateApplicationsCreateCaseLocation = createValidator(
@@ -68,9 +67,12 @@ export const validateApplicationsCreateCaseNorthing = createValidator(
 
 export const validateApplicationsTeamEmail = createValidator(
 	body('caseEmail')
+		.optional({ checkFalsy: true })
 		.trim()
-		.isLength({ min: 1 })
-		.withMessage('Enter the case team email address')
-		.isEmail()
+		.isEmail({
+			allow_display_name: false,
+			require_tld: true,
+			allow_ip_domain: false
+		})
 		.withMessage('Enter a valid email address')
 );

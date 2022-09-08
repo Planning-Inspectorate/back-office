@@ -22,7 +22,7 @@ export function datestamp(unixDate, options) {
 	const unixDateNumber = Number.parseInt(`${unixDate}`, 10);
 	const date = new Date(unixDateNumber * 1000);
 
-	if (Number.isNaN(unixDateNumber) || !isDateInstance(date)) {
+	if (unixDateNumber === 0 || Number.isNaN(unixDateNumber) || !isDateInstance(date)) {
 		return '';
 	}
 
