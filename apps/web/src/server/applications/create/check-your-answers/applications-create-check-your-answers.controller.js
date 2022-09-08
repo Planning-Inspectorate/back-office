@@ -1,5 +1,6 @@
 import pino from '../../../lib/logger.js';
 import { getApplicationDraft, moveStateToPreApplication } from '../applications-create.service.js';
+import { destroySessionCaseHasNeverBeenResumed } from '../case/applications-create-case-session.service.js';
 import * as applicationsCreateCheckYourAnswersService from '../check-your-answers/applications-create-check-your-answers.service.js';
 
 /** @typedef {import('./applications-create-check-your-answers.types').ApplicationsCreateConfirmationProps} ApplicationsCreateConfirmationProps */
@@ -32,6 +33,9 @@ export async function viewApplicationsCreateConfirmation(req, response) {
  */
 export async function viewApplicationsCreateCheckYourAnswers(req, response) {
 	const { applicationId } = response.locals;
+
+	destroySessionCaseHasNeverBeenResumed(req.session);
+
 	const caseData = await getApplicationDraft(applicationId);
 
 	const { values } = applicationsCreateCheckYourAnswersService.mapCaseData(caseData);
