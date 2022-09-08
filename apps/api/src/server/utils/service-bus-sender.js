@@ -1,14 +1,33 @@
 import container from 'rhea';
+import config from '../config/config.js';
 import logger from './logger.js';
 
-const options = { port: 5672 };
+const options = config.serviceBusOptions;
+
+/** @type {Object<string,string|undefined>} */ const reasonToQueueMap = {
+	startedCase: config.queues.startedCaseQueue
+};
+
+/**
+ *
+ * @param {string} reason
+ * @returns {string}
+ */
+const getQueueFromReason = (reason) => {
+	const queue = reasonToQueueMap[reason];
+
+	if (typeof queue === 'undefined') throw new Error('Unknown service bus message reason provided');
+	return queue;
+};
 
 /**
  *
  * @param {object} message
- * @param {string} queue
+ * @param {string} reason
  */
-export const sendMessage = (message, queue) => {
+export const sendMessage = (message, reason) => {
+	const queue = getQueueFromReason(reason);
+
 	container.connect(options).open_sender(queue);
 
 	container.once(
