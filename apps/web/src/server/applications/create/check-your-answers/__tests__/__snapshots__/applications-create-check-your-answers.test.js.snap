@@ -40,19 +40,19 @@ exports[`applications create applicant GET /applicant-information-types should r
                 <tr class=\\"govuk-table__row\\">
                     <td class=\\"govuk-table__cell\\">Case location</td>
                     <td class=\\"govuk-table__cell\\"></td>
-                    <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link\\" href=\\"/applications-service/create-new-case/123/geographical-location\\">Change</a>
+                    <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link\\" href=\\"/applications-service/create-new-case/123/geographical-information\\">Change</a>
                     </td>
                 </tr>
                 <tr class=\\"govuk-table__row\\">
                     <td class=\\"govuk-table__cell\\">Grid reference Easting</td>
                     <td class=\\"govuk-table__cell\\"></td>
-                    <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link\\" href=\\"/applications-service/create-new-case/123/geographical-location\\">Change</a>
+                    <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link\\" href=\\"/applications-service/create-new-case/123/geographical-information\\">Change</a>
                     </td>
                 </tr>
                 <tr class=\\"govuk-table__row\\">
                     <td class=\\"govuk-table__cell\\">Grid reference Northing</td>
                     <td class=\\"govuk-table__cell\\"></td>
-                    <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link\\" href=\\"/applications-service/create-new-case/123/geographical-location\\">Change</a>
+                    <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link\\" href=\\"/applications-service/create-new-case/123/geographical-information\\">Change</a>
                     </td>
                 </tr>
                 <tr class=\\"govuk-table__row\\">
@@ -151,7 +151,7 @@ exports[`applications create applicant GET /applicant-information-types should r
                 </tr>
                 <tr class=\\"govuk-table__row\\">
                     <td class=\\"govuk-table__cell\\">Anticipated submission date internal</td>
-                    <td class=\\"govuk-table__cell\\">Invalid Date</td>
+                    <td class=\\"govuk-table__cell\\"></td>
                     <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link\\" href=\\"/applications-service/create-new-case/123/key-dates\\">Change</a>
                     </td>
                 </tr>
