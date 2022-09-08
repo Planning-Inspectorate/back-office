@@ -620,14 +620,6 @@ describe('applications create', () => {
 					expect(element.innerHTML).not.toContain('caseEmail-error');
 				});
 
-				it('should render validation error if email is missing', async () => {
-					const response = await request.post(baseUrl('1'));
-					const element = parseHtml(response.text);
-
-					expect(element.innerHTML).toMatchSnapshot();
-					expect(element.innerHTML).toContain('caseEmail-error');
-				});
-
 				it('should render validation error if email is not valid', async () => {
 					const response = await request.post(baseUrl('1')).send({ caseEmail: 'notvalidemail' });
 					const element = parseHtml(response.text);
