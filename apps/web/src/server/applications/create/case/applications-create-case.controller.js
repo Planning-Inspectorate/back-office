@@ -374,19 +374,22 @@ export async function updateApplicationsCreateCaseTeamEmail(
 	response
 ) {
 	const { applicationId } = response.locals;
-	const values = { caseEmail: body.caseEmail };
-	const payload = bodyToPayload(body);
 
-	const { errors: apiErrors, id: updatedApplicationId } = await updateApplicationDraft(
-		applicationId,
-		payload
-	);
+	if (body.caseEmail) {
+		const values = { caseEmail: body.caseEmail };
+		const payload = bodyToPayload(body);
 
-	if (validationErrors || apiErrors || !updatedApplicationId) {
-		return response.render('applications/create/case/_team-email', {
-			errors: validationErrors || apiErrors,
-			values
-		});
+		const { errors: apiErrors, id: updatedApplicationId } = await updateApplicationDraft(
+			applicationId,
+			payload
+		);
+
+		if (validationErrors || apiErrors || !updatedApplicationId) {
+			return response.render('applications/create/case/_team-email', {
+				errors: validationErrors || apiErrors,
+				values
+			});
+		}
 	}
 
 	const nextPath = getSessionCaseHasNeverBeenResumed(session)
