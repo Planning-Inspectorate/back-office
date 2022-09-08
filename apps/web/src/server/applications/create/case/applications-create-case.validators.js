@@ -1,5 +1,6 @@
 import { createValidator } from '@pins/express';
 import { body } from 'express-validator';
+import { getErrorMessageCaseCreate } from '../applications-create.service.js';
 
 export const validateApplicationsCreateCaseName = createValidator(
 	body('title')
@@ -27,7 +28,7 @@ export const validateApplicationsCreateCaseSubSector = createValidator(
 	body('subSectorName')
 		.trim()
 		.isLength({ min: 1 })
-		.withMessage('Choose the subsector of the project')
+		.withMessage(getErrorMessageCaseCreate('subSector', null))
 );
 
 export const validateApplicationsCreateCaseRegions = createValidator(
@@ -40,7 +41,7 @@ export const validateApplicationsCreateCaseLocation = createValidator(
 	body('geographicalInformation.locationDescription')
 		.trim()
 		.isLength({ min: 1 })
-		.withMessage('Enter the Case location')
+		.withMessage(getErrorMessageCaseCreate('project location', null))
 		.isLength({ max: 500 })
 		.withMessage('The Case location must be 500 characters or fewer')
 );
@@ -49,7 +50,7 @@ export const validateApplicationsCreateCaseEasting = createValidator(
 	body('geographicalInformation.gridReference.easting')
 		.trim()
 		.isLength({ min: 1 })
-		.withMessage('Enter the Grid reference Easting')
+		.withMessage(getErrorMessageCaseCreate('grid reference easting', null))
 		.toInt()
 		.isLength({ min: 6, max: 6 })
 		.withMessage('Enter a valid Grid reference Easting')
@@ -59,7 +60,7 @@ export const validateApplicationsCreateCaseNorthing = createValidator(
 	body('geographicalInformation.gridReference.northing')
 		.trim()
 		.isLength({ min: 1 })
-		.withMessage('Enter the Grid reference Northing')
+		.withMessage(getErrorMessageCaseCreate('grid reference northing', null))
 		.toInt()
 		.isLength({ min: 6, max: 6 })
 		.withMessage('Enter a valid Grid reference Northing')
