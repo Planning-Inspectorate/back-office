@@ -70,7 +70,7 @@ export async function confirmCreateCase(req, response) {
 		const { values } = applicationsCreateCheckYourAnswersService.mapCaseData(caseData);
 
 		return response.render('applications/create/check-your-answers/_check-your-answers', {
-			errors: errorsUpdated || errors,
+			errors: errorsUpdated,
 			values
 		});
 	}
