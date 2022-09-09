@@ -28,7 +28,7 @@ export const validateApplicationsCreateCaseSubSector = createValidator(
 	body('subSectorName')
 		.trim()
 		.isLength({ min: 1 })
-		.withMessage(getErrorMessageCaseCreate('subSector', null))
+		.withMessage(getErrorMessageCaseCreate('subSector'))
 );
 
 export const validateApplicationsCreateCaseRegions = createValidator(
@@ -41,7 +41,7 @@ export const validateApplicationsCreateCaseLocation = createValidator(
 	body('geographicalInformation.locationDescription')
 		.trim()
 		.isLength({ min: 1 })
-		.withMessage(getErrorMessageCaseCreate('project location', null))
+		.withMessage(getErrorMessageCaseCreate('project_location'))
 		.isLength({ max: 500 })
 		.withMessage('The Case location must be 500 characters or fewer')
 );
@@ -50,7 +50,7 @@ export const validateApplicationsCreateCaseEasting = createValidator(
 	body('geographicalInformation.gridReference.easting')
 		.trim()
 		.isLength({ min: 1 })
-		.withMessage(getErrorMessageCaseCreate('grid reference easting', null))
+		.withMessage(getErrorMessageCaseCreate('grid_reference_easting'))
 		.toInt()
 		.isLength({ min: 6, max: 6 })
 		.withMessage('Enter a valid Grid reference Easting')
@@ -60,7 +60,7 @@ export const validateApplicationsCreateCaseNorthing = createValidator(
 	body('geographicalInformation.gridReference.northing')
 		.trim()
 		.isLength({ min: 1 })
-		.withMessage(getErrorMessageCaseCreate('grid reference northing', null))
+		.withMessage(getErrorMessageCaseCreate('grid_reference_northing'))
 		.toInt()
 		.isLength({ min: 6, max: 6 })
 		.withMessage('Enter a valid Grid reference Northing')
