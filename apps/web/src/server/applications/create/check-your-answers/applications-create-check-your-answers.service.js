@@ -73,16 +73,16 @@ function addressToString(address) {
 /**
  * converts api error messages to user display versions
  *
- * @param {import('@pins/express').ValidationErrors} errors
- * @returns {import('@pins/express').ValidationErrors}
+ * @param {import('@pins/express').ValidationErrors} validationErrors
+ * @returns { Record<string, string>}
  */
-export const mapErrorsToDisplayErrors = (errors) => {
-	const errorFieldKeys = Object.keys(errors);
+export const mapErrorsToDisplayErrors = (validationErrors) => {
+	const errorFieldKeys = Object.keys(validationErrors);
+	/** @type {Record<string, string>} */
+	const errors = {};
 
 	for (const aField of errorFieldKeys) {
-		// TODO: Fix this conversion of string to ValdationError
-		// @ts-ignore
-		errors[aField] = getErrorMessageCaseCreate(aField, errors[aField]);
+		errors[aField] = getErrorMessageCaseCreate(aField, validationErrors[aField]);
 	}
 
 	return errors;
