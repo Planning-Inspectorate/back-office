@@ -103,10 +103,10 @@ export const moveStateToPreApplication = async (id) => {
  * returns the exising error message if key not found
  *
  * @param {string} fieldName
- * @param {import('@pins/express').ValidationError | null} existingError
+ * @param {import('@pins/express').ValidationError | null} [existingError=null]
  * @returns {string}
  */
-export const getErrorMessageCaseCreate = (fieldName, existingError) => {
+export const getErrorMessageCaseCreate = (fieldName, existingError = null) => {
 	let errorMessage = 'Unknown Error';
 
 	switch (fieldName) {
