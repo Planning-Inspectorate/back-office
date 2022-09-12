@@ -12,10 +12,6 @@ const application1 = applicationFactoryForTests({
 	title: 'EN010003 - NI Case 3 Name',
 	description: 'EN010003 - NI Case 3 Name Description',
 	caseStatus: 'draft',
-	gridReference: {
-		easting: 123_456,
-		northing: 987_654
-	},
 	inclusions: {
 		serviceCustomer: true,
 		ApplicationDetails: true,
