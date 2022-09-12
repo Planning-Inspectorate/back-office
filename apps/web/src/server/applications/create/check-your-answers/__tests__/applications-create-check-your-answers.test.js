@@ -9,12 +9,12 @@ const successGetResponse = { id: 1, applicants: [{ id: 1 }] };
 const successPostResponse = { id: 1, reference: 'AB0110203', status: 'Pre-Application' };
 const errorPostResponse = {
 	errors: {
-		project_location: 'Missing project_location',
+		projectLocation: 'Missing projectLocation',
 		subSector: 'Missing subSector',
 		sector: 'Missing sector',
 		regions: 'Missing regions',
-		grid_reference_easting: 'Missing grid_reference_easting',
-		grid_reference_northing: 'Missing grid_reference_northing'
+		gridReferenceEasting: 'Missing gridReferenceEasting',
+		gridReferenceNorthing: 'Missing gridReferenceNorthing'
 	}
 };
 

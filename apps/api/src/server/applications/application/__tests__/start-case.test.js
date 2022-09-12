@@ -129,8 +129,8 @@ test('throws an error if the application does not have all the required informat
 			sector: 'Missing sector',
 			subSector: 'Missing subSector',
 			title: 'Missing title',
-			'grid reference easting': 'Missing grid reference easting',
-			'grid reference northing': 'Missing grid reference northing'
+			gridReferenceEasting: 'Missing gridReferenceEasting',
+			gridReferenceNorthing: 'Missing gridReferenceNorthing'
 		}
 	});
 });

@@ -57,19 +57,19 @@
 	{% set row = [] %}
 		{% set row = row | concat({ text: 'Case location', classes: 'font-weight--700 pins-table__cell--s' }) %}
 		{% set row = row | concat({ text: values['case.location'], classes: 'pins-table__cell--s' }) %}
-		{% set row = row | concat({ html: '<a id="project_location" class="govuk-link" href="' + baseUrl + '/geographical-information">' + 'Change' + '</a>', classes: 'text-align--right pins-table__cell--s' }) %}
+		{% set row = row | concat({ html: '<a id="projectLocation" class="govuk-link" href="' + baseUrl + '/geographical-information">' + 'Change' + '</a>', classes: 'text-align--right pins-table__cell--s' }) %}
 		{% set rows = rows | concat([row]) %}
 
 	{% set row = [] %}
 		{% set row = row | concat({ text: 'Grid reference Easting', classes: 'font-weight--700 pins-table__cell--s' }) %}
 		{% set row = row | concat({ text: values['case.easting'], classes: 'pins-table__cell--s' }) %}
-		{% set row = row | concat({ html: '<a id="grid_reference_easting" class="govuk-link" href="' + baseUrl + '/geographical-information">' + 'Change' + '</a>', classes: 'text-align--right pins-table__cell--s' }) %}
+		{% set row = row | concat({ html: '<a id="gridReferenceEasting" class="govuk-link" href="' + baseUrl + '/geographical-information">' + 'Change' + '</a>', classes: 'text-align--right pins-table__cell--s' }) %}
 		{% set rows = rows | concat([row]) %}
 
 	{% set row = [] %}
 		{% set row = row | concat({ text: 'Grid reference Northing', classes: 'font-weight--700 pins-table__cell--s' }) %}
 		{% set row = row | concat({ text: values['case.northing'], classes: 'pins-table__cell--s' }) %}
-		{% set row = row | concat({ html: '<a id="grid_reference_northing" class="govuk-link" href="' + baseUrl + '/geographical-information">' + 'Change' + '</a>', classes: 'text-align--right pins-table__cell--s' }) %}
+		{% set row = row | concat({ html: '<a id="gridReferenceNorthing" class="govuk-link" href="' + baseUrl + '/geographical-information">' + 'Change' + '</a>', classes: 'text-align--right pins-table__cell--s' }) %}
 		{% set rows = rows | concat([row]) %}
 
 	{% set row = [] %}
