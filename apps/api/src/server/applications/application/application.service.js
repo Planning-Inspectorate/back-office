@@ -53,13 +53,13 @@ const verifyAllApplicationDetailsPresent = async (id) => {
 	addErrorIfMissing(
 		errors,
 		caseDetails?.ApplicationDetails?.locationDescription,
-		'project_location'
+		'projectLocation'
 	);
 	addErrorIfMissing(errors, caseDetails?.ApplicationDetails?.subSectorId, 'subSector');
 	addErrorIfMissing(errors, caseDetails?.ApplicationDetails?.subSector?.sectorId, 'sector');
 	addErrorIfMissing(errors, caseDetails?.ApplicationDetails?.regions, 'regions');
-	addErrorIfMissing(errors, caseDetails?.gridReference?.easting, 'grid_reference_easting');
-	addErrorIfMissing(errors, caseDetails?.gridReference?.northing, 'grid_reference_northing');
+	addErrorIfMissing(errors, caseDetails?.gridReference?.easting, 'gridReferenceEasting');
+	addErrorIfMissing(errors, caseDetails?.gridReference?.northing, 'gridReferenceNorthing');
 
 	if (!isEmpty(errors)) {
 		throw new StartApplicationError(JSON.stringify(errors), 400);

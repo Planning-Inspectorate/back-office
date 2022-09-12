@@ -42,19 +42,19 @@ exports[`applications create applicant GET /check-your-answers should render the
                         <tr class=\\"govuk-table__row\\">
                             <td class=\\"govuk-table__cell font-weight--700 pins-table__cell--s\\">Case location</td>
                             <td class=\\"govuk-table__cell pins-table__cell--s\\"></td>
-                            <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a id=\\"project_location\\" class=\\"govuk-link\\" href=\\"/applications-service/create-new-case/123/geographical-information\\">Change</a>
+                            <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a id=\\"projectLocation\\" class=\\"govuk-link\\" href=\\"/applications-service/create-new-case/123/geographical-information\\">Change</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row\\">
                             <td class=\\"govuk-table__cell font-weight--700 pins-table__cell--s\\">Grid reference Easting</td>
                             <td class=\\"govuk-table__cell pins-table__cell--s\\"></td>
-                            <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a id=\\"grid_reference_easting\\" class=\\"govuk-link\\" href=\\"/applications-service/create-new-case/123/geographical-information\\">Change</a>
+                            <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a id=\\"gridReferenceEasting\\" class=\\"govuk-link\\" href=\\"/applications-service/create-new-case/123/geographical-information\\">Change</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row\\">
                             <td class=\\"govuk-table__cell font-weight--700 pins-table__cell--s\\">Grid reference Northing</td>
                             <td class=\\"govuk-table__cell pins-table__cell--s\\"></td>
-                            <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a id=\\"grid_reference_northing\\" class=\\"govuk-link\\" href=\\"/applications-service/create-new-case/123/geographical-information\\">Change</a>
+                            <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a id=\\"gridReferenceNorthing\\" class=\\"govuk-link\\" href=\\"/applications-service/create-new-case/123/geographical-information\\">Change</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row\\">
@@ -179,7 +179,7 @@ exports[`applications create applicant POST /check-your-answers should display e
                 <h2 class=\\"govuk-error-summary__title\\" id=\\"error-summary-title\\"> There is a problem</h2>
                 <div class=\\"govuk-error-summary__body\\">
                     <ul class=\\"govuk-list govuk-error-summary__list\\">
-                        <li><a href=\\"#project_location\\">Enter the case location</a>
+                        <li><a href=\\"#projectLocation\\">Enter the case location</a>
                         </li>
                         <li><a href=\\"#subSector\\">Choose the subsector of the project</a>
                         </li>
@@ -187,9 +187,9 @@ exports[`applications create applicant POST /check-your-answers should display e
                         </li>
                         <li><a href=\\"#regions\\">Choose one or multiple regions</a>
                         </li>
-                        <li><a href=\\"#grid_reference_easting\\">Enter the Grid reference Easting</a>
+                        <li><a href=\\"#gridReferenceEasting\\">Enter the Grid reference Easting</a>
                         </li>
-                        <li><a href=\\"#grid_reference_northing\\">Enter the Grid reference Northing</a>
+                        <li><a href=\\"#gridReferenceNorthing\\">Enter the Grid reference Northing</a>
                         </li>
                     </ul>
                 </div>
@@ -236,19 +236,19 @@ exports[`applications create applicant POST /check-your-answers should display e
                         <tr class=\\"govuk-table__row\\">
                             <td class=\\"govuk-table__cell font-weight--700 pins-table__cell--s\\">Case location</td>
                             <td class=\\"govuk-table__cell pins-table__cell--s\\"></td>
-                            <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a id=\\"project_location\\" class=\\"govuk-link\\" href=\\"/applications-service/create-new-case/123/geographical-information\\">Change</a>
+                            <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a id=\\"projectLocation\\" class=\\"govuk-link\\" href=\\"/applications-service/create-new-case/123/geographical-information\\">Change</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row\\">
                             <td class=\\"govuk-table__cell font-weight--700 pins-table__cell--s\\">Grid reference Easting</td>
                             <td class=\\"govuk-table__cell pins-table__cell--s\\"></td>
-                            <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a id=\\"grid_reference_easting\\" class=\\"govuk-link\\" href=\\"/applications-service/create-new-case/123/geographical-information\\">Change</a>
+                            <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a id=\\"gridReferenceEasting\\" class=\\"govuk-link\\" href=\\"/applications-service/create-new-case/123/geographical-information\\">Change</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row\\">
                             <td class=\\"govuk-table__cell font-weight--700 pins-table__cell--s\\">Grid reference Northing</td>
                             <td class=\\"govuk-table__cell pins-table__cell--s\\"></td>
-                            <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a id=\\"grid_reference_northing\\" class=\\"govuk-link\\" href=\\"/applications-service/create-new-case/123/geographical-information\\">Change</a>
+                            <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a id=\\"gridReferenceNorthing\\" class=\\"govuk-link\\" href=\\"/applications-service/create-new-case/123/geographical-information\\">Change</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row\\">

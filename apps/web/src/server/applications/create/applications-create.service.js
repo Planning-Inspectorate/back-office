@@ -110,13 +110,13 @@ export const getErrorMessageCaseCreate = (fieldName, existingError = null) => {
 	let errorMessage = 'Unknown Error';
 
 	switch (fieldName) {
-		case 'grid_reference_easting':
+		case 'gridReferenceEasting':
 			errorMessage = 'Enter the Grid reference Easting';
 			break;
-		case 'grid_reference_northing':
+		case 'gridReferenceNorthing':
 			errorMessage = 'Enter the Grid reference Northing';
 			break;
-		case 'project_location':
+		case 'projectLocation':
 			errorMessage = 'Enter the case location';
 			break;
 		case 'regions':
