@@ -50,7 +50,7 @@ export async function updateApplicationsCreateKeyDates(
 	const payload = {
 		keyDates: {
 			submissionDatePublished,
-			submissionDateInternal
+			...(submissionDateInternal ? { submissionDateInternal } : {})
 		}
 	};
 
