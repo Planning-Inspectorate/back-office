@@ -19,7 +19,7 @@ const errorPostResponse = {
 };
 
 const nocks = () => {
-	nock('http://test/').get('/applications/case-officer').reply(200, successGetResponse);
+	nock('http://test/').get('/applications/case-officer').reply(200, []);
 	nock('http://test/').get('/applications/123').times(2).reply(200, successGetResponse);
 };
 
