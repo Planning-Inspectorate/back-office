@@ -18,7 +18,8 @@ const { value, error } = schema.validate({
 		port: process.env.SERVICE_BUS_PORT,
 		reconnect: false,
 		transport: process.env.SERVICE_BUS_TRANSPORT,
-		username: process.env.SERVICE_BUS_USERNAME
+		username: process.env.SERVICE_BUS_USERNAME,
+		subscriber: process.env.SERVICE_BUS_SUBSCRIBER
 	},
 	queues: {
 		startedCaseQueue: process.env.SERVICE_BUS_STARTED_CASE_QUEUE
