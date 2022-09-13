@@ -99,5 +99,5 @@ export async function handleSignout(req, response) {
 
 	pino.info('[WEB] clearing session:', req.session);
 
-	response.status(200).end();
+	response.clearCookie('connect.sid', { path: '/' }).status(200).end();
 }
