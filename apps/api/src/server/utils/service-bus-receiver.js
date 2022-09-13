@@ -16,7 +16,6 @@ const options = {
 const { subscriber } = config.serviceBusOptions;
 const queue = config.queues.startedCaseQueue;
 
-// const connection = container.connect({ port:config.serviceBusOptions.port, host: undefined, container_id: undefined });
 const connection = container.connect(options);
 
 connection.on('receiver_open', () => {
