@@ -136,7 +136,8 @@ const inclusionsUsingQuery = (query) => {
 		sector: notFalseOrUndefined(query?.sector),
 		applicationDetails:
 			notFalseOrUndefined(query?.keyDates) ||
-			notFalseOrUndefined(query?.geographicalInformation?.locationDescription),
+			notFalseOrUndefined(query?.geographicalInformation?.locationDescription) ||
+			notFalseOrUndefined(query?.caseEmail),
 		zoomLevel: notFalseOrUndefined(query?.geographicalInformation),
 		regions:
 			notFalseOrUndefined(query?.regions) || notFalseOrUndefined(query?.geographicalInformation),
