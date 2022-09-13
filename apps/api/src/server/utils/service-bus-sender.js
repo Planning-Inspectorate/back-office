@@ -2,7 +2,16 @@ import container from 'rhea';
 import config from '../config/config.js';
 import logger from './logger.js';
 
-const options = config.serviceBusOptions;
+const options = {
+	host: config.serviceBusOptions.host,
+	hostname: config.serviceBusOptions.hostname,
+	reconnect_limit: config.serviceBusOptions.reconnect_limit,
+	password: config.serviceBusOptions.password,
+	port: config.serviceBusOptions.port,
+	reconnect: config.serviceBusOptions.reconnect,
+	transport: config.serviceBusOptions.transport,
+	username: config.serviceBusOptions.username
+};
 
 /** @type {Object<string,string|undefined>} */ const reasonToQueueMap = {
 	startedCase: config.queues.startedCaseQueue

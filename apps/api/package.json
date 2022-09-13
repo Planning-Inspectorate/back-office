@@ -14,6 +14,7 @@
     "test": "npm run prisma-generate && NODE_ENV=test cross-env ava --no-worker-threads",
     "coverage": "c8 --reporter=html --reporter=text ava",
     "dev": "npm run prisma-generate && nodemon --experimental-json-modules -e js ./src/server.js",
+    "dev:queue:listen": "nodemon --experimental-json-modules -e js ./src/server/utils/service-bus-receiver.js",
     "start": "node ./src/server.js",
     "lint:js": "eslint src prisma/seed.js",
     "lint:js:fix": "eslint src prisma/seed.js --fix",

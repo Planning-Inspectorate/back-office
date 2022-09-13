@@ -14,7 +14,8 @@ export default joi.object({
 		port: joi.number(),
 		reconnect: joi.boolean(),
 		transport: joi.string().optional(),
-		username: joi.string().optional()
+		username: joi.string().optional(),
+		subscriber: joi.string()
 	}),
 	queues: joi.object({
 		startedCaseQueue: joi.string()
