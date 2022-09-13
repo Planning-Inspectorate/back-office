@@ -87,14 +87,17 @@ export async function completeMsalAuthentication(request, response) {
  *
  * @type {import('express').RequestHandler}
  */
-export async function handleSignout({ session }, response) {
-	const account = authSession.getAccount(session);
+export async function handleSignout(req, response) {
+	const account = authSession.getAccount(req.session);
 
 	if (account) {
 		await Promise.all([
-			promisify(session.destroy.bind(session))(),
+			promisify(req.session.destroy.bind(req.session))(),
 			authService.clearCacheForAccount(account)
 		]);
 	}
+
+	pino.info('[WEB] clearing session:', req.session);
+
 	response.status(200).end();
 }
