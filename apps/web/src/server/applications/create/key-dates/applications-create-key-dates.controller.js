@@ -11,7 +11,7 @@ import { getApplicationDraft, updateApplicationDraft } from '../applications-cre
  */
 export async function viewApplicationsCreateKeyDates(req, response) {
 	const { applicationId } = response.locals;
-	const { keyDates } = await getApplicationDraft(applicationId);
+	const { keyDates } = await getApplicationDraft(applicationId, '{"keyDates": true}');
 	const { submissionDatePublished, submissionDateInternal } = keyDates || {};
 
 	const values = {
