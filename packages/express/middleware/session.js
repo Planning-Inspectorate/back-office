@@ -31,6 +31,9 @@ export const createSessionMockMiddleware = ({ initialSession = {}, getSessionID 
 						}
 						callback(null);
 						return this;
+					},
+					regenerate(callback) {
+						callback(null);
 					}
 				});
 				sessions.set(request.sessionID, session);
