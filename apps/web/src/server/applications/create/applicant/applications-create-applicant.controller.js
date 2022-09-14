@@ -1,7 +1,7 @@
 import { findAddressListByPostcode } from '@planning-inspectorate/address-lookup';
 import { updateApplicationDraft } from '../applications-create.service.js';
 import * as applicationsCreateApplicantService from './applications-create-applicant.service.js';
-import { getNthApplicant } from './applications-create-applicant.service.js';
+import { getApplicantById } from './applications-create-applicant.service.js';
 import {
 	getSessionApplicantInfoTypes,
 	setSessionApplicantInfoTypes
@@ -68,9 +68,9 @@ export async function updateApplicationsCreateApplicantTypes({ path, session, bo
  * @type {import('@pins/express').RenderHandler<ApplicationsCreateApplicantOrganisationNameProps, {}, {}, {}, {}>}
  */
 export async function viewApplicationsCreateApplicantOrganisationName(req, response) {
-	const { applicationId } = response.locals;
+	const { applicationId, applicantId } = response.locals;
 
-	const applicant = await getNthApplicant(applicationId, 0);
+	const applicant = await getApplicantById(applicationId, applicantId, '{"applicants": true}');
 	const values = {
 		'applicant.organisationName': applicant?.organisationName
 	};
@@ -115,9 +115,9 @@ export async function updateApplicationsCreateApplicantOrganisationName(
  * @type {import('@pins/express').RenderHandler<ApplicationsCreateApplicantFullNameProps, {}, {}, {}, {}>}
  */
 export async function viewApplicationsCreateApplicantFullName(req, response) {
-	const { applicationId } = response.locals;
+	const { applicationId, applicantId } = response.locals;
 
-	const applicant = await getNthApplicant(applicationId, 0);
+	const applicant = await getApplicantById(applicationId, applicantId, '{"applicants": true}');
 	const values = {
 		'applicant.firstName': applicant?.firstName,
 		'applicant.middleName': applicant?.middleName,
@@ -162,9 +162,9 @@ export async function updateApplicationsCreateApplicantFullName({ path, session,
  *  @type {import('@pins/express').RenderHandler<ApplicationsCreateApplicantEmailProps, {}, {}, {}, {}>}
  */
 export async function viewApplicationsCreateApplicantEmail(req, response) {
-	const { applicationId } = response.locals;
+	const { applicationId, applicantId } = response.locals;
 
-	const applicant = await getNthApplicant(applicationId, 0);
+	const applicant = await getApplicantById(applicationId, applicantId, '{"applicants": true}');
 	const values = {
 		'applicant.email': applicant?.email
 	};
@@ -211,9 +211,13 @@ export async function updateApplicationsCreateApplicantEmail(
  */
 export async function viewApplicationsCreateApplicantAddress({ query }, response) {
 	const { postcode: queryPostcode } = query;
-	const { applicationId } = response.locals;
+	const { applicationId, applicantId } = response.locals;
 
-	const applicant = await getNthApplicant(applicationId, 0);
+	const applicant = await getApplicantById(
+		applicationId,
+		applicantId,
+		'{"applicants":true, "applicantsAddress": true}'
+	);
 	const postcode = queryPostcode || applicant?.address?.postCode;
 	const formStage = queryPostcode ? 'manualAddress' : 'searchPostcode';
 
@@ -306,9 +310,9 @@ export async function updateApplicationsCreateApplicantAddress(
  * @type {import('@pins/express').RenderHandler<ApplicationsCreateApplicantWebsiteProps, {}, {}, {}, {}>}
  */
 export async function viewApplicationsCreateApplicantWebsite(req, response) {
-	const { applicationId } = response.locals;
+	const { applicationId, applicantId } = response.locals;
 
-	const applicant = await getNthApplicant(applicationId, 0);
+	const applicant = await getApplicantById(applicationId, applicantId, '{"applicants": true}');
 	const values = {
 		'applicant.website': applicant?.website
 	};
@@ -353,9 +357,9 @@ export async function updateApplicationsCreateApplicantWebsite(
  * @type {import('@pins/express').RenderHandler<ApplicationsCreateApplicantTelephoneNumberProps, {}, {}, {}, {}>}
  */
 export async function viewApplicationsCreateApplicantTelephoneNumber(req, response) {
-	const { applicationId } = response.locals;
+	const { applicationId, applicantId } = response.locals;
 
-	const applicant = await getNthApplicant(applicationId, 0);
+	const applicant = await getApplicantById(applicationId, applicantId, '{"applicants": true}');
 	const values = {
 		'applicant.phoneNumber': applicant?.phoneNumber
 	};
