@@ -143,7 +143,11 @@ const expectedSearchParameters = (skip, take, query) => {
 					}
 				}
 			},
-			CaseStatus: true
+			CaseStatus: {
+				where: {
+					valid: true
+				}
+			}
 		}
 	};
 };
