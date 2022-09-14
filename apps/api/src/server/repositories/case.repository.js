@@ -106,7 +106,11 @@ export const getBySearchCriteria = (query, skipValue, pageSize) => {
 					}
 				}
 			},
-			CaseStatus: true
+			CaseStatus: {
+				where: {
+					valid: true
+				}
+			}
 		}
 	});
 };
