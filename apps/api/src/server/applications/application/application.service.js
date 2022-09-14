@@ -130,6 +130,11 @@ const defaultInclusions = {
 	gridReference: true
 };
 
+/**
+ *
+ * @param {{subSector?: any, sector?: any, caseEmail?: any, keyDates?: any, geographicalInformation?: any, regions?: any, status?: any, applicants?: any, applicantsAddress?: any}} query
+ * @returns {object}
+ */
 const inclusionsUsingQuery = (query) => {
 	return {
 		subSector: notFalseOrUndefined(query?.subSector) || notFalseOrUndefined(query?.sector),
@@ -142,15 +147,15 @@ const inclusionsUsingQuery = (query) => {
 		regions:
 			notFalseOrUndefined(query?.regions) || notFalseOrUndefined(query?.geographicalInformation),
 		caseStatus: query?.status,
-		serviceCustomer: notFalseOrUndefined(query.applicant),
-		serviceCustomerAddress: notFalseOrUndefined(query?.applicant?.address),
+		serviceCustomer: notFalseOrUndefined(query?.applicants),
+		serviceCustomerAddress: notFalseOrUndefined(query?.applicantsAddress),
 		gridReference: notFalseOrUndefined(query.geographicalInformation)
 	};
 };
 
 /**
  *
- * @param {{subSector?: any, sector?: any, keyDates?: any, geographicalInformation?: any, regions?: any, status?: any, applicant?: any}} query
+ * @param {{subSector?: any, sector?: any, caseEmail?: any, keyDates?: any, geographicalInformation?: any, regions?: any, status?: any, applicants?: any, applicantsAddress?: any}} query
  * @returns {object}
  */
 const findModelsToInclude = (query) => {
@@ -183,9 +188,7 @@ export const getCaseDetails = async (id, query) => {
 
 	const parsedQuery = !isEmpty(query) ? JSON.parse(query.query) : emptyQuery;
 	const modelsToInclude = findModelsToInclude(parsedQuery);
-
 	const caseDetails = await caseRepository.getById(id, modelsToInclude);
-
 	const applicationDetailsFormatted = mapApplicationDetails(caseDetails);
 
 	return typeof parsedQuery !== 'undefined'
