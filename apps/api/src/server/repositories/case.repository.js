@@ -360,6 +360,7 @@ export const getById = (
 			zoomLevel ||
 			regions ||
 			caseStatus ||
+			serviceCustomer ||
 			serviceCustomerAddress) && {
 			include: {
 				...((applicationDetails || subSector || zoomLevel || regions || sector) && {
