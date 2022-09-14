@@ -10,6 +10,7 @@ export default session({
 	resave: false,
 	saveUninitialized: false,
 	store,
+	unset: 'destroy',
 	cookie: {
 		secure: config.isProduction
 	}
