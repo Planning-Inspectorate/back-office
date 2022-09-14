@@ -67,8 +67,8 @@ export async function completeMsalAuthentication(request, response) {
 		// such a request has no nefarious effect on the application and would
 		// basically be a waste of time).
 		if (authenticationResult?.idTokenClaims.nonce === nonce) {
-			authSession.setAccount(request.session, authenticationResult.account);
 			request.session.regenerate(() => {
+				authSession.setAccount(request.session, authenticationResult.account);
 				pino.info('[WEB] Session regenerated after login');
 			});
 			response.redirect(postSigninRedirectUri);
