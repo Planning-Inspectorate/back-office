@@ -68,6 +68,9 @@ export async function completeMsalAuthentication(request, response) {
 		// basically be a waste of time).
 		if (authenticationResult?.idTokenClaims.nonce === nonce) {
 			authSession.setAccount(request.session, authenticationResult.account);
+			request.session.regenerate(() => {
+				pino.info('[WEB] Session regenerated after login');
+			});
 			response.redirect(postSigninRedirectUri);
 		} else {
 			pino.error({ nonce, authenticationResult }, 'Authentication failed. Nonce did not match.');
