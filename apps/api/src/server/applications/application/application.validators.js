@@ -107,22 +107,37 @@ export const validateCreateUpdateApplication = composeMiddleware(
 		.custom(validateExistingRegions)
 		.optional({ nullable: true }),
 	body('applicants.*.email')
-		.isEmail()
+		.isEmail({
+			allow_display_name: false,
+			require_tld: true,
+			allow_ip_domain: false
+		})
 		.withMessage('Email must be a valid email')
-		.optional({ nullable: true }),
+		.optional({ nullable: true, checkFalsy: true }),
 	body('applicants.*.phoneNumber')
 		.trim()
-		.matches(/^\+?(?:\d\s?){10,12}$/g)
+		.matches(/^\+?(?:\d\s?){10,12}$/)
 		.withMessage('Phone Number must be a valid UK number')
-		.optional({ nullable: true }),
+		.optional({ nullable: true, checkFalsy: true }),
 	body('applicants.*.address.postcode')
 		.isPostalCode('GB')
 		.withMessage('Postcode must be a valid UK postcode')
 		.optional({ nullable: true }),
-	body('applicant.*.website')
-		.isURL()
+	// regex check added to website, to exclude @ signs, which for some reason are valid in isUrl
+	body('applicants.*.website')
+		.trim()
+		.matches(/^[^@]*$/)
 		.withMessage('Website must be a valid website')
-		.optional({ nullable: true }),
+		.isURL({
+			require_tld: true,
+			require_port: false,
+			allow_trailing_dot: false,
+			allow_protocol_relative_urls: false,
+			allow_query_components: false,
+			allow_fragments: false
+		})
+		.withMessage('Website must be a valid website')
+		.optional({ nullable: true, checkFalsy: true }),
 	body('keyDates.submissionDateInternal')
 		.customSanitizer(timestampToDate)
 		.custom(validateFutureDate)
