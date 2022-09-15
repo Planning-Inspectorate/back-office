@@ -55,7 +55,8 @@ export default {
 	msal: {
 		clientId,
 		clientSecret,
-		authority: `https://login.microsoftonline.com/${tenantId}`
+		authority: `https://login.microsoftonline.com/${tenantId}`,
+		logoutUri: 'https://login.microsoftonline.com/common/oauth2/v2.0/logout'
 	},
 	tmpDir: path.join(cwd, '.tmp')
 };

@@ -1,4 +1,5 @@
 import msalNode from '@azure/msal-node';
+import config from '@pins/web/environment/config.js';
 import { promisify } from 'node:util';
 import pino from '../../lib/logger.js';
 import * as authService from './auth.service.js';
@@ -100,5 +101,5 @@ export async function handleSignout(req, response) {
 
 	pino.info('[WEB] clearing session:', req.session);
 
-	response.clearCookie('connect.sid', { path: '/' }).status(200).end();
+	response.clearCookie('connect.sid', { path: '/' }).redirect(config.msal.logoutUri);
 }
