@@ -29,7 +29,7 @@ exports[`auth authentication should display a logout link in the header when the
         <button type=\\"button\\" class=\\"govuk-header__menu-button govuk-js-header-toggle\\"
         aria-controls=\\"navigation\\" aria-label=\\"Show or hide menu\\" hidden>Menu</button>
         <ul id=\\"navigation\\" class=\\"govuk-header__navigation-list\\">
-            <li class=\\"govuk-header__navigation-item\\"><a class=\\"govuk-header__link\\" href=\\"https://login.microsoftonline.com/common/oauth2/v2.0/logout\\"> Sign out</a>
+            <li class=\\"govuk-header__navigation-item\\"><a class=\\"govuk-header__link\\" href=\\"/auth/signout\\"> Sign out</a>
             </li>
         </ul>
     </nav>

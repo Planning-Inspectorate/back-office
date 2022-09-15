@@ -21,7 +21,7 @@
       serviceName: serviceName,
       serviceUrl: serviceUrl | default('/'),
       containerClasses: containerClasses,
-      navigation: [{ href: "https://login.microsoftonline.com/common/oauth2/v2.0/logout", text: 'Sign out' }] if isAuthenticated else [],
+      navigation: [{ href: "/auth/signout", text: 'Sign out' }] if isAuthenticated else [],
       navigationClasses: 'pins-header__navigation--align-right'
     })
   }}
