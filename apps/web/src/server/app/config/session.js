@@ -4,7 +4,6 @@ import session from 'express-session';
 export const store = new session.MemoryStore();
 
 // TODO: Regeneration of Session After Login
-// TODO: Set Expiration
 export default session({
 	secret: 'PINSBackOffice',
 	resave: false,
@@ -12,6 +11,7 @@ export default session({
 	store,
 	unset: 'destroy',
 	cookie: {
-		secure: config.isProduction
+		secure: config.isProduction,
+		maxAge: 86_400_000
 	}
 });
