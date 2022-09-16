@@ -4,6 +4,7 @@ import { installAuthMock } from '../../../testing/app/mocks/auth.js';
 import appealsRouter from '../appeals/appeals.router.js';
 import applicationsRouter from '../applications/applications.router.js';
 import { handleHeathCheck, viewHomepage, viewUnauthenticatedError } from './app.controller.js';
+import { handleSignout } from './auth/auth.controller.js';
 import { assertIsAuthenticated } from './auth/auth.guards.js';
 import authRouter from './auth/auth.router.js';
 
@@ -29,6 +30,7 @@ if (!config.authDisabled) {
 }
 
 router.route('/').get(viewHomepage);
+router.route('/auth/signout').get(handleSignout);
 router.use('/appeals-service', appealsRouter);
 router.use('/applications-service', applicationsRouter);
 
