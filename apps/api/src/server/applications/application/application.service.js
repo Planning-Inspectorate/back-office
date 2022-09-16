@@ -132,7 +132,7 @@ const defaultInclusions = {
 
 /**
  *
- * @param {{subSector?: any, sector?: any, caseEmail?: any, keyDates?: any, geographicalInformation?: any, regions?: any, status?: any, applicants?: any, applicantsAddress?: any}} query
+ * @param {{subSector?: any, sector?: any, caseEmail?: any, keyDates?: any, geographicalInformation?: any, locationDescription?: any, regions?: any, status?: any, applicants?: any, applicantsAddress?: any}} query
  * @returns {object}
  */
 const inclusionsUsingQuery = (query) => {
@@ -141,7 +141,7 @@ const inclusionsUsingQuery = (query) => {
 		sector: notFalseOrUndefined(query?.sector),
 		applicationDetails:
 			notFalseOrUndefined(query?.keyDates) ||
-			notFalseOrUndefined(query?.geographicalInformation?.locationDescription) ||
+			notFalseOrUndefined(query?.geographicalInformation) ||
 			notFalseOrUndefined(query?.caseEmail),
 		zoomLevel: notFalseOrUndefined(query?.geographicalInformation),
 		regions:
@@ -172,6 +172,9 @@ const filterOutResponse = (parsedQuery, applicationDetailsFormatted) => {
 	const findTruthyValues = pickBy({ id: true, ...parsedQuery }, (value) => {
 		return value !== false;
 	});
+
+	// lodash.pick({test: {me: 'hello'}}, ['test.me'])
+
 	const findKey = Object.keys(findTruthyValues);
 
 	return pick(applicationDetailsFormatted, findKey);
@@ -189,6 +192,7 @@ export const getCaseDetails = async (id, query) => {
 	const parsedQuery = !isEmpty(query) ? JSON.parse(query.query) : emptyQuery;
 	const modelsToInclude = findModelsToInclude(parsedQuery);
 	const caseDetails = await caseRepository.getById(id, modelsToInclude);
+
 	const applicationDetailsFormatted = mapApplicationDetails(caseDetails);
 
 	return typeof parsedQuery !== 'undefined'
