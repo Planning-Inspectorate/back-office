@@ -30,7 +30,7 @@
     "@azure/msal-common": "6.3.0",
     "@azure/msal-node": "1.9.0",
     "@hapi/boom": "10.0.0",
-    "@planning-inspectorate/address-lookup": "^1.0.5",
+    "@planning-inspectorate/address-lookup": "^1.0.6",
     "accessible-autocomplete": "2.0.4",
     "body-parser": "1.20.0",
     "classnames": "^2.3.1",
