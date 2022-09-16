@@ -241,8 +241,7 @@ export async function updateApplicationsCreateApplicantAddress(
 		switch (currentFormStage) {
 			case 'searchPostcode': {
 				const { errors: serviceErrors, addressList } = await findAddressListByPostcode(postcode, {
-					maxResults: 50,
-					minMatch: 0.9
+					maxResults: 50
 				});
 				const errors = validationErrors || serviceErrors;
 				const newFormStage = errors ? 'searchPostcode' : 'selectAddress';
@@ -251,8 +250,7 @@ export async function updateApplicationsCreateApplicantAddress(
 			}
 			case 'selectAddress': {
 				const { errors: serviceErrors, addressList } = await findAddressListByPostcode(postcode, {
-					maxResults: 50,
-					minMatch: 0.9
+					maxResults: 50
 				});
 
 				const selectedAddress = addressList.find(
