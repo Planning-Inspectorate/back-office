@@ -24,7 +24,7 @@ export const registerBackPath = ({ session, path }, response, next) => {
  */
 export const registerApplicantId = async (req, response, next) => {
 	const { applicationId } = response.locals;
-	const applicationDraft = await getApplicationDraft(applicationId);
+	const applicationDraft = await getApplicationDraft(applicationId, ['applicants']);
 	const applicantId = applicationDraft.applicants?.[0]?.id;
 
 	if (!applicantId) {
