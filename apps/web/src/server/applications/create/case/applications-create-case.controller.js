@@ -44,7 +44,7 @@ import {
 export async function viewApplicationsCreateCaseName(req, response) {
 	const { applicationId } = response.locals || {};
 	const { title, description } = applicationId
-		? await getApplicationDraft(applicationId, '{"name":true, "description":true}')
+		? await getApplicationDraft(applicationId, ['name', 'description'])
 		: { title: '', description: '' };
 
 	response.render('applications/create/case/_name', { values: { title, description } });
@@ -91,7 +91,7 @@ export async function viewApplicationsCreateCaseSector({ session }, response) {
 	const { applicationId } = response.locals;
 	const allSectors = await getAllSectors();
 
-	const { sector } = await getApplicationDraft(applicationId, '{"sector":true}');
+	const { sector } = await getApplicationDraft(applicationId, ['sector']);
 	const selectedSectorName = getSessionCaseSectorName(session) || sector?.name;
 
 	response.render('applications/create/case/_sector', {
@@ -132,10 +132,7 @@ export async function updateApplicationsCreateCaseSector({ errors, session, body
  */
 export async function viewApplicationsCreateCaseSubSector({ session }, response) {
 	const { applicationId } = response.locals;
-	const { sector, subSector } = await getApplicationDraft(
-		applicationId,
-		'{"subSector":true, "sector":true}'
-	);
+	const { sector, subSector } = await getApplicationDraft(applicationId, ['subSector', 'sector']);
 	const selectedSectorName = getSessionCaseSectorName(session) || sector?.name;
 
 	if (!selectedSectorName) {
@@ -172,7 +169,7 @@ export async function updateApplicationsCreateCaseSubSector(
 	);
 
 	if (validationErrors || apiErrors || !updatedApplicationId) {
-		const { sector } = await getApplicationDraft(applicationId, '{"sector":true}');
+		const { sector } = await getApplicationDraft(applicationId, ['sector']);
 		const selectedSectorName = getSessionCaseSectorName(session) || sector?.name;
 		const subSectors = await getSubSectorsBySectorName(selectedSectorName);
 
@@ -197,10 +194,9 @@ export async function updateApplicationsCreateCaseSubSector(
  */
 export async function viewApplicationsCreateCaseGeographicalInformation(req, response) {
 	const { applicationId } = response.locals;
-	const { geographicalInformation } = await getApplicationDraft(
-		applicationId,
-		'{"geographicalInformation":true}'
-	);
+	const { geographicalInformation } = await getApplicationDraft(applicationId, [
+		'geographicalInformation'
+	]);
 	const { locationDescription, gridReference } = geographicalInformation || {};
 	const values = {
 		'geographicalInformation.locationDescription': locationDescription,
@@ -256,10 +252,9 @@ export async function updateApplicationsCreateCaseGeographicalInformation(
 export async function viewApplicationsCreateCaseRegions(req, response) {
 	const { applicationId } = response.locals;
 	const allRegions = await getAllRegions();
-	const { geographicalInformation } = await getApplicationDraft(
-		applicationId,
-		'{"geographicalInformation":true}'
-	);
+	const { geographicalInformation } = await getApplicationDraft(applicationId, [
+		'geographicalInformation'
+	]);
 	const selectedRegionNames = new Set(
 		(geographicalInformation?.regions || []).map((region) => region?.name)
 	);
@@ -317,10 +312,9 @@ export async function updateApplicationsCreateCaseRegions(
  */
 export async function viewApplicationsCreateCaseZoomLevel(req, response) {
 	const { applicationId } = response.locals;
-	const { geographicalInformation } = await getApplicationDraft(
-		applicationId,
-		'{"geographicalInformation":true}'
-	);
+	const { geographicalInformation } = await getApplicationDraft(applicationId, [
+		'geographicalInformation'
+	]);
 	const allZoomLevels = await getAllZoomLevels();
 	const values = {
 		'geographicalInformation.mapZoomLevelName':
@@ -369,7 +363,7 @@ export async function updateApplicationsCreateCaseZoomLevel({ body }, response) 
  */
 export async function viewApplicationsCreateCaseTeamEmail(req, response) {
 	const { applicationId } = response.locals;
-	const { caseEmail } = await getApplicationDraft(applicationId, '{"caseEmail":true}');
+	const { caseEmail } = await getApplicationDraft(applicationId, ['caseEmail']);
 	const values = { caseEmail };
 
 	return response.render('applications/create/case/_team-email', { values });

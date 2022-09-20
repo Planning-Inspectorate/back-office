@@ -71,12 +71,22 @@ export const createApplicationDraft = async (payload, session) => {
  * Get draft application by id
  * optional query parameters can filter the returned data
  *
- * @param {string | null} query
+ * @param { string[] | null} query
  * @param {number} id
  * @returns {Promise<Application>}
  */
 export const getApplicationDraft = async (id, query = null) => {
-	return get(`applications/${id}${query ? `?query=${query}` : ''}`);
+	let queryObject = {};
+
+	if (query) {
+		for (const singleQuery of query) {
+			queryObject = { ...queryObject, [singleQuery]: true };
+		}
+	}
+
+	const queryStringified = JSON.stringify(queryObject);
+
+	return get(`applications/${id}${query ? `?query=${queryStringified}` : ''}`);
 };
 
 /**

@@ -132,7 +132,7 @@ const defaultInclusions = {
 
 /**
  *
- * @param {{subSector?: any, sector?: any, caseEmail?: any, keyDates?: any, geographicalInformation?: any, locationDescription?: any, regions?: any, status?: any, applicants?: any, applicantsAddress?: any}} query
+ * @param {{subSector?: boolean | object, sector?: boolean | object, caseEmail?: boolean | object, keyDates?: boolean | object, geographicalInformation?: boolean | object, locationDescription?: boolean | object, regions?: boolean | object, status?: boolean | object, applicants?: boolean | object, applicantsAddress?: boolean | object}} query
  * @returns {object}
  */
 const inclusionsUsingQuery = (query) => {
@@ -155,7 +155,7 @@ const inclusionsUsingQuery = (query) => {
 
 /**
  *
- * @param {{subSector?: any, sector?: any, caseEmail?: any, keyDates?: any, geographicalInformation?: any, regions?: any, status?: any, applicants?: any, applicantsAddress?: any}} query
+ * @param {{subSector?: boolean | object, sector?: boolean | object, caseEmail?: boolean | object, keyDates?: boolean | object, geographicalInformation?: boolean | object, regions?: boolean | object, status?: boolean | object, applicants?: boolean | object, applicantsAddress?: boolean | object}} query
  * @returns {object}
  */
 const findModelsToInclude = (query) => {
@@ -172,8 +172,6 @@ const filterOutResponse = (parsedQuery, applicationDetailsFormatted) => {
 	const findTruthyValues = pickBy({ id: true, ...parsedQuery }, (value) => {
 		return value !== false;
 	});
-
-	// lodash.pick({test: {me: 'hello'}}, ['test.me'])
 
 	const findKey = Object.keys(findTruthyValues);
 
