@@ -17,11 +17,26 @@ const successResponse = { id: 1, applicantIds: [1] };
 const nocks = () => {
 	nock('http://test/').get('/applications/case-officer').times(4).reply(200, {});
 	nock('http://test/').get('/applications/sector').reply(200, fixtureSectors);
-	nock('http://test/').get('/applications/1').times(4).reply(200, fixtureApplications[0]);
-	nock('http://test/').get('/applications/2').times(4).reply(200, fixtureApplications[1]);
-	nock('http://test/').get('/applications/3').times(4).reply(200, fixtureApplications[2]);
-	nock('http://test/').get('/applications/4').times(4).reply(200, fixtureApplications[3]);
-	nock('http://test/').get('/applications/5').times(4).reply(200, fixtureApplications[4]);
+	nock('http://test/')
+		.get(/\/applications\/1\?(.*)/g)
+		.times(4)
+		.reply(200, fixtureApplications[0]);
+	nock('http://test/')
+		.get(/\/applications\/2\?(.*)/g)
+		.times(4)
+		.reply(200, fixtureApplications[1]);
+	nock('http://test/')
+		.get(/\/applications\/3\?(.*)/g)
+		.times(4)
+		.reply(200, fixtureApplications[2]);
+	nock('http://test/')
+		.get(/\/applications\/4\?(.*)/g)
+		.times(4)
+		.reply(200, fixtureApplications[3]);
+	nock('http://test/')
+		.get(/\/applications\/5\?(.*)/g)
+		.times(4)
+		.reply(200, fixtureApplications[4]);
 	nock('http://test/').get('/applications/').times(4).reply(404);
 	nock('http://test/')
 		.get('/applications/sector?sectorName=transport')

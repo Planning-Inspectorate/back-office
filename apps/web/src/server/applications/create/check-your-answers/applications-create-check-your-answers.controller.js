@@ -14,7 +14,7 @@ import * as applicationsCreateCheckYourAnswersService from './applications-creat
  */
 export async function viewApplicationsCreateConfirmation(req, response) {
 	const { applicationId } = response.locals;
-	const { reference } = await getApplicationDraft(applicationId);
+	const { reference } = await getApplicationDraft(applicationId, ['reference']);
 
 	if (!reference) {
 		pino.warn(`[WEB] reference number for case ${applicationId} is not defined`);
