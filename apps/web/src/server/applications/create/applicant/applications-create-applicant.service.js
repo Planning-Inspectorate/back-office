@@ -72,24 +72,11 @@ export function getAllowedDestinationPath({ session, path, goToNextPage }) {
 }
 
 /**
- * Returns the nth applicant of a draft application
- *
- * @param {number} applicationId
- * @param {number} applicantNumber
- * @returns {Promise<Applicant|null>}
- */
-export async function getNthApplicant(applicationId, applicantNumber) {
-	const { applicants } = await getApplicationDraft(applicationId);
-
-	return applicants && applicants.length > 0 ? applicants[applicantNumber] : null;
-}
-
-/**
  * Returns the applicant matching id of a draft application
  *
  * @param {number} applicationId
  * @param {number} applicantId
- * @param {null | string} query
+ * @param { string[] | null } query
  * @returns {Promise<Applicant|null>}
  */
 export async function getApplicantById(applicationId, applicantId, query = null) {
