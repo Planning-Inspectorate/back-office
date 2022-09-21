@@ -80,7 +80,6 @@ exports[`applications search POST /applications-service/search-results should re
             <thead class=\\"govuk-table__head\\">
                 <tr class=\\"govuk-table__row\\">
                     <th scope=\\"col\\" class=\\"govuk-table__header govuk-!-width-one-half\\">Name</th>
-                    <th scope=\\"col\\" class=\\"govuk-table__header pins-table__cell--s\\">Modified</th>
                     <th scope=\\"col\\" class=\\"govuk-table__header text-align--right\\">Stage</th>
                 </tr>
             </thead>
@@ -88,7 +87,6 @@ exports[`applications search POST /applications-service/search-results should re
                 <tr class=\\"govuk-table__row\\">
                     <td class=\\"govuk-table__cell\\"><a class=\\"govuk-body\\" href=\\"/applications-service/create-new-case/76/check-your-answers/\\"> Title</a>
                     </td>
-                    <td class=\\"govuk-table__cell\\">05/09/2022</td>
                     <td class=\\"govuk-table__cell govuk-!-width-one-quarter text-align--right\\"><strong class=\\"govuk-tag govuk-tag--\\">Draft</strong>
                     </td>
                 </tr>

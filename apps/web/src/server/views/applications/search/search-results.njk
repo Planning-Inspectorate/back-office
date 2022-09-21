@@ -38,7 +38,6 @@
 		{% for searchItem in searchApplicationsItems %}
 			{% set rows = rows | concat ([[
 				{ html: applicationLink(searchItem) },
-				{ text: searchItem.modifiedDate | datestamp },
 				{ html: statusTag(searchItem.status), classes: 'govuk-!-width-one-quarter text-align--right' }
 			]]) %}
 		{% endfor %}
@@ -48,7 +47,6 @@
 				classes: 'pins-table--fixed pins-table--bordered',
 				head: [
 					{ text: "Name", classes: 'govuk-!-width-one-half' },
-					{ text: "Modified", classes: 'pins-table__cell--s' },
 					{ text: "Stage", classes: 'text-align--right' }
 				],
 				rows: rows
