@@ -180,7 +180,8 @@ test('should get applications using search criteria', async (t) => {
 				id: 3,
 				status: 'Draft',
 				reference: application.reference,
-				title: searchString
+				title: searchString,
+				modifiedDate: 1_655_298_882
 			}
 		]
 	});
@@ -206,7 +207,8 @@ test('should get applications using search criteria with default page number', a
 				id: 3,
 				status: 'Draft',
 				reference: application.reference,
-				title: searchString
+				title: searchString,
+				modifiedDate: 1_655_298_882
 			}
 		]
 	});
@@ -232,7 +234,8 @@ test('should get applications using search criteria with default page size', asy
 				id: 3,
 				status: 'Draft',
 				reference: application.reference,
-				title: searchString
+				title: searchString,
+				modifiedDate: 1_655_298_882
 			}
 		]
 	});

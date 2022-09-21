@@ -2,7 +2,7 @@ import * as caseRepository from '../../repositories/case.repository.js';
 import { mapApplicationWithSearchCriteria } from '../../utils/mapping/map-application-with-search-criteria.js';
 
 /**
- * @typedef {{id: number, reference: string, modifiedDate: number, title: string, description: string, status: string}} ApplicationWithSearchCriteriaResponse
+ * @typedef {{id: number, reference: string | null, modifiedDate: number, title: string | null, description: string, status: string | object}} ApplicationWithSearchCriteriaResponse
  * @typedef {{page:number, pageSize: number, pageCount: number, itemCount: number, items: ApplicationWithSearchCriteriaResponse[]}} paginationInfo
  */
 
