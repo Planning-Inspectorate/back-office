@@ -60,6 +60,8 @@ export async function completeMsalAuthentication(request, response) {
 	if (request.query.code) {
 		const authenticationResult = await authService.acquireTokenByCode(request.query.code);
 
+		pino.info('[WEB] auth token:', authenticationResult);
+
 		// After acquiring an authentication result from MSAL, verify that the
 		// result is signed by the nonce for this authentication attempt. This check
 		// prevents against replay attacks and CSRF attacks (note, that a CSRF
@@ -68,9 +70,16 @@ export async function completeMsalAuthentication(request, response) {
 		// such a request has no nefarious effect on the application and would
 		// basically be a waste of time).
 		if (authenticationResult?.idTokenClaims.nonce === nonce) {
-			authSession.setAccount(request.session, authenticationResult.account);
+			request.session.regenerate(() => {
+				// store user information in session
+				authSession.setAccount(request.session, authenticationResult.account);
 
-			response.redirect(postSigninRedirectUri);
+				// save the session before redirection to ensure page
+				// load does not happen before session is saved
+				request.session.save(() => {
+					response.redirect(postSigninRedirectUri);
+				});
+			});
 		} else {
 			pino.error({ nonce, authenticationResult }, 'Authentication failed. Nonce did not match.');
 			response.redirect('/unauthenticated');
