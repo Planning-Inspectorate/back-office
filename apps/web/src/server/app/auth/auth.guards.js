@@ -41,9 +41,15 @@ export async function assertIsAuthenticated({ originalUrl, session }, response, 
 			pino.info(error, 'Failed to refresh MSAL authentication.');
 		}
 	}
-	pino.info(`Unauthenticated user redirected to sign in from '${originalUrl}'.`);
 
-	response.redirect(`/auth/signin?redirect_to=${originalUrl}`);
+	// Destroy current session and redirect users to sign in form.
+	session.destroy(() => {
+		pino.info(`Unauthenticated user redirected to sign in from '${originalUrl}'.`);
+
+		response
+			.clearCookie('connect.sid', { path: '/' })
+			.redirect(`/auth/signin?redirect_to=${originalUrl}`);
+	});
 }
 
 /**
