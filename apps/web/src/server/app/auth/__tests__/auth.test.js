@@ -39,7 +39,6 @@ describe('auth', () => {
 			expect(authOptions.nonce).toBeTruthy();
 
 			expect(response.get('Location')).toEqual('/test/azure-msal/signin');
-
 			// Invoke the redirect from azure's SSO
 
 			const redirect = await request.get('/auth/redirect?code=msal_code');

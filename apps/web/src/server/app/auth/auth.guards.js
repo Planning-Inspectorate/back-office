@@ -1,3 +1,4 @@
+import { promisify } from 'node:util';
 import pino from '../../lib/logger.js';
 import * as authService from './auth.service.js';
 import * as authSession from './auth-session.service.js';
@@ -20,8 +21,8 @@ import * as authSession from './auth-session.service.js';
  *
  * @type {import('express').RequestHandler}
  */
-export async function assertIsAuthenticated({ originalUrl, session }, response, next) {
-	const account = authSession.getAccount(session);
+export async function assertIsAuthenticated(request, response, next) {
+	const account = authSession.getAccount(request.session);
 
 	if (account) {
 		try {
@@ -34,22 +35,21 @@ export async function assertIsAuthenticated({ originalUrl, session }, response, 
 
 			if (refreshedAuthenticationResult) {
 				pino.debug('Refreshed MSAL authentication.');
-				authSession.setAccount(session, refreshedAuthenticationResult.account);
+				authSession.setAccount(request.session, refreshedAuthenticationResult.account);
 				return next();
 			}
+			// Destroy current session if refreshedAuthenticationResult not provided.
+			await Promise.all([
+				promisify(request.session.destroy.bind(request.session))(),
+				authService.clearCacheForAccount(account)
+			]);
+			response.clearCookie('connect.sid', { path: '/' });
 		} catch (error) {
 			pino.info(error, 'Failed to refresh MSAL authentication.');
 		}
 	}
-
-	// Destroy current session and redirect users to sign in form.
-	session.destroy(() => {
-		pino.info(`Unauthenticated user redirected to sign in from '${originalUrl}'.`);
-
-		response
-			.clearCookie('connect.sid', { path: '/' })
-			.redirect(`/auth/signin?redirect_to=${originalUrl}`);
-	});
+	pino.info(`Unauthenticated user redirected to sign in from '${request.originalUrl}'.`);
+	response.redirect(`/auth/signin?redirect_to=${request.originalUrl}`);
 }
 
 /**
