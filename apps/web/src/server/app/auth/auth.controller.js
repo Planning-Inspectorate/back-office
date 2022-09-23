@@ -73,7 +73,6 @@ export async function completeMsalAuthentication(request, response) {
 			request.session.regenerate(() => {
 				// store user information in session
 				authSession.setAccount(request.session, authenticationResult.account);
-
 				// save the session before redirection to ensure page
 				// load does not happen before session is saved
 				request.session.save(() => {
