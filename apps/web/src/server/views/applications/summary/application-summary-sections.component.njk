@@ -1,0 +1,19 @@
+{% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
+
+{% macro applicationSummarySections(params) %}
+  {% set application = params.application %}
+  {% set domainType = params.domainType %}
+
+  <aside class="govuk-!-margin-bottom-8">
+    <ul class="gov-list" style="padding-left:0; margin-top:0">
+			<li class="govuk-heading-s"><a href="{{ 'view-application'|url({domainType: domainType, applicationId: application.id}) }}"
+										class="govuk-link">Overview</a></li>
+			<li class="govuk-heading-s"><a href="{{ 'view-application'|url({domainType: domainType, applicationId: application.id, step:'project-information'}) }}"
+										class="govuk-link">Project information</a></li>
+			<li class="govuk-heading-s"><a href="#keydates" class="govuk-link">Key dates</a></li>
+			<li class="govuk-heading-s"><a href="#team" class="govuk-link">Project team</a></li>
+			<li class="govuk-heading-s"><a href="#fees" class="govuk-link">Fees</a></li>
+			<li class="govuk-heading-s"><a href="#documentation" class="govuk-link">Project documentation</a></li>
+		</ul>
+  </aside>
+{% endmacro %}
