@@ -57,9 +57,9 @@ export const registerDomainLocals = ({ params, session }, response, next) => {
  *
  * @type {import('@pins/express').RequestHandler<ApplicationLocals>}
  */
-export const loadApplication = async (req, _, next) => {
-	req.locals.applicationId = Number(req.params.applicationId);
-	req.locals.application = await findApplicationById(req.locals.applicationId);
+export const loadApplication = async (req, response, next) => {
+	response.locals.applicationId = Number(req.params.applicationId);
+	response.locals.application = await findApplicationById(response.locals.applicationId);
 
 	next();
 };

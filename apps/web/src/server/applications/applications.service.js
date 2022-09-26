@@ -8,7 +8,7 @@ import { get } from '../lib/request.js';
  * @returns {Promise<Application>}
  */
 export const findApplicationById = (id) => {
-	return get(`applications/application/${id}`);
+	return get(`applications/${id}`);
 };
 
 /**

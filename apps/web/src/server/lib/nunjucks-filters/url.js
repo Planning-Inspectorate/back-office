@@ -27,7 +27,9 @@ export const url = (key, filterArguments) => {
 				step ? `${step}/` : ''
 			}`;
 		case 'view-application':
-			return `${domainUrl}/${domainType || ''}/applications/${applicationId || ''}`;
+			return `${domainUrl}/${domainType || ''}/case/${applicationId ? `${applicationId}/` : ''}${
+				step ? `${step}/` : ''
+			}`;
 		case 'search-results':
 			return `${domainUrl}/search-results/${step}?q=${query}`;
 		default:

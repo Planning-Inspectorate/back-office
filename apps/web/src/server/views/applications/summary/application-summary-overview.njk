@@ -1,0 +1,47 @@
+{% extends "./application-summary-layout.njk" %}
+{% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
+
+{% block sectionContent %}
+	{% set applicantFirstOrganisationName = application.applicants[0].organisationName %}
+	{% set applicantFirstEmail = application.applicants[0].email %}
+	{% set applicantFirstPhoneNumber = application.applicants[0].phoneNumber %}
+	{% set applicantFirstWebsite = application.applicants[0].website %}
+
+	<h3 class="govuk-heading-m">Latest key dates</h3>
+	<ul class="govuk-list govuk-list--bullet">
+		<li>Anticipated submission date: {{ application.keyDates.submissionDatePublished }}</li>
+		<li>Anticipated submission date internal: {{ application.keyDates.submissionDateInternal | datestamp({format: 'dd/MM/yyyy'}) }}</li>
+	</ul>
+
+	<hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible">
+	<h3 class="govuk-heading-m">Summary information</h3>
+	{{ govukSummaryList({
+		classes: 'govuk-summary-list--no-border',
+		rows: [
+			{
+				key: { text: "Case reference" },
+				value: { text: application.reference }
+			},
+			{
+				key: { text: "Applicant Information" },
+				value: { html: [applicantFirstOrganisationName, applicantFirstEmail, applicantFirstPhoneNumber] | collapse() }
+			},
+			{
+				key: { text: "Applicant website" },
+				value: { html: '<a class="govuk-link" href="//' + applicantFirstWebsite + '">' + applicantFirstWebsite + '</a>' }
+			},
+			{
+				key: { text: "Project email" },
+				value: { text: application.caseEmail }
+			},
+			{
+				key: { text: "Project page" },
+				value: { html:  '<strong class="govuk-tag govuk-tag--grey">NOT PUBLISHED</strong>' }
+			}
+		]
+	}) }}
+
+	<hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible">
+	<h3 class="govuk-heading-m">Project team</h3>
+	<p class="govuk-body">No project members have been added yet</p>
+{% endblock %}
