@@ -1,0 +1,69 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`applications view case summary GET /case should render the page 1`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <div class=\\"govuk-grid-row\\" style=\\"background-color: AliceBlue\\">
+        <div class=\\"govuk-grid-column-full\\">
+            <h1 class=\\"govuk-heading-xl\\"></h1>
+            <div class=\\"govuk-grid-row\\">
+                <div class=\\"govuk-grid-column-full govuk-body\\">,
+                    <br>
+                    <br><strong class=\\"govuk-tag govuk-tag--\\"></strong>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class=\\"govuk-grid-row\\">
+        <div class=\\"govuk-grid-column-one-third\\">
+            <aside class=\\"govuk-!-margin-bottom-8\\">
+                <ul class=\\"gov-list\\" style=\\"padding-left:0; margin-top:0\\">
+                    <li class=\\"govuk-heading-s\\"><a href=\\"/applications-service/case-officer/case/1/\\" class=\\"govuk-link\\">Overview</a>
+                    </li>
+                    <li class=\\"govuk-heading-s\\"><a href=\\"/applications-service/case-officer/case/1/project-information/\\"
+                        class=\\"govuk-link\\">Project information</a>
+                    </li>
+                    <li class=\\"govuk-heading-s\\"><a href=\\"#keydates\\" class=\\"govuk-link\\">Key dates</a>
+                    </li>
+                    <li class=\\"govuk-heading-s\\"><a href=\\"#team\\" class=\\"govuk-link\\">Project team</a>
+                    </li>
+                    <li class=\\"govuk-heading-s\\"><a href=\\"#fees\\" class=\\"govuk-link\\">Fees</a>
+                    </li>
+                    <li class=\\"govuk-heading-s\\"><a href=\\"#documentation\\" class=\\"govuk-link\\">Project documentation</a>
+                    </li>
+                </ul>
+            </aside>
+        </div>
+        <div class=\\"govuk-grid-column-two-thirds\\">
+            <h3 class=\\"govuk-heading-m\\">Latest key dates</h3>
+            <ul class=\\"govuk-list govuk-list--bullet\\">
+                <li>Anticipated submission date:</li>
+                <li>Anticipated submission date internal:</li>
+            </ul>
+            <hr class=\\"govuk-section-break govuk-section-break--l govuk-section-break--visible\\">
+            <h3 class=\\"govuk-heading-m\\">Summary information</h3>
+            <dl class=\\"govuk-summary-list govuk-summary-list--no-border\\">
+                <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Case reference</dt>
+                    <dd class=\\"govuk-summary-list__value\\"></dd>
+                </div>
+                <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Applicant Information</dt>
+                    <dd class=\\"govuk-summary-list__value\\"></dd>
+                </div>
+                <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Applicant website</dt>
+                    <dd class=\\"govuk-summary-list__value\\"><a class=\\"govuk-link\\" href=\\"//undefined\\">undefined</a>
+                    </dd>
+                </div>
+                <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Project email</dt>
+                    <dd class=\\"govuk-summary-list__value\\"></dd>
+                </div>
+                <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Project page</dt>
+                    <dd class=\\"govuk-summary-list__value\\"><strong class=\\"govuk-tag govuk-tag--grey\\">NOT PUBLISHED</strong>
+                    </dd>
+                </div>
+            </dl>
+            <hr class=\\"govuk-section-break govuk-section-break--l govuk-section-break--visible\\">
+            <h3 class=\\"govuk-heading-m\\">Project team</h3>
+            <p class=\\"govuk-body\\">No project members have been added yet</p>
+        </div>
+    </div>
+</main>"
+`;
