@@ -1,9 +1,8 @@
 {% extends "app/layouts/app.layout.njk" %}
 
-{% from "./application-summary-menu.component.njk" import applicationSummaryMenu %}
+{% from "./applications-case-menu.component.njk" import applicationsCaseMenu %}
 {% from "govuk/components/accordion/macro.njk" import govukAccordion %}
 {% from "govuk/components/breadcrumbs/macro.njk" import govukBreadcrumbs %}
-{% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
 {% from "../components/status-tag.component.njk" import statusTag %}
 
 {% set pageCaption = displayValue %}
@@ -41,7 +40,7 @@
 {% block pageContent %}
 	<div class="govuk-grid-row">
 		<div class="govuk-grid-column-one-third">
-			{{ applicationSummaryMenu({ application: application, domainType: domainType }) }}
+			{{ applicationsCaseMenu({ application: application, domainType: domainType }) }}
     </div>
     <div class="govuk-grid-column-two-thirds">
 		{% block sectionContent %}

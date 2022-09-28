@@ -11,9 +11,9 @@
  *
  * @type {import('@pins/express').RenderHandler<ViewApplicationRenderProps, ApplicationLocals>}
  */
-export async function viewApplicationSummaryPages(request, response) {
+export async function viewApplicationCasePages(request, response) {
 	// note: application details for this case are held in response.locals.application
 	const pageType = request.params.pageType ?? 'overview';
 
-	response.render(`applications/summary/${pageType}`);
+	response.render(`applications/case/${pageType}`);
 }
