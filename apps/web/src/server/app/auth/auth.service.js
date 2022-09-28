@@ -63,7 +63,7 @@ const clearCacheForAccount = async (account) => {
  * Completely Wipe out Session and Account Data
  *
  * @param {SessionWithAuth} session
- * @param {any} response //TODO find response type
+ * @param {import('express').Response} response
  * @param {AccountInfo} account
  */
 export const clearSession = async (session, response, account) => {
