@@ -1,3 +1,4 @@
+import { promisify } from 'node:util';
 import pino from '../../lib/logger.js';
 import * as authService from './auth.service.js';
 import * as authSession from './auth-session.service.js';
@@ -38,7 +39,11 @@ export async function assertIsAuthenticated(request, response, next) {
 				return next();
 			}
 			// Destroy current session if refreshedAuthenticationResult not provided.
-			await authService.clearSession(request.session, response, account);
+			await Promise.all([
+				promisify(request.session.destroy.bind(request.session))(),
+				authService.clearCacheForAccount(account)
+			]);
+			response.clearCookie('connect.sid', { path: '/' });
 		} catch (error) {
 			pino.info(error, 'Failed to refresh MSAL authentication.');
 		}
