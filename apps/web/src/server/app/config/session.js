@@ -3,7 +3,6 @@ import session from 'express-session';
 
 export const store = new session.MemoryStore();
 
-// TODO: Regeneration of Session After Login
 export default session({
 	secret: 'PINSBackOffice',
 	resave: false,
