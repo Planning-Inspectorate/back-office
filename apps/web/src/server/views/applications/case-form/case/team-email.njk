@@ -1,12 +1,6 @@
-{% extends "../applications-create-layout.njk" %}
-
 {% from "govuk/components/input/macro.njk" import govukInput %}
 
-{% block stepTitle %}
-	What is the case team email address?
-{% endblock %}
-
-{% block stepForm %}
+{% macro teamEmail(values, errors) %}
 	{{ govukInput({
 		id: "caseEmail",
 		name: "caseEmail",
@@ -17,6 +11,4 @@
 			text: "for example, NIEnquiries@planninginspectorate.gsi.gov.uk"
 		}
 	}) }}
-{% endblock %}
-
-{% set backLink = 'applications-create'|url({applicationId:applicationId, step: 'zoom-level'}) %}
+{% endmacro %}

@@ -12,8 +12,7 @@ exports[`applications create applicant Applicant address GET /applicant-address 
         </div>
         <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Find address</button>
         <div class=\\"govuk-grid-row\\">
-            <div class=\\"govuk-button-group pins-button-group govuk-grid-column-one-half\\"><a class=\\"govuk-link\\" href=\\"/applications-service/create-new-case/123/applicant-full-name/\\">Back</a>
-            </div>
+            <div class=\\"govuk-button-group pins-button-group govuk-grid-column-one-half\\"></div>
         </div>
     </form>
 </main>"
@@ -51,8 +50,8 @@ exports[`applications create applicant Applicant address GET /applicant-address 
             name=\\"applicant.address.town\\" type=\\"text\\">
         </div>
         <div class=\\"govuk-grid-row\\">
-            <div class=\\"govuk-button-group pins-button-group govuk-grid-column-one-half\\"><a class=\\"govuk-link\\" href=\\"/applications-service/create-new-case/123/applicant-full-name/\\">Back</a>
-                <button                 class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and continue</button>
+            <div class=\\"govuk-button-group pins-button-group govuk-grid-column-one-half\\">
+                <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and continue</button>
             </div>
         </div>
     </form>
@@ -85,8 +84,7 @@ exports[`applications create applicant Applicant address POST /applicant-address
         </div>
         <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Find address</button>
         <div class=\\"govuk-grid-row\\">
-            <div class=\\"govuk-button-group pins-button-group govuk-grid-column-one-half\\"><a class=\\"govuk-link\\" href=\\"/applications-service/create-new-case/123/applicant-full-name/\\">Back</a>
-            </div>
+            <div class=\\"govuk-button-group pins-button-group govuk-grid-column-one-half\\"></div>
         </div>
     </form>
 </main>"
@@ -102,8 +100,8 @@ exports[`applications create applicant Applicant email GET /applicant-email shou
             id=\\"applicant.email\\" name=\\"applicant.email\\" type=\\"text\\" aria-describedby=\\"applicant.email-hint\\">
         </div>
         <div class=\\"govuk-grid-row\\">
-            <div class=\\"govuk-button-group pins-button-group govuk-grid-column-one-half\\"><a class=\\"govuk-link\\" href=\\"/applications-service/create-new-case/123/applicant-website/\\">Back</a>
-                <button                 class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and continue</button>
+            <div class=\\"govuk-button-group pins-button-group govuk-grid-column-one-half\\">
+                <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and continue</button>
             </div>
         </div>
     </form>
@@ -136,8 +134,8 @@ exports[`applications create applicant Applicant email POST /application-email W
             name=\\"applicant.email\\" type=\\"text\\" value=\\"bad_email_address\\" aria-describedby=\\"applicant.email-hint applicant.email-error\\">
         </div>
         <div class=\\"govuk-grid-row\\">
-            <div class=\\"govuk-button-group pins-button-group govuk-grid-column-one-half\\"><a class=\\"govuk-link\\" href=\\"/applications-service/create-new-case/123/applicant-website/\\">Back</a>
-                <button                 class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and continue</button>
+            <div class=\\"govuk-button-group pins-button-group govuk-grid-column-one-half\\">
+                <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and continue</button>
             </div>
         </div>
     </form>
@@ -154,8 +152,8 @@ exports[`applications create applicant Applicant telephone number GET /applicant
             id=\\"applicant.phoneNumber\\" name=\\"applicant.phoneNumber\\" type=\\"text\\" aria-describedby=\\"applicant.phoneNumber-hint\\">
         </div>
         <div class=\\"govuk-grid-row\\">
-            <div class=\\"govuk-button-group pins-button-group govuk-grid-column-one-half\\"><a class=\\"govuk-link\\" href=\\"/applications-service/create-new-case/123/applicant-email/\\">Back</a>
-                <button                 class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and continue</button>
+            <div class=\\"govuk-button-group pins-button-group govuk-grid-column-one-half\\">
+                <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and continue</button>
             </div>
         </div>
     </form>
@@ -189,8 +187,8 @@ exports[`applications create applicant Applicant telephone number POST /applicat
             aria-describedby=\\"applicant.phoneNumber-hint applicant.phoneNumber-error\\">
         </div>
         <div class=\\"govuk-grid-row\\">
-            <div class=\\"govuk-button-group pins-button-group govuk-grid-column-one-half\\"><a class=\\"govuk-link\\" href=\\"/applications-service/create-new-case/123/applicant-email/\\">Back</a>
-                <button                 class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and continue</button>
+            <div class=\\"govuk-button-group pins-button-group govuk-grid-column-one-half\\">
+                <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and continue</button>
             </div>
         </div>
     </form>
@@ -207,8 +205,8 @@ exports[`applications create applicant Applicant website GET /applicant-website 
             id=\\"applicant.website\\" name=\\"applicant.website\\" type=\\"text\\" aria-describedby=\\"applicant.website-hint\\">
         </div>
         <div class=\\"govuk-grid-row\\">
-            <div class=\\"govuk-button-group pins-button-group govuk-grid-column-one-half\\"><a class=\\"govuk-link\\" href=\\"/applications-service/create-new-case/123/applicant-address/\\">Back</a>
-                <button                 class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and continue</button>
+            <div class=\\"govuk-button-group pins-button-group govuk-grid-column-one-half\\">
+                <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and continue</button>
             </div>
         </div>
     </form>
@@ -241,8 +239,8 @@ exports[`applications create applicant Applicant website POST /application-websi
             name=\\"applicant.website\\" type=\\"text\\" value=\\"bad_url\\" aria-describedby=\\"applicant.website-hint applicant.website-error\\">
         </div>
         <div class=\\"govuk-grid-row\\">
-            <div class=\\"govuk-button-group pins-button-group govuk-grid-column-one-half\\"><a class=\\"govuk-link\\" href=\\"/applications-service/create-new-case/123/applicant-address/\\">Back</a>
-                <button                 class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and continue</button>
+            <div class=\\"govuk-button-group pins-button-group govuk-grid-column-one-half\\">
+                <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and continue</button>
             </div>
         </div>
     </form>
@@ -269,8 +267,8 @@ exports[`applications create applicant GET /applicant-full-name should render th
             name=\\"applicant.lastName\\" type=\\"text\\">
         </div>
         <div class=\\"govuk-grid-row\\">
-            <div class=\\"govuk-button-group pins-button-group govuk-grid-column-one-half\\"><a class=\\"govuk-link\\" href=\\"/applications-service/create-new-case/123/applicant-organisation-name/\\">Back</a>
-                <button                 class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and continue</button>
+            <div class=\\"govuk-button-group pins-button-group govuk-grid-column-one-half\\">
+                <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and continue</button>
             </div>
         </div>
     </form>
@@ -316,8 +314,8 @@ exports[`applications create applicant GET /applicant-information-types should r
             </div>
         </div>
         <div class=\\"govuk-grid-row\\">
-            <div class=\\"govuk-button-group pins-button-group govuk-grid-column-one-half\\"><a class=\\"govuk-link\\" href=\\"/applications-service/create-new-case/123/team-email/\\">Back</a>
-                <button                 class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and continue</button>
+            <div class=\\"govuk-button-group pins-button-group govuk-grid-column-one-half\\">
+                <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and continue</button>
             </div>
         </div>
     </form>
@@ -333,8 +331,8 @@ exports[`applications create applicant GET /applicant-organisation-name should r
             name=\\"applicant.organisationName\\" type=\\"text\\">
         </div>
         <div class=\\"govuk-grid-row\\">
-            <div class=\\"govuk-button-group pins-button-group govuk-grid-column-one-half\\"><a class=\\"govuk-link\\" href=\\"/applications-service/create-new-case/123/team-email/\\">Back</a>
-                <button                 class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and continue</button>
+            <div class=\\"govuk-button-group pins-button-group govuk-grid-column-one-half\\">
+                <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and continue</button>
             </div>
         </div>
     </form>

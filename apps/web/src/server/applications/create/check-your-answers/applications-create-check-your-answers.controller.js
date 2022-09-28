@@ -40,7 +40,7 @@ export async function viewApplicationsCreateCheckYourAnswers(req, response) {
 
 	const { values } = applicationsCreateCheckYourAnswersService.mapCaseData(caseData);
 
-	return response.render('applications/create/check-your-answers/_check-your-answers', { values });
+	return response.render('applications/create/check-your-answers', { values });
 }
 
 /**
@@ -69,7 +69,7 @@ export async function confirmCreateCase(req, response) {
 		const caseData = await getApplicationDraft(applicationId);
 		const { values } = applicationsCreateCheckYourAnswersService.mapCaseData(caseData);
 
-		return response.render('applications/create/check-your-answers/_check-your-answers', {
+		return response.render('applications/create/check-your-answers', {
 			errors: errorsUpdated,
 			values
 		});

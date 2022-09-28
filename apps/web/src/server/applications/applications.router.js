@@ -4,6 +4,7 @@ import * as filters from './applications.filters.js';
 import * as guards from './applications.guards.js';
 import * as locals from './applications.locals.js';
 import applicationsCreateRouter from './create/applications-create.router.js';
+import applicationsEditRouter from './edit/applications-edit.router.js';
 import applicationsSearchRouter from './search/applications-search.router.js';
 
 const router = createRouter();
@@ -35,6 +36,9 @@ router.use('/search-results', guards.assertDomainTypeExists, applicationsSearchR
 
 router.use('/create-new-case', guards.assertDomainTypeExists, applicationsCreateRouter);
 
+// TODO: not definitive url
+router.use('/case/edit', guards.assertDomainTypeExists, applicationsEditRouter);
+
 /** Domain-driven URLS */
 
 /**
@@ -47,6 +51,7 @@ domainRouter.use(locals.registerDomainLocals);
 
 domainRouter.route('/').get(controller.viewDashboard);
 
+// TODO: remove this?
 domainRouter.param('applicationId', locals.loadApplication);
 domainRouter.route('/applications/:applicationId').get(controller.viewApplication);
 

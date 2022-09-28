@@ -1,18 +1,10 @@
-{% extends "../applications-create-layout.njk" %}
-
 {% from "govuk/components/radios/macro.njk" import govukRadios %}
 
-{% block stepTitle %}
-	Choose map zoom level
-{% endblock %}
-
-{% block stepForm %}
+{% macro zoomLevel(values, errors, zoomLevels) %}
 	{{ govukRadios({
 		name: "geographicalInformation.mapZoomLevelName",
 		idPrefix: "geographicalInformation.mapZoomLevelName",
 		errorMessage: errors['geographicalInformation.mapZoomLevelName'] | errorMessage,
 		items: zoomLevels | selectItems({valueKey: 'name', labelKey: 'displayNameEn', selectedValue: values['geographicalInformation.mapZoomLevelName']})
 	}) }}
-{% endblock %}
-
-{% set backLink = 'applications-create'|url({applicationId:applicationId, step: 'regions'}) %}
+{% endmacro %}
