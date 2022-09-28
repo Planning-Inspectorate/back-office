@@ -1,16 +1,11 @@
-import { ValidationErrors } from '@pins/express';
+import { ApplicationCreateProps } from '../../applications.types';
 
-export type ApplicationsCreateKeyDatesProps = {
-	values: {
-		'keyDates.submissionDatePublished'?: string;
-		'keyDates.submissionDateInternal'?: string;
-	};
-	errors?: ValidationErrors;
-};
-
-export type ApplicationsCreateKeyDatesBody = {
-	'keyDates.submissionDatePublished': string;
-	submissionInternalDay: string;
-	submissionInternalMonth: string;
-	submissionInternalYear: string;
-};
+export interface ApplicationsCreateKeyDatesBody extends Record<string, string | undefined> {
+	'keyDates.submissionDatePublished'?: string;
+	'keyDates.submissionDateInternal'?: string;
+	submissionInternalDay?: string;
+	submissionInternalMonth?: string;
+	submissionInternalYear?: string;
+}
+export interface ApplicationsCreateKeyDatesProps
+	extends ApplicationCreateProps<ApplicationsCreateKeyDatesBody> {}

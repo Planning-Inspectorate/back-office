@@ -1,23 +1,10 @@
-{% extends "../applications-create-layout.njk" %}
-
 {% from "govuk/components/radios/macro.njk" import govukRadios %}
 
-{% block stepTitle %}
-	Choose a subsector
-{% endblock %}
-
-
-{% block stepForm %}
+{% macro subSector(values, errors, subSectors) %}
 	{{ govukRadios({
 		name: "subSectorName",
 		idPrefix: "subSectorName",
 		errorMessage: errors.subSectorName | errorMessage,
 		items: subSectors | selectItems({valueKey: 'name', labelKey: 'displayNameEn', selectedValue: values.subSectorName})
 	}) }}
-{% endblock %}
-
-{% set backLink = 'applications-create'|url({applicationId:applicationId, step: 'sector'}) %}
-
-
-
-
+{% endmacro %}

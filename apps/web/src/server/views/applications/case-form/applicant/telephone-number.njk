@@ -1,12 +1,6 @@
-{% extends "./applications-create-applicant-layout.njk" %}
-
 {% from "govuk/components/input/macro.njk" import govukInput %}
 
-{% block stepTitle %}
-	What’s the applicant’s phone number?
-{% endblock %}
-
-{% block stepForm %}
+{% macro telephoneNumber(values, errors) %}
 	{{ govukInput({
 		id: "applicant.phoneNumber",
 		name: "applicant.phoneNumber",
@@ -17,4 +11,4 @@
 			text: "for example, 0300 123 3000"
 		}
 	}) }}
-{% endblock %}
+{% endmacro %}

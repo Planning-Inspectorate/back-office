@@ -1,3 +1,5 @@
+import { ValidationErrors } from '@pins/express';
+
 export type PaginatedResponse<T> = {
 	items: T[];
 	page: number;
@@ -14,6 +16,13 @@ export type SelectItem = {
 };
 
 export type DomainType = 'case-officer' | 'case-admin-officer' | 'inspector';
+
+export type FormCaseLayout = {
+	pageTitle: string;
+	components: string[];
+	isEdit?: boolean;
+	backLink?: string;
+};
 
 export interface Application {
 	id: number;
@@ -73,3 +82,9 @@ export interface OptionsItem {
 export interface Sector extends OptionsItem {}
 export interface Region extends OptionsItem {}
 export interface ZoomLevel extends OptionsItem {}
+
+export interface ApplicationCreateProps<BodyValues> {
+	errors?: ValidationErrors;
+	values: BodyValues;
+	layout?: FormCaseLayout;
+}

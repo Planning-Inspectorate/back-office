@@ -1,14 +1,24 @@
-import { findAddressListByPostcode } from '@planning-inspectorate/address-lookup';
-import { updateApplicationDraft } from '../applications-create.service.js';
+import {
+	formatUpdateApplicantAddress,
+	formatUpdateApplicantFullName,
+	formatUpdateApplicantOrganisationName,
+	formatUpdateApplicantTelephoneNumber,
+	formatUpdateApplicantWebsite,
+	formatUpdateApplicationsCreateApplicantEmail,
+	formatViewApplicantAddress,
+	formatViewApplicantEmail,
+	formatViewApplicantFullName,
+	formatViewApplicantOrganisationName,
+	formatViewApplicantTelephoneNumber,
+	formatViewApplicantWebsite
+} from '../../components/form/form-applicant-components.controller.js';
+import { handleErrors } from '../case/applications-create-case.controller.js';
 import * as applicationsCreateApplicantService from './applications-create-applicant.service.js';
-import { getApplicantById } from './applications-create-applicant.service.js';
 import {
 	getSessionApplicantInfoTypes,
 	setSessionApplicantInfoTypes
 } from './applications-create-applicant-session.service.js';
 
-/** @typedef {import('@pins/express').ValidationErrors} ValidationErrors */
-/** @typedef {import('../../applications.types').ApplicationsAddress} ApplicationsAddress */
 /** @typedef {import('./applications-create-applicant.types').ApplicationsCreateApplicantTypesProps} ApplicationsCreateApplicantTypesProps */
 /** @typedef {import('./applications-create-applicant.types').ApplicationsCreateApplicantTypesBody} ApplicationsCreateApplicantTypesBody */
 /** @typedef {import('./applications-create-applicant-session.service.js').SessionWithApplicationsCreateApplicantInfoTypes} SessionWithApplicationsCreateApplicantInfoTypes */
@@ -24,7 +34,29 @@ import {
 /** @typedef {import('./applications-create-applicant.types').ApplicationsCreateApplicantTelephoneNumberBody} ApplicationsCreateApplicantTelephoneNumberBody */
 /** @typedef {import('./applications-create-applicant.types').ApplicationsCreateApplicantAddressProps} ApplicationsCreateApplicantAddressProps */
 /** @typedef {import('./applications-create-applicant.types').ApplicationsCreateApplicantAddressBody} ApplicationsCreateApplicantAddressBody */
-/** @typedef {import('./applications-create-applicant.types').ApplicationCreateApplicantAddressStage} ApplicationCreateApplicantAddressStage */
+
+const infoTypesLayout = {
+	pageTitle: 'Choose the type of Applicant information you can give',
+	components: ['info-types']
+};
+const organisationNameLayout = {
+	pageTitle: 'What is the applicant’s organisation?',
+	components: ['organisation-name']
+};
+const fullNameLayout = {
+	pageTitle: 'What is the applicant’s full name?',
+	components: ['full-name']
+};
+const telephoneNumberLayout = {
+	pageTitle: 'What’s the applicant’s phone number?',
+	components: ['telephone-number']
+};
+const websiteLayout = { pageTitle: 'What’s the applicant’s website?', components: ['website'] };
+const applicantEmailLayout = {
+	pageTitle: 'What’s the applicant’s email address?',
+	components: ['applicant-email']
+};
+const addressLayout = { pageTitle: 'What’s the applicant’s address?', components: ['address'] };
 
 /**
  * View the form step for the applicant information types
@@ -42,8 +74,9 @@ export function viewApplicationsCreateApplicantTypes({ session }, response) {
 		checked: selectedApplicantInfoTypes.includes(infoType.name)
 	}));
 
-	response.render('applications/create/applicant/_types', {
-		applicantInfoTypes: checkboxApplicantInfoTypes
+	response.render('applications/case-form/case-form-layout', {
+		applicantInfoTypes: checkboxApplicantInfoTypes,
+		layout: infoTypesLayout
 	});
 }
 
@@ -67,15 +100,13 @@ export async function updateApplicationsCreateApplicantTypes({ path, session, bo
  *
  * @type {import('@pins/express').RenderHandler<ApplicationsCreateApplicantOrganisationNameProps, {}, {}, {}, {}>}
  */
-export async function viewApplicationsCreateApplicantOrganisationName(req, response) {
-	const { applicationId, applicantId } = response.locals;
+export async function viewApplicationsCreateApplicantOrganisationName(request, response) {
+	const properties = await formatViewApplicantOrganisationName(request, response.locals);
 
-	const applicant = await getApplicantById(applicationId, applicantId, ['applicants']);
-	const values = {
-		'applicant.organisationName': applicant?.organisationName
-	};
-
-	response.render('applications/create/applicant/_organisation-name', { values });
+	response.render('applications/case-form/case-form-layout', {
+		...properties,
+		layout: organisationNameLayout
+	});
 }
 
 /**
@@ -83,30 +114,18 @@ export async function viewApplicationsCreateApplicantOrganisationName(req, respo
  *
  * @type {import('@pins/express').RenderHandler<ApplicationsCreateApplicantOrganisationNameProps, {}, ApplicationsCreateApplicantOrganisationNameBody, {}, {}>}
  */
-export async function updateApplicationsCreateApplicantOrganisationName(
-	{ path, session, body },
-	response
-) {
-	const { applicationId, applicantId } = response.locals;
-	const applicantOrganisationName = body['applicant.organisationName'];
+export async function updateApplicationsCreateApplicantOrganisationName(request, response) {
+	const { path, session } = request;
+	const { properties, updatedApplicationId } = await formatUpdateApplicantOrganisationName(
+		request,
+		response.locals
+	);
 
-	const { errors } = await updateApplicationDraft(applicationId, {
-		applicants: [
-			{
-				id: applicantId,
-				organisationName: applicantOrganisationName
-			}
-		]
-	});
-
-	if (errors) {
-		return response.render('applications/create/applicant/_organisation-name', {
-			errors,
-			values: { 'applicant.organisationName': applicantOrganisationName }
-		});
+	if (properties.errors || !updatedApplicationId) {
+		return handleErrors(properties, organisationNameLayout, response);
 	}
 
-	goToNextStep(applicationId, path, session, response);
+	goToNextStep(updatedApplicationId, path, session, response);
 }
 
 /**
@@ -114,17 +133,13 @@ export async function updateApplicationsCreateApplicantOrganisationName(
  *
  * @type {import('@pins/express').RenderHandler<ApplicationsCreateApplicantFullNameProps, {}, {}, {}, {}>}
  */
-export async function viewApplicationsCreateApplicantFullName(req, response) {
-	const { applicationId, applicantId } = response.locals;
+export async function viewApplicationsCreateApplicantFullName(request, response) {
+	const properties = await formatViewApplicantFullName(request, response.locals);
 
-	const applicant = await getApplicantById(applicationId, applicantId, ['applicants']);
-	const values = {
-		'applicant.firstName': applicant?.firstName,
-		'applicant.middleName': applicant?.middleName,
-		'applicant.lastName': applicant?.lastName
-	};
-
-	response.render('applications/create/applicant/_full-name', { values });
+	response.render('applications/case-form/case-form-layout', {
+		...properties,
+		layout: fullNameLayout
+	});
 }
 
 /**
@@ -132,28 +147,18 @@ export async function viewApplicationsCreateApplicantFullName(req, response) {
  *
  * @type {import('@pins/express').RenderHandler<ApplicationsCreateApplicantFullNameProps, {}, ApplicationsCreateApplicantFullNameBody, {}, {}>}
  */
-export async function updateApplicationsCreateApplicantFullName({ path, session, body }, response) {
-	const { applicationId, applicantId } = response.locals;
+export async function updateApplicationsCreateApplicantFullName(request, response) {
+	const { path, session } = request;
+	const { properties, updatedApplicationId } = await formatUpdateApplicantFullName(
+		request,
+		response.locals
+	);
 
-	const { errors } = await updateApplicationDraft(applicationId, {
-		applicants: [
-			{
-				id: applicantId,
-				firstName: body['applicant.firstName'],
-				middleName: body['applicant.middleName'],
-				lastName: body['applicant.lastName']
-			}
-		]
-	});
-
-	if (errors) {
-		return response.render('applications/create/applicant/_full-name', {
-			errors,
-			values: body
-		});
+	if (properties.errors || !updatedApplicationId) {
+		return handleErrors(properties, fullNameLayout, response);
 	}
 
-	goToNextStep(applicationId, path, session, response);
+	goToNextStep(updatedApplicationId, path, session, response);
 }
 
 /**
@@ -161,15 +166,13 @@ export async function updateApplicationsCreateApplicantFullName({ path, session,
  *
  *  @type {import('@pins/express').RenderHandler<ApplicationsCreateApplicantEmailProps, {}, {}, {}, {}>}
  */
-export async function viewApplicationsCreateApplicantEmail(req, response) {
-	const { applicationId, applicantId } = response.locals;
+export async function viewApplicationsCreateApplicantEmail(request, response) {
+	const properties = await formatViewApplicantEmail(request, response.locals);
 
-	const applicant = await getApplicantById(applicationId, applicantId, ['applicants']);
-	const values = {
-		'applicant.email': applicant?.email
-	};
-
-	response.render('applications/create/applicant/_email', { values });
+	response.render('applications/case-form/case-form-layout', {
+		...properties,
+		layout: applicantEmailLayout
+	});
 }
 
 /**
@@ -177,30 +180,18 @@ export async function viewApplicationsCreateApplicantEmail(req, response) {
  *
  * @type {import('@pins/express').RenderHandler<ApplicationsCreateApplicantEmailProps, {}, ApplicationsCreateApplicantEmailBody, {}, {}>}
  */
-export async function updateApplicationsCreateApplicantEmail(
-	{ path, session, body, errors },
-	response
-) {
-	const { applicationId, applicantId } = response.locals;
-	const values = body;
+export async function updateApplicationsCreateApplicantEmail(request, response) {
+	const { path, session } = request;
+	const { properties, updatedApplicationId } = await formatUpdateApplicationsCreateApplicantEmail(
+		request,
+		response.locals
+	);
 
-	const { errors: apiErrors } = await updateApplicationDraft(applicationId, {
-		applicants: [
-			{
-				id: applicantId,
-				email: body['applicant.email']
-			}
-		]
-	});
-
-	if (errors || apiErrors) {
-		return response.render('applications/create/applicant/_email', {
-			errors,
-			values
-		});
+	if (properties.errors || !updatedApplicationId) {
+		return handleErrors(properties, applicantEmailLayout, response);
 	}
 
-	goToNextStep(applicationId, path, session, response);
+	goToNextStep(updatedApplicationId, path, session, response);
 }
 
 /**
@@ -209,18 +200,13 @@ export async function updateApplicationsCreateApplicantEmail(
  * @type {import('@pins/express').RenderHandler<ApplicationsCreateApplicantAddressProps,
   {}, {}, {postcode: string}, {}>}
  */
-export async function viewApplicationsCreateApplicantAddress({ query }, response) {
-	const { postcode: queryPostcode } = query;
-	const { applicationId, applicantId } = response.locals;
+export async function viewApplicationsCreateApplicantAddress(request, response) {
+	const properties = await formatViewApplicantAddress(request, response.locals);
 
-	const applicant = await getApplicantById(applicationId, applicantId, [
-		'applicants',
-		'applicantsAddress'
-	]);
-	const postcode = queryPostcode || applicant?.address?.postCode;
-	const formStage = queryPostcode ? 'manualAddress' : 'searchPostcode';
-
-	response.render('applications/create/applicant/_address', { formStage, postcode });
+	response.render('applications/case-form/case-form-layout', {
+		...properties,
+		layout: addressLayout
+	});
 }
 
 /**
@@ -229,75 +215,16 @@ export async function viewApplicationsCreateApplicantAddress({ query }, response
  * @type {import('@pins/express').RenderHandler<ApplicationsCreateApplicantAddressProps,
  * {}, ApplicationsCreateApplicantAddressBody, {}, {}>}
  */
-export async function updateApplicationsCreateApplicantAddress(
-	{ path, session, errors: validationErrors, body },
-	response
-) {
-	const { postcode, apiReference, currentFormStage } = body;
-	const { applicationId, applicantId } = response.locals;
+export async function updateApplicationsCreateApplicantAddress(request, response) {
+	const { path, session } = request;
+	const { applicationId } = response.locals;
+	const { properties, shouldShowErrors } = await formatUpdateApplicantAddress(
+		request,
+		response.locals
+	);
 
-	const {
-		/** @type {ValidationErrors} */ errors: apiErrors,
-		/** @type {ApplicationsAddress[]} */ addressList: matchingAddressList,
-		/** @type {ApplicationCreateApplicantAddressStage} */ formStage = currentFormStage
-	} = await (async () => {
-		switch (currentFormStage) {
-			case 'searchPostcode': {
-				const { errors: serviceErrors, addressList } = await findAddressListByPostcode(postcode, {
-					maxResults: 50
-				});
-				const errors = validationErrors || serviceErrors;
-				const newFormStage = errors ? 'searchPostcode' : 'selectAddress';
-
-				return { errors, addressList, formStage: newFormStage };
-			}
-			case 'selectAddress': {
-				const { errors: serviceErrors, addressList } = await findAddressListByPostcode(postcode, {
-					maxResults: 50
-				});
-
-				const selectedAddress = addressList.find(
-					(address) => address.apiReference === apiReference
-				);
-				const payload = { applicants: [{ id: applicantId, address: selectedAddress }] };
-				const { errors: updateErrors } = await updateApplicationDraft(applicationId, payload);
-
-				return { errors: serviceErrors || updateErrors, addressList };
-			}
-			case 'manualAddress': {
-				const payload = {
-					applicants: [
-						{
-							id: applicantId,
-							address: {
-								postcode,
-								addressLine1: body['applicant.address.addressLine1'],
-								addressLine2: body['applicant.address.addressLine2'],
-								town: body['applicant.address.town']
-							}
-						}
-					]
-				};
-
-				const { errors } = await updateApplicationDraft(applicationId, payload);
-
-				return { errors };
-			}
-			default: {
-				return { errors: { formStage: { msg: 'An error occurred, please try again later' } } };
-			}
-		}
-	})();
-
-	const errors = validationErrors || apiErrors;
-
-	if (errors || (!apiReference && formStage === 'selectAddress')) {
-		return response.render('applications/create/applicant/_address', {
-			errors,
-			formStage,
-			postcode,
-			addressList: matchingAddressList
-		});
+	if (shouldShowErrors) {
+		return handleErrors(properties, addressLayout, response);
 	}
 
 	goToNextStep(applicationId, path, session, response);
@@ -308,15 +235,13 @@ export async function updateApplicationsCreateApplicantAddress(
  *
  * @type {import('@pins/express').RenderHandler<ApplicationsCreateApplicantWebsiteProps, {}, {}, {}, {}>}
  */
-export async function viewApplicationsCreateApplicantWebsite(req, response) {
-	const { applicationId, applicantId } = response.locals;
+export async function viewApplicationsCreateApplicantWebsite(request, response) {
+	const properties = await formatViewApplicantWebsite(request, response.locals);
 
-	const applicant = await getApplicantById(applicationId, applicantId, ['applicants']);
-	const values = {
-		'applicant.website': applicant?.website
-	};
-
-	response.render('applications/create/applicant/_website', { values });
+	response.render('applications/case-form/case-form-layout', {
+		...properties,
+		layout: websiteLayout
+	});
 }
 
 /**
@@ -324,30 +249,18 @@ export async function viewApplicationsCreateApplicantWebsite(req, response) {
  *
  * @type {import('@pins/express').RenderHandler<ApplicationsCreateApplicantWebsiteProps, {}, ApplicationsCreateApplicantWebsiteBody, {}, {}>}
  */
-export async function updateApplicationsCreateApplicantWebsite(
-	{ path, session, body, errors },
-	response
-) {
-	const { applicationId, applicantId } = response.locals;
-	const values = body;
+export async function updateApplicationsCreateApplicantWebsite(request, response) {
+	const { path, session } = request;
+	const { properties, updatedApplicationId } = await formatUpdateApplicantWebsite(
+		request,
+		response.locals
+	);
 
-	const { errors: apiErrors } = await updateApplicationDraft(applicationId, {
-		applicants: [
-			{
-				id: applicantId,
-				website: body['applicant.website']
-			}
-		]
-	});
-
-	if (errors || apiErrors) {
-		return response.render('applications/create/applicant/_website', {
-			errors,
-			values
-		});
+	if (properties.errors || !updatedApplicationId) {
+		return handleErrors(properties, websiteLayout, response);
 	}
 
-	goToNextStep(applicationId, path, session, response);
+	goToNextStep(updatedApplicationId, path, session, response);
 }
 
 /**
@@ -355,15 +268,13 @@ export async function updateApplicationsCreateApplicantWebsite(
  *
  * @type {import('@pins/express').RenderHandler<ApplicationsCreateApplicantTelephoneNumberProps, {}, {}, {}, {}>}
  */
-export async function viewApplicationsCreateApplicantTelephoneNumber(req, response) {
-	const { applicationId, applicantId } = response.locals;
+export async function viewApplicationsCreateApplicantTelephoneNumber(request, response) {
+	const properties = await formatViewApplicantTelephoneNumber(request, response.locals);
 
-	const applicant = await getApplicantById(applicationId, applicantId, ['applicants']);
-	const values = {
-		'applicant.phoneNumber': applicant?.phoneNumber
-	};
-
-	response.render('applications/create/applicant/_telephone-number', { values });
+	response.render('applications/case-form/case-form-layout', {
+		...properties,
+		layout: telephoneNumberLayout
+	});
 }
 
 /**
@@ -371,26 +282,17 @@ export async function viewApplicationsCreateApplicantTelephoneNumber(req, respon
  *
  * @type {import('@pins/express').RenderHandler<ApplicationsCreateApplicantTelephoneNumberProps, {}, ApplicationsCreateApplicantTelephoneNumberBody, {}, {}>}
  */
-export async function updateApplicationsCreateApplicantTelephoneNumber({ body, errors }, response) {
-	const { applicationId, applicantId } = response.locals;
-	const values = body;
+export async function updateApplicationsCreateApplicantTelephoneNumber(request, response) {
+	const { properties, updatedApplicationId } = await formatUpdateApplicantTelephoneNumber(
+		request,
+		response.locals
+	);
 
-	const { errors: apiErrors } = await updateApplicationDraft(applicationId, {
-		applicants: [
-			{
-				id: applicantId,
-				phoneNumber: body['applicant.phoneNumber']
-			}
-		]
-	});
-
-	if (errors || apiErrors) {
-		return response.render('applications/create/applicant/_telephone-number', {
-			errors,
-			values
-		});
+	if (properties.errors || !updatedApplicationId) {
+		return handleErrors(properties, telephoneNumberLayout, response);
 	}
-	response.redirect(`/applications-service/create-new-case/${applicationId}/key-dates`);
+
+	response.redirect(`/applications-service/create-new-case/${updatedApplicationId}/key-dates`);
 }
 
 /**

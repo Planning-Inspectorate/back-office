@@ -1,25 +1,29 @@
-import { bodyToPayload } from '../../../lib/body-formatter.js';
 import pino from '../../../lib/logger.js';
 import {
-	createApplicationDraft,
-	getApplicationDraft,
-	updateApplicationDraft
-} from '../applications-create.service.js';
-import {
-	getAllRegions,
-	getAllSectors,
-	getAllZoomLevels,
-	getSubSectorsBySectorName
-} from './applications-create-case.service.js';
+	formatUpdateCaseGeographicalInformation,
+	formatUpdateCaseNameAndDescription,
+	formatUpdateCaseRegions,
+	formatUpdateCaseSector,
+	formatUpdateCaseSubSector,
+	formatUpdateCaseTeamEmail,
+	formatUpdateCaseZoomLevel,
+	formatViewCaseGeographicalInformation,
+	formatViewCaseNameAndDescription,
+	formatViewCaseRegions,
+	formatViewCaseSector,
+	formatViewCaseSubSector,
+	formatViewCaseTeamEmail,
+	formatViewCaseZoomLevel
+} from '../../components/form/form-case-components.controller.js';
 import {
 	destroySessionCaseSectorName,
 	getSessionCaseHasNeverBeenResumed,
-	getSessionCaseSectorName,
 	setSessionCaseSectorName
 } from './applications-create-case-session.service.js';
 
 /** @typedef {import('../../applications.router').DomainParams} DomainParams */
 /** @typedef {import('../../applications.types').Sector} Sector */
+/** @typedef {import('../../applications.types').FormCaseLayout} FormCaseLayout */
 /** @typedef {import('./applications-create-case.types').ApplicationsCreateCaseNameProps} ApplicationsCreateCaseNameProps */
 /** @typedef {import('./applications-create-case.types').ApplicationsCreateCaseNameBody} ApplicationsCreateCaseNameBody */
 /** @typedef {import('./applications-create-case.types').ApplicationsCreateCaseSectorProps} ApplicationsCreateCaseSectorProps */
@@ -35,6 +39,38 @@ import {
 /** @typedef {import('./applications-create-case.types').ApplicationsCreateCaseTeamEmailProps} ApplicationsCreateCaseTeamEmailProps */
 /** @typedef {import('./applications-create-case.types').ApplicationsCreateCaseTeamEmailBody} ApplicationsCreateCaseTeamEmailBody */
 
+const nameLayout = {
+	pageTitle: 'Enter name and description',
+	components: ['title', 'description'],
+	backLink: 'dashboard'
+};
+const sectorLayout = { pageTitle: 'Choose a sector', components: ['sector'], backLink: '' };
+const subSectorLayout = {
+	pageTitle: 'Choose a subsector',
+	components: ['sub-sector'],
+	backLink: 'sector'
+};
+const geographicalInformationLayout = {
+	pageTitle: 'Enter geographical information',
+	components: ['project-location', 'grid-references'],
+	backLink: 'sub-sector'
+};
+const regionsLayout = {
+	pageTitle: 'Choose one or multiple regions',
+	components: ['regions'],
+	backLink: 'geographical-information'
+};
+const zoomLevelLayout = {
+	pageTitle: 'Choose map zoom level',
+	components: ['zoom-level'],
+	backLink: 'regions'
+};
+const teamEmailLayout = {
+	pageTitle: 'What is the case team email address?',
+	components: ['team-email'],
+	backLink: 'zoom-level'
+};
+
 /**
  * View the first step (name & description) of the application creation
  *
@@ -42,12 +78,9 @@ import {
  * {}, {}, {}, DomainParams>}
  */
 export async function viewApplicationsCreateCaseName(req, response) {
-	const { applicationId } = response.locals || {};
-	const { title, description } = applicationId
-		? await getApplicationDraft(applicationId, ['name', 'description'])
-		: { title: '', description: '' };
+	const properties = await formatViewCaseNameAndDescription(req, response.locals);
 
-	response.render('applications/create/case/_name', { values: { title, description } });
+	response.render('applications/case-form/case-form-layout', { ...properties, layout: nameLayout });
 }
 
 /**
@@ -56,26 +89,14 @@ export async function viewApplicationsCreateCaseName(req, response) {
  * @type {import('@pins/express').RenderHandler<ApplicationsCreateCaseNameProps,
  * {}, ApplicationsCreateCaseNameBody, {}, DomainParams>}
  */
-export async function updateApplicationsCreateCaseName(
-	{ errors: validationErrors, session, body },
-	response
-) {
-	const { applicationId } = response.locals;
-	const { description, title } = body;
-	const payload = bodyToPayload(body);
-	const action = applicationId
-		? () => updateApplicationDraft(applicationId, payload)
-		: () => createApplicationDraft(payload, session);
+export async function updateApplicationsCreateCaseName(request, response) {
+	const { properties, updatedApplicationId } = await formatUpdateCaseNameAndDescription(
+		request,
+		response.locals
+	);
 
-	const { errors: apiErrors, id: updatedApplicationId } = validationErrors
-		? { id: null, errors: validationErrors }
-		: await action();
-
-	if (validationErrors || apiErrors || !updatedApplicationId) {
-		return response.render('applications/create/case/_name', {
-			errors: validationErrors || apiErrors,
-			values: { description, title }
-		});
+	if (properties.errors || !updatedApplicationId) {
+		return handleErrors(properties, nameLayout, response);
 	}
 
 	response.redirect(`/applications-service/create-new-case/${updatedApplicationId}/sector`);
@@ -87,16 +108,12 @@ export async function updateApplicationsCreateCaseName(
  * @type {import('@pins/express').RenderHandler<ApplicationsCreateCaseSectorProps,
  * {}, {}, {}, DomainParams>}
  */
-export async function viewApplicationsCreateCaseSector({ session }, response) {
-	const { applicationId } = response.locals;
-	const allSectors = await getAllSectors();
+export async function viewApplicationsCreateCaseSector(request, response) {
+	const properties = await formatViewCaseSector(request, response.locals);
 
-	const { sector } = await getApplicationDraft(applicationId, ['sector']);
-	const selectedSectorName = getSessionCaseSectorName(session) || sector?.name;
-
-	response.render('applications/create/case/_sector', {
-		sectors: allSectors,
-		values: { sectorName: selectedSectorName || '' }
+	response.render('applications/case-form/case-form-layout', {
+		...properties,
+		layout: sectorLayout
 	});
 }
 
@@ -107,21 +124,15 @@ export async function viewApplicationsCreateCaseSector({ session }, response) {
  * @type {import('@pins/express').RenderHandler<ApplicationsCreateCaseSectorProps,
  * {}, ApplicationsCreateCaseSectorBody, {}, DomainParams>}
  */
-export async function updateApplicationsCreateCaseSector({ errors, session, body }, response) {
+export async function updateApplicationsCreateCaseSector(request, response) {
 	const { applicationId } = response.locals;
-	const { sectorName } = body;
+	const properties = await formatUpdateCaseSector(request);
 
-	if (errors) {
-		const allSectors = await getAllSectors();
-
-		return response.render('applications/create/case/_sector', {
-			errors,
-			sectors: allSectors,
-			values: { sectorName }
-		});
+	if (properties.errors) {
+		return handleErrors(properties, sectorLayout, response);
 	}
 
-	setSessionCaseSectorName(session, sectorName);
+	setSessionCaseSectorName(request.session, properties.values.sectorName);
 	response.redirect(`/applications-service/create-new-case/${applicationId}/sub-sector`);
 }
 
@@ -130,22 +141,18 @@ export async function updateApplicationsCreateCaseSector({ errors, session, body
  *
  * @type {import('@pins/express').RenderHandler<*, *>}
  */
-export async function viewApplicationsCreateCaseSubSector({ session }, response) {
+export async function viewApplicationsCreateCaseSubSector(request, response) {
 	const { applicationId } = response.locals;
-	const { sector, subSector } = await getApplicationDraft(applicationId, ['subSector', 'sector']);
-	const selectedSectorName = getSessionCaseSectorName(session) || sector?.name;
+	const { properties, redirectToSector } = await formatViewCaseSubSector(request, response.locals);
 
-	if (!selectedSectorName) {
+	if (redirectToSector) {
 		pino.warn('Trying to change subsector with no sector value registered. Redirect to sector');
-
 		return response.redirect(`/applications-service/create-new-case/${applicationId}/sector`);
 	}
 
-	const subSectors = await getSubSectorsBySectorName(selectedSectorName);
-
-	response.render('applications/create/case/_sub-sector', {
-		subSectors: subSectors || [],
-		values: { subSectorName: subSector?.name }
+	response.render('applications/case-form/case-form-layout', {
+		...properties,
+		layout: subSectorLayout
 	});
 }
 
@@ -155,32 +162,17 @@ export async function viewApplicationsCreateCaseSubSector({ session }, response)
  * @type {import('@pins/express').RenderHandler<ApplicationsCreateCaseSubSectorProps,
  * {}, ApplicationsCreateCaseSubSectorBody, {}, DomainParams>}
  */
-export async function updateApplicationsCreateCaseSubSector(
-	{ session, errors: validationErrors, body },
-	response
-) {
-	const { applicationId } = response.locals;
-	const { subSectorName } = body;
-	const payload = bodyToPayload(body);
-
-	const { errors: apiErrors, id: updatedApplicationId } = await updateApplicationDraft(
-		applicationId,
-		payload
+export async function updateApplicationsCreateCaseSubSector(request, response) {
+	const { properties, updatedApplicationId } = await formatUpdateCaseSubSector(
+		request,
+		response.locals
 	);
 
-	if (validationErrors || apiErrors || !updatedApplicationId) {
-		const { sector } = await getApplicationDraft(applicationId, ['sector']);
-		const selectedSectorName = getSessionCaseSectorName(session) || sector?.name;
-		const subSectors = await getSubSectorsBySectorName(selectedSectorName);
-
-		return response.render('applications/create/case/_sub-sector', {
-			errors: validationErrors || apiErrors,
-			subSectors,
-			values: { subSectorName }
-		});
+	if (properties?.errors || !updatedApplicationId) {
+		return handleErrors(properties, subSectorLayout, response);
 	}
 
-	destroySessionCaseSectorName(session);
+	destroySessionCaseSectorName(request.session);
 	response.redirect(
 		`/applications-service/create-new-case/${updatedApplicationId}/geographical-information`
 	);
@@ -192,19 +184,13 @@ export async function updateApplicationsCreateCaseSubSector(
  * @type {import('@pins/express').RenderHandler<ApplicationsCreateCaseGeographicalInformationProps,
  * {}, {}, {}, DomainParams>}
  */
-export async function viewApplicationsCreateCaseGeographicalInformation(req, response) {
-	const { applicationId } = response.locals;
-	const { geographicalInformation } = await getApplicationDraft(applicationId, [
-		'geographicalInformation'
-	]);
-	const { locationDescription, gridReference } = geographicalInformation || {};
-	const values = {
-		'geographicalInformation.locationDescription': locationDescription,
-		'geographicalInformation.gridReference.easting': gridReference?.easting,
-		'geographicalInformation.gridReference.northing': gridReference?.northing
-	};
+export async function viewApplicationsCreateCaseGeographicalInformation(request, response) {
+	const properties = await formatViewCaseGeographicalInformation(request, response.locals);
 
-	response.render('applications/create/case/_geographical-information', { values });
+	response.render('applications/case-form/case-form-layout', {
+		...properties,
+		layout: geographicalInformationLayout
+	});
 }
 
 /**
@@ -213,31 +199,14 @@ export async function viewApplicationsCreateCaseGeographicalInformation(req, res
  * @type {import('@pins/express').RenderHandler<ApplicationsCreateCaseGeographicalInformationProps,
  * {}, ApplicationsCreateCaseGeographicalInformationBody, {}, DomainParams>}
  */
-export async function updateApplicationsCreateCaseGeographicalInformation(
-	{ errors: validationErrors, body },
-	response
-) {
-	const { applicationId } = response.locals;
-	const payload = bodyToPayload(body);
-	const values = {
-		'geographicalInformation.locationDescription':
-			body['geographicalInformation.locationDescription'],
-		'geographicalInformation.gridReference.easting':
-			body['geographicalInformation.gridReference.easting'],
-		'geographicalInformation.gridReference.northing':
-			body['geographicalInformation.gridReference.northing']
-	};
-
-	const { errors: apiErrors, id: updatedApplicationId } = await updateApplicationDraft(
-		applicationId,
-		payload
+export async function updateApplicationsCreateCaseGeographicalInformation(request, response) {
+	const { properties, updatedApplicationId } = await formatUpdateCaseGeographicalInformation(
+		request,
+		response.locals
 	);
 
-	if (validationErrors || apiErrors || !updatedApplicationId) {
-		return response.render('applications/create/case/_geographical-information', {
-			errors: validationErrors || apiErrors,
-			values
-		});
+	if (properties.errors || !updatedApplicationId) {
+		return handleErrors(properties, geographicalInformationLayout, response);
 	}
 
 	response.redirect(`/applications-service/create-new-case/${updatedApplicationId}/regions`);
@@ -249,23 +218,13 @@ export async function updateApplicationsCreateCaseGeographicalInformation(
  * @type {import('@pins/express').RenderHandler<ApplicationsCreateCaseRegionsProps,
  * {}, {}, {}, DomainParams>}
  */
-export async function viewApplicationsCreateCaseRegions(req, response) {
-	const { applicationId } = response.locals;
-	const allRegions = await getAllRegions();
-	const { geographicalInformation } = await getApplicationDraft(applicationId, [
-		'geographicalInformation'
-	]);
-	const selectedRegionNames = new Set(
-		(geographicalInformation?.regions || []).map((region) => region?.name)
-	);
+export async function viewApplicationsCreateCaseRegions(request, response) {
+	const properties = await formatViewCaseRegions(request, response.locals);
 
-	const checkBoxRegions = allRegions.map((region) => ({
-		text: region.displayNameEn,
-		value: region.name,
-		checked: selectedRegionNames.has(region.name)
-	}));
-
-	return response.render('applications/create/case/_region', { regions: checkBoxRegions });
+	return response.render('applications/case-form/case-form-layout', {
+		...properties,
+		layout: regionsLayout
+	});
 }
 
 /**
@@ -274,34 +233,19 @@ export async function viewApplicationsCreateCaseRegions(req, response) {
  * @type {import('@pins/express').RenderHandler<ApplicationsCreateCaseRegionsProps,
  * {}, ApplicationsCreateCaseRegionsBody, {}, DomainParams>}
  */
-export async function updateApplicationsCreateCaseRegions(
-	{ errors: validationErrors, body },
-	response
-) {
-	const { applicationId } = response.locals;
-	const selectedRegionNames = new Set(body['geographicalInformation.regionNames'] || []);
-	const payload = bodyToPayload(body);
-
-	const { errors: apiErrors, id: updatedApplicationId } = await updateApplicationDraft(
-		applicationId,
-		payload
+export async function updateApplicationsCreateCaseRegions(request, response) {
+	const { properties, updatedApplicationId } = await formatUpdateCaseRegions(
+		request,
+		response.locals
 	);
 
-	if (validationErrors || apiErrors || !updatedApplicationId) {
-		const allRegions = await getAllRegions();
-		const checkBoxRegions = allRegions.map((region) => ({
-			text: region.displayNameEn,
-			value: region.name,
-			checked: selectedRegionNames.has(region.name)
-		}));
-
-		return response.render('applications/create/case/_region', {
-			errors: validationErrors || apiErrors,
-			regions: checkBoxRegions
-		});
+	if (properties.errors || !updatedApplicationId) {
+		return handleErrors(properties, regionsLayout, response);
 	}
 
-	response.redirect(`/applications-service/create-new-case/${updatedApplicationId}/zoom-level`);
+	return response.redirect(
+		`/applications-service/create-new-case/${updatedApplicationId}/zoom-level`
+	);
 }
 
 /**
@@ -310,22 +254,12 @@ export async function updateApplicationsCreateCaseRegions(
  * @type {import('@pins/express').RenderHandler<ApplicationsCreateCaseZoomLevelProps,
  * {}, {}, {}, DomainParams>}
  */
-export async function viewApplicationsCreateCaseZoomLevel(req, response) {
-	const { applicationId } = response.locals;
-	const { geographicalInformation } = await getApplicationDraft(applicationId, [
-		'geographicalInformation'
-	]);
-	const allZoomLevels = await getAllZoomLevels();
-	const values = {
-		'geographicalInformation.mapZoomLevelName':
-			geographicalInformation?.mapZoomLevel?.name || 'none'
-	};
+export async function viewApplicationsCreateCaseZoomLevel(request, response) {
+	const properties = await formatViewCaseZoomLevel(request, response.locals);
 
-	allZoomLevels.sort((a, b) => ((a.displayOrder || '') < (b.displayOrder || '') ? 1 : -1));
-
-	return response.render('applications/create/case/_zoom-level', {
-		zoomLevels: allZoomLevels,
-		values
+	return response.render('applications/case-form/case-form-layout', {
+		...properties,
+		layout: zoomLevelLayout
 	});
 }
 
@@ -335,24 +269,17 @@ export async function viewApplicationsCreateCaseZoomLevel(req, response) {
  * @type {import('@pins/express').RenderHandler<ApplicationsCreateCaseZoomLevelProps,
  * {}, ApplicationsCreateCaseZoomLevelBody, {}, DomainParams>}
  */
-export async function updateApplicationsCreateCaseZoomLevel({ body }, response) {
-	const { applicationId } = response.locals;
-	const allZoomLevels = await getAllZoomLevels();
-	const payload = bodyToPayload(body);
-	const values = {
-		'geographicalInformation.mapZoomLevelName': body['geographicalInformation.mapZoomLevelName']
-	};
-	const { errors, id: updatedApplicationId } = await updateApplicationDraft(applicationId, payload);
+export async function updateApplicationsCreateCaseZoomLevel(request, response) {
+	const { properties, updatedApplicationId } = await formatUpdateCaseZoomLevel(
+		request,
+		response.locals
+	);
 
-	if (errors || !updatedApplicationId) {
-		return response.render('applications/create/case/_zoom-level', {
-			errors,
-			zoomLevels: allZoomLevels,
-			values
-		});
+	if (properties.errors || !updatedApplicationId) {
+		return handleErrors(properties, zoomLevelLayout, response);
 	}
 
-	response.redirect(`/applications-service/create-new-case/${applicationId}/team-email`);
+	response.redirect(`/applications-service/create-new-case/${updatedApplicationId}/team-email`);
 }
 
 /**
@@ -361,12 +288,13 @@ export async function updateApplicationsCreateCaseZoomLevel({ body }, response) 
  * @type {import('@pins/express').RenderHandler<ApplicationsCreateCaseTeamEmailProps,
  * {}, {}, {}, DomainParams>}
  */
-export async function viewApplicationsCreateCaseTeamEmail(req, response) {
-	const { applicationId } = response.locals;
-	const { caseEmail } = await getApplicationDraft(applicationId, ['caseEmail']);
-	const values = { caseEmail };
+export async function viewApplicationsCreateCaseTeamEmail(request, response) {
+	const properties = await formatViewCaseTeamEmail(request, response.locals);
 
-	return response.render('applications/create/case/_team-email', { values });
+	return response.render('applications/case-form/case-form-layout', {
+		...properties,
+		layout: teamEmailLayout
+	});
 }
 
 /**
@@ -375,32 +303,31 @@ export async function viewApplicationsCreateCaseTeamEmail(req, response) {
  * @type {import('@pins/express').RenderHandler<ApplicationsCreateCaseTeamEmailProps,
  * {}, ApplicationsCreateCaseTeamEmailBody, {}, DomainParams>}
  */
-export async function updateApplicationsCreateCaseTeamEmail(
-	{ session, body, errors: validationErrors },
-	response
-) {
-	const { applicationId } = response.locals;
+export async function updateApplicationsCreateCaseTeamEmail(request, response) {
+	const { properties, updatedApplicationId } = await formatUpdateCaseTeamEmail(
+		request,
+		response.locals
+	);
 
-	if (body.caseEmail) {
-		const values = { caseEmail: body.caseEmail };
-		const payload = bodyToPayload(body);
-
-		const { errors: apiErrors, id: updatedApplicationId } = await updateApplicationDraft(
-			applicationId,
-			payload
-		);
-
-		if (validationErrors || apiErrors || !updatedApplicationId) {
-			return response.render('applications/create/case/_team-email', {
-				errors: validationErrors || apiErrors,
-				values
-			});
-		}
+	if (properties && (properties?.errors || !updatedApplicationId)) {
+		return handleErrors(properties, teamEmailLayout, response);
 	}
 
-	const nextPath = getSessionCaseHasNeverBeenResumed(session)
+	const nextPath = getSessionCaseHasNeverBeenResumed(request.session)
 		? 'applicant-information-types'
 		: 'applicant-organisation-name';
 
-	response.redirect(`/applications-service/create-new-case/${applicationId}/${nextPath}`);
+	response.redirect(`/applications-service/create-new-case/${updatedApplicationId}/${nextPath}`);
 }
+
+/**
+ * View the sector choice step of the application creation
+ *
+ * @param {Record<string, any>} properties
+ * @param {FormCaseLayout} layout
+ * @param {*} response
+ * @returns {*}
+ */
+export const handleErrors = (properties, layout, response) => {
+	return response.render('applications/case-form/case-form-layout', { ...properties, layout });
+};

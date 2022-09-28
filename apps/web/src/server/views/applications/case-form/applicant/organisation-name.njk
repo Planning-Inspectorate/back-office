@@ -1,16 +1,10 @@
-{% extends "./applications-create-applicant-layout.njk" %}
-
 {% from "govuk/components/input/macro.njk" import govukInput %}
 
-{% block stepTitle %}
-	What is the applicant’s organisation?
-{% endblock %}
-
-{% block stepForm %}
+{% macro organisationName(values, errors) %}
 	{{ govukInput({
 		id: "applicant.organisationName",
 		name: "applicant.organisationName",
 		classes: "govuk-!-width-one-third",
 		value: values['applicant.organisationName']
 	}) }}
-{% endblock %}
+{% endmacro %}

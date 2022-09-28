@@ -1,18 +1,10 @@
-{% extends "../applications-create-layout.njk" %}
-
 {% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
 
-{% block stepTitle %}
-	Choose one or multiple regions
-{% endblock %}
-
-{% block stepForm %}
+{% macro regions(regions, errors) %}
 	{{ govukCheckboxes({
 		idPrefix: "geographicalInformation.regionNames",
 		name: "geographicalInformation.regionNames[]",
 		items: regions,
 		errorMessage: errors['geographicalInformation.regionNames'] | errorMessage
 	}) }}
-{% endblock %}
-
-{% set backLink = 'applications-create'|url({applicationId:applicationId, step: 'geographical-information'}) %}
+{% endmacro %}

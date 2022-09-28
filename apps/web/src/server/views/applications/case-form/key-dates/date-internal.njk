@@ -1,0 +1,48 @@
+{% from "govuk/components/input/macro.njk" import govukInput %}
+
+{% macro dateInternal(values, errors) %}
+<div class="govuk-form-group {{ 'govuk-form-group--error' if (errors['keyDates.submissionDateInternal'] !== undefined and errors['keyDates.submissionDateInternal'] !== false) else '' }}">
+	<label class="govuk-label font-weight--700" for="submissionDateInternal">
+		Anticipated submission date internal
+	</label>
+	<div id="applicationName-hint" class="govuk-hint">
+		for example, 27 3 2023
+	</div>
+	{% if (errors['keyDates.submissionDateInternal'] !== undefined and errors['keyDates.submissionDateInternal'] !== false) %}
+		<p id="submissionDateInternal-error" class="govuk-error-message">
+			<span class="govuk-visually-hidden">Error:</span> {{ errors['keyDates.submissionDateInternal'].msg }}
+		</p>
+	{% endif %}
+	<div class="govuk-grid-column-one-third">
+		<div class="govuk-grid-row pins-date-form-group">
+			{{ govukInput({
+				id: "submissionInternalDay",
+				name: "submissionInternalDay",
+				value: values['keyDates.submissionDateInternal'] |datestamp({format: 'dd'}),
+				errorMessage: (errors['keyDates.submissionDateInternal'] !== undefined and errors['keyDates.submissionDateInternal'] !== false),
+				hint: {
+					text: "Day"
+				}
+			}) }}
+			{{ govukInput({
+				id: "submissionInternalMonth",
+				name: "submissionInternalMonth",
+				value: values['keyDates.submissionDateInternal'] |datestamp({format: 'MM'}),
+				errorMessage: (errors['keyDates.submissionDateInternal'] !== undefined and errors['keyDates.submissionDateInternal'] !== false),
+				hint: {
+					text: "Month"
+				}
+			}) }}
+			{{ govukInput({
+				id: "submissionInternalYear",
+				name: "submissionInternalYear",
+				value: values['keyDates.submissionDateInternal'] |datestamp({format: 'yyyy'}),
+				errorMessage: (errors['keyDates.submissionDateInternal'] !== undefined and errors['keyDates.submissionDateInternal'] !== false),
+				hint: {
+					text: "Year"
+				}
+			}) }}
+		</div>
+	</div>
+</div>
+{% endmacro %}
