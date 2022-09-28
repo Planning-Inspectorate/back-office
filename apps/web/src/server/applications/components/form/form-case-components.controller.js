@@ -3,22 +3,22 @@ import {
 	createApplicationDraft,
 	getApplicationDraft,
 	updateApplicationDraft
-} from '../../create/applications-create.service.js';
+} from '../../pages/create/applications-create.service.js';
 import {
 	getAllRegions,
 	getAllSectors,
 	getAllZoomLevels,
 	getSubSectorsBySectorName
-} from '../../create/case/applications-create-case.service.js';
-import { getSessionCaseSectorName } from '../../create/case/applications-create-case-session.service.js';
+} from '../../pages/create/case/applications-create-case.service.js';
+import { getSessionCaseSectorName } from '../../pages/create/case/applications-create-case-session.service.js';
 
-/** @typedef {import('../../create/case/applications-create-case.types').ApplicationsCreateCaseNameProps} ApplicationsCreateCaseNameProps */
-/** @typedef {import('../../create/case/applications-create-case.types').ApplicationsCreateCaseSectorProps} ApplicationsCreateCaseSectorProps */
-/** @typedef {import('../../create/case/applications-create-case.types').ApplicationsCreateCaseZoomLevelProps} ApplicationsCreateCaseZoomLevelProps */
-/** @typedef {import('../../create/case/applications-create-case.types').ApplicationsCreateCaseSubSectorProps} ApplicationsCreateCaseSubSectorProps */
-/** @typedef {import('../../create/case/applications-create-case.types').ApplicationsCreateCaseRegionsProps} ApplicationsCreateCaseRegionsProps */
-/** @typedef {import('../../create/case/applications-create-case.types').ApplicationsCreateCaseTeamEmailProps} ApplicationsCreateCaseTeamEmailProps */
-/** @typedef {import('../../create/case/applications-create-case.types').ApplicationsCreateCaseGeographicalInformationProps} ApplicationsCreateCaseGeographicalInformationProps */
+/** @typedef {import('../../pages/create/case/applications-create-case.types').ApplicationsCreateCaseNameProps} ApplicationsCreateCaseNameProps */
+/** @typedef {import('../../pages/create/case/applications-create-case.types').ApplicationsCreateCaseSectorProps} ApplicationsCreateCaseSectorProps */
+/** @typedef {import('../../pages/create/case/applications-create-case.types').ApplicationsCreateCaseZoomLevelProps} ApplicationsCreateCaseZoomLevelProps */
+/** @typedef {import('../../pages/create/case/applications-create-case.types').ApplicationsCreateCaseSubSectorProps} ApplicationsCreateCaseSubSectorProps */
+/** @typedef {import('../../pages/create/case/applications-create-case.types').ApplicationsCreateCaseRegionsProps} ApplicationsCreateCaseRegionsProps */
+/** @typedef {import('../../pages/create/case/applications-create-case.types').ApplicationsCreateCaseTeamEmailProps} ApplicationsCreateCaseTeamEmailProps */
+/** @typedef {import('../../pages/create/case/applications-create-case.types').ApplicationsCreateCaseGeographicalInformationProps} ApplicationsCreateCaseGeographicalInformationProps */
 
 /**
  * Format properties for name and description page
@@ -27,7 +27,7 @@ import { getSessionCaseSectorName } from '../../create/case/applications-create-
  * @param {Record<string, any>} locals
  * @returns {Promise<ApplicationsCreateCaseNameProps>}
  */
-export async function formatViewCaseNameAndDescription(request, locals) {
+export async function caseNameAndDescriptionData(request, locals) {
 	const { applicationId } = locals || {};
 	const { title, description } = applicationId
 		? await getApplicationDraft(applicationId, ['title', 'description'])
@@ -43,7 +43,7 @@ export async function formatViewCaseNameAndDescription(request, locals) {
  * @param {Record<string, any>} locals
  * @returns {Promise<{properties: ApplicationsCreateCaseNameProps, updatedApplicationId?: number| null}>}
  */
-export async function formatUpdateCaseNameAndDescription(
+export async function caseNameAndDescriptionDataUpdate(
 	{ errors: validationErrors, session, body },
 	locals
 ) {
@@ -71,7 +71,7 @@ export async function formatUpdateCaseNameAndDescription(
  * @param {Record<string, any>} locals
  * @returns {Promise<ApplicationsCreateCaseSectorProps>}
  */
-export async function formatViewCaseSector({ session }, locals) {
+export async function caseSectorData({ session }, locals) {
 	const { applicationId } = locals;
 	const allSectors = await getAllSectors();
 
@@ -90,7 +90,7 @@ export async function formatViewCaseSector({ session }, locals) {
  * @param {import('express').Request} request
  * @returns {Promise<ApplicationsCreateCaseSectorProps>}
  */
-export async function formatUpdateCaseSector({ errors, body }) {
+export async function caseSectorDataUpdate({ errors, body }) {
 	const { sectorName } = body;
 
 	/** @type {ApplicationsCreateCaseSectorProps} * */
@@ -113,7 +113,7 @@ export async function formatUpdateCaseSector({ errors, body }) {
  * @param {Record<string, any>} locals
  * @returns {Promise<ApplicationsCreateCaseGeographicalInformationProps>}
  */
-export async function formatViewCaseGeographicalInformation(request, locals) {
+export async function caseGeographicalInformationData(request, locals) {
 	const { applicationId } = locals;
 	const { geographicalInformation } = await getApplicationDraft(applicationId, [
 		'geographicalInformation'
@@ -137,7 +137,7 @@ export async function formatViewCaseGeographicalInformation(request, locals) {
  * @param {Record<string, any>} locals
  * @returns {Promise<{properties: ApplicationsCreateCaseGeographicalInformationProps, updatedApplicationId?: number}>}
  */
-export async function formatUpdateCaseGeographicalInformation(
+export async function caseGeographicalInformationDataUpdate(
 	{ errors: validationErrors, body },
 	locals
 ) {
@@ -169,7 +169,7 @@ export async function formatUpdateCaseGeographicalInformation(
  * @param {Record<string, any>} locals
  * @returns {Promise<{properties?: ApplicationsCreateCaseSubSectorProps, redirectToSector: boolean}>}
  */
-export async function formatViewCaseSubSector({ session }, locals) {
+export async function caseSubSectorData({ session }, locals) {
 	const { applicationId } = locals;
 	const { sector, subSector } = await getApplicationDraft(applicationId, ['subSector', 'sector']);
 	const selectedSectorName = getSessionCaseSectorName(session) || sector?.name;
@@ -196,10 +196,7 @@ export async function formatViewCaseSubSector({ session }, locals) {
  * @param {Record<string, any>} locals
  * @returns {Promise<{properties: ApplicationsCreateCaseSubSectorProps, updatedApplicationId?: number}>}
  */
-export async function formatUpdateCaseSubSector(
-	{ session, errors: validationErrors, body },
-	locals
-) {
+export async function caseSubSectorDataUpdate({ session, errors: validationErrors, body }, locals) {
 	const { applicationId } = locals;
 	const { subSectorName } = body;
 	const payload = bodyToPayload(body);
@@ -235,7 +232,7 @@ export async function formatUpdateCaseSubSector(
  * @param {Record<string, any>} locals
  * @returns {Promise<ApplicationsCreateCaseRegionsProps>}
  */
-export async function formatViewCaseRegions(request, locals) {
+export async function caseRegionsData(request, locals) {
 	const { applicationId } = locals;
 	const allRegions = await getAllRegions();
 	const { geographicalInformation } = await getApplicationDraft(applicationId, [
@@ -262,7 +259,7 @@ export async function formatViewCaseRegions(request, locals) {
  * @param {Record<string, any>} locals
  * @returns {Promise<{properties: ApplicationsCreateCaseRegionsProps, updatedApplicationId?: number}>}
  */
-export async function formatUpdateCaseRegions({ errors: validationErrors, body }, locals) {
+export async function caseRegionsDataUpdate({ errors: validationErrors, body }, locals) {
 	const { applicationId } = locals;
 	const selectedRegionNames = new Set(body['geographicalInformation.regionNames'] || []);
 	const payload = bodyToPayload(body);
@@ -297,7 +294,7 @@ export async function formatUpdateCaseRegions({ errors: validationErrors, body }
  * @param {Record<string, any>} locals
  * @returns {Promise<ApplicationsCreateCaseZoomLevelProps>}
  */
-export async function formatViewCaseZoomLevel(request, locals) {
+export async function caseZoomLevelData(request, locals) {
 	const { applicationId } = locals;
 	const { geographicalInformation } = await getApplicationDraft(applicationId, [
 		'geographicalInformation'
@@ -324,7 +321,7 @@ export async function formatViewCaseZoomLevel(request, locals) {
  * @param {Record<string, any>} locals
  * @returns {Promise<{properties: ApplicationsCreateCaseZoomLevelProps, updatedApplicationId?: number}>}
  */
-export async function formatUpdateCaseZoomLevel({ body }, locals) {
+export async function caseZoomLevelDataUpdate({ body }, locals) {
 	const { applicationId } = locals;
 	const allZoomLevels = await getAllZoomLevels();
 	const payload = bodyToPayload(body);
@@ -351,7 +348,7 @@ export async function formatUpdateCaseZoomLevel({ body }, locals) {
  * @param {Record<string, any>} locals
  * @returns {Promise<ApplicationsCreateCaseTeamEmailProps>}
  */
-export async function formatViewCaseTeamEmail(request, locals) {
+export async function caseTeamEmailData(request, locals) {
 	const { applicationId } = locals;
 	const { caseEmail } = await getApplicationDraft(applicationId, ['caseEmail']);
 
@@ -366,7 +363,7 @@ export async function formatViewCaseTeamEmail(request, locals) {
  * @param {Record<string, any>} locals
  * @returns {Promise<{properties?: ApplicationsCreateCaseTeamEmailProps, updatedApplicationId?: number}>}
  */
-export async function formatUpdateCaseTeamEmail({ body, errors: validationErrors }, locals) {
+export async function caseTeamEmailDataUpdate({ body, errors: validationErrors }, locals) {
 	const { applicationId } = locals;
 	/** @type {{properties?: ApplicationsCreateCaseTeamEmailProps, updatedApplicationId?: number}} */
 	const propertiesWithId = { updatedApplicationId: applicationId };
