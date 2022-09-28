@@ -7,20 +7,13 @@
  */
 
 /**
- * View the details for a single application - overview page
+ * View the details for a single case application - page required in the param pageType
  *
  * @type {import('@pins/express').RenderHandler<ViewApplicationRenderProps, ApplicationLocals>}
  */
-export async function viewApplicationSummary(request, response) {
-	// console.log('_____ locals.application:', response.locals.application);
-	response.render('applications/summary/application-summary-overview');
-}
+export async function viewApplicationSummaryPages(request, response) {
+	// note: application details for this case are held in response.locals.application
+	const pageType = request.params.pageType ?? 'overview';
 
-/**
- * View the details for a single application - project information page
- *
- * @type {import('@pins/express').RenderHandler<ViewApplicationRenderProps, ApplicationLocals>}
- */
-export async function viewApplicationProjectInformation(request, response) {
-	response.render('applications/summary/application-summary-project-information');
+	response.render(`applications/summary/${pageType}`);
 }

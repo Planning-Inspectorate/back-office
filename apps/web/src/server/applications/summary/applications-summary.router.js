@@ -6,10 +6,8 @@ const applicationSummaryRouter = createRouter();
 
 applicationSummaryRouter.param('applicationId', locals.loadApplication);
 
-applicationSummaryRouter.route('/:applicationId').get(controller.viewApplicationSummary);
-
 applicationSummaryRouter
-	.route('/:applicationId/project-information')
-	.get(controller.viewApplicationProjectInformation);
+	.route('/:applicationId/:pageType?')
+	.get(controller.viewApplicationSummaryPages);
 
 export default applicationSummaryRouter;
