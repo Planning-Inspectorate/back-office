@@ -1,19 +1,19 @@
 import {
 	getApplicationDraft,
 	updateApplicationDraft
-} from '../../create/applications-create.service.js';
+} from '../../pages/create/applications-create.service.js';
 
-/** @typedef {import('../../create/key-dates/applications-create-key-dates.types').ApplicationsCreateKeyDatesProps} ApplicationsCreateKeyDatesProps */
+/** @typedef {import('../../pages/create/key-dates/applications-create-key-dates.types').ApplicationsCreateKeyDatesProps} ApplicationsCreateKeyDatesProps */
 
 /**
  * Format properties for key dates page
- * 
+ *
  *
  * @param {import('express').Request} request
  * @param {Record<string, any>} locals
  * @returns {Promise<ApplicationsCreateKeyDatesProps>}
  */
-export async function formatViewKeyDates(request, locals) {
+export async function keyDatesData(request, locals) {
 	const { applicationId } = locals;
 	const { keyDates } = await getApplicationDraft(applicationId, ['keyDates']);
 	const { submissionDatePublished, submissionDateInternal } = keyDates || {};
@@ -28,13 +28,13 @@ export async function formatViewKeyDates(request, locals) {
 
 /**
  * Format properties for key dates update page
- * 
+ *
  *
  * @param {import('express').Request} request
  * @param {Record<string, any>} locals
  * @returns {Promise<{properties: ApplicationsCreateKeyDatesProps, updatedApplicationId?: number}>}
  */
-export async function formatUpdateKeyDates({ body, errors: validationErrors }, locals) {
+export async function keyDatesDataUpdate({ body, errors: validationErrors }, locals) {
 	const { applicationId } = locals;
 	const { submissionInternalDay, submissionInternalMonth, submissionInternalYear } = body;
 	const submissionDatePublished = body['keyDates.submissionDatePublished'];

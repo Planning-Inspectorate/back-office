@@ -1,16 +1,16 @@
 import { findAddressListByPostcode } from '@planning-inspectorate/address-lookup';
-import { getApplicantById } from '../../create/applicant/applications-create-applicant.service.js';
-import { updateApplicationDraft } from '../../create/applications-create.service.js';
+import { getApplicantById } from '../../pages/create/applicant/applications-create-applicant.service.js';
+import { updateApplicationDraft } from '../../pages/create/applications-create.service.js';
 
 /** @typedef {import('@pins/express').ValidationErrors} ValidationErrors */
 /** @typedef {import('../../applications.types').ApplicationsAddress} ApplicationsAddress */
-/** @typedef {import('../../create/applicant/applications-create-applicant.types').ApplicationCreateApplicantAddressStage} ApplicationCreateApplicantAddressStage */
-/** @typedef {import('../../create/applicant/applications-create-applicant.types').ApplicationsCreateApplicantAddressProps} ApplicationsCreateApplicantAddressProps */
-/** @typedef {import('../../create/applicant/applications-create-applicant.types').ApplicationsCreateApplicantOrganisationNameProps} ApplicationsCreateApplicantOrganisationNameProps */
-/** @typedef {import('../../create/applicant/applications-create-applicant.types').ApplicationsCreateApplicantFullNameProps} ApplicationsCreateApplicantFullNameProps */
-/** @typedef {import('../../create/applicant/applications-create-applicant.types').ApplicationsCreateApplicantWebsiteProps} ApplicationsCreateApplicantWebsiteProps */
-/** @typedef {import('../../create/applicant/applications-create-applicant.types').ApplicationsCreateApplicantEmailProps} ApplicationsCreateApplicantEmailProps */
-/** @typedef {import('../../create/applicant/applications-create-applicant.types').ApplicationsCreateApplicantTelephoneNumberProps} ApplicationsCreateApplicantTelephoneNumberProps */
+/** @typedef {import('../../pages/create/applicant/applications-create-applicant.types').ApplicationCreateApplicantAddressStage} ApplicationCreateApplicantAddressStage */
+/** @typedef {import('../../pages/create/applicant/applications-create-applicant.types').ApplicationsCreateApplicantAddressProps} ApplicationsCreateApplicantAddressProps */
+/** @typedef {import('../../pages/create/applicant/applications-create-applicant.types').ApplicationsCreateApplicantOrganisationNameProps} ApplicationsCreateApplicantOrganisationNameProps */
+/** @typedef {import('../../pages/create/applicant/applications-create-applicant.types').ApplicationsCreateApplicantFullNameProps} ApplicationsCreateApplicantFullNameProps */
+/** @typedef {import('../../pages/create/applicant/applications-create-applicant.types').ApplicationsCreateApplicantWebsiteProps} ApplicationsCreateApplicantWebsiteProps */
+/** @typedef {import('../../pages/create/applicant/applications-create-applicant.types').ApplicationsCreateApplicantEmailProps} ApplicationsCreateApplicantEmailProps */
+/** @typedef {import('../../pages/create/applicant/applications-create-applicant.types').ApplicationsCreateApplicantTelephoneNumberProps} ApplicationsCreateApplicantTelephoneNumberProps */
 
 /**
  * Format properties for applicant organisation page
@@ -20,7 +20,7 @@ import { updateApplicationDraft } from '../../create/applications-create.service
  * @param {Record<string, any>} locals
  * @returns {Promise<ApplicationsCreateApplicantOrganisationNameProps>}
  */
-export async function formatViewApplicantOrganisationName(request, locals) {
+export async function applicantOrganisationNameData(request, locals) {
 	const { applicationId, applicantId } = locals;
 
 	const applicant = await getApplicantById(applicationId, applicantId, ['applicants']);
@@ -38,7 +38,7 @@ export async function formatViewApplicantOrganisationName(request, locals) {
  * @param {Record<string, any>} locals
  * @returns {Promise<{properties:ApplicationsCreateApplicantOrganisationNameProps, updatedApplicationId?:number }>}
  */
-export async function formatUpdateApplicantOrganisationName({ body }, locals) {
+export async function applicantOrganisationNameDataUpdate({ body }, locals) {
 	const { applicationId, applicantId: id } = locals;
 	const organisationName = body['applicant.organisationName'];
 	const applicantInfo = { id, organisationName };
@@ -64,7 +64,7 @@ export async function formatUpdateApplicantOrganisationName({ body }, locals) {
  * @param {Record<string, any>} locals
  * @returns {Promise<ApplicationsCreateApplicantFullNameProps>}
  */
-export async function formatViewApplicantFullName(request, locals) {
+export async function applicantFullNameData(request, locals) {
 	const { applicationId, applicantId } = locals;
 
 	const applicant = await getApplicantById(applicationId, applicantId, ['applicants']);
@@ -85,7 +85,7 @@ export async function formatViewApplicantFullName(request, locals) {
  * @param {Record<string, any>} locals
  * @returns {Promise<{properties:ApplicationsCreateApplicantFullNameProps, updatedApplicationId?:number }>}
  */
-export async function formatUpdateApplicantFullName({ body }, locals) {
+export async function applicantFullNameDataUpdate({ body }, locals) {
 	const { applicationId, applicantId: id } = locals;
 	const applicantInfo = {
 		id,
@@ -109,7 +109,7 @@ export async function formatUpdateApplicantFullName({ body }, locals) {
  * @param {Record<string, any>} locals
  * @returns {Promise<ApplicationsCreateApplicantEmailProps>}
  */
-export async function formatViewApplicantEmail(request, locals) {
+export async function applicantEmailData(request, locals) {
 	const { applicationId, applicantId } = locals;
 
 	const applicant = await getApplicantById(applicationId, applicantId, ['applicants']);
@@ -128,10 +128,7 @@ export async function formatViewApplicantEmail(request, locals) {
  * @param {Record<string, any>} locals
  * @returns {Promise<{properties:ApplicationsCreateApplicantEmailProps, updatedApplicationId?:number }>}
  */
-export async function formatUpdateApplicationsCreateApplicantEmail(
-	{ errors: validationErrors, body },
-	locals
-) {
+export async function applicantEmailDataUpdate({ errors: validationErrors, body }, locals) {
 	const { applicationId, applicantId: id } = locals;
 	const values = body;
 	const applicantInfo = { id, email: body['applicant.email'] };
@@ -154,7 +151,7 @@ export async function formatUpdateApplicationsCreateApplicantEmail(
  * @param {Record<string, any>} locals
  * @returns {Promise<ApplicationsCreateApplicantAddressProps>}
  */
-export async function formatViewApplicantAddress({ query }, locals) {
+export async function applicantAddressData({ query }, locals) {
 	const { postcode: queryPostcode } = query;
 	const { applicationId, applicantId } = locals;
 
@@ -177,7 +174,7 @@ export async function formatViewApplicantAddress({ query }, locals) {
  * @param {Record<string, any>} locals
  * @returns {Promise<{properties: ApplicationsCreateApplicantAddressProps, shouldShowErrors: boolean }>}
  */
-export async function formatUpdateApplicantAddress({ errors: validationErrors, body }, locals) {
+export async function applicantAddressDataUpdate({ errors: validationErrors, body }, locals) {
 	const { postcode, apiReference, currentFormStage } = body;
 	const { applicationId, applicantId } = locals;
 
@@ -254,7 +251,7 @@ export async function formatUpdateApplicantAddress({ errors: validationErrors, b
  * @param {Record<string, any>} locals
  * @returns {Promise<ApplicationsCreateApplicantWebsiteProps>}
  */
-export async function formatViewApplicantWebsite(request, locals) {
+export async function applicantWebsiteData(request, locals) {
 	const { applicationId, applicantId } = locals;
 
 	const applicant = await getApplicantById(applicationId, applicantId, ['applicants']);
@@ -273,7 +270,7 @@ export async function formatViewApplicantWebsite(request, locals) {
  * @param {Record<string, any>} locals
  * @returns {Promise<{properties:ApplicationsCreateApplicantWebsiteProps, updatedApplicationId?:number }>}
  */
-export async function formatUpdateApplicantWebsite({ body, errors: validationErrors }, locals) {
+export async function applicantWebsiteDataUpdate({ body, errors: validationErrors }, locals) {
 	const { applicationId, applicantId: id } = locals;
 	const values = body;
 	const website = body['applicant.website'];
@@ -302,7 +299,7 @@ export async function formatUpdateApplicantWebsite({ body, errors: validationErr
  * @param {Record<string, any>} locals
  * @returns {Promise<ApplicationsCreateApplicantTelephoneNumberProps>}
  */
-export async function formatViewApplicantTelephoneNumber(request, locals) {
+export async function applicantTelephoneNumberData(request, locals) {
 	const { applicationId, applicantId } = locals;
 
 	const applicant = await getApplicantById(applicationId, applicantId, ['applicants']);
@@ -321,7 +318,7 @@ export async function formatViewApplicantTelephoneNumber(request, locals) {
  * @param {Record<string, any>} locals
  * @returns {Promise<{properties:ApplicationsCreateApplicantTelephoneNumberProps, updatedApplicationId?:number }>}
  */
-export async function formatUpdateApplicantTelephoneNumber(
+export async function applicantTelephoneNumberDataUpdate(
 	{ body, errors: validationErrors },
 	locals
 ) {

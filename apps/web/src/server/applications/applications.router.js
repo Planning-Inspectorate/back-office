@@ -3,9 +3,9 @@ import * as controller from './applications.controller.js';
 import * as filters from './applications.filters.js';
 import * as guards from './applications.guards.js';
 import * as locals from './applications.locals.js';
-import applicationsCreateRouter from './create/applications-create.router.js';
-import applicationsEditRouter from './edit/applications-edit.router.js';
-import applicationsSearchRouter from './search/applications-search.router.js';
+import applicationsEditRouter from './pages/case/edit/applications-edit.router.js';
+import applicationsCreateRouter from './pages/create/applications-create.router.js';
+import applicationsSearchRouter from './pages/search/applications-search.router.js';
 
 const router = createRouter();
 const domainRouter = createRouter({ mergeParams: true });
@@ -36,7 +36,7 @@ router.use('/search-results', guards.assertDomainTypeExists, applicationsSearchR
 
 router.use('/create-new-case', guards.assertDomainTypeExists, applicationsCreateRouter);
 
-// TODO: not definitive url
+// TODO: move this in the case-summary router
 router.use('/case/edit', guards.assertDomainTypeExists, applicationsEditRouter);
 
 /** Domain-driven URLS */
