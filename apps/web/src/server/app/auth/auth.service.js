@@ -1,16 +1,10 @@
 import config from '@pins/web/environment/config.js';
 import humps from 'humps';
-import { promisify } from 'node:util';
 import { msalClient } from '../../lib/msal.js';
 
 /** @typedef {import('@azure/msal-node').AuthenticationResult} OriginalAuthenticationResult */
 /** @typedef {import('@pins/platform').PlanningInspectorAccountInfo} AccountInfo */
 /** @typedef {import('@pins/platform').MsalAuthenticationResult} AuthenticationResult */
-/** @typedef {import('express-session').Session & AuthState} SessionWithAuth */
-/**
- * @typedef {object} AuthState
- * @property {AccountInfo=} account
- */
 
 /**
  * Acquire a {@link AuthenticationResult} using a code sourced from the user
@@ -55,21 +49,8 @@ export const acquireTokenSilent = async (account) => {
  * @param {AccountInfo} account
  * @returns {Promise<void>}
  */
-const clearCacheForAccount = async (account) => {
+export const clearCacheForAccount = async (account) => {
 	await msalClient.getTokenCache().removeAccount(account);
-};
-
-/**
- * Completely Wipe out Session and Account Data
- *
- * @param {SessionWithAuth} session
- * @param {import('express').Response} response
- * @param {AccountInfo} account
- */
-export const clearSession = async (session, response, account) => {
-	await Promise.all([promisify(session.destroy.bind(session))(), clearCacheForAccount(account)]);
-
-	response.clearCookie('connect.sid', { path: '/' });
 };
 
 /**
