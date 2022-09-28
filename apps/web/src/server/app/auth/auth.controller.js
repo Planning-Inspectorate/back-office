@@ -1,6 +1,5 @@
 import msalNode from '@azure/msal-node';
 import config from '@pins/web/environment/config.js';
-import { promisify } from 'node:util';
 import pino from '../../lib/logger.js';
 import * as authService from './auth.service.js';
 import * as authSession from './auth-session.service.js';
@@ -101,13 +100,10 @@ export async function handleSignout(req, response) {
 	const account = authSession.getAccount(req.session);
 
 	if (account) {
-		await Promise.all([
-			promisify(req.session.destroy.bind(req.session))(),
-			authService.clearCacheForAccount(account)
-		]);
+		await authService.clearSession(req.session, response, account);
 	}
 
 	pino.info('[WEB] clearing session:', req.session);
 
-	response.clearCookie('connect.sid', { path: '/' }).redirect(config.msal.logoutUri);
+	response.redirect(config.msal.logoutUri);
 }
