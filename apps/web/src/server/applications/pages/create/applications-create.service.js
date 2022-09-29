@@ -71,8 +71,8 @@ export const createApplicationDraft = async (payload, session) => {
  * Get draft application by id
  * optional query parameters can filter the returned data
  *
- * @param { string[] | null} query
  * @param {number} id
+ * @param { string[] | null} query
  * @returns {Promise<Application>}
  */
 export const getApplicationDraft = async (id, query = null) => {
@@ -129,7 +129,7 @@ export const getErrorMessageCaseCreate = (fieldName, existingError = null) => {
 			errorMessage = 'Enter the Grid reference Northing';
 			break;
 		case 'projectLocation':
-			errorMessage = 'Enter the case location';
+			errorMessage = 'Enter the project location';
 			break;
 		case 'regions':
 			errorMessage = 'Choose one or multiple regions';

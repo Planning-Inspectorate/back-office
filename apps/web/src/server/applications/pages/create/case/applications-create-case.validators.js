@@ -43,7 +43,7 @@ export const validateApplicationsCreateCaseLocation = createValidator(
 		.isLength({ min: 1 })
 		.withMessage(getErrorMessageCaseCreate('projectLocation'))
 		.isLength({ max: 500 })
-		.withMessage('The Case location must be 500 characters or fewer')
+		.withMessage('The project location must be 500 characters or fewer')
 );
 
 export const validateApplicationsCreateCaseEasting = createValidator(
@@ -53,7 +53,7 @@ export const validateApplicationsCreateCaseEasting = createValidator(
 		.withMessage(getErrorMessageCaseCreate('gridReferenceEasting'))
 		.toInt()
 		.isLength({ min: 6, max: 6 })
-		.withMessage('Enter a valid Grid reference Easting')
+		.withMessage('Enter 6 digits for the Grid reference Easting')
 );
 
 export const validateApplicationsCreateCaseNorthing = createValidator(
@@ -63,7 +63,7 @@ export const validateApplicationsCreateCaseNorthing = createValidator(
 		.withMessage(getErrorMessageCaseCreate('gridReferenceNorthing'))
 		.toInt()
 		.isLength({ min: 6, max: 6 })
-		.withMessage('Enter a valid Grid reference Northing')
+		.withMessage('Enter 6 digits for the Grid reference Northing')
 );
 
 export const validateApplicationsTeamEmail = createValidator(

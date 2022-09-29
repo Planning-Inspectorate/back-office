@@ -47,7 +47,7 @@
 
 		{% block stepForm %}
 			{% for componentName in layout.components %}
-				{{ renderComponent(componentName) }}
+				{{ renderComponent(componentName, layout) }}
 			{% endfor %}
 		{% endblock %}
 
@@ -65,7 +65,7 @@
 	</form>
 {% endblock %}
 
-{% macro renderComponent(componentName) %}
+{% macro renderComponent(componentName, layout) %}
 	{% if componentName == 'title' %}
 		{{ title(values, errors) }}
 		{% elif componentName == 'description' %}
@@ -73,7 +73,7 @@
 		{% elif componentName == 'grid-references' %}
 		{{ gridReferences(values, errors) }}
 		{% elif componentName == 'project-location' %}
-		{{ projectLocation(values, errors) }}
+		{{ projectLocation(values, errors, layout.isEdit) }}
 		{% elif componentName == 'sector' %}
 		{{ sector(values, errors, sectors) }}
 		{% elif componentName == 'sub-sector' %}
