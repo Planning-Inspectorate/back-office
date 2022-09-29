@@ -15,5 +15,7 @@ export async function viewApplicationCasePages(request, response) {
 	// note: application details for this case are held in response.locals.application
 	const pageType = request.params.pageType ?? 'overview';
 
+	// set selected page so menu knows what to highlight
+	response.locals.selectedPageType = pageType;
 	response.render(`applications/case/${pageType}`);
 }

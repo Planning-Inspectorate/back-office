@@ -1,0 +1,16 @@
+@use "../govuk-frontend/govuk/settings/_colours-applied" as colors;
+
+.pins-list-menu {
+	text-align: left;
+	padding-left: 0;
+	margin-left: 0;
+
+	a {
+		text-decoration: none;
+		padding: 0.5em;
+	}
+	a:focus, a:active, a.pins-selected-item {
+		background-color: #F3F2F1;
+		box-shadow: -4px 0px 0px #1D70B8;
+	}
+}
