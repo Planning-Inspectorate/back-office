@@ -1,4 +1,5 @@
 @use "../govuk-frontend/govuk/helpers/_colour" as color;
+@use "../../1-settings/_settings.global.scss" as pins-colours;
 
 .pins-masthead {
 	border-bottom: 1px solid color.govuk-colour("blue");
@@ -8,5 +9,13 @@
 
 	h1 {
 		color: color.govuk-colour("white");
+	}
+}
+
+.pins-masthead-summary {
+	background-color:  pins-colours.$pins-colours-blue-100;
+
+	.govuk-heading-xl {
+		margin-bottom: 10px;
 	}
 }

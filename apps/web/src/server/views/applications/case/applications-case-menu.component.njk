@@ -4,20 +4,23 @@
 	{% set selectedPageType = params.selectedPageType %}
 
 	<aside class="govuk-!-margin-bottom-8 pins-list-menu">
-	<ul class="gov-list pins-list-menu">
-		<li class="govuk-heading-s">{{ writeMenuLink({ pageTitle: 'Overview', pageType: '', selectedPageType: selectedPageType,
-											applicationId: application.id, domainType: domainType }) }}</li>
-		<li class="govuk-heading-s">{{ writeMenuLink({ pageTitle: 'Project information', pageType: 'project-information', selectedPageType: selectedPageType,
-											applicationId: application.id, domainType: domainType }) }}</li>
-		<li class="govuk-heading-s">{{ writeMenuLink({ pageTitle: 'Key dates', pageType: 'key-dates', selectedPageType: selectedPageType,
-											applicationId: application.id, domainType: domainType }) }}</li>
-		<li class="govuk-heading-s">{{ writeMenuLink({ pageTitle: 'Project team', pageType: 'project-team', selectedPageType: selectedPageType,
-											applicationId: application.id, domainType: domainType }) }}</li>
-		<li class="govuk-heading-s">{{ writeMenuLink({ pageTitle: 'Fees', pageType: 'fees', selectedPageType: selectedPageType,
-											applicationId: application.id, domainType: domainType }) }}</li>
-		<li class="govuk-heading-s">{{ writeMenuLink({ pageTitle: 'Project documentation', pageType: 'project-documentation', selectedPageType: selectedPageType,
-											applicationId: application.id, domainType: domainType }) }}</li>
-	</ul>
+	<nav>
+		<h3 class="govuk-visually-hidden">Case Details Menu</h3>
+		<ul class="gov-list pins-list-menu">
+			<li class="govuk-heading-s">{{ writeMenuLink({ pageTitle: 'Overview', pageType: '', selectedPageType: selectedPageType,
+												applicationId: application.id }) }}</li>
+			<li class="govuk-heading-s">{{ writeMenuLink({ pageTitle: 'Project information', pageType: 'project-information', selectedPageType: selectedPageType,
+												applicationId: application.id }) }}</li>
+			<li class="govuk-heading-s">{{ writeMenuLink({ pageTitle: 'Key dates', pageType: 'key-dates', selectedPageType: selectedPageType,
+												applicationId: application.id }) }}</li>
+			<li class="govuk-heading-s">{{ writeMenuLink({ pageTitle: 'Project team', pageType: 'project-team', selectedPageType: selectedPageType,
+												applicationId: application.id }) }}</li>
+			<li class="govuk-heading-s">{{ writeMenuLink({ pageTitle: 'Fees', pageType: 'fees', selectedPageType: selectedPageType,
+												applicationId: application.id }) }}</li>
+			<li class="govuk-heading-s">{{ writeMenuLink({ pageTitle: 'Project documentation', pageType: 'project-documentation', selectedPageType: selectedPageType,
+												applicationId: application.id }) }}</li>
+		</ul>
+	</nav>
 	</aside>
 {% endmacro %}
 
@@ -29,6 +32,6 @@
 	{% endif %}
 
 	<a class="govuk-link {{ selectedClass }}"
-		href="{{ 'view-application'|url({domainType: params.domainType, applicationId: params.applicationId, step: params.pageType }) }}">
+		href="{{ 'view-application'|url({applicationId: params.applicationId, step: params.pageType }) }}">
 		{{ params.pageTitle }}</a></li>
 {% endmacro %}

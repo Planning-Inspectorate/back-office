@@ -3,7 +3,7 @@ import * as controller from './applications.controller.js';
 import * as filters from './applications.filters.js';
 import * as guards from './applications.guards.js';
 import * as locals from './applications.locals.js';
-import applicationsCaseRouter from './case/applications-case.router.js';
+import applicationsCaseRouter from './pages/case/applications-case.router.js';
 import applicationsEditRouter from './pages/case/edit/applications-edit.router.js';
 import applicationsCreateRouter from './pages/create/applications-create.router.js';
 import applicationsSearchRouter from './pages/search/applications-search.router.js';

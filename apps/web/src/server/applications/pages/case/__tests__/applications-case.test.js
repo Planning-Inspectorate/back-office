@@ -1,7 +1,7 @@
 import { parseHtml } from '@pins/platform';
 import nock from 'nock';
 import supertest from 'supertest';
-import { createTestApplication } from '../../../../../testing/index.js';
+import { createTestApplication } from '../../../../../../testing/index.js';
 
 const { app, installMockApi, teardown } = createTestApplication();
 const request = supertest(app);
@@ -27,7 +27,7 @@ describe('applications view case summary', () => {
 		await request.get('/applications-service/case-officer');
 	});
 
-	const baseUrl = '/applications-service/case-officer/case/123';
+	const baseUrl = '/applications-service/case/123';
 
 	describe('GET /case', () => {
 		beforeEach(async () => {
