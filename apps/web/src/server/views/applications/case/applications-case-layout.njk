@@ -40,7 +40,7 @@
 {% block pageContent %}
 	<div class="govuk-grid-row">
 		<div class="govuk-grid-column-one-third">
-			{{ applicationsCaseMenu({ application: application, domainType: domainType }) }}
+			{{ applicationsCaseMenu({ application: application, domainType: domainType, selectedPageType: selectedPageType }) }}
     </div>
     <div class="govuk-grid-column-two-thirds">
 		{% block sectionContent %}

@@ -1,17 +1,34 @@
 {% macro applicationsCaseMenu(params) %}
-  {% set application = params.application %}
-  {% set domainType = params.domainType %}
+	{% set application = params.application %}
+	{% set domainType = params.domainType %}
+	{% set selectedPageType = params.selectedPageType %}
 
-  <aside class="govuk-!-margin-bottom-8 pins-list-menu">
-    <ul class="gov-list" style="padding-left:0; margin-top:0">
-		<li class="govuk-heading-s"><a href="{{ 'view-application'|url({domainType: domainType, applicationId: application.id}) }}"
-									class="govuk-link">Overview</a></li>
-		<li class="govuk-heading-s"><a href="{{ 'view-application'|url({domainType: domainType, applicationId: application.id, step:'project-information'}) }}"
-									class="govuk-link">Project information</a></li>
-		<li class="govuk-heading-s"><a href="#keydates" class="govuk-link">Key dates</a></li>
-		<li class="govuk-heading-s"><a href="#team" class="govuk-link">Project team</a></li>
-		<li class="govuk-heading-s"><a href="#fees" class="govuk-link">Fees</a></li>
-		<li class="govuk-heading-s"><a href="#documentation" class="govuk-link">Project documentation</a></li>
+	<aside class="govuk-!-margin-bottom-8 pins-list-menu">
+	<ul class="gov-list pins-list-menu">
+		<li class="govuk-heading-s">{{ writeMenuLink({ pageTitle: 'Overview', pageType: '', selectedPageType: selectedPageType,
+											applicationId: application.id, domainType: domainType }) }}</li>
+		<li class="govuk-heading-s">{{ writeMenuLink({ pageTitle: 'Project information', pageType: 'project-information', selectedPageType: selectedPageType,
+											applicationId: application.id, domainType: domainType }) }}</li>
+		<li class="govuk-heading-s">{{ writeMenuLink({ pageTitle: 'Key dates', pageType: 'key-dates', selectedPageType: selectedPageType,
+											applicationId: application.id, domainType: domainType }) }}</li>
+		<li class="govuk-heading-s">{{ writeMenuLink({ pageTitle: 'Project team', pageType: 'project-team', selectedPageType: selectedPageType,
+											applicationId: application.id, domainType: domainType }) }}</li>
+		<li class="govuk-heading-s">{{ writeMenuLink({ pageTitle: 'Fees', pageType: 'fees', selectedPageType: selectedPageType,
+											applicationId: application.id, domainType: domainType }) }}</li>
+		<li class="govuk-heading-s">{{ writeMenuLink({ pageTitle: 'Project documentation', pageType: 'project-documentation', selectedPageType: selectedPageType,
+											applicationId: application.id, domainType: domainType }) }}</li>
 	</ul>
-  </aside>
+	</aside>
+{% endmacro %}
+
+{% macro writeMenuLink(params) %}
+	{% set selectedClass = '' %}
+
+	{% if (params.pageType == params.selectedPageType) or (params.pageType == '' and params.selectedPageType == 'overview' ) %}
+		{% set selectedClass = 'pins-selected-item' %}
+	{% endif %}
+
+	<a class="govuk-link {{ selectedClass }}"
+		href="{{ 'view-application'|url({domainType: params.domainType, applicationId: params.applicationId, step: params.pageType }) }}">
+		{{ params.pageTitle }}</a></li>
 {% endmacro %}
