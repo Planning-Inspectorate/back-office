@@ -3,11 +3,10 @@ import * as controller from './applications.controller.js';
 import * as filters from './applications.filters.js';
 import * as guards from './applications.guards.js';
 import * as locals from './applications.locals.js';
+import applicationsCaseRouter from './case/applications-case.router.js';
 import applicationsEditRouter from './pages/case/edit/applications-edit.router.js';
 import applicationsCreateRouter from './pages/create/applications-create.router.js';
 import applicationsSearchRouter from './pages/search/applications-search.router.js';
-import applicationsSummaryRouter from './summary/applications-summary.router.js';
-
 
 const router = createRouter();
 const domainRouter = createRouter({ mergeParams: true });
@@ -40,7 +39,6 @@ router.use('/create-new-case', guards.assertDomainTypeExists, applicationsCreate
 
 // TODO: move this in the case-summary router
 router.use('/case/edit', guards.assertDomainTypeExists, applicationsEditRouter);
-router.use('/case', guards.assertDomainTypeExists, applicationsSummaryRouter);
 
 router.use('/case', guards.assertDomainTypeExists, applicationsCaseRouter);
 
@@ -55,9 +53,5 @@ router.use('/:domainType', guards.assertDomainTypeAccess, domainRouter);
 domainRouter.use(locals.registerDomainLocals);
 
 domainRouter.route('/').get(controller.viewDashboard);
-
-// TODO: remove this?
-domainRouter.param('applicationId', locals.loadApplication);
-domainRouter.route('/applications/:applicationId').get(controller.viewApplication);
 
 export default router;
