@@ -1,5 +1,5 @@
-/** @typedef {import('../applications.locals').ApplicationLocals} ApplicationLocals */
-/** @typedef {import('../applications.types').Application} Application */
+/** @typedef {import('../../applications.locals').ApplicationLocals} ApplicationLocals */
+/** @typedef {import('../../applications.types').Application} Application */
 
 /**
  * @typedef {object} ViewApplicationRenderProps
@@ -11,7 +11,7 @@
  *
  * @type {import('@pins/express').RenderHandler<ViewApplicationRenderProps, ApplicationLocals>}
  */
-export async function viewApplicationCasePages(request, response) {
+export async function viewApplicationsCasePages(request, response) {
 	// note: application details for this case are held in response.locals.application
 	const pageType = request.params.pageType ?? 'overview';
 
