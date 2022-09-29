@@ -20,4 +20,41 @@ applicationsEditCaseRouter
 		controller.updateApplicationsEditCaseNameAndDescription
 	);
 
+applicationsEditCaseRouter
+	.route('/team-email')
+	.get(controller.viewApplicationsEditCaseTeamEmail)
+	.post(validators.validateApplicationsTeamEmail, controller.updateApplicationsEditCaseTeamEmail);
+
+applicationsEditCaseRouter
+	.route('/project-location')
+	.get(controller.viewApplicationsCreateCaseLocation)
+	.post(
+		validators.validateApplicationsCreateCaseLocation,
+		controller.updateApplicationsEditCaseGeographicalInformation
+	);
+
+applicationsEditCaseRouter
+	.route('/grid-references')
+	.get(controller.viewApplicationsCreateCaseGridReferences)
+	.post(
+		[
+			validators.validateApplicationsCreateCaseEasting,
+			validators.validateApplicationsCreateCaseNorthing
+		],
+		controller.updateApplicationsEditCaseGeographicalInformation
+	);
+
+applicationsEditCaseRouter
+	.route('/regions')
+	.get(controller.viewApplicationsEditCaseRegions)
+	.post(
+		validators.validateApplicationsCreateCaseRegions,
+		controller.updateApplicationsEditCaseRegions
+	);
+
+applicationsEditCaseRouter
+	.route('/zoom-level')
+	.get(controller.viewApplicationsEditCaseZoomLevel)
+	.post(controller.updateApplicationsEditCaseZoomLevel);
+
 export default applicationsEditCaseRouter;

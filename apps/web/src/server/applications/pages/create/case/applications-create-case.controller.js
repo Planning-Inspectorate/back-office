@@ -21,8 +21,6 @@ import {
 	setSessionCaseSectorName
 } from './applications-create-case-session.service.js';
 
-/** @typedef {import('../../../applications.router.js').DomainParams} DomainParams */
-/** @typedef {import('../../../applications.types.js').Sector} Sector */
 /** @typedef {import('../../../applications.types.js').FormCaseLayout} FormCaseLayout */
 /** @typedef {import('./applications-create-case.types.js').ApplicationsCreateCaseNameProps} ApplicationsCreateCaseNameProps */
 /** @typedef {import('./applications-create-case.types.js').ApplicationsCreateCaseNameBody} ApplicationsCreateCaseNameBody */
@@ -75,7 +73,7 @@ const teamEmailLayout = {
  * View the first step (name & description) of the application creation
  *
  * @type {import('@pins/express').RenderHandler<ApplicationsCreateCaseNameProps,
- * {}, {}, {}, DomainParams>}
+ * {}, {}, {}, {}>}
  */
 export async function viewApplicationsCreateCaseName(req, response) {
 	const properties = await caseNameAndDescriptionData(req, response.locals);
@@ -87,7 +85,7 @@ export async function viewApplicationsCreateCaseName(req, response) {
  * Create the application with name and description
  *
  * @type {import('@pins/express').RenderHandler<ApplicationsCreateCaseNameProps,
- * {}, ApplicationsCreateCaseNameBody, {}, DomainParams>}
+ * {}, ApplicationsCreateCaseNameBody, {}, {}>}
  */
 export async function updateApplicationsCreateCaseName(request, response) {
 	const { properties, updatedApplicationId } = await caseNameAndDescriptionDataUpdate(
@@ -106,7 +104,7 @@ export async function updateApplicationsCreateCaseName(request, response) {
  * View the sector choice step of the application creation
  *
  * @type {import('@pins/express').RenderHandler<ApplicationsCreateCaseSectorProps,
- * {}, {}, {}, DomainParams>}
+ * {}, {}, {}, {}>}
  */
 export async function viewApplicationsCreateCaseSector(request, response) {
 	const properties = await caseSectorData(request, response.locals);
@@ -122,7 +120,7 @@ export async function viewApplicationsCreateCaseSector(request, response) {
  *
  *
  * @type {import('@pins/express').RenderHandler<ApplicationsCreateCaseSectorProps,
- * {}, ApplicationsCreateCaseSectorBody, {}, DomainParams>}
+ * {}, ApplicationsCreateCaseSectorBody, {}, {}>}
  */
 export async function updateApplicationsCreateCaseSector(request, response) {
 	const { applicationId } = response.locals;
@@ -160,7 +158,7 @@ export async function viewApplicationsCreateCaseSubSector(request, response) {
  * Save the sub-sector for the draft application
  *
  * @type {import('@pins/express').RenderHandler<ApplicationsCreateCaseSubSectorProps,
- * {}, ApplicationsCreateCaseSubSectorBody, {}, DomainParams>}
+ * {}, ApplicationsCreateCaseSubSectorBody, {}, {}>}
  */
 export async function updateApplicationsCreateCaseSubSector(request, response) {
 	const { properties, updatedApplicationId } = await caseSubSectorDataUpdate(
@@ -182,7 +180,7 @@ export async function updateApplicationsCreateCaseSubSector(request, response) {
  * View the geographical information step of the application creation
  *
  * @type {import('@pins/express').RenderHandler<ApplicationsCreateCaseGeographicalInformationProps,
- * {}, {}, {}, DomainParams>}
+ * {}, {}, {}, {}>}
  */
 export async function viewApplicationsCreateCaseGeographicalInformation(request, response) {
 	const properties = await caseGeographicalInformationData(request, response.locals);
@@ -197,7 +195,7 @@ export async function viewApplicationsCreateCaseGeographicalInformation(request,
  * Save the geographical location for the draft application
  *
  * @type {import('@pins/express').RenderHandler<ApplicationsCreateCaseGeographicalInformationProps,
- * {}, ApplicationsCreateCaseGeographicalInformationBody, {}, DomainParams>}
+ * {}, ApplicationsCreateCaseGeographicalInformationBody, {}, {}>}
  */
 export async function updateApplicationsCreateCaseGeographicalInformation(request, response) {
 	const { properties, updatedApplicationId } = await caseGeographicalInformationDataUpdate(
@@ -216,7 +214,7 @@ export async function updateApplicationsCreateCaseGeographicalInformation(reques
  * View the regions step of the application creation
  *
  * @type {import('@pins/express').RenderHandler<ApplicationsCreateCaseRegionsProps,
- * {}, {}, {}, DomainParams>}
+ * {}, {}, {}, {}>}
  */
 export async function viewApplicationsCreateCaseRegions(request, response) {
 	const properties = await caseRegionsData(request, response.locals);
@@ -231,7 +229,7 @@ export async function viewApplicationsCreateCaseRegions(request, response) {
  * Save the regions for the draft application
  *
  * @type {import('@pins/express').RenderHandler<ApplicationsCreateCaseRegionsProps,
- * {}, ApplicationsCreateCaseRegionsBody, {}, DomainParams>}
+ * {}, ApplicationsCreateCaseRegionsBody, {}, {}>}
  */
 export async function updateApplicationsCreateCaseRegions(request, response) {
 	const { properties, updatedApplicationId } = await caseRegionsDataUpdate(
@@ -252,7 +250,7 @@ export async function updateApplicationsCreateCaseRegions(request, response) {
  * View the zoom-level step of the application creation
  *
  * @type {import('@pins/express').RenderHandler<ApplicationsCreateCaseZoomLevelProps,
- * {}, {}, {}, DomainParams>}
+ * {}, {}, {}, {}>}
  */
 export async function viewApplicationsCreateCaseZoomLevel(request, response) {
 	const properties = await caseZoomLevelData(request, response.locals);
@@ -267,7 +265,7 @@ export async function viewApplicationsCreateCaseZoomLevel(request, response) {
  * Save the zoom-level for the draft application
  *
  * @type {import('@pins/express').RenderHandler<ApplicationsCreateCaseZoomLevelProps,
- * {}, ApplicationsCreateCaseZoomLevelBody, {}, DomainParams>}
+ * {}, ApplicationsCreateCaseZoomLevelBody, {}, {}>}
  */
 export async function updateApplicationsCreateCaseZoomLevel(request, response) {
 	const { properties, updatedApplicationId } = await caseZoomLevelDataUpdate(
@@ -286,7 +284,7 @@ export async function updateApplicationsCreateCaseZoomLevel(request, response) {
  * View the case-team email address step of the application creation
  *
  * @type {import('@pins/express').RenderHandler<ApplicationsCreateCaseTeamEmailProps,
- * {}, {}, {}, DomainParams>}
+ * {}, {}, {}, {}>}
  */
 export async function viewApplicationsCreateCaseTeamEmail(request, response) {
 	const properties = await caseTeamEmailData(request, response.locals);
@@ -301,7 +299,7 @@ export async function viewApplicationsCreateCaseTeamEmail(request, response) {
  * Update the case-team email address
  *
  * @type {import('@pins/express').RenderHandler<ApplicationsCreateCaseTeamEmailProps,
- * {}, ApplicationsCreateCaseTeamEmailBody, {}, DomainParams>}
+ * {}, ApplicationsCreateCaseTeamEmailBody, {}, {}>}
  */
 export async function updateApplicationsCreateCaseTeamEmail(request, response) {
 	const { properties, updatedApplicationId } = await caseTeamEmailDataUpdate(

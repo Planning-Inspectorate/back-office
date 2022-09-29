@@ -37,8 +37,7 @@ router.use('/search-results', guards.assertDomainTypeExists, applicationsSearchR
 
 router.use('/create-new-case', guards.assertDomainTypeExists, applicationsCreateRouter);
 
-// TODO: move this in the case-summary router
-router.use('/case/edit', guards.assertDomainTypeExists, applicationsEditRouter);
+router.use('/case', guards.assertDomainTypeExists, applicationsEditRouter);
 
 router.use('/case', guards.assertDomainTypeExists, applicationsCaseRouter);
 
