@@ -76,7 +76,7 @@ describe('applications create applicant', () => {
 			const element = parseHtml(response.text);
 
 			expect(element.innerHTML).toMatchSnapshot();
-			expect(element.innerHTML).toContain('Enter the case location');
+			expect(element.innerHTML).toContain('Enter the project location');
 			expect(element.innerHTML).toContain('Choose the subsector of the project');
 			expect(element.innerHTML).toContain('Choose the sector of the project');
 			expect(element.innerHTML).toContain('Choose one or multiple regions');

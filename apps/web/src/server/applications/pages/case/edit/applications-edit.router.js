@@ -1,22 +1,17 @@
 import { Router as createRouter } from 'express';
 import * as guards from '../../create/applications-create.guards.js';
-import * as locals from '../../create/applications-create.locals.js';
+import { registerApplicationId } from '../../create/applications-create.locals.js';
 import applicationsEditApplicantRouter from './applicant/applications-edit-applicant.router.js';
-import * as editLocals from './applications-edit.locals.js';
+import { registerBackPath } from './applications-edit.locals.js';
 import applicationsEditCaseRouter from './case/applications-edit-case.router.js';
 
-const applicationsEditRouter = createRouter();
-const applicationsEditResumedRouter = createRouter({ mergeParams: true });
+const applicationsEditRouter = createRouter({ mergeParams: true });
 
 applicationsEditRouter.use(guards.assertDomainTypeIsNotInspector);
 
-applicationsEditRouter.use('/:applicationId?', applicationsEditResumedRouter);
-applicationsEditResumedRouter.use(locals.registerApplicationId);
-applicationsEditResumedRouter.use(editLocals.registerBackPath);
+applicationsEditRouter.use(registerApplicationId);
+applicationsEditRouter.use(registerBackPath);
 
-applicationsEditResumedRouter.use('/edit', [
-	applicationsEditCaseRouter,
-	applicationsEditApplicantRouter
-]);
+applicationsEditRouter.use('/', [applicationsEditCaseRouter, applicationsEditApplicantRouter]);
 
 export default applicationsEditRouter;

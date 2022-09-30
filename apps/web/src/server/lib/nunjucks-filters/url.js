@@ -26,6 +26,10 @@ export const url = (key, filterArguments) => {
 			return `${domainUrl}/create-new-case/${applicationId ? `${applicationId}/` : ''}${
 				step ? `${step}/` : ''
 			}`;
+		case 'applications-edit':
+			return `${domainUrl}/case/${applicationId ? `${applicationId}/` : ''}edit/${
+				step ? `${step}/` : ''
+			}`;
 		case 'view-application':
 			return `${domainUrl}/case/${applicationId ? `${applicationId}/` : ''}${
 				step ? `${step}/` : ''

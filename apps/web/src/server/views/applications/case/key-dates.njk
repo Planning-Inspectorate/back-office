@@ -7,5 +7,20 @@
 
 	<p class="govuk-body">Not yet implemented</p>
 
+	<h4>Case</h4>
+	<a href="{{ 'applications-edit'|url({applicationId: applicationId, step: 'name'})}}">Name</a>
+	<a href="{{ 'applications-edit'|url({applicationId: applicationId, step: 'description'})}}">Description</a>
+	<a href="{{ 'applications-edit'|url({applicationId: applicationId, step: 'project-location'})}}">Project location</a>
+	<a href="{{ 'applications-edit'|url({applicationId: applicationId, step: 'grid-references'})}}">Grid references</a>
+	<a href="{{ 'applications-edit'|url({applicationId: applicationId, step: 'team-email'})}}">Team email</a>
+	<a href="{{ 'applications-edit'|url({applicationId: applicationId, step: 'regions'})}}">Regions</a>
+	<a href="{{ 'applications-edit'|url({applicationId: applicationId, step: 'zoom-level'})}}">Zoom Level</a>
+	<h4>Applicant</h4>
+	<a href="{{ 'applications-edit'|url({applicationId: applicationId, step: 'applicant-full-name'})}}">Applicant full name</a>
+	<a href="{{ 'applications-edit'|url({applicationId: applicationId, step: 'applicant-organisation-name'})}}">Applicant organisation name</a>
+	<a href="{{ 'applications-edit'|url({applicationId: applicationId, step: 'applicant-website'})}}">Applicant website</a>
+	<a href="{{ 'applications-edit'|url({applicationId: applicationId, step: 'applicant-email'})}}">Applicant email</a>
+	<a href="{{ 'applications-edit'|url({applicationId: applicationId, step: 'applicant-address'})}}">Applicant address</a>
+
 	<hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible">
 {% endblock %}

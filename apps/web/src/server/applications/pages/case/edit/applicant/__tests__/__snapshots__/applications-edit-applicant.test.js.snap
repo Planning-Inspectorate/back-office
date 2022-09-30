@@ -1,0 +1,95 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`applications create applicant GET edit/applicant-email should render the page 1`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <h2 class=\\"govuk-heading-l\\"> Enter the Applicant’s email address</h2>
+    <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
+        <div class=\\"govuk-form-group\\">
+            <div id=\\"applicant.email-hint\\" class=\\"govuk-hint\\">for example, contact@buildinganewbridge.com</div>
+            <input class=\\"govuk-input govuk-!-width-one-third\\"
+            id=\\"applicant.email\\" name=\\"applicant.email\\" type=\\"text\\" aria-describedby=\\"applicant.email-hint\\">
+        </div>
+        <div class=\\"govuk-grid-row\\">
+            <div class=\\"govuk-button-group pins-button-group govuk-grid-column-one-half\\">
+                <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save changes</button>
+            </div>
+        </div>
+    </form>
+</main>"
+`;
+
+exports[`applications create applicant GET edit/applicant-full-name should render the page 1`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <h2 class=\\"govuk-heading-l\\"> Enter the Applicant’s contact name</h2>
+    <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
+        <div class=\\"govuk-form-group\\">
+            <label class=\\"govuk-label font-weight--700\\" for=\\"applicant.firstName\\">First name</label>
+            <input class=\\"govuk-input govuk-!-width-one-third\\" id=\\"applicant.firstName\\"
+            name=\\"applicant.firstName\\" type=\\"text\\">
+        </div>
+        <div class=\\"govuk-form-group\\">
+            <label class=\\"govuk-label font-weight--700\\" for=\\"applicant.lastName\\">Last name</label>
+            <input class=\\"govuk-input govuk-!-width-one-third\\" id=\\"applicant.lastName\\"
+            name=\\"applicant.lastName\\" type=\\"text\\">
+        </div>
+        <div class=\\"govuk-grid-row\\">
+            <div class=\\"govuk-button-group pins-button-group govuk-grid-column-one-half\\">
+                <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save changes</button>
+            </div>
+        </div>
+    </form>
+</main>"
+`;
+
+exports[`applications create applicant GET edit/applicant-organisation-name should render the page 1`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <h2 class=\\"govuk-heading-l\\"> Enter the Applicant’s organisation</h2>
+    <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
+        <div class=\\"govuk-form-group\\">
+            <input class=\\"govuk-input govuk-!-width-one-third\\" id=\\"applicant.organisationName\\"
+            name=\\"applicant.organisationName\\" type=\\"text\\">
+        </div>
+        <div class=\\"govuk-grid-row\\">
+            <div class=\\"govuk-button-group pins-button-group govuk-grid-column-one-half\\">
+                <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save changes</button>
+            </div>
+        </div>
+    </form>
+</main>"
+`;
+
+exports[`applications create applicant GET edit/applicant-telephone-number should render the page 1`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <h2 class=\\"govuk-heading-l\\"> Enter the Applicant’s phone number</h2>
+    <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
+        <div class=\\"govuk-form-group\\">
+            <div id=\\"applicant.phoneNumber-hint\\" class=\\"govuk-hint\\">for example, 0300 123 3000</div>
+            <input class=\\"govuk-input govuk-!-width-one-third\\"
+            id=\\"applicant.phoneNumber\\" name=\\"applicant.phoneNumber\\" type=\\"text\\" aria-describedby=\\"applicant.phoneNumber-hint\\">
+        </div>
+        <div class=\\"govuk-grid-row\\">
+            <div class=\\"govuk-button-group pins-button-group govuk-grid-column-one-half\\">
+                <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save changes</button>
+            </div>
+        </div>
+    </form>
+</main>"
+`;
+
+exports[`applications create applicant GET edit/applicant-website should render the page 1`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <h2 class=\\"govuk-heading-l\\"> Enter the Applicant’s website</h2>
+    <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
+        <div class=\\"govuk-form-group\\">
+            <div id=\\"applicant.website-hint\\" class=\\"govuk-hint\\">for example, https://www.heathrow.com</div>
+            <input class=\\"govuk-input govuk-!-width-one-third\\"
+            id=\\"applicant.website\\" name=\\"applicant.website\\" type=\\"text\\" aria-describedby=\\"applicant.website-hint\\">
+        </div>
+        <div class=\\"govuk-grid-row\\">
+            <div class=\\"govuk-button-group pins-button-group govuk-grid-column-one-half\\">
+                <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save changes</button>
+            </div>
+        </div>
+    </form>
+</main>"
+`;

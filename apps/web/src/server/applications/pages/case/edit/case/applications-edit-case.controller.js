@@ -67,7 +67,6 @@ const zoomLevelLayout = {
 /** @typedef {import('../../../create/case/applications-create-case.types.js').ApplicationsCreateCaseZoomLevelProps} ApplicationsCreateCaseZoomLevelProps */
 /** @typedef {import('../../../create/case/applications-create-case.types.js').ApplicationsCreateCaseZoomLevelBody} ApplicationsCreateCaseZoomLevelBody */
 /** @typedef {import('../../../create/case/applications-create-case.types.js').ApplicationsCreateCaseTeamEmailProps} ApplicationsCreateCaseTeamEmailProps */
-
 /** @typedef {import('../../../create/case/applications-create-case.types.js').ApplicationsCreateCaseTeamEmailBody} ApplicationsCreateCaseTeamEmailBody */
 
 /**
@@ -112,12 +111,12 @@ export async function updateApplicationsEditCaseNameAndDescription(request, resp
 		return handleErrors(properties, layout, response);
 	}
 
-	response.redirect(`/applications-service/case/${updatedApplicationId}`);
+	response.redirect(`/applications-service/case/${updatedApplicationId}/project-information`);
 }
 
 /**
  * View the form step for editing the team email
- * 
+ *
  *
  * @type {import('@pins/express').RenderHandler<ApplicationsCreateCaseTeamEmailProps,
  * {}, {}, {}, {}>}
@@ -147,12 +146,12 @@ export async function updateApplicationsEditCaseTeamEmail(request, response) {
 		return handleErrors(properties, teamEmailLayout, response);
 	}
 
-	response.redirect(`/applications-service/case/${updatedApplicationId}`);
+	response.redirect(`/applications-service/case/${updatedApplicationId}/project-information`);
 }
 
 /**
  * View the form step for editing the case location
- * 
+ *
  *
  * @type {import('@pins/express').RenderHandler<ApplicationsCreateCaseGeographicalInformationProps,
  * {}, {}, {}, {}>}
@@ -168,7 +167,7 @@ export async function viewApplicationsCreateCaseLocation(request, response) {
 
 /**
  * View the form step for editing the grid references
- * 
+ *
  *
  * @type {import('@pins/express').RenderHandler<ApplicationsCreateCaseGeographicalInformationProps,
  * {}, {}, {}, {}>}
@@ -204,12 +203,12 @@ export async function updateApplicationsEditCaseGeographicalInformation(request,
 		return handleErrors(properties, layout, response);
 	}
 
-	response.redirect(`/applications-service/case/${updatedApplicationId}`);
+	response.redirect(`/applications-service/case/${updatedApplicationId}/project-information`);
 }
 
 /**
  * View the form step for editing the regions
- * 
+ *
  *
  * @type {import('@pins/express').RenderHandler<ApplicationsCreateCaseRegionsProps,
  * {}, {}, {}, {}>}
@@ -239,12 +238,12 @@ export async function updateApplicationsEditCaseRegions(request, response) {
 		return handleErrors(properties, regionsLayout, response);
 	}
 
-	response.redirect(`/applications-service/case/${updatedApplicationId}`);
+	response.redirect(`/applications-service/case/${updatedApplicationId}/project-information`);
 }
 
 /**
  * View the form step for editing the zoom level
- * 
+ *
  *
  * @type {import('@pins/express').RenderHandler<ApplicationsCreateCaseZoomLevelProps,
  * {}, {}, {}, {}>}
@@ -274,5 +273,5 @@ export async function updateApplicationsEditCaseZoomLevel(request, response) {
 		return handleErrors(properties, zoomLevelLayout, response);
 	}
 
-	response.redirect(`/applications-service/case/${updatedApplicationId}`);
+	response.redirect(`/applications-service/case/${updatedApplicationId}/project-information`);
 }
