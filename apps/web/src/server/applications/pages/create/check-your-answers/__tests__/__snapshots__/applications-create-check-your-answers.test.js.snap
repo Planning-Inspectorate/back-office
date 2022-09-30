@@ -160,11 +160,13 @@ exports[`applications create applicant GET /check-your-answers should render the
             </table>
         </div>
     </div>
-    <div class=\\"govuk-grid-row\\">
-        <div class=\\"govuk-button-group pins-button-group govuk-grid-column-one-half\\"><a class=\\"govuk-link\\" href=\\"/applications-service/create-new-case/123/key-dates/\\">Back</a>
-            <button             class=\\"govuk-button\\" data-module=\\"govuk-button\\">I accept - Confirm creation of a new case</button>
+    <form method=\\"post\\" action=\\"\\">
+        <div class=\\"govuk-grid-row\\">
+            <div class=\\"govuk-button-group pins-button-group govuk-grid-column-one-half\\"><a class=\\"govuk-link\\" href=\\"/applications-service/create-new-case/123/key-dates/\\">Back</a>
+                <button                 class=\\"govuk-button\\" data-module=\\"govuk-button\\">I accept - Confirm creation of a new case</button>
+            </div>
         </div>
-    </div>
+    </form>
 </main>"
 `;
 
@@ -177,7 +179,7 @@ exports[`applications create applicant POST /check-your-answers should display e
                 <h2 class=\\"govuk-error-summary__title\\" id=\\"error-summary-title\\"> There is a problem</h2>
                 <div class=\\"govuk-error-summary__body\\">
                     <ul class=\\"govuk-list govuk-error-summary__list\\">
-                        <li><a href=\\"#projectLocation\\">Enter the case location</a>
+                        <li><a href=\\"#projectLocation\\">Enter the project location</a>
                         </li>
                         <li><a href=\\"#subSector\\">Choose the subsector of the project</a>
                         </li>
@@ -352,10 +354,12 @@ exports[`applications create applicant POST /check-your-answers should display e
             </table>
         </div>
     </div>
-    <div class=\\"govuk-grid-row\\">
-        <div class=\\"govuk-button-group pins-button-group govuk-grid-column-one-half\\"><a class=\\"govuk-link\\" href=\\"/applications-service/create-new-case/123/key-dates/\\">Back</a>
-            <button             class=\\"govuk-button\\" data-module=\\"govuk-button\\">I accept - Confirm creation of a new case</button>
+    <form method=\\"post\\" action=\\"\\">
+        <div class=\\"govuk-grid-row\\">
+            <div class=\\"govuk-button-group pins-button-group govuk-grid-column-one-half\\"><a class=\\"govuk-link\\" href=\\"/applications-service/create-new-case/123/key-dates/\\">Back</a>
+                <button                 class=\\"govuk-button\\" data-module=\\"govuk-button\\">I accept - Confirm creation of a new case</button>
+            </div>
         </div>
-    </div>
+    </form>
 </main>"
 `;

@@ -1,3 +1,4 @@
+import pino from '../../../../lib/logger.js';
 import { getApplicationDraft } from '../applications-create.service.js';
 import * as applicationsCreateApplicantService from './applications-create-applicant.service.js';
 
@@ -24,13 +25,19 @@ export const registerBackPath = ({ session, path }, response, next) => {
  */
 export const registerApplicantId = async (req, response, next) => {
 	const { applicationId } = response.locals;
-	const applicationDraft = await getApplicationDraft(applicationId, ['applicants']);
-	const applicantId = applicationDraft.applicants?.[0]?.id;
 
-	if (!applicantId) {
-		return next({ statusCode: 400, message: 'Applicant id is not defined' });
+	if (applicationId) {
+		const applicationDraft = await getApplicationDraft(applicationId, ['applicants']);
+		const applicantId = applicationDraft.applicants?.[0]?.id;
+
+		if (!applicantId) {
+			return next({ statusCode: 400, message: 'Applicant id is not defined' });
+		}
+
+		response.locals.applicantId = applicantId;
+	} else {
+		pino.warn('[WEB] Application id is not yet defined. Cannot retrieve applicant');
 	}
 
-	response.locals.applicantId = applicantId;
 	next();
 };

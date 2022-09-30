@@ -189,14 +189,15 @@
 			}) }}
 		</div>
 	</div>
-
-	<div class="govuk-grid-row">
-		<div class="govuk-button-group pins-button-group govuk-grid-column-one-half">
-			{% set backLink = 'applications-create'|url({applicationId:applicationId, step: 'key-dates'}) %}
-			<a class="govuk-link" href="{{ backLink }}">Back</a>
-			{{ govukButton({ text: 'I accept - Confirm creation of a new case' }) }}
+	<form method="post" action="">
+		<div class="govuk-grid-row">
+			<div class="govuk-button-group pins-button-group govuk-grid-column-one-half">
+				{% set backLink = 'applications-create'|url({applicationId:applicationId, step: 'key-dates'}) %}
+				<a class="govuk-link" href="{{ backLink }}">Back</a>
+				{{ govukButton({ text: 'I accept - Confirm creation of a new case' }) }}
+			</div>
 		</div>
-	</div>
+	</form>
 {% endblock %}
 
 

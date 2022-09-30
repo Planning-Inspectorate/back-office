@@ -257,11 +257,6 @@ exports[`applications create applicant GET /applicant-full-name should render th
             name=\\"applicant.firstName\\" type=\\"text\\">
         </div>
         <div class=\\"govuk-form-group\\">
-            <label class=\\"govuk-label font-weight--700\\" for=\\"applicant.middleName\\">Middle name (optional)</label>
-            <input class=\\"govuk-input govuk-!-width-one-third\\"
-            id=\\"applicant.middleName\\" name=\\"applicant.middleName\\" type=\\"text\\">
-        </div>
-        <div class=\\"govuk-form-group\\">
             <label class=\\"govuk-label font-weight--700\\" for=\\"applicant.lastName\\">Last name</label>
             <input class=\\"govuk-input govuk-!-width-one-third\\" id=\\"applicant.lastName\\"
             name=\\"applicant.lastName\\" type=\\"text\\">

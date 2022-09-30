@@ -5,9 +5,9 @@ exports[`applications create Geographical Information GET /create-new-case/:appl
     <h2 class=\\"govuk-heading-l\\"> Enter geographical information</h2>
     <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
         <div class=\\"govuk-form-group\\">
-            <label class=\\"govuk-label font-weight--700\\" for=\\"geographicalInformation.locationDescription\\">Case Location</label>
+            <label class=\\"govuk-label font-weight--700\\" for=\\"geographicalInformation.locationDescription\\">Project location</label>
             <div id=\\"geographicalInformation.locationDescription-hint\\"
-            class=\\"govuk-hint govuk-!-width-three-quarters\\">for example “approximately 8km off the coast of Kent, in areas surrounding
+            class=\\"govuk-hint govuk-!-width-three-quarters\\">for example, approximately 8km off the coast of Kent, in areas surrounding
                 Thanet Offshore Wind Farm</div>
             <textarea class=\\"govuk-textarea govuk-!-width-three-quarters\\"
             id=\\"geographicalInformation.locationDescription\\" name=\\"geographicalInformation.locationDescription\\"
@@ -61,9 +61,9 @@ exports[`applications create Geographical Information POST /create-new-case/:app
     <h2 class=\\"govuk-heading-l\\"> Enter geographical information</h2>
     <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
         <div class=\\"govuk-form-group govuk-form-group--error\\">
-            <label class=\\"govuk-label font-weight--700\\" for=\\"geographicalInformation.locationDescription\\">Case Location</label>
+            <label class=\\"govuk-label font-weight--700\\" for=\\"geographicalInformation.locationDescription\\">Project location</label>
             <div id=\\"geographicalInformation.locationDescription-hint\\"
-            class=\\"govuk-hint govuk-!-width-three-quarters\\">for example “approximately 8km off the coast of Kent, in areas surrounding
+            class=\\"govuk-hint govuk-!-width-three-quarters\\">for example, approximately 8km off the coast of Kent, in areas surrounding
                 Thanet Offshore Wind Farm</div>
             <p id=\\"geographicalInformation.locationDescription-error\\"
             class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> Error msg</p>
@@ -116,9 +116,9 @@ exports[`applications create Geographical Information POST /create-new-case/:app
     <h2 class=\\"govuk-heading-l\\"> Enter geographical information</h2>
     <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
         <div class=\\"govuk-form-group\\">
-            <label class=\\"govuk-label font-weight--700\\" for=\\"geographicalInformation.locationDescription\\">Case Location</label>
+            <label class=\\"govuk-label font-weight--700\\" for=\\"geographicalInformation.locationDescription\\">Project location</label>
             <div id=\\"geographicalInformation.locationDescription-hint\\"
-            class=\\"govuk-hint govuk-!-width-three-quarters\\">for example “approximately 8km off the coast of Kent, in areas surrounding
+            class=\\"govuk-hint govuk-!-width-three-quarters\\">for example, approximately 8km off the coast of Kent, in areas surrounding
                 Thanet Offshore Wind Farm</div>
             <textarea class=\\"govuk-textarea govuk-!-width-three-quarters\\"
             id=\\"geographicalInformation.locationDescription\\" name=\\"geographicalInformation.locationDescription\\"
@@ -158,11 +158,11 @@ exports[`applications create Geographical Information POST /create-new-case/:app
                 <h2 class=\\"govuk-error-summary__title\\" id=\\"error-summary-title\\"> There is a problem</h2>
                 <div class=\\"govuk-error-summary__body\\">
                     <ul class=\\"govuk-list govuk-error-summary__list\\">
-                        <li><a href=\\"#geographicalInformation.locationDescription\\">Enter the case location</a>
+                        <li><a href=\\"#geographicalInformation.locationDescription\\">Enter the project location</a>
                         </li>
-                        <li><a href=\\"#geographicalInformation.gridReference.easting\\">Enter a valid Grid reference Easting</a>
+                        <li><a href=\\"#geographicalInformation.gridReference.easting\\">Enter 6 digits for the Grid reference Easting</a>
                         </li>
-                        <li><a href=\\"#geographicalInformation.gridReference.northing\\">Enter a valid Grid reference Northing</a>
+                        <li><a href=\\"#geographicalInformation.gridReference.northing\\">Enter 6 digits for the Grid reference Northing</a>
                         </li>
                     </ul>
                 </div>
@@ -172,12 +172,12 @@ exports[`applications create Geographical Information POST /create-new-case/:app
     <h2 class=\\"govuk-heading-l\\"> Enter geographical information</h2>
     <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
         <div class=\\"govuk-form-group govuk-form-group--error\\">
-            <label class=\\"govuk-label font-weight--700\\" for=\\"geographicalInformation.locationDescription\\">Case Location</label>
+            <label class=\\"govuk-label font-weight--700\\" for=\\"geographicalInformation.locationDescription\\">Project location</label>
             <div id=\\"geographicalInformation.locationDescription-hint\\"
-            class=\\"govuk-hint govuk-!-width-three-quarters\\">for example “approximately 8km off the coast of Kent, in areas surrounding
+            class=\\"govuk-hint govuk-!-width-three-quarters\\">for example, approximately 8km off the coast of Kent, in areas surrounding
                 Thanet Offshore Wind Farm</div>
             <p id=\\"geographicalInformation.locationDescription-error\\"
-            class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> Enter the case location</p>
+            class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> Enter the project location</p>
             <textarea             class=\\"govuk-textarea govuk-textarea--error govuk-!-width-three-quarters\\"
             id=\\"geographicalInformation.locationDescription\\" name=\\"geographicalInformation.locationDescription\\"
             rows=\\"5\\" aria-describedby=\\"geographicalInformation.locationDescription-hint geographicalInformation.locationDescription-error\\"></textarea>
@@ -187,8 +187,8 @@ exports[`applications create Geographical Information POST /create-new-case/:app
             <div id=\\"geographicalInformation.gridReference.easting-hint\\"
             class=\\"govuk-hint\\">for example, 345678</div>
             <p id=\\"geographicalInformation.gridReference.easting-error\\"
-            class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> Enter a valid Grid reference
-                Easting</p>
+            class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> Enter 6 digits for the
+                Grid reference Easting</p>
             <input class=\\"govuk-input govuk-!-width-one-third govuk-input--error\\"
             id=\\"geographicalInformation.gridReference.easting\\" name=\\"geographicalInformation.gridReference.easting\\"
             type=\\"text\\" value=\\"1234\\" aria-describedby=\\"geographicalInformation.gridReference.easting-hint geographicalInformation.gridReference.easting-error\\">
@@ -198,8 +198,8 @@ exports[`applications create Geographical Information POST /create-new-case/:app
             <div id=\\"geographicalInformation.gridReference.northing-hint\\"
             class=\\"govuk-hint\\">for example, 345678</div>
             <p id=\\"geographicalInformation.gridReference.northing-error\\"
-            class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> Enter a valid Grid reference
-                Northing</p>
+            class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> Enter 6 digits for the
+                Grid reference Northing</p>
             <input class=\\"govuk-input govuk-!-width-one-third govuk-input--error\\"
             id=\\"geographicalInformation.gridReference.northing\\" name=\\"geographicalInformation.gridReference.northing\\"
             type=\\"text\\" value=\\"123\\" aria-describedby=\\"geographicalInformation.gridReference.northing-hint geographicalInformation.gridReference.northing-error\\">
@@ -222,7 +222,7 @@ exports[`applications create Geographical Information POST /create-new-case/:app
                 <h2 class=\\"govuk-error-summary__title\\" id=\\"error-summary-title\\"> There is a problem</h2>
                 <div class=\\"govuk-error-summary__body\\">
                     <ul class=\\"govuk-list govuk-error-summary__list\\">
-                        <li><a href=\\"#geographicalInformation.locationDescription\\">Enter the case location</a>
+                        <li><a href=\\"#geographicalInformation.locationDescription\\">Enter the project location</a>
                         </li>
                         <li><a href=\\"#geographicalInformation.gridReference.easting\\">Enter the Grid reference Easting</a>
                         </li>
@@ -236,12 +236,12 @@ exports[`applications create Geographical Information POST /create-new-case/:app
     <h2 class=\\"govuk-heading-l\\"> Enter geographical information</h2>
     <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
         <div class=\\"govuk-form-group govuk-form-group--error\\">
-            <label class=\\"govuk-label font-weight--700\\" for=\\"geographicalInformation.locationDescription\\">Case Location</label>
+            <label class=\\"govuk-label font-weight--700\\" for=\\"geographicalInformation.locationDescription\\">Project location</label>
             <div id=\\"geographicalInformation.locationDescription-hint\\"
-            class=\\"govuk-hint govuk-!-width-three-quarters\\">for example “approximately 8km off the coast of Kent, in areas surrounding
+            class=\\"govuk-hint govuk-!-width-three-quarters\\">for example, approximately 8km off the coast of Kent, in areas surrounding
                 Thanet Offshore Wind Farm</div>
             <p id=\\"geographicalInformation.locationDescription-error\\"
-            class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> Enter the case location</p>
+            class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> Enter the project location</p>
             <textarea             class=\\"govuk-textarea govuk-textarea--error govuk-!-width-three-quarters\\"
             id=\\"geographicalInformation.locationDescription\\" name=\\"geographicalInformation.locationDescription\\"
             rows=\\"5\\" aria-describedby=\\"geographicalInformation.locationDescription-hint geographicalInformation.locationDescription-error\\"></textarea>
@@ -803,8 +803,8 @@ exports[`applications create Sector GET /create-new-case/:applicationId/sector W
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"govuk-grid-row\\">
         <div class=\\"govuk-grid-column-two-thirds\\">
-            <h1 class=\\"govuk-heading-xl\\">Sorry, there is a problem with the service</h1>
-            <p class=\\"govuk-body\\">Try again later.</p>
+            <h1 class=\\"govuk-heading-xl\\">Sorry, there is a problem with your login</h1>
+            <p class=\\"govuk-body\\">You are not permitted to access this URL.</p>
             <p class=\\"govuk-body\\"><a href=\\"https://has-appeal.herokuapp.com/help/contact\\" class=\\"govuk-link\\">Contact the Planning Inspectorate Customer Support</a> if
                 the problem persists.</p>
         </div>
