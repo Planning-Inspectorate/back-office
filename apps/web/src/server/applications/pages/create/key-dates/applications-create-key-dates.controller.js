@@ -21,7 +21,7 @@ const keyDatesLayout = {
 export async function viewApplicationsCreateKeyDates(request, response) {
 	const properties = await keyDatesData(request, response.locals);
 
-	return response.render('applications/case-form/case-form-layout', {
+	return response.render('applications/components/case-form/case-form-layout', {
 		...properties,
 		layout: keyDatesLayout
 	});
