@@ -74,7 +74,7 @@ export function viewApplicationsCreateApplicantTypes({ session }, response) {
 		checked: selectedApplicantInfoTypes.includes(infoType.name)
 	}));
 
-	response.render('applications/case-form/case-form-layout', {
+	response.render('applications/components/case-form/case-form-layout', {
 		applicantInfoTypes: checkboxApplicantInfoTypes,
 		layout: infoTypesLayout
 	});
@@ -103,7 +103,7 @@ export async function updateApplicationsCreateApplicantTypes({ path, session, bo
 export async function viewApplicationsCreateApplicantOrganisationName(request, response) {
 	const properties = await applicantOrganisationNameData(request, response.locals);
 
-	response.render('applications/case-form/case-form-layout', {
+	response.render('applications/components/case-form/case-form-layout', {
 		...properties,
 		layout: organisationNameLayout
 	});
@@ -136,7 +136,7 @@ export async function updateApplicationsCreateApplicantOrganisationName(request,
 export async function viewApplicationsCreateApplicantFullName(request, response) {
 	const properties = await applicantFullNameData(request, response.locals);
 
-	response.render('applications/case-form/case-form-layout', {
+	response.render('applications/components/case-form/case-form-layout', {
 		...properties,
 		layout: fullNameLayout
 	});
@@ -169,7 +169,7 @@ export async function updateApplicationsCreateApplicantFullName(request, respons
 export async function viewApplicationsCreateApplicantEmail(request, response) {
 	const properties = await applicantEmailData(request, response.locals);
 
-	response.render('applications/case-form/case-form-layout', {
+	response.render('applications/components/case-form/case-form-layout', {
 		...properties,
 		layout: applicantEmailLayout
 	});
@@ -203,7 +203,7 @@ export async function updateApplicationsCreateApplicantEmail(request, response) 
 export async function viewApplicationsCreateApplicantAddress(request, response) {
 	const properties = await applicantAddressData(request, response.locals);
 
-	response.render('applications/case-form/case-form-layout', {
+	response.render('applications/components/case-form/case-form-layout', {
 		...properties,
 		layout: addressLayout
 	});
@@ -238,7 +238,7 @@ export async function updateApplicationsCreateApplicantAddress(request, response
 export async function viewApplicationsCreateApplicantWebsite(request, response) {
 	const properties = await applicantWebsiteData(request, response.locals);
 
-	response.render('applications/case-form/case-form-layout', {
+	response.render('applications/components/case-form/case-form-layout', {
 		...properties,
 		layout: websiteLayout
 	});
@@ -271,7 +271,7 @@ export async function updateApplicationsCreateApplicantWebsite(request, response
 export async function viewApplicationsCreateApplicantTelephoneNumber(request, response) {
 	const properties = await applicantTelephoneNumberData(request, response.locals);
 
-	response.render('applications/case-form/case-form-layout', {
+	response.render('applications/components/case-form/case-form-layout', {
 		...properties,
 		layout: telephoneNumberLayout
 	});

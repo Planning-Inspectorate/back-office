@@ -1,9 +1,9 @@
 {% extends "app/layouts/app.layout.njk" %}
 
-{% from "./applications-case-menu.component.njk" import applicationsCaseMenu %}
+{% from "../components/applications-case-menu.component.njk" import applicationsCaseMenu %}
 {% from "govuk/components/accordion/macro.njk" import govukAccordion %}
 {% from "govuk/components/breadcrumbs/macro.njk" import govukBreadcrumbs %}
-{% from "../components/status-tag.component.njk" import statusTag %}
+{% from "../../components/status-tag.component.njk" import statusTag %}
 
 {% set pageCaption = displayValue %}
 {% set pageTitle = application.title %}

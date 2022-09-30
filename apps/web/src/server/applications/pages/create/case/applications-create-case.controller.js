@@ -78,7 +78,10 @@ const teamEmailLayout = {
 export async function viewApplicationsCreateCaseName(req, response) {
 	const properties = await caseNameAndDescriptionData(req, response.locals);
 
-	response.render('applications/case-form/case-form-layout', { ...properties, layout: nameLayout });
+	response.render('applications/components/case-form/case-form-layout', {
+		...properties,
+		layout: nameLayout
+	});
 }
 
 /**
@@ -109,7 +112,7 @@ export async function updateApplicationsCreateCaseName(request, response) {
 export async function viewApplicationsCreateCaseSector(request, response) {
 	const properties = await caseSectorData(request, response.locals);
 
-	response.render('applications/case-form/case-form-layout', {
+	response.render('applications/components/case-form/case-form-layout', {
 		...properties,
 		layout: sectorLayout
 	});
@@ -148,7 +151,7 @@ export async function viewApplicationsCreateCaseSubSector(request, response) {
 		return response.redirect(`/applications-service/create-new-case/${applicationId}/sector`);
 	}
 
-	response.render('applications/case-form/case-form-layout', {
+	response.render('applications/components/case-form/case-form-layout', {
 		...properties,
 		layout: subSectorLayout
 	});
@@ -185,7 +188,7 @@ export async function updateApplicationsCreateCaseSubSector(request, response) {
 export async function viewApplicationsCreateCaseGeographicalInformation(request, response) {
 	const properties = await caseGeographicalInformationData(request, response.locals);
 
-	response.render('applications/case-form/case-form-layout', {
+	response.render('applications/components/case-form/case-form-layout', {
 		...properties,
 		layout: geographicalInformationLayout
 	});
@@ -219,7 +222,7 @@ export async function updateApplicationsCreateCaseGeographicalInformation(reques
 export async function viewApplicationsCreateCaseRegions(request, response) {
 	const properties = await caseRegionsData(request, response.locals);
 
-	return response.render('applications/case-form/case-form-layout', {
+	return response.render('applications/components/case-form/case-form-layout', {
 		...properties,
 		layout: regionsLayout
 	});
@@ -255,7 +258,7 @@ export async function updateApplicationsCreateCaseRegions(request, response) {
 export async function viewApplicationsCreateCaseZoomLevel(request, response) {
 	const properties = await caseZoomLevelData(request, response.locals);
 
-	return response.render('applications/case-form/case-form-layout', {
+	return response.render('applications/components/case-form/case-form-layout', {
 		...properties,
 		layout: zoomLevelLayout
 	});
@@ -289,7 +292,7 @@ export async function updateApplicationsCreateCaseZoomLevel(request, response) {
 export async function viewApplicationsCreateCaseTeamEmail(request, response) {
 	const properties = await caseTeamEmailData(request, response.locals);
 
-	return response.render('applications/case-form/case-form-layout', {
+	return response.render('applications/components/case-form/case-form-layout', {
 		...properties,
 		layout: teamEmailLayout
 	});
@@ -327,5 +330,8 @@ export async function updateApplicationsCreateCaseTeamEmail(request, response) {
  * @returns {*}
  */
 export const handleErrors = (properties, layout, response) => {
-	return response.render('applications/case-form/case-form-layout', { ...properties, layout });
+	return response.render('applications/components/case-form/case-form-layout', {
+		...properties,
+		layout
+	});
 };
