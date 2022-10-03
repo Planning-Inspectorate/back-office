@@ -1,0 +1,11 @@
+{% macro publishedTag(publishedStatus) %}
+	{% set publishedTagColor = '' %}
+	{% set publishedLabel = publishedStatus %}
+
+	{% switch (publishedStatus) %}
+	{% case 'Not Published' %}
+		{% set publishedTagColor = 'grey' %}
+	{% endswitch %}
+
+	<strong class="govuk-tag govuk-tag--{{publishedTagColor}}">{{ publishedLabel }}</strong>
+{% endmacro %}
