@@ -41,4 +41,17 @@ describe('applications view case summary', () => {
 			expect(element.innerHTML).toMatchSnapshot();
 		});
 	});
+
+	describe('GET /case/project-information', () => {
+		beforeEach(async () => {
+			nocks();
+		});
+
+		it('should render the page', async () => {
+			const response = await request.get(`${baseUrl}/project-information`);
+			const element = parseHtml(response.text);
+
+			expect(element.innerHTML).toMatchSnapshot();
+		});
+	});
 });
