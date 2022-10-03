@@ -61,37 +61,37 @@
 						[
 							{ text: 'Project name' },
 							{ text: application.title },
-							{ html: writeChangeLink({ editStepUrl: 'name' }), classes: 'text-align--right pins-table__cell--s' }
+							{ html: applicationEditLink({ editStepUrl: 'name' }), classes: 'text-align--right pins-table__cell--s' }
 						],
 						[
 							{ text: "Project description" },
 							{ text: application.description },
-							{ html: writeChangeLink({ editStepUrl: 'description' }), classes: 'text-align--right pins-table__cell--s' }
+							{ html: applicationEditLink({ editStepUrl: 'description' }), classes: 'text-align--right pins-table__cell--s' }
 						],
 						[
 							{ text: "Project email address" },
 							{ text: application.caseEmail },
-							{ html: writeChangeLink({ editStepUrl: 'team-email' }), classes: 'text-align--right pins-table__cell--s' }
+							{ html: applicationEditLink({ editStepUrl: 'team-email' }), classes: 'text-align--right pins-table__cell--s' }
 						],
 						[
 							{ text: "Project location" },
 							{ text: application.geographicalInformation.locationDescription },
-							{ html: writeChangeLink({ editStepUrl: 'project-location' }), classes: 'text-align--right pins-table__cell--s' }
+							{ html: applicationEditLink({ editStepUrl: 'project-location' }), classes: 'text-align--right pins-table__cell--s' }
 						],
 						[
 							{ text: "Grid references" },
 							{ html: gridReferences },
-							{ html: writeChangeLink({ editStepUrl: 'grid-references' }), classes: 'text-align--right pins-table__cell--s' }
+							{ html: applicationEditLink({ editStepUrl: 'grid-references' }), classes: 'text-align--right pins-table__cell--s' }
 						],
 						[
 							{ text: "Regions(s)" },
 							{ text: regionNames },
-							{ html: writeChangeLink({ editStepUrl: 'regions' }), classes: 'text-align--right pins-table__cell--s' }
+							{ html: applicationEditLink({ editStepUrl: 'regions' }), classes: 'text-align--right pins-table__cell--s' }
 						],
 						[
 							{ text: "Map zoom level" },
 							{ text: application.geographicalInformation.mapZoomLevel.displayNameEn },
-							{ html: writeChangeLink({ editStepUrl: 'zoom-level' }), classes: 'text-align--right pins-table__cell--s' }
+							{ html: applicationEditLink({ editStepUrl: 'zoom-level' }), classes: 'text-align--right pins-table__cell--s' }
 						]
 					]
 				})
@@ -106,32 +106,32 @@
 						[
 							{ text: 'Organisation name' },
 							{ text: applicantFirstOrganisationName },
-							{ html: writeChangeLink({ editStepUrl: 'applicant-organisation-name' }), classes: 'text-align--right pins-table__cell--s' }
+							{ html: applicationEditLink({ editStepUrl: 'applicant-organisation-name' }), classes: 'text-align--right pins-table__cell--s' }
 						],
 						[
 							{ text: "Contact name" },
 							{ text: writeFullName([application.applicants[0].firstName, application.applicants[0].middleName, application.applicants[0].lastName] )},
-							{ html: writeChangeLink({ editStepUrl: 'applicant-full-name' }), classes: 'text-align--right pins-table__cell--s' }
+							{ html: applicationEditLink({ editStepUrl: 'applicant-full-name' }), classes: 'text-align--right pins-table__cell--s' }
 						],
 						[
 							{ text: "Address" },
 							{ text: writeFullAddress(application.applicants[0].address) },
-							{ html: writeChangeLink({ editStepUrl: 'applicant-address' }), classes: 'text-align--right pins-table__cell--s' }
+							{ html: applicationEditLink({ editStepUrl: 'applicant-address' }), classes: 'text-align--right pins-table__cell--s' }
 						],
 						[
 							{ text: "Website" },
 							{ text: applicantFirstWebsite },
-							{ html: writeChangeLink({ editStepUrl: 'applicant-website' }), classes: 'text-align--right pins-table__cell--s' }
+							{ html: applicationEditLink({ editStepUrl: 'applicant-website' }), classes: 'text-align--right pins-table__cell--s' }
 						],
 						[
 							{ text: "Email address" },
 							{ html: applicantFirstEmail },
-							{ html: writeChangeLink({ editStepUrl: 'applicant-email' }), classes: 'text-align--right pins-table__cell--s' }
+							{ html: applicationEditLink({ editStepUrl: 'applicant-email' }), classes: 'text-align--right pins-table__cell--s' }
 						],
 						[
 							{ text: "Telephone number" },
 							{ text: applicantFirstPhoneNumber },
-							{ html: writeChangeLink({ editStepUrl: 'applicant-telephone-number' }), classes: 'text-align--right pins-table__cell--s' }
+							{ html: applicationEditLink({ editStepUrl: 'applicant-telephone-number' }), classes: 'text-align--right pins-table__cell--s' }
 						]
 					]
 				})
@@ -142,16 +142,14 @@
 
 {% endblock %}
 
-{% macro writeChangeLink(params) %}
+{% macro applicationEditLink(params) %}
 	{% set userIsInspector = domainType === 'inspector' %}
 
 	{% if not userIsInspector %}
-		{% set baseUrl = '/applications-service/case/' + applicationId +'/edit/' %}
-		{% set changeLinkUrl = '#' %}
-		{% if params.editStepUrl %}
-			{% set changeLinkUrl = baseUrl + params.editStepUrl %}
-		{% endif%}
-		<a class="govuk-link" href="{{ changeLinkUrl }}">Change</a>
+		<a class="govuk-link"
+		   href="{{ 'applications-edit'|url({domainType: domainType, applicationId: application.id, step: params.editStepUrl }) }}">
+			Change
+		</a>
 	{% endif %}
 {% endmacro %}
 
