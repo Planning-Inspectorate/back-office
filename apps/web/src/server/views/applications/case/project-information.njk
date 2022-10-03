@@ -51,7 +51,6 @@
 		]
 	}) }}
 
-	<!-- TODO: add the edit link urls when they are developed -->
 	{{ govukAccordion({
 		items: [{
 			heading: { text: 'Project details' },
@@ -72,27 +71,27 @@
 						[
 							{ text: "Project email address" },
 							{ text: application.caseEmail },
-							{ html: writeChangeLink(), classes: 'text-align--right pins-table__cell--s' }
+							{ html: writeChangeLink({ editStepUrl: 'team-email' }), classes: 'text-align--right pins-table__cell--s' }
 						],
 						[
 							{ text: "Project location" },
 							{ text: application.geographicalInformation.locationDescription },
-							{ html: writeChangeLink(), classes: 'text-align--right pins-table__cell--s' }
+							{ html: writeChangeLink({ editStepUrl: 'project-location' }), classes: 'text-align--right pins-table__cell--s' }
 						],
 						[
 							{ text: "Grid references" },
 							{ html: gridReferences },
-							{ html: writeChangeLink(), classes: 'text-align--right pins-table__cell--s' }
+							{ html: writeChangeLink({ editStepUrl: 'grid-references' }), classes: 'text-align--right pins-table__cell--s' }
 						],
 						[
 							{ text: "Regions(s)" },
 							{ text: regionNames },
-							{ html: writeChangeLink(), classes: 'text-align--right pins-table__cell--s' }
+							{ html: writeChangeLink({ editStepUrl: 'regions' }), classes: 'text-align--right pins-table__cell--s' }
 						],
 						[
 							{ text: "Map zoom level" },
 							{ text: application.geographicalInformation.mapZoomLevel.displayNameEn },
-							{ html: writeChangeLink(), classes: 'text-align--right pins-table__cell--s' }
+							{ html: writeChangeLink({ editStepUrl: 'zoom-level' }), classes: 'text-align--right pins-table__cell--s' }
 						]
 					]
 				})
@@ -107,32 +106,32 @@
 						[
 							{ text: 'Organisation name' },
 							{ text: applicantFirstOrganisationName },
-							{ html: writeChangeLink(), classes: 'text-align--right pins-table__cell--s' }
+							{ html: writeChangeLink({ editStepUrl: 'applicant-organisation-name' }), classes: 'text-align--right pins-table__cell--s' }
 						],
 						[
 							{ text: "Contact name" },
 							{ text: writeFullName([application.applicants[0].firstName, application.applicants[0].middleName, application.applicants[0].lastName] )},
-							{ html: writeChangeLink(), classes: 'text-align--right pins-table__cell--s' }
+							{ html: writeChangeLink({ editStepUrl: 'applicant-full-name' }), classes: 'text-align--right pins-table__cell--s' }
 						],
 						[
 							{ text: "Address" },
 							{ text: writeFullAddress(application.applicants[0].address) },
-							{ html: writeChangeLink(), classes: 'text-align--right pins-table__cell--s' }
+							{ html: writeChangeLink({ editStepUrl: 'applicant-address' }), classes: 'text-align--right pins-table__cell--s' }
 						],
 						[
 							{ text: "Website" },
 							{ text: applicantFirstWebsite },
-							{ html: writeChangeLink(), classes: 'text-align--right pins-table__cell--s' }
+							{ html: writeChangeLink({ editStepUrl: 'applicant-website' }), classes: 'text-align--right pins-table__cell--s' }
 						],
 						[
 							{ text: "Email address" },
 							{ html: applicantFirstEmail },
-							{ html: writeChangeLink(), classes: 'text-align--right pins-table__cell--s' }
+							{ html: writeChangeLink({ editStepUrl: 'applicant-email' }), classes: 'text-align--right pins-table__cell--s' }
 						],
 						[
 							{ text: "Telephone number" },
 							{ text: applicantFirstPhoneNumber },
-							{ html: writeChangeLink(), classes: 'text-align--right pins-table__cell--s' }
+							{ html: writeChangeLink({ editStepUrl: 'applicant-telephone-number' }), classes: 'text-align--right pins-table__cell--s' }
 						]
 					]
 				})
@@ -147,8 +146,7 @@
 	{% set userIsInspector = domainType === 'inspector' %}
 
 	{% if not userIsInspector %}
-		{% set baseUrl = '/applications-service/case/edit/' + applicationId +'/' %}
-		<!-- TODO: tmp Sep 2022 - if not url passed, that page not ready yet, so dont add working link -->
+		{% set baseUrl = '/applications-service/case/' + applicationId +'/edit/' %}
 		{% set changeLinkUrl = '#' %}
 		{% if params.editStepUrl %}
 			{% set changeLinkUrl = baseUrl + params.editStepUrl %}
