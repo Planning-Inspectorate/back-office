@@ -109,4 +109,30 @@ describe('applications create applicant', () => {
 			expect(element.innerHTML).toContain('Save changes');
 		});
 	});
+
+	describe('GET edit/applicant-address', () => {
+		beforeEach(async () => {
+			nocks();
+		});
+
+		it('should render the read only page', async () => {
+			const baseUrl = '/applications-service/case/123/edit/applicant-address';
+
+			const response = await request.get(baseUrl);
+			const element = parseHtml(response.text);
+
+			expect(element.innerHTML).toMatchSnapshot();
+			expect(element.innerHTML).toContain('Save changes');
+		});
+
+		it('should render the form page', async () => {
+			const baseUrl = '/applications-service/case/123/edit/applicant-address/new';
+
+			const response = await request.get(baseUrl);
+			const element = parseHtml(response.text);
+
+			expect(element.innerHTML).toMatchSnapshot();
+			expect(element.innerHTML).toContain('Find address');
+		});
+	});
 });

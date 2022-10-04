@@ -18,6 +18,7 @@
 {% from "./applicant/website.njk" import website %}
 {% from "./applicant/applicant-email.njk" import applicantEmail %}
 {% from "./applicant/address.njk" import address %}
+{% from "./applicant/address-view.njk" import addressView %}
 {% from "./key-dates/date-published.njk" import datePublished %}
 {% from "./key-dates/date-internal.njk" import dateInternal %}
 
@@ -54,7 +55,7 @@
 		<div class="govuk-grid-row">
 			<div class="govuk-button-group pins-button-group govuk-grid-column-one-half">
 				{% block stepButton %}
-					{% if formStage == 'searchPostcode' %}
+					{% if formStage == 'searchPostcode'%}
 					{% else %}
 						{% set stepButtonText = 'Save changes' if layout.isEdit else 'Save and continue' %}
 						{{ govukButton({ text: stepButtonText }) }}
@@ -98,6 +99,8 @@
 		{{ website(values, errors) }}
 		{% elif componentName == 'address' %}
 		{{ address(formStage, postcode, errors, addressList) }}
+		{% elif componentName == 'address-view' %}
+		{{ addressView(postcode, applicantAddress) }}
 		{% elif componentName == 'date-internal' %}
 		{{ dateInternal(values, errors) }}
 		{% elif componentName == 'date-published' %}

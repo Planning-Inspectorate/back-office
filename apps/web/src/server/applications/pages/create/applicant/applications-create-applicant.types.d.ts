@@ -62,6 +62,7 @@ export type ApplicationsCreateApplicantAddressProps = {
 	postcode?: string;
 	addressList?: ApplicationAddress[];
 	layout?: FormCaseLayout;
+	applicantAddress?: string;
 };
 export type ApplicationsCreateApplicantAddressBody = {
 	postcode: string;
