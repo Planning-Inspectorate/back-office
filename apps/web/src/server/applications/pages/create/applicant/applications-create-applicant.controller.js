@@ -40,7 +40,7 @@ const infoTypesLayout = {
 	components: ['info-types']
 };
 const organisationNameLayout = {
-	pageTitle: 'What is the applicant’s organisation?',
+	pageTitle: 'Enter the Applicant’s organisation',
 	components: ['organisation-name']
 };
 const fullNameLayout = {
