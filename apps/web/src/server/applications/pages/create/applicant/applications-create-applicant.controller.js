@@ -36,7 +36,7 @@ import {
 /** @typedef {import('./applications-create-applicant.types.js').ApplicationsCreateApplicantAddressBody} ApplicationsCreateApplicantAddressBody */
 
 const infoTypesLayout = {
-	pageTitle: 'Choose the type of Applicant information you can give',
+	pageTitle: 'Choose the Applicant information you have available',
 	components: ['info-types']
 };
 const organisationNameLayout = {

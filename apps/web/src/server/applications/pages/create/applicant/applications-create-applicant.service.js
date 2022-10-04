@@ -20,8 +20,8 @@ export const getAllApplicantInfoTypes = () => {
 		},
 		{
 			name: 'applicant-full-name',
-			displayNameEn: 'First and last name of the Applicant',
-			displayNameCy: 'First and last name of the Applicant'
+			displayNameEn: 'Applicant’s contact name',
+			displayNameCy: 'Applicant’s contact name'
 		},
 		{ name: 'applicant-address', displayNameEn: 'Address', displayNameCy: 'Address' },
 		{ name: 'applicant-website', displayNameEn: 'Website', displayNameCy: 'Website' },
