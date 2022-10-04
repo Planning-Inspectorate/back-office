@@ -1,13 +1,14 @@
 import {
 	keyDatesData,
-	keyDatesDataUpdate} from '../../../components/form/form-key-dates-components.controller.js';
+	keyDatesDataUpdate
+} from '../../../components/form/form-key-dates-components.controller.js';
 import { handleErrors } from '../case/applications-create-case.controller.js';
 
 /** @typedef {import('./applications-create-key-dates.types.js').ApplicationsCreateKeyDatesProps} ApplicationsCreateKeyDatesProps */
 /** @typedef {import('./applications-create-key-dates.types.js').ApplicationsCreateKeyDatesBody} ApplicationsCreateKeyDatesBody */
 
 const keyDatesLayout = {
-	pageTitle: 'What are the key dates of the case?',
+	pageTitle: 'Enter the key dates of the project',
 	components: ['date-published', 'date-internal']
 };
 

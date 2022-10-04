@@ -2,7 +2,7 @@
 
 exports[`Applications create key dates GET /key-dates should render the page 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
-    <h2 class=\\"govuk-heading-l\\"> What are the key dates of the case?</h2>
+    <h2 class=\\"govuk-heading-l\\"> Enter the key dates of the project</h2>
     <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
         <div class=\\"govuk-form-group\\">
             <label class=\\"govuk-label font-weight--700\\" for=\\"keyDates.submissionDatePublished\\">Anticipated submission date published</label>
@@ -61,7 +61,7 @@ exports[`Applications create key dates POST /key-dates Web-side validation: shou
             </div>
         </div>
     </div>
-    <h2 class=\\"govuk-heading-l\\"> What are the key dates of the case?</h2>
+    <h2 class=\\"govuk-heading-l\\"> Enter the key dates of the project</h2>
     <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
         <div class=\\"govuk-form-group\\">
             <label class=\\"govuk-label font-weight--700\\" for=\\"keyDates.submissionDatePublished\\">Anticipated submission date published</label>
@@ -128,7 +128,7 @@ exports[`Applications create key dates POST /key-dates Web-side validation: shou
             </div>
         </div>
     </div>
-    <h2 class=\\"govuk-heading-l\\"> What are the key dates of the case?</h2>
+    <h2 class=\\"govuk-heading-l\\"> Enter the key dates of the project</h2>
     <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
         <div class=\\"govuk-form-group\\">
             <label class=\\"govuk-label font-weight--700\\" for=\\"keyDates.submissionDatePublished\\">Anticipated submission date published</label>
