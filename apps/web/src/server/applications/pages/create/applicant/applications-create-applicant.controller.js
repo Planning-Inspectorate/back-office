@@ -51,7 +51,7 @@ const telephoneNumberLayout = {
 	pageTitle: 'Enter the Applicant’s phone number',
 	components: ['telephone-number']
 };
-const websiteLayout = { pageTitle: 'What’s the applicant’s website?', components: ['website'] };
+const websiteLayout = { pageTitle: 'Enter the Applicant’s website', components: ['website'] };
 const applicantEmailLayout = {
 	pageTitle: 'What’s the applicant’s email address?',
 	components: ['applicant-email']
