@@ -144,7 +144,7 @@ exports[`applications create applicant Applicant email POST /application-email W
 
 exports[`applications create applicant Applicant telephone number GET /applicant-telephone-number should render the page when resumed or if there is data in the session 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
-    <h2 class=\\"govuk-heading-l\\"> What’s the applicant’s phone number?</h2>
+    <h2 class=\\"govuk-heading-l\\"> Enter the Applicant’s phone number</h2>
     <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
         <div class=\\"govuk-form-group\\">
             <div id=\\"applicant.phoneNumber-hint\\" class=\\"govuk-hint\\">for example, 0300 123 3000</div>
@@ -176,7 +176,7 @@ exports[`applications create applicant Applicant telephone number POST /applicat
             </div>
         </div>
     </div>
-    <h2 class=\\"govuk-heading-l\\"> What’s the applicant’s phone number?</h2>
+    <h2 class=\\"govuk-heading-l\\"> Enter the Applicant’s phone number</h2>
     <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
         <div class=\\"govuk-form-group govuk-form-group--error\\">
             <div id=\\"applicant.phoneNumber-hint\\" class=\\"govuk-hint\\">for example, 0300 123 3000</div>

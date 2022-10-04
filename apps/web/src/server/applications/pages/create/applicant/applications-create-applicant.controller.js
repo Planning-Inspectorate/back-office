@@ -48,7 +48,7 @@ const fullNameLayout = {
 	components: ['full-name']
 };
 const telephoneNumberLayout = {
-	pageTitle: 'What’s the applicant’s phone number?',
+	pageTitle: 'Enter the Applicant’s phone number',
 	components: ['telephone-number']
 };
 const websiteLayout = { pageTitle: 'What’s the applicant’s website?', components: ['website'] };
