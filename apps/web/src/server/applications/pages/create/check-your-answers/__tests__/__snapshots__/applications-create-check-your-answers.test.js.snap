@@ -64,7 +64,7 @@ exports[`applications create applicant GET /check-your-answers should render the
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row\\">
-                            <td class=\\"govuk-table__cell font-weight--700 pins-table__cell--s\\">Map zoom Level</td>
+                            <td class=\\"govuk-table__cell font-weight--700 pins-table__cell--s\\">Map zoom level</td>
                             <td class=\\"govuk-table__cell pins-table__cell--s\\"></td>
                             <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a class=\\"govuk-link\\" href=\\"/applications-service/create-new-case/123/zoom-level\\">Change</a>
                             </td>
@@ -258,7 +258,7 @@ exports[`applications create applicant POST /check-your-answers should display e
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row\\">
-                            <td class=\\"govuk-table__cell font-weight--700 pins-table__cell--s\\">Map zoom Level</td>
+                            <td class=\\"govuk-table__cell font-weight--700 pins-table__cell--s\\">Map zoom level</td>
                             <td class=\\"govuk-table__cell pins-table__cell--s\\"></td>
                             <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a class=\\"govuk-link\\" href=\\"/applications-service/create-new-case/123/zoom-level\\">Change</a>
                             </td>
