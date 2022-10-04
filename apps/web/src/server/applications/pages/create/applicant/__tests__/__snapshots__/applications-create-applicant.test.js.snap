@@ -197,7 +197,7 @@ exports[`applications create applicant Applicant telephone number POST /applicat
 
 exports[`applications create applicant Applicant website GET /applicant-website should render the page when resumed or if there is data in the session 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
-    <h2 class=\\"govuk-heading-l\\"> What’s the applicant’s website?</h2>
+    <h2 class=\\"govuk-heading-l\\"> Enter the Applicant’s website</h2>
     <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
         <div class=\\"govuk-form-group\\">
             <div id=\\"applicant.website-hint\\" class=\\"govuk-hint\\">for example, https://www.heathrow.com</div>
@@ -229,7 +229,7 @@ exports[`applications create applicant Applicant website POST /application-websi
             </div>
         </div>
     </div>
-    <h2 class=\\"govuk-heading-l\\"> What’s the applicant’s website?</h2>
+    <h2 class=\\"govuk-heading-l\\"> Enter the Applicant’s website</h2>
     <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
         <div class=\\"govuk-form-group govuk-form-group--error\\">
             <div id=\\"applicant.website-hint\\" class=\\"govuk-hint\\">for example, https://www.heathrow.com</div>
