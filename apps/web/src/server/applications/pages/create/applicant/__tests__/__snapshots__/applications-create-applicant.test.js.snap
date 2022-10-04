@@ -319,7 +319,7 @@ exports[`applications create applicant GET /applicant-information-types should r
 
 exports[`applications create applicant GET /applicant-organisation-name should render the page when resumed or when there is session data 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
-    <h2 class=\\"govuk-heading-l\\"> What is the applicant’s organisation?</h2>
+    <h2 class=\\"govuk-heading-l\\"> Enter the Applicant’s organisation</h2>
     <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
         <div class=\\"govuk-form-group\\">
             <input class=\\"govuk-input govuk-!-width-one-third\\" id=\\"applicant.organisationName\\"
