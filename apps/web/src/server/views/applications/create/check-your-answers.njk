@@ -72,7 +72,7 @@
 	{% set rows = rows | concat([row]) %}
 
 	{% set row = [] %}
-	{% set row = row | concat({ text: 'Map zoom Level', classes: 'font-weight--700 pins-table__cell--s' }) %}
+	{% set row = row | concat({ text: 'Map zoom level', classes: 'font-weight--700 pins-table__cell--s' }) %}
 	{% set row = row | concat({ text: values['case.zoomLevel'], classes: 'pins-table__cell--s' }) %}
 	{% set row = row | concat({ html: '<a class="govuk-link" href="' + baseUrl + '/zoom-level">' + 'Change' + '</a>', classes: 'text-align--right pins-table__cell--s' }) %}
 	{% set rows = rows | concat([row]) %}
