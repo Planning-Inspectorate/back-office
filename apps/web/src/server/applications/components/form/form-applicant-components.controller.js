@@ -160,10 +160,23 @@ export async function applicantAddressData({ query }, locals) {
 		'applicantsAddress'
 	]);
 	const singlePostcode = queryPostcode ? `${queryPostcode}` : null;
+	const trimAddressPart = (/** @type {string | undefined} */ addressPart) =>
+		(addressPart ? `${addressPart.trim()}, ` : '');
+
+	let applicantAddress = '';
+
+	if (applicant?.address) {
+		const { address } = applicant;
+
+		applicantAddress = `${trimAddressPart(address.addressLine1)}${trimAddressPart(
+			address.addressLine2
+		)}${trimAddressPart(address.town)}${trimAddressPart(address.postCode)}`;
+	}
+
 	const postcode = singlePostcode || applicant?.address?.postCode;
 	const formStage = queryPostcode ? 'manualAddress' : 'searchPostcode';
 
-	return { formStage, postcode };
+	return { formStage, postcode, applicantAddress };
 }
 
 /**

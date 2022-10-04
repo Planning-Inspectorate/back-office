@@ -56,8 +56,14 @@ const applicantEmailLayout = {
 	isEdit: true
 };
 const addressLayout = {
-	pageTitle: 'What’s the applicant’s address? (work in progress)',
+	pageTitle: 'Enter the Applicant’s address',
 	components: ['address'],
+	isEdit: true
+};
+
+const addressReadOnlyLayout = {
+	pageTitle: 'Enter the Applicant’s address',
+	components: ['address-view'],
 	isEdit: true
 };
 
@@ -155,6 +161,21 @@ export async function updateApplicationsEditApplicantEmail(request, response) {
 	}
 
 	response.redirect(`/applications-service/case/${updatedApplicationId}/project-information`);
+}
+
+/**
+ * View the form step for the applicant address
+ *
+ * @type {import('@pins/express').RenderHandler<ApplicationsCreateApplicantAddressProps,
+  {}, {}, {postcode: string}, {}>}
+ */
+export async function viewApplicationsEditApplicantAddressReadyOnly(request, response) {
+	const properties = await applicantAddressData(request, response.locals);
+
+	response.render('applications/case-form/case-form-layout', {
+		...properties,
+		layout: addressReadOnlyLayout
+	});
 }
 
 /**

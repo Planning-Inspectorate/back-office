@@ -20,6 +20,10 @@ applicationsEditApplicantRouter
 
 applicationsEditApplicantRouter
 	.route('/applicant-address')
+	.get(controller.viewApplicationsEditApplicantAddressReadyOnly);
+
+applicationsEditApplicantRouter
+	.route('/applicant-address/new')
 	.get(controller.viewApplicationsEditApplicantAddress)
 	.post(
 		validators.validateApplicationsCreateApplicantPostCode,
