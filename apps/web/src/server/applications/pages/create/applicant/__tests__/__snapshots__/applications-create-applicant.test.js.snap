@@ -272,7 +272,7 @@ exports[`applications create applicant GET /applicant-full-name should render th
 
 exports[`applications create applicant GET /applicant-information-types should render the page 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
-    <h2 class=\\"govuk-heading-l\\"> Choose the type of Applicant information you can give</h2>
+    <h2 class=\\"govuk-heading-l\\"> Choose the Applicant information you have available</h2>
     <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
         <div class=\\"govuk-form-group\\">
             <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
@@ -284,7 +284,7 @@ exports[`applications create applicant GET /applicant-information-types should r
                 <div class=\\"govuk-checkboxes__item\\">
                     <input class=\\"govuk-checkboxes__input\\" id=\\"selectedApplicantInfoTypes-2\\"
                     name=\\"selectedApplicantInfoTypes[]\\" type=\\"checkbox\\" value=\\"applicant-full-name\\">
-                    <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"selectedApplicantInfoTypes-2\\">First and last name of the Applicant</label>
+                    <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"selectedApplicantInfoTypes-2\\">Applicant’s contact name</label>
                 </div>
                 <div class=\\"govuk-checkboxes__item\\">
                     <input class=\\"govuk-checkboxes__input\\" id=\\"selectedApplicantInfoTypes-3\\"
