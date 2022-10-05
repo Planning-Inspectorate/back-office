@@ -23,7 +23,7 @@ exports[`applications create applicant GET edit/applicant-address should render 
     <h2 class=\\"govuk-heading-l\\"> Enter the Applicant’s address</h2>
     <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
         <div class=\\"govuk-form-group\\">
-            <p class=\\"govuk-body\\"></p>
+            <p class=\\"govuk-body\\">London,</p>
         </div>
         <input type=\\"hidden\\" name=\\"postcode\\" value=\\"\\">
         <div class=\\"govuk-form-group\\">
@@ -32,7 +32,7 @@ exports[`applications create applicant GET edit/applicant-address should render 
                 <div class=\\"govuk-grid-column-one-third\\">
                     <div class=\\"govuk-grid-row govuk-button-group\\">
                         <p class='govuk-body govuk-grid-column-one-half'></p>
-                        <div class=\\"govuk-grid-column-one-half\\"><a class=\\"govuk-link \\" href=\\"applicant-address/new\\">Change</a>
+                        <div class=\\"govuk-grid-column-one-half\\"><a class=\\"govuk-link \\" href=\\"./new\\">Change</a>
                         </div>
                     </div>
                 </div>
