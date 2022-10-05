@@ -4,7 +4,6 @@ import * as filters from './applications.filters.js';
 import * as guards from './applications.guards.js';
 import * as locals from './applications.locals.js';
 import applicationsCaseRouter from './pages/case/applications-case.router.js';
-import applicationsEditRouter from './pages/case/edit/applications-edit.router.js';
 import applicationsCreateRouter from './pages/create/applications-create.router.js';
 import applicationsSearchRouter from './pages/search/applications-search.router.js';
 
@@ -36,8 +35,6 @@ router.use(locals.registerLocals);
 router.use('/search-results', guards.assertDomainTypeExists, applicationsSearchRouter);
 
 router.use('/create-new-case', guards.assertDomainTypeExists, applicationsCreateRouter);
-
-router.use('/case', guards.assertDomainTypeExists, applicationsEditRouter);
 
 router.use('/case', guards.assertDomainTypeExists, applicationsCaseRouter);
 
