@@ -27,7 +27,7 @@ describe('applications view case summary', () => {
 		await request.get('/applications-service/case-officer');
 	});
 
-	const baseUrl = '/applications-service/case/123';
+	const baseUrl = '/applications-service/create-new-case/123';
 
 	describe('GET /case', () => {
 		beforeEach(async () => {
@@ -42,7 +42,7 @@ describe('applications view case summary', () => {
 		});
 	});
 
-	describe('GET /case/project-information', () => {
+	describe('GET /create-new-case/project-information', () => {
 		beforeEach(async () => {
 			nocks();
 		});

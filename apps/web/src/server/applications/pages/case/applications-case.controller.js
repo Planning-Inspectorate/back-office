@@ -17,5 +17,5 @@ export async function viewApplicationsCasePages(request, response) {
 
 	// set selected page so menu knows what to highlight
 	response.locals.selectedPageType = pageType;
-	response.render(`applications/case/${pageType}`);
+	response.render(`applications/create-new-case/${pageType}`);
 }

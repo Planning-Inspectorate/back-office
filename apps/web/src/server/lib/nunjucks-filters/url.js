@@ -27,15 +27,15 @@ export const url = (key, filterArguments) => {
 				step ? `${step}/` : ''
 			}`;
 		case 'applications-edit':
-			return `${domainUrl}/case/${applicationId ? `${applicationId}/` : ''}edit/${
+			return `${domainUrl}/create-new-case/${applicationId ? `${applicationId}/` : ''}edit/${
 				step ? `${step}/` : ''
 			}`;
 		case 'view-application':
-			return `${domainUrl}/case/${applicationId ? `${applicationId}/` : ''}${
+			return `${domainUrl}/create-new-case/${applicationId ? `${applicationId}/` : ''}${
 				step ? `${step}/` : ''
 			}`;
 		case 'search-results':
-			return `${domainUrl}/search-results/${step}?q=${query}`;
+			return `${domainUrl}/search-results-results/${step}?q=${query}`;
 		default:
 			return 'app/404';
 	}

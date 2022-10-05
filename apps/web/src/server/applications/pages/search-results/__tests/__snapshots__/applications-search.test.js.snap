@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`applications search POST /applications-service/search-results should render a message if no results are found 1`] = `
+exports[`applications search POST /applications-service/search-results-results should render a message if no results are found 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"govuk-grid-row\\">
         <div class=\\"govuk-grid-column-full\\">
@@ -31,7 +31,7 @@ exports[`applications search POST /applications-service/search-results should re
 </main>"
 `;
 
-exports[`applications search POST /applications-service/search-results should render a message if the query is empty 1`] = `
+exports[`applications search POST /applications-service/search-results-results should render a message if the query is empty 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"govuk-grid-row\\">
         <div class=\\"govuk-grid-column-full\\">
@@ -56,7 +56,7 @@ exports[`applications search POST /applications-service/search-results should re
 </main>"
 `;
 
-exports[`applications search POST /applications-service/search-results should render the page with the results if params are correct 1`] = `
+exports[`applications search POST /applications-service/search-results-results should render the page with the results if params are correct 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"govuk-grid-row\\">
         <div class=\\"govuk-grid-column-full\\">

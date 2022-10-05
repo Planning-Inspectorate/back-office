@@ -43,11 +43,11 @@ describe('applications search', () => {
 		await request.get('/applications-service/case-officer');
 	});
 
-	describe('POST /applications-service/search-results', () => {
-		const baseUrl = '/applications-service/search-results';
+	describe('POST /applications-service/search-results-results', () => {
+		const baseUrl = '/applications-service/search-results-results';
 
 		it('should render the page with the results if params are correct', async () => {
-			nock('http://test/').post('/applications/search').reply(200, successFullResponse);
+			nock('http://test/').post('/applications/search-results').reply(200, successFullResponse);
 
 			const response = await request.post(baseUrl).send({ query: 'query' });
 			const element = parseHtml(response.text);
@@ -59,7 +59,7 @@ describe('applications search', () => {
 		});
 
 		it('should render a message if no results are found', async () => {
-			nock('http://test/').post('/applications/search').reply(200, successEmptyResponse);
+			nock('http://test/').post('/applications/search-results').reply(200, successEmptyResponse);
 
 			const response = await request.post(baseUrl).send({ query: 'query' });
 			const element = parseHtml(response.text);

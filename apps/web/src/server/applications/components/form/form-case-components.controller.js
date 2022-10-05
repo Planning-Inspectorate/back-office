@@ -3,22 +3,22 @@ import {
 	createApplicationDraft,
 	getApplicationDraft,
 	updateApplicationDraft
-} from '../../pages/create/applications-create.service.js';
+} from '../../pages/create-new-case/applications-create.service.js';
 import {
 	getAllRegions,
 	getAllSectors,
 	getAllZoomLevels,
 	getSubSectorsBySectorName
-} from '../../pages/create/case/applications-create-case.service.js';
-import { getSessionCaseSectorName } from '../../pages/create/case/applications-create-case-session.service.js';
+} from '../../pages/create-new-case/case/applications-create-case.service.js';
+import { getSessionCaseSectorName } from '../../pages/create-new-case/case/applications-create-case-session.service.js';
 
-/** @typedef {import('../../pages/create/case/applications-create-case.types').ApplicationsCreateCaseNameProps} ApplicationsCreateCaseNameProps */
-/** @typedef {import('../../pages/create/case/applications-create-case.types').ApplicationsCreateCaseSectorProps} ApplicationsCreateCaseSectorProps */
-/** @typedef {import('../../pages/create/case/applications-create-case.types').ApplicationsCreateCaseZoomLevelProps} ApplicationsCreateCaseZoomLevelProps */
-/** @typedef {import('../../pages/create/case/applications-create-case.types').ApplicationsCreateCaseSubSectorProps} ApplicationsCreateCaseSubSectorProps */
-/** @typedef {import('../../pages/create/case/applications-create-case.types').ApplicationsCreateCaseRegionsProps} ApplicationsCreateCaseRegionsProps */
-/** @typedef {import('../../pages/create/case/applications-create-case.types').ApplicationsCreateCaseTeamEmailProps} ApplicationsCreateCaseTeamEmailProps */
-/** @typedef {import('../../pages/create/case/applications-create-case.types').ApplicationsCreateCaseGeographicalInformationProps} ApplicationsCreateCaseGeographicalInformationProps */
+/** @typedef {import('../../pages/create-new-case/case/applications-create-case.types').ApplicationsCreateCaseNameProps} ApplicationsCreateCaseNameProps */
+/** @typedef {import('../../pages/create-new-case/case/applications-create-case.types').ApplicationsCreateCaseSectorProps} ApplicationsCreateCaseSectorProps */
+/** @typedef {import('../../pages/create-new-case/case/applications-create-case.types').ApplicationsCreateCaseZoomLevelProps} ApplicationsCreateCaseZoomLevelProps */
+/** @typedef {import('../../pages/create-new-case/case/applications-create-case.types').ApplicationsCreateCaseSubSectorProps} ApplicationsCreateCaseSubSectorProps */
+/** @typedef {import('../../pages/create-new-case/case/applications-create-case.types').ApplicationsCreateCaseRegionsProps} ApplicationsCreateCaseRegionsProps */
+/** @typedef {import('../../pages/create-new-case/case/applications-create-case.types').ApplicationsCreateCaseTeamEmailProps} ApplicationsCreateCaseTeamEmailProps */
+/** @typedef {import('../../pages/create-new-case/case/applications-create-case.types').ApplicationsCreateCaseGeographicalInformationProps} ApplicationsCreateCaseGeographicalInformationProps */
 
 /**
  * Format properties for name and description page

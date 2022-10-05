@@ -1,5 +1,5 @@
 import { Router as createRouter } from 'express';
-import * as validators from '../../../create/case/applications-create-case.validators.js';
+import * as validators from '../../../create-new-case/case/applications-create-case.validators.js';
 import * as controller from './applications-edit-case.controller.js';
 
 const applicationsEditCaseRouter = createRouter();

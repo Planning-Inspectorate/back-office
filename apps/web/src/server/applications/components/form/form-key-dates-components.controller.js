@@ -1,9 +1,9 @@
 import {
 	getApplicationDraft,
 	updateApplicationDraft
-} from '../../pages/create/applications-create.service.js';
+} from '../../pages/create-new-case/applications-create.service.js';
 
-/** @typedef {import('../../pages/create/key-dates/applications-create-key-dates.types').ApplicationsCreateKeyDatesProps} ApplicationsCreateKeyDatesProps */
+/** @typedef {import('../../pages/create-new-case/key-dates/applications-create-key-dates.types').ApplicationsCreateKeyDatesProps} ApplicationsCreateKeyDatesProps */
 
 /**
  * Format properties for key dates page
