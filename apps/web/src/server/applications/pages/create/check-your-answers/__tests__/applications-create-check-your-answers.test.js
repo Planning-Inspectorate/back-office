@@ -50,7 +50,7 @@ describe('applications create applicant', () => {
 			const element = parseHtml(response.text);
 
 			expect(element.innerHTML).toMatchSnapshot();
-			expect(element.innerHTML).toContain('I accept - Confirm creation of a new case');
+			expect(element.innerHTML).toContain('I accept - confirm creation of a new case');
 		});
 	});
 

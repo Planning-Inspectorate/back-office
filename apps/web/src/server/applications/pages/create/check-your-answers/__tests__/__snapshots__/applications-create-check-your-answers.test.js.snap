@@ -2,27 +2,27 @@
 
 exports[`applications create applicant GET /check-your-answers should render the page 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
-    <h2 class=\\"govuk-heading-l\\"><div class=\\"govuk-grid-row\\"><div class=\\"govuk-grid-column-two-thirds\\"> Check your answers before creating a new case</div></div></h2>
+    <h2 class=\\"govuk-heading-l\\"><div class=\\"govuk-grid-row\\"><div class=\\"govuk-grid-column-full\\"> Check your answers before creating a new project</div></div></h2>
     <form method=\\"post\\" action=\\"\\">
         <div class=\\"govuk-grid-row\\">
-            <div class=\\"govuk-grid-column-two-thirds\\">
+            <div class=\\"govuk-grid-column-full\\">
                 <table class=\\"govuk-table\\">
                     <thead class=\\"govuk-table__head\\">
                         <tr class=\\"govuk-table__row\\">
-                            <th scope=\\"col\\" class=\\"govuk-table__header govuk-table__caption--m pins-table__cell--l govuk-!-static-padding-bottom-6\\">Case information</th>
+                            <th scope=\\"col\\" class=\\"govuk-table__header govuk-table__caption--m pins-table__cell--l govuk-!-static-padding-bottom-6\\">Project information</th>
                             <th scope=\\"col\\" class=\\"govuk-table__header\\"></th>
                             <th scope=\\"col\\" class=\\"govuk-table__header\\"></th>
                         </tr>
                     </thead>
                     <tbody class=\\"govuk-table__body\\">
                         <tr class=\\"govuk-table__row\\">
-                            <td class=\\"govuk-table__cell font-weight--700 pins-table__cell--s\\">Case name</td>
+                            <td class=\\"govuk-table__cell font-weight--700 pins-table__cell--s\\">Project name</td>
                             <td class=\\"govuk-table__cell pins-table__cell--s\\"></td>
                             <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a id=\\"name\\" class=\\"govuk-link\\" href=\\"/applications-service/create-new-case/123\\">Change</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row\\">
-                            <td class=\\"govuk-table__cell font-weight--700 pins-table__cell--s\\">Case description</td>
+                            <td class=\\"govuk-table__cell font-weight--700 pins-table__cell--s\\">Project description</td>
                             <td class=\\"govuk-table__cell pins-table__cell--s\\"></td>
                             <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a id=\\"description\\" class=\\"govuk-link\\" href=\\"/applications-service/create-new-case/123\\">Change</a>
                             </td>
@@ -40,7 +40,7 @@ exports[`applications create applicant GET /check-your-answers should render the
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row\\">
-                            <td class=\\"govuk-table__cell font-weight--700 pins-table__cell--s\\">Case location</td>
+                            <td class=\\"govuk-table__cell font-weight--700 pins-table__cell--s\\">Project location</td>
                             <td class=\\"govuk-table__cell pins-table__cell--s\\"></td>
                             <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a id=\\"projectLocation\\" class=\\"govuk-link\\" href=\\"/applications-service/create-new-case/123/geographical-information\\">Change</a>
                             </td>
@@ -58,7 +58,7 @@ exports[`applications create applicant GET /check-your-answers should render the
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row\\">
-                            <td class=\\"govuk-table__cell font-weight--700 pins-table__cell--s\\">Region</td>
+                            <td class=\\"govuk-table__cell font-weight--700 pins-table__cell--s\\">Region(s)</td>
                             <td class=\\"govuk-table__cell pins-table__cell--s\\"></td>
                             <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a id=\\"regions\\" class=\\"govuk-link\\" href=\\"/applications-service/create-new-case/123/regions\\">Change</a>
                             </td>
@@ -70,7 +70,7 @@ exports[`applications create applicant GET /check-your-answers should render the
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row\\">
-                            <td class=\\"govuk-table__cell font-weight--700 pins-table__cell--s\\">Case email address</td>
+                            <td class=\\"govuk-table__cell font-weight--700 pins-table__cell--s\\">Project email</td>
                             <td class=\\"govuk-table__cell pins-table__cell--s\\"></td>
                             <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a class=\\"govuk-link\\" href=\\"/applications-service/create-new-case/123/team-email\\">Change</a>
                             </td>
@@ -87,27 +87,15 @@ exports[`applications create applicant GET /check-your-answers should render the
                     </thead>
                     <tbody class=\\"govuk-table__body\\">
                         <tr class=\\"govuk-table__row\\">
-                            <td class=\\"govuk-table__cell font-weight--700 pins-table__cell--s\\">First name</td>
-                            <td class=\\"govuk-table__cell pins-table__cell--s\\"></td>
-                            <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a class=\\"govuk-link\\" href=\\"/applications-service/create-new-case/123/applicant-full-name\\">Change</a>
-                            </td>
-                        </tr>
-                        <tr class=\\"govuk-table__row\\">
-                            <td class=\\"govuk-table__cell font-weight--700 pins-table__cell--s\\">Middle name</td>
-                            <td class=\\"govuk-table__cell pins-table__cell--s\\"></td>
-                            <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a class=\\"govuk-link\\" href=\\"/applications-service/create-new-case/123/applicant-full-name\\">Change</a>
-                            </td>
-                        </tr>
-                        <tr class=\\"govuk-table__row\\">
-                            <td class=\\"govuk-table__cell font-weight--700 pins-table__cell--s\\">Last name</td>
-                            <td class=\\"govuk-table__cell pins-table__cell--s\\"></td>
-                            <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a class=\\"govuk-link\\" href=\\"/applications-service/create-new-case/123/applicant-full-name\\">Change</a>
-                            </td>
-                        </tr>
-                        <tr class=\\"govuk-table__row\\">
                             <td class=\\"govuk-table__cell font-weight--700 pins-table__cell--s\\">Organisation name</td>
                             <td class=\\"govuk-table__cell pins-table__cell--s\\"></td>
                             <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a class=\\"govuk-link\\" href=\\"/applications-service/create-new-case/123/applicant-organisation-name\\">Change</a>
+                            </td>
+                        </tr>
+                        <tr class=\\"govuk-table__row\\">
+                            <td class=\\"govuk-table__cell font-weight--700 pins-table__cell--s\\">Contact name</td>
+                            <td class=\\"govuk-table__cell pins-table__cell--s\\"></td>
+                            <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a class=\\"govuk-link\\" href=\\"/applications-service/create-new-case/123/applicant-full-name\\">Change</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row\\">
@@ -161,9 +149,14 @@ exports[`applications create applicant GET /check-your-answers should render the
                 </table>
             </div>
         </div>
+        <br>
+        <div class=\\"govuk-warning-text\\"><span class=\\"govuk-warning-text__icon\\" aria-hidden=\\"true\\">!</span>
+            <strong             class=\\"govuk-warning-text__text\\"><span class=\\"govuk-warning-text__assistive\\">Warning</span> Creating the
+                project will not publish the page onto the NSIP website</strong>
+        </div>
         <div class=\\"govuk-grid-row\\">
             <div class=\\"govuk-button-group pins-button-group govuk-grid-column-one-half\\">
-                <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">I accept - Confirm creation of a new case</button>
+                <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">I accept - confirm creation of a new case</button>
             </div>
         </div>
     </form>
@@ -196,27 +189,27 @@ exports[`applications create applicant POST /check-your-answers should display e
             </div>
         </div>
     </div>
-    <h2 class=\\"govuk-heading-l\\"><div class=\\"govuk-grid-row\\"><div class=\\"govuk-grid-column-two-thirds\\"> Check your answers before creating a new case</div></div></h2>
+    <h2 class=\\"govuk-heading-l\\"><div class=\\"govuk-grid-row\\"><div class=\\"govuk-grid-column-full\\"> Check your answers before creating a new project</div></div></h2>
     <form method=\\"post\\" action=\\"\\">
         <div class=\\"govuk-grid-row\\">
-            <div class=\\"govuk-grid-column-two-thirds\\">
+            <div class=\\"govuk-grid-column-full\\">
                 <table class=\\"govuk-table\\">
                     <thead class=\\"govuk-table__head\\">
                         <tr class=\\"govuk-table__row\\">
-                            <th scope=\\"col\\" class=\\"govuk-table__header govuk-table__caption--m pins-table__cell--l govuk-!-static-padding-bottom-6\\">Case information</th>
+                            <th scope=\\"col\\" class=\\"govuk-table__header govuk-table__caption--m pins-table__cell--l govuk-!-static-padding-bottom-6\\">Project information</th>
                             <th scope=\\"col\\" class=\\"govuk-table__header\\"></th>
                             <th scope=\\"col\\" class=\\"govuk-table__header\\"></th>
                         </tr>
                     </thead>
                     <tbody class=\\"govuk-table__body\\">
                         <tr class=\\"govuk-table__row\\">
-                            <td class=\\"govuk-table__cell font-weight--700 pins-table__cell--s\\">Case name</td>
+                            <td class=\\"govuk-table__cell font-weight--700 pins-table__cell--s\\">Project name</td>
                             <td class=\\"govuk-table__cell pins-table__cell--s\\"></td>
                             <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a id=\\"name\\" class=\\"govuk-link\\" href=\\"/applications-service/create-new-case/123\\">Change</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row\\">
-                            <td class=\\"govuk-table__cell font-weight--700 pins-table__cell--s\\">Case description</td>
+                            <td class=\\"govuk-table__cell font-weight--700 pins-table__cell--s\\">Project description</td>
                             <td class=\\"govuk-table__cell pins-table__cell--s\\"></td>
                             <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a id=\\"description\\" class=\\"govuk-link\\" href=\\"/applications-service/create-new-case/123\\">Change</a>
                             </td>
@@ -234,7 +227,7 @@ exports[`applications create applicant POST /check-your-answers should display e
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row\\">
-                            <td class=\\"govuk-table__cell font-weight--700 pins-table__cell--s\\">Case location</td>
+                            <td class=\\"govuk-table__cell font-weight--700 pins-table__cell--s\\">Project location</td>
                             <td class=\\"govuk-table__cell pins-table__cell--s\\"></td>
                             <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a id=\\"projectLocation\\" class=\\"govuk-link\\" href=\\"/applications-service/create-new-case/123/geographical-information\\">Change</a>
                             </td>
@@ -252,7 +245,7 @@ exports[`applications create applicant POST /check-your-answers should display e
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row\\">
-                            <td class=\\"govuk-table__cell font-weight--700 pins-table__cell--s\\">Region</td>
+                            <td class=\\"govuk-table__cell font-weight--700 pins-table__cell--s\\">Region(s)</td>
                             <td class=\\"govuk-table__cell pins-table__cell--s\\"></td>
                             <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a id=\\"regions\\" class=\\"govuk-link\\" href=\\"/applications-service/create-new-case/123/regions\\">Change</a>
                             </td>
@@ -264,7 +257,7 @@ exports[`applications create applicant POST /check-your-answers should display e
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row\\">
-                            <td class=\\"govuk-table__cell font-weight--700 pins-table__cell--s\\">Case email address</td>
+                            <td class=\\"govuk-table__cell font-weight--700 pins-table__cell--s\\">Project email</td>
                             <td class=\\"govuk-table__cell pins-table__cell--s\\"></td>
                             <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a class=\\"govuk-link\\" href=\\"/applications-service/create-new-case/123/team-email\\">Change</a>
                             </td>
@@ -281,27 +274,15 @@ exports[`applications create applicant POST /check-your-answers should display e
                     </thead>
                     <tbody class=\\"govuk-table__body\\">
                         <tr class=\\"govuk-table__row\\">
-                            <td class=\\"govuk-table__cell font-weight--700 pins-table__cell--s\\">First name</td>
-                            <td class=\\"govuk-table__cell pins-table__cell--s\\"></td>
-                            <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a class=\\"govuk-link\\" href=\\"/applications-service/create-new-case/123/applicant-full-name\\">Change</a>
-                            </td>
-                        </tr>
-                        <tr class=\\"govuk-table__row\\">
-                            <td class=\\"govuk-table__cell font-weight--700 pins-table__cell--s\\">Middle name</td>
-                            <td class=\\"govuk-table__cell pins-table__cell--s\\"></td>
-                            <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a class=\\"govuk-link\\" href=\\"/applications-service/create-new-case/123/applicant-full-name\\">Change</a>
-                            </td>
-                        </tr>
-                        <tr class=\\"govuk-table__row\\">
-                            <td class=\\"govuk-table__cell font-weight--700 pins-table__cell--s\\">Last name</td>
-                            <td class=\\"govuk-table__cell pins-table__cell--s\\"></td>
-                            <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a class=\\"govuk-link\\" href=\\"/applications-service/create-new-case/123/applicant-full-name\\">Change</a>
-                            </td>
-                        </tr>
-                        <tr class=\\"govuk-table__row\\">
                             <td class=\\"govuk-table__cell font-weight--700 pins-table__cell--s\\">Organisation name</td>
                             <td class=\\"govuk-table__cell pins-table__cell--s\\"></td>
                             <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a class=\\"govuk-link\\" href=\\"/applications-service/create-new-case/123/applicant-organisation-name\\">Change</a>
+                            </td>
+                        </tr>
+                        <tr class=\\"govuk-table__row\\">
+                            <td class=\\"govuk-table__cell font-weight--700 pins-table__cell--s\\">Contact name</td>
+                            <td class=\\"govuk-table__cell pins-table__cell--s\\"></td>
+                            <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a class=\\"govuk-link\\" href=\\"/applications-service/create-new-case/123/applicant-full-name\\">Change</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row\\">
@@ -355,9 +336,14 @@ exports[`applications create applicant POST /check-your-answers should display e
                 </table>
             </div>
         </div>
+        <br>
+        <div class=\\"govuk-warning-text\\"><span class=\\"govuk-warning-text__icon\\" aria-hidden=\\"true\\">!</span>
+            <strong             class=\\"govuk-warning-text__text\\"><span class=\\"govuk-warning-text__assistive\\">Warning</span> Creating the
+                project will not publish the page onto the NSIP website</strong>
+        </div>
         <div class=\\"govuk-grid-row\\">
             <div class=\\"govuk-button-group pins-button-group govuk-grid-column-one-half\\">
-                <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">I accept - Confirm creation of a new case</button>
+                <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">I accept - confirm creation of a new case</button>
             </div>
         </div>
     </form>

@@ -1,4 +1,5 @@
 import { addressToString } from '../../../../lib/address-formatter.js';
+import { nameToString } from '../../../../lib/person-name-formatter.js';
 import { getErrorMessageCaseCreate } from '../applications-create.service.js';
 
 /** @typedef {import('./applications-create-check-your-answers.types.js').ApplicationsCreateCheckYourAnswersProps} ApplicationsCreateCheckYourAnswersProps */
@@ -27,9 +28,7 @@ export const mapCaseData = (caseData) => {
 			'case.teamEmail': caseData?.caseEmail,
 
 			'applicant.organisationName': caseData?.applicants[0].organisationName,
-			'applicant.firstName': caseData?.applicants[0].firstName,
-			'applicant.middleName': caseData?.applicants[0].middleName,
-			'applicant.lastName': caseData?.applicants[0].lastName,
+			'applicant.fullName': nameToString(caseData?.applicants[0]),
 			'applicant.address': addressToString(caseData?.applicants[0].address),
 			'applicant.website': caseData?.applicants[0].website,
 			'applicant.email': caseData?.applicants[0].email,
