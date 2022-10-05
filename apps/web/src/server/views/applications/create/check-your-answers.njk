@@ -5,15 +5,11 @@
 {% from "govuk/components/button/macro.njk" import govukButton %}
 
 {% block beforeContent %}
-	{{ govukBreadcrumbs({
+	{% set backLink = 'applications-create'|url({applicationId:applicationId, step: 'key-dates'}) %}
+	{{ govukBackLink({
 		classes: 'govuk-!-margin-top-3',
-		items: [
-			{ text: 'Applications', href: 'dashboard'|url({domainType:domainType}) },
-			{ text: 'Case information', href: 'applications-create'|url({applicationId: applicationId})},
-			{ text: 'Applicant Information', href: 'applications-create'|url({applicationId: applicationId, step: 'applicant-organisation-name'})},
-			{ text: 'Key dates', href: 'applications-create'|url({applicationId: applicationId, step: 'key-dates'})},
-			{ text: 'Check your answers'}
-		]
+		text: "Back",
+		href: backLink
 	}) }}
 {% endblock %}
 
@@ -192,8 +188,6 @@
 		</div>
 		<div class="govuk-grid-row">
 			<div class="govuk-button-group pins-button-group govuk-grid-column-one-half">
-				{% set backLink = 'applications-create'|url({applicationId:applicationId, step: 'key-dates'}) %}
-				<a class="govuk-link" href="{{ backLink }}">Back</a>
 				{{ govukButton({ text: 'I accept - Confirm creation of a new case' }) }}
 			</div>
 		</div>

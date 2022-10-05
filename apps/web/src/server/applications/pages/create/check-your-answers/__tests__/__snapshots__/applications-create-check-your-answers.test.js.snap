@@ -162,8 +162,8 @@ exports[`applications create applicant GET /check-your-answers should render the
             </div>
         </div>
         <div class=\\"govuk-grid-row\\">
-            <div class=\\"govuk-button-group pins-button-group govuk-grid-column-one-half\\"><a class=\\"govuk-link\\" href=\\"/applications-service/create-new-case/123/key-dates/\\">Back</a>
-                <button                 class=\\"govuk-button\\" data-module=\\"govuk-button\\">I accept - Confirm creation of a new case</button>
+            <div class=\\"govuk-button-group pins-button-group govuk-grid-column-one-half\\">
+                <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">I accept - Confirm creation of a new case</button>
             </div>
         </div>
     </form>
@@ -356,8 +356,8 @@ exports[`applications create applicant POST /check-your-answers should display e
             </div>
         </div>
         <div class=\\"govuk-grid-row\\">
-            <div class=\\"govuk-button-group pins-button-group govuk-grid-column-one-half\\"><a class=\\"govuk-link\\" href=\\"/applications-service/create-new-case/123/key-dates/\\">Back</a>
-                <button                 class=\\"govuk-button\\" data-module=\\"govuk-button\\">I accept - Confirm creation of a new case</button>
+            <div class=\\"govuk-button-group pins-button-group govuk-grid-column-one-half\\">
+                <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">I accept - Confirm creation of a new case</button>
             </div>
         </div>
     </form>
