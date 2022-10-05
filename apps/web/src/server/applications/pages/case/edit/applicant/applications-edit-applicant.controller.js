@@ -12,23 +12,23 @@ import {
 	applicantWebsiteData,
 	applicantWebsiteDataUpdate
 } from '../../../../components/form/form-applicant-components.controller.js';
-import { handleErrors } from '../../../create/case/applications-create-case.controller.js';
+import { handleErrors } from '../../../create-new-case/case/applications-create-case.controller.js';
 
-/** @typedef {import('../../../create/applicant/applications-create-applicant.types.js').ApplicationsCreateApplicantTypesProps} ApplicationsCreateApplicantTypesProps */
-/** @typedef {import('../../../create/applicant/applications-create-applicant.types.js').ApplicationsCreateApplicantTypesBody} ApplicationsCreateApplicantTypesBody */
-/** @typedef {import('../../../create/applicant/applications-create-applicant-session.service.js').SessionWithApplicationsCreateApplicantInfoTypes} SessionWithApplicationsCreateApplicantInfoTypes */
-/** @typedef {import('../../../create/applicant/applications-create-applicant.types.js').ApplicationsCreateApplicantOrganisationNameProps} ApplicationsCreateApplicantOrganisationNameProps */
-/** @typedef {import('../../../create/applicant/applications-create-applicant.types.js').ApplicationsCreateApplicantOrganisationNameBody} ApplicationsCreateApplicantOrganisationNameBody */
-/** @typedef {import('../../../create/applicant/applications-create-applicant.types.js').ApplicationsCreateApplicantFullNameProps} ApplicationsCreateApplicantFullNameProps */
-/** @typedef {import('../../../create/applicant/applications-create-applicant.types.js').ApplicationsCreateApplicantFullNameBody} ApplicationsCreateApplicantFullNameBody */
-/** @typedef {import('../../../create/applicant/applications-create-applicant.types.js').ApplicationsCreateApplicantWebsiteProps} ApplicationsCreateApplicantWebsiteProps */
-/** @typedef {import('../../../create/applicant/applications-create-applicant.types.js').ApplicationsCreateApplicantWebsiteBody} ApplicationsCreateApplicantWebsiteBody */
-/** @typedef {import('../../../create/applicant/applications-create-applicant.types.js').ApplicationsCreateApplicantEmailProps} ApplicationsCreateApplicantEmailProps */
-/** @typedef {import('../../../create/applicant/applications-create-applicant.types.js').ApplicationsCreateApplicantEmailBody} ApplicationsCreateApplicantEmailBody */
-/** @typedef {import('../../../create/applicant/applications-create-applicant.types.js').ApplicationsCreateApplicantTelephoneNumberProps} ApplicationsCreateApplicantTelephoneNumberProps */
-/** @typedef {import('../../../create/applicant/applications-create-applicant.types.js').ApplicationsCreateApplicantTelephoneNumberBody} ApplicationsCreateApplicantTelephoneNumberBody */
-/** @typedef {import('../../../create/applicant/applications-create-applicant.types.js').ApplicationsCreateApplicantAddressProps} ApplicationsCreateApplicantAddressProps */
-/** @typedef {import('../../../create/applicant/applications-create-applicant.types.js').ApplicationsCreateApplicantAddressBody} ApplicationsCreateApplicantAddressBody */
+/** @typedef {import('../../../create-new-case/applicant/applications-create-applicant.types.js').ApplicationsCreateApplicantTypesProps} ApplicationsCreateApplicantTypesProps */
+/** @typedef {import('../../../create-new-case/applicant/applications-create-applicant.types.js').ApplicationsCreateApplicantTypesBody} ApplicationsCreateApplicantTypesBody */
+/** @typedef {import('../../../create-new-case/applicant/applications-create-applicant-session.service.js').SessionWithApplicationsCreateApplicantInfoTypes} SessionWithApplicationsCreateApplicantInfoTypes */
+/** @typedef {import('../../../create-new-case/applicant/applications-create-applicant.types.js').ApplicationsCreateApplicantOrganisationNameProps} ApplicationsCreateApplicantOrganisationNameProps */
+/** @typedef {import('../../../create-new-case/applicant/applications-create-applicant.types.js').ApplicationsCreateApplicantOrganisationNameBody} ApplicationsCreateApplicantOrganisationNameBody */
+/** @typedef {import('../../../create-new-case/applicant/applications-create-applicant.types.js').ApplicationsCreateApplicantFullNameProps} ApplicationsCreateApplicantFullNameProps */
+/** @typedef {import('../../../create-new-case/applicant/applications-create-applicant.types.js').ApplicationsCreateApplicantFullNameBody} ApplicationsCreateApplicantFullNameBody */
+/** @typedef {import('../../../create-new-case/applicant/applications-create-applicant.types.js').ApplicationsCreateApplicantWebsiteProps} ApplicationsCreateApplicantWebsiteProps */
+/** @typedef {import('../../../create-new-case/applicant/applications-create-applicant.types.js').ApplicationsCreateApplicantWebsiteBody} ApplicationsCreateApplicantWebsiteBody */
+/** @typedef {import('../../../create-new-case/applicant/applications-create-applicant.types.js').ApplicationsCreateApplicantEmailProps} ApplicationsCreateApplicantEmailProps */
+/** @typedef {import('../../../create-new-case/applicant/applications-create-applicant.types.js').ApplicationsCreateApplicantEmailBody} ApplicationsCreateApplicantEmailBody */
+/** @typedef {import('../../../create-new-case/applicant/applications-create-applicant.types.js').ApplicationsCreateApplicantTelephoneNumberProps} ApplicationsCreateApplicantTelephoneNumberProps */
+/** @typedef {import('../../../create-new-case/applicant/applications-create-applicant.types.js').ApplicationsCreateApplicantTelephoneNumberBody} ApplicationsCreateApplicantTelephoneNumberBody */
+/** @typedef {import('../../../create-new-case/applicant/applications-create-applicant.types.js').ApplicationsCreateApplicantAddressProps} ApplicationsCreateApplicantAddressProps */
+/** @typedef {import('../../../create-new-case/applicant/applications-create-applicant.types.js').ApplicationsCreateApplicantAddressBody} ApplicationsCreateApplicantAddressBody */
 
 const organisationNameLayout = {
 	pageTitle: 'Enter the Applicant’s organisation',
@@ -96,7 +96,9 @@ export async function updateApplicationsEditApplicantOrganisationName(request, r
 		return handleErrors(properties, organisationNameLayout, response);
 	}
 
-	response.redirect(`/applications-service/case/${updatedApplicationId}/project-information`);
+	response.redirect(
+		`/applications-service/create-new-case/${updatedApplicationId}/project-information`
+	);
 }
 
 /**
@@ -128,7 +130,9 @@ export async function updateApplicationsEditApplicantFullName(request, response)
 		return handleErrors(properties, fullNameLayout, response);
 	}
 
-	response.redirect(`/applications-service/case/${updatedApplicationId}/project-information`);
+	response.redirect(
+		`/applications-service/create-new-case/${updatedApplicationId}/project-information`
+	);
 }
 
 /**
@@ -160,7 +164,9 @@ export async function updateApplicationsEditApplicantEmail(request, response) {
 		return handleErrors(properties, applicantEmailLayout, response);
 	}
 
-	response.redirect(`/applications-service/case/${updatedApplicationId}/project-information`);
+	response.redirect(
+		`/applications-service/create-new-case/${updatedApplicationId}/project-information`
+	);
 }
 
 /**
@@ -210,7 +216,7 @@ export async function updateApplicationsEditApplicantAddress(request, response) 
 		return handleErrors(properties, addressLayout, response);
 	}
 
-	response.redirect(`/applications-service/case/${applicationId}/project-information`);
+	response.redirect(`/applications-service/create-new-case/${applicationId}/project-information`);
 }
 
 /**
@@ -242,7 +248,9 @@ export async function updateApplicationsEditApplicantWebsite(request, response) 
 		return handleErrors(properties, websiteLayout, response);
 	}
 
-	response.redirect(`/applications-service/case/${updatedApplicationId}/project-information`);
+	response.redirect(
+		`/applications-service/create-new-case/${updatedApplicationId}/project-information`
+	);
 }
 
 /**
@@ -274,5 +282,7 @@ export async function updateApplicationsEditApplicantTelephoneNumber(request, re
 		return handleErrors(properties, telephoneNumberLayout, response);
 	}
 
-	response.redirect(`/applications-service/case/${updatedApplicationId}/project-information`);
+	response.redirect(
+		`/applications-service/create-new-case/${updatedApplicationId}/project-information`
+	);
 }

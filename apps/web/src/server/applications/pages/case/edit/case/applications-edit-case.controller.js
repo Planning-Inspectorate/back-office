@@ -10,7 +10,7 @@ import {
 	caseZoomLevelData,
 	caseZoomLevelDataUpdate
 } from '../../../../components/form/form-case-components.controller.js';
-import { handleErrors } from '../../../create/case/applications-create-case.controller.js';
+import { handleErrors } from '../../../create-new-case/case/applications-create-case.controller.js';
 
 const nameLayout = {
 	pageTitle: 'Enter project name',
@@ -54,20 +54,20 @@ const zoomLevelLayout = {
 	isEdit: true
 };
 
-/** @typedef {import('../../../create/case/applications-create-case.types.js').ApplicationsCreateCaseNameProps} ApplicationsCreateCaseNameProps */
-/** @typedef {import('../../../create/case/applications-create-case.types.js').ApplicationsCreateCaseNameBody} ApplicationsCreateCaseNameBody */
-/** @typedef {import('../../../create/case/applications-create-case.types.js').ApplicationsCreateCaseSectorProps} ApplicationsCreateCaseSectorProps */
-/** @typedef {import('../../../create/case/applications-create-case.types.js').ApplicationsCreateCaseSectorBody} ApplicationsCreateCaseSectorBody */
-/** @typedef {import('../../../create/case/applications-create-case.types.js').ApplicationsCreateCaseSubSectorProps} ApplicationsCreateCaseSubSectorProps */
-/** @typedef {import('../../../create/case/applications-create-case.types.js').ApplicationsCreateCaseSubSectorBody} ApplicationsCreateCaseSubSectorBody */
-/** @typedef {import('../../../create/case/applications-create-case.types.js').ApplicationsCreateCaseGeographicalInformationProps} ApplicationsCreateCaseGeographicalInformationProps */
-/** @typedef {import('../../../create/case/applications-create-case.types.js').ApplicationsCreateCaseGeographicalInformationBody} ApplicationsCreateCaseGeographicalInformationBody */
-/** @typedef {import('../../../create/case/applications-create-case.types.js').ApplicationsCreateCaseRegionsProps} ApplicationsCreateCaseRegionsProps */
-/** @typedef {import('../../../create/case/applications-create-case.types.js').ApplicationsCreateCaseRegionsBody} ApplicationsCreateCaseRegionsBody */
-/** @typedef {import('../../../create/case/applications-create-case.types.js').ApplicationsCreateCaseZoomLevelProps} ApplicationsCreateCaseZoomLevelProps */
-/** @typedef {import('../../../create/case/applications-create-case.types.js').ApplicationsCreateCaseZoomLevelBody} ApplicationsCreateCaseZoomLevelBody */
-/** @typedef {import('../../../create/case/applications-create-case.types.js').ApplicationsCreateCaseTeamEmailProps} ApplicationsCreateCaseTeamEmailProps */
-/** @typedef {import('../../../create/case/applications-create-case.types.js').ApplicationsCreateCaseTeamEmailBody} ApplicationsCreateCaseTeamEmailBody */
+/** @typedef {import('../../../create-new-case/case/applications-create-case.types.js').ApplicationsCreateCaseNameProps} ApplicationsCreateCaseNameProps */
+/** @typedef {import('../../../create-new-case/case/applications-create-case.types.js').ApplicationsCreateCaseNameBody} ApplicationsCreateCaseNameBody */
+/** @typedef {import('../../../create-new-case/case/applications-create-case.types.js').ApplicationsCreateCaseSectorProps} ApplicationsCreateCaseSectorProps */
+/** @typedef {import('../../../create-new-case/case/applications-create-case.types.js').ApplicationsCreateCaseSectorBody} ApplicationsCreateCaseSectorBody */
+/** @typedef {import('../../../create-new-case/case/applications-create-case.types.js').ApplicationsCreateCaseSubSectorProps} ApplicationsCreateCaseSubSectorProps */
+/** @typedef {import('../../../create-new-case/case/applications-create-case.types.js').ApplicationsCreateCaseSubSectorBody} ApplicationsCreateCaseSubSectorBody */
+/** @typedef {import('../../../create-new-case/case/applications-create-case.types.js').ApplicationsCreateCaseGeographicalInformationProps} ApplicationsCreateCaseGeographicalInformationProps */
+/** @typedef {import('../../../create-new-case/case/applications-create-case.types.js').ApplicationsCreateCaseGeographicalInformationBody} ApplicationsCreateCaseGeographicalInformationBody */
+/** @typedef {import('../../../create-new-case/case/applications-create-case.types.js').ApplicationsCreateCaseRegionsProps} ApplicationsCreateCaseRegionsProps */
+/** @typedef {import('../../../create-new-case/case/applications-create-case.types.js').ApplicationsCreateCaseRegionsBody} ApplicationsCreateCaseRegionsBody */
+/** @typedef {import('../../../create-new-case/case/applications-create-case.types.js').ApplicationsCreateCaseZoomLevelProps} ApplicationsCreateCaseZoomLevelProps */
+/** @typedef {import('../../../create-new-case/case/applications-create-case.types.js').ApplicationsCreateCaseZoomLevelBody} ApplicationsCreateCaseZoomLevelBody */
+/** @typedef {import('../../../create-new-case/case/applications-create-case.types.js').ApplicationsCreateCaseTeamEmailProps} ApplicationsCreateCaseTeamEmailProps */
+/** @typedef {import('../../../create-new-case/case/applications-create-case.types.js').ApplicationsCreateCaseTeamEmailBody} ApplicationsCreateCaseTeamEmailBody */
 
 /**
  * View the form step for editing the case description
@@ -111,7 +111,9 @@ export async function updateApplicationsEditCaseNameAndDescription(request, resp
 		return handleErrors(properties, layout, response);
 	}
 
-	response.redirect(`/applications-service/case/${updatedApplicationId}/project-information`);
+	response.redirect(
+		`/applications-service/create-new-case/${updatedApplicationId}/project-information`
+	);
 }
 
 /**
@@ -146,7 +148,9 @@ export async function updateApplicationsEditCaseTeamEmail(request, response) {
 		return handleErrors(properties, teamEmailLayout, response);
 	}
 
-	response.redirect(`/applications-service/case/${updatedApplicationId}/project-information`);
+	response.redirect(
+		`/applications-service/create-new-case/${updatedApplicationId}/project-information`
+	);
 }
 
 /**
@@ -203,7 +207,9 @@ export async function updateApplicationsEditCaseGeographicalInformation(request,
 		return handleErrors(properties, layout, response);
 	}
 
-	response.redirect(`/applications-service/case/${updatedApplicationId}/project-information`);
+	response.redirect(
+		`/applications-service/create-new-case/${updatedApplicationId}/project-information`
+	);
 }
 
 /**
@@ -238,7 +244,9 @@ export async function updateApplicationsEditCaseRegions(request, response) {
 		return handleErrors(properties, regionsLayout, response);
 	}
 
-	response.redirect(`/applications-service/case/${updatedApplicationId}/project-information`);
+	response.redirect(
+		`/applications-service/create-new-case/${updatedApplicationId}/project-information`
+	);
 }
 
 /**
@@ -273,5 +281,7 @@ export async function updateApplicationsEditCaseZoomLevel(request, response) {
 		return handleErrors(properties, zoomLevelLayout, response);
 	}
 
-	response.redirect(`/applications-service/case/${updatedApplicationId}/project-information`);
+	response.redirect(
+		`/applications-service/create-new-case/${updatedApplicationId}/project-information`
+	);
 }

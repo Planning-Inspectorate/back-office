@@ -1,6 +1,6 @@
 import { Router as createRouter } from 'express';
-import { registerApplicantId } from '../../../create/applicant/applications-create-applicant.locals.js';
-import * as validators from '../../../create/applicant/applications-create-applicant.validators.js';
+import { registerApplicantId } from '../../../create-new-case/applicant/applications-create-applicant.locals.js';
+import * as validators from '../../../create-new-case/applicant/applications-create-applicant.validators.js';
 import * as controller from './applications-edit-applicant.controller.js';
 
 const applicationsEditApplicantRouter = createRouter();

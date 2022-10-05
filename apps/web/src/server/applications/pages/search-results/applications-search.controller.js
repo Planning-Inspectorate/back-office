@@ -19,7 +19,7 @@ export async function searchApplications(req, response) {
 	const role = response.locals.domainType;
 
 	if (errors || !query) {
-		return response.render('applications/search/search-results', {
+		return response.render('applications/search-results/search-results-results', {
 			errors: errors || {},
 			searchApplicationsItems: [],
 			itemCount: 0,
@@ -55,7 +55,7 @@ export async function searchApplications(req, response) {
 		}))
 	};
 
-	return response.render('applications/search/search-results', {
+	return response.render('applications/search-results/search-results-results', {
 		searchApplicationsItems,
 		query,
 		itemCount,

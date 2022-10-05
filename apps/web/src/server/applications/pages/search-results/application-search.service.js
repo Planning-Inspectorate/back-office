@@ -9,5 +9,5 @@ import { post } from '../../../lib/request.js';
  * @returns {Promise<PaginatedApplicationsResponse>}
  */
 export const searchApplications = async (payload) => {
-	return post('applications/search', { json: payload });
+	return post('applications/search-results', { json: payload });
 };

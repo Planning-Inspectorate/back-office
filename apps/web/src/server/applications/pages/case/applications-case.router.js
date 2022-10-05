@@ -1,6 +1,6 @@
 import { Router as createRouter } from 'express';
 import * as locals from '../../applications.locals.js';
-import { registerApplicationId } from '../create/applications-create.locals.js';
+import { registerApplicationId } from '../create-new-case/applications-create.locals.js';
 import * as controller from './applications-case.controller.js';
 import applicationsEditRouter from './edit/applications-edit.router.js';
 
