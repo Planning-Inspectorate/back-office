@@ -5,13 +5,10 @@ import { createTestApplication } from '../../../../../../../../testing/index.js'
 
 const { app, installMockApi, teardown } = createTestApplication();
 const request = supertest(app);
-const successGetResponse = { id: 1, applicants: [{ id: 1 }] };
-const successPatchPostResponse = { id: 1, applicantIds: [1] };
+const successGetResponse = { id: 1, applicants: [{ id: 1, address: { town: 'London' } }] };
 
 const nocks = () => {
 	nock('http://test/').get('/applications/case-officer').reply(200, successGetResponse);
-	nock('http://test/').post('/applications').reply(200, successPatchPostResponse);
-	nock('http://test/').patch('/applications/123').reply(200, successPatchPostResponse);
 	nock('http://test/')
 		.get(/\/applications\/123(.*)/g)
 		.times(2)
@@ -123,6 +120,7 @@ describe('applications create applicant', () => {
 
 			expect(element.innerHTML).toMatchSnapshot();
 			expect(element.innerHTML).toContain('Save changes');
+			expect(element.innerHTML).toContain('London');
 		});
 
 		it('should render the form page', async () => {
