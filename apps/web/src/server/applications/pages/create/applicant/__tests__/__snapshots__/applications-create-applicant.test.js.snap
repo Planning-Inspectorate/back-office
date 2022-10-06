@@ -92,7 +92,7 @@ exports[`applications create applicant Applicant address POST /applicant-address
 
 exports[`applications create applicant Applicant email GET /applicant-email should render the page when resumed or if there is data in the session 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
-    <h2 class=\\"govuk-heading-l\\"> What’s the applicant’s email address?</h2>
+    <h2 class=\\"govuk-heading-l\\"> Enter the applicant’s email address</h2>
     <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
         <div class=\\"govuk-form-group\\">
             <div id=\\"applicant.email-hint\\" class=\\"govuk-hint\\">for example, contact@buildinganewbridge.com</div>
@@ -124,7 +124,7 @@ exports[`applications create applicant Applicant email POST /application-email W
             </div>
         </div>
     </div>
-    <h2 class=\\"govuk-heading-l\\"> What’s the applicant’s email address?</h2>
+    <h2 class=\\"govuk-heading-l\\"> Enter the applicant’s email address</h2>
     <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
         <div class=\\"govuk-form-group govuk-form-group--error\\">
             <div id=\\"applicant.email-hint\\" class=\\"govuk-hint\\">for example, contact@buildinganewbridge.com</div>
