@@ -1,6 +1,6 @@
 import { findAddressListByPostcode } from '@planning-inspectorate/address-lookup';
-import { getApplicantById } from '../../pages/create-new-case/applicant/applications-create-applicant.service.js';
-import { updateApplicationDraft } from '../../pages/create-new-case/applications-create.service.js';
+import { getApplicantById } from '../../lib/applicant.js';
+import { updateApplication } from '../../lib/application.js';
 
 /** @typedef {import('@pins/express').ValidationErrors} ValidationErrors */
 /** @typedef {import('../../applications.types').ApplicationsAddress} ApplicationsAddress */
@@ -43,7 +43,7 @@ export async function applicantOrganisationNameDataUpdate({ body }, locals) {
 	const organisationName = body['applicant.organisationName'];
 	const applicantInfo = { id, organisationName };
 
-	const { errors, id: updatedApplicationId } = await updateApplicationDraft(applicationId, {
+	const { errors, id: updatedApplicationId } = await updateApplication(applicationId, {
 		applicants: [applicantInfo]
 	});
 
@@ -94,7 +94,7 @@ export async function applicantFullNameDataUpdate({ body }, locals) {
 		lastName: body['applicant.lastName']
 	};
 
-	const { errors, id: updatedApplicationId } = await updateApplicationDraft(applicationId, {
+	const { errors, id: updatedApplicationId } = await updateApplication(applicationId, {
 		applicants: [applicantInfo]
 	});
 
@@ -133,12 +133,9 @@ export async function applicantEmailDataUpdate({ errors: validationErrors, body 
 	const values = body;
 	const applicantInfo = { id, email: body['applicant.email'] };
 
-	const { errors: apiErrors, id: updatedApplicationId } = await updateApplicationDraft(
-		applicationId,
-		{
-			applicants: [applicantInfo]
-		}
-	);
+	const { errors: apiErrors, id: updatedApplicationId } = await updateApplication(applicationId, {
+		applicants: [applicantInfo]
+	});
 
 	return { properties: { errors: validationErrors || apiErrors, values }, updatedApplicationId };
 }
@@ -215,7 +212,7 @@ export async function applicantAddressDataUpdate({ errors: validationErrors, bod
 					(address) => address.apiReference === apiReference
 				);
 				const payload = { applicants: [{ id: applicantId, address: selectedAddress }] };
-				const { errors: updateErrors } = await updateApplicationDraft(applicationId, payload);
+				const { errors: updateErrors } = await updateApplication(applicationId, payload);
 
 				return { errors: serviceErrors || updateErrors, addressList };
 			}
@@ -234,7 +231,7 @@ export async function applicantAddressDataUpdate({ errors: validationErrors, bod
 					]
 				};
 
-				const { errors } = await updateApplicationDraft(applicationId, payload);
+				const { errors } = await updateApplication(applicationId, payload);
 
 				return { errors };
 			}
@@ -289,12 +286,9 @@ export async function applicantWebsiteDataUpdate({ body, errors: validationError
 	const website = body['applicant.website'];
 	const applicantInfo = { id, website };
 
-	const { errors: apiErrors, id: updatedApplicationId } = await updateApplicationDraft(
-		applicationId,
-		{
-			applicants: [applicantInfo]
-		}
-	);
+	const { errors: apiErrors, id: updatedApplicationId } = await updateApplication(applicationId, {
+		applicants: [applicantInfo]
+	});
 
 	const properties = {
 		errors: validationErrors || apiErrors,
@@ -340,12 +334,9 @@ export async function applicantTelephoneNumberDataUpdate(
 	const phoneNumber = body['applicant.phoneNumber'];
 	const applicantInfo = { id, phoneNumber };
 
-	const { errors: apiErrors, id: updatedApplicationId } = await updateApplicationDraft(
-		applicationId,
-		{
-			applicants: [applicantInfo]
-		}
-	);
+	const { errors: apiErrors, id: updatedApplicationId } = await updateApplication(applicationId, {
+		applicants: [applicantInfo]
+	});
 	const properties = { errors: validationErrors || apiErrors, values };
 
 	return { properties, updatedApplicationId };
