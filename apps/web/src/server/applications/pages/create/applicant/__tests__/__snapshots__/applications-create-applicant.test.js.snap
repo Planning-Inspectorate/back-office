@@ -249,7 +249,7 @@ exports[`applications create applicant Applicant website POST /application-websi
 
 exports[`applications create applicant GET /applicant-full-name should render the page when resumed or if there is data in the session 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
-    <h2 class=\\"govuk-heading-l\\"> What is the applicant’s full name?</h2>
+    <h2 class=\\"govuk-heading-l\\"> Enter the applicant’s contact name?</h2>
     <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
         <div class=\\"govuk-form-group\\">
             <label class=\\"govuk-label font-weight--700\\" for=\\"applicant.firstName\\">First name</label>
