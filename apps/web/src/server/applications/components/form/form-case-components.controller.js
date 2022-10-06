@@ -1,15 +1,11 @@
 import { bodyToPayload } from '../../../lib/body-formatter.js';
-import {
-	createApplicationDraft,
-	getApplicationDraft,
-	updateApplicationDraft
-} from '../../pages/create-new-case/applications-create.service.js';
+import { createApplication, getApplication, updateApplication } from '../../lib/application.js';
 import {
 	getAllRegions,
 	getAllSectors,
 	getAllZoomLevels,
 	getSubSectorsBySectorName
-} from '../../pages/create-new-case/case/applications-create-case.service.js';
+} from '../../lib/utilities.js';
 import { getSessionCaseSectorName } from '../../pages/create-new-case/case/applications-create-case-session.service.js';
 
 /** @typedef {import('../../pages/create-new-case/case/applications-create-case.types').ApplicationsCreateCaseNameProps} ApplicationsCreateCaseNameProps */
@@ -30,7 +26,7 @@ import { getSessionCaseSectorName } from '../../pages/create-new-case/case/appli
 export async function caseNameAndDescriptionData(request, locals) {
 	const { applicationId } = locals || {};
 	const { title, description } = applicationId
-		? await getApplicationDraft(applicationId, ['title', 'description'])
+		? await getApplication(applicationId, ['title', 'description'])
 		: { title: '', description: '' };
 
 	return { values: { title, description } };
@@ -43,16 +39,13 @@ export async function caseNameAndDescriptionData(request, locals) {
  * @param {Record<string, any>} locals
  * @returns {Promise<{properties: ApplicationsCreateCaseNameProps, updatedApplicationId?: number| null}>}
  */
-export async function caseNameAndDescriptionDataUpdate(
-	{ errors: validationErrors, session, body },
-	locals
-) {
+export async function caseNameAndDescriptionDataUpdate({ errors: validationErrors, body }, locals) {
 	const { applicationId } = locals;
 	const { description, title } = body;
 	const payload = bodyToPayload(body);
 	const action = applicationId
-		? () => updateApplicationDraft(applicationId, payload)
-		: () => createApplicationDraft(payload, session);
+		? () => updateApplication(applicationId, payload)
+		: () => createApplication(payload);
 
 	const { errors: apiErrors, id: updatedApplicationId } = validationErrors
 		? { id: null, errors: validationErrors }
@@ -75,7 +68,7 @@ export async function caseSectorData({ session }, locals) {
 	const { applicationId } = locals;
 	const allSectors = await getAllSectors();
 
-	const { sector } = await getApplicationDraft(applicationId, ['sector']);
+	const { sector } = await getApplication(applicationId, ['sector']);
 	const selectedSectorName = getSessionCaseSectorName(session) || sector?.name;
 
 	const values = { sectorName: selectedSectorName || '' };
@@ -115,7 +108,7 @@ export async function caseSectorDataUpdate({ errors, body }) {
  */
 export async function caseGeographicalInformationData(request, locals) {
 	const { applicationId } = locals;
-	const { geographicalInformation } = await getApplicationDraft(applicationId, [
+	const { geographicalInformation } = await getApplication(applicationId, [
 		'geographicalInformation'
 	]);
 	const { locationDescription, gridReference } = geographicalInformation || {};
@@ -152,7 +145,7 @@ export async function caseGeographicalInformationDataUpdate(
 			body['geographicalInformation.gridReference.northing']
 	};
 
-	const { errors: apiErrors, id: updatedApplicationId } = await updateApplicationDraft(
+	const { errors: apiErrors, id: updatedApplicationId } = await updateApplication(
 		applicationId,
 		payload
 	);
@@ -171,7 +164,7 @@ export async function caseGeographicalInformationDataUpdate(
  */
 export async function caseSubSectorData({ session }, locals) {
 	const { applicationId } = locals;
-	const { sector, subSector } = await getApplicationDraft(applicationId, ['subSector', 'sector']);
+	const { sector, subSector } = await getApplication(applicationId, ['subSector', 'sector']);
 	const selectedSectorName = getSessionCaseSectorName(session) || sector?.name;
 
 	if (!selectedSectorName) {
@@ -201,7 +194,7 @@ export async function caseSubSectorDataUpdate({ session, errors: validationError
 	const { subSectorName } = body;
 	const payload = bodyToPayload(body);
 
-	const { errors: apiErrors, id: updatedApplicationId } = await updateApplicationDraft(
+	const { errors: apiErrors, id: updatedApplicationId } = await updateApplication(
 		applicationId,
 		payload
 	);
@@ -214,7 +207,7 @@ export async function caseSubSectorDataUpdate({ session, errors: validationError
 	};
 
 	if (validationErrors || apiErrors || !updatedApplicationId) {
-		const { sector } = await getApplicationDraft(applicationId, ['sector']);
+		const { sector } = await getApplication(applicationId, ['sector']);
 		const selectedSectorName = getSessionCaseSectorName(session) || sector?.name;
 		const subSectors = await getSubSectorsBySectorName(selectedSectorName);
 
@@ -235,7 +228,7 @@ export async function caseSubSectorDataUpdate({ session, errors: validationError
 export async function caseRegionsData(request, locals) {
 	const { applicationId } = locals;
 	const allRegions = await getAllRegions();
-	const { geographicalInformation } = await getApplicationDraft(applicationId, [
+	const { geographicalInformation } = await getApplication(applicationId, [
 		'geographicalInformation'
 	]);
 	const selectedRegionNames = new Set(
@@ -264,7 +257,7 @@ export async function caseRegionsDataUpdate({ errors: validationErrors, body }, 
 	const selectedRegionNames = new Set(body['geographicalInformation.regionNames'] || []);
 	const payload = bodyToPayload(body);
 
-	const { errors: apiErrors, id: updatedApplicationId } = await updateApplicationDraft(
+	const { errors: apiErrors, id: updatedApplicationId } = await updateApplication(
 		applicationId,
 		payload
 	);
@@ -296,7 +289,7 @@ export async function caseRegionsDataUpdate({ errors: validationErrors, body }, 
  */
 export async function caseZoomLevelData(request, locals) {
 	const { applicationId } = locals;
-	const { geographicalInformation } = await getApplicationDraft(applicationId, [
+	const { geographicalInformation } = await getApplication(applicationId, [
 		'geographicalInformation'
 	]);
 	const allZoomLevels = await getAllZoomLevels();
@@ -328,7 +321,7 @@ export async function caseZoomLevelDataUpdate({ body }, locals) {
 	const values = {
 		'geographicalInformation.mapZoomLevelName': body['geographicalInformation.mapZoomLevelName']
 	};
-	const { errors, id: updatedApplicationId } = await updateApplicationDraft(applicationId, payload);
+	const { errors, id: updatedApplicationId } = await updateApplication(applicationId, payload);
 
 	/** @type {ApplicationsCreateCaseZoomLevelProps} */
 	let properties = { errors, values, zoomLevels: [] };
@@ -350,7 +343,7 @@ export async function caseZoomLevelDataUpdate({ body }, locals) {
  */
 export async function caseTeamEmailData(request, locals) {
 	const { applicationId } = locals;
-	const { caseEmail } = await getApplicationDraft(applicationId, ['caseEmail']);
+	const { caseEmail } = await getApplication(applicationId, ['caseEmail']);
 
 	return { values: { caseEmail } };
 }
