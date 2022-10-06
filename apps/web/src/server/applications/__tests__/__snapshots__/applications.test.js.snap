@@ -79,15 +79,13 @@ exports[`applications GET /case-admin-officer should render the open application
                                 <thead class=\\"govuk-table__head\\">
                                     <tr class=\\"govuk-table__row\\">
                                         <th scope=\\"col\\" class=\\"govuk-table__header\\">Name</th>
-                                        <th scope=\\"col\\" class=\\"govuk-table__header pins-table__cell--s\\">Modified</th>
-                                        <th scope=\\"col\\" class=\\"govuk-table__header text-align--right\\">Stage</th>
+                                        <th scope=\\"col\\" class=\\"govuk-table__header govuk-!-width-one-quarter text-align--right\\">Stage</th>
                                     </tr>
                                 </thead>
                                 <tbody class=\\"govuk-table__body\\">
                                     <tr class=\\"govuk-table__row\\">
                                         <td class=\\"govuk-table__cell\\"><a class=\\"govuk-body\\" href=\\"/applications-service/case/1/\\"> APPLICATION/01 - Title APPLICATION/01</a>
                                         </td>
-                                        <td class=\\"govuk-table__cell\\">01/01/2022</td>
                                         <td class=\\"govuk-table__cell govuk-!-width-one-quarter text-align--right\\"><strong class=\\"govuk-tag govuk-tag--\\">Status 1000</strong>
                                         </td>
                                     </tr>
@@ -103,15 +101,13 @@ exports[`applications GET /case-admin-officer should render the open application
                                 <thead class=\\"govuk-table__head\\">
                                     <tr class=\\"govuk-table__row\\">
                                         <th scope=\\"col\\" class=\\"govuk-table__header\\">Name</th>
-                                        <th scope=\\"col\\" class=\\"govuk-table__header pins-table__cell--s\\">Modified</th>
-                                        <th scope=\\"col\\" class=\\"govuk-table__header text-align--right\\">Stage</th>
+                                        <th scope=\\"col\\" class=\\"govuk-table__header govuk-!-width-one-quarter text-align--right\\">Stage</th>
                                     </tr>
                                 </thead>
                                 <tbody class=\\"govuk-table__body\\">
                                     <tr class=\\"govuk-table__row\\">
                                         <td class=\\"govuk-table__cell\\"><a class=\\"govuk-body\\" href=\\"/applications-service/case/2/\\"> APPLICATION/02 - Title APPLICATION/02</a>
                                         </td>
-                                        <td class=\\"govuk-table__cell\\">31/01/2022</td>
                                         <td class=\\"govuk-table__cell govuk-!-width-one-quarter text-align--right\\"><strong class=\\"govuk-tag govuk-tag--\\">Status 2000</strong>
                                         </td>
                                     </tr>
@@ -127,15 +123,13 @@ exports[`applications GET /case-admin-officer should render the open application
                                 <thead class=\\"govuk-table__head\\">
                                     <tr class=\\"govuk-table__row\\">
                                         <th scope=\\"col\\" class=\\"govuk-table__header\\">Name</th>
-                                        <th scope=\\"col\\" class=\\"govuk-table__header pins-table__cell--s\\">Modified</th>
-                                        <th scope=\\"col\\" class=\\"govuk-table__header text-align--right\\">Stage</th>
+                                        <th scope=\\"col\\" class=\\"govuk-table__header govuk-!-width-one-quarter text-align--right\\">Stage</th>
                                     </tr>
                                 </thead>
                                 <tbody class=\\"govuk-table__body\\">
                                     <tr class=\\"govuk-table__row\\">
                                         <td class=\\"govuk-table__cell\\"><a class=\\"govuk-body\\" href=\\"/applications-service/case/5/\\"> APPLICATION/05 - Application with no subsector</a>
                                         </td>
-                                        <td class=\\"govuk-table__cell\\"></td>
                                         <td class=\\"govuk-table__cell govuk-!-width-one-quarter text-align--right\\"><strong class=\\"govuk-tag govuk-tag--\\">draft</strong>
                                         </td>
                                     </tr>
@@ -158,15 +152,13 @@ exports[`applications GET /case-admin-officer should render the open application
                                 <thead class=\\"govuk-table__head\\">
                                     <tr class=\\"govuk-table__row\\">
                                         <th scope=\\"col\\" class=\\"govuk-table__header\\">Name</th>
-                                        <th scope=\\"col\\" class=\\"govuk-table__header pins-table__cell--s\\">Modified</th>
-                                        <th scope=\\"col\\" class=\\"govuk-table__header text-align--right\\">Stage</th>
+                                        <th scope=\\"col\\" class=\\"govuk-table__header govuk-!-width-one-quarter text-align--right\\">Stage</th>
                                     </tr>
                                 </thead>
                                 <tbody class=\\"govuk-table__body\\">
                                     <tr class=\\"govuk-table__row\\">
                                         <td class=\\"govuk-table__cell\\"><a class=\\"govuk-body\\" href=\\"/applications-service/case/3/\\"> APPLICATION/03 - Title APPLICATION/03</a>
                                         </td>
-                                        <td class=\\"govuk-table__cell\\">01/01/2022</td>
                                         <td class=\\"govuk-table__cell govuk-!-width-one-quarter text-align--right\\"><strong class=\\"govuk-tag govuk-tag--\\">Status 3000</strong>
                                         </td>
                                     </tr>
@@ -189,15 +181,13 @@ exports[`applications GET /case-admin-officer should render the open application
                                 <thead class=\\"govuk-table__head\\">
                                     <tr class=\\"govuk-table__row\\">
                                         <th scope=\\"col\\" class=\\"govuk-table__header\\">Name</th>
-                                        <th scope=\\"col\\" class=\\"govuk-table__header pins-table__cell--s\\">Modified</th>
-                                        <th scope=\\"col\\" class=\\"govuk-table__header text-align--right\\">Stage</th>
+                                        <th scope=\\"col\\" class=\\"govuk-table__header govuk-!-width-one-quarter text-align--right\\">Stage</th>
                                     </tr>
                                 </thead>
                                 <tbody class=\\"govuk-table__body\\">
                                     <tr class=\\"govuk-table__row\\">
                                         <td class=\\"govuk-table__cell\\"><a class=\\"govuk-body\\" href=\\"/applications-service/case/4/\\"> APPLICATION/04 - Application with no sector</a>
                                         </td>
-                                        <td class=\\"govuk-table__cell\\"></td>
                                         <td class=\\"govuk-table__cell govuk-!-width-one-quarter text-align--right\\"><strong class=\\"govuk-tag govuk-tag--\\">draft</strong>
                                         </td>
                                     </tr>
@@ -291,15 +281,13 @@ exports[`applications GET /case-officer should render the open applications belo
                                 <thead class=\\"govuk-table__head\\">
                                     <tr class=\\"govuk-table__row\\">
                                         <th scope=\\"col\\" class=\\"govuk-table__header\\">Name</th>
-                                        <th scope=\\"col\\" class=\\"govuk-table__header pins-table__cell--s\\">Modified</th>
-                                        <th scope=\\"col\\" class=\\"govuk-table__header text-align--right\\">Stage</th>
+                                        <th scope=\\"col\\" class=\\"govuk-table__header govuk-!-width-one-quarter text-align--right\\">Stage</th>
                                     </tr>
                                 </thead>
                                 <tbody class=\\"govuk-table__body\\">
                                     <tr class=\\"govuk-table__row\\">
                                         <td class=\\"govuk-table__cell\\"><a class=\\"govuk-body\\" href=\\"/applications-service/case/1/\\"> APPLICATION/01 - Title APPLICATION/01</a>
                                         </td>
-                                        <td class=\\"govuk-table__cell\\">01/01/2022</td>
                                         <td class=\\"govuk-table__cell govuk-!-width-one-quarter text-align--right\\"><strong class=\\"govuk-tag govuk-tag--\\">Status 1000</strong>
                                         </td>
                                     </tr>
@@ -315,15 +303,13 @@ exports[`applications GET /case-officer should render the open applications belo
                                 <thead class=\\"govuk-table__head\\">
                                     <tr class=\\"govuk-table__row\\">
                                         <th scope=\\"col\\" class=\\"govuk-table__header\\">Name</th>
-                                        <th scope=\\"col\\" class=\\"govuk-table__header pins-table__cell--s\\">Modified</th>
-                                        <th scope=\\"col\\" class=\\"govuk-table__header text-align--right\\">Stage</th>
+                                        <th scope=\\"col\\" class=\\"govuk-table__header govuk-!-width-one-quarter text-align--right\\">Stage</th>
                                     </tr>
                                 </thead>
                                 <tbody class=\\"govuk-table__body\\">
                                     <tr class=\\"govuk-table__row\\">
                                         <td class=\\"govuk-table__cell\\"><a class=\\"govuk-body\\" href=\\"/applications-service/case/2/\\"> APPLICATION/02 - Title APPLICATION/02</a>
                                         </td>
-                                        <td class=\\"govuk-table__cell\\">31/01/2022</td>
                                         <td class=\\"govuk-table__cell govuk-!-width-one-quarter text-align--right\\"><strong class=\\"govuk-tag govuk-tag--\\">Status 2000</strong>
                                         </td>
                                     </tr>
@@ -339,15 +325,13 @@ exports[`applications GET /case-officer should render the open applications belo
                                 <thead class=\\"govuk-table__head\\">
                                     <tr class=\\"govuk-table__row\\">
                                         <th scope=\\"col\\" class=\\"govuk-table__header\\">Name</th>
-                                        <th scope=\\"col\\" class=\\"govuk-table__header pins-table__cell--s\\">Modified</th>
-                                        <th scope=\\"col\\" class=\\"govuk-table__header text-align--right\\">Stage</th>
+                                        <th scope=\\"col\\" class=\\"govuk-table__header govuk-!-width-one-quarter text-align--right\\">Stage</th>
                                     </tr>
                                 </thead>
                                 <tbody class=\\"govuk-table__body\\">
                                     <tr class=\\"govuk-table__row\\">
                                         <td class=\\"govuk-table__cell\\"><a class=\\"govuk-body\\" href=\\"/applications-service/case/5/\\"> APPLICATION/05 - Application with no subsector</a>
                                         </td>
-                                        <td class=\\"govuk-table__cell\\"></td>
                                         <td class=\\"govuk-table__cell govuk-!-width-one-quarter text-align--right\\"><strong class=\\"govuk-tag govuk-tag--\\">draft</strong>
                                         </td>
                                     </tr>
@@ -370,15 +354,13 @@ exports[`applications GET /case-officer should render the open applications belo
                                 <thead class=\\"govuk-table__head\\">
                                     <tr class=\\"govuk-table__row\\">
                                         <th scope=\\"col\\" class=\\"govuk-table__header\\">Name</th>
-                                        <th scope=\\"col\\" class=\\"govuk-table__header pins-table__cell--s\\">Modified</th>
-                                        <th scope=\\"col\\" class=\\"govuk-table__header text-align--right\\">Stage</th>
+                                        <th scope=\\"col\\" class=\\"govuk-table__header govuk-!-width-one-quarter text-align--right\\">Stage</th>
                                     </tr>
                                 </thead>
                                 <tbody class=\\"govuk-table__body\\">
                                     <tr class=\\"govuk-table__row\\">
                                         <td class=\\"govuk-table__cell\\"><a class=\\"govuk-body\\" href=\\"/applications-service/case/3/\\"> APPLICATION/03 - Title APPLICATION/03</a>
                                         </td>
-                                        <td class=\\"govuk-table__cell\\">01/01/2022</td>
                                         <td class=\\"govuk-table__cell govuk-!-width-one-quarter text-align--right\\"><strong class=\\"govuk-tag govuk-tag--\\">Status 3000</strong>
                                         </td>
                                     </tr>
@@ -401,15 +383,13 @@ exports[`applications GET /case-officer should render the open applications belo
                                 <thead class=\\"govuk-table__head\\">
                                     <tr class=\\"govuk-table__row\\">
                                         <th scope=\\"col\\" class=\\"govuk-table__header\\">Name</th>
-                                        <th scope=\\"col\\" class=\\"govuk-table__header pins-table__cell--s\\">Modified</th>
-                                        <th scope=\\"col\\" class=\\"govuk-table__header text-align--right\\">Stage</th>
+                                        <th scope=\\"col\\" class=\\"govuk-table__header govuk-!-width-one-quarter text-align--right\\">Stage</th>
                                     </tr>
                                 </thead>
                                 <tbody class=\\"govuk-table__body\\">
                                     <tr class=\\"govuk-table__row\\">
                                         <td class=\\"govuk-table__cell\\"><a class=\\"govuk-body\\" href=\\"/applications-service/case/4/\\"> APPLICATION/04 - Application with no sector</a>
                                         </td>
-                                        <td class=\\"govuk-table__cell\\"></td>
                                         <td class=\\"govuk-table__cell govuk-!-width-one-quarter text-align--right\\"><strong class=\\"govuk-tag govuk-tag--\\">draft</strong>
                                         </td>
                                     </tr>
@@ -491,15 +471,13 @@ exports[`applications GET /inspector should render the open applications belongi
                                 <thead class=\\"govuk-table__head\\">
                                     <tr class=\\"govuk-table__row\\">
                                         <th scope=\\"col\\" class=\\"govuk-table__header\\">Name</th>
-                                        <th scope=\\"col\\" class=\\"govuk-table__header pins-table__cell--s\\">Modified</th>
-                                        <th scope=\\"col\\" class=\\"govuk-table__header text-align--right\\">Stage</th>
+                                        <th scope=\\"col\\" class=\\"govuk-table__header govuk-!-width-one-quarter text-align--right\\">Stage</th>
                                     </tr>
                                 </thead>
                                 <tbody class=\\"govuk-table__body\\">
                                     <tr class=\\"govuk-table__row\\">
                                         <td class=\\"govuk-table__cell\\"><a class=\\"govuk-body\\" href=\\"/applications-service/case/1/\\"> APPLICATION/01 - Title APPLICATION/01</a>
                                         </td>
-                                        <td class=\\"govuk-table__cell\\">01/01/2022</td>
                                         <td class=\\"govuk-table__cell govuk-!-width-one-quarter text-align--right\\"><strong class=\\"govuk-tag govuk-tag--\\">Status 1000</strong>
                                         </td>
                                     </tr>
@@ -515,15 +493,13 @@ exports[`applications GET /inspector should render the open applications belongi
                                 <thead class=\\"govuk-table__head\\">
                                     <tr class=\\"govuk-table__row\\">
                                         <th scope=\\"col\\" class=\\"govuk-table__header\\">Name</th>
-                                        <th scope=\\"col\\" class=\\"govuk-table__header pins-table__cell--s\\">Modified</th>
-                                        <th scope=\\"col\\" class=\\"govuk-table__header text-align--right\\">Stage</th>
+                                        <th scope=\\"col\\" class=\\"govuk-table__header govuk-!-width-one-quarter text-align--right\\">Stage</th>
                                     </tr>
                                 </thead>
                                 <tbody class=\\"govuk-table__body\\">
                                     <tr class=\\"govuk-table__row\\">
                                         <td class=\\"govuk-table__cell\\"><a class=\\"govuk-body\\" href=\\"/applications-service/case/2/\\"> APPLICATION/02 - Title APPLICATION/02</a>
                                         </td>
-                                        <td class=\\"govuk-table__cell\\">31/01/2022</td>
                                         <td class=\\"govuk-table__cell govuk-!-width-one-quarter text-align--right\\"><strong class=\\"govuk-tag govuk-tag--\\">Status 2000</strong>
                                         </td>
                                     </tr>
@@ -539,15 +515,13 @@ exports[`applications GET /inspector should render the open applications belongi
                                 <thead class=\\"govuk-table__head\\">
                                     <tr class=\\"govuk-table__row\\">
                                         <th scope=\\"col\\" class=\\"govuk-table__header\\">Name</th>
-                                        <th scope=\\"col\\" class=\\"govuk-table__header pins-table__cell--s\\">Modified</th>
-                                        <th scope=\\"col\\" class=\\"govuk-table__header text-align--right\\">Stage</th>
+                                        <th scope=\\"col\\" class=\\"govuk-table__header govuk-!-width-one-quarter text-align--right\\">Stage</th>
                                     </tr>
                                 </thead>
                                 <tbody class=\\"govuk-table__body\\">
                                     <tr class=\\"govuk-table__row\\">
                                         <td class=\\"govuk-table__cell\\"><a class=\\"govuk-body\\" href=\\"/applications-service/case/5/\\"> APPLICATION/05 - Application with no subsector</a>
                                         </td>
-                                        <td class=\\"govuk-table__cell\\"></td>
                                         <td class=\\"govuk-table__cell govuk-!-width-one-quarter text-align--right\\"><strong class=\\"govuk-tag govuk-tag--\\">draft</strong>
                                         </td>
                                     </tr>
@@ -570,15 +544,13 @@ exports[`applications GET /inspector should render the open applications belongi
                                 <thead class=\\"govuk-table__head\\">
                                     <tr class=\\"govuk-table__row\\">
                                         <th scope=\\"col\\" class=\\"govuk-table__header\\">Name</th>
-                                        <th scope=\\"col\\" class=\\"govuk-table__header pins-table__cell--s\\">Modified</th>
-                                        <th scope=\\"col\\" class=\\"govuk-table__header text-align--right\\">Stage</th>
+                                        <th scope=\\"col\\" class=\\"govuk-table__header govuk-!-width-one-quarter text-align--right\\">Stage</th>
                                     </tr>
                                 </thead>
                                 <tbody class=\\"govuk-table__body\\">
                                     <tr class=\\"govuk-table__row\\">
                                         <td class=\\"govuk-table__cell\\"><a class=\\"govuk-body\\" href=\\"/applications-service/case/3/\\"> APPLICATION/03 - Title APPLICATION/03</a>
                                         </td>
-                                        <td class=\\"govuk-table__cell\\">01/01/2022</td>
                                         <td class=\\"govuk-table__cell govuk-!-width-one-quarter text-align--right\\"><strong class=\\"govuk-tag govuk-tag--\\">Status 3000</strong>
                                         </td>
                                     </tr>
@@ -601,15 +573,13 @@ exports[`applications GET /inspector should render the open applications belongi
                                 <thead class=\\"govuk-table__head\\">
                                     <tr class=\\"govuk-table__row\\">
                                         <th scope=\\"col\\" class=\\"govuk-table__header\\">Name</th>
-                                        <th scope=\\"col\\" class=\\"govuk-table__header pins-table__cell--s\\">Modified</th>
-                                        <th scope=\\"col\\" class=\\"govuk-table__header text-align--right\\">Stage</th>
+                                        <th scope=\\"col\\" class=\\"govuk-table__header govuk-!-width-one-quarter text-align--right\\">Stage</th>
                                     </tr>
                                 </thead>
                                 <tbody class=\\"govuk-table__body\\">
                                     <tr class=\\"govuk-table__row\\">
                                         <td class=\\"govuk-table__cell\\"><a class=\\"govuk-body\\" href=\\"/applications-service/case/4/\\"> APPLICATION/04 - Application with no sector</a>
                                         </td>
-                                        <td class=\\"govuk-table__cell\\"></td>
                                         <td class=\\"govuk-table__cell govuk-!-width-one-quarter text-align--right\\"><strong class=\\"govuk-tag govuk-tag--\\">draft</strong>
                                         </td>
                                     </tr>
