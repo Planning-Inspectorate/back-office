@@ -56,7 +56,7 @@ const applicantEmailLayout = {
 	pageTitle: 'What’s the applicant’s email address?',
 	components: ['applicant-email']
 };
-const addressLayout = { pageTitle: 'What’s the applicant’s address?', components: ['address'] };
+const addressLayout = { pageTitle: 'Enter the Applicant’s address', components: ['address'] };
 
 /**
  * View the form step for the applicant information types
