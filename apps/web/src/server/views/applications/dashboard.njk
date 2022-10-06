@@ -88,7 +88,6 @@
 			{% for application in groupedApplications %}
 				{% set rows = rows | concat ([[
 					{ html: applicationLink(application) },
-					{ text: application.modifiedDate | datestamp },
 					{ html: statusTag(application.status), classes: 'govuk-!-width-one-quarter text-align--right' }
 				]]) %}
 			{% endfor %}
@@ -98,8 +97,7 @@
 					classes: 'pins-table--fixed pins-table--bordered',
 					head: [
 						{ text: "Name" },
-						{ text: "Modified", classes: 'pins-table__cell--s' },
-						{ text: "Stage", classes: 'text-align--right' }
+						{ text: "Stage", classes: 'govuk-!-width-one-quarter text-align--right' }
 					],
 					rows: rows
 				})
