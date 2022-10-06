@@ -2,7 +2,7 @@
 
 exports[`applications create applicant Applicant address GET /applicant-address should render the page when resumed or if there is data in the session 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
-    <h2 class=\\"govuk-heading-l\\"> What’s the applicant’s address?</h2>
+    <h2 class=\\"govuk-heading-l\\"> Enter the Applicant’s address</h2>
     <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
         <input type=\\"hidden\\" name='currentFormStage' value=\\"searchPostcode\\">
         <div class=\\"govuk-form-group\\">
@@ -20,7 +20,7 @@ exports[`applications create applicant Applicant address GET /applicant-address 
 
 exports[`applications create applicant Applicant address GET /applicant-address should render the page with the manual inputs for address 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
-    <h2 class=\\"govuk-heading-l\\"> What’s the applicant’s address?</h2>
+    <h2 class=\\"govuk-heading-l\\"> Enter the Applicant’s address</h2>
     <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
         <input type=\\"hidden\\" name='currentFormStage' value=\\"manualAddress\\">
         <input type=\\"hidden\\" name=\\"postcode\\" value=\\"aa1xx2\\">
@@ -74,7 +74,7 @@ exports[`applications create applicant Applicant address POST /applicant-address
             </div>
         </div>
     </div>
-    <h2 class=\\"govuk-heading-l\\"> What’s the applicant’s address?</h2>
+    <h2 class=\\"govuk-heading-l\\"> Enter the Applicant’s address</h2>
     <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
         <input type=\\"hidden\\" name='currentFormStage' value=\\"searchPostcode\\">
         <div class=\\"govuk-form-group\\">
