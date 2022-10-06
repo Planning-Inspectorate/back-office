@@ -40,7 +40,7 @@ export async function viewApplicationsCreateCheckYourAnswers(req, response) {
 
 	const { values } = applicationsCreateCheckYourAnswersService.mapCaseData(caseData);
 
-	return response.render('applications/create/check-your-answers', { values });
+	return response.render('applications/create-new-case/check-your-answers', { values });
 }
 
 /**
