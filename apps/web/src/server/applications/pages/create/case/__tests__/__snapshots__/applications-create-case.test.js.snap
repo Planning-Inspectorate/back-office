@@ -1147,7 +1147,7 @@ exports[`applications create Sub-sector POST /create-new-case/:applicationId/sub
 
 exports[`applications create Team email GET /create-new-case/:applicationId/team-email should render the page with no value inside the text input if api does not return resumed data 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
-    <h2 class=\\"govuk-heading-l\\"> What is the case team email address?</h2>
+    <h2 class=\\"govuk-heading-l\\"> Enter the project email</h2>
     <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
         <div class=\\"govuk-form-group\\">
             <div id=\\"caseEmail-hint\\" class=\\"govuk-hint\\">for example, NIEnquiries@planninginspectorate.gsi.gov.uk</div>
@@ -1165,7 +1165,7 @@ exports[`applications create Team email GET /create-new-case/:applicationId/team
 
 exports[`applications create Team email GET /create-new-case/:applicationId/team-email should render the page with the resumed data if the api returns something 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
-    <h2 class=\\"govuk-heading-l\\"> What is the case team email address?</h2>
+    <h2 class=\\"govuk-heading-l\\"> Enter the project email</h2>
     <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
         <div class=\\"govuk-form-group\\">
             <div id=\\"caseEmail-hint\\" class=\\"govuk-hint\\">for example, NIEnquiries@planninginspectorate.gsi.gov.uk</div>
@@ -1197,7 +1197,7 @@ exports[`applications create Team email POST /create-new-case/:applicationId/tea
             </div>
         </div>
     </div>
-    <h2 class=\\"govuk-heading-l\\"> What is the case team email address?</h2>
+    <h2 class=\\"govuk-heading-l\\"> Enter the project email</h2>
     <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
         <div class=\\"govuk-form-group govuk-form-group--error\\">
             <div id=\\"caseEmail-hint\\" class=\\"govuk-hint\\">for example, NIEnquiries@planninginspectorate.gsi.gov.uk</div>
@@ -1228,7 +1228,7 @@ exports[`applications create Team email POST /create-new-case/:applicationId/tea
             </div>
         </div>
     </div>
-    <h2 class=\\"govuk-heading-l\\"> What is the case team email address?</h2>
+    <h2 class=\\"govuk-heading-l\\"> Enter the project email</h2>
     <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
         <div class=\\"govuk-form-group\\">
             <div id=\\"caseEmail-hint\\" class=\\"govuk-hint\\">for example, NIEnquiries@planninginspectorate.gsi.gov.uk</div>
@@ -1260,7 +1260,7 @@ exports[`applications create Team email POST /create-new-case/:applicationId/tea
             </div>
         </div>
     </div>
-    <h2 class=\\"govuk-heading-l\\"> What is the case team email address?</h2>
+    <h2 class=\\"govuk-heading-l\\"> Enter the project email</h2>
     <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
         <div class=\\"govuk-form-group govuk-form-group--error\\">
             <div id=\\"caseEmail-hint\\" class=\\"govuk-hint\\">for example, NIEnquiries@planninginspectorate.gsi.gov.uk</div>
