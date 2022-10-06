@@ -53,7 +53,7 @@ const telephoneNumberLayout = {
 };
 const websiteLayout = { pageTitle: 'Enter the Applicant’s website', components: ['website'] };
 const applicantEmailLayout = {
-	pageTitle: 'What’s the applicant’s email address?',
+	pageTitle: 'Enter the applicant’s email address',
 	components: ['applicant-email']
 };
 const addressLayout = { pageTitle: 'Enter the Applicant’s address', components: ['address'] };
