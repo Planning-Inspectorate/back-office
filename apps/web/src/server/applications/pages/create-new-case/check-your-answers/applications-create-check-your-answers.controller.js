@@ -22,7 +22,7 @@ export async function viewApplicationsCreateConfirmation(req, response) {
 
 	const values = { reference };
 
-	return response.render('applications/create/confirmation', { values });
+	return response.render('applications/create-new-case/confirmation', { values });
 }
 
 /**
@@ -69,7 +69,7 @@ export async function confirmCreateCase(req, response) {
 		const caseData = await getApplicationDraft(applicationId);
 		const { values } = applicationsCreateCheckYourAnswersService.mapCaseData(caseData);
 
-		return response.render('applications/create/check-your-answers', {
+		return response.render('applications/create-new-case/check-your-answers', {
 			errors: errorsUpdated,
 			values
 		});

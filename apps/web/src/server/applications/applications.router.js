@@ -32,7 +32,7 @@ router.use(locals.registerLocals);
 // 2. If the user has never been in the dashboard and does not have the value of it in the session
 // THEN the app redirects to the root page through the guard assertDomainTypExists
 
-router.use('/search-results-results', guards.assertDomainTypeExists, applicationsSearchRouter);
+router.use('/search-results', guards.assertDomainTypeExists, applicationsSearchRouter);
 
 router.use('/create-new-case', guards.assertDomainTypeExists, applicationsCreateRouter);
 
