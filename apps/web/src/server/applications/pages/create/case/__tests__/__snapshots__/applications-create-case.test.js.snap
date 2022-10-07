@@ -282,13 +282,13 @@ exports[`applications create Name and description GET /create-new-case When role
     <h2 class=\\"govuk-heading-l\\"> Enter name and description</h2>
     <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
         <div class=\\"govuk-form-group\\">
-            <label class=\\"govuk-label font-weight--700\\" for=\\"title\\">Name of the case</label>
+            <label class=\\"govuk-label font-weight--700\\" for=\\"title\\">Name of the project</label>
             <div id=\\"title-hint\\" class=\\"govuk-hint\\">for example, Bridge over a very long canyon</div>
             <input class=\\"govuk-input govuk-!-width-one-third\\"
             id=\\"title\\" name=\\"title\\" type=\\"text\\" aria-describedby=\\"title-hint\\">
         </div>
         <div class=\\"govuk-form-group\\">
-            <label class=\\"govuk-label font-weight--700\\" for=\\"description\\">Description of the case</label>
+            <label class=\\"govuk-label font-weight--700\\" for=\\"description\\">Description of the project</label>
             <div id=\\"description-hint\\" class=\\"govuk-hint\\">for example, An offshore wind generating station of capacity up to 285
                 MW</div>
             <textarea class=\\"govuk-textarea govuk-!-width-three-quarters\\" id=\\"description\\"
@@ -308,13 +308,13 @@ exports[`applications create Name and description GET /create-new-case When role
     <h2 class=\\"govuk-heading-l\\"> Enter name and description</h2>
     <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
         <div class=\\"govuk-form-group\\">
-            <label class=\\"govuk-label font-weight--700\\" for=\\"title\\">Name of the case</label>
+            <label class=\\"govuk-label font-weight--700\\" for=\\"title\\">Name of the project</label>
             <div id=\\"title-hint\\" class=\\"govuk-hint\\">for example, Bridge over a very long canyon</div>
             <input class=\\"govuk-input govuk-!-width-one-third\\"
             id=\\"title\\" name=\\"title\\" type=\\"text\\" aria-describedby=\\"title-hint\\">
         </div>
         <div class=\\"govuk-form-group\\">
-            <label class=\\"govuk-label font-weight--700\\" for=\\"description\\">Description of the case</label>
+            <label class=\\"govuk-label font-weight--700\\" for=\\"description\\">Description of the project</label>
             <div id=\\"description-hint\\" class=\\"govuk-hint\\">for example, An offshore wind generating station of capacity up to 285
                 MW</div>
             <textarea class=\\"govuk-textarea govuk-!-width-three-quarters\\" id=\\"description\\"
@@ -347,13 +347,13 @@ exports[`applications create Name and description GET /create-new-case/1 should 
     <h2 class=\\"govuk-heading-l\\"> Enter name and description</h2>
     <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
         <div class=\\"govuk-form-group\\">
-            <label class=\\"govuk-label font-weight--700\\" for=\\"title\\">Name of the case</label>
+            <label class=\\"govuk-label font-weight--700\\" for=\\"title\\">Name of the project</label>
             <div id=\\"title-hint\\" class=\\"govuk-hint\\">for example, Bridge over a very long canyon</div>
             <input class=\\"govuk-input govuk-!-width-one-third\\"
             id=\\"title\\" name=\\"title\\" type=\\"text\\" value=\\"Title APPLICATION/01\\" aria-describedby=\\"title-hint\\">
         </div>
         <div class=\\"govuk-form-group\\">
-            <label class=\\"govuk-label font-weight--700\\" for=\\"description\\">Description of the case</label>
+            <label class=\\"govuk-label font-weight--700\\" for=\\"description\\">Description of the project</label>
             <div id=\\"description-hint\\" class=\\"govuk-hint\\">for example, An offshore wind generating station of capacity up to 285
                 MW</div>
             <textarea class=\\"govuk-textarea govuk-!-width-three-quarters\\" id=\\"description\\"
@@ -391,7 +391,7 @@ exports[`applications create Name and description POST /create-new-case/:id Api-
     <h2 class=\\"govuk-heading-l\\"> Enter name and description</h2>
     <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
         <div class=\\"govuk-form-group govuk-form-group--error\\">
-            <label class=\\"govuk-label font-weight--700\\" for=\\"title\\">Name of the case</label>
+            <label class=\\"govuk-label font-weight--700\\" for=\\"title\\">Name of the project</label>
             <div id=\\"title-hint\\" class=\\"govuk-hint\\">for example, Bridge over a very long canyon</div>
             <p id=\\"title-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> Some error message from
                 API</p>
@@ -399,7 +399,7 @@ exports[`applications create Name and description POST /create-new-case/:id Api-
             id=\\"title\\" name=\\"title\\" type=\\"text\\" value=\\"A title\\" aria-describedby=\\"title-hint title-error\\">
         </div>
         <div class=\\"govuk-form-group govuk-form-group--error\\">
-            <label class=\\"govuk-label font-weight--700\\" for=\\"description\\">Description of the case</label>
+            <label class=\\"govuk-label font-weight--700\\" for=\\"description\\">Description of the project</label>
             <div id=\\"description-hint\\" class=\\"govuk-hint\\">for example, An offshore wind generating station of capacity up to 285
                 MW</div>
             <p id=\\"description-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> Same</p>
@@ -436,7 +436,7 @@ exports[`applications create Name and description POST /create-new-case/:id Api-
     <h2 class=\\"govuk-heading-l\\"> Enter name and description</h2>
     <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
         <div class=\\"govuk-form-group govuk-form-group--error\\">
-            <label class=\\"govuk-label font-weight--700\\" for=\\"title\\">Name of the case</label>
+            <label class=\\"govuk-label font-weight--700\\" for=\\"title\\">Name of the project</label>
             <div id=\\"title-hint\\" class=\\"govuk-hint\\">for example, Bridge over a very long canyon</div>
             <p id=\\"title-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> Some error message from
                 API</p>
@@ -444,7 +444,7 @@ exports[`applications create Name and description POST /create-new-case/:id Api-
             id=\\"title\\" name=\\"title\\" type=\\"text\\" value=\\"A title\\" aria-describedby=\\"title-hint title-error\\">
         </div>
         <div class=\\"govuk-form-group govuk-form-group--error\\">
-            <label class=\\"govuk-label font-weight--700\\" for=\\"description\\">Description of the case</label>
+            <label class=\\"govuk-label font-weight--700\\" for=\\"description\\">Description of the project</label>
             <div id=\\"description-hint\\" class=\\"govuk-hint\\">for example, An offshore wind generating station of capacity up to 285
                 MW</div>
             <p id=\\"description-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> Same</p>
@@ -481,7 +481,7 @@ exports[`applications create Name and description POST /create-new-case/:id Web-
     <h2 class=\\"govuk-heading-l\\"> Enter name and description</h2>
     <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
         <div class=\\"govuk-form-group govuk-form-group--error\\">
-            <label class=\\"govuk-label font-weight--700\\" for=\\"title\\">Name of the case</label>
+            <label class=\\"govuk-label font-weight--700\\" for=\\"title\\">Name of the project</label>
             <div id=\\"title-hint\\" class=\\"govuk-hint\\">for example, Bridge over a very long canyon</div>
             <p id=\\"title-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> Enter the name of the
                 project</p>
@@ -489,7 +489,7 @@ exports[`applications create Name and description POST /create-new-case/:id Web-
             id=\\"title\\" name=\\"title\\" type=\\"text\\" aria-describedby=\\"title-hint title-error\\">
         </div>
         <div class=\\"govuk-form-group govuk-form-group--error\\">
-            <label class=\\"govuk-label font-weight--700\\" for=\\"description\\">Description of the case</label>
+            <label class=\\"govuk-label font-weight--700\\" for=\\"description\\">Description of the project</label>
             <div id=\\"description-hint\\" class=\\"govuk-hint\\">for example, An offshore wind generating station of capacity up to 285
                 MW</div>
             <p id=\\"description-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> Enter the description
