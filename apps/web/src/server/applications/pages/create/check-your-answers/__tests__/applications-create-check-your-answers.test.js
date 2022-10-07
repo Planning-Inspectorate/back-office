@@ -79,7 +79,7 @@ describe('applications create applicant', () => {
 			expect(element.innerHTML).toContain('Enter the project location');
 			expect(element.innerHTML).toContain('Choose the subsector of the project');
 			expect(element.innerHTML).toContain('Choose the sector of the project');
-			expect(element.innerHTML).toContain('Choose one or multiple regions');
+			expect(element.innerHTML).toContain('Choose at least one region');
 			expect(element.innerHTML).toContain('Enter the Grid reference Easting');
 			expect(element.innerHTML).toContain('Enter the Grid reference Northing');
 		});

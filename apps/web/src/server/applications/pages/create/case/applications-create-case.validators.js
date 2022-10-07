@@ -34,7 +34,7 @@ export const validateApplicationsCreateCaseSubSector = createValidator(
 export const validateApplicationsCreateCaseRegions = createValidator(
 	body('geographicalInformation.regionNames')
 		.isArray({ min: 1 })
-		.withMessage('Choose one or multiple regions')
+		.withMessage('Choose at least one region')
 );
 
 export const validateApplicationsCreateCaseLocation = createValidator(
