@@ -5,7 +5,7 @@ exports[`applications edit Description GET edit/description should render page w
     <h2 class=\\"govuk-heading-l\\"> Enter project description</h2>
     <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
         <div class=\\"govuk-form-group\\">
-            <label class=\\"govuk-label font-weight--700\\" for=\\"description\\">Description of the case</label>
+            <label class=\\"govuk-label font-weight--700\\" for=\\"description\\">Description of the project</label>
             <div id=\\"description-hint\\" class=\\"govuk-hint\\">for example, An offshore wind generating station of capacity up to 285
                 MW</div>
             <textarea class=\\"govuk-textarea govuk-!-width-three-quarters\\" id=\\"description\\"
@@ -56,7 +56,7 @@ exports[`applications edit Name GET /edit/name When role is: Case officer should
     <h2 class=\\"govuk-heading-l\\"> Enter project name</h2>
     <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
         <div class=\\"govuk-form-group\\">
-            <label class=\\"govuk-label font-weight--700\\" for=\\"title\\">Name of the case</label>
+            <label class=\\"govuk-label font-weight--700\\" for=\\"title\\">Name of the project</label>
             <div id=\\"title-hint\\" class=\\"govuk-hint\\">for example, Bridge over a very long canyon</div>
             <input class=\\"govuk-input govuk-!-width-one-third\\"
             id=\\"title\\" name=\\"title\\" type=\\"text\\" value=\\"Title APPLICATION/01\\" aria-describedby=\\"title-hint\\">
@@ -88,7 +88,7 @@ exports[`applications edit Name GET edit/name should render page with resumed da
     <h2 class=\\"govuk-heading-l\\"> Enter project name</h2>
     <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
         <div class=\\"govuk-form-group\\">
-            <label class=\\"govuk-label font-weight--700\\" for=\\"title\\">Name of the case</label>
+            <label class=\\"govuk-label font-weight--700\\" for=\\"title\\">Name of the project</label>
             <div id=\\"title-hint\\" class=\\"govuk-hint\\">for example, Bridge over a very long canyon</div>
             <input class=\\"govuk-input govuk-!-width-one-third\\"
             id=\\"title\\" name=\\"title\\" type=\\"text\\" value=\\"Title APPLICATION/01\\" aria-describedby=\\"title-hint\\">
