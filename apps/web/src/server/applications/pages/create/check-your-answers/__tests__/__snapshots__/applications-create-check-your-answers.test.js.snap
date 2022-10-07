@@ -178,7 +178,7 @@ exports[`applications create applicant POST /check-your-answers should display e
                         </li>
                         <li><a href=\\"#sector\\">Choose the sector of the project</a>
                         </li>
-                        <li><a href=\\"#regions\\">Choose one or multiple regions</a>
+                        <li><a href=\\"#regions\\">Choose at least one region</a>
                         </li>
                         <li><a href=\\"#gridReferenceEasting\\">Enter the Grid reference Easting</a>
                         </li>

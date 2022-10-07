@@ -132,7 +132,7 @@ export const getErrorMessageCaseCreate = (fieldName, existingError = null) => {
 			errorMessage = 'Enter the project location';
 			break;
 		case 'regions':
-			errorMessage = 'Choose one or multiple regions';
+			errorMessage = 'Choose at least one region';
 			break;
 		case 'sector':
 			errorMessage = 'Choose the sector of the project';

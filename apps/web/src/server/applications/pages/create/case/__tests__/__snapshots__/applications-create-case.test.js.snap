@@ -739,7 +739,7 @@ exports[`applications create Regions POST /create-new-case/:applicationId/region
                 <h2 class=\\"govuk-error-summary__title\\" id=\\"error-summary-title\\"> There is a problem</h2>
                 <div class=\\"govuk-error-summary__body\\">
                     <ul class=\\"govuk-list govuk-error-summary__list\\">
-                        <li><a href=\\"#geographicalInformation.regionNames\\">Choose one or multiple regions</a>
+                        <li><a href=\\"#geographicalInformation.regionNames\\">Choose at least one region</a>
                         </li>
                     </ul>
                 </div>
@@ -749,9 +749,8 @@ exports[`applications create Regions POST /create-new-case/:applicationId/region
     <h2 class=\\"govuk-heading-l\\"> Choose one or multiple regions</h2>
     <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
         <div class=\\"govuk-form-group govuk-form-group--error\\">
-            <p id=\\"geographicalInformation.regionNames-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> Choose one or multiple
-                regions</p>
-            <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
+            <p id=\\"geographicalInformation.regionNames-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> Choose at least one region</p>
+            <div             class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
                 <div class=\\"govuk-checkboxes__item\\">
                     <input class=\\"govuk-checkboxes__input\\" id=\\"geographicalInformation.regionNames\\"
                     name=\\"geographicalInformation.regionNames[]\\" type=\\"checkbox\\" value=\\"london\\"
@@ -788,7 +787,7 @@ exports[`applications create Regions POST /create-new-case/:applicationId/region
                     aria-describedby=\\"geographicalInformation.regionNames-error\\">
                     <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"geographicalInformation.regionNames-6\\">West EN</label>
                 </div>
-            </div>
+        </div>
         </div>
         <div class=\\"govuk-grid-row\\">
             <div class=\\"govuk-button-group pins-button-group govuk-grid-column-one-half\\">
