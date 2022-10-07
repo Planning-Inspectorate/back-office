@@ -169,7 +169,7 @@ exports[`applications create applicant Applicant telephone number POST /applicat
                 <h2 class=\\"govuk-error-summary__title\\" id=\\"error-summary-title\\"> There is a problem</h2>
                 <div class=\\"govuk-error-summary__body\\">
                     <ul class=\\"govuk-list govuk-error-summary__list\\">
-                        <li><a href=\\"#applicant.phoneNumber\\">Enter a phone number e.g. 01632 960 001, 07700 900 982 or +44 808 157 0192</a>
+                        <li><a href=\\"#applicant.phoneNumber\\">Enter a valid phone number</a>
                         </li>
                     </ul>
                 </div>
@@ -180,11 +180,9 @@ exports[`applications create applicant Applicant telephone number POST /applicat
     <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
         <div class=\\"govuk-form-group govuk-form-group--error\\">
             <div id=\\"applicant.phoneNumber-hint\\" class=\\"govuk-hint\\">for example, 0300 123 3000</div>
-            <p id=\\"applicant.phoneNumber-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> Enter a phone number
-                e.g. 01632 960 001, 07700 900 982 or +44 808 157 0192</p>
-            <input class=\\"govuk-input govuk-!-width-one-third govuk-input--error\\"
-            id=\\"applicant.phoneNumber\\" name=\\"applicant.phoneNumber\\" type=\\"text\\" value=\\"bad_phone_number\\"
-            aria-describedby=\\"applicant.phoneNumber-hint applicant.phoneNumber-error\\">
+            <p id=\\"applicant.phoneNumber-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> Enter a valid phone number</p>
+            <input             class=\\"govuk-input govuk-!-width-one-third govuk-input--error\\" id=\\"applicant.phoneNumber\\"
+            name=\\"applicant.phoneNumber\\" type=\\"text\\" value=\\"bad_phone_number\\" aria-describedby=\\"applicant.phoneNumber-hint applicant.phoneNumber-error\\">
         </div>
         <div class=\\"govuk-grid-row\\">
             <div class=\\"govuk-button-group pins-button-group govuk-grid-column-one-half\\">

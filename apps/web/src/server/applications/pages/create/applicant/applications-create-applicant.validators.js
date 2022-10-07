@@ -37,7 +37,7 @@ export const validateApplicationsCreateApplicantTelephoneNumber = createValidato
 		.optional({ checkFalsy: true })
 		.trim()
 		.matches(/^\+?(?:\d\s?){10,12}$/)
-		.withMessage('Enter a phone number e.g. 01632 960 001, 07700 900 982 or +44 808 157 0192')
+		.withMessage('Enter a valid phone number')
 );
 
 export const validateApplicationsCreateApplicantPostCode = createValidator(
