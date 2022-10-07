@@ -3,12 +3,11 @@
 {% macro addressView(postcode, applicantAddress) %}
 	{% if applicantAddress.length < 1 %}
 		<div class="govuk-form-group">
-			<h1 class="govuk-label-wrapper">
-				<label class="govuk-label font-weight--700" for="postcode">
-					Postcode
-				</label>
-			</h1>
-			<input class="govuk-input govuk-!-width-one-third" id="postcode" name="postcode" type="text" value="{{ postcode }}">
+			<label class="govuk-label font-weight--700" for="postcode">
+				Postcode
+			</label>
+			<input class="govuk-input govuk-!-width-one-third" id="postcode" name="postcode" type="text"
+				   value="{{ postcode }}">
 		</div>
 		{{ govukButton({ text: "Find address" }) }}
 	{% else %}
