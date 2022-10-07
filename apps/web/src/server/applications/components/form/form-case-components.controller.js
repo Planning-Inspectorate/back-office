@@ -368,18 +368,16 @@ export async function caseTeamEmailDataUpdate({ body, errors: validationErrors }
 	/** @type {{properties?: ApplicationsCreateCaseTeamEmailProps, updatedApplicationId?: number}} */
 	const propertiesWithId = { updatedApplicationId: applicationId };
 
-	if (body.caseEmail) {
-		const values = { caseEmail: body.caseEmail };
-		const payload = bodyToPayload(body);
+	const values = { caseEmail: body.caseEmail };
+	const payload = bodyToPayload(body);
 
-		const { errors: apiErrors, id: updatedApplicationId } = await updateApplicationDraft(
-			applicationId,
-			payload
-		);
+	const { errors: apiErrors, id: updatedApplicationId } = await updateApplicationDraft(
+		applicationId,
+		payload
+	);
 
-		if (validationErrors || apiErrors || !updatedApplicationId) {
-			propertiesWithId.properties = { values, errors: validationErrors || apiErrors };
-		}
+	if (validationErrors || apiErrors || !updatedApplicationId) {
+		propertiesWithId.properties = { values, errors: validationErrors || apiErrors };
 	}
 	return propertiesWithId;
 }

@@ -148,9 +148,13 @@ export const validateCreateUpdateApplication = composeMiddleware(
 		.withMessage('Must be existing sub-sector')
 		.optional({ nullable: true }),
 	body('caseEmail')
-		.isEmail()
+		.isEmail({
+			allow_display_name: false,
+			require_tld: true,
+			allow_ip_domain: false
+		})
 		.withMessage('Case email must be a valid email address')
-		.optional({ nullable: true }),
+		.optional({ nullable: true, checkFalsy: true }),
 	validationErrorHandler
 );
 
