@@ -44,7 +44,7 @@ const organisationNameLayout = {
 	components: ['organisation-name']
 };
 const fullNameLayout = {
-	pageTitle: 'Enter the applicant’s contact name?',
+	pageTitle: 'Enter the applicant’s contact name',
 	components: ['full-name']
 };
 const telephoneNumberLayout = {
