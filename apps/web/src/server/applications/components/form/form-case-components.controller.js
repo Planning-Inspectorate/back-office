@@ -1,12 +1,16 @@
 import { bodyToPayload } from '../../../lib/body-formatter.js';
-import { createApplication, getApplication, updateApplication } from '../../lib/application.js';
+import {
+	createApplication,
+	getApplication,
+	getSessionCaseSectorName,
+	updateApplication
+} from '../../lib/application.js';
 import {
 	getAllRegions,
 	getAllSectors,
 	getAllZoomLevels,
 	getSubSectorsBySectorName
 } from '../../lib/utilities.js';
-import { getSessionCaseSectorName } from '../../pages/create-new-case/case/applications-create-case-session.service.js';
 
 /** @typedef {import('../../pages/create-new-case/case/applications-create-case.types').ApplicationsCreateCaseNameProps} ApplicationsCreateCaseNameProps */
 /** @typedef {import('../../pages/create-new-case/case/applications-create-case.types').ApplicationsCreateCaseSectorProps} ApplicationsCreateCaseSectorProps */
