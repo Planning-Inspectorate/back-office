@@ -19,6 +19,7 @@ const { value: validatedConfig, error } = schema.validate({
 	},
 	serverPort: environment.HTTPS_ENABLED === 'true' ? environment.HTTPS_PORT : environment.HTTP_PORT,
 	serverProtocol: environment.HTTPS_ENABLED === 'true' ? 'https' : 'http',
+	sessionSecret: environment.SESSION_SECRET,
 	sslCertificateFile: environment.SSL_CERT_FILE,
 	sslCertificateKeyFile: environment.SSL_KEY_FILE,
 	referenceData: {

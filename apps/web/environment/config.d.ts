@@ -23,6 +23,7 @@ export interface EnvironmentConfig {
 	};
 	serverProtocol: 'http' | 'https';
 	serverPort: number;
+	sessionSecret: string;
 	sslCertificateFile: string;
 	sslCertificateKeyFile: string;
 	tmpDir: string;
