@@ -16,6 +16,7 @@ export default joi.object({
 	}),
 	serverProtocol: joi.string().valid('http', 'https'),
 	serverPort: joi.number(),
+	sessionSecret: joi.string(),
 	sslCertificateFile: joi.string(),
 	sslCertificateKeyFile: joi.string(),
 	referenceData: joi.object({
