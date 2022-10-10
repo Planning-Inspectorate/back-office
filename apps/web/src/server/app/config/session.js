@@ -4,7 +4,6 @@ import session from 'express-session';
 export const store = new session.MemoryStore();
 
 export default session({
-	// @ts-ignore – sessionSecret can no be undefined
 	secret: config.sessionSecret,
 	resave: false,
 	saveUninitialized: false,
