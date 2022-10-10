@@ -52,7 +52,8 @@
 	}) }}
 
 	{% if not userIsInspector %}
-		<a class="govuk-link" href="#">Update project information</a>
+		<a class="govuk-link" href="{{ 'view-application'|url({applicationId: application.id, step: 'project-information' }) }}">
+		Update project information</a></li>
 	{% endif %}
 
 	<hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible">
