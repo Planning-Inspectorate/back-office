@@ -17,3 +17,11 @@ Use the same command to progress your database to match the latest version:
 ```shell
 npm run db:migrate
 ```
+
+## If this is your first time setting up the project
+
+After running migrations to set up the database, you'll also need to seed it with data:
+
+```shell
+npm run db:seed
+```

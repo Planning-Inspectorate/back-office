@@ -90,7 +90,14 @@ sudo docker run -e "ACCEPT_EULA=Y" -e "SA_PASSWORD=<YourStrong@Passw0rd>" \
 
 # For M1 Macs until [this issue](https://github.com/microsoft/mssql-docker/issues/668) gets resolved should use this version
 # or as an alternative you can use [colima](https://github.com/abiosoft/colima) instead of Docker.
-docker run --cap-add SYS_PTRACE -e 'ACCEPT_EULA=1' -e 'MSSQL_SA_PASSWORD=<YourStrong@Passw0rd>' -p 1433:1433 --name pins_sql_server -d mcr.microsoft.com/azure-sql-edge
+
+# Additionally, SQL Client tools are not included in the sql-edge image for ARM64, so you won't be able to use sqlcmd from with the container. One workaround for this is to use the mcr.microsoft.com/mssql-tools docker image. You can run this temporarily in another container and connect to your pins_sql_server container by name if they are on the same network. Firstly, create a network:
+docker network create -d bridge db_network
+
+# Then, start your pins_sql_server container in that same network
+docker run --cap-add SYS_PTRACE -e 'ACCEPT_EULA=1' -e 'MSSQL_SA_PASSWORD=<YourStrong@Passw0rd>' -p 1433:1433 --name pins_sql_server --network db_network -d mcr.microsoft.com/azure-sql-edge
+
+# Later on, when connecting to the database, follow the instructions for ARM64
 ```
 
 and create a `.env` file containing the following string:
@@ -102,13 +109,21 @@ DATABASE_URL="sqlserver://0.0.0.0:1433;database=pins_development;user=sa;passwor
 You will need to also create a database called `pins_development` within your Docker container:
 
 ```shell
+# 1.1 If you're NOT on ARM64
+# Firstly you'll need to access sqlcmd. Connect to the pins_sql_server interactive shell where sqlcmd will be installed
 sudo docker exec -it pins_sql_server "bash"
 
 # then within the container:
 /opt/mssql-tools/bin/sqlcmd -S localhost -U SA -P "<YourStrong@Passw0rd>"
 
-# then within the SQL command prompt:
+# 1.2 If you ARE on ARM64
+# Instead of connecting to the pins_sql_server interactive shell, run the mssql-tools image as a container and connect to the pins_sql_server host like so (this requires that your pins_sql_server container is running on the network you created):
+docker run --network db_network -it mcr.microsoft.com/mssql-tools
 
+# Within the interactive shell, you'll then be able to run sqlcmd like so:
+sqlcmd -S pins_sql_server -U SA -P "<YourStrong@Passw0rd>"
+
+# 2. Then within the SQL command prompt:
 CREATE DATABASE pins_development
 GO
 
