@@ -1,5 +1,5 @@
 import pino from '../../../../lib/logger.js';
-import { getApplicationDraft } from '../applications-create.service.js';
+import { getApplication } from '../../../lib/services/case.service.js';
 import * as applicationsCreateApplicantService from './applications-create-applicant.service.js';
 
 /**
@@ -27,7 +27,7 @@ export const registerApplicantId = async (req, response, next) => {
 	const { applicationId } = response.locals;
 
 	if (applicationId) {
-		const applicationDraft = await getApplicationDraft(applicationId, ['applicants']);
+		const applicationDraft = await getApplication(applicationId, ['applicants']);
 		const applicantId = applicationDraft.applicants?.[0]?.id;
 
 		if (!applicantId) {

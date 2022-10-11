@@ -1,6 +1,6 @@
 import { findAddressListByPostcode } from '@planning-inspectorate/address-lookup';
-import { getApplicantById } from '../../lib/applicant.js';
-import { updateApplication } from '../../lib/application.js';
+import { getApplicantById } from '../../lib/services/applicant.service.js';
+import { updateApplication } from '../../lib/services/case.service.js';
 
 /** @typedef {import('@pins/express').ValidationErrors} ValidationErrors */
 /** @typedef {import('../../applications.types').ApplicationsAddress} ApplicationsAddress */

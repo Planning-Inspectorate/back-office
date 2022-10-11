@@ -15,13 +15,13 @@ import {
 	caseZoomLevelData,
 	caseZoomLevelDataUpdate
 } from '../../../components/form/form-case-components.controller.js';
+import { handleErrors } from '../../../lib/controllers/errors.controller.js';
 import {
 	destroySessionCaseSectorName,
 	getSessionCaseHasNeverBeenResumed,
 	setSessionCaseSectorName
-} from './applications-create-case-session.service.js';
+} from '../../../lib/services/session.service.js';
 
-/** @typedef {import('../../../applications.types.js').FormCaseLayout} FormCaseLayout */
 /** @typedef {import('./applications-create-case.types.js').ApplicationsCreateCaseNameProps} ApplicationsCreateCaseNameProps */
 /** @typedef {import('./applications-create-case.types.js').ApplicationsCreateCaseNameBody} ApplicationsCreateCaseNameBody */
 /** @typedef {import('./applications-create-case.types.js').ApplicationsCreateCaseSectorProps} ApplicationsCreateCaseSectorProps */
@@ -36,6 +36,7 @@ import {
 /** @typedef {import('./applications-create-case.types.js').ApplicationsCreateCaseZoomLevelBody} ApplicationsCreateCaseZoomLevelBody */
 /** @typedef {import('./applications-create-case.types.js').ApplicationsCreateCaseTeamEmailProps} ApplicationsCreateCaseTeamEmailProps */
 /** @typedef {import('./applications-create-case.types.js').ApplicationsCreateCaseTeamEmailBody} ApplicationsCreateCaseTeamEmailBody */
+/** @typedef {import('@pins/express').ValidationErrors} ValidationErrors */
 
 const nameLayout = {
 	pageTitle: 'Enter name and description',
@@ -320,18 +321,3 @@ export async function updateApplicationsCreateCaseTeamEmail(request, response) {
 
 	response.redirect(`/applications-service/create-new-case/${updatedApplicationId}/${nextPath}`);
 }
-
-/**
- * View the sector choice step of the application creation
- *
- * @param {Record<string, any>} properties
- * @param {FormCaseLayout} layout
- * @param {*} response
- * @returns {*}
- */
-export const handleErrors = (properties, layout, response) => {
-	return response.render('applications/components/case-form/case-form-layout', {
-		...properties,
-		layout
-	});
-};

@@ -41,17 +41,3 @@ export async function viewDashboard({ params }, res) {
 		draftApplications
 	});
 }
-
-/**
- * @typedef {object} ViewApplicationRenderProps
- * @property {Application} application
- */
-
-/**
- * View the details for a single application.
- *
- * @type {import('@pins/express').RenderHandler<ViewApplicationRenderProps, ApplicationLocals>}
- */
-export async function viewApplication({ locals }, response) {
-	response.render('applications/application', { application: locals.application });
-}

@@ -1,7 +1,9 @@
 import pino from '../../../../lib/logger.js';
-import { getSessionCaseHasNeverBeenResumed } from '../case/applications-create-case-session.service.js';
+import {
+	getSessionApplicantInfoTypes,
+	getSessionCaseHasNeverBeenResumed
+} from '../../../lib/services/session.service.js';
 import * as applicationsCreateApplicantService from './applications-create-applicant.service.js';
-import { getSessionApplicantInfoTypes } from './applications-create-applicant-session.service.js';
 
 /**
  *  Make sure the step is among the applicant info types selected to be provided

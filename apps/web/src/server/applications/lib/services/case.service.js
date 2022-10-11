@@ -1,9 +1,8 @@
-import { get, patch, post } from '../../lib/request.js';
+import { get, patch, post } from '../../../lib/request.js';
 
 /**
- * @typedef {import('../applications.types.js').Application} Application
+ * @typedef {import('../../applications.types').Application} Application
  * @typedef {import('express-session').Session & { caseSectorName?: string }} SessionWithCaseSectorName
- * @typedef {import('express-session').Session & { caseHasNeverBeenResumed?: boolean }} SessionWithCaseHasNeverBeenResumed
  */
 
 /**
@@ -83,67 +82,4 @@ export const updateApplication = async (applicationId, payload) => {
 	}
 
 	return response;
-};
-
-// Application session management
-
-/**
- * Save in the session the list of information types to be provided in the create-new-applicant form.
- *
- * @param {SessionWithCaseSectorName} session
- * @param {string|undefined} selectedCaseSectorName
- * @returns {void}
- */
-export const setSessionCaseSectorName = (session, selectedCaseSectorName) => {
-	session.caseSectorName = selectedCaseSectorName;
-};
-
-/**
- * Retrieve the applicant information types from the session.
- *
- * @param {SessionWithCaseSectorName} session
- * @returns {string|undefined}
- */
-export const getSessionCaseSectorName = (session) => {
-	return session.caseSectorName;
-};
-
-/**
- * Clear the case sector from the session.
- *
- * @param {SessionWithCaseSectorName} session
- * @returns {void}
- */
-export const destroySessionCaseSectorName = (session) => {
-	delete session.caseSectorName;
-};
-
-/**
- * Save in the session whether is the first time filling the form or it has been resumed.
- *
- * @param {SessionWithCaseHasNeverBeenResumed} session
- * @returns {void}
- */
-export const setSessionCaseHasNeverBeenResumed = (session) => {
-	session.caseHasNeverBeenResumed = true;
-};
-
-/**
- * Retrieve the session info about the form being resumed or not.
- *
- * @param {SessionWithCaseHasNeverBeenResumed} session
- * @returns {boolean|undefined}
- */
-export const getSessionCaseHasNeverBeenResumed = (session) => {
-	return session.caseHasNeverBeenResumed;
-};
-
-/**
- * Destroy session info when form gets resumed.
- *
- * @param {SessionWithCaseHasNeverBeenResumed} session
- * @returns {void}
- */
-export const destroySessionCaseHasNeverBeenResumed = (session) => {
-	delete session.caseHasNeverBeenResumed;
 };
