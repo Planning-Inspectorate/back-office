@@ -1,4 +1,4 @@
-import { getApplication, updateApplication } from '../../lib/application.js';
+import { getApplication, updateApplication } from '../../lib/services/case.service.js';
 
 /** @typedef {import('../../pages/create-new-case/key-dates/applications-create-key-dates.types').ApplicationsCreateKeyDatesProps} ApplicationsCreateKeyDatesProps */
 

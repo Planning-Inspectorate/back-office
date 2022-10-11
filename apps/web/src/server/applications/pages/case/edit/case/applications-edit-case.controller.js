@@ -10,7 +10,7 @@ import {
 	caseZoomLevelData,
 	caseZoomLevelDataUpdate
 } from '../../../../components/form/form-case-components.controller.js';
-import { handleErrors } from '../../../create-new-case/case/applications-create-case.controller.js';
+import { handleErrors } from '../../../../lib/controllers/errors.controller.js';
 
 const nameLayout = {
 	pageTitle: 'Enter project name',

@@ -1,6 +1,7 @@
 import pino from '../../../../lib/logger.js';
-import { getApplicationDraft, moveStateToPreApplication } from '../applications-create.service.js';
-import { destroySessionCaseHasNeverBeenResumed } from '../case/applications-create-case-session.service.js';
+import { getApplication } from '../../../lib/services/case.service.js';
+import { destroySessionCaseHasNeverBeenResumed } from '../../../lib/services/session.service.js';
+import { moveStateToPreApplication } from '../applications-create.service.js';
 import * as applicationsCreateCheckYourAnswersService from './applications-create-check-your-answers.service.js';
 
 /** @typedef {import('./applications-create-check-your-answers.types.js').ApplicationsCreateConfirmationProps} ApplicationsCreateConfirmationProps */
@@ -14,7 +15,7 @@ import * as applicationsCreateCheckYourAnswersService from './applications-creat
  */
 export async function viewApplicationsCreateConfirmation(req, response) {
 	const { applicationId } = response.locals;
-	const { reference } = await getApplicationDraft(applicationId, ['reference']);
+	const { reference } = await getApplication(applicationId, ['reference']);
 
 	if (!reference) {
 		pino.warn(`[WEB] reference number for case ${applicationId} is not defined`);
@@ -36,7 +37,7 @@ export async function viewApplicationsCreateCheckYourAnswers(req, response) {
 
 	destroySessionCaseHasNeverBeenResumed(req.session);
 
-	const caseData = await getApplicationDraft(applicationId);
+	const caseData = await getApplication(applicationId);
 
 	const { values } = applicationsCreateCheckYourAnswersService.mapCaseData(caseData);
 
@@ -66,7 +67,7 @@ export async function confirmCreateCase(req, response) {
 	// re-display page if there are any errors
 	if (errors || !updatedApplicationId) {
 		// and re-pull the case data to re-show all the fields
-		const caseData = await getApplicationDraft(applicationId);
+		const caseData = await getApplication(applicationId);
 		const { values } = applicationsCreateCheckYourAnswersService.mapCaseData(caseData);
 
 		return response.render('applications/create-new-case/check-your-answers', {

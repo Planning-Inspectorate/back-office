@@ -1,10 +1,11 @@
-import { getApplicationDraft } from '../applications-create.service.js';
-import { getSessionCaseHasNeverBeenResumed } from '../case/applications-create-case-session.service.js';
-import { getSessionApplicantInfoTypes } from './applications-create-applicant-session.service.js';
+import {
+	getSessionApplicantInfoTypes,
+	getSessionCaseHasNeverBeenResumed
+} from '../../../lib/services/session.service.js';
 
 /** @typedef {import('../../../applications.types').OptionsItem} OptionsItem */
 /** @typedef {import('../../../applications.types').Applicant} Applicant */
-/** @typedef {import('./applications-create-applicant-session.service.js').SessionWithApplicationsCreateApplicantInfoTypes} SessionWithApplicationsCreateApplicantInfoTypes */
+/** @typedef {import('../../../lib/services/session.service.js').SessionWithApplicationsCreateApplicantInfoTypes} SessionWithApplicationsCreateApplicantInfoTypes */
 
 /**
  * Get the list of types of applicant info
@@ -69,23 +70,4 @@ export function getAllowedDestinationPath({ session, path, goToNextPage }) {
 	}
 
 	return destinationPath || '';
-}
-
-/**
- * Returns the applicant matching id of a draft application
- *
- * @param {number} applicationId
- * @param {number} applicantId
- * @param { string[] | null } query
- * @returns {Promise<Applicant|null>}
- */
-export async function getApplicantById(applicationId, applicantId, query = null) {
-	const { applicants } = await getApplicationDraft(applicationId, query);
-
-	let applicant;
-
-	if (applicants && applicants.length > 0) {
-		applicant = applicants.find((apps) => apps.id === applicantId);
-	}
-	return applicant || null;
 }

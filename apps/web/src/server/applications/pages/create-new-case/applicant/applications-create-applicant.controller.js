@@ -12,16 +12,16 @@ import {
 	applicantWebsiteData,
 	applicantWebsiteDataUpdate
 } from '../../../components/form/form-applicant-components.controller.js';
-import { handleErrors } from '../case/applications-create-case.controller.js';
-import * as applicationsCreateApplicantService from './applications-create-applicant.service.js';
+import { handleErrors } from '../../../lib/controllers/errors.controller.js';
 import {
 	getSessionApplicantInfoTypes,
 	setSessionApplicantInfoTypes
-} from './applications-create-applicant-session.service.js';
+} from '../../../lib/services/session.service.js';
+import * as applicationsCreateApplicantService from './applications-create-applicant.service.js';
 
 /** @typedef {import('./applications-create-applicant.types.js').ApplicationsCreateApplicantTypesProps} ApplicationsCreateApplicantTypesProps */
 /** @typedef {import('./applications-create-applicant.types.js').ApplicationsCreateApplicantTypesBody} ApplicationsCreateApplicantTypesBody */
-/** @typedef {import('./applications-create-applicant-session.service.js').SessionWithApplicationsCreateApplicantInfoTypes} SessionWithApplicationsCreateApplicantInfoTypes */
+/** @typedef {import('../../../lib/services/session.service.js').SessionWithApplicationsCreateApplicantInfoTypes} SessionWithApplicationsCreateApplicantInfoTypes */
 /** @typedef {import('./applications-create-applicant.types.js').ApplicationsCreateApplicantOrganisationNameProps} ApplicationsCreateApplicantOrganisationNameProps */
 /** @typedef {import('./applications-create-applicant.types.js').ApplicationsCreateApplicantOrganisationNameBody} ApplicationsCreateApplicantOrganisationNameBody */
 /** @typedef {import('./applications-create-applicant.types.js').ApplicationsCreateApplicantFullNameProps} ApplicationsCreateApplicantFullNameProps */

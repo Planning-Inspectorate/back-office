@@ -2,7 +2,7 @@ import {
 	keyDatesData,
 	keyDatesDataUpdate
 } from '../../../components/form/form-key-dates-components.controller.js';
-import { handleErrors } from '../case/applications-create-case.controller.js';
+import { handleErrors } from '../../../lib/controllers/errors.controller.js';
 
 /** @typedef {import('./applications-create-key-dates.types.js').ApplicationsCreateKeyDatesProps} ApplicationsCreateKeyDatesProps */
 /** @typedef {import('./applications-create-key-dates.types.js').ApplicationsCreateKeyDatesBody} ApplicationsCreateKeyDatesBody */
