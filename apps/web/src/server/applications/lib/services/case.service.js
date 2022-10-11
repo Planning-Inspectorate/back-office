@@ -1,4 +1,9 @@
 import { get, patch, post } from '../../../lib/request.js';
+import {
+	destroySessionApplicantInfoTypes,
+	destroySessionCaseSectorName,
+	setSessionCaseHasNeverBeenResumed
+} from './session.service.js';
 
 /**
  * @typedef {import('../../applications.types').Application} Application
@@ -31,11 +36,10 @@ export const getApplication = async (id, query = null) => {
  * Create new draft application and return id and applicant ids
  *
  * @param {Record<string, *>} payload
- * @param {SessionWithCaseSectorName|null} session
- * @param {Function|null} callback
+ * @param {SessionWithCaseSectorName} session
  * @returns {Promise<{id?: number, applicantIds?: Array<number>, errors?: ValidationErrors}>}
  */
-export const createApplication = async (payload, session = null, callback = null) => {
+export const createApplication = async (payload, session) => {
 	const payloadWithEmptyApplicant = { ...payload, applicants: [{ organisationName: '' }] };
 
 	let response;
@@ -44,7 +48,9 @@ export const createApplication = async (payload, session = null, callback = null
 		response = await post('applications', {
 			json: payloadWithEmptyApplicant
 		});
-		if (callback) callback(session);
+		setSessionCaseHasNeverBeenResumed(session);
+		destroySessionApplicantInfoTypes(session);
+		destroySessionCaseSectorName(session);
 	} catch (/** @type {*} */ error) {
 		response = new Promise((resolve) => {
 			resolve({ errors: error?.response?.body?.errors || {} });

@@ -4,7 +4,7 @@ import session from 'express-session';
 export const store = new session.MemoryStore();
 
 export default session({
-	secret: config.sessionSecret,
+	secret: 'secretTODO:REMOVEME',
 	resave: false,
 	saveUninitialized: false,
 	store,

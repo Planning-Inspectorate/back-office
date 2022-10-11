@@ -52,7 +52,7 @@ describe('applications edit', () => {
 
 	describe('Name', () => {
 		describe('GET /edit/name', () => {
-			const baseUrl = '/applications-service/create-new-case/1/edit/name';
+			const baseUrl = '/applications-service/case/1/edit/name';
 
 			describe('When role is:', () => {
 				describe('Inspector', () => {
@@ -86,7 +86,7 @@ describe('applications edit', () => {
 		});
 
 		describe('GET edit/name', () => {
-			const baseUrl = '/applications-service/create-new-case/1/edit/name';
+			const baseUrl = '/applications-service/case/1/edit/name';
 
 			beforeEach(async () => {
 				await request.get('/applications-service/case-officer');
@@ -105,7 +105,7 @@ describe('applications edit', () => {
 
 	describe('Description', () => {
 		describe('GET edit/description', () => {
-			const baseUrl = '/applications-service/create-new-case/1/edit/description';
+			const baseUrl = '/applications-service/case/1/edit/description';
 
 			beforeEach(async () => {
 				await request.get('/applications-service/case-officer');
@@ -124,7 +124,7 @@ describe('applications edit', () => {
 
 	describe('Project location', () => {
 		const baseUrl = (/** @type {string} */ id) =>
-			`/applications-service/create-new-case/${id}/edit/project-location`;
+			`/applications-service/case/${id}/edit/project-location`;
 
 		beforeEach(async () => {
 			await request.get('/applications-service/case-officer');
@@ -144,7 +144,7 @@ describe('applications edit', () => {
 
 	describe('Grid references', () => {
 		const baseUrl = (/** @type {string} */ id) =>
-			`/applications-service/create-new-case/${id}/edit/grid-references`;
+			`/applications-service/case/${id}/edit/grid-references`;
 
 		beforeEach(async () => {
 			await request.get('/applications-service/case-officer');
@@ -164,8 +164,7 @@ describe('applications edit', () => {
 
 	describe('Regions', () => {
 		// const baseUrl = ( /!** @type {string} *!/ id) => `/applications-service/create-new-case/${id}/regions`;
-		const baseUrl = (/** @type {string} */ id) =>
-			`/applications-service/create-new-case/${id}/edit/regions`;
+		const baseUrl = (/** @type {string} */ id) => `/applications-service/case/${id}/edit/regions`;
 
 		beforeEach(async () => {
 			await request.get('/applications-service/case-officer');
@@ -195,7 +194,7 @@ describe('applications edit', () => {
 
 	describe('Zoom Level', () => {
 		const baseUrl = (/** @type {string} */ id) =>
-			`/applications-service/create-new-case/${id}/edit/zoom-level`;
+			`/applications-service/case/${id}/edit/zoom-level`;
 
 		beforeEach(async () => {
 			await request.get('/applications-service/case-officer');
@@ -224,7 +223,7 @@ describe('applications edit', () => {
 
 	describe('Team email', () => {
 		const baseUrl = (/** @type {string} */ id) =>
-			`/applications-service/create-new-case/${id}/edit/team-email`;
+			`/applications-service/case/${id}/edit/team-email`;
 
 		beforeEach(async () => {
 			await request.get('/applications-service/case-officer');
