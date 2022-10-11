@@ -75,7 +75,7 @@ const addressReadOnlyLayout = {
 export async function viewApplicationsEditApplicantOrganisationName(request, response) {
 	const properties = await applicantOrganisationNameData(request, response.locals);
 
-	response.render('applications/case-form/case-form-layout', {
+	response.render('applications/components/case-form/case-form-layout', {
 		...properties,
 		layout: organisationNameLayout
 	});
@@ -96,9 +96,7 @@ export async function updateApplicationsEditApplicantOrganisationName(request, r
 		return handleErrors(properties, organisationNameLayout, response);
 	}
 
-	response.redirect(
-		`/applications-service/create-new-case/${updatedApplicationId}/project-information`
-	);
+	response.redirect(`/applications-service/case/${updatedApplicationId}/project-information`);
 }
 
 /**
@@ -109,7 +107,7 @@ export async function updateApplicationsEditApplicantOrganisationName(request, r
 export async function viewApplicationsEditApplicantFullName(request, response) {
 	const properties = await applicantFullNameData(request, response.locals);
 
-	response.render('applications/case-form/case-form-layout', {
+	response.render('applications/components/case-form/case-form-layout', {
 		...properties,
 		layout: fullNameLayout
 	});
@@ -130,9 +128,7 @@ export async function updateApplicationsEditApplicantFullName(request, response)
 		return handleErrors(properties, fullNameLayout, response);
 	}
 
-	response.redirect(
-		`/applications-service/create-new-case/${updatedApplicationId}/project-information`
-	);
+	response.redirect(`/applications-service/case/${updatedApplicationId}/project-information`);
 }
 
 /**
@@ -143,7 +139,7 @@ export async function updateApplicationsEditApplicantFullName(request, response)
 export async function viewApplicationsEditApplicantEmail(request, response) {
 	const properties = await applicantEmailData(request, response.locals);
 
-	response.render('applications/case-form/case-form-layout', {
+	response.render('applications/components/case-form/case-form-layout', {
 		...properties,
 		layout: applicantEmailLayout
 	});
@@ -164,9 +160,7 @@ export async function updateApplicationsEditApplicantEmail(request, response) {
 		return handleErrors(properties, applicantEmailLayout, response);
 	}
 
-	response.redirect(
-		`/applications-service/create-new-case/${updatedApplicationId}/project-information`
-	);
+	response.redirect(`/applications-service/case/${updatedApplicationId}/project-information`);
 }
 
 /**
@@ -178,7 +172,7 @@ export async function updateApplicationsEditApplicantEmail(request, response) {
 export async function viewApplicationsEditApplicantAddressReadyOnly(request, response) {
 	const properties = await applicantAddressData(request, response.locals);
 
-	response.render('applications/case-form/case-form-layout', {
+	response.render('applications/components/case-form/case-form-layout', {
 		...properties,
 		layout: addressReadOnlyLayout
 	});
@@ -193,7 +187,7 @@ export async function viewApplicationsEditApplicantAddressReadyOnly(request, res
 export async function viewApplicationsEditApplicantAddress(request, response) {
 	const properties = await applicantAddressData(request, response.locals);
 
-	response.render('applications/case-form/case-form-layout', {
+	response.render('applications/components/case-form/case-form-layout', {
 		...properties,
 		layout: addressLayout
 	});
@@ -216,7 +210,7 @@ export async function updateApplicationsEditApplicantAddress(request, response) 
 		return handleErrors(properties, addressLayout, response);
 	}
 
-	response.redirect(`/applications-service/create-new-case/${applicationId}/project-information`);
+	response.redirect(`/applications-service/case/${applicationId}/project-information`);
 }
 
 /**
@@ -227,7 +221,7 @@ export async function updateApplicationsEditApplicantAddress(request, response) 
 export async function viewApplicationsEditApplicantWebsite(request, response) {
 	const properties = await applicantWebsiteData(request, response.locals);
 
-	response.render('applications/case-form/case-form-layout', {
+	response.render('applications/components/case-form/case-form-layout', {
 		...properties,
 		layout: websiteLayout
 	});
@@ -248,9 +242,7 @@ export async function updateApplicationsEditApplicantWebsite(request, response) 
 		return handleErrors(properties, websiteLayout, response);
 	}
 
-	response.redirect(
-		`/applications-service/create-new-case/${updatedApplicationId}/project-information`
-	);
+	response.redirect(`/applications-service/case/${updatedApplicationId}/project-information`);
 }
 
 /**
@@ -261,7 +253,7 @@ export async function updateApplicationsEditApplicantWebsite(request, response) 
 export async function viewApplicationsEditApplicantTelephoneNumber(request, response) {
 	const properties = await applicantTelephoneNumberData(request, response.locals);
 
-	response.render('applications/case-form/case-form-layout', {
+	response.render('applications/components/case-form/case-form-layout', {
 		...properties,
 		layout: telephoneNumberLayout
 	});
@@ -282,7 +274,5 @@ export async function updateApplicationsEditApplicantTelephoneNumber(request, re
 		return handleErrors(properties, telephoneNumberLayout, response);
 	}
 
-	response.redirect(
-		`/applications-service/create-new-case/${updatedApplicationId}/project-information`
-	);
+	response.redirect(`/applications-service/case/${updatedApplicationId}/project-information`);
 }

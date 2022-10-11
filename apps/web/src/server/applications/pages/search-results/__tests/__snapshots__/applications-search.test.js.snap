@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`applications search POST /applications-service/search-results-results should render a message if no results are found 1`] = `
+exports[`applications search POST /applications-service/search-results should render a message if no results are found 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"govuk-grid-row\\">
         <div class=\\"govuk-grid-column-full\\">
@@ -9,7 +9,8 @@ exports[`applications search POST /applications-service/search-results-results s
     </div>
     <div class=\\"govuk-grid-row\\">
         <div class=\\"govuk-grid-column-one-half\\">
-            <form method=\\"post\\" action=\\"search-results\\" novalidate class=\\"pins-dashboard-box--form pins-dashboard-form\\">
+            <form method=\\"post\\" action=\\"search-results\\" novalidate class=\\"pins-dashboard-box--form pins-dashboard-form\\"
+            role=\\"search\\" aria-label=\\"Applications\\">
                 <div class=\\"govuk-form-group\\">
                     <input class=\\"govuk-input pins-dashboard-form--input\\" id=\\"searchApplications\\"
                     name=\\"query\\" type=\\"text\\" value=\\"query\\" inputmode=\\"search\\">
@@ -31,7 +32,7 @@ exports[`applications search POST /applications-service/search-results-results s
 </main>"
 `;
 
-exports[`applications search POST /applications-service/search-results-results should render a message if the query is empty 1`] = `
+exports[`applications search POST /applications-service/search-results should render a message if the query is empty 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"govuk-grid-row\\">
         <div class=\\"govuk-grid-column-full\\">
@@ -40,7 +41,8 @@ exports[`applications search POST /applications-service/search-results-results s
     </div>
     <div class=\\"govuk-grid-row\\">
         <div class=\\"govuk-grid-column-one-half\\">
-            <form method=\\"post\\" action=\\"search-results\\" novalidate class=\\"pins-dashboard-box--form pins-dashboard-form\\">
+            <form method=\\"post\\" action=\\"search-results\\" novalidate class=\\"pins-dashboard-box--form pins-dashboard-form\\"
+            role=\\"search\\" aria-label=\\"Applications\\">
                 <div class=\\"govuk-form-group govuk-form-group--error\\">
                     <p id=\\"searchApplications-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> Enter a search term</p>
                     <input                     class=\\"govuk-input pins-dashboard-form--input govuk-input--error\\" id=\\"searchApplications\\"
@@ -56,7 +58,7 @@ exports[`applications search POST /applications-service/search-results-results s
 </main>"
 `;
 
-exports[`applications search POST /applications-service/search-results-results should render the page with the results if params are correct 1`] = `
+exports[`applications search POST /applications-service/search-results should render the page with the results if params are correct 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"govuk-grid-row\\">
         <div class=\\"govuk-grid-column-full\\">
@@ -65,7 +67,8 @@ exports[`applications search POST /applications-service/search-results-results s
     </div>
     <div class=\\"govuk-grid-row\\">
         <div class=\\"govuk-grid-column-one-half\\">
-            <form method=\\"post\\" action=\\"search-results\\" novalidate class=\\"pins-dashboard-box--form pins-dashboard-form\\">
+            <form method=\\"post\\" action=\\"search-results\\" novalidate class=\\"pins-dashboard-box--form pins-dashboard-form\\"
+            role=\\"search\\" aria-label=\\"Applications\\">
                 <div class=\\"govuk-form-group\\">
                     <input class=\\"govuk-input pins-dashboard-form--input\\" id=\\"searchApplications\\"
                     name=\\"query\\" type=\\"text\\" value=\\"query\\" inputmode=\\"search\\">

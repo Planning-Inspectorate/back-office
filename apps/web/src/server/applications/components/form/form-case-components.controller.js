@@ -43,13 +43,16 @@ export async function caseNameAndDescriptionData(request, locals) {
  * @param {Record<string, any>} locals
  * @returns {Promise<{properties: ApplicationsCreateCaseNameProps, updatedApplicationId?: number| null}>}
  */
-export async function caseNameAndDescriptionDataUpdate({ errors: validationErrors, body }, locals) {
+export async function caseNameAndDescriptionDataUpdate(
+	{ errors: validationErrors, body, session },
+	locals
+) {
 	const { applicationId } = locals;
 	const { description, title } = body;
 	const payload = bodyToPayload(body);
 	const action = applicationId
 		? () => updateApplication(applicationId, payload)
-		: () => createApplication(payload);
+		: () => createApplication(payload, session);
 
 	const { errors: apiErrors, id: updatedApplicationId } = validationErrors
 		? { id: null, errors: validationErrors }
@@ -368,7 +371,7 @@ export async function caseTeamEmailDataUpdate({ body, errors: validationErrors }
 	const values = { caseEmail: body.caseEmail };
 	const payload = bodyToPayload(body);
 
-	const { errors: apiErrors, id: updatedApplicationId } = await updateApplicationDraft(
+	const { errors: apiErrors, id: updatedApplicationId } = await updateApplication(
 		applicationId,
 		payload
 	);

@@ -77,7 +77,7 @@ const zoomLevelLayout = {
 export async function viewApplicationsEditCaseDescription(request, response) {
 	const properties = await caseNameAndDescriptionData(request, response.locals);
 
-	response.render('applications/case-form/case-form-layout', {
+	response.render('applications/components/case-form/case-form-layout', {
 		...properties,
 		layout: descriptionLayout
 	});
@@ -91,7 +91,10 @@ export async function viewApplicationsEditCaseDescription(request, response) {
 export async function viewApplicationsEditCaseName(request, response) {
 	const properties = await caseNameAndDescriptionData(request, response.locals);
 
-	response.render('applications/case-form/case-form-layout', { ...properties, layout: nameLayout });
+	response.render('applications/components/case-form/case-form-layout', {
+		...properties,
+		layout: nameLayout
+	});
 }
 
 /**
@@ -111,9 +114,7 @@ export async function updateApplicationsEditCaseNameAndDescription(request, resp
 		return handleErrors(properties, layout, response);
 	}
 
-	response.redirect(
-		`/applications-service/create-new-case/${updatedApplicationId}/project-information`
-	);
+	response.redirect(`/applications-service/case/${updatedApplicationId}/project-information`);
 }
 
 /**
@@ -126,7 +127,7 @@ export async function updateApplicationsEditCaseNameAndDescription(request, resp
 export async function viewApplicationsEditCaseTeamEmail(request, response) {
 	const properties = await caseTeamEmailData(request, response.locals);
 
-	return response.render('applications/case-form/case-form-layout', {
+	return response.render('applications/components/case-form/case-form-layout', {
 		...properties,
 		layout: teamEmailLayout
 	});
@@ -148,9 +149,7 @@ export async function updateApplicationsEditCaseTeamEmail(request, response) {
 		return handleErrors(properties, teamEmailLayout, response);
 	}
 
-	response.redirect(
-		`/applications-service/create-new-case/${updatedApplicationId}/project-information`
-	);
+	response.redirect(`/applications-service/case/${updatedApplicationId}/project-information`);
 }
 
 /**
@@ -163,7 +162,7 @@ export async function updateApplicationsEditCaseTeamEmail(request, response) {
 export async function viewApplicationsCreateCaseLocation(request, response) {
 	const properties = await caseGeographicalInformationData(request, response.locals);
 
-	response.render('applications/case-form/case-form-layout', {
+	response.render('applications/components/case-form/case-form-layout', {
 		...properties,
 		layout: caseLocationLayout
 	});
@@ -179,7 +178,7 @@ export async function viewApplicationsCreateCaseLocation(request, response) {
 export async function viewApplicationsCreateCaseGridReferences(request, response) {
 	const properties = await caseGeographicalInformationData(request, response.locals);
 
-	response.render('applications/case-form/case-form-layout', {
+	response.render('applications/components/case-form/case-form-layout', {
 		...properties,
 		layout: gridReferencesLayout
 	});
@@ -207,9 +206,7 @@ export async function updateApplicationsEditCaseGeographicalInformation(request,
 		return handleErrors(properties, layout, response);
 	}
 
-	response.redirect(
-		`/applications-service/create-new-case/${updatedApplicationId}/project-information`
-	);
+	response.redirect(`/applications-service/case/${updatedApplicationId}/project-information`);
 }
 
 /**
@@ -222,7 +219,7 @@ export async function updateApplicationsEditCaseGeographicalInformation(request,
 export async function viewApplicationsEditCaseRegions(request, response) {
 	const properties = await caseRegionsData(request, response.locals);
 
-	return response.render('applications/case-form/case-form-layout', {
+	return response.render('applications/components/case-form/case-form-layout', {
 		...properties,
 		layout: regionsLayout
 	});
@@ -244,9 +241,7 @@ export async function updateApplicationsEditCaseRegions(request, response) {
 		return handleErrors(properties, regionsLayout, response);
 	}
 
-	response.redirect(
-		`/applications-service/create-new-case/${updatedApplicationId}/project-information`
-	);
+	response.redirect(`/applications-service/case/${updatedApplicationId}/project-information`);
 }
 
 /**
@@ -259,7 +254,7 @@ export async function updateApplicationsEditCaseRegions(request, response) {
 export async function viewApplicationsEditCaseZoomLevel(request, response) {
 	const properties = await caseZoomLevelData(request, response.locals);
 
-	return response.render('applications/case-form/case-form-layout', {
+	return response.render('applications/components/case-form/case-form-layout', {
 		...properties,
 		layout: zoomLevelLayout
 	});
@@ -281,7 +276,5 @@ export async function updateApplicationsEditCaseZoomLevel(request, response) {
 		return handleErrors(properties, zoomLevelLayout, response);
 	}
 
-	response.redirect(
-		`/applications-service/create-new-case/${updatedApplicationId}/project-information`
-	);
+	response.redirect(`/applications-service/case/${updatedApplicationId}/project-information`);
 }

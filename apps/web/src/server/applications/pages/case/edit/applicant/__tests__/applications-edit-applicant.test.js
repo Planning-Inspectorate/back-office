@@ -28,7 +28,7 @@ describe('applications create applicant', () => {
 	});
 
 	describe('GET edit/applicant-organisation-name', () => {
-		const baseUrl = '/applications-service/create-new-case/123/edit/applicant-organisation-name';
+		const baseUrl = '/applications-service/case/123/edit/applicant-organisation-name';
 
 		beforeEach(async () => {
 			nocks();
@@ -44,7 +44,7 @@ describe('applications create applicant', () => {
 	});
 
 	describe('GET edit/applicant-full-name', () => {
-		const baseUrl = '/applications-service/create-new-case/123/edit/applicant-full-name';
+		const baseUrl = '/applications-service/case/123/edit/applicant-full-name';
 
 		beforeEach(async () => {
 			nocks();
@@ -60,7 +60,7 @@ describe('applications create applicant', () => {
 	});
 
 	describe('GET edit/applicant-email', () => {
-		const baseUrl = '/applications-service/create-new-case/123/edit/applicant-email';
+		const baseUrl = '/applications-service/case/123/edit/applicant-email';
 
 		beforeEach(async () => {
 			nocks();
@@ -76,7 +76,7 @@ describe('applications create applicant', () => {
 	});
 
 	describe('GET edit/applicant-website', () => {
-		const baseUrl = '/applications-service/create-new-case/123/edit/applicant-website';
+		const baseUrl = '/applications-service/case/123/edit/applicant-website';
 
 		beforeEach(async () => {
 			nocks();
@@ -92,7 +92,7 @@ describe('applications create applicant', () => {
 	});
 
 	describe('GET edit/applicant-telephone-number', () => {
-		const baseUrl = '/applications-service/create-new-case/123/edit/applicant-telephone-number';
+		const baseUrl = '/applications-service/case/123/edit/applicant-telephone-number';
 
 		beforeEach(async () => {
 			nocks();
@@ -113,7 +113,7 @@ describe('applications create applicant', () => {
 		});
 
 		it('should render the read only page', async () => {
-			const baseUrl = '/applications-service/create-new-case/123/edit/applicant-address';
+			const baseUrl = '/applications-service/case/123/edit/applicant-address';
 
 			const response = await request.get(baseUrl);
 			const element = parseHtml(response.text);
@@ -124,7 +124,7 @@ describe('applications create applicant', () => {
 		});
 
 		it('should render the form page', async () => {
-			const baseUrl = '/applications-service/create-new-case/123/edit/applicant-address/new';
+			const baseUrl = '/applications-service/case/123/edit/applicant-address/new';
 
 			const response = await request.get(baseUrl);
 			const element = parseHtml(response.text);
