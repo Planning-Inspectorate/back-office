@@ -2,7 +2,7 @@
 /** @typedef {import('../../applications.types').Case} Case */
 
 /**
- * View the details for a single case application - page required in the param pageType
+ * View the details for a single case application
  *
  * @type {import('@pins/express').RenderHandler<{Case}, ApplicationLocals>}
  */
