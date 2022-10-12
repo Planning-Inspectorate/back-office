@@ -30,7 +30,7 @@ exports[`applications GET /case-admin-officer should render a placeholder when t
         </div>
     </div>
     <div class=\\"pins-dashboard-list--open\\">
-        <h2 class=\\"govuk-heading-l\\">Open applications</h2>
+        <h2 class=\\"govuk-heading-l\\">All cases</h2>
         <div class=\\"govuk-accordion\\" data-module=\\"govuk-accordion\\" id=\\"\\"></div>
     </div>
 </main>"
@@ -66,7 +66,7 @@ exports[`applications GET /case-admin-officer should render the open application
         </div>
     </div>
     <div class=\\"pins-dashboard-list--open\\">
-        <h2 class=\\"govuk-heading-l\\">Open applications</h2>
+        <h2 class=\\"govuk-heading-l\\">All cases</h2>
         <div class=\\"govuk-accordion\\" data-module=\\"govuk-accordion\\" id=\\"\\">
             <div class=\\"govuk-accordion__section \\">
                 <div class=\\"govuk-accordion__section-header\\">
@@ -234,7 +234,7 @@ exports[`applications GET /case-officer should render a placeholder when there a
         </div>
     </div>
     <div class=\\"pins-dashboard-list--open\\">
-        <h2 class=\\"govuk-heading-l\\">Open applications</h2>
+        <h2 class=\\"govuk-heading-l\\">All cases</h2>
         <div class=\\"govuk-accordion\\" data-module=\\"govuk-accordion\\" id=\\"\\"></div>
     </div>
 </main>"
@@ -270,7 +270,7 @@ exports[`applications GET /case-officer should render the open applications belo
         </div>
     </div>
     <div class=\\"pins-dashboard-list--open\\">
-        <h2 class=\\"govuk-heading-l\\">Open applications</h2>
+        <h2 class=\\"govuk-heading-l\\">All cases</h2>
         <div class=\\"govuk-accordion\\" data-module=\\"govuk-accordion\\" id=\\"\\">
             <div class=\\"govuk-accordion__section \\">
                 <div class=\\"govuk-accordion__section-header\\">
@@ -432,7 +432,7 @@ exports[`applications GET /inspector should render a placeholder when there are 
         </div>
     </div>
     <div class=\\"pins-dashboard-list--open\\">
-        <h2 class=\\"govuk-heading-l\\">Open applications</h2>
+        <h2 class=\\"govuk-heading-l\\">All cases</h2>
         <div class=\\"govuk-accordion\\" data-module=\\"govuk-accordion\\" id=\\"\\"></div>
     </div>
 </main>"
@@ -462,7 +462,7 @@ exports[`applications GET /inspector should render the open applications belongi
         </div>
     </div>
     <div class=\\"pins-dashboard-list--open\\">
-        <h2 class=\\"govuk-heading-l\\">Open applications</h2>
+        <h2 class=\\"govuk-heading-l\\">All cases</h2>
         <div class=\\"govuk-accordion\\" data-module=\\"govuk-accordion\\" id=\\"\\">
             <div class=\\"govuk-accordion__section \\">
                 <div class=\\"govuk-accordion__section-header\\">

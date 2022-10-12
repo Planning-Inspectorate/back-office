@@ -17,7 +17,7 @@
 	<div class="govuk-grid-row">
 		<div class="{{ 'govuk-grid-column-full' if userIsInspector else 'govuk-grid-column-one-half' }}">
 			<div class="pins-dashboard-box">
-				<h3 class="govuk-heading-l pins-dashboard-box--title">Search applications</h3>
+				<h3 class="govuk-heading-l pins-dashboard-box--title">Search cases</h3>
 				{{ applicationSearch(searchParameters) }}
 			</div>
 		</div>
@@ -61,7 +61,7 @@
 	{% endif %}
 	<div class="pins-dashboard-list--open">
 
-		<h2 class="govuk-heading-l">Open applications</h2>
+		<h2 class="govuk-heading-l">All cases</h2>
 
 		{% set items = [] %}
 
