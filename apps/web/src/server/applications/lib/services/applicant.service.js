@@ -1,4 +1,4 @@
-import { getApplication } from './case.service.js';
+import { getCase } from './case.service.js';
 
 /** @typedef {import('../../applications.types.js').Applicant} Applicant */
 
@@ -11,7 +11,7 @@ import { getApplication } from './case.service.js';
  * @returns {Promise<Applicant|null>}
  */
 export async function getApplicantById(applicationId, applicantId, query = null) {
-	const { applicants } = await getApplication(applicationId, query);
+	const { applicants } = await getCase(applicationId, query);
 
 	let applicant;
 

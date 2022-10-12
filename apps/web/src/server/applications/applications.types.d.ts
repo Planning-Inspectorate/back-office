@@ -24,7 +24,7 @@ export type FormCaseLayout = {
 	backLink?: string;
 };
 
-export interface Application {
+export interface Case {
 	id: number;
 	reference: string;
 	description: string;
@@ -83,7 +83,7 @@ export interface Sector extends OptionsItem {}
 export interface Region extends OptionsItem {}
 export interface ZoomLevel extends OptionsItem {}
 
-export interface ApplicationCreateProps<BodyValues> {
+export interface CaseCreateProps<BodyValues> {
 	errors?: ValidationErrors;
 	values: BodyValues;
 	layout?: FormCaseLayout;

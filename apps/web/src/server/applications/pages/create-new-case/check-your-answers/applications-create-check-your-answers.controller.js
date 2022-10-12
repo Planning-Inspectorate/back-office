@@ -1,5 +1,5 @@
 import pino from '../../../../lib/logger.js';
-import { getApplication } from '../../../lib/services/case.service.js';
+import { getCase } from '../../../lib/services/case.service.js';
 import { destroySessionCaseHasNeverBeenResumed } from '../../../lib/services/session.service.js';
 import { moveStateToPreApplication } from '../applications-create.service.js';
 import * as applicationsCreateCheckYourAnswersService from './applications-create-check-your-answers.service.js';
@@ -15,7 +15,7 @@ import * as applicationsCreateCheckYourAnswersService from './applications-creat
  */
 export async function viewApplicationsCreateConfirmation(req, response) {
 	const { applicationId } = response.locals;
-	const { reference } = await getApplication(applicationId, ['reference']);
+	const { reference } = await getCase(applicationId, ['reference']);
 
 	if (!reference) {
 		pino.warn(`[WEB] reference number for case ${applicationId} is not defined`);
@@ -37,7 +37,7 @@ export async function viewApplicationsCreateCheckYourAnswers(req, response) {
 
 	destroySessionCaseHasNeverBeenResumed(req.session);
 
-	const caseData = await getApplication(applicationId);
+	const caseData = await getCase(applicationId);
 
 	const { values } = applicationsCreateCheckYourAnswersService.mapCaseData(caseData);
 
@@ -67,7 +67,7 @@ export async function confirmCreateCase(req, response) {
 	// re-display page if there are any errors
 	if (errors || !updatedApplicationId) {
 		// and re-pull the case data to re-show all the fields
-		const caseData = await getApplication(applicationId);
+		const caseData = await getCase(applicationId);
 		const { values } = applicationsCreateCheckYourAnswersService.mapCaseData(caseData);
 
 		return response.render('applications/create-new-case/check-your-answers', {

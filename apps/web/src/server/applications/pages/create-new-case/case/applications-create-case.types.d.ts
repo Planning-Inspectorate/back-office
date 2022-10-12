@@ -1,5 +1,5 @@
 import {
-	ApplicationCreateProps,
+	CaseCreateProps,
 	FormCaseLayout,
 	Sector,
 	SelectItem,
@@ -13,14 +13,14 @@ export interface ApplicationsCreateCaseNameBody extends Record<string, string | 
 	description: string;
 }
 export interface ApplicationsCreateCaseNameProps
-	extends ApplicationCreateProps<ApplicationsCreateCaseNameBody> {}
+	extends CaseCreateProps<ApplicationsCreateCaseNameBody> {}
 
 // Sector
 export interface ApplicationsCreateCaseSectorBody extends Record<string, string | undefined> {
 	sectorName?: string;
 }
 export interface ApplicationsCreateCaseSectorProps
-	extends ApplicationCreateProps<ApplicationsCreateCaseSectorBody> {
+	extends CaseCreateProps<ApplicationsCreateCaseSectorBody> {
 	sectors: Sector[];
 }
 
@@ -29,7 +29,7 @@ export interface ApplicationsCreateCaseSubSectorBody extends Record<string, stri
 	subSectorName?: string;
 }
 export interface ApplicationsCreateCaseSubSectorProps
-	extends ApplicationCreateProps<ApplicationsCreateCaseSubSectorBody> {
+	extends CaseCreateProps<ApplicationsCreateCaseSubSectorBody> {
 	subSectors: Sector[];
 }
 
@@ -41,13 +41,13 @@ export interface ApplicationsCreateCaseGeographicalInformationBody
 	'geographicalInformation.gridReference.northing'?: string;
 }
 export interface ApplicationsCreateCaseGeographicalInformationProps
-	extends ApplicationCreateProps<ApplicationsCreateCaseGeographicalInformationBody> {}
+	extends CaseCreateProps<ApplicationsCreateCaseGeographicalInformationBody> {}
 
 // Regions
 export interface ApplicationsCreateCaseRegionsBody extends Record<string, string | undefined> {
 	'geographicalInformation.regionNames'?: string[];
 }
-// this cannot be extendend ApplicationCreateProps as it's missing the property "values"
+// this cannot be extendend CaseCreateProps as it's missing the property "values"
 export interface ApplicationsCreateCaseRegionsProps {
 	allRegions: SelectItem[];
 	errors?: ValidationErrors;
@@ -59,7 +59,7 @@ export interface ApplicationsCreateCaseZoomLevelBody extends Record<string, stri
 	'geographicalInformation.mapZoomLevelName'?: string;
 }
 export interface ApplicationsCreateCaseZoomLevelProps
-	extends ApplicationCreateProps<ApplicationsCreateCaseZoomLevelBody> {
+	extends CaseCreateProps<ApplicationsCreateCaseZoomLevelBody> {
 	zoomLevels: ZoomLevel[];
 }
 
@@ -68,4 +68,4 @@ export interface ApplicationsCreateCaseTeamEmailBody extends Record<string, stri
 	caseEmail?: string;
 }
 export interface ApplicationsCreateCaseTeamEmailProps
-	extends ApplicationCreateProps<ApplicationsCreateCaseTeamEmailBody> {}
+	extends CaseCreateProps<ApplicationsCreateCaseTeamEmailBody> {}

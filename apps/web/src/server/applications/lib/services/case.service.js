@@ -6,8 +6,9 @@ import {
 } from './session.service.js';
 
 /**
- * @typedef {import('../../applications.types').Application} Application
+ * @typedef {import('../../applications.types').Case} Case
  * @typedef {import('express-session').Session & { caseSectorName?: string }} SessionWithCaseSectorName
+ * @typedef {import('@pins/express').ValidationErrors} ValidationErrors
  */
 
 /**
@@ -16,9 +17,9 @@ import {
  *
  * @param {number} id
  * @param { string[] | null} query
- * @returns {Promise<Application>}
+ * @returns {Promise<Case>}
  */
-export const getApplication = async (id, query = null) => {
+export const getCase = async (id, query = null) => {
 	let queryObject = {};
 
 	if (query) {
@@ -39,7 +40,7 @@ export const getApplication = async (id, query = null) => {
  * @param {SessionWithCaseSectorName} session
  * @returns {Promise<{id?: number, applicantIds?: Array<number>, errors?: ValidationErrors}>}
  */
-export const createApplication = async (payload, session) => {
+export const createCase = async (payload, session) => {
 	const payloadWithEmptyApplicant = { ...payload, applicants: [{ organisationName: '' }] };
 
 	let response;
@@ -68,7 +69,7 @@ export const createApplication = async (payload, session) => {
  * @param {Record<string, *>} payload
  * @returns {Promise<{id?: number, applicantIds?: Array<number>, errors?: ValidationErrors}>}
  */
-export const updateApplication = async (applicationId, payload) => {
+export const updateCase = async (applicationId, payload) => {
 	let response;
 
 	try {

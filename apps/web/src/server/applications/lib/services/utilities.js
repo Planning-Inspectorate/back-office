@@ -1,7 +1,7 @@
 import { get } from '../../../lib/request.js';
 
 /** @typedef {import('../../applications.types').Sector} Sector */
-/** @typedef {import('../../applications.types').Application} Application */
+/** @typedef {import('../../applications.types').Case} Case */
 /** @typedef {import('../../applications.types').Region} Region */
 /** @typedef {import('../../applications.types').ZoomLevel} ZoomLevel */
 

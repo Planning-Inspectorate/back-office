@@ -18,7 +18,7 @@ import {
 /**
  * @typedef {object} ApplicationLocals
  * @property {number} applicationId
- * @property {import('./applications.types').Application} application
+ * @property {import('./applications.types').Case} Case
  */
 
 /**

@@ -6,9 +6,9 @@ import {
 	fixtureZoomLevels
 } from './options-item.js';
 
-/** @typedef {import('../../../src/server/applications/applications.types').Application} Application */
+/** @typedef {import('../../../src/server/applications/applications.types').Case} Case */
 
-/** @type {Application[]} */
+/** @type {Case[]} */
 export const fixtureApplications = [
 	{
 		...createApplication({
