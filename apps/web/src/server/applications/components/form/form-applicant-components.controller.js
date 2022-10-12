@@ -1,6 +1,6 @@
 import { findAddressListByPostcode } from '@planning-inspectorate/address-lookup';
 import { getApplicantById } from '../../lib/services/applicant.service.js';
-import { updateApplication } from '../../lib/services/case.service.js';
+import { updateCase } from '../../lib/services/case.service.js';
 
 /** @typedef {import('@pins/express').ValidationErrors} ValidationErrors */
 /** @typedef {import('../../applications.types').ApplicationsAddress} ApplicationsAddress */
@@ -43,7 +43,7 @@ export async function applicantOrganisationNameDataUpdate({ body }, locals) {
 	const organisationName = body['applicant.organisationName'];
 	const applicantInfo = { id, organisationName };
 
-	const { errors, id: updatedApplicationId } = await updateApplication(applicationId, {
+	const { errors, id: updatedApplicationId } = await updateCase(applicationId, {
 		applicants: [applicantInfo]
 	});
 
@@ -94,7 +94,7 @@ export async function applicantFullNameDataUpdate({ body }, locals) {
 		lastName: body['applicant.lastName']
 	};
 
-	const { errors, id: updatedApplicationId } = await updateApplication(applicationId, {
+	const { errors, id: updatedApplicationId } = await updateCase(applicationId, {
 		applicants: [applicantInfo]
 	});
 
@@ -133,7 +133,7 @@ export async function applicantEmailDataUpdate({ errors: validationErrors, body 
 	const values = body;
 	const applicantInfo = { id, email: body['applicant.email'] };
 
-	const { errors: apiErrors, id: updatedApplicationId } = await updateApplication(applicationId, {
+	const { errors: apiErrors, id: updatedApplicationId } = await updateCase(applicationId, {
 		applicants: [applicantInfo]
 	});
 
@@ -212,7 +212,7 @@ export async function applicantAddressDataUpdate({ errors: validationErrors, bod
 					(address) => address.apiReference === apiReference
 				);
 				const payload = { applicants: [{ id: applicantId, address: selectedAddress }] };
-				const { errors: updateErrors } = await updateApplication(applicationId, payload);
+				const { errors: updateErrors } = await updateCase(applicationId, payload);
 
 				return { errors: serviceErrors || updateErrors, addressList };
 			}
@@ -231,7 +231,7 @@ export async function applicantAddressDataUpdate({ errors: validationErrors, bod
 					]
 				};
 
-				const { errors } = await updateApplication(applicationId, payload);
+				const { errors } = await updateCase(applicationId, payload);
 
 				return { errors };
 			}
@@ -286,7 +286,7 @@ export async function applicantWebsiteDataUpdate({ body, errors: validationError
 	const website = body['applicant.website'];
 	const applicantInfo = { id, website };
 
-	const { errors: apiErrors, id: updatedApplicationId } = await updateApplication(applicationId, {
+	const { errors: apiErrors, id: updatedApplicationId } = await updateCase(applicationId, {
 		applicants: [applicantInfo]
 	});
 
@@ -334,7 +334,7 @@ export async function applicantTelephoneNumberDataUpdate(
 	const phoneNumber = body['applicant.phoneNumber'];
 	const applicantInfo = { id, phoneNumber };
 
-	const { errors: apiErrors, id: updatedApplicationId } = await updateApplication(applicationId, {
+	const { errors: apiErrors, id: updatedApplicationId } = await updateCase(applicationId, {
 		applicants: [applicantInfo]
 	});
 	const properties = { errors: validationErrors || apiErrors, values };

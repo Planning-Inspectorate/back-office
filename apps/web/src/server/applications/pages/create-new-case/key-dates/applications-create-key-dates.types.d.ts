@@ -1,4 +1,4 @@
-import { ApplicationCreateProps } from '../../../applications.types';
+import { CaseCreateProps } from '../../../applications.types';
 
 export interface ApplicationsCreateKeyDatesBody extends Record<string, string | undefined> {
 	'keyDates.submissionDatePublished'?: string;
@@ -8,4 +8,4 @@ export interface ApplicationsCreateKeyDatesBody extends Record<string, string | 
 	submissionInternalYear?: string;
 }
 export interface ApplicationsCreateKeyDatesProps
-	extends ApplicationCreateProps<ApplicationsCreateKeyDatesBody> {}
+	extends CaseCreateProps<ApplicationsCreateKeyDatesBody> {}

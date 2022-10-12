@@ -4,11 +4,11 @@ import { random } from 'lodash-es';
 import { createOptionsItem } from './options-item.js';
 import { createApplicationReference, createRandomDescription } from './util.js';
 
-/** @typedef {import('../../../src/server/applications/applications.types').Application} Application */
+/** @typedef {import('../../../src/server/applications/applications.types').Case} Case */
 
 /**
- * @param {Partial<Application>} [options={}]
- * @returns {Application}
+ * @param {Partial<Case>} [options={}]
+ * @returns {Case}
  */
 export function createApplication({
 	id = fake.createUniqueId(),

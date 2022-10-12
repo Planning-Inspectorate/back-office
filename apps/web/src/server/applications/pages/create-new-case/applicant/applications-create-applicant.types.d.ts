@@ -1,5 +1,5 @@
 import { ValidationErrors } from '@pins/express';
-import { ApplicationCreateProps, FormCaseLayout, SelectItem } from '../../../applications.types';
+import { CaseCreateProps, FormCaseLayout, SelectItem } from '../../../applications.types';
 
 export type ApplicationsCreateApplicantTypesProps = {
 	applicantInfoTypes: SelectItem[];
@@ -17,7 +17,7 @@ export interface ApplicationsCreateApplicantOrganisationNameBody
 	'applicant.organisationName'?: string;
 }
 export interface ApplicationsCreateApplicantOrganisationNameProps
-	extends ApplicationCreateProps<ApplicationsCreateApplicantOrganisationNameBody> {}
+	extends CaseCreateProps<ApplicationsCreateApplicantOrganisationNameBody> {}
 
 // full name
 export interface ApplicationsCreateApplicantFullNameBody
@@ -27,21 +27,21 @@ export interface ApplicationsCreateApplicantFullNameBody
 	'applicant.lastName'?: string;
 }
 export interface ApplicationsCreateApplicantFullNameProps
-	extends ApplicationCreateProps<ApplicationsCreateApplicantFullNameBody> {}
+	extends CaseCreateProps<ApplicationsCreateApplicantFullNameBody> {}
 
 //website
 export interface ApplicationsCreateApplicantWebsiteBody extends Record<string, string | undefined> {
 	'applicant.website'?: string;
 }
 export interface ApplicationsCreateApplicantWebsiteProps
-	extends ApplicationCreateProps<ApplicationsCreateApplicantWebsiteBody> {}
+	extends CaseCreateProps<ApplicationsCreateApplicantWebsiteBody> {}
 
 //email
 export interface ApplicationsCreateApplicantEmailBody extends Record<string, string | undefined> {
 	'applicant.email'?: string;
 }
 export interface ApplicationsCreateApplicantEmailProps
-	extends ApplicationCreateProps<ApplicationsCreateApplicantEmailBody> {}
+	extends CaseCreateProps<ApplicationsCreateApplicantEmailBody> {}
 
 // phone
 export interface ApplicationsCreateApplicantTelephoneNumberBody
@@ -49,7 +49,7 @@ export interface ApplicationsCreateApplicantTelephoneNumberBody
 	'applicant.phoneNumber'?: string;
 }
 export interface ApplicationsCreateApplicantTelephoneNumberProps
-	extends ApplicationCreateProps<ApplicationsCreateApplicantTelephoneNumberBody> {}
+	extends CaseCreateProps<ApplicationsCreateApplicantTelephoneNumberBody> {}
 
 // address
 export type ApplicationCreateApplicantAddressStage =

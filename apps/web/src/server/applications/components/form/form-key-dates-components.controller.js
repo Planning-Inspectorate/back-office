@@ -1,4 +1,4 @@
-import { getApplication, updateApplication } from '../../lib/services/case.service.js';
+import { getCase, updateCase } from '../../lib/services/case.service.js';
 
 /** @typedef {import('../../pages/create-new-case/key-dates/applications-create-key-dates.types').ApplicationsCreateKeyDatesProps} ApplicationsCreateKeyDatesProps */
 
@@ -12,7 +12,7 @@ import { getApplication, updateApplication } from '../../lib/services/case.servi
  */
 export async function keyDatesData(request, locals) {
 	const { applicationId } = locals;
-	const { keyDates } = await getApplication(applicationId, ['keyDates']);
+	const { keyDates } = await getCase(applicationId, ['keyDates']);
 	const { submissionDatePublished, submissionDateInternal } = keyDates || {};
 
 	const values = {
@@ -53,10 +53,7 @@ export async function keyDatesDataUpdate({ body, errors: validationErrors }, loc
 		}
 	};
 
-	const { errors: apiErrors, id: updatedApplicationId } = await updateApplication(
-		applicationId,
-		payload
-	);
+	const { errors: apiErrors, id: updatedApplicationId } = await updateCase(applicationId, payload);
 
 	const properties = {
 		errors: validationErrors || apiErrors,
