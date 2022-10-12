@@ -10,7 +10,7 @@ exports[`applications GET /case-admin-officer should render a placeholder when t
     <div class=\\"govuk-grid-row\\">
         <div class=\\"govuk-grid-column-one-half\\">
             <div class=\\"pins-dashboard-box\\">
-                <h3 class=\\"govuk-heading-l pins-dashboard-box--title\\">Search applications</h3>
+                <h3 class=\\"govuk-heading-l pins-dashboard-box--title\\">Search cases</h3>
                 <form method=\\"post\\" action=\\"search-results\\" novalidate class=\\"pins-dashboard-box--form pins-dashboard-form\\"
                 role=\\"search\\" aria-label=\\"Applications\\">
                     <div class=\\"govuk-form-group\\">
@@ -46,7 +46,7 @@ exports[`applications GET /case-admin-officer should render the open application
     <div class=\\"govuk-grid-row\\">
         <div class=\\"govuk-grid-column-one-half\\">
             <div class=\\"pins-dashboard-box\\">
-                <h3 class=\\"govuk-heading-l pins-dashboard-box--title\\">Search applications</h3>
+                <h3 class=\\"govuk-heading-l pins-dashboard-box--title\\">Search cases</h3>
                 <form method=\\"post\\" action=\\"search-results\\" novalidate class=\\"pins-dashboard-box--form pins-dashboard-form\\"
                 role=\\"search\\" aria-label=\\"Applications\\">
                     <div class=\\"govuk-form-group\\">
@@ -214,7 +214,7 @@ exports[`applications GET /case-officer should render a placeholder when there a
     <div class=\\"govuk-grid-row\\">
         <div class=\\"govuk-grid-column-one-half\\">
             <div class=\\"pins-dashboard-box\\">
-                <h3 class=\\"govuk-heading-l pins-dashboard-box--title\\">Search applications</h3>
+                <h3 class=\\"govuk-heading-l pins-dashboard-box--title\\">Search cases</h3>
                 <form method=\\"post\\" action=\\"search-results\\" novalidate class=\\"pins-dashboard-box--form pins-dashboard-form\\"
                 role=\\"search\\" aria-label=\\"Applications\\">
                     <div class=\\"govuk-form-group\\">
@@ -250,7 +250,7 @@ exports[`applications GET /case-officer should render the open applications belo
     <div class=\\"govuk-grid-row\\">
         <div class=\\"govuk-grid-column-one-half\\">
             <div class=\\"pins-dashboard-box\\">
-                <h3 class=\\"govuk-heading-l pins-dashboard-box--title\\">Search applications</h3>
+                <h3 class=\\"govuk-heading-l pins-dashboard-box--title\\">Search cases</h3>
                 <form method=\\"post\\" action=\\"search-results\\" novalidate class=\\"pins-dashboard-box--form pins-dashboard-form\\"
                 role=\\"search\\" aria-label=\\"Applications\\">
                     <div class=\\"govuk-form-group\\">
@@ -418,7 +418,7 @@ exports[`applications GET /inspector should render a placeholder when there are 
     <div class=\\"govuk-grid-row\\">
         <div class=\\"govuk-grid-column-full\\">
             <div class=\\"pins-dashboard-box\\">
-                <h3 class=\\"govuk-heading-l pins-dashboard-box--title\\">Search applications</h3>
+                <h3 class=\\"govuk-heading-l pins-dashboard-box--title\\">Search cases</h3>
                 <form method=\\"post\\" action=\\"search-results\\" novalidate class=\\"pins-dashboard-box--form pins-dashboard-form\\"
                 role=\\"search\\" aria-label=\\"Applications\\">
                     <div class=\\"govuk-form-group\\">
@@ -448,7 +448,7 @@ exports[`applications GET /inspector should render the open applications belongi
     <div class=\\"govuk-grid-row\\">
         <div class=\\"govuk-grid-column-full\\">
             <div class=\\"pins-dashboard-box\\">
-                <h3 class=\\"govuk-heading-l pins-dashboard-box--title\\">Search applications</h3>
+                <h3 class=\\"govuk-heading-l pins-dashboard-box--title\\">Search cases</h3>
                 <form method=\\"post\\" action=\\"search-results\\" novalidate class=\\"pins-dashboard-box--form pins-dashboard-form\\"
                 role=\\"search\\" aria-label=\\"Applications\\">
                     <div class=\\"govuk-form-group\\">
