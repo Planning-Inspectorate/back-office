@@ -4,6 +4,7 @@ exports[`applications view case summary GET /case should render the page 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"govuk-grid-row govuk-!-padding-top-9 govuk-!-padding-bottom-2 govuk-!-margin-bottom-7 pins-masthead-summary\\">
         <div class=\\"govuk-grid-column-full\\">
+            <h4 class=\\"govuk-heading-m\\"></h4>
             <h1 class=\\"govuk-heading-xl\\"></h1>
             <div class=\\"govuk-grid-row\\">
                 <div class=\\"govuk-grid-column-full govuk-body\\">,
@@ -73,6 +74,7 @@ exports[`applications view case summary GET /case/project-information should ren
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"govuk-grid-row govuk-!-padding-top-9 govuk-!-padding-bottom-2 govuk-!-margin-bottom-7 pins-masthead-summary\\">
         <div class=\\"govuk-grid-column-full\\">
+            <h4 class=\\"govuk-heading-m\\"></h4>
             <h1 class=\\"govuk-heading-xl\\"></h1>
             <div class=\\"govuk-grid-row\\">
                 <div class=\\"govuk-grid-column-full govuk-body\\">,
