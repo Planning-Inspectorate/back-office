@@ -197,3 +197,21 @@ export const getCaseDetails = async (id, query) => {
 		? filterOutResponse(parsedQuery, applicationDetailsFormatted)
 		: applicationDetailsFormatted;
 };
+
+/**
+ *
+ * @returns {Promise<object>}
+ */
+export const getFolderDetails = async () => {
+	const folders = [
+		{
+			id: 1,
+			displayNameEn: 'Post-decision',
+			displayOrder: 1100,
+			parentFolderId: null,
+			caseId: null
+		}
+	];
+
+	return folders;
+};
