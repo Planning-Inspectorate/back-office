@@ -4,6 +4,7 @@ import { trimUnexpectedRequestParameters } from '../middleware/trim-unexpected-r
 import {
 	createApplication,
 	getApplicationDetails,
+	getListOfDocuments,
 	startCase,
 	updateApplication
 } from './application/application.controller.js';
@@ -134,6 +135,27 @@ router.get(
 	validateGetApplicationQuery,
 	trimUnexpectedRequestParameters,
 	asyncHandler(getApplicationDetails)
+);
+
+router.get(
+	'/:id/documents',
+	/*
+        #swagger.tags = ['Applications']
+        #swagger.path = '/applications/{id}/documents'
+        #swagger.description = 'Gets list of documents'
+        #swagger.parameters['id'] = {
+            in: 'path',
+			description: 'Application ID here',
+			required: true,
+			type: 'integer'
+		}
+      #swagger.responses[200] = {
+            description: 'IDs of application',
+            schema: { id: 1, displayNameEn: 'Post-decision', displayOrder: 1100, parentFolderId: null, caseId }
+        }
+    */
+	validateApplicationId,
+	asyncHandler(getListOfDocuments)
 );
 
 export { router as applicationsRoutes };
