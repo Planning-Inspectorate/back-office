@@ -2,6 +2,7 @@ import { Router as createRouter } from 'express';
 import { asyncHandler } from '../middleware/async-handler.js';
 import {
 	createApplication,
+	createTimetable,
 	getApplicationDetails,
 	startCase,
 	updateApplication
@@ -35,25 +36,9 @@ router.use('/search', caseSearchRoutes);
 
 router.use('/zoom-level', zoomLevelRoutes);
 
-router.post(
-	'/',
-	/*
-        #swagger.tags = ['Applications']
-        #swagger.path = '/applications'
-        #swagger.description = 'Creates new application'
-        #swagger.parameters['body'] = {
-            in: 'body',
-            description: 'Application Details',
-            schema: { $ref: '#/definitions/CreateApplication' }
-        }
-        #swagger.responses[200] = {
-            description: 'ID of application',
-            schema: { id: 1, applicantIds: [2] }
-        }
-    */
-	validateCreateUpdateApplication,
-	asyncHandler(createApplication)
-);
+router.get('/exam-timetable', asyncHandler(createTimetable));
+
+router.post('/', validateCreateUpdateApplication, asyncHandler(createApplication));
 
 router.patch(
 	'/:id',
