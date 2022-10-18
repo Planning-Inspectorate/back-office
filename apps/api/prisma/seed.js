@@ -7,6 +7,7 @@ import {
 	appellantsList,
 	caseStatusNames,
 	completeValidationDecisionSample,
+	folders,
 	incompleteReviewQuestionnaireSample,
 	incompleteValidationDecisionSample,
 	invalidValidationDecisionSample,
@@ -52,8 +53,8 @@ function generateApplicationReference(subSector, referenceNumber) {
 
 /**
  *
- * @param {object[]} list
- * @returns {object}
+ * @param {object[] | string[]} list
+ * @returns {object | string}
  */
 function pickRandom(list) {
 	return list[Math.floor(Math.random() * list.length)];
@@ -64,6 +65,13 @@ const appealTypes = {
 	FPA: 'full planning'
 };
 
+/**
+ *
+ * @param {string} lpaQuestionnaireAndInspectorPickupState
+ * @param {string} statementsAndFinalCommentsState
+ * @param {Date} createdAt
+ * @returns {{status: string, createdAt: Date, subStateMachineName: string, compoundStateName: string}[]}
+ */
 const buildCompoundState = (
 	lpaQuestionnaireAndInspectorPickupState,
 	statementsAndFinalCommentsState,
@@ -647,8 +655,14 @@ const deleteAllRecords = async () => {
 	const deleteReviewQuestionnaire = databaseConnector.reviewQuestionnaire.deleteMany();
 	const deleteSiteVisit = databaseConnector.siteVisit.deleteMany();
 	const deleteValidationDecision = databaseConnector.validationDecision.deleteMany();
+	const deleteServiceCustomers = databaseConnector.serviceCustomer.deleteMany();
+	const deleteGridReference = databaseConnector.gridReference.deleteMany();
+	const deleteFolders = databaseConnector.folder.deleteMany();
 
 	await databaseConnector.$transaction([
+		deleteFolders,
+		deleteGridReference,
+		deleteServiceCustomers,
 		deleteRegionsOnApplicationDetails,
 		deleteApplicationDetails,
 		deleteCaseStatuses,
@@ -680,6 +694,7 @@ const deleteAllRecords = async () => {
 const createApplication = async (subSector, index) => {
 	const reference = generateApplicationReference(subSector, index);
 	const title = `${subSector.displayNameEn} Test Application ${index}`;
+	const caseStatus = pickRandom(caseStatusNames).name;
 
 	await databaseConnector.case.create({
 		data: {
@@ -687,6 +702,7 @@ const createApplication = async (subSector, index) => {
 			modifiedAt: new Date(),
 			description: `A description of test case ${index} which is a case of subsector type ${subSector.displayNameEn}`,
 			title,
+			...(caseStatus !== 'draft' && { folder: { create: folders } }),
 			ApplicationDetails: {
 				create: {
 					subSector: {
@@ -715,8 +731,7 @@ const createApplication = async (subSector, index) => {
 			CaseStatus: {
 				create: [
 					{
-						// TODO: for now, randomly apply statuses
-						status: pickRandom(caseStatusNames).name
+						status: caseStatus
 					}
 				]
 			}
@@ -770,6 +785,45 @@ const developMain = async () => {
 	}
 };
 
+// const productionMain = async () => {
+// 	try {
+// 		for (const sector of sectors) {
+// 			await databaseConnector.sector.upsert({
+// 				create: sector,
+// 				where: { name: sector.name },
+// 				update: {}
+// 			});
+// 		}
+// 		for (const { subSector, sectorName } of subSectors) {
+// 			await databaseConnector.subSector.upsert({
+// 				create: { ...subSector, sector: { connect: { name: sectorName } } },
+// 				update: {},
+// 				where: { name: subSector.name }
+// 			});
+// 		}
+// 		for (const region of regions) {
+// 			await databaseConnector.region.upsert({
+// 				create: region,
+// 				where: { name: region.name },
+// 				update: {}
+// 			});
+// 		}
+// 		for (const zoomLevel of zoomLevels) {
+// 			await databaseConnector.zoomLevel.upsert({
+// 				create: zoomLevel,
+// 				where: { name: zoomLevel.name },
+// 				update: {}
+// 			});
+// 		}
+// 	} catch (error) {
+// 		logger.error(error);
+// 		throw error;
+// 	} finally {
+// 		await databaseConnector.$disconnect();
+// 	}
+// };
+
+// await (config.NODE_ENV === 'production' ? productionMain() : developMain());
 if (config.NODE_ENV !== 'production') {
 	await developMain();
 }
