@@ -151,7 +151,7 @@ router.get(
 		}
       #swagger.responses[200] = {
             description: 'IDs of application',
-            schema: { id: 1, displayNameEn: 'Post-decision', displayOrder: 1100, parentFolderId: null, caseId }
+            schema: [ id: 1, displayNameEn: 'Post-decision', displayOrder: 1100 ]
         }
     */
 	validateApplicationId,
