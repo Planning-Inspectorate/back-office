@@ -82,6 +82,7 @@ model Case {
   CaseStatus         CaseStatus[]
   gridReference      GridReference?
   serviceCustomer    ServiceCustomer[]
+  folder             Folder[]
 }
 
 model ServiceCustomer {
@@ -288,4 +289,15 @@ model ZoomLevel {
   displayNameEn String
   displayNameCy String
   Application   ApplicationDetails[]
+}
+
+model Folder {
+  id             Int      @id @default(autoincrement())
+  displayNameEn  String
+  displayOrder   Int?
+  parentFolderId Int?
+  parentFolder   Folder?  @relation("FolderTree", fields: [parentFolderId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  childFolders   Folder[] @relation("FolderTree")
+  case           Case?    @relation(fields: [caseId], references: [id])
+  caseId         Int?
 }
