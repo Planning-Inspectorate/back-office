@@ -22,7 +22,7 @@ import {
  */
 
 /**
- * Register the non-domain locals for the Applications scope.
+ * Register the non-domain locals for the Applications scope
  *
  * @type {import('express').RequestHandler<DomainParams, *, *, *, ApplicationsLocals>}
  */
