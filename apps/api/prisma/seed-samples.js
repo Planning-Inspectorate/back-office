@@ -668,3 +668,50 @@ export const caseStatusNames = [
 	{ name: 'post_decision' },
 	{ name: 'withdrawn' }
 ];
+
+export const folders = [
+	{
+		displayNameEn: 'Project management',
+		displayOrder: 100
+	},
+	{
+		displayNameEn: 'Legal advice',
+		displayOrder: 200
+	},
+	{
+		displayNameEn: 'Transboundary',
+		displayOrder: 300
+	},
+	{
+		displayNameEn: 'Legal rights',
+		displayOrder: 400
+	},
+	{
+		displayNameEn: 'S51 advice',
+		displayOrder: 500
+	},
+	{
+		displayNameEn: 'Pre-application',
+		displayOrder: 600
+	},
+	{
+		displayNameEn: 'Acceptance',
+		displayOrder: 700
+	},
+	{
+		displayNameEn: 'Relevant representation',
+		displayOrder: 800
+	},
+	{
+		displayNameEn: 'Examination',
+		displayOrder: 900
+	},
+	{
+		displayNameEn: 'Decision',
+		displayOrder: 1000
+	},
+	{
+		displayNameEn: 'Post-decision',
+		displayOrder: 1100
+	}
+];
