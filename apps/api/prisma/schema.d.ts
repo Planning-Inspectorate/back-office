@@ -25,6 +25,11 @@ export interface Case extends schema.Case {
 	gridReference?: GridReference;
 }
 
+export interface Folder extends schema.Folder {
+	case?: Case;
+	parentFolder?: Folder;
+}
+
 export interface ApplicationDetails extends schema.ApplicationDetails {
 	regions?: Region[];
 	zoomLevel?: ZoomLevel;
