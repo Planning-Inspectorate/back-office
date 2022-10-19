@@ -4,6 +4,8 @@
 {% from "govuk/components/accordion/macro.njk" import govukAccordion %}
 {% from "govuk/components/breadcrumbs/macro.njk" import govukBreadcrumbs %}
 {% from "../../components/status-tag.component.njk" import statusTag %}
+{% from '../../components/applications-header.njk' import applicationsHeader %}
+
 
 {% set pageCaption = displayValue %}
 {% set pageTitle = application.title %}
@@ -13,6 +15,10 @@
 		text: "Back to applications",
 		href: '/applications-service/' + domainType
 	}) }}
+{% endblock %}
+
+{% block header %}
+	{{ applicationsHeader(domainType) }}
 {% endblock %}
 
 {% block pageHeading %}

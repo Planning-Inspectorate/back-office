@@ -21,7 +21,11 @@
 {% from "./applicant/address-view.njk" import addressView %}
 {% from "./key-dates/date-published.njk" import datePublished %}
 {% from "./key-dates/date-internal.njk" import dateInternal %}
+{% from '../../components/applications-header.njk' import applicationsHeader %}
 
+{% block header %}
+	{{ applicationsHeader(domainType) }}
+{% endblock %}
 
 {% block pageHeading %}{% endblock %}
 
