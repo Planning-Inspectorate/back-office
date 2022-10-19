@@ -4,8 +4,13 @@
 {% from "govuk/components/table/macro.njk" import govukTable %}
 {% from "govuk/components/button/macro.njk" import govukButton %}
 {% from "govuk/components/warning-text/macro.njk" import govukWarningText %}
+{% from '../components/applications-header.njk' import applicationsHeader %}
 
 {% block pageHeading %}{% endblock %}
+
+{% block header %}
+	{{ applicationsHeader(domainType) }}
+{% endblock %}
 
 {% block pageContent %}
 	{% set baseUrl = '/applications-service/create-new-case/' + applicationId %}
