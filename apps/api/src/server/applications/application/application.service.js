@@ -3,6 +3,7 @@ import * as caseRepository from '../../repositories/case.repository.js';
 import { breakUpCompoundStatus } from '../../utils/break-up-compound-status.js';
 import { buildAppealCompundStatus } from '../../utils/build-appeal-compound-status.js';
 import { mapApplicationDetails } from '../../utils/mapping/map-case-details.js';
+import { mapFolderDetails } from '../../utils/mapping/map-folder-details.js';
 // import { sendMessage } from '../../utils/service-bus-sender.js';
 import { transitionState } from '../../utils/transition-state.js';
 
@@ -213,5 +214,5 @@ export const getFolderDetails = async () => {
 		}
 	];
 
-	return folders;
+	return mapFolderDetails(folders);
 };
