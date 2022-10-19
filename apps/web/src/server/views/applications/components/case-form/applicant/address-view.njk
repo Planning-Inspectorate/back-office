@@ -2,6 +2,7 @@
 
 {% macro addressView(postcode, applicantAddress) %}
 	{% if applicantAddress.length < 1 %}
+		<input type="hidden" name='currentFormStage' value="searchPostcode">
 		<div class="govuk-form-group">
 			<label class="govuk-label font-weight--700" for="postcode">
 				Postcode
