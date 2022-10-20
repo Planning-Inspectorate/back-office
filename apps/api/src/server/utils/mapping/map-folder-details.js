@@ -7,6 +7,6 @@ import { pick } from 'lodash-es';
  */
 export const mapFolderDetails = (folderDetails) => {
 	return folderDetails.map((/** @type {any} */ folder) =>
-		pick(folder, ['id', 'displayNameEn', 'displayOrder'])
+		pick(folder, ['id', 'displayNameEn', 'displayOrder', 'type'])
 	);
 };
