@@ -1,0 +1,12 @@
+@use "../govuk-frontend/govuk/settings/_colours-applied" as colors;
+
+$colours-attrs: (
+		primary: colors.govuk-colour("black"),
+		secondary: colors.govuk-colour("dark-grey"),
+);
+
+@each $key, $val in $colours-attrs {
+  .colour--#{$key} {
+	color: #{$val};
+  }
+}
