@@ -1,3 +1,5 @@
+import slugify from 'slugify';
+
 /** @typedef {import('../../applications/applications.types').DomainType} DomainType */
 
 /**
@@ -6,6 +8,8 @@
  * @property {number=} caseId
  * @property {string=} step
  * @property {string=} query
+ * @property {number=} documentCategoryId
+ * @property {string=} documentCategoryName
  */
 
 /**
