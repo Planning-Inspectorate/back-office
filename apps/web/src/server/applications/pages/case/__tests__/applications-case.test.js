@@ -1,18 +1,19 @@
 import { parseHtml } from '@pins/platform';
 import nock from 'nock';
 import supertest from 'supertest';
+import { fixtureApplications } from '../../../../../../testing/applications/fixtures/applications.js';
+import { fixtureDocumentCategory } from '../../../../../../testing/applications/fixtures/options-item.js';
 import { createTestApplication } from '../../../../../../testing/index.js';
 
 const { app, installMockApi, teardown } = createTestApplication();
 const request = supertest(app);
-const successGetResponse = { id: 1, applicants: [{ id: 1 }] };
 
 const nocks = () => {
 	nock('http://test/').get('/applications/case-officer').reply(200, []);
-	nock('http://test/')
-		.get(/\/applications\/123(.*)/g)
-		.times(2)
-		.reply(200, successGetResponse);
+
+	nock('http://test/').get('/applications/123').reply(200, fixtureApplications[3]);
+
+	nock('http://test/').get('/applications/123/documents').reply(200, fixtureDocumentCategory);
 };
 
 describe('applications view case summary', () => {
@@ -29,7 +30,7 @@ describe('applications view case summary', () => {
 
 	const baseUrl = '/applications-service/case/123';
 
-	describe('GET /case', () => {
+	describe('GET /case/123', () => {
 		beforeEach(async () => {
 			nocks();
 		});
@@ -39,10 +40,11 @@ describe('applications view case summary', () => {
 			const element = parseHtml(response.text);
 
 			expect(element.innerHTML).toMatchSnapshot();
+			expect(element.innerHTML).toContain('Summary information');
 		});
 	});
 
-	describe('GET /case/project-information', () => {
+	describe('GET /case/123/project-information', () => {
 		beforeEach(async () => {
 			nocks();
 		});
@@ -52,6 +54,21 @@ describe('applications view case summary', () => {
 			const element = parseHtml(response.text);
 
 			expect(element.innerHTML).toMatchSnapshot();
+			expect(element.innerHTML).toContain('Project details');
+		});
+	});
+
+	describe('GET /case/123/project-documentation', () => {
+		beforeEach(async () => {
+			nocks();
+		});
+
+		it('should render the page', async () => {
+			const response = await request.get(`${baseUrl}/project-documentation`);
+			const element = parseHtml(response.text);
+
+			expect(element.innerHTML).toMatchSnapshot();
+			expect(element.innerHTML).toContain('All documents');
 		});
 	});
 });

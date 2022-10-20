@@ -20,7 +20,7 @@ export const fixtureSectors = [
 export const fixtureSubSectors = [
 	createOptionsItem({ name: 'highways' }),
 	createOptionsItem({ name: 'airports' }),
-	createOptionsItem({ name: 'railways' }),
+	createOptionsItem({ name: 'railways' })
 ];
 
 export const fixtureZoomLevels = [
@@ -31,3 +31,5 @@ export const fixtureZoomLevels = [
 	createOptionsItem({ name: 'region' }),
 	createOptionsItem({ name: 'none' })
 ];
+
+export const fixtureDocumentCategory = [createOptionsItem({ name: 'Post-decision' })];

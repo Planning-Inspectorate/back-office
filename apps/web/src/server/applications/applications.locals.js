@@ -1,8 +1,8 @@
-import { findApplicationById } from './applications.service.js';
 import {
 	getSessionApplicationsDomainType,
 	setSessionApplicationsDomainType
 } from './applications-session.service.js';
+import { getCase } from './lib/services/case.service.js';
 
 /** @typedef {import('./applications.router').DomainParams} DomainParams */
 /** @typedef {import('./applications.types').DomainType} DomainType */
@@ -57,9 +57,9 @@ export const registerDomainLocals = ({ params, session }, response, next) => {
  *
  * @type {import('@pins/express').RequestHandler<ApplicationLocals>}
  */
-export const loadApplication = async (req, response, next) => {
+export const registerApplication = async (req, response, next) => {
 	response.locals.applicationId = Number(req.params.applicationId);
-	response.locals.application = await findApplicationById(response.locals.applicationId);
+	response.locals.application = await getCase(response.locals.applicationId);
 
 	next();
 };
