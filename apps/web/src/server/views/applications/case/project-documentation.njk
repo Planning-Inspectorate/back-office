@@ -1,11 +1,18 @@
 {% extends "./layouts/applications-case-layout.njk" %}
 {% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
 
+{% block sectionMenu %}{% endblock %}
+
 {% block sectionContent %}
 
 	<h2 class="govuk-heading-m">Project documentation</h2>
 
-	<p class="govuk-body">Not yet implemented</p>
+	<p class="govuk-body-s colour--secondary">All documents relating to the project</p>
 
-	<hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible">
+	{% for documentCategory in documentCategories %}
+		<a class="govuk-link govuk-heading-s" href="{{ 'document-category'|url({applicationId: applicationId, documentCategoryId: documentCategory.id, documentCategoryName: documentCategory.displayNameEn}) }}">
+			{{ documentCategory.displayNameEn }}
+		</a>
+	{% endfor %}
+
 {% endblock %}

@@ -2,6 +2,7 @@ import { parseHtml } from '@pins/platform';
 import nock from 'nock';
 import supertest from 'supertest';
 import { fixtureCases } from '../../../../../../testing/applications/fixtures/cases.js';
+import { fixtureDocumentCategory } from '../../../../../../testing/applications/fixtures/options-item.js';
 import { createTestEnvironment } from '../../../../../../testing/index.js';
 
 const { app, installMockApi, teardown } = createTestEnvironment();
@@ -11,6 +12,8 @@ const nocks = () => {
 	nock('http://test/').get('/applications/case-officer').reply(200, []);
 
 	nock('http://test/').get('/applications/123').reply(200, fixtureCases[3]);
+
+	nock('http://test/').get('/applications/123/documents').reply(200, fixtureDocumentCategory);
 };
 
 describe('applications view case summary', () => {
@@ -52,6 +55,20 @@ describe('applications view case summary', () => {
 
 			expect(element.innerHTML).toMatchSnapshot();
 			expect(element.innerHTML).toContain('Project details');
+		});
+	});
+
+	describe('GET /case/123/project-documentation', () => {
+		beforeEach(async () => {
+			nocks();
+		});
+
+		it('should render the page', async () => {
+			const response = await request.get(`${baseUrl}/project-documentation`);
+			const element = parseHtml(response.text);
+
+			expect(element.innerHTML).toMatchSnapshot();
+			expect(element.innerHTML).toContain('All documents');
 		});
 	});
 });
