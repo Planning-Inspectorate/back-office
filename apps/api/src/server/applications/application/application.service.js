@@ -1,5 +1,6 @@
 import { isArray, isEmpty, pick, pickBy } from 'lodash-es';
 import * as caseRepository from '../../repositories/case.repository.js';
+import * as folderRepository from '../../repositories/folder.repository.js';
 import { breakUpCompoundStatus } from '../../utils/break-up-compound-status.js';
 import { buildAppealCompundStatus } from '../../utils/build-appeal-compound-status.js';
 import { mapApplicationDetails } from '../../utils/mapping/map-case-details.js';
@@ -201,18 +202,11 @@ export const getCaseDetails = async (id, query) => {
 
 /**
  *
+ * @param {number} id
  * @returns {Promise<object>}
  */
-export const getFolderDetails = async () => {
-	const folders = [
-		{
-			id: 1,
-			displayNameEn: 'Post-decision',
-			displayOrder: 1100,
-			parentFolderId: null,
-			caseId: null
-		}
-	];
+export const getFolderDetails = async (id) => {
+	const getFolders = await folderRepository.getByCaseId(id);
 
-	return mapFolderDetails(folders);
+	return mapFolderDetails(getFolders);
 };
