@@ -18,8 +18,8 @@ exports[`applications documentation GET /case/123/project-documentation should r
         <div class=\\"govuk-grid-column-two-thirds\\">
             <h2 class=\\"govuk-heading-m\\">Project documentation</h2>
             <p class=\\"govuk-body-s colour--secondary\\">All documents relating to the project</p><a class=\\"govuk-link govuk-heading-s\\"
-            href=\\"/applications-service/case/123/project-documentation/127/post-decision-en\\"> Post-decision EN</a>
-            <a             class=\\"govuk-link govuk-heading-s\\" href=\\"/applications-service/case/123/project-documentation/128/examination-en\\">Examination EN</a>
+            href=\\"/applications-service/case/123/project-documentation/21/post-decision-en\\"> Post-decision EN</a>
+            <a             class=\\"govuk-link govuk-heading-s\\" href=\\"/applications-service/case/123/project-documentation/22/examination-en\\">Examination EN</a>
         </div>
     </div>
 </main>"
