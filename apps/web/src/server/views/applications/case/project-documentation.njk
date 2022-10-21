@@ -3,6 +3,13 @@
 
 {% block sectionMenu %}{% endblock %}
 
+{% block beforeContent %}
+	{{ govukBackLink({
+		text: "Back to project overview",
+		href: 'view-application'|url({applicationId: applicationId})
+	}) }}
+{% endblock %}
+
 {% block sectionContent %}
 
 	<h2 class="govuk-heading-m">Project documentation</h2>
