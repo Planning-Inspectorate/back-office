@@ -23,7 +23,6 @@ const findUniqueServiceCustomerStub = sinon.stub();
 
 findUniqueServiceCustomerStub.withArgs({ where: { id: 1 } }).returns({ id: 1, caseId: 1 });
 findUniqueServiceCustomerStub.withArgs({ where: { id: 2 } }).returns({ id: 2, caseId: 2 });
-findUniqueServiceCustomerStub.withArgs({ where: { id: 2 } }).returns(null);
 
 const findUniqueZoomLevelStub = sinon.stub();
 
@@ -367,23 +366,23 @@ test('throws error if unknown application id provided', async (t) => {
 });
 
 test('throws error if unknown applicant id provided', async (t) => {
-	const response = await request.patch('/applications/1').send({ applicant: { id: 3 } });
+	const response = await request.patch('/applications/1').send({ applicants: [{ id: 3 }] });
 
 	t.is(response.status, 400);
 	t.deepEqual(response.body, {
 		errors: {
-			'applicant.id': 'Must be existing applicant that belongs to this case'
+			'applicants[0].id': 'Unknown Applicant'
 		}
 	});
 });
 
 test('throws error if applicant id that doesnt belong to case provided', async (t) => {
-	const response = await request.patch('/applications/1').send({ applicant: { id: 2 } });
+	const response = await request.patch('/applications/1').send({ applicants: [{ id: 2 }] });
 
 	t.is(response.status, 400);
 	t.deepEqual(response.body, {
 		errors: {
-			'applicant.id': 'Must be existing applicant that belongs to this case'
+			'applicants[0].id': 'Must be existing applicant that belongs to this case'
 		}
 	});
 });
