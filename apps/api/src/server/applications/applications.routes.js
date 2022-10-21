@@ -143,9 +143,9 @@ router.get(
 			required: true,
 			type: 'integer'
 		}
-      #swagger.responses[200] = {
+        #swagger.responses[200] = {
             description: 'IDs of application',
-            schema: [ id: 1, displayNameEn: 'Post-decision', displayOrder: 1100 ]
+            schema: [ { id: 1, displayNameEn: 'Post-decision', displayOrder: 1100, type: 'folder' } ]
         }
     */
 	validateApplicationId,
