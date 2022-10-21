@@ -1,6 +1,7 @@
 import slugify from 'slugify';
 
 /** @typedef {import('../../applications/applications.types').DomainType} DomainType */
+/** @typedef {import('../../applications/applications.types').DocumentationCategory} DocumentationCategory */
 
 /**
  * @typedef {object} urlFilterArguments
@@ -8,8 +9,7 @@ import slugify from 'slugify';
  * @property {number=} caseId
  * @property {string=} step
  * @property {string=} query
- * @property {number=} documentCategoryId
- * @property {string=} documentCategoryName
+ * @property {DocumentationCategory=} documentationCategory
  */
 
 /**
@@ -22,6 +22,21 @@ const getArgument = (argumentName, filterArguments) => {
 	const argument = filterArguments[argumentName];
 
 	return argument ? `${argument}/` : '';
+};
+
+// TODO: handle subfolders
+/**
+ *
+ * @param {urlFilterArguments} filterArguments
+ * @returns {string}
+ */
+const makeDocumentationCategoryPath = (filterArguments) => {
+	const { documentationCategory } = filterArguments;
+	const { id, displayNameEn } = documentationCategory || {};
+	const documentationCategoryId = id ? `${id}/` : '';
+	const documentationCategoryName = displayNameEn ? slugify(displayNameEn, { lower: true }) : '';
+
+	return `${documentationCategoryId}${documentationCategoryName}`;
 };
 
 /**
@@ -38,6 +53,7 @@ export const url = (key, filterArguments = {}) => {
 	const domainType = getArgument('domainType', filterArguments);
 	const caseId = getArgument('caseId', filterArguments);
 	const step = getArgument('step', filterArguments);
+	const documentationCategory = makeDocumentationCategoryPath(filterArguments);
 
 	switch (key) {
 		case 'case-create':
@@ -46,6 +62,8 @@ export const url = (key, filterArguments = {}) => {
 			return `${domainUrl}/case/${caseId}edit/${step}`;
 		case 'dashboard':
 			return `${domainUrl}/${domainType}`;
+		case 'document-category':
+			return `${domainUrl}/case/${caseId}project-documentation/${documentationCategory}`;
 		case 'search-results':
 			return `${domainUrl}/search-results/${step}?q=${query}`;
 		case 'case-view':
