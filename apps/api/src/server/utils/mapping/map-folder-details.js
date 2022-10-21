@@ -1,14 +1,16 @@
 import { pick } from 'lodash-es';
 
+/** @typedef {import('@pins/api').Schema.Folder[]} Folder */
+
 /**
  *
- * @param { any } folderDetails
- * @returns {{id: number, displayNameEn: string, displayOrder: number}}
+ * @param { Folder[] } folderDetails
+ * @returns { Partial<Folder>[]}
  */
 export const mapFolderDetails = (folderDetails) => {
-	const folderDetailsPicked = folderDetails.map((/** @type {any} */ folder) =>
-		pick(folder, ['id', 'displayNameEn', 'displayOrder', 'type'])
+	const folderDetailsPicked = folderDetails.map((folder) =>
+		pick(folder, ['id', 'displayNameEn', 'displayOrder'])
 	);
 
-	return folderDetailsPicked.map((/** @type {any} */ folder) => ({ ...folder, type: 'folder' }));
+	return folderDetailsPicked.map((folder) => ({ ...folder, type: 'folder' }));
 };
