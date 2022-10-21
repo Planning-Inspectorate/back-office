@@ -1,9 +1,7 @@
 import slugify from 'slugify';
 
 /** @typedef {import('../../applications/applications.types').DomainType} DomainType */
-
-// TODO: this function is a mess: full of repetitions, very long lines and not scalable at all.
-//  The javascript linter makes the switch not really usable. Must find other solution
+/** @typedef {import('../../applications/applications.types').DocumentationCategory} DocumentationCategory */
 
 /**
  * @typedef {object} urlFilterArguments
@@ -11,9 +9,35 @@ import slugify from 'slugify';
  * @property {number=} applicationId
  * @property {string=} step
  * @property {string=} query
- * @property {number=} documentCategoryId
- * @property {string=} documentCategoryName
+ * @property {DocumentationCategory=} documentationCategory
  */
+
+/**
+ *
+ * @param {string} argumentName
+ * @param {Record<string, any>} filterArguments
+ * @returns {string}
+ */
+const getArgument = (argumentName, filterArguments) => {
+	const argument = filterArguments[argumentName];
+
+	return argument ? `${argument}/` : '';
+};
+
+// TODO: handle subfolders
+/**
+ *
+ * @param {urlFilterArguments} filterArguments
+ * @returns {string}
+ */
+const makeDocumentationCategoryPath = (filterArguments) => {
+	const { documentationCategory } = filterArguments;
+	const { id, displayNameEn } = documentationCategory || {};
+	const documentationCategoryId = id ? `${id}/` : '';
+	const documentationCategoryName = displayNameEn ? slugify(displayNameEn, { lower: true }) : '';
+
+	return `${documentationCategoryId}${documentationCategoryName}`;
+};
 
 /**
  * Register the url filter
@@ -22,33 +46,28 @@ import slugify from 'slugify';
  * @param {urlFilterArguments} filterArguments
  * @returns {string}
  */
-export const url = (key, filterArguments) => {
+export const url = (key, filterArguments = {}) => {
 	const domainUrl = '/applications-service';
-	const { domainType, applicationId, step, query, documentCategoryId, documentCategoryName } =
-		filterArguments || {};
+	const { query } = filterArguments;
+
+	const domainType = getArgument('domainType', filterArguments);
+	const applicationId = getArgument('applicationId', filterArguments);
+	const step = getArgument('step', filterArguments);
+	const documentationCategory = makeDocumentationCategoryPath(filterArguments);
 
 	switch (key) {
 		case 'applications-create':
-			return `${domainUrl}/create-new-case/${applicationId ? `${applicationId}/` : ''}${
-				step ? `${step}/` : ''
-			}`;
+			return `${domainUrl}/create-new-case/${applicationId}${step}`;
 		case 'applications-edit':
-			return `${domainUrl}/case/${applicationId ? `${applicationId}/` : ''}edit/${
-				step ? `${step}/` : ''
-			}`;
+			return `${domainUrl}/case/${applicationId}edit/${step}`;
 		case 'dashboard':
-			return `${domainUrl}/${domainType || ''}`;
+			return `${domainUrl}/${domainType}`;
 		case 'document-category':
-			// TODO: this doesnt handle subfolders
-			return `${domainUrl}/case/${applicationId ? `${applicationId}/` : ''}project-documentation/${
-				documentCategoryId ? `${documentCategoryId}/` : ''
-			}${documentCategoryName ? slugify(documentCategoryName, { lower: true }) : ''}`;
+			return `${domainUrl}/case/${applicationId}project-documentation/${documentationCategory}`;
 		case 'search-results':
 			return `${domainUrl}/search-results/${step}?q=${query}`;
 		case 'view-application':
-			return `${domainUrl}/case/${applicationId ? `${applicationId}/` : ''}${
-				step ? `${step}/` : ''
-			}`;
+			return `${domainUrl}/case/${applicationId}${step}`;
 		default:
 			return 'app/404';
 	}

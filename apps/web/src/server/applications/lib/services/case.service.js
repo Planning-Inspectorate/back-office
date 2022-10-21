@@ -7,7 +7,7 @@ import {
 
 /**
  * @typedef {import('../../applications.types').Case} Case
- * @typedef {import('../../applications.types').DocumentCategory} DocumentCategory
+ * @typedef {import('../../applications.types').DocumentationCategory} DocumentationCategory
  * @typedef {import('express-session').Session & { caseSectorName?: string }} SessionWithCaseSectorName
  * @typedef {import('@pins/express').ValidationErrors} ValidationErrors
  */
@@ -96,8 +96,8 @@ export const updateCase = async (applicationId, payload) => {
  * Get documents categories for the case
  *
  * @param {number} id
- * @returns {Promise<DocumentCategory[]>}
+ * @returns {Promise<DocumentationCategory[]>}
  */
-export const getCaseDocumentsCategories = (id) => {
+export const getCaseDocumentationCategories = (id) => {
 	return get(`applications/${id}/documents`);
 };
