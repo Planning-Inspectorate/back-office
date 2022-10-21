@@ -881,12 +881,6 @@
 						"schema": {
 							"$ref": "#/definitions/ApplicationsForSearchCriteria"
 						}
-					},
-					"400": {
-						"description": "Bad Request"
-					},
-					"403": {
-						"description": "Forbidden"
 					}
 				}
 			}
@@ -989,6 +983,14 @@
 								"type": "string",
 								"example": ""
 							},
+							"website": {
+								"type": "string",
+								"example": ""
+							},
+							"phoneNumber": {
+								"type": "string",
+								"example": ""
+							},
 							"address": {
 								"type": "object",
 								"properties": {
@@ -1013,14 +1015,6 @@
 										"example": ""
 									}
 								}
-							},
-							"website": {
-								"type": "string",
-								"example": ""
-							},
-							"phoneNumber": {
-								"type": "string",
-								"example": ""
 							}
 						}
 					}

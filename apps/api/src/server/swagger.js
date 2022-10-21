@@ -54,15 +54,15 @@ const document = {
 					middleName: '',
 					lastName: '',
 					email: '',
+					website: '',
+					phoneNumber: '',
 					address: {
 						addressLine1: '',
 						addressLine2: '',
 						town: '',
 						county: '',
 						postcode: ''
-					},
-					website: '',
-					phoneNumber: ''
+					}
 				}
 			],
 			keyDates: {
