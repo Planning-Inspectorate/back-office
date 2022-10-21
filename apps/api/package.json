@@ -24,7 +24,7 @@
     "db:migrate:prod": "npx prisma migrate deploy",
     "db:reset": "npx prisma migrate reset",
     "db:seed": "npm run prisma-generate && npx prisma db seed",
-    "db:seed:prod": "npm run prisma-generate && NODE_ENV=production npx prisma db seed",
+    "db:seed:prod": "npm run prisma-generate && NODE_ENV=production node prisma/seed-production.js",
     "prisma:format": "npx prisma format",
     "prisma-generate": "npx prisma generate",
     "tscheck": "npx tsc -p jsconfig.json --maxNodeModuleJsDepth 0"
