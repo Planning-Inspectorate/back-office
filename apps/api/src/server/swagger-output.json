@@ -770,6 +770,53 @@
 				}
 			}
 		},
+		"/applications/{id}/documents": {
+			"get": {
+				"tags": ["Applications"],
+				"description": "Gets list of documents",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"type": "integer",
+						"description": "Application ID here"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "IDs of application",
+						"schema": {
+							"type": "array",
+							"items": {
+								"type": "object",
+								"properties": {
+									"id": {
+										"type": "number",
+										"example": 1
+									},
+									"displayNameEn": {
+										"type": "string",
+										"example": "Post-decision"
+									},
+									"displayOrder": {
+										"type": "number",
+										"example": 1100
+									},
+									"type": {
+										"type": "string",
+										"example": "folder"
+									}
+								}
+							},
+							"xml": {
+								"name": "main"
+							}
+						}
+					}
+				}
+			}
+		},
 		"/applications/case-officer": {
 			"get": {
 				"tags": ["Applications"],
