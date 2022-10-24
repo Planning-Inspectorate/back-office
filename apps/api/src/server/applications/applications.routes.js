@@ -53,6 +53,7 @@ router.post(
         }
     */
 	validateCreateUpdateApplication,
+	trimUnexpectedRequestParameters,
 	asyncHandler(createApplication)
 );
 
