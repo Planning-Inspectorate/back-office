@@ -1,6 +1,6 @@
 import { composeMiddleware } from '@pins/express';
 import { validateFutureDate } from '@pins/platform';
-import { body, param } from 'express-validator';
+import { body, param, query } from 'express-validator';
 import {
 	validationErrorHandler,
 	validationErrorHandlerMissing
@@ -186,5 +186,10 @@ export const validateApplicantId = composeMiddleware(
 		.custom(validateExistingApplicantThatBelongsToCase)
 		.withMessage('Must be existing applicant that belongs to this case')
 		.optional({ nullable: true }),
+	validationErrorHandler
+);
+
+export const validateGetApplicationQuery = composeMiddleware(
+	query('query').optional({ nullable: true }),
 	validationErrorHandler
 );

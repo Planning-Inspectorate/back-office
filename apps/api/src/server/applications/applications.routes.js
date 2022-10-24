@@ -10,7 +10,8 @@ import {
 import {
 	validateApplicantId,
 	validateApplicationId,
-	validateCreateUpdateApplication
+	validateCreateUpdateApplication,
+	validateGetApplicationQuery
 } from './application/application.validators.js';
 import { caseAdminOfficerRoutes } from './case-admin-officer/case-admin-officer.routes.js';
 import { caseOfficerRoutes } from './case-officer/case-officer.routes.js';
@@ -130,6 +131,8 @@ router.get(
         }
     */
 	validateApplicationId,
+	validateGetApplicationQuery,
+	trimUnexpectedRequestParameters,
 	asyncHandler(getApplicationDetails)
 );
 
