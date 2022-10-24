@@ -94,12 +94,16 @@ export const startApplication = async (id) => {
 
 	// sendMessage({test: 'test'}, 'test')
 
-	await caseRepository.updateApplicationStatusAndDataById(caseDetails.id, {
-		status: nextStatusForRepository,
-		data: {},
-		currentStatuses: caseDetails.CaseStatus,
-		setReference: true
-	});
+	await caseRepository.updateApplicationStatusAndDataById(
+		caseDetails.id,
+		{
+			status: nextStatusForRepository,
+			data: {},
+			currentStatuses: caseDetails.CaseStatus,
+			setReference: true
+		},
+		[folderRepository.createFolders()]
+	);
 
 	const updatedCase = await caseRepository.getById(caseDetails.id, {});
 

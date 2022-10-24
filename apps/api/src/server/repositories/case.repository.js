@@ -411,11 +411,13 @@ export const createNewStatuses = (id, status) => {
  *
  * @param {number} id
  * @param {{status: string | object, data: {regionNames?: string[]}, currentStatuses: object[], setReference: boolean}} updateData
+ * @param {Promise<any>[]} createFolders
  * @returns {any}
  */
 export const updateApplicationStatusAndDataById = (
 	id,
-	{ status, data, currentStatuses, setReference = false }
+	{ status, data, currentStatuses, setReference = false },
+	/** @type {any[] | Promise<any>} */ createFolders
 ) => {
 	const { caseStatesToInvalidate, caseStatesToCreate } = separateStatusesToSaveAndInvalidate(
 		status,
@@ -438,6 +440,8 @@ export const updateApplicationStatusAndDataById = (
 	if (setReference) {
 		transactions.push(assignApplicationReference(id));
 	}
+
+	transactions.push(createFolders);
 
 	return databaseConnector.$transaction(transactions);
 };
