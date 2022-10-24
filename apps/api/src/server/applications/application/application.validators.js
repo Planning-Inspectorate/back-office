@@ -181,7 +181,7 @@ export const validateApplicationId = composeMiddleware(
 );
 
 export const validateApplicantId = composeMiddleware(
-	body('applicant.id')
+	body('applicants.*.id')
 		.toInt()
 		.custom(validateExistingApplicantThatBelongsToCase)
 		.withMessage('Must be existing applicant that belongs to this case')

@@ -371,7 +371,7 @@ test('throws error if unknown applicant id provided', async (t) => {
 	t.is(response.status, 400);
 	t.deepEqual(response.body, {
 		errors: {
-			'applicants[0].id': 'Unknown Applicant'
+			'applicants[0].id': 'Must be existing applicant that belongs to this case'
 		}
 	});
 });
