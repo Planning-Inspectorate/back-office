@@ -13,7 +13,7 @@ import {
  */
 
 /**
- * Get draft Caseby id
+ * Get draft case by id
  * optional query parameters can filter the returned data
  *
  * @param {number} id
@@ -35,7 +35,7 @@ export const getCase = async (id, query = null) => {
 };
 
 /**
- * Create new draft Caseand return id and applicant ids
+ * Create new draft case and return id and applicant ids
  *
  * @param {Record<string, *>} payload
  * @param {SessionWithCaseSectorName} session
@@ -64,7 +64,7 @@ export const createCase = async (payload, session) => {
 
 /**
  *
- * Update Caseand return id and applicant ids if success or errors if fail
+ * Update case and return id and applicant ids if success or errors if fail
  *
  * @param {string} caseId
  * @param {Record<string, *>} payload
