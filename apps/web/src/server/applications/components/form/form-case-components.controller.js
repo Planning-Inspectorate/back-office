@@ -24,7 +24,6 @@ import {
  * @returns {Promise<ApplicationsCreateCaseNameProps>}
  */
 export async function caseNameAndDescriptionData(request, locals) {
-	// TODO: something odd
 	const { caseId } = locals || {};
 	const { title, description } = caseId
 		? await getCase(caseId, ['title', 'description'])
