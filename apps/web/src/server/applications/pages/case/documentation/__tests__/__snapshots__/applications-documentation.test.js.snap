@@ -4,8 +4,8 @@ exports[`applications documentation GET /case/123/project-documentation should r
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"govuk-grid-row govuk-!-padding-top-9 govuk-!-padding-bottom-2 govuk-!-margin-bottom-7 pins-masthead-summary\\">
         <div class=\\"govuk-grid-column-full\\">
-            <h4 class=\\"govuk-heading-m\\"> APPLICATION/04 </h4>
-            <h1 class=\\"govuk-heading-xl\\">Application with no sector</h1>
+            <h4 class=\\"govuk-heading-m\\"> CASE/04 </h4>
+            <h1 class=\\"govuk-heading-xl\\">Case with no sector</h1>
             <div class=\\"govuk-grid-row\\">
                 <div class=\\"govuk-grid-column-full govuk-body\\">,
                     <br>
@@ -18,8 +18,8 @@ exports[`applications documentation GET /case/123/project-documentation should r
         <div class=\\"govuk-grid-column-two-thirds\\">
             <h2 class=\\"govuk-heading-m\\">Project documentation</h2>
             <p class=\\"govuk-body-s colour--secondary\\">All documents relating to the project</p><a class=\\"govuk-link govuk-heading-s\\"
-            href=\\"/applications-service/case/123/project-documentation/21/post-decision-en\\"> Post-decision EN</a>
-            <a             class=\\"govuk-link govuk-heading-s\\" href=\\"/applications-service/case/123/project-documentation/22/examination-en\\">Examination EN</a>
+            href=\\"/applications-service/case/project-documentation/21/post-decision-en\\"> Post-decision EN</a>
+            <a             class=\\"govuk-link govuk-heading-s\\" href=\\"/applications-service/case/project-documentation/22/examination-en\\">Examination EN</a>
         </div>
     </div>
 </main>"
