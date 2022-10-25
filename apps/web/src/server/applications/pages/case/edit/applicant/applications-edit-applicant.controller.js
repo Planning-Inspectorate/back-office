@@ -87,16 +87,16 @@ export async function viewApplicationsEditApplicantOrganisationName(request, res
  * @type {import('@pins/express').RenderHandler<ApplicationsCreateApplicantOrganisationNameProps, {}, ApplicationsCreateApplicantOrganisationNameBody, {}, {}>}
  */
 export async function updateApplicationsEditApplicantOrganisationName(request, response) {
-	const { properties, updatedApplicationId } = await applicantOrganisationNameDataUpdate(
+	const { properties, updatedCaseId } = await applicantOrganisationNameDataUpdate(
 		request,
 		response.locals
 	);
 
-	if (properties.errors || !updatedApplicationId) {
+	if (properties.errors || !updatedCaseId) {
 		return handleErrors(properties, organisationNameLayout, response);
 	}
 
-	response.redirect(`/applications-service/case/${updatedApplicationId}/project-information`);
+	response.redirect(`/applications-service/case/${updatedCaseId}/project-information`);
 }
 
 /**
@@ -119,16 +119,13 @@ export async function viewApplicationsEditApplicantFullName(request, response) {
  * @type {import('@pins/express').RenderHandler<ApplicationsCreateApplicantFullNameProps, {}, ApplicationsCreateApplicantFullNameBody, {}, {}>}
  */
 export async function updateApplicationsEditApplicantFullName(request, response) {
-	const { properties, updatedApplicationId } = await applicantFullNameDataUpdate(
-		request,
-		response.locals
-	);
+	const { properties, updatedCaseId } = await applicantFullNameDataUpdate(request, response.locals);
 
-	if (properties.errors || !updatedApplicationId) {
+	if (properties.errors || !updatedCaseId) {
 		return handleErrors(properties, fullNameLayout, response);
 	}
 
-	response.redirect(`/applications-service/case/${updatedApplicationId}/project-information`);
+	response.redirect(`/applications-service/case/${updatedCaseId}/project-information`);
 }
 
 /**
@@ -151,16 +148,13 @@ export async function viewApplicationsEditApplicantEmail(request, response) {
  * @type {import('@pins/express').RenderHandler<ApplicationsCreateApplicantEmailProps, {}, ApplicationsCreateApplicantEmailBody, {}, {}>}
  */
 export async function updateApplicationsEditApplicantEmail(request, response) {
-	const { properties, updatedApplicationId } = await applicantEmailDataUpdate(
-		request,
-		response.locals
-	);
+	const { properties, updatedCaseId } = await applicantEmailDataUpdate(request, response.locals);
 
-	if (properties.errors || !updatedApplicationId) {
+	if (properties.errors || !updatedCaseId) {
 		return handleErrors(properties, applicantEmailLayout, response);
 	}
 
-	response.redirect(`/applications-service/case/${updatedApplicationId}/project-information`);
+	response.redirect(`/applications-service/case/${updatedCaseId}/project-information`);
 }
 
 /**
@@ -200,7 +194,7 @@ export async function viewApplicationsEditApplicantAddress(request, response) {
  * {}, ApplicationsCreateApplicantAddressBody, {}, {}>}
  */
 export async function updateApplicationsEditApplicantAddress(request, response) {
-	const { applicationId } = response.locals;
+	const { caseId } = response.locals;
 	const { properties, shouldShowErrors } = await applicantAddressDataUpdate(
 		request,
 		response.locals
@@ -210,7 +204,7 @@ export async function updateApplicationsEditApplicantAddress(request, response) 
 		return handleErrors(properties, addressLayout, response);
 	}
 
-	response.redirect(`/applications-service/case/${applicationId}/project-information`);
+	response.redirect(`/applications-service/case/${caseId}/project-information`);
 }
 
 /**
@@ -233,16 +227,13 @@ export async function viewApplicationsEditApplicantWebsite(request, response) {
  * @type {import('@pins/express').RenderHandler<ApplicationsCreateApplicantWebsiteProps, {}, ApplicationsCreateApplicantWebsiteBody, {}, {}>}
  */
 export async function updateApplicationsEditApplicantWebsite(request, response) {
-	const { properties, updatedApplicationId } = await applicantWebsiteDataUpdate(
-		request,
-		response.locals
-	);
+	const { properties, updatedCaseId } = await applicantWebsiteDataUpdate(request, response.locals);
 
-	if (properties.errors || !updatedApplicationId) {
+	if (properties.errors || !updatedCaseId) {
 		return handleErrors(properties, websiteLayout, response);
 	}
 
-	response.redirect(`/applications-service/case/${updatedApplicationId}/project-information`);
+	response.redirect(`/applications-service/case/${updatedCaseId}/project-information`);
 }
 
 /**
@@ -265,14 +256,14 @@ export async function viewApplicationsEditApplicantTelephoneNumber(request, resp
  * @type {import('@pins/express').RenderHandler<ApplicationsCreateApplicantTelephoneNumberProps, {}, ApplicationsCreateApplicantTelephoneNumberBody, {}, {}>}
  */
 export async function updateApplicationsEditApplicantTelephoneNumber(request, response) {
-	const { properties, updatedApplicationId } = await applicantTelephoneNumberDataUpdate(
+	const { properties, updatedCaseId } = await applicantTelephoneNumberDataUpdate(
 		request,
 		response.locals
 	);
 
-	if (properties.errors || !updatedApplicationId) {
+	if (properties.errors || !updatedCaseId) {
 		return handleErrors(properties, telephoneNumberLayout, response);
 	}
 
-	response.redirect(`/applications-service/case/${updatedApplicationId}/project-information`);
+	response.redirect(`/applications-service/case/${updatedCaseId}/project-information`);
 }

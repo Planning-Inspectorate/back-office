@@ -13,9 +13,9 @@ import {
 	appealSummaryForReceivedQuestionnaire,
 	appealSummaryForStatements
 } from '../../../../../testing/appeals/appeals.js';
-import { createTestApplication } from '../../../../../testing/index.js';
+import { createTestEnvironment } from '../../../../../testing/index.js';
 
-const { app, installMockApi, teardown } = createTestApplication();
+const { app, installMockApi, teardown } = createTestEnvironment();
 const request = supertest(app);
 const baseUrl = '/appeals-service/case-officer';
 

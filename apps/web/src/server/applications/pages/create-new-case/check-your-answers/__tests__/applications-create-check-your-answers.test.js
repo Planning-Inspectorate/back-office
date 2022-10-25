@@ -1,12 +1,11 @@
 import { parseHtml } from '@pins/platform';
 import nock from 'nock';
 import supertest from 'supertest';
-import { createTestApplication } from '../../../../../../../testing/index.js';
+import { fixtureCases } from '../../../../../../../testing/applications/fixtures/cases.js';
+import { createTestEnvironment } from '../../../../../../../testing/index.js';
 
-const { app, installMockApi, teardown } = createTestApplication();
+const { app, installMockApi, teardown } = createTestEnvironment();
 const request = supertest(app);
-const successGetResponse = { id: 1, applicants: [{ id: 1 }] };
-const successPostResponse = { id: 1, reference: 'AB0110203', status: 'Pre-Application' };
 const errorPostResponse = {
 	errors: {
 		projectLocation: 'Missing projectLocation',
@@ -21,9 +20,9 @@ const errorPostResponse = {
 const nocks = () => {
 	nock('http://test/').get('/applications/case-officer').reply(200, []);
 	nock('http://test/')
-		.get(/\/applications\/123(.*)/g)
+		.get(/\/applications\/1(.*)/g)
 		.times(2)
-		.reply(200, successGetResponse);
+		.reply(200, fixtureCases[3]);
 };
 
 describe('applications create applicant', () => {
@@ -38,7 +37,7 @@ describe('applications create applicant', () => {
 		await request.get('/applications-service/case-officer');
 	});
 
-	const baseUrl = '/applications-service/create-new-case/123/check-your-answers';
+	const baseUrl = '/applications-service/create-new-case/1/check-your-answers';
 
 	describe('GET /check-your-answers', () => {
 		beforeEach(async () => {
@@ -60,17 +59,17 @@ describe('applications create applicant', () => {
 		});
 
 		it('should confirm status if no fields are missing', async () => {
-			nock('http://test/').post('/applications/123/start').reply(200, successPostResponse);
+			nock('http://test/').post('/applications/1/start').reply(200, fixtureCases[0]);
 
 			const response = await request.post(baseUrl);
 
 			expect(response?.headers?.location).toContain(
-				'/applications-service/create-new-case/123/case-created'
+				'/applications-service/create-new-case/1/case-created'
 			);
 		});
 
 		it('should display errors if fields are missing', async () => {
-			nock('http://test/').post('/applications/123/start').reply(200, errorPostResponse);
+			nock('http://test/').post('/applications/1/start').reply(200, errorPostResponse);
 
 			const response = await request.post(baseUrl);
 			const element = parseHtml(response.text);

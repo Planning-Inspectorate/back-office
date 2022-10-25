@@ -5,9 +5,9 @@ import {
 	ConfidentialClientApplication,
 	createAccountInfo
 } from '../../../../../testing/app/app.js';
-import { createTestApplication } from '../../../../../testing/index.js';
+import { createTestEnvironment } from '../../../../../testing/index.js';
 
-const { app, teardown } = createTestApplication({ authenticated: false });
+const { app, teardown } = createTestEnvironment({ authenticated: false });
 const request = supertest(app);
 const azureMsalMock = ConfidentialClientApplication.getMock();
 

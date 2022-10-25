@@ -11,8 +11,8 @@ const applicationsCreateResumedRouter = createRouter({ mergeParams: true });
 
 applicationsCreateRouter.use(guards.assertDomainTypeIsNotInspector);
 
-applicationsCreateRouter.use('/:applicationId?', applicationsCreateResumedRouter);
-applicationsCreateResumedRouter.use(locals.registerApplicationId);
+applicationsCreateRouter.use('/:caseId?', applicationsCreateResumedRouter);
+applicationsCreateResumedRouter.use(locals.registerCaseId);
 
 applicationsCreateResumedRouter.use('/', [
 	applicationsCreateCaseRouter,

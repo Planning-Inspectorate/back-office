@@ -5,7 +5,7 @@ import { random } from 'lodash-es';
  * @param {{prefix: string}} [options={prefix: 'APP'}]
  * @returns {string}
  */
-export const createApplicationReference = ({ prefix = 'APP' }) =>
+export const createCaseReference = ({ prefix = 'APP' }) =>
 	[
 		prefix,
 		`${fake.randomLetter()}${random(1000, 9999)}`,

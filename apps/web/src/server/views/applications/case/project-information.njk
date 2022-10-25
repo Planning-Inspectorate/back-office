@@ -11,21 +11,21 @@
 
 	{% set regionNames = [] %}
 	{% set gridReferences = '' %}
-	{% set applicantFirstOrganisationName = application.applicants[0].organisationName %}
-	{% set applicantFirstEmail = application.applicants[0].email %}
-	{% set applicantFirstPhoneNumber = application.applicants[0].phoneNumber %}
-	{% set applicantFirstWebsite = application.applicants[0].website %}
+	{% set applicantFirstOrganisationName = case.applicants[0].organisationName %}
+	{% set applicantFirstEmail = case.applicants[0].email %}
+	{% set applicantFirstPhoneNumber = case.applicants[0].phoneNumber %}
+	{% set applicantFirstWebsite = case.applicants[0].website %}
 
-	{% for item in application.geographicalInformation.regions %}
+	{% for item in case.geographicalInformation.regions %}
         {% set regionNames = (regionNames.push(item.displayNameEn), regionNames) %}
 	{% endfor %}
 
-	{% if application.geographicalInformation.gridReference.easting %}
-		{% set gridReferences = application.geographicalInformation.gridReference.easting + ' (Easting)' %}
+	{% if case.geographicalInformation.gridReference.easting %}
+		{% set gridReferences = case.geographicalInformation.gridReference.easting + ' (Easting)' %}
 	{% endif %}
 	{% set gridReferences = gridReferences + '<br>' %}
-	{% if application.geographicalInformation.gridReference.northing %}
-		{% set gridReferences = gridReferences + application.geographicalInformation.gridReference.northing + ' (Northing)' %}
+	{% if case.geographicalInformation.gridReference.northing %}
+		{% set gridReferences = gridReferences + case.geographicalInformation.gridReference.northing + ' (Northing)' %}
 	{% endif %}
 
 	{{ govukSummaryList({
@@ -37,15 +37,15 @@
 			},
 			{
 				key: { text: "Case reference number" },
-				value: { text: application.reference }
+				value: { text: case.reference }
 			},
 			{
 				key: { text: "Sector" },
-				value: { text: application.sector.displayNameEn }
+				value: { text: case.sector.displayNameEn }
 			},
 			{
 				key: { text: "Subsector" },
-				value: { text: application.subSector.displayNameEn }
+				value: { text: case.subSector.displayNameEn }
 			}
 		]
 	}) }}
@@ -59,38 +59,38 @@
 					rows: [
 						[
 							{ text: 'Project name' },
-							{ text: application.title },
-							{ html: applicationEditLink({ editStepUrl: 'name' }), classes: 'text-align--right pins-table__cell--s' }
+							{ text: case.title },
+							{ html: caseEditLink({ editStepUrl: 'name' }), classes: 'text-align--right pins-table__cell--s' }
 						],
 						[
 							{ text: "Project description" },
-							{ text: application.description },
-							{ html: applicationEditLink({ editStepUrl: 'description' }), classes: 'text-align--right pins-table__cell--s' }
+							{ text: case.description },
+							{ html: caseEditLink({ editStepUrl: 'description' }), classes: 'text-align--right pins-table__cell--s' }
 						],
 						[
 							{ text: "Project email address" },
-							{ text: application.caseEmail },
-							{ html: applicationEditLink({ editStepUrl: 'team-email' }), classes: 'text-align--right pins-table__cell--s' }
+							{ text: case.caseEmail },
+							{ html: caseEditLink({ editStepUrl: 'team-email' }), classes: 'text-align--right pins-table__cell--s' }
 						],
 						[
 							{ text: "Project location" },
-							{ text: application.geographicalInformation.locationDescription },
-							{ html: applicationEditLink({ editStepUrl: 'project-location' }), classes: 'text-align--right pins-table__cell--s' }
+							{ text: case.geographicalInformation.locationDescription },
+							{ html: caseEditLink({ editStepUrl: 'project-location' }), classes: 'text-align--right pins-table__cell--s' }
 						],
 						[
 							{ text: "Grid references" },
 							{ html: gridReferences },
-							{ html: applicationEditLink({ editStepUrl: 'grid-references' }), classes: 'text-align--right pins-table__cell--s' }
+							{ html: caseEditLink({ editStepUrl: 'grid-references' }), classes: 'text-align--right pins-table__cell--s' }
 						],
 						[
 							{ text: "Regions(s)" },
 							{ text: regionNames },
-							{ html: applicationEditLink({ editStepUrl: 'regions' }), classes: 'text-align--right pins-table__cell--s' }
+							{ html: caseEditLink({ editStepUrl: 'regions' }), classes: 'text-align--right pins-table__cell--s' }
 						],
 						[
 							{ text: "Map zoom level" },
-							{ text: application.geographicalInformation.mapZoomLevel.displayNameEn },
-							{ html: applicationEditLink({ editStepUrl: 'zoom-level' }), classes: 'text-align--right pins-table__cell--s' }
+							{ text: case.geographicalInformation.mapZoomLevel.displayNameEn },
+							{ html: caseEditLink({ editStepUrl: 'zoom-level' }), classes: 'text-align--right pins-table__cell--s' }
 						]
 					]
 				})
@@ -105,32 +105,32 @@
 						[
 							{ text: 'Organisation name' },
 							{ text: applicantFirstOrganisationName },
-							{ html: applicationEditLink({ editStepUrl: 'applicant-organisation-name' }), classes: 'text-align--right pins-table__cell--s' }
+							{ html: caseEditLink({ editStepUrl: 'applicant-organisation-name' }), classes: 'text-align--right pins-table__cell--s' }
 						],
 						[
 							{ text: "Contact name" },
-							{ text: writeFullName([application.applicants[0].firstName, application.applicants[0].middleName, application.applicants[0].lastName] )},
-							{ html: applicationEditLink({ editStepUrl: 'applicant-full-name' }), classes: 'text-align--right pins-table__cell--s' }
+							{ text: writeFullName([case.applicants[0].firstName, case.applicants[0].middleName, case.applicants[0].lastName] )},
+							{ html: caseEditLink({ editStepUrl: 'applicant-full-name' }), classes: 'text-align--right pins-table__cell--s' }
 						],
 						[
 							{ text: "Address" },
-							{ text: writeFullAddress(application.applicants[0].address) },
-							{ html: applicationEditLink({ editStepUrl: 'applicant-address' }), classes: 'text-align--right pins-table__cell--s' }
+							{ text: writeFullAddress(case.applicants[0].address) },
+							{ html: caseEditLink({ editStepUrl: 'applicant-address' }), classes: 'text-align--right pins-table__cell--s' }
 						],
 						[
 							{ text: "Website" },
 							{ text: applicantFirstWebsite },
-							{ html: applicationEditLink({ editStepUrl: 'applicant-website' }), classes: 'text-align--right pins-table__cell--s' }
+							{ html: caseEditLink({ editStepUrl: 'applicant-website' }), classes: 'text-align--right pins-table__cell--s' }
 						],
 						[
 							{ text: "Email address" },
 							{ html: applicantFirstEmail },
-							{ html: applicationEditLink({ editStepUrl: 'applicant-email' }), classes: 'text-align--right pins-table__cell--s' }
+							{ html: caseEditLink({ editStepUrl: 'applicant-email' }), classes: 'text-align--right pins-table__cell--s' }
 						],
 						[
 							{ text: "Telephone number" },
 							{ text: applicantFirstPhoneNumber },
-							{ html: applicationEditLink({ editStepUrl: 'applicant-telephone-number' }), classes: 'text-align--right pins-table__cell--s' }
+							{ html: caseEditLink({ editStepUrl: 'applicant-telephone-number' }), classes: 'text-align--right pins-table__cell--s' }
 						]
 					]
 				})
@@ -141,12 +141,12 @@
 
 {% endblock %}
 
-{% macro applicationEditLink(params) %}
+{% macro caseEditLink(params) %}
 	{% set userIsInspector = domainType === 'inspector' %}
 
 	{% if not userIsInspector %}
 		<a class="govuk-link"
-		   href="{{ 'applications-edit'|url({domainType: domainType, applicationId: application.id, step: params.editStepUrl }) }}">
+		   href="{{ 'case-edit'|url({domainType: domainType, caseId: case.id, step: params.editStepUrl }) }}">
 			Change
 		</a>
 	{% endif %}

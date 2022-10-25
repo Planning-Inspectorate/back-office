@@ -2,7 +2,7 @@ import { fake } from '@pins/platform';
 import sub from 'date-fns/sub/index.js';
 import { random } from 'lodash-es';
 import { createOptionsItem } from './options-item.js';
-import { createApplicationReference, createRandomDescription } from './util.js';
+import { createCaseReference, createRandomDescription } from './util.js';
 
 /** @typedef {import('../../../src/server/applications/applications.types').Case} Case */
 
@@ -10,19 +10,20 @@ import { createApplicationReference, createRandomDescription } from './util.js';
  * @param {Partial<Case>} [options={}]
  * @returns {Case}
  */
-export function createApplication({
+export function createCase({
 	id = fake.createUniqueId(),
 	modifiedDate = `${sub(new Date(), { weeks: random(1, 6) }).getTime() / 1000}`,
-	reference = createApplicationReference(),
+	reference = createCaseReference(),
 	sector = createOptionsItem(),
-	subSector = createOptionsItem()
+	subSector = createOptionsItem(),
+	status = `Status ${id}000`
 } = {}) {
 	return {
 		id,
 		reference,
 		title: `Title ${reference}`,
 		description: createRandomDescription({ wordsNumber: 40, startOffset: id }),
-		status: `Status ${id}000`,
+		status,
 		modifiedDate,
 		sector,
 		subSector,

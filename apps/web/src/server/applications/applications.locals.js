@@ -1,8 +1,8 @@
-import { findApplicationById } from './applications.service.js';
 import {
 	getSessionApplicationsDomainType,
 	setSessionApplicationsDomainType
 } from './applications-session.service.js';
+import { getCase } from './lib/services/case.service.js';
 
 /** @typedef {import('./applications.router').DomainParams} DomainParams */
 /** @typedef {import('./applications.types').DomainType} DomainType */
@@ -17,7 +17,7 @@ import {
 
 /**
  * @typedef {object} ApplicationLocals
- * @property {number} applicationId
+ * @property {number} caseId
  * @property {import('./applications.types').Case} Case
  */
 
@@ -52,14 +52,14 @@ export const registerDomainLocals = ({ params, session }, response, next) => {
 };
 
 /**
- * Use the `applicationId` parameter to install the application onto the request
+ * Use the `caseId` parameter to install the Caseonto the request
  * locals, for consumption in subsequent guards and controllers.
  *
  * @type {import('@pins/express').RequestHandler<ApplicationLocals>}
  */
-export const loadApplication = async (req, response, next) => {
-	response.locals.applicationId = Number(req.params.applicationId);
-	response.locals.application = await findApplicationById(response.locals.applicationId);
+export const registerCase = async (req, response, next) => {
+	response.locals.caseId = Number(req.params.caseId);
+	response.locals.case = await getCase(response.locals.caseId);
 
 	next();
 };

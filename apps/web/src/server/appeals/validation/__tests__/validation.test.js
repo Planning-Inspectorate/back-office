@@ -7,7 +7,7 @@ import {
 	receivedAppealDetails,
 	receivedAppealSummary
 } from '../../../../../testing/appeals/appeals.js';
-import { createTestApplication } from '../../../../../testing/index.js';
+import { createTestEnvironment } from '../../../../../testing/index.js';
 
 /** @typedef {import('@pins/appeals').Address} Address */
 /** @typedef {import('../validation.controller').AppealOutcomeBody} AppealOutcomeBody */
@@ -18,7 +18,7 @@ import { createTestApplication } from '../../../../../testing/index.js';
 /** @typedef {import('../validation.controller').UpdatePlanningApplicationRefBody} UpdatePlanningApplicationRefBody */
 /** @typedef {import('../validation.controller').UpdateLocalPlanningDeptBody} UpdateLocalPlanningDeptBody */
 
-const { app, installMockApi, teardown } = createTestApplication();
+const { app, installMockApi, teardown } = createTestEnvironment();
 const request = supertest(app);
 const baseUrl = '/appeals-service/validation';
 

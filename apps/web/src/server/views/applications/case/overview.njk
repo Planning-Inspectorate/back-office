@@ -2,16 +2,16 @@
 {% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
 
 {% block sectionContent %}
-	{% set applicantFirstOrganisationName = application.applicants[0].organisationName %}
-	{% set applicantFirstEmail = application.applicants[0].email %}
-	{% set applicantFirstPhoneNumber = application.applicants[0].phoneNumber %}
-	{% set applicantFirstWebsite = application.applicants[0].website %}
+	{% set applicantFirstOrganisationName = case.applicants[0].organisationName %}
+	{% set applicantFirstEmail = case.applicants[0].email %}
+	{% set applicantFirstPhoneNumber = case.applicants[0].phoneNumber %}
+	{% set applicantFirstWebsite = case.applicants[0].website %}
 	{% set userIsInspector = domainType === 'inspector' %}
 
 	<h2 class="govuk-heading-m">Latest key dates</h2>
 	<ul class="govuk-list govuk-list--bullet">
-		<li>Anticipated submission date: {{ application.keyDates.submissionDatePublished }}</li>
-		<li>Anticipated submission date internal: {{ application.keyDates.submissionDateInternal | datestamp({format: 'dd/MM/yyyy'}) }}</li>
+		<li>Anticipated submission date: {{ case.keyDates.submissionDatePublished }}</li>
+		<li>Anticipated submission date internal: {{ case.keyDates.submissionDateInternal | datestamp({format: 'dd/MM/yyyy'}) }}</li>
 	</ul>
 
 	{% if not userIsInspector %}
@@ -30,7 +30,7 @@
 		rows: [
 			{
 				key: { text: "Case reference" },
-				value: { text: application.reference }
+				value: { text: case.reference }
 			},
 			{
 				key: { text: "Applicant Information" },
@@ -42,7 +42,7 @@
 			},
 			{
 				key: { text: "Project email" },
-				value: { text: application.caseEmail }
+				value: { text: case.caseEmail }
 			},
 			{
 				key: { text: "Project page" },
@@ -52,7 +52,7 @@
 	}) }}
 
 	{% if not userIsInspector %}
-		<a class="govuk-link" href="{{ 'view-application'|url({applicationId: application.id, step: 'project-information' }) }}">
+		<a class="govuk-link" href="{{ 'case-view'|url({caseId: case.id, step: 'project-information' }) }}">
 		Update project information</a></li>
 	{% endif %}
 

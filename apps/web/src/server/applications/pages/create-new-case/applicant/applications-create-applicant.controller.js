@@ -87,12 +87,12 @@ export function viewApplicationsCreateApplicantTypes({ session }, response) {
  * {}, ApplicationsCreateApplicantTypesBody, {}, {}>}
  */
 export async function updateApplicationsCreateApplicantTypes({ path, session, body }, response) {
-	const { applicationId } = response.locals;
+	const { caseId } = response.locals;
 	const { selectedApplicantInfoTypes } = body;
 
 	setSessionApplicantInfoTypes(session, selectedApplicantInfoTypes || []);
 
-	goToNextStep(applicationId, path, session, response);
+	goToNextStep(caseId, path, session, response);
 }
 
 /**
@@ -116,16 +116,16 @@ export async function viewApplicationsCreateApplicantOrganisationName(request, r
  */
 export async function updateApplicationsCreateApplicantOrganisationName(request, response) {
 	const { path, session } = request;
-	const { properties, updatedApplicationId } = await applicantOrganisationNameDataUpdate(
+	const { properties, updatedCaseId } = await applicantOrganisationNameDataUpdate(
 		request,
 		response.locals
 	);
 
-	if (properties.errors || !updatedApplicationId) {
+	if (properties.errors || !updatedCaseId) {
 		return handleErrors(properties, organisationNameLayout, response);
 	}
 
-	goToNextStep(updatedApplicationId, path, session, response);
+	goToNextStep(updatedCaseId, path, session, response);
 }
 
 /**
@@ -149,16 +149,13 @@ export async function viewApplicationsCreateApplicantFullName(request, response)
  */
 export async function updateApplicationsCreateApplicantFullName(request, response) {
 	const { path, session } = request;
-	const { properties, updatedApplicationId } = await applicantFullNameDataUpdate(
-		request,
-		response.locals
-	);
+	const { properties, updatedCaseId } = await applicantFullNameDataUpdate(request, response.locals);
 
-	if (properties.errors || !updatedApplicationId) {
+	if (properties.errors || !updatedCaseId) {
 		return handleErrors(properties, fullNameLayout, response);
 	}
 
-	goToNextStep(updatedApplicationId, path, session, response);
+	goToNextStep(updatedCaseId, path, session, response);
 }
 
 /**
@@ -182,16 +179,13 @@ export async function viewApplicationsCreateApplicantEmail(request, response) {
  */
 export async function updateApplicationsCreateApplicantEmail(request, response) {
 	const { path, session } = request;
-	const { properties, updatedApplicationId } = await applicantEmailDataUpdate(
-		request,
-		response.locals
-	);
+	const { properties, updatedCaseId } = await applicantEmailDataUpdate(request, response.locals);
 
-	if (properties.errors || !updatedApplicationId) {
+	if (properties.errors || !updatedCaseId) {
 		return handleErrors(properties, applicantEmailLayout, response);
 	}
 
-	goToNextStep(updatedApplicationId, path, session, response);
+	goToNextStep(updatedCaseId, path, session, response);
 }
 
 /**
@@ -217,7 +211,7 @@ export async function viewApplicationsCreateApplicantAddress(request, response) 
  */
 export async function updateApplicationsCreateApplicantAddress(request, response) {
 	const { path, session } = request;
-	const { applicationId } = response.locals;
+	const { caseId } = response.locals;
 	const { properties, shouldShowErrors } = await applicantAddressDataUpdate(
 		request,
 		response.locals
@@ -227,7 +221,7 @@ export async function updateApplicationsCreateApplicantAddress(request, response
 		return handleErrors(properties, addressLayout, response);
 	}
 
-	goToNextStep(applicationId, path, session, response);
+	goToNextStep(caseId, path, session, response);
 }
 
 /**
@@ -251,16 +245,13 @@ export async function viewApplicationsCreateApplicantWebsite(request, response) 
  */
 export async function updateApplicationsCreateApplicantWebsite(request, response) {
 	const { path, session } = request;
-	const { properties, updatedApplicationId } = await applicantWebsiteDataUpdate(
-		request,
-		response.locals
-	);
+	const { properties, updatedCaseId } = await applicantWebsiteDataUpdate(request, response.locals);
 
-	if (properties.errors || !updatedApplicationId) {
+	if (properties.errors || !updatedCaseId) {
 		return handleErrors(properties, websiteLayout, response);
 	}
 
-	goToNextStep(updatedApplicationId, path, session, response);
+	goToNextStep(updatedCaseId, path, session, response);
 }
 
 /**
@@ -283,32 +274,32 @@ export async function viewApplicationsCreateApplicantTelephoneNumber(request, re
  * @type {import('@pins/express').RenderHandler<ApplicationsCreateApplicantTelephoneNumberProps, {}, ApplicationsCreateApplicantTelephoneNumberBody, {}, {}>}
  */
 export async function updateApplicationsCreateApplicantTelephoneNumber(request, response) {
-	const { properties, updatedApplicationId } = await applicantTelephoneNumberDataUpdate(
+	const { properties, updatedCaseId } = await applicantTelephoneNumberDataUpdate(
 		request,
 		response.locals
 	);
 
-	if (properties.errors || !updatedApplicationId) {
+	if (properties.errors || !updatedCaseId) {
 		return handleErrors(properties, telephoneNumberLayout, response);
 	}
 
-	response.redirect(`/applications-service/create-new-case/${updatedApplicationId}/key-dates`);
+	response.redirect(`/applications-service/create-new-case/${updatedCaseId}/key-dates`);
 }
 
 /**
  * Handle the next allowed destination path and redirects to it
  *
- * @param {number} applicationId
+ * @param {number} caseId
  * @param {string} path
  * @param {SessionWithApplicationsCreateApplicantInfoTypes} session
  * @param {*} response
  */
-function goToNextStep(applicationId, path, session, response) {
+function goToNextStep(caseId, path, session, response) {
 	const nextStepPath = applicationsCreateApplicantService.getAllowedDestinationPath({
 		session,
 		path,
 		goToNextPage: true
 	});
 
-	response.redirect(`/applications-service/create-new-case/${applicationId}/${nextStepPath}`);
+	response.redirect(`/applications-service/create-new-case/${caseId}/${nextStepPath}`);
 }

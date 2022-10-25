@@ -12,7 +12,7 @@ import * as applicationsCreateApplicantService from './applications-create-appli
  *  @type {import('express').RequestHandler<{}>}
  */
 export const assertStepIsAllowed = ({ session, path }, res, next) => {
-	const { applicationId } = res.locals;
+	const { caseId } = res.locals;
 	const applicantInfoTypes = getSessionApplicantInfoTypes(session);
 	const currentStepPath = path.replace(/\//g, '');
 	const hasNeverBeenResumed = getSessionCaseHasNeverBeenResumed(session);
@@ -26,7 +26,7 @@ export const assertStepIsAllowed = ({ session, path }, res, next) => {
 
 		pino.warn(`[WEB] Step ${currentStepPath} is not allowed, redirect to ${nextStepPath}`);
 
-		return res.redirect(`/applications-service/create-new-case/${applicationId}/${nextStepPath}`);
+		return res.redirect(`/applications-service/create-new-case/${caseId}/${nextStepPath}`);
 	}
 
 	next();

@@ -42,7 +42,7 @@
 		{% set rows = [] %}
 		{% for searchItem in searchApplicationsItems %}
 			{% set rows = rows | concat ([[
-				{ html: applicationLink(searchItem) },
+				{ html: casePageLink(searchItem) },
 				{ html: statusTag(searchItem.status), classes: 'govuk-!-width-one-quarter text-align--right' }
 			]]) %}
 		{% endfor %}
@@ -77,10 +77,10 @@
 {% endblock %}
 
 
-{% macro applicationLink(searchItem) %}
-	{% set viewApplicationLink = 'view-application'|url({domainType: domainType, applicationId: searchItem.id}) %}
-	{% set checkYourAnswersLink = 'applications-create'|url({domainType: domainType, applicationId: searchItem.id, step: 'check-your-answers'}) %}
-	{% set rowHref = viewApplicationLink if searchItem.reference else checkYourAnswersLink %}
+{% macro casePageLink(searchItem) %}
+	{% set viewCaseLink = 'case-view'|url({domainType: domainType, caseId: searchItem.id}) %}
+	{% set checkYourAnswersLink = 'case-create'|url({domainType: domainType, caseId: searchItem.id, step: 'check-your-answers'}) %}
+	{% set rowHref = viewCaseLink if searchItem.reference else checkYourAnswersLink %}
 	{% set rowTitle = [searchItem.reference, " - "]|join if searchItem.reference else "" %}
 
 

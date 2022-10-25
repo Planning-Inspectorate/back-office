@@ -1,2 +1,1 @@
-export * from './fixtures/applications.js';
-export * from './mocks/api.js';
+export * from './fixtures/cases.js';

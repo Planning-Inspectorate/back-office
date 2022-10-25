@@ -5,7 +5,6 @@ import * as controller from './applications-edit-applicant.controller.js';
 
 const applicationsEditApplicantRouter = createRouter();
 
-// applicationsEditApplicantRouter.use(locals.registerApplicantId);
 applicationsEditApplicantRouter.use(registerApplicantId);
 
 applicationsEditApplicantRouter

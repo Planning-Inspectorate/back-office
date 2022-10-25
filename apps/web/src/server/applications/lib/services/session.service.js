@@ -37,7 +37,7 @@ export const destroySessionApplicantInfoTypes = (session) => {
 	delete session.infoTypes;
 };
 
-// Application session management
+// Applications session management
 
 /**
  * Save in the session the list of information types to be provided in the create-new-applicant form.

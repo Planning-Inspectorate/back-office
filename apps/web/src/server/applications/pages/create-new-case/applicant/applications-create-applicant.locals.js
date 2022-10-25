@@ -24,11 +24,11 @@ export const registerBackPath = ({ session, path }, response, next) => {
  * @type {import('express').RequestHandler<*, *, *, *, *>}
  */
 export const registerApplicantId = async (req, response, next) => {
-	const { applicationId } = response.locals;
+	const { caseId } = response.locals;
 
-	if (applicationId) {
-		const applicationDraft = await getCase(applicationId, ['applicants']);
-		const applicantId = applicationDraft.applicants?.[0]?.id;
+	if (caseId) {
+		const caseDraft = await getCase(caseId, ['applicants']);
+		const applicantId = caseDraft.applicants?.[0]?.id;
 
 		if (!applicantId) {
 			return next({ statusCode: 400, message: 'Applicant id is not defined' });
@@ -36,7 +36,7 @@ export const registerApplicantId = async (req, response, next) => {
 
 		response.locals.applicantId = applicantId;
 	} else {
-		pino.warn('[WEB] Application id is not yet defined. Cannot retrieve applicant');
+		pino.warn('[WEB] Case id is not yet defined. Cannot retrieve applicant');
 	}
 
 	next();

@@ -10,9 +10,9 @@ import {
 	appealSummaryForDecisionDue,
 	appealSummaryForUnbookedSiteVisit
 } from '../../../../../testing/appeals/appeals.js';
-import { createTestApplication } from '../../../../../testing/index.js';
+import { createTestEnvironment } from '../../../../../testing/index.js';
 
-const { app, installFixedDate, installMockApi, teardown } = createTestApplication();
+const { app, installFixedDate, installMockApi, teardown } = createTestEnvironment();
 const request = supertest(app);
 const baseUrl = '/appeals-service/inspector';
 

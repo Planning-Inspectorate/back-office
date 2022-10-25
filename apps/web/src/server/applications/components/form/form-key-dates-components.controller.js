@@ -11,8 +11,8 @@ import { getCase, updateCase } from '../../lib/services/case.service.js';
  * @returns {Promise<ApplicationsCreateKeyDatesProps>}
  */
 export async function keyDatesData(request, locals) {
-	const { applicationId } = locals;
-	const { keyDates } = await getCase(applicationId, ['keyDates']);
+	const { caseId } = locals;
+	const { keyDates } = await getCase(caseId, ['keyDates']);
 	const { submissionDatePublished, submissionDateInternal } = keyDates || {};
 
 	const values = {
@@ -29,10 +29,10 @@ export async function keyDatesData(request, locals) {
  *
  * @param {import('express').Request} request
  * @param {Record<string, any>} locals
- * @returns {Promise<{properties: ApplicationsCreateKeyDatesProps, updatedApplicationId?: number}>}
+ * @returns {Promise<{properties: ApplicationsCreateKeyDatesProps, updatedCaseId?: number}>}
  */
 export async function keyDatesDataUpdate({ body, errors: validationErrors }, locals) {
-	const { applicationId } = locals;
+	const { caseId } = locals;
 	const { submissionInternalDay, submissionInternalMonth, submissionInternalYear } = body;
 	const submissionDatePublished = body['keyDates.submissionDatePublished'];
 
@@ -53,12 +53,12 @@ export async function keyDatesDataUpdate({ body, errors: validationErrors }, loc
 		}
 	};
 
-	const { errors: apiErrors, id: updatedApplicationId } = await updateCase(applicationId, payload);
+	const { errors: apiErrors, id: updatedCaseId } = await updateCase(caseId, payload);
 
 	const properties = {
 		errors: validationErrors || apiErrors,
 		values
 	};
 
-	return { properties, updatedApplicationId };
+	return { properties, updatedCaseId };
 }

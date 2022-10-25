@@ -6,7 +6,7 @@ import { get } from '../../../lib/request.js';
 /** @typedef {import('../../applications.types').ZoomLevel} ZoomLevel */
 
 /**
- * Get the list of sector for an application
+ * Get the list of sector for an case
  *
  * @returns {Promise<Sector[]>}
  */

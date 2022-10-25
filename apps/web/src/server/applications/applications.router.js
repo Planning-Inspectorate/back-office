@@ -10,14 +10,6 @@ import applicationsSearchRouter from './pages/search-results/applications-search
 const router = createRouter();
 const domainRouter = createRouter({ mergeParams: true });
 
-// The structure of Applications section is still to be defined
-// Some views, as like as the dashboard and the single application page, will be "domain-driven"
-// i.e. different types of users will see different content and will be able to do different things
-// Others views, as like as the search results page or the create application page, will be "functionality-driven"
-// i.e. different types of users will see the same thing, possibly with different auth levels
-// Therefore the current routes structure is NOT definitive
-// At the moment we're following both the methods (domain-driven urls and functionality urls)
-
 router.use(filters.registerFilters);
 router.use(locals.registerLocals);
 
@@ -43,7 +35,7 @@ router.use('/case', guards.assertDomainTypeExists, applicationsCaseRouter);
 /**
  * @typedef {object} DomainParams
  * @property {import('./applications.types').DomainType} domainType
- * @property {string=} applicationId
+ * @property {string=} caseId
  */
 router.use('/:domainType', guards.assertDomainTypeAccess, domainRouter);
 domainRouter.use(locals.registerDomainLocals);

@@ -1,7 +1,7 @@
 /** @typedef {import('../../applications.types.js').FormCaseLayout} FormCaseLayout */
 
 /**
- * View the sector choice step of the application creation
+ * View the sector choice step of the Casecreation
  *
  * @param {Record<string, any>} properties
  * @param {FormCaseLayout} layout

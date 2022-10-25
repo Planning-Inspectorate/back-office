@@ -14,11 +14,11 @@ import * as applicationsCreateCheckYourAnswersService from './applications-creat
  * {}, {}, {}, {}>}
  */
 export async function viewApplicationsCreateConfirmation(req, response) {
-	const { applicationId } = response.locals;
-	const { reference } = await getCase(applicationId, ['reference']);
+	const { caseId } = response.locals;
+	const { reference } = await getCase(caseId, ['reference']);
 
 	if (!reference) {
-		pino.warn(`[WEB] reference number for case ${applicationId} is not defined`);
+		pino.warn(`[WEB] reference number for case ${caseId} is not defined`);
 	}
 
 	const values = { reference };
@@ -33,11 +33,11 @@ export async function viewApplicationsCreateConfirmation(req, response) {
  * {}, {}, {}, {}>}
  */
 export async function viewApplicationsCreateCheckYourAnswers(req, response) {
-	const { applicationId } = response.locals;
+	const { caseId } = response.locals;
 
 	destroySessionCaseHasNeverBeenResumed(req.session);
 
-	const caseData = await getCase(applicationId);
+	const caseData = await getCase(caseId);
 
 	const { values } = applicationsCreateCheckYourAnswersService.mapCaseData(caseData);
 
@@ -45,17 +45,16 @@ export async function viewApplicationsCreateCheckYourAnswers(req, response) {
 }
 
 /**
- * Update the case from a draft application to a real case
+ * Update the case from a draft caseto a real case
  *
  * @type {import('@pins/express').RenderHandler<ApplicationsCreateCheckYourAnswersProps,
  * {}, {}, {}, {}>}
  */
 export async function confirmCreateCase(req, response) {
 	// get the id
-	const { applicationId } = response.locals;
-
+	const { caseId } = response.locals;
 	// move the case to a pre-application state
-	const { errors, id: updatedApplicationId } = await moveStateToPreApplication(applicationId);
+	const { errors, id: updatedCaseId } = await moveStateToPreApplication(caseId);
 
 	// here we replace the API error messages with our user-display versions
 	let errorsUpdated;
@@ -65,9 +64,9 @@ export async function confirmCreateCase(req, response) {
 	}
 
 	// re-display page if there are any errors
-	if (errors || !updatedApplicationId) {
+	if (errors || !updatedCaseId) {
 		// and re-pull the case data to re-show all the fields
-		const caseData = await getCase(applicationId);
+		const caseData = await getCase(caseId);
 		const { values } = applicationsCreateCheckYourAnswersService.mapCaseData(caseData);
 
 		return response.render('applications/create-new-case/check-your-answers', {
@@ -77,5 +76,5 @@ export async function confirmCreateCase(req, response) {
 	}
 
 	// on success continue to the confirmation page
-	response.redirect(`/applications-service/create-new-case/${applicationId}/case-created`);
+	response.redirect(`/applications-service/create-new-case/${updatedCaseId}/case-created`);
 }

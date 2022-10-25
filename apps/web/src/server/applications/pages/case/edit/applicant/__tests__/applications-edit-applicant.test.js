@@ -1,18 +1,18 @@
 import { parseHtml } from '@pins/platform';
 import nock from 'nock';
 import supertest from 'supertest';
-import { createTestApplication } from '../../../../../../../../testing/index.js';
+import { fixtureCases } from '../../../../../../../../testing/applications/fixtures/cases.js';
+import { createTestEnvironment } from '../../../../../../../../testing/index.js';
 
-const { app, installMockApi, teardown } = createTestApplication();
+const { app, installMockApi, teardown } = createTestEnvironment();
 const request = supertest(app);
-const successGetResponse = { id: 1, applicants: [{ id: 1, address: { town: 'London' } }] };
 
 const nocks = () => {
-	nock('http://test/').get('/applications/case-officer').reply(200, successGetResponse);
+	nock('http://test/').get('/applications/case-officer').reply(200, []);
 	nock('http://test/')
 		.get(/\/applications\/123(.*)/g)
 		.times(2)
-		.reply(200, successGetResponse);
+		.reply(200, fixtureCases[3]);
 };
 
 describe('applications create applicant', () => {
@@ -112,7 +112,7 @@ describe('applications create applicant', () => {
 			nocks();
 		});
 
-		it('should render the read only page', async () => {
+		it('should render the read only page with the address', async () => {
 			const baseUrl = '/applications-service/case/123/edit/applicant-address';
 
 			const response = await request.get(baseUrl);
@@ -121,6 +121,21 @@ describe('applications create applicant', () => {
 			expect(element.innerHTML).toMatchSnapshot();
 			expect(element.innerHTML).toContain('Save changes');
 			expect(element.innerHTML).toContain('London');
+		});
+
+		it('should render the read only page without the address', async () => {
+			const baseUrl = '/applications-service/case/456/edit/applicant-address';
+
+			nock('http://test/')
+				.get(/\/applications\/456(.*)/g)
+				.times(2)
+				.reply(200, fixtureCases[0]);
+
+			const response = await request.get(baseUrl);
+			const element = parseHtml(response.text);
+
+			expect(element.innerHTML).toMatchSnapshot();
+			expect(element.innerHTML).toContain('Find address');
 		});
 
 		it('should render the form page', async () => {

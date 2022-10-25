@@ -1,9 +1,9 @@
 /**
- * Register the applicationID retrieved from the URL for the resumed step of the ApplicationsCreate process.
+ * Register the caseId retrieved from the URL for the resumed step of the ApplicationsCreate process.
  *
- * @type {import('express').RequestHandler<*, *, *, *, {applicationId: string}>}
+ * @type {import('express').RequestHandler<*, *, *, *, {caseId: string}>}
  */
-export const registerApplicationId = ({ params }, response, next) => {
-	response.locals.applicationId = params.applicationId || '';
+export const registerCaseId = ({ params }, response, next) => {
+	response.locals.caseId = params.caseId || '';
 	next();
 };
