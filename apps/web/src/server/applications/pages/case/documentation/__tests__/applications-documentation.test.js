@@ -1,17 +1,17 @@
 import { parseHtml } from '@pins/platform';
 import nock from 'nock';
 import supertest from 'supertest';
-import { fixtureApplications } from '../../../../../../../testing/applications/fixtures/applications.js';
+import { fixtureCases } from '../../../../../../../testing/applications/fixtures/cases.js';
 import { fixtureDocumentationCategory } from '../../../../../../../testing/applications/fixtures/options-item.js';
-import { createTestApplication } from '../../../../../../../testing/index.js';
+import { createTestEnvironment } from '../../../../../../../testing/index.js';
 
-const { app, installMockApi, teardown } = createTestApplication();
+const { app, installMockApi, teardown } = createTestEnvironment();
 const request = supertest(app);
 
 const nocks = () => {
 	nock('http://test/').get('/applications/case-officer').reply(200, []);
 
-	nock('http://test/').get('/applications/123').reply(200, fixtureApplications[3]);
+	nock('http://test/').get('/applications/123').reply(200, fixtureCases[3]);
 
 	nock('http://test/').get('/applications/123/documents').reply(200, fixtureDocumentationCategory);
 };
