@@ -4,7 +4,7 @@ import * as controller from './applications-documentation.controller.js';
 
 const applicationsDocumentationRouter = createRouter({ mergeParams: true });
 
-applicationsDocumentationRouter.use(locals.registerApplication);
+applicationsDocumentationRouter.use(locals.registerCase);
 
 applicationsDocumentationRouter
 	.route('/')
