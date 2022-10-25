@@ -3,7 +3,7 @@ import { post } from '../../../lib/request.js';
 /** @typedef {import('@pins/express').ValidationErrors} ValidationErrors */
 
 /**
- * Move draft application to pre-application
+ * Move draft caseto pre-application
  *
  * @param {number} id
  * @returns {Promise<{id?: number, applicantIds?: Array<number>, errors?: ValidationErrors}>}

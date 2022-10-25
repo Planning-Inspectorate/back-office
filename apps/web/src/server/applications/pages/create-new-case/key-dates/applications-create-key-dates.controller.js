@@ -13,7 +13,7 @@ const keyDatesLayout = {
 };
 
 /**
- * View the key dates step of the application creation
+ * View the key dates step of the casecreation
  *
  * @type {import('@pins/express').RenderHandler<ApplicationsCreateKeyDatesProps,
  * {}, {}, {}, {}>}
@@ -34,13 +34,13 @@ export async function viewApplicationsCreateKeyDates(request, response) {
  * {}, ApplicationsCreateKeyDatesBody, {}, {}>}
  */
 export async function updateApplicationsCreateKeyDates(request, response) {
-	const { properties, updatedApplicationId } = await keyDatesDataUpdate(request, response.locals);
+	const { properties, updatedCaseId } = await keyDatesDataUpdate(request, response.locals);
 
-	if (properties.errors || !updatedApplicationId) {
+	if (properties.errors || !updatedCaseId) {
 		return handleErrors(properties, keyDatesLayout, response);
 	}
 
 	return response.redirect(
-		`/applications-service/create-new-case/${updatedApplicationId}/check-your-answers`
+		`/applications-service/create-new-case/${updatedCaseId}/check-your-answers`
 	);
 }

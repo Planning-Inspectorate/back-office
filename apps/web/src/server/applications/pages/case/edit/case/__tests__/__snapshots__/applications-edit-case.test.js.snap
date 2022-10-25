@@ -22,7 +22,7 @@ exports[`applications edit Description GET edit/description should render page w
 </main>"
 `;
 
-exports[`applications edit Grid references GET /edit/:applicationId/project-location should display resumed data if the API returns something 1`] = `
+exports[`applications edit Grid references GET /edit/:caseId/project-location should display resumed data if the API returns something 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <h2 class=\\"govuk-heading-l\\"> Enter grid references</h2>
     <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
@@ -59,7 +59,7 @@ exports[`applications edit Name GET /edit/name When role is: Case officer should
             <label class=\\"govuk-label font-weight--700\\" for=\\"title\\">Name of the project</label>
             <div id=\\"title-hint\\" class=\\"govuk-hint\\">for example, Bridge over a very long canyon</div>
             <input class=\\"govuk-input govuk-!-width-one-third\\"
-            id=\\"title\\" name=\\"title\\" type=\\"text\\" value=\\"Title APPLICATION/01\\" aria-describedby=\\"title-hint\\">
+            id=\\"title\\" name=\\"title\\" type=\\"text\\" value=\\"Title CASE/01\\" aria-describedby=\\"title-hint\\">
         </div>
         <div class=\\"govuk-grid-row\\">
             <div class=\\"govuk-button-group pins-button-group govuk-grid-column-one-half\\">
@@ -91,7 +91,7 @@ exports[`applications edit Name GET edit/name should render page with resumed da
             <label class=\\"govuk-label font-weight--700\\" for=\\"title\\">Name of the project</label>
             <div id=\\"title-hint\\" class=\\"govuk-hint\\">for example, Bridge over a very long canyon</div>
             <input class=\\"govuk-input govuk-!-width-one-third\\"
-            id=\\"title\\" name=\\"title\\" type=\\"text\\" value=\\"Title APPLICATION/01\\" aria-describedby=\\"title-hint\\">
+            id=\\"title\\" name=\\"title\\" type=\\"text\\" value=\\"Title CASE/01\\" aria-describedby=\\"title-hint\\">
         </div>
         <div class=\\"govuk-grid-row\\">
             <div class=\\"govuk-button-group pins-button-group govuk-grid-column-one-half\\">
@@ -102,7 +102,7 @@ exports[`applications edit Name GET edit/name should render page with resumed da
 </main>"
 `;
 
-exports[`applications edit Project location GET /edit/:applicationId/project-location should display resumed data if the API returns something 1`] = `
+exports[`applications edit Project location GET /edit/:caseId/project-location should display resumed data if the API returns something 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <h2 class=\\"govuk-heading-l\\"> Enter project location</h2>
     <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">

@@ -32,20 +32,20 @@
 				<div class="pins-dashboard-box">
 					<h3 class="govuk-heading-l pins-dashboard-box--title">Create new case</h3>
 					<a class="govuk-button govuk-button--secondary pins-dashboard-box--btn"
-					   href="{{ 'applications-create'|url }}">Create new case here</a>
+					   href="{{ 'case-create'|url }}">Create new case here</a>
 				</div>
 			</div>
 		{% endif %}
 	</div>
-	{% if draftApplications.length > 0 %}
+	{% if draftCases.length > 0 %}
 		<div class="pins-dashboard-list--drafts">
 			<h2 class="govuk-heading-l">Draft cases</h2>
 
 			{% set draftRows = [] %}
-			{% for application in draftApplications %}
+			{% for case in draftCases %}
 				{% set draftRows = draftRows | concat ([[
-					{ html: applicationLink(application) },
-					{ text: application.modifiedDate | datestamp }
+					{ html: casePageLink(case) },
+					{ text: case.modifiedDate | datestamp }
 				]]) %}
 			{% endfor %}
 
@@ -71,13 +71,13 @@
 
 		{% set items = [] %}
 
-		{% for name, groupedApplications in applications | groupBy('sector.name') %}
+		{% for name, groupedCases in cases | groupBy('sector.name') %}
 			{% set items = items.concat({
 				heading: {
-					text: groupedApplications[0].sector.displayNameEn
+					text: groupedCases[0].sector.displayNameEn
 				},
 				content: {
-					html: createSectorContent(groupedApplications)
+					html: createSectorContent(groupedCases)
 				}
 			}) %}
 		{% endfor %}
@@ -87,14 +87,14 @@
 
 {% endblock %}
 
-	{% macro createSectorContent(applicationsForSector) %}
-		{% for name, groupedApplications in applicationsForSector | groupBy('subSector.name') %}
-			{% set subSector = groupedApplications[0].subSector %}
+	{% macro createSectorContent(casesForSector) %}
+		{% for name, groupedCases in casesForSector | groupBy('subSector.name') %}
+			{% set subSector = groupedCases[0].subSector %}
 			{% set rows = [] %}
-			{% for application in groupedApplications %}
+			{% for case in groupedCases %}
 				{% set rows = rows | concat ([[
-					{ html: applicationLink(application) },
-					{ html: statusTag(application.status), classes: 'govuk-!-width-one-quarter text-align--right' }
+					{ html: casePageLink(case) },
+					{ html: statusTag(case.status), classes: 'govuk-!-width-one-quarter text-align--right' }
 				]]) %}
 			{% endfor %}
 			{{ govukDetails({
@@ -111,21 +111,14 @@
 		{% endfor %}
 	{% endmacro %}
 
-	{% macro applicationLink(application) %}
-		<a class="govuk-link"
-		   href="{{ 'view-application'|url({domainType: domainType, applicationId: application.id}) }}">
-			{{ application.reference }}
-		</a>
-	{% endmacro %}
+{% macro casePageLink(case) %}
+	{% set viewCaseLink = 'case-view'|url({domainType: domainType, caseId: case.id}) %}
+	{% set checkYourAnswersLink = 'case-create'|url({domainType: domainType, caseId: case.id, step: 'check-your-answers'}) %}
+	{% set rowHref = checkYourAnswersLink if case.status == 'Draft' else viewCaseLink %}
+	{% set rowTitle = case.title if case.status == 'Draft' else [case.reference, " - ", case.title]|join %}
 
-	{% macro applicationLink(application) %}
-		{% set viewApplicationLink = 'view-application'|url({domainType: domainType, applicationId: application.id}) %}
-		{% set checkYourAnswersLink = 'applications-create'|url({domainType: domainType, applicationId: application.id, step: 'check-your-answers'}) %}
-		{% set rowHref = checkYourAnswersLink if application.status == 'Draft' else viewApplicationLink %}
-		{% set rowTitle = application.title if application.status == 'Draft' else [application.reference, " - ", application.title]|join %}
-
-		<a class="govuk-body" href="{{ rowHref }}">
-			{{ rowTitle }}
-		</a>
-	{% endmacro %}
+	<a class="govuk-body" href="{{ rowHref }}">
+		{{ rowTitle }}
+	</a>
+{% endmacro %}
 

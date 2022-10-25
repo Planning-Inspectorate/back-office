@@ -1,18 +1,16 @@
 import { Router as createRouter } from 'express';
 import * as locals from '../../applications.locals.js';
-import { registerApplicationId } from '../create-new-case/applications-create.locals.js';
 import * as controller from './applications-case.controller.js';
 import applicationsEditRouter from './edit/applications-edit.router.js';
 
 const applicationsCaseRouter = createRouter();
 const applicationsCaseSummaryRouter = createRouter({ mergeParams: true });
 
-applicationsCaseRouter.use('/:applicationId/edit', applicationsEditRouter);
+applicationsCaseRouter.use('/:caseId/edit', applicationsEditRouter);
 
-applicationsCaseRouter.use('/:applicationId/:pageType?', applicationsCaseSummaryRouter);
+applicationsCaseRouter.use('/:caseId/:pageType?', applicationsCaseSummaryRouter);
 
-applicationsCaseSummaryRouter.use(registerApplicationId);
-applicationsCaseSummaryRouter.use(locals.loadApplication);
+applicationsCaseSummaryRouter.use(locals.registerCase);
 applicationsCaseSummaryRouter.route('/').get(controller.viewApplicationsCasePages);
 
 export default applicationsCaseRouter;

@@ -1,9 +1,9 @@
 import { parseHtml } from '@pins/platform';
 import nock from 'nock';
 import supertest from 'supertest';
-import { createTestApplication } from '../../../../../../testing/index.js';
+import { createTestEnvironment } from '../../../../../../testing/index.js';
 
-const { app, installMockApi, teardown } = createTestApplication();
+const { app, installMockApi, teardown } = createTestEnvironment();
 const request = supertest(app);
 
 const successFullResponse = {

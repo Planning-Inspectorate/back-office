@@ -1,18 +1,16 @@
 import { parseHtml } from '@pins/platform';
 import nock from 'nock';
 import supertest from 'supertest';
-import { createTestApplication } from '../../../../../../testing/index.js';
+import { fixtureCases } from '../../../../../../testing/applications/fixtures/cases.js';
+import { createTestEnvironment } from '../../../../../../testing/index.js';
 
-const { app, installMockApi, teardown } = createTestApplication();
+const { app, installMockApi, teardown } = createTestEnvironment();
 const request = supertest(app);
-const successGetResponse = { id: 1, applicants: [{ id: 1 }] };
 
 const nocks = () => {
 	nock('http://test/').get('/applications/case-officer').reply(200, []);
-	nock('http://test/')
-		.get(/\/applications\/123(.*)/g)
-		.times(2)
-		.reply(200, successGetResponse);
+
+	nock('http://test/').get('/applications/123').reply(200, fixtureCases[3]);
 };
 
 describe('applications view case summary', () => {
@@ -29,7 +27,7 @@ describe('applications view case summary', () => {
 
 	const baseUrl = '/applications-service/case/123';
 
-	describe('GET /case', () => {
+	describe('GET /case/123', () => {
 		beforeEach(async () => {
 			nocks();
 		});
@@ -39,10 +37,11 @@ describe('applications view case summary', () => {
 			const element = parseHtml(response.text);
 
 			expect(element.innerHTML).toMatchSnapshot();
+			expect(element.innerHTML).toContain('Summary information');
 		});
 	});
 
-	describe('GET /case/project-information', () => {
+	describe('GET /case/123/project-information', () => {
 		beforeEach(async () => {
 			nocks();
 		});
@@ -52,6 +51,7 @@ describe('applications view case summary', () => {
 			const element = parseHtml(response.text);
 
 			expect(element.innerHTML).toMatchSnapshot();
+			expect(element.innerHTML).toContain('Project details');
 		});
 	});
 });

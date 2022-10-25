@@ -1,16 +1,16 @@
 import { parseHtml } from '@pins/platform';
 import nock from 'nock';
 import supertest from 'supertest';
-import { fixtureApplications } from '../../../../../../../testing/applications/fixtures/applications.js';
+import { fixtureCases } from '../../../../../../../testing/applications/fixtures/cases.js';
 import {
 	fixtureRegions,
 	fixtureSectors,
 	fixtureSubSectors,
 	fixtureZoomLevels
 } from '../../../../../../../testing/applications/fixtures/options-item.js';
-import { createTestApplication } from '../../../../../../../testing/index.js';
+import { createTestEnvironment } from '../../../../../../../testing/index.js';
 
-const { app, installMockApi, teardown } = createTestApplication();
+const { app, installMockApi, teardown } = createTestEnvironment();
 const request = supertest(app);
 const successResponse = { id: 1, applicantIds: [1] };
 
@@ -20,23 +20,23 @@ const nocks = () => {
 	nock('http://test/')
 		.get(/\/applications\/1\?(.*)/g)
 		.times(4)
-		.reply(200, fixtureApplications[0]);
+		.reply(200, fixtureCases[0]);
 	nock('http://test/')
 		.get(/\/applications\/2\?(.*)/g)
 		.times(4)
-		.reply(200, fixtureApplications[1]);
+		.reply(200, fixtureCases[1]);
 	nock('http://test/')
 		.get(/\/applications\/3\?(.*)/g)
 		.times(4)
-		.reply(200, fixtureApplications[2]);
+		.reply(200, fixtureCases[2]);
 	nock('http://test/')
 		.get(/\/applications\/4\?(.*)/g)
 		.times(4)
-		.reply(200, fixtureApplications[3]);
+		.reply(200, fixtureCases[3]);
 	nock('http://test/')
 		.get(/\/applications\/5\?(.*)/g)
 		.times(4)
-		.reply(200, fixtureApplications[4]);
+		.reply(200, fixtureCases[4]);
 	nock('http://test/').get('/applications/').times(4).reply(404);
 	nock('http://test/')
 		.get('/applications/sector?sectorName=transport')
@@ -105,7 +105,7 @@ describe('applications create', () => {
 				const element = parseHtml(response.text);
 
 				expect(element.innerHTML).toMatchSnapshot();
-				expect(element.innerHTML).toContain(fixtureApplications[0].description.slice(0, 20));
+				expect(element.innerHTML).toContain(fixtureCases[0].description.slice(0, 20));
 			});
 		});
 
@@ -199,8 +199,8 @@ describe('applications create', () => {
 			nocks();
 		});
 
-		describe('GET /create-new-case/:applicationId/sector', () => {
-			describe('When applicationId is:', () => {
+		describe('GET /create-new-case/:caseId/sector', () => {
+			describe('When caseId is:', () => {
 				describe('Provided', () => {
 					it('should display an option as _checked_ if the API returns a resumed value', async () => {
 						const response = await request.get(baseUrl('1'));
@@ -232,7 +232,7 @@ describe('applications create', () => {
 			});
 		});
 
-		describe('POST /create-new-case/:applicationId/sector', () => {
+		describe('POST /create-new-case/:caseId/sector', () => {
 			describe('Web-side validation:', () => {
 				it('should show validation error if nothing was selected', async () => {
 					const response = await request.post(baseUrl('1')).send({ sectorName: null });
@@ -260,7 +260,7 @@ describe('applications create', () => {
 			nocks();
 		});
 
-		describe('GET /create-new-case/:applicationId/sub-sector', () => {
+		describe('GET /create-new-case/:caseId/sub-sector', () => {
 			it('should redirect to sector page if the sectorName is null', async () => {
 				const response = await request.get(baseUrl('4'));
 
@@ -296,7 +296,7 @@ describe('applications create', () => {
 			});
 		});
 
-		describe('POST /create-new-case/:applicationId/sub-sector', () => {
+		describe('POST /create-new-case/:caseId/sub-sector', () => {
 			describe('Web-side validation:', () => {
 				it('should show validation error if nothing was selected', async () => {
 					const response = await request.post(baseUrl('1'));
@@ -340,7 +340,7 @@ describe('applications create', () => {
 			nocks();
 		});
 
-		describe('GET /create-new-case/:applicationId/geographical-information', () => {
+		describe('GET /create-new-case/:caseId/geographical-information', () => {
 			it('should display resumed data if the API returns something', async () => {
 				const response = await request.get(baseUrl('1'));
 				const element = parseHtml(response.text);
@@ -350,7 +350,7 @@ describe('applications create', () => {
 			});
 		});
 
-		describe('POST /create-new-case/:applicationId/geographical-information', () => {
+		describe('POST /create-new-case/:caseId/geographical-information', () => {
 			describe('Web-side validation', () => {
 				it('should not render validation error if nothing missing', async () => {
 					const response = await request.post(baseUrl('1')).send({
@@ -458,7 +458,7 @@ describe('applications create', () => {
 			nock('http://test/').get('/applications/region').reply(200, fixtureRegions);
 		});
 
-		describe('GET /create-new-case/:applicationId/regions', () => {
+		describe('GET /create-new-case/:caseId/regions', () => {
 			it('should render the page with checked options if the api returns something', async () => {
 				const response = await request.get(baseUrl('1'));
 				const element = parseHtml(response.text);
@@ -477,7 +477,7 @@ describe('applications create', () => {
 			});
 		});
 
-		describe('POST /create-new-case/:applicationId/regions', () => {
+		describe('POST /create-new-case/:caseId/regions', () => {
 			describe('Web-validation', () => {
 				it('should not render validation error if nothing missing', async () => {
 					const responseWithOneRegion = await request.post(baseUrl('1')).send({
@@ -545,7 +545,7 @@ describe('applications create', () => {
 			nock('http://test/').get('/applications/zoom-level').reply(200, fixtureZoomLevels);
 		});
 
-		describe('GET /create-new-case/:applicationId/zoom-level', () => {
+		describe('GET /create-new-case/:caseId/zoom-level', () => {
 			it('should render the page with None checked if the api does not return resumed data', async () => {
 				const response = await request.get(baseUrl('3'));
 				const element = parseHtml(response.text);
@@ -563,7 +563,7 @@ describe('applications create', () => {
 			});
 		});
 
-		describe('POST /create-new-case/:applicationId/zoom-level', () => {
+		describe('POST /create-new-case/:caseId/zoom-level', () => {
 			describe('Api validation', () => {
 				it('should show validation errors if API returns error', async () => {
 					const failResponse = {
@@ -604,7 +604,7 @@ describe('applications create', () => {
 			nock('http://test/').get('/applications/zoom-level').reply(200, fixtureZoomLevels);
 		});
 
-		describe('GET /create-new-case/:applicationId/team-email', () => {
+		describe('GET /create-new-case/:caseId/team-email', () => {
 			it('should render the page with the resumed data if the api returns something', async () => {
 				const response = await request.get(baseUrl('1'));
 				const element = parseHtml(response.text);
@@ -622,7 +622,7 @@ describe('applications create', () => {
 			});
 		});
 
-		describe('POST /create-new-case/:applicationId/team-email', () => {
+		describe('POST /create-new-case/:caseId/team-email', () => {
 			describe('Web-validation', () => {
 				it('should not render validation error if nothing missing', async () => {
 					const response = await request.post(baseUrl('1')).send({

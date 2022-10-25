@@ -8,7 +8,7 @@ exports[`applications create applicant Applicant address GET /applicant-address 
         <div class=\\"govuk-form-group\\">
             <h1 class=\\"govuk-label-wrapper\\"><label class=\\"govuk-label font-weight--700\\" for=\\"postcode\\"> Postcode</label></h1>
             <input class=\\"govuk-input govuk-!-width-one-third\\" id=\\"postcode\\" name=\\"postcode\\"
-            type=\\"text\\" value=\\"\\">
+            type=\\"text\\" value=\\"ABC123\\">
         </div>
         <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Find address</button>
         <div class=\\"govuk-grid-row\\">
@@ -97,7 +97,8 @@ exports[`applications create applicant Applicant email GET /applicant-email shou
         <div class=\\"govuk-form-group\\">
             <div id=\\"applicant.email-hint\\" class=\\"govuk-hint\\">for example, contact@buildinganewbridge.com</div>
             <input class=\\"govuk-input govuk-!-width-one-third\\"
-            id=\\"applicant.email\\" name=\\"applicant.email\\" type=\\"text\\" aria-describedby=\\"applicant.email-hint\\">
+            id=\\"applicant.email\\" name=\\"applicant.email\\" type=\\"text\\" value=\\"email@email.co\\"
+            aria-describedby=\\"applicant.email-hint\\">
         </div>
         <div class=\\"govuk-grid-row\\">
             <div class=\\"govuk-button-group pins-button-group govuk-grid-column-one-half\\">
@@ -149,7 +150,8 @@ exports[`applications create applicant Applicant telephone number GET /applicant
         <div class=\\"govuk-form-group\\">
             <div id=\\"applicant.phoneNumber-hint\\" class=\\"govuk-hint\\">for example, 0300 123 3000</div>
             <input class=\\"govuk-input govuk-!-width-one-third\\"
-            id=\\"applicant.phoneNumber\\" name=\\"applicant.phoneNumber\\" type=\\"text\\" aria-describedby=\\"applicant.phoneNumber-hint\\">
+            id=\\"applicant.phoneNumber\\" name=\\"applicant.phoneNumber\\" type=\\"text\\" value=\\"001\\"
+            aria-describedby=\\"applicant.phoneNumber-hint\\">
         </div>
         <div class=\\"govuk-grid-row\\">
             <div class=\\"govuk-button-group pins-button-group govuk-grid-column-one-half\\">
@@ -200,7 +202,8 @@ exports[`applications create applicant Applicant website GET /applicant-website 
         <div class=\\"govuk-form-group\\">
             <div id=\\"applicant.website-hint\\" class=\\"govuk-hint\\">for example, https://www.heathrow.com</div>
             <input class=\\"govuk-input govuk-!-width-one-third\\"
-            id=\\"applicant.website\\" name=\\"applicant.website\\" type=\\"text\\" aria-describedby=\\"applicant.website-hint\\">
+            id=\\"applicant.website\\" name=\\"applicant.website\\" type=\\"text\\" value=\\"website.web\\"
+            aria-describedby=\\"applicant.website-hint\\">
         </div>
         <div class=\\"govuk-grid-row\\">
             <div class=\\"govuk-button-group pins-button-group govuk-grid-column-one-half\\">
@@ -252,12 +255,12 @@ exports[`applications create applicant GET /applicant-full-name should render th
         <div class=\\"govuk-form-group\\">
             <label class=\\"govuk-label font-weight--700\\" for=\\"applicant.firstName\\">First name</label>
             <input class=\\"govuk-input govuk-!-width-one-third\\" id=\\"applicant.firstName\\"
-            name=\\"applicant.firstName\\" type=\\"text\\">
+            name=\\"applicant.firstName\\" type=\\"text\\" value=\\"Lorem\\">
         </div>
         <div class=\\"govuk-form-group\\">
             <label class=\\"govuk-label font-weight--700\\" for=\\"applicant.lastName\\">Last name</label>
             <input class=\\"govuk-input govuk-!-width-one-third\\" id=\\"applicant.lastName\\"
-            name=\\"applicant.lastName\\" type=\\"text\\">
+            name=\\"applicant.lastName\\" type=\\"text\\" value=\\"Ipsum\\">
         </div>
         <div class=\\"govuk-grid-row\\">
             <div class=\\"govuk-button-group pins-button-group govuk-grid-column-one-half\\">
@@ -321,7 +324,7 @@ exports[`applications create applicant GET /applicant-organisation-name should r
     <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
         <div class=\\"govuk-form-group\\">
             <input class=\\"govuk-input govuk-!-width-one-third\\" id=\\"applicant.organisationName\\"
-            name=\\"applicant.organisationName\\" type=\\"text\\">
+            name=\\"applicant.organisationName\\" type=\\"text\\" value=\\"Org name\\">
         </div>
         <div class=\\"govuk-grid-row\\">
             <div class=\\"govuk-button-group pins-button-group govuk-grid-column-one-half\\">

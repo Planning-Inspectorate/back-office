@@ -71,7 +71,7 @@ const teamEmailLayout = {
 };
 
 /**
- * View the first step (name & description) of the application creation
+ * View the first step (name & description) of the casecreation
  *
  * @type {import('@pins/express').RenderHandler<ApplicationsCreateCaseNameProps,
  * {}, {}, {}, {}>}
@@ -86,26 +86,26 @@ export async function viewApplicationsCreateCaseName(req, response) {
 }
 
 /**
- * Create the application with name and description
+ * Create the case with name and description
  *
  * @type {import('@pins/express').RenderHandler<ApplicationsCreateCaseNameProps,
  * {}, ApplicationsCreateCaseNameBody, {}, {}>}
  */
 export async function updateApplicationsCreateCaseName(request, response) {
-	const { properties, updatedApplicationId } = await caseNameAndDescriptionDataUpdate(
+	const { properties, updatedCaseId } = await caseNameAndDescriptionDataUpdate(
 		request,
 		response.locals
 	);
 
-	if (properties.errors || !updatedApplicationId) {
+	if (properties.errors || !updatedCaseId) {
 		return handleErrors(properties, nameLayout, response);
 	}
 
-	response.redirect(`/applications-service/create-new-case/${updatedApplicationId}/sector`);
+	response.redirect(`/applications-service/create-new-case/${updatedCaseId}/sector`);
 }
 
 /**
- * View the sector choice step of the application creation
+ * View the sector choice step of the casecreation
  *
  * @type {import('@pins/express').RenderHandler<ApplicationsCreateCaseSectorProps,
  * {}, {}, {}, {}>}
@@ -120,14 +120,14 @@ export async function viewApplicationsCreateCaseSector(request, response) {
 }
 
 /**
- * Save the sector for the draft application
+ * Save the sector for the draft case
  *
  *
  * @type {import('@pins/express').RenderHandler<ApplicationsCreateCaseSectorProps,
  * {}, ApplicationsCreateCaseSectorBody, {}, {}>}
  */
 export async function updateApplicationsCreateCaseSector(request, response) {
-	const { applicationId } = response.locals;
+	const { caseId } = response.locals;
 	const properties = await caseSectorDataUpdate(request);
 
 	if (properties.errors) {
@@ -135,21 +135,21 @@ export async function updateApplicationsCreateCaseSector(request, response) {
 	}
 
 	setSessionCaseSectorName(request.session, properties.values.sectorName);
-	response.redirect(`/applications-service/create-new-case/${applicationId}/sub-sector`);
+	response.redirect(`/applications-service/create-new-case/${caseId}/sub-sector`);
 }
 
 /**
- * View the sub-sector choice step of the application creation
+ * View the sub-sector choice step of the casecreation
  *
  * @type {import('@pins/express').RenderHandler<*, *>}
  */
 export async function viewApplicationsCreateCaseSubSector(request, response) {
-	const { applicationId } = response.locals;
+	const { caseId } = response.locals;
 	const { properties, redirectToSector } = await caseSubSectorData(request, response.locals);
 
 	if (redirectToSector) {
 		pino.warn('Trying to change subsector with no sector value registered. Redirect to sector');
-		return response.redirect(`/applications-service/create-new-case/${applicationId}/sector`);
+		return response.redirect(`/applications-service/create-new-case/${caseId}/sector`);
 	}
 
 	response.render('applications/components/case-form/case-form-layout', {
@@ -159,29 +159,26 @@ export async function viewApplicationsCreateCaseSubSector(request, response) {
 }
 
 /**
- * Save the sub-sector for the draft application
+ * Save the sub-sector for the draft case
  *
  * @type {import('@pins/express').RenderHandler<ApplicationsCreateCaseSubSectorProps,
  * {}, ApplicationsCreateCaseSubSectorBody, {}, {}>}
  */
 export async function updateApplicationsCreateCaseSubSector(request, response) {
-	const { properties, updatedApplicationId } = await caseSubSectorDataUpdate(
-		request,
-		response.locals
-	);
+	const { properties, updatedCaseId } = await caseSubSectorDataUpdate(request, response.locals);
 
-	if (properties?.errors || !updatedApplicationId) {
+	if (properties?.errors || !updatedCaseId) {
 		return handleErrors(properties, subSectorLayout, response);
 	}
 
 	destroySessionCaseSectorName(request.session);
 	response.redirect(
-		`/applications-service/create-new-case/${updatedApplicationId}/geographical-information`
+		`/applications-service/create-new-case/${updatedCaseId}/geographical-information`
 	);
 }
 
 /**
- * View the geographical information step of the application creation
+ * View the geographical information step of the casecreation
  *
  * @type {import('@pins/express').RenderHandler<ApplicationsCreateCaseGeographicalInformationProps,
  * {}, {}, {}, {}>}
@@ -196,26 +193,26 @@ export async function viewApplicationsCreateCaseGeographicalInformation(request,
 }
 
 /**
- * Save the geographical location for the draft application
+ * Save the geographical location for the draft case
  *
  * @type {import('@pins/express').RenderHandler<ApplicationsCreateCaseGeographicalInformationProps,
  * {}, ApplicationsCreateCaseGeographicalInformationBody, {}, {}>}
  */
 export async function updateApplicationsCreateCaseGeographicalInformation(request, response) {
-	const { properties, updatedApplicationId } = await caseGeographicalInformationDataUpdate(
+	const { properties, updatedCaseId } = await caseGeographicalInformationDataUpdate(
 		request,
 		response.locals
 	);
 
-	if (properties.errors || !updatedApplicationId) {
+	if (properties.errors || !updatedCaseId) {
 		return handleErrors(properties, geographicalInformationLayout, response);
 	}
 
-	response.redirect(`/applications-service/create-new-case/${updatedApplicationId}/regions`);
+	response.redirect(`/applications-service/create-new-case/${updatedCaseId}/regions`);
 }
 
 /**
- * View the regions step of the application creation
+ * View the regions step of the casecreation
  *
  * @type {import('@pins/express').RenderHandler<ApplicationsCreateCaseRegionsProps,
  * {}, {}, {}, {}>}
@@ -230,28 +227,23 @@ export async function viewApplicationsCreateCaseRegions(request, response) {
 }
 
 /**
- * Save the regions for the draft application
+ * Save the regions for the draft case
  *
  * @type {import('@pins/express').RenderHandler<ApplicationsCreateCaseRegionsProps,
  * {}, ApplicationsCreateCaseRegionsBody, {}, {}>}
  */
 export async function updateApplicationsCreateCaseRegions(request, response) {
-	const { properties, updatedApplicationId } = await caseRegionsDataUpdate(
-		request,
-		response.locals
-	);
+	const { properties, updatedCaseId } = await caseRegionsDataUpdate(request, response.locals);
 
-	if (properties.errors || !updatedApplicationId) {
+	if (properties.errors || !updatedCaseId) {
 		return handleErrors(properties, regionsLayout, response);
 	}
 
-	return response.redirect(
-		`/applications-service/create-new-case/${updatedApplicationId}/zoom-level`
-	);
+	return response.redirect(`/applications-service/create-new-case/${updatedCaseId}/zoom-level`);
 }
 
 /**
- * View the zoom-level step of the application creation
+ * View the zoom-level step of the casecreation
  *
  * @type {import('@pins/express').RenderHandler<ApplicationsCreateCaseZoomLevelProps,
  * {}, {}, {}, {}>}
@@ -266,26 +258,23 @@ export async function viewApplicationsCreateCaseZoomLevel(request, response) {
 }
 
 /**
- * Save the zoom-level for the draft application
+ * Save the zoom-level for the draft case
  *
  * @type {import('@pins/express').RenderHandler<ApplicationsCreateCaseZoomLevelProps,
  * {}, ApplicationsCreateCaseZoomLevelBody, {}, {}>}
  */
 export async function updateApplicationsCreateCaseZoomLevel(request, response) {
-	const { properties, updatedApplicationId } = await caseZoomLevelDataUpdate(
-		request,
-		response.locals
-	);
+	const { properties, updatedCaseId } = await caseZoomLevelDataUpdate(request, response.locals);
 
-	if (properties.errors || !updatedApplicationId) {
+	if (properties.errors || !updatedCaseId) {
 		return handleErrors(properties, zoomLevelLayout, response);
 	}
 
-	response.redirect(`/applications-service/create-new-case/${updatedApplicationId}/team-email`);
+	response.redirect(`/applications-service/create-new-case/${updatedCaseId}/team-email`);
 }
 
 /**
- * View the case-team email address step of the application creation
+ * View the case-team email address step of the casecreation
  *
  * @type {import('@pins/express').RenderHandler<ApplicationsCreateCaseTeamEmailProps,
  * {}, {}, {}, {}>}
@@ -306,12 +295,9 @@ export async function viewApplicationsCreateCaseTeamEmail(request, response) {
  * {}, ApplicationsCreateCaseTeamEmailBody, {}, {}>}
  */
 export async function updateApplicationsCreateCaseTeamEmail(request, response) {
-	const { properties, updatedApplicationId } = await caseTeamEmailDataUpdate(
-		request,
-		response.locals
-	);
+	const { properties, updatedCaseId } = await caseTeamEmailDataUpdate(request, response.locals);
 
-	if (properties && (properties?.errors || !updatedApplicationId)) {
+	if (properties && (properties?.errors || !updatedCaseId)) {
 		return handleErrors(properties, teamEmailLayout, response);
 	}
 
@@ -319,5 +305,5 @@ export async function updateApplicationsCreateCaseTeamEmail(request, response) {
 		? 'applicant-information-types'
 		: 'applicant-organisation-name';
 
-	response.redirect(`/applications-service/create-new-case/${updatedApplicationId}/${nextPath}`);
+	response.redirect(`/applications-service/create-new-case/${updatedCaseId}/${nextPath}`);
 }

@@ -24,9 +24,10 @@ import {
  * @returns {Promise<ApplicationsCreateCaseNameProps>}
  */
 export async function caseNameAndDescriptionData(request, locals) {
-	const { applicationId } = locals || {};
-	const { title, description } = applicationId
-		? await getCase(applicationId, ['title', 'description'])
+	// TODO: something odd
+	const { caseId } = locals || {};
+	const { title, description } = caseId
+		? await getCase(caseId, ['title', 'description'])
 		: { title: '', description: '' };
 
 	return { values: { title, description } };
@@ -37,26 +38,24 @@ export async function caseNameAndDescriptionData(request, locals) {
  *
  * @param {import('express').Request} request
  * @param {Record<string, any>} locals
- * @returns {Promise<{properties: ApplicationsCreateCaseNameProps, updatedApplicationId?: number| null}>}
+ * @returns {Promise<{properties: ApplicationsCreateCaseNameProps, updatedCaseId?: number| null}>}
  */
 export async function caseNameAndDescriptionDataUpdate(
 	{ errors: validationErrors, body, session },
 	locals
 ) {
-	const { applicationId } = locals;
+	const { caseId } = locals;
 	const { description, title } = body;
 	const payload = bodyToPayload(body);
-	const action = applicationId
-		? () => updateCase(applicationId, payload)
-		: () => createCase(payload, session);
+	const action = caseId ? () => updateCase(caseId, payload) : () => createCase(payload, session);
 
-	const { errors: apiErrors, id: updatedApplicationId } = validationErrors
+	const { errors: apiErrors, id: updatedCaseId } = validationErrors
 		? { id: null, errors: validationErrors }
 		: await action();
 
 	const properties = { values: { description, title }, errors: validationErrors || apiErrors };
 
-	return { properties, updatedApplicationId };
+	return { properties, updatedCaseId };
 }
 
 /**
@@ -68,10 +67,10 @@ export async function caseNameAndDescriptionDataUpdate(
  * @returns {Promise<ApplicationsCreateCaseSectorProps>}
  */
 export async function caseSectorData({ session }, locals) {
-	const { applicationId } = locals;
+	const { caseId } = locals;
 	const allSectors = await getAllSectors();
 
-	const { sector } = await getCase(applicationId, ['sector']);
+	const { sector } = await getCase(caseId, ['sector']);
 	const selectedSectorName = getSessionCaseSectorName(session) || sector?.name;
 
 	const values = { sectorName: selectedSectorName || '' };
@@ -110,8 +109,8 @@ export async function caseSectorDataUpdate({ errors, body }) {
  * @returns {Promise<ApplicationsCreateCaseGeographicalInformationProps>}
  */
 export async function caseGeographicalInformationData(request, locals) {
-	const { applicationId } = locals;
-	const { geographicalInformation } = await getCase(applicationId, ['geographicalInformation']);
+	const { caseId } = locals;
+	const { geographicalInformation } = await getCase(caseId, ['geographicalInformation']);
 	const { locationDescription, gridReference } = geographicalInformation || {};
 
 	const values = {
@@ -129,13 +128,13 @@ export async function caseGeographicalInformationData(request, locals) {
  *
  * @param {import('express').Request} request
  * @param {Record<string, any>} locals
- * @returns {Promise<{properties: ApplicationsCreateCaseGeographicalInformationProps, updatedApplicationId?: number}>}
+ * @returns {Promise<{properties: ApplicationsCreateCaseGeographicalInformationProps, updatedCaseId?: number}>}
  */
 export async function caseGeographicalInformationDataUpdate(
 	{ errors: validationErrors, body },
 	locals
 ) {
-	const { applicationId } = locals;
+	const { caseId } = locals;
 	const payload = bodyToPayload(body);
 	const values = {
 		'geographicalInformation.locationDescription':
@@ -146,10 +145,10 @@ export async function caseGeographicalInformationDataUpdate(
 			body['geographicalInformation.gridReference.northing']
 	};
 
-	const { errors: apiErrors, id: updatedApplicationId } = await updateCase(applicationId, payload);
+	const { errors: apiErrors, id: updatedCaseId } = await updateCase(caseId, payload);
 	const properties = { errors: validationErrors || apiErrors, values };
 
-	return { properties, updatedApplicationId };
+	return { properties, updatedCaseId };
 }
 
 /**
@@ -161,8 +160,8 @@ export async function caseGeographicalInformationDataUpdate(
  * @returns {Promise<{properties?: ApplicationsCreateCaseSubSectorProps, redirectToSector: boolean}>}
  */
 export async function caseSubSectorData({ session }, locals) {
-	const { applicationId } = locals;
-	const { sector, subSector } = await getCase(applicationId, ['subSector', 'sector']);
+	const { caseId } = locals;
+	const { sector, subSector } = await getCase(caseId, ['subSector', 'sector']);
 	const selectedSectorName = getSessionCaseSectorName(session) || sector?.name;
 
 	if (!selectedSectorName) {
@@ -185,14 +184,14 @@ export async function caseSubSectorData({ session }, locals) {
  *
  * @param {import('express').Request} request
  * @param {Record<string, any>} locals
- * @returns {Promise<{properties: ApplicationsCreateCaseSubSectorProps, updatedApplicationId?: number}>}
+ * @returns {Promise<{properties: ApplicationsCreateCaseSubSectorProps, updatedCaseId?: number}>}
  */
 export async function caseSubSectorDataUpdate({ session, errors: validationErrors, body }, locals) {
-	const { applicationId } = locals;
+	const { caseId } = locals;
 	const { subSectorName } = body;
 	const payload = bodyToPayload(body);
 
-	const { errors: apiErrors, id: updatedApplicationId } = await updateCase(applicationId, payload);
+	const { errors: apiErrors, id: updatedCaseId } = await updateCase(caseId, payload);
 
 	/** @type {ApplicationsCreateCaseSubSectorProps} * */
 	let properties = {
@@ -201,15 +200,15 @@ export async function caseSubSectorDataUpdate({ session, errors: validationError
 		subSectors: []
 	};
 
-	if (validationErrors || apiErrors || !updatedApplicationId) {
-		const { sector } = await getCase(applicationId, ['sector']);
+	if (validationErrors || apiErrors || !updatedCaseId) {
+		const { sector } = await getCase(caseId, ['sector']);
 		const selectedSectorName = getSessionCaseSectorName(session) || sector?.name;
 		const subSectors = await getSubSectorsBySectorName(selectedSectorName);
 
 		properties = { ...properties, subSectors };
 	}
 
-	return { properties, updatedApplicationId };
+	return { properties, updatedCaseId };
 }
 
 /**
@@ -221,9 +220,9 @@ export async function caseSubSectorDataUpdate({ session, errors: validationError
  * @returns {Promise<ApplicationsCreateCaseRegionsProps>}
  */
 export async function caseRegionsData(request, locals) {
-	const { applicationId } = locals;
+	const { caseId } = locals;
 	const allRegions = await getAllRegions();
-	const { geographicalInformation } = await getCase(applicationId, ['geographicalInformation']);
+	const { geographicalInformation } = await getCase(caseId, ['geographicalInformation']);
 	const selectedRegionNames = new Set(
 		(geographicalInformation?.regions || []).map((region) => region?.name)
 	);
@@ -243,19 +242,19 @@ export async function caseRegionsData(request, locals) {
  *
  * @param {import('express').Request} request
  * @param {Record<string, any>} locals
- * @returns {Promise<{properties: ApplicationsCreateCaseRegionsProps, updatedApplicationId?: number}>}
+ * @returns {Promise<{properties: ApplicationsCreateCaseRegionsProps, updatedCaseId?: number}>}
  */
 export async function caseRegionsDataUpdate({ errors: validationErrors, body }, locals) {
-	const { applicationId } = locals;
+	const { caseId } = locals;
 	const selectedRegionNames = new Set(body['geographicalInformation.regionNames'] || []);
 	const payload = bodyToPayload(body);
 
-	const { errors: apiErrors, id: updatedApplicationId } = await updateCase(applicationId, payload);
+	const { errors: apiErrors, id: updatedCaseId } = await updateCase(caseId, payload);
 
 	/** @type {ApplicationsCreateCaseRegionsProps} */
 	let properties = { errors: validationErrors || apiErrors, allRegions: [] };
 
-	if (validationErrors || apiErrors || !updatedApplicationId) {
+	if (validationErrors || apiErrors || !updatedCaseId) {
 		const allRegions = await getAllRegions();
 		const checkBoxRegions = allRegions.map((region) => ({
 			text: region.displayNameEn,
@@ -266,7 +265,7 @@ export async function caseRegionsDataUpdate({ errors: validationErrors, body }, 
 		properties = { ...properties, allRegions: checkBoxRegions };
 	}
 
-	return { properties, updatedApplicationId };
+	return { properties, updatedCaseId };
 }
 
 /**
@@ -278,8 +277,8 @@ export async function caseRegionsDataUpdate({ errors: validationErrors, body }, 
  * @returns {Promise<ApplicationsCreateCaseZoomLevelProps>}
  */
 export async function caseZoomLevelData(request, locals) {
-	const { applicationId } = locals;
-	const { geographicalInformation } = await getCase(applicationId, ['geographicalInformation']);
+	const { caseId } = locals;
+	const { geographicalInformation } = await getCase(caseId, ['geographicalInformation']);
 	const allZoomLevels = await getAllZoomLevels();
 	const values = {
 		'geographicalInformation.mapZoomLevelName':
@@ -300,25 +299,25 @@ export async function caseZoomLevelData(request, locals) {
  *
  * @param {import('express').Request} request
  * @param {Record<string, any>} locals
- * @returns {Promise<{properties: ApplicationsCreateCaseZoomLevelProps, updatedApplicationId?: number}>}
+ * @returns {Promise<{properties: ApplicationsCreateCaseZoomLevelProps, updatedCaseId?: number}>}
  */
 export async function caseZoomLevelDataUpdate({ body }, locals) {
-	const { applicationId } = locals;
+	const { caseId } = locals;
 	const allZoomLevels = await getAllZoomLevels();
 	const payload = bodyToPayload(body);
 	const values = {
 		'geographicalInformation.mapZoomLevelName': body['geographicalInformation.mapZoomLevelName']
 	};
-	const { errors, id: updatedApplicationId } = await updateCase(applicationId, payload);
+	const { errors, id: updatedCaseId } = await updateCase(caseId, payload);
 
 	/** @type {ApplicationsCreateCaseZoomLevelProps} */
 	let properties = { errors, values, zoomLevels: [] };
 
-	if (errors || !updatedApplicationId) {
+	if (errors || !updatedCaseId) {
 		properties = { ...properties, zoomLevels: allZoomLevels };
 	}
 
-	return { properties, updatedApplicationId };
+	return { properties, updatedCaseId };
 }
 
 /**
@@ -330,8 +329,8 @@ export async function caseZoomLevelDataUpdate({ body }, locals) {
  * @returns {Promise<ApplicationsCreateCaseTeamEmailProps>}
  */
 export async function caseTeamEmailData(request, locals) {
-	const { applicationId } = locals;
-	const { caseEmail } = await getCase(applicationId, ['caseEmail']);
+	const { caseId } = locals;
+	const { caseEmail } = await getCase(caseId, ['caseEmail']);
 
 	return { values: { caseEmail } };
 }
@@ -342,19 +341,19 @@ export async function caseTeamEmailData(request, locals) {
  *
  * @param {import('express').Request} request
  * @param {Record<string, any>} locals
- * @returns {Promise<{properties?: ApplicationsCreateCaseTeamEmailProps, updatedApplicationId?: number}>}
+ * @returns {Promise<{properties?: ApplicationsCreateCaseTeamEmailProps, updatedCaseId?: number}>}
  */
 export async function caseTeamEmailDataUpdate({ body, errors: validationErrors }, locals) {
-	const { applicationId } = locals;
-	/** @type {{properties?: ApplicationsCreateCaseTeamEmailProps, updatedApplicationId?: number}} */
-	const propertiesWithId = { updatedApplicationId: applicationId };
+	const { caseId } = locals;
+	/** @type {{properties?: ApplicationsCreateCaseTeamEmailProps, updatedCaseId?: number}} */
+	const propertiesWithId = { updatedCaseId: caseId };
 
 	const values = { caseEmail: body.caseEmail };
 	const payload = bodyToPayload(body);
 
-	const { errors: apiErrors, id: updatedApplicationId } = await updateCase(applicationId, payload);
+	const { errors: apiErrors, id: updatedCaseId } = await updateCase(caseId, payload);
 
-	if (validationErrors || apiErrors || !updatedApplicationId) {
+	if (validationErrors || apiErrors || !updatedCaseId) {
 		propertiesWithId.properties = { values, errors: validationErrors || apiErrors };
 	}
 	return propertiesWithId;

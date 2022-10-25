@@ -21,9 +21,9 @@ import { updateCase } from '../../lib/services/case.service.js';
  * @returns {Promise<ApplicationsCreateApplicantOrganisationNameProps>}
  */
 export async function applicantOrganisationNameData(request, locals) {
-	const { applicationId, applicantId } = locals;
+	const { caseId, applicantId } = locals;
 
-	const applicant = await getApplicantById(applicationId, applicantId, ['applicants']);
+	const applicant = await getApplicantById(caseId, applicantId, ['applicants']);
 	const values = {
 		'applicant.organisationName': applicant?.organisationName
 	};
@@ -36,14 +36,14 @@ export async function applicantOrganisationNameData(request, locals) {
  *
  * @param {import('express').Request} request
  * @param {Record<string, any>} locals
- * @returns {Promise<{properties:ApplicationsCreateApplicantOrganisationNameProps, updatedApplicationId?:number }>}
+ * @returns {Promise<{properties:ApplicationsCreateApplicantOrganisationNameProps, updatedCaseId?:number }>}
  */
 export async function applicantOrganisationNameDataUpdate({ body }, locals) {
-	const { applicationId, applicantId: id } = locals;
+	const { caseId, applicantId: id } = locals;
 	const organisationName = body['applicant.organisationName'];
 	const applicantInfo = { id, organisationName };
 
-	const { errors, id: updatedApplicationId } = await updateCase(applicationId, {
+	const { errors, id: updatedCaseId } = await updateCase(caseId, {
 		applicants: [applicantInfo]
 	});
 
@@ -52,7 +52,7 @@ export async function applicantOrganisationNameDataUpdate({ body }, locals) {
 			errors,
 			values: { 'applicant.organisationName': organisationName }
 		},
-		updatedApplicationId
+		updatedCaseId
 	};
 }
 
@@ -65,9 +65,9 @@ export async function applicantOrganisationNameDataUpdate({ body }, locals) {
  * @returns {Promise<ApplicationsCreateApplicantFullNameProps>}
  */
 export async function applicantFullNameData(request, locals) {
-	const { applicationId, applicantId } = locals;
+	const { caseId, applicantId } = locals;
 
-	const applicant = await getApplicantById(applicationId, applicantId, ['applicants']);
+	const applicant = await getApplicantById(caseId, applicantId, ['applicants']);
 	const values = {
 		'applicant.firstName': applicant?.firstName,
 		'applicant.middleName': applicant?.middleName,
@@ -83,10 +83,10 @@ export async function applicantFullNameData(request, locals) {
  *
  * @param {import('express').Request} request
  * @param {Record<string, any>} locals
- * @returns {Promise<{properties:ApplicationsCreateApplicantFullNameProps, updatedApplicationId?:number }>}
+ * @returns {Promise<{properties:ApplicationsCreateApplicantFullNameProps, updatedCaseId?:number }>}
  */
 export async function applicantFullNameDataUpdate({ body }, locals) {
-	const { applicationId, applicantId: id } = locals;
+	const { caseId, applicantId: id } = locals;
 	const applicantInfo = {
 		id,
 		firstName: body['applicant.firstName'],
@@ -94,11 +94,11 @@ export async function applicantFullNameDataUpdate({ body }, locals) {
 		lastName: body['applicant.lastName']
 	};
 
-	const { errors, id: updatedApplicationId } = await updateCase(applicationId, {
+	const { errors, id: updatedCaseId } = await updateCase(caseId, {
 		applicants: [applicantInfo]
 	});
 
-	return { properties: { errors, values: body }, updatedApplicationId };
+	return { properties: { errors, values: body }, updatedCaseId };
 }
 
 /**
@@ -110,9 +110,9 @@ export async function applicantFullNameDataUpdate({ body }, locals) {
  * @returns {Promise<ApplicationsCreateApplicantEmailProps>}
  */
 export async function applicantEmailData(request, locals) {
-	const { applicationId, applicantId } = locals;
+	const { caseId, applicantId } = locals;
 
-	const applicant = await getApplicantById(applicationId, applicantId, ['applicants']);
+	const applicant = await getApplicantById(caseId, applicantId, ['applicants']);
 	const values = {
 		'applicant.email': applicant?.email
 	};
@@ -126,18 +126,18 @@ export async function applicantEmailData(request, locals) {
  *
  * @param {import('express').Request} request
  * @param {Record<string, any>} locals
- * @returns {Promise<{properties:ApplicationsCreateApplicantEmailProps, updatedApplicationId?:number }>}
+ * @returns {Promise<{properties:ApplicationsCreateApplicantEmailProps, updatedCaseId?:number }>}
  */
 export async function applicantEmailDataUpdate({ errors: validationErrors, body }, locals) {
-	const { applicationId, applicantId: id } = locals;
+	const { caseId, applicantId: id } = locals;
 	const values = body;
 	const applicantInfo = { id, email: body['applicant.email'] };
 
-	const { errors: apiErrors, id: updatedApplicationId } = await updateCase(applicationId, {
+	const { errors: apiErrors, id: updatedCaseId } = await updateCase(caseId, {
 		applicants: [applicantInfo]
 	});
 
-	return { properties: { errors: validationErrors || apiErrors, values }, updatedApplicationId };
+	return { properties: { errors: validationErrors || apiErrors, values }, updatedCaseId };
 }
 
 /**
@@ -150,9 +150,9 @@ export async function applicantEmailDataUpdate({ errors: validationErrors, body 
  */
 export async function applicantAddressData({ query }, locals) {
 	const { postcode: queryPostcode } = query;
-	const { applicationId, applicantId } = locals;
+	const { caseId, applicantId } = locals;
 
-	const applicant = await getApplicantById(applicationId, applicantId, [
+	const applicant = await getApplicantById(caseId, applicantId, [
 		'applicants',
 		'applicantsAddress'
 	]);
@@ -186,7 +186,7 @@ export async function applicantAddressData({ query }, locals) {
  */
 export async function applicantAddressDataUpdate({ errors: validationErrors, body }, locals) {
 	const { postcode, apiReference, currentFormStage } = body;
-	const { applicationId, applicantId } = locals;
+	const { caseId, applicantId } = locals;
 
 	const {
 		/** @type {ValidationErrors} */ errors: apiErrors,
@@ -212,7 +212,7 @@ export async function applicantAddressDataUpdate({ errors: validationErrors, bod
 					(address) => address.apiReference === apiReference
 				);
 				const payload = { applicants: [{ id: applicantId, address: selectedAddress }] };
-				const { errors: updateErrors } = await updateCase(applicationId, payload);
+				const { errors: updateErrors } = await updateCase(caseId, payload);
 
 				return { errors: serviceErrors || updateErrors, addressList };
 			}
@@ -231,7 +231,7 @@ export async function applicantAddressDataUpdate({ errors: validationErrors, bod
 					]
 				};
 
-				const { errors } = await updateCase(applicationId, payload);
+				const { errors } = await updateCase(caseId, payload);
 
 				return { errors };
 			}
@@ -262,9 +262,9 @@ export async function applicantAddressDataUpdate({ errors: validationErrors, bod
  * @returns {Promise<ApplicationsCreateApplicantWebsiteProps>}
  */
 export async function applicantWebsiteData(request, locals) {
-	const { applicationId, applicantId } = locals;
+	const { caseId, applicantId } = locals;
 
-	const applicant = await getApplicantById(applicationId, applicantId, ['applicants']);
+	const applicant = await getApplicantById(caseId, applicantId, ['applicants']);
 	const values = {
 		'applicant.website': applicant?.website
 	};
@@ -278,15 +278,15 @@ export async function applicantWebsiteData(request, locals) {
  *
  * @param {import('express').Request} request
  * @param {Record<string, any>} locals
- * @returns {Promise<{properties:ApplicationsCreateApplicantWebsiteProps, updatedApplicationId?:number }>}
+ * @returns {Promise<{properties:ApplicationsCreateApplicantWebsiteProps, updatedCaseId?:number }>}
  */
 export async function applicantWebsiteDataUpdate({ body, errors: validationErrors }, locals) {
-	const { applicationId, applicantId: id } = locals;
+	const { caseId, applicantId: id } = locals;
 	const values = body;
 	const website = body['applicant.website'];
 	const applicantInfo = { id, website };
 
-	const { errors: apiErrors, id: updatedApplicationId } = await updateCase(applicationId, {
+	const { errors: apiErrors, id: updatedCaseId } = await updateCase(caseId, {
 		applicants: [applicantInfo]
 	});
 
@@ -295,7 +295,7 @@ export async function applicantWebsiteDataUpdate({ body, errors: validationError
 		values
 	};
 
-	return { properties, updatedApplicationId };
+	return { properties, updatedCaseId };
 }
 
 /**
@@ -307,9 +307,9 @@ export async function applicantWebsiteDataUpdate({ body, errors: validationError
  * @returns {Promise<ApplicationsCreateApplicantTelephoneNumberProps>}
  */
 export async function applicantTelephoneNumberData(request, locals) {
-	const { applicationId, applicantId } = locals;
+	const { caseId, applicantId } = locals;
 
-	const applicant = await getApplicantById(applicationId, applicantId, ['applicants']);
+	const applicant = await getApplicantById(caseId, applicantId, ['applicants']);
 	const values = {
 		'applicant.phoneNumber': applicant?.phoneNumber
 	};
@@ -323,21 +323,21 @@ export async function applicantTelephoneNumberData(request, locals) {
  *
  * @param {import('express').Request} request
  * @param {Record<string, any>} locals
- * @returns {Promise<{properties:ApplicationsCreateApplicantTelephoneNumberProps, updatedApplicationId?:number }>}
+ * @returns {Promise<{properties:ApplicationsCreateApplicantTelephoneNumberProps, updatedCaseId?:number }>}
  */
 export async function applicantTelephoneNumberDataUpdate(
 	{ body, errors: validationErrors },
 	locals
 ) {
-	const { applicationId, applicantId: id } = locals;
+	const { caseId, applicantId: id } = locals;
 	const values = body;
 	const phoneNumber = body['applicant.phoneNumber'];
 	const applicantInfo = { id, phoneNumber };
 
-	const { errors: apiErrors, id: updatedApplicationId } = await updateCase(applicationId, {
+	const { errors: apiErrors, id: updatedCaseId } = await updateCase(caseId, {
 		applicants: [applicantInfo]
 	});
 	const properties = { errors: validationErrors || apiErrors, values };
 
-	return { properties, updatedApplicationId };
+	return { properties, updatedCaseId };
 }

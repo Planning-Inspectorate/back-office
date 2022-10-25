@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`applications create Geographical Information GET /create-new-case/:applicationId/geographical-information should display resumed data if the API returns something 1`] = `
+exports[`applications create Geographical Information GET /create-new-case/:caseId/geographical-information should display resumed data if the API returns something 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <h2 class=\\"govuk-heading-l\\"> Enter geographical information</h2>
     <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
@@ -38,7 +38,7 @@ exports[`applications create Geographical Information GET /create-new-case/:appl
 </main>"
 `;
 
-exports[`applications create Geographical Information POST /create-new-case/:applicationId/geographical-information API-side validation: should show validation errors if API returns error 1`] = `
+exports[`applications create Geographical Information POST /create-new-case/:caseId/geographical-information API-side validation: should show validation errors if API returns error 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"govuk-grid-row\\">
         <div class=\\"govuk-grid-column-two-thirds\\">
@@ -100,7 +100,7 @@ exports[`applications create Geographical Information POST /create-new-case/:app
 </main>"
 `;
 
-exports[`applications create Geographical Information POST /create-new-case/:applicationId/geographical-information Web-side validation should not render validation error if nothing missing 1`] = `
+exports[`applications create Geographical Information POST /create-new-case/:caseId/geographical-information Web-side validation should not render validation error if nothing missing 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"govuk-grid-row\\">
         <div class=\\"govuk-grid-column-two-thirds\\">
@@ -149,7 +149,7 @@ exports[`applications create Geographical Information POST /create-new-case/:app
 </main>"
 `;
 
-exports[`applications create Geographical Information POST /create-new-case/:applicationId/geographical-information Web-side validation should render validation error if easting and northing are not valid 1`] = `
+exports[`applications create Geographical Information POST /create-new-case/:caseId/geographical-information Web-side validation should render validation error if easting and northing are not valid 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"govuk-grid-row\\">
         <div class=\\"govuk-grid-column-two-thirds\\">
@@ -213,7 +213,7 @@ exports[`applications create Geographical Information POST /create-new-case/:app
 </main>"
 `;
 
-exports[`applications create Geographical Information POST /create-new-case/:applicationId/geographical-information Web-side validation should render validation error if something missing 1`] = `
+exports[`applications create Geographical Information POST /create-new-case/:caseId/geographical-information Web-side validation should render validation error if something missing 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"govuk-grid-row\\">
         <div class=\\"govuk-grid-column-two-thirds\\">
@@ -350,7 +350,7 @@ exports[`applications create Name and description GET /create-new-case/1 should 
             <label class=\\"govuk-label font-weight--700\\" for=\\"title\\">Name of the project</label>
             <div id=\\"title-hint\\" class=\\"govuk-hint\\">for example, Bridge over a very long canyon</div>
             <input class=\\"govuk-input govuk-!-width-one-third\\"
-            id=\\"title\\" name=\\"title\\" type=\\"text\\" value=\\"Title APPLICATION/01\\" aria-describedby=\\"title-hint\\">
+            id=\\"title\\" name=\\"title\\" type=\\"text\\" value=\\"Title CASE/01\\" aria-describedby=\\"title-hint\\">
         </div>
         <div class=\\"govuk-form-group\\">
             <label class=\\"govuk-label font-weight--700\\" for=\\"description\\">Description of the project</label>
@@ -506,7 +506,7 @@ exports[`applications create Name and description POST /create-new-case/:id Web-
 </main>"
 `;
 
-exports[`applications create Regions GET /create-new-case/:applicationId/regions should render the page with checked options if the api returns something 1`] = `
+exports[`applications create Regions GET /create-new-case/:caseId/regions should render the page with checked options if the api returns something 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <h2 class=\\"govuk-heading-l\\"> Choose one or multiple regions</h2>
     <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
@@ -555,7 +555,7 @@ exports[`applications create Regions GET /create-new-case/:applicationId/regions
 </main>"
 `;
 
-exports[`applications create Regions GET /create-new-case/:applicationId/regions should render the page without checked options 1`] = `
+exports[`applications create Regions GET /create-new-case/:caseId/regions should render the page without checked options 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <h2 class=\\"govuk-heading-l\\"> Choose one or multiple regions</h2>
     <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
@@ -602,7 +602,7 @@ exports[`applications create Regions GET /create-new-case/:applicationId/regions
 </main>"
 `;
 
-exports[`applications create Regions POST /create-new-case/:applicationId/regions Api validation should show validation errors if API returns error 1`] = `
+exports[`applications create Regions POST /create-new-case/:caseId/regions Api validation should show validation errors if API returns error 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"govuk-grid-row\\">
         <div class=\\"govuk-grid-column-two-thirds\\">
@@ -671,7 +671,7 @@ exports[`applications create Regions POST /create-new-case/:applicationId/region
 </main>"
 `;
 
-exports[`applications create Regions POST /create-new-case/:applicationId/regions Web-validation should not render validation error if nothing missing 1`] = `
+exports[`applications create Regions POST /create-new-case/:caseId/regions Web-validation should not render validation error if nothing missing 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"govuk-grid-row\\">
         <div class=\\"govuk-grid-column-two-thirds\\">
@@ -730,7 +730,7 @@ exports[`applications create Regions POST /create-new-case/:applicationId/region
 </main>"
 `;
 
-exports[`applications create Regions POST /create-new-case/:applicationId/regions Web-validation should render validation error if something missing 1`] = `
+exports[`applications create Regions POST /create-new-case/:caseId/regions Web-validation should render validation error if something missing 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"govuk-grid-row\\">
         <div class=\\"govuk-grid-column-two-thirds\\">
@@ -798,7 +798,7 @@ exports[`applications create Regions POST /create-new-case/:applicationId/region
 </main>"
 `;
 
-exports[`applications create Sector GET /create-new-case/:applicationId/sector When applicationId is: Not provided should NOT render the page 1`] = `
+exports[`applications create Sector GET /create-new-case/:caseId/sector When caseId is: Not provided should NOT render the page 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"govuk-grid-row\\">
         <div class=\\"govuk-grid-column-two-thirds\\">
@@ -811,7 +811,7 @@ exports[`applications create Sector GET /create-new-case/:applicationId/sector W
 </main>"
 `;
 
-exports[`applications create Sector GET /create-new-case/:applicationId/sector When applicationId is: Provided should display an option as _checked_ if the API returns a resumed value 1`] = `
+exports[`applications create Sector GET /create-new-case/:caseId/sector When caseId is: Provided should display an option as _checked_ if the API returns a resumed value 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <h2 class=\\"govuk-heading-l\\"> Choose a sector</h2>
     <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
@@ -853,7 +853,7 @@ exports[`applications create Sector GET /create-new-case/:applicationId/sector W
 </main>"
 `;
 
-exports[`applications create Sector GET /create-new-case/:applicationId/sector When applicationId is: Provided should not display a _checked_ option if the API does NOT return a resumed value 1`] = `
+exports[`applications create Sector GET /create-new-case/:caseId/sector When caseId is: Provided should not display a _checked_ option if the API does NOT return a resumed value 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <h2 class=\\"govuk-heading-l\\"> Choose a sector</h2>
     <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
@@ -895,7 +895,7 @@ exports[`applications create Sector GET /create-new-case/:applicationId/sector W
 </main>"
 `;
 
-exports[`applications create Sector POST /create-new-case/:applicationId/sector Web-side validation: should show validation error if nothing was selected 1`] = `
+exports[`applications create Sector POST /create-new-case/:caseId/sector Web-side validation: should show validation error if nothing was selected 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"govuk-grid-row\\">
         <div class=\\"govuk-grid-column-two-thirds\\">
@@ -953,7 +953,7 @@ exports[`applications create Sector POST /create-new-case/:applicationId/sector 
 </main>"
 `;
 
-exports[`applications create Sub-sector GET /create-new-case/:applicationId/sub-sector should display an option as _checked_ if the API returns a resumed value 1`] = `
+exports[`applications create Sub-sector GET /create-new-case/:caseId/sub-sector should display an option as _checked_ if the API returns a resumed value 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <h2 class=\\"govuk-heading-l\\"> Choose a subsector</h2>
     <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
@@ -985,7 +985,7 @@ exports[`applications create Sub-sector GET /create-new-case/:applicationId/sub-
 </main>"
 `;
 
-exports[`applications create Sub-sector GET /create-new-case/:applicationId/sub-sector should not display a _checked_ option if the API does NOT return a resumed value 1`] = `
+exports[`applications create Sub-sector GET /create-new-case/:caseId/sub-sector should not display a _checked_ option if the API does NOT return a resumed value 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <h2 class=\\"govuk-heading-l\\"> Choose a subsector</h2>
     <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
@@ -1017,7 +1017,7 @@ exports[`applications create Sub-sector GET /create-new-case/:applicationId/sub-
 </main>"
 `;
 
-exports[`applications create Sub-sector GET /create-new-case/:applicationId/sub-sector should render subsectors matching with the sectorName in the session 1`] = `
+exports[`applications create Sub-sector GET /create-new-case/:caseId/sub-sector should render subsectors matching with the sectorName in the session 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <h2 class=\\"govuk-heading-l\\"> Choose a subsector</h2>
     <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
@@ -1049,7 +1049,7 @@ exports[`applications create Sub-sector GET /create-new-case/:applicationId/sub-
 </main>"
 `;
 
-exports[`applications create Sub-sector POST /create-new-case/:applicationId/sub-sector API-side validation: should show validation errors if API returns error 1`] = `
+exports[`applications create Sub-sector POST /create-new-case/:caseId/sub-sector API-side validation: should show validation errors if API returns error 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"govuk-grid-row\\">
         <div class=\\"govuk-grid-column-two-thirds\\">
@@ -1096,7 +1096,7 @@ exports[`applications create Sub-sector POST /create-new-case/:applicationId/sub
 </main>"
 `;
 
-exports[`applications create Sub-sector POST /create-new-case/:applicationId/sub-sector Web-side validation: should show validation error if nothing was selected 1`] = `
+exports[`applications create Sub-sector POST /create-new-case/:caseId/sub-sector Web-side validation: should show validation error if nothing was selected 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"govuk-grid-row\\">
         <div class=\\"govuk-grid-column-two-thirds\\">
@@ -1144,7 +1144,7 @@ exports[`applications create Sub-sector POST /create-new-case/:applicationId/sub
 </main>"
 `;
 
-exports[`applications create Team email GET /create-new-case/:applicationId/team-email should render the page with no value inside the text input if api does not return resumed data 1`] = `
+exports[`applications create Team email GET /create-new-case/:caseId/team-email should render the page with no value inside the text input if api does not return resumed data 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <h2 class=\\"govuk-heading-l\\"> Enter the project email</h2>
     <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
@@ -1162,7 +1162,7 @@ exports[`applications create Team email GET /create-new-case/:applicationId/team
 </main>"
 `;
 
-exports[`applications create Team email GET /create-new-case/:applicationId/team-email should render the page with the resumed data if the api returns something 1`] = `
+exports[`applications create Team email GET /create-new-case/:caseId/team-email should render the page with the resumed data if the api returns something 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <h2 class=\\"govuk-heading-l\\"> Enter the project email</h2>
     <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
@@ -1180,7 +1180,7 @@ exports[`applications create Team email GET /create-new-case/:applicationId/team
 </main>"
 `;
 
-exports[`applications create Team email POST /create-new-case/:applicationId/team-email Api validation should show validation errors if API returns error 1`] = `
+exports[`applications create Team email POST /create-new-case/:caseId/team-email Api validation should show validation errors if API returns error 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"govuk-grid-row\\">
         <div class=\\"govuk-grid-column-two-thirds\\">
@@ -1214,7 +1214,7 @@ exports[`applications create Team email POST /create-new-case/:applicationId/tea
 </main>"
 `;
 
-exports[`applications create Team email POST /create-new-case/:applicationId/team-email Web-validation should not render validation error if nothing missing 1`] = `
+exports[`applications create Team email POST /create-new-case/:caseId/team-email Web-validation should not render validation error if nothing missing 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"govuk-grid-row\\">
         <div class=\\"govuk-grid-column-two-thirds\\">
@@ -1243,7 +1243,7 @@ exports[`applications create Team email POST /create-new-case/:applicationId/tea
 </main>"
 `;
 
-exports[`applications create Team email POST /create-new-case/:applicationId/team-email Web-validation should render validation error if email is not valid 1`] = `
+exports[`applications create Team email POST /create-new-case/:caseId/team-email Web-validation should render validation error if email is not valid 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"govuk-grid-row\\">
         <div class=\\"govuk-grid-column-two-thirds\\">
@@ -1277,7 +1277,7 @@ exports[`applications create Team email POST /create-new-case/:applicationId/tea
 </main>"
 `;
 
-exports[`applications create Zoom Level GET /create-new-case/:applicationId/zoom-level should render the page with None checked if the api does not return resumed data 1`] = `
+exports[`applications create Zoom Level GET /create-new-case/:caseId/zoom-level should render the page with None checked if the api does not return resumed data 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <h2 class=\\"govuk-heading-l\\"> Choose map zoom level</h2>
     <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
@@ -1325,7 +1325,7 @@ exports[`applications create Zoom Level GET /create-new-case/:applicationId/zoom
 </main>"
 `;
 
-exports[`applications create Zoom Level GET /create-new-case/:applicationId/zoom-level should render the page with the checked option from the resumed data 1`] = `
+exports[`applications create Zoom Level GET /create-new-case/:caseId/zoom-level should render the page with the checked option from the resumed data 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <h2 class=\\"govuk-heading-l\\"> Choose map zoom level</h2>
     <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
@@ -1373,7 +1373,7 @@ exports[`applications create Zoom Level GET /create-new-case/:applicationId/zoom
 </main>"
 `;
 
-exports[`applications create Zoom Level POST /create-new-case/:applicationId/zoom-level Api validation should show validation errors if API returns error 1`] = `
+exports[`applications create Zoom Level POST /create-new-case/:caseId/zoom-level Api validation should show validation errors if API returns error 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"govuk-grid-row\\">
         <div class=\\"govuk-grid-column-two-thirds\\">

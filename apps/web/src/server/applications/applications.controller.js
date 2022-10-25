@@ -9,8 +9,8 @@ import * as applicationsService from './applications.service.js';
 
 /**
  * @typedef {object} ViewDashboardRenderProps
- * @property {Case[]} applications
- * @property {Case[]} draftApplications
+ * @property {Case[]} cases
+ * @property {Case[]} draftCases
  */
 
 /**
@@ -21,23 +21,23 @@ import * as applicationsService from './applications.service.js';
  */
 export async function viewDashboard({ params }, res) {
 	const { domainType } = params;
-	const allApplications = await applicationsService.findOpenApplicationsByDomainType(domainType);
-	const readyApplications = [];
+	const allCases = await applicationsService.findOpenCasesByDomainType(domainType);
+	const readyCases = [];
 
-	let draftApplications = [];
+	let draftCases = [];
 
-	for (const application of allApplications) {
-		if (application.status === 'Draft') {
-			draftApplications.push(application);
+	for (const singleCase of allCases) {
+		if (singleCase.status === 'Draft') {
+			draftCases.push(singleCase);
 		} else {
-			readyApplications.push(application);
+			readyCases.push(singleCase);
 		}
 	}
 
-	draftApplications = sortBy(draftApplications, ['modifiedDate']);
+	draftCases = sortBy(draftCases, ['modifiedDate']);
 
 	return res.render('applications/dashboard', {
-		applications: readyApplications,
-		draftApplications
+		cases: readyCases,
+		draftCases
 	});
 }

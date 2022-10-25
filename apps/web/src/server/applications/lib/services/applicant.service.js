@@ -3,15 +3,15 @@ import { getCase } from './case.service.js';
 /** @typedef {import('../../applications.types.js').Applicant} Applicant */
 
 /**
- * Returns the applicant matching id of a draft application
+ * Returns the applicant matching id of a draft case
  *
- * @param {number} applicationId
+ * @param {number} caseId
  * @param {number} applicantId
  * @param { string[] | null } query
  * @returns {Promise<Applicant|null>}
  */
-export async function getApplicantById(applicationId, applicantId, query = null) {
-	const { applicants } = await getCase(applicationId, query);
+export async function getApplicantById(caseId, applicantId, query = null) {
+	const { applicants } = await getCase(caseId, query);
 
 	let applicant;
 

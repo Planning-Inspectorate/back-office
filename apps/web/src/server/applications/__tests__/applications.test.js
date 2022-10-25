@@ -1,10 +1,10 @@
 import { parseHtml } from '@pins/platform';
 import nock from 'nock';
 import supertest from 'supertest';
-import { fixtureApplications } from '../../../../testing/applications/applications.js';
-import { createTestApplication } from '../../../../testing/index.js';
+import { fixtureCases } from '../../../../testing/applications/fixtures/cases.js';
+import { createTestEnvironment } from '../../../../testing/index.js';
 
-const { app, installMockApi, teardown } = createTestApplication();
+const { app, installMockApi, teardown } = createTestEnvironment();
 const request = supertest(app);
 
 describe('applications', () => {
@@ -24,7 +24,7 @@ describe('applications', () => {
 		});
 
 		it('should render the open applications belonging to the user', async () => {
-			nock('http://test/').get('/applications/case-officer').reply(200, fixtureApplications);
+			nock('http://test/').get('/applications/case-officer').reply(200, fixtureCases);
 
 			const response = await request.get(baseUrl);
 			const element = parseHtml(response.text);
@@ -33,7 +33,7 @@ describe('applications', () => {
 		});
 
 		it('should render the `create new case` button', async () => {
-			nock('http://test/').get('/applications/case-officer').reply(200, fixtureApplications);
+			nock('http://test/').get('/applications/case-officer').reply(200, fixtureCases);
 
 			const response = await request.get(baseUrl);
 			const element = parseHtml(response.text);
@@ -55,7 +55,7 @@ describe('applications', () => {
 		});
 
 		it('should render the open applications belonging to the user', async () => {
-			nock('http://test/').get('/applications/case-admin-officer').reply(200, fixtureApplications);
+			nock('http://test/').get('/applications/case-admin-officer').reply(200, fixtureCases);
 
 			const response = await request.get(baseUrl);
 			const element = parseHtml(response.text);
@@ -64,7 +64,7 @@ describe('applications', () => {
 		});
 
 		it('should render the `create new case` button', async () => {
-			nock('http://test/').get('/applications/case-admin-officer').reply(200, fixtureApplications);
+			nock('http://test/').get('/applications/case-admin-officer').reply(200, fixtureCases);
 
 			const response = await request.get(baseUrl);
 			const element = parseHtml(response.text);
@@ -86,7 +86,7 @@ describe('applications', () => {
 		});
 
 		it('should render the open applications belonging to the user', async () => {
-			nock('http://test/').get('/applications/inspector').reply(200, fixtureApplications);
+			nock('http://test/').get('/applications/inspector').reply(200, fixtureCases);
 
 			const response = await request.get(baseUrl);
 			const element = parseHtml(response.text);
@@ -95,7 +95,7 @@ describe('applications', () => {
 		});
 
 		it('should NOT render the `create new case` button', async () => {
-			nock('http://test/').get('/applications/inspector').reply(200, fixtureApplications);
+			nock('http://test/').get('/applications/inspector').reply(200, fixtureCases);
 
 			const response = await request.get(baseUrl);
 			const element = parseHtml(response.text);

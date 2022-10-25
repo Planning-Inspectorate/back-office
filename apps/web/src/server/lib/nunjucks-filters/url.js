@@ -1,11 +1,24 @@
 /** @typedef {import('../../applications/applications.types').DomainType} DomainType */
+
 /**
  * @typedef {object} urlFilterArguments
  * @property {DomainType=} domainType
- * @property {number=} applicationId
+ * @property {number=} caseId
  * @property {string=} step
  * @property {string=} query
  */
+
+/**
+ *
+ * @param {string} argumentName
+ * @param {Record<string, any>} filterArguments
+ * @returns {string}
+ */
+const getArgument = (argumentName, filterArguments) => {
+	const argument = filterArguments[argumentName];
+
+	return argument ? `${argument}/` : '';
+};
 
 /**
  * Register the url filter
@@ -14,28 +27,25 @@
  * @param {urlFilterArguments} filterArguments
  * @returns {string}
  */
-export const url = (key, filterArguments) => {
+export const url = (key, filterArguments = {}) => {
 	const domainUrl = '/applications-service';
+	const { query } = filterArguments;
 
-	const { domainType, applicationId, step, query } = filterArguments || {};
+	const domainType = getArgument('domainType', filterArguments);
+	const caseId = getArgument('caseId', filterArguments);
+	const step = getArgument('step', filterArguments);
 
 	switch (key) {
+		case 'case-create':
+			return `${domainUrl}/create-new-case/${caseId}${step}`;
+		case 'case-edit':
+			return `${domainUrl}/case/${caseId}edit/${step}`;
 		case 'dashboard':
-			return `${domainUrl}/${domainType || ''}`;
-		case 'applications-create':
-			return `${domainUrl}/create-new-case/${applicationId ? `${applicationId}/` : ''}${
-				step ? `${step}/` : ''
-			}`;
-		case 'applications-edit':
-			return `${domainUrl}/case/${applicationId ? `${applicationId}/` : ''}edit/${
-				step ? `${step}/` : ''
-			}`;
-		case 'view-application':
-			return `${domainUrl}/case/${applicationId ? `${applicationId}/` : ''}${
-				step ? `${step}/` : ''
-			}`;
+			return `${domainUrl}/${domainType}`;
 		case 'search-results':
 			return `${domainUrl}/search-results/${step}?q=${query}`;
+		case 'case-view':
+			return `${domainUrl}/case/${caseId}${step}`;
 		default:
 			return 'app/404';
 	}

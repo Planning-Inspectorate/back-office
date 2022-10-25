@@ -14,7 +14,7 @@ exports[`Applications create key dates GET /key-dates should render the page 1`]
         </div>
         <div class=\\"govuk-form-group \\">
             <label class=\\"govuk-label font-weight--700\\" for=\\"submissionDateInternal\\">Anticipated submission date internal</label>
-            <div id=\\"applicationName-hint\\"
+            <div id=\\"submissionDateInternal-hint\\"
             class=\\"govuk-hint\\">for example, 27 3 2023</div>
             <div class=\\"govuk-grid-column-one-third\\">
                 <div class=\\"govuk-grid-row pins-date-form-group\\">
@@ -73,7 +73,7 @@ exports[`Applications create key dates POST /key-dates Web-side validation: shou
         </div>
         <div class=\\"govuk-form-group govuk-form-group--error\\">
             <label class=\\"govuk-label font-weight--700\\" for=\\"submissionDateInternal\\">Anticipated submission date internal</label>
-            <div id=\\"applicationName-hint\\"
+            <div id=\\"submissionDateInternal-hint\\"
             class=\\"govuk-hint\\">for example, 27 3 2023</div>
             <p id=\\"submissionDateInternal-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> Enter a valid day for
                 the anticipated submission date internal</p>
@@ -140,7 +140,7 @@ exports[`Applications create key dates POST /key-dates Web-side validation: shou
         </div>
         <div class=\\"govuk-form-group govuk-form-group--error\\">
             <label class=\\"govuk-label font-weight--700\\" for=\\"submissionDateInternal\\">Anticipated submission date internal</label>
-            <div id=\\"applicationName-hint\\"
+            <div id=\\"submissionDateInternal-hint\\"
             class=\\"govuk-hint\\">for example, 27 3 2023</div>
             <p id=\\"submissionDateInternal-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> The anticipated submission
                 date internal must be in the future</p>

@@ -1,16 +1,16 @@
 import { parseHtml } from '@pins/platform';
 import nock from 'nock';
 import supertest from 'supertest';
-import { fixtureApplications } from '../../../../../../../../testing/applications/fixtures/applications.js';
+import { fixtureCases } from '../../../../../../../../testing/applications/fixtures/cases.js';
 import {
 	fixtureRegions,
 	fixtureSectors,
 	fixtureSubSectors,
 	fixtureZoomLevels
 } from '../../../../../../../../testing/applications/fixtures/options-item.js';
-import { createTestApplication } from '../../../../../../../../testing/index.js';
+import { createTestEnvironment } from '../../../../../../../../testing/index.js';
 
-const { app, installMockApi, teardown } = createTestApplication();
+const { app, installMockApi, teardown } = createTestEnvironment();
 const request = supertest(app);
 
 const nocks = () => {
@@ -19,23 +19,23 @@ const nocks = () => {
 	nock('http://test/')
 		.get(/\/applications\/1\?(.*)/g)
 		.times(4)
-		.reply(200, fixtureApplications[0]);
+		.reply(200, fixtureCases[0]);
 	nock('http://test/')
 		.get(/\/applications\/2\?(.*)/g)
 		.times(4)
-		.reply(200, fixtureApplications[1]);
+		.reply(200, fixtureCases[1]);
 	nock('http://test/')
 		.get(/\/applications\/3\?(.*)/g)
 		.times(4)
-		.reply(200, fixtureApplications[2]);
+		.reply(200, fixtureCases[2]);
 	nock('http://test/')
 		.get(/\/applications\/4\?(.*)/g)
 		.times(4)
-		.reply(200, fixtureApplications[3]);
+		.reply(200, fixtureCases[3]);
 	nock('http://test/')
 		.get(/\/applications\/5\?(.*)/g)
 		.times(4)
-		.reply(200, fixtureApplications[4]);
+		.reply(200, fixtureCases[4]);
 	nock('http://test/').get('/applications/').times(4).reply(404);
 	nock('http://test/')
 		.get('/applications/sector?sectorName=transport')
@@ -98,7 +98,7 @@ describe('applications edit', () => {
 				const element = parseHtml(response.text);
 
 				expect(element.innerHTML).toMatchSnapshot();
-				expect(element.innerHTML).toContain(fixtureApplications[0].title.slice(0, 20));
+				expect(element.innerHTML).toContain(fixtureCases[0].title.slice(0, 20));
 			});
 		});
 	});
@@ -117,7 +117,7 @@ describe('applications edit', () => {
 				const element = parseHtml(response.text);
 
 				expect(element.innerHTML).toMatchSnapshot();
-				expect(element.innerHTML).toContain(fixtureApplications[0].description.slice(0, 20));
+				expect(element.innerHTML).toContain(fixtureCases[0].description.slice(0, 20));
 			});
 		});
 	});
@@ -131,7 +131,7 @@ describe('applications edit', () => {
 			nocks();
 		});
 
-		describe('GET /edit/:applicationId/project-location', () => {
+		describe('GET /edit/:caseId/project-location', () => {
 			it('should display resumed data if the API returns something', async () => {
 				const response = await request.get(baseUrl('1'));
 				const element = parseHtml(response.text);
@@ -151,7 +151,7 @@ describe('applications edit', () => {
 			nocks();
 		});
 
-		describe('GET /edit/:applicationId/project-location', () => {
+		describe('GET /edit/:caseId/project-location', () => {
 			it('should display resumed data if the API returns something', async () => {
 				const response = await request.get(baseUrl('1'));
 				const element = parseHtml(response.text);

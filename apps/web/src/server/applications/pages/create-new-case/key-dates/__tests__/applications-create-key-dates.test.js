@@ -1,21 +1,20 @@
 import { parseHtml } from '@pins/platform';
 import nock from 'nock';
 import supertest from 'supertest';
-import { createTestApplication } from '../../../../../../../testing/index.js';
+import { fixtureCases } from '../../../../../../../testing/applications/fixtures/cases.js';
+import { createTestEnvironment } from '../../../../../../../testing/index.js';
 
-const { app, installMockApi, teardown } = createTestApplication();
+const { app, installMockApi, teardown } = createTestEnvironment();
 const request = supertest(app);
 
 const successPatchPostResponse = { id: 123, applicantIds: [1] };
-const successGetResponse = { id: 123, applicants: [{ id: 1 }] };
 
 const nocks = () => {
-	nock('http://test/').post('/applications').reply(200, successPatchPostResponse);
 	nock('http://test/').patch('/applications/123').reply(200, successPatchPostResponse);
 	nock('http://test/')
 		.get(/\/applications\/123(.*)/g)
 		.times(2)
-		.reply(200, successGetResponse);
+		.reply(200, fixtureCases[3]);
 };
 
 describe('Applications create key dates', () => {

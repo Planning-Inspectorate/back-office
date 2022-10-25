@@ -84,7 +84,7 @@ export async function viewApplicationsEditCaseDescription(request, response) {
 }
 
 /**
- * View the form step for editing the application name
+ * View the form step for editing the casename
  *
  * @type {import('@pins/express').RenderHandler<ApplicationsCreateCaseNameProps, {}, {}, {}, {}>}
  */
@@ -98,23 +98,23 @@ export async function viewApplicationsEditCaseName(request, response) {
 }
 
 /**
- * Edit the application description
+ * Edit the casedescription
  *
  * @type {import('@pins/express').RenderHandler<ApplicationsCreateCaseNameProps, {}, ApplicationsCreateCaseNameBody, {}, {}>}
  */
 export async function updateApplicationsEditCaseNameAndDescription(request, response) {
-	const { properties, updatedApplicationId } = await caseNameAndDescriptionDataUpdate(
+	const { properties, updatedCaseId } = await caseNameAndDescriptionDataUpdate(
 		request,
 		response.locals
 	);
 	const isNamePage = Object.prototype.hasOwnProperty.call(request.body, 'title');
 	const layout = isNamePage ? nameLayout : descriptionLayout;
 
-	if (properties.errors || !updatedApplicationId) {
+	if (properties.errors || !updatedCaseId) {
 		return handleErrors(properties, layout, response);
 	}
 
-	response.redirect(`/applications-service/case/${updatedApplicationId}/project-information`);
+	response.redirect(`/applications-service/case/${updatedCaseId}/project-information`);
 }
 
 /**
@@ -140,16 +140,13 @@ export async function viewApplicationsEditCaseTeamEmail(request, response) {
  * {}, ApplicationsCreateCaseTeamEmailBody, {}, {}>}
  */
 export async function updateApplicationsEditCaseTeamEmail(request, response) {
-	const { properties, updatedApplicationId } = await caseTeamEmailDataUpdate(
-		request,
-		response.locals
-	);
+	const { properties, updatedCaseId } = await caseTeamEmailDataUpdate(request, response.locals);
 
-	if (properties && (properties?.errors || !updatedApplicationId)) {
+	if (properties && (properties?.errors || !updatedCaseId)) {
 		return handleErrors(properties, teamEmailLayout, response);
 	}
 
-	response.redirect(`/applications-service/case/${updatedApplicationId}/project-information`);
+	response.redirect(`/applications-service/case/${updatedCaseId}/project-information`);
 }
 
 /**
@@ -191,7 +188,7 @@ export async function viewApplicationsCreateCaseGridReferences(request, response
  * {}, ApplicationsCreateCaseGeographicalInformationBody, {}, {}>}
  */
 export async function updateApplicationsEditCaseGeographicalInformation(request, response) {
-	const { properties, updatedApplicationId } = await caseGeographicalInformationDataUpdate(
+	const { properties, updatedCaseId } = await caseGeographicalInformationDataUpdate(
 		request,
 		response.locals
 	);
@@ -202,11 +199,11 @@ export async function updateApplicationsEditCaseGeographicalInformation(request,
 	);
 	const layout = isCaseLocationPage ? caseLocationLayout : gridReferencesLayout;
 
-	if (properties.errors || !updatedApplicationId) {
+	if (properties.errors || !updatedCaseId) {
 		return handleErrors(properties, layout, response);
 	}
 
-	response.redirect(`/applications-service/case/${updatedApplicationId}/project-information`);
+	response.redirect(`/applications-service/case/${updatedCaseId}/project-information`);
 }
 
 /**
@@ -232,16 +229,13 @@ export async function viewApplicationsEditCaseRegions(request, response) {
  * {}, ApplicationsCreateCaseRegionsBody, {}, {}>}
  */
 export async function updateApplicationsEditCaseRegions(request, response) {
-	const { properties, updatedApplicationId } = await caseRegionsDataUpdate(
-		request,
-		response.locals
-	);
+	const { properties, updatedCaseId } = await caseRegionsDataUpdate(request, response.locals);
 
-	if (properties.errors || !updatedApplicationId) {
+	if (properties.errors || !updatedCaseId) {
 		return handleErrors(properties, regionsLayout, response);
 	}
 
-	response.redirect(`/applications-service/case/${updatedApplicationId}/project-information`);
+	response.redirect(`/applications-service/case/${updatedCaseId}/project-information`);
 }
 
 /**
@@ -267,14 +261,11 @@ export async function viewApplicationsEditCaseZoomLevel(request, response) {
  * {}, ApplicationsCreateCaseZoomLevelBody, {}, {}>}
  */
 export async function updateApplicationsEditCaseZoomLevel(request, response) {
-	const { properties, updatedApplicationId } = await caseZoomLevelDataUpdate(
-		request,
-		response.locals
-	);
+	const { properties, updatedCaseId } = await caseZoomLevelDataUpdate(request, response.locals);
 
-	if (properties.errors || !updatedApplicationId) {
+	if (properties.errors || !updatedCaseId) {
 		return handleErrors(properties, zoomLevelLayout, response);
 	}
 
-	response.redirect(`/applications-service/case/${updatedApplicationId}/project-information`);
+	response.redirect(`/applications-service/case/${updatedCaseId}/project-information`);
 }

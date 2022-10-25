@@ -1,4 +1,4 @@
-import { createApplication } from '../factory/application.js';
+import { createCase } from '../factory/application.js';
 import {
 	fixtureRegions,
 	fixtureSectors,
@@ -9,14 +9,15 @@ import {
 /** @typedef {import('../../../src/server/applications/applications.types').Case} Case */
 
 /** @type {Case[]} */
-export const fixtureApplications = [
+export const fixtureCases = [
 	{
-		...createApplication({
+		...createCase({
 			id: 1,
 			modifiedDate: `${new Date(2022, 0, 1).getTime() / 1000}`,
-			reference: 'APPLICATION/01',
+			reference: 'CASE/01',
 			sector: fixtureSectors[0],
-			subSector: fixtureSubSectors[0]
+			subSector: fixtureSubSectors[0],
+			status: 'Pre-Application'
 		}),
 		geographicalInformation: {
 			locationDescription: 'London',
@@ -29,25 +30,25 @@ export const fixtureApplications = [
 		},
 		caseEmail: 'some@ema.il'
 	},
-	createApplication({
+	createCase({
 		id: 2,
 		modifiedDate: `${new Date(2022, 0, 31).getTime() / 1000}`,
-		reference: 'APPLICATION/02',
+		reference: 'CASE/02',
 		sector: fixtureSectors[0],
 		subSector: fixtureSectors[1]
 	}),
-	createApplication({
+	createCase({
 		id: 3,
 		modifiedDate: `${new Date(2022, 0, 1).getTime() / 1000}`,
-		reference: 'APPLICATION/03',
+		reference: 'CASE/03',
 		sector: fixtureSectors[2],
 		subSector: fixtureSectors[3]
 	}),
 	{
 		id: 4,
-		reference: 'APPLICATION/04',
-		title: `Application with no sector`,
-		description: 'Application with no sector description',
+		reference: 'CASE/04',
+		title: `Case with no sector`,
+		description: 'Case with no sector description',
 		status: 'draft',
 		applicants: [
 			{
@@ -57,15 +58,16 @@ export const fixtureApplications = [
 				lastName: 'Ipsum',
 				website: 'website.web',
 				email: 'email@email.co',
-				phoneNumber: '001'
+				phoneNumber: '001',
+				address: { addressLine1: 'Applicant address', postCode: 'ABC123', town: 'London' }
 			}
 		]
 	},
 	{
 		id: 5,
-		reference: 'APPLICATION/05',
-		title: `Application with no subsector`,
-		description: 'Application with no subsector description',
+		reference: 'CASE/05',
+		title: `Case with no subsector`,
+		description: 'Case with no subsector description',
 		sector: fixtureSectors[0],
 		status: 'draft'
 	}
