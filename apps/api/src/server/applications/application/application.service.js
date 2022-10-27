@@ -6,6 +6,7 @@ import { buildAppealCompundStatus } from '../../utils/build-appeal-compound-stat
 import { mapApplicationDetails } from '../../utils/mapping/map-case-details.js';
 import { mapFolderDetails } from '../../utils/mapping/map-folder-details.js';
 import { transitionState } from '../../utils/transition-state.js';
+// import { sendMessage } from '../../utils/service-bus-sender.js';
 
 /**
  *
@@ -102,7 +103,7 @@ export const startApplication = async (id) => {
 			currentStatuses: caseDetails.CaseStatus,
 			setReference: true
 		},
-		[folderRepository.createFolders()]
+		[folderRepository.createFolders(caseDetails.id)]
 	);
 
 	const updatedCase = await caseRepository.getById(caseDetails.id, {});
