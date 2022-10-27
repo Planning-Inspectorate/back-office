@@ -68,6 +68,7 @@ findUniqueStub
 const updateStub = sinon.stub();
 const updateManyCaseStatusStub = sinon.stub();
 const createCaseStatusStub = sinon.stub();
+const createFolderStub = sinon.stub();
 
 let executeRawStub = sinon.stub();
 
@@ -78,6 +79,10 @@ test.before('set up mocks', () => {
 
 	sinon.stub(databaseConnector, 'caseStatus').get(() => {
 		return { updateMany: updateManyCaseStatusStub, create: createCaseStatusStub };
+	});
+
+	sinon.stub(databaseConnector, 'folder').get(() => {
+		return { createMany: createFolderStub };
 	});
 
 	sinon.stub(Prisma.PrismaClient.prototype, '$transaction');
@@ -105,6 +110,22 @@ test('starts application if all needed information is present', async (t) => {
 	sinon.assert.notCalled(updateStub);
 
 	sinon.assert.calledWith(executeRawStub, referenceSettingSqlQuery);
+
+	sinon.assert.calledWith(createFolderStub, {
+		data: [
+			{ displayNameEn: 'Project management', displayOrder: 100, caseId: 1 },
+			{ displayNameEn: 'Legal advice', displayOrder: 200, caseId: 1 },
+			{ displayNameEn: 'Transboundary', displayOrder: 300, caseId: 1 },
+			{ displayNameEn: 'Legal rights', displayOrder: 400, caseId: 1 },
+			{ displayNameEn: 'S51 advice', displayOrder: 500, caseId: 1 },
+			{ displayNameEn: 'Pre-application', displayOrder: 600, caseId: 1 },
+			{ displayNameEn: 'Acceptance', displayOrder: 700, caseId: 1 },
+			{ displayNameEn: 'Relevant representation', displayOrder: 800, caseId: 1 },
+			{ displayNameEn: 'Examination', displayOrder: 900, caseId: 1 },
+			{ displayNameEn: 'Decision', displayOrder: 1000, caseId: 1 },
+			{ displayNameEn: 'Post-decision', displayOrder: 1100, caseId: 1 }
+		]
+	});
 });
 
 test('throws an error if the application id is not recognised', async (t) => {
