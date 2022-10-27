@@ -11,6 +11,7 @@ export function createOptionsItem({
 	abbreviation = `ITEM${id}`,
 	displayNameEn = `Item EN ${id}`,
 	displayNameCy = `Item CY ${id}`,
+	displayOrder = 100,
 	name
 } = {}) {
 	return {
@@ -18,6 +19,7 @@ export function createOptionsItem({
 		abbreviation: name ? name.slice(0, 3).toUpperCase() : abbreviation,
 		displayNameEn: name ? `${name.charAt(0).toUpperCase()}${name.slice(1)} EN` : displayNameEn,
 		displayNameCy: name ? `${name.charAt(0).toUpperCase()}${name.slice(1)} CY` : displayNameCy,
-		name: name ?? `item_${id}`
+		name: name ?? `item_${id}`,
+		displayOrder
 	};
 }
