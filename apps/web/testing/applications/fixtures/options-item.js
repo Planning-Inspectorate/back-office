@@ -33,6 +33,6 @@ export const fixtureZoomLevels = [
 ];
 
 export const fixtureDocumentationCategory = [
-	createOptionsItem({ name: 'Post-decision' }),
-	createOptionsItem({ name: 'Examination' })
+	createOptionsItem({ name: 'Post-decision', displayOrder: 200 }),
+	createOptionsItem({ name: 'Examination', displayOrder: 100 })
 ];
