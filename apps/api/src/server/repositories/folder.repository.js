@@ -11,13 +11,13 @@ export const getByCaseId = (caseId) => {
 
 export const createFolders = (/** @type {number} */ caseId) => {
 	const createdFolders = {
-		data: folderHold.map((folder) => ({ ...folder, caseId }))
+		data: defaultCaseFolders.map((folder) => ({ ...folder, caseId }))
 	};
 
 	return databaseConnector.folder.createMany(createdFolders);
 };
 
-const folderHold = [
+const defaultCaseFolders = [
 	{ displayNameEn: 'Project management', displayOrder: 100 },
 	{ displayNameEn: 'Legal advice', displayOrder: 200 },
 	{ displayNameEn: 'Transboundary', displayOrder: 300 },
