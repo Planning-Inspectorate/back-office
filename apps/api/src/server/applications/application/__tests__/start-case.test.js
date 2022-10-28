@@ -116,14 +116,15 @@ test('starts application if all needed information is present', async (t) => {
 			{ displayNameEn: 'Project management', displayOrder: 100, caseId: 1 },
 			{ displayNameEn: 'Legal advice', displayOrder: 200, caseId: 1 },
 			{ displayNameEn: 'Transboundary', displayOrder: 300, caseId: 1 },
-			{ displayNameEn: 'Legal rights', displayOrder: 400, caseId: 1 },
+			{ displayNameEn: 'Land rights', displayOrder: 400, caseId: 1 },
 			{ displayNameEn: 'S51 advice', displayOrder: 500, caseId: 1 },
 			{ displayNameEn: 'Pre-application', displayOrder: 600, caseId: 1 },
 			{ displayNameEn: 'Acceptance', displayOrder: 700, caseId: 1 },
-			{ displayNameEn: 'Relevant representation', displayOrder: 800, caseId: 1 },
-			{ displayNameEn: 'Examination', displayOrder: 900, caseId: 1 },
-			{ displayNameEn: 'Decision', displayOrder: 1000, caseId: 1 },
-			{ displayNameEn: 'Post-decision', displayOrder: 1100, caseId: 1 }
+			{ displayNameEn: 'Pre-examination', displayOrder: 800, caseId: 1 },
+			{ displayNameEn: 'Relevant representations', displayOrder: 900, caseId: 1 },
+			{ displayNameEn: 'Examination', displayOrder: 1000, caseId: 1 },
+			{ displayNameEn: 'Decision', displayOrder: 1100, caseId: 1 },
+			{ displayNameEn: 'Post-decision', displayOrder: 1200, caseId: 1 }
 		]
 	});
 });
