@@ -11,4 +11,8 @@ applicationsDocumentationRouter
 	.route('/')
 	.get(asyncRoute(controller.viewApplicationsCaseDocumentationCategories));
 
+applicationsDocumentationRouter
+	.route('/:categoryId/:folders/upload')
+	.get(controller.viewApplicationsCaseDocumentationUpload);
+
 export default applicationsDocumentationRouter;
