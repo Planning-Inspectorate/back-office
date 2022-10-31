@@ -1,0 +1,10 @@
+$display-attrs: (
+		none: 'none',
+		flex: 'flex',
+);
+
+@each $key, $val in $display-attrs {
+  .display--#{$key} {
+	display: #{$val} !important;
+  }
+}

@@ -16,3 +16,14 @@ export async function viewApplicationsCaseDocumentationCategories(request, respo
 
 	response.render(`applications/case/project-documentation`, properties);
 }
+
+/**
+ * View the documentation upload page
+ *
+ * @type {import('@pins/express').RenderHandler<{currentFolder: string}, {}>}
+ */
+export async function viewApplicationsCaseDocumentationUpload(request, response) {
+	const properties = { currentFolder: 'Subfolder Placeholder' };
+
+	response.render(`applications/documentation/upload`, properties);
+}
