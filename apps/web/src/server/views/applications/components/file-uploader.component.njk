@@ -1,0 +1,28 @@
+{% macro fileUploader() %}
+	<div class="pins-file-upload">
+		<div class="govuk-body colour--secondary">
+			<p>
+				Choose a single or multiple files to upload.
+			</p>
+			<p>
+				Your file must be PDF, DOC, DOCX, PPT, PPTX, XLS, XLSX, JPG, JPEG, MPEG,
+				MP3, MP4, MOV, PNG, TIF, TIFF or ZIP.
+			</p>
+			<p>
+				The total of your uploaded files must be smaller than 1 GB.
+			</p>
+		</div>
+		<div class="display--flex">
+			<input class="display--none" type="file" id="upload-input" name="files" value="Choose file"
+				   multiple>
+			<button id="upload-button" class="pins-file-upload--button govuk-button">Choose file</button>
+			<span class='govuk-body pins-file-upload--counter' id="upload-counter">No file chosen</span>
+		</div>
+		<div class="pins-file-upload--files-rows">
+			<div class="pins-file-upload--file-row display--none">
+				<p class="govuk-heading-s"></p>
+				<p class="govuk-link pins-file-upload--remove">Remove</p>
+			</div>
+		</div>
+	</div>
+{% endmacro %}
