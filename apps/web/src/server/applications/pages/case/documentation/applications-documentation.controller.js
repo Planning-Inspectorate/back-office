@@ -23,6 +23,7 @@ export async function viewApplicationsCaseDocumentationCategories(request, respo
  * @type {import('@pins/express').RenderHandler<{currentFolder: string}, {}>}
  */
 export async function viewApplicationsCaseDocumentationUpload(request, response) {
+	// TODO: connect to the :folderId/parents-folder endpoint
 	const properties = { currentFolder: 'Subfolder Placeholder' };
 
 	response.render(`applications/documentation/upload`, properties);
