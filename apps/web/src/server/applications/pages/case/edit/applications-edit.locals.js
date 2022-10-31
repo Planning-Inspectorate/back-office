@@ -8,7 +8,7 @@ import { url } from '../../../../lib/nunjucks-filters/index.js';
 export const registerBackPath = (request, response, next) => {
 	const { caseId } = response.locals;
 
-	response.locals.backPath = url('view-application', {
+	response.locals.backPath = url('case-view', {
 		caseId,
 		step: 'project-information'
 	});
