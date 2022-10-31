@@ -19,6 +19,7 @@
 @use "4-generic/generic.font-weight" as generic-font-weight;
 @use "4-generic/generic.text-align" as generic-text-align;
 @use "4-generic/generic.colours" as generic-colours;
+@use "4-generic/generic.display" as generic-display;
 @use "4-generic/generic.reset";
 
 // 5 - ELEMENTS
@@ -34,6 +35,7 @@
 @use "7-components/DashboardBox/DashboardBox" as DashboardBox;
 @use "7-components/ListMenu/ListMenu" as ListMenu;
 @use "7-components/app-header";
+@use "7-components/file-upload";
 @use "7-components/autocomplete";
 @use "7-components/button-group";
 @use "7-components/header";
