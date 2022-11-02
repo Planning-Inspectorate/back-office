@@ -3,7 +3,7 @@
 {% from "govuk/components/button/macro.njk" import govukButton %}
 {% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
 {% from "app/components/document-list.component.njk" import documentList %}
-{% from "app/components/file-uploader.njk" import fileUploader %}
+{% from "app/components/file-uploader_legacy.njk" import fileUploader %}
 
 {% set isUniqueDocument = documentType !== 'supporting document' %}
 {% set documentLimit = 1 if isUniqueDocument else Infinity %}
@@ -20,8 +20,8 @@
   {% if documentsForType.length > 0 %}
     {{
       govukSummaryList({
-        rows: [ 
-          { 
+        rows: [
+          {
             key: { text: 'Current file' | pluralize(documentLimit) },
             value: { html: documentList(documentsForType) }
           }
