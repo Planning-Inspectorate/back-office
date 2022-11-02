@@ -26,6 +26,7 @@ export { hasOneOf } from './object.js';
 export { selectItems } from './select-items.js';
 export { url } from './url.js';
 export { userTypeMap } from './user-type-map.js';
+export { MIME } from './mime-type.js';
 export { default as stripQueryParamsDev } from './strip-query-parameters.js';
 
 // export domain-specific filters
