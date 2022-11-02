@@ -1,7 +1,13 @@
 import { Router as createRouter } from 'express';
-import { downloadDocument, getAllDocuments, uploadDocument } from './controller.js';
+import {
+	documentLocation,
+	downloadDocument,
+	getAllDocuments,
+	uploadDocument
+} from './controller.js';
 import { asyncHandler } from './middleware/async-handler.js';
 import {
+	validateDocumentInfo,
 	validateDocumentName,
 	validateGetAllDocuments,
 	validateUploadDocument
@@ -85,6 +91,28 @@ router.post(
 	*/
 	validateUploadDocument,
 	asyncHandler(uploadDocument)
+);
+
+router.post(
+	'/document-location',
+	/*
+		#swagger.tags = ['Document-Storage']
+	    #swagger.path = '/document-location'
+		#swagger.description = 'Creates doc url'
+		#swagger.parameters['body'] = {
+			in: 'body',
+			type: 'Array',
+			required: true,
+			schema: { $ref: '#/definitions/createBlobUrl' },
+			description: 'Array of objects containing information about documents to return formatted url' }
+		#swagger.responses[200] = {
+            description: 'ID of application',
+            schema: [ { "caseType": "application", "caseReference": "1", "documentName": "PINS1", "GUID": "D987654321","blobStoreUrl": "/application/1/D987654321/PINS1" }
+]
+        }
+	*/
+	validateDocumentInfo,
+	asyncHandler(documentLocation)
 );
 
 export { router as documentsRouter };
