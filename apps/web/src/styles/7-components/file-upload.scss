@@ -2,6 +2,12 @@
 
 .pins-file-upload {
 
+  &--instructions {
+	> * {
+	  display: block;
+	  margin-bottom: 1rem;
+	}
+  }
   &--button {
 	border: 1px solid colors.govuk-colour("mid-grey");
 	background: colors.govuk-colour('light-grey');
@@ -25,6 +31,10 @@
 	margin-left: .5rem;
   }
 
+  &--files-rows {
+	padding: 0;
+  }
+
   &--file-row{
 	display: flex;
 	justify-content: space-between;
@@ -39,5 +49,7 @@
 	color: colors.govuk-colour("blue");
 	cursor: pointer;
 	font-size: 1.1875rem;
+	background: none;
+	border: 0;
   }
 }
