@@ -3,11 +3,11 @@
 
 import './pages/default';
 import { initAll as initGovUKScripts } from 'govuk-frontend';
-import initFileUploaderModule from './modules/file-uploader.module.js';
+import initFileUploaderModule from './components/file-uploader/file-uploader.module.js';
 
-const init = () => {
+const initAll = () => {
 	initGovUKScripts();
 	initFileUploaderModule();
 };
 
-init();
+initAll();
