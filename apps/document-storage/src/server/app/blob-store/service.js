@@ -1,9 +1,9 @@
-import { BlobServiceClient, BlockBlobClient,ContainerClient } from '@azure/storage-blob';
+import { BlobServiceClient, BlockBlobClient, ContainerClient } from '@azure/storage-blob';
 import md5 from 'crypto-js/md5.js';
 import getStream from 'into-stream';
 import config from '../../config/config.js';
 
-const {connectionString, container} = config.blobStore;
+const { connectionString, container } = config.blobStore;
 
 /**
  *
@@ -44,7 +44,10 @@ export async function getListOfBlobs(type, id) {
 
 	let marker;
 
-	const blobs = await containerClient.listBlobFlatSegment(marker, { prefix: `${type}/${id}`, version: '2021-06-08' });
+	const blobs = await containerClient.listBlobFlatSegment(marker, {
+		prefix: `${type}/${id}`,
+		version: '2021-06-08'
+	});
 
 	return blobs;
 }
@@ -60,11 +63,7 @@ export async function getListOfBlobs(type, id) {
  * @param {*} blob.content
  * @param {string} blob.contentType
  */
-export async function uploadBlob(
-	association,
-	metadata,
-	blob
-) {
+export async function uploadBlob(association, metadata, blob) {
 	const blobName = getBlobName(blob.originalName);
 	const stream = getStream(blob.content);
 
@@ -75,15 +74,13 @@ export async function uploadBlob(
 	let bufferSize;
 	let maxConcurrency;
 
-	await blockBlobClient.uploadStream(stream, bufferSize, maxConcurrency,
-		{
-			blobHTTPHeaders: {
-				blobContentType: blob.contentType,
-				blobContentMD5: md5Value
-			},
-			metadata
-		}
-	);
+	await blockBlobClient.uploadStream(stream, bufferSize, maxConcurrency, {
+		blobHTTPHeaders: {
+			blobContentType: blob.contentType,
+			blobContentMD5: md5Value
+		},
+		metadata
+	});
 }
 
 /**
@@ -93,5 +90,22 @@ export async function uploadBlob(
 export async function downloadBlob(blobName) {
 	const blobContent = await getBlockBlobClient(blobName).downloadToBuffer();
 
-	return blobContent
+	return blobContent;
+}
+
+/**
+ * @param {{documents: object}[]} documents
+ */
+export async function documentsCreateUrl(documents) {
+	if (documents) {
+		for (const document in documents) {
+			if (documents[document].caseType === 'application') {
+				documents[
+					document
+				].blobStoreUrl = `/application/${documents[document].caseReference}/${documents[document].GUID}/${documents[document].documentName}`;
+			}
+		}
+	}
+
+	return documents;
 }
