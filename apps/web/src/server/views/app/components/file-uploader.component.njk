@@ -8,11 +8,18 @@
 			<h2 class="govuk-heading-m govuk-grid-column-full">{{ params.formTitle }}</h2>
 		{% endif %}
 		<form class="pins-file-upload govuk-grid-column-two-thirds">
+			<input type="hidden" value="{% for value in params.allowedTypes %}{{ value|MIME }}{% endfor %}"/>
 			<div class="govuk-body colour--secondary pins-file-upload--instructions">
 				<label for="upload-file-{{ params.formId }}">Choose a single or multiple files to upload.</label>
 				<span>
-					Your file must be PDF, DOC, DOCX, PPT, PPTX, XLS, XLSX, JPG, JPEG, MPEG,
-					MP3, MP4, MOV, PNG, TIF, TIFF or ZIP.
+					Your file must be {% for extension in params.allowedTypes %}
+
+					{% if loop.index !== params.allowedTypes.length %}
+						{{ extension|upper }},
+					{% else %}
+						or {{ extension|upper }}.
+					{% endif %}
+					{% endfor %}.
 				</span>
 				<span>The total of your uploaded files must be smaller than 1 GB.</span>
 			</div>
@@ -41,7 +48,7 @@
 				}) }}
 			{% endif %}
 
-			{{ govukButton({ text: 'Save and continue' }) }}
+			{{ govukButton({ text: 'Save and continue', attributes: {role: 'submit', id: ["submit-button-", params.formId] | join } }) }}
 		</form>
 	</div>
 
