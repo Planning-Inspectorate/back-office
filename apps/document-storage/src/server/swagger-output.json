@@ -15,8 +15,180 @@
 	],
 	"schemes": [],
 	"securityDefinitions": {},
-	"paths": {},
+	"paths": {
+		"/": {
+			"get": {
+				"description": "Lists all documents assigned to appeal/application",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "query",
+						"description": "Appeal or application ID",
+						"required": true,
+						"type": "integer"
+					},
+					{
+						"name": "type",
+						"in": "query",
+						"description": "Specifies if appeal or application",
+						"required": true,
+						"type": "string",
+						"schema": {
+							"type": "string",
+							"enum": ["appeal", "application"]
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "List of documents associated with appeal/application and their metadata",
+						"schema": {
+							"$ref": "#/definitions/Documents"
+						}
+					}
+				}
+			},
+			"post": {
+				"description": "Uploads new document",
+				"parameters": [
+					{
+						"name": "file",
+						"in": "formData",
+						"type": "file",
+						"required": true,
+						"description": "File to upload"
+					},
+					{
+						"name": "documentType",
+						"in": "formData",
+						"type": "string",
+						"required": true,
+						"description": "Type of document which will be saved as metadata"
+					},
+					{
+						"name": "type",
+						"in": "formData",
+						"description": "Specifies if appeal or application",
+						"required": true,
+						"type": "string",
+						"schema": {
+							"type": "string",
+							"enum": ["appeal", "application"]
+						}
+					},
+					{
+						"name": "id",
+						"in": "formData",
+						"description": "Appeal or application ID",
+						"required": true,
+						"type": "integer"
+					}
+				],
+				"responses": {}
+			}
+		},
+		"/document": {
+			"get": {
+				"description": "Gets content of file",
+				"parameters": [
+					{
+						"name": "documentName",
+						"in": "query",
+						"description": "Full document name including path",
+						"required": true,
+						"type": "string"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "File content"
+					}
+				}
+			}
+		},
+		"/document-location": {
+			"post": {
+				"tags": ["Document-Storage"],
+				"description": "Creates doc url",
+				"parameters": [
+					{
+						"name": "body",
+						"in": "body",
+						"required": true,
+						"schema": {
+							"$ref": "#/definitions/createBlobUrl"
+						},
+						"description": "Array of objects containing information about documents to return formatted url"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "ID of application",
+						"schema": {
+							"type": "array",
+							"items": {
+								"type": "object",
+								"properties": {
+									"caseType": {
+										"type": "string",
+										"example": "application"
+									},
+									"caseReference": {
+										"type": "string",
+										"example": "1"
+									},
+									"documentName": {
+										"type": "string",
+										"example": "PINS1"
+									},
+									"GUID": {
+										"type": "string",
+										"example": "D987654321"
+									},
+									"blobStoreUrl": {
+										"type": "string",
+										"example": "/application/1/D987654321/PINS1"
+									}
+								}
+							},
+							"xml": {
+								"name": "main"
+							}
+						}
+					}
+				}
+			}
+		}
+	},
 	"definitions": {
+		"createBlobUrl": {
+			"type": "array",
+			"items": {
+				"type": "object",
+				"properties": {
+					"caseType": {
+						"type": "string",
+						"example": "application"
+					},
+					"caseReference": {
+						"type": "string",
+						"example": "1"
+					},
+					"documentName": {
+						"type": "string",
+						"example": "PINS1"
+					},
+					"GUID": {
+						"type": "string",
+						"example": "D987654321"
+					},
+					"blobStoreUrl": {
+						"type": "string",
+						"example": "/application/1/D987654321/PINS1"
+					}
+				}
+			}
+		},
 		"Documents": {
 			"type": "array",
 			"items": {
