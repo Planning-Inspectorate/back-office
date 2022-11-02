@@ -1,11 +1,9 @@
 /**
  * UI features (file list and choose files button)
  *
- * @param {Element | null} uploadForm
+ * @param {Element} uploadForm
  */
 const registerUIEvents = (uploadForm) => {
-	if (!uploadForm) return;
-
 	/** @type {HTMLElement | null} */
 	const uploadButton = uploadForm.querySelector('.pins-file-upload--button');
 	/** @type {HTMLElement | null} */
