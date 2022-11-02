@@ -2,7 +2,7 @@
 
 {% from "govuk/components/button/macro.njk" import govukButton %}
 {% from "app/components/document-list.component.njk" import documentList %}
-{% from "app/components/file-uploader.njk" import fileUploader %}
+{% from "app/components/file-uploader_legacy.njk" import fileUploader %}
 
 {% set documents = appeal.Documents | filter({ Type: documentType })  %}
 {% set pageTitle = 'Upload received ' + (documentType | lpaLabel | lower | pluralize) %}
@@ -12,14 +12,14 @@
     {{
       govukSummaryList({
         rows: [
-          { 
+          {
             key: { text: 'Current files' },
             value: { html: documentList(documents) }
           }
         ]
       })
     }}
-  {% endif %} 
+  {% endif %}
 
   <form method="post" enctype="multipart/form-data" novalidate="novalidate">
     {% include 'app/includes/csrf.njk' %}

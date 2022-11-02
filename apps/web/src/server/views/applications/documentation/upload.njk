@@ -1,9 +1,7 @@
 {% extends "app/layouts/app.layout.njk" %}
 
 {% from '../components/applications-header.njk' import applicationsHeader %}
-{% from '../components/file-uploader.component.njk' import fileUploader %}
-{% from "govuk/components/inset-text/macro.njk" import govukInsetText %}
-{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from 'app/components/file-uploader.component.njk' import fileUploader %}
 {% from "govuk/components/breadcrumbs/macro.njk" import govukBreadcrumbs %}
 
 
@@ -32,17 +30,10 @@
 {% endblock %}
 
 {% block pageContent %}
-	<h2 class="govuk-heading-m">{{ serviceName }}</h2>
+	{{ fileUploader({
+		formId: 1,
+		formTitle: serviceName,
+		disclaimerText: "Saving files will default then to ‘Unredacted’ and ‘Not checked’"
+	}) }}
 
-	<div class="govuk-grid-row">
-		<div class="govuk-grid-column-two-thirds">
-			{{ fileUploader() }}
-
-			{{ govukInsetText({
-				text: "Saving files will default then to ‘Unredacted’ and ‘Not checked’"
-			}) }}
-
-			{{ govukButton({ text: 'Save and continue' }) }}
-		</div>
-	</div>
 {% endblock %}
