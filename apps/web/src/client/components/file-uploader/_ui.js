@@ -3,25 +3,18 @@
  *
  * @param {Element} uploadForm
  */
+const ui = (uploadForm) => {
+	if (!uploadForm) return;
+
 const registerUIEvents = (uploadForm) => {
 	/** @type {HTMLElement | null} */
 	const uploadButton = uploadForm.querySelector('.pins-file-upload--button');
-	/** @type {HTMLElement | null} */
-	const uploadInput = uploadForm.querySelector('input[name="files"]');
 	/** @type {HTMLElement | null} */
 	const uploadCounter = uploadForm.querySelector('.pins-file-upload--counter');
 	/** @type {HTMLElement | null} */
 	const filesRows = uploadForm.querySelector('.pins-file-upload--files-rows');
 
-	if (!uploadButton || !uploadInput || !filesRows || !uploadCounter) return;
-
-	const init = () => {
-		uploadButton.addEventListener('click', (clickEvent) => {
-			clickEvent.preventDefault();
-			uploadInput.click();
-		});
-		uploadInput.addEventListener('change', handleFileSelect, false);
-	};
+	if (!uploadButton || !filesRows || !uploadCounter) return;
 
 	/**
 	 * Execute actions after selecting the files to upload
@@ -102,4 +95,4 @@ const registerUIEvents = (uploadForm) => {
 	init();
 };
 
-export default registerUIEvents;
+export default ui;
