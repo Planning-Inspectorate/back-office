@@ -61,18 +61,27 @@ const registerUIEvents = (uploadForm) => {
 	 * @param {FileList} files
 	 */
 	const updateFilesRows = (files) => {
-		const emptyFileRow = filesRows.children[0];
+		for (const uploadedFile of files) {
+			const fileRowId = `file_row_${uploadedFile.lastModified}_${uploadedFile.size}`;
+			const newFileRow = `<li role="listitem" class="pins-file-upload--file-row" id="${fileRowId}">
+				<p class="govuk-heading-s" aria-details="File name">${uploadedFile.name}</p>
+				<button
+				id="button-remove-${fileRowId}"
+				type="button" role="button" class="govuk-link pins-file-upload--remove" aria-details="Remove added file from list">
+					Remove
+				</button>
+			</li>`;
+
+			filesRows.innerHTML += newFileRow;
+		}
 
 		for (const uploadedFile of files) {
-			const newFileRow = clone(emptyFileRow);
 			const fileRowId = `file_row_${uploadedFile.lastModified}_${uploadedFile.size}`;
+			const removeButton = filesRows.querySelector(`#button-remove-${fileRowId}`);
 
-			newFileRow.classList.remove('display--none');
-			newFileRow.dataset.fileRowId = fileRowId;
-			newFileRow.children[0].textContent = uploadedFile.name;
-			newFileRow.children[1].addEventListener('click', () => removeFileRow(fileRowId));
-
-			filesRows.append(newFileRow);
+			if (removeButton) {
+				removeButton.addEventListener('click', () => removeFileRow(fileRowId));
+			}
 		}
 	};
 
@@ -82,25 +91,12 @@ const registerUIEvents = (uploadForm) => {
 	 * @param {string} fileRowId
 	 */
 	const removeFileRow = (fileRowId) => {
-		const rowToRemove = document.querySelector(`[data-file-row-id="${fileRowId}"]`);
+		const rowToRemove = document.querySelector(`#${fileRowId}`);
 
 		if (rowToRemove) {
 			rowToRemove.remove();
 			updateButtonText();
 		}
-	};
-
-	/**
-	 * Returns cloned node with HTMLElement type
-	 *
-	 * @param {Element} existingNode
-	 * @returns {HTMLElement}
-	 */
-	const clone = (existingNode) => {
-		/** @type {*} */
-		const newNode = existingNode.cloneNode(true);
-
-		return newNode;
 	};
 
 	init();

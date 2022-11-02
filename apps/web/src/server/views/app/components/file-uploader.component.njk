@@ -31,12 +31,8 @@
 			</div>
 			<div id="file-list-{{ params.formId }}">
 				<h3 class="display--sr-only" id="file-list-title-{{ params.formId }}">List of files to upload</h3>
-				<ul role="list" class="pins-file-upload--files-rows" aria-describedby="file-list-title-{{ params.formId }}" aria-live="polite">
-					<li role="listitem" class="pins-file-upload--file-row display--none">
-						<p class="govuk-heading-s" aria-details="File name"></p>
-						<button type="button" role="button" class="govuk-link pins-file-upload--remove" aria-details="Remove added file from list">Remove</button>
-					</li>
-				</ul>
+				<ul role="list" class="pins-file-upload--files-rows"
+					aria-describedby="file-list-title-{{ params.formId }}" aria-live="polite"></ul>
 			</div>
 
 			{% if params.disclaimerText %}
