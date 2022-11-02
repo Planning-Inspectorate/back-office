@@ -1,5 +1,5 @@
 /**
- * Client side features
+ * UI features (file list and choose files button)
  *
  * @param {Element | null} uploadForm
  */
