@@ -6,6 +6,7 @@ import {
 } from '../../../lib/services/case.service.js';
 
 /** @typedef {import('../../../applications.types').DocumentationCategory} DocumentationCategory */
+/** @typedef {import('./applications-documentation.types').DocumentationPageProps} DocumentationPageProps */
 
 /**
  * View the documentation for a single case
@@ -39,7 +40,7 @@ export async function viewApplicationsCaseDocumentationFolder(request, response)
 
 	// TODO: get all the sub folders in this folder
 
-	/** @type {import('../../../applications.types').DocumentationPageProps }  */
+	/** @type { DocumentationPageProps }  */
 	const properties = {
 		caseId,
 		folderId,
