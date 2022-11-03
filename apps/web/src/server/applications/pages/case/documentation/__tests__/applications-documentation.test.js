@@ -43,4 +43,18 @@ describe('applications documentation', () => {
 			expect(element.innerHTML).toContain('All documents');
 		});
 	});
+
+	describe('GET /case/123/project-documentation/1/project-management', () => {
+		beforeEach(async () => {
+			nocks();
+		});
+
+		it('should render the page', async () => {
+			const response = await request.get(`${baseUrl}/project-documentation/1/project-management`);
+			const element = parseHtml(response.text);
+
+			expect(element.innerHTML).toMatchSnapshot();
+			expect(element.innerHTML).toContain('Upload files');
+		});
+	});
 });
