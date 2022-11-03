@@ -123,8 +123,9 @@ test('starts application if all needed information is present', async (t) => {
 			{ displayNameEn: 'Pre-examination', displayOrder: 800, caseId: 1 },
 			{ displayNameEn: 'Relevant representations', displayOrder: 900, caseId: 1 },
 			{ displayNameEn: 'Examination', displayOrder: 1000, caseId: 1 },
-			{ displayNameEn: 'Decision', displayOrder: 1100, caseId: 1 },
-			{ displayNameEn: 'Post-decision', displayOrder: 1200, caseId: 1 }
+			{ displayNameEn: 'Recommendation', displayOrder: 1100, caseId: 1 },
+			{ displayNameEn: 'Decision', displayOrder: 1200, caseId: 1 },
+			{ displayNameEn: 'Post-decision', displayOrder: 1300, caseId: 1 }
 		]
 	});
 });
