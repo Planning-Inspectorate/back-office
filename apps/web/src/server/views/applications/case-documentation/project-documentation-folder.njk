@@ -1,0 +1,42 @@
+{% extends "../case/layouts/applications-case-layout.njk" %}
+{% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+
+{% block sectionMenu %}{% endblock %}
+
+{% block beforeContent %}{% endblock %}
+
+{% block sectionContent %}
+	{% set items = [] %}
+	{% set items = items | concat({ href: 'case-view'|url({caseId: caseId, step: 'project-documentation'}), text: 'Project documentation' }) %}
+	{% for aFolder in folderTree %}
+		{% set items = items | concat({ href: 'document-category'|url({caseId: caseId, documentationCategory: aFolder}), text: aFolder.displayNameEn }) %}
+	{% endfor %}
+
+	{{ govukBreadcrumbs({
+			classes: 'govuk-!-margin-top-0',
+			items: items
+		})
+	}}
+
+	<h2 class="govuk-heading-l">{{ folderName }}</h2>
+
+	<!-- TODO: loop to display sub-folders in this folder -->
+
+	<!-- TODO: replace with link to the upload file page -->
+	<div class="govuk-grid-row govuk-!-margin-top-0">
+		<div class="govuk-button-group pins-button-group govuk-grid-column-one-half govuk-!-margin-top-0">
+			{{ govukButton({ text: 'Upload files' }) }}
+		</div>
+	</div>
+
+	<!-- TODO: loop to display files in this folder -->
+	{% for documentationFile in documentationFiles %}
+		<div class="govuk-grid-row govuk-grid-column-full">
+			<a class="govuk-link govuk-body-s govuk-!-font-weight-bold" href={{ documentationFile.url }}>
+				{{ documentationFile.fileName }}
+			</a>
+		</div>
+	{% endfor %}
+
+{% endblock %}

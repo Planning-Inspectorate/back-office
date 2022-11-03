@@ -10,5 +10,8 @@ applicationsDocumentationRouter.use(locals.registerCase);
 applicationsDocumentationRouter
 	.route('/')
 	.get(asyncRoute(controller.viewApplicationsCaseDocumentationCategories));
+applicationsDocumentationRouter
+	.route('/:folderId/:folderName')
+	.get(controller.viewApplicationsCaseDocumentationFolder);
 
 export default applicationsDocumentationRouter;
