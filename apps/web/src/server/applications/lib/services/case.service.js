@@ -8,6 +8,7 @@ import {
 /**
  * @typedef {import('../../applications.types').Case} Case
  * @typedef {import('../../applications.types').DocumentationCategory} DocumentationCategory
+ * @typedef {import('../../applications.types').DocumentationFile} DocumentationFile
  * @typedef {import('express-session').Session & { caseSectorName?: string }} SessionWithCaseSectorName
  * @typedef {import('@pins/express').ValidationErrors} ValidationErrors
  */
@@ -100,4 +101,41 @@ export const updateCase = async (caseId, payload) => {
  */
 export const getCaseDocumentationCategories = (id) => {
 	return get(`applications/${id}/documents`);
+};
+
+/**
+ * Get the parent folder(s) for the current folder - used for breadcrumbs etc.
+ *
+ * @param {number} caseId
+ * @param {DocumentationCategory |undefined} documentationCategory
+ * @returns {DocumentationCategory[]}
+ */
+export const getCaseDocumentationFolderTree = (caseId, documentationCategory) => {
+	// TODO:Mock Version:
+	/** @type {DocumentationCategory[] } */
+	let folderTree = [];
+
+	if (caseId && documentationCategory) {
+		folderTree = [documentationCategory];
+	}
+	return folderTree;
+	// TODO: when API method created: return get(`applications/${caseId}/folder/${folderId}/parent-folders`);
+};
+
+/**
+ * Get the documents for the current folder
+ *
+ * @param {number} caseId
+ * @param {DocumentationCategory |undefined} documentationCategory
+ * @returns {DocumentationFile[]}
+ */
+export const getCaseDocumentationFilesInFolder = (caseId, documentationCategory) => {
+	// TODO: Mock Version - to be replaced when API to get documents exists:
+	/** @type {DocumentationFile[] } */
+	let documentationFiles = [];
+
+	if (caseId && documentationCategory) {
+		documentationFiles = [{ fileName: 'sitting-1.png', url: '#' }];
+	}
+	return documentationFiles;
 };
