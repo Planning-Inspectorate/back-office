@@ -89,3 +89,16 @@ export interface CaseCreateProps<BodyValues> {
 	values: BodyValues;
 	layout?: FormCaseLayout;
 }
+
+export interface DocumentationFile {
+	fileName: string;
+	url: string;
+}
+
+export interface DocumentationPageProps {
+	caseId: number;
+	folderId: number;
+	folderName: string | undefined;
+	folderTree: DocumentationCategory[] | null;
+	documentationFiles: DocumentationFile[] | null;
+}
