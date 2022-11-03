@@ -2,7 +2,7 @@
 
 exports[`applications view case summary GET /case/123 should render the page 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
-    <div class=\\"govuk-grid-row govuk-!-padding-top-9 govuk-!-padding-bottom-2 govuk-!-margin-bottom-7 pins-masthead-summary\\">
+    <div class=\\"govuk-grid-row govuk-!-padding-top-9 govuk-!-padding-bottom-2 govuk-!-margin-left-0 govuk-!-margin-bottom-7 pins-masthead-summary\\">
         <div class=\\"govuk-grid-column-full\\">
             <h4 class=\\"govuk-heading-m\\"> CASE/04 </h4>
             <h1 class=\\"govuk-heading-xl\\">Case with no sector</h1>
@@ -75,7 +75,7 @@ exports[`applications view case summary GET /case/123 should render the page 1`]
 
 exports[`applications view case summary GET /case/123/project-information should render the page 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
-    <div class=\\"govuk-grid-row govuk-!-padding-top-9 govuk-!-padding-bottom-2 govuk-!-margin-bottom-7 pins-masthead-summary\\">
+    <div class=\\"govuk-grid-row govuk-!-padding-top-9 govuk-!-padding-bottom-2 govuk-!-margin-left-0 govuk-!-margin-bottom-7 pins-masthead-summary\\">
         <div class=\\"govuk-grid-column-full\\">
             <h4 class=\\"govuk-heading-m\\"> CASE/04 </h4>
             <h1 class=\\"govuk-heading-xl\\">Case with no sector</h1>
