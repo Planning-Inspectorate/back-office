@@ -33,6 +33,7 @@ export const defaultCaseFolders = [
 	{ displayNameEn: 'Pre-examination', displayOrder: 800 },
 	{ displayNameEn: 'Relevant representations', displayOrder: 900 },
 	{ displayNameEn: 'Examination', displayOrder: 1000 },
-	{ displayNameEn: 'Decision', displayOrder: 1100 },
-	{ displayNameEn: 'Post-decision', displayOrder: 1200 }
+	{ displayNameEn: 'Recommendation', displayOrder: 1100 },
+	{ displayNameEn: 'Decision', displayOrder: 1200 },
+	{ displayNameEn: 'Post-decision', displayOrder: 1300 }
 ];
