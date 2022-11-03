@@ -90,6 +90,7 @@
     "@types/node-schedule": "^2.1.0",
     "@types/nunjucks": "^3.2.1",
     "@types/pluralize": "^0.0.29",
+    "@types/regenerator-runtime": "^0.13.1",
     "@types/response-time": "^2.3.5",
     "@types/signale": "^1.4.4",
     "@types/supertest": "^2.0.12",
