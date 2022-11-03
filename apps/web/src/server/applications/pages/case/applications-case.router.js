@@ -9,10 +9,6 @@ const applicationsCaseSummaryRouter = createRouter({ mergeParams: true });
 
 applicationsCaseRouter.use('/:caseId/edit', applicationsEditRouter);
 applicationsCaseRouter.use('/:caseId/project-documentation', applicationsDocumentationRouter);
-applicationsCaseRouter.use(
-	'/:caseId/project-documentation/:folderId/:folderName/',
-	applicationsDocumentationRouter
-);
 
 applicationsCaseRouter.use('/:caseId/:pageType?', applicationsCaseSummaryRouter);
 
