@@ -97,15 +97,25 @@ export async function downloadBlob(blobName) {
  * @param {{documents: object}[]} documents
  */
 export async function documentsCreateUrl(documents) {
-	if (documents) {
-		for (const document in documents) {
-			if (documents[document].caseType === 'application') {
-				documents[
-					document
-				].blobStoreUrl = `/application/${documents[document].caseReference}/${documents[document].GUID}/${documents[document].documentName}`;
-			}
+	documents.map((document) => {
+		if (document.caseType.match('application')) {
+			document.blobStoreUrl = buildApplicationURL(
+				document.caseReference,
+				document.GUID,
+				document.documentName
+			);
 		}
-	}
-
+		return documents;
+	});
 	return documents;
+}
+
+/**
+ * @param {string} caseReference
+ * @param {string} GUID
+ * @param {string} documentName
+ * @returns {string}
+ */
+function buildApplicationURL(caseReference, GUID, documentName) {
+	return `/application/${caseReference}/${GUID}/${documentName}`;
 }

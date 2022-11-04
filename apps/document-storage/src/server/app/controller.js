@@ -44,7 +44,7 @@ export async function uploadDocument(request, response) {
  * @type {import('express').RequestHandler}
  */
 export async function documentLocation(request, response) {
-	const documentsFindUrl = await blobStoreService.documentsCreateUrl(request.body);
+	const documentsFindUrl = await blobStoreService.documentsCreateUrl(request.body['']);
 
 	response.send(documentsFindUrl);
 }
