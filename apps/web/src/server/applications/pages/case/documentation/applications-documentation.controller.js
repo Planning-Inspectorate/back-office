@@ -43,8 +43,7 @@ export async function viewApplicationsCaseDocumentationFolder(request, response)
 	/** @type { DocumentationPageProps }  */
 	const properties = {
 		caseId,
-		folderId,
-		folderName: currentFileCategory?.displayNameEn,
+		currentFolder: currentFileCategory ?? null,
 		folderTree: null,
 		documentationFiles: null
 	};
