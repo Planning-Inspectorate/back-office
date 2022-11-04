@@ -1,4 +1,5 @@
 import { Router as createRouter } from 'express';
+import asyncRoute from '../lib/async-route.js';
 import * as controller from './applications.controller.js';
 import * as filters from './applications.filters.js';
 import * as guards from './applications.guards.js';
@@ -40,6 +41,6 @@ router.use('/case', guards.assertDomainTypeExists, applicationsCaseRouter);
 router.use('/:domainType', guards.assertDomainTypeAccess, domainRouter);
 domainRouter.use(locals.registerDomainLocals);
 
-domainRouter.route('/').get(controller.viewDashboard);
+domainRouter.route('/').get(asyncRoute(controller.viewDashboard));
 
 export default router;
