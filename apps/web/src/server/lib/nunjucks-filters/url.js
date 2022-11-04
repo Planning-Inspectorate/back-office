@@ -21,7 +21,7 @@ import slugify from 'slugify';
 const getArgument = (argumentName, filterArguments) => {
 	const argument = filterArguments[argumentName];
 
-	return argument ? `${argument}/` : '';
+	return argument ? `${argument}` : '';
 };
 
 // TODO: handle subfolders
@@ -57,17 +57,17 @@ export const url = (key, filterArguments = {}) => {
 
 	switch (key) {
 		case 'case-create':
-			return `${domainUrl}/create-new-case/${caseId}${step}`;
+			return `${domainUrl}/create-new-case/${caseId}/${step}`;
 		case 'case-edit':
-			return `${domainUrl}/case/${caseId}edit/${step}`;
+			return `${domainUrl}/case/${caseId}/edit/${step}`;
 		case 'dashboard':
 			return `${domainUrl}/${domainType}`;
 		case 'document-category':
-			return `${domainUrl}/case/${caseId}project-documentation/${documentationCategory}`;
+			return `${domainUrl}/case/${caseId}/project-documentation/${documentationCategory}`;
 		case 'search-results':
 			return `${domainUrl}/search-results/${step}?q=${query}`;
 		case 'case-view':
-			return `${domainUrl}/case/${caseId}${step}`;
+			return `${domainUrl}/case/${caseId}/${step}`;
 		default:
 			return 'app/404';
 	}
