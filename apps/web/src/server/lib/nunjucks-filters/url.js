@@ -65,7 +65,7 @@ export const url = (key, filterArguments = {}) => {
 		case 'dashboard':
 			return `${domainUrl}/${domainType}`;
 		case 'document-category':
-			return `${domainUrl}/case/${caseId}/project-documentation/${documentationCategory}`;
+			return `${domainUrl}/case/${caseId}/project-documentation/${documentationCategory}/${step}`;
 		case 'search-results':
 			return `${domainUrl}/search-results/${step}?q=${query}`;
 		case 'case-view':

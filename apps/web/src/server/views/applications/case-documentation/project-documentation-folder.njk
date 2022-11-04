@@ -19,14 +19,14 @@
 		})
 	}}
 
-	<h2 class="govuk-heading-l">{{ folderName }}</h2>
+	<h2 class="govuk-heading-l">{{ currentFolder.displayNameEn }}</h2>
 
 	<!-- TODO: loop to display sub-folders in this folder -->
 
 	<!-- TODO: replace with link to the upload file page -->
 	<div class="govuk-grid-row govuk-!-margin-top-0">
 		<div class="govuk-button-group pins-button-group govuk-grid-column-one-half govuk-!-margin-top-0">
-			{{ govukButton({ text: 'Upload files' }) }}
+			<a class="govuk-button" href="{{ 'document-category'|url({caseId: caseId, documentationCategory: currentFolder, step: 'upload'}) }}">Upload files</a>
 		</div>
 	</div>
 
