@@ -6,6 +6,7 @@ import {
 	uploadDocument
 } from './controller.js';
 import { asyncHandler } from './middleware/async-handler.js';
+import { trimUnexpectedRequestParameters } from './middleware/trim-unexpected-request-parameters.js';
 import {
 	validateDocumentInfo,
 	validateDocumentName,
@@ -112,6 +113,7 @@ router.post(
         }
 	*/
 	validateDocumentInfo,
+	trimUnexpectedRequestParameters,
 	asyncHandler(documentLocation)
 );
 
