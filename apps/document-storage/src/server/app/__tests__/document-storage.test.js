@@ -54,4 +54,13 @@ test('returns error if any field missing (caseRef, documentName, caseType, GUID)
 	});
 });
 
-// const resp = await request.post('/document-location').send([])
+test('returns error if no object passed', async (t) => {
+	const resp = await request.post('/document-location').send([]);
+
+	t.is(resp.status, 400);
+	t.deepEqual(resp.body, {
+		errors: {
+			'': 'Please enter an object {} with caseRef, documentName, caseType and GUID'
+		}
+	});
+});
