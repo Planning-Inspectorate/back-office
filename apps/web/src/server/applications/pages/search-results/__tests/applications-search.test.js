@@ -54,7 +54,7 @@ describe('applications search', () => {
 
 			expect(element.innerHTML).toMatchSnapshot();
 			expect(element.innerHTML).toContain(
-				'<a class="govuk-body" href="/applications-service/create-new-case/76/check-your-answers/"> Title</a>'
+				'<a class="govuk-body" href="/applications-service/create-new-case/76/check-your-answers"> Title</a>'
 			);
 		});
 
