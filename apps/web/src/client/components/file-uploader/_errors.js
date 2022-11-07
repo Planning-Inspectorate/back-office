@@ -2,7 +2,7 @@
  * @param {string} type
  * @returns {string}
  */
-const errorMessage = (type) => {
+export const errorMessage = (type) => {
 	/** @type {Record<string,string>} */
 	const index = {
 		GENERIC: 'Something went wrong, please try again',
@@ -11,7 +11,7 @@ const errorMessage = (type) => {
 		NO_FILE: 'Select a file',
 		GENERIC_SINGLE_FILE: `could not be added, try again`,
 		NAME_SINGLE_FILE: `could not be added because the file name is too long or contains special characters. Rename the file and try and upload again.`,
-		TYPE_SINGLE_FILE: ` is not an allowed file type. Remove it and try again`
+		TYPE_SINGLE_FILE: ` could not be added because it is not an allowed file type`
 	};
 
 	return index[type] ?? index.GENERIC;
@@ -70,9 +70,15 @@ export const showErrors = (error, uploadForm) => {
 			(wrongFile) => `${wrongFile.name} ${errorMessage(wrongFile.message || '')}`
 		);
 
-		/* for (const wrongFile of error.cause) {
+		for (const wrongFile of error.details) {
 			const fileRow = uploadForm.querySelector(`#${wrongFile.fileRowId}`);
-		} */
+
+			if (fileRow && fileRow.children.length === 2) {
+				// TODO: change the style of the <li> to be red, with no button and with an error msg
+				fileRow.children[0].classList.add('colour--red');
+			}
+		}
+
 		topErrorsMarkup = buildTopErrorsMarkup(messages);
 	} else {
 		formContainer.classList.add('error');
