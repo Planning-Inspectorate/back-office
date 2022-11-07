@@ -303,3 +303,4 @@ model Folder {
 
   @@unique([caseId, displayNameEn, parentFolderId])
 }
+
