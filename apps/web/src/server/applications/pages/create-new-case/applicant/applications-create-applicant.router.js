@@ -1,4 +1,5 @@
 import { Router as createRouter } from 'express';
+import asyncRoute from '../../../../lib/async-route.js';
 import * as controller from './applications-create-applicant.controller.js';
 import * as guards from './applications-create-applicant.guards.js';
 import * as locals from './applications-create-applicant.locals.js';
@@ -11,48 +12,54 @@ applicationsCreateApplicantRouter.use([locals.registerBackPath, locals.registerA
 applicationsCreateApplicantRouter
 	.route('/applicant-information-types')
 	.get(controller.viewApplicationsCreateApplicantTypes)
-	.post(controller.updateApplicationsCreateApplicantTypes);
+	.post(asyncRoute(controller.updateApplicationsCreateApplicantTypes));
 
 applicationsCreateApplicantRouter
 	.route('/applicant-organisation-name')
-	.get(guards.assertStepIsAllowed, controller.viewApplicationsCreateApplicantOrganisationName)
+	.get(
+		guards.assertStepIsAllowed,
+		asyncRoute(controller.viewApplicationsCreateApplicantOrganisationName)
+	)
 	.post(controller.updateApplicationsCreateApplicantOrganisationName);
 
 applicationsCreateApplicantRouter
 	.route('/applicant-full-name')
-	.get(guards.assertStepIsAllowed, controller.viewApplicationsCreateApplicantFullName)
-	.post(controller.updateApplicationsCreateApplicantFullName);
+	.get(guards.assertStepIsAllowed, asyncRoute(controller.viewApplicationsCreateApplicantFullName))
+	.post(asyncRoute(controller.updateApplicationsCreateApplicantFullName));
 
 applicationsCreateApplicantRouter
 	.route('/applicant-address')
-	.get(guards.assertStepIsAllowed, controller.viewApplicationsCreateApplicantAddress)
+	.get(guards.assertStepIsAllowed, asyncRoute(controller.viewApplicationsCreateApplicantAddress))
 	.post(
 		validators.validateApplicationsCreateApplicantPostCode,
-		controller.updateApplicationsCreateApplicantAddress
+		asyncRoute(controller.updateApplicationsCreateApplicantAddress)
 	);
 
 applicationsCreateApplicantRouter
 	.route('/applicant-website')
-	.get(guards.assertStepIsAllowed, controller.viewApplicationsCreateApplicantWebsite)
+	.get(guards.assertStepIsAllowed, asyncRoute(controller.viewApplicationsCreateApplicantWebsite))
 	.post(
 		validators.validateApplicationsCreateApplicantWebsite,
-		controller.updateApplicationsCreateApplicantWebsite
+		asyncRoute(controller.updateApplicationsCreateApplicantWebsite)
 	);
 
 applicationsCreateApplicantRouter
 	.route('/applicant-email')
-	.get(guards.assertStepIsAllowed, controller.viewApplicationsCreateApplicantEmail)
+	.get(guards.assertStepIsAllowed, asyncRoute(controller.viewApplicationsCreateApplicantEmail))
 	.post(
 		validators.validateApplicationsCreateApplicantEmail,
-		controller.updateApplicationsCreateApplicantEmail
+		asyncRoute(controller.updateApplicationsCreateApplicantEmail)
 	);
 
 applicationsCreateApplicantRouter
 	.route('/applicant-telephone-number')
-	.get(guards.assertStepIsAllowed, controller.viewApplicationsCreateApplicantTelephoneNumber)
+	.get(
+		guards.assertStepIsAllowed,
+		asyncRoute(controller.viewApplicationsCreateApplicantTelephoneNumber)
+	)
 	.post(
 		validators.validateApplicationsCreateApplicantTelephoneNumber,
-		controller.updateApplicationsCreateApplicantTelephoneNumber
+		asyncRoute(controller.updateApplicationsCreateApplicantTelephoneNumber)
 	);
 
 export default applicationsCreateApplicantRouter;
