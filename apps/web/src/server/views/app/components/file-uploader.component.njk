@@ -44,7 +44,7 @@
 				</div>
 				<div id="file-list-{{ params.formId }}">
 					<h3 class="display--sr-only" id="file-list-title-{{ params.formId }}">List of files to upload</h3>
-					<ul role="list" class="pins-file-upload--files-rows"
+					<ul class="pins-file-upload--files-rows"
 						aria-describedby="file-list-title-{{ params.formId }}" aria-live="polite"></ul>
 				</div>
 			</div>
@@ -55,7 +55,7 @@
 				}) }}
 			{% endif %}
 
-			{{ govukButton({ text: 'Save and continue', attributes: {role: 'submit', id: ["submit-button-", params.formId] | join } }) }}
+			{{ govukButton({ text: 'Save and continue', classes: 'pins-file-upload--submit', attributes: { id: ["submit-button-", params.formId] | join } }) }}
 		</form>
 	</div>
 
