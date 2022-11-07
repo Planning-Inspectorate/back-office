@@ -7,6 +7,10 @@ parameters:
     displayName: Build Web
     type: boolean
     default: true
+  - name: buildDocumentStorageApi
+    displayName: Build Document Storage API
+    type: boolean
+    default: true
 
 resources:
   repositories:
@@ -52,6 +56,8 @@ extends:
                   path: apps/web
                 - name: api
                   path: apps/api
+                - name: documentStorageApi
+                  path: apps/document-storage
               stepName: check_files
       - name: Build API
         condition: >-
@@ -80,6 +86,33 @@ extends:
               azurecrName: $(azurecrName)
               dockerfilePath: $(Build.SourcesDirectory)/apps/api/Dockerfile
               repository: back-office/back-office-api
+      - name: Build Document Storage API
+        condition: >-
+          and(
+            succeeded(),
+            or(
+              and(
+                eq(variables['Build.Reason'], 'Manual'),
+                eq(${{ parameters.buildDocumentStorageAPI }}, 'true')
+              ),
+              and(
+                ne(variables['Build.Reason'], 'Manual'),
+                or(
+                  eq(variables['Build.SourceBranchName'], 'main'),
+                  eq(dependencies.run_linting_and_tests.outputs['check_files.packages'], 'true'),
+                  eq(dependencies.run_linting_and_tests.outputs['check_files.document-storage-api'], 'true')
+                )
+              )
+            )
+          )
+        dependsOn:
+          - Run Linting & Tests
+        steps:
+          - template: ../steps/azure_web_app_docker_build_push.yml@templates
+            parameters:
+              azurecrName: $(azurecrName)
+              dockerfilePath: $(Build.SourcesDirectory)/apps/document-storage/Dockerfile
+              repository: back-office/back-office-document-storage-api
       - name: Build Web
         condition: >-
           and(
