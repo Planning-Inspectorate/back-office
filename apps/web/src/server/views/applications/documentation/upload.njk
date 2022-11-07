@@ -33,6 +33,8 @@
 	{{ fileUploader({
 		formId: 1,
 		formTitle: serviceName,
+		uploadUrl: ['/applications-service/case/', caseId, '/project-documentation/', folderId, '/upload']|join,
+		nextPageUrl: nextPageUrl,
 		allowedTypes: ['pdf','doc','docx','ppt','pptx','xls','xlsx','jpg','jpeg','mpeg','mp3','mp4','mov','png','tif','tiff' ],
 		disclaimerText: "Saving files will default then to ‘Unredacted’ and ‘Not checked’"
 	}) }}
