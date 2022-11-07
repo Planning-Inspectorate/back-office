@@ -56,6 +56,8 @@ export const url = (key, filterArguments = {}) => {
 	const documentationCategory = makeDocumentationCategoryPath(filterArguments);
 
 	switch (key) {
+		case 'base-url':
+			return `${domainUrl}`;
 		case 'case-create':
 			return `${domainUrl}/create-new-case/${caseId}/${step}`;
 		case 'case-edit':
