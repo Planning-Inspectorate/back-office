@@ -1,20 +1,22 @@
 /**
  * @param {string} type
+ * @param {string?} replaceValue
  * @returns {string}
  */
-export const errorMessage = (type) => {
+export const errorMessage = (type, replaceValue) => {
 	/** @type {Record<string,string>} */
 	const index = {
 		GENERIC: 'Something went wrong, please try again',
-		SIZE_EXCEEDED: 'The total of your uploaded files must be smaller than 1 GB',
+		SIZE_EXCEEDED:
+			'The total of your uploaded files is {REPLACE_VALUE}, it must be smaller than 1 GB',
 		TIMEOUT: 'There was a timeout and your files could not be uploaded, try again',
 		NO_FILE: 'Select a file',
-		GENERIC_SINGLE_FILE: `could not be added, try again`,
-		NAME_SINGLE_FILE: `could not be added because the file name is too long or contains special characters. Rename the file and try and upload again.`,
-		TYPE_SINGLE_FILE: ` could not be added because it is not an allowed file type`
+		GENERIC_SINGLE_FILE: `{REPLACE_VALUE} could not be added, try again`,
+		NAME_SINGLE_FILE: `{REPLACE_VALUE} could not be added because the file name is too long or contains special characters. Rename the file and try and upload again.`,
+		TYPE_SINGLE_FILE: `{REPLACE_VALUE} could not be added because it is not an allowed file type`
 	};
 
-	return index[type] ?? index.GENERIC;
+	return index[type] ? index[type].replace('{REPLACE_VALUE}', replaceValue || '') : index.GENERIC;
 };
 
 /**
@@ -66,8 +68,8 @@ export const showErrors = (error, uploadForm) => {
 	let middleErrorsMarkup = '';
 
 	if (error.message === 'FILE_SPECIFIC_ERRORS' && error.details) {
-		const messages = error.details.map(
-			(wrongFile) => `${wrongFile.name} ${errorMessage(wrongFile.message || '')}`
+		const messages = error.details.map((wrongFile) =>
+			errorMessage(wrongFile.message || '', wrongFile.name)
 		);
 
 		for (const wrongFile of error.details) {
@@ -78,12 +80,14 @@ export const showErrors = (error, uploadForm) => {
 				fileRow.children[0].classList.add('colour--red');
 			}
 		}
-
 		topErrorsMarkup = buildTopErrorsMarkup(messages);
 	} else {
 		formContainer.classList.add('error');
-		topErrorsMarkup = buildTopErrorsMarkup([errorMessage(error.message)]);
-		middleErrorsMarkup = buildMiddleErrorsMarkup(errorMessage(error.message));
+
+		const replaceValue = error.details ? error.details[0].message : null;
+
+		topErrorsMarkup = buildTopErrorsMarkup([errorMessage(error.message, replaceValue)]);
+		middleErrorsMarkup = buildMiddleErrorsMarkup(errorMessage(error.message, replaceValue));
 	}
 
 	topHook.innerHTML = topErrorsMarkup;
