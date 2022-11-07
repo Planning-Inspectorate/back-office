@@ -23,14 +23,10 @@ const serverActions = (uploadForm) => {
 	 * @returns {Promise<Response>}
 	 */
 	const preBlobStorage = async (fileList) => {
-		const payload = [...fileList].map((file) => {
-			const fileRowId = `file_row_${file.lastModified}_${file.size}`;
-
-			return {
-				fileRowId,
-				documentName: file.name
-			};
-		});
+		const payload = [...fileList].map((file) => ({
+			fileRowId: `file_row_${file.lastModified}_${file.size}`,
+			documentName: file.name
+		}));
 
 		return fetch(uploadUrl, {
 			method: 'POST',
