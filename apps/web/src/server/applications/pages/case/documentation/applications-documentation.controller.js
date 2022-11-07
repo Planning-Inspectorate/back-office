@@ -18,6 +18,7 @@ export async function viewApplicationsCaseDocumentationCategories(request, respo
 	response.render(`applications/case/project-documentation`, properties);
 }
 
+// TODO: define propTypes
 /**
  * View the documentation upload page
  *
