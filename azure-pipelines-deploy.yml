@@ -7,6 +7,10 @@ parameters:
     displayName: Deploy Web
     type: boolean
     default: true
+  - name: deployDocumentStorage
+    displayName: Deploy Document Storage API
+    type: boolean
+    default: true
   - name: region
     displayName: Region
     type: string
@@ -65,6 +69,15 @@ extends:
                   appResourceGroup: $(resourceGroup)
                   azurecrName: $(azurecrName)
                   repository: back-office/back-office-api
+          - name: Deploy Document Storage API
+            condition: eq(${{ parameters.deployDocumentStorageAPI }}, 'true')
+            steps:
+              - template: ../steps/azure_web_app_deploy.yml
+                parameters:
+                  appName: pins-app-back-office-document-storage-api-$(ENVIRONMENT)-$(REGION_SHORT)-001
+                  appResourceGroup: $(resourceGroup)
+                  azurecrName: $(azurecrName)
+                  repository: back-office/back-office-document-storage-api
           - name: Deploy Web
             condition: eq(${{ parameters.deployWeb }}, 'true')
             steps:
