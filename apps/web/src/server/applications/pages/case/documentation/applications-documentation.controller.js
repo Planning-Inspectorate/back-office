@@ -57,6 +57,7 @@ export async function viewApplicationsCaseDocumentationFolder(request, response)
 	response.render(`applications/case-documentation/project-documentation-folder`, properties);
 }
 
+// TODO: define propTypes
 /**
  * View the documentation upload page
  *
