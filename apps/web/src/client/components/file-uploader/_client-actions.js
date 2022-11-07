@@ -1,4 +1,5 @@
-import { errorMessage } from './_errors.js';
+import { errorMessage, showErrors } from './_errors.js';
+import serverActions from './_server-actions.js';
 
 /**
  * @param {File} uploadedFile
@@ -7,11 +8,11 @@ import { errorMessage } from './_errors.js';
 const buildRegularListItem = (uploadedFile) => {
 	const fileRowId = `file_row_${uploadedFile.lastModified}_${uploadedFile.size}`;
 
-	return `<li role="listitem" class="pins-file-upload--file-row" id="${fileRowId}">
+	return `<li class="pins-file-upload--file-row" id="${fileRowId}">
 				<p class="govuk-heading-s" aria-details="File name">${uploadedFile.name}</p>
 				<button
 				id="button-remove-${fileRowId}"
-				type="button" role="button" class="govuk-link pins-file-upload--remove" aria-details="Remove added file from list">
+				type="button" class="govuk-link pins-file-upload--remove" aria-details="Remove added file from list">
 					Remove
 				</button>
 			</li>`;
@@ -25,8 +26,8 @@ const buildRegularListItem = (uploadedFile) => {
 const buildErrorListItem = (uploadedFile, message) => {
 	const fileRowId = `file_row_${uploadedFile.lastModified}_${uploadedFile.size}`;
 
-	return `<li role="listitem" class="pins-file-upload--file-row" id="${fileRowId}">
-				<p class="govuk-heading-s colour--red" aria-details="File name">${uploadedFile.name} ${message}</p>
+	return `<li class="pins-file-upload--file-row" id="${fileRowId}">
+				<p class="govuk-heading-s colour--red" aria-details="File name">${message}</p>
 				</li>`;
 };
 
@@ -45,8 +46,10 @@ const clientActions = (uploadForm) => {
 	const filesRows = uploadForm.querySelector('.pins-file-upload--files-rows');
 	/** @type {*} */
 	const uploadInput = uploadForm.querySelector('input[name="files"]');
+	/** @type {HTMLElement | null} */
+	const submitButton = uploadForm.querySelector('.pins-file-upload--submit');
 
-	if (!uploadButton || !uploadInput || !filesRows || !uploadCounter) return;
+	if (!uploadButton || !uploadInput || !filesRows || !uploadCounter || !submitButton) return;
 
 	let globalDataTransfer = new DataTransfer();
 
@@ -82,21 +85,35 @@ const clientActions = (uploadForm) => {
 	 */
 	const updateFilesRows = (newFiles) => {
 		const allowedMimeTypes = uploadInput.accept.split(',');
+		const wrongFiles = [];
 
 		for (const uploadedFile of newFiles) {
+			const fileRowId = `file_row_${uploadedFile.lastModified}_${uploadedFile.size}`;
+
 			let listItem = '';
 
 			if (uploadedFile.name.length > 255) {
 				// TODO: add check for special characters
-				listItem = buildErrorListItem(uploadedFile, errorMessage('NAME_SINGLE_FILE'));
+				listItem = buildErrorListItem(
+					uploadedFile,
+					errorMessage('NAME_SINGLE_FILE', uploadedFile.name)
+				);
+				wrongFiles.push({ message: 'NAME_SINGLE_FILE', name: uploadedFile.name, fileRowId });
 			} else if (!allowedMimeTypes.includes(uploadedFile.type)) {
 				// edge case: the accept attribute should prevent this
-				listItem = buildErrorListItem(uploadedFile, errorMessage('TYPE_SINGLE_FILE'));
+				listItem = buildErrorListItem(
+					uploadedFile,
+					errorMessage('TYPE_SINGLE_FILE', uploadedFile.name)
+				);
+				wrongFiles.push({ message: 'TYPE_SINGLE_FILE', name: uploadedFile.name, fileRowId });
 			} else {
 				globalDataTransfer.items.add(uploadedFile);
 				listItem = buildRegularListItem(uploadedFile);
 			}
 
+			if (wrongFiles.length > 0) {
+				showErrors({ message: 'FILE_SPECIFIC_ERRORS', details: wrongFiles }, uploadForm);
+			}
 			filesRows.innerHTML += listItem;
 		}
 
@@ -149,13 +166,47 @@ const clientActions = (uploadForm) => {
 
 			// i.e. 1GB in bytes
 			if (filesSize > 1_073_741_824) {
-				reject(new Error('SIZE_EXCEEDED'));
+				const sizeInGb = `${Math.round(filesSize * 1e-8) / 10} GB`;
+
+				// eslint-disable-next-line no-throw-literal
+				throw { message: 'SIZE_EXCEEDED', details: [{ message: sizeInGb }] };
 			}
 			resolve(filesToUpload);
 		});
 	};
 
-	return { onFileSelect, onSubmitValidation };
+	/**
+		@param {Event} clickEvent
+	 */
+	const onSubmit = async (clickEvent) => {
+		clickEvent.preventDefault();
+
+		const { preBlobStorage, blobStorage } = serverActions(uploadForm);
+
+		try {
+			const fileList = await onSubmitValidation();
+			const uploadInfo = await preBlobStorage(fileList);
+			const nextPageUrl = await blobStorage(uploadInfo);
+
+			if (nextPageUrl) {
+				window.location.href = nextPageUrl;
+			}
+		} catch (/** @type {*} */ error) {
+			showErrors(error, uploadForm);
+		}
+	};
+
+	const registerEvents = () => {
+		uploadButton.addEventListener('click', (clickEvent) => {
+			clickEvent.preventDefault();
+			uploadInput.click();
+		});
+		uploadInput.addEventListener('change', onFileSelect, false);
+
+		submitButton.addEventListener('click', onSubmit);
+	};
+
+	return { onFileSelect, onSubmitValidation, registerEvents };
 };
 
 export default clientActions;
