@@ -1,3 +1,35 @@
+import { errorMessage } from './_errors.js';
+
+/**
+ * @param {File} uploadedFile
+ * @returns {string}
+ */
+const buildRegularListItem = (uploadedFile) => {
+	const fileRowId = `file_row_${uploadedFile.lastModified}_${uploadedFile.size}`;
+
+	return `<li role="listitem" class="pins-file-upload--file-row" id="${fileRowId}">
+				<p class="govuk-heading-s" aria-details="File name">${uploadedFile.name}</p>
+				<button
+				id="button-remove-${fileRowId}"
+				type="button" role="button" class="govuk-link pins-file-upload--remove" aria-details="Remove added file from list">
+					Remove
+				</button>
+			</li>`;
+};
+
+/**
+ * @param {File} uploadedFile
+ * @param {string} message
+ * @returns {string}
+ */
+const buildErrorListItem = (uploadedFile, message) => {
+	const fileRowId = `file_row_${uploadedFile.lastModified}_${uploadedFile.size}`;
+
+	return `<li role="listitem" class="pins-file-upload--file-row" id="${fileRowId}">
+				<p class="govuk-heading-s colour--red" aria-details="File name">${uploadedFile.name} ${message}</p>
+				</li>`;
+};
+
 /**
  * UI features (file list and choose files button)
  *
@@ -27,10 +59,6 @@ const clientActions = (uploadForm) => {
 		const { target } = event;
 		const { files: newFiles } = target;
 
-		for (const newFile of newFiles) {
-			globalDataTransfer.items.add(newFile);
-		}
-
 		updateFilesRows(newFiles);
 		updateButtonText();
 	};
@@ -53,18 +81,23 @@ const clientActions = (uploadForm) => {
 	 * @param {FileList} newFiles
 	 */
 	const updateFilesRows = (newFiles) => {
-		for (const uploadedFile of newFiles) {
-			const fileRowId = `file_row_${uploadedFile.lastModified}_${uploadedFile.size}`;
-			const newFileRow = `<li role="listitem" class="pins-file-upload--file-row" id="${fileRowId}">
-				<p class="govuk-heading-s" aria-details="File name">${uploadedFile.name}</p>
-				<button
-				id="button-remove-${fileRowId}"
-				type="button" role="button" class="govuk-link pins-file-upload--remove" aria-details="Remove added file from list">
-					Remove
-				</button>
-			</li>`;
+		const allowedMimeTypes = uploadInput.accept.split(',');
 
-			filesRows.innerHTML += newFileRow;
+		for (const uploadedFile of newFiles) {
+			let listItem = '';
+
+			if (uploadedFile.name.length > 255) {
+				// TODO: add check for special characters
+				listItem = buildErrorListItem(uploadedFile, errorMessage('NAME_SINGLE_FILE'));
+			} else if (!allowedMimeTypes.includes(uploadedFile.type)) {
+				// edge case: the accept attribute should prevent this
+				listItem = buildErrorListItem(uploadedFile, errorMessage('TYPE_SINGLE_FILE'));
+			} else {
+				globalDataTransfer.items.add(uploadedFile);
+				listItem = buildRegularListItem(uploadedFile);
+			}
+
+			filesRows.innerHTML += listItem;
 		}
 
 		for (const uploadedFile of newFiles) {
@@ -103,14 +136,12 @@ const clientActions = (uploadForm) => {
 		}
 	};
 
-	const preValidation = async () => {
+	const onSubmitValidation = async () => {
 		const filesToUpload = globalDataTransfer.files;
 
 		return new Promise((resolve, reject) => {
 			const filesSize = [...filesToUpload].reduce((total, file) => total + file.size, 0);
 			const filesNumber = filesToUpload.length;
-			const allowedMimeTypes = uploadInput.accept.split(',');
-			const wrongFiles = [];
 
 			if (filesNumber === 0) {
 				reject(new Error('NO_FILE'));
@@ -120,33 +151,11 @@ const clientActions = (uploadForm) => {
 			if (filesSize > 1_073_741_824) {
 				reject(new Error('SIZE_EXCEEDED'));
 			}
-
-			for (const file of filesToUpload) {
-				const fileRowId = `file_row_${file.lastModified}_${file.size}`;
-
-				// TODO: add check for special characters
-				if (file.name.length < 255) {
-					wrongFiles.push({ message: 'NAME_SINGLE_FILE', name: file.name, fileRowId });
-				}
-				if (!allowedMimeTypes.includes(file.type)) {
-					// edge case: the accept attribute should prevent this
-					wrongFiles.push({ message: 'TYPE_SINGLE_FILE', name: file.name, fileRowId });
-				}
-			}
-
-			if (wrongFiles.length > 0) {
-				const message = 'FILE_SPECIFIC_ERRORS';
-				const details = wrongFiles;
-
-				// eslint-disable-next-line prefer-promise-reject-errors
-				reject({ message, details });
-			}
-
-			resolve(1);
+			resolve(filesToUpload);
 		});
 	};
 
-	return { onFileSelect, preValidation };
+	return { onFileSelect, onSubmitValidation };
 };
 
 export default clientActions;

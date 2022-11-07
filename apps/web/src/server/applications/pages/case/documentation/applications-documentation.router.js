@@ -15,7 +15,12 @@ applicationsDocumentationRouter
 	.get(asyncRoute(controller.viewApplicationsCaseDocumentationFolder));
 
 applicationsDocumentationRouter
-	.route('/:categoryId/:folders/upload')
+	.route('/:folderId/:folders/upload')
 	.get(controller.viewApplicationsCaseDocumentationUpload);
+
+// TODO: this should be moved to a generic route valid for both appeals and applications
+applicationsDocumentationRouter
+	.route('/:folderId/upload')
+	.post(controller.postApplicationsCaseDocumentationUpload);
 
 export default applicationsDocumentationRouter;
