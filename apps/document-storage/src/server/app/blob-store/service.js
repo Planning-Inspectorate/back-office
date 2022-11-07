@@ -105,7 +105,7 @@ export async function documentsCreateUrl(documents) {
 				document.documentName
 			);
 		}
-		return documents;
+		return document;
 	});
 	return documents;
 }
