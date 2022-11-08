@@ -10,7 +10,8 @@
 			<h2 class="govuk-heading-m govuk-grid-column-full">{{ params.formTitle }}</h2>
 		{% endif %}
 		<form class="govuk-grid-column-two-thirds">
-			<input type="hidden" name="upload-url" value="{{ params.uploadUrl }}" />
+			<input type="hidden" name="case-id" value="{{ params.caseId }}" />
+			<input type="hidden" name="folder-id" value="{{ params.folderId }}" />
 			<input type="hidden" name="next-page-url" value="{{ params.nextPageUrl }}" />
 			<div class="pins-file-upload--container">
 				<div class="govuk-body colour--secondary pins-file-upload--instructions">
