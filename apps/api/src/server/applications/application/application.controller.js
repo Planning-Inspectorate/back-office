@@ -76,3 +76,21 @@ export const getApplicationDetails = async ({ params, query }, response) => {
 
 	response.send(applicationDetails);
 };
+
+/**
+ *
+ * @type {import('express').RequestHandler<{ id: number }, ?, ?, any>}
+ */
+export const getListOfDocuments = async ({ params }, response) => {
+	const folderDetails = await getFolderDetails(params.id);
+
+	response.send(folderDetails);
+};
+
+/**
+ *
+ * @type {import('express').RequestHandler<any, ?, ?, any>}
+ */
+export const createDatabaseRecord = async (_req, response) => {
+	response.send(200);
+};
