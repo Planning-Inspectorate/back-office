@@ -4,7 +4,7 @@ import { trimUnexpectedRequestParameters } from '../middleware/trim-unexpected-r
 import {
 	createApplication,
 	getApplicationDetails,
-	getListOfDocuments,
+	getListOfFolders,
 	startCase,
 	updateApplication
 } from './application/application.controller.js';
@@ -12,6 +12,7 @@ import {
 	validateApplicantId,
 	validateApplicationId,
 	validateCreateUpdateApplication,
+	validateFolderId,
 	validateGetApplicationQuery
 } from './application/application.validators.js';
 import { caseAdminOfficerRoutes } from './case-admin-officer/case-admin-officer.routes.js';
@@ -138,14 +139,47 @@ router.get(
 );
 
 router.get(
-	'/:id/documents',
+	'/:id/folders',
 	/*
         #swagger.tags = ['Applications']
-        #swagger.path = '/applications/{id}/documents'
-        #swagger.description = 'Gets list of documents'
+        #swagger.path = '/applications/{id}/folders'
+        #swagger.description = 'Gets list of top level folders on a case'
         #swagger.parameters['id'] = {
             in: 'path',
 			description: 'Application ID here',
+			required: true,
+			type: 'integer'
+		}
+		#swagger.parameters['folderId'] = {
+            in: 'path',
+			description: 'Optional id of current folder here',
+			required: false,
+			type: 'integer'
+		}
+        #swagger.responses[200] = {
+            description: 'IDs of application',
+            schema: [ { id: 1, displayNameEn: 'Post-decision', displayOrder: 1100, type: 'folder' } ]
+        }
+    */
+	validateApplicationId,
+	asyncHandler(getListOfFolders)
+);
+
+router.get(
+	'/:id/folders/:folderId',
+	/*
+        #swagger.tags = ['Applications']
+        #swagger.path = '/applications/{id}/folders'
+        #swagger.description = 'Gets list of folders in a sub folder on a case'
+        #swagger.parameters['id'] = {
+            in: 'path',
+			description: 'Application ID here',
+			required: true,
+			type: 'integer'
+		}
+		#swagger.parameters['folderId'] = {
+            in: 'path',
+			description: 'Id of current folder here',
 			required: true,
 			type: 'integer'
 		}
@@ -155,7 +189,8 @@ router.get(
         }
     */
 	validateApplicationId,
-	asyncHandler(getListOfDocuments)
+	validateFolderId,
+	asyncHandler(getListOfFolders)
 );
 
 export { router as applicationsRoutes };

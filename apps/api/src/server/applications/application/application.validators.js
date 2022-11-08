@@ -193,3 +193,12 @@ export const validateGetApplicationQuery = composeMiddleware(
 	query('query').optional({ nullable: true }),
 	validationErrorHandler
 );
+
+export const validateFolderId = composeMiddleware(
+	param('folderId')
+		.isInt()
+		.toInt()
+		.withMessage('Folder id must be a valid numerical value')
+		.optional({ nullable: true, checkFalsy: true }),
+	validationErrorHandler
+);
