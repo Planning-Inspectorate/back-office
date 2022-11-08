@@ -8,6 +8,7 @@ import {
 } from './applications-documentation.service.js';
 
 /** @typedef {import('../../../applications.types').DocumentationCategory} DocumentationCategory */
+/** @typedef {import('./applications-documentation.types').CaseDocumentationUploadProps} CaseDocumentationUploadProps */
 /** @typedef {import('./applications-documentation.types').DocumentationPageProps} DocumentationPageProps */
 
 /**
@@ -59,7 +60,7 @@ export async function viewApplicationsCaseDocumentationFolder(request, response)
 /**
  * View the documentation upload page
  *
- * @type {import('@pins/express').RenderHandler<{currentFolder: string, nextPageUrl: string, folderId: string, caseId: string}, {}>}
+ * @type {import('@pins/express').RenderHandler<CaseDocumentationUploadProps, {}>}
  */
 export async function viewApplicationsCaseDocumentationUpload(request, response) {
 	const { folderId, caseId } = request.params;
@@ -69,22 +70,5 @@ export async function viewApplicationsCaseDocumentationUpload(request, response)
 	const currentFolder = 'Subfolder Placeholder';
 	const properties = { currentFolder, folderId, caseId, nextPageUrl };
 
-	response.render(`applications/documentation/upload`, properties);
-}
-
-// TODO: fix the properties types
-// TODO: this should be moved to a generic component valid for both appeals and applications
-/**
- * Get info for the blob storage upload
- *
- * @param {*} request
- * @param {*} response
- * @returns {Promise<Array<*>>}
- */
-export async function postApplicationsCaseDocumentationUpload(request, response) {
-	// TODO: call the API and get the necessary information for the blob storage upload
-	// TODO: set the proper type for the api response/controller return
-	const APIResponse = request.body;
-
-	return response.send(APIResponse);
+	response.render(`applications/case-documentation/upload`, properties);
 }
