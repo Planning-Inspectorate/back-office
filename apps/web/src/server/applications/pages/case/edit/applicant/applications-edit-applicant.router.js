@@ -1,4 +1,5 @@
 import { Router as createRouter } from 'express';
+import asyncRoute from '../../../../../lib/async-route.js';
 import { registerApplicantId } from '../../../create-new-case/applicant/applications-create-applicant.locals.js';
 import * as validators from '../../../create-new-case/applicant/applications-create-applicant.validators.js';
 import * as controller from './applications-edit-applicant.controller.js';
@@ -9,52 +10,52 @@ applicationsEditApplicantRouter.use(registerApplicantId);
 
 applicationsEditApplicantRouter
 	.route('/applicant-organisation-name')
-	.get(controller.viewApplicationsEditApplicantOrganisationName)
-	.post(controller.updateApplicationsEditApplicantOrganisationName);
+	.get(asyncRoute(controller.viewApplicationsEditApplicantOrganisationName))
+	.post(asyncRoute(controller.updateApplicationsEditApplicantOrganisationName));
 
 applicationsEditApplicantRouter
 	.route('/applicant-full-name')
-	.get(controller.viewApplicationsEditApplicantFullName)
-	.post(controller.updateApplicationsEditApplicantFullName);
+	.get(asyncRoute(controller.viewApplicationsEditApplicantFullName))
+	.post(asyncRoute(controller.updateApplicationsEditApplicantFullName));
 
 applicationsEditApplicantRouter
 	.route('/applicant-address')
-	.get(controller.viewApplicationsEditApplicantAddressReadyOnly)
+	.get(asyncRoute(controller.viewApplicationsEditApplicantAddressReadyOnly))
 	.post(
 		validators.validateApplicationsCreateApplicantPostCode,
-		controller.updateApplicationsEditApplicantAddress
+		asyncRoute(controller.updateApplicationsEditApplicantAddress)
 	);
 
 applicationsEditApplicantRouter
 	.route('/applicant-address/new')
-	.get(controller.viewApplicationsEditApplicantAddress)
+	.get(asyncRoute(controller.viewApplicationsEditApplicantAddress))
 	.post(
 		validators.validateApplicationsCreateApplicantPostCode,
-		controller.updateApplicationsEditApplicantAddress
+		asyncRoute(controller.updateApplicationsEditApplicantAddress)
 	);
 
 applicationsEditApplicantRouter
 	.route('/applicant-website')
-	.get(controller.viewApplicationsEditApplicantWebsite)
+	.get(asyncRoute(controller.viewApplicationsEditApplicantWebsite))
 	.post(
 		validators.validateApplicationsCreateApplicantWebsite,
-		controller.updateApplicationsEditApplicantWebsite
+		asyncRoute(controller.updateApplicationsEditApplicantWebsite)
 	);
 
 applicationsEditApplicantRouter
 	.route('/applicant-email')
-	.get(controller.viewApplicationsEditApplicantEmail)
+	.get(asyncRoute(controller.viewApplicationsEditApplicantEmail))
 	.post(
 		validators.validateApplicationsCreateApplicantEmail,
-		controller.updateApplicationsEditApplicantEmail
+		asyncRoute(controller.updateApplicationsEditApplicantEmail)
 	);
 
 applicationsEditApplicantRouter
 	.route('/applicant-telephone-number')
-	.get(controller.viewApplicationsEditApplicantTelephoneNumber)
+	.get(asyncRoute(controller.viewApplicationsEditApplicantTelephoneNumber))
 	.post(
 		validators.validateApplicationsCreateApplicantTelephoneNumber,
-		controller.updateApplicationsEditApplicantTelephoneNumber
+		asyncRoute(controller.updateApplicationsEditApplicantTelephoneNumber)
 	);
 
 export default applicationsEditApplicantRouter;
