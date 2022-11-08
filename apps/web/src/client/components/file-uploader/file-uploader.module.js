@@ -1,5 +1,6 @@
 import clientActions from './_client-actions.js';
 
+/** @type {NodeListOf<HTMLElement>} */
 const allUploadForms = document.querySelectorAll('.pins-file-upload');
 
 const initFileUploaderModule = () => {
