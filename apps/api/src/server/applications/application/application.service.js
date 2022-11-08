@@ -205,12 +205,14 @@ export const getCaseDetails = async (id, query) => {
 };
 
 /**
+ * Returns all the folders on a case
  *
  * @param {number} id
+ * @param {number |null} folderId
  * @returns {Promise<object>}
  */
-export const getFolderDetails = async (id) => {
-	const getFolders = await folderRepository.getByCaseId(id);
+export const getFolderDetails = async (id, folderId) => {
+	const getFolders = await folderRepository.getByCaseId(id, folderId);
 
 	return mapFolderDetails(getFolders);
 };
