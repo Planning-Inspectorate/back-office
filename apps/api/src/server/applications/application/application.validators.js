@@ -6,6 +6,7 @@ import {
 	validationErrorHandlerMissing
 } from '../../middleware/error-handler.js';
 import * as caseRepository from '../../repositories/case.repository.js';
+import * as folderRepository from '../../repositories/folder.repository.js';
 import * as regionRepository from '../../repositories/region.repository.js';
 import * as serviceCustomerRepository from '../../repositories/service-customer.repository.js';
 import * as subSectorRepository from '../../repositories/sub-sector.repository.js';
@@ -191,5 +192,37 @@ export const validateApplicantId = composeMiddleware(
 
 export const validateGetApplicationQuery = composeMiddleware(
 	query('query').optional({ nullable: true }),
+	validationErrorHandler
+);
+
+export const validateDocumentsToUploadProvided = composeMiddleware(
+	body('[]').notEmpty().withMessage('Must provide documents to upload'),
+	body('*.documentName').exists().withMessage('Must provide a document name'),
+	body('*.folderId').exists().withMessage('Must provide a folder id'),
+	validationErrorHandler
+);
+
+/**
+ *
+ * @param {number} value
+ * @param {{req: any}} param1
+ */
+const validateFolderBelongsToCase = async (value, { req }) => {
+	const folder = await folderRepository.getById(value);
+
+	if (folder === null || typeof folder === 'undefined') {
+		throw new Error('Folder must exist in database');
+	}
+
+	if (folder.caseId !== req.params.id) {
+		throw new Error('Folder does not belong to case');
+	}
+};
+
+export const validateFolderIds = composeMiddleware(
+	body('*.folderId')
+		.toInt()
+		.custom(validateFolderBelongsToCase)
+		.withMessage('Folder must belong to case'),
 	validationErrorHandler
 );

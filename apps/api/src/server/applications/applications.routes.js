@@ -13,6 +13,8 @@ import {
 	validateApplicantId,
 	validateApplicationId,
 	validateCreateUpdateApplication,
+	validateDocumentsToUploadProvided,
+	validateFolderIds,
 	validateGetApplicationQuery
 } from './application/application.validators.js';
 import { caseAdminOfficerRoutes } from './case-admin-officer/case-admin-officer.routes.js';
@@ -164,6 +166,9 @@ router.post(
 	/*
 	 */
 	validateApplicationId,
+	validateDocumentsToUploadProvided,
+	validateFolderIds,
+	trimUnexpectedRequestParameters,
 	asyncHandler(createDatabaseRecord)
 );
 

@@ -20,14 +20,55 @@ test.before('set up mocks', () => {
 	});
 });
 
-test('checks if endpoint exists', async (t) => {
+test('saves documents information and returns upload URL', async (t) => {
 	const response = await request.post('/applications/1/document');
 
 	t.is(response.status, 200);
 });
 
-test('checks invalid id', async (t) => {
+test('throws error if folder id does not belong to case', async (t) => {
+	const response = await request
+		.post('/applications/1/document')
+		.send([{ folderId: 2, documentName: 'test doc' }]);
+
+	t.is(response.status, 400);
+	t.deepEqual(response.body, {
+		errors: {
+			'[0].folderId': 'Folder must belong to case'
+		}
+	});
+});
+
+test('throws error if not all document details provided', async (t) => {
+	const response = await request.post('/applications/1/document').send([{}]);
+
+	t.is(response.status, 400);
+	t.deepEqual(response.body, {
+		errors: {
+			'[0].documentName': 'Must provide a document name',
+			'[0].folderId': 'Must provide a folder id'
+		}
+	});
+});
+
+test('throws error if no documents provided', async (t) => {
+	const response = await request.post('/applications/1/document').send([]);
+
+	t.is(response.status, 400);
+	t.deepEqual(response.body, {
+		errors: {
+			'': 'Must provide documents to upload'
+		}
+	});
+});
+
+test('checks invalid case id', async (t) => {
 	const response = await request.post('/applications/2/document');
 
 	t.is(response.status, 404);
+	t.deepEqual(response.body, {
+		errors: {
+			id: 'Must be an existing application'
+		}
+	});
 });
