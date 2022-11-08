@@ -20,7 +20,7 @@ applicationsCreateApplicantRouter
 		guards.assertStepIsAllowed,
 		asyncRoute(controller.viewApplicationsCreateApplicantOrganisationName)
 	)
-	.post(controller.updateApplicationsCreateApplicantOrganisationName);
+	.post(asyncRoute(controller.updateApplicationsCreateApplicantOrganisationName));
 
 applicationsCreateApplicantRouter
 	.route('/applicant-full-name')

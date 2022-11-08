@@ -1,4 +1,5 @@
 import { Router as createRouter } from 'express';
+import asyncRoute from '../../../../../lib/async-route.js';
 import * as validators from '../../../create-new-case/case/applications-create-case.validators.js';
 import * as controller from './applications-edit-case.controller.js';
 
@@ -6,55 +7,58 @@ const applicationsEditCaseRouter = createRouter();
 
 applicationsEditCaseRouter
 	.route('/name')
-	.get(controller.viewApplicationsEditCaseName)
+	.get(asyncRoute(controller.viewApplicationsEditCaseName))
 	.post(
 		[validators.validateApplicationsCreateCaseName],
-		controller.updateApplicationsEditCaseNameAndDescription
+		asyncRoute(controller.updateApplicationsEditCaseNameAndDescription)
 	);
 
 applicationsEditCaseRouter
 	.route('/description')
-	.get(controller.viewApplicationsEditCaseDescription)
+	.get(asyncRoute(controller.viewApplicationsEditCaseDescription))
 	.post(
 		[validators.validateApplicationsCreateCaseDescription],
-		controller.updateApplicationsEditCaseNameAndDescription
+		asyncRoute(controller.updateApplicationsEditCaseNameAndDescription)
 	);
 
 applicationsEditCaseRouter
 	.route('/team-email')
-	.get(controller.viewApplicationsEditCaseTeamEmail)
-	.post(validators.validateApplicationsTeamEmail, controller.updateApplicationsEditCaseTeamEmail);
+	.get(asyncRoute(controller.viewApplicationsEditCaseTeamEmail))
+	.post(
+		validators.validateApplicationsTeamEmail,
+		asyncRoute(controller.updateApplicationsEditCaseTeamEmail)
+	);
 
 applicationsEditCaseRouter
 	.route('/project-location')
-	.get(controller.viewApplicationsCreateCaseLocation)
+	.get(asyncRoute(controller.viewApplicationsCreateCaseLocation))
 	.post(
 		validators.validateApplicationsCreateCaseLocation,
-		controller.updateApplicationsEditCaseGeographicalInformation
+		asyncRoute(controller.updateApplicationsEditCaseGeographicalInformation)
 	);
 
 applicationsEditCaseRouter
 	.route('/grid-references')
-	.get(controller.viewApplicationsCreateCaseGridReferences)
+	.get(asyncRoute(controller.viewApplicationsCreateCaseGridReferences))
 	.post(
 		[
 			validators.validateApplicationsCreateCaseEasting,
 			validators.validateApplicationsCreateCaseNorthing
 		],
-		controller.updateApplicationsEditCaseGeographicalInformation
+		asyncRoute(controller.updateApplicationsEditCaseGeographicalInformation)
 	);
 
 applicationsEditCaseRouter
 	.route('/regions')
-	.get(controller.viewApplicationsEditCaseRegions)
+	.get(asyncRoute(controller.viewApplicationsEditCaseRegions))
 	.post(
 		validators.validateApplicationsCreateCaseRegions,
-		controller.updateApplicationsEditCaseRegions
+		asyncRoute(controller.updateApplicationsEditCaseRegions)
 	);
 
 applicationsEditCaseRouter
 	.route('/zoom-level')
-	.get(controller.viewApplicationsEditCaseZoomLevel)
-	.post(controller.updateApplicationsEditCaseZoomLevel);
+	.get(asyncRoute(controller.viewApplicationsEditCaseZoomLevel))
+	.post(asyncRoute(controller.updateApplicationsEditCaseZoomLevel));
 
 export default applicationsEditCaseRouter;
