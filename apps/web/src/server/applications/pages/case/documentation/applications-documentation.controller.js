@@ -1,9 +1,8 @@
 import { sortBy } from 'lodash-es';
 import {
-	getCaseDocumentationCategories,
 	getCaseDocumentationFilesInFolder,
-	getCaseDocumentationFolderTree
-} from '../../../lib/services/case.service.js';
+	getCaseDocumentationFolderTree,
+	getCaseFolders} from '../../../lib/services/case.service.js';
 
 /** @typedef {import('../../../applications.types').DocumentationCategory} DocumentationCategory */
 /** @typedef {import('./applications-documentation.types').DocumentationPageProps} DocumentationPageProps */
@@ -15,7 +14,7 @@ import {
  */
 export async function viewApplicationsCaseDocumentationCategories(request, response) {
 	const { caseId } = response.locals;
-	const documentationCategories = await getCaseDocumentationCategories(caseId);
+	const documentationCategories = await getCaseFolders(caseId);
 	const properties = { documentationCategories: sortBy(documentationCategories, ['displayOrder']) };
 
 	response.render(`applications/case/project-documentation`, properties);
@@ -30,9 +29,9 @@ export async function viewApplicationsCaseDocumentationCategories(request, respo
 export async function viewApplicationsCaseDocumentationFolder(request, response) {
 	const { caseId } = response.locals;
 	const { folderId } = request.params;
-	const topLevelDocumentationCategories = await getCaseDocumentationCategories(caseId);
+	const topLevelFolders = await getCaseFolders(caseId);
 	const currentFolderProperties = {
-		topDocumentationCategories: sortBy(topLevelDocumentationCategories, ['displayOrder'])
+		topDocumentationCategories: sortBy(topLevelFolders, ['displayOrder'])
 	};
 	const currentFileCategory = currentFolderProperties.topDocumentationCategories.find(
 		(cat) => cat.id === Number.parseInt(folderId, 10)
