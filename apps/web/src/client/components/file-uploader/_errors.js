@@ -1,9 +1,4 @@
-/**
- * @param {string} type
- * @param {string?} replaceValue
- * @returns {string}
- */
-import { buildProgressMessage } from './_client-actions.js';
+import { buildProgressMessage } from './_html.js';
 
 /**
  * @param {string} type
