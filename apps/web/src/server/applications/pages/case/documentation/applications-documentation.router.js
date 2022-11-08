@@ -14,9 +14,4 @@ applicationsDocumentationRouter
 	.route('/:folderId/:folders/upload')
 	.get(controller.viewApplicationsCaseDocumentationUpload);
 
-// TODO: this should be moved to a generic route valid for both appeals and applications
-applicationsDocumentationRouter
-	.route('/:folderId/upload')
-	.post(controller.postApplicationsCaseDocumentationUpload);
-
 export default applicationsDocumentationRouter;

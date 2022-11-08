@@ -186,7 +186,7 @@ const clientActions = (uploadForm) => {
 		try {
 			const fileList = await onSubmitValidation();
 			const uploadInfo = await preBlobStorage(fileList);
-			const nextPageUrl = await blobStorage(uploadInfo);
+			const nextPageUrl = await blobStorage(fileList, uploadInfo);
 
 			if (nextPageUrl) {
 				window.location.href = nextPageUrl;

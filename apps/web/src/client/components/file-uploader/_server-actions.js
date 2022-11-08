@@ -7,14 +7,17 @@
  */
 const serverActions = (uploadForm) => {
 	/** @type {*} */
-	const uploadUrlInput = uploadForm.querySelector('input[name="upload-url"]');
+	const caseIdInput = uploadForm.querySelector('input[name="case-id"]');
+	/** @type {*} */
+	const folderIdInput = uploadForm.querySelector('input[name="folder-id"]');
 	/** @type {*} */
 	const nextPageUrlInput = uploadForm.querySelector('input[name="next-page-url"]');
 
-	if (!uploadUrlInput || !nextPageUrlInput) return;
+	if (!nextPageUrlInput || !caseIdInput || !folderIdInput) return;
 
-	const uploadUrl = uploadUrlInput.value;
 	const nextPageUrl = nextPageUrlInput.value;
+	const caseId = caseIdInput.value;
+	const folderId = folderIdInput.value;
 
 	// TODO: change this name
 	/**
@@ -24,11 +27,13 @@ const serverActions = (uploadForm) => {
 	 */
 	const preBlobStorage = async (fileList) => {
 		const payload = [...fileList].map((file) => ({
-			fileRowId: `file_row_${file.lastModified}_${file.size}`,
-			documentName: file.name
+			// fileRowId: `file_row_${file.lastModified}_${file.size}`,
+			documentName: file.name,
+			caseId,
+			folderId
 		}));
 
-		return fetch(uploadUrl, {
+		return fetch(`/documents/${caseId}/upload/`, {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json'
@@ -42,17 +47,32 @@ const serverActions = (uploadForm) => {
 	// TODO: change this name
 	/**
 	 *
+	 * @param {FileList} fileList
 	 * @param {Array<*>} filesUploadInfos
 	 * @returns {Promise<boolean>}
 	 */
-	const blobStorage = async (filesUploadInfos) => {
+	const blobStorage = async (fileList, filesUploadInfos) => {
 		const failedUploads = [];
 
 		for (const uploadInfo of filesUploadInfos) {
-			const uploadOutcome = await uploadOnBlobStorageUpload(uploadInfo);
+			const fileToUpload = [...fileList].find((file) => file.name === uploadInfo.documentName);
 
-			if (!uploadOutcome.outcome) {
-				failedUploads.push(uploadOutcome);
+			if (fileToUpload) {
+				const fileRowId = `file_row_${fileToUpload.lastModified}_${fileToUpload.size}`;
+
+				if (uploadInfo.blobStoreURL) {
+					const uploadOutcome = await uploadOnBlobStorageUpload(fileToUpload, uploadInfo);
+
+					if (!uploadOutcome.outcome) {
+						failedUploads.push(uploadOutcome);
+					}
+				} else {
+					failedUploads.push({
+						message: 'GENERIC_SINGLE_FILE',
+						fileRowId,
+						name: uploadInfo.documentName
+					});
+				}
 			}
 		}
 
@@ -65,34 +85,16 @@ const serverActions = (uploadForm) => {
 	};
 
 	// this is mocking the fetch to the blob storage link
-	// one hardcoded filerowid is mocking the fail for one single file
-	// another hardcoded filerowid is mocking the timeout
-	// the real way this will be handled depends on the blob storage response but for the moment
-	// it's useful for testing the error handling on the UI
 	/**
 	 *
-	 * @param {{fileRowId: string, documentName: string}} uploadInfo
+	 * @param {File} fileToUpload
+	 * @param {{failedReason: string, documentName: string}} uploadInfo
 	 * @returns {Promise<*>}
 	 */
-	const uploadOnBlobStorageUpload = async (uploadInfo) => {
-		return new Promise((resolve, reject) => {
-			const { fileRowId, documentName } = uploadInfo;
-
+	const uploadOnBlobStorageUpload = async (fileToUpload, uploadInfo) => {
+		return new Promise((resolve) => {
 			setTimeout(() => {
-				if (fileRowId !== 'file_row_1663752620328_1643900') {
-					if (fileRowId === 'file_row_1666618034112_361918') {
-						resolve({
-							message: 'GENERIC_SINGLE_FILE',
-							fileRowId,
-							name: documentName,
-							outcome: false
-						});
-					} else {
-						resolve({ outcome: true });
-					}
-				}
-
-				reject(new Error('TIMEOUT'));
+				resolve({ outcome: true, fileToUpload, uploadInfo });
 			}, 500);
 		});
 	};
