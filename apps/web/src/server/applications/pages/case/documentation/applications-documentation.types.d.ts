@@ -7,3 +7,10 @@ export interface DocumentationPageProps {
 	subFolders: DocumentationCategory[] | null;
 	documentationFiles: DocumentationFile[] | null;
 }
+
+export interface CaseDocumentationUploadProps {
+	currentFolder: string;
+	nextPageUrl: string;
+	folderId: string;
+	caseId: string;
+}

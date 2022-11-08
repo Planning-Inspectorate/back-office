@@ -7,6 +7,7 @@ import { handleHeathCheck, viewHomepage, viewUnauthenticatedError } from './app.
 import { handleSignout } from './auth/auth.controller.js';
 import { assertIsAuthenticated } from './auth/auth.guards.js';
 import authRouter from './auth/auth.router.js';
+import { postDocumentsUpload } from './components/file-uploader.component.js';
 
 const router = createRouter();
 
@@ -31,6 +32,7 @@ if (!config.authDisabled) {
 
 router.route('/').get(viewHomepage);
 router.route('/auth/signout').get(handleSignout);
+router.route('/documents/:caseId/upload').post(postDocumentsUpload);
 router.use('/appeals-service', appealsRouter);
 router.use('/applications-service', applicationsRouter);
 
