@@ -19,15 +19,13 @@ const serverActions = (uploadForm) => {
 	const caseId = caseIdInput.value;
 	const folderId = folderIdInput.value;
 
-	// TODO: change this name
 	/**
 	 *
 	 * @param {FileList} fileList
 	 * @returns {Promise<Response>}
 	 */
-	const preBlobStorage = async (fileList) => {
+	const getUploadInfoFromInternalDB = async (fileList) => {
 		const payload = [...fileList].map((file) => ({
-			// fileRowId: `file_row_${file.lastModified}_${file.size}`,
 			documentName: file.name,
 			caseId,
 			folderId
@@ -49,7 +47,7 @@ const serverActions = (uploadForm) => {
 	 *
 	 * @param {FileList} fileList
 	 * @param {Array<*>} filesUploadInfos
-	 * @returns {Promise<boolean>}
+	 * @returns {Promise<{nextPageUrl?: string, error?: {message: string, details: Array<{message: string, fileRowId: string, name: string}>} }>}
 	 */
 	const blobStorage = async (fileList, filesUploadInfos) => {
 		const failedUploads = [];
@@ -77,11 +75,10 @@ const serverActions = (uploadForm) => {
 		}
 
 		if (failedUploads.length > 0) {
-			// eslint-disable-next-line no-throw-literal
-			throw { message: 'FILE_SPECIFIC_ERRORS', details: failedUploads };
+			return { error: { message: 'FILE_SPECIFIC_ERRORS', details: failedUploads } };
 		}
 
-		return nextPageUrl;
+		return { nextPageUrl };
 	};
 
 	// this is mocking the fetch to the blob storage link
@@ -94,12 +91,13 @@ const serverActions = (uploadForm) => {
 	const uploadOnBlobStorageUpload = async (fileToUpload, uploadInfo) => {
 		return new Promise((resolve) => {
 			setTimeout(() => {
+				// console.log('SUCCESSFUL UPLOAD OF', fileToUpload.name)
 				resolve({ outcome: true, fileToUpload, uploadInfo });
 			}, 500);
 		});
 	};
 
-	return { preBlobStorage, blobStorage };
+	return { getUploadInfoFromInternalDB, blobStorage };
 };
 
 export default serverActions;
