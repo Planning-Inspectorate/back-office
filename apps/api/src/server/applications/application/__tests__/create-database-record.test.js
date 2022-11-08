@@ -8,7 +8,8 @@ import { databaseConnector } from '../../../utils/database-connector.js';
 const request = supertest(app);
 
 const application = {
-	id: 1
+	id: 1,
+	reference: 'case reference'
 };
 
 const findUniqueStub = sinon.stub();
@@ -19,17 +20,19 @@ const findUniqueFolderStub = sinon.stub();
 
 findUniqueFolderStub.withArgs({ where: { id: 1 } }).returns({ id: 1, caseId: 1 });
 
-const postStub = sinon
-	.stub()
-	.returns([
-		{
-			caseType: 'application',
-			blobStoreUrl: '/some/path/test doc',
-			caseReference: 'test reference',
-			GUID: 'test GUID',
-			documentName: 'test doc'
-		}
-	]);
+const postStub = sinon.stub().returns({
+	json: () => {
+		return [
+			{
+				caseType: 'application',
+				blobStoreUrl: '/some/path/test doc',
+				caseReference: 'test reference',
+				GUID: 'test GUID',
+				documentName: 'test doc'
+			}
+		];
+	}
+});
 
 test.before('set up mocks', () => {
 	sinon.stub(databaseConnector, 'case').get(() => {
