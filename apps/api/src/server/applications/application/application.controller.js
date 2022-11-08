@@ -86,3 +86,11 @@ export const getListOfDocuments = async ({ params }, response) => {
 
 	response.send(folderDetails);
 };
+
+/**
+ *
+ * @type {import('express').RequestHandler<any, ?, ?, any>}
+ */
+export const createDatabaseRecord = async (_req, response) => {
+	response.send(200);
+};
