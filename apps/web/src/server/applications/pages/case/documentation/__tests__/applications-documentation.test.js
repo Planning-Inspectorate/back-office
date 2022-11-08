@@ -13,7 +13,7 @@ const nocks = () => {
 
 	nock('http://test/').get('/applications/123').reply(200, fixtureCases[3]);
 
-	nock('http://test/').get('/applications/123/documents').reply(200, fixtureDocumentationCategory);
+	nock('http://test/').get('/applications/123/folders').reply(200, fixtureDocumentationCategory);
 };
 
 describe('applications documentation', () => {

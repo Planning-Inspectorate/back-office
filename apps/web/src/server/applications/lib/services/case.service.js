@@ -94,13 +94,16 @@ export const updateCase = async (caseId, payload) => {
 };
 
 /**
- * Get documents categories for the case
+ * Get all the subfolders in a folder, or the top level folders for the case
  *
  * @param {number} id
+ * @param {number | null} folderId
  * @returns {Promise<DocumentationCategory[]>}
  */
-export const getCaseDocumentationCategories = (id) => {
-	return get(`applications/${id}/documents`);
+export const getCaseFolders = (id, folderId = null) => {
+	return folderId
+		? get(`applications/${id}/folders/${folderId}`)
+		: get(`applications/${id}/folders`);
 };
 
 /**
