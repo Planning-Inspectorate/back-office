@@ -1,5 +1,3 @@
-// TODO: all of this is just a mock meant to define the general structure
-
 /**
  *
  * @param {Element} uploadForm
@@ -10,12 +8,9 @@ const serverActions = (uploadForm) => {
 	const caseIdInput = uploadForm.querySelector('input[name="case-id"]');
 	/** @type {*} */
 	const folderIdInput = uploadForm.querySelector('input[name="folder-id"]');
-	/** @type {*} */
-	const nextPageUrlInput = uploadForm.querySelector('input[name="next-page-url"]');
 
-	if (!nextPageUrlInput || !caseIdInput || !folderIdInput) return;
+	if (!caseIdInput || !folderIdInput) return;
 
-	const nextPageUrl = nextPageUrlInput.value;
 	const caseId = caseIdInput.value;
 	const folderId = folderIdInput.value;
 
@@ -47,7 +42,7 @@ const serverActions = (uploadForm) => {
 	 *
 	 * @param {FileList} fileList
 	 * @param {Array<*>} filesUploadInfos
-	 * @returns {Promise<{nextPageUrl?: string, error?: {message: string, details: Array<{message: string, fileRowId: string, name: string}>} }>}
+	 * @returns {Promise<Array<{message: string, fileRowId: string, name: string}>>}>}
 	 */
 	const blobStorage = async (fileList, filesUploadInfos) => {
 		const failedUploads = [];
@@ -74,11 +69,7 @@ const serverActions = (uploadForm) => {
 			}
 		}
 
-		if (failedUploads.length > 0) {
-			return { error: { message: 'FILE_SPECIFIC_ERRORS', details: failedUploads } };
-		}
-
-		return { nextPageUrl };
+		return failedUploads;
 	};
 
 	// this is mocking the fetch to the blob storage link
