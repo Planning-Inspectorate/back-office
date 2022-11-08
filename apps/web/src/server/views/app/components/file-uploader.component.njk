@@ -3,16 +3,13 @@
 
 {% macro fileUploader(params) %}
 
-	<div class="govuk-grid-row pins-file-upload">
+	<div class="govuk-grid-row pins-file-upload" data-next-page-url="{{ params.nextPageUrl }}" data-case-id="{{ params.caseId }}" data-folder-id="{{ params.folderId }}">
 		<div class="top-errors-hook"></div>
 
 		{% if params.formTitle %}
 			<h2 class="govuk-heading-m govuk-grid-column-full">{{ params.formTitle }}</h2>
 		{% endif %}
-		<form class="govuk-grid-column-two-thirds">
-			<input type="hidden" name="case-id" value="{{ params.caseId }}" />
-			<input type="hidden" name="folder-id" value="{{ params.folderId }}" />
-			<input type="hidden" name="next-page-url" value="{{ params.nextPageUrl }}" />
+		<form class="govuk-grid-column-two-thirds" >
 			<div class="pins-file-upload--container">
 				<div class="govuk-body colour--secondary pins-file-upload--instructions">
 					<label for="upload-file-{{ params.formId }}">Choose a single or multiple files to upload.</label>
