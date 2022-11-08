@@ -3,6 +3,13 @@
  * @param {string?} replaceValue
  * @returns {string}
  */
+import { buildProgressMessage } from './_client-actions.js';
+
+/**
+ * @param {string} type
+ * @param {string?} replaceValue
+ * @returns {string}
+ */
 export const errorMessage = (type, replaceValue) => {
 	/** @type {Record<string,string>} */
 	const index = {
@@ -62,6 +69,7 @@ export const showErrors = (error, uploadForm) => {
 
 	if (!formContainer || !topHook || !middleHook) return;
 
+	buildProgressMessage({ show: false }, uploadForm);
 	formContainer.classList.remove('error');
 
 	let topErrorsMarkup = '';

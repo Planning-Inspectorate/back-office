@@ -22,7 +22,7 @@
 						{% if loop.index !== params.allowedTypes.length %}
 							{{ extension|upper }},
 						{% else %}
-							or {{ extension|upper }}.
+							or {{ extension|upper }}
 						{% endif %}
 						{% endfor %}.
 				</span>
@@ -44,6 +44,9 @@
 				</span>
 				</div>
 				<div id="file-list-{{ params.formId }}">
+					<div class="progress-hook">
+						<!-- TODO: this is just temporary -->
+					</div>
 					<h3 class="display--sr-only" id="file-list-title-{{ params.formId }}">List of files to upload</h3>
 					<ul class="pins-file-upload--files-rows"
 						aria-describedby="file-list-title-{{ params.formId }}" aria-live="polite"></ul>
