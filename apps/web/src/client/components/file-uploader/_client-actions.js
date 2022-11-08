@@ -1,65 +1,9 @@
 import { errorMessage, showErrors } from './_errors.js';
 import serverActions from './_server-actions.js';
+import { buildErrorListItem, buildProgressMessage, buildRegularListItem } from './_html.js';
 
 /**
- *
- * @param {number} sizesInBytes
- * @returns {string}
- */
-const renderSizeInMainUnit = (sizesInBytes) => {
-	// TODO: not totally clear, for now always returns the size in MB
-
-	return `${Math.round(sizesInBytes * 1e-5) / 10} MB`;
-};
-
-/**
- * @param {File} uploadedFile
- * @returns {string}
- */
-const buildRegularListItem = (uploadedFile) => {
-	const fileRowId = `file_row_${uploadedFile.lastModified}_${uploadedFile.size}`;
-
-	return `<li class="pins-file-upload--file-row" id="${fileRowId}">
-				<p class="govuk-heading-s" aria-details="File name">${uploadedFile.name} (${renderSizeInMainUnit(
-		uploadedFile.size
-	)})</p>
-				<button
-				id="button-remove-${fileRowId}"
-				type="button" class="govuk-link pins-file-upload--remove" aria-details="Remove added file from list">
-					Remove
-				</button>
-			</li>`;
-};
-
-/**
- * @param {File} uploadedFile
- * @param {string} message
- * @returns {string}
- */
-const buildErrorListItem = (uploadedFile, message) => {
-	const fileRowId = `file_row_${uploadedFile.lastModified}_${uploadedFile.size}`;
-
-	return `<li class="pins-file-upload--file-row" id="${fileRowId}">
-				<p class="govuk-heading-s colour--red" aria-details="File name">${message}</p>
-				</li>`;
-};
-
-/**
- *
- * @param {{show: boolean}} options
- * @param {Element} uploadForm
- */
-export const buildProgressMessage = ({ show }, uploadForm) => {
-	// TODO: do this
-	const progressHook = uploadForm.querySelector('.progress-hook');
-
-	if (progressHook) {
-		progressHook.textContent = show ? 'Upload in progress...' : '';
-	}
-};
-
-/**
- * UI features (file list and choose files button)
+ * Actions on the client for the file upload process
  *
  * @param {Element} uploadForm
  * @returns {*}
@@ -75,8 +19,19 @@ const clientActions = (uploadForm) => {
 	const uploadInput = uploadForm.querySelector('input[name="files"]');
 	/** @type {HTMLElement | null} */
 	const submitButton = uploadForm.querySelector('.pins-file-upload--submit');
+	/** @type {*} */
+	const nextPageUrlInput = uploadForm.querySelector('input[name="next-page-url"]');
 
-	if (!uploadButton || !uploadInput || !filesRows || !uploadCounter || !submitButton) return;
+	if (
+		!uploadButton ||
+		!uploadInput ||
+		!filesRows ||
+		!uploadCounter ||
+		!submitButton ||
+		!nextPageUrlInput
+	) return;
+
+	const nextPageUrl = nextPageUrlInput.value;
 
 	let globalDataTransfer = new DataTransfer();
 
@@ -206,6 +161,33 @@ const clientActions = (uploadForm) => {
 	};
 
 	/**
+	 *
+	 * @param {Array<{message: string, fileRowId: string, name: string}>} errors
+	 */
+	const finalizeUpload = (errors) => {
+		globalDataTransfer = new DataTransfer();
+		updateButtonText();
+
+		if (errors.length > 0) {
+			const failedRowIds = new Set(errors.map((error) => error.fileRowId));
+			const allRowsId = [...filesRows.children].map((row) => row.id);
+
+			for (const rowId of allRowsId) {
+				const fileRow = uploadForm.querySelector(`#${rowId}`);
+
+				if (!failedRowIds.has(rowId) && fileRow) {
+					fileRow.remove();
+				}
+			}
+
+			// eslint-disable-next-line no-throw-literal
+			throw { message: 'FILE_SPECIFIC_ERRORS', details: errors };
+		} else {
+			window.location.href = nextPageUrl;
+		}
+	};
+
+	/**
 		@param {Event} clickEvent
 	 */
 	const onSubmit = async (clickEvent) => {
@@ -219,13 +201,9 @@ const clientActions = (uploadForm) => {
 			buildProgressMessage({ show: true }, uploadForm);
 
 			const uploadInfo = await getUploadInfoFromInternalDB(fileList);
-			const { error, nextPageUrl } = await blobStorage(fileList, uploadInfo);
+			const errors = await blobStorage(fileList, uploadInfo);
 
-			if (nextPageUrl) {
-				window.location.href = nextPageUrl;
-			} else {
-				throw error;
-			}
+			finalizeUpload(errors);
 		} catch (/** @type {*} */ error) {
 			showErrors(error, uploadForm);
 		}
