@@ -7,7 +7,7 @@ const document = {
 		// by default: 'REST API'
 		title: 'PINS Back Office API',
 		// by default: ''
-		description: 'My PINS Project AOI documentation from Swagger'
+		description: 'My PINS Project API documentation from Swagger'
 	},
 	// by default: 'localhost:3000'
 	host: 'localhost:3000',

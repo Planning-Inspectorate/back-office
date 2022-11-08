@@ -150,12 +150,6 @@ router.get(
 			required: true,
 			type: 'integer'
 		}
-		#swagger.parameters['folderId'] = {
-            in: 'path',
-			description: 'Optional id of current folder here',
-			required: false,
-			type: 'integer'
-		}
         #swagger.responses[200] = {
             description: 'IDs of application',
             schema: [ { id: 1, displayNameEn: 'Post-decision', displayOrder: 1100, type: 'folder' } ]
@@ -169,7 +163,7 @@ router.get(
 	'/:id/folders/:folderId',
 	/*
         #swagger.tags = ['Applications']
-        #swagger.path = '/applications/{id}/folders'
+        #swagger.path = '/applications/{id}/folders/{folderId}'
         #swagger.description = 'Gets list of folders in a sub folder on a case'
         #swagger.parameters['id'] = {
             in: 'path',
