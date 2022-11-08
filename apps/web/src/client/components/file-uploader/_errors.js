@@ -76,8 +76,9 @@ export const showErrors = (error, uploadForm) => {
 			const fileRow = uploadForm.querySelector(`#${wrongFile.fileRowId}`);
 
 			if (fileRow && fileRow.children.length === 2) {
-				// TODO: change the style of the <li> to be red, with no button and with an error msg
 				fileRow.children[0].classList.add('colour--red');
+				fileRow.children[0].textContent = errorMessage(wrongFile.message || '', wrongFile.name);
+				fileRow.children[1].remove();
 			}
 		}
 		topErrorsMarkup = buildTopErrorsMarkup(messages);
