@@ -81,6 +81,15 @@ export const createFolders = (caseId) => {
 	return databaseConnector.folder.createMany(createdFolders);
 };
 
+/**
+ *
+ * @param {number} folderId
+ * @returns {Promise<import('@pins/api').Schema.Folder | null>}
+ */
+export const getById = (folderId) => {
+	return databaseConnector.folder.findUnique({ where: { id: folderId } });
+};
+
 export const defaultCaseFolders = [
 	{ displayNameEn: 'Project management', displayOrder: 100 },
 	{ displayNameEn: 'Legal advice', displayOrder: 200 },

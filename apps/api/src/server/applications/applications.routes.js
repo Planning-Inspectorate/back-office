@@ -12,6 +12,8 @@ import {
 	validateApplicantId,
 	validateApplicationId,
 	validateCreateUpdateApplication,
+	validateDocumentsToUploadProvided,
+	validateFolderIds,
 	validateGetApplicationQuery
 } from './application/application.validators.js';
 import { fileFoldersRoutes } from './application/file-folders/folders.routes.js';
@@ -166,6 +168,9 @@ router.post(
 	/*
 	 */
 	validateApplicationId,
+	validateDocumentsToUploadProvided,
+	validateFolderIds,
+	trimUnexpectedRequestParameters,
 	asyncHandler(createDatabaseRecord)
 );
 
