@@ -1,25 +1,16 @@
 /**
  *
- * @param {Element} uploadForm
+ * @param {HTMLElement} uploadForm
  * @returns {*}
  */
 const serverActions = (uploadForm) => {
-	/** @type {*} */
-	const caseIdInput = uploadForm.querySelector('input[name="case-id"]');
-	/** @type {*} */
-	const folderIdInput = uploadForm.querySelector('input[name="folder-id"]');
-
-	if (!caseIdInput || !folderIdInput) return;
-
-	const caseId = caseIdInput.value;
-	const folderId = folderIdInput.value;
-
 	/**
 	 *
 	 * @param {FileList} fileList
 	 * @returns {Promise<Response>}
 	 */
 	const getUploadInfoFromInternalDB = async (fileList) => {
+		const { folderId, caseId } = uploadForm.dataset;
 		const payload = [...fileList].map((file) => ({
 			documentName: file.name,
 			caseId,

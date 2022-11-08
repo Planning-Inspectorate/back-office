@@ -5,7 +5,7 @@ import { buildErrorListItem, buildProgressMessage, buildRegularListItem } from '
 /**
  * Actions on the client for the file upload process
  *
- * @param {Element} uploadForm
+ * @param {HTMLElement} uploadForm
  * @returns {*}
  */
 const clientActions = (uploadForm) => {
@@ -19,19 +19,8 @@ const clientActions = (uploadForm) => {
 	const uploadInput = uploadForm.querySelector('input[name="files"]');
 	/** @type {HTMLElement | null} */
 	const submitButton = uploadForm.querySelector('.pins-file-upload--submit');
-	/** @type {*} */
-	const nextPageUrlInput = uploadForm.querySelector('input[name="next-page-url"]');
 
-	if (
-		!uploadButton ||
-		!uploadInput ||
-		!filesRows ||
-		!uploadCounter ||
-		!submitButton ||
-		!nextPageUrlInput
-	) return;
-
-	const nextPageUrl = nextPageUrlInput.value;
+	if (!uploadButton || !uploadInput || !filesRows || !uploadCounter || !submitButton) return;
 
 	let globalDataTransfer = new DataTransfer();
 
@@ -102,26 +91,24 @@ const clientActions = (uploadForm) => {
 			}
 		}
 
-		for (const uploadedFile of newFiles) {
-			const fileRowId = `file_row_${uploadedFile.lastModified}_${uploadedFile.size}`;
-			const removeButton = filesRows.querySelector(`#button-remove-${fileRowId}`);
+		const removeButtons = filesRows.querySelectorAll(`.pins-file-upload--remove`);
 
-			if (removeButton) {
-				removeButton.addEventListener('click', () => removeFileRow(fileRowId));
-			}
+		for (const removeButton of removeButtons) {
+			removeButton.addEventListener('click', removeFileRow);
 		}
 	};
 
 	/**
 	 * Remove one specific row from the files list
 	 *
-	 * @param {string} fileRowId
+	 * @param {*} clickEvent
 	 */
-	const removeFileRow = (fileRowId) => {
-		const rowToRemove = uploadForm.querySelector(`#${fileRowId}`);
+	const removeFileRow = (clickEvent) => {
+		const rowToRemove = clickEvent.target?.parentElement;
 
 		if (rowToRemove) {
 			const newDataTransfer = new DataTransfer();
+			const fileRowId = rowToRemove.id;
 
 			for (const currentFile of globalDataTransfer.files) {
 				const size = fileRowId.split('_')[3];
@@ -183,7 +170,7 @@ const clientActions = (uploadForm) => {
 			// eslint-disable-next-line no-throw-literal
 			throw { message: 'FILE_SPECIFIC_ERRORS', details: errors };
 		} else {
-			window.location.href = nextPageUrl;
+			window.location.href = uploadForm.dataset.nextPageUrl || '';
 		}
 	};
 
