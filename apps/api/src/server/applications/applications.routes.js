@@ -3,6 +3,7 @@ import { asyncHandler } from '../middleware/async-handler.js';
 import { trimUnexpectedRequestParameters } from '../middleware/trim-unexpected-request-parameters.js';
 import {
 	createApplication,
+	createDatabaseRecord,
 	getApplicationDetails,
 	getListOfDocuments,
 	startCase,
@@ -156,6 +157,14 @@ router.get(
     */
 	validateApplicationId,
 	asyncHandler(getListOfDocuments)
+);
+
+router.post(
+	'/:id/document',
+	/*
+	 */
+	validateApplicationId,
+	asyncHandler(createDatabaseRecord)
 );
 
 export { router as applicationsRoutes };
