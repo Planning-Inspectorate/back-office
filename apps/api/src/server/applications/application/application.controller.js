@@ -92,23 +92,31 @@ export const getListOfDocuments = async ({ params }, response) => {
  *
  * @type {import('express').RequestHandler<any, ?, ?, any>}
  */
-export const createDatabaseRecord = async ({ body }, response) => {
+export const createDatabaseRecord = async ({ params, body }, response) => {
+	const caseFromDatabase = await caseRepository.getById(params.id, {});
+
 	const requestToDocumentStorage = body[''].map(
-		(/** @type {{ caseType: string; caseReference: string; GUID: string; }} */ document) => {
+		(
+			/** @type {{ caseType: string; caseReference: string | null | undefined; GUID: string; }} */ document
+		) => {
 			document.caseType = 'application';
-			document.caseReference = '';
+			document.caseReference = caseFromDatabase?.reference;
 			document.GUID = '';
 			return document;
 		}
 	);
 
-	const responseFromDocumentStorage = await got.post('document store api', {
-		json: requestToDocumentStorage
-	});
+	// TODO: get document store api address from environment variables
+	const responseFromDocumentStorage = await got
+		.post('document store api', {
+			json: requestToDocumentStorage
+		})
+		.json();
 
-	const documentsWithUrls = responseFromDocumentStorage.map((document) => {
+	const documentsWithUrls = responseFromDocumentStorage.map((/** @type {any} */ document) => {
 		return pick(document, ['documentName', 'blobStoreUrl']);
 	});
 
+	// TODO: get blob store host and container from document storage api
 	response.send({ blobStorageHost: '', blobStorageContainer: '', documents: documentsWithUrls });
 };
