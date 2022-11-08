@@ -79,10 +79,10 @@ export const getApplicationDetails = async ({ params, query }, response) => {
 
 /**
  *
- * @type {import('express').RequestHandler<{ id: number }, ?, ?, any>}
+ * @type {import('express').RequestHandler<{ id: number, folderId: number }, ?, ?, any>}
  */
-export const getListOfDocuments = async ({ params }, response) => {
-	const folderDetails = await getFolderDetails(params.id);
+export const getListOfFolders = async ({ params }, response) => {
+	const folderDetails = await getFolderDetails(params.id, params.folderId);
 
 	response.send(folderDetails);
 };

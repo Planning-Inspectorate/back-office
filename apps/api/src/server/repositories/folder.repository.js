@@ -1,12 +1,17 @@
 import { databaseConnector } from '../utils/database-connector.js';
 
 /**
+ * Returns array of folders in a folder or case (if parentFolderId is null)
  *
  * @param {number} caseId
+ * @param {number |null} parentFolderId
  * @returns {Promise<import('@pins/api').Schema.Folder[]>}
  */
-export const getByCaseId = (caseId) => {
-	return databaseConnector.folder.findMany({ where: { caseId } });
+export const getByCaseId = (caseId, parentFolderId) => {
+	// if no parentFolderId, explicitly set null value im the call, to get the tope level folders on the case
+	return parentFolderId
+		? databaseConnector.folder.findMany({ where: { caseId, parentFolderId } })
+		: databaseConnector.folder.findMany({ where: { caseId, parentFolderId: null } });
 };
 
 /**
