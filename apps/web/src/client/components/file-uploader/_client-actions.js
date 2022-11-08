@@ -2,6 +2,17 @@ import { errorMessage, showErrors } from './_errors.js';
 import serverActions from './_server-actions.js';
 
 /**
+ *
+ * @param {number} sizesInBytes
+ * @returns {string}
+ */
+const renderSizeInMainUnit = (sizesInBytes) => {
+	// TODO: not totally clear, for now always returns the size in MB
+
+	return `${Math.round(sizesInBytes * 1e-5) / 10} MB`;
+};
+
+/**
  * @param {File} uploadedFile
  * @returns {string}
  */
@@ -9,7 +20,9 @@ const buildRegularListItem = (uploadedFile) => {
 	const fileRowId = `file_row_${uploadedFile.lastModified}_${uploadedFile.size}`;
 
 	return `<li class="pins-file-upload--file-row" id="${fileRowId}">
-				<p class="govuk-heading-s" aria-details="File name">${uploadedFile.name}</p>
+				<p class="govuk-heading-s" aria-details="File name">${uploadedFile.name} (${renderSizeInMainUnit(
+		uploadedFile.size
+	)})</p>
 				<button
 				id="button-remove-${fileRowId}"
 				type="button" class="govuk-link pins-file-upload--remove" aria-details="Remove added file from list">
@@ -29,6 +42,20 @@ const buildErrorListItem = (uploadedFile, message) => {
 	return `<li class="pins-file-upload--file-row" id="${fileRowId}">
 				<p class="govuk-heading-s colour--red" aria-details="File name">${message}</p>
 				</li>`;
+};
+
+/**
+ *
+ * @param {{show: boolean}} options
+ * @param {Element} uploadForm
+ */
+export const buildProgressMessage = ({ show }, uploadForm) => {
+	// TODO: do this
+	const progressHook = uploadForm.querySelector('.progress-hook');
+
+	if (progressHook) {
+		progressHook.textContent = show ? 'Upload in progress...' : '';
+	}
 };
 
 /**
@@ -89,32 +116,35 @@ const clientActions = (uploadForm) => {
 
 		for (const uploadedFile of newFiles) {
 			const fileRowId = `file_row_${uploadedFile.lastModified}_${uploadedFile.size}`;
+			const fileRow = uploadForm.querySelector(`#${fileRowId}`);
 
-			let listItem = '';
+			if (!fileRow) {
+				let listItem = '';
 
-			if (uploadedFile.name.length > 255) {
-				// TODO: add check for special characters
-				listItem = buildErrorListItem(
-					uploadedFile,
-					errorMessage('NAME_SINGLE_FILE', uploadedFile.name)
-				);
-				wrongFiles.push({ message: 'NAME_SINGLE_FILE', name: uploadedFile.name, fileRowId });
-			} else if (!allowedMimeTypes.includes(uploadedFile.type)) {
-				// edge case: the accept attribute should prevent this
-				listItem = buildErrorListItem(
-					uploadedFile,
-					errorMessage('TYPE_SINGLE_FILE', uploadedFile.name)
-				);
-				wrongFiles.push({ message: 'TYPE_SINGLE_FILE', name: uploadedFile.name, fileRowId });
-			} else {
-				globalDataTransfer.items.add(uploadedFile);
-				listItem = buildRegularListItem(uploadedFile);
+				if (uploadedFile.name.length > 255) {
+					// TODO: add check for special characters
+					listItem = buildErrorListItem(
+						uploadedFile,
+						errorMessage('NAME_SINGLE_FILE', uploadedFile.name)
+					);
+					wrongFiles.push({ message: 'NAME_SINGLE_FILE', name: uploadedFile.name, fileRowId });
+				} else if (!allowedMimeTypes.includes(uploadedFile.type)) {
+					// edge case: the accept attribute should prevent this
+					listItem = buildErrorListItem(
+						uploadedFile,
+						errorMessage('TYPE_SINGLE_FILE', uploadedFile.name)
+					);
+					wrongFiles.push({ message: 'TYPE_SINGLE_FILE', name: uploadedFile.name, fileRowId });
+				} else {
+					globalDataTransfer.items.add(uploadedFile);
+					listItem = buildRegularListItem(uploadedFile);
+				}
+
+				if (wrongFiles.length > 0) {
+					showErrors({ message: 'FILE_SPECIFIC_ERRORS', details: wrongFiles }, uploadForm);
+				}
+				filesRows.innerHTML += listItem;
 			}
-
-			if (wrongFiles.length > 0) {
-				showErrors({ message: 'FILE_SPECIFIC_ERRORS', details: wrongFiles }, uploadForm);
-			}
-			filesRows.innerHTML += listItem;
 		}
 
 		for (const uploadedFile of newFiles) {
@@ -181,15 +211,20 @@ const clientActions = (uploadForm) => {
 	const onSubmit = async (clickEvent) => {
 		clickEvent.preventDefault();
 
-		const { preBlobStorage, blobStorage } = serverActions(uploadForm);
+		const { getUploadInfoFromInternalDB, blobStorage } = serverActions(uploadForm);
 
 		try {
 			const fileList = await onSubmitValidation();
-			const uploadInfo = await preBlobStorage(fileList);
-			const nextPageUrl = await blobStorage(fileList, uploadInfo);
+
+			buildProgressMessage({ show: true }, uploadForm);
+
+			const uploadInfo = await getUploadInfoFromInternalDB(fileList);
+			const { error, nextPageUrl } = await blobStorage(fileList, uploadInfo);
 
 			if (nextPageUrl) {
 				window.location.href = nextPageUrl;
+			} else {
+				throw error;
 			}
 		} catch (/** @type {*} */ error) {
 			showErrors(error, uploadForm);
