@@ -1,4 +1,5 @@
-import { filter, head, map } from 'lodash-es';
+import got from 'got';
+import { filter, head, map, pick } from 'lodash-es';
 import * as caseRepository from '../../repositories/case.repository.js';
 import { mapCaseStatusString } from '../../utils/mapping/map-case-status-string.js';
 import { mapCreateApplicationRequestToRepository } from './application.mapper.js';
@@ -91,6 +92,23 @@ export const getListOfDocuments = async ({ params }, response) => {
  *
  * @type {import('express').RequestHandler<any, ?, ?, any>}
  */
-export const createDatabaseRecord = async (_req, response) => {
-	response.send(200);
+export const createDatabaseRecord = async ({ body }, response) => {
+	const requestToDocumentStorage = body[''].map(
+		(/** @type {{ caseType: string; caseReference: string; GUID: string; }} */ document) => {
+			document.caseType = 'application';
+			document.caseReference = '';
+			document.GUID = '';
+			return document;
+		}
+	);
+
+	const responseFromDocumentStorage = await got.post('document store api', {
+		json: requestToDocumentStorage
+	});
+
+	const documentsWithUrls = responseFromDocumentStorage.map((document) => {
+		return pick(document, ['documentName', 'blobStoreUrl']);
+	});
+
+	response.send({ blobStorageHost: '', blobStorageContainer: '', documents: documentsWithUrls });
 };

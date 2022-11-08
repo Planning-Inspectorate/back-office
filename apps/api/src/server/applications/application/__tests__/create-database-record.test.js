@@ -1,4 +1,5 @@
 import test from 'ava';
+import { got } from 'got';
 import sinon from 'sinon';
 import supertest from 'supertest';
 import { app } from '../../../app.js';
@@ -14,16 +15,50 @@ const findUniqueStub = sinon.stub();
 
 findUniqueStub.withArgs({ where: { id: 1 } }).returns(application);
 
+const findUniqueFolderStub = sinon.stub();
+
+findUniqueFolderStub.withArgs({ where: { id: 1 } }).returns({ id: 1, caseId: 1 });
+
+const postStub = sinon
+	.stub()
+	.returns([
+		{
+			caseType: 'application',
+			blobStoreUrl: '/some/path/test doc',
+			caseReference: 'test reference',
+			GUID: 'test GUID',
+			documentName: 'test doc'
+		}
+	]);
+
 test.before('set up mocks', () => {
 	sinon.stub(databaseConnector, 'case').get(() => {
 		return { findUnique: findUniqueStub };
 	});
+
+	sinon.stub(databaseConnector, 'folder').get(() => {
+		return { findUnique: findUniqueFolderStub };
+	});
+
+	sinon.stub(got, 'post').callsFake(postStub);
 });
 
 test('saves documents information and returns upload URL', async (t) => {
-	const response = await request.post('/applications/1/document');
+	const response = await request
+		.post('/applications/1/document')
+		.send([{ folderId: 1, documentName: 'test doc' }]);
 
 	t.is(response.status, 200);
+	t.deepEqual(response.body, {
+		blobStorageHost: '',
+		blobStorageContainer: '',
+		documents: [
+			{
+				documentName: 'test doc',
+				blobStoreUrl: '/some/path/test doc'
+			}
+		]
+	});
 });
 
 test('throws error if folder id does not belong to case', async (t) => {
