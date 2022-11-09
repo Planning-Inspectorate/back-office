@@ -1,3 +1,5 @@
+import { BlobServiceClient } from '@azure/storage-blob';
+
 /**
  *
  * @param {HTMLElement} uploadForm
@@ -72,9 +74,12 @@ const serverActions = (uploadForm) => {
 	 */
 	const uploadOnBlobStorageUpload = async (fileToUpload, uploadInfo) => {
 		return new Promise((resolve) => {
+			const blobServiceClient = BlobServiceClient;
+			// TODO: connect to the blob storage and upload the file.
+
 			setTimeout(() => {
 				// console.log('SUCCESSFUL UPLOAD OF', fileToUpload.name)
-				resolve({ outcome: true, fileToUpload, uploadInfo });
+				resolve({ outcome: true, fileToUpload, uploadInfo, blobServiceClient });
 			}, 500);
 		});
 	};
