@@ -1,23 +1,23 @@
 import alias from '@rollup/plugin-alias';
-import { getBabelOutputPlugin } from '@rollup/plugin-babel';
+import {babel} from '@rollup/plugin-babel';
 import rollupPluginBeep from '@rollup/plugin-beep';
-import rollupPluginCJS from '@rollup/plugin-commonjs';
-import nodeResolve from '@rollup/plugin-node-resolve';
+import commonjs from '@rollup/plugin-commonjs';
+import resolve from '@rollup/plugin-node-resolve';
 import rollupPluginReplace from '@rollup/plugin-replace';
 import rollupPluginVirtual from '@rollup/plugin-virtual';
+import peerDepsExternal from 'rollup-plugin-peer-deps-external';
 import kleur from 'kleur';
 import fs from 'node:fs';
-import { rollup } from 'rollup';
-import iife from "rollup-plugin-iife";
-import { visualizer } from 'rollup-plugin-visualizer';
+import path from 'node:path';
+import {rollup} from 'rollup';
+import {visualizer} from 'rollup-plugin-visualizer';
 import config from '../../environment/config.js';
-import { getLogger } from './get-logger.js';
-import { minifySource } from './minify-js.js';
-import { buildVirtualJSON } from './rollup-plugin-virtual-json.js';
+import {getLogger} from './get-logger.js';
+import {minifySource} from './minify-js.js';
+import {buildVirtualJSON} from './rollup-plugin-virtual-json.js';
 
-
-const { buildDir, env, bundleAnalyzer, isProduction, isRelease } = config;
-const logger = getLogger({ scope: 'JS' });
+const {buildDir, env, bundleAnalyzer, isProduction, isRelease} = config;
+const logger = getLogger({scope: 'JS'});
 
 process.on('unhandledRejection', (reason, p) => {
 	logger.error('Build had unhandled rejection', reason, p);
@@ -48,17 +48,38 @@ async function build() {
 		kleur.blue(input)
 	);
 
+	const EXTERNALS = {
+		'regenerator-runtime': 'RegeneratorRuntime',
+		'@azure/blob-storage': 'AzureBlobStorage',
+	}
+
 	const appBundle = await rollup({
 		input,
+		external: Object.keys(EXTERNALS),
 		plugins: [
-			nodeResolve({
-				jsnext: true,
-				main: true,
+			resolve({
 				browser: true,
 				preferBuiltins: false
 			}),
-			rollupPluginCJS({}),
-			rollupPluginReplace({
+			commonjs({
+				// include: ['node_modules/!**', /node_modules\/govuk-frontend/]
+			}),
+			// rollupPluginCJS(),
+			// peerDepsExternal(),
+			/*nodeResolve({
+				// browser: true,
+				// dedupe: ['@azure/storage-blob']
+			}),*/
+			babel({
+				babelHelpers: 'bundled',
+				exclude: 'node_modules/**',
+				// allowAllFormats: true,
+				configFile: path.resolve(process.cwd(), 'babel.config.js')
+			}),
+		/*	rollupPluginCJS({
+				include: ['node_modules/!**', /node_modules\/govuk-frontend/]
+			}),*/
+			/*rollupPluginReplace({
 				values: {
 					__buildEnv__: isProduction ? JSON.stringify('production') : JSON.stringify('development'),
 					'process.env.NODE_ENV': isProduction
@@ -71,16 +92,18 @@ async function build() {
 			rollupPluginBeep(),
 			getBabelOutputPlugin({
 				// babelHelpers: 'bundled',
-				exclude: 'node_modules/**',
+				// exclude: 'node_modules/!**',
+				allowAllFormats: true,
+				configFile: path.resolve(process.cwd(), 'babel.config.js')
 			}),
 			alias({
 				entries: {}
 			}),
-			iife(),
 			...(bundleAnalyzer
-				? [visualizer({ filename: 'bundle-stats.html', open: true, gzipSize: true })]
-				: [])
+				? [visualizer({filename: 'bundle-stats.html', open: true, gzipSize: true})]
+				: [])*/
 		],
+		manualChunks: () => {},
 		// Controls if Rollup tries to ensure that entry chunks have the same exports as the underlying entry module.
 		// https://rollupjs.org/guide/en/#preserveentrysignatures
 		preserveEntrySignatures: false
@@ -92,13 +115,16 @@ async function build() {
 		sourcemap: true,
 		dir: 'src/server/static/scripts',
 		// https://rollupjs.org/guide/en/#outputformat
-		format: 'es',
+		format: 'esm',
+		generatedCode: {
+			preset: 'es2015'
+		}
 	});
-	const outputFiles = appGenerated.output.map(({ fileName }) => fileName);
+	const outputFiles = appGenerated.output.map(({fileName}) => fileName);
 
 	// Save the "app.js" entrypoint (which has a hashed name) for the all-browser loader code.
 	// @ts-expect-error – package type signature is incorrect
-	const entrypoints = appGenerated.output.filter(({ isEntry }) => isEntry);
+	const entrypoints = appGenerated.output.filter(({isEntry}) => isEntry);
 
 	if (entrypoints.length !== 1) {
 		throw new Error(`expected single Rollup entrypoint, was: ${entrypoints.length}`);
@@ -117,7 +143,7 @@ async function build() {
 		fs.mkdirSync(buildDir);
 	}
 
-	fs.writeFileSync(`${buildDir}/resourceJS.json`, JSON.stringify({ path: `/scripts/${appPath}` }));
+	fs.writeFileSync(`${buildDir}/resourceJS.json`, JSON.stringify({path: `/scripts/${appPath}`}));
 
 	// Compress the generated source here, as we need the final files and hashes for the Service Worker manifest.
 	if (isProduction) {

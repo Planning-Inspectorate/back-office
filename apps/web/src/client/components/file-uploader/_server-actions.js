@@ -1,10 +1,14 @@
+import {BlobServiceClient} from '@azure/storage-blob';
+
 /**
  *
  * @param {HTMLElement} uploadForm
  * @returns {*}
  */
 const serverActions = (uploadForm) => {
-	/**
+	 // console.log(BlobServiceClient);
+
+	 /**
 	 *
 	 * @param {FileList} fileList
 	 * @returns {Promise<Response>}
