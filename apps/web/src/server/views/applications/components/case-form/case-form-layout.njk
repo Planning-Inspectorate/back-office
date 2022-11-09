@@ -1,4 +1,4 @@
-{% extends "app/layouts/app.layout.njk" %}
+{% extends "../../layouts/applications.layout.njk" %}
 
 {% from "govuk/components/back-link/macro.njk" import govukBackLink %}
 {% from "govuk/components/button/macro.njk" import govukButton %}
@@ -21,11 +21,6 @@
 {% from "./applicant/address-view.njk" import addressView %}
 {% from "./key-dates/date-published.njk" import datePublished %}
 {% from "./key-dates/date-internal.njk" import dateInternal %}
-{% from '../../components/applications-header.njk' import applicationsHeader %}
-
-{% block header %}
-	{{ applicationsHeader(domainType) }}
-{% endblock %}
 
 {% block pageHeading %}{% endblock %}
 
