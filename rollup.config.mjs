@@ -1,23 +1,27 @@
 import babel from '@rollup/plugin-babel';
 import commonjs from '@rollup/plugin-commonjs';
 import resolve from '@rollup/plugin-node-resolve';
-import uglify from 'rollup-plugin-uglify';
+import iife from "rollup-plugin-iife";
 
 export default {
-	entry: 'apps/web/src/client/app.js',
-	dest: 'apps/web/src/server/static/scripts/app.js',
-	format: 'iife',
+	input: 'apps/web/src/client/app.js',
+	output: {
+		format: 'es',
+		name: 'app',
+		dir: 'apps/web/src/server/static/scripts'
+	},
 	sourceMap: 'inline',
 	plugins: [
 		resolve({
 			jsnext: true,
 			main: true,
 			browser: true,
+			preferBuiltins: false
 		}),
 		commonjs(),
 		babel({
 			exclude: 'node_modules/**',
 		}),
-		uglify(),
+		iife()
 	],
 };
