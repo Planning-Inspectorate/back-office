@@ -34,8 +34,13 @@ const DEFAULT_CASE_CREATE_STATUS = 'draft';
  */
 
 /**
+ * @template A
+ * @typedef {import('@prisma/client').PrismaPromise<A>} PrismaPromise<A>
+ */
+
+/**
  * @param {string[]} statusArray
- * @returns {Promise<import('@pins/api').Schema.Case[]>}
+ * @returns {PrismaPromise<import('@pins/api').Schema.Case[]>}
  */
 export const getByStatus = (statusArray) => {
 	return databaseConnector.case.findMany({
@@ -72,7 +77,7 @@ export const getByStatus = (statusArray) => {
  * @param {string} query
  * @param {number} skipValue
  * @param {number} pageSize
- * @returns {Promise<import('@pins/api').Schema.Case[]>}
+ * @returns {PrismaPromise<import('@pins/api').Schema.Case[]>}
  */
 export const getBySearchCriteria = (query, skipValue, pageSize) => {
 	return databaseConnector.case.findMany({
@@ -117,7 +122,7 @@ export const getBySearchCriteria = (query, skipValue, pageSize) => {
 
 /**
  * @param {string} query
- * @returns {Promise<number>}
+ * @returns {PrismaPromise<number>}
  */
 export const getApplicationsCountBySearchCriteria = (query) => {
 	return databaseConnector.case.count({
@@ -139,7 +144,7 @@ export const getApplicationsCountBySearchCriteria = (query) => {
 
 /**
  * @param {CreateApplicationParams} caseInfo
- * @returns {Promise<import('@pins/api').Schema.Case>}
+ * @returns {PrismaPromise<import('@pins/api').Schema.Case>}
  */
 export const createApplication = ({
 	caseDetails,
@@ -192,7 +197,7 @@ export const createApplication = ({
 /**
  *
  * @param {number} caseId
- * @returns {Promise<import('@pins/api').Schema.BatchPayload>}
+ * @returns {PrismaPromise<import('@pins/api').Schema.BatchPayload>}
  */
 const removeRegions = (caseId) => {
 	return databaseConnector.regionsOnApplicationDetails.deleteMany({
@@ -206,7 +211,7 @@ const removeRegions = (caseId) => {
 
 /**
  * @param {UpdateApplicationParams} data
- * @returns {Promise<import('@pins/api').Schema.Case>}
+ * @returns {PrismaPromise<import('@pins/api').Schema.Case>}
  */
 const updateApplicationSansRegionsRemoval = ({
 	caseId,
@@ -294,7 +299,7 @@ const updateApplicationSansRegionsRemoval = ({
 
 /**
  * @param {UpdateApplicationParams} caseInfo
- * @returns {Promise<import('@pins/api').Schema.BatchPayload>}
+ * @returns {PrismaPromise<import('@pins/api').Schema.BatchPayload>}
  */
 export const updateApplication = ({
 	caseId,
@@ -336,7 +341,7 @@ export const updateApplication = ({
  *
  * @param {number} id
  * @param {{subSector?: boolean, sector?: boolean, applicationDetails?: boolean, zoomLevel?: boolean, regions?: boolean, caseStatus?: boolean, serviceCustomer?: boolean, serviceCustomerAddress?: boolean, gridReference?: boolean}} inclusions
- * @returns {Promise<import('@pins/api').Schema.Case | null>}
+ * @returns {PrismaPromise<import('@pins/api').Schema.Case | null>}
  */
 export const getById = (
 	id,
@@ -386,7 +391,7 @@ export const getById = (
 /**
  *
  * @param {number[]} ids
- * @returns {Promise<import('@pins/api').Schema.BatchPayload>}
+ * @returns {PrismaPromise<import('@pins/api').Schema.BatchPayload>}
  */
 export const invalidateCaseStatuses = (ids) => {
 	return databaseConnector.caseStatus.updateMany({
@@ -399,7 +404,7 @@ export const invalidateCaseStatuses = (ids) => {
  *
  * @param {number} id
  * @param {string} status
- * @returns {Promise<import('@pins/api').Schema.BatchPayload>}
+ * @returns {PrismaPromise<import('@pins/api').Schema.BatchPayload>}
  */
 export const createNewStatuses = (id, status) => {
 	return isString(status)
@@ -411,7 +416,7 @@ export const createNewStatuses = (id, status) => {
  *
  * @param {number} id
  * @param {{status: string | object, data: {regionNames?: string[]}, currentStatuses: object[], setReference: boolean}} updateData
- * @param {Promise<any>[]} additionalTransactions
+ * @param {PrismaPromise<any>[]} additionalTransactions
  * @returns {any}
  */
 export const updateApplicationStatusAndDataById = (
@@ -424,7 +429,7 @@ export const updateApplicationStatusAndDataById = (
 		currentStatuses
 	);
 
-	/** @type {Promise<any>[]} */ const transactions = [
+	/** @type {PrismaPromise<any>[]} */ const transactions = [
 		invalidateCaseStatuses(caseStatesToInvalidate),
 		createNewStatuses(id, caseStatesToCreate)
 	];
@@ -482,7 +487,7 @@ const replaceValueInString = (inputString, keysToReplace) => {
 /**
  *
  * @param {number} id
- * @returns {Promise<any>}
+ * @returns {PrismaPromise<any>}
  */
 export const assignApplicationReference = (id) => {
 	const sqlQueryAbsolutePath = getSqlQuery('update-application-reference');
