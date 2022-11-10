@@ -1,43 +1,51 @@
+import { errorMessage } from './_errors.js';
+
+/** @typedef {{message: string, fileRowId: string, name: string}} AnError */
+/** @typedef {File & {fileRowId?: string}} FileWithRowId */
+
 /**
  *
  * @param {number} sizesInBytes
  * @returns {string}
  */
 const renderSizeInMainUnit = (sizesInBytes) => {
-	// TODO: not totally clear, for now always returns the size in MB
+	const unit = sizesInBytes > 99_999 ? 'MB' : 'KB';
+	const power = sizesInBytes > 99_999 ? 1e-5 : 1e-2;
 
-	return `${Math.round(sizesInBytes * 1e-5) / 10} MB`;
+	return `${Math.round(sizesInBytes * power) / 10} ${unit}`;
 };
 
 /**
- * @param {File} uploadedFile
- * @returns {string}
+ * @param {FileWithRowId} uploadedFile
+ * @returns {HTMLElement}
  */
 export const buildRegularListItem = (uploadedFile) => {
-	const fileRowId = `file_row_${uploadedFile.lastModified}_${uploadedFile.size}`;
+	const li = document.createElement('li');
 
-	return `<li class="pins-file-upload--file-row" id="${fileRowId}">
-				<p class="govuk-heading-s" aria-details="File name">${uploadedFile.name} (${renderSizeInMainUnit(
-		uploadedFile.size
-	)})</p>
+	li.classList.add('pins-file-upload--file-row');
+	li.id = uploadedFile.fileRowId || '';
+	li.innerHTML = `<p class="govuk-heading-s" aria-details="File name">
+		${uploadedFile.name} (${renderSizeInMainUnit(uploadedFile.size)})
+		</p>
 				<button
-				id="button-remove-${fileRowId}"
+				id="button-remove-${uploadedFile.fileRowId}"
 				type="button" class="govuk-link pins-file-upload--remove" aria-details="Remove added file from list">
 					Remove
-				</button>
-			</li>`;
+				</button>`;
+
+	return li;
 };
 
 /**
- * @param {File} uploadedFile
- * @param {string} message
+ * @param {AnError} error
  * @returns {string}
  */
-export const buildErrorListItem = (uploadedFile, message) => {
-	const fileRowId = `file_row_${uploadedFile.lastModified}_${uploadedFile.size}`;
-
-	return `<li class="pins-file-upload--file-row" id="${fileRowId}">
-				<p class="govuk-heading-s colour--red" aria-details="File name">${message}</p>
+export const buildErrorListItem = (error) => {
+	return `<li class="pins-file-upload--file-row" id="${error.fileRowId}">
+				<p class="govuk-heading-s colour--red" aria-details="File name">${errorMessage(
+					error.message,
+					error.name
+				)}</p>
 				</li>`;
 };
 

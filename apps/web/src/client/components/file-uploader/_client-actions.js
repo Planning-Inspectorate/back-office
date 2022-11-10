@@ -1,6 +1,9 @@
-import { errorMessage, showErrors } from './_errors.js';
+import { showErrors } from './_errors.js';
 import serverActions from './_server-actions.js';
 import { buildErrorListItem, buildProgressMessage, buildRegularListItem } from './_html.js';
+
+/** @typedef {import('./_html.js').AnError} AnError */
+/** @typedef {import('./_html.js').FileWithRowId} FileWithRowId */
 
 /**
  * Actions on the client for the file upload process
@@ -15,7 +18,7 @@ const clientActions = (uploadForm) => {
 	const uploadCounter = uploadForm.querySelector('.pins-file-upload--counter');
 	/** @type {HTMLElement | null} */
 	const filesRows = uploadForm.querySelector('.pins-file-upload--files-rows');
-	/** @type {*} */
+	/** @type {HTMLElement | null} */
 	const uploadInput = uploadForm.querySelector('input[name="files"]');
 	/** @type {HTMLElement | null} */
 	const submitButton = uploadForm.querySelector('.pins-file-upload--submit');
@@ -27,10 +30,10 @@ const clientActions = (uploadForm) => {
 	/**
 	 * Execute actions after selecting the files to upload
 	 *
-	 * @param {*} event
+	 * @param {*} selectEvent
 	 */
-	const onFileSelect = (event) => {
-		const { target } = event;
+	const onFileSelect = (selectEvent) => {
+		const { target } = selectEvent;
 		const { files: newFiles } = target;
 
 		updateFilesRows(newFiles);
@@ -50,51 +53,56 @@ const clientActions = (uploadForm) => {
 	};
 
 	/**
+	 * @param {FileWithRowId} selectedFile
+	 * @returns {{message: string} | null}
+	 */
+	const checkSelectedFile = (selectedFile) => {
+		const allowedMimeTypes = (uploadForm.dataset.allowedTypes || '').split(',');
+
+		if (selectedFile.name.length > 255) {
+			return { message: 'NAME_SINGLE_FILE' };
+		}
+		if (!allowedMimeTypes.includes(selectedFile.type)) {
+			return { message: 'TYPE_SINGLE_FILE' };
+		}
+		return null;
+	};
+
+	/**
 	 *	Add rows in the files list
 	 *
-	 * @param {FileList} newFiles
+	 * @param {FileWithRowId[]} newFiles
 	 */
 	const updateFilesRows = (newFiles) => {
-		const allowedMimeTypes = uploadInput.accept.split(',');
 		const wrongFiles = [];
 
-		for (const uploadedFile of newFiles) {
-			const fileRowId = `file_row_${uploadedFile.lastModified}_${uploadedFile.size}`;
-			const fileRow = uploadForm.querySelector(`#${fileRowId}`);
+		for (const selectedFile of newFiles) {
+			const fileRowId = `file_row_${selectedFile.lastModified}_${selectedFile.size}`;
+			const fileCannotBeAdded = checkSelectedFile(selectedFile);
 
-			if (!fileRow) {
-				let listItem = '';
+			if (fileCannotBeAdded) {
+				const error = {
+					message: fileCannotBeAdded.message || '',
+					name: selectedFile.name,
+					fileRowId
+				};
 
-				if (uploadedFile.name.length > 255) {
-					// TODO: add check for special characters
-					listItem = buildErrorListItem(
-						uploadedFile,
-						errorMessage('NAME_SINGLE_FILE', uploadedFile.name)
-					);
-					wrongFiles.push({ message: 'NAME_SINGLE_FILE', name: uploadedFile.name, fileRowId });
-				} else if (!allowedMimeTypes.includes(uploadedFile.type)) {
-					// edge case: the accept attribute should prevent this
-					listItem = buildErrorListItem(
-						uploadedFile,
-						errorMessage('TYPE_SINGLE_FILE', uploadedFile.name)
-					);
-					wrongFiles.push({ message: 'TYPE_SINGLE_FILE', name: uploadedFile.name, fileRowId });
-				} else {
-					globalDataTransfer.items.add(uploadedFile);
-					listItem = buildRegularListItem(uploadedFile);
+				filesRows.innerHTML += buildErrorListItem(error);
+				wrongFiles.push(error);
+			} else {
+				selectedFile.fileRowId = fileRowId;
+				globalDataTransfer.items.add(selectedFile);
+				filesRows.append(buildRegularListItem(selectedFile));
+
+				const removeButton = [...filesRows.querySelectorAll(`.pins-file-upload--remove`)].pop();
+
+				if (removeButton) {
+					removeButton.addEventListener('click', removeFileRow);
 				}
-
-				if (wrongFiles.length > 0) {
-					showErrors({ message: 'FILE_SPECIFIC_ERRORS', details: wrongFiles }, uploadForm);
-				}
-				filesRows.innerHTML += listItem;
 			}
 		}
-
-		const removeButtons = filesRows.querySelectorAll(`.pins-file-upload--remove`);
-
-		for (const removeButton of removeButtons) {
-			removeButton.addEventListener('click', removeFileRow);
+		if (wrongFiles.length > 0) {
+			showErrors({ message: 'FILE_SPECIFIC_ERRORS', details: wrongFiles }, uploadForm);
 		}
 	};
 
@@ -104,22 +112,15 @@ const clientActions = (uploadForm) => {
 	 * @param {*} clickEvent
 	 */
 	const removeFileRow = (clickEvent) => {
+		/** @type {FileWithRowId[]} */
+		const filesWithIds = [...globalDataTransfer.files];
 		const rowToRemove = clickEvent.target?.parentElement;
+		const fileToRemove = filesWithIds.find((file) => file.fileRowId === rowToRemove?.id);
 
-		if (rowToRemove) {
-			const newDataTransfer = new DataTransfer();
-			const fileRowId = rowToRemove.id;
+		if (rowToRemove && fileToRemove) {
+			const rowToRemoveIndex = filesWithIds.indexOf(fileToRemove);
 
-			for (const currentFile of globalDataTransfer.files) {
-				const size = fileRowId.split('_')[3];
-				const lastModified = fileRowId.split('_')[2];
-
-				if (`${currentFile.size}` !== size && `${currentFile.lastModified}` !== lastModified) {
-					newDataTransfer.items.add(currentFile);
-				}
-			}
-
-			globalDataTransfer = newDataTransfer;
+			globalDataTransfer.items.remove(rowToRemoveIndex);
 			rowToRemove.remove();
 			updateButtonText();
 		}
@@ -149,7 +150,7 @@ const clientActions = (uploadForm) => {
 
 	/**
 	 *
-	 * @param {Array<{message: string, fileRowId: string, name: string}>} errors
+	 * @param {AnError[]} errors
 	 */
 	const finalizeUpload = (errors) => {
 		globalDataTransfer = new DataTransfer();
@@ -180,7 +181,7 @@ const clientActions = (uploadForm) => {
 	const onSubmit = async (clickEvent) => {
 		clickEvent.preventDefault();
 
-		const { getUploadInfoFromInternalDB, blobStorage } = serverActions(uploadForm);
+		const { getUploadInfoFromInternalDB, uploadFiles } = serverActions(uploadForm);
 
 		try {
 			const fileList = await onSubmitValidation();
@@ -188,7 +189,7 @@ const clientActions = (uploadForm) => {
 			buildProgressMessage({ show: true }, uploadForm);
 
 			const uploadInfo = await getUploadInfoFromInternalDB(fileList);
-			const errors = await blobStorage(fileList, uploadInfo);
+			const errors = await uploadFiles(fileList, uploadInfo);
 
 			finalizeUpload(errors);
 		} catch (/** @type {*} */ error) {

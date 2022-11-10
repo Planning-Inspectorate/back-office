@@ -1,22 +1,31 @@
 import { BlobServiceClient } from '@azure/storage-blob';
 
+/** @typedef {import('./_html.js').AnError} AnError */
+/** @typedef {import('./_html.js').FileWithRowId} FileWithRowId */
+/** @typedef {{documentName: string, blobStoreURL?: string, failedReason?: string}} DocumentUploadInfo */
+/** @typedef {{documents: DocumentUploadInfo[], blobStorageHost: string, blobStorageContainer: string, sasToken: string}} UploadInfo */
+
 /**
  *
  * @param {HTMLElement} uploadForm
  * @returns {*}
  */
 const serverActions = (uploadForm) => {
+	/** @type {AnError[]} */
+	const failedUploads = [];
+
 	/**
 	 *
-	 * @param {FileList} fileList
-	 * @returns {Promise<Response>}
+	 * @param {FileWithRowId[]} fileList
+	 * @returns {Promise<AnError[]>}
 	 */
 	const getUploadInfoFromInternalDB = async (fileList) => {
 		const { folderId, caseId } = uploadForm.dataset;
 		const payload = [...fileList].map((file) => ({
 			documentName: file.name,
 			caseId,
-			folderId
+			folderId,
+			fileRowId: file.fileRowId
 		}));
 
 		return fetch(`/documents/${caseId}/upload/`, {
@@ -25,39 +34,46 @@ const serverActions = (uploadForm) => {
 				'Content-Type': 'application/json'
 			},
 			body: JSON.stringify(payload)
-		}).then((response) => {
-			if (response.ok) return response.json();
-		});
+		})
+			.then((response) => response.json())
+			.then((uploadsInfos) => {
+				for (const documentUploadInfo of uploadsInfos.documents) {
+					if (documentUploadInfo.failedReason) {
+						failedUploads.push({
+							// TODO: handle actual error message from api
+							message: 'GENERIC_SINGLE_FILE',
+							fileRowId: documentUploadInfo.fileRowId,
+							name: documentUploadInfo.documentName
+						});
+					}
+				}
+
+				return uploadsInfos;
+			});
 	};
 
-	// TODO: change this name
 	/**
 	 *
-	 * @param {FileList} fileList
-	 * @param {Array<*>} filesUploadInfos
-	 * @returns {Promise<Array<{message: string, fileRowId: string, name: string}>>}>}
+	 * @param {FileWithRowId[]} fileList
+	 * @param {UploadInfo} uploadInfo
+	 * @returns {Promise<AnError[]>}>}
 	 */
-	const blobStorage = async (fileList, filesUploadInfos) => {
-		const failedUploads = [];
+	const uploadFiles = async (fileList, uploadInfo) => {
+		const { documents, blobStorageHost, blobStorageContainer, sasToken } = uploadInfo;
+		const blobServiceClient = new BlobServiceClient(`${blobStorageHost}/?${sasToken}`);
+		const containerClient = blobServiceClient.getContainerClient(blobStorageContainer);
 
-		for (const uploadInfo of filesUploadInfos) {
-			const fileToUpload = [...fileList].find((file) => file.name === uploadInfo.documentName);
+		for (const documentUploadInfo of documents) {
+			const fileToUpload = [...fileList].find(
+				(file) => file.name === documentUploadInfo.documentName
+			);
+			const { blobStoreURL } = documentUploadInfo;
 
-			if (fileToUpload) {
-				const fileRowId = `file_row_${fileToUpload.lastModified}_${fileToUpload.size}`;
+			if (fileToUpload && blobStoreURL) {
+				const errorOutcome = await uploadOnBlobStorage(fileToUpload, blobStoreURL, containerClient);
 
-				if (uploadInfo.blobStoreURL) {
-					const uploadOutcome = await uploadOnBlobStorageUpload(fileToUpload, uploadInfo);
-
-					if (!uploadOutcome.outcome) {
-						failedUploads.push(uploadOutcome);
-					}
-				} else {
-					failedUploads.push({
-						message: 'GENERIC_SINGLE_FILE',
-						fileRowId,
-						name: uploadInfo.documentName
-					});
+				if (errorOutcome) {
+					failedUploads.push(errorOutcome);
 				}
 			}
 		}
@@ -65,26 +81,33 @@ const serverActions = (uploadForm) => {
 		return failedUploads;
 	};
 
-	// this is mocking the fetch to the blob storage link
 	/**
 	 *
-	 * @param {File} fileToUpload
-	 * @param {{failedReason: string, documentName: string}} uploadInfo
-	 * @returns {Promise<*>}
+	 * @param {FileWithRowId} fileToUpload
+	 * @param {string} blobStoreURL
+	 * @param {import('@azure/storage-blob').ContainerClient} containerClient
+	 * @returns {Promise<AnError | undefined>}
 	 */
-	const uploadOnBlobStorageUpload = async (fileToUpload, uploadInfo) => {
-		return new Promise((resolve) => {
-			const blobServiceClient = BlobServiceClient;
-			// TODO: connect to the blob storage and upload the file.
+	const uploadOnBlobStorage = async (fileToUpload, blobStoreURL, containerClient) => {
+		let response;
 
-			setTimeout(() => {
-				// console.log('SUCCESSFUL UPLOAD OF', fileToUpload.name)
-				resolve({ outcome: true, fileToUpload, uploadInfo, blobServiceClient });
-			}, 500);
-		});
+		try {
+			const blobClient = containerClient.getBlockBlobClient(blobStoreURL);
+			const options = { blobHTTPHeaders: { blobContentType: fileToUpload.type } };
+
+			await blobClient.uploadData(fileToUpload, options);
+		} catch {
+			response = {
+				message: 'GENERIC_SINGLE_FILE',
+				fileRowId: fileToUpload.fileRowId || '',
+				name: fileToUpload.name
+			};
+		}
+
+		return response;
 	};
 
-	return { getUploadInfoFromInternalDB, blobStorage };
+	return { getUploadInfoFromInternalDB, uploadFiles };
 };
 
 export default serverActions;
