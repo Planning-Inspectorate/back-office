@@ -908,6 +908,35 @@
 						}
 					}
 				}
+			},
+			"post": {
+				"tags": ["Applications"],
+				"description": "Saves new documents to database and returns location in Blob Storage",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"type": "integer",
+						"description": "Application ID here"
+					},
+					{
+						"name": "body",
+						"in": "body",
+						"description": "Document Details",
+						"schema": {
+							"$ref": "#/definitions/documentsToSave"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Documents that have been saved",
+						"schema": {
+							"$ref": "#/definitions/documentsAndBlobStorageURLs"
+						}
+					}
+				}
 			}
 		},
 		"/applications/case-officer": {
@@ -1042,6 +1071,51 @@
 		}
 	},
 	"definitions": {
+		"documentsToSave": {
+			"type": "array",
+			"items": {
+				"type": "object",
+				"properties": {
+					"documentName": {
+						"type": "string",
+						"example": "document.pdf"
+					},
+					"folderId": {
+						"type": "number",
+						"example": 123
+					}
+				}
+			}
+		},
+		"documentsAndBlobStorageURLs": {
+			"type": "object",
+			"properties": {
+				"blobStorageHost": {
+					"type": "string",
+					"example": "blob-storage-host"
+				},
+				"blobStorageContainer": {
+					"type": "string",
+					"example": "blob-storage-container"
+				},
+				"documents": {
+					"type": "array",
+					"items": {
+						"type": "object",
+						"properties": {
+							"documentName": {
+								"type": "string",
+								"example": "document.pdf"
+							},
+							"blobStoreUrl": {
+								"type": "string",
+								"example": "/some/path/document.pdf"
+							}
+						}
+					}
+				}
+			}
+		},
 		"UpdateApplication": {
 			"type": "object",
 			"properties": {

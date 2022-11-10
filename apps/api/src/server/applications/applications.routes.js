@@ -165,8 +165,26 @@ router.get(
 );
 
 router.post(
-	'/:id/document',
+	'/:id/documents',
 	/*
+        #swagger.tags = ['Applications']
+        #swagger.path = '/applications/{id}/documents'
+        #swagger.description = 'Saves new documents to database and returns location in Blob Storage'
+        #swagger.parameters['id'] = {
+            in: 'path',
+			description: 'Application ID here',
+			required: true,
+			type: 'integer'
+        }
+        #swagger.parameters['body'] = {
+            in: 'body',
+            description: 'Document Details',
+            schema: { $ref: '#/definitions/documentsToSave' }
+        }
+        #swagger.responses[200] = {
+            description: 'Documents that have been saved',
+            schema: { $ref: '#/definitions/documentsAndBlobStorageURLs' }
+        }
 	 */
 	validateApplicationId,
 	validateDocumentsToUploadProvided,
