@@ -1,5 +1,6 @@
 import { filter, head, map, pick } from 'lodash-es';
 import * as caseRepository from '../../repositories/case.repository.js';
+import * as documentRepository from '../../repositories/document.repository.js';
 import { getStorageLocation } from '../../utils/document-storage-api-client.js';
 import { mapCaseStatusString } from '../../utils/mapping/map-case-status-string.js';
 import { mapCreateApplicationRequestToRepository } from './application.mapper.js';
@@ -93,20 +94,32 @@ export const getListOfDocuments = async ({ params }, response) => {
  * @type {import('express').RequestHandler<any, ?, ?, any>}
  */
 export const provideDocumentUploadURLs = async ({ params, body }, response) => {
+	const documents = body[''];
+
 	const caseFromDatabase = await caseRepository.getById(params.id, {});
 
-	// TODO: Here we are going to add document records to the database
-
-	const requestToDocumentStorage = body[''].map(
-		(
-			/** @type {{ caseType: string; caseReference: string | null | undefined; GUID: string; }} */ document
-		) => {
-			document.caseType = 'application';
-			document.caseReference = caseFromDatabase?.reference;
-			document.GUID = '';
-			return document;
+	const documentsToSendToDatabase = documents.map(
+		(/** @type {{ documentName: any; folderId: any; }} */ document) => {
+			return { name: document.documentName, folderId: document.folderId };
 		}
 	);
+
+	const documentsFromDatabase = await Promise.all(
+		documentsToSendToDatabase.map(
+			(/** @type {{ name: string; folderId: number; }} */ documentToDatabase) => {
+				return documentRepository.upsert(documentToDatabase);
+			}
+		)
+	);
+
+	const requestToDocumentStorage = documentsFromDatabase.map((document) => {
+		return {
+			caseType: 'application',
+			caseReference: caseFromDatabase?.reference,
+			GUID: document.guid,
+			documentName: document.name
+		};
+	});
 
 	const responseFromDocumentStorage = await getStorageLocation(requestToDocumentStorage);
 
@@ -114,7 +127,6 @@ export const provideDocumentUploadURLs = async ({ params, body }, response) => {
 		return pick(document, ['documentName', 'blobStoreUrl']);
 	});
 
-	// TODO: get blob store host and container from document storage api
 	response.send({
 		blobStorageHost: responseFromDocumentStorage.blobStorageHost,
 		blobStorageContainer: responseFromDocumentStorage.blobStorageContainer,

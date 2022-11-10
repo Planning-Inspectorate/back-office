@@ -2,7 +2,7 @@ import got from 'got';
 import config from '../config/config.js';
 
 const documentStorageApiHost = () => {
-	return `https://${config.documentStorageApi.host}:${config.documentStorageApi.port}`;
+	return `http://${config.documentStorageApi.host}:${config.documentStorageApi.port}`;
 };
 
 /**
