@@ -123,6 +123,15 @@ export const provideDocumentUploadURLs = async ({ params, body }, response) => {
 
 	const responseFromDocumentStorage = await getStorageLocation(requestToDocumentStorage);
 
+	await Promise.all(
+		responseFromDocumentStorage.documents.map((documentWithPath) => {
+			return documentRepository.update(documentWithPath.GUID, {
+				blobStorageContainer: responseFromDocumentStorage.blobStorageContainer,
+				blobStoragePath: documentWithPath.blobStoreUrl
+			});
+		})
+	);
+
 	const documentsWithUrls = responseFromDocumentStorage.documents.map((document) => {
 		return pick(document, ['documentName', 'blobStoreUrl']);
 	});
