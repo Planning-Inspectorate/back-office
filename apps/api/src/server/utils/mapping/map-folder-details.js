@@ -1,16 +1,42 @@
-import { pick } from 'lodash-es';
+/** @typedef {import('@pins/api').Schema.Folder} Folder */
+/** @typedef {import('@pins/applications').FolderDetails} FolderDetails */
 
-/** @typedef {import('@pins/api').Schema.Folder[]} Folder */
+/**
+ *
+ * @param { Folder } folderDetails
+ * @returns { FolderDetails}
+ */
+export const mapSingleFolderDetails = (folderDetails) => {
+	return {
+		id: folderDetails.id,
+		displayNameEn: folderDetails.displayNameEn,
+		displayOrder: folderDetails.displayOrder
+	};
+};
+
+/**
+ *
+ * @param { Folder } folderDetails
+ * @returns { FolderDetails}
+ */
+export const mapSingleBreadcrumbFolderDetails = (folderDetails) => {
+	return { id: folderDetails.id, displayNameEn: folderDetails.displayNameEn };
+};
 
 /**
  *
  * @param { Folder[] } folderDetails
- * @returns { Partial<Folder>[]}
+ * @returns { FolderDetails[]}
  */
 export const mapFolderDetails = (folderDetails) => {
-	const folderDetailsPicked = folderDetails.map((folder) =>
-		pick(folder, ['id', 'displayNameEn', 'displayOrder'])
-	);
+	return folderDetails.map((folder) => mapSingleFolderDetails(folder));
+};
 
-	return folderDetailsPicked.map((folder) => ({ ...folder, type: 'folder' }));
+/**
+ *
+ * @param { Folder[] } folderDetails
+ * @returns { FolderDetails[]}
+ */
+export const mapBreadcrumbFolderDetails = (folderDetails) => {
+	return folderDetails.map((folder) => mapSingleBreadcrumbFolderDetails(folder));
 };
