@@ -16,7 +16,8 @@ export {
 	BatchPayload,
 	CaseStatus,
 	RegionsOnApplicationDetails,
-	Document
+	Document,
+	DocumentUpdateInput
 } from '@prisma/client';
 
 export interface Case extends schema.Case {
