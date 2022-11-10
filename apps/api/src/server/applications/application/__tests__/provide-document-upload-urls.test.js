@@ -20,19 +20,22 @@ const findUniqueFolderStub = sinon.stub();
 
 findUniqueFolderStub.withArgs({ where: { id: 1 } }).returns({ id: 1, caseId: 1 });
 
-const postStub = sinon.stub().returns({
-	json: () => {
-		return [
-			{
-				caseType: 'application',
-				blobStoreUrl: '/some/path/test doc',
-				caseReference: 'test reference',
-				GUID: 'test GUID',
-				documentName: 'test doc'
-			}
-		];
-	}
-});
+const postStub = sinon
+	.stub()
+	.withArgs('https://api-document-storage-host:doc-storage-port/document-location')
+	.returns({
+		json: () => {
+			return [
+				{
+					caseType: 'application',
+					blobStoreUrl: '/some/path/test doc',
+					caseReference: 'test reference',
+					GUID: 'test GUID',
+					documentName: 'test doc'
+				}
+			];
+		}
+	});
 
 test.before('set up mocks', () => {
 	sinon.stub(databaseConnector, 'case').get(() => {
@@ -44,6 +47,9 @@ test.before('set up mocks', () => {
 	});
 
 	sinon.stub(got, 'post').callsFake(postStub);
+
+	process.env.DOCUMENT_STORAGE_API_HOST = 'api-document-storage-host';
+	process.env.DOCUMENT_STORAGE_API_PROT = 'doc-storage-port';
 });
 
 test('saves documents information and returns upload URL', async (t) => {
