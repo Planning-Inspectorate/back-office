@@ -24,8 +24,7 @@ const document = {
 				caseType: 'application',
 				caseReference: '1',
 				documentName: 'PINS1',
-				GUID: 'D987654321',
-				blobStoreUrl: '/application/1/D987654321/PINS1'
+				GUID: 'D987654321'
 			}
 		],
 		Documents: [
@@ -35,7 +34,20 @@ const document = {
 					documentType: 'application'
 				}
 			}
-		]
+		],
+		createBlobUrlResponse: {
+			blobStorageHost: 'Blob-Storage-Host',
+			blobStorageContainer: 'Blob-Storage-Container',
+			documents: [
+				{
+					blobStoreUrl: '/some/path/to/document/PINS1',
+					caseType: 'application',
+					caseReference: '1',
+					documentName: 'PINS1',
+					GUID: 'D987654321'
+				}
+			]
+		}
 	},
 	components: {}
 };
