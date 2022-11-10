@@ -15,7 +15,8 @@ export {
 	ZoomLevel,
 	BatchPayload,
 	CaseStatus,
-	RegionsOnApplicationDetails
+	RegionsOnApplicationDetails,
+	Document
 } from '@prisma/client';
 
 export interface Case extends schema.Case {
