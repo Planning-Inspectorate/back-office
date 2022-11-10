@@ -18,14 +18,15 @@ exports[`applications documentation GET /case/123/project-documentation should r
         <div class=\\"govuk-grid-column-two-thirds\\">
             <h2 class=\\"govuk-heading-m\\">Project documentation</h2>
             <p class=\\"govuk-body-s colour--secondary\\">All documents relating to the project</p><a class=\\"govuk-link govuk-heading-s\\"
-            href=\\"/applications-service/case/123/project-documentation/22/examination-en/\\"> Examination EN</a>
-            <a             class=\\"govuk-link govuk-heading-s\\" href=\\"/applications-service/case/123/project-documentation/21/post-decision-en/\\">Post-decision EN</a>
+            href=\\"/applications-service/case/123/project-documentation/1/project-management/\\"> Project management</a>
+            <a             class=\\"govuk-link govuk-heading-s\\" href=\\"/applications-service/case/123/project-documentation/2/legal-advice/\\">Legal advice</a><a class=\\"govuk-link govuk-heading-s\\" href=\\"/applications-service/case/123/project-documentation/3/transboundary/\\"> Transboundary</a>
+                <a                 class=\\"govuk-link govuk-heading-s\\" href=\\"/applications-service/case/123/project-documentation/4/land-rights/\\">Land rights</a>
         </div>
     </div>
 </main>"
 `;
 
-exports[`applications documentation GET /case/123/project-documentation/1/project-management should render the page 1`] = `
+exports[`applications documentation GET /case/123/project-documentation/21/sub-folder-level2 should render the page 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"govuk-grid-row govuk-!-padding-top-9 govuk-!-padding-bottom-2 govuk-!-margin-left-0 govuk-!-margin-bottom-7 pins-masthead-summary\\">
         <div class=\\"govuk-grid-column-full\\">
@@ -45,12 +46,22 @@ exports[`applications documentation GET /case/123/project-documentation/1/projec
                 <ol class=\\"govuk-breadcrumbs__list\\">
                     <li class=\\"govuk-breadcrumbs__list-item\\"><a class=\\"govuk-breadcrumbs__link\\" href=\\"/applications-service/case/123/project-documentation\\">Project documentation</a>
                     </li>
+                    <li class=\\"govuk-breadcrumbs__list-item\\"><a class=\\"govuk-breadcrumbs__link\\" href=\\"/applications-service/case/123/project-documentation/1/project-management/\\">Project management</a>
+                    </li>
+                    <li class=\\"govuk-breadcrumbs__list-item\\"><a class=\\"govuk-breadcrumbs__link\\" href=\\"/applications-service/case/123/project-documentation/21/sub-folder-level-2/\\">Sub folder level 2</a>
+                    </li>
                 </ol>
             </div>
-            <h2 class=\\"govuk-heading-l\\"></h2>
+            <h2 class=\\"govuk-heading-l\\">Sub folder level 2</h2>
+            <div class=\\"govuk-grid-row govuk-grid-column-full\\"><a class=\\"govuk-link govuk-body-s govuk-!-font-weight-bold\\" href=\\"/applications-service/case/123/project-documentation/31/sub-folder-a/\\"> Sub folder a</a>
+            </div>
+            <div class=\\"govuk-grid-row govuk-grid-column-full\\"><a class=\\"govuk-link govuk-body-s govuk-!-font-weight-bold\\" href=\\"/applications-service/case/123/project-documentation/32/sub-folder-b/\\"> Sub folder b</a>
+            </div>
             <div class=\\"govuk-grid-row govuk-!-margin-top-0\\">
-                <div class=\\"govuk-button-group pins-button-group govuk-grid-column-one-half govuk-!-margin-top-0\\"><a class=\\"govuk-button\\" href=\\"/applications-service/case/123/project-documentation//upload\\">Upload files</a>
+                <div class=\\"govuk-button-group pins-button-group govuk-grid-column-one-half govuk-!-margin-top-0\\"><a class=\\"govuk-button\\" href=\\"/applications-service/case/123/project-documentation/21/sub-folder-level-2/upload\\">Upload files</a>
                 </div>
+            </div>
+            <div class=\\"govuk-grid-row govuk-grid-column-full\\"><a class=\\"govuk-link govuk-body-s govuk-!-font-weight-bold\\" href=#> sitting-1.png</a>
             </div>
         </div>
     </div>

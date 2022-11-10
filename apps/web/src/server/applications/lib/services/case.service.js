@@ -102,27 +102,35 @@ export const updateCase = async (caseId, payload) => {
  */
 export const getCaseFolders = (id, folderId = null) => {
 	return folderId
-		? get(`applications/${id}/folders/${folderId}`)
+		? get(`applications/${id}/folders/${folderId}/sub-folders`)
 		: get(`applications/${id}/folders`);
 };
 
 /**
- * Get the parent folder(s) for the current folder - used for breadcrumbs etc.
+ * Get a single folder on a case
  *
  * @param {number} caseId
- * @param {DocumentationCategory |undefined} documentationCategory
- * @returns {DocumentationCategory[]}
+ * @param {number} id
+ * @returns {Promise<DocumentationCategory>}
  */
-export const getCaseDocumentationFolderTree = (caseId, documentationCategory) => {
-	// TODO:Mock Version:
-	/** @type {DocumentationCategory[] } */
-	let folderTree = [];
+export const getCaseFolder = (caseId, id) => {
+	const folder = get(`applications/${caseId}/folders/${id}`);
 
-	if (caseId && documentationCategory) {
-		folderTree = [documentationCategory];
-	}
-	return folderTree;
-	// TODO: when API method created: return get(`applications/${caseId}/folder/${folderId}/parent-folders`);
+	return folder;
+};
+
+/**
+ * Get the path of all parent folder(s) for the current folder - used for breadcrumbs etc.
+ * returned as an ordered list
+ *
+ * @param {number} caseId
+ * @param {number} folderId
+ * @returns {Promise<DocumentationCategory[]>}
+ */
+export const getCaseDocumentationFolderPath = (caseId, folderId) => {
+	const folderPath = get(`applications/${caseId}/folders/${folderId}/parent-folders`);
+
+	return folderPath;
 };
 
 /**

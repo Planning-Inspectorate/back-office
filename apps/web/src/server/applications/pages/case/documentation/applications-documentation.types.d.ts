@@ -3,6 +3,7 @@ import { DocumentationCategory, DocumentationFile } from '../../../applications.
 export interface DocumentationPageProps {
 	caseId: number;
 	currentFolder: DocumentationCategory | null;
-	folderTree: DocumentationCategory[] | null;
+	folderPath: DocumentationCategory[] | null;
+	subFolders: DocumentationCategory[] | null;
 	documentationFiles: DocumentationFile[] | null;
 }
