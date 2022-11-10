@@ -32,7 +32,35 @@ export const fixtureZoomLevels = [
 	createOptionsItem({ name: 'none' })
 ];
 
-export const fixtureDocumentationCategory = [
-	createOptionsItem({ name: 'Post-decision', displayOrder: 200 }),
-	createOptionsItem({ name: 'Examination', displayOrder: 100 })
+// this mocks the return from getting teop level folders
+export const fixtureDocumentationTopLevelFolders = [
+	{
+		id: 1,
+		displayNameEn: 'Project management',
+		displayOrder: 100,
+		parentFolderId: null,
+		caseId: 123
+	},
+	{ id: 2, displayNameEn: 'Legal advice', displayOrder: 200, parentFolderId: null, caseId: 123 },
+	{ id: 3, displayNameEn: 'Transboundary', displayOrder: 300, parentFolderId: null, caseId: 123 },
+	{ id: 4, displayNameEn: 'Land rights', displayOrder: 400, parentFolderId: null, caseId: 123 }
+];
+
+export const fixtureDocumentationSubFolders = [
+	{ id: 31, displayNameEn: 'Sub folder a', displayOrder: 100, parentFolderId: 21, caseId: 123 },
+	{ id: 32, displayNameEn: 'Sub folder b', displayOrder: 200, parentFolderId: 21, caseId: 123 }
+];
+
+export const fixtureDocumentationSingleFolder = {
+	id: 21,
+	displayNameEn: 'Sub folder level 2',
+	displayOrder: 100,
+	parentFolderId: 1,
+	caseId: 123
+};
+
+// this mocks the return from getting parent path on folder id 21
+export const fixtureDocumentationFolderPath = [
+	{ id: 1, displayNameEn: 'Project management', parentFolderId: null, caseId: 123 },
+	{ id: 21, displayNameEn: 'Sub folder level 2', parentFolderId: 1, caseId: 123 }
 ];

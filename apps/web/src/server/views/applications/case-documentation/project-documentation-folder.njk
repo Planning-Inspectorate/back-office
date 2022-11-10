@@ -9,7 +9,7 @@
 {% block sectionContent %}
 	{% set items = [] %}
 	{% set items = items | concat({ href: 'case-view'|url({caseId: caseId, step: 'project-documentation'}), text: 'Project documentation' }) %}
-	{% for folder in folderTree %}
+	{% for folder in folderPath %}
 		{% set items = items | concat({ href: 'document-category'|url({caseId: caseId, documentationCategory: folder}), text: folder.displayNameEn }) %}
 	{% endfor %}
 
@@ -21,7 +21,14 @@
 
 	<h2 class="govuk-heading-l">{{ currentFolder.displayNameEn }}</h2>
 
-	<!-- TODO: loop to display sub-folders in this folder -->
+	<!-- loop to display sub-folders in this folder -->
+	{% for subFolder in subFolders %}
+		<div class="govuk-grid-row govuk-grid-column-full">
+			<a class="govuk-link govuk-body-s govuk-!-font-weight-bold" href="{{ 'document-category'|url({caseId: caseId, documentationCategory: subFolder}) }}">
+				{{ subFolder.displayNameEn }}
+			</a>
+		</div>
+	{% endfor %}
 
 	<!-- TODO: replace with link to the upload file page -->
 	<div class="govuk-grid-row govuk-!-margin-top-0">

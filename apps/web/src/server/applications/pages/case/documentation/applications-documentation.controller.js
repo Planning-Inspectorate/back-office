@@ -1,8 +1,10 @@
 import { sortBy } from 'lodash-es';
 import {
 	getCaseDocumentationFilesInFolder,
-	getCaseDocumentationFolderTree,
-	getCaseFolders} from '../../../lib/services/case.service.js';
+	getCaseDocumentationFolderPath,
+	getCaseFolder,
+	getCaseFolders
+} from '../../../lib/services/case.service.js';
 
 /** @typedef {import('../../../applications.types').DocumentationCategory} DocumentationCategory */
 /** @typedef {import('./applications-documentation.types').DocumentationPageProps} DocumentationPageProps */
@@ -29,28 +31,25 @@ export async function viewApplicationsCaseDocumentationCategories(request, respo
 export async function viewApplicationsCaseDocumentationFolder(request, response) {
 	const { caseId } = response.locals;
 	const { folderId } = request.params;
-	const topLevelFolders = await getCaseFolders(caseId);
-	const currentFolderProperties = {
-		topDocumentationCategories: sortBy(topLevelFolders, ['displayOrder'])
-	};
-	const currentFileCategory = currentFolderProperties.topDocumentationCategories.find(
-		(cat) => cat.id === Number.parseInt(folderId, 10)
-	);
+	const currentFileCategory = await getCaseFolder(caseId, folderId);
 
-	// TODO: get all the sub folders in this folder
+	// get all the sub folders in this folder
+	const subFoldersUnordered = await getCaseFolders(caseId, folderId);
+	const subFolders = sortBy(subFoldersUnordered, ['displayOrder']);
 
 	/** @type { DocumentationPageProps }  */
 	const properties = {
 		caseId,
 		currentFolder: currentFileCategory ?? null,
-		folderTree: null,
+		subFolders,
+		folderPath: null,
 		documentationFiles: null
 	};
 
 	// get the folderTree for breadcrumbing
-	properties.folderTree = getCaseDocumentationFolderTree(caseId, currentFileCategory);
+	properties.folderPath = await getCaseDocumentationFolderPath(caseId, folderId);
 
-	// and get all the files in this folder
+	// TODO: and get all the files in this folder
 	properties.documentationFiles = getCaseDocumentationFilesInFolder(caseId, currentFileCategory);
 
 	response.render(`applications/case-documentation/project-documentation-folder`, properties);
