@@ -1,3 +1,4 @@
+import config from '../config/config.js';
 import * as blobStoreService from './blob-store/service.js';
 
 /**
@@ -46,7 +47,11 @@ export async function uploadDocument(request, response) {
 export async function documentLocation(request, response) {
 	const documentsFindUrl = await blobStoreService.documentsCreateUrl(request.body['']);
 
-	response.send(documentsFindUrl);
+	response.send({
+		blobStorageHost: config.blobStore.host,
+		blobStorageContainer: config.blobStore.container,
+		documents: documentsFindUrl
+	});
 }
 
 /**
