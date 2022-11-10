@@ -3,7 +3,7 @@
 	"info": {
 		"version": "2.0",
 		"title": "PINS Back Office API",
-		"description": "My PINS Project API documentation from Swagger"
+		"description": "PINS Back Office API documentation from Swagger"
 	},
 	"host": "localhost:3000",
 	"basePath": "",
@@ -511,6 +511,146 @@
 				}
 			}
 		},
+		"/applications/{id}/folders": {
+			"get": {
+				"tags": ["Applications"],
+				"description": "Gets list of top level folders on a case",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"type": "integer",
+						"description": "Application ID here"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "IDs of application",
+						"schema": {
+							"type": "array",
+							"items": {
+								"type": "object",
+								"properties": {
+									"id": {
+										"type": "number",
+										"example": 1
+									},
+									"displayNameEn": {
+										"type": "string",
+										"example": "Post-decision"
+									},
+									"displayOrder": {
+										"type": "number",
+										"example": 1100
+									}
+								}
+							},
+							"xml": {
+								"name": "main"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/applications/{id}/folders/{folderId}": {
+			"get": {
+				"tags": ["Applications"],
+				"description": "Gets details of a single folder on a case",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"type": "integer",
+						"description": "Application ID here"
+					},
+					{
+						"name": "folderId",
+						"in": "path",
+						"required": true,
+						"type": "integer",
+						"description": "Id of current folder here"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "IDs of application",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"id": {
+									"type": "number",
+									"example": 1
+								},
+								"displayNameEn": {
+									"type": "string",
+									"example": "Post-decision"
+								},
+								"displayOrder": {
+									"type": "number",
+									"example": 1100
+								}
+							},
+							"xml": {
+								"name": "main"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/applications/{id}/folders/{folderId}/parent-folders": {
+			"get": {
+				"tags": ["Applications"],
+				"description": "Gets the parent folder path list for a folder on a case",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"type": "integer",
+						"description": "Application ID here"
+					},
+					{
+						"name": "folderId",
+						"in": "path",
+						"required": true,
+						"type": "integer",
+						"description": "Id of current folder here"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "IDs of application",
+						"schema": {
+							"type": "array",
+							"items": {
+								"type": "object",
+								"properties": {
+									"id": {
+										"type": "number",
+										"example": 2
+									},
+									"displayNameEn": {
+										"type": "string",
+										"example": "Acceptance"
+									},
+									"displayOrder": {
+										"type": "number",
+										"example": 200
+									}
+								}
+							},
+							"xml": {
+								"name": "main"
+							}
+						}
+					}
+				}
+			}
+		},
 		"/applications": {
 			"post": {
 				"tags": ["Applications"],
@@ -760,107 +900,6 @@
 								"status": {
 									"type": "string",
 									"example": "Pre-Application"
-								}
-							},
-							"xml": {
-								"name": "main"
-							}
-						}
-					}
-				}
-			}
-		},
-		"/applications/{id}/folders": {
-			"get": {
-				"tags": ["Applications"],
-				"description": "Gets list of top level folders on a case",
-				"parameters": [
-					{
-						"name": "id",
-						"in": "path",
-						"required": true,
-						"type": "integer",
-						"description": "Application ID here"
-					}
-				],
-				"responses": {
-					"200": {
-						"description": "IDs of application",
-						"schema": {
-							"type": "array",
-							"items": {
-								"type": "object",
-								"properties": {
-									"id": {
-										"type": "number",
-										"example": 1
-									},
-									"displayNameEn": {
-										"type": "string",
-										"example": "Post-decision"
-									},
-									"displayOrder": {
-										"type": "number",
-										"example": 1100
-									},
-									"type": {
-										"type": "string",
-										"example": "folder"
-									}
-								}
-							},
-							"xml": {
-								"name": "main"
-							}
-						}
-					}
-				}
-			}
-		},
-		"/applications/{id}/folders/{folderId}": {
-			"get": {
-				"tags": ["Applications"],
-				"description": "Gets list of folders in a sub folder on a case",
-				"parameters": [
-					{
-						"name": "id",
-						"in": "path",
-						"required": true,
-						"type": "integer",
-						"description": "Application ID here"
-					},
-					{
-						"name": "folderId",
-						"in": "path",
-						"required": true,
-						"type": "integer",
-						"description": "Id of current folder here"
-					}
-				],
-				"responses": {
-					"200": {
-						"description": "IDs of application",
-						"schema": {
-							"type": "array",
-							"items": {
-								"type": "object",
-								"properties": {
-									"id": {
-										"type": "number",
-										"example": 1
-									},
-									"displayNameEn": {
-										"type": "string",
-										"example": "Post-decision"
-									},
-									"displayOrder": {
-										"type": "number",
-										"example": 1100
-									},
-									"type": {
-										"type": "string",
-										"example": "folder"
-									}
 								}
 							},
 							"xml": {
