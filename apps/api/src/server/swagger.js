@@ -32,6 +32,22 @@ const document = {
 	// by default: empty object (Swagger 2.0)
 	securityDefinitions: {},
 	definitions: {
+		documentsToSave: [
+			{
+				documentName: 'document.pdf',
+				folderId: 123
+			}
+		],
+		documentsAndBlobStorageURLs: {
+			blobStorageHost: 'blob-storage-host',
+			blobStorageContainer: 'blob-storage-container',
+			documents: [
+				{
+					documentName: 'document.pdf',
+					blobStoreUrl: '/some/path/document.pdf'
+				}
+			]
+		},
 		UpdateApplication: {
 			title: '',
 			description: '',
