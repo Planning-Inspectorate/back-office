@@ -125,35 +125,7 @@
 					"200": {
 						"description": "ID of application",
 						"schema": {
-							"type": "array",
-							"items": {
-								"type": "object",
-								"properties": {
-									"caseType": {
-										"type": "string",
-										"example": "application"
-									},
-									"caseReference": {
-										"type": "string",
-										"example": "1"
-									},
-									"documentName": {
-										"type": "string",
-										"example": "PINS1"
-									},
-									"GUID": {
-										"type": "string",
-										"example": "D987654321"
-									},
-									"blobStoreUrl": {
-										"type": "string",
-										"example": "/application/1/D987654321/PINS1"
-									}
-								}
-							},
-							"xml": {
-								"name": "main"
-							}
+							"$ref": "#/definitions/createBlobUrlResponse"
 						}
 					}
 				}
@@ -181,10 +153,6 @@
 					"GUID": {
 						"type": "string",
 						"example": "D987654321"
-					},
-					"blobStoreUrl": {
-						"type": "string",
-						"example": "/application/1/D987654321/PINS1"
 					}
 				}
 			}
@@ -204,6 +172,47 @@
 							"documentType": {
 								"type": "string",
 								"example": "application"
+							}
+						}
+					}
+				}
+			}
+		},
+		"createBlobUrlResponse": {
+			"type": "object",
+			"properties": {
+				"blobStorageHost": {
+					"type": "string",
+					"example": "Blob-Storage-Host"
+				},
+				"blobStorageContainer": {
+					"type": "string",
+					"example": "Blob-Storage-Container"
+				},
+				"documents": {
+					"type": "array",
+					"items": {
+						"type": "object",
+						"properties": {
+							"blobStoreUrl": {
+								"type": "string",
+								"example": "/some/path/to/document/PINS1"
+							},
+							"caseType": {
+								"type": "string",
+								"example": "application"
+							},
+							"caseReference": {
+								"type": "string",
+								"example": "1"
+							},
+							"documentName": {
+								"type": "string",
+								"example": "PINS1"
+							},
+							"GUID": {
+								"type": "string",
+								"example": "D987654321"
 							}
 						}
 					}
