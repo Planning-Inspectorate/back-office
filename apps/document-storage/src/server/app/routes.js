@@ -108,8 +108,7 @@ router.post(
 			description: 'Array of objects containing information about documents to return formatted url' }
 		#swagger.responses[200] = {
             description: 'ID of application',
-            schema: [ { "caseType": "application", "caseReference": "1", "documentName": "PINS1", "GUID": "D987654321","blobStoreUrl": "/application/1/D987654321/PINS1" }
-]
+			schema: { $ref: '#/definitions/createBlobUrlResponse' }
         }
 	*/
 	validateDocumentInfo,
