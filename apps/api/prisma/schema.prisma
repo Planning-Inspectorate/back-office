@@ -300,15 +300,16 @@ model Folder {
   childFolders   Folder[]   @relation("FolderTree")
   case           Case?      @relation(fields: [caseId], references: [id])
   caseId         Int?
-  document       document[]
+  document       Document[]
 
   @@unique([caseId, displayNameEn, parentFolderId])
 }
 
-model document {
+model Document {
   id       Int    @id @default(autoincrement())
   guid     String @default(uuid())
   name     String
   folder   Folder @relation(fields: [folderId], references: [id])
   folderId Int
+  @@unique([name, folderId])
 }
