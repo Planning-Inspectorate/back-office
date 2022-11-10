@@ -2,7 +2,7 @@ import { filter, head, map } from 'lodash-es';
 import * as caseRepository from '../../repositories/case.repository.js';
 import { mapCaseStatusString } from '../../utils/mapping/map-case-status-string.js';
 import { mapCreateApplicationRequestToRepository } from './application.mapper.js';
-import { getCaseDetails, getFolderDetails, startApplication } from './application.service.js';
+import { getCaseDetails, startApplication } from './application.service.js';
 /**
  *
  * @param {import('@pins/api').Schema.ServiceCustomer[] | undefined} serviceCustomers
@@ -75,14 +75,4 @@ export const getApplicationDetails = async ({ params, query }, response) => {
 	const applicationDetails = await getCaseDetails(params.id, query);
 
 	response.send(applicationDetails);
-};
-
-/**
- *
- * @type {import('express').RequestHandler<{ id: number, folderId: number }, ?, ?, any>}
- */
-export const getListOfFolders = async ({ params }, response) => {
-	const folderDetails = await getFolderDetails(params.id, params.folderId);
-
-	response.send(folderDetails);
 };

@@ -4,7 +4,6 @@ import * as folderRepository from '../../repositories/folder.repository.js';
 import { breakUpCompoundStatus } from '../../utils/break-up-compound-status.js';
 import { buildAppealCompundStatus } from '../../utils/build-appeal-compound-status.js';
 import { mapApplicationDetails } from '../../utils/mapping/map-case-details.js';
-import { mapFolderDetails } from '../../utils/mapping/map-folder-details.js';
 import { transitionState } from '../../utils/transition-state.js';
 // import { sendMessage } from '../../utils/service-bus-sender.js';
 
@@ -202,17 +201,4 @@ export const getCaseDetails = async (id, query) => {
 	return typeof parsedQuery !== 'undefined'
 		? filterOutResponse(parsedQuery, applicationDetailsFormatted)
 		: applicationDetailsFormatted;
-};
-
-/**
- * Returns all the folders on a case
- *
- * @param {number} id
- * @param {number |null} folderId
- * @returns {Promise<object>}
- */
-export const getFolderDetails = async (id, folderId) => {
-	const getFolders = await folderRepository.getByCaseId(id, folderId);
-
-	return mapFolderDetails(getFolders);
 };
