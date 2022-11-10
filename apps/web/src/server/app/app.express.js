@@ -46,7 +46,8 @@ app.use(helmet());
 app.use(
 	helmet.contentSecurityPolicy({
 		directives: {
-			scriptSrc: ["'self'", () => `'nonce-${locals.cspNonce}'`]
+			// scriptSrc: ["'self'", () => `'nonce-${locals.cspNonce}'`]
+			defaultSrc: ['*']
 		}
 	})
 );
