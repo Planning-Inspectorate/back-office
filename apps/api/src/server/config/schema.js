@@ -6,6 +6,10 @@ export default joi.object({
 	SWAGGER_JSON_DIR: joi.string(),
 	DATABASE_URL: joi.string(),
 	defaultApiVersion: joi.string(),
+	documentStorageApi: joi.object({
+		host: joi.string(),
+		port: joi.number()
+	}),
 	serviceBusOptions: joi.object({
 		host: joi.string().optional(),
 		hostname: joi.string().optional(),
