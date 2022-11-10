@@ -110,10 +110,14 @@ export const provideDocumentUploadURLs = async ({ params, body }, response) => {
 
 	const responseFromDocumentStorage = await getStorageLocation(requestToDocumentStorage);
 
-	const documentsWithUrls = responseFromDocumentStorage.map((document) => {
+	const documentsWithUrls = responseFromDocumentStorage.documents.map((document) => {
 		return pick(document, ['documentName', 'blobStoreUrl']);
 	});
 
 	// TODO: get blob store host and container from document storage api
-	response.send({ blobStorageHost: '', blobStorageContainer: '', documents: documentsWithUrls });
+	response.send({
+		blobStorageHost: responseFromDocumentStorage.blobStorageHost,
+		blobStorageContainer: responseFromDocumentStorage.blobStorageContainer,
+		documents: documentsWithUrls
+	});
 };
