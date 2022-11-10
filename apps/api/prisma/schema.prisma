@@ -306,12 +306,13 @@ model Folder {
 }
 
 model Document {
-  guid     String @id @default(uuid())
-  name     String
-  folder   Folder @relation(fields: [folderId], references: [id])
-  folderId Int
+  guid                 String  @id @default(uuid())
+  name                 String
+  folder               Folder  @relation(fields: [folderId], references: [id])
+  folderId             Int
   blobStorageContainer String?
-  blobStoragePath String?
-  status String @default("waiting_for_upload")
+  blobStoragePath      String?
+  status               String  @default("waiting_for_upload")
+
   @@unique([name, folderId])
 }

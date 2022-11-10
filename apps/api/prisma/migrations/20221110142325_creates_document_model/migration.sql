@@ -1,26 +1,17 @@
-/*
-  Warnings:
-
-  - You are about to drop the `document` table. If the table is not empty, all the data it contains will be lost.
-
-*/
 BEGIN TRY
 
 BEGIN TRAN;
 
--- DropForeignKey
-ALTER TABLE [dbo].[document] DROP CONSTRAINT [document_folderId_fkey];
-
--- DropTable
-DROP TABLE [dbo].[document];
-
 -- CreateTable
 CREATE TABLE [dbo].[Document] (
-    [id] INT NOT NULL IDENTITY(1,1),
     [guid] NVARCHAR(1000) NOT NULL,
     [name] NVARCHAR(1000) NOT NULL,
     [folderId] INT NOT NULL,
-    CONSTRAINT [Document_pkey] PRIMARY KEY CLUSTERED ([id])
+    [blobStorageContainer] NVARCHAR(1000),
+    [blobStoragePath] NVARCHAR(1000),
+    [status] NVARCHAR(1000) NOT NULL CONSTRAINT [Document_status_df] DEFAULT 'waiting_for_upload',
+    CONSTRAINT [Document_pkey] PRIMARY KEY CLUSTERED ([guid]),
+    CONSTRAINT [Document_name_folderId_key] UNIQUE NONCLUSTERED ([name],[folderId])
 );
 
 -- AddForeignKey
