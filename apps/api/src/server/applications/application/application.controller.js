@@ -1,6 +1,6 @@
-import got from 'got';
 import { filter, head, map, pick } from 'lodash-es';
 import * as caseRepository from '../../repositories/case.repository.js';
+import { getStorageLocation } from '../../utils/document-storage-api-client.js';
 import { mapCaseStatusString } from '../../utils/mapping/map-case-status-string.js';
 import { mapCreateApplicationRequestToRepository } from './application.mapper.js';
 import { getCaseDetails, getFolderDetails, startApplication } from './application.service.js';
@@ -92,8 +92,10 @@ export const getListOfDocuments = async ({ params }, response) => {
  *
  * @type {import('express').RequestHandler<any, ?, ?, any>}
  */
-export const createDatabaseRecord = async ({ params, body }, response) => {
+export const provideDocumentUploadURLs = async ({ params, body }, response) => {
 	const caseFromDatabase = await caseRepository.getById(params.id, {});
+
+	// TODO: Here we are going to add document records to the database
 
 	const requestToDocumentStorage = body[''].map(
 		(
@@ -106,14 +108,9 @@ export const createDatabaseRecord = async ({ params, body }, response) => {
 		}
 	);
 
-	// TODO: get document store api address from environment variables
-	const responseFromDocumentStorage = await got
-		.post('document store api', {
-			json: requestToDocumentStorage
-		})
-		.json();
+	const responseFromDocumentStorage = await getStorageLocation(requestToDocumentStorage);
 
-	const documentsWithUrls = responseFromDocumentStorage.map((/** @type {any} */ document) => {
+	const documentsWithUrls = responseFromDocumentStorage.map((document) => {
 		return pick(document, ['documentName', 'blobStoreUrl']);
 	});
 

@@ -3,9 +3,9 @@ import { asyncHandler } from '../middleware/async-handler.js';
 import { trimUnexpectedRequestParameters } from '../middleware/trim-unexpected-request-parameters.js';
 import {
 	createApplication,
-	createDatabaseRecord,
 	getApplicationDetails,
 	getListOfDocuments,
+	provideDocumentUploadURLs,
 	startCase,
 	updateApplication
 } from './application/application.controller.js';
@@ -169,7 +169,7 @@ router.post(
 	validateDocumentsToUploadProvided,
 	validateFolderIds,
 	trimUnexpectedRequestParameters,
-	asyncHandler(createDatabaseRecord)
+	asyncHandler(provideDocumentUploadURLs)
 );
 
 export { router as applicationsRoutes };
