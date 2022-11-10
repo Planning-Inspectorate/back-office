@@ -20,9 +20,28 @@ const findUniqueFolderStub = sinon.stub();
 
 findUniqueFolderStub.withArgs({ where: { id: 1 } }).returns({ id: 1, caseId: 1 });
 
+const upsertDocumentStub = sinon.stub();
+
+upsertDocumentStub
+	.withArgs({
+		create: { name: 'test doc', folderId: 1 },
+		where: { name_folderId: { name: 'test doc', folderId: 1 } },
+		update: {}
+	})
+	.returns({ id: 1, guid: 'some-guid', name: 'test doc', folderId: 1 });
+
 const postStub = sinon
 	.stub()
-	.withArgs('https://api-document-storage-host:doc-storage-port/document-location')
+	.withArgs('https://api-document-storage-host:doc-storage-port/document-location', {
+		json: [
+			{
+				caseType: 'application',
+				caseReference: 'case reference',
+				GUID: 'some-guid',
+				documentName: 'test doc'
+			}
+		]
+	})
 	.returns({
 		json: () => {
 			return {
@@ -33,7 +52,7 @@ const postStub = sinon
 						caseType: 'application',
 						blobStoreUrl: '/some/path/test doc',
 						caseReference: 'test reference',
-						GUID: 'test GUID',
+						GUID: 'some-guid',
 						documentName: 'test doc'
 					}
 				]
@@ -48,6 +67,10 @@ test.before('set up mocks', () => {
 
 	sinon.stub(databaseConnector, 'folder').get(() => {
 		return { findUnique: findUniqueFolderStub };
+	});
+
+	sinon.stub(databaseConnector, 'document').get(() => {
+		return { upsert: upsertDocumentStub };
 	});
 
 	sinon.stub(got, 'post').callsFake(postStub);
