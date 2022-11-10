@@ -25,15 +25,19 @@ const postStub = sinon
 	.withArgs('https://api-document-storage-host:doc-storage-port/document-location')
 	.returns({
 		json: () => {
-			return [
-				{
-					caseType: 'application',
-					blobStoreUrl: '/some/path/test doc',
-					caseReference: 'test reference',
-					GUID: 'test GUID',
-					documentName: 'test doc'
-				}
-			];
+			return {
+				blobStorageHost: 'blob-store-host',
+				blobStorageContainer: 'blob-store-container',
+				documents: [
+					{
+						caseType: 'application',
+						blobStoreUrl: '/some/path/test doc',
+						caseReference: 'test reference',
+						GUID: 'test GUID',
+						documentName: 'test doc'
+					}
+				]
+			};
 		}
 	});
 
@@ -59,8 +63,8 @@ test('saves documents information and returns upload URL', async (t) => {
 
 	t.is(response.status, 200);
 	t.deepEqual(response.body, {
-		blobStorageHost: '',
-		blobStorageContainer: '',
+		blobStorageHost: 'blob-store-host',
+		blobStorageContainer: 'blob-store-container',
 		documents: [
 			{
 				documentName: 'test doc',
