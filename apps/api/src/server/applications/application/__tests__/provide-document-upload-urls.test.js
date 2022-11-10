@@ -60,6 +60,8 @@ const postStub = sinon
 		}
 	});
 
+const updateDocumentStub = sinon.stub();
+
 test.before('set up mocks', () => {
 	sinon.stub(databaseConnector, 'case').get(() => {
 		return { findUnique: findUniqueStub };
@@ -70,7 +72,7 @@ test.before('set up mocks', () => {
 	});
 
 	sinon.stub(databaseConnector, 'document').get(() => {
-		return { upsert: upsertDocumentStub };
+		return { upsert: upsertDocumentStub, update: updateDocumentStub };
 	});
 
 	sinon.stub(got, 'post').callsFake(postStub);
@@ -94,6 +96,16 @@ test('saves documents information and returns upload URL', async (t) => {
 				blobStoreUrl: '/some/path/test doc'
 			}
 		]
+	});
+
+	sinon.assert.calledWith(updateDocumentStub, {
+		where: {
+			guid: 'some-guid'
+		},
+		data: {
+			blobStorageContainer: 'blob-store-container',
+			blobStoragePath: '/some/path/test doc'
+		}
 	});
 });
 

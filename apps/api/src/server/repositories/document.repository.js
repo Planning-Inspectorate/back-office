@@ -12,3 +12,18 @@ export const upsert = (document) => {
 		update: {}
 	});
 };
+
+/**
+ *
+ * @param {string} documentGuid
+ * @param {import('@pins/api').Schema.DocumentUpdateInput} documentDetails
+ * @returns {import('@prisma/client').PrismaPromise<import('@pins/api').Schema.Document>}
+ */
+export const update = (documentGuid, documentDetails) => {
+	return databaseConnector.document.update({
+		where: {
+			guid: documentGuid
+		},
+		data: documentDetails
+	});
+};
