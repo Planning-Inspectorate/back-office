@@ -67,35 +67,3 @@ exports[`applications documentation GET /case/123/project-documentation/21/sub-f
     </div>
 </main>"
 `;
-
-exports[`applications documentation GET /case/123/project-documentation/1/project-management should render the page 1`] = `
-"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
-    <div class=\\"govuk-grid-row govuk-!-padding-top-9 govuk-!-padding-bottom-2 govuk-!-margin-left-0 govuk-!-margin-bottom-7 pins-masthead-summary\\">
-        <div class=\\"govuk-grid-column-full\\">
-            <h4 class=\\"govuk-heading-m\\"> CASE/04 </h4>
-            <h1 class=\\"govuk-heading-xl\\">Case with no sector</h1>
-            <div class=\\"govuk-grid-row\\">
-                <div class=\\"govuk-grid-column-full govuk-body\\">,
-                    <br>
-                    <br><strong class=\\"govuk-tag govuk-tag--\\">draft</strong>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class=\\"govuk-grid-row\\">
-        <div class=\\"govuk-grid-column-two-thirds\\">
-            <div class=\\"govuk-breadcrumbs govuk-!-margin-top-0\\">
-                <ol class=\\"govuk-breadcrumbs__list\\">
-                    <li class=\\"govuk-breadcrumbs__list-item\\"><a class=\\"govuk-breadcrumbs__link\\" href=\\"/applications-service/case/123/project-documentation/\\">Project documentation</a>
-                    </li>
-                </ol>
-            </div>
-            <h2 class=\\"govuk-heading-l\\"></h2>
-            <div class=\\"govuk-grid-row govuk-!-margin-top-0\\">
-                <div class=\\"govuk-button-group pins-button-group govuk-grid-column-one-half govuk-!-margin-top-0\\"><a class=\\"govuk-button\\" href=\\"/applications-service/case/123/project-documentation//upload\\">Upload files</a>
-                </div>
-            </div>
-        </div>
-    </div>
-</main>"
-`;

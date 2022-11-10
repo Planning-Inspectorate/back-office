@@ -12,6 +12,6 @@ applicationsDocumentationRouter
 	.get(asyncRoute(controller.viewApplicationsCaseDocumentationCategories));
 applicationsDocumentationRouter
 	.route('/:folderId/:folderName')
-	.get(controller.viewApplicationsCaseDocumentationFolder);
+	.get(asyncRoute(controller.viewApplicationsCaseDocumentationFolder));
 
 export default applicationsDocumentationRouter;
