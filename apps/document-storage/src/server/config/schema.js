@@ -6,6 +6,7 @@ export default joi
 		PORT: joi.number(),
 		SWAGGER_JSON_DIR: joi.string(),
 		blobStore: joi.object({
+			host: joi.string(),
 			connectionString: joi.string(),
 			container: joi.string()
 		}),

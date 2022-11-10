@@ -21,21 +21,25 @@ test('returns blobStoreUrl given document info (caseRef, documentName, caseType,
 	]);
 
 	t.is(resp.status, 200);
-	t.deepEqual(resp.body, [
-		{
-			caseType: 'application',
-			caseReference: '1',
-			documentName: 'PINS1.pdf',
-			GUID: 'D987654321',
-			blobStoreUrl: '/application/1/D987654321/PINS1.pdf'
-		},
-		{
-			caseType: 'appeal',
-			caseReference: '2',
-			documentName: 'PINS2.pdf',
-			GUID: 'DF98765421'
-		}
-	]);
+	t.deepEqual(resp.body, {
+		blobStorageHost: 'https://localhost:10000',
+		blobStorageContainer: 'document-service-uploads',
+		documents: [
+			{
+				caseType: 'application',
+				caseReference: '1',
+				documentName: 'PINS1.pdf',
+				GUID: 'D987654321',
+				blobStoreUrl: '/application/1/D987654321/PINS1.pdf'
+			},
+			{
+				caseType: 'appeal',
+				caseReference: '2',
+				documentName: 'PINS2.pdf',
+				GUID: 'DF98765421'
+			}
+		]
+	});
 });
 
 test('returns error if any field missing (caseRef, documentName, caseType, GUID)', async (t) => {
