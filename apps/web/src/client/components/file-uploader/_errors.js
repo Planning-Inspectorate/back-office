@@ -1,5 +1,7 @@
 import { buildProgressMessage } from './_html.js';
 
+/** @typedef {import('./_html.js').AnError} AnError */
+
 /**
  * @param {string} type
  * @param {string?} replaceValue
@@ -54,7 +56,7 @@ const buildMiddleErrorsMarkup = (message) => {
 
 /**
  *
- * @param {{details?: Array<{name: string, message: string, fileRowId: string}>, message: string}} error
+ * @param {{details: AnError[], message: string}} error
  * @param {Element} uploadForm
  */
 export const showErrors = (error, uploadForm) => {

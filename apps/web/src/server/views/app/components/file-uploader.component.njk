@@ -3,7 +3,7 @@
 
 {% macro fileUploader(params) %}
 
-	<div class="govuk-grid-row pins-file-upload" data-next-page-url="{{ params.nextPageUrl }}" data-case-id="{{ params.caseId }}" data-folder-id="{{ params.folderId }}">
+	<div class="govuk-grid-row pins-file-upload" data-next-page-url="{{ params.nextPageUrl }}" data-case-id="{{ params.caseId }}" data-folder-id="{{ params.folderId }}" data-allowed-types="{% for value in params.allowedTypes %}{{ value|MIME }}{% endfor %}">
 		<div class="top-errors-hook"></div>
 
 		{% if params.formTitle %}
