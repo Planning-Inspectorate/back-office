@@ -1,17 +1,72 @@
 import { databaseConnector } from '../utils/database-connector.js';
 
+/** @typedef {import('@pins/api').Schema.Folder} Folder */
+/** @typedef {import('@pins/applications').FolderDetails} FolderDetails */
+
 /**
  * Returns array of folders in a folder or case (if parentFolderId is null)
  *
  * @param {number} caseId
  * @param {number |null} parentFolderId
- * @returns {Promise<import('@pins/api').Schema.Folder[]>}
+ * @returns {Promise<Folder[]>}
  */
 export const getByCaseId = (caseId, parentFolderId) => {
-	// if no parentFolderId, explicitly set null value im the call, to get the tope level folders on the case
+	// if no parentFolderId, explicitly set null value im the call, to get the top level folders on the case
 	return parentFolderId
 		? databaseConnector.folder.findMany({ where: { caseId, parentFolderId } })
 		: databaseConnector.folder.findMany({ where: { caseId, parentFolderId: null } });
+};
+
+/**
+ * Returns a single folder on a case
+ *
+ * @param {number} folderId
+ * @returns {Promise<Folder |null>}
+ */
+export const getFolder = (folderId) => {
+	return databaseConnector.folder.findUnique({ where: { id: folderId } });
+};
+
+/**
+ * find a folder in an array
+ *
+ * @param { Folder[] } folders
+ * @param { number } id
+ * @returns { Folder |null}
+ */
+const findFolder = (folders, id) => {
+	const matchedFolder = folders.find((folder) => folder.id === id);
+
+	return matchedFolder ?? null;
+};
+
+/**
+ * Returns array of folder path (parent folders) from current folder upwards
+ * used for breadcrumbs etc
+ *
+ * @param {number} caseId
+ * @param {number} currentFolderId
+ * @returns {Promise<(Folder |null)[]>}
+ */
+export const getFolderPath = async (caseId, currentFolderId) => {
+	const allFolders = await databaseConnector.folder.findMany({ where: { caseId } });
+
+	let folderPath = [];
+
+	/** @type {number | null} */ let searchId = currentFolderId;
+	let currentFolder;
+
+	do {
+		currentFolder = findFolder(allFolders, searchId);
+		folderPath.push(currentFolder);
+		searchId = currentFolder?.parentFolderId ?? null;
+	} while (searchId);
+
+	// tree is traversed in order, we want it reversed
+	if (folderPath) {
+		folderPath = folderPath.reverse();
+	}
+	return folderPath;
 };
 
 /**
