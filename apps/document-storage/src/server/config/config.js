@@ -9,6 +9,7 @@ const { value, error } = schema.validate({
 	PORT: environment.PORT,
 	SWAGGER_JSON_DIR: environment.SWAGGER_JSON_DIR || './src/server/swagger-output.json',
 	blobStore: {
+		host: environment.AZURE_BLOB_STORE_HOST,
 		connectionString: environment.AZURE_BLOB_STORE_CONNECTION_STRING,
 		container: environment.AZURE_BLOB_STORE_CONTAINER
 	},
