@@ -24,7 +24,6 @@ export async function viewApplicationsCaseDocumentationCategories(request, respo
 	response.render(`applications/case/project-documentation`, properties);
 }
 
-// TODO: define propTypes
 /**
  * View a folder, showing files in the folder, and listing subfolders
  *
