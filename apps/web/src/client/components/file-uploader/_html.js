@@ -1,7 +1,26 @@
-import { errorMessage } from './_errors.js';
-
 /** @typedef {{message: string, fileRowId: string, name: string}} AnError */
 /** @typedef {File & {fileRowId?: string}} FileWithRowId */
+
+/**
+ * @param {string} type
+ * @param {string?} replaceValue
+ * @returns {string}
+ */
+export const errorMessage = (type, replaceValue) => {
+	/** @type {Record<string,string>} */
+	const index = {
+		GENERIC: 'Something went wrong, please try again',
+		SIZE_EXCEEDED:
+			'The total of your uploaded files is {REPLACE_VALUE}, it must be smaller than 1 GB',
+		TIMEOUT: 'There was a timeout and your files could not be uploaded, try again',
+		NO_FILE: 'Select a file',
+		GENERIC_SINGLE_FILE: `{REPLACE_VALUE} could not be added, try again`,
+		NAME_SINGLE_FILE: `{REPLACE_VALUE} could not be added because the file name is too long or contains special characters. Rename the file and try and upload again.`,
+		TYPE_SINGLE_FILE: `{REPLACE_VALUE} could not be added because it is not an allowed file type`
+	};
+
+	return index[type] ? index[type].replace('{REPLACE_VALUE}', replaceValue || '') : index.GENERIC;
+};
 
 /**
  *
