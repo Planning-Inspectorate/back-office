@@ -2,7 +2,7 @@ import { BlobServiceClient } from '@azure/storage-blob';
 
 /** @typedef {import('./_html.js').AnError} AnError */
 /** @typedef {import('./_html.js').FileWithRowId} FileWithRowId */
-/** @typedef {{documentName: string, blobStoreURL?: string, failedReason?: string}} DocumentUploadInfo */
+/** @typedef {{documentName: string, fileRowId: string, blobStoreUrl?: string, failedReason?: string}} DocumentUploadInfo */
 /** @typedef {{documents: DocumentUploadInfo[], blobStorageHost: string, blobStorageContainer: string, sasToken: string}} UploadInfo */
 
 /**
@@ -65,12 +65,12 @@ const serverActions = (uploadForm) => {
 
 		for (const documentUploadInfo of documents) {
 			const fileToUpload = [...fileList].find(
-				(file) => file.name === documentUploadInfo.documentName
+				(file) => file.fileRowId === documentUploadInfo.fileRowId
 			);
-			const { blobStoreURL } = documentUploadInfo;
+			const { blobStoreUrl } = documentUploadInfo;
 
-			if (fileToUpload && blobStoreURL) {
-				const errorOutcome = await uploadOnBlobStorage(fileToUpload, blobStoreURL, containerClient);
+			if (fileToUpload && blobStoreUrl) {
+				const errorOutcome = await uploadOnBlobStorage(fileToUpload, blobStoreUrl, containerClient);
 
 				if (errorOutcome) {
 					failedUploads.push(errorOutcome);
@@ -84,15 +84,15 @@ const serverActions = (uploadForm) => {
 	/**
 	 *
 	 * @param {FileWithRowId} fileToUpload
-	 * @param {string} blobStoreURL
+	 * @param {string} blobStoreUrl
 	 * @param {import('@azure/storage-blob').ContainerClient} containerClient
 	 * @returns {Promise<AnError | undefined>}
 	 */
-	const uploadOnBlobStorage = async (fileToUpload, blobStoreURL, containerClient) => {
+	const uploadOnBlobStorage = async (fileToUpload, blobStoreUrl, containerClient) => {
 		let response;
 
 		try {
-			const blobClient = containerClient.getBlockBlobClient(blobStoreURL);
+			const blobClient = containerClient.getBlockBlobClient(blobStoreUrl);
 			const options = { blobHTTPHeaders: { blobContentType: fileToUpload.type } };
 
 			await blobClient.uploadData(fileToUpload, options);
