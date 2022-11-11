@@ -4,6 +4,7 @@ export interface EnvironmentConfig {
 	apiUrl: string;
 	authDisabled: boolean;
 	authDisabledGroupIds: string[];
+	blobStorageUrl: string;
 	bundleAnalyzer: boolean;
 	buildDir: string;
 	cwd: string;

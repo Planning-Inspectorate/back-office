@@ -7,7 +7,7 @@ $colours-attrs: (
 );
 
 @each $key, $val in $colours-attrs {
-  .colour--#{$key} {
+  .colour--#{"" + $key} {
 	color: #{$val};
   }
 }

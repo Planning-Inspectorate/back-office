@@ -1,4 +1,5 @@
 import { installRequestLocalsMiddleware } from '@pins/express';
+import config from '@pins/web/environment/config.js';
 import bodyParser from 'body-parser';
 import compression from 'compression';
 import cookieParser from 'cookie-parser';
@@ -46,8 +47,8 @@ app.use(helmet());
 app.use(
 	helmet.contentSecurityPolicy({
 		directives: {
-			// scriptSrc: ["'self'", () => `'nonce-${locals.cspNonce}'`]
-			defaultSrc: ['*']
+			scriptSrc: ["'self'", () => `'nonce-${locals.cspNonce}'`],
+			defaultSrc: ["'self'", config.blobStorageUrl]
 		}
 	})
 );
