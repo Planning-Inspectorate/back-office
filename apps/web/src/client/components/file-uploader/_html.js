@@ -55,10 +55,14 @@ export const buildErrorListItem = (error) => {
  * @param {Element} uploadForm
  */
 export const buildProgressMessage = ({ show }, uploadForm) => {
-	// TODO: do this
 	const progressHook = uploadForm.querySelector('.progress-hook');
+	/** @type {HTMLButtonElement | null} */
+	const submitButton = uploadForm.querySelector('.pins-file-upload--submit');
 
-	if (progressHook) {
-		progressHook.textContent = show ? 'Upload in progress...' : '';
+	if (progressHook && submitButton) {
+		submitButton.disabled = show;
+		progressHook.innerHTML = show
+			? '<p class="govuk-body pins-file-upload--progress" role="alert">Uploading files</p>'
+			: '';
 	}
 };

@@ -42,7 +42,7 @@ export async function postDocumentsUpload({ params, body }, response) {
 	const APIResponse = await createNewDocument(caseId, body);
 
 	const sasToken =
-		'sv=2021-08-06&ss=btqf&srt=sco&st=2022-11-10T10%3A32%3A27Z&se=2022-11-11T10%3A32%3A27Z&sp=rwl&sig=Kl7R2c8pF4d4ni8ghaPjDdwZqUqeb1bZT9ZhIBD5kfM%3D';
+		'?sv=2021-08-06&ss=btqf&srt=sco&st=2022-11-11T10%3A45%3A51Z&se=2022-12-12T10%3A45%3A00Z&sp=rwlacu&sig=yWgU5FiQxBLCUQ9zoaAE0qFHAgcfmlg0JkCOAB2r9us%3D';
 
 	return response.send({ sasToken, ...APIResponse });
 }
