@@ -8,6 +8,7 @@ const environment = loadEnvironment(process.env.NODE_ENV);
 const { value: validatedConfig, error } = schema.validate({
 	apiUrl: environment.API_HOST,
 	authDisabled: environment.AUTH_DISABLED,
+	blobStorageUrl: environment.BLOB_STORAGE_URL,
 	env: environment.NODE_ENV,
 	isRelease: environment.APP_RELEASE,
 	logLevelFile: environment.LOG_LEVEL_FILE,

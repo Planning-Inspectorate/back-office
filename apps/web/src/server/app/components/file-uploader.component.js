@@ -15,21 +15,22 @@ export const createNewDocument = async (caseId, payload) => {
 /**
  * Generic controller for applications and appeals for files upload
  *
- * @param {{params: {caseId: string}, filesParameters: DocumentUploadInfo[]}} request
+ * @param {{params: {caseId: string}, body: DocumentUploadInfo[]}} request
  * @param {*} response
  * @returns {Promise<{}>}
  */
-export async function postDocumentsUpload({ params, filesParameters }, response) {
+export async function postDocumentsUpload({ params, body }, response) {
 	const { caseId } = params;
-	const uploadInfo = await createNewDocument(caseId, filesParameters);
+	const uploadInfo = await createNewDocument(caseId, body);
+	const { documents } = uploadInfo;
 
-	response.documents = uploadInfo.documents.map((document) => {
-		const fileToUpload = filesParameters.find(
-			(file) => file.documentName === document.documentName
-		);
-		const fileRowId = fileToUpload?.fileRowId || '';
+	uploadInfo.documents = documents.map((document) => {
+		const fileToUpload = body.find((file) => file.documentName === document.documentName);
+		const documentWithRowId = { ...document };
 
-		return { ...document, fileRowId };
+		documentWithRowId.fileRowId = fileToUpload?.fileRowId || '';
+
+		return documentWithRowId;
 	});
 
 	// TODO: replace with AD auth and remove sasToken from UploadInfo jsdocstype
