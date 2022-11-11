@@ -25,11 +25,14 @@ export async function viewApplicationsCaseDocumentationCategories(request, respo
  */
 export async function viewApplicationsCaseDocumentationUpload(request, response) {
 	const { folderId, caseId } = request.params;
-	// TODO: define next page router and controller
-	const nextPageUrl = 'next/page/url';
 	// TODO: connect to the :folderId/parents-folder endpoint
-	const currentFolder = 'Subfolder Placeholder';
-	const properties = { currentFolder, folderId, caseId, nextPageUrl };
+	const currentFolder = {
+		displayNameEn: 'Subfolder Placeholder',
+		id: Number.parseInt(folderId, 10),
+		displayNameCy: 'Subfolder Placeholder',
+		name: 'subfolder'
+	};
+	const properties = { currentFolder, caseId };
 
 	response.render(`applications/case-documentation/upload`, properties);
 }

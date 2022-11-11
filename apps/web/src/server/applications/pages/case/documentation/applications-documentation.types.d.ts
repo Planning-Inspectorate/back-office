@@ -1,6 +1,6 @@
+import { DocumentationCategory } from '../../../applications.types';
+
 export interface CaseDocumentationUploadProps {
-	currentFolder: string;
-	nextPageUrl: string;
-	folderId: string;
+	currentFolder: DocumentationCategory;
 	caseId: string;
 }
