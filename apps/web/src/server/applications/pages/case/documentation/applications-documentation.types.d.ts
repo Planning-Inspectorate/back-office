@@ -9,8 +9,6 @@ export interface DocumentationPageProps {
 }
 
 export interface CaseDocumentationUploadProps {
-	currentFolder: string;
-	nextPageUrl: string;
-	folderId: string;
+	currentFolder: DocumentationCategory;
 	caseId: string;
 }

@@ -5,7 +5,7 @@
 {% from "govuk/components/breadcrumbs/macro.njk" import govukBreadcrumbs %}
 
 
-{% set serviceName = ["Upload files in ", currentFolder, " folder"] | join  %}
+{% set serviceName = ["Upload files in ", currentFolder.displayNameEn, " folder"] | join  %}
 {% block pageTitle %}
 	{{ pageTitle | default('GOV.UK') }} – {{ serviceName }}
 {% endblock %}
@@ -23,7 +23,7 @@
 		items: [
 			{ href: 'case-view'|url({caseId: caseId, step: 'project-documentation'}), text: 'Project documentation' },
 			{ href: 'category', text: 'Acceptance' },
-			{ text: currentFolder }
+			{ text: currentFolder.displayNameEn }
 		]
 	})
 	}}
@@ -33,9 +33,9 @@
 	{{ fileUploader({
 		formId: 1,
 		caseId: caseId,
-		folderId: folderId,
+		folderId: currentFolder.id,
 		formTitle: serviceName,
-		nextPageUrl: nextPageUrl,
+		nextPageUrl: 'document-category'|url({caseId:caseId, documentationCategory: currentFolder}),
 		allowedTypes: ['pdf','doc','docx','ppt','pptx','xls','xlsx','jpg','jpeg','mpeg','mp3','mp4','mov','png','tif','tiff' ],
 		disclaimerText: "Saving files will default then to ‘Unredacted’ and ‘Not checked’"
 	}) }}
