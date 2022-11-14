@@ -1,4 +1,4 @@
-{% macro applicationsHeader(domainType) %}
+{% macro globalHeader(domainType, domainName) %}
 	<header class="govuk-header" id="pins-applications-header" role="banner" data-module="govuk-header">
 		<div class="govuk-width-container">
 			<div class="pins-row--decentered">
@@ -65,11 +65,12 @@
 				</div>
 				<div class="pins-column--central">
 					<p>
-						NSIP Applications
+						{{ domainName }}
 					</p>
 				</div>
 				<div class="pins-column--right">
-					<span class="font-weight--700">{{ domainType | displayValue }}</span>
+					{# <span class="font-weight--700">{{ domainType | displayValue }}</span> #}
+					<span class="font-weight--700">{{ domainType | userTypeMap }}</span>
 					<a href="/" class="govuk-link">Go to Dashboard</a>
 					<a href="/auth/signout" class="govuk-link">Sign out</a>
 				</div>

@@ -1,0 +1,8 @@
+{% extends "app/layouts/app.layout.njk" %}
+{% from 'app/components/global-header.njk' import globalHeader %}
+
+
+{% block header %}
+	{% set domainName = 'NSIP Applications'%}
+	{{ globalHeader(domainType, domainName) }}
+{% endblock %}

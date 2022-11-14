@@ -167,13 +167,13 @@ describe('auth', () => {
 		it('should display a logout link in the header when the user is authenticated', async () => {
 			// visit an unauthenticated route
 			let response = await request.get(`/unauthenticated`);
-			let element = parseHtml(response.text, { rootElement: '.govuk-header__content' });
+			let element = parseHtml(response.text, { rootElement: '.govuk-header' });
 
 			expect(element.innerHTML).toMatchSnapshot();
 
 			await signinWithGroups(['appeals_validation_officer']);
 			response = await request.get(`/unauthenticated`);
-			element = parseHtml(response.text, { rootElement: '.govuk-header__content' });
+			element = parseHtml(response.text, { rootElement: '.govuk-header' });
 
 			expect(element.innerHTML).toMatchSnapshot();
 		});

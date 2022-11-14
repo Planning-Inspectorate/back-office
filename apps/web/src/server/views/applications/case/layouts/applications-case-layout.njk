@@ -1,13 +1,12 @@
-{% extends "app/layouts/app.layout.njk" %}
+{% extends "../../layouts/applications.layout.njk" %}
 
 {% from "../components/applications-case-menu.component.njk" import applicationsCaseMenu %}
 {% from "govuk/components/accordion/macro.njk" import govukAccordion %}
 {% from "govuk/components/breadcrumbs/macro.njk" import govukBreadcrumbs %}
 {% from "../../components/status-tag.component.njk" import statusTag %}
-{% from '../../components/applications-header.njk' import applicationsHeader %}
 
 
-{% set pageCaption = displayValue %}
+{% set pageCaption = userTypeMap %}
 {% set pageTitle = case.title %}
 
 {% block beforeContent %}
@@ -15,10 +14,6 @@
 		text: "Back to applications",
 		href: 'dashboard'|url({domainType: domainType})
 	}) }}
-{% endblock %}
-
-{% block header %}
-	{{ applicationsHeader(domainType) }}
 {% endblock %}
 
 {% block pageHeading %}

@@ -1,11 +1,6 @@
-{% extends "app/layouts/app.layout.njk" %}
+{% extends "../layouts/applications.layout.njk" %}
 
 {% from "govuk/components/panel/macro.njk" import govukPanel %}
-{% from '../components/applications-header.njk' import applicationsHeader %}
-
-{% block header %}
-	{{ applicationsHeader(domainType) }}
-{% endblock %}
 
 {% block pageHeading %}{% endblock %}
 
