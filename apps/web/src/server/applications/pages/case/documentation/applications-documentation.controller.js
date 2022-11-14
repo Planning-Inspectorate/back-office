@@ -1,16 +1,17 @@
+// TODO: move shared stuff into a local file as this expands - from PR 607: https://github.com/Planning-Inspectorate/back-office/pull/607
 import { sortBy } from 'lodash-es';
 import {
 	getCaseDocumentationFilesInFolder,
 	getCaseDocumentationFolderPath,
 	getCaseFolder,
 	getCaseFolders
-} from '../../../lib/services/case.service.js';
+} from './applications-documentation.service.js';
 
 /** @typedef {import('../../../applications.types').DocumentationCategory} DocumentationCategory */
 /** @typedef {import('./applications-documentation.types').DocumentationPageProps} DocumentationPageProps */
 
 /**
- * View the documentation for a single case
+ * View the documentation for a single case - the top level folders
  *
  * @type {import('@pins/express').RenderHandler<{documentationCategories: DocumentationCategory[]}, {}>}
  */
@@ -25,8 +26,7 @@ export async function viewApplicationsCaseDocumentationCategories(request, respo
 /**
  * View a folder, showing files in the folder, and listing subfolders
  *
- * @param {*} request
- * @param {*} response
+ * @type {import('@pins/express').RenderHandler<DocumentationPageProps, {}, {}, {}, {folderId: number}>}
  */
 export async function viewApplicationsCaseDocumentationFolder(request, response) {
 	const { caseId } = response.locals;
