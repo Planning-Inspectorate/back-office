@@ -10,11 +10,10 @@ import { databaseConnector } from '../utils/database-connector.js';
  * @param {number |null} parentFolderId
  * @returns {Promise<Folder[]>}
  */
-export const getByCaseId = (caseId, parentFolderId) => {
-	// if no parentFolderId, explicitly set null value im the call, to get the top level folders on the case
-	return parentFolderId
-		? databaseConnector.folder.findMany({ where: { caseId, parentFolderId } })
-		: databaseConnector.folder.findMany({ where: { caseId, parentFolderId: null } });
+export const getByCaseId = (caseId, parentFolderId = null) => {
+	// if no parentFolderId, null value in the call, to get the top level folders on the case
+
+	return databaseConnector.folder.findMany({ where: { caseId, parentFolderId } });
 };
 
 /**
