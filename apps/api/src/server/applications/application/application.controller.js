@@ -81,16 +81,6 @@ export const getApplicationDetails = async ({ params, query }, response) => {
 
 /**
  *
- * @type {import('express').RequestHandler<{ id: number }, ?, ?, any>}
- */
-export const getListOfDocuments = async ({ params }, response) => {
-	const folderDetails = await getFolderDetails(params.id);
-
-	response.send(folderDetails);
-};
-
-/**
- *
  * @type {import('express').RequestHandler<any, ?, ?, any>}
  */
 export const provideDocumentUploadURLs = async ({ params, body }, response) => {
