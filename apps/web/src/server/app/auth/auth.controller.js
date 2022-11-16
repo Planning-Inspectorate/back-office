@@ -66,13 +66,6 @@ export async function completeMsalAuthentication(request, response) {
 		/** @type {MsalAuthenticationResult | null} */
 		const authenticationResult = await authService.acquireTokenByCode(query.code);
 
-		if (authenticationResult?.accessToken && authenticationResult?.expiresOn) {
-			authSession.setAccessToken(session, {
-				token: authenticationResult.accessToken,
-				expiresOnTimestamp: authenticationResult.expiresOn.getTime()
-			});
-			pino.info('[WEB] auth token:', authenticationResult.accessToken);
-		}
 		// After acquiring an authentication result from MSAL, verify that the
 		// result is signed by the nonce for this authentication attempt. This check
 		// prevents against replay attacks and CSRF attacks (note, that a CSRF
@@ -84,6 +77,16 @@ export async function completeMsalAuthentication(request, response) {
 			session.regenerate(() => {
 				// store user information in session
 				authSession.setAccount(session, authenticationResult.account);
+
+				if (authenticationResult?.accessToken && authenticationResult?.expiresOn) {
+					authSession.setAccessToken(session, {
+						accessToken: authenticationResult?.accessToken,
+						idToken: authenticationResult?.idToken,
+						idTokenClaims: authenticationResult?.idTokenClaims,
+						account: authenticationResult?.account
+					});
+					pino.info('[WEB] auth token:', authenticationResult.accessToken);
+				}
 				// save the session before redirection to ensure page
 				// load does not happen before session is saved
 				session.save(() => {

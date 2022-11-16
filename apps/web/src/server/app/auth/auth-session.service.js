@@ -70,7 +70,7 @@ export const getAccount = (session) => {
 
 /**
  * @param {SessionWithAccessToken} session
- * @param {AccessToken} accessToken
+ * @param {*} accessToken
  * @returns {void}
  */
 export const setAccessToken = (session, accessToken) => {
@@ -79,7 +79,7 @@ export const setAccessToken = (session, accessToken) => {
 
 /**
  * @param {SessionWithAccessToken} session
- * @returns {AccessToken=}
+ * @returns {*}
  */
 export const getAccessToken = (session) => {
 	return session.accessToken;
