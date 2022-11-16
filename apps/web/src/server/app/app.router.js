@@ -7,6 +7,7 @@ import { handleHeathCheck, viewHomepage, viewUnauthenticatedError } from './app.
 import { handleSignout } from './auth/auth.controller.js';
 import { assertIsAuthenticated } from './auth/auth.guards.js';
 import authRouter from './auth/auth.router.js';
+import * as authSession from './auth/auth-session.service.js';
 
 const router = createRouter();
 
@@ -28,6 +29,14 @@ router.route('/health-check').get(handleHeathCheck);
 if (!config.authDisabled) {
 	router.use(assertIsAuthenticated);
 }
+
+// TODO: remove this
+router.route('/auth/session-token').get((/** @type {*} */ request, /** @type {*} */ response) => {
+	const { session } = request;
+	const accessToken = authSession.getAccessToken(session);
+
+	response.send(accessToken ?? 'NO ACCESS TOKEN');
+});
 
 router.route('/').get(viewHomepage);
 router.route('/auth/signout').get(handleSignout);

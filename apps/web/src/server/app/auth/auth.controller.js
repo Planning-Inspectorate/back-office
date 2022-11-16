@@ -5,6 +5,9 @@ import pino from '../../lib/logger.js';
 import * as authService from './auth.service.js';
 import * as authSession from './auth-session.service.js';
 
+/** @typedef {import('@pins/platform').MsalAuthenticationResult} MsalAuthenticationResult */
+/** @typedef {import('./auth-session.service').SessionWithAccessToken} SessionWithAccessToken */
+
 /**
  * Phase 1 – Navigate to external MSAL signin url
  *
@@ -55,13 +58,21 @@ export async function startMsalAuthentication(request, response) {
  * @type {import('express').RequestHandler<?, ?, ?, { code?: string }>}
  */
 export async function completeMsalAuthentication(request, response) {
-	const { nonce, postSigninRedirectUri } = authSession.getAuthenticationData(request.session);
+	/** @type {{session: *, query: { code?: string }}} */
+	const { session, query } = request;
+	const { nonce, postSigninRedirectUri } = authSession.getAuthenticationData(session);
 
-	if (request.query.code) {
-		const authenticationResult = await authService.acquireTokenByCode(request.query.code);
+	if (query.code) {
+		/** @type {MsalAuthenticationResult | null} */
+		const authenticationResult = await authService.acquireTokenByCode(query.code);
 
-		pino.info('[WEB] auth token:', authenticationResult);
-
+		if (authenticationResult?.accessToken && authenticationResult?.expiresOn) {
+			authSession.setAccessToken(session, {
+				token: authenticationResult.accessToken,
+				expiresOnTimestamp: authenticationResult.expiresOn.getTime()
+			});
+			pino.info('[WEB] auth token:', authenticationResult.accessToken);
+		}
 		// After acquiring an authentication result from MSAL, verify that the
 		// result is signed by the nonce for this authentication attempt. This check
 		// prevents against replay attacks and CSRF attacks (note, that a CSRF
@@ -70,12 +81,12 @@ export async function completeMsalAuthentication(request, response) {
 		// such a request has no nefarious effect on the application and would
 		// basically be a waste of time).
 		if (authenticationResult?.idTokenClaims.nonce === nonce) {
-			request.session.regenerate(() => {
+			session.regenerate(() => {
 				// store user information in session
-				authSession.setAccount(request.session, authenticationResult.account);
+				authSession.setAccount(session, authenticationResult.account);
 				// save the session before redirection to ensure page
 				// load does not happen before session is saved
-				request.session.save(() => {
+				session.save(() => {
 					response.redirect(postSigninRedirectUri);
 				});
 			});
