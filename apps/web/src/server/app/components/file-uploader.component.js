@@ -1,7 +1,10 @@
 import { post } from '../../lib/request.js';
 
+/** @typedef {import('../auth/auth-session.service')} AuthState */
+/** @typedef {import('express-session').Session & AuthState} SessionWithAuth */
+/** @typedef {import('@azure/core-auth').AccessToken} AccessToken */
 /** @typedef {{documentName: string, fileRowId: string, blobStoreUrl?: string, failedReason?: string}} DocumentUploadInfo */
-/** @typedef {{sasToken?: string, blobStorageHost: string, blobStorageContainer: string, documents: DocumentUploadInfo[]}} UploadInfo */
+/** @typedef {{token: AccessToken, blobStorageHost: string, blobStorageContainer: string, documents: DocumentUploadInfo[]}} UploadInfo */
 
 /**
  * @param {string} caseId
@@ -15,7 +18,7 @@ export const createNewDocument = async (caseId, payload) => {
 /**
  * Generic controller for applications and appeals for files upload
  *
- * @param {{params: {caseId: string}, body: DocumentUploadInfo[]}} request
+ * @param {{params: {caseId: string}, session: SessionWithAuth, body: DocumentUploadInfo[]}} request
  * @param {*} response
  * @returns {Promise<{}>}
  */
@@ -23,6 +26,9 @@ export async function postDocumentsUpload({ params, body }, response) {
 	const { caseId } = params;
 	const uploadInfo = await createNewDocument(caseId, body);
 	const { documents } = uploadInfo;
+
+	// const {accessToken, expiresOn} = authSession.getAuthenticationData(session);
+	const credentials = { token: 'token', expiresOnTimestamp: '123' };
 
 	uploadInfo.documents = documents.map((document) => {
 		const fileToUpload = body.find((file) => file.documentName === document.documentName);
@@ -33,9 +39,5 @@ export async function postDocumentsUpload({ params, body }, response) {
 		return documentWithRowId;
 	});
 
-	// TODO: replace with AD auth and remove sasToken from UploadInfo jsdocstype
-	const sasToken =
-		'?sv=2021-08-06&ss=btqf&srt=sco&st=2022-11-11T10%3A45%3A51Z&se=2022-12-12T10%3A45%3A00Z&sp=rwlacu&sig=yWgU5FiQxBLCUQ9zoaAE0qFHAgcfmlg0JkCOAB2r9us%3D';
-
-	return response.send({ sasToken, ...uploadInfo });
+	return response.send({ credentials, ...uploadInfo });
 }
