@@ -21,20 +21,29 @@ import * as authSession from './auth-session.service.js';
  * @type {import('express').RequestHandler}
  */
 export async function assertIsAuthenticated(request, response, next) {
-	const account = authSession.getAccount(request.session);
+	const sessionAccount = authSession.getAccount(request.session);
 
-	if (account) {
+	if (sessionAccount) {
 		try {
 			// Eagerly invoke the `acquireTokenSilent` method: Internally,
 			// @azure/msal-node will evaluate if the access token has (or is close to)
 			// expired on the existing authentication result, and only then make a
 			// network call with the refresh token to acquire a new authentication
 			// result.
-			const refreshedAuthenticationResult = await authService.acquireTokenSilent(account);
+			const refreshedAuthenticationResult = await authService.acquireTokenSilent(sessionAccount);
 
 			if (refreshedAuthenticationResult) {
+				const { account, accessToken, idToken, expiresOn } = refreshedAuthenticationResult;
+
+				const accountWithToken = {
+					...account,
+					accessToken,
+					idToken,
+					expiresOnTimestamp: expiresOn?.getTime()
+				};
+
 				pino.debug('Refreshed MSAL authentication.');
-				authSession.setAccount(request.session, refreshedAuthenticationResult.account);
+				authSession.setAccount(request.session, accountWithToken);
 				return next();
 			}
 			// Destroy current session if refreshedAuthenticationResult not provided.
