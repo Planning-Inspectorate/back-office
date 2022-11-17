@@ -23,6 +23,8 @@ import * as authSession from './auth-session.service.js';
 export async function assertIsAuthenticated(request, response, next) {
 	const sessionAccount = authSession.getAccount(request.session);
 
+	pino.info(`[WEB] accessToken saved in session from guard: ${sessionAccount?.accessToken}`);
+
 	if (sessionAccount) {
 		try {
 			// Eagerly invoke the `acquireTokenSilent` method: Internally,
@@ -34,6 +36,10 @@ export async function assertIsAuthenticated(request, response, next) {
 
 			if (refreshedAuthenticationResult) {
 				const { account, accessToken, idToken, expiresOn } = refreshedAuthenticationResult;
+
+				pino.info(`[WEB] accessToken from guard: ${accessToken}`);
+				pino.info(`[WEB] idToken from guard: ${idToken}`);
+				pino.info(`[WEB] nonce from guard: ${account?.idTokenClaims?.nonce}`);
 
 				const accountWithToken = {
 					...account,
