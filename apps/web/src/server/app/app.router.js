@@ -33,9 +33,9 @@ if (!config.authDisabled) {
 // TODO: remove this
 router.route('/auth/session-token').get((/** @type {*} */ request, /** @type {*} */ response) => {
 	const { session } = request;
-	const accessToken = authSession.getAccessToken(session);
+	const account = authSession.getAccount(session);
 
-	response.send(accessToken ?? 'NO ACCESS TOKEN');
+	response.send(account ?? 'NO ACCESS TOKEN');
 });
 
 router.route('/').get(viewHomepage);
