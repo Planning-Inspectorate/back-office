@@ -75,7 +75,7 @@ export async function completeMsalAuthentication(request, response) {
 
 				account.accessToken = accessToken;
 				account.idToken = idToken;
-				account.expiresOnTimestamp = (expiresOn || new Date()).getTime();
+				account.expiresOnTimestamp = expiresOn?.getTime();
 
 				// store user information in session
 				authSession.setAccount(request.session, account);
