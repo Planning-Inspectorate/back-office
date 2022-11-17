@@ -11,6 +11,9 @@ type ExtendedIdTokenClaims = CamelCasedProperties<TokenClaims> & {
 
 export interface PlanningInspectorAccountInfo extends Omit<AccountInfo, 'idTokenClaims'> {
 	idTokenClaims: ExtendedIdTokenClaims;
+	accessToken?: string;
+	idToken?: string;
+	expiresOnTimestamp?: number;
 }
 
 export interface MsalAuthenticationResult extends AuthenticationResult {

@@ -1,4 +1,8 @@
+import pino from '../../lib/logger.js';
+
 /** @typedef {import('express-session').Session & AuthState} SessionWithAuth */
+/** @typedef {import('express-session').Session & {accessToken: AccessToken}} SessionWithAccessToken */
+/** @typedef {import('@azure/core-auth').AccessToken} AccessToken */
 /** @typedef {import('./auth.service').AccountInfo} AccountInfo */
 
 /**
@@ -55,7 +59,11 @@ export const destroyAccount = (session) => {
  * @returns {void}
  */
 export const setAccount = (session, account) => {
+	pino.info(`[WEB] account being set: ${account.accessToken}`);
+
 	session.account = account;
+
+	pino.info(`[WEB] account just set: ${session.account.accessToken}`);
 };
 
 /**
@@ -65,3 +73,22 @@ export const setAccount = (session, account) => {
 export const getAccount = (session) => {
 	return session.account;
 };
+
+/**
+ * @param {SessionWithAccessToken} session
+ * @param {*} accessToken
+ * @returns {void}
+ */
+export const setAccessToken = (session, accessToken) => {
+	session.accessToken = accessToken;
+};
+
+/**
+ * @param {SessionWithAccessToken} session
+ * @returns {*}
+ */
+export const getAccessToken = (session) => {
+	return session.accessToken;
+};
+
+// TODO: create destroy accesstoken method and execute on logout
