@@ -77,14 +77,17 @@ export async function completeMsalAuthentication(request, response) {
 		// basically be a waste of time).
 		if (idTokenClaims?.nonce === nonce) {
 			request.session.regenerate(() => {
-				account.accessToken = accessToken ?? 'no access token';
-				account.idToken = idToken ?? 'no id token...';
-				account.expiresOnTimestamp = expiresOn?.getTime();
+				const accountWithToken = {
+					...account,
+					accessToken,
+					idToken,
+					expiresOnTimestamp: expiresOn?.getTime()
+				};
 
-				pino.info(`[WEB] account session token: ${account.accessToken}`);
+				pino.info(`[WEB] account session token: ${accountWithToken.accessToken}`);
 
 				// store user information in session
-				authSession.setAccount(request.session, account);
+				authSession.setAccount(request.session, accountWithToken);
 				// save the session before redirection to ensure page
 				// load does not happen before session is saved
 				request.session.save(() => {

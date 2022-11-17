@@ -1,3 +1,5 @@
+import pino from '../../lib/logger.js';
+
 /** @typedef {import('express-session').Session & AuthState} SessionWithAuth */
 /** @typedef {import('express-session').Session & {accessToken: AccessToken}} SessionWithAccessToken */
 /** @typedef {import('@azure/core-auth').AccessToken} AccessToken */
@@ -57,7 +59,11 @@ export const destroyAccount = (session) => {
  * @returns {void}
  */
 export const setAccount = (session, account) => {
+	pino.info(`[WEB] account being set: ${account.accessToken}`);
+
 	session.account = account;
+
+	pino.info(`[WEB] account just set: ${session.account.accessToken}`);
 };
 
 /**
