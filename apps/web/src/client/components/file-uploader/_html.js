@@ -60,7 +60,7 @@ export const buildRegularListItem = (uploadedFile) => {
  * @returns {string}
  */
 export const buildErrorListItem = (error) => {
-	return `<li class="pins-file-upload--file-row error-row" id="${error.fileRowId}">
+	return `<li class="pins-file-upload--file-row" id="${error.fileRowId}">
 				<p class="govuk-heading-s colour--red" aria-details="File name">${errorMessage(
 					error.message,
 					error.name
