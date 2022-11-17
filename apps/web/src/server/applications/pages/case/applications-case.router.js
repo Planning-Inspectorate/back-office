@@ -1,7 +1,7 @@
 import { Router as createRouter } from 'express';
 import asyncRoute from '../../../lib/async-route.js';
-import * as locals from '../../applications.locals.js';
 import * as controller from './applications-case.controller.js';
+import * as locals from './applications-case.locals.js';
 import applicationsDocumentationRouter from './documentation/applications-documentation.router.js';
 import applicationsEditRouter from './edit/applications-edit.router.js';
 

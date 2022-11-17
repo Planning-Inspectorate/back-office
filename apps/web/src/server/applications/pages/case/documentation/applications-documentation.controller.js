@@ -1,12 +1,10 @@
-// TODO: move shared stuff into a local file as this expands - from PR 607: https://github.com/Planning-Inspectorate/back-office/pull/607
 import { sortBy } from 'lodash-es';
 import {
 	getCaseDocumentationFilesInFolder,
-	getCaseDocumentationFolderPath,
-	getCaseFolder,
 	getCaseFolders
 } from './applications-documentation.service.js';
 
+/** @typedef {import('../applications-case.locals.js').ApplicationCaseLocals} ApplicationCaseLocals */
 /** @typedef {import('../../../applications.types').DocumentationCategory} DocumentationCategory */
 /** @typedef {import('./applications-documentation.types').CaseDocumentationUploadProps} CaseDocumentationUploadProps */
 /** @typedef {import('./applications-documentation.types').DocumentationPageProps} DocumentationPageProps */
@@ -27,33 +25,25 @@ export async function viewApplicationsCaseDocumentationCategories(request, respo
 /**
  * View a folder, showing files in the folder, and listing subfolders
  *
- * @type {import('@pins/express').RenderHandler<DocumentationPageProps, {}, {}, {}, {folderId: number}>}
+ * @type {import('@pins/express').RenderHandler<DocumentationPageProps, ApplicationCaseLocals, {}, {}, {}>}
  */
 export async function viewApplicationsCaseDocumentationFolder(request, response) {
-	const { caseId } = response.locals;
-	const { folderId } = request.params;
-	const currentFileCategory = await getCaseFolder(caseId, folderId);
+	const { caseId, folderId } = response.locals;
 
 	// get all the sub folders in this folder
 	const subFoldersUnordered = await getCaseFolders(caseId, folderId);
 	const subFolders = sortBy(subFoldersUnordered, ['displayOrder']);
 
+	// TODO: get all the files in this folder
+	const documentationFiles = await getCaseDocumentationFilesInFolder(caseId, folderId);
+
 	/** @type { DocumentationPageProps }  */
 	const properties = {
-		caseId,
-		currentFolder: currentFileCategory ?? null,
 		subFolders,
-		folderPath: null,
-		documentationFiles: null
+		documentationFiles
 	};
 
-	// get the folderTree for breadcrumbing
-	properties.folderPath = await getCaseDocumentationFolderPath(caseId, folderId);
-
-	// TODO: and get all the files in this folder
-	properties.documentationFiles = getCaseDocumentationFilesInFolder(caseId, currentFileCategory);
-
-	response.render(`applications/case-documentation/project-documentation-folder`, properties);
+	response.render(`applications/case-documentation/documentation-folder`, properties);
 }
 
 /**
@@ -62,15 +52,5 @@ export async function viewApplicationsCaseDocumentationFolder(request, response)
  * @type {import('@pins/express').RenderHandler<CaseDocumentationUploadProps, {}>}
  */
 export async function viewApplicationsCaseDocumentationUpload(request, response) {
-	const { folderId, caseId } = request.params;
-	// TODO: connect to the :folderId/parents-folder endpoint
-	const currentFolder = {
-		displayNameEn: 'Subfolder Placeholder',
-		id: Number.parseInt(folderId, 10),
-		displayNameCy: 'Subfolder Placeholder',
-		name: 'subfolder'
-	};
-	const properties = { currentFolder, caseId };
-
-	response.render(`applications/case-documentation/upload`, properties);
+	response.render(`applications/case-documentation/upload`);
 }

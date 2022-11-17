@@ -2,10 +2,8 @@ import { sortBy } from 'lodash-es';
 import * as applicationsService from './applications.service.js';
 
 /** @typedef {import('@pins/express').ValidationErrors} ValidationErrors */
-/** @typedef {import('./applications.locals').ApplicationLocals} ApplicationLocals */
 /** @typedef {import('./applications.router').DomainParams} DomainParams */
 /** @typedef {import('./applications.types').Case} Case */
-/** @typedef {import('./applications.types').DomainType} DomainType */
 
 /**
  * @typedef {object} ViewDashboardRenderProps
