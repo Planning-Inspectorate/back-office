@@ -8,8 +8,8 @@ import { handleHeathCheck, viewHomepage, viewUnauthenticatedError } from './app.
 import { handleSignout } from './auth/auth.controller.js';
 import { assertIsAuthenticated } from './auth/auth.guards.js';
 import authRouter from './auth/auth.router.js';
-import { postDocumentsUpload } from './components/file-uploader.component.js';
 import * as authSession from './auth/auth-session.service.js';
+import { postDocumentsUpload } from './components/file-uploader.component.js';
 
 const router = createRouter();
 

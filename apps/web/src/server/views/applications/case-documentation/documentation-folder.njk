@@ -7,15 +7,9 @@
 {% block beforeContent %}{% endblock %}
 
 {% block sectionContent %}
-	{% set items = [] %}
-	{% set items = items | concat({ href: 'case-view'|url({caseId: caseId, step: 'project-documentation'}), text: 'Project documentation' }) %}
-	{% for folder in folderPath %}
-		{% set items = items | concat({ href: 'document-category'|url({caseId: caseId, documentationCategory: folder}), text: folder.displayNameEn }) %}
-	{% endfor %}
-
 	{{ govukBreadcrumbs({
 			classes: 'govuk-!-margin-top-0',
-			items: items
+			items: breadcrumbItems
 		})
 	}}
 
@@ -30,7 +24,6 @@
 		</div>
 	{% endfor %}
 
-	<!-- TODO: replace with link to the upload file page -->
 	<div class="govuk-grid-row govuk-!-margin-top-0">
 		<div class="govuk-button-group pins-button-group govuk-grid-column-one-half govuk-!-margin-top-0">
 			<a class="govuk-button" href="{{ 'document-category'|url({caseId: caseId, documentationCategory: currentFolder, step: 'upload'}) }}">Upload files</a>

@@ -73,4 +73,20 @@ describe('applications documentation', () => {
 			expect(element.innerHTML).toContain('Upload files');
 		});
 	});
+
+	describe('GET /case/123/project-documentation/21/sub-folder-level2/upload', () => {
+		beforeEach(async () => {
+			nocks();
+		});
+
+		it('should render the page', async () => {
+			const response = await request.get(
+				`${baseUrl}/project-documentation/21/sub-folder-level2/upload`
+			);
+			const element = parseHtml(response.text);
+
+			expect(element.innerHTML).toMatchSnapshot();
+			expect(element.innerHTML).toContain('No file chosen');
+		});
+	});
 });

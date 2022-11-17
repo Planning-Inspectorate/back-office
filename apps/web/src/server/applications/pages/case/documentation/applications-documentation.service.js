@@ -8,25 +8,25 @@ import { get } from '../../../../lib/request.js';
 /**
  * Get all the subfolders in a folder, or the top level folders for the case
  *
- * @param {number} id
+ * @param {number} caseId
  * @param {number | null} folderId
  * @returns {Promise<DocumentationCategory[]>}
  */
-export const getCaseFolders = (id, folderId = null) => {
+export const getCaseFolders = (caseId, folderId = null) => {
 	return folderId
-		? get(`applications/${id}/folders/${folderId}/sub-folders`)
-		: get(`applications/${id}/folders`);
+		? get(`applications/${caseId}/folders/${folderId}/sub-folders`)
+		: get(`applications/${caseId}/folders`);
 };
 
 /**
  * Get a single folder on a case
  *
  * @param {number} caseId
- * @param {number} id
+ * @param {number} folderId
  * @returns {Promise<DocumentationCategory>}
  */
-export const getCaseFolder = (caseId, id) => {
-	const folder = get(`applications/${caseId}/folders/${id}`);
+export const getCaseFolder = (caseId, folderId) => {
+	const folder = get(`applications/${caseId}/folders/${folderId}`);
 
 	return folder;
 };
@@ -49,16 +49,19 @@ export const getCaseDocumentationFolderPath = (caseId, folderId) => {
  * Get the documents for the current folder
  *
  * @param {number} caseId
- * @param {DocumentationCategory |undefined} documentationCategory
- * @returns {DocumentationFile[]}
+ * @param {number} folderId
+ * @returns {Promise<DocumentationFile[]>}
  */
-export const getCaseDocumentationFilesInFolder = (caseId, documentationCategory) => {
+export const getCaseDocumentationFilesInFolder = (caseId, folderId) => {
 	// TODO: Mock Version - to be replaced when API to get documents exists:
 	/** @type {DocumentationFile[] } */
 	let documentationFiles = [];
 
-	if (caseId && documentationCategory) {
+	if (caseId && folderId) {
 		documentationFiles = [{ fileName: 'sitting-1.png', url: '#' }];
 	}
-	return documentationFiles;
+
+	return new Promise((resolve) => {
+		setTimeout(() => resolve(documentationFiles), 200);
+	});
 };
