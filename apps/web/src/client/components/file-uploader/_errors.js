@@ -78,24 +78,3 @@ export const showErrors = (error, uploadForm) => {
 	topHook.innerHTML = topErrorsMarkup;
 	middleHook.innerHTML = middleErrorsMarkup;
 };
-
-/**
- * @param {HTMLElement} uploadForm
- */
-export const hideErrors = (uploadForm) => {
-	const formContainer = uploadForm.querySelector('.pins-file-upload--container');
-	const topHook = uploadForm.querySelector('.top-errors-hook');
-	const middleHook = uploadForm.querySelector('.middle-errors-hook');
-	const filesRows = uploadForm.querySelector('.pins-file-upload--files-rows');
-
-	if (!formContainer || !topHook || !middleHook || !filesRows) return;
-
-	const errorRows = filesRows.querySelectorAll('.error-row');
-
-	for (const errorRow of errorRows) {
-		errorRow.remove();
-	}
-	topHook.innerHTML = '';
-	middleHook.innerHTML = '';
-	formContainer.classList.remove('error');
-};

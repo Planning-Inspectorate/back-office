@@ -1,4 +1,4 @@
-import { hideErrors, showErrors } from './_errors.js';
+import { showErrors } from './_errors.js';
 import serverActions from './_server-actions.js';
 import { buildErrorListItem, buildProgressMessage, buildRegularListItem } from './_html.js';
 
@@ -74,14 +74,11 @@ const clientActions = (uploadForm) => {
 	 * @param {FileWithRowId[]} newFiles
 	 */
 	const updateFilesRows = (newFiles) => {
-		hideErrors(uploadForm);
-
 		const wrongFiles = [];
 
 		for (const selectedFile of newFiles) {
 			const fileRowId = `file_row_${selectedFile.lastModified}_${selectedFile.size}`;
 			const fileCannotBeAdded = checkSelectedFile(selectedFile);
-			const fileRow = uploadForm.querySelector(`#${fileRowId}`);
 
 			if (fileCannotBeAdded) {
 				const error = {
@@ -92,7 +89,7 @@ const clientActions = (uploadForm) => {
 
 				filesRows.innerHTML += buildErrorListItem(error);
 				wrongFiles.push(error);
-			} else if (!fileRow) {
+			} else {
 				selectedFile.fileRowId = fileRowId;
 				globalDataTransfer.items.add(selectedFile);
 				filesRows.append(buildRegularListItem(selectedFile));
