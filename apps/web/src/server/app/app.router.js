@@ -3,6 +3,7 @@ import { Router as createRouter } from 'express';
 import { installAuthMock } from '../../../testing/app/mocks/auth.js';
 import appealsRouter from '../appeals/appeals.router.js';
 import applicationsRouter from '../applications/applications.router.js';
+import pino from '../lib/logger.js';
 import { handleHeathCheck, viewHomepage, viewUnauthenticatedError } from './app.controller.js';
 import { handleSignout } from './auth/auth.controller.js';
 import { assertIsAuthenticated } from './auth/auth.guards.js';
@@ -33,6 +34,8 @@ if (!config.authDisabled) {
 // TODO: remove this
 router.route('/auth/session-token').get((/** @type {*} */ request, /** @type {*} */ response) => {
 	const account = authSession.getAccount(request.session);
+
+	pino.info(`[WEB] account session token from controller: ${account?.accessToken}`);
 
 	response.send(account ?? 'NO ACCESS TOKEN');
 });
