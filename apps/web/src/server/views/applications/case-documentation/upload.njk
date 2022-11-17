@@ -12,14 +12,9 @@
 {% block pageHeading %}{% endblock %}
 
 {% block beforeContent %}
-	{{
-	govukBreadcrumbs({
-		classes: 'govuk-!-margin-top-3',
-		items: [
-			{ href: 'case-view'|url({caseId: caseId, step: 'project-documentation'}), text: 'Project documentation' },
-			{ href: 'category', text: 'Acceptance' },
-			{ text: currentFolder.displayNameEn }
-		]
+	{{ govukBreadcrumbs({
+		classes: 'govuk-!-margin-top-0',
+		items: breadcrumbItems
 	})
 	}}
 {% endblock %}
