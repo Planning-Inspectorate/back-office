@@ -1,9 +1,6 @@
-import pino from '../../lib/logger.js';
-
 /** @typedef {import('express-session').Session & AuthState} SessionWithAuth */
-/** @typedef {import('express-session').Session & {accessToken: AccessToken}} SessionWithAccessToken */
-/** @typedef {import('@azure/core-auth').AccessToken} AccessToken */
 /** @typedef {import('./auth.service').AccountInfo} AccountInfo */
+/** @typedef {import('@pins/platform').MsalAuthenticationResult} MsalAuthenticationResult */
 
 /**
  * @typedef {object} AuthenticationData
@@ -55,15 +52,18 @@ export const destroyAccount = (session) => {
 
 /**
  * @param {SessionWithAuth} session
- * @param {AccountInfo} account
+ * @param {MsalAuthenticationResult} authenticationResult
  * @returns {void}
  */
-export const setAccount = (session, account) => {
-	pino.info(`[WEB] account being set: ${account.accessToken}`);
+export const setAccount = (session, authenticationResult) => {
+	const { account, accessToken, idToken, expiresOn } = authenticationResult;
 
-	session.account = account;
-
-	pino.info(`[WEB] account just set: ${session.account.accessToken}`);
+	session.account = {
+		...account,
+		accessToken,
+		idToken,
+		expiresOnTimestamp: expiresOn?.getTime()
+	};
 };
 
 /**
@@ -73,22 +73,3 @@ export const setAccount = (session, account) => {
 export const getAccount = (session) => {
 	return session.account;
 };
-
-/**
- * @param {SessionWithAccessToken} session
- * @param {*} accessToken
- * @returns {void}
- */
-export const setAccessToken = (session, accessToken) => {
-	session.accessToken = accessToken;
-};
-
-/**
- * @param {SessionWithAccessToken} session
- * @returns {*}
- */
-export const getAccessToken = (session) => {
-	return session.accessToken;
-};
-
-// TODO: create destroy accesstoken method and execute on logout

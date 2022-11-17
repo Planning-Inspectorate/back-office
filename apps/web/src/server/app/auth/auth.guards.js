@@ -35,21 +35,8 @@ export async function assertIsAuthenticated(request, response, next) {
 			const refreshedAuthenticationResult = await authService.acquireTokenSilent(sessionAccount);
 
 			if (refreshedAuthenticationResult) {
-				const { account, accessToken, idToken, expiresOn } = refreshedAuthenticationResult;
-
-				pino.info(`[WEB] accessToken from guard: ${accessToken}`);
-				pino.info(`[WEB] idToken from guard: ${idToken}`);
-				pino.info(`[WEB] nonce from guard: ${account?.idTokenClaims?.nonce}`);
-
-				const accountWithToken = {
-					...account,
-					accessToken,
-					idToken,
-					expiresOnTimestamp: expiresOn?.getTime()
-				};
-
 				pino.debug('Refreshed MSAL authentication.');
-				authSession.setAccount(request.session, accountWithToken);
+				authSession.setAccount(request.session, refreshedAuthenticationResult);
 				return next();
 			}
 			// Destroy current session if refreshedAuthenticationResult not provided.
