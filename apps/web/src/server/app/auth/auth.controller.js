@@ -61,12 +61,6 @@ export async function completeMsalAuthentication(request, response) {
 		const authenticationResult = await authService.acquireTokenByCode(request.query.code);
 
 		pino.info(`[WEB] auth access token: ${authenticationResult?.accessToken}`);
-		pino.info(`[WEB] auth expire token: ${authenticationResult?.expiresOn}`);
-		pino.info(`[WEB] auth id token: ${authenticationResult?.idToken}`);
-		pino.info(`[WEB] auth nonce: ${authenticationResult?.idTokenClaims.nonce}`);
-
-		// @ts-ignore
-		const { account, accessToken, idToken, expiresOn, idTokenClaims } = authenticationResult;
 
 		// After acquiring an authentication result from MSAL, verify that the
 		// result is signed by the nonce for this authentication attempt. This check
@@ -75,19 +69,10 @@ export async function completeMsalAuthentication(request, response) {
 		// response directly to redirectUri as the nonce would not be in play, but
 		// such a request has no nefarious effect on the application and would
 		// basically be a waste of time).
-		if (idTokenClaims?.nonce === nonce) {
+		if (authenticationResult?.idTokenClaims?.nonce === nonce) {
 			request.session.regenerate(() => {
-				const accountWithToken = {
-					...account,
-					accessToken,
-					idToken,
-					expiresOnTimestamp: expiresOn?.getTime()
-				};
-
-				pino.info(`[WEB] account session token: ${accountWithToken.accessToken}`);
-
 				// store user information in session
-				authSession.setAccount(request.session, accountWithToken);
+				authSession.setAccount(request.session, authenticationResult);
 				// save the session before redirection to ensure page
 				// load does not happen before session is saved
 				request.session.save(() => {

@@ -4,7 +4,7 @@ import { BlobServiceClient } from '@azure/storage-blob';
 /** @typedef {import('./_html.js').FileWithRowId} FileWithRowId */
 /** @typedef {import('@azure/core-auth').AccessToken} AccessToken */
 /** @typedef {{documentName: string, fileRowId: string, blobStoreUrl?: string, failedReason?: string}} DocumentUploadInfo */
-/** @typedef {{documents: DocumentUploadInfo[], blobStorageHost: string, blobStorageContainer: string, token: AccessToken}} UploadInfo */
+/** @typedef {{documents: DocumentUploadInfo[], blobStorageHost: string, blobStorageContainer: string, accessToken: AccessToken}} UploadInfo */
 
 /**
  *
@@ -60,15 +60,10 @@ const serverActions = (uploadForm) => {
 	 * @returns {Promise<AnError[]>}>}
 	 */
 	const uploadFiles = async (fileList, uploadInfo) => {
-		const { documents, blobStorageHost, blobStorageContainer, token } = uploadInfo;
-
-		/** @type {function(): Promise<AccessToken>} */
-		const getToken = async () => {
-			return token;
-		};
+		const { documents, blobStorageHost, blobStorageContainer, accessToken } = uploadInfo;
 
 		const blobServiceClient = new BlobServiceClient(blobStorageHost, {
-			getToken
+			getToken: async () => accessToken
 		});
 
 		const containerClient = blobServiceClient.getContainerClient(blobStorageContainer);
@@ -102,7 +97,7 @@ const serverActions = (uploadForm) => {
 		let response;
 
 		try {
-			const blobClient = containerClient.getBlockBlobClient(blobStoreUrl);
+			const blobClient = containerClient.getBlockBlobClient(blobStoreUrl.slice(1));
 			const options = { blobHTTPHeaders: { blobContentType: fileToUpload.type } };
 
 			await blobClient.uploadData(fileToUpload, options);
