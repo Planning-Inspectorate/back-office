@@ -5,9 +5,6 @@ import pino from '../../lib/logger.js';
 import * as authService from './auth.service.js';
 import * as authSession from './auth-session.service.js';
 
-/** @typedef {import('@pins/platform').MsalAuthenticationResult} MsalAuthenticationResult */
-/** @typedef {import('./auth-session.service').SessionWithAccessToken} SessionWithAccessToken */
-
 /**
  * Phase 1 – Navigate to external MSAL signin url
  *
@@ -58,13 +55,12 @@ export async function startMsalAuthentication(request, response) {
  * @type {import('express').RequestHandler<?, ?, ?, { code?: string }>}
  */
 export async function completeMsalAuthentication(request, response) {
-	/** @type {{session: *, query: { code?: string }}} */
-	const { session, query } = request;
-	const { nonce, postSigninRedirectUri } = authSession.getAuthenticationData(session);
+	const { nonce, postSigninRedirectUri } = authSession.getAuthenticationData(request.session);
 
-	if (query.code) {
-		/** @type {MsalAuthenticationResult | null} */
-		const authenticationResult = await authService.acquireTokenByCode(query.code);
+	if (request.query.code) {
+		const authenticationResult = await authService.acquireTokenByCode(request.query.code);
+
+		pino.info('[WEB] auth token:', authenticationResult);
 
 		// After acquiring an authentication result from MSAL, verify that the
 		// result is signed by the nonce for this authentication attempt. This check
@@ -74,22 +70,18 @@ export async function completeMsalAuthentication(request, response) {
 		// such a request has no nefarious effect on the application and would
 		// basically be a waste of time).
 		if (authenticationResult?.idTokenClaims.nonce === nonce) {
-			session.regenerate(() => {
-				// store user information in session
-				authSession.setAccount(session, authenticationResult.account);
+			request.session.regenerate(() => {
+				const { account, accessToken, idToken, expiresOn } = authenticationResult;
 
-				if (authenticationResult?.accessToken && authenticationResult?.expiresOn) {
-					authSession.setAccessToken(session, {
-						accessToken: authenticationResult?.accessToken,
-						idToken: authenticationResult?.idToken,
-						idTokenClaims: authenticationResult?.idTokenClaims,
-						account: authenticationResult?.account
-					});
-					pino.info('[WEB] auth token:', authenticationResult.accessToken);
-				}
+				account.accessToken = accessToken;
+				account.idToken = idToken;
+				account.expiresOnTimestamp = (expiresOn || new Date()).getTime();
+
+				// store user information in session
+				authSession.setAccount(request.session, account);
 				// save the session before redirection to ensure page
 				// load does not happen before session is saved
-				session.save(() => {
+				request.session.save(() => {
 					response.redirect(postSigninRedirectUri);
 				});
 			});
