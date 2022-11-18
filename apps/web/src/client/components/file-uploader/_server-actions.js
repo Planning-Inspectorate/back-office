@@ -96,6 +96,7 @@ const serverActions = (uploadForm) => {
 		let response;
 
 		try {
+			// todo: remove the initial / from backend
 			const blobClient = containerClient.getBlockBlobClient(blobStoreUrl.slice(1));
 			const options = { blobHTTPHeaders: { blobContentType: fileToUpload.type } };
 
