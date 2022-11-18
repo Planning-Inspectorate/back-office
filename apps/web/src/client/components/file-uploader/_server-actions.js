@@ -41,7 +41,6 @@ const serverActions = (uploadForm) => {
 				for (const documentUploadInfo of uploadsInfos.documents) {
 					if (documentUploadInfo.failedReason) {
 						failedUploads.push({
-							// TODO: handle actual error message from api
 							message: 'GENERIC_SINGLE_FILE',
 							fileRowId: documentUploadInfo.fileRowId,
 							name: documentUploadInfo.documentName
@@ -101,7 +100,9 @@ const serverActions = (uploadForm) => {
 			const options = { blobHTTPHeaders: { blobContentType: fileToUpload.type } };
 
 			await blobClient.uploadData(fileToUpload, options);
-		} catch {
+		} catch (error) {
+			// eslint-disable-next-line no-console
+			console.error(error);
 			response = {
 				message: 'GENERIC_SINGLE_FILE',
 				fileRowId: fileToUpload.fileRowId || '',
