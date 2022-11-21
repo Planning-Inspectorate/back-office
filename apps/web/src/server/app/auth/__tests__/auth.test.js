@@ -35,7 +35,10 @@ describe('auth', () => {
 
 			expect(authOptions.authority).toEqual('https://login.microsoftonline.com/auth_tenant_id');
 			expect(authOptions.redirectUri).toEqual(expect.stringMatching('^https?://.*/auth/redirect'));
-			expect(authOptions.scopes).toEqual(['user.read']);
+			expect(authOptions.scopes).toEqual([
+				'user.read',
+				'https://storage.azure.com/user_impersonation'
+			]);
 			expect(authOptions.nonce).toBeTruthy();
 
 			expect(response.get('Location')).toEqual('/test/azure-msal/signin');
@@ -48,7 +51,10 @@ describe('auth', () => {
 
 			expect(tokenOptions.authority).toEqual('https://login.microsoftonline.com/auth_tenant_id');
 			expect(tokenOptions.redirectUri).toEqual(expect.stringMatching('^https?://.*/auth/redirect'));
-			expect(tokenOptions.scopes).toEqual(['user.read']);
+			expect(tokenOptions.scopes).toEqual([
+				'user.read',
+				'https://storage.azure.com/user_impersonation'
+			]);
 			expect(tokenOptions.code).toEqual('msal_code');
 
 			expect(redirect.get('Location')).toEqual('/appeals-service/validation');
@@ -147,7 +153,7 @@ describe('auth', () => {
 
 			expect(client.acquireTokenSilent).toHaveBeenCalledWith({
 				account: client.account,
-				scopes: ['user.read']
+				scopes: ['user.read', 'https://storage.azure.com/user_impersonation']
 			});
 		});
 
