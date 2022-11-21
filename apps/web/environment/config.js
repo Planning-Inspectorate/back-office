@@ -1,6 +1,7 @@
 import { loadEnvironment } from '@pins/platform';
 import path from 'node:path';
 import url from 'node:url';
+import featureFlags from './feature-flags.js';
 import schema from './schema.js';
 
 const environment = loadEnvironment(process.env.NODE_ENV);
@@ -34,7 +35,9 @@ const { value: validatedConfig, error } = schema.validate({
 			caseOfficerGroupId: environment.APPLICATIONS_CASEOFFICER_GROUP_ID,
 			inspectorGroupId: environment.APPLICATIONS_INSPECTOR_GROUP_ID
 		}
-	}
+	},
+	// TODO: these vals will come from Azure and will be listed here
+	featureFlags: featureFlags[environment.NODE_ENV || 'production']
 });
 
 if (error) {
