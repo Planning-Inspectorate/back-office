@@ -30,3 +30,23 @@ for (const parameter of [['awaiting_upload', 'uploading', 'not_yet_checked', {},
 		hasChanged: parameter[4]
 	});
 }
+
+for (const parameter of [['uploading', 'not_yet_checked', 'failed_checks', {}, true]]) {
+	test(applyAction, {
+		initialState: parameter[0],
+		action: parameter[1],
+		expectedState: parameter[2],
+		context: parameter[3],
+		hasChanged: parameter[4]
+	});
+}
+
+for (const parameter of [['uploading', 'not_yet_checked', 'ready', {}, true]]) {
+	test(applyAction, {
+		initialState: parameter[0],
+		action: parameter[1],
+		expectedState: parameter[2],
+		context: parameter[3],
+		hasChanged: parameter[4]
+	});
+}
