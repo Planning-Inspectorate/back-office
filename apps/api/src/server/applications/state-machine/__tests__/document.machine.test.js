@@ -1,5 +1,6 @@
 import test from 'ava';
 import { transitionState } from '../../../utils/transition-state.js';
+
 /**
  * @param {object} t
  * @param {{initialState: string, action: string, expectedState: string, context: object, hasChanged: boolean}} config
@@ -21,27 +22,11 @@ applyAction.title = (providedTitle, { initialState, action, expectedState, conte
 	with context ${JSON.stringify(context)} action [${action}] produces state
 	[${JSON.stringify(expectedState)}] ${hasChanged ? '' : ' without'} having transitioned`;
 
-for (const parameter of [['awaiting_upload', 'uploading', 'not_yet_checked', {}, true]]) {
-	test(applyAction, {
-		initialState: parameter[0],
-		action: parameter[1],
-		expectedState: parameter[2],
-		context: parameter[3],
-		hasChanged: parameter[4]
-	});
-}
-
-for (const parameter of [['uploading', 'not_yet_checked', 'failed_checks', {}, true]]) {
-	test(applyAction, {
-		initialState: parameter[0],
-		action: parameter[1],
-		expectedState: parameter[2],
-		context: parameter[3],
-		hasChanged: parameter[4]
-	});
-}
-
-for (const parameter of [['uploading', 'not_yet_checked', 'ready', {}, true]]) {
+for (const parameter of [
+	['awaiting_upload', 'uploading', 'not_yet_checked', {}, true],
+	['uploading', 'not_yet_checked', 'failed_checks', {}, true],
+	['uploading', 'not_yet_checked', 'ready', {}, true]
+]) {
 	test(applyAction, {
 		initialState: parameter[0],
 		action: parameter[1],
