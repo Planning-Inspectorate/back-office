@@ -6,6 +6,8 @@ import { msalClient } from '../../lib/msal.js';
 /** @typedef {import('@pins/platform').PlanningInspectorAccountInfo} AccountInfo */
 /** @typedef {import('@pins/platform').MsalAuthenticationResult} AuthenticationResult */
 
+const scopes = ['user.read', 'https://storage.azure.com/user_impersonation'];
+
 /**
  * Acquire a {@link AuthenticationResult} using a code sourced from the user
  * having signed in manually at a MSAL authentication url.
@@ -19,7 +21,7 @@ export const acquireTokenByCode = async (code) => {
 			authority: config.msal.authority,
 			code,
 			redirectUri: config.msal.redirectUri,
-			scopes: ['user.read']
+			scopes
 		})
 	);
 };
@@ -36,7 +38,7 @@ export const acquireTokenSilent = async (account) => {
 	return transformAuthenticationResult(
 		await msalClient.acquireTokenSilent({
 			account,
-			scopes: ['user.read']
+			scopes
 		})
 	);
 };
@@ -65,7 +67,7 @@ export const getAuthCodeUrl = (options) => {
 		...options,
 		authority: config.msal.authority,
 		redirectUri: config.msal.redirectUri,
-		scopes: ['user.read']
+		scopes
 	});
 };
 
