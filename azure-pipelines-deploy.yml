@@ -7,7 +7,7 @@ parameters:
     displayName: Deploy Web
     type: boolean
     default: true
-  - name: deployDocumentStorage
+  - name: deployDocumentStorageApi
     displayName: Deploy Document Storage API
     type: boolean
     default: true
