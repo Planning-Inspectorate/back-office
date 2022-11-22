@@ -1,6 +1,8 @@
 {% extends "../case/layouts/applications-case-layout.njk" %}
 {% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
 {% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/accordion/macro.njk" import govukAccordion %}
+{% from "govuk/components/table/macro.njk" import govukTable %}
 
 {% block sectionMenu %}{% endblock %}
 
@@ -12,17 +14,28 @@
 		items: breadcrumbItems
 	}) }}
 
-	<h2 class="govuk-heading-l">{{ currentFolder.displayNameEn }}</h2>
+{# Display sub-folders in this folder #}
+	<div class="pins-dashboard-list--hide-controls">
+		<h2 class="govuk-heading-l">{{ currentFolder.displayNameEn }} folder</h2>
 
-	<!-- loop to display sub-folders in this folder -->
-	{% for subFolder in subFolders %}
-		<div class="govuk-grid-row govuk-grid-column-full">
-			<a class="govuk-link govuk-body-s govuk-!-font-weight-bold"
-			   href="{{ 'document-category'|url({caseId: caseId, documentationCategory: subFolder}) }}">
-				{{ subFolder.displayNameEn }}
-			</a>
-		</div>
-	{% endfor %}
+		{% set folderRows = [] %}
+		{% for subFolder in subFolders %}
+			{% set folderRows = folderRows | concat ([[
+				{ html: '<a class="govuk-link govuk-body-m" href="' + 'document-category' |url({caseId: caseId, documentationCategory: subFolder}) +'">' + subFolder.displayNameEn + '</a>' }
+			]])
+			%}
+		{% endfor %}
+
+		{{ govukAccordion({
+			items: [{
+				content: {
+					html: govukTable({
+						rows: folderRows
+					})
+				}
+			]}
+		}) }}
+	</div>
 
 	{% set userIsInspector = domainType === 'inspector' %}
 
@@ -37,13 +50,18 @@
 		</div>
 	{% endif %}
 
+	<h2 class="govuk-heading-m">Documents</h2>
 	<!-- TODO: loop to display files in this folder -->
-	{% for documentationFile in documentationFiles %}
-		<div class="govuk-grid-row govuk-grid-column-full">
-			<a class="govuk-link govuk-body-s govuk-!-font-weight-bold" href={{ documentationFile.url }}>
-				{{ documentationFile.fileName }}
-			</a>
-		</div>
-	{% endfor %}
+	{% if documentationFiles |length %}
+		{% for documentationFile in documentationFiles %}
+			<div class="govuk-grid-row govuk-grid-column-full">
+				<a class="govuk-link govuk-body-s govuk-!-font-weight-bold" href={{ documentationFile.url }}>
+					{{ documentationFile.fileName }}
+				</a>
+			</div>
+		{% endfor %}
+	{% else %}
+		This folder contains no documents
+	{% endif %}
 
 {% endblock %}
