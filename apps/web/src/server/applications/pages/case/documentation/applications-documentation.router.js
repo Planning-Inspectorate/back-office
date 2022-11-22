@@ -1,5 +1,6 @@
 import { Router as createRouter } from 'express';
 import asyncRoute from '../../../../lib/async-route.js';
+import { assertDomainTypeIsNotInspector } from '../../create-new-case/applications-create.guards.js';
 import * as locals from '../applications-case.locals.js';
 import * as controller from './applications-documentation.controller.js';
 
@@ -17,6 +18,9 @@ applicationsDocumentationRouter
 
 applicationsDocumentationRouter
 	.route('/:folderId/:folders/upload')
-	.get(locals.registerFolder, asyncRoute(controller.viewApplicationsCaseDocumentationUpload));
+	.get(
+		[assertDomainTypeIsNotInspector, locals.registerFolder],
+		asyncRoute(controller.viewApplicationsCaseDocumentationUpload)
+	);
 
 export default applicationsDocumentationRouter;

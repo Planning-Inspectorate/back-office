@@ -23,8 +23,6 @@ import * as authSession from './auth-session.service.js';
 export async function assertIsAuthenticated(request, response, next) {
 	const sessionAccount = authSession.getAccount(request.session);
 
-	pino.info(`[WEB] accessToken saved in session from guard: ${sessionAccount?.accessToken}`);
-
 	if (sessionAccount) {
 		try {
 			// Eagerly invoke the `acquireTokenSilent` method: Internally,

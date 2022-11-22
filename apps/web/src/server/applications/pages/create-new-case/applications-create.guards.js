@@ -15,7 +15,7 @@ export const assertDomainTypeIsNotInspector = (req, res, next) => {
 		applicationsDomainType !== 'case-officer' &&
 		applicationsDomainType !== 'case-admin-officer'
 	) {
-		return next({ statusCode: 403, message: 'Inspector cannot access the create new case form' });
+		return next({ statusCode: 403, message: 'Inspector cannot access page' });
 	}
 	next();
 };

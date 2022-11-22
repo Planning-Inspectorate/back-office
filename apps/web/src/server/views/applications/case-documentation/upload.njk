@@ -12,6 +12,8 @@
 {% block pageHeading %}{% endblock %}
 
 {% block beforeContent %}
+	{% set breadcrumbItems = breadcrumbItems | concat({text: [currentFolder.displayNameEn, ' documents']|join }) %}
+
 	{{ govukBreadcrumbs({
 		classes: 'govuk-!-margin-top-0',
 		items: breadcrumbItems

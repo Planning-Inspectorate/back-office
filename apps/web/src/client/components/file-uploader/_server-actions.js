@@ -101,9 +101,7 @@ const serverActions = (uploadForm) => {
 			const options = { blobHTTPHeaders: { blobContentType: fileToUpload.type } };
 
 			await blobClient.uploadData(fileToUpload, options);
-		} catch (error) {
-			// eslint-disable-next-line no-console
-			console.error(error);
+		} catch {
 			response = {
 				message: 'GENERIC_SINGLE_FILE',
 				fileRowId: fileToUpload.fileRowId || '',
