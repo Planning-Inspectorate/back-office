@@ -70,3 +70,17 @@
 	}
   }
 }
+
+.pins-dashboard-list--hide-controls {
+	.govuk-accordion__controls {
+	  display: none;
+	}
+
+	.govuk-accordion__section-button {
+		border: none;
+	}
+
+	.govuk-table__cell {
+		border-bottom-style: none;
+	}
+  }

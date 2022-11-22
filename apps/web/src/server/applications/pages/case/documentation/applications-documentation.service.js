@@ -55,10 +55,11 @@ export const getCaseDocumentationFolderPath = (caseId, folderId) => {
 export const getCaseDocumentationFilesInFolder = (caseId, folderId) => {
 	// TODO: Mock Version - to be replaced when API to get documents exists:
 	/** @type {DocumentationFile[] } */
-	let documentationFiles = [];
+	const documentationFiles = [];
 
 	if (caseId && folderId) {
-		documentationFiles = [{ fileName: 'sitting-1.png', url: '#' }];
+		// TODO: get documents in this folder
+		// documentationFiles = [{ fileName: 'sitting-1.png', url: '#' }];
 	}
 
 	return new Promise((resolve) => {
