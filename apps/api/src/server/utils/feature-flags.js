@@ -1,5 +1,5 @@
-import config from '@pins/web/environment/config.js';
-import pino from '@pins/web/src/server/lib/logger.js';
+import config from '../config/config.js';
+import pino from './logger.js';
 
 /**
  *
