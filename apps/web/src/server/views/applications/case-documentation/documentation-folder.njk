@@ -8,27 +8,34 @@
 
 {% block sectionContent %}
 	{{ govukBreadcrumbs({
-			classes: 'govuk-!-margin-top-0',
-			items: breadcrumbItems
-		})
-	}}
+		classes: 'govuk-!-margin-top-0',
+		items: breadcrumbItems
+	}) }}
 
 	<h2 class="govuk-heading-l">{{ currentFolder.displayNameEn }}</h2>
 
 	<!-- loop to display sub-folders in this folder -->
 	{% for subFolder in subFolders %}
 		<div class="govuk-grid-row govuk-grid-column-full">
-			<a class="govuk-link govuk-body-s govuk-!-font-weight-bold" href="{{ 'document-category'|url({caseId: caseId, documentationCategory: subFolder}) }}">
+			<a class="govuk-link govuk-body-s govuk-!-font-weight-bold"
+			   href="{{ 'document-category'|url({caseId: caseId, documentationCategory: subFolder}) }}">
 				{{ subFolder.displayNameEn }}
 			</a>
 		</div>
 	{% endfor %}
 
-	<div class="govuk-grid-row govuk-!-margin-top-0">
-		<div class="govuk-button-group pins-button-group govuk-grid-column-one-half govuk-!-margin-top-0">
-			<a class="govuk-button" href="{{ 'document-category'|url({caseId: caseId, documentationCategory: currentFolder, step: 'upload'}) }}">Upload files</a>
+	{% set userIsInspector = domainType === 'inspector' %}
+
+	{% if not userIsInspector %}
+		<div class="govuk-grid-row govuk-!-margin-top-0">
+			<div class="govuk-button-group pins-button-group govuk-grid-column-one-half govuk-!-margin-top-0">
+				<a class="govuk-button"
+				   href="{{ 'document-category'|url({caseId: caseId, documentationCategory: currentFolder, step: 'upload'}) }}">
+					Upload files
+				</a>
+			</div>
 		</div>
-	</div>
+	{% endif %}
 
 	<!-- TODO: loop to display files in this folder -->
 	{% for documentationFile in documentationFiles %}

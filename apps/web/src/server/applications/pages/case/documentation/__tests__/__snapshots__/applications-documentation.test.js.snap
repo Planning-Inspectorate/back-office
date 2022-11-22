@@ -58,7 +58,7 @@ exports[`applications documentation GET /case/123/project-documentation/21/sub-f
             <div class=\\"govuk-grid-row govuk-grid-column-full\\"><a class=\\"govuk-link govuk-body-s govuk-!-font-weight-bold\\" href=\\"/applications-service/case/123/project-documentation/32/sub-folder-b/\\"> Sub folder b</a>
             </div>
             <div class=\\"govuk-grid-row govuk-!-margin-top-0\\">
-                <div class=\\"govuk-button-group pins-button-group govuk-grid-column-one-half govuk-!-margin-top-0\\"><a class=\\"govuk-button\\" href=\\"/applications-service/case/123/project-documentation/21/sub-folder-level-2/upload\\">Upload files</a>
+                <div class=\\"govuk-button-group pins-button-group govuk-grid-column-one-half govuk-!-margin-top-0\\"><a class=\\"govuk-button\\" href=\\"/applications-service/case/123/project-documentation/21/sub-folder-level-2/upload\\"> Upload files</a>
                 </div>
             </div>
             <div class=\\"govuk-grid-row govuk-grid-column-full\\"><a class=\\"govuk-link govuk-body-s govuk-!-font-weight-bold\\" href=#> sitting-1.png</a>

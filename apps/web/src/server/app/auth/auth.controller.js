@@ -60,9 +60,6 @@ export async function completeMsalAuthentication(request, response) {
 	if (request.query.code) {
 		const authenticationResult = await authService.acquireTokenByCode(request.query.code);
 
-		pino.info(`[WEB] auth access token: ${authenticationResult?.accessToken}`);
-		pino.info(`[WEB] auth id token: ${authenticationResult?.idToken}`);
-
 		// After acquiring an authentication result from MSAL, verify that the
 		// result is signed by the nonce for this authentication attempt. This check
 		// prevents against replay attacks and CSRF attacks (note, that a CSRF
