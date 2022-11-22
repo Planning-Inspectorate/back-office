@@ -1,7 +1,6 @@
 import { loadEnvironment } from '@pins/platform';
 import path from 'node:path';
 import url from 'node:url';
-import featureFlags from './feature-flags.js';
 import schema from './schema.js';
 
 const environment = loadEnvironment(process.env.NODE_ENV);
@@ -36,8 +35,11 @@ const { value: validatedConfig, error } = schema.validate({
 			inspectorGroupId: environment.APPLICATIONS_INSPECTOR_GROUP_ID
 		}
 	},
-	// TODO: these vals will come from Azure and will be listed here
-	featureFlags: featureFlags[environment.NODE_ENV || 'production']
+	// flag name convention: featureFlag[ jira number ][ferature shoret description]
+	// set Feature Flag default val here - will be overwritted by values cming from the .env file
+	featureFlags: {
+		featureFlagBoasXTestFeature: environment.FEATURE_FLAG_BOAS_X_TEST_FEATURE === 'true'
+	}
 });
 
 if (error) {
