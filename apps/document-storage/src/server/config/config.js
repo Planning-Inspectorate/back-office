@@ -18,7 +18,12 @@ const { value, error } = schema.validate({
 		levelStdOut: environment.LOG_LEVEL_STDOUT || 'debug'
 	},
 	cwd: url.fileURLToPath(new URL('..', import.meta.url)),
-	defaultApiVersion: '1'
+	defaultApiVersion: '1',
+	// flag name convention: featureFlag[ jira number ][ferature shoret description]
+	// set Feature Flag default val here [default: true] - will be overwritted by values cming from the .env file
+	featureFlags: {
+		featureFlagBoasXTestFeature: environment.FEATURE_FLAG_BOAS_X_TEST_FEATURE === 'true'
+	}
 });
 
 if (error) {
