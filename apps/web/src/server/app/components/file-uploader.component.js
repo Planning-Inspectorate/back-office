@@ -1,5 +1,6 @@
 import { post } from '../../lib/request.js';
-import * as authSession from '../auth/auth-session.service.js';
+import { acquireTokenSilent } from '../auth/auth.service.js';
+import { getAccount } from '../auth/auth-session.service.js';
 
 /** @typedef {import('../auth/auth-session.service')} AuthState */
 /** @typedef {import('express-session').Session & AuthState} SessionWithAuth */
@@ -28,11 +29,19 @@ export async function postDocumentsUpload({ params, body, session }, response) {
 	const uploadInfo = await createNewDocument(caseId, body);
 	const { documents } = uploadInfo;
 
-	const sessionAccount = authSession.getAccount(session);
+	const sessionAccount = getAccount(session);
 
-	if (sessionAccount?.accessToken) {
-		const { accessToken: token, expiresOnTimestamp } = sessionAccount;
-		const accessToken = { token, expiresOnTimestamp };
+	if (!sessionAccount) {
+		return response.status(500).json({ error: 'SESSION_NOT_FOUND' });
+	}
+
+	const blobResourceAuthResult = await acquireTokenSilent(sessionAccount, [
+		'https://storage.azure.com/user_impersonation'
+	]);
+
+	if (blobResourceAuthResult?.accessToken) {
+		const { accessToken: token, expiresOn } = blobResourceAuthResult;
+		const accessToken = { token, expiresOnTimestamp: expiresOn };
 
 		uploadInfo.documents = documents.map((document) => {
 			const fileToUpload = body.find((file) => file.documentName === document.documentName);
