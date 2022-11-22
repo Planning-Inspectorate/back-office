@@ -6,7 +6,7 @@ import { msalClient } from '../../lib/msal.js';
 /** @typedef {import('@pins/platform').PlanningInspectorAccountInfo} AccountInfo */
 /** @typedef {import('@pins/platform').MsalAuthenticationResult} AuthenticationResult */
 
-const scopes = ['user.read', 'https://storage.azure.com/user_impersonation'];
+const scopes = ['user.read'];
 
 /**
  * Acquire a {@link AuthenticationResult} using a code sourced from the user
@@ -32,13 +32,14 @@ export const acquireTokenByCode = async (code) => {
  * use a network request as a last resort.
  *
  * @param {AccountInfo} account
+ * @param {string[]} customScopes
  * @returns {Promise<AuthenticationResult | null>}
  */
-export const acquireTokenSilent = async (account) => {
+export const acquireTokenSilent = async (account, customScopes = scopes) => {
 	return transformAuthenticationResult(
 		await msalClient.acquireTokenSilent({
 			account,
-			scopes
+			scopes: customScopes
 		})
 	);
 };
