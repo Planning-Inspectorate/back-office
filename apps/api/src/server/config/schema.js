@@ -29,7 +29,5 @@ export default joi.object({
 		levelStdOut: joi.string()
 	}),
 	cwd: joi.string(),
-	featureFlags: joi.object({
-		featureFlagBoasXTestFeature: joi.boolean()
-	})
+	featureFlags: joi.object().pattern(/featureFlagBoas\d+[A-Za-z]+/, joi.boolean())
 });
