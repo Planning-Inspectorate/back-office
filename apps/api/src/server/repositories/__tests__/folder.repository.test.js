@@ -6,10 +6,10 @@ import * as folderRepository from '../folder.repository.js';
 const findManyStub = sinon.stub();
 const findUniqueStub = sinon.stub();
 
-const existingLevel1Folders = [
+const existingTopLevelFolders = [
 	{
 		id: 1,
-		displayNameEn: 'test level 1 folder',
+		displayNameEn: 'test top level folder',
 		displayOrder: 100,
 		parentFolderId: null,
 		caseId: 1
@@ -37,7 +37,7 @@ const folderPath = [
 	},
 	{
 		id: 2,
-		displayNameEn: '2nd level folder',
+		displayNameEn: 'level 1 sub folder',
 		displayOrder: 100,
 		parentFolderId: 1,
 		caseId: 5
@@ -46,7 +46,7 @@ const folderPath = [
 
 findManyStub
 	.withArgs({ where: { caseId: 1, parentFolderId: null } })
-	.returns(existingLevel1Folders);
+	.returns(existingTopLevelFolders);
 findManyStub.withArgs({ where: { caseId: 2, parentFolderId: 14 } }).returns(existingSubFolders);
 findManyStub.withArgs({ where: { caseId: 3, parentFolderId: null } }).returns([]);
 
@@ -60,10 +60,10 @@ test.before('sets up database connection mock', () => {
 	});
 });
 
-test('finds all level 1 folders when case has folders attached', async (t) => {
+test('finds all top level folders when case has folders attached', async (t) => {
 	const folders = await folderRepository.getByCaseId(1, null);
 
-	t.deepEqual(folders, existingLevel1Folders);
+	t.deepEqual(folders, existingTopLevelFolders);
 });
 
 test('finds all folders in a sub folder', async (t) => {
