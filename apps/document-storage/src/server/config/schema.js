@@ -16,6 +16,8 @@ export default joi
 		}),
 		cwd: joi.string(),
 		defaultApiVersion: joi.string(),
-		featureFlags: joi.object()
+		featureFlags: joi.object({
+			featureFlagBoasXTestFeature: joi.boolean()
+		})
 	})
 	.options({ presence: 'required' });

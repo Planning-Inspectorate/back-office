@@ -32,5 +32,7 @@ export default joi.object({
 			inspectorGroupId: joi.string()
 		})
 	}),
-	featureFlags: joi.object()
+	featureFlags: joi.object({
+		featureFlagBoasXTestFeature: joi.boolean()
+	})
 });
