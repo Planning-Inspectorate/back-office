@@ -24,8 +24,8 @@ applyAction.title = (providedTitle, { initialState, action, expectedState, conte
 
 for (const parameter of [
 	['awaiting_upload', 'uploading', 'not_yet_checked', {}, true],
-	['uploading', 'not_yet_checked', 'failed_checks', {}, true],
-	['uploading', 'not_yet_checked', 'ready', {}, true]
+	['not_yet_checked', 'check_fail', 'failed_checks', {}, true],
+	['not_yet_checked', 'check_success', 'ready', {}, true]
 ]) {
 	test(applyAction, {
 		initialState: parameter[0],
