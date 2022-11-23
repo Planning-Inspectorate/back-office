@@ -5,8 +5,8 @@ export interface FolderDetails {
 }
 
 export interface FolderTemplate {
-	uniqueId: number;
 	displayNameEn: string;
 	displayOrder: number;
-	childFolders?: FolderTemplate[];
+	caseId?: number;
+	childFolders?: FolderTemplate[] | null;
 }

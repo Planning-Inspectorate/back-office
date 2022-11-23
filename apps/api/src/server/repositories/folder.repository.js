@@ -1,4 +1,3 @@
-import lodash from 'lodash-es';
 import { databaseConnector } from '../utils/database-connector.js';
 
 /** @typedef {import('@pins/api').Schema.Folder} Folder */
@@ -71,153 +70,80 @@ export const getFolderPath = async (caseId, currentFolderId) => {
 };
 
 /**
- * Creates the top level folders on a case using the folder template
- * and recursively creates all sub folders
  *
  * @param {number} caseId
- * @returns {Promise<import('@pins/api').Schema.BatchPayload>}
- */
-export const createFolders = async (caseId) => {
-	const foldersToCreateTopLevel = {
-		data: defaultCaseFolders.map((folder) => ({
-			...lodash.omit(folder, ['childFolders', 'uniqueId']),
-			caseId
-		}))
-	};
-	const foldersCreated = await databaseConnector.folder.createMany(foldersToCreateTopLevel);
-
-	if (foldersCreated) {
-		const topLevelFolders = await getByCaseId(caseId, null);
-
-		// and then recursively create any sub folders of these top level folders,
-		// by getting the matching template folder, and its child folder structure to be created
-		for (const /** @type {Folder} */ folder of topLevelFolders) {
-			if (defaultCaseFolders.some((x) => x.displayNameEn === folder.displayNameEn)) {
-				const templateIds = [];
-				const templateFolder = defaultCaseFolders.find(
-					(x) => x.displayNameEn === folder.displayNameEn
-				);
-
-				if (templateFolder) {
-					templateIds.push(templateFolder.uniqueId);
-
-					const childFoldersRequired = defaultCaseFolders.find(
-						(x) => x.displayNameEn === folder.displayNameEn
-					)?.childFolders;
-
-					if (childFoldersRequired) {
-						await createSubFolders(caseId, folder.id, childFoldersRequired, templateIds);
-					}
-				}
-			}
-		}
-	}
-
-	return foldersCreated;
-};
-
-/**
- * This recursively creates each of the child folders on a parent folder
- *
- * @param {number} caseId
- * @param {number |null} parentFolderId
  * @param {FolderTemplate[]} childFolders
- * @param {number[]} templateIds
- * @returns {Promise<import('@pins/api').Schema.BatchPayload>}
+ * @returns {any[] |null}
  */
-export const createSubFolders = async (caseId, parentFolderId, childFolders, templateIds) => {
-	// create each subfolder
-	const subFoldersToCreate = {
-		data: childFolders.map((folder) => ({
-			...lodash.omit(folder, ['childFolders', 'uniqueId']),
-			caseId,
-			parentFolderId
-		}))
-	};
-	const foldersCreated = await databaseConnector.folder.createMany(subFoldersToCreate);
+export const mapChildFoldersToPrismaSchema = (caseId, childFolders) => {
+	let childMaps = null;
 
-	if (foldersCreated) {
-		const subFoldersCreated = await getByCaseId(caseId, parentFolderId);
-		const parentTemplateFolder = getFolderTemplate(templateIds);
+	if (childFolders) {
+		const create = [];
 
-		if (parentTemplateFolder) {
-			// and then recursively create the sub folders of these folders
-			for (const /** @type {Folder} */ folder of subFoldersCreated) {
-				if (folder) {
-					// get the template for this sub folder
-					const templateFolder = getChildFolderTemplateByName(
-						parentTemplateFolder,
-						folder.displayNameEn
-					);
+		for (const /** @type {FolderTemplate} */ folder of childFolders) {
+			const /** @type {FolderTemplate} */ newItem = {
+					displayNameEn: folder.displayNameEn,
+					displayOrder: folder.displayOrder,
+					caseId
+				};
 
-					// get the child folder structure to be created
-					if (templateFolder && templateFolder.childFolders) {
-						/** @type {FolderTemplate[] |undefined} childFoldersRequired */
-						const childFoldersRequired = templateFolder.childFolders;
-
-						// copy *values* of current array and add this template folder id
-						const newTemplateIds = [...templateIds];
-
-						if (templateFolder.uniqueId) {
-							newTemplateIds.push(templateFolder.uniqueId);
-						}
-
-						await createSubFolders(caseId, folder.id, childFoldersRequired, newTemplateIds);
-					}
-				}
+			if (folder.childFolders) {
+				newItem.childFolders = mapChildFoldersToPrismaSchema(caseId, folder.childFolders);
 			}
+			create.push(newItem);
 		}
+
+		childMaps = { create };
+	}
+
+	return childMaps;
+};
+
+/**
+ * converts the default case folder template into a prisma compliant structure
+ *
+ * @param {number} caseId
+ * @param {FolderTemplate} topLevelFolder
+ * @returns {any}
+ */
+const mapFolderTemplateToPrismaSchema = (caseId, topLevelFolder) => {
+	const /** @type { FolderTemplate } */ newItem = {
+			displayNameEn: topLevelFolder.displayNameEn,
+			displayOrder: topLevelFolder.displayOrder,
+			caseId
+		};
+
+	if (topLevelFolder.childFolders) {
+		newItem.childFolders = mapChildFoldersToPrismaSchema(caseId, topLevelFolder.childFolders);
+	}
+
+	return { data: newItem };
+};
+
+/**
+ * Creates the top level folders on a case using the folder template
+ * and recursively creates all sub folders.
+ * Returns an array of promises
+ *
+ * @param {number} caseId
+ * @returns {Promise<import('@pins/api').Schema.BatchPayload>[]}
+ */
+export const createFolders = (caseId) => {
+	const foldersCreated = [];
+
+	// Prisma many to nested many does not work, so we cannot create the top folders and all subfolders nested using createMany.
+	// so we loop through the top folders, using create to create the folder and all its subfolders, correctly assigning caseId, parentFolderId etc
+	// and we return an array of these promises
+	for (const topLevelFolder of defaultCaseFolders) {
+		const newFolders = mapFolderTemplateToPrismaSchema(caseId, topLevelFolder);
+
+		const topFoldersCreated = databaseConnector.folder.create(newFolders);
+
+		foldersCreated.push(topFoldersCreated);
 	}
 
 	return foldersCreated;
-};
-
-/**
- * Drills through the default case folder templates using the array of IDs,
- * to return the required template folder
- *
- * @param {number[]} templateIdList
- * @returns {FolderTemplate |undefined}
- */
-const getFolderTemplate = (templateIdList) => {
-	// get the template for this folder
-	/** @type {FolderTemplate |undefined} */
-	let templateFolder;
-	let firstTime = true;
-
-	// 1st index is for the top level
-	const firstTemplateId = templateIdList.find(() => true);
-
-	if (defaultCaseFolders.some((x) => x.uniqueId === Number(firstTemplateId))) {
-		templateFolder = defaultCaseFolders.find((x) => x.uniqueId === Number(firstTemplateId));
-	}
-	for (const templateId of templateIdList) {
-		// skip the first 1
-		if (firstTime) {
-			firstTime = false;
-		} else if (templateFolder?.childFolders?.some((x) => x.uniqueId === templateId)) {
-			templateFolder = templateFolder.childFolders.find((x) => x.uniqueId === templateId);
-		}
-	}
-
-	return templateFolder;
-};
-
-/**
- * finds a child folder template by name and returns it
- *
- * @param {FolderTemplate} parentFolder
- * @param {string} childName
- * @returns {FolderTemplate |undefined}
- */
-const getChildFolderTemplateByName = (parentFolder, childName) => {
-	let childFolder;
-
-	if (parentFolder.childFolders) {
-		childFolder = parentFolder.childFolders.find((f) => f.displayNameEn === childName);
-	}
-
-	return childFolder;
 };
 
 /**
@@ -229,91 +155,81 @@ export const defaultCaseFolders = [
 	{
 		displayNameEn: 'Project management',
 		displayOrder: 100,
-		uniqueId: 100,
 		childFolders: [
 			{
 				displayNameEn: 'Logistics',
 				displayOrder: 100,
-				uniqueId: 110,
 				childFolders: [
-					{ displayNameEn: 'Travel', displayOrder: 100, uniqueId: 111 },
-					{ displayNameEn: 'Welsh', displayOrder: 200, uniqueId: 112 }
+					{ displayNameEn: 'Travel', displayOrder: 100 },
+					{ displayNameEn: 'Welsh', displayOrder: 200 }
 				]
 			},
-			{ displayNameEn: 'Mail merge spreadsheet', displayOrder: 200, uniqueId: 120 },
-			{ displayNameEn: 'Fees', displayOrder: 300, uniqueId: 130 }
+			{ displayNameEn: 'Mail merge spreadsheet', displayOrder: 200 },
+			{ displayNameEn: 'Fees', displayOrder: 300 }
 		]
 	},
-	{ displayNameEn: 'Legal advice', displayOrder: 200, uniqueId: 200 },
+	{ displayNameEn: 'Legal advice', displayOrder: 200 },
 	{
 		displayNameEn: 'Transboundary',
 		displayOrder: 300,
-		uniqueId: 300,
 		childFolders: [
-			{ displayNameEn: 'First screening', displayOrder: 100, uniqueId: 310 },
-			{ displayNameEn: 'Second screening', displayOrder: 200, uniqueId: 320 }
+			{ displayNameEn: 'First screening', displayOrder: 100 },
+			{ displayNameEn: 'Second screening', displayOrder: 200 }
 		]
 	},
 	{
 		displayNameEn: 'Land rights',
 		displayOrder: 400,
-		uniqueId: 400,
 		childFolders: [
 			{
 				displayNameEn: 'S52',
 				displayOrder: 100,
-				uniqueId: 410,
 				childFolders: [
-					{ displayNameEn: 'Applicant request', displayOrder: 100, uniqueId: 411 },
-					{ displayNameEn: 'Recommendation and authorisation', displayOrder: 200, uniqueId: 412 },
-					{ displayNameEn: 'Correspondence', displayOrder: 300, uniqueId: 413 }
+					{ displayNameEn: 'Applicant request', displayOrder: 100 },
+					{ displayNameEn: 'Recommendation and authorisation', displayOrder: 200 },
+					{ displayNameEn: 'Correspondence', displayOrder: 300 }
 				]
 			},
 			{
 				displayNameEn: 'S53',
 				displayOrder: 200,
-				uniqueId: 420,
 				childFolders: [
-					{ displayNameEn: 'Applicant request', displayOrder: 100, uniqueId: 421 },
-					{ displayNameEn: 'Recommendation and authorisation', displayOrder: 200, uniqueId: 422 },
-					{ displayNameEn: 'Correspondence', displayOrder: 300, uniqueId: 423 }
+					{ displayNameEn: 'Applicant request', displayOrder: 100 },
+					{ displayNameEn: 'Recommendation and authorisation', displayOrder: 200 },
+					{ displayNameEn: 'Correspondence', displayOrder: 300 }
 				]
 			}
 		]
 	},
-	{ displayNameEn: 'S51 advice', displayOrder: 500, uniqueId: 500 },
+	{ displayNameEn: 'S51 advice', displayOrder: 500 },
 	{
 		displayNameEn: 'Pre-application',
 		displayOrder: 600,
-		uniqueId: 600,
 		childFolders: [
-			{ displayNameEn: 'Events / meetings', displayOrder: 100, uniqueId: 610 },
-			{ displayNameEn: 'Correspondence', displayOrder: 200, uniqueId: 620 },
+			{ displayNameEn: 'Events / meetings', displayOrder: 100 },
+			{ displayNameEn: 'Correspondence', displayOrder: 200 },
 			{
 				displayNameEn: 'EIA',
 				displayOrder: 300,
-				uniqueId: 630,
 				childFolders: [
-					{ displayNameEn: 'Screening', displayOrder: 100, uniqueId: 631 },
+					{ displayNameEn: 'Screening', displayOrder: 100 },
 					{
 						displayNameEn: 'Scoping',
 						displayOrder: 200,
-						uniqueId: 632,
-						childFolders: [{ displayNameEn: 'Responses', displayOrder: 100, uniqueId: 6321 }]
+						childFolders: [{ displayNameEn: 'Responses', displayOrder: 100 }]
 					}
 				]
 			},
-			{ displayNameEn: 'Habitat regulations', displayOrder: 400, uniqueId: 640 },
-			{ displayNameEn: 'Evidence plans', displayOrder: 500, uniqueId: 650 },
-			{ displayNameEn: 'Draft documents', displayOrder: 600, uniqueId: 660 },
+			{ displayNameEn: 'Habitat regulations', displayOrder: 400 },
+			{ displayNameEn: 'Evidence plans', displayOrder: 500 },
+			{ displayNameEn: 'Draft documents', displayOrder: 600 },
 			{
 				displayNameEn: 'Developers consultation',
 				displayOrder: 700,
-				uniqueId: 670,
 				childFolders: [
-					{ displayNameEn: 'Statutory', displayOrder: 100, uniqueId: 671 },
-					{ displayNameEn: 'Non-statutory', displayOrder: 200, uniqueId: 672 },
-					{ displayNameEn: 'Consultation feedback', displayOrder: 300, uniqueId: 673 }
+					{ displayNameEn: 'Statutory', displayOrder: 100 },
+					{ displayNameEn: 'Non-statutory', displayOrder: 200 },
+					{ displayNameEn: 'Consultation feedback', displayOrder: 300 }
 				]
 			}
 		]
@@ -321,87 +237,77 @@ export const defaultCaseFolders = [
 	{
 		displayNameEn: 'Acceptance',
 		displayOrder: 700,
-		uniqueId: 700,
 		childFolders: [
-			{ displayNameEn: 'Events / meetings', displayOrder: 100, uniqueId: 710 },
-			{ displayNameEn: 'Correspondence', displayOrder: 200, uniqueId: 720 },
-			{ displayNameEn: 'EST', displayOrder: 300, uniqueId: 730 },
+			{ displayNameEn: 'Events / meetings', displayOrder: 100 },
+			{ displayNameEn: 'Correspondence', displayOrder: 200 },
+			{ displayNameEn: 'EST', displayOrder: 300 },
 			{
 				displayNameEn: 'Application documents',
 				displayOrder: 400,
-				uniqueId: 740,
 				childFolders: [
-					{ displayNameEn: 'Application form', displayOrder: 100, uniqueId: 741 },
-					{ displayNameEn: 'Compulsory acquisition information', displayOrder: 200, uniqueId: 742 },
-					{ displayNameEn: 'DCO documents', displayOrder: 300, uniqueId: 743 },
-					{ displayNameEn: 'Environmental statement', displayOrder: 400, uniqueId: 744 },
-					{ displayNameEn: 'Other docuents', displayOrder: 500, uniqueId: 745 },
-					{ displayNameEn: 'Plans', displayOrder: 600, uniqueId: 746 },
-					{ displayNameEn: 'Reports', displayOrder: 700, uniqueId: 747 },
-					{ displayNameEn: 'Additional Reg 6 information', displayOrder: 800, uniqueId: 748 }
+					{ displayNameEn: 'Application form', displayOrder: 100 },
+					{ displayNameEn: 'Compulsory acquisition information', displayOrder: 200 },
+					{ displayNameEn: 'DCO documents', displayOrder: 300 },
+					{ displayNameEn: 'Environmental statement', displayOrder: 400 },
+					{ displayNameEn: 'Other docuents', displayOrder: 500 },
+					{ displayNameEn: 'Plans', displayOrder: 600 },
+					{ displayNameEn: 'Reports', displayOrder: 700 },
+					{ displayNameEn: 'Additional Reg 6 information', displayOrder: 800 }
 				]
 			},
-			{ displayNameEn: 'Adequacy of consultation', displayOrder: 500, uniqueId: 750 },
-			{ displayNameEn: 'Reg 5 and Reg 6', displayOrder: 600, uniqueId: 760 },
-			{ displayNameEn: 'Drafting and decision', displayOrder: 700, uniqueId: 770 }
+			{ displayNameEn: 'Adequacy of consultation', displayOrder: 500 },
+			{ displayNameEn: 'Reg 5 and Reg 6', displayOrder: 600 },
+			{ displayNameEn: 'Drafting and decision', displayOrder: 700 }
 		]
 	},
 	{
 		displayNameEn: 'Pre-examination',
 		displayOrder: 800,
-		uniqueId: 800,
 		childFolders: [
-			{ displayNameEn: 'Events / meetings', displayOrder: 100, uniqueId: 810 },
-			{ displayNameEn: 'Correspondence', displayOrder: 200, uniqueId: 820 },
+			{ displayNameEn: 'Events / meetings', displayOrder: 100 },
+			{ displayNameEn: 'Correspondence', displayOrder: 200 },
 			{
 				displayNameEn: 'Additional submissions',
 				displayOrder: 300,
-				uniqueId: 830,
-				childFolders: [
-					{ displayNameEn: 'Post submission changes', displayOrder: 100, uniqueId: 831 }
-				]
+				childFolders: [{ displayNameEn: 'Post submission changes', displayOrder: 100 }]
 			},
-			{ displayNameEn: 'Procedural decisions', displayOrder: 400, uniqueId: 840 },
-			{ displayNameEn: 'EIA', displayOrder: 500, uniqueId: 850 },
-			{ displayNameEn: 'Habitat regulations', displayOrder: 600, uniqueId: 860 }
+			{ displayNameEn: 'Procedural decisions', displayOrder: 400 },
+			{ displayNameEn: 'EIA', displayOrder: 500 },
+			{ displayNameEn: 'Habitat regulations', displayOrder: 600 }
 		]
 	},
-	{ displayNameEn: 'Relevant representations', displayOrder: 900, uniqueId: 900 },
+	{ displayNameEn: 'Relevant representations', displayOrder: 900 },
 	{
 		displayNameEn: 'Examination',
 		displayOrder: 1000,
-		uniqueId: 1000,
 		childFolders: [
-			{ displayNameEn: 'Correspondence', displayOrder: 100, uniqueId: 1010 },
-			{ displayNameEn: 'Additional submissions', displayOrder: 200, uniqueId: 1020 },
+			{ displayNameEn: 'Correspondence', displayOrder: 100 },
+			{ displayNameEn: 'Additional submissions', displayOrder: 200 },
 			{
 				displayNameEn: 'Examination timetable',
 				displayOrder: 300,
-				uniqueId: 1030,
 				childFolders: [
-					{ displayNameEn: 'Preliminary meetings', displayOrder: 100, uniqueId: 1031 },
-					{ displayNameEn: 'Site inspections', displayOrder: 200, uniqueId: 1032 }
+					{ displayNameEn: 'Preliminary meetings', displayOrder: 100 },
+					{ displayNameEn: 'Site inspections', displayOrder: 200 }
 				]
 			},
-			{ displayNameEn: 'Procedural decisions', displayOrder: 400, uniqueId: 1040 },
-			{ displayNameEn: 'EIA', displayOrder: 500, uniqueId: 1050 },
-			{ displayNameEn: 'Habitat regulations', displayOrder: 600, uniqueId: 1060 }
+			{ displayNameEn: 'Procedural decisions', displayOrder: 400 },
+			{ displayNameEn: 'EIA', displayOrder: 500 },
+			{ displayNameEn: 'Habitat regulations', displayOrder: 600 }
 		]
 	},
 	{
 		displayNameEn: 'Recommendation',
 		displayOrder: 1100,
-		uniqueId: 1100,
 		childFolders: [
-			{ displayNameEn: 'Events / meetings', displayOrder: 100, uniqueId: 1110 },
-			{ displayNameEn: 'Correspondence', displayOrder: 200, uniqueId: 1120 },
+			{ displayNameEn: 'Events / meetings', displayOrder: 100 },
+			{ displayNameEn: 'Correspondence', displayOrder: 200 },
 			{
 				displayNameEn: 'Recommendation report',
 				displayOrder: 300,
-				uniqueId: 1130,
 				childFolders: [
-					{ displayNameEn: 'Drafts', displayOrder: 100, uniqueId: 1131 },
-					{ displayNameEn: 'Final submitted report', displayOrder: 200, uniqueId: 1132 }
+					{ displayNameEn: 'Drafts', displayOrder: 100 },
+					{ displayNameEn: 'Final submitted report', displayOrder: 200 }
 				]
 			}
 		]
@@ -409,22 +315,20 @@ export const defaultCaseFolders = [
 	{
 		displayNameEn: 'Decision',
 		displayOrder: 1200,
-		uniqueId: 1200,
 		childFolders: [
-			{ displayNameEn: 'SoS consultation', displayOrder: 100, uniqueId: 1210 },
-			{ displayNameEn: 'Sos decision', displayOrder: 200, uniqueId: 1220 }
+			{ displayNameEn: 'SoS consultation', displayOrder: 100 },
+			{ displayNameEn: 'Sos decision', displayOrder: 200 }
 		]
 	},
 	{
 		displayNameEn: 'Post-decision',
 		displayOrder: 1300,
-		uniqueId: 1300,
 		childFolders: [
-			{ displayNameEn: 'Judicial review', displayOrder: 100, uniqueId: 1310 },
-			{ displayNameEn: 'Costs', displayOrder: 200, uniqueId: 1320 },
-			{ displayNameEn: 'Non-material change', displayOrder: 300, uniqueId: 1330 },
-			{ displayNameEn: 'Material change', displayOrder: 400, uniqueId: 1340 },
-			{ displayNameEn: 'Redetermination', displayOrder: 500, uniqueId: 1350 }
+			{ displayNameEn: 'Judicial review', displayOrder: 100 },
+			{ displayNameEn: 'Costs', displayOrder: 200 },
+			{ displayNameEn: 'Non-material change', displayOrder: 300 },
+			{ displayNameEn: 'Material change', displayOrder: 400 },
+			{ displayNameEn: 'Redetermination', displayOrder: 500 }
 		]
 	}
 ];
