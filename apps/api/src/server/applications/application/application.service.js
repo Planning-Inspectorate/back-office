@@ -101,7 +101,7 @@ export const startApplication = async (id) => {
 			currentStatuses: caseDetails.CaseStatus,
 			setReference: true
 		},
-		[folderRepository.createFolders(caseDetails.id)]
+		folderRepository.createFolders(caseDetails.id)
 	);
 
 	// Get the newly updated case details
