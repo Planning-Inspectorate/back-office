@@ -1,8 +1,13 @@
 import { Router as createRouter } from 'express';
 import { asyncHandler } from '../../../middleware/async-handler.js';
 import { validateApplicationId } from '../application.validators.js';
-import { getFolderPathList, getListOfFolders, getSingleFolder } from './folders.controller.js';
-import { validateFolderId } from './folders.validation.js';
+import {
+	getDocuments,
+	getFolderPathList,
+	getListOfFolders,
+	getSingleFolder
+} from './folders.controller.js';
+import { validateFolderId, validateOptionalFolderId } from './folders.validation.js';
 
 const router = createRouter();
 
@@ -51,7 +56,7 @@ router.get(
         }
     */
 	validateApplicationId,
-	validateFolderId,
+	validateOptionalFolderId,
 	asyncHandler(getListOfFolders)
 );
 
@@ -79,7 +84,7 @@ router.get(
         }
     */
 	validateApplicationId,
-	validateFolderId,
+	validateOptionalFolderId,
 	asyncHandler(getSingleFolder)
 );
 
@@ -109,8 +114,38 @@ router.get(
         }
     */
 	validateApplicationId,
-	validateFolderId,
+	validateOptionalFolderId,
 	asyncHandler(getFolderPathList)
+);
+
+router.get(
+	'/:id/folders/:folderId/documents',
+	/*
+        #swagger.tags = ['Applications']
+        #swagger.path = '/applications/{id}/folders/{folderId}/parent-folders'
+        #swagger.description = 'Gets all documents in folder on a case'
+        #swagger.parameters['id'] = {
+            in: 'path',
+			description: 'Application ID here',
+			required: true,
+			type: 'integer'
+		}
+		#swagger.parameters['folderId'] = {
+            in: 'path',
+			description: 'Id of current folder here',
+			required: true,
+			type: 'integer'
+		}
+        #swagger.responses[200] = {
+            description: 'array of documents',
+            schema: [ { "guid": "1111-1111-1111", "name": "David Doc 1", "folderId": 885, "blobStorageContainer": "xxx", "blobStoragePath": "yyy", "status": "unchecked" },
+					  { "guid": "1234-5678-1234", "name": "David Doc 2", "folderId": 885, "blobStorageContainer": "xxx", "blobStoragePath": "zzz", "status": "unchecked" },
+		 	]
+        }
+    */
+	validateApplicationId,
+	validateFolderId,
+	asyncHandler(getDocuments)
 );
 
 export { router as fileFoldersRoutes };

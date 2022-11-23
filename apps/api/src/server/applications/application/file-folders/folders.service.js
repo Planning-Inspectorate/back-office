@@ -1,3 +1,4 @@
+import * as documentRepository from '../../../repositories/document.repository.js';
 import * as folderRepository from '../../../repositories/folder.repository.js';
 import {
 	mapBreadcrumbFolderDetails,
@@ -6,6 +7,7 @@ import {
 } from '../../../utils/mapping/map-folder-details.js';
 
 /** @typedef {import('@pins/applications').FolderDetails} FolderDetails */
+/** @typedef {import('apps/api/prisma/schema.js').Document} Document */
 
 /**
  * Returns all the folders on a case
@@ -43,4 +45,16 @@ export const getFolderPath = async (id, folderId) => {
 	const folders = await folderRepository.getFolderPath(id, folderId);
 
 	return mapBreadcrumbFolderDetails(folders);
+};
+
+/**
+ * Returns all documents in a folder on a case
+ *
+ * @param {number} folderId
+ * @returns {Promise<Document[]>}
+ */
+export const getDocumentsInFolder = async (folderId) => {
+	const documents = documentRepository.getDocumentsInFolder(folderId);
+
+	return documents;
 };

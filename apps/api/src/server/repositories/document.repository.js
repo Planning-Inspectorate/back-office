@@ -27,3 +27,13 @@ export const update = (documentGuid, documentDetails) => {
 		data: documentDetails
 	});
 };
+
+/**
+ * Returns array of all the documents in a folder on a case
+ *
+ * @param {number} folderId
+ * @returns {import('@prisma/client').PrismaPromise<import('@pins/api').Schema.Document[]>}
+ */
+export const getDocumentsInFolder = (folderId) => {
+	return databaseConnector.document.findMany({ where: { folderId } });
+};

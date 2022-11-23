@@ -1,4 +1,4 @@
-import { getFolder, getFolderPath, getFolders } from './folders.service.js';
+import { getDocumentsInFolder, getFolder, getFolderPath, getFolders } from './folders.service.js';
 
 /**
  *
@@ -28,4 +28,15 @@ export const getFolderPathList = async ({ params }, response) => {
 	const folderDetails = await getFolderPath(params.id, params.folderId);
 
 	response.send(folderDetails);
+};
+
+/**
+ * Gets all the documents in a folder
+ *
+ * @type {import('express').RequestHandler<{ id: number, folderId: number }, ?, ?, any>}
+ */
+export const getDocuments = async ({ params }, response) => {
+	const documents = await getDocumentsInFolder(params.folderId);
+
+	response.send(documents);
 };
