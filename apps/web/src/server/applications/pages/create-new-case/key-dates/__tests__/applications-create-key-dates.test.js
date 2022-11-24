@@ -13,7 +13,6 @@ const nocks = () => {
 	nock('http://test/').patch('/applications/123').reply(200, successPatchPostResponse);
 	nock('http://test/')
 		.get(/\/applications\/123(.*)/g)
-		.times(2)
 		.reply(200, fixtureCases[3]);
 };
 

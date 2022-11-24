@@ -21,9 +21,9 @@ import { updateCase } from '../../lib/services/case.service.js';
  * @returns {Promise<ApplicationsCreateApplicantOrganisationNameProps>}
  */
 export async function applicantOrganisationNameData(request, locals) {
-	const { caseId, applicantId } = locals;
+	const { currentCase, applicantId } = locals;
 
-	const applicant = await getApplicantById(caseId, applicantId, ['applicants']);
+	const applicant = await getApplicantById(currentCase, applicantId);
 	const values = {
 		'applicant.organisationName': applicant?.organisationName
 	};
@@ -65,9 +65,9 @@ export async function applicantOrganisationNameDataUpdate({ body }, locals) {
  * @returns {Promise<ApplicationsCreateApplicantFullNameProps>}
  */
 export async function applicantFullNameData(request, locals) {
-	const { caseId, applicantId } = locals;
+	const { currentCase, applicantId } = locals;
 
-	const applicant = await getApplicantById(caseId, applicantId, ['applicants']);
+	const applicant = await getApplicantById(currentCase, applicantId);
 	const values = {
 		'applicant.firstName': applicant?.firstName,
 		'applicant.middleName': applicant?.middleName,
@@ -110,9 +110,9 @@ export async function applicantFullNameDataUpdate({ body }, locals) {
  * @returns {Promise<ApplicationsCreateApplicantEmailProps>}
  */
 export async function applicantEmailData(request, locals) {
-	const { caseId, applicantId } = locals;
+	const { currentCase, applicantId } = locals;
 
-	const applicant = await getApplicantById(caseId, applicantId, ['applicants']);
+	const applicant = await getApplicantById(currentCase, applicantId);
 	const values = {
 		'applicant.email': applicant?.email
 	};
@@ -150,15 +150,12 @@ export async function applicantEmailDataUpdate({ errors: validationErrors, body 
  */
 export async function applicantAddressData({ query }, locals) {
 	const { postcode: queryPostcode } = query;
-	const { caseId, applicantId } = locals;
+	const { currentCase, applicantId } = locals;
 
-	const applicant = await getApplicantById(caseId, applicantId, [
-		'applicants',
-		'applicantsAddress'
-	]);
+	const applicant = await getApplicantById(currentCase, applicantId);
 	const singlePostcode = queryPostcode ? `${queryPostcode}` : null;
 	const trimAddressPart = (/** @type {string | undefined} */ addressPart) =>
-		(addressPart ? `${addressPart.trim()}, ` : '');
+		addressPart ? `${addressPart.trim()}, ` : '';
 
 	let applicantAddress = '';
 
@@ -262,9 +259,9 @@ export async function applicantAddressDataUpdate({ errors: validationErrors, bod
  * @returns {Promise<ApplicationsCreateApplicantWebsiteProps>}
  */
 export async function applicantWebsiteData(request, locals) {
-	const { caseId, applicantId } = locals;
+	const { currentCase, applicantId } = locals;
 
-	const applicant = await getApplicantById(caseId, applicantId, ['applicants']);
+	const applicant = await getApplicantById(currentCase, applicantId);
 	const values = {
 		'applicant.website': applicant?.website
 	};
@@ -307,9 +304,9 @@ export async function applicantWebsiteDataUpdate({ body, errors: validationError
  * @returns {Promise<ApplicationsCreateApplicantTelephoneNumberProps>}
  */
 export async function applicantTelephoneNumberData(request, locals) {
-	const { caseId, applicantId } = locals;
+	const { currentCase, applicantId } = locals;
 
-	const applicant = await getApplicantById(caseId, applicantId, ['applicants']);
+	const applicant = await getApplicantById(currentCase, applicantId);
 	const values = {
 		'applicant.phoneNumber': applicant?.phoneNumber
 	};

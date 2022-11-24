@@ -342,6 +342,19 @@ exports[`applications create Name and description GET /create-new-case When role
 </main>"
 `;
 
+exports[`applications create Name and description GET /create-new-case/1 should not render the page when case is not Draft 1`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <div class=\\"govuk-grid-row\\">
+        <div class=\\"govuk-grid-column-two-thirds\\">
+            <h1 class=\\"govuk-heading-xl\\">Sorry, there is a problem with the service</h1>
+            <p class=\\"govuk-body\\">Try again later.</p>
+            <p class=\\"govuk-body\\"><a href=\\"https://has-appeal.herokuapp.com/help/contact\\" class=\\"govuk-link\\">Contact the Planning Inspectorate Customer Support</a> if
+                the problem persists.</p>
+        </div>
+    </div>
+</main>"
+`;
+
 exports[`applications create Name and description GET /create-new-case/1 should render page with resumed data 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <h2 class=\\"govuk-heading-l\\"> Enter name and description</h2>

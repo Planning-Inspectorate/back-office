@@ -14,8 +14,8 @@ import * as applicationsCreateCheckYourAnswersService from './applications-creat
  * {}, {}, {}, {}>}
  */
 export async function viewApplicationsCreateConfirmation(req, response) {
-	const { caseId } = response.locals;
-	const { reference } = await getCase(caseId, ['reference']);
+	const { currentCase, caseId } = response.locals;
+	const { reference } = currentCase;
 
 	if (!reference) {
 		pino.warn(`[WEB] reference number for case ${caseId} is not defined`);
@@ -33,13 +33,11 @@ export async function viewApplicationsCreateConfirmation(req, response) {
  * {}, {}, {}, {}>}
  */
 export async function viewApplicationsCreateCheckYourAnswers(req, response) {
-	const { caseId } = response.locals;
+	const { currentCase } = response.locals;
 
 	destroySessionCaseHasNeverBeenResumed(req.session);
 
-	const caseData = await getCase(caseId);
-
-	const { values } = applicationsCreateCheckYourAnswersService.mapCaseData(caseData);
+	const { values } = applicationsCreateCheckYourAnswersService.mapCaseData(currentCase);
 
 	return response.render('applications/create-new-case/check-your-answers', { values });
 }
