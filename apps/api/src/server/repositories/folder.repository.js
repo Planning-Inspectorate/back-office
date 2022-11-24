@@ -2,6 +2,7 @@ import { databaseConnector } from '../utils/database-connector.js';
 
 /** @typedef {import('@pins/api').Schema.Folder} Folder */
 /** @typedef {import('@pins/applications').FolderTemplate} FolderTemplate */
+/** @typedef {import('@pins/applications').ChildFolderTemplate} ChildFolderTemplate */
 /** @typedef {import('@pins/applications').FolderDetails} FolderDetails */
 
 /**
@@ -70,55 +71,22 @@ export const getFolderPath = async (caseId, currentFolderId) => {
 };
 
 /**
+ * adds the caseId to a folder ready for db creation, and recursively adds to all child folders
  *
  * @param {number} caseId
- * @param {FolderTemplate[]} childFolders
- * @returns {any[] |null}
+ * @param {FolderTemplate} folder
+ * @returns {FolderTemplate}
  */
-export const mapChildFoldersToPrismaSchema = (caseId, childFolders) => {
-	let childMaps = null;
+const mapFolderTemplateWithCaseId = (caseId, folder) => {
+	folder.caseId = caseId;
 
-	if (childFolders) {
-		const create = [];
-
-		for (const /** @type {FolderTemplate} */ folder of childFolders) {
-			const /** @type {FolderTemplate} */ newItem = {
-					displayNameEn: folder.displayNameEn,
-					displayOrder: folder.displayOrder,
-					caseId
-				};
-
-			if (folder.childFolders) {
-				newItem.childFolders = mapChildFoldersToPrismaSchema(caseId, folder.childFolders);
-			}
-			create.push(newItem);
+	if (folder.childFolders && folder.childFolders.create) {
+		for (let /** @type {FolderTemplate} */ child of folder.childFolders.create) {
+			child = mapFolderTemplateWithCaseId(caseId, child);
 		}
-
-		childMaps = { create };
 	}
 
-	return childMaps;
-};
-
-/**
- * converts the default case folder template into a prisma compliant structure
- *
- * @param {number} caseId
- * @param {FolderTemplate} topLevelFolder
- * @returns {any}
- */
-const mapFolderTemplateToPrismaSchema = (caseId, topLevelFolder) => {
-	const /** @type { FolderTemplate } */ newItem = {
-			displayNameEn: topLevelFolder.displayNameEn,
-			displayOrder: topLevelFolder.displayOrder,
-			caseId
-		};
-
-	if (topLevelFolder.childFolders) {
-		newItem.childFolders = mapChildFoldersToPrismaSchema(caseId, topLevelFolder.childFolders);
-	}
-
-	return { data: newItem };
+	return folder;
 };
 
 /**
@@ -136,7 +104,9 @@ export const createFolders = (caseId) => {
 	// so we loop through the top folders, using create to create the folder and all its subfolders, correctly assigning caseId, parentFolderId etc
 	// and we return an array of these promises
 	for (const topLevelFolder of defaultCaseFolders) {
-		const newFolders = mapFolderTemplateToPrismaSchema(caseId, topLevelFolder);
+		const newFolders = {
+			data: mapFolderTemplateWithCaseId(caseId, topLevelFolder)
+		};
 
 		const topFoldersCreated = databaseConnector.folder.create(newFolders);
 
@@ -155,180 +125,220 @@ export const defaultCaseFolders = [
 	{
 		displayNameEn: 'Project management',
 		displayOrder: 100,
-		childFolders: [
-			{
-				displayNameEn: 'Logistics',
-				displayOrder: 100,
-				childFolders: [
-					{ displayNameEn: 'Travel', displayOrder: 100 },
-					{ displayNameEn: 'Welsh', displayOrder: 200 }
-				]
-			},
-			{ displayNameEn: 'Mail merge spreadsheet', displayOrder: 200 },
-			{ displayNameEn: 'Fees', displayOrder: 300 }
-		]
+		childFolders: {
+			create: [
+				{
+					displayNameEn: 'Logistics',
+					displayOrder: 100,
+					childFolders: {
+						create: [
+							{ displayNameEn: 'Travel', displayOrder: 100 },
+							{ displayNameEn: 'Welsh', displayOrder: 200 }
+						]
+					}
+				},
+				{ displayNameEn: 'Mail merge spreadsheet', displayOrder: 200 },
+				{ displayNameEn: 'Fees', displayOrder: 300 }
+			]
+		}
 	},
 	{ displayNameEn: 'Legal advice', displayOrder: 200 },
 	{
 		displayNameEn: 'Transboundary',
 		displayOrder: 300,
-		childFolders: [
-			{ displayNameEn: 'First screening', displayOrder: 100 },
-			{ displayNameEn: 'Second screening', displayOrder: 200 }
-		]
+		childFolders: {
+			create: [
+				{ displayNameEn: 'First screening', displayOrder: 100 },
+				{ displayNameEn: 'Second screening', displayOrder: 200 }
+			]
+		}
 	},
 	{
 		displayNameEn: 'Land rights',
 		displayOrder: 400,
-		childFolders: [
-			{
-				displayNameEn: 'S52',
-				displayOrder: 100,
-				childFolders: [
-					{ displayNameEn: 'Applicant request', displayOrder: 100 },
-					{ displayNameEn: 'Recommendation and authorisation', displayOrder: 200 },
-					{ displayNameEn: 'Correspondence', displayOrder: 300 }
-				]
-			},
-			{
-				displayNameEn: 'S53',
-				displayOrder: 200,
-				childFolders: [
-					{ displayNameEn: 'Applicant request', displayOrder: 100 },
-					{ displayNameEn: 'Recommendation and authorisation', displayOrder: 200 },
-					{ displayNameEn: 'Correspondence', displayOrder: 300 }
-				]
-			}
-		]
+		childFolders: {
+			create: [
+				{
+					displayNameEn: 'S52',
+					displayOrder: 100,
+					childFolders: {
+						create: [
+							{ displayNameEn: 'Applicant request', displayOrder: 100 },
+							{ displayNameEn: 'Recommendation and authorisation', displayOrder: 200 },
+							{ displayNameEn: 'Correspondence', displayOrder: 300 }
+						]
+					}
+				},
+				{
+					displayNameEn: 'S53',
+					displayOrder: 200,
+					childFolders: {
+						create: [
+							{ displayNameEn: 'Applicant request', displayOrder: 100 },
+							{ displayNameEn: 'Recommendation and authorisation', displayOrder: 200 },
+							{ displayNameEn: 'Correspondence', displayOrder: 300 }
+						]
+					}
+				}
+			]
+		}
 	},
 	{ displayNameEn: 'S51 advice', displayOrder: 500 },
 	{
 		displayNameEn: 'Pre-application',
 		displayOrder: 600,
-		childFolders: [
-			{ displayNameEn: 'Events / meetings', displayOrder: 100 },
-			{ displayNameEn: 'Correspondence', displayOrder: 200 },
-			{
-				displayNameEn: 'EIA',
-				displayOrder: 300,
-				childFolders: [
-					{ displayNameEn: 'Screening', displayOrder: 100 },
-					{
-						displayNameEn: 'Scoping',
-						displayOrder: 200,
-						childFolders: [{ displayNameEn: 'Responses', displayOrder: 100 }]
+		childFolders: {
+			create: [
+				{ displayNameEn: 'Events / meetings', displayOrder: 100 },
+				{ displayNameEn: 'Correspondence', displayOrder: 200 },
+				{
+					displayNameEn: 'EIA',
+					displayOrder: 300,
+					childFolders: {
+						create: [
+							{ displayNameEn: 'Screening', displayOrder: 100 },
+							{
+								displayNameEn: 'Scoping',
+								displayOrder: 200,
+								childFolders: {
+									create: [{ displayNameEn: 'Responses', displayOrder: 100 }]
+								}
+							}
+						]
 					}
-				]
-			},
-			{ displayNameEn: 'Habitat regulations', displayOrder: 400 },
-			{ displayNameEn: 'Evidence plans', displayOrder: 500 },
-			{ displayNameEn: 'Draft documents', displayOrder: 600 },
-			{
-				displayNameEn: 'Developers consultation',
-				displayOrder: 700,
-				childFolders: [
-					{ displayNameEn: 'Statutory', displayOrder: 100 },
-					{ displayNameEn: 'Non-statutory', displayOrder: 200 },
-					{ displayNameEn: 'Consultation feedback', displayOrder: 300 }
-				]
-			}
-		]
+				},
+				{ displayNameEn: 'Habitat regulations', displayOrder: 400 },
+				{ displayNameEn: 'Evidence plans', displayOrder: 500 },
+				{ displayNameEn: 'Draft documents', displayOrder: 600 },
+				{
+					displayNameEn: 'Developers consultation',
+					displayOrder: 700,
+					childFolders: {
+						create: [
+							{ displayNameEn: 'Statutory', displayOrder: 100 },
+							{ displayNameEn: 'Non-statutory', displayOrder: 200 },
+							{ displayNameEn: 'Consultation feedback', displayOrder: 300 }
+						]
+					}
+				}
+			]
+		}
 	},
 	{
 		displayNameEn: 'Acceptance',
 		displayOrder: 700,
-		childFolders: [
-			{ displayNameEn: 'Events / meetings', displayOrder: 100 },
-			{ displayNameEn: 'Correspondence', displayOrder: 200 },
-			{ displayNameEn: 'EST', displayOrder: 300 },
-			{
-				displayNameEn: 'Application documents',
-				displayOrder: 400,
-				childFolders: [
-					{ displayNameEn: 'Application form', displayOrder: 100 },
-					{ displayNameEn: 'Compulsory acquisition information', displayOrder: 200 },
-					{ displayNameEn: 'DCO documents', displayOrder: 300 },
-					{ displayNameEn: 'Environmental statement', displayOrder: 400 },
-					{ displayNameEn: 'Other docuents', displayOrder: 500 },
-					{ displayNameEn: 'Plans', displayOrder: 600 },
-					{ displayNameEn: 'Reports', displayOrder: 700 },
-					{ displayNameEn: 'Additional Reg 6 information', displayOrder: 800 }
-				]
-			},
-			{ displayNameEn: 'Adequacy of consultation', displayOrder: 500 },
-			{ displayNameEn: 'Reg 5 and Reg 6', displayOrder: 600 },
-			{ displayNameEn: 'Drafting and decision', displayOrder: 700 }
-		]
+		childFolders: {
+			create: [
+				{ displayNameEn: 'Events / meetings', displayOrder: 100 },
+				{ displayNameEn: 'Correspondence', displayOrder: 200 },
+				{ displayNameEn: 'EST', displayOrder: 300 },
+				{
+					displayNameEn: 'Application documents',
+					displayOrder: 400,
+					childFolders: {
+						create: [
+							{ displayNameEn: 'Application form', displayOrder: 100 },
+							{ displayNameEn: 'Compulsory acquisition information', displayOrder: 200 },
+							{ displayNameEn: 'DCO documents', displayOrder: 300 },
+							{ displayNameEn: 'Environmental statement', displayOrder: 400 },
+							{ displayNameEn: 'Other docuents', displayOrder: 500 },
+							{ displayNameEn: 'Plans', displayOrder: 600 },
+							{ displayNameEn: 'Reports', displayOrder: 700 },
+							{ displayNameEn: 'Additional Reg 6 information', displayOrder: 800 }
+						]
+					}
+				},
+				{ displayNameEn: 'Adequacy of consultation', displayOrder: 500 },
+				{ displayNameEn: 'Reg 5 and Reg 6', displayOrder: 600 },
+				{ displayNameEn: 'Drafting and decision', displayOrder: 700 }
+			]
+		}
 	},
 	{
 		displayNameEn: 'Pre-examination',
 		displayOrder: 800,
-		childFolders: [
-			{ displayNameEn: 'Events / meetings', displayOrder: 100 },
-			{ displayNameEn: 'Correspondence', displayOrder: 200 },
-			{
-				displayNameEn: 'Additional submissions',
-				displayOrder: 300,
-				childFolders: [{ displayNameEn: 'Post submission changes', displayOrder: 100 }]
-			},
-			{ displayNameEn: 'Procedural decisions', displayOrder: 400 },
-			{ displayNameEn: 'EIA', displayOrder: 500 },
-			{ displayNameEn: 'Habitat regulations', displayOrder: 600 }
-		]
+		childFolders: {
+			create: [
+				{ displayNameEn: 'Events / meetings', displayOrder: 100 },
+				{ displayNameEn: 'Correspondence', displayOrder: 200 },
+				{
+					displayNameEn: 'Additional submissions',
+					displayOrder: 300,
+					childFolders: {
+						create: [{ displayNameEn: 'Post submission changes', displayOrder: 100 }]
+					}
+				},
+				{ displayNameEn: 'Procedural decisions', displayOrder: 400 },
+				{ displayNameEn: 'EIA', displayOrder: 500 },
+				{ displayNameEn: 'Habitat regulations', displayOrder: 600 }
+			]
+		}
 	},
 	{ displayNameEn: 'Relevant representations', displayOrder: 900 },
 	{
 		displayNameEn: 'Examination',
 		displayOrder: 1000,
-		childFolders: [
-			{ displayNameEn: 'Correspondence', displayOrder: 100 },
-			{ displayNameEn: 'Additional submissions', displayOrder: 200 },
-			{
-				displayNameEn: 'Examination timetable',
-				displayOrder: 300,
-				childFolders: [
-					{ displayNameEn: 'Preliminary meetings', displayOrder: 100 },
-					{ displayNameEn: 'Site inspections', displayOrder: 200 }
-				]
-			},
-			{ displayNameEn: 'Procedural decisions', displayOrder: 400 },
-			{ displayNameEn: 'EIA', displayOrder: 500 },
-			{ displayNameEn: 'Habitat regulations', displayOrder: 600 }
-		]
+		childFolders: {
+			create: [
+				{ displayNameEn: 'Correspondence', displayOrder: 100 },
+				{ displayNameEn: 'Additional submissions', displayOrder: 200 },
+				{
+					displayNameEn: 'Examination timetable',
+					displayOrder: 300,
+					childFolders: {
+						create: [
+							{ displayNameEn: 'Preliminary meetings', displayOrder: 100 },
+							{ displayNameEn: 'Site inspections', displayOrder: 200 }
+						]
+					}
+				},
+				{ displayNameEn: 'Procedural decisions', displayOrder: 400 },
+				{ displayNameEn: 'EIA', displayOrder: 500 },
+				{ displayNameEn: 'Habitat regulations', displayOrder: 600 }
+			]
+		}
 	},
 	{
 		displayNameEn: 'Recommendation',
 		displayOrder: 1100,
-		childFolders: [
-			{ displayNameEn: 'Events / meetings', displayOrder: 100 },
-			{ displayNameEn: 'Correspondence', displayOrder: 200 },
-			{
-				displayNameEn: 'Recommendation report',
-				displayOrder: 300,
-				childFolders: [
-					{ displayNameEn: 'Drafts', displayOrder: 100 },
-					{ displayNameEn: 'Final submitted report', displayOrder: 200 }
-				]
-			}
-		]
+		childFolders: {
+			create: [
+				{ displayNameEn: 'Events / meetings', displayOrder: 100 },
+				{ displayNameEn: 'Correspondence', displayOrder: 200 },
+				{
+					displayNameEn: 'Recommendation report',
+					displayOrder: 300,
+					childFolders: {
+						create: [
+							{ displayNameEn: 'Drafts', displayOrder: 100 },
+							{ displayNameEn: 'Final submitted report', displayOrder: 200 }
+						]
+					}
+				}
+			]
+		}
 	},
 	{
 		displayNameEn: 'Decision',
 		displayOrder: 1200,
-		childFolders: [
-			{ displayNameEn: 'SoS consultation', displayOrder: 100 },
-			{ displayNameEn: 'Sos decision', displayOrder: 200 }
-		]
+		childFolders: {
+			create: [
+				{ displayNameEn: 'SoS consultation', displayOrder: 100 },
+				{ displayNameEn: 'Sos decision', displayOrder: 200 }
+			]
+		}
 	},
 	{
 		displayNameEn: 'Post-decision',
 		displayOrder: 1300,
-		childFolders: [
-			{ displayNameEn: 'Judicial review', displayOrder: 100 },
-			{ displayNameEn: 'Costs', displayOrder: 200 },
-			{ displayNameEn: 'Non-material change', displayOrder: 300 },
-			{ displayNameEn: 'Material change', displayOrder: 400 },
-			{ displayNameEn: 'Redetermination', displayOrder: 500 }
-		]
+		childFolders: {
+			create: [
+				{ displayNameEn: 'Judicial review', displayOrder: 100 },
+				{ displayNameEn: 'Costs', displayOrder: 200 },
+				{ displayNameEn: 'Non-material change', displayOrder: 300 },
+				{ displayNameEn: 'Material change', displayOrder: 400 },
+				{ displayNameEn: 'Redetermination', displayOrder: 500 }
+			]
+		}
 	}
 ];
