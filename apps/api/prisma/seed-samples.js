@@ -668,5 +668,3 @@ export const caseStatusNames = [
 	{ name: 'post_decision' },
 	{ name: 'withdrawn' }
 ];
-
-export { defaultCaseFolders as folders } from '../src/server/repositories/folder.repository.js';

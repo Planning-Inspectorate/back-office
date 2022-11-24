@@ -1,3 +1,4 @@
+import { createFolders } from '../src/server/repositories/folder.repository.js';
 import { databaseConnector } from '../src/server/utils/database-connector.js';
 import logger from '../src/server/utils/logger.js';
 import {
@@ -6,7 +7,6 @@ import {
 	appellantsList,
 	caseStatusNames,
 	completeValidationDecisionSample,
-	folders,
 	incompleteReviewQuestionnaireSample,
 	incompleteValidationDecisionSample,
 	invalidValidationDecisionSample,
@@ -697,13 +697,12 @@ const createApplication = async (subSector, index) => {
 	const title = `${subSector.displayNameEn} Test Application ${index}`;
 	const caseStatus = pickRandom(caseStatusNames).name;
 
-	await databaseConnector.case.create({
+	const newCase = await databaseConnector.case.create({
 		data: {
 			reference,
 			modifiedAt: new Date(),
 			description: `A description of test case ${index} which is a case of subsector type ${subSector.displayNameEn}`,
 			title,
-			...(caseStatus !== 'draft' && { folder: { create: folders } }),
 			ApplicationDetails: {
 				create: {
 					subSector: {
@@ -738,6 +737,13 @@ const createApplication = async (subSector, index) => {
 			}
 		}
 	});
+
+	// create folders if case is not in draft state
+	if (caseStatus !== 'draft') {
+		Promise.all(createFolders(newCase.id));
+	}
+
+	return newCase;
 };
 
 /**

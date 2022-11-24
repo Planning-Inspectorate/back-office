@@ -4,9 +4,12 @@ export interface FolderDetails {
 	displayOrder?: number | null;
 }
 
+export interface ChildFolderTemplate {
+	create: FolderTemplate[];
+}
 export interface FolderTemplate {
 	displayNameEn: string;
 	displayOrder: number;
 	caseId?: number;
-	childFolders?: FolderTemplate[] | null;
+	childFolders?: ChildFolderTemplate;
 }
