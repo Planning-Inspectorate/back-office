@@ -1,6 +1,24 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`applications create applicant GET /check-your-answers should render the page 1`] = `
+exports[`applications create: check your answers Case created should render the page 1`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <div class=\\"govuk-grid-row\\">
+        <div class=\\"govuk-grid-column-two-thirds\\">
+            <div class=\\"govuk-panel govuk-panel--confirmation\\">
+                <h1 class=\\"govuk-panel__title\\"> New case has been created</h1>
+                <div class=\\"govuk-panel__body\\">The case reference number
+                    <br><strong></strong>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div>
+        <br><a class=\\"govuk-link\\" href=\\"/applications-service/case-officer\\">Go back to main Applications homepage</a>
+    </div>
+</main>"
+`;
+
+exports[`applications create: check your answers Check your answers GET /check-your-answers should render the page 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <h2 class=\\"govuk-heading-l\\"><div class=\\"govuk-grid-row\\"><div class=\\"govuk-grid-column-full\\"> Check your answers before creating a new project</div></div></h2>
     <form method=\\"post\\" action=\\"\\">
@@ -163,7 +181,7 @@ exports[`applications create applicant GET /check-your-answers should render the
 </main>"
 `;
 
-exports[`applications create applicant POST /check-your-answers should display errors if fields are missing 1`] = `
+exports[`applications create: check your answers Check your answers POST /check-your-answers should display errors if fields are missing 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"govuk-grid-row\\">
         <div class=\\"govuk-grid-column-two-thirds\\">
