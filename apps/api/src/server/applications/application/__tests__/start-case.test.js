@@ -95,7 +95,7 @@ test.before('set up mocks', () => {
 	});
 
 	sinon.stub(databaseConnector, 'folder').get(() => {
-		return { createMany: createFolderStub };
+		return { create: createFolderStub };
 	});
 
 	stubbedEventClient = sinon.stub(eventClient, 'sendEvents');
@@ -127,21 +127,28 @@ test('starts application if all needed information is present', async (t) => {
 	sinon.assert.calledWith(executeRawStub, referenceSettingSqlQuery);
 
 	sinon.assert.calledWith(createFolderStub, {
-		data: [
-			{ displayNameEn: 'Project management', displayOrder: 100, caseId: 1 },
-			{ displayNameEn: 'Legal advice', displayOrder: 200, caseId: 1 },
-			{ displayNameEn: 'Transboundary', displayOrder: 300, caseId: 1 },
-			{ displayNameEn: 'Land rights', displayOrder: 400, caseId: 1 },
-			{ displayNameEn: 'S51 advice', displayOrder: 500, caseId: 1 },
-			{ displayNameEn: 'Pre-application', displayOrder: 600, caseId: 1 },
-			{ displayNameEn: 'Acceptance', displayOrder: 700, caseId: 1 },
-			{ displayNameEn: 'Pre-examination', displayOrder: 800, caseId: 1 },
-			{ displayNameEn: 'Relevant representations', displayOrder: 900, caseId: 1 },
-			{ displayNameEn: 'Examination', displayOrder: 1000, caseId: 1 },
-			{ displayNameEn: 'Recommendation', displayOrder: 1100, caseId: 1 },
-			{ displayNameEn: 'Decision', displayOrder: 1200, caseId: 1 },
-			{ displayNameEn: 'Post-decision', displayOrder: 1300, caseId: 1 }
-		]
+		data: {
+			displayNameEn: 'Project management',
+			displayOrder: 100,
+			caseId: 1,
+			childFolders: {
+				create: [
+					{
+						displayNameEn: 'Logistics',
+						displayOrder: 100,
+						caseId: 1,
+						childFolders: {
+							create: [
+								{ displayNameEn: 'Travel', displayOrder: 100, caseId: 1 },
+								{ displayNameEn: 'Welsh', displayOrder: 200, caseId: 1 }
+							]
+						}
+					},
+					{ displayNameEn: 'Mail merge spreadsheet', displayOrder: 200, caseId: 1 },
+					{ displayNameEn: 'Fees', displayOrder: 300, caseId: 1 }
+				]
+			}
+		}
 	});
 
 	let applicant;
