@@ -13,7 +13,7 @@ const nocks = () => {
 	nock('http://test/').patch('/applications/123').reply(200, successPatchPostResponse);
 	nock('http://test/')
 		.get(/\/applications\/123(.*)/g)
-		.reply(200, fixtureCases[3]);
+		.reply(200, fixtureCases[0]);
 };
 
 describe('Applications create key dates', () => {

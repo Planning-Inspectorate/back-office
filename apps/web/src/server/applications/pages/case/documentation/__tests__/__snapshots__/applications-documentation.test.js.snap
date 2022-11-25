@@ -4,8 +4,8 @@ exports[`applications documentation GET /case/123/project-documentation should r
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"govuk-grid-row govuk-!-padding-top-9 govuk-!-padding-bottom-2 govuk-!-margin-left-0 govuk-!-margin-bottom-7 pins-masthead-summary\\">
         <div class=\\"govuk-grid-column-full\\">
-            <h4 class=\\"govuk-heading-m\\"> CASE/06 </h4>
-            <h1 class=\\"govuk-heading-xl\\">Title CASE/06</h1>
+            <h4 class=\\"govuk-heading-m\\"> CASE/04 </h4>
+            <h1 class=\\"govuk-heading-xl\\">Title CASE/04</h1>
             <div class=\\"govuk-grid-row\\">
                 <div class=\\"govuk-grid-column-full govuk-body\\">Transport EN, Highways EN
                     <br>
@@ -30,8 +30,8 @@ exports[`applications documentation GET /case/123/project-documentation/21/sub-f
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"govuk-grid-row govuk-!-padding-top-9 govuk-!-padding-bottom-2 govuk-!-margin-left-0 govuk-!-margin-bottom-7 pins-masthead-summary\\">
         <div class=\\"govuk-grid-column-full\\">
-            <h4 class=\\"govuk-heading-m\\"> CASE/06 </h4>
-            <h1 class=\\"govuk-heading-xl\\">Title CASE/06</h1>
+            <h4 class=\\"govuk-heading-m\\"> CASE/04 </h4>
+            <h1 class=\\"govuk-heading-xl\\">Title CASE/04</h1>
             <div class=\\"govuk-grid-row\\">
                 <div class=\\"govuk-grid-column-full govuk-body\\">Transport EN, Highways EN
                     <br>

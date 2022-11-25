@@ -21,11 +21,11 @@ const nocks = () => {
 	nock('http://test/').get('/applications/case-officer').reply(200, {});
 	nock('http://test/')
 		.get(/\/applications\/1(.*)/g)
-		.reply(200, fixtureCases[3]);
+		.reply(200, fixtureCases[0]);
 
 	nock('http://test/')
 		.get(/\/applications\/2(.*)/g)
-		.reply(200, fixtureCases[6]);
+		.reply(200, fixtureCases[3]);
 };
 
 describe('applications create: check your answers', () => {
@@ -68,6 +68,9 @@ describe('applications create: check your answers', () => {
 				nock('http://test/').post('/applications/1/start').reply(200, fixtureCases[0]);
 
 				const response = await request.post(baseUrl);
+
+				/* const element = parseHtml(response.text);
+				expect(element.innerHTML).toMatchSnapshot(); */
 
 				expect(response?.headers?.location).toContain(
 					'/applications-service/create-new-case/1/case-created'

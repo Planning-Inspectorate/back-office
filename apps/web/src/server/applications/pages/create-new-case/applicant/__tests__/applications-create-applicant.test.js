@@ -15,7 +15,7 @@ const nocks = () => {
 	nock('http://test/')
 		.get(/\/applications\/123(.*)/g)
 		.times(2)
-		.reply(200, fixtureCases[3]);
+		.reply(200, fixtureCases[0]);
 };
 
 describe('applications create applicant', () => {
