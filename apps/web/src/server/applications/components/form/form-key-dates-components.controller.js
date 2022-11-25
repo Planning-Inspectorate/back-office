@@ -1,4 +1,4 @@
-import { getCase, updateCase } from '../../lib/services/case.service.js';
+import { updateCase } from '../../lib/services/case.service.js';
 
 /** @typedef {import('../../pages/create-new-case/key-dates/applications-create-key-dates.types').ApplicationsCreateKeyDatesProps} ApplicationsCreateKeyDatesProps */
 
@@ -8,11 +8,11 @@ import { getCase, updateCase } from '../../lib/services/case.service.js';
  *
  * @param {import('express').Request} request
  * @param {Record<string, any>} locals
- * @returns {Promise<ApplicationsCreateKeyDatesProps>}
+ * @returns {ApplicationsCreateKeyDatesProps}
  */
-export async function keyDatesData(request, locals) {
-	const { caseId } = locals;
-	const { keyDates } = await getCase(caseId, ['keyDates']);
+export function keyDatesData(request, locals) {
+	const { currentCase } = locals;
+	const { keyDates } = currentCase;
 	const { submissionDatePublished, submissionDateInternal } = keyDates || {};
 
 	const values = {

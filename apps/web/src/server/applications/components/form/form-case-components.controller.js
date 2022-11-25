@@ -8,6 +8,7 @@ import {
 } from '../../lib/services/entities.service.js';
 import { getSessionCaseSectorName } from '../../lib/services/session.service.js';
 
+/** @typedef {import('../../applications.types').Region} Region */
 /** @typedef {import('../../pages/create-new-case/case/applications-create-case.types').ApplicationsCreateCaseNameProps} ApplicationsCreateCaseNameProps */
 /** @typedef {import('../../pages/create-new-case/case/applications-create-case.types').ApplicationsCreateCaseSectorProps} ApplicationsCreateCaseSectorProps */
 /** @typedef {import('../../pages/create-new-case/case/applications-create-case.types').ApplicationsCreateCaseZoomLevelProps} ApplicationsCreateCaseZoomLevelProps */
@@ -24,10 +25,8 @@ import { getSessionCaseSectorName } from '../../lib/services/session.service.js'
  * @returns {Promise<ApplicationsCreateCaseNameProps>}
  */
 export async function caseNameAndDescriptionData(request, locals) {
-	const { caseId } = locals || {};
-	const { title, description } = caseId
-		? await getCase(caseId, ['title', 'description'])
-		: { title: '', description: '' };
+	const { currentCase } = locals || {};
+	const { title, description } = currentCase;
 
 	return { values: { title, description } };
 }
@@ -66,10 +65,10 @@ export async function caseNameAndDescriptionDataUpdate(
  * @returns {Promise<ApplicationsCreateCaseSectorProps>}
  */
 export async function caseSectorData({ session }, locals) {
-	const { caseId } = locals;
+	const { currentCase } = locals;
 	const allSectors = await getAllSectors();
 
-	const { sector } = await getCase(caseId, ['sector']);
+	const { sector } = currentCase;
 	const selectedSectorName = getSessionCaseSectorName(session) || sector?.name;
 
 	const values = { sectorName: selectedSectorName || '' };
@@ -105,11 +104,11 @@ export async function caseSectorDataUpdate({ errors, body }) {
  *
  * @param {import('express').Request} request
  * @param {Record<string, any>} locals
- * @returns {Promise<ApplicationsCreateCaseGeographicalInformationProps>}
+ * @returns {ApplicationsCreateCaseGeographicalInformationProps}
  */
-export async function caseGeographicalInformationData(request, locals) {
-	const { caseId } = locals;
-	const { geographicalInformation } = await getCase(caseId, ['geographicalInformation']);
+export function caseGeographicalInformationData(request, locals) {
+	const { currentCase } = locals;
+	const { geographicalInformation } = currentCase;
 	const { locationDescription, gridReference } = geographicalInformation || {};
 
 	const values = {
@@ -159,8 +158,8 @@ export async function caseGeographicalInformationDataUpdate(
  * @returns {Promise<{properties?: ApplicationsCreateCaseSubSectorProps, redirectToSector: boolean}>}
  */
 export async function caseSubSectorData({ session }, locals) {
-	const { caseId } = locals;
-	const { sector, subSector } = await getCase(caseId, ['subSector', 'sector']);
+	const { currentCase } = locals;
+	const { sector, subSector } = currentCase;
 	const selectedSectorName = getSessionCaseSectorName(session) || sector?.name;
 
 	if (!selectedSectorName) {
@@ -219,12 +218,12 @@ export async function caseSubSectorDataUpdate({ session, errors: validationError
  * @returns {Promise<ApplicationsCreateCaseRegionsProps>}
  */
 export async function caseRegionsData(request, locals) {
-	const { caseId } = locals;
+	const { currentCase } = locals;
 	const allRegions = await getAllRegions();
-	const { geographicalInformation } = await getCase(caseId, ['geographicalInformation']);
-	const selectedRegionNames = new Set(
-		(geographicalInformation?.regions || []).map((region) => region?.name)
-	);
+	const { geographicalInformation } = currentCase;
+	/** @type {Region[]} */
+	const regions = geographicalInformation?.regions || [];
+	const selectedRegionNames = new Set(regions.map((region) => region?.name));
 
 	const checkBoxRegions = allRegions.map((region) => ({
 		text: region.displayNameEn,
@@ -276,8 +275,8 @@ export async function caseRegionsDataUpdate({ errors: validationErrors, body }, 
  * @returns {Promise<ApplicationsCreateCaseZoomLevelProps>}
  */
 export async function caseZoomLevelData(request, locals) {
-	const { caseId } = locals;
-	const { geographicalInformation } = await getCase(caseId, ['geographicalInformation']);
+	const { currentCase } = locals;
+	const { geographicalInformation } = currentCase;
 	const allZoomLevels = await getAllZoomLevels();
 	const values = {
 		'geographicalInformation.mapZoomLevelName':
@@ -328,8 +327,8 @@ export async function caseZoomLevelDataUpdate({ body }, locals) {
  * @returns {Promise<ApplicationsCreateCaseTeamEmailProps>}
  */
 export async function caseTeamEmailData(request, locals) {
-	const { caseId } = locals;
-	const { caseEmail } = await getCase(caseId, ['caseEmail']);
+	const { currentCase } = locals;
+	const { caseEmail } = currentCase;
 
 	return { values: { caseEmail } };
 }

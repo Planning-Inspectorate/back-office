@@ -8,11 +8,15 @@ const { app, installMockApi, teardown } = createTestEnvironment();
 const request = supertest(app);
 
 const nocks = () => {
-	nock('http://test/').get('/applications/case-officer').reply(200, []);
+	nock('http://test/').get('/applications/case-officer').reply(200, {});
 	nock('http://test/')
 		.get(/\/applications\/123(.*)/g)
 		.times(2)
 		.reply(200, fixtureCases[3]);
+	nock('http://test/')
+		.get(/\/applications\/456(.*)/g)
+		.times(2)
+		.reply(200, fixtureCases[4]);
 };
 
 describe('applications create applicant', () => {
@@ -125,11 +129,6 @@ describe('applications create applicant', () => {
 
 		it('should render the read only page without the address', async () => {
 			const baseUrl = '/applications-service/case/456/edit/applicant-address';
-
-			nock('http://test/')
-				.get(/\/applications\/456(.*)/g)
-				.times(2)
-				.reply(200, fixtureCases[0]);
 
 			const response = await request.get(baseUrl);
 			const element = parseHtml(response.text);

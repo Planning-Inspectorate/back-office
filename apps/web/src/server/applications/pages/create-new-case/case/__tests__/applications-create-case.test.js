@@ -15,29 +15,20 @@ const request = supertest(app);
 const successResponse = { id: 1, applicantIds: [1] };
 
 const nocks = () => {
-	nock('http://test/').get('/applications/case-officer').times(4).reply(200, {});
+	nock('http://test/').get('/applications/case-officer').reply(200, {});
 	nock('http://test/').get('/applications/sector').reply(200, fixtureSectors);
 	nock('http://test/')
-		.get(/\/applications\/1\?(.*)/g)
-		.times(4)
+		.get(/\/applications\/1(.*)/g)
+		.times(2)
 		.reply(200, fixtureCases[0]);
+
 	nock('http://test/')
-		.get(/\/applications\/2\?(.*)/g)
-		.times(4)
+		.get(/\/applications\/2(.*)/g)
 		.reply(200, fixtureCases[1]);
+
 	nock('http://test/')
-		.get(/\/applications\/3\?(.*)/g)
-		.times(4)
+		.get(/\/applications\/3(.*)/g)
 		.reply(200, fixtureCases[2]);
-	nock('http://test/')
-		.get(/\/applications\/4\?(.*)/g)
-		.times(4)
-		.reply(200, fixtureCases[3]);
-	nock('http://test/')
-		.get(/\/applications\/5\?(.*)/g)
-		.times(4)
-		.reply(200, fixtureCases[4]);
-	nock('http://test/').get('/applications/').times(4).reply(404);
 	nock('http://test/')
 		.get('/applications/sector?sectorName=transport')
 		.reply(200, fixtureSubSectors);
@@ -106,6 +97,14 @@ describe('applications create', () => {
 
 				expect(element.innerHTML).toMatchSnapshot();
 				expect(element.innerHTML).toContain(fixtureCases[0].description.slice(0, 20));
+			});
+
+			it('should not render the page when case is not Draft', async () => {
+				const response = await request.get('/applications-service/create-new-case/6');
+				const element = parseHtml(response.text);
+
+				expect(element.innerHTML).toMatchSnapshot();
+				expect(element.innerHTML).not.toContain('Save and continue');
 			});
 		});
 
@@ -211,7 +210,7 @@ describe('applications create', () => {
 					});
 
 					it('should not display a _checked_ option if the API does NOT return a resumed value', async () => {
-						const response = await request.get(baseUrl('4'));
+						const response = await request.get(baseUrl('3'));
 						const element = parseHtml(response.text);
 
 						expect(element.innerHTML).toMatchSnapshot();
@@ -262,9 +261,9 @@ describe('applications create', () => {
 
 		describe('GET /create-new-case/:caseId/sub-sector', () => {
 			it('should redirect to sector page if the sectorName is null', async () => {
-				const response = await request.get(baseUrl('4'));
+				const response = await request.get(baseUrl('3'));
 
-				expect(response?.headers?.location).toContain('4/sector');
+				expect(response?.headers?.location).toContain('3/sector');
 			});
 
 			it('should render subsectors matching with the sectorName in the session', async () => {
@@ -288,7 +287,7 @@ describe('applications create', () => {
 			});
 
 			it('should not display a _checked_ option if the API does NOT return a resumed value', async () => {
-				const response = await request.get(baseUrl('5'));
+				const response = await request.get(baseUrl('2'));
 				const element = parseHtml(response.text);
 
 				expect(element.innerHTML).toMatchSnapshot();
@@ -547,7 +546,7 @@ describe('applications create', () => {
 
 		describe('GET /create-new-case/:caseId/zoom-level', () => {
 			it('should render the page with None checked if the api does not return resumed data', async () => {
-				const response = await request.get(baseUrl('3'));
+				const response = await request.get(baseUrl('2'));
 				const element = parseHtml(response.text);
 
 				expect(element.innerHTML).toMatchSnapshot();
@@ -614,7 +613,7 @@ describe('applications create', () => {
 			});
 
 			it('should render the page with no value inside the text input if api does not return resumed data', async () => {
-				const response = await request.get(baseUrl('3'));
+				const response = await request.get(baseUrl('2'));
 				const element = parseHtml(response.text);
 
 				expect(element.innerHTML).toMatchSnapshot();

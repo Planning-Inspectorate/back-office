@@ -8,8 +8,7 @@ const { app, installMockApi, teardown } = createTestEnvironment();
 const request = supertest(app);
 
 const nocks = () => {
-	nock('http://test/').get('/applications/case-officer').reply(200, []);
-
+	nock('http://test/').get('/applications/case-officer').reply(200, {});
 	nock('http://test/').get('/applications/123').reply(200, fixtureCases[3]);
 };
 

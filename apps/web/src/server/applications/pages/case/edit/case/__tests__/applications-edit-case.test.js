@@ -14,29 +14,14 @@ const { app, installMockApi, teardown } = createTestEnvironment();
 const request = supertest(app);
 
 const nocks = () => {
-	nock('http://test/').get('/applications/case-officer').times(4).reply(200, {});
+	nock('http://test/').get('/applications/case-officer').reply(200, {});
 	nock('http://test/').get('/applications/sector').reply(200, fixtureSectors);
 	nock('http://test/')
-		.get(/\/applications\/1\?(.*)/g)
-		.times(4)
-		.reply(200, fixtureCases[0]);
-	nock('http://test/')
-		.get(/\/applications\/2\?(.*)/g)
-		.times(4)
-		.reply(200, fixtureCases[1]);
-	nock('http://test/')
-		.get(/\/applications\/3\?(.*)/g)
-		.times(4)
-		.reply(200, fixtureCases[2]);
-	nock('http://test/')
-		.get(/\/applications\/4\?(.*)/g)
-		.times(4)
+		.get(/\/applications\/3(.*)/g)
 		.reply(200, fixtureCases[3]);
 	nock('http://test/')
-		.get(/\/applications\/5\?(.*)/g)
-		.times(4)
+		.get(/\/applications\/4(.*)/g)
 		.reply(200, fixtureCases[4]);
-	nock('http://test/').get('/applications/').times(4).reply(404);
 	nock('http://test/')
 		.get('/applications/sector?sectorName=transport')
 		.reply(200, fixtureSubSectors);
@@ -51,9 +36,9 @@ describe('applications edit', () => {
 	});
 
 	describe('Name', () => {
-		describe('GET /edit/name', () => {
-			const baseUrl = '/applications-service/case/1/edit/name';
+		const baseUrl = '/applications-service/case/3/edit/name';
 
+		describe('GET /edit/name', () => {
 			describe('When role is:', () => {
 				describe('Inspector', () => {
 					it('should NOT render the form', async () => {
@@ -73,8 +58,6 @@ describe('applications edit', () => {
 					});
 
 					it('should render form', async () => {
-						await request.get('/applications-service/case-officer');
-
 						const response = await request.get(baseUrl);
 						const element = parseHtml(response.text);
 
@@ -83,29 +66,38 @@ describe('applications edit', () => {
 					});
 				});
 			});
-		});
 
-		describe('GET edit/name', () => {
-			const baseUrl = '/applications-service/case/1/edit/name';
+			describe('When status is', () => {
+				beforeEach(async () => {
+					await request.get('/applications-service/case-officer');
+					nocks();
+				});
 
-			beforeEach(async () => {
-				await request.get('/applications-service/case-officer');
-				nocks();
-			});
+				describe('Non-draft:', () => {
+					it('should render the page with resumed data', async () => {
+						const response = await request.get(baseUrl);
+						const element = parseHtml(response.text);
 
-			it('should render page with resumed data', async () => {
-				const response = await request.get(baseUrl);
-				const element = parseHtml(response.text);
+						expect(element.innerHTML).toMatchSnapshot();
+						expect(element.innerHTML).toContain(fixtureCases[3].title.slice(0, 20));
+					});
+				});
+				describe('Draft:', () => {
+					it('should not render the page', async () => {
+						const response = await request.get('/applications-service/case/1/edit/name');
+						const element = parseHtml(response.text);
 
-				expect(element.innerHTML).toMatchSnapshot();
-				expect(element.innerHTML).toContain(fixtureCases[0].title.slice(0, 20));
+						expect(element.innerHTML).toMatchSnapshot();
+						expect(element.innerHTML).not.toContain('Save changes');
+					});
+				});
 			});
 		});
 	});
 
 	describe('Description', () => {
 		describe('GET edit/description', () => {
-			const baseUrl = '/applications-service/case/1/edit/description';
+			const baseUrl = '/applications-service/case/3/edit/description';
 
 			beforeEach(async () => {
 				await request.get('/applications-service/case-officer');
@@ -117,14 +109,13 @@ describe('applications edit', () => {
 				const element = parseHtml(response.text);
 
 				expect(element.innerHTML).toMatchSnapshot();
-				expect(element.innerHTML).toContain(fixtureCases[0].description.slice(0, 20));
+				expect(element.innerHTML).toContain(fixtureCases[3].description.slice(0, 20));
 			});
 		});
 	});
 
 	describe('Project location', () => {
-		const baseUrl = (/** @type {string} */ id) =>
-			`/applications-service/case/${id}/edit/project-location`;
+		const baseUrl = `/applications-service/case/3/edit/project-location`;
 
 		beforeEach(async () => {
 			await request.get('/applications-service/case-officer');
@@ -133,7 +124,7 @@ describe('applications edit', () => {
 
 		describe('GET /edit/:caseId/project-location', () => {
 			it('should display resumed data if the API returns something', async () => {
-				const response = await request.get(baseUrl('1'));
+				const response = await request.get(baseUrl);
 				const element = parseHtml(response.text);
 
 				expect(element.innerHTML).toMatchSnapshot();
@@ -143,8 +134,7 @@ describe('applications edit', () => {
 	});
 
 	describe('Grid references', () => {
-		const baseUrl = (/** @type {string} */ id) =>
-			`/applications-service/case/${id}/edit/grid-references`;
+		const baseUrl = `/applications-service/case/3/edit/grid-references`;
 
 		beforeEach(async () => {
 			await request.get('/applications-service/case-officer');
@@ -153,7 +143,7 @@ describe('applications edit', () => {
 
 		describe('GET /edit/:caseId/project-location', () => {
 			it('should display resumed data if the API returns something', async () => {
-				const response = await request.get(baseUrl('1'));
+				const response = await request.get(baseUrl);
 				const element = parseHtml(response.text);
 
 				expect(element.innerHTML).toMatchSnapshot();
@@ -174,20 +164,12 @@ describe('applications edit', () => {
 
 		describe('GET /edit/regions', () => {
 			it('should render the page with checked options if the api returns something', async () => {
-				const response = await request.get(baseUrl('1'));
+				const response = await request.get(baseUrl('3'));
 				const element = parseHtml(response.text);
 
 				expect(element.innerHTML).toMatchSnapshot();
 				expect(element.innerHTML).toContain('value="london"\n                    checked');
 				expect(element.innerHTML).toContain('value="yorkshire"\n                    checked');
-			});
-
-			it('should render the page without checked options', async () => {
-				const response = await request.get(baseUrl('2'));
-				const element = parseHtml(response.text);
-
-				expect(element.innerHTML).toMatchSnapshot();
-				expect(element.innerHTML).not.toContain('checked');
 			});
 		});
 	});
@@ -203,16 +185,8 @@ describe('applications edit', () => {
 		});
 
 		describe('GET edit/zoom-level', () => {
-			it('should render the page with None checked if the api does not return resumed data', async () => {
-				const response = await request.get(baseUrl('3'));
-				const element = parseHtml(response.text);
-
-				expect(element.innerHTML).toMatchSnapshot();
-				expect(element.innerHTML).toContain('value="none"\n                    checked');
-			});
-
 			it('should render the page with the checked option from the resumed data', async () => {
-				const response = await request.get(baseUrl('1'));
+				const response = await request.get(baseUrl('3'));
 				const element = parseHtml(response.text);
 
 				expect(element.innerHTML).toMatchSnapshot();
@@ -233,7 +207,7 @@ describe('applications edit', () => {
 
 		describe('GET /edit/team-email', () => {
 			it('should render the page with the resumed data if the api returns something', async () => {
-				const response = await request.get(baseUrl('1'));
+				const response = await request.get(baseUrl('3'));
 				const element = parseHtml(response.text);
 
 				expect(element.innerHTML).toMatchSnapshot();
@@ -241,7 +215,7 @@ describe('applications edit', () => {
 			});
 
 			it('should render the page with no value inside the text input if api does not return resumed data', async () => {
-				const response = await request.get(baseUrl('3'));
+				const response = await request.get(baseUrl('4'));
 				const element = parseHtml(response.text);
 
 				expect(element.innerHTML).toMatchSnapshot();

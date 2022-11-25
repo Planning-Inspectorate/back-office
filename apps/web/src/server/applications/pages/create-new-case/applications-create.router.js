@@ -14,11 +14,12 @@ applicationsCreateRouter.use(guards.assertDomainTypeIsNotInspector);
 applicationsCreateRouter.use('/:caseId?', applicationsCreateResumedRouter);
 applicationsCreateResumedRouter.use(locals.registerCaseId);
 
+// do not change the order of the routers
 applicationsCreateResumedRouter.use('/', [
 	applicationsCreateCaseRouter,
-	applicationsCreateApplicantRouter,
+	applicationsCreateCheckYourAnswersRouter,
 	applicationsCreateKeyDatesRouter,
-	applicationsCreateCheckYourAnswersRouter
+	applicationsCreateApplicantRouter
 ]);
 
 export default applicationsCreateRouter;

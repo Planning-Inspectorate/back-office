@@ -65,6 +65,43 @@ exports[`applications GET /case-admin-officer should render the open application
             </div>
         </div>
     </div>
+    <div class=\\"pins-dashboard-list--drafts\\">
+        <h2 class=\\"govuk-heading-l\\">Draft cases</h2>
+        <div class=\\"govuk-accordion\\" data-module=\\"govuk-accordion\\" id=\\"\\">
+            <div class=\\"govuk-accordion__section \\">
+                <div class=\\"govuk-accordion__section-header\\">
+                    <h2 class=\\"govuk-accordion__section-heading\\"><span class=\\"govuk-accordion__section-button\\" id=\\"-heading-1\\"></span></h2>
+                </div>
+                <div id=\\"-content-1\\" class=\\"govuk-accordion__section-content\\" aria-labelledby=\\"-heading-1\\">
+                    <table class=\\"govuk-table\\">
+                        <thead class=\\"govuk-table__head\\">
+                            <tr class=\\"govuk-table__row\\">
+                                <th scope=\\"col\\" class=\\"govuk-table__header\\">Name</th>
+                                <th scope=\\"col\\" class=\\"govuk-table__header pins-table__cell--s\\">Created</th>
+                            </tr>
+                        </thead>
+                        <tbody class=\\"govuk-table__body\\">
+                            <tr class=\\"govuk-table__row\\">
+                                <td class=\\"govuk-table__cell\\"><a class=\\"govuk-body\\" href=\\"/applications-service/create-new-case/1/check-your-answers\\"> Title CASE/01</a>
+                                </td>
+                                <td class=\\"govuk-table__cell\\">01/01/2022</td>
+                            </tr>
+                            <tr class=\\"govuk-table__row\\">
+                                <td class=\\"govuk-table__cell\\"><a class=\\"govuk-body\\" href=\\"/applications-service/create-new-case/2/check-your-answers\\"> Case with no subsector</a>
+                                </td>
+                                <td class=\\"govuk-table__cell\\"></td>
+                            </tr>
+                            <tr class=\\"govuk-table__row\\">
+                                <td class=\\"govuk-table__cell\\"><a class=\\"govuk-body\\" href=\\"/applications-service/create-new-case/3/check-your-answers\\"> Case with no sector</a>
+                                </td>
+                                <td class=\\"govuk-table__cell\\"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class=\\"pins-dashboard-list--open\\">
         <h2 class=\\"govuk-heading-l\\">All cases</h2>
         <div class=\\"govuk-accordion\\" data-module=\\"govuk-accordion\\" id=\\"\\">
@@ -86,7 +123,7 @@ exports[`applications GET /case-admin-officer should render the open application
                                 </thead>
                                 <tbody class=\\"govuk-table__body\\">
                                     <tr class=\\"govuk-table__row\\">
-                                        <td class=\\"govuk-table__cell\\"><a class=\\"govuk-body\\" href=\\"/applications-service/case/1/\\"> CASE/01 - Title CASE/01</a>
+                                        <td class=\\"govuk-table__cell\\"><a class=\\"govuk-body\\" href=\\"/applications-service/case/4/\\"> CASE/04 - Title CASE/04</a>
                                         </td>
                                         <td class=\\"govuk-table__cell govuk-!-width-one-quarter text-align--right\\"><strong class=\\"govuk-tag govuk-tag--green\\">Pre-Application</strong>
                                         </td>
@@ -108,89 +145,9 @@ exports[`applications GET /case-admin-officer should render the open application
                                 </thead>
                                 <tbody class=\\"govuk-table__body\\">
                                     <tr class=\\"govuk-table__row\\">
-                                        <td class=\\"govuk-table__cell\\"><a class=\\"govuk-body\\" href=\\"/applications-service/case/2/\\"> CASE/02 - Title CASE/02</a>
+                                        <td class=\\"govuk-table__cell\\"><a class=\\"govuk-body\\" href=\\"/applications-service/case/5/\\"> CASE/05 - Title CASE/05</a>
                                         </td>
-                                        <td class=\\"govuk-table__cell govuk-!-width-one-quarter text-align--right\\"><strong class=\\"govuk-tag govuk-tag--\\">Status 2000</strong>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </details>
-                    <details class=\\"govuk-details\\" data-module=\\"govuk-details\\">
-                        <summary class=\\"govuk-details__summary\\"><span class=\\"govuk-details__summary-text\\"> undefined undefined</span>
-                        </summary>
-                        <div class=\\"govuk-details__text\\">
-                            <table class=\\"govuk-table pins-table--fixed pins-table--bordered\\">
-                                <thead class=\\"govuk-table__head\\">
-                                    <tr class=\\"govuk-table__row\\">
-                                        <th scope=\\"col\\" class=\\"govuk-table__header\\">Name</th>
-                                        <th scope=\\"col\\" class=\\"govuk-table__header govuk-!-width-one-quarter text-align--right\\">Stage</th>
-                                    </tr>
-                                </thead>
-                                <tbody class=\\"govuk-table__body\\">
-                                    <tr class=\\"govuk-table__row\\">
-                                        <td class=\\"govuk-table__cell\\"><a class=\\"govuk-body\\" href=\\"/applications-service/case/5/\\"> CASE/05 - Case with no subsector</a>
-                                        </td>
-                                        <td class=\\"govuk-table__cell govuk-!-width-one-quarter text-align--right\\"><strong class=\\"govuk-tag govuk-tag--\\">draft</strong>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </details>
-                </div>
-            </div>
-            <div class=\\"govuk-accordion__section \\">
-                <div class=\\"govuk-accordion__section-header\\">
-                    <h2 class=\\"govuk-accordion__section-heading\\"><span class=\\"govuk-accordion__section-button\\" id=\\"-heading-2\\"> Waste EN</span></h2>
-                </div>
-                <div id=\\"-content-2\\" class=\\"govuk-accordion__section-content\\" aria-labelledby=\\"-heading-2\\">
-                    <details class=\\"govuk-details\\" data-module=\\"govuk-details\\">
-                        <summary class=\\"govuk-details__summary\\"><span class=\\"govuk-details__summary-text\\"> ENE Energy EN</span>
-                        </summary>
-                        <div class=\\"govuk-details__text\\">
-                            <table class=\\"govuk-table pins-table--fixed pins-table--bordered\\">
-                                <thead class=\\"govuk-table__head\\">
-                                    <tr class=\\"govuk-table__row\\">
-                                        <th scope=\\"col\\" class=\\"govuk-table__header\\">Name</th>
-                                        <th scope=\\"col\\" class=\\"govuk-table__header govuk-!-width-one-quarter text-align--right\\">Stage</th>
-                                    </tr>
-                                </thead>
-                                <tbody class=\\"govuk-table__body\\">
-                                    <tr class=\\"govuk-table__row\\">
-                                        <td class=\\"govuk-table__cell\\"><a class=\\"govuk-body\\" href=\\"/applications-service/case/3/\\"> CASE/03 - Title CASE/03</a>
-                                        </td>
-                                        <td class=\\"govuk-table__cell govuk-!-width-one-quarter text-align--right\\"><strong class=\\"govuk-tag govuk-tag--\\">Status 3000</strong>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </details>
-                </div>
-            </div>
-            <div class=\\"govuk-accordion__section \\">
-                <div class=\\"govuk-accordion__section-header\\">
-                    <h2 class=\\"govuk-accordion__section-heading\\"><span class=\\"govuk-accordion__section-button\\" id=\\"-heading-3\\"></span></h2>
-                </div>
-                <div id=\\"-content-3\\" class=\\"govuk-accordion__section-content\\" aria-labelledby=\\"-heading-3\\">
-                    <details class=\\"govuk-details\\" data-module=\\"govuk-details\\">
-                        <summary class=\\"govuk-details__summary\\"><span class=\\"govuk-details__summary-text\\"> undefined undefined</span>
-                        </summary>
-                        <div class=\\"govuk-details__text\\">
-                            <table class=\\"govuk-table pins-table--fixed pins-table--bordered\\">
-                                <thead class=\\"govuk-table__head\\">
-                                    <tr class=\\"govuk-table__row\\">
-                                        <th scope=\\"col\\" class=\\"govuk-table__header\\">Name</th>
-                                        <th scope=\\"col\\" class=\\"govuk-table__header govuk-!-width-one-quarter text-align--right\\">Stage</th>
-                                    </tr>
-                                </thead>
-                                <tbody class=\\"govuk-table__body\\">
-                                    <tr class=\\"govuk-table__row\\">
-                                        <td class=\\"govuk-table__cell\\"><a class=\\"govuk-body\\" href=\\"/applications-service/case/4/\\"> CASE/04 - Case with no sector</a>
-                                        </td>
-                                        <td class=\\"govuk-table__cell govuk-!-width-one-quarter text-align--right\\"><strong class=\\"govuk-tag govuk-tag--\\">draft</strong>
+                                        <td class=\\"govuk-table__cell govuk-!-width-one-quarter text-align--right\\"><strong class=\\"govuk-tag govuk-tag--\\">Pre-application</strong>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -269,6 +226,43 @@ exports[`applications GET /case-officer should render the open applications belo
             </div>
         </div>
     </div>
+    <div class=\\"pins-dashboard-list--drafts\\">
+        <h2 class=\\"govuk-heading-l\\">Draft cases</h2>
+        <div class=\\"govuk-accordion\\" data-module=\\"govuk-accordion\\" id=\\"\\">
+            <div class=\\"govuk-accordion__section \\">
+                <div class=\\"govuk-accordion__section-header\\">
+                    <h2 class=\\"govuk-accordion__section-heading\\"><span class=\\"govuk-accordion__section-button\\" id=\\"-heading-1\\"></span></h2>
+                </div>
+                <div id=\\"-content-1\\" class=\\"govuk-accordion__section-content\\" aria-labelledby=\\"-heading-1\\">
+                    <table class=\\"govuk-table\\">
+                        <thead class=\\"govuk-table__head\\">
+                            <tr class=\\"govuk-table__row\\">
+                                <th scope=\\"col\\" class=\\"govuk-table__header\\">Name</th>
+                                <th scope=\\"col\\" class=\\"govuk-table__header pins-table__cell--s\\">Created</th>
+                            </tr>
+                        </thead>
+                        <tbody class=\\"govuk-table__body\\">
+                            <tr class=\\"govuk-table__row\\">
+                                <td class=\\"govuk-table__cell\\"><a class=\\"govuk-body\\" href=\\"/applications-service/create-new-case/1/check-your-answers\\"> Title CASE/01</a>
+                                </td>
+                                <td class=\\"govuk-table__cell\\">01/01/2022</td>
+                            </tr>
+                            <tr class=\\"govuk-table__row\\">
+                                <td class=\\"govuk-table__cell\\"><a class=\\"govuk-body\\" href=\\"/applications-service/create-new-case/2/check-your-answers\\"> Case with no subsector</a>
+                                </td>
+                                <td class=\\"govuk-table__cell\\"></td>
+                            </tr>
+                            <tr class=\\"govuk-table__row\\">
+                                <td class=\\"govuk-table__cell\\"><a class=\\"govuk-body\\" href=\\"/applications-service/create-new-case/3/check-your-answers\\"> Case with no sector</a>
+                                </td>
+                                <td class=\\"govuk-table__cell\\"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class=\\"pins-dashboard-list--open\\">
         <h2 class=\\"govuk-heading-l\\">All cases</h2>
         <div class=\\"govuk-accordion\\" data-module=\\"govuk-accordion\\" id=\\"\\">
@@ -290,7 +284,7 @@ exports[`applications GET /case-officer should render the open applications belo
                                 </thead>
                                 <tbody class=\\"govuk-table__body\\">
                                     <tr class=\\"govuk-table__row\\">
-                                        <td class=\\"govuk-table__cell\\"><a class=\\"govuk-body\\" href=\\"/applications-service/case/1/\\"> CASE/01 - Title CASE/01</a>
+                                        <td class=\\"govuk-table__cell\\"><a class=\\"govuk-body\\" href=\\"/applications-service/case/4/\\"> CASE/04 - Title CASE/04</a>
                                         </td>
                                         <td class=\\"govuk-table__cell govuk-!-width-one-quarter text-align--right\\"><strong class=\\"govuk-tag govuk-tag--green\\">Pre-Application</strong>
                                         </td>
@@ -312,89 +306,9 @@ exports[`applications GET /case-officer should render the open applications belo
                                 </thead>
                                 <tbody class=\\"govuk-table__body\\">
                                     <tr class=\\"govuk-table__row\\">
-                                        <td class=\\"govuk-table__cell\\"><a class=\\"govuk-body\\" href=\\"/applications-service/case/2/\\"> CASE/02 - Title CASE/02</a>
+                                        <td class=\\"govuk-table__cell\\"><a class=\\"govuk-body\\" href=\\"/applications-service/case/5/\\"> CASE/05 - Title CASE/05</a>
                                         </td>
-                                        <td class=\\"govuk-table__cell govuk-!-width-one-quarter text-align--right\\"><strong class=\\"govuk-tag govuk-tag--\\">Status 2000</strong>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </details>
-                    <details class=\\"govuk-details\\" data-module=\\"govuk-details\\">
-                        <summary class=\\"govuk-details__summary\\"><span class=\\"govuk-details__summary-text\\"> undefined undefined</span>
-                        </summary>
-                        <div class=\\"govuk-details__text\\">
-                            <table class=\\"govuk-table pins-table--fixed pins-table--bordered\\">
-                                <thead class=\\"govuk-table__head\\">
-                                    <tr class=\\"govuk-table__row\\">
-                                        <th scope=\\"col\\" class=\\"govuk-table__header\\">Name</th>
-                                        <th scope=\\"col\\" class=\\"govuk-table__header govuk-!-width-one-quarter text-align--right\\">Stage</th>
-                                    </tr>
-                                </thead>
-                                <tbody class=\\"govuk-table__body\\">
-                                    <tr class=\\"govuk-table__row\\">
-                                        <td class=\\"govuk-table__cell\\"><a class=\\"govuk-body\\" href=\\"/applications-service/case/5/\\"> CASE/05 - Case with no subsector</a>
-                                        </td>
-                                        <td class=\\"govuk-table__cell govuk-!-width-one-quarter text-align--right\\"><strong class=\\"govuk-tag govuk-tag--\\">draft</strong>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </details>
-                </div>
-            </div>
-            <div class=\\"govuk-accordion__section \\">
-                <div class=\\"govuk-accordion__section-header\\">
-                    <h2 class=\\"govuk-accordion__section-heading\\"><span class=\\"govuk-accordion__section-button\\" id=\\"-heading-2\\"> Waste EN</span></h2>
-                </div>
-                <div id=\\"-content-2\\" class=\\"govuk-accordion__section-content\\" aria-labelledby=\\"-heading-2\\">
-                    <details class=\\"govuk-details\\" data-module=\\"govuk-details\\">
-                        <summary class=\\"govuk-details__summary\\"><span class=\\"govuk-details__summary-text\\"> ENE Energy EN</span>
-                        </summary>
-                        <div class=\\"govuk-details__text\\">
-                            <table class=\\"govuk-table pins-table--fixed pins-table--bordered\\">
-                                <thead class=\\"govuk-table__head\\">
-                                    <tr class=\\"govuk-table__row\\">
-                                        <th scope=\\"col\\" class=\\"govuk-table__header\\">Name</th>
-                                        <th scope=\\"col\\" class=\\"govuk-table__header govuk-!-width-one-quarter text-align--right\\">Stage</th>
-                                    </tr>
-                                </thead>
-                                <tbody class=\\"govuk-table__body\\">
-                                    <tr class=\\"govuk-table__row\\">
-                                        <td class=\\"govuk-table__cell\\"><a class=\\"govuk-body\\" href=\\"/applications-service/case/3/\\"> CASE/03 - Title CASE/03</a>
-                                        </td>
-                                        <td class=\\"govuk-table__cell govuk-!-width-one-quarter text-align--right\\"><strong class=\\"govuk-tag govuk-tag--\\">Status 3000</strong>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </details>
-                </div>
-            </div>
-            <div class=\\"govuk-accordion__section \\">
-                <div class=\\"govuk-accordion__section-header\\">
-                    <h2 class=\\"govuk-accordion__section-heading\\"><span class=\\"govuk-accordion__section-button\\" id=\\"-heading-3\\"></span></h2>
-                </div>
-                <div id=\\"-content-3\\" class=\\"govuk-accordion__section-content\\" aria-labelledby=\\"-heading-3\\">
-                    <details class=\\"govuk-details\\" data-module=\\"govuk-details\\">
-                        <summary class=\\"govuk-details__summary\\"><span class=\\"govuk-details__summary-text\\"> undefined undefined</span>
-                        </summary>
-                        <div class=\\"govuk-details__text\\">
-                            <table class=\\"govuk-table pins-table--fixed pins-table--bordered\\">
-                                <thead class=\\"govuk-table__head\\">
-                                    <tr class=\\"govuk-table__row\\">
-                                        <th scope=\\"col\\" class=\\"govuk-table__header\\">Name</th>
-                                        <th scope=\\"col\\" class=\\"govuk-table__header govuk-!-width-one-quarter text-align--right\\">Stage</th>
-                                    </tr>
-                                </thead>
-                                <tbody class=\\"govuk-table__body\\">
-                                    <tr class=\\"govuk-table__row\\">
-                                        <td class=\\"govuk-table__cell\\"><a class=\\"govuk-body\\" href=\\"/applications-service/case/4/\\"> CASE/04 - Case with no sector</a>
-                                        </td>
-                                        <td class=\\"govuk-table__cell govuk-!-width-one-quarter text-align--right\\"><strong class=\\"govuk-tag govuk-tag--\\">draft</strong>
+                                        <td class=\\"govuk-table__cell govuk-!-width-one-quarter text-align--right\\"><strong class=\\"govuk-tag govuk-tag--\\">Pre-application</strong>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -461,6 +375,43 @@ exports[`applications GET /inspector should render the open applications belongi
             </div>
         </div>
     </div>
+    <div class=\\"pins-dashboard-list--drafts\\">
+        <h2 class=\\"govuk-heading-l\\">Draft cases</h2>
+        <div class=\\"govuk-accordion\\" data-module=\\"govuk-accordion\\" id=\\"\\">
+            <div class=\\"govuk-accordion__section \\">
+                <div class=\\"govuk-accordion__section-header\\">
+                    <h2 class=\\"govuk-accordion__section-heading\\"><span class=\\"govuk-accordion__section-button\\" id=\\"-heading-1\\"></span></h2>
+                </div>
+                <div id=\\"-content-1\\" class=\\"govuk-accordion__section-content\\" aria-labelledby=\\"-heading-1\\">
+                    <table class=\\"govuk-table\\">
+                        <thead class=\\"govuk-table__head\\">
+                            <tr class=\\"govuk-table__row\\">
+                                <th scope=\\"col\\" class=\\"govuk-table__header\\">Name</th>
+                                <th scope=\\"col\\" class=\\"govuk-table__header pins-table__cell--s\\">Created</th>
+                            </tr>
+                        </thead>
+                        <tbody class=\\"govuk-table__body\\">
+                            <tr class=\\"govuk-table__row\\">
+                                <td class=\\"govuk-table__cell\\"><a class=\\"govuk-body\\" href=\\"/applications-service/create-new-case/1/check-your-answers\\"> Title CASE/01</a>
+                                </td>
+                                <td class=\\"govuk-table__cell\\">01/01/2022</td>
+                            </tr>
+                            <tr class=\\"govuk-table__row\\">
+                                <td class=\\"govuk-table__cell\\"><a class=\\"govuk-body\\" href=\\"/applications-service/create-new-case/2/check-your-answers\\"> Case with no subsector</a>
+                                </td>
+                                <td class=\\"govuk-table__cell\\"></td>
+                            </tr>
+                            <tr class=\\"govuk-table__row\\">
+                                <td class=\\"govuk-table__cell\\"><a class=\\"govuk-body\\" href=\\"/applications-service/create-new-case/3/check-your-answers\\"> Case with no sector</a>
+                                </td>
+                                <td class=\\"govuk-table__cell\\"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class=\\"pins-dashboard-list--open\\">
         <h2 class=\\"govuk-heading-l\\">All cases</h2>
         <div class=\\"govuk-accordion\\" data-module=\\"govuk-accordion\\" id=\\"\\">
@@ -482,7 +433,7 @@ exports[`applications GET /inspector should render the open applications belongi
                                 </thead>
                                 <tbody class=\\"govuk-table__body\\">
                                     <tr class=\\"govuk-table__row\\">
-                                        <td class=\\"govuk-table__cell\\"><a class=\\"govuk-body\\" href=\\"/applications-service/case/1/\\"> CASE/01 - Title CASE/01</a>
+                                        <td class=\\"govuk-table__cell\\"><a class=\\"govuk-body\\" href=\\"/applications-service/case/4/\\"> CASE/04 - Title CASE/04</a>
                                         </td>
                                         <td class=\\"govuk-table__cell govuk-!-width-one-quarter text-align--right\\"><strong class=\\"govuk-tag govuk-tag--green\\">Pre-Application</strong>
                                         </td>
@@ -504,89 +455,9 @@ exports[`applications GET /inspector should render the open applications belongi
                                 </thead>
                                 <tbody class=\\"govuk-table__body\\">
                                     <tr class=\\"govuk-table__row\\">
-                                        <td class=\\"govuk-table__cell\\"><a class=\\"govuk-body\\" href=\\"/applications-service/case/2/\\"> CASE/02 - Title CASE/02</a>
+                                        <td class=\\"govuk-table__cell\\"><a class=\\"govuk-body\\" href=\\"/applications-service/case/5/\\"> CASE/05 - Title CASE/05</a>
                                         </td>
-                                        <td class=\\"govuk-table__cell govuk-!-width-one-quarter text-align--right\\"><strong class=\\"govuk-tag govuk-tag--\\">Status 2000</strong>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </details>
-                    <details class=\\"govuk-details\\" data-module=\\"govuk-details\\">
-                        <summary class=\\"govuk-details__summary\\"><span class=\\"govuk-details__summary-text\\"> undefined undefined</span>
-                        </summary>
-                        <div class=\\"govuk-details__text\\">
-                            <table class=\\"govuk-table pins-table--fixed pins-table--bordered\\">
-                                <thead class=\\"govuk-table__head\\">
-                                    <tr class=\\"govuk-table__row\\">
-                                        <th scope=\\"col\\" class=\\"govuk-table__header\\">Name</th>
-                                        <th scope=\\"col\\" class=\\"govuk-table__header govuk-!-width-one-quarter text-align--right\\">Stage</th>
-                                    </tr>
-                                </thead>
-                                <tbody class=\\"govuk-table__body\\">
-                                    <tr class=\\"govuk-table__row\\">
-                                        <td class=\\"govuk-table__cell\\"><a class=\\"govuk-body\\" href=\\"/applications-service/case/5/\\"> CASE/05 - Case with no subsector</a>
-                                        </td>
-                                        <td class=\\"govuk-table__cell govuk-!-width-one-quarter text-align--right\\"><strong class=\\"govuk-tag govuk-tag--\\">draft</strong>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </details>
-                </div>
-            </div>
-            <div class=\\"govuk-accordion__section \\">
-                <div class=\\"govuk-accordion__section-header\\">
-                    <h2 class=\\"govuk-accordion__section-heading\\"><span class=\\"govuk-accordion__section-button\\" id=\\"-heading-2\\"> Waste EN</span></h2>
-                </div>
-                <div id=\\"-content-2\\" class=\\"govuk-accordion__section-content\\" aria-labelledby=\\"-heading-2\\">
-                    <details class=\\"govuk-details\\" data-module=\\"govuk-details\\">
-                        <summary class=\\"govuk-details__summary\\"><span class=\\"govuk-details__summary-text\\"> ENE Energy EN</span>
-                        </summary>
-                        <div class=\\"govuk-details__text\\">
-                            <table class=\\"govuk-table pins-table--fixed pins-table--bordered\\">
-                                <thead class=\\"govuk-table__head\\">
-                                    <tr class=\\"govuk-table__row\\">
-                                        <th scope=\\"col\\" class=\\"govuk-table__header\\">Name</th>
-                                        <th scope=\\"col\\" class=\\"govuk-table__header govuk-!-width-one-quarter text-align--right\\">Stage</th>
-                                    </tr>
-                                </thead>
-                                <tbody class=\\"govuk-table__body\\">
-                                    <tr class=\\"govuk-table__row\\">
-                                        <td class=\\"govuk-table__cell\\"><a class=\\"govuk-body\\" href=\\"/applications-service/case/3/\\"> CASE/03 - Title CASE/03</a>
-                                        </td>
-                                        <td class=\\"govuk-table__cell govuk-!-width-one-quarter text-align--right\\"><strong class=\\"govuk-tag govuk-tag--\\">Status 3000</strong>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </details>
-                </div>
-            </div>
-            <div class=\\"govuk-accordion__section \\">
-                <div class=\\"govuk-accordion__section-header\\">
-                    <h2 class=\\"govuk-accordion__section-heading\\"><span class=\\"govuk-accordion__section-button\\" id=\\"-heading-3\\"></span></h2>
-                </div>
-                <div id=\\"-content-3\\" class=\\"govuk-accordion__section-content\\" aria-labelledby=\\"-heading-3\\">
-                    <details class=\\"govuk-details\\" data-module=\\"govuk-details\\">
-                        <summary class=\\"govuk-details__summary\\"><span class=\\"govuk-details__summary-text\\"> undefined undefined</span>
-                        </summary>
-                        <div class=\\"govuk-details__text\\">
-                            <table class=\\"govuk-table pins-table--fixed pins-table--bordered\\">
-                                <thead class=\\"govuk-table__head\\">
-                                    <tr class=\\"govuk-table__row\\">
-                                        <th scope=\\"col\\" class=\\"govuk-table__header\\">Name</th>
-                                        <th scope=\\"col\\" class=\\"govuk-table__header govuk-!-width-one-quarter text-align--right\\">Stage</th>
-                                    </tr>
-                                </thead>
-                                <tbody class=\\"govuk-table__body\\">
-                                    <tr class=\\"govuk-table__row\\">
-                                        <td class=\\"govuk-table__cell\\"><a class=\\"govuk-body\\" href=\\"/applications-service/case/4/\\"> CASE/04 - Case with no sector</a>
-                                        </td>
-                                        <td class=\\"govuk-table__cell govuk-!-width-one-quarter text-align--right\\"><strong class=\\"govuk-tag govuk-tag--\\">draft</strong>
+                                        <td class=\\"govuk-table__cell govuk-!-width-one-quarter text-align--right\\"><strong class=\\"govuk-tag govuk-tag--\\">Pre-application</strong>
                                         </td>
                                     </tr>
                                 </tbody>

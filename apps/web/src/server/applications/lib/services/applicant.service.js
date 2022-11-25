@@ -1,22 +1,17 @@
-import { getCase } from './case.service.js';
-
 /** @typedef {import('../../applications.types.js').Applicant} Applicant */
+/** @typedef {import('../../applications.types.js').Case} Case */
 
 /**
  * Returns the applicant matching id of a draft case
  *
- * @param {number} caseId
+ * @param {Case} currentCase
  * @param {number} applicantId
- * @param { string[] | null } query
- * @returns {Promise<Applicant|null>}
+ * @returns {Promise<Applicant|undefined>}
  */
-export async function getApplicantById(caseId, applicantId, query = null) {
-	const { applicants } = await getCase(caseId, query);
+export async function getApplicantById(currentCase, applicantId) {
+	const { applicants } = currentCase;
+	/** @type {Applicant[] } */
+	const allApplicants = applicants ?? [];
 
-	let applicant;
-
-	if (applicants && applicants.length > 0) {
-		applicant = applicants.find((apps) => apps.id === applicantId);
-	}
-	return applicant || null;
+	return allApplicants.find((applicant) => applicant.id === applicantId);
 }
