@@ -87,22 +87,12 @@ exports[`applications GET /case-admin-officer should render the open application
                                 <td class=\\"govuk-table__cell\\">01/01/2022</td>
                             </tr>
                             <tr class=\\"govuk-table__row\\">
-                                <td class=\\"govuk-table__cell\\"><a class=\\"govuk-body\\" href=\\"/applications-service/create-new-case/3/check-your-answers\\"> Title CASE/03</a>
-                                </td>
-                                <td class=\\"govuk-table__cell\\">01/01/2022</td>
-                            </tr>
-                            <tr class=\\"govuk-table__row\\">
-                                <td class=\\"govuk-table__cell\\"><a class=\\"govuk-body\\" href=\\"/applications-service/create-new-case/2/check-your-answers\\"> Title CASE/02</a>
-                                </td>
-                                <td class=\\"govuk-table__cell\\">31/01/2022</td>
-                            </tr>
-                            <tr class=\\"govuk-table__row\\">
-                                <td class=\\"govuk-table__cell\\"><a class=\\"govuk-body\\" href=\\"/applications-service/create-new-case/4/check-your-answers\\"> Case with no sector</a>
+                                <td class=\\"govuk-table__cell\\"><a class=\\"govuk-body\\" href=\\"/applications-service/create-new-case/2/check-your-answers\\"> Case with no subsector</a>
                                 </td>
                                 <td class=\\"govuk-table__cell\\"></td>
                             </tr>
                             <tr class=\\"govuk-table__row\\">
-                                <td class=\\"govuk-table__cell\\"><a class=\\"govuk-body\\" href=\\"/applications-service/create-new-case/5/check-your-answers\\"> Case with no subsector</a>
+                                <td class=\\"govuk-table__cell\\"><a class=\\"govuk-body\\" href=\\"/applications-service/create-new-case/3/check-your-answers\\"> Case with no sector</a>
                                 </td>
                                 <td class=\\"govuk-table__cell\\"></td>
                             </tr>
@@ -133,7 +123,7 @@ exports[`applications GET /case-admin-officer should render the open application
                                 </thead>
                                 <tbody class=\\"govuk-table__body\\">
                                     <tr class=\\"govuk-table__row\\">
-                                        <td class=\\"govuk-table__cell\\"><a class=\\"govuk-body\\" href=\\"/applications-service/case/6/\\"> CASE/06 - Title CASE/06</a>
+                                        <td class=\\"govuk-table__cell\\"><a class=\\"govuk-body\\" href=\\"/applications-service/case/4/\\"> CASE/04 - Title CASE/04</a>
                                         </td>
                                         <td class=\\"govuk-table__cell govuk-!-width-one-quarter text-align--right\\"><strong class=\\"govuk-tag govuk-tag--green\\">Pre-Application</strong>
                                         </td>
@@ -155,7 +145,7 @@ exports[`applications GET /case-admin-officer should render the open application
                                 </thead>
                                 <tbody class=\\"govuk-table__body\\">
                                     <tr class=\\"govuk-table__row\\">
-                                        <td class=\\"govuk-table__cell\\"><a class=\\"govuk-body\\" href=\\"/applications-service/case/7/\\"> CASE/07 - Title CASE/07</a>
+                                        <td class=\\"govuk-table__cell\\"><a class=\\"govuk-body\\" href=\\"/applications-service/case/5/\\"> CASE/05 - Title CASE/05</a>
                                         </td>
                                         <td class=\\"govuk-table__cell govuk-!-width-one-quarter text-align--right\\"><strong class=\\"govuk-tag govuk-tag--\\">Pre-application</strong>
                                         </td>
@@ -258,22 +248,12 @@ exports[`applications GET /case-officer should render the open applications belo
                                 <td class=\\"govuk-table__cell\\">01/01/2022</td>
                             </tr>
                             <tr class=\\"govuk-table__row\\">
-                                <td class=\\"govuk-table__cell\\"><a class=\\"govuk-body\\" href=\\"/applications-service/create-new-case/3/check-your-answers\\"> Title CASE/03</a>
-                                </td>
-                                <td class=\\"govuk-table__cell\\">01/01/2022</td>
-                            </tr>
-                            <tr class=\\"govuk-table__row\\">
-                                <td class=\\"govuk-table__cell\\"><a class=\\"govuk-body\\" href=\\"/applications-service/create-new-case/2/check-your-answers\\"> Title CASE/02</a>
-                                </td>
-                                <td class=\\"govuk-table__cell\\">31/01/2022</td>
-                            </tr>
-                            <tr class=\\"govuk-table__row\\">
-                                <td class=\\"govuk-table__cell\\"><a class=\\"govuk-body\\" href=\\"/applications-service/create-new-case/4/check-your-answers\\"> Case with no sector</a>
+                                <td class=\\"govuk-table__cell\\"><a class=\\"govuk-body\\" href=\\"/applications-service/create-new-case/2/check-your-answers\\"> Case with no subsector</a>
                                 </td>
                                 <td class=\\"govuk-table__cell\\"></td>
                             </tr>
                             <tr class=\\"govuk-table__row\\">
-                                <td class=\\"govuk-table__cell\\"><a class=\\"govuk-body\\" href=\\"/applications-service/create-new-case/5/check-your-answers\\"> Case with no subsector</a>
+                                <td class=\\"govuk-table__cell\\"><a class=\\"govuk-body\\" href=\\"/applications-service/create-new-case/3/check-your-answers\\"> Case with no sector</a>
                                 </td>
                                 <td class=\\"govuk-table__cell\\"></td>
                             </tr>
@@ -304,7 +284,7 @@ exports[`applications GET /case-officer should render the open applications belo
                                 </thead>
                                 <tbody class=\\"govuk-table__body\\">
                                     <tr class=\\"govuk-table__row\\">
-                                        <td class=\\"govuk-table__cell\\"><a class=\\"govuk-body\\" href=\\"/applications-service/case/6/\\"> CASE/06 - Title CASE/06</a>
+                                        <td class=\\"govuk-table__cell\\"><a class=\\"govuk-body\\" href=\\"/applications-service/case/4/\\"> CASE/04 - Title CASE/04</a>
                                         </td>
                                         <td class=\\"govuk-table__cell govuk-!-width-one-quarter text-align--right\\"><strong class=\\"govuk-tag govuk-tag--green\\">Pre-Application</strong>
                                         </td>
@@ -326,7 +306,7 @@ exports[`applications GET /case-officer should render the open applications belo
                                 </thead>
                                 <tbody class=\\"govuk-table__body\\">
                                     <tr class=\\"govuk-table__row\\">
-                                        <td class=\\"govuk-table__cell\\"><a class=\\"govuk-body\\" href=\\"/applications-service/case/7/\\"> CASE/07 - Title CASE/07</a>
+                                        <td class=\\"govuk-table__cell\\"><a class=\\"govuk-body\\" href=\\"/applications-service/case/5/\\"> CASE/05 - Title CASE/05</a>
                                         </td>
                                         <td class=\\"govuk-table__cell govuk-!-width-one-quarter text-align--right\\"><strong class=\\"govuk-tag govuk-tag--\\">Pre-application</strong>
                                         </td>
@@ -417,22 +397,12 @@ exports[`applications GET /inspector should render the open applications belongi
                                 <td class=\\"govuk-table__cell\\">01/01/2022</td>
                             </tr>
                             <tr class=\\"govuk-table__row\\">
-                                <td class=\\"govuk-table__cell\\"><a class=\\"govuk-body\\" href=\\"/applications-service/create-new-case/3/check-your-answers\\"> Title CASE/03</a>
-                                </td>
-                                <td class=\\"govuk-table__cell\\">01/01/2022</td>
-                            </tr>
-                            <tr class=\\"govuk-table__row\\">
-                                <td class=\\"govuk-table__cell\\"><a class=\\"govuk-body\\" href=\\"/applications-service/create-new-case/2/check-your-answers\\"> Title CASE/02</a>
-                                </td>
-                                <td class=\\"govuk-table__cell\\">31/01/2022</td>
-                            </tr>
-                            <tr class=\\"govuk-table__row\\">
-                                <td class=\\"govuk-table__cell\\"><a class=\\"govuk-body\\" href=\\"/applications-service/create-new-case/4/check-your-answers\\"> Case with no sector</a>
+                                <td class=\\"govuk-table__cell\\"><a class=\\"govuk-body\\" href=\\"/applications-service/create-new-case/2/check-your-answers\\"> Case with no subsector</a>
                                 </td>
                                 <td class=\\"govuk-table__cell\\"></td>
                             </tr>
                             <tr class=\\"govuk-table__row\\">
-                                <td class=\\"govuk-table__cell\\"><a class=\\"govuk-body\\" href=\\"/applications-service/create-new-case/5/check-your-answers\\"> Case with no subsector</a>
+                                <td class=\\"govuk-table__cell\\"><a class=\\"govuk-body\\" href=\\"/applications-service/create-new-case/3/check-your-answers\\"> Case with no sector</a>
                                 </td>
                                 <td class=\\"govuk-table__cell\\"></td>
                             </tr>
@@ -463,7 +433,7 @@ exports[`applications GET /inspector should render the open applications belongi
                                 </thead>
                                 <tbody class=\\"govuk-table__body\\">
                                     <tr class=\\"govuk-table__row\\">
-                                        <td class=\\"govuk-table__cell\\"><a class=\\"govuk-body\\" href=\\"/applications-service/case/6/\\"> CASE/06 - Title CASE/06</a>
+                                        <td class=\\"govuk-table__cell\\"><a class=\\"govuk-body\\" href=\\"/applications-service/case/4/\\"> CASE/04 - Title CASE/04</a>
                                         </td>
                                         <td class=\\"govuk-table__cell govuk-!-width-one-quarter text-align--right\\"><strong class=\\"govuk-tag govuk-tag--green\\">Pre-Application</strong>
                                         </td>
@@ -485,7 +455,7 @@ exports[`applications GET /inspector should render the open applications belongi
                                 </thead>
                                 <tbody class=\\"govuk-table__body\\">
                                     <tr class=\\"govuk-table__row\\">
-                                        <td class=\\"govuk-table__cell\\"><a class=\\"govuk-body\\" href=\\"/applications-service/case/7/\\"> CASE/07 - Title CASE/07</a>
+                                        <td class=\\"govuk-table__cell\\"><a class=\\"govuk-body\\" href=\\"/applications-service/case/5/\\"> CASE/05 - Title CASE/05</a>
                                         </td>
                                         <td class=\\"govuk-table__cell govuk-!-width-one-quarter text-align--right\\"><strong class=\\"govuk-tag govuk-tag--\\">Pre-application</strong>
                                         </td>

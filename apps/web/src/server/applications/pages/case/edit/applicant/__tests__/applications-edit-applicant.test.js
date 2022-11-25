@@ -11,12 +11,12 @@ const nocks = () => {
 	nock('http://test/').get('/applications/case-officer').reply(200, {});
 	nock('http://test/')
 		.get(/\/applications\/123(.*)/g)
-		.times(5)
-		.reply(200, fixtureCases[5]);
+		.times(2)
+		.reply(200, fixtureCases[3]);
 	nock('http://test/')
 		.get(/\/applications\/456(.*)/g)
 		.times(2)
-		.reply(200, fixtureCases[6]);
+		.reply(200, fixtureCases[4]);
 };
 
 describe('applications create applicant', () => {

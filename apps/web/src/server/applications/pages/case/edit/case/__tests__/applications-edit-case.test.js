@@ -17,11 +17,11 @@ const nocks = () => {
 	nock('http://test/').get('/applications/case-officer').reply(200, {});
 	nock('http://test/').get('/applications/sector').reply(200, fixtureSectors);
 	nock('http://test/')
-		.get(/\/applications\/6(.*)/g)
-		.reply(200, fixtureCases[5]);
+		.get(/\/applications\/3(.*)/g)
+		.reply(200, fixtureCases[3]);
 	nock('http://test/')
-		.get(/\/applications\/7(.*)/g)
-		.reply(200, fixtureCases[6]);
+		.get(/\/applications\/4(.*)/g)
+		.reply(200, fixtureCases[4]);
 	nock('http://test/')
 		.get('/applications/sector?sectorName=transport')
 		.reply(200, fixtureSubSectors);
@@ -36,7 +36,7 @@ describe('applications edit', () => {
 	});
 
 	describe('Name', () => {
-		const baseUrl = '/applications-service/case/6/edit/name';
+		const baseUrl = '/applications-service/case/3/edit/name';
 
 		describe('GET /edit/name', () => {
 			describe('When role is:', () => {
@@ -79,7 +79,7 @@ describe('applications edit', () => {
 						const element = parseHtml(response.text);
 
 						expect(element.innerHTML).toMatchSnapshot();
-						expect(element.innerHTML).toContain(fixtureCases[5].title.slice(0, 20));
+						expect(element.innerHTML).toContain(fixtureCases[3].title.slice(0, 20));
 					});
 				});
 				describe('Draft:', () => {
@@ -97,7 +97,7 @@ describe('applications edit', () => {
 
 	describe('Description', () => {
 		describe('GET edit/description', () => {
-			const baseUrl = '/applications-service/case/6/edit/description';
+			const baseUrl = '/applications-service/case/3/edit/description';
 
 			beforeEach(async () => {
 				await request.get('/applications-service/case-officer');
@@ -109,13 +109,13 @@ describe('applications edit', () => {
 				const element = parseHtml(response.text);
 
 				expect(element.innerHTML).toMatchSnapshot();
-				expect(element.innerHTML).toContain(fixtureCases[5].description.slice(0, 20));
+				expect(element.innerHTML).toContain(fixtureCases[3].description.slice(0, 20));
 			});
 		});
 	});
 
 	describe('Project location', () => {
-		const baseUrl = `/applications-service/case/6/edit/project-location`;
+		const baseUrl = `/applications-service/case/3/edit/project-location`;
 
 		beforeEach(async () => {
 			await request.get('/applications-service/case-officer');
@@ -128,13 +128,13 @@ describe('applications edit', () => {
 				const element = parseHtml(response.text);
 
 				expect(element.innerHTML).toMatchSnapshot();
-				expect(element.innerHTML).toContain('Bristol');
+				expect(element.innerHTML).toContain('London');
 			});
 		});
 	});
 
 	describe('Grid references', () => {
-		const baseUrl = `/applications-service/case/6/edit/grid-references`;
+		const baseUrl = `/applications-service/case/3/edit/grid-references`;
 
 		beforeEach(async () => {
 			await request.get('/applications-service/case-officer');
@@ -147,7 +147,7 @@ describe('applications edit', () => {
 				const element = parseHtml(response.text);
 
 				expect(element.innerHTML).toMatchSnapshot();
-				expect(element.innerHTML).toContain('654321');
+				expect(element.innerHTML).toContain('123456');
 			});
 		});
 	});
@@ -164,20 +164,12 @@ describe('applications edit', () => {
 
 		describe('GET /edit/regions', () => {
 			it('should render the page with checked options if the api returns something', async () => {
-				const response = await request.get(baseUrl('6'));
+				const response = await request.get(baseUrl('3'));
 				const element = parseHtml(response.text);
 
 				expect(element.innerHTML).toMatchSnapshot();
-				expect(element.innerHTML).toContain('value="east"\n                    checked');
-				expect(element.innerHTML).toContain('value="north"\n                    checked');
-			});
-
-			it('should render the page without checked options', async () => {
-				const response = await request.get(baseUrl('7'));
-				const element = parseHtml(response.text);
-
-				expect(element.innerHTML).toMatchSnapshot();
-				expect(element.innerHTML).not.toContain('checked');
+				expect(element.innerHTML).toContain('value="london"\n                    checked');
+				expect(element.innerHTML).toContain('value="yorkshire"\n                    checked');
 			});
 		});
 	});
@@ -193,20 +185,12 @@ describe('applications edit', () => {
 		});
 
 		describe('GET edit/zoom-level', () => {
-			it('should render the page with None checked if the api does not return resumed data', async () => {
-				const response = await request.get(baseUrl('7'));
-				const element = parseHtml(response.text);
-
-				expect(element.innerHTML).toMatchSnapshot();
-				expect(element.innerHTML).toContain('value="none"\n                    checked');
-			});
-
 			it('should render the page with the checked option from the resumed data', async () => {
-				const response = await request.get(baseUrl('6'));
+				const response = await request.get(baseUrl('3'));
 				const element = parseHtml(response.text);
 
 				expect(element.innerHTML).toMatchSnapshot();
-				expect(element.innerHTML).toContain('value="junction"\n                    checked');
+				expect(element.innerHTML).toContain('value="city"\n                    checked');
 			});
 		});
 	});
@@ -223,15 +207,15 @@ describe('applications edit', () => {
 
 		describe('GET /edit/team-email', () => {
 			it('should render the page with the resumed data if the api returns something', async () => {
-				const response = await request.get(baseUrl('6'));
+				const response = await request.get(baseUrl('3'));
 				const element = parseHtml(response.text);
 
 				expect(element.innerHTML).toMatchSnapshot();
-				expect(element.innerHTML).toContain('another@ema.il');
+				expect(element.innerHTML).toContain('some@ema.il');
 			});
 
 			it('should render the page with no value inside the text input if api does not return resumed data', async () => {
-				const response = await request.get(baseUrl('7'));
+				const response = await request.get(baseUrl('4'));
 				const element = parseHtml(response.text);
 
 				expect(element.innerHTML).toMatchSnapshot();

@@ -21,12 +21,14 @@ const nocks = () => {
 		.get(/\/applications\/1(.*)/g)
 		.times(2)
 		.reply(200, fixtureCases[0]);
+
 	nock('http://test/')
 		.get(/\/applications\/2(.*)/g)
-		.reply(200, fixtureCases[4]);
+		.reply(200, fixtureCases[1]);
+
 	nock('http://test/')
 		.get(/\/applications\/3(.*)/g)
-		.reply(200, fixtureCases[3]);
+		.reply(200, fixtureCases[2]);
 	nock('http://test/')
 		.get('/applications/sector?sectorName=transport')
 		.reply(200, fixtureSubSectors);

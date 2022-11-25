@@ -38,7 +38,8 @@ export const createCase = ({
 	sector = createOptionsItem(),
 	subSector = createOptionsItem(),
 	status = `Status ${id}000`,
-	applicants = [createApplicant(true)]
+	applicants = [createApplicant(true)],
+	caseEmail
 } = {}) => {
 	return {
 		id,
@@ -51,14 +52,14 @@ export const createCase = ({
 		subSector,
 		applicants,
 		geographicalInformation: {
-			locationDescription: 'Bristol',
+			locationDescription: 'London',
 			gridReference: {
-				easting: '654321',
-				northing: '456789'
+				easting: '123456',
+				northing: '987654'
 			},
-			regions: [fixtureRegions[2], fixtureRegions[3]],
-			mapZoomLevel: fixtureZoomLevels[2]
+			regions: [fixtureRegions[0], fixtureRegions[1]],
+			mapZoomLevel: fixtureZoomLevels[0]
 		},
-		caseEmail: 'another@ema.il'
+		caseEmail
 	};
 };
