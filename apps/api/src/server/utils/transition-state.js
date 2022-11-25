@@ -8,6 +8,7 @@ import {
 	householdStates
 } from '../appeals/state-machine/household-appeal.machine.js';
 import { createApplicationsMachine } from '../applications/state-machine/application.machine.js';
+import { createDocumentsMachine } from '../applications/state-machine/document.machine.js';
 
 export class TransitionStateError extends Error {
 	/**
@@ -29,7 +30,8 @@ const mapStateMachine = (caseType) => {
 	const stateMachines = {
 		household: createHouseholdAppealMachine,
 		'full planning': createFullPlanningAppealMachine,
-		application: createApplicationsMachine
+		application: createApplicationsMachine,
+		document: createDocumentsMachine
 	};
 
 	const stateMachine = stateMachines[caseType];
