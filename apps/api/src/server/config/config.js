@@ -37,7 +37,8 @@ const { value, error } = schema.validate({
 	// set Feature Flag default val here [default: true] - will be overwritted by values cming from the .env file
 	featureFlags: {
 		featureFlagBoas1TestFeature: environment.FEATURE_FLAG_BOAS_1_TEST_FEATURE === 'true'
-	}
+	},
+	serviceBusEnabled: environment.SERVICE_BUS_ENABLED
 });
 
 if (error) {

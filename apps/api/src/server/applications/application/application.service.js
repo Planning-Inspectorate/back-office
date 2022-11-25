@@ -1,11 +1,12 @@
 import { isArray, isEmpty, pick, pickBy } from 'lodash-es';
+import { eventClient } from '../../infrastructure/event-client.js';
+import { NSIP_PROJECT } from '../../infrastructure/topics.js';
 import * as caseRepository from '../../repositories/case.repository.js';
 import * as folderRepository from '../../repositories/folder.repository.js';
 import { breakUpCompoundStatus } from '../../utils/break-up-compound-status.js';
 import { buildAppealCompundStatus } from '../../utils/build-appeal-compound-status.js';
 import { mapApplicationDetails } from '../../utils/mapping/map-case-details.js';
 import { transitionState } from '../../utils/transition-state.js';
-// import { sendMessage } from '../../utils/service-bus-sender.js';
 
 /**
  *
@@ -92,8 +93,6 @@ export const startApplication = async (id) => {
 		caseDetails.id
 	);
 
-	// sendMessage({test: 'test'}, 'test')
-
 	await caseRepository.updateApplicationStatusAndDataById(
 		caseDetails.id,
 		{
@@ -105,12 +104,93 @@ export const startApplication = async (id) => {
 		[folderRepository.createFolders(caseDetails.id)]
 	);
 
-	const updatedCase = await caseRepository.getById(caseDetails.id, {});
+	// Get the newly updated case details
+	const nsipProject = await buildNsipProjectPayload(caseDetails.id);
+
+	// Broadcast the case details
+	await eventClient.sendEvents(NSIP_PROJECT, [nsipProject]);
 
 	return {
-		id: updatedCase?.id,
-		reference: updatedCase?.reference,
+		id: caseDetails.id,
+		reference: caseDetails?.reference,
 		status: nextStatusInStateMachine.value
+	};
+};
+
+const buildNsipProjectPayload = async (/** @type {number} */ caseId) => {
+	// 1. Fetch the project payload
+	const project = await caseRepository.getById(caseId, {
+		subSector: true,
+		sector: true,
+		applicationDetails: true,
+		zoomLevel: true,
+		regions: true,
+		caseStatus: true,
+		serviceCustomer: true,
+		serviceCustomerAddress: true,
+		gridReference: true
+	});
+
+	// 2. Build the case object (conforming to the PINS Data Model) and broadcast the event
+	// Wow this reads horribly
+	const subSector = project?.ApplicationDetails?.subSector && {
+		...pick(project?.ApplicationDetails.subSector, ['abbreviation', 'name']),
+		sector: project?.ApplicationDetails.subSector?.sector && {
+			name: project.ApplicationDetails.subSector.sector.name
+		}
+	};
+
+	const zoomLevel = project?.ApplicationDetails?.zoomLevel && {
+		name: project.ApplicationDetails.zoomLevel.name
+	};
+
+	const regions = project?.ApplicationDetails?.regions?.map((r) => r.region.name);
+
+	const application = project?.ApplicationDetails && {
+		...pick(project?.ApplicationDetails, [
+			'locationDescription',
+			'submissionAtPublished',
+			'submissionAtInternal',
+			'caseEmail'
+		]),
+		subSector,
+		zoomLevel,
+		regions
+	};
+
+	const status = project?.CaseStatus?.[0] && {
+		status: project?.CaseStatus?.[0].status
+	};
+
+	const applicant =
+		project?.serviceCustomer?.[0] &&
+		pick(project?.serviceCustomer[0], [
+			'organisationName',
+			'firstName',
+			'middleName',
+			'lastName',
+			'email',
+			'website',
+			'phoneNumber'
+		]);
+
+	const gridReference =
+		project?.gridReference && pick(project?.gridReference, ['easting', 'northing']);
+
+	// 3. Return the result
+	return {
+		...pick(project, [
+			'reference',
+			'modifiedAt',
+			'createdAt',
+			'description',
+			'publishedAt',
+			'title'
+		]),
+		application,
+		status,
+		applicant,
+		gridReference
 	};
 };
 
