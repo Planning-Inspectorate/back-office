@@ -32,7 +32,7 @@ exports[`applications create applicant GET edit/applicant-address should render 
                 <div class=\\"govuk-grid-column-one-third\\">
                     <div class=\\"govuk-grid-row govuk-button-group\\">
                         <p class='govuk-body govuk-grid-column-one-half'>ABC123</p>
-                        <div class=\\"govuk-grid-column-one-half\\"><a class=\\"govuk-link \\" href=\\"./new\\">Change</a>
+                        <div class=\\"govuk-grid-column-one-half\\"><a class=\\"govuk-link \\" href=\\"/applications-service/case/123/edit/applicant-address/new\\">Change</a>
                         </div>
                     </div>
                 </div>
@@ -90,12 +90,12 @@ exports[`applications create applicant GET edit/applicant-full-name should rende
         <div class=\\"govuk-form-group\\">
             <label class=\\"govuk-label font-weight--700\\" for=\\"applicant.firstName\\">First name</label>
             <input class=\\"govuk-input govuk-!-width-one-third\\" id=\\"applicant.firstName\\"
-            name=\\"applicant.firstName\\" type=\\"text\\" value=\\"Lorem\\">
+            name=\\"applicant.firstName\\" type=\\"text\\" value=\\"John\\">
         </div>
         <div class=\\"govuk-form-group\\">
             <label class=\\"govuk-label font-weight--700\\" for=\\"applicant.lastName\\">Last name</label>
             <input class=\\"govuk-input govuk-!-width-one-third\\" id=\\"applicant.lastName\\"
-            name=\\"applicant.lastName\\" type=\\"text\\" value=\\"Ipsum\\">
+            name=\\"applicant.lastName\\" type=\\"text\\" value=\\"Smith\\">
         </div>
         <div class=\\"govuk-grid-row\\">
             <div class=\\"govuk-button-group pins-button-group govuk-grid-column-one-half\\">

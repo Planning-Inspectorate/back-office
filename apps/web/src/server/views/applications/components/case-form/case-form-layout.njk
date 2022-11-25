@@ -99,7 +99,7 @@
 		{% elif componentName == 'address' %}
 		{{ address(formStage, postcode, errors, addressList) }}
 		{% elif componentName == 'address-view' %}
-		{{ addressView(postcode, applicantAddress) }}
+		{{ addressView(postcode, applicantAddress, caseId) }}
 		{% elif componentName == 'date-internal' %}
 		{{ dateInternal(values, errors) }}
 		{% elif componentName == 'date-published' %}
