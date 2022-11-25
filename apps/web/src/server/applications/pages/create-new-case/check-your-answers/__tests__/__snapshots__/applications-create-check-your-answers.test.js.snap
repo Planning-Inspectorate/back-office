@@ -7,7 +7,7 @@ exports[`applications create: check your answers Case created should render the 
             <div class=\\"govuk-panel govuk-panel--confirmation\\">
                 <h1 class=\\"govuk-panel__title\\"> New case has been created</h1>
                 <div class=\\"govuk-panel__body\\">The case reference number
-                    <br><strong></strong>
+                    <br><strong>CASE/07</strong>
                 </div>
             </div>
         </div>

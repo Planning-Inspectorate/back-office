@@ -64,9 +64,9 @@ export const registerCaseWithQuery = (query, shouldBeDraft = false) => {
 
 		if ((isDraft && !shouldBeDraft) || (currentCase.status !== 'Draft' && shouldBeDraft)) {
 			throw new Error(
-				`Trying to load a ${isDraft ? 'draft' : 'non-draft'} when it should${
-					shouldBeDraft ? ' ' : ' not '
-				}be`
+				`Trying to load a ${shouldBeDraft ? '' : 'non-'}draft page for a ${
+					isDraft ? '' : 'non-'
+				}draft case`
 			);
 		}
 

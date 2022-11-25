@@ -1,6 +1,6 @@
 {% from "govuk/components/button/macro.njk" import govukButton %}
 
-{% macro addressView(postcode, applicantAddress) %}
+{% macro addressView(postcode, applicantAddress, caseId) %}
 	{% if applicantAddress.length < 1 %}
 		<input type="hidden" name='currentFormStage' value="searchPostcode">
 		<div class="govuk-form-group">
@@ -25,7 +25,7 @@
 					<div class="govuk-grid-row govuk-button-group">
 						<p class='govuk-body govuk-grid-column-one-half'>{{ postcode | upper }}</p>
 						<div class="govuk-grid-column-one-half">
-							<a class="govuk-link " href="./new">Change</a>
+							<a class="govuk-link " href="{{ 'case-edit'|url({caseId: caseId, step: 'applicant-address/new'}) }}">Change</a>
 						</div>
 					</div>
 				</div>
