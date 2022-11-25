@@ -28,5 +28,6 @@ export default joi.object({
 		levelFile: joi.string(),
 		levelStdOut: joi.string()
 	}),
-	cwd: joi.string()
+	cwd: joi.string(),
+	featureFlags: joi.object().pattern(/featureFlagBoas\d+[A-Za-z]+/, joi.boolean())
 });

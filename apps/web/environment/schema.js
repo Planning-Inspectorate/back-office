@@ -31,5 +31,6 @@ export default joi.object({
 			caseOfficerGroupId: joi.string(),
 			inspectorGroupId: joi.string()
 		})
-	})
+	}),
+	featureFlags: joi.object().pattern(/featureFlagBoas\d+[A-Za-z]+/, joi.boolean())
 });

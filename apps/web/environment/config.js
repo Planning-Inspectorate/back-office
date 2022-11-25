@@ -34,6 +34,11 @@ const { value: validatedConfig, error } = schema.validate({
 			caseOfficerGroupId: environment.APPLICATIONS_CASEOFFICER_GROUP_ID,
 			inspectorGroupId: environment.APPLICATIONS_INSPECTOR_GROUP_ID
 		}
+	},
+	// flag name convention: featureFlag[ jira number ][ferature shoret description]
+	// set Feature Flag default val here [default: true] - will be overwritted by values cming from the .env file
+	featureFlags: {
+		featureFlagBoas1TestFeature: environment.FEATURE_FLAG_BOAS_1_TEST_FEATURE === 'true'
 	}
 });
 

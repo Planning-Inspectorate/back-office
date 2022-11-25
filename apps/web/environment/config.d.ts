@@ -40,6 +40,9 @@ export interface EnvironmentConfig {
 			inspectorGroupId: string;
 		};
 	};
+	featureFlags: {
+		[key: string]: boolean;
+	};
 }
 
 const config: EnvironmentConfig;
