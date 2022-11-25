@@ -6,12 +6,15 @@ import {
 	getApplicationDetails,
 	provideDocumentUploadURLs,
 	startCase,
-	updateApplication
+	updateApplication,
+	updateDocumentStatus
 } from './application/application.controller.js';
 import {
 	validateApplicantId,
 	validateApplicationId,
 	validateCreateUpdateApplication,
+	validateDocumentCaseId,
+	validateDocumentGUID,
 	validateDocumentsToUploadProvided,
 	validateFolderIds,
 	validateGetApplicationQuery
@@ -169,6 +172,13 @@ router.post(
 	validateFolderIds,
 	trimUnexpectedRequestParameters,
 	asyncHandler(provideDocumentUploadURLs)
+);
+
+router.patch(
+	'/:caseId/documents/:documentGUID/status',
+	validateDocumentCaseId,
+	validateDocumentGUID,
+	asyncHandler(updateDocumentStatus)
 );
 
 export { router as applicationsRoutes };

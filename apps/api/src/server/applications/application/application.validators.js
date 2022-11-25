@@ -6,6 +6,7 @@ import {
 	validationErrorHandlerMissing
 } from '../../middleware/error-handler.js';
 import * as caseRepository from '../../repositories/case.repository.js';
+import * as documentRepository from '../../repositories/document.repository.js';
 import * as folderRepository from '../../repositories/folder.repository.js';
 import * as regionRepository from '../../repositories/region.repository.js';
 import * as serviceCustomerRepository from '../../repositories/service-customer.repository.js';
@@ -76,6 +77,18 @@ const validateExistingMapZoomLevel = async (value) => {
 
 	if (mapZoomLevel == null) {
 		throw new Error('Unknown map zoom level');
+	}
+};
+
+/**
+ *
+ * @param {number} caseId
+ */
+const validateExistingDocumentCaseId = async (caseId) => {
+	const documentCaseId = await folderRepository.getByCaseId(caseId);
+
+	if (documentCaseId == null) {
+		throw new Error('caseId does not exist');
 	}
 };
 
@@ -219,10 +232,39 @@ const validateFolderBelongsToCase = async (value, { req }) => {
 	}
 };
 
+/**
+ *
+ * @param {number} value
+ */
+const validateDocumentGUIDbelongsToCase = async (value) => {
+	const documentGUID = await documentRepository.getByDocumentGUID(value);
+
+	if (documentGUID === null || typeof documentGUID === 'undefined') {
+		throw new Error('DocumentGUID must exist in database');
+	}
+};
+
 export const validateFolderIds = composeMiddleware(
 	body('*.folderId')
 		.toInt()
 		.custom(validateFolderBelongsToCase)
 		.withMessage('Folder must belong to case'),
+	validationErrorHandler
+);
+
+export const validateDocumentCaseId = composeMiddleware(
+	param('caseId')
+		.toInt()
+		.isInt()
+		.withMessage('Case id must be a valid numerical value')
+		.custom(validateExistingDocumentCaseId)
+		.withMessage('Document must be part of an existing case'),
+	validationErrorHandlerMissing
+);
+
+export const validateDocumentGUID = composeMiddleware(
+	param('documentGUID')
+		.custom(validateDocumentGUIDbelongsToCase)
+		.withMessage('Document must have correct GUID'),
 	validationErrorHandler
 );

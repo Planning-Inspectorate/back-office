@@ -51,3 +51,7 @@ export interface CreateUpdateApplication {
 	applicants?: Applicant[];
 	keyDates?: KeyApplicationDates;
 }
+
+export interface UpdateDocumentStatus {
+	machineAction: string;
+}

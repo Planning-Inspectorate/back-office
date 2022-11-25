@@ -27,3 +27,24 @@ export const update = (documentGuid, documentDetails) => {
 		data: documentDetails
 	});
 };
+
+/**
+ *
+ * @param {string} documentGUID
+ * @returns {import('@prisma/client').PrismaPromise<import('@pins/api').Schema.Document>}
+ */
+export const getByDocumentGUID = (documentGUID) => {
+	return databaseConnector.document.findUnique({
+		where: { guid: documentGUID }
+	});
+};
+
+// /**
+//  * @param {string} status
+//  */
+//  export const updateStatus = ({
+// 	status
+// }) => {
+// 	return status
+
+// };
