@@ -2,7 +2,7 @@ import config from '@pins/web/environment/config.js';
 import { Router as createRouter } from 'express';
 import { installAuthMock } from '../../../testing/app/mocks/auth.js';
 import appealsRouter from '../appeals/appeals.router.js';
-import applicationsRouter from '../applications/applications.router.js';
+import applicationsRouter from '../applications/nsip-applications/applications.router.js';
 import { handleHeathCheck, viewHomepage, viewUnauthenticatedError } from './app.controller.js';
 import { handleSignout } from './auth/auth.controller.js';
 import { assertIsAuthenticated } from './auth/auth.guards.js';

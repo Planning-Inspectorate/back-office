@@ -1,1 +1,1 @@
-export * from './fixtures/cases.js';
+export * from './fixtures/nsip-applications/cases.js';

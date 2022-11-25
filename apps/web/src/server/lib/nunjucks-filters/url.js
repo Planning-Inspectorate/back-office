@@ -1,7 +1,7 @@
 import slugify from 'slugify';
 
-/** @typedef {import('../../applications/applications.types').DomainType} DomainType */
-/** @typedef {import('../../applications/applications.types').DocumentationCategory} DocumentationCategory */
+/** @typedef {import('../../applications/nsip-applications/applications.types').DomainType} DomainType */
+/** @typedef {import('../../applications/nsip-applications/applications.types').DocumentationCategory} DocumentationCategory */
 
 /**
  * @typedef {object} urlFilterArguments

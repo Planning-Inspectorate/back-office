@@ -1,6 +1,6 @@
 import { join, map, pick } from 'lodash-es';
 
-/** @typedef {import('../applications/applications.types').ApplicationsAddress} ApplicationsAddress */
+/** @typedef {import('../applications/nsip-applications/applications.types').ApplicationsAddress} ApplicationsAddress */
 
 /**
  * converts a multi part address to a single string

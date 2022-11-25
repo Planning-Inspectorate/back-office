@@ -1,6 +1,6 @@
 import { join, map, pick } from 'lodash-es';
 
-/** @typedef {import('../applications/applications.types').Applicant} Applicant */
+/** @typedef {import('../applications/nsip-applications/applications.types').Applicant} Applicant */
 
 /**
  * converts a multi part person name to a single string
