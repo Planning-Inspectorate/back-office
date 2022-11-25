@@ -99,6 +99,7 @@ const getApplicationDetails = ({ regions = true, mapZoomLevel = true, subSector 
  *  title: string | null,
  *  description: string | null,
  *  caseStatus: string,
+ *  reference?: string | undefined,
  *  dates?: {createdAt?: Date, modifiedAt?: Date, publishedAt?: Date},
  *  inclusions?: {serviceCustomer?: boolean, ApplicationDetails?: boolean, regions?: boolean, CaseStatus?: boolean, mapZoomLevel?: boolean, subSector?: boolean, gridReference?: boolean}
  * }} arg
@@ -109,12 +110,13 @@ export const applicationFactoryForTests = ({
 	title,
 	description,
 	caseStatus,
+	reference,
 	dates = {},
 	inclusions = {}
 }) => {
 	return {
 		id,
-		reference: generateApplicationReference(),
+		reference: reference || generateApplicationReference(),
 		title,
 		description,
 		createdAt: dates.createdAt || new Date(),

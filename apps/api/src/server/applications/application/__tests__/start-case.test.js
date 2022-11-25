@@ -3,6 +3,7 @@ import test from 'ava';
 import sinon from 'sinon';
 import supertest from 'supertest';
 import { app } from '../../../app.js';
+import { eventClient } from '../../../infrastructure/event-client.js';
 import { applicationFactoryForTests } from '../../../utils/application-factory-for-tests.js';
 import { databaseConnector } from '../../../utils/database-connector.js';
 
@@ -18,6 +19,11 @@ const applicationReadyToStart = applicationFactoryForTests({
 	title: 'Title',
 	description: 'Description',
 	caseStatus: 'draft',
+	reference: 'EN01-1',
+	dates: {
+		modifiedAt: new Date(1_669_383_489_676),
+		createdAt: new Date(1_669_383_489_676)
+	},
 	inclusions: {
 		ApplicationDetails: true,
 		regions: true,
@@ -30,6 +36,7 @@ const applicationWithMissingInformation = applicationFactoryForTests({
 	title: null,
 	description: null,
 	caseStatus: 'draft',
+	reference: 'EN01-1',
 	inclusions: {
 		ApplicationDetails: true,
 		mapZoomLevel: false,
@@ -44,6 +51,7 @@ const applicationInPreApplicationState = applicationFactoryForTests({
 	title: 'Title',
 	description: 'Description',
 	caseStatus: 'pre_application',
+	reference: 'EN01-1',
 	inclusions: {
 		ApplicationDetails: true,
 		regions: true,
@@ -72,6 +80,11 @@ const createFolderStub = sinon.stub();
 
 let executeRawStub = sinon.stub();
 
+/**
+ * @type {sinon.SinonSpy<any, any>}
+ */
+let stubbedEventClient;
+
 test.before('set up mocks', () => {
 	sinon.stub(databaseConnector, 'case').get(() => {
 		return { findUnique: findUniqueStub, update: updateStub };
@@ -84,6 +97,8 @@ test.before('set up mocks', () => {
 	sinon.stub(databaseConnector, 'folder').get(() => {
 		return { createMany: createFolderStub };
 	});
+
+	stubbedEventClient = sinon.stub(eventClient, 'sendEvents');
 
 	sinon.stub(Prisma.PrismaClient.prototype, '$transaction');
 	executeRawStub = sinon.stub(Prisma.PrismaClient.prototype, '$executeRawUnsafe');
@@ -128,6 +143,35 @@ test('starts application if all needed information is present', async (t) => {
 			{ displayNameEn: 'Post-decision', displayOrder: 1300, caseId: 1 }
 		]
 	});
+
+	let applicant;
+
+	sinon.assert.calledWith(stubbedEventClient, 'nsip-project', [
+		{
+			reference: 'EN01-1',
+			modifiedAt: new Date(1_669_383_489_676),
+			createdAt: new Date(1_669_383_489_676),
+			description: 'Description',
+			publishedAt: null,
+			title: 'Title',
+			application: {
+				locationDescription: 'Some Location',
+				submissionAtPublished: 'Q1 2023',
+				submissionAtInternal: new Date(1_658_486_313_000),
+				caseEmail: 'test@test.com',
+				subSector: {
+					abbreviation: 'AA',
+					name: 'sub_sector',
+					sector: { name: 'sector' }
+				},
+				zoomLevel: { name: 'zoom-level' },
+				regions: ['region1', 'region2']
+			},
+			applicant,
+			status: { status: 'draft' },
+			gridReference: { easting: 123_456, northing: 654_321 }
+		}
+	]);
 });
 
 test('throws an error if the application id is not recognised', async (t) => {
