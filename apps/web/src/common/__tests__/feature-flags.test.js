@@ -1,13 +1,21 @@
 import { isFeatureActive } from '../feature-flags.js';
 
-test('Returns flag as a boolean', () => {
-	expect(typeof isFeatureActive()).toBe('boolean');
-});
+describe('feature flags', () => {
+	it('Returns flag as a boolean', () => {
+		const feature = isFeatureActive();
 
-test('Returns false when no flag name passed', () => {
-	expect(isFeatureActive()).toBe(false);
-});
+		expect(typeof feature).toBe('boolean');
+	});
 
-test('Returns false when no flag set in the .env file or in the config', () => {
-	expect(isFeatureActive('featureFlagBOAS2SomeFeatrue')).toBe(false);
+	it('Returns false when no flag name passed', () => {
+		const feature = isFeatureActive();
+
+		expect(feature).toBe(false);
+	});
+
+	it('Returns false when no flag set in the .env file or in the config', () => {
+		const feature = isFeatureActive('featureFlagBOAS2SomeFeatrue');
+
+		expect(feature).toBe(false);
+	});
 });
