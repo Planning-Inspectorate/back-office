@@ -908,7 +908,9 @@
 						}
 					}
 				}
-			},
+			}
+		},
+		"/applications/{id}/documents": {
 			"post": {
 				"tags": ["Applications"],
 				"description": "Saves new documents to database and returns location in Blob Storage",
