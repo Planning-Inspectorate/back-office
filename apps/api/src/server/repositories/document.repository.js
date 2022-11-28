@@ -39,12 +39,30 @@ export const getByDocumentGUID = (documentGUID) => {
 	});
 };
 
-// /**
-//  * @param {string} status
-//  */
-//  export const updateStatus = ({
-// 	status
-// }) => {
-// 	return status
+/**
+ * @param { any } guid
+ * @returns {import('@prisma/client').PrismaPromise<import('@pins/api').Schema.BatchPayload>}
+ */
+export const updateDocumentStatus = ({ guid, status }) => {
+	const transactions = [];
 
-// };
+	transactions.push(
+		updateStatus({
+			guid,
+			status
+		})
+	);
+
+	return databaseConnector.$transaction(transactions);
+};
+
+/**
+ * @param {DocumentUpdateInput} status
+ * @returns {import('@prisma/client').PrismaPromise<import('@pins/api').Schema.Document>}
+ */
+const updateStatus = ({ guid, status }) => {
+	return databaseConnector.document.update({
+		where: { guid },
+		data: { status }
+	});
+};

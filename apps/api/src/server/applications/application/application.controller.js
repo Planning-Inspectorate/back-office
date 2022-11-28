@@ -148,7 +148,12 @@ export const updateDocumentStatus = async ({ params, body }, response) => {
 		throwError: true
 	});
 
-	// console.log("====", nextStatusInDocumentStateMachine.value)
+	const updatedDocumentStatus = nextStatusInDocumentStateMachine.value;
 
-	response.send(nextStatusInDocumentStateMachine);
+	const updateResponse = await documentRepository.updateDocumentStatus({
+		guid: params.documentGUID,
+		status: updatedDocumentStatus
+	});
+
+	response.send(updateResponse);
 };
