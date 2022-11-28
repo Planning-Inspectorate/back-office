@@ -79,7 +79,7 @@ test('finds no folders when case has no folders attached', async (t) => {
 });
 
 test('finds a single folder', async (t) => {
-	const folders = await folderRepository.getFolder(15);
+	const folders = await folderRepository.getById(15);
 
 	t.deepEqual(folders, singleFolder);
 });

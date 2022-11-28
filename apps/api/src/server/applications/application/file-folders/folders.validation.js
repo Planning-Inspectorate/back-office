@@ -9,7 +9,7 @@ import * as FolderRepository from '../../../repositories/folder.repository.js';
  * @param {{req: any}} requestInfo
  */
 const validateExistingFolderBelongsToCase = async (value, { req }) => {
-	const folder = await FolderRepository.getFolder(value);
+	const folder = await FolderRepository.getById(value);
 
 	if (folder === null || typeof folder === 'undefined') {
 		throw new Error('Unknown Folder Id');

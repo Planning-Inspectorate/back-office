@@ -24,7 +24,7 @@ export const getByCaseId = (caseId, parentFolderId = null) => {
  * @param {number} folderId
  * @returns {Promise<Folder |null>}
  */
-export const getFolder = (folderId) => {
+export const getById = (folderId) => {
 	return databaseConnector.folder.findUnique({ where: { id: folderId } });
 };
 
