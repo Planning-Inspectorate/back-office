@@ -3,11 +3,11 @@ import pino from './logger.js';
 
 /**
  *
- * @param {string} featureFlagName
+ * @param {string | null} featureFlagName
  * @returns {boolean}
  */
 
-export const isFeatureActive = (featureFlagName) => {
+export const isFeatureActive = (featureFlagName = null) => {
 	pino.info(`[STORAGE] flag name: ${featureFlagName}`);
 
 	if (
@@ -15,8 +15,7 @@ export const isFeatureActive = (featureFlagName) => {
 		!Object.prototype.hasOwnProperty.call(config.featureFlags, featureFlagName)
 	) {
 		pino.info(`[STORAGE] a flag name must be supplied: ${featureFlagName} does not exist`);
-		// we assume the flag doesn't exists so the feature is available
-		return true;
+		return false;
 	}
 
 	pino.info(
