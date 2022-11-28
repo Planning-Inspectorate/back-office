@@ -1,3 +1,4 @@
+import asyncRoute from '../async-route.js';
 import { bodyToPayload } from '../body-formatter.js';
 
 describe('Libraries', () => {
@@ -33,6 +34,30 @@ describe('Libraries', () => {
 			};
 
 			expect(payload).toMatchObject(expectPayload);
+		});
+	});
+
+	describe('async-route helper', () => {
+		it('should throw error if route throws error', () => {
+			const error = new Error('some error');
+
+			// @ts-ignore
+			const route = async (req, res) => {
+				throw error;
+			};
+
+			expect(asyncRoute(route)).rejects.toThrowError(error);
+		});
+
+		it('should throw error if route returns rejected promise', () => {
+			const error = new Error('some error');
+
+			// @ts-ignore
+			const route = async (req, res) => {
+				await Promise.reject(error);
+			};
+
+			expect(asyncRoute(route)).rejects.toThrowError(error);
 		});
 	});
 });
