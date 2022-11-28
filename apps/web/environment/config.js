@@ -36,9 +36,11 @@ const { value: validatedConfig, error } = schema.validate({
 		}
 	},
 	// flag name convention: featureFlag[ jira number ][ferature shoret description]
-	// set Feature Flag default val here [default: true] - will be overwritted by values cming from the .env file
+	// set Feature Flag default val here [default: false] - will be overwritted by values cming from the .env file
 	featureFlags: {
-		featureFlagBoas1TestFeature: environment.FEATURE_FLAG_BOAS_1_TEST_FEATURE === 'true'
+		featureFlagBoas1TestFeature: !environment.FEATURE_FLAG_BOAS_1_TEST_FEATURE
+			? false
+			: environment.FEATURE_FLAG_BOAS_1_TEST_FEATURE === 'true'
 	}
 });
 
