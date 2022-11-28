@@ -2,7 +2,8 @@ import * as folderRepository from '../../../repositories/folder.repository.js';
 import {
 	mapBreadcrumbFolderDetails,
 	mapFolderDetails,
-	mapSingleFolderDetails} from '../../../utils/mapping/map-folder-details.js';
+	mapSingleFolderDetails
+} from '../../../utils/mapping/map-folder-details.js';
 
 /** @typedef {import('@pins/applications').FolderDetails} FolderDetails */
 
@@ -26,7 +27,7 @@ export const getFolders = async (id, folderId) => {
  * @returns {Promise<FolderDetails |null>}
  */
 export const getFolder = async (folderId) => {
-	const folder = await folderRepository.getFolder(folderId);
+	const folder = await folderRepository.getById(folderId);
 
 	return folder ? mapSingleFolderDetails(folder) : null;
 };
