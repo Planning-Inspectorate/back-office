@@ -1,6 +1,7 @@
 import { filter, head, map, pick } from 'lodash-es';
 import * as caseRepository from '../../repositories/case.repository.js';
 import * as documentRepository from '../../repositories/document.repository.js';
+import * as folderRepository from '../../repositories/folder.repository.js';
 import { getStorageLocation } from '../../utils/document-storage-api-client.js';
 import { mapCaseStatusString } from '../../utils/mapping/map-case-status-string.js';
 import { transitionState } from '../../utils/transition-state.js';
@@ -140,6 +141,10 @@ export const provideDocumentUploadURLs = async ({ params, body }, response) => {
 export const updateDocumentStatus = async ({ params, body }, response) => {
 	const getDocumentDetails = await documentRepository.getByDocumentGUID(params.documentGUID);
 
+	const getCaseById = await folderRepository.getById(getDocumentDetails.folderId);
+
+	const caseId = getCaseById?.caseId;
+
 	const nextStatusInDocumentStateMachine = transitionState({
 		caseType: 'document',
 		status: getDocumentDetails.status,
@@ -155,5 +160,5 @@ export const updateDocumentStatus = async ({ params, body }, response) => {
 		status: updatedDocumentStatus
 	});
 
-	response.send(updateResponse);
+	response.send({ caseId, guid: updateResponse[0].guid, status: updateResponse[0].status });
 };

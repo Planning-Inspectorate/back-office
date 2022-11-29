@@ -176,8 +176,29 @@ router.post(
 
 router.patch(
 	'/:caseId/documents/:documentGUID/status',
+	/*
+        #swagger.tags = ['Applications']
+        #swagger.path = '/:caseId/documents/:documentGUID/status'
+        #swagger.description = 'Updates document status from state machine'
+        #swagger.parameters['caseId'] = {
+            in: 'path',
+			description: 'Case ID here',
+			required: true,
+			type: 'integer'
+        }
+        #swagger.parameters['documentGUID'] = {
+            in: 'body',
+            description: 'Document GUID',
+            schema: { $ref: '#/definitions/documentsToSave' }
+        }
+        #swagger.responses[200] = {
+            description: 'Document status updated',
+            schema: { caseId: 1, guid: 'DB0110203', status: 'not_yet_checked'}
+        }
+	 */
 	validateDocumentCaseId,
 	validateDocumentGUID,
+	// trimUnexpectedRequestParameters,
 	asyncHandler(updateDocumentStatus)
 );
 
