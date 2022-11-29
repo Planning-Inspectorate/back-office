@@ -3,7 +3,6 @@ import asyncRoute from '../async-route.js';
 import { bodyToPayload } from '../body-formatter.js';
 import { dateIsValid, isDateInstance } from '../dates.js';
 import { nameToString } from '../person-name-formatter.js';
-import { get, patch, post } from '../request.js';
 
 describe('Libraries', () => {
 	describe('addressFormatter', () => {
@@ -25,8 +24,7 @@ describe('Libraries', () => {
 		it('should throw error if route throws error', () => {
 			const error = new Error('some error');
 
-			// @ts-ignore
-			const route = async (req, res) => {
+			const route = async () => {
 				throw error;
 			};
 
@@ -36,8 +34,7 @@ describe('Libraries', () => {
 		it('should throw error if route returns rejected promise', () => {
 			const error = new Error('some error');
 
-			// @ts-ignore
-			const route = async (req, res) => {
+			const route = async () => {
 				await Promise.reject(error);
 			};
 
