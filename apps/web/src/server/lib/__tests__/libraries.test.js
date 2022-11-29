@@ -3,6 +3,7 @@ import asyncRoute from '../async-route.js';
 import { bodyToPayload } from '../body-formatter.js';
 import { dateIsValid, isDateInstance } from '../dates.js';
 import { nameToString } from '../person-name-formatter.js';
+import { get, patch, post } from '../request.js';
 
 describe('Libraries', () => {
 	describe('addressFormatter', () => {
