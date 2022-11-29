@@ -34,9 +34,11 @@ const { value, error } = schema.validate({
 	},
 	cwd: url.fileURLToPath(new URL('..', import.meta.url)),
 	// flag name convention: featureFlag[ jira number ][ferature shoret description]
-	// set Feature Flag default val here [default: true] - will be overwritted by values cming from the .env file
+	// set Feature Flag default val here [default: false] - will be overwritted by values cming from the .env file
 	featureFlags: {
-		featureFlagBoas1TestFeature: environment.FEATURE_FLAG_BOAS_1_TEST_FEATURE === 'true'
+		featureFlagBoas1TestFeature: !environment.FEATURE_FLAG_BOAS_1_TEST_FEATURE
+			? false
+			: environment.FEATURE_FLAG_BOAS_1_TEST_FEATURE === 'true'
 	},
 	serviceBusEnabled: environment.SERVICE_BUS_ENABLED
 });
