@@ -17,7 +17,7 @@ const logger = pino({
 			},
 			{
 				target: 'pino-pretty',
-				level: config.log.leevelStdOut,
+				level: config.log.levelStdOut,
 				options: {
 					destination: 1,
 					ignore: 'pid,hostname',
