@@ -20,9 +20,6 @@
 			items: breadcrumbItems
 		}) }}
 
-
-		<h2 class="govuk-heading-l">{{ currentFolder.displayNameEn }}</h2>
-
 		<div class="pins-dashboard-list--hide-controls">
 			<h2 class="govuk-heading-l">{{ currentFolder.displayNameEn }} folder</h2>
 
@@ -46,16 +43,19 @@
 
 		{% set userIsInspector = domainType === 'inspector' %}
 
-		{% if not userIsInspector %}
+
 		<div class="govuk-grid-row govuk-!-margin-top-0">
-			<div class="govuk-button-group pins-button-group govuk-grid-column-one-half govuk-!-margin-top-0">
-				<a class="govuk-button"
-				   href="{{ 'document-category'|url({caseId: caseId, documentationCategory: currentFolder, step: 'upload'}) }}">
-					Upload files
-				</a>
+			<div class="govuk-grid-column-one-half govuk-!-margin-top-0">
+				<h4 class="govuk-heading-m">Documents</h4>
+				<p class="govuk-body">This folder contains {{ documentationFiles.itemCount }} document(s).</p>
+				{% if not userIsInspector %}
+					<a class="govuk-button govuk-button--secondary govuk-!-margin-0"
+				   	href="{{ 'document-category'|url({caseId: caseId, documentationCategory: currentFolder, step: 'upload'}) }}">
+						Upload files
+					</a>
+				{% endif %}
 			</div>
 		</div>
-		{% endif %}
 
 		<hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible">
 		{% if documentationFiles |length %}
