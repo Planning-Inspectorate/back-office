@@ -5,13 +5,16 @@ import {
 	createApplication,
 	getApplicationDetails,
 	startCase,
-	updateApplication
+	updateApplication,
+	updateDocumentStatus
 } from './application/application.controller.js';
 import {
 	validateApplicantId,
 	validateApplicationId,
 	validateCreateUpdateApplication,
-	validateGetApplicationQuery
+	validateDocumentGUID,
+	validateGetApplicationQuery,
+	validateMachineAction
 } from './application/application.validators.js';
 import { fileFoldersRoutes } from './application/file-folders/folders.routes.js';
 import { caseAdminOfficerRoutes } from './case-admin-officer/case-admin-officer.routes.js';
@@ -137,6 +140,35 @@ router.get(
 	validateGetApplicationQuery,
 	trimUnexpectedRequestParameters,
 	asyncHandler(getApplicationDetails)
+);
+
+router.patch(
+	'/:caseId/documents/:documentGUID/status',
+	/*
+        #swagger.tags = ['Applications']
+        #swagger.path = '/:caseId/documents/:documentGUID/status'
+        #swagger.description = 'Updates document status from state machine'
+        #swagger.parameters['caseId'] = {
+            in: 'path',
+			description: 'Case ID here',
+			required: true,
+			type: 'integer'
+        }
+        #swagger.parameters['documentGUID'] = {
+            in: 'path',
+            description: 'Document GUID',
+					required: true,
+			type: 'string'
+        }
+        #swagger.responses[200] = {
+            description: 'Document status updated',
+            schema: { caseId: 1, guid: 'DB0110203', status: 'not_yet_checked'}
+        }
+	 */
+	validateDocumentGUID,
+	validateMachineAction,
+	trimUnexpectedRequestParameters,
+	asyncHandler(updateDocumentStatus)
 );
 
 export { router as applicationsRoutes };
