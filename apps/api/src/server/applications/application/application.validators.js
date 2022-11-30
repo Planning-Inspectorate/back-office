@@ -82,18 +82,6 @@ const validateExistingMapZoomLevel = async (value) => {
 
 /**
  *
- * @param {number} caseId
- */
-const validateExistingDocumentCaseId = async (caseId) => {
-	const documentCaseId = await folderRepository.getByCaseId(caseId);
-
-	if (documentCaseId == null) {
-		throw new Error('caseId does not exist');
-	}
-};
-
-/**
- *
  * @param {number} value
  * @returns {Date}
  */
@@ -233,14 +221,22 @@ const validateFolderBelongsToCase = async (value, { req }) => {
 };
 
 /**
- *
- * @param {number} value
+ * @param {string} value
+ * @param {{req: any}} param1
  */
-const validateDocumentGUIDbelongsToCase = async (value) => {
+const validateDocumentGUIDbelongsToCase = async (value, { req }) => {
 	const documentGUID = await documentRepository.getByDocumentGUID(value);
 
 	if (documentGUID === null || typeof documentGUID === 'undefined') {
 		throw new Error('DocumentGUID must exist in database');
+	}
+
+	const getCaseById = await folderRepository.getById(documentGUID.folderId);
+
+	const caseId = getCaseById?.caseId;
+
+	if (Number.parseInt(req.params.caseId, 10) !== caseId) {
+		throw new Error('GUID must belong to correct case');
 	}
 };
 
@@ -252,19 +248,14 @@ export const validateFolderIds = composeMiddleware(
 	validationErrorHandler
 );
 
-export const validateDocumentCaseId = composeMiddleware(
-	param('caseId')
-		.toInt()
-		.isInt()
-		.withMessage('Case id must be a valid numerical value')
-		.custom(validateExistingDocumentCaseId)
-		.withMessage('Document must be part of an existing case'),
-	validationErrorHandlerMissing
-);
-
 export const validateDocumentGUID = composeMiddleware(
 	param('documentGUID')
 		.custom(validateDocumentGUIDbelongsToCase)
 		.withMessage('Document must have correct GUID'),
+	validationErrorHandler
+);
+
+export const validateMachineAction = composeMiddleware(
+	body('machineAction').optional({ nullable: false }),
 	validationErrorHandler
 );

@@ -141,13 +141,13 @@ export const provideDocumentUploadURLs = async ({ params, body }, response) => {
 export const updateDocumentStatus = async ({ params, body }, response) => {
 	const getDocumentDetails = await documentRepository.getByDocumentGUID(params.documentGUID);
 
-	const getCaseById = await folderRepository.getById(getDocumentDetails.folderId);
+	const getCaseById = await folderRepository.getById(getDocumentDetails?.folderId);
 
 	const caseId = getCaseById?.caseId;
 
 	const nextStatusInDocumentStateMachine = transitionState({
 		caseType: 'document',
-		status: getDocumentDetails.status,
+		status: getDocumentDetails?.status,
 		machineAction: body.machineAction,
 		context: {},
 		throwError: true
@@ -160,5 +160,5 @@ export const updateDocumentStatus = async ({ params, body }, response) => {
 		status: updatedDocumentStatus
 	});
 
-	response.send({ caseId, guid: updateResponse[0].guid, status: updateResponse[0].status });
+	response.send({ caseId, guid: updateResponse.guid, status: updateResponse.status });
 };
