@@ -47,7 +47,7 @@ const mapStateMachine = (caseType) => {
 };
 
 /**
- * @param {{caseType: import('@pins/api').CaseType, context: object, status: string | object, machineAction: string, throwError: boolean}} transitionParams
+ * @param {{caseType: import('@pins/api').CaseType, context: object, status: string | undefined, machineAction: string, throwError: boolean}} transitionParams
  * @returns {import('xstate').State<any, any, any, any, any>}
  */
 export const transitionState = ({
@@ -62,6 +62,7 @@ export const transitionState = ({
 	const service = interpret(stateMachine);
 
 	service.start(status);
+
 	service.send({ type: machineAction });
 
 	const nextState = service.state;

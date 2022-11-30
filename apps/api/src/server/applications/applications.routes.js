@@ -13,11 +13,11 @@ import {
 	validateApplicantId,
 	validateApplicationId,
 	validateCreateUpdateApplication,
-	validateDocumentCaseId,
 	validateDocumentGUID,
 	validateDocumentsToUploadProvided,
 	validateFolderIds,
-	validateGetApplicationQuery
+	validateGetApplicationQuery,
+	validateMachineAction
 } from './application/application.validators.js';
 import { fileFoldersRoutes } from './application/file-folders/folders.routes.js';
 import { caseAdminOfficerRoutes } from './case-admin-officer/case-admin-officer.routes.js';
@@ -187,18 +187,19 @@ router.patch(
 			type: 'integer'
         }
         #swagger.parameters['documentGUID'] = {
-            in: 'body',
+            in: 'path',
             description: 'Document GUID',
-            schema: { $ref: '#/definitions/documentsToSave' }
+					required: true,
+			type: 'string'
         }
         #swagger.responses[200] = {
             description: 'Document status updated',
             schema: { caseId: 1, guid: 'DB0110203', status: 'not_yet_checked'}
         }
 	 */
-	validateDocumentCaseId,
 	validateDocumentGUID,
-	// trimUnexpectedRequestParameters,
+	validateMachineAction,
+	trimUnexpectedRequestParameters,
 	asyncHandler(updateDocumentStatus)
 );
 

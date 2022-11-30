@@ -83,7 +83,7 @@ export const createFolders = (caseId) => {
 
 /**
  *
- * @param {number} folderId
+ * @param {number | undefined} folderId
  * @returns {Promise<import('@pins/api').Schema.Folder | null>}
  */
 export const getById = (folderId) => {

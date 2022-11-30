@@ -31,7 +31,7 @@ export const update = (documentGuid, documentDetails) => {
 /**
  *
  * @param {string} documentGUID
- * @returns {import('@prisma/client').PrismaPromise<import('@pins/api').Schema.Document>}
+ * @returns {import('@prisma/client').PrismaPromise<import('@pins/api').Schema.Document | null>}
  */
 export const getByDocumentGUID = (documentGUID) => {
 	return databaseConnector.document.findUnique({
@@ -40,27 +40,10 @@ export const getByDocumentGUID = (documentGUID) => {
 };
 
 /**
- * @param { any } guid
- * @returns {import('@prisma/client').PrismaPromise<import('@pins/api').Schema.BatchPayload>}
- */
-export const updateDocumentStatus = ({ guid, status }) => {
-	const transactions = [];
-
-	transactions.push(
-		updateStatus({
-			guid,
-			status
-		})
-	);
-
-	return databaseConnector.$transaction(transactions);
-};
-
-/**
- * @param {DocumentUpdateInput} status
+ * @param {{guid: string, status: import('xstate').StateValue }} documentStatusUpdate
  * @returns {import('@prisma/client').PrismaPromise<import('@pins/api').Schema.Document>}
  */
-const updateStatus = ({ guid, status }) => {
+export const updateDocumentStatus = ({ guid, status }) => {
 	return databaseConnector.document.update({
 		where: { guid },
 		data: { status }

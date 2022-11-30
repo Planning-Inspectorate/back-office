@@ -908,7 +908,9 @@
 						}
 					}
 				}
-			},
+			}
+		},
+		"/applications/{id}/documents": {
 			"post": {
 				"tags": ["Applications"],
 				"description": "Saves new documents to database and returns location in Blob Storage",
@@ -934,6 +936,53 @@
 						"description": "Documents that have been saved",
 						"schema": {
 							"$ref": "#/definitions/documentsAndBlobStorageURLs"
+						}
+					}
+				}
+			}
+		},
+		"/:caseId/documents/:documentGUID/status": {
+			"patch": {
+				"tags": ["Applications"],
+				"description": "Updates document status from state machine",
+				"parameters": [
+					{
+						"name": "caseId",
+						"in": "path",
+						"description": "Case ID here",
+						"required": true,
+						"type": "integer"
+					},
+					{
+						"name": "documentGUID",
+						"in": "path",
+						"description": "Document GUID",
+						"required": true,
+						"type": "string"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Document status updated",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"caseId": {
+									"type": "number",
+									"example": 1
+								},
+								"guid": {
+									"type": "string",
+									"example": "DB0110203"
+								},
+								"status": {
+									"type": "string",
+									"example": "not_yet_checked"
+								}
+							},
+							"xml": {
+								"name": "main"
+							}
 						}
 					}
 				}
