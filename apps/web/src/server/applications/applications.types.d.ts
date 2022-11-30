@@ -93,5 +93,11 @@ export interface CaseCreateProps<BodyValues> {
 export interface DocumentationFile {
 	guid: string;
 	documentName: string;
+	url: string;
+	from: string;
+	date: number;
+	size: number;
+	type: string;
 	status: string;
+	isRedacted: boolean;
 }

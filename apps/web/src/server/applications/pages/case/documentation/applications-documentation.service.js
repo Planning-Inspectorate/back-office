@@ -1,8 +1,10 @@
+import { fixtureDocumentationFiles } from '../../../../../../testing/applications/fixtures/documentation-files.js';
 import { get } from '../../../../lib/request.js';
 
 /**
  * @typedef {import('../../../applications.types').DocumentationCategory} DocumentationCategory
  * @typedef {import('../../../applications.types').DocumentationFile} DocumentationFile
+ * @typedef {import('../../../applications.types').PaginatedResponse<DocumentationFile>} PaginatedDocumentationFiles
  */
 
 /**
@@ -50,8 +52,37 @@ export const getCaseDocumentationFolderPath = (caseId, folderId) => {
  *
  * @param {number} caseId
  * @param {number} folderId
- * @returns {Promise<DocumentationFile[]>}
+ * @param {number} pageSize
+ * @param {number} pageNumber
+ * @returns {Promise<PaginatedDocumentationFiles>}
  */
 export const getCaseDocumentationFilesInFolder = async (caseId, folderId) => {
 	return get(`applications/${caseId}/folders/${folderId}/documents`);
 };
+
+// previous mock version
+// TODO: remove this
+/*
+export const getCaseDocumentationFilesInFolder = (
+	caseId,
+	folderId,
+	pageSize = 50,
+	pageNumber = 0
+) => {
+
+	const documentationFiles = fixtureDocumentationFiles;
+
+	const items = documentationFiles.slice(pageNumber * pageSize, pageSize + pageNumber * pageSize);
+	const response = {
+		items,
+		itemCount: documentationFiles.length,
+		pageCount: Math.ceil(documentationFiles.length / pageSize),
+		page: pageNumber,
+		pageSize
+	};
+
+	return new Promise((resolve) => {
+		setTimeout(() => resolve(response), 200);
+	});
+};
+*/
