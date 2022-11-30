@@ -14,7 +14,8 @@ applicationsDocumentationRouter
 
 applicationsDocumentationRouter
 	.route('/:folderId/:folderName')
-	.get(locals.registerFolder, asyncRoute(controller.viewApplicationsCaseDocumentationFolder));
+	.get(locals.registerFolder, asyncRoute(controller.viewApplicationsCaseDocumentationFolder))
+	.post(asyncRoute(controller.updateApplicationsCaseDocumentationFolder));
 
 applicationsDocumentationRouter
 	.route('/:folderId/:folders/upload')

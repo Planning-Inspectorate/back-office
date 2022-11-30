@@ -1,45 +1,52 @@
 {% extends "../case/layouts/applications-case-layout.njk" %}
 {% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
 {% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/select/macro.njk" import govukSelect %}
+{% from "govuk/components/pagination/macro.njk" import govukPagination %}
+{% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
 {% from "govuk/components/accordion/macro.njk" import govukAccordion %}
 {% from "govuk/components/table/macro.njk" import govukTable %}
 
-{% block sectionMenu %}{% endblock %}
 
 {% block beforeContent %}{% endblock %}
 
-{% block sectionContent %}
-	{{ govukBreadcrumbs({
-		classes: 'govuk-!-margin-top-0',
-		items: breadcrumbItems
-	}) }}
+{% block pageContent %}
+<div class="govuk-grid-row">
+	{% block sectionMenu %}{% endblock %}
+	<div class="govuk-grid-column-full">
+		{% block sectionContent %}
+		{{ govukBreadcrumbs({
+			classes: 'govuk-!-margin-top-0',
+			items: breadcrumbItems
+		}) }}
 
-{# Display sub-folders in this folder #}
-	<div class="pins-dashboard-list--hide-controls">
-		<h2 class="govuk-heading-l">{{ currentFolder.displayNameEn }} folder</h2>
 
-		{% set folderRows = [] %}
-		{% for subFolder in subFolders %}
-			{% set folderRows = folderRows | concat ([[
-				{ html: '<a class="govuk-link govuk-body-m" href="' + 'document-category' |url({caseId: caseId, documentationCategory: subFolder}) +'">' + subFolder.displayNameEn + '</a>' }
-			]])
-			%}
-		{% endfor %}
+		<h2 class="govuk-heading-l">{{ currentFolder.displayNameEn }}</h2>
 
-		{{ govukAccordion({
+		<div class="pins-dashboard-list--hide-controls">
+			<h2 class="govuk-heading-l">{{ currentFolder.displayNameEn }} folder</h2>
+
+			{% set folderRows = [] %}
+			{% for subFolder in subFolders %}
+				{% set folderRows = folderRows | concat ([[
+					{ html: '<a class="govuk-link govuk-body-m" href="' + 'document-category' |url({caseId: caseId, documentationCategory: subFolder}) +'">' + subFolder.displayNameEn + '</a>' }
+				]]) %}
+			{% endfor %}
+
+			{{ govukAccordion({
 			items: [{
 				content: {
 					html: govukTable({
 						rows: folderRows
 					})
 				}
-			]}
-		}) }}
-	</div>
+				]}
+			}) }}
+		</div>
 
-	{% set userIsInspector = domainType === 'inspector' %}
+		{% set userIsInspector = domainType === 'inspector' %}
 
-	{% if not userIsInspector %}
+		{% if not userIsInspector %}
 		<div class="govuk-grid-row govuk-!-margin-top-0">
 			<div class="govuk-button-group pins-button-group govuk-grid-column-one-half govuk-!-margin-top-0">
 				<a class="govuk-button"
@@ -48,20 +55,120 @@
 				</a>
 			</div>
 		</div>
-	{% endif %}
+		{% endif %}
 
-	<h2 class="govuk-heading-m">Documents</h2>
-	<!-- TODO: show table -->
-	{% if documentationFiles |length %}
-		{% for documentationFile in documentationFiles %}
-			<div class="govuk-grid-row govuk-grid-column-full">
-				<a class="govuk-link govuk-body-s govuk-!-font-weight-bold" href={{ documentationFile.url }}>
-					{{ documentationFile.fileName }}
-				</a>
+		<hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible">
+		{% if documentationFiles |length %}
+		<form class="pins-files-list" method="post">
+			<div class="govuk-grid-row display--flex">
+				<div class="govuk-grid-column-two-thirds">
+					<div class="pins-files-list--statuses">
+						<p class="govuk-heading-s">Statuses</p>
+
+						{{ govukButton({ text: 'Apply changes' }) }}
+					</div>
+				</div>
+				<div class="govuk-grid-column-one-third">
+					<div class="pins-files-list--actions">
+						<p class="govuk-heading-s">Document actions</p>
+					</div>
+				</div>
 			</div>
-		{% endfor %}
-	{% else %}
-		This folder contains no documents
-	{% endif %}
 
+			<div class="pins-files-list--info govuk-body">
+				<p class="govuk-heading-s">Select documents to make changes to statuses</p>
+				<div class="pagination-info">
+					<p>This folder contains {{ documentationFiles.itemCount }} document(s).
+						Showing {{ (documentationFiles.page * documentationFiles.pageSize) + 1 }}
+						- {{ (documentationFiles.page * documentationFiles.pageSize) +  documentationFiles.items.length }}
+						document(s).</p>
+					<div>
+						{{ govukSelect({
+							id: "pageSize",
+							name: "pageSize",
+							label: {
+								text: "View"
+							},
+							items: pagination.dropdownItems
+						}) }}
+					</div>
+				</div>
+				<p>
+					<span id="selectedFilesNumber">0</span> document(s) selected
+				</p>
+			</div>
+
+			<table class="govuk-table pins-files-list--table pins-table">
+				<thead class="govuk-table__head govuk-body-s">
+				<tr class="govuk-table__row">
+					<th scope="col" class="govuk-table__header">Select</th>
+					<th scope="col" class="govuk-table__header">Document information</th>
+					<th scope="col" class="govuk-table__header">Date received</th>
+					<th scope="col" class="govuk-table__header">Redaction</th>
+					<th scope="col" class="govuk-table__header">Status</th>
+					<th scope="col" class="govuk-table__header">Actions</th>
+				</tr>
+				</thead>
+				<tbody class="govuk-table__body govuk-body-s">
+				<tr class="govuk-table__row">
+					<td class="govuk-table__cell">
+						{{ govukCheckboxes({
+							name: "selectAll",
+							items: [
+								{
+									value: true,
+									text: 'Select all'
+								}]
+						}) }}
+					</td>
+					<td class="govuk-table__cell" colspan="5">
+						<p>Select all documents on page</p>
+					</td>
+				</tr>
+				{% for documentationFile in documentationFiles.items %}
+
+				<tr class="govuk-table__row">
+					<td class="govuk-table__cell">
+						{{ govukCheckboxes({
+							name: "selectedFilesIds",
+							items: [
+								{
+									value: documentationFile.id,
+									text: documentationFile.fileName
+								}]
+						}) }}
+					</td>
+					<td class="govuk-table__cell">
+						<a class="govuk-link govuk-body-s govuk-!-font-weight-bold"
+						   href="{{ documentationFile.url }}">
+							{{ documentationFile.fileName }}
+						</a>
+						<p class="file-info colour--secondary">
+							From: {{ documentationFile.from }}
+						</p>
+						<p class="file-info colour--secondary">
+							File type and size: {{ documentationFile.type }},
+							{{ documentationFile.size|fileSize }}
+						</p>
+					</td>
+					<td class="govuk-table__cell">{{ documentationFile.date|datestamp({format: 'dd/MM/yyyy'}) }}</td>
+					<td class="govuk-table__cell">{{ 'Redacted' if  documentationFile.isRedacted else 'Unredacted' }}</td>
+					<td class="govuk-table__cell">{{ 'Checked' if  documentationFile.isChecked else 'Not checked' }}</td>
+					<td class="govuk-table__cell">
+						<a class="govuk-link govuk-body-s" href="{{ documentationFile.url }}/edit">View/Edit
+							properties</a>
+						<a class="govuk-link govuk-body-s" href="{{ documentationFile.url }}">Download</a>
+					</td>
+				</tr>
+				{% endfor %}
+				</tbody>
+			</table>
+			{{ govukPagination(pagination.buttons) }}
+		</form>
+		{% else %}
+		This folder contains no documents
+		{% endif %}
+		{% endblock %}
+	</div>
+</div>
 {% endblock %}

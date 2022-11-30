@@ -1,8 +1,10 @@
+import { fixtureDocumentationFiles } from '../../../../../../testing/applications/fixtures/documentation-files.js';
 import { get } from '../../../../lib/request.js';
 
 /**
  * @typedef {import('../../../applications.types').DocumentationCategory} DocumentationCategory
  * @typedef {import('../../../applications.types').DocumentationFile} DocumentationFile
+ * @typedef {import('../../../applications.types').PaginatedResponse<DocumentationFile>} PaginatedDocumentationFiles
  */
 
 /**
@@ -50,19 +52,30 @@ export const getCaseDocumentationFolderPath = (caseId, folderId) => {
  *
  * @param {number} caseId
  * @param {number} folderId
- * @returns {Promise<DocumentationFile[]>}
+ * @param {number} pageSize
+ * @param {number} pageNumber
+ * @returns {Promise<PaginatedDocumentationFiles>}
  */
-export const getCaseDocumentationFilesInFolder = (caseId, folderId) => {
+export const getCaseDocumentationFilesInFolder = (
+	caseId,
+	folderId,
+	pageSize = 50,
+	pageNumber = 0
+) => {
 	// TODO: Mock Version - to be replaced when API to get documents exists:
 	/** @type {DocumentationFile[] } */
-	const documentationFiles = [];
+	const documentationFiles = fixtureDocumentationFiles;
 
-	if (caseId && folderId) {
-		// TODO: get documents in this folder
-		// documentationFiles = [{ fileName: 'sitting-1.png', url: '#' }];
-	}
+	const items = documentationFiles.slice(pageNumber * pageSize, pageSize + pageNumber * pageSize);
+	const response = {
+		items,
+		itemCount: documentationFiles.length,
+		pageCount: Math.ceil(documentationFiles.length / pageSize),
+		page: pageNumber,
+		pageSize
+	};
 
 	return new Promise((resolve) => {
-		setTimeout(() => resolve(documentationFiles), 200);
+		setTimeout(() => resolve(response), 200);
 	});
 };

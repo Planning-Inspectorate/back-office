@@ -91,6 +91,13 @@ export interface CaseCreateProps<BodyValues> {
 }
 
 export interface DocumentationFile {
+	id: number;
 	fileName: string;
 	url: string;
+	from: string;
+	date: number;
+	size: number;
+	type: string;
+	isChecked: boolean;
+	isRedacted: boolean;
 }
