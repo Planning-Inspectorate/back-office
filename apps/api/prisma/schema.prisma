@@ -292,14 +292,27 @@ model ZoomLevel {
 }
 
 model Folder {
-  id             Int      @id @default(autoincrement())
+  id             Int        @id @default(autoincrement())
   displayNameEn  String
   displayOrder   Int?
   parentFolderId Int?
-  parentFolder   Folder?  @relation("FolderTree", fields: [parentFolderId], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  childFolders   Folder[] @relation("FolderTree")
-  case           Case?    @relation(fields: [caseId], references: [id])
+  parentFolder   Folder?    @relation("FolderTree", fields: [parentFolderId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  childFolders   Folder[]   @relation("FolderTree")
+  case           Case?      @relation(fields: [caseId], references: [id])
   caseId         Int?
+  document       Document[]
 
   @@unique([caseId, displayNameEn, parentFolderId])
+}
+
+model Document {
+  guid                 String  @id @default(uuid())
+  name                 String
+  folder               Folder  @relation(fields: [folderId], references: [id])
+  folderId             Int
+  blobStorageContainer String?
+  blobStoragePath      String?
+  status               String  @default("waiting_for_upload")
+
+  @@unique([name, folderId])
 }
