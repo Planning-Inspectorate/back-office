@@ -48,31 +48,10 @@ export async function viewApplicationsCaseDocumentationFolder(request, response)
 	const subFoldersUnordered = await getCaseFolders(caseId, folderId);
 	const subFolders = sortBy(subFoldersUnordered, ['displayOrder']);
 
-	// get all the files in this folder
-	const documentationFiles = await getCaseDocumentationFilesInFolder(
-		caseId,
-		folderId,
-		size,
-		number - 1
-	);
+	// TODO: get all the files in this folder
+	const documentationFiles = await getCaseDocumentationFilesInFolder(caseId, folderId);
 
-	const paginationDropdownItems = [...Array.from({ length: 5 }).keys()].map((index) => ({
-		value: (1 + index) * 25,
-		text: (1 + index) * 25,
-		selected: (1 + index) * 25 === size
-	}));
-	const paginationButtons = {
-		...(number === 1 ? {} : { previous: { href: `?number=${number - 1}&size=${size}` } }),
-		...(number === documentationFiles.pageCount
-			? {}
-			: { next: { href: `?number=${number + 1}&size=${size}` } }),
-		items: [...Array.from({ length: documentationFiles.pageCount }).keys()].map((index) => ({
-			number: index + 1,
-			href: `?number=${index + 1}&size=${size}`,
-			current: index + 1 === number
-		}))
-	};
-
+	/** @type { DocumentationPageProps }  */
 	const properties = {
 		subFolders,
 		documentationFiles,
