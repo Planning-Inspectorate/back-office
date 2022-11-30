@@ -77,14 +77,1243 @@ exports[`applications documentation GET /case/123/project-documentation/21/sub-f
                 </div>
             </div>
             <div class=\\"govuk-grid-row govuk-!-margin-top-0\\">
-                <div class=\\"govuk-button-group pins-button-group govuk-grid-column-one-half govuk-!-margin-top-0\\"><a class=\\"govuk-button\\" href=\\"/applications-service/case/123/project-documentation/21/sub-folder-level-2/upload\\"> Upload files</a>
+                <div class=\\"govuk-grid-column-one-half govuk-!-margin-top-0\\">
+                    <h4 class=\\"govuk-heading-m\\">Documents</h4>
+                    <p class=\\"govuk-body\\">This folder contains 123 document(s).</p><a class=\\"govuk-button govuk-button--secondary govuk-!-margin-0\\"
+                    href=\\"/applications-service/case/123/project-documentation/21/sub-folder-level-2/upload\\"> Upload files</a>
                 </div>
             </div>
-            <h2 class=\\"govuk-heading-m\\">Documents</h2>
-            <div class=\\"govuk-grid-row govuk-grid-column-full\\"><a class=\\"govuk-link govuk-body-s govuk-!-font-weight-bold\\" href='#'> name1</a>
-            </div>
-            <div class=\\"govuk-grid-row govuk-grid-column-full\\"><a class=\\"govuk-link govuk-body-s govuk-!-font-weight-bold\\" href='#'> name2</a>
-            </div>
+            <hr class=\\"govuk-section-break govuk-section-break--l govuk-section-break--visible\\">
+            <form class=\\"pins-files-list\\" method=\\"post\\">
+                <div class=\\"govuk-grid-row display--flex\\">
+                    <div class=\\"govuk-grid-column-two-thirds\\">
+                        <div class=\\"pins-files-list--statuses\\">
+                            <p class=\\"govuk-heading-s\\">Statuses</p>
+                            <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Apply changes</button>
+                        </div>
+                    </div>
+                    <div class=\\"govuk-grid-column-one-third\\">
+                        <div class=\\"pins-files-list--actions\\">
+                            <p class=\\"govuk-heading-s\\">Document actions</p>
+                        </div>
+                    </div>
+                </div>
+                <div class=\\"pins-files-list--info govuk-body\\">
+                    <p class=\\"govuk-heading-s\\">Select documents to make changes to statuses</p>
+                    <div class=\\"pagination-info\\">
+                        <p>This folder contains 123 document(s). Showing 1 - 50 document(s).</p>
+                        <div>
+                            <div class=\\"govuk-form-group\\">
+                                <label class=\\"govuk-label\\" for=\\"pageSize\\">View</label>
+                                <select class=\\"govuk-select\\" id=\\"pageSize\\" name=\\"pageSize\\">
+                                    <option value=\\"25\\">25</option>
+                                    <option value=\\"50\\" selected>50</option>
+                                    <option value=\\"75\\">75</option>
+                                    <option value=\\"100\\">100</option>
+                                    <option value=\\"125\\">125</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <p><span id=\\"selectedFilesNumber\\">0</span> document(s) selected</p>
+                </div>
+                <table class=\\"govuk-table pins-files-list--table pins-table\\">
+                    <thead class=\\"govuk-table__head govuk-body-s\\">
+                        <tr class=\\"govuk-table__row\\">
+                            <th scope=\\"col\\" class=\\"govuk-table__header\\">Select</th>
+                            <th scope=\\"col\\" class=\\"govuk-table__header\\">Document information</th>
+                            <th scope=\\"col\\" class=\\"govuk-table__header\\">Date received</th>
+                            <th scope=\\"col\\" class=\\"govuk-table__header\\">Redaction</th>
+                            <th scope=\\"col\\" class=\\"govuk-table__header\\">Status</th>
+                            <th scope=\\"col\\" class=\\"govuk-table__header\\">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody class=\\"govuk-table__body govuk-body-s\\">
+                        <tr class=\\"govuk-table__row\\">
+                            <td class=\\"govuk-table__cell\\">
+                                <div class=\\"govuk-form-group\\">
+                                    <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
+                                        <div class=\\"govuk-checkboxes__item\\">
+                                            <input class=\\"govuk-checkboxes__input\\" id=\\"selectAll\\" name=\\"selectAll\\"
+                                            type=\\"checkbox\\" value=\\"true\\">
+                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"selectAll\\">Select all</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class=\\"govuk-table__cell\\" colspan=\\"5\\">
+                                <p>Select all documents on page</p>
+                            </td>
+                        </tr>
+                        <tr class=\\"govuk-table__row\\">
+                            <td class=\\"govuk-table__cell\\">
+                                <div class=\\"govuk-form-group\\">
+                                    <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
+                                        <div class=\\"govuk-checkboxes__item\\">
+                                            <input class=\\"govuk-checkboxes__input\\" id=\\"selectedFilesIds\\" name=\\"selectedFilesIds\\"
+                                            type=\\"checkbox\\" value=\\"0\\">
+                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"selectedFilesIds\\">1 Sed do eiusmod tempor incididunt</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s govuk-!-font-weight-bold\\" href=\\"url/to/file/0\\"> 1 Sed do eiusmod tempor incididunt</a>
+                                <p                                 class=\\"file-info colour--secondary\\">From: Ut Ut</p>
+                                    <p class=\\"file-info colour--secondary\\">File type and size: DOC, 5.5 MB</p>
+                            </td>
+                            <td class=\\"govuk-table__cell\\">22/09/2279</td>
+                            <td class=\\"govuk-table__cell\\">Redacted</td>
+                            <td class=\\"govuk-table__cell\\">Not checked</td>
+                            <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s\\" href=\\"url/to/file/0/edit\\">View/Edit
+							properties</a><a class=\\"govuk-link govuk-body-s\\" href=\\"url/to/file/0\\">Download</a>
+                            </td>
+                        </tr>
+                        <tr class=\\"govuk-table__row\\">
+                            <td class=\\"govuk-table__cell\\">
+                                <div class=\\"govuk-form-group\\">
+                                    <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
+                                        <div class=\\"govuk-checkboxes__item\\">
+                                            <input class=\\"govuk-checkboxes__input\\" id=\\"selectedFilesIds\\" name=\\"selectedFilesIds\\"
+                                            type=\\"checkbox\\" value=\\"1\\">
+                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"selectedFilesIds\\">2 Elit sed</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s govuk-!-font-weight-bold\\" href=\\"url/to/file/1\\"> 2 Elit sed</a>
+                                <p                                 class=\\"file-info colour--secondary\\">From: Consectetur Dolore</p>
+                                    <p class=\\"file-info colour--secondary\\">File type and size: PDF, 0.3 MB</p>
+                            </td>
+                            <td class=\\"govuk-table__cell\\">15/01/2091</td>
+                            <td class=\\"govuk-table__cell\\">Redacted</td>
+                            <td class=\\"govuk-table__cell\\">Checked</td>
+                            <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s\\" href=\\"url/to/file/1/edit\\">View/Edit
+							properties</a><a class=\\"govuk-link govuk-body-s\\" href=\\"url/to/file/1\\">Download</a>
+                            </td>
+                        </tr>
+                        <tr class=\\"govuk-table__row\\">
+                            <td class=\\"govuk-table__cell\\">
+                                <div class=\\"govuk-form-group\\">
+                                    <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
+                                        <div class=\\"govuk-checkboxes__item\\">
+                                            <input class=\\"govuk-checkboxes__input\\" id=\\"selectedFilesIds\\" name=\\"selectedFilesIds\\"
+                                            type=\\"checkbox\\" value=\\"2\\">
+                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"selectedFilesIds\\">3 Ut enim ad</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s govuk-!-font-weight-bold\\" href=\\"url/to/file/2\\"> 3 Ut enim ad</a>
+                                <p                                 class=\\"file-info colour--secondary\\">From: Eiusmod Exercitation</p>
+                                    <p class=\\"file-info colour--secondary\\">File type and size: PDF, 1.8 MB</p>
+                            </td>
+                            <td class=\\"govuk-table__cell\\">13/02/2150</td>
+                            <td class=\\"govuk-table__cell\\">Unredacted</td>
+                            <td class=\\"govuk-table__cell\\">Checked</td>
+                            <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s\\" href=\\"url/to/file/2/edit\\">View/Edit
+							properties</a><a class=\\"govuk-link govuk-body-s\\" href=\\"url/to/file/2\\">Download</a>
+                            </td>
+                        </tr>
+                        <tr class=\\"govuk-table__row\\">
+                            <td class=\\"govuk-table__cell\\">
+                                <div class=\\"govuk-form-group\\">
+                                    <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
+                                        <div class=\\"govuk-checkboxes__item\\">
+                                            <input class=\\"govuk-checkboxes__input\\" id=\\"selectedFilesIds\\" name=\\"selectedFilesIds\\"
+                                            type=\\"checkbox\\" value=\\"3\\">
+                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"selectedFilesIds\\">4 Veniam quis nostrud exercitation ullamco</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s govuk-!-font-weight-bold\\" href=\\"url/to/file/3\\"> 4 Veniam quis nostrud exercitation ullamco</a>
+                                <p                                 class=\\"file-info colour--secondary\\">From: Dolor Elit</p>
+                                    <p class=\\"file-info colour--secondary\\">File type and size: DOC, 5.4 MB</p>
+                            </td>
+                            <td class=\\"govuk-table__cell\\">01/06/2247</td>
+                            <td class=\\"govuk-table__cell\\">Redacted</td>
+                            <td class=\\"govuk-table__cell\\">Not checked</td>
+                            <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s\\" href=\\"url/to/file/3/edit\\">View/Edit
+							properties</a><a class=\\"govuk-link govuk-body-s\\" href=\\"url/to/file/3\\">Download</a>
+                            </td>
+                        </tr>
+                        <tr class=\\"govuk-table__row\\">
+                            <td class=\\"govuk-table__cell\\">
+                                <div class=\\"govuk-form-group\\">
+                                    <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
+                                        <div class=\\"govuk-checkboxes__item\\">
+                                            <input class=\\"govuk-checkboxes__input\\" id=\\"selectedFilesIds\\" name=\\"selectedFilesIds\\"
+                                            type=\\"checkbox\\" value=\\"4\\">
+                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"selectedFilesIds\\">5 Nisi ut</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s govuk-!-font-weight-bold\\" href=\\"url/to/file/4\\"> 5 Nisi ut</a>
+                                <p                                 class=\\"file-info colour--secondary\\">From: Aliqua Amet</p>
+                                    <p class=\\"file-info colour--secondary\\">File type and size: PDF, 0.6 MB</p>
+                            </td>
+                            <td class=\\"govuk-table__cell\\">21/12/2126</td>
+                            <td class=\\"govuk-table__cell\\">Redacted</td>
+                            <td class=\\"govuk-table__cell\\">Checked</td>
+                            <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s\\" href=\\"url/to/file/4/edit\\">View/Edit
+							properties</a><a class=\\"govuk-link govuk-body-s\\" href=\\"url/to/file/4\\">Download</a>
+                            </td>
+                        </tr>
+                        <tr class=\\"govuk-table__row\\">
+                            <td class=\\"govuk-table__cell\\">
+                                <div class=\\"govuk-form-group\\">
+                                    <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
+                                        <div class=\\"govuk-checkboxes__item\\">
+                                            <input class=\\"govuk-checkboxes__input\\" id=\\"selectedFilesIds\\" name=\\"selectedFilesIds\\"
+                                            type=\\"checkbox\\" value=\\"5\\">
+                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"selectedFilesIds\\">6 Amet consectetur adipiscing elit sed</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s govuk-!-font-weight-bold\\" href=\\"url/to/file/5\\"> 6 Amet consectetur adipiscing elit sed</a>
+                                <p                                 class=\\"file-info colour--secondary\\">From: Incididunt Ullamco</p>
+                                    <p class=\\"file-info colour--secondary\\">File type and size: MP3, 3 MB</p>
+                            </td>
+                            <td class=\\"govuk-table__cell\\">18/10/2062</td>
+                            <td class=\\"govuk-table__cell\\">Redacted</td>
+                            <td class=\\"govuk-table__cell\\">Checked</td>
+                            <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s\\" href=\\"url/to/file/5/edit\\">View/Edit
+							properties</a><a class=\\"govuk-link govuk-body-s\\" href=\\"url/to/file/5\\">Download</a>
+                            </td>
+                        </tr>
+                        <tr class=\\"govuk-table__row\\">
+                            <td class=\\"govuk-table__cell\\">
+                                <div class=\\"govuk-form-group\\">
+                                    <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
+                                        <div class=\\"govuk-checkboxes__item\\">
+                                            <input class=\\"govuk-checkboxes__input\\" id=\\"selectedFilesIds\\" name=\\"selectedFilesIds\\"
+                                            type=\\"checkbox\\" value=\\"6\\">
+                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"selectedFilesIds\\">7 Veniam quis nostrud exercitation ullamco</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s govuk-!-font-weight-bold\\" href=\\"url/to/file/6\\"> 7 Veniam quis nostrud exercitation ullamco</a>
+                                <p                                 class=\\"file-info colour--secondary\\">From: Consectetur Ipsum</p>
+                                    <p class=\\"file-info colour--secondary\\">File type and size: PDF, 0.4 MB</p>
+                            </td>
+                            <td class=\\"govuk-table__cell\\">29/01/2015</td>
+                            <td class=\\"govuk-table__cell\\">Unredacted</td>
+                            <td class=\\"govuk-table__cell\\">Not checked</td>
+                            <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s\\" href=\\"url/to/file/6/edit\\">View/Edit
+							properties</a><a class=\\"govuk-link govuk-body-s\\" href=\\"url/to/file/6\\">Download</a>
+                            </td>
+                        </tr>
+                        <tr class=\\"govuk-table__row\\">
+                            <td class=\\"govuk-table__cell\\">
+                                <div class=\\"govuk-form-group\\">
+                                    <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
+                                        <div class=\\"govuk-checkboxes__item\\">
+                                            <input class=\\"govuk-checkboxes__input\\" id=\\"selectedFilesIds\\" name=\\"selectedFilesIds\\"
+                                            type=\\"checkbox\\" value=\\"7\\">
+                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"selectedFilesIds\\">8 Labore et dolore magna</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s govuk-!-font-weight-bold\\" href=\\"url/to/file/7\\"> 8 Labore et dolore magna</a>
+                                <p                                 class=\\"file-info colour--secondary\\">From: Elit Aliqua</p>
+                                    <p class=\\"file-info colour--secondary\\">File type and size: DOC, 2.9 MB</p>
+                            </td>
+                            <td class=\\"govuk-table__cell\\">27/01/2083</td>
+                            <td class=\\"govuk-table__cell\\">Unredacted</td>
+                            <td class=\\"govuk-table__cell\\">Not checked</td>
+                            <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s\\" href=\\"url/to/file/7/edit\\">View/Edit
+							properties</a><a class=\\"govuk-link govuk-body-s\\" href=\\"url/to/file/7\\">Download</a>
+                            </td>
+                        </tr>
+                        <tr class=\\"govuk-table__row\\">
+                            <td class=\\"govuk-table__cell\\">
+                                <div class=\\"govuk-form-group\\">
+                                    <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
+                                        <div class=\\"govuk-checkboxes__item\\">
+                                            <input class=\\"govuk-checkboxes__input\\" id=\\"selectedFilesIds\\" name=\\"selectedFilesIds\\"
+                                            type=\\"checkbox\\" value=\\"8\\">
+                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"selectedFilesIds\\">9 Elit sed do eiusmod tempor incididunt</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s govuk-!-font-weight-bold\\" href=\\"url/to/file/8\\"> 9 Elit sed do eiusmod tempor incididunt</a>
+                                <p                                 class=\\"file-info colour--secondary\\">From: Et Ipsum</p>
+                                    <p class=\\"file-info colour--secondary\\">File type and size: JPG, 4.1 MB</p>
+                            </td>
+                            <td class=\\"govuk-table__cell\\">21/11/1991</td>
+                            <td class=\\"govuk-table__cell\\">Redacted</td>
+                            <td class=\\"govuk-table__cell\\">Checked</td>
+                            <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s\\" href=\\"url/to/file/8/edit\\">View/Edit
+							properties</a><a class=\\"govuk-link govuk-body-s\\" href=\\"url/to/file/8\\">Download</a>
+                            </td>
+                        </tr>
+                        <tr class=\\"govuk-table__row\\">
+                            <td class=\\"govuk-table__cell\\">
+                                <div class=\\"govuk-form-group\\">
+                                    <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
+                                        <div class=\\"govuk-checkboxes__item\\">
+                                            <input class=\\"govuk-checkboxes__input\\" id=\\"selectedFilesIds\\" name=\\"selectedFilesIds\\"
+                                            type=\\"checkbox\\" value=\\"9\\">
+                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"selectedFilesIds\\">10 Laboris nisi ut</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s govuk-!-font-weight-bold\\" href=\\"url/to/file/9\\"> 10 Laboris nisi ut</a>
+                                <p                                 class=\\"file-info colour--secondary\\">From: Ut Elit</p>
+                                    <p class=\\"file-info colour--secondary\\">File type and size: JPG, 0.4 MB</p>
+                            </td>
+                            <td class=\\"govuk-table__cell\\">08/02/1977</td>
+                            <td class=\\"govuk-table__cell\\">Redacted</td>
+                            <td class=\\"govuk-table__cell\\">Checked</td>
+                            <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s\\" href=\\"url/to/file/9/edit\\">View/Edit
+							properties</a><a class=\\"govuk-link govuk-body-s\\" href=\\"url/to/file/9\\">Download</a>
+                            </td>
+                        </tr>
+                        <tr class=\\"govuk-table__row\\">
+                            <td class=\\"govuk-table__cell\\">
+                                <div class=\\"govuk-form-group\\">
+                                    <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
+                                        <div class=\\"govuk-checkboxes__item\\">
+                                            <input class=\\"govuk-checkboxes__input\\" id=\\"selectedFilesIds\\" name=\\"selectedFilesIds\\"
+                                            type=\\"checkbox\\" value=\\"10\\">
+                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"selectedFilesIds\\">11 Incididunt ut labore et dolore magna</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s govuk-!-font-weight-bold\\" href=\\"url/to/file/10\\"> 11 Incididunt ut labore et dolore magna</a>
+                                <p                                 class=\\"file-info colour--secondary\\">From: Amet Labore</p>
+                                    <p class=\\"file-info colour--secondary\\">File type and size: DOC, 4.5 MB</p>
+                            </td>
+                            <td class=\\"govuk-table__cell\\">10/03/2106</td>
+                            <td class=\\"govuk-table__cell\\">Unredacted</td>
+                            <td class=\\"govuk-table__cell\\">Not checked</td>
+                            <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s\\" href=\\"url/to/file/10/edit\\">View/Edit
+							properties</a><a class=\\"govuk-link govuk-body-s\\" href=\\"url/to/file/10\\">Download</a>
+                            </td>
+                        </tr>
+                        <tr class=\\"govuk-table__row\\">
+                            <td class=\\"govuk-table__cell\\">
+                                <div class=\\"govuk-form-group\\">
+                                    <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
+                                        <div class=\\"govuk-checkboxes__item\\">
+                                            <input class=\\"govuk-checkboxes__input\\" id=\\"selectedFilesIds\\" name=\\"selectedFilesIds\\"
+                                            type=\\"checkbox\\" value=\\"11\\">
+                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"selectedFilesIds\\">12 Do eiusmod tempor</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s govuk-!-font-weight-bold\\" href=\\"url/to/file/11\\"> 12 Do eiusmod tempor</a>
+                                <p                                 class=\\"file-info colour--secondary\\">From: Nostrud Dolor</p>
+                                    <p class=\\"file-info colour--secondary\\">File type and size: JPG, 7.1 MB</p>
+                            </td>
+                            <td class=\\"govuk-table__cell\\">12/12/2256</td>
+                            <td class=\\"govuk-table__cell\\">Redacted</td>
+                            <td class=\\"govuk-table__cell\\">Not checked</td>
+                            <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s\\" href=\\"url/to/file/11/edit\\">View/Edit
+							properties</a><a class=\\"govuk-link govuk-body-s\\" href=\\"url/to/file/11\\">Download</a>
+                            </td>
+                        </tr>
+                        <tr class=\\"govuk-table__row\\">
+                            <td class=\\"govuk-table__cell\\">
+                                <div class=\\"govuk-form-group\\">
+                                    <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
+                                        <div class=\\"govuk-checkboxes__item\\">
+                                            <input class=\\"govuk-checkboxes__input\\" id=\\"selectedFilesIds\\" name=\\"selectedFilesIds\\"
+                                            type=\\"checkbox\\" value=\\"12\\">
+                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"selectedFilesIds\\">13 Sed do</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s govuk-!-font-weight-bold\\" href=\\"url/to/file/12\\"> 13 Sed do</a>
+                                <p                                 class=\\"file-info colour--secondary\\">From: Nisi Labore</p>
+                                    <p class=\\"file-info colour--secondary\\">File type and size: JPG, 8.5 MB</p>
+                            </td>
+                            <td class=\\"govuk-table__cell\\">04/11/2256</td>
+                            <td class=\\"govuk-table__cell\\">Unredacted</td>
+                            <td class=\\"govuk-table__cell\\">Checked</td>
+                            <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s\\" href=\\"url/to/file/12/edit\\">View/Edit
+							properties</a><a class=\\"govuk-link govuk-body-s\\" href=\\"url/to/file/12\\">Download</a>
+                            </td>
+                        </tr>
+                        <tr class=\\"govuk-table__row\\">
+                            <td class=\\"govuk-table__cell\\">
+                                <div class=\\"govuk-form-group\\">
+                                    <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
+                                        <div class=\\"govuk-checkboxes__item\\">
+                                            <input class=\\"govuk-checkboxes__input\\" id=\\"selectedFilesIds\\" name=\\"selectedFilesIds\\"
+                                            type=\\"checkbox\\" value=\\"13\\">
+                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"selectedFilesIds\\">14 Incididunt ut labore</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s govuk-!-font-weight-bold\\" href=\\"url/to/file/13\\"> 14 Incididunt ut labore</a>
+                                <p                                 class=\\"file-info colour--secondary\\">From: Incididunt Dolore</p>
+                                    <p class=\\"file-info colour--secondary\\">File type and size: DOC, 3.8 MB</p>
+                            </td>
+                            <td class=\\"govuk-table__cell\\">21/06/2181</td>
+                            <td class=\\"govuk-table__cell\\">Unredacted</td>
+                            <td class=\\"govuk-table__cell\\">Checked</td>
+                            <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s\\" href=\\"url/to/file/13/edit\\">View/Edit
+							properties</a><a class=\\"govuk-link govuk-body-s\\" href=\\"url/to/file/13\\">Download</a>
+                            </td>
+                        </tr>
+                        <tr class=\\"govuk-table__row\\">
+                            <td class=\\"govuk-table__cell\\">
+                                <div class=\\"govuk-form-group\\">
+                                    <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
+                                        <div class=\\"govuk-checkboxes__item\\">
+                                            <input class=\\"govuk-checkboxes__input\\" id=\\"selectedFilesIds\\" name=\\"selectedFilesIds\\"
+                                            type=\\"checkbox\\" value=\\"14\\">
+                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"selectedFilesIds\\">15 Amet consectetur adipiscing elit sed do</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s govuk-!-font-weight-bold\\" href=\\"url/to/file/14\\"> 15 Amet consectetur adipiscing elit sed do</a>
+                                <p                                 class=\\"file-info colour--secondary\\">From: Ullamco Enim</p>
+                                    <p class=\\"file-info colour--secondary\\">File type and size: MP3, 0.3 MB</p>
+                            </td>
+                            <td class=\\"govuk-table__cell\\">12/01/2217</td>
+                            <td class=\\"govuk-table__cell\\">Unredacted</td>
+                            <td class=\\"govuk-table__cell\\">Not checked</td>
+                            <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s\\" href=\\"url/to/file/14/edit\\">View/Edit
+							properties</a><a class=\\"govuk-link govuk-body-s\\" href=\\"url/to/file/14\\">Download</a>
+                            </td>
+                        </tr>
+                        <tr class=\\"govuk-table__row\\">
+                            <td class=\\"govuk-table__cell\\">
+                                <div class=\\"govuk-form-group\\">
+                                    <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
+                                        <div class=\\"govuk-checkboxes__item\\">
+                                            <input class=\\"govuk-checkboxes__input\\" id=\\"selectedFilesIds\\" name=\\"selectedFilesIds\\"
+                                            type=\\"checkbox\\" value=\\"15\\">
+                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"selectedFilesIds\\">16 Sit amet consectetur adipiscing elit</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s govuk-!-font-weight-bold\\" href=\\"url/to/file/15\\"> 16 Sit amet consectetur adipiscing elit</a>
+                                <p                                 class=\\"file-info colour--secondary\\">From: Ullamco Sit</p>
+                                    <p class=\\"file-info colour--secondary\\">File type and size: PDF, 1.2 MB</p>
+                            </td>
+                            <td class=\\"govuk-table__cell\\">10/10/2227</td>
+                            <td class=\\"govuk-table__cell\\">Redacted</td>
+                            <td class=\\"govuk-table__cell\\">Not checked</td>
+                            <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s\\" href=\\"url/to/file/15/edit\\">View/Edit
+							properties</a><a class=\\"govuk-link govuk-body-s\\" href=\\"url/to/file/15\\">Download</a>
+                            </td>
+                        </tr>
+                        <tr class=\\"govuk-table__row\\">
+                            <td class=\\"govuk-table__cell\\">
+                                <div class=\\"govuk-form-group\\">
+                                    <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
+                                        <div class=\\"govuk-checkboxes__item\\">
+                                            <input class=\\"govuk-checkboxes__input\\" id=\\"selectedFilesIds\\" name=\\"selectedFilesIds\\"
+                                            type=\\"checkbox\\" value=\\"16\\">
+                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"selectedFilesIds\\">17 Ullamco laboris nisi ut</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s govuk-!-font-weight-bold\\" href=\\"url/to/file/16\\"> 17 Ullamco laboris nisi ut</a>
+                                <p                                 class=\\"file-info colour--secondary\\">From: Minim Amet</p>
+                                    <p class=\\"file-info colour--secondary\\">File type and size: PDF, 8.1 MB</p>
+                            </td>
+                            <td class=\\"govuk-table__cell\\">26/12/2068</td>
+                            <td class=\\"govuk-table__cell\\">Redacted</td>
+                            <td class=\\"govuk-table__cell\\">Not checked</td>
+                            <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s\\" href=\\"url/to/file/16/edit\\">View/Edit
+							properties</a><a class=\\"govuk-link govuk-body-s\\" href=\\"url/to/file/16\\">Download</a>
+                            </td>
+                        </tr>
+                        <tr class=\\"govuk-table__row\\">
+                            <td class=\\"govuk-table__cell\\">
+                                <div class=\\"govuk-form-group\\">
+                                    <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
+                                        <div class=\\"govuk-checkboxes__item\\">
+                                            <input class=\\"govuk-checkboxes__input\\" id=\\"selectedFilesIds\\" name=\\"selectedFilesIds\\"
+                                            type=\\"checkbox\\" value=\\"17\\">
+                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"selectedFilesIds\\">18 Laboris nisi ut aliquip ex ea</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s govuk-!-font-weight-bold\\" href=\\"url/to/file/17\\"> 18 Laboris nisi ut aliquip ex ea</a>
+                                <p                                 class=\\"file-info colour--secondary\\">From: Sed Veniam</p>
+                                    <p class=\\"file-info colour--secondary\\">File type and size: JPG, 6.3 MB</p>
+                            </td>
+                            <td class=\\"govuk-table__cell\\">17/07/2218</td>
+                            <td class=\\"govuk-table__cell\\">Redacted</td>
+                            <td class=\\"govuk-table__cell\\">Checked</td>
+                            <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s\\" href=\\"url/to/file/17/edit\\">View/Edit
+							properties</a><a class=\\"govuk-link govuk-body-s\\" href=\\"url/to/file/17\\">Download</a>
+                            </td>
+                        </tr>
+                        <tr class=\\"govuk-table__row\\">
+                            <td class=\\"govuk-table__cell\\">
+                                <div class=\\"govuk-form-group\\">
+                                    <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
+                                        <div class=\\"govuk-checkboxes__item\\">
+                                            <input class=\\"govuk-checkboxes__input\\" id=\\"selectedFilesIds\\" name=\\"selectedFilesIds\\"
+                                            type=\\"checkbox\\" value=\\"18\\">
+                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"selectedFilesIds\\">19 Lorem ipsum dolor sit</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s govuk-!-font-weight-bold\\" href=\\"url/to/file/18\\"> 19 Lorem ipsum dolor sit</a>
+                                <p                                 class=\\"file-info colour--secondary\\">From: Veniam Quis</p>
+                                    <p class=\\"file-info colour--secondary\\">File type and size: DOC, 4 MB</p>
+                            </td>
+                            <td class=\\"govuk-table__cell\\">28/09/2006</td>
+                            <td class=\\"govuk-table__cell\\">Unredacted</td>
+                            <td class=\\"govuk-table__cell\\">Not checked</td>
+                            <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s\\" href=\\"url/to/file/18/edit\\">View/Edit
+							properties</a><a class=\\"govuk-link govuk-body-s\\" href=\\"url/to/file/18\\">Download</a>
+                            </td>
+                        </tr>
+                        <tr class=\\"govuk-table__row\\">
+                            <td class=\\"govuk-table__cell\\">
+                                <div class=\\"govuk-form-group\\">
+                                    <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
+                                        <div class=\\"govuk-checkboxes__item\\">
+                                            <input class=\\"govuk-checkboxes__input\\" id=\\"selectedFilesIds\\" name=\\"selectedFilesIds\\"
+                                            type=\\"checkbox\\" value=\\"19\\">
+                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"selectedFilesIds\\">20 Lorem ipsum dolor sit amet</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s govuk-!-font-weight-bold\\" href=\\"url/to/file/19\\"> 20 Lorem ipsum dolor sit amet</a>
+                                <p                                 class=\\"file-info colour--secondary\\">From: Lorem Quis</p>
+                                    <p class=\\"file-info colour--secondary\\">File type and size: JPG, 6.4 MB</p>
+                            </td>
+                            <td class=\\"govuk-table__cell\\">22/10/2145</td>
+                            <td class=\\"govuk-table__cell\\">Unredacted</td>
+                            <td class=\\"govuk-table__cell\\">Not checked</td>
+                            <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s\\" href=\\"url/to/file/19/edit\\">View/Edit
+							properties</a><a class=\\"govuk-link govuk-body-s\\" href=\\"url/to/file/19\\">Download</a>
+                            </td>
+                        </tr>
+                        <tr class=\\"govuk-table__row\\">
+                            <td class=\\"govuk-table__cell\\">
+                                <div class=\\"govuk-form-group\\">
+                                    <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
+                                        <div class=\\"govuk-checkboxes__item\\">
+                                            <input class=\\"govuk-checkboxes__input\\" id=\\"selectedFilesIds\\" name=\\"selectedFilesIds\\"
+                                            type=\\"checkbox\\" value=\\"20\\">
+                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"selectedFilesIds\\">21 Exercitation ullamco laboris nisi ut aliquip</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s govuk-!-font-weight-bold\\" href=\\"url/to/file/20\\"> 21 Exercitation ullamco laboris nisi ut aliquip</a>
+                                <p                                 class=\\"file-info colour--secondary\\">From: Ut Et</p>
+                                    <p class=\\"file-info colour--secondary\\">File type and size: MP3, 5.4 MB</p>
+                            </td>
+                            <td class=\\"govuk-table__cell\\">18/10/2016</td>
+                            <td class=\\"govuk-table__cell\\">Unredacted</td>
+                            <td class=\\"govuk-table__cell\\">Not checked</td>
+                            <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s\\" href=\\"url/to/file/20/edit\\">View/Edit
+							properties</a><a class=\\"govuk-link govuk-body-s\\" href=\\"url/to/file/20\\">Download</a>
+                            </td>
+                        </tr>
+                        <tr class=\\"govuk-table__row\\">
+                            <td class=\\"govuk-table__cell\\">
+                                <div class=\\"govuk-form-group\\">
+                                    <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
+                                        <div class=\\"govuk-checkboxes__item\\">
+                                            <input class=\\"govuk-checkboxes__input\\" id=\\"selectedFilesIds\\" name=\\"selectedFilesIds\\"
+                                            type=\\"checkbox\\" value=\\"21\\">
+                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"selectedFilesIds\\">22 Do eiusmod tempor incididunt</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s govuk-!-font-weight-bold\\" href=\\"url/to/file/21\\"> 22 Do eiusmod tempor incididunt</a>
+                                <p                                 class=\\"file-info colour--secondary\\">From: Ut Lorem</p>
+                                    <p class=\\"file-info colour--secondary\\">File type and size: JPG, 1.8 MB</p>
+                            </td>
+                            <td class=\\"govuk-table__cell\\">24/11/2117</td>
+                            <td class=\\"govuk-table__cell\\">Unredacted</td>
+                            <td class=\\"govuk-table__cell\\">Not checked</td>
+                            <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s\\" href=\\"url/to/file/21/edit\\">View/Edit
+							properties</a><a class=\\"govuk-link govuk-body-s\\" href=\\"url/to/file/21\\">Download</a>
+                            </td>
+                        </tr>
+                        <tr class=\\"govuk-table__row\\">
+                            <td class=\\"govuk-table__cell\\">
+                                <div class=\\"govuk-form-group\\">
+                                    <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
+                                        <div class=\\"govuk-checkboxes__item\\">
+                                            <input class=\\"govuk-checkboxes__input\\" id=\\"selectedFilesIds\\" name=\\"selectedFilesIds\\"
+                                            type=\\"checkbox\\" value=\\"22\\">
+                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"selectedFilesIds\\">23 Elit sed</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s govuk-!-font-weight-bold\\" href=\\"url/to/file/22\\"> 23 Elit sed</a>
+                                <p                                 class=\\"file-info colour--secondary\\">From: Magna Lorem</p>
+                                    <p class=\\"file-info colour--secondary\\">File type and size: JPG, 3.2 MB</p>
+                            </td>
+                            <td class=\\"govuk-table__cell\\">31/12/2115</td>
+                            <td class=\\"govuk-table__cell\\">Redacted</td>
+                            <td class=\\"govuk-table__cell\\">Checked</td>
+                            <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s\\" href=\\"url/to/file/22/edit\\">View/Edit
+							properties</a><a class=\\"govuk-link govuk-body-s\\" href=\\"url/to/file/22\\">Download</a>
+                            </td>
+                        </tr>
+                        <tr class=\\"govuk-table__row\\">
+                            <td class=\\"govuk-table__cell\\">
+                                <div class=\\"govuk-form-group\\">
+                                    <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
+                                        <div class=\\"govuk-checkboxes__item\\">
+                                            <input class=\\"govuk-checkboxes__input\\" id=\\"selectedFilesIds\\" name=\\"selectedFilesIds\\"
+                                            type=\\"checkbox\\" value=\\"23\\">
+                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"selectedFilesIds\\">24 Sed do eiusmod tempor incididunt</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s govuk-!-font-weight-bold\\" href=\\"url/to/file/23\\"> 24 Sed do eiusmod tempor incididunt</a>
+                                <p                                 class=\\"file-info colour--secondary\\">From: Magna Lorem</p>
+                                    <p class=\\"file-info colour--secondary\\">File type and size: PDF, 1.7 MB</p>
+                            </td>
+                            <td class=\\"govuk-table__cell\\">03/02/2023</td>
+                            <td class=\\"govuk-table__cell\\">Unredacted</td>
+                            <td class=\\"govuk-table__cell\\">Not checked</td>
+                            <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s\\" href=\\"url/to/file/23/edit\\">View/Edit
+							properties</a><a class=\\"govuk-link govuk-body-s\\" href=\\"url/to/file/23\\">Download</a>
+                            </td>
+                        </tr>
+                        <tr class=\\"govuk-table__row\\">
+                            <td class=\\"govuk-table__cell\\">
+                                <div class=\\"govuk-form-group\\">
+                                    <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
+                                        <div class=\\"govuk-checkboxes__item\\">
+                                            <input class=\\"govuk-checkboxes__input\\" id=\\"selectedFilesIds\\" name=\\"selectedFilesIds\\"
+                                            type=\\"checkbox\\" value=\\"24\\">
+                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"selectedFilesIds\\">25 Sed do eiusmod tempor incididunt</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s govuk-!-font-weight-bold\\" href=\\"url/to/file/24\\"> 25 Sed do eiusmod tempor incididunt</a>
+                                <p                                 class=\\"file-info colour--secondary\\">From: Nisi Sit</p>
+                                    <p class=\\"file-info colour--secondary\\">File type and size: DOC, 3.4 MB</p>
+                            </td>
+                            <td class=\\"govuk-table__cell\\">22/11/2217</td>
+                            <td class=\\"govuk-table__cell\\">Redacted</td>
+                            <td class=\\"govuk-table__cell\\">Not checked</td>
+                            <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s\\" href=\\"url/to/file/24/edit\\">View/Edit
+							properties</a><a class=\\"govuk-link govuk-body-s\\" href=\\"url/to/file/24\\">Download</a>
+                            </td>
+                        </tr>
+                        <tr class=\\"govuk-table__row\\">
+                            <td class=\\"govuk-table__cell\\">
+                                <div class=\\"govuk-form-group\\">
+                                    <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
+                                        <div class=\\"govuk-checkboxes__item\\">
+                                            <input class=\\"govuk-checkboxes__input\\" id=\\"selectedFilesIds\\" name=\\"selectedFilesIds\\"
+                                            type=\\"checkbox\\" value=\\"25\\">
+                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"selectedFilesIds\\">26 Enim ad minim</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s govuk-!-font-weight-bold\\" href=\\"url/to/file/25\\"> 26 Enim ad minim</a>
+                                <p                                 class=\\"file-info colour--secondary\\">From: Dolor Do</p>
+                                    <p class=\\"file-info colour--secondary\\">File type and size: DOC, 1.6 MB</p>
+                            </td>
+                            <td class=\\"govuk-table__cell\\">25/06/2214</td>
+                            <td class=\\"govuk-table__cell\\">Redacted</td>
+                            <td class=\\"govuk-table__cell\\">Checked</td>
+                            <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s\\" href=\\"url/to/file/25/edit\\">View/Edit
+							properties</a><a class=\\"govuk-link govuk-body-s\\" href=\\"url/to/file/25\\">Download</a>
+                            </td>
+                        </tr>
+                        <tr class=\\"govuk-table__row\\">
+                            <td class=\\"govuk-table__cell\\">
+                                <div class=\\"govuk-form-group\\">
+                                    <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
+                                        <div class=\\"govuk-checkboxes__item\\">
+                                            <input class=\\"govuk-checkboxes__input\\" id=\\"selectedFilesIds\\" name=\\"selectedFilesIds\\"
+                                            type=\\"checkbox\\" value=\\"26\\">
+                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"selectedFilesIds\\">27 Adipiscing elit sed do</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s govuk-!-font-weight-bold\\" href=\\"url/to/file/26\\"> 27 Adipiscing elit sed do</a>
+                                <p                                 class=\\"file-info colour--secondary\\">From: Quis Veniam</p>
+                                    <p class=\\"file-info colour--secondary\\">File type and size: DOC, 7.5 MB</p>
+                            </td>
+                            <td class=\\"govuk-table__cell\\">12/01/2203</td>
+                            <td class=\\"govuk-table__cell\\">Redacted</td>
+                            <td class=\\"govuk-table__cell\\">Checked</td>
+                            <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s\\" href=\\"url/to/file/26/edit\\">View/Edit
+							properties</a><a class=\\"govuk-link govuk-body-s\\" href=\\"url/to/file/26\\">Download</a>
+                            </td>
+                        </tr>
+                        <tr class=\\"govuk-table__row\\">
+                            <td class=\\"govuk-table__cell\\">
+                                <div class=\\"govuk-form-group\\">
+                                    <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
+                                        <div class=\\"govuk-checkboxes__item\\">
+                                            <input class=\\"govuk-checkboxes__input\\" id=\\"selectedFilesIds\\" name=\\"selectedFilesIds\\"
+                                            type=\\"checkbox\\" value=\\"27\\">
+                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"selectedFilesIds\\">28 Incididunt ut labore</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s govuk-!-font-weight-bold\\" href=\\"url/to/file/27\\"> 28 Incididunt ut labore</a>
+                                <p                                 class=\\"file-info colour--secondary\\">From: Et Incididunt</p>
+                                    <p class=\\"file-info colour--secondary\\">File type and size: JPG, 8.7 MB</p>
+                            </td>
+                            <td class=\\"govuk-table__cell\\">12/05/2007</td>
+                            <td class=\\"govuk-table__cell\\">Unredacted</td>
+                            <td class=\\"govuk-table__cell\\">Not checked</td>
+                            <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s\\" href=\\"url/to/file/27/edit\\">View/Edit
+							properties</a><a class=\\"govuk-link govuk-body-s\\" href=\\"url/to/file/27\\">Download</a>
+                            </td>
+                        </tr>
+                        <tr class=\\"govuk-table__row\\">
+                            <td class=\\"govuk-table__cell\\">
+                                <div class=\\"govuk-form-group\\">
+                                    <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
+                                        <div class=\\"govuk-checkboxes__item\\">
+                                            <input class=\\"govuk-checkboxes__input\\" id=\\"selectedFilesIds\\" name=\\"selectedFilesIds\\"
+                                            type=\\"checkbox\\" value=\\"28\\">
+                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"selectedFilesIds\\">29 Ad minim veniam quis nostrud</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s govuk-!-font-weight-bold\\" href=\\"url/to/file/28\\"> 29 Ad minim veniam quis nostrud</a>
+                                <p                                 class=\\"file-info colour--secondary\\">From: Quis Labore</p>
+                                    <p class=\\"file-info colour--secondary\\">File type and size: JPG, 6.4 MB</p>
+                            </td>
+                            <td class=\\"govuk-table__cell\\">29/02/2052</td>
+                            <td class=\\"govuk-table__cell\\">Redacted</td>
+                            <td class=\\"govuk-table__cell\\">Checked</td>
+                            <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s\\" href=\\"url/to/file/28/edit\\">View/Edit
+							properties</a><a class=\\"govuk-link govuk-body-s\\" href=\\"url/to/file/28\\">Download</a>
+                            </td>
+                        </tr>
+                        <tr class=\\"govuk-table__row\\">
+                            <td class=\\"govuk-table__cell\\">
+                                <div class=\\"govuk-form-group\\">
+                                    <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
+                                        <div class=\\"govuk-checkboxes__item\\">
+                                            <input class=\\"govuk-checkboxes__input\\" id=\\"selectedFilesIds\\" name=\\"selectedFilesIds\\"
+                                            type=\\"checkbox\\" value=\\"29\\">
+                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"selectedFilesIds\\">30 Quis nostrud exercitation ullamco</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s govuk-!-font-weight-bold\\" href=\\"url/to/file/29\\"> 30 Quis nostrud exercitation ullamco</a>
+                                <p                                 class=\\"file-info colour--secondary\\">From: Incididunt Exercitation</p>
+                                    <p class=\\"file-info colour--secondary\\">File type and size: MP3, 1.1 MB</p>
+                            </td>
+                            <td class=\\"govuk-table__cell\\">30/01/2176</td>
+                            <td class=\\"govuk-table__cell\\">Redacted</td>
+                            <td class=\\"govuk-table__cell\\">Not checked</td>
+                            <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s\\" href=\\"url/to/file/29/edit\\">View/Edit
+							properties</a><a class=\\"govuk-link govuk-body-s\\" href=\\"url/to/file/29\\">Download</a>
+                            </td>
+                        </tr>
+                        <tr class=\\"govuk-table__row\\">
+                            <td class=\\"govuk-table__cell\\">
+                                <div class=\\"govuk-form-group\\">
+                                    <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
+                                        <div class=\\"govuk-checkboxes__item\\">
+                                            <input class=\\"govuk-checkboxes__input\\" id=\\"selectedFilesIds\\" name=\\"selectedFilesIds\\"
+                                            type=\\"checkbox\\" value=\\"30\\">
+                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"selectedFilesIds\\">31 Laboris nisi ut aliquip ex ea</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s govuk-!-font-weight-bold\\" href=\\"url/to/file/30\\"> 31 Laboris nisi ut aliquip ex ea</a>
+                                <p                                 class=\\"file-info colour--secondary\\">From: Labore Enim</p>
+                                    <p class=\\"file-info colour--secondary\\">File type and size: DOC, 6.6 MB</p>
+                            </td>
+                            <td class=\\"govuk-table__cell\\">16/03/2249</td>
+                            <td class=\\"govuk-table__cell\\">Unredacted</td>
+                            <td class=\\"govuk-table__cell\\">Not checked</td>
+                            <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s\\" href=\\"url/to/file/30/edit\\">View/Edit
+							properties</a><a class=\\"govuk-link govuk-body-s\\" href=\\"url/to/file/30\\">Download</a>
+                            </td>
+                        </tr>
+                        <tr class=\\"govuk-table__row\\">
+                            <td class=\\"govuk-table__cell\\">
+                                <div class=\\"govuk-form-group\\">
+                                    <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
+                                        <div class=\\"govuk-checkboxes__item\\">
+                                            <input class=\\"govuk-checkboxes__input\\" id=\\"selectedFilesIds\\" name=\\"selectedFilesIds\\"
+                                            type=\\"checkbox\\" value=\\"31\\">
+                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"selectedFilesIds\\">32 Ut enim</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s govuk-!-font-weight-bold\\" href=\\"url/to/file/31\\"> 32 Ut enim</a>
+                                <p                                 class=\\"file-info colour--secondary\\">From: Ullamco Aliqua</p>
+                                    <p class=\\"file-info colour--secondary\\">File type and size: MP3, 6.5 MB</p>
+                            </td>
+                            <td class=\\"govuk-table__cell\\">27/07/2194</td>
+                            <td class=\\"govuk-table__cell\\">Redacted</td>
+                            <td class=\\"govuk-table__cell\\">Checked</td>
+                            <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s\\" href=\\"url/to/file/31/edit\\">View/Edit
+							properties</a><a class=\\"govuk-link govuk-body-s\\" href=\\"url/to/file/31\\">Download</a>
+                            </td>
+                        </tr>
+                        <tr class=\\"govuk-table__row\\">
+                            <td class=\\"govuk-table__cell\\">
+                                <div class=\\"govuk-form-group\\">
+                                    <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
+                                        <div class=\\"govuk-checkboxes__item\\">
+                                            <input class=\\"govuk-checkboxes__input\\" id=\\"selectedFilesIds\\" name=\\"selectedFilesIds\\"
+                                            type=\\"checkbox\\" value=\\"32\\">
+                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"selectedFilesIds\\">33 Minim veniam quis nostrud exercitation</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s govuk-!-font-weight-bold\\" href=\\"url/to/file/32\\"> 33 Minim veniam quis nostrud exercitation</a>
+                                <p                                 class=\\"file-info colour--secondary\\">From: Dolore Lorem</p>
+                                    <p class=\\"file-info colour--secondary\\">File type and size: MP3, 1.3 MB</p>
+                            </td>
+                            <td class=\\"govuk-table__cell\\">29/12/1970</td>
+                            <td class=\\"govuk-table__cell\\">Redacted</td>
+                            <td class=\\"govuk-table__cell\\">Checked</td>
+                            <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s\\" href=\\"url/to/file/32/edit\\">View/Edit
+							properties</a><a class=\\"govuk-link govuk-body-s\\" href=\\"url/to/file/32\\">Download</a>
+                            </td>
+                        </tr>
+                        <tr class=\\"govuk-table__row\\">
+                            <td class=\\"govuk-table__cell\\">
+                                <div class=\\"govuk-form-group\\">
+                                    <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
+                                        <div class=\\"govuk-checkboxes__item\\">
+                                            <input class=\\"govuk-checkboxes__input\\" id=\\"selectedFilesIds\\" name=\\"selectedFilesIds\\"
+                                            type=\\"checkbox\\" value=\\"33\\">
+                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"selectedFilesIds\\">34 Sit amet consectetur adipiscing</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s govuk-!-font-weight-bold\\" href=\\"url/to/file/33\\"> 34 Sit amet consectetur adipiscing</a>
+                                <p                                 class=\\"file-info colour--secondary\\">From: Enim Incididunt</p>
+                                    <p class=\\"file-info colour--secondary\\">File type and size: PDF, 2.3 MB</p>
+                            </td>
+                            <td class=\\"govuk-table__cell\\">25/08/2273</td>
+                            <td class=\\"govuk-table__cell\\">Unredacted</td>
+                            <td class=\\"govuk-table__cell\\">Checked</td>
+                            <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s\\" href=\\"url/to/file/33/edit\\">View/Edit
+							properties</a><a class=\\"govuk-link govuk-body-s\\" href=\\"url/to/file/33\\">Download</a>
+                            </td>
+                        </tr>
+                        <tr class=\\"govuk-table__row\\">
+                            <td class=\\"govuk-table__cell\\">
+                                <div class=\\"govuk-form-group\\">
+                                    <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
+                                        <div class=\\"govuk-checkboxes__item\\">
+                                            <input class=\\"govuk-checkboxes__input\\" id=\\"selectedFilesIds\\" name=\\"selectedFilesIds\\"
+                                            type=\\"checkbox\\" value=\\"34\\">
+                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"selectedFilesIds\\">35 Incididunt ut labore</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s govuk-!-font-weight-bold\\" href=\\"url/to/file/34\\"> 35 Incididunt ut labore</a>
+                                <p                                 class=\\"file-info colour--secondary\\">From: Adipiscing Amet</p>
+                                    <p class=\\"file-info colour--secondary\\">File type and size: PDF, 2.5 MB</p>
+                            </td>
+                            <td class=\\"govuk-table__cell\\">27/02/2170</td>
+                            <td class=\\"govuk-table__cell\\">Unredacted</td>
+                            <td class=\\"govuk-table__cell\\">Not checked</td>
+                            <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s\\" href=\\"url/to/file/34/edit\\">View/Edit
+							properties</a><a class=\\"govuk-link govuk-body-s\\" href=\\"url/to/file/34\\">Download</a>
+                            </td>
+                        </tr>
+                        <tr class=\\"govuk-table__row\\">
+                            <td class=\\"govuk-table__cell\\">
+                                <div class=\\"govuk-form-group\\">
+                                    <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
+                                        <div class=\\"govuk-checkboxes__item\\">
+                                            <input class=\\"govuk-checkboxes__input\\" id=\\"selectedFilesIds\\" name=\\"selectedFilesIds\\"
+                                            type=\\"checkbox\\" value=\\"35\\">
+                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"selectedFilesIds\\">36 Eiusmod tempor incididunt ut labore et</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s govuk-!-font-weight-bold\\" href=\\"url/to/file/35\\"> 36 Eiusmod tempor incididunt ut labore et</a>
+                                <p                                 class=\\"file-info colour--secondary\\">From: Et Et</p>
+                                    <p class=\\"file-info colour--secondary\\">File type and size: DOC, 6.1 MB</p>
+                            </td>
+                            <td class=\\"govuk-table__cell\\">30/04/2036</td>
+                            <td class=\\"govuk-table__cell\\">Unredacted</td>
+                            <td class=\\"govuk-table__cell\\">Not checked</td>
+                            <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s\\" href=\\"url/to/file/35/edit\\">View/Edit
+							properties</a><a class=\\"govuk-link govuk-body-s\\" href=\\"url/to/file/35\\">Download</a>
+                            </td>
+                        </tr>
+                        <tr class=\\"govuk-table__row\\">
+                            <td class=\\"govuk-table__cell\\">
+                                <div class=\\"govuk-form-group\\">
+                                    <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
+                                        <div class=\\"govuk-checkboxes__item\\">
+                                            <input class=\\"govuk-checkboxes__input\\" id=\\"selectedFilesIds\\" name=\\"selectedFilesIds\\"
+                                            type=\\"checkbox\\" value=\\"36\\">
+                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"selectedFilesIds\\">37 Ut enim ad minim veniam</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s govuk-!-font-weight-bold\\" href=\\"url/to/file/36\\"> 37 Ut enim ad minim veniam</a>
+                                <p                                 class=\\"file-info colour--secondary\\">From: Magna Enim</p>
+                                    <p class=\\"file-info colour--secondary\\">File type and size: DOC, 8.9 MB</p>
+                            </td>
+                            <td class=\\"govuk-table__cell\\">04/09/2266</td>
+                            <td class=\\"govuk-table__cell\\">Redacted</td>
+                            <td class=\\"govuk-table__cell\\">Not checked</td>
+                            <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s\\" href=\\"url/to/file/36/edit\\">View/Edit
+							properties</a><a class=\\"govuk-link govuk-body-s\\" href=\\"url/to/file/36\\">Download</a>
+                            </td>
+                        </tr>
+                        <tr class=\\"govuk-table__row\\">
+                            <td class=\\"govuk-table__cell\\">
+                                <div class=\\"govuk-form-group\\">
+                                    <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
+                                        <div class=\\"govuk-checkboxes__item\\">
+                                            <input class=\\"govuk-checkboxes__input\\" id=\\"selectedFilesIds\\" name=\\"selectedFilesIds\\"
+                                            type=\\"checkbox\\" value=\\"37\\">
+                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"selectedFilesIds\\">38 Enim ad minim veniam quis nostrud</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s govuk-!-font-weight-bold\\" href=\\"url/to/file/37\\"> 38 Enim ad minim veniam quis nostrud</a>
+                                <p                                 class=\\"file-info colour--secondary\\">From: Lorem Exercitation</p>
+                                    <p class=\\"file-info colour--secondary\\">File type and size: PDF, 4.6 MB</p>
+                            </td>
+                            <td class=\\"govuk-table__cell\\">28/08/2262</td>
+                            <td class=\\"govuk-table__cell\\">Unredacted</td>
+                            <td class=\\"govuk-table__cell\\">Checked</td>
+                            <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s\\" href=\\"url/to/file/37/edit\\">View/Edit
+							properties</a><a class=\\"govuk-link govuk-body-s\\" href=\\"url/to/file/37\\">Download</a>
+                            </td>
+                        </tr>
+                        <tr class=\\"govuk-table__row\\">
+                            <td class=\\"govuk-table__cell\\">
+                                <div class=\\"govuk-form-group\\">
+                                    <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
+                                        <div class=\\"govuk-checkboxes__item\\">
+                                            <input class=\\"govuk-checkboxes__input\\" id=\\"selectedFilesIds\\" name=\\"selectedFilesIds\\"
+                                            type=\\"checkbox\\" value=\\"38\\">
+                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"selectedFilesIds\\">39 Dolor sit amet</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s govuk-!-font-weight-bold\\" href=\\"url/to/file/38\\"> 39 Dolor sit amet</a>
+                                <p                                 class=\\"file-info colour--secondary\\">From: Et Minim</p>
+                                    <p class=\\"file-info colour--secondary\\">File type and size: DOC, 9.7 MB</p>
+                            </td>
+                            <td class=\\"govuk-table__cell\\">01/01/2062</td>
+                            <td class=\\"govuk-table__cell\\">Unredacted</td>
+                            <td class=\\"govuk-table__cell\\">Not checked</td>
+                            <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s\\" href=\\"url/to/file/38/edit\\">View/Edit
+							properties</a><a class=\\"govuk-link govuk-body-s\\" href=\\"url/to/file/38\\">Download</a>
+                            </td>
+                        </tr>
+                        <tr class=\\"govuk-table__row\\">
+                            <td class=\\"govuk-table__cell\\">
+                                <div class=\\"govuk-form-group\\">
+                                    <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
+                                        <div class=\\"govuk-checkboxes__item\\">
+                                            <input class=\\"govuk-checkboxes__input\\" id=\\"selectedFilesIds\\" name=\\"selectedFilesIds\\"
+                                            type=\\"checkbox\\" value=\\"39\\">
+                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"selectedFilesIds\\">40 Consectetur adipiscing elit sed</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s govuk-!-font-weight-bold\\" href=\\"url/to/file/39\\"> 40 Consectetur adipiscing elit sed</a>
+                                <p                                 class=\\"file-info colour--secondary\\">From: Amet Nostrud</p>
+                                    <p class=\\"file-info colour--secondary\\">File type and size: DOC, 1.7 MB</p>
+                            </td>
+                            <td class=\\"govuk-table__cell\\">11/02/2207</td>
+                            <td class=\\"govuk-table__cell\\">Unredacted</td>
+                            <td class=\\"govuk-table__cell\\">Not checked</td>
+                            <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s\\" href=\\"url/to/file/39/edit\\">View/Edit
+							properties</a><a class=\\"govuk-link govuk-body-s\\" href=\\"url/to/file/39\\">Download</a>
+                            </td>
+                        </tr>
+                        <tr class=\\"govuk-table__row\\">
+                            <td class=\\"govuk-table__cell\\">
+                                <div class=\\"govuk-form-group\\">
+                                    <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
+                                        <div class=\\"govuk-checkboxes__item\\">
+                                            <input class=\\"govuk-checkboxes__input\\" id=\\"selectedFilesIds\\" name=\\"selectedFilesIds\\"
+                                            type=\\"checkbox\\" value=\\"40\\">
+                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"selectedFilesIds\\">41 Lorem ipsum dolor</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s govuk-!-font-weight-bold\\" href=\\"url/to/file/40\\"> 41 Lorem ipsum dolor</a>
+                                <p                                 class=\\"file-info colour--secondary\\">From: Elit Enim</p>
+                                    <p class=\\"file-info colour--secondary\\">File type and size: DOC, 5.9 MB</p>
+                            </td>
+                            <td class=\\"govuk-table__cell\\">19/04/2039</td>
+                            <td class=\\"govuk-table__cell\\">Redacted</td>
+                            <td class=\\"govuk-table__cell\\">Checked</td>
+                            <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s\\" href=\\"url/to/file/40/edit\\">View/Edit
+							properties</a><a class=\\"govuk-link govuk-body-s\\" href=\\"url/to/file/40\\">Download</a>
+                            </td>
+                        </tr>
+                        <tr class=\\"govuk-table__row\\">
+                            <td class=\\"govuk-table__cell\\">
+                                <div class=\\"govuk-form-group\\">
+                                    <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
+                                        <div class=\\"govuk-checkboxes__item\\">
+                                            <input class=\\"govuk-checkboxes__input\\" id=\\"selectedFilesIds\\" name=\\"selectedFilesIds\\"
+                                            type=\\"checkbox\\" value=\\"41\\">
+                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"selectedFilesIds\\">42 Elit sed do</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s govuk-!-font-weight-bold\\" href=\\"url/to/file/41\\"> 42 Elit sed do</a>
+                                <p                                 class=\\"file-info colour--secondary\\">From: Veniam Adipiscing</p>
+                                    <p class=\\"file-info colour--secondary\\">File type and size: PDF, 8 MB</p>
+                            </td>
+                            <td class=\\"govuk-table__cell\\">03/05/2146</td>
+                            <td class=\\"govuk-table__cell\\">Redacted</td>
+                            <td class=\\"govuk-table__cell\\">Checked</td>
+                            <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s\\" href=\\"url/to/file/41/edit\\">View/Edit
+							properties</a><a class=\\"govuk-link govuk-body-s\\" href=\\"url/to/file/41\\">Download</a>
+                            </td>
+                        </tr>
+                        <tr class=\\"govuk-table__row\\">
+                            <td class=\\"govuk-table__cell\\">
+                                <div class=\\"govuk-form-group\\">
+                                    <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
+                                        <div class=\\"govuk-checkboxes__item\\">
+                                            <input class=\\"govuk-checkboxes__input\\" id=\\"selectedFilesIds\\" name=\\"selectedFilesIds\\"
+                                            type=\\"checkbox\\" value=\\"42\\">
+                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"selectedFilesIds\\">43 Magna aliqua Ut enim ad minim</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s govuk-!-font-weight-bold\\" href=\\"url/to/file/42\\"> 43 Magna aliqua Ut enim ad minim</a>
+                                <p                                 class=\\"file-info colour--secondary\\">From: Sit Amet</p>
+                                    <p class=\\"file-info colour--secondary\\">File type and size: DOC, 6.4 MB</p>
+                            </td>
+                            <td class=\\"govuk-table__cell\\">26/11/2012</td>
+                            <td class=\\"govuk-table__cell\\">Redacted</td>
+                            <td class=\\"govuk-table__cell\\">Checked</td>
+                            <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s\\" href=\\"url/to/file/42/edit\\">View/Edit
+							properties</a><a class=\\"govuk-link govuk-body-s\\" href=\\"url/to/file/42\\">Download</a>
+                            </td>
+                        </tr>
+                        <tr class=\\"govuk-table__row\\">
+                            <td class=\\"govuk-table__cell\\">
+                                <div class=\\"govuk-form-group\\">
+                                    <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
+                                        <div class=\\"govuk-checkboxes__item\\">
+                                            <input class=\\"govuk-checkboxes__input\\" id=\\"selectedFilesIds\\" name=\\"selectedFilesIds\\"
+                                            type=\\"checkbox\\" value=\\"43\\">
+                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"selectedFilesIds\\">44 Ipsum dolor sit amet consectetur</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s govuk-!-font-weight-bold\\" href=\\"url/to/file/43\\"> 44 Ipsum dolor sit amet consectetur</a>
+                                <p                                 class=\\"file-info colour--secondary\\">From: Quis Elit</p>
+                                    <p class=\\"file-info colour--secondary\\">File type and size: MP3, 7.4 MB</p>
+                            </td>
+                            <td class=\\"govuk-table__cell\\">23/01/2137</td>
+                            <td class=\\"govuk-table__cell\\">Unredacted</td>
+                            <td class=\\"govuk-table__cell\\">Checked</td>
+                            <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s\\" href=\\"url/to/file/43/edit\\">View/Edit
+							properties</a><a class=\\"govuk-link govuk-body-s\\" href=\\"url/to/file/43\\">Download</a>
+                            </td>
+                        </tr>
+                        <tr class=\\"govuk-table__row\\">
+                            <td class=\\"govuk-table__cell\\">
+                                <div class=\\"govuk-form-group\\">
+                                    <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
+                                        <div class=\\"govuk-checkboxes__item\\">
+                                            <input class=\\"govuk-checkboxes__input\\" id=\\"selectedFilesIds\\" name=\\"selectedFilesIds\\"
+                                            type=\\"checkbox\\" value=\\"44\\">
+                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"selectedFilesIds\\">45 Et dolore magna aliqua Ut</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s govuk-!-font-weight-bold\\" href=\\"url/to/file/44\\"> 45 Et dolore magna aliqua Ut</a>
+                                <p                                 class=\\"file-info colour--secondary\\">From: Ipsum Ut</p>
+                                    <p class=\\"file-info colour--secondary\\">File type and size: DOC, 1.1 MB</p>
+                            </td>
+                            <td class=\\"govuk-table__cell\\">01/11/2250</td>
+                            <td class=\\"govuk-table__cell\\">Redacted</td>
+                            <td class=\\"govuk-table__cell\\">Not checked</td>
+                            <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s\\" href=\\"url/to/file/44/edit\\">View/Edit
+							properties</a><a class=\\"govuk-link govuk-body-s\\" href=\\"url/to/file/44\\">Download</a>
+                            </td>
+                        </tr>
+                        <tr class=\\"govuk-table__row\\">
+                            <td class=\\"govuk-table__cell\\">
+                                <div class=\\"govuk-form-group\\">
+                                    <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
+                                        <div class=\\"govuk-checkboxes__item\\">
+                                            <input class=\\"govuk-checkboxes__input\\" id=\\"selectedFilesIds\\" name=\\"selectedFilesIds\\"
+                                            type=\\"checkbox\\" value=\\"45\\">
+                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"selectedFilesIds\\">46 Dolor sit amet consectetur adipiscing</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s govuk-!-font-weight-bold\\" href=\\"url/to/file/45\\"> 46 Dolor sit amet consectetur adipiscing</a>
+                                <p                                 class=\\"file-info colour--secondary\\">From: Ut Dolore</p>
+                                    <p class=\\"file-info colour--secondary\\">File type and size: PDF, 9.6 MB</p>
+                            </td>
+                            <td class=\\"govuk-table__cell\\">10/03/2223</td>
+                            <td class=\\"govuk-table__cell\\">Unredacted</td>
+                            <td class=\\"govuk-table__cell\\">Not checked</td>
+                            <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s\\" href=\\"url/to/file/45/edit\\">View/Edit
+							properties</a><a class=\\"govuk-link govuk-body-s\\" href=\\"url/to/file/45\\">Download</a>
+                            </td>
+                        </tr>
+                        <tr class=\\"govuk-table__row\\">
+                            <td class=\\"govuk-table__cell\\">
+                                <div class=\\"govuk-form-group\\">
+                                    <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
+                                        <div class=\\"govuk-checkboxes__item\\">
+                                            <input class=\\"govuk-checkboxes__input\\" id=\\"selectedFilesIds\\" name=\\"selectedFilesIds\\"
+                                            type=\\"checkbox\\" value=\\"46\\">
+                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"selectedFilesIds\\">47 Nostrud exercitation ullamco laboris nisi</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s govuk-!-font-weight-bold\\" href=\\"url/to/file/46\\"> 47 Nostrud exercitation ullamco laboris nisi</a>
+                                <p                                 class=\\"file-info colour--secondary\\">From: Ut Sed</p>
+                                    <p class=\\"file-info colour--secondary\\">File type and size: PDF, 6 MB</p>
+                            </td>
+                            <td class=\\"govuk-table__cell\\">25/11/2218</td>
+                            <td class=\\"govuk-table__cell\\">Unredacted</td>
+                            <td class=\\"govuk-table__cell\\">Checked</td>
+                            <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s\\" href=\\"url/to/file/46/edit\\">View/Edit
+							properties</a><a class=\\"govuk-link govuk-body-s\\" href=\\"url/to/file/46\\">Download</a>
+                            </td>
+                        </tr>
+                        <tr class=\\"govuk-table__row\\">
+                            <td class=\\"govuk-table__cell\\">
+                                <div class=\\"govuk-form-group\\">
+                                    <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
+                                        <div class=\\"govuk-checkboxes__item\\">
+                                            <input class=\\"govuk-checkboxes__input\\" id=\\"selectedFilesIds\\" name=\\"selectedFilesIds\\"
+                                            type=\\"checkbox\\" value=\\"47\\">
+                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"selectedFilesIds\\">48 Ad minim veniam quis nostrud</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s govuk-!-font-weight-bold\\" href=\\"url/to/file/47\\"> 48 Ad minim veniam quis nostrud</a>
+                                <p                                 class=\\"file-info colour--secondary\\">From: Sed Adipiscing</p>
+                                    <p class=\\"file-info colour--secondary\\">File type and size: JPG, 2.9 MB</p>
+                            </td>
+                            <td class=\\"govuk-table__cell\\">02/07/2037</td>
+                            <td class=\\"govuk-table__cell\\">Unredacted</td>
+                            <td class=\\"govuk-table__cell\\">Checked</td>
+                            <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s\\" href=\\"url/to/file/47/edit\\">View/Edit
+							properties</a><a class=\\"govuk-link govuk-body-s\\" href=\\"url/to/file/47\\">Download</a>
+                            </td>
+                        </tr>
+                        <tr class=\\"govuk-table__row\\">
+                            <td class=\\"govuk-table__cell\\">
+                                <div class=\\"govuk-form-group\\">
+                                    <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
+                                        <div class=\\"govuk-checkboxes__item\\">
+                                            <input class=\\"govuk-checkboxes__input\\" id=\\"selectedFilesIds\\" name=\\"selectedFilesIds\\"
+                                            type=\\"checkbox\\" value=\\"48\\">
+                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"selectedFilesIds\\">49 Et dolore magna</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s govuk-!-font-weight-bold\\" href=\\"url/to/file/48\\"> 49 Et dolore magna</a>
+                                <p                                 class=\\"file-info colour--secondary\\">From: Nostrud Consectetur</p>
+                                    <p class=\\"file-info colour--secondary\\">File type and size: MP3, 2.2 MB</p>
+                            </td>
+                            <td class=\\"govuk-table__cell\\">11/02/2191</td>
+                            <td class=\\"govuk-table__cell\\">Redacted</td>
+                            <td class=\\"govuk-table__cell\\">Checked</td>
+                            <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s\\" href=\\"url/to/file/48/edit\\">View/Edit
+							properties</a><a class=\\"govuk-link govuk-body-s\\" href=\\"url/to/file/48\\">Download</a>
+                            </td>
+                        </tr>
+                        <tr class=\\"govuk-table__row\\">
+                            <td class=\\"govuk-table__cell\\">
+                                <div class=\\"govuk-form-group\\">
+                                    <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
+                                        <div class=\\"govuk-checkboxes__item\\">
+                                            <input class=\\"govuk-checkboxes__input\\" id=\\"selectedFilesIds\\" name=\\"selectedFilesIds\\"
+                                            type=\\"checkbox\\" value=\\"49\\">
+                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"selectedFilesIds\\">50 Dolore magna</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s govuk-!-font-weight-bold\\" href=\\"url/to/file/49\\"> 50 Dolore magna</a>
+                                <p                                 class=\\"file-info colour--secondary\\">From: Elit Labore</p>
+                                    <p class=\\"file-info colour--secondary\\">File type and size: DOC, 8.6 MB</p>
+                            </td>
+                            <td class=\\"govuk-table__cell\\">16/04/2191</td>
+                            <td class=\\"govuk-table__cell\\">Redacted</td>
+                            <td class=\\"govuk-table__cell\\">Checked</td>
+                            <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s\\" href=\\"url/to/file/49/edit\\">View/Edit
+							properties</a><a class=\\"govuk-link govuk-body-s\\" href=\\"url/to/file/49\\">Download</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <nav class=\\"govuk-pagination\\" role=\\"navigation\\" aria-label=\\"results\\">
+                    <ul class=\\"govuk-pagination__list\\">
+                        <li class=\\"govuk-pagination__item govuk-pagination__item--current\\"><a class=\\"govuk-link govuk-pagination__link\\" href=\\"?number=1&amp;size=50\\"
+                            aria-label=\\"Page 1\\" aria-current=\\"page\\"> 1</a>
+                        </li>
+                        <li class=\\"govuk-pagination__item\\"><a class=\\"govuk-link govuk-pagination__link\\" href=\\"?number=2&amp;size=50\\"
+                            aria-label=\\"Page 2\\"> 2</a>
+                        </li>
+                        <li class=\\"govuk-pagination__item\\"><a class=\\"govuk-link govuk-pagination__link\\" href=\\"?number=3&amp;size=50\\"
+                            aria-label=\\"Page 3\\"> 3</a>
+                        </li>
+                    </ul>
+                    <div class=\\"govuk-pagination__next\\"><a class=\\"govuk-link govuk-pagination__link\\" href=\\"?number=2&amp;size=50\\"
+                        rel=\\"next\\"><span class=\\"govuk-pagination__link-title\\">Next</span><svg class=\\"govuk-pagination__icon govuk-pagination__icon--next\\" xmlns=\\"http://www.w3.org/2000/svg\\" height=\\"13\\" width=\\"15\\" aria-hidden=\\"true\\" focusable=\\"false\\" viewBox=\\"0 0 15 13\\"><path d=\\"m8.107-0.0078125-1.4136 1.414 4.2926 4.293h-12.986v2h12.896l-4.1855 3.9766 1.377 1.4492 6.7441-6.4062-6.7246-6.7266z\\"></path></svg></a>
+                    </div>
+                </nav>
+            </form>
         </div>
     </div>
 </main>"
