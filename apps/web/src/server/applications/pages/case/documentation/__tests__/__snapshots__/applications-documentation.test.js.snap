@@ -41,7 +41,7 @@ exports[`applications documentation GET /case/123/project-documentation/21/sub-f
         </div>
     </div>
     <div class=\\"govuk-grid-row\\">
-        <div class=\\"govuk-grid-column-two-thirds\\">
+        <div class=\\"govuk-grid-column-full\\">
             <div class=\\"govuk-breadcrumbs govuk-!-margin-top-0\\">
                 <ol class=\\"govuk-breadcrumbs__list\\">
                     <li class=\\"govuk-breadcrumbs__list-item\\"><a class=\\"govuk-breadcrumbs__link\\" href=\\"/applications-service/case/123/project-documentation\\">Project documentation</a>
@@ -99,7 +99,7 @@ exports[`applications documentation GET /case/123/project-documentation/21/sub-f
         <form class=\\"govuk-grid-column-two-thirds\\">
             <div class=\\"pins-file-upload--container\\">
                 <div class=\\"govuk-body colour--secondary pins-file-upload--instructions\\">
-                    <label for=\\"upload-file-1\\">Choose a single or multiple files to upload.</label><span> Your file must be 
+                    <label for=\\"upload-file-1\\">Choose a single or multiple files to upload.</label><span> Your file must be
 							PDF,
 
 							DOC,
