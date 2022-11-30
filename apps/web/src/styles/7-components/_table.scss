@@ -62,6 +62,7 @@
   .govuk-accordion__section-toggle-text {
 	font-size: 0;
 	position: absolute;
+
 	&::after {
 	  content: 'Show all draft cases';
 	  font-size: 19px;
@@ -72,15 +73,32 @@
 }
 
 .pins-dashboard-list--hide-controls {
-	.govuk-accordion__controls {
-	  display: none;
-	}
+  margin-top: 2rem;
 
-	.govuk-accordion__section-button {
-		border: none;
-	}
+  h2 {
+	margin-bottom: 0;
+  }
 
-	.govuk-table__cell {
-		border-bottom-style: none;
+  .govuk-accordion__section-toggle-text {
+	font-size: 0;
+	&:after {
+	  content: "Show subfolders";
+	  font-size: 19px;
+	  position: relative;
+	  top: 7px;
+	  left: 2px;
 	}
   }
+
+  .govuk-accordion__controls {
+	display: none;
+  }
+
+  .govuk-accordion__section-button {
+	border: none;
+  }
+
+  .govuk-table__cell {
+	border-bottom-style: none;
+  }
+}
