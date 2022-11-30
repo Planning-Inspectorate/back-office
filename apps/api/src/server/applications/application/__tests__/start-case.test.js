@@ -126,6 +126,7 @@ test('starts application if all needed information is present', async (t) => {
 
 	sinon.assert.calledWith(executeRawStub, referenceSettingSqlQuery);
 
+	// test 1st top level folder and its sub folders
 	sinon.assert.calledWith(createFolderStub, {
 		data: {
 			displayNameEn: 'Project management',
@@ -146,6 +147,28 @@ test('starts application if all needed information is present', async (t) => {
 					},
 					{ displayNameEn: 'Mail merge spreadsheet', displayOrder: 200, caseId: 1 },
 					{ displayNameEn: 'Fees', displayOrder: 300, caseId: 1 }
+				]
+			}
+		}
+	});
+	// 2nd top level folder
+	sinon.assert.calledWith(createFolderStub, {
+		data: {
+			displayNameEn: 'Legal advice',
+			displayOrder: 200,
+			caseId: 1
+		}
+	});
+	// 3rd top level folder
+	sinon.assert.calledWith(createFolderStub, {
+		data: {
+			displayNameEn: 'Transboundary',
+			displayOrder: 300,
+			caseId: 1,
+			childFolders: {
+				create: [
+					{ displayNameEn: 'First screening', displayOrder: 100, caseId: 1 },
+					{ displayNameEn: 'Second screening', displayOrder: 200, caseId: 1 }
 				]
 			}
 		}

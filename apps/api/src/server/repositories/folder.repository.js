@@ -95,7 +95,7 @@ const mapFolderTemplateWithCaseId = (caseId, folder) => {
  * Returns an array of promises
  *
  * @param {number} caseId
- * @returns {Promise<import('@pins/api').Schema.BatchPayload>[]}
+ * @returns {Promise<Folder>[]}
  */
 export const createFolders = (caseId) => {
 	const foldersCreated = [];
@@ -121,7 +121,7 @@ export const createFolders = (caseId) => {
  *
  * @type {FolderTemplate[]} defaultCaseFolders
  */
-export const defaultCaseFolders = [
+const defaultCaseFolders = [
 	{
 		displayNameEn: 'Project management',
 		displayOrder: 100,
