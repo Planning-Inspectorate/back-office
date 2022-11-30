@@ -19,7 +19,21 @@
 					classes: 'govuk-!-margin-top-0',
 					items: breadcrumbItems
 				}) }}
+{% block pageContent %}
+<div class="govuk-grid-row">
+	{% block sectionMenu %}{% endblock %}
+	<div class="govuk-grid-column-full">
+		{% block sectionContent %}
+		{{ govukBreadcrumbs({
+			classes: 'govuk-!-margin-top-0',
+			items: breadcrumbItems
+		}) }}
 
+
+		<h2 class="govuk-heading-l">{{ currentFolder.displayNameEn }}</h2>
+
+		<div class="pins-dashboard-list--hide-controls">
+			<h2 class="govuk-heading-l">{{ currentFolder.displayNameEn }} folder</h2>
 				<div class="pins-dashboard-list--hide-controls">
 					<h2 class="govuk-heading-l">{{ currentFolder.displayNameEn }} folder</h2>
 

@@ -50,21 +50,15 @@ export const getCaseDocumentationFolderPath = (caseId, folderId) => {
  *
  * @param {number} caseId
  * @param {number} folderId
- * @param {number} pageSize
- * @param {number} pageNumber
- * @returns {Promise<PaginatedDocumentationFiles>}
+ * @returns {Promise<DocumentationFile[]>}
  */
 export const getCaseDocumentationFilesInFolder = async (caseId, folderId, pageSize, pageNumber) => {
 	const documentationFiles = fixtureDocumentationFiles;
 
-	const items = documentationFiles.slice(pageNumber * pageSize, pageSize + pageNumber * pageSize);
-	const response = {
-		items,
-		itemCount: documentationFiles.length,
-		pageCount: Math.ceil(documentationFiles.length / pageSize),
-		page: pageNumber,
-		pageSize
-	};
+	if (caseId && folderId) {
+		// TODO: get documents in this folder
+		// documentationFiles = [{ fileName: 'sitting-1.png', url: '#' }];
+	}
 
 	return new Promise((resolve) => {
 		setTimeout(() => resolve(response), 200);
