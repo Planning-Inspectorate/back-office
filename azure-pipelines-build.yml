@@ -11,6 +11,10 @@ parameters:
     displayName: Build Document Storage API
     type: boolean
     default: true
+  - name: buildDocumentCheckFunction
+    displayName: Build Document Check Function
+    type: boolean
+    default: true
 
 resources:
   repositories:
@@ -58,6 +62,8 @@ extends:
                   path: apps/api
                 - name: documentStorageApi
                   path: apps/document-storage
+                - name: document-check-function
+                  path: apps/document-check-function
               stepName: check_files
       - name: Build API
         condition: >-
@@ -113,6 +119,31 @@ extends:
               azurecrName: $(azurecrName)
               dockerfilePath: $(Build.SourcesDirectory)/apps/document-storage/Dockerfile
               repository: back-office/back-office-document-storage-api
+      - name: Build Document Check Function
+        condition: >-
+          and(
+            succeeded(),
+            or(
+              and(
+                eq(variables['Build.Reason'], 'Manual'),
+                eq(${{ parameters.buildDocumentCheckFunction }}, 'true')
+              ),
+              and(
+                ne(variables['Build.Reason'], 'Manual'),
+                or(
+                  eq(variables['Build.SourceBranchName'], 'main'),
+                  eq(dependencies.run_linting_and_tests.outputs['check_files.document-check-function'], 'true')
+                )
+              )
+            )
+          )
+        dependsOn:
+          - Run Linting & Tests
+        steps:
+          - template: ../steps/function_app_validate.yml@templates
+            parameters:
+              nodeVersion: 14
+              workingDirectory: $(Build.Repository.LocalPath)/apps/document-check-function
       - name: Build Web
         condition: >-
           and(
