@@ -11,6 +11,10 @@ parameters:
     displayName: Deploy Document Storage API
     type: boolean
     default: true
+  - name: deployDocumentCheckFunction
+    displayName: Deploy Document Check Function
+    type: boolean
+    default: true
   - name: region
     displayName: Region
     type: string
@@ -78,6 +82,16 @@ extends:
                   appResourceGroup: $(resourceGroup)
                   azurecrName: $(azurecrName)
                   repository: back-office/back-office-document-storage-api
+          - name: Deploy Document Check Function
+            artifact:
+              name: azure-functions
+              sourcePipeline: Back Office Build
+            condition: eq(${{ parameters.deployDocumentCheckFunction }}, 'true')
+            steps:
+              - template: ../steps/function_app_deploy.yml
+                parameters:
+                  appName: pins-func-back-office-document-check-function-$(ENVIRONMENT)-$(REGION_SHORT)-001
+                  resourceGroup: $(resourceGroup)
           - name: Deploy Web
             condition: eq(${{ parameters.deployWeb }}, 'true')
             steps:

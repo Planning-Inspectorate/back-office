@@ -1,0 +1,21 @@
+{
+    "name": "@pins/document-check-function",
+    "version": "0.0.0",
+    "private": true,
+    "engines": {
+        "node": ">=16.14.0"
+    },
+    "description": "Sends documents to be checked by anti-virus",
+    "scripts": {
+        "start": "func start",
+        "test": "cross-env NODE_ENV=test ava"
+    },
+    "dependencies": {
+        "clamscan": "2.1.2",
+        "pino": "7.11.0"
+    },
+    "devDependencies": {
+        "ava": "^4.2.0",
+        "eslint": "8.14.0"
+    }
+}
