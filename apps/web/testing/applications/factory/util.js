@@ -15,6 +15,35 @@ export const createCaseReference = ({ prefix = 'APP' }) =>
 	].join('/');
 
 /**
+ *
+ * @param {number} min
+ * @param {number} max
+ * @param {number} seed
+ * @returns {number}
+ */
+export const createUniqueRandomNumberFromSeed = (min, max, seed) => {
+	const date = new Date('2000-01-01');
+
+	date.setDate(date.getDate() + seed);
+
+	const randomFloat =
+		Number.parseInt([...date.getTime().toString()].reverse().slice(-4).join(''), 10) / 10_000;
+
+	return Math.floor(randomFloat * max) + min;
+};
+
+/**
+ *
+ * @param {number} seed
+ * @returns {boolean}
+ */
+export const createUniqueRandomBooleanFromSeed = (seed) => {
+	const randomNumber = createUniqueRandomNumberFromSeed(0, 100_000, seed);
+
+	return randomNumber % 2 === 0;
+};
+
+/**
  * @param {{wordsNumber: number, startOffset: number}} [options={}]
  * @returns {string}
  */

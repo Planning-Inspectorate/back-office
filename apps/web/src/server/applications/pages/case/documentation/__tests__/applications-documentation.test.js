@@ -16,11 +16,9 @@ const request = supertest(app);
 const nocks = () => {
 	nock('http://test/').get('/applications/case-officer').reply(200, {});
 	nock('http://test/').get('/applications/123').reply(200, fixtureCases[3]);
-
 	nock('http://test/')
 		.get('/applications/123/folders')
 		.reply(200, fixtureDocumentationTopLevelFolders);
-
 	nock('http://test/')
 		.get('/applications/123/folders/21')
 		.reply(200, fixtureDocumentationSingleFolder);
@@ -70,7 +68,18 @@ describe('applications documentation', () => {
 			const element = parseHtml(response.text);
 
 			expect(element.innerHTML).toMatchSnapshot();
-			expect(element.innerHTML).toContain('Upload files');
+			expect(element.innerHTML).toContain('This folder contains 123 document');
+			expect(element.innerHTML).toContain('Showing 1 - 50 document');
+		});
+
+		it('should render the page with the right number of files', async () => {
+			const response = await request.get(
+				`${baseUrl}/project-documentation/21/sub-folder-level2?number=2&size=30`
+			);
+			const element = parseHtml(response.text);
+
+			expect(element.innerHTML).toMatchSnapshot();
+			expect(element.innerHTML).toContain('Showing 31 - 60 document');
 		});
 	});
 
