@@ -7,6 +7,8 @@ const scopes = [
 	'web',
 	'web/appeals',
 	'web/applications',
+	'document-storage',
+	'document-check-function',
 	'express',
 	'platform',
 	'storage',
