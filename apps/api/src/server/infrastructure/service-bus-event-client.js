@@ -23,7 +23,7 @@ export class ServiceBusEventClient {
 		// TODO obvs
 		const traceId = Date.now();
 
-		logger.info(`Broadcasting messages to topic ${topic} with trace id ${traceId}`);
+		logger.info(`Publishing ${events.length} events to topic ${topic} with trace id ${traceId}`);
 
 		// 2. Transform the messages to ServiceBusMessage
 		await sender.sendMessages(

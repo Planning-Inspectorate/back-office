@@ -5,6 +5,7 @@ import * as caseRepository from '../../repositories/case.repository.js';
 import * as folderRepository from '../../repositories/folder.repository.js';
 import { breakUpCompoundStatus } from '../../utils/break-up-compound-status.js';
 import { buildAppealCompundStatus } from '../../utils/build-appeal-compound-status.js';
+import logger from '../../utils/logger.js';
 import { mapApplicationDetails } from '../../utils/mapping/map-case-details.js';
 import { transitionState } from '../../utils/transition-state.js';
 
@@ -108,6 +109,8 @@ export const startApplication = async (id) => {
 	const nsipProject = await buildNsipProjectPayload(caseDetails.id);
 
 	// Broadcast the case details
+	logger.info(`Started application ${caseDetails.reference}, publishing events`);
+
 	await eventClient.sendEvents(NSIP_PROJECT, [nsipProject]);
 
 	return {
