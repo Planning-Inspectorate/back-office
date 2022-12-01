@@ -14,7 +14,7 @@ import {
  */
 export function createDocumentationFile({
 	id = fake.createUniqueId(),
-	date = createUniqueRandomNumberFromSeed(10_000_000, 10_000_000_000, id),
+	date = 1_669_916_924,
 	size = createUniqueRandomNumberFromSeed(100, 10_000_000, id),
 	isChecked = createUniqueRandomBooleanFromSeed(id),
 	isRedacted = createUniqueRandomBooleanFromSeed(id)
