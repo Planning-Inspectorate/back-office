@@ -1,13 +1,13 @@
 @use "../govuk-frontend/govuk/settings/_colours-applied" as colors;
 
 .pins-files-list {
-  &--statuses, &--actions {
+  &__statuses, &__actions {
 	padding: 1rem;
 	background: colors.govuk-colour('light-grey');
 	height: 100%;
   }
 
-  &--info {
+  &__info {
 	margin-top: 2.5rem;
 
 	> * {
@@ -37,7 +37,7 @@
 	}
   }
 
-  &--table {
+  &__table {
 
 	tr:nth-child(1) td:nth-child(1) {
 	  vertical-align: middle;
