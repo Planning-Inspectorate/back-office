@@ -116,27 +116,14 @@ describe('applications documentation', () => {
 				);
 				const element = parseHtml(response.text);
 
-				expect(element.innerHTML).toMatchSnapshot();
-				expect(element.innerHTML).toContain('Showing 31 - 60 document');
-			});
-
-			it('should render the page with custom pagination if there is data in the session', async () => {
-				await request.get(`${baseUrl}/project-documentation/21/sub-folder-level2?number=1&size=30`);
-
-				const response = await request.get(`${baseUrl}/project-documentation/21/sub-folder-level2`);
-
-				const element = parseHtml(response.text);
-
-				expect(element.innerHTML).toMatchSnapshot();
-				expect(element.innerHTML).toContain('Showing 1 - 30 document');
-			});
+			expect(element.innerHTML).toMatchSnapshot();
+			expect(element.innerHTML).toContain('Showing 31 - 60 document');
 		});
 	});
 
 	describe('GET /case/123/project-documentation/21/sub-folder-level2/upload', () => {
 		beforeEach(async () => {
-			nocks('case-officer');
-			await request.get('/applications-service/case-officer');
+			nocks();
 		});
 
 		it('should render the page', async () => {
