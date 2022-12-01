@@ -3057,7 +3057,6 @@ exports[`applications documentation GET /case/123/project-documentation/21/sub-f
                     href=\\"/applications-service/case/123/project-documentation/21/sub-folder-level-2/upload\\"> Upload files</a>
                 </div>
             </div>
-            <hr class=\\"govuk-section-break govuk-section-break--l govuk-section-break--visible\\">
         </div>
     </div>
 </main>"
@@ -3119,7 +3118,6 @@ exports[`applications documentation GET /case/123/project-documentation/21/sub-f
                     <p class=\\"govuk-body\\">This folder contains 123 document(s).</p>
                 </div>
             </div>
-            <hr class=\\"govuk-section-break govuk-section-break--l govuk-section-break--visible\\">
         </div>
     </div>
 </main>"
