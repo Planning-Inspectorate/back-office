@@ -6,6 +6,7 @@
         "node": ">=16.14.0"
     },
     "description": "Sends documents to be checked by anti-virus",
+    "type": "module",
     "scripts": {
         "start": "func start",
         "test": "cross-env NODE_ENV=test ava"
