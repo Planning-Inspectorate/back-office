@@ -62,20 +62,20 @@
 		<form class="pins-files-list" method="post">
 			<div class="govuk-grid-row display--flex">
 				<div class="govuk-grid-column-two-thirds">
-					<div class="pins-files-list--statuses">
+					<div class="pins-files-list__statuses">
 						<p class="govuk-heading-s">Statuses</p>
 
 						{{ govukButton({ text: 'Apply changes' }) }}
 					</div>
 				</div>
 				<div class="govuk-grid-column-one-third">
-					<div class="pins-files-list--actions">
+					<div class="pins-files-list__actions">
 						<p class="govuk-heading-s">Document actions</p>
 					</div>
 				</div>
 			</div>
 
-			<div class="pins-files-list--info govuk-body">
+			<div class="pins-files-list__info govuk-body">
 				<p class="govuk-heading-s">Select documents to make changes to statuses</p>
 				<div class="pagination-info">
 					<p>This folder contains {{ documentationFiles.itemCount }} document(s).
@@ -98,7 +98,7 @@
 				</p>
 			</div>
 
-			<table class="govuk-table pins-files-list--table pins-table">
+			<table class="govuk-table pins-files-list__table pins-table">
 				<thead class="govuk-table__head govuk-body-s">
 				<tr class="govuk-table__row">
 					<th scope="col" class="govuk-table__header">Select</th>
