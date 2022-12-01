@@ -1,5 +1,9 @@
 import { sortBy } from 'lodash-es';
 import {
+	getSessionFilesNumberOnList,
+	setSessionFilesNumberOnList
+} from '../../../lib/services/session.service.js';
+import {
 	getCaseDocumentationFilesInFolder,
 	getCaseFolders
 } from './applications-documentation.service.js';
@@ -30,8 +34,15 @@ export async function viewApplicationsCaseDocumentationCategories(request, respo
  */
 export async function viewApplicationsCaseDocumentationFolder(request, response) {
 	const { caseId, folderId } = response.locals;
-	const size = Number.parseInt(request.query?.size ? request.query.size : '50', 10);
 	const number = Number.parseInt(request.query.number || '1', 10);
+	const sizeInSession = getSessionFilesNumberOnList(request.session);
+	const sizeInQuery =
+		request.query?.size && !Number.isNaN(Number.parseInt(request.query.size, 10))
+			? Number.parseInt(request.query.size, 10)
+			: null;
+	const size = sizeInQuery || sizeInSession || 50;
+
+	setSessionFilesNumberOnList(request.session, size);
 
 	// get all the sub folders in this folder
 	const subFoldersUnordered = await getCaseFolders(caseId, folderId);
