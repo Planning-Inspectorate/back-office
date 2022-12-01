@@ -142,7 +142,7 @@ extends:
         steps:
           - template: ../steps/function_app_validate.yml@templates
             parameters:
-              nodeVersion: 14
+              nodeVersion: 16
               workingDirectory: $(Build.Repository.LocalPath)/apps/document-check-function
       - name: Build Web
         condition: >-
