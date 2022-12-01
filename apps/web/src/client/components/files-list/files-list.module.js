@@ -4,6 +4,8 @@ const fileCheckBoxes = document.querySelectorAll('input[name="selectedFilesIds"]
 const selectAllCheckBox = document.querySelector('input[name="selectAll"]');
 /** @type {HTMLElement | null} */
 const pageSizeSelect = document.querySelector('select[name="pageSize"]');
+/** @type {HTMLElement | null} */
+const selectedFilesNumber = document.querySelector('#selectedFilesNumber');
 
 const initFilesListModule = () => {
 	if (!selectAllCheckBox || fileCheckBoxes.length === 0 || !pageSizeSelect) return;
@@ -41,14 +43,11 @@ const changePageSize = (changeEvent) => {
  *
  */
 const updateSelectedFilesCounter = () => {
-	/** @type {HTMLElement | null} */
-	const selectedFilesNumber = document.querySelector('#selectedFilesNumber');
+	if (!selectedFilesNumber) return;
 
-	if (selectedFilesNumber) {
-		const checkedFiles = document.querySelectorAll('input[name="selectedFilesIds"]:checked');
+	const checkedFiles = document.querySelectorAll('input[name="selectedFilesIds"]:checked');
 
-		selectedFilesNumber.textContent = `${(checkedFiles || []).length}`;
-	}
+	selectedFilesNumber.textContent = `${(checkedFiles || []).length}`;
 };
 
 export default initFilesListModule;

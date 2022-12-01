@@ -2,6 +2,7 @@
  * @typedef {import('express-session').Session & { caseSectorName?: string }} SessionWithCaseSectorName
  * @typedef {import('express-session').Session & { caseHasNeverBeenResumed?: boolean }} SessionWithCaseHasNeverBeenResumed
  * @typedef {import('express-session').Session & { infoTypes?: string[] }} SessionWithApplicationsCreateApplicantInfoTypes
+ * @typedef {import('express-session').Session & { filesNumberOnList?: number }} SessionWithFilesNumberOnList
  */
 
 // Applicant session management
@@ -98,4 +99,27 @@ export const getSessionCaseHasNeverBeenResumed = (session) => {
  */
 export const destroySessionCaseHasNeverBeenResumed = (session) => {
 	delete session.caseHasNeverBeenResumed;
+};
+
+// Files list
+
+/**
+ * Save in the session whether is the first time filling the form or it has been resumed.
+ *
+ * @param {SessionWithFilesNumberOnList} session
+ * @param {number} newFilesNumberOnList
+ * @returns {void}
+ */
+export const setSessionFilesNumberOnList = (session, newFilesNumberOnList) => {
+	session.filesNumberOnList = newFilesNumberOnList;
+};
+
+/**
+ * Retrieve the session info about the form being resumed or not.
+ *
+ * @param {SessionWithFilesNumberOnList} session
+ * @returns {number|undefined}
+ */
+export const getSessionFilesNumberOnList = (session) => {
+	return session.filesNumberOnList;
 };
