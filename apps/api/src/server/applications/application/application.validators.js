@@ -6,6 +6,7 @@ import {
 	validationErrorHandlerMissing
 } from '../../middleware/error-handler.js';
 import * as caseRepository from '../../repositories/case.repository.js';
+import * as documentRepository from '../../repositories/document.repository.js';
 import * as folderRepository from '../../repositories/folder.repository.js';
 import * as regionRepository from '../../repositories/region.repository.js';
 import * as serviceCustomerRepository from '../../repositories/service-customer.repository.js';
@@ -76,6 +77,26 @@ const validateExistingMapZoomLevel = async (value) => {
 
 	if (mapZoomLevel == null) {
 		throw new Error('Unknown map zoom level');
+	}
+};
+
+/**
+ * @param {string} value
+ * @param {{req: any}} param1
+ */
+const validateDocumentGUIDbelongsToCase = async (value, { req }) => {
+	const documentGUID = await documentRepository.getByDocumentGUID(value);
+
+	if (documentGUID === null || typeof documentGUID === 'undefined') {
+		throw new Error('DocumentGUID must exist in database');
+	}
+
+	const getCaseById = await folderRepository.getById(documentGUID.folderId);
+
+	const caseId = getCaseById?.caseId;
+
+	if (Number.parseInt(req.params.caseId, 10) !== caseId) {
+		throw new Error('GUID must belong to correct case');
 	}
 };
 
@@ -224,5 +245,17 @@ export const validateFolderIds = composeMiddleware(
 		.toInt()
 		.custom(validateFolderBelongsToCase)
 		.withMessage('Folder must belong to case'),
+	validationErrorHandler
+);
+
+export const validateDocumentGUID = composeMiddleware(
+	param('documentGUID')
+		.custom(validateDocumentGUIDbelongsToCase)
+		.withMessage('Document must have correct GUID'),
+	validationErrorHandler
+);
+
+export const validateMachineAction = composeMiddleware(
+	body('machineAction').optional({ nullable: false }),
 	validationErrorHandler
 );
