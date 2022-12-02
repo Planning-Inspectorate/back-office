@@ -196,10 +196,18 @@
 											}) }}
 										</td>
 										<td class="govuk-table__cell">
-											<a class="govuk-link govuk-body-s govuk-!-font-weight-bold"
-											   href="{{ documentationFile.url }}">
-												{{ documentationFile.documentName }}
-											</a>
+											{# TODO: still uncertain how the API will return the types
+											so probably a literal == will need to be changed later #}
+											{% if documentationFile.type === 'PDF' or documentationFile.type === 'JPEG' or documentationFile.type === 'JPG' or documentationFile.type === 'PNG' %}
+												<a class="govuk-link govuk-body-s govuk-!-font-weight-bold"
+												   href="{{ documentationFile.url }}">
+													{{ documentationFile.documentName }}
+												</a>
+											{% else %}
+												<p class="govuk-body-s govuk-!-font-weight-bold">
+													{{ documentationFile.documentName }}
+												</p>
+											{% endif %}
 											<p class="file-info colour--secondary">
 												From: {{ documentationFile.from }}
 											</p>
@@ -231,23 +239,21 @@
 	</div>
 {% endblock %}
 
-<!--
-	// TODO: this should be a filter but the actual values
-	// returned by the API are still uncertain and potentially
-	// none of this would be useful
-	-->
+{# TODO: this should be a filter but the actual values
+returned by the API are still uncertain and potentially
+none of this would be useful #}
 {% macro documentStatusName(status) %}
 	{% set statuName = '' %}
 
 	{% switch (status) %}
 	{% case 'checked' %}
-	{% set statuName = 'Checked' %}
+		{% set statuName = 'Checked' %}
 	{% case 'unchecked' %}
-	{% set statuName = 'Unchecked' %}
+		{% set statuName = 'Unchecked' %}
 	{% case 'ready-to-publish' %}
-	{% set statuName = 'Ready to publish' %}
+		{% set statuName = 'Ready to publish' %}
 	{% case 'do-not-publish' %}
-	{% set statuName = 'Do not publish' %}
+		{% set statuName = 'Do not publish' %}
 	{% endswitch %}
 
 	{{ statuName }}
