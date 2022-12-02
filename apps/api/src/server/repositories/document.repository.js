@@ -27,3 +27,25 @@ export const update = (documentGuid, documentDetails) => {
 		data: documentDetails
 	});
 };
+
+/**
+ *
+ * @param {string} documentGUID
+ * @returns {import('@prisma/client').PrismaPromise<import('@pins/api').Schema.Document | null>}
+ */
+export const getByDocumentGUID = (documentGUID) => {
+	return databaseConnector.document.findUnique({
+		where: { guid: documentGUID }
+	});
+};
+
+/**
+ * @param {{guid: string, status: import('xstate').StateValue }} documentStatusUpdate
+ * @returns {import('@prisma/client').PrismaPromise<import('@pins/api').Schema.Document>}
+ */
+export const updateDocumentStatus = ({ guid, status }) => {
+	return databaseConnector.document.update({
+		where: { guid },
+		data: { status }
+	});
+};
