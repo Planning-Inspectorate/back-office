@@ -33,6 +33,9 @@ export function createDocumentationFile({
 		startOffset: createUniqueRandomNumberFromSeed(5, 20, uniqueSeed)
 	})}`;
 	const type = ['DOC', 'PDF', 'JPG', 'MP3'][createUniqueRandomNumberFromSeed(0, 4, uniqueSeed)];
+	const status = ['checked', 'unchecked', 'ready-to-publish', 'do-not-publish'][
+		createUniqueRandomNumberFromSeed(0, 4, uniqueSeed)
+		];
 
 	return {
 		guid,
@@ -42,7 +45,7 @@ export function createDocumentationFile({
 		date,
 		size,
 		type,
-		status: 'checked',
+		status,
 		isRedacted
 	};
 }

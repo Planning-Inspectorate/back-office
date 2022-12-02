@@ -7,6 +7,7 @@
 {% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
 {% from "govuk/components/accordion/macro.njk" import govukAccordion %}
 {% from "govuk/components/table/macro.njk" import govukTable %}
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
 
 
 {% block beforeContent %}{% endblock %}
@@ -19,21 +20,9 @@
 					classes: 'govuk-!-margin-top-0',
 					items: breadcrumbItems
 				}) }}
-{% block pageContent %}
-<div class="govuk-grid-row">
-	{% block sectionMenu %}{% endblock %}
-	<div class="govuk-grid-column-full">
-		{% block sectionContent %}
-		{{ govukBreadcrumbs({
-			classes: 'govuk-!-margin-top-0',
-			items: breadcrumbItems
-		}) }}
 
+				<h2 class="govuk-heading-l">{{ currentFolder.displayNameEn }}</h2>
 
-		<h2 class="govuk-heading-l">{{ currentFolder.displayNameEn }}</h2>
-
-		<div class="pins-dashboard-list--hide-controls">
-			<h2 class="govuk-heading-l">{{ currentFolder.displayNameEn }} folder</h2>
 				<div class="pins-dashboard-list--hide-controls">
 					<h2 class="govuk-heading-l">{{ currentFolder.displayNameEn }} folder</h2>
 
@@ -79,13 +68,66 @@
 								<div class="govuk-grid-column-two-thirds">
 									<div class="pins-files-list__statuses">
 										<p class="govuk-heading-s">Statuses</p>
-
-										{{ govukButton({ text: 'Apply changes' }) }}
+										<div class="govuk-grid-row">
+											<div>{{ govukRadios({
+													name: "isRedacted",
+													fieldset: {
+														legend: {
+															text: "Redaction"
+														}
+													},
+													items: [
+														{
+															value: 0,
+															text: "Unredacted"
+														},
+														{
+															value: 1,
+															text: "Redacted"
+														}
+													]
+												}) }}</div>
+											<div>{{ govukRadios({
+													name: "status",
+													fieldset: {
+														legend: {
+															text: "Status"
+														}
+													},
+													items: [
+														{
+															value: 'checked',
+															text: "Not checked"
+														},
+														{
+															value: 'not-checked',
+															text: "Checked"
+														},
+														{
+															value: 'ready-to-publish',
+															text: "Ready to publish"
+														},
+														{
+															value: 'do-not-publish',
+															text: "Do not publish"
+														}
+													]
+												}) }}</div>
+											<div>
+												{{ govukButton({ text: 'Apply changes' }) }}
+												<a href="." class="govuk-link govuk-link--no-visited-state">Clear selected</a>
+											</div>
+										</div>
 									</div>
 								</div>
 								<div class="govuk-grid-column-one-third">
 									<div class="pins-files-list__actions">
 										<p class="govuk-heading-s">Document actions</p>
+										<a href="1" class="govuk-link">Download selected</a>
+										<a href="2" class="govuk-link">Edit properties</a>
+										<a href="3" class="govuk-link">Publish selected</a>
+										<a href="4" class="govuk-link">Unpublish selected</a>
+										<a href="5" class="govuk-link">Move selected</a>
 									</div>
 								</div>
 							</div>
@@ -168,7 +210,7 @@
 										</td>
 										<td class="govuk-table__cell">{{ documentationFile.date|datestamp({format: 'dd/MM/yyyy'}) }}</td>
 										<td class="govuk-table__cell">{{ 'Redacted' if  documentationFile.isRedacted else 'Unredacted' }}</td>
-										<td class="govuk-table__cell">{{ 'Checked' if  documentationFile.isChecked else 'Not checked' }}</td>
+										<td class="govuk-table__cell">{{ documentStatusName(documentationFile.status) }}</td>
 										<td class="govuk-table__cell">
 											<a class="govuk-link govuk-body-s" href="{{ documentationFile.url }}/edit">View/Edit
 												properties</a>
@@ -188,3 +230,26 @@
 		</div>
 	</div>
 {% endblock %}
+
+<!--
+	// TODO: this should be a filter but the actual values
+	// returned by the API are still uncertain and potentially
+	// none of this would be useful
+	-->
+{% macro documentStatusName(status) %}
+	{% set statuName = '' %}
+
+	{% switch (status) %}
+	{% case 'checked' %}
+	{% set statuName = 'Checked' %}
+	{% case 'unchecked' %}
+	{% set statuName = 'Unchecked' %}
+	{% case 'ready-to-publish' %}
+	{% set statuName = 'Ready to publish' %}
+	{% case 'do-not-publish' %}
+	{% set statuName = 'Do not publish' %}
+	{% endswitch %}
+
+	{{ statuName }}
+{% endmacro %}
+
