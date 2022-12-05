@@ -4,9 +4,14 @@ import * as documentRepository from '../../repositories/document.repository.js';
 import * as folderRepository from '../../repositories/folder.repository.js';
 import { getStorageLocation } from '../../utils/document-storage-api-client.js';
 import { mapCaseStatusString } from '../../utils/mapping/map-case-status-string.js';
-import { transitionState } from '../../utils/transition-state.js';
 import { mapCreateApplicationRequestToRepository } from './application.mapper.js';
-import { getCaseDetails, startApplication } from './application.service.js';
+import {
+	formatResponseBody,
+	getCaseDetails,
+	nextStatusInDocumentStateMachine,
+	startApplication,
+	updatedDocumentStatusResponse as updatedDocumentStatusInTable
+} from './application.service.js';
 /**
  *
  * @param {import('@pins/api').Schema.ServiceCustomer[] | undefined} serviceCustomers
@@ -139,26 +144,21 @@ export const provideDocumentUploadURLs = async ({ params, body }, response) => {
  * @type {import('express').RequestHandler<{caseId: string, documentGUID: string }, ?, import('@pins/applications').UpdateDocumentStatus>}
  */
 export const updateDocumentStatus = async ({ params, body }, response) => {
-	const getDocumentDetails = await documentRepository.getByDocumentGUID(params.documentGUID);
+	const documentDetails = await documentRepository.getByDocumentGUID(params.documentGUID);
 
-	const getCaseById = await folderRepository.getById(getDocumentDetails?.folderId);
+	const caseIdFromFolderRepository = await folderRepository.getById(documentDetails?.folderId);
 
-	const caseId = getCaseById?.caseId;
+	const caseId = caseIdFromFolderRepository?.caseId;
 
-	const nextStatusInDocumentStateMachine = transitionState({
-		caseType: 'document',
-		status: getDocumentDetails?.status,
-		machineAction: body.machineAction,
-		context: {},
-		throwError: true
-	});
+	const nextStatus = nextStatusInDocumentStateMachine(documentDetails?.status, body.machineAction);
 
-	const updatedDocumentStatus = nextStatusInDocumentStateMachine.value;
+	const updateResponseInTable = await updatedDocumentStatusInTable(params.documentGUID, nextStatus);
 
-	const updateResponse = await documentRepository.updateDocumentStatus({
-		guid: params.documentGUID,
-		status: updatedDocumentStatus
-	});
+	const formattedResponse = formatResponseBody(
+		caseId,
+		updateResponseInTable.guid,
+		updateResponseInTable.status
+	);
 
-	response.send({ caseId, guid: updateResponse.guid, status: updateResponse.status });
+	response.send(formattedResponse);
 };

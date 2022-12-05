@@ -82,16 +82,23 @@ const validateExistingMapZoomLevel = async (value) => {
 
 /**
  * @param {string} value
- * @param {{req: any}} param1
  */
-const validateDocumentGUIDbelongsToCase = async (value, { req }) => {
+const validateDocumentGUIDExistsInTable = async (value) => {
 	const documentGUID = await documentRepository.getByDocumentGUID(value);
 
 	if (documentGUID === null || typeof documentGUID === 'undefined') {
 		throw new Error('DocumentGUID must exist in database');
 	}
+};
 
-	const getCaseById = await folderRepository.getById(documentGUID.folderId);
+/**
+ * @param {string} value
+ * @param {{req: number | any}} param1
+ */
+const validateDocumentGUIDBelongsToCase = async (value, { req }) => {
+	const documentGUID = await documentRepository.getByDocumentGUID(value);
+
+	const getCaseById = await folderRepository.getById(documentGUID?.folderId);
 
 	const caseId = getCaseById?.caseId;
 
@@ -250,12 +257,14 @@ export const validateFolderIds = composeMiddleware(
 
 export const validateDocumentGUID = composeMiddleware(
 	param('documentGUID')
-		.custom(validateDocumentGUIDbelongsToCase)
-		.withMessage('Document must have correct GUID'),
+		.custom(validateDocumentGUIDExistsInTable)
+		.withMessage('DocumentGUID must exist in database')
+		.custom(validateDocumentGUIDBelongsToCase)
+		.withMessage('GUID must belong to correct case'),
 	validationErrorHandler
 );
 
 export const validateMachineAction = composeMiddleware(
-	body('machineAction').optional({ nullable: false }),
+	body('machineAction'),
 	validationErrorHandler
 );
