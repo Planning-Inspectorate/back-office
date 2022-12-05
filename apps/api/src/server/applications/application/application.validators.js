@@ -93,7 +93,7 @@ const validateDocumentGUIDExistsInTable = async (value) => {
 
 /**
  * @param {string} value
- * @param {{req: number | any}} param1
+ * @param {import('express-validator').Meta} meta
  */
 const validateDocumentGUIDBelongsToCase = async (value, { req }) => {
 	const documentGUID = await documentRepository.getByDocumentGUID(value);
@@ -102,7 +102,7 @@ const validateDocumentGUIDBelongsToCase = async (value, { req }) => {
 
 	const caseId = getCaseById?.caseId;
 
-	if (Number.parseInt(req.params.caseId, 10) !== caseId) {
+	if (Number.parseInt(req.params?.caseId, 10) !== caseId) {
 		throw new Error('GUID must belong to correct case');
 	}
 };
@@ -231,9 +231,8 @@ export const validateDocumentsToUploadProvided = composeMiddleware(
 );
 
 /**
- *
  * @param {number} value
- * @param {{req: any}} param1
+ * @param {import('express-validator').Meta} meta
  */
 const validateFolderBelongsToCase = async (value, { req }) => {
 	const folder = await folderRepository.getById(value);
@@ -242,7 +241,7 @@ const validateFolderBelongsToCase = async (value, { req }) => {
 		throw new Error('Folder must exist in database');
 	}
 
-	if (folder.caseId !== req.params.id) {
+	if (folder.caseId !== req.params?.id) {
 		throw new Error('Folder does not belong to case');
 	}
 };
