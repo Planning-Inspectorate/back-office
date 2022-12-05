@@ -265,6 +265,6 @@ export const validateDocumentGUID = composeMiddleware(
 );
 
 export const validateMachineAction = composeMiddleware(
-	body('machineAction'),
+	body('machineAction').exists().withMessage('Please provide a value for machine action'),
 	validationErrorHandler
 );
