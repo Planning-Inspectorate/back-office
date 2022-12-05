@@ -34,7 +34,7 @@ export async function viewApplicationsCaseDocumentationFolder(request, response)
 	const subFoldersUnordered = await getCaseFolders(caseId, folderId);
 	const subFolders = sortBy(subFoldersUnordered, ['displayOrder']);
 
-	// TODO: get all the files in this folder
+	// get all the files in this folder
 	const documentationFiles = await getCaseDocumentationFilesInFolder(caseId, folderId);
 
 	/** @type { DocumentationPageProps }  */

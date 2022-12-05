@@ -8,7 +8,6 @@ import {
 /**
  * @typedef {import('../../applications.types').Case} Case
  * @typedef {import('../../applications.types').DocumentationCategory} DocumentationCategory
- * @typedef {import('../../applications.types').DocumentationFile} DocumentationFile
  * @typedef {import('express-session').Session & { caseSectorName?: string }} SessionWithCaseSectorName
  * @typedef {import('@pins/express').ValidationErrors} ValidationErrors
  */

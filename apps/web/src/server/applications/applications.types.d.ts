@@ -91,6 +91,7 @@ export interface CaseCreateProps<BodyValues> {
 }
 
 export interface DocumentationFile {
-	fileName: string;
-	url: string;
+	guid: string;
+	documentName: string;
+	status: string;
 }

@@ -52,17 +52,6 @@ export const getCaseDocumentationFolderPath = (caseId, folderId) => {
  * @param {number} folderId
  * @returns {Promise<DocumentationFile[]>}
  */
-export const getCaseDocumentationFilesInFolder = (caseId, folderId) => {
-	// TODO: Mock Version - to be replaced when API to get documents exists:
-	/** @type {DocumentationFile[] } */
-	const documentationFiles = [];
-
-	if (caseId && folderId) {
-		// TODO: get documents in this folder
-		// documentationFiles = [{ fileName: 'sitting-1.png', url: '#' }];
-	}
-
-	return new Promise((resolve) => {
-		setTimeout(() => resolve(documentationFiles), 200);
-	});
+export const getCaseDocumentationFilesInFolder = async (caseId, folderId) => {
+	return get(`applications/${caseId}/folders/${folderId}/documents`);
 };
