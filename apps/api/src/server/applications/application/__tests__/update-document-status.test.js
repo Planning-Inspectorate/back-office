@@ -119,7 +119,7 @@ test("throws errorr if incorrect machine action given the document's current sta
 	});
 });
 
-test.only('throws error if no machine action provided', async (t) => {
+test('throws error if no machine action provided', async (t) => {
 	const response = await request.patch('/applications/1/documents/D1234/status').send();
 
 	t.is(response.status, 400);

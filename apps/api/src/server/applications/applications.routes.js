@@ -178,7 +178,7 @@ router.patch(
 	'/:caseId/documents/:documentGUID/status',
 	/*
         #swagger.tags = ['Applications']
-        #swagger.path = '/:caseId/documents/:documentGUID/status'
+        #swagger.path =  'applications/{caseId}/documents/{documentGUID}/status'
         #swagger.description = 'Updates document status from state machine'
         #swagger.parameters['caseId'] = {
             in: 'path',
