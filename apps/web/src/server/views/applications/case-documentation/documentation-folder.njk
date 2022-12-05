@@ -51,12 +51,12 @@
 	{% endif %}
 
 	<h2 class="govuk-heading-m">Documents</h2>
-	<!-- TODO: loop to display files in this folder -->
+	<!-- loop to display files in this folder -->
 	{% if documentationFiles |length %}
 		{% for documentationFile in documentationFiles %}
 			<div class="govuk-grid-row govuk-grid-column-full">
-				<a class="govuk-link govuk-body-s govuk-!-font-weight-bold" href={{ documentationFile.url }}>
-					{{ documentationFile.fileName }}
+				<a class="govuk-link govuk-body-s govuk-!-font-weight-bold" href='#'>
+					{{ documentationFile.documentName }}
 				</a>
 			</div>
 		{% endfor %}
