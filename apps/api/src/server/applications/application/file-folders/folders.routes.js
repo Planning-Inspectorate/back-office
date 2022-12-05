@@ -122,7 +122,7 @@ router.get(
 	'/:id/folders/:folderId/documents',
 	/*
         #swagger.tags = ['Applications']
-        #swagger.path = '/applications/{id}/folders/{folderId}/parent-folders'
+        #swagger.path = '/applications/{id}/folders/{folderId}/documents'
         #swagger.description = 'Gets all documents in folder on a case'
         #swagger.parameters['id'] = {
             in: 'path',
@@ -138,8 +138,8 @@ router.get(
 		}
         #swagger.responses[200] = {
             description: 'array of documents',
-            schema: [ { "guid": "1111-1111-1111", "name": "David Doc 1", "folderId": 885, "blobStorageContainer": "xxx", "blobStoragePath": "yyy", "status": "unchecked" },
-					  { "guid": "1234-5678-1234", "name": "David Doc 2", "folderId": 885, "blobStorageContainer": "xxx", "blobStoragePath": "zzz", "status": "unchecked" },
+            schema: [ { "guid": "1111-1111-1111", "documentName": "David Doc 1", "status": "unchecked" },
+					  { "guid": "1234-5678-1234", "documentName": "David Doc 2", "status": "unchecked" },
 		 	]
         }
     */

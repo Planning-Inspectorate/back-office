@@ -33,7 +33,7 @@ export const getFolderPathList = async ({ params }, response) => {
 /**
  * Gets all the documents in a folder
  *
- * @type {import('express').RequestHandler<{ id: number, folderId: number }, ?, ?, any>}
+ * @type {import('express').RequestHandler<{ folderId: number }, ?, ?, any>}
  */
 export const getDocuments = async ({ params }, response) => {
 	const documents = await getDocumentsInFolder(params.folderId);
