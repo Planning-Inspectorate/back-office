@@ -651,6 +651,56 @@
 				}
 			}
 		},
+		"/applications/{id}/folders/{folderId}/documents": {
+			"get": {
+				"tags": ["Applications"],
+				"description": "Gets all documents in folder on a case",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"type": "integer",
+						"description": "Application ID here"
+					},
+					{
+						"name": "folderId",
+						"in": "path",
+						"required": true,
+						"type": "integer",
+						"description": "Id of current folder here"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "array of documents",
+						"schema": {
+							"type": "array",
+							"items": {
+								"type": "object",
+								"properties": {
+									"guid": {
+										"type": "string",
+										"example": "1234-5678-1234"
+									},
+									"documentName": {
+										"type": "string",
+										"example": "David Doc 2"
+									},
+									"status": {
+										"type": "string",
+										"example": "unchecked"
+									}
+								}
+							},
+							"xml": {
+								"name": "main"
+							}
+						}
+					}
+				}
+			}
+		},
 		"/applications": {
 			"post": {
 				"tags": ["Applications"],
