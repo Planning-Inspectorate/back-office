@@ -1,23 +1,20 @@
-import NodeClam from 'clamscan';
+const NodeClam = require('clamscan');
 
-/**
- *
- * @param {any} context
- * @param {any} myBlob
- */
-export default async (context, myBlob) => {
-	const ClamScan = new NodeClam().init({
+module.exports = async function (context, myBlob) {
+	context.log('JavaScript trigger function processed a request.');
+
+	const clamScan = await new NodeClam().init({
 		debugMode: true,
 		clamdscan: {
-			// TODO: use env var here
-			host: 'pins-app-clamav-dev-ukw-001.azurewebsites.net',
+			path: 'localhost',
 			port: 3310
 		}
 	});
 
-	ClamScan.then(async (cs) => {
-		const result = await cs.scanStream(myBlob);
+	context.log('Connected!');
 
-		context.log(result);
-	});
+	const response = await clamScan.scanStream(myBlob);
+
+	context.log('Scanned!');
+	context.log(response);
 };
