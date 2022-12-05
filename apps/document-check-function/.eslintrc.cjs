@@ -12,7 +12,8 @@ module.exports = {
             files: ['*'],
             rules: {
                 'unicorn/prefer-module': 'off',
-                'n/no-missing-require': 'off'
+                'n/no-missing-require': 'off',
+                'n/no-extraneous-import': 'off'
             }
         }
 	]

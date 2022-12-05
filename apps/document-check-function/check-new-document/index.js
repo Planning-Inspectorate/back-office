@@ -1,20 +1,35 @@
-const NodeClam = require('clamscan');
+// import fs from 'node:fs';
+import { sendDocumentStateAction } from './back-office-api-client.js';
+import { scanStream } from './clam-av-client.js';
 
-module.exports = async function (context, myBlob) {
-	context.log('JavaScript trigger function processed a request.');
-
-	const clamScan = await new NodeClam().init({
-		debugMode: true,
-		clamdscan: {
-			path: 'localhost',
-			port: 3310
-		}
-	});
-
-	context.log('Connected!');
-
-	const response = await clamScan.scanStream(myBlob);
-
-	context.log('Scanned!');
-	context.log(response);
+/**
+ * @param {boolean} isInfected
+ * @returns {string}
+ */
+const mapIsInfectedToMachineAction = (isInfected) => {
+	return isInfected ? 'failed' : 'passed';
 };
+
+/**
+ * @param {string} blobUri
+ * @returns {{caseId: string, guid: string}}
+ */
+const getBlobCaseIdAndGuid = (blobUri) => {
+	const uriParts = blobUri.split('/');
+
+	return { caseId: uriParts[1], guid: uriParts[2] };
+};
+
+/**
+ * @param {{bindingData: {uri: string}}} context
+ * @param {import('node:stream').Readable} myBlob
+ */
+export const checkMyBlob = async (context, myBlob) => {
+	const isInfected = await scanStream(myBlob);
+	const machineAction = mapIsInfectedToMachineAction(isInfected);
+	const { caseId, guid } = getBlobCaseIdAndGuid(context.bindingData.uri);
+
+	await sendDocumentStateAction(guid, caseId, machineAction);
+};
+// const file = await fs.createReadStream("package.json");
+// test({bindingData: {uri: 'applications/1/1-2-3'}}, file);
