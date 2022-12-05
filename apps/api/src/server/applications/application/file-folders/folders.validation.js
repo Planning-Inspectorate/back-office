@@ -20,17 +20,6 @@ const validateExistingFolderBelongsToCase = async (value, { req }) => {
 	}
 };
 
-export const validateOptionalFolderId = composeMiddleware(
-	param('folderId')
-		.isInt()
-		.toInt()
-		.withMessage('Folder id must be a valid numerical value')
-		.custom(validateExistingFolderBelongsToCase)
-		.withMessage('Must be an existing folder that belongs to this case')
-		.optional({ nullable: true, checkFalsy: true }),
-	validationErrorHandler
-);
-
 export const validateFolderId = composeMiddleware(
 	param('folderId')
 		.isInt()
