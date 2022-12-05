@@ -153,6 +153,9 @@ test('returns 400 error if sub folder id is not a folder on a case', async (t) =
 	const response = await request.get('/applications/1/folders/1000/sub-folders');
 
 	t.is(response.status, 400);
+	t.deepEqual(response.body, {
+		errors: { folderId: 'Must be an existing folder that belongs to this case' }
+	});
 });
 
 // File tests
@@ -160,18 +163,27 @@ test('returns 400 error getting documents if sub folder id is not a folder on a 
 	const response = await request.get('/applications/1/folders/1000/documents');
 
 	t.is(response.status, 400);
+	t.deepEqual(response.body, {
+		errors: { folderId: 'Must be an existing folder that belongs to this case' }
+	});
 });
 
 test('returns 400 error getting documents if sub folder id is valid but not a folder on this case', async (t) => {
 	const response = await request.get('/applications/2/folders/201/documents');
 
 	t.is(response.status, 400);
+	t.deepEqual(response.body, {
+		errors: { folderId: 'Must be an existing folder that belongs to this case' }
+	});
 });
 
 test('returns 404 error getting documents if case does not exist', async (t) => {
 	const response = await request.get('/applications/1000/folders/1/documents');
 
 	t.is(response.status, 404);
+	t.deepEqual(response.body, {
+		errors: { id: 'Must be an existing application' }
+	});
 });
 
 test('returns documents in a folder on a case', async (t) => {
