@@ -7,7 +7,7 @@ import {
 	getListOfFolders,
 	getSingleFolder
 } from './folders.controller.js';
-import { validateFolderId, validateOptionalFolderId } from './folders.validation.js';
+import { validateFolderId } from './folders.validation.js';
 
 const router = createRouter();
 
@@ -56,7 +56,7 @@ router.get(
         }
     */
 	validateApplicationId,
-	validateOptionalFolderId,
+	validateFolderId,
 	asyncHandler(getListOfFolders)
 );
 
@@ -84,7 +84,7 @@ router.get(
         }
     */
 	validateApplicationId,
-	validateOptionalFolderId,
+	validateFolderId,
 	asyncHandler(getSingleFolder)
 );
 
@@ -114,7 +114,7 @@ router.get(
         }
     */
 	validateApplicationId,
-	validateOptionalFolderId,
+	validateFolderId,
 	asyncHandler(getFolderPathList)
 );
 
