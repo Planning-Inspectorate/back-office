@@ -74,7 +74,7 @@ export const getByDocumentGUID = (documentGUID) => {
 };
 
 /**
- * @param {{guid: string, status: import('xstate').StateValue }} documentStatusUpdate
+ * @param {{guid: string, status: string }} documentStatusUpdate
  * @returns {import('@prisma/client').PrismaPromise<import('@pins/api').Schema.Document>}
  */
 export const updateDocumentStatus = ({ guid, status }) => {
