@@ -289,7 +289,7 @@ export const getCaseDetails = async (id, query) => {
 
 /**
  *
- * @param {string | undefined } status
+ * @param {string | any } status
  * @param {string} machineAction
  * @returns {import('xstate').StateValue}
  */
