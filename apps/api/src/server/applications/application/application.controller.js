@@ -3,7 +3,6 @@ import { NSIP_PROJECT } from '../../infrastructure/topics.js';
 import { filter, head, map, pick } from 'lodash-es';
 import * as caseRepository from '../../repositories/case.repository.js';
 import * as documentRepository from '../../repositories/document.repository.js';
-import { updateDocumentStatus as updatedDocumentStatusInTable } from '../../repositories/document.repository.js';
 import * as folderRepository from '../../repositories/folder.repository.js';
 import { getStorageLocation } from '../../utils/document-storage-api-client.js';
 import logger from '../../utils/logger.js';
@@ -14,7 +13,8 @@ import {
 	formatResponseBody,
 	getCaseDetails,
 	nextStatusInDocumentStateMachine,
-	startApplication
+	startApplication,
+	updatedDocumentStatusResponse as updatedDocumentStatusInTable
 } from './application.service.js';
 /**
  *
@@ -156,20 +156,16 @@ export const provideDocumentUploadURLs = async ({ params, body }, response) => {
 };
 
 /**
- * @type {import('express').RequestHandler<{caseId: string, documentGUID: string }>}
+ * @type {import('express').RequestHandler<{caseId: string, documentGUID: string }, ?, import('@pins/applications').UpdateDocumentStatus>}
  */
 export const updateDocumentStatus = async ({ params, body }, response) => {
 	const documentDetails = await documentRepository.getByDocumentGUID(params.documentGUID);
 
-	const folderId = documentDetails?.folderId;
-
-	const caseIdFromFolderRepository = await folderRepository.getById(folderId);
+	const caseIdFromFolderRepository = await folderRepository.getById(documentDetails?.folderId);
 
 	const caseId = caseIdFromFolderRepository?.caseId;
 
-	const documentStatus = documentDetails?.status;
-
-	const nextStatus = nextStatusInDocumentStateMachine(documentStatus, body.machineAction);
+	const nextStatus = nextStatusInDocumentStateMachine(documentDetails?.status, body.machineAction);
 
 	const updateResponseInTable = await updatedDocumentStatusInTable(params.documentGUID, nextStatus);
 
