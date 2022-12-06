@@ -2,6 +2,7 @@ import { parseHtml } from '@pins/platform';
 import nock from 'nock';
 import supertest from 'supertest';
 import { fixtureCases } from '../../../../../../../testing/applications/fixtures/cases.js';
+import { fixtureDocumentationFiles } from '../../../../../../../testing/applications/fixtures/documentation-files.js';
 import {
 	fixtureDocumentationFolderPath,
 	fixtureDocumentationSingleFolder,
@@ -18,10 +19,7 @@ const nocks = (/** @type {string} */ domainType) => {
 	nock('http://test/').get('/applications/123').times(2).reply(200, fixtureCases[3]);
 	nock('http://test/')
 		.get('/applications/123/folders/21/documents')
-		.reply(200, [
-			{ guid: '1111-2222-0001', documentName: 'name1', status: 'unchecked' },
-			{ guid: '1111-2222-0002', documentName: 'name2', status: 'unchecked' }
-		]);
+		.reply(200, fixtureDocumentationFiles);
 	nock('http://test/')
 		.get('/applications/123/folders')
 		.reply(200, fixtureDocumentationTopLevelFolders);

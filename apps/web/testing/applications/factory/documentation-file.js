@@ -13,35 +13,36 @@ import {
  * @returns {DocumentationFile}
  */
 export function createDocumentationFile({
-	id = fake.createUniqueId(),
-	date = 1_669_916_924,
-	size = createUniqueRandomNumberFromSeed(100, 10_000_000, id),
-	isChecked = createUniqueRandomBooleanFromSeed(id),
-	isRedacted = createUniqueRandomBooleanFromSeed(id)
+	guid = `${fake.createUniqueId()}`,
+	date = 1_669_916_924
 } = {}) {
-	const fileName = `${id + 1} ${createRandomDescription({
-		wordsNumber: createUniqueRandomNumberFromSeed(2, 5, id),
-		startOffset: createUniqueRandomNumberFromSeed(0, 30, id)
+	const uniqueSeed = fake.createUniqueId();
+	const size = createUniqueRandomNumberFromSeed(100, 10_000_000, uniqueSeed);
+	const isRedacted = createUniqueRandomBooleanFromSeed(uniqueSeed);
+
+	const documentName = `${uniqueSeed + 1} ${createRandomDescription({
+		wordsNumber: createUniqueRandomNumberFromSeed(2, 5, uniqueSeed),
+		startOffset: createUniqueRandomNumberFromSeed(0, 30, uniqueSeed)
 	})}`;
-	const url = `url/to/file/${id}`;
+	const url = `url/to/file/${uniqueSeed}`;
 	const from = `${createRandomDescription({
 		wordsNumber: 1,
-		startOffset: createUniqueRandomNumberFromSeed(0, 30, id)
+		startOffset: createUniqueRandomNumberFromSeed(0, 30, uniqueSeed)
 	})} ${createRandomDescription({
 		wordsNumber: 1,
-		startOffset: createUniqueRandomNumberFromSeed(5, 20, id)
+		startOffset: createUniqueRandomNumberFromSeed(5, 20, uniqueSeed)
 	})}`;
-	const type = ['DOC', 'PDF', 'JPG', 'MP3'][createUniqueRandomNumberFromSeed(0, 4, id)];
+	const type = ['DOC', 'PDF', 'JPG', 'MP3'][createUniqueRandomNumberFromSeed(0, 4, uniqueSeed)];
 
 	return {
-		id,
-		fileName,
+		guid,
+		documentName,
 		url,
 		from,
 		date,
 		size,
 		type,
-		isChecked,
+		status: 'checked',
 		isRedacted
 	};
 }
