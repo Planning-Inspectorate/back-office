@@ -2,6 +2,7 @@ import { isArray, isEmpty, pick, pickBy } from 'lodash-es';
 import { eventClient } from '../../infrastructure/event-client.js';
 import { NSIP_PROJECT } from '../../infrastructure/topics.js';
 import * as caseRepository from '../../repositories/case.repository.js';
+import * as documentRepository from '../../repositories/document.repository.js';
 import * as folderRepository from '../../repositories/folder.repository.js';
 import { breakUpCompoundStatus } from '../../utils/break-up-compound-status.js';
 import { buildAppealCompundStatus } from '../../utils/build-appeal-compound-status.js';
@@ -205,4 +206,47 @@ export const getCaseDetails = async (id, query) => {
 	return typeof parsedQuery !== 'undefined'
 		? filterOutResponse(parsedQuery, applicationDetailsFormatted)
 		: applicationDetailsFormatted;
+};
+
+/**
+ *
+ * @param {string | undefined } status
+ * @param {string} machineAction
+ * @returns {import('xstate').StateValue}
+ */
+export const nextStatusInDocumentStateMachine = (status, machineAction) => {
+	const nextStatus = transitionState({
+		caseType: 'document',
+		status,
+		machineAction,
+		context: {},
+		throwError: true
+	});
+
+	return nextStatus.value;
+};
+
+/**
+ *
+ * @param {string | import('xstate').StateValue } status
+ * @param {string} guid
+ */
+export const updatedDocumentStatusResponse = async (guid, status) => {
+	const updatedResponse = await documentRepository.updateDocumentStatus({
+		guid,
+		status
+	});
+
+	return updatedResponse;
+};
+
+/**
+ *
+ * @param {number | any} caseId
+ * @param {string} guid
+ * @param {string} status
+ * @returns {object}
+ */
+export const formatResponseBody = (caseId, guid, status) => {
+	return { caseId, guid, status };
 };
