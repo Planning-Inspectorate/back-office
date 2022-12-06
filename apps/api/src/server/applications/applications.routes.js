@@ -6,15 +6,18 @@ import {
 	getApplicationDetails,
 	publishCase,
 	startCase,
-	updateApplication
+	updateApplication,
 } from './application/application.controller.js';
 import {
 	validateApplicantId,
 	validateApplicationId,
 	validateCreateUpdateApplication,
-	validateGetApplicationQuery
+	validateFolderIds,
+	validateGetApplicationQuery,
 } from './application/application.validators.js';
+import { provideDocumentUploadURLs } from './application/documents/document.controller.js';
 import { documentRoutes } from './application/documents/document.routes.js';
+import { validateDocumentsToUploadProvided } from './application/documents/document.validators.js';
 import { fileFoldersRoutes } from './application/file-folders/folders.routes.js';
 import { caseAdminOfficerRoutes } from './case-admin-officer/case-admin-officer.routes.js';
 import { caseOfficerRoutes } from './case-officer/case-officer.routes.js';
@@ -162,6 +165,64 @@ router.patch(
     */
 	validateApplicationId,
 	asyncHandler(publishCase)
+)
+
+router.post(
+	'/:id/documents',
+	/*
+        #swagger.tags = ['Applications']
+        #swagger.path = '/applications/{id}/documents'
+        #swagger.description = 'Saves new documents to database and returns location in Blob Storage'
+        #swagger.parameters['id'] = {
+            in: 'path',
+			description: 'Application ID here',
+			required: true,
+			type: 'integer'
+        }
+        #swagger.parameters['body'] = {
+            in: 'body',
+            description: 'Document Details',
+            schema: { $ref: '#/definitions/documentsToSave' }
+        }
+        #swagger.responses[200] = {
+            description: 'Documents that have been saved',
+            schema: { $ref: '#/definitions/documentsAndBlobStorageURLs' }
+        }
+	 */
+	validateApplicationId,
+	validateDocumentsToUploadProvided,
+	validateFolderIds,
+	trimUnexpectedRequestParameters,
+	asyncHandler(provideDocumentUploadURLs)
+);
+
+router.patch(
+	'/:caseId/documents/:documentGUID/status',
+	/*
+        #swagger.tags = ['Applications']
+        #swagger.path =  'applications/{caseId}/documents/{documentGUID}/status'
+        #swagger.description = 'Updates document status from state machine'
+        #swagger.parameters['caseId'] = {
+            in: 'path',
+			description: 'Case ID here',
+			required: true,
+			type: 'integer'
+        }
+        #swagger.parameters['documentGUID'] = {
+            in: 'path',
+            description: 'Document GUID',
+					required: true,
+			type: 'string'
+        }
+        #swagger.responses[200] = {
+            description: 'Document status updated',
+            schema: { caseId: 1, guid: 'DB0110203', status: 'not_yet_checked'}
+        }
+	 */
+	validateDocumentGUID,
+	validateMachineAction,
+	trimUnexpectedRequestParameters,
+	asyncHandler(updateDocumentStatus)
 );
 
 export { router as applicationsRoutes };
