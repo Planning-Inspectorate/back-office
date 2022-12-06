@@ -241,19 +241,19 @@
 returned by the API are still uncertain and potentially
 none of this would be useful #}
 {% macro documentStatusName(status) %}
-	{% set statuName = '' %}
+	{% set statusName = '' %}
 
 	{% switch (status) %}
 	{% case 'checked' %}
-		{% set statuName = 'Checked' %}
+		{% set statusName = 'Checked' %}
 	{% case 'unchecked' %}
-		{% set statuName = 'Unchecked' %}
+		{% set statusName = 'Unchecked' %}
 	{% case 'ready-to-publish' %}
-		{% set statuName = 'Ready to publish' %}
+		{% set statusName = 'Ready to publish' %}
 	{% case 'do-not-publish' %}
-		{% set statuName = 'Do not publish' %}
+		{% set statusName = 'Do not publish' %}
 	{% endswitch %}
 
-	{{ statuName }}
+	{{ statusName }}
 {% endmacro %}
 
