@@ -21,7 +21,7 @@ export const getByCaseId = (caseId, parentFolderId = null) => {
 /**
  * Returns a single folder on a case
  *
- * @param {number} folderId
+ * @param {number | any} folderId
  * @returns {Promise<Folder |null>}
  */
 export const getById = (folderId) => {

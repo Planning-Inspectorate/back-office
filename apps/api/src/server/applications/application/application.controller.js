@@ -153,16 +153,20 @@ export const provideDocumentUploadURLs = async ({ params, body }, response) => {
 };
 
 /**
- * @type {import('express').RequestHandler<{caseId: string, documentGUID: string }, ?, import('@pins/applications').UpdateDocumentStatus>}
+ * @type {import('express').RequestHandler<{caseId: string, documentGUID: string }>}
  */
 export const updateDocumentStatus = async ({ params, body }, response) => {
 	const documentDetails = await documentRepository.getByDocumentGUID(params.documentGUID);
 
-	const caseIdFromFolderRepository = await folderRepository.getById(documentDetails?.folderId);
+	const folderId = documentDetails?.folderId;
+
+	const caseIdFromFolderRepository = await folderRepository.getById(folderId);
 
 	const caseId = caseIdFromFolderRepository?.caseId;
 
-	const nextStatus = nextStatusInDocumentStateMachine(documentDetails?.status, body.machineAction);
+	const documentStatus = documentDetails?.status;
+
+	const nextStatus = nextStatusInDocumentStateMachine(documentStatus, body.machineAction);
 
 	const updateResponseInTable = await updatedDocumentStatusInTable(params.documentGUID, nextStatus);
 
