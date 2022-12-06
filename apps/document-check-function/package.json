@@ -13,10 +13,12 @@
     },
     "dependencies": {
         "clamscan": "^2.1.2",
+        "got": "^12.5.2",
         "pino": "7.11.0"
     },
     "devDependencies": {
         "ava": "^4.2.0",
-        "eslint": "8.14.0"
+        "eslint": "8.14.0",
+        "sinon": "14.0.0"
     }
 }
