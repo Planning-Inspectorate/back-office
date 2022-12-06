@@ -67,19 +67,6 @@ test('updates document status', async (t) => {
 	});
 });
 
-test('throws error if guid does not exist in database', async (t) => {
-	const response = await request
-		.patch('/applications/1/documents/D12345/status')
-		.send({ status: 'uploading' });
-
-	t.is(response.status, 400);
-	t.deepEqual(response.body, {
-		errors: {
-			documentGUID: 'DocumentGUID must exist in database'
-		}
-	});
-});
-
 test("throws error if guid doesn't belong to case provided", async (t) => {
 	const response = await request
 		.patch('/applications/3/documents/D1234/status')
