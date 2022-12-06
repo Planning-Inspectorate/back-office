@@ -6,6 +6,7 @@ import {
 	validationErrorHandlerMissing
 } from '../../middleware/error-handler.js';
 import * as caseRepository from '../../repositories/case.repository.js';
+import * as documentRepository from '../../repositories/document.repository.js';
 import * as folderRepository from '../../repositories/folder.repository.js';
 import * as regionRepository from '../../repositories/region.repository.js';
 import * as serviceCustomerRepository from '../../repositories/service-customer.repository.js';
@@ -76,6 +77,33 @@ const validateExistingMapZoomLevel = async (value) => {
 
 	if (mapZoomLevel == null) {
 		throw new Error('Unknown map zoom level');
+	}
+};
+
+/**
+ * @param {string} value
+ */
+const validateDocumentGUIDExistsInTable = async (value) => {
+	const documentGUID = await documentRepository.getByDocumentGUID(value);
+
+	if (documentGUID === null || typeof documentGUID === 'undefined') {
+		throw new Error('DocumentGUID must exist in database');
+	}
+};
+
+/**
+ * @param {string} value
+ * @param {import('express-validator').Meta} meta
+ */
+const validateDocumentGUIDBelongsToCase = async (value, { req }) => {
+	const documentGUID = await documentRepository.getByDocumentGUID(value);
+
+	const getCaseById = await folderRepository.getById(documentGUID?.folderId);
+
+	const caseId = getCaseById?.caseId;
+
+	if (Number.parseInt(req.params?.caseId, 10) !== caseId) {
+		throw new Error('GUID must belong to correct case');
 	}
 };
 
@@ -203,9 +231,8 @@ export const validateDocumentsToUploadProvided = composeMiddleware(
 );
 
 /**
- *
  * @param {number} value
- * @param {{req: any}} param1
+ * @param {import('express-validator').Meta} meta
  */
 const validateFolderBelongsToCase = async (value, { req }) => {
 	const folder = await folderRepository.getById(value);
@@ -214,7 +241,7 @@ const validateFolderBelongsToCase = async (value, { req }) => {
 		throw new Error('Folder must exist in database');
 	}
 
-	if (folder.caseId !== req.params.id) {
+	if (folder.caseId !== req.params?.id) {
 		throw new Error('Folder does not belong to case');
 	}
 };
@@ -224,5 +251,19 @@ export const validateFolderIds = composeMiddleware(
 		.toInt()
 		.custom(validateFolderBelongsToCase)
 		.withMessage('Folder must belong to case'),
+	validationErrorHandler
+);
+
+export const validateDocumentGUID = composeMiddleware(
+	param('documentGUID')
+		.custom(validateDocumentGUIDExistsInTable)
+		.withMessage('DocumentGUID must exist in database')
+		.custom(validateDocumentGUIDBelongsToCase)
+		.withMessage('GUID must belong to correct case'),
+	validationErrorHandler
+);
+
+export const validateMachineAction = composeMiddleware(
+	body('machineAction').exists().withMessage('Please provide a value for machine action'),
 	validationErrorHandler
 );
