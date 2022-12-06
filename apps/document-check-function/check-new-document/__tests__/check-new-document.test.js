@@ -23,7 +23,7 @@ test.serial("sends 'passed' machine action to back office if passed AV check", a
 	sinon.assert.calledWith(
 		patchStub,
 		'http://localhost:3000/applications/1/documents/123-345/status',
-		{ json: { machineAction: 'passed' } }
+		{ json: { machineAction: 'check_pass' } }
 	);
 	NodeClam.prototype.init.restore();
 });
@@ -38,6 +38,6 @@ test.serial("sends 'failed' machine action to back office if failed AV check", a
 	sinon.assert.calledWith(
 		patchStub,
 		'http://localhost:3000/applications/1/documents/123-345/status',
-		{ json: { machineAction: 'failed' } }
+		{ json: { machineAction: 'check_fail' } }
 	);
 });
