@@ -82,21 +82,14 @@ const validateExistingMapZoomLevel = async (value) => {
 
 /**
  * @param {string} value
+ * @param {import('express-validator').Meta} meta
  */
-const validateDocumentGUIDExistsInTable = async (value) => {
+const validateDocumentGUIDBelongsToCase = async (value, { req }) => {
 	const documentGUID = await documentRepository.getByDocumentGUID(value);
 
 	if (documentGUID === null || typeof documentGUID === 'undefined') {
 		throw new Error('DocumentGUID must exist in database');
 	}
-};
-
-/**
- * @param {string} value
- * @param {import('express-validator').Meta} meta
- */
-const validateDocumentGUIDBelongsToCase = async (value, { req }) => {
-	const documentGUID = await documentRepository.getByDocumentGUID(value);
 
 	const getCaseById = await folderRepository.getById(documentGUID?.folderId);
 
@@ -249,8 +242,6 @@ export const validateFolderIds = composeMiddleware(
 
 export const validateDocumentGUID = composeMiddleware(
 	param('documentGUID')
-		.custom(validateDocumentGUIDExistsInTable)
-		.withMessage('DocumentGUID must exist in database')
 		.custom(validateDocumentGUIDBelongsToCase)
 		.withMessage('GUID must belong to correct case'),
 	validationErrorHandler
