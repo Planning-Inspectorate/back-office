@@ -43,11 +43,10 @@ export const update = (documentGuid, documentDetails) => {
 };
 
 /**
- * Returns array of paginated documents in a folder on a case
- *
- * @param {number} folderId
- * @param {number} skipValue
- * @param {number} pageSize
+ * 
+ * @param {number} folderId 
+ * @param {number} skipValue 
+ * @param {number} pageSize 
  * @returns {import('@prisma/client').PrismaPromise<import('@pins/api').Schema.Document[]>}
  */
 export const getDocumentsInFolder = (folderId, skipValue, pageSize) => {
@@ -60,17 +59,27 @@ export const getDocumentsInFolder = (folderId, skipValue, pageSize) => {
 			}
 		],
 		where: { folderId }
+	})
+}
+
+/**
+ *
+ * @param {string} documentGUID
+ * @returns {import('@prisma/client').PrismaPromise<import('@pins/api').Schema.Document | null>}
+ */
+export const getByDocumentGUID = (documentGUID) => {
+	return databaseConnector.document.findUnique({
+		where: { guid: documentGUID }
 	});
 };
 
 /**
- * Returns total number of documents in a folder on a case
- *
- * @param {number} folderId
- * @returns {import('@prisma/client').PrismaPromise<number>}
+ * @param {{guid: string, status: import('xstate').StateValue }} documentStatusUpdate
+ * @returns {import('@prisma/client').PrismaPromise<import('@pins/api').Schema.Document>}
  */
-export const getDocumentsCountInFolder = (folderId) => {
-	return databaseConnector.document.count({
-		where: { folderId }
+export const updateDocumentStatus = ({ guid, status }) => {
+	return databaseConnector.document.update({
+		where: { guid },
+		data: { status }
 	});
 };
