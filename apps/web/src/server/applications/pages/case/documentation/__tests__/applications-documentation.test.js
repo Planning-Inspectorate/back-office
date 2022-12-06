@@ -62,68 +62,111 @@ describe('applications documentation', () => {
 		});
 	});
 
-	describe('GET /case/123/project-documentation/21/sub-folder-level2', () => {
-		describe('Inspector', () => {
-			beforeEach(async () => {
-				nocks('inspector');
-				await request.get('/applications-service/inspector');
+	describe('/case/123/project-documentation/21/sub-folder-level2', () => {
+		describe('GET', () => {
+			describe('Inspector', () => {
+				beforeEach(async () => {
+					nocks('inspector');
+					await request.get('/applications-service/inspector');
+				});
+
+				it('should render the page with no list and no upload button', async () => {
+					const response = await request.get(
+						`${baseUrl}/project-documentation/21/sub-folder-level2`
+					);
+					const element = parseHtml(response.text);
+
+					expect(element.innerHTML).toMatchSnapshot();
+					expect(element.innerHTML).not.toContain('Upload files');
+					expect(element.innerHTML).not.toContain('Apply changes ');
+				});
 			});
 
-			it('should render the page with no list and no upload button', async () => {
-				const response = await request.get(`${baseUrl}/project-documentation/21/sub-folder-level2`);
-				const element = parseHtml(response.text);
+			describe('Case officer', () => {
+				beforeEach(async () => {
+					nocks('case-officer');
+					await request.get('/applications-service/case-officer');
+				});
 
-				expect(element.innerHTML).toMatchSnapshot();
-				expect(element.innerHTML).not.toContain('Upload files');
-				expect(element.innerHTML).not.toContain('Apply changes ');
+				it('should render the page with no list and no upload button', async () => {
+					const response = await request.get(
+						`${baseUrl}/project-documentation/21/sub-folder-level2`
+					);
+					const element = parseHtml(response.text);
+
+					expect(element.innerHTML).toMatchSnapshot();
+					expect(element.innerHTML).toContain('Upload files');
+					expect(element.innerHTML).not.toContain('Apply changes');
+				});
+			});
+
+			describe('Case admin officer', () => {
+				beforeEach(async () => {
+					nocks('case-admin-officer');
+					await request.get('/applications-service/case-admin-officer');
+				});
+
+				it('should render the page with default pagination if there is no data in the session', async () => {
+					const response = await request.get(
+						`${baseUrl}/project-documentation/21/sub-folder-level2`
+					);
+					const element = parseHtml(response.text);
+
+					expect(element.innerHTML).toMatchSnapshot();
+					expect(element.innerHTML).toContain('This folder contains 123 document');
+					expect(element.innerHTML).toContain('Showing 1 - 50 document');
+				});
+
+				it('should render the page with the right number of files', async () => {
+					const response = await request.get(
+						`${baseUrl}/project-documentation/21/sub-folder-level2?number=2&size=30`
+					);
+					const element = parseHtml(response.text);
+
+					expect(element.innerHTML).toMatchSnapshot();
+					expect(element.innerHTML).toContain('Showing 31 - 60 document');
+				});
+
+				it('should render the page with custom pagination if there is data in the session', async () => {
+					await request.get(
+						`${baseUrl}/project-documentation/21/sub-folder-level2?number=1&size=30`
+					);
+
+					const response = await request.get(
+						`${baseUrl}/project-documentation/21/sub-folder-level2`
+					);
+
+					const element = parseHtml(response.text);
+
+					expect(element.innerHTML).toMatchSnapshot();
+					expect(element.innerHTML).toContain('Showing 1 - 30 document');
+				});
 			});
 		});
-
-		describe('Case officer', () => {
-			beforeEach(async () => {
-				nocks('case-officer');
-				await request.get('/applications-service/case-officer');
-			});
-
-			it('should render the page with no list and no upload button', async () => {
-				const response = await request.get(`${baseUrl}/project-documentation/21/sub-folder-level2`);
-				const element = parseHtml(response.text);
-
-				expect(element.innerHTML).toMatchSnapshot();
-				expect(element.innerHTML).toContain('Upload files');
-				expect(element.innerHTML).not.toContain('Apply changes');
-			});
-		});
-
-		describe('Case admin officer', () => {
+		describe('POST', () => {
 			beforeEach(async () => {
 				nocks('case-admin-officer');
 				await request.get('/applications-service/case-admin-officer');
 			});
 
-			it('should render the page with default pagination if there is no data in the session', async () => {
-				const response = await request.get(`${baseUrl}/project-documentation/21/sub-folder-level2`);
+			it('should display an error if no documents are selected', async () => {
+				const response = await request
+					.post(`${baseUrl}/project-documentation/21/sub-folder-level2`)
+					.send({
+						selectedFilesIds: []
+					});
 				const element = parseHtml(response.text);
 
 				expect(element.innerHTML).toMatchSnapshot();
-				expect(element.innerHTML).toContain('This folder contains 123 document');
-				expect(element.innerHTML).toContain('Showing 1 - 50 document');
+				expect(element.innerHTML).toContain('Select documents to make changes to statuses');
 			});
-
-			it('should render the page with the right number of files', async () => {
-				const response = await request.get(
-					`${baseUrl}/project-documentation/21/sub-folder-level2?number=2&size=30`
-				);
-				const element = parseHtml(response.text);
-
-			expect(element.innerHTML).toMatchSnapshot();
-			expect(element.innerHTML).toContain('Showing 31 - 60 document');
 		});
 	});
 
 	describe('GET /case/123/project-documentation/21/sub-folder-level2/upload', () => {
 		beforeEach(async () => {
-			nocks();
+			nocks('case-officer');
+			await request.get('/applications-service/case-officer');
 		});
 
 		it('should render the page', async () => {
