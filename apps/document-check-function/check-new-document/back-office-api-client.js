@@ -1,5 +1,7 @@
 import got from 'got';
 
+const apiHost = process.env.API_HOST;
+
 /**
  * @param {string} documentGuid
  * @param {string} caseId
@@ -7,7 +9,7 @@ import got from 'got';
  */
 export const sendDocumentStateAction = async (documentGuid, caseId, machineAction) => {
 	await got
-		.patch(`http://localhost:3000/applications/${caseId}/documents/${documentGuid}/status`, {
+		.patch(`${apiHost}/applications/${caseId}/documents/${documentGuid}/status`, {
 			json: {
 				machineAction
 			}

@@ -1,4 +1,3 @@
-// import fs from 'node:fs';
 import { sendDocumentStateAction } from './back-office-api-client.js';
 import { scanStream } from './clam-av-client.js';
 
@@ -7,7 +6,7 @@ import { scanStream } from './clam-av-client.js';
  * @returns {string}
  */
 const mapIsInfectedToMachineAction = (isInfected) => {
-	return isInfected ? 'failed' : 'passed';
+	return isInfected ? 'check_fail' : 'check_pass';
 };
 
 /**
@@ -31,5 +30,3 @@ export const checkMyBlob = async (context, myBlob) => {
 
 	await sendDocumentStateAction(guid, caseId, machineAction);
 };
-// const file = await fs.createReadStream("package.json");
-// test({bindingData: {uri: 'applications/1/1-2-3'}}, file);
