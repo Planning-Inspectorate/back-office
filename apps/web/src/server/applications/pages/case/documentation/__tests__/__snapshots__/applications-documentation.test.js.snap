@@ -80,7 +80,12 @@ exports[`applications documentation GET /case/123/project-documentation/21/sub-f
                 <div class=\\"govuk-button-group pins-button-group govuk-grid-column-one-half govuk-!-margin-top-0\\"><a class=\\"govuk-button\\" href=\\"/applications-service/case/123/project-documentation/21/sub-folder-level-2/upload\\"> Upload files</a>
                 </div>
             </div>
-            <h2 class=\\"govuk-heading-m\\">Documents</h2> This folder contains no documents</div>
+            <h2 class=\\"govuk-heading-m\\">Documents</h2>
+            <div class=\\"govuk-grid-row govuk-grid-column-full\\"><a class=\\"govuk-link govuk-body-s govuk-!-font-weight-bold\\" href='#'> name1</a>
+            </div>
+            <div class=\\"govuk-grid-row govuk-grid-column-full\\"><a class=\\"govuk-link govuk-body-s govuk-!-font-weight-bold\\" href='#'> name2</a>
+            </div>
+        </div>
     </div>
 </main>"
 `;

@@ -16,6 +16,12 @@ const request = supertest(app);
 const nocks = () => {
 	nock('http://test/').get('/applications/case-officer').reply(200, {});
 	nock('http://test/').get('/applications/123').reply(200, fixtureCases[3]);
+	nock('http://test/')
+		.get('/applications/123/folders/21/documents')
+		.reply(200, [
+			{ guid: '1111-2222-0001', documentName: 'name1', status: 'unchecked' },
+			{ guid: '1111-2222-0002', documentName: 'name2', status: 'unchecked' }
+		]);
 
 	nock('http://test/')
 		.get('/applications/123/folders')
