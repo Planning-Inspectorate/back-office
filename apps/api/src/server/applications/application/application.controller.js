@@ -1,10 +1,17 @@
 import { filter, head, map, pick } from 'lodash-es';
 import * as caseRepository from '../../repositories/case.repository.js';
 import * as documentRepository from '../../repositories/document.repository.js';
+import * as folderRepository from '../../repositories/folder.repository.js';
 import { getStorageLocation } from '../../utils/document-storage-api-client.js';
 import { mapCaseStatusString } from '../../utils/mapping/map-case-status-string.js';
 import { mapCreateApplicationRequestToRepository } from './application.mapper.js';
-import { getCaseDetails, startApplication } from './application.service.js';
+import {
+	formatResponseBody,
+	getCaseDetails,
+	nextStatusInDocumentStateMachine,
+	startApplication,
+	updatedDocumentStatusResponse as updatedDocumentStatusInTable
+} from './application.service.js';
 /**
  *
  * @param {import('@pins/api').Schema.ServiceCustomer[] | undefined} serviceCustomers
@@ -131,4 +138,27 @@ export const provideDocumentUploadURLs = async ({ params, body }, response) => {
 		blobStorageContainer: responseFromDocumentStorage.blobStorageContainer,
 		documents: documentsWithUrls
 	});
+};
+
+/**
+ * @type {import('express').RequestHandler<{caseId: string, documentGUID: string }, ?, import('@pins/applications').UpdateDocumentStatus>}
+ */
+export const updateDocumentStatus = async ({ params, body }, response) => {
+	const documentDetails = await documentRepository.getByDocumentGUID(params.documentGUID);
+
+	const caseIdFromFolderRepository = await folderRepository.getById(documentDetails?.folderId);
+
+	const caseId = caseIdFromFolderRepository?.caseId;
+
+	const nextStatus = nextStatusInDocumentStateMachine(documentDetails?.status, body.machineAction);
+
+	const updateResponseInTable = await updatedDocumentStatusInTable(params.documentGUID, nextStatus);
+
+	const formattedResponse = formatResponseBody(
+		caseId,
+		updateResponseInTable.guid,
+		updateResponseInTable.status
+	);
+
+	response.send(formattedResponse);
 };
