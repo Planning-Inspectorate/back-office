@@ -3,6 +3,7 @@ import asyncRoute from '../../../../lib/async-route.js';
 import { assertDomainTypeIsNotInspector } from '../../create-new-case/applications-create.guards.js';
 import * as locals from '../applications-case.locals.js';
 import * as controller from './applications-documentation.controller.js';
+import { validateApplicationsDocumentations } from './applications-documentation.validators.js';
 
 const applicationsDocumentationRouter = createRouter({ mergeParams: true });
 
@@ -15,7 +16,10 @@ applicationsDocumentationRouter
 applicationsDocumentationRouter
 	.route('/:folderId/:folderName')
 	.get(locals.registerFolder, asyncRoute(controller.viewApplicationsCaseDocumentationFolder))
-	.post(asyncRoute(controller.updateApplicationsCaseDocumentationFolder));
+	.post(
+		validateApplicationsDocumentations,
+		asyncRoute(controller.updateApplicationsCaseDocumentationFolder)
+	);
 
 applicationsDocumentationRouter
 	.route('/:folderId/:folders/upload')
