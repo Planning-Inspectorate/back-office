@@ -3,6 +3,7 @@ import {
 	DocumentationFile,
 	PaginatedResponse
 } from '../../../applications.types';
+import { ValidationErrors } from '@pins/express';
 
 export interface CaseDocumentationProps {
 	subFolders: DocumentationCategory[] | null;
@@ -15,6 +16,7 @@ export interface CaseDocumentationProps {
 			items: { number: number; href: string; current: boolean }[];
 		};
 	};
+	errors?: ValidationErrors;
 }
 
 export interface CaseDocumentationBody {

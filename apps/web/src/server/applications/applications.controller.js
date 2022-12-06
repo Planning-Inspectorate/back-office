@@ -19,7 +19,7 @@ import * as applicationsService from './applications.service.js';
  */
 export async function viewDashboard({ params }, res) {
 	const { domainType } = params;
-	const allCases = await applicationsService.findOpenCasesByDomainType(domainType);
+	const allCases = (await applicationsService.findOpenCasesByDomainType(domainType)) || [];
 	const readyCases = [];
 
 	let draftCases = [];
