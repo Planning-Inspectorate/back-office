@@ -214,7 +214,7 @@ router.patch(
         #swagger.parameters['documentGUID'] = {
             in: 'path',
             description: 'Document GUID',
-					required: true,
+			required: true,
 			type: 'string'
         }
         #swagger.responses[200] = {
