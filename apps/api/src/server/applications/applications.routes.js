@@ -6,15 +6,18 @@ import {
 	getApplicationDetails,
 	provideDocumentUploadURLs,
 	startCase,
-	updateApplication
+	updateApplication,
+	updateDocumentStatus
 } from './application/application.controller.js';
 import {
 	validateApplicantId,
 	validateApplicationId,
 	validateCreateUpdateApplication,
+	validateDocumentGUID,
 	validateDocumentsToUploadProvided,
 	validateFolderIds,
-	validateGetApplicationQuery
+	validateGetApplicationQuery,
+	validateMachineAction
 } from './application/application.validators.js';
 import { fileFoldersRoutes } from './application/file-folders/folders.routes.js';
 import { caseAdminOfficerRoutes } from './case-admin-officer/case-admin-officer.routes.js';
@@ -169,6 +172,35 @@ router.post(
 	validateFolderIds,
 	trimUnexpectedRequestParameters,
 	asyncHandler(provideDocumentUploadURLs)
+);
+
+router.patch(
+	'/:caseId/documents/:documentGUID/status',
+	/*
+        #swagger.tags = ['Applications']
+        #swagger.path =  'applications/{caseId}/documents/{documentGUID}/status'
+        #swagger.description = 'Updates document status from state machine'
+        #swagger.parameters['caseId'] = {
+            in: 'path',
+			description: 'Case ID here',
+			required: true,
+			type: 'integer'
+        }
+        #swagger.parameters['documentGUID'] = {
+            in: 'path',
+            description: 'Document GUID',
+					required: true,
+			type: 'string'
+        }
+        #swagger.responses[200] = {
+            description: 'Document status updated',
+            schema: { caseId: 1, guid: 'DB0110203', status: 'not_yet_checked'}
+        }
+	 */
+	validateDocumentGUID,
+	validateMachineAction,
+	trimUnexpectedRequestParameters,
+	asyncHandler(updateDocumentStatus)
 );
 
 export { router as applicationsRoutes };
