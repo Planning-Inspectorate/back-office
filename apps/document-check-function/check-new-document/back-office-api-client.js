@@ -1,6 +1,5 @@
 import got from 'got';
-
-const apiHost = process.env.API_HOST;
+import config from './config.js';
 
 /**
  * @param {string} documentGuid
@@ -9,7 +8,7 @@ const apiHost = process.env.API_HOST;
  */
 export const sendDocumentStateAction = async (documentGuid, caseId, machineAction) => {
 	await got
-		.patch(`${apiHost}/applications/${caseId}/documents/${documentGuid}/status`, {
+		.patch(`${config.API_HOST}/applications/${caseId}/documents/${documentGuid}/status`, {
 			json: {
 				machineAction
 			}
