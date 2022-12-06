@@ -26,7 +26,6 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                     </li>
                 </ol>
             </div>
-            <h2 class=\\"govuk-heading-l\\">Sub folder level 2</h2>
             <div class=\\"pins-dashboard-list--hide-controls\\">
                 <h2 class=\\"govuk-heading-l\\">Sub folder level 2 folder</h2>
                 <div class=\\"govuk-accordion\\" data-module=\\"govuk-accordion\\" id=\\"\\">
@@ -936,7 +935,6 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                     </li>
                 </ol>
             </div>
-            <h2 class=\\"govuk-heading-l\\">Sub folder level 2</h2>
             <div class=\\"pins-dashboard-list--hide-controls\\">
                 <h2 class=\\"govuk-heading-l\\">Sub folder level 2 folder</h2>
                 <div class=\\"govuk-accordion\\" data-module=\\"govuk-accordion\\" id=\\"\\">
@@ -2308,7 +2306,6 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                     </li>
                 </ol>
             </div>
-            <h2 class=\\"govuk-heading-l\\">Sub folder level 2</h2>
             <div class=\\"pins-dashboard-list--hide-controls\\">
                 <h2 class=\\"govuk-heading-l\\">Sub folder level 2 folder</h2>
                 <div class=\\"govuk-accordion\\" data-module=\\"govuk-accordion\\" id=\\"\\">
@@ -3219,7 +3216,6 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                     </li>
                 </ol>
             </div>
-            <h2 class=\\"govuk-heading-l\\">Sub folder level 2</h2>
             <div class=\\"pins-dashboard-list--hide-controls\\">
                 <h2 class=\\"govuk-heading-l\\">Sub folder level 2 folder</h2>
                 <div class=\\"govuk-accordion\\" data-module=\\"govuk-accordion\\" id=\\"\\">
@@ -3282,7 +3278,6 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                     </li>
                 </ol>
             </div>
-            <h2 class=\\"govuk-heading-l\\">Sub folder level 2</h2>
             <div class=\\"pins-dashboard-list--hide-controls\\">
                 <h2 class=\\"govuk-heading-l\\">Sub folder level 2 folder</h2>
                 <div class=\\"govuk-accordion\\" data-module=\\"govuk-accordion\\" id=\\"\\">
@@ -3349,11 +3344,17 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
     <div class=\\"govuk-grid-row\\">
         <div class=\\"govuk-grid-column-full\\">
             <div class=\\"govuk-breadcrumbs govuk-!-margin-top-0\\">
-                <ol class=\\"govuk-breadcrumbs__list\\"></ol>
+                <ol class=\\"govuk-breadcrumbs__list\\">
+                    <li class=\\"govuk-breadcrumbs__list-item\\"><a class=\\"govuk-breadcrumbs__link\\" href=\\"/applications-service/case/123/project-documentation\\">Project documentation</a>
+                    </li>
+                    <li class=\\"govuk-breadcrumbs__list-item\\"><a class=\\"govuk-breadcrumbs__link\\" href=\\"/applications-service/case/123/project-documentation/1/project-management/\\">Project management</a>
+                    </li>
+                    <li class=\\"govuk-breadcrumbs__list-item\\"><a class=\\"govuk-breadcrumbs__link\\" href=\\"/applications-service/case/123/project-documentation/21/sub-folder-level-2/\\">Sub folder level 2</a>
+                    </li>
+                </ol>
             </div>
-            <h2 class=\\"govuk-heading-l\\"></h2>
             <div class=\\"pins-dashboard-list--hide-controls\\">
-                <h2 class=\\"govuk-heading-l\\"> folder</h2>
+                <h2 class=\\"govuk-heading-l\\">Sub folder level 2 folder</h2>
                 <div class=\\"govuk-accordion\\" data-module=\\"govuk-accordion\\" id=\\"\\">
                     <div class=\\"govuk-accordion__section \\">
                         <div class=\\"govuk-accordion__section-header\\">
@@ -3363,19 +3364,11 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             <table class=\\"govuk-table\\">
                                 <tbody class=\\"govuk-table__body\\">
                                     <tr class=\\"govuk-table__row\\">
-                                        <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-m\\" href=\\"/applications-service/case/123/project-documentation/1/project-management/\\">Project management</a>
+                                        <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-m\\" href=\\"/applications-service/case/123/project-documentation/31/sub-folder-a/\\">Sub folder a</a>
                                         </td>
                                     </tr>
                                     <tr class=\\"govuk-table__row\\">
-                                        <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-m\\" href=\\"/applications-service/case/123/project-documentation/2/legal-advice/\\">Legal advice</a>
-                                        </td>
-                                    </tr>
-                                    <tr class=\\"govuk-table__row\\">
-                                        <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-m\\" href=\\"/applications-service/case/123/project-documentation/3/transboundary/\\">Transboundary</a>
-                                        </td>
-                                    </tr>
-                                    <tr class=\\"govuk-table__row\\">
-                                        <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-m\\" href=\\"/applications-service/case/123/project-documentation/4/land-rights/\\">Land rights</a>
+                                        <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-m\\" href=\\"/applications-service/case/123/project-documentation/32/sub-folder-b/\\">Sub folder b</a>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -3388,7 +3381,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                 <div class=\\"govuk-grid-column-one-half govuk-!-margin-top-0\\">
                     <h4 class=\\"govuk-heading-m\\">Documents</h4>
                     <p class=\\"govuk-body\\">This folder contains 123 document(s).</p><a class=\\"govuk-button govuk-button--secondary govuk-!-margin-0\\"
-                    href=\\"/applications-service/case/123/project-documentation//upload\\"> Upload files</a>
+                    href=\\"/applications-service/case/123/project-documentation/21/sub-folder-level-2/upload\\"> Upload files</a>
                 </div>
             </div>
             <hr class=\\"govuk-section-break govuk-section-break--l govuk-section-break--visible\\">
