@@ -1,8 +1,14 @@
 import { filter, head, map } from 'lodash-es';
 import * as caseRepository from '../../repositories/case.repository.js';
+import * as documentRepository from '../../repositories/document.repository.js';
+import * as folderRepository from '../../repositories/folder.repository.js';
+import { getStorageLocation } from '../../utils/document-storage-api-client.js';
 import { mapCaseStatusString } from '../../utils/mapping/map-case-status-string.js';
 import { mapCreateApplicationRequestToRepository } from './application.mapper.js';
-import { getCaseDetails, startApplication } from './application.service.js';
+import {
+	getCaseDetails,
+	startApplication,
+} from './application.service.js';
 /**
  *
  * @param {import('@pins/api').Schema.ServiceCustomer[] | undefined} serviceCustomers
@@ -76,3 +82,84 @@ export const getApplicationDetails = async ({ params, query }, response) => {
 
 	response.send(applicationDetails);
 };
+
+/**
+ *
+ * @type {import('express').RequestHandler<any, ?, ?, any>}
+ */
+export const provideDocumentUploadURLs = async ({ params, body }, response) => {
+	const documents = body[''];
+
+	const caseFromDatabase = await caseRepository.getById(params.id, {});
+
+	const documentsToSendToDatabase = documents.map(
+		(/** @type {{ documentName: any; folderId: any; }} */ document) => {
+			return { name: document.documentName, folderId: document.folderId };
+		}
+	);
+
+	const documentsFromDatabase = await Promise.all(
+		documentsToSendToDatabase.map(
+			(/** @type {{ name: string; folderId: number; }} */ documentToDatabase) => {
+				return documentRepository.upsert(documentToDatabase);
+			}
+		)
+	);
+
+	const requestToDocumentStorage = documentsFromDatabase.map((document) => {
+		return {
+			caseType: 'application',
+			caseReference: caseFromDatabase?.reference,
+			GUID: document.guid,
+			documentName: document.name
+		};
+	});
+
+	const responseFromDocumentStorage = await getStorageLocation(requestToDocumentStorage);
+
+	await Promise.all(
+		responseFromDocumentStorage.documents.map((documentWithPath) => {
+			return documentRepository.update(documentWithPath.GUID, {
+				blobStorageContainer: responseFromDocumentStorage.blobStorageContainer,
+				blobStoragePath: documentWithPath.blobStoreUrl
+			});
+		})
+	);
+
+	const documentsWithUrls = responseFromDocumentStorage.documents.map((document) => {
+		return pick(document, ['documentName', 'blobStoreUrl']);
+	});
+
+	response.send({
+		blobStorageHost: responseFromDocumentStorage.blobStorageHost,
+		blobStorageContainer: responseFromDocumentStorage.blobStorageContainer,
+		documents: documentsWithUrls
+	});
+};
+
+/**
+ * @type {import('express').RequestHandler<{caseId: string, documentGUID: string }, ?, import('@pins/applications').UpdateDocumentStatus>}
+ */
+export const updateDocumentStatus = async ({ params, body }, response) => {
+	const documentDetails = await documentRepository.getByDocumentGUID(params.documentGUID);
+
+	const caseIdFromFolderRepository = await folderRepository.getById(documentDetails?.folderId);
+
+	const caseId = caseIdFromFolderRepository?.caseId;
+
+	const nextStatus = nextStatusInDocumentStateMachine(documentDetails?.status, body.machineAction);
+
+	const updateResponseInTable = await updatedDocumentStatusInTable(params.documentGUID, nextStatus);
+
+	const formattedResponse = formatResponseBody(
+		caseId,
+		updateResponseInTable.guid,
+		updateResponseInTable.status
+	);
+
+	response.send(formattedResponse);
+};
+function nextStatusInDocumentStateMachine(status, machineAction) {
+	throw new Error('Function not implemented.');
+}
+
