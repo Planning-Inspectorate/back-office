@@ -307,7 +307,7 @@ export const nextStatusInDocumentStateMachine = (status, machineAction) => {
 
 /**
  *
- * @param {string | import('xstate').StateValue } status
+ * @param {string} status
  * @param {string} guid
  */
 export const updatedDocumentStatusResponse = async (guid, status) => {
