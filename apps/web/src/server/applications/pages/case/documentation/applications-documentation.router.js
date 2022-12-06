@@ -17,7 +17,7 @@ applicationsDocumentationRouter
 	.route('/:folderId/:folderName')
 	.get(locals.registerFolder, asyncRoute(controller.viewApplicationsCaseDocumentationFolder))
 	.post(
-		validateApplicationsDocumentations,
+		[validateApplicationsDocumentations, locals.registerFolder],
 		asyncRoute(controller.updateApplicationsCaseDocumentationFolder)
 	);
 
