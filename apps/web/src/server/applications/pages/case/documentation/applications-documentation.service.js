@@ -42,9 +42,7 @@ export const getCaseFolder = (caseId, folderId) => {
  * @returns {Promise<DocumentationCategory[]>}
  */
 export const getCaseDocumentationFolderPath = (caseId, folderId) => {
-	const folderPath = get(`applications/${caseId}/folders/${folderId}/parent-folders`);
-
-	return folderPath;
+	return get(`applications/${caseId}/folders/${folderId}/parent-folders`);
 };
 
 /**
@@ -56,20 +54,7 @@ export const getCaseDocumentationFolderPath = (caseId, folderId) => {
  * @param {number} pageNumber
  * @returns {Promise<PaginatedDocumentationFiles>}
  */
-export const getCaseDocumentationFilesInFolder = async (caseId, folderId) => {
-	return get(`applications/${caseId}/folders/${folderId}/documents`);
-};
-
-// previous mock version
-// TODO: remove this
-/*
-export const getCaseDocumentationFilesInFolder = (
-	caseId,
-	folderId,
-	pageSize = 50,
-	pageNumber = 0
-) => {
-
+export const getCaseDocumentationFilesInFolder = async (caseId, folderId, pageSize, pageNumber) => {
 	const documentationFiles = fixtureDocumentationFiles;
 
 	const items = documentationFiles.slice(pageNumber * pageSize, pageSize + pageNumber * pageSize);
@@ -84,5 +69,7 @@ export const getCaseDocumentationFilesInFolder = (
 	return new Promise((resolve) => {
 		setTimeout(() => resolve(response), 200);
 	});
+
+	// TODO: remove the mock above and run the actual get
+	// return get(`applications/${caseId}/folders/${folderId}/documents`);
 };
-*/
