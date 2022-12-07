@@ -1,5 +1,6 @@
 import * as documentRepository from '../../../repositories/document.repository.js';
 import * as folderRepository from '../../../repositories/folder.repository.js';
+import { getPageCount, getSkipValue } from '../../../utils/database-pagination.js';
 import { mapDocumentDetails } from '../../../utils/mapping/map-document-details.js';
 import {
 	mapBreadcrumbFolderDetails,
@@ -7,10 +8,13 @@ import {
 	mapSingleFolderDetails
 } from '../../../utils/mapping/map-folder-details.js';
 
-/** @typedef {import('@pins/applications').FolderDetails} FolderDetails */
-/** @typedef {import('apps/api/prisma/schema.js').Document} Document */
+/**
+ * @typedef {import('@pins/applications').FolderDetails} FolderDetails
+ * @typedef {import('apps/api/prisma/schema.js').Document} Document
+ * @typedef {{ guid: string, documentName: string, status: string }} DocumentDetails
+ * @typedef {{ page: number, pageSize: number, pageCount: number, itemCount: number, items: DocumentDetails[]}} PaginatedDocumentDetails
+ */
 
-/** @typedef {{ guid: string, documentName: string, status: string }} DocumentDetails */
 /**
  * Returns all the folders on a case
  *
@@ -50,13 +54,23 @@ export const getFolderPath = async (id, folderId) => {
 };
 
 /**
- * Returns all documents in a folder on a case
+ * Returns paginated array of documents in a folder on a case
  *
  * @param {number} folderId
- * @returns {Promise<DocumentDetails[]>}
+ * @param {number} pageNumber
+ * @param {number} pageSize
+ * @returns {Promise<PaginatedDocumentDetails>}
  */
-export const getDocumentsInFolder = async (folderId) => {
-	const documents = await documentRepository.getDocumentsInFolder(folderId);
+export const getDocumentsInFolder = async (folderId, pageNumber = 1, pageSize = 50) => {
+	const skipValue = getSkipValue(pageNumber, pageSize);
+	const documentsCount = await documentRepository.getDocumentsCountInFolder(folderId);
+	const documents = await documentRepository.getDocumentsInFolder(folderId, skipValue, pageSize);
 
-	return mapDocumentDetails(documents);
+	return {
+		page: pageNumber,
+		pageSize: documents.length,
+		pageCount: getPageCount(documentsCount, pageSize),
+		itemCount: documentsCount,
+		items: mapDocumentDetails(documents)
+	};
 };

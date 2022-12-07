@@ -652,9 +652,9 @@
 			}
 		},
 		"/applications/{id}/folders/{folderId}/documents": {
-			"get": {
+			"post": {
 				"tags": ["Applications"],
-				"description": "Gets all documents in folder on a case",
+				"description": "Gets paginated array of documents in a folder on a case",
 				"parameters": [
 					{
 						"name": "id",
@@ -669,33 +669,22 @@
 						"required": true,
 						"type": "integer",
 						"description": "Id of current folder here"
+					},
+					{
+						"name": "body",
+						"in": "body",
+						"description": "document pagination parameters",
+						"schema": {
+							"$ref": "#/definitions/DocumentsInFolderCriteriaRequestBody"
+						},
+						"required": true
 					}
 				],
 				"responses": {
 					"200": {
-						"description": "array of documents",
+						"description": "Paginated data and an array of document details",
 						"schema": {
-							"type": "array",
-							"items": {
-								"type": "object",
-								"properties": {
-									"guid": {
-										"type": "string",
-										"example": "1234-5678-1234"
-									},
-									"documentName": {
-										"type": "string",
-										"example": "David Doc 2"
-									},
-									"status": {
-										"type": "string",
-										"example": "unchecked"
-									}
-								}
-							},
-							"xml": {
-								"name": "main"
-							}
+							"$ref": "#/definitions/PaginatedDocumentDetails"
 						}
 					}
 				}
@@ -1770,6 +1759,63 @@
 									"example": 1655298882
 								},
 								"publishedDate": {}
+							}
+						}
+					}
+				}
+			}
+		},
+		"DocumentsInFolderCriteriaRequestBody": {
+			"type": "object",
+			"properties": {
+				"pageNumber": {
+					"type": "number",
+					"example": 1
+				},
+				"pageSize": {
+					"type": "number",
+					"example": 1
+				}
+			}
+		},
+		"PaginatedDocumentDetails": {
+			"type": "array",
+			"items": {
+				"type": "object",
+				"properties": {
+					"page": {
+						"type": "number",
+						"example": 1
+					},
+					"pageSize": {
+						"type": "number",
+						"example": 1
+					},
+					"pageCount": {
+						"type": "number",
+						"example": 1
+					},
+					"itemCount": {
+						"type": "number",
+						"example": 1
+					},
+					"items": {
+						"type": "array",
+						"items": {
+							"type": "object",
+							"properties": {
+								"guid": {
+									"type": "string",
+									"example": "1111-2222-3333"
+								},
+								"documentName": {
+									"type": "string",
+									"example": "Document Name 1"
+								},
+								"status": {
+									"type": "string",
+									"example": "unchecked"
+								}
 							}
 						}
 					}

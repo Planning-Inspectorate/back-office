@@ -29,11 +29,29 @@ export const update = (documentGuid, documentDetails) => {
 };
 
 /**
- * Returns array of all the documents in a folder on a case
+ * Returns array of paginated documents in a folder on a case
  *
  * @param {number} folderId
+ * @param {number} skipValue
+ * @param {number} pageSize
  * @returns {import('@prisma/client').PrismaPromise<import('@pins/api').Schema.Document[]>}
  */
-export const getDocumentsInFolder = (folderId) => {
-	return databaseConnector.document.findMany({ where: { folderId } });
+export const getDocumentsInFolder = (folderId, skipValue, pageSize) => {
+	return databaseConnector.document.findMany({
+		skip: skipValue,
+		take: pageSize,
+		where: { folderId }
+	});
+};
+
+/**
+ * Returns total number of documents in a folder on a case
+ *
+ * @param {number} folderId
+ * @returns {import('@prisma/client').PrismaPromise<number>}
+ */
+export const getDocumentsCountInFolder = (folderId) => {
+	return databaseConnector.document.count({
+		where: { folderId }
+	});
 };

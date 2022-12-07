@@ -118,12 +118,12 @@ router.get(
 	asyncHandler(getFolderPathList)
 );
 
-router.get(
+router.post(
 	'/:id/folders/:folderId/documents',
 	/*
         #swagger.tags = ['Applications']
         #swagger.path = '/applications/{id}/folders/{folderId}/documents'
-        #swagger.description = 'Gets all documents in folder on a case'
+        #swagger.description = 'Gets paginated array of documents in a folder on a case'
         #swagger.parameters['id'] = {
             in: 'path',
 			description: 'Application ID here',
@@ -136,11 +136,15 @@ router.get(
 			required: true,
 			type: 'integer'
 		}
+		#swagger.parameters['body'] = {
+			in: 'body',
+			description: 'document pagination parameters',
+			schema: { $ref: '#/definitions/DocumentsInFolderCriteriaRequestBody' },
+			required: true
+		}
         #swagger.responses[200] = {
-            description: 'array of documents',
-            schema: [ { "guid": "1111-1111-1111", "documentName": "David Doc 1", "status": "unchecked" },
-					  { "guid": "1234-5678-1234", "documentName": "David Doc 2", "status": "unchecked" },
-		 	]
+            description: 'Paginated data and an array of document details',
+            schema: { $ref: '#/definitions/PaginatedDocumentDetails' }
         }
     */
 	validateApplicationId,
