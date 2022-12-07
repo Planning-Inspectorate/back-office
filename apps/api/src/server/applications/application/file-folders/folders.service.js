@@ -68,7 +68,7 @@ export const getDocumentsInFolder = async (folderId, pageNumber = 1, pageSize = 
 
 	return {
 		page: pageNumber,
-		pageDefaultSize: pageSize,
+		pageDefaultSize: documents.length,
 		pageCount: getPageCount(documentsCount, pageSize),
 		itemCount: documentsCount,
 		items: mapDocumentDetails(documents)
