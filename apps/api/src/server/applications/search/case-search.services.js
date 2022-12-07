@@ -1,6 +1,6 @@
 import * as caseRepository from '../../repositories/case.repository.js';
+import { getPageCount, getSkipValue } from '../../utils/database-pagination.js';
 import { mapApplicationWithSearchCriteria } from '../../utils/mapping/map-application-with-search-criteria.js';
-
 /**
  * @typedef {{id: number, reference: string, modifiedDate: number, title: string, description: string, status: string}} ApplicationWithSearchCriteriaResponse
  * @typedef {{page:number, pageSize: number, pageCount: number, itemCount: number, items: ApplicationWithSearchCriteriaResponse[]}} paginationInfo
@@ -15,31 +15,11 @@ const mapApplicationsWithSearchCriteria = (applications) => {
 };
 
 /**
- *
- * @param {number} pageNumber
- * @param {number} pageSize
- * @returns {number}
- */
-const getSkipValue = (pageNumber, pageSize) => {
-	return (pageNumber - 1) * pageSize;
-};
-
-/**
  * @param {string} query
  * @returns {string}
  */
 const tidyQuery = (query) => {
 	return query.trim();
-};
-
-/**
- *
- * @param {number} applicationsCount
- * @param {number} pageSize
- * @returns {number}
- */
-const getPageCount = (applicationsCount, pageSize) => {
-	return Math.ceil(applicationsCount / pageSize);
 };
 
 /**
