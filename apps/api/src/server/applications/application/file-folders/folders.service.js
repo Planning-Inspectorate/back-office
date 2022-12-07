@@ -11,7 +11,7 @@ import {
 /**
  * @typedef {import('@pins/applications').FolderDetails} FolderDetails
  * @typedef {import('apps/api/prisma/schema.js').Document} Document
- * @typedef {{ guid: string, documentName: string, status: string }} DocumentDetails
+ * @typedef {import('apps/api/prisma/schema.js').DocumentDetails} DocumentDetails
  * @typedef {{ page: number, pageSize: number, pageCount: number, itemCount: number, items: DocumentDetails[]}} PaginatedDocumentDetails
  */
 

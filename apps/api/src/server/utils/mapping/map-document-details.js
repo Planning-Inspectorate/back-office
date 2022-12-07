@@ -1,6 +1,6 @@
 /** @typedef {import('@pins/api').Schema.Document} Document */
 
-/** @typedef {{ guid: string, documentName: string, status: string }} DocumentDetails */
+/** @typedef {import('apps/api/prisma/schema.js').DocumentDetails} DocumentDetails */
 
 /**
  *
@@ -8,9 +8,16 @@
  * @returns { DocumentDetails }
  */
 export const mapSingleDocumentDetails = (documentDetails) => {
+	// TODO: currently some fields not in DB, hence null / blank values returned
 	return {
 		guid: documentDetails.guid,
 		documentName: documentDetails.name,
+		documentUrl: documentDetails.blobStoragePath,
+		from: '',
+		receivedDate: null,
+		size: 0,
+		type: '',
+		redacted: false,
 		status: documentDetails.status
 	};
 };

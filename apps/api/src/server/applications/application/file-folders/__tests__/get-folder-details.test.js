@@ -228,6 +228,12 @@ test('returns documents in a folder on a case', async (t) => {
 			{
 				guid: '1111-2222-3333',
 				documentName: 'Document 1',
+				documentUrl: null,
+				from: '',
+				receivedDate: null,
+				size: 0,
+				type: '',
+				redacted: false,
 				status: 'not checked'
 			}
 		]
