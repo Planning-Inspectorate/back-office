@@ -1,22 +1,14 @@
 import NodeClam from 'clamscan';
+import config from './config.js';
 
-const clamAvHost = process.env.CLAM_AV_HOST;
-const clamAvPort = Number.parseInt(process.env.CLAM_AV_PORT, 10);
+const clamAvHost = config.CLAM_AV_HOST;
+const clamAvPort = config.CLAM_AV_PORT;
 
-/**
- * @param {import('node:stream').Readable} blobStream
- * @returns {Promise<boolean>}
- */
-export const scanStream = async (blobStream) => {
-	const clamScan = await new NodeClam().init({
-		debugMode: true,
-		clamdscan: {
-			host: clamAvHost,
-			port: clamAvPort
-		}
-	});
-
-	const scanResult = await clamScan.scanStream(blobStream);
-
-	return scanResult.isInfected;
-};
+export const clamAvClient = await new NodeClam().init({
+	debugMode: false,
+	clamdscan: {
+		host: clamAvHost,
+		port: clamAvPort,
+		bypassTest: config.NODE_ENV === 'test'
+	}
+});
