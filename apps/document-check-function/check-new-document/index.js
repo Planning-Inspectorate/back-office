@@ -1,5 +1,5 @@
 import { sendDocumentStateAction } from './back-office-api-client.js';
-import { scanStream } from './clam-av-client.js';
+import { scanStream } from './scan-stream.js';
 
 /**
  * @param {boolean} isInfected
