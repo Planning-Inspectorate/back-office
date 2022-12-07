@@ -31,12 +31,13 @@ export const getFolderPathList = async ({ params }, response) => {
 };
 
 /**
- * Gets all the documents in a folder
+ * Gets paginated array of documents in a folder
  *
- * @type {import('express').RequestHandler<{ folderId: number }, ?, ?, any>}
+ * @type {import('express').RequestHandler<{ folderId: number }, ?, {pageNumber?: number, pageSize?: number}, any>}
  */
-export const getDocuments = async ({ params }, response) => {
-	const documents = await getDocumentsInFolder(params.folderId);
+export const getDocuments = async ({ params, body }, response) => {
+	const { pageNumber, pageSize } = body;
+	const paginatedDocuments = await getDocumentsInFolder(params.folderId, pageNumber, pageSize);
 
-	response.send(documents);
+	response.send(paginatedDocuments);
 };

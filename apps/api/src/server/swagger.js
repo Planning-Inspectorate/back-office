@@ -232,6 +232,25 @@ const document = {
 				]
 			}
 		],
+		DocumentsInFolderCriteriaRequestBody: {
+			pageNumber: 1,
+			pageSize: 1
+		},
+		PaginatedDocumentDetails: [
+			{
+				page: 1,
+				pageSize: 1,
+				pageCount: 1,
+				itemCount: 1,
+				items: [
+					{
+						guid: '1111-2222-3333',
+						documentName: 'Document Name 1',
+						status: 'unchecked'
+					}
+				]
+			}
+		],
 		AppealToValidate: {
 			AppealId: 1,
 			AppealReference: 'APP/Q9999/D/21/1345264',

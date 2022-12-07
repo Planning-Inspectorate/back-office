@@ -77,6 +77,8 @@ const findUniqueStub = sinon.stub();
 const findUniqueFolderStub = sinon.stub();
 const findManyFoldersStub = sinon.stub();
 const findManyDocumentsStub = sinon.stub();
+const countStub = sinon.stub();
+const documentsInFolder201Count = 1;
 
 findUniqueStub.withArgs({ where: { id: 1 } }).returns(application1);
 findUniqueStub.withArgs({ where: { id: 2 } }).returns(application2);
@@ -88,7 +90,19 @@ findUniqueFolderStub.withArgs({ where: { caseId: 1, folderId: 201 } }).returns(f
 // this is needed for the internal custom is folder on the case check
 findUniqueFolderStub.withArgs({ where: { id: 201 } }).returns(folder1);
 
-findManyDocumentsStub.withArgs({ where: { folderId: 201 } }).returns(documents);
+findManyDocumentsStub
+	.withArgs({
+		skip: sinon.match.any,
+		take: sinon.match.any,
+		where: { folderId: 201 }
+	})
+	.returns(documents);
+
+countStub
+	.withArgs({
+		where: { folderId: 201 }
+	})
+	.returns(documentsInFolder201Count);
 
 test.before('set up mocks', () => {
 	sinon.stub(databaseConnector, 'case').get(() => {
@@ -98,7 +112,10 @@ test.before('set up mocks', () => {
 		return { findMany: findManyFoldersStub, findUnique: findUniqueFolderStub };
 	});
 	sinon.stub(databaseConnector, 'document').get(() => {
-		return { findMany: findManyDocumentsStub };
+		return {
+			findMany: findManyDocumentsStub,
+			count: countStub
+		};
 	});
 });
 
@@ -160,7 +177,10 @@ test('returns 400 error if sub folder id is not a folder on a case', async (t) =
 
 // File tests
 test('returns 400 error getting documents if sub folder id is not a folder on a case', async (t) => {
-	const response = await request.get('/applications/1/folders/1000/documents');
+	const response = await request.post('/applications/1/folders/1000/documents').send({
+		pageNumber: 1,
+		pageSize: 1
+	});
 
 	t.is(response.status, 400);
 	t.deepEqual(response.body, {
@@ -169,7 +189,10 @@ test('returns 400 error getting documents if sub folder id is not a folder on a 
 });
 
 test('returns 400 error getting documents if sub folder id is valid but not a folder on this case', async (t) => {
-	const response = await request.get('/applications/2/folders/201/documents');
+	const response = await request.post('/applications/2/folders/201/documents').send({
+		pageNumber: 1,
+		pageSize: 1
+	});
 
 	t.is(response.status, 400);
 	t.deepEqual(response.body, {
@@ -178,7 +201,10 @@ test('returns 400 error getting documents if sub folder id is valid but not a fo
 });
 
 test('returns 404 error getting documents if case does not exist', async (t) => {
-	const response = await request.get('/applications/1000/folders/1/documents');
+	const response = await request.post('/applications/1000/folders/1/documents').send({
+		pageNumber: 1,
+		pageSize: 1
+	});
 
 	t.is(response.status, 404);
 	t.deepEqual(response.body, {
@@ -187,14 +213,23 @@ test('returns 404 error getting documents if case does not exist', async (t) => 
 });
 
 test('returns documents in a folder on a case', async (t) => {
-	const response = await request.get('/applications/1/folders/201/documents');
+	const response = await request.post('/applications/1/folders/201/documents').send({
+		pageNumber: 1,
+		pageSize: 1
+	});
 
 	t.is(response.status, 200);
-	t.deepEqual(response.body, [
-		{
-			guid: '1111-2222-3333',
-			documentName: 'Document 1',
-			status: 'not checked'
-		}
-	]);
+	t.deepEqual(response.body, {
+		page: 1,
+		pageSize: 1,
+		pageCount: 1,
+		itemCount: 1,
+		items: [
+			{
+				guid: '1111-2222-3333',
+				documentName: 'Document 1',
+				status: 'not checked'
+			}
+		]
+	});
 });
