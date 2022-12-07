@@ -184,3 +184,15 @@ export type CaseStatusNameType =
 	| 'Decision'
 	| 'Post decision'
 	| 'Withdrawn';
+
+export interface DocumentDetails {
+	guid: string;
+	documentName: string;
+	documentUrl: string | null;
+	from: string;
+	receivedDate: Date | null;
+	size: number;
+	type: string;
+	redacted: boolean;
+	status: string;
+}
