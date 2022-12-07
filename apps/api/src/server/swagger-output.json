@@ -1806,11 +1806,29 @@
 							"properties": {
 								"guid": {
 									"type": "string",
-									"example": "1111-2222-3333"
+									"example": "0fab253b-2c0c-4c55-94c0-f3f81ffc589c"
 								},
 								"documentName": {
 									"type": "string",
 									"example": "Document Name 1"
+								},
+								"documentUrl": {},
+								"from": {
+									"type": "string",
+									"example": ""
+								},
+								"receivedDate": {},
+								"size": {
+									"type": "number",
+									"example": 0
+								},
+								"type": {
+									"type": "string",
+									"example": "PDF"
+								},
+								"redacted": {
+									"type": "boolean",
+									"example": false
 								},
 								"status": {
 									"type": "string",

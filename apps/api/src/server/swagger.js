@@ -244,8 +244,14 @@ const document = {
 				itemCount: 1,
 				items: [
 					{
-						guid: '1111-2222-3333',
+						guid: '0fab253b-2c0c-4c55-94c0-f3f81ffc589c',
 						documentName: 'Document Name 1',
+						documentUrl: null,
+						from: '',
+						receivedDate: null,
+						size: 0,
+						type: 'PDF',
+						redacted: false,
 						status: 'unchecked'
 					}
 				]
