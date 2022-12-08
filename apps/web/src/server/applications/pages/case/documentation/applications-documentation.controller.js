@@ -99,7 +99,7 @@ const documentationFolderData = async (request, response) => {
 		caseId,
 		folderId,
 		size,
-		number - 1
+		number
 	);
 
 	const paginationDropdownItems = [...Array.from({ length: 5 }).keys()].map((index) => ({
