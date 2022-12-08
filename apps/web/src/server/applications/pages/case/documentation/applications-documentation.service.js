@@ -1,5 +1,4 @@
-import { fixtureDocumentationFiles } from '../../../../../../testing/applications/fixtures/documentation-files.js';
-import { get } from '../../../../lib/request.js';
+import { get, post } from '../../../../lib/request.js';
 
 /**
  * @typedef {import('../../../applications.types').DocumentationCategory} DocumentationCategory
@@ -55,21 +54,10 @@ export const getCaseDocumentationFolderPath = (caseId, folderId) => {
  * @returns {Promise<PaginatedDocumentationFiles>}
  */
 export const getCaseDocumentationFilesInFolder = async (caseId, folderId, pageSize, pageNumber) => {
-	const documentationFiles = fixtureDocumentationFiles;
-
-	const items = documentationFiles.slice(pageNumber * pageSize, pageSize + pageNumber * pageSize);
-	const response = {
-		items,
-		itemCount: documentationFiles.length,
-		pageCount: Math.ceil(documentationFiles.length / pageSize),
-		page: pageNumber,
-		pageSize
-	};
-
-	return new Promise((resolve) => {
-		setTimeout(() => resolve(response), 200);
+	return post(`applications/${caseId}/folders/${folderId}/documents`, {
+		json: {
+			pageSize,
+			pageNumber
+		}
 	});
-
-	// TODO: remove the mock above and run the actual get
-	// return get(`applications/${caseId}/folders/${folderId}/documents`);
 };
