@@ -1787,9 +1787,9 @@
 						"type": "number",
 						"example": 1
 					},
-					"pageSize": {
+					"pageDefaultSize": {
 						"type": "number",
-						"example": 1
+						"example": 50
 					},
 					"pageCount": {
 						"type": "number",
