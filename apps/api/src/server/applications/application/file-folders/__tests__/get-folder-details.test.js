@@ -215,13 +215,13 @@ test('returns 404 error getting documents if case does not exist', async (t) => 
 test('returns documents in a folder on a case', async (t) => {
 	const response = await request.post('/applications/1/folders/201/documents').send({
 		pageNumber: 1,
-		pageSize: 1
+		pageSize: 50
 	});
 
 	t.is(response.status, 200);
 	t.deepEqual(response.body, {
 		page: 1,
-		pageSize: 1,
+		pageDefaultSize: 50,
 		pageCount: 1,
 		itemCount: 1,
 		items: [

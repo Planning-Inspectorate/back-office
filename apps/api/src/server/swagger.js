@@ -239,7 +239,7 @@ const document = {
 		PaginatedDocumentDetails: [
 			{
 				page: 1,
-				pageSize: 1,
+				pageDefaultSize: 50,
 				pageCount: 1,
 				itemCount: 1,
 				items: [
