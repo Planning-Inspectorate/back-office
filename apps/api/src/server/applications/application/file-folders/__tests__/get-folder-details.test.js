@@ -221,7 +221,7 @@ test('returns documents in a folder on a case', async (t) => {
 	t.is(response.status, 200);
 	t.deepEqual(response.body, {
 		page: 1,
-		pageDefaultSize: 50,
+		pageDefaultSize: 1,
 		pageCount: 1,
 		itemCount: 1,
 		items: [
