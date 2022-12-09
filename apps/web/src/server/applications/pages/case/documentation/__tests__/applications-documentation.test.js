@@ -18,9 +18,6 @@ const nocks = (/** @type {string} */ domainType) => {
 	nock('http://test/').get(`/applications/${domainType}`).reply(200, {});
 	nock('http://test/').get('/applications/123').times(2).reply(200, fixtureCases[3]);
 	nock('http://test/')
-		.get('/applications/123/folders/21/documents')
-		.reply(200, fixtureDocumentationFiles);
-	nock('http://test/')
 		.get('/applications/123/folders')
 		.reply(200, fixtureDocumentationTopLevelFolders);
 	nock('http://test/')
@@ -82,24 +79,6 @@ describe('applications documentation', () => {
 				});
 			});
 
-			describe('Case officer', () => {
-				beforeEach(async () => {
-					nocks('case-officer');
-					await request.get('/applications-service/case-officer');
-				});
-
-				it('should render the page with no list and no upload button', async () => {
-					const response = await request.get(
-						`${baseUrl}/project-documentation/21/sub-folder-level2`
-					);
-					const element = parseHtml(response.text);
-
-					expect(element.innerHTML).toMatchSnapshot();
-					expect(element.innerHTML).toContain('Upload files');
-					expect(element.innerHTML).not.toContain('Apply changes');
-				});
-			});
-
 			describe('Case admin officer', () => {
 				beforeEach(async () => {
 					nocks('case-admin-officer');
@@ -107,6 +86,10 @@ describe('applications documentation', () => {
 				});
 
 				it('should render the page with default pagination if there is no data in the session', async () => {
+					nock('http://test/')
+						.post('/applications/123/folders/21/documents')
+						.reply(200, fixtureDocumentationFiles(1, 50));
+
 					const response = await request.get(
 						`${baseUrl}/project-documentation/21/sub-folder-level2`
 					);
@@ -118,6 +101,10 @@ describe('applications documentation', () => {
 				});
 
 				it('should render the page with the right number of files', async () => {
+					nock('http://test/')
+						.post('/applications/123/folders/21/documents')
+						.reply(200, fixtureDocumentationFiles(2, 30));
+
 					const response = await request.get(
 						`${baseUrl}/project-documentation/21/sub-folder-level2?number=2&size=30`
 					);
@@ -128,6 +115,11 @@ describe('applications documentation', () => {
 				});
 
 				it('should render the page with custom pagination if there is data in the session', async () => {
+					nock('http://test/')
+						.post('/applications/123/folders/21/documents')
+						.times(2)
+						.reply(200, fixtureDocumentationFiles(1, 30));
+
 					await request.get(
 						`${baseUrl}/project-documentation/21/sub-folder-level2?number=1&size=30`
 					);
@@ -146,6 +138,9 @@ describe('applications documentation', () => {
 		describe('POST', () => {
 			beforeEach(async () => {
 				nocks('case-admin-officer');
+				nock('http://test/')
+					.post('/applications/123/folders/21/documents')
+					.reply(200, fixtureDocumentationFiles(1, 50));
 				await request.get('/applications-service/case-admin-officer');
 			});
 

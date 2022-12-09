@@ -4,6 +4,7 @@ export type PaginatedResponse<T> = {
 	items: T[];
 	page: number;
 	pageSize: number;
+	pageDefaultSize: number;
 	pageCount: number;
 	itemCount: number;
 };
