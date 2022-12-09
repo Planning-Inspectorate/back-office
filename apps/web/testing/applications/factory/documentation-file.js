@@ -33,9 +33,15 @@ export function createDocumentationFile({
 		startOffset: createUniqueRandomNumberFromSeed(5, 20, uniqueSeed)
 	})}`;
 	const type = ['DOC', 'PDF', 'JPG', 'MP3'][createUniqueRandomNumberFromSeed(0, 4, uniqueSeed)];
-	const status = ['checked', 'unchecked', 'ready-to-publish', 'do-not-publish'][
-		createUniqueRandomNumberFromSeed(0, 4, uniqueSeed)
-		];
+	const status = [
+		'checked',
+		'unchecked',
+		'ready_to_publish',
+		'do_not_publish',
+		'unpublished',
+		'awaiting_virus_check',
+		'failed_virus_check'
+	][createUniqueRandomNumberFromSeed(0, 7, uniqueSeed)];
 
 	return {
 		guid,

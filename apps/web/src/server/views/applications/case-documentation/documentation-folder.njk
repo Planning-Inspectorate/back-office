@@ -43,7 +43,6 @@
 				</div>
 
 				{% set userIsInspector = domainType === 'inspector' %}
-				{% set userIsCaseAdminOfficer = domainType === 'case-admin-officer' %}
 
 				<div class="govuk-grid-row govuk-!-margin-top-0">
 					<div class="govuk-grid-column-one-half govuk-!-margin-top-0">
@@ -58,7 +57,7 @@
 					</div>
 				</div>
 
-				{% if  userIsCaseAdminOfficer %}
+				{% if not userIsInspector %}
 					<hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible">
 					{% if documentationFiles |length %}
 						<form class="pins-files-list" method="post">
@@ -134,8 +133,8 @@
 								<p class="govuk-heading-s">Select documents to make changes to statuses</p>
 								<div class="pagination-info">
 									<p>This folder contains {{ documentationFiles.itemCount }} document(s).
-										Showing {{ (documentationFiles.page * documentationFiles.pageSize) + 1 }}
-										- {{ (documentationFiles.page * documentationFiles.pageSize) +  documentationFiles.items.length }}
+										Showing {{ ((documentationFiles.page - 1) * documentationFiles.pageDefaultSize) + 1 }}
+										- {{ ((documentationFiles.page - 1) * documentationFiles.pageDefaultSize) +  documentationFiles.items.length }}
 										document(s).</p>
 									<div>
 										{{ govukSelect({
@@ -181,8 +180,9 @@
 									</td>
 								</tr>
 								{% for documentationFile in documentationFiles.items %}
+									{% set isDisabled = documentationFile.status === 'awaiting_virus_check' or documentationFile.status === 'failed_virus_check'%}
 
-									<tr class="govuk-table__row">
+									<tr class="govuk-table__row {{ "govuk-table__row--disabled" if isDisabled else ""}}">
 										<td class="govuk-table__cell">
 											{{ govukCheckboxes({
 												name: "selectedFilesIds",
@@ -216,7 +216,7 @@
 										</td>
 										<td class="govuk-table__cell">{{ documentationFile.date|datestamp({format: 'dd/MM/yyyy'}) }}</td>
 										<td class="govuk-table__cell">{{ 'Redacted' if  documentationFile.isRedacted else 'Unredacted' }}</td>
-										<td class="govuk-table__cell">{{ documentStatusName(documentationFile.status) }}</td>
+										<td class="govuk-table__cell">{{ documentationFile.status|statusName }}</td>
 										<td class="govuk-table__cell">
 											<a class="govuk-link govuk-body-s" href="{{ documentationFile.url }}/edit">View/Edit
 												properties</a>
@@ -236,24 +236,3 @@
 		</div>
 	</div>
 {% endblock %}
-
-{# TODO: this should be a filter but the actual values
-returned by the API are still uncertain and potentially
-none of this would be useful #}
-{% macro documentStatusName(status) %}
-	{% set statusName = '' %}
-
-	{% switch (status) %}
-	{% case 'checked' %}
-		{% set statusName = 'Checked' %}
-	{% case 'unchecked' %}
-		{% set statusName = 'Unchecked' %}
-	{% case 'ready-to-publish' %}
-		{% set statusName = 'Ready to publish' %}
-	{% case 'do-not-publish' %}
-		{% set statusName = 'Do not publish' %}
-	{% endswitch %}
-
-	{{ statusName }}
-{% endmacro %}
-

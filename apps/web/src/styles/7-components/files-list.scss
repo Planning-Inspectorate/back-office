@@ -93,6 +93,10 @@
 	  width: 19rem;
 	}
 
+	.govuk-table__row--disabled {
+	  opacity: 0.4;
+	}
+
 	.govuk-checkboxes__input {
 	  width: 28px;
 	  height: 28px;
