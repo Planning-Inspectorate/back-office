@@ -68,6 +68,10 @@ describe('applications documentation', () => {
 				});
 
 				it('should render the page with no list and no upload button', async () => {
+					nock('http://test/')
+						.post('/applications/123/folders/21/documents')
+						.reply(200, fixtureDocumentationFiles(1, 50));
+
 					const response = await request.get(
 						`${baseUrl}/project-documentation/21/sub-folder-level2`
 					);
