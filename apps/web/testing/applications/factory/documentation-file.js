@@ -16,7 +16,7 @@ export function createDocumentationFile({
 	guid = `${fake.createUniqueId()}`,
 	date = 1_669_916_924
 } = {}) {
-	const uniqueSeed = fake.createUniqueId();
+	const uniqueSeed = Number.parseInt(guid, 10);
 	const size = createUniqueRandomNumberFromSeed(100, 10_000_000, uniqueSeed);
 	const isRedacted = createUniqueRandomBooleanFromSeed(uniqueSeed);
 
