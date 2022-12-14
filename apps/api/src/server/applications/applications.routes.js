@@ -4,7 +4,6 @@ import { trimUnexpectedRequestParameters } from '../middleware/trim-unexpected-r
 import {
 	createApplication,
 	getApplicationDetails,
-	provideDocumentUploadURLs,
 	startCase,
 	updateApplication
 } from './application/application.controller.js';
@@ -12,10 +11,9 @@ import {
 	validateApplicantId,
 	validateApplicationId,
 	validateCreateUpdateApplication,
-	validateDocumentsToUploadProvided,
-	validateFolderIds,
 	validateGetApplicationQuery
 } from './application/application.validators.js';
+import { documentRoutes } from './application/documents/document.routes.js';
 import { fileFoldersRoutes } from './application/file-folders/folders.routes.js';
 import { caseAdminOfficerRoutes } from './case-admin-officer/case-admin-officer.routes.js';
 import { caseOfficerRoutes } from './case-officer/case-officer.routes.js';
@@ -40,6 +38,8 @@ router.use('/sector', sectorRoutes);
 router.use('/search', caseSearchRoutes);
 
 router.use('/zoom-level', zoomLevelRoutes);
+
+router.use('/', documentRoutes);
 
 router.use('/', fileFoldersRoutes);
 
@@ -140,35 +140,6 @@ router.get(
 	validateGetApplicationQuery,
 	trimUnexpectedRequestParameters,
 	asyncHandler(getApplicationDetails)
-);
-
-router.post(
-	'/:id/documents',
-	/*
-        #swagger.tags = ['Applications']
-        #swagger.path = '/applications/{id}/documents'
-        #swagger.description = 'Saves new documents to database and returns location in Blob Storage'
-        #swagger.parameters['id'] = {
-            in: 'path',
-			description: 'Application ID here',
-			required: true,
-			type: 'integer'
-        }
-        #swagger.parameters['body'] = {
-            in: 'body',
-            description: 'Document Details',
-            schema: { $ref: '#/definitions/documentsToSave' }
-        }
-        #swagger.responses[200] = {
-            description: 'Documents that have been saved',
-            schema: { $ref: '#/definitions/documentsAndBlobStorageURLs' }
-        }
-	 */
-	validateApplicationId,
-	validateDocumentsToUploadProvided,
-	validateFolderIds,
-	trimUnexpectedRequestParameters,
-	asyncHandler(provideDocumentUploadURLs)
 );
 
 export { router as applicationsRoutes };

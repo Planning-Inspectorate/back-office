@@ -38,6 +38,11 @@ const document = {
 				folderId: 123
 			}
 		],
+		documentsToUpdateRequestBody: {
+			status: 'not_user_checked',
+			redacted: true,
+			items: [{ guid: '0084b156-006b-48b1-a47f-e7176414db29' }]
+		},
 		documentsAndBlobStorageURLs: {
 			blobStorageHost: 'blob-storage-host',
 			blobStorageContainer: 'blob-storage-container',

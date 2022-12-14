@@ -511,6 +511,69 @@
 				}
 			}
 		},
+		"/applications/{id}/documents": {
+			"post": {
+				"tags": ["Applications"],
+				"description": "Saves new documents to database and returns location in Blob Storage",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"type": "integer",
+						"description": "Application ID here"
+					},
+					{
+						"name": "body",
+						"in": "body",
+						"description": "Document Details",
+						"schema": {
+							"$ref": "#/definitions/documentsToSave"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Documents that have been saved",
+						"schema": {
+							"$ref": "#/definitions/documentsAndBlobStorageURLs"
+						}
+					}
+				}
+			}
+		},
+		"/applications/{id}/documents/update": {
+			"patch": {
+				"tags": ["Applications"],
+				"description": "Updates the status and/or redaction status on an array of documents",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"type": "integer",
+						"description": "Application ID here"
+					},
+					{
+						"name": "body",
+						"in": "body",
+						"description": "Document Update Details",
+						"schema": {
+							"$ref": "#/definitions/documentsToUpdateRequestBody"
+						},
+						"required": true
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Documents that have been updated",
+						"schema": {
+							"$ref": "#/definitions/documentsToUpdateRequestBody"
+						}
+					}
+				}
+			}
+		},
 		"/applications/{id}/folders": {
 			"get": {
 				"tags": ["Applications"],
@@ -680,14 +743,7 @@
 						"required": true
 					}
 				],
-				"responses": {
-					"200": {
-						"description": "Paginated data and an array of document details",
-						"schema": {
-							"$ref": "#/definitions/PaginatedDocumentDetails"
-						}
-					}
-				}
+				"responses": {}
 			}
 		},
 		"/applications": {
@@ -949,37 +1005,6 @@
 				}
 			}
 		},
-		"/applications/{id}/documents": {
-			"post": {
-				"tags": ["Applications"],
-				"description": "Saves new documents to database and returns location in Blob Storage",
-				"parameters": [
-					{
-						"name": "id",
-						"in": "path",
-						"required": true,
-						"type": "integer",
-						"description": "Application ID here"
-					},
-					{
-						"name": "body",
-						"in": "body",
-						"description": "Document Details",
-						"schema": {
-							"$ref": "#/definitions/documentsToSave"
-						}
-					}
-				],
-				"responses": {
-					"200": {
-						"description": "Documents that have been saved",
-						"schema": {
-							"$ref": "#/definitions/documentsAndBlobStorageURLs"
-						}
-					}
-				}
-			}
-		},
 		"/applications/case-officer": {
 			"get": {
 				"tags": ["Applications"],
@@ -1124,6 +1149,31 @@
 					"folderId": {
 						"type": "number",
 						"example": 123
+					}
+				}
+			}
+		},
+		"documentsToUpdateRequestBody": {
+			"type": "object",
+			"properties": {
+				"status": {
+					"type": "string",
+					"example": "not_user_checked"
+				},
+				"redacted": {
+					"type": "boolean",
+					"example": true
+				},
+				"items": {
+					"type": "array",
+					"items": {
+						"type": "object",
+						"properties": {
+							"guid": {
+								"type": "string",
+								"example": "0084b156-006b-48b1-a47f-e7176414db29"
+							}
+						}
 					}
 				}
 			}

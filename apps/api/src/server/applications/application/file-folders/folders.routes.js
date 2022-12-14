@@ -143,8 +143,8 @@ router.post(
 			required: true
 		}
         #swagger.responses[200] = {
-            description: 'Paginated data and an array of document details',
-            schema: { $ref: '#/definitions/PaginatedDocumentDetails' }
+            description: 'An array of updated document guids',
+            type: string[]
         }
     */
 	validateApplicationId,

@@ -195,13 +195,6 @@ export const validateGetApplicationQuery = composeMiddleware(
 	validationErrorHandler
 );
 
-export const validateDocumentsToUploadProvided = composeMiddleware(
-	body('[]').notEmpty().withMessage('Must provide documents to upload'),
-	body('*.documentName').exists().withMessage('Must provide a document name'),
-	body('*.folderId').exists().withMessage('Must provide a folder id'),
-	validationErrorHandler
-);
-
 /**
  *
  * @param {number} value

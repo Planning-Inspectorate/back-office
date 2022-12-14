@@ -14,6 +14,20 @@ export const upsert = (document) => {
 };
 
 /**
+ * Get a document by documentGuid
+ *
+ * @param {string} documentGuid
+ * @returns {import('@prisma/client').PrismaPromise<import('@pins/api').Schema.Document>}
+ */
+export const getById = (documentGuid) => {
+	return databaseConnector.document.findFirstOrThrow({
+		where: {
+			guid: documentGuid
+		}
+	});
+};
+
+/**
  *
  * @param {string} documentGuid
  * @param {import('@pins/api').Schema.DocumentUpdateInput} documentDetails
