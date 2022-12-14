@@ -568,7 +568,19 @@
 					"200": {
 						"description": "Documents that have been updated",
 						"schema": {
-							"$ref": "#/definitions/documentsToUpdateRequestBody"
+							"type": "array",
+							"items": {
+								"type": "object",
+								"properties": {
+									"guid": {
+										"type": "string",
+										"example": "0084b156-006b-48b1-a47f-e7176414db29"
+									}
+								}
+							},
+							"xml": {
+								"name": "main"
+							}
 						}
 					}
 				}
