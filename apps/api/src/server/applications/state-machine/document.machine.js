@@ -9,12 +9,12 @@ const documentStatesForMachine = {
 	},
 	awaiting_virus_check: {
 		on: {
-			check_success: 'ready',
-			check_fail: 'failed_checks'
+			check_success: 'not_user_checked',
+			check_fail: 'failed_virus_check'
 		}
 	},
-	ready: {},
-	failed_checks: {}
+	not_user_checked: {},
+	failed_virus_check: {}
 };
 
 /**
