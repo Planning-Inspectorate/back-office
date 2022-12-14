@@ -61,10 +61,11 @@
 					<hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible">
 					{% if documentationFiles |length %}
 						<form class="pins-files-list" method="post">
+							<caption class="display--sr-only">Manage Documents in this location</caption>
 							<div class="govuk-grid-row display--flex">
 								<div class="govuk-grid-column-two-thirds">
 									<div class="pins-files-list__statuses">
-										<p class="govuk-heading-s">Statuses</p>
+										<h3 class="govuk-heading-s">Statuses</h3>
 										<div class="govuk-grid-row">
 											<div>{{ govukRadios({
 													name: "isRedacted",
@@ -130,7 +131,7 @@
 							</div>
 
 							<div class="pins-files-list__info govuk-body">
-								<p class="govuk-heading-s">Select documents to make changes to statuses</p>
+								<h3 class="govuk-heading-s">Select documents to make changes to statuses</h3>
 								<div class="pagination-info">
 									<p>This folder contains {{ documentationFiles.itemCount }} document(s).
 										Showing {{ ((documentationFiles.page - 1) * documentationFiles.pageDefaultSize) + 1 }}

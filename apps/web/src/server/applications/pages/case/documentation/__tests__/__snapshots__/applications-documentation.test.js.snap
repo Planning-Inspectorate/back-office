@@ -59,10 +59,11 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
             </div>
             <hr class=\\"govuk-section-break govuk-section-break--l govuk-section-break--visible\\">
             <form class=\\"pins-files-list\\" method=\\"post\\">
+                <caption class=\\"display--sr-only\\">Manage Documents in this location</caption>
                 <div class=\\"govuk-grid-row display--flex\\">
                     <div class=\\"govuk-grid-column-two-thirds\\">
                         <div class=\\"pins-files-list__statuses\\">
-                            <p class=\\"govuk-heading-s\\">Statuses</p>
+                            <h3 class=\\"govuk-heading-s\\">Statuses</h3>
                             <div class=\\"govuk-grid-row\\">
                                 <div>
                                     <div class=\\"govuk-form-group\\">
@@ -127,7 +128,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                     </div>
                 </div>
                 <div class=\\"pins-files-list__info govuk-body\\">
-                    <p class=\\"govuk-heading-s\\">Select documents to make changes to statuses</p>
+                    <h3 class=\\"govuk-heading-s\\">Select documents to make changes to statuses</h3>
                     <div class=\\"pagination-info\\">
                         <p>This folder contains 123 document(s). Showing 1 - 30 document(s).</p>
                         <div>
@@ -969,10 +970,11 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
             </div>
             <hr class=\\"govuk-section-break govuk-section-break--l govuk-section-break--visible\\">
             <form class=\\"pins-files-list\\" method=\\"post\\">
+                <caption class=\\"display--sr-only\\">Manage Documents in this location</caption>
                 <div class=\\"govuk-grid-row display--flex\\">
                     <div class=\\"govuk-grid-column-two-thirds\\">
                         <div class=\\"pins-files-list__statuses\\">
-                            <p class=\\"govuk-heading-s\\">Statuses</p>
+                            <h3 class=\\"govuk-heading-s\\">Statuses</h3>
                             <div class=\\"govuk-grid-row\\">
                                 <div>
                                     <div class=\\"govuk-form-group\\">
@@ -1037,7 +1039,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                     </div>
                 </div>
                 <div class=\\"pins-files-list__info govuk-body\\">
-                    <p class=\\"govuk-heading-s\\">Select documents to make changes to statuses</p>
+                    <h3 class=\\"govuk-heading-s\\">Select documents to make changes to statuses</h3>
                     <div class=\\"pagination-info\\">
                         <p>This folder contains 123 document(s). Showing 1 - 50 document(s).</p>
                         <div>
@@ -2342,10 +2344,11 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
             </div>
             <hr class=\\"govuk-section-break govuk-section-break--l govuk-section-break--visible\\">
             <form class=\\"pins-files-list\\" method=\\"post\\">
+                <caption class=\\"display--sr-only\\">Manage Documents in this location</caption>
                 <div class=\\"govuk-grid-row display--flex\\">
                     <div class=\\"govuk-grid-column-two-thirds\\">
                         <div class=\\"pins-files-list__statuses\\">
-                            <p class=\\"govuk-heading-s\\">Statuses</p>
+                            <h3 class=\\"govuk-heading-s\\">Statuses</h3>
                             <div class=\\"govuk-grid-row\\">
                                 <div>
                                     <div class=\\"govuk-form-group\\">
@@ -2410,7 +2413,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                     </div>
                 </div>
                 <div class=\\"pins-files-list__info govuk-body\\">
-                    <p class=\\"govuk-heading-s\\">Select documents to make changes to statuses</p>
+                    <h3 class=\\"govuk-heading-s\\">Select documents to make changes to statuses</h3>
                     <div class=\\"pagination-info\\">
                         <p>This folder contains 123 document(s). Showing 31 - 60 document(s).</p>
                         <div>
@@ -3326,10 +3329,11 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
             </div>
             <hr class=\\"govuk-section-break govuk-section-break--l govuk-section-break--visible\\">
             <form class=\\"pins-files-list\\" method=\\"post\\">
+                <caption class=\\"display--sr-only\\">Manage Documents in this location</caption>
                 <div class=\\"govuk-grid-row display--flex\\">
                     <div class=\\"govuk-grid-column-two-thirds\\">
                         <div class=\\"pins-files-list__statuses\\">
-                            <p class=\\"govuk-heading-s\\">Statuses</p>
+                            <h3 class=\\"govuk-heading-s\\">Statuses</h3>
                             <div class=\\"govuk-grid-row\\">
                                 <div>
                                     <div class=\\"govuk-form-group\\">
@@ -3394,7 +3398,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                     </div>
                 </div>
                 <div class=\\"pins-files-list__info govuk-body\\">
-                    <p class=\\"govuk-heading-s\\">Select documents to make changes to statuses</p>
+                    <h3 class=\\"govuk-heading-s\\">Select documents to make changes to statuses</h3>
                     <div class=\\"pagination-info\\">
                         <p>This folder contains 123 document(s). Showing 1 - 50 document(s).</p>
                         <div>

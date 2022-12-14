@@ -34,9 +34,8 @@ const clientActions = (uploadForm) => {
 	 */
 	const onFileSelect = (selectEvent) => {
 		const { target } = selectEvent;
-		const { files: newFiles } = target;
 
-		updateFilesRows(newFiles);
+		updateFilesRows(target);
 		updateButtonText();
 	};
 
@@ -71,9 +70,11 @@ const clientActions = (uploadForm) => {
 	/**
 	 *	Add rows in the files list
 	 *
-	 * @param {FileWithRowId[]} newFiles
+	 * @param {*} target
 	 */
-	const updateFilesRows = (newFiles) => {
+	const updateFilesRows = (target) => {
+		const { files: newFiles } = target;
+
 		hideErrors(uploadForm);
 
 		const wrongFiles = [];
@@ -107,6 +108,8 @@ const clientActions = (uploadForm) => {
 		if (wrongFiles.length > 0) {
 			showErrors({ message: 'FILE_SPECIFIC_ERRORS', details: wrongFiles }, uploadForm);
 		}
+		// reset the INPUT value to be able to re-uploade deleted files
+		// target.value = '';
 	};
 
 	/**
