@@ -9,7 +9,7 @@ const request = supertest(app);
 const document1 = {
 	caseId: 1,
 	guid: 'D1234',
-	status: 'not_yet_checked'
+	status: 'awaiting_virus_check'
 };
 
 const updateStatusInDocumentTableStub = sinon.stub().returns(document1);
@@ -57,12 +57,12 @@ test('updates document status', async (t) => {
 	t.deepEqual(response.body, {
 		caseId: 1,
 		guid: 'D1234',
-		status: 'not_yet_checked'
+		status: 'awaiting_virus_check'
 	});
 	sinon.assert.calledWith(updateStatusInDocumentTableStub, {
 		where: { guid: 'D1234' },
 		data: {
-			status: 'not_yet_checked'
+			status: 'awaiting_virus_check'
 		}
 	});
 });
