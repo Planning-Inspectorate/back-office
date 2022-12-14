@@ -109,7 +109,7 @@ const clientActions = (uploadForm) => {
 			showErrors({ message: 'FILE_SPECIFIC_ERRORS', details: wrongFiles }, uploadForm);
 		}
 		// reset the INPUT value to be able to re-uploade deleted files
-		// target.value = '';
+		target.value = '';
 	};
 
 	/**
