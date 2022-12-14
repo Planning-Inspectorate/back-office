@@ -65,3 +65,14 @@ export async function downloadDocument(request, response) {
 	response.set('x-original-file-name', request.query.documentName);
 	response.send(documentBuffer);
 }
+
+/**
+ * @type {import('express').RequestHandler<?, ?, {documentPath: string}>}
+ */
+export const deleteDocument = async (request, response) => {
+	const { documentPath } = request.body;
+
+	await blobStoreService.deleteDocument(documentPath);
+
+	response.send();
+};

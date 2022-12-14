@@ -1,3 +1,4 @@
+import got from 'got';
 import { sendDocumentStateAction } from './back-office-api-client.js';
 import { scanStream } from './scan-stream.js';
 
@@ -27,13 +28,27 @@ const getBlobCaseIdAndGuid = (blobUri) => {
 };
 
 /**
- * @param {{bindingData: {uri: string}}} context
+ * @param {string} documentUri
+ */
+const quarantineDocument = async (documentUri) => {
+	await got.post('document-storage-api/delete', { json: { documentPath: documentUri } }).json();
+};
+
+/**
+ * @param {{bindingData: {uri: string}, error: any}} context
  * @param {import('node:stream').Readable} myBlob
  */
 export const checkMyBlob = async (context, myBlob) => {
-	const { caseId, guid } = getBlobCaseIdAndGuid(context.bindingData.uri);
+	const documentUri = context.bindingData.uri;
+	const { caseId, guid } = getBlobCaseIdAndGuid(documentUri);
 
 	const isInfected = await scanStream(myBlob);
+
+	if (isInfected) {
+		context.error('Document did not pass AV checks');
+		await quarantineDocument(documentUri);
+	}
+
 	const machineAction = mapIsInfectedToMachineAction(isInfected);
 
 	await sendDocumentStateAction(guid, caseId, machineAction);
