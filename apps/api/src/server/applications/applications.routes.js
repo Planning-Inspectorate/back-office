@@ -216,7 +216,7 @@ router.patch(
         }
         #swagger.responses[200] = {
             description: 'Document status updated',
-            schema: { caseId: 1, guid: 'DB0110203', status: 'not_yet_checked'}
+            schema: { caseId: 1, guid: 'DB0110203', status: 'awaiting_virus_check'}
         }
 	 */
 	validateDocumentGUID,
