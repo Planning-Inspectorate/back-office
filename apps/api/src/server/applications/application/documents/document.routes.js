@@ -63,7 +63,7 @@ router.patch(
         }
         #swagger.responses[200] = {
             description: 'Documents that have been updated',
-            schema: { $ref: '#/definitions/documentsToUpdateRequestBody' }
+            schema: [ { guid: '0084b156-006b-48b1-a47f-e7176414db29' } ]
         }
 	 */
 	validateApplicationId,
