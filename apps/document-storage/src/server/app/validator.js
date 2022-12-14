@@ -31,6 +31,11 @@ export const validateDocumentName = composeMiddleware(
 	handleValidationError
 );
 
+export const validateDocumentPath = composeMiddleware(
+	body('documentPath').notEmpty().withMessage('Provide a document path'),
+	handleValidationError
+);
+
 export const validateDocumentInfo = composeMiddleware(
 	body('*.caseType')
 		.isIn(['appeal', 'application'])

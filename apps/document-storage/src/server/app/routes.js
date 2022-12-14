@@ -1,5 +1,6 @@
 import { Router as createRouter } from 'express';
 import {
+	deleteDocument,
 	documentLocation,
 	downloadDocument,
 	getAllDocuments,
@@ -10,6 +11,7 @@ import { trimUnexpectedRequestParameters } from './middleware/trim-unexpected-re
 import {
 	validateDocumentInfo,
 	validateDocumentName,
+	validateDocumentPath,
 	validateGetAllDocuments,
 	validateUploadDocument
 } from './validator.js';
@@ -114,6 +116,13 @@ router.post(
 	validateDocumentInfo,
 	trimUnexpectedRequestParameters,
 	asyncHandler(documentLocation)
+);
+
+router.patch(
+	'/document/delete',
+	validateDocumentPath,
+	trimUnexpectedRequestParameters,
+	asyncHandler(deleteDocument)
 );
 
 export { router as documentsRouter };

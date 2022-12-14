@@ -119,3 +119,10 @@ export async function documentsCreateUrl(documents) {
 function buildApplicationURL(caseReference, GUID, documentName) {
 	return `/application/${caseReference}/${GUID}/${documentName}`;
 }
+
+/**
+ * @param {string} blobPath
+ */
+export const deleteDocument = async (blobPath) => {
+	getBlockBlobClient(blobPath).delete();
+};
