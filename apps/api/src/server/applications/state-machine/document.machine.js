@@ -4,10 +4,10 @@ import mapObjectKeysToStrings from '../../utils/map-states-to-strings.js';
 const documentStatesForMachine = {
 	awaiting_upload: {
 		on: {
-			uploading: 'not_yet_checked'
+			uploading: 'awaiting_virus_check'
 		}
 	},
-	not_yet_checked: {
+	awaiting_virus_check: {
 		on: {
 			check_success: 'ready',
 			check_fail: 'failed_checks'
