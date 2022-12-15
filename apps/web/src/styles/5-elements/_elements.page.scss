@@ -4,6 +4,11 @@
    # PAGE
    ========================================================================== */
 
+/// override GDS Transport font-family for the entire project
+* {
+	font-family: arial, helvetica, sans-serif !important;
+}
+
 body {
 	/// Make our font sharper and utilize the text-rendering CSS property
 	/// to allow us to choose quality over speed
