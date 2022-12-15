@@ -118,8 +118,23 @@ router.post(
 	asyncHandler(documentLocation)
 );
 
-router.patch(
-	'/document/delete',
+router.delete(
+	'/document',
+	/*
+		#swagger.tags = ['Document-Storage']
+		#swagger.path = '/document'
+		#swagger.description = 'Deletes document'
+		#swagger.parameters['body'] = {
+			in: 'body',
+			type: 'String',
+			required: true,
+			schema: { documentPath: 'some/doc/path/test.txt' },
+			description: 'Document path in the container'
+		}
+		#swagger.responses[200] = {
+			description: 'All ok response'
+		}
+	*/
 	validateDocumentPath,
 	trimUnexpectedRequestParameters,
 	asyncHandler(deleteDocument)
