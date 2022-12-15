@@ -67,9 +67,11 @@ const documents = [
 		guid: '1111-2222-3333',
 		name: 'Document 1',
 		folderId: 201,
-		status: 'not checked',
+		status: 'not_user_checked',
 		blobStorageContainer: null,
-		blobStoragePath: null
+		blobStoragePath: null,
+		redacted: false,
+		createdAt: new Date(1_658_486_313_000)
 	}
 ];
 
@@ -94,6 +96,7 @@ findManyDocumentsStub
 	.withArgs({
 		skip: sinon.match.any,
 		take: sinon.match.any,
+		orderBy: [{ createdAt: 'desc' }],
 		where: { folderId: 201 }
 	})
 	.returns(documents);
@@ -230,11 +233,11 @@ test('returns documents in a folder on a case', async (t) => {
 				documentName: 'Document 1',
 				documentUrl: null,
 				from: '',
-				receivedDate: null,
+				receivedDate: '2022-07-22T10:38:33.000Z',
 				size: 0,
 				type: '',
 				redacted: false,
-				status: 'not checked'
+				status: 'not_user_checked'
 			}
 		]
 	});

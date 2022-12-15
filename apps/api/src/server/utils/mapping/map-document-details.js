@@ -1,5 +1,4 @@
 /** @typedef {import('@pins/api').Schema.Document} Document */
-
 /** @typedef {import('apps/api/prisma/schema.js').DocumentDetails} DocumentDetails */
 
 /**
@@ -14,10 +13,10 @@ export const mapSingleDocumentDetails = (documentDetails) => {
 		documentName: documentDetails.name,
 		documentUrl: documentDetails.blobStoragePath,
 		from: '',
-		receivedDate: null,
+		receivedDate: documentDetails.createdAt,
 		size: 0,
 		type: '',
-		redacted: false,
+		redacted: documentDetails.redacted,
 		status: documentDetails.status
 	};
 };
