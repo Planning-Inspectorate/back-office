@@ -104,6 +104,32 @@
 						"description": "File content"
 					}
 				}
+			},
+			"delete": {
+				"tags": ["Document-Storage"],
+				"description": "Deletes document",
+				"parameters": [
+					{
+						"name": "body",
+						"in": "body",
+						"required": true,
+						"schema": {
+							"type": "object",
+							"properties": {
+								"documentPath": {
+									"type": "string",
+									"example": "some/doc/path/test.txt"
+								}
+							}
+						},
+						"description": "Document path in the container"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "All ok response"
+					}
+				}
 			}
 		},
 		"/document-location": {
