@@ -54,6 +54,11 @@ export const getDocumentsInFolder = (folderId, skipValue, pageSize) => {
 	return databaseConnector.document.findMany({
 		skip: skipValue,
 		take: pageSize,
+		orderBy: [
+			{
+				createdAt: 'desc'
+			}
+		],
 		where: { folderId }
 	});
 };
