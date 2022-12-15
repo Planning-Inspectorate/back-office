@@ -30,8 +30,8 @@ const getBlobCaseIdAndGuid = (blobUri) => {
 /**
  * @param {string} documentUri
  */
-const quarantineDocument = async (documentUri) => {
-	await got.post('document-storage-api/delete', { json: { documentPath: documentUri } }).json();
+const deleteDocument = async (documentUri) => {
+	await got.delete('document-storage-api/document', { json: { documentPath: documentUri } }).json();
 };
 
 /**
@@ -46,7 +46,7 @@ export const checkMyBlob = async (context, myBlob) => {
 
 	if (isInfected) {
 		context.error('Document did not pass AV checks');
-		await quarantineDocument(documentUri);
+		await deleteDocument(documentUri);
 	}
 
 	const machineAction = mapIsInfectedToMachineAction(isInfected);
