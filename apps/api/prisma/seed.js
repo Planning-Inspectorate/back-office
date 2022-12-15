@@ -647,7 +647,7 @@ const deleteAllRecords = async () => {
 	const deleteCases = databaseConnector.case.deleteMany();
 	const deleteCaseStatuses = databaseConnector.caseStatus.deleteMany();
 	const deleteApplicationDetails = databaseConnector.applicationDetails.deleteMany();
-	const deleteSubSectos = databaseConnector.subSector.deleteMany();
+	const deleteSubSectors = databaseConnector.subSector.deleteMany();
 	const deleteSectors = databaseConnector.sector.deleteMany();
 	const deleteRegions = databaseConnector.region.deleteMany();
 	const deleteZoomLevels = databaseConnector.zoomLevel.deleteMany();
@@ -669,6 +669,7 @@ const deleteAllRecords = async () => {
 	const deleteServiceCustomers = databaseConnector.serviceCustomer.deleteMany();
 	const deleteGridReference = databaseConnector.gridReference.deleteMany();
 	const deleteDocuments = databaseConnector.document.deleteMany();
+	const deleteFolders = databaseConnector.folder.deleteMany();
 
 	await deleteDocuments;
 	await deleteLowestFolders();
@@ -683,7 +684,7 @@ const deleteAllRecords = async () => {
 		deleteApplicationDetails,
 		deleteCaseStatuses,
 		deleteCases,
-		deleteSubSectos,
+		deleteSubSectors,
 		deleteSectors,
 		deleteRegions,
 		deleteZoomLevels,
@@ -698,7 +699,8 @@ const deleteAllRecords = async () => {
 		deleteAddresses,
 		deleteInspectorDecision,
 		deleteAppeals,
-		deleteAppellant
+		deleteAppellant,
+		deleteFolders
 	]);
 };
 
