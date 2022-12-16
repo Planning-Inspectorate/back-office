@@ -17,14 +17,14 @@ const validateAllDocumentsExist = async (documentGuids) => {
 				const document = await DocumentRepository.getById(documentGuid.guid);
 
 				if (document === null || typeof document === 'undefined') {
-					throw new Error(`Unknown Document Guid ${documentGuid.guid}`);
+					throw new Error(`Unknown document guid ${documentGuid.guid}`);
 				}
 			} catch {
-				throw new Error(`Unknown Document Guid ${documentGuid.guid}`);
+				throw new Error(`Unknown document guid ${documentGuid.guid}`);
 			}
 		}
 	} else {
-		throw new Error('No document Guids specified');
+		throw new Error('No document guids specified');
 	}
 };
 
@@ -41,6 +41,6 @@ export const validateDocumentsToUpdateProvided = composeMiddleware(
 );
 
 export const validateDocumentIds = composeMiddleware(
-	body('[].items').custom(validateAllDocumentsExist).withMessage('Document Guid not found'),
+	body('[].items').custom(validateAllDocumentsExist),
 	validationErrorHandler
 );
