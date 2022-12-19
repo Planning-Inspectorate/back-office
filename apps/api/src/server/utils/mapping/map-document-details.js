@@ -1,3 +1,5 @@
+import { mapDateStringToUnixTimestamp } from './map-date-string-to-unix-timestamp.js';
+
 /** @typedef {import('@pins/api').Schema.Document} Document */
 /** @typedef {import('apps/api/prisma/schema.js').DocumentDetails} DocumentDetails */
 
@@ -13,7 +15,7 @@ export const mapSingleDocumentDetails = (documentDetails) => {
 		documentName: documentDetails.name,
 		documentUrl: documentDetails.blobStoragePath,
 		from: '',
-		receivedDate: documentDetails.createdAt,
+		receivedDate: mapDateStringToUnixTimestamp(documentDetails.createdAt.toString()),
 		size: 0,
 		type: '',
 		redacted: documentDetails.redacted,

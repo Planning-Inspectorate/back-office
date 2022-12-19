@@ -233,7 +233,7 @@ test('returns documents in a folder on a case', async (t) => {
 				documentName: 'Document 1',
 				documentUrl: null,
 				from: '',
-				receivedDate: '2022-07-22T10:38:33.000Z',
+				receivedDate: 1_658_486_313,
 				size: 0,
 				type: '',
 				redacted: false,
