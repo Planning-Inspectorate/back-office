@@ -1,6 +1,7 @@
-import { get, post } from '../../../../lib/request.js';
+import { get, patch, post } from '../../../../lib/request.js';
 
 /**
+ * @typedef {import('@pins/express').ValidationErrors} ValidationErrors
  * @typedef {import('../../../applications.types').DocumentationCategory} DocumentationCategory
  * @typedef {import('../../../applications.types').DocumentationFile} DocumentationFile
  * @typedef {import('../../../applications.types').PaginatedResponse<DocumentationFile>} PaginatedDocumentationFiles
@@ -60,4 +61,31 @@ export const getCaseDocumentationFilesInFolder = async (caseId, folderId, pageSi
 			pageNumber
 		}
 	});
+};
+
+/**
+ * Update the status and the redaction of one or many documents
+ *
+ * @param {number} caseId
+ * @param {{status: string, redacted: boolean, items: Array<{guid: string}>}} payload
+ * @returns {Promise<{items?: Array<{guid: string}>, errors?: ValidationErrors}>}
+ */
+export const updateCaseDocumentationFiles = async (caseId, { status, redacted, items }) => {
+	let response;
+
+	try {
+		response = await patch(`applications/${caseId}/documents/update`, {
+			json: {
+				status,
+				redacted,
+				items
+			}
+		});
+	} catch (/** @type {*} */ error) {
+		response = new Promise((resolve) => {
+			resolve({ errors: error?.response?.body?.errors || {} });
+		});
+	}
+
+	return response;
 };
