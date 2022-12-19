@@ -1879,7 +1879,10 @@
 									"type": "string",
 									"example": ""
 								},
-								"receivedDate": {},
+								"receivedDate": {
+									"type": "number",
+									"example": 1658486313
+								},
 								"size": {
 									"type": "number",
 									"example": 0

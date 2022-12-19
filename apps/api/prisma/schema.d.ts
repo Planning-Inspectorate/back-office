@@ -190,7 +190,7 @@ export interface DocumentDetails {
 	documentName: string;
 	documentUrl: string | null;
 	from: string;
-	receivedDate: Date | null;
+	receivedDate: number | null;
 	size: number;
 	type: string;
 	redacted: boolean;

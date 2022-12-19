@@ -253,7 +253,7 @@ const document = {
 						documentName: 'Document Name 1',
 						documentUrl: null,
 						from: '',
-						receivedDate: null,
+						receivedDate: 1_658_486_313,
 						size: 0,
 						type: 'PDF',
 						redacted: false,
