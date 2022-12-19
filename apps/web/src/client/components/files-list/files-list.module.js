@@ -38,7 +38,7 @@ const initFilesListModule = () => {
 	const updateSelectedFilesCounter = () => {
 		if (!selectedFilesNumber) return;
 
-		const checkedFiles = document.querySelectorAll('input[name="selectedFilesIds"]:checked');
+		const checkedFiles = document.querySelectorAll('input[name="selectedFilesIds[]"]:checked');
 
 		selectedFilesNumber.textContent = `${(checkedFiles || []).length}`;
 	};
