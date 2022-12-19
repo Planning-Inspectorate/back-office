@@ -159,6 +159,30 @@ describe('applications documentation', () => {
 				expect(element.innerHTML).toMatchSnapshot();
 				expect(element.innerHTML).toContain('Select documents to make changes to statuses');
 			});
+
+			it('should display an error if API returns an error', async () => {
+				const response = await request
+					.post(`${baseUrl}/project-documentation/21/sub-folder-level2`)
+					.send({
+						selectedFilesIds: ['something_not_valid']
+					});
+				const element = parseHtml(response.text);
+
+				expect(element.innerHTML).toMatchSnapshot();
+				expect(element.innerHTML).toContain('There is a problem');
+			});
+
+			it('should refresh the page if there are no errors', async () => {
+				nock('http://test/').patch('/applications/123/documents/update').reply(200, []);
+
+				const response = await request
+					.post(`${baseUrl}/project-documentation/21/sub-folder-level2`)
+					.send({
+						selectedFilesIds: ['2']
+					});
+
+				expect(response?.headers?.location).toEqual('.');
+			});
 		});
 	});
 

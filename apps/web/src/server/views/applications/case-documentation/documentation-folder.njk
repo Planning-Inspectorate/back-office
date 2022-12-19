@@ -76,11 +76,11 @@
 													},
 													items: [
 														{
-															value: 0,
+															value: '0',
 															text: "Unredacted"
 														},
 														{
-															value: 1,
+															value: '1',
 															text: "Redacted"
 														}
 													]
@@ -94,19 +94,19 @@
 													},
 													items: [
 														{
-															value: 'checked',
+															value: 'not_user_checked',
 															text: "Not checked"
 														},
 														{
-															value: 'not-checked',
+															value: 'user_checked',
 															text: "Checked"
 														},
 														{
-															value: 'ready-to-publish',
+															value: 'ready_to_publish',
 															text: "Ready to publish"
 														},
 														{
-															value: 'do-not-publish',
+															value: 'do_not_publish',
 															text: "Do not publish"
 														}
 													]
@@ -186,7 +186,7 @@
 									<tr class="govuk-table__row {{ "govuk-table__row--disabled" if isDisabled else ""}}">
 										<td class="govuk-table__cell">
 											{{ govukCheckboxes({
-												name: "selectedFilesIds",
+												name: "selectedFilesIds[]",
 												items: [
 													{
 														value: documentationFile.guid,
@@ -215,7 +215,7 @@
 												{{ documentationFile.size|fileSize }}
 											</p>
 										</td>
-										<td class="govuk-table__cell">{{ documentationFile.date|datestamp({format: 'dd/MM/yyyy'}) }}</td>
+										<td class="govuk-table__cell">{{ documentationFile.receivedDate|datestamp({format: 'dd/MM/yyyy'}) }}</td>
 										<td class="govuk-table__cell">{{ 'Redacted' if  documentationFile.isRedacted else 'Unredacted' }}</td>
 										<td class="govuk-table__cell">{{ documentationFile.status|statusName }}</td>
 										<td class="govuk-table__cell">
