@@ -5,7 +5,8 @@ import {
 } from '../../../lib/services/session.service.js';
 import {
 	getCaseDocumentationFilesInFolder,
-	getCaseFolders
+	getCaseFolders,
+	updateCaseDocumentationFiles
 } from './applications-documentation.service.js';
 
 /** @typedef {import('../applications-case.locals.js').ApplicationCaseLocals} ApplicationCaseLocals */
@@ -46,13 +47,23 @@ export async function viewApplicationsCaseDocumentationFolder(request, response)
  * @type {import('@pins/express').RenderHandler<{}, {}, CaseDocumentationBody, {size?: string, number?: string}, {}>}
  */
 export async function updateApplicationsCaseDocumentationFolder(request, response) {
-	const { errors } = request;
+	const { errors: validationErrors, body } = request;
+	const { caseId } = response.locals;
+	const { status, isRedacted, selectedFilesIds } = body;
+
 	const properties = await documentationFolderData(request, response);
 
-	if (errors) {
+	const payload = {
+		status,
+		redacted: isRedacted === '1',
+		items: selectedFilesIds.map((guid) => ({ guid }))
+	};
+	const { errors: apiErrors } = await updateCaseDocumentationFiles(caseId, payload);
+
+	if (validationErrors || apiErrors) {
 		return response.render(`applications/case-documentation/documentation-folder`, {
 			...properties,
-			errors
+			errors: validationErrors || apiErrors
 		});
 	}
 

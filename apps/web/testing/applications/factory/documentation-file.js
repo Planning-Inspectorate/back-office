@@ -14,7 +14,7 @@ import {
  */
 export function createDocumentationFile({
 	guid = `${fake.createUniqueId()}`,
-	date = 1_669_916_924
+	receivedDate = 1_669_916_924
 } = {}) {
 	const uniqueSeed = Number.parseInt(guid, 10);
 	const size = createUniqueRandomNumberFromSeed(100, 10_000_000, uniqueSeed);
@@ -34,8 +34,8 @@ export function createDocumentationFile({
 	})}`;
 	const type = ['DOC', 'PDF', 'JPG', 'MP3'][createUniqueRandomNumberFromSeed(0, 4, uniqueSeed)];
 	const status = [
-		'checked',
-		'unchecked',
+		'user_checked',
+		'not_user_checked',
 		'ready_to_publish',
 		'do_not_publish',
 		'unpublished',
@@ -48,7 +48,7 @@ export function createDocumentationFile({
 		documentName,
 		url,
 		from,
-		date,
+		receivedDate,
 		size,
 		type,
 		status,

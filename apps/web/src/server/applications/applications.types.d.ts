@@ -96,7 +96,7 @@ export interface DocumentationFile {
 	documentName: string;
 	url: string;
 	from: string;
-	date: number;
+	receivedDate: number;
 	size: number;
 	type: string;
 	status: string;

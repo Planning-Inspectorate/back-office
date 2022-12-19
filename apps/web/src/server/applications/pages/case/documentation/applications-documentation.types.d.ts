@@ -21,6 +21,8 @@ export interface CaseDocumentationProps {
 
 export interface CaseDocumentationBody {
 	selectedFilesIds: string[];
+	isRedacted: string;
+	status: string;
 }
 
 export interface CaseDocumentationUploadProps {
