@@ -1,6 +1,6 @@
 const initFilesListModule = () => {
 	/** @type {NodeListOf<HTMLInputElement>} */
-	const fileCheckBoxes = document.querySelectorAll('input[name="selectedFilesIds"]');
+	const fileCheckBoxes = document.querySelectorAll('input[name="selectedFilesIds[]"]');
 	/** @type {HTMLElement | null} */
 	const selectAllCheckBox = document.querySelector('input[name="selectAll"]');
 	/** @type {HTMLElement | null} */

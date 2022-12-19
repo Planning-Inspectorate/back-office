@@ -56,7 +56,7 @@ export async function updateApplicationsCaseDocumentationFolder(request, respons
 	const payload = {
 		status,
 		redacted: isRedacted === '1',
-		items: selectedFilesIds.map((guid) => ({ guid }))
+		items: (selectedFilesIds || []).map((guid) => ({ guid }))
 	};
 	const { errors: apiErrors } = await updateCaseDocumentationFiles(caseId, payload);
 
