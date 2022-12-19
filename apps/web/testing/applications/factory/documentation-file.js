@@ -18,7 +18,7 @@ export function createDocumentationFile({
 } = {}) {
 	const uniqueSeed = Number.parseInt(guid, 10);
 	const size = createUniqueRandomNumberFromSeed(100, 10_000_000, uniqueSeed);
-	const isRedacted = createUniqueRandomBooleanFromSeed(uniqueSeed);
+	const redacted = createUniqueRandomBooleanFromSeed(uniqueSeed);
 
 	const documentName = `${uniqueSeed + 1} ${createRandomDescription({
 		wordsNumber: createUniqueRandomNumberFromSeed(2, 5, uniqueSeed),
@@ -52,6 +52,6 @@ export function createDocumentationFile({
 		size,
 		type,
 		status,
-		isRedacted
+		redacted
 	};
 }

@@ -100,5 +100,5 @@ export interface DocumentationFile {
 	size: number;
 	type: string;
 	status: string;
-	isRedacted: boolean;
+	redacted: boolean;
 }
