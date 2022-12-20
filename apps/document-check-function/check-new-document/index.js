@@ -83,5 +83,5 @@ export const checkMyBlob = async (context, myBlob) => {
 
 	const machineAction = mapIsInfectedToMachineAction(isInfected);
 
-	await sendDocumentStateAction(guid, caseId, machineAction);
+	await sendDocumentStateAction(guid, caseId, machineAction, context);
 };
