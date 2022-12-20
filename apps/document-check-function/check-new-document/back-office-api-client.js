@@ -23,7 +23,7 @@ const sendRequestToBackOffice = async (caseId, documentGuid, machineAction) => {
  */
 const expectedErrorMessage = (machineAction) => {
 	const transitionFrom = {
-		check_pass: 'not_user_checked',
+		check_success: 'not_user_checked',
 		check_fail: 'failed_virus_check'
 	}[machineAction];
 
