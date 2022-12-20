@@ -32,6 +32,7 @@ documentStorageDeleteStub
 	.throwsException(httpError);
 
 const errorStub = sinon.stub();
+const infoStub = sinon.stub();
 
 test.before('set up mocks', () => {
 	sinon.stub(got, 'patch').callsFake(backOfficePatchStub);
@@ -41,7 +42,7 @@ test.before('set up mocks', () => {
 test.serial('throws error if blob path doesnt have 4 parts', async (t) => {
 	const error = await t.throwsAsync(async () => {
 		await checkMyBlob(
-			{ bindingData: { uri: '/applications/1/test.pdf' }, error: errorStub },
+			{ bindingData: { uri: '/applications/1/test.pdf' }, error: errorStub, info: infoStub },
 			fileStream
 		);
 	});
@@ -74,7 +75,8 @@ test.serial(
 		await checkMyBlob(
 			{
 				bindingData: { uri: '/applications/1/123-345/test-that-has-been-deleted.pdf' },
-				error: errorStub
+				error: errorStub,
+				info: infoStub
 			},
 			fileStream
 		);
@@ -93,7 +95,7 @@ test.serial(
 test.serial("sends 'failed' machine action to back office if failed AV check", async (t) => {
 	sinon.stub(clamAvClient, 'scanStream').returns({ isInfected: true });
 	await checkMyBlob(
-		{ bindingData: { uri: '/applications/1/123-345/test.pdf' }, error: errorStub },
+		{ bindingData: { uri: '/applications/1/123-345/test.pdf' }, error: errorStub, info: infoStub },
 		fileStream
 	);
 	t.is(true, true);
