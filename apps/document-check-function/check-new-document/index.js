@@ -1,8 +1,11 @@
 import got, { HTTPError } from 'got';
 import { isEqual } from 'lodash-es';
 import { sendDocumentStateAction } from './back-office-api-client.js';
-import logger from './logger.js';
 import { scanStream } from './scan-stream.js';
+
+/**
+ * @typedef {{bindingData: {uri: string}, error: any, info: any}} Context
+ */
 
 /**
  * @param {boolean} isInfected
@@ -47,15 +50,16 @@ const errorIsDueToDocumentMissing = (error) => {
 
 /**
  * @param {string} documentUri
+ * @param {Context} context
  */
-const deleteDocument = async (documentUri) => {
+const deleteDocument = async (documentUri, context) => {
 	try {
 		await got
 			.delete('http://localhost:3001/document', { json: { documentPath: documentUri } })
 			.json();
 	} catch (error) {
 		if (errorIsDueToDocumentMissing(error)) {
-			logger.info('Unable to delete document from Blob Store because it is already deleted');
+			context.info('Unable to delete document from Blob Store because it is already deleted');
 		} else {
 			throw error;
 		}
@@ -63,7 +67,7 @@ const deleteDocument = async (documentUri) => {
 };
 
 /**
- * @param {{bindingData: {uri: string}, error: any}} context
+ * @param {Context} context
  * @param {import('node:stream').Readable} myBlob
  */
 export const checkMyBlob = async (context, myBlob) => {
@@ -74,7 +78,7 @@ export const checkMyBlob = async (context, myBlob) => {
 
 	if (isInfected) {
 		context.error('Document did not pass AV checks');
-		await deleteDocument(documentUri);
+		await deleteDocument(documentUri, context);
 	}
 
 	const machineAction = mapIsInfectedToMachineAction(isInfected);
