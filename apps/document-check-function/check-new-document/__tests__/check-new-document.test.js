@@ -35,16 +35,18 @@ backOfficePatchStub
 	})
 	.returns({ json: sinon.stub() });
 
-const backOfficeErrorResponse = {
-	body: '{"errors":{"application":"Could not transition \'not_user_checked\' using \'check_success\'."}}',
+// doc that fails AV
+
+const backOfficeFailedAVErrorResponse = {
+	body: '{"errors":{"application":"Could not transition \'failed_virus_check\' using \'check_fail\'."}}',
 	statusCode: 409
 };
 
 // @ts-ignore
-const backOfficeHttpError = new HTTPError(backOfficeErrorResponse);
+const backOfficeFailedAVHttpError = new HTTPError(backOfficeFailedAVErrorResponse);
 
 // @ts-ignore
-backOfficeHttpError.response = backOfficeErrorResponse;
+backOfficeFailedAVHttpError.response = backOfficeFailedAVErrorResponse;
 
 backOfficePatchStub
 	.withArgs('test-api-host:3000/applications/1/documents/123-345-901/status', {
@@ -52,7 +54,28 @@ backOfficePatchStub
 			machineAction: 'check_fail'
 		}
 	})
-	.throwsException(backOfficeHttpError);
+	.throwsException(backOfficeFailedAVHttpError);
+
+// doc that passes AV
+
+const backOfficePassedAVErrorResponse = {
+	body: '{"errors":{"application":"Could not transition \'not_user_checked\' using \'check_pass\'."}}',
+	statusCode: 409
+};
+
+// @ts-ignore
+const backOfficePassedAVHttpError = new HTTPError(backOfficePassedAVErrorResponse);
+
+// @ts-ignore
+backOfficePassedAVHttpError.response = backOfficePassedAVErrorResponse;
+
+backOfficePatchStub
+	.withArgs('test-api-host:3000/applications/1/documents/123-345-123/status', {
+		json: {
+			machineAction: 'check_pass'
+		}
+	})
+	.throwsException(backOfficePassedAVHttpError);
 
 // -----------------------------
 // Document Storage API Stubbing
@@ -181,6 +204,30 @@ test.serial(
 		// Checks that we send request to delete document
 		sinon.assert.calledWith(documentStorageDeleteStub, 'http://localhost:3001/document', {
 			json: { documentPath: '/applications/1/123-345-901/test-that-has-been-marked-as-failed.pdf' }
+		});
+
+		clamAvClient.scanStream.restore();
+	}
+);
+
+test.serial(
+	'if document passes AV checks, completes fine if already marked as passed AV checks',
+	async (t) => {
+		sinon.stub(clamAvClient, 'scanStream').returns({ isInfected: false });
+
+		await checkMyBlob(
+			{
+				bindingData: { uri: '/applications/1/123-345-123/test-that-has-been-marked-as-passed.pdf' },
+				error: errorStub,
+				info: infoStub
+			},
+			fileStream
+		);
+		t.is(true, true);
+
+		// Checks that we send request to delete document
+		sinon.assert.neverCalledWith(documentStorageDeleteStub, 'http://localhost:3001/document', {
+			json: { documentPath: '/applications/1/123-345-123/test-that-has-been-marked-as-passed.pdf' }
 		});
 
 		clamAvClient.scanStream.restore();
