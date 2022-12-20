@@ -12,9 +12,9 @@ import {
 	validateDocumentInfo,
 	validateDocumentName,
 	validateDocumentPath,
+	validateExistingDocument,
 	validateGetAllDocuments,
-	validateUploadDocument
-} from './validator.js';
+	validateUploadDocument} from './validator.js';
 
 const router = createRouter();
 
@@ -136,6 +136,7 @@ router.delete(
 		}
 	*/
 	validateDocumentPath,
+	validateExistingDocument,
 	trimUnexpectedRequestParameters,
 	asyncHandler(deleteDocument)
 );

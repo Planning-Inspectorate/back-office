@@ -1,3 +1,4 @@
+// import { logger } from '@azure/storage-blob';
 import config from '../config/config.js';
 import * as blobStoreService from './blob-store/service.js';
 
@@ -73,6 +74,5 @@ export const deleteDocument = async (request, response) => {
 	const { documentPath } = request.body;
 
 	await blobStoreService.deleteDocument(documentPath);
-
 	response.send();
 };
