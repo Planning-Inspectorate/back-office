@@ -1,5 +1,5 @@
 import test from 'ava';
-import got from 'got';
+import got, { HTTPError } from 'got';
 import { Readable } from 'node:stream';
 import sinon from 'sinon';
 import { clamAvClient } from '../clam-av-client.js';
@@ -7,7 +7,30 @@ import { checkMyBlob } from '../index.js';
 
 const fileStream = new Readable();
 const backOfficePatchStub = sinon.stub().returns({ json: sinon.stub() });
-const documentStorageDeleteStub = sinon.stub().returns({ json: sinon.stub() });
+const documentStorageDeleteStub = sinon.stub();
+
+documentStorageDeleteStub
+	.withArgs('http://localhost:3001/document', {
+		json: { documentPath: '/applications/1/123-345/test.pdf' }
+	})
+	.returns({ json: sinon.stub() });
+
+const errorResponse = {
+	body: '{"errors":{"documentPath":"Document does not exist in Blob Storage"}}',
+	statusCode: 404
+};
+// @ts-ignore
+const httpError = new HTTPError(errorResponse);
+
+// @ts-ignore
+httpError.response = errorResponse;
+
+documentStorageDeleteStub
+	.withArgs('http://localhost:3001/document', {
+		json: { documentPath: '/applications/1/123-345/test-that-has-been-deleted.pdf' }
+	})
+	.throwsException(httpError);
+
 const errorStub = sinon.stub();
 
 test.before('set up mocks', () => {
@@ -44,6 +67,29 @@ test.serial("sends 'passed' machine action to back office if passed AV check", a
 	clamAvClient.scanStream.restore();
 });
 
+test.serial(
+	"sends 'failed' machine action to back office even if already deleted from blob storage",
+	async (t) => {
+		sinon.stub(clamAvClient, 'scanStream').returns({ isInfected: true });
+		await checkMyBlob(
+			{
+				bindingData: { uri: '/applications/1/123-345/test-that-has-been-deleted.pdf' },
+				error: errorStub
+			},
+			fileStream
+		);
+		t.is(true, true);
+		sinon.assert.calledWith(
+			backOfficePatchStub,
+			'test-api-host:3000/applications/1/documents/123-345/status',
+			{
+				json: { machineAction: 'check_fail' }
+			}
+		);
+		clamAvClient.scanStream.restore();
+	}
+);
+
 test.serial("sends 'failed' machine action to back office if failed AV check", async (t) => {
 	sinon.stub(clamAvClient, 'scanStream').returns({ isInfected: true });
 	await checkMyBlob(
@@ -59,7 +105,7 @@ test.serial("sends 'failed' machine action to back office if failed AV check", a
 			json: { machineAction: 'check_fail' }
 		}
 	);
-	sinon.assert.calledWith(documentStorageDeleteStub, 'document-storage-api/document', {
+	sinon.assert.calledWith(documentStorageDeleteStub, 'http://localhost:3001/document', {
 		json: { documentPath: '/applications/1/123-345/test.pdf' }
 	});
 });
