@@ -1,5 +1,7 @@
-import got from 'got';
+import got, { HTTPError } from 'got';
+import { isEqual } from 'lodash-es';
 import { sendDocumentStateAction } from './back-office-api-client.js';
+import logger from './logger.js';
 import { scanStream } from './scan-stream.js';
 
 /**
@@ -28,10 +30,35 @@ const getBlobCaseIdAndGuid = (blobUri) => {
 };
 
 /**
+ *
+ * @param {import('got').HTTPError} error
+ * @returns {boolean}
+ */
+const errorIsDueToDocumentMissing = (error) => {
+	return (
+		error.code === 'ERR_NON_2XX_3XX_RESPONSE' &&
+		error.response.statusCode === 404 &&
+		isEqual(JSON.parse(error.response.body), {
+			errors: { documentPath: 'Document does not exist in Blob Storage' }
+		})
+	);
+};
+
+/**
  * @param {string} documentUri
  */
 const deleteDocument = async (documentUri) => {
-	await got.delete('document-storage-api/document', { json: { documentPath: documentUri } }).json();
+	try {
+		await got
+			.delete('http://localhost:3001/document', { json: { documentPath: documentUri } })
+			.json();
+	} catch (error) {
+		if (error instanceof HTTPError && errorIsDueToDocumentMissing(error)) {
+			logger.info('Unable to delete document from Blob Store because it is already deleted');
+		} else {
+			throw error;
+		}
+	}
 };
 
 /**
