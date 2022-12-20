@@ -12,7 +12,7 @@ import { scanStream } from './scan-stream.js';
  * @returns {string}
  */
 const mapIsInfectedToMachineAction = (isInfected) => {
-	return isInfected ? 'check_fail' : 'check_pass';
+	return isInfected ? 'check_fail' : 'check_success';
 };
 
 /**
