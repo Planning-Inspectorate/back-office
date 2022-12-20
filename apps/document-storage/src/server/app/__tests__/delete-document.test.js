@@ -9,6 +9,16 @@ const request = supertest(app);
 const blobServiceClientStub = {
 	getContainerClient: sinon.stub().returns({
 		getBlockBlobClient: sinon.stub().returns({
+			exists: sinon.stub().returns(true),
+			delete: sinon.stub().returns({})
+		})
+	})
+};
+
+const blobServiceClientForMissingDocumentStub = {
+	getContainerClient: sinon.stub().returns({
+		getBlockBlobClient: sinon.stub().returns({
+			exists: sinon.stub().returns(false),
 			delete: sinon.stub().returns({})
 		})
 	})
@@ -30,6 +40,18 @@ test.serial('deletes file', async (t) => {
 	});
 
 	t.is(resp.statusCode, 200);
+});
+
+test.serial('throws error if the document does not exist', async (t) => {
+	sinon
+		.stub(BlobServiceClient, 'fromConnectionString')
+		.returns(blobServiceClientForMissingDocumentStub);
+
+	const resp = await request.delete('/document').send({
+		documentPath: 'test/path/test-doc-that-is-missing.txt'
+	});
+
+	t.is(resp.statusCode, 404);
 });
 
 test.serial('throws error if no document path provided', async (t) => {

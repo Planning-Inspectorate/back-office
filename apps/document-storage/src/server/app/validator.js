@@ -1,7 +1,23 @@
 import { composeMiddleware, mapMulterErrorToValidationError } from '@pins/express';
 import { body, query } from 'express-validator';
 import multer from 'multer';
-import { handleValidationError } from './middleware/handle-validation-error.js';
+import { checkExists } from './blob-store/service.js';
+import {
+	handleMissingValidationError,
+	handleValidationError
+} from './middleware/handle-validation-error.js';
+
+/**
+ *
+ * @param {string} value
+ */
+const checkDocumentExists = async (value) => {
+	const documentExists = await checkExists(value);
+
+	if (!documentExists) {
+		throw new Error(`Document ${value} does not exist`);
+	}
+};
 
 export const validateGetAllDocuments = composeMiddleware(
 	query('type').isIn(['appeal', 'application']).withMessage('Select a valid type'),
@@ -34,6 +50,13 @@ export const validateDocumentName = composeMiddleware(
 export const validateDocumentPath = composeMiddleware(
 	body('documentPath').notEmpty().withMessage('Provide a document path'),
 	handleValidationError
+);
+
+export const validateExistingDocument = composeMiddleware(
+	body('documentPath')
+		.custom(checkDocumentExists)
+		.withMessage('Document does not exist in Blob Storage'),
+	handleMissingValidationError
 );
 
 export const validateDocumentInfo = composeMiddleware(
