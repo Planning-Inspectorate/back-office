@@ -124,5 +124,14 @@ function buildApplicationURL(caseReference, GUID, documentName) {
  * @param {string} blobPath
  */
 export const deleteDocument = async (blobPath) => {
-	getBlockBlobClient(blobPath).delete();
+	await getBlockBlobClient(blobPath).delete();
+};
+
+/**
+ *
+ * @param {string} blobPath
+ * @returns {Promise<boolean>}
+ */
+export const checkExists = async (blobPath) => {
+	return getBlockBlobClient(blobPath).exists();
 };
