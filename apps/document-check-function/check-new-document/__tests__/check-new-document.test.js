@@ -16,7 +16,7 @@ const backOfficePatchStub = sinon.stub();
 backOfficePatchStub
 	.withArgs('test-api-host:3000/applications/1/documents/123-345/status', {
 		json: {
-			machineAction: 'check_pass'
+			machineAction: 'check_success'
 		}
 	})
 	.returns({ json: sinon.stub() });
@@ -59,7 +59,7 @@ backOfficePatchStub
 // doc that passes AV
 
 const backOfficePassedAVErrorResponse = {
-	body: '{"errors":{"application":"Could not transition \'not_user_checked\' using \'check_pass\'."}}',
+	body: '{"errors":{"application":"Could not transition \'not_user_checked\' using \'check_success\'."}}',
 	statusCode: 409
 };
 
@@ -72,7 +72,7 @@ backOfficePassedAVHttpError.response = backOfficePassedAVErrorResponse;
 backOfficePatchStub
 	.withArgs('test-api-host:3000/applications/1/documents/123-345-123/status', {
 		json: {
-			machineAction: 'check_pass'
+			machineAction: 'check_success'
 		}
 	})
 	.throwsException(backOfficePassedAVHttpError);
@@ -152,7 +152,7 @@ test.serial(
 			backOfficePatchStub,
 			'test-api-host:3000/applications/1/documents/123-345/status',
 			{
-				json: { machineAction: 'check_pass' }
+				json: { machineAction: 'check_success' }
 			}
 		);
 		clamAvClient.scanStream.restore();
