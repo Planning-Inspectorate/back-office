@@ -31,11 +31,12 @@ const getBlobCaseIdAndGuid = (blobUri) => {
 
 /**
  *
- * @param {import('got').HTTPError} error
+ * @param {Error} error
  * @returns {boolean}
  */
 const errorIsDueToDocumentMissing = (error) => {
 	return (
+		error instanceof HTTPError &&
 		error.code === 'ERR_NON_2XX_3XX_RESPONSE' &&
 		error.response.statusCode === 404 &&
 		isEqual(JSON.parse(error.response.body), {
@@ -53,7 +54,7 @@ const deleteDocument = async (documentUri) => {
 			.delete('http://localhost:3001/document', { json: { documentPath: documentUri } })
 			.json();
 	} catch (error) {
-		if (error instanceof HTTPError && errorIsDueToDocumentMissing(error)) {
+		if (errorIsDueToDocumentMissing(error)) {
 			logger.info('Unable to delete document from Blob Store because it is already deleted');
 		} else {
 			throw error;
