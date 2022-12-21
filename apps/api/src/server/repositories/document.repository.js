@@ -63,18 +63,6 @@ export const getDocumentsInFolder = (folderId, skipValue, pageSize) => {
 };
 
 /**
- * Returns total number of documents in a folder on a case
- *
- * @param {number} folderId
- * @returns {import('@prisma/client').PrismaPromise<number>}
- */
-export const getDocumentsCountInFolder = (folderId) => {
-	return databaseConnector.document.count({
-		where: { folderId }
-	});
-};
-
-/**
  *
  * @param {string} documentGUID
  * @returns {import('@prisma/client').PrismaPromise<import('@pins/api').Schema.Document | null>}
@@ -93,5 +81,17 @@ export const updateDocumentStatus = ({ guid, status }) => {
 	return databaseConnector.document.update({
 		where: { guid },
 		data: { status }
+	});
+};
+
+/**
+ * Returns total number of documents in a folder on a case
+ *
+ * @param {number} folderId
+ * @returns {import('@prisma/client').PrismaPromise<number>}
+ */
+export const getDocumentsCountInFolder = (folderId) => {
+	return databaseConnector.document.count({
+		where: { folderId }
 	});
 };
