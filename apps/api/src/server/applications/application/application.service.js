@@ -2,7 +2,6 @@ import { isArray, isEmpty, pick, pickBy } from 'lodash-es';
 import { eventClient } from '../../infrastructure/event-client.js';
 import { NSIP_PROJECT } from '../../infrastructure/topics.js';
 import * as caseRepository from '../../repositories/case.repository.js';
-import * as documentRepository from '../../repositories/document.repository.js';
 import * as folderRepository from '../../repositories/folder.repository.js';
 import { breakUpCompoundStatus } from '../../utils/break-up-compound-status.js';
 import { buildAppealCompundStatus } from '../../utils/build-appeal-compound-status.js';
@@ -303,20 +302,6 @@ export const nextStatusInDocumentStateMachine = (status, machineAction) => {
 	});
 
 	return nextStatus.value;
-};
-
-/**
- *
- * @param {string} status
- * @param {string} guid
- */
-export const updatedDocumentStatusResponse = async (guid, status) => {
-	const updatedResponse = await documentRepository.updateDocumentStatus({
-		guid,
-		status
-	});
-
-	return updatedResponse;
 };
 
 /**
