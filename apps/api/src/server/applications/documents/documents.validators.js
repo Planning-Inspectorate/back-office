@@ -35,7 +35,7 @@ const validateDocumentGUIDBelongsToCase = async (value, { req }) => {
 
 	const caseId = folder?.caseId;
 
-	if (Number.parseInt(req.params?.caseId, 10) !== caseId) {
+	if (Number.parseInt(req.params?.id, 10) !== caseId) {
 		throw new Error('GUID must belong to correct case');
 	}
 };
