@@ -1,6 +1,6 @@
+import { filter, head, map, pick } from 'lodash-es';
 import { eventClient } from '../../infrastructure/event-client.js';
 import { NSIP_PROJECT } from '../../infrastructure/topics.js';
-import { filter, head, map, pick } from 'lodash-es';
 import * as caseRepository from '../../repositories/case.repository.js';
 import * as documentRepository from '../../repositories/document.repository.js';
 import * as folderRepository from '../../repositories/folder.repository.js';
@@ -10,11 +10,8 @@ import { mapCaseStatusString } from '../../utils/mapping/map-case-status-string.
 import { buildNsipProjectPayload } from './application.js';
 import { mapCreateApplicationRequestToRepository } from './application.mapper.js';
 import {
-	formatResponseBody,
 	getCaseDetails,
-	nextStatusInDocumentStateMachine,
 	startApplication,
-	updatedDocumentStatusResponse as updatedDocumentStatusInTable
 } from './application.service.js';
 /**
  *
