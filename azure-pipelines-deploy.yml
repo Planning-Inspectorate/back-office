@@ -90,7 +90,7 @@ extends:
             steps:
               - template: ../steps/function_app_deploy.yml
                 parameters:
-                  appName: pins-func-back-office-document-check-function-$(ENVIRONMENT)-$(REGION_SHORT)-001
+                  appName: pins-func-doc-check-doc-check-$(ENVIRONMENT)-$(REGION_SHORT)-001
                   resourceGroup: $(resourceGroup)
           - name: Deploy Web
             condition: eq(${{ parameters.deployWeb }}, 'true')
