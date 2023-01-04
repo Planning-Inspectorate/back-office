@@ -16,8 +16,8 @@ export const mapSingleDocumentDetails = (documentDetails) => {
 		documentUrl: documentDetails.blobStoragePath,
 		from: '',
 		receivedDate: mapDateStringToUnixTimestamp(documentDetails.createdAt.toString()),
-		size: 0,
-		type: '',
+		size: documentDetails.fileSize,
+		type: documentDetails.fileType ?? '',
 		redacted: documentDetails.redacted,
 		status: documentDetails.status
 	};
