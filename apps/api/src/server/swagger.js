@@ -36,7 +36,7 @@ const document = {
 			{
 				documentName: 'document.pdf',
 				folderId: 123,
-				documentType: 'PDF',
+				documentType: 'application/pdf',
 				documentSize: 1024
 			}
 		],

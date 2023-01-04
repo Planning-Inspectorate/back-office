@@ -72,7 +72,7 @@ const documents = [
 		blobStoragePath: null,
 		redacted: false,
 		createdAt: new Date(1_658_486_313_000),
-		fileType: 'PDF',
+		fileType: 'application/pdf',
 		fileSize: 1024
 	}
 ];
@@ -237,7 +237,7 @@ test('returns documents in a folder on a case', async (t) => {
 				from: '',
 				receivedDate: 1_658_486_313,
 				size: 1024,
-				type: 'PDF',
+				type: 'application/pdf',
 				redacted: false,
 				status: 'not_user_checked'
 			}
