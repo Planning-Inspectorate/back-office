@@ -24,6 +24,8 @@ const serverActions = (uploadForm) => {
 		const { folderId, caseId } = uploadForm.dataset;
 		const payload = [...fileList].map((file) => ({
 			documentName: file.name,
+			documentSize: file.size,
+			documentType: file.type,
 			caseId,
 			folderId,
 			fileRowId: file.fileRowId

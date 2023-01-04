@@ -197,9 +197,7 @@
 											}) }}
 										</td>
 										<td class="govuk-table__cell">
-											{# TODO: still uncertain how the API will return the types
-											so probably a literal == will need to be changed later #}
-											{% if documentationFile.type === 'PDF' or documentationFile.type === 'JPEG' or documentationFile.type === 'JPG' or documentationFile.type === 'PNG' %}
+											{% if documentationFile.type === 'application/pdf' or documentationFile.type === 'image/jpeg' or documentationFile.type === 'image/png' %}
 												<a class="govuk-link govuk-body-s govuk-!-font-weight-bold"
 												   href="{{ documentationFile.url }}">
 													{{ documentationFile.documentName }}
@@ -213,7 +211,7 @@
 												From: {{ documentationFile.from }}
 											</p>
 											<p class="file-info colour--secondary">
-												File type and size: {{ documentationFile.type }},
+												File type and size: {{ documentationFile.type|fileType }},
 												{{ documentationFile.size|fileSize }}
 											</p>
 										</td>
