@@ -35,7 +35,9 @@ const document = {
 		documentsToSave: [
 			{
 				documentName: 'document.pdf',
-				folderId: 123
+				folderId: 123,
+				documentType: 'PDF',
+				documentSize: 1024
 			}
 		],
 		documentsToUpdateRequestBody: {

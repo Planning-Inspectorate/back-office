@@ -1161,6 +1161,14 @@
 					"folderId": {
 						"type": "number",
 						"example": 123
+					},
+					"documentType": {
+						"type": "string",
+						"example": "PDF"
+					},
+					"documentSize": {
+						"type": "number",
+						"example": 1024
 					}
 				}
 			}
