@@ -5,7 +5,7 @@
 			"type": "blobTrigger",
 			"direction": "in",
 			"path": "document-service-uploads/{name}",
-			"connection": "MyStorageAccountAppSetting"
+			"connection": "DOCUMENT_STORAGE_CONNECTION_STRING"
 		}
 	]
 }
