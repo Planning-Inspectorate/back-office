@@ -31,6 +31,8 @@ const validateAllDocumentsExist = async (documentGuids) => {
 export const validateDocumentsToUploadProvided = composeMiddleware(
 	body('[]').notEmpty().withMessage('Must provide documents to upload'),
 	body('*.documentName').exists().withMessage('Must provide a document name'),
+	body('*.documentType').exists().withMessage('Must provide a document type'),
+	body('*.documentSize').exists().withMessage('Must provide a document size'),
 	body('*.folderId').exists().withMessage('Must provide a folder id'),
 	validationErrorHandler
 );

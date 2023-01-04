@@ -13,14 +13,23 @@ export const provideDocumentUploadURLs = async ({ params, body }, response) => {
 	const caseFromDatabase = await caseRepository.getById(params.id, {});
 
 	const documentsToSendToDatabase = documents.map(
-		(/** @type {{ documentName: any; folderId: any; }} */ document) => {
-			return { name: document.documentName, folderId: document.folderId };
+		(
+			/** @type {{ documentName: any; folderId: any; documentType: string; documentSize: number }} */ document
+		) => {
+			return {
+				name: document.documentName,
+				folderId: document.folderId,
+				fileType: document.documentType,
+				fileSize: document.documentSize
+			};
 		}
 	);
 
 	const documentsFromDatabase = await Promise.all(
 		documentsToSendToDatabase.map(
-			(/** @type {{ name: string; folderId: number; }} */ documentToDatabase) => {
+			(
+				/** @type {{ name: string; folderId: number; fileType: string; fileSize: number }} */ documentToDatabase
+			) => {
 				return documentRepository.upsert(documentToDatabase);
 			}
 		)
