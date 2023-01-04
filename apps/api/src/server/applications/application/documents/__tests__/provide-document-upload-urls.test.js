@@ -24,7 +24,7 @@ const upsertDocumentStub = sinon.stub();
 
 upsertDocumentStub
 	.withArgs({
-		create: { name: 'test doc', folderId: 1 },
+		create: { name: 'test doc', folderId: 1, fileType: 'DOC', fileSize: 1024 },
 		where: { name_folderId: { name: 'test doc', folderId: 1 } },
 		update: {}
 	})
@@ -84,7 +84,7 @@ test.before('set up mocks', () => {
 test('saves documents information and returns upload URL', async (t) => {
 	const response = await request
 		.post('/applications/1/documents')
-		.send([{ folderId: 1, documentName: 'test doc' }]);
+		.send([{ folderId: 1, documentName: 'test doc', documentType: 'DOC', documentSize: 1024 }]);
 
 	t.is(response.status, 200);
 	t.deepEqual(response.body, {
@@ -112,7 +112,7 @@ test('saves documents information and returns upload URL', async (t) => {
 test('throws error if folder id does not belong to case', async (t) => {
 	const response = await request
 		.post('/applications/1/documents')
-		.send([{ folderId: 2, documentName: 'test doc' }]);
+		.send([{ folderId: 2, documentName: 'test doc', documentType: 'DOC', documentSize: 1024 }]);
 
 	t.is(response.status, 400);
 	t.deepEqual(response.body, {
@@ -129,6 +129,8 @@ test('throws error if not all document details provided', async (t) => {
 	t.deepEqual(response.body, {
 		errors: {
 			'[0].documentName': 'Must provide a document name',
+			'[0].documentSize': 'Must provide a document size',
+			'[0].documentType': 'Must provide a document type',
 			'[0].folderId': 'Must provide a folder id'
 		}
 	});
