@@ -755,7 +755,14 @@
 						"required": true
 					}
 				],
-				"responses": {}
+				"responses": {
+					"200": {
+						"description": "An paginated data set of documents",
+						"schema": {
+							"$ref": "#/definitions/PaginatedDocumentDetails"
+						}
+					}
+				}
 			}
 		},
 		"/applications": {
@@ -1880,9 +1887,12 @@
 								},
 								"documentName": {
 									"type": "string",
-									"example": "Document Name 1"
+									"example": "document_name_1.pdf"
 								},
-								"documentUrl": {},
+								"documentUrl": {
+									"type": "string",
+									"example": "/some/path/document_name_1.pdf"
+								},
 								"from": {
 									"type": "string",
 									"example": ""
@@ -1893,11 +1903,11 @@
 								},
 								"size": {
 									"type": "number",
-									"example": 0
+									"example": 1024
 								},
 								"type": {
 									"type": "string",
-									"example": "PDF"
+									"example": "application/pdf"
 								},
 								"redacted": {
 									"type": "boolean",
@@ -1905,7 +1915,7 @@
 								},
 								"status": {
 									"type": "string",
-									"example": "unchecked"
+									"example": "not_user_checked"
 								}
 							}
 						}
