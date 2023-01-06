@@ -9,6 +9,11 @@ const applicationsCaseRouter = createRouter();
 const applicationsCaseSummaryRouter = createRouter({ mergeParams: true });
 
 applicationsCaseRouter.use('/:caseId/edit', applicationsEditRouter);
+applicationsCaseRouter.use(
+	'/:caseId/publish',
+	locals.registerCase,
+	asyncRoute(controller.viewApplicationsCasePublishPage)
+);
 applicationsCaseRouter.use('/:caseId/project-documentation', applicationsDocumentationRouter);
 
 applicationsCaseRouter.use('/:caseId/:pageType?', applicationsCaseSummaryRouter);

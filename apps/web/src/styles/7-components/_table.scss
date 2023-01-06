@@ -103,3 +103,11 @@
 	border-bottom-style: none;
   }
 }
+
+#pins-publish-case {
+  @media (min-width: 40.0625em) {
+	.govuk-table__header, .govuk-summary-list__key {
+	  width: 260px;
+	}
+  }
+}
