@@ -12,3 +12,12 @@ export async function viewApplicationsCasePages({ params }, response) {
 
 	response.render(`applications/case/${selectedPageType}`, { selectedPageType });
 }
+
+/**
+ * View the preview and publish page for a single case
+ *
+ * @type {import('@pins/express').RenderHandler<{selectedPageType: string}, {}, {}, {}, {pageType?: string}>}
+ */
+export async function viewApplicationsCasePublishPage(request, response) {
+	response.render(`applications/case/preview-publish`);
+}

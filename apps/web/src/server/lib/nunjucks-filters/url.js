@@ -62,14 +62,14 @@ export const url = (key, filterArguments = {}) => {
 			return `${domainUrl}/create-new-case/${caseId}/${step}`;
 		case 'case-edit':
 			return `${domainUrl}/case/${caseId}/edit/${step}`;
+		case 'case-view':
+			return `${domainUrl}/case/${caseId}/${step}`;
 		case 'dashboard':
 			return `${domainUrl}/${domainType}`;
 		case 'document-category':
 			return `${domainUrl}/case/${caseId}/project-documentation/${documentationCategory}/${step}`;
 		case 'search-results':
 			return `${domainUrl}/search-results/${step}?q=${query}`;
-		case 'case-view':
-			return `${domainUrl}/case/${caseId}/${step}`;
 		default:
 			return 'app/404';
 	}

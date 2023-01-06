@@ -1,0 +1,27 @@
+{% from "../../components/published-tag.component.njk" import publishedTag %}
+{% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
+
+{% macro caseInfoTable(case) %}
+
+	{{ govukSummaryList({
+		classes: 'govuk-summary-list--no-border',
+		rows: [
+			{
+				key: { text: "Project page status" },
+				value: { html: publishedTag('Not Published') }
+			},
+			{
+				key: { text: "Case reference number" },
+				value: { text: case.reference }
+			},
+			{
+				key: { text: "Sector" },
+				value: { text: case.sector.displayNameEn }
+			},
+			{
+				key: { text: "Subsector" },
+				value: { text: case.subSector.displayNameEn }
+			}
+		]
+	}) }}
+{% endmacro %}

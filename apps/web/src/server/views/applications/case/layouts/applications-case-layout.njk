@@ -1,6 +1,6 @@
 {% extends "../../layouts/applications.layout.njk" %}
 
-{% from "../components/applications-case-menu.component.njk" import applicationsCaseMenu %}
+{% from "../components/case-page-navigation.component.njk" import casePageNavigation %}
 {% from "govuk/components/accordion/macro.njk" import govukAccordion %}
 {% from "govuk/components/breadcrumbs/macro.njk" import govukBreadcrumbs %}
 {% from "../../components/status-tag.component.njk" import statusTag %}
@@ -43,7 +43,7 @@
 	<div class="govuk-grid-row">
 		{% block sectionMenu %}
 			<div class="govuk-grid-column-one-third">
-				{{ applicationsCaseMenu({ case: case, domainType: domainType, selectedPageType: selectedPageType }) }}
+				{{ casePageNavigation({ case: case, domainType: domainType, selectedPageType: selectedPageType }) }}
 			</div>
 		{% endblock %}
 		<div class="govuk-grid-column-two-thirds">
