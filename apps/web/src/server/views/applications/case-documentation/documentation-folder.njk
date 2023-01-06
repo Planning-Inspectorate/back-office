@@ -58,8 +58,8 @@
 				</div>
 
 				{% if not userIsInspector %}
-					<hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible">
-					{% if documentationFiles |length %}
+					{% if documentationFiles.itemCount %}
+						<hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible">
 						<form class="pins-files-list" method="post">
 							<caption><span class="display--sr-only">Manage Documents in this location</span></caption>
 							<div class="govuk-grid-row display--flex">
@@ -113,7 +113,9 @@
 												}) }}</div>
 											<div>
 												{{ govukButton({ text: 'Apply changes' }) }}
-												<a href="." class="govuk-link govuk-link--no-visited-state">Clear selected</a>
+												<a href="." class="govuk-link govuk-link--no-visited-state">
+													Clear selected
+												</a>
 											</div>
 										</div>
 									</div>
@@ -181,9 +183,9 @@
 									</td>
 								</tr>
 								{% for documentationFile in documentationFiles.items %}
-									{% set isDisabled = documentationFile.status === 'awaiting_virus_check' or documentationFile.status === 'failed_virus_check'%}
+									{% set isDisabled = documentationFile.status === 'awaiting_virus_check' or documentationFile.status === 'failed_virus_check' %}
 
-									<tr class="govuk-table__row {{ "govuk-table__row--disabled" if isDisabled else ""}}">
+									<tr class="govuk-table__row {{ "govuk-table__row--disabled" if isDisabled else "" }}">
 										<td class="govuk-table__cell">
 											{{ govukCheckboxes({
 												name: "selectedFilesIds[]",
@@ -229,8 +231,6 @@
 							</table>
 							{{ govukPagination(pagination.buttons) }}
 						</form>
-					{% else %}
-						This folder contains no documents
 					{% endif %}
 				{% endif %}
 			{% endblock %}
