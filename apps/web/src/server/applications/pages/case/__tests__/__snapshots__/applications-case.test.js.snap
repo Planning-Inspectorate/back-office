@@ -125,8 +125,9 @@ exports[`applications view case summary GET /case/123/project-information should
                 <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Subsector</dt>
                     <dd class=\\"govuk-summary-list__value\\">Highways EN</dd>
                 </div>
-            </dl>
-            <div class=\\"govuk-accordion\\" data-module=\\"govuk-accordion\\" id=\\"\\">
+            </dl><a class=\\"govuk-link govuk-body-m\\" href=\\"/applications-service/case/4/publish\\"> Preview and publish project</a>
+            <div             class=\\"govuk-accordion govuk-!-margin-top-5\\" data-module=\\"govuk-accordion\\"
+            id=\\"\\">
                 <div class=\\"govuk-accordion__section \\">
                     <div class=\\"govuk-accordion__section-header\\">
                         <h2 class=\\"govuk-accordion__section-heading\\"><span class=\\"govuk-accordion__section-button\\" id=\\"-heading-1\\"> Project details</span></h2>
@@ -168,7 +169,7 @@ exports[`applications view case summary GET /case/123/project-information should
                                     </td>
                                 </tr>
                                 <tr class=\\"govuk-table__row\\">
-                                    <th scope=\\"row\\" class=\\"govuk-table__header\\">Regions(s)</th>
+                                    <th scope=\\"row\\" class=\\"govuk-table__header\\">Region(s)</th>
                                     <td class=\\"govuk-table__cell\\">London EN,Yorkshire EN</td>
                                     <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/4/edit/regions\\"> Change</a>
                                     </td>
@@ -197,13 +198,13 @@ exports[`applications view case summary GET /case/123/project-information should
                                     </td>
                                 </tr>
                                 <tr class=\\"govuk-table__row\\">
-                                    <th scope=\\"row\\" class=\\"govuk-table__header\\">Contact name</th>
+                                    <th scope=\\"row\\" class=\\"govuk-table__header\\">Contact name (Internal use only)</th>
                                     <td class=\\"govuk-table__cell\\">John Smith</td>
                                     <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/4/edit/applicant-full-name\\"> Change</a>
                                     </td>
                                 </tr>
                                 <tr class=\\"govuk-table__row\\">
-                                    <th scope=\\"row\\" class=\\"govuk-table__header\\">Address</th>
+                                    <th scope=\\"row\\" class=\\"govuk-table__header\\">Address (Internal use only)</th>
                                     <td class=\\"govuk-table__cell\\">Applicant address, ABC123, London</td>
                                     <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/4/edit/applicant-address\\"> Change</a>
                                     </td>
@@ -230,8 +231,8 @@ exports[`applications view case summary GET /case/123/project-information should
                         </table>
                     </div>
                 </div>
-            </div>
         </div>
+    </div>
     </div>
 </main>"
 `;
