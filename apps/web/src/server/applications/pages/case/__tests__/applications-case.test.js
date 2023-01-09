@@ -51,6 +51,22 @@ describe('applications view case summary', () => {
 
 			expect(element.innerHTML).toMatchSnapshot();
 			expect(element.innerHTML).toContain('Project details');
+			expect(element.innerHTML).toContain('Internal use only');
+		});
+	});
+
+	describe('GET /case/123/preview-and-publish', () => {
+		beforeEach(async () => {
+			nocks();
+		});
+
+		it('should render the page', async () => {
+			const response = await request.get(`${baseUrl}/preview-and-publish`);
+			const element = parseHtml(response.text);
+
+			expect(element.innerHTML).toMatchSnapshot();
+			expect(element.innerHTML).toContain('Project details');
+			expect(element.innerHTML).not.toContain('Internal use only');
 		});
 	});
 });

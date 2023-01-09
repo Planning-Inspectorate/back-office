@@ -39,7 +39,8 @@ export const createCase = ({
 	subSector = createOptionsItem(),
 	status = `Status ${id}000`,
 	applicants = [createApplicant(true)],
-	caseEmail
+	caseEmail,
+	published = false
 } = {}) => {
 	return {
 		id,
@@ -51,6 +52,7 @@ export const createCase = ({
 		sector,
 		subSector,
 		applicants,
+		published,
 		geographicalInformation: {
 			locationDescription: 'London',
 			gridReference: {
