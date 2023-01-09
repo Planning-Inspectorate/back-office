@@ -20,14 +20,16 @@ export const fixtureCases = [
 		title: `Case with no subsector`,
 		description: 'Case with no subsector description',
 		sector: fixtureSectors[0],
-		status: 'Draft'
+		status: 'Draft',
+		published: false
 	},
 	{
 		id: 3,
 		reference: 'CASE/03',
 		title: `Case with no sector`,
 		description: 'Case with no sector description',
-		status: 'Draft'
+		status: 'Draft',
+		published: false
 	},
 	createCase({
 		id: 4,

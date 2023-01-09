@@ -21,21 +21,22 @@
 
 {% block pageContent %}
 	<div class="govuk-grid-row" id="pins-publish-case">
-		<div class="govuk-grid-column-two-thirds">
+		<form class="govuk-grid-column-two-thirds" method="post" action="">
 			{% block sectionContent %}
 				<h1 class="govuk-heading-l">{{ serviceName }}</h1>
 
 				{{ caseInfoTable(case) }}
-				<h2 class="govuk-heading-m">Project details</h2>
-				<p class="govuk-body">Check details before publishing</p>
+				<h2 class="govuk-heading-m govuk-!-margin-top-9 govuk-!-margin-bottom-2">Project details</h2>
+				<p class="govuk-body govuk-!-margin-bottom-5">Check details before publishing</p>
 				{{ caseDetailsTable(case, domainType, isPublishPage) }}
 
-				<h2 class="govuk-heading-m">Applicant information</h2>
-				<p class="govuk-body">Check details before publishing</p>
+				<h2 class="govuk-heading-m govuk-!-margin-top-9 govuk-!-margin-bottom-2">Applicant information</h2>
+				<p class="govuk-body govuk-!-margin-bottom-5">Check details before publishing</p>
 				{{ caseApplicantTable(case, domainType, isPublishPage) }}
 			{% endblock %}
 
-			{{ govukButton({ text: 'Accept and publish project' }) }}
-		</div>
+
+			{{ govukButton({ classes: 'govuk-!-margin-top-5', text: 'Accept and publish changes' if case.published else 'Accept and publish project' }) }}
+		</form>
 	</div>
 {% endblock %}
