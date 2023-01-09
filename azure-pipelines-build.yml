@@ -148,7 +148,7 @@ extends:
             parameters: 
               nodeVersion: 16
               script: npm install --only=prod
-              workingDirectory: ${{ Build.Repository.LocalPath }}
+              workingDirectory: $(Build.Repository.LocalPath)
           - task: ArchiveFiles@2
             displayName: Archive files
             inputs:
