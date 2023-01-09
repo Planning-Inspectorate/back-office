@@ -34,13 +34,13 @@ export const createApplicant = (showAddress = false) => {
 export const createCase = ({
 	id = fake.createUniqueId(),
 	modifiedDate = `${sub(new Date(), { weeks: random(1, 6) }).getTime() / 1000}`,
+	publishedDate,
 	reference = createCaseReference(),
 	sector = createOptionsItem(),
 	subSector = createOptionsItem(),
 	status = `Status ${id}000`,
 	applicants = [createApplicant(true)],
-	caseEmail,
-	published = false
+	caseEmail
 } = {}) => {
 	return {
 		id,
@@ -49,10 +49,10 @@ export const createCase = ({
 		description: createRandomDescription({ wordsNumber: 40, startOffset: id }),
 		status,
 		modifiedDate,
+		publishedDate,
 		sector,
 		subSector,
 		applicants,
-		published,
 		geographicalInformation: {
 			locationDescription: 'London',
 			gridReference: {
