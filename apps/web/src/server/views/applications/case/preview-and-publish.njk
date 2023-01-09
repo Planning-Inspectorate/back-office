@@ -20,23 +20,22 @@
 {% endblock %}
 
 {% block pageContent %}
-	<div class="govuk-grid-row" id="pins-publish-case">
-		<form class="govuk-grid-column-two-thirds" method="post" action="">
-			{% block sectionContent %}
-				<h1 class="govuk-heading-l">{{ serviceName }}</h1>
+	<form id="pins-publish-case" class="govuk-grid-row " method="post" action="">
+		<div class="govuk-grid-column-full">
+			<h1 class="govuk-heading-l">{{ serviceName }}</h1>
+			{{ caseInfoTable(case) }}
+		</div>
+		<div class="govuk-grid-column-two-thirds">
+			<h2 class="govuk-heading-m govuk-!-margin-top-9 govuk-!-margin-bottom-2">Project details</h2>
+			<p class="govuk-body govuk-!-margin-bottom-5">Check details before publishing</p>
+			{{ caseDetailsTable(case, domainType, isPublishPage) }}
 
-				{{ caseInfoTable(case) }}
-				<h2 class="govuk-heading-m govuk-!-margin-top-9 govuk-!-margin-bottom-2">Project details</h2>
-				<p class="govuk-body govuk-!-margin-bottom-5">Check details before publishing</p>
-				{{ caseDetailsTable(case, domainType, isPublishPage) }}
-
-				<h2 class="govuk-heading-m govuk-!-margin-top-9 govuk-!-margin-bottom-2">Applicant information</h2>
-				<p class="govuk-body govuk-!-margin-bottom-5">Check details before publishing</p>
-				{{ caseApplicantTable(case, domainType, isPublishPage) }}
-			{% endblock %}
-
-
-			{{ govukButton({ classes: 'govuk-!-margin-top-5', text: 'Accept and publish changes' if case.published else 'Accept and publish project' }) }}
-		</form>
-	</div>
+			<h2 class="govuk-heading-m govuk-!-margin-top-9 govuk-!-margin-bottom-2">Applicant information</h2>
+			<p class="govuk-body govuk-!-margin-bottom-5">Check details before publishing</p>
+			{{ caseApplicantTable(case, domainType, isPublishPage) }}
+		</div>
+		<div class="govuk-grid-column-full">
+			{{ govukButton({ classes: 'govuk-!-margin-top-5', text: 'Accept and publish changes' if case.publishedDate else 'Accept and publish project' }) }}
+		</div>
+	</form>
 {% endblock %}

@@ -32,6 +32,7 @@
 	{% endif %}
 
 	<a class="govuk-link {{ selectedClass }}"
-		href="{{ 'case-view'|url({caseId: params.caseId, step: params.pageType }) }}">
-		{{ params.pageTitle }}</a></li>
+	   href="{{ 'case-view'|url({caseId: params.caseId, step: params.pageType }) }}">
+		{{ params.pageTitle }}
+	</a>
 {% endmacro %}
