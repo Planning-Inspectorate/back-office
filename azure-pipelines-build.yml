@@ -146,7 +146,7 @@ extends:
           #     workingDirectory: $(Build.Repository.LocalPath)
           - template: ../steps/node_script.yml
             parameters: 
-              nodeVersion: ${{ parameters.nodeVersion }}
+              nodeVersion: 16
               script: npm install --only=prod
               workingDirectory: ${{ Build.Repository.LocalPath }}
           - task: ArchiveFiles@2
