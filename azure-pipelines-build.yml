@@ -156,7 +156,7 @@ extends:
               includeRootFolder: false
               archiveFile: $(System.DefaultWorkingDirectory)/functions.zip
           - publish: $(System.DefaultWorkingDirectory)/functions.zip
-            artifact: ${{ parameters.artifactName }}
+            artifact: azure-functions
             displayName: Publish Functions Artifact
       - name: Build Web
         condition: >-
