@@ -140,10 +140,24 @@ extends:
         dependsOn:
           - Run Linting & Tests
         steps:
-          - template: ../steps/function_app_validate.yml@templates
-            parameters:
-              nodeVersion: 16
-              workingDirectory: $(Build.Repository.LocalPath)/apps/document-check-function
+          # - template: ../steps/function_app_validate.yml@templates
+          #   parameters:
+          #     nodeVersion: 16
+          #     workingDirectory: $(Build.Repository.LocalPath)
+          - template: ../steps/node_script.yml
+            parameters: 
+              nodeVersion: ${{ parameters.nodeVersion }}
+              script: npm install --only=prod
+              workingDirectory: ${{ Build.Repository.LocalPath }}
+          - task: ArchiveFiles@2
+            displayName: Archive files
+            inputs:
+              rootFolderOrFile: ${{ Build.Repository.LocalPath }}
+              includeRootFolder: false
+              archiveFile: $(System.DefaultWorkingDirectory)/functions.zip
+          - publish: $(System.DefaultWorkingDirectory)/functions.zip
+            artifact: ${{ parameters.artifactName }}
+            displayName: Publish Functions Artifact
       - name: Build Web
         condition: >-
           and(
