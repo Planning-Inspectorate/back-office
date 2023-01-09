@@ -31,7 +31,13 @@ export const getCase = async (id, query = null) => {
 
 	const queryStringified = JSON.stringify(queryObject);
 
-	return get(`applications/${id}${query ? `?query=${queryStringified}` : ''}`);
+	// return get(`applications/${id}${query ? `?query=${queryStringified}` : ''}`);
+	// TODO: this is a mock
+	const caseWithNoPublishedInfo = await get(
+		`applications/${id}${query ? `?query=${queryStringified}` : ''}`
+	);
+
+	return { ...caseWithNoPublishedInfo, published: caseWithNoPublishedInfo.id === 76 };
 };
 
 /**
@@ -90,4 +96,21 @@ export const updateCase = async (caseId, payload) => {
 	}
 
 	return response;
+};
+
+/**
+ *
+ * Publish case with updated changes
+ *
+ * @param {number} caseId
+ * @returns {Promise<{publishedDate?: number, errors?: ValidationErrors}>}
+ */
+export const publishCase = async (caseId) => {
+	// TODO: this is just a mock
+	return new Promise((resolve) => {
+		setTimeout(() => {
+			// dont mind this, it's just to silence eslint. it'll be all removed when the api is ready
+			resolve({ publishedDate: caseId });
+		}, 200);
+	});
 };

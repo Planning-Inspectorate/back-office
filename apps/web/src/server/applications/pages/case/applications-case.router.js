@@ -9,16 +9,16 @@ const applicationsCaseRouter = createRouter();
 const applicationsCaseSummaryRouter = createRouter({ mergeParams: true });
 
 applicationsCaseRouter.use('/:caseId/edit', applicationsEditRouter);
-applicationsCaseRouter.use(
-	'/:caseId/publish',
-	locals.registerCase,
-	asyncRoute(controller.viewApplicationsCasePublishPage)
-);
 applicationsCaseRouter.use('/:caseId/project-documentation', applicationsDocumentationRouter);
 
-applicationsCaseRouter.use('/:caseId/:pageType?', applicationsCaseSummaryRouter);
+applicationsCaseRouter.use('/:caseId', applicationsCaseSummaryRouter);
 
 applicationsCaseSummaryRouter.use(locals.registerCase);
-applicationsCaseSummaryRouter.route('/').get(asyncRoute(controller.viewApplicationsCasePages));
+applicationsCaseSummaryRouter
+	.route('/:pageType?')
+	.get(asyncRoute(controller.viewApplicationsCasePages));
+applicationsCaseSummaryRouter
+	.route('/preview-and-publish')
+	.post(asyncRoute(controller.updateApplicationsCasePublishPage));
 
 export default applicationsCaseRouter;
