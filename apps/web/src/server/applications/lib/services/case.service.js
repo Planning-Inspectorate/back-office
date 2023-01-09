@@ -31,13 +31,7 @@ export const getCase = async (id, query = null) => {
 
 	const queryStringified = JSON.stringify(queryObject);
 
-	// return get(`applications/${id}${query ? `?query=${queryStringified}` : ''}`);
-	// TODO: this is a mock
-	const caseWithNoPublishedInfo = await get(
-		`applications/${id}${query ? `?query=${queryStringified}` : ''}`
-	);
-
-	return { ...caseWithNoPublishedInfo, published: caseWithNoPublishedInfo.id === 76 };
+	return get(`applications/${id}${query ? `?query=${queryStringified}` : ''}`);
 };
 
 /**

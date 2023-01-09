@@ -12,7 +12,7 @@ const nocks = () => {
 	nock('http://test/').get('/applications/123').reply(200, fixtureCases[3]);
 };
 
-describe('applications view case summary', () => {
+describe('Applications case pages', () => {
 	beforeEach(installMockApi);
 	afterEach(teardown);
 
@@ -20,15 +20,12 @@ describe('applications view case summary', () => {
 		nock.cleanAll();
 	});
 
-	beforeEach(async () => {
-		await request.get('/applications-service/case-officer');
-	});
-
 	const baseUrl = '/applications-service/case/123';
 
 	describe('GET /case/123', () => {
 		beforeEach(async () => {
 			nocks();
+			await request.get('/applications-service/case-officer');
 		});
 
 		it('should render the page', async () => {
@@ -41,32 +38,153 @@ describe('applications view case summary', () => {
 	});
 
 	describe('GET /case/123/project-information', () => {
-		beforeEach(async () => {
-			nocks();
+		describe('When domainType is inspector', () => {
+			beforeEach(async () => {
+				nock('http://test/').get('/applications/inspector').reply(200, {});
+				nock('http://test/').get('/applications/123').reply(200, fixtureCases[6]);
+
+				await request.get('/applications-service/inspector');
+			});
+
+			it('should show no change links or publishing links', async () => {
+				const response = await request.get(`${baseUrl}/project-information`);
+				const element = parseHtml(response.text);
+
+				expect(element.innerHTML).toMatchSnapshot();
+				expect(element.innerHTML).not.toContain('Change');
+				expect(element.innerHTML).not.toContain('Preview and publish project');
+				expect(element.innerHTML).not.toContain('There are unpublished changes');
+				expect(element.innerHTML).not.toContain('Unpublish project');
+			});
 		});
 
-		it('should render the page', async () => {
-			const response = await request.get(`${baseUrl}/project-information`);
-			const element = parseHtml(response.text);
+		describe('When domainType is not inspector', () => {
+			beforeEach(async () => {
+				await request.get('/applications-service/case-officer');
+			});
 
-			expect(element.innerHTML).toMatchSnapshot();
-			expect(element.innerHTML).toContain('Project details');
-			expect(element.innerHTML).toContain('Internal use only');
+			describe('When the case is not published', () => {
+				beforeEach(async () => {
+					nocks();
+				});
+
+				it('should show no info about previous publishings', async () => {
+					const response = await request.get(`${baseUrl}/project-information`);
+					const element = parseHtml(response.text);
+
+					expect(element.innerHTML).toMatchSnapshot();
+					expect(element.innerHTML).toContain('Change');
+					expect(element.innerHTML).toContain('Not Published');
+					expect(element.innerHTML).not.toContain('Last updated:');
+					expect(element.innerHTML).not.toContain('There are unpublished changes');
+					expect(element.innerHTML).not.toContain('Unpublish project');
+					expect(element.innerHTML).toContain('Internal use only');
+				});
+			});
+
+			describe('When the case is published', () => {
+				beforeEach(async () => {
+					nock('http://test/').get('/applications/case-officer').reply(200, {});
+				});
+
+				it('with no pending changes, should show publishing info and unpublish link', async () => {
+					nock('http://test/').get('/applications/123').reply(200, fixtureCases[5]);
+
+					const response = await request.get(`${baseUrl}/project-information`);
+					const element = parseHtml(response.text);
+
+					expect(element.innerHTML).toMatchSnapshot();
+					expect(element.innerHTML).toContain('Published');
+					expect(element.innerHTML).toContain('Last updated:');
+					expect(element.innerHTML).not.toContain('There are unpublished changes');
+					expect(element.innerHTML).toContain('Unpublish project');
+				});
+
+				it('with pending changes, should show publishing info, unpublish link and warning about unpublished changes', async () => {
+					nock('http://test/').get('/applications/123').reply(200, fixtureCases[6]);
+
+					const response = await request.get(`${baseUrl}/project-information`);
+					const element = parseHtml(response.text);
+
+					expect(element.innerHTML).toMatchSnapshot();
+					expect(element.innerHTML).toContain('Published');
+					expect(element.innerHTML).toContain('Last updated:');
+					expect(element.innerHTML).toContain('There are unpublished changes');
+					expect(element.innerHTML).toContain('Unpublish project');
+				});
+			});
+
+			describe('When the case has just been published', () => {
+				beforeEach(async () => {
+					nock('http://test/').get('/applications/case-officer').reply(200, {});
+					nock('http://test/').get('/applications/123').reply(200, fixtureCases[5]);
+				});
+
+				it('should show the first-time success banner if published for the first time', async () => {
+					const response = await request.get(`${baseUrl}/project-information?published=1`);
+					const element = parseHtml(response.text);
+
+					expect(element.innerHTML).toMatchSnapshot();
+					expect(element.innerHTML).toContain('Project page published ');
+				});
+
+				it('should show the second-time success banner if published for the 2nd or more time', async () => {
+					const response = await request.get(`${baseUrl}/project-information?published=2`);
+					const element = parseHtml(response.text);
+
+					expect(element.innerHTML).toMatchSnapshot();
+					expect(element.innerHTML).toContain('Project page updates published');
+				});
+			});
 		});
 	});
 
 	describe('GET /case/123/preview-and-publish', () => {
-		beforeEach(async () => {
-			nocks();
+		describe('When domainType is inspector', () => {
+			beforeEach(async () => {
+				nock('http://test/').get('/applications/inspector').reply(200, {});
+				await request.get('/applications-service/inspector');
+			});
+
+			it('should not render the page', async () => {
+				const response = await request.get(`${baseUrl}/preview-and-publish`);
+				const element = parseHtml(response.text);
+
+				expect(element.innerHTML).toMatchSnapshot();
+				expect(element.innerHTML).toContain('problem with your login');
+			});
 		});
 
-		it('should render the page', async () => {
-			const response = await request.get(`${baseUrl}/preview-and-publish`);
-			const element = parseHtml(response.text);
+		describe('When domainType is not inspector', () => {
+			beforeEach(async () => {
+				nock('http://test/').get('/applications/case-officer').reply(200, {});
+				await request.get('/applications-service/case-officer');
+			});
 
-			expect(element.innerHTML).toMatchSnapshot();
-			expect(element.innerHTML).toContain('Project details');
-			expect(element.innerHTML).not.toContain('Internal use only');
+			it('if already published, should render the page with the previous publishing info', async () => {
+				nock('http://test/').get('/applications/123').reply(200, fixtureCases[6]);
+
+				const response = await request.get(`${baseUrl}/preview-and-publish`);
+				const element = parseHtml(response.text);
+
+				expect(element.innerHTML).toMatchSnapshot();
+				expect(element.innerHTML).toContain('Published');
+				expect(element.innerHTML).toContain('Accept and publish changes');
+				expect(element.innerHTML).toContain('Last updated:');
+				expect(element.innerHTML).not.toContain('Internal use only');
+			});
+
+			it('if not yet published, should render the page with no previous publishing info', async () => {
+				nock('http://test/').get('/applications/123').reply(200, fixtureCases[3]);
+
+				const response = await request.get(`${baseUrl}/preview-and-publish`);
+				const element = parseHtml(response.text);
+
+				expect(element.innerHTML).toMatchSnapshot();
+				expect(element.innerHTML).toContain('Accept and publish project');
+				expect(element.innerHTML).toContain('Not Published');
+				expect(element.innerHTML).not.toContain('Last updated:');
+			});
 		});
 	});
 });
