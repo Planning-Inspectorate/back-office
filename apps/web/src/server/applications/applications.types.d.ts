@@ -51,6 +51,7 @@ export interface Case {
 			easting: string;
 		};
 	};
+	published: boolean;
 }
 export interface Applicant {
 	id: number;
