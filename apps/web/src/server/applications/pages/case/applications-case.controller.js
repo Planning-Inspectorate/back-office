@@ -1,26 +1,27 @@
 import { publishCase } from '../../lib/services/case.service.js';
 
 /** @typedef {import('../../applications.types').Case} Case */
-
 /** @typedef {import('@pins/express').ValidationErrors} ValidationErrors */
+/**
+ * @typedef {object} CasePageProps
+ * @property {string} selectedPageType
+ * @property {boolean} [isFirstTimePublished]
+ * @property {boolean} [showPublishedBanner]
+ * @property {ValidationErrors} [errors]
+ */
 
 /**
  * View the details for a single case
  *
- * @type {import('@pins/express').RenderHandler<{selectedPageType: string, showPublishedBanner: boolean, isFirstTimePublished: boolean}, {}, {}, {published?: string}, {pageType?: string}>}
+ * @type {import('@pins/express').RenderHandler<CasePageProps, {}, {}, {}, {pageType?: string}>}
  */
-export async function viewApplicationsCasePages({ params, query }, response) {
-	// note: case details for this case are held in response.locals.case
+export async function viewApplicationsCasePages({ params }, response) {
 	const { pageType } = params;
-	const { published } = query;
-	const showPublishedBanner = published === '1' || published === '2';
-	const isFirstTimePublished = published === '1';
+
 	const selectedPageType = pageType ?? 'overview';
 
 	response.render(`applications/case/${selectedPageType}`, {
-		selectedPageType,
-		showPublishedBanner,
-		isFirstTimePublished
+		selectedPageType
 	});
 }
 
@@ -36,7 +37,7 @@ export async function viewApplicationsCasePublishPage(request, response) {
 /**
  * Send publishing request with updated changes
  *
- * @type {import('@pins/express').RenderHandler<{errors?: ValidationErrors}, {}, {}, {}, {}>}
+ * @type {import('@pins/express').RenderHandler<CasePageProps, {}, {}, {}, {}>}
  */
 export async function updateApplicationsCasePublishPage(request, response) {
 	const { caseId, case: caseToPublish } = response.locals;
@@ -44,8 +45,15 @@ export async function updateApplicationsCasePublishPage(request, response) {
 	const { errors } = await publishCase(caseId);
 
 	if (errors) {
-		response.render(`applications/case/preview-and-publish`, { errors });
+		response.render(`applications/case/preview-and-publish`, {
+			selectedPageType: 'preview-and-publish',
+			errors
+		});
 	}
 
-	response.redirect(`../${caseId}/project-information?published=${isAlreadyPublic ? 2 : 1}`);
+	response.render(`applications/case/project-information`, {
+		selectedPageType: 'project-information',
+		showPublishedBanner: true,
+		isFirstTimePublished: !isAlreadyPublic
+	});
 }
