@@ -4,8 +4,8 @@
 	{% set selectedPageType = params.selectedPageType %}
 
 	<aside class="govuk-!-margin-bottom-8 pins-list-menu">
+		<h3 class="govuk-visually-hidden">Case Details Menu</h3>
 		<nav>
-			<h3 class="govuk-visually-hidden">Case Details Menu</h3>
 			<ul class="gov-list pins-list-menu">
 				<li class="govuk-heading-s">{{ writeMenuLink({ pageTitle: 'Overview', pageType: '', selectedPageType: selectedPageType,
 						caseId: case.id }) }}</li>
