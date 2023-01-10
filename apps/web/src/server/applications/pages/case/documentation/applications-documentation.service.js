@@ -55,12 +55,16 @@ export const getCaseDocumentationFolderPath = (caseId, folderId) => {
  * @returns {Promise<PaginatedDocumentationFiles>}
  */
 export const getCaseDocumentationFilesInFolder = async (caseId, folderId, pageSize, pageNumber) => {
-	return post(`applications/${caseId}/folders/${folderId}/documents`, {
+	const files = await post(`applications/${caseId}/folders/${folderId}/documents`, {
 		json: {
 			pageSize,
 			pageNumber
 		}
 	});
+
+	files.items[0].url = `https://pinsstdocsbodevukw001.blob.core.windows.net/document-service-uploads/application/TR010002/d38ef007-98d8-4d89-b7bb-34160d97e84e/screenshot 2.png`;
+
+	return files;
 };
 
 /**

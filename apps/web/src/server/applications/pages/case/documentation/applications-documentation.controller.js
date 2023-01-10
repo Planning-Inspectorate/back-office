@@ -1,4 +1,5 @@
 import { sortBy } from 'lodash-es';
+import blobStorageService from '../../../lib/services/blob-storage.service.js';
 import {
 	getSessionFilesNumberOnList,
 	setSessionFilesNumberOnList
@@ -84,7 +85,7 @@ export async function viewApplicationsCaseDocumentationUpload(request, response)
 /**
 	Get all the data for the display folder page
  	(used by POST and GET) to retrieve shared template properties
-
+ 
  	@param {{query: {number?: string, size?: string}, session: SessionWithFilesNumberOnList}} request
  	@param {{locals: Record<string, any>}} response
  	@returns {Promise<CaseDocumentationProps>}
@@ -113,6 +114,8 @@ const documentationFolderData = async (request, response) => {
 		number
 	);
 
+	const sasToken = await blobStorageService().createAccountSas();
+
 	const paginationDropdownItems = [...Array.from({ length: 5 }).keys()].map((index) => ({
 		value: (1 + index) * 25,
 		text: (1 + index) * 25,
@@ -133,6 +136,7 @@ const documentationFolderData = async (request, response) => {
 	return {
 		subFolders,
 		documentationFiles,
+		sasToken,
 		pagination: {
 			dropdownItems: paginationDropdownItems,
 			buttons: paginationButtons
