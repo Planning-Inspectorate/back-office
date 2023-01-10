@@ -201,7 +201,7 @@
 										<td class="govuk-table__cell">
 											{% if documentationFile.type === 'application/pdf' or documentationFile.type === 'image/jpeg' or documentationFile.type === 'image/png' %}
 												<a class="govuk-link govuk-body-s govuk-!-font-weight-bold"
-												   href="{{ documentationFile.url }}">
+												   href="{{ documentationFile.url }}{{ sasToken }}">
 													{{ documentationFile.documentName }}
 												</a>
 											{% else %}
