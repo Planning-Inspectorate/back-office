@@ -32,7 +32,9 @@ export function createDocumentationFile({
 		wordsNumber: 1,
 		startOffset: createUniqueRandomNumberFromSeed(5, 20, uniqueSeed)
 	})}`;
-	const type = ['DOC', 'PDF', 'JPG', 'MP3'][createUniqueRandomNumberFromSeed(0, 4, uniqueSeed)];
+	const type = ['application/msword', 'application/pdf', 'image/jpeg', 'audio/mpeg'][
+		createUniqueRandomNumberFromSeed(0, 4, uniqueSeed)
+	];
 	const status = [
 		'user_checked',
 		'not_user_checked',

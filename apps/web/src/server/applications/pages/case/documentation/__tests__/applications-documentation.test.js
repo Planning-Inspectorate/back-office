@@ -89,6 +89,25 @@ describe('applications documentation', () => {
 					await request.get('/applications-service/case-admin-officer');
 				});
 
+				it('should render the page with no panel and no table if there are no documents', async () => {
+					const fixtureDocumentationFilesEmpty = {
+						...fixtureDocumentationFiles,
+						items: [],
+						itemCount: 0
+					};
+
+					nock('http://test/')
+						.post('/applications/123/folders/21/documents')
+						.reply(200, fixtureDocumentationFilesEmpty);
+
+					const response = await request.get(`${baseUrl}/project-documentation/21/no-documents`);
+					const element = parseHtml(response.text);
+
+					expect(element.innerHTML).toMatchSnapshot();
+					expect(element.innerHTML).toContain('This folder contains 0 document(s).');
+					expect(element.innerHTML).not.toContain('Select documents to make changes to statuses');
+				});
+
 				it('should render the page with default pagination if there is no data in the session', async () => {
 					nock('http://test/')
 						.post('/applications/123/folders/21/documents')

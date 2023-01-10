@@ -71,7 +71,9 @@ const documents = [
 		blobStorageContainer: null,
 		blobStoragePath: null,
 		redacted: false,
-		createdAt: new Date(1_658_486_313_000)
+		createdAt: new Date(1_658_486_313_000),
+		fileType: 'application/pdf',
+		fileSize: 1024
 	}
 ];
 
@@ -234,8 +236,8 @@ test('returns documents in a folder on a case', async (t) => {
 				documentUrl: null,
 				from: '',
 				receivedDate: 1_658_486_313,
-				size: 0,
-				type: '',
+				size: 1024,
+				type: 'application/pdf',
 				redacted: false,
 				status: 'not_user_checked'
 			}

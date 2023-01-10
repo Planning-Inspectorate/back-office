@@ -35,7 +35,9 @@ const document = {
 		documentsToSave: [
 			{
 				documentName: 'document.pdf',
-				folderId: 123
+				folderId: 123,
+				documentType: 'application/pdf',
+				documentSize: 1024
 			}
 		],
 		documentsToUpdateRequestBody: {
@@ -250,14 +252,14 @@ const document = {
 				items: [
 					{
 						guid: '0fab253b-2c0c-4c55-94c0-f3f81ffc589c',
-						documentName: 'Document Name 1',
-						documentUrl: null,
+						documentName: 'document_name_1.pdf',
+						documentUrl: '/some/path/document_name_1.pdf',
 						from: '',
 						receivedDate: 1_658_486_313,
-						size: 0,
-						type: 'PDF',
+						size: 1024,
+						type: 'application/pdf',
 						redacted: false,
-						status: 'unchecked'
+						status: 'not_user_checked'
 					}
 				]
 			}
