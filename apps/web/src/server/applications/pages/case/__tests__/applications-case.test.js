@@ -116,29 +116,6 @@ describe('Applications case pages', () => {
 						expect(element.innerHTML).toContain('Unpublish project');
 					});
 				});
-
-				describe('When the case has just been published', () => {
-					beforeEach(async () => {
-						nock('http://test/').get('/applications/case-officer').reply(200, {});
-						nock('http://test/').get('/applications/123').reply(200, fixtureCases[5]);
-					});
-
-					it('should show the first-time success banner if published for the first time', async () => {
-						const response = await request.get(`${baseUrl}/project-information?published=1`);
-						const element = parseHtml(response.text);
-
-						expect(element.innerHTML).toMatchSnapshot();
-						expect(element.innerHTML).toContain('Project page published ');
-					});
-
-					it('should show the second-time success banner if published for the 2nd or more time', async () => {
-						const response = await request.get(`${baseUrl}/project-information?published=2`);
-						const element = parseHtml(response.text);
-
-						expect(element.innerHTML).toMatchSnapshot();
-						expect(element.innerHTML).toContain('Project page updates published');
-					});
-				});
 			});
 		});
 	});
@@ -219,16 +196,20 @@ describe('Applications case pages', () => {
 					nock('http://test/').get('/applications/123').reply(200, fixtureCases[3]);
 
 					const response = await request.post(`${baseUrl}/preview-and-publish`);
+					const element = parseHtml(response.text);
 
-					expect(response?.headers?.location).toContain('published=1');
+					expect(element.innerHTML).toMatchSnapshot();
+					expect(element.innerHTML).toContain('Project page published ');
 				});
 
 				it('if the case is already published, should go the 2nd-time success banner page', async () => {
 					nock('http://test/').get('/applications/123').reply(200, fixtureCases[6]);
 
 					const response = await request.post(`${baseUrl}/preview-and-publish`);
+					const element = parseHtml(response.text);
 
-					expect(response?.headers?.location).toContain('published=2');
+					expect(element.innerHTML).toMatchSnapshot();
+					expect(element.innerHTML).toContain('Project page updates published');
 				});
 			});
 		});

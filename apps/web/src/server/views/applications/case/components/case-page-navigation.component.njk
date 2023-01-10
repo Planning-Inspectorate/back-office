@@ -4,23 +4,23 @@
 	{% set selectedPageType = params.selectedPageType %}
 
 	<aside class="govuk-!-margin-bottom-8 pins-list-menu">
-	<nav>
 		<h2 class="govuk-visually-hidden">Case Details Menu</h2>
-		<ul class="gov-list pins-list-menu">
-			<li class="govuk-heading-s">{{ writeMenuLink({ pageTitle: 'Overview', pageType: '', selectedPageType: selectedPageType,
-												caseId: case.id }) }}</li>
-			<li class="govuk-heading-s">{{ writeMenuLink({ pageTitle: 'Project information', pageType: 'project-information', selectedPageType: selectedPageType,
-												caseId: case.id }) }}</li>
-			<li class="govuk-heading-s">{{ writeMenuLink({ pageTitle: 'Key dates', pageType: 'key-dates', selectedPageType: selectedPageType,
-												caseId: case.id }) }}</li>
-			<li class="govuk-heading-s">{{ writeMenuLink({ pageTitle: 'Project team', pageType: 'project-team', selectedPageType: selectedPageType,
-												caseId: case.id }) }}</li>
-			<li class="govuk-heading-s">{{ writeMenuLink({ pageTitle: 'Fees', pageType: 'fees', selectedPageType: selectedPageType,
-												caseId: case.id }) }}</li>
-			<li class="govuk-heading-s">{{ writeMenuLink({ pageTitle: 'Project documentation', pageType: 'project-documentation', selectedPageType: selectedPageType,
-												caseId: case.id }) }}</li>
-		</ul>
-	</nav>
+		<nav>
+			<ul class="gov-list pins-list-menu">
+				<li class="govuk-heading-s">{{ writeMenuLink({ pageTitle: 'Overview', pageType: '', selectedPageType: selectedPageType,
+						caseId: case.id }) }}</li>
+				<li class="govuk-heading-s">{{ writeMenuLink({ pageTitle: 'Project information', pageType: 'project-information', selectedPageType: selectedPageType,
+						caseId: case.id }) }}</li>
+				<li class="govuk-heading-s">{{ writeMenuLink({ pageTitle: 'Key dates', pageType: 'key-dates', selectedPageType: selectedPageType,
+						caseId: case.id }) }}</li>
+				<li class="govuk-heading-s">{{ writeMenuLink({ pageTitle: 'Project team', pageType: 'project-team', selectedPageType: selectedPageType,
+						caseId: case.id }) }}</li>
+				<li class="govuk-heading-s">{{ writeMenuLink({ pageTitle: 'Fees', pageType: 'fees', selectedPageType: selectedPageType,
+						caseId: case.id }) }}</li>
+				<li class="govuk-heading-s">{{ writeMenuLink({ pageTitle: 'Project documentation', pageType: 'project-documentation', selectedPageType: selectedPageType,
+						caseId: case.id }) }}</li>
+			</ul>
+		</nav>
 	</aside>
 {% endmacro %}
 
