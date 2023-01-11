@@ -34,7 +34,7 @@ if (!config.authDisabled) {
 router.route('/').get(viewHomepage);
 router.route('/auth/signout').get(handleSignout);
 router.route('/documents/:caseId/upload').post(postDocumentsUpload);
-router.route('/documents/:guid/download/:preview?').get(getDocumentsDownload);
+router.route('/documents/:caseId/download/:guid/:preview?').get(getDocumentsDownload);
 router.use('/appeals-service', appealsRouter);
 router.use('/applications-service', applicationsRouter);
 

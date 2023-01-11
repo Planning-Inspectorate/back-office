@@ -6,15 +6,15 @@ import createSasToken from '../../lib/sas-token.js';
 /**
  * Download one document or redirects to its url if preview is active
  *
- * @param {{params: {guid: string, preview?: string}}} request
+ * @param {{params: {caseId: number, guid: string, preview?: string}}} request
  * @param {import('express').Response} response
  * @returns {Promise<void>}
  */
 const getDocumentsDownload = async ({ params }, response) => {
-	const { guid: fileGuid, preview } = params;
+	const { guid: fileGuid, preview, caseId } = params;
 	const { blobStorageUrl } = config;
 	const sasToken = await createSasToken();
-	const { documentUrl } = await getCaseDocumentationFileUrl(fileGuid);
+	const { documentUrl } = await getCaseDocumentationFileUrl(caseId, fileGuid);
 	const completeURI = `${blobStorageUrl}${documentUrl}${sasToken}`;
 
 	if (preview) {
