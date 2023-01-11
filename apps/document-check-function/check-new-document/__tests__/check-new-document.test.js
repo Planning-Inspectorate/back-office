@@ -2,8 +2,8 @@ import test from 'ava';
 import got, { HTTPError } from 'got';
 import { Readable } from 'node:stream';
 import sinon from 'sinon';
+import { checkMyBlob } from '../check-my-blob.js';
 import { clamAvClient } from '../clam-av-client.js';
-import { checkMyBlob } from '../index.js';
 
 const fileStream = new Readable();
 
