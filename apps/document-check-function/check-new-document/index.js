@@ -70,7 +70,7 @@ const deleteDocument = async (documentUri, context) => {
  * @param {Context} context
  * @param {import('node:stream').Readable} myBlob
  */
-export const checkMyBlob = async (context, myBlob) => {
+const checkMyBlob = async (context, myBlob) => {
 	const documentUri = context.bindingData.uri;
 	const { caseId, guid } = getBlobCaseIdAndGuid(documentUri);
 
@@ -84,4 +84,15 @@ export const checkMyBlob = async (context, myBlob) => {
 	const machineAction = mapIsInfectedToMachineAction(isInfected);
 
 	await sendDocumentStateAction(guid, caseId, machineAction, context);
+};
+
+module.exports = async function (context, myBlob) {
+	context.log(
+		'JavaScript blob trigger function processed blob \n Blob:',
+		context.bindingData.blobTrigger,
+		'\n Blob Size:',
+		myBlob.length,
+		'Bytes'
+	);
+	await checkMyBlob(context, myBlob);
 };
