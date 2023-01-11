@@ -84,7 +84,7 @@ export async function viewApplicationsCaseDocumentationUpload(request, response)
 /**
 	Get all the data for the display folder page
  	(used by POST and GET) to retrieve shared template properties
- *
+ 
     @param {{query: {number?: string, size?: string}, session: SessionWithFilesNumberOnList}} request
  	@param {{locals: Record<string, any>}} response
  	@returns {Promise<CaseDocumentationProps>}
