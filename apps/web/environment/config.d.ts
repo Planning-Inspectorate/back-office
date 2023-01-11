@@ -5,6 +5,8 @@ export interface EnvironmentConfig {
 	authDisabled: boolean;
 	authDisabledGroupIds: string[];
 	blobStorageUrl: string;
+	blobStorageAccountName: string;
+	blobStorageAccountKey: string;
 	bundleAnalyzer: boolean;
 	buildDir: string;
 	cwd: string;
