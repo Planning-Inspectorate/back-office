@@ -6,6 +6,8 @@ export default joi.object({
 	apiUrl: joi.string().uri(),
 	authDisabled: joi.boolean().optional(),
 	blobStorageUrl: joi.string(),
+	blobStorageAccountName: joi.string(),
+	blobStorageAccountKey: joi.string(),
 	env: joi.string().valid('development', 'production', 'test', 'local'),
 	isRelease: joi.boolean().optional(),
 	logLevelFile: joi.string().valid(...logLevel),
