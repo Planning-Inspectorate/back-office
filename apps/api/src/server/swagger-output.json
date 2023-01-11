@@ -586,6 +586,49 @@
 				}
 			}
 		},
+		"/applications/{id}/documents/{guid}": {
+			"get": {
+				"tags": ["Applications"],
+				"description": "Gets the blob storage uri for a single file on a case",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"type": "integer",
+						"description": "Application ID here"
+					},
+					{
+						"name": "guid",
+						"in": "path",
+						"required": true,
+						"type": "string",
+						"description": "guid of the required document here"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Blob Storage uri",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"blobStorageContainer": {
+									"type": "string",
+									"example": "document-service-uploads"
+								},
+								"blobStoragePath": {
+									"type": "string",
+									"example": "/application/TR010002/d38ef007-98d8-4d89-b7bb-34160d97e84e/screenshot 2.png"
+								}
+							},
+							"xml": {
+								"name": "main"
+							}
+						}
+					}
+				}
+			}
+		},
 		"/applications/{id}/folders": {
 			"get": {
 				"tags": ["Applications"],

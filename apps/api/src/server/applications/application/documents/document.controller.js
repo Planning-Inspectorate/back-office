@@ -82,3 +82,28 @@ export const updateDocuments = async ({ body }, response) => {
 	}
 	response.send(items);
 };
+
+/**
+ * Gets the blob storage uri components for a single document
+ * blobStorageContainer and blobStoragePath
+ *
+ * @type {import('express').RequestHandler<{guid: string}, ?, ?, any>}
+ */
+export const getDocumentUri = async ({ params }, response) => {
+	let /** @type { import('apps/api/prisma/schema.js').Document |null} */ document = null;
+
+	try {
+		document = await documentRepository.getById(params.guid);
+
+		if (document === null || typeof document === 'undefined') {
+			throw new Error(`Unknown document guid ${params.guid}`);
+		}
+	} catch {
+		throw new Error(`Unknown document guid ${params.guid}`);
+	}
+
+	response.send({
+		blobStorageContainer: document.blobStorageContainer,
+		blobStoragePath: document.blobStoragePath
+	});
+};
