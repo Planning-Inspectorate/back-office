@@ -89,12 +89,13 @@ export const updateCaseDocumentationFiles = async (caseId, { status, redacted, i
 };
 
 /**
- * Get the blob storage file uri for the file with the given GUID
+ * Get the blob storage file url for the file with the given GUID
  *
+ * @param {number} caseId
  * @param {string} fileGuid
  * @returns {Promise<{documentUrl: string, fileGuid: string}>}
  */
-export const getCaseDocumentationFileUrl = (fileGuid) => {
+export const getCaseDocumentationFileUrl = (caseId, fileGuid) => {
 	// TODO: this is a just mock
 	return new Promise((resolve) => {
 		setTimeout(() => {

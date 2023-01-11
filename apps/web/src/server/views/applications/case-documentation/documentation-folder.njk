@@ -199,7 +199,7 @@
 										<td class="govuk-table__cell">
 											{% if documentationFile.type === 'application/pdf' or documentationFile.type === 'image/jpeg' or documentationFile.type === 'image/png' %}
 												<a class="govuk-link govuk-body-s govuk-!-font-weight-bold"
-												   href="/documents/{{ documentationFile.guid }}/download/preview">
+												   href="/documents/{{ caseId }}/download/{{ documentationFile.guid }}/preview">
 													{{ documentationFile.documentName }}
 												</a>
 											{% else %}
@@ -221,7 +221,7 @@
 										<td class="govuk-table__cell">
 											<a class="govuk-link govuk-body-s" href="../{{ documentationFile.guid }}/edit">View/Edit
 												properties</a>
-											<a class="govuk-link govuk-body-s" href="/documents/{{ documentationFile.guid }}/download">Download</a>
+											<a class="govuk-link govuk-body-s" href="/documents/{{ caseId }}/download/{{ documentationFile.guid }}">Download</a>
 										</td>
 									</tr>
 								{% endfor %}
