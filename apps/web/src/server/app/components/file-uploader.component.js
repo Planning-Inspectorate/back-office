@@ -1,3 +1,4 @@
+import pino from '../../lib/logger.js';
 import { post } from '../../lib/request.js';
 import { acquireTokenSilent } from '../auth/auth.service.js';
 import { getAccount } from '../auth/auth-session.service.js';
@@ -31,6 +32,8 @@ export async function postDocumentsUpload({ params, body, session }, response) {
 
 	const sessionAccount = getAccount(session);
 
+	pino.info('sessionAccount');
+	pino.info(sessionAccount);
 	if (!sessionAccount) {
 		return response.status(500).json({ error: 'SESSION_NOT_FOUND' });
 	}
@@ -38,6 +41,9 @@ export async function postDocumentsUpload({ params, body, session }, response) {
 	const blobResourceAuthResult = await acquireTokenSilent(sessionAccount, [
 		'https://storage.azure.com/user_impersonation'
 	]);
+
+	pino.info('access token');
+	pino.info(blobResourceAuthResult?.accessToken);
 
 	if (blobResourceAuthResult?.accessToken) {
 		const { accessToken: token, expiresOn } = blobResourceAuthResult;
