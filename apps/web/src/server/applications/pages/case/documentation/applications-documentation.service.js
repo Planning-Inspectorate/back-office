@@ -28,9 +28,7 @@ export const getCaseFolders = (caseId, folderId = null) => {
  * @returns {Promise<DocumentationCategory>}
  */
 export const getCaseFolder = (caseId, folderId) => {
-	const folder = get(`applications/${caseId}/folders/${folderId}`);
-
-	return folder;
+	return get(`applications/${caseId}/folders/${folderId}`);
 };
 
 /**
@@ -55,16 +53,12 @@ export const getCaseDocumentationFolderPath = (caseId, folderId) => {
  * @returns {Promise<PaginatedDocumentationFiles>}
  */
 export const getCaseDocumentationFilesInFolder = async (caseId, folderId, pageSize, pageNumber) => {
-	const files = await post(`applications/${caseId}/folders/${folderId}/documents`, {
+	return post(`applications/${caseId}/folders/${folderId}/documents`, {
 		json: {
 			pageSize,
 			pageNumber
 		}
 	});
-
-	files.items[0].url = `https://pinsstdocsbodevukw001.blob.core.windows.net/document-service-uploads/application/TR010002/d38ef007-98d8-4d89-b7bb-34160d97e84e/screenshot 2.png`;
-
-	return files;
 };
 
 /**
@@ -92,4 +86,23 @@ export const updateCaseDocumentationFiles = async (caseId, { status, redacted, i
 	}
 
 	return response;
+};
+
+/**
+ * Get the blob storage file uri for the file with the given GUID
+ *
+ * @param {string} fileGuid
+ * @returns {Promise<{documentUrl: string, fileGuid: string}>}
+ */
+export const getCaseDocumentationFileUrl = (fileGuid) => {
+	// TODO: this is a just mock
+	return new Promise((resolve) => {
+		setTimeout(() => {
+			resolve({
+				fileGuid,
+				documentUrl:
+					'document-service-uploads/application/WS010001/5dcae922-15ba-459d-8d76-c68b66ff7c41/Screenshot%202022-07-28%20at%2009.25.48.png'
+			});
+		}, 200);
+	});
 };

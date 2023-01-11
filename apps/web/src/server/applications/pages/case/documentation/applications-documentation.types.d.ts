@@ -6,7 +6,6 @@ import {
 import { ValidationErrors } from '@pins/express';
 
 export interface CaseDocumentationProps {
-	sasToken: string;
 	subFolders: DocumentationCategory[] | null;
 	documentationFiles: PaginatedResponse<DocumentationFile>;
 	pagination: {
