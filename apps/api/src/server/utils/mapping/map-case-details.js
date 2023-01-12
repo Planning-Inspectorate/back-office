@@ -27,11 +27,16 @@ import { mapZoomLevel } from './map-zoom-level.js';
  *  address?: { addressLine1?: string | undefined, addressLine2?: string | undefined, town?: string | undefined, county?: string | undefined, postcode?: string | undefined}}}
  */
 export const mapApplicationDetails = (caseDetails) => {
-	const caseDetailsFormatted = mapKeysUsingObject(
-		pick(caseDetails, ['id', 'reference', 'title', 'description', 'modifiedAt', 'publishedAt']),
+	const caseDetailsFormatted = mapValuesUsingObject(
+		mapKeysUsingObject(
+			pick(caseDetails, ['id', 'reference', 'title', 'description', 'modifiedAt', 'publishedAt']),
+			{
+				modifiedAt: 'modifiedDate',
+				publishedAt: 'publishedDate'
+			}
+		),
 		{
-			modifiedAt: 'modifiedDate',
-			publishedAt: 'publishedDate'
+			modifiedDate: mapDateStringToUnixTimestamp
 		}
 	);
 
