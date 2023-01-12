@@ -4,9 +4,10 @@ import supertest from 'supertest';
 import { app } from '../../../app.js';
 import { applicationFactoryForTests } from '../../../utils/application-factory-for-tests.js';
 import { databaseConnector } from '../../../utils/database-connector.js';
+import { mapDateStringToUnixTimestamp } from '../../../utils/mapping/map-date-string-to-unix-timestamp.js';
 
 const request = supertest(app);
-const clock = new Date().toISOString();
+const clock = new Date();
 
 const application1 = applicationFactoryForTests({
 	id: 1,
@@ -71,7 +72,7 @@ test('gets all data for a case when everything is available', async (t) => {
 		description: 'EN010003 - NI Case 3 Name Description',
 		status: 'Draft',
 		caseEmail: 'test@test.com',
-		modifiedDate: clock,
+		modifiedDate: mapDateStringToUnixTimestamp(clock.toISOString()),
 		publishedDate: null,
 		sector: {
 			name: 'sector',
@@ -151,7 +152,7 @@ test('gets applications details when only case id present', async (t) => {
 			gridReference: {},
 			mapZoomLevel: {}
 		},
-		modifiedDate: clock,
+		modifiedDate: mapDateStringToUnixTimestamp(clock.toISOString()),
 		publishedDate: null,
 		id: 2,
 		keyDates: {},
