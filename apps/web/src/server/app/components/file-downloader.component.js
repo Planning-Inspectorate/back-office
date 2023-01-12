@@ -5,13 +5,14 @@ import getActiveDirectoryAccessToken from '../../lib/active-directory-token.js';
 import createSasToken from '../../lib/sas-token.js';
 
 /** @typedef {import('../auth/auth-session.service').SessionWithAuth} SessionWithAuth */
+/** @typedef {import('express').Response} Response */
 
 /**
  * Download one document or redirects to its url if preview is active
  *
  * @param {{params: {caseId: number, guid: string, preview?: string}, session: SessionWithAuth}} request
- * @param {import('express').Response} response
- * @returns {Promise<any>}
+ * @param {Response} response
+ * @returns {Promise<Response>}
  */
 const getDocumentsDownload = async ({ params, session }, response) => {
 	const { guid: fileGuid, preview, caseId } = params;
