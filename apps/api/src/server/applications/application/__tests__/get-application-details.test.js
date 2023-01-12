@@ -7,7 +7,7 @@ import { databaseConnector } from '../../../utils/database-connector.js';
 import { mapDateStringToUnixTimestamp } from '../../../utils/mapping/map-date-string-to-unix-timestamp.js';
 
 const request = supertest(app);
-const clock = new Date();
+const time = new Date();
 
 const application1 = applicationFactoryForTests({
 	id: 1,
@@ -15,7 +15,7 @@ const application1 = applicationFactoryForTests({
 	description: 'EN010003 - NI Case 3 Name Description',
 	caseStatus: 'draft',
 	dates: {
-		modifiedAt: clock
+		modifiedAt: time
 	},
 	inclusions: {
 		serviceCustomer: true,
@@ -39,7 +39,7 @@ const application2 = {
 		description: null,
 		caseStatus: 'draft',
 		dates: {
-			modifiedAt: clock
+			modifiedAt: time
 		},
 		inclusions: {
 			CaseStatus: true
@@ -72,7 +72,7 @@ test('gets all data for a case when everything is available', async (t) => {
 		description: 'EN010003 - NI Case 3 Name Description',
 		status: 'Draft',
 		caseEmail: 'test@test.com',
-		modifiedDate: mapDateStringToUnixTimestamp(clock.toISOString()),
+		modifiedDate: mapDateStringToUnixTimestamp(time.toISOString()),
 		publishedDate: null,
 		sector: {
 			name: 'sector',
@@ -152,7 +152,7 @@ test('gets applications details when only case id present', async (t) => {
 			gridReference: {},
 			mapZoomLevel: {}
 		},
-		modifiedDate: mapDateStringToUnixTimestamp(clock.toISOString()),
+		modifiedDate: mapDateStringToUnixTimestamp(time.toISOString()),
 		publishedDate: null,
 		id: 2,
 		keyDates: {},
