@@ -15,7 +15,8 @@ const application1 = applicationFactoryForTests({
 	description: 'EN010003 - NI Case 3 Name Description',
 	caseStatus: 'draft',
 	dates: {
-		modifiedAt: time
+		modifiedAt: time,
+		publishedAt: time
 	},
 	inclusions: {
 		serviceCustomer: true,
@@ -39,7 +40,8 @@ const application2 = {
 		description: null,
 		caseStatus: 'draft',
 		dates: {
-			modifiedAt: time
+			modifiedAt: time,
+			publishedAt: time
 		},
 		inclusions: {
 			CaseStatus: true
@@ -73,7 +75,7 @@ test('gets all data for a case when everything is available', async (t) => {
 		status: 'Draft',
 		caseEmail: 'test@test.com',
 		modifiedDate: mapDateStringToUnixTimestamp(time.toISOString()),
-		publishedDate: null,
+		publishedDate: mapDateStringToUnixTimestamp(time.toISOString()),
 		sector: {
 			name: 'sector',
 			abbreviation: 'BB',
@@ -153,7 +155,7 @@ test('gets applications details when only case id present', async (t) => {
 			mapZoomLevel: {}
 		},
 		modifiedDate: mapDateStringToUnixTimestamp(time.toISOString()),
-		publishedDate: null,
+		publishedDate: mapDateStringToUnixTimestamp(time.toISOString()),
 		id: 2,
 		keyDates: {},
 		status: 'Draft',
