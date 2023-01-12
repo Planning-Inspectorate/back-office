@@ -861,6 +861,55 @@
         }
       }
     },
+    "applications/documents/{documentGUID}/status": {
+      "patch": {
+        "tags": [
+          "Applications"
+        ],
+        "description": "Updates document status from state machine",
+        "parameters": [
+          {
+            "name": "documentGUID",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "Document GUID"
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Case ID here",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Document status updated",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "caseId": {
+                  "type": "number",
+                  "example": 1
+                },
+                "guid": {
+                  "type": "string",
+                  "example": "DB0110203"
+                },
+                "status": {
+                  "type": "string",
+                  "example": "awaiting_virus_check"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          }
+        }
+      }
+    },
     "/applications": {
       "post": {
         "tags": [
@@ -1132,41 +1181,7 @@
         }
       }
     },
-    "/applications/{id}/publish": {
-      "patch": {
-        "tags": [
-          "Applications"
-        ],
-        "description": "publish application",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "integer",
-            "description": "Application ID"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "response will have the date that the case was published as a timestamp",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "publishedDate": {
-                  "type": "number",
-                  "example": 1673873105
-                }
-              },
-              "xml": {
-                "name": "main"
-              }
-            }
-          }
-        }
-      }
-    },
-    "applications/{caseId}/documents/{documentGUID}/status": {
+    "applications/{id}/documents/{documentGUID}/status": {
       "patch": {
         "tags": [
           "Applications"
@@ -1174,7 +1189,7 @@
         "description": "Updates document status from state machine",
         "parameters": [
           {
-            "name": "caseId",
+            "name": "id",
             "in": "path",
             "required": true,
             "type": "integer",
