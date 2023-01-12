@@ -100,7 +100,7 @@ const getApplicationDetails = ({ regions = true, mapZoomLevel = true, subSector 
  *  description: string | null,
  *  caseStatus: string,
  *  reference?: string | undefined,
- *  dates?: {createdAt?: Date, modifiedAt?: string, publishedAt?: Date},
+ *  dates?: {createdAt?: Date, modifiedAt?: Date, publishedAt?: Date},
  *  inclusions?: {serviceCustomer?: boolean, ApplicationDetails?: boolean, regions?: boolean, CaseStatus?: boolean, mapZoomLevel?: boolean, subSector?: boolean, gridReference?: boolean}
  * }} arg
  * @returns {import('@pins/api').Schema.Case}
