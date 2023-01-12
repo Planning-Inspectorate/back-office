@@ -36,7 +36,8 @@ export const mapApplicationDetails = (caseDetails) => {
 			}
 		),
 		{
-			modifiedDate: mapDateStringToUnixTimestamp
+			modifiedDate: mapDateStringToUnixTimestamp,
+			publishedDate: mapDateStringToUnixTimestamp
 		}
 	);
 
