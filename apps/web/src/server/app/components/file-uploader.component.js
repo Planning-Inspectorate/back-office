@@ -1,9 +1,7 @@
+import getActiveDirectoryAccessToken from '../../lib/active-directory-token.js';
 import { post } from '../../lib/request.js';
-import { acquireTokenSilent } from '../auth/auth.service.js';
-import { getAccount } from '../auth/auth-session.service.js';
 
-/** @typedef {import('../auth/auth-session.service')} AuthState */
-/** @typedef {import('express-session').Session & AuthState} SessionWithAuth */
+/** @typedef {import('../auth/auth-session.service').SessionWithAuth} SessionWithAuth */
 /** @typedef {import('@azure/core-auth').AccessToken} AccessToken */
 /** @typedef {{documentName: string, fileRowId: string, blobStoreUrl?: string, failedReason?: string}} DocumentUploadInfo */
 /** @typedef {{accessToken: AccessToken, blobStorageHost: string, blobStorageContainer: string, documents: DocumentUploadInfo[]}} UploadInfo */
@@ -29,30 +27,16 @@ export async function postDocumentsUpload({ params, body, session }, response) {
 	const uploadInfo = await createNewDocument(caseId, body);
 	const { documents } = uploadInfo;
 
-	const sessionAccount = getAccount(session);
+	const accessToken = getActiveDirectoryAccessToken(session);
 
-	if (!sessionAccount) {
-		return response.status(500).json({ error: 'SESSION_NOT_FOUND' });
-	}
+	uploadInfo.documents = documents.map((document) => {
+		const fileToUpload = body.find((file) => file.documentName === document.documentName);
+		const documentWithRowId = { ...document };
 
-	const blobResourceAuthResult = await acquireTokenSilent(sessionAccount, [
-		'https://storage.azure.com/user_impersonation'
-	]);
+		documentWithRowId.fileRowId = fileToUpload?.fileRowId || '';
 
-	if (blobResourceAuthResult?.accessToken) {
-		const { accessToken: token, expiresOn } = blobResourceAuthResult;
-		const accessToken = { token, expiresOnTimestamp: expiresOn };
+		return documentWithRowId;
+	});
 
-		uploadInfo.documents = documents.map((document) => {
-			const fileToUpload = body.find((file) => file.documentName === document.documentName);
-			const documentWithRowId = { ...document };
-
-			documentWithRowId.fileRowId = fileToUpload?.fileRowId || '';
-
-			return documentWithRowId;
-		});
-
-		return response.send({ ...uploadInfo, accessToken });
-	}
-	return response.status(401).json({ error: 'ACCESS_TOKEN_NOT_FOUND' });
+	return response.send({ ...uploadInfo, accessToken });
 }

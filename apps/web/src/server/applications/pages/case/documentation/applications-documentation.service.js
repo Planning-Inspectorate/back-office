@@ -89,21 +89,12 @@ export const updateCaseDocumentationFiles = async (caseId, { status, redacted, i
 };
 
 /**
- * Get the blob storage file url for the file with the given GUID
+ * Get the blob storage info for the file with the given GUID
  *
  * @param {number} caseId
  * @param {string} fileGuid
- * @returns {Promise<{documentUrl: string, fileGuid: string}>}
+ * @returns {Promise<{blobStorageContainer: string, blobStoragePath: string}>}
  */
 export const getCaseDocumentationFileUrl = (caseId, fileGuid) => {
-	// TODO: this is a just mock
-	return new Promise((resolve) => {
-		setTimeout(() => {
-			resolve({
-				fileGuid,
-				documentUrl:
-					'document-service-uploads/application/WS010001/5dcae922-15ba-459d-8d76-c68b66ff7c41/Screenshot%202022-07-28%20at%2009.25.48.png'
-			});
-		}, 200);
-	});
+	return get(`applications/${caseId}/documents/${fileGuid}`);
 };
