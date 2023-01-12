@@ -30,6 +30,7 @@ const DEFAULT_CASE_CREATE_STATUS = 'draft';
  *  applicant?: { organisationName?: string | null, firstName?: string | null, middleName?: string | null, lastName?: string | null, email?: string | null, website?: string | null, phoneNumber?: string | null},
  *  mapZoomLevelName?: string | null,
  *  regionNames?: string[],
+ *  publishedAt?: Date,
  *  applicantAddress?: { addressLine1?: string | null, addressLine2?: string | null, town?: string | null, county?: string | null, postcode?: string | null}}} UpdateApplicationParams
  */
 
@@ -223,7 +224,8 @@ const updateApplicationSansRegionsRemoval = ({
 	regionNames,
 	mapZoomLevelName,
 	applicant,
-	applicantAddress
+	applicantAddress,
+	publishedAt
 }) => {
 	const formattedRegionNames = map(regionNames, (/** @type {string} */ regionName) => {
 		return { region: { connect: { name: regionName } } };
@@ -232,6 +234,7 @@ const updateApplicationSansRegionsRemoval = ({
 	return databaseConnector.case.update({
 		where: { id: caseId },
 		data: {
+			publishedAt: publishedAt || null,
 			modifiedAt: new Date(),
 			...caseDetails,
 			...(!isEmpty(gridReference) && {
@@ -311,7 +314,8 @@ export const updateApplication = ({
 	regionNames,
 	mapZoomLevelName,
 	applicant,
-	applicantAddress
+	applicantAddress,
+	publishedAt
 }) => {
 	const transactions = [];
 
@@ -330,7 +334,8 @@ export const updateApplication = ({
 			regionNames,
 			mapZoomLevelName,
 			applicant,
-			applicantAddress
+			applicantAddress,
+			publishedAt
 		})
 	);
 
