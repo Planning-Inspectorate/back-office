@@ -6,12 +6,16 @@ import { applicationFactoryForTests } from '../../../utils/application-factory-f
 import { databaseConnector } from '../../../utils/database-connector.js';
 
 const request = supertest(app);
+const clock = new Date().toISOString();
 
 const application1 = applicationFactoryForTests({
 	id: 1,
 	title: 'EN010003 - NI Case 3 Name',
 	description: 'EN010003 - NI Case 3 Name Description',
 	caseStatus: 'draft',
+	dates: {
+		modifiedAt: clock
+	},
 	inclusions: {
 		serviceCustomer: true,
 		ApplicationDetails: true,
@@ -33,6 +37,9 @@ const application2 = {
 		title: null,
 		description: null,
 		caseStatus: 'draft',
+		dates: {
+			modifiedAt: clock
+		},
 		inclusions: {
 			CaseStatus: true
 		}
@@ -64,6 +71,8 @@ test('gets all data for a case when everything is available', async (t) => {
 		description: 'EN010003 - NI Case 3 Name Description',
 		status: 'Draft',
 		caseEmail: 'test@test.com',
+		modifiedDate: clock,
+		publishedDate: null,
 		sector: {
 			name: 'sector',
 			abbreviation: 'BB',
@@ -142,6 +151,8 @@ test('gets applications details when only case id present', async (t) => {
 			gridReference: {},
 			mapZoomLevel: {}
 		},
+		modifiedDate: clock,
+		publishedDate: null,
 		id: 2,
 		keyDates: {},
 		status: 'Draft',
