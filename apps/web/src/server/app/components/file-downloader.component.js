@@ -1,26 +1,39 @@
 import { request } from 'node:https';
 import config from '../../../../environment/config.js';
 import { getCaseDocumentationFileUrl } from '../../applications/pages/case/documentation/applications-documentation.service.js';
+import getActiveDirectoryAccessToken from '../../lib/active-directory-token.js';
 import createSasToken from '../../lib/sas-token.js';
+
+/** @typedef {import('../auth/auth-session.service').SessionWithAuth} SessionWithAuth */
 
 /**
  * Download one document or redirects to its url if preview is active
  *
- * @param {{params: {caseId: number, guid: string, preview?: string}}} request
+ * @param {{params: {caseId: number, guid: string, preview?: string}, session: SessionWithAuth}} request
  * @param {import('express').Response} response
- * @returns {Promise<void>}
+ * @returns {Promise<any>}
  */
-const getDocumentsDownload = async ({ params }, response) => {
+const getDocumentsDownload = async ({ params, session }, response) => {
 	const { guid: fileGuid, preview, caseId } = params;
 	const { blobStorageUrl } = config;
-	const sasToken = await createSasToken();
-	const { documentUrl } = await getCaseDocumentationFileUrl(caseId, fileGuid);
-	const completeURI = `${blobStorageUrl}${documentUrl}${sasToken}`;
+
+	const accessToken = await getActiveDirectoryAccessToken(session);
+	const { blobStorageContainer, blobStoragePath } = await getCaseDocumentationFileUrl(
+		caseId,
+		fileGuid
+	);
+
+	const sasToken = await createSasToken(
+		accessToken,
+		blobStorageContainer,
+		blobStoragePath.slice(1)
+	);
+	const completeURI = `${blobStorageUrl}${blobStorageContainer}${blobStoragePath}${sasToken}`;
 
 	if (preview) {
 		response.redirect(completeURI);
 	} else {
-		const fileName = `${documentUrl}`.split(/\/+/).pop();
+		const fileName = `${blobStoragePath}`.split(/\/+/).pop();
 		const externalRequest = request(completeURI, (externalResource) => {
 			response.setHeader('content-disposition', `attachment; filename=${fileName}`);
 			externalResource.pipe(response);
@@ -28,6 +41,7 @@ const getDocumentsDownload = async ({ params }, response) => {
 
 		externalRequest.end();
 	}
+	return response.status(200);
 };
 
 export default getDocumentsDownload;
