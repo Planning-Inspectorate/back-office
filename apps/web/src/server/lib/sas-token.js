@@ -12,7 +12,7 @@ import config from '../../../environment/config.js';
 const sasTokenStartTime = () => new Date(Date.now() - 60 * 1000);
 const sasTokenExpirationTime = () => new Date(Date.now());
 
-const { blobStorageUrl } = config;
+const { blobStorageUrl = 'https://blob.core.windows.net/' } = config;
 const blobStorageAccountName = blobStorageUrl.split('/')[2].split('.')[0];
 
 /**
