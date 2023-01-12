@@ -82,12 +82,11 @@ export async function viewApplicationsCaseDocumentationUpload(request, response)
 // Data for controllers
 
 /**
-	Get all the data for the display folder page
- 	(used by POST and GET) to retrieve shared template properties
- 
-    @param {{query: {number?: string, size?: string}, session: SessionWithFilesNumberOnList}} request
- 	@param {{locals: Record<string, any>}} response
- 	@returns {Promise<CaseDocumentationProps>}
+ * Get all the data for the display folder page (used by POST and GET) to retrieve shared template properties
+ *
+ * @param {{query: {number?: string, size?: string}, session: SessionWithFilesNumberOnList}} request
+ * @param {{locals: Record<string, any>}} response
+ * @returns {Promise<CaseDocumentationProps>}
  */
 const documentationFolderData = async (request, response) => {
 	const { caseId, folderId } = response.locals;
