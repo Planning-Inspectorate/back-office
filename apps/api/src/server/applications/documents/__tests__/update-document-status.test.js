@@ -49,7 +49,7 @@ test.before('set up mocks', () => {
 });
 
 test('updates document status', async (t) => {
-	const response = await request.patch('/applications/1/documents/D1234/status').send({
+	const response = await request.patch('/applications/documents/D1234/status').send({
 		machineAction: 'uploading'
 	});
 
@@ -70,21 +70,8 @@ test('updates document status', async (t) => {
 	 */
 });
 
-test("throws error if guid doesn't belong to case provided", async (t) => {
-	const response = await request
-		.patch('/applications/3/documents/D1234/status')
-		.send({ status: 'uploading' });
-
-	t.is(response.status, 400);
-	t.deepEqual(response.body, {
-		errors: {
-			documentGUID: 'GUID must belong to correct case'
-		}
-	});
-});
-
 test('throws erorr if incorrect machine action', async (t) => {
-	const response = await request.patch('/applications/1/documents/D1234/status').send({
+	const response = await request.patch('/applications/documents/D1234/status').send({
 		machineAction: 'wrong-action'
 	});
 
@@ -97,7 +84,7 @@ test('throws erorr if incorrect machine action', async (t) => {
 });
 
 test("throws errorr if incorrect machine action given the document's current state", async (t) => {
-	const response = await request.patch('/applications/1/documents/D1234/status').send({
+	const response = await request.patch('/applications/documents/D1234/status').send({
 		machineAction: 'check_fail'
 	});
 
@@ -110,7 +97,7 @@ test("throws errorr if incorrect machine action given the document's current sta
 });
 
 test('throws error if no machine action provided', async (t) => {
-	const response = await request.patch('/applications/1/documents/D1234/status').send();
+	const response = await request.patch('/applications/documents/D1234/status').send();
 
 	t.is(response.status, 400);
 	t.deepEqual(response.body, {

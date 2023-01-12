@@ -21,7 +21,7 @@ const mapIsInfectedToMachineAction = (isInfected) => {
  * Once we save the same info to the Blob Metadata, let's get it from there
  *
  * @param {string} blobUri
- * @returns {{caseId: string, guid: string}}
+ * @returns {{guid: string}}
  */
 const getBlobCaseReferenceAndGuid = (blobUri) => {
 	const uriParts = blobUri.split('/');
@@ -30,7 +30,7 @@ const getBlobCaseReferenceAndGuid = (blobUri) => {
 		throw new Error(`Unexpected blob URI ${blobUri}`);
 	}
 
-	return { caseId: uriParts[6], guid: uriParts[7] };
+	return { guid: uriParts[7] };
 };
 
 /**
@@ -73,7 +73,7 @@ const deleteDocument = async (documentUri, context) => {
  */
 export const checkMyBlob = async (context, myBlob) => {
 	const documentUri = context.bindingData.uri;
-	const { caseId, guid } = getBlobCaseIdAndGuid(documentUri);
+	const { guid } = getBlobCaseReferenceAndGuid(documentUri);
 
 	const blobStream = Readable.from(myBlob);
 
@@ -86,5 +86,5 @@ export const checkMyBlob = async (context, myBlob) => {
 
 	const machineAction = mapIsInfectedToMachineAction(isInfected);
 
-	await sendDocumentStateAction(guid, caseId, machineAction, context);
+	await sendDocumentStateAction(guid, machineAction, context);
 };

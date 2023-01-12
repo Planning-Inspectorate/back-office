@@ -3,13 +3,12 @@ import config from './config.js';
 
 /**
  *
- * @param {string} caseId
  * @param {string} documentGuid
  * @param {string} machineAction
  */
-const sendRequestToBackOffice = async (caseId, documentGuid, machineAction) => {
+const sendRequestToBackOffice = async (documentGuid, machineAction) => {
 	await got
-		.patch(`${config.API_HOST}/applications/${caseId}/documents/${documentGuid}/status`, {
+		.patch(`${config.API_HOST}/applications/documents/${documentGuid}/status`, {
 			json: {
 				machineAction
 			}
@@ -47,13 +46,12 @@ const errorIsDueToDocumentAlreadyMakedWithNewStatus = (error, machineAction) => 
 
 /**
  * @param {string} documentGuid
- * @param {string} caseId
  * @param {string} machineAction
- * @param {import('./index.js').Context} context
+ * @param {import('./check-my-blob').Context} context
  */
-export const sendDocumentStateAction = async (documentGuid, caseId, machineAction, context) => {
+export const sendDocumentStateAction = async (documentGuid, machineAction, context) => {
 	try {
-		await sendRequestToBackOffice(caseId, documentGuid, machineAction);
+		await sendRequestToBackOffice(documentGuid, machineAction);
 	} catch (error) {
 		if (errorIsDueToDocumentAlreadyMakedWithNewStatus(error, machineAction)) {
 			context.info('Document status already updated based on AV checks');
