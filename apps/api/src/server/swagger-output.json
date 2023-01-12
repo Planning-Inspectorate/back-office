@@ -816,6 +816,55 @@
         }
       }
     },
+    "applications/documents/{documentGUID}/status": {
+      "patch": {
+        "tags": [
+          "Applications"
+        ],
+        "description": "Updates document status from state machine",
+        "parameters": [
+          {
+            "name": "documentGUID",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "Document GUID"
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Case ID here",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Document status updated",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "caseId": {
+                  "type": "number",
+                  "example": 1
+                },
+                "guid": {
+                  "type": "string",
+                  "example": "DB0110203"
+                },
+                "status": {
+                  "type": "string",
+                  "example": "awaiting_virus_check"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          }
+        }
+      }
+    },
     "/applications": {
       "post": {
         "tags": [
@@ -1087,7 +1136,7 @@
         }
       }
     },
-    "applications/{caseId}/documents/{documentGUID}/status": {
+    "applications/{id}/documents/{documentGUID}/status": {
       "patch": {
         "tags": [
           "Applications"
@@ -1095,7 +1144,7 @@
         "description": "Updates document status from state machine",
         "parameters": [
           {
-            "name": "caseId",
+            "name": "id",
             "in": "path",
             "required": true,
             "type": "integer",

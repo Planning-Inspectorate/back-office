@@ -22,21 +22,12 @@ const validateFolderBelongsToCase = async (value, { req }) => {
 
 /**
  * @param {string} value
- * @param {import('express-validator').Meta} meta
  */
-const validateDocumentGUIDBelongsToCase = async (value, { req }) => {
+const validateDocumentGUIDBelongsToCase = async (value) => {
 	const documentGUID = await documentRepository.getByDocumentGUID(value);
 
 	if (documentGUID === null || typeof documentGUID === 'undefined') {
 		throw new Error('DocumentGUID must exist in database');
-	}
-
-	const folder = await folderRepository.getById(documentGUID?.folderId);
-
-	const caseId = folder?.caseId;
-
-	if (Number.parseInt(req.params?.id, 10) !== caseId) {
-		throw new Error('GUID must belong to correct case');
 	}
 };
 
