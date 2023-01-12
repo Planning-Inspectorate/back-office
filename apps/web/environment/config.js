@@ -9,7 +9,6 @@ const { value: validatedConfig, error } = schema.validate({
 	apiUrl: environment.API_HOST,
 	authDisabled: environment.AUTH_DISABLED,
 	blobStorageUrl: environment.AZURE_BLOB_STORE_HOST,
-	blobStorageAccountName: environment.AZURE_BLOB_STORE_ACCOUNT_NAME,
 	env: environment.NODE_ENV,
 	isRelease: environment.APP_RELEASE,
 	logLevelFile: environment.LOG_LEVEL_FILE,
