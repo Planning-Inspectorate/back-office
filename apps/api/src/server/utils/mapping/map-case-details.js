@@ -27,7 +27,13 @@ import { mapZoomLevel } from './map-zoom-level.js';
  *  address?: { addressLine1?: string | undefined, addressLine2?: string | undefined, town?: string | undefined, county?: string | undefined, postcode?: string | undefined}}}
  */
 export const mapApplicationDetails = (caseDetails) => {
-	const caseDetailsFormatted = pick(caseDetails, ['id', 'reference', 'title', 'description']);
+	const caseDetailsFormatted = mapKeysUsingObject(
+		pick(caseDetails, ['id', 'reference', 'title', 'description', 'modifiedAt', 'publishedAt']),
+		{
+			modifiedAt: 'modifiedDate',
+			publishedAt: 'publishedDate'
+		}
+	);
 
 	const sectorFormatted = mapSector(caseDetails?.ApplicationDetails?.subSector?.sector);
 	const subSectorFormatted = mapSector(caseDetails?.ApplicationDetails?.subSector);
