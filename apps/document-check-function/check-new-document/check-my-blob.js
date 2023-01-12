@@ -1,5 +1,6 @@
 import got, { HTTPError } from 'got';
 import { isEqual } from 'lodash-es';
+import { Readable } from 'node:stream';
 import { sendDocumentStateAction } from './back-office-api-client.js';
 import { scanStream } from './scan-stream.js';
 
@@ -22,14 +23,14 @@ const mapIsInfectedToMachineAction = (isInfected) => {
  * @param {string} blobUri
  * @returns {{caseId: string, guid: string}}
  */
-const getBlobCaseIdAndGuid = (blobUri) => {
+const getBlobCaseReferenceAndGuid = (blobUri) => {
 	const uriParts = blobUri.split('/');
 
-	if (uriParts.length !== 5 || uriParts[1] !== 'applications') {
+	if (uriParts.length !== 8 || uriParts[4] !== 'applications') {
 		throw new Error(`Unexpected blob URI ${blobUri}`);
 	}
 
-	return { caseId: uriParts[2], guid: uriParts[3] };
+	return { caseId: uriParts[6], guid: uriParts[7] };
 };
 
 /**
@@ -74,7 +75,9 @@ export const checkMyBlob = async (context, myBlob) => {
 	const documentUri = context.bindingData.uri;
 	const { caseId, guid } = getBlobCaseIdAndGuid(documentUri);
 
-	const isInfected = await scanStream(myBlob);
+	const blobStream = Readable.from(myBlob);
+
+	const isInfected = await scanStream(blobStream);
 
 	if (isInfected) {
 		context.error('Document did not pass AV checks');
