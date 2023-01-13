@@ -26,11 +26,11 @@ const mapIsInfectedToMachineAction = (isInfected) => {
 const getBlobCaseReferenceAndGuid = (blobUri) => {
 	const uriParts = blobUri.split('/');
 
-	if (uriParts.length !== 8 || uriParts[4] !== 'applications') {
+	if (uriParts.length !== 8 || uriParts[4] !== 'application') {
 		throw new Error(`Unexpected blob URI ${blobUri}`);
 	}
 
-	return { guid: uriParts[7] };
+	return { guid: uriParts[6] };
 };
 
 /**
@@ -54,10 +54,10 @@ const errorIsDueToDocumentMissing = (error) => {
  * @param {Context} context
  */
 const deleteDocument = async (documentUri, context) => {
+	const documentPath = `/${documentUri.split('/').slice(-4).join('/')}`;
+
 	try {
-		await got
-			.delete('http://localhost:3001/document', { json: { documentPath: documentUri } })
-			.json();
+		await got.delete('http://localhost:3001/document', { json: { documentPath } }).json();
 	} catch (error) {
 		if (errorIsDueToDocumentMissing(error)) {
 			context.info('Unable to delete document from Blob Store because it is already deleted');
