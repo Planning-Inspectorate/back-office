@@ -9,7 +9,7 @@
 		<div class="top-errors-hook"></div>
 
 		{% if params.formTitle %}
-			<h2 class="govuk-heading-m govuk-grid-column-full">{{ params.formTitle }}</h2>
+			<h1 class="govuk-heading-m govuk-grid-column-full">{{ params.formTitle }}</h1>
 		{% endif %}
 		<form class="govuk-grid-column-two-thirds">
 			<div class="pins-file-upload--container">
@@ -40,7 +40,7 @@
 				</div>
 				<div id="file-list-{{ params.formId }}">
 
-					<h3 class="display--sr-only" id="file-list-title-{{ params.formId }}">List of files to upload</h3>
+					<h2 class="display--sr-only" id="file-list-title-{{ params.formId }}">List of files to upload</h2>
 					<ul class="pins-file-upload--files-rows"
 						aria-describedby="file-list-title-{{ params.formId }}" aria-live="polite"></ul>
 				</div>

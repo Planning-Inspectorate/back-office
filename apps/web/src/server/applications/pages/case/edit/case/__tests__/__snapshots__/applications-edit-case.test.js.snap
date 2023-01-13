@@ -2,7 +2,7 @@
 
 exports[`applications edit Description GET edit/description should render page with resumed data 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
-    <h2 class=\\"govuk-heading-l\\"> Enter project description</h2>
+    <h1 class=\\"govuk-heading-l\\"> Enter project description</h1>
     <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
         <div class=\\"govuk-form-group\\">
             <label class=\\"govuk-label font-weight--700\\" for=\\"description\\">Description of the project</label>
@@ -24,7 +24,7 @@ exports[`applications edit Description GET edit/description should render page w
 
 exports[`applications edit Grid references GET /edit/:caseId/project-location should display resumed data if the API returns something 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
-    <h2 class=\\"govuk-heading-l\\"> Enter grid references</h2>
+    <h1 class=\\"govuk-heading-l\\"> Enter grid references</h1>
     <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
         <div class=\\"govuk-form-group\\">
             <label class=\\"govuk-label font-weight--700\\" for=\\"geographicalInformation.gridReference.easting\\">Grid reference Easting</label>
@@ -53,7 +53,7 @@ exports[`applications edit Grid references GET /edit/:caseId/project-location sh
 
 exports[`applications edit Name GET /edit/name When role is: Case officer should render form 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
-    <h2 class=\\"govuk-heading-l\\"> Enter project name</h2>
+    <h1 class=\\"govuk-heading-l\\"> Enter project name</h1>
     <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
         <div class=\\"govuk-form-group\\">
             <label class=\\"govuk-label font-weight--700\\" for=\\"title\\">Name of the project</label>
@@ -98,7 +98,7 @@ exports[`applications edit Name GET /edit/name When status is Draft: should not 
 
 exports[`applications edit Name GET /edit/name When status is Non-draft: should render the page with resumed data 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
-    <h2 class=\\"govuk-heading-l\\"> Enter project name</h2>
+    <h1 class=\\"govuk-heading-l\\"> Enter project name</h1>
     <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
         <div class=\\"govuk-form-group\\">
             <label class=\\"govuk-label font-weight--700\\" for=\\"title\\">Name of the project</label>
@@ -117,7 +117,7 @@ exports[`applications edit Name GET /edit/name When status is Non-draft: should 
 
 exports[`applications edit Project location GET /edit/:caseId/project-location should display resumed data if the API returns something 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
-    <h2 class=\\"govuk-heading-l\\"> Enter project location</h2>
+    <h1 class=\\"govuk-heading-l\\"> Enter project location</h1>
     <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
         <div class=\\"govuk-form-group\\">
             <div id=\\"geographicalInformation.locationDescription-hint\\" class=\\"govuk-hint govuk-!-width-three-quarters\\">for example, approximately 8km off the coast of Kent, in areas surrounding
@@ -137,7 +137,7 @@ exports[`applications edit Project location GET /edit/:caseId/project-location s
 
 exports[`applications edit Regions GET /edit/regions should render the page with checked options if the api returns something 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
-    <h2 class=\\"govuk-heading-l\\"> Choose one or multiple regions</h2>
+    <h1 class=\\"govuk-heading-l\\"> Choose one or multiple regions</h1>
     <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
         <div class=\\"govuk-form-group\\">
             <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
@@ -186,9 +186,10 @@ exports[`applications edit Regions GET /edit/regions should render the page with
 
 exports[`applications edit Team email GET /edit/team-email should render the page with no value inside the text input if api does not return resumed data 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
-    <h2 class=\\"govuk-heading-l\\"> Enter the project email </h2>
+    <h1 class=\\"govuk-heading-l\\"> Enter the project email </h1>
     <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
         <div class=\\"govuk-form-group\\">
+            <label class=\\"govuk-label govuk-visually-hidden\\" for=\\"caseEmail\\">Team mail address</label>
             <div id=\\"caseEmail-hint\\" class=\\"govuk-hint\\">for example, NIEnquiries@planninginspectorate.gsi.gov.uk</div>
             <input class=\\"govuk-input govuk-!-width-one-third\\"
             id=\\"caseEmail\\" name=\\"caseEmail\\" type=\\"text\\" aria-describedby=\\"caseEmail-hint\\">
@@ -204,9 +205,10 @@ exports[`applications edit Team email GET /edit/team-email should render the pag
 
 exports[`applications edit Team email GET /edit/team-email should render the page with the resumed data if the api returns something 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
-    <h2 class=\\"govuk-heading-l\\"> Enter the project email </h2>
+    <h1 class=\\"govuk-heading-l\\"> Enter the project email </h1>
     <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
         <div class=\\"govuk-form-group\\">
+            <label class=\\"govuk-label govuk-visually-hidden\\" for=\\"caseEmail\\">Team mail address</label>
             <div id=\\"caseEmail-hint\\" class=\\"govuk-hint\\">for example, NIEnquiries@planninginspectorate.gsi.gov.uk</div>
             <input class=\\"govuk-input govuk-!-width-one-third\\"
             id=\\"caseEmail\\" name=\\"caseEmail\\" type=\\"text\\" value=\\"some@ema.il\\" aria-describedby=\\"caseEmail-hint\\">
@@ -222,7 +224,7 @@ exports[`applications edit Team email GET /edit/team-email should render the pag
 
 exports[`applications edit Zoom Level GET edit/zoom-level should render the page with the checked option from the resumed data 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
-    <h2 class=\\"govuk-heading-l\\"> Choose map zoom level</h2>
+    <h1 class=\\"govuk-heading-l\\"> Choose map zoom level</h1>
     <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
         <div class=\\"govuk-form-group\\">
             <div class=\\"govuk-radios\\" data-module=\\"govuk-radios\\">

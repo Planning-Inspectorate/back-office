@@ -18,7 +18,7 @@ exports[`applications view case summary GET /case/123 should render the page 1`]
         <div class=\\"govuk-grid-column-one-third\\">
             <aside class=\\"govuk-!-margin-bottom-8 pins-list-menu\\">
                 <nav>
-                    <h3 class=\\"govuk-visually-hidden\\">Case Details Menu</h3>
+                    <h2 class=\\"govuk-visually-hidden\\">Case Details Menu</h2>
                     <ul class=\\"gov-list pins-list-menu\\">
                         <li class=\\"govuk-heading-s\\"><a class=\\"govuk-link pins-selected-item\\" href=\\"/applications-service/case/4/\\"> Overview</a>
                         </li>
@@ -91,7 +91,7 @@ exports[`applications view case summary GET /case/123/project-information should
         <div class=\\"govuk-grid-column-one-third\\">
             <aside class=\\"govuk-!-margin-bottom-8 pins-list-menu\\">
                 <nav>
-                    <h3 class=\\"govuk-visually-hidden\\">Case Details Menu</h3>
+                    <h2 class=\\"govuk-visually-hidden\\">Case Details Menu</h2>
                     <ul class=\\"gov-list pins-list-menu\\">
                         <li class=\\"govuk-heading-s\\"><a class=\\"govuk-link \\" href=\\"/applications-service/case/4/\\"> Overview</a>
                         </li>
