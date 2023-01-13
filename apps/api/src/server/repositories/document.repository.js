@@ -43,10 +43,10 @@ export const update = (documentGuid, documentDetails) => {
 };
 
 /**
- * 
- * @param {number} folderId 
- * @param {number} skipValue 
- * @param {number} pageSize 
+ *
+ * @param {number} folderId
+ * @param {number} skipValue
+ * @param {number} pageSize
  * @returns {import('@prisma/client').PrismaPromise<import('@pins/api').Schema.Document[]>}
  */
 export const getDocumentsInFolder = (folderId, skipValue, pageSize) => {
@@ -59,8 +59,20 @@ export const getDocumentsInFolder = (folderId, skipValue, pageSize) => {
 			}
 		],
 		where: { folderId }
-	})
-}
+	});
+};
+
+/**
+ * Returns total number of documents in a folder on a case
+ *
+ * @param {number} folderId
+ * @returns {import('@prisma/client').PrismaPromise<number>}
+ */
+export const getDocumentsCountInFolder = (folderId) => {
+	return databaseConnector.document.count({
+		where: { folderId }
+	});
+};
 
 /**
  *

@@ -7,13 +7,16 @@ import {
 	publishCase,
 	startCase,
 	updateApplication,
+	updateDocumentStatus
 } from './application/application.controller.js';
 import {
 	validateApplicantId,
 	validateApplicationId,
 	validateCreateUpdateApplication,
+	validateDocumentGUID,
 	validateFolderIds,
 	validateGetApplicationQuery,
+	validateMachineAction
 } from './application/application.validators.js';
 import { provideDocumentUploadURLs } from './application/documents/document.controller.js';
 import { documentRoutes } from './application/documents/document.routes.js';
