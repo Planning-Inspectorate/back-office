@@ -2,6 +2,10 @@
 
 {% macro teamEmail(values, errors) %}
 	{{ govukInput({
+		label: {
+			text: "Team mail address",
+    		classes: "govuk-visually-hidden"
+		},
 		id: "caseEmail",
 		name: "caseEmail",
 		classes: "govuk-!-width-one-third",

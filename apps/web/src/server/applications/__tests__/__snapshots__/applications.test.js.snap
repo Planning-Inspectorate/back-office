@@ -10,7 +10,7 @@ exports[`applications GET /case-admin-officer should render a placeholder when t
     <div class=\\"govuk-grid-row\\">
         <div class=\\"govuk-grid-column-one-half\\">
             <div class=\\"pins-dashboard-box\\">
-                <h3 class=\\"govuk-heading-l pins-dashboard-box--title\\">Search cases</h3>
+                <h2 class=\\"govuk-heading-l pins-dashboard-box--title\\">Search cases</h2>
                 <form method=\\"post\\" action=\\"search-results\\" novalidate class=\\"pins-dashboard-box--form pins-dashboard-form\\"
                 role=\\"search\\" aria-label=\\"Applications\\">
                     <div class=\\"govuk-form-group\\">
@@ -24,14 +24,14 @@ exports[`applications GET /case-admin-officer should render a placeholder when t
         </div>
         <div class=\\"govuk-grid-column-one-half\\">
             <div class=\\"pins-dashboard-box\\">
-                <h3 class=\\"govuk-heading-l pins-dashboard-box--title\\">Create new case</h3><a class=\\"govuk-button govuk-button--secondary pins-dashboard-box--btn\\"
+                <h2 class=\\"govuk-heading-l pins-dashboard-box--title\\">Create new case</h2><a class=\\"govuk-button govuk-button--secondary pins-dashboard-box--btn\\"
                 href=\\"/applications-service/create-new-case\\">Create new case here</a>
             </div>
         </div>
     </div>
     <div class=\\"pins-dashboard-list--open\\">
         <h2 class=\\"govuk-heading-l\\">All cases</h2>
-        <div class=\\"govuk-accordion\\" data-module=\\"govuk-accordion\\" id=\\"\\"></div>
+        <div class=\\"govuk-accordion\\" data-module=\\"govuk-accordion\\" id=\\"cases-list\\"></div>
     </div>
 </main>"
 `;
@@ -46,7 +46,7 @@ exports[`applications GET /case-admin-officer should render the open application
     <div class=\\"govuk-grid-row\\">
         <div class=\\"govuk-grid-column-one-half\\">
             <div class=\\"pins-dashboard-box\\">
-                <h3 class=\\"govuk-heading-l pins-dashboard-box--title\\">Search cases</h3>
+                <h2 class=\\"govuk-heading-l pins-dashboard-box--title\\">Search cases</h2>
                 <form method=\\"post\\" action=\\"search-results\\" novalidate class=\\"pins-dashboard-box--form pins-dashboard-form\\"
                 role=\\"search\\" aria-label=\\"Applications\\">
                     <div class=\\"govuk-form-group\\">
@@ -60,19 +60,20 @@ exports[`applications GET /case-admin-officer should render the open application
         </div>
         <div class=\\"govuk-grid-column-one-half\\">
             <div class=\\"pins-dashboard-box\\">
-                <h3 class=\\"govuk-heading-l pins-dashboard-box--title\\">Create new case</h3><a class=\\"govuk-button govuk-button--secondary pins-dashboard-box--btn\\"
+                <h2 class=\\"govuk-heading-l pins-dashboard-box--title\\">Create new case</h2><a class=\\"govuk-button govuk-button--secondary pins-dashboard-box--btn\\"
                 href=\\"/applications-service/create-new-case\\">Create new case here</a>
             </div>
         </div>
     </div>
     <div class=\\"pins-dashboard-list--drafts\\">
         <h2 class=\\"govuk-heading-l\\">Draft cases</h2>
-        <div class=\\"govuk-accordion\\" data-module=\\"govuk-accordion\\" id=\\"\\">
+        <div class=\\"govuk-accordion\\" data-module=\\"govuk-accordion\\" id=\\"draft-cases-list\\">
             <div class=\\"govuk-accordion__section \\">
                 <div class=\\"govuk-accordion__section-header\\">
-                    <h2 class=\\"govuk-accordion__section-heading\\"><span class=\\"govuk-accordion__section-button\\" id=\\"-heading-1\\"></span></h2>
+                    <h2 class=\\"govuk-accordion__section-heading\\"><span class=\\"govuk-accordion__section-button\\" id=\\"draft-cases-list-heading-1\\"></span></h2>
                 </div>
-                <div id=\\"-content-1\\" class=\\"govuk-accordion__section-content\\" aria-labelledby=\\"-heading-1\\">
+                <div id=\\"draft-cases-list-content-1\\" class=\\"govuk-accordion__section-content\\"
+                aria-labelledby=\\"draft-cases-list-heading-1\\">
                     <table class=\\"govuk-table\\">
                         <thead class=\\"govuk-table__head\\">
                             <tr class=\\"govuk-table__row\\">
@@ -104,12 +105,13 @@ exports[`applications GET /case-admin-officer should render the open application
     </div>
     <div class=\\"pins-dashboard-list--open\\">
         <h2 class=\\"govuk-heading-l\\">All cases</h2>
-        <div class=\\"govuk-accordion\\" data-module=\\"govuk-accordion\\" id=\\"\\">
+        <div class=\\"govuk-accordion\\" data-module=\\"govuk-accordion\\" id=\\"cases-list\\">
             <div class=\\"govuk-accordion__section \\">
                 <div class=\\"govuk-accordion__section-header\\">
-                    <h2 class=\\"govuk-accordion__section-heading\\"><span class=\\"govuk-accordion__section-button\\" id=\\"-heading-1\\"> Transport EN</span></h2>
+                    <h2 class=\\"govuk-accordion__section-heading\\"><span class=\\"govuk-accordion__section-button\\" id=\\"cases-list-heading-1\\"> Transport EN</span></h2>
                 </div>
-                <div id=\\"-content-1\\" class=\\"govuk-accordion__section-content\\" aria-labelledby=\\"-heading-1\\">
+                <div id=\\"cases-list-content-1\\" class=\\"govuk-accordion__section-content\\"
+                aria-labelledby=\\"cases-list-heading-1\\">
                     <details class=\\"govuk-details\\" data-module=\\"govuk-details\\">
                         <summary class=\\"govuk-details__summary\\"><span class=\\"govuk-details__summary-text\\"> HIG Highways EN</span>
                         </summary>
@@ -171,7 +173,7 @@ exports[`applications GET /case-officer should render a placeholder when there a
     <div class=\\"govuk-grid-row\\">
         <div class=\\"govuk-grid-column-one-half\\">
             <div class=\\"pins-dashboard-box\\">
-                <h3 class=\\"govuk-heading-l pins-dashboard-box--title\\">Search cases</h3>
+                <h2 class=\\"govuk-heading-l pins-dashboard-box--title\\">Search cases</h2>
                 <form method=\\"post\\" action=\\"search-results\\" novalidate class=\\"pins-dashboard-box--form pins-dashboard-form\\"
                 role=\\"search\\" aria-label=\\"Applications\\">
                     <div class=\\"govuk-form-group\\">
@@ -185,14 +187,14 @@ exports[`applications GET /case-officer should render a placeholder when there a
         </div>
         <div class=\\"govuk-grid-column-one-half\\">
             <div class=\\"pins-dashboard-box\\">
-                <h3 class=\\"govuk-heading-l pins-dashboard-box--title\\">Create new case</h3><a class=\\"govuk-button govuk-button--secondary pins-dashboard-box--btn\\"
+                <h2 class=\\"govuk-heading-l pins-dashboard-box--title\\">Create new case</h2><a class=\\"govuk-button govuk-button--secondary pins-dashboard-box--btn\\"
                 href=\\"/applications-service/create-new-case\\">Create new case here</a>
             </div>
         </div>
     </div>
     <div class=\\"pins-dashboard-list--open\\">
         <h2 class=\\"govuk-heading-l\\">All cases</h2>
-        <div class=\\"govuk-accordion\\" data-module=\\"govuk-accordion\\" id=\\"\\"></div>
+        <div class=\\"govuk-accordion\\" data-module=\\"govuk-accordion\\" id=\\"cases-list\\"></div>
     </div>
 </main>"
 `;
@@ -207,7 +209,7 @@ exports[`applications GET /case-officer should render the open applications belo
     <div class=\\"govuk-grid-row\\">
         <div class=\\"govuk-grid-column-one-half\\">
             <div class=\\"pins-dashboard-box\\">
-                <h3 class=\\"govuk-heading-l pins-dashboard-box--title\\">Search cases</h3>
+                <h2 class=\\"govuk-heading-l pins-dashboard-box--title\\">Search cases</h2>
                 <form method=\\"post\\" action=\\"search-results\\" novalidate class=\\"pins-dashboard-box--form pins-dashboard-form\\"
                 role=\\"search\\" aria-label=\\"Applications\\">
                     <div class=\\"govuk-form-group\\">
@@ -221,19 +223,20 @@ exports[`applications GET /case-officer should render the open applications belo
         </div>
         <div class=\\"govuk-grid-column-one-half\\">
             <div class=\\"pins-dashboard-box\\">
-                <h3 class=\\"govuk-heading-l pins-dashboard-box--title\\">Create new case</h3><a class=\\"govuk-button govuk-button--secondary pins-dashboard-box--btn\\"
+                <h2 class=\\"govuk-heading-l pins-dashboard-box--title\\">Create new case</h2><a class=\\"govuk-button govuk-button--secondary pins-dashboard-box--btn\\"
                 href=\\"/applications-service/create-new-case\\">Create new case here</a>
             </div>
         </div>
     </div>
     <div class=\\"pins-dashboard-list--drafts\\">
         <h2 class=\\"govuk-heading-l\\">Draft cases</h2>
-        <div class=\\"govuk-accordion\\" data-module=\\"govuk-accordion\\" id=\\"\\">
+        <div class=\\"govuk-accordion\\" data-module=\\"govuk-accordion\\" id=\\"draft-cases-list\\">
             <div class=\\"govuk-accordion__section \\">
                 <div class=\\"govuk-accordion__section-header\\">
-                    <h2 class=\\"govuk-accordion__section-heading\\"><span class=\\"govuk-accordion__section-button\\" id=\\"-heading-1\\"></span></h2>
+                    <h2 class=\\"govuk-accordion__section-heading\\"><span class=\\"govuk-accordion__section-button\\" id=\\"draft-cases-list-heading-1\\"></span></h2>
                 </div>
-                <div id=\\"-content-1\\" class=\\"govuk-accordion__section-content\\" aria-labelledby=\\"-heading-1\\">
+                <div id=\\"draft-cases-list-content-1\\" class=\\"govuk-accordion__section-content\\"
+                aria-labelledby=\\"draft-cases-list-heading-1\\">
                     <table class=\\"govuk-table\\">
                         <thead class=\\"govuk-table__head\\">
                             <tr class=\\"govuk-table__row\\">
@@ -265,12 +268,13 @@ exports[`applications GET /case-officer should render the open applications belo
     </div>
     <div class=\\"pins-dashboard-list--open\\">
         <h2 class=\\"govuk-heading-l\\">All cases</h2>
-        <div class=\\"govuk-accordion\\" data-module=\\"govuk-accordion\\" id=\\"\\">
+        <div class=\\"govuk-accordion\\" data-module=\\"govuk-accordion\\" id=\\"cases-list\\">
             <div class=\\"govuk-accordion__section \\">
                 <div class=\\"govuk-accordion__section-header\\">
-                    <h2 class=\\"govuk-accordion__section-heading\\"><span class=\\"govuk-accordion__section-button\\" id=\\"-heading-1\\"> Transport EN</span></h2>
+                    <h2 class=\\"govuk-accordion__section-heading\\"><span class=\\"govuk-accordion__section-button\\" id=\\"cases-list-heading-1\\"> Transport EN</span></h2>
                 </div>
-                <div id=\\"-content-1\\" class=\\"govuk-accordion__section-content\\" aria-labelledby=\\"-heading-1\\">
+                <div id=\\"cases-list-content-1\\" class=\\"govuk-accordion__section-content\\"
+                aria-labelledby=\\"cases-list-heading-1\\">
                     <details class=\\"govuk-details\\" data-module=\\"govuk-details\\">
                         <summary class=\\"govuk-details__summary\\"><span class=\\"govuk-details__summary-text\\"> HIG Highways EN</span>
                         </summary>
@@ -332,7 +336,7 @@ exports[`applications GET /inspector should render a placeholder when there are 
     <div class=\\"govuk-grid-row\\">
         <div class=\\"govuk-grid-column-full\\">
             <div class=\\"pins-dashboard-box\\">
-                <h3 class=\\"govuk-heading-l pins-dashboard-box--title\\">Search cases</h3>
+                <h2 class=\\"govuk-heading-l pins-dashboard-box--title\\">Search cases</h2>
                 <form method=\\"post\\" action=\\"search-results\\" novalidate class=\\"pins-dashboard-box--form pins-dashboard-form\\"
                 role=\\"search\\" aria-label=\\"Applications\\">
                     <div class=\\"govuk-form-group\\">
@@ -347,7 +351,7 @@ exports[`applications GET /inspector should render a placeholder when there are 
     </div>
     <div class=\\"pins-dashboard-list--open\\">
         <h2 class=\\"govuk-heading-l\\">All cases</h2>
-        <div class=\\"govuk-accordion\\" data-module=\\"govuk-accordion\\" id=\\"\\"></div>
+        <div class=\\"govuk-accordion\\" data-module=\\"govuk-accordion\\" id=\\"cases-list\\"></div>
     </div>
 </main>"
 `;
@@ -362,7 +366,7 @@ exports[`applications GET /inspector should render the open applications belongi
     <div class=\\"govuk-grid-row\\">
         <div class=\\"govuk-grid-column-full\\">
             <div class=\\"pins-dashboard-box\\">
-                <h3 class=\\"govuk-heading-l pins-dashboard-box--title\\">Search cases</h3>
+                <h2 class=\\"govuk-heading-l pins-dashboard-box--title\\">Search cases</h2>
                 <form method=\\"post\\" action=\\"search-results\\" novalidate class=\\"pins-dashboard-box--form pins-dashboard-form\\"
                 role=\\"search\\" aria-label=\\"Applications\\">
                     <div class=\\"govuk-form-group\\">
@@ -377,12 +381,13 @@ exports[`applications GET /inspector should render the open applications belongi
     </div>
     <div class=\\"pins-dashboard-list--drafts\\">
         <h2 class=\\"govuk-heading-l\\">Draft cases</h2>
-        <div class=\\"govuk-accordion\\" data-module=\\"govuk-accordion\\" id=\\"\\">
+        <div class=\\"govuk-accordion\\" data-module=\\"govuk-accordion\\" id=\\"draft-cases-list\\">
             <div class=\\"govuk-accordion__section \\">
                 <div class=\\"govuk-accordion__section-header\\">
-                    <h2 class=\\"govuk-accordion__section-heading\\"><span class=\\"govuk-accordion__section-button\\" id=\\"-heading-1\\"></span></h2>
+                    <h2 class=\\"govuk-accordion__section-heading\\"><span class=\\"govuk-accordion__section-button\\" id=\\"draft-cases-list-heading-1\\"></span></h2>
                 </div>
-                <div id=\\"-content-1\\" class=\\"govuk-accordion__section-content\\" aria-labelledby=\\"-heading-1\\">
+                <div id=\\"draft-cases-list-content-1\\" class=\\"govuk-accordion__section-content\\"
+                aria-labelledby=\\"draft-cases-list-heading-1\\">
                     <table class=\\"govuk-table\\">
                         <thead class=\\"govuk-table__head\\">
                             <tr class=\\"govuk-table__row\\">
@@ -414,12 +419,13 @@ exports[`applications GET /inspector should render the open applications belongi
     </div>
     <div class=\\"pins-dashboard-list--open\\">
         <h2 class=\\"govuk-heading-l\\">All cases</h2>
-        <div class=\\"govuk-accordion\\" data-module=\\"govuk-accordion\\" id=\\"\\">
+        <div class=\\"govuk-accordion\\" data-module=\\"govuk-accordion\\" id=\\"cases-list\\">
             <div class=\\"govuk-accordion__section \\">
                 <div class=\\"govuk-accordion__section-header\\">
-                    <h2 class=\\"govuk-accordion__section-heading\\"><span class=\\"govuk-accordion__section-button\\" id=\\"-heading-1\\"> Transport EN</span></h2>
+                    <h2 class=\\"govuk-accordion__section-heading\\"><span class=\\"govuk-accordion__section-button\\" id=\\"cases-list-heading-1\\"> Transport EN</span></h2>
                 </div>
-                <div id=\\"-content-1\\" class=\\"govuk-accordion__section-content\\" aria-labelledby=\\"-heading-1\\">
+                <div id=\\"cases-list-content-1\\" class=\\"govuk-accordion__section-content\\"
+                aria-labelledby=\\"cases-list-heading-1\\">
                     <details class=\\"govuk-details\\" data-module=\\"govuk-details\\">
                         <summary class=\\"govuk-details__summary\\"><span class=\\"govuk-details__summary-text\\"> HIG Highways EN</span>
                         </summary>

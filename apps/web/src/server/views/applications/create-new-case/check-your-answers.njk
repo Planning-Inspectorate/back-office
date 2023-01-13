@@ -71,21 +71,19 @@
 	{% set row = row | concat({ html: '<a class="govuk-link" href="' + baseUrl + 'team-email">' + 'Change' + '</a>', classes: 'text-align--right pins-table__cell--s' }) %}
 	{% set rows = rows | concat([row]) %}
 
-	<h2 class="govuk-heading-l">
+	<h1 class="govuk-heading-l">
 		<div class="govuk-grid-row">
 			<div class="govuk-grid-column-full">
 				Check your answers before creating a new project
 			</div>
 		</div>
-	</h2>
+	</h1>
 	<form method="post" action="">
 		<div class="govuk-grid-row">
 			<div class="govuk-grid-column-full">
 				{{ govukTable({
 					head: [
-						{ text: "Project information", classes: 'govuk-table__caption--m pins-table__cell--l govuk-!-static-padding-bottom-6' },
-						{ text: "" },
-						{ text: "" }
+						{ text: "Project information", classes: 'govuk-table__caption--m pins-table__cell--l govuk-!-static-padding-bottom-6', colspan: '3'}
 					],
 					rows: rows
 				}) }}
@@ -133,9 +131,7 @@
 					caption: params.caption,
 					captionClasses: "govuk-table__caption--l",
 					head: [
-						{ text: "Applicant information", classes: 'govuk-table__caption--m pins-table__cell--l govuk-!-static-padding-bottom-6' },
-						{ text: "" },
-						{ text: "" }
+						{ text: "Applicant information", classes: 'govuk-table__caption--m pins-table__cell--l govuk-!-static-padding-bottom-6', colspan: '3' }
 					],
 					rows: rows
 				}) }}
@@ -157,9 +153,7 @@
 					caption: params.caption,
 					captionClasses: "govuk-table__caption--l",
 					head: [
-						{ text: "Key dates", classes: 'govuk-table__caption--m pins-table__cell--l govuk-!-static-padding-bottom-6' },
-						{ text: "" },
-						{ text: "" }
+						{ text: "Key dates", classes: 'govuk-table__caption--m pins-table__cell--l govuk-!-static-padding-bottom-6', colspan: '3'}
 					],
 					rows: rows
 				}) }}

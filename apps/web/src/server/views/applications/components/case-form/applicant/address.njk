@@ -4,11 +4,9 @@
 	<input type="hidden" name='currentFormStage' value="{{ formStage }}">
 		{% if formStage == 'searchPostcode' %}
 			<div class="govuk-form-group">
-				<h1 class="govuk-label-wrapper">
-					<label class="govuk-label font-weight--700" for="postcode">
-						Postcode
-					</label>
-				</h1>
+				<label class="govuk-label font-weight--700" for="postcode">
+					Postcode
+				</label>
 				<input class="govuk-input govuk-!-width-one-third" id="postcode" name="postcode" type="text" value="{{ postcode }}">
 			</div>
 			{{ govukButton({ text: "Find address" }) }}
@@ -48,24 +46,27 @@
 			</div>
 		{% elseif formStage == 'manualAddress' %}
 			<div class="govuk-form-group">
-				<h1 class="govuk-label-wrapper">
-					<label class="govuk-label" for="applicant.address.addressLine1">
+				<fieldset class="govuk-fieldset">
+					<legend class="govuk-label">
 						Building and street
-					</label>
-				</h1>
-				<input class="govuk-input govuk-!-width-one-half" id="address1" name="applicant.address.addressLine1"
-					   type="text">
-				<label class="govuk-label" for="applicant.address.addressLine2"></label>
-				<input class="govuk-input govuk-!-width-one-half" id="address2" name="applicant.address.addressLine2"
-					   type="text">
-
+					</legend>
+					<div>
+						<label class="govuk-visually-hidden" for="applicant.address.addressLine1">Address line 1</label>
+						<input class="govuk-input govuk-!-width-one-half" id="applicant.address.addressLine1" name="applicant.address.addressLine1"
+							type="text">
+					</div>
+					<br />
+					<div>
+						<label class="govuk-visually-hidden" for="applicant.address.addressLine2">Address line 1</label>
+						<input class="govuk-input govuk-!-width-one-half" id="applicant.address.addressLine2" name="applicant.address.addressLine2"
+							type="text">
+					</div>
+				</fieldset>
 			</div>
 			<div class="govuk-form-group">
-				<h1 class="govuk-label-wrapper">
-					<label class="govuk-label" for="applicant.address.town">
-						Town or city
-					</label>
-				</h1>
+				<label class="govuk-label" for="applicant.address.town">
+					Town or city
+				</label>
 				<input class="govuk-input govuk-!-width-one-half" id="applicant.address.town" name="applicant.address.town"
 					   type="text">
 			</div>

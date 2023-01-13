@@ -2,13 +2,13 @@
 
 exports[`applications create applicant Applicant address GET /applicant-address should render the page when resumed or if there is data in the session 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
-    <h2 class=\\"govuk-heading-l\\"> Enter the Applicant’s address</h2>
+    <h1 class=\\"govuk-heading-l\\"> Enter the Applicant’s address</h1>
     <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
         <input type=\\"hidden\\" name='currentFormStage' value=\\"searchPostcode\\">
         <div class=\\"govuk-form-group\\">
-            <h1 class=\\"govuk-label-wrapper\\"><label class=\\"govuk-label font-weight--700\\" for=\\"postcode\\"> Postcode</label></h1>
-            <input class=\\"govuk-input govuk-!-width-one-third\\" id=\\"postcode\\" name=\\"postcode\\"
-            type=\\"text\\" value=\\"ABC123\\">
+            <label class=\\"govuk-label font-weight--700\\" for=\\"postcode\\">Postcode</label>
+            <input class=\\"govuk-input govuk-!-width-one-third\\" id=\\"postcode\\"
+            name=\\"postcode\\" type=\\"text\\" value=\\"ABC123\\">
         </div>
         <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Find address</button>
         <div class=\\"govuk-grid-row\\">
@@ -20,7 +20,7 @@ exports[`applications create applicant Applicant address GET /applicant-address 
 
 exports[`applications create applicant Applicant address GET /applicant-address should render the page with the manual inputs for address 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
-    <h2 class=\\"govuk-heading-l\\"> Enter the Applicant’s address</h2>
+    <h1 class=\\"govuk-heading-l\\"> Enter the Applicant’s address</h1>
     <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
         <input type=\\"hidden\\" name='currentFormStage' value=\\"manualAddress\\">
         <input type=\\"hidden\\" name=\\"postcode\\" value=\\"aa1xx2\\">
@@ -37,17 +37,27 @@ exports[`applications create applicant Applicant address GET /applicant-address 
             </div>
         </div>
         <div class=\\"govuk-form-group\\">
-            <h1 class=\\"govuk-label-wrapper\\"><label class=\\"govuk-label\\" for=\\"applicant.address.addressLine1\\"> Building and street</label></h1>
-            <input class=\\"govuk-input govuk-!-width-one-half\\" id=\\"address1\\" name=\\"applicant.address.addressLine1\\"
-            type=\\"text\\">
-            <label class=\\"govuk-label\\" for=\\"applicant.address.addressLine2\\"></label>
-            <input class=\\"govuk-input govuk-!-width-one-half\\" id=\\"address2\\"
-            name=\\"applicant.address.addressLine2\\" type=\\"text\\">
+            <fieldset class=\\"govuk-fieldset\\">
+                <legend class=\\"govuk-label\\">Building and street</legend>
+                <div>
+                    <label class=\\"govuk-visually-hidden\\" for=\\"applicant.address.addressLine1\\">Address line 1</label>
+                    <input class=\\"govuk-input govuk-!-width-one-half\\"
+                    id=\\"applicant.address.addressLine1\\" name=\\"applicant.address.addressLine1\\"
+                    type=\\"text\\">
+                </div>
+                <br>
+                <div>
+                    <label class=\\"govuk-visually-hidden\\" for=\\"applicant.address.addressLine2\\">Address line 1</label>
+                    <input class=\\"govuk-input govuk-!-width-one-half\\"
+                    id=\\"applicant.address.addressLine2\\" name=\\"applicant.address.addressLine2\\"
+                    type=\\"text\\">
+                </div>
+            </fieldset>
         </div>
         <div class=\\"govuk-form-group\\">
-            <h1 class=\\"govuk-label-wrapper\\"><label class=\\"govuk-label\\" for=\\"applicant.address.town\\"> Town or city</label></h1>
-            <input class=\\"govuk-input govuk-!-width-one-half\\" id=\\"applicant.address.town\\"
-            name=\\"applicant.address.town\\" type=\\"text\\">
+            <label class=\\"govuk-label\\" for=\\"applicant.address.town\\">Town or city</label>
+            <input class=\\"govuk-input govuk-!-width-one-half\\"
+            id=\\"applicant.address.town\\" name=\\"applicant.address.town\\" type=\\"text\\">
         </div>
         <div class=\\"govuk-grid-row\\">
             <div class=\\"govuk-button-group pins-button-group govuk-grid-column-one-half\\">
@@ -74,13 +84,13 @@ exports[`applications create applicant Applicant address POST /applicant-address
             </div>
         </div>
     </div>
-    <h2 class=\\"govuk-heading-l\\"> Enter the Applicant’s address</h2>
+    <h1 class=\\"govuk-heading-l\\"> Enter the Applicant’s address</h1>
     <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
         <input type=\\"hidden\\" name='currentFormStage' value=\\"searchPostcode\\">
         <div class=\\"govuk-form-group\\">
-            <h1 class=\\"govuk-label-wrapper\\"><label class=\\"govuk-label font-weight--700\\" for=\\"postcode\\"> Postcode</label></h1>
-            <input class=\\"govuk-input govuk-!-width-one-third\\" id=\\"postcode\\" name=\\"postcode\\"
-            type=\\"text\\" value=\\"abc\\">
+            <label class=\\"govuk-label font-weight--700\\" for=\\"postcode\\">Postcode</label>
+            <input class=\\"govuk-input govuk-!-width-one-third\\" id=\\"postcode\\"
+            name=\\"postcode\\" type=\\"text\\" value=\\"abc\\">
         </div>
         <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Find address</button>
         <div class=\\"govuk-grid-row\\">
@@ -92,9 +102,10 @@ exports[`applications create applicant Applicant address POST /applicant-address
 
 exports[`applications create applicant Applicant email GET /applicant-email should render the page when resumed or if there is data in the session 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
-    <h2 class=\\"govuk-heading-l\\"> Enter the applicant’s email address</h2>
+    <h1 class=\\"govuk-heading-l\\"> Enter the applicant’s email address</h1>
     <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
         <div class=\\"govuk-form-group\\">
+            <label class=\\"govuk-label govuk-visually-hidden\\" for=\\"applicant.email\\">Applicant mail address</label>
             <div id=\\"applicant.email-hint\\" class=\\"govuk-hint\\">for example, contact@buildinganewbridge.com</div>
             <input class=\\"govuk-input govuk-!-width-one-third\\"
             id=\\"applicant.email\\" name=\\"applicant.email\\" type=\\"text\\" value=\\"email@email.co\\"
@@ -125,9 +136,10 @@ exports[`applications create applicant Applicant email POST /application-email W
             </div>
         </div>
     </div>
-    <h2 class=\\"govuk-heading-l\\"> Enter the applicant’s email address</h2>
+    <h1 class=\\"govuk-heading-l\\"> Enter the applicant’s email address</h1>
     <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
         <div class=\\"govuk-form-group govuk-form-group--error\\">
+            <label class=\\"govuk-label govuk-visually-hidden\\" for=\\"applicant.email\\">Applicant mail address</label>
             <div id=\\"applicant.email-hint\\" class=\\"govuk-hint\\">for example, contact@buildinganewbridge.com</div>
             <p id=\\"applicant.email-error\\"
             class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> Enter a valid email address</p>
@@ -145,10 +157,12 @@ exports[`applications create applicant Applicant email POST /application-email W
 
 exports[`applications create applicant Applicant telephone number GET /applicant-telephone-number should render the page when resumed or if there is data in the session 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
-    <h2 class=\\"govuk-heading-l\\"> Enter the Applicant’s phone number</h2>
+    <h1 class=\\"govuk-heading-l\\"> Enter the Applicant’s phone number</h1>
     <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
         <div class=\\"govuk-form-group\\">
-            <div id=\\"applicant.phoneNumber-hint\\" class=\\"govuk-hint\\">for example, 0300 123 3000</div>
+            <label class=\\"govuk-label govuk-visually-hidden\\" for=\\"applicant.phoneNumber\\">Applicant telephone number</label>
+            <div id=\\"applicant.phoneNumber-hint\\"
+            class=\\"govuk-hint\\">for example, 0300 123 3000</div>
             <input class=\\"govuk-input govuk-!-width-one-third\\"
             id=\\"applicant.phoneNumber\\" name=\\"applicant.phoneNumber\\" type=\\"text\\" value=\\"001\\"
             aria-describedby=\\"applicant.phoneNumber-hint\\">
@@ -178,10 +192,12 @@ exports[`applications create applicant Applicant telephone number POST /applicat
             </div>
         </div>
     </div>
-    <h2 class=\\"govuk-heading-l\\"> Enter the Applicant’s phone number</h2>
+    <h1 class=\\"govuk-heading-l\\"> Enter the Applicant’s phone number</h1>
     <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
         <div class=\\"govuk-form-group govuk-form-group--error\\">
-            <div id=\\"applicant.phoneNumber-hint\\" class=\\"govuk-hint\\">for example, 0300 123 3000</div>
+            <label class=\\"govuk-label govuk-visually-hidden\\" for=\\"applicant.phoneNumber\\">Applicant telephone number</label>
+            <div id=\\"applicant.phoneNumber-hint\\"
+            class=\\"govuk-hint\\">for example, 0300 123 3000</div>
             <p id=\\"applicant.phoneNumber-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> Enter a valid phone number</p>
             <input             class=\\"govuk-input govuk-!-width-one-third govuk-input--error\\" id=\\"applicant.phoneNumber\\"
             name=\\"applicant.phoneNumber\\" type=\\"text\\" value=\\"bad_phone_number\\" aria-describedby=\\"applicant.phoneNumber-hint applicant.phoneNumber-error\\">
@@ -197,9 +213,10 @@ exports[`applications create applicant Applicant telephone number POST /applicat
 
 exports[`applications create applicant Applicant website GET /applicant-website should render the page when resumed or if there is data in the session 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
-    <h2 class=\\"govuk-heading-l\\"> Enter the Applicant’s website</h2>
+    <h1 class=\\"govuk-heading-l\\"> Enter the Applicant’s website</h1>
     <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
         <div class=\\"govuk-form-group\\">
+            <label class=\\"govuk-label govuk-visually-hidden\\" for=\\"applicant.website\\">Applicant website</label>
             <div id=\\"applicant.website-hint\\" class=\\"govuk-hint\\">for example, https://www.heathrow.com</div>
             <input class=\\"govuk-input govuk-!-width-one-third\\"
             id=\\"applicant.website\\" name=\\"applicant.website\\" type=\\"text\\" value=\\"website.web\\"
@@ -230,9 +247,10 @@ exports[`applications create applicant Applicant website POST /application-websi
             </div>
         </div>
     </div>
-    <h2 class=\\"govuk-heading-l\\"> Enter the Applicant’s website</h2>
+    <h1 class=\\"govuk-heading-l\\"> Enter the Applicant’s website</h1>
     <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
         <div class=\\"govuk-form-group govuk-form-group--error\\">
+            <label class=\\"govuk-label govuk-visually-hidden\\" for=\\"applicant.website\\">Applicant website</label>
             <div id=\\"applicant.website-hint\\" class=\\"govuk-hint\\">for example, https://www.heathrow.com</div>
             <p id=\\"applicant.website-error\\"
             class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> Enter a valid website</p>
@@ -250,7 +268,7 @@ exports[`applications create applicant Applicant website POST /application-websi
 
 exports[`applications create applicant GET /applicant-full-name should render the page when resumed or if there is data in the session 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
-    <h2 class=\\"govuk-heading-l\\"> Enter the applicant’s contact name</h2>
+    <h1 class=\\"govuk-heading-l\\"> Enter the applicant’s contact name</h1>
     <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
         <div class=\\"govuk-form-group\\">
             <label class=\\"govuk-label font-weight--700\\" for=\\"applicant.firstName\\">First name</label>
@@ -273,7 +291,7 @@ exports[`applications create applicant GET /applicant-full-name should render th
 
 exports[`applications create applicant GET /applicant-information-types should render the page 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
-    <h2 class=\\"govuk-heading-l\\"> Choose the Applicant information you have available</h2>
+    <h1 class=\\"govuk-heading-l\\"> Choose the Applicant information you have available</h1>
     <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
         <div class=\\"govuk-form-group\\">
             <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
@@ -320,11 +338,13 @@ exports[`applications create applicant GET /applicant-information-types should r
 
 exports[`applications create applicant GET /applicant-organisation-name should render the page when resumed or when there is session data 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
-    <h2 class=\\"govuk-heading-l\\"> Enter the Applicant’s organisation</h2>
+    <h1 class=\\"govuk-heading-l\\"> Enter the Applicant’s organisation</h1>
     <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
         <div class=\\"govuk-form-group\\">
-            <input class=\\"govuk-input govuk-!-width-one-third\\" id=\\"applicant.organisationName\\"
-            name=\\"applicant.organisationName\\" type=\\"text\\" value=\\"Org name\\">
+            <label class=\\"govuk-label govuk-visually-hidden\\" for=\\"applicant.organisationName\\">Applicant organisation name</label>
+            <input class=\\"govuk-input govuk-!-width-one-third\\"
+            id=\\"applicant.organisationName\\" name=\\"applicant.organisationName\\" type=\\"text\\"
+            value=\\"Org name\\">
         </div>
         <div class=\\"govuk-grid-row\\">
             <div class=\\"govuk-button-group pins-button-group govuk-grid-column-one-half\\">

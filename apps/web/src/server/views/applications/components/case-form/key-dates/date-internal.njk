@@ -16,31 +16,34 @@
 	<div class="govuk-grid-column-one-third">
 		<div class="govuk-grid-row pins-date-form-group">
 			{{ govukInput({
+				label: {
+					text: "Day",
+					classes: "govuk-hint"
+				},
 				id: "submissionInternalDay",
 				name: "submissionInternalDay",
 				value: values['keyDates.submissionDateInternal'] |datestamp({format: 'dd'}),
-				errorMessage: (errors['keyDates.submissionDateInternal'] !== undefined and errors['keyDates.submissionDateInternal'] !== false),
-				hint: {
-					text: "Day"
-				}
+				errorMessage: (errors['keyDates.submissionDateInternal'] !== undefined and errors['keyDates.submissionDateInternal'] !== false)
 			}) }}
 			{{ govukInput({
+				label: {
+					text: "Month",
+					classes: "govuk-hint"
+				},
 				id: "submissionInternalMonth",
 				name: "submissionInternalMonth",
 				value: values['keyDates.submissionDateInternal'] |datestamp({format: 'MM'}),
-				errorMessage: (errors['keyDates.submissionDateInternal'] !== undefined and errors['keyDates.submissionDateInternal'] !== false),
-				hint: {
-					text: "Month"
-				}
+				errorMessage: (errors['keyDates.submissionDateInternal'] !== undefined and errors['keyDates.submissionDateInternal'] !== false)
 			}) }}
 			{{ govukInput({
+				label: {
+					text: "Year",
+					classes: "govuk-hint"
+				},
 				id: "submissionInternalYear",
 				name: "submissionInternalYear",
 				value: values['keyDates.submissionDateInternal'] |datestamp({format: 'yyyy'}),
-				errorMessage: (errors['keyDates.submissionDateInternal'] !== undefined and errors['keyDates.submissionDateInternal'] !== false),
-				hint: {
-					text: "Year"
-				}
+				errorMessage: (errors['keyDates.submissionDateInternal'] !== undefined and errors['keyDates.submissionDateInternal'] !== false)
 			}) }}
 		</div>
 	</div>
