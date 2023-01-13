@@ -14,6 +14,14 @@ const fileStream = new Readable();
 const backOfficePatchStub = sinon.stub();
 
 backOfficePatchStub
+	.withArgs(sinon.match.any, {
+		json: {
+			machineAction: 'uploading'
+		}
+	})
+	.returns({ json: sinon.stub() });
+
+backOfficePatchStub
 	.withArgs('test-api-host:3000/applications/documents/123-345/status', {
 		json: {
 			machineAction: 'check_success'

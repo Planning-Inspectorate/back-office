@@ -75,6 +75,8 @@ export const checkMyBlob = async (context, myBlob) => {
 	const documentUri = context.bindingData.uri;
 	const { guid } = getBlobCaseReferenceAndGuid(documentUri);
 
+	await sendDocumentStateAction(guid, 'uploading', context);
+
 	const blobStream = Readable.from(myBlob);
 
 	const isInfected = await scanStream(blobStream);

@@ -54,7 +54,9 @@ export const sendDocumentStateAction = async (documentGuid, machineAction, conte
 		await sendRequestToBackOffice(documentGuid, machineAction);
 	} catch (error) {
 		if (errorIsDueToDocumentAlreadyMakedWithNewStatus(error, machineAction)) {
-			context.info('Document status already updated based on AV checks');
+			context.info(
+				`Document status already updated using the state machine trigger ${machineAction}`
+			);
 		} else {
 			throw error;
 		}
