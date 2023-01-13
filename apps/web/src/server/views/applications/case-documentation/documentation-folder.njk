@@ -188,24 +188,24 @@
 									<tr class="govuk-table__row {{ "govuk-table__row--disabled" if isDisabled else "" }}">
 										<td class="govuk-table__cell">
 											{% if not isDisabled %}
-											{{ govukCheckboxes({
-												name: "selectedFilesIds[]",
-												items: [
-													{
-														value: documentationFile.guid,
-														text: documentationFile.documentName
-													}]
-											}) }}
-												{% else %}
-													<div class="govuk-form-group">
-														<div class="govuk-checkboxes" data-module="govuk-checkboxes">
-															<div class="govuk-checkboxes__item">
-																<label class="govuk-label govuk-checkboxes__label display--unclickable">
+												{{ govukCheckboxes({
+													name: "selectedFilesIds[]",
+													items: [
+														{
+															value: documentationFile.guid,
+															text: documentationFile.documentName
+														}]
+												}) }}
+											{% else %}
+												<div class="govuk-form-group">
+													<div class="govuk-checkboxes" data-module="govuk-checkboxes">
+														<div class="govuk-checkboxes__item">
+															<label class="govuk-label govuk-checkboxes__label">
 																{{ documentationFile.documentName }}
-																</label>
-															</div>
+															</label>
 														</div>
 													</div>
+												</div>
 											{% endif %}
 										</td>
 										<td class="govuk-table__cell">
@@ -231,14 +231,13 @@
 										<td class="govuk-table__cell">{{ 'Redacted' if  documentationFile.redacted else 'Unredacted' }}</td>
 										<td class="govuk-table__cell">{{ documentationFile.status|statusName }}</td>
 										<td class="govuk-table__cell">
-											<a class="govuk-link govuk-body-s {% if isDisabled %} display--unclickable {% endif %}"
+											<a class="govuk-link govuk-body-s"
 													{% if not isDisabled %} href="{{ documentationFile.url }}/edit"{% endif %}>
 												View/Edit properties
 											</a>
-											<a class="govuk-link govuk-body-s {% if isDisabled %} display--unclickable {% endif %}"
-											   disabled="{{ isDisabled }}"
+											<a class="govuk-link govuk-body-s"
 													{% if not isDisabled %} href="{{ documentationFile.url }}"{% endif %}>
-												Download
+												Downloadg
 											</a>
 										</td>
 									</tr>
