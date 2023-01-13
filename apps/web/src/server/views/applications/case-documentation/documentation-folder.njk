@@ -183,23 +183,35 @@
 									</td>
 								</tr>
 								{% for documentationFile in documentationFiles.items %}
-									{% set isDisabled = documentationFile.status === 'awaiting_virus_check' or documentationFile.status === 'failed_virus_check' %}
+									{% set isDisabled = documentationFile.status === 'awaiting_upload' or documentationFile.status === 'awaiting_virus_check' or documentationFile.status === 'failed_virus_check' %}
 
 									<tr class="govuk-table__row {{ "govuk-table__row--disabled" if isDisabled else "" }}">
 										<td class="govuk-table__cell">
-											{{ govukCheckboxes({
-												name: "selectedFilesIds[]",
-												items: [
-													{
-														id: 'checkbox-id-' + documentationFile.guid,
-														value: documentationFile.guid,
-														text: documentationFile.documentName,
-														label: 'select ' + documentationFile.documentName
-													}]
-											}) }}
+											{% if not isDisabled %}
+												{{ govukCheckboxes({
+													name: "selectedFilesIds[]",
+													items: [
+														{
+															id: 'checkbox-id-' + documentationFile.guid,
+															value: documentationFile.guid,
+															text: documentationFile.documentName,
+															label: 'select ' + documentationFile.documentName
+														}]
+												}) }}
+											{% else %}
+												<div class="govuk-form-group">
+													<div class="govuk-checkboxes" data-module="govuk-checkboxes">
+														<div class="govuk-checkboxes__item">
+															<label class="govuk-label govuk-checkboxes__label">
+																{{ documentationFile.documentName }}
+															</label>
+														</div>
+													</div>
+												</div>
+											{% endif %}
 										</td>
 										<td class="govuk-table__cell">
-											{% if documentationFile.type === 'application/pdf' or documentationFile.type === 'image/jpeg' or documentationFile.type === 'image/png' %}
+											{% if not isDisabled and (documentationFile.type === 'application/pdf' or documentationFile.type === 'image/jpeg' or documentationFile.type === 'image/png') %}
 												<a class="govuk-link govuk-body-s govuk-!-font-weight-bold"
 												   href="{{ documentationFile.url }}">
 													{{ documentationFile.documentName }}
@@ -221,9 +233,14 @@
 										<td class="govuk-table__cell">{{ 'Redacted' if  documentationFile.redacted else 'Unredacted' }}</td>
 										<td class="govuk-table__cell">{{ documentationFile.status|statusName }}</td>
 										<td class="govuk-table__cell">
-											<a class="govuk-link govuk-body-s" href="{{ documentationFile.url }}/edit">View/Edit
-												properties</a>
-											<a class="govuk-link govuk-body-s" href="{{ documentationFile.url }}">Download</a>
+											<a class="govuk-link govuk-body-s"
+													{% if not isDisabled %} href="{{ documentationFile.url }}/edit"{% endif %}>
+												View/Edit properties
+											</a>
+											<a class="govuk-link govuk-body-s"
+													{% if not isDisabled %} href="{{ documentationFile.url }}"{% endif %}>
+												Download
+											</a>
 										</td>
 									</tr>
 								{% endfor %}
