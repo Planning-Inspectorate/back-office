@@ -14,21 +14,21 @@ const fileStream = new Readable();
 const backOfficePatchStub = sinon.stub();
 
 backOfficePatchStub
-	.withArgs('test-api-host:3000/applications/1/documents/123-345/status', {
+	.withArgs('test-api-host:3000/applications/documents/123-345/status', {
 		json: {
 			machineAction: 'check_success'
 		}
 	})
 	.returns({ json: sinon.stub() });
 backOfficePatchStub
-	.withArgs('test-api-host:3000/applications/1/documents/123-345/status', {
+	.withArgs('test-api-host:3000/applications/documents/123-345/status', {
 		json: {
 			machineAction: 'check_fail'
 		}
 	})
 	.returns({ json: sinon.stub() });
 backOfficePatchStub
-	.withArgs('test-api-host:3000/applications/1/documents/123-345-678/status', {
+	.withArgs('test-api-host:3000/applications/documents/123-345-678/status', {
 		json: {
 			machineAction: 'check_fail'
 		}
@@ -49,7 +49,7 @@ const backOfficeFailedAVHttpError = new HTTPError(backOfficeFailedAVErrorRespons
 backOfficeFailedAVHttpError.response = backOfficeFailedAVErrorResponse;
 
 backOfficePatchStub
-	.withArgs('test-api-host:3000/applications/1/documents/123-345-901/status', {
+	.withArgs('test-api-host:3000/applications/documents/123-345-901/status', {
 		json: {
 			machineAction: 'check_fail'
 		}
@@ -70,7 +70,7 @@ const backOfficePassedAVHttpError = new HTTPError(backOfficePassedAVErrorRespons
 backOfficePassedAVHttpError.response = backOfficePassedAVErrorResponse;
 
 backOfficePatchStub
-	.withArgs('test-api-host:3000/applications/1/documents/123-345-123/status', {
+	.withArgs('test-api-host:3000/applications/documents/123-345-123/status', {
 		json: {
 			machineAction: 'check_success'
 		}
@@ -83,19 +83,21 @@ backOfficePatchStub
 
 const documentStorageDeleteStub = sinon.stub();
 
+const blobHostUrl = 'https://blobhost/container';
+
 documentStorageDeleteStub
 	.withArgs('http://localhost:3001/document', {
-		json: { documentPath: '/applications/1/123-345/test.pdf' }
+		json: { documentPath: '/application/ABC/123-345/test.pdf' }
 	})
 	.returns({ json: sinon.stub() });
 documentStorageDeleteStub
 	.withArgs('http://localhost:3001/document', {
-		json: { documentPath: '/applications/1/123-345/test-that-has-been-marked-as-failed.pdf' }
+		json: { documentPath: '/application/ABC/123-345/test-that-has-been-marked-as-failed.pdf' }
 	})
 	.returns({ json: sinon.stub() });
 documentStorageDeleteStub
 	.withArgs('http://localhost:3001/document', {
-		json: { documentPath: '/applications/1/123-345-901/test-that-has-been-marked-as-failed.pdf' }
+		json: { documentPath: '/application/ABC/123-345-901/test-that-has-been-marked-as-failed.pdf' }
 	})
 	.returns({ json: sinon.stub() });
 
@@ -111,7 +113,7 @@ documentStorageHttpError.response = documentStorageErrorResponse;
 
 documentStorageDeleteStub
 	.withArgs('http://localhost:3001/document', {
-		json: { documentPath: '/applications/1/123-345-678/test-that-has-been-deleted.pdf' }
+		json: { documentPath: '/application/ABC/123-345-678/test-that-has-been-deleted.pdf' }
 	})
 	.throwsException(documentStorageHttpError);
 
@@ -140,7 +142,7 @@ test.serial(
 		sinon.stub(clamAvClient, 'scanStream').returns({ isInfected: false });
 		await checkMyBlob(
 			{
-				bindingData: { uri: '/applications/1/123-345/test.pdf' },
+				bindingData: { uri: `${blobHostUrl}/application/ABC/123-345/test.pdf` },
 				error: errorStub,
 				info: infoStub
 			},
@@ -150,7 +152,7 @@ test.serial(
 
 		sinon.assert.calledWith(
 			backOfficePatchStub,
-			'test-api-host:3000/applications/1/documents/123-345/status',
+			'test-api-host:3000/applications/documents/123-345/status',
 			{
 				json: { machineAction: 'check_success' }
 			}
@@ -165,7 +167,9 @@ test.serial(
 		sinon.stub(clamAvClient, 'scanStream').returns({ isInfected: true });
 		await checkMyBlob(
 			{
-				bindingData: { uri: '/applications/1/123-345-678/test-that-has-been-deleted.pdf' },
+				bindingData: {
+					uri: `${blobHostUrl}/application/ABC/123-345-678/test-that-has-been-deleted.pdf`
+				},
 				error: errorStub,
 				info: infoStub
 			},
@@ -176,7 +180,7 @@ test.serial(
 		// Checks that we send a request to mark document as failed AV checks
 		sinon.assert.calledWith(
 			backOfficePatchStub,
-			'test-api-host:3000/applications/1/documents/123-345-678/status',
+			'test-api-host:3000/applications/documents/123-345-678/status',
 			{
 				json: { machineAction: 'check_fail' }
 			}
@@ -193,7 +197,9 @@ test.serial(
 
 		await checkMyBlob(
 			{
-				bindingData: { uri: '/applications/1/123-345-901/test-that-has-been-marked-as-failed.pdf' },
+				bindingData: {
+					uri: `${blobHostUrl}/application/ABC/123-345-901/test-that-has-been-marked-as-failed.pdf`
+				},
 				error: errorStub,
 				info: infoStub
 			},
@@ -203,7 +209,7 @@ test.serial(
 
 		// Checks that we send request to delete document
 		sinon.assert.calledWith(documentStorageDeleteStub, 'http://localhost:3001/document', {
-			json: { documentPath: '/applications/1/123-345-901/test-that-has-been-marked-as-failed.pdf' }
+			json: { documentPath: '/application/ABC/123-345-901/test-that-has-been-marked-as-failed.pdf' }
 		});
 
 		clamAvClient.scanStream.restore();
@@ -217,7 +223,9 @@ test.serial(
 
 		await checkMyBlob(
 			{
-				bindingData: { uri: '/applications/1/123-345-123/test-that-has-been-marked-as-passed.pdf' },
+				bindingData: {
+					uri: `${blobHostUrl}/application/ABC/123-345-123/test-that-has-been-marked-as-passed.pdf`
+				},
 				error: errorStub,
 				info: infoStub
 			},
@@ -227,7 +235,7 @@ test.serial(
 
 		// Checks that we send request to delete document
 		sinon.assert.neverCalledWith(documentStorageDeleteStub, 'http://localhost:3001/document', {
-			json: { documentPath: '/applications/1/123-345-123/test-that-has-been-marked-as-passed.pdf' }
+			json: { documentPath: '/application/ABC/123-345-123/test-that-has-been-marked-as-passed.pdf' }
 		});
 
 		clamAvClient.scanStream.restore();
@@ -240,7 +248,7 @@ test.serial(
 		sinon.stub(clamAvClient, 'scanStream').returns({ isInfected: true });
 		await checkMyBlob(
 			{
-				bindingData: { uri: '/applications/1/123-345/test.pdf' },
+				bindingData: { uri: `${blobHostUrl}/application/ABC/123-345/test.pdf` },
 				error: errorStub,
 				info: infoStub
 			},
@@ -250,13 +258,13 @@ test.serial(
 
 		sinon.assert.calledWith(
 			backOfficePatchStub,
-			'test-api-host:3000/applications/1/documents/123-345/status',
+			'test-api-host:3000/applications/documents/123-345/status',
 			{
 				json: { machineAction: 'check_fail' }
 			}
 		);
 		sinon.assert.calledWith(documentStorageDeleteStub, 'http://localhost:3001/document', {
-			json: { documentPath: '/applications/1/123-345/test.pdf' }
+			json: { documentPath: '/application/ABC/123-345/test.pdf' }
 		});
 
 		clamAvClient.scanStream.restore();
