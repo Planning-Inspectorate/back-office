@@ -1067,6 +1067,38 @@
 				}
 			}
 		},
+		"/applications/{id}/publish": {
+			"patch": {
+				"tags": ["Applications"],
+				"description": "publish application",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"type": "integer",
+						"description": "Application ID"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "response will have the date that the case was published as a timestamp",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"publishedDate": {
+									"type": "number",
+									"example": 1673873105
+								}
+							},
+							"xml": {
+								"name": "main"
+							}
+						}
+					}
+				}
+			}
+		},
 		"/applications/case-officer": {
 			"get": {
 				"tags": ["Applications"],

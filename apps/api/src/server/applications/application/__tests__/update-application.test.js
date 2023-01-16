@@ -82,7 +82,6 @@ test('updates application with just title and first notified date', async (t) =>
 	sinon.assert.calledWith(updateStub, {
 		where: { id: 1 },
 		data: {
-			publishedAt: null,
 			modifiedAt: new Date(1_649_319_144_000),
 			title: 'some title',
 			ApplicationDetails: {
@@ -114,11 +113,9 @@ test('updates application with just easting and sub-sector name', async (t) => {
 
 	t.is(response.status, 200);
 	t.deepEqual(response.body, { id: 1, applicantIds: [2, 3] });
-
 	sinon.assert.calledWith(updateStub, {
 		where: { id: 1 },
 		data: {
-			publishedAt: null,
 			modifiedAt: new Date(1_649_319_144_000),
 			gridReference: { upsert: { create: { easting: 123_456 }, update: { easting: 123_456 } } },
 			ApplicationDetails: {
@@ -187,7 +184,6 @@ test('updates application when all possible details provided', async (t) => {
 	sinon.assert.calledWith(updateStub, {
 		where: { id: 1 },
 		data: {
-			publishedAt: null,
 			modifiedAt: new Date(1_649_319_144_000),
 			title: 'title',
 			description: 'description',
@@ -290,7 +286,6 @@ test(`updates application with new applicant using first and last name,
 	sinon.assert.calledWith(updateStub, {
 		where: { id: 1 },
 		data: {
-			publishedAt: null,
 			modifiedAt: new Date(1_649_319_144_000),
 			serviceCustomer: {
 				create: {
