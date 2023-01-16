@@ -1,8 +1,9 @@
-import { head, map } from 'lodash-es';
 import { eventClient } from '../../infrastructure/event-client.js';
 import { NSIP_PROJECT } from '../../infrastructure/topics.js';
+import { filter, head, map, pick } from 'lodash-es';
 import * as caseRepository from '../../repositories/case.repository.js';
 import * as documentRepository from '../../repositories/document.repository.js';
+import { updateDocumentStatus as updateDBDocumentStatus } from '../../repositories/document.repository.js';
 import * as folderRepository from '../../repositories/folder.repository.js';
 import { getStorageLocation } from '../../utils/document-storage-api-client.js';
 import logger from '../../utils/logger.js';
@@ -10,8 +11,10 @@ import { mapCaseStatusString } from '../../utils/mapping/map-case-status-string.
 import { buildNsipProjectPayload } from './application.js';
 import { mapCreateApplicationRequestToRepository } from './application.mapper.js';
 import {
+	formatResponseBody,
 	getCaseDetails,
-	startApplication,
+	nextStatusInDocumentStateMachine,
+	startApplication
 } from './application.service.js';
 /**
  *
@@ -168,7 +171,7 @@ export const updateDocumentStatus = async ({ params, body }, response) => {
 
 	const nextStatus = nextStatusInDocumentStateMachine(documentStatus, body.machineAction);
 
-	const updateResponseInTable = await updatedDocumentStatusInTable(params.documentGUID, nextStatus);
+	const updateResponseInTable = await updateDBDocumentStatus(params.documentGUID, nextStatus);
 
 	const formattedResponse = formatResponseBody(
 		caseId,
