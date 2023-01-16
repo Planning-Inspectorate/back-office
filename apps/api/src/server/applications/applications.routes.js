@@ -148,27 +148,19 @@ router.patch(
 	/*
         #swagger.tags = ['Applications']
         #swagger.path = '/applications/{id}/publish'
-        #swagger.description = 'Updates application'
+        #swagger.description = 'publish application'
         #swagger.parameters['id'] = {
             in: 'path',
 			description: 'Application ID',
 			required: true,
 			type: 'integer'
 		}
-        #swagger.parameters['body'] = {
-            in: 'body',
-            description: 'Application Details',
-            schema: { $ref: '#/definitions/UpdateApplication' }
-        }
         #swagger.responses[200] = {
-            description: 'ID of application',
-            schema: { publishedDate }
+            description: 'response will have the date that the case was published as a timestamp',
+            schema: { publishedDate: 1673873105 }
         }
     */
 	validateApplicationId,
-	validateApplicantId,
-	validateCreateUpdateApplication,
-	trimUnexpectedRequestParameters,
 	asyncHandler(publishCase)
 );
 

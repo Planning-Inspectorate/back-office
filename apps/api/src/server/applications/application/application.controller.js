@@ -1,7 +1,7 @@
 import { filter, head, map } from 'lodash-es';
 import * as caseRepository from '../../repositories/case.repository.js';
+import logger from '../../utils/logger.js';
 import { mapCaseStatusString } from '../../utils/mapping/map-case-status-string.js';
-import { mapDateStringToUnixTimestamp } from '../../utils/mapping/map-date-string-to-unix-timestamp.js';
 import { mapCreateApplicationRequestToRepository } from './application.mapper.js';
 import { getCaseDetails, startApplication } from './application.service.js';
 /**
@@ -83,12 +83,13 @@ export const getApplicationDetails = async ({ params, query }, response) => {
  * @type {import('express').RequestHandler<{id: number}, ?, ?, any>}
  */
 export const publishCase = async ({ params: { id } }, response) => {
-	const [updatedApplication] = await caseRepository.updateApplication({
-		caseId: +id,
-		publishedAt: new Date()
+	logger.info(`attempting to publish a case with id ${id}`);
+
+	const publishedDate = await caseRepository.publishCase({
+		caseId: id
 	});
 
-	const publishedDate = mapDateStringToUnixTimestamp(updatedApplication?.publishedAt.toISOString());
+	logger.info(`successfully published case with id ${id}`);
 
 	response.send({ publishedDate });
 };

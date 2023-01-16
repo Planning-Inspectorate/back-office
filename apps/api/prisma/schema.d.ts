@@ -27,7 +27,6 @@ export interface Case extends schema.Case {
 	gridReference?: GridReference;
 }
 
-export interface publishedCase extends schema.publishedCase {}
 export interface Folder extends schema.Folder {
 	case?: Case;
 	parentFolder?: Folder;
