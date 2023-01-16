@@ -1,13 +1,16 @@
-import { filter, head, map } from 'lodash-es';
+import { filter, head, map, pick } from 'lodash-es';
 import * as caseRepository from '../../repositories/case.repository.js';
 import * as documentRepository from '../../repositories/document.repository.js';
+import { updateDocumentStatus as updateDBDocumentStatus } from '../../repositories/document.repository.js';
 import * as folderRepository from '../../repositories/folder.repository.js';
 import { getStorageLocation } from '../../utils/document-storage-api-client.js';
 import { mapCaseStatusString } from '../../utils/mapping/map-case-status-string.js';
 import { mapCreateApplicationRequestToRepository } from './application.mapper.js';
 import {
+	formatResponseBody,
 	getCaseDetails,
-	startApplication,
+	nextStatusInDocumentStateMachine,
+	startApplication
 } from './application.service.js';
 /**
  *
@@ -153,7 +156,7 @@ export const updateDocumentStatus = async ({ params, body }, response) => {
 
 	const nextStatus = nextStatusInDocumentStateMachine(documentStatus, body.machineAction);
 
-	const updateResponseInTable = await updatedDocumentStatusInTable(params.documentGUID, nextStatus);
+	const updateResponseInTable = await updateDBDocumentStatus(params.documentGUID, nextStatus);
 
 	const formattedResponse = formatResponseBody(
 		caseId,
@@ -163,7 +166,3 @@ export const updateDocumentStatus = async ({ params, body }, response) => {
 
 	response.send(formattedResponse);
 };
-function nextStatusInDocumentStateMachine(status, machineAction) {
-	throw new Error('Function not implemented.');
-}
-
