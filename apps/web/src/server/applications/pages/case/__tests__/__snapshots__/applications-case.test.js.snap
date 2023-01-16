@@ -254,7 +254,7 @@ exports[`Applications case pages Preview and publish page POST /case/123/preview
             <h2 class=\\"govuk-heading-m\\">Project information</h2>
             <dl class=\\"govuk-summary-list govuk-summary-list--no-border\\">
                 <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Project page status</dt>
-                    <dd class=\\"govuk-summary-list__value\\"><strong class=\\"govuk-tag govuk-tag--green\\">Published</strong><span class=\\"govuk-body-s govuk-!-margin-left-4\\"> Last updated: 12:00am 30/01/2023</span>
+                    <dd class=\\"govuk-summary-list__value\\"><strong class=\\"govuk-tag govuk-tag--green\\">Published</strong><span class=\\"govuk-body-s govuk-!-margin-left-4\\"> Last updated: 3:21pm 16/01/2023</span>
                     </dd>
                 </div>
                 <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Case reference number</dt>
@@ -430,7 +430,7 @@ exports[`Applications case pages Preview and publish page POST /case/123/preview
             <h2 class=\\"govuk-heading-m\\">Project information</h2>
             <dl class=\\"govuk-summary-list govuk-summary-list--no-border\\">
                 <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Project page status</dt>
-                    <dd class=\\"govuk-summary-list__value\\"><strong class=\\"govuk-tag govuk-tag--grey\\">Not Published</strong>
+                    <dd class=\\"govuk-summary-list__value\\"><strong class=\\"govuk-tag govuk-tag--green\\">Published</strong><span class=\\"govuk-body-s govuk-!-margin-left-4\\"> Last updated: 3:21pm 16/01/2023</span>
                     </dd>
                 </div>
                 <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Case reference number</dt>
@@ -548,7 +548,7 @@ exports[`Applications case pages Preview and publish page POST /case/123/preview
                         </table>
                     </div>
                 </div>
-        </div>
+        </div><a href=\\"../123/unpublish\\" class=\\"govuk-link colour--red govuk-body-m\\">Unpublish project</a>
     </div>
     </div>
 </main>"

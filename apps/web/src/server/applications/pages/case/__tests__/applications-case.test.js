@@ -189,6 +189,9 @@ describe('Applications case pages', () => {
 			describe('When domainType is not inspector', () => {
 				beforeEach(async () => {
 					nock('http://test/').get('/applications/case-officer').reply(200, {});
+					nock('http://test/')
+						.patch('/applications/123/publish')
+						.reply(200, { publishedDate: 1_673_882_517 });
 					await request.get('/applications-service/case-officer');
 				});
 
