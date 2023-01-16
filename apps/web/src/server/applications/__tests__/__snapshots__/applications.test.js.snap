@@ -160,9 +160,10 @@ exports[`applications GET /case-admin-officer should render the open application
             </div>
             <div class=\\"govuk-accordion__section \\">
                 <div class=\\"govuk-accordion__section-header\\">
-                    <h2 class=\\"govuk-accordion__section-heading\\"><span class=\\"govuk-accordion__section-button\\" id=\\"-heading-2\\"> Item EN 21</span></h2>
+                    <h2 class=\\"govuk-accordion__section-heading\\"><span class=\\"govuk-accordion__section-button\\" id=\\"cases-list-heading-2\\"> Item EN 21</span></h2>
                 </div>
-                <div id=\\"-content-2\\" class=\\"govuk-accordion__section-content\\" aria-labelledby=\\"-heading-2\\">
+                <div id=\\"cases-list-content-2\\" class=\\"govuk-accordion__section-content\\"
+                aria-labelledby=\\"cases-list-heading-2\\">
                     <details class=\\"govuk-details\\" data-module=\\"govuk-details\\">
                         <summary class=\\"govuk-details__summary\\"><span class=\\"govuk-details__summary-text\\"> ITEM22 Item EN 22</span>
                         </summary>
@@ -189,9 +190,10 @@ exports[`applications GET /case-admin-officer should render the open application
             </div>
             <div class=\\"govuk-accordion__section \\">
                 <div class=\\"govuk-accordion__section-header\\">
-                    <h2 class=\\"govuk-accordion__section-heading\\"><span class=\\"govuk-accordion__section-button\\" id=\\"-heading-3\\"> Item EN 23</span></h2>
+                    <h2 class=\\"govuk-accordion__section-heading\\"><span class=\\"govuk-accordion__section-button\\" id=\\"cases-list-heading-3\\"> Item EN 23</span></h2>
                 </div>
-                <div id=\\"-content-3\\" class=\\"govuk-accordion__section-content\\" aria-labelledby=\\"-heading-3\\">
+                <div id=\\"cases-list-content-3\\" class=\\"govuk-accordion__section-content\\"
+                aria-labelledby=\\"cases-list-heading-3\\">
                     <details class=\\"govuk-details\\" data-module=\\"govuk-details\\">
                         <summary class=\\"govuk-details__summary\\"><span class=\\"govuk-details__summary-text\\"> ITEM24 Item EN 24</span>
                         </summary>
@@ -381,9 +383,10 @@ exports[`applications GET /case-officer should render the open applications belo
             </div>
             <div class=\\"govuk-accordion__section \\">
                 <div class=\\"govuk-accordion__section-header\\">
-                    <h2 class=\\"govuk-accordion__section-heading\\"><span class=\\"govuk-accordion__section-button\\" id=\\"-heading-2\\"> Item EN 21</span></h2>
+                    <h2 class=\\"govuk-accordion__section-heading\\"><span class=\\"govuk-accordion__section-button\\" id=\\"cases-list-heading-2\\"> Item EN 21</span></h2>
                 </div>
-                <div id=\\"-content-2\\" class=\\"govuk-accordion__section-content\\" aria-labelledby=\\"-heading-2\\">
+                <div id=\\"cases-list-content-2\\" class=\\"govuk-accordion__section-content\\"
+                aria-labelledby=\\"cases-list-heading-2\\">
                     <details class=\\"govuk-details\\" data-module=\\"govuk-details\\">
                         <summary class=\\"govuk-details__summary\\"><span class=\\"govuk-details__summary-text\\"> ITEM22 Item EN 22</span>
                         </summary>
@@ -410,9 +413,10 @@ exports[`applications GET /case-officer should render the open applications belo
             </div>
             <div class=\\"govuk-accordion__section \\">
                 <div class=\\"govuk-accordion__section-header\\">
-                    <h2 class=\\"govuk-accordion__section-heading\\"><span class=\\"govuk-accordion__section-button\\" id=\\"-heading-3\\"> Item EN 23</span></h2>
+                    <h2 class=\\"govuk-accordion__section-heading\\"><span class=\\"govuk-accordion__section-button\\" id=\\"cases-list-heading-3\\"> Item EN 23</span></h2>
                 </div>
-                <div id=\\"-content-3\\" class=\\"govuk-accordion__section-content\\" aria-labelledby=\\"-heading-3\\">
+                <div id=\\"cases-list-content-3\\" class=\\"govuk-accordion__section-content\\"
+                aria-labelledby=\\"cases-list-heading-3\\">
                     <details class=\\"govuk-details\\" data-module=\\"govuk-details\\">
                         <summary class=\\"govuk-details__summary\\"><span class=\\"govuk-details__summary-text\\"> ITEM24 Item EN 24</span>
                         </summary>
@@ -590,9 +594,10 @@ exports[`applications GET /inspector should render the open applications belongi
             </div>
             <div class=\\"govuk-accordion__section \\">
                 <div class=\\"govuk-accordion__section-header\\">
-                    <h2 class=\\"govuk-accordion__section-heading\\"><span class=\\"govuk-accordion__section-button\\" id=\\"-heading-2\\"> Item EN 21</span></h2>
+                    <h2 class=\\"govuk-accordion__section-heading\\"><span class=\\"govuk-accordion__section-button\\" id=\\"cases-list-heading-2\\"> Item EN 21</span></h2>
                 </div>
-                <div id=\\"-content-2\\" class=\\"govuk-accordion__section-content\\" aria-labelledby=\\"-heading-2\\">
+                <div id=\\"cases-list-content-2\\" class=\\"govuk-accordion__section-content\\"
+                aria-labelledby=\\"cases-list-heading-2\\">
                     <details class=\\"govuk-details\\" data-module=\\"govuk-details\\">
                         <summary class=\\"govuk-details__summary\\"><span class=\\"govuk-details__summary-text\\"> ITEM22 Item EN 22</span>
                         </summary>
@@ -619,9 +624,10 @@ exports[`applications GET /inspector should render the open applications belongi
             </div>
             <div class=\\"govuk-accordion__section \\">
                 <div class=\\"govuk-accordion__section-header\\">
-                    <h2 class=\\"govuk-accordion__section-heading\\"><span class=\\"govuk-accordion__section-button\\" id=\\"-heading-3\\"> Item EN 23</span></h2>
+                    <h2 class=\\"govuk-accordion__section-heading\\"><span class=\\"govuk-accordion__section-button\\" id=\\"cases-list-heading-3\\"> Item EN 23</span></h2>
                 </div>
-                <div id=\\"-content-3\\" class=\\"govuk-accordion__section-content\\" aria-labelledby=\\"-heading-3\\">
+                <div id=\\"cases-list-content-3\\" class=\\"govuk-accordion__section-content\\"
+                aria-labelledby=\\"cases-list-heading-3\\">
                     <details class=\\"govuk-details\\" data-module=\\"govuk-details\\">
                         <summary class=\\"govuk-details__summary\\"><span class=\\"govuk-details__summary-text\\"> ITEM24 Item EN 24</span>
                         </summary>
