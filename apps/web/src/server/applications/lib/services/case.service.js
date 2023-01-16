@@ -100,11 +100,15 @@ export const updateCase = async (caseId, payload) => {
  * @returns {Promise<{publishedDate?: number, errors?: ValidationErrors}>}
  */
 export const publishCase = async (caseId) => {
-	// TODO: this is just a mock
-	return new Promise((resolve) => {
-		setTimeout(() => {
-			// dont mind this, it's just to silence eslint. it'll be all removed when the api is ready
-			resolve({ publishedDate: caseId });
-		}, 200);
-	});
+	let response;
+
+	try {
+		response = await patch(`applications/${caseId}/publish`);
+	} catch {
+		response = new Promise((resolve) => {
+			resolve({ errors: { msg: 'Something went wrong, please try again' } });
+		});
+	}
+
+	return response;
 };

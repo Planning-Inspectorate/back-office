@@ -42,10 +42,12 @@ export async function viewApplicationsCasePublishPage(request, response) {
 export async function updateApplicationsCasePublishPage(request, response) {
 	const { caseId, case: caseToPublish } = response.locals;
 	const isAlreadyPublic = caseToPublish.publishedDate;
-	const { errors } = await publishCase(caseId);
+	const { publishedDate, errors } = await publishCase(caseId);
+
+	response.locals.case = { ...caseToPublish, publishedDate };
 
 	if (errors) {
-		response.render(`applications/case/preview-and-publish`, {
+		return response.render(`applications/case/preview-and-publish`, {
 			selectedPageType: 'preview-and-publish',
 			errors
 		});
