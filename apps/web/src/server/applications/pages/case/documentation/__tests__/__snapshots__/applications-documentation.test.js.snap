@@ -200,7 +200,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                         </tr>
                         <tr class=\\"govuk-table__row govuk-table__row--disabled\\">
                             <td class=\\"govuk-table__cell\\">
-                                <div class=\\"govuk-form-group\\">
+                                <div class=\\"govuk-form-group\\" aria-hidden=\\"true\\">
                                     <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
                                         <div class=\\"govuk-checkboxes__item\\">
                                             <input class=\\"govuk-checkboxes__input\\" id=\\"checkbox-id-1\\" name=\\"selectedFilesIds[]\\"
@@ -224,7 +224,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                         </tr>
                         <tr class=\\"govuk-table__row govuk-table__row--disabled\\">
                             <td class=\\"govuk-table__cell\\">
-                                <div class=\\"govuk-form-group\\">
+                                <div class=\\"govuk-form-group\\" aria-hidden=\\"true\\">
                                     <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
                                         <div class=\\"govuk-checkboxes__item\\">
                                             <input class=\\"govuk-checkboxes__input\\" id=\\"checkbox-id-2\\" name=\\"selectedFilesIds[]\\"
@@ -248,7 +248,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                         </tr>
                         <tr class=\\"govuk-table__row govuk-table__row--disabled\\">
                             <td class=\\"govuk-table__cell\\">
-                                <div class=\\"govuk-form-group\\">
+                                <div class=\\"govuk-form-group\\" aria-hidden=\\"true\\">
                                     <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
                                         <div class=\\"govuk-checkboxes__item\\">
                                             <input class=\\"govuk-checkboxes__input\\" id=\\"checkbox-id-3\\" name=\\"selectedFilesIds[]\\"
@@ -458,7 +458,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                         </tr>
                         <tr class=\\"govuk-table__row govuk-table__row--disabled\\">
                             <td class=\\"govuk-table__cell\\">
-                                <div class=\\"govuk-form-group\\">
+                                <div class=\\"govuk-form-group\\" aria-hidden=\\"true\\">
                                     <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
                                         <div class=\\"govuk-checkboxes__item\\">
                                             <input class=\\"govuk-checkboxes__input\\" id=\\"checkbox-id-12\\" name=\\"selectedFilesIds[]\\"
@@ -482,7 +482,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                         </tr>
                         <tr class=\\"govuk-table__row govuk-table__row--disabled\\">
                             <td class=\\"govuk-table__cell\\">
-                                <div class=\\"govuk-form-group\\">
+                                <div class=\\"govuk-form-group\\" aria-hidden=\\"true\\">
                                     <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
                                         <div class=\\"govuk-checkboxes__item\\">
                                             <input class=\\"govuk-checkboxes__input\\" id=\\"checkbox-id-13\\" name=\\"selectedFilesIds[]\\"
@@ -506,7 +506,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                         </tr>
                         <tr class=\\"govuk-table__row govuk-table__row--disabled\\">
                             <td class=\\"govuk-table__cell\\">
-                                <div class=\\"govuk-form-group\\">
+                                <div class=\\"govuk-form-group\\" aria-hidden=\\"true\\">
                                     <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
                                         <div class=\\"govuk-checkboxes__item\\">
                                             <input class=\\"govuk-checkboxes__input\\" id=\\"checkbox-id-14\\" name=\\"selectedFilesIds[]\\"
@@ -530,7 +530,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                         </tr>
                         <tr class=\\"govuk-table__row govuk-table__row--disabled\\">
                             <td class=\\"govuk-table__cell\\">
-                                <div class=\\"govuk-form-group\\">
+                                <div class=\\"govuk-form-group\\" aria-hidden=\\"true\\">
                                     <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
                                         <div class=\\"govuk-checkboxes__item\\">
                                             <input class=\\"govuk-checkboxes__input\\" id=\\"checkbox-id-15\\" name=\\"selectedFilesIds[]\\"
@@ -740,7 +740,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                         </tr>
                         <tr class=\\"govuk-table__row govuk-table__row--disabled\\">
                             <td class=\\"govuk-table__cell\\">
-                                <div class=\\"govuk-form-group\\">
+                                <div class=\\"govuk-form-group\\" aria-hidden=\\"true\\">
                                     <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
                                         <div class=\\"govuk-checkboxes__item\\">
                                             <input class=\\"govuk-checkboxes__input\\" id=\\"checkbox-id-24\\" name=\\"selectedFilesIds[]\\"
@@ -764,7 +764,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                         </tr>
                         <tr class=\\"govuk-table__row govuk-table__row--disabled\\">
                             <td class=\\"govuk-table__cell\\">
-                                <div class=\\"govuk-form-group\\">
+                                <div class=\\"govuk-form-group\\" aria-hidden=\\"true\\">
                                     <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
                                         <div class=\\"govuk-checkboxes__item\\">
                                             <input class=\\"govuk-checkboxes__input\\" id=\\"checkbox-id-25\\" name=\\"selectedFilesIds[]\\"
@@ -788,7 +788,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                         </tr>
                         <tr class=\\"govuk-table__row govuk-table__row--disabled\\">
                             <td class=\\"govuk-table__cell\\">
-                                <div class=\\"govuk-form-group\\">
+                                <div class=\\"govuk-form-group\\" aria-hidden=\\"true\\">
                                     <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
                                         <div class=\\"govuk-checkboxes__item\\">
                                             <input class=\\"govuk-checkboxes__input\\" id=\\"checkbox-id-26\\" name=\\"selectedFilesIds[]\\"
@@ -1112,7 +1112,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                         </tr>
                         <tr class=\\"govuk-table__row govuk-table__row--disabled\\">
                             <td class=\\"govuk-table__cell\\">
-                                <div class=\\"govuk-form-group\\">
+                                <div class=\\"govuk-form-group\\" aria-hidden=\\"true\\">
                                     <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
                                         <div class=\\"govuk-checkboxes__item\\">
                                             <input class=\\"govuk-checkboxes__input\\" id=\\"checkbox-id-1\\" name=\\"selectedFilesIds[]\\"
@@ -1136,7 +1136,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                         </tr>
                         <tr class=\\"govuk-table__row govuk-table__row--disabled\\">
                             <td class=\\"govuk-table__cell\\">
-                                <div class=\\"govuk-form-group\\">
+                                <div class=\\"govuk-form-group\\" aria-hidden=\\"true\\">
                                     <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
                                         <div class=\\"govuk-checkboxes__item\\">
                                             <input class=\\"govuk-checkboxes__input\\" id=\\"checkbox-id-2\\" name=\\"selectedFilesIds[]\\"
@@ -1160,7 +1160,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                         </tr>
                         <tr class=\\"govuk-table__row govuk-table__row--disabled\\">
                             <td class=\\"govuk-table__cell\\">
-                                <div class=\\"govuk-form-group\\">
+                                <div class=\\"govuk-form-group\\" aria-hidden=\\"true\\">
                                     <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
                                         <div class=\\"govuk-checkboxes__item\\">
                                             <input class=\\"govuk-checkboxes__input\\" id=\\"checkbox-id-3\\" name=\\"selectedFilesIds[]\\"
@@ -1370,7 +1370,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                         </tr>
                         <tr class=\\"govuk-table__row govuk-table__row--disabled\\">
                             <td class=\\"govuk-table__cell\\">
-                                <div class=\\"govuk-form-group\\">
+                                <div class=\\"govuk-form-group\\" aria-hidden=\\"true\\">
                                     <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
                                         <div class=\\"govuk-checkboxes__item\\">
                                             <input class=\\"govuk-checkboxes__input\\" id=\\"checkbox-id-12\\" name=\\"selectedFilesIds[]\\"
@@ -1394,7 +1394,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                         </tr>
                         <tr class=\\"govuk-table__row govuk-table__row--disabled\\">
                             <td class=\\"govuk-table__cell\\">
-                                <div class=\\"govuk-form-group\\">
+                                <div class=\\"govuk-form-group\\" aria-hidden=\\"true\\">
                                     <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
                                         <div class=\\"govuk-checkboxes__item\\">
                                             <input class=\\"govuk-checkboxes__input\\" id=\\"checkbox-id-13\\" name=\\"selectedFilesIds[]\\"
@@ -1418,7 +1418,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                         </tr>
                         <tr class=\\"govuk-table__row govuk-table__row--disabled\\">
                             <td class=\\"govuk-table__cell\\">
-                                <div class=\\"govuk-form-group\\">
+                                <div class=\\"govuk-form-group\\" aria-hidden=\\"true\\">
                                     <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
                                         <div class=\\"govuk-checkboxes__item\\">
                                             <input class=\\"govuk-checkboxes__input\\" id=\\"checkbox-id-14\\" name=\\"selectedFilesIds[]\\"
@@ -1442,7 +1442,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                         </tr>
                         <tr class=\\"govuk-table__row govuk-table__row--disabled\\">
                             <td class=\\"govuk-table__cell\\">
-                                <div class=\\"govuk-form-group\\">
+                                <div class=\\"govuk-form-group\\" aria-hidden=\\"true\\">
                                     <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
                                         <div class=\\"govuk-checkboxes__item\\">
                                             <input class=\\"govuk-checkboxes__input\\" id=\\"checkbox-id-15\\" name=\\"selectedFilesIds[]\\"
@@ -1652,7 +1652,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                         </tr>
                         <tr class=\\"govuk-table__row govuk-table__row--disabled\\">
                             <td class=\\"govuk-table__cell\\">
-                                <div class=\\"govuk-form-group\\">
+                                <div class=\\"govuk-form-group\\" aria-hidden=\\"true\\">
                                     <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
                                         <div class=\\"govuk-checkboxes__item\\">
                                             <input class=\\"govuk-checkboxes__input\\" id=\\"checkbox-id-24\\" name=\\"selectedFilesIds[]\\"
@@ -1676,7 +1676,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                         </tr>
                         <tr class=\\"govuk-table__row govuk-table__row--disabled\\">
                             <td class=\\"govuk-table__cell\\">
-                                <div class=\\"govuk-form-group\\">
+                                <div class=\\"govuk-form-group\\" aria-hidden=\\"true\\">
                                     <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
                                         <div class=\\"govuk-checkboxes__item\\">
                                             <input class=\\"govuk-checkboxes__input\\" id=\\"checkbox-id-25\\" name=\\"selectedFilesIds[]\\"
@@ -1700,7 +1700,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                         </tr>
                         <tr class=\\"govuk-table__row govuk-table__row--disabled\\">
                             <td class=\\"govuk-table__cell\\">
-                                <div class=\\"govuk-form-group\\">
+                                <div class=\\"govuk-form-group\\" aria-hidden=\\"true\\">
                                     <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
                                         <div class=\\"govuk-checkboxes__item\\">
                                             <input class=\\"govuk-checkboxes__input\\" id=\\"checkbox-id-26\\" name=\\"selectedFilesIds[]\\"
@@ -1911,7 +1911,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                         </tr>
                         <tr class=\\"govuk-table__row govuk-table__row--disabled\\">
                             <td class=\\"govuk-table__cell\\">
-                                <div class=\\"govuk-form-group\\">
+                                <div class=\\"govuk-form-group\\" aria-hidden=\\"true\\">
                                     <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
                                         <div class=\\"govuk-checkboxes__item\\">
                                             <input class=\\"govuk-checkboxes__input\\" id=\\"checkbox-id-35\\" name=\\"selectedFilesIds[]\\"
@@ -1935,7 +1935,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                         </tr>
                         <tr class=\\"govuk-table__row govuk-table__row--disabled\\">
                             <td class=\\"govuk-table__cell\\">
-                                <div class=\\"govuk-form-group\\">
+                                <div class=\\"govuk-form-group\\" aria-hidden=\\"true\\">
                                     <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
                                         <div class=\\"govuk-checkboxes__item\\">
                                             <input class=\\"govuk-checkboxes__input\\" id=\\"checkbox-id-36\\" name=\\"selectedFilesIds[]\\"
@@ -1959,7 +1959,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                         </tr>
                         <tr class=\\"govuk-table__row govuk-table__row--disabled\\">
                             <td class=\\"govuk-table__cell\\">
-                                <div class=\\"govuk-form-group\\">
+                                <div class=\\"govuk-form-group\\" aria-hidden=\\"true\\">
                                     <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
                                         <div class=\\"govuk-checkboxes__item\\">
                                             <input class=\\"govuk-checkboxes__input\\" id=\\"checkbox-id-37\\" name=\\"selectedFilesIds[]\\"
@@ -1983,7 +1983,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                         </tr>
                         <tr class=\\"govuk-table__row govuk-table__row--disabled\\">
                             <td class=\\"govuk-table__cell\\">
-                                <div class=\\"govuk-form-group\\">
+                                <div class=\\"govuk-form-group\\" aria-hidden=\\"true\\">
                                     <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
                                         <div class=\\"govuk-checkboxes__item\\">
                                             <input class=\\"govuk-checkboxes__input\\" id=\\"checkbox-id-38\\" name=\\"selectedFilesIds[]\\"
@@ -2217,7 +2217,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                         </tr>
                         <tr class=\\"govuk-table__row govuk-table__row--disabled\\">
                             <td class=\\"govuk-table__cell\\">
-                                <div class=\\"govuk-form-group\\">
+                                <div class=\\"govuk-form-group\\" aria-hidden=\\"true\\">
                                     <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
                                         <div class=\\"govuk-checkboxes__item\\">
                                             <input class=\\"govuk-checkboxes__input\\" id=\\"checkbox-id-48\\" name=\\"selectedFilesIds[]\\"
@@ -2241,7 +2241,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                         </tr>
                         <tr class=\\"govuk-table__row govuk-table__row--disabled\\">
                             <td class=\\"govuk-table__cell\\">
-                                <div class=\\"govuk-form-group\\">
+                                <div class=\\"govuk-form-group\\" aria-hidden=\\"true\\">
                                     <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
                                         <div class=\\"govuk-checkboxes__item\\">
                                             <input class=\\"govuk-checkboxes__input\\" id=\\"checkbox-id-49\\" name=\\"selectedFilesIds[]\\"
@@ -2641,7 +2641,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                         </tr>
                         <tr class=\\"govuk-table__row govuk-table__row--disabled\\">
                             <td class=\\"govuk-table__cell\\">
-                                <div class=\\"govuk-form-group\\">
+                                <div class=\\"govuk-form-group\\" aria-hidden=\\"true\\">
                                     <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
                                         <div class=\\"govuk-checkboxes__item\\">
                                             <input class=\\"govuk-checkboxes__input\\" id=\\"checkbox-id-35\\" name=\\"selectedFilesIds[]\\"
@@ -2665,7 +2665,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                         </tr>
                         <tr class=\\"govuk-table__row govuk-table__row--disabled\\">
                             <td class=\\"govuk-table__cell\\">
-                                <div class=\\"govuk-form-group\\">
+                                <div class=\\"govuk-form-group\\" aria-hidden=\\"true\\">
                                     <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
                                         <div class=\\"govuk-checkboxes__item\\">
                                             <input class=\\"govuk-checkboxes__input\\" id=\\"checkbox-id-36\\" name=\\"selectedFilesIds[]\\"
@@ -2689,7 +2689,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                         </tr>
                         <tr class=\\"govuk-table__row govuk-table__row--disabled\\">
                             <td class=\\"govuk-table__cell\\">
-                                <div class=\\"govuk-form-group\\">
+                                <div class=\\"govuk-form-group\\" aria-hidden=\\"true\\">
                                     <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
                                         <div class=\\"govuk-checkboxes__item\\">
                                             <input class=\\"govuk-checkboxes__input\\" id=\\"checkbox-id-37\\" name=\\"selectedFilesIds[]\\"
@@ -2713,7 +2713,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                         </tr>
                         <tr class=\\"govuk-table__row govuk-table__row--disabled\\">
                             <td class=\\"govuk-table__cell\\">
-                                <div class=\\"govuk-form-group\\">
+                                <div class=\\"govuk-form-group\\" aria-hidden=\\"true\\">
                                     <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
                                         <div class=\\"govuk-checkboxes__item\\">
                                             <input class=\\"govuk-checkboxes__input\\" id=\\"checkbox-id-38\\" name=\\"selectedFilesIds[]\\"
@@ -2947,7 +2947,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                         </tr>
                         <tr class=\\"govuk-table__row govuk-table__row--disabled\\">
                             <td class=\\"govuk-table__cell\\">
-                                <div class=\\"govuk-form-group\\">
+                                <div class=\\"govuk-form-group\\" aria-hidden=\\"true\\">
                                     <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
                                         <div class=\\"govuk-checkboxes__item\\">
                                             <input class=\\"govuk-checkboxes__input\\" id=\\"checkbox-id-48\\" name=\\"selectedFilesIds[]\\"
@@ -2971,7 +2971,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                         </tr>
                         <tr class=\\"govuk-table__row govuk-table__row--disabled\\">
                             <td class=\\"govuk-table__cell\\">
-                                <div class=\\"govuk-form-group\\">
+                                <div class=\\"govuk-form-group\\" aria-hidden=\\"true\\">
                                     <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
                                         <div class=\\"govuk-checkboxes__item\\">
                                             <input class=\\"govuk-checkboxes__input\\" id=\\"checkbox-id-49\\" name=\\"selectedFilesIds[]\\"
@@ -3206,7 +3206,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                         </tr>
                         <tr class=\\"govuk-table__row govuk-table__row--disabled\\">
                             <td class=\\"govuk-table__cell\\">
-                                <div class=\\"govuk-form-group\\">
+                                <div class=\\"govuk-form-group\\" aria-hidden=\\"true\\">
                                     <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
                                         <div class=\\"govuk-checkboxes__item\\">
                                             <input class=\\"govuk-checkboxes__input\\" id=\\"checkbox-id-59\\" name=\\"selectedFilesIds[]\\"
@@ -3532,7 +3532,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                         </tr>
                         <tr class=\\"govuk-table__row govuk-table__row--disabled\\">
                             <td class=\\"govuk-table__cell\\">
-                                <div class=\\"govuk-form-group\\">
+                                <div class=\\"govuk-form-group\\" aria-hidden=\\"true\\">
                                     <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
                                         <div class=\\"govuk-checkboxes__item\\">
                                             <input class=\\"govuk-checkboxes__input\\" id=\\"checkbox-id-1\\" name=\\"selectedFilesIds[]\\"
@@ -3556,7 +3556,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                         </tr>
                         <tr class=\\"govuk-table__row govuk-table__row--disabled\\">
                             <td class=\\"govuk-table__cell\\">
-                                <div class=\\"govuk-form-group\\">
+                                <div class=\\"govuk-form-group\\" aria-hidden=\\"true\\">
                                     <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
                                         <div class=\\"govuk-checkboxes__item\\">
                                             <input class=\\"govuk-checkboxes__input\\" id=\\"checkbox-id-2\\" name=\\"selectedFilesIds[]\\"
@@ -3580,7 +3580,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                         </tr>
                         <tr class=\\"govuk-table__row govuk-table__row--disabled\\">
                             <td class=\\"govuk-table__cell\\">
-                                <div class=\\"govuk-form-group\\">
+                                <div class=\\"govuk-form-group\\" aria-hidden=\\"true\\">
                                     <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
                                         <div class=\\"govuk-checkboxes__item\\">
                                             <input class=\\"govuk-checkboxes__input\\" id=\\"checkbox-id-3\\" name=\\"selectedFilesIds[]\\"
@@ -3790,7 +3790,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                         </tr>
                         <tr class=\\"govuk-table__row govuk-table__row--disabled\\">
                             <td class=\\"govuk-table__cell\\">
-                                <div class=\\"govuk-form-group\\">
+                                <div class=\\"govuk-form-group\\" aria-hidden=\\"true\\">
                                     <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
                                         <div class=\\"govuk-checkboxes__item\\">
                                             <input class=\\"govuk-checkboxes__input\\" id=\\"checkbox-id-12\\" name=\\"selectedFilesIds[]\\"
@@ -3814,7 +3814,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                         </tr>
                         <tr class=\\"govuk-table__row govuk-table__row--disabled\\">
                             <td class=\\"govuk-table__cell\\">
-                                <div class=\\"govuk-form-group\\">
+                                <div class=\\"govuk-form-group\\" aria-hidden=\\"true\\">
                                     <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
                                         <div class=\\"govuk-checkboxes__item\\">
                                             <input class=\\"govuk-checkboxes__input\\" id=\\"checkbox-id-13\\" name=\\"selectedFilesIds[]\\"
@@ -3838,7 +3838,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                         </tr>
                         <tr class=\\"govuk-table__row govuk-table__row--disabled\\">
                             <td class=\\"govuk-table__cell\\">
-                                <div class=\\"govuk-form-group\\">
+                                <div class=\\"govuk-form-group\\" aria-hidden=\\"true\\">
                                     <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
                                         <div class=\\"govuk-checkboxes__item\\">
                                             <input class=\\"govuk-checkboxes__input\\" id=\\"checkbox-id-14\\" name=\\"selectedFilesIds[]\\"
@@ -3862,7 +3862,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                         </tr>
                         <tr class=\\"govuk-table__row govuk-table__row--disabled\\">
                             <td class=\\"govuk-table__cell\\">
-                                <div class=\\"govuk-form-group\\">
+                                <div class=\\"govuk-form-group\\" aria-hidden=\\"true\\">
                                     <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
                                         <div class=\\"govuk-checkboxes__item\\">
                                             <input class=\\"govuk-checkboxes__input\\" id=\\"checkbox-id-15\\" name=\\"selectedFilesIds[]\\"
@@ -4072,7 +4072,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                         </tr>
                         <tr class=\\"govuk-table__row govuk-table__row--disabled\\">
                             <td class=\\"govuk-table__cell\\">
-                                <div class=\\"govuk-form-group\\">
+                                <div class=\\"govuk-form-group\\" aria-hidden=\\"true\\">
                                     <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
                                         <div class=\\"govuk-checkboxes__item\\">
                                             <input class=\\"govuk-checkboxes__input\\" id=\\"checkbox-id-24\\" name=\\"selectedFilesIds[]\\"
@@ -4096,7 +4096,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                         </tr>
                         <tr class=\\"govuk-table__row govuk-table__row--disabled\\">
                             <td class=\\"govuk-table__cell\\">
-                                <div class=\\"govuk-form-group\\">
+                                <div class=\\"govuk-form-group\\" aria-hidden=\\"true\\">
                                     <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
                                         <div class=\\"govuk-checkboxes__item\\">
                                             <input class=\\"govuk-checkboxes__input\\" id=\\"checkbox-id-25\\" name=\\"selectedFilesIds[]\\"
@@ -4120,7 +4120,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                         </tr>
                         <tr class=\\"govuk-table__row govuk-table__row--disabled\\">
                             <td class=\\"govuk-table__cell\\">
-                                <div class=\\"govuk-form-group\\">
+                                <div class=\\"govuk-form-group\\" aria-hidden=\\"true\\">
                                     <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
                                         <div class=\\"govuk-checkboxes__item\\">
                                             <input class=\\"govuk-checkboxes__input\\" id=\\"checkbox-id-26\\" name=\\"selectedFilesIds[]\\"
@@ -4331,7 +4331,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                         </tr>
                         <tr class=\\"govuk-table__row govuk-table__row--disabled\\">
                             <td class=\\"govuk-table__cell\\">
-                                <div class=\\"govuk-form-group\\">
+                                <div class=\\"govuk-form-group\\" aria-hidden=\\"true\\">
                                     <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
                                         <div class=\\"govuk-checkboxes__item\\">
                                             <input class=\\"govuk-checkboxes__input\\" id=\\"checkbox-id-35\\" name=\\"selectedFilesIds[]\\"
@@ -4355,7 +4355,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                         </tr>
                         <tr class=\\"govuk-table__row govuk-table__row--disabled\\">
                             <td class=\\"govuk-table__cell\\">
-                                <div class=\\"govuk-form-group\\">
+                                <div class=\\"govuk-form-group\\" aria-hidden=\\"true\\">
                                     <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
                                         <div class=\\"govuk-checkboxes__item\\">
                                             <input class=\\"govuk-checkboxes__input\\" id=\\"checkbox-id-36\\" name=\\"selectedFilesIds[]\\"
@@ -4379,7 +4379,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                         </tr>
                         <tr class=\\"govuk-table__row govuk-table__row--disabled\\">
                             <td class=\\"govuk-table__cell\\">
-                                <div class=\\"govuk-form-group\\">
+                                <div class=\\"govuk-form-group\\" aria-hidden=\\"true\\">
                                     <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
                                         <div class=\\"govuk-checkboxes__item\\">
                                             <input class=\\"govuk-checkboxes__input\\" id=\\"checkbox-id-37\\" name=\\"selectedFilesIds[]\\"
@@ -4403,7 +4403,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                         </tr>
                         <tr class=\\"govuk-table__row govuk-table__row--disabled\\">
                             <td class=\\"govuk-table__cell\\">
-                                <div class=\\"govuk-form-group\\">
+                                <div class=\\"govuk-form-group\\" aria-hidden=\\"true\\">
                                     <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
                                         <div class=\\"govuk-checkboxes__item\\">
                                             <input class=\\"govuk-checkboxes__input\\" id=\\"checkbox-id-38\\" name=\\"selectedFilesIds[]\\"
@@ -4637,7 +4637,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                         </tr>
                         <tr class=\\"govuk-table__row govuk-table__row--disabled\\">
                             <td class=\\"govuk-table__cell\\">
-                                <div class=\\"govuk-form-group\\">
+                                <div class=\\"govuk-form-group\\" aria-hidden=\\"true\\">
                                     <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
                                         <div class=\\"govuk-checkboxes__item\\">
                                             <input class=\\"govuk-checkboxes__input\\" id=\\"checkbox-id-48\\" name=\\"selectedFilesIds[]\\"
@@ -4661,7 +4661,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                         </tr>
                         <tr class=\\"govuk-table__row govuk-table__row--disabled\\">
                             <td class=\\"govuk-table__cell\\">
-                                <div class=\\"govuk-form-group\\">
+                                <div class=\\"govuk-form-group\\" aria-hidden=\\"true\\">
                                     <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
                                         <div class=\\"govuk-checkboxes__item\\">
                                             <input class=\\"govuk-checkboxes__input\\" id=\\"checkbox-id-49\\" name=\\"selectedFilesIds[]\\"
@@ -4921,7 +4921,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                         </tr>
                         <tr class=\\"govuk-table__row govuk-table__row--disabled\\">
                             <td class=\\"govuk-table__cell\\">
-                                <div class=\\"govuk-form-group\\">
+                                <div class=\\"govuk-form-group\\" aria-hidden=\\"true\\">
                                     <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
                                         <div class=\\"govuk-checkboxes__item\\">
                                             <input class=\\"govuk-checkboxes__input\\" id=\\"checkbox-id-1\\" name=\\"selectedFilesIds[]\\"
@@ -4945,7 +4945,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                         </tr>
                         <tr class=\\"govuk-table__row govuk-table__row--disabled\\">
                             <td class=\\"govuk-table__cell\\">
-                                <div class=\\"govuk-form-group\\">
+                                <div class=\\"govuk-form-group\\" aria-hidden=\\"true\\">
                                     <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
                                         <div class=\\"govuk-checkboxes__item\\">
                                             <input class=\\"govuk-checkboxes__input\\" id=\\"checkbox-id-2\\" name=\\"selectedFilesIds[]\\"
@@ -4969,7 +4969,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                         </tr>
                         <tr class=\\"govuk-table__row govuk-table__row--disabled\\">
                             <td class=\\"govuk-table__cell\\">
-                                <div class=\\"govuk-form-group\\">
+                                <div class=\\"govuk-form-group\\" aria-hidden=\\"true\\">
                                     <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
                                         <div class=\\"govuk-checkboxes__item\\">
                                             <input class=\\"govuk-checkboxes__input\\" id=\\"checkbox-id-3\\" name=\\"selectedFilesIds[]\\"
@@ -5179,7 +5179,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                         </tr>
                         <tr class=\\"govuk-table__row govuk-table__row--disabled\\">
                             <td class=\\"govuk-table__cell\\">
-                                <div class=\\"govuk-form-group\\">
+                                <div class=\\"govuk-form-group\\" aria-hidden=\\"true\\">
                                     <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
                                         <div class=\\"govuk-checkboxes__item\\">
                                             <input class=\\"govuk-checkboxes__input\\" id=\\"checkbox-id-12\\" name=\\"selectedFilesIds[]\\"
@@ -5203,7 +5203,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                         </tr>
                         <tr class=\\"govuk-table__row govuk-table__row--disabled\\">
                             <td class=\\"govuk-table__cell\\">
-                                <div class=\\"govuk-form-group\\">
+                                <div class=\\"govuk-form-group\\" aria-hidden=\\"true\\">
                                     <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
                                         <div class=\\"govuk-checkboxes__item\\">
                                             <input class=\\"govuk-checkboxes__input\\" id=\\"checkbox-id-13\\" name=\\"selectedFilesIds[]\\"
@@ -5227,7 +5227,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                         </tr>
                         <tr class=\\"govuk-table__row govuk-table__row--disabled\\">
                             <td class=\\"govuk-table__cell\\">
-                                <div class=\\"govuk-form-group\\">
+                                <div class=\\"govuk-form-group\\" aria-hidden=\\"true\\">
                                     <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
                                         <div class=\\"govuk-checkboxes__item\\">
                                             <input class=\\"govuk-checkboxes__input\\" id=\\"checkbox-id-14\\" name=\\"selectedFilesIds[]\\"
@@ -5251,7 +5251,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                         </tr>
                         <tr class=\\"govuk-table__row govuk-table__row--disabled\\">
                             <td class=\\"govuk-table__cell\\">
-                                <div class=\\"govuk-form-group\\">
+                                <div class=\\"govuk-form-group\\" aria-hidden=\\"true\\">
                                     <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
                                         <div class=\\"govuk-checkboxes__item\\">
                                             <input class=\\"govuk-checkboxes__input\\" id=\\"checkbox-id-15\\" name=\\"selectedFilesIds[]\\"
@@ -5461,7 +5461,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                         </tr>
                         <tr class=\\"govuk-table__row govuk-table__row--disabled\\">
                             <td class=\\"govuk-table__cell\\">
-                                <div class=\\"govuk-form-group\\">
+                                <div class=\\"govuk-form-group\\" aria-hidden=\\"true\\">
                                     <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
                                         <div class=\\"govuk-checkboxes__item\\">
                                             <input class=\\"govuk-checkboxes__input\\" id=\\"checkbox-id-24\\" name=\\"selectedFilesIds[]\\"
@@ -5485,7 +5485,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                         </tr>
                         <tr class=\\"govuk-table__row govuk-table__row--disabled\\">
                             <td class=\\"govuk-table__cell\\">
-                                <div class=\\"govuk-form-group\\">
+                                <div class=\\"govuk-form-group\\" aria-hidden=\\"true\\">
                                     <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
                                         <div class=\\"govuk-checkboxes__item\\">
                                             <input class=\\"govuk-checkboxes__input\\" id=\\"checkbox-id-25\\" name=\\"selectedFilesIds[]\\"
@@ -5509,7 +5509,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                         </tr>
                         <tr class=\\"govuk-table__row govuk-table__row--disabled\\">
                             <td class=\\"govuk-table__cell\\">
-                                <div class=\\"govuk-form-group\\">
+                                <div class=\\"govuk-form-group\\" aria-hidden=\\"true\\">
                                     <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
                                         <div class=\\"govuk-checkboxes__item\\">
                                             <input class=\\"govuk-checkboxes__input\\" id=\\"checkbox-id-26\\" name=\\"selectedFilesIds[]\\"
@@ -5720,7 +5720,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                         </tr>
                         <tr class=\\"govuk-table__row govuk-table__row--disabled\\">
                             <td class=\\"govuk-table__cell\\">
-                                <div class=\\"govuk-form-group\\">
+                                <div class=\\"govuk-form-group\\" aria-hidden=\\"true\\">
                                     <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
                                         <div class=\\"govuk-checkboxes__item\\">
                                             <input class=\\"govuk-checkboxes__input\\" id=\\"checkbox-id-35\\" name=\\"selectedFilesIds[]\\"
@@ -5744,7 +5744,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                         </tr>
                         <tr class=\\"govuk-table__row govuk-table__row--disabled\\">
                             <td class=\\"govuk-table__cell\\">
-                                <div class=\\"govuk-form-group\\">
+                                <div class=\\"govuk-form-group\\" aria-hidden=\\"true\\">
                                     <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
                                         <div class=\\"govuk-checkboxes__item\\">
                                             <input class=\\"govuk-checkboxes__input\\" id=\\"checkbox-id-36\\" name=\\"selectedFilesIds[]\\"
@@ -5768,7 +5768,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                         </tr>
                         <tr class=\\"govuk-table__row govuk-table__row--disabled\\">
                             <td class=\\"govuk-table__cell\\">
-                                <div class=\\"govuk-form-group\\">
+                                <div class=\\"govuk-form-group\\" aria-hidden=\\"true\\">
                                     <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
                                         <div class=\\"govuk-checkboxes__item\\">
                                             <input class=\\"govuk-checkboxes__input\\" id=\\"checkbox-id-37\\" name=\\"selectedFilesIds[]\\"
@@ -5792,7 +5792,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                         </tr>
                         <tr class=\\"govuk-table__row govuk-table__row--disabled\\">
                             <td class=\\"govuk-table__cell\\">
-                                <div class=\\"govuk-form-group\\">
+                                <div class=\\"govuk-form-group\\" aria-hidden=\\"true\\">
                                     <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
                                         <div class=\\"govuk-checkboxes__item\\">
                                             <input class=\\"govuk-checkboxes__input\\" id=\\"checkbox-id-38\\" name=\\"selectedFilesIds[]\\"
@@ -6026,7 +6026,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                         </tr>
                         <tr class=\\"govuk-table__row govuk-table__row--disabled\\">
                             <td class=\\"govuk-table__cell\\">
-                                <div class=\\"govuk-form-group\\">
+                                <div class=\\"govuk-form-group\\" aria-hidden=\\"true\\">
                                     <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
                                         <div class=\\"govuk-checkboxes__item\\">
                                             <input class=\\"govuk-checkboxes__input\\" id=\\"checkbox-id-48\\" name=\\"selectedFilesIds[]\\"
@@ -6050,7 +6050,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                         </tr>
                         <tr class=\\"govuk-table__row govuk-table__row--disabled\\">
                             <td class=\\"govuk-table__cell\\">
-                                <div class=\\"govuk-form-group\\">
+                                <div class=\\"govuk-form-group\\" aria-hidden=\\"true\\">
                                     <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
                                         <div class=\\"govuk-checkboxes__item\\">
                                             <input class=\\"govuk-checkboxes__input\\" id=\\"checkbox-id-49\\" name=\\"selectedFilesIds[]\\"
