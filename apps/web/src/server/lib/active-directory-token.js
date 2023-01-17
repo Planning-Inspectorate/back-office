@@ -1,5 +1,6 @@
 import { acquireTokenSilent } from '../app/auth/auth.service.js';
 import { getAccount } from '../app/auth/auth-session.service.js';
+import pino from './logger.js';
 
 /** @typedef {import('../app/auth/auth-session.service').SessionWithAuth} SessionWithAuth */
 /** @typedef {import('@azure/core-auth').AccessToken} AccessToken */
@@ -28,6 +29,10 @@ const getActiveDirectoryAccessToken = async (session) => {
 	}
 
 	const { accessToken, expiresOn } = blobResourceAuthResult;
+
+	pino.info('access token from utility func:');
+	pino.info(accessToken);
+	pino.info(expiresOn);
 
 	return { token: accessToken, expiresOnTimestamp: new Date(expiresOn).getTime() };
 };

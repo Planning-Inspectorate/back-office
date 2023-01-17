@@ -2,6 +2,7 @@ import { request } from 'node:https';
 import config from '../../../../environment/config.js';
 import { getCaseDocumentationFileUrl } from '../../applications/pages/case/documentation/applications-documentation.service.js';
 import getActiveDirectoryAccessToken from '../../lib/active-directory-token.js';
+import pino from '../../lib/logger.js';
 import createSasToken from '../../lib/sas-token.js';
 
 /** @typedef {import('../auth/auth-session.service').SessionWithAuth} SessionWithAuth */
@@ -19,6 +20,11 @@ const getDocumentsDownload = async ({ params, session }, response) => {
 	const { blobStorageUrl } = config;
 
 	const accessToken = await getActiveDirectoryAccessToken(session);
+
+	pino.info('access token from download:');
+	pino.info(accessToken?.token);
+	pino.info(accessToken?.expiresOnTimestamp);
+
 	const { blobStorageContainer, blobStoragePath } = await getCaseDocumentationFileUrl(
 		caseId,
 		fileGuid
