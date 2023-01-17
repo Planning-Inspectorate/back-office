@@ -10,7 +10,8 @@ import config from '../../../environment/config.js';
 /** @typedef {import('@azure/storage-blob').ServiceGetUserDelegationKeyResponse} DelegationKey */
 
 const sasTokenStartTime = () => new Date(Date.now() - 60 * 1000);
-const sasTokenExpirationTime = () => new Date(Date.now() + 10 * 1000);
+// 30seconds in the future + server latency ( +/- 1min)
+const sasTokenExpirationTime = () => new Date(Date.now() + 30 * 1000);
 
 const { blobStorageUrl = 'https://blob.core.windows.net/' } = config;
 const blobStorageAccountName = blobStorageUrl.split('/')[2].split('.')[0];
