@@ -1,6 +1,5 @@
 import { acquireTokenSilent } from '../app/auth/auth.service.js';
 import { getAccount } from '../app/auth/auth-session.service.js';
-import pino from './logger.js';
 
 /** @typedef {import('../app/auth/auth-session.service').SessionWithAuth} SessionWithAuth */
 /** @typedef {import('@azure/core-auth').AccessToken} AccessToken */
@@ -19,22 +18,18 @@ const getActiveDirectoryAccessToken = async (session) => {
 		throw new Error('Session account not found');
 	}
 
-	/** @type {AuthenticationResult | null} * */
+	/** @type {{accessToken: string, expiresOn: any} | null} * */
 	const blobResourceAuthResult = await acquireTokenSilent(sessionAccount, [
 		'https://storage.azure.com/user_impersonation'
 	]);
 
-	if (!blobResourceAuthResult?.accessToken || !blobResourceAuthResult?.expiresOn) {
+	if (!blobResourceAuthResult?.accessToken) {
 		throw new Error('Active Directory access token not found');
 	}
 
 	const { accessToken, expiresOn } = blobResourceAuthResult;
 
-	pino.info('access token from utility func:');
-	pino.info(accessToken);
-	pino.info(expiresOn);
-
-	return { token: accessToken, expiresOnTimestamp: new Date(expiresOn).getTime() };
+	return { token: accessToken, expiresOnTimestamp: expiresOn };
 };
 
 export default getActiveDirectoryAccessToken;

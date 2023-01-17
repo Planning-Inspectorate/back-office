@@ -5,14 +5,12 @@ import {
 	SASProtocol
 } from '@azure/storage-blob';
 import config from '../../../environment/config.js';
-import pino from './logger.js';
 
 /** @typedef {import('@azure/core-auth').AccessToken} AccessToken */
 /** @typedef {import('@azure/storage-blob').ServiceGetUserDelegationKeyResponse} DelegationKey */
 
-// todo: revert shorter timespan
-const sasTokenStartTime = () => new Date(Date.now() - 10 * 60 * 1000);
-const sasTokenExpirationTime = () => new Date(Date.now() + 10 * 60 * 1000);
+const sasTokenStartTime = () => new Date(Date.now() - 60 * 1000);
+const sasTokenExpirationTime = () => new Date(Date.now() + 10 * 1000);
 
 const { blobStorageUrl = 'https://blob.core.windows.net/' } = config;
 const blobStorageAccountName = blobStorageUrl.split('/')[2].split('.')[0];
@@ -44,10 +42,6 @@ const createDelegationKey = async (accessToken) => {
 const createSasToken = async (accessToken, containerName, blobName) => {
 	// Use the AD access token to get a "delegation key"
 	const userDelegationKey = await createDelegationKey(accessToken);
-
-	pino.info('SERVER TIME:', userDelegationKey.date || 'no date!');
-	pino.info('START TOKEN TIME:', sasTokenStartTime());
-	pino.info('EXPIRE TOKEN TIME:', sasTokenExpirationTime());
 
 	const sasOptions = {
 		// specific containerName
