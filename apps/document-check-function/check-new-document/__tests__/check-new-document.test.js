@@ -22,21 +22,21 @@ backOfficePatchStub
 	.returns({ json: sinon.stub() });
 
 backOfficePatchStub
-	.withArgs('test-api-host:3000/applications/documents/123-345/status', {
+	.withArgs('https://test-api-host:3000/applications/documents/123-345/status', {
 		json: {
 			machineAction: 'check_success'
 		}
 	})
 	.returns({ json: sinon.stub() });
 backOfficePatchStub
-	.withArgs('test-api-host:3000/applications/documents/123-345/status', {
+	.withArgs('https://test-api-host:3000/applications/documents/123-345/status', {
 		json: {
 			machineAction: 'check_fail'
 		}
 	})
 	.returns({ json: sinon.stub() });
 backOfficePatchStub
-	.withArgs('test-api-host:3000/applications/documents/123-345-678/status', {
+	.withArgs('https://test-api-host:3000/applications/documents/123-345-678/status', {
 		json: {
 			machineAction: 'check_fail'
 		}
@@ -57,7 +57,7 @@ const backOfficeFailedAVHttpError = new HTTPError(backOfficeFailedAVErrorRespons
 backOfficeFailedAVHttpError.response = backOfficeFailedAVErrorResponse;
 
 backOfficePatchStub
-	.withArgs('test-api-host:3000/applications/documents/123-345-901/status', {
+	.withArgs('https://test-api-host:3000/applications/documents/123-345-901/status', {
 		json: {
 			machineAction: 'check_fail'
 		}
@@ -78,7 +78,7 @@ const backOfficePassedAVHttpError = new HTTPError(backOfficePassedAVErrorRespons
 backOfficePassedAVHttpError.response = backOfficePassedAVErrorResponse;
 
 backOfficePatchStub
-	.withArgs('test-api-host:3000/applications/documents/123-345-123/status', {
+	.withArgs('https://test-api-host:3000/applications/documents/123-345-123/status', {
 		json: {
 			machineAction: 'check_success'
 		}
@@ -160,7 +160,7 @@ test.serial(
 
 		sinon.assert.calledWith(
 			backOfficePatchStub,
-			'test-api-host:3000/applications/documents/123-345/status',
+			'https://test-api-host:3000/applications/documents/123-345/status',
 			{
 				json: { machineAction: 'check_success' }
 			}
@@ -188,7 +188,7 @@ test.serial(
 		// Checks that we send a request to mark document as failed AV checks
 		sinon.assert.calledWith(
 			backOfficePatchStub,
-			'test-api-host:3000/applications/documents/123-345-678/status',
+			'https://test-api-host:3000/applications/documents/123-345-678/status',
 			{
 				json: { machineAction: 'check_fail' }
 			}
@@ -266,7 +266,7 @@ test.serial(
 
 		sinon.assert.calledWith(
 			backOfficePatchStub,
-			'test-api-host:3000/applications/documents/123-345/status',
+			'https://test-api-host:3000/applications/documents/123-345/status',
 			{
 				json: { machineAction: 'check_fail' }
 			}
