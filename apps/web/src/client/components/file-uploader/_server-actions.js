@@ -63,13 +63,6 @@ const serverActions = (uploadForm) => {
 	const uploadFiles = async (fileList, uploadInfo) => {
 		const { documents, blobStorageHost, blobStorageContainer, accessToken } = uploadInfo;
 
-		// eslint-disable-next-line no-console
-		console.log('access token from client side');
-		// eslint-disable-next-line no-console
-		console.log(accessToken.token);
-		// eslint-disable-next-line no-console
-		console.log(accessToken.expiresOnTimestamp);
-
 		const blobServiceClient = new BlobServiceClient(blobStorageHost, {
 			getToken: async () => accessToken
 		});

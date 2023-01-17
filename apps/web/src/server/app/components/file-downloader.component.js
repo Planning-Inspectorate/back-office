@@ -5,6 +5,7 @@ import getActiveDirectoryAccessToken from '../../lib/active-directory-token.js';
 import pino from '../../lib/logger.js';
 import createSasToken from '../../lib/sas-token.js';
 
+/** @typedef {import('@azure/core-auth').AccessToken} AccessToken */
 /** @typedef {import('../auth/auth-session.service').SessionWithAuth} SessionWithAuth */
 /** @typedef {import('express').Response} Response */
 
@@ -19,11 +20,11 @@ const getDocumentsDownload = async ({ params, session }, response) => {
 	const { guid: fileGuid, preview, caseId } = params;
 	const { blobStorageUrl } = config;
 
+	/** @type {AccessToken} */
 	const accessToken = await getActiveDirectoryAccessToken(session);
 
 	pino.info('access token from download:');
 	pino.info(accessToken?.token);
-	pino.info(accessToken?.expiresOnTimestamp);
 
 	const { blobStorageContainer, blobStoragePath } = await getCaseDocumentationFileUrl(
 		caseId,
