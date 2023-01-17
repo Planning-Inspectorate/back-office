@@ -16,10 +16,10 @@ export function createAccountInfo({
 	username = snakeCase(name),
 	localAccountId = camelCase(name),
 	groups = [
-		'appeals_case_officer',
+		'appeals_case_team',
 		'appeals_inspector',
 		'appeals_validation_officer',
-		'applications_case_officer',
+		'applications_case_team',
 		'applications_case_admin_officer',
 		'applications_inspector'
 	]

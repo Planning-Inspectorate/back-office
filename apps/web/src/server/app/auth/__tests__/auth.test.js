@@ -191,7 +191,7 @@ describe('auth', () => {
 
 	describe('authorization', () => {
 		it('should display the services page when a user belongs to more than one group', async () => {
-			await signinWithGroups(['appeals_validation_officer', 'applications_case_officer']);
+			await signinWithGroups(['appeals_validation_officer', 'applications_case_team']);
 
 			const response = await request.get('/');
 			const element = parseHtml(response.text);
@@ -205,7 +205,7 @@ describe('auth', () => {
 			});
 
 			it('should deny access to the domain if the user does not have permission', async () => {
-				await signinWithGroups(['appeals_inspector', 'appeals_case_officer']);
+				await signinWithGroups(['appeals_inspector', 'appeals_case_team']);
 
 				const response = await request.get('/appeals-service/validation').redirects(1);
 				const element = parseHtml(response.text);
@@ -251,7 +251,7 @@ describe('auth', () => {
 			});
 
 			it('should permit access to the domain if the user has permission', async () => {
-				await signinWithGroups(['appeals_case_officer']);
+				await signinWithGroups(['appeals_case_team']);
 
 				const response = await request.get('/appeals-service/case-team');
 				const element = parseHtml(response.text);
@@ -260,7 +260,7 @@ describe('auth', () => {
 			});
 
 			it('should redirect to the Case team page from the root path', async () => {
-				await signinWithGroups(['appeals_case_officer']);
+				await signinWithGroups(['appeals_case_team']);
 
 				const response = await request.get('/').redirects(1);
 				const element = parseHtml(response.text);
@@ -275,7 +275,7 @@ describe('auth', () => {
 			});
 
 			it('should deny access to the domain if the user does not have permission', async () => {
-				await signinWithGroups(['appeals_validation_officer', 'appeals_case_officer']);
+				await signinWithGroups(['appeals_validation_officer', 'appeals_case_team']);
 
 				const response = await request.get('/appeals-service/inspector').redirects(1);
 				const element = parseHtml(response.text);
@@ -310,7 +310,7 @@ describe('auth', () => {
 			});
 
 			it('should deny access to the domain if the user does not have permission', async () => {
-				await signinWithGroups(['applications_case_officer', 'applications_case_officer']);
+				await signinWithGroups(['applications_case_team', 'applications_case_team']);
 
 				const response = await request.get('/applications-service/inspector').redirects(1);
 				const element = parseHtml(response.text);
@@ -356,7 +356,7 @@ describe('auth', () => {
 			});
 
 			it('should permit access to the domain if the user has permission', async () => {
-				await signinWithGroups(['applications_case_officer']);
+				await signinWithGroups(['applications_case_team']);
 
 				const response = await request.get('/applications-service/case-team');
 				const element = parseHtml(response.text);
@@ -365,7 +365,7 @@ describe('auth', () => {
 			});
 
 			it('should redirect to the Case team page from the root path', async () => {
-				await signinWithGroups(['applications_case_officer']);
+				await signinWithGroups(['applications_case_team']);
 
 				const response = await request.get('/').redirects(1);
 				const element = parseHtml(response.text);
@@ -380,7 +380,7 @@ describe('auth', () => {
 			});
 
 			it('should deny access to the domain if the user does not have permission', async () => {
-				await signinWithGroups(['applications_case_admin_officer', 'applications_case_officer']);
+				await signinWithGroups(['applications_case_admin_officer', 'applications_case_team']);
 
 				const response = await request.get('/applications-service/inspector').redirects(1);
 				const element = parseHtml(response.text);
@@ -418,8 +418,8 @@ function getConfidentialClientApplication() {
 	);
 }
 
-/** @typedef {'appeals_validation_officer' | 'appeals_case_officer' | 'appeals_inspector'} AppealGroupId  */
-/** @typedef {'applications_case_admin_officer' | 'applications_case_officer' | 'applications_inspector'} ApplicationsGroupId  */
+/** @typedef {'appeals_validation_officer' | 'appeals_case_team' | 'appeals_inspector'} AppealGroupId  */
+/** @typedef {'applications_case_admin_officer' | 'applications_case_team' | 'applications_inspector'} ApplicationsGroupId  */
 
 /**
  * @param {Array<AppealGroupId | ApplicationsGroupId>} groups
