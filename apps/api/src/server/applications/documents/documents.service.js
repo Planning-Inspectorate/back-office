@@ -4,12 +4,17 @@ import { getStorageLocation } from '../../utils/document-storage-api-client.js';
 
 /**
  *
- * @param {{documentName: string, folderId: number}[]} documents
- * @returns {{name: string, folderId: number}[]}
+ * @param {{documentName: string, folderId: number, documentType: string, documentSize: number}[]} documents
+ * @returns {{name: string, folderId: number, fileType: string, fileSize: number}[]}
  */
 const mapDocumentsToSendToDatabase = (documents) => {
 	return documents.map((document) => {
-		return { name: document.documentName, folderId: document.folderId };
+		return {
+			name: document.documentName,
+			folderId: document.folderId,
+			fileType: document.documentType,
+			fileSize: document.documentSize
+		};
 	});
 };
 
@@ -60,7 +65,7 @@ const updateDocumentsWithContainersAndPaths = async (documents, blobStorageConta
 
 /**
  *
- * @param {{documentName: string, folderId: number}[]} documentsToUpload
+ * @param {{documentName: string, folderId: number, documentType: string, documentSize: number}[]} documentsToUpload
  * @param {number} caseId
  * @returns {Promise<{blobStorageHost: string, blobStorageContainer: string, documents: {blobStoreUrl: string, caseType: string, caseReference: string,documentName: string, GUID: string}[]}>}}
  */
