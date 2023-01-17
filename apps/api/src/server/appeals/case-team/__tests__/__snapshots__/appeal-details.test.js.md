@@ -1,4 +1,4 @@
-# Snapshot report for `src/server/app/case-officer/__tests__/appeal-details.test.js`
+# Snapshot report for `src/server/app/case-team/__tests__/appeal-details.test.js`
 
 The actual snapshot is saved in `appeal-details.test.js.snap`.
 

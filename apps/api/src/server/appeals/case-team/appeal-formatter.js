@@ -114,7 +114,7 @@ const appealFormatter = {
 	},
 	/**
 	 * @param {import('@pins/api').Schema.Appeal} appeal
-	 * @returns {import('@pins/appeals').CaseOfficer.Appeal}
+	 * @returns {import('@pins/appeals').CaseTeam.Appeal}
 	 */
 	formatAppealForAppealDetails(appeal) {
 		return {

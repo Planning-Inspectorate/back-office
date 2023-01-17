@@ -3,10 +3,10 @@ import { body } from 'express-validator';
 import { pickBy } from 'lodash-es';
 import multer from 'multer';
 import { memoryStorage } from '../../lib/multer.js';
-import * as lpaSession from './case-officer-session.service.js';
+import * as lpaSession from './case-team-session.service.js';
 
-/** @typedef {import('@pins/appeals').CaseOfficer.Questionnaire} Questionnaire */
-/** @typedef {keyof import('@pins/appeals').CaseOfficer.Questionnaire} QuestionnaireKey */
+/** @typedef {import('@pins/appeals').CaseTeam.Questionnaire} Questionnaire */
+/** @typedef {keyof import('@pins/appeals').CaseTeam.Questionnaire} QuestionnaireKey */
 
 export const validateDocuments = createValidator(
 	multer({
@@ -91,7 +91,7 @@ export const validateQuestionnaireReviewCompletion = createValidator(
 	// the original questionnaire had been inputted again. Effectively, marking a
 	// review as complete or incomplete creates a "new" questionnaire using the
 	// existing questionnaire answers...
-	/** @type {import('@pins/express').RequestHandler<import('./case-officer.locals.js').AppealLocals>} */
+	/** @type {import('@pins/express').RequestHandler<import('./case-team.locals.js').AppealLocals>} */
 	async (request, _, next) => {
 		if (request.body.reviewComplete) {
 			request.body = {};

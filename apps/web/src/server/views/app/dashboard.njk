@@ -16,8 +16,9 @@
           <div class="govuk-grid-column-one-half">
             <h2 class="govuk-heading-m">Applications</h2>
             <ul class="govuk-list">
-              {% if applicationGroupIds | includes(referenceData.applications.caseTeamGroupId) %}
+              {% if applicationGroupIds | includes(referenceData.applications.CaseTeamGroupId) %}
                 <li>
+                  <a href="/applications-service/case-team" class="govuk-link">Case team</a>
                   <a href="/applications-service/case-team" class="govuk-link">Case team</a>
                 </li>
               {% endif %}
@@ -39,9 +40,9 @@
           <div class="govuk-grid-column-one-half">
             <h2 class="govuk-heading-m">Appeals</h2>
             <ul class="govuk-list">
-              {% if appealGroupIds | includes(referenceData.appeals.caseOfficerGroupId) %}
+              {% if appealGroupIds | includes(referenceData.appeals.CaseTeamGroupId) %}
                 <li>
-                  <a href="/appeals-service/case-officer" class="govuk-link">Case officer</a>
+                  <a href="/appeals-service/case-team" class="govuk-link">Case team</a>
                 </li>
               {% endif %}
               {% if appealGroupIds | includes(referenceData.appeals.inspectorGroupId) %}

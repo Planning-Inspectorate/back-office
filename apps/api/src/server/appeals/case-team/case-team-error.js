@@ -1,8 +1,8 @@
-class CaseOfficerError extends Error {
+class CaseTeamError extends Error {
 	constructor(message, code) {
 		super(message);
 		this.code = code;
 	}
 }
 
-export default CaseOfficerError;
+export default CaseTeamError;

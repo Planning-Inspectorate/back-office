@@ -50,7 +50,7 @@ test.before('sets up database mock', () => {
 
 test('Throws error if appeal is not accepting final comments', async (t) => {
 	const response = await request
-		.post('/appeals/case-officer/1/final-comment')
+		.post('/appeals/case-team/1/final-comment')
 		.attach('finalcomments', pathToFile)
 		.attach('finalcomments', pathToFile);
 
@@ -59,7 +59,7 @@ test('Throws error if appeal is not accepting final comments', async (t) => {
 });
 
 test('Throws error if no file provided', async (t) => {
-	const response = await request.post('/appeals/case-officer/1/final-comment');
+	const response = await request.post('/appeals/case-team/1/final-comment');
 
 	t.is(response.status, 400);
 	t.deepEqual(response.body, { errors: { finalcomments: 'Select a file' } });
@@ -67,7 +67,7 @@ test('Throws error if no file provided', async (t) => {
 
 test('Returns 200 if successfully uploaded final comment', async (t) => {
 	const response = await request
-		.post('/appeals/case-officer/2/final-comment')
+		.post('/appeals/case-team/2/final-comment')
 		.attach('finalcomments', pathToFile)
 		.attach('finalcomments', pathToFile);
 

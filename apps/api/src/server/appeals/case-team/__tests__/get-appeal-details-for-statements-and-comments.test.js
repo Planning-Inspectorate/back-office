@@ -63,7 +63,7 @@ test.before('sets up mocking of database', () => {
 });
 
 test('returns details for appeal awaiting statements', async (t) => {
-	const resp = await request.get('/appeals/case-officer/1/statements-comments');
+	const resp = await request.get('/appeals/case-team/1/statements-comments');
 
 	t.is(resp.status, 200);
 	t.deepEqual(resp.body, {
@@ -77,7 +77,7 @@ test('returns details for appeal awaiting statements', async (t) => {
 });
 
 test('returns details for appeal awaiting final comments', async (t) => {
-	const resp = await request.get('/appeals/case-officer/2/statements-comments');
+	const resp = await request.get('/appeals/case-team/2/statements-comments');
 
 	t.is(resp.status, 200);
 	t.deepEqual(resp.body, {

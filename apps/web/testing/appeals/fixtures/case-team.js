@@ -3,16 +3,16 @@ import { createAppeal } from '../factory/appeal.js';
 import { createAppealStatus } from '../factory/appeal-status.js';
 import { createAppellant } from '../factory/appellant.js';
 import { createReviewQuestionnaire } from '../factory/review-questionnaire.js';
-import { caseOfficer } from '../formatters/appeal.js';
+import { CaseTeam } from '../formatters/appeal.js';
 import { documents } from './document.js';
 import { lpaQuestionnaire } from './lpa-questionnaire.js';
 
-/** @typedef {import('@pins/appeals').CaseOfficer.Appeal} CaseOfficerAppeal */
-/** @typedef {import('@pins/appeals').CaseOfficer.AppealSummary} CaseOfficerAppealSummary */
+/** @typedef {import('@pins/appeals').CaseTeam.Appeal} CaseTeamAppeal */
+/** @typedef {import('@pins/appeals').CaseTeam.AppealSummary} CaseTeamAppealSummary */
 
 /**
  * @param {Partial<import('../factory/appeal').AppealData> & { id: number }} appealData
- * @returns {[CaseOfficerAppealSummary, CaseOfficerAppeal]}
+ * @returns {[CaseTeamAppealSummary, CaseTeamAppeal]}
  */
 const createAppealFixtures = ({ id, ...appealData }) => {
 	const appeal = createAppeal({
@@ -33,7 +33,7 @@ const createAppealFixtures = ({ id, ...appealData }) => {
 		...appealData
 	});
 
-	return [caseOfficer.formatAppealSummary(appeal), caseOfficer.formatAppealDetails(appeal)];
+	return [CaseTeam.formatAppealSummary(appeal), CaseTeam.formatAppealDetails(appeal)];
 };
 
 export const [appealSummaryForReceivedQuestionnaire, appealDetailsForReceivedQuestionnaire] =

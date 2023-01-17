@@ -1,4 +1,4 @@
-{% extends "appeals/case-officer/layouts/appeal.njk" %}
+{% extends "appeals/case-team/layouts/appeal.njk" %}
 
 {% from "govuk/components/button/macro.njk" import govukButton %}
 {% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
@@ -29,7 +29,7 @@
           answerType: 'siteListedBuildingDescriptionMissingOrIncorrect',
           description: appeal.ListedBuildingDesc or '-',
           action: {
-            href: '/appeals-service/case-officer/appeals/' + appeal.AppealId + '/edit-listed-building-description',
+            href: '/appeals-service/case-team/appeals/' + appeal.AppealId + '/edit-listed-building-description',
             text: "Update",
             visuallyHiddenText: 'siteListedBuildingDescriptionMissingOrIncorrect' | lpaLabel | lower
           }
@@ -42,7 +42,7 @@
     })
   }}
 
-  <form action="/appeals-service/case-officer/appeals/{{ appeal.AppealId }}/questionnaire/complete" method="post" novalidate>
+  <form action="/appeals-service/case-team/appeals/{{ appeal.AppealId }}/questionnaire/complete" method="post" novalidate>
     {% include 'app/includes/csrf.njk' %}
     {{
       govukRadios({
@@ -108,7 +108,7 @@
           actions: {
             items: [
               {
-                href: '/appeals-service/case-officer/appeals/' + params.appealId + '/documents/' +  (documentType | lower | kebabCase),
+                href: '/appeals-service/case-team/appeals/' + params.appealId + '/documents/' +  (documentType | lower | kebabCase),
                 text: "Update",
                 visuallyHiddenText: row.label | lower
               }

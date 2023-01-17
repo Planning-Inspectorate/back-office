@@ -234,15 +234,15 @@ describe('auth', () => {
 			});
 		});
 
-		describe('/appeals-service/case-officer', () => {
+		describe('/appeals-service/case-team', () => {
 			beforeEach(() => {
-				nock('http://test/').get('/appeals/case-officer').reply(200, []);
+				nock('http://test/').get('/appeals/case-team').reply(200, []);
 			});
 
 			it('should deny access to the domain if the user does not have permission', async () => {
 				await signinWithGroups(['appeals_inspector', 'appeals_validation_officer']);
 
-				const response = await request.get('/appeals-service/case-officer').redirects(1);
+				const response = await request.get('/appeals-service/case-team').redirects(1);
 				const element = parseHtml(response.text);
 
 				expect(element.querySelector('h1')?.innerHTML).toEqual(
@@ -253,12 +253,13 @@ describe('auth', () => {
 			it('should permit access to the domain if the user has permission', async () => {
 				await signinWithGroups(['appeals_case_officer']);
 
-				const response = await request.get('/appeals-service/case-officer');
+				const response = await request.get('/appeals-service/case-team');
 				const element = parseHtml(response.text);
 
 				expect(element.querySelector('h1')?.innerHTML).toEqual('Questionnaires for review');
 			});
 
+			it('should redirect to the Case team page from the root path', async () => {
 			it('should redirect to the Case team page from the root path', async () => {
 				await signinWithGroups(['appeals_case_officer']);
 
@@ -340,13 +341,16 @@ describe('auth', () => {
 		});
 
 		describe('/applications-service/case-team', () => {
+		describe('/applications-service/case-team', () => {
 			beforeEach(() => {
+				nock('http://test/').get('/applications/case-team').reply(200, []);
 				nock('http://test/').get('/applications/case-team').reply(200, []);
 			});
 
 			it('should deny access to the domain if the user does not have permission', async () => {
 				await signinWithGroups(['applications_case_admin_officer', 'applications_inspector']);
 
+				const response = await request.get('/applications-service/case-team').redirects(1);
 				const response = await request.get('/applications-service/case-team').redirects(1);
 				const element = parseHtml(response.text);
 
@@ -359,13 +363,14 @@ describe('auth', () => {
 				await signinWithGroups(['applications_case_team']);
 
 				const response = await request.get('/applications-service/case-team');
+				const response = await request.get('/applications-service/case-team');
 				const element = parseHtml(response.text);
 
 				expect(element.querySelector('h1')?.innerHTML).toContain('Applications');
 			});
 
 			it('should redirect to the Case team page from the root path', async () => {
-				await signinWithGroups(['applications_case_team']);
+				await signinWithGroups(['applications_case_officer']);
 
 				const response = await request.get('/').redirects(1);
 				const element = parseHtml(response.text);

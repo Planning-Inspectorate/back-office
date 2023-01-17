@@ -2,42 +2,42 @@ import { appendFilesToFormData } from '@pins/express';
 import FormData from 'form-data';
 import { get, patch, post } from '../../lib/request.js';
 
-/** @typedef {import('@pins/appeals').CaseOfficer.Appeal} Appeal */
+/** @typedef {import('@pins/appeals').CaseTeam.Appeal} Appeal */
 /** @typedef {import('@pins/appeals').AppealDocument} AppealDocument */
-/** @typedef {import('@pins/appeals').CaseOfficer.AppealSummary} AppealSummary */
+/** @typedef {import('@pins/appeals').CaseTeam.AppealSummary} AppealSummary */
 /** @typedef {import('@pins/appeals').DocumentType} DocumentType */
-/** @typedef {import('@pins/appeals').CaseOfficer.Questionnaire} CaseOfficerQuestionnaire */
+/** @typedef {import('@pins/appeals').CaseTeam.Questionnaire} CaseTeamQuestionnaire */
 /** @typedef {import('@pins/express').MulterFile} MulterFile */
 
 /**
  * @returns {Promise<AppealSummary[]>}
  */
-export const findAllAppeals = () => get('appeals/case-officer');
+export const findAllAppeals = () => get('appeals/case-team');
 
 /**
  * @param {number} appealId
  * @returns {Promise<Appeal>}
  */
-export const findAppealById = (appealId) => get(`appeals/case-officer/${appealId}`);
+export const findAppealById = (appealId) => get(`appeals/case-team/${appealId}`);
 
 /**
  * @param {number} appealId
  * @returns {Promise<Appeal>}
  */
 export const findFullPlanningAppealById = (appealId) =>
-	get(`appeals/case-officer/${appealId}/statements-comments`);
+	get(`appeals/case-team/${appealId}/statements-comments`);
 
 /**
  * Mark a review questionnaire as completed. Internally, this marks all
  * missingOrIncorrect flags to `false`.
  *
  * @param {number} appealId
- * @param {CaseOfficerQuestionnaire} questionnaire
+ * @param {CaseTeamQuestionnaire} questionnaire
  * @returns {Promise<Appeal>}
  */
 export function confirmQuestionnaireReview(appealId, questionnaire) {
 	// todo: the updated appeal should be the api response
-	return post(`appeals/case-officer/${appealId}/confirm`, {
+	return post(`appeals/case-team/${appealId}/confirm`, {
 		json: {
 			reason: questionnaire
 		}
@@ -86,7 +86,7 @@ export function uploadFinalComments(appealId, files) {
 
 	appendFilesToFormData(formData, { key: 'finalcomments', files });
 
-	return post(`appeals/case-officer/${appealId}/final-comment`, { body: formData });
+	return post(`appeals/case-team/${appealId}/final-comment`, { body: formData });
 }
 
 /**
@@ -101,7 +101,7 @@ export function uploadStatements(appealId, files) {
 
 	appendFilesToFormData(formData, { key: 'statements', files });
 
-	return post(`appeals/case-officer/${appealId}/statement`, { body: formData });
+	return post(`appeals/case-team/${appealId}/statement`, { body: formData });
 }
 
 /**
@@ -112,4 +112,4 @@ export function uploadStatements(appealId, files) {
  * @returns {Promise<Appeal>}
  */
 export const updateAppeal = (appealId, data) =>
-	patch(`appeals/case-officer/${appealId}`, { json: data });
+	patch(`appeals/case-team/${appealId}`, { json: data });

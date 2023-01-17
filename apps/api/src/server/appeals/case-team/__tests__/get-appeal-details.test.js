@@ -149,7 +149,7 @@ test.before('sets up mocking of database', () => {
 });
 
 test('gets the appeals detailed information with received questionnaires', async (t) => {
-	const resp = await request.get('/appeals/case-officer/1');
+	const resp = await request.get('/appeals/case-team/1');
 	const appealExampleDetail = {
 		AppealId: 1,
 		AppealReference: appeal1.reference,
@@ -173,7 +173,7 @@ test('gets the appeals detailed information with received questionnaires', async
 });
 
 test('unable to retrieve details for an appeal which has yet to receive the questionnaire', async (t) => {
-	const resp = await request.get('/appeals/case-officer/2');
+	const resp = await request.get('/appeals/case-team/2');
 
 	t.is(resp.status, 409);
 	t.deepEqual(resp.body, {

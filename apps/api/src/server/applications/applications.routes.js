@@ -16,10 +16,7 @@ import {
 import { documentRoutes } from './application/documents/document.routes.js';
 import { fileFoldersRoutes } from './application/file-folders/folders.routes.js';
 import { caseAdminOfficerRoutes } from './case-admin-officer/case-admin-officer.routes.js';
-import { caseOfficerRoutes } from './case-officer/case-officer.routes.js';
-import { updateDocumentStatus } from './documents/documents.controller.js';
-import { documentsRoutes } from './documents/documents.routes.js';
-import { validateDocumentGUID, validateMachineAction } from './documents/documents.validators.js';
+import { CaseTeamRoutes } from './case-team/case-team.routes.js';
 import { inspectorRoutes } from './inspector/inspector.routes.js';
 import { regionRoutes } from './region/region.routes.js';
 import { caseSearchRoutes } from './search/case-search.routes.js';
@@ -28,9 +25,7 @@ import { zoomLevelRoutes } from './zoom-level/zoom-level.routes.js';
 
 const router = createRouter();
 
-router.use('/:id/documents', documentsRoutes);
-
-router.use('/case-officer', caseOfficerRoutes);
+router.use('/case-team', CaseTeamRoutes);
 
 router.use('/case-admin-officer', caseAdminOfficerRoutes);
 

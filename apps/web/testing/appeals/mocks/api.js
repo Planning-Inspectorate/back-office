@@ -5,7 +5,7 @@ import {
 	appealDetailsForIncompleteQuestionnaire,
 	appealDetailsForReceivedQuestionnaire,
 	appealDetailsForStatements
-} from '../fixtures/case-officer.js';
+} from '../fixtures/case-team.js';
 import {
 	appealDetailsForBookedSiteVisit,
 	appealDetailsForDecisionDue,
@@ -41,7 +41,7 @@ export function installMockAppealsService() {
 	// remote error
 	nock('http://test/').get('/appeals/validation/0').reply(500).persist();
 
-	// Case officer
+	// Case team
 
 	for (const appeal of [
 		appealDetailsForReceivedQuestionnaire,
@@ -49,20 +49,17 @@ export function installMockAppealsService() {
 		appealDetailsForFinalComments,
 		appealDetailsForStatements
 	]) {
-		nock('http://test/')
-			.get(`/appeals/case-officer/${appeal.AppealId}`)
-			.reply(200, appeal)
-			.persist();
+		nock('http://test/').get(`/appeals/case-team/${appeal.AppealId}`).reply(200, appeal).persist();
 	}
 	for (const appeal of [appealDetailsForFinalComments, appealDetailsForStatements]) {
 		nock('http://test/')
-			.get(`/appeals/case-officer/${appeal.AppealId}/statements-comments`)
+			.get(`/appeals/case-team/${appeal.AppealId}/statements-comments`)
 			.reply(200, appeal)
 			.persist();
 	}
 	// Unknown appeals
-	nock('http://test/').get('/appeals/case-officer/0').reply(500).persist();
-	nock('http://test/').get('/appeals/case-officer/0/statements-comments').reply(500).persist();
+	nock('http://test/').get('/appeals/case-team/0').reply(500).persist();
+	nock('http://test/').get('/appeals/case-team/0/statements-comments').reply(500).persist();
 
 	// Inspector
 

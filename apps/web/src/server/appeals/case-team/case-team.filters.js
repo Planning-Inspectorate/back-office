@@ -1,6 +1,6 @@
 /** @typedef {import('@pins/appeals').DocumentType} AppealDocumentType */
-/** @typedef {import('@pins/appeals').CaseOfficer.Questionnaire} CaseOfficerQuestionnaire */
-/** @typedef {keyof CaseOfficerQuestionnaire} QuestionnaireKey */
+/** @typedef {import('@pins/appeals').CaseTeam.Questionnaire} CaseTeamQuestionnaire */
+/** @typedef {keyof CaseTeamQuestionnaire} QuestionnaireKey */
 
 /** @type {Partial<Record<QuestionnaireKey, AppealDocumentType>>} */
 const answerTypeDocumentTypeMap = {
@@ -104,7 +104,7 @@ export function lpaLabel(key) {
  * Determine if a review questionnaire has acknowledged is missing a given
  * `documentType` on an appeal.
  *
- * @param {CaseOfficerQuestionnaire} reviewQuestionnaire
+ * @param {CaseTeamQuestionnaire} reviewQuestionnaire
  * @param {AppealDocumentType} documentType
  * @returns {boolean}
  */

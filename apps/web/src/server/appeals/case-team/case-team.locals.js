@@ -1,15 +1,15 @@
 import { lowerCase } from 'lodash-es';
-import { findAppealById, findFullPlanningAppealById } from './case-officer.service.js';
+import { findAppealById, findFullPlanningAppealById } from './case-team.service.js';
 
 /**
- * @typedef {object} CaseOfficerLocals
+ * @typedef {object} CaseTeamLocals
  * @property {'xl'} containerSize
  * @property {string} serviceName
  * @property {string} serviceUrl
  */
 
 /** @type {import('express').RequestHandler} */
-export const registerCaseOfficerLocals = ({ baseUrl }, response, next) => {
+export const registerCaseTeamLocals = ({ baseUrl }, response, next) => {
 	response.locals.containerSize = 'xl';
 	response.locals.serviceName = 'Appeal a planning decision';
 	response.locals.serviceUrl = baseUrl;
@@ -19,7 +19,7 @@ export const registerCaseOfficerLocals = ({ baseUrl }, response, next) => {
 /**
  * @typedef {object} AppealLocals
  * @property {number} appealId
- * @property {import('@pins/appeals').CaseOfficer.Appeal} appeal
+ * @property {import('@pins/appeals').CaseTeam.Appeal} appeal
  */
 
 /**

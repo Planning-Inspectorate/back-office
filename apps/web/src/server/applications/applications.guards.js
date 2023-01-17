@@ -16,7 +16,7 @@ export const assertDomainTypeAccess = (req, res, next) => {
 	/** @type {Record<DomainType, string>} */
 	const domainMap = {
 		'case-admin-officer': config.referenceData.applications.caseAdminOfficerGroupId,
-		'case-team': config.referenceData.applications.caseTeamGroupId,
+		'case-team': config.referenceData.applications.CaseTeamGroupId,
 		inspector: config.referenceData.applications.inspectorGroupId
 	};
 	const groupId = domainMap[req.params.domainType];
