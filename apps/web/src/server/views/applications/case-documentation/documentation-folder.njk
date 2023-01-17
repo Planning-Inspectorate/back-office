@@ -183,11 +183,11 @@
 									</td>
 								</tr>
 								{% for documentationFile in documentationFiles.items %}
-									{% set isDisabled = documentationFile.status === 'awaiting_upload' or documentationFile.status === 'awaiting_virus_check' or documentationFile.status === 'failed_virus_check' %}
+									{% set isNotDisabled = documentationFile.status !== 'awaiting_upload' and documentationFile.status !== 'awaiting_virus_check' and documentationFile.status !== 'failed_virus_check' %}
 
-									<tr class="govuk-table__row {{ "govuk-table__row--disabled" if isDisabled else "" }}">
+									<tr class="govuk-table__row {{ "" if isNotDisabled else "govuk-table__row--disabled" }}">
 										<td class="govuk-table__cell">
-											{% if not isDisabled %}
+											{% if isNotDisabled %}
 												{{ govukCheckboxes({
 													name: "selectedFilesIds[]",
 													items: [
@@ -211,16 +211,16 @@
 											{% endif %}
 										</td>
 										<td class="govuk-table__cell">
-											{% if not isDisabled and (documentationFile.type === 'application/pdf' or documentationFile.type === 'image/jpeg' or documentationFile.type === 'image/png') %}
-												<a class="govuk-link govuk-body-s govuk-!-font-weight-bold"
-												   href="{{ documentationFile.url }}">
-													{{ documentationFile.documentName }}
-												</a>
-											{% else %}
-												<p class="govuk-body-s govuk-!-font-weight-bold">
-													{{ documentationFile.documentName }}
-												</p>
-											{% endif %}
+											{% set isPreviewActive = isNotDisabled and (documentationFile.type === 'application/pdf' or documentationFile.type === 'image/jpeg' or documentationFile.type === 'image/png') %}
+											{{ createOptionalLink(
+												{
+													classes: 'govuk-body-s govuk-!-font-weight-bold',
+													href: documentationFile.url,
+													text:documentationFile.documentName
+												},
+												isPreviewActive
+											) }}
+
 											<p class="file-info colour--secondary">
 												From: {{ documentationFile.from }}
 											</p>
@@ -233,14 +233,24 @@
 										<td class="govuk-table__cell">{{ 'Redacted' if  documentationFile.redacted else 'Unredacted' }}</td>
 										<td class="govuk-table__cell">{{ documentationFile.status|statusName }}</td>
 										<td class="govuk-table__cell">
-											<a class="govuk-link govuk-body-s"
-													{% if not isDisabled %} href="{{ documentationFile.url }}/edit"{% endif %}>
-												View/Edit properties
-											</a>
-											<a class="govuk-link govuk-body-s"
-													{% if not isDisabled %} href="{{ documentationFile.url }}"{% endif %}>
-												Download
-											</a>
+
+											{{ createOptionalLink(
+												{
+													classes: 'govuk-body-s',
+													href: 'edit/file',
+													text:'View/Edit properties'
+												},
+												isNotDisabled
+											) }}
+
+											{{ createOptionalLink(
+												{
+													classes: 'govuk-body-s',
+													href: documentationFile.url,
+													text:'Download'
+												},
+												isNotDisabled
+											) }}
 										</td>
 									</tr>
 								{% endfor %}
@@ -254,3 +264,11 @@
 		</div>
 	</div>
 {% endblock %}
+
+{% macro createOptionalLink(params, isLink) %}
+	{% if isLink %}
+		<a class="govuk-link {{ params.classes }}" href="{{ params.href }}">{{ params.text }}</a>
+	{% else %}
+		<p class="{{ params.classes }}">{{ params.text }} </p>
+	{% endif %}
+{% endmacro %}
