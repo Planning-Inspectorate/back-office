@@ -9,9 +9,9 @@ router.get(
 	/*
         #swagger.tags = ['Applications']
         #swagger.path = '/applications/inspector'
-        #swagger.description = 'Gets all applications associated with case officer admin'
+        #swagger.description = 'Gets all applications associated with Case team admin'
         #swagger.responses[200] = {
-            description: 'List of applications assigned to case officer',
+            description: 'List of applications assigned to Case team',
             schema: { $ref: '#/definitions/ApplicationsForInspector' }
         }
     */

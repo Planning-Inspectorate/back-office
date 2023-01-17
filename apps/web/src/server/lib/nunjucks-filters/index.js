@@ -33,5 +33,5 @@ export { statusName } from './status-name.js';
 export { default as stripQueryParamsDev } from './strip-query-parameters.js';
 
 // export domain-specific filters
-export { lpaLabel, lpaDocumentType } from '../../appeals/case-officer/case-officer.filters.js';
+export { lpaLabel, lpaDocumentType } from '../../appeals/case-team/case-team.filters.js';
 export * from '../../appeals/validation/validation.filters.js';

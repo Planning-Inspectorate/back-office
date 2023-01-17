@@ -18,8 +18,8 @@
 		govukBreadcrumbs({
 			classes: 'govuk-!-margin-top-3',
 			items: [
-				{ href: '/appeals-service/case-officer', text: 'Questionnaires for review' },
-				{ href: '/appeals-service/case-officer/appeals/' + appeal.AppealId, text: appeal.AppealReference },
+				{ href: '/appeals-service/case-team', text: 'Questionnaires for review' },
+				{ href: '/appeals-service/case-team/appeals/' + appeal.AppealId, text: appeal.AppealReference },
         { text: pageTitle }
 			]
 		})
@@ -43,7 +43,7 @@
     }}
     <div class="govuk-button-group">
       {{ govukButton({ text: "Save and continue" }) }}
-      <a class="govuk-link" href="/appeals-service/case-officer/appeals/{{ appeal.AppealId }}">Cancel</a>
+      <a class="govuk-link" href="/appeals-service/case-team/appeals/{{ appeal.AppealId }}">Cancel</a>
     </div>
   </form>
 {% endblock %}

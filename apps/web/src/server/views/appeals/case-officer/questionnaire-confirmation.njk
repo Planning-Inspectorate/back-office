@@ -14,7 +14,7 @@
 	<form method="post" novalidate>
 		{% include 'app/includes/csrf.njk' %}
 		{% if (reviewQuestionnaire | keys).length === 0 %}
-			{{ 
+			{{
 				govukSummaryList({
 					rows: [
 						{ key: { text: "Review outcome" }, value: { text: 'Complete' } },
@@ -24,18 +24,18 @@
 					]
 				})
 			}}
-			{{ 
+			{{
 				govukWarningText({
 					iconFallbackText: "Warning",
 					text: "Confirming this questionnaire as complete makes the appeal visible to inspectors."
 				})
 			}}
 		{% else %}
-			{{ 
+			{{
 				govukSummaryList({
 					rows: [
 						{ key: { text: "Review outcome" }, value: { text: 'Incomplete' } },
-						{ 
+						{
 							key: { text: 'Incomplete reasons' },
 							value: {
 								html: incompleteReasonsList(reviewQuestionnaire)
@@ -64,7 +64,7 @@
 		{% endif %}
 		<div class="govuk-button-group">
 			{{ govukButton({ text: 'Confirm outcome' }) }}
-			<a class="govuk-link" href="/appeals-service/case-officer/appeals/{{ appeal.AppealId }}">Go back to review questionnaire</a>
+			<a class="govuk-link" href="/appeals-service/case-team/appeals/{{ appeal.AppealId }}">Go back to review questionnaire</a>
 		</div>
 	</form>
 {% endblock %}

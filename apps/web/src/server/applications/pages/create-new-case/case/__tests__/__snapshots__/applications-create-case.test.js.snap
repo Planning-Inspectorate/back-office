@@ -303,7 +303,7 @@ exports[`applications create Name and description GET /create-new-case When role
 </main>"
 `;
 
-exports[`applications create Name and description GET /create-new-case When role is: Case officer should render form 1`] = `
+exports[`applications create Name and description GET /create-new-case When role is: Case team should render form 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <h1 class=\\"govuk-heading-l\\"> Enter name and description</h1>
     <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">

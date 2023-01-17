@@ -155,7 +155,7 @@ const document = {
 				displayNameCy: 'Region Name Cy'
 			}
 		],
-		ApplicationsForCaseOfficer: [
+		ApplicationsForCaseTeam: [
 			{
 				id: 1,
 				modifiedDate: 1_655_298_882,
@@ -217,7 +217,7 @@ const document = {
 		],
 		ApplicationsForSearchCriteriaRequestBody: {
 			query: 'BC',
-			role: 'case-officer',
+			role: 'case-team',
 			pageNumber: 1,
 			pageSize: 1
 		},
@@ -370,7 +370,7 @@ const document = {
 			acceptingStatements: false,
 			acceptingFinalComments: true
 		},
-		AppealsForCaseOfficer: {
+		AppealsForCaseTeam: {
 			$AppealId: 1,
 			$AppealReference: '',
 			$QuestionnaireDueDate: '01 Jun 2022',
@@ -383,7 +383,7 @@ const document = {
 			},
 			$QuestionnaireStatus: { '@enum': ['awaiting', 'received', 'overdue'] }
 		},
-		AppealForCaseOfficer: {
+		AppealForCaseTeam: {
 			$AppealId: 1,
 			$AppealReference: '',
 			$LocalPlanningDepartment: '',
@@ -520,10 +520,10 @@ const document = {
 				}
 			]
 		},
-		UpdateAppealDetailsByCaseOfficer: {
+		UpdateAppealDetailsByCaseTeam: {
 			$listedBuildingDescription: ''
 		},
-		AppealAfterUpdateForCaseOfficer: {
+		AppealAfterUpdateForCaseTeam: {
 			$appealStatus: [
 				{
 					$id: 2,

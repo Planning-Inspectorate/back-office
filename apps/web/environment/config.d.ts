@@ -30,13 +30,13 @@ export interface EnvironmentConfig {
 	tmpDir: string;
 	referenceData: {
 		appeals: {
-			caseOfficerGroupId: string;
+			CaseTeamGroupId: string;
 			inspectorGroupId: string;
 			validationOfficerGroupId: string;
 		};
 		applications: {
 			caseAdminOfficerGroupId: string;
-			caseOfficerGroupId: string;
+			CaseTeamGroupId: string;
 			inspectorGroupId: string;
 		};
 	};

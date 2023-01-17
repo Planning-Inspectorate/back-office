@@ -11,11 +11,11 @@ describe('applications', () => {
 	beforeEach(installMockApi);
 	afterEach(teardown);
 
-	describe('GET /case-officer', () => {
-		const baseUrl = '/applications-service/case-officer';
+	describe('GET /case-team', () => {
+		const baseUrl = '/applications-service/case-team';
 
 		it('should render a placeholder when there are no open applications', async () => {
-			nock('http://test/').get('/applications/case-officer').reply(200, []);
+			nock('http://test/').get('/applications/case-team').reply(200, []);
 
 			const response = await request.get(baseUrl);
 			const element = parseHtml(response.text);
@@ -24,7 +24,7 @@ describe('applications', () => {
 		});
 
 		it('should render the open applications belonging to the user', async () => {
-			nock('http://test/').get('/applications/case-officer').reply(200, fixtureCases);
+			nock('http://test/').get('/applications/case-team').reply(200, fixtureCases);
 
 			const response = await request.get(baseUrl);
 			const element = parseHtml(response.text);
@@ -33,7 +33,7 @@ describe('applications', () => {
 		});
 
 		it('should render the `create new case` button', async () => {
-			nock('http://test/').get('/applications/case-officer').reply(200, fixtureCases);
+			nock('http://test/').get('/applications/case-team').reply(200, fixtureCases);
 
 			const response = await request.get(baseUrl);
 			const element = parseHtml(response.text);

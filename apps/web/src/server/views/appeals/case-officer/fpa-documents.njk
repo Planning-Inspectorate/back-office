@@ -1,4 +1,4 @@
-{% extends "appeals/case-officer/layouts/appeal.njk" %}
+{% extends "appeals/case-team/layouts/appeal.njk" %}
 
 {% from "govuk/components/button/macro.njk" import govukButton %}
 {% from "app/components/document-list.component.njk" import documentList %}
@@ -33,7 +33,7 @@
     }}
     <div class="govuk-button-group">
       {{ govukButton({ text: "Save and continue" }) }}
-      <a class="govuk-link" href="/appeals-service/case-officer">Cancel</a>
+      <a class="govuk-link" href="/appeals-service/case-team">Cancel</a>
     </div>
   </form>
 {% endblock %}
