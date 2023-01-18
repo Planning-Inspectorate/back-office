@@ -38,14 +38,14 @@ function generateAppealReference() {
 	return `APP/Q9999/D/21/${number}`;
 }
 
-// Application reference should be in the format (subSector)(4 digit sequential_number) eg EN010001
+// Application reference should be in the format (subSector)(5 digit sequential_number with leading 1) eg EN0110001
 /**
  * @param {{abbreviation: string}} subSector
  * @param {number} referenceNumber
  * @returns {string}
  */
 function generateApplicationReference(subSector, referenceNumber) {
-	const formattedReferenceNumber = `000${referenceNumber}`.slice(-4);
+	const formattedReferenceNumber = `1000${referenceNumber}`.slice(-5);
 
 	return `${subSector.abbreviation}${formattedReferenceNumber}`;
 }
@@ -710,9 +710,10 @@ const deleteAllRecords = async () => {
  * @param {number} index
  */
 const createApplication = async (subSector, index) => {
-	const reference = generateApplicationReference(subSector, index);
 	const title = `${subSector.displayNameEn} Test Application ${index}`;
 	const caseStatus = pickRandom(caseStatusNames).name;
+	// Draft cases do not have a reference assigned to them yet
+	const reference = caseStatus === 'draft' ? null : generateApplicationReference(subSector, index);
 
 	const newCase = await databaseConnector.case.create({
 		data: {
@@ -751,6 +752,9 @@ const createApplication = async (subSector, index) => {
 						status: caseStatus
 					}
 				]
+			},
+			serviceCustomer: {
+				create: [{}]
 			}
 		}
 	});
