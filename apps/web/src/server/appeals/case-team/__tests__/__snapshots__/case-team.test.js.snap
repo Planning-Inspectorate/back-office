@@ -151,8 +151,8 @@ exports[`case-team GET /appeals/:appealId should render a received questionnaire
             </dl>
         </div>
     </div>
-    <form action=\\"/appeals-service/case-team/appeals/201/questionnaire\\"
-    method=\\"post\\" novalidate=\\"novalidate\\">
+    <form action=\\"/appeals-service/case-team/appeals/201/questionnaire\\" method=\\"post\\"
+    novalidate=\\"novalidate\\">
         <table class=\\"govuk-table pins-table--questionnaire govuk-!-margin-bottom-9\\">
             <caption class=\\"govuk-table__caption govuk-table__caption--l\\">The planning application</caption>
             <tbody class=\\"govuk-table__body\\">
@@ -1410,8 +1410,8 @@ exports[`case-team POST /appeals/:appealId/questionnaire should validate a quest
             </dl>
         </div>
     </div>
-    <form action=\\"/appeals-service/case-team/appeals/201/questionnaire\\"
-    method=\\"post\\" novalidate=\\"novalidate\\">
+    <form action=\\"/appeals-service/case-team/appeals/201/questionnaire\\" method=\\"post\\"
+    novalidate=\\"novalidate\\">
         <table class=\\"govuk-table pins-table--questionnaire govuk-!-margin-bottom-9\\">
             <caption class=\\"govuk-table__caption govuk-table__caption--l\\">The planning application</caption>
             <tbody class=\\"govuk-table__body\\">
@@ -1843,8 +1843,8 @@ exports[`case-team POST /appeals/:appealId/questionnaire should validate a quest
             </dl>
         </div>
     </div>
-    <form action=\\"/appeals-service/case-team/appeals/201/questionnaire\\"
-    method=\\"post\\" novalidate=\\"novalidate\\">
+    <form action=\\"/appeals-service/case-team/appeals/201/questionnaire\\" method=\\"post\\"
+    novalidate=\\"novalidate\\">
         <table class=\\"govuk-table pins-table--questionnaire govuk-!-margin-bottom-9\\">
             <caption class=\\"govuk-table__caption govuk-table__caption--l\\">The planning application</caption>
             <tbody class=\\"govuk-table__body\\">
