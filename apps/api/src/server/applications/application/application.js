@@ -17,19 +17,28 @@
  * @property {Employee[]} inspectors - We're going to get this from ODW
  * @property {Decision | undefined} decision
  * @property {string} sourceSystem - "ODT"
- *
+ */
+
+/**
  * Sector
+ *
  * @typedef {object} Sector
  * @property {string?} name
  * @property {string?} abbreviation
  * @property {SubSector?} subSector
- *
+ */
+
+/**
  * SubSector
+ *
  * @typedef {object} SubSector
  * @property {string?} name
  * @property {string?} abbreviation
- *
+ */
+
+/**
  * ApplicationDetails
+ *
  * @typedef {object} ApplicationDetails
  * @property {string?} caseEmail - Application.ProjectEmailAddress
  * @property {string?} siteAddress - Application.ProjectLocation
@@ -38,17 +47,26 @@
  * @property {ZoomLevel | undefined} zoom - Application.ProjectLocation
  * @property {Region[]} regions
  * @property {KeyDates | undefined} keyDates
- *
+ */
+
+/**
  * GridReference
+ *
  * @typedef {object} GridReference
  * @property {number?} easting - Application.AnticipatedGridRefEasting
  * @property {number?} northing
- *
+ */
+
+/**
  * ZoomLevel
+ *
  * @typedef {object} ZoomLevel - Application.MapZoomLevel
  * @property {string} name
- *
+ */
+
+/**
  * KeyDates
+ *
  * @typedef {object} KeyDates
  * @property {Date?} receivedDate
  * @property {Date?} validDate
@@ -70,27 +88,42 @@
  * @property {Date?} stage5ExtensiontoDecisionDeadline
  * @property {Date?} recommendationsDate
  * @property {Date?} nonAcceptanceDate
- *
+ */
+
+/**
  * CaseType
+ *
  * @typedef {object} CaseType
  * @property {string} code
- *
+ */
+
+/**
  * CaseStatus
+ *
  * @typedef {object} CaseStatus
  * @property {string} status - Application.Stage
- *
+ */
+
+/**
  * Decision
+ *
  * @typedef {object} Decision
  * @property {string} code
  * @property {Date} date
- *
+ */
+
+/**
  * Employee - we currently don't have this
+ *
  * @typedef {object} Employee
- * @property {string} id
+ * @property {string} id // eslint-disable-line check-property-names
  * @property {string} firstName
  * @property {string} lastName
- *
+ */
+
+/**
  * ServiceUser
+ *
  * @typedef {object} ServiceUser
  * @property {number} id
  * @property {string?} customerType - "Applicant"
@@ -101,12 +134,18 @@
  * @property {string?} phoneNumber - Application.ApplicantPhoneNumber
  * @property {string?} email - Application.ApplicantEmailAddress
  * @property {string?} website - Application.WebAddress
- *
+ */
+
+/**
  * Region
+ *
  * @typedef {object} Region
  * @property {string} name - Application.Region
- *
+ */
+
+/**
  * Address
+ *
  * @typedef {object} Address
  * @property {string} addressLine1
  * @property {string?} addressLine2
