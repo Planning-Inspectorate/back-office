@@ -2,13 +2,8 @@ import { Router as createRouter } from 'express';
 import { asyncHandler } from '../../middleware/async-handler.js';
 import { trimUnexpectedRequestParameters } from '../../middleware/trim-unexpected-request-parameters.js';
 import { validateApplicationId } from '../application/application.validators.js';
-import { provideDocumentUploadURLs, updateDocumentStatus } from './documents.controller.js';
-import {
-	validateDocumentGUID,
-	validateDocumentsToUploadProvided,
-	validateFolderIds,
-	validateMachineAction
-} from './documents.validators.js';
+import { provideDocumentUploadURLs } from './documents.controller.js';
+import { validateDocumentsToUploadProvided, validateFolderIds } from './documents.validators.js';
 
 const router = createRouter({ mergeParams: true });
 
@@ -39,35 +34,6 @@ router.post(
 	validateFolderIds,
 	trimUnexpectedRequestParameters,
 	asyncHandler(provideDocumentUploadURLs)
-);
-
-router.patch(
-	'/:documentGUID/status',
-	/*
-        #swagger.tags = ['Applications']
-        #swagger.path =  'applications/{id}/documents/{documentGUID}/status'
-        #swagger.description = 'Updates document status from state machine'
-        #swagger.parameters['id'] = {
-            in: 'path',
-			description: 'Case ID here',
-			required: true,
-			type: 'integer'
-        }
-        #swagger.parameters['documentGUID'] = {
-            in: 'path',
-            description: 'Document GUID',
-			required: true,
-			type: 'string'
-        }
-        #swagger.responses[200] = {
-            description: 'Document status updated',
-            schema: { caseId: 1, guid: 'DB0110203', status: 'awaiting_virus_check'}
-        }
-	 */
-	validateDocumentGUID,
-	validateMachineAction,
-	trimUnexpectedRequestParameters,
-	asyncHandler(updateDocumentStatus)
 );
 
 export { router as documentsRoutes };
