@@ -3,16 +3,12 @@ import { eventClient } from '../../infrastructure/event-client.js';
 import { NSIP_PROJECT } from '../../infrastructure/topics.js';
 import * as caseRepository from '../../repositories/case.repository.js';
 import * as documentRepository from '../../repositories/document.repository.js';
-import * as folderRepository from '../../repositories/folder.repository.js';
 import { getStorageLocation } from '../../utils/document-storage-api-client.js';
 import logger from '../../utils/logger.js';
 import { mapCaseStatusString } from '../../utils/mapping/map-case-status-string.js';
 import { buildNsipProjectPayload } from './application.js';
 import { mapCreateApplicationRequestToRepository } from './application.mapper.js';
-import {
-	getCaseDetails,
-	startApplication,
-} from './application.service.js';
+import { getCaseDetails, startApplication } from './application.service.js';
 /**
  *
  * @param {import('@pins/api').Schema.ServiceCustomer[] | undefined} serviceCustomers
@@ -151,31 +147,3 @@ export const provideDocumentUploadURLs = async ({ params, body }, response) => {
 		documents: documentsWithUrls
 	});
 };
-
-/**
- * @type {import('express').RequestHandler<{caseId: string, documentGUID: string }, ?, import('@pins/applications').UpdateDocumentStatus>}
- */
-export const updateDocumentStatus = async ({ params, body }, response) => {
-	const documentDetails = await documentRepository.getByDocumentGUID(params.documentGUID);
-
-	const caseIdFromFolderRepository = await folderRepository.getById(documentDetails?.folderId);
-
-	const caseId = caseIdFromFolderRepository?.caseId;
-
-	const nextStatus = nextStatusInDocumentStateMachine(documentDetails?.status, body.machineAction);
-
-	const updateResponseInTable = await updatedDocumentStatusInTable(params.documentGUID, nextStatus);
-
-	const formattedResponse = formatResponseBody(
-		caseId,
-		updateResponseInTable.guid,
-		updateResponseInTable.status
-	);
-
-	response.send(formattedResponse);
-};
-
-function nextStatusInDocumentStateMachine(status, machineAction) {
-	throw new Error('Function not implemented.');
-}
-
