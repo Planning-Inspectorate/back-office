@@ -3,7 +3,12 @@ import { asyncHandler } from '../../../middleware/async-handler.js';
 import { trimUnexpectedRequestParameters } from '../../../middleware/trim-unexpected-request-parameters.js';
 import { validateApplicationId } from '../../application/application.validators.js';
 import { validateFolderIds } from '../../documents/documents.validators.js';
-import { provideDocumentUploadURLs, updateDocuments } from './document.controller.js';
+import { publishCase } from '../application.controller.js';
+import {
+	getDocumentUri,
+	provideDocumentUploadURLs,
+	updateDocuments
+} from './document.controller.js';
 import {
 	validateDocumentIds,
 	validateDocumentsToUpdateProvided,
@@ -96,6 +101,27 @@ router.get(
     */
 	validateApplicationId,
 	asyncHandler(getDocumentUri)
+);
+
+router.patch(
+	'/:id/publish',
+	/*
+        #swagger.tags = ['Applications']
+        #swagger.path = '/applications/{id}/publish'
+        #swagger.description = 'publish application'
+        #swagger.parameters['id'] = {
+            in: 'path',
+			description: 'Application ID',
+			required: true,
+			type: 'integer'
+		}
+        #swagger.responses[200] = {
+            description: 'response will have the date that the case was published as a timestamp',
+            schema: { publishedDate: 1673873105 }
+        }
+    */
+	validateApplicationId,
+	asyncHandler(publishCase)
 );
 
 export { router as documentRoutes };
