@@ -59,15 +59,12 @@ test('updates document status', async (t) => {
 		guid: 'D1234',
 		status: 'awaiting_virus_check'
 	});
-	// below test not working
-	/*
 	sinon.assert.calledWith(updateStatusInDocumentTableStub, {
 		where: { guid: 'D1234' },
 		data: {
 			status: 'awaiting_virus_check'
 		}
 	});
-	 */
 });
 
 test('throws erorr if incorrect machine action', async (t) => {
