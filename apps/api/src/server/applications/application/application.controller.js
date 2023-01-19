@@ -1,4 +1,4 @@
-import { filter, head, map, pick } from 'lodash-es';
+import { head, map, pick } from 'lodash-es';
 import { eventClient } from '../../infrastructure/event-client.js';
 import { NSIP_PROJECT } from '../../infrastructure/topics.js';
 import * as caseRepository from '../../repositories/case.repository.js';
