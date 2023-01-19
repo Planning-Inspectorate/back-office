@@ -3,21 +3,44 @@ import test from 'ava';
 import sinon from 'sinon';
 import supertest from 'supertest';
 import { app } from '../../../app.js';
+import { eventClient } from '../../../infrastructure/event-client.js';
 import { databaseConnector } from '../../../utils/database-connector.js';
 
 const request = supertest(app);
 
 const updateStub = sinon.stub().returns({ id: 1, serviceCustomer: [{ id: 2 }, { id: 3 }] });
 
+const expectedEventPayload = {
+	id: 1,
+	caseOfficers: [],
+	customers: [
+		{
+			id: 2,
+			customerType: 'Applicant'
+		},
+		{
+			id: 3,
+			customerType: 'Applicant'
+		}
+	],
+	inspectors: [],
+	sourceSystem: 'ODT',
+	status: [],
+	type: {
+		code: 'Application'
+	},
+	validationOfficers: []
+};
+
 const findUniqueSubSectorStub = sinon.stub();
 
 findUniqueSubSectorStub.withArgs({ where: { name: 'some_sub_sector' } }).returns({});
 findUniqueSubSectorStub.withArgs({ where: { name: 'some unknown subsector' } }).returns(null);
 
-const findUniqueStub = sinon.stub();
-
-findUniqueStub.withArgs({ where: { id: 1 } }).returns({ id: 1 });
-findUniqueStub.withArgs({ where: { id: 2 } }).returns(null);
+/**
+ * @type {sinon.SinonStub<any, any>}
+ */
+let findUniqueStub;
 
 const findUniqueServiceCustomerStub = sinon.stub();
 
@@ -37,7 +60,19 @@ findUniqueRegionStub.withArgs({ where: { name: 'some-unknown-region' } }).return
 
 const deleteManyStub = sinon.stub();
 
+/**
+ * @type {sinon.SinonStub<any, any>}
+ */
+let stubbedSendEvents;
+
 test.before('set up mocks', () => {
+	findUniqueStub = sinon.stub();
+
+	findUniqueStub
+		.withArgs({ where: { id: 1 } })
+		.returns({ id: 1, serviceCustomer: [{ id: 2 }, { id: 3 }] });
+	findUniqueStub.withArgs({ where: { id: 2 } }).returns(null);
+
 	sinon.stub(databaseConnector, 'case').get(() => {
 		return { update: updateStub, findUnique: findUniqueStub };
 	});
@@ -67,9 +102,12 @@ test.before('set up mocks', () => {
 		.returns([{ id: 1, serviceCustomer: [{ id: 2 }, { id: 3 }] }]);
 
 	sinon.useFakeTimers({ now: 1_649_319_144_000 });
+	stubbedSendEvents = sinon.stub(eventClient, 'sendEvents');
 });
 
-test('updates application with just title and first notified date', async (t) => {
+test('update-application updates application with just title and first notified date', async (t) => {
+	findUniqueStub.returns({ id: 1, serviceCustomer: [{ id: 2 }, { id: 3 }] });
+
 	const response = await request.patch('/applications/1').send({
 		title: 'some title',
 		keyDates: {
@@ -99,9 +137,14 @@ test('updates application with just title and first notified date', async (t) =>
 			serviceCustomer: true
 		}
 	});
+
+	sinon.assert.calledWith(stubbedSendEvents, 'nsip-project', [expectedEventPayload]);
 });
 
-test('updates application with just easting and sub-sector name', async (t) => {
+test('update-application updates application with just easting and sub-sector name', async (t) => {
+	stubbedSendEvents.resetHistory();
+	findUniqueStub.returns({ id: 1, serviceCustomer: [{ id: 2 }, { id: 3 }] });
+
 	const response = await request.patch('/applications/1').send({
 		geographicalInformation: {
 			gridReference: {
@@ -129,9 +172,13 @@ test('updates application with just easting and sub-sector name', async (t) => {
 			serviceCustomer: true
 		}
 	});
+
+	sinon.assert.calledWith(stubbedSendEvents, 'nsip-project', [expectedEventPayload]);
 });
 
-test('updates application when all possible details provided', async (t) => {
+test('update-application updates application when all possible details provided', async (t) => {
+	findUniqueStub.returns({ id: 1, serviceCustomer: [{ id: 2 }, { id: 3 }] });
+
 	const response = await request.patch('/applications/1').send({
 		title: 'title',
 		description: 'description',
@@ -262,10 +309,14 @@ test('updates application when all possible details provided', async (t) => {
 			serviceCustomer: true
 		}
 	});
+
+	sinon.assert.calledWith(stubbedSendEvents, 'nsip-project', [expectedEventPayload]);
 });
 
 test(`updates application with new applicant using first and last name,
         address line, map zoom level`, async (t) => {
+	findUniqueStub.returns({ id: 1, serviceCustomer: [{ id: 2 }, { id: 3 }] });
+
 	const response = await request.patch('/applications/1').send({
 		applicants: [
 			{
@@ -309,9 +360,11 @@ test(`updates application with new applicant using first and last name,
 			serviceCustomer: true
 		}
 	});
+
+	sinon.assert.calledWith(stubbedSendEvents, 'nsip-project', [expectedEventPayload]);
 });
 
-test('returns error if any validated values are invalid', async (t) => {
+test('update-application returns error if any validated values are invalid', async (t) => {
 	const response = await request.patch('/applications/1').send({
 		caseEmail: 'not a real email',
 		geographicalInformation: {
@@ -352,9 +405,11 @@ test('returns error if any validated values are invalid', async (t) => {
 			subSectorName: 'Must be existing sub-sector'
 		}
 	});
+
+	sinon.assert.calledWith(stubbedSendEvents, 'nsip-project', [expectedEventPayload]);
 });
 
-test('throws error if unknown application id provided', async (t) => {
+test('update-application throws error if unknown application id provided', async (t) => {
 	const response = await request.patch('/applications/2');
 
 	t.is(response.status, 404);
@@ -365,7 +420,7 @@ test('throws error if unknown application id provided', async (t) => {
 	});
 });
 
-test('throws error if unknown applicant id provided', async (t) => {
+test('update-application throws error if unknown applicant id provided', async (t) => {
 	const response = await request.patch('/applications/1').send({ applicants: [{ id: 3 }] });
 
 	t.is(response.status, 400);
@@ -376,7 +431,7 @@ test('throws error if unknown applicant id provided', async (t) => {
 	});
 });
 
-test('throws error if applicant id that doesnt belong to case provided', async (t) => {
+test('update-application throws error if applicant id that doesnt belong to case provided', async (t) => {
 	const response = await request.patch('/applications/1').send({ applicants: [{ id: 2 }] });
 
 	t.is(response.status, 400);

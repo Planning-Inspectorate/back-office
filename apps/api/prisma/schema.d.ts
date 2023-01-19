@@ -24,7 +24,7 @@ export interface Case extends schema.Case {
 	CaseStatus?: CaseStatus;
 	serviceCustomer?: ServiceCustomer[];
 	ApplicationDetails?: ApplicationDetails | null;
-	gridReference?: GridReference;
+	gridReference?: GridReference | null;
 }
 
 export interface Folder extends schema.Folder {

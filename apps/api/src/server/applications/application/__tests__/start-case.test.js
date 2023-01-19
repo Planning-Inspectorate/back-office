@@ -81,9 +81,9 @@ const createFolderStub = sinon.stub();
 let executeRawStub = sinon.stub();
 
 /**
- * @type {sinon.SinonSpy<any, any>}
+ * @type {sinon.SinonStub<any, any>}
  */
-let stubbedEventClient;
+let stubbedSendEvents;
 
 test.before('set up mocks', () => {
 	sinon.stub(databaseConnector, 'case').get(() => {
@@ -98,7 +98,7 @@ test.before('set up mocks', () => {
 		return { create: createFolderStub };
 	});
 
-	stubbedEventClient = sinon.stub(eventClient, 'sendEvents');
+	stubbedSendEvents = sinon.stub(eventClient, 'sendEvents');
 
 	sinon.stub(Prisma.PrismaClient.prototype, '$transaction');
 	executeRawStub = sinon.stub(Prisma.PrismaClient.prototype, '$executeRawUnsafe');
@@ -174,34 +174,37 @@ test('starts application if all needed information is present', async (t) => {
 		}
 	});
 
-	let applicant;
-
-	sinon.assert.calledWith(stubbedEventClient, 'nsip-project', [
-		{
-			reference: 'EN01-1',
-			modifiedAt: new Date(1_669_383_489_676),
-			createdAt: new Date(1_669_383_489_676),
-			description: 'Description',
-			publishedAt: null,
-			title: 'Title',
-			application: {
-				locationDescription: 'Some Location',
-				submissionAtPublished: 'Q1 2023',
-				submissionAtInternal: new Date(1_658_486_313_000),
-				caseEmail: 'test@test.com',
-				subSector: {
-					abbreviation: 'AA',
-					name: 'sub_sector',
-					sector: { name: 'sector' }
-				},
-				zoomLevel: { name: 'zoom-level' },
-				regions: ['region1', 'region2']
+	const expectedEventPayload = {
+		id: 1,
+		reference: 'EN01-1',
+		title: 'Title',
+		description: 'Description',
+		type: { code: 'Application' },
+		sourceSystem: 'ODT',
+		inspectors: [],
+		validationOfficers: [],
+		caseOfficers: [],
+		status: [{ status: 'draft' }],
+		application: {
+			caseEmail: 'test@test.com',
+			siteAddress: 'Some Location',
+			sector: {
+				abbreviation: 'BB',
+				name: 'sector',
+				subSector: { abbreviation: 'AA', name: 'sub_sector' }
 			},
-			applicant,
-			status: { status: 'draft' },
-			gridReference: { easting: 123_456, northing: 654_321 }
-		}
-	]);
+			zoom: { name: 'zoom-level' },
+			regions: [{ name: 'region1' }, { name: 'region2' }],
+			gridReference: { easting: 123_456, northing: 654_321 },
+			keyDates: {
+				anticipatedSubmissionDate: new Date('2022-07-22T10:38:33.000Z'),
+				anticipatedSubmissionDateNonSpecific: 'Q1 2023'
+			}
+		},
+		customers: []
+	};
+
+	sinon.assert.calledWith(stubbedSendEvents, 'nsip-project', [expectedEventPayload]);
 });
 
 test('throws an error if the application id is not recognised', async (t) => {
