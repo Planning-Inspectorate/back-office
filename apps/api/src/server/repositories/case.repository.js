@@ -3,6 +3,8 @@ import fs from 'node:fs';
 import path from 'node:path';
 import url from 'node:url';
 import { databaseConnector } from '../utils/database-connector.js';
+import logger from '../utils/logger.js';
+import { mapDateStringToUnixTimestamp } from '../utils/mapping/map-date-string-to-unix-timestamp.js';
 import { separateStatusesToSaveAndInvalidate } from './separate-statuses-to-save-and-invalidate.js';
 
 const DEFAULT_CASE_CREATE_STATUS = 'draft';
@@ -43,6 +45,7 @@ const includeAll = {
  *  applicant?: { organisationName?: string | null, firstName?: string | null, middleName?: string | null, lastName?: string | null, email?: string | null, website?: string | null, phoneNumber?: string | null},
  *  mapZoomLevelName?: string | null,
  *  regionNames?: string[],
+ *  publishedAt?: Date,
  *  applicantAddress?: { addressLine1?: string | null, addressLine2?: string | null, town?: string | null, county?: string | null, postcode?: string | null}}} UpdateApplicationParams
  */
 
@@ -358,6 +361,23 @@ export const updateApplication = async ({
 		serviceCustomerAddress: true,
 		gridReference: true
 	});
+};
+
+/**
+ * @param {UpdateApplicationParams} caseInfo
+ * @returns {Promise<number>}
+ */
+export const publishCase = async ({ caseId }) => {
+	const publishedCase = await databaseConnector.case.update({
+		where: { id: caseId },
+		data: {
+			publishedAt: new Date()
+		}
+	});
+
+	logger.info(`case was published at ${publishedCase.publishedAt}`);
+
+	return mapDateStringToUnixTimestamp(String(publishedCase?.publishedAt));
 };
 
 /**

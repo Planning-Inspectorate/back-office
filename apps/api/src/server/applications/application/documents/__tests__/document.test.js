@@ -21,8 +21,8 @@ findUniqueDocumentStub.withArgs({ where: { guid: '1111-2222-3333' } }).returns({
 	guid: '1111-2222-3333',
 	name: 'my doc.doc',
 	folderId: 1,
-	blobStorageContainer: null,
-	blobStoragePath: null,
+	blobStorageContainer: 'document-service-uploads',
+	blobStoragePath: '/application/BC010001/1111-2222-3333/my doc.doc',
 	status: 'awaiting_upload',
 	createdAt: '2022-12-12 17:12:25.9610000',
 	redacted: true
@@ -91,6 +91,27 @@ test('checks invalid case id', async (t) => {
 	const response = await request
 		.patch('/applications/2/documents/update')
 		.send([{ status: 'not_user_checked', items: [{ guid: 'xxxxx' }] }]);
+
+	t.is(response.status, 404);
+	t.deepEqual(response.body, {
+		errors: {
+			id: 'Must be an existing application'
+		}
+	});
+});
+
+test('returns a Blob Storage URI info for a single document on a case', async (t) => {
+	const response = await request.get('/applications/1/documents/1111-2222-3333');
+
+	t.is(response.status, 200);
+	t.deepEqual(response.body, {
+		blobStorageContainer: 'document-service-uploads',
+		blobStoragePath: '/application/BC010001/1111-2222-3333/my doc.doc'
+	});
+});
+
+test('checks invalid case id on Blob Storage URI call', async (t) => {
+	const response = await request.get('/applications/999999/documents/1111-2222-3333');
 
 	t.is(response.status, 404);
 	t.deepEqual(response.body, {

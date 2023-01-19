@@ -91,3 +91,24 @@ export const updateCase = async (caseId, payload) => {
 
 	return response;
 };
+
+/**
+ *
+ * Publish case with updated changes
+ *
+ * @param {number} caseId
+ * @returns {Promise<{publishedDate?: number, errors?: ValidationErrors}>}
+ */
+export const publishCase = async (caseId) => {
+	let response;
+
+	try {
+		response = await patch(`applications/${caseId}/publish`);
+	} catch {
+		response = new Promise((resolve) => {
+			resolve({ errors: { msg: 'Something went wrong, please try again' } });
+		});
+	}
+
+	return response;
+};

@@ -5,7 +5,11 @@ import {
 	validateApplicationId,
 	validateFolderIds
 } from '../../application/application.validators.js';
-import { provideDocumentUploadURLs, updateDocuments } from './document.controller.js';
+import {
+	getDocumentUri,
+	provideDocumentUploadURLs,
+	updateDocuments
+} from './document.controller.js';
 import {
 	validateDocumentIds,
 	validateDocumentsToUpdateProvided,
@@ -71,6 +75,33 @@ router.patch(
 	validateDocumentIds,
 	trimUnexpectedRequestParameters,
 	asyncHandler(updateDocuments)
+);
+
+router.get(
+	'/:id/documents/:guid',
+	/*
+        #swagger.tags = ['Applications']
+        #swagger.path = '/applications/{id}/documents/{guid}'
+        #swagger.description = 'Gets the blob storage uri for a single file on a case'
+        #swagger.parameters['id'] = {
+            in: 'path',
+			description: 'Application ID here',
+			required: true,
+			type: 'integer'
+		}
+		#swagger.parameters['guid'] = {
+            in: 'path',
+			description: 'guid of the required document here',
+			required: true,
+			type: 'string'
+		}
+        #swagger.responses[200] = {
+            description: 'Blob Storage uri',
+            schema: { blobStorageContainer: 'document-service-uploads', blobStoragePath: '/application/TR010002/d38ef007-98d8-4d89-b7bb-34160d97e84e/screenshot 2.png' }
+        }
+    */
+	validateApplicationId,
+	asyncHandler(getDocumentUri)
 );
 
 export { router as documentRoutes };

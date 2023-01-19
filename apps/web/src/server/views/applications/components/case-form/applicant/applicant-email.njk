@@ -2,6 +2,10 @@
 
 {% macro applicantEmail(values, errors) %}
 	{{ govukInput({
+		label: {
+			text: "Applicant mail address",
+    		classes: "govuk-visually-hidden"
+		},
 		id: "applicant.email",
 		name: "applicant.email",
 		classes: "govuk-!-width-one-third",

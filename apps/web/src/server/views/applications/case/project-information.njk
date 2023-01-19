@@ -1,167 +1,66 @@
 {% extends "./layouts/applications-case-layout.njk" %}
-{% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
 {% from "govuk/components/accordion/macro.njk" import govukAccordion %}
 {% from "govuk/components/details/macro.njk" import govukDetails %}
 {% from "govuk/components/table/macro.njk" import govukTable %}
-{% from "../components/published-tag.component.njk" import publishedTag %}
+{% from "govuk/components/notification-banner/macro.njk" import govukNotificationBanner %}
+{% from "./components/case-info-table.component.njk" import caseInfoTable %}
+{% from "./components/case-details-table.component.njk" import caseDetailsTable %}
+{% from "./components/case-applicant-table.component.njk" import caseApplicantTable %}
+
+{% set userIsNotInspector = domainType !== 'inspector' %}
+
+{% set successBannerHtml %}
+	<h3 class="govuk-notification-banner__heading">
+		{% if isFirstTimePublished %} Project page published {% else %}Project page updates published  {% endif %}
+	</h3>
+	<p class="govuk-body">{% if isFirstTimePublished %} The project page will show on the NSIPs website within the hour{% else %} The project page updates will show on the NSIPs website within the hour{% endif %}</p>
+{% endset %}
+
 
 {% block sectionContent %}
+	{% if showPublishedBanner %}
+		{{ govukNotificationBanner({
+			html: successBannerHtml,
+			type: 'success'
+		}) }}
+	{% endif %}
 
 	<h2 class="govuk-heading-m">Project information</h2>
 
-	{% set regionNames = [] %}
-	{% set gridReferences = '' %}
-	{% set applicantFirstOrganisationName = case.applicants[0].organisationName %}
-	{% set applicantFirstEmail = case.applicants[0].email %}
-	{% set applicantFirstPhoneNumber = case.applicants[0].phoneNumber %}
-	{% set applicantFirstWebsite = case.applicants[0].website %}
+	{{ caseInfoTable(case) }}
 
-	{% for item in case.geographicalInformation.regions %}
-        {% set regionNames = (regionNames.push(item.displayNameEn), regionNames) %}
-	{% endfor %}
+	{% if userIsNotInspector %}
+		{% if case.publishedDate and case.publishedDate < case.modifiedDate %}
+			<p class="govuk-body-m colour--red font-weight--700">There are unpublished changes that have been made.
+				Publish
+				the project for changes to be applied.</p>
+		{% endif %}
 
-	{% if case.geographicalInformation.gridReference.easting %}
-		{% set gridReferences = case.geographicalInformation.gridReference.easting + ' (Easting)' %}
-	{% endif %}
-	{% set gridReferences = gridReferences + '<br>' %}
-	{% if case.geographicalInformation.gridReference.northing %}
-		{% set gridReferences = gridReferences + case.geographicalInformation.gridReference.northing + ' (Northing)' %}
-	{% endif %}
-
-	{{ govukSummaryList({
-		classes: 'govuk-summary-list--no-border',
-		rows: [
-			{
-				key: { text: "Project page status" },
-				value: { html: publishedTag('Not Published') }
-			},
-			{
-				key: { text: "Case reference number" },
-				value: { text: case.reference }
-			},
-			{
-				key: { text: "Sector" },
-				value: { text: case.sector.displayNameEn }
-			},
-			{
-				key: { text: "Subsector" },
-				value: { text: case.subSector.displayNameEn }
-			}
-		]
-	}) }}
-
-	{{ govukAccordion({
-		items: [{
-			heading: { text: 'Project details' },
-			content: {
-				html: govukTable({
-					firstCellIsHeader: true,
-					rows: [
-						[
-							{ text: 'Project name' },
-							{ text: case.title },
-							{ html: caseEditLink({ editStepUrl: 'name' }), classes: 'text-align--right pins-table__cell--s' }
-						],
-						[
-							{ text: "Project description" },
-							{ text: case.description },
-							{ html: caseEditLink({ editStepUrl: 'description' }), classes: 'text-align--right pins-table__cell--s' }
-						],
-						[
-							{ text: "Project email address" },
-							{ text: case.caseEmail },
-							{ html: caseEditLink({ editStepUrl: 'team-email' }), classes: 'text-align--right pins-table__cell--s' }
-						],
-						[
-							{ text: "Project location" },
-							{ text: case.geographicalInformation.locationDescription },
-							{ html: caseEditLink({ editStepUrl: 'project-location' }), classes: 'text-align--right pins-table__cell--s' }
-						],
-						[
-							{ text: "Grid references" },
-							{ html: gridReferences },
-							{ html: caseEditLink({ editStepUrl: 'grid-references' }), classes: 'text-align--right pins-table__cell--s' }
-						],
-						[
-							{ text: "Regions(s)" },
-							{ text: regionNames },
-							{ html: caseEditLink({ editStepUrl: 'regions' }), classes: 'text-align--right pins-table__cell--s' }
-						],
-						[
-							{ text: "Map zoom level" },
-							{ text: case.geographicalInformation.mapZoomLevel.displayNameEn },
-							{ html: caseEditLink({ editStepUrl: 'zoom-level' }), classes: 'text-align--right pins-table__cell--s' }
-						]
-					]
-				})
-			}
-		},
-		{
-			heading: { text: 'Applicant information' },
-			content: {
-				html: govukTable({
-					firstCellIsHeader: true,
-					rows: [
-						[
-							{ text: 'Organisation name' },
-							{ text: applicantFirstOrganisationName },
-							{ html: caseEditLink({ editStepUrl: 'applicant-organisation-name' }), classes: 'text-align--right pins-table__cell--s' }
-						],
-						[
-							{ text: "Contact name" },
-							{ text: writeFullName([case.applicants[0].firstName, case.applicants[0].middleName, case.applicants[0].lastName] )},
-							{ html: caseEditLink({ editStepUrl: 'applicant-full-name' }), classes: 'text-align--right pins-table__cell--s' }
-						],
-						[
-							{ text: "Address" },
-							{ text: writeFullAddress(case.applicants[0].address) },
-							{ html: caseEditLink({ editStepUrl: 'applicant-address' }), classes: 'text-align--right pins-table__cell--s' }
-						],
-						[
-							{ text: "Website" },
-							{ text: applicantFirstWebsite },
-							{ html: caseEditLink({ editStepUrl: 'applicant-website' }), classes: 'text-align--right pins-table__cell--s' }
-						],
-						[
-							{ text: "Email address" },
-							{ html: applicantFirstEmail },
-							{ html: caseEditLink({ editStepUrl: 'applicant-email' }), classes: 'text-align--right pins-table__cell--s' }
-						],
-						[
-							{ text: "Telephone number" },
-							{ text: applicantFirstPhoneNumber },
-							{ html: caseEditLink({ editStepUrl: 'applicant-telephone-number' }), classes: 'text-align--right pins-table__cell--s' }
-						]
-					]
-				})
-			}
-		}
-		]
-	}) }}
-
-{% endblock %}
-
-{% macro caseEditLink(params) %}
-	{% set userIsInspector = domainType === 'inspector' %}
-
-	{% if not userIsInspector %}
-		<a class="govuk-link"
-		   href="{{ 'case-edit'|url({domainType: domainType, caseId: case.id, step: params.editStepUrl }) }}">
-			Change
+		<a class="govuk-link govuk-body-m" href="{{ 'case-view'|url({caseId:case.id, step: 'preview-and-publish'}) }}">
+			Preview and publish project
 		</a>
 	{% endif %}
-{% endmacro %}
 
-{% macro writeFullName(params) %}
-	{% set spacer = joiner(' ') %}
-	{% for namePart in params -%}
-  		{{ spacer() }}{{ namePart }}
-	{%- endfor %}
-{% endmacro %}
+	{{ govukAccordion({
+		classes: 'govuk-!-margin-top-5',
+		items: [
+			{
+				heading: { text: 'Project details' },
+				content: {
+				html: caseDetailsTable(case, domainType)
+			}
+			},
+			{
+				heading: { text: 'Applicant information' },
+				content: {
+				html: caseApplicantTable(case, domainType)
+			}
+			}
+		]
+	}) }}
 
-{% macro writeFullAddress(params) %}
-	{% set comma = joiner() %}
-	{% for key, value in params -%}
-  		{{ comma() }} {{ value |trim }}
-	{%- endfor %}
-{% endmacro %}
+	{% if case.publishedDate and userIsNotInspector %}
+		<a href="../{{ caseId }}/unpublish" class="govuk-link colour--red govuk-body-m">Unpublish project</a>
+	{% endif %}
+
+{% endblock %}

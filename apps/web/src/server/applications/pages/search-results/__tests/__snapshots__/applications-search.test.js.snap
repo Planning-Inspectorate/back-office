@@ -12,8 +12,9 @@ exports[`applications search POST /applications-service/search-results should re
             <form method=\\"post\\" action=\\"search-results\\" novalidate class=\\"pins-dashboard-box--form pins-dashboard-form\\"
             role=\\"search\\" aria-label=\\"Applications\\">
                 <div class=\\"govuk-form-group\\">
-                    <input class=\\"govuk-input pins-dashboard-form--input\\" id=\\"searchApplications\\"
-                    name=\\"query\\" type=\\"text\\" value=\\"query\\" inputmode=\\"search\\">
+                    <label class=\\"govuk-label pins-dashboard-form--label\\" for=\\"searchApplications\\">Search cases</label>
+                    <input class=\\"govuk-input pins-dashboard-form--input\\"
+                    id=\\"searchApplications\\" name=\\"query\\" type=\\"text\\" value=\\"query\\" inputmode=\\"search\\">
                 </div>
                 <button class=\\"govuk-button pins-dashboard-form--btn\\" data-module=\\"govuk-button\\">Search</button>
             </form>
@@ -44,6 +45,7 @@ exports[`applications search POST /applications-service/search-results should re
             <form method=\\"post\\" action=\\"search-results\\" novalidate class=\\"pins-dashboard-box--form pins-dashboard-form\\"
             role=\\"search\\" aria-label=\\"Applications\\">
                 <div class=\\"govuk-form-group govuk-form-group--error\\">
+                    <label class=\\"govuk-label pins-dashboard-form--label\\" for=\\"searchApplications\\">Search cases</label>
                     <p id=\\"searchApplications-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> Enter a search term</p>
                     <input                     class=\\"govuk-input pins-dashboard-form--input govuk-input--error\\" id=\\"searchApplications\\"
                     name=\\"query\\" type=\\"text\\" aria-describedby=\\"searchApplications-error\\" inputmode=\\"search\\">
@@ -70,8 +72,9 @@ exports[`applications search POST /applications-service/search-results should re
             <form method=\\"post\\" action=\\"search-results\\" novalidate class=\\"pins-dashboard-box--form pins-dashboard-form\\"
             role=\\"search\\" aria-label=\\"Applications\\">
                 <div class=\\"govuk-form-group\\">
-                    <input class=\\"govuk-input pins-dashboard-form--input\\" id=\\"searchApplications\\"
-                    name=\\"query\\" type=\\"text\\" value=\\"query\\" inputmode=\\"search\\">
+                    <label class=\\"govuk-label pins-dashboard-form--label\\" for=\\"searchApplications\\">Search cases</label>
+                    <input class=\\"govuk-input pins-dashboard-form--input\\"
+                    id=\\"searchApplications\\" name=\\"query\\" type=\\"text\\" value=\\"query\\" inputmode=\\"search\\">
                 </div>
                 <button class=\\"govuk-button pins-dashboard-form--btn\\" data-module=\\"govuk-button\\">Search</button>
             </form>

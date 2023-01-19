@@ -2,7 +2,7 @@
 
 exports[`applications create Geographical Information GET /create-new-case/:caseId/geographical-information should display resumed data if the API returns something 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
-    <h2 class=\\"govuk-heading-l\\"> Enter geographical information</h2>
+    <h1 class=\\"govuk-heading-l\\"> Enter geographical information</h1>
     <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
         <div class=\\"govuk-form-group\\">
             <label class=\\"govuk-label font-weight--700\\" for=\\"geographicalInformation.locationDescription\\">Project location</label>
@@ -58,7 +58,7 @@ exports[`applications create Geographical Information POST /create-new-case/:cas
             </div>
         </div>
     </div>
-    <h2 class=\\"govuk-heading-l\\"> Enter geographical information</h2>
+    <h1 class=\\"govuk-heading-l\\"> Enter geographical information</h1>
     <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
         <div class=\\"govuk-form-group govuk-form-group--error\\">
             <label class=\\"govuk-label font-weight--700\\" for=\\"geographicalInformation.locationDescription\\">Project location</label>
@@ -113,7 +113,7 @@ exports[`applications create Geographical Information POST /create-new-case/:cas
             </div>
         </div>
     </div>
-    <h2 class=\\"govuk-heading-l\\"> Enter geographical information</h2>
+    <h1 class=\\"govuk-heading-l\\"> Enter geographical information</h1>
     <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
         <div class=\\"govuk-form-group\\">
             <label class=\\"govuk-label font-weight--700\\" for=\\"geographicalInformation.locationDescription\\">Project location</label>
@@ -169,7 +169,7 @@ exports[`applications create Geographical Information POST /create-new-case/:cas
             </div>
         </div>
     </div>
-    <h2 class=\\"govuk-heading-l\\"> Enter geographical information</h2>
+    <h1 class=\\"govuk-heading-l\\"> Enter geographical information</h1>
     <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
         <div class=\\"govuk-form-group govuk-form-group--error\\">
             <label class=\\"govuk-label font-weight--700\\" for=\\"geographicalInformation.locationDescription\\">Project location</label>
@@ -233,7 +233,7 @@ exports[`applications create Geographical Information POST /create-new-case/:cas
             </div>
         </div>
     </div>
-    <h2 class=\\"govuk-heading-l\\"> Enter geographical information</h2>
+    <h1 class=\\"govuk-heading-l\\"> Enter geographical information</h1>
     <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
         <div class=\\"govuk-form-group govuk-form-group--error\\">
             <label class=\\"govuk-label font-weight--700\\" for=\\"geographicalInformation.locationDescription\\">Project location</label>
@@ -279,7 +279,7 @@ exports[`applications create Geographical Information POST /create-new-case/:cas
 
 exports[`applications create Name and description GET /create-new-case When role is: Case admin officer should render form 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
-    <h2 class=\\"govuk-heading-l\\"> Enter name and description</h2>
+    <h1 class=\\"govuk-heading-l\\"> Enter name and description</h1>
     <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
         <div class=\\"govuk-form-group\\">
             <label class=\\"govuk-label font-weight--700\\" for=\\"title\\">Name of the project</label>
@@ -305,7 +305,7 @@ exports[`applications create Name and description GET /create-new-case When role
 
 exports[`applications create Name and description GET /create-new-case When role is: Case officer should render form 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
-    <h2 class=\\"govuk-heading-l\\"> Enter name and description</h2>
+    <h1 class=\\"govuk-heading-l\\"> Enter name and description</h1>
     <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
         <div class=\\"govuk-form-group\\">
             <label class=\\"govuk-label font-weight--700\\" for=\\"title\\">Name of the project</label>
@@ -357,7 +357,7 @@ exports[`applications create Name and description GET /create-new-case/1 should 
 
 exports[`applications create Name and description GET /create-new-case/1 should render page with resumed data 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
-    <h2 class=\\"govuk-heading-l\\"> Enter name and description</h2>
+    <h1 class=\\"govuk-heading-l\\"> Enter name and description</h1>
     <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
         <div class=\\"govuk-form-group\\">
             <label class=\\"govuk-label font-weight--700\\" for=\\"title\\">Name of the project</label>
@@ -401,7 +401,7 @@ exports[`applications create Name and description POST /create-new-case/:id Api-
             </div>
         </div>
     </div>
-    <h2 class=\\"govuk-heading-l\\"> Enter name and description</h2>
+    <h1 class=\\"govuk-heading-l\\"> Enter name and description</h1>
     <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
         <div class=\\"govuk-form-group govuk-form-group--error\\">
             <label class=\\"govuk-label font-weight--700\\" for=\\"title\\">Name of the project</label>
@@ -446,7 +446,7 @@ exports[`applications create Name and description POST /create-new-case/:id Api-
             </div>
         </div>
     </div>
-    <h2 class=\\"govuk-heading-l\\"> Enter name and description</h2>
+    <h1 class=\\"govuk-heading-l\\"> Enter name and description</h1>
     <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
         <div class=\\"govuk-form-group govuk-form-group--error\\">
             <label class=\\"govuk-label font-weight--700\\" for=\\"title\\">Name of the project</label>
@@ -491,7 +491,7 @@ exports[`applications create Name and description POST /create-new-case/:id Web-
             </div>
         </div>
     </div>
-    <h2 class=\\"govuk-heading-l\\"> Enter name and description</h2>
+    <h1 class=\\"govuk-heading-l\\"> Enter name and description</h1>
     <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
         <div class=\\"govuk-form-group govuk-form-group--error\\">
             <label class=\\"govuk-label font-weight--700\\" for=\\"title\\">Name of the project</label>
@@ -521,7 +521,7 @@ exports[`applications create Name and description POST /create-new-case/:id Web-
 
 exports[`applications create Regions GET /create-new-case/:caseId/regions should render the page with checked options if the api returns something 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
-    <h2 class=\\"govuk-heading-l\\"> Choose one or multiple regions</h2>
+    <h1 class=\\"govuk-heading-l\\"> Choose one or multiple regions</h1>
     <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
         <div class=\\"govuk-form-group\\">
             <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
@@ -570,7 +570,7 @@ exports[`applications create Regions GET /create-new-case/:caseId/regions should
 
 exports[`applications create Regions GET /create-new-case/:caseId/regions should render the page without checked options 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
-    <h2 class=\\"govuk-heading-l\\"> Choose one or multiple regions</h2>
+    <h1 class=\\"govuk-heading-l\\"> Choose one or multiple regions</h1>
     <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
         <div class=\\"govuk-form-group\\">
             <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
@@ -631,7 +631,7 @@ exports[`applications create Regions POST /create-new-case/:caseId/regions Api v
             </div>
         </div>
     </div>
-    <h2 class=\\"govuk-heading-l\\"> Choose one or multiple regions</h2>
+    <h1 class=\\"govuk-heading-l\\"> Choose one or multiple regions</h1>
     <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
         <div class=\\"govuk-form-group govuk-form-group--error\\">
             <p id=\\"geographicalInformation.regionNames-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> Error msg</p>
@@ -697,7 +697,7 @@ exports[`applications create Regions POST /create-new-case/:caseId/regions Web-v
             </div>
         </div>
     </div>
-    <h2 class=\\"govuk-heading-l\\"> Choose one or multiple regions</h2>
+    <h1 class=\\"govuk-heading-l\\"> Choose one or multiple regions</h1>
     <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
         <div class=\\"govuk-form-group\\">
             <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
@@ -759,7 +759,7 @@ exports[`applications create Regions POST /create-new-case/:caseId/regions Web-v
             </div>
         </div>
     </div>
-    <h2 class=\\"govuk-heading-l\\"> Choose one or multiple regions</h2>
+    <h1 class=\\"govuk-heading-l\\"> Choose one or multiple regions</h1>
     <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
         <div class=\\"govuk-form-group govuk-form-group--error\\">
             <p id=\\"geographicalInformation.regionNames-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> Choose at least one region</p>
@@ -826,7 +826,7 @@ exports[`applications create Sector GET /create-new-case/:caseId/sector When cas
 
 exports[`applications create Sector GET /create-new-case/:caseId/sector When caseId is: Provided should display an option as _checked_ if the API returns a resumed value 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
-    <h2 class=\\"govuk-heading-l\\"> Choose a sector</h2>
+    <h1 class=\\"govuk-heading-l\\"> Choose a sector</h1>
     <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
         <div class=\\"govuk-form-group\\">
             <div class=\\"govuk-radios\\" data-module=\\"govuk-radios\\">
@@ -868,7 +868,7 @@ exports[`applications create Sector GET /create-new-case/:caseId/sector When cas
 
 exports[`applications create Sector GET /create-new-case/:caseId/sector When caseId is: Provided should not display a _checked_ option if the API does NOT return a resumed value 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
-    <h2 class=\\"govuk-heading-l\\"> Choose a sector</h2>
+    <h1 class=\\"govuk-heading-l\\"> Choose a sector</h1>
     <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
         <div class=\\"govuk-form-group\\">
             <div class=\\"govuk-radios\\" data-module=\\"govuk-radios\\">
@@ -924,7 +924,7 @@ exports[`applications create Sector POST /create-new-case/:caseId/sector Web-sid
             </div>
         </div>
     </div>
-    <h2 class=\\"govuk-heading-l\\"> Choose a sector</h2>
+    <h1 class=\\"govuk-heading-l\\"> Choose a sector</h1>
     <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
         <div class=\\"govuk-form-group govuk-form-group--error\\">
             <p id=\\"sectorName-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> Choose the sector of
@@ -968,7 +968,7 @@ exports[`applications create Sector POST /create-new-case/:caseId/sector Web-sid
 
 exports[`applications create Sub-sector GET /create-new-case/:caseId/sub-sector should display an option as _checked_ if the API returns a resumed value 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
-    <h2 class=\\"govuk-heading-l\\"> Choose a subsector</h2>
+    <h1 class=\\"govuk-heading-l\\"> Choose a subsector</h1>
     <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
         <div class=\\"govuk-form-group\\">
             <div class=\\"govuk-radios\\" data-module=\\"govuk-radios\\">
@@ -1000,7 +1000,7 @@ exports[`applications create Sub-sector GET /create-new-case/:caseId/sub-sector 
 
 exports[`applications create Sub-sector GET /create-new-case/:caseId/sub-sector should not display a _checked_ option if the API does NOT return a resumed value 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
-    <h2 class=\\"govuk-heading-l\\"> Choose a subsector</h2>
+    <h1 class=\\"govuk-heading-l\\"> Choose a subsector</h1>
     <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
         <div class=\\"govuk-form-group\\">
             <div class=\\"govuk-radios\\" data-module=\\"govuk-radios\\">
@@ -1032,7 +1032,7 @@ exports[`applications create Sub-sector GET /create-new-case/:caseId/sub-sector 
 
 exports[`applications create Sub-sector GET /create-new-case/:caseId/sub-sector should render subsectors matching with the sectorName in the session 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
-    <h2 class=\\"govuk-heading-l\\"> Choose a subsector</h2>
+    <h1 class=\\"govuk-heading-l\\"> Choose a subsector</h1>
     <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
         <div class=\\"govuk-form-group\\">
             <div class=\\"govuk-radios\\" data-module=\\"govuk-radios\\">
@@ -1078,7 +1078,7 @@ exports[`applications create Sub-sector POST /create-new-case/:caseId/sub-sector
             </div>
         </div>
     </div>
-    <h2 class=\\"govuk-heading-l\\"> Choose a subsector</h2>
+    <h1 class=\\"govuk-heading-l\\"> Choose a subsector</h1>
     <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
         <div class=\\"govuk-form-group govuk-form-group--error\\">
             <p id=\\"subSectorName-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> Must be existing sub-sector</p>
@@ -1125,7 +1125,7 @@ exports[`applications create Sub-sector POST /create-new-case/:caseId/sub-sector
             </div>
         </div>
     </div>
-    <h2 class=\\"govuk-heading-l\\"> Choose a subsector</h2>
+    <h1 class=\\"govuk-heading-l\\"> Choose a subsector</h1>
     <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
         <div class=\\"govuk-form-group govuk-form-group--error\\">
             <p id=\\"subSectorName-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> Choose the subsector
@@ -1159,9 +1159,10 @@ exports[`applications create Sub-sector POST /create-new-case/:caseId/sub-sector
 
 exports[`applications create Team email GET /create-new-case/:caseId/team-email should render the page with no value inside the text input if api does not return resumed data 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
-    <h2 class=\\"govuk-heading-l\\"> Enter the project email</h2>
+    <h1 class=\\"govuk-heading-l\\"> Enter the project email</h1>
     <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
         <div class=\\"govuk-form-group\\">
+            <label class=\\"govuk-label govuk-visually-hidden\\" for=\\"caseEmail\\">Team mail address</label>
             <div id=\\"caseEmail-hint\\" class=\\"govuk-hint\\">for example, NIEnquiries@planninginspectorate.gsi.gov.uk</div>
             <input class=\\"govuk-input govuk-!-width-one-third\\"
             id=\\"caseEmail\\" name=\\"caseEmail\\" type=\\"text\\" aria-describedby=\\"caseEmail-hint\\">
@@ -1177,9 +1178,10 @@ exports[`applications create Team email GET /create-new-case/:caseId/team-email 
 
 exports[`applications create Team email GET /create-new-case/:caseId/team-email should render the page with the resumed data if the api returns something 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
-    <h2 class=\\"govuk-heading-l\\"> Enter the project email</h2>
+    <h1 class=\\"govuk-heading-l\\"> Enter the project email</h1>
     <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
         <div class=\\"govuk-form-group\\">
+            <label class=\\"govuk-label govuk-visually-hidden\\" for=\\"caseEmail\\">Team mail address</label>
             <div id=\\"caseEmail-hint\\" class=\\"govuk-hint\\">for example, NIEnquiries@planninginspectorate.gsi.gov.uk</div>
             <input class=\\"govuk-input govuk-!-width-one-third\\"
             id=\\"caseEmail\\" name=\\"caseEmail\\" type=\\"text\\" value=\\"some@ema.il\\" aria-describedby=\\"caseEmail-hint\\">
@@ -1209,9 +1211,10 @@ exports[`applications create Team email POST /create-new-case/:caseId/team-email
             </div>
         </div>
     </div>
-    <h2 class=\\"govuk-heading-l\\"> Enter the project email</h2>
+    <h1 class=\\"govuk-heading-l\\"> Enter the project email</h1>
     <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
         <div class=\\"govuk-form-group govuk-form-group--error\\">
+            <label class=\\"govuk-label govuk-visually-hidden\\" for=\\"caseEmail\\">Team mail address</label>
             <div id=\\"caseEmail-hint\\" class=\\"govuk-hint\\">for example, NIEnquiries@planninginspectorate.gsi.gov.uk</div>
             <p id=\\"caseEmail-error\\"
             class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> Error msg</p>
@@ -1240,9 +1243,10 @@ exports[`applications create Team email POST /create-new-case/:caseId/team-email
             </div>
         </div>
     </div>
-    <h2 class=\\"govuk-heading-l\\"> Enter the project email</h2>
+    <h1 class=\\"govuk-heading-l\\"> Enter the project email</h1>
     <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
         <div class=\\"govuk-form-group\\">
+            <label class=\\"govuk-label govuk-visually-hidden\\" for=\\"caseEmail\\">Team mail address</label>
             <div id=\\"caseEmail-hint\\" class=\\"govuk-hint\\">for example, NIEnquiries@planninginspectorate.gsi.gov.uk</div>
             <input class=\\"govuk-input govuk-!-width-one-third\\"
             id=\\"caseEmail\\" name=\\"caseEmail\\" type=\\"text\\" value=\\"valid@ema.il\\" aria-describedby=\\"caseEmail-hint\\">
@@ -1272,9 +1276,10 @@ exports[`applications create Team email POST /create-new-case/:caseId/team-email
             </div>
         </div>
     </div>
-    <h2 class=\\"govuk-heading-l\\"> Enter the project email</h2>
+    <h1 class=\\"govuk-heading-l\\"> Enter the project email</h1>
     <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
         <div class=\\"govuk-form-group govuk-form-group--error\\">
+            <label class=\\"govuk-label govuk-visually-hidden\\" for=\\"caseEmail\\">Team mail address</label>
             <div id=\\"caseEmail-hint\\" class=\\"govuk-hint\\">for example, NIEnquiries@planninginspectorate.gsi.gov.uk</div>
             <p id=\\"caseEmail-error\\"
             class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> Enter a valid email address</p>
@@ -1292,7 +1297,7 @@ exports[`applications create Team email POST /create-new-case/:caseId/team-email
 
 exports[`applications create Zoom Level GET /create-new-case/:caseId/zoom-level should render the page with None checked if the api does not return resumed data 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
-    <h2 class=\\"govuk-heading-l\\"> Choose map zoom level</h2>
+    <h1 class=\\"govuk-heading-l\\"> Choose map zoom level</h1>
     <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
         <div class=\\"govuk-form-group\\">
             <div class=\\"govuk-radios\\" data-module=\\"govuk-radios\\">
@@ -1340,7 +1345,7 @@ exports[`applications create Zoom Level GET /create-new-case/:caseId/zoom-level 
 
 exports[`applications create Zoom Level GET /create-new-case/:caseId/zoom-level should render the page with the checked option from the resumed data 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
-    <h2 class=\\"govuk-heading-l\\"> Choose map zoom level</h2>
+    <h1 class=\\"govuk-heading-l\\"> Choose map zoom level</h1>
     <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
         <div class=\\"govuk-form-group\\">
             <div class=\\"govuk-radios\\" data-module=\\"govuk-radios\\">
@@ -1402,7 +1407,7 @@ exports[`applications create Zoom Level POST /create-new-case/:caseId/zoom-level
             </div>
         </div>
     </div>
-    <h2 class=\\"govuk-heading-l\\"> Choose map zoom level</h2>
+    <h1 class=\\"govuk-heading-l\\"> Choose map zoom level</h1>
     <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
         <div class=\\"govuk-form-group govuk-form-group--error\\">
             <p id=\\"geographicalInformation.mapZoomLevelName-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> Error msg</p>

@@ -34,6 +34,7 @@ export const createApplicant = (showAddress = false) => {
 export const createCase = ({
 	id = fake.createUniqueId(),
 	modifiedDate = `${sub(new Date(), { weeks: random(1, 6) }).getTime() / 1000}`,
+	publishedDate,
 	reference = createCaseReference(),
 	sector = createOptionsItem(),
 	subSector = createOptionsItem(),
@@ -48,6 +49,7 @@ export const createCase = ({
 		description: createRandomDescription({ wordsNumber: 40, startOffset: id }),
 		status,
 		modifiedDate,
+		publishedDate,
 		sector,
 		subSector,
 		applicants,

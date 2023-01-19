@@ -17,14 +17,14 @@
 	<div class="govuk-grid-row">
 		<div class="{{ 'govuk-grid-column-full' if userIsInspector else 'govuk-grid-column-one-half' }}">
 			<div class="pins-dashboard-box">
-				<h3 class="govuk-heading-l pins-dashboard-box--title">Search cases</h3>
+				<h2 class="govuk-heading-l pins-dashboard-box--title">Search cases</h2>
 				{{ applicationSearch(searchParameters) }}
 			</div>
 		</div>
 		{% if not userIsInspector %}
 			<div class="govuk-grid-column-one-half">
 				<div class="pins-dashboard-box">
-					<h3 class="govuk-heading-l pins-dashboard-box--title">Create new case</h3>
+					<h2 class="govuk-heading-l pins-dashboard-box--title">Create new case</h2>
 					<a class="govuk-button govuk-button--secondary pins-dashboard-box--btn"
 					   href="{{ 'base-url'|url }}/create-new-case">Create new case here</a>
 				</div>
@@ -45,6 +45,7 @@
 
 
 			{{ govukAccordion({
+				id: 'draft-cases-list',
 				items: [{
 					content: {
 						html: govukTable({
@@ -76,7 +77,10 @@
 			}) %}
 		{% endfor %}
 
-		{{ govukAccordion({ items: items }) }}
+		{{ govukAccordion({
+			id: 'cases-list',
+			items: items
+		}) }}
 	</div>
 
 {% endblock %}

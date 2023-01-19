@@ -20,16 +20,15 @@ exports[`applications create: check your answers Case created should render the 
 
 exports[`applications create: check your answers Check your answers GET /check-your-answers should render the page 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
-    <h2 class=\\"govuk-heading-l\\"><div class=\\"govuk-grid-row\\"><div class=\\"govuk-grid-column-full\\"> Check your answers before creating a new project</div></div></h2>
+    <h1 class=\\"govuk-heading-l\\"><div class=\\"govuk-grid-row\\"><div class=\\"govuk-grid-column-full\\"> Check your answers before creating a new project</div></div></h1>
     <form method=\\"post\\" action=\\"\\">
         <div class=\\"govuk-grid-row\\">
             <div class=\\"govuk-grid-column-full\\">
                 <table class=\\"govuk-table\\">
                     <thead class=\\"govuk-table__head\\">
                         <tr class=\\"govuk-table__row\\">
-                            <th scope=\\"col\\" class=\\"govuk-table__header govuk-table__caption--m pins-table__cell--l govuk-!-static-padding-bottom-6\\">Project information</th>
-                            <th scope=\\"col\\" class=\\"govuk-table__header\\"></th>
-                            <th scope=\\"col\\" class=\\"govuk-table__header\\"></th>
+                            <th scope=\\"col\\" class=\\"govuk-table__header govuk-table__caption--m pins-table__cell--l govuk-!-static-padding-bottom-6\\"
+                            colspan=\\"3\\">Project information</th>
                         </tr>
                     </thead>
                     <tbody class=\\"govuk-table__body\\">
@@ -100,9 +99,8 @@ exports[`applications create: check your answers Check your answers GET /check-y
                 <table class=\\"govuk-table\\">
                     <thead class=\\"govuk-table__head\\">
                         <tr class=\\"govuk-table__row\\">
-                            <th scope=\\"col\\" class=\\"govuk-table__header govuk-table__caption--m pins-table__cell--l govuk-!-static-padding-bottom-6\\">Applicant information</th>
-                            <th scope=\\"col\\" class=\\"govuk-table__header\\"></th>
-                            <th scope=\\"col\\" class=\\"govuk-table__header\\"></th>
+                            <th scope=\\"col\\" class=\\"govuk-table__header govuk-table__caption--m pins-table__cell--l govuk-!-static-padding-bottom-6\\"
+                            colspan=\\"3\\">Applicant information</th>
                         </tr>
                     </thead>
                     <tbody class=\\"govuk-table__body\\">
@@ -147,9 +145,8 @@ exports[`applications create: check your answers Check your answers GET /check-y
                 <table class=\\"govuk-table\\">
                     <thead class=\\"govuk-table__head\\">
                         <tr class=\\"govuk-table__row\\">
-                            <th scope=\\"col\\" class=\\"govuk-table__header govuk-table__caption--m pins-table__cell--l govuk-!-static-padding-bottom-6\\">Key dates</th>
-                            <th scope=\\"col\\" class=\\"govuk-table__header\\"></th>
-                            <th scope=\\"col\\" class=\\"govuk-table__header\\"></th>
+                            <th scope=\\"col\\" class=\\"govuk-table__header govuk-table__caption--m pins-table__cell--l govuk-!-static-padding-bottom-6\\"
+                            colspan=\\"3\\">Key dates</th>
                         </tr>
                     </thead>
                     <tbody class=\\"govuk-table__body\\">
@@ -209,16 +206,15 @@ exports[`applications create: check your answers Check your answers POST /check-
             </div>
         </div>
     </div>
-    <h2 class=\\"govuk-heading-l\\"><div class=\\"govuk-grid-row\\"><div class=\\"govuk-grid-column-full\\"> Check your answers before creating a new project</div></div></h2>
+    <h1 class=\\"govuk-heading-l\\"><div class=\\"govuk-grid-row\\"><div class=\\"govuk-grid-column-full\\"> Check your answers before creating a new project</div></div></h1>
     <form method=\\"post\\" action=\\"\\">
         <div class=\\"govuk-grid-row\\">
             <div class=\\"govuk-grid-column-full\\">
                 <table class=\\"govuk-table\\">
                     <thead class=\\"govuk-table__head\\">
                         <tr class=\\"govuk-table__row\\">
-                            <th scope=\\"col\\" class=\\"govuk-table__header govuk-table__caption--m pins-table__cell--l govuk-!-static-padding-bottom-6\\">Project information</th>
-                            <th scope=\\"col\\" class=\\"govuk-table__header\\"></th>
-                            <th scope=\\"col\\" class=\\"govuk-table__header\\"></th>
+                            <th scope=\\"col\\" class=\\"govuk-table__header govuk-table__caption--m pins-table__cell--l govuk-!-static-padding-bottom-6\\"
+                            colspan=\\"3\\">Project information</th>
                         </tr>
                     </thead>
                     <tbody class=\\"govuk-table__body\\">
@@ -289,9 +285,8 @@ exports[`applications create: check your answers Check your answers POST /check-
                 <table class=\\"govuk-table\\">
                     <thead class=\\"govuk-table__head\\">
                         <tr class=\\"govuk-table__row\\">
-                            <th scope=\\"col\\" class=\\"govuk-table__header govuk-table__caption--m pins-table__cell--l govuk-!-static-padding-bottom-6\\">Applicant information</th>
-                            <th scope=\\"col\\" class=\\"govuk-table__header\\"></th>
-                            <th scope=\\"col\\" class=\\"govuk-table__header\\"></th>
+                            <th scope=\\"col\\" class=\\"govuk-table__header govuk-table__caption--m pins-table__cell--l govuk-!-static-padding-bottom-6\\"
+                            colspan=\\"3\\">Applicant information</th>
                         </tr>
                     </thead>
                     <tbody class=\\"govuk-table__body\\">
@@ -336,9 +331,8 @@ exports[`applications create: check your answers Check your answers POST /check-
                 <table class=\\"govuk-table\\">
                     <thead class=\\"govuk-table__head\\">
                         <tr class=\\"govuk-table__row\\">
-                            <th scope=\\"col\\" class=\\"govuk-table__header govuk-table__caption--m pins-table__cell--l govuk-!-static-padding-bottom-6\\">Key dates</th>
-                            <th scope=\\"col\\" class=\\"govuk-table__header\\"></th>
-                            <th scope=\\"col\\" class=\\"govuk-table__header\\"></th>
+                            <th scope=\\"col\\" class=\\"govuk-table__header govuk-table__caption--m pins-table__cell--l govuk-!-static-padding-bottom-6\\"
+                            colspan=\\"3\\">Key dates</th>
                         </tr>
                     </thead>
                     <tbody class=\\"govuk-table__body\\">

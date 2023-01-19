@@ -46,7 +46,7 @@
 
 				<div class="govuk-grid-row govuk-!-margin-top-0">
 					<div class="govuk-grid-column-one-half govuk-!-margin-top-0">
-						<h4 class="govuk-heading-m">Documents</h4>
+						<h3 class="govuk-heading-m">Documents</h3>
 						<p class="govuk-body">This folder contains {{ documentationFiles.itemCount }} document(s).</p>
 						{% if not userIsInspector %}
 							<a class="govuk-button govuk-button--secondary govuk-!-margin-0"
@@ -191,15 +191,17 @@
 												name: "selectedFilesIds[]",
 												items: [
 													{
+														id: 'checkbox-id-' + documentationFile.guid,
 														value: documentationFile.guid,
-														text: documentationFile.documentName
+														text: documentationFile.documentName,
+														label: 'select ' + documentationFile.documentName
 													}]
 											}) }}
 										</td>
 										<td class="govuk-table__cell">
 											{% if documentationFile.type === 'application/pdf' or documentationFile.type === 'image/jpeg' or documentationFile.type === 'image/png' %}
 												<a class="govuk-link govuk-body-s govuk-!-font-weight-bold"
-												   href="{{ documentationFile.url }}">
+												   href="/documents/{{ caseId }}/download/{{ documentationFile.guid }}/preview">
 													{{ documentationFile.documentName }}
 												</a>
 											{% else %}
@@ -219,9 +221,9 @@
 										<td class="govuk-table__cell">{{ 'Redacted' if  documentationFile.redacted else 'Unredacted' }}</td>
 										<td class="govuk-table__cell">{{ documentationFile.status|statusName }}</td>
 										<td class="govuk-table__cell">
-											<a class="govuk-link govuk-body-s" href="{{ documentationFile.url }}/edit">View/Edit
+											<a class="govuk-link govuk-body-s" href="../{{ documentationFile.guid }}/edit">View/Edit
 												properties</a>
-											<a class="govuk-link govuk-body-s" href="{{ documentationFile.url }}">Download</a>
+											<a class="govuk-link govuk-body-s" href="/documents/{{ caseId }}/download/{{ documentationFile.guid }}">Download</a>
 										</td>
 									</tr>
 								{% endfor %}

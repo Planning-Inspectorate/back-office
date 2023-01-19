@@ -52,6 +52,7 @@ export interface Case {
 		};
 	};
 }
+
 export interface Applicant {
 	id: number;
 	organisationName: string;

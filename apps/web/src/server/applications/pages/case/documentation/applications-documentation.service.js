@@ -28,9 +28,7 @@ export const getCaseFolders = (caseId, folderId = null) => {
  * @returns {Promise<DocumentationCategory>}
  */
 export const getCaseFolder = (caseId, folderId) => {
-	const folder = get(`applications/${caseId}/folders/${folderId}`);
-
-	return folder;
+	return get(`applications/${caseId}/folders/${folderId}`);
 };
 
 /**
@@ -88,4 +86,15 @@ export const updateCaseDocumentationFiles = async (caseId, { status, redacted, i
 	}
 
 	return response;
+};
+
+/**
+ * Get the blob storage info for the file with the given GUID
+ *
+ * @param {number} caseId
+ * @param {string} fileGuid
+ * @returns {Promise<{blobStorageContainer: string, blobStoragePath: string}>}
+ */
+export const getCaseDocumentationFileUrl = (caseId, fileGuid) => {
+	return get(`applications/${caseId}/documents/${fileGuid}`);
 };

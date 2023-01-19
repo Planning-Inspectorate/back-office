@@ -631,6 +631,18 @@ const appealsData = [
 	...appealsWithDecisionDue
 ];
 
+const deleteLowestFolders = async () => {
+	await databaseConnector.folder.deleteMany({
+		where: {
+			childFolders: {
+				every: {
+					parentFolder: null
+				}
+			}
+		}
+	});
+};
+
 const deleteAllRecords = async () => {
 	const deleteCases = databaseConnector.case.deleteMany();
 	const deleteCaseStatuses = databaseConnector.caseStatus.deleteMany();
@@ -656,12 +668,15 @@ const deleteAllRecords = async () => {
 	const deleteValidationDecision = databaseConnector.validationDecision.deleteMany();
 	const deleteServiceCustomers = databaseConnector.serviceCustomer.deleteMany();
 	const deleteGridReference = databaseConnector.gridReference.deleteMany();
-	const deleteFolders = databaseConnector.folder.deleteMany();
 	const deleteDocuments = databaseConnector.document.deleteMany();
 
+	await deleteDocuments;
+	await deleteLowestFolders();
+	await deleteLowestFolders();
+	await deleteLowestFolders();
+	await deleteLowestFolders();
+	await deleteLowestFolders();
 	await databaseConnector.$transaction([
-		deleteDocuments,
-		deleteFolders,
 		deleteGridReference,
 		deleteServiceCustomers,
 		deleteRegionsOnApplicationDetails,

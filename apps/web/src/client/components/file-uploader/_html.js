@@ -43,12 +43,13 @@ export const buildRegularListItem = (uploadedFile) => {
 
 	li.classList.add('pins-file-upload--file-row');
 	li.id = uploadedFile.fileRowId || '';
-	li.innerHTML = `<p class="govuk-heading-s" aria-details="File name">
+	li.innerHTML = `<p class="govuk-heading-s">
+		<span class="govuk-visually-hidden">File name: </span>
 		${uploadedFile.name} (${renderSizeInMainUnit(uploadedFile.size)})
 		</p>
 				<button
 				id="button-remove-${uploadedFile.fileRowId}"
-				type="button" class="govuk-link pins-file-upload--remove" aria-details="Remove added file from list">
+				type="button" class="govuk-link pins-file-upload--remove" aria-label="Remove added file from list">
 					Remove
 				</button>`;
 
@@ -61,10 +62,7 @@ export const buildRegularListItem = (uploadedFile) => {
  */
 export const buildErrorListItem = (error) => {
 	return `<li class="pins-file-upload--file-row error-row" id="${error.fileRowId}">
-				<p class="govuk-heading-s colour--red" aria-details="File name">${errorMessage(
-					error.message,
-					error.name
-				)}</p>
+				<p class="govuk-heading-s colour--red">${errorMessage(error.message, error.name)}</p>
 				</li>`;
 };
 

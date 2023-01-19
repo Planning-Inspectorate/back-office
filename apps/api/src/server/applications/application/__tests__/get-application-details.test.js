@@ -4,14 +4,20 @@ import supertest from 'supertest';
 import { app } from '../../../app.js';
 import { applicationFactoryForTests } from '../../../utils/application-factory-for-tests.js';
 import { databaseConnector } from '../../../utils/database-connector.js';
+import { mapDateStringToUnixTimestamp } from '../../../utils/mapping/map-date-string-to-unix-timestamp.js';
 
 const request = supertest(app);
+const time = new Date();
 
 const application1 = applicationFactoryForTests({
 	id: 1,
 	title: 'EN010003 - NI Case 3 Name',
 	description: 'EN010003 - NI Case 3 Name Description',
 	caseStatus: 'draft',
+	dates: {
+		modifiedAt: time,
+		publishedAt: time
+	},
 	inclusions: {
 		serviceCustomer: true,
 		ApplicationDetails: true,
@@ -33,6 +39,10 @@ const application2 = {
 		title: null,
 		description: null,
 		caseStatus: 'draft',
+		dates: {
+			modifiedAt: time,
+			publishedAt: time
+		},
 		inclusions: {
 			CaseStatus: true
 		}
@@ -64,6 +74,8 @@ test('gets all data for a case when everything is available', async (t) => {
 		description: 'EN010003 - NI Case 3 Name Description',
 		status: 'Draft',
 		caseEmail: 'test@test.com',
+		modifiedDate: mapDateStringToUnixTimestamp(time.toISOString()),
+		publishedDate: mapDateStringToUnixTimestamp(time.toISOString()),
 		sector: {
 			name: 'sector',
 			abbreviation: 'BB',
@@ -142,6 +154,8 @@ test('gets applications details when only case id present', async (t) => {
 			gridReference: {},
 			mapZoomLevel: {}
 		},
+		modifiedDate: mapDateStringToUnixTimestamp(time.toISOString()),
+		publishedDate: mapDateStringToUnixTimestamp(time.toISOString()),
 		id: 2,
 		keyDates: {},
 		status: 'Draft',

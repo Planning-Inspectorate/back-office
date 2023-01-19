@@ -4,6 +4,7 @@ import { trimUnexpectedRequestParameters } from '../middleware/trim-unexpected-r
 import {
 	createApplication,
 	getApplicationDetails,
+	publishCase,
 	startCase,
 	updateApplication
 } from './application/application.controller.js';
@@ -140,6 +141,27 @@ router.get(
 	validateGetApplicationQuery,
 	trimUnexpectedRequestParameters,
 	asyncHandler(getApplicationDetails)
+);
+
+router.patch(
+	'/:id/publish',
+	/*
+        #swagger.tags = ['Applications']
+        #swagger.path = '/applications/{id}/publish'
+        #swagger.description = 'publish application'
+        #swagger.parameters['id'] = {
+            in: 'path',
+			description: 'Application ID',
+			required: true,
+			type: 'integer'
+		}
+        #swagger.responses[200] = {
+            description: 'response will have the date that the case was published as a timestamp',
+            schema: { publishedDate: 1673873105 }
+        }
+    */
+	validateApplicationId,
+	asyncHandler(publishCase)
 );
 
 export { router as applicationsRoutes };
