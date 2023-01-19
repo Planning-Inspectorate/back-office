@@ -27,7 +27,7 @@ RUN npm run build:release
 # --------------------------------
 
 # Stage 2/2 - App run
-FROM node:16-alpine
+FROM 18.13-alpine3.16
 
 WORKDIR /usr/src/app
 
