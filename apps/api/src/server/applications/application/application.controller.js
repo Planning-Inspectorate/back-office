@@ -1,6 +1,9 @@
-import { filter, head, map } from 'lodash-es';
+import { head, map } from 'lodash-es';
+import { eventClient } from '../../infrastructure/event-client.js';
+import { NSIP_PROJECT } from '../../infrastructure/topics.js';
 import * as caseRepository from '../../repositories/case.repository.js';
 import { mapCaseStatusString } from '../../utils/mapping/map-case-status-string.js';
+import { buildNsipProjectPayload } from './application.js';
 import { mapCreateApplicationRequestToRepository } from './application.mapper.js';
 import { getCaseDetails, startApplication } from './application.service.js';
 /**
@@ -22,20 +25,11 @@ export const createApplication = async (request, response) => {
 
 	const application = await caseRepository.createApplication(mappedApplicationDetails);
 
+	await eventClient.sendEvents(NSIP_PROJECT, [buildNsipProjectPayload(application)]);
+
 	const applicantIds = getServiceCustomerIds(application.serviceCustomer);
 
 	response.send({ id: application.id, applicantIds });
-};
-
-/**
- *
- * @param {import('@pins/api').Schema.BatchPayload} updateResponse
- * @returns {import('@pins/api').Schema.Case}
- */
-const getCaseAfterUpdate = (updateResponse) => {
-	return filter(updateResponse, (result) => {
-		return typeof result.id !== 'undefined';
-	})[0];
 };
 
 /**
@@ -50,11 +44,16 @@ export const updateApplication = async ({ params, body }, response) => {
 		...mappedApplicationDetails
 	});
 
-	const updatedCase = getCaseAfterUpdate(updateResponse);
+	if (!updateResponse) {
+		throw new Error('Application not found');
+	}
 
-	const applicantIds = getServiceCustomerIds(updatedCase.serviceCustomer);
+	// @ts-ignore
+	await eventClient.sendEvents(NSIP_PROJECT, [buildNsipProjectPayload(updateResponse)]);
 
-	response.send({ id: updatedCase.id, applicantIds });
+	const applicantIds = getServiceCustomerIds(updateResponse.serviceCustomer);
+
+	response.send({ id: updateResponse.id, applicantIds });
 };
 
 /**

@@ -2,11 +2,29 @@ import test from 'ava';
 import sinon from 'sinon';
 import supertest from 'supertest';
 import { app } from '../../../app.js';
+import { eventClient } from '../../../infrastructure/event-client.js';
 import { databaseConnector } from '../../../utils/database-connector.js';
-
 const request = supertest(app);
 
 const createStub = sinon.stub().returns({ id: 1, serviceCustomer: [{ id: 4 }] });
+
+const expectedEventPayload = {
+	id: 1,
+	caseOfficers: [],
+	customers: [
+		{
+			id: 4,
+			customerType: 'Applicant'
+		}
+	],
+	inspectors: [],
+	sourceSystem: 'ODT',
+	status: [],
+	type: {
+		code: 'Application'
+	},
+	validationOfficers: []
+};
 
 const findUniqueSubSectorStub = sinon.stub();
 
@@ -23,6 +41,11 @@ const findUniqueRegionStub = sinon.stub();
 findUniqueRegionStub.withArgs({ where: { name: 'region1' } }).returns({});
 findUniqueRegionStub.withArgs({ where: { name: 'region2' } }).returns({});
 findUniqueRegionStub.withArgs({ where: { name: 'some-unknown-region' } }).returns(null);
+
+/**
+ * @type {sinon.SinonSpy<any, any>}
+ */
+let stubbedSendEvents;
 
 test.before('set up mocks', () => {
 	sinon.stub(databaseConnector, 'case').get(() => {
@@ -42,6 +65,8 @@ test.before('set up mocks', () => {
 	});
 
 	sinon.useFakeTimers({ now: 1_649_319_144_000 });
+
+	stubbedSendEvents = sinon.stub(eventClient, 'sendEvents');
 });
 
 test('creates new application with just title and first notified date', async (t) => {
@@ -54,24 +79,26 @@ test('creates new application with just title and first notified date', async (t
 
 	t.is(response.status, 200);
 	t.deepEqual(response.body, { id: 1, applicantIds: [4] });
-	sinon.assert.calledWith(createStub, {
-		data: {
-			title: 'some title',
-			ApplicationDetails: {
-				create: {
-					submissionAtInternal: new Date(1_649_319_344_000_000)
-				}
-			},
-			CaseStatus: {
-				create: {
-					status: 'draft'
+	sinon.assert.calledWith(
+		createStub,
+		sinon.match({
+			data: {
+				title: 'some title',
+				ApplicationDetails: {
+					create: {
+						submissionAtInternal: new Date(1_649_319_344_000_000)
+					}
+				},
+				CaseStatus: {
+					create: {
+						status: 'draft'
+					}
 				}
 			}
-		},
-		include: {
-			serviceCustomer: true
-		}
-	});
+		})
+	);
+
+	sinon.assert.calledWith(stubbedSendEvents, 'nsip-project', [expectedEventPayload]);
 });
 
 test('creates new application with just easting and sub-sector name', async (t) => {
@@ -86,32 +113,33 @@ test('creates new application with just easting and sub-sector name', async (t) 
 
 	t.is(response.status, 200);
 	t.deepEqual(response.body, { id: 1, applicantIds: [4] });
-	sinon.assert.calledWith(createStub, {
-		data: {
-			gridReference: {
-				create: {
-					easting: 123_456
-				}
-			},
-			ApplicationDetails: {
-				create: {
-					subSector: {
-						connect: {
-							name: 'some_sub_sector'
+	sinon.assert.calledWith(
+		createStub,
+		sinon.match({
+			data: {
+				gridReference: {
+					create: {
+						easting: 123_456
+					}
+				},
+				ApplicationDetails: {
+					create: {
+						subSector: {
+							connect: {
+								name: 'some_sub_sector'
+							}
 						}
 					}
-				}
-			},
-			CaseStatus: {
-				create: {
-					status: 'draft'
+				},
+				CaseStatus: {
+					create: {
+						status: 'draft'
+					}
 				}
 			}
-		},
-		include: {
-			serviceCustomer: true
-		}
-	});
+		})
+	);
+	sinon.assert.calledWith(stubbedSendEvents, 'nsip-project', [expectedEventPayload]);
 });
 
 test('creates new application when all possible details provided', async (t) => {
@@ -155,53 +183,54 @@ test('creates new application when all possible details provided', async (t) => 
 
 	t.is(response.status, 200);
 	t.deepEqual(response.body, { id: 1, applicantIds: [4] });
-	sinon.assert.calledWith(createStub, {
-		data: {
-			title: 'title',
-			description: 'description',
-			gridReference: { create: { easting: 123_456, northing: 987_654 } },
-			ApplicationDetails: {
-				create: {
-					caseEmail: 'caseEmail@pins.com',
-					zoomLevel: { connect: { name: 'some-known-map-zoom-level' } },
-					locationDescription: 'location description',
-					submissionAtInternal: new Date(1_649_319_344_000_000),
-					submissionAtPublished: 'Q1 2023',
-					subSector: { connect: { name: 'some_sub_sector' } },
-					regions: {
-						create: [
-							{ region: { connect: { name: 'region1' } } },
-							{ region: { connect: { name: 'region2' } } }
-						]
-					}
-				}
-			},
-			serviceCustomer: {
-				create: {
-					organisationName: 'org',
-					firstName: 'first',
-					middleName: 'middle',
-					lastName: 'last',
-					email: 'test@test.com',
-					website: 'www.google.com',
-					phoneNumber: '02036579785',
-					address: {
-						create: {
-							addressLine1: 'address line 1',
-							addressLine2: 'address line 2',
-							town: 'town',
-							county: 'county',
-							postcode: 'N1 9BE'
+	sinon.assert.calledWith(
+		createStub,
+		sinon.match({
+			data: {
+				title: 'title',
+				description: 'description',
+				gridReference: { create: { easting: 123_456, northing: 987_654 } },
+				ApplicationDetails: {
+					create: {
+						caseEmail: 'caseEmail@pins.com',
+						zoomLevel: { connect: { name: 'some-known-map-zoom-level' } },
+						locationDescription: 'location description',
+						submissionAtInternal: new Date(1_649_319_344_000_000),
+						submissionAtPublished: 'Q1 2023',
+						subSector: { connect: { name: 'some_sub_sector' } },
+						regions: {
+							create: [
+								{ region: { connect: { name: 'region1' } } },
+								{ region: { connect: { name: 'region2' } } }
+							]
 						}
 					}
-				}
-			},
-			CaseStatus: { create: { status: 'draft' } }
-		},
-		include: {
-			serviceCustomer: true
-		}
-	});
+				},
+				serviceCustomer: {
+					create: {
+						organisationName: 'org',
+						firstName: 'first',
+						middleName: 'middle',
+						lastName: 'last',
+						email: 'test@test.com',
+						website: 'www.google.com',
+						phoneNumber: '02036579785',
+						address: {
+							create: {
+								addressLine1: 'address line 1',
+								addressLine2: 'address line 2',
+								town: 'town',
+								county: 'county',
+								postcode: 'N1 9BE'
+							}
+						}
+					}
+				},
+				CaseStatus: { create: { status: 'draft' } }
+			}
+		})
+	);
+	sinon.assert.calledWith(stubbedSendEvents, 'nsip-project', [expectedEventPayload]);
 });
 
 test(`creates new application with application first and last name,
@@ -223,34 +252,35 @@ test(`creates new application with application first and last name,
 
 	t.is(response.status, 200);
 	t.deepEqual(response.body, { id: 1, applicantIds: [4] });
-	sinon.assert.calledWith(createStub, {
-		data: {
-			serviceCustomer: {
-				create: {
-					firstName: 'first',
-					lastName: 'last',
-					address: {
-						create: {
-							addressLine1: 'some addr'
+	sinon.assert.calledWith(
+		createStub,
+		sinon.match({
+			data: {
+				serviceCustomer: {
+					create: {
+						firstName: 'first',
+						lastName: 'last',
+						address: {
+							create: {
+								addressLine1: 'some addr'
+							}
 						}
 					}
-				}
-			},
-			ApplicationDetails: {
-				create: {
-					zoomLevel: { connect: { name: 'some-known-map-zoom-level' } }
-				}
-			},
-			CaseStatus: {
-				create: {
-					status: 'draft'
+				},
+				ApplicationDetails: {
+					create: {
+						zoomLevel: { connect: { name: 'some-known-map-zoom-level' } }
+					}
+				},
+				CaseStatus: {
+					create: {
+						status: 'draft'
+					}
 				}
 			}
-		},
-		include: {
-			serviceCustomer: true
-		}
-	});
+		})
+	);
+	sinon.assert.calledWith(stubbedSendEvents, 'nsip-project', [expectedEventPayload]);
 });
 
 test('returns error if any validated values are invalid', async (t) => {

@@ -7,6 +7,19 @@ import { separateStatusesToSaveAndInvalidate } from './separate-statuses-to-save
 
 const DEFAULT_CASE_CREATE_STATUS = 'draft';
 
+const includeAll = {
+	ApplicationDetails: {
+		include: {
+			subSector: { include: { sector: true } },
+			zoomLevel: true,
+			regions: { include: { region: true } }
+		}
+	},
+	CaseStatus: { where: { valid: true } },
+	gridReference: true,
+	serviceCustomer: { include: { address: true } }
+};
+
 /**
  * @typedef {{
  *  caseDetails?: { title?: string | null, description?: string | null },
@@ -188,9 +201,7 @@ export const createApplication = ({
 				}
 			}
 		},
-		include: {
-			serviceCustomer: true
-		}
+		include: includeAll
 	});
 };
 
@@ -299,9 +310,9 @@ const updateApplicationSansRegionsRemoval = ({
 
 /**
  * @param {UpdateApplicationParams} caseInfo
- * @returns {PrismaPromise<import('@pins/api').Schema.BatchPayload>}
+ * @returns {Promise<import('@pins/api').Schema.Case | null>}
  */
-export const updateApplication = ({
+export const updateApplication = async ({
 	caseId,
 	applicantId,
 	caseDetails,
@@ -334,7 +345,19 @@ export const updateApplication = ({
 		})
 	);
 
-	return databaseConnector.$transaction(transactions);
+	await databaseConnector.$transaction(transactions);
+
+	return getById(caseId, {
+		subSector: true,
+		sector: true,
+		applicationDetails: true,
+		zoomLevel: true,
+		regions: true,
+		caseStatus: true,
+		serviceCustomer: true,
+		serviceCustomerAddress: true,
+		gridReference: true
+	});
 };
 
 /**
@@ -388,12 +411,13 @@ export const getById = (
 		})
 	});
 };
+
 /**
  *
  * @param {number[]} ids
  * @returns {PrismaPromise<import('@pins/api').Schema.BatchPayload>}
  */
-export const invalidateCaseStatuses = (ids) => {
+const invalidateCaseStatuses = (ids) => {
 	return databaseConnector.caseStatus.updateMany({
 		where: { id: { in: ids } },
 		data: { valid: false }
@@ -406,7 +430,7 @@ export const invalidateCaseStatuses = (ids) => {
  * @param {string} status
  * @returns {PrismaPromise<import('@pins/api').Schema.BatchPayload>}
  */
-export const createNewStatuses = (id, status) => {
+const createNewStatuses = (id, status) => {
 	return isString(status)
 		? databaseConnector.caseStatus.create({ data: { status, caseId: id } })
 		: databaseConnector.caseStatus.createMany({ data: status });
@@ -417,9 +441,9 @@ export const createNewStatuses = (id, status) => {
  * @param {number} id
  * @param {{status: string | object, data: {regionNames?: string[]}, currentStatuses: object[], setReference: boolean}} updateData
  * @param {PrismaPromise<any>[]} additionalTransactions
- * @returns {any}
+ * @returns {Promise<import('@pins/api').Schema.Case | null>}
  */
-export const updateApplicationStatusAndDataById = (
+export const updateApplicationStatusAndDataById = async (
 	id,
 	{ status, data, currentStatuses, setReference = false },
 	additionalTransactions
@@ -448,7 +472,19 @@ export const updateApplicationStatusAndDataById = (
 
 	transactions.push(...additionalTransactions);
 
-	return databaseConnector.$transaction(transactions);
+	await databaseConnector.$transaction(transactions);
+
+	return getById(id, {
+		subSector: true,
+		sector: true,
+		applicationDetails: true,
+		zoomLevel: true,
+		regions: true,
+		caseStatus: true,
+		serviceCustomer: true,
+		serviceCustomerAddress: true,
+		gridReference: true
+	});
 };
 
 /**
@@ -489,7 +525,7 @@ const replaceValueInString = (inputString, keysToReplace) => {
  * @param {number} id
  * @returns {PrismaPromise<any>}
  */
-export const assignApplicationReference = (id) => {
+const assignApplicationReference = (id) => {
 	const sqlQueryAbsolutePath = getSqlQuery('update-application-reference');
 
 	const data = fs.readFileSync(sqlQueryAbsolutePath, 'utf8').replace(/\r|\n/g, '');
