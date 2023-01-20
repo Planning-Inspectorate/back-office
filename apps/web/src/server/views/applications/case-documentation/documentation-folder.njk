@@ -215,7 +215,7 @@
 											{{ createOptionalLink(
 												{
 													classes: 'govuk-body-s govuk-!-font-weight-bold',
-													href: documentationFile.url,
+													href: 'document-download'|url({caseId: caseId, documentGuid: documentationFile.guid, isPreviewActive: isPreviewActive}),
 													text:documentationFile.documentName
 												},
 												isPreviewActive
@@ -246,7 +246,7 @@
 											{{ createOptionalLink(
 												{
 													classes: 'govuk-body-s',
-													href: documentationFile.url,
+													href: 'document-download'|url({caseId: caseId, documentGuid: documentationFile.guid}),
 													text:'Download'
 												},
 												isNotDisabled
