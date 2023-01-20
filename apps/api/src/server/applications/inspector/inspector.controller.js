@@ -1,4 +1,4 @@
-import { keys, sortBy, without } from 'lodash-es';
+import { keys, without } from 'lodash-es';
 import * as caseRepository from '../../repositories/case.repository.js';
 import { mapApplicationWithSectorAndSubSector } from '../../utils/mapping/map-application-with-sector-and-subsector.js';
 import { applicationStates } from '../state-machine/application.machine.js';
@@ -19,15 +19,6 @@ const mapApplicationsWithSectorAndSubSector = (applications) => {
 
 /**
  *
- * @param {import('@pins/api').Schema.Case[]} applications
- * @returns {import('@pins/api').Schema.Case[]}
- */
-const sortApplications = (applications) => {
-	return sortBy(applications, ['ApplicationDetails.subSector.abbreviation']);
-};
-
-/**
- *
  * @returns {string[]}
  */
 const getListOfStatusesWithoutDraft = () => {
@@ -37,10 +28,8 @@ const getListOfStatusesWithoutDraft = () => {
 /**
  * @type {import('express').RequestHandler}
  */
-export const getApplications = async (request, response) => {
+export const getApplications = async (_request, response) => {
 	const applications = await caseRepository.getByStatus(getListOfStatusesWithoutDraft());
 
-	const sortedApplications = sortApplications(applications);
-
-	response.send(mapApplicationsWithSectorAndSubSector(sortedApplications));
+	response.send(mapApplicationsWithSectorAndSubSector(applications));
 };
