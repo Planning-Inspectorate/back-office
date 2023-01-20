@@ -62,6 +62,7 @@ export const registerCaseWithQuery = (query, shouldBeDraft = false) => {
 
 		const isDraft = currentCase.status === 'Draft';
 
+		// this is creating a jest error
 		if ((isDraft && !shouldBeDraft) || (currentCase.status !== 'Draft' && shouldBeDraft)) {
 			throw new Error(
 				`Trying to load a ${shouldBeDraft ? '' : 'non-'}draft page for a ${
