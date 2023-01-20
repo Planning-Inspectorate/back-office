@@ -52,6 +52,8 @@ export const url = (key, filterArguments = {}) => {
 
 	const domainType = getArgument('domainType', filterArguments);
 	const caseId = getArgument('caseId', filterArguments);
+	const documentGuid = getArgument('documentGuid', filterArguments);
+	const isPreviewActive = getArgument('isPreviewActive', filterArguments);
 	const step = getArgument('step', filterArguments);
 	const documentationCategory = makeDocumentationCategoryPath(filterArguments);
 
@@ -68,6 +70,8 @@ export const url = (key, filterArguments = {}) => {
 			return `${domainUrl}/${domainType}`;
 		case 'document-category':
 			return `${domainUrl}/case/${caseId}/project-documentation/${documentationCategory}/${step}`;
+		case 'document-download':
+			return `/documents/${caseId}/download/${documentGuid}/${isPreviewActive ? 'preview' : ''}`;
 		case 'search-results':
 			return `${domainUrl}/search-results/${step}?q=${query}`;
 		default:
