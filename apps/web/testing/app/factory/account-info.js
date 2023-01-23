@@ -16,7 +16,7 @@ export function createAccountInfo({
 	username = snakeCase(name),
 	localAccountId = camelCase(name),
 	groups = [
-		'appeals_case_team',
+		'appeals_case_officer',
 		'appeals_inspector',
 		'appeals_validation_officer',
 		'applications_case_team',

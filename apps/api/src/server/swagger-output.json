@@ -1099,7 +1099,7 @@
 				}
 			}
 		},
-		"/applications/case-officer": {
+		"/applications/case-team": {
 			"get": {
 				"tags": ["Applications"],
 				"description": "Gets all applications associated with case officer",

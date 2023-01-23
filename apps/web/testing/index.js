@@ -28,7 +28,7 @@ let sessionId = 1;
 export const createTestEnvironment = ({
 	authenticated = true,
 	groups = [
-		'appeals_case_team',
+		'appeals_case_officer',
 		'appeals_inspector',
 		'appeals_validation_officer',
 		'applications_case_admin_officer',
