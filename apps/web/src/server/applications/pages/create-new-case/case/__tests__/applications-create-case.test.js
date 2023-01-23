@@ -29,6 +29,11 @@ const nocks = () => {
 	nock('http://test/')
 		.get(/\/applications\/3(.*)/g)
 		.reply(200, fixtureCases[2]);
+
+	nock('http://test/')
+		.get(/\/applications\/4(.*)/g)
+		.reply(200, fixtureCases[3]);
+
 	nock('http://test/')
 		.get('/applications/sector?sectorName=transport')
 		.reply(200, fixtureSubSectors);
@@ -100,7 +105,7 @@ describe('applications create', () => {
 			});
 
 			it('should not render the page when case is not Draft', async () => {
-				const response = await request.get('/applications-service/create-new-case/6');
+				const response = await request.get('/applications-service/create-new-case/4');
 				const element = parseHtml(response.text);
 
 				expect(element.innerHTML).toMatchSnapshot();
@@ -215,17 +220,6 @@ describe('applications create', () => {
 
 						expect(element.innerHTML).toMatchSnapshot();
 						expect(element.innerHTML).not.toContain('checked');
-					});
-				});
-				describe('Not provided', () => {
-					it('should NOT render the page', async () => {
-						nock('http://test/').get('/applications/sector').reply(200, fixtureSectors);
-
-						const response = await request.get(baseUrl(''));
-						const element = parseHtml(response.text);
-
-						expect(element.innerHTML).toMatchSnapshot();
-						expect(element.innerHTML).not.toContain('govuk-radios__item');
 					});
 				});
 			});

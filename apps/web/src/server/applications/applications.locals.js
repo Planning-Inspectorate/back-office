@@ -56,22 +56,43 @@ export const registerCaseWithQuery = (query, shouldBeDraft = false) => {
 		const { caseId } = response.locals;
 		const fullQuery = !query ? null : [...query, 'status'];
 
-		const currentCase = caseId
-			? await getCase(caseId, fullQuery)
-			: { title: '', description: '', status: 'Draft' };
+		let currentCase;
+
+		try {
+			currentCase = caseId
+				? await getCase(caseId, fullQuery)
+				: { title: '', description: '', status: 'Draft' };
+		} catch {
+			return throwError(`Failed API request for case ${caseId}`, next);
+		}
 
 		const isDraft = currentCase.status === 'Draft';
 
-		// this is creating a jest error
 		if ((isDraft && !shouldBeDraft) || (currentCase.status !== 'Draft' && shouldBeDraft)) {
-			throw new Error(
+			return throwError(
 				`Trying to load a ${shouldBeDraft ? '' : 'non-'}draft page for a ${
 					isDraft ? '' : 'non-'
-				}draft case`
+				}draft case`,
+				next
 			);
 		}
 
 		response.locals.currentCase = currentCase;
 		next();
 	};
+};
+
+// TODO: in case this needs to be used by other locals, move to shared folder
+/**
+ *
+ * @param {string} errorMessage
+ * @param {*} next
+ * @returns {Promise<void>}
+ */
+const throwError = (errorMessage, next) => {
+	return Promise.resolve()
+		.then(() => {
+			throw new Error(errorMessage);
+		})
+		.catch(next);
 };

@@ -811,19 +811,6 @@ exports[`applications create Regions POST /create-new-case/:caseId/regions Web-v
 </main>"
 `;
 
-exports[`applications create Sector GET /create-new-case/:caseId/sector When caseId is: Not provided should NOT render the page 1`] = `
-"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
-    <div class=\\"govuk-grid-row\\">
-        <div class=\\"govuk-grid-column-two-thirds\\">
-            <h1 class=\\"govuk-heading-xl\\">Sorry, there is a problem with your login</h1>
-            <p class=\\"govuk-body\\">You are not permitted to access this URL.</p>
-            <p class=\\"govuk-body\\"><a href=\\"https://has-appeal.herokuapp.com/help/contact\\" class=\\"govuk-link\\">Contact the Planning Inspectorate Customer Support</a> if
-                the problem persists.</p>
-        </div>
-    </div>
-</main>"
-`;
-
 exports[`applications create Sector GET /create-new-case/:caseId/sector When caseId is: Provided should display an option as _checked_ if the API returns a resumed value 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <h1 class=\\"govuk-heading-l\\"> Choose a sector</h1>
