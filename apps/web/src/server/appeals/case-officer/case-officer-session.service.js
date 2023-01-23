@@ -1,53 +1,53 @@
-/** @typedef {import('@pins/appeals').CaseTeam.Questionnaire} CaseTeamQuestionnaire */
+/** @typedef {import('@pins/appeals').CaseOfficer.Questionnaire} CaseOfficerQuestionnaire */
 
 /**
- * @typedef {import('express-session').Session & { CaseTeam?: CaseTeamState }} SessionWithCaseTeam
+ * @typedef {import('express-session').Session & { CaseOfficer?: CaseOfficerState }} SessionWithCaseOfficer
  */
 
 /**
- * @typedef {object} CaseTeamState
+ * @typedef {object} CaseOfficerState
  * @property {QuestionnaireReviewState=} questionnaireReview
  */
 
 /**
  * @typedef {object} QuestionnaireReviewState
  * @property {number} appealId
- * @property {CaseTeamQuestionnaire} reviewQuestionnaire
+ * @property {CaseOfficerQuestionnaire} reviewQuestionnaire
  */
 
 /**
- * Get the case-team state from the session.
+ * Get the case-officer state from the session.
  *
- * @param {SessionWithCaseTeam} session
- * @returns {CaseTeamState}
+ * @param {SessionWithCaseOfficer} session
+ * @returns {CaseOfficerState}
  */
-const getState = (session) => session.CaseTeam || {};
+const getState = (session) => session.CaseOfficer || {};
 
 /**
- * @param {SessionWithCaseTeam} session
+ * @param {SessionWithCaseOfficer} session
  * @returns {void}
  */
 export const destroyQuestionnaireReview = (session) => {
-	delete session.CaseTeam?.questionnaireReview;
+	delete session.CaseOfficer?.questionnaireReview;
 };
 
 /**
  * Set the reviewed questionnaire data after completing a review.
  *
- * @param {SessionWithCaseTeam} session
+ * @param {SessionWithCaseOfficer} session
  * @param {QuestionnaireReviewState} questionnaireReview
  * @returns {void}
  */
 export const setQuestionnaireReview = (session, questionnaireReview) => {
 	const state = getState(session);
 
-	session.CaseTeam = { ...state, questionnaireReview };
+	session.CaseOfficer = { ...state, questionnaireReview };
 };
 
 /**
  * Get the reviewed questionnaire data belonging to a completed review.
  *
- * @param {SessionWithCaseTeam} session
+ * @param {SessionWithCaseOfficer} session
  * @param {number} appealId
  * @returns {QuestionnaireReviewState | null}
  */

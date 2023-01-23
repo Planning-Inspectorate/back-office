@@ -22,13 +22,13 @@ export default joi.object({
 	sslCertificateKeyFile: joi.string(),
 	referenceData: joi.object({
 		appeals: joi.object({
-			CaseTeamGroupId: joi.string(),
+			caseOfficerGroupId: joi.string(),
 			inspectorGroupId: joi.string(),
 			validationOfficerGroupId: joi.string()
 		}),
 		applications: joi.object({
 			caseAdminOfficerGroupId: joi.string(),
-			CaseTeamGroupId: joi.string(),
+			caseTeamGroupId: joi.string(),
 			inspectorGroupId: joi.string()
 		})
 	}),

@@ -1,14 +1,14 @@
-import * as CaseTeamService from './case-team.service.js';
-import * as CaseTeamSession from './case-team-session.service.js';
+import * as CaseOfficerService from './case-officer.service.js';
+import * as CaseOfficerSession from './case-officer-session.service.js';
 
 /** @typedef {import('@pins/express').ValidationErrors} ValidationErrors */
-/** @typedef {import('@pins/appeals').CaseTeam.Appeal} Appeal */
-/** @typedef {import('@pins/appeals').CaseTeam.AppealSummary} AppealSummary */
+/** @typedef {import('@pins/appeals').CaseOfficer.Appeal} Appeal */
+/** @typedef {import('@pins/appeals').CaseOfficer.AppealSummary} AppealSummary */
 /** @typedef {import('@pins/appeals').DocumentType} DocumentType */
-/** @typedef {import('@pins/appeals').CaseTeam.Questionnaire} CaseTeamQuestionnaire */
-/** @typedef {import('./case-team.locals').AppealLocals} AppealLocals */
-/** @typedef {import('./case-team.locals').AppealDocumentLocals} AppealDocumentLocals */
-/** @typedef {import('./case-team-session.service').QuestionnaireReviewState} QuestionnaireReview */
+/** @typedef {import('@pins/appeals').CaseOfficer.Questionnaire} CaseOfficerQuestionnaire */
+/** @typedef {import('./case-officer.locals').AppealLocals} AppealLocals */
+/** @typedef {import('./case-officer.locals').AppealDocumentLocals} AppealDocumentLocals */
+/** @typedef {import('./case-officer-session.service').QuestionnaireReviewState} QuestionnaireReview */
 
 /**
  * @typedef {object} ViewDashboardRenderOptions
@@ -17,9 +17,9 @@ import * as CaseTeamSession from './case-team-session.service.js';
 
 /** @type {import('@pins/express').RenderHandler<ViewDashboardRenderOptions>}  */
 export const viewDashboard = async (_, response) => {
-	const appeals = await CaseTeamService.findAllAppeals();
+	const appeals = await CaseOfficerService.findAllAppeals();
 
-	response.render('appeals/case-team/dashboard', { appeals });
+	response.render('appeals/case-officer/dashboard', { appeals });
 };
 
 /**
@@ -30,7 +30,7 @@ export const viewDashboard = async (_, response) => {
  * @typedef {object} ViewAppealRenderOptions
  * @property {Appeal} appeal
  * @property {ValidationErrors=} errors
- * @property {CaseTeamQuestionnaire=} reviewQuestionnaire
+ * @property {CaseOfficerQuestionnaire=} reviewQuestionnaire
  */
 
 /** @type {import('@pins/express').RenderHandler<ViewAppealRenderOptions, AppealLocals>}  */
@@ -38,29 +38,29 @@ export const viewAppeal = async ({ locals, session }, response) => {
 	const { appeal, appealId } = locals;
 
 	if (appeal.reviewQuestionnaire) {
-		response.render('appeals/case-team/questionnaire-incomplete', {
+		response.render('appeals/case-officer/questionnaire-incomplete', {
 			appeal,
 			reviewQuestionnaire: appeal.reviewQuestionnaire
 		});
 	} else {
 		const state = /** @type {QuestionnaireReview} */ (
-			CaseTeamSession.getQuestionnaireReview(session, appealId)
+			CaseOfficerSession.getQuestionnaireReview(session, appealId)
 		);
 
-		response.render('appeals/case-team/questionnaire', {
+		response.render('appeals/case-officer/questionnaire', {
 			appeal,
 			reviewQuestionnaire: state?.reviewQuestionnaire
 		});
 	}
 };
 
-/** @typedef {CaseTeamQuestionnaire} CreateQuestionnaireReviewBody */
+/** @typedef {CaseOfficerQuestionnaire} CreateQuestionnaireReviewBody */
 
 /**
  * Handle a user submitting a questionnaire review.
  *
  * @type {import('@pins/express').RenderHandler<ViewAppealRenderOptions, AppealLocals,
- * CaseTeamQuestionnaire>}
+ * CaseOfficerQuestionnaire>}
  */
 export const createQuestionnaireReview = async (
 	{ baseUrl, body: reviewQuestionnaire, errors, locals, session },
@@ -70,12 +70,12 @@ export const createQuestionnaireReview = async (
 
 	if (errors) {
 		const tpl = appeal.reviewQuestionnaire
-			? 'appeals/case-team/questionnaire-incomplete'
-			: 'appeals/case-team/questionnaire';
+			? 'appeals/case-officer/questionnaire-incomplete'
+			: 'appeals/case-officer/questionnaire';
 
 		return response.render(tpl, { appeal, errors, reviewQuestionnaire });
 	}
-	CaseTeamSession.setQuestionnaireReview(session, { appealId, reviewQuestionnaire });
+	CaseOfficerSession.setQuestionnaireReview(session, { appealId, reviewQuestionnaire });
 
 	response.redirect(`${baseUrl}/appeals/${appealId}/questionnaire/confirm`);
 };
@@ -84,7 +84,7 @@ export const createQuestionnaireReview = async (
  * @typedef {object} ViewReviewQuestionnaireConfirmationRenderOptions
  * @property {Appeal} appeal
  * @property {ValidationErrors=} errors
- * @property {CaseTeamQuestionnaire} reviewQuestionnaire
+ * @property {CaseOfficerQuestionnaire} reviewQuestionnaire
  */
 
 /**
@@ -96,10 +96,10 @@ export const createQuestionnaireReview = async (
 export const viewQuestionnaireReviewConfirmation = async ({ locals, session }, response) => {
 	const { appeal, appealId } = locals;
 	const { reviewQuestionnaire } = /** @type {QuestionnaireReview} */ (
-		CaseTeamSession.getQuestionnaireReview(session, appealId)
+		CaseOfficerSession.getQuestionnaireReview(session, appealId)
 	);
 
-	response.render('appeals/case-team/questionnaire-confirmation', {
+	response.render('appeals/case-officer/questionnaire-confirmation', {
 		appeal,
 		reviewQuestionnaire
 	});
@@ -121,19 +121,19 @@ export const viewQuestionnaireReviewConfirmation = async ({ locals, session }, r
 export const confirmQuestionnaireReview = async ({ errors, locals, session }, response) => {
 	const { appeal, appealId } = locals;
 	const { reviewQuestionnaire } = /** @type {QuestionnaireReview} */ (
-		CaseTeamSession.getQuestionnaireReview(session, appealId)
+		CaseOfficerSession.getQuestionnaireReview(session, appealId)
 	);
 
 	if (errors) {
-		return response.render('appeals/case-team/questionnaire-confirmation', {
+		return response.render('appeals/case-officer/questionnaire-confirmation', {
 			appeal,
 			errors,
 			reviewQuestionnaire
 		});
 	}
-	await CaseTeamService.confirmQuestionnaireReview(appealId, reviewQuestionnaire);
+	await CaseOfficerService.confirmQuestionnaireReview(appealId, reviewQuestionnaire);
 
-	response.render('appeals/case-team/questionnaire-success', {
+	response.render('appeals/case-officer/questionnaire-success', {
 		appeal,
 		complete: Object.keys(reviewQuestionnaire).length === 0
 	});
@@ -150,7 +150,7 @@ export const confirmQuestionnaireReview = async ({ errors, locals, session }, re
 export const editListedBuildingDescription = async ({ locals }, response) => {
 	const { appeal } = locals;
 
-	response.render('appeals/case-team/edit-listed-building-description', {
+	response.render('appeals/case-officer/edit-listed-building-description', {
 		appeal,
 		listedBuildingDescription: appeal.ListedBuildingDesc
 	});
@@ -174,13 +174,13 @@ export const updateListedBuildingDescription = async (
 	const { appeal, appealId } = locals;
 
 	if (errors) {
-		return response.render('appeals/case-team/edit-listed-building-description', {
+		return response.render('appeals/case-officer/edit-listed-building-description', {
 			appeal,
 			errors,
 			listedBuildingDescription: appeal.ListedBuildingDesc
 		});
 	}
-	await CaseTeamService.updateAppeal(appealId, body);
+	await CaseOfficerService.updateAppeal(appealId, body);
 
 	response.redirect(`${baseUrl}/appeals/${appealId}`);
 };
@@ -202,7 +202,7 @@ export const updateListedBuildingDescription = async (
 export const newAppealDocuments = async ({ locals }, response) => {
 	const { appeal, documentType } = locals;
 
-	response.render('appeals/case-team/appeal-documents', { appeal, documentType });
+	response.render('appeals/case-officer/appeal-documents', { appeal, documentType });
 };
 
 /**
@@ -221,13 +221,13 @@ export const uploadAppealDocuments = async ({ baseUrl, errors, body, locals }, r
 	const { appeal, appealId, documentType } = locals;
 
 	if (errors) {
-		return response.render('appeals/case-team/appeal-documents', {
+		return response.render('appeals/case-officer/appeal-documents', {
 			appeal,
 			documentType,
 			errors
 		});
 	}
-	await CaseTeamService.uploadDocuments(appealId, {
+	await CaseOfficerService.uploadDocuments(appealId, {
 		documentType,
 		files: body.files
 	});
@@ -246,7 +246,7 @@ export const uploadAppealDocuments = async ({ baseUrl, errors, body, locals }, r
 
 /**
  * @typedef {object} NewFpaDocumentsSuccessRenderOptions
- * @property {import('./case-team.service').UploadFpaStatementsResponseBody} appeal
+ * @property {import('./case-officer.service').UploadFpaStatementsResponseBody} appeal
  * @property {'fpa final comment' | 'fpa statement'} documentType
  */
 
@@ -257,7 +257,7 @@ export const uploadAppealDocuments = async ({ baseUrl, errors, body, locals }, r
  * @type {import('@pins/express').RenderHandler<NewFpaDocumentsRenderOptions, AppealLocals>}
  */
 export const newFinalComments = async ({ locals }, response) => {
-	response.render('appeals/case-team/fpa-documents', {
+	response.render('appeals/case-officer/fpa-documents', {
 		appeal: locals.appeal,
 		documentType: 'fpa final comment'
 	});
@@ -278,16 +278,16 @@ export const uploadFinalComments = async ({ body, errors, locals }, response) =>
 	const { appeal, appealId } = locals;
 
 	if (errors) {
-		return response.render('appeals/case-team/fpa-documents', {
+		return response.render('appeals/case-officer/fpa-documents', {
 			appeal,
 			documentType: 'fpa final comment',
 			errors
 		});
 	}
 
-	const updatedAppeal = await CaseTeamService.uploadFinalComments(appealId, body.files);
+	const updatedAppeal = await CaseOfficerService.uploadFinalComments(appealId, body.files);
 
-	response.render('appeals/case-team/fpa-documents-success', {
+	response.render('appeals/case-officer/fpa-documents-success', {
 		appeal: updatedAppeal,
 		documentType: 'fpa final comment'
 	});
@@ -300,7 +300,7 @@ export const uploadFinalComments = async ({ body, errors, locals }, response) =>
  * @type {import('@pins/express').RenderHandler<NewFpaDocumentsRenderOptions, AppealLocals>}
  */
 export const newStatements = async ({ locals }, response) => {
-	response.render('appeals/case-team/fpa-documents', {
+	response.render('appeals/case-officer/fpa-documents', {
 		appeal: locals.appeal,
 		documentType: 'fpa statement'
 	});
@@ -316,16 +316,16 @@ export const uploadStatements = async ({ body, errors, locals }, response) => {
 	const { appeal, appealId } = locals;
 
 	if (errors) {
-		return response.render('appeals/case-team/fpa-documents', {
+		return response.render('appeals/case-officer/fpa-documents', {
 			appeal,
 			errors,
 			documentType: 'fpa statement'
 		});
 	}
 
-	const updatedAppeal = await CaseTeamService.uploadStatements(appealId, body.files);
+	const updatedAppeal = await CaseOfficerService.uploadStatements(appealId, body.files);
 
-	response.render('appeals/case-team/fpa-documents-success', {
+	response.render('appeals/case-officer/fpa-documents-success', {
 		appeal: updatedAppeal,
 		documentType: 'fpa statement'
 	});

@@ -1,5 +1,5 @@
 // @ts-ignore – to address through api tscheck fixes
-import CaseTeamFormatter from '@pins/api/src/server/appeals/case-team/appeal-formatter.js';
+import caseOfficerFormatter from '@pins/api/src/server/appeals/case-officer/appeal-formatter.js';
 // @ts-ignore – to address through api tscheck fixes
 import { appealFormatter as inspectorFormatter } from '@pins/api/src/server/appeals/inspector/appeal-formatter.js';
 // @ts-ignore – to address through api tscheck fixes
@@ -8,8 +8,8 @@ import validationFormatter from '@pins/api/src/server/appeals/validation/appeal-
 /** @typedef {import('@pins/api').Schema.Appeal} RawAppeal */
 /** @typedef {import('@pins/appeals').Validation.Appeal} ValidationAppeal */
 /** @typedef {import('@pins/appeals').Validation.AppealSummary} ValidationAppealSummary */
-/** @typedef {import('@pins/appeals').CaseTeam.Appeal} CaseTeamAppeal */
-/** @typedef {import('@pins/appeals').CaseTeam.AppealSummary} CaseTeamAppealSummary */
+/** @typedef {import('@pins/appeals').CaseOfficer.Appeal} CaseOfficerAppeal */
+/** @typedef {import('@pins/appeals').CaseOfficer.AppealSummary} CaseOfficerAppealSummary */
 /** @typedef {import('@pins/appeals').Inspector.Appeal} InspectorAppeal */
 /** @typedef {import('@pins/appeals').Inspector.AppealSummary} InspectorAppealSummary */
 
@@ -39,12 +39,12 @@ const formatAppealSummaryForValidation = /** @type {*} */ (
 
 /**
  * @param {RawAppeal} appeal
- * @returns {CaseTeamAppeal} - TODO: Link this type to web/response definition
+ * @returns {CaseOfficerAppeal} - TODO: Link this type to web/response definition
  */
-const formatAppealDetailsForCaseTeam = ({ documents = [], ...other }) => {
-	const formattedAppeal = CaseTeamFormatter.formatAppealForAppealDetails(other);
+const formatAppealDetailsForCaseOfficer = ({ documents = [], ...other }) => {
+	const formattedAppeal = caseOfficerFormatter.formatAppealForAppealDetails(other);
 
-	return /** @type {CaseTeamAppeal} */ {
+	return /** @type {CaseOfficerAppeal} */ {
 		...formattedAppeal,
 		Documents: documents.map((document) => ({
 			Type: document.type,
@@ -62,11 +62,11 @@ const formatAppealDetailsForCaseTeam = ({ documents = [], ...other }) => {
 
 /**
  * @param {RawAppeal} appeal
- * @returns {CaseTeamAppealSummary}
+ * @returns {CaseOfficerAppealSummary}
  */
-const formatAppealSummaryForCaseTeam = (appeal) => ({
-	...CaseTeamFormatter.formatAppealForAllAppeals(appeal),
-	...CaseTeamFormatter.formatAppealForParallelStates(appeal)
+const formatAppealSummaryForCaseOfficer = (appeal) => ({
+	...caseOfficerFormatter.formatAppealForAllAppeals(appeal),
+	...caseOfficerFormatter.formatAppealForParallelStates(appeal)
 });
 
 /**
@@ -82,9 +82,9 @@ const formatAppealSummaryForInspector = /** @type {*} */ (
  */
 const formatAppealDetailsForInspector = inspectorFormatter.formatAppealForAppealDetails;
 
-export const CaseTeam = {
-	formatAppealDetails: formatAppealDetailsForCaseTeam,
-	formatAppealSummary: formatAppealSummaryForCaseTeam
+export const CaseOfficer = {
+	formatAppealDetails: formatAppealDetailsForCaseOfficer,
+	formatAppealSummary: formatAppealSummaryForCaseOfficer
 };
 
 export const validation = {

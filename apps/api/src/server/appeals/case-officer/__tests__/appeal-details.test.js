@@ -6,7 +6,7 @@ import { app } from '../../../app.js';
 import appealRepository from '../../../repositories/appeal.repository.js';
 
 /** @typedef {import('@pins/api').Schema.Appeal} Appeal */
-/** @typedef {import('../appeals/case-team.controller').UpdateAppealDetailsBody} UpdateAppealDetailsBody */
+/** @typedef {import('../appeals/case-officer.controller').UpdateAppealDetailsBody} UpdateAppealDetailsBody */
 
 const request = supertest(app);
 
@@ -61,7 +61,7 @@ test.beforeEach(() => {
 });
 
 test('succeeds with a 200 when updating the listed building description', async (t) => {
-	const response = await request.patch('/appeals/case-team/1').send(appealDetailsBody);
+	const response = await request.patch('/appeals/case-officer/1').send(appealDetailsBody);
 
 	t.is(response.status, 200);
 	t.snapshot(response.body);
@@ -77,7 +77,7 @@ test('succeeds with a 200 when updating the listed building description', async 
 });
 
 test('fails with a 409 status when the appeal is not in an incomplete state', async (t) => {
-	const response = await request.patch('/appeals/case-team/2').send(appealDetailsBody);
+	const response = await request.patch('/appeals/case-officer/2').send(appealDetailsBody);
 
 	t.is(response.status, 409);
 	t.deepEqual(response.body, {
@@ -88,7 +88,7 @@ test('fails with a 409 status when the appeal is not in an incomplete state', as
 });
 
 test('fails with a 400 status when the `listedBuildingDescription` is too long', async (t) => {
-	const response = await request.patch('/appeals/case-team/1').send({
+	const response = await request.patch('/appeals/case-officer/1').send({
 		listedBuildingDescription: '*'.repeat(501)
 	});
 
@@ -102,7 +102,7 @@ test('fails with a 400 status when the `listedBuildingDescription` is too long',
 
 test('fails with a 400 status when the `listedBuildingDescription` is an empty string', async (t) => {
 	const response = await request
-		.patch('/appeals/case-team/1')
+		.patch('/appeals/case-officer/1')
 		.send({ listedBuildingDescription: ' ' });
 
 	t.is(response.status, 400);

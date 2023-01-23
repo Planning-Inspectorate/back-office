@@ -1,4 +1,4 @@
-{% extends "appeals/case-team/layouts/appeal.njk" %}
+{% extends "appeals/case-officer/layouts/appeal.njk" %}
 
 {% from "govuk/components/button/macro.njk" import govukButton %}
 {% from "govuk/components/character-count/macro.njk" import govukCharacterCount %}
@@ -10,7 +10,7 @@
 {% set questionnaire = reviewQuestionnaire  %}
 
 {% block appealContent %}
-	<form action="/appeals-service/case-team/appeals/{{ appeal.AppealId }}/questionnaire" method="post" novalidate="novalidate">
+	<form action="/appeals-service/case-officer/appeals/{{ appeal.AppealId }}/questionnaire" method="post" novalidate="novalidate">
 		{% include 'app/includes/csrf.njk' %}
 		{{
 			questionnaireTable({

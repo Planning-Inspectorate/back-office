@@ -17,15 +17,15 @@ import { createTestEnvironment } from '../../../../../testing/index.js';
 
 const { app, installMockApi, teardown } = createTestEnvironment();
 const request = supertest(app);
-const baseUrl = '/appeals-service/case-team';
+const baseUrl = '/appeals-service/case-officer';
 
-describe('case-team', () => {
+describe('case-officer', () => {
 	beforeEach(installMockApi);
 	afterEach(teardown);
 
 	describe('GET /', () => {
 		it('should render a placeholder for empty appeals', async () => {
-			nock('http://test/').get('/appeals/case-team').reply(200, []);
+			nock('http://test/').get('/appeals/case-officer').reply(200, []);
 
 			const response = await request.get(baseUrl);
 			const element = parseHtml(response.text);
@@ -35,7 +35,7 @@ describe('case-team', () => {
 
 		it('should render incoming and incomplete questionnaires', async () => {
 			nock('http://test/')
-				.get('/appeals/case-team')
+				.get('/appeals/case-officer')
 				.reply(200, [
 					appealSummaryForReceivedQuestionnaire,
 					appealSummaryForOverdueQuestionnaire,
@@ -187,7 +187,7 @@ describe('case-team', () => {
 		describe('valid questionnaire review', () => {
 			beforeEach(async () => {
 				nock('http://test/')
-					.post(`/appeals/case-team/${AppealId}/confirm`, { reason: {} })
+					.post(`/appeals/case-officer/${AppealId}/confirm`, { reason: {} })
 					.reply(200);
 
 				await installQuestionnaireReview(AppealId, {});
@@ -227,7 +227,7 @@ describe('case-team', () => {
 
 			it('should confirm an incomplete questionnaire', async () => {
 				nock('http://test/')
-					.post(`/appeals/case-team/${AppealId}/confirm`, {
+					.post(`/appeals/case-officer/${AppealId}/confirm`, {
 						reason: {
 							applicationPlansToReachDecisionMissingOrIncorrect: true,
 							applicationPlanningOfficersReportMissingOrIncorrect: true,
@@ -263,10 +263,10 @@ describe('case-team', () => {
 
 		it('should redirect to the appeal page when the listed building description is not missing or incorrect', async () => {
 			nock('http://test/')
-				.get('/appeals/case-team/1')
+				.get('/appeals/case-officer/1')
 				.reply(
 					200,
-					/** @type {import('@pins/appeals').CaseTeam.Appeal} */ ({
+					/** @type {import('@pins/appeals').CaseOfficer.Appeal} */ ({
 						...appealDetailsForIncompleteQuestionnaire,
 						reviewQuestionnaire: {
 							applicationPlanningOfficersReportMissingOrIncorrect: true
@@ -299,14 +299,14 @@ describe('case-team', () => {
 		it('should update the listed building description', async () => {
 			nock.cleanAll();
 			nock('http://test/')
-				.get(`/appeals/case-team/${AppealId}`)
+				.get(`/appeals/case-officer/${AppealId}`)
 				.reply(200, appealDetailsForIncompleteQuestionnaire);
-			nock('http://test/').patch(`/appeals/case-team/${AppealId}`).reply(200);
+			nock('http://test/').patch(`/appeals/case-officer/${AppealId}`).reply(200);
 			nock('http://test/')
-				.get(`/appeals/case-team/${AppealId}`)
+				.get(`/appeals/case-officer/${AppealId}`)
 				.reply(
 					200,
-					/** @type {import('@pins/appeals').CaseTeam.Appeal } */
+					/** @type {import('@pins/appeals').CaseOfficer.Appeal } */
 					({ ...appealDetailsForIncompleteQuestionnaire, ListedBuildingDesc: '*' })
 				);
 
@@ -324,10 +324,10 @@ describe('case-team', () => {
 
 		it('should redirect to the appeal page when the listed building description is not missing or incorrect', async () => {
 			nock('http://test/')
-				.get(`/appeals/case-team/1`)
+				.get(`/appeals/case-officer/1`)
 				.reply(
 					200,
-					/** @type {import('@pins/appeals').CaseTeam.Appeal} */ ({
+					/** @type {import('@pins/appeals').CaseOfficer.Appeal} */ ({
 						...appealDetailsForIncompleteQuestionnaire,
 						reviewQuestionnaire: {
 							applicationPlanningOfficersReportMissingOrIncorrect: true
@@ -361,10 +361,10 @@ describe('case-team', () => {
 			const { reviewQuestionnaire } = appealDetailsForIncompleteQuestionnaire;
 
 			nock('http://test/')
-				.get(`/appeals/case-team/1`)
+				.get(`/appeals/case-officer/1`)
 				.reply(
 					200,
-					/** @type {import('@pins/appeals').CaseTeam.Appeal} */ ({
+					/** @type {import('@pins/appeals').CaseOfficer.Appeal} */ ({
 						...appealDetailsForIncompleteQuestionnaire,
 						reviewQuestionnaire: {
 							...reviewQuestionnaire,
@@ -418,10 +418,10 @@ describe('case-team', () => {
 			const { reviewQuestionnaire } = appealDetailsForIncompleteQuestionnaire;
 
 			nock('http://test/')
-				.get(`/appeals/case-team/1`)
+				.get(`/appeals/case-officer/1`)
 				.reply(
 					200,
-					/** @type {import('@pins/appeals').CaseTeam.Appeal} */ ({
+					/** @type {import('@pins/appeals').CaseOfficer.Appeal} */ ({
 						...appealDetailsForIncompleteQuestionnaire,
 						reviewQuestionnaire: {
 							...reviewQuestionnaire,
@@ -450,7 +450,7 @@ describe('case-team', () => {
 		});
 
 		it('should redirect to the dashboard if an appeal is not accepting final comments', async () => {
-			nock('http://test/').get('/appeals/case-team').reply(200, []);
+			nock('http://test/').get('/appeals/case-officer').reply(200, []);
 
 			const response = await request
 				.get(`${baseUrl}/appeals/${appealDetailsForStatements.AppealId}/final-comments`)
@@ -481,7 +481,7 @@ describe('case-team', () => {
 		});
 
 		it('should upload a final comment with a success message', async () => {
-			nock('http://test/').post(`/appeals/case-team/${AppealId}/final-comment`).reply(200, {
+			nock('http://test/').post(`/appeals/case-officer/${AppealId}/final-comment`).reply(200, {
 				AppealId,
 				AppealReference: 'APPREF',
 				canUploadFinalCommentsUntil: '31 Dec 2030'
@@ -497,7 +497,7 @@ describe('case-team', () => {
 		});
 
 		it('should redirect to the dashboard when the appeal is not accepting final comments', async () => {
-			nock('http://test/').get('/appeals/case-team').reply(200, []);
+			nock('http://test/').get('/appeals/case-officer').reply(200, []);
 
 			const response = await request
 				.post(`${baseUrl}/appeals/${appealDetailsForStatements.AppealId}/final-comments`)
@@ -518,7 +518,7 @@ describe('case-team', () => {
 		});
 
 		it('should redirect to the dashboard if an appeal is not accepting statements', async () => {
-			nock('http://test/').get('/appeals/case-team').reply(200, []);
+			nock('http://test/').get('/appeals/case-officer').reply(200, []);
 
 			const response = await request
 				.get(`${baseUrl}/appeals/${appealDetailsForFinalComments.AppealId}/statements`)
@@ -549,7 +549,7 @@ describe('case-team', () => {
 		});
 
 		it('should upload a statement with a success message', async () => {
-			nock('http://test/').post(`/appeals/case-team/${AppealId}/statement`).reply(200, {
+			nock('http://test/').post(`/appeals/case-officer/${AppealId}/statement`).reply(200, {
 				AppealId,
 				AppealReference: 'APPREF',
 				canUploadStatementsUntil: '31 Dec 2030'
@@ -565,7 +565,7 @@ describe('case-team', () => {
 		});
 
 		it('should redirect to the dashboard when the appeal is not accepting statements', async () => {
-			nock('http://test/').get('/appeals/case-team').reply(200, []);
+			nock('http://test/').get('/appeals/case-officer').reply(200, []);
 
 			const response = await request
 				.post(`${baseUrl}/appeals/${appealDetailsForFinalComments.AppealId}/statements`)

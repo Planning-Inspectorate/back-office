@@ -11,14 +11,14 @@ import {
 	updateAppealDetails,
 	uploadFinalComment,
 	uploadStatement
-} from './case-team.controller.js';
+} from './case-officer.controller.js';
 import {
-	validateAppealBelongsToCaseTeam,
+	validateAppealBelongsToCaseOfficer,
 	validateAppealDetails,
 	validateAppealHasIncompleteQuestionnaire,
 	validateFilesUpload,
 	validateReviewRequest
-} from './case-team.validators.js';
+} from './case-officer.validators.js';
 
 /**
  * @typedef {object} AppealParams
@@ -31,11 +31,11 @@ router.get(
 	'/',
 	/*
 		#swagger.tags = ['Appeals']
-		#swagger.path = '/appeals/case-team'
-		#swagger.description = 'Gets all appeals for a Case team to review'
+		#swagger.path = '/appeals/case-officer'
+		#swagger.description = 'Gets all appeals for a Case officer to review'
 		#swagger.responses[200] = {
-			description: 'Appeals the require Case team to check',
-			schema: { $ref: '#/definitions/AppealsForCaseTeam' }
+			description: 'Appeals the require Case officer to check',
+			schema: { $ref: '#/definitions/AppealsForCaseOfficer' }
 		}
 	 */
 	asyncHandler(getAppeals)
@@ -45,8 +45,8 @@ router.get(
 	'/:appealId',
 	/*
 		#swagger.tags = ['Appeals']
-		#swagger.path = '/appeals/case-team/{appealId}'
-		#swagger.description = 'Gets appeal details for Case team to review'
+		#swagger.path = '/appeals/case-officer/{appealId}'
+		#swagger.description = 'Gets appeal details for Case officer to review'
 		#swagger.parameters['appealId'] = {
 			id: 'path',
 			description: 'Appeal ID',
@@ -54,12 +54,12 @@ router.get(
 			type: 'integer'
 		}
 		#swagger.responses[200] = {
-			description: 'Appeal that requires a Case team to check over',
-			schema: { $ref: '#/definitions/AppealForCaseTeam' }
+			description: 'Appeal that requires a Case officer to check over',
+			schema: { $ref: '#/definitions/AppealForCaseOfficer' }
 		}
 	 */
 	param('appealId').toInt(),
-	validateAppealBelongsToCaseTeam,
+	validateAppealBelongsToCaseOfficer,
 	asyncHandler(getAppealDetails)
 );
 
@@ -67,7 +67,7 @@ router.patch(
 	'/:appealId',
 	/*
 		#swagger.tags = ['Appeals']
-		#swagger.path = '/appeals/case-team/{appealId}'
+		#swagger.path = '/appeals/case-officer/{appealId}'
 		#swagger.description = 'Updates appeal details'
 		#swagger.parameters['appealId'] = {
 			id: 'path',
@@ -78,12 +78,12 @@ router.patch(
 		#swagger.parameters['body'] = {
 			in: 'body',
 			description: 'Details to update',
-			schema: { $ref: '#/definitions/UpdateAppealDetailsByCaseTeam' },
+			schema: { $ref: '#/definitions/UpdateAppealDetailsByCaseOfficer' },
             required: true
 		}
 		#swagger.responses[200] = {
 			description: 'Appeal after new details were sent over',
-			schema: { $ref: '#/definitions/AppealAfterUpdateForCaseTeam' }
+			schema: { $ref: '#/definitions/AppealAfterUpdateForCaseOfficer' }
 		}
 	*/
 	param('appealId').toInt(),
@@ -96,7 +96,7 @@ router.post(
 	'/:appealId/confirm',
 	/*
 		#swagger.tags = ['Appeals']
-		#swagger.path = '/appeals/case-team/{appealId}/confirm'
+		#swagger.path = '/appeals/case-officer/{appealId}/confirm'
 		#swagger.description = 'Updates appeal details'
 		#swagger.parameters['appealId'] = {
 			id: 'path',
@@ -112,7 +112,7 @@ router.post(
 		}
 	*/
 	param('appealId').toInt(),
-	validateAppealBelongsToCaseTeam,
+	validateAppealBelongsToCaseOfficer,
 	validateReviewRequest,
 	asyncHandler(confirmLPAQuestionnaire)
 );
@@ -121,7 +121,7 @@ router.get(
 	'/:appealId/statements-comments',
 	/*
 		#swagger.tags = ['Appeals']
-		#swagger.path = '/appeals/case-team/{appealId}/statements-comments'
+		#swagger.path = '/appeals/case-officer/{appealId}/statements-comments'
 		#swagger.description = 'Gets appeal details when uploading statements and final comments'
 		#swagger.parameters['appealId'] = {
 			id: 'path',
@@ -146,7 +146,7 @@ router.post(
 	'/:appealId/statement',
 	/*
 		#swagger.tags = ['Appeals']
-		#swagger.path = '/appeals/case-team/{appealId}/statement'
+		#swagger.path = '/appeals/case-officer/{appealId}/statement'
         #swagger.description = 'Uploads statement'
 		#swagger.parameters['appealId'] = {
 			id: 'path',
@@ -180,7 +180,7 @@ router.post(
 	'/:appealId/final-comment',
 	/*
 		#swagger.tags = ['Appeals']
-		#swagger.path = '/appeals/case-team/{appealId}/final-comment'
+		#swagger.path = '/appeals/case-officer/{appealId}/final-comment'
         #swagger.description = 'Uploads final comment'
 		#swagger.parameters['appealId'] = {
 			id: 'path',
@@ -210,4 +210,4 @@ router.post(
 	asyncHandler(uploadFinalComment)
 );
 
-export { router as CaseTeamRoutes };
+export { router as CaseOfficerRoutes };

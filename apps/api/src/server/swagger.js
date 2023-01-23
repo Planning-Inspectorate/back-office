@@ -370,7 +370,7 @@ const document = {
 			acceptingStatements: false,
 			acceptingFinalComments: true
 		},
-		AppealsForCaseTeam: {
+		AppealsForCaseOfficer: {
 			$AppealId: 1,
 			$AppealReference: '',
 			$QuestionnaireDueDate: '01 Jun 2022',
@@ -383,7 +383,7 @@ const document = {
 			},
 			$QuestionnaireStatus: { '@enum': ['awaiting', 'received', 'overdue'] }
 		},
-		AppealForCaseTeam: {
+		AppealForCaseOfficer: {
 			$AppealId: 1,
 			$AppealReference: '',
 			$LocalPlanningDepartment: '',
@@ -520,10 +520,10 @@ const document = {
 				}
 			]
 		},
-		UpdateAppealDetailsByCaseTeam: {
+		UpdateAppealDetailsByCaseOfficer: {
 			$listedBuildingDescription: ''
 		},
-		AppealAfterUpdateForCaseTeam: {
+		AppealAfterUpdateForCaseOfficer: {
 			$appealStatus: [
 				{
 					$id: 2,

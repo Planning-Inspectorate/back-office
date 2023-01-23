@@ -1,8 +1,8 @@
-import { getReviewQuestionnaireDocumentTypeRequired } from './case-team.filters.js';
-import * as lpaSession from './case-team-session.service.js';
+import { getReviewQuestionnaireDocumentTypeRequired } from './case-officer.filters.js';
+import * as lpaSession from './case-officer-session.service.js';
 
-/** @typedef {import('./case-team.locals').AppealLocals} AppealLocals */
-/** @typedef {import('./case-team.locals').AppealDocumentLocals} AppealDocumentLocals */
+/** @typedef {import('./case-officer.locals').AppealLocals} AppealLocals */
+/** @typedef {import('./case-officer.locals').AppealDocumentLocals} AppealDocumentLocals */
 
 /**
  * Guard that protects routes from having further documents of a certain type

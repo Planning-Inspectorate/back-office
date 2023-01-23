@@ -5,26 +5,26 @@ import formatAddress from '../../utils/address-formatter.js';
 import { arrayOfStatusesContainsString } from '../../utils/array-of-statuses-contains-string.js';
 import { appealStates } from '../../utils/transition-state.js';
 import appealFormatter from './appeal-formatter.js';
-import * as CaseTeamService from './case-team.service.js';
+import * as CaseOfficerService from './case-officer.service.js';
 
-/** @typedef {import('./case-team.routes').AppealParams} AppealParams */
+/** @typedef {import('./case-officer.routes').AppealParams} AppealParams */
 
 /**
  * @type {import('express').RequestHandler}
  */
 export const getAppeals = async (request, response) => {
-	const CaseTeamStatuses = [
+	const CaseOfficerStatuses = [
 		appealStates.awaiting_lpa_questionnaire,
 		appealStates.overdue_lpa_questionnaire,
 		appealStates.received_lpa_questionnaire,
 		appealStates.incomplete_lpa_questionnaire
 	];
-	const CaseTeamStatusesParallel = [
+	const CaseOfficerStatusesParallel = [
 		appealStates.available_for_statements,
 		appealStates.available_for_final_comments
 	];
 	const appeals = await appealRepository.getByStatuses({
-		statuses: CaseTeamStatuses,
+		statuses: CaseOfficerStatuses,
 		includeAddress: true,
 		includeAppellant: true
 	});
@@ -33,7 +33,7 @@ export const getAppeals = async (request, response) => {
 	);
 
 	const appealsParallel = await appealRepository.getByStatuses({
-		statuses: CaseTeamStatusesParallel,
+		statuses: CaseOfficerStatusesParallel,
 		includeAddress: true,
 		includeAppellant: true
 	});
@@ -85,7 +85,7 @@ export const getAppealDetailsForStatementsAndComments = async (request, response
  * @type {import('express').RequestHandler}
  */
 export const confirmLPAQuestionnaire = async (request, response) => {
-	await CaseTeamService.confirmLPAQuestionnaireService(
+	await CaseOfficerService.confirmLPAQuestionnaireService(
 		request.body.reason,
 		request.params.appealId
 	);
@@ -99,7 +99,7 @@ export const confirmLPAQuestionnaire = async (request, response) => {
 
 /** @type {import('express').RequestHandler<AppealParams, ?, UpdateAppealDetailsBody>} */
 export const updateAppealDetails = async ({ body, params }, response) => {
-	await CaseTeamService.updateAppealDetails(params.appealId, body);
+	await CaseOfficerService.updateAppealDetails(params.appealId, body);
 
 	const updatedAppeal = await appealRepository.getById(params.appealId, { lpaQuestionnaire: true });
 

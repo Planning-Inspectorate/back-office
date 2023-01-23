@@ -194,7 +194,7 @@ test('gets the appeals information with received questionnaires', async (t) => {
 		return { findMany: findManyStub };
 	});
 
-	const resp = await request.get('/appeals/case-team');
+	const resp = await request.get('/appeals/case-officer');
 	const appealExample = [
 		{
 			AppealId: 1,

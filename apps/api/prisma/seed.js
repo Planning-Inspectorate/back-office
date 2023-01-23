@@ -313,7 +313,7 @@ const appealsAwaitingLPAQuestionnaireOverdue = [
 	})
 ];
 
-const appealsReadyForConfirmationFromCaseTeam = [
+const appealsReadyForConfirmationFromCaseOfficer = [
 	appealFactory({
 		typeShorthand: 'HAS',
 		statuses: { status: 'received_lpa_questionnaire', createdAt: getDateTwoWeeksAgo() },
@@ -623,7 +623,7 @@ const appealsData = [
 	...appealsAwaitingLPAQuestionnaire,
 	...appealsAwaitingLPAQuestionnaireOverdue,
 	...appealsReviewIncomplete,
-	...appealsReadyForConfirmationFromCaseTeam,
+	...appealsReadyForConfirmationFromCaseOfficer,
 	...appealsAvailableForInspectorPickup,
 	...appealPickedUpButStillAcceptingFinalComments,
 	...appealsSiteVisitNotYetBooked,

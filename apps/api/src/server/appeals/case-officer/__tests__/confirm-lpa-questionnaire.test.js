@@ -88,7 +88,7 @@ test.before('sets up mocking of database', () => {
 });
 
 test('should submit confirmation of an incomplete outcome of LPA questionnaire', async (t) => {
-	const resp = await request.post('/appeals/case-team/11/confirm').send({
+	const resp = await request.post('/appeals/case-officer/11/confirm').send({
 		reason: {
 			applicationPlanningOfficersReportMissingOrIncorrect: false,
 			applicationPlansToReachDecisionMissingOrIncorrect: true,
@@ -134,7 +134,7 @@ test('should submit confirmation of an incomplete outcome of LPA questionnaire',
 });
 
 test('should submit confirmation of an incomplete if listed building desc is missing/incorrect', async (t) => {
-	const resp = await request.post('/appeals/case-team/11/confirm').send({
+	const resp = await request.post('/appeals/case-officer/11/confirm').send({
 		reason: {
 			applicationPlanningOfficersReportMissingOrIncorrect: false,
 			applicationPlansToReachDecisionMissingOrIncorrect: false,
@@ -180,7 +180,7 @@ test('should submit confirmation of an incomplete if listed building desc is mis
 });
 
 test('should submit confirmation of the outcome of LPA questionnaire', async (t) => {
-	const resp = await request.post('/appeals/case-team/11/confirm').send({
+	const resp = await request.post('/appeals/case-officer/11/confirm').send({
 		reason: {
 			applicationPlanningOfficersReportMissingOrIncorrect: false,
 			applicationPlansToReachDecisionMissingOrIncorrect: false,
@@ -224,7 +224,7 @@ test('should submit confirmation of the outcome of LPA questionnaire', async (t)
 });
 
 test("should not be able to submit review as 'incomplete' if there is no description being sent", async (t) => {
-	const resp = await request.post('/appeals/case-team/11/confirm').send({
+	const resp = await request.post('/appeals/case-officer/11/confirm').send({
 		reason: {
 			applicationPlanningOfficersReportMissingOrIncorrect: false,
 			applicationPlansToReachDecisionMissingOrIncorrect: true,
@@ -249,7 +249,7 @@ test("should not be able to submit review as 'incomplete' if there is no descrip
 });
 
 test("should not be able to submit review as 'incomplete' if some unexpected body attributes are provided", async (t) => {
-	const resp = await request.post('/appeals/case-team/11/confirm').send({
+	const resp = await request.post('/appeals/case-officer/11/confirm').send({
 		reason: {
 			applicationPlanningOfficersReportMissingOrIncorrect: false,
 			applicationPlansToReachDecisionMissingOrIncorrect: false,
@@ -275,7 +275,7 @@ test("should not be able to submit review as 'incomplete' if some unexpected bod
 });
 
 test('should not be able to submit review if appeal is not in a state ready to receive confirmation of the LPA questionnaire', async (t) => {
-	const resp = await request.post('/appeals/case-team/10/confirm').send({
+	const resp = await request.post('/appeals/case-officer/10/confirm').send({
 		reason: {
 			applicationPlanningOfficersReportMissingOrIncorrect: false,
 			applicationPlansToReachDecisionMissingOrIncorrect: false,

@@ -116,7 +116,7 @@ export function uploadDocument(appealId, { file, documentType }) {
 	appendFilesToFormData(formData, { key: 'file', file });
 
 	// Awaiting https://pins-ds.atlassian.net/browse/BOCM-78
-	// case-team/${appealId}/documents is not yet implemented so mock created resource
+	// case-officer/${appealId}/documents is not yet implemented so mock created resource
 	return Promise.resolve({
 		Filename: file.originalname,
 		Type: documentType,

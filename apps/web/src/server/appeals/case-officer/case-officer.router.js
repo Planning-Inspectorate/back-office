@@ -1,12 +1,12 @@
 import { Router as createRouter } from 'express';
-import * as controller from './case-team.controller.js';
-import * as guards from './case-team.guards.js';
-import * as locals from './case-team.locals.js';
-import * as validators from './case-team.validators.js';
+import * as controller from './case-officer.controller.js';
+import * as guards from './case-officer.guards.js';
+import * as locals from './case-officer.locals.js';
+import * as validators from './case-officer.validators.js';
 
 const router = createRouter();
 
-router.use(locals.registerCaseTeamLocals);
+router.use(locals.registerCaseOfficerLocals);
 router.route('/').get(controller.viewDashboard);
 
 router.param('appealId', locals.loadAppeal);
