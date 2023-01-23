@@ -55,7 +55,7 @@ const includeAll = {
  */
 export const getByStatus = (statusArray) => {
 	return databaseConnector.case.findMany({
-		orderBy: [{ id: 'asc' }, { ApplicationDetails: { subSector: { abbreviation: 'asc' } } }],
+		orderBy: [{ ApplicationDetails: { subSector: { abbreviation: 'asc' } } }],
 		where: {
 			CaseStatus: {
 				some: {
@@ -76,6 +76,7 @@ export const getByStatus = (statusArray) => {
 					}
 				}
 			},
+
 			CaseStatus: {
 				where: {
 					valid: true
