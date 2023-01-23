@@ -48,7 +48,10 @@ app.use(
 	helmet.contentSecurityPolicy({
 		directives: {
 			scriptSrc: ["'self'", () => `'nonce-${locals.cspNonce}'`],
-			defaultSrc: ["'self'", config.blobStorageUrl]
+			defaultSrc: ["'self'", config.blobStorageUrl],
+			'font-src': ["'self'"],
+			'img-src': ["'self'", config.blobStorageUrl],
+			'style-src': ["'self'"]
 		}
 	})
 );
