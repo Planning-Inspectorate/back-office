@@ -25,7 +25,7 @@ const { value: validatedConfig, error } = schema.validate({
 	sslCertificateKeyFile: environment.SSL_KEY_FILE,
 	referenceData: {
 		appeals: {
-			caseOfficerGroupId: environment.APPEALS_CASEOFFICER_GROUP_ID,
+			caseOfficerGroupId: environment.APPEALS_CASE_OFFICER_GROUP_ID,
 			inspectorGroupId: environment.APPEALS_INSPECTOR_GROUP_ID,
 			validationOfficerGroupId: environment.APPEALS_VALIDATION_OFFICER_GROUP_ID
 		},

@@ -3,7 +3,7 @@ import { createAppeal } from '../factory/appeal.js';
 import { createAppealStatus } from '../factory/appeal-status.js';
 import { createAppellant } from '../factory/appellant.js';
 import { createReviewQuestionnaire } from '../factory/review-questionnaire.js';
-import { CaseOfficer } from '../formatters/appeal.js';
+import { caseOfficer } from '../formatters/appeal.js';
 import { documents } from './document.js';
 import { lpaQuestionnaire } from './lpa-questionnaire.js';
 
@@ -33,7 +33,7 @@ const createAppealFixtures = ({ id, ...appealData }) => {
 		...appealData
 	});
 
-	return [CaseOfficer.formatAppealSummary(appeal), CaseOfficer.formatAppealDetails(appeal)];
+	return [caseOfficer.formatAppealSummary(appeal), caseOfficer.formatAppealDetails(appeal)];
 };
 
 export const [appealSummaryForReceivedQuestionnaire, appealDetailsForReceivedQuestionnaire] =

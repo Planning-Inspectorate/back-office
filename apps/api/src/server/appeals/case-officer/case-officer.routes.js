@@ -210,4 +210,4 @@ router.post(
 	asyncHandler(uploadFinalComment)
 );
 
-export { router as CaseOfficerRoutes };
+export { router as caseOfficerRoutes };

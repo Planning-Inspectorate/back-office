@@ -5,7 +5,7 @@ import formatAddress from '../../utils/address-formatter.js';
 import { arrayOfStatusesContainsString } from '../../utils/array-of-statuses-contains-string.js';
 import { appealStates } from '../../utils/transition-state.js';
 import appealFormatter from './appeal-formatter.js';
-import * as CaseOfficerService from './case-officer.service.js';
+import * as caseOfficerService from './case-officer.service.js';
 
 /** @typedef {import('./case-officer.routes').AppealParams} AppealParams */
 
@@ -85,7 +85,7 @@ export const getAppealDetailsForStatementsAndComments = async (request, response
  * @type {import('express').RequestHandler}
  */
 export const confirmLPAQuestionnaire = async (request, response) => {
-	await CaseOfficerService.confirmLPAQuestionnaireService(
+	await caseOfficerService.confirmLPAQuestionnaireService(
 		request.body.reason,
 		request.params.appealId
 	);
@@ -99,7 +99,7 @@ export const confirmLPAQuestionnaire = async (request, response) => {
 
 /** @type {import('express').RequestHandler<AppealParams, ?, UpdateAppealDetailsBody>} */
 export const updateAppealDetails = async ({ body, params }, response) => {
-	await CaseOfficerService.updateAppealDetails(params.appealId, body);
+	await caseOfficerService.updateAppealDetails(params.appealId, body);
 
 	const updatedAppeal = await appealRepository.getById(params.appealId, { lpaQuestionnaire: true });
 

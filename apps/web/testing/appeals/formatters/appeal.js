@@ -82,7 +82,7 @@ const formatAppealSummaryForInspector = /** @type {*} */ (
  */
 const formatAppealDetailsForInspector = inspectorFormatter.formatAppealForAppealDetails;
 
-export const CaseOfficer = {
+export const caseOfficer = {
 	formatAppealDetails: formatAppealDetailsForCaseOfficer,
 	formatAppealSummary: formatAppealSummaryForCaseOfficer
 };

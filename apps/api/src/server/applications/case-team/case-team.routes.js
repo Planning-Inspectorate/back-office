@@ -18,4 +18,4 @@ router.get(
 	asyncHandler(getApplications)
 );
 
-export { router as CaseTeamRoutes };
+export { router as caseTeamRoutes };

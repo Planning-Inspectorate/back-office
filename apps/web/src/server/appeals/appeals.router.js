@@ -1,7 +1,7 @@
 import config from '@pins/web/environment/config.js';
 import { Router as createRouter } from 'express';
 import { assertGroupAccess } from '../app/auth/auth.guards.js';
-import CaseOfficerRouter from '../appeals/case-officer/case-officer.router.js';
+import caseOfficerRouter from '../appeals/case-officer/case-officer.router.js';
 import inspectorRouter from './inspector/inspector.router.js';
 import validationRouter from './validation/validation.router.js';
 
@@ -16,7 +16,7 @@ router.use(
 router.use(
 	'/case-officer',
 	assertGroupAccess(config.referenceData.appeals.caseOfficerGroupId),
-	CaseOfficerRouter
+	caseOfficerRouter
 );
 
 router.use(

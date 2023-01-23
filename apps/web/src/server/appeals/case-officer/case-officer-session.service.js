@@ -1,7 +1,7 @@
 /** @typedef {import('@pins/appeals').CaseOfficer.Questionnaire} CaseOfficerQuestionnaire */
 
 /**
- * @typedef {import('express-session').Session & { CaseOfficer?: CaseOfficerState }} SessionWithCaseOfficer
+ * @typedef {import('express-session').Session & { caseOfficer?: CaseOfficerState }} SessionWithCaseOfficer
  */
 
 /**
@@ -21,14 +21,14 @@
  * @param {SessionWithCaseOfficer} session
  * @returns {CaseOfficerState}
  */
-const getState = (session) => session.CaseOfficer || {};
+const getState = (session) => session.caseOfficer || {};
 
 /**
  * @param {SessionWithCaseOfficer} session
  * @returns {void}
  */
 export const destroyQuestionnaireReview = (session) => {
-	delete session.CaseOfficer?.questionnaireReview;
+	delete session.caseOfficer?.questionnaireReview;
 };
 
 /**
@@ -41,7 +41,7 @@ export const destroyQuestionnaireReview = (session) => {
 export const setQuestionnaireReview = (session, questionnaireReview) => {
 	const state = getState(session);
 
-	session.CaseOfficer = { ...state, questionnaireReview };
+	session.caseOfficer = { ...state, questionnaireReview };
 };
 
 /**
