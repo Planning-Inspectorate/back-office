@@ -1,23 +1,17 @@
 export const users = {
-	caseOfficer: {
-		email: Cypress.env('CASE_OFFICER_EMAIL'),
-		id: 'case-officer'
+	caseTeam: {
+		email: Cypress.env("CASE_TEAM_EMAIL"),
+		id: "case-team",
+		typeName: "Case officer",
 	},
-	caseOfficerAdmin: {
-		email: Cypress.env('CASE_OFFICER_ADMIN_EMAIL'),
-		id: 'case-officer-admin'
+	caseAdmin: {
+		email: Cypress.env("CASE_ADMIN_EMAIL"),
+		id: "case-admin",
+		typeName: "Case admin officer",
 	},
-	inspector: { email: Cypress.env('INSPECTOR_EMAIL'), id: 'inspector' },
-	caseOfficerInspector: {
-		email: Cypress.env('CASE_OFFICER_INSPECTOR_EMAIL'),
-		id: 'case-officer-inspector'
+	inspector: {
+		email: Cypress.env("INSPECTOR_EMAIL"),
+		id: "inspector",
+		typeName: "Inspector",
 	},
-	caseOfficerAdminInspector: {
-		email: Cypress.env('CASE_OFFICER_ADMIN_INSPECTOR_EMAIL'),
-		id: 'case-officer-admin-inspector'
-	},
-	caseOfficerCaseOfficerAdmin: {
-		email: Cypress.env('CASE_OFFICER_CASE_OFFICER_ADMIN_EMAIL'),
-		id: 'case-office-case-officer-admin'
-	}
 };

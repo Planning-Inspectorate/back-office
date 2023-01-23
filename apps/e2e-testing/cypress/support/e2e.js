@@ -18,12 +18,3 @@
 
 // Import commands.js using ES2015 syntax:
 import './commands';
-
-beforeEach(() => {
-	cy.clearLocalStorage();
-	cy.clearCookies();
-});
-
-after(() => {
-	cy.task('ClearAllCookies');
-});

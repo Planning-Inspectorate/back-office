@@ -1,15 +1,15 @@
 // @ts-nocheck
 import { BrowserAuthData } from '../fixtures/browser-auth-data';
 
-Cypress.Commands.add("loginWithPuppeteer", (user) => {
+Cypress.Commands.add('loginWithPuppeteer', (user) => {
 	var config = {
 		username: user.email,
-		password: Cypress.env("PASSWORD"),
-		loginUrl: Cypress.config("baseUrl"),
+		password: Cypress.env('PASSWORD'),
+		loginUrl: Cypress.config('baseUrl'),
 		id: user.id
 	};
 
-	cy.task("AzureSignIn", config).then((cookies) => {
+	cy.task('AzureSignIn', config).then((cookies) => {
 		cy.clearCookies({ log: false });
 		cookies.forEach((cookie) => {
 			cy.setCookie(cookie.name, cookie.value, {
@@ -18,7 +18,7 @@ Cypress.Commands.add("loginWithPuppeteer", (user) => {
 				httpOnly: cookie.httpOnly,
 				path: cookie.path,
 				secure: cookie.secure,
-				log: false,
+				log: false
 			});
 		});
 	});
@@ -26,29 +26,36 @@ Cypress.Commands.add("loginWithPuppeteer", (user) => {
 	return;
 });
 
-Cypress.Commands.add("login", (user) => {
-	cy.task("CookiesFileExists", user.id).then((exists) => {
+Cypress.Commands.add('login', (user) => {
+	cy.task('CookiesFileExists', user.id).then((exists) => {
 		if (!exists) {
 			cy.loginWithPuppeteer(user);
 		} else {
-			cy.task("GetCookiesFileContents", user.id).then((fileContents) => {
-				console.log(fileContents.length - 1);
-				const expiry = fileContents[fileContents.length - 1]["expires"];
+			cy.task('GetCookiesFileContents', user.id).then((fileContents) => {
+				const expiry = fileContents[fileContents.length - 1]['expires'];
 				const now = Math.floor(Date.now() / 1000);
 				const tokenIsValid = expiry > now + 1200;
 
 				if (!tokenIsValid) {
 					cy.loginWithPuppeteer(user);
 				} else {
-					setLocalCookies(user.id)
+					setLocalCookies(user.id);
 				}
 			});
 		}
 	});
 });
 
+Cypress.Commands.add('clearCookiesFile', () => {
+	cy.task('ClearAllCookies').then((cleared) => {
+		console.log(cleared);
+	});
+});
+
 export function setLocalCookies(userId) {
-	cy.readFile(`${BrowserAuthData.BrowserAuthDataFolder}/${userId}-${BrowserAuthData.CookiesFile}`).then((data) => {
+	cy.readFile(
+		`${BrowserAuthData.BrowserAuthDataFolder}/${userId}-${BrowserAuthData.CookiesFile}`
+	).then((data) => {
 		cy.clearCookies({ log: false });
 		data.forEach((cookie) => {
 			cy.setCookie(cookie.name, cookie.value, {
@@ -57,7 +64,7 @@ export function setLocalCookies(userId) {
 				httpOnly: cookie.httpOnly,
 				path: cookie.path,
 				secure: cookie.secure,
-				log: false,
+				log: false
 			});
 		});
 	});
