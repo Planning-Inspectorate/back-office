@@ -13,18 +13,18 @@ import * as caseOfficerService from './case-officer.service.js';
  * @type {import('express').RequestHandler}
  */
 export const getAppeals = async (request, response) => {
-	const CaseOfficerStatuses = [
+	const caseOfficerStatuses = [
 		appealStates.awaiting_lpa_questionnaire,
 		appealStates.overdue_lpa_questionnaire,
 		appealStates.received_lpa_questionnaire,
 		appealStates.incomplete_lpa_questionnaire
 	];
-	const CaseOfficerStatusesParallel = [
+	const caseOfficerStatusesParallel = [
 		appealStates.available_for_statements,
 		appealStates.available_for_final_comments
 	];
 	const appeals = await appealRepository.getByStatuses({
-		statuses: CaseOfficerStatuses,
+		statuses: caseOfficerStatuses,
 		includeAddress: true,
 		includeAppellant: true
 	});
@@ -33,7 +33,7 @@ export const getAppeals = async (request, response) => {
 	);
 
 	const appealsParallel = await appealRepository.getByStatuses({
-		statuses: CaseOfficerStatusesParallel,
+		statuses: caseOfficerStatusesParallel,
 		includeAddress: true,
 		includeAppellant: true
 	});
