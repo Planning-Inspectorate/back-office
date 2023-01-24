@@ -107,5 +107,6 @@ export async function handleSignout(req, response) {
 
 	pino.info('[WEB] clearing session:', req.session);
 
+	response.setHeader('Clear-Site-Data', '*');
 	response.clearCookie('connect.sid', { path: '/' }).redirect(config.msal.logoutUri);
 }
