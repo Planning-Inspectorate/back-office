@@ -1,6 +1,7 @@
 import { createHttpLoggerHooks } from '@pins/platform';
 import config from '@pins/web/environment/config.js';
 import got from 'got';
+import { getAccessToken } from '../app/auth/generate-client-access-token.js';
 import pino from './logger.js';
 
 const [requestLogger, responseLogger] = createHttpLoggerHooks(pino, config.logLevelStdOut);
@@ -12,9 +13,15 @@ const instance = got.extend({
 	hooks: {
 		beforeRequest: [
 			requestLogger,
-			(options) => {
+			async (options) => {
+				const accessToken = getAccessToken();
+
 				// temporary pending implementation of authentication
 				options.headers.userid = '1';
+
+				if (process.env.TZ) {
+					options.headers.Authorization = `Bearer ${accessToken}`;
+				}
 			}
 		],
 		afterResponse: [responseLogger]

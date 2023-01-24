@@ -41,7 +41,11 @@ const { value: validatedConfig, error } = schema.validate({
 		featureFlagBoas1TestFeature: !environment.FEATURE_FLAG_BOAS_1_TEST_FEATURE
 			? false
 			: environment.FEATURE_FLAG_BOAS_1_TEST_FEATURE === 'true'
-	}
+	},
+
+	clientCredentialsGrantEnabled:
+		environment.CLIENT_CREDENTIAL_GRANT_ENABLED &&
+		environment.CLIENT_CREDENTIAL_GRANT_ENABLED === 'true'
 });
 
 if (error) {
