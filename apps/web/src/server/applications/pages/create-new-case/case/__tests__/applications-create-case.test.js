@@ -15,7 +15,7 @@ const request = supertest(app);
 const successResponse = { id: 1, applicantIds: [1] };
 
 const nocks = () => {
-	nock('http://test/').get('/applications/case-officer').reply(200, {});
+	nock('http://test/').get('/applications/case-team').reply(200, {});
 	nock('http://test/').get('/applications/sector').reply(200, fixtureSectors);
 	nock('http://test/')
 		.get(/\/applications\/1(.*)/g)
@@ -63,9 +63,9 @@ describe('applications create', () => {
 						expect(element.innerHTML).not.toContain('Save and continue');
 					});
 				});
-				describe('Case officer', () => {
+				describe('Case team', () => {
 					it('should render form', async () => {
-						await request.get('/applications-service/case-officer');
+						await request.get('/applications-service/case-team');
 
 						const response = await request.get(baseUrl);
 						const element = parseHtml(response.text);
@@ -92,7 +92,7 @@ describe('applications create', () => {
 			const baseUrl = '/applications-service/create-new-case/1';
 
 			beforeEach(async () => {
-				await request.get('/applications-service/case-officer');
+				await request.get('/applications-service/case-team');
 				nocks();
 			});
 
@@ -117,7 +117,7 @@ describe('applications create', () => {
 			const baseUrl = '/applications-service/create-new-case';
 
 			beforeEach(async () => {
-				await request.get('/applications-service/case-officer');
+				await request.get('/applications-service/case-team');
 				nocks();
 			});
 
@@ -199,7 +199,7 @@ describe('applications create', () => {
 			`/applications-service/create-new-case/${id}/sector`;
 
 		beforeEach(async () => {
-			await request.get('/applications-service/case-officer');
+			await request.get('/applications-service/case-team');
 			nocks();
 		});
 
@@ -249,7 +249,7 @@ describe('applications create', () => {
 			`/applications-service/create-new-case/${id}/sub-sector`;
 
 		beforeEach(async () => {
-			await request.get('/applications-service/case-officer');
+			await request.get('/applications-service/case-team');
 			nocks();
 		});
 
@@ -329,7 +329,7 @@ describe('applications create', () => {
 			`/applications-service/create-new-case/${id}/geographical-information`;
 
 		beforeEach(async () => {
-			await request.get('/applications-service/case-officer');
+			await request.get('/applications-service/case-team');
 			nocks();
 		});
 
@@ -446,7 +446,7 @@ describe('applications create', () => {
 			`/applications-service/create-new-case/${id}/regions`;
 
 		beforeEach(async () => {
-			await request.get('/applications-service/case-officer');
+			await request.get('/applications-service/case-team');
 			nocks();
 			nock('http://test/').get('/applications/region').reply(200, fixtureRegions);
 		});
@@ -533,7 +533,7 @@ describe('applications create', () => {
 			`/applications-service/create-new-case/${id}/zoom-level`;
 
 		beforeEach(async () => {
-			await request.get('/applications-service/case-officer');
+			await request.get('/applications-service/case-team');
 			nocks();
 			nock('http://test/').get('/applications/zoom-level').reply(200, fixtureZoomLevels);
 		});
@@ -592,7 +592,7 @@ describe('applications create', () => {
 			`/applications-service/create-new-case/${id}/team-email`;
 
 		beforeEach(async () => {
-			await request.get('/applications-service/case-officer');
+			await request.get('/applications-service/case-team');
 			nocks();
 			nock('http://test/').get('/applications/zoom-level').reply(200, fixtureZoomLevels);
 		});

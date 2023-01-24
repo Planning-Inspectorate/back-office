@@ -12,7 +12,7 @@ const updateStub = sinon.stub().returns({ id: 1, serviceCustomer: [{ id: 2 }, { 
 
 const expectedEventPayload = {
 	id: 1,
-	caseOfficers: [],
+	caseTeams: [],
 	customers: [
 		{
 			id: 2,

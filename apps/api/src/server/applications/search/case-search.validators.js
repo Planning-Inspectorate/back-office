@@ -7,7 +7,7 @@ import {
 
 export const validateRole = composeMiddleware(
 	body('role')
-		.isIn(['inspector', 'case-officer', 'case-admin-officer'])
+		.isIn(['inspector', 'case-team', 'case-admin-officer'])
 		.withMessage('Role is not valid'),
 	validationErrorHandlerUnauthorised
 );

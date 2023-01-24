@@ -13,7 +13,7 @@ test('buildNsipProjectPayload maps NSIP Case to NSIP Application Payload with mi
 	// 3. Assert
 	const expectedResult = {
 		id: 1,
-		caseOfficers: [],
+		caseTeams: [],
 		customers: [],
 		inspectors: [],
 		sourceSystem: 'ODT',
@@ -116,7 +116,7 @@ test('buildNsipProjectPayload maps NSIP Case to NSIP Application Payload', (t) =
 			}
 		],
 		validationOfficers: [],
-		caseOfficers: [],
+		caseTeams: [],
 		inspectors: [],
 		sourceSystem: 'ODT'
 	};

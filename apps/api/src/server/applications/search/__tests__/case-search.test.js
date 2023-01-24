@@ -164,7 +164,7 @@ test.before('set up stubs', () => {
 test('should get applications using search criteria', async (t) => {
 	const response = await request.post('/applications/search').send({
 		query: searchString,
-		role: 'case-officer',
+		role: 'case-team',
 		pageNumber: 1,
 		pageSize: 1
 	});
@@ -191,7 +191,7 @@ test('should get applications using search criteria', async (t) => {
 test('should get applications using search criteria with default page number', async (t) => {
 	const response = await request.post('/applications/search').send({
 		query: searchString,
-		role: 'case-officer',
+		role: 'case-team',
 		pageSize: 20
 	});
 
@@ -217,7 +217,7 @@ test('should get applications using search criteria with default page number', a
 test('should get applications using search criteria with default page size', async (t) => {
 	const response = await request.post('/applications/search').send({
 		query: searchString,
-		role: 'case-officer',
+		role: 'case-team',
 		pageNumber: 2
 	});
 
@@ -243,7 +243,7 @@ test('should get applications using search criteria with default page size', asy
 test('should get no results using search criteria which will not yield cases', async (t) => {
 	const response = await request.post('/applications/search').send({
 		query: 'BCDEF',
-		role: 'case-officer',
+		role: 'case-team',
 		pageNumber: 1,
 		pageSize: 1
 	});
