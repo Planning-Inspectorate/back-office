@@ -46,8 +46,8 @@ describe('applications documentation', () => {
 
 	describe('GET /case/123/project-documentation', () => {
 		beforeEach(async () => {
-			nocks('case-officer');
-			await request.get('/applications-service/case-officer');
+			nocks('case-team');
+			await request.get('/applications-service/case-team');
 		});
 
 		it('should render the page', async () => {
@@ -207,8 +207,8 @@ describe('applications documentation', () => {
 
 	describe('GET /case/123/project-documentation/21/sub-folder-level2/upload', () => {
 		beforeEach(async () => {
-			nocks('case-officer');
-			await request.get('/applications-service/case-officer');
+			nocks('case-team');
+			await request.get('/applications-service/case-team');
 		});
 
 		it('should render the page', async () => {

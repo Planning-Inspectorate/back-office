@@ -155,7 +155,7 @@ const document = {
 				displayNameCy: 'Region Name Cy'
 			}
 		],
-		ApplicationsForCaseOfficer: [
+		ApplicationsForCaseTeam: [
 			{
 				id: 1,
 				modifiedDate: 1_655_298_882,
@@ -217,7 +217,7 @@ const document = {
 		],
 		ApplicationsForSearchCriteriaRequestBody: {
 			query: 'BC',
-			role: 'case-officer',
+			role: 'case-team',
 			pageNumber: 1,
 			pageSize: 1
 		},

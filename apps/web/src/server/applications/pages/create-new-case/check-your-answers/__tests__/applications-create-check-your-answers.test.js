@@ -18,7 +18,7 @@ const errorPostResponse = {
 };
 
 const nocks = () => {
-	nock('http://test/').get('/applications/case-officer').reply(200, {});
+	nock('http://test/').get('/applications/case-team').reply(200, {});
 	nock('http://test/')
 		.get(/\/applications\/1(.*)/g)
 		.reply(200, fixtureCases[0]);
@@ -37,7 +37,7 @@ describe('applications create: check your answers', () => {
 	});
 
 	beforeEach(async () => {
-		await request.get('/applications-service/case-officer');
+		await request.get('/applications-service/case-team');
 	});
 
 	describe('Check your answers', () => {

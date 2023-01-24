@@ -8,7 +8,7 @@ const { app, installMockApi, teardown } = createTestEnvironment();
 const request = supertest(app);
 
 const nocks = () => {
-	nock('http://test/').get('/applications/case-officer').reply(200, {});
+	nock('http://test/').get('/applications/case-team').reply(200, {});
 	nock('http://test/').get('/applications/123').reply(200, fixtureCases[3]);
 };
 
@@ -26,7 +26,7 @@ describe('Applications case pages', () => {
 		describe('GET /case/123', () => {
 			beforeEach(async () => {
 				nocks();
-				await request.get('/applications-service/case-officer');
+				await request.get('/applications-service/case-team');
 			});
 
 			it('should render the page', async () => {
@@ -63,7 +63,7 @@ describe('Applications case pages', () => {
 
 			describe('When domainType is not inspector', () => {
 				beforeEach(async () => {
-					await request.get('/applications-service/case-officer');
+					await request.get('/applications-service/case-team');
 				});
 
 				describe('When the case is not published', () => {
@@ -87,7 +87,7 @@ describe('Applications case pages', () => {
 
 				describe('When the case is published', () => {
 					beforeEach(async () => {
-						nock('http://test/').get('/applications/case-officer').reply(200, {});
+						nock('http://test/').get('/applications/case-team').reply(200, {});
 					});
 
 					it('with no pending changes, should show publishing info and unpublish link', async () => {
@@ -139,8 +139,8 @@ describe('Applications case pages', () => {
 
 			describe('When domainType is not inspector', () => {
 				beforeEach(async () => {
-					nock('http://test/').get('/applications/case-officer').reply(200, {});
-					await request.get('/applications-service/case-officer');
+					nock('http://test/').get('/applications/case-team').reply(200, {});
+					await request.get('/applications-service/case-team');
 				});
 
 				it('if already published, should render the page with the previous publishing info', async () => {
@@ -188,11 +188,11 @@ describe('Applications case pages', () => {
 
 			describe('When domainType is not inspector', () => {
 				beforeEach(async () => {
-					nock('http://test/').get('/applications/case-officer').reply(200, {});
+					nock('http://test/').get('/applications/case-team').reply(200, {});
 					nock('http://test/')
 						.patch('/applications/123/publish')
 						.reply(200, { publishedDate: 1_673_882_517 });
-					await request.get('/applications-service/case-officer');
+					await request.get('/applications-service/case-team');
 				});
 
 				it('if the case is not published yet, should go the first-time success banner page', async () => {

@@ -10,7 +10,7 @@ const createStub = sinon.stub().returns({ id: 1, serviceCustomer: [{ id: 4 }] })
 
 const expectedEventPayload = {
 	id: 1,
-	caseOfficers: [],
+	caseTeams: [],
 	customers: [
 		{
 			id: 4,
