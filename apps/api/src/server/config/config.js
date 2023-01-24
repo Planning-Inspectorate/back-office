@@ -24,6 +24,11 @@ const { value, error } = schema.validate({
 		username: environment.SERVICE_BUS_USERNAME,
 		subscriber: environment.SERVICE_BUS_SUBSCRIBER
 	},
+	msal: {
+		clientId: environment.AUTH_CLIENT_ID,
+		clientSecret: environment.AUTH_CLIENT_SECRET,
+		tenantId: environment.AUTH_TENANT_ID
+	},
 	queues: {
 		startedCaseQueue: environment.SERVICE_BUS_STARTED_CASE_QUEUE
 	},
@@ -39,7 +44,11 @@ const { value, error } = schema.validate({
 			? false
 			: environment.FEATURE_FLAG_BOAS_1_TEST_FEATURE === 'true'
 	},
-	serviceBusEnabled: environment.SERVICE_BUS_ENABLED && environment.SERVICE_BUS_ENABLED === 'true'
+	serviceBusEnabled: environment.SERVICE_BUS_ENABLED && environment.SERVICE_BUS_ENABLED === 'true',
+	clientCredentialsGrantEnabled:
+		environment.CLIENT_CREDENTIAL_GRANT_ENABLED &&
+		environment.CLIENT_CREDENTIAL_GRANT_ENABLED === 'true'
+	// service_bus_ena
 });
 
 if (error) {

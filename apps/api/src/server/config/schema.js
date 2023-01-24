@@ -21,6 +21,11 @@ export default joi.object({
 		username: joi.string().optional(),
 		subscriber: joi.string()
 	}),
+	msal: joi.object({
+		clientId: joi.string().optional(),
+		clientSecret: joi.string().optional(),
+		tenantId: joi.string().optional()
+	}),
 	queues: joi.object({
 		startedCaseQueue: joi.string()
 	}),
@@ -30,5 +35,6 @@ export default joi.object({
 	}),
 	cwd: joi.string(),
 	featureFlags: joi.object().pattern(/featureFlagBoas\d+[A-Za-z]+/, joi.boolean()),
-	serviceBusEnabled: joi.boolean().optional()
+	serviceBusEnabled: joi.boolean().optional(),
+	clientCredentialsGrantEnabled: joi.boolean().optional()
 });

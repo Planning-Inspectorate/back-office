@@ -27,6 +27,22 @@ export const acquireTokenByCode = async (code) => {
 };
 
 /**
+ * Acquire a {@link AuthenticationResult} using a acquireTokenByClientCredential sourced
+ * having signed in manually at a MSAL authentication url.
+ *
+ * @param {string[]} customeScopes
+ * @returns {Promise<OriginalAuthenticationResult | null>}
+ */
+export const acquireTokenByClientCredential = async (
+	customeScopes = [`api://${config.msal.clientId}/.default`]
+) => {
+	return msalClient.acquireTokenByClientCredential({
+		authority: config.msal.authority,
+		scopes: customeScopes
+	});
+};
+
+/**
  * Acquire a new {@link AuthenticationResult} using an account. Note that
  * `acquireTokenSilent` will use a cached access token where posisble, and only
  * use a network request as a last resort.
