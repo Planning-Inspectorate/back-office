@@ -227,7 +227,7 @@ exports[`applications GET /case-team should render a placeholder when there are 
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"govuk-grid-row\\">
         <div class=\\"govuk-grid-column-full\\">
-            <h1 class=\\"govuk-heading-xl\\"><span class=\\"govuk-caption-xl\\">Case team</span>Applications</h1>
+            <h1 class=\\"govuk-heading-xl\\">Applications</h1>
         </div>
     </div>
     <div class=\\"govuk-grid-row\\">
@@ -263,7 +263,7 @@ exports[`applications GET /case-team should render the open applications belongi
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"govuk-grid-row\\">
         <div class=\\"govuk-grid-column-full\\">
-            <h1 class=\\"govuk-heading-xl\\"><span class=\\"govuk-caption-xl\\">Case team</span>Applications</h1>
+            <h1 class=\\"govuk-heading-xl\\">Applications</h1>
         </div>
     </div>
     <div class=\\"govuk-grid-row\\">
