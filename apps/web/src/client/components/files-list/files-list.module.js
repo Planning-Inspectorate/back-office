@@ -7,8 +7,16 @@ const initFilesListModule = () => {
 	const pageSizeSelect = document.querySelector('select[name="pageSize"]');
 	/** @type {HTMLElement | null} */
 	const selectedFilesNumber = document.querySelector('#selectedFilesNumber');
+	/** @type {HTMLElement | null} */
+	const bulkDownloadButton = document.querySelector('#bulkDownload');
 
-	if (!selectAllCheckBox || fileCheckBoxes.length === 0 || !pageSizeSelect || !selectedFilesNumber) return;
+	if (
+		!bulkDownloadButton ||
+		!selectAllCheckBox ||
+		fileCheckBoxes.length === 0 ||
+		!pageSizeSelect ||
+		!selectedFilesNumber
+	) return;
 
 	/**
 	 * Toggle the bulk selection of files
@@ -43,7 +51,23 @@ const initFilesListModule = () => {
 		selectedFilesNumber.textContent = `${(checkedFiles || []).length}`;
 	};
 
+	const bulkDownload = () => {
+		/** @type {*} */
+		const checkedFiles = document.querySelectorAll('input[name="selectedFilesIds[]"]:checked');
+
+		for (const selectedCheckbox of checkedFiles) {
+			const { value: selectedGuid } = selectedCheckbox;
+			/** @type {HTMLElement | null} */
+			const downloadLink = document.querySelector(`a[data-action='download-${selectedGuid}']`);
+
+			if (downloadLink) {
+				downloadLink.click();
+			}
+		}
+	};
+
 	selectAllCheckBox.addEventListener('click', toggleSelectAll);
+	bulkDownloadButton.addEventListener('click', bulkDownload);
 	pageSizeSelect.addEventListener('change', changePageSize);
 	for (const checkbox of fileCheckBoxes) {
 		checkbox.addEventListener('change', updateSelectedFilesCounter);

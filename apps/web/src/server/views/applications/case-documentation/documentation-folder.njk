@@ -123,7 +123,7 @@
 								<div class="govuk-grid-column-one-third">
 									<div class="pins-files-list__actions">
 										<p class="govuk-heading-s">Document actions</p>
-										<a href="1" class="govuk-link">Download selected</a>
+										<button class="pins-files-list--button-link" id="bulkDownload">Download selected</button>
 										<a href="2" class="govuk-link">Edit properties</a>
 										<a href="3" class="govuk-link">Publish selected</a>
 										<a href="4" class="govuk-link">Unpublish selected</a>
@@ -183,7 +183,7 @@
 									</td>
 								</tr>
 								{% for documentationFile in documentationFiles.items %}
-									{% set isNotDisabled = documentationFile.status !== 'awaiting_upload' and documentationFile.status !== 'awaiting_virus_check' and documentationFile.status !== 'failed_virus_check' %}
+									{% set isNotDisabled = documentationFile.status === 'awaiting_upload' and documentationFile.status !== 'awaiting_virus_check' and documentationFile.status !== 'failed_virus_check' %}
 
 									<tr class="govuk-table__row {{ "" if isNotDisabled else "govuk-table__row--disabled" }}">
 										<td class="govuk-table__cell">
@@ -246,6 +246,7 @@
 											{{ createOptionalLink(
 												{
 													classes: 'govuk-body-s',
+													data: ['download-', documentationFile.guid]|join,
 													href: 'document-download'|url({caseId: caseId, documentGuid: documentationFile.guid}),
 													text:'Download'
 												},
@@ -267,7 +268,7 @@
 
 {% macro createOptionalLink(params, isLink) %}
 	{% if isLink %}
-		<a class="govuk-link {{ params.classes }}" href="{{ params.href }}">{{ params.text }}</a>
+		<a data-action="{{ params.data  }}" class="govuk-link {{ params.classes }}" href="{{ params.href }}">{{ params.text }}</a>
 	{% else %}
 		<p class="{{ params.classes }}">{{ params.text }} </p>
 	{% endif %}
