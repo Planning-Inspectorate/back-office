@@ -23,6 +23,11 @@ const app = express();
 
 app.use(installRequestLocalsMiddleware());
 
+app.use((request, response, next) => {
+	response.setHeader('Cache-Control', 'no-cache, max-age=0');
+	next();
+});
+
 // Initialize app locals
 app.locals = locals;
 
