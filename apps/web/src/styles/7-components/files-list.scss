@@ -141,4 +141,12 @@
 	}
   }
 
+  &__button-link {
+	background: none;
+	border: none;
+	padding: 0;
+	color: colors.govuk-colour('blue');
+	cursor: pointer;
+  }
+
 }

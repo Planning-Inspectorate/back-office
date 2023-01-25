@@ -1,3 +1,5 @@
+import { buildErrorBanner } from './_html.js';
+
 const initFilesListModule = () => {
 	/** @type {NodeListOf<HTMLInputElement>} */
 	const fileCheckBoxes = document.querySelectorAll('input[name="selectedFilesIds[]"]');
@@ -7,8 +9,21 @@ const initFilesListModule = () => {
 	const pageSizeSelect = document.querySelector('select[name="pageSize"]');
 	/** @type {HTMLElement | null} */
 	const selectedFilesNumber = document.querySelector('#selectedFilesNumber');
+	/** @type {HTMLElement | null} */
+	const bulkDownloadButton = document.querySelector('#bulkDownload');
+	/** @type {HTMLElement | null} */
+	const topHook = document.querySelector('.top-errors-hook');
 
-	if (!selectAllCheckBox || fileCheckBoxes.length === 0 || !pageSizeSelect || !selectedFilesNumber) return;
+	if (
+		!topHook ||
+		!bulkDownloadButton ||
+		!selectAllCheckBox ||
+		fileCheckBoxes.length === 0 ||
+		!pageSizeSelect ||
+		!selectedFilesNumber
+	) {
+		return;
+	}
 
 	/**
 	 * Toggle the bulk selection of files
@@ -43,7 +58,42 @@ const initFilesListModule = () => {
 		selectedFilesNumber.textContent = `${(checkedFiles || []).length}`;
 	};
 
+	/**
+	 * Download many files at once
+	 *
+	 * @param {*} clickEvent
+	 */
+	const bulkDownload = (clickEvent) => {
+		clickEvent.preventDefault();
+
+		/** @type {NodeListOf<HTMLInputElement>} */
+		const checkedFiles = document.querySelectorAll('input[name="selectedFilesIds[]"]:checked');
+
+		if (checkedFiles.length === 0) {
+			topHook.innerHTML = buildErrorBanner('Select documents to download');
+			topHook.scrollIntoView();
+
+			return;
+		}
+
+		for (const [index, selectedCheckbox] of checkedFiles.entries()) {
+			const { value: selectedGuid } = selectedCheckbox;
+
+			/** @type {HTMLElement | null} */
+			const downloadLink = document.querySelector(`a[data-action='download-${selectedGuid}']`);
+
+			if (downloadLink) {
+				// system interrupts download requests if they all happen at the very same moment
+				// delay each request 500ms
+				setTimeout(() => {
+					downloadLink.click();
+				}, index * 500);
+			}
+		}
+	};
+
 	selectAllCheckBox.addEventListener('click', toggleSelectAll);
+	bulkDownloadButton.addEventListener('click', bulkDownload);
 	pageSizeSelect.addEventListener('change', changePageSize);
 	for (const checkbox of fileCheckBoxes) {
 		checkbox.addEventListener('change', updateSelectedFilesCounter);
