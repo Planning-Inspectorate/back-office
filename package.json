@@ -1,79 +1,81 @@
 {
-  "name": "back-office",
-  "private": true,
-  "workspaces": [
-    "packages/*",
-    "apps/*"
-  ],
-  "engines": {
-    "node": ">=16.14.0"
-  },
-  "scripts": {
-    "api": "npm run dev --workspace=@pins/api",
-    "build": "turbo run build",
-    "build:release": "turbo run build:release",
-    "commit": "cz",
-    "commitlint": "commitlint --from=$(git log origin/main..$(git rev-parse HEAD) --pretty=format:\"%H\" | tail -n 1)",
-    "clean": "turbo run clean && rimraf node_modules",
-    "dev": "turbo run dev --no-cache --parallel --continue",
-    "format": "prettier --write \"**/*.{js}\"",
-    "lint:js": "turbo run lint:js --parallel",
-    "lint:js:fix": "turbo run lint:js:fix",
-    "prepare": "node -e \"try { require('husky').install() } catch (e) {if (e.code !== 'MODULE_NOT_FOUND') throw e}\"",
-    "release": "multi-semantic-release --ignore-packages=packages/**",
-    "test": "turbo run test",
-    "tscheck": "turbo run prisma-generate && turbo run tscheck --parallel --filter=!@pins/api",
-    "web": "npm run dev --workspace=@pins/web"
-  },
-  "dependencies": {
-    "joi": "^17.7.0"
-  },
-  "devDependencies": {
-    "@commitlint/cli": "17.0.1",
-    "@commitlint/config-conventional": "17.0.0",
-    "@semantic-release/exec": "^6.0.3",
-    "commitizen": "^4.2.4",
-    "cz-conventional-changelog": "^3.3.0",
-    "eslint": "^8.14.0",
-    "husky": "^8.0.0",
-    "lint-staged": "^12.4.1",
-    "lodash": "^4.17.21",
-    "multi-semantic-release": "^3.0.1",
-    "prettier": "^2.6.2",
-    "rimraf": "^3.0.2",
-    "semantic-release": "^19.0.3",
-    "turbo": "1.2.14",
-    "typescript": "^4.6.4"
-  },
-  "packageManager": "npm@8.5.1",
-  "lint-staged": {
-    "*.js": [
-      "eslint --fix"
-    ],
-    "*.{js,ts,json,md}": [
-      "prettier --write"
-    ]
-  },
-  "config": {
-    "commitizen": {
-      "path": "./node_modules/cz-conventional-changelog"
-    }
-  },
-  "release": {
-    "branches": [
-      "main",
-      "release/*"
-    ],
-    "plugins": [
-      "@semantic-release/commit-analyzer",
-      "@semantic-release/github",
-      "@semantic-release/release-notes-generator",
-      [
-        "@semantic-release/exec",
-        {
-          "prepareCmd": "echo \"${nextRelease.version}\" > .release-version"
-        }
-      ]
-    ]
-  }
+	"name": "back-office",
+	"private": true,
+	"workspaces": [
+		"packages/*",
+		"apps/*"
+	],
+	"engines": {
+		"node": ">=16.14.0"
+	},
+	"scripts": {
+		"api": "npm run dev --workspace=@pins/api",
+		"build": "turbo run build",
+		"build:release": "turbo run build:release",
+		"commit": "cz",
+		"commitlint": "commitlint --from=$(git log origin/main..$(git rev-parse HEAD) --pretty=format:\"%H\" | tail -n 1)",
+		"clean": "turbo run clean && rimraf node_modules",
+		"dev": "turbo run dev --no-cache --parallel --continue",
+		"e2e": "npm run cy:run --workspace=@pins/e2e-testing",
+		"e2e:open": "npm run cy:open --browser chrome --workspace=@pins/e2e-testing",
+		"format": "prettier --write \"**/*.{js}\"",
+		"lint:js": "turbo run lint:js --parallel",
+		"lint:js:fix": "turbo run lint:js:fix",
+		"prepare": "node -e \"try { require('husky').install() } catch (e) {if (e.code !== 'MODULE_NOT_FOUND') throw e}\"",
+		"release": "multi-semantic-release --ignore-packages=packages/**",
+		"test": "turbo run test",
+		"tscheck": "turbo run prisma-generate && turbo run tscheck --parallel --filter=!@pins/api",
+		"web": "npm run dev --workspace=@pins/web"
+	},
+	"dependencies": {
+		"joi": "^17.7.0"
+	},
+	"devDependencies": {
+		"@commitlint/cli": "17.0.1",
+		"@commitlint/config-conventional": "17.0.0",
+		"@semantic-release/exec": "^6.0.3",
+		"commitizen": "^4.2.4",
+		"cz-conventional-changelog": "^3.3.0",
+		"eslint": "^8.14.0",
+		"husky": "^8.0.0",
+		"lint-staged": "^12.4.1",
+		"lodash": "^4.17.21",
+		"multi-semantic-release": "^3.0.1",
+		"prettier": "^2.6.2",
+		"rimraf": "^3.0.2",
+		"semantic-release": "^19.0.3",
+		"turbo": "1.2.14",
+		"typescript": "^4.6.4"
+	},
+	"packageManager": "npm@8.5.1",
+	"lint-staged": {
+		"*.js": [
+			"eslint --fix"
+		],
+		"*.{js,ts,json,md}": [
+			"prettier --write"
+		]
+	},
+	"config": {
+		"commitizen": {
+			"path": "./node_modules/cz-conventional-changelog"
+		}
+	},
+	"release": {
+		"branches": [
+			"main",
+			"release/*"
+		],
+		"plugins": [
+			"@semantic-release/commit-analyzer",
+			"@semantic-release/github",
+			"@semantic-release/release-notes-generator",
+			[
+				"@semantic-release/exec",
+				{
+					"prepareCmd": "echo \"${nextRelease.version}\" > .release-version"
+				}
+			]
+		]
+	}
 }
