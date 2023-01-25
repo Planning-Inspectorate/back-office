@@ -28,7 +28,7 @@ export default joi.object({
 		}),
 		applications: joi.object({
 			caseAdminOfficerGroupId: joi.string(),
-			caseOfficerGroupId: joi.string(),
+			caseTeamGroupId: joi.string(),
 			inspectorGroupId: joi.string()
 		})
 	}),

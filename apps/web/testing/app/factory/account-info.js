@@ -19,7 +19,7 @@ export function createAccountInfo({
 		'appeals_case_officer',
 		'appeals_inspector',
 		'appeals_validation_officer',
-		'applications_case_officer',
+		'applications_case_team',
 		'applications_case_admin_officer',
 		'applications_inspector'
 	]

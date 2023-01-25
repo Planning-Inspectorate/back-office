@@ -51,7 +51,7 @@ exports[`applications edit Grid references GET /edit/:caseId/project-location sh
 </main>"
 `;
 
-exports[`applications edit Name GET /edit/name When role is: Case officer should render form 1`] = `
+exports[`applications edit Name GET /edit/name When role is: Case team should render form 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <h1 class=\\"govuk-heading-l\\"> Enter project name</h1>
     <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">

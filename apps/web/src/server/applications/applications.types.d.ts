@@ -16,7 +16,7 @@ export type SelectItem = {
 	selected?: boolean;
 };
 
-export type DomainType = 'case-officer' | 'case-admin-officer' | 'inspector';
+export type DomainType = 'case-team' | 'case-admin-officer' | 'inspector';
 
 export type FormCaseLayout = {
 	pageTitle: string;

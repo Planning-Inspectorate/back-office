@@ -31,7 +31,7 @@ const { value: validatedConfig, error } = schema.validate({
 		},
 		applications: {
 			caseAdminOfficerGroupId: environment.APPLICATIONS_CASE_ADMIN_OFFICER_GROUP_ID,
-			caseOfficerGroupId: environment.APPLICATIONS_CASEOFFICER_GROUP_ID,
+			caseTeamGroupId: environment.APPLICATIONS_CASETEAM_GROUP_ID,
 			inspectorGroupId: environment.APPLICATIONS_INSPECTOR_GROUP_ID
 		}
 	},
