@@ -21,7 +21,8 @@ const initFilesListModule = () => {
 		fileCheckBoxes.length === 0 ||
 		!pageSizeSelect ||
 		!selectedFilesNumber
-	) return;
+	)
+		return;
 
 	/**
 	 * Toggle the bulk selection of files
@@ -74,7 +75,7 @@ const initFilesListModule = () => {
 			return;
 		}
 
-		for (const selectedCheckbox of checkedFiles) {
+		for (const [index, selectedCheckbox] of checkedFiles.entries()) {
 			const { value: selectedGuid } = selectedCheckbox;
 
 			/** @type {HTMLElement | null} */
@@ -82,10 +83,10 @@ const initFilesListModule = () => {
 
 			if (downloadLink) {
 				// system interrupts download requests if they all happen at the very same moment
-				// delay each request 1000ms
+				// delay each request 500ms
 				setTimeout(() => {
 					downloadLink.click();
-				}, 1000);
+				}, index * 500);
 			}
 		}
 	};
