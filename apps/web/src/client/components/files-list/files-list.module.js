@@ -1,3 +1,5 @@
+import { buildErrorBanner } from './_html.js';
+
 const initFilesListModule = () => {
 	/** @type {NodeListOf<HTMLInputElement>} */
 	const fileCheckBoxes = document.querySelectorAll('input[name="selectedFilesIds[]"]');
@@ -9,8 +11,11 @@ const initFilesListModule = () => {
 	const selectedFilesNumber = document.querySelector('#selectedFilesNumber');
 	/** @type {HTMLElement | null} */
 	const bulkDownloadButton = document.querySelector('#bulkDownload');
+	/** @type {HTMLElement | null} */
+	const topHook = document.querySelector('.top-errors-hook');
 
 	if (
+		!topHook ||
 		!bulkDownloadButton ||
 		!selectAllCheckBox ||
 		fileCheckBoxes.length === 0 ||
@@ -51,17 +56,36 @@ const initFilesListModule = () => {
 		selectedFilesNumber.textContent = `${(checkedFiles || []).length}`;
 	};
 
-	const bulkDownload = () => {
-		/** @type {*} */
+	/**
+	 * Download many files at once
+	 *
+	 * @param {*} clickEvent
+	 */
+	const bulkDownload = (clickEvent) => {
+		clickEvent.preventDefault();
+
+		/** @type {NodeListOf<HTMLInputElement>} */
 		const checkedFiles = document.querySelectorAll('input[name="selectedFilesIds[]"]:checked');
+
+		if (checkedFiles.length === 0) {
+			topHook.innerHTML = buildErrorBanner('Select documents to download');
+			topHook.scrollIntoView();
+
+			return;
+		}
 
 		for (const selectedCheckbox of checkedFiles) {
 			const { value: selectedGuid } = selectedCheckbox;
+
 			/** @type {HTMLElement | null} */
 			const downloadLink = document.querySelector(`a[data-action='download-${selectedGuid}']`);
 
 			if (downloadLink) {
-				downloadLink.click();
+				// system interrupts download requests if they all happen at the very same moment
+				// delay each request 1000ms
+				setTimeout(() => {
+					downloadLink.click();
+				}, 1000);
 			}
 		}
 	};
