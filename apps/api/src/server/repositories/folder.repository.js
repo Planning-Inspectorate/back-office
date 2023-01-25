@@ -324,7 +324,7 @@ const defaultCaseFolders = [
 		childFolders: {
 			create: [
 				{ displayNameEn: 'SoS consultation', displayOrder: 100 },
-				{ displayNameEn: 'Sos decision', displayOrder: 200 }
+				{ displayNameEn: 'SoS decision', displayOrder: 200 }
 			]
 		}
 	},
