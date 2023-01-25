@@ -242,6 +242,11 @@ npm run swagger-autogen
 that will create/re-do the `swagger-output.json` that is the source of information for the documentation file.
 That documentation can be checked in `/api-docs/` in the localhost
 
+## Cypress Framework
+
+This Cypress framework for e2e testing can be found in the `apps/e2e-testing` directory.
+
+
 ## Style guide
 
 The codebase has README.md files in all relevant folder that explain what is the purpose or any other guidelines to follow.
