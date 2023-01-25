@@ -211,7 +211,7 @@ const defaultCaseFolders = [
 				{ displayNameEn: 'Evidence plans', displayOrder: 500 },
 				{ displayNameEn: 'Draft documents', displayOrder: 600 },
 				{
-					displayNameEn: 'Developers consultation',
+					displayNameEn: "Developer's consultation",
 					displayOrder: 700,
 					childFolders: {
 						create: [
