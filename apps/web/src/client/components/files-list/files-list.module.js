@@ -21,8 +21,9 @@ const initFilesListModule = () => {
 		fileCheckBoxes.length === 0 ||
 		!pageSizeSelect ||
 		!selectedFilesNumber
-	)
+	) {
 		return;
+	}
 
 	/**
 	 * Toggle the bulk selection of files
