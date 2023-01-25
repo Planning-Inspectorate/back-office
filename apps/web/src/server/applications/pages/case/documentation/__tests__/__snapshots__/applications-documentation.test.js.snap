@@ -2,7 +2,7 @@
 
 exports[`applications documentation /case/123/project-documentation/21/sub-folder-level2 GET Case admin officer should render the page with custom pagination if there is data in the session 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
-    <div class=\\"top-errors-hook\\"></div>
+    <div class=\\"top-errors-hook\\" role=\\"alert\\"></div>
     <div class=\\"govuk-grid-row govuk-!-padding-top-9 govuk-!-padding-bottom-2 govuk-!-margin-left-0 govuk-!-margin-bottom-7 pins-masthead-summary\\">
         <div class=\\"govuk-grid-column-full\\">
             <h4 class=\\"govuk-heading-m\\"> CASE/04 </h4>
@@ -907,7 +907,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
 
 exports[`applications documentation /case/123/project-documentation/21/sub-folder-level2 GET Case admin officer should render the page with default pagination if there is no data in the session 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
-    <div class=\\"top-errors-hook\\"></div>
+    <div class=\\"top-errors-hook\\" role=\\"alert\\"></div>
     <div class=\\"govuk-grid-row govuk-!-padding-top-9 govuk-!-padding-bottom-2 govuk-!-margin-left-0 govuk-!-margin-bottom-7 pins-masthead-summary\\">
         <div class=\\"govuk-grid-column-full\\">
             <h4 class=\\"govuk-heading-m\\"> CASE/04 </h4>
@@ -2269,7 +2269,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
 
 exports[`applications documentation /case/123/project-documentation/21/sub-folder-level2 GET Case admin officer should render the page with no panel and no table if there are no documents 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
-    <div class=\\"top-errors-hook\\"></div>
+    <div class=\\"top-errors-hook\\" role=\\"alert\\"></div>
     <div class=\\"govuk-grid-row govuk-!-padding-top-9 govuk-!-padding-bottom-2 govuk-!-margin-left-0 govuk-!-margin-bottom-7 pins-masthead-summary\\">
         <div class=\\"govuk-grid-column-full\\">
             <h4 class=\\"govuk-heading-m\\"> CASE/04 </h4>
@@ -2332,7 +2332,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
 
 exports[`applications documentation /case/123/project-documentation/21/sub-folder-level2 GET Case admin officer should render the page with the right number of files 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
-    <div class=\\"top-errors-hook\\"></div>
+    <div class=\\"top-errors-hook\\" role=\\"alert\\"></div>
     <div class=\\"govuk-grid-row govuk-!-padding-top-9 govuk-!-padding-bottom-2 govuk-!-margin-left-0 govuk-!-margin-bottom-7 pins-masthead-summary\\">
         <div class=\\"govuk-grid-column-full\\">
             <h4 class=\\"govuk-heading-m\\"> CASE/04 </h4>
@@ -3240,7 +3240,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
 
 exports[`applications documentation /case/123/project-documentation/21/sub-folder-level2 GET Inspector should render the page with no list and no upload button 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
-    <div class=\\"top-errors-hook\\"></div>
+    <div class=\\"top-errors-hook\\" role=\\"alert\\"></div>
     <div class=\\"govuk-grid-row govuk-!-padding-top-9 govuk-!-padding-bottom-2 govuk-!-margin-left-0 govuk-!-margin-bottom-7 pins-masthead-summary\\">
         <div class=\\"govuk-grid-column-full\\">
             <h4 class=\\"govuk-heading-m\\"> CASE/04 </h4>
@@ -3313,7 +3313,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
             </div>
         </div>
     </div>
-    <div class=\\"top-errors-hook\\"></div>
+    <div class=\\"top-errors-hook\\" role=\\"alert\\"></div>
     <div class=\\"govuk-grid-row govuk-!-padding-top-9 govuk-!-padding-bottom-2 govuk-!-margin-left-0 govuk-!-margin-bottom-7 pins-masthead-summary\\">
         <div class=\\"govuk-grid-column-full\\">
             <h4 class=\\"govuk-heading-m\\"> CASE/04 </h4>
@@ -4689,7 +4689,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
             </div>
         </div>
     </div>
-    <div class=\\"top-errors-hook\\"></div>
+    <div class=\\"top-errors-hook\\" role=\\"alert\\"></div>
     <div class=\\"govuk-grid-row govuk-!-padding-top-9 govuk-!-padding-bottom-2 govuk-!-margin-left-0 govuk-!-margin-bottom-7 pins-masthead-summary\\">
         <div class=\\"govuk-grid-column-full\\">
             <h4 class=\\"govuk-heading-m\\"> CASE/04 </h4>
@@ -6051,7 +6051,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
 
 exports[`applications documentation GET /case/123/project-documentation should render the page 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
-    <div class=\\"top-errors-hook\\"></div>
+    <div class=\\"top-errors-hook\\" role=\\"alert\\"></div>
     <div class=\\"govuk-grid-row govuk-!-padding-top-9 govuk-!-padding-bottom-2 govuk-!-margin-left-0 govuk-!-margin-bottom-7 pins-masthead-summary\\">
         <div class=\\"govuk-grid-column-full\\">
             <h4 class=\\"govuk-heading-m\\"> CASE/04 </h4>
