@@ -21,6 +21,7 @@ export interface EnvironmentConfig {
 		clientSecret: string;
 		redirectUri: string;
 		logoutUri: string;
+		tenantId: string;
 	};
 	serverProtocol: 'http' | 'https';
 	serverPort: number;
