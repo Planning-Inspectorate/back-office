@@ -1,0 +1,10 @@
+{
+	"env": {
+		"es6": true,
+		"node": true
+	},
+	"extends": ["plugin:cypress/recommended"],
+	"rules": {
+		"new-cap": "off"
+	}
+}
