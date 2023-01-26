@@ -31,6 +31,7 @@
   },
   "dependencies": {
     "@azure/identity": "3.0.1",
+    "@azure/msal-node": "^1.14.6",
     "@azure/service-bus": "^7.7.3",
     "@prisma/client": "^4.2.1",
     "body-parser": "1.20.0",
@@ -45,6 +46,8 @@
     "got": "^12.5.2",
     "helmet": "5.1.0",
     "joi": "^17.7.0",
+    "jsonwebtoken": "^9.0.0",
+    "jwks-rsa": "^3.0.1",
     "lodash-es": "^4.17.21",
     "morgan": "1.10.0",
     "multer": "1.4.4",

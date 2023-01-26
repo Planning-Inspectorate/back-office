@@ -26,7 +26,8 @@
     "web": "npm run dev --workspace=@pins/web"
   },
   "dependencies": {
-    "joi": "^17.7.0"
+    "joi": "^17.7.0",
+    "node-cache": "^5.1.2"
   },
   "devDependencies": {
     "@commitlint/cli": "17.0.1",
