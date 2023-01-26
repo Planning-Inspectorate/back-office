@@ -53,7 +53,6 @@ Feature: Create New Case journey as an Case Admin user
 		And the user clicks the "Find address" button
 		And the user selects option 2 from the "Address" list
 		And the user clicks the "Save and continue" button
-		# Then the user validates previous page
 		When the user enters the applicant's website for the new case
 		And the user clicks the "Save and continue" button
 		Then the user validates previous page
