@@ -125,9 +125,8 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                         <div class=\\"pins-files-list__actions\\">
                             <p class=\\"govuk-heading-s\\">Document actions</p>
                             <button type=\\"button\\" class=\\"govuk-link pins-files-list__button-link\\"
-                            id=\\"bulkDownload\\">Download selected</button><a href=\\"2\\" class=\\"govuk-link\\">Edit properties</a>
-                            <a                             href=\\"3\\" class=\\"govuk-link\\">Publish selected</a><a href=\\"4\\" class=\\"govuk-link\\">Unpublish selected</a>
-                                <a                                 href=\\"5\\" class=\\"govuk-link\\">Move selected</a>
+                            id=\\"bulkDownload\\">Download selected</button><a href=\\"3\\" class=\\"govuk-link\\">Publish selected</a>
+                            <a                             href=\\"4\\" class=\\"govuk-link\\">Unpublish selected</a><a href=\\"5\\" class=\\"govuk-link\\">Move selected</a>
                         </div>
                     </div>
                 </div>
@@ -1030,9 +1029,8 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                         <div class=\\"pins-files-list__actions\\">
                             <p class=\\"govuk-heading-s\\">Document actions</p>
                             <button type=\\"button\\" class=\\"govuk-link pins-files-list__button-link\\"
-                            id=\\"bulkDownload\\">Download selected</button><a href=\\"2\\" class=\\"govuk-link\\">Edit properties</a>
-                            <a                             href=\\"3\\" class=\\"govuk-link\\">Publish selected</a><a href=\\"4\\" class=\\"govuk-link\\">Unpublish selected</a>
-                                <a                                 href=\\"5\\" class=\\"govuk-link\\">Move selected</a>
+                            id=\\"bulkDownload\\">Download selected</button><a href=\\"3\\" class=\\"govuk-link\\">Publish selected</a>
+                            <a                             href=\\"4\\" class=\\"govuk-link\\">Unpublish selected</a><a href=\\"5\\" class=\\"govuk-link\\">Move selected</a>
                         </div>
                     </div>
                 </div>
@@ -2455,9 +2453,8 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                         <div class=\\"pins-files-list__actions\\">
                             <p class=\\"govuk-heading-s\\">Document actions</p>
                             <button type=\\"button\\" class=\\"govuk-link pins-files-list__button-link\\"
-                            id=\\"bulkDownload\\">Download selected</button><a href=\\"2\\" class=\\"govuk-link\\">Edit properties</a>
-                            <a                             href=\\"3\\" class=\\"govuk-link\\">Publish selected</a><a href=\\"4\\" class=\\"govuk-link\\">Unpublish selected</a>
-                                <a                                 href=\\"5\\" class=\\"govuk-link\\">Move selected</a>
+                            id=\\"bulkDownload\\">Download selected</button><a href=\\"3\\" class=\\"govuk-link\\">Publish selected</a>
+                            <a                             href=\\"4\\" class=\\"govuk-link\\">Unpublish selected</a><a href=\\"5\\" class=\\"govuk-link\\">Move selected</a>
                         </div>
                     </div>
                 </div>
@@ -3436,9 +3433,8 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                         <div class=\\"pins-files-list__actions\\">
                             <p class=\\"govuk-heading-s\\">Document actions</p>
                             <button type=\\"button\\" class=\\"govuk-link pins-files-list__button-link\\"
-                            id=\\"bulkDownload\\">Download selected</button><a href=\\"2\\" class=\\"govuk-link\\">Edit properties</a>
-                            <a                             href=\\"3\\" class=\\"govuk-link\\">Publish selected</a><a href=\\"4\\" class=\\"govuk-link\\">Unpublish selected</a>
-                                <a                                 href=\\"5\\" class=\\"govuk-link\\">Move selected</a>
+                            id=\\"bulkDownload\\">Download selected</button><a href=\\"3\\" class=\\"govuk-link\\">Publish selected</a>
+                            <a                             href=\\"4\\" class=\\"govuk-link\\">Unpublish selected</a><a href=\\"5\\" class=\\"govuk-link\\">Move selected</a>
                         </div>
                     </div>
                 </div>
@@ -4812,9 +4808,8 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                         <div class=\\"pins-files-list__actions\\">
                             <p class=\\"govuk-heading-s\\">Document actions</p>
                             <button type=\\"button\\" class=\\"govuk-link pins-files-list__button-link\\"
-                            id=\\"bulkDownload\\">Download selected</button><a href=\\"2\\" class=\\"govuk-link\\">Edit properties</a>
-                            <a                             href=\\"3\\" class=\\"govuk-link\\">Publish selected</a><a href=\\"4\\" class=\\"govuk-link\\">Unpublish selected</a>
-                                <a                                 href=\\"5\\" class=\\"govuk-link\\">Move selected</a>
+                            id=\\"bulkDownload\\">Download selected</button><a href=\\"3\\" class=\\"govuk-link\\">Publish selected</a>
+                            <a                             href=\\"4\\" class=\\"govuk-link\\">Unpublish selected</a><a href=\\"5\\" class=\\"govuk-link\\">Move selected</a>
                         </div>
                     </div>
                 </div>
