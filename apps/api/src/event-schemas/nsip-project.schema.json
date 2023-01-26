@@ -1,0 +1,280 @@
+{
+	"$schema": "http://json-schema.org/draft-07/schema#",
+	"title": "NSIP Project",
+	"description": "Currently only represents an NSIP Project, but will transform into a generic Case in the future.",
+	"type": "object",
+	"required": ["id", "type", "sourceSystem"],
+	"properties": {
+		"id": {
+			"type": "number",
+			"examples": [1242],
+			"description": "The unique identifier within the Back Office. This is not the same as the reference number."
+		},
+		"reference": {
+			"type": "string",
+			"examples": ["BC0510001"]
+		},
+		"title": {
+			"type": "string",
+			"examples": ["A1 Birtley to Coal House Improvement Scheme"]
+		},
+		"description": {
+			"type": "string",
+			"examples": [
+				"The scheme is 6.5 km in length and will consist of online widening of the A1 south of Gateshead to four lanes between junction 65"
+			]
+		},
+		"type": {
+			"$ref": "#/$defs/case-type"
+		},
+		"sourceSystem": {
+			"type": "string",
+			"enum": ["ODT", "Horizon"]
+		},
+		"status": {
+			"type": "array",
+			"items": {
+				"$ref": "#/$defs/case-status"
+			}
+		},
+		"application": {
+			"$ref": "#/$defs/application"
+		},
+		"customers": {
+			"type": "array",
+			"items": {
+				"$ref": "#/$defs/service-user"
+			}
+		},
+		"inspectors": {
+			"type": "array",
+			"items": {
+				"$ref": "#/$defs/employee"
+			}
+		},
+		"validationOfficers": {
+			"type": "array",
+			"items": {
+				"$ref": "#/$defs/employee"
+			}
+		},
+		"caseOfficers": {
+			"type": "array",
+			"items": {
+				"$ref": "#/$defs/employee"
+			}
+		},
+		"decision": {
+			"$ref": "#/$defs/decision"
+		}
+	},
+	"$defs": {
+		"application": {
+			"type": "object",
+			"properties": {
+				"caseEmail": {
+					"type": "string",
+					"examples": ["NIEnquiries@planninginspectorate.gsi.gov.uk"]
+				},
+				"siteAddress": {
+					"type": "string",
+					"examples": [
+						"The scheme is located on the A1 Newcastle Gateshead Western Bypass, between junctions 65 and 67."
+					]
+				},
+				"sector": {
+					"type": "object",
+					"required": ["abbreviation", "name", "subSector"],
+					"properties": {
+						"abbreviation": {
+							"type": "string",
+							"examples": ["BC"]
+						},
+						"name": {
+							"type": "string",
+							"examples": ["business_and_commercial"]
+						},
+						"subSector": {
+							"type": "object",
+							"required": ["abbreviation", "name"],
+							"properties": {
+								"abbreviation": {
+									"type": "string",
+									"examples": ["BC05"]
+								},
+								"name": {
+									"type": "string",
+									"examples": ["conferences"]
+								}
+							}
+						}
+					}
+				},
+				"zoom": {
+					"type": "object",
+					"required": ["name"],
+					"properties": {
+						"name": {
+							"type": "string",
+							"examples": ["region"]
+						}
+					}
+				},
+				"regions": {
+					"type": "array",
+					"items": {
+						"type": "object",
+						"required": ["name"],
+						"properties": {
+							"name": {
+								"type": "string",
+								"examples": ["east_midlands"]
+							}
+						}
+					}
+				},
+				"gridReference": {
+					"type": "object",
+					"required": ["easting", "northing"],
+					"properties": {
+						"easting": {
+							"type": "number",
+							"examples": [345678]
+						},
+						"northing": {
+							"type": "number",
+							"examples": [345678]
+						}
+					}
+				},
+				"keyDates": {
+					"type": "object",
+					"description": "Much more key dates to come",
+					"properties": {
+						"anticipatedSubmissionDate": {
+							"type": "string",
+							"format": "date-time",
+							"examples": ["2023-03-26T00:00:00.000"]
+						},
+						"anticipatedSubmissionDateNonSpecific": {
+							"type": "string",
+							"examples": ["Q4 2023"]
+						}
+					}
+				}
+			}
+		},
+		"case-type": {
+			"type": "object",
+			"required": ["code"],
+			"properties": {
+				"code": {
+					"type": "string",
+					"enum": ["application", "appeal"]
+				}
+			}
+		},
+		"case-status": {
+			"type": "object",
+			"required": ["status"],
+			"properties": {
+				"status": {
+					"type": "string",
+					"enum": [
+						"draft",
+						"pre_application",
+						"acceptance",
+						"pre_examination",
+						"examination",
+						"recommendation",
+						"decision",
+						"post_decision",
+						"withdrawn"
+					]
+				}
+			}
+		},
+		"decision": {
+			"type": "object",
+			"required": ["code", "date"],
+			"properties": {
+				"code": {
+					"type": "string",
+					"enum": ["allowed", "dismissed", "split-decision"]
+				},
+				"date": {
+					"type": "string",
+					"format": "date-time",
+					"examples": ["2023-03-26T00:00:00.000"]
+				}
+			}
+		},
+		"employee": {
+			"type": "object",
+			"required": ["id", "firstName", "lastName"],
+			"properties": {
+				"id": {
+					"type": "string"
+				},
+				"firstName": {
+					"type": "string"
+				},
+				"lastName": {
+					"type": "string"
+				}
+			}
+		},
+		"service-user": {
+			"type": "object",
+			"required": ["id", "customerType"],
+			"properties": {
+				"id": {
+					"type": "number",
+					"examples": [18]
+				},
+				"firstName": {
+					"type": "string",
+					"examples": ["Alan"]
+				},
+				"lastName": {
+					"type": "string",
+					"examples": ["Turing"]
+				},
+				"customerType": {
+					"type": "string",
+					"enum": ["Applicant"]
+				},
+				"name": {
+					"title": "Name",
+					"type": "string",
+					"default": "",
+					"examples": ["National Highways"],
+					"pattern": "^.*$"
+				},
+				"address": {
+					"title": "Address",
+					"type": "object",
+					"required": ["addressLine1", "town", "postcode"],
+					"properties": {
+						"addressLine1": {
+							"type": "string",
+							"examples": ["National Traffic Operations Centre"]
+						},
+						"addressLine2": {
+							"type": "string",
+							"examples": ["3 Ridgeway, Quinton Business Park"]
+						},
+						"town": {
+							"type": "string",
+							"examples": ["Birmingham"]
+						},
+						"postcode": {
+							"type": "string",
+							"examples": ["B32 1AF"]
+						}
+					}
+				}
+			}
+		}
+	}
+}
