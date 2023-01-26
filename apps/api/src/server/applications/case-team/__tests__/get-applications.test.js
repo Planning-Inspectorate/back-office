@@ -63,12 +63,12 @@ findManyStub
 	})
 	.returns([application]);
 
-test('gets all applications for case officer', async (t) => {
+test('gets all applications for case team', async (t) => {
 	sinon.stub(databaseConnector, 'case').get(() => {
 		return { findMany: findManyStub };
 	});
 
-	const response = await request.get('/applications/case-officer');
+	const response = await request.get('/applications/case-team');
 
 	t.is(response.status, 200);
 	t.deepEqual(response.body, [

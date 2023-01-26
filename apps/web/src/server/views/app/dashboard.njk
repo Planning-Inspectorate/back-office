@@ -16,9 +16,9 @@
           <div class="govuk-grid-column-one-half">
             <h2 class="govuk-heading-m">Applications</h2>
             <ul class="govuk-list">
-              {% if applicationGroupIds | includes(referenceData.applications.caseOfficerGroupId) %}
+              {% if applicationGroupIds | includes(referenceData.applications.caseTeamGroupId) %}
                 <li>
-                  <a href="/applications-service/case-officer" class="govuk-link">Case officer</a>
+                  <a href="/applications-service/case-team" class="govuk-link">Case team</a>
                 </li>
               {% endif %}
               {% if applicationGroupIds | includes(referenceData.applications.caseAdminOfficerGroupId) %}

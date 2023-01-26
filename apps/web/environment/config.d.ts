@@ -36,7 +36,7 @@ export interface EnvironmentConfig {
 		};
 		applications: {
 			caseAdminOfficerGroupId: string;
-			caseOfficerGroupId: string;
+			caseTeamGroupId: string;
 			inspectorGroupId: string;
 		};
 	};

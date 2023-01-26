@@ -211,7 +211,7 @@ const defaultCaseFolders = [
 				{ displayNameEn: 'Evidence plans', displayOrder: 500 },
 				{ displayNameEn: 'Draft documents', displayOrder: 600 },
 				{
-					displayNameEn: 'Developers consultation',
+					displayNameEn: "Developer's consultation",
 					displayOrder: 700,
 					childFolders: {
 						create: [
@@ -324,7 +324,7 @@ const defaultCaseFolders = [
 		childFolders: {
 			create: [
 				{ displayNameEn: 'SoS consultation', displayOrder: 100 },
-				{ displayNameEn: 'Sos decision', displayOrder: 200 }
+				{ displayNameEn: 'SoS decision', displayOrder: 200 }
 			]
 		}
 	},

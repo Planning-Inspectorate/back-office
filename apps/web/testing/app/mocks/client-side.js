@@ -15,3 +15,7 @@ export const mockWindowLocation = () => {
 	// @ts-ignore
 	window.location = mockLocation;
 };
+
+export const spyClickOnAnchor = () => {
+	jest.spyOn(HTMLAnchorElement.prototype, 'click');
+};

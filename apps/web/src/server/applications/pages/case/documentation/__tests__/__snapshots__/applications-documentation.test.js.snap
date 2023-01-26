@@ -2,6 +2,7 @@
 
 exports[`applications documentation /case/123/project-documentation/21/sub-folder-level2 GET Case admin officer should render the page with custom pagination if there is data in the session 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <div class=\\"top-errors-hook\\" role=\\"alert\\"></div>
     <div class=\\"govuk-grid-row govuk-!-padding-top-9 govuk-!-padding-bottom-2 govuk-!-margin-left-0 govuk-!-margin-bottom-7 pins-masthead-summary\\">
         <div class=\\"govuk-grid-column-full\\">
             <h4 class=\\"govuk-heading-m\\"> CASE/04 </h4>
@@ -122,9 +123,11 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                     </div>
                     <div class=\\"govuk-grid-column-one-third\\">
                         <div class=\\"pins-files-list__actions\\">
-                            <p class=\\"govuk-heading-s\\">Document actions</p><a href=\\"1\\" class=\\"govuk-link\\">Download selected</a>
-                            <a                             href=\\"2\\" class=\\"govuk-link\\">Edit properties</a><a href=\\"3\\" class=\\"govuk-link\\">Publish selected</a>
-                                <a                                 href=\\"4\\" class=\\"govuk-link\\">Unpublish selected</a><a href=\\"5\\" class=\\"govuk-link\\">Move selected</a>
+                            <p class=\\"govuk-heading-s\\">Document actions</p>
+                            <button type=\\"button\\" class=\\"govuk-link pins-files-list__button-link\\"
+                            id=\\"bulkDownload\\">Download selected</button><a href=\\"2\\" class=\\"govuk-link\\">Edit properties</a>
+                            <a                             href=\\"3\\" class=\\"govuk-link\\">Publish selected</a><a href=\\"4\\" class=\\"govuk-link\\">Unpublish selected</a>
+                                <a                                 href=\\"5\\" class=\\"govuk-link\\">Move selected</a>
                         </div>
                     </div>
                 </div>
@@ -195,7 +198,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             <td class=\\"govuk-table__cell\\">Redacted</td>
                             <td class=\\"govuk-table__cell\\">Unpublished</td>
                             <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s\\" href=\\"edit/file\\">View/Edit properties</a>
-                                <a                                 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/0/\\">Download</a>
+                                <a                                 data-action=download-0 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/0/\\">Download</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row govuk-table__row--disabled\\">
@@ -288,7 +291,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             <td class=\\"govuk-table__cell\\">Unredacted</td>
                             <td class=\\"govuk-table__cell\\">Checked</td>
                             <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s\\" href=\\"edit/file\\">View/Edit properties</a>
-                                <a                                 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/4/\\">Download</a>
+                                <a                                 data-action=download-4 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/4/\\">Download</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row \\">
@@ -312,7 +315,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             <td class=\\"govuk-table__cell\\">Redacted</td>
                             <td class=\\"govuk-table__cell\\">Unchecked</td>
                             <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s\\" href=\\"edit/file\\">View/Edit properties</a>
-                                <a                                 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/5/\\">Download</a>
+                                <a                                 data-action=download-5 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/5/\\">Download</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row \\">
@@ -335,7 +338,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             <td class=\\"govuk-table__cell\\">Unredacted</td>
                             <td class=\\"govuk-table__cell\\">Unchecked</td>
                             <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s\\" href=\\"edit/file\\">View/Edit properties</a>
-                                <a                                 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/6/\\">Download</a>
+                                <a                                 data-action=download-6 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/6/\\">Download</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row \\">
@@ -358,7 +361,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             <td class=\\"govuk-table__cell\\">Unredacted</td>
                             <td class=\\"govuk-table__cell\\">Unchecked</td>
                             <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s\\" href=\\"edit/file\\">View/Edit properties</a>
-                                <a                                 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/7/\\">Download</a>
+                                <a                                 data-action=download-7 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/7/\\">Download</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row \\">
@@ -381,7 +384,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             <td class=\\"govuk-table__cell\\">Redacted</td>
                             <td class=\\"govuk-table__cell\\">Ready to publish</td>
                             <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s\\" href=\\"edit/file\\">View/Edit properties</a>
-                                <a                                 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/8/\\">Download</a>
+                                <a                                 data-action=download-8 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/8/\\">Download</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row \\">
@@ -404,7 +407,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             <td class=\\"govuk-table__cell\\">Redacted</td>
                             <td class=\\"govuk-table__cell\\">Do not publish</td>
                             <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s\\" href=\\"edit/file\\">View/Edit properties</a>
-                                <a                                 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/9/\\">Download</a>
+                                <a                                 data-action=download-9 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/9/\\">Download</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row \\">
@@ -427,7 +430,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             <td class=\\"govuk-table__cell\\">Redacted</td>
                             <td class=\\"govuk-table__cell\\">Unpublished</td>
                             <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s\\" href=\\"edit/file\\">View/Edit properties</a>
-                                <a                                 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/10/\\">Download</a>
+                                <a                                 data-action=download-10 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/10/\\">Download</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row \\">
@@ -450,7 +453,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             <td class=\\"govuk-table__cell\\">Redacted</td>
                             <td class=\\"govuk-table__cell\\">Unpublished</td>
                             <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s\\" href=\\"edit/file\\">View/Edit properties</a>
-                                <a                                 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/11/\\">Download</a>
+                                <a                                 data-action=download-11 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/11/\\">Download</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row govuk-table__row--disabled\\">
@@ -566,7 +569,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             <td class=\\"govuk-table__cell\\">Redacted</td>
                             <td class=\\"govuk-table__cell\\">Checked</td>
                             <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s\\" href=\\"edit/file\\">View/Edit properties</a>
-                                <a                                 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/16/\\">Download</a>
+                                <a                                 data-action=download-16 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/16/\\">Download</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row \\">
@@ -590,7 +593,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             <td class=\\"govuk-table__cell\\">Redacted</td>
                             <td class=\\"govuk-table__cell\\">Unchecked</td>
                             <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s\\" href=\\"edit/file\\">View/Edit properties</a>
-                                <a                                 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/17/\\">Download</a>
+                                <a                                 data-action=download-17 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/17/\\">Download</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row \\">
@@ -613,7 +616,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             <td class=\\"govuk-table__cell\\">Redacted</td>
                             <td class=\\"govuk-table__cell\\">Unchecked</td>
                             <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s\\" href=\\"edit/file\\">View/Edit properties</a>
-                                <a                                 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/18/\\">Download</a>
+                                <a                                 data-action=download-18 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/18/\\">Download</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row \\">
@@ -636,7 +639,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             <td class=\\"govuk-table__cell\\">Redacted</td>
                             <td class=\\"govuk-table__cell\\">Ready to publish</td>
                             <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s\\" href=\\"edit/file\\">View/Edit properties</a>
-                                <a                                 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/19/\\">Download</a>
+                                <a                                 data-action=download-19 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/19/\\">Download</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row \\">
@@ -659,7 +662,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             <td class=\\"govuk-table__cell\\">Redacted</td>
                             <td class=\\"govuk-table__cell\\">Do not publish</td>
                             <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s\\" href=\\"edit/file\\">View/Edit properties</a>
-                                <a                                 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/20/\\">Download</a>
+                                <a                                 data-action=download-20 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/20/\\">Download</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row \\">
@@ -682,7 +685,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             <td class=\\"govuk-table__cell\\">Redacted</td>
                             <td class=\\"govuk-table__cell\\">Do not publish</td>
                             <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s\\" href=\\"edit/file\\">View/Edit properties</a>
-                                <a                                 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/21/\\">Download</a>
+                                <a                                 data-action=download-21 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/21/\\">Download</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row \\">
@@ -705,7 +708,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             <td class=\\"govuk-table__cell\\">Redacted</td>
                             <td class=\\"govuk-table__cell\\">Unpublished</td>
                             <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s\\" href=\\"edit/file\\">View/Edit properties</a>
-                                <a                                 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/22/\\">Download</a>
+                                <a                                 data-action=download-22 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/22/\\">Download</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row \\">
@@ -728,7 +731,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             <td class=\\"govuk-table__cell\\">Redacted</td>
                             <td class=\\"govuk-table__cell\\">Unpublished</td>
                             <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s\\" href=\\"edit/file\\">View/Edit properties</a>
-                                <a                                 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/23/\\">Download</a>
+                                <a                                 data-action=download-23 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/23/\\">Download</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row govuk-table__row--disabled\\">
@@ -821,7 +824,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             <td class=\\"govuk-table__cell\\">Redacted</td>
                             <td class=\\"govuk-table__cell\\">Checked</td>
                             <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s\\" href=\\"edit/file\\">View/Edit properties</a>
-                                <a                                 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/27/\\">Download</a>
+                                <a                                 data-action=download-27 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/27/\\">Download</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row \\">
@@ -845,7 +848,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             <td class=\\"govuk-table__cell\\">Redacted</td>
                             <td class=\\"govuk-table__cell\\">Unchecked</td>
                             <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s\\" href=\\"edit/file\\">View/Edit properties</a>
-                                <a                                 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/28/\\">Download</a>
+                                <a                                 data-action=download-28 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/28/\\">Download</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row \\">
@@ -869,7 +872,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             <td class=\\"govuk-table__cell\\">Redacted</td>
                             <td class=\\"govuk-table__cell\\">Unchecked</td>
                             <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s\\" href=\\"edit/file\\">View/Edit properties</a>
-                                <a                                 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/29/\\">Download</a>
+                                <a                                 data-action=download-29 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/29/\\">Download</a>
                             </td>
                         </tr>
                     </tbody>
@@ -904,6 +907,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
 
 exports[`applications documentation /case/123/project-documentation/21/sub-folder-level2 GET Case admin officer should render the page with default pagination if there is no data in the session 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <div class=\\"top-errors-hook\\" role=\\"alert\\"></div>
     <div class=\\"govuk-grid-row govuk-!-padding-top-9 govuk-!-padding-bottom-2 govuk-!-margin-left-0 govuk-!-margin-bottom-7 pins-masthead-summary\\">
         <div class=\\"govuk-grid-column-full\\">
             <h4 class=\\"govuk-heading-m\\"> CASE/04 </h4>
@@ -1024,9 +1028,11 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                     </div>
                     <div class=\\"govuk-grid-column-one-third\\">
                         <div class=\\"pins-files-list__actions\\">
-                            <p class=\\"govuk-heading-s\\">Document actions</p><a href=\\"1\\" class=\\"govuk-link\\">Download selected</a>
-                            <a                             href=\\"2\\" class=\\"govuk-link\\">Edit properties</a><a href=\\"3\\" class=\\"govuk-link\\">Publish selected</a>
-                                <a                                 href=\\"4\\" class=\\"govuk-link\\">Unpublish selected</a><a href=\\"5\\" class=\\"govuk-link\\">Move selected</a>
+                            <p class=\\"govuk-heading-s\\">Document actions</p>
+                            <button type=\\"button\\" class=\\"govuk-link pins-files-list__button-link\\"
+                            id=\\"bulkDownload\\">Download selected</button><a href=\\"2\\" class=\\"govuk-link\\">Edit properties</a>
+                            <a                             href=\\"3\\" class=\\"govuk-link\\">Publish selected</a><a href=\\"4\\" class=\\"govuk-link\\">Unpublish selected</a>
+                                <a                                 href=\\"5\\" class=\\"govuk-link\\">Move selected</a>
                         </div>
                     </div>
                 </div>
@@ -1097,7 +1103,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             <td class=\\"govuk-table__cell\\">Redacted</td>
                             <td class=\\"govuk-table__cell\\">Unpublished</td>
                             <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s\\" href=\\"edit/file\\">View/Edit properties</a>
-                                <a                                 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/0/\\">Download</a>
+                                <a                                 data-action=download-0 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/0/\\">Download</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row govuk-table__row--disabled\\">
@@ -1190,7 +1196,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             <td class=\\"govuk-table__cell\\">Unredacted</td>
                             <td class=\\"govuk-table__cell\\">Checked</td>
                             <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s\\" href=\\"edit/file\\">View/Edit properties</a>
-                                <a                                 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/4/\\">Download</a>
+                                <a                                 data-action=download-4 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/4/\\">Download</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row \\">
@@ -1214,7 +1220,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             <td class=\\"govuk-table__cell\\">Redacted</td>
                             <td class=\\"govuk-table__cell\\">Unchecked</td>
                             <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s\\" href=\\"edit/file\\">View/Edit properties</a>
-                                <a                                 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/5/\\">Download</a>
+                                <a                                 data-action=download-5 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/5/\\">Download</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row \\">
@@ -1237,7 +1243,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             <td class=\\"govuk-table__cell\\">Unredacted</td>
                             <td class=\\"govuk-table__cell\\">Unchecked</td>
                             <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s\\" href=\\"edit/file\\">View/Edit properties</a>
-                                <a                                 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/6/\\">Download</a>
+                                <a                                 data-action=download-6 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/6/\\">Download</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row \\">
@@ -1260,7 +1266,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             <td class=\\"govuk-table__cell\\">Unredacted</td>
                             <td class=\\"govuk-table__cell\\">Unchecked</td>
                             <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s\\" href=\\"edit/file\\">View/Edit properties</a>
-                                <a                                 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/7/\\">Download</a>
+                                <a                                 data-action=download-7 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/7/\\">Download</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row \\">
@@ -1283,7 +1289,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             <td class=\\"govuk-table__cell\\">Redacted</td>
                             <td class=\\"govuk-table__cell\\">Ready to publish</td>
                             <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s\\" href=\\"edit/file\\">View/Edit properties</a>
-                                <a                                 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/8/\\">Download</a>
+                                <a                                 data-action=download-8 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/8/\\">Download</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row \\">
@@ -1306,7 +1312,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             <td class=\\"govuk-table__cell\\">Redacted</td>
                             <td class=\\"govuk-table__cell\\">Do not publish</td>
                             <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s\\" href=\\"edit/file\\">View/Edit properties</a>
-                                <a                                 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/9/\\">Download</a>
+                                <a                                 data-action=download-9 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/9/\\">Download</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row \\">
@@ -1329,7 +1335,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             <td class=\\"govuk-table__cell\\">Redacted</td>
                             <td class=\\"govuk-table__cell\\">Unpublished</td>
                             <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s\\" href=\\"edit/file\\">View/Edit properties</a>
-                                <a                                 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/10/\\">Download</a>
+                                <a                                 data-action=download-10 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/10/\\">Download</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row \\">
@@ -1352,7 +1358,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             <td class=\\"govuk-table__cell\\">Redacted</td>
                             <td class=\\"govuk-table__cell\\">Unpublished</td>
                             <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s\\" href=\\"edit/file\\">View/Edit properties</a>
-                                <a                                 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/11/\\">Download</a>
+                                <a                                 data-action=download-11 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/11/\\">Download</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row govuk-table__row--disabled\\">
@@ -1468,7 +1474,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             <td class=\\"govuk-table__cell\\">Redacted</td>
                             <td class=\\"govuk-table__cell\\">Checked</td>
                             <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s\\" href=\\"edit/file\\">View/Edit properties</a>
-                                <a                                 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/16/\\">Download</a>
+                                <a                                 data-action=download-16 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/16/\\">Download</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row \\">
@@ -1492,7 +1498,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             <td class=\\"govuk-table__cell\\">Redacted</td>
                             <td class=\\"govuk-table__cell\\">Unchecked</td>
                             <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s\\" href=\\"edit/file\\">View/Edit properties</a>
-                                <a                                 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/17/\\">Download</a>
+                                <a                                 data-action=download-17 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/17/\\">Download</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row \\">
@@ -1515,7 +1521,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             <td class=\\"govuk-table__cell\\">Redacted</td>
                             <td class=\\"govuk-table__cell\\">Unchecked</td>
                             <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s\\" href=\\"edit/file\\">View/Edit properties</a>
-                                <a                                 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/18/\\">Download</a>
+                                <a                                 data-action=download-18 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/18/\\">Download</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row \\">
@@ -1538,7 +1544,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             <td class=\\"govuk-table__cell\\">Redacted</td>
                             <td class=\\"govuk-table__cell\\">Ready to publish</td>
                             <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s\\" href=\\"edit/file\\">View/Edit properties</a>
-                                <a                                 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/19/\\">Download</a>
+                                <a                                 data-action=download-19 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/19/\\">Download</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row \\">
@@ -1561,7 +1567,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             <td class=\\"govuk-table__cell\\">Redacted</td>
                             <td class=\\"govuk-table__cell\\">Do not publish</td>
                             <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s\\" href=\\"edit/file\\">View/Edit properties</a>
-                                <a                                 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/20/\\">Download</a>
+                                <a                                 data-action=download-20 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/20/\\">Download</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row \\">
@@ -1584,7 +1590,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             <td class=\\"govuk-table__cell\\">Redacted</td>
                             <td class=\\"govuk-table__cell\\">Do not publish</td>
                             <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s\\" href=\\"edit/file\\">View/Edit properties</a>
-                                <a                                 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/21/\\">Download</a>
+                                <a                                 data-action=download-21 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/21/\\">Download</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row \\">
@@ -1607,7 +1613,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             <td class=\\"govuk-table__cell\\">Redacted</td>
                             <td class=\\"govuk-table__cell\\">Unpublished</td>
                             <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s\\" href=\\"edit/file\\">View/Edit properties</a>
-                                <a                                 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/22/\\">Download</a>
+                                <a                                 data-action=download-22 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/22/\\">Download</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row \\">
@@ -1630,7 +1636,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             <td class=\\"govuk-table__cell\\">Redacted</td>
                             <td class=\\"govuk-table__cell\\">Unpublished</td>
                             <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s\\" href=\\"edit/file\\">View/Edit properties</a>
-                                <a                                 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/23/\\">Download</a>
+                                <a                                 data-action=download-23 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/23/\\">Download</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row govuk-table__row--disabled\\">
@@ -1723,7 +1729,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             <td class=\\"govuk-table__cell\\">Redacted</td>
                             <td class=\\"govuk-table__cell\\">Checked</td>
                             <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s\\" href=\\"edit/file\\">View/Edit properties</a>
-                                <a                                 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/27/\\">Download</a>
+                                <a                                 data-action=download-27 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/27/\\">Download</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row \\">
@@ -1747,7 +1753,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             <td class=\\"govuk-table__cell\\">Redacted</td>
                             <td class=\\"govuk-table__cell\\">Unchecked</td>
                             <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s\\" href=\\"edit/file\\">View/Edit properties</a>
-                                <a                                 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/28/\\">Download</a>
+                                <a                                 data-action=download-28 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/28/\\">Download</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row \\">
@@ -1771,7 +1777,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             <td class=\\"govuk-table__cell\\">Redacted</td>
                             <td class=\\"govuk-table__cell\\">Unchecked</td>
                             <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s\\" href=\\"edit/file\\">View/Edit properties</a>
-                                <a                                 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/29/\\">Download</a>
+                                <a                                 data-action=download-29 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/29/\\">Download</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row \\">
@@ -1794,7 +1800,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             <td class=\\"govuk-table__cell\\">Redacted</td>
                             <td class=\\"govuk-table__cell\\">Ready to publish</td>
                             <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s\\" href=\\"edit/file\\">View/Edit properties</a>
-                                <a                                 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/30/\\">Download</a>
+                                <a                                 data-action=download-30 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/30/\\">Download</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row \\">
@@ -1817,7 +1823,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             <td class=\\"govuk-table__cell\\">Redacted</td>
                             <td class=\\"govuk-table__cell\\">Ready to publish</td>
                             <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s\\" href=\\"edit/file\\">View/Edit properties</a>
-                                <a                                 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/31/\\">Download</a>
+                                <a                                 data-action=download-31 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/31/\\">Download</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row \\">
@@ -1840,7 +1846,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             <td class=\\"govuk-table__cell\\">Redacted</td>
                             <td class=\\"govuk-table__cell\\">Do not publish</td>
                             <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s\\" href=\\"edit/file\\">View/Edit properties</a>
-                                <a                                 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/32/\\">Download</a>
+                                <a                                 data-action=download-32 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/32/\\">Download</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row \\">
@@ -1863,7 +1869,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             <td class=\\"govuk-table__cell\\">Redacted</td>
                             <td class=\\"govuk-table__cell\\">Unpublished</td>
                             <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s\\" href=\\"edit/file\\">View/Edit properties</a>
-                                <a                                 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/33/\\">Download</a>
+                                <a                                 data-action=download-33 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/33/\\">Download</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row \\">
@@ -1886,7 +1892,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             <td class=\\"govuk-table__cell\\">Redacted</td>
                             <td class=\\"govuk-table__cell\\">Unpublished</td>
                             <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s\\" href=\\"edit/file\\">View/Edit properties</a>
-                                <a                                 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/34/\\">Download</a>
+                                <a                                 data-action=download-34 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/34/\\">Download</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row govuk-table__row--disabled\\">
@@ -2002,7 +2008,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             <td class=\\"govuk-table__cell\\">Redacted</td>
                             <td class=\\"govuk-table__cell\\">Checked</td>
                             <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s\\" href=\\"edit/file\\">View/Edit properties</a>
-                                <a                                 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/39/\\">Download</a>
+                                <a                                 data-action=download-39 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/39/\\">Download</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row \\">
@@ -2026,7 +2032,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             <td class=\\"govuk-table__cell\\">Redacted</td>
                             <td class=\\"govuk-table__cell\\">Checked</td>
                             <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s\\" href=\\"edit/file\\">View/Edit properties</a>
-                                <a                                 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/40/\\">Download</a>
+                                <a                                 data-action=download-40 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/40/\\">Download</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row \\">
@@ -2050,7 +2056,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             <td class=\\"govuk-table__cell\\">Redacted</td>
                             <td class=\\"govuk-table__cell\\">Unchecked</td>
                             <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s\\" href=\\"edit/file\\">View/Edit properties</a>
-                                <a                                 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/41/\\">Download</a>
+                                <a                                 data-action=download-41 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/41/\\">Download</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row \\">
@@ -2073,7 +2079,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             <td class=\\"govuk-table__cell\\">Redacted</td>
                             <td class=\\"govuk-table__cell\\">Ready to publish</td>
                             <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s\\" href=\\"edit/file\\">View/Edit properties</a>
-                                <a                                 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/42/\\">Download</a>
+                                <a                                 data-action=download-42 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/42/\\">Download</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row \\">
@@ -2096,7 +2102,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             <td class=\\"govuk-table__cell\\">Redacted</td>
                             <td class=\\"govuk-table__cell\\">Ready to publish</td>
                             <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s\\" href=\\"edit/file\\">View/Edit properties</a>
-                                <a                                 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/43/\\">Download</a>
+                                <a                                 data-action=download-43 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/43/\\">Download</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row \\">
@@ -2119,7 +2125,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             <td class=\\"govuk-table__cell\\">Redacted</td>
                             <td class=\\"govuk-table__cell\\">Ready to publish</td>
                             <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s\\" href=\\"edit/file\\">View/Edit properties</a>
-                                <a                                 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/44/\\">Download</a>
+                                <a                                 data-action=download-44 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/44/\\">Download</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row \\">
@@ -2142,7 +2148,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             <td class=\\"govuk-table__cell\\">Redacted</td>
                             <td class=\\"govuk-table__cell\\">Do not publish</td>
                             <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s\\" href=\\"edit/file\\">View/Edit properties</a>
-                                <a                                 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/45/\\">Download</a>
+                                <a                                 data-action=download-45 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/45/\\">Download</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row \\">
@@ -2165,7 +2171,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             <td class=\\"govuk-table__cell\\">Redacted</td>
                             <td class=\\"govuk-table__cell\\">Unpublished</td>
                             <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s\\" href=\\"edit/file\\">View/Edit properties</a>
-                                <a                                 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/46/\\">Download</a>
+                                <a                                 data-action=download-46 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/46/\\">Download</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row \\">
@@ -2188,7 +2194,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             <td class=\\"govuk-table__cell\\">Redacted</td>
                             <td class=\\"govuk-table__cell\\">Unpublished</td>
                             <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s\\" href=\\"edit/file\\">View/Edit properties</a>
-                                <a                                 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/47/\\">Download</a>
+                                <a                                 data-action=download-47 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/47/\\">Download</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row govuk-table__row--disabled\\">
@@ -2263,6 +2269,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
 
 exports[`applications documentation /case/123/project-documentation/21/sub-folder-level2 GET Case admin officer should render the page with no panel and no table if there are no documents 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <div class=\\"top-errors-hook\\" role=\\"alert\\"></div>
     <div class=\\"govuk-grid-row govuk-!-padding-top-9 govuk-!-padding-bottom-2 govuk-!-margin-left-0 govuk-!-margin-bottom-7 pins-masthead-summary\\">
         <div class=\\"govuk-grid-column-full\\">
             <h4 class=\\"govuk-heading-m\\"> CASE/04 </h4>
@@ -2325,6 +2332,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
 
 exports[`applications documentation /case/123/project-documentation/21/sub-folder-level2 GET Case admin officer should render the page with the right number of files 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <div class=\\"top-errors-hook\\" role=\\"alert\\"></div>
     <div class=\\"govuk-grid-row govuk-!-padding-top-9 govuk-!-padding-bottom-2 govuk-!-margin-left-0 govuk-!-margin-bottom-7 pins-masthead-summary\\">
         <div class=\\"govuk-grid-column-full\\">
             <h4 class=\\"govuk-heading-m\\"> CASE/04 </h4>
@@ -2445,9 +2453,11 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                     </div>
                     <div class=\\"govuk-grid-column-one-third\\">
                         <div class=\\"pins-files-list__actions\\">
-                            <p class=\\"govuk-heading-s\\">Document actions</p><a href=\\"1\\" class=\\"govuk-link\\">Download selected</a>
-                            <a                             href=\\"2\\" class=\\"govuk-link\\">Edit properties</a><a href=\\"3\\" class=\\"govuk-link\\">Publish selected</a>
-                                <a                                 href=\\"4\\" class=\\"govuk-link\\">Unpublish selected</a><a href=\\"5\\" class=\\"govuk-link\\">Move selected</a>
+                            <p class=\\"govuk-heading-s\\">Document actions</p>
+                            <button type=\\"button\\" class=\\"govuk-link pins-files-list__button-link\\"
+                            id=\\"bulkDownload\\">Download selected</button><a href=\\"2\\" class=\\"govuk-link\\">Edit properties</a>
+                            <a                             href=\\"3\\" class=\\"govuk-link\\">Publish selected</a><a href=\\"4\\" class=\\"govuk-link\\">Unpublish selected</a>
+                                <a                                 href=\\"5\\" class=\\"govuk-link\\">Move selected</a>
                         </div>
                     </div>
                 </div>
@@ -2518,7 +2528,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             <td class=\\"govuk-table__cell\\">Redacted</td>
                             <td class=\\"govuk-table__cell\\">Ready to publish</td>
                             <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s\\" href=\\"edit/file\\">View/Edit properties</a>
-                                <a                                 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/30/\\">Download</a>
+                                <a                                 data-action=download-30 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/30/\\">Download</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row \\">
@@ -2541,7 +2551,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             <td class=\\"govuk-table__cell\\">Redacted</td>
                             <td class=\\"govuk-table__cell\\">Ready to publish</td>
                             <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s\\" href=\\"edit/file\\">View/Edit properties</a>
-                                <a                                 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/31/\\">Download</a>
+                                <a                                 data-action=download-31 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/31/\\">Download</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row \\">
@@ -2564,7 +2574,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             <td class=\\"govuk-table__cell\\">Redacted</td>
                             <td class=\\"govuk-table__cell\\">Do not publish</td>
                             <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s\\" href=\\"edit/file\\">View/Edit properties</a>
-                                <a                                 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/32/\\">Download</a>
+                                <a                                 data-action=download-32 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/32/\\">Download</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row \\">
@@ -2587,7 +2597,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             <td class=\\"govuk-table__cell\\">Redacted</td>
                             <td class=\\"govuk-table__cell\\">Unpublished</td>
                             <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s\\" href=\\"edit/file\\">View/Edit properties</a>
-                                <a                                 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/33/\\">Download</a>
+                                <a                                 data-action=download-33 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/33/\\">Download</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row \\">
@@ -2610,7 +2620,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             <td class=\\"govuk-table__cell\\">Redacted</td>
                             <td class=\\"govuk-table__cell\\">Unpublished</td>
                             <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s\\" href=\\"edit/file\\">View/Edit properties</a>
-                                <a                                 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/34/\\">Download</a>
+                                <a                                 data-action=download-34 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/34/\\">Download</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row govuk-table__row--disabled\\">
@@ -2726,7 +2736,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             <td class=\\"govuk-table__cell\\">Redacted</td>
                             <td class=\\"govuk-table__cell\\">Checked</td>
                             <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s\\" href=\\"edit/file\\">View/Edit properties</a>
-                                <a                                 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/39/\\">Download</a>
+                                <a                                 data-action=download-39 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/39/\\">Download</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row \\">
@@ -2750,7 +2760,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             <td class=\\"govuk-table__cell\\">Redacted</td>
                             <td class=\\"govuk-table__cell\\">Checked</td>
                             <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s\\" href=\\"edit/file\\">View/Edit properties</a>
-                                <a                                 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/40/\\">Download</a>
+                                <a                                 data-action=download-40 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/40/\\">Download</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row \\">
@@ -2774,7 +2784,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             <td class=\\"govuk-table__cell\\">Redacted</td>
                             <td class=\\"govuk-table__cell\\">Unchecked</td>
                             <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s\\" href=\\"edit/file\\">View/Edit properties</a>
-                                <a                                 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/41/\\">Download</a>
+                                <a                                 data-action=download-41 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/41/\\">Download</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row \\">
@@ -2797,7 +2807,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             <td class=\\"govuk-table__cell\\">Redacted</td>
                             <td class=\\"govuk-table__cell\\">Ready to publish</td>
                             <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s\\" href=\\"edit/file\\">View/Edit properties</a>
-                                <a                                 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/42/\\">Download</a>
+                                <a                                 data-action=download-42 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/42/\\">Download</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row \\">
@@ -2820,7 +2830,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             <td class=\\"govuk-table__cell\\">Redacted</td>
                             <td class=\\"govuk-table__cell\\">Ready to publish</td>
                             <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s\\" href=\\"edit/file\\">View/Edit properties</a>
-                                <a                                 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/43/\\">Download</a>
+                                <a                                 data-action=download-43 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/43/\\">Download</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row \\">
@@ -2843,7 +2853,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             <td class=\\"govuk-table__cell\\">Redacted</td>
                             <td class=\\"govuk-table__cell\\">Ready to publish</td>
                             <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s\\" href=\\"edit/file\\">View/Edit properties</a>
-                                <a                                 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/44/\\">Download</a>
+                                <a                                 data-action=download-44 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/44/\\">Download</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row \\">
@@ -2866,7 +2876,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             <td class=\\"govuk-table__cell\\">Redacted</td>
                             <td class=\\"govuk-table__cell\\">Do not publish</td>
                             <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s\\" href=\\"edit/file\\">View/Edit properties</a>
-                                <a                                 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/45/\\">Download</a>
+                                <a                                 data-action=download-45 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/45/\\">Download</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row \\">
@@ -2889,7 +2899,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             <td class=\\"govuk-table__cell\\">Redacted</td>
                             <td class=\\"govuk-table__cell\\">Unpublished</td>
                             <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s\\" href=\\"edit/file\\">View/Edit properties</a>
-                                <a                                 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/46/\\">Download</a>
+                                <a                                 data-action=download-46 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/46/\\">Download</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row \\">
@@ -2912,7 +2922,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             <td class=\\"govuk-table__cell\\">Redacted</td>
                             <td class=\\"govuk-table__cell\\">Unpublished</td>
                             <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s\\" href=\\"edit/file\\">View/Edit properties</a>
-                                <a                                 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/47/\\">Download</a>
+                                <a                                 data-action=download-47 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/47/\\">Download</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row govuk-table__row--disabled\\">
@@ -2982,7 +2992,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             <td class=\\"govuk-table__cell\\">Redacted</td>
                             <td class=\\"govuk-table__cell\\">Checked</td>
                             <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s\\" href=\\"edit/file\\">View/Edit properties</a>
-                                <a                                 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/50/\\">Download</a>
+                                <a                                 data-action=download-50 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/50/\\">Download</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row \\">
@@ -3006,7 +3016,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             <td class=\\"govuk-table__cell\\">Redacted</td>
                             <td class=\\"govuk-table__cell\\">Checked</td>
                             <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s\\" href=\\"edit/file\\">View/Edit properties</a>
-                                <a                                 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/51/\\">Download</a>
+                                <a                                 data-action=download-51 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/51/\\">Download</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row \\">
@@ -3030,7 +3040,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             <td class=\\"govuk-table__cell\\">Redacted</td>
                             <td class=\\"govuk-table__cell\\">Checked</td>
                             <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s\\" href=\\"edit/file\\">View/Edit properties</a>
-                                <a                                 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/52/\\">Download</a>
+                                <a                                 data-action=download-52 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/52/\\">Download</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row \\">
@@ -3054,7 +3064,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             <td class=\\"govuk-table__cell\\">Redacted</td>
                             <td class=\\"govuk-table__cell\\">Unchecked</td>
                             <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s\\" href=\\"edit/file\\">View/Edit properties</a>
-                                <a                                 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/53/\\">Download</a>
+                                <a                                 data-action=download-53 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/53/\\">Download</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row \\">
@@ -3077,7 +3087,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             <td class=\\"govuk-table__cell\\">Redacted</td>
                             <td class=\\"govuk-table__cell\\">Ready to publish</td>
                             <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s\\" href=\\"edit/file\\">View/Edit properties</a>
-                                <a                                 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/54/\\">Download</a>
+                                <a                                 data-action=download-54 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/54/\\">Download</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row \\">
@@ -3100,7 +3110,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             <td class=\\"govuk-table__cell\\">Redacted</td>
                             <td class=\\"govuk-table__cell\\">Ready to publish</td>
                             <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s\\" href=\\"edit/file\\">View/Edit properties</a>
-                                <a                                 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/55/\\">Download</a>
+                                <a                                 data-action=download-55 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/55/\\">Download</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row \\">
@@ -3123,7 +3133,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             <td class=\\"govuk-table__cell\\">Redacted</td>
                             <td class=\\"govuk-table__cell\\">Do not publish</td>
                             <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s\\" href=\\"edit/file\\">View/Edit properties</a>
-                                <a                                 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/56/\\">Download</a>
+                                <a                                 data-action=download-56 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/56/\\">Download</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row \\">
@@ -3146,7 +3156,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             <td class=\\"govuk-table__cell\\">Redacted</td>
                             <td class=\\"govuk-table__cell\\">Unpublished</td>
                             <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s\\" href=\\"edit/file\\">View/Edit properties</a>
-                                <a                                 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/57/\\">Download</a>
+                                <a                                 data-action=download-57 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/57/\\">Download</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row \\">
@@ -3169,7 +3179,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             <td class=\\"govuk-table__cell\\">Redacted</td>
                             <td class=\\"govuk-table__cell\\">Unpublished</td>
                             <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s\\" href=\\"edit/file\\">View/Edit properties</a>
-                                <a                                 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/58/\\">Download</a>
+                                <a                                 data-action=download-58 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/58/\\">Download</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row govuk-table__row--disabled\\">
@@ -3230,6 +3240,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
 
 exports[`applications documentation /case/123/project-documentation/21/sub-folder-level2 GET Inspector should render the page with no list and no upload button 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <div class=\\"top-errors-hook\\" role=\\"alert\\"></div>
     <div class=\\"govuk-grid-row govuk-!-padding-top-9 govuk-!-padding-bottom-2 govuk-!-margin-left-0 govuk-!-margin-bottom-7 pins-masthead-summary\\">
         <div class=\\"govuk-grid-column-full\\">
             <h4 class=\\"govuk-heading-m\\"> CASE/04 </h4>
@@ -3302,6 +3313,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
             </div>
         </div>
     </div>
+    <div class=\\"top-errors-hook\\" role=\\"alert\\"></div>
     <div class=\\"govuk-grid-row govuk-!-padding-top-9 govuk-!-padding-bottom-2 govuk-!-margin-left-0 govuk-!-margin-bottom-7 pins-masthead-summary\\">
         <div class=\\"govuk-grid-column-full\\">
             <h4 class=\\"govuk-heading-m\\"> CASE/04 </h4>
@@ -3422,9 +3434,11 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                     </div>
                     <div class=\\"govuk-grid-column-one-third\\">
                         <div class=\\"pins-files-list__actions\\">
-                            <p class=\\"govuk-heading-s\\">Document actions</p><a href=\\"1\\" class=\\"govuk-link\\">Download selected</a>
-                            <a                             href=\\"2\\" class=\\"govuk-link\\">Edit properties</a><a href=\\"3\\" class=\\"govuk-link\\">Publish selected</a>
-                                <a                                 href=\\"4\\" class=\\"govuk-link\\">Unpublish selected</a><a href=\\"5\\" class=\\"govuk-link\\">Move selected</a>
+                            <p class=\\"govuk-heading-s\\">Document actions</p>
+                            <button type=\\"button\\" class=\\"govuk-link pins-files-list__button-link\\"
+                            id=\\"bulkDownload\\">Download selected</button><a href=\\"2\\" class=\\"govuk-link\\">Edit properties</a>
+                            <a                             href=\\"3\\" class=\\"govuk-link\\">Publish selected</a><a href=\\"4\\" class=\\"govuk-link\\">Unpublish selected</a>
+                                <a                                 href=\\"5\\" class=\\"govuk-link\\">Move selected</a>
                         </div>
                     </div>
                 </div>
@@ -3495,7 +3509,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             <td class=\\"govuk-table__cell\\">Redacted</td>
                             <td class=\\"govuk-table__cell\\">Unpublished</td>
                             <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s\\" href=\\"edit/file\\">View/Edit properties</a>
-                                <a                                 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/0/\\">Download</a>
+                                <a                                 data-action=download-0 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/0/\\">Download</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row govuk-table__row--disabled\\">
@@ -3588,7 +3602,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             <td class=\\"govuk-table__cell\\">Unredacted</td>
                             <td class=\\"govuk-table__cell\\">Checked</td>
                             <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s\\" href=\\"edit/file\\">View/Edit properties</a>
-                                <a                                 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/4/\\">Download</a>
+                                <a                                 data-action=download-4 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/4/\\">Download</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row \\">
@@ -3612,7 +3626,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             <td class=\\"govuk-table__cell\\">Redacted</td>
                             <td class=\\"govuk-table__cell\\">Unchecked</td>
                             <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s\\" href=\\"edit/file\\">View/Edit properties</a>
-                                <a                                 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/5/\\">Download</a>
+                                <a                                 data-action=download-5 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/5/\\">Download</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row \\">
@@ -3635,7 +3649,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             <td class=\\"govuk-table__cell\\">Unredacted</td>
                             <td class=\\"govuk-table__cell\\">Unchecked</td>
                             <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s\\" href=\\"edit/file\\">View/Edit properties</a>
-                                <a                                 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/6/\\">Download</a>
+                                <a                                 data-action=download-6 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/6/\\">Download</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row \\">
@@ -3658,7 +3672,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             <td class=\\"govuk-table__cell\\">Unredacted</td>
                             <td class=\\"govuk-table__cell\\">Unchecked</td>
                             <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s\\" href=\\"edit/file\\">View/Edit properties</a>
-                                <a                                 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/7/\\">Download</a>
+                                <a                                 data-action=download-7 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/7/\\">Download</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row \\">
@@ -3681,7 +3695,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             <td class=\\"govuk-table__cell\\">Redacted</td>
                             <td class=\\"govuk-table__cell\\">Ready to publish</td>
                             <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s\\" href=\\"edit/file\\">View/Edit properties</a>
-                                <a                                 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/8/\\">Download</a>
+                                <a                                 data-action=download-8 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/8/\\">Download</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row \\">
@@ -3704,7 +3718,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             <td class=\\"govuk-table__cell\\">Redacted</td>
                             <td class=\\"govuk-table__cell\\">Do not publish</td>
                             <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s\\" href=\\"edit/file\\">View/Edit properties</a>
-                                <a                                 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/9/\\">Download</a>
+                                <a                                 data-action=download-9 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/9/\\">Download</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row \\">
@@ -3727,7 +3741,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             <td class=\\"govuk-table__cell\\">Redacted</td>
                             <td class=\\"govuk-table__cell\\">Unpublished</td>
                             <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s\\" href=\\"edit/file\\">View/Edit properties</a>
-                                <a                                 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/10/\\">Download</a>
+                                <a                                 data-action=download-10 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/10/\\">Download</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row \\">
@@ -3750,7 +3764,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             <td class=\\"govuk-table__cell\\">Redacted</td>
                             <td class=\\"govuk-table__cell\\">Unpublished</td>
                             <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s\\" href=\\"edit/file\\">View/Edit properties</a>
-                                <a                                 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/11/\\">Download</a>
+                                <a                                 data-action=download-11 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/11/\\">Download</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row govuk-table__row--disabled\\">
@@ -3866,7 +3880,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             <td class=\\"govuk-table__cell\\">Redacted</td>
                             <td class=\\"govuk-table__cell\\">Checked</td>
                             <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s\\" href=\\"edit/file\\">View/Edit properties</a>
-                                <a                                 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/16/\\">Download</a>
+                                <a                                 data-action=download-16 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/16/\\">Download</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row \\">
@@ -3890,7 +3904,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             <td class=\\"govuk-table__cell\\">Redacted</td>
                             <td class=\\"govuk-table__cell\\">Unchecked</td>
                             <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s\\" href=\\"edit/file\\">View/Edit properties</a>
-                                <a                                 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/17/\\">Download</a>
+                                <a                                 data-action=download-17 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/17/\\">Download</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row \\">
@@ -3913,7 +3927,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             <td class=\\"govuk-table__cell\\">Redacted</td>
                             <td class=\\"govuk-table__cell\\">Unchecked</td>
                             <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s\\" href=\\"edit/file\\">View/Edit properties</a>
-                                <a                                 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/18/\\">Download</a>
+                                <a                                 data-action=download-18 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/18/\\">Download</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row \\">
@@ -3936,7 +3950,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             <td class=\\"govuk-table__cell\\">Redacted</td>
                             <td class=\\"govuk-table__cell\\">Ready to publish</td>
                             <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s\\" href=\\"edit/file\\">View/Edit properties</a>
-                                <a                                 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/19/\\">Download</a>
+                                <a                                 data-action=download-19 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/19/\\">Download</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row \\">
@@ -3959,7 +3973,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             <td class=\\"govuk-table__cell\\">Redacted</td>
                             <td class=\\"govuk-table__cell\\">Do not publish</td>
                             <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s\\" href=\\"edit/file\\">View/Edit properties</a>
-                                <a                                 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/20/\\">Download</a>
+                                <a                                 data-action=download-20 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/20/\\">Download</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row \\">
@@ -3982,7 +3996,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             <td class=\\"govuk-table__cell\\">Redacted</td>
                             <td class=\\"govuk-table__cell\\">Do not publish</td>
                             <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s\\" href=\\"edit/file\\">View/Edit properties</a>
-                                <a                                 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/21/\\">Download</a>
+                                <a                                 data-action=download-21 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/21/\\">Download</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row \\">
@@ -4005,7 +4019,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             <td class=\\"govuk-table__cell\\">Redacted</td>
                             <td class=\\"govuk-table__cell\\">Unpublished</td>
                             <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s\\" href=\\"edit/file\\">View/Edit properties</a>
-                                <a                                 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/22/\\">Download</a>
+                                <a                                 data-action=download-22 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/22/\\">Download</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row \\">
@@ -4028,7 +4042,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             <td class=\\"govuk-table__cell\\">Redacted</td>
                             <td class=\\"govuk-table__cell\\">Unpublished</td>
                             <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s\\" href=\\"edit/file\\">View/Edit properties</a>
-                                <a                                 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/23/\\">Download</a>
+                                <a                                 data-action=download-23 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/23/\\">Download</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row govuk-table__row--disabled\\">
@@ -4121,7 +4135,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             <td class=\\"govuk-table__cell\\">Redacted</td>
                             <td class=\\"govuk-table__cell\\">Checked</td>
                             <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s\\" href=\\"edit/file\\">View/Edit properties</a>
-                                <a                                 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/27/\\">Download</a>
+                                <a                                 data-action=download-27 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/27/\\">Download</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row \\">
@@ -4145,7 +4159,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             <td class=\\"govuk-table__cell\\">Redacted</td>
                             <td class=\\"govuk-table__cell\\">Unchecked</td>
                             <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s\\" href=\\"edit/file\\">View/Edit properties</a>
-                                <a                                 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/28/\\">Download</a>
+                                <a                                 data-action=download-28 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/28/\\">Download</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row \\">
@@ -4169,7 +4183,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             <td class=\\"govuk-table__cell\\">Redacted</td>
                             <td class=\\"govuk-table__cell\\">Unchecked</td>
                             <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s\\" href=\\"edit/file\\">View/Edit properties</a>
-                                <a                                 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/29/\\">Download</a>
+                                <a                                 data-action=download-29 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/29/\\">Download</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row \\">
@@ -4192,7 +4206,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             <td class=\\"govuk-table__cell\\">Redacted</td>
                             <td class=\\"govuk-table__cell\\">Ready to publish</td>
                             <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s\\" href=\\"edit/file\\">View/Edit properties</a>
-                                <a                                 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/30/\\">Download</a>
+                                <a                                 data-action=download-30 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/30/\\">Download</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row \\">
@@ -4215,7 +4229,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             <td class=\\"govuk-table__cell\\">Redacted</td>
                             <td class=\\"govuk-table__cell\\">Ready to publish</td>
                             <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s\\" href=\\"edit/file\\">View/Edit properties</a>
-                                <a                                 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/31/\\">Download</a>
+                                <a                                 data-action=download-31 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/31/\\">Download</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row \\">
@@ -4238,7 +4252,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             <td class=\\"govuk-table__cell\\">Redacted</td>
                             <td class=\\"govuk-table__cell\\">Do not publish</td>
                             <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s\\" href=\\"edit/file\\">View/Edit properties</a>
-                                <a                                 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/32/\\">Download</a>
+                                <a                                 data-action=download-32 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/32/\\">Download</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row \\">
@@ -4261,7 +4275,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             <td class=\\"govuk-table__cell\\">Redacted</td>
                             <td class=\\"govuk-table__cell\\">Unpublished</td>
                             <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s\\" href=\\"edit/file\\">View/Edit properties</a>
-                                <a                                 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/33/\\">Download</a>
+                                <a                                 data-action=download-33 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/33/\\">Download</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row \\">
@@ -4284,7 +4298,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             <td class=\\"govuk-table__cell\\">Redacted</td>
                             <td class=\\"govuk-table__cell\\">Unpublished</td>
                             <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s\\" href=\\"edit/file\\">View/Edit properties</a>
-                                <a                                 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/34/\\">Download</a>
+                                <a                                 data-action=download-34 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/34/\\">Download</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row govuk-table__row--disabled\\">
@@ -4400,7 +4414,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             <td class=\\"govuk-table__cell\\">Redacted</td>
                             <td class=\\"govuk-table__cell\\">Checked</td>
                             <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s\\" href=\\"edit/file\\">View/Edit properties</a>
-                                <a                                 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/39/\\">Download</a>
+                                <a                                 data-action=download-39 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/39/\\">Download</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row \\">
@@ -4424,7 +4438,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             <td class=\\"govuk-table__cell\\">Redacted</td>
                             <td class=\\"govuk-table__cell\\">Checked</td>
                             <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s\\" href=\\"edit/file\\">View/Edit properties</a>
-                                <a                                 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/40/\\">Download</a>
+                                <a                                 data-action=download-40 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/40/\\">Download</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row \\">
@@ -4448,7 +4462,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             <td class=\\"govuk-table__cell\\">Redacted</td>
                             <td class=\\"govuk-table__cell\\">Unchecked</td>
                             <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s\\" href=\\"edit/file\\">View/Edit properties</a>
-                                <a                                 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/41/\\">Download</a>
+                                <a                                 data-action=download-41 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/41/\\">Download</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row \\">
@@ -4471,7 +4485,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             <td class=\\"govuk-table__cell\\">Redacted</td>
                             <td class=\\"govuk-table__cell\\">Ready to publish</td>
                             <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s\\" href=\\"edit/file\\">View/Edit properties</a>
-                                <a                                 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/42/\\">Download</a>
+                                <a                                 data-action=download-42 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/42/\\">Download</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row \\">
@@ -4494,7 +4508,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             <td class=\\"govuk-table__cell\\">Redacted</td>
                             <td class=\\"govuk-table__cell\\">Ready to publish</td>
                             <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s\\" href=\\"edit/file\\">View/Edit properties</a>
-                                <a                                 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/43/\\">Download</a>
+                                <a                                 data-action=download-43 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/43/\\">Download</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row \\">
@@ -4517,7 +4531,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             <td class=\\"govuk-table__cell\\">Redacted</td>
                             <td class=\\"govuk-table__cell\\">Ready to publish</td>
                             <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s\\" href=\\"edit/file\\">View/Edit properties</a>
-                                <a                                 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/44/\\">Download</a>
+                                <a                                 data-action=download-44 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/44/\\">Download</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row \\">
@@ -4540,7 +4554,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             <td class=\\"govuk-table__cell\\">Redacted</td>
                             <td class=\\"govuk-table__cell\\">Do not publish</td>
                             <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s\\" href=\\"edit/file\\">View/Edit properties</a>
-                                <a                                 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/45/\\">Download</a>
+                                <a                                 data-action=download-45 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/45/\\">Download</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row \\">
@@ -4563,7 +4577,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             <td class=\\"govuk-table__cell\\">Redacted</td>
                             <td class=\\"govuk-table__cell\\">Unpublished</td>
                             <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s\\" href=\\"edit/file\\">View/Edit properties</a>
-                                <a                                 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/46/\\">Download</a>
+                                <a                                 data-action=download-46 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/46/\\">Download</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row \\">
@@ -4586,7 +4600,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             <td class=\\"govuk-table__cell\\">Redacted</td>
                             <td class=\\"govuk-table__cell\\">Unpublished</td>
                             <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s\\" href=\\"edit/file\\">View/Edit properties</a>
-                                <a                                 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/47/\\">Download</a>
+                                <a                                 data-action=download-47 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/47/\\">Download</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row govuk-table__row--disabled\\">
@@ -4675,6 +4689,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
             </div>
         </div>
     </div>
+    <div class=\\"top-errors-hook\\" role=\\"alert\\"></div>
     <div class=\\"govuk-grid-row govuk-!-padding-top-9 govuk-!-padding-bottom-2 govuk-!-margin-left-0 govuk-!-margin-bottom-7 pins-masthead-summary\\">
         <div class=\\"govuk-grid-column-full\\">
             <h4 class=\\"govuk-heading-m\\"> CASE/04 </h4>
@@ -4795,9 +4810,11 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                     </div>
                     <div class=\\"govuk-grid-column-one-third\\">
                         <div class=\\"pins-files-list__actions\\">
-                            <p class=\\"govuk-heading-s\\">Document actions</p><a href=\\"1\\" class=\\"govuk-link\\">Download selected</a>
-                            <a                             href=\\"2\\" class=\\"govuk-link\\">Edit properties</a><a href=\\"3\\" class=\\"govuk-link\\">Publish selected</a>
-                                <a                                 href=\\"4\\" class=\\"govuk-link\\">Unpublish selected</a><a href=\\"5\\" class=\\"govuk-link\\">Move selected</a>
+                            <p class=\\"govuk-heading-s\\">Document actions</p>
+                            <button type=\\"button\\" class=\\"govuk-link pins-files-list__button-link\\"
+                            id=\\"bulkDownload\\">Download selected</button><a href=\\"2\\" class=\\"govuk-link\\">Edit properties</a>
+                            <a                             href=\\"3\\" class=\\"govuk-link\\">Publish selected</a><a href=\\"4\\" class=\\"govuk-link\\">Unpublish selected</a>
+                                <a                                 href=\\"5\\" class=\\"govuk-link\\">Move selected</a>
                         </div>
                     </div>
                 </div>
@@ -4868,7 +4885,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             <td class=\\"govuk-table__cell\\">Redacted</td>
                             <td class=\\"govuk-table__cell\\">Unpublished</td>
                             <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s\\" href=\\"edit/file\\">View/Edit properties</a>
-                                <a                                 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/0/\\">Download</a>
+                                <a                                 data-action=download-0 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/0/\\">Download</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row govuk-table__row--disabled\\">
@@ -4961,7 +4978,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             <td class=\\"govuk-table__cell\\">Unredacted</td>
                             <td class=\\"govuk-table__cell\\">Checked</td>
                             <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s\\" href=\\"edit/file\\">View/Edit properties</a>
-                                <a                                 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/4/\\">Download</a>
+                                <a                                 data-action=download-4 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/4/\\">Download</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row \\">
@@ -4985,7 +5002,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             <td class=\\"govuk-table__cell\\">Redacted</td>
                             <td class=\\"govuk-table__cell\\">Unchecked</td>
                             <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s\\" href=\\"edit/file\\">View/Edit properties</a>
-                                <a                                 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/5/\\">Download</a>
+                                <a                                 data-action=download-5 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/5/\\">Download</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row \\">
@@ -5008,7 +5025,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             <td class=\\"govuk-table__cell\\">Unredacted</td>
                             <td class=\\"govuk-table__cell\\">Unchecked</td>
                             <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s\\" href=\\"edit/file\\">View/Edit properties</a>
-                                <a                                 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/6/\\">Download</a>
+                                <a                                 data-action=download-6 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/6/\\">Download</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row \\">
@@ -5031,7 +5048,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             <td class=\\"govuk-table__cell\\">Unredacted</td>
                             <td class=\\"govuk-table__cell\\">Unchecked</td>
                             <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s\\" href=\\"edit/file\\">View/Edit properties</a>
-                                <a                                 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/7/\\">Download</a>
+                                <a                                 data-action=download-7 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/7/\\">Download</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row \\">
@@ -5054,7 +5071,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             <td class=\\"govuk-table__cell\\">Redacted</td>
                             <td class=\\"govuk-table__cell\\">Ready to publish</td>
                             <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s\\" href=\\"edit/file\\">View/Edit properties</a>
-                                <a                                 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/8/\\">Download</a>
+                                <a                                 data-action=download-8 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/8/\\">Download</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row \\">
@@ -5077,7 +5094,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             <td class=\\"govuk-table__cell\\">Redacted</td>
                             <td class=\\"govuk-table__cell\\">Do not publish</td>
                             <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s\\" href=\\"edit/file\\">View/Edit properties</a>
-                                <a                                 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/9/\\">Download</a>
+                                <a                                 data-action=download-9 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/9/\\">Download</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row \\">
@@ -5100,7 +5117,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             <td class=\\"govuk-table__cell\\">Redacted</td>
                             <td class=\\"govuk-table__cell\\">Unpublished</td>
                             <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s\\" href=\\"edit/file\\">View/Edit properties</a>
-                                <a                                 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/10/\\">Download</a>
+                                <a                                 data-action=download-10 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/10/\\">Download</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row \\">
@@ -5123,7 +5140,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             <td class=\\"govuk-table__cell\\">Redacted</td>
                             <td class=\\"govuk-table__cell\\">Unpublished</td>
                             <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s\\" href=\\"edit/file\\">View/Edit properties</a>
-                                <a                                 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/11/\\">Download</a>
+                                <a                                 data-action=download-11 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/11/\\">Download</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row govuk-table__row--disabled\\">
@@ -5239,7 +5256,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             <td class=\\"govuk-table__cell\\">Redacted</td>
                             <td class=\\"govuk-table__cell\\">Checked</td>
                             <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s\\" href=\\"edit/file\\">View/Edit properties</a>
-                                <a                                 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/16/\\">Download</a>
+                                <a                                 data-action=download-16 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/16/\\">Download</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row \\">
@@ -5263,7 +5280,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             <td class=\\"govuk-table__cell\\">Redacted</td>
                             <td class=\\"govuk-table__cell\\">Unchecked</td>
                             <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s\\" href=\\"edit/file\\">View/Edit properties</a>
-                                <a                                 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/17/\\">Download</a>
+                                <a                                 data-action=download-17 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/17/\\">Download</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row \\">
@@ -5286,7 +5303,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             <td class=\\"govuk-table__cell\\">Redacted</td>
                             <td class=\\"govuk-table__cell\\">Unchecked</td>
                             <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s\\" href=\\"edit/file\\">View/Edit properties</a>
-                                <a                                 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/18/\\">Download</a>
+                                <a                                 data-action=download-18 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/18/\\">Download</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row \\">
@@ -5309,7 +5326,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             <td class=\\"govuk-table__cell\\">Redacted</td>
                             <td class=\\"govuk-table__cell\\">Ready to publish</td>
                             <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s\\" href=\\"edit/file\\">View/Edit properties</a>
-                                <a                                 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/19/\\">Download</a>
+                                <a                                 data-action=download-19 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/19/\\">Download</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row \\">
@@ -5332,7 +5349,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             <td class=\\"govuk-table__cell\\">Redacted</td>
                             <td class=\\"govuk-table__cell\\">Do not publish</td>
                             <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s\\" href=\\"edit/file\\">View/Edit properties</a>
-                                <a                                 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/20/\\">Download</a>
+                                <a                                 data-action=download-20 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/20/\\">Download</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row \\">
@@ -5355,7 +5372,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             <td class=\\"govuk-table__cell\\">Redacted</td>
                             <td class=\\"govuk-table__cell\\">Do not publish</td>
                             <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s\\" href=\\"edit/file\\">View/Edit properties</a>
-                                <a                                 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/21/\\">Download</a>
+                                <a                                 data-action=download-21 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/21/\\">Download</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row \\">
@@ -5378,7 +5395,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             <td class=\\"govuk-table__cell\\">Redacted</td>
                             <td class=\\"govuk-table__cell\\">Unpublished</td>
                             <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s\\" href=\\"edit/file\\">View/Edit properties</a>
-                                <a                                 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/22/\\">Download</a>
+                                <a                                 data-action=download-22 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/22/\\">Download</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row \\">
@@ -5401,7 +5418,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             <td class=\\"govuk-table__cell\\">Redacted</td>
                             <td class=\\"govuk-table__cell\\">Unpublished</td>
                             <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s\\" href=\\"edit/file\\">View/Edit properties</a>
-                                <a                                 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/23/\\">Download</a>
+                                <a                                 data-action=download-23 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/23/\\">Download</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row govuk-table__row--disabled\\">
@@ -5494,7 +5511,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             <td class=\\"govuk-table__cell\\">Redacted</td>
                             <td class=\\"govuk-table__cell\\">Checked</td>
                             <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s\\" href=\\"edit/file\\">View/Edit properties</a>
-                                <a                                 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/27/\\">Download</a>
+                                <a                                 data-action=download-27 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/27/\\">Download</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row \\">
@@ -5518,7 +5535,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             <td class=\\"govuk-table__cell\\">Redacted</td>
                             <td class=\\"govuk-table__cell\\">Unchecked</td>
                             <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s\\" href=\\"edit/file\\">View/Edit properties</a>
-                                <a                                 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/28/\\">Download</a>
+                                <a                                 data-action=download-28 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/28/\\">Download</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row \\">
@@ -5542,7 +5559,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             <td class=\\"govuk-table__cell\\">Redacted</td>
                             <td class=\\"govuk-table__cell\\">Unchecked</td>
                             <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s\\" href=\\"edit/file\\">View/Edit properties</a>
-                                <a                                 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/29/\\">Download</a>
+                                <a                                 data-action=download-29 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/29/\\">Download</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row \\">
@@ -5565,7 +5582,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             <td class=\\"govuk-table__cell\\">Redacted</td>
                             <td class=\\"govuk-table__cell\\">Ready to publish</td>
                             <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s\\" href=\\"edit/file\\">View/Edit properties</a>
-                                <a                                 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/30/\\">Download</a>
+                                <a                                 data-action=download-30 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/30/\\">Download</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row \\">
@@ -5588,7 +5605,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             <td class=\\"govuk-table__cell\\">Redacted</td>
                             <td class=\\"govuk-table__cell\\">Ready to publish</td>
                             <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s\\" href=\\"edit/file\\">View/Edit properties</a>
-                                <a                                 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/31/\\">Download</a>
+                                <a                                 data-action=download-31 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/31/\\">Download</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row \\">
@@ -5611,7 +5628,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             <td class=\\"govuk-table__cell\\">Redacted</td>
                             <td class=\\"govuk-table__cell\\">Do not publish</td>
                             <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s\\" href=\\"edit/file\\">View/Edit properties</a>
-                                <a                                 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/32/\\">Download</a>
+                                <a                                 data-action=download-32 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/32/\\">Download</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row \\">
@@ -5634,7 +5651,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             <td class=\\"govuk-table__cell\\">Redacted</td>
                             <td class=\\"govuk-table__cell\\">Unpublished</td>
                             <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s\\" href=\\"edit/file\\">View/Edit properties</a>
-                                <a                                 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/33/\\">Download</a>
+                                <a                                 data-action=download-33 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/33/\\">Download</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row \\">
@@ -5657,7 +5674,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             <td class=\\"govuk-table__cell\\">Redacted</td>
                             <td class=\\"govuk-table__cell\\">Unpublished</td>
                             <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s\\" href=\\"edit/file\\">View/Edit properties</a>
-                                <a                                 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/34/\\">Download</a>
+                                <a                                 data-action=download-34 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/34/\\">Download</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row govuk-table__row--disabled\\">
@@ -5773,7 +5790,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             <td class=\\"govuk-table__cell\\">Redacted</td>
                             <td class=\\"govuk-table__cell\\">Checked</td>
                             <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s\\" href=\\"edit/file\\">View/Edit properties</a>
-                                <a                                 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/39/\\">Download</a>
+                                <a                                 data-action=download-39 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/39/\\">Download</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row \\">
@@ -5797,7 +5814,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             <td class=\\"govuk-table__cell\\">Redacted</td>
                             <td class=\\"govuk-table__cell\\">Checked</td>
                             <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s\\" href=\\"edit/file\\">View/Edit properties</a>
-                                <a                                 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/40/\\">Download</a>
+                                <a                                 data-action=download-40 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/40/\\">Download</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row \\">
@@ -5821,7 +5838,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             <td class=\\"govuk-table__cell\\">Redacted</td>
                             <td class=\\"govuk-table__cell\\">Unchecked</td>
                             <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s\\" href=\\"edit/file\\">View/Edit properties</a>
-                                <a                                 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/41/\\">Download</a>
+                                <a                                 data-action=download-41 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/41/\\">Download</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row \\">
@@ -5844,7 +5861,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             <td class=\\"govuk-table__cell\\">Redacted</td>
                             <td class=\\"govuk-table__cell\\">Ready to publish</td>
                             <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s\\" href=\\"edit/file\\">View/Edit properties</a>
-                                <a                                 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/42/\\">Download</a>
+                                <a                                 data-action=download-42 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/42/\\">Download</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row \\">
@@ -5867,7 +5884,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             <td class=\\"govuk-table__cell\\">Redacted</td>
                             <td class=\\"govuk-table__cell\\">Ready to publish</td>
                             <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s\\" href=\\"edit/file\\">View/Edit properties</a>
-                                <a                                 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/43/\\">Download</a>
+                                <a                                 data-action=download-43 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/43/\\">Download</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row \\">
@@ -5890,7 +5907,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             <td class=\\"govuk-table__cell\\">Redacted</td>
                             <td class=\\"govuk-table__cell\\">Ready to publish</td>
                             <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s\\" href=\\"edit/file\\">View/Edit properties</a>
-                                <a                                 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/44/\\">Download</a>
+                                <a                                 data-action=download-44 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/44/\\">Download</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row \\">
@@ -5913,7 +5930,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             <td class=\\"govuk-table__cell\\">Redacted</td>
                             <td class=\\"govuk-table__cell\\">Do not publish</td>
                             <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s\\" href=\\"edit/file\\">View/Edit properties</a>
-                                <a                                 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/45/\\">Download</a>
+                                <a                                 data-action=download-45 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/45/\\">Download</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row \\">
@@ -5936,7 +5953,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             <td class=\\"govuk-table__cell\\">Redacted</td>
                             <td class=\\"govuk-table__cell\\">Unpublished</td>
                             <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s\\" href=\\"edit/file\\">View/Edit properties</a>
-                                <a                                 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/46/\\">Download</a>
+                                <a                                 data-action=download-46 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/46/\\">Download</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row \\">
@@ -5959,7 +5976,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             <td class=\\"govuk-table__cell\\">Redacted</td>
                             <td class=\\"govuk-table__cell\\">Unpublished</td>
                             <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s\\" href=\\"edit/file\\">View/Edit properties</a>
-                                <a                                 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/47/\\">Download</a>
+                                <a                                 data-action=download-47 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/47/\\">Download</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row govuk-table__row--disabled\\">
@@ -6034,6 +6051,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
 
 exports[`applications documentation GET /case/123/project-documentation should render the page 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <div class=\\"top-errors-hook\\" role=\\"alert\\"></div>
     <div class=\\"govuk-grid-row govuk-!-padding-top-9 govuk-!-padding-bottom-2 govuk-!-margin-left-0 govuk-!-margin-bottom-7 pins-masthead-summary\\">
         <div class=\\"govuk-grid-column-full\\">
             <h4 class=\\"govuk-heading-m\\"> CASE/04 </h4>

@@ -66,8 +66,8 @@ export function viewHomepage(request, response, next) {
 			case config.referenceData.applications.caseAdminOfficerGroupId:
 				return response.redirect('/applications-service/case-admin-officer');
 
-			case config.referenceData.applications.caseOfficerGroupId:
-				return response.redirect('/applications-service/case-officer');
+			case config.referenceData.applications.caseTeamGroupId:
+				return response.redirect('/applications-service/case-team');
 
 			case config.referenceData.applications.inspectorGroupId:
 				return response.redirect('/applications-service/inspector');
