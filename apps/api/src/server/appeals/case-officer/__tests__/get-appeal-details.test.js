@@ -1,4 +1,3 @@
-import test from 'ava';
 import sinon from 'sinon';
 import supertest from 'supertest';
 import { app } from '../../../app.js';
@@ -142,43 +141,45 @@ const listOfDocuments = [
 	}
 ];
 
-test.before('sets up mocking of database', () => {
-	sinon.stub(databaseConnector, 'appeal').get(() => {
-		return { findUnique: findUniqueStub };
+describe('Getting appeal details', () => {
+	beforeAll(() => {
+		sinon.stub(databaseConnector, 'appeal').get(() => {
+			return { findUnique: findUniqueStub };
+		});
 	});
-});
 
-test('gets the appeals detailed information with received questionnaires', async (t) => {
-	const resp = await request.get('/appeals/case-officer/1');
-	const appealExampleDetail = {
-		AppealId: 1,
-		AppealReference: appeal1.reference,
-		LocalPlanningDepartment: appeal1.localPlanningDepartment,
-		PlanningApplicationreference: appeal1.planningApplicationReference,
-		AppealSite: {
-			...(appeal1.address.addressLine1 && { AddressLine1: appeal1.address.addressLine1 }),
-			...(appeal1.address.addressLine2 && { AddressLine2: appeal1.address.addressLine2 }),
-			...(appeal1.address.town && { Town: appeal1.address.town }),
-			...(appeal1.address.county && { County: appeal1.address.county }),
-			PostCode: appeal1.address.postcode
-		},
-		AppealSiteNearConservationArea: false,
-		WouldDevelopmentAffectSettingOfListedBuilding: false,
-		ListedBuildingDesc: '',
-		Documents: listOfDocuments
-	};
+	test('gets the appeals detailed information with received questionnaires', async () => {
+		const resp = await request.get('/appeals/case-officer/1');
+		const appealExampleDetail = {
+			AppealId: 1,
+			AppealReference: appeal1.reference,
+			LocalPlanningDepartment: appeal1.localPlanningDepartment,
+			PlanningApplicationreference: appeal1.planningApplicationReference,
+			AppealSite: {
+				...(appeal1.address.addressLine1 && { AddressLine1: appeal1.address.addressLine1 }),
+				...(appeal1.address.addressLine2 && { AddressLine2: appeal1.address.addressLine2 }),
+				...(appeal1.address.town && { Town: appeal1.address.town }),
+				...(appeal1.address.county && { County: appeal1.address.county }),
+				PostCode: appeal1.address.postcode
+			},
+			AppealSiteNearConservationArea: false,
+			WouldDevelopmentAffectSettingOfListedBuilding: false,
+			ListedBuildingDesc: '',
+			Documents: listOfDocuments
+		};
 
-	t.is(resp.status, 200);
-	t.deepEqual(resp.body, appealExampleDetail);
-});
+		expect(resp.status).toEqual(200);
+		expect(resp.body).toEqual(appealExampleDetail);
+	});
 
-test('unable to retrieve details for an appeal which has yet to receive the questionnaire', async (t) => {
-	const resp = await request.get('/appeals/case-officer/2');
+	test('unable to retrieve details for an appeal which has yet to receive the questionnaire', async () => {
+		const resp = await request.get('/appeals/case-officer/2');
 
-	t.is(resp.status, 409);
-	t.deepEqual(resp.body, {
-		errors: {
-			appeal: 'Appeal is in an invalid state'
-		}
+		expect(resp.status).toEqual(409);
+		expect(resp.body).toEqual({
+			errors: {
+				appeal: 'Appeal is in an invalid state'
+			}
+		});
 	});
 });

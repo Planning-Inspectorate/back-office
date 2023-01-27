@@ -1,11 +1,9 @@
-import test from 'ava';
 import got from 'got';
 import sinon from 'sinon';
 import supertest from 'supertest';
 import { app } from '../../../app.js';
 
 const request = supertest(app);
-const getStub = sinon.stub();
 
 const fakeGet = {
 	body: {
@@ -24,24 +22,34 @@ const fakeGet = {
 	}
 };
 
-test.serial('gets all LPAs from external API', async (t) => {
-	sinon.stub(got, 'get').callsFake(getStub);
-	getStub.returns(fakeGet);
+describe('Get LPA list', () => {
+	describe('runs first', () => {
+		test('gets all LPAs from external API', async () => {
+			const getStub = sinon.stub();
 
-	const resp = await request.get('/appeals/validation/lpa-list');
+			sinon.stub(got, 'get').callsFake(getStub);
+			getStub.returns(fakeGet);
 
-	t.is(resp.status, 200);
-	t.deepEqual(resp.body, ['first LPA', 'second LPA']);
-	got.get.restore();
-});
+			const resp = await request.get('/appeals/validation/lpa-list');
 
-test.serial('returns 500 if unable to get list of LPAs', async (t) => {
-	sinon.stub(got, 'get').callsFake(getStub);
-	getStub.throws(new Error('Unable to get data'));
+			expect(resp.status).toEqual(200);
+			expect(resp.body).toEqual(['first LPA', 'second LPA']);
 
-	const resp = await request.get('/appeals/validation/lpa-list');
+			got.get.restore();
+		});
+	});
 
-	t.is(resp.status, 500);
-	t.deepEqual(resp.body, { errors: 'Unable to get data' });
-	got.get.restore();
+	describe('runs second', () => {
+		test('returns 500 if unable to get list of LPAs', async () => {
+			const getStub = sinon.stub();
+
+			sinon.stub(got, 'get').callsFake(getStub);
+			getStub.throws(new Error('Unable to get data'));
+
+			const resp = await request.get('/appeals/validation/lpa-list');
+
+			expect(resp.status).toEqual(500);
+			expect(resp.body).toEqual({ errors: 'Unable to get data' });
+		});
+	});
 });

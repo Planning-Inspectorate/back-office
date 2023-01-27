@@ -1,4 +1,3 @@
-import test from 'ava';
 import sinon from 'sinon';
 import { transitionState } from '../../../utils/transition-state.js';
 import inspectorActionsService from '../inspector.actions.js';
@@ -7,36 +6,6 @@ import lpaQuestionnaireActionsService from '../lpa-questionnaire-actions.service
 const lpaQuestionnaireStub = sinon.stub();
 const inspectorSendBookingStub = sinon.stub();
 const notifyAppellantOfDecisionStub = sinon.stub();
-
-test.before('sets up mocking of actions', () => {
-	sinon
-		.stub(lpaQuestionnaireActionsService, 'sendLpaQuestionnaire')
-		.callsFake(lpaQuestionnaireStub);
-	sinon
-		.stub(inspectorActionsService, 'sendEmailToAppellantWithSiteVisitBooking')
-		.callsFake(inspectorSendBookingStub);
-	sinon
-		.stub(inspectorActionsService, 'sendEmailToLPAAndAppellantWithDeciion')
-		.callsFake(notifyAppellantOfDecisionStub);
-});
-
-/**
- * @param {any} t
- * @param {{initialState: string, action: string, expectedState: string, context: object, hasChanged: boolean}} args
- */
-function applyAction(t, { initialState, action, expectedState, context, hasChanged }) {
-	inspectorSendBookingStub.resetHistory();
-
-	const nextState = transitionState({
-		caseType: 'full planning',
-		context,
-		status: initialState,
-		machineAction: action
-	});
-
-	t.deepEqual(nextState.value, expectedState);
-	t.is(nextState.changed, hasChanged);
-}
 
 const buildCompoundState = (
 	lpaQuestionnaireAndInspectorPickupState,
@@ -50,14 +19,7 @@ const buildCompoundState = (
 	};
 };
 
-applyAction.title = (providedTitle, { initialState, action, expectedState, context, hasChanged }) =>
-	`Full Planning Appeal State Machine: ${providedTitle}: from state [${JSON.stringify(
-		initialState
-	)}]
-	with context ${JSON.stringify(context)} action [${action}] produces state
-	[${JSON.stringify(expectedState)}] ${hasChanged ? '' : ' without'} having transitioned`;
-
-for (const parameter of [
+const transitions = [
 	['received_appeal', 'INVALID', 'invalid_appeal', { appealId: 1 }, true],
 	[
 		'received_appeal',
@@ -76,9 +38,9 @@ for (const parameter of [
 		{ appealId: 1 },
 		true
 	],
-	['invalid_appeal', 'INVALID', 'invalid_appeal', { appealId: 1 }],
-	['invalid_appeal', 'INFO_MISSING', 'invalid_appeal', { appealId: 1 }],
-	['invalid_appeal', 'VALID', 'invalid_appeal', { appealId: 1 }],
+	['invalid_appeal', 'INVALID', 'invalid_appeal', { appealId: 1 }, undefined],
+	['invalid_appeal', 'INFO_MISSING', 'invalid_appeal', { appealId: 1 }, undefined],
+	['invalid_appeal', 'VALID', 'invalid_appeal', { appealId: 1 }, undefined],
 	[
 		buildCompoundState('awaiting_lpa_questionnaire', 'available_for_statements'),
 		'INVALID',
@@ -217,12 +179,35 @@ for (const parameter of [
 	],
 	['site_visit_booked', 'BOOKING_PASSED', 'decision_due', { appealId: 1 }, true],
 	['decision_due', 'DECIDE', 'appeal_decided', { appealId: 1, decision: 'allowed' }, true]
-]) {
-	test(applyAction, {
-		initialState: parameter[0],
-		action: parameter[1],
-		expectedState: parameter[2],
-		context: parameter[3],
-		hasChanged: parameter[4]
+];
+
+describe('Full Planning Appeal', () => {
+	beforeAll(() => {
+		sinon
+			.stub(lpaQuestionnaireActionsService, 'sendLpaQuestionnaire')
+			.callsFake(lpaQuestionnaireStub);
+		sinon
+			.stub(inspectorActionsService, 'sendEmailToAppellantWithSiteVisitBooking')
+			.callsFake(inspectorSendBookingStub);
+		sinon
+			.stub(inspectorActionsService, 'sendEmailToLPAAndAppellantWithDeciion')
+			.callsFake(notifyAppellantOfDecisionStub);
 	});
-}
+
+	test.each(transitions)(
+		'Full Planning Appeal State Machine: from state %O with action %O ' +
+			'produces state %O with context %O and has changed: %O',
+		(initialState, action, expectedState, context, hasChanged) => {
+			const nextState = transitionState({
+				caseType: 'full planning',
+				context,
+				status: initialState,
+				machineAction: action,
+				throwError: false
+			});
+
+			expect(nextState.value).toEqual(expectedState);
+			expect(nextState.changed).toEqual(hasChanged);
+		}
+	);
+});

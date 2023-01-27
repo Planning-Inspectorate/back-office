@@ -1,4 +1,3 @@
-import test from 'ava';
 import sinon from 'sinon';
 import supertest from 'supertest';
 import { app } from '../../../app.js';
@@ -32,54 +31,56 @@ const appeal25 = {
 
 const findManyStub = sinon.stub().returns([appeal25]);
 
-test.before('sets up mocking of database', () => {
-	sinon.stub(databaseConnector, 'appeal').get(() => {
-		return { findMany: findManyStub };
+describe('Get more apeals', () => {
+	beforeAll(() => {
+		sinon.stub(databaseConnector, 'appeal').get(() => {
+			return { findMany: findManyStub };
+		});
 	});
-});
 
-test('gets all appeals yet to be assigned to inspector', async (t) => {
-	sinon.useFakeTimers({ now: 1_649_319_144_000 });
+	test('gets all appeals yet to be assigned to inspector', async () => {
+		sinon.useFakeTimers({ now: 1_649_319_144_000 });
 
-	const resp = await request.get('/appeals/inspector/more-appeals');
+		const resp = await request.get('/appeals/inspector/more-appeals');
 
-	t.is(resp.status, 200);
-	t.deepEqual(resp.body, [
-		{
-			appealId: 25,
-			reference: 'APP/Q9999/D/21/5463281',
-			address: {
-				addressLine1: '56 Vincent Square',
-				county: 'London',
-				postCode: 'SW1P 2NE'
+		expect(resp.status).toEqual(200);
+		expect(resp.body).toEqual([
+			{
+				appealId: 25,
+				reference: 'APP/Q9999/D/21/5463281',
+				address: {
+					addressLine1: '56 Vincent Square',
+					county: 'London',
+					postCode: 'SW1P 2NE'
+				},
+				appealAge: 35,
+				appealType: 'HAS',
+				specialist: 'General',
+				provisionalVisitType: 'unaccompanied'
+			}
+		]);
+		sinon.assert.calledWith(findManyStub, {
+			where: {
+				appealStatus: {
+					some: {
+						status: {
+							in: ['available_for_inspector_pickup']
+						},
+						valid: true
+					}
+				}
 			},
-			appealAge: 35,
-			appealType: 'HAS',
-			specialist: 'General',
-			provisionalVisitType: 'unaccompanied'
-		}
-	]);
-	sinon.assert.calledWith(findManyStub, {
-		where: {
-			appealStatus: {
-				some: {
-					status: {
-						in: ['available_for_inspector_pickup']
-					},
-					valid: true
+			include: {
+				address: true,
+				appellant: false,
+				lpaQuestionnaire: true,
+				appealDetailsFromAppellant: true,
+				appealStatus: {
+					where: {
+						valid: true
+					}
 				}
 			}
-		},
-		include: {
-			address: true,
-			appellant: false,
-			lpaQuestionnaire: true,
-			appealDetailsFromAppellant: true,
-			appealStatus: {
-				where: {
-					valid: true
-				}
-			}
-		}
+		});
 	});
 });

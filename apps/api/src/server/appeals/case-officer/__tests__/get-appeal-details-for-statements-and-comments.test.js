@@ -1,4 +1,3 @@
-import test from 'ava';
 import sinon from 'sinon';
 import supertest from 'supertest';
 import { app } from '../../../app.js';
@@ -56,36 +55,38 @@ findUniqueStub
 	.withArgs({ where: { id: 2 }, include: includingDetailsForValidtion })
 	.returns(appeal2);
 
-test.before('sets up mocking of database', () => {
-	sinon.stub(databaseConnector, 'appeal').get(() => {
-		return { findUnique: findUniqueStub };
+describe('Getting appeal details for statements and comments', () => {
+	beforeAll(() => {
+		sinon.stub(databaseConnector, 'appeal').get(() => {
+			return { findUnique: findUniqueStub };
+		});
 	});
-});
 
-test('returns details for appeal awaiting statements', async (t) => {
-	const resp = await request.get('/appeals/case-officer/1/statements-comments');
+	test('returns details for appeal awaiting statements', async () => {
+		const resp = await request.get('/appeals/case-officer/1/statements-comments');
 
-	t.is(resp.status, 200);
-	t.deepEqual(resp.body, {
-		AppealId: 1,
-		AppealReference: appeal1.reference,
-		AppealSite: formatAddress(appeal1.address),
-		LocalPlanningDepartment: appeal1.localPlanningDepartment,
-		acceptingStatements: true,
-		acceptingFinalComments: false
+		expect(resp.status).toEqual(200);
+		expect(resp.body).toEqual({
+			AppealId: 1,
+			AppealReference: appeal1.reference,
+			AppealSite: formatAddress(appeal1.address),
+			LocalPlanningDepartment: appeal1.localPlanningDepartment,
+			acceptingStatements: true,
+			acceptingFinalComments: false
+		});
 	});
-});
 
-test('returns details for appeal awaiting final comments', async (t) => {
-	const resp = await request.get('/appeals/case-officer/2/statements-comments');
+	test('returns details for appeal awaiting final comments', async () => {
+		const resp = await request.get('/appeals/case-officer/2/statements-comments');
 
-	t.is(resp.status, 200);
-	t.deepEqual(resp.body, {
-		AppealId: 2,
-		AppealReference: appeal2.reference,
-		AppealSite: formatAddress(appeal2.address),
-		LocalPlanningDepartment: appeal2.localPlanningDepartment,
-		acceptingStatements: false,
-		acceptingFinalComments: true
+		expect(resp.status).toEqual(200);
+		expect(resp.body).toEqual({
+			AppealId: 2,
+			AppealReference: appeal2.reference,
+			AppealSite: formatAddress(appeal2.address),
+			LocalPlanningDepartment: appeal2.localPlanningDepartment,
+			acceptingStatements: false,
+			acceptingFinalComments: true
+		});
 	});
 });

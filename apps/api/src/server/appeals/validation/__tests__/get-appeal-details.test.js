@@ -1,4 +1,3 @@
-import test from 'ava';
 import sinon from 'sinon';
 import supertest from 'supertest';
 import { app } from '../../../app.js';
@@ -188,104 +187,106 @@ const documentsArray = [
 	}
 ];
 
-test.before('sets up mocking of database', () => {
-	sinon.stub(databaseConnector, 'appeal').get(() => {
-		return { findUnique: getAppealByIdStub };
+describe('Get Appeal Details', () => {
+	beforeAll(() => {
+		sinon.stub(databaseConnector, 'appeal').get(() => {
+			return { findUnique: getAppealByIdStub };
+		});
 	});
-});
 
-test('gets appeal that requires validation', async (t) => {
-	const resp = await request.get('/appeals/validation/1');
-	const appealReviewInfo = {
-		AppealId: 1,
-		AppealReference: 'APP/Q9999/D/21/1345264',
-		AppellantName: 'Lee Thornton',
-		AppealStatus: 'new',
-		Received: '23 Feb 2022',
-		AppealSite: {
-			AddressLine1: 'line 1',
-			AddressLine2: 'line 2',
-			Town: 'town',
-			County: 'county',
-			PostCode: 'post code'
-		},
-		LocalPlanningDepartment: 'Maidstone Borough Council',
-		PlanningApplicationReference: '48269/APP/2021/1482',
-		Documents: documentsArray
-	};
+	test('gets appeal that requires validation', async () => {
+		const resp = await request.get('/appeals/validation/1');
+		const appealReviewInfo = {
+			AppealId: 1,
+			AppealReference: 'APP/Q9999/D/21/1345264',
+			AppellantName: 'Lee Thornton',
+			AppealStatus: 'new',
+			Received: '23 Feb 2022',
+			AppealSite: {
+				AddressLine1: 'line 1',
+				AddressLine2: 'line 2',
+				Town: 'town',
+				County: 'county',
+				PostCode: 'post code'
+			},
+			LocalPlanningDepartment: 'Maidstone Borough Council',
+			PlanningApplicationReference: '48269/APP/2021/1482',
+			Documents: documentsArray
+		};
 
-	t.is(resp.status, 200);
-	t.deepEqual(resp.body, appealReviewInfo);
-});
-
-test('throws 409 when appeal does not require validation', async (t) => {
-	const resp = await request.get('/appeals/validation/3');
-
-	t.is(resp.status, 409);
-	t.deepEqual(resp.body, {
-		errors: {
-			appeal: 'Appeal is in an invalid state'
-		}
+		expect(resp.status).toEqual(200);
+		expect(resp.body).toEqual(appealReviewInfo);
 	});
-});
 
-test("returns appeal with all reasons why it is in 'incomplete' state", async (t) => {
-	const resp = await request.get('/appeals/validation/2');
-	const appealReviewInfo = {
-		AppealId: 2,
-		AppealReference: 'APP/Q9999/D/21/1224115',
-		AppellantName: 'Kevin Fowler',
-		AppealStatus: 'incomplete',
-		Received: '23 Feb 2022',
-		AppealSite: {
-			AddressLine1: '1 Grove Cottage',
-			AddressLine2: 'Shotesham Road',
-			Town: 'Woodton',
-			PostCode: 'NR35 2ND'
-		},
-		LocalPlanningDepartment: 'Waveney District Council',
-		PlanningApplicationReference: '18543/APP/2021/6627',
-		Documents: documentsArray,
-		reasons: {
-			inflammatoryComments: true,
-			missingApplicationForm: true,
-			missingDecisionNotice: true,
-			missingGroundsForAppeal: true,
-			missingSupportingDocuments: true,
-			namesDoNotMatch: true,
-			openedInError: true,
-			otherReasons: 'Some other weird reason',
-			sensitiveInfo: true,
-			wrongAppealTypeUsed: true
-		}
-	};
+	test('throws 409 when appeal does not require validation', async () => {
+		const resp = await request.get('/appeals/validation/3');
 
-	t.is(resp.status, 200);
-	t.deepEqual(resp.body, appealReviewInfo);
-});
+		expect(resp.status).toEqual(409);
+		expect(resp.body).toEqual({
+			errors: {
+				appeal: 'Appeal is in an invalid state'
+			}
+		});
+	});
 
-test("returns appeal with one reason why it is in 'incomplete' state", async (t) => {
-	const resp = await request.get('/appeals/validation/4');
-	const appealReviewInfo = {
-		AppealId: 4,
-		AppealReference: 'APP/Q9999/D/21/1224115',
-		AppellantName: 'Kevin Fowler',
-		AppealStatus: 'incomplete',
-		Received: '23 Feb 2022',
-		AppealSite: {
-			AddressLine1: '1 Grove Cottage',
-			AddressLine2: 'Shotesham Road',
-			Town: 'Woodton',
-			PostCode: 'NR35 2ND'
-		},
-		LocalPlanningDepartment: 'Waveney District Council',
-		PlanningApplicationReference: '18543/APP/2021/6627',
-		Documents: documentsArray,
-		reasons: {
-			inflammatoryComments: true
-		}
-	};
+	test("returns appeal with all reasons why it is in 'incomplete' state", async () => {
+		const resp = await request.get('/appeals/validation/2');
+		const appealReviewInfo = {
+			AppealId: 2,
+			AppealReference: 'APP/Q9999/D/21/1224115',
+			AppellantName: 'Kevin Fowler',
+			AppealStatus: 'incomplete',
+			Received: '23 Feb 2022',
+			AppealSite: {
+				AddressLine1: '1 Grove Cottage',
+				AddressLine2: 'Shotesham Road',
+				Town: 'Woodton',
+				PostCode: 'NR35 2ND'
+			},
+			LocalPlanningDepartment: 'Waveney District Council',
+			PlanningApplicationReference: '18543/APP/2021/6627',
+			Documents: documentsArray,
+			reasons: {
+				inflammatoryComments: true,
+				missingApplicationForm: true,
+				missingDecisionNotice: true,
+				missingGroundsForAppeal: true,
+				missingSupportingDocuments: true,
+				namesDoNotMatch: true,
+				openedInError: true,
+				otherReasons: 'Some other weird reason',
+				sensitiveInfo: true,
+				wrongAppealTypeUsed: true
+			}
+		};
 
-	t.is(resp.status, 200);
-	t.deepEqual(resp.body, appealReviewInfo);
+		expect(resp.status).toEqual(200);
+		expect(resp.body).toEqual(appealReviewInfo);
+	});
+
+	test("returns appeal with one reason why it is in 'incomplete' state", async () => {
+		const resp = await request.get('/appeals/validation/4');
+		const appealReviewInfo = {
+			AppealId: 4,
+			AppealReference: 'APP/Q9999/D/21/1224115',
+			AppellantName: 'Kevin Fowler',
+			AppealStatus: 'incomplete',
+			Received: '23 Feb 2022',
+			AppealSite: {
+				AddressLine1: '1 Grove Cottage',
+				AddressLine2: 'Shotesham Road',
+				Town: 'Woodton',
+				PostCode: 'NR35 2ND'
+			},
+			LocalPlanningDepartment: 'Waveney District Council',
+			PlanningApplicationReference: '18543/APP/2021/6627',
+			Documents: documentsArray,
+			reasons: {
+				inflammatoryComments: true
+			}
+		};
+
+		expect(resp.status).toEqual(200);
+		expect(resp.body).toEqual(appealReviewInfo);
+	});
 });

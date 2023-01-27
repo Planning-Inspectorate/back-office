@@ -1,4 +1,3 @@
-import test from 'ava';
 import path from 'node:path';
 import * as url from 'node:url';
 import sinon from 'sinon';
@@ -42,39 +41,41 @@ const findUniqueStub = sinon.stub();
 findUniqueStub.withArgs({ where: { id: 1 }, include: inclusions }).returns(appeal1);
 findUniqueStub.withArgs({ where: { id: 2 }, include: inclusions }).returns(appeal2);
 
-test.before('sets up mocks', () => {
-	sinon.stub(databaseConnector, 'appeal').get(() => {
-		return { findUnique: findUniqueStub };
+describe('Upload statement', () => {
+	beforeAll(() => {
+		sinon.stub(databaseConnector, 'appeal').get(() => {
+			return { findUnique: findUniqueStub };
+		});
 	});
-});
 
-test('Throws error if appeal is not accepting statements', async (t) => {
-	const response = await request
-		.post('/appeals/case-officer/1/statement')
-		.attach('statements', pathToFile)
-		.attach('statements', pathToFile);
+	test('Throws error if appeal is not accepting statements', async () => {
+		const response = await request
+			.post('/appeals/case-officer/1/statement')
+			.attach('statements', pathToFile)
+			.attach('statements', pathToFile);
 
-	t.is(response.status, 409);
-	t.deepEqual(response.body, { errors: { appeal: 'Appeal is in an invalid state' } });
-});
+		expect(response.status).toEqual(409);
+		expect(response.body).toEqual({ errors: { appeal: 'Appeal is in an invalid state' } });
+	});
 
-test('Throws error if no file provided', async (t) => {
-	const response = await request.post('/appeals/case-officer/2/statement');
+	test('Throws error if no file provided', async () => {
+		const response = await request.post('/appeals/case-officer/2/statement');
 
-	t.is(response.status, 400);
-	t.deepEqual(response.body, { errors: { statements: 'Select a file' } });
-});
+		expect(response.status).toEqual(400);
+		expect(response.body).toEqual({ errors: { statements: 'Select a file' } });
+	});
 
-test('Returns 200 if successfully uploaded statement', async (t) => {
-	const response = await request
-		.post('/appeals/case-officer/2/statement')
-		.attach('statements', pathToFile)
-		.attach('statements', pathToFile);
+	test('Returns 200 if successfully uploaded statement', async () => {
+		const response = await request
+			.post('/appeals/case-officer/2/statement')
+			.attach('statements', pathToFile)
+			.attach('statements', pathToFile);
 
-	t.is(response.status, 200);
-	t.deepEqual(response.body, {
-		AppealId: 2,
-		AppealReference: appeal2.reference,
-		canUploadStatementsUntil: '08 March 2022'
+		expect(response.status).toEqual(200);
+		expect(response.body).toEqual({
+			AppealId: 2,
+			AppealReference: appeal2.reference,
+			canUploadStatementsUntil: '08 March 2022'
+		});
 	});
 });

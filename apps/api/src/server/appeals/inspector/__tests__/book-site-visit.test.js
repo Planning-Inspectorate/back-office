@@ -1,7 +1,4 @@
-// @ts-check
-
 import { yesterday } from '@pins/platform';
-import test from 'ava';
 import format from 'date-fns/format/index.js';
 import sinon, { assert } from 'sinon';
 import supertest from 'supertest';
@@ -57,129 +54,137 @@ getByIdStub.withArgs(2).returns(invalidAppeal);
 sinon.stub(appealRepository, 'getById').callsFake(getByIdStub);
 sinon.stub(appealRepository, 'updateStatusAndDataById').callsFake(updateStatusAndDataByIdStub);
 
-test.beforeEach(() => {
-	getByIdStub.resetHistory();
-});
-
-test('succeeds with a 200 when booking a site visit', async (t) => {
-	const response = await request.post('/appeals/inspector/1/book').set('userId', '1').send(siteVisitBody);
-
-	t.is(response.status, 200);
-	t.deepEqual(response.body, {
-		appealAge: 0,
-		appealId: 1,
-		appealReceivedDate: '01 January 2022',
-		bookedSiteVisit: {
-			visitDate: '01 January 2030',
-			visitSlot: '8am to 10am',
-			visitType: 'accompanied'
-		},
-		localPlanningDepartment: originalAppeal.localPlanningDepartment,
-		planningApplicationReference: originalAppeal.planningApplicationReference,
-		reference: originalAppeal.reference,
-		status: 'booked'
+describe('Book site visit', () => {
+	beforeEach(() => {
+		getByIdStub.resetHistory();
 	});
 
-	assert.calledWith(updateStatusAndDataByIdStub, 1, 'site_visit_booked', {
-		siteVisit: {
-			create: {
-				visitDate: new Date(2030, 0, 1),
+	test('succeeds with a 200 when booking a site visit', async () => {
+		const response = await request
+			.post('/appeals/inspector/1/book')
+			.set('userId', '1')
+			.send(siteVisitBody);
+
+		expect(response.status).toEqual(200);
+		expect(response.body).toEqual({
+			appealAge: 0,
+			appealId: 1,
+			appealReceivedDate: '01 January 2022',
+			bookedSiteVisit: {
+				visitDate: '01 January 2030',
 				visitSlot: '8am to 10am',
 				visitType: 'accompanied'
+			},
+			localPlanningDepartment: originalAppeal.localPlanningDepartment,
+			planningApplicationReference: originalAppeal.planningApplicationReference,
+			reference: originalAppeal.reference,
+			status: 'booked'
+		});
+
+		assert.calledWith(updateStatusAndDataByIdStub, 1, 'site_visit_booked', {
+			siteVisit: {
+				create: {
+					visitDate: new Date(2030, 0, 1),
+					visitSlot: '8am to 10am',
+					visitType: 'accompanied'
+				}
 			}
-		}
+		});
+		assert.calledWith(getByIdStub, 1, { siteVisit: true });
 	});
-	assert.calledWith(getByIdStub, 1, { siteVisit: true });
-});
 
-test('fails with a 401 status when no `userId` is present', async (t) => {
-	const response = await request.post('/appeals/inspector/1/book').send(siteVisitBody);
+	test('fails with a 401 status when no `userId` is present', async () => {
+		const response = await request.post('/appeals/inspector/1/book').send(siteVisitBody);
 
-	t.is(response.status, 401);
-	t.deepEqual(response.body, {
-		errors: {
-			userid: 'Authentication error. Missing header `userId`.'
-		}
+		expect(response.status).toEqual(401);
+		expect(response.body).toEqual({
+			errors: {
+				userid: 'Authentication error. Missing header `userId`.'
+			}
+		});
 	});
-});
 
-test('fails with a 403 status when the `userId` is different from the appeal user', async (t) => {
-	const response = await request.post('/appeals/inspector/1/book').set('userId', '101').send(siteVisitBody);
+	test('fails with a 403 status when the `userId` is different from the appeal user', async () => {
+		const response = await request
+			.post('/appeals/inspector/1/book')
+			.set('userId', '101')
+			.send(siteVisitBody);
 
-	t.is(response.status, 403);
-	t.deepEqual(response.body, {
-		errors: {
-			userid: 'User is not permitted to perform this action.'
-		}
+		expect(response.status).toEqual(403);
+		expect(response.body).toEqual({
+			errors: {
+				userid: 'User is not permitted to perform this action.'
+			}
+		});
 	});
-});
 
-test('fails with a 400 status when an invalid `siteVisitDate` is present', async (t) => {
-	const response = await request
-		.post('/appeals/inspector/1/book')
-		.set('userId', '1')
-		.send({ ...siteVisitBody, siteVisitDate: '*' });
+	test('fails with a 400 status when an invalid `siteVisitDate` is present', async () => {
+		const response = await request
+			.post('/appeals/inspector/1/book')
+			.set('userId', '1')
+			.send({ ...siteVisitBody, siteVisitDate: '*' });
 
-	t.is(response.status, 400);
-	t.deepEqual(response.body, {
-		errors: {
-			siteVisitDate: 'Enter a site visit date'
-		}
+		expect(response.status).toEqual(400);
+		expect(response.body).toEqual({
+			errors: {
+				siteVisitDate: 'Enter a site visit date'
+			}
+		});
 	});
-});
 
-test('fails with a 400 status when  a `siteVisitDate` is in an incorrect format', async (t) => {
-	const response = await request
-		.post('/appeals/inspector/1/book')
-		.set('userId', '1')
-		.send({ ...siteVisitBody, siteVisitDate: '01-01-2030' });
+	test('fails with a 400 status when  a `siteVisitDate` is in an incorrect format', async () => {
+		const response = await request
+			.post('/appeals/inspector/1/book')
+			.set('userId', '1')
+			.send({ ...siteVisitBody, siteVisitDate: '01-01-2030' });
 
-	t.is(response.status, 400);
-	t.deepEqual(response.body, {
-		errors: {
-			siteVisitDate: 'Enter a site visit date'
-		}
+		expect(response.status).toEqual(400);
+		expect(response.body).toEqual({
+			errors: {
+				siteVisitDate: 'Enter a site visit date'
+			}
+		});
 	});
-});
 
-test('fails with a 400 status when a `siteVisitDate` is in the past', async (t) => {
-	const response = await request
-		.post('/appeals/inspector/1/book')
-		.set('userId', '1')
-		.send({ ...siteVisitBody, siteVisitDate: format(yesterday(), 'yyyy-MM-dd') });
+	test('fails with a 400 status when a `siteVisitDate` is in the past', async () => {
+		const response = await request
+			.post('/appeals/inspector/1/book')
+			.set('userId', '1')
+			.send({ ...siteVisitBody, siteVisitDate: format(yesterday(), 'yyyy-MM-dd') });
 
-	t.is(response.status, 400);
-	t.deepEqual(response.body, {
-		errors: {
-			siteVisitDate: 'Site visit date must be in the future'
-		}
+		expect(response.status).toEqual(400);
+		expect(response.body).toEqual({
+			errors: {
+				siteVisitDate: 'Site visit date must be in the future'
+			}
+		});
 	});
-});
 
-test('fails with a 400 status when an invalid `siteVisitTimeSlot` is present', async (t) => {
-	const response = await request
-		.post('/appeals/inspector/1/book')
-		.set('userId', '1')
-		.send({ ...siteVisitBody, siteVisitTimeSlot: '*' });
+	test('fails with a 400 status when an invalid `siteVisitTimeSlot` is present', async () => {
+		const response = await request
+			.post('/appeals/inspector/1/book')
+			.set('userId', '1')
+			.send({ ...siteVisitBody, siteVisitTimeSlot: '*' });
 
-	t.is(response.status, 400);
-	t.deepEqual(response.body, {
-		errors: {
-			siteVisitTimeSlot: 'Select a valid time slot'
-		}
+		expect(response.status).toEqual(400);
+		expect(response.body).toEqual({
+			errors: {
+				siteVisitTimeSlot: 'Select a valid time slot'
+			}
+		});
 	});
-});
 
-test('fails with a 400 status when an invalid `siteVisitType` is present', async (t) => {
-	const response = await request
-		.post('/appeals/inspector/1/book')
-		.set('userId', '1')
-		.send({ ...siteVisitBody, siteVisitType: '*' });
+	test('fails with a 400 status when an invalid `siteVisitType` is present', async () => {
+		const response = await request
+			.post('/appeals/inspector/1/book')
+			.set('userId', '1')
+			.send({ ...siteVisitBody, siteVisitType: '*' });
 
-	t.is(response.status, 400);
-	t.deepEqual(response.body, {
-		errors: {
-			siteVisitType: 'Select a type of site visit'
-		}
+		expect(response.status).toEqual(400);
+		expect(response.body).toEqual({
+			errors: {
+				siteVisitType: 'Select a type of site visit'
+			}
+		});
 	});
 });

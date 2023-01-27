@@ -1,4 +1,3 @@
-import test from 'ava';
 import sinon from 'sinon';
 import supertest from 'supertest';
 import { app } from '../../../app.js';
@@ -47,37 +46,39 @@ const appeal2 = {
 	}
 };
 
-test('gets all new and incomplete validation appeals', async (t) => {
-	sinon.stub(databaseConnector, 'appeal').get(() => {
-		return { findMany: sinon.stub().returns([appeal1, appeal2]) };
+describe('Get appeals', () => {
+	test('gets all new and incomplete validation appeals', async () => {
+		sinon.stub(databaseConnector, 'appeal').get(() => {
+			return { findMany: sinon.stub().returns([appeal1, appeal2]) };
+		});
+
+		const resp = await request.get('/appeals/validation');
+
+		const validationLineNew = {
+			AppealId: 1,
+			AppealReference: 'APP/Q9999/D/21/1345264',
+			AppealStatus: 'new',
+			Received: '23 Feb 2022',
+			AppealSite: {
+				AddressLine1: '96 The Avenue',
+				Town: 'Maidstone',
+				County: 'Kent',
+				PostCode: 'MD21 5XY'
+			}
+		};
+		const validationLineIncomplete = {
+			AppealId: 2,
+			AppealReference: 'APP/Q9999/D/21/5463281',
+			AppealStatus: 'incomplete',
+			Received: '25 Feb 2022',
+			AppealSite: {
+				AddressLine1: '55 Butcher Street',
+				Town: 'Thurnscoe',
+				PostCode: 'S63 0RB'
+			}
+		};
+
+		expect(resp.status).toEqual(200);
+		expect(resp.body).toEqual([validationLineNew, validationLineIncomplete]);
 	});
-
-	const resp = await request.get('/appeals/validation');
-
-	const validationLineNew = {
-		AppealId: 1,
-		AppealReference: 'APP/Q9999/D/21/1345264',
-		AppealStatus: 'new',
-		Received: '23 Feb 2022',
-		AppealSite: {
-			AddressLine1: '96 The Avenue',
-			Town: 'Maidstone',
-			County: 'Kent',
-			PostCode: 'MD21 5XY'
-		}
-	};
-	const validationLineIncomplete = {
-		AppealId: 2,
-		AppealReference: 'APP/Q9999/D/21/5463281',
-		AppealStatus: 'incomplete',
-		Received: '25 Feb 2022',
-		AppealSite: {
-			AddressLine1: '55 Butcher Street',
-			Town: 'Thurnscoe',
-			PostCode: 'S63 0RB'
-		}
-	};
-
-	t.is(resp.status, 200);
-	t.deepEqual(resp.body, [validationLineNew, validationLineIncomplete]);
 });
