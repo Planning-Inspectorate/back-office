@@ -1,5 +1,6 @@
 import Ajv from 'ajv';
 import addFormats from 'ajv-formats';
+import test from 'ava';
 import { readFileSync } from 'node:fs';
 
 const ajv = new Ajv();
@@ -17,3 +18,7 @@ export const validate = ajv.compile(nsipProjectSchema);
 export const validateNsipProject = (/** @type {any} */ payload) => {
 	return validate(JSON.parse(JSON.stringify(payload)));
 };
+
+test('Make it run', (t) => {
+	t.pass();
+});
