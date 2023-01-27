@@ -5,6 +5,7 @@ import supertest from 'supertest';
 import { app } from '../../../app.js';
 import { eventClient } from '../../../infrastructure/event-client.js';
 import { databaseConnector } from '../../../utils/database-connector.js';
+import { validateNsipProject } from './schemas-test-utils.js';
 
 const request = supertest(app);
 
@@ -16,18 +17,18 @@ const expectedEventPayload = {
 	customers: [
 		{
 			id: 2,
-			customerType: 'Applicant'
+			customerType: 'applicant'
 		},
 		{
 			id: 3,
-			customerType: 'Applicant'
+			customerType: 'applicant'
 		}
 	],
 	inspectors: [],
 	sourceSystem: 'ODT',
 	status: [],
 	type: {
-		code: 'Application'
+		code: 'application'
 	},
 	validationOfficers: []
 };
@@ -138,6 +139,7 @@ test('update-application updates application with just title and first notified 
 		}
 	});
 
+	t.deepEqual(validateNsipProject(stubbedSendEvents.getCall(0).args[1][0]), true);
 	sinon.assert.calledWith(stubbedSendEvents, 'nsip-project', [expectedEventPayload]);
 });
 
@@ -173,6 +175,7 @@ test('update-application updates application with just easting and sub-sector na
 		}
 	});
 
+	t.deepEqual(validateNsipProject(stubbedSendEvents.getCall(1).args[1][0]), true);
 	sinon.assert.calledWith(stubbedSendEvents, 'nsip-project', [expectedEventPayload]);
 });
 
@@ -310,10 +313,11 @@ test('update-application updates application when all possible details provided'
 		}
 	});
 
+	t.deepEqual(validateNsipProject(stubbedSendEvents.getCall(2).args[1][0]), true);
 	sinon.assert.calledWith(stubbedSendEvents, 'nsip-project', [expectedEventPayload]);
 });
 
-test(`updates application with new applicant using first and last name,
+test(`update-application with new applicant using first and last name,
         address line, map zoom level`, async (t) => {
 	findUniqueStub.returns({ id: 1, serviceCustomer: [{ id: 2 }, { id: 3 }] });
 
@@ -361,6 +365,7 @@ test(`updates application with new applicant using first and last name,
 		}
 	});
 
+	t.deepEqual(validateNsipProject(stubbedSendEvents.getCall(3).args[1][0]), true);
 	sinon.assert.calledWith(stubbedSendEvents, 'nsip-project', [expectedEventPayload]);
 });
 
@@ -405,8 +410,6 @@ test('update-application returns error if any validated values are invalid', asy
 			subSectorName: 'Must be existing sub-sector'
 		}
 	});
-
-	sinon.assert.calledWith(stubbedSendEvents, 'nsip-project', [expectedEventPayload]);
 });
 
 test('update-application throws error if unknown application id provided', async (t) => {

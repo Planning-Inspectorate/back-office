@@ -242,7 +242,7 @@
 				},
 				"customerType": {
 					"type": "string",
-					"enum": ["Applicant"]
+					"enum": ["applicant"]
 				},
 				"name": {
 					"title": "Name",
