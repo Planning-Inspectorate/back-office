@@ -303,7 +303,7 @@ exports[`applications create Name and description GET /create-new-case When role
 </main>"
 `;
 
-exports[`applications create Name and description GET /create-new-case When role is: Case officer should render form 1`] = `
+exports[`applications create Name and description GET /create-new-case When role is: Case team should render form 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <h1 class=\\"govuk-heading-l\\"> Enter name and description</h1>
     <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
@@ -808,19 +808,6 @@ exports[`applications create Regions POST /create-new-case/:caseId/regions Web-v
             </div>
         </div>
     </form>
-</main>"
-`;
-
-exports[`applications create Sector GET /create-new-case/:caseId/sector When caseId is: Not provided should NOT render the page 1`] = `
-"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
-    <div class=\\"govuk-grid-row\\">
-        <div class=\\"govuk-grid-column-two-thirds\\">
-            <h1 class=\\"govuk-heading-xl\\">Sorry, there is a problem with your login</h1>
-            <p class=\\"govuk-body\\">You are not permitted to access this URL.</p>
-            <p class=\\"govuk-body\\"><a href=\\"https://has-appeal.herokuapp.com/help/contact\\" class=\\"govuk-link\\">Contact the Planning Inspectorate Customer Support</a> if
-                the problem persists.</p>
-        </div>
-    </div>
 </main>"
 `;
 

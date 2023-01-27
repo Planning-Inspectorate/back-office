@@ -3,6 +3,7 @@ import { Router as createRouter } from 'express';
 import { installAuthMock } from '../../../testing/app/mocks/auth.js';
 import appealsRouter from '../appeals/appeals.router.js';
 import applicationsRouter from '../applications/applications.router.js';
+import asyncRoute from '../lib/async-route.js';
 import { handleHeathCheck, viewHomepage, viewUnauthenticatedError } from './app.controller.js';
 import { handleSignout } from './auth/auth.controller.js';
 import { assertIsAuthenticated } from './auth/auth.guards.js';
@@ -32,7 +33,7 @@ if (!config.authDisabled) {
 }
 
 router.route('/').get(viewHomepage);
-router.route('/auth/signout').get(handleSignout);
+router.route('/auth/signout').get(asyncRoute(handleSignout));
 router.route('/documents/:caseId/upload').post(postDocumentsUpload);
 router.route('/documents/:caseId/download/:guid/:preview?').get(getDocumentsDownload);
 router.use('/appeals-service', appealsRouter);

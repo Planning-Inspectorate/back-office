@@ -206,6 +206,7 @@ exports[`Applications case pages Preview and publish page POST /case/123/preview
 
 exports[`Applications case pages Preview and publish page POST /case/123/preview-and-publish When domainType is not inspector if the case is already published, should go the 2nd-time success banner page 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <div class=\\"top-errors-hook\\" role=\\"alert\\"></div>
     <div class=\\"govuk-grid-row govuk-!-padding-top-9 govuk-!-padding-bottom-2 govuk-!-margin-left-0 govuk-!-margin-bottom-7 pins-masthead-summary\\">
         <div class=\\"govuk-grid-column-full\\">
             <h4 class=\\"govuk-heading-m\\"> CASE/07 </h4>
@@ -382,6 +383,7 @@ exports[`Applications case pages Preview and publish page POST /case/123/preview
 
 exports[`Applications case pages Preview and publish page POST /case/123/preview-and-publish When domainType is not inspector if the case is not published yet, should go the first-time success banner page 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <div class=\\"top-errors-hook\\" role=\\"alert\\"></div>
     <div class=\\"govuk-grid-row govuk-!-padding-top-9 govuk-!-padding-bottom-2 govuk-!-margin-left-0 govuk-!-margin-bottom-7 pins-masthead-summary\\">
         <div class=\\"govuk-grid-column-full\\">
             <h4 class=\\"govuk-heading-m\\"> CASE/04 </h4>
@@ -556,6 +558,7 @@ exports[`Applications case pages Preview and publish page POST /case/123/preview
 
 exports[`Applications case pages Project information page GET /case/123/project-information When domainType is inspector should show no change links or publishing links 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <div class=\\"top-errors-hook\\" role=\\"alert\\"></div>
     <div class=\\"govuk-grid-row govuk-!-padding-top-9 govuk-!-padding-bottom-2 govuk-!-margin-left-0 govuk-!-margin-bottom-7 pins-masthead-summary\\">
         <div class=\\"govuk-grid-column-full\\">
             <h4 class=\\"govuk-heading-m\\"> CASE/07 </h4>
@@ -707,6 +710,7 @@ exports[`Applications case pages Project information page GET /case/123/project-
 
 exports[`Applications case pages Project information page GET /case/123/project-information When domainType is not inspector When the case is not published should show no info about previous publishings 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <div class=\\"top-errors-hook\\" role=\\"alert\\"></div>
     <div class=\\"govuk-grid-row govuk-!-padding-top-9 govuk-!-padding-bottom-2 govuk-!-margin-left-0 govuk-!-margin-bottom-7 pins-masthead-summary\\">
         <div class=\\"govuk-grid-column-full\\">
             <h4 class=\\"govuk-heading-m\\"> CASE/04 </h4>
@@ -871,6 +875,7 @@ exports[`Applications case pages Project information page GET /case/123/project-
 
 exports[`Applications case pages Project information page GET /case/123/project-information When domainType is not inspector When the case is published with no pending changes, should show publishing info and unpublish link 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <div class=\\"top-errors-hook\\" role=\\"alert\\"></div>
     <div class=\\"govuk-grid-row govuk-!-padding-top-9 govuk-!-padding-bottom-2 govuk-!-margin-left-0 govuk-!-margin-bottom-7 pins-masthead-summary\\">
         <div class=\\"govuk-grid-column-full\\">
             <h4 class=\\"govuk-heading-m\\"> CASE/06 </h4>
@@ -1035,6 +1040,7 @@ exports[`Applications case pages Project information page GET /case/123/project-
 
 exports[`Applications case pages Project information page GET /case/123/project-information When domainType is not inspector When the case is published with pending changes, should show publishing info, unpublish link and warning about unpublished changes 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <div class=\\"top-errors-hook\\" role=\\"alert\\"></div>
     <div class=\\"govuk-grid-row govuk-!-padding-top-9 govuk-!-padding-bottom-2 govuk-!-margin-left-0 govuk-!-margin-bottom-7 pins-masthead-summary\\">
         <div class=\\"govuk-grid-column-full\\">
             <h4 class=\\"govuk-heading-m\\"> CASE/07 </h4>
@@ -1201,6 +1207,7 @@ exports[`Applications case pages Project information page GET /case/123/project-
 
 exports[`Applications case pages Project overview page GET /case/123 should render the page 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <div class=\\"top-errors-hook\\" role=\\"alert\\"></div>
     <div class=\\"govuk-grid-row govuk-!-padding-top-9 govuk-!-padding-bottom-2 govuk-!-margin-left-0 govuk-!-margin-bottom-7 pins-masthead-summary\\">
         <div class=\\"govuk-grid-column-full\\">
             <h4 class=\\"govuk-heading-m\\"> CASE/04 </h4>

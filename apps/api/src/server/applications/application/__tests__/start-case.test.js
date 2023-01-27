@@ -184,7 +184,7 @@ test('starts application if all needed information is present', async (t) => {
 		sourceSystem: 'ODT',
 		inspectors: [],
 		validationOfficers: [],
-		caseOfficers: [],
+		caseTeams: [],
 		status: [{ status: 'draft' }],
 		application: {
 			caseEmail: 'test@test.com',

@@ -15,7 +15,7 @@ const request = supertest(app);
 const successResponse = { id: 1, applicantIds: [1] };
 
 const nocks = () => {
-	nock('http://test/').get('/applications/case-officer').reply(200, {});
+	nock('http://test/').get('/applications/case-team').reply(200, {});
 	nock('http://test/').get('/applications/sector').reply(200, fixtureSectors);
 	nock('http://test/')
 		.get(/\/applications\/1(.*)/g)
@@ -29,6 +29,11 @@ const nocks = () => {
 	nock('http://test/')
 		.get(/\/applications\/3(.*)/g)
 		.reply(200, fixtureCases[2]);
+
+	nock('http://test/')
+		.get(/\/applications\/4(.*)/g)
+		.reply(200, fixtureCases[3]);
+
 	nock('http://test/')
 		.get('/applications/sector?sectorName=transport')
 		.reply(200, fixtureSubSectors);
@@ -58,9 +63,9 @@ describe('applications create', () => {
 						expect(element.innerHTML).not.toContain('Save and continue');
 					});
 				});
-				describe('Case officer', () => {
+				describe('Case team', () => {
 					it('should render form', async () => {
-						await request.get('/applications-service/case-officer');
+						await request.get('/applications-service/case-team');
 
 						const response = await request.get(baseUrl);
 						const element = parseHtml(response.text);
@@ -87,7 +92,7 @@ describe('applications create', () => {
 			const baseUrl = '/applications-service/create-new-case/1';
 
 			beforeEach(async () => {
-				await request.get('/applications-service/case-officer');
+				await request.get('/applications-service/case-team');
 				nocks();
 			});
 
@@ -100,7 +105,7 @@ describe('applications create', () => {
 			});
 
 			it('should not render the page when case is not Draft', async () => {
-				const response = await request.get('/applications-service/create-new-case/6');
+				const response = await request.get('/applications-service/create-new-case/4');
 				const element = parseHtml(response.text);
 
 				expect(element.innerHTML).toMatchSnapshot();
@@ -112,7 +117,7 @@ describe('applications create', () => {
 			const baseUrl = '/applications-service/create-new-case';
 
 			beforeEach(async () => {
-				await request.get('/applications-service/case-officer');
+				await request.get('/applications-service/case-team');
 				nocks();
 			});
 
@@ -194,7 +199,7 @@ describe('applications create', () => {
 			`/applications-service/create-new-case/${id}/sector`;
 
 		beforeEach(async () => {
-			await request.get('/applications-service/case-officer');
+			await request.get('/applications-service/case-team');
 			nocks();
 		});
 
@@ -215,17 +220,6 @@ describe('applications create', () => {
 
 						expect(element.innerHTML).toMatchSnapshot();
 						expect(element.innerHTML).not.toContain('checked');
-					});
-				});
-				describe('Not provided', () => {
-					it('should NOT render the page', async () => {
-						nock('http://test/').get('/applications/sector').reply(200, fixtureSectors);
-
-						const response = await request.get(baseUrl(''));
-						const element = parseHtml(response.text);
-
-						expect(element.innerHTML).toMatchSnapshot();
-						expect(element.innerHTML).not.toContain('govuk-radios__item');
 					});
 				});
 			});
@@ -255,7 +249,7 @@ describe('applications create', () => {
 			`/applications-service/create-new-case/${id}/sub-sector`;
 
 		beforeEach(async () => {
-			await request.get('/applications-service/case-officer');
+			await request.get('/applications-service/case-team');
 			nocks();
 		});
 
@@ -335,7 +329,7 @@ describe('applications create', () => {
 			`/applications-service/create-new-case/${id}/geographical-information`;
 
 		beforeEach(async () => {
-			await request.get('/applications-service/case-officer');
+			await request.get('/applications-service/case-team');
 			nocks();
 		});
 
@@ -452,7 +446,7 @@ describe('applications create', () => {
 			`/applications-service/create-new-case/${id}/regions`;
 
 		beforeEach(async () => {
-			await request.get('/applications-service/case-officer');
+			await request.get('/applications-service/case-team');
 			nocks();
 			nock('http://test/').get('/applications/region').reply(200, fixtureRegions);
 		});
@@ -539,7 +533,7 @@ describe('applications create', () => {
 			`/applications-service/create-new-case/${id}/zoom-level`;
 
 		beforeEach(async () => {
-			await request.get('/applications-service/case-officer');
+			await request.get('/applications-service/case-team');
 			nocks();
 			nock('http://test/').get('/applications/zoom-level').reply(200, fixtureZoomLevels);
 		});
@@ -598,7 +592,7 @@ describe('applications create', () => {
 			`/applications-service/create-new-case/${id}/team-email`;
 
 		beforeEach(async () => {
-			await request.get('/applications-service/case-officer');
+			await request.get('/applications-service/case-team');
 			nocks();
 			nock('http://test/').get('/applications/zoom-level').reply(200, fixtureZoomLevels);
 		});

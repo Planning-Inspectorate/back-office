@@ -25,6 +25,7 @@ const findManyStub = sinon.stub();
 
 findManyStub
 	.withArgs({
+		orderBy: [{ ApplicationDetails: { subSector: { abbreviation: 'asc' } } }],
 		where: {
 			CaseStatus: {
 				some: {

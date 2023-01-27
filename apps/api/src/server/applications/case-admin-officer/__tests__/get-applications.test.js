@@ -25,6 +25,7 @@ const findManyStub = sinon.stub();
 
 findManyStub
 	.withArgs({
+		orderBy: [{ ApplicationDetails: { subSector: { abbreviation: 'asc' } } }],
 		where: {
 			CaseStatus: {
 				some: {
@@ -72,10 +73,10 @@ test('gets all applications for case admin officer', async (t) => {
 	const response = await request.get('/applications/case-admin-officer');
 
 	t.is(response.status, 200);
+
 	t.deepEqual(response.body, [
 		{
 			id: 1,
-			title: 'Title',
 			modifiedDate: 1_655_298_882,
 			reference: application.reference,
 			sector: {
@@ -84,13 +85,14 @@ test('gets all applications for case admin officer', async (t) => {
 				displayNameEn: 'Sector Name En',
 				name: 'sector'
 			},
+			status: 'Pre-Application',
 			subSector: {
 				abbreviation: 'AA',
 				displayNameCy: 'Sub Sector Name Cy',
 				displayNameEn: 'Sub Sector Name En',
 				name: 'sub_sector'
 			},
-			status: 'Pre-Application'
+			title: 'Title'
 		}
 	]);
 });

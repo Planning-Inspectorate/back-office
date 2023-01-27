@@ -123,8 +123,9 @@
 								<div class="govuk-grid-column-one-third">
 									<div class="pins-files-list__actions">
 										<p class="govuk-heading-s">Document actions</p>
-										<a href="1" class="govuk-link">Download selected</a>
-										<a href="2" class="govuk-link">Edit properties</a>
+										<button type="button" class="govuk-link pins-files-list__button-link"
+												id="bulkDownload">Download selected
+										</button>
 										<a href="3" class="govuk-link">Publish selected</a>
 										<a href="4" class="govuk-link">Unpublish selected</a>
 										<a href="5" class="govuk-link">Move selected</a>
@@ -215,7 +216,7 @@
 											{{ createOptionalLink(
 												{
 													classes: 'govuk-body-s govuk-!-font-weight-bold',
-													href: documentationFile.url,
+													href: 'document-download'|url({caseId: caseId, documentGuid: documentationFile.guid, isPreviewActive: isPreviewActive}),
 													text:documentationFile.documentName
 												},
 												isPreviewActive
@@ -246,7 +247,8 @@
 											{{ createOptionalLink(
 												{
 													classes: 'govuk-body-s',
-													href: documentationFile.url,
+													data: ['download-', documentationFile.guid]|join,
+													href: 'document-download'|url({caseId: caseId, documentGuid: documentationFile.guid}),
 													text:'Download'
 												},
 												isNotDisabled
@@ -267,7 +269,8 @@
 
 {% macro createOptionalLink(params, isLink) %}
 	{% if isLink %}
-		<a class="govuk-link {{ params.classes }}" href="{{ params.href }}">{{ params.text }}</a>
+		{% set dataAction = ["data-action=", params.data]|join if params.data else "" %}
+		<a {{ dataAction }} class="govuk-link {{ params.classes }}" href="{{ params.href }}">{{ params.text }}</a>
 	{% else %}
 		<p class="{{ params.classes }}">{{ params.text }} </p>
 	{% endif %}

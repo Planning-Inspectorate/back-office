@@ -55,6 +55,7 @@ const includeAll = {
  */
 export const getByStatus = (statusArray) => {
 	return databaseConnector.case.findMany({
+		orderBy: [{ ApplicationDetails: { subSector: { abbreviation: 'asc' } } }],
 		where: {
 			CaseStatus: {
 				some: {
@@ -75,6 +76,7 @@ export const getByStatus = (statusArray) => {
 					}
 				}
 			},
+
 			CaseStatus: {
 				where: {
 					valid: true
@@ -204,17 +206,15 @@ export const createApplication = ({
 };
 
 /**
+ * Removes all regions on a case records from the regionsOnApplicationDetails table.
+ * used eg when updating regions selected on a case
  *
  * @param {number} caseId
  * @returns {import('@prisma/client').PrismaPromise<import('@pins/api').Schema.BatchPayload>}
  */
 const removeRegions = (caseId) => {
 	return databaseConnector.regionsOnApplicationDetails.deleteMany({
-		where: {
-			applicationDetails: {
-				caseId
-			}
-		}
+		where: { applicationDetailsId: caseId }
 	});
 };
 

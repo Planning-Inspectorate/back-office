@@ -13,7 +13,7 @@
  * @property {ApplicationDetails | undefined} application
  * @property {ServiceUser[]} customers - For NSIP Projects, this is the applicant
  * @property {Employee[]} validationOfficers - We're going to get this from ODW
- * @property {Employee[]} caseOfficers - We're going to get this from ODW
+ * @property {Employee[]} caseTeams - We're going to get this from ODW
  * @property {Employee[]} inspectors - We're going to get this from ODW
  * @property {Decision | undefined} decision
  * @property {string} sourceSystem - "ODT"
@@ -185,7 +185,7 @@ export const buildNsipProjectPayload = (projectEntity) => {
 		sourceSystem,
 		inspectors: [],
 		validationOfficers: [],
-		caseOfficers: [],
+		caseTeams: [],
 		status,
 		...(application && { application }),
 		customers
