@@ -23,6 +23,19 @@ const app = express();
 
 app.use(installRequestLocalsMiddleware());
 
+app.use((request, response, next) => {
+	response.setHeader('Cache-Control', 'no-cache, max-age=0');
+	response.setHeader(
+		'Permissions-Policy',
+		'accelerometer=(),ambient-light-sensor=(),autoplay=(),battery=(),camera=(),' +
+			'display-capture=(),document-domain=(),encrypted-media=(),fullscreen=(),gamepad=(),geolocation=(),gyroscope=(),' +
+			'layout-animations=(self),legacy-image-formats=(self),magnetometer=(),microphone=(),midi=(),oversized-images=(self),' +
+			'payment=(),picture-in-picture=(),publickey-credentials-get=(),speaker-selection=(),sync-xhr=(self),unoptimized-images=(self),' +
+			'unsized-media=(self),usb=(),screen-wake-lock=(),web-share=(),xr-spatial-tracking=()'
+	);
+	next();
+});
+
 // Initialize app locals
 app.locals = locals;
 
@@ -48,7 +61,10 @@ app.use(
 	helmet.contentSecurityPolicy({
 		directives: {
 			scriptSrc: ["'self'", () => `'nonce-${locals.cspNonce}'`],
-			defaultSrc: ["'self'", config.blobStorageUrl]
+			defaultSrc: ["'self'", config.blobStorageUrl],
+			'font-src': ["'self'"],
+			'img-src': ["'self'", config.blobStorageUrl],
+			'style-src': ["'self'"]
 		}
 	})
 );
