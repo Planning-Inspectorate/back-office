@@ -1,20 +1,21 @@
-import test from 'ava';
 import { isFeatureActive } from '../feature-flags.js';
 
-test('Returns flag as a boolean', (t) => {
-	const flag = typeof isFeatureActive();
+describe('Feature flags', () => {
+	test('Returns flag as a boolean', () => {
+		const flag = typeof isFeatureActive();
 
-	t.is(flag, 'boolean');
-});
+		expect(flag).toEqual('boolean');
+	});
 
-test('Returns false when no flag name passed', (t) => {
-	const flag = isFeatureActive();
+	test('Returns false when no flag name passed', () => {
+		const flag = isFeatureActive();
 
-	t.is(flag, false);
-});
+		expect(flag).toEqual(false);
+	});
 
-test('Returns false when no flag set in the .env file or in the config', (t) => {
-	const flag = isFeatureActive('featureFlagBOAS2SomeFeatrue');
+	test('Returns false when no flag set in the .env file or in the config', () => {
+		const flag = isFeatureActive('featureFlagBOAS2SomeFeatrue');
 
-	t.is(flag, false);
+		expect(flag).toEqual(false);
+	});
 });

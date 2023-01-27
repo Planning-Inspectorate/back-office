@@ -1,14 +1,15 @@
-import test from 'ava';
 import daysBetweenDates from '../days-between-dates.js';
 
-test('returns 1 between date at end of day and next day at start of day', (t) => {
-	const days = daysBetweenDates(new Date(2022, 3, 6, 22), new Date(2022, 3, 7, 2));
+describe('days between dates', () => {
+	test('returns 1 between date at end of day and next day at start of day', () => {
+		const days = daysBetweenDates(new Date(2022, 3, 6, 22), new Date(2022, 3, 7, 2));
 
-	t.is(days, 1);
-});
+		expect(days).toEqual(1);
+	});
 
-test('returns 0 when two dates on the same day', (t) => {
-	const days = daysBetweenDates(new Date(2022, 3, 5, 3), new Date(2022, 3, 5, 20));
+	test('returns 0 when two dates on the same day', () => {
+		const days = daysBetweenDates(new Date(2022, 3, 5, 3), new Date(2022, 3, 5, 20));
 
-	t.is(days, 0);
+		expect(days).toEqual(0);
+	});
 });

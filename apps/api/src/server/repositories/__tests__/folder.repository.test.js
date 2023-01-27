@@ -1,4 +1,3 @@
-import test from 'ava';
 import sinon from 'sinon';
 import { databaseConnector } from '../../utils/database-connector.js';
 import * as folderRepository from '../folder.repository.js';
@@ -54,38 +53,40 @@ findManyStub.withArgs({ where: { caseId: 5 } }).returns(folderPath);
 
 findUniqueStub.withArgs({ where: { id: 15 } }).returns(singleFolder);
 
-test.before('sets up database connection mock', () => {
-	sinon.stub(databaseConnector, 'folder').get(() => {
-		return { findMany: findManyStub, findUnique: findUniqueStub };
+describe('Folder repository', () => {
+	beforeAll(() => {
+		sinon.stub(databaseConnector, 'folder').get(() => {
+			return { findMany: findManyStub, findUnique: findUniqueStub };
+		});
 	});
-});
 
-test('finds all top level folders when case has folders attached', async (t) => {
-	const folders = await folderRepository.getByCaseId(1, null);
+	test('finds all top level folders when case has folders attached', async () => {
+		const folders = await folderRepository.getByCaseId(1, null);
 
-	t.deepEqual(folders, existingTopLevelFolders);
-});
+		expect(folders).toEqual(existingTopLevelFolders);
+	});
 
-test('finds all folders in a sub folder', async (t) => {
-	const folders = await folderRepository.getByCaseId(2, 14);
+	test('finds all folders in a sub folder', async () => {
+		const folders = await folderRepository.getByCaseId(2, 14);
 
-	t.deepEqual(folders, existingSubFolders);
-});
+		expect(folders).toEqual(existingSubFolders);
+	});
 
-test('finds no folders when case has no folders attached', async (t) => {
-	const folders = await folderRepository.getByCaseId(3, null);
+	test('finds no folders when case has no folders attached', async () => {
+		const folders = await folderRepository.getByCaseId(3, null);
 
-	t.deepEqual(folders, []);
-});
+		expect(folders).toEqual([]);
+	});
 
-test('finds a single folder', async (t) => {
-	const folders = await folderRepository.getById(15);
+	test('finds a single folder', async () => {
+		const folders = await folderRepository.getById(15);
 
-	t.deepEqual(folders, singleFolder);
-});
+		expect(folders).toEqual(singleFolder);
+	});
 
-test('gets folder path', async (t) => {
-	const folders = await folderRepository.getFolderPath(5, 2);
+	test('gets folder path', async () => {
+		const folders = await folderRepository.getFolderPath(5, 2);
 
-	t.deepEqual(folders, folderPath);
+		expect(folders).toEqual(folderPath);
+	});
 });
