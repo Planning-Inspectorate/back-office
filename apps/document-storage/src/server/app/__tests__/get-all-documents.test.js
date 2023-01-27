@@ -1,5 +1,4 @@
 import { BlobServiceClient } from '@azure/storage-blob';
-import test from 'ava';
 import sinon from 'sinon';
 import supertest from 'supertest';
 import app from '../../app.js';
@@ -24,73 +23,79 @@ const blobServiceClientFromConnectionString = {
 	})
 };
 
-test.afterEach.always(() => {
-	try {
-		BlobServiceClient.fromConnectionString.restore();
-	} catch {
-		// empty
-	}
-});
+describe('Get all documents', () => {
+	describe('gets all files associated with appeal id', () => {
+		test('gets all files associated with appeal id', async () => {
+			sinon
+				.stub(BlobServiceClient, 'fromConnectionString')
+				.returns(blobServiceClientFromConnectionString);
 
-test.serial('gets all files associated with appeal id', async (t) => {
-	sinon
-		.stub(BlobServiceClient, 'fromConnectionString')
-		.returns(blobServiceClientFromConnectionString);
+			const resp = await request.get('/').query({ type: 'appeal', id: 1 });
 
-	const resp = await request.get('/').query({ type: 'appeal', id: 1 });
-
-	t.is(resp.status, 200);
-	t.deepEqual(resp.body, [
-		{
-			name: '036075328008901675-simple.pdf',
-			metadata: { fileType: 'test' }
-		},
-		{
-			name: '35481621312046846-simple.pdf'
-		}
-	]);
-});
-
-test.serial('returns error if error thrown', async (t) => {
-	sinon.stub(BlobServiceClient, 'fromConnectionString').throws();
-
-	const resp = await request.get('/').query({ type: 'appeal', id: 1 });
-
-	t.is(resp.status, 500);
-	t.deepEqual(resp.body, { errors: 'Oops! Something went wrong' });
-});
-
-test.serial('throws error if no type or id provided', async (t) => {
-	const resp = await request.get('/');
-
-	t.is(resp.status, 400);
-	t.deepEqual(resp.body, {
-		errors: {
-			type: 'Select a valid type',
-			id: 'Provide appeal/application id'
-		}
+			expect(resp.status).toEqual(200);
+			expect(resp.body).toEqual([
+				{
+					name: '036075328008901675-simple.pdf',
+					metadata: { fileType: 'test' }
+				},
+				{
+					name: '35481621312046846-simple.pdf'
+				}
+			]);
+			BlobServiceClient.fromConnectionString.restore();
+		});
 	});
-});
 
-test.serial('throws error if unfamiliar type provided', async (t) => {
-	const resp = await request.get('/').query({ type: 'test' });
+	describe('returns error if error throws', () => {
+		test('returns error if error thrown', async () => {
+			sinon.stub(BlobServiceClient, 'fromConnectionString').throws();
 
-	t.is(resp.status, 400);
-	t.deepEqual(resp.body, {
-		errors: {
-			type: 'Select a valid type',
-			id: 'Provide appeal/application id'
-		}
+			const resp = await request.get('/').query({ type: 'appeal', id: 1 });
+
+			expect(resp.status).toEqual(500);
+			expect(resp.body).toEqual({ errors: 'Oops! Something went wrong' });
+			BlobServiceClient.fromConnectionString.restore();
+		});
 	});
-});
 
-test.serial('throws error if non numeric id provided', async (t) => {
-	const resp = await request.get('/').query({ type: 'application', id: 'test' });
+	describe('throws error if no type or id provided', () => {
+		test('throws error if no type or id provided', async () => {
+			const resp = await request.get('/');
 
-	t.is(resp.status, 400);
-	t.deepEqual(resp.body, {
-		errors: {
-			id: 'Provide appeal/application id'
-		}
+			expect(resp.status).toEqual(400);
+			expect(resp.body).toEqual({
+				errors: {
+					type: 'Select a valid type',
+					id: 'Provide appeal/application id'
+				}
+			});
+		});
+	});
+
+	describe('throws error if unfamiliar type provided', () => {
+		test('throws error if unfamiliar type provided', async () => {
+			const resp = await request.get('/').query({ type: 'test' });
+
+			expect(resp.status).toEqual(400);
+			expect(resp.body).toEqual({
+				errors: {
+					type: 'Select a valid type',
+					id: 'Provide appeal/application id'
+				}
+			});
+		});
+	});
+
+	describe('throws error if non numeric id provided', () => {
+		test('throws error if non numeric id provided', async () => {
+			const resp = await request.get('/').query({ type: 'application', id: 'test' });
+
+			expect(resp.status).toEqual(400);
+			expect(resp.body).toEqual({
+				errors: {
+					id: 'Provide appeal/application id'
+				}
+			});
+		});
 	});
 });

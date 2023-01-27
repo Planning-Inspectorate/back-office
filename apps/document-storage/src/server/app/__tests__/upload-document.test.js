@@ -1,5 +1,4 @@
 import { BlobServiceClient } from '@azure/storage-blob';
-import test from 'ava';
 import path from 'node:path';
 import * as url from 'node:url';
 import sinon from 'sinon';
@@ -10,94 +9,92 @@ const request = supertest(app);
 const dirname = url.fileURLToPath(new URL('.', import.meta.url));
 const pathToFile = path.join(dirname, './assets/simple.pdf');
 
-test.afterEach.always(() => {
-	try {
-		BlobServiceClient.fromConnectionString.restore();
-	} catch {
-		// empty
-	}
-});
+describe('Upload document', () => {
+	test('uploads document', async () => {
+		const uploadStreamStub = sinon.stub();
 
-test.serial('uploads document', async (t) => {
-	const uploadStreamStub = sinon.stub();
-
-	sinon.stub(BlobServiceClient, 'fromConnectionString').returns({
-		getContainerClient: sinon.stub().returns({
-			getBlockBlobClient: sinon.stub().returns({
-				uploadStream: uploadStreamStub
+		sinon.stub(BlobServiceClient, 'fromConnectionString').returns({
+			getContainerClient: sinon.stub().returns({
+				getBlockBlobClient: sinon.stub().returns({
+					uploadStream: uploadStreamStub
+				})
 			})
-		})
+		});
+
+		const resp = await request
+			.post('/')
+			.attach('file', pathToFile)
+			.field('documentType', 'application')
+			.field('type', 'appeal')
+			.field('id', 1);
+
+		expect(resp.status).toEqual(200);
+		expect(resp.body).toEqual({ message: 'File uploaded to Azure Blob storage.' });
+
+		let bufferSize;
+		let maxConcurrency;
+
+		sinon.assert.calledWith(uploadStreamStub, sinon.match.any, bufferSize, maxConcurrency, {
+			blobHTTPHeaders: {
+				blobContentType: 'application/json',
+				blobContentMD5: Uint8Array.from('487f7b22f68312d2c1bbc93b1aea445b')
+			},
+			metadata: { documentType: 'application' }
+		});
+
+		BlobServiceClient.fromConnectionString.restore();
 	});
 
-	const resp = await request
-		.post('/')
-		.attach('file', pathToFile)
-		.field('documentType', 'application')
-		.field('type', 'appeal')
-		.field('id', 1);
+	test('thows error if no file is provided', async () => {
+		const resp = await request
+			.post('/')
+			.field('documentType', 'application')
+			.field('type', 'appeal')
+			.field('id', 1);
 
-	t.is(resp.status, 200);
-	t.deepEqual(resp.body, { message: 'File uploaded to Azure Blob storage.' });
-
-	let bufferSize;
-	let maxConcurrency;
-
-	sinon.assert.calledWith(uploadStreamStub, sinon.match.any, bufferSize, maxConcurrency, {
-		blobHTTPHeaders: {
-			blobContentType: 'application/json',
-			blobContentMD5: Uint8Array.from('487f7b22f68312d2c1bbc93b1aea445b')
-		},
-		metadata: { documentType: 'application' }
+		expect(resp.status).toEqual(400);
+		expect(resp.body).toEqual({ errors: { file: 'Select a file' } });
 	});
-});
 
-test.serial('thows error if no file is provided', async (t) => {
-	const resp = await request
-		.post('/')
-		.field('documentType', 'application')
-		.field('type', 'appeal')
-		.field('id', 1);
+	test('returns error if error thrown', async () => {
+		sinon.stub(BlobServiceClient, 'fromConnectionString').throws();
 
-	t.is(resp.status, 400);
-	t.deepEqual(resp.body, { errors: { file: 'Select a file' } });
-});
+		const resp = await request
+			.post('/')
+			.attach('file', pathToFile)
+			.field('documentType', 'application')
+			.field('type', 'appeal')
+			.field('id', 1);
 
-test.serial('returns error if error thrown', async (t) => {
-	sinon.stub(BlobServiceClient, 'fromConnectionString').throws();
+		expect(resp.status).toEqual(500);
+		expect(resp.body).toEqual({ errors: 'Oops! Something went wrong' });
 
-	const resp = await request
-		.post('/')
-		.attach('file', pathToFile)
-		.field('documentType', 'application')
-		.field('type', 'appeal')
-		.field('id', 1);
+		BlobServiceClient.fromConnectionString.restore();
+	});
 
-	t.is(resp.status, 500);
-	t.deepEqual(resp.body, { errors: 'Oops! Something went wrong' });
-});
+	test('thows error if no document type provided', async () => {
+		const resp = await request
+			.post('/')
+			.attach('file', pathToFile)
+			.field('type', 'appeal')
+			.field('id', 1);
 
-test.serial('thows error if no document type provided', async (t) => {
-	const resp = await request
-		.post('/')
-		.attach('file', pathToFile)
-		.field('type', 'appeal')
-		.field('id', 1);
+		expect(resp.status).toEqual(400);
+		expect(resp.body).toEqual({ errors: { documentType: 'Select a valid document type' } });
+	});
 
-	t.is(resp.status, 400);
-	t.deepEqual(resp.body, { errors: { documentType: 'Select a valid document type' } });
-});
+	test('thows error if type and id provided', async () => {
+		const resp = await request
+			.post('/')
+			.attach('file', pathToFile)
+			.field('documentType', 'application');
 
-test.serial('thows error if type and id provided', async (t) => {
-	const resp = await request
-		.post('/')
-		.attach('file', pathToFile)
-		.field('documentType', 'application');
-
-	t.is(resp.status, 400);
-	t.deepEqual(resp.body, {
-		errors: {
-			id: 'Provide appeal/application id',
-			type: 'Select a valid type'
-		}
+		expect(resp.status).toEqual(400);
+		expect(resp.body).toEqual({
+			errors: {
+				id: 'Provide appeal/application id',
+				type: 'Select a valid type'
+			}
+		});
 	});
 });
