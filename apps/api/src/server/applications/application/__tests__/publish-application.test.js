@@ -1,4 +1,3 @@
-import test from 'ava';
 import sinon from 'sinon';
 import supertest from 'supertest';
 import { app } from '../../../app.js';
@@ -24,57 +23,59 @@ findUniqueStub.withArgs({ where: { id: 1 } }).returns({ id: 1, publishedAt: mock
 
 const loggerInfo = sinon.stub(logger, 'info');
 
-test.before('set up timer  mock before all tests', () => {
-	sinon.useFakeTimers({ now: 1_649_319_144_000 });
-});
-
-test.beforeEach('set up db mocks before each tests', () => {
-	sinon.stub(databaseConnector, 'case').get(() => {
-		return { update: updateStub, findUnique: findUniqueStub };
+describe('Publish application', () => {
+	beforeAll(() => {
+		sinon.useFakeTimers({ now: 1_649_319_144_000 });
 	});
 
-	updateStub.resolves({
-		publishedAt: mockDate
-	});
-});
+	beforeEach(() => {
+		sinon.stub(databaseConnector, 'case').get(() => {
+			return { update: updateStub, findUnique: findUniqueStub };
+		});
 
-test('publish an application and return published Date as a timestamp', async (t) => {
-	const caseId = 1;
-
-	const response = await request.patch(`/applications/${caseId}/publish`);
-
-	t.is(response.status, 200);
-
-	const publishedDate = 1_649_319_144;
-
-	sinon.assert.callCount(loggerInfo, 3);
-
-	sinon.assert.calledWithExactly(loggerInfo, `attempting to publish a case with id ${caseId}`);
-	sinon.assert.calledWithExactly(loggerInfo, `case was published at ${mockDate}`);
-	sinon.assert.calledWithExactly(loggerInfo, `successfully published case with id ${caseId}`);
-
-	t.deepEqual(response.body, {
-		publishedDate
-	});
-
-	sinon.assert.calledWith(updateStub, {
-		where: { id: caseId },
-		data: {
+		updateStub.resolves({
 			publishedAt: mockDate
-		}
+		});
 	});
-});
 
-test('returns 404 error if a caseId does not exist', async (t) => {
-	const caseId = 134;
+	test('publish an application and return published Date as a timestamp', async () => {
+		const caseId = 1;
 
-	const response = await request.patch(`/applications/${caseId}/publish`);
+		const response = await request.patch(`/applications/${caseId}/publish`);
 
-	t.is(response.status, 404);
+		expect(response.status).toEqual(200);
 
-	t.deepEqual(response.body, {
-		errors: {
-			id: 'Must be an existing application'
-		}
+		const publishedDate = 1_649_319_144;
+
+		sinon.assert.callCount(loggerInfo, 3);
+
+		sinon.assert.calledWithExactly(loggerInfo, `attempting to publish a case with id ${caseId}`);
+		sinon.assert.calledWithExactly(loggerInfo, `case was published at ${mockDate}`);
+		sinon.assert.calledWithExactly(loggerInfo, `successfully published case with id ${caseId}`);
+
+		expect(response.body).toEqual({
+			publishedDate
+		});
+
+		sinon.assert.calledWith(updateStub, {
+			where: { id: caseId },
+			data: {
+				publishedAt: mockDate
+			}
+		});
+	});
+
+	test('returns 404 error if a caseId does not exist', async () => {
+		const caseId = 134;
+
+		const response = await request.patch(`/applications/${caseId}/publish`);
+
+		expect(response.status).toEqual(404);
+
+		expect(response.body).toEqual({
+			errors: {
+				id: 'Must be an existing application'
+			}
+		});
 	});
 });

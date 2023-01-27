@@ -1,4 +1,3 @@
-import test from 'ava';
 import sinon from 'sinon';
 import supertest from 'supertest';
 import { app } from '../../../app.js';
@@ -13,6 +12,7 @@ const notFoundSearchString = 'BCDEF';
 const application = applicationFactoryForTests({
 	title: searchString,
 	id: 3,
+	description: 'test',
 	caseStatus: 'draft',
 	dates: { modifiedAt: new Date(1_655_298_882_000) },
 	inclusions: {
@@ -152,177 +152,167 @@ const expectedSearchParameters = (skip, take, query) => {
 	};
 };
 
-test.before('set up stubs', () => {
-	sinon.stub(databaseConnector, 'case').get(() => {
-		return {
-			findMany: findManyStub,
-			count: countStub
-		};
-	});
-});
-
-test('should get applications using search criteria', async (t) => {
-	const response = await request.post('/applications/search').send({
-		query: searchString,
-		role: 'case-team',
-		pageNumber: 1,
-		pageSize: 1
+describe('Case search', () => {
+	beforeAll(() => {
+		sinon.stub(databaseConnector, 'case').get(() => {
+			return {
+				findMany: findManyStub,
+				count: countStub
+			};
+		});
 	});
 
-	t.is(response.status, 200);
-	t.deepEqual(response.body, {
-		page: 1,
-		pageSize: 1,
-		pageCount: 1,
-		itemCount: 1,
-		items: [
-			{
-				id: 3,
-				status: 'Draft',
-				reference: application.reference,
-				title: searchString
+	test('should get applications using search criteria', async () => {
+		const response = await request.post('/applications/search').send({
+			query: searchString,
+			role: 'case-team',
+			pageNumber: 1,
+			pageSize: 1
+		});
+
+		expect(response.status).toEqual(200);
+		expect(response.body).toEqual({
+			page: 1,
+			pageSize: 1,
+			pageCount: 1,
+			itemCount: 1,
+			items: [
+				{
+					id: 3,
+					status: 'Draft',
+					reference: application.reference,
+					description: 'test',
+					title: searchString
+				}
+			]
+		});
+
+		sinon.assert.calledWith(findManyStub, expectedSearchParameters(0, 1, searchString));
+	});
+
+	test('should get applications using search criteria with default page number', async () => {
+		const response = await request.post('/applications/search').send({
+			query: searchString,
+			role: 'case-team',
+			pageSize: 20
+		});
+
+		expect(response.status).toEqual(200);
+		expect(response.body).toEqual({
+			page: 1,
+			pageSize: 1,
+			pageCount: 1,
+			itemCount: 1,
+			items: [
+				{
+					id: 3,
+					status: 'Draft',
+					description: 'test',
+					reference: application.reference,
+					title: searchString
+				}
+			]
+		});
+
+		sinon.assert.calledWith(findManyStub, expectedSearchParameters(0, 20, searchString));
+	});
+
+	test('should get applications using search criteria with default page size', async () => {
+		const response = await request.post('/applications/search').send({
+			query: searchString,
+			role: 'case-team',
+			pageNumber: 2
+		});
+
+		expect(response.status).toEqual(200);
+		expect(response.body).toEqual({
+			page: 2,
+			pageSize: 1,
+			pageCount: 1,
+			itemCount: 1,
+			items: [
+				{
+					id: 3,
+					status: 'Draft',
+					description: 'test',
+					reference: application.reference,
+					title: searchString
+				}
+			]
+		});
+
+		sinon.assert.calledWith(findManyStub, expectedSearchParameters(50, 50, searchString));
+	});
+
+	test('should get no results using search criteria which will not yield cases', async () => {
+		const response = await request.post('/applications/search').send({
+			query: 'BCDEF',
+			role: 'case-team',
+			pageNumber: 1,
+			pageSize: 1
+		});
+
+		expect(response.status).toEqual(200);
+		expect(response.body).toEqual({
+			page: 1,
+			pageSize: 0,
+			pageCount: 0,
+			itemCount: 0,
+			items: []
+		});
+
+		sinon.assert.calledWith(findManyStub, expectedSearchParameters(0, 1, notFoundSearchString));
+	});
+
+	test('should not be able to submit a search if the role is not valid', async () => {
+		const resp = await request.post('/applications/search').send({
+			query: searchString,
+			role: 'validation-officer',
+			pageNumber: 1,
+			pageSize: 1
+		});
+
+		expect(resp.status).toEqual(403);
+		expect(resp.body).toEqual({
+			errors: {
+				role: 'Role is not valid'
 			}
-		]
+		});
 	});
 
-	sinon.assert.calledWith(findManyStub, expectedSearchParameters(0, 1, searchString));
-});
+	test('should not be able to submit a search if query does not have a value', async () => {
+		const resp = await request.post('/applications/search').send({
+			query: '',
+			role: 'case-admin-officer',
+			pageNumber: 1,
+			pageSize: 5
+		});
 
-test('should get applications using search criteria with default page number', async (t) => {
-	const response = await request.post('/applications/search').send({
-		query: searchString,
-		role: 'case-team',
-		pageSize: 20
-	});
-
-	t.is(response.status, 200);
-	t.deepEqual(response.body, {
-		page: 1,
-		pageSize: 1,
-		pageCount: 1,
-		itemCount: 1,
-		items: [
-			{
-				id: 3,
-				status: 'Draft',
-				reference: application.reference,
-				title: searchString
+		expect(resp.status).toEqual(400);
+		expect(resp.body).toEqual({
+			errors: {
+				query: 'Query cannot be blank'
 			}
-		]
+		});
 	});
 
-	sinon.assert.calledWith(findManyStub, expectedSearchParameters(0, 20, searchString));
-});
+	test.each([[-3], [0], ['text']])(
+		'Search case: Sending invalid %O as pageSize and pageNumber throws error',
+		async (parameter) => {
+			const resp = await request.post('/applications/search').send({
+				query: searchString,
+				role: 'case-admin-officer',
+				pageNumber: parameter,
+				pageSize: parameter
+			});
 
-test('should get applications using search criteria with default page size', async (t) => {
-	const response = await request.post('/applications/search').send({
-		query: searchString,
-		role: 'case-team',
-		pageNumber: 2
-	});
-
-	t.is(response.status, 200);
-	t.deepEqual(response.body, {
-		page: 2,
-		pageSize: 1,
-		pageCount: 1,
-		itemCount: 1,
-		items: [
-			{
-				id: 3,
-				status: 'Draft',
-				reference: application.reference,
-				title: searchString
-			}
-		]
-	});
-
-	sinon.assert.calledWith(findManyStub, expectedSearchParameters(50, 50, searchString));
-});
-
-test('should get no results using search criteria which will not yield cases', async (t) => {
-	const response = await request.post('/applications/search').send({
-		query: 'BCDEF',
-		role: 'case-team',
-		pageNumber: 1,
-		pageSize: 1
-	});
-
-	t.is(response.status, 200);
-	t.deepEqual(response.body, {
-		page: 1,
-		pageSize: 0,
-		pageCount: 0,
-		itemCount: 0,
-		items: []
-	});
-
-	sinon.assert.calledWith(findManyStub, expectedSearchParameters(0, 1, notFoundSearchString));
-});
-
-test('should not be able to submit a search if the role is not valid', async (t) => {
-	const resp = await request.post('/applications/search').send({
-		query: searchString,
-		role: 'validation-officer',
-		pageNumber: 1,
-		pageSize: 1
-	});
-
-	t.is(resp.status, 403);
-	t.deepEqual(resp.body, {
-		errors: {
-			role: 'Role is not valid'
+			expect(resp.status).toEqual(400);
+			expect(resp.body).toEqual({
+				errors: {
+					pageNumber: 'Page Number is not valid',
+					pageSize: 'Page Size is not valid'
+				}
+			});
 		}
-	});
+	);
 });
-
-test('should not be able to submit a search if query does not have a value', async (t) => {
-	const resp = await request.post('/applications/search').send({
-		query: '',
-		role: 'case-admin-officer',
-		pageNumber: 1,
-		pageSize: 5
-	});
-
-	t.is(resp.status, 400);
-	t.deepEqual(resp.body, {
-		errors: {
-			query: 'Query cannot be blank'
-		}
-	});
-});
-
-/**
- *
- * @param {any} t
- * @param {string | number} input
- */
-const applyAction = async (t, input) => {
-	const resp = await request.post('/applications/search').send({
-		query: searchString,
-		role: 'case-admin-officer',
-		pageNumber: input,
-		pageSize: input
-	});
-
-	t.is(resp.status, 400);
-	t.deepEqual(resp.body, {
-		errors: {
-			pageNumber: 'Page Number is not valid',
-			pageSize: 'Page Size is not valid'
-		}
-	});
-};
-
-/**
- *
- * @param {string} providedTitle
- * @param {number | string} parameter
- * @returns {string}
- */
-applyAction.title = (providedTitle, parameter) =>
-	`Search Case: ${providedTitle}: Sending invalid ${parameter} as pageSize and pageNumber throws error`;
-
-for (const parameter of [-3, 0, 'text']) {
-	test(applyAction, parameter);
-}

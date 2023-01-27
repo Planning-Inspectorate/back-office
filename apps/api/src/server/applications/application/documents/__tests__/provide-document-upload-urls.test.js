@@ -1,4 +1,3 @@
-import test from 'ava';
 import { got } from 'got';
 import sinon from 'sinon';
 import supertest from 'supertest';
@@ -62,102 +61,114 @@ const postStub = sinon
 
 const updateDocumentStub = sinon.stub();
 
-test.before('set up mocks', () => {
-	sinon.stub(databaseConnector, 'case').get(() => {
-		return { findUnique: findUniqueStub };
+describe('Provide document upload URLs', () => {
+	beforeAll(() => {
+		sinon.stub(databaseConnector, 'case').get(() => {
+			return { findUnique: findUniqueStub };
+		});
+
+		sinon.stub(databaseConnector, 'folder').get(() => {
+			return { findUnique: findUniqueFolderStub };
+		});
+
+		sinon.stub(databaseConnector, 'document').get(() => {
+			return { upsert: upsertDocumentStub, update: updateDocumentStub };
+		});
+
+		sinon.stub(got, 'post').callsFake(postStub);
+
+		process.env.DOCUMENT_STORAGE_API_HOST = 'api-document-storage-host';
+		process.env.DOCUMENT_STORAGE_API_PROT = 'doc-storage-port';
 	});
 
-	sinon.stub(databaseConnector, 'folder').get(() => {
-		return { findUnique: findUniqueFolderStub };
-	});
+	test('saves documents information and returns upload URL', async () => {
+		const response = await request
+			.post('/applications/1/documents')
+			.send([
+				{
+					folderId: 1,
+					documentName: 'test doc',
+					documentType: 'application/pdf',
+					documentSize: 1024
+				}
+			]);
 
-	sinon.stub(databaseConnector, 'document').get(() => {
-		return { upsert: upsertDocumentStub, update: updateDocumentStub };
-	});
-
-	sinon.stub(got, 'post').callsFake(postStub);
-
-	process.env.DOCUMENT_STORAGE_API_HOST = 'api-document-storage-host';
-	process.env.DOCUMENT_STORAGE_API_PROT = 'doc-storage-port';
-});
-
-test('saves documents information and returns upload URL', async (t) => {
-	const response = await request
-		.post('/applications/1/documents')
-		.send([
-			{ folderId: 1, documentName: 'test doc', documentType: 'application/pdf', documentSize: 1024 }
-		]);
-
-	t.is(response.status, 200);
-	t.deepEqual(response.body, {
-		blobStorageHost: 'blob-store-host',
-		blobStorageContainer: 'blob-store-container',
-		documents: [
-			{
-				documentName: 'test doc',
-				blobStoreUrl: '/some/path/test doc'
-			}
-		]
-	});
-
-	sinon.assert.calledWith(updateDocumentStub, {
-		where: {
-			guid: 'some-guid'
-		},
-		data: {
+		expect(response.status).toEqual(200);
+		expect(response.body).toEqual({
+			blobStorageHost: 'blob-store-host',
 			blobStorageContainer: 'blob-store-container',
-			blobStoragePath: '/some/path/test doc'
-		}
+			documents: [
+				{
+					documentName: 'test doc',
+					blobStoreUrl: '/some/path/test doc'
+				}
+			]
+		});
+
+		sinon.assert.calledWith(updateDocumentStub, {
+			where: {
+				guid: 'some-guid'
+			},
+			data: {
+				blobStorageContainer: 'blob-store-container',
+				blobStoragePath: '/some/path/test doc'
+			}
+		});
 	});
-});
 
-test('throws error if folder id does not belong to case', async (t) => {
-	const response = await request
-		.post('/applications/1/documents')
-		.send([
-			{ folderId: 2, documentName: 'test doc', documentType: 'application/pdf', documentSize: 1024 }
-		]);
+	test('throws error if folder id does not belong to case', async () => {
+		const response = await request
+			.post('/applications/1/documents')
+			.send([
+				{
+					folderId: 2,
+					documentName: 'test doc',
+					documentType: 'application/pdf',
+					documentSize: 1024
+				}
+			]);
 
-	t.is(response.status, 400);
-	t.deepEqual(response.body, {
-		errors: {
-			'[0].folderId': 'Folder must belong to case'
-		}
+		expect(response.status).toEqual(400);
+		expect(response.body).toEqual({
+			errors: {
+				'[0].folderId': 'Folder must belong to case'
+			}
+		});
 	});
-});
 
-test('throws error if not all document details provided', async (t) => {
-	const response = await request.post('/applications/1/documents').send([{}]);
+	test('throws error if not all document details provided', async () => {
+		const response = await request.post('/applications/1/documents').send([{}]);
 
-	t.is(response.status, 400);
-	t.deepEqual(response.body, {
-		errors: {
-			'[0].documentName': 'Must provide a document name',
-			'[0].documentSize': 'Must provide a document size',
-			'[0].documentType': 'Must provide a document type',
-			'[0].folderId': 'Must provide a folder id'
-		}
+		expect(response.status).toEqual(400);
+		expect(response.body).toEqual({
+			errors: {
+				'[0].documentName': 'Must provide a document name',
+				'[0].documentSize': 'Must provide a document size',
+				'[0].documentType': 'Must provide a document type',
+				'[0].folderId': 'Must provide a folder id'
+			}
+		});
 	});
-});
 
-test('throws error if no documents provided', async (t) => {
-	const response = await request.post('/applications/1/documents').send([]);
+	test('throws error if no documents provided', async () => {
+		const response = await request.post('/applications/1/documents').send([]);
 
-	t.is(response.status, 400);
-	t.deepEqual(response.body, {
-		errors: {
-			'': 'Must provide documents to upload'
-		}
+		expect(response.status).toEqual(400);
+		expect(response.body).toEqual({
+			errors: {
+				'': 'Must provide documents to upload'
+			}
+		});
 	});
-});
 
-test('checks invalid case id', async (t) => {
-	const response = await request.post('/applications/2/documents');
+	test('checks invalid case id', async () => {
+		const response = await request.post('/applications/2/documents');
 
-	t.is(response.status, 404);
-	t.deepEqual(response.body, {
-		errors: {
-			id: 'Must be an existing application'
-		}
+		expect(response.status).toEqual(404);
+		expect(response.body).toEqual({
+			errors: {
+				id: 'Must be an existing application'
+			}
+		});
 	});
 });

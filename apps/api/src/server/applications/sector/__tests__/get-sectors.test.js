@@ -1,4 +1,3 @@
-import test from 'ava';
 import sinon from 'sinon';
 import supertest from 'supertest';
 import { app } from '../../../app.js';
@@ -59,54 +58,56 @@ const findUniqueSectorStub = sinon.stub();
 findUniqueSectorStub.withArgs({ where: { name: sector.name } }).returns(sector);
 findUniqueSectorStub.withArgs({ where: { name: unknownSectorName } }).returns(null);
 
-test.before('set up stubbing', () => {
-	sinon.stub(databaseConnector, 'sector').get(() => {
-		return { findMany: findManySectorsStub, findUnique: findUniqueSectorStub };
+describe('Get sectors', () => {
+	beforeAll(() => {
+		sinon.stub(databaseConnector, 'sector').get(() => {
+			return { findMany: findManySectorsStub, findUnique: findUniqueSectorStub };
+		});
+		sinon.stub(databaseConnector, 'subSector').get(() => {
+			return { findMany: findManySubSectorStub };
+		});
 	});
-	sinon.stub(databaseConnector, 'subSector').get(() => {
-		return { findMany: findManySubSectorStub };
+
+	test('gets all sectors', async () => {
+		const response = await request.get('/applications/sector');
+
+		expect(response.status).toEqual(200);
+		expect(response.body).toEqual([
+			{
+				name: sector.name,
+				abbreviation: sector.abbreviation,
+				displayNameEn: sector.displayNameEn,
+				displayNameCy: sector.displayNameCy
+			}
+		]);
 	});
-});
 
-test('gets all sectors', async (t) => {
-	const response = await request.get('/applications/sector');
+	test('gets all sub-sectors associated with existing sector', async () => {
+		const response = await request
+			.get('/applications/sector')
+			.query({ sectorName: subSector.sector.name });
 
-	t.is(response.status, 200);
-	t.deepEqual(response.body, [
-		{
-			name: sector.name,
-			abbreviation: sector.abbreviation,
-			displayNameEn: sector.displayNameEn,
-			displayNameCy: sector.displayNameCy
-		}
-	]);
-});
+		expect(response.status).toEqual(200);
+		expect(response.body).toEqual([
+			{
+				name: subSector.name,
+				abbreviation: subSector.abbreviation,
+				displayNameEn: subSector.displayNameEn,
+				displayNameCy: subSector.displayNameCy
+			}
+		]);
+	});
 
-test('gets all sub-sectors associated with existing sector', async (t) => {
-	const response = await request
-		.get('/applications/sector')
-		.query({ sectorName: subSector.sector.name });
+	test('fails to get any subsectors when an unknown sector name is provided', async () => {
+		const response = await request
+			.get('/applications/sector')
+			.query({ sectorName: unknownSectorName });
 
-	t.is(response.status, 200);
-	t.deepEqual(response.body, [
-		{
-			name: subSector.name,
-			abbreviation: subSector.abbreviation,
-			displayNameEn: subSector.displayNameEn,
-			displayNameCy: subSector.displayNameCy
-		}
-	]);
-});
-
-test('fails to get any subsectors when an unknown sector name is provided', async (t) => {
-	const response = await request
-		.get('/applications/sector')
-		.query({ sectorName: unknownSectorName });
-
-	t.is(response.status, 400);
-	t.deepEqual(response.body, {
-		errors: {
-			sectorName: 'Sector name not recognised'
-		}
+		expect(response.status).toEqual(400);
+		expect(response.body).toEqual({
+			errors: {
+				sectorName: 'Sector name not recognised'
+			}
+		});
 	});
 });

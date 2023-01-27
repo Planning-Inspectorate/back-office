@@ -1,4 +1,3 @@
-import test from 'ava';
 import sinon from 'sinon';
 import supertest from 'supertest';
 import { app } from '../../../app.js';
@@ -43,71 +42,73 @@ findUniqueGUIDInDocumentTableStub
 	.withArgs({ where: { guid: 'D12345', isDeleted: false } })
 	.returns(null);
 
-test.before('set up mocks', () => {
-	sinon.stub(databaseConnector, 'folder').get(() => {
-		return { findUnique: findCaseIdInFolderTableStub };
+describe('Update document status', () => {
+	beforeAll(() => {
+		sinon.stub(databaseConnector, 'folder').get(() => {
+			return { findUnique: findCaseIdInFolderTableStub };
+		});
+
+		sinon.stub(databaseConnector, 'document').get(() => {
+			return {
+				findUnique: findUniqueGUIDInDocumentTableStub,
+				update: updateStatusInDocumentTableStub
+			};
+		});
 	});
 
-	sinon.stub(databaseConnector, 'document').get(() => {
-		return {
-			findUnique: findUniqueGUIDInDocumentTableStub,
-			update: updateStatusInDocumentTableStub
-		};
-	});
-});
+	test('updates document status', async () => {
+		const response = await request.patch('/applications/documents/D1234/status').send({
+			machineAction: 'uploading'
+		});
 
-test('updates document status', async (t) => {
-	const response = await request.patch('/applications/documents/D1234/status').send({
-		machineAction: 'uploading'
-	});
-
-	t.is(response.status, 200);
-	t.deepEqual(response.body, {
-		caseId: 1,
-		guid: 'D1234',
-		status: 'awaiting_virus_check'
-	});
-	sinon.assert.calledWith(updateStatusInDocumentTableStub, {
-		where: { guid: 'D1234' },
-		data: {
+		expect(response.status).toEqual(200);
+		expect(response.body).toEqual({
+			caseId: 1,
+			guid: 'D1234',
 			status: 'awaiting_virus_check'
-		}
-	});
-});
-
-test('throws erorr if incorrect machine action', async (t) => {
-	const response = await request.patch('/applications/documents/D1234/status').send({
-		machineAction: 'wrong-action'
-	});
-
-	t.is(response.status, 409);
-	t.deepEqual(response.body, {
-		errors: {
-			application: "Could not transition 'awaiting_upload' using 'wrong-action'."
-		}
-	});
-});
-
-test("throws errorr if incorrect machine action given the document's current state", async (t) => {
-	const response = await request.patch('/applications/documents/D1234/status').send({
-		machineAction: 'check_fail'
+		});
+		sinon.assert.calledWith(updateStatusInDocumentTableStub, {
+			where: { guid: 'D1234' },
+			data: {
+				status: 'awaiting_virus_check'
+			}
+		});
 	});
 
-	t.is(response.status, 409);
-	t.deepEqual(response.body, {
-		errors: {
-			application: "Could not transition 'awaiting_upload' using 'check_fail'."
-		}
+	test('throws erorr if incorrect machine action', async () => {
+		const response = await request.patch('/applications/documents/D1234/status').send({
+			machineAction: 'wrong-action'
+		});
+
+		expect(response.status).toEqual(409);
+		expect(response.body).toEqual({
+			errors: {
+				application: "Could not transition 'awaiting_upload' using 'wrong-action'."
+			}
+		});
 	});
-});
 
-test('throws error if no machine action provided', async (t) => {
-	const response = await request.patch('/applications/documents/D1234/status').send();
+	test("throws errorr if incorrect machine action given the document's current state", async () => {
+		const response = await request.patch('/applications/documents/D1234/status').send({
+			machineAction: 'check_fail'
+		});
 
-	t.is(response.status, 400);
-	t.deepEqual(response.body, {
-		errors: {
-			machineAction: 'Please provide a value for machine action'
-		}
+		expect(response.status).toEqual(409);
+		expect(response.body).toEqual({
+			errors: {
+				application: "Could not transition 'awaiting_upload' using 'check_fail'."
+			}
+		});
+	});
+
+	test('throws error if no machine action provided', async () => {
+		const response = await request.patch('/applications/documents/D1234/status').send();
+
+		expect(response.status).toEqual(400);
+		expect(response.body).toEqual({
+			errors: {
+				machineAction: 'Please provide a value for machine action'
+			}
+		});
 	});
 });

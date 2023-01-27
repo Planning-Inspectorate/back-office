@@ -1,4 +1,3 @@
-import test from 'ava';
 import sinon from 'sinon';
 import supertest from 'supertest';
 import { app } from '../../../../app.js';
@@ -109,146 +108,140 @@ countStub
 	})
 	.returns(documentsInFolder201Count);
 
-test.before('set up mocks', () => {
-	sinon.stub(databaseConnector, 'case').get(() => {
-		return { findUnique: findUniqueStub };
-	});
-	sinon.stub(databaseConnector, 'folder').get(() => {
-		return { findMany: findManyFoldersStub, findUnique: findUniqueFolderStub };
-	});
-	sinon.stub(databaseConnector, 'document').get(() => {
-		return {
-			findMany: findManyDocumentsStub,
-			count: countStub
-		};
-	});
-});
-
-test('returns level 1 folders for a case when id is valid', async (t) => {
-	const response = await request.get('/applications/1/folders');
-
-	t.is(response.status, 200);
-	t.deepEqual(response.body, [
-		{
-			id: 1,
-			displayNameEn: 'Project documentation',
-			displayOrder: 100
-		},
-		{
-			id: 2,
-			displayNameEn: 'Legal advice',
-			displayOrder: 200
-		}
-	]);
-});
-
-test('returns a single folder on a case', async (t) => {
-	const response = await request.get('/applications/1/folders/201');
-
-	t.is(response.status, 200);
-	t.deepEqual(response.body, {
-		displayNameEn: 'Sub Folder 1',
-		displayOrder: 100,
-		id: 201
-	});
-});
-
-test('returns the sub folders for a folder on a case', async (t) => {
-	const response = await request.get('/applications/1/folders/201/sub-folders');
-
-	t.is(response.status, 200);
-	t.deepEqual(response.body, [
-		{
-			id: 101,
-			displayNameEn: 'Sub Folder 1',
-			displayOrder: 100
-		},
-		{
-			id: 102,
-			displayNameEn: 'Sub Folder 2',
-			displayOrder: 200
-		}
-	]);
-});
-
-test('returns 400 error if sub folder id is not a folder on a case', async (t) => {
-	const response = await request.get('/applications/1/folders/1000/sub-folders');
-
-	t.is(response.status, 400);
-	t.deepEqual(response.body, {
-		errors: { folderId: 'Must be an existing folder that belongs to this case' }
-	});
-});
-
-// File tests
-test('returns 400 error getting documents if sub folder id is not a folder on a case', async (t) => {
-	const response = await request.post('/applications/1/folders/1000/documents').send({
-		pageNumber: 1,
-		pageSize: 1
+describe('Get folder details', () => {
+	beforeAll(() => {
+		sinon.stub(databaseConnector, 'case').get(() => {
+			return { findUnique: findUniqueStub };
+		});
+		sinon.stub(databaseConnector, 'folder').get(() => {
+			return { findMany: findManyFoldersStub, findUnique: findUniqueFolderStub };
+		});
+		sinon.stub(databaseConnector, 'document').get(() => {
+			return {
+				findMany: findManyDocumentsStub,
+				count: countStub
+			};
+		});
 	});
 
-	t.is(response.status, 400);
-	t.deepEqual(response.body, {
-		errors: { folderId: 'Must be an existing folder that belongs to this case' }
-	});
-});
+	test('returns level 1 folders for a case when id is valid', async () => {
+		const response = await request.get('/applications/1/folders');
 
-test('returns 400 error getting documents if sub folder id is valid but not a folder on this case', async (t) => {
-	const response = await request.post('/applications/2/folders/201/documents').send({
-		pageNumber: 1,
-		pageSize: 1
-	});
-
-	t.is(response.status, 400);
-	t.deepEqual(response.body, {
-		errors: { folderId: 'Must be an existing folder that belongs to this case' }
-	});
-});
-
-test('returns 404 error getting documents if case does not exist', async (t) => {
-	const response = await request.post('/applications/1000/folders/1/documents').send({
-		pageNumber: 1,
-		pageSize: 1
-	});
-
-	t.is(response.status, 404);
-	t.deepEqual(response.body, {
-		errors: { id: 'Must be an existing application' }
-	});
-});
-
-test('returns documents in a folder on a case', async (t) => {
-	const response = await request.post('/applications/1/folders/201/documents').send({
-		pageNumber: 1,
-		pageSize: 50
-	});
-
-	t.is(response.status, 200);
-	t.deepEqual(response.body, {
-		page: 1,
-		pageDefaultSize: 50,
-		pageCount: 1,
-		itemCount: 1,
-		items: [
+		expect(response.status).toEqual(200);
+		expect(response.body).toEqual([
 			{
-				guid: '1111-2222-3333',
-				documentName: 'Document 1',
-				blobStorageContainer: null,
-				blobStoragePath: null,
-				from: '',
-				receivedDate: 1_658_486_313,
-				size: 1024,
-				type: 'application/pdf',
-				redacted: false,
-				status: 'not_user_checked',
-				description: '',
-				documentReferenceNumber: '',
-				version: 1,
-				agent: '',
-				caseStage: '',
-				webFilter: '',
-				documentType: ''
+				id: 1,
+				displayNameEn: 'Project documentation',
+				displayOrder: 100
+			},
+			{
+				id: 2,
+				displayNameEn: 'Legal advice',
+				displayOrder: 200
 			}
-		]
+		]);
+	});
+
+	test('returns a single folder on a case', async () => {
+		const response = await request.get('/applications/1/folders/201');
+
+		expect(response.status).toEqual(200);
+		expect(response.body).toEqual({
+			displayNameEn: 'Sub Folder 1',
+			displayOrder: 100,
+			id: 201
+		});
+	});
+
+	test('returns the sub folders for a folder on a case', async () => {
+		const response = await request.get('/applications/1/folders/201/sub-folders');
+
+		expect(response.status).toEqual(200);
+		expect(response.body).toEqual([
+			{
+				id: 101,
+				displayNameEn: 'Sub Folder 1',
+				displayOrder: 100
+			},
+			{
+				id: 102,
+				displayNameEn: 'Sub Folder 2',
+				displayOrder: 200
+			}
+		]);
+	});
+
+	test('returns 400 error if sub folder id is not a folder on a case', async () => {
+		const response = await request.get('/applications/1/folders/1000/sub-folders');
+
+		expect(response.status).toEqual(400);
+		expect(response.body).toEqual({
+			errors: { folderId: 'Must be an existing folder that belongs to this case' }
+		});
+	});
+
+	// File tests
+	test('returns 400 error getting documents if sub folder id is not a folder on a case', async () => {
+		const response = await request.post('/applications/1/folders/1000/documents').send({
+			pageNumber: 1,
+			pageSize: 1
+		});
+
+		expect(response.status).toEqual(400);
+		expect(response.body).toEqual({
+			errors: { folderId: 'Must be an existing folder that belongs to this case' }
+		});
+	});
+
+	test('returns 400 error getting documents if sub folder id is valid but not a folder on this case', async () => {
+		const response = await request.post('/applications/2/folders/201/documents').send({
+			pageNumber: 1,
+			pageSize: 1
+		});
+
+		expect(response.status).toEqual(400);
+		expect(response.body).toEqual({
+			errors: { folderId: 'Must be an existing folder that belongs to this case' }
+		});
+	});
+
+	test('returns 404 error getting documents if case does not exist', async () => {
+		const response = await request.post('/applications/1000/folders/1/documents').send({
+			pageNumber: 1,
+			pageSize: 1
+		});
+
+		expect(response.status).toEqual(404);
+		expect(response.body).toEqual({
+			errors: { id: 'Must be an existing application' }
+		});
+	});
+
+	test('returns documents in a folder on a case', async () => {
+		const response = await request.post('/applications/1/folders/201/documents').send({
+			pageNumber: 1,
+			pageSize: 50
+		});
+
+		expect(response.status).toEqual(200);
+		expect(response.body).toEqual({
+			page: 1,
+			pageDefaultSize: 50,
+			pageCount: 1,
+			itemCount: 1,
+			items: [
+				{
+					guid: '1111-2222-3333',
+					documentName: 'Document 1',
+					documentUrl: null,
+					from: '',
+					receivedDate: 1_658_486_313,
+					size: 1024,
+					type: 'application/pdf',
+					redacted: false,
+					status: 'not_user_checked'
+				}
+			]
+		});
 	});
 });

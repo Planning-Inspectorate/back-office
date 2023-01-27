@@ -1,4 +1,3 @@
-import test from 'ava';
 import sinon from 'sinon';
 import supertest from 'supertest';
 // @ts-ignore
@@ -49,7 +48,7 @@ findUniqueRegionStub.withArgs({ where: { name: 'some-unknown-region' } }).return
  */
 let stubbedSendEvents;
 
-test.before('set up mocks', () => {
+beforeAll(() => {
 	sinon.stub(databaseConnector, 'case').get(() => {
 		return { create: createStub };
 	});
@@ -71,7 +70,7 @@ test.before('set up mocks', () => {
 	stubbedSendEvents = sinon.stub(eventClient, 'sendEvents');
 });
 
-test('creates new application with just title and first notified date', async (t) => {
+test('creates new application with just title and first notified date', async () => {
 	const response = await request.post('/applications').send({
 		title: 'some title',
 		keyDates: {
@@ -79,8 +78,8 @@ test('creates new application with just title and first notified date', async (t
 		}
 	});
 
-	t.is(response.status, 200);
-	t.deepEqual(response.body, { id: 1, applicantIds: [4] });
+	expect(response.status).toEqual(200);
+	expect(response.body).toEqual({ id: 1, applicantIds: [4] });
 	sinon.assert.calledWith(
 		createStub,
 		sinon.match({
@@ -101,11 +100,11 @@ test('creates new application with just title and first notified date', async (t
 	);
 
 	// This whole thing around getting the call number is horrendous, hopefully we can fix this soon with jest
-	t.deepEqual(validateNsipProject(stubbedSendEvents.getCall(0).args[1][0]), true);
+	expect(validateNsipProject(stubbedSendEvents.getCall(0).args[1][0])).toEqual(true);
 	sinon.assert.calledWith(stubbedSendEvents, 'nsip-project', [expectedEventPayload]);
 });
 
-test('creates new application with just easting and sub-sector name', async (t) => {
+test('creates new application with just easting and sub-sector name', async () => {
 	const response = await request.post('/applications').send({
 		geographicalInformation: {
 			gridReference: {
@@ -115,8 +114,8 @@ test('creates new application with just easting and sub-sector name', async (t) 
 		subSectorName: 'some_sub_sector'
 	});
 
-	t.is(response.status, 200);
-	t.deepEqual(response.body, { id: 1, applicantIds: [4] });
+	expect(response.status).toEqual(200);
+	expect(response.body).toEqual({ id: 1, applicantIds: [4] });
 	sinon.assert.calledWith(
 		createStub,
 		sinon.match({
@@ -144,11 +143,11 @@ test('creates new application with just easting and sub-sector name', async (t) 
 		})
 	);
 
-	t.deepEqual(validateNsipProject(stubbedSendEvents.getCall(1).args[1][0]), true);
+	expect(validateNsipProject(stubbedSendEvents.getCall(1).args[1][0])).toEqual(true);
 	sinon.assert.calledWith(stubbedSendEvents, 'nsip-project', [expectedEventPayload]);
 });
 
-test('creates new application when all possible details provided', async (t) => {
+test('creates new application when all possible details provided', async () => {
 	const response = await request.post('/applications').send({
 		title: 'title',
 		description: 'description',
@@ -187,8 +186,8 @@ test('creates new application when all possible details provided', async (t) => 
 		}
 	});
 
-	t.is(response.status, 200);
-	t.deepEqual(response.body, { id: 1, applicantIds: [4] });
+	expect(response.status).toEqual(200);
+	expect(response.body).toEqual({ id: 1, applicantIds: [4] });
 	sinon.assert.calledWith(
 		createStub,
 		sinon.match({
@@ -237,12 +236,12 @@ test('creates new application when all possible details provided', async (t) => 
 		})
 	);
 
-	t.deepEqual(validateNsipProject(stubbedSendEvents.getCall(2).args[1][0]), true);
+	expect(validateNsipProject(stubbedSendEvents.getCall(2).args[1][0])).toEqual(true);
 	sinon.assert.calledWith(stubbedSendEvents, 'nsip-project', [expectedEventPayload]);
 });
 
 test(`creates new application with application first and last name,
-        address line, map zoom level`, async (t) => {
+        address line, map zoom level`, async () => {
 	const response = await request.post('/applications').send({
 		applicants: [
 			{
@@ -258,8 +257,8 @@ test(`creates new application with application first and last name,
 		}
 	});
 
-	t.is(response.status, 200);
-	t.deepEqual(response.body, { id: 1, applicantIds: [4] });
+	expect(response.status).toEqual(200);
+	expect(response.body).toEqual({ id: 1, applicantIds: [4] });
 	sinon.assert.calledWith(
 		createStub,
 		sinon.match({
@@ -288,11 +287,11 @@ test(`creates new application with application first and last name,
 			}
 		})
 	);
-	t.deepEqual(validateNsipProject(stubbedSendEvents.getCall(3).args[1][0]), true);
+	expect(validateNsipProject(stubbedSendEvents.getCall(3).args[1][0])).toEqual(true);
 	sinon.assert.calledWith(stubbedSendEvents, 'nsip-project', [expectedEventPayload]);
 });
 
-test('returns error if any validated values are invalid', async (t) => {
+test('returns error if any validated values are invalid', async () => {
 	const response = await request.post('/applications').send({
 		caseEmail: 'not a real email',
 		geographicalInformation: {
@@ -318,8 +317,8 @@ test('returns error if any validated values are invalid', async (t) => {
 		subSectorName: 'some unknown subsector'
 	});
 
-	t.is(response.status, 400);
-	t.deepEqual(response.body, {
+	expect(response.status).toEqual(400);
+	expect(response.body).toEqual({
 		errors: {
 			caseEmail: 'Case email must be a valid email address',
 			'applicants[0].address.postcode': 'Postcode must be a valid UK postcode',

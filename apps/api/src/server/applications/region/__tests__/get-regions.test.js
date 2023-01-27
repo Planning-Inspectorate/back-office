@@ -1,4 +1,3 @@
-import test from 'ava';
 import sinon from 'sinon';
 import supertest from 'supertest';
 import { app } from '../../../app.js';
@@ -13,22 +12,24 @@ const region = {
 	displayNameCy: 'test name cy'
 };
 
-test.before('set up mocking', () => {
-	sinon.stub(databaseConnector, 'region').get(() => {
-		return { findMany: sinon.stub().returns([region]) };
+describe('Get regions', () => {
+	beforeAll(() => {
+		sinon.stub(databaseConnector, 'region').get(() => {
+			return { findMany: sinon.stub().returns([region]) };
+		});
 	});
-});
 
-test('gets all regions', async (t) => {
-	const resp = await request.get('/applications/region');
+	test('gets all regions', async () => {
+		const resp = await request.get('/applications/region');
 
-	t.is(resp.status, 200);
-	t.deepEqual(resp.body, [
-		{
-			id: region.id,
-			name: region.name,
-			displayNameEn: region.displayNameEn,
-			displayNameCy: region.displayNameCy
-		}
-	]);
+		expect(resp.status).toEqual(200);
+		expect(resp.body).toEqual([
+			{
+				id: region.id,
+				name: region.name,
+				displayNameEn: region.displayNameEn,
+				displayNameCy: region.displayNameCy
+			}
+		]);
+	});
 });

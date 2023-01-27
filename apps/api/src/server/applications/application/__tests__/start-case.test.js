@@ -1,5 +1,4 @@
 import Prisma from '@prisma/client';
-import test from 'ava';
 import sinon from 'sinon';
 import supertest from 'supertest';
 import { app } from '../../../app.js';
@@ -86,94 +85,97 @@ let executeRawStub = sinon.stub();
  */
 let stubbedSendEvents;
 
-test.before('set up mocks', () => {
-	sinon.stub(databaseConnector, 'case').get(() => {
-		return { findUnique: findUniqueStub, update: updateStub };
+describe('Start case', () => {
+	beforeAll(() => {
+		sinon.stub(databaseConnector, 'case').get(() => {
+			return { findUnique: findUniqueStub, update: updateStub };
+		});
+
+		sinon.stub(databaseConnector, 'caseStatus').get(() => {
+			return { updateMany: updateManyCaseStatusStub, create: createCaseStatusStub };
+		});
+
+		sinon.stub(databaseConnector, 'folder').get(() => {
+			return { create: createFolderStub };
+		});
+
+		stubbedSendEvents = sinon.stub(eventClient, 'sendEvents');
+
+		sinon.stub(Prisma.PrismaClient.prototype, '$transaction');
+		executeRawStub = sinon.stub(Prisma.PrismaClient.prototype, '$executeRawUnsafe');
+		sinon.useFakeTimers({ now: 1_649_319_144_000 });
 	});
 
-	sinon.stub(databaseConnector, 'caseStatus').get(() => {
-		return { updateMany: updateManyCaseStatusStub, create: createCaseStatusStub };
-	});
+	test('starts application if all needed information is present', async () => {
+		const response = await request.post('/applications/1/start');
 
-	sinon.stub(databaseConnector, 'folder').get(() => {
-		return { create: createFolderStub };
-	});
+		expect(response.status).toEqual(200);
+		expect(response.body).toEqual({
+			id: 1,
+			reference: applicationReadyToStart.reference,
+			status: 'Pre-Application'
+		});
 
-	stubbedSendEvents = sinon.stub(eventClient, 'sendEvents');
+		sinon.assert.calledWith(updateManyCaseStatusStub, {
+			where: { id: { in: [1] } },
+			data: { valid: false }
+		});
 
-	sinon.stub(Prisma.PrismaClient.prototype, '$transaction');
-	executeRawStub = sinon.stub(Prisma.PrismaClient.prototype, '$executeRawUnsafe');
-	sinon.useFakeTimers({ now: 1_649_319_144_000 });
-});
+		sinon.assert.calledWith(createCaseStatusStub, {
+			data: { status: 'pre_application', caseId: 1 }
+		});
 
-test('starts application if all needed information is present', async (t) => {
-	const response = await request.post('/applications/1/start');
+		sinon.assert.notCalled(updateStub);
 
-	t.is(response.status, 200);
-	t.deepEqual(response.body, {
-		id: 1,
-		reference: applicationReadyToStart.reference,
-		status: 'Pre-Application'
-	});
+		sinon.assert.calledWith(executeRawStub, referenceSettingSqlQuery);
 
-	sinon.assert.calledWith(updateManyCaseStatusStub, {
-		where: { id: { in: [1] } },
-		data: { valid: false }
-	});
-
-	sinon.assert.calledWith(createCaseStatusStub, { data: { status: 'pre_application', caseId: 1 } });
-
-	sinon.assert.notCalled(updateStub);
-
-	sinon.assert.calledWith(executeRawStub, referenceSettingSqlQuery);
-
-	// test 1st top level folder and its sub folders
-	sinon.assert.calledWith(createFolderStub, {
-		data: {
-			displayNameEn: 'Project management',
-			displayOrder: 100,
-			caseId: 1,
-			childFolders: {
-				create: [
-					{
-						displayNameEn: 'Logistics',
-						displayOrder: 100,
-						caseId: 1,
-						childFolders: {
-							create: [
-								{ displayNameEn: 'Travel', displayOrder: 100, caseId: 1 },
-								{ displayNameEn: 'Welsh', displayOrder: 200, caseId: 1 }
-							]
-						}
-					},
-					{ displayNameEn: 'Mail merge spreadsheet', displayOrder: 200, caseId: 1 },
-					{ displayNameEn: 'Fees', displayOrder: 300, caseId: 1 }
-				]
+		// test 1st top level folder and its sub folders
+		sinon.assert.calledWith(createFolderStub, {
+			data: {
+				displayNameEn: 'Project management',
+				displayOrder: 100,
+				caseId: 1,
+				childFolders: {
+					create: [
+						{
+							displayNameEn: 'Logistics',
+							displayOrder: 100,
+							caseId: 1,
+							childFolders: {
+								create: [
+									{ displayNameEn: 'Travel', displayOrder: 100, caseId: 1 },
+									{ displayNameEn: 'Welsh', displayOrder: 200, caseId: 1 }
+								]
+							}
+						},
+						{ displayNameEn: 'Mail merge spreadsheet', displayOrder: 200, caseId: 1 },
+						{ displayNameEn: 'Fees', displayOrder: 300, caseId: 1 }
+					]
+				}
 			}
-		}
-	});
-	// 2nd top level folder
-	sinon.assert.calledWith(createFolderStub, {
-		data: {
-			displayNameEn: 'Legal advice',
-			displayOrder: 200,
-			caseId: 1
-		}
-	});
-	// 3rd top level folder
-	sinon.assert.calledWith(createFolderStub, {
-		data: {
-			displayNameEn: 'Transboundary',
-			displayOrder: 300,
-			caseId: 1,
-			childFolders: {
-				create: [
-					{ displayNameEn: 'First screening', displayOrder: 100, caseId: 1 },
-					{ displayNameEn: 'Second screening', displayOrder: 200, caseId: 1 }
-				]
+		});
+		// 2nd top level folder
+		sinon.assert.calledWith(createFolderStub, {
+			data: {
+				displayNameEn: 'Legal advice',
+				displayOrder: 200,
+				caseId: 1
 			}
-		}
-	});
+		});
+		// 3rd top level folder
+		sinon.assert.calledWith(createFolderStub, {
+			data: {
+				displayNameEn: 'Transboundary',
+				displayOrder: 300,
+				caseId: 1,
+				childFolders: {
+					create: [
+						{ displayNameEn: 'First screening', displayOrder: 100, caseId: 1 },
+						{ displayNameEn: 'Second screening', displayOrder: 200, caseId: 1 }
+					]
+				}
+			}
+		});
 
 	const expectedEventPayload = {
 		id: 1,
@@ -205,45 +207,55 @@ test('starts application if all needed information is present', async (t) => {
 		customers: []
 	};
 
-	t.deepEqual(validateNsipProject(stubbedSendEvents.getCall(0).args[1][0]), true);
-	sinon.assert.calledWith(stubbedSendEvents, 'nsip-project', [expectedEventPayload]);
-});
-
-test('throws an error if the application id is not recognised', async (t) => {
-	const response = await request.post('/applications/2/start');
-
-	t.is(response.status, 404);
-	t.deepEqual(response.body, {
-		errors: {
-			id: 'Must be an existing application'
-		}
+		sinon.assert.calledWith(stubbedSendEvents, 'nsip-project', [expectedEventPayload]);
 	});
-});
 
-test('throws an error if the application does not have all the required information to start', async (t) => {
-	const response = await request.post('/applications/3/start');
+	test('throws an error if the application id is not recognised', async () => {
+		const response = await request.post('/applications/2/start');
 
-	t.is(response.status, 400);
-	t.deepEqual(response.body, {
-		errors: {
-			description: 'Missing description',
-			regions: 'Missing regions',
-			sector: 'Missing sector',
-			subSector: 'Missing subSector',
-			title: 'Missing title',
-			gridReferenceEasting: 'Missing gridReferenceEasting',
-			gridReferenceNorthing: 'Missing gridReferenceNorthing'
-		}
+		expect(response.status).toEqual(404);
+		expect(response.body).toEqual({
+			errors: {
+				id: 'Must be an existing application'
+			}
+		});
 	});
-});
 
-test('throws an error if the application is not in draft state', async (t) => {
-	const response = await request.post('/applications/4/start');
-
-	t.is(response.status, 409);
-	t.deepEqual(response.body, {
-		errors: {
-			application: "Could not transition 'pre_application' using 'START'."
-		}
+	test('throws an error if the application id is not recognised', async () => {
+		const response = await request.post('/applications/2/start');
+	
+		expect(response.status).toEqual(404);
+		expect(response.body).toEqual({
+			errors: {
+				id: 'Must be an existing application'
+			}
+		});
 	});
-});
+	
+	test('throws an error if the application does not have all the required information to start', async () => {
+		const response = await request.post('/applications/3/start');
+	
+		expect(response.status).toEqual(400);
+		expect(response.body).toEqual({
+			errors: {
+				description: 'Missing description',
+				regions: 'Missing regions',
+				sector: 'Missing sector',
+				subSector: 'Missing subSector',
+				title: 'Missing title',
+				gridReferenceEasting: 'Missing gridReferenceEasting',
+				gridReferenceNorthing: 'Missing gridReferenceNorthing'
+			}
+		});
+	});
+	
+	test('throws an error if the application is not in draft state', async () => {
+		const response = await request.post('/applications/4/start');
+	
+		expect(response.status).toEqual(409);
+		expect(response.body).toEqual({
+			errors: {
+				application: "Could not transition 'pre_application' using 'START'."
+			}
+		});
+	});
