@@ -1,5 +1,4 @@
 import { BlobServiceClient } from '@azure/storage-blob';
-import test from 'ava';
 import fs from 'node:fs';
 import path from 'node:path';
 import * as url from 'node:url';
@@ -34,36 +33,38 @@ const blobServiceClientFromConnectionString = {
 	})
 };
 
-test.afterEach.always(() => {
-	try {
-		BlobServiceClient.fromConnectionString.restore();
-	} catch {
-		// empty
-	}
-});
+describe('Download document', () => {
+	describe('gets file if found', () => {
+		test('gets file if found', async () => {
+			sinon
+				.stub(BlobServiceClient, 'fromConnectionString')
+				.returns(blobServiceClientFromConnectionString);
 
-test.serial('gets file if found', async (t) => {
-	sinon
-		.stub(BlobServiceClient, 'fromConnectionString')
-		.returns(blobServiceClientFromConnectionString);
+			const resp = await request.get('/document').query({ documentName: 'appeal/1/test.pdf' });
 
-	const resp = await request.get('/document').query({ documentName: 'appeal/1/test.pdf' });
+			expect(resp.status).toEqual(200);
+			BlobServiceClient.fromConnectionString.restore();
+		});
+	});
 
-	t.is(resp.status, 200);
-});
+	describe('throws error if not able to connect', () => {
+		test('throws error if not able to connect', async () => {
+			sinon.stub(BlobServiceClient, 'fromConnectionString').throws();
 
-test.serial('throws error if not able to connect', async (t) => {
-	sinon.stub(BlobServiceClient, 'fromConnectionString').throws();
+			const resp = await request.get('/document').query({ documentName: 'appeal/1/test.pdf' });
 
-	const resp = await request.get('/document').query({ documentName: 'appeal/1/test.pdf' });
+			expect(resp.status).toEqual(500);
+			expect(resp.body).toEqual({ errors: 'Oops! Something went wrong' });
+			BlobServiceClient.fromConnectionString.restore();
+		});
+	});
 
-	t.is(resp.status, 500);
-	t.deepEqual(resp.body, { errors: 'Oops! Something went wrong' });
-});
+	describe('throws error if documentName not provided', () => {
+		test('throws error if documentName not provided', async () => {
+			const resp = await request.get('/document');
 
-test.serial('throws error if documentName not provided', async (t) => {
-	const resp = await request.get('/document');
-
-	t.is(resp.status, 400);
-	t.deepEqual(resp.body, { errors: { documentName: 'Provide a document name' } });
+			expect(resp.status).toEqual(400);
+			expect(resp.body).toEqual({ errors: { documentName: 'Provide a document name' } });
+		});
+	});
 });

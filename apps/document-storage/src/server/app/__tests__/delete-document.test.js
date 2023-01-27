@@ -1,5 +1,4 @@
 import { BlobServiceClient } from '@azure/storage-blob';
-import test from 'ava';
 import sinon from 'sinon';
 import supertest from 'supertest';
 import app from '../../app.js';
@@ -24,43 +23,45 @@ const blobServiceClientForMissingDocumentStub = {
 	})
 };
 
-test.afterEach.always(() => {
-	try {
-		BlobServiceClient.fromConnectionString.restore();
-	} catch {
-		// empty
-	}
-});
+describe('Delete document', () => {
+	describe('delete files', () => {
+		test('deletes file', async () => {
+			sinon.stub(BlobServiceClient, 'fromConnectionString').returns(blobServiceClientStub);
 
-test.serial('deletes file', async (t) => {
-	sinon.stub(BlobServiceClient, 'fromConnectionString').returns(blobServiceClientStub);
+			const resp = await request.delete('/document').send({
+				documentPath: 'test/path/test.txt'
+			});
 
-	const resp = await request.delete('/document').send({
-		documentPath: 'test/path/test.txt'
+			expect(resp.statusCode).toEqual(200);
+			BlobServiceClient.fromConnectionString.restore();
+		});
 	});
 
-	t.is(resp.statusCode, 200);
-});
+	describe('throws error if the document does not exist', () => {
+		test('throws error if the document does not exist', async () => {
+			sinon
+				.stub(BlobServiceClient, 'fromConnectionString')
+				.returns(blobServiceClientForMissingDocumentStub);
 
-test.serial('throws error if the document does not exist', async (t) => {
-	sinon
-		.stub(BlobServiceClient, 'fromConnectionString')
-		.returns(blobServiceClientForMissingDocumentStub);
+			const resp = await request.delete('/document').send({
+				documentPath: 'test/path/test-doc-that-is-missing.txt'
+			});
 
-	const resp = await request.delete('/document').send({
-		documentPath: 'test/path/test-doc-that-is-missing.txt'
+			expect(resp.statusCode).toEqual(404);
+			BlobServiceClient.fromConnectionString.restore();
+		});
 	});
 
-	t.is(resp.statusCode, 404);
-});
+	describe('throws error if no document path provided', () => {
+		test('throws error if no document path provided', async () => {
+			const resp = await request.delete('/document');
 
-test.serial('throws error if no document path provided', async (t) => {
-	const resp = await request.delete('/document');
-
-	t.is(resp.statusCode, 400);
-	t.deepEqual(resp.body, {
-		errors: {
-			documentPath: 'Provide a document path'
-		}
+			expect(resp.statusCode).toEqual(400);
+			expect(resp.body).toEqual({
+				errors: {
+					documentPath: 'Provide a document path'
+				}
+			});
+		});
 	});
 });
