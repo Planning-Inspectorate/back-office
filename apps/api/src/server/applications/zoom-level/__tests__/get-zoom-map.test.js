@@ -1,4 +1,3 @@
-import test from 'ava';
 import sinon from 'sinon';
 import supertest from 'supertest';
 import { app } from '../../../app.js';
@@ -14,23 +13,25 @@ const mapZoomLevels = {
 	displayNameCy: 'test name cy'
 };
 
-test.before('set up mocking', () => {
-	sinon.stub(databaseConnector, 'zoomLevel').get(() => {
-		return { findMany: sinon.stub().returns([mapZoomLevels]) };
+describe('Get zoom map', () => {
+	beforeAll(() => {
+		sinon.stub(databaseConnector, 'zoomLevel').get(() => {
+			return { findMany: sinon.stub().returns([mapZoomLevels]) };
+		});
 	});
-});
 
-test('gets all map zoom levels', async (t) => {
-	const resp = await request.get('/applications/zoom-level');
+	test('gets all map zoom levels', async () => {
+		const resp = await request.get('/applications/zoom-level');
 
-	t.is(resp.status, 200);
-	t.deepEqual(resp.body, [
-		{
-			id: mapZoomLevels.id,
-			name: mapZoomLevels.name,
-			displayOrder: mapZoomLevels.displayOrder,
-			displayNameEn: mapZoomLevels.displayNameEn,
-			displayNameCy: mapZoomLevels.displayNameCy
-		}
-	]);
+		expect(resp.status).toEqual(200);
+		expect(resp.body).toEqual([
+			{
+				id: mapZoomLevels.id,
+				name: mapZoomLevels.name,
+				displayOrder: mapZoomLevels.displayOrder,
+				displayNameEn: mapZoomLevels.displayNameEn,
+				displayNameCy: mapZoomLevels.displayNameCy
+			}
+		]);
+	});
 });

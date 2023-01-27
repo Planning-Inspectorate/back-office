@@ -1,4 +1,3 @@
-import test from 'ava';
 import sinon from 'sinon';
 import supertest from 'supertest';
 import { app } from '../../../app.js';
@@ -65,33 +64,35 @@ findManyStub
 	})
 	.returns([application]);
 
-test('gets all applications for inspector', async (t) => {
-	sinon.stub(databaseConnector, 'case').get(() => {
-		return { findMany: findManyStub };
+describe('get applications', () => {
+	test('gets all applications for inspector', async () => {
+		sinon.stub(databaseConnector, 'case').get(() => {
+			return { findMany: findManyStub };
+		});
+
+		const response = await request.get('/applications/inspector');
+
+		expect(response.status).toEqual(200);
+		expect(response.body).toEqual([
+			{
+				id: 1,
+				title: 'Title',
+				modifiedDate: 1_655_298_882,
+				reference: application.reference,
+				sector: {
+					abbreviation: 'BB',
+					displayNameCy: 'Sector Name Cy',
+					displayNameEn: 'Sector Name En',
+					name: 'sector'
+				},
+				subSector: {
+					abbreviation: 'AA',
+					displayNameCy: 'Sub Sector Name Cy',
+					displayNameEn: 'Sub Sector Name En',
+					name: 'sub_sector'
+				},
+				status: 'Pre-Application'
+			}
+		]);
 	});
-
-	const response = await request.get('/applications/inspector');
-
-	t.is(response.status, 200);
-	t.deepEqual(response.body, [
-		{
-			id: 1,
-			title: 'Title',
-			modifiedDate: 1_655_298_882,
-			reference: application.reference,
-			sector: {
-				abbreviation: 'BB',
-				displayNameCy: 'Sector Name Cy',
-				displayNameEn: 'Sector Name En',
-				name: 'sector'
-			},
-			subSector: {
-				abbreviation: 'AA',
-				displayNameCy: 'Sub Sector Name Cy',
-				displayNameEn: 'Sub Sector Name En',
-				name: 'sub_sector'
-			},
-			status: 'Pre-Application'
-		}
-	]);
 });
