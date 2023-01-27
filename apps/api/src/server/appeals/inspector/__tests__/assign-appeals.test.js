@@ -1,5 +1,4 @@
 import Prisma from '@prisma/client';
-import test from 'ava';
 import sinon from 'sinon';
 import supertest from 'supertest';
 import { app } from '../../../app.js';
@@ -144,222 +143,224 @@ const updateManyAppealStatusStub = sinon.stub();
 const createAppealStatusStub = sinon.stub();
 const createManyAppealStatusStub = sinon.stub();
 
-test.before('setup mock', () => {
-	sinon.stub(databaseConnector, 'appeal').get(() => {
-		return {
-			findUnique: findUniqueStub,
-			update: updateStub
-		};
+describe('Assign appeals', () => {
+	beforeAll(() => {
+		sinon.stub(databaseConnector, 'appeal').get(() => {
+			return {
+				findUnique: findUniqueStub,
+				update: updateStub
+			};
+		});
+		sinon.stub(databaseConnector, 'appealStatus').get(() => {
+			return {
+				updateMany: updateManyAppealStatusStub,
+				create: createAppealStatusStub,
+				createMany: createManyAppealStatusStub
+			};
+		});
+		sinon.stub(Prisma.PrismaClient.prototype, '$transaction');
+		sinon.useFakeTimers({ now: 1_649_319_144_000 });
 	});
-	sinon.stub(databaseConnector, 'appealStatus').get(() => {
-		return {
-			updateMany: updateManyAppealStatusStub,
-			create: createAppealStatusStub,
-			createMany: createManyAppealStatusStub
-		};
-	});
-	sinon.stub(Prisma.PrismaClient.prototype, '$transaction');
-	sinon.useFakeTimers({ now: 1_649_319_144_000 });
-});
 
-test('assigns all appeals as they are all available', async (t) => {
-	const resp = await request.post('/appeals/inspector/assign').set('userId', 1).send([1, 2, 3]);
+	test('assigns all appeals as they are all available', async () => {
+		const resp = await request.post('/appeals/inspector/assign').set('userId', 1).send([1, 2, 3]);
 
-	t.is(resp.status, 200);
-	sinon.assert.calledWith(updateManyAppealStatusStub, {
-		where: { id: { in: [1] } },
-		data: { valid: false }
+		expect(resp.status).toEqual(200);
+		sinon.assert.calledWith(updateManyAppealStatusStub, {
+			where: { id: { in: [1] } },
+			data: { valid: false }
+		});
+		sinon.assert.calledWith(createManyAppealStatusStub, {
+			data: [
+				{
+					subStateMachineName: 'lpaQuestionnaireAndInspectorPickup',
+					status: 'picked_up',
+					compoundStateName: 'awaiting_lpa_questionnaire_and_statements',
+					appealId: 1
+				}
+			]
+		});
+		sinon.assert.calledWith(updateStub, {
+			where: { id: 1 },
+			data: { updatedAt: sinon.match.any, user: { connect: { azureReference: 1 } } }
+		});
+		sinon.assert.calledWith(updateManyAppealStatusStub, {
+			where: { id: { in: [3] } },
+			data: { valid: false }
+		});
+		sinon.assert.calledWith(createAppealStatusStub, {
+			data: { status: 'site_visit_not_yet_booked', appealId: 2 }
+		});
+		sinon.assert.calledWith(updateStub, {
+			where: { id: 2 },
+			data: { updatedAt: sinon.match.any, user: { connect: { azureReference: 1 } } }
+		});
+		sinon.assert.calledWith(updateManyAppealStatusStub, {
+			where: { id: { in: [4] } },
+			data: { valid: false }
+		});
+		sinon.assert.calledWith(createAppealStatusStub, {
+			data: { status: 'site_visit_not_yet_booked', appealId: 3 }
+		});
+		sinon.assert.calledWith(updateStub, {
+			where: { id: 3 },
+			data: { updatedAt: sinon.match.any, user: { connect: { azureReference: 1 } } }
+		});
+		expect(resp.body).toEqual({
+			successfullyAssigned: [
+				{
+					appealId: 1,
+					reference: appeal1.reference,
+					appealType: 'FPA',
+					specialist: 'General',
+					provisionalVisitType: 'access required',
+					appealSite: formatAddressLowerCase(appeal1.address),
+					appealAge: 41
+				},
+				{
+					appealId: 2,
+					reference: appeal2.reference,
+					appealType: 'HAS',
+					specialist: 'General',
+					appealAge: 22,
+					provisionalVisitType: 'unaccompanied',
+					appealSite: formatAddressLowerCase(appeal2.address)
+				},
+				{
+					appealId: 3,
+					reference: appeal3.reference,
+					appealType: 'HAS',
+					specialist: 'General',
+					appealAge: 22,
+					provisionalVisitType: 'unaccompanied',
+					appealSite: formatAddressLowerCase(appeal3.address)
+				}
+			],
+			unsuccessfullyAssigned: []
+		});
 	});
-	sinon.assert.calledWith(createManyAppealStatusStub, {
-		data: [
-			{
-				subStateMachineName: 'lpaQuestionnaireAndInspectorPickup',
-				status: 'picked_up',
-				compoundStateName: 'awaiting_lpa_questionnaire_and_statements',
-				appealId: 1
+
+	test('unable to assign appeals that are not in the appropriate state', async () => {
+		const resp = await request.post('/appeals/inspector/assign').set('userId', 1).send([3, 4]);
+
+		expect(resp.status).toEqual(200);
+		sinon.assert.calledWith(updateManyAppealStatusStub, {
+			where: { id: { in: [4] } },
+			data: { valid: false }
+		});
+		sinon.assert.calledWith(createAppealStatusStub, {
+			data: { status: 'site_visit_not_yet_booked', appealId: 3 }
+		});
+		sinon.assert.calledWith(updateStub, {
+			where: { id: 3 },
+			data: { updatedAt: sinon.match.any, user: { connect: { azureReference: 1 } } }
+		});
+		expect(resp.body).toEqual({
+			successfullyAssigned: [
+				{
+					appealId: 3,
+					reference: appeal3.reference,
+					appealType: 'HAS',
+					specialist: 'General',
+					appealAge: 22,
+					provisionalVisitType: 'unaccompanied',
+					appealSite: formatAddressLowerCase(appeal3.address)
+				}
+			],
+			unsuccessfullyAssigned: [
+				{
+					appealId: 4,
+					reason: 'appeal in wrong state',
+					reference: appeal4.reference,
+					appealType: 'HAS',
+					specialist: 'General',
+					appealAge: 22,
+					provisionalVisitType: 'access required',
+					appealSite: formatAddressLowerCase(appeal4.address)
+				}
+			]
+		});
+	});
+
+	test('unable to assign appeals that are already assigned to someone', async () => {
+		const resp = await request.post('/appeals/inspector/assign').set('userId', 1).send([1, 5]);
+
+		expect(resp.status).toEqual(200);
+		sinon.assert.calledWith(updateManyAppealStatusStub, {
+			where: { id: { in: [1] } },
+			data: { valid: false }
+		});
+		sinon.assert.calledWith(createManyAppealStatusStub, {
+			data: [
+				{
+					subStateMachineName: 'lpaQuestionnaireAndInspectorPickup',
+					status: 'picked_up',
+					compoundStateName: 'awaiting_lpa_questionnaire_and_statements',
+					appealId: 1
+				}
+			]
+		});
+		sinon.assert.calledWith(updateStub, {
+			where: { id: 1 },
+			data: { updatedAt: sinon.match.any, user: { connect: { azureReference: 1 } } }
+		});
+		expect(resp.body).toEqual({
+			successfullyAssigned: [
+				{
+					appealId: 1,
+					reference: appeal1.reference,
+					appealType: 'FPA',
+					specialist: 'General',
+					provisionalVisitType: 'access required',
+					appealSite: formatAddressLowerCase(appeal1.address),
+					appealAge: 41
+				}
+			],
+			unsuccessfullyAssigned: [
+				{
+					appealAge: 22,
+					appealId: 5,
+					appealSite: formatAddressLowerCase(appeal5.address),
+					appealType: 'HAS',
+					provisionalVisitType: 'access required',
+					reason: 'appeal already assigned',
+					reference: appeal5.reference,
+					specialist: 'General'
+				}
+			]
+		});
+	});
+
+	test('throws error if no userid provided', async () => {
+		const resp = await request.post('/appeals/inspector/assign').send([1]);
+
+		expect(resp.status).toEqual(401);
+		expect(resp.body).toEqual({
+			errors: {
+				userid: 'Authentication error. Missing header `userId`.'
 			}
-		]
+		});
 	});
-	sinon.assert.calledWith(updateStub, {
-		where: { id: 1 },
-		data: { updatedAt: sinon.match.any, user: { connect: { azureReference: 1 } } }
-	});
-	sinon.assert.calledWith(updateManyAppealStatusStub, {
-		where: { id: { in: [3] } },
-		data: { valid: false }
-	});
-	sinon.assert.calledWith(createAppealStatusStub, {
-		data: { status: 'site_visit_not_yet_booked', appealId: 2 }
-	});
-	sinon.assert.calledWith(updateStub, {
-		where: { id: 2 },
-		data: { updatedAt: sinon.match.any, user: { connect: { azureReference: 1 } } }
-	});
-	sinon.assert.calledWith(updateManyAppealStatusStub, {
-		where: { id: { in: [4] } },
-		data: { valid: false }
-	});
-	sinon.assert.calledWith(createAppealStatusStub, {
-		data: { status: 'site_visit_not_yet_booked', appealId: 3 }
-	});
-	sinon.assert.calledWith(updateStub, {
-		where: { id: 3 },
-		data: { updatedAt: sinon.match.any, user: { connect: { azureReference: 1 } } }
-	});
-	t.deepEqual(resp.body, {
-		successfullyAssigned: [
-			{
-				appealId: 1,
-				reference: appeal1.reference,
-				appealType: 'FPA',
-				specialist: 'General',
-				provisionalVisitType: 'access required',
-				appealSite: formatAddressLowerCase(appeal1.address),
-				appealAge: 41
-			},
-			{
-				appealId: 2,
-				reference: appeal2.reference,
-				appealType: 'HAS',
-				specialist: 'General',
-				appealAge: 22,
-				provisionalVisitType: 'unaccompanied',
-				appealSite: formatAddressLowerCase(appeal2.address)
-			},
-			{
-				appealId: 3,
-				reference: appeal3.reference,
-				appealType: 'HAS',
-				specialist: 'General',
-				appealAge: 22,
-				provisionalVisitType: 'unaccompanied',
-				appealSite: formatAddressLowerCase(appeal3.address)
+
+	test('throws error if no appeals provided', async () => {
+		const resp = await request.post('/appeals/inspector/assign').set('userId', 1);
+
+		expect(resp.status).toEqual(400);
+		expect(resp.body).toEqual({
+			errors: {
+				'': 'Provide a non-empty array of appeals to assign to the inspector'
 			}
-		],
-		unsuccessfullyAssigned: []
+		});
 	});
-});
 
-test('unable to assign appeals that are not in the appropriate state', async (t) => {
-	const resp = await request.post('/appeals/inspector/assign').set('userId', 1).send([3, 4]);
+	test('throws error if empty array of appeals provided', async () => {
+		const resp = await request.post('/appeals/inspector/assign').set('userId', 1).send([]);
 
-	t.is(resp.status, 200);
-	sinon.assert.calledWith(updateManyAppealStatusStub, {
-		where: { id: { in: [4] } },
-		data: { valid: false }
-	});
-	sinon.assert.calledWith(createAppealStatusStub, {
-		data: { status: 'site_visit_not_yet_booked', appealId: 3 }
-	});
-	sinon.assert.calledWith(updateStub, {
-		where: { id: 3 },
-		data: { updatedAt: sinon.match.any, user: { connect: { azureReference: 1 } } }
-	});
-	t.deepEqual(resp.body, {
-		successfullyAssigned: [
-			{
-				appealId: 3,
-				reference: appeal3.reference,
-				appealType: 'HAS',
-				specialist: 'General',
-				appealAge: 22,
-				provisionalVisitType: 'unaccompanied',
-				appealSite: formatAddressLowerCase(appeal3.address)
+		expect(resp.status).toEqual(400);
+		expect(resp.body).toEqual({
+			errors: {
+				'': 'Provide a non-empty array of appeals to assign to the inspector'
 			}
-		],
-		unsuccessfullyAssigned: [
-			{
-				appealId: 4,
-				reason: 'appeal in wrong state',
-				reference: appeal4.reference,
-				appealType: 'HAS',
-				specialist: 'General',
-				appealAge: 22,
-				provisionalVisitType: 'access required',
-				appealSite: formatAddressLowerCase(appeal4.address)
-			}
-		]
-	});
-});
-
-test('unable to assign appeals that are already assigned to someone', async (t) => {
-	const resp = await request.post('/appeals/inspector/assign').set('userId', 1).send([1, 5]);
-
-	t.is(resp.status, 200);
-	sinon.assert.calledWith(updateManyAppealStatusStub, {
-		where: { id: { in: [1] } },
-		data: { valid: false }
-	});
-	sinon.assert.calledWith(createManyAppealStatusStub, {
-		data: [
-			{
-				subStateMachineName: 'lpaQuestionnaireAndInspectorPickup',
-				status: 'picked_up',
-				compoundStateName: 'awaiting_lpa_questionnaire_and_statements',
-				appealId: 1
-			}
-		]
-	});
-	sinon.assert.calledWith(updateStub, {
-		where: { id: 1 },
-		data: { updatedAt: sinon.match.any, user: { connect: { azureReference: 1 } } }
-	});
-	t.deepEqual(resp.body, {
-		successfullyAssigned: [
-			{
-				appealId: 1,
-				reference: appeal1.reference,
-				appealType: 'FPA',
-				specialist: 'General',
-				provisionalVisitType: 'access required',
-				appealSite: formatAddressLowerCase(appeal1.address),
-				appealAge: 41
-			}
-		],
-		unsuccessfullyAssigned: [
-			{
-				appealAge: 22,
-				appealId: 5,
-				appealSite: formatAddressLowerCase(appeal5.address),
-				appealType: 'HAS',
-				provisionalVisitType: 'access required',
-				reason: 'appeal already assigned',
-				reference: appeal5.reference,
-				specialist: 'General'
-			}
-		]
-	});
-});
-
-test('throws error if no userid provided', async (t) => {
-	const resp = await request.post('/appeals/inspector/assign').send([1]);
-
-	t.is(resp.status, 401);
-	t.deepEqual(resp.body, {
-		errors: {
-			userid: 'Authentication error. Missing header `userId`.'
-		}
-	});
-});
-
-test('throws error if no appeals provided', async (t) => {
-	const resp = await request.post('/appeals/inspector/assign').set('userId', 1);
-
-	t.is(resp.status, 400);
-	t.deepEqual(resp.body, {
-		errors: {
-			'': 'Provide a non-empty array of appeals to assign to the inspector'
-		}
-	});
-});
-
-test('throws error if empty array of appeals provided', async (t) => {
-	const resp = await request.post('/appeals/inspector/assign').set('userId', 1).send([]);
-
-	t.is(resp.status, 400);
-	t.deepEqual(resp.body, {
-		errors: {
-			'': 'Provide a non-empty array of appeals to assign to the inspector'
-		}
+		});
 	});
 });

@@ -1,4 +1,3 @@
-import test from 'ava';
 import sinon from 'sinon';
 import supertest from 'supertest';
 import { app } from '../../../app.js';
@@ -155,119 +154,123 @@ const appeal5 = {
 
 const findManyStub = sinon.stub().returns([appeal1, appeal2, appeal3, appeal4, appeal5]);
 
-test('gets all appeals assigned to inspector', async (t) => {
-	sinon.stub(databaseConnector, 'appeal').get(() => {
-		return { findMany: findManyStub };
+describe('Get Appeals', () => {
+	test('gets all appeals assigned to inspector', async () => {
+		sinon.stub(databaseConnector, 'appeal').get(() => {
+			return { findMany: findManyStub };
+		});
+
+		sinon.useFakeTimers({ now: 1_649_319_144_000 });
+
+		const resp = await request.get('/appeals/inspector').set('userId', 1);
+
+		expect(resp.status).toEqual(200);
+		expect(resp.body).toEqual([
+			{
+				appealId: 1,
+				reference: 'APP/Q9999/D/21/1345264',
+				status: 'decision due',
+				appealSite: {
+					addressLine1: '96 The Avenue',
+					county: 'Kent',
+					postCode: 'MD21 5XY',
+					town: 'Maidstone'
+				},
+				appealAge: 41,
+				siteVisitType: 'unaccompanied',
+				appealType: 'HAS',
+				siteVisitDate: '02 Nov 2021',
+				siteVisitSlot: '1pm - 2pm'
+			},
+			{
+				appealId: 2,
+				reference: 'APP/Q9999/D/21/5463281',
+				status: 'booked',
+				appealSite: {
+					addressLine1: '55 Butcher Street',
+					postCode: 'S63 0RB',
+					town: 'Thurnscoe'
+				},
+				appealAge: 22,
+				siteVisitType: 'accompanied',
+				appealType: 'HAS',
+				siteVisitDate: '10 Jan 2022',
+				siteVisitSlot: '10am - 11am'
+			},
+			{
+				appealAge: 22,
+				appealId: 3,
+				appealSite: {
+					addressLine1: '55 Butcher Street',
+					postCode: 'S63 0RB',
+					town: 'Thurnscoe'
+				},
+				appealType: 'HAS',
+				reference: 'APP/Q9999/D/21/5463281',
+				status: 'not yet booked',
+				provisionalVisitType: 'access required'
+			},
+			{
+				appealAge: 22,
+				appealId: 4,
+				appealSite: {
+					addressLine1: '55 Butcher Street',
+					postCode: 'S63 0RB',
+					town: 'Thurnscoe'
+				},
+				appealType: 'FPA',
+				reference: 'APP/Q9999/D/21/5463281',
+				status: 'not yet booked',
+				provisionalVisitType: 'access required'
+			},
+			{
+				appealAge: 22,
+				appealId: 5,
+				appealSite: {
+					addressLine1: '55 Butcher Street',
+					postCode: 'S63 0RB',
+					town: 'Thurnscoe'
+				},
+				appealType: 'FPA',
+				reference: 'APP/Q9999/D/21/5463281',
+				status: 'not yet booked',
+				provisionalVisitType: 'unaccompanied'
+			}
+		]);
+		sinon.assert.calledWith(findManyStub, {
+			where: {
+				appealStatus: {
+					some: {
+						status: {
+							in: ['site_visit_not_yet_booked', 'site_visit_booked', 'decision_due', 'picked_up']
+						},
+						valid: true
+					}
+				},
+				user: { azureReference: 1 }
+			},
+			include: {
+				address: true,
+				siteVisit: true,
+				lpaQuestionnaire: true,
+				appealDetailsFromAppellant: true,
+				appellant: true,
+				appealStatus: {
+					where: {
+						valid: true
+					}
+				},
+				appealType: true
+			}
+		});
 	});
 
-	sinon.useFakeTimers({ now: 1_649_319_144_000 });
+	test('throws error if userid is not provided in the header', async () => {
+		const resp = await request.get('/appeals/inspector');
 
-	const resp = await request.get('/appeals/inspector').set('userId', 1);
-
-	t.is(resp.status, 200);
-	t.deepEqual(resp.body, [
-		{
-			appealId: 1,
-			reference: 'APP/Q9999/D/21/1345264',
-			status: 'decision due',
-			appealSite: {
-				addressLine1: '96 The Avenue',
-				county: 'Kent',
-				postCode: 'MD21 5XY',
-				town: 'Maidstone'
-			},
-			appealAge: 41,
-			siteVisitType: 'unaccompanied',
-			appealType: 'HAS',
-			siteVisitDate: '02 Nov 2021',
-			siteVisitSlot: '1pm - 2pm'
-		},
-		{
-			appealId: 2,
-			reference: 'APP/Q9999/D/21/5463281',
-			status: 'booked',
-			appealSite: {
-				addressLine1: '55 Butcher Street',
-				postCode: 'S63 0RB',
-				town: 'Thurnscoe'
-			},
-			appealAge: 22,
-			siteVisitType: 'accompanied',
-			appealType: 'HAS',
-			siteVisitDate: '10 Jan 2022',
-			siteVisitSlot: '10am - 11am'
-		},
-		{
-			appealAge: 22,
-			appealId: 3,
-			appealSite: {
-				addressLine1: '55 Butcher Street',
-				postCode: 'S63 0RB',
-				town: 'Thurnscoe'
-			},
-			appealType: 'HAS',
-			reference: 'APP/Q9999/D/21/5463281',
-			status: 'not yet booked',
-			provisionalVisitType: 'access required'
-		},
-		{
-			appealAge: 22,
-			appealId: 4,
-			appealSite: {
-				addressLine1: '55 Butcher Street',
-				postCode: 'S63 0RB',
-				town: 'Thurnscoe'
-			},
-			appealType: 'FPA',
-			reference: 'APP/Q9999/D/21/5463281',
-			status: 'not yet booked',
-			provisionalVisitType: 'access required'
-		},
-		{
-			appealAge: 22,
-			appealId: 5,
-			appealSite: {
-				addressLine1: '55 Butcher Street',
-				postCode: 'S63 0RB',
-				town: 'Thurnscoe'
-			},
-			appealType: 'FPA',
-			reference: 'APP/Q9999/D/21/5463281',
-			status: 'not yet booked',
-			provisionalVisitType: 'unaccompanied'
-		}
-	]);
-	sinon.assert.calledWith(findManyStub, {
-		where: {
-			appealStatus: {
-				some: {
-					status: {
-						in: ['site_visit_not_yet_booked', 'site_visit_booked', 'decision_due', 'picked_up']
-					},
-					valid: true
-				}
-			},
-			user: { azureReference: 1 }
-		},
-		include: {
-			address: true,
-			siteVisit: true,
-			lpaQuestionnaire: true,
-			appealDetailsFromAppellant: true,
-			appellant: true,
-			appealStatus: {
-				where: {
-					valid: true
-				}
-			},
-			appealType: true
-		}
+		expect(resp.status).toEqual(401);
+		expect(resp.body).toEqual({
+			errors: { userid: 'Authentication error. Missing header `userId`.' }
+		});
 	});
-});
-
-test('throws error if userid is not provided in the header', async (t) => {
-	const resp = await request.get('/appeals/inspector');
-
-	t.is(resp.status, 401);
-	t.deepEqual(resp.body, { errors: { userid: 'Authentication error. Missing header `userId`.' } });
 });

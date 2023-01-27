@@ -1,5 +1,3 @@
-// @ts-check
-import test from 'ava';
 import sinon, { assert } from 'sinon';
 import supertest from 'supertest';
 import { app } from '../../../app.js';
@@ -56,57 +54,79 @@ getByIdStub.withArgs(2).returns(invalidAppeal);
 sinon.stub(appealRepository, 'getById').callsFake(getByIdStub);
 sinon.stub(appealRepository, 'updateById').callsFake(updateByIdStub);
 
-test.beforeEach(() => {
-	updateByIdStub.resetHistory();
-});
+describe('updating appeal details', () => {
+	beforeEach(() => {
+		updateByIdStub.resetHistory();
+	});
 
-test('succeeds with a 200 when updating the listed building description', async (t) => {
-	const response = await request.patch('/appeals/case-officer/1').send(appealDetailsBody);
+	test('succeeds with a 200 when updating the listed building description', async () => {
+		const response = await request.patch('/appeals/case-officer/1').send(appealDetailsBody);
 
-	t.is(response.status, 200);
-	t.snapshot(response.body);
-
-	assert.calledWith(updateByIdStub, 1, {
-		lpaQuestionnaire: {
-			update: {
+		expect(response.status).toEqual(200);
+		expect(response.body).toEqual({
+			appealStatus: [
+				{
+					id: 2,
+					status: 'incomplete_lpa_questionnaire',
+					valid: true
+				}
+			],
+			createdAt: '2022-01-01T00:00:00.000Z',
+			id: 1,
+			localPlanningDepartment: 'Local planning dept',
+			lpaQuestionnaire: {
 				listedBuildingDescription: '*'
+			},
+			planningApplicationReference: '0181/811/8181',
+			reference: 'APP/Q9999/D/21/323259',
+			updatedAt: '2022-01-01T00:00:00.000Z',
+			userId: 100
+		});
+
+		assert.calledWith(updateByIdStub, 1, {
+			lpaQuestionnaire: {
+				update: {
+					listedBuildingDescription: '*'
+				}
 			}
-		}
-	});
-	assert.calledWith(getByIdStub, 1);
-});
-
-test('fails with a 409 status when the appeal is not in an incomplete state', async (t) => {
-	const response = await request.patch('/appeals/case-officer/2').send(appealDetailsBody);
-
-	t.is(response.status, 409);
-	t.deepEqual(response.body, {
-		errors: {
-			appeal: 'Appeal is in an invalid state'
-		}
-	});
-});
-
-test('fails with a 400 status when the `listedBuildingDescription` is too long', async (t) => {
-	const response = await request.patch('/appeals/case-officer/1').send({
-		listedBuildingDescription: '*'.repeat(501)
+		});
+		assert.calledWith(getByIdStub, 1);
 	});
 
-	t.is(response.status, 400);
-	t.deepEqual(response.body, {
-		errors: {
-			listedBuildingDescription: 'Description must be 500 characters or fewer'
-		}
+	test('fails with a 409 status when the appeal is not in an incomplete state', async () => {
+		const response = await request.patch('/appeals/case-officer/2').send(appealDetailsBody);
+
+		expect(response.status).toEqual(409);
+		expect(response.body).toEqual({
+			errors: {
+				appeal: 'Appeal is in an invalid state'
+			}
+		});
 	});
-});
 
-test('fails with a 400 status when the `listedBuildingDescription` is an empty string', async (t) => {
-	const response = await request.patch('/appeals/case-officer/1').send({ listedBuildingDescription: ' ' });
+	test('fails with a 400 status when the `listedBuildingDescription` is too long', async () => {
+		const response = await request.patch('/appeals/case-officer/1').send({
+			listedBuildingDescription: '*'.repeat(501)
+		});
 
-	t.is(response.status, 400);
-	t.deepEqual(response.body, {
-		errors: {
-			listedBuildingDescription: 'Enter a description'
-		}
+		expect(response.status).toEqual(400);
+		expect(response.body).toEqual({
+			errors: {
+				listedBuildingDescription: 'Description must be 500 characters or fewer'
+			}
+		});
+	});
+
+	test('fails with a 400 status when the `listedBuildingDescription` is an empty string', async () => {
+		const response = await request
+			.patch('/appeals/case-officer/1')
+			.send({ listedBuildingDescription: ' ' });
+
+		expect(response.status).toEqual(400);
+		expect(response.body).toEqual({
+			errors: {
+				listedBuildingDescription: 'Enter a description'
+			}
+		});
 	});
 });

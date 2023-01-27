@@ -1,5 +1,4 @@
 import Prisma from '@prisma/client';
-import test from 'ava';
 import sinon from 'sinon';
 import supertest from 'supertest';
 import { app } from '../../../app.js';
@@ -74,227 +73,229 @@ const createAppealStatusStub = sinon.stub();
 
 addReviewStub.returns(newReview);
 
-test.before('sets up mocking of database', () => {
-	sinon.stub(databaseConnector, 'appeal').get(() => {
-		return { findUnique: getAppealByIdStub, update: sinon.stub() };
-	});
-	sinon.stub(databaseConnector, 'reviewQuestionnaire').get(() => {
-		return { create: addReviewStub };
-	});
-	sinon.stub(databaseConnector, 'appealStatus').get(() => {
-		return { updateMany: updateManyAppealStatusStub, create: createAppealStatusStub };
-	});
-	sinon.stub(Prisma.PrismaClient.prototype, '$transaction');
-});
-
-test('should submit confirmation of an incomplete outcome of LPA questionnaire', async (t) => {
-	const resp = await request.post('/appeals/case-officer/11/confirm').send({
-		reason: {
-			applicationPlanningOfficersReportMissingOrIncorrect: false,
-			applicationPlansToReachDecisionMissingOrIncorrect: true,
-			applicationPlansToReachDecisionMissingOrIncorrectDescription: 'Some description',
-			policiesStatutoryDevelopmentPlanPoliciesMissingOrIncorrect: false,
-			policiesOtherRelevantPoliciesMissingOrIncorrect: false,
-			policiesSupplementaryPlanningDocumentsMissingOrIncorrect: false,
-			siteConservationAreaMapAndGuidanceMissingOrIncorrect: false,
-			siteListedBuildingDescriptionMissingOrIncorrect: false,
-			thirdPartyApplicationNotificationMissingOrIncorrect: false,
-			thirdPartyApplicationPublicityMissingOrIncorrect: false,
-			thirdPartyRepresentationsMissingOrIncorrect: false,
-			thirdPartyAppealNotificationMissingOrIncorrect: false
-		}
+describe('confirming LPA questionnaire', () => {
+	beforeAll(() => {
+		sinon.stub(databaseConnector, 'appeal').get(() => {
+			return { findUnique: getAppealByIdStub, update: sinon.stub() };
+		});
+		sinon.stub(databaseConnector, 'reviewQuestionnaire').get(() => {
+			return { create: addReviewStub };
+		});
+		sinon.stub(databaseConnector, 'appealStatus').get(() => {
+			return { updateMany: updateManyAppealStatusStub, create: createAppealStatusStub };
+		});
+		sinon.stub(Prisma.PrismaClient.prototype, '$transaction');
 	});
 
-	t.is(resp.status, 200);
-	sinon.assert.calledWithExactly(addReviewStub, {
-		data: {
-			appealId: 11,
-			complete: false,
-			applicationPlanningOfficersReportMissingOrIncorrect: false,
-			applicationPlansToReachDecisionMissingOrIncorrect: true,
-			applicationPlansToReachDecisionMissingOrIncorrectDescription: 'Some description',
-			policiesStatutoryDevelopmentPlanPoliciesMissingOrIncorrect: false,
-			policiesOtherRelevantPoliciesMissingOrIncorrect: false,
-			policiesSupplementaryPlanningDocumentsMissingOrIncorrect: false,
-			siteConservationAreaMapAndGuidanceMissingOrIncorrect: false,
-			siteListedBuildingDescriptionMissingOrIncorrect: false,
-			thirdPartyApplicationNotificationMissingOrIncorrect: false,
-			thirdPartyApplicationPublicityMissingOrIncorrect: false,
-			thirdPartyRepresentationsMissingOrIncorrect: false,
-			thirdPartyAppealNotificationMissingOrIncorrect: false
-		}
-	});
-	sinon.assert.calledWithExactly(updateManyAppealStatusStub, {
-		where: { id: { in: [2] } },
-		data: { valid: false }
-	});
-	sinon.assert.calledWithExactly(createAppealStatusStub, {
-		data: { status: 'incomplete_lpa_questionnaire', appealId: 11 }
-	});
-});
+	test('should submit confirmation of an incomplete outcome of LPA questionnaire', async () => {
+		const resp = await request.post('/appeals/case-officer/11/confirm').send({
+			reason: {
+				applicationPlanningOfficersReportMissingOrIncorrect: false,
+				applicationPlansToReachDecisionMissingOrIncorrect: true,
+				applicationPlansToReachDecisionMissingOrIncorrectDescription: 'Some description',
+				policiesStatutoryDevelopmentPlanPoliciesMissingOrIncorrect: false,
+				policiesOtherRelevantPoliciesMissingOrIncorrect: false,
+				policiesSupplementaryPlanningDocumentsMissingOrIncorrect: false,
+				siteConservationAreaMapAndGuidanceMissingOrIncorrect: false,
+				siteListedBuildingDescriptionMissingOrIncorrect: false,
+				thirdPartyApplicationNotificationMissingOrIncorrect: false,
+				thirdPartyApplicationPublicityMissingOrIncorrect: false,
+				thirdPartyRepresentationsMissingOrIncorrect: false,
+				thirdPartyAppealNotificationMissingOrIncorrect: false
+			}
+		});
 
-test('should submit confirmation of an incomplete if listed building desc is missing/incorrect', async (t) => {
-	const resp = await request.post('/appeals/case-officer/11/confirm').send({
-		reason: {
-			applicationPlanningOfficersReportMissingOrIncorrect: false,
-			applicationPlansToReachDecisionMissingOrIncorrect: false,
-			policiesStatutoryDevelopmentPlanPoliciesMissingOrIncorrect: false,
-			policiesOtherRelevantPoliciesMissingOrIncorrect: false,
-			policiesSupplementaryPlanningDocumentsMissingOrIncorrect: false,
-			siteConservationAreaMapAndGuidanceMissingOrIncorrect: false,
-			siteListedBuildingDescriptionMissingOrIncorrect: true,
-			siteListedBuildingDescriptionMissingOrIncorrectDescription: 'Some listed building desc',
-			thirdPartyApplicationNotificationMissingOrIncorrect: false,
-			thirdPartyApplicationPublicityMissingOrIncorrect: false,
-			thirdPartyRepresentationsMissingOrIncorrect: false,
-			thirdPartyAppealNotificationMissingOrIncorrect: false
-		}
-	});
-
-	t.is(resp.status, 200);
-	sinon.assert.calledWithExactly(addReviewStub, {
-		data: {
-			appealId: 11,
-			complete: false,
-			applicationPlanningOfficersReportMissingOrIncorrect: false,
-			applicationPlansToReachDecisionMissingOrIncorrect: false,
-			policiesStatutoryDevelopmentPlanPoliciesMissingOrIncorrect: false,
-			policiesOtherRelevantPoliciesMissingOrIncorrect: false,
-			policiesSupplementaryPlanningDocumentsMissingOrIncorrect: false,
-			siteConservationAreaMapAndGuidanceMissingOrIncorrect: false,
-			siteListedBuildingDescriptionMissingOrIncorrect: true,
-			siteListedBuildingDescriptionMissingOrIncorrectDescription: 'Some listed building desc',
-			thirdPartyApplicationNotificationMissingOrIncorrect: false,
-			thirdPartyApplicationPublicityMissingOrIncorrect: false,
-			thirdPartyRepresentationsMissingOrIncorrect: false,
-			thirdPartyAppealNotificationMissingOrIncorrect: false
-		}
-	});
-	sinon.assert.calledWithExactly(updateManyAppealStatusStub, {
-		where: { id: { in: [2] } },
-		data: { valid: false }
-	});
-	sinon.assert.calledWithExactly(createAppealStatusStub, {
-		data: { status: 'incomplete_lpa_questionnaire', appealId: 11 }
-	});
-});
-
-test('should submit confirmation of the outcome of LPA questionnaire', async (t) => {
-	const resp = await request.post('/appeals/case-officer/11/confirm').send({
-		reason: {
-			applicationPlanningOfficersReportMissingOrIncorrect: false,
-			applicationPlansToReachDecisionMissingOrIncorrect: false,
-			policiesStatutoryDevelopmentPlanPoliciesMissingOrIncorrect: false,
-			policiesOtherRelevantPoliciesMissingOrIncorrect: false,
-			policiesSupplementaryPlanningDocumentsMissingOrIncorrect: false,
-			siteConservationAreaMapAndGuidanceMissingOrIncorrect: false,
-			siteListedBuildingDescriptionMissingOrIncorrect: false,
-			thirdPartyApplicationNotificationMissingOrIncorrect: false,
-			thirdPartyApplicationPublicityMissingOrIncorrect: false,
-			thirdPartyRepresentationsMissingOrIncorrect: false,
-			thirdPartyAppealNotificationMissingOrIncorrect: false
-		}
+		expect(resp.status).toEqual(200);
+		sinon.assert.calledWithExactly(addReviewStub, {
+			data: {
+				appealId: 11,
+				complete: false,
+				applicationPlanningOfficersReportMissingOrIncorrect: false,
+				applicationPlansToReachDecisionMissingOrIncorrect: true,
+				applicationPlansToReachDecisionMissingOrIncorrectDescription: 'Some description',
+				policiesStatutoryDevelopmentPlanPoliciesMissingOrIncorrect: false,
+				policiesOtherRelevantPoliciesMissingOrIncorrect: false,
+				policiesSupplementaryPlanningDocumentsMissingOrIncorrect: false,
+				siteConservationAreaMapAndGuidanceMissingOrIncorrect: false,
+				siteListedBuildingDescriptionMissingOrIncorrect: false,
+				thirdPartyApplicationNotificationMissingOrIncorrect: false,
+				thirdPartyApplicationPublicityMissingOrIncorrect: false,
+				thirdPartyRepresentationsMissingOrIncorrect: false,
+				thirdPartyAppealNotificationMissingOrIncorrect: false
+			}
+		});
+		sinon.assert.calledWithExactly(updateManyAppealStatusStub, {
+			where: { id: { in: [2] } },
+			data: { valid: false }
+		});
+		sinon.assert.calledWithExactly(createAppealStatusStub, {
+			data: { status: 'incomplete_lpa_questionnaire', appealId: 11 }
+		});
 	});
 
-	t.is(resp.status, 200);
-	sinon.assert.calledWithExactly(addReviewStub, {
-		data: {
-			appealId: 11,
-			complete: true,
-			applicationPlanningOfficersReportMissingOrIncorrect: false,
-			applicationPlansToReachDecisionMissingOrIncorrect: false,
-			policiesStatutoryDevelopmentPlanPoliciesMissingOrIncorrect: false,
-			policiesOtherRelevantPoliciesMissingOrIncorrect: false,
-			policiesSupplementaryPlanningDocumentsMissingOrIncorrect: false,
-			siteConservationAreaMapAndGuidanceMissingOrIncorrect: false,
-			siteListedBuildingDescriptionMissingOrIncorrect: false,
-			thirdPartyApplicationNotificationMissingOrIncorrect: false,
-			thirdPartyApplicationPublicityMissingOrIncorrect: false,
-			thirdPartyRepresentationsMissingOrIncorrect: false,
-			thirdPartyAppealNotificationMissingOrIncorrect: false
-		}
-	});
-	sinon.assert.calledWithExactly(updateManyAppealStatusStub, {
-		where: { id: { in: [2] } },
-		data: { valid: false }
-	});
-	sinon.assert.calledWithExactly(createAppealStatusStub, {
-		data: { status: 'available_for_inspector_pickup', appealId: 11 }
-	});
-});
+	test('should submit confirmation of an incomplete if listed building desc is missing/incorrect', async () => {
+		const resp = await request.post('/appeals/case-officer/11/confirm').send({
+			reason: {
+				applicationPlanningOfficersReportMissingOrIncorrect: false,
+				applicationPlansToReachDecisionMissingOrIncorrect: false,
+				policiesStatutoryDevelopmentPlanPoliciesMissingOrIncorrect: false,
+				policiesOtherRelevantPoliciesMissingOrIncorrect: false,
+				policiesSupplementaryPlanningDocumentsMissingOrIncorrect: false,
+				siteConservationAreaMapAndGuidanceMissingOrIncorrect: false,
+				siteListedBuildingDescriptionMissingOrIncorrect: true,
+				siteListedBuildingDescriptionMissingOrIncorrectDescription: 'Some listed building desc',
+				thirdPartyApplicationNotificationMissingOrIncorrect: false,
+				thirdPartyApplicationPublicityMissingOrIncorrect: false,
+				thirdPartyRepresentationsMissingOrIncorrect: false,
+				thirdPartyAppealNotificationMissingOrIncorrect: false
+			}
+		});
 
-test("should not be able to submit review as 'incomplete' if there is no description being sent", async (t) => {
-	const resp = await request.post('/appeals/case-officer/11/confirm').send({
-		reason: {
-			applicationPlanningOfficersReportMissingOrIncorrect: false,
-			applicationPlansToReachDecisionMissingOrIncorrect: true,
-			policiesStatutoryDevelopmentPlanPoliciesMissingOrIncorrect: false,
-			policiesOtherRelevantPoliciesMissingOrIncorrect: false,
-			policiesSupplementaryPlanningDocumentsMissingOrIncorrect: false,
-			siteConservationAreaMapAndGuidanceMissingOrIncorrect: false,
-			siteListedBuildingDescriptionMissingOrIncorrect: false,
-			thirdPartyApplicationNotificationMissingOrIncorrect: false,
-			thirdPartyApplicationPublicityMissingOrIncorrect: false,
-			thirdPartyRepresentationsMissingOrIncorrect: false,
-			thirdPartyAppealNotificationMissingOrIncorrect: false
-		}
-	});
-
-	t.is(resp.status, 409);
-	t.deepEqual(resp.body, {
-		errors: {
-			status: 'Incomplete Review requires a description'
-		}
-	});
-});
-
-test("should not be able to submit review as 'incomplete' if some unexpected body attributes are provided", async (t) => {
-	const resp = await request.post('/appeals/case-officer/11/confirm').send({
-		reason: {
-			applicationPlanningOfficersReportMissingOrIncorrect: false,
-			applicationPlansToReachDecisionMissingOrIncorrect: false,
-			policiesStatutoryDevelopmentPlanPoliciesMissingOrIncorrect: false,
-			policiesOtherRelevantPoliciesMissingOrIncorrect: false,
-			policiesSupplementaryPlanningDocumentsMissingOrIncorrect: false,
-			siteConservationAreaMapAndGuidanceMissingOrIncorrect: false,
-			siteListedBuildingDescriptionMissingOrIncorrect: false,
-			thirdPartyApplicationNotificationMissingOrIncorrect: false,
-			thirdPartyApplicationPublicityMissingOrIncorrect: false,
-			thirdPartyRepresentationsMissingOrIncorrect: false,
-			thirdPartyAppealNotificationMissingOrIncorrect: false,
-			someFakeReason: true
-		}
+		expect(resp.status).toEqual(200);
+		sinon.assert.calledWithExactly(addReviewStub, {
+			data: {
+				appealId: 11,
+				complete: false,
+				applicationPlanningOfficersReportMissingOrIncorrect: false,
+				applicationPlansToReachDecisionMissingOrIncorrect: false,
+				policiesStatutoryDevelopmentPlanPoliciesMissingOrIncorrect: false,
+				policiesOtherRelevantPoliciesMissingOrIncorrect: false,
+				policiesSupplementaryPlanningDocumentsMissingOrIncorrect: false,
+				siteConservationAreaMapAndGuidanceMissingOrIncorrect: false,
+				siteListedBuildingDescriptionMissingOrIncorrect: true,
+				siteListedBuildingDescriptionMissingOrIncorrectDescription: 'Some listed building desc',
+				thirdPartyApplicationNotificationMissingOrIncorrect: false,
+				thirdPartyApplicationPublicityMissingOrIncorrect: false,
+				thirdPartyRepresentationsMissingOrIncorrect: false,
+				thirdPartyAppealNotificationMissingOrIncorrect: false
+			}
+		});
+		sinon.assert.calledWithExactly(updateManyAppealStatusStub, {
+			where: { id: { in: [2] } },
+			data: { valid: false }
+		});
+		sinon.assert.calledWithExactly(createAppealStatusStub, {
+			data: { status: 'incomplete_lpa_questionnaire', appealId: 11 }
+		});
 	});
 
-	t.is(resp.status, 409);
-	t.deepEqual(resp.body, {
-		errors: {
-			status: 'Incomplete Review requires a known description'
-		}
-	});
-});
+	test('should submit confirmation of the outcome of LPA questionnaire', async () => {
+		const resp = await request.post('/appeals/case-officer/11/confirm').send({
+			reason: {
+				applicationPlanningOfficersReportMissingOrIncorrect: false,
+				applicationPlansToReachDecisionMissingOrIncorrect: false,
+				policiesStatutoryDevelopmentPlanPoliciesMissingOrIncorrect: false,
+				policiesOtherRelevantPoliciesMissingOrIncorrect: false,
+				policiesSupplementaryPlanningDocumentsMissingOrIncorrect: false,
+				siteConservationAreaMapAndGuidanceMissingOrIncorrect: false,
+				siteListedBuildingDescriptionMissingOrIncorrect: false,
+				thirdPartyApplicationNotificationMissingOrIncorrect: false,
+				thirdPartyApplicationPublicityMissingOrIncorrect: false,
+				thirdPartyRepresentationsMissingOrIncorrect: false,
+				thirdPartyAppealNotificationMissingOrIncorrect: false
+			}
+		});
 
-test('should not be able to submit review if appeal is not in a state ready to receive confirmation of the LPA questionnaire', async (t) => {
-	const resp = await request.post('/appeals/case-officer/10/confirm').send({
-		reason: {
-			applicationPlanningOfficersReportMissingOrIncorrect: false,
-			applicationPlansToReachDecisionMissingOrIncorrect: false,
-			policiesStatutoryDevelopmentPlanPoliciesMissingOrIncorrect: false,
-			policiesOtherRelevantPoliciesMissingOrIncorrect: false,
-			policiesSupplementaryPlanningDocumentsMissingOrIncorrect: false,
-			siteConservationAreaMapAndGuidanceMissingOrIncorrect: false,
-			siteListedBuildingDescriptionMissingOrIncorrect: false,
-			thirdPartyApplicationNotificationMissingOrIncorrect: false,
-			thirdPartyApplicationPublicityMissingOrIncorrect: false,
-			thirdPartyRepresentationsMissingOrIncorrect: false,
-			thirdPartyAppealNotificationMissingOrIncorrect: false
-		}
+		expect(resp.status).toEqual(200);
+		sinon.assert.calledWithExactly(addReviewStub, {
+			data: {
+				appealId: 11,
+				complete: true,
+				applicationPlanningOfficersReportMissingOrIncorrect: false,
+				applicationPlansToReachDecisionMissingOrIncorrect: false,
+				policiesStatutoryDevelopmentPlanPoliciesMissingOrIncorrect: false,
+				policiesOtherRelevantPoliciesMissingOrIncorrect: false,
+				policiesSupplementaryPlanningDocumentsMissingOrIncorrect: false,
+				siteConservationAreaMapAndGuidanceMissingOrIncorrect: false,
+				siteListedBuildingDescriptionMissingOrIncorrect: false,
+				thirdPartyApplicationNotificationMissingOrIncorrect: false,
+				thirdPartyApplicationPublicityMissingOrIncorrect: false,
+				thirdPartyRepresentationsMissingOrIncorrect: false,
+				thirdPartyAppealNotificationMissingOrIncorrect: false
+			}
+		});
+		sinon.assert.calledWithExactly(updateManyAppealStatusStub, {
+			where: { id: { in: [2] } },
+			data: { valid: false }
+		});
+		sinon.assert.calledWithExactly(createAppealStatusStub, {
+			data: { status: 'available_for_inspector_pickup', appealId: 11 }
+		});
 	});
 
-	t.is(resp.status, 409);
-	t.deepEqual(resp.body, {
-		errors: {
-			appeal: 'Appeal is in an invalid state'
-		}
+	test("should not be able to submit review as 'incomplete' if there is no description being sent", async () => {
+		const resp = await request.post('/appeals/case-officer/11/confirm').send({
+			reason: {
+				applicationPlanningOfficersReportMissingOrIncorrect: false,
+				applicationPlansToReachDecisionMissingOrIncorrect: true,
+				policiesStatutoryDevelopmentPlanPoliciesMissingOrIncorrect: false,
+				policiesOtherRelevantPoliciesMissingOrIncorrect: false,
+				policiesSupplementaryPlanningDocumentsMissingOrIncorrect: false,
+				siteConservationAreaMapAndGuidanceMissingOrIncorrect: false,
+				siteListedBuildingDescriptionMissingOrIncorrect: false,
+				thirdPartyApplicationNotificationMissingOrIncorrect: false,
+				thirdPartyApplicationPublicityMissingOrIncorrect: false,
+				thirdPartyRepresentationsMissingOrIncorrect: false,
+				thirdPartyAppealNotificationMissingOrIncorrect: false
+			}
+		});
+
+		expect(resp.status).toEqual(409);
+		expect(resp.body).toEqual({
+			errors: {
+				status: 'Incomplete Review requires a description'
+			}
+		});
+	});
+
+	test("should not be able to submit review as 'incomplete' if some unexpected body attributes are provided", async () => {
+		const resp = await request.post('/appeals/case-officer/11/confirm').send({
+			reason: {
+				applicationPlanningOfficersReportMissingOrIncorrect: false,
+				applicationPlansToReachDecisionMissingOrIncorrect: false,
+				policiesStatutoryDevelopmentPlanPoliciesMissingOrIncorrect: false,
+				policiesOtherRelevantPoliciesMissingOrIncorrect: false,
+				policiesSupplementaryPlanningDocumentsMissingOrIncorrect: false,
+				siteConservationAreaMapAndGuidanceMissingOrIncorrect: false,
+				siteListedBuildingDescriptionMissingOrIncorrect: false,
+				thirdPartyApplicationNotificationMissingOrIncorrect: false,
+				thirdPartyApplicationPublicityMissingOrIncorrect: false,
+				thirdPartyRepresentationsMissingOrIncorrect: false,
+				thirdPartyAppealNotificationMissingOrIncorrect: false,
+				someFakeReason: true
+			}
+		});
+
+		expect(resp.status).toEqual(409);
+		expect(resp.body).toEqual({
+			errors: {
+				status: 'Incomplete Review requires a known description'
+			}
+		});
+	});
+
+	test('should not be able to submit review if appeal is not in a state ready to receive confirmation of the LPA questionnaire', async () => {
+		const resp = await request.post('/appeals/case-officer/10/confirm').send({
+			reason: {
+				applicationPlanningOfficersReportMissingOrIncorrect: false,
+				applicationPlansToReachDecisionMissingOrIncorrect: false,
+				policiesStatutoryDevelopmentPlanPoliciesMissingOrIncorrect: false,
+				policiesOtherRelevantPoliciesMissingOrIncorrect: false,
+				policiesSupplementaryPlanningDocumentsMissingOrIncorrect: false,
+				siteConservationAreaMapAndGuidanceMissingOrIncorrect: false,
+				siteListedBuildingDescriptionMissingOrIncorrect: false,
+				thirdPartyApplicationNotificationMissingOrIncorrect: false,
+				thirdPartyApplicationPublicityMissingOrIncorrect: false,
+				thirdPartyRepresentationsMissingOrIncorrect: false,
+				thirdPartyAppealNotificationMissingOrIncorrect: false
+			}
+		});
+
+		expect(resp.status).toEqual(409);
+		expect(resp.body).toEqual({
+			errors: {
+				appeal: 'Appeal is in an invalid state'
+			}
+		});
 	});
 });

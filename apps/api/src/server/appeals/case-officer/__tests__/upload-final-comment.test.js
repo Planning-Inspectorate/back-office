@@ -1,4 +1,3 @@
-import test from 'ava';
 import path from 'node:path';
 import * as url from 'node:url';
 import sinon from 'sinon';
@@ -42,39 +41,41 @@ const findUniqueStub = sinon.stub();
 findUniqueStub.withArgs({ where: { id: 1 }, include: inclusions }).returns(appeal1);
 findUniqueStub.withArgs({ where: { id: 2 }, include: inclusions }).returns(appeal2);
 
-test.before('sets up database mock', () => {
-	sinon.stub(databaseConnector, 'appeal').get(() => {
-		return { findUnique: findUniqueStub };
+describe('Upload final comments', () => {
+	beforeAll(() => {
+		sinon.stub(databaseConnector, 'appeal').get(() => {
+			return { findUnique: findUniqueStub };
+		});
 	});
-});
 
-test('Throws error if appeal is not accepting final comments', async (t) => {
-	const response = await request
-		.post('/appeals/case-officer/1/final-comment')
-		.attach('finalcomments', pathToFile)
-		.attach('finalcomments', pathToFile);
+	test('Throws error if appeal is not accepting final comments', async () => {
+		const response = await request
+			.post('/appeals/case-officer/1/final-comment')
+			.attach('finalcomments', pathToFile)
+			.attach('finalcomments', pathToFile);
 
-	t.is(response.status, 409);
-	t.deepEqual(response.body, { errors: { appeal: 'Appeal is in an invalid state' } });
-});
+		expect(response.status).toEqual(409);
+		expect(response.body).toEqual({ errors: { appeal: 'Appeal is in an invalid state' } });
+	});
 
-test('Throws error if no file provided', async (t) => {
-	const response = await request.post('/appeals/case-officer/1/final-comment');
+	test('Throws error if no file provided', async () => {
+		const response = await request.post('/appeals/case-officer/1/final-comment');
 
-	t.is(response.status, 400);
-	t.deepEqual(response.body, { errors: { finalcomments: 'Select a file' } });
-});
+		expect(response.status).toEqual(400);
+		expect(response.body).toEqual({ errors: { finalcomments: 'Select a file' } });
+	});
 
-test('Returns 200 if successfully uploaded final comment', async (t) => {
-	const response = await request
-		.post('/appeals/case-officer/2/final-comment')
-		.attach('finalcomments', pathToFile)
-		.attach('finalcomments', pathToFile);
+	test('Returns 200 if successfully uploaded final comment', async () => {
+		const response = await request
+			.post('/appeals/case-officer/2/final-comment')
+			.attach('finalcomments', pathToFile)
+			.attach('finalcomments', pathToFile);
 
-	t.is(response.status, 200);
-	t.deepEqual(response.body, {
-		AppealId: 2,
-		AppealReference: appeal2.reference,
-		canUploadFinalCommentsUntil: '15 February 2022'
+		expect(response.status).toEqual(200);
+		expect(response.body).toEqual({
+			AppealId: 2,
+			AppealReference: appeal2.reference,
+			canUploadFinalCommentsUntil: '15 February 2022'
+		});
 	});
 });
