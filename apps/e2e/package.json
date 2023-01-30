@@ -1,0 +1,24 @@
+{
+	"name": "@pins/e2e-testing",
+	"version": "1.0.0",
+	"description": "E2E TestS for the Back Office Application",
+	"main": "index.js",
+	"scripts": {
+		"cy:open": "npx cypress open",
+		"cy:run": "npx cypress run"
+	},
+	"author": "",
+	"license": "ISC",
+	"dependencies": {
+		"@cypress/webpack-preprocessor": "^5.16.1",
+		"cypress": "^12.3.0",
+		"eslint-plugin-cypress": "^2.12.1"
+	},
+	"devDependencies": {
+		"@badeball/cypress-cucumber-preprocessor": "^15.1.0",
+		"@bahmutov/cypress-esbuild-preprocessor": "^2.1.5",
+		"@faker-js/faker": "^7.6.0",
+		"dotenv": "^16.0.3",
+		"puppeteer": "^19.4.1"
+	}
+}

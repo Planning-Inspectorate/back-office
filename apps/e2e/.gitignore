@@ -1,0 +1,4 @@
+.env
+/cypress/videos
+/cypress/screenshots
+/cypress/support/browserAuthData
