@@ -60,7 +60,7 @@ const deleteDocument = async (documentUri, context) => {
 		await got.delete('http://localhost:3001/document', { json: { documentPath } }).json();
 	} catch (error) {
 		if (errorIsDueToDocumentMissing(error)) {
-			context.info('Unable to delete document from Blob Store because it is already deleted');
+			context.log.info('Unable to delete document from Blob Store because it is already deleted');
 		} else {
 			throw error;
 		}
@@ -75,18 +75,23 @@ export const checkMyBlob = async (context, myBlob) => {
 	const documentUri = context.bindingData.uri;
 	const { guid } = getBlobCaseReferenceAndGuid(documentUri);
 
+	context.log('Sending document state is uploading to back office');
 	await sendDocumentStateAction(guid, 'uploading', context);
 
 	const blobStream = Readable.from(myBlob);
 
+	context.log('Scanning document for viruses');
+
 	const isInfected = await scanStream(blobStream);
 
 	if (isInfected) {
-		context.error('Document did not pass AV checks');
+		context.log.error('Document did not pass AV checks');
+		context.log('Deleting document from blob storage');
 		await deleteDocument(documentUri, context);
 	}
 
 	const machineAction = mapIsInfectedToMachineAction(isInfected);
 
+	context.log('Sending AV result to back office');
 	await sendDocumentStateAction(guid, machineAction, context);
 };

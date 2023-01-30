@@ -23,7 +23,8 @@ const sendRequestToBackOffice = async (documentGuid, machineAction) => {
 const expectedErrorMessage = (machineAction) => {
 	const transitionFrom = {
 		check_success: 'not_user_checked',
-		check_fail: 'failed_virus_check'
+		check_fail: 'failed_virus_check',
+		uploading: 'awaiting_virus_check'
 	}[machineAction];
 
 	return new RegExp(`Could not transition '${transitionFrom}' using '${machineAction}'.`);
@@ -54,10 +55,11 @@ export const sendDocumentStateAction = async (documentGuid, machineAction, conte
 		await sendRequestToBackOffice(documentGuid, machineAction);
 	} catch (error) {
 		if (errorIsDueToDocumentAlreadyMakedWithNewStatus(error, machineAction)) {
-			context.info(
+			context.log.info(
 				`Document status already updated using the state machine trigger ${machineAction}`
 			);
 		} else {
+			context.log.error(error);
 			throw error;
 		}
 	}
