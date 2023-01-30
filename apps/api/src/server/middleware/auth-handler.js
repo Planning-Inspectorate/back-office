@@ -13,8 +13,18 @@ const client = jwksClient({
 
 const jwtOptions = {
 	audience: [`api://${config.msal.clientId}`],
-	issuer: [`https://sts.windows.net/${process.env['AUTH_TENANT_ID']}/`],
+	issuer: [`https://sts.windows.net/${config.msal.tenantId}/`],
 	algorithms: ['RS256']
+};
+
+/**
+ * getDecodedAccessToken
+ *
+ * @param {string} accessToken
+ *  @returns {jwt.Jwt | null} date two weeks ago
+ */
+const getDecodedAccessToken = (accessToken) => {
+	return jwt.decode(accessToken, { complete: true });
 };
 
 /**
@@ -40,7 +50,7 @@ export async function validateClientHandler(req, response, next) {
 
 			logger.info('attempting to decode access token');
 
-			const decoded = jwt.decode(accessToken, { complete: true });
+			const decoded = getDecodedAccessToken(accessToken);
 
 			logger.info('successfully decoded access token');
 
