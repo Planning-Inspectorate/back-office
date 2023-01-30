@@ -221,11 +221,7 @@ test('update-application updates application when all possible details provided'
 	t.is(response.status, 200);
 	t.deepEqual(response.body, { id: 1, applicantIds: [2, 3] });
 	sinon.assert.calledWith(deleteManyStub, {
-		where: {
-			applicationDetails: {
-				caseId: 1
-			}
-		}
+		where: { applicationDetailsId: 1 }
 	});
 
 	sinon.assert.calledWith(updateStub, {
