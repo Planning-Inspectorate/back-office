@@ -58,9 +58,9 @@ const deleteDocument = async (documentUri, context) => {
 	const documentPath = `/${documentUri.split('/').slice(-4).join('/')}`;
 
 	try {
-		await got
-			.delete(`https://${config.DOCUMENT_STORAGE_API_HOST}/document`, { json: { documentPath } })
-			.json();
+		await got.delete(`https://${config.DOCUMENT_STORAGE_API_HOST}/document`, {
+			json: { documentPath }
+		});
 	} catch (error) {
 		if (errorIsDueToDocumentMissing(error)) {
 			context.log.info('Unable to delete document from Blob Store because it is already deleted');
