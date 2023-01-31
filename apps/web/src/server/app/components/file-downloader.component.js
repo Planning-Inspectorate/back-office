@@ -31,18 +31,21 @@ const getDocumentsDownload = async ({ params, session }, response) => {
 		blobStoragePath.slice(1)
 	);
 	const completeURI = `${blobStorageUrl}${blobStorageContainer}${blobStoragePath}${sasToken}`;
+	const fileName = `${blobStoragePath}`.split(/\/+/).pop();
 
-	if (preview) {
-		response.redirect(completeURI);
-	} else {
-		const fileName = `${blobStoragePath}`.split(/\/+/).pop();
-		const externalRequest = request(completeURI, (externalResource) => {
+	const externalRequest = request(completeURI, (externalResource) => {
+		const contentType = externalResource.headers['content-type'];
+
+		if (preview && contentType) {
+			response.setHeader('content-type', contentType);
+		} else {
 			response.setHeader('content-disposition', `attachment; filename=${fileName}`);
-			externalResource.pipe(response);
-		});
+		}
+		externalResource.pipe(response);
+	});
 
-		externalRequest.end();
-	}
+	externalRequest.end();
+
 	return response.status(200);
 };
 
