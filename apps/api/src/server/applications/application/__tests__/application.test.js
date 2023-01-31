@@ -1,6 +1,7 @@
 import test from 'ava';
 import { applicationFactoryForTests } from '../../../utils/application-factory-for-tests.js';
 import { buildNsipProjectPayload } from '../application.js';
+import { validateNsipProject } from './schema-test-utils.js';
 
 test('buildNsipProjectPayload maps NSIP Case to NSIP Application Payload with minimum payload', (t) => {
 	// 1. Arrange
@@ -20,11 +21,13 @@ test('buildNsipProjectPayload maps NSIP Case to NSIP Application Payload with mi
 		status: [],
 		title: 'EN010003 - NI Case 3 Name',
 		type: {
-			code: 'Application'
+			code: 'application'
 		},
 		validationOfficers: []
 	};
 
+	// We're parsing the JSON and then stringifying it again to ensure that the date object is serialised as a string.
+	t.deepEqual(validateNsipProject(result), true);
 	t.deepEqual(result, expectedResult);
 });
 test('buildNsipProjectPayload maps NSIP Case to NSIP Application Payload', (t) => {
@@ -57,7 +60,7 @@ test('buildNsipProjectPayload maps NSIP Case to NSIP Application Payload', (t) =
 		title: 'EN010003 - NI Case 3 Name',
 		description: 'EN010003 - NI Case 3 Name Description',
 		type: {
-			code: 'Application'
+			code: 'application'
 		},
 		status: [
 			{
@@ -99,7 +102,7 @@ test('buildNsipProjectPayload maps NSIP Case to NSIP Application Payload', (t) =
 		customers: [
 			{
 				id: 1,
-				customerType: 'Applicant',
+				customerType: 'applicant',
 				name: 'Organisation',
 				firstName: 'Service Customer First Name',
 				lastName: 'Service Customer Last Name',
@@ -121,5 +124,6 @@ test('buildNsipProjectPayload maps NSIP Case to NSIP Application Payload', (t) =
 		sourceSystem: 'ODT'
 	};
 
+	t.deepEqual(validateNsipProject(result), true);
 	t.deepEqual(result, expectedResult);
 });

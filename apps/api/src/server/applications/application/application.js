@@ -158,7 +158,7 @@ import { pick } from 'lodash-es';
 
 /* @type {CaseType} */
 const type = {
-	code: 'Application'
+	code: 'application'
 };
 
 const sourceSystem = 'ODT';
@@ -207,7 +207,7 @@ const mapCustomers = (projectEntity) => {
 	return serviceCustomers.map((customer) => {
 		return {
 			...pick(customer, ['id', 'firstName', 'lastName', 'email', 'website', 'phoneNumber']),
-			customerType: 'Applicant',
+			customerType: 'applicant',
 			...(customer.organisationName && { name: customer.organisationName }),
 			...(customer.address && {
 				address: pick(customer.address, [

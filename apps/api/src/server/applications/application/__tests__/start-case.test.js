@@ -6,6 +6,7 @@ import { app } from '../../../app.js';
 import { eventClient } from '../../../infrastructure/event-client.js';
 import { applicationFactoryForTests } from '../../../utils/application-factory-for-tests.js';
 import { databaseConnector } from '../../../utils/database-connector.js';
+import { validateNsipProject } from './schema-test-utils.js';
 
 const request = supertest(app);
 
@@ -179,7 +180,7 @@ test('starts application if all needed information is present', async (t) => {
 		reference: 'EN01-1',
 		title: 'Title',
 		description: 'Description',
-		type: { code: 'Application' },
+		type: { code: 'application' },
 		sourceSystem: 'ODT',
 		inspectors: [],
 		validationOfficers: [],
@@ -204,6 +205,7 @@ test('starts application if all needed information is present', async (t) => {
 		customers: []
 	};
 
+	t.deepEqual(validateNsipProject(stubbedSendEvents.getCall(0).args[1][0]), true);
 	sinon.assert.calledWith(stubbedSendEvents, 'nsip-project', [expectedEventPayload]);
 });
 
