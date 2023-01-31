@@ -2,6 +2,7 @@ import got, { HTTPError } from 'got';
 import { isEqual } from 'lodash-es';
 import { Readable } from 'node:stream';
 import { sendDocumentStateAction } from './back-office-api-client.js';
+import config from './config.js';
 import { scanStream } from './scan-stream.js';
 
 /**
@@ -57,7 +58,9 @@ const deleteDocument = async (documentUri, context) => {
 	const documentPath = `/${documentUri.split('/').slice(-4).join('/')}`;
 
 	try {
-		await got.delete('http://localhost:3001/document', { json: { documentPath } }).json();
+		await got
+			.delete(`https://${config.DOCUMENT_STORAGE_API_HOST}/document`, { json: { documentPath } })
+			.json();
 	} catch (error) {
 		if (errorIsDueToDocumentMissing(error)) {
 			context.log.info('Unable to delete document from Blob Store because it is already deleted');
