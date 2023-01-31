@@ -1,9 +1,11 @@
 import test from 'ava';
 import sinon from 'sinon';
 import supertest from 'supertest';
+// @ts-ignore
 import { app } from '../../../app.js';
 import { eventClient } from '../../../infrastructure/event-client.js';
 import { databaseConnector } from '../../../utils/database-connector.js';
+import { validateNsipProject } from './schema-test-utils.js';
 const request = supertest(app);
 
 const createStub = sinon.stub().returns({ id: 1, serviceCustomer: [{ id: 4 }] });
@@ -14,14 +16,14 @@ const expectedEventPayload = {
 	customers: [
 		{
 			id: 4,
-			customerType: 'Applicant'
+			customerType: 'applicant'
 		}
 	],
 	inspectors: [],
 	sourceSystem: 'ODT',
 	status: [],
 	type: {
-		code: 'Application'
+		code: 'application'
 	},
 	validationOfficers: []
 };
@@ -98,6 +100,8 @@ test('creates new application with just title and first notified date', async (t
 		})
 	);
 
+	// This whole thing around getting the call number is horrendous, hopefully we can fix this soon with jest
+	t.deepEqual(validateNsipProject(stubbedSendEvents.getCall(0).args[1][0]), true);
 	sinon.assert.calledWith(stubbedSendEvents, 'nsip-project', [expectedEventPayload]);
 });
 
@@ -139,6 +143,8 @@ test('creates new application with just easting and sub-sector name', async (t) 
 			}
 		})
 	);
+
+	t.deepEqual(validateNsipProject(stubbedSendEvents.getCall(1).args[1][0]), true);
 	sinon.assert.calledWith(stubbedSendEvents, 'nsip-project', [expectedEventPayload]);
 });
 
@@ -230,6 +236,8 @@ test('creates new application when all possible details provided', async (t) => 
 			}
 		})
 	);
+
+	t.deepEqual(validateNsipProject(stubbedSendEvents.getCall(2).args[1][0]), true);
 	sinon.assert.calledWith(stubbedSendEvents, 'nsip-project', [expectedEventPayload]);
 });
 
@@ -280,6 +288,7 @@ test(`creates new application with application first and last name,
 			}
 		})
 	);
+	t.deepEqual(validateNsipProject(stubbedSendEvents.getCall(3).args[1][0]), true);
 	sinon.assert.calledWith(stubbedSendEvents, 'nsip-project', [expectedEventPayload]);
 });
 
