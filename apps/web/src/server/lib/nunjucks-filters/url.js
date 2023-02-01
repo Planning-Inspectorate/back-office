@@ -52,6 +52,7 @@ export const url = (key, filterArguments = {}) => {
 
 	const domainType = getArgument('domainType', filterArguments);
 	const caseId = getArgument('caseId', filterArguments);
+	const folderId = getArgument('folderId', filterArguments);
 	const documentGuid = getArgument('documentGuid', filterArguments);
 	const isPreviewActive = getArgument('isPreviewActive', filterArguments);
 	const step = getArgument('step', filterArguments);
@@ -68,6 +69,8 @@ export const url = (key, filterArguments = {}) => {
 			return `${domainUrl}/case/${caseId}/${step}`;
 		case 'dashboard':
 			return `${domainUrl}/${domainType}`;
+		case 'document':
+			return `${domainUrl}/case/${caseId}/project-documentation/${folderId}/document/${documentGuid}/${step}`;
 		case 'document-category':
 			return `${domainUrl}/case/${caseId}/project-documentation/${documentationCategory}/${step}`;
 		case 'document-download':

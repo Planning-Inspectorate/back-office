@@ -1,6 +1,7 @@
 $display-attrs: (
 		none: 'none',
 		flex: 'flex',
+		block: 'block'
 );
 
 @each $key, $val in $display-attrs {
