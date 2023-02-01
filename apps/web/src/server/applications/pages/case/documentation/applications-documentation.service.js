@@ -93,8 +93,20 @@ export const updateCaseDocumentationFiles = async (caseId, { status, redacted, i
  *
  * @param {number} caseId
  * @param {string} fileGuid
- * @returns {Promise<{blobStorageContainer: string, blobStoragePath: string}>}
+ * @returns {Promise<DocumentationFile>}
  */
-export const getCaseDocumentationFileUrl = (caseId, fileGuid) => {
-	return get(`applications/${caseId}/documents/${fileGuid}`);
+export const getCaseDocumentationFileInfo = async (caseId, fileGuid) => {
+	const fileInfo = await get(`applications/${caseId}/documents/${fileGuid}`);
+
+	// TODO: this is a mock
+	return {
+		...fileInfo,
+		guid: 'cdbc2480-6a50-47e0-983d-e6a75aaec2e4',
+		documentName: 'Professor Mike Alder - Landscape, Noise, Battery Safety ',
+		size: 1_234_567,
+		type: 'application/pdf',
+		redacted: false,
+		status: 'user_checked',
+		receivedDate: 999_999_999
+	};
 };

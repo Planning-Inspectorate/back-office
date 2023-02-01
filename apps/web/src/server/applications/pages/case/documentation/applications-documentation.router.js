@@ -28,4 +28,11 @@ applicationsDocumentationRouter
 		asyncRoute(controller.viewApplicationsCaseDocumentationUpload)
 	);
 
+applicationsDocumentationRouter
+	.route('/:folderId/document/:documentGuid/properties')
+	.get(
+		[assertDomainTypeIsNotInspector, locals.registerFolder],
+		asyncRoute(controller.viewApplicationsCaseDocumentationProperties)
+	);
+
 export default applicationsDocumentationRouter;

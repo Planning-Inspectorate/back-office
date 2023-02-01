@@ -1,6 +1,6 @@
 import { request } from 'node:https';
 import config from '../../../../environment/config.js';
-import { getCaseDocumentationFileUrl } from '../../applications/pages/case/documentation/applications-documentation.service.js';
+import { getCaseDocumentationFileInfo } from '../../applications/pages/case/documentation/applications-documentation.service.js';
 import getActiveDirectoryAccessToken from '../../lib/active-directory-token.js';
 import createSasToken from '../../lib/sas-token.js';
 
@@ -20,10 +20,12 @@ const getDocumentsDownload = async ({ params, session }, response) => {
 
 	const accessToken = await getActiveDirectoryAccessToken(session);
 
-	const { blobStorageContainer, blobStoragePath } = await getCaseDocumentationFileUrl(
+	const { blobStorageContainer, blobStoragePath } = await getCaseDocumentationFileInfo(
 		caseId,
 		fileGuid
 	);
+
+	if (!blobStorageContainer || !blobStoragePath) return response.status(500);
 
 	const sasToken = await createSasToken(
 		accessToken,
