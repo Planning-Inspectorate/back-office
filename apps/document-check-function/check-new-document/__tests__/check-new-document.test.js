@@ -1,21 +1,13 @@
 // @ts-nocheck
 import { jest } from '@jest/globals';
-import { HTTPError } from 'got';
+import got, { HTTPError } from 'got';
 import { randomUUID } from 'node:crypto';
+import { checkMyBlob } from '../check-my-blob.js';
+import { clamAvClient } from '../clam-av-client.js';
 
-jest.unstable_mockModule('got', () => ({
-	default: {
-		patch: jest.fn(),
-		delete: jest.fn()
-	},
-	HTTPError
-}));
-
-jest.unstable_mockModule('../clam-av-client.js', () => ({
-	clamAvClient: {
-		scanStream: jest.fn()
-	}
-}));
+const mockGotPatch = jest.spyOn(got, 'patch');
+const mockGotDelete = jest.spyOn(got, 'delete');
+const mockClamAvScanStream = jest.spyOn(clamAvClient, 'scanStream');
 
 // Mock Errors
 
@@ -74,9 +66,6 @@ class Context {
 }
 
 const blobHostUrl = 'https://blobhost/container';
-const { checkMyBlob } = await import('../check-my-blob.js');
-const { default: got } = await import('got');
-const { clamAvClient } = await import('../clam-av-client.js');
 
 beforeEach(() => {
 	jest.clearAllMocks();
@@ -87,8 +76,8 @@ describe('document passes AV checks', () => {
 		// GIVEN
 		const documentGuid = randomUUID();
 
-		got.patch.mockResolvedValueOnce({}).mockResolvedValueOnce({});
-		clamAvClient.scanStream.mockResolvedValueOnce({ isInfected: false });
+		mockGotPatch.mockResolvedValueOnce({}).mockResolvedValueOnce({});
+		mockClamAvScanStream.mockResolvedValueOnce({ isInfected: false });
 
 		// WHEN
 		await checkMyBlob(
@@ -97,18 +86,18 @@ describe('document passes AV checks', () => {
 		);
 
 		// THEN
-		expect(got.patch).toHaveBeenCalledTimes(2);
-		expect(got.patch).toHaveBeenNthCalledWith(
+		expect(mockGotPatch).toHaveBeenCalledTimes(2);
+		expect(mockGotPatch).toHaveBeenNthCalledWith(
 			1,
 			`https://test-api-host:3000/applications/documents/${documentGuid}/status`,
 			{ json: { machineAction: 'uploading' } }
 		);
-		expect(got.patch).toHaveBeenNthCalledWith(
+		expect(mockGotPatch).toHaveBeenNthCalledWith(
 			2,
 			`https://test-api-host:3000/applications/documents/${documentGuid}/status`,
 			{ json: { machineAction: 'check_success' } }
 		);
-		expect(clamAvClient.scanStream).toHaveBeenCalledTimes(1);
+		expect(mockClamAvScanStream).toHaveBeenCalledTimes(1);
 	});
 
 	describe('if document has already been marked as uploaded in Back Office API', () => {
@@ -116,10 +105,10 @@ describe('document passes AV checks', () => {
 			// GIVEN
 			const documentGuid = randomUUID();
 
-			got.patch
+			mockGotPatch
 				.mockRejectedValueOnce(backOfficeFailedToMarkAsUploadedError)
 				.mockResolvedValueOnce({});
-			clamAvClient.scanStream.mockResolvedValueOnce({ isInfected: false });
+			mockClamAvScanStream.mockResolvedValueOnce({ isInfected: false });
 
 			// WHEN
 			await checkMyBlob(
@@ -128,18 +117,18 @@ describe('document passes AV checks', () => {
 			);
 
 			// THEN
-			expect(got.patch).toHaveBeenCalledTimes(2);
-			expect(got.patch).toHaveBeenNthCalledWith(
+			expect(mockGotPatch).toHaveBeenCalledTimes(2);
+			expect(mockGotPatch).toHaveBeenNthCalledWith(
 				1,
 				`https://test-api-host:3000/applications/documents/${documentGuid}/status`,
 				{ json: { machineAction: 'uploading' } }
 			);
-			expect(got.patch).toHaveBeenNthCalledWith(
+			expect(mockGotPatch).toHaveBeenNthCalledWith(
 				2,
 				`https://test-api-host:3000/applications/documents/${documentGuid}/status`,
 				{ json: { machineAction: 'check_success' } }
 			);
-			expect(clamAvClient.scanStream).toHaveBeenCalledTimes(1);
+			expect(mockClamAvScanStream).toHaveBeenCalledTimes(1);
 		});
 	});
 
@@ -147,10 +136,10 @@ describe('document passes AV checks', () => {
 		test('completes without issues', async () => {
 			const documentGuid = randomUUID();
 
-			got.patch
+			mockGotPatch
 				.mockResolvedValueOnce({})
 				.mockRejectedValueOnce(backOfficeFailedToMarkAsPassedAVError);
-			clamAvClient.scanStream.mockResolvedValueOnce({ isInfected: false });
+			mockClamAvScanStream.mockResolvedValueOnce({ isInfected: false });
 
 			// WHEN
 			await checkMyBlob(
@@ -159,18 +148,18 @@ describe('document passes AV checks', () => {
 			);
 
 			// THEN
-			expect(got.patch).toHaveBeenCalledTimes(2);
-			expect(got.patch).toHaveBeenNthCalledWith(
+			expect(mockGotPatch).toHaveBeenCalledTimes(2);
+			expect(mockGotPatch).toHaveBeenNthCalledWith(
 				1,
 				`https://test-api-host:3000/applications/documents/${documentGuid}/status`,
 				{ json: { machineAction: 'uploading' } }
 			);
-			expect(got.patch).toHaveBeenNthCalledWith(
+			expect(mockGotPatch).toHaveBeenNthCalledWith(
 				2,
 				`https://test-api-host:3000/applications/documents/${documentGuid}/status`,
 				{ json: { machineAction: 'check_success' } }
 			);
-			expect(clamAvClient.scanStream).toHaveBeenCalledTimes(1);
+			expect(mockClamAvScanStream).toHaveBeenCalledTimes(1);
 		});
 	});
 });
@@ -181,30 +170,30 @@ describe('document fails AV checks', () => {
 		const documentGuid = randomUUID();
 		const documentPath = `/application/ABC/${documentGuid}/test.pdf`;
 
-		got.patch.mockResolvedValueOnce({}).mockResolvedValueOnce({});
-		got.delete.mockResolvedValueOnce({});
-		clamAvClient.scanStream.mockResolvedValueOnce({ isInfected: true });
+		mockGotPatch.mockResolvedValueOnce({}).mockResolvedValueOnce({});
+		mockGotDelete.mockResolvedValueOnce({});
+		mockClamAvScanStream.mockResolvedValueOnce({ isInfected: true });
 
 		// WHEN
 		await checkMyBlob(new Context({ uri: `${blobHostUrl}${documentPath}` }), documentBuffer);
 
 		// THEN
-		expect(got.patch).toHaveBeenCalledTimes(2);
-		expect(got.patch).toHaveBeenNthCalledWith(
+		expect(mockGotPatch).toHaveBeenCalledTimes(2);
+		expect(mockGotPatch).toHaveBeenNthCalledWith(
 			1,
 			`https://test-api-host:3000/applications/documents/${documentGuid}/status`,
 			{ json: { machineAction: 'uploading' } }
 		);
-		expect(got.patch).toHaveBeenNthCalledWith(
+		expect(mockGotPatch).toHaveBeenNthCalledWith(
 			2,
 			`https://test-api-host:3000/applications/documents/${documentGuid}/status`,
 			{ json: { machineAction: 'check_fail' } }
 		);
-		expect(got.delete).toHaveBeenCalledTimes(1);
-		expect(got.delete).toHaveBeenCalledWith(`https://test-doc-api-host:3001/document`, {
+		expect(mockGotDelete).toHaveBeenCalledTimes(1);
+		expect(mockGotDelete).toHaveBeenCalledWith(`https://test-doc-api-host:3001/document`, {
 			json: { documentPath }
 		});
-		expect(clamAvClient.scanStream).toHaveBeenCalledTimes(1);
+		expect(mockClamAvScanStream).toHaveBeenCalledTimes(1);
 	});
 
 	describe('if document has already been maked as uploaded in Back Office API', () => {
@@ -213,18 +202,18 @@ describe('document fails AV checks', () => {
 			const documentGuid = randomUUID();
 			const documentPath = `/application/ABC/${documentGuid}/test.pdf`;
 
-			got.patch
+			mockGotPatch
 				.mockRejectedValueOnce(backOfficeFailedToMarkAsUploadedError)
 				.mockResolvedValueOnce({});
-			got.delete.mockResolvedValueOnce({});
-			clamAvClient.scanStream.mockResolvedValueOnce({ isInfected: true });
+			mockGotDelete.mockResolvedValueOnce({});
+			mockClamAvScanStream.mockResolvedValueOnce({ isInfected: true });
 
 			// WHEN
 			await checkMyBlob(new Context({ uri: `${blobHostUrl}${documentPath}` }), documentBuffer);
 
 			// THEN
-			expect(got.patch).toHaveBeenCalledTimes(2);
-			expect(got.patch).toHaveBeenNthCalledWith(
+			expect(mockGotPatch).toHaveBeenCalledTimes(2);
+			expect(mockGotPatch).toHaveBeenNthCalledWith(
 				1,
 				`https://test-api-host:3000/applications/documents/${documentGuid}/status`,
 				{
@@ -233,16 +222,16 @@ describe('document fails AV checks', () => {
 					}
 				}
 			);
-			expect(got.patch).toHaveBeenNthCalledWith(
+			expect(mockGotPatch).toHaveBeenNthCalledWith(
 				2,
 				`https://test-api-host:3000/applications/documents/${documentGuid}/status`,
 				{ json: { machineAction: 'check_fail' } }
 			);
-			expect(got.delete).toHaveBeenCalledTimes(1);
-			expect(got.delete).toHaveBeenCalledWith(`https://test-doc-api-host:3001/document`, {
+			expect(mockGotDelete).toHaveBeenCalledTimes(1);
+			expect(mockGotDelete).toHaveBeenCalledWith(`https://test-doc-api-host:3001/document`, {
 				json: { documentPath }
 			});
-			expect(clamAvClient.scanStream).toHaveBeenCalledTimes(1);
+			expect(mockClamAvScanStream).toHaveBeenCalledTimes(1);
 		});
 	});
 
@@ -252,16 +241,16 @@ describe('document fails AV checks', () => {
 			const documentGuid = randomUUID();
 			const documentPath = `/application/ABC/${documentGuid}/test.pdf`;
 
-			got.patch.mockResolvedValueOnce({}).mockResolvedValueOnce({});
-			got.delete.mockRejectedValueOnce(documentStorageFailedToDeleteError);
-			clamAvClient.scanStream.mockResolvedValueOnce({ isInfected: true });
+			mockGotPatch.mockResolvedValueOnce({}).mockResolvedValueOnce({});
+			mockGotDelete.mockRejectedValueOnce(documentStorageFailedToDeleteError);
+			mockClamAvScanStream.mockResolvedValueOnce({ isInfected: true });
 
 			// WHEN
 			await checkMyBlob(new Context({ uri: `${blobHostUrl}${documentPath}` }), documentBuffer);
 
 			// THEN
-			expect(got.patch).toHaveBeenCalledTimes(2);
-			expect(got.patch).toHaveBeenNthCalledWith(
+			expect(mockGotPatch).toHaveBeenCalledTimes(2);
+			expect(mockGotPatch).toHaveBeenNthCalledWith(
 				1,
 				`https://test-api-host:3000/applications/documents/${documentGuid}/status`,
 				{
@@ -270,16 +259,16 @@ describe('document fails AV checks', () => {
 					}
 				}
 			);
-			expect(got.patch).toHaveBeenNthCalledWith(
+			expect(mockGotPatch).toHaveBeenNthCalledWith(
 				2,
 				`https://test-api-host:3000/applications/documents/${documentGuid}/status`,
 				{ json: { machineAction: 'check_fail' } }
 			);
-			expect(got.delete).toHaveBeenCalledTimes(1);
-			expect(got.delete).toHaveBeenCalledWith(`https://test-doc-api-host:3001/document`, {
+			expect(mockGotDelete).toHaveBeenCalledTimes(1);
+			expect(mockGotDelete).toHaveBeenCalledWith(`https://test-doc-api-host:3001/document`, {
 				json: { documentPath }
 			});
-			expect(clamAvClient.scanStream).toHaveBeenCalledTimes(1);
+			expect(mockClamAvScanStream).toHaveBeenCalledTimes(1);
 		});
 	});
 
@@ -289,18 +278,18 @@ describe('document fails AV checks', () => {
 			const documentGuid = randomUUID();
 			const documentPath = `/application/ABC/${documentGuid}/test.pdf`;
 
-			got.patch
+			mockGotPatch
 				.mockResolvedValueOnce({})
 				.mockRejectedValueOnce(backOfficeFailedToMarkAsFailedAVError);
-			got.delete.mockResolvedValueOnce({});
-			clamAvClient.scanStream.mockResolvedValueOnce({ isInfected: true });
+			mockGotDelete.mockResolvedValueOnce({});
+			mockClamAvScanStream.mockResolvedValueOnce({ isInfected: true });
 
 			// WHEN
 			await checkMyBlob(new Context({ uri: `${blobHostUrl}${documentPath}` }), documentBuffer);
 
 			// THEN
-			expect(got.patch).toHaveBeenCalledTimes(2);
-			expect(got.patch).toHaveBeenNthCalledWith(
+			expect(mockGotPatch).toHaveBeenCalledTimes(2);
+			expect(mockGotPatch).toHaveBeenNthCalledWith(
 				1,
 				`https://test-api-host:3000/applications/documents/${documentGuid}/status`,
 				{
@@ -309,16 +298,16 @@ describe('document fails AV checks', () => {
 					}
 				}
 			);
-			expect(got.patch).toHaveBeenNthCalledWith(
+			expect(mockGotPatch).toHaveBeenNthCalledWith(
 				2,
 				`https://test-api-host:3000/applications/documents/${documentGuid}/status`,
 				{ json: { machineAction: 'check_fail' } }
 			);
-			expect(got.delete).toHaveBeenCalledTimes(1);
-			expect(got.delete).toHaveBeenCalledWith(`https://test-doc-api-host:3001/document`, {
+			expect(mockGotDelete).toHaveBeenCalledTimes(1);
+			expect(mockGotDelete).toHaveBeenCalledWith(`https://test-doc-api-host:3001/document`, {
 				json: { documentPath }
 			});
-			expect(clamAvClient.scanStream).toHaveBeenCalledTimes(1);
+			expect(mockClamAvScanStream).toHaveBeenCalledTimes(1);
 		});
 	});
 });
