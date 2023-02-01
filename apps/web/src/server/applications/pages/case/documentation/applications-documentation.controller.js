@@ -4,6 +4,7 @@ import {
 	setSessionFilesNumberOnList
 } from '../../../lib/services/session.service.js';
 import {
+	getCaseDocumentationFileInfo,
 	getCaseDocumentationFilesInFolder,
 	getCaseFolders,
 	updateCaseDocumentationFiles
@@ -11,6 +12,7 @@ import {
 
 /** @typedef {import('../applications-case.locals.js').ApplicationCaseLocals} ApplicationCaseLocals */
 /** @typedef {import('../../../applications.types').DocumentationCategory} DocumentationCategory */
+/** @typedef {import('../../../applications.types').DocumentationFile} DocumentationFile */
 /** @typedef {import('../../../lib/services/session.service.js').SessionWithFilesNumberOnList} SessionWithFilesNumberOnList */
 /** @typedef {import('./applications-documentation.types').CaseDocumentationUploadProps} CaseDocumentationUploadProps */
 /** @typedef {import('./applications-documentation.types').CaseDocumentationBody} CaseDocumentationBody */
@@ -76,7 +78,21 @@ export async function updateApplicationsCaseDocumentationFolder(request, respons
  * @type {import('@pins/express').RenderHandler<CaseDocumentationUploadProps, {}>}
  */
 export async function viewApplicationsCaseDocumentationUpload(request, response) {
-	response.render(`applications/case-documentation/upload`);
+	response.render(`applications/case-documentation/documentation-upload`);
+}
+/**
+ * View the documentation properties page
+ *
+ * @type {import('@pins/express').RenderHandler<{documentationFile: DocumentationFile}, {}>}
+ */
+export async function viewApplicationsCaseDocumentationProperties({ params }, response) {
+	const { documentGuid } = params;
+	const { caseId } = response.locals;
+	const documentationFile = await getCaseDocumentationFileInfo(caseId, documentGuid);
+
+	response.render(`applications/case-documentation/documentation-properties`, {
+		documentationFile
+	});
 }
 
 // Data for controllers
