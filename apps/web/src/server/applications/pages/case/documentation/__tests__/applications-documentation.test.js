@@ -2,7 +2,10 @@ import { parseHtml } from '@pins/platform';
 import nock from 'nock';
 import supertest from 'supertest';
 import { fixtureCases } from '../../../../../../../testing/applications/fixtures/cases.js';
-import { fixtureDocumentationFiles } from '../../../../../../../testing/applications/fixtures/documentation-files.js';
+import {
+	fixtureDocumentationFiles,
+	fixturePaginatedDocumentationFiles
+} from '../../../../../../../testing/applications/fixtures/documentation-files.js';
 import {
 	fixtureDocumentationFolderPath,
 	fixtureDocumentationSingleFolder,
@@ -32,6 +35,10 @@ const nocks = (/** @type {string} */ domainType) => {
 		.get('/applications/123/folders/21/sub-folders')
 		.times(2)
 		.reply(200, fixtureDocumentationSubFolders);
+	nock('http://test/')
+		.get('/applications/123/documents/100')
+		.times(2)
+		.reply(200, fixtureDocumentationFiles[99]);
 };
 
 describe('applications documentation', () => {
@@ -70,7 +77,7 @@ describe('applications documentation', () => {
 				it('should render the page with no list and no upload button', async () => {
 					nock('http://test/')
 						.post('/applications/123/folders/21/documents')
-						.reply(200, fixtureDocumentationFiles(1, 50));
+						.reply(200, fixturePaginatedDocumentationFiles(1, 50));
 
 					const response = await request.get(
 						`${baseUrl}/project-documentation/21/sub-folder-level2`
@@ -90,15 +97,15 @@ describe('applications documentation', () => {
 				});
 
 				it('should render the page with no panel and no table if there are no documents', async () => {
-					const fixtureDocumentationFilesEmpty = {
-						...fixtureDocumentationFiles,
+					const fixturePaginatedDocumentationFilesEmpty = {
+						...fixturePaginatedDocumentationFiles,
 						items: [],
 						itemCount: 0
 					};
 
 					nock('http://test/')
 						.post('/applications/123/folders/21/documents')
-						.reply(200, fixtureDocumentationFilesEmpty);
+						.reply(200, fixturePaginatedDocumentationFilesEmpty);
 
 					const response = await request.get(`${baseUrl}/project-documentation/21/no-documents`);
 					const element = parseHtml(response.text);
@@ -111,7 +118,7 @@ describe('applications documentation', () => {
 				it('should render the page with default pagination if there is no data in the session', async () => {
 					nock('http://test/')
 						.post('/applications/123/folders/21/documents')
-						.reply(200, fixtureDocumentationFiles(1, 50));
+						.reply(200, fixturePaginatedDocumentationFiles(1, 50));
 
 					const response = await request.get(
 						`${baseUrl}/project-documentation/21/sub-folder-level2`
@@ -126,7 +133,7 @@ describe('applications documentation', () => {
 				it('should render the page with the right number of files', async () => {
 					nock('http://test/')
 						.post('/applications/123/folders/21/documents')
-						.reply(200, fixtureDocumentationFiles(2, 30));
+						.reply(200, fixturePaginatedDocumentationFiles(2, 30));
 
 					const response = await request.get(
 						`${baseUrl}/project-documentation/21/sub-folder-level2?number=2&size=30`
@@ -141,7 +148,7 @@ describe('applications documentation', () => {
 					nock('http://test/')
 						.post('/applications/123/folders/21/documents')
 						.times(2)
-						.reply(200, fixtureDocumentationFiles(1, 30));
+						.reply(200, fixturePaginatedDocumentationFiles(1, 30));
 
 					await request.get(
 						`${baseUrl}/project-documentation/21/sub-folder-level2?number=1&size=30`
@@ -163,7 +170,7 @@ describe('applications documentation', () => {
 				nocks('case-admin-officer');
 				nock('http://test/')
 					.post('/applications/123/folders/21/documents')
-					.reply(200, fixtureDocumentationFiles(1, 50));
+					.reply(200, fixturePaginatedDocumentationFiles(1, 50));
 				await request.get('/applications-service/case-admin-officer');
 			});
 
@@ -219,6 +226,41 @@ describe('applications documentation', () => {
 
 			expect(element.innerHTML).toMatchSnapshot();
 			expect(element.innerHTML).toContain('No file chosen');
+		});
+	});
+
+	describe('Document properties page', () => {
+		describe('If the user is inspector', () => {
+			beforeAll(async () => {
+				nock('http://test/').get(`/applications/inspector`).reply(200, {});
+				nock('http://test/').get('/applications/123').times(2).reply(200, fixtureCases[3]);
+
+				await request.get('/applications-service/inspector');
+			});
+			it('page should not render', async () => {
+				const response = await request.get(`${baseUrl}/123/document/100/properties`);
+				const element = parseHtml(response.text);
+
+				expect(element.innerHTML).toMatchSnapshot();
+				expect(element.innerHTML).toContain('there is a problem with your login');
+			});
+		});
+
+		describe('If the user is not inspector', () => {
+			beforeEach(async () => {
+				nocks('case-team');
+				await request.get('/applications-service/case-team');
+			});
+
+			it('page should render', async () => {
+				const response = await request.get(
+					`${baseUrl}/project-documentation/21/document/100/properties`
+				);
+				const element = parseHtml(response.text);
+
+				expect(element.innerHTML).toMatchSnapshot();
+				expect(element.innerHTML).toContain('Document properties');
+			});
 		});
 	});
 });
