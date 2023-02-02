@@ -25,7 +25,9 @@ const getDocumentsDownload = async ({ params, session }, response) => {
 		fileGuid
 	);
 
-	if (!blobStorageContainer || !blobStoragePath) return response.status(500);
+	if (!blobStorageContainer || !blobStoragePath) {
+		throw new Error('Blobstorage container or blobStorage path not found');
+	}
 
 	const sasToken = await createSasToken(
 		accessToken,
