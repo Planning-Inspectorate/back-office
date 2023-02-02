@@ -33,7 +33,7 @@ export const msalClient = new msal.ConfidentialClientApplication({
 				}
 			},
 			piiLoggingEnabled: false,
-			logLevel: msal.LogLevel.Verbose
+			logLevel: msal.LogLevel.Warning
 		}
 	}
 });
