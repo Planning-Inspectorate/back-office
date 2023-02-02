@@ -19,13 +19,15 @@ findUniqueStub.withArgs({ where: { id: 1 } }).returns(application);
 
 findUniqueDocumentStub.withArgs({ where: { guid: '1111-2222-3333' } }).returns({
 	guid: '1111-2222-3333',
-	name: 'my doc.doc',
+	name: 'my doc.pdf',
 	folderId: 1,
 	blobStorageContainer: 'document-service-uploads',
-	blobStoragePath: '/application/BC010001/1111-2222-3333/my doc.doc',
+	blobStoragePath: '/application/BC010001/1111-2222-3333/my doc.pdf',
 	status: 'awaiting_upload',
 	createdAt: '2022-12-12 17:12:25.9610000',
-	redacted: true
+	redacted: true,
+	fileSize: 1024,
+	fileType: 'application/pdf'
 });
 
 test.before('set up mocks', () => {
@@ -100,19 +102,21 @@ test('checks invalid case id', async (t) => {
 	});
 });
 
-test('returns a Blob Storage URI info for a single document on a case', async (t) => {
+test('returns document properties for a single document on a case', async (t) => {
 	const response = await request.get('/applications/1/documents/1111-2222-3333');
 
 	t.is(response.status, 200);
 	t.deepEqual(response.body, {
 		guid: '1111-2222-3333',
-		name: 'my doc.doc',
-		folderId: 1,
+		documentName: 'my doc.pdf',
 		blobStorageContainer: 'document-service-uploads',
-		blobStoragePath: '/application/BC010001/1111-2222-3333/my doc.doc',
-		status: 'awaiting_upload',
-		createdAt: '2022-12-12 17:12:25.9610000',
+		blobStoragePath: '/application/BC010001/1111-2222-3333/my doc.pdf',
+		from: '',
+		receivedDate: 1_670_865_145,
+		size: 1024,
+		type: 'application/pdf',
 		redacted: true,
+		status: 'awaiting_upload',
 		description: '',
 		documentReferenceNumber: '',
 		version: 1,

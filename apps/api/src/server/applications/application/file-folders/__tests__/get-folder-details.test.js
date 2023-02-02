@@ -241,13 +241,13 @@ test('returns documents in a folder on a case', async (t) => {
 				type: 'application/pdf',
 				redacted: false,
 				status: 'not_user_checked',
-				agent: '',
-				caseStage: '',
 				description: '',
 				documentReferenceNumber: '',
-				documentType: '',
 				version: 1,
-				webFilter: ''
+				agent: '',
+				caseStage: '',
+				webFilter: '',
+				documentType: ''
 			}
 		]
 	});
