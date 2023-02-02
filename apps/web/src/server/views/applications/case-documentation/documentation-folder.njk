@@ -184,7 +184,7 @@
 									</td>
 								</tr>
 								{% for documentationFile in documentationFiles.items %}
-									{% set isNotDisabled = documentationFile.status === 'awaiting_upload' and documentationFile.status !== 'awaiting_virus_check' and documentationFile.status !== 'failed_virus_check' %}
+									{% set isNotDisabled = documentationFile.status !== 'awaiting_upload' and documentationFile.status !== 'awaiting_virus_check' and documentationFile.status !== 'failed_virus_check' %}
 
 									<tr class="govuk-table__row {{ "" if isNotDisabled else "govuk-table__row--disabled" }}">
 										<td class="govuk-table__cell">
