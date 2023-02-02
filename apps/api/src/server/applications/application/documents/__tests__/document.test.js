@@ -127,7 +127,7 @@ test('returns document properties for a single document on a case', async (t) =>
 	});
 });
 
-test('checks invalid case id on Blob Storage URI call', async (t) => {
+test('checks invalid case id on document properties call', async (t) => {
 	const response = await request.get('/applications/999999/documents/1111-2222-3333');
 
 	t.is(response.status, 404);
