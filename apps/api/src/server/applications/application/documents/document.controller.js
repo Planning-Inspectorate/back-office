@@ -1,13 +1,15 @@
 import { pick } from 'lodash-es';
 import * as caseRepository from '../../../repositories/case.repository.js';
 import * as documentRepository from '../../../repositories/document.repository.js';
+import AppError from '../../../utils/app-error.js';
+import { DOCUMENT_STATUS } from '../../../utils/document-enum.js';
 import { getStorageLocation } from '../../../utils/document-storage-api-client.js';
 import { mapSingleDocumentDetails } from '../../../utils/mapping/map-document-details.js';
-
 /**
  * @typedef {import('apps/api/prisma/schema.js').Document} Document
  * @typedef {import('apps/api/prisma/schema.js').DocumentDetails} DocumentDetails
  */
+import { getDocumentByIdAndCaseId } from './document.validators.js';
 
 /**
  *
@@ -102,12 +104,39 @@ export const getDocumentProperties = async ({ params }, response) => {
 		document = await documentRepository.getById(params.guid);
 
 		if (document === null || typeof document === 'undefined') {
-			throw new Error(`Unknown document guid ${params.guid}`);
+			return next(new AppError(`Unknown document guid ${params.guid}`, 400));
 		}
 		documentDetails = mapSingleDocumentDetails(document);
 	} catch {
-		throw new Error(`Unknown document guid ${params.guid}`);
+		return next(new AppError(`Unknown document guid ${params.guid}`, 400));
 	}
 
 	response.send(documentDetails);
+};
+
+/**
+ * add soft delete flag to db so that this document cannot be accessible.
+ *
+ * @type {import('express').RequestHandler<{id:string; guid: string;}, ?, ?, any>}
+ */
+export const softDeleteDocument = async ({ params: { id: caseId, guid } }, response) => {
+	const document = await getDocumentByIdAndCaseId(guid, +caseId);
+
+	if (!document) {
+		throw new AppError(`document not found guid ${guid} related to casedId ${caseId}`, 404);
+	}
+
+	const documentIsPublished = document.status === DOCUMENT_STATUS.PUBLISHED;
+
+	if (documentIsPublished) {
+		throw new AppError(`unable to archive document guid ${guid} related to casedId ${caseId}`, 400);
+	}
+
+	const isDeleted = true;
+
+	await documentRepository.update(guid, {
+		isDeleted
+	});
+
+	response.status(200).send({ isDeleted });
 };

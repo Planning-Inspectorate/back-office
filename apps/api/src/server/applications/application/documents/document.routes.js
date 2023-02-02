@@ -3,10 +3,10 @@ import { asyncHandler } from '../../../middleware/async-handler.js';
 import { trimUnexpectedRequestParameters } from '../../../middleware/trim-unexpected-request-parameters.js';
 import { validateApplicationId } from '../../application/application.validators.js';
 import { validateFolderIds } from '../../documents/documents.validators.js';
-import { publishCase } from '../application.controller.js';
 import {
 	getDocumentProperties,
 	provideDocumentUploadURLs,
+	softDeleteDocument,
 	updateDocuments
 } from './document.controller.js';
 import {
@@ -103,25 +103,30 @@ router.get(
 	asyncHandler(getDocumentProperties)
 );
 
-router.patch(
-	'/:id/publish',
+router.post(
+	'/:id/documents/:guid/delete',
 	/*
         #swagger.tags = ['Applications']
-        #swagger.path = '/applications/{id}/publish'
-        #swagger.description = 'publish application'
+        #swagger.path = '/applications/{id}/documents/{guid}/delete'
+        #swagger.description = 'Gets the blob storage uri for a single file on a case'
         #swagger.parameters['id'] = {
             in: 'path',
-			description: 'Application ID',
+			description: 'Application ID here',
 			required: true,
 			type: 'integer'
 		}
+		#swagger.parameters['guid'] = {
+            in: 'path',
+			description: 'guid of the required document here',
+			required: true,
+			type: 'string'
+		}
         #swagger.responses[200] = {
-            description: 'response will have the date that the case was published as a timestamp',
-            schema: { publishedDate: 1673873105 }
+            description: 'blob storage document will not be accessible once soft delete has taken placed.',
+            schema: { isDeleted: true }
         }
     */
-	validateApplicationId,
-	asyncHandler(publishCase)
+	asyncHandler(softDeleteDocument)
 );
 
 export { router as documentRoutes };
