@@ -26,15 +26,17 @@
 				}) }}
 
 
-				<h3 class="govuk-caption-xl">Document properties</h3>
-				<h2 class="govuk-heading-xl">{{ documentationFile.documentName }}</h2>
+				<h2 class="govuk-caption-xl">Document properties</h2>
+				<h3 class="govuk-heading-xl">{{ documentationFile.documentName }}</h3>
 
-				<p class="govuk-body govuk-!-margin-top-7">{# description #}</p>
-				<p class="govuk-body">Case reference: {{ case.reference }}</p>
-				<p class="govuk-body">Document reference number: </p>
-				<p class="govuk-body">{{ documentationFile.type|fileType }},
-					{{ documentationFile.size|fileSize }}</p>
-
+				<ul class="govuk-list">
+					<li class="govuk-!-margin-top-7">{# documentationFile.description #}</li>
+					<li class="govuk-!-margin-top-4">Case reference: {{ case.reference }}</li>
+					<li class="govuk-!-margin-top-4">Document reference number:</li>
+					<li class="govuk-!-margin-top-4">
+						{{ documentationFile.type|fileType }}, {{ documentationFile.size|fileSize }}
+					</li>
+				</ul>
 
 				<div class="display--flex govuk-!-margin-top-7 govuk-!-margin-bottom-7">
 					<a class="govuk-button govuk-!-margin-0"
