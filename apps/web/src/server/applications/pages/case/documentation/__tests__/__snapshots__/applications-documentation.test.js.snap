@@ -6073,19 +6073,11 @@ exports[`applications documentation Document properties page If the user is not 
             </div>
             <h2 class=\\"govuk-caption-xl\\">Document properties</h2>
             <h3 class=\\"govuk-heading-xl\\">Professor Mike Alder - Landscape, Noise, Battery Safety </h3>
-            <ul>
-                <li>
-                    <p class=\\"govuk-body govuk-!-margin-top-7\\"></p>
-                </li>
-                <li>
-                    <p class=\\"govuk-body\\">Case reference: CASE/04</p>
-                </li>
-                <li>
-                    <p class=\\"govuk-body\\">Document reference number:</p>
-                </li>
-                <li>
-                    <p class=\\"govuk-body\\">PDF, 1.2 MB</p>
-                </li>
+            <ul class=\\"govuk-list\\">
+                <li class=\\"govuk-!-margin-top-7\\"></li>
+                <li class=\\"govuk-!-margin-top-4\\">Case reference: CASE/04</li>
+                <li class=\\"govuk-!-margin-top-4\\">Document reference number:</li>
+                <li class=\\"govuk-!-margin-top-4\\">PDF, 1.2 MB</li>
             </ul>
             <div class=\\"display--flex govuk-!-margin-top-7 govuk-!-margin-bottom-7\\"><a class=\\"govuk-button govuk-!-margin-0\\" href=\\"upload/new/version\\"> Upload new version</a>
                 <a                 class=\\"govuk-button govuk-button--secondary govuk-!-margin-0 govuk-!-margin-left-4\\"
