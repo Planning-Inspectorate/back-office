@@ -5,6 +5,24 @@ import * as DocumentRepository from '../../../repositories/document.repository.j
 
 /** @typedef {{ guid: string}} documentGuid */
 
+export const getDocumentByIdAndCaseId = async (
+	/** @type {string} */ guid,
+	/** @type {number} */ caseId
+) => {
+	/** @type {import('apps/api/prisma/schema.js').Document | null} */
+	const document = await DocumentRepository.getByIdRelatedToCaseId(guid, caseId);
+
+	if (document === null || typeof document === 'undefined') {
+		return null;
+	}
+
+	return {
+		blobStorageContainer: document?.blobStorageContainer,
+		blobStoragePath: document?.blobStoragePath,
+		status: document?.status
+	};
+};
+
 /**
  * Validate that an array of document exists
  *

@@ -24,16 +24,27 @@ const findCaseIdInFolderTableStub = sinon.stub().returns({
 	caseId: 1
 });
 
-findUniqueGUIDInDocumentTableStub.withArgs({ where: { guid: 'D1234' } }).returns({
-	guid: 'D1234',
-	name: 'Tom',
-	folderId: 2,
-	blobStorageContainer: 'Container',
-	blobStoragePath: 'Container',
-	status: 'awaiting_upload'
-});
+findUniqueGUIDInDocumentTableStub
+	.withArgs({
+		where: {
+			guid_isDeleted: {
+				guid: 'D1234',
+				isDeleted: false
+			}
+		}
+	})
+	.returns({
+		guid: 'D1234',
+		name: 'Tom',
+		folderId: 2,
+		blobStorageContainer: 'Container',
+		blobStoragePath: 'Container',
+		status: 'awaiting_upload'
+	});
 
-findUniqueGUIDInDocumentTableStub.withArgs({ where: { guid: 'D12345' } }).returns(null);
+findUniqueGUIDInDocumentTableStub
+	.withArgs({ where: { guid: 'D12345', isDeleted: false } })
+	.returns(null);
 
 test.before('set up mocks', () => {
 	sinon.stub(databaseConnector, 'folder').get(() => {
