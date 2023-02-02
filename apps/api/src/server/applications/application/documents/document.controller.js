@@ -2,6 +2,12 @@ import { pick } from 'lodash-es';
 import * as caseRepository from '../../../repositories/case.repository.js';
 import * as documentRepository from '../../../repositories/document.repository.js';
 import { getStorageLocation } from '../../../utils/document-storage-api-client.js';
+import { mapSingleDocumentDetails } from '../../../utils/mapping/map-document-details.js';
+
+/**
+ * @typedef {import('apps/api/prisma/schema.js').Document} Document
+ * @typedef {import('apps/api/prisma/schema.js').DocumentDetails} DocumentDetails
+ */
 
 /**
  *
@@ -84,13 +90,13 @@ export const updateDocuments = async ({ body }, response) => {
 };
 
 /**
- * Gets the blob storage uri components for a single document
- * blobStorageContainer and blobStoragePath
+ * Gets the properties for a single document
  *
  * @type {import('express').RequestHandler<{guid: string}, ?, ?, any>}
  */
-export const getDocumentUri = async ({ params }, response) => {
-	let /** @type { import('apps/api/prisma/schema.js').Document |null} */ document = null;
+export const getDocumentProperties = async ({ params }, response) => {
+	let /** @type { Document |null} */ document = null;
+	let /** @type { DocumentDetails |null} */ documentDetails = null;
 
 	try {
 		document = await documentRepository.getById(params.guid);
@@ -98,12 +104,10 @@ export const getDocumentUri = async ({ params }, response) => {
 		if (document === null || typeof document === 'undefined') {
 			throw new Error(`Unknown document guid ${params.guid}`);
 		}
+		documentDetails = mapSingleDocumentDetails(document);
 	} catch {
 		throw new Error(`Unknown document guid ${params.guid}`);
 	}
 
-	response.send({
-		blobStorageContainer: document.blobStorageContainer,
-		blobStoragePath: document.blobStoragePath
-	});
+	response.send(documentDetails);
 };

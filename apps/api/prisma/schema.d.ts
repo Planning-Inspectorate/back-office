@@ -1,6 +1,7 @@
 import * as schema from '@prisma/client';
 import { ZoomLevel } from '@prisma/client';
 import { GridReference } from 'packages/applications';
+import { string_to_uuid } from 'rhea/typings/util';
 
 export {
 	Address,
@@ -188,11 +189,19 @@ export type CaseStatusNameType =
 export interface DocumentDetails {
 	guid: string;
 	documentName: string;
-	documentUrl: string | null;
+	blobStorageContainer: string | null;
+	blobStoragePath: string | null;
 	from: string;
 	receivedDate: number | null;
 	size: number;
 	type: string;
 	redacted: boolean;
 	status: string;
+	description: string;
+	documentReferenceNumber: string;
+	version: number;
+	agent: string;
+	caseStage: string;
+	webFilter: string;
+	documentType: string;
 }
