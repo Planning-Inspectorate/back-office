@@ -94,6 +94,30 @@ export async function viewApplicationsCaseDocumentationPages({ params }, respons
 	response.render(`applications/case-documentation/documentation-${action}`, { documentationFile });
 }
 
+/**
+ * View the documentation delete page
+ *
+ * @type {import('@pins/express').RenderHandler<{documentationFile: *}, {}>}
+ */
+export async function viewApplicationsCaseDocumentationDelete({ params }, response) {
+	const { documentGuid, action } = params;
+	const { caseId } = response.locals;
+	const documentationFile = await getCaseDocumentationFileInfo(caseId, documentGuid);
+
+	response.render(`applications/case-documentation/documentation-${action}`, { documentationFile });
+}
+
+/**
+ * Delete a document
+ *
+ * @type {import('@pins/express').RenderHandler<{message: string}, {}>}
+ */
+export async function deleteApplicationsCaseDocumentation(request, response) {
+	response.render(`applications/case-documentation/documentation-success-banner`, {
+		message: 'Document successfully deleted '
+	});
+}
+
 // Data for controllers
 
 /**
