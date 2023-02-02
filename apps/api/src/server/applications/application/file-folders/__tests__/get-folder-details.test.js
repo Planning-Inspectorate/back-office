@@ -233,13 +233,21 @@ test('returns documents in a folder on a case', async (t) => {
 			{
 				guid: '1111-2222-3333',
 				documentName: 'Document 1',
-				documentUrl: null,
+				blobStorageContainer: null,
+				blobStoragePath: null,
 				from: '',
 				receivedDate: 1_658_486_313,
 				size: 1024,
 				type: 'application/pdf',
 				redacted: false,
-				status: 'not_user_checked'
+				status: 'not_user_checked',
+				agent: '',
+				caseStage: '',
+				description: '',
+				documentReferenceNumber: '',
+				documentType: '',
+				version: 1,
+				webFilter: ''
 			}
 		]
 	});

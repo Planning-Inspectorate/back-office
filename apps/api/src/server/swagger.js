@@ -243,6 +243,26 @@ const document = {
 			pageNumber: 1,
 			pageSize: 1
 		},
+		DocumentDetails: {
+			guid: '0fab253b-2c0c-4c55-94c0-f3f81ffc589c',
+			documentName: 'document_name_1.pdf',
+			blobStorageContainer: 'document-service-uploads',
+			blobStoragePath:
+				'/application/TR010002/d38ef007-98d8-4d89-b7bb-34160d97e84e/document_name_1.pdf',
+			from: 'TBD',
+			receivedDate: 1_658_486_313,
+			size: 1024,
+			type: 'application/pdf',
+			redacted: false,
+			status: 'not_user_checked',
+			description: 'TBD',
+			documentReferenceNumber: 'TBD',
+			version: 1,
+			agent: 'Mr S King',
+			caseStage: 'Examination',
+			webFilter: 'TBD',
+			documentType: 'TBD'
+		},
 		PaginatedDocumentDetails: [
 			{
 				page: 1,
@@ -253,13 +273,22 @@ const document = {
 					{
 						guid: '0fab253b-2c0c-4c55-94c0-f3f81ffc589c',
 						documentName: 'document_name_1.pdf',
-						documentUrl: '/some/path/document_name_1.pdf',
-						from: '',
+						blobStorageContainer: 'document-service-uploads',
+						blobStoragePath:
+							'/application/TR010002/d38ef007-98d8-4d89-b7bb-34160d97e84e/document_name_1.pdf',
+						from: 'TBD',
 						receivedDate: 1_658_486_313,
 						size: 1024,
 						type: 'application/pdf',
 						redacted: false,
-						status: 'not_user_checked'
+						status: 'not_user_checked',
+						description: 'TBD',
+						documentReferenceNumber: 'TBD',
+						version: 1,
+						agent: 'Mr S King',
+						caseStage: 'Examination',
+						webFilter: 'TBD',
+						documentType: 'TBD'
 					}
 				]
 			}

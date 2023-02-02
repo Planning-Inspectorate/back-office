@@ -5,7 +5,7 @@ import { validateApplicationId } from '../../application/application.validators.
 import { validateFolderIds } from '../../documents/documents.validators.js';
 import { publishCase } from '../application.controller.js';
 import {
-	getDocumentUri,
+	getDocumentProperties,
 	provideDocumentUploadURLs,
 	updateDocuments
 } from './document.controller.js';
@@ -81,7 +81,7 @@ router.get(
 	/*
         #swagger.tags = ['Applications']
         #swagger.path = '/applications/{id}/documents/{guid}'
-        #swagger.description = 'Gets the blob storage uri for a single file on a case'
+        #swagger.description = 'Gets the properties of a single file on a case'
         #swagger.parameters['id'] = {
             in: 'path',
 			description: 'Application ID here',
@@ -95,12 +95,12 @@ router.get(
 			type: 'string'
 		}
         #swagger.responses[200] = {
-            description: 'Blob Storage uri',
-            schema: { blobStorageContainer: 'document-service-uploads', blobStoragePath: '/application/TR010002/d38ef007-98d8-4d89-b7bb-34160d97e84e/screenshot 2.png' }
+            description: 'Document properties',
+            schema: { $ref: '#/definitions/DocumentDetails' }
         }
     */
 	validateApplicationId,
-	asyncHandler(getDocumentUri)
+	asyncHandler(getDocumentProperties)
 );
 
 router.patch(
