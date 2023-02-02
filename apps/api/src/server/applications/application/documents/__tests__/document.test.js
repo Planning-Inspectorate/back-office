@@ -105,8 +105,21 @@ test('returns a Blob Storage URI info for a single document on a case', async (t
 
 	t.is(response.status, 200);
 	t.deepEqual(response.body, {
+		guid: '1111-2222-3333',
+		name: 'my doc.doc',
+		folderId: 1,
 		blobStorageContainer: 'document-service-uploads',
-		blobStoragePath: '/application/BC010001/1111-2222-3333/my doc.doc'
+		blobStoragePath: '/application/BC010001/1111-2222-3333/my doc.doc',
+		status: 'awaiting_upload',
+		createdAt: '2022-12-12 17:12:25.9610000',
+		redacted: true,
+		description: '',
+		documentReferenceNumber: '',
+		version: 1,
+		agent: '',
+		caseStage: '',
+		webFilter: '',
+		documentType: ''
 	});
 });
 

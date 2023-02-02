@@ -589,7 +589,7 @@
 		"/applications/{id}/documents/{guid}": {
 			"get": {
 				"tags": ["Applications"],
-				"description": "Gets the blob storage uri for a single file on a case",
+				"description": "Gets the properties of a single file on a case",
 				"parameters": [
 					{
 						"name": "id",
@@ -608,22 +608,9 @@
 				],
 				"responses": {
 					"200": {
-						"description": "Blob Storage uri",
+						"description": "Document properties",
 						"schema": {
-							"type": "object",
-							"properties": {
-								"blobStorageContainer": {
-									"type": "string",
-									"example": "document-service-uploads"
-								},
-								"blobStoragePath": {
-									"type": "string",
-									"example": "/application/TR010002/d38ef007-98d8-4d89-b7bb-34160d97e84e/screenshot 2.png"
-								}
-							},
-							"xml": {
-								"name": "main"
-							}
+							"$ref": "#/definitions/DocumentDetails"
 						}
 					}
 				}
@@ -832,7 +819,7 @@
 				],
 				"responses": {
 					"200": {
-						"description": "An paginated data set of documents",
+						"description": "An paginated data set of documents and their properties",
 						"schema": {
 							"$ref": "#/definitions/PaginatedDocumentDetails"
 						}
@@ -1157,11 +1144,11 @@
 		"/applications/case-admin-officer": {
 			"get": {
 				"tags": ["Applications"],
-				"description": "Gets all applications associated with case officer admin",
+				"description": "Gets all applications associated with case team admin",
 				"parameters": [],
 				"responses": {
 					"200": {
-						"description": "List of applications assigned to case officer",
+						"description": "List of applications assigned to case team",
 						"schema": {
 							"$ref": "#/definitions/ApplicationsForCaseAdminOfficer"
 						}
@@ -1172,11 +1159,11 @@
 		"/applications/inspector": {
 			"get": {
 				"tags": ["Applications"],
-				"description": "Gets all applications associated with case officer admin",
+				"description": "Gets all applications associated with case team admin",
 				"parameters": [],
 				"responses": {
 					"200": {
-						"description": "List of applications assigned to case officer",
+						"description": "List of applications assigned to case team",
 						"schema": {
 							"$ref": "#/definitions/ApplicationsForInspector"
 						}
@@ -1970,6 +1957,79 @@
 				}
 			}
 		},
+		"DocumentDetails": {
+			"type": "object",
+			"properties": {
+				"guid": {
+					"type": "string",
+					"example": "0fab253b-2c0c-4c55-94c0-f3f81ffc589c"
+				},
+				"documentName": {
+					"type": "string",
+					"example": "document_name_1.pdf"
+				},
+				"blobStorageContainer": {
+					"type": "string",
+					"example": "document-service-uploads"
+				},
+				"blobStoragePath": {
+					"type": "string",
+					"example": "/application/TR010002/d38ef007-98d8-4d89-b7bb-34160d97e84e/document_name_1.pdf"
+				},
+				"from": {
+					"type": "string",
+					"example": "TBD"
+				},
+				"receivedDate": {
+					"type": "number",
+					"example": 1658486313
+				},
+				"size": {
+					"type": "number",
+					"example": 1024
+				},
+				"type": {
+					"type": "string",
+					"example": "application/pdf"
+				},
+				"redacted": {
+					"type": "boolean",
+					"example": false
+				},
+				"status": {
+					"type": "string",
+					"example": "not_user_checked"
+				},
+				"description": {
+					"type": "string",
+					"example": "TBD"
+				},
+				"documentReferenceNumber": {
+					"type": "string",
+					"example": "TBD"
+				},
+				"version": {
+					"type": "number",
+					"example": 1
+				},
+				"agent": {
+					"type": "string",
+					"example": "Mr S King"
+				},
+				"caseStage": {
+					"type": "string",
+					"example": "Examination"
+				},
+				"webFilter": {
+					"type": "string",
+					"example": "TBD"
+				},
+				"documentType": {
+					"type": "string",
+					"example": "TBD"
+				}
+			}
+		},
 		"PaginatedDocumentDetails": {
 			"type": "array",
 			"items": {
@@ -2004,13 +2064,17 @@
 									"type": "string",
 									"example": "document_name_1.pdf"
 								},
-								"documentUrl": {
+								"blobStorageContainer": {
 									"type": "string",
-									"example": "/some/path/document_name_1.pdf"
+									"example": "document-service-uploads"
+								},
+								"blobStoragePath": {
+									"type": "string",
+									"example": "/application/TR010002/d38ef007-98d8-4d89-b7bb-34160d97e84e/document_name_1.pdf"
 								},
 								"from": {
 									"type": "string",
-									"example": ""
+									"example": "TBD"
 								},
 								"receivedDate": {
 									"type": "number",
@@ -2031,6 +2095,34 @@
 								"status": {
 									"type": "string",
 									"example": "not_user_checked"
+								},
+								"description": {
+									"type": "string",
+									"example": "TBD"
+								},
+								"documentReferenceNumber": {
+									"type": "string",
+									"example": "TBD"
+								},
+								"version": {
+									"type": "number",
+									"example": 1
+								},
+								"agent": {
+									"type": "string",
+									"example": "Mr S King"
+								},
+								"caseStage": {
+									"type": "string",
+									"example": "Examination"
+								},
+								"webFilter": {
+									"type": "string",
+									"example": "TBD"
+								},
+								"documentType": {
+									"type": "string",
+									"example": "TBD"
 								}
 							}
 						}

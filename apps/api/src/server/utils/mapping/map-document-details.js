@@ -13,13 +13,21 @@ export const mapSingleDocumentDetails = (documentDetails) => {
 	return {
 		guid: documentDetails.guid,
 		documentName: documentDetails.name,
-		documentUrl: documentDetails.blobStoragePath,
+		blobStorageContainer: documentDetails.blobStorageContainer,
+		blobStoragePath: documentDetails.blobStoragePath,
 		from: '',
 		receivedDate: mapDateStringToUnixTimestamp(documentDetails.createdAt.toString()),
 		size: documentDetails.fileSize,
 		type: documentDetails.fileType ?? '',
 		redacted: documentDetails.redacted,
-		status: documentDetails.status
+		status: documentDetails.status,
+		description: '',
+		documentReferenceNumber: '',
+		version: 1,
+		agent: '',
+		caseStage: '',
+		webFilter: '',
+		documentType: ''
 	};
 };
 

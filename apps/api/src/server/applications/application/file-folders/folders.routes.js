@@ -143,7 +143,7 @@ router.post(
 			required: true
 		}
         #swagger.responses[200] = {
-            description: 'An paginated data set of documents',
+            description: 'An paginated data set of documents and their properties',
             schema: { $ref: '#/definitions/PaginatedDocumentDetails' }
         }
     */
