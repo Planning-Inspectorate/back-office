@@ -17,18 +17,25 @@ const findUniqueDocumentStub = sinon.stub();
 
 findUniqueStub.withArgs({ where: { id: 1 } }).returns(application);
 
-findUniqueDocumentStub.withArgs({ where: { guid: '1111-2222-3333' } }).returns({
-	guid: '1111-2222-3333',
-	name: 'my doc.pdf',
-	folderId: 1,
-	blobStorageContainer: 'document-service-uploads',
-	blobStoragePath: '/application/BC010001/1111-2222-3333/my doc.pdf',
-	status: 'awaiting_upload',
-	createdAt: '2022-12-12 17:12:25.9610000',
-	redacted: true,
-	fileSize: 1024,
-	fileType: 'application/pdf'
-});
+findUniqueDocumentStub
+	.withArgs({
+		where: {
+			guid_isDeleted: {
+				guid: '1111-2222-3333',
+				isDeleted: false
+			}
+		}
+	})
+	.returns({
+		guid: '1111-2222-3333',
+		name: 'my doc.doc',
+		folderId: 1,
+		blobStorageContainer: 'document-service-uploads',
+		blobStoragePath: '/application/BC010001/1111-2222-3333/my doc.doc',
+		status: 'awaiting_upload',
+		createdAt: '2022-12-12 17:12:25.9610000',
+		redacted: true
+	});
 
 test.before('set up mocks', () => {
 	sinon.stub(databaseConnector, 'case').get(() => {

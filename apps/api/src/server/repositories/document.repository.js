@@ -22,7 +22,29 @@ export const upsert = (document) => {
 export const getById = (documentGuid) => {
 	return databaseConnector.document.findUnique({
 		where: {
-			guid: documentGuid
+			guid_isDeleted: {
+				guid: documentGuid,
+				isDeleted: false
+			}
+		}
+	});
+};
+
+/**
+ * Get a document by documentGuid and caseId
+ *
+ * @param {string} documentGuid
+ * @param {number} caseId
+ * @returns {import('@prisma/client').PrismaPromise<import('@pins/api').Schema.Document |null>}
+ */
+export const getByIdRelatedToCaseId = (documentGuid, caseId) => {
+	return databaseConnector.document.findFirst({
+		where: {
+			guid: documentGuid,
+			isDeleted: false,
+			folder: {
+				caseId
+			}
 		}
 	});
 };
@@ -58,18 +80,23 @@ export const getDocumentsInFolder = (folderId, skipValue, pageSize) => {
 				createdAt: 'desc'
 			}
 		],
-		where: { folderId }
+		where: { folderId, isDeleted: false }
 	});
 };
-
 /**
  *
  * @param {string} documentGUID
+ * @param {boolean} isDeleted
  * @returns {import('@prisma/client').PrismaPromise<import('@pins/api').Schema.Document | null>}
  */
-export const getByDocumentGUID = (documentGUID) => {
+export const getByDocumentGUID = (documentGUID, isDeleted = false) => {
 	return databaseConnector.document.findUnique({
-		where: { guid: documentGUID }
+		where: {
+			guid_isDeleted: {
+				guid: documentGUID,
+				isDeleted
+			}
+		}
 	});
 };
 
@@ -92,6 +119,6 @@ export const updateDocumentStatus = ({ guid, status }) => {
  */
 export const getDocumentsCountInFolder = (folderId) => {
 	return databaseConnector.document.count({
-		where: { folderId }
+		where: { folderId, isDeleted: false }
 	});
 };

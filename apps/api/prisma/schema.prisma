@@ -314,9 +314,11 @@ model Document {
   blobStoragePath      String?
   status               String   @default("awaiting_upload")
   redacted             Boolean  @default(false)
+  isDeleted            Boolean  @default(false)
   createdAt            DateTime @default(now())
   fileSize             Int      @default(0)
   fileType             String?
 
   @@unique([name, folderId])
+  @@unique([guid, isDeleted])
 }
