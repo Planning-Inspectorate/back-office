@@ -39,7 +39,7 @@ applicationsDocumentationRouter
 	.route('/:folderId/document/:documentGuid/delete')
 	.post(
 		[assertDomainTypeIsNotInspector, locals.registerFolder],
-		asyncRoute(controller.deleteApplicationsCaseDocumentation)
+		asyncRoute(controller.updateApplicationsCaseDocumentationDelete)
 	);
 
 export default applicationsDocumentationRouter;

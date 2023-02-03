@@ -4,12 +4,14 @@ import {
 	setSessionFilesNumberOnList
 } from '../../../lib/services/session.service.js';
 import {
+	deleteCaseDocumentationFile,
 	getCaseDocumentationFileInfo,
 	getCaseDocumentationFilesInFolder,
 	getCaseFolders,
 	updateCaseDocumentationFiles
 } from './applications-documentation.service.js';
 
+/** @typedef {import('@pins/express').ValidationErrors} ValidationErrors */
 /** @typedef {import('../applications-case.locals.js').ApplicationCaseLocals} ApplicationCaseLocals */
 /** @typedef {import('../../../applications.types').DocumentationCategory} DocumentationCategory */
 /** @typedef {import('../../../applications.types').DocumentationFile} DocumentationFile */
@@ -97,7 +99,7 @@ export async function viewApplicationsCaseDocumentationPages({ params }, respons
 /**
  * View the documentation delete page
  *
- * @type {import('@pins/express').RenderHandler<{documentationFile: *}, {}>}
+ * @type {import('@pins/express').RenderHandler<{documentationFile: DocumentationFile}, {}>}
  */
 export async function viewApplicationsCaseDocumentationDelete({ params }, response) {
 	const { documentGuid, action } = params;
@@ -110,9 +112,23 @@ export async function viewApplicationsCaseDocumentationDelete({ params }, respon
 /**
  * Delete a document
  *
- * @type {import('@pins/express').RenderHandler<{message: string}, {}>}
+ * @type {import('@pins/express').RenderHandler<{message?: string, documentationFile?: DocumentationFile, errors?: ValidationErrors}, {}>}
  */
-export async function deleteApplicationsCaseDocumentation(request, response) {
+export async function updateApplicationsCaseDocumentationDelete({ params }, response) {
+	const { documentGuid } = params;
+	const { caseId } = response.locals;
+
+	const { isArchived, errors } = await deleteCaseDocumentationFile(caseId, documentGuid);
+
+	if (!isArchived || errors) {
+		const documentationFile = await getCaseDocumentationFileInfo(caseId, documentGuid);
+
+		return response.render(`applications/case-documentation/documentation-delete`, {
+			documentationFile,
+			errors
+		});
+	}
+
 	response.render(`applications/case-documentation/documentation-success-banner`, {
 		message: 'Document successfully deleted '
 	});
