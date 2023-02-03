@@ -55,7 +55,7 @@
 
 						<a class="govuk-link display--block" href="/move">Move</a>
 
-						<a class="govuk-link display--block" href="/delete">Delete</a>
+						<a class="govuk-link display--block" href="{{ 'document'|url({caseId: caseId, folderId: folderId, documentGuid: documentationFile.guid, step: 'delete'}) }}">Delete</a>
 					{% endset %}
 					{{ govukDetails({
 						summaryText: "Document actions",
@@ -100,7 +100,7 @@
 							rows: propertiesRow
 						}) }}
 						<div class="text-align--right">
-							<a href="delete"
+							<a href="{{ 'document'|url({caseId: caseId, folderId: folderId, documentGuid: documentationFile.guid, step: 'delete'}) }}"
 							   class="govuk-button govuk-!-margin-0 govuk-button--warning pins-button-link">
 								Delete
 							</a>

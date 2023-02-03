@@ -98,3 +98,31 @@ export const updateCaseDocumentationFiles = async (caseId, { status, redacted, i
 export const getCaseDocumentationFileInfo = async (caseId, fileGuid) => {
 	return get(`applications/${caseId}/documents/${fileGuid}`);
 };
+
+/**
+ * Soft delete the documentation file
+ *
+ * @param {number} caseId
+ * @param {string} fileGuid
+ * @returns {Promise<{isArchived?: boolean, errors?: ValidationErrors}>}
+ */
+export const deleteCaseDocumentationFile = async (caseId, fileGuid) => {
+	let response;
+
+	try {
+		// response = await post(`applications/${caseId}/documents/${fileGuid}/archive`);
+
+		// TODO: this is a mock
+		response = new Promise((resolve) => {
+			setTimeout(() => {
+				resolve({ isArchived: !!caseId && !!fileGuid });
+			}, 2000);
+		});
+	} catch {
+		response = new Promise((resolve) => {
+			resolve({ errors: { msg: 'Something went wrong, please try again' } });
+		});
+	}
+
+	return response;
+};
