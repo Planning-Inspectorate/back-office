@@ -27,7 +27,7 @@
 
 
 				<h2 class="govuk-caption-xl">Document properties</h2>
-				<h3 class="govuk-heading-xl">{{ documentationFile.documentName }}</h3>
+				<h3 class="govuk-heading-xl">{{ documentationFile.documentName|documentName }}</h3>
 
 				<ul class="govuk-list">
 					<li class="govuk-!-margin-top-7">{# documentationFile.description #}</li>
@@ -66,7 +66,7 @@
 				<div class="govuk-!-margin-top-7">
 
 					{% set properties = [
-						{label: 'Document Name', value: documentationFile.documentName, link: '#'},
+						{label: 'Document Name', value: documentationFile.documentName|documentName, link: '#'},
 						{label: 'Description', value: '', link: '#'},
 						{label: 'From', value: '', link: '#'},
 						{label: 'Agent', value: '', link: '#'},
