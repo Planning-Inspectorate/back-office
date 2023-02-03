@@ -29,10 +29,10 @@ applicationsDocumentationRouter
 	);
 
 applicationsDocumentationRouter
-	.route('/:folderId/document/:documentGuid/properties')
+	.route('/:folderId/document/:documentGuid/:action')
 	.get(
 		[assertDomainTypeIsNotInspector, locals.registerFolder],
-		asyncRoute(controller.viewApplicationsCaseDocumentationProperties)
+		asyncRoute(controller.viewApplicationsCaseDocumentationPages)
 	);
 
 export default applicationsDocumentationRouter;

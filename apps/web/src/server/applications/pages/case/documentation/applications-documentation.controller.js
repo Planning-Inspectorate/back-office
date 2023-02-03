@@ -80,19 +80,18 @@ export async function updateApplicationsCaseDocumentationFolder(request, respons
 export async function viewApplicationsCaseDocumentationUpload(request, response) {
 	response.render(`applications/case-documentation/documentation-upload`);
 }
+
 /**
- * View the documentation properties page
+ * View the documentation pages
  *
- * @type {import('@pins/express').RenderHandler<{documentationFile: DocumentationFile}, {}>}
+ * @type {import('@pins/express').RenderHandler<{documentationFile: *}, {}>}
  */
-export async function viewApplicationsCaseDocumentationProperties({ params }, response) {
-	const { documentGuid } = params;
+export async function viewApplicationsCaseDocumentationPages({ params }, response) {
+	const { documentGuid, action } = params;
 	const { caseId } = response.locals;
 	const documentationFile = await getCaseDocumentationFileInfo(caseId, documentGuid);
 
-	response.render(`applications/case-documentation/documentation-properties`, {
-		documentationFile
-	});
+	response.render(`applications/case-documentation/documentation-${action}`, { documentationFile });
 }
 
 // Data for controllers

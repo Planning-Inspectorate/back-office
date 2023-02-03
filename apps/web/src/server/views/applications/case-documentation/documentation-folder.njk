@@ -195,8 +195,8 @@
 														{
 															id: 'checkbox-id-' + documentationFile.guid,
 															value: documentationFile.guid,
-															text: documentationFile.documentName,
-															label: 'select ' + documentationFile.documentName
+															text: documentationFile.documentName|documentName,
+															label: 'select ' + documentationFile.documentName|documentName
 														}]
 												}) }}
 											{% else %}
@@ -204,7 +204,7 @@
 													<div class="govuk-checkboxes" data-module="govuk-checkboxes">
 														<div class="govuk-checkboxes__item">
 															<label class="govuk-label govuk-checkboxes__label">
-																{{ documentationFile.documentName }}
+																{{ documentationFile.documentName|documentName }}
 															</label>
 														</div>
 													</div>
@@ -217,7 +217,7 @@
 												{
 													classes: 'govuk-body-s govuk-!-font-weight-bold',
 													href: 'document-download'|url({caseId: caseId, documentGuid: documentationFile.guid, isPreviewActive: isPreviewActive}),
-													text:documentationFile.documentName
+													text:documentationFile.documentName|documentName
 												},
 												isPreviewActive
 											) }}

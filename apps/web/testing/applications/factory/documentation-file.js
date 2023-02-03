@@ -20,10 +20,17 @@ export function createDocumentationFile({
 	const size = createUniqueRandomNumberFromSeed(100, 10_000_000, uniqueSeed);
 	const redacted = createUniqueRandomBooleanFromSeed(uniqueSeed);
 
+	const type = [
+		{ mime: 'application/msword', ext: 'doc' },
+		{ mime: 'application/pdf', ext: 'pdf' },
+		{ mime: 'image/jpeg', ext: 'jpeg' },
+		{ mime: 'audio/mpeg', ext: 'mpeg' }
+	][createUniqueRandomNumberFromSeed(0, 4, uniqueSeed)];
 	const documentName = `${uniqueSeed + 1} ${createRandomDescription({
 		wordsNumber: createUniqueRandomNumberFromSeed(2, 5, uniqueSeed),
 		startOffset: createUniqueRandomNumberFromSeed(0, 30, uniqueSeed)
-	})}`;
+	})}.${type.ext}`;
+
 	const url = `url/to/file/${uniqueSeed}`;
 	const from = `${createRandomDescription({
 		wordsNumber: 1,
@@ -32,9 +39,7 @@ export function createDocumentationFile({
 		wordsNumber: 1,
 		startOffset: createUniqueRandomNumberFromSeed(5, 20, uniqueSeed)
 	})}`;
-	const type = ['application/msword', 'application/pdf', 'image/jpeg', 'audio/mpeg'][
-		createUniqueRandomNumberFromSeed(0, 4, uniqueSeed)
-	];
+
 	const status = [
 		'user_checked',
 		'not_user_checked',
@@ -52,7 +57,7 @@ export function createDocumentationFile({
 		from,
 		receivedDate,
 		size,
-		type,
+		type: type.mime,
 		status,
 		redacted
 	};
