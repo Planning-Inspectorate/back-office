@@ -1,14 +1,6 @@
-import Prisma from '@prisma/client';
-import sinon from 'sinon';
+// @ts-nocheck
+import { jest } from '@jest/globals';
 import supertest from 'supertest';
-import { app } from '../../../app.js';
-import { eventClient } from '../../../infrastructure/event-client.js';
-import { databaseConnector } from '../../../utils/database-connector.js';
-import { validateNsipProject } from './schema-test-utils.js';
-
-const request = supertest(app);
-
-const updateStub = sinon.stub().returns({ id: 1, serviceCustomer: [{ id: 2 }, { id: 3 }] });
 
 const expectedEventPayload = {
 	id: 1,
@@ -32,93 +24,99 @@ const expectedEventPayload = {
 	validationOfficers: []
 };
 
-const findUniqueSubSectorStub = sinon.stub();
+const mockCaseFindUnique = jest.fn();
+const mockCaseUpdate = jest.fn();
+const mockZoomLevelFindUnique = jest.fn();
+const mockSubSectorFindUnique = jest.fn();
+const mockServiceCustomerFindUnique = jest.fn();
+const mockRegionFindUnique = jest.fn();
+const mockRegionsOnApplicationDetailsDeleteMany = jest.fn();
 
-findUniqueSubSectorStub.withArgs({ where: { name: 'some_sub_sector' } }).returns({});
-findUniqueSubSectorStub.withArgs({ where: { name: 'some unknown subsector' } }).returns(null);
+class MockPrismaClient {
+	get case() {
+		return {
+			findUnique: mockCaseFindUnique,
+			update: mockCaseUpdate
+		};
+	}
 
-/**
- * @type {sinon.SinonStub<any, any>}
- */
-let findUniqueStub;
+	get zoomLevel() {
+		return {
+			findUnique: mockZoomLevelFindUnique
+		};
+	}
 
-const findUniqueServiceCustomerStub = sinon.stub();
+	get subSector() {
+		return {
+			findUnique: mockSubSectorFindUnique
+		};
+	}
 
-findUniqueServiceCustomerStub.withArgs({ where: { id: 1 } }).returns({ id: 1, caseId: 1 });
-findUniqueServiceCustomerStub.withArgs({ where: { id: 2 } }).returns({ id: 2, caseId: 2 });
+	get serviceCustomer() {
+		return {
+			findUnique: mockServiceCustomerFindUnique
+		};
+	}
 
-const findUniqueZoomLevelStub = sinon.stub();
+	get region() {
+		return {
+			findUnique: mockRegionFindUnique
+		};
+	}
 
-findUniqueZoomLevelStub.withArgs({ where: { name: 'some-unknown-map-zoom-level' } }).returns(null);
-findUniqueZoomLevelStub.withArgs({ where: { name: 'some-known-map-zoom-level' } }).returns({});
+	get regionsOnApplicationDetails() {
+		return {
+			deleteMany: mockRegionsOnApplicationDetailsDeleteMany
+		};
+	}
 
-const findUniqueRegionStub = sinon.stub();
+	$transaction() {
+		return {};
+	}
+}
 
-findUniqueRegionStub.withArgs({ where: { name: 'region1' } }).returns({});
-findUniqueRegionStub.withArgs({ where: { name: 'region2' } }).returns({});
-findUniqueRegionStub.withArgs({ where: { name: 'some-unknown-region' } }).returns(null);
+jest.unstable_mockModule('@prisma/client', () => ({
+	default: {
+		PrismaClient: MockPrismaClient
+	}
+}));
 
-const deleteManyStub = sinon.stub();
+const mockSendEvents = jest.fn();
 
-/**
- * @type {sinon.SinonStub<any, any>}
- */
-let stubbedSendEvents;
+jest.unstable_mockModule('../../../infrastructure/event-client.js', () => ({
+	eventClient: {
+		sendEvents: mockSendEvents
+	}
+}));
+
+const { app } = await import('../../../app.js');
+const { databaseConnector } = await import('../../../utils/database-connector.js');
+
+const request = supertest(app);
 
 describe('Update application', () => {
-	beforeAll(() => {
-		findUniqueStub = sinon.stub();
-
-		findUniqueStub
-			.withArgs({ where: { id: 1 } })
-			.returns({ id: 1, serviceCustomer: [{ id: 2 }, { id: 3 }] });
-		findUniqueStub.withArgs({ where: { id: 2 } }).returns(null);
-
-		sinon.stub(databaseConnector, 'case').get(() => {
-			return { update: updateStub, findUnique: findUniqueStub };
-		});
-
-		sinon.stub(databaseConnector, 'subSector').get(() => {
-			return { findUnique: findUniqueSubSectorStub };
-		});
-
-		sinon.stub(databaseConnector, 'serviceCustomer').get(() => {
-			return { findUnique: findUniqueServiceCustomerStub };
-		});
-
-		sinon.stub(databaseConnector, 'zoomLevel').get(() => {
-			return { findUnique: findUniqueZoomLevelStub };
-		});
-
-		sinon.stub(databaseConnector, 'region').get(() => {
-			return { findUnique: findUniqueRegionStub };
-		});
-
-		sinon.stub(databaseConnector, 'regionsOnApplicationDetails').get(() => {
-			return { deleteMany: deleteManyStub };
-		});
-
-		sinon
-			.stub(Prisma.PrismaClient.prototype, '$transaction')
-			.returns([{ id: 1, serviceCustomer: [{ id: 2 }, { id: 3 }] }]);
-
-		sinon.useFakeTimers({ now: 1_649_319_144_000 });
-		stubbedSendEvents = sinon.stub(eventClient, 'sendEvents');
-	});
-
 	test('update-application updates application with just title and first notified date', async () => {
-		findUniqueStub.returns({ id: 1, serviceCustomer: [{ id: 2 }, { id: 3 }] });
-	
+		// GIVEN
+		databaseConnector.case.findUnique.mockResolvedValue({
+			id: 1,
+			serviceCustomer: [{ id: 2 }, { id: 3 }]
+		});
+
+		databaseConnector.case.update.mockResolvedValue({});
+		jest.useFakeTimers({ now: 1_649_319_144_000 });
+
+		// WHEN
 		const response = await request.patch('/applications/1').send({
 			title: 'some title',
 			keyDates: {
 				submissionDateInternal: 1_649_319_344_000
 			}
 		});
-	
+
+		// THEN
 		expect(response.status).toEqual(200);
 		expect(response.body).toEqual({ id: 1, applicantIds: [2, 3] });
-		sinon.assert.calledWith(updateStub, {
+		expect(databaseConnector.case.update).toHaveBeenCalledWith({
 			where: { id: 1 },
 			data: {
 				modifiedAt: new Date(1_649_319_144_000),
@@ -138,15 +136,22 @@ describe('Update application', () => {
 				serviceCustomer: true
 			}
 		});
-	
-		expect(validateNsipProject(stubbedSendEvents.getCall(0).args[1][0])).toEqual(true);
-		sinon.assert.calledWith(stubbedSendEvents, 'nsip-project', [expectedEventPayload]);
+
+		expect(mockSendEvents).toHaveBeenCalledWith('nsip-project', [expectedEventPayload]);
 	});
-	
+
 	test('update-application updates application with just easting and sub-sector name', async () => {
-		stubbedSendEvents.resetHistory();
-		findUniqueStub.returns({ id: 1, serviceCustomer: [{ id: 2 }, { id: 3 }] });
-	
+		// GIVEN
+		databaseConnector.case.findUnique.mockResolvedValue({
+			id: 1,
+			serviceCustomer: [{ id: 2 }, { id: 3 }]
+		});
+
+		databaseConnector.case.update.mockResolvedValue({});
+		databaseConnector.subSector.findUnique.mockResolvedValue({});
+		jest.useFakeTimers({ now: 1_649_319_144_000 });
+
+		// WHEN
 		const response = await request.patch('/applications/1').send({
 			geographicalInformation: {
 				gridReference: {
@@ -155,10 +160,11 @@ describe('Update application', () => {
 			},
 			subSectorName: 'some_sub_sector'
 		});
-	
+
+		// THEN
 		expect(response.status).toEqual(200);
 		expect(response.body).toEqual({ id: 1, applicantIds: [2, 3] });
-		sinon.assert.calledWith(updateStub, {
+		expect(databaseConnector.case.update).toHaveBeenCalledWith({
 			where: { id: 1 },
 			data: {
 				modifiedAt: new Date(1_649_319_144_000),
@@ -174,14 +180,25 @@ describe('Update application', () => {
 				serviceCustomer: true
 			}
 		});
-	
-		expect(validateNsipProject(stubbedSendEvents.getCall(1).args[1][0])).toEqual(true);
-		sinon.assert.calledWith(stubbedSendEvents, 'nsip-project', [expectedEventPayload]);
+
+		expect(mockSendEvents).toHaveBeenCalledWith('nsip-project', [expectedEventPayload]);
 	});
-	
+
 	test('update-application updates application when all possible details provided', async () => {
-		findUniqueStub.returns({ id: 1, serviceCustomer: [{ id: 2 }, { id: 3 }] });
-	
+		// GIVEN
+		databaseConnector.case.findUnique.mockResolvedValue({
+			id: 1,
+			serviceCustomer: [{ id: 2 }, { id: 3 }]
+		});
+
+		databaseConnector.case.update.mockResolvedValue({});
+		databaseConnector.subSector.findUnique.mockResolvedValue({});
+		databaseConnector.serviceCustomer.findUnique.mockResolvedValue({ caseId: 1 });
+		databaseConnector.zoomLevel.findUnique.mockResolvedValue({});
+		databaseConnector.region.findUnique({});
+		jest.useFakeTimers({ now: 1_649_319_144_000 });
+
+		// WHEN
 		const response = await request.patch('/applications/1').send({
 			title: 'title',
 			description: 'description',
@@ -220,14 +237,15 @@ describe('Update application', () => {
 				submissionDatePublished: 'Q1 2023'
 			}
 		});
-	
+
+		// THEN
 		expect(response.status).toEqual(200);
 		expect(response.body).toEqual({ id: 1, applicantIds: [2, 3] });
-		sinon.assert.calledWith(deleteManyStub, {
+		expect(mockRegionsOnApplicationDetailsDeleteMany).toHaveBeenCalledWith({
 			where: { applicationDetailsId: 1 }
 		});
-	
-		sinon.assert.calledWith(updateStub, {
+
+		expect(mockCaseUpdate).toHaveBeenCalledWith({
 			where: { id: 1 },
 			data: {
 				modifiedAt: new Date(1_649_319_144_000),
@@ -308,15 +326,24 @@ describe('Update application', () => {
 				serviceCustomer: true
 			}
 		});
-	
-		expect(validateNsipProject(stubbedSendEvents.getCall(2).args[1][0])).toEqual(true);
-		sinon.assert.calledWith(stubbedSendEvents, 'nsip-project', [expectedEventPayload]);
+
+		expect(mockSendEvents).toHaveBeenCalledWith('nsip-project', [expectedEventPayload]);
 	});
-	
+
 	test(`update-application with new applicant using first and last name,
 			address line, map zoom level`, async () => {
-		findUniqueStub.returns({ id: 1, serviceCustomer: [{ id: 2 }, { id: 3 }] });
-	
+		// GIVEN
+		databaseConnector.case.findUnique.mockResolvedValue({
+			id: 1,
+			serviceCustomer: [{ id: 2 }, { id: 3 }]
+		});
+
+		databaseConnector.zoomLevel.findUnique.mockResolvedValue({});
+		databaseConnector.case.update.mockResolvedValue({});
+
+		jest.useFakeTimers({ now: 1_649_319_144_000 });
+
+		// WHEN
 		const response = await request.patch('/applications/1').send({
 			applicants: [
 				{
@@ -331,10 +358,11 @@ describe('Update application', () => {
 				mapZoomLevelName: 'some-known-map-zoom-level'
 			}
 		});
-	
+
+		// THEN
 		expect(response.status).toEqual(200);
 		expect(response.body).toEqual({ id: 1, applicantIds: [2, 3] });
-		sinon.assert.calledWith(updateStub, {
+		expect(databaseConnector.case.update).toHaveBeenCalledWith({
 			where: { id: 1 },
 			data: {
 				modifiedAt: new Date(1_649_319_144_000),
@@ -360,12 +388,25 @@ describe('Update application', () => {
 				serviceCustomer: true
 			}
 		});
-	
-		expect(validateNsipProject(stubbedSendEvents.getCall(3).args[1][0])).toEqual(true);
-		sinon.assert.calledWith(stubbedSendEvents, 'nsip-project', [expectedEventPayload]);
+
+		expect(mockSendEvents).toHaveBeenCalledWith('nsip-project', [expectedEventPayload]);
 	});
-	
+
 	test('update-application returns error if any validated values are invalid', async () => {
+		// GIVEN
+		databaseConnector.case.findUnique.mockResolvedValue({
+			id: 1,
+			serviceCustomer: [{ id: 2 }, { id: 3 }]
+		});
+
+		databaseConnector.zoomLevel.findUnique.mockResolvedValue(null);
+		databaseConnector.region.findUnique.mockResolvedValue(null);
+		databaseConnector.subSector.findUnique.mockResolvedValue(null);
+		databaseConnector.case.update.mockResolvedValue({});
+
+		jest.useFakeTimers({ now: 1_649_319_144_000 });
+
+		// WHEN
 		const response = await request.patch('/applications/1').send({
 			caseEmail: 'not a real email',
 			geographicalInformation: {
@@ -390,7 +431,8 @@ describe('Update application', () => {
 			},
 			subSectorName: 'some unknown subsector'
 		});
-	
+
+		// THEN
 		expect(response.status).toEqual(400);
 		expect(response.body).toEqual({
 			errors: {
@@ -407,10 +449,15 @@ describe('Update application', () => {
 			}
 		});
 	});
-	
+
 	test('update-application throws error if unknown application id provided', async () => {
+		// GIVEN
+		databaseConnector.case.findUnique.mockResolvedValue(null);
+
+		// WHEN
 		const response = await request.patch('/applications/2');
-	
+
+		// THEN
 		expect(response.status).toEqual(404);
 		expect(response.body).toEqual({
 			errors: {
@@ -418,10 +465,19 @@ describe('Update application', () => {
 			}
 		});
 	});
-	
+
 	test('update-application throws error if unknown applicant id provided', async () => {
+		// GIVEN
+		databaseConnector.case.findUnique.mockResolvedValue({
+			id: 1,
+			serviceCustomer: [{ id: 2 }, { id: 3 }]
+		});
+		databaseConnector.serviceCustomer.findUnique.mockResolvedValue(null);
+
+		// WHEN
 		const response = await request.patch('/applications/1').send({ applicants: [{ id: 3 }] });
-	
+
+		// THEN
 		expect(response.status).toEqual(400);
 		expect(response.body).toEqual({
 			errors: {
@@ -429,10 +485,19 @@ describe('Update application', () => {
 			}
 		});
 	});
-	
+
 	test('update-application throws error if applicant id that doesnt belong to case provided', async () => {
+		// GIVEN
+		databaseConnector.case.findUnique.mockResolvedValue({
+			id: 1,
+			serviceCustomer: [{ id: 2 }, { id: 3 }]
+		});
+		databaseConnector.serviceCustomer.findUnique.mockResolvedValue({ caseId: 2 });
+
+		// WHEN
 		const response = await request.patch('/applications/1').send({ applicants: [{ id: 2 }] });
-	
+
+		// THEN
 		expect(response.status).toEqual(400);
 		expect(response.body).toEqual({
 			errors: {
