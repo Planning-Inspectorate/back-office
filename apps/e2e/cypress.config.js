@@ -51,7 +51,8 @@ module.exports = defineConfig({
 			PASSWORD: process.env.USER_PASSWORD,
 			CASE_TEAM_EMAIL: process.env.CASE_TEAM_EMAIL,
 			CASE_ADMIN_EMAIL: process.env.CASE_ADMIN_EMAIL,
-			INSPECTOR_EMAIL: process.env.INSPECTOR_EMAIL
+			INSPECTOR_EMAIL: process.env.INSPECTOR_EMAIL,
+			PRESERVE_COOKIES: process.env.PRESERVE_COOKIES
 		},
 		retries: 1,
 		specPattern: 'cypress/e2e/**/*.feature',
@@ -60,7 +61,7 @@ module.exports = defineConfig({
 		viewportWidth: 1536,
 		defaultCommandTimeout: 10000,
 		pageLoadTimeout: 30000,
-		experimentalModifyObstructiveThirdPartyCode: true,
+		experimentalModifyObstructiveThirdPartyCode: false,
 		chromeWebSecurity: false,
 		experimentalInteractiveRunEvents: true
 	}

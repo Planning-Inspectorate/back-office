@@ -8,13 +8,11 @@ import '../commands';
 const page = new Page();
 
 // U S E R  A C T I O N S
-
 When('the user chooses option {int} checkbox', function (optionNumber) {
 	page.chooseCheckboxByIndex(optionNumber);
 });
 
 // A S S E R T I O N S
-
 Then(
 	'the user should see {int} checkboxes options to choose on the page',
 	function (checkboxesCount) {

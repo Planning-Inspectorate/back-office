@@ -26,7 +26,7 @@ Feature: Create New Case journey as an Case Team user
 		And the user chooses option 2 checkbox
 		And the user chooses option 5 checkbox
 		And the user clicks the "Save and continue" button
-		# Then the user validates previous page
+		Then the user validates previous page
 		Then the user should see 9 radio options to choose on the page
 		When the user chooses option 2 radio button
 		And the user clicks the "Save and continue" button
@@ -53,7 +53,7 @@ Feature: Create New Case journey as an Case Team user
 		And the user clicks the "Find address" button
 		And the user selects option 2 from the "Address" list
 		And the user clicks the "Save and continue" button
-		# Then the user validates previous page
+		Then the user validates previous page
 		When the user enters the applicant's website for the new case
 		And the user clicks the "Save and continue" button
 		Then the user validates previous page

@@ -4,7 +4,7 @@ import { ApplicationsHomePage } from '../../../page_objects/applicationsHomePage
 import { faker } from '@faker-js/faker';
 import { CreateCasePage } from '../../../page_objects/createCasePage';
 
-const applicationHomePage = new ApplicationsHomePage();
+const applicationsHomePage = new ApplicationsHomePage();
 const createCasePage = new CreateCasePage();
 
 const now = Date.now();
@@ -18,11 +18,9 @@ const caseTeamEmail = faker.internet.email();
 const applicantEmail = `${firstName}.${lastName}@email.com`;
 const website = faker.internet.url();
 const phoneNumber = faker.phone.number('+4479########');
-const dateSubmissionPublished = `Q1 ${new Date().getFullYear() + 1}`;
-const dateInternal = faker.date.future(1);
 
 When('the user starts the creation of a new case', function () {
-	applicationHomePage.clickCreateNewCaseButton();
+	applicationsHomePage.clickCreateNewCaseButton();
 });
 
 When('the user enters a name and description for the new case', function () {

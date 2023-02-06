@@ -16,6 +16,7 @@
     "commitlint": "commitlint --from=$(git log origin/main..$(git rev-parse HEAD) --pretty=format:\"%H\" | tail -n 1)",
     "clean": "turbo run clean && rimraf node_modules",
     "dev": "turbo run dev --no-cache --parallel --continue",
+		"e2e": "npm run cy:run:smoke --workspace=@pins/e2e",
     "format": "prettier --write \"**/*.{js}\"",
     "lint:js": "turbo run lint:js --parallel",
     "lint:js:fix": "turbo run lint:js:fix",

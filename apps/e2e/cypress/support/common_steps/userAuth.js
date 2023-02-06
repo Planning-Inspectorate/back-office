@@ -6,13 +6,14 @@ import '../commands';
 import { Page } from '../../page_objects/basePage';
 
 const page = new Page();
+const preserveCookies = Cypress.env('PRESERVE_COOKIES') === 'true';
 
 // H O O K S
-
-after(() => {
-	cy.task('ClearAllCookies');
-});
-
+if (!preserveCookies) {
+	after(() => {
+		cy.task('ClearAllCookies');
+	});
+}
 beforeEach(() => {
 	cy.clearLocalStorage();
 	cy.clearCookies();
