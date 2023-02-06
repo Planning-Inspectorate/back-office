@@ -39,7 +39,8 @@ findManyStub
 							'recommendation',
 							'decision',
 							'post_decision',
-							'withdrawn'
+							'withdrawn',
+							'published'
 						]
 					},
 					valid: true

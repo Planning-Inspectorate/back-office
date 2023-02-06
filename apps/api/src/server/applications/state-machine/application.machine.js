@@ -14,7 +14,8 @@ const applicationStatesForMachine = {
 	recommendation: {},
 	decision: {},
 	post_decision: {},
-	withdrawn: {}
+	withdrawn: {},
+	published: {}
 };
 
 /**
@@ -31,4 +32,5 @@ export const createApplicationsMachine = (context) => {
 	});
 };
 
+/** @type {Record<string,any>} */
 export const applicationStates = mapObjectKeysToStrings(applicationStatesForMachine);

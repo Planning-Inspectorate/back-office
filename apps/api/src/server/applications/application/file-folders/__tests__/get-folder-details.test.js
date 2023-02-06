@@ -99,13 +99,13 @@ findManyDocumentsStub
 		skip: sinon.match.any,
 		take: sinon.match.any,
 		orderBy: [{ createdAt: 'desc' }],
-		where: { folderId: 201, isDeleted: false }
+		where: { folderId: 201 }
 	})
 	.returns(documents);
 
 countStub
 	.withArgs({
-		where: { folderId: 201, isDeleted: false }
+		where: { folderId: 201 }
 	})
 	.returns(documentsInFolder201Count);
 

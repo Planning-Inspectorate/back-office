@@ -1,15 +1,15 @@
 import { pick } from 'lodash-es';
 import * as caseRepository from '../../../repositories/case.repository.js';
 import * as documentRepository from '../../../repositories/document.repository.js';
-import AppError from '../../../utils/app-error.js';
-import { DOCUMENT_STATUS } from '../../../utils/document-enum.js';
+import BackOfficeAppError from '../../../utils/app-error.js';
 import { getStorageLocation } from '../../../utils/document-storage-api-client.js';
 import { mapSingleDocumentDetails } from '../../../utils/mapping/map-document-details.js';
+import { applicationStates } from '../../state-machine/application.machine.js';
+import { getDocumentByIdAndCaseId } from './document.validators.js';
 /**
  * @typedef {import('apps/api/prisma/schema.js').Document} Document
  * @typedef {import('apps/api/prisma/schema.js').DocumentDetails} DocumentDetails
  */
-import { getDocumentByIdAndCaseId } from './document.validators.js';
 
 /**
  *
@@ -104,11 +104,11 @@ export const getDocumentProperties = async ({ params }, response) => {
 		document = await documentRepository.getById(params.guid);
 
 		if (document === null || typeof document === 'undefined') {
-			return next(new AppError(`Unknown document guid ${params.guid}`, 400));
+			throw new BackOfficeAppError(`Unknown document guid ${params.guid}`, 404);
 		}
 		documentDetails = mapSingleDocumentDetails(document);
 	} catch {
-		return next(new AppError(`Unknown document guid ${params.guid}`, 400));
+		throw new BackOfficeAppError(`Unknown document guid ${params.guid}`, 400);
 	}
 
 	response.send(documentDetails);
@@ -122,21 +122,16 @@ export const getDocumentProperties = async ({ params }, response) => {
 export const softDeleteDocument = async ({ params: { id: caseId, guid } }, response) => {
 	const document = await getDocumentByIdAndCaseId(guid, +caseId);
 
-	if (!document) {
-		throw new AppError(`document not found guid ${guid} related to casedId ${caseId}`, 404);
-	}
-
-	const documentIsPublished = document.status === DOCUMENT_STATUS.PUBLISHED;
+	const documentIsPublished = document.status === applicationStates.published;
 
 	if (documentIsPublished) {
-		throw new AppError(`unable to archive document guid ${guid} related to casedId ${caseId}`, 400);
+		throw new BackOfficeAppError(
+			`unable to delete document guid ${guid} related to casedId ${caseId}`,
+			400
+		);
 	}
 
-	const isDeleted = true;
+	await documentRepository.deleteDocument(guid);
 
-	await documentRepository.update(guid, {
-		isDeleted
-	});
-
-	response.status(200).send({ isDeleted });
+	response.status(200).send({ isDeleted: true });
 };
