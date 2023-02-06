@@ -114,13 +114,18 @@ export async function viewApplicationsCaseDocumentationDelete({ params }, respon
  *
  * @type {import('@pins/express').RenderHandler<{message?: string, documentationFile?: DocumentationFile, errors?: ValidationErrors}, {}>}
  */
-export async function updateApplicationsCaseDocumentationDelete({ params }, response) {
+export async function updateApplicationsCaseDocumentationDelete(
+	{ params, errors: validationErrors },
+	response
+) {
 	const { documentGuid } = params;
 	const { caseId } = response.locals;
 
-	const { isArchived, errors } = await deleteCaseDocumentationFile(caseId, documentGuid);
+	const { errors } = validationErrors
+		? { errors: validationErrors }
+		: await deleteCaseDocumentationFile(caseId, documentGuid);
 
-	if (!isArchived || errors) {
+	if (errors) {
 		const documentationFile = await getCaseDocumentationFileInfo(caseId, documentGuid);
 
 		return response.render(`applications/case-documentation/documentation-delete`, {

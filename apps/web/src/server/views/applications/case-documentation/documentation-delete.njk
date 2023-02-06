@@ -23,6 +23,7 @@
 	<div class="govuk-grid-row">
 		<form action='' method='post' class="govuk-grid-column-full govuk-!-margin-top-0">
 			<h1 class="govuk-heading-l">{{ serviceName }}</h1>
+			<input type="hidden" value="{{ documentationFile.status }}" name="status" />
 
 			{{ govukTable({
 				captionClasses: "govuk-table__caption--m",
