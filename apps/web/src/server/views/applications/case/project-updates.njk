@@ -1,0 +1,45 @@
+{% extends "./layouts/applications-case-layout.njk" %}
+{% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
+
+{% block sectionContent %}
+
+<h1>Case updates</h1>
+
+<h2>HTML type output</h2>
+<section>
+	<h3>Squire</h3>
+	<div class="squire">
+		<header>
+			<p>
+				<button id="removeAllFormatting">Remove formatting</button>
+				<button id="undo">Undo</button>
+				<button id="redo">Redo</button>
+			</p>
+			<p>
+				<button id="bold">Bold</button>
+				<button id="removeBold">Unbold</button>
+				<button id="underline">Underline</button>
+				<button id="removeUnderline">Deunderline</button>
+			</p>
+			<p>
+				<button id="makeLink" class="prompt">Link</button>
+			</p>
+			<p>
+				<button id="makeUnorderedList">List</button>
+				<button id="removeList">Unlist</button>
+			</p>
+		</header>
+		<div id="squire-rte" class="text-editor"></div>
+		<button id="squire-rte-btn">Submit</button>
+	</div>
+</section>
+
+<h2>JSON type output</h2>
+<section>
+	<h3>Quill</h3>
+	<div class="quill">
+		<div id="quill-rte"></div>
+	</div>
+	<button id="quill-rte-btn">Submit</button>
+</section>
+{% endblock %}
