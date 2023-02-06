@@ -320,5 +320,4 @@ model Document {
   fileType             String?
 
   @@unique([name, folderId])
-  @@unique([guid, isDeleted])
 }
