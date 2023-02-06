@@ -1,4 +1,4 @@
-class AppError extends Error {
+class BackOfficeAppError extends Error {
 	code;
 	status;
 	isOperational;
@@ -14,4 +14,4 @@ class AppError extends Error {
 	}
 }
 
-export default AppError;
+export default BackOfficeAppError;

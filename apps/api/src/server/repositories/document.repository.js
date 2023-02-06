@@ -22,10 +22,7 @@ export const upsert = (document) => {
 export const getById = (documentGuid) => {
 	return databaseConnector.document.findUnique({
 		where: {
-			guid_isDeleted: {
-				guid: documentGuid,
-				isDeleted: false
-			}
+			guid: documentGuid
 		}
 	});
 };
@@ -66,6 +63,19 @@ export const update = (documentGuid, documentDetails) => {
 
 /**
  *
+ * @param {string} documentGuid
+ * @returns {import('@prisma/client').PrismaPromise<import('@pins/api').Schema.Document>}
+ */
+export const deleteDocument = (documentGuid) => {
+	return databaseConnector.document.delete({
+		where: {
+			guid: documentGuid
+		}
+	});
+};
+
+/**
+ *
  * @param {number} folderId
  * @param {number} skipValue
  * @param {number} pageSize
@@ -80,22 +90,18 @@ export const getDocumentsInFolder = (folderId, skipValue, pageSize) => {
 				createdAt: 'desc'
 			}
 		],
-		where: { folderId, isDeleted: false }
+		where: { folderId }
 	});
 };
 /**
  *
  * @param {string} documentGUID
- * @param {boolean} isDeleted
  * @returns {import('@prisma/client').PrismaPromise<import('@pins/api').Schema.Document | null>}
  */
-export const getByDocumentGUID = (documentGUID, isDeleted = false) => {
+export const getByDocumentGUID = (documentGUID) => {
 	return databaseConnector.document.findUnique({
 		where: {
-			guid_isDeleted: {
-				guid: documentGUID,
-				isDeleted
-			}
+			guid: documentGUID
 		}
 	});
 };
@@ -115,10 +121,18 @@ export const updateDocumentStatus = ({ guid, status }) => {
  * Returns total number of documents in a folder on a case
  *
  * @param {number} folderId
+ * @param {boolean} getAllDocuments
  * @returns {import('@prisma/client').PrismaPromise<number>}
  */
-export const getDocumentsCountInFolder = (folderId) => {
+export const getDocumentsCountInFolder = (folderId, getAllDocuments = false) => {
+	/** @type {{folderId: number, isDeleted?:boolean}} */
+	const where = { folderId };
+
+	if (getAllDocuments) {
+		where.isDeleted = true;
+	}
+
 	return databaseConnector.document.count({
-		where: { folderId, isDeleted: false }
+		where
 	});
 };
