@@ -2,6 +2,7 @@ import { composeMiddleware } from '@pins/express';
 import { body } from 'express-validator';
 import { validationErrorHandler } from '../../../middleware/error-handler.js';
 import * as DocumentRepository from '../../../repositories/document.repository.js';
+import BackOfficeAppError from '../../../utils/app-error.js';
 
 /** @typedef {{ guid: string}} documentGuid */
 
@@ -13,7 +14,10 @@ export const getDocumentByIdAndCaseId = async (
 	const document = await DocumentRepository.getByIdRelatedToCaseId(guid, caseId);
 
 	if (document === null || typeof document === 'undefined') {
-		return null;
+		throw new BackOfficeAppError(
+			`document not found guid ${guid} related to casedId ${caseId}`,
+			404
+		);
 	}
 
 	return {

@@ -20,21 +20,20 @@ findUniqueStub.withArgs({ where: { id: 1 } }).returns(application);
 findUniqueDocumentStub
 	.withArgs({
 		where: {
-			guid_isDeleted: {
-				guid: '1111-2222-3333',
-				isDeleted: false
-			}
+			guid: '1111-2222-3333'
 		}
 	})
 	.returns({
 		guid: '1111-2222-3333',
-		name: 'my doc.doc',
+		name: 'my doc.pdf',
 		folderId: 1,
 		blobStorageContainer: 'document-service-uploads',
-		blobStoragePath: '/application/BC010001/1111-2222-3333/my doc.doc',
+		blobStoragePath: '/application/BC010001/1111-2222-3333/my doc.pdf',
 		status: 'awaiting_upload',
 		createdAt: '2022-12-12 17:12:25.9610000',
-		redacted: true
+		redacted: true,
+		fileSize: 1024,
+		fileType: 'application/pdf'
 	});
 
 test.before('set up mocks', () => {

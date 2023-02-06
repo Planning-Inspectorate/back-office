@@ -27,10 +27,7 @@ const findCaseIdInFolderTableStub = sinon.stub().returns({
 findUniqueGUIDInDocumentTableStub
 	.withArgs({
 		where: {
-			guid_isDeleted: {
-				guid: 'D1234',
-				isDeleted: false
-			}
+			guid: 'D1234'
 		}
 	})
 	.returns({
