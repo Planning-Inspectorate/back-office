@@ -6044,6 +6044,111 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
 </main>"
 `;
 
+exports[`applications documentation Document properties delete page If the user is inspector page should not render 1`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <div class=\\"govuk-grid-row\\">
+        <div class=\\"govuk-grid-column-two-thirds\\">
+            <h1 class=\\"govuk-heading-xl\\">Sorry, there is a problem with your login</h1>
+            <p class=\\"govuk-body\\">You are not permitted to access this URL.</p>
+            <p class=\\"govuk-body\\"><a href=\\"https://has-appeal.herokuapp.com/help/contact\\" class=\\"govuk-link\\">Contact the Planning Inspectorate Customer Support</a> if
+                the problem persists.</p>
+        </div>
+    </div>
+</main>"
+`;
+
+exports[`applications documentation Document properties delete page If the user is not inspector GET /case/123/project-documentation/21/100/delete page should render 1`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <div class=\\"govuk-grid-row\\">
+        <form action='' method='post' class=\\"govuk-grid-column-full govuk-!-margin-top-0\\">
+            <h1 class=\\"govuk-heading-l\\">Delete selected document</h1>
+            <input type=\\"hidden\\" value=\\"not_user_checked\\" name=\\"status\\">
+            <table class=\\"govuk-table\\">
+                <thead class=\\"govuk-table__head\\">
+                    <tr class=\\"govuk-table__row\\">
+                        <th scope=\\"col\\" class=\\"govuk-table__header\\">File name</th>
+                        <th scope=\\"col\\" class=\\"govuk-table__header\\">From</th>
+                    </tr>
+                </thead>
+                <tbody class=\\"govuk-table__body\\">
+                    <tr class=\\"govuk-table__row\\">
+                        <td class=\\"govuk-table__cell\\">100 Elit sed do.pdf</td>
+                        <td class=\\"govuk-table__cell\\">Elit Eiusmod</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p class=\\"govuk-body govuk-!-margin-top-7 govuk-!-margin-bottom-7\\">You are deleting the document from:<span class=\\"font-weight--700\\"> Project documentation
+							></span><span class=\\"font-weight--700\\"> Project management
+							></span><span class=\\"font-weight--700\\"> Sub folder level 2</span>
+            </p>
+            <button class=\\"govuk-button govuk-button--warning\\" data-module=\\"govuk-button\\">Delete</button>
+        </form>
+    </div>
+</main>"
+`;
+
+exports[`applications documentation Document properties delete page If the user is not inspector POST /case/123/project-documentation/21/100/delete should not return error if status is not "ready_to_publish" 1`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <div class=\\"govuk-grid-row\\">
+        <div class=\\"govuk-grid-column-two-thirds govuk-!-margin-top-0\\">
+            <div class=\\"govuk-panel govuk-panel--confirmation\\">
+                <h1 class=\\"govuk-panel__title\\"> Document successfully deleted</h1>
+            </div>
+            <div class=\\"govuk-body\\">Return to folder:<a href=\\"/applications-service/case/123/project-documentation/21/sub-folder-level-2/\\"
+                class=\\"govuk-link\\"><span 						> Project documentation
+								></span><span 						> Project management
+								></span><span 								class=\\"font-weight--700\\"
+						> Sub folder level 2</span></a>
+            </div>
+        </div>
+    </div>
+</main>"
+`;
+
+exports[`applications documentation Document properties delete page If the user is not inspector POST /case/123/project-documentation/21/100/delete should return error if status is "ready_to_publish" 1`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <div class=\\"govuk-grid-row\\">
+        <div class=\\"govuk-grid-column-two-thirds\\">
+            <div class=\\"govuk-error-summary\\" aria-labelledby=\\"error-summary-title\\"
+            role=\\"alert\\" data-module=\\"govuk-error-summary\\">
+                <h2 class=\\"govuk-error-summary__title\\" id=\\"error-summary-title\\"> There is a problem</h2>
+                <div class=\\"govuk-error-summary__body\\">
+                    <ul class=\\"govuk-list govuk-error-summary__list\\">
+                        <li><a href=\\"#status\\">This document is in the publishing queue ready to be published.</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class=\\"govuk-grid-row\\">
+        <form action='' method='post' class=\\"govuk-grid-column-full govuk-!-margin-top-0\\">
+            <h1 class=\\"govuk-heading-l\\">Delete selected document</h1>
+            <input type=\\"hidden\\" value=\\"not_user_checked\\" name=\\"status\\">
+            <table class=\\"govuk-table\\">
+                <thead class=\\"govuk-table__head\\">
+                    <tr class=\\"govuk-table__row\\">
+                        <th scope=\\"col\\" class=\\"govuk-table__header\\">File name</th>
+                        <th scope=\\"col\\" class=\\"govuk-table__header\\">From</th>
+                    </tr>
+                </thead>
+                <tbody class=\\"govuk-table__body\\">
+                    <tr class=\\"govuk-table__row\\">
+                        <td class=\\"govuk-table__cell\\">100 Elit sed do.pdf</td>
+                        <td class=\\"govuk-table__cell\\">Elit Eiusmod</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p class=\\"govuk-body govuk-!-margin-top-7 govuk-!-margin-bottom-7\\">You are deleting the document from:<span class=\\"font-weight--700\\"> Project documentation
+							></span><span class=\\"font-weight--700\\"> Project management
+							></span><span class=\\"font-weight--700\\"> Sub folder level 2</span>
+            </p>
+            <button class=\\"govuk-button govuk-button--warning\\" data-module=\\"govuk-button\\">Delete</button>
+        </form>
+    </div>
+</main>"
+`;
+
 exports[`applications documentation Document properties page If the user is inspector page should not render 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"govuk-grid-row\\">
@@ -6088,7 +6193,7 @@ exports[`applications documentation Document properties page If the user is not 
                     <summary class=\\"govuk-details__summary\\"><span class=\\"govuk-details__summary-text\\"> Document actions</span>
                     </summary>
                     <div class=\\"govuk-details__text\\"><a class=\\"govuk-link display--block\\" href=\\"/open\\">Open</a><a class=\\"govuk-link display--block\\"
-                        href=\\"/move\\">Move</a><a class=\\"govuk-link display--block\\" href=\\"/delete\\">Delete</a>
+                        href=\\"/move\\">Move</a><a class=\\"govuk-link display--block\\" href=\\"/applications-service/case/123/project-documentation/21/document/99/delete\\">Delete</a>
                     </div>
                 </details>
             </nav>
@@ -6160,7 +6265,8 @@ exports[`applications documentation Document properties page If the user is not 
                                 </dd>
                             </div>
                         </dl>
-                        <div class=\\"text-align--right\\"><a href=\\"delete\\" class=\\"govuk-button govuk-!-margin-0 govuk-button--warning pins-button-link\\"> Delete</a>
+                        <div class=\\"text-align--right\\"><a href=\\"/applications-service/case/123/project-documentation/21/document/99/delete\\"
+                            class=\\"govuk-button govuk-!-margin-0 govuk-button--warning pins-button-link\\"> Delete</a>
                         </div>
                     </div>
                     <div class=\\"govuk-tabs__panel govuk-tabs__panel--hidden\\" id=\\"version-history\\"></div>

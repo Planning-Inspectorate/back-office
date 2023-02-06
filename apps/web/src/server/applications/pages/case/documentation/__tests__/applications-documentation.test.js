@@ -263,4 +263,66 @@ describe('applications documentation', () => {
 			});
 		});
 	});
+
+	describe('Document properties delete page', () => {
+		describe('If the user is inspector', () => {
+			beforeAll(async () => {
+				nock('http://test/').get(`/applications/inspector`).reply(200, {});
+				nock('http://test/').get('/applications/123').times(2).reply(200, fixtureCases[3]);
+
+				await request.get('/applications-service/inspector');
+			});
+			it('page should not render', async () => {
+				const response = await request.get(`${baseUrl}/123/document/100/delete`);
+				const element = parseHtml(response.text);
+
+				expect(element.innerHTML).toMatchSnapshot();
+				expect(element.innerHTML).toContain('there is a problem with your login');
+			});
+		});
+
+		describe('If the user is not inspector', () => {
+			beforeEach(async () => {
+				nocks('case-team');
+				await request.get('/applications-service/case-team');
+			});
+
+			describe('GET /case/123/project-documentation/21/100/delete', () => {
+				it('page should render', async () => {
+					const response = await request.get(
+						`${baseUrl}/project-documentation/21/document/100/delete`
+					);
+					const element = parseHtml(response.text);
+
+					expect(element.innerHTML).toMatchSnapshot();
+					expect(element.innerHTML).toContain('Delete selected document');
+				});
+			});
+			describe('POST /case/123/project-documentation/21/100/delete', () => {
+				it('should return error if status is "ready_to_publish"', async () => {
+					const response = await request
+						.post(`${baseUrl}/project-documentation/21/document/100/delete`)
+						.send({
+							status: 'ready_to_publish'
+						});
+					const element = parseHtml(response.text);
+
+					expect(element.innerHTML).toMatchSnapshot();
+					expect(element.innerHTML).toContain(
+						'This document is in the publishing queue ready to be published'
+					);
+				});
+
+				it('should not return error if status is not "ready_to_publish"', async () => {
+					const response = await request.post(
+						`${baseUrl}/project-documentation/21/document/100/delete`
+					);
+					const element = parseHtml(response.text);
+
+					expect(element.innerHTML).toMatchSnapshot();
+					expect(element.innerHTML).toContain('Document successfully deleted');
+				});
+			});
+		});
+	});
 });
