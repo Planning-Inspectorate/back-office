@@ -1,11 +1,12 @@
 {
-	"name": "@pins/e2e-testing",
+	"name": "@pins/e2e",
 	"version": "1.0.0",
 	"description": "E2E TestS for the Back Office Application",
 	"main": "index.js",
 	"scripts": {
 		"cy:open": "npx cypress open",
-		"cy:run": "npx cypress run"
+		"cy:run": "npx cypress run",
+		"cy:run:smoke": "npx cypress run -e TAGS='@smoke'"
 	},
 	"author": "",
 	"license": "ISC",

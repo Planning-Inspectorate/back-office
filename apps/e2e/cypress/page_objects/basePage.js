@@ -8,8 +8,10 @@ export class Page {
 	selectors = {
 		backLink: '.govuk-back-link',
 		button: '.govuk-button',
+		body: '.govuk-body',
 		centralCol: '.pins-column--central',
 		checkbox: '.govuk-checkboxes__item',
+		formGroup: '.govuk-form-group',
 		headingLeft: '.govuk-heading-l',
 		leftCol: '.pins-column--left',
 		link: '.govuk-link',
@@ -17,7 +19,10 @@ export class Page {
 		panelTitle: '.govuk-panel__title',
 		radio: '.govuk-radios__item',
 		rightCol: '.pins-column--right',
-		select: '.govuk-select'
+		select: '.govuk-select',
+		smallHeader: '.govuk-heading-s',
+		tableBody: '.govuk-table__body',
+		tableRow: '.govuk-table__row'
 	};
 
 	// E L E M E N T S
@@ -41,7 +46,9 @@ export class Page {
 		signOutLink: () =>
 			cy.contains(`${this.selectors.rightCol} ${this.selectors.link}`, 'Sign Out', {
 				matchCase: false
-			})
+			}),
+		tableBody: () => cy.get(this.selectors.tableBody),
+		tableRow: () => cy.get(this.selectors.tableRow)
 	};
 
 	// A C T I O N S
