@@ -231,15 +231,23 @@ describe('Get folder details', () => {
 			itemCount: 1,
 			items: [
 				{
+					agent: '',
+					blobStorageContainer: null,
+					blobStoragePath: null,
+					caseStage: '',
+					description: '',
 					guid: '1111-2222-3333',
 					documentName: 'Document 1',
-					documentUrl: null,
 					from: '',
 					receivedDate: 1_658_486_313,
 					size: 1024,
 					type: 'application/pdf',
 					redacted: false,
-					status: 'not_user_checked'
+					status: 'not_user_checked',
+					documentReferenceNumber: '',
+					documentType: '',
+					version: 1,
+					webFilter: ''
 				}
 			]
 		});
