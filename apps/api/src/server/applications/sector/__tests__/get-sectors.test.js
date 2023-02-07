@@ -1,5 +1,7 @@
 import supertest from 'supertest';
 import { app } from '../../../app.js';
+import { nodeCache, setCache } from '../../../utils/cache-data.js';
+
 const { databaseConnector } = await import('../../../utils/database-connector.js');
 
 const request = supertest(app);
@@ -80,6 +82,7 @@ describe('Get sectors', () => {
 			.get('/applications/sector')
 			.query({ sectorName: unknownSectorName });
 
+
 		// THEN
 		expect(response.status).toEqual(400);
 		expect(response.body).toEqual({
@@ -88,4 +91,82 @@ describe('Get sectors', () => {
 			}
 		});
 	});
+});
+
+test('test if cache is working', async () => {
+	nodeCache.flushAll();
+
+	const cacheSector = {
+		id: 3,
+		name: 'cache test name',
+		abbreviation: 'CC',
+		displayNameEn: 'cache test name en',
+		displayNameCy: 'cache test name cy'
+	};
+
+	setCache('', [cacheSector]);
+
+	const response = await request.get('/applications/sector');
+
+	expect(response.status).toEqual(200);
+	expect(response.body).toEqual([
+		{
+			name: cacheSector.name,
+			abbreviation: cacheSector.abbreviation,
+			displayNameEn: cacheSector.displayNameEn,
+			displayNameCy: cacheSector.displayNameCy
+		}
+	]);
+});
+
+test('test if cache is working with specific string', async () => {
+	nodeCache.flushAll();
+
+	const cacheSector = {
+		id: 3,
+		name: 'cache test name',
+		abbreviation: 'CC',
+		displayNameEn: 'cache test name en',
+		displayNameCy: 'cache test name cy'
+	};
+
+	setCache('Test1', [cacheSector]);
+
+	const response = await request.get('/applications/sector').query({ sectorName: 'Test1' });
+
+	expect(response.status).toEqual(200);
+	expect(response.body).toEqual([
+		{
+			name: cacheSector.name,
+			abbreviation: cacheSector.abbreviation,
+			displayNameEn: cacheSector.displayNameEn,
+			displayNameCy: cacheSector.displayNameCy
+		}
+	]);
+});
+
+test('test if cache is working with specific string', async () => {
+	nodeCache.flushAll();
+
+	const cacheSector = {
+		id: 3,
+		name: 'cache test name',
+		abbreviation: 'CC',
+		displayNameEn: 'cache test name en',
+		displayNameCy: 'cache test name cy'
+	};
+
+	setCache('Test1', [cacheSector]);
+
+	const response = await request.get('/applications/sector').query({ sectorName: 'Test1' });
+
+	expect(response.status).toEqual(200);
+	expect(response.body).toEqual([
+		{
+			name: cacheSector.name,
+			abbreviation: cacheSector.abbreviation,
+			displayNameEn: cacheSector.displayNameEn,
+			displayNameCy: cacheSector.displayNameCy
+		}
+	]);
 });

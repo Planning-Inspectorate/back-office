@@ -1,5 +1,7 @@
 import supertest from 'supertest';
 import { app } from '../../../app.js';
+import { nodeCache, setCache } from '../../../utils/cache-data.js';
+
 const { databaseConnector } = await import('../../../utils/database-connector.js');
 
 const request = supertest(app);
@@ -32,4 +34,31 @@ describe('Get zoom map', () => {
 			}
 		]);
 	});
+});
+
+test('tests if cache is working', async () => {
+	nodeCache.flushAll();
+
+	const cachedMapZoomLevels = {
+		id: 2,
+		name: 'cached test',
+		displayOrder: 1,
+		displayNameEn: 'cached test name en',
+		displayNameCy: 'cached test name cy'
+	};
+
+	setCache('zoom-level', [cachedMapZoomLevels]);
+
+	const resp = await request.get('/applications/zoom-level');
+
+	expect(resp.status).toEqual(200);
+	expect(resp.body).toEqual([
+		{
+			id: cachedMapZoomLevels.id,
+			name: cachedMapZoomLevels.name,
+			displayOrder: cachedMapZoomLevels.displayOrder,
+			displayNameEn: cachedMapZoomLevels.displayNameEn,
+			displayNameCy: cachedMapZoomLevels.displayNameCy
+		}
+	]);
 });

@@ -1,4 +1,5 @@
 import * as zoomLevelsRepository from '../../repositories/zoom-level.repository.js';
+import { getCache, setCache } from '../../utils/cache-data.js';
 import { mapZoomLevel } from '../../utils/mapping/map-zoom-level.js';
 
 /**
@@ -12,7 +13,13 @@ const mapZoomLevels = (zoomLevels) => {
 
 /** @type {import('express').RequestHandler} */
 export const getZoomLevels = async (_request, response) => {
-	const zoomLevels = await zoomLevelsRepository.getAll();
+	let zoomLevels = getCache('zoom-level' || '');
+
+	if (!zoomLevels) {
+		zoomLevels = await zoomLevelsRepository.getAll();
+
+		setCache('zoom-level' || '', zoomLevels);
+	}
 
 	response.send(mapZoomLevels(zoomLevels));
 };
