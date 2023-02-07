@@ -93,7 +93,7 @@ describe('Get sectors', () => {
 	});
 });
 
-test('test if cache is working', async () => {
+test('test if sector cache is working', async () => {
 	nodeCache.flushAll();
 
 	const cacheSector = {
