@@ -18,6 +18,7 @@ export const renderSquire = () => {
 	if (!squireWrapper) return;
 	const div = document.querySelector('#squire-rte');
 	const button = document.querySelector('#squire-rte-btn');
+	const content = document.querySelector('#squire-rte-output');
 
 	const editor = new Squire(div, {
 		blockTag: 'p',
@@ -64,6 +65,8 @@ export const renderSquire = () => {
 			// console.log('clean', clean);
 			// @ts-ignore
 			// console.log('removed', DOMPurify.removed);
+
+			content.value = clean;
 		},
 		false
 	);
@@ -74,6 +77,7 @@ export const renderQuill = () => {
 	if (!quillWrapper) return;
 
 	const button = document.querySelector('#quill-rte-btn');
+	const content = document.querySelector('#quill-rte-output');
 
 	const editor = new Quill('#quill-rte', {
 		theme: 'snow',
@@ -89,7 +93,8 @@ export const renderQuill = () => {
 		() => {
 			const output = editor.getContents();
 
-			// console.log(output);
+			// @ts-ignore
+			content.value = output;
 		},
 		false
 	);
