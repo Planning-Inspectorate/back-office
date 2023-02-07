@@ -1,4 +1,5 @@
 import * as regionRepository from '../../repositories/region.repository.js';
+import { getCache, setCache } from '../../utils/cache-data.js';
 import { mapRegion } from '../../utils/mapping/map-region.js';
 
 /**
@@ -12,7 +13,13 @@ const mapRegions = (regions) => {
 
 /** @type {import('express').RequestHandler} */
 export const getRegions = async (_request, response) => {
-	const regions = await regionRepository.getAll();
+	let regions = getCache('regions' || '');
+
+	if (!regions) {
+		regions = await regionRepository.getAll();
+
+		setCache('regions' || '', regions);
+	}
 
 	response.send(mapRegions(regions));
 };
