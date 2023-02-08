@@ -15,6 +15,10 @@ parameters:
     displayName: Build Document Check Function
     type: boolean
     default: true
+  - name: buildODWIntegrationFunctions
+    displayName: Build ODW Integration Functions
+    type: boolean
+    default: true
 
 resources:
   repositories:
@@ -166,7 +170,7 @@ extends:
             or(
               and(
                 eq(variables['Build.Reason'], 'Manual'),
-                eq(${{ parameters.buildDocumentCheckFunction }}, 'true')
+                eq(${{ parameters.buildODWIntegrationFunctions }}, 'true')
               ),
               and(
                 ne(variables['Build.Reason'], 'Manual'),
