@@ -39,6 +39,10 @@ const nocks = (/** @type {string} */ domainType) => {
 		.get('/applications/123/documents/100')
 		.times(2)
 		.reply(200, fixtureDocumentationFiles[99]);
+	nock('http://test/')
+		.post('/applications/123/documents/100/delete')
+		.times(2)
+		.reply(200, { isArchived: true });
 };
 
 describe('applications documentation', () => {
@@ -313,7 +317,7 @@ describe('applications documentation', () => {
 					);
 				});
 
-				it('should not return error if status is not "ready_to_publish"', async () => {
+				it('should go to success page if status is not "ready_to_publish"', async () => {
 					const response = await request.post(
 						`${baseUrl}/project-documentation/21/document/100/delete`
 					);
