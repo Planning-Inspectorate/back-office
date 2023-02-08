@@ -9,6 +9,7 @@ const scopes = [
 	'web/applications',
 	'document-storage',
 	'document-check-function',
+	'odw-integration',
 	'express',
 	'platform',
 	'storage',

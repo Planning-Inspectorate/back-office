@@ -1,13 +1,14 @@
 {
-  "recommendations": [
-    "editorconfig.editorconfig",
-    "eamodio.gitlens",
-    "wayou.vscode-todo-highlight",
-    "esbenp.prettier-vscode",
-    "mikestead.dotenv",
-	"Syler.sass-indented",
-    "stylelint.vscode-stylelint",
-	"dbaeumer.vscode-eslint",
-	"eseom.nunjucks-template"
-  ]
+	"recommendations": [
+		"ms-azuretools.vscode-azurefunctions",
+		"editorconfig.editorconfig",
+		"eamodio.gitlens",
+		"wayou.vscode-todo-highlight",
+		"esbenp.prettier-vscode",
+		"mikestead.dotenv",
+		"Syler.sass-indented",
+		"stylelint.vscode-stylelint",
+		"dbaeumer.vscode-eslint",
+		"eseom.nunjucks-template"
+	]
 }

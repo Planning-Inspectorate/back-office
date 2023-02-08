@@ -59,3 +59,6 @@ pids
 # Other, system file
 .DS_Store
 .vscode/settings.json
+
+# Azure Functions
+local.settings.json
