@@ -13,12 +13,12 @@ const mapRegions = (regions) => {
 
 /** @type {import('express').RequestHandler} */
 export const getRegions = async (_request, response) => {
-	let regions = getCache('regions' || '');
+	let regions = getCache('regions');
 
 	if (!regions) {
 		regions = await regionRepository.getAll();
 
-		setCache('regions' || '', regions);
+		setCache('regions', regions);
 	}
 
 	response.send(mapRegions(regions));
