@@ -187,7 +187,7 @@ extends:
           - template: ../steps/node_script.yml
             parameters:
               nodeVersion: 16
-              script: npm install --only=prod --workspace=@pins/odw-integration
+              script: npm install --only=prod --workspace=@pins/odw-integration-functions
               workingDirectory: $(Build.Repository.LocalPath)
           - script: |
               source ~/.bashrc
