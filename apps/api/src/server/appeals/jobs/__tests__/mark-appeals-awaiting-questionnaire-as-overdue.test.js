@@ -1,7 +1,9 @@
 import Prisma from '@prisma/client';
 import sinon from 'sinon';
 import { appealFactoryForTests } from '../../../utils/appeal-factory-for-tests.js';
-import { databaseConnector } from '../../../utils/database-connector.js';
+// import { databaseConnector } from '../../../utils/database-connector.js';
+const { databaseConnector } = await import('../../../utils/database-connector.js');
+
 import findAndUpdateStatusForAppealsWithOverdueQuestionnaires from '../mark-appeals-awaiting-questionnaire-as-overdue.js';
 
 const appeal1 = appealFactoryForTests({

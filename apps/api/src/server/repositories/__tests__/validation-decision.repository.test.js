@@ -1,5 +1,7 @@
 import sinon from 'sinon';
-import { databaseConnector } from '../../utils/database-connector.js';
+// import { databaseConnector } from '../../utils/database-connector.js';
+const { databaseConnector } = await import('../../utils/database-connector.js');
+
 import validationDecisionRepository from '../validation-decision.repository.js';
 
 const addNewDecision = sinon.stub();

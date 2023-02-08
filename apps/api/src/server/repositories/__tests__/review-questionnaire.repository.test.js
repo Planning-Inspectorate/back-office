@@ -1,5 +1,7 @@
 import sinon from 'sinon';
-import { databaseConnector } from '../../utils/database-connector.js';
+// import { databaseConnector } from '../../utils/database-connector.js';
+const { databaseConnector } = await import('../../utils/database-connector.js');
+
 import newReviewRepository from '../review-questionnaire.repository.js';
 
 const addReview = sinon.stub();

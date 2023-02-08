@@ -3,7 +3,8 @@ import supertest from 'supertest';
 import { app } from '../../../app.js';
 import formatAddress from '../../../utils/address-formatter.js';
 import { appealFactoryForTests } from '../../../utils/appeal-factory-for-tests.js';
-import { databaseConnector } from '../../../utils/database-connector.js';
+// import { databaseConnector } from '../../../utils/database-connector.js';
+const { databaseConnector } = await import('../../../utils/database-connector.js');
 
 const request = supertest(app);
 

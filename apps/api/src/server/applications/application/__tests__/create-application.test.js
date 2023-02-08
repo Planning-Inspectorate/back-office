@@ -3,7 +3,9 @@ import supertest from 'supertest';
 // @ts-ignore
 import { app } from '../../../app.js';
 import { eventClient } from '../../../infrastructure/event-client.js';
-import { databaseConnector } from '../../../utils/database-connector.js';
+// import { databaseConnector } from '../../../utils/database-connector.js';
+const { databaseConnector } = await import('../../../utils/database-connector.js');
+
 import { validateNsipProject } from './schema-test-utils.js';
 const request = supertest(app);
 
