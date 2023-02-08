@@ -42,7 +42,7 @@ const nocks = (/** @type {string} */ domainType) => {
 	nock('http://test/')
 		.post('/applications/123/documents/100/delete')
 		.times(2)
-		.reply(200, { isArchived: true });
+		.reply(200, { isDeleted: true });
 };
 
 describe('applications documentation', () => {

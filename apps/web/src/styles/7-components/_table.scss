@@ -52,6 +52,16 @@
 	  width: 400px;
 	}
   }
+
+	&--error {
+	tbody .govuk-table__row{
+		border-left: 5px solid color.govuk-colour("red");
+
+		td:first-child {
+			padding-left: 1rem;
+		}
+	}
+	}
 }
 
 .pins-dashboard-list--drafts {

@@ -19,11 +19,33 @@
 
 {% block pageHeading %}{% endblock %}
 
+{% block errorSummary %}
+    {% if errors %}
+        <div class="govuk-grid-row">
+            <div class="govuk-grid-column-full">
+                {{ govukErrorSummary({
+						titleText: "There is a problem",
+						errorList: errors | mapToErrorSummary
+					}) }}
+            </div>
+        </div>
+    {% endif %}
+{% endblock %}
+
 {% block pageContent %}
-	<div class="govuk-grid-row">
+	<div class="{% if errors %}pins-table--error {% endif %}govuk-grid-row">
 		<form action='' method='post' class="govuk-grid-column-full govuk-!-margin-top-0">
 			<h1 class="govuk-heading-l">{{ serviceName }}</h1>
 			<input type="hidden" value="{{ documentationFile.status }}" name="status" />
+
+			{% set documentNameHtml %}
+				{% if errors %}
+					<p class='govuk-body font-weight--700 colour--red govuk-!-margin-bottom-0'>
+						Your document could not be deleted, please try again
+					</p>
+				{% endif %}
+				{{documentationFile.documentName}}
+			{% endset %}
 
 			{{ govukTable({
 				captionClasses: "govuk-table__caption--m",
@@ -38,7 +60,7 @@
 				rows: [
 					[
 						{
-							text: documentationFile.documentName
+							html: documentNameHtml
 						},
 						{
 							text: documentationFile.from

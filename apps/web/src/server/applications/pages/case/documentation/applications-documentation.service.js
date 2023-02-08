@@ -104,16 +104,17 @@ export const getCaseDocumentationFileInfo = async (caseId, fileGuid) => {
  *
  * @param {number} caseId
  * @param {string} fileGuid
- * @returns {Promise<{isArchived?: boolean, errors?: ValidationErrors}>}
+ * @param {string} documentName
+ * @returns {Promise<{isDeleted?: boolean, errors?: ValidationErrors}>}
  */
-export const deleteCaseDocumentationFile = async (caseId, fileGuid) => {
+export const deleteCaseDocumentationFile = async (caseId, fileGuid, documentName) => {
 	let response;
 
 	try {
 		response = await post(`applications/${caseId}/documents/${fileGuid}/delete`);
 	} catch {
 		response = new Promise((resolve) => {
-			resolve({ errors: { msg: 'Something went wrong, please try again' } });
+			resolve({ errors: { msg: `${documentName} could not be deleted, please try again.` } });
 		});
 	}
 

@@ -120,13 +120,14 @@ export async function updateApplicationsCaseDocumentationDelete(
 ) {
 	const { documentGuid } = params;
 	const { caseId } = response.locals;
+	const documentationFile = await getCaseDocumentationFileInfo(caseId, documentGuid);
 
 	const { errors } = validationErrors
 		? { errors: validationErrors }
-		: await deleteCaseDocumentationFile(caseId, documentGuid);
+		: await deleteCaseDocumentationFile(caseId, documentGuid, documentationFile.documentName);
 
 	if (errors) {
-		const documentationFile = await getCaseDocumentationFileInfo(caseId, documentGuid);
+		// const documentationFile = await getCaseDocumentationFileInfo(caseId, documentGuid);
 
 		return response.render(`applications/case-documentation/documentation-delete`, {
 			documentationFile,
