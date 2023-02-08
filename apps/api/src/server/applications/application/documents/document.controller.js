@@ -104,11 +104,11 @@ export const getDocumentProperties = async ({ params }, response) => {
 		document = await documentRepository.getById(params.guid);
 
 		if (document === null || typeof document === 'undefined') {
-			throw new BackOfficeAppError(`Unknown document guid ${params.guid}`, 400);
+			throw new BackOfficeAppError(`Unknown document guid ${params.guid}`, 404);
 		}
 		documentDetails = mapSingleDocumentDetails(document);
 	} catch {
-		throw new BackOfficeAppError(`Unknown document guid ${params.guid}`, 400);
+		throw new BackOfficeAppError(`Unknown document guid ${params.guid}`, 404);
 	}
 
 	response.send(documentDetails);
