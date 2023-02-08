@@ -110,14 +110,7 @@ export const deleteCaseDocumentationFile = async (caseId, fileGuid) => {
 	let response;
 
 	try {
-		// response = await post(`applications/${caseId}/documents/${fileGuid}/archive`);
-
-		// TODO: this is a mock
-		response = new Promise((resolve) => {
-			setTimeout(() => {
-				resolve({ isArchived: !!caseId && !!fileGuid });
-			}, 2000);
-		});
+		response = await post(`applications/${caseId}/documents/${fileGuid}/delete`);
 	} catch {
 		response = new Promise((resolve) => {
 			resolve({ errors: { msg: 'Something went wrong, please try again' } });
