@@ -2,7 +2,8 @@ import { got } from 'got';
 import sinon from 'sinon';
 import supertest from 'supertest';
 import { app } from '../../../../app.js';
-import { databaseConnector } from '../../../../utils/database-connector.js';
+// import { databaseConnector } from '../../../../utils/database-connector.js';
+const { databaseConnector } = await import('../../../../utils/database-connector.js');
 
 const request = supertest(app);
 
@@ -82,16 +83,14 @@ describe('Provide document upload URLs', () => {
 	});
 
 	test('saves documents information and returns upload URL', async () => {
-		const response = await request
-			.post('/applications/1/documents')
-			.send([
-				{
-					folderId: 1,
-					documentName: 'test doc',
-					documentType: 'application/pdf',
-					documentSize: 1024
-				}
-			]);
+		const response = await request.post('/applications/1/documents').send([
+			{
+				folderId: 1,
+				documentName: 'test doc',
+				documentType: 'application/pdf',
+				documentSize: 1024
+			}
+		]);
 
 		expect(response.status).toEqual(200);
 		expect(response.body).toEqual({
@@ -117,16 +116,14 @@ describe('Provide document upload URLs', () => {
 	});
 
 	test('throws error if folder id does not belong to case', async () => {
-		const response = await request
-			.post('/applications/1/documents')
-			.send([
-				{
-					folderId: 2,
-					documentName: 'test doc',
-					documentType: 'application/pdf',
-					documentSize: 1024
-				}
-			]);
+		const response = await request.post('/applications/1/documents').send([
+			{
+				folderId: 2,
+				documentName: 'test doc',
+				documentType: 'application/pdf',
+				documentSize: 1024
+			}
+		]);
 
 		expect(response.status).toEqual(400);
 		expect(response.body).toEqual({

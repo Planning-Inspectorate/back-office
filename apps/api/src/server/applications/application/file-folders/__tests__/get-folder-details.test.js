@@ -2,7 +2,8 @@ import sinon from 'sinon';
 import supertest from 'supertest';
 import { app } from '../../../../app.js';
 import { applicationFactoryForTests } from '../../../../utils/application-factory-for-tests.js';
-import { databaseConnector } from '../../../../utils/database-connector.js';
+// import { databaseConnector } from '../../../../utils/database-connector.js';
+const { databaseConnector } = await import('../../../../utils/database-connector.js');
 
 const request = supertest(app);
 

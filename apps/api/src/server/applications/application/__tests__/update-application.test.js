@@ -24,73 +24,66 @@ const expectedEventPayload = {
 	validationOfficers: []
 };
 
-const mockCaseFindUnique = jest.fn();
-const mockCaseUpdate = jest.fn();
-const mockZoomLevelFindUnique = jest.fn();
-const mockSubSectorFindUnique = jest.fn();
-const mockServiceCustomerFindUnique = jest.fn();
-const mockRegionFindUnique = jest.fn();
-const mockRegionsOnApplicationDetailsDeleteMany = jest.fn();
+// const mockCaseFindUnique = jest.fn();
+// const mockCaseUpdate = jest.fn();
+// const mockZoomLevelFindUnique = jest.fn();
+// const mockSubSectorFindUnique = jest.fn();
+// const mockServiceCustomerFindUnique = jest.fn();
+// const mockRegionFindUnique = jest.fn();
+// const mockRegionsOnApplicationDetailsDeleteMany = jest.fn();
 
-class MockPrismaClient {
-	get case() {
-		return {
-			findUnique: mockCaseFindUnique,
-			update: mockCaseUpdate
-		};
-	}
+// class MockPrismaClient {
+// 	get case() {
+// 		return {
+// 			findUnique: mockCaseFindUnique,
+// 			update: mockCaseUpdate
+// 		};
+// 	}
 
-	get zoomLevel() {
-		return {
-			findUnique: mockZoomLevelFindUnique
-		};
-	}
+// 	get zoomLevel() {
+// 		return {
+// 			findUnique: mockZoomLevelFindUnique
+// 		};
+// 	}
 
-	get subSector() {
-		return {
-			findUnique: mockSubSectorFindUnique
-		};
-	}
+// 	get subSector() {
+// 		return {
+// 			findUnique: mockSubSectorFindUnique
+// 		};
+// 	}
 
-	get serviceCustomer() {
-		return {
-			findUnique: mockServiceCustomerFindUnique
-		};
-	}
+// 	get serviceCustomer() {
+// 		return {
+// 			findUnique: mockServiceCustomerFindUnique
+// 		};
+// 	}
 
-	get region() {
-		return {
-			findUnique: mockRegionFindUnique
-		};
-	}
+// 	get region() {
+// 		return {
+// 			findUnique: mockRegionFindUnique
+// 		};
+// 	}
 
-	get regionsOnApplicationDetails() {
-		return {
-			deleteMany: mockRegionsOnApplicationDetailsDeleteMany
-		};
-	}
+// 	get regionsOnApplicationDetails() {
+// 		return {
+// 			deleteMany: mockRegionsOnApplicationDetailsDeleteMany
+// 		};
+// 	}
 
-	$transaction() {
-		return {};
-	}
-}
+// 	$transaction() {
+// 		return {};
+// 	}
+// }
 
-jest.unstable_mockModule('@prisma/client', () => ({
-	default: {
-		PrismaClient: MockPrismaClient
-	}
-}));
-
-const mockSendEvents = jest.fn();
-
-jest.unstable_mockModule('../../../infrastructure/event-client.js', () => ({
-	eventClient: {
-		sendEvents: mockSendEvents
-	}
-}));
+// jest.unstable_mockModule('@prisma/client', () => ({
+// 	default: {
+// 		PrismaClient: MockPrismaClient
+// 	}
+// }));
 
 const { app } = await import('../../../app.js');
 const { databaseConnector } = await import('../../../utils/database-connector.js');
+const { eventClient } = await import('../../../infrastructure/event-client.js');
 
 const request = supertest(app);
 
@@ -137,7 +130,7 @@ describe('Update application', () => {
 			}
 		});
 
-		expect(mockSendEvents).toHaveBeenCalledWith('nsip-project', [expectedEventPayload]);
+		expect(eventClient.sendEvents).toHaveBeenCalledWith('nsip-project', [expectedEventPayload]);
 	});
 
 	test('update-application updates application with just easting and sub-sector name', async () => {
@@ -181,7 +174,7 @@ describe('Update application', () => {
 			}
 		});
 
-		expect(mockSendEvents).toHaveBeenCalledWith('nsip-project', [expectedEventPayload]);
+		expect(eventClient.sendEvents).toHaveBeenCalledWith('nsip-project', [expectedEventPayload]);
 	});
 
 	test('update-application updates application when all possible details provided', async () => {
@@ -241,11 +234,11 @@ describe('Update application', () => {
 		// THEN
 		expect(response.status).toEqual(200);
 		expect(response.body).toEqual({ id: 1, applicantIds: [2, 3] });
-		expect(mockRegionsOnApplicationDetailsDeleteMany).toHaveBeenCalledWith({
+		expect(databaseConnector.regionsOnApplicationDetails.deleteMany).toHaveBeenCalledWith({
 			where: { applicationDetailsId: 1 }
 		});
 
-		expect(mockCaseUpdate).toHaveBeenCalledWith({
+		expect(databaseConnector.case.update).toHaveBeenCalledWith({
 			where: { id: 1 },
 			data: {
 				modifiedAt: new Date(1_649_319_144_000),
@@ -327,7 +320,7 @@ describe('Update application', () => {
 			}
 		});
 
-		expect(mockSendEvents).toHaveBeenCalledWith('nsip-project', [expectedEventPayload]);
+		expect(eventClient.sendEvents).toHaveBeenCalledWith('nsip-project', [expectedEventPayload]);
 	});
 
 	test(`update-application with new applicant using first and last name,
@@ -389,7 +382,7 @@ describe('Update application', () => {
 			}
 		});
 
-		expect(mockSendEvents).toHaveBeenCalledWith('nsip-project', [expectedEventPayload]);
+		expect(eventClient.sendEvents).toHaveBeenCalledWith('nsip-project', [expectedEventPayload]);
 	});
 
 	test('update-application returns error if any validated values are invalid', async () => {
