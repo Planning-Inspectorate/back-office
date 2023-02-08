@@ -317,7 +317,7 @@ describe('applications documentation', () => {
 					);
 				});
 
-				it('should go to success page if status is not "ready_to_publish"', async () => {
+				it('should go to success page if status is not "ready-to-publish"', async () => {
 					const response = await request.post(
 						`${baseUrl}/project-documentation/21/document/100/delete`
 					);
