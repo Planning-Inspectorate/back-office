@@ -127,8 +127,6 @@ export async function updateApplicationsCaseDocumentationDelete(
 		: await deleteCaseDocumentationFile(caseId, documentGuid, documentationFile.documentName);
 
 	if (errors) {
-		// const documentationFile = await getCaseDocumentationFileInfo(caseId, documentGuid);
-
 		return response.render(`applications/case-documentation/documentation-delete`, {
 			documentationFile,
 			errors
