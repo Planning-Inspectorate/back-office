@@ -94,7 +94,7 @@
 	}
 
 	.govuk-table__row--disabled {
-	  opacity: 0.4;
+	  background: rgba(colors.govuk-colour('light-grey'), 0.5);
 	  * {
 		pointer-events: none;
 	  }

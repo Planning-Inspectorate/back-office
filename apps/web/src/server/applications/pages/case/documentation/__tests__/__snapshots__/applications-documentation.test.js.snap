@@ -201,15 +201,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row govuk-table__row--disabled\\">
-                            <td class=\\"govuk-table__cell\\">
-                                <div class=\\"govuk-form-group\\" aria-hidden=\\"true\\">
-                                    <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
-                                        <div class=\\"govuk-checkboxes__item\\">
-                                            <label class=\\"govuk-label govuk-checkboxes__label\\">2 Minim veniam quis nostrud exercitation</label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </td>
+                            <td class=\\"govuk-table__cell\\"></td>
                             <td class=\\"govuk-table__cell\\">
                                 <p class=\\"govuk-body-s govuk-!-font-weight-bold\\">2 Minim veniam quis nostrud exercitation</p>
                                 <p class=\\"file-info colour--secondary\\">From: Minim Enim</p>
@@ -217,22 +209,12 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             </td>
                             <td class=\\"govuk-table__cell\\">01/12/2022</td>
                             <td class=\\"govuk-table__cell\\">Redacted</td>
-                            <td class=\\"govuk-table__cell\\">Awaiting virus check</td>
-                            <td class=\\"govuk-table__cell\\">
-                                <p class=\\"govuk-body-s\\">View/Edit properties</p>
-                                <p class=\\"govuk-body-s\\">Download</p>
+                            <td class=\\"govuk-table__cell\\"><strong class=\\"govuk-tag govuk-tag--yellow\\"> Awaiting virus check</strong>
                             </td>
+                            <td class=\\"govuk-table__cell\\"></td>
                         </tr>
                         <tr class=\\"govuk-table__row govuk-table__row--disabled\\">
-                            <td class=\\"govuk-table__cell\\">
-                                <div class=\\"govuk-form-group\\" aria-hidden=\\"true\\">
-                                    <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
-                                        <div class=\\"govuk-checkboxes__item\\">
-                                            <label class=\\"govuk-label govuk-checkboxes__label\\">3 Nostrud exercitation ullamco laboris nisi ut</label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </td>
+                            <td class=\\"govuk-table__cell\\"></td>
                             <td class=\\"govuk-table__cell\\">
                                 <p class=\\"govuk-body-s govuk-!-font-weight-bold\\">3 Nostrud exercitation ullamco laboris nisi ut</p>
                                 <p class=\\"file-info colour--secondary\\">From: Nostrud Minim</p>
@@ -240,22 +222,12 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             </td>
                             <td class=\\"govuk-table__cell\\">01/12/2022</td>
                             <td class=\\"govuk-table__cell\\">Redacted</td>
-                            <td class=\\"govuk-table__cell\\">Failed virus check</td>
-                            <td class=\\"govuk-table__cell\\">
-                                <p class=\\"govuk-body-s\\">View/Edit properties</p>
-                                <p class=\\"govuk-body-s\\">Download</p>
+                            <td class=\\"govuk-table__cell\\"><strong class=\\"govuk-tag govuk-tag--red\\"> Failed virus check</strong>
                             </td>
+                            <td class=\\"govuk-table__cell\\"></td>
                         </tr>
                         <tr class=\\"govuk-table__row govuk-table__row--disabled\\">
-                            <td class=\\"govuk-table__cell\\">
-                                <div class=\\"govuk-form-group\\" aria-hidden=\\"true\\">
-                                    <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
-                                        <div class=\\"govuk-checkboxes__item\\">
-                                            <label class=\\"govuk-label govuk-checkboxes__label\\">4 Laboris nisi ut aliquip ex ea</label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </td>
+                            <td class=\\"govuk-table__cell\\"></td>
                             <td class=\\"govuk-table__cell\\">
                                 <p class=\\"govuk-body-s govuk-!-font-weight-bold\\">4 Laboris nisi ut aliquip ex ea</p>
                                 <p class=\\"file-info colour--secondary\\">From: Laboris Quis</p>
@@ -263,11 +235,9 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             </td>
                             <td class=\\"govuk-table__cell\\">01/12/2022</td>
                             <td class=\\"govuk-table__cell\\">Redacted</td>
-                            <td class=\\"govuk-table__cell\\">Failed virus check</td>
-                            <td class=\\"govuk-table__cell\\">
-                                <p class=\\"govuk-body-s\\">View/Edit properties</p>
-                                <p class=\\"govuk-body-s\\">Download</p>
+                            <td class=\\"govuk-table__cell\\"><strong class=\\"govuk-tag govuk-tag--red\\"> Failed virus check</strong>
                             </td>
+                            <td class=\\"govuk-table__cell\\"></td>
                         </tr>
                         <tr class=\\"govuk-table__row \\">
                             <td class=\\"govuk-table__cell\\">
@@ -456,15 +426,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row govuk-table__row--disabled\\">
-                            <td class=\\"govuk-table__cell\\">
-                                <div class=\\"govuk-form-group\\" aria-hidden=\\"true\\">
-                                    <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
-                                        <div class=\\"govuk-checkboxes__item\\">
-                                            <label class=\\"govuk-label govuk-checkboxes__label\\">13 Veniam quis nostrud exercitation ullamco</label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </td>
+                            <td class=\\"govuk-table__cell\\"></td>
                             <td class=\\"govuk-table__cell\\">
                                 <p class=\\"govuk-body-s govuk-!-font-weight-bold\\">13 Veniam quis nostrud exercitation ullamco</p>
                                 <p class=\\"file-info colour--secondary\\">From: Veniam Enim</p>
@@ -472,22 +434,12 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             </td>
                             <td class=\\"govuk-table__cell\\">01/12/2022</td>
                             <td class=\\"govuk-table__cell\\">Redacted</td>
-                            <td class=\\"govuk-table__cell\\">Awaiting virus check</td>
-                            <td class=\\"govuk-table__cell\\">
-                                <p class=\\"govuk-body-s\\">View/Edit properties</p>
-                                <p class=\\"govuk-body-s\\">Download</p>
+                            <td class=\\"govuk-table__cell\\"><strong class=\\"govuk-tag govuk-tag--yellow\\"> Awaiting virus check</strong>
                             </td>
+                            <td class=\\"govuk-table__cell\\"></td>
                         </tr>
                         <tr class=\\"govuk-table__row govuk-table__row--disabled\\">
-                            <td class=\\"govuk-table__cell\\">
-                                <div class=\\"govuk-form-group\\" aria-hidden=\\"true\\">
-                                    <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
-                                        <div class=\\"govuk-checkboxes__item\\">
-                                            <label class=\\"govuk-label govuk-checkboxes__label\\">14 Exercitation ullamco laboris nisi ut aliquip</label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </td>
+                            <td class=\\"govuk-table__cell\\"></td>
                             <td class=\\"govuk-table__cell\\">
                                 <p class=\\"govuk-body-s govuk-!-font-weight-bold\\">14 Exercitation ullamco laboris nisi ut aliquip</p>
                                 <p class=\\"file-info colour--secondary\\">From: Exercitation Minim</p>
@@ -495,22 +447,12 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             </td>
                             <td class=\\"govuk-table__cell\\">01/12/2022</td>
                             <td class=\\"govuk-table__cell\\">Redacted</td>
-                            <td class=\\"govuk-table__cell\\">Failed virus check</td>
-                            <td class=\\"govuk-table__cell\\">
-                                <p class=\\"govuk-body-s\\">View/Edit properties</p>
-                                <p class=\\"govuk-body-s\\">Download</p>
+                            <td class=\\"govuk-table__cell\\"><strong class=\\"govuk-tag govuk-tag--red\\"> Failed virus check</strong>
                             </td>
+                            <td class=\\"govuk-table__cell\\"></td>
                         </tr>
                         <tr class=\\"govuk-table__row govuk-table__row--disabled\\">
-                            <td class=\\"govuk-table__cell\\">
-                                <div class=\\"govuk-form-group\\" aria-hidden=\\"true\\">
-                                    <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
-                                        <div class=\\"govuk-checkboxes__item\\">
-                                            <label class=\\"govuk-label govuk-checkboxes__label\\">15 Exercitation ullamco laboris nisi ut aliquip</label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </td>
+                            <td class=\\"govuk-table__cell\\"></td>
                             <td class=\\"govuk-table__cell\\">
                                 <p class=\\"govuk-body-s govuk-!-font-weight-bold\\">15 Exercitation ullamco laboris nisi ut aliquip</p>
                                 <p class=\\"file-info colour--secondary\\">From: Exercitation Minim</p>
@@ -518,22 +460,12 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             </td>
                             <td class=\\"govuk-table__cell\\">01/12/2022</td>
                             <td class=\\"govuk-table__cell\\">Redacted</td>
-                            <td class=\\"govuk-table__cell\\">Failed virus check</td>
-                            <td class=\\"govuk-table__cell\\">
-                                <p class=\\"govuk-body-s\\">View/Edit properties</p>
-                                <p class=\\"govuk-body-s\\">Download</p>
+                            <td class=\\"govuk-table__cell\\"><strong class=\\"govuk-tag govuk-tag--red\\"> Failed virus check</strong>
                             </td>
+                            <td class=\\"govuk-table__cell\\"></td>
                         </tr>
                         <tr class=\\"govuk-table__row govuk-table__row--disabled\\">
-                            <td class=\\"govuk-table__cell\\">
-                                <div class=\\"govuk-form-group\\" aria-hidden=\\"true\\">
-                                    <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
-                                        <div class=\\"govuk-checkboxes__item\\">
-                                            <label class=\\"govuk-label govuk-checkboxes__label\\">16 Nisi ut aliquip ex ea commodo</label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </td>
+                            <td class=\\"govuk-table__cell\\"></td>
                             <td class=\\"govuk-table__cell\\">
                                 <p class=\\"govuk-body-s govuk-!-font-weight-bold\\">16 Nisi ut aliquip ex ea commodo</p>
                                 <p class=\\"file-info colour--secondary\\">From: Nisi Quis</p>
@@ -541,11 +473,9 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             </td>
                             <td class=\\"govuk-table__cell\\">01/12/2022</td>
                             <td class=\\"govuk-table__cell\\">Redacted</td>
-                            <td class=\\"govuk-table__cell\\">Failed virus check</td>
-                            <td class=\\"govuk-table__cell\\">
-                                <p class=\\"govuk-body-s\\">View/Edit properties</p>
-                                <p class=\\"govuk-body-s\\">Download</p>
+                            <td class=\\"govuk-table__cell\\"><strong class=\\"govuk-tag govuk-tag--red\\"> Failed virus check</strong>
                             </td>
+                            <td class=\\"govuk-table__cell\\"></td>
                         </tr>
                         <tr class=\\"govuk-table__row \\">
                             <td class=\\"govuk-table__cell\\">
@@ -734,15 +664,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row govuk-table__row--disabled\\">
-                            <td class=\\"govuk-table__cell\\">
-                                <div class=\\"govuk-form-group\\" aria-hidden=\\"true\\">
-                                    <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
-                                        <div class=\\"govuk-checkboxes__item\\">
-                                            <label class=\\"govuk-label govuk-checkboxes__label\\">25 Veniam quis nostrud exercitation ullamco</label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </td>
+                            <td class=\\"govuk-table__cell\\"></td>
                             <td class=\\"govuk-table__cell\\">
                                 <p class=\\"govuk-body-s govuk-!-font-weight-bold\\">25 Veniam quis nostrud exercitation ullamco</p>
                                 <p class=\\"file-info colour--secondary\\">From: Veniam Enim</p>
@@ -750,22 +672,12 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             </td>
                             <td class=\\"govuk-table__cell\\">01/12/2022</td>
                             <td class=\\"govuk-table__cell\\">Redacted</td>
-                            <td class=\\"govuk-table__cell\\">Awaiting virus check</td>
-                            <td class=\\"govuk-table__cell\\">
-                                <p class=\\"govuk-body-s\\">View/Edit properties</p>
-                                <p class=\\"govuk-body-s\\">Download</p>
+                            <td class=\\"govuk-table__cell\\"><strong class=\\"govuk-tag govuk-tag--yellow\\"> Awaiting virus check</strong>
                             </td>
+                            <td class=\\"govuk-table__cell\\"></td>
                         </tr>
                         <tr class=\\"govuk-table__row govuk-table__row--disabled\\">
-                            <td class=\\"govuk-table__cell\\">
-                                <div class=\\"govuk-form-group\\" aria-hidden=\\"true\\">
-                                    <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
-                                        <div class=\\"govuk-checkboxes__item\\">
-                                            <label class=\\"govuk-label govuk-checkboxes__label\\">26 Exercitation ullamco laboris nisi ut aliquip</label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </td>
+                            <td class=\\"govuk-table__cell\\"></td>
                             <td class=\\"govuk-table__cell\\">
                                 <p class=\\"govuk-body-s govuk-!-font-weight-bold\\">26 Exercitation ullamco laboris nisi ut aliquip</p>
                                 <p class=\\"file-info colour--secondary\\">From: Exercitation Minim</p>
@@ -773,22 +685,12 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             </td>
                             <td class=\\"govuk-table__cell\\">01/12/2022</td>
                             <td class=\\"govuk-table__cell\\">Redacted</td>
-                            <td class=\\"govuk-table__cell\\">Failed virus check</td>
-                            <td class=\\"govuk-table__cell\\">
-                                <p class=\\"govuk-body-s\\">View/Edit properties</p>
-                                <p class=\\"govuk-body-s\\">Download</p>
+                            <td class=\\"govuk-table__cell\\"><strong class=\\"govuk-tag govuk-tag--red\\"> Failed virus check</strong>
                             </td>
+                            <td class=\\"govuk-table__cell\\"></td>
                         </tr>
                         <tr class=\\"govuk-table__row govuk-table__row--disabled\\">
-                            <td class=\\"govuk-table__cell\\">
-                                <div class=\\"govuk-form-group\\" aria-hidden=\\"true\\">
-                                    <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
-                                        <div class=\\"govuk-checkboxes__item\\">
-                                            <label class=\\"govuk-label govuk-checkboxes__label\\">27 Nisi ut aliquip ex ea commodo</label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </td>
+                            <td class=\\"govuk-table__cell\\"></td>
                             <td class=\\"govuk-table__cell\\">
                                 <p class=\\"govuk-body-s govuk-!-font-weight-bold\\">27 Nisi ut aliquip ex ea commodo</p>
                                 <p class=\\"file-info colour--secondary\\">From: Nisi Quis</p>
@@ -796,11 +698,9 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             </td>
                             <td class=\\"govuk-table__cell\\">01/12/2022</td>
                             <td class=\\"govuk-table__cell\\">Redacted</td>
-                            <td class=\\"govuk-table__cell\\">Failed virus check</td>
-                            <td class=\\"govuk-table__cell\\">
-                                <p class=\\"govuk-body-s\\">View/Edit properties</p>
-                                <p class=\\"govuk-body-s\\">Download</p>
+                            <td class=\\"govuk-table__cell\\"><strong class=\\"govuk-tag govuk-tag--red\\"> Failed virus check</strong>
                             </td>
+                            <td class=\\"govuk-table__cell\\"></td>
                         </tr>
                         <tr class=\\"govuk-table__row \\">
                             <td class=\\"govuk-table__cell\\">
@@ -1105,15 +1005,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row govuk-table__row--disabled\\">
-                            <td class=\\"govuk-table__cell\\">
-                                <div class=\\"govuk-form-group\\" aria-hidden=\\"true\\">
-                                    <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
-                                        <div class=\\"govuk-checkboxes__item\\">
-                                            <label class=\\"govuk-label govuk-checkboxes__label\\">2 Minim veniam quis nostrud exercitation</label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </td>
+                            <td class=\\"govuk-table__cell\\"></td>
                             <td class=\\"govuk-table__cell\\">
                                 <p class=\\"govuk-body-s govuk-!-font-weight-bold\\">2 Minim veniam quis nostrud exercitation</p>
                                 <p class=\\"file-info colour--secondary\\">From: Minim Enim</p>
@@ -1121,22 +1013,12 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             </td>
                             <td class=\\"govuk-table__cell\\">01/12/2022</td>
                             <td class=\\"govuk-table__cell\\">Redacted</td>
-                            <td class=\\"govuk-table__cell\\">Awaiting virus check</td>
-                            <td class=\\"govuk-table__cell\\">
-                                <p class=\\"govuk-body-s\\">View/Edit properties</p>
-                                <p class=\\"govuk-body-s\\">Download</p>
+                            <td class=\\"govuk-table__cell\\"><strong class=\\"govuk-tag govuk-tag--yellow\\"> Awaiting virus check</strong>
                             </td>
+                            <td class=\\"govuk-table__cell\\"></td>
                         </tr>
                         <tr class=\\"govuk-table__row govuk-table__row--disabled\\">
-                            <td class=\\"govuk-table__cell\\">
-                                <div class=\\"govuk-form-group\\" aria-hidden=\\"true\\">
-                                    <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
-                                        <div class=\\"govuk-checkboxes__item\\">
-                                            <label class=\\"govuk-label govuk-checkboxes__label\\">3 Nostrud exercitation ullamco laboris nisi ut</label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </td>
+                            <td class=\\"govuk-table__cell\\"></td>
                             <td class=\\"govuk-table__cell\\">
                                 <p class=\\"govuk-body-s govuk-!-font-weight-bold\\">3 Nostrud exercitation ullamco laboris nisi ut</p>
                                 <p class=\\"file-info colour--secondary\\">From: Nostrud Minim</p>
@@ -1144,22 +1026,12 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             </td>
                             <td class=\\"govuk-table__cell\\">01/12/2022</td>
                             <td class=\\"govuk-table__cell\\">Redacted</td>
-                            <td class=\\"govuk-table__cell\\">Failed virus check</td>
-                            <td class=\\"govuk-table__cell\\">
-                                <p class=\\"govuk-body-s\\">View/Edit properties</p>
-                                <p class=\\"govuk-body-s\\">Download</p>
+                            <td class=\\"govuk-table__cell\\"><strong class=\\"govuk-tag govuk-tag--red\\"> Failed virus check</strong>
                             </td>
+                            <td class=\\"govuk-table__cell\\"></td>
                         </tr>
                         <tr class=\\"govuk-table__row govuk-table__row--disabled\\">
-                            <td class=\\"govuk-table__cell\\">
-                                <div class=\\"govuk-form-group\\" aria-hidden=\\"true\\">
-                                    <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
-                                        <div class=\\"govuk-checkboxes__item\\">
-                                            <label class=\\"govuk-label govuk-checkboxes__label\\">4 Laboris nisi ut aliquip ex ea</label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </td>
+                            <td class=\\"govuk-table__cell\\"></td>
                             <td class=\\"govuk-table__cell\\">
                                 <p class=\\"govuk-body-s govuk-!-font-weight-bold\\">4 Laboris nisi ut aliquip ex ea</p>
                                 <p class=\\"file-info colour--secondary\\">From: Laboris Quis</p>
@@ -1167,11 +1039,9 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             </td>
                             <td class=\\"govuk-table__cell\\">01/12/2022</td>
                             <td class=\\"govuk-table__cell\\">Redacted</td>
-                            <td class=\\"govuk-table__cell\\">Failed virus check</td>
-                            <td class=\\"govuk-table__cell\\">
-                                <p class=\\"govuk-body-s\\">View/Edit properties</p>
-                                <p class=\\"govuk-body-s\\">Download</p>
+                            <td class=\\"govuk-table__cell\\"><strong class=\\"govuk-tag govuk-tag--red\\"> Failed virus check</strong>
                             </td>
+                            <td class=\\"govuk-table__cell\\"></td>
                         </tr>
                         <tr class=\\"govuk-table__row \\">
                             <td class=\\"govuk-table__cell\\">
@@ -1360,15 +1230,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row govuk-table__row--disabled\\">
-                            <td class=\\"govuk-table__cell\\">
-                                <div class=\\"govuk-form-group\\" aria-hidden=\\"true\\">
-                                    <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
-                                        <div class=\\"govuk-checkboxes__item\\">
-                                            <label class=\\"govuk-label govuk-checkboxes__label\\">13 Veniam quis nostrud exercitation ullamco</label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </td>
+                            <td class=\\"govuk-table__cell\\"></td>
                             <td class=\\"govuk-table__cell\\">
                                 <p class=\\"govuk-body-s govuk-!-font-weight-bold\\">13 Veniam quis nostrud exercitation ullamco</p>
                                 <p class=\\"file-info colour--secondary\\">From: Veniam Enim</p>
@@ -1376,22 +1238,12 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             </td>
                             <td class=\\"govuk-table__cell\\">01/12/2022</td>
                             <td class=\\"govuk-table__cell\\">Redacted</td>
-                            <td class=\\"govuk-table__cell\\">Awaiting virus check</td>
-                            <td class=\\"govuk-table__cell\\">
-                                <p class=\\"govuk-body-s\\">View/Edit properties</p>
-                                <p class=\\"govuk-body-s\\">Download</p>
+                            <td class=\\"govuk-table__cell\\"><strong class=\\"govuk-tag govuk-tag--yellow\\"> Awaiting virus check</strong>
                             </td>
+                            <td class=\\"govuk-table__cell\\"></td>
                         </tr>
                         <tr class=\\"govuk-table__row govuk-table__row--disabled\\">
-                            <td class=\\"govuk-table__cell\\">
-                                <div class=\\"govuk-form-group\\" aria-hidden=\\"true\\">
-                                    <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
-                                        <div class=\\"govuk-checkboxes__item\\">
-                                            <label class=\\"govuk-label govuk-checkboxes__label\\">14 Exercitation ullamco laboris nisi ut aliquip</label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </td>
+                            <td class=\\"govuk-table__cell\\"></td>
                             <td class=\\"govuk-table__cell\\">
                                 <p class=\\"govuk-body-s govuk-!-font-weight-bold\\">14 Exercitation ullamco laboris nisi ut aliquip</p>
                                 <p class=\\"file-info colour--secondary\\">From: Exercitation Minim</p>
@@ -1399,22 +1251,12 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             </td>
                             <td class=\\"govuk-table__cell\\">01/12/2022</td>
                             <td class=\\"govuk-table__cell\\">Redacted</td>
-                            <td class=\\"govuk-table__cell\\">Failed virus check</td>
-                            <td class=\\"govuk-table__cell\\">
-                                <p class=\\"govuk-body-s\\">View/Edit properties</p>
-                                <p class=\\"govuk-body-s\\">Download</p>
+                            <td class=\\"govuk-table__cell\\"><strong class=\\"govuk-tag govuk-tag--red\\"> Failed virus check</strong>
                             </td>
+                            <td class=\\"govuk-table__cell\\"></td>
                         </tr>
                         <tr class=\\"govuk-table__row govuk-table__row--disabled\\">
-                            <td class=\\"govuk-table__cell\\">
-                                <div class=\\"govuk-form-group\\" aria-hidden=\\"true\\">
-                                    <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
-                                        <div class=\\"govuk-checkboxes__item\\">
-                                            <label class=\\"govuk-label govuk-checkboxes__label\\">15 Exercitation ullamco laboris nisi ut aliquip</label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </td>
+                            <td class=\\"govuk-table__cell\\"></td>
                             <td class=\\"govuk-table__cell\\">
                                 <p class=\\"govuk-body-s govuk-!-font-weight-bold\\">15 Exercitation ullamco laboris nisi ut aliquip</p>
                                 <p class=\\"file-info colour--secondary\\">From: Exercitation Minim</p>
@@ -1422,22 +1264,12 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             </td>
                             <td class=\\"govuk-table__cell\\">01/12/2022</td>
                             <td class=\\"govuk-table__cell\\">Redacted</td>
-                            <td class=\\"govuk-table__cell\\">Failed virus check</td>
-                            <td class=\\"govuk-table__cell\\">
-                                <p class=\\"govuk-body-s\\">View/Edit properties</p>
-                                <p class=\\"govuk-body-s\\">Download</p>
+                            <td class=\\"govuk-table__cell\\"><strong class=\\"govuk-tag govuk-tag--red\\"> Failed virus check</strong>
                             </td>
+                            <td class=\\"govuk-table__cell\\"></td>
                         </tr>
                         <tr class=\\"govuk-table__row govuk-table__row--disabled\\">
-                            <td class=\\"govuk-table__cell\\">
-                                <div class=\\"govuk-form-group\\" aria-hidden=\\"true\\">
-                                    <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
-                                        <div class=\\"govuk-checkboxes__item\\">
-                                            <label class=\\"govuk-label govuk-checkboxes__label\\">16 Nisi ut aliquip ex ea commodo</label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </td>
+                            <td class=\\"govuk-table__cell\\"></td>
                             <td class=\\"govuk-table__cell\\">
                                 <p class=\\"govuk-body-s govuk-!-font-weight-bold\\">16 Nisi ut aliquip ex ea commodo</p>
                                 <p class=\\"file-info colour--secondary\\">From: Nisi Quis</p>
@@ -1445,11 +1277,9 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             </td>
                             <td class=\\"govuk-table__cell\\">01/12/2022</td>
                             <td class=\\"govuk-table__cell\\">Redacted</td>
-                            <td class=\\"govuk-table__cell\\">Failed virus check</td>
-                            <td class=\\"govuk-table__cell\\">
-                                <p class=\\"govuk-body-s\\">View/Edit properties</p>
-                                <p class=\\"govuk-body-s\\">Download</p>
+                            <td class=\\"govuk-table__cell\\"><strong class=\\"govuk-tag govuk-tag--red\\"> Failed virus check</strong>
                             </td>
+                            <td class=\\"govuk-table__cell\\"></td>
                         </tr>
                         <tr class=\\"govuk-table__row \\">
                             <td class=\\"govuk-table__cell\\">
@@ -1638,15 +1468,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row govuk-table__row--disabled\\">
-                            <td class=\\"govuk-table__cell\\">
-                                <div class=\\"govuk-form-group\\" aria-hidden=\\"true\\">
-                                    <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
-                                        <div class=\\"govuk-checkboxes__item\\">
-                                            <label class=\\"govuk-label govuk-checkboxes__label\\">25 Veniam quis nostrud exercitation ullamco</label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </td>
+                            <td class=\\"govuk-table__cell\\"></td>
                             <td class=\\"govuk-table__cell\\">
                                 <p class=\\"govuk-body-s govuk-!-font-weight-bold\\">25 Veniam quis nostrud exercitation ullamco</p>
                                 <p class=\\"file-info colour--secondary\\">From: Veniam Enim</p>
@@ -1654,22 +1476,12 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             </td>
                             <td class=\\"govuk-table__cell\\">01/12/2022</td>
                             <td class=\\"govuk-table__cell\\">Redacted</td>
-                            <td class=\\"govuk-table__cell\\">Awaiting virus check</td>
-                            <td class=\\"govuk-table__cell\\">
-                                <p class=\\"govuk-body-s\\">View/Edit properties</p>
-                                <p class=\\"govuk-body-s\\">Download</p>
+                            <td class=\\"govuk-table__cell\\"><strong class=\\"govuk-tag govuk-tag--yellow\\"> Awaiting virus check</strong>
                             </td>
+                            <td class=\\"govuk-table__cell\\"></td>
                         </tr>
                         <tr class=\\"govuk-table__row govuk-table__row--disabled\\">
-                            <td class=\\"govuk-table__cell\\">
-                                <div class=\\"govuk-form-group\\" aria-hidden=\\"true\\">
-                                    <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
-                                        <div class=\\"govuk-checkboxes__item\\">
-                                            <label class=\\"govuk-label govuk-checkboxes__label\\">26 Exercitation ullamco laboris nisi ut aliquip</label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </td>
+                            <td class=\\"govuk-table__cell\\"></td>
                             <td class=\\"govuk-table__cell\\">
                                 <p class=\\"govuk-body-s govuk-!-font-weight-bold\\">26 Exercitation ullamco laboris nisi ut aliquip</p>
                                 <p class=\\"file-info colour--secondary\\">From: Exercitation Minim</p>
@@ -1677,22 +1489,12 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             </td>
                             <td class=\\"govuk-table__cell\\">01/12/2022</td>
                             <td class=\\"govuk-table__cell\\">Redacted</td>
-                            <td class=\\"govuk-table__cell\\">Failed virus check</td>
-                            <td class=\\"govuk-table__cell\\">
-                                <p class=\\"govuk-body-s\\">View/Edit properties</p>
-                                <p class=\\"govuk-body-s\\">Download</p>
+                            <td class=\\"govuk-table__cell\\"><strong class=\\"govuk-tag govuk-tag--red\\"> Failed virus check</strong>
                             </td>
+                            <td class=\\"govuk-table__cell\\"></td>
                         </tr>
                         <tr class=\\"govuk-table__row govuk-table__row--disabled\\">
-                            <td class=\\"govuk-table__cell\\">
-                                <div class=\\"govuk-form-group\\" aria-hidden=\\"true\\">
-                                    <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
-                                        <div class=\\"govuk-checkboxes__item\\">
-                                            <label class=\\"govuk-label govuk-checkboxes__label\\">27 Nisi ut aliquip ex ea commodo</label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </td>
+                            <td class=\\"govuk-table__cell\\"></td>
                             <td class=\\"govuk-table__cell\\">
                                 <p class=\\"govuk-body-s govuk-!-font-weight-bold\\">27 Nisi ut aliquip ex ea commodo</p>
                                 <p class=\\"file-info colour--secondary\\">From: Nisi Quis</p>
@@ -1700,11 +1502,9 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             </td>
                             <td class=\\"govuk-table__cell\\">01/12/2022</td>
                             <td class=\\"govuk-table__cell\\">Redacted</td>
-                            <td class=\\"govuk-table__cell\\">Failed virus check</td>
-                            <td class=\\"govuk-table__cell\\">
-                                <p class=\\"govuk-body-s\\">View/Edit properties</p>
-                                <p class=\\"govuk-body-s\\">Download</p>
+                            <td class=\\"govuk-table__cell\\"><strong class=\\"govuk-tag govuk-tag--red\\"> Failed virus check</strong>
                             </td>
+                            <td class=\\"govuk-table__cell\\"></td>
                         </tr>
                         <tr class=\\"govuk-table__row \\">
                             <td class=\\"govuk-table__cell\\">
@@ -1894,15 +1694,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row govuk-table__row--disabled\\">
-                            <td class=\\"govuk-table__cell\\">
-                                <div class=\\"govuk-form-group\\" aria-hidden=\\"true\\">
-                                    <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
-                                        <div class=\\"govuk-checkboxes__item\\">
-                                            <label class=\\"govuk-label govuk-checkboxes__label\\">36 Veniam quis nostrud exercitation ullamco</label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </td>
+                            <td class=\\"govuk-table__cell\\"></td>
                             <td class=\\"govuk-table__cell\\">
                                 <p class=\\"govuk-body-s govuk-!-font-weight-bold\\">36 Veniam quis nostrud exercitation ullamco</p>
                                 <p class=\\"file-info colour--secondary\\">From: Veniam Enim</p>
@@ -1910,22 +1702,12 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             </td>
                             <td class=\\"govuk-table__cell\\">01/12/2022</td>
                             <td class=\\"govuk-table__cell\\">Redacted</td>
-                            <td class=\\"govuk-table__cell\\">Awaiting virus check</td>
-                            <td class=\\"govuk-table__cell\\">
-                                <p class=\\"govuk-body-s\\">View/Edit properties</p>
-                                <p class=\\"govuk-body-s\\">Download</p>
+                            <td class=\\"govuk-table__cell\\"><strong class=\\"govuk-tag govuk-tag--yellow\\"> Awaiting virus check</strong>
                             </td>
+                            <td class=\\"govuk-table__cell\\"></td>
                         </tr>
                         <tr class=\\"govuk-table__row govuk-table__row--disabled\\">
-                            <td class=\\"govuk-table__cell\\">
-                                <div class=\\"govuk-form-group\\" aria-hidden=\\"true\\">
-                                    <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
-                                        <div class=\\"govuk-checkboxes__item\\">
-                                            <label class=\\"govuk-label govuk-checkboxes__label\\">37 Veniam quis nostrud exercitation ullamco</label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </td>
+                            <td class=\\"govuk-table__cell\\"></td>
                             <td class=\\"govuk-table__cell\\">
                                 <p class=\\"govuk-body-s govuk-!-font-weight-bold\\">37 Veniam quis nostrud exercitation ullamco</p>
                                 <p class=\\"file-info colour--secondary\\">From: Veniam Enim</p>
@@ -1933,22 +1715,12 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             </td>
                             <td class=\\"govuk-table__cell\\">01/12/2022</td>
                             <td class=\\"govuk-table__cell\\">Redacted</td>
-                            <td class=\\"govuk-table__cell\\">Awaiting virus check</td>
-                            <td class=\\"govuk-table__cell\\">
-                                <p class=\\"govuk-body-s\\">View/Edit properties</p>
-                                <p class=\\"govuk-body-s\\">Download</p>
+                            <td class=\\"govuk-table__cell\\"><strong class=\\"govuk-tag govuk-tag--yellow\\"> Awaiting virus check</strong>
                             </td>
+                            <td class=\\"govuk-table__cell\\"></td>
                         </tr>
                         <tr class=\\"govuk-table__row govuk-table__row--disabled\\">
-                            <td class=\\"govuk-table__cell\\">
-                                <div class=\\"govuk-form-group\\" aria-hidden=\\"true\\">
-                                    <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
-                                        <div class=\\"govuk-checkboxes__item\\">
-                                            <label class=\\"govuk-label govuk-checkboxes__label\\">38 Exercitation ullamco laboris nisi ut aliquip</label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </td>
+                            <td class=\\"govuk-table__cell\\"></td>
                             <td class=\\"govuk-table__cell\\">
                                 <p class=\\"govuk-body-s govuk-!-font-weight-bold\\">38 Exercitation ullamco laboris nisi ut aliquip</p>
                                 <p class=\\"file-info colour--secondary\\">From: Exercitation Minim</p>
@@ -1956,22 +1728,12 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             </td>
                             <td class=\\"govuk-table__cell\\">01/12/2022</td>
                             <td class=\\"govuk-table__cell\\">Redacted</td>
-                            <td class=\\"govuk-table__cell\\">Failed virus check</td>
-                            <td class=\\"govuk-table__cell\\">
-                                <p class=\\"govuk-body-s\\">View/Edit properties</p>
-                                <p class=\\"govuk-body-s\\">Download</p>
+                            <td class=\\"govuk-table__cell\\"><strong class=\\"govuk-tag govuk-tag--red\\"> Failed virus check</strong>
                             </td>
+                            <td class=\\"govuk-table__cell\\"></td>
                         </tr>
                         <tr class=\\"govuk-table__row govuk-table__row--disabled\\">
-                            <td class=\\"govuk-table__cell\\">
-                                <div class=\\"govuk-form-group\\" aria-hidden=\\"true\\">
-                                    <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
-                                        <div class=\\"govuk-checkboxes__item\\">
-                                            <label class=\\"govuk-label govuk-checkboxes__label\\">39 Nisi ut aliquip ex ea commodo</label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </td>
+                            <td class=\\"govuk-table__cell\\"></td>
                             <td class=\\"govuk-table__cell\\">
                                 <p class=\\"govuk-body-s govuk-!-font-weight-bold\\">39 Nisi ut aliquip ex ea commodo</p>
                                 <p class=\\"file-info colour--secondary\\">From: Nisi Quis</p>
@@ -1979,11 +1741,9 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             </td>
                             <td class=\\"govuk-table__cell\\">01/12/2022</td>
                             <td class=\\"govuk-table__cell\\">Redacted</td>
-                            <td class=\\"govuk-table__cell\\">Failed virus check</td>
-                            <td class=\\"govuk-table__cell\\">
-                                <p class=\\"govuk-body-s\\">View/Edit properties</p>
-                                <p class=\\"govuk-body-s\\">Download</p>
+                            <td class=\\"govuk-table__cell\\"><strong class=\\"govuk-tag govuk-tag--red\\"> Failed virus check</strong>
                             </td>
+                            <td class=\\"govuk-table__cell\\"></td>
                         </tr>
                         <tr class=\\"govuk-table__row \\">
                             <td class=\\"govuk-table__cell\\">
@@ -2196,15 +1956,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row govuk-table__row--disabled\\">
-                            <td class=\\"govuk-table__cell\\">
-                                <div class=\\"govuk-form-group\\" aria-hidden=\\"true\\">
-                                    <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
-                                        <div class=\\"govuk-checkboxes__item\\">
-                                            <label class=\\"govuk-label govuk-checkboxes__label\\">49 Quis nostrud exercitation ullamco laboris nisi</label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </td>
+                            <td class=\\"govuk-table__cell\\"></td>
                             <td class=\\"govuk-table__cell\\">
                                 <p class=\\"govuk-body-s govuk-!-font-weight-bold\\">49 Quis nostrud exercitation ullamco laboris nisi</p>
                                 <p class=\\"file-info colour--secondary\\">From: Quis Ad</p>
@@ -2212,22 +1964,12 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             </td>
                             <td class=\\"govuk-table__cell\\">01/12/2022</td>
                             <td class=\\"govuk-table__cell\\">Redacted</td>
-                            <td class=\\"govuk-table__cell\\">Awaiting virus check</td>
-                            <td class=\\"govuk-table__cell\\">
-                                <p class=\\"govuk-body-s\\">View/Edit properties</p>
-                                <p class=\\"govuk-body-s\\">Download</p>
+                            <td class=\\"govuk-table__cell\\"><strong class=\\"govuk-tag govuk-tag--yellow\\"> Awaiting virus check</strong>
                             </td>
+                            <td class=\\"govuk-table__cell\\"></td>
                         </tr>
                         <tr class=\\"govuk-table__row govuk-table__row--disabled\\">
-                            <td class=\\"govuk-table__cell\\">
-                                <div class=\\"govuk-form-group\\" aria-hidden=\\"true\\">
-                                    <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
-                                        <div class=\\"govuk-checkboxes__item\\">
-                                            <label class=\\"govuk-label govuk-checkboxes__label\\">50 Ullamco laboris nisi ut aliquip ex</label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </td>
+                            <td class=\\"govuk-table__cell\\"></td>
                             <td class=\\"govuk-table__cell\\">
                                 <p class=\\"govuk-body-s govuk-!-font-weight-bold\\">50 Ullamco laboris nisi ut aliquip ex</p>
                                 <p class=\\"file-info colour--secondary\\">From: Ullamco Veniam</p>
@@ -2235,11 +1977,9 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             </td>
                             <td class=\\"govuk-table__cell\\">01/12/2022</td>
                             <td class=\\"govuk-table__cell\\">Redacted</td>
-                            <td class=\\"govuk-table__cell\\">Failed virus check</td>
-                            <td class=\\"govuk-table__cell\\">
-                                <p class=\\"govuk-body-s\\">View/Edit properties</p>
-                                <p class=\\"govuk-body-s\\">Download</p>
+                            <td class=\\"govuk-table__cell\\"><strong class=\\"govuk-tag govuk-tag--red\\"> Failed virus check</strong>
                             </td>
+                            <td class=\\"govuk-table__cell\\"></td>
                         </tr>
                     </tbody>
                 </table>
@@ -2621,15 +2361,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row govuk-table__row--disabled\\">
-                            <td class=\\"govuk-table__cell\\">
-                                <div class=\\"govuk-form-group\\" aria-hidden=\\"true\\">
-                                    <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
-                                        <div class=\\"govuk-checkboxes__item\\">
-                                            <label class=\\"govuk-label govuk-checkboxes__label\\">36 Veniam quis nostrud exercitation ullamco</label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </td>
+                            <td class=\\"govuk-table__cell\\"></td>
                             <td class=\\"govuk-table__cell\\">
                                 <p class=\\"govuk-body-s govuk-!-font-weight-bold\\">36 Veniam quis nostrud exercitation ullamco</p>
                                 <p class=\\"file-info colour--secondary\\">From: Veniam Enim</p>
@@ -2637,22 +2369,12 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             </td>
                             <td class=\\"govuk-table__cell\\">01/12/2022</td>
                             <td class=\\"govuk-table__cell\\">Redacted</td>
-                            <td class=\\"govuk-table__cell\\">Awaiting virus check</td>
-                            <td class=\\"govuk-table__cell\\">
-                                <p class=\\"govuk-body-s\\">View/Edit properties</p>
-                                <p class=\\"govuk-body-s\\">Download</p>
+                            <td class=\\"govuk-table__cell\\"><strong class=\\"govuk-tag govuk-tag--yellow\\"> Awaiting virus check</strong>
                             </td>
+                            <td class=\\"govuk-table__cell\\"></td>
                         </tr>
                         <tr class=\\"govuk-table__row govuk-table__row--disabled\\">
-                            <td class=\\"govuk-table__cell\\">
-                                <div class=\\"govuk-form-group\\" aria-hidden=\\"true\\">
-                                    <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
-                                        <div class=\\"govuk-checkboxes__item\\">
-                                            <label class=\\"govuk-label govuk-checkboxes__label\\">37 Veniam quis nostrud exercitation ullamco</label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </td>
+                            <td class=\\"govuk-table__cell\\"></td>
                             <td class=\\"govuk-table__cell\\">
                                 <p class=\\"govuk-body-s govuk-!-font-weight-bold\\">37 Veniam quis nostrud exercitation ullamco</p>
                                 <p class=\\"file-info colour--secondary\\">From: Veniam Enim</p>
@@ -2660,22 +2382,12 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             </td>
                             <td class=\\"govuk-table__cell\\">01/12/2022</td>
                             <td class=\\"govuk-table__cell\\">Redacted</td>
-                            <td class=\\"govuk-table__cell\\">Awaiting virus check</td>
-                            <td class=\\"govuk-table__cell\\">
-                                <p class=\\"govuk-body-s\\">View/Edit properties</p>
-                                <p class=\\"govuk-body-s\\">Download</p>
+                            <td class=\\"govuk-table__cell\\"><strong class=\\"govuk-tag govuk-tag--yellow\\"> Awaiting virus check</strong>
                             </td>
+                            <td class=\\"govuk-table__cell\\"></td>
                         </tr>
                         <tr class=\\"govuk-table__row govuk-table__row--disabled\\">
-                            <td class=\\"govuk-table__cell\\">
-                                <div class=\\"govuk-form-group\\" aria-hidden=\\"true\\">
-                                    <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
-                                        <div class=\\"govuk-checkboxes__item\\">
-                                            <label class=\\"govuk-label govuk-checkboxes__label\\">38 Exercitation ullamco laboris nisi ut aliquip</label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </td>
+                            <td class=\\"govuk-table__cell\\"></td>
                             <td class=\\"govuk-table__cell\\">
                                 <p class=\\"govuk-body-s govuk-!-font-weight-bold\\">38 Exercitation ullamco laboris nisi ut aliquip</p>
                                 <p class=\\"file-info colour--secondary\\">From: Exercitation Minim</p>
@@ -2683,22 +2395,12 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             </td>
                             <td class=\\"govuk-table__cell\\">01/12/2022</td>
                             <td class=\\"govuk-table__cell\\">Redacted</td>
-                            <td class=\\"govuk-table__cell\\">Failed virus check</td>
-                            <td class=\\"govuk-table__cell\\">
-                                <p class=\\"govuk-body-s\\">View/Edit properties</p>
-                                <p class=\\"govuk-body-s\\">Download</p>
+                            <td class=\\"govuk-table__cell\\"><strong class=\\"govuk-tag govuk-tag--red\\"> Failed virus check</strong>
                             </td>
+                            <td class=\\"govuk-table__cell\\"></td>
                         </tr>
                         <tr class=\\"govuk-table__row govuk-table__row--disabled\\">
-                            <td class=\\"govuk-table__cell\\">
-                                <div class=\\"govuk-form-group\\" aria-hidden=\\"true\\">
-                                    <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
-                                        <div class=\\"govuk-checkboxes__item\\">
-                                            <label class=\\"govuk-label govuk-checkboxes__label\\">39 Nisi ut aliquip ex ea commodo</label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </td>
+                            <td class=\\"govuk-table__cell\\"></td>
                             <td class=\\"govuk-table__cell\\">
                                 <p class=\\"govuk-body-s govuk-!-font-weight-bold\\">39 Nisi ut aliquip ex ea commodo</p>
                                 <p class=\\"file-info colour--secondary\\">From: Nisi Quis</p>
@@ -2706,11 +2408,9 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             </td>
                             <td class=\\"govuk-table__cell\\">01/12/2022</td>
                             <td class=\\"govuk-table__cell\\">Redacted</td>
-                            <td class=\\"govuk-table__cell\\">Failed virus check</td>
-                            <td class=\\"govuk-table__cell\\">
-                                <p class=\\"govuk-body-s\\">View/Edit properties</p>
-                                <p class=\\"govuk-body-s\\">Download</p>
+                            <td class=\\"govuk-table__cell\\"><strong class=\\"govuk-tag govuk-tag--red\\"> Failed virus check</strong>
                             </td>
+                            <td class=\\"govuk-table__cell\\"></td>
                         </tr>
                         <tr class=\\"govuk-table__row \\">
                             <td class=\\"govuk-table__cell\\">
@@ -2923,15 +2623,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row govuk-table__row--disabled\\">
-                            <td class=\\"govuk-table__cell\\">
-                                <div class=\\"govuk-form-group\\" aria-hidden=\\"true\\">
-                                    <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
-                                        <div class=\\"govuk-checkboxes__item\\">
-                                            <label class=\\"govuk-label govuk-checkboxes__label\\">49 Quis nostrud exercitation ullamco laboris nisi</label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </td>
+                            <td class=\\"govuk-table__cell\\"></td>
                             <td class=\\"govuk-table__cell\\">
                                 <p class=\\"govuk-body-s govuk-!-font-weight-bold\\">49 Quis nostrud exercitation ullamco laboris nisi</p>
                                 <p class=\\"file-info colour--secondary\\">From: Quis Ad</p>
@@ -2939,22 +2631,12 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             </td>
                             <td class=\\"govuk-table__cell\\">01/12/2022</td>
                             <td class=\\"govuk-table__cell\\">Redacted</td>
-                            <td class=\\"govuk-table__cell\\">Awaiting virus check</td>
-                            <td class=\\"govuk-table__cell\\">
-                                <p class=\\"govuk-body-s\\">View/Edit properties</p>
-                                <p class=\\"govuk-body-s\\">Download</p>
+                            <td class=\\"govuk-table__cell\\"><strong class=\\"govuk-tag govuk-tag--yellow\\"> Awaiting virus check</strong>
                             </td>
+                            <td class=\\"govuk-table__cell\\"></td>
                         </tr>
                         <tr class=\\"govuk-table__row govuk-table__row--disabled\\">
-                            <td class=\\"govuk-table__cell\\">
-                                <div class=\\"govuk-form-group\\" aria-hidden=\\"true\\">
-                                    <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
-                                        <div class=\\"govuk-checkboxes__item\\">
-                                            <label class=\\"govuk-label govuk-checkboxes__label\\">50 Ullamco laboris nisi ut aliquip ex</label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </td>
+                            <td class=\\"govuk-table__cell\\"></td>
                             <td class=\\"govuk-table__cell\\">
                                 <p class=\\"govuk-body-s govuk-!-font-weight-bold\\">50 Ullamco laboris nisi ut aliquip ex</p>
                                 <p class=\\"file-info colour--secondary\\">From: Ullamco Veniam</p>
@@ -2962,11 +2644,9 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             </td>
                             <td class=\\"govuk-table__cell\\">01/12/2022</td>
                             <td class=\\"govuk-table__cell\\">Redacted</td>
-                            <td class=\\"govuk-table__cell\\">Failed virus check</td>
-                            <td class=\\"govuk-table__cell\\">
-                                <p class=\\"govuk-body-s\\">View/Edit properties</p>
-                                <p class=\\"govuk-body-s\\">Download</p>
+                            <td class=\\"govuk-table__cell\\"><strong class=\\"govuk-tag govuk-tag--red\\"> Failed virus check</strong>
                             </td>
+                            <td class=\\"govuk-table__cell\\"></td>
                         </tr>
                         <tr class=\\"govuk-table__row \\">
                             <td class=\\"govuk-table__cell\\">
@@ -3180,15 +2860,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row govuk-table__row--disabled\\">
-                            <td class=\\"govuk-table__cell\\">
-                                <div class=\\"govuk-form-group\\" aria-hidden=\\"true\\">
-                                    <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
-                                        <div class=\\"govuk-checkboxes__item\\">
-                                            <label class=\\"govuk-label govuk-checkboxes__label\\">60 Ad minim veniam quis nostrud</label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </td>
+                            <td class=\\"govuk-table__cell\\"></td>
                             <td class=\\"govuk-table__cell\\">
                                 <p class=\\"govuk-body-s govuk-!-font-weight-bold\\">60 Ad minim veniam quis nostrud</p>
                                 <p class=\\"file-info colour--secondary\\">From: Ad Ut</p>
@@ -3196,11 +2868,9 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             </td>
                             <td class=\\"govuk-table__cell\\">01/12/2022</td>
                             <td class=\\"govuk-table__cell\\">Redacted</td>
-                            <td class=\\"govuk-table__cell\\">Awaiting virus check</td>
-                            <td class=\\"govuk-table__cell\\">
-                                <p class=\\"govuk-body-s\\">View/Edit properties</p>
-                                <p class=\\"govuk-body-s\\">Download</p>
+                            <td class=\\"govuk-table__cell\\"><strong class=\\"govuk-tag govuk-tag--yellow\\"> Awaiting virus check</strong>
                             </td>
+                            <td class=\\"govuk-table__cell\\"></td>
                         </tr>
                     </tbody>
                 </table>
@@ -3509,15 +3179,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row govuk-table__row--disabled\\">
-                            <td class=\\"govuk-table__cell\\">
-                                <div class=\\"govuk-form-group\\" aria-hidden=\\"true\\">
-                                    <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
-                                        <div class=\\"govuk-checkboxes__item\\">
-                                            <label class=\\"govuk-label govuk-checkboxes__label\\">2 Minim veniam quis nostrud exercitation</label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </td>
+                            <td class=\\"govuk-table__cell\\"></td>
                             <td class=\\"govuk-table__cell\\">
                                 <p class=\\"govuk-body-s govuk-!-font-weight-bold\\">2 Minim veniam quis nostrud exercitation</p>
                                 <p class=\\"file-info colour--secondary\\">From: Minim Enim</p>
@@ -3525,22 +3187,12 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             </td>
                             <td class=\\"govuk-table__cell\\">01/12/2022</td>
                             <td class=\\"govuk-table__cell\\">Redacted</td>
-                            <td class=\\"govuk-table__cell\\">Awaiting virus check</td>
-                            <td class=\\"govuk-table__cell\\">
-                                <p class=\\"govuk-body-s\\">View/Edit properties</p>
-                                <p class=\\"govuk-body-s\\">Download</p>
+                            <td class=\\"govuk-table__cell\\"><strong class=\\"govuk-tag govuk-tag--yellow\\"> Awaiting virus check</strong>
                             </td>
+                            <td class=\\"govuk-table__cell\\"></td>
                         </tr>
                         <tr class=\\"govuk-table__row govuk-table__row--disabled\\">
-                            <td class=\\"govuk-table__cell\\">
-                                <div class=\\"govuk-form-group\\" aria-hidden=\\"true\\">
-                                    <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
-                                        <div class=\\"govuk-checkboxes__item\\">
-                                            <label class=\\"govuk-label govuk-checkboxes__label\\">3 Nostrud exercitation ullamco laboris nisi ut</label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </td>
+                            <td class=\\"govuk-table__cell\\"></td>
                             <td class=\\"govuk-table__cell\\">
                                 <p class=\\"govuk-body-s govuk-!-font-weight-bold\\">3 Nostrud exercitation ullamco laboris nisi ut</p>
                                 <p class=\\"file-info colour--secondary\\">From: Nostrud Minim</p>
@@ -3548,22 +3200,12 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             </td>
                             <td class=\\"govuk-table__cell\\">01/12/2022</td>
                             <td class=\\"govuk-table__cell\\">Redacted</td>
-                            <td class=\\"govuk-table__cell\\">Failed virus check</td>
-                            <td class=\\"govuk-table__cell\\">
-                                <p class=\\"govuk-body-s\\">View/Edit properties</p>
-                                <p class=\\"govuk-body-s\\">Download</p>
+                            <td class=\\"govuk-table__cell\\"><strong class=\\"govuk-tag govuk-tag--red\\"> Failed virus check</strong>
                             </td>
+                            <td class=\\"govuk-table__cell\\"></td>
                         </tr>
                         <tr class=\\"govuk-table__row govuk-table__row--disabled\\">
-                            <td class=\\"govuk-table__cell\\">
-                                <div class=\\"govuk-form-group\\" aria-hidden=\\"true\\">
-                                    <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
-                                        <div class=\\"govuk-checkboxes__item\\">
-                                            <label class=\\"govuk-label govuk-checkboxes__label\\">4 Laboris nisi ut aliquip ex ea</label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </td>
+                            <td class=\\"govuk-table__cell\\"></td>
                             <td class=\\"govuk-table__cell\\">
                                 <p class=\\"govuk-body-s govuk-!-font-weight-bold\\">4 Laboris nisi ut aliquip ex ea</p>
                                 <p class=\\"file-info colour--secondary\\">From: Laboris Quis</p>
@@ -3571,11 +3213,9 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             </td>
                             <td class=\\"govuk-table__cell\\">01/12/2022</td>
                             <td class=\\"govuk-table__cell\\">Redacted</td>
-                            <td class=\\"govuk-table__cell\\">Failed virus check</td>
-                            <td class=\\"govuk-table__cell\\">
-                                <p class=\\"govuk-body-s\\">View/Edit properties</p>
-                                <p class=\\"govuk-body-s\\">Download</p>
+                            <td class=\\"govuk-table__cell\\"><strong class=\\"govuk-tag govuk-tag--red\\"> Failed virus check</strong>
                             </td>
+                            <td class=\\"govuk-table__cell\\"></td>
                         </tr>
                         <tr class=\\"govuk-table__row \\">
                             <td class=\\"govuk-table__cell\\">
@@ -3764,15 +3404,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row govuk-table__row--disabled\\">
-                            <td class=\\"govuk-table__cell\\">
-                                <div class=\\"govuk-form-group\\" aria-hidden=\\"true\\">
-                                    <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
-                                        <div class=\\"govuk-checkboxes__item\\">
-                                            <label class=\\"govuk-label govuk-checkboxes__label\\">13 Veniam quis nostrud exercitation ullamco</label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </td>
+                            <td class=\\"govuk-table__cell\\"></td>
                             <td class=\\"govuk-table__cell\\">
                                 <p class=\\"govuk-body-s govuk-!-font-weight-bold\\">13 Veniam quis nostrud exercitation ullamco</p>
                                 <p class=\\"file-info colour--secondary\\">From: Veniam Enim</p>
@@ -3780,22 +3412,12 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             </td>
                             <td class=\\"govuk-table__cell\\">01/12/2022</td>
                             <td class=\\"govuk-table__cell\\">Redacted</td>
-                            <td class=\\"govuk-table__cell\\">Awaiting virus check</td>
-                            <td class=\\"govuk-table__cell\\">
-                                <p class=\\"govuk-body-s\\">View/Edit properties</p>
-                                <p class=\\"govuk-body-s\\">Download</p>
+                            <td class=\\"govuk-table__cell\\"><strong class=\\"govuk-tag govuk-tag--yellow\\"> Awaiting virus check</strong>
                             </td>
+                            <td class=\\"govuk-table__cell\\"></td>
                         </tr>
                         <tr class=\\"govuk-table__row govuk-table__row--disabled\\">
-                            <td class=\\"govuk-table__cell\\">
-                                <div class=\\"govuk-form-group\\" aria-hidden=\\"true\\">
-                                    <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
-                                        <div class=\\"govuk-checkboxes__item\\">
-                                            <label class=\\"govuk-label govuk-checkboxes__label\\">14 Exercitation ullamco laboris nisi ut aliquip</label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </td>
+                            <td class=\\"govuk-table__cell\\"></td>
                             <td class=\\"govuk-table__cell\\">
                                 <p class=\\"govuk-body-s govuk-!-font-weight-bold\\">14 Exercitation ullamco laboris nisi ut aliquip</p>
                                 <p class=\\"file-info colour--secondary\\">From: Exercitation Minim</p>
@@ -3803,22 +3425,12 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             </td>
                             <td class=\\"govuk-table__cell\\">01/12/2022</td>
                             <td class=\\"govuk-table__cell\\">Redacted</td>
-                            <td class=\\"govuk-table__cell\\">Failed virus check</td>
-                            <td class=\\"govuk-table__cell\\">
-                                <p class=\\"govuk-body-s\\">View/Edit properties</p>
-                                <p class=\\"govuk-body-s\\">Download</p>
+                            <td class=\\"govuk-table__cell\\"><strong class=\\"govuk-tag govuk-tag--red\\"> Failed virus check</strong>
                             </td>
+                            <td class=\\"govuk-table__cell\\"></td>
                         </tr>
                         <tr class=\\"govuk-table__row govuk-table__row--disabled\\">
-                            <td class=\\"govuk-table__cell\\">
-                                <div class=\\"govuk-form-group\\" aria-hidden=\\"true\\">
-                                    <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
-                                        <div class=\\"govuk-checkboxes__item\\">
-                                            <label class=\\"govuk-label govuk-checkboxes__label\\">15 Exercitation ullamco laboris nisi ut aliquip</label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </td>
+                            <td class=\\"govuk-table__cell\\"></td>
                             <td class=\\"govuk-table__cell\\">
                                 <p class=\\"govuk-body-s govuk-!-font-weight-bold\\">15 Exercitation ullamco laboris nisi ut aliquip</p>
                                 <p class=\\"file-info colour--secondary\\">From: Exercitation Minim</p>
@@ -3826,22 +3438,12 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             </td>
                             <td class=\\"govuk-table__cell\\">01/12/2022</td>
                             <td class=\\"govuk-table__cell\\">Redacted</td>
-                            <td class=\\"govuk-table__cell\\">Failed virus check</td>
-                            <td class=\\"govuk-table__cell\\">
-                                <p class=\\"govuk-body-s\\">View/Edit properties</p>
-                                <p class=\\"govuk-body-s\\">Download</p>
+                            <td class=\\"govuk-table__cell\\"><strong class=\\"govuk-tag govuk-tag--red\\"> Failed virus check</strong>
                             </td>
+                            <td class=\\"govuk-table__cell\\"></td>
                         </tr>
                         <tr class=\\"govuk-table__row govuk-table__row--disabled\\">
-                            <td class=\\"govuk-table__cell\\">
-                                <div class=\\"govuk-form-group\\" aria-hidden=\\"true\\">
-                                    <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
-                                        <div class=\\"govuk-checkboxes__item\\">
-                                            <label class=\\"govuk-label govuk-checkboxes__label\\">16 Nisi ut aliquip ex ea commodo</label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </td>
+                            <td class=\\"govuk-table__cell\\"></td>
                             <td class=\\"govuk-table__cell\\">
                                 <p class=\\"govuk-body-s govuk-!-font-weight-bold\\">16 Nisi ut aliquip ex ea commodo</p>
                                 <p class=\\"file-info colour--secondary\\">From: Nisi Quis</p>
@@ -3849,11 +3451,9 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             </td>
                             <td class=\\"govuk-table__cell\\">01/12/2022</td>
                             <td class=\\"govuk-table__cell\\">Redacted</td>
-                            <td class=\\"govuk-table__cell\\">Failed virus check</td>
-                            <td class=\\"govuk-table__cell\\">
-                                <p class=\\"govuk-body-s\\">View/Edit properties</p>
-                                <p class=\\"govuk-body-s\\">Download</p>
+                            <td class=\\"govuk-table__cell\\"><strong class=\\"govuk-tag govuk-tag--red\\"> Failed virus check</strong>
                             </td>
+                            <td class=\\"govuk-table__cell\\"></td>
                         </tr>
                         <tr class=\\"govuk-table__row \\">
                             <td class=\\"govuk-table__cell\\">
@@ -4042,15 +3642,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row govuk-table__row--disabled\\">
-                            <td class=\\"govuk-table__cell\\">
-                                <div class=\\"govuk-form-group\\" aria-hidden=\\"true\\">
-                                    <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
-                                        <div class=\\"govuk-checkboxes__item\\">
-                                            <label class=\\"govuk-label govuk-checkboxes__label\\">25 Veniam quis nostrud exercitation ullamco</label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </td>
+                            <td class=\\"govuk-table__cell\\"></td>
                             <td class=\\"govuk-table__cell\\">
                                 <p class=\\"govuk-body-s govuk-!-font-weight-bold\\">25 Veniam quis nostrud exercitation ullamco</p>
                                 <p class=\\"file-info colour--secondary\\">From: Veniam Enim</p>
@@ -4058,22 +3650,12 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             </td>
                             <td class=\\"govuk-table__cell\\">01/12/2022</td>
                             <td class=\\"govuk-table__cell\\">Redacted</td>
-                            <td class=\\"govuk-table__cell\\">Awaiting virus check</td>
-                            <td class=\\"govuk-table__cell\\">
-                                <p class=\\"govuk-body-s\\">View/Edit properties</p>
-                                <p class=\\"govuk-body-s\\">Download</p>
+                            <td class=\\"govuk-table__cell\\"><strong class=\\"govuk-tag govuk-tag--yellow\\"> Awaiting virus check</strong>
                             </td>
+                            <td class=\\"govuk-table__cell\\"></td>
                         </tr>
                         <tr class=\\"govuk-table__row govuk-table__row--disabled\\">
-                            <td class=\\"govuk-table__cell\\">
-                                <div class=\\"govuk-form-group\\" aria-hidden=\\"true\\">
-                                    <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
-                                        <div class=\\"govuk-checkboxes__item\\">
-                                            <label class=\\"govuk-label govuk-checkboxes__label\\">26 Exercitation ullamco laboris nisi ut aliquip</label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </td>
+                            <td class=\\"govuk-table__cell\\"></td>
                             <td class=\\"govuk-table__cell\\">
                                 <p class=\\"govuk-body-s govuk-!-font-weight-bold\\">26 Exercitation ullamco laboris nisi ut aliquip</p>
                                 <p class=\\"file-info colour--secondary\\">From: Exercitation Minim</p>
@@ -4081,22 +3663,12 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             </td>
                             <td class=\\"govuk-table__cell\\">01/12/2022</td>
                             <td class=\\"govuk-table__cell\\">Redacted</td>
-                            <td class=\\"govuk-table__cell\\">Failed virus check</td>
-                            <td class=\\"govuk-table__cell\\">
-                                <p class=\\"govuk-body-s\\">View/Edit properties</p>
-                                <p class=\\"govuk-body-s\\">Download</p>
+                            <td class=\\"govuk-table__cell\\"><strong class=\\"govuk-tag govuk-tag--red\\"> Failed virus check</strong>
                             </td>
+                            <td class=\\"govuk-table__cell\\"></td>
                         </tr>
                         <tr class=\\"govuk-table__row govuk-table__row--disabled\\">
-                            <td class=\\"govuk-table__cell\\">
-                                <div class=\\"govuk-form-group\\" aria-hidden=\\"true\\">
-                                    <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
-                                        <div class=\\"govuk-checkboxes__item\\">
-                                            <label class=\\"govuk-label govuk-checkboxes__label\\">27 Nisi ut aliquip ex ea commodo</label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </td>
+                            <td class=\\"govuk-table__cell\\"></td>
                             <td class=\\"govuk-table__cell\\">
                                 <p class=\\"govuk-body-s govuk-!-font-weight-bold\\">27 Nisi ut aliquip ex ea commodo</p>
                                 <p class=\\"file-info colour--secondary\\">From: Nisi Quis</p>
@@ -4104,11 +3676,9 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             </td>
                             <td class=\\"govuk-table__cell\\">01/12/2022</td>
                             <td class=\\"govuk-table__cell\\">Redacted</td>
-                            <td class=\\"govuk-table__cell\\">Failed virus check</td>
-                            <td class=\\"govuk-table__cell\\">
-                                <p class=\\"govuk-body-s\\">View/Edit properties</p>
-                                <p class=\\"govuk-body-s\\">Download</p>
+                            <td class=\\"govuk-table__cell\\"><strong class=\\"govuk-tag govuk-tag--red\\"> Failed virus check</strong>
                             </td>
+                            <td class=\\"govuk-table__cell\\"></td>
                         </tr>
                         <tr class=\\"govuk-table__row \\">
                             <td class=\\"govuk-table__cell\\">
@@ -4298,15 +3868,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row govuk-table__row--disabled\\">
-                            <td class=\\"govuk-table__cell\\">
-                                <div class=\\"govuk-form-group\\" aria-hidden=\\"true\\">
-                                    <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
-                                        <div class=\\"govuk-checkboxes__item\\">
-                                            <label class=\\"govuk-label govuk-checkboxes__label\\">36 Veniam quis nostrud exercitation ullamco</label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </td>
+                            <td class=\\"govuk-table__cell\\"></td>
                             <td class=\\"govuk-table__cell\\">
                                 <p class=\\"govuk-body-s govuk-!-font-weight-bold\\">36 Veniam quis nostrud exercitation ullamco</p>
                                 <p class=\\"file-info colour--secondary\\">From: Veniam Enim</p>
@@ -4314,22 +3876,12 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             </td>
                             <td class=\\"govuk-table__cell\\">01/12/2022</td>
                             <td class=\\"govuk-table__cell\\">Redacted</td>
-                            <td class=\\"govuk-table__cell\\">Awaiting virus check</td>
-                            <td class=\\"govuk-table__cell\\">
-                                <p class=\\"govuk-body-s\\">View/Edit properties</p>
-                                <p class=\\"govuk-body-s\\">Download</p>
+                            <td class=\\"govuk-table__cell\\"><strong class=\\"govuk-tag govuk-tag--yellow\\"> Awaiting virus check</strong>
                             </td>
+                            <td class=\\"govuk-table__cell\\"></td>
                         </tr>
                         <tr class=\\"govuk-table__row govuk-table__row--disabled\\">
-                            <td class=\\"govuk-table__cell\\">
-                                <div class=\\"govuk-form-group\\" aria-hidden=\\"true\\">
-                                    <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
-                                        <div class=\\"govuk-checkboxes__item\\">
-                                            <label class=\\"govuk-label govuk-checkboxes__label\\">37 Veniam quis nostrud exercitation ullamco</label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </td>
+                            <td class=\\"govuk-table__cell\\"></td>
                             <td class=\\"govuk-table__cell\\">
                                 <p class=\\"govuk-body-s govuk-!-font-weight-bold\\">37 Veniam quis nostrud exercitation ullamco</p>
                                 <p class=\\"file-info colour--secondary\\">From: Veniam Enim</p>
@@ -4337,22 +3889,12 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             </td>
                             <td class=\\"govuk-table__cell\\">01/12/2022</td>
                             <td class=\\"govuk-table__cell\\">Redacted</td>
-                            <td class=\\"govuk-table__cell\\">Awaiting virus check</td>
-                            <td class=\\"govuk-table__cell\\">
-                                <p class=\\"govuk-body-s\\">View/Edit properties</p>
-                                <p class=\\"govuk-body-s\\">Download</p>
+                            <td class=\\"govuk-table__cell\\"><strong class=\\"govuk-tag govuk-tag--yellow\\"> Awaiting virus check</strong>
                             </td>
+                            <td class=\\"govuk-table__cell\\"></td>
                         </tr>
                         <tr class=\\"govuk-table__row govuk-table__row--disabled\\">
-                            <td class=\\"govuk-table__cell\\">
-                                <div class=\\"govuk-form-group\\" aria-hidden=\\"true\\">
-                                    <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
-                                        <div class=\\"govuk-checkboxes__item\\">
-                                            <label class=\\"govuk-label govuk-checkboxes__label\\">38 Exercitation ullamco laboris nisi ut aliquip</label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </td>
+                            <td class=\\"govuk-table__cell\\"></td>
                             <td class=\\"govuk-table__cell\\">
                                 <p class=\\"govuk-body-s govuk-!-font-weight-bold\\">38 Exercitation ullamco laboris nisi ut aliquip</p>
                                 <p class=\\"file-info colour--secondary\\">From: Exercitation Minim</p>
@@ -4360,22 +3902,12 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             </td>
                             <td class=\\"govuk-table__cell\\">01/12/2022</td>
                             <td class=\\"govuk-table__cell\\">Redacted</td>
-                            <td class=\\"govuk-table__cell\\">Failed virus check</td>
-                            <td class=\\"govuk-table__cell\\">
-                                <p class=\\"govuk-body-s\\">View/Edit properties</p>
-                                <p class=\\"govuk-body-s\\">Download</p>
+                            <td class=\\"govuk-table__cell\\"><strong class=\\"govuk-tag govuk-tag--red\\"> Failed virus check</strong>
                             </td>
+                            <td class=\\"govuk-table__cell\\"></td>
                         </tr>
                         <tr class=\\"govuk-table__row govuk-table__row--disabled\\">
-                            <td class=\\"govuk-table__cell\\">
-                                <div class=\\"govuk-form-group\\" aria-hidden=\\"true\\">
-                                    <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
-                                        <div class=\\"govuk-checkboxes__item\\">
-                                            <label class=\\"govuk-label govuk-checkboxes__label\\">39 Nisi ut aliquip ex ea commodo</label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </td>
+                            <td class=\\"govuk-table__cell\\"></td>
                             <td class=\\"govuk-table__cell\\">
                                 <p class=\\"govuk-body-s govuk-!-font-weight-bold\\">39 Nisi ut aliquip ex ea commodo</p>
                                 <p class=\\"file-info colour--secondary\\">From: Nisi Quis</p>
@@ -4383,11 +3915,9 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             </td>
                             <td class=\\"govuk-table__cell\\">01/12/2022</td>
                             <td class=\\"govuk-table__cell\\">Redacted</td>
-                            <td class=\\"govuk-table__cell\\">Failed virus check</td>
-                            <td class=\\"govuk-table__cell\\">
-                                <p class=\\"govuk-body-s\\">View/Edit properties</p>
-                                <p class=\\"govuk-body-s\\">Download</p>
+                            <td class=\\"govuk-table__cell\\"><strong class=\\"govuk-tag govuk-tag--red\\"> Failed virus check</strong>
                             </td>
+                            <td class=\\"govuk-table__cell\\"></td>
                         </tr>
                         <tr class=\\"govuk-table__row \\">
                             <td class=\\"govuk-table__cell\\">
@@ -4600,15 +4130,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row govuk-table__row--disabled\\">
-                            <td class=\\"govuk-table__cell\\">
-                                <div class=\\"govuk-form-group\\" aria-hidden=\\"true\\">
-                                    <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
-                                        <div class=\\"govuk-checkboxes__item\\">
-                                            <label class=\\"govuk-label govuk-checkboxes__label\\">49 Quis nostrud exercitation ullamco laboris nisi</label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </td>
+                            <td class=\\"govuk-table__cell\\"></td>
                             <td class=\\"govuk-table__cell\\">
                                 <p class=\\"govuk-body-s govuk-!-font-weight-bold\\">49 Quis nostrud exercitation ullamco laboris nisi</p>
                                 <p class=\\"file-info colour--secondary\\">From: Quis Ad</p>
@@ -4616,22 +4138,12 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             </td>
                             <td class=\\"govuk-table__cell\\">01/12/2022</td>
                             <td class=\\"govuk-table__cell\\">Redacted</td>
-                            <td class=\\"govuk-table__cell\\">Awaiting virus check</td>
-                            <td class=\\"govuk-table__cell\\">
-                                <p class=\\"govuk-body-s\\">View/Edit properties</p>
-                                <p class=\\"govuk-body-s\\">Download</p>
+                            <td class=\\"govuk-table__cell\\"><strong class=\\"govuk-tag govuk-tag--yellow\\"> Awaiting virus check</strong>
                             </td>
+                            <td class=\\"govuk-table__cell\\"></td>
                         </tr>
                         <tr class=\\"govuk-table__row govuk-table__row--disabled\\">
-                            <td class=\\"govuk-table__cell\\">
-                                <div class=\\"govuk-form-group\\" aria-hidden=\\"true\\">
-                                    <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
-                                        <div class=\\"govuk-checkboxes__item\\">
-                                            <label class=\\"govuk-label govuk-checkboxes__label\\">50 Ullamco laboris nisi ut aliquip ex</label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </td>
+                            <td class=\\"govuk-table__cell\\"></td>
                             <td class=\\"govuk-table__cell\\">
                                 <p class=\\"govuk-body-s govuk-!-font-weight-bold\\">50 Ullamco laboris nisi ut aliquip ex</p>
                                 <p class=\\"file-info colour--secondary\\">From: Ullamco Veniam</p>
@@ -4639,11 +4151,9 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             </td>
                             <td class=\\"govuk-table__cell\\">01/12/2022</td>
                             <td class=\\"govuk-table__cell\\">Redacted</td>
-                            <td class=\\"govuk-table__cell\\">Failed virus check</td>
-                            <td class=\\"govuk-table__cell\\">
-                                <p class=\\"govuk-body-s\\">View/Edit properties</p>
-                                <p class=\\"govuk-body-s\\">Download</p>
+                            <td class=\\"govuk-table__cell\\"><strong class=\\"govuk-tag govuk-tag--red\\"> Failed virus check</strong>
                             </td>
+                            <td class=\\"govuk-table__cell\\"></td>
                         </tr>
                     </tbody>
                 </table>
@@ -4884,15 +4394,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row govuk-table__row--disabled\\">
-                            <td class=\\"govuk-table__cell\\">
-                                <div class=\\"govuk-form-group\\" aria-hidden=\\"true\\">
-                                    <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
-                                        <div class=\\"govuk-checkboxes__item\\">
-                                            <label class=\\"govuk-label govuk-checkboxes__label\\">2 Minim veniam quis nostrud exercitation</label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </td>
+                            <td class=\\"govuk-table__cell\\"></td>
                             <td class=\\"govuk-table__cell\\">
                                 <p class=\\"govuk-body-s govuk-!-font-weight-bold\\">2 Minim veniam quis nostrud exercitation</p>
                                 <p class=\\"file-info colour--secondary\\">From: Minim Enim</p>
@@ -4900,22 +4402,12 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             </td>
                             <td class=\\"govuk-table__cell\\">01/12/2022</td>
                             <td class=\\"govuk-table__cell\\">Redacted</td>
-                            <td class=\\"govuk-table__cell\\">Awaiting virus check</td>
-                            <td class=\\"govuk-table__cell\\">
-                                <p class=\\"govuk-body-s\\">View/Edit properties</p>
-                                <p class=\\"govuk-body-s\\">Download</p>
+                            <td class=\\"govuk-table__cell\\"><strong class=\\"govuk-tag govuk-tag--yellow\\"> Awaiting virus check</strong>
                             </td>
+                            <td class=\\"govuk-table__cell\\"></td>
                         </tr>
                         <tr class=\\"govuk-table__row govuk-table__row--disabled\\">
-                            <td class=\\"govuk-table__cell\\">
-                                <div class=\\"govuk-form-group\\" aria-hidden=\\"true\\">
-                                    <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
-                                        <div class=\\"govuk-checkboxes__item\\">
-                                            <label class=\\"govuk-label govuk-checkboxes__label\\">3 Nostrud exercitation ullamco laboris nisi ut</label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </td>
+                            <td class=\\"govuk-table__cell\\"></td>
                             <td class=\\"govuk-table__cell\\">
                                 <p class=\\"govuk-body-s govuk-!-font-weight-bold\\">3 Nostrud exercitation ullamco laboris nisi ut</p>
                                 <p class=\\"file-info colour--secondary\\">From: Nostrud Minim</p>
@@ -4923,22 +4415,12 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             </td>
                             <td class=\\"govuk-table__cell\\">01/12/2022</td>
                             <td class=\\"govuk-table__cell\\">Redacted</td>
-                            <td class=\\"govuk-table__cell\\">Failed virus check</td>
-                            <td class=\\"govuk-table__cell\\">
-                                <p class=\\"govuk-body-s\\">View/Edit properties</p>
-                                <p class=\\"govuk-body-s\\">Download</p>
+                            <td class=\\"govuk-table__cell\\"><strong class=\\"govuk-tag govuk-tag--red\\"> Failed virus check</strong>
                             </td>
+                            <td class=\\"govuk-table__cell\\"></td>
                         </tr>
                         <tr class=\\"govuk-table__row govuk-table__row--disabled\\">
-                            <td class=\\"govuk-table__cell\\">
-                                <div class=\\"govuk-form-group\\" aria-hidden=\\"true\\">
-                                    <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
-                                        <div class=\\"govuk-checkboxes__item\\">
-                                            <label class=\\"govuk-label govuk-checkboxes__label\\">4 Laboris nisi ut aliquip ex ea</label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </td>
+                            <td class=\\"govuk-table__cell\\"></td>
                             <td class=\\"govuk-table__cell\\">
                                 <p class=\\"govuk-body-s govuk-!-font-weight-bold\\">4 Laboris nisi ut aliquip ex ea</p>
                                 <p class=\\"file-info colour--secondary\\">From: Laboris Quis</p>
@@ -4946,11 +4428,9 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             </td>
                             <td class=\\"govuk-table__cell\\">01/12/2022</td>
                             <td class=\\"govuk-table__cell\\">Redacted</td>
-                            <td class=\\"govuk-table__cell\\">Failed virus check</td>
-                            <td class=\\"govuk-table__cell\\">
-                                <p class=\\"govuk-body-s\\">View/Edit properties</p>
-                                <p class=\\"govuk-body-s\\">Download</p>
+                            <td class=\\"govuk-table__cell\\"><strong class=\\"govuk-tag govuk-tag--red\\"> Failed virus check</strong>
                             </td>
+                            <td class=\\"govuk-table__cell\\"></td>
                         </tr>
                         <tr class=\\"govuk-table__row \\">
                             <td class=\\"govuk-table__cell\\">
@@ -5139,15 +4619,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row govuk-table__row--disabled\\">
-                            <td class=\\"govuk-table__cell\\">
-                                <div class=\\"govuk-form-group\\" aria-hidden=\\"true\\">
-                                    <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
-                                        <div class=\\"govuk-checkboxes__item\\">
-                                            <label class=\\"govuk-label govuk-checkboxes__label\\">13 Veniam quis nostrud exercitation ullamco</label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </td>
+                            <td class=\\"govuk-table__cell\\"></td>
                             <td class=\\"govuk-table__cell\\">
                                 <p class=\\"govuk-body-s govuk-!-font-weight-bold\\">13 Veniam quis nostrud exercitation ullamco</p>
                                 <p class=\\"file-info colour--secondary\\">From: Veniam Enim</p>
@@ -5155,22 +4627,12 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             </td>
                             <td class=\\"govuk-table__cell\\">01/12/2022</td>
                             <td class=\\"govuk-table__cell\\">Redacted</td>
-                            <td class=\\"govuk-table__cell\\">Awaiting virus check</td>
-                            <td class=\\"govuk-table__cell\\">
-                                <p class=\\"govuk-body-s\\">View/Edit properties</p>
-                                <p class=\\"govuk-body-s\\">Download</p>
+                            <td class=\\"govuk-table__cell\\"><strong class=\\"govuk-tag govuk-tag--yellow\\"> Awaiting virus check</strong>
                             </td>
+                            <td class=\\"govuk-table__cell\\"></td>
                         </tr>
                         <tr class=\\"govuk-table__row govuk-table__row--disabled\\">
-                            <td class=\\"govuk-table__cell\\">
-                                <div class=\\"govuk-form-group\\" aria-hidden=\\"true\\">
-                                    <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
-                                        <div class=\\"govuk-checkboxes__item\\">
-                                            <label class=\\"govuk-label govuk-checkboxes__label\\">14 Exercitation ullamco laboris nisi ut aliquip</label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </td>
+                            <td class=\\"govuk-table__cell\\"></td>
                             <td class=\\"govuk-table__cell\\">
                                 <p class=\\"govuk-body-s govuk-!-font-weight-bold\\">14 Exercitation ullamco laboris nisi ut aliquip</p>
                                 <p class=\\"file-info colour--secondary\\">From: Exercitation Minim</p>
@@ -5178,22 +4640,12 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             </td>
                             <td class=\\"govuk-table__cell\\">01/12/2022</td>
                             <td class=\\"govuk-table__cell\\">Redacted</td>
-                            <td class=\\"govuk-table__cell\\">Failed virus check</td>
-                            <td class=\\"govuk-table__cell\\">
-                                <p class=\\"govuk-body-s\\">View/Edit properties</p>
-                                <p class=\\"govuk-body-s\\">Download</p>
+                            <td class=\\"govuk-table__cell\\"><strong class=\\"govuk-tag govuk-tag--red\\"> Failed virus check</strong>
                             </td>
+                            <td class=\\"govuk-table__cell\\"></td>
                         </tr>
                         <tr class=\\"govuk-table__row govuk-table__row--disabled\\">
-                            <td class=\\"govuk-table__cell\\">
-                                <div class=\\"govuk-form-group\\" aria-hidden=\\"true\\">
-                                    <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
-                                        <div class=\\"govuk-checkboxes__item\\">
-                                            <label class=\\"govuk-label govuk-checkboxes__label\\">15 Exercitation ullamco laboris nisi ut aliquip</label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </td>
+                            <td class=\\"govuk-table__cell\\"></td>
                             <td class=\\"govuk-table__cell\\">
                                 <p class=\\"govuk-body-s govuk-!-font-weight-bold\\">15 Exercitation ullamco laboris nisi ut aliquip</p>
                                 <p class=\\"file-info colour--secondary\\">From: Exercitation Minim</p>
@@ -5201,22 +4653,12 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             </td>
                             <td class=\\"govuk-table__cell\\">01/12/2022</td>
                             <td class=\\"govuk-table__cell\\">Redacted</td>
-                            <td class=\\"govuk-table__cell\\">Failed virus check</td>
-                            <td class=\\"govuk-table__cell\\">
-                                <p class=\\"govuk-body-s\\">View/Edit properties</p>
-                                <p class=\\"govuk-body-s\\">Download</p>
+                            <td class=\\"govuk-table__cell\\"><strong class=\\"govuk-tag govuk-tag--red\\"> Failed virus check</strong>
                             </td>
+                            <td class=\\"govuk-table__cell\\"></td>
                         </tr>
                         <tr class=\\"govuk-table__row govuk-table__row--disabled\\">
-                            <td class=\\"govuk-table__cell\\">
-                                <div class=\\"govuk-form-group\\" aria-hidden=\\"true\\">
-                                    <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
-                                        <div class=\\"govuk-checkboxes__item\\">
-                                            <label class=\\"govuk-label govuk-checkboxes__label\\">16 Nisi ut aliquip ex ea commodo</label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </td>
+                            <td class=\\"govuk-table__cell\\"></td>
                             <td class=\\"govuk-table__cell\\">
                                 <p class=\\"govuk-body-s govuk-!-font-weight-bold\\">16 Nisi ut aliquip ex ea commodo</p>
                                 <p class=\\"file-info colour--secondary\\">From: Nisi Quis</p>
@@ -5224,11 +4666,9 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             </td>
                             <td class=\\"govuk-table__cell\\">01/12/2022</td>
                             <td class=\\"govuk-table__cell\\">Redacted</td>
-                            <td class=\\"govuk-table__cell\\">Failed virus check</td>
-                            <td class=\\"govuk-table__cell\\">
-                                <p class=\\"govuk-body-s\\">View/Edit properties</p>
-                                <p class=\\"govuk-body-s\\">Download</p>
+                            <td class=\\"govuk-table__cell\\"><strong class=\\"govuk-tag govuk-tag--red\\"> Failed virus check</strong>
                             </td>
+                            <td class=\\"govuk-table__cell\\"></td>
                         </tr>
                         <tr class=\\"govuk-table__row \\">
                             <td class=\\"govuk-table__cell\\">
@@ -5417,15 +4857,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row govuk-table__row--disabled\\">
-                            <td class=\\"govuk-table__cell\\">
-                                <div class=\\"govuk-form-group\\" aria-hidden=\\"true\\">
-                                    <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
-                                        <div class=\\"govuk-checkboxes__item\\">
-                                            <label class=\\"govuk-label govuk-checkboxes__label\\">25 Veniam quis nostrud exercitation ullamco</label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </td>
+                            <td class=\\"govuk-table__cell\\"></td>
                             <td class=\\"govuk-table__cell\\">
                                 <p class=\\"govuk-body-s govuk-!-font-weight-bold\\">25 Veniam quis nostrud exercitation ullamco</p>
                                 <p class=\\"file-info colour--secondary\\">From: Veniam Enim</p>
@@ -5433,22 +4865,12 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             </td>
                             <td class=\\"govuk-table__cell\\">01/12/2022</td>
                             <td class=\\"govuk-table__cell\\">Redacted</td>
-                            <td class=\\"govuk-table__cell\\">Awaiting virus check</td>
-                            <td class=\\"govuk-table__cell\\">
-                                <p class=\\"govuk-body-s\\">View/Edit properties</p>
-                                <p class=\\"govuk-body-s\\">Download</p>
+                            <td class=\\"govuk-table__cell\\"><strong class=\\"govuk-tag govuk-tag--yellow\\"> Awaiting virus check</strong>
                             </td>
+                            <td class=\\"govuk-table__cell\\"></td>
                         </tr>
                         <tr class=\\"govuk-table__row govuk-table__row--disabled\\">
-                            <td class=\\"govuk-table__cell\\">
-                                <div class=\\"govuk-form-group\\" aria-hidden=\\"true\\">
-                                    <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
-                                        <div class=\\"govuk-checkboxes__item\\">
-                                            <label class=\\"govuk-label govuk-checkboxes__label\\">26 Exercitation ullamco laboris nisi ut aliquip</label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </td>
+                            <td class=\\"govuk-table__cell\\"></td>
                             <td class=\\"govuk-table__cell\\">
                                 <p class=\\"govuk-body-s govuk-!-font-weight-bold\\">26 Exercitation ullamco laboris nisi ut aliquip</p>
                                 <p class=\\"file-info colour--secondary\\">From: Exercitation Minim</p>
@@ -5456,22 +4878,12 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             </td>
                             <td class=\\"govuk-table__cell\\">01/12/2022</td>
                             <td class=\\"govuk-table__cell\\">Redacted</td>
-                            <td class=\\"govuk-table__cell\\">Failed virus check</td>
-                            <td class=\\"govuk-table__cell\\">
-                                <p class=\\"govuk-body-s\\">View/Edit properties</p>
-                                <p class=\\"govuk-body-s\\">Download</p>
+                            <td class=\\"govuk-table__cell\\"><strong class=\\"govuk-tag govuk-tag--red\\"> Failed virus check</strong>
                             </td>
+                            <td class=\\"govuk-table__cell\\"></td>
                         </tr>
                         <tr class=\\"govuk-table__row govuk-table__row--disabled\\">
-                            <td class=\\"govuk-table__cell\\">
-                                <div class=\\"govuk-form-group\\" aria-hidden=\\"true\\">
-                                    <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
-                                        <div class=\\"govuk-checkboxes__item\\">
-                                            <label class=\\"govuk-label govuk-checkboxes__label\\">27 Nisi ut aliquip ex ea commodo</label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </td>
+                            <td class=\\"govuk-table__cell\\"></td>
                             <td class=\\"govuk-table__cell\\">
                                 <p class=\\"govuk-body-s govuk-!-font-weight-bold\\">27 Nisi ut aliquip ex ea commodo</p>
                                 <p class=\\"file-info colour--secondary\\">From: Nisi Quis</p>
@@ -5479,11 +4891,9 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             </td>
                             <td class=\\"govuk-table__cell\\">01/12/2022</td>
                             <td class=\\"govuk-table__cell\\">Redacted</td>
-                            <td class=\\"govuk-table__cell\\">Failed virus check</td>
-                            <td class=\\"govuk-table__cell\\">
-                                <p class=\\"govuk-body-s\\">View/Edit properties</p>
-                                <p class=\\"govuk-body-s\\">Download</p>
+                            <td class=\\"govuk-table__cell\\"><strong class=\\"govuk-tag govuk-tag--red\\"> Failed virus check</strong>
                             </td>
+                            <td class=\\"govuk-table__cell\\"></td>
                         </tr>
                         <tr class=\\"govuk-table__row \\">
                             <td class=\\"govuk-table__cell\\">
@@ -5673,15 +5083,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row govuk-table__row--disabled\\">
-                            <td class=\\"govuk-table__cell\\">
-                                <div class=\\"govuk-form-group\\" aria-hidden=\\"true\\">
-                                    <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
-                                        <div class=\\"govuk-checkboxes__item\\">
-                                            <label class=\\"govuk-label govuk-checkboxes__label\\">36 Veniam quis nostrud exercitation ullamco</label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </td>
+                            <td class=\\"govuk-table__cell\\"></td>
                             <td class=\\"govuk-table__cell\\">
                                 <p class=\\"govuk-body-s govuk-!-font-weight-bold\\">36 Veniam quis nostrud exercitation ullamco</p>
                                 <p class=\\"file-info colour--secondary\\">From: Veniam Enim</p>
@@ -5689,22 +5091,12 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             </td>
                             <td class=\\"govuk-table__cell\\">01/12/2022</td>
                             <td class=\\"govuk-table__cell\\">Redacted</td>
-                            <td class=\\"govuk-table__cell\\">Awaiting virus check</td>
-                            <td class=\\"govuk-table__cell\\">
-                                <p class=\\"govuk-body-s\\">View/Edit properties</p>
-                                <p class=\\"govuk-body-s\\">Download</p>
+                            <td class=\\"govuk-table__cell\\"><strong class=\\"govuk-tag govuk-tag--yellow\\"> Awaiting virus check</strong>
                             </td>
+                            <td class=\\"govuk-table__cell\\"></td>
                         </tr>
                         <tr class=\\"govuk-table__row govuk-table__row--disabled\\">
-                            <td class=\\"govuk-table__cell\\">
-                                <div class=\\"govuk-form-group\\" aria-hidden=\\"true\\">
-                                    <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
-                                        <div class=\\"govuk-checkboxes__item\\">
-                                            <label class=\\"govuk-label govuk-checkboxes__label\\">37 Veniam quis nostrud exercitation ullamco</label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </td>
+                            <td class=\\"govuk-table__cell\\"></td>
                             <td class=\\"govuk-table__cell\\">
                                 <p class=\\"govuk-body-s govuk-!-font-weight-bold\\">37 Veniam quis nostrud exercitation ullamco</p>
                                 <p class=\\"file-info colour--secondary\\">From: Veniam Enim</p>
@@ -5712,22 +5104,12 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             </td>
                             <td class=\\"govuk-table__cell\\">01/12/2022</td>
                             <td class=\\"govuk-table__cell\\">Redacted</td>
-                            <td class=\\"govuk-table__cell\\">Awaiting virus check</td>
-                            <td class=\\"govuk-table__cell\\">
-                                <p class=\\"govuk-body-s\\">View/Edit properties</p>
-                                <p class=\\"govuk-body-s\\">Download</p>
+                            <td class=\\"govuk-table__cell\\"><strong class=\\"govuk-tag govuk-tag--yellow\\"> Awaiting virus check</strong>
                             </td>
+                            <td class=\\"govuk-table__cell\\"></td>
                         </tr>
                         <tr class=\\"govuk-table__row govuk-table__row--disabled\\">
-                            <td class=\\"govuk-table__cell\\">
-                                <div class=\\"govuk-form-group\\" aria-hidden=\\"true\\">
-                                    <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
-                                        <div class=\\"govuk-checkboxes__item\\">
-                                            <label class=\\"govuk-label govuk-checkboxes__label\\">38 Exercitation ullamco laboris nisi ut aliquip</label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </td>
+                            <td class=\\"govuk-table__cell\\"></td>
                             <td class=\\"govuk-table__cell\\">
                                 <p class=\\"govuk-body-s govuk-!-font-weight-bold\\">38 Exercitation ullamco laboris nisi ut aliquip</p>
                                 <p class=\\"file-info colour--secondary\\">From: Exercitation Minim</p>
@@ -5735,22 +5117,12 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             </td>
                             <td class=\\"govuk-table__cell\\">01/12/2022</td>
                             <td class=\\"govuk-table__cell\\">Redacted</td>
-                            <td class=\\"govuk-table__cell\\">Failed virus check</td>
-                            <td class=\\"govuk-table__cell\\">
-                                <p class=\\"govuk-body-s\\">View/Edit properties</p>
-                                <p class=\\"govuk-body-s\\">Download</p>
+                            <td class=\\"govuk-table__cell\\"><strong class=\\"govuk-tag govuk-tag--red\\"> Failed virus check</strong>
                             </td>
+                            <td class=\\"govuk-table__cell\\"></td>
                         </tr>
                         <tr class=\\"govuk-table__row govuk-table__row--disabled\\">
-                            <td class=\\"govuk-table__cell\\">
-                                <div class=\\"govuk-form-group\\" aria-hidden=\\"true\\">
-                                    <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
-                                        <div class=\\"govuk-checkboxes__item\\">
-                                            <label class=\\"govuk-label govuk-checkboxes__label\\">39 Nisi ut aliquip ex ea commodo</label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </td>
+                            <td class=\\"govuk-table__cell\\"></td>
                             <td class=\\"govuk-table__cell\\">
                                 <p class=\\"govuk-body-s govuk-!-font-weight-bold\\">39 Nisi ut aliquip ex ea commodo</p>
                                 <p class=\\"file-info colour--secondary\\">From: Nisi Quis</p>
@@ -5758,11 +5130,9 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             </td>
                             <td class=\\"govuk-table__cell\\">01/12/2022</td>
                             <td class=\\"govuk-table__cell\\">Redacted</td>
-                            <td class=\\"govuk-table__cell\\">Failed virus check</td>
-                            <td class=\\"govuk-table__cell\\">
-                                <p class=\\"govuk-body-s\\">View/Edit properties</p>
-                                <p class=\\"govuk-body-s\\">Download</p>
+                            <td class=\\"govuk-table__cell\\"><strong class=\\"govuk-tag govuk-tag--red\\"> Failed virus check</strong>
                             </td>
+                            <td class=\\"govuk-table__cell\\"></td>
                         </tr>
                         <tr class=\\"govuk-table__row \\">
                             <td class=\\"govuk-table__cell\\">
@@ -5975,15 +5345,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row govuk-table__row--disabled\\">
-                            <td class=\\"govuk-table__cell\\">
-                                <div class=\\"govuk-form-group\\" aria-hidden=\\"true\\">
-                                    <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
-                                        <div class=\\"govuk-checkboxes__item\\">
-                                            <label class=\\"govuk-label govuk-checkboxes__label\\">49 Quis nostrud exercitation ullamco laboris nisi</label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </td>
+                            <td class=\\"govuk-table__cell\\"></td>
                             <td class=\\"govuk-table__cell\\">
                                 <p class=\\"govuk-body-s govuk-!-font-weight-bold\\">49 Quis nostrud exercitation ullamco laboris nisi</p>
                                 <p class=\\"file-info colour--secondary\\">From: Quis Ad</p>
@@ -5991,22 +5353,12 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             </td>
                             <td class=\\"govuk-table__cell\\">01/12/2022</td>
                             <td class=\\"govuk-table__cell\\">Redacted</td>
-                            <td class=\\"govuk-table__cell\\">Awaiting virus check</td>
-                            <td class=\\"govuk-table__cell\\">
-                                <p class=\\"govuk-body-s\\">View/Edit properties</p>
-                                <p class=\\"govuk-body-s\\">Download</p>
+                            <td class=\\"govuk-table__cell\\"><strong class=\\"govuk-tag govuk-tag--yellow\\"> Awaiting virus check</strong>
                             </td>
+                            <td class=\\"govuk-table__cell\\"></td>
                         </tr>
                         <tr class=\\"govuk-table__row govuk-table__row--disabled\\">
-                            <td class=\\"govuk-table__cell\\">
-                                <div class=\\"govuk-form-group\\" aria-hidden=\\"true\\">
-                                    <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
-                                        <div class=\\"govuk-checkboxes__item\\">
-                                            <label class=\\"govuk-label govuk-checkboxes__label\\">50 Ullamco laboris nisi ut aliquip ex</label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </td>
+                            <td class=\\"govuk-table__cell\\"></td>
                             <td class=\\"govuk-table__cell\\">
                                 <p class=\\"govuk-body-s govuk-!-font-weight-bold\\">50 Ullamco laboris nisi ut aliquip ex</p>
                                 <p class=\\"file-info colour--secondary\\">From: Ullamco Veniam</p>
@@ -6014,11 +5366,9 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             </td>
                             <td class=\\"govuk-table__cell\\">01/12/2022</td>
                             <td class=\\"govuk-table__cell\\">Redacted</td>
-                            <td class=\\"govuk-table__cell\\">Failed virus check</td>
-                            <td class=\\"govuk-table__cell\\">
-                                <p class=\\"govuk-body-s\\">View/Edit properties</p>
-                                <p class=\\"govuk-body-s\\">Download</p>
+                            <td class=\\"govuk-table__cell\\"><strong class=\\"govuk-tag govuk-tag--red\\"> Failed virus check</strong>
                             </td>
+                            <td class=\\"govuk-table__cell\\"></td>
                         </tr>
                     </tbody>
                 </table>
