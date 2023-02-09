@@ -1,7 +1,6 @@
-import sinon from 'sinon';
+import { jest } from '@jest/globals';
 import supertest from 'supertest';
 import { app } from '../../../app.js';
-// import { databaseConnector } from '../../../utils/database-connector.js';
 const { databaseConnector } = await import('../../../utils/database-connector.js');
 
 const request = supertest(app);
@@ -153,18 +152,23 @@ const appeal5 = {
 	}
 };
 
-const findManyStub = sinon.stub().returns([appeal1, appeal2, appeal3, appeal4, appeal5]);
+jest.useFakeTimers({ now: 1_649_319_144_000 });
 
 describe('Get Appeals', () => {
 	test('gets all appeals assigned to inspector', async () => {
-		sinon.stub(databaseConnector, 'appeal').get(() => {
-			return { findMany: findManyStub };
-		});
+		// GIVEN
+		databaseConnector.appeal.findMany.mockResolvedValue([
+			appeal1,
+			appeal2,
+			appeal3,
+			appeal4,
+			appeal5
+		]);
 
-		sinon.useFakeTimers({ now: 1_649_319_144_000 });
-
+		// WHEN
 		const resp = await request.get('/appeals/inspector').set('userId', 1);
 
+		// THEN
 		expect(resp.status).toEqual(200);
 		expect(resp.body).toEqual([
 			{
@@ -238,7 +242,7 @@ describe('Get Appeals', () => {
 				provisionalVisitType: 'unaccompanied'
 			}
 		]);
-		sinon.assert.calledWith(findManyStub, {
+		expect(databaseConnector.appeal.findMany).toHaveBeenCalledWith({
 			where: {
 				appealStatus: {
 					some: {
@@ -267,8 +271,12 @@ describe('Get Appeals', () => {
 	});
 
 	test('throws error if userid is not provided in the header', async () => {
+		// GIVEN
+
+		// WHEN
 		const resp = await request.get('/appeals/inspector');
 
+		// THEN
 		expect(resp.status).toEqual(401);
 		expect(resp.body).toEqual({
 			errors: { userid: 'Authentication error. Missing header `userId`.' }

@@ -1,8 +1,6 @@
-import sinon from 'sinon';
 import supertest from 'supertest';
 import { app } from '../../../app.js';
 import { applicationFactoryForTests } from '../../../utils/application-factory-for-tests.js';
-// import { databaseConnector } from '../../../utils/database-connector.js';
 const { databaseConnector } = await import('../../../utils/database-connector.js');
 
 const request = supertest(app);
@@ -19,59 +17,15 @@ const application = applicationFactoryForTests({
 	}
 });
 
-const findManyStub = sinon.stub();
-
-findManyStub
-	.withArgs({
-		orderBy: [{ ApplicationDetails: { subSector: { abbreviation: 'asc' } } }],
-		where: {
-			CaseStatus: {
-				some: {
-					status: {
-						in: [
-							'draft',
-							'pre_application',
-							'acceptance',
-							'pre_examination',
-							'examination',
-							'recommendation',
-							'decision',
-							'post_decision',
-							'withdrawn',
-							'published'
-						]
-					},
-					valid: true
-				}
-			}
-		},
-		include: {
-			ApplicationDetails: {
-				include: {
-					subSector: {
-						include: {
-							sector: true
-						}
-					}
-				}
-			},
-			CaseStatus: {
-				where: {
-					valid: true
-				}
-			}
-		}
-	})
-	.returns([application]);
-
 describe('Get applications', () => {
 	test('gets all applications for case team', async () => {
-		sinon.stub(databaseConnector, 'case').get(() => {
-			return { findMany: findManyStub };
-		});
+		// GIVEN
+		databaseConnector.case.findMany.mockResolvedValue([application]);
 
+		// WHEN
 		const response = await request.get('/applications/case-team');
 
+		// THEN
 		expect(response.status).toEqual(200);
 		expect(response.body).toEqual([
 			{

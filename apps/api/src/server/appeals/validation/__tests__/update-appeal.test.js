@@ -1,17 +1,8 @@
-import sinon from 'sinon';
 import supertest from 'supertest';
 import { app } from '../../../app.js';
-// import { databaseConnector } from '../../../utils/database-connector.js';
 const { databaseConnector } = await import('../../../utils/database-connector.js');
 
 const request = supertest(app);
-
-const includingDetailsForValidtion = {
-	appealStatus: { where: { valid: true } },
-	appealType: true
-};
-
-const findUniqueStub = sinon.stub();
 
 const appeal1 = {
 	id: 1,
@@ -23,29 +14,19 @@ const appeal1 = {
 	]
 };
 
-findUniqueStub
-	.withArgs({ where: { id: 1 }, include: includingDetailsForValidtion })
-	.returns(appeal1);
-
-const updateStub = sinon.stub();
-
 describe('Update appeal', () => {
-	beforeAll(() => {
-		sinon.stub(databaseConnector, 'appeal').get(() => {
-			return { findUnique: findUniqueStub, update: updateStub };
-		});
-		sinon.stub(databaseConnector, 'appealStatus').get(() => {
-			return { create: sinon.stub() };
-		});
-	});
-
 	test('should be able to modify the appellant name', async () => {
+		// GIVEN
+		databaseConnector.appeal.findUnique.mockResolvedValue(appeal1);
+
+		// WHEN
 		const resp = await request
 			.patch('/appeals/validation/1')
 			.send({ AppellantName: 'Leah Thornton' });
 
+		// THEN
 		expect(resp.status).toEqual(200);
-		sinon.assert.calledWithExactly(updateStub, {
+		expect(databaseConnector.appeal.update).toHaveBeenCalledWith({
 			where: { id: 1 },
 			data: {
 				appellant: {
@@ -53,12 +34,16 @@ describe('Update appeal', () => {
 						name: 'Leah Thornton'
 					}
 				},
-				updatedAt: sinon.match.any
+				updatedAt: expect.any(Date)
 			}
 		});
 	});
 
 	test('should be able to modify address', async () => {
+		// GIVEN
+		databaseConnector.appeal.findUnique.mockResolvedValue(appeal1);
+
+		// WHEN
 		const resp = await request.patch('/appeals/validation/1').send({
 			Address: {
 				AddressLine1: 'some new addr',
@@ -69,11 +54,12 @@ describe('Update appeal', () => {
 			}
 		});
 
+		// THEN
 		expect(resp.status).toEqual(200);
-		sinon.assert.calledWithExactly(updateStub, {
+		expect(databaseConnector.appeal.update).toHaveBeenCalledWith({
 			where: { id: 1 },
 			data: {
-				updatedAt: sinon.match.any,
+				updatedAt: expect.any(Date),
 				address: {
 					update: {
 						addressLine1: 'some new addr',
@@ -88,6 +74,10 @@ describe('Update appeal', () => {
 	});
 
 	test('should be able to modify address even when some parts are null', async () => {
+		// GIVEN
+		databaseConnector.appeal.findUnique.mockResolvedValue(appeal1);
+
+		// WHEN
 		const resp = await request.patch('/appeals/validation/1').send({
 			Address: {
 				AddressLine1: 'some new addr',
@@ -95,11 +85,12 @@ describe('Update appeal', () => {
 			}
 		});
 
+		// THEN
 		expect(resp.status).toEqual(200);
-		sinon.assert.calledWithExactly(updateStub, {
+		expect(databaseConnector.appeal.update).toHaveBeenCalledWith({
 			where: { id: 1 },
 			data: {
-				updatedAt: sinon.match.any,
+				updatedAt: expect.any(Date),
 				address: {
 					update: {
 						addressLine1: 'some new addr',
@@ -114,30 +105,40 @@ describe('Update appeal', () => {
 	});
 
 	test('should be able to modify local planning department', async () => {
+		// GIVEN
+		databaseConnector.appeal.findUnique.mockResolvedValue(appeal1);
+
+		// WHEN
 		const resp = await request.patch('/appeals/validation/1').send({
 			LocalPlanningDepartment: 'New Planning Department'
 		});
 
+		// THEN
 		expect(resp.status).toEqual(200);
-		sinon.assert.calledWithExactly(updateStub, {
+		expect(databaseConnector.appeal.update).toHaveBeenCalledWith({
 			where: { id: 1 },
 			data: {
-				updatedAt: sinon.match.any,
+				updatedAt: expect.any(Date),
 				localPlanningDepartment: 'New Planning Department'
 			}
 		});
 	});
 
 	test('should be able to modify planning application reference', async () => {
+		// GIVEN
+		databaseConnector.appeal.findUnique.mockResolvedValue(appeal1);
+
+		// WHEN
 		const resp = await request.patch('/appeals/validation/1').send({
 			PlanningApplicationReference: 'New Planning Application Reference'
 		});
 
+		// THEN
 		expect(resp.status).toEqual(200);
-		sinon.assert.calledWithExactly(updateStub, {
+		expect(databaseConnector.appeal.update).toHaveBeenCalledWith({
 			where: { id: 1 },
 			data: {
-				updatedAt: sinon.match.any,
+				updatedAt: expect.any(Date),
 				planningApplicationReference: 'New Planning Application Reference'
 			}
 		});

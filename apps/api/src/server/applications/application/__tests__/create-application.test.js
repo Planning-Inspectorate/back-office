@@ -1,15 +1,12 @@
-import sinon from 'sinon';
+import { jest } from '@jest/globals';
 import supertest from 'supertest';
-// @ts-ignore
 import { app } from '../../../app.js';
-import { eventClient } from '../../../infrastructure/event-client.js';
-// import { databaseConnector } from '../../../utils/database-connector.js';
+const { eventClient } = await import('../../../infrastructure/event-client.js');
 const { databaseConnector } = await import('../../../utils/database-connector.js');
 
-import { validateNsipProject } from './schema-test-utils.js';
 const request = supertest(app);
 
-const createStub = sinon.stub().returns({ id: 1, serviceCustomer: [{ id: 4 }] });
+const createdCase = { id: 1, serviceCustomer: [{ id: 4 }] };
 
 const expectedEventPayload = {
 	id: 1,
@@ -29,50 +26,13 @@ const expectedEventPayload = {
 	validationOfficers: []
 };
 
-const findUniqueSubSectorStub = sinon.stub();
-
-findUniqueSubSectorStub.withArgs({ where: { name: 'some_sub_sector' } }).returns({});
-findUniqueSubSectorStub.withArgs({ where: { name: 'some unknown subsector' } }).returns(null);
-
-const findUniqueZoomLevelStub = sinon.stub();
-
-findUniqueZoomLevelStub.withArgs({ where: { name: 'some-unknown-map-zoom-level' } }).returns(null);
-findUniqueZoomLevelStub.withArgs({ where: { name: 'some-known-map-zoom-level' } }).returns({});
-
-const findUniqueRegionStub = sinon.stub();
-
-findUniqueRegionStub.withArgs({ where: { name: 'region1' } }).returns({});
-findUniqueRegionStub.withArgs({ where: { name: 'region2' } }).returns({});
-findUniqueRegionStub.withArgs({ where: { name: 'some-unknown-region' } }).returns(null);
-
-/**
- * @type {sinon.SinonSpy<any, any>}
- */
-let stubbedSendEvents;
-
-beforeAll(() => {
-	sinon.stub(databaseConnector, 'case').get(() => {
-		return { create: createStub };
-	});
-
-	sinon.stub(databaseConnector, 'subSector').get(() => {
-		return { findUnique: findUniqueSubSectorStub };
-	});
-
-	sinon.stub(databaseConnector, 'zoomLevel').get(() => {
-		return { findUnique: findUniqueZoomLevelStub };
-	});
-
-	sinon.stub(databaseConnector, 'region').get(() => {
-		return { findUnique: findUniqueRegionStub };
-	});
-
-	sinon.useFakeTimers({ now: 1_649_319_144_000 });
-
-	stubbedSendEvents = sinon.stub(eventClient, 'sendEvents');
-});
+jest.useFakeTimers({ now: 1_649_319_144_000 });
 
 test('creates new application with just title and first notified date', async () => {
+	// GIVEN
+	databaseConnector.case.create.mockResolvedValue(createdCase);
+
+	// WHEN
 	const response = await request.post('/applications').send({
 		title: 'some title',
 		keyDates: {
@@ -80,33 +40,34 @@ test('creates new application with just title and first notified date', async ()
 		}
 	});
 
+	// THEN
 	expect(response.status).toEqual(200);
 	expect(response.body).toEqual({ id: 1, applicantIds: [4] });
-	sinon.assert.calledWith(
-		createStub,
-		sinon.match({
-			data: {
-				title: 'some title',
-				ApplicationDetails: {
-					create: {
-						submissionAtInternal: new Date(1_649_319_344_000_000)
-					}
-				},
-				CaseStatus: {
-					create: {
-						status: 'draft'
-					}
+	expect(databaseConnector.case.create).toHaveBeenCalledWith({
+		data: {
+			title: 'some title',
+			ApplicationDetails: {
+				create: {
+					submissionAtInternal: new Date(1_649_319_344_000_000)
+				}
+			},
+			CaseStatus: {
+				create: {
+					status: 'draft'
 				}
 			}
-		})
-	);
+		},
+		include: expect.any(Object)
+	});
 
-	// This whole thing around getting the call number is horrendous, hopefully we can fix this soon with jest
-	expect(validateNsipProject(stubbedSendEvents.getCall(0).args[1][0])).toEqual(true);
-	sinon.assert.calledWith(stubbedSendEvents, 'nsip-project', [expectedEventPayload]);
+	expect(eventClient.sendEvents).toHaveBeenCalledWith('nsip-project', [expectedEventPayload]);
 });
 
 test('creates new application with just easting and sub-sector name', async () => {
+	// GIVEN
+	databaseConnector.case.create.mockResolvedValue(createdCase);
+
+	// WHEN
 	const response = await request.post('/applications').send({
 		geographicalInformation: {
 			gridReference: {
@@ -116,40 +77,41 @@ test('creates new application with just easting and sub-sector name', async () =
 		subSectorName: 'some_sub_sector'
 	});
 
+	// THEN
 	expect(response.status).toEqual(200);
 	expect(response.body).toEqual({ id: 1, applicantIds: [4] });
-	sinon.assert.calledWith(
-		createStub,
-		sinon.match({
-			data: {
-				gridReference: {
-					create: {
-						easting: 123_456
-					}
-				},
-				ApplicationDetails: {
-					create: {
-						subSector: {
-							connect: {
-								name: 'some_sub_sector'
-							}
+	expect(databaseConnector.case.create).toHaveBeenCalledWith({
+		data: {
+			gridReference: {
+				create: {
+					easting: 123_456
+				}
+			},
+			ApplicationDetails: {
+				create: {
+					subSector: {
+						connect: {
+							name: 'some_sub_sector'
 						}
 					}
-				},
-				CaseStatus: {
-					create: {
-						status: 'draft'
-					}
+				}
+			},
+			CaseStatus: {
+				create: {
+					status: 'draft'
 				}
 			}
-		})
-	);
+		},
+		include: expect.any(Object)
+	});
 
-	expect(validateNsipProject(stubbedSendEvents.getCall(1).args[1][0])).toEqual(true);
-	sinon.assert.calledWith(stubbedSendEvents, 'nsip-project', [expectedEventPayload]);
+	expect(eventClient.sendEvents).toHaveBeenCalledWith('nsip-project', [expectedEventPayload]);
 });
 
 test('creates new application when all possible details provided', async () => {
+	// GIVEN
+
+	// WHEN
 	const response = await request.post('/applications').send({
 		title: 'title',
 		description: 'description',
@@ -188,62 +150,63 @@ test('creates new application when all possible details provided', async () => {
 		}
 	});
 
+	// THEN
 	expect(response.status).toEqual(200);
 	expect(response.body).toEqual({ id: 1, applicantIds: [4] });
-	sinon.assert.calledWith(
-		createStub,
-		sinon.match({
-			data: {
-				title: 'title',
-				description: 'description',
-				gridReference: { create: { easting: 123_456, northing: 987_654 } },
-				ApplicationDetails: {
-					create: {
-						caseEmail: 'caseEmail@pins.com',
-						zoomLevel: { connect: { name: 'some-known-map-zoom-level' } },
-						locationDescription: 'location description',
-						submissionAtInternal: new Date(1_649_319_344_000_000),
-						submissionAtPublished: 'Q1 2023',
-						subSector: { connect: { name: 'some_sub_sector' } },
-						regions: {
-							create: [
-								{ region: { connect: { name: 'region1' } } },
-								{ region: { connect: { name: 'region2' } } }
-							]
+	expect(databaseConnector.case.create).toHaveBeenCalledWith({
+		data: {
+			title: 'title',
+			description: 'description',
+			gridReference: { create: { easting: 123_456, northing: 987_654 } },
+			ApplicationDetails: {
+				create: {
+					caseEmail: 'caseEmail@pins.com',
+					zoomLevel: { connect: { name: 'some-known-map-zoom-level' } },
+					locationDescription: 'location description',
+					submissionAtInternal: new Date(1_649_319_344_000_000),
+					submissionAtPublished: 'Q1 2023',
+					subSector: { connect: { name: 'some_sub_sector' } },
+					regions: {
+						create: [
+							{ region: { connect: { name: 'region1' } } },
+							{ region: { connect: { name: 'region2' } } }
+						]
+					}
+				}
+			},
+			serviceCustomer: {
+				create: {
+					organisationName: 'org',
+					firstName: 'first',
+					middleName: 'middle',
+					lastName: 'last',
+					email: 'test@test.com',
+					website: 'www.google.com',
+					phoneNumber: '02036579785',
+					address: {
+						create: {
+							addressLine1: 'address line 1',
+							addressLine2: 'address line 2',
+							town: 'town',
+							county: 'county',
+							postcode: 'N1 9BE'
 						}
 					}
-				},
-				serviceCustomer: {
-					create: {
-						organisationName: 'org',
-						firstName: 'first',
-						middleName: 'middle',
-						lastName: 'last',
-						email: 'test@test.com',
-						website: 'www.google.com',
-						phoneNumber: '02036579785',
-						address: {
-							create: {
-								addressLine1: 'address line 1',
-								addressLine2: 'address line 2',
-								town: 'town',
-								county: 'county',
-								postcode: 'N1 9BE'
-							}
-						}
-					}
-				},
-				CaseStatus: { create: { status: 'draft' } }
-			}
-		})
-	);
+				}
+			},
+			CaseStatus: { create: { status: 'draft' } }
+		},
+		include: expect.any(Object)
+	});
 
-	expect(validateNsipProject(stubbedSendEvents.getCall(2).args[1][0])).toEqual(true);
-	sinon.assert.calledWith(stubbedSendEvents, 'nsip-project', [expectedEventPayload]);
+	expect(eventClient.sendEvents).toHaveBeenCalledWith('nsip-project', [expectedEventPayload]);
 });
 
 test(`creates new application with application first and last name,
         address line, map zoom level`, async () => {
+	// GIVEN
+
+	// WHEN
 	const response = await request.post('/applications').send({
 		applicants: [
 			{
@@ -259,41 +222,45 @@ test(`creates new application with application first and last name,
 		}
 	});
 
+	// THEN
 	expect(response.status).toEqual(200);
 	expect(response.body).toEqual({ id: 1, applicantIds: [4] });
-	sinon.assert.calledWith(
-		createStub,
-		sinon.match({
-			data: {
-				serviceCustomer: {
-					create: {
-						firstName: 'first',
-						lastName: 'last',
-						address: {
-							create: {
-								addressLine1: 'some addr'
-							}
+	expect(databaseConnector.case.create).toHaveBeenCalledWith({
+		data: {
+			serviceCustomer: {
+				create: {
+					firstName: 'first',
+					lastName: 'last',
+					address: {
+						create: {
+							addressLine1: 'some addr'
 						}
 					}
-				},
-				ApplicationDetails: {
-					create: {
-						zoomLevel: { connect: { name: 'some-known-map-zoom-level' } }
-					}
-				},
-				CaseStatus: {
-					create: {
-						status: 'draft'
-					}
+				}
+			},
+			ApplicationDetails: {
+				create: {
+					zoomLevel: { connect: { name: 'some-known-map-zoom-level' } }
+				}
+			},
+			CaseStatus: {
+				create: {
+					status: 'draft'
 				}
 			}
-		})
-	);
-	expect(validateNsipProject(stubbedSendEvents.getCall(3).args[1][0])).toEqual(true);
-	sinon.assert.calledWith(stubbedSendEvents, 'nsip-project', [expectedEventPayload]);
+		},
+		include: expect.any(Object)
+	});
+	expect(eventClient.sendEvents).toHaveBeenCalledWith('nsip-project', [expectedEventPayload]);
 });
 
 test('returns error if any validated values are invalid', async () => {
+	// GIVEN
+	databaseConnector.zoomLevel.findUnique.mockResolvedValue(null);
+	databaseConnector.region.findUnique.mockResolvedValue(null);
+	databaseConnector.subSector.findUnique.mockResolvedValue(null);
+
+	// WHEN
 	const response = await request.post('/applications').send({
 		caseEmail: 'not a real email',
 		geographicalInformation: {
@@ -319,6 +286,7 @@ test('returns error if any validated values are invalid', async () => {
 		subSectorName: 'some unknown subsector'
 	});
 
+	// THEN
 	expect(response.status).toEqual(400);
 	expect(response.body).toEqual({
 		errors: {

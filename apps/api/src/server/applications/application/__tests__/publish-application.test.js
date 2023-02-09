@@ -1,65 +1,48 @@
-import sinon from 'sinon';
+import { jest } from '@jest/globals';
 import supertest from 'supertest';
 import { app } from '../../../app.js';
-// import { databaseConnector } from '../../../utils/database-connector.js';
 const { databaseConnector } = await import('../../../utils/database-connector.js');
 
 import logger from '../../../utils/logger.js';
 
 const request = supertest(app);
 
-const updateStub = sinon.stub();
-
-const findUniqueSubSectorStub = sinon.stub();
-
-findUniqueSubSectorStub.withArgs({ where: { name: 'some_sub_sector' } }).returns({});
-findUniqueSubSectorStub.withArgs({ where: { name: 'some unknown subsector' } }).returns(null);
-
-const mockDate = new Date(1_649_319_144_000);
-
-const findUniqueStub = sinon.stub();
+const now = 1_649_319_144_000;
+const mockDate = new Date(now);
 
 const mockPublishedAt = new Date('2023-01-15T23:14:04.193Z');
 
-findUniqueStub.withArgs({ where: { id: 1 } }).returns({ id: 1, publishedAt: mockPublishedAt });
+const loggerInfo = jest.spyOn(logger, 'info');
 
-const loggerInfo = sinon.stub(logger, 'info');
+jest.useFakeTimers({ now });
 
 describe('Publish application', () => {
-	beforeAll(() => {
-		sinon.useFakeTimers({ now: 1_649_319_144_000 });
-	});
-
-	beforeEach(() => {
-		sinon.stub(databaseConnector, 'case').get(() => {
-			return { update: updateStub, findUnique: findUniqueStub };
-		});
-
-		updateStub.resolves({
-			publishedAt: mockDate
-		});
-	});
-
 	test('publish an application and return published Date as a timestamp', async () => {
+		// GIVEN
 		const caseId = 1;
 
+		databaseConnector.case.findUnique.mockResolvedValue({ id: 1, publishedAt: mockPublishedAt });
+		databaseConnector.case.update.mockResolvedValue({ publishedAt: mockDate });
+
+		// WHEN
 		const response = await request.patch(`/applications/${caseId}/publish`);
 
+		// THEN
 		expect(response.status).toEqual(200);
 
 		const publishedDate = 1_649_319_144;
 
-		sinon.assert.callCount(loggerInfo, 3);
+		expect(loggerInfo).toHaveBeenCalledTimes(3);
 
-		sinon.assert.calledWithExactly(loggerInfo, `attempting to publish a case with id ${caseId}`);
-		sinon.assert.calledWithExactly(loggerInfo, `case was published at ${mockDate}`);
-		sinon.assert.calledWithExactly(loggerInfo, `successfully published case with id ${caseId}`);
+		expect(loggerInfo).toHaveBeenNthCalledWith(1, `attempting to publish a case with id ${caseId}`);
+		expect(loggerInfo).toHaveBeenNthCalledWith(2, `case was published at ${mockDate}`);
+		expect(loggerInfo).toHaveBeenNthCalledWith(3, `successfully published case with id ${caseId}`);
 
 		expect(response.body).toEqual({
 			publishedDate
 		});
 
-		sinon.assert.calledWith(updateStub, {
+		expect(databaseConnector.case.update).toHaveBeenCalledWith({
 			where: { id: caseId },
 			data: {
 				publishedAt: mockDate
@@ -68,10 +51,15 @@ describe('Publish application', () => {
 	});
 
 	test('returns 404 error if a caseId does not exist', async () => {
+		// GIVEN
 		const caseId = 134;
 
+		databaseConnector.case.findUnique.mockResolvedValue(null);
+
+		// WHEN
 		const response = await request.patch(`/applications/${caseId}/publish`);
 
+		// THEN
 		expect(response.status).toEqual(404);
 
 		expect(response.body).toEqual({

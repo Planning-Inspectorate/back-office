@@ -1,10 +1,8 @@
 import path from 'node:path';
 import * as url from 'node:url';
-import sinon from 'sinon';
 import supertest from 'supertest';
 import { app } from '../../../app.js';
 import { appealFactoryForTests } from '../../../utils/appeal-factory-for-tests.js';
-// import { databaseConnector } from '../../../utils/database-connector.js';
 const { databaseConnector } = await import('../../../utils/database-connector.js');
 
 const request = supertest(app);
@@ -36,42 +34,45 @@ const appeal2 = appealFactoryForTests({
 	typeShorthand: 'FPA'
 });
 
-const inclusions = { appealStatus: { where: { valid: true } }, appealType: true };
-const findUniqueStub = sinon.stub();
-
-findUniqueStub.withArgs({ where: { id: 1 }, include: inclusions }).returns(appeal1);
-findUniqueStub.withArgs({ where: { id: 2 }, include: inclusions }).returns(appeal2);
-
 describe('Upload final comments', () => {
-	beforeAll(() => {
-		sinon.stub(databaseConnector, 'appeal').get(() => {
-			return { findUnique: findUniqueStub };
-		});
-	});
-
 	test('Throws error if appeal is not accepting final comments', async () => {
+		// GIVEN
+		databaseConnector.appeal.findUnique.mockResolvedValue(appeal1);
+
+		// WHEN
 		const response = await request
 			.post('/appeals/case-officer/1/final-comment')
 			.attach('finalcomments', pathToFile)
 			.attach('finalcomments', pathToFile);
 
+		// THEN
 		expect(response.status).toEqual(409);
 		expect(response.body).toEqual({ errors: { appeal: 'Appeal is in an invalid state' } });
 	});
 
 	test('Throws error if no file provided', async () => {
+		// GIVEN
+		databaseConnector.appeal.findUnique.mockResolvedValue(appeal1);
+
+		// WHEN
 		const response = await request.post('/appeals/case-officer/1/final-comment');
 
+		// THEN
 		expect(response.status).toEqual(400);
 		expect(response.body).toEqual({ errors: { finalcomments: 'Select a file' } });
 	});
 
 	test('Returns 200 if successfully uploaded final comment', async () => {
+		// GIVEN
+		databaseConnector.appeal.findUnique.mockResolvedValue(appeal2);
+
+		// WHEN
 		const response = await request
 			.post('/appeals/case-officer/2/final-comment')
 			.attach('finalcomments', pathToFile)
 			.attach('finalcomments', pathToFile);
 
+		// THEN
 		expect(response.status).toEqual(200);
 		expect(response.body).toEqual({
 			AppealId: 2,

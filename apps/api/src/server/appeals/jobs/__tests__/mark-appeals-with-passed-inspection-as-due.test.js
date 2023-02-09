@@ -1,7 +1,4 @@
-import Prisma from '@prisma/client';
-import sinon from 'sinon';
 import { appealFactoryForTests } from '../../../utils/appeal-factory-for-tests.js';
-// import { databaseConnector } from '../../../utils/database-connector.js';
 const { databaseConnector } = await import('../../../utils/database-connector.js');
 
 import findAndUpdateStatusForAppealsWithPassedInspection from '../mark-appeals-with-passed-inspection-as-due.js';
@@ -18,33 +15,16 @@ const appeal1 = appealFactoryForTests({
 	typeShorthand: 'HAS'
 });
 
-const updateStub = sinon.stub().returns(appeal1);
-
-const findManyStub = sinon.stub().returns([appeal1]);
-
-const updateManyAppealStatusStub = sinon.stub();
-const createAppealStatusStub = sinon.stub();
-
 describe('Mark appeals with passed inspection as due', () => {
-	beforeAll(() => {
-		sinon.stub(databaseConnector, 'appeal').get(() => {
-			return {
-				update: updateStub,
-				findMany: findManyStub
-			};
-		});
-		sinon.stub(databaseConnector, 'appealStatus').get(() => {
-			return {
-				updateMany: updateManyAppealStatusStub,
-				create: createAppealStatusStub
-			};
-		});
-		sinon.stub(Prisma.PrismaClient.prototype, '$transaction');
-	});
-
 	test('finds appeals to mark as overdue as updates their statuses', async () => {
+		// GIVEN
+		databaseConnector.appeal.findMany.mockResolvedValue([appeal1]);
+
+		// WHEN
 		await findAndUpdateStatusForAppealsWithPassedInspection();
-		sinon.assert.calledOnceWithExactly(findManyStub, {
+
+		// THEN
+		expect(databaseConnector.appeal.findMany).toHaveBeenCalledWith({
 			where: {
 				appealStatus: {
 					some: {
@@ -54,7 +34,7 @@ describe('Mark appeals with passed inspection as due', () => {
 				},
 				siteVisit: {
 					visitDate: {
-						lt: sinon.match.any
+						lt: expect.any(Date)
 					}
 				}
 			},
@@ -62,11 +42,11 @@ describe('Mark appeals with passed inspection as due', () => {
 				appealType: true
 			}
 		});
-		sinon.assert.calledWith(updateManyAppealStatusStub, {
+		expect(databaseConnector.appealStatus.updateMany).toHaveBeenCalledWith({
 			where: { id: { in: [1] } },
 			data: { valid: false }
 		});
-		sinon.assert.calledWith(createAppealStatusStub, {
+		expect(databaseConnector.appealStatus.create).toHaveBeenCalledWith({
 			data: { status: 'decision_due', appealId: 1 }
 		});
 	});

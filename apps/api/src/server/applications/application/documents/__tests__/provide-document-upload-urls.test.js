@@ -1,9 +1,7 @@
-import { got } from 'got';
-import sinon from 'sinon';
 import supertest from 'supertest';
 import { app } from '../../../../app.js';
-// import { databaseConnector } from '../../../../utils/database-connector.js';
 const { databaseConnector } = await import('../../../../utils/database-connector.js');
+const { default: got } = await import('got');
 
 const request = supertest(app);
 
@@ -12,77 +10,35 @@ const application = {
 	reference: 'case reference'
 };
 
-const findUniqueStub = sinon.stub();
-
-findUniqueStub.withArgs({ where: { id: 1 } }).returns(application);
-
-const findUniqueFolderStub = sinon.stub();
-
-findUniqueFolderStub.withArgs({ where: { id: 1 } }).returns({ id: 1, caseId: 1 });
-
-const upsertDocumentStub = sinon.stub();
-
-upsertDocumentStub
-	.withArgs({
-		create: { name: 'test doc', folderId: 1, fileType: 'application/pdf', fileSize: 1024 },
-		where: { name_folderId: { name: 'test doc', folderId: 1 } },
-		update: {}
-	})
-	.returns({ id: 1, guid: 'some-guid', name: 'test doc', folderId: 1 });
-
-const postStub = sinon
-	.stub()
-	.withArgs('https://api-document-storage-host:doc-storage-port/document-location', {
-		json: [
-			{
-				caseType: 'application',
-				caseReference: 'case reference',
-				GUID: 'some-guid',
-				documentName: 'test doc'
-			}
-		]
-	})
-	.returns({
-		json: () => {
-			return {
-				blobStorageHost: 'blob-store-host',
-				blobStorageContainer: 'blob-store-container',
-				documents: [
-					{
-						caseType: 'application',
-						blobStoreUrl: '/some/path/test doc',
-						caseReference: 'test reference',
-						GUID: 'some-guid',
-						documentName: 'test doc'
-					}
-				]
-			};
-		}
-	});
-
-const updateDocumentStub = sinon.stub();
-
 describe('Provide document upload URLs', () => {
 	beforeAll(() => {
-		sinon.stub(databaseConnector, 'case').get(() => {
-			return { findUnique: findUniqueStub };
-		});
-
-		sinon.stub(databaseConnector, 'folder').get(() => {
-			return { findUnique: findUniqueFolderStub };
-		});
-
-		sinon.stub(databaseConnector, 'document').get(() => {
-			return { upsert: upsertDocumentStub, update: updateDocumentStub };
-		});
-
-		sinon.stub(got, 'post').callsFake(postStub);
-
 		process.env.DOCUMENT_STORAGE_API_HOST = 'api-document-storage-host';
 		process.env.DOCUMENT_STORAGE_API_PROT = 'doc-storage-port';
 	});
 
 	test('saves documents information and returns upload URL', async () => {
+		// GIVEN
+		databaseConnector.case.findUnique.mockResolvedValue(application);
+		databaseConnector.folder.findUnique.mockResolvedValue({ id: 1, caseId: 1 });
+		got.post.mockResolvedValue({
+			json: () => {
+				return {
+					blobStorageHost: 'blob-store-host',
+					blobStorageContainer: 'blob-store-container',
+					documents: [
+						{
+							caseType: 'application',
+							blobStoreUrl: '/some/path/test doc',
+							caseReference: 'test reference',
+							GUID: 'some-guid',
+							documentName: 'test doc'
+						}
+					]
+				};
+			}
+		});
+
+		// WHEN
 		const response = await request.post('/applications/1/documents').send([
 			{
 				folderId: 1,
@@ -92,6 +48,7 @@ describe('Provide document upload URLs', () => {
 			}
 		]);
 
+		// THEN
 		expect(response.status).toEqual(200);
 		expect(response.body).toEqual({
 			blobStorageHost: 'blob-store-host',
@@ -104,7 +61,7 @@ describe('Provide document upload URLs', () => {
 			]
 		});
 
-		sinon.assert.calledWith(updateDocumentStub, {
+		expect(databaseConnector.document.update).toHaveBeenCalledWith({
 			where: {
 				guid: 'some-guid'
 			},
@@ -116,6 +73,11 @@ describe('Provide document upload URLs', () => {
 	});
 
 	test('throws error if folder id does not belong to case', async () => {
+		// GIVEN
+		databaseConnector.case.findUnique.mockResolvedValue(application);
+		databaseConnector.folder.findUnique.mockResolvedValue({ id: 1, caseId: 2 });
+
+		// WHEN
 		const response = await request.post('/applications/1/documents').send([
 			{
 				folderId: 2,
@@ -125,6 +87,7 @@ describe('Provide document upload URLs', () => {
 			}
 		]);
 
+		// THEN
 		expect(response.status).toEqual(400);
 		expect(response.body).toEqual({
 			errors: {
@@ -134,8 +97,14 @@ describe('Provide document upload URLs', () => {
 	});
 
 	test('throws error if not all document details provided', async () => {
+		// GIVEN
+		databaseConnector.case.findUnique.mockResolvedValue(application);
+		databaseConnector.folder.findUnique.mockResolvedValue({ id: 1, caseId: 1 });
+
+		// WHEN
 		const response = await request.post('/applications/1/documents').send([{}]);
 
+		// THEN
 		expect(response.status).toEqual(400);
 		expect(response.body).toEqual({
 			errors: {
@@ -148,8 +117,14 @@ describe('Provide document upload URLs', () => {
 	});
 
 	test('throws error if no documents provided', async () => {
+		// GIVEN
+		databaseConnector.case.findUnique.mockResolvedValue(application);
+		databaseConnector.folder.findUnique.mockResolvedValue({ id: 1, caseId: 1 });
+
+		// WHEN
 		const response = await request.post('/applications/1/documents').send([]);
 
+		// THEN
 		expect(response.status).toEqual(400);
 		expect(response.body).toEqual({
 			errors: {
@@ -159,8 +134,14 @@ describe('Provide document upload URLs', () => {
 	});
 
 	test('checks invalid case id', async () => {
+		// GIVEN
+		databaseConnector.case.findUnique.mockResolvedValue(null);
+		databaseConnector.folder.findUnique.mockResolvedValue({ id: 1, caseId: 1 });
+
+		// WHEN
 		const response = await request.post('/applications/2/documents');
 
+		// THEN
 		expect(response.status).toEqual(404);
 		expect(response.body).toEqual({
 			errors: {

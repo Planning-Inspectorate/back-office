@@ -1,8 +1,6 @@
-import sinon from 'sinon';
 import supertest from 'supertest';
 import { app } from '../../../app.js';
 import { applicationFactoryForTests } from '../../../utils/application-factory-for-tests.js';
-// import { databaseConnector } from '../../../utils/database-connector.js';
 const { databaseConnector } = await import('../../../utils/database-connector.js');
 
 const request = supertest(app);
@@ -20,90 +18,6 @@ const application = applicationFactoryForTests({
 		CaseStatus: true
 	}
 });
-
-const applicationsCount = 1;
-
-const findManyStub = sinon.stub();
-
-findManyStub
-	.withArgs({
-		skip: sinon.match.any,
-		take: sinon.match.any,
-		orderBy: sinon.match.any,
-		where: {
-			OR: [
-				{
-					title: { contains: searchString }
-				},
-				{
-					reference: { contains: searchString }
-				},
-				{
-					description: { contains: searchString }
-				}
-			]
-		},
-		include: sinon.match.any
-	})
-	.returns([application]);
-findManyStub
-	.withArgs({
-		skip: sinon.match.any,
-		take: sinon.match.any,
-		orderBy: sinon.match.any,
-		where: {
-			OR: [
-				{
-					title: { contains: notFoundSearchString }
-				},
-				{
-					reference: { contains: notFoundSearchString }
-				},
-				{
-					description: { contains: notFoundSearchString }
-				}
-			]
-		},
-		include: sinon.match.any
-	})
-	.returns([]);
-
-const countStub = sinon.stub();
-
-countStub
-	.withArgs({
-		where: {
-			OR: [
-				{
-					title: { contains: searchString }
-				},
-				{
-					reference: { contains: searchString }
-				},
-				{
-					description: { contains: searchString }
-				}
-			]
-		}
-	})
-	.returns(applicationsCount);
-countStub
-	.withArgs({
-		where: {
-			OR: [
-				{
-					title: { contains: notFoundSearchString }
-				},
-				{
-					reference: { contains: notFoundSearchString }
-				},
-				{
-					description: { contains: notFoundSearchString }
-				}
-			]
-		}
-	})
-	.returns(0);
 
 /**
  *
@@ -154,16 +68,12 @@ const expectedSearchParameters = (skip, take, query) => {
 };
 
 describe('Case search', () => {
-	beforeAll(() => {
-		sinon.stub(databaseConnector, 'case').get(() => {
-			return {
-				findMany: findManyStub,
-				count: countStub
-			};
-		});
-	});
-
 	test('should get applications using search criteria', async () => {
+		// GIVEN
+		databaseConnector.case.findMany.mockResolvedValue([application]);
+		databaseConnector.case.count.mockResolvedValue(1);
+
+		// WHEN
 		const response = await request.post('/applications/search').send({
 			query: searchString,
 			role: 'case-team',
@@ -171,6 +81,7 @@ describe('Case search', () => {
 			pageSize: 1
 		});
 
+		// THEN
 		expect(response.status).toEqual(200);
 		expect(response.body).toEqual({
 			page: 1,
@@ -188,16 +99,24 @@ describe('Case search', () => {
 			]
 		});
 
-		sinon.assert.calledWith(findManyStub, expectedSearchParameters(0, 1, searchString));
+		expect(databaseConnector.case.findMany).toHaveBeenCalledWith(
+			expectedSearchParameters(0, 1, searchString)
+		);
 	});
 
 	test('should get applications using search criteria with default page number', async () => {
+		// GIVEN
+		databaseConnector.case.findMany.mockResolvedValue([application]);
+		databaseConnector.case.count.mockResolvedValue(1);
+
+		// WHEN
 		const response = await request.post('/applications/search').send({
 			query: searchString,
 			role: 'case-team',
 			pageSize: 20
 		});
 
+		// THEN
 		expect(response.status).toEqual(200);
 		expect(response.body).toEqual({
 			page: 1,
@@ -215,16 +134,24 @@ describe('Case search', () => {
 			]
 		});
 
-		sinon.assert.calledWith(findManyStub, expectedSearchParameters(0, 20, searchString));
+		expect(databaseConnector.case.findMany).toHaveBeenCalledWith(
+			expectedSearchParameters(0, 20, searchString)
+		);
 	});
 
 	test('should get applications using search criteria with default page size', async () => {
+		// GIVEN
+		databaseConnector.case.findMany.mockResolvedValue([application]);
+		databaseConnector.case.count.mockResolvedValue(1);
+
+		// THEN
 		const response = await request.post('/applications/search').send({
 			query: searchString,
 			role: 'case-team',
 			pageNumber: 2
 		});
 
+		// WHEN
 		expect(response.status).toEqual(200);
 		expect(response.body).toEqual({
 			page: 2,
@@ -242,10 +169,17 @@ describe('Case search', () => {
 			]
 		});
 
-		sinon.assert.calledWith(findManyStub, expectedSearchParameters(50, 50, searchString));
+		expect(databaseConnector.case.findMany).toHaveBeenCalledWith(
+			expectedSearchParameters(50, 50, searchString)
+		);
 	});
 
 	test('should get no results using search criteria which will not yield cases', async () => {
+		// GIVEN
+		databaseConnector.case.findMany.mockResolvedValue([]);
+		databaseConnector.case.count.mockResolvedValue(0);
+
+		// WHEN
 		const response = await request.post('/applications/search').send({
 			query: 'BCDEF',
 			role: 'case-team',
@@ -253,6 +187,7 @@ describe('Case search', () => {
 			pageSize: 1
 		});
 
+		// THEN
 		expect(response.status).toEqual(200);
 		expect(response.body).toEqual({
 			page: 1,
@@ -262,10 +197,15 @@ describe('Case search', () => {
 			items: []
 		});
 
-		sinon.assert.calledWith(findManyStub, expectedSearchParameters(0, 1, notFoundSearchString));
+		expect(databaseConnector.case.findMany).toHaveBeenCalledWith(
+			expectedSearchParameters(0, 1, notFoundSearchString)
+		);
 	});
 
 	test('should not be able to submit a search if the role is not valid', async () => {
+		// GIVEN
+
+		// WHEN
 		const resp = await request.post('/applications/search').send({
 			query: searchString,
 			role: 'validation-officer',
@@ -273,6 +213,7 @@ describe('Case search', () => {
 			pageSize: 1
 		});
 
+		// THEN
 		expect(resp.status).toEqual(403);
 		expect(resp.body).toEqual({
 			errors: {
@@ -282,6 +223,9 @@ describe('Case search', () => {
 	});
 
 	test('should not be able to submit a search if query does not have a value', async () => {
+		// GIVEN
+
+		// WHEN
 		const resp = await request.post('/applications/search').send({
 			query: '',
 			role: 'case-admin-officer',
@@ -289,6 +233,7 @@ describe('Case search', () => {
 			pageSize: 5
 		});
 
+		// THEN
 		expect(resp.status).toEqual(400);
 		expect(resp.body).toEqual({
 			errors: {
@@ -300,6 +245,9 @@ describe('Case search', () => {
 	test.each([[-3], [0], ['text']])(
 		'Search case: Sending invalid %O as pageSize and pageNumber throws error',
 		async (parameter) => {
+			// GIVEN
+
+			// WHEN
 			const resp = await request.post('/applications/search').send({
 				query: searchString,
 				role: 'case-admin-officer',
@@ -307,6 +255,7 @@ describe('Case search', () => {
 				pageSize: parameter
 			});
 
+			// THEN
 			expect(resp.status).toEqual(400);
 			expect(resp.body).toEqual({
 				errors: {

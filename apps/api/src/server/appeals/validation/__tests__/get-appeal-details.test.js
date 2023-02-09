@@ -1,7 +1,5 @@
-import sinon from 'sinon';
 import supertest from 'supertest';
 import { app } from '../../../app.js';
-// import { databaseConnector } from '../../../utils/database-connector.js';
 const { databaseConnector } = await import('../../../utils/database-connector.js');
 
 const request = supertest(app);
@@ -120,40 +118,6 @@ const appeal4 = {
 		postcode: 'NR35 2ND'
 	}
 };
-const getAppealByIdStub = sinon.stub();
-const includingDetailsForResponse = {
-	validationDecision: true,
-	address: true,
-	appellant: true,
-	appealStatus: { where: { valid: true } },
-	appealType: true
-};
-const includingDetailsForValidtion = {
-	appealStatus: { where: { valid: true } },
-	appealType: true
-};
-
-getAppealByIdStub
-	.withArgs({ where: { id: 1 }, include: includingDetailsForResponse })
-	.returns(appeal1);
-getAppealByIdStub
-	.withArgs({ where: { id: 1 }, include: includingDetailsForValidtion })
-	.returns(appeal1);
-getAppealByIdStub
-	.withArgs({ where: { id: 2 }, include: includingDetailsForResponse })
-	.returns(appeal2);
-getAppealByIdStub
-	.withArgs({ where: { id: 2 }, include: includingDetailsForValidtion })
-	.returns(appeal2);
-getAppealByIdStub
-	.withArgs({ where: { id: 3 }, include: includingDetailsForValidtion })
-	.returns(appeal3);
-getAppealByIdStub
-	.withArgs({ where: { id: 4 }, include: includingDetailsForResponse })
-	.returns(appeal4);
-getAppealByIdStub
-	.withArgs({ where: { id: 4 }, include: includingDetailsForValidtion })
-	.returns(appeal4);
 
 const documentsArray = [
 	{
@@ -189,14 +153,14 @@ const documentsArray = [
 ];
 
 describe('Get Appeal Details', () => {
-	beforeAll(() => {
-		sinon.stub(databaseConnector, 'appeal').get(() => {
-			return { findUnique: getAppealByIdStub };
-		});
-	});
-
 	test('gets appeal that requires validation', async () => {
+		// GIVEN
+		databaseConnector.appeal.findUnique.mockResolvedValue(appeal1);
+
+		// WHEN
 		const resp = await request.get('/appeals/validation/1');
+
+		// THEN
 		const appealReviewInfo = {
 			AppealId: 1,
 			AppealReference: 'APP/Q9999/D/21/1345264',
@@ -220,8 +184,13 @@ describe('Get Appeal Details', () => {
 	});
 
 	test('throws 409 when appeal does not require validation', async () => {
+		// GIVEN
+		databaseConnector.appeal.findUnique.mockResolvedValue(appeal3);
+
+		// WHEN
 		const resp = await request.get('/appeals/validation/3');
 
+		// THEN
 		expect(resp.status).toEqual(409);
 		expect(resp.body).toEqual({
 			errors: {
@@ -231,7 +200,13 @@ describe('Get Appeal Details', () => {
 	});
 
 	test("returns appeal with all reasons why it is in 'incomplete' state", async () => {
+		// GIVEN
+		databaseConnector.appeal.findUnique.mockResolvedValue(appeal2);
+
+		// WHEN
 		const resp = await request.get('/appeals/validation/2');
+
+		// THEN
 		const appealReviewInfo = {
 			AppealId: 2,
 			AppealReference: 'APP/Q9999/D/21/1224115',
@@ -266,7 +241,13 @@ describe('Get Appeal Details', () => {
 	});
 
 	test("returns appeal with one reason why it is in 'incomplete' state", async () => {
+		// GIVEN
+		databaseConnector.appeal.findUnique.mockResolvedValue(appeal4);
+
+		// WHEN
 		const resp = await request.get('/appeals/validation/4');
+
+		// THEN
 		const appealReviewInfo = {
 			AppealId: 4,
 			AppealReference: 'APP/Q9999/D/21/1224115',

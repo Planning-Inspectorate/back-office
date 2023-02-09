@@ -1,15 +1,12 @@
-import Prisma from '@prisma/client';
-import sinon from 'sinon';
+import { jest } from '@jest/globals';
 import supertest from 'supertest';
 import { app } from '../../../app.js';
-import { eventClient } from '../../../infrastructure/event-client.js';
+const { eventClient } = await import('../../../infrastructure/event-client.js');
+
 import { applicationFactoryForTests } from '../../../utils/application-factory-for-tests.js';
-// import { databaseConnector } from '../../../utils/database-connector.js';
 const { databaseConnector } = await import('../../../utils/database-connector.js');
 
 const request = supertest(app);
-
-const findUniqueStub = sinon.stub();
 
 const referenceSettingSqlQuery =
 	'declare @sub_sector_abbreviation nchar(4), @max_reference int, @reference_number int;declare @minimum_new_reference int = 10001;declare @id int = 1;select @sub_sector_abbreviation = sub_sector_table.abbreviation FROM [dbo].[Case] as case_table     join [dbo].[ApplicationDetails] as application_details_table     on case_table.id = application_details_table.caseId     join [dbo].[SubSector] as sub_sector_table     on application_details_table.subSectorId = sub_sector_table.id where case_table.id = @id; SELECT @max_reference = max(cast(SUBSTRING(case_table.reference, 5, len(case_table.reference)) as int)) FROM [dbo].[Case] as case_table     join [dbo].[ApplicationDetails] as application_details_table     on case_table.id = application_details_table.caseId     join [dbo].[SubSector] as sub_sector_table     on application_details_table.subSectorId = sub_sector_table.id         and sub_sector_table.abbreviation = @sub_sector_abbreviation; if(@max_reference < @minimum_new_reference) select @reference_number = @minimum_new_reference else select @reference_number = @max_reference + 1;update [dbo].[Case]     set reference = @sub_sector_abbreviation + cast(@reference_number as nchar(5))     where id = @id;';
@@ -59,56 +56,17 @@ const applicationInPreApplicationState = applicationFactoryForTests({
 	}
 });
 
-findUniqueStub.withArgs({ where: { id: 1 } }).returns(applicationReadyToStart);
-findUniqueStub
-	.withArgs({ where: { id: 1 }, include: sinon.match.any })
-	.returns(applicationReadyToStart);
-findUniqueStub.withArgs({ where: { id: 2 } }).returns(null);
-findUniqueStub.withArgs({ where: { id: 3 } }).returns(applicationWithMissingInformation);
-findUniqueStub
-	.withArgs({ where: { id: 3 }, include: sinon.match.any })
-	.returns(applicationWithMissingInformation);
-findUniqueStub.withArgs({ where: { id: 4 } }).returns(applicationInPreApplicationState);
-findUniqueStub
-	.withArgs({ where: { id: 4 }, include: sinon.match.any })
-	.returns(applicationInPreApplicationState);
-
-const updateStub = sinon.stub();
-const updateManyCaseStatusStub = sinon.stub();
-const createCaseStatusStub = sinon.stub();
-const createFolderStub = sinon.stub();
-
-let executeRawStub = sinon.stub();
-
-/**
- * @type {sinon.SinonStub<any, any>}
- */
-let stubbedSendEvents;
+jest.useFakeTimers({ now: 1_649_319_144_000 });
 
 describe('Start case', () => {
-	beforeAll(() => {
-		sinon.stub(databaseConnector, 'case').get(() => {
-			return { findUnique: findUniqueStub, update: updateStub };
-		});
-
-		sinon.stub(databaseConnector, 'caseStatus').get(() => {
-			return { updateMany: updateManyCaseStatusStub, create: createCaseStatusStub };
-		});
-
-		sinon.stub(databaseConnector, 'folder').get(() => {
-			return { create: createFolderStub };
-		});
-
-		stubbedSendEvents = sinon.stub(eventClient, 'sendEvents');
-
-		sinon.stub(Prisma.PrismaClient.prototype, '$transaction');
-		executeRawStub = sinon.stub(Prisma.PrismaClient.prototype, '$executeRawUnsafe');
-		sinon.useFakeTimers({ now: 1_649_319_144_000 });
-	});
-
 	test('starts application if all needed information is present', async () => {
+		// GIVEN
+		databaseConnector.case.findUnique.mockResolvedValue(applicationReadyToStart);
+
+		// WHEN
 		const response = await request.post('/applications/1/start');
 
+		// THEN
 		expect(response.status).toEqual(200);
 		expect(response.body).toEqual({
 			id: 1,
@@ -116,21 +74,21 @@ describe('Start case', () => {
 			status: 'Pre-Application'
 		});
 
-		sinon.assert.calledWith(updateManyCaseStatusStub, {
+		expect(databaseConnector.caseStatus.updateMany).toHaveBeenCalledWith({
 			where: { id: { in: [1] } },
 			data: { valid: false }
 		});
 
-		sinon.assert.calledWith(createCaseStatusStub, {
+		expect(databaseConnector.caseStatus.create).toHaveBeenCalledWith({
 			data: { status: 'pre_application', caseId: 1 }
 		});
 
-		sinon.assert.notCalled(updateStub);
+		expect(databaseConnector.case.update).not.toHaveBeenCalled();
 
-		sinon.assert.calledWith(executeRawStub, referenceSettingSqlQuery);
+		expect(databaseConnector.$executeRawUnsafe).toHaveBeenCalledWith(referenceSettingSqlQuery);
 
 		// test 1st top level folder and its sub folders
-		sinon.assert.calledWith(createFolderStub, {
+		expect(databaseConnector.folder.create).toHaveBeenCalledWith({
 			data: {
 				displayNameEn: 'Project management',
 				displayOrder: 100,
@@ -155,7 +113,7 @@ describe('Start case', () => {
 			}
 		});
 		// 2nd top level folder
-		sinon.assert.calledWith(createFolderStub, {
+		expect(databaseConnector.folder.create).toHaveBeenCalledWith({
 			data: {
 				displayNameEn: 'Legal advice',
 				displayOrder: 200,
@@ -163,7 +121,7 @@ describe('Start case', () => {
 			}
 		});
 		// 3rd top level folder
-		sinon.assert.calledWith(createFolderStub, {
+		expect(databaseConnector.folder.create).toHaveBeenCalledWith({
 			data: {
 				displayNameEn: 'Transboundary',
 				displayOrder: 300,
@@ -207,23 +165,17 @@ describe('Start case', () => {
 			customers: []
 		};
 
-		sinon.assert.calledWith(stubbedSendEvents, 'nsip-project', [expectedEventPayload]);
+		expect(eventClient.sendEvents).toHaveBeenCalledWith('nsip-project', [expectedEventPayload]);
 	});
 
 	test('throws an error if the application id is not recognised', async () => {
+		// GIVEN
+		databaseConnector.case.findUnique.mockResolvedValue(null);
+
+		// WHEN
 		const response = await request.post('/applications/2/start');
 
-		expect(response.status).toEqual(404);
-		expect(response.body).toEqual({
-			errors: {
-				id: 'Must be an existing application'
-			}
-		});
-	});
-
-	test('throws an error if the application id is not recognised', async () => {
-		const response = await request.post('/applications/2/start');
-
+		// THEN
 		expect(response.status).toEqual(404);
 		expect(response.body).toEqual({
 			errors: {
@@ -233,8 +185,13 @@ describe('Start case', () => {
 	});
 
 	test('throws an error if the application does not have all the required information to start', async () => {
+		// GIVEN
+		databaseConnector.case.findUnique.mockResolvedValue(applicationWithMissingInformation);
+
+		// WHEN
 		const response = await request.post('/applications/3/start');
 
+		// THEN
 		expect(response.status).toEqual(400);
 		expect(response.body).toEqual({
 			errors: {
@@ -250,8 +207,13 @@ describe('Start case', () => {
 	});
 
 	test('throws an error if the application is not in draft state', async () => {
+		// GIVEN
+		databaseConnector.case.findUnique.mockResolvedValue(applicationInPreApplicationState);
+
+		// WHEN
 		const response = await request.post('/applications/4/start');
 
+		// THEN
 		expect(response.status).toEqual(409);
 		expect(response.body).toEqual({
 			errors: {

@@ -1,11 +1,7 @@
-import sinon from 'sinon';
+import { jest } from '@jest/globals';
 import { transitionState } from '../../../utils/transition-state.js';
 import inspectorActionsService from '../inspector.actions.js';
-import lpaQuestionnaireActionsService from '../lpa-questionnaire-actions.service.js';
-
-const lpaQuestionnaireStub = sinon.stub();
-const inspectorSendBookingStub = sinon.stub();
-const notifyAppellantOfDecisionStub = sinon.stub();
+// import lpaQuestionnaireActionsService from '../lpa-questionnaire-actions.service.js';
 
 const transitions = [
 	['received_appeal', 'INVALID', 'invalid_appeal', { appealId: 1 }, true],
@@ -85,23 +81,19 @@ const transitions = [
 	['decision_due', 'DECIDE', 'appeal_decided', { appealId: 1, decision: 'allowed' }, true]
 ];
 
-describe('Household Appeal', () => {
-	beforeAll(() => {
-		sinon
-			.stub(lpaQuestionnaireActionsService, 'sendLpaQuestionnaire')
-			.callsFake(lpaQuestionnaireStub);
-		sinon
-			.stub(inspectorActionsService, 'sendEmailToAppellantWithSiteVisitBooking')
-			.callsFake(inspectorSendBookingStub);
-		sinon
-			.stub(inspectorActionsService, 'sendEmailToLPAAndAppellantWithDeciion')
-			.callsFake(notifyAppellantOfDecisionStub);
-	});
+// const lpaQuestionnaireStub = jest.spyOn(lpaQuestionnaireActionsService, 'sendLpaQuestionnaire')
+const inspectorSendBookingStub = jest.spyOn(
+	inspectorActionsService,
+	'sendEmailToAppellantWithSiteVisitBooking'
+);
+const notifyAppellantOfDecisionStub = jest.spyOn(
+	inspectorActionsService,
+	'sendEmailToLPAAndAppellantWithDeciion'
+);
 
+describe('Household Appeal', () => {
 	beforeEach(() => {
-		inspectorSendBookingStub.resetHistory();
-		lpaQuestionnaireStub.resetHistory();
-		notifyAppellantOfDecisionStub.resetHistory();
+		inspectorSendBookingStub.mockClear();
 	});
 
 	test.each(transitions)(
@@ -128,13 +120,13 @@ describe('Household Appeal', () => {
 					context.inspectionType === 'accompanied' ||
 					context.inspectionType === 'access required'
 				) {
-					sinon.assert.calledWithExactly(inspectorSendBookingStub, 1);
+					expect(inspectorSendBookingStub).toHaveBeenCalledTimes(1);
 				} else {
-					sinon.assert.notCalled(inspectorSendBookingStub);
+					expect(inspectorSendBookingStub).not.toHaveBeenCalled();
 				}
 			}
 			if (nextState.value === 'appeal_decided') {
-				sinon.assert.calledWithExactly(notifyAppellantOfDecisionStub, 1, 'allowed');
+				expect(notifyAppellantOfDecisionStub).toHaveBeenCalledWith(1, 'allowed');
 			}
 		}
 	);

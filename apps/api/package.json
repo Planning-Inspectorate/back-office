@@ -69,7 +69,6 @@
     "nodemon": "^2.0.18",
     "prisma": "^4.9.0",
     "rimraf": "^3.0.2",
-    "sinon": "14.0.0",
     "supertest": "6.2.3",
     "swagger-autogen": "^2.21.4"
   }

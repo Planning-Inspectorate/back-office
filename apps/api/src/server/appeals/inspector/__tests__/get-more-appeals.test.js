@@ -1,7 +1,6 @@
-import sinon from 'sinon';
+import { jest } from '@jest/globals';
 import supertest from 'supertest';
 import { app } from '../../../app.js';
-// import { databaseConnector } from '../../../utils/database-connector.js';
 const { databaseConnector } = await import('../../../utils/database-connector.js');
 
 const request = supertest(app);
@@ -30,20 +29,16 @@ const appeal25 = {
 	}
 };
 
-const findManyStub = sinon.stub().returns([appeal25]);
-
 describe('Get more apeals', () => {
-	beforeAll(() => {
-		sinon.stub(databaseConnector, 'appeal').get(() => {
-			return { findMany: findManyStub };
-		});
-	});
-
 	test('gets all appeals yet to be assigned to inspector', async () => {
-		sinon.useFakeTimers({ now: 1_649_319_144_000 });
+		// GIVEN
+		jest.useFakeTimers({ now: 1_649_319_144_000 });
+		databaseConnector.appeal.findMany.mockResolvedValue([appeal25]);
 
+		// WHEN
 		const resp = await request.get('/appeals/inspector/more-appeals');
 
+		// THEN
 		expect(resp.status).toEqual(200);
 		expect(resp.body).toEqual([
 			{
@@ -60,7 +55,7 @@ describe('Get more apeals', () => {
 				provisionalVisitType: 'unaccompanied'
 			}
 		]);
-		sinon.assert.calledWith(findManyStub, {
+		expect(databaseConnector.appeal.findMany).toHaveBeenCalledWith({
 			where: {
 				appealStatus: {
 					some: {

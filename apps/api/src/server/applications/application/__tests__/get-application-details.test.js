@@ -1,8 +1,6 @@
-import sinon from 'sinon';
 import supertest from 'supertest';
 import { app } from '../../../app.js';
 import { applicationFactoryForTests } from '../../../utils/application-factory-for-tests.js';
-// import { databaseConnector } from '../../../utils/database-connector.js';
 const { databaseConnector } = await import('../../../utils/database-connector.js');
 
 import { mapDateStringToUnixTimestamp } from '../../../utils/mapping/map-date-string-to-unix-timestamp.js';
@@ -27,12 +25,12 @@ const application1 = applicationFactoryForTests({
 	}
 });
 
-const application1SansInclusions = applicationFactoryForTests({
-	id: 1,
-	title: 'EN010003 - NI Case 3 Name',
-	description: 'EN010003 - NI Case 3 Name Description',
-	caseStatus: 'draft'
-});
+// const application1SansInclusions = applicationFactoryForTests({
+// 	id: 1,
+// 	title: 'EN010003 - NI Case 3 Name',
+// 	description: 'EN010003 - NI Case 3 Name Description',
+// 	caseStatus: 'draft'
+// });
 
 const application2 = {
 	...applicationFactoryForTests({
@@ -51,23 +49,15 @@ const application2 = {
 	reference: null
 };
 
-const findUniqueStub = sinon.stub();
-
-findUniqueStub.withArgs({ where: { id: 1 }, include: sinon.match.any }).returns(application1);
-findUniqueStub.withArgs({ where: { id: 1 } }).returns(application1SansInclusions);
-findUniqueStub.withArgs({ where: { id: 2 }, include: sinon.match.any }).returns(application2);
-findUniqueStub.withArgs({ where: { id: 2 } }).returns(application2);
-
 describe('Get Application details', () => {
-	beforeAll(() => {
-		sinon.stub(databaseConnector, 'case').get(() => {
-			return { findUnique: findUniqueStub };
-		});
-	});
-
 	test('gets all data for a case when everything is available', async () => {
+		// GIVEN
+		databaseConnector.case.findUnique.mockResolvedValue(application1);
+
+		// WHEN
 		const response = await request.get('/applications/1');
 
+		// THEN
 		expect(response.status).toEqual(200);
 		expect(response.body).toEqual({
 			id: 1,
@@ -145,8 +135,13 @@ describe('Get Application details', () => {
 	});
 
 	test('gets applications details when only case id present', async () => {
+		// GIVEN
+		databaseConnector.case.findUnique.mockResolvedValue(application2);
+
+		// WHEN
 		const response = await request.get('/applications/2');
 
+		// THEN
 		expect(response.status).toEqual(200);
 		expect(response.body).toEqual({
 			description: null,
@@ -167,8 +162,13 @@ describe('Get Application details', () => {
 	});
 
 	test('throws an error if case does not exist', async () => {
+		// GIVEN
+		databaseConnector.case.findUnique.mockResolvedValue(null);
+
+		// WHEN
 		const response = await request.get('/applications/3');
 
+		// THEN
 		expect(response.status).toEqual(404);
 		expect(response.body).toEqual({
 			errors: {
@@ -178,8 +178,12 @@ describe('Get Application details', () => {
 	});
 
 	test('throws an error if the id provided is a string/characters', async () => {
+		// GIVEN
+
+		// WHEN
 		const response = await request.get('/applications/hi');
 
+		// THEN
 		expect(response.status).toEqual(404);
 		expect(response.body).toEqual({
 			errors: {
@@ -189,77 +193,112 @@ describe('Get Application details', () => {
 	});
 
 	test('returns only description field when description query made', async () => {
+		// GIVEN
+		databaseConnector.case.findUnique.mockResolvedValue(application1);
+
+		// WHEN
 		const response = await request.get('/applications/1?query={"description":true}');
 
+		// THEN
 		expect(response.status).toEqual(200);
 		expect(response.body).toEqual({
 			id: 1,
 			description: 'EN010003 - NI Case 3 Name Description'
 		});
 
-		sinon.assert.calledWith(findUniqueStub, { where: { id: 1 } });
+		expect(databaseConnector.case.findUnique).toHaveBeenCalledWith({ where: { id: 1 } });
 	});
 
 	test('does not return description field when description query false', async () => {
+		// GIVEN
+		databaseConnector.case.findUnique.mockResolvedValue(application1);
+
+		// WHEN
 		const response = await request.get('/applications/1?query={"description":false}');
 
+		// THEN
 		expect(response.status).toEqual(200);
 		expect(response.body).toEqual({
 			id: 1
 		});
 
-		sinon.assert.calledWith(findUniqueStub, { where: { id: 1 } });
+		expect(databaseConnector.case.findUnique).toHaveBeenCalledWith({ where: { id: 1 } });
 	});
 
 	test('returns only title field when title query made', async () => {
+		// GIVEN
+		databaseConnector.case.findUnique.mockResolvedValue(application1);
+
+		// WHEN
 		const response = await request.get('/applications/1?query={"title":true}');
 
+		// THEN
 		expect(response.status).toEqual(200);
 		expect(response.body).toEqual({
 			id: 1,
 			title: 'EN010003 - NI Case 3 Name'
 		});
 
-		sinon.assert.calledWith(findUniqueStub, { where: { id: 1 } });
+		expect(databaseConnector.case.findUnique).toHaveBeenCalledWith({ where: { id: 1 } });
 	});
 
 	test('does not return title field when title query false', async () => {
+		// GIVEN
+		databaseConnector.case.findUnique.mockResolvedValue(application1);
+
+		// WHEN
 		const response = await request.get('/applications/1?query={"title":false}');
 
+		// THEN
 		expect(response.status).toEqual(200);
 		expect(response.body).toEqual({
 			id: 1
 		});
 
-		sinon.assert.calledWith(findUniqueStub, { where: { id: 1 } });
+		expect(databaseConnector.case.findUnique).toHaveBeenCalledWith({ where: { id: 1 } });
 	});
 
 	test('returns multiple field when multiple queries made', async () => {
+		// GIVEN
+		databaseConnector.case.findUnique.mockResolvedValue(application1);
+
+		// WHEN
 		const response = await request.get('/applications/1?query={"title":true,"description":true}');
 
+		// THEN
 		expect(response.status).toEqual(200);
 		expect(response.body).toEqual({
 			description: 'EN010003 - NI Case 3 Name Description',
 			id: 1,
 			title: 'EN010003 - NI Case 3 Name'
 		});
-		sinon.assert.calledWith(findUniqueStub, { where: { id: 1 } });
+		expect(databaseConnector.case.findUnique).toHaveBeenCalledWith({ where: { id: 1 } });
 	});
 
 	test('does not return query marked false', async () => {
+		// GIVEN
+		databaseConnector.case.findUnique.mockResolvedValue(application1);
+
+		// WHEN
 		const response = await request.get('/applications/1?query={"title":false,"description":true}');
 
+		// THEN
 		expect(response.status).toEqual(200);
 		expect(response.body).toEqual({
 			description: 'EN010003 - NI Case 3 Name Description',
 			id: 1
 		});
-		sinon.assert.calledWith(findUniqueStub, { where: { id: 1 } });
+		expect(databaseConnector.case.findUnique).toHaveBeenCalledWith({ where: { id: 1 } });
 	});
 
 	test('returns only subsector field when subSector query made', async () => {
+		// GIVEN
+		databaseConnector.case.findUnique.mockResolvedValue(application1);
+
+		// WHEN
 		const response = await request.get('/applications/1?query={"subSector":true}');
 
+		// THEN
 		expect(response.status).toEqual(200);
 		expect(response.body).toEqual({
 			id: 1,
@@ -271,7 +310,7 @@ describe('Get Application details', () => {
 			}
 		});
 
-		sinon.assert.calledWith(findUniqueStub, {
+		expect(databaseConnector.case.findUnique).toHaveBeenCalledWith({
 			where: { id: 1 },
 			include: {
 				ApplicationDetails: { include: { subSector: true, zoomLevel: false } }
@@ -280,19 +319,29 @@ describe('Get Application details', () => {
 	});
 
 	test('does not return subsector field when subSector query false', async () => {
+		// GIVEN
+		databaseConnector.case.findUnique.mockResolvedValue(application1);
+
+		// WHEN
 		const response = await request.get('/applications/1?query={"subSector":false}');
 
+		// THEN
 		expect(response.status).toEqual(200);
 		expect(response.body).toEqual({
 			id: 1
 		});
 
-		sinon.assert.calledWith(findUniqueStub, { where: { id: 1 } });
+		expect(databaseConnector.case.findUnique).toHaveBeenCalledWith({ where: { id: 1 } });
 	});
 
 	test('returns only geographical inf field when query made', async () => {
+		// GIVEN
+		databaseConnector.case.findUnique.mockResolvedValue(application1);
+
+		// WHEN
 		const response = await request.get('/applications/1?query={"geographicalInformation":true}');
 
+		// THEN
 		expect(response.status).toEqual(200);
 		expect(response.body).toEqual({
 			geographicalInformation: {
@@ -325,22 +374,32 @@ describe('Get Application details', () => {
 			},
 			id: 1
 		});
-		sinon.assert.calledWith(findUniqueStub, { where: { id: 1 } });
+		expect(databaseConnector.case.findUnique).toHaveBeenCalledWith({ where: { id: 1 } });
 	});
 
 	test('does not return geographical inf field when query false', async () => {
+		// GIVEN
+		databaseConnector.case.findUnique.mockResolvedValue(application1);
+
+		// WHEN
 		const response = await request.get('/applications/1?query={"geographicalInformation":false}');
 
+		// THEN
 		expect(response.status).toEqual(200);
 		expect(response.body).toEqual({
 			id: 1
 		});
-		sinon.assert.calledWith(findUniqueStub, { where: { id: 1 } });
+		expect(databaseConnector.case.findUnique).toHaveBeenCalledWith({ where: { id: 1 } });
 	});
 
 	test('return error 404 if application id not found', async () => {
+		// GIVEN
+		databaseConnector.case.findUnique.mockResolvedValue(null);
+
+		// WHEN
 		const response = await request.get('/applications/1234');
 
+		// THEN
 		expect(response.status).toEqual(404);
 		expect(response.body).toEqual({
 			errors: {

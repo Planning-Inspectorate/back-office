@@ -1,9 +1,7 @@
-import sinon from 'sinon';
 import supertest from 'supertest';
 import { app } from '../../../app.js';
 import formatAddress from '../../../utils/address-formatter.js';
 import { appealFactoryForTests } from '../../../utils/appeal-factory-for-tests.js';
-// import { databaseConnector } from '../../../utils/database-connector.js';
 const { databaseConnector } = await import('../../../utils/database-connector.js');
 
 const request = supertest(app);
@@ -30,42 +28,15 @@ const appeal2 = appealFactoryForTests({
 	typeShorthand: 'FPA'
 });
 
-const includeDetails = {
-	address: true,
-	appealType: true,
-	appealStatus: {
-		where: {
-			valid: true
-		}
-	}
-};
-
-const includingDetailsForValidtion = {
-	appealStatus: { where: { valid: true } },
-	appealType: true
-};
-
-const findUniqueStub = sinon.stub();
-
-findUniqueStub.withArgs({ where: { id: 1 }, include: includeDetails }).returns(appeal1);
-findUniqueStub.withArgs({ where: { id: 2 }, include: includeDetails }).returns(appeal2);
-findUniqueStub
-	.withArgs({ where: { id: 1 }, include: includingDetailsForValidtion })
-	.returns(appeal1);
-findUniqueStub
-	.withArgs({ where: { id: 2 }, include: includingDetailsForValidtion })
-	.returns(appeal2);
-
 describe('Getting appeal details for statements and comments', () => {
-	beforeAll(() => {
-		sinon.stub(databaseConnector, 'appeal').get(() => {
-			return { findUnique: findUniqueStub };
-		});
-	});
-
 	test('returns details for appeal awaiting statements', async () => {
+		// GIVEN
+		databaseConnector.appeal.findUnique.mockResolvedValue(appeal1);
+
+		// WHEN
 		const resp = await request.get('/appeals/case-officer/1/statements-comments');
 
+		// THEN
 		expect(resp.status).toEqual(200);
 		expect(resp.body).toEqual({
 			AppealId: 1,
@@ -78,8 +49,13 @@ describe('Getting appeal details for statements and comments', () => {
 	});
 
 	test('returns details for appeal awaiting final comments', async () => {
+		// GIVEN
+		databaseConnector.appeal.findUnique.mockResolvedValue(appeal2);
+
+		// WHEN
 		const resp = await request.get('/appeals/case-officer/2/statements-comments');
 
+		// THEN
 		expect(resp.status).toEqual(200);
 		expect(resp.body).toEqual({
 			AppealId: 2,
