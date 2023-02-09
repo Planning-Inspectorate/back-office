@@ -15,6 +15,10 @@ parameters:
     displayName: Deploy Document Check Function
     type: boolean
     default: true
+  - name: deployODWIntegrationFunctions
+    displayName: Deploy ODW Integration Function
+    type: boolean
+    default: true
   - name: region
     displayName: Region
     type: string
@@ -55,18 +59,18 @@ extends:
             condition: eq(${{ parameters.deployAPI }}, 'true')
             steps:
               - ${{ if eq(parameters.schemaMigration, true) }}:
-                - checkout: self
-                - template: ../steps/azure_get_secrets.yml
-                  parameters:
-                    secrets:
-                      - name: back-office-sql-connection-string
-                        variable: DATABASE_URL
-                - template: ../steps/node_script.yml
-                  parameters:
-                    environmentVariables:
-                      DATABASE_URL: $(DATABASE_URL)
-                    script: npm run db:migrate:prod
-                    workingDirectory: $(Build.Repository.LocalPath)/apps/api
+                  - checkout: self
+                  - template: ../steps/azure_get_secrets.yml
+                    parameters:
+                      secrets:
+                        - name: back-office-sql-connection-string
+                          variable: DATABASE_URL
+                  - template: ../steps/node_script.yml
+                    parameters:
+                      environmentVariables:
+                        DATABASE_URL: $(DATABASE_URL)
+                      script: npm run db:migrate:prod
+                      workingDirectory: $(Build.Repository.LocalPath)/apps/api
               - template: ../steps/azure_web_app_deploy.yml
                 parameters:
                   appName: pins-app-back-office-api-$(ENVIRONMENT)-$(REGION_SHORT)-001
@@ -84,13 +88,23 @@ extends:
                   repository: back-office/back-office-document-storage-api
           - name: Deploy Document Check Function
             artifact:
-              name: azure-functions
+              name: document-check-functions
               sourcePipeline: Back Office Build
             condition: eq(${{ parameters.deployDocumentCheckFunction }}, 'true')
             steps:
               - template: ../steps/function_app_deploy.yml
                 parameters:
                   appName: pins-func-doc-check-doc-check-$(ENVIRONMENT)-$(REGION_SHORT)-001
+                  resourceGroup: $(resourceGroup)
+          - name: Deploy ODW Integration Functions
+            artifact:
+              name: odw-integration
+              sourcePipeline: Back Office Build
+            condition: eq(${{ parameters.deployODWIntegrationFunctions }}, 'true')
+            steps:
+              - template: ../steps/function_app_deploy.yml
+                parameters:
+                  appName: pins-func-odw-subscriber-odw-subscriber-$(ENVIRONMENT)-$(REGION_SHORT)-001
                   resourceGroup: $(resourceGroup)
           - name: Deploy Web
             condition: eq(${{ parameters.deployWeb }}, 'true')
