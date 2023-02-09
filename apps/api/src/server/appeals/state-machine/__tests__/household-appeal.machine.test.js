@@ -113,7 +113,7 @@ describe('Household Appeal', () => {
 
 			// TODO: fix this test
 			// if (nextState.value === 'awaiting_lpa_questionnaire') {
-			// 	sinon.assert.calledWithExactly(lpaQuestionnaireStub, 1);
+			// 	expect(lpaQuestionnaireStub).toHaveBeenCalledWith(1);
 			// }
 			if (nextState.value === 'site_visit_booked') {
 				if (

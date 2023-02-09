@@ -1,148 +1,145 @@
-import { Prisma } from '@prisma/client';
-import test from 'ava';
-import sinon from 'sinon';
+import { jest } from '@jest/globals';
 import { prismaClientDocumentMiddleWare } from '../prisma-middleware.js';
 
-const sandbox = sinon.createSandbox();
+const nextFunctionStub = jest.fn();
 
-/** @type {import('sinon').SinonStub<any, Promise<any>>} */
-const nextFunctionStub = sandbox.stub();
-
-test.afterEach.always(() => {
-	sandbox.reset();
-	sandbox.resetBehavior();
+beforeEach(() => {
+	nextFunctionStub.mockRestore();
 });
 
-test.serial(
-	'prismaClientDocumentMiddleWare() testing delete action should convert action to update',
-	(t) => {
-		/** @type {Partial<Prisma.MiddlewareParams>} */
-		const parameters = {
-			action: 'delete',
-			model: Prisma.ModelName.Document,
-			args: {
-				data: {},
-				where: {}
-			}
-		};
+test('prismaClientDocumentMiddleWare() testing delete action should convert action to update', () => {
+	// GIVEN
+	/** @type {Partial<import('@prisma/client').Prisma.MiddlewareParams>} */
+	const parameters = {
+		action: 'delete',
+		model: 'Document',
+		args: {
+			data: {},
+			where: {}
+		}
+	};
 
-		// @ts-ignore
-		prismaClientDocumentMiddleWare(parameters, nextFunctionStub);
+	// WHEN
+	// @ts-ignore
+	prismaClientDocumentMiddleWare(parameters, nextFunctionStub);
 
-		sinon.assert.callCount(nextFunctionStub, 1);
+	// THEN
+	expect(nextFunctionStub).toHaveBeenCalledTimes(1);
+	expect(parameters.action).toEqual('update');
+	expect(parameters.args.data.isDeleted).toEqual(true);
+});
 
-		t.deepEqual(parameters.action, 'update');
-		t.deepEqual(parameters.args.data.isDeleted, true);
-	}
-);
-
-test.serial('prismaClientDocumentMiddleWare() testing findFirst action', (t) => {
-	/** @type {Partial<Prisma.MiddlewareParams>} */
+test('prismaClientDocumentMiddleWare() testing findFirst action', () => {
+	// GIVEN
+	/** @type {Partial<import('@prisma/client').Prisma.MiddlewareParams>} */
 	const parameters = {
 		action: 'findFirst',
-		model: Prisma.ModelName.Document,
+		model: 'Document',
 		args: {
 			data: {},
 			where: {}
 		}
 	};
 
+	// WHEN
 	// @ts-ignore
 	prismaClientDocumentMiddleWare(parameters, nextFunctionStub);
 
-	sinon.assert.callCount(nextFunctionStub, 1);
+	// THEN
+	expect(nextFunctionStub).toHaveBeenCalledTimes(1);
 
-	t.deepEqual(parameters.action, 'findFirst');
-	t.deepEqual(parameters.args.where.isDeleted, false);
+	expect(parameters.action).toEqual('findFirst');
+	expect(parameters.args.where.isDeleted).toEqual(false);
 });
 
-test.serial('prismaClientDocumentMiddleWare() testing count action', (t) => {
-	/** @type {Partial<Prisma.MiddlewareParams>} */
+test('prismaClientDocumentMiddleWare() testing count action', () => {
+	// GIVEN
+	/** @type {Partial<import('@prisma/client').Prisma.MiddlewareParams>} */
 	const parameters = {
 		action: 'count',
-		model: Prisma.ModelName.Document,
+		model: 'Document',
 		args: {
 			data: {},
 			where: {}
 		}
 	};
 
+	// WHEN
 	// @ts-ignore
 	prismaClientDocumentMiddleWare(parameters, nextFunctionStub);
 
-	sinon.assert.callCount(nextFunctionStub, 1);
-
-	t.deepEqual(parameters.action, 'count');
-	t.deepEqual(parameters.args.where.isDeleted, false);
+	// THEN
+	expect(nextFunctionStub).toHaveBeenCalledTimes(1);
+	expect(parameters.action).toEqual('count');
+	expect(parameters.args.where.isDeleted).toEqual(false);
 });
 
-test.serial(
-	'prismaClientDocumentMiddleWare() testing findUnique action should convert action to findFirst',
-	(t) => {
-		/** @type {Partial<Prisma.MiddlewareParams>} */
-		const parameters = {
-			action: 'findUnique',
-			model: Prisma.ModelName.Document,
-			args: {
-				data: {},
-				where: {}
+test('prismaClientDocumentMiddleWare() testing findUnique action should convert action to findFirst', () => {
+	// GIVEN
+	/** @type {Partial<import('@prisma/client').Prisma.MiddlewareParams>} */
+	const parameters = {
+		action: 'findUnique',
+		model: 'Document',
+		args: {
+			data: {},
+			where: {}
+		}
+	};
+
+	// WHEN
+	// @ts-ignore
+	prismaClientDocumentMiddleWare(parameters, nextFunctionStub);
+
+	// THEN
+	expect(nextFunctionStub).toHaveBeenCalledTimes(1);
+	expect(parameters.action).toEqual('findFirst');
+	expect(parameters.args.where.isDeleted).toEqual(false);
+});
+
+test('prismaClientDocumentMiddleWare() testing findMany action when isDeleted is included', () => {
+	// GIVEN
+	/** @type {Partial<import('@prisma/client').Prisma.MiddlewareParams>} */
+	const parameters = {
+		action: 'findMany',
+		model: 'Document',
+		args: {
+			data: {},
+			where: {
+				isDeleted: true
 			}
-		};
+		}
+	};
 
-		// @ts-ignore
-		prismaClientDocumentMiddleWare(parameters, nextFunctionStub);
+	// WHEN
+	// @ts-ignore
+	prismaClientDocumentMiddleWare(parameters, nextFunctionStub);
 
-		sinon.assert.callCount(nextFunctionStub, 1);
+	// THEN
+	expect(nextFunctionStub).toHaveBeenCalledTimes(1);
 
-		t.deepEqual(parameters.action, 'findFirst');
-		t.deepEqual(parameters.args.where.isDeleted, false);
-	}
-);
+	expect(parameters.action).toEqual('findMany');
+	expect(parameters.args.where.isDeleted).toEqual(true);
+});
 
-test.serial(
-	'prismaClientDocumentMiddleWare() testing findMany action when isDeleted is included',
-	(t) => {
-		/** @type {Partial<Prisma.MiddlewareParams>} */
-		const parameters = {
-			action: 'findMany',
-			model: Prisma.ModelName.Document,
-			args: {
-				data: {},
-				where: {
-					isDeleted: true
-				}
-			}
-		};
+test('prismaClientDocumentMiddleWare() testing findMany action when isDeleted is not included', () => {
+	// GIVEN
+	/** @type {Partial<import('@prisma/client').Prisma.MiddlewareParams>} */
+	const parameters = {
+		action: 'findMany',
+		model: 'Document',
+		args: {
+			data: {},
+			where: {}
+		}
+	};
 
-		// @ts-ignore
-		prismaClientDocumentMiddleWare(parameters, nextFunctionStub);
+	// WHEN
+	// @ts-ignore
+	prismaClientDocumentMiddleWare(parameters, nextFunctionStub);
 
-		sinon.assert.callCount(nextFunctionStub, 1);
+	// THEN
+	expect(nextFunctionStub).toHaveBeenCalledTimes(1);
 
-		t.deepEqual(parameters.action, 'findMany');
-		t.deepEqual(parameters.args.where.isDeleted, true);
-	}
-);
-
-test.serial(
-	'prismaClientDocumentMiddleWare() testing findMany action when isDeleted is not included',
-	(t) => {
-		/** @type {Partial<Prisma.MiddlewareParams>} */
-		const parameters = {
-			action: 'findMany',
-			model: Prisma.ModelName.Document,
-			args: {
-				data: {},
-				where: {}
-			}
-		};
-
-		// @ts-ignore
-		prismaClientDocumentMiddleWare(parameters, nextFunctionStub);
-
-		sinon.assert.callCount(nextFunctionStub, 1);
-
-		t.deepEqual(parameters.action, 'findMany');
-		t.deepEqual(parameters.args.where.isDeleted, false);
-	}
-);
+	expect(parameters.action).toEqual('findMany');
+	expect(parameters.args.where.isDeleted).toEqual(false);
+});

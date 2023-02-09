@@ -8,7 +8,8 @@ module.exports = {
 				'n/no-unpublished-import': ['off'],
 				'no-undef': ['off'],
 				'max-params': ['off'],
-				'no-undefined': ['off']
+				'no-undefined': ['off'],
+				'max-classes-per-file': ['off']
 			}
 		}
 	]

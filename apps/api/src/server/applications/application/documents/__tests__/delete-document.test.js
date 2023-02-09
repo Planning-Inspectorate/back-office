@@ -1,98 +1,52 @@
-import test from 'ava';
-import sinon from 'sinon';
+const { databaseConnector } = await import('../../../../utils/database-connector.js');
+
 import supertest from 'supertest';
 import { app } from '../../../../app.js';
-import { databaseConnector } from '../../../../utils/database-connector.js';
 import { applicationStates } from '../../../state-machine/application.machine.js';
 
 const request = supertest(app);
 
-const application = {
-	id: 1,
-	reference: 'case reference'
-};
+test('The test case involves updating a document setting its "isDeleted" property to "true".', async () => {
+	// GIVEN
+	databaseConnector.document.findFirst.mockResolvedValue({
+		guid: '1111-2222-3333',
+		name: 'my_doc.doc',
+		folderId: 1,
+		blobStorageContainer: 'document-service-uploads',
+		blobStoragePath: '/application/BC010001/1111-2222-3333/my_doc.doc',
+		status: applicationStates.draft,
+		createdAt: '2022-12-12 17:12:25.9610000',
+		redacted: true
+	});
 
-const sandbox = sinon.createSandbox();
+	const isDeleted = true;
 
-/** @type {import('sinon').SinonStub<any, Promise<any>>} */
-const findUniqueStub = sandbox.stub();
+	// WHEN
+	const response = await request.post('/applications/1/documents/1111-2222-3333/delete').send({});
 
-/** @type {import('sinon').SinonStub<any, Promise<any>>} */
-const deleteDocumentStub = sandbox.stub().resolves([{ guid: '1111-2222-3333' }]);
-
-/** @type {import('sinon').SinonStub<any, Promise<any>>} */
-const updateDocumentStub = sandbox.stub().resolves([{ guid: '1111-2222-3333' }]);
-
-/** @type {import('sinon').SinonStub<any, Promise<any>>} */
-const findUniqueDocumentStub = sandbox.stub();
-
-/** @type {import('sinon').SinonStub<any, Promise<any>>} */
-const findFirstDocumentStub = sandbox.stub();
-
-findUniqueStub.withArgs({ where: { id: 1 } }).resolves(application);
-
-sandbox.stub(databaseConnector, 'case').get(() => {
-	return { findUnique: findUniqueStub };
-});
-
-sandbox.stub(databaseConnector, 'document').get(() => {
-	return {
-		findUnique: findUniqueDocumentStub,
-		update: updateDocumentStub,
-		delete: deleteDocumentStub,
-		findFirst: findFirstDocumentStub
-	};
-});
-
-test.afterEach.always(() => {
-	sandbox.reset();
-	sandbox.resetBehavior();
-});
-
-test.serial(
-	'The test case involves updating a document setting its "isDeleted" property to "true".',
-	async (t) => {
-		findFirstDocumentStub.resolves({
+	// THEN
+	expect(response.status).toEqual(200);
+	expect(response.body).toEqual({ isDeleted });
+	expect(databaseConnector.document.findFirst).toHaveBeenCalledWith({
+		where: {
 			guid: '1111-2222-3333',
-			name: 'my_doc.doc',
-			folderId: 1,
-			blobStorageContainer: 'document-service-uploads',
-			blobStoragePath: '/application/BC010001/1111-2222-3333/my_doc.doc',
-			status: applicationStates.draft,
-			createdAt: '2022-12-12 17:12:25.9610000',
-			redacted: true
-		});
-
-		const isDeleted = true;
-
-		const response = await request.post('/applications/1/documents/1111-2222-3333/delete').send({});
-
-		t.is(response.status, 200);
-
-		t.deepEqual(response.body, {
-			isDeleted
-		});
-
-		findFirstDocumentStub.calledWith({
-			where: {
-				guid: '1111-2222-3333',
-				isDeleted: false,
-				folder: {
-					caseId: 1
-				}
+			isDeleted: false,
+			folder: {
+				caseId: 1
 			}
-		});
+		}
+	});
 
-		deleteDocumentStub.calledWith({
-			where: {
-				guid: '1111-2222-3333'
-			}
-		});
-	}
-);
+	expect(databaseConnector.document.delete).toHaveBeenCalledWith({
+		where: {
+			guid: '1111-2222-3333'
+		}
+	});
+});
 
-test.serial('should fail to update document because document is published', async (t) => {
-	findFirstDocumentStub.resolves({
+test('should fail to update document because document is published', async () => {
+	// GIVEN
+	databaseConnector.document.findFirst.mockResolvedValue({
 		guid: '1111-2222-3333',
 		name: 'my_doc.doc',
 		folderId: 1,
@@ -103,23 +57,27 @@ test.serial('should fail to update document because document is published', asyn
 		redacted: true
 	});
 
+	// WHEN
 	const response = await request.post('/applications/1/documents/1111-2222-3333/delete').send({});
 
-	t.is(response.status, 400);
-
-	t.deepEqual(response.body, {
+	// THEN
+	expect(response.status).toEqual(400);
+	expect(response.body).toEqual({
 		errors: 'unable to delete document guid 1111-2222-3333 related to casedId 1'
 	});
 });
 
-test.serial('should fail if document is not found', async (t) => {
-	findFirstDocumentStub.resolves(null);
+test('should fail if document is not found', async () => {
+	// GIVEN
+	databaseConnector.document.findFirst.mockResolvedValue(null);
 
+	// WHEN
 	const response = await request.post('/applications/1/documents/1111-2222-3333/delete').send({});
 
-	t.is(response.status, 404);
+	// THEN
+	expect(response.status).toEqual(404);
 
-	t.deepEqual(response.body, {
+	expect(response.body).toEqual({
 		errors: 'document not found guid 1111-2222-3333 related to casedId 1'
 	});
 });

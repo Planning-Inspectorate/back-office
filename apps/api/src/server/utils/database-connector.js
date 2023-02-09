@@ -2,19 +2,19 @@ import { Prisma, PrismaClient } from '@prisma/client';
 import { prismaClientDocumentMiddleWare } from './prisma-middleware.js';
 
 /** @type {PrismaClient<Prisma.PrismaClientOptions, never, Prisma.RejectOnNotFound | Prisma.RejectPerOperation | undefined>} */
-let prisma;
+let prismaClient;
 
 /**
  *@returns {PrismaClient<Prisma.PrismaClientOptions, never, Prisma.RejectOnNotFound | Prisma.RejectPerOperation | undefined>}
  */
 function createPrismaClient() {
-	if (!prisma) {
-		prisma = new PrismaClient();
+	if (!prismaClient) {
+		prismaClient = new PrismaClient();
 	}
 
-	prisma.$use(prismaClientDocumentMiddleWare);
+	prismaClient.$use(prismaClientDocumentMiddleWare);
 
-	return prisma;
+	return prismaClient;
 }
 
 export const databaseConnector = createPrismaClient();
