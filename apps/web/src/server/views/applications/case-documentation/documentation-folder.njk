@@ -8,6 +8,7 @@
 {% from "govuk/components/accordion/macro.njk" import govukAccordion %}
 {% from "govuk/components/table/macro.njk" import govukTable %}
 {% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% from "govuk/components/tag/macro.njk" import govukTag %}
 
 
 {% block beforeContent %}{% endblock %}
@@ -199,16 +200,6 @@
 															label: 'select ' + documentationFile.documentName|documentName
 														}]
 												}) }}
-											{% else %}
-												<div class="govuk-form-group" aria-hidden="true">
-													<div class="govuk-checkboxes" data-module="govuk-checkboxes">
-														<div class="govuk-checkboxes__item">
-															<label class="govuk-label govuk-checkboxes__label">
-																{{ documentationFile.documentName|documentName }}
-															</label>
-														</div>
-													</div>
-												</div>
 											{% endif %}
 										</td>
 										<td class="govuk-table__cell">
@@ -232,9 +223,25 @@
 										</td>
 										<td class="govuk-table__cell">{{ documentationFile.receivedDate|datestamp({format: 'dd/MM/yyyy'}) }}</td>
 										<td class="govuk-table__cell">{{ 'Redacted' if  documentationFile.redacted else 'Unredacted' }}</td>
-										<td class="govuk-table__cell">{{ documentationFile.status|statusName }}</td>
 										<td class="govuk-table__cell">
-
+											{% set avWaiting = documentationFile.status === 'awaiting_virus_check'%}
+											{% set avFailed = documentationFile.status === 'failed_virus_check' %}
+											{% if isNotDisabled %}
+												{{ documentationFile.status|statusName }}
+											{% else %}
+												{% if avWaiting %}
+												<strong class="govuk-tag govuk-tag--yellow">
+												{% elif avFailed %}
+												<strong class="govuk-tag govuk-tag--red">
+												{% else %}
+												<strong class="govuk-tag">
+												{% endif %}
+													{{ documentationFile.status|statusName }}
+												</strong>
+											{% endif %}
+										</td>
+										<td class="govuk-table__cell">
+										{% if isNotDisabled %}
 											{{ createOptionalLink(
 												{
 													classes: 'govuk-body-s',
@@ -253,6 +260,7 @@
 												},
 												isNotDisabled
 											) }}
+										{% endif %}
 										</td>
 									</tr>
 								{% endfor %}
