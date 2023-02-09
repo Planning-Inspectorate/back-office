@@ -39,6 +39,8 @@ const mockSectorFindUnique = jest.fn().mockResolvedValue({});
 const mockSectorFindMany = jest.fn().mockResolvedValue({});
 const mockSubSectorFindMany = jest.fn().mockResolvedValue({});
 const mockZoomLevelFindMany = jest.fn().mockResolvedValue({});
+const mockDocumentFindFirst = jest.fn().mockResolvedValue({});
+const mockDocumentDelete = jest.fn().mockResolvedValue({});
 
 class MockPrismaClient {
 	get appeal() {
@@ -95,6 +97,8 @@ class MockPrismaClient {
 
 	get document() {
 		return {
+			delete: mockDocumentDelete,
+			findFirst: mockDocumentFindFirst,
 			count: mockDocumentCount,
 			findUnique: mockDocumentFindUnique,
 			findMany: mockDocumentFindMany,
@@ -158,11 +162,19 @@ class MockPrismaClient {
 	}
 }
 
+const mockPrismaUse = jest.fn().mockResolvedValue();
+
 MockPrismaClient.prototype.$executeRawUnsafe = mockExecuteRawUnsafe;
+MockPrismaClient.prototype.$use = mockPrismaUse;
+
+class MockPrisma {}
 
 jest.unstable_mockModule('@prisma/client', () => ({
+	PrismaClient: MockPrismaClient,
+	Prisma: MockPrisma,
 	default: {
-		PrismaClient: MockPrismaClient
+		// PrismaClient: MockPrismaClient,
+		// Prisma: MockPrisma
 	}
 }));
 
