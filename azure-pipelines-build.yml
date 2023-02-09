@@ -15,6 +15,10 @@ parameters:
     displayName: Build Document Check Function
     type: boolean
     default: true
+  - name: buildODWIntegrationFunctions
+    displayName: Build ODW Integration Functions
+    type: boolean
+    default: true
 
 resources:
   repositories:
@@ -64,6 +68,8 @@ extends:
                   path: apps/document-storage
                 - name: document-check-function
                   path: apps/document-check-function
+                - name: odw-integration
+                  path: apps/odw-integration
               stepName: check_files
       - name: Build API
         condition: >-
@@ -140,12 +146,8 @@ extends:
         dependsOn:
           - Run Linting & Tests
         steps:
-          # - template: ../steps/function_app_validate.yml@templates
-          #   parameters:
-          #     nodeVersion: 16
-          #     workingDirectory: $(Build.Repository.LocalPath)
           - template: ../steps/node_script.yml
-            parameters: 
+            parameters:
               nodeVersion: 16
               script: npm install --only=prod --workspace=@pins/document-check-function
               workingDirectory: $(Build.Repository.LocalPath)
@@ -159,7 +161,45 @@ extends:
               includeRootFolder: false
               archiveFile: $(System.DefaultWorkingDirectory)/functions.zip
           - publish: $(System.DefaultWorkingDirectory)/functions.zip
-            artifact: azure-functions
+            artifact: document-check-functions
+            displayName: Publish Functions Artifact
+      - name: Build ODW Integration Functions
+        condition: >-
+          and(
+            succeeded(),
+            or(
+              and(
+                eq(variables['Build.Reason'], 'Manual'),
+                eq(${{ parameters.buildODWIntegrationFunctions }}, 'true')
+              ),
+              and(
+                ne(variables['Build.Reason'], 'Manual'),
+                or(
+                  eq(variables['Build.SourceBranchName'], 'main'),
+                  eq(dependencies.run_linting_and_tests.outputs['check_files.odw-integration'], 'true')
+                )
+              )
+            )
+          )
+        dependsOn:
+          - Run Linting & Tests
+        steps:
+          - template: ../steps/node_script.yml
+            parameters:
+              nodeVersion: 16
+              script: npm install --only=prod --workspace=@pins/odw-integration-functions
+              workingDirectory: $(Build.Repository.LocalPath)
+          - script: |
+              source ~/.bashrc
+              mv $(Build.Repository.LocalPath)/node_modules $(Build.Repository.LocalPath)/apps/odw-integration/node_modules/
+          - task: ArchiveFiles@2
+            displayName: Archive files
+            inputs:
+              rootFolderOrFile: $(Build.Repository.LocalPath)/apps/odw-integration
+              includeRootFolder: false
+              archiveFile: $(System.DefaultWorkingDirectory)/functions.zip
+          - publish: $(System.DefaultWorkingDirectory)/functions.zip
+            artifact: odw-integration-functions
             displayName: Publish Functions Artifact
       - name: Build Web
         condition: >-
