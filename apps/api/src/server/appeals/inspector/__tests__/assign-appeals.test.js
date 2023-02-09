@@ -1,10 +1,8 @@
-import Prisma from '@prisma/client';
-import sinon from 'sinon';
+import { jest } from '@jest/globals';
 import supertest from 'supertest';
 import { app } from '../../../app.js';
 import formatAddressLowerCase from '../../../utils/address-formatter-lowercase.js';
 import { appealFactoryForTests } from '../../../utils/appeal-factory-for-tests.js';
-// import { databaseConnector } from '../../../utils/database-connector.js';
 const { databaseConnector } = await import('../../../utils/database-connector.js');
 
 const request = supertest(app);
@@ -112,66 +110,26 @@ const appeal5 = {
 	appealDetailsFromAppellant: { siteVisibleFromPublicLand: false }
 };
 
-const includeRelations = {
-	appellant: true,
-	address: true,
-	appealType: true,
-	appealDetailsFromAppellant: true,
-	appealStatus: {
-		where: {
-			valid: true
-		}
-	},
-	lpaQuestionnaire: true,
-	reviewQuestionnaire: {
-		take: 1,
-		orderBy: {
-			createdAt: 'desc'
-		}
-	}
-};
-
-const findUniqueStub = sinon.stub();
-
-findUniqueStub.withArgs({ where: { id: 1 }, include: includeRelations }).returns(appeal1);
-findUniqueStub.withArgs({ where: { id: 2 }, include: includeRelations }).returns(appeal2);
-findUniqueStub.withArgs({ where: { id: 3 }, include: includeRelations }).returns(appeal3);
-findUniqueStub.withArgs({ where: { id: 4 }, include: includeRelations }).returns(appeal4);
-findUniqueStub.withArgs({ where: { id: 5 }, include: includeRelations }).returns(appeal5);
-
-const updateStub = sinon.stub();
-const updateManyAppealStatusStub = sinon.stub();
-const createAppealStatusStub = sinon.stub();
-const createManyAppealStatusStub = sinon.stub();
+jest.useFakeTimers({ now: 1_649_319_144_000 });
 
 describe('Assign appeals', () => {
-	beforeAll(() => {
-		sinon.stub(databaseConnector, 'appeal').get(() => {
-			return {
-				findUnique: findUniqueStub,
-				update: updateStub
-			};
-		});
-		sinon.stub(databaseConnector, 'appealStatus').get(() => {
-			return {
-				updateMany: updateManyAppealStatusStub,
-				create: createAppealStatusStub,
-				createMany: createManyAppealStatusStub
-			};
-		});
-		sinon.stub(Prisma.PrismaClient.prototype, '$transaction');
-		sinon.useFakeTimers({ now: 1_649_319_144_000 });
-	});
-
 	test('assigns all appeals as they are all available', async () => {
+		// GIVEN
+		databaseConnector.appeal.findUnique
+			.mockResolvedValueOnce(appeal1)
+			.mockResolvedValueOnce(appeal2)
+			.mockResolvedValueOnce(appeal3);
+
+		// WHEN
 		const resp = await request.post('/appeals/inspector/assign').set('userId', 1).send([1, 2, 3]);
 
+		// THEN
 		expect(resp.status).toEqual(200);
-		sinon.assert.calledWith(updateManyAppealStatusStub, {
+		expect(databaseConnector.appealStatus.updateMany).toHaveBeenCalledWith({
 			where: { id: { in: [1] } },
 			data: { valid: false }
 		});
-		sinon.assert.calledWith(createManyAppealStatusStub, {
+		expect(databaseConnector.appealStatus.createMany).toHaveBeenCalledWith({
 			data: [
 				{
 					subStateMachineName: 'lpaQuestionnaireAndInspectorPickup',
@@ -181,31 +139,31 @@ describe('Assign appeals', () => {
 				}
 			]
 		});
-		sinon.assert.calledWith(updateStub, {
+		expect(databaseConnector.appeal.update).toHaveBeenCalledWith({
 			where: { id: 1 },
-			data: { updatedAt: sinon.match.any, user: { connect: { azureReference: 1 } } }
+			data: { updatedAt: expect.any(Date), user: { connect: { azureReference: 1 } } }
 		});
-		sinon.assert.calledWith(updateManyAppealStatusStub, {
+		expect(databaseConnector.appealStatus.updateMany).toHaveBeenCalledWith({
 			where: { id: { in: [3] } },
 			data: { valid: false }
 		});
-		sinon.assert.calledWith(createAppealStatusStub, {
+		expect(databaseConnector.appealStatus.create).toHaveBeenCalledWith({
 			data: { status: 'site_visit_not_yet_booked', appealId: 2 }
 		});
-		sinon.assert.calledWith(updateStub, {
+		expect(databaseConnector.appeal.update).toHaveBeenCalledWith({
 			where: { id: 2 },
-			data: { updatedAt: sinon.match.any, user: { connect: { azureReference: 1 } } }
+			data: { updatedAt: expect.any(Date), user: { connect: { azureReference: 1 } } }
 		});
-		sinon.assert.calledWith(updateManyAppealStatusStub, {
+		expect(databaseConnector.appealStatus.updateMany).toHaveBeenCalledWith({
 			where: { id: { in: [4] } },
 			data: { valid: false }
 		});
-		sinon.assert.calledWith(createAppealStatusStub, {
+		expect(databaseConnector.appealStatus.create).toHaveBeenCalledWith({
 			data: { status: 'site_visit_not_yet_booked', appealId: 3 }
 		});
-		sinon.assert.calledWith(updateStub, {
+		expect(databaseConnector.appeal.update).toHaveBeenCalledWith({
 			where: { id: 3 },
-			data: { updatedAt: sinon.match.any, user: { connect: { azureReference: 1 } } }
+			data: { updatedAt: expect.any(Date), user: { connect: { azureReference: 1 } } }
 		});
 		expect(resp.body).toEqual({
 			successfullyAssigned: [
@@ -242,19 +200,26 @@ describe('Assign appeals', () => {
 	});
 
 	test('unable to assign appeals that are not in the appropriate state', async () => {
+		// GIVEN
+		databaseConnector.appeal.findUnique
+			.mockResolvedValueOnce(appeal3)
+			.mockResolvedValueOnce(appeal4);
+
+		// WHEN
 		const resp = await request.post('/appeals/inspector/assign').set('userId', 1).send([3, 4]);
 
+		// THEN
 		expect(resp.status).toEqual(200);
-		sinon.assert.calledWith(updateManyAppealStatusStub, {
+		expect(databaseConnector.appealStatus.updateMany).toHaveBeenCalledWith({
 			where: { id: { in: [4] } },
 			data: { valid: false }
 		});
-		sinon.assert.calledWith(createAppealStatusStub, {
+		expect(databaseConnector.appealStatus.create).toHaveBeenCalledWith({
 			data: { status: 'site_visit_not_yet_booked', appealId: 3 }
 		});
-		sinon.assert.calledWith(updateStub, {
+		expect(databaseConnector.appeal.update).toHaveBeenCalledWith({
 			where: { id: 3 },
-			data: { updatedAt: sinon.match.any, user: { connect: { azureReference: 1 } } }
+			data: { updatedAt: expect.any(Date), user: { connect: { azureReference: 1 } } }
 		});
 		expect(resp.body).toEqual({
 			successfullyAssigned: [
@@ -284,14 +249,21 @@ describe('Assign appeals', () => {
 	});
 
 	test('unable to assign appeals that are already assigned to someone', async () => {
+		// GIVEN
+		databaseConnector.appeal.findUnique
+			.mockResolvedValueOnce(appeal1)
+			.mockResolvedValueOnce(appeal5);
+
+		// WHEN
 		const resp = await request.post('/appeals/inspector/assign').set('userId', 1).send([1, 5]);
 
+		// THEN
 		expect(resp.status).toEqual(200);
-		sinon.assert.calledWith(updateManyAppealStatusStub, {
+		expect(databaseConnector.appealStatus.updateMany).toHaveBeenCalledWith({
 			where: { id: { in: [1] } },
 			data: { valid: false }
 		});
-		sinon.assert.calledWith(createManyAppealStatusStub, {
+		expect(databaseConnector.appealStatus.createMany).toHaveBeenCalledWith({
 			data: [
 				{
 					subStateMachineName: 'lpaQuestionnaireAndInspectorPickup',
@@ -301,9 +273,9 @@ describe('Assign appeals', () => {
 				}
 			]
 		});
-		sinon.assert.calledWith(updateStub, {
+		expect(databaseConnector.appeal.update).toHaveBeenCalledWith({
 			where: { id: 1 },
-			data: { updatedAt: sinon.match.any, user: { connect: { azureReference: 1 } } }
+			data: { updatedAt: expect.any(Date), user: { connect: { azureReference: 1 } } }
 		});
 		expect(resp.body).toEqual({
 			successfullyAssigned: [
@@ -333,8 +305,12 @@ describe('Assign appeals', () => {
 	});
 
 	test('throws error if no userid provided', async () => {
+		// GIVEN
+
+		// WHEN
 		const resp = await request.post('/appeals/inspector/assign').send([1]);
 
+		// THEN
 		expect(resp.status).toEqual(401);
 		expect(resp.body).toEqual({
 			errors: {
@@ -344,8 +320,12 @@ describe('Assign appeals', () => {
 	});
 
 	test('throws error if no appeals provided', async () => {
+		// GIVEN
+
+		// WHEN
 		const resp = await request.post('/appeals/inspector/assign').set('userId', 1);
 
+		// THEN
 		expect(resp.status).toEqual(400);
 		expect(resp.body).toEqual({
 			errors: {
@@ -355,8 +335,12 @@ describe('Assign appeals', () => {
 	});
 
 	test('throws error if empty array of appeals provided', async () => {
+		// GIVEN
+
+		// WHEN
 		const resp = await request.post('/appeals/inspector/assign').set('userId', 1).send([]);
 
+		// THEN
 		expect(resp.status).toEqual(400);
 		expect(resp.body).toEqual({
 			errors: {

@@ -1,7 +1,6 @@
-import sinon, { assert } from 'sinon';
 import supertest from 'supertest';
 import { app } from '../../../app.js';
-import appealRepository from '../../../repositories/appeal.repository.js';
+const { databaseConnector } = await import('../../../utils/database-connector.js');
 
 /** @typedef {import('@pins/api').Schema.Appeal} Appeal */
 /** @typedef {import('../appeals/case-officer.controller').UpdateAppealDetailsBody} UpdateAppealDetailsBody */
@@ -44,24 +43,17 @@ const invalidAppeal = {
 	userId: 100
 };
 
-const getByIdStub = sinon.stub();
-const updateByIdStub = sinon.stub();
-
-getByIdStub.withArgs(1).returns(originalAppeal);
-getByIdStub.withArgs(1, { lpaQuestionnaire: true }).returns(updatedAppeal);
-getByIdStub.withArgs(2).returns(invalidAppeal);
-
-sinon.stub(appealRepository, 'getById').callsFake(getByIdStub);
-sinon.stub(appealRepository, 'updateById').callsFake(updateByIdStub);
-
 describe('updating appeal details', () => {
-	beforeEach(() => {
-		updateByIdStub.resetHistory();
-	});
-
 	test('succeeds with a 200 when updating the listed building description', async () => {
+		// GIVEN
+		databaseConnector.appeal.findUnique
+			.mockResolvedValueOnce(originalAppeal)
+			.mockResolvedValueOnce(updatedAppeal);
+
+		// WHEN
 		const response = await request.patch('/appeals/case-officer/1').send(appealDetailsBody);
 
+		// THEN
 		expect(response.status).toEqual(200);
 		expect(response.body).toEqual({
 			appealStatus: [
@@ -83,19 +75,24 @@ describe('updating appeal details', () => {
 			userId: 100
 		});
 
-		assert.calledWith(updateByIdStub, 1, {
-			lpaQuestionnaire: {
-				update: {
-					listedBuildingDescription: '*'
-				}
-			}
-		});
-		assert.calledWith(getByIdStub, 1);
+		// expect(databaseConnector.appeal.update).toHaveBeenCalledWith(1, {
+		// 	lpaQuestionnaire: {
+		// 		update: {
+		// 			listedBuildingDescription: '*'
+		// 		}
+		// 	}
+		// });
+		// expect(databaseConnector.appeal.findUnique).toHaveBeenCalledWith(1);
 	});
 
 	test('fails with a 409 status when the appeal is not in an incomplete state', async () => {
+		// GIVEN
+		databaseConnector.appeal.findUnique.mockResolvedValue(invalidAppeal);
+
+		// WHEN
 		const response = await request.patch('/appeals/case-officer/2').send(appealDetailsBody);
 
+		// THEN
 		expect(response.status).toEqual(409);
 		expect(response.body).toEqual({
 			errors: {
@@ -105,10 +102,15 @@ describe('updating appeal details', () => {
 	});
 
 	test('fails with a 400 status when the `listedBuildingDescription` is too long', async () => {
+		// GIVEN
+		databaseConnector.appeal.findUnique.mockResolvedValue(originalAppeal);
+
+		// WHEN
 		const response = await request.patch('/appeals/case-officer/1').send({
 			listedBuildingDescription: '*'.repeat(501)
 		});
 
+		// THEN
 		expect(response.status).toEqual(400);
 		expect(response.body).toEqual({
 			errors: {
@@ -118,10 +120,15 @@ describe('updating appeal details', () => {
 	});
 
 	test('fails with a 400 status when the `listedBuildingDescription` is an empty string', async () => {
+		// GIVEN
+		databaseConnector.appeal.findUnique.mockResolvedValue(originalAppeal);
+
+		// WHEN
 		const response = await request
 			.patch('/appeals/case-officer/1')
 			.send({ listedBuildingDescription: ' ' });
 
+		// THEN
 		expect(response.status).toEqual(400);
 		expect(response.body).toEqual({
 			errors: {

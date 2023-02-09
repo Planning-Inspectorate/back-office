@@ -1,11 +1,6 @@
-import sinon from 'sinon';
-// import { databaseConnector } from '../../utils/database-connector.js';
 const { databaseConnector } = await import('../../utils/database-connector.js');
 
 import * as folderRepository from '../folder.repository.js';
-
-const findManyStub = sinon.stub();
-const findUniqueStub = sinon.stub();
 
 const existingTopLevelFolders = [
 	{
@@ -45,50 +40,59 @@ const folderPath = [
 	}
 ];
 
-findManyStub
-	.withArgs({ where: { caseId: 1, parentFolderId: null } })
-	.returns(existingTopLevelFolders);
-findManyStub.withArgs({ where: { caseId: 2, parentFolderId: 14 } }).returns(existingSubFolders);
-findManyStub.withArgs({ where: { caseId: 3, parentFolderId: null } }).returns([]);
-
-findManyStub.withArgs({ where: { caseId: 5 } }).returns(folderPath);
-
-findUniqueStub.withArgs({ where: { id: 15 } }).returns(singleFolder);
-
 describe('Folder repository', () => {
-	beforeAll(() => {
-		sinon.stub(databaseConnector, 'folder').get(() => {
-			return { findMany: findManyStub, findUnique: findUniqueStub };
-		});
-	});
-
 	test('finds all top level folders when case has folders attached', async () => {
+		// GIVEN
+		databaseConnector.folder.findMany.mockResolvedValue(existingTopLevelFolders);
+
+		// WHEN
 		const folders = await folderRepository.getByCaseId(1, null);
 
+		// THEN
 		expect(folders).toEqual(existingTopLevelFolders);
 	});
 
 	test('finds all folders in a sub folder', async () => {
+		// GIVEN
+		databaseConnector.folder.findMany.mockResolvedValue(existingSubFolders);
+
+		// WHEN
 		const folders = await folderRepository.getByCaseId(2, 14);
 
+		// THEN
 		expect(folders).toEqual(existingSubFolders);
 	});
 
 	test('finds no folders when case has no folders attached', async () => {
+		// GIVEN
+		databaseConnector.folder.findMany.mockResolvedValue([]);
+
+		// WHEN
 		const folders = await folderRepository.getByCaseId(3, null);
 
+		// THEN
 		expect(folders).toEqual([]);
 	});
 
 	test('finds a single folder', async () => {
+		// GIVEN
+		databaseConnector.folder.findUnique.mockResolvedValue(singleFolder);
+
+		// WHEN
 		const folders = await folderRepository.getById(15);
 
+		// THEN
 		expect(folders).toEqual(singleFolder);
 	});
 
 	test('gets folder path', async () => {
+		// GIVEN
+		databaseConnector.folder.findMany.mockResolvedValue(folderPath);
+
+		// WHEN
 		const folders = await folderRepository.getFolderPath(5, 2);
 
+		// THEN
 		expect(folders).toEqual(folderPath);
 	});
 });

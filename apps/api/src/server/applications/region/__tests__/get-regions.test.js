@@ -1,7 +1,5 @@
-import sinon from 'sinon';
 import supertest from 'supertest';
 import { app } from '../../../app.js';
-// import { databaseConnector } from '../../../utils/database-connector.js';
 const { databaseConnector } = await import('../../../utils/database-connector.js');
 
 const request = supertest(app);
@@ -14,15 +12,14 @@ const region = {
 };
 
 describe('Get regions', () => {
-	beforeAll(() => {
-		sinon.stub(databaseConnector, 'region').get(() => {
-			return { findMany: sinon.stub().returns([region]) };
-		});
-	});
-
 	test('gets all regions', async () => {
+		// GIVEN
+		databaseConnector.region.findMany.mockResolvedValue([region]);
+
+		// WHEN
 		const resp = await request.get('/applications/region');
 
+		// THEN
 		expect(resp.status).toEqual(200);
 		expect(resp.body).toEqual([
 			{

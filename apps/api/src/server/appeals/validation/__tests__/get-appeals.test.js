@@ -1,7 +1,5 @@
-import sinon from 'sinon';
 import supertest from 'supertest';
 import { app } from '../../../app.js';
-// import { databaseConnector } from '../../../utils/database-connector.js';
 const { databaseConnector } = await import('../../../utils/database-connector.js');
 
 const request = supertest(app);
@@ -49,12 +47,13 @@ const appeal2 = {
 
 describe('Get appeals', () => {
 	test('gets all new and incomplete validation appeals', async () => {
-		sinon.stub(databaseConnector, 'appeal').get(() => {
-			return { findMany: sinon.stub().returns([appeal1, appeal2]) };
-		});
+		// GIVEN
+		databaseConnector.appeal.findMany.mockResolvedValue([appeal1, appeal2]);
 
+		// WHEN
 		const resp = await request.get('/appeals/validation');
 
+		// THEN
 		const validationLineNew = {
 			AppealId: 1,
 			AppealReference: 'APP/Q9999/D/21/1345264',

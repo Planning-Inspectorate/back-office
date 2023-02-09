@@ -1,10 +1,6 @@
-import sinon from 'sinon';
-// import { databaseConnector } from '../../utils/database-connector.js';
 const { databaseConnector } = await import('../../utils/database-connector.js');
 
 import validationDecisionRepository from '../validation-decision.repository.js';
-
-const addNewDecision = sinon.stub();
 
 const newDecision = {
 	appealId: 1,
@@ -13,22 +9,19 @@ const newDecision = {
 	namesDoNotMatch: true
 };
 
-addNewDecision.returns(newDecision);
-
 describe('Validation decision repository', () => {
-	beforeAll(() => {
-		sinon.stub(databaseConnector, 'validationDecision').get(() => {
-			return { create: addNewDecision };
-		});
-	});
-
 	test('adds new Validation decision', async () => {
+		// GIVEN
+		databaseConnector.validationDecision.create.mockResolvedValue(newDecision);
+
+		// WHEN
 		const decision = await validationDecisionRepository.addNewDecision(1, 'incomplete', {
 			namesDoNotMatch: true
 		});
 
+		// THEN
 		expect(decision).toEqual(newDecision);
-		sinon.assert.calledWith(addNewDecision, {
+		expect(databaseConnector.validationDecision.create).toHaveBeenCalledWith({
 			data: {
 				appealId: 1,
 				decision: 'incomplete',

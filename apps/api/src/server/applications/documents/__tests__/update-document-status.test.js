@@ -1,7 +1,5 @@
-import sinon from 'sinon';
 import supertest from 'supertest';
 import { app } from '../../../app.js';
-// import { databaseConnector } from '../../../utils/database-connector.js';
 const { databaseConnector } = await import('../../../utils/database-connector.js');
 
 const request = supertest(app);
@@ -12,63 +10,35 @@ const document1 = {
 	status: 'awaiting_virus_check'
 };
 
-const updateStatusInDocumentTableStub = sinon.stub().returns(document1);
-
-const findUniqueGUIDInDocumentTableStub = sinon.stub();
-
-const findCaseIdInFolderTableStub = sinon.stub().returns({
-	id: 1,
-	displayNameEn: 'displayName',
-	displayOrder: 'displayOrder',
-	parentFolderId: 'parentFolderId',
-	caseId: 1
-});
-
-findUniqueGUIDInDocumentTableStub
-	.withArgs({
-		where: {
-			guid: 'D1234'
-		}
-	})
-	.returns({
-		guid: 'D1234',
-		name: 'Tom',
-		folderId: 2,
-		blobStorageContainer: 'Container',
-		blobStoragePath: 'Container',
-		status: 'awaiting_upload'
-	});
-
-findUniqueGUIDInDocumentTableStub
-	.withArgs({ where: { guid: 'D12345', isDeleted: false } })
-	.returns(null);
-
 describe('Update document status', () => {
-	beforeAll(() => {
-		sinon.stub(databaseConnector, 'folder').get(() => {
-			return { findUnique: findCaseIdInFolderTableStub };
-		});
-
-		sinon.stub(databaseConnector, 'document').get(() => {
-			return {
-				findUnique: findUniqueGUIDInDocumentTableStub,
-				update: updateStatusInDocumentTableStub
-			};
-		});
-	});
-
 	test('updates document status', async () => {
+		// GIVEN
+		databaseConnector.document.findUnique.mockResolvedValue({
+			guid: 'D1234',
+			name: 'Tom',
+			folderId: 2,
+			blobStorageContainer: 'Container',
+			blobStoragePath: 'Container',
+			status: 'awaiting_upload'
+		});
+		databaseConnector.folder.findUnique.mockResolvedValue({
+			caseId: 1
+		});
+		databaseConnector.document.update.mockResolvedValue(document1);
+
+		// WHEN
 		const response = await request.patch('/applications/documents/D1234/status').send({
 			machineAction: 'uploading'
 		});
 
+		// THEN
 		expect(response.status).toEqual(200);
 		expect(response.body).toEqual({
 			caseId: 1,
 			guid: 'D1234',
 			status: 'awaiting_virus_check'
 		});
-		sinon.assert.calledWith(updateStatusInDocumentTableStub, {
+		expect(databaseConnector.document.update).toHaveBeenCalledWith({
 			where: { guid: 'D1234' },
 			data: {
 				status: 'awaiting_virus_check'
@@ -77,10 +47,14 @@ describe('Update document status', () => {
 	});
 
 	test('throws erorr if incorrect machine action', async () => {
+		// GIVEN
+
+		// WHEN
 		const response = await request.patch('/applications/documents/D1234/status').send({
 			machineAction: 'wrong-action'
 		});
 
+		// THEN
 		expect(response.status).toEqual(409);
 		expect(response.body).toEqual({
 			errors: {
@@ -90,10 +64,14 @@ describe('Update document status', () => {
 	});
 
 	test("throws errorr if incorrect machine action given the document's current state", async () => {
+		// GIVEN
+
+		// WHEN
 		const response = await request.patch('/applications/documents/D1234/status').send({
 			machineAction: 'check_fail'
 		});
 
+		// THEN
 		expect(response.status).toEqual(409);
 		expect(response.body).toEqual({
 			errors: {
@@ -103,8 +81,12 @@ describe('Update document status', () => {
 	});
 
 	test('throws error if no machine action provided', async () => {
+		// GIVEN
+
+		// WHEN
 		const response = await request.patch('/applications/documents/D1234/status').send();
 
+		// THEN
 		expect(response.status).toEqual(400);
 		expect(response.body).toEqual({
 			errors: {

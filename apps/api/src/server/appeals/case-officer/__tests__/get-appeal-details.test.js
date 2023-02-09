@@ -1,8 +1,6 @@
-import sinon from 'sinon';
 import supertest from 'supertest';
 import { app } from '../../../app.js';
 import { appealFactoryForTests } from '../../../utils/appeal-factory-for-tests.js';
-// import { databaseConnector } from '../../../utils/database-connector.js';
 const { databaseConnector } = await import('../../../utils/database-connector.js');
 
 const request = supertest(app);
@@ -29,40 +27,6 @@ const appeal2 = appealFactoryForTests({
 	],
 	typeShorthand: 'HAS'
 });
-
-const includeDetails = {
-	address: true,
-	appealType: true,
-	appellant: true,
-	appealStatus: {
-		where: {
-			valid: true
-		}
-	},
-	lpaQuestionnaire: true,
-	reviewQuestionnaire: {
-		take: 1,
-		orderBy: {
-			createdAt: 'desc'
-		}
-	}
-};
-
-const includingDetailsForValidtion = {
-	appealStatus: { where: { valid: true } },
-	appealType: true
-};
-
-const findUniqueStub = sinon.stub();
-
-findUniqueStub.withArgs({ where: { id: 1 }, include: includeDetails }).returns(appeal1);
-findUniqueStub.withArgs({ where: { id: 2 }, include: includeDetails }).returns(appeal2);
-findUniqueStub
-	.withArgs({ where: { id: 1 }, include: includingDetailsForValidtion })
-	.returns(appeal1);
-findUniqueStub
-	.withArgs({ where: { id: 2 }, include: includingDetailsForValidtion })
-	.returns(appeal2);
 
 const listOfDocuments = [
 	{
@@ -143,14 +107,14 @@ const listOfDocuments = [
 ];
 
 describe('Getting appeal details', () => {
-	beforeAll(() => {
-		sinon.stub(databaseConnector, 'appeal').get(() => {
-			return { findUnique: findUniqueStub };
-		});
-	});
-
 	test('gets the appeals detailed information with received questionnaires', async () => {
+		// GIVEN
+		databaseConnector.appeal.findUnique.mockResolvedValue(appeal1);
+
+		// WHEN
 		const resp = await request.get('/appeals/case-officer/1');
+
+		// THEN
 		const appealExampleDetail = {
 			AppealId: 1,
 			AppealReference: appeal1.reference,
@@ -174,8 +138,13 @@ describe('Getting appeal details', () => {
 	});
 
 	test('unable to retrieve details for an appeal which has yet to receive the questionnaire', async () => {
+		// GIVEN
+		databaseConnector.appeal.findUnique.mockResolvedValue(appeal2);
+
+		// WHEN
 		const resp = await request.get('/appeals/case-officer/2');
 
+		// THEN
 		expect(resp.status).toEqual(409);
 		expect(resp.body).toEqual({
 			errors: {

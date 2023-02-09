@@ -1,8 +1,5 @@
-import Prisma from '@prisma/client';
-import sinon from 'sinon';
 import supertest from 'supertest';
 import { app } from '../../../app.js';
-// import { databaseConnector } from '../../../utils/database-connector.js';
 const { databaseConnector } = await import('../../../utils/database-connector.js');
 
 const request = supertest(app);
@@ -51,44 +48,12 @@ const appeal11 = {
 	}
 };
 
-const includeForValidation = {
-	appealStatus: {
-		where: {
-			valid: true
-		}
-	},
-	appealType: true
-};
-
-const getAppealByIdStub = sinon.stub();
-
-getAppealByIdStub.withArgs({ where: { id: 11 }, include: includeForValidation }).returns(appeal11);
-getAppealByIdStub.withArgs({ where: { id: 10 }, include: includeForValidation }).returns(appeal10);
-
-const addReviewStub = sinon.stub();
-
-const newReview = { reason: {} };
-
-const updateManyAppealStatusStub = sinon.stub();
-const createAppealStatusStub = sinon.stub();
-
-addReviewStub.returns(newReview);
-
 describe('confirming LPA questionnaire', () => {
-	beforeAll(() => {
-		sinon.stub(databaseConnector, 'appeal').get(() => {
-			return { findUnique: getAppealByIdStub, update: sinon.stub() };
-		});
-		sinon.stub(databaseConnector, 'reviewQuestionnaire').get(() => {
-			return { create: addReviewStub };
-		});
-		sinon.stub(databaseConnector, 'appealStatus').get(() => {
-			return { updateMany: updateManyAppealStatusStub, create: createAppealStatusStub };
-		});
-		sinon.stub(Prisma.PrismaClient.prototype, '$transaction');
-	});
-
 	test('should submit confirmation of an incomplete outcome of LPA questionnaire', async () => {
+		// GIVEN
+		databaseConnector.appeal.findUnique.mockResolvedValue(appeal11);
+
+		// WHEN
 		const resp = await request.post('/appeals/case-officer/11/confirm').send({
 			reason: {
 				applicationPlanningOfficersReportMissingOrIncorrect: false,
@@ -106,8 +71,9 @@ describe('confirming LPA questionnaire', () => {
 			}
 		});
 
+		// THEN
 		expect(resp.status).toEqual(200);
-		sinon.assert.calledWithExactly(addReviewStub, {
+		expect(databaseConnector.reviewQuestionnaire.create).toHaveBeenCalledWith({
 			data: {
 				appealId: 11,
 				complete: false,
@@ -125,16 +91,20 @@ describe('confirming LPA questionnaire', () => {
 				thirdPartyAppealNotificationMissingOrIncorrect: false
 			}
 		});
-		sinon.assert.calledWithExactly(updateManyAppealStatusStub, {
+		expect(databaseConnector.appealStatus.updateMany).toHaveBeenCalledWith({
 			where: { id: { in: [2] } },
 			data: { valid: false }
 		});
-		sinon.assert.calledWithExactly(createAppealStatusStub, {
+		expect(databaseConnector.appealStatus.create).toHaveBeenCalledWith({
 			data: { status: 'incomplete_lpa_questionnaire', appealId: 11 }
 		});
 	});
 
 	test('should submit confirmation of an incomplete if listed building desc is missing/incorrect', async () => {
+		// GIVEN
+		databaseConnector.appeal.findUnique.mockResolvedValue(appeal11);
+
+		// WHEN
 		const resp = await request.post('/appeals/case-officer/11/confirm').send({
 			reason: {
 				applicationPlanningOfficersReportMissingOrIncorrect: false,
@@ -152,8 +122,9 @@ describe('confirming LPA questionnaire', () => {
 			}
 		});
 
+		// THEN
 		expect(resp.status).toEqual(200);
-		sinon.assert.calledWithExactly(addReviewStub, {
+		expect(databaseConnector.reviewQuestionnaire.create).toHaveBeenCalledWith({
 			data: {
 				appealId: 11,
 				complete: false,
@@ -171,16 +142,20 @@ describe('confirming LPA questionnaire', () => {
 				thirdPartyAppealNotificationMissingOrIncorrect: false
 			}
 		});
-		sinon.assert.calledWithExactly(updateManyAppealStatusStub, {
+		expect(databaseConnector.appealStatus.updateMany).toHaveBeenCalledWith({
 			where: { id: { in: [2] } },
 			data: { valid: false }
 		});
-		sinon.assert.calledWithExactly(createAppealStatusStub, {
+		expect(databaseConnector.appealStatus.create).toHaveBeenCalledWith({
 			data: { status: 'incomplete_lpa_questionnaire', appealId: 11 }
 		});
 	});
 
 	test('should submit confirmation of the outcome of LPA questionnaire', async () => {
+		// GIVEN
+		databaseConnector.appeal.findUnique.mockResolvedValue(appeal11);
+
+		// WHEN
 		const resp = await request.post('/appeals/case-officer/11/confirm').send({
 			reason: {
 				applicationPlanningOfficersReportMissingOrIncorrect: false,
@@ -197,8 +172,9 @@ describe('confirming LPA questionnaire', () => {
 			}
 		});
 
+		// THEN
 		expect(resp.status).toEqual(200);
-		sinon.assert.calledWithExactly(addReviewStub, {
+		expect(databaseConnector.reviewQuestionnaire.create).toHaveBeenCalledWith({
 			data: {
 				appealId: 11,
 				complete: true,
@@ -215,16 +191,20 @@ describe('confirming LPA questionnaire', () => {
 				thirdPartyAppealNotificationMissingOrIncorrect: false
 			}
 		});
-		sinon.assert.calledWithExactly(updateManyAppealStatusStub, {
+		expect(databaseConnector.appealStatus.updateMany).toHaveBeenCalledWith({
 			where: { id: { in: [2] } },
 			data: { valid: false }
 		});
-		sinon.assert.calledWithExactly(createAppealStatusStub, {
+		expect(databaseConnector.appealStatus.create).toHaveBeenCalledWith({
 			data: { status: 'available_for_inspector_pickup', appealId: 11 }
 		});
 	});
 
 	test("should not be able to submit review as 'incomplete' if there is no description being sent", async () => {
+		// GIVEN
+		databaseConnector.appeal.findUnique.mockResolvedValue(appeal11);
+
+		// WHEN
 		const resp = await request.post('/appeals/case-officer/11/confirm').send({
 			reason: {
 				applicationPlanningOfficersReportMissingOrIncorrect: false,
@@ -241,6 +221,7 @@ describe('confirming LPA questionnaire', () => {
 			}
 		});
 
+		// THEN
 		expect(resp.status).toEqual(409);
 		expect(resp.body).toEqual({
 			errors: {
@@ -250,6 +231,10 @@ describe('confirming LPA questionnaire', () => {
 	});
 
 	test("should not be able to submit review as 'incomplete' if some unexpected body attributes are provided", async () => {
+		// GIVEN
+		databaseConnector.appeal.findUnique.mockResolvedValue(appeal11);
+
+		// WHEN
 		const resp = await request.post('/appeals/case-officer/11/confirm').send({
 			reason: {
 				applicationPlanningOfficersReportMissingOrIncorrect: false,
@@ -267,6 +252,7 @@ describe('confirming LPA questionnaire', () => {
 			}
 		});
 
+		// THEN
 		expect(resp.status).toEqual(409);
 		expect(resp.body).toEqual({
 			errors: {
@@ -276,6 +262,10 @@ describe('confirming LPA questionnaire', () => {
 	});
 
 	test('should not be able to submit review if appeal is not in a state ready to receive confirmation of the LPA questionnaire', async () => {
+		// GIVEN
+		databaseConnector.appeal.findUnique.mockResolvedValue(appeal10);
+
+		// WHEN
 		const resp = await request.post('/appeals/case-officer/10/confirm').send({
 			reason: {
 				applicationPlanningOfficersReportMissingOrIncorrect: false,
@@ -292,6 +282,7 @@ describe('confirming LPA questionnaire', () => {
 			}
 		});
 
+		// THEN
 		expect(resp.status).toEqual(409);
 		expect(resp.body).toEqual({
 			errors: {

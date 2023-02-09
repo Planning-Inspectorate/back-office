@@ -1,9 +1,9 @@
-import sinon from 'sinon';
+import { jest } from '@jest/globals';
 import supertest from 'supertest';
 import { app } from '../../../app.js';
-import appealRepository from '../../../repositories/appeal.repository.js';
 import formatAddressLowerCase from '../../../utils/address-formatter-lowercase.js';
 import { appealFactoryForTests } from '../../../utils/appeal-factory-for-tests.js';
+const { databaseConnector } = await import('../../../utils/database-connector.js');
 
 const request = supertest(app);
 
@@ -155,15 +155,6 @@ const appeal3 = {
 	}
 };
 
-const inclusions = {
-	appellant: true,
-	validationDecision: true,
-	address: true,
-	latestLPAReviewQuestionnaire: true,
-	appealDetailsFromAppellant: true,
-	lpaQuestionnaire: true
-};
-
 const documentsArray = [
 	{
 		Type: 'planning application form',
@@ -242,24 +233,17 @@ const documentsArray = [
 	}
 ];
 
-const getAppealByIdStub = sinon.stub();
-
-sinon.stub(appealRepository, 'getById').callsFake(getAppealByIdStub);
-getAppealByIdStub.withArgs(1, inclusions).returns(appeal1);
-getAppealByIdStub.withArgs(1).returns(appeal1);
-getAppealByIdStub.withArgs(2, inclusions).returns(appeal2);
-getAppealByIdStub.withArgs(2).returns(appeal2);
-getAppealByIdStub.withArgs(3, inclusions).returns(appeal3);
-getAppealByIdStub.withArgs(3).returns(appeal3);
+jest.useFakeTimers({ now: 1_649_319_144_000 });
 
 describe('Get appeal details', () => {
-	beforeAll(() => {
-		sinon.useFakeTimers({ now: 1_649_319_144_000 });
-	});
-
 	test('returns appeal details for household appeal', async () => {
+		// GIVEN
+		databaseConnector.appeal.findUnique.mockResolvedValue(appeal1);
+
+		// WHEN
 		const response = await request.get('/appeals/inspector/1').set('userId', '1');
 
+		// THEN
 		expect(response.status).toEqual(200);
 		expect(response.body).toEqual({
 			appealId: 1,
@@ -304,8 +288,13 @@ describe('Get appeal details', () => {
 	});
 
 	test('returns appeal details for full planning appeal which is still accepting statements', async () => {
+		// GIVEN
+		databaseConnector.appeal.findUnique.mockResolvedValue(appeal2);
+
+		// WHEN
 		const response = await request.get('/appeals/inspector/2').set('userId', '1');
 
+		// THEN
 		expect(response.status).toEqual(200);
 		expect(response.body).toEqual({
 			appealId: 2,
@@ -351,8 +340,13 @@ describe('Get appeal details', () => {
 	});
 
 	test('returns appeal details for full planning appeal which is still accepting final comments', async () => {
+		// GIVEN
+		databaseConnector.appeal.findUnique.mockResolvedValue(appeal3);
+
+		// WHEN
 		const response = await request.get('/appeals/inspector/3').set('userId', '1');
 
+		// THEN
 		expect(response.status).toEqual(200);
 		expect(response.body).toEqual({
 			appealId: 3,

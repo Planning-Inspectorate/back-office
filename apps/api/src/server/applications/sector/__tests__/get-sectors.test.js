@@ -1,7 +1,5 @@
-import sinon from 'sinon';
 import supertest from 'supertest';
 import { app } from '../../../app.js';
-// import { databaseConnector } from '../../../utils/database-connector.js';
 const { databaseConnector } = await import('../../../utils/database-connector.js');
 
 const request = supertest(app);
@@ -32,46 +30,15 @@ const subSector = {
 	sectorId: 0
 };
 
-const findManySectorsStub = sinon.stub().withArgs({}).returns([sector]);
-const findManySubSectorStub = sinon.stub();
-
-findManySubSectorStub
-	.withArgs({
-		where: {
-			sector: {
-				name: sector.name
-			}
-		}
-	})
-	.returns([subSector]);
-findManySubSectorStub
-	.withArgs({
-		where: {
-			sector: {
-				name: unknownSectorName
-			}
-		}
-	})
-	.returns([]);
-
-const findUniqueSectorStub = sinon.stub();
-
-findUniqueSectorStub.withArgs({ where: { name: sector.name } }).returns(sector);
-findUniqueSectorStub.withArgs({ where: { name: unknownSectorName } }).returns(null);
-
 describe('Get sectors', () => {
-	beforeAll(() => {
-		sinon.stub(databaseConnector, 'sector').get(() => {
-			return { findMany: findManySectorsStub, findUnique: findUniqueSectorStub };
-		});
-		sinon.stub(databaseConnector, 'subSector').get(() => {
-			return { findMany: findManySubSectorStub };
-		});
-	});
-
 	test('gets all sectors', async () => {
+		// GIVEN
+		databaseConnector.sector.findMany.mockResolvedValue([sector]);
+
+		// WHEN
 		const response = await request.get('/applications/sector');
 
+		// THEN
 		expect(response.status).toEqual(200);
 		expect(response.body).toEqual([
 			{
@@ -84,10 +51,15 @@ describe('Get sectors', () => {
 	});
 
 	test('gets all sub-sectors associated with existing sector', async () => {
+		// GIVEN
+		databaseConnector.subSector.findMany.mockResolvedValue([subSector]);
+
+		// WHEN
 		const response = await request
 			.get('/applications/sector')
 			.query({ sectorName: subSector.sector.name });
 
+		// THEN
 		expect(response.status).toEqual(200);
 		expect(response.body).toEqual([
 			{
@@ -100,10 +72,15 @@ describe('Get sectors', () => {
 	});
 
 	test('fails to get any subsectors when an unknown sector name is provided', async () => {
+		// GIVEN
+		databaseConnector.sector.findUnique.mockResolvedValue(null);
+
+		// WHEN
 		const response = await request
 			.get('/applications/sector')
 			.query({ sectorName: unknownSectorName });
 
+		// THEN
 		expect(response.status).toEqual(400);
 		expect(response.body).toEqual({
 			errors: {

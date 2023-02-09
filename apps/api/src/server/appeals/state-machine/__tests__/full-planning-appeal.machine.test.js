@@ -1,11 +1,4 @@
-import sinon from 'sinon';
 import { transitionState } from '../../../utils/transition-state.js';
-import inspectorActionsService from '../inspector.actions.js';
-import lpaQuestionnaireActionsService from '../lpa-questionnaire-actions.service.js';
-
-const lpaQuestionnaireStub = sinon.stub();
-const inspectorSendBookingStub = sinon.stub();
-const notifyAppellantOfDecisionStub = sinon.stub();
 
 const buildCompoundState = (
 	lpaQuestionnaireAndInspectorPickupState,
@@ -182,18 +175,6 @@ const transitions = [
 ];
 
 describe('Full Planning Appeal', () => {
-	beforeAll(() => {
-		sinon
-			.stub(lpaQuestionnaireActionsService, 'sendLpaQuestionnaire')
-			.callsFake(lpaQuestionnaireStub);
-		sinon
-			.stub(inspectorActionsService, 'sendEmailToAppellantWithSiteVisitBooking')
-			.callsFake(inspectorSendBookingStub);
-		sinon
-			.stub(inspectorActionsService, 'sendEmailToLPAAndAppellantWithDeciion')
-			.callsFake(notifyAppellantOfDecisionStub);
-	});
-
 	test.each(transitions)(
 		'Full Planning Appeal State Machine: from state %O with action %O ' +
 			'produces state %O with context %O and has changed: %O',

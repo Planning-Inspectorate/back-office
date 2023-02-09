@@ -1,7 +1,5 @@
-import sinon from 'sinon';
 import supertest from 'supertest';
 import { app } from '../../../app.js';
-// import { databaseConnector } from '../../../utils/database-connector.js';
 const { databaseConnector } = await import('../../../utils/database-connector.js');
 
 const request = supertest(app);
@@ -131,71 +129,17 @@ const appeal6 = {
 	}
 };
 
-const findManyStub = sinon.stub();
-
-findManyStub
-	.withArgs({
-		where: {
-			appealStatus: {
-				some: {
-					status: {
-						in: [
-							'awaiting_lpa_questionnaire',
-							'overdue_lpa_questionnaire',
-							'received_lpa_questionnaire',
-							'incomplete_lpa_questionnaire'
-						]
-					},
-					valid: true
-				}
-			}
-		},
-		include: {
-			address: true,
-			appellant: true,
-			lpaQuestionnaire: false,
-			appealDetailsFromAppellant: false,
-			appealStatus: {
-				where: {
-					valid: true
-				}
-			}
-		}
-	})
-	.returns([appeal1, appeal2, appeal3, appeal4, appeal5, appeal6]);
-findManyStub
-	.withArgs({
-		where: {
-			appealStatus: {
-				some: {
-					status: {
-						in: ['available_for_statements', 'available_for_final_comments']
-					},
-					valid: true
-				}
-			}
-		},
-		include: {
-			address: true,
-			appellant: true,
-			lpaQuestionnaire: false,
-			appealDetailsFromAppellant: false,
-			appealStatus: {
-				where: {
-					valid: true
-				}
-			}
-		}
-	})
-	.returns([appeal5, appeal6]);
-
 describe('Get Appeals', () => {
 	test('gets the appeals information with received questionnaires', async () => {
-		sinon.stub(databaseConnector, 'appeal').get(() => {
-			return { findMany: findManyStub };
-		});
+		// GIVEN
+		databaseConnector.appeal.findMany
+			.mockResolvedValueOnce([appeal1, appeal2, appeal3, appeal4, appeal5, appeal6])
+			.mockResolvedValueOnce([appeal5, appeal6]);
 
+		// WHEN
 		const resp = await request.get('/appeals/case-officer');
+
+		// THEN
 		const appealExample = [
 			{
 				AppealId: 1,

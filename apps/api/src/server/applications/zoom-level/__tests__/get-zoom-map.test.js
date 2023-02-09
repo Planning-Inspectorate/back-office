@@ -1,7 +1,5 @@
-import sinon from 'sinon';
 import supertest from 'supertest';
 import { app } from '../../../app.js';
-// import { databaseConnector } from '../../../utils/database-connector.js';
 const { databaseConnector } = await import('../../../utils/database-connector.js');
 
 const request = supertest(app);
@@ -15,15 +13,14 @@ const mapZoomLevels = {
 };
 
 describe('Get zoom map', () => {
-	beforeAll(() => {
-		sinon.stub(databaseConnector, 'zoomLevel').get(() => {
-			return { findMany: sinon.stub().returns([mapZoomLevels]) };
-		});
-	});
-
 	test('gets all map zoom levels', async () => {
+		// GIVEN
+		databaseConnector.zoomLevel.findMany.mockResolvedValue([mapZoomLevels]);
+
+		// WHEN
 		const resp = await request.get('/applications/zoom-level');
 
+		// THEN
 		expect(resp.status).toEqual(200);
 		expect(resp.body).toEqual([
 			{

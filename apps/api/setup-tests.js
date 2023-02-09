@@ -1,29 +1,134 @@
+// @ts-nocheck
 import { jest } from '@jest/globals';
 
-const mockCaseFindUnique = jest.fn();
-const mockCaseUpdate = jest.fn();
-const mockZoomLevelFindUnique = jest.fn();
-const mockSubSectorFindUnique = jest.fn();
-const mockServiceCustomerFindUnique = jest.fn();
-const mockRegionFindUnique = jest.fn();
-const mockRegionsOnApplicationDetailsDeleteMany = jest.fn();
+const mockCaseFindUnique = jest.fn().mockResolvedValue({});
+const mockCaseUpdate = jest.fn().mockResolvedValue({});
+const mockZoomLevelFindUnique = jest.fn().mockResolvedValue({});
+const mockSubSectorFindUnique = jest.fn().mockResolvedValue({});
+const mockServiceCustomerFindUnique = jest.fn().mockResolvedValue({});
+const mockRegionFindUnique = jest.fn().mockResolvedValue({});
+const mockRegionsOnApplicationDetailsDeleteMany = jest.fn().mockResolvedValue({});
+const mockAppealFindUnique = jest.fn().mockResolvedValue({});
+const mocklPAQuestionnaireCreate = jest.fn().mockResolvedValue({});
+const mockAppealStatusUpdateMany = jest.fn().mockResolvedValue({});
+const mockAppealStatusCreate = jest.fn().mockResolvedValue({});
+const mockAppealUpdate = jest.fn().mockResolvedValue({});
+const mockValidationDecisionCreate = jest.fn().mockResolvedValue({});
+const mockAppealStatusCreateMany = jest.fn().mockResolvedValue({});
+const mockAppealFindMany = jest.fn().mockResolvedValue({});
+const mockReviewQuestionnaireCreate = jest.fn().mockResolvedValue({});
+const mockCaseCreate = jest.fn().mockResolvedValue({});
+const mockFolderCreate = jest.fn().mockResolvedValue({});
+const mockCaseUpdateMany = jest.fn().mockResolvedValue({});
+const mockFolderUpdateMany = jest.fn().mockResolvedValue({});
+const mockRegionsOnApplicationDetailsUpdateMany = jest.fn().mockResolvedValue({});
+const mockCaseStatusUpdateMany = jest.fn().mockResolvedValue({});
+const mockCaseStatusCreate = jest.fn().mockResolvedValue({});
+const mockExecuteRawUnsafe = jest.fn().mockResolvedValue({});
+const mockDocumentFindUnique = jest.fn().mockResolvedValue({});
+const mockDocumentUpdate = jest.fn().mockResolvedValue({});
+const mockFolderFindUnique = jest.fn().mockResolvedValue({});
+const mockDocumentUpsert = jest.fn().mockResolvedValue({});
+const mockFolderFindMany = jest.fn().mockResolvedValue({});
+const mockDocumentFindMany = jest.fn().mockResolvedValue({});
+const mockDocumentCount = jest.fn().mockResolvedValue({});
+const mockCaseFindMany = jest.fn().mockResolvedValue({});
+const mockRegionFindMany = jest.fn().mockResolvedValue({});
+const mockCaseCount = jest.fn().mockResolvedValue({});
+const mockSectorFindUnique = jest.fn().mockResolvedValue({});
+const mockSectorFindMany = jest.fn().mockResolvedValue({});
+const mockSubSectorFindMany = jest.fn().mockResolvedValue({});
+const mockZoomLevelFindMany = jest.fn().mockResolvedValue({});
 
 class MockPrismaClient {
+	get appeal() {
+		return {
+			findUnique: mockAppealFindUnique,
+			update: mockAppealUpdate,
+			findMany: mockAppealFindMany
+		};
+	}
+
+	get appealStatus() {
+		return {
+			updateMany: mockAppealStatusUpdateMany,
+			create: mockAppealStatusCreate,
+			createMany: mockAppealStatusCreateMany
+		};
+	}
+
+	get reviewQuestionnaire() {
+		return {
+			create: mockReviewQuestionnaireCreate
+		};
+	}
+
+	get lPAQuestionnaire() {
+		return {
+			create: mocklPAQuestionnaireCreate
+		};
+	}
+
+	get validationDecision() {
+		return {
+			create: mockValidationDecisionCreate
+		};
+	}
+
+	get caseStatus() {
+		return {
+			updateMany: mockCaseStatusUpdateMany,
+			create: mockCaseStatusCreate
+		};
+	}
+
 	get case() {
 		return {
+			findMany: mockCaseFindMany,
 			findUnique: mockCaseFindUnique,
-			update: mockCaseUpdate
+			update: mockCaseUpdate,
+			create: mockCaseCreate,
+			count: mockCaseCount,
+			updateMany: mockCaseUpdateMany
+		};
+	}
+
+	get document() {
+		return {
+			count: mockDocumentCount,
+			findUnique: mockDocumentFindUnique,
+			findMany: mockDocumentFindMany,
+			update: mockDocumentUpdate,
+			upsert: mockDocumentUpsert
+		};
+	}
+
+	get folder() {
+		return {
+			findUnique: mockFolderFindUnique,
+			findMany: mockFolderFindMany,
+			create: mockFolderCreate,
+			updateMany: mockFolderUpdateMany
 		};
 	}
 
 	get zoomLevel() {
 		return {
+			findMany: mockZoomLevelFindMany,
 			findUnique: mockZoomLevelFindUnique
+		};
+	}
+
+	get sector() {
+		return {
+			findUnique: mockSectorFindUnique,
+			findMany: mockSectorFindMany
 		};
 	}
 
 	get subSector() {
 		return {
+			findMany: mockSubSectorFindMany,
 			findUnique: mockSubSectorFindUnique
 		};
 	}
@@ -36,24 +141,24 @@ class MockPrismaClient {
 
 	get region() {
 		return {
-			findUnique: mockRegionFindUnique
+			findUnique: mockRegionFindUnique,
+			findMany: mockRegionFindMany
 		};
 	}
 
 	get regionsOnApplicationDetails() {
 		return {
-			deleteMany: mockRegionsOnApplicationDetailsDeleteMany
+			deleteMany: mockRegionsOnApplicationDetailsDeleteMany,
+			updateMany: mockRegionsOnApplicationDetailsUpdateMany
 		};
 	}
 
 	$transaction() {
 		return {};
 	}
-
-	$executeRawUnsafe() {
-		return {};
-	}
 }
+
+MockPrismaClient.prototype.$executeRawUnsafe = mockExecuteRawUnsafe;
 
 jest.unstable_mockModule('@prisma/client', () => ({
 	default: {
@@ -66,5 +171,15 @@ const mockSendEvents = jest.fn();
 jest.unstable_mockModule('./src/server/infrastructure/event-client.js', () => ({
 	eventClient: {
 		sendEvents: mockSendEvents
+	}
+}));
+
+const mockGotGet = jest.fn();
+const mockGotPost = jest.fn();
+
+jest.unstable_mockModule('got', () => ({
+	default: {
+		get: mockGotGet,
+		post: mockGotPost
 	}
 }));
