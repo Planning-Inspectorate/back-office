@@ -82,7 +82,6 @@ describe('Get sectors', () => {
 			.get('/applications/sector')
 			.query({ sectorName: unknownSectorName });
 
-
 		// THEN
 		expect(response.status).toEqual(400);
 		expect(response.body).toEqual({
@@ -119,6 +118,8 @@ test('test if sector cache is working', async () => {
 	]);
 });
 
+const sectorName = 'Test1';
+
 test('test if cache is working with specific string', async () => {
 	nodeCache.flushAll();
 
@@ -132,7 +133,9 @@ test('test if cache is working with specific string', async () => {
 
 	setCache('Test1', [cacheSector]);
 
-	const response = await request.get('/applications/sector').query({ sectorName: 'Test1' });
+	databaseConnector.sector.findUnique.mockResolvedValue([sector]);
+
+	const response = await request.get('/applications/sector').query({ sectorName });
 
 	expect(response.status).toEqual(200);
 	expect(response.body).toEqual([
@@ -158,7 +161,9 @@ test('test if cache is working with specific string', async () => {
 
 	setCache('Test1', [cacheSector]);
 
-	const response = await request.get('/applications/sector').query({ sectorName: 'Test1' });
+	databaseConnector.sector.findUnique.mockResolvedValue([sector]);
+
+	const response = await request.get('/applications/sector').query({ sectorName });
 
 	expect(response.status).toEqual(200);
 	expect(response.body).toEqual([

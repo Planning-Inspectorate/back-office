@@ -6,7 +6,7 @@ export const setCache = (
 	/** @type {NodeCache.Key} */ key,
 	/** @type {Record<string,any>[]} */ value
 ) => {
-	nodeCache.set(key, value, 10_000);
+	nodeCache.set(key, value, 3_600_000);
 };
 
 export const getCache = (/** @type {NodeCache.Key} */ key) => {
