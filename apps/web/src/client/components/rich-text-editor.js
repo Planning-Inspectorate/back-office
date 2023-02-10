@@ -5,11 +5,8 @@
 import * as DOMPurify from 'dompurify';
 // @ts-ignore
 import Squire from 'squire-rte';
-// @ts-ignore
-import Quill from 'quill';
 
 const squireWrapper = document.querySelector('.squire');
-const quillWrapper = document.querySelector('.quill');
 // const editorsJsWrapper = document.querySelector( '.editorsjs' );
 // const pellWrapper = document.querySelector( '.pell' );
 
@@ -71,45 +68,3 @@ export const renderSquire = () => {
 		false
 	);
 };
-
-// Quill - https://quilljs.com/
-export const renderQuill = () => {
-	if (!quillWrapper) return;
-
-	const button = document.querySelector('#quill-rte-btn');
-	const content = document.querySelector('#quill-rte-output');
-
-	const editor = new Quill('#quill-rte', {
-		theme: 'snow',
-		modules: {
-			toolbar: ['bold', 'italic', 'underline', 'link', { list: 'ordered' }, { list: 'bullet' }]
-		},
-		formats: ['bold', 'list', 'underline', 'italic', 'link']
-	});
-
-	// @ts-ignore
-	button.addEventListener(
-		'click',
-		() => {
-			const output = editor.getContents();
-
-			// @ts-ignore
-			content.value = output;
-		},
-		false
-	);
-};
-
-// export const renderEditorsJs = () => {
-// 	// EditorsJs
-// 	if (!editorsJsWrapper) return;
-
-// 	const button = document.querySelector( '#editorsjs-rte-btn');
-
-// 	const editor = new EditorJS('editorsjs-rte');
-
-// 	button.addEventListener( 'click', () => {
-// 		// const output = editor.getContents();
-// 		console.log('I run');
-// 	}, false );
-// }

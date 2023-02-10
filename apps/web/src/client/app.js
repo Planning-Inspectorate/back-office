@@ -5,14 +5,13 @@ import './pages/default';
 import { initAll as initGovUKScripts } from 'govuk-frontend';
 import initFileUploaderModule from './components/file-uploader/file-uploader.module.js';
 import initFilesListModule from './components/files-list/files-list.module.js';
-import { renderSquire, renderQuill } from './components/rich-text-editor';
+import { renderSquire } from './components/rich-text-editor';
 
 const initAll = () => {
 	initGovUKScripts();
 	initFileUploaderModule();
 	initFilesListModule();
 	renderSquire();
-	renderQuill();
 };
 
 initAll();
