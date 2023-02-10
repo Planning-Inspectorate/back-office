@@ -1,3 +1,4 @@
+import pino from '../../../lib/logger.js';
 import { get, patch, post } from '../../../lib/request.js';
 import {
 	destroySessionApplicantInfoTypes,
@@ -31,7 +32,17 @@ export const getCase = async (id, query = null) => {
 
 	const queryStringified = JSON.stringify(queryObject);
 
-	return get(`applications/${id}${query ? `?query=${queryStringified}` : ''}`);
+	let response;
+
+	try {
+		response = await get(`applications/${id}${query ? `?query=${queryStringified}` : ''}`);
+	} catch (/** @type {*} */ error) {
+		pino.error(
+			`[WEB] GET /applications-service/case/${id} (Response code: ${error?.response?.statusCode})`
+		);
+		throw new Error(error?.response?.statusCode ?? 500);
+	}
+	return response;
 };
 
 /**

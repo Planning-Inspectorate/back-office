@@ -26,7 +26,12 @@ import {
  */
 export const registerCase = async (request, response, next) => {
 	response.locals.caseId = Number(request.params.caseId);
-	response.locals.case = await getCase(response.locals.caseId);
+
+	try {
+		response.locals.case = await getCase(response.locals.caseId);
+	} catch (/** @type {*} */ error) {
+		return response.render(`app/${error.message === '404' ? 404 : 500}.njk`, { error });
+	}
 
 	if (response.locals.case.status === 'Draft') {
 		throw new Error(`Trying to load a non-draft page for a draft case`);
