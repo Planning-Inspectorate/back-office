@@ -54,12 +54,13 @@ export async function updateApplicationsCaseDocumentationFolder(request, respons
 	const { errors: validationErrors, body } = request;
 	const { caseId } = response.locals;
 	const { status, isRedacted, selectedFilesIds } = body;
+	const redacted = typeof isRedacted === 'string' ? { redacted: isRedacted === '1' } : {};
 
 	const properties = await documentationFolderData(request, response);
 
 	const payload = {
 		status,
-		redacted: isRedacted === '1',
+		...redacted,
 		items: (selectedFilesIds || []).map((guid) => ({ guid }))
 	};
 	const { errors: apiErrors } = await updateCaseDocumentationFiles(caseId, payload);

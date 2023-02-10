@@ -65,7 +65,7 @@ export const getCaseDocumentationFilesInFolder = async (caseId, folderId, pageSi
  * Update the status and the redaction of one or many documents
  *
  * @param {number} caseId
- * @param {{status: string, redacted: boolean, items: Array<{guid: string}>}} payload
+ * @param {{status: string, redacted?: boolean, items: Array<{guid: string}>}} payload
  * @returns {Promise<{items?: Array<{guid: string}>, errors?: ValidationErrors}>}
  */
 export const updateCaseDocumentationFiles = async (caseId, { status, redacted, items }) => {
