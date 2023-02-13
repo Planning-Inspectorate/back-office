@@ -14,12 +14,12 @@ const instance = got.extend({
 		beforeRequest: [
 			requestLogger,
 			async (options) => {
-				const accessToken = getAccessToken();
-
 				// temporary pending implementation of authentication
 				options.headers.userid = '1';
 
-				if (process.env.TZ) {
+				if (config.clientCredentialsGrantEnabled) {
+					const accessToken = await getAccessToken();
+
 					options.headers.Authorization = `Bearer ${accessToken}`;
 				}
 			}

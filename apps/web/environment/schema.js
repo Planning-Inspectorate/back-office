@@ -13,7 +13,8 @@ export default joi.object({
 	msal: joi.object({
 		clientId: joi.string(),
 		clientSecret: joi.string(),
-		tenantId: joi.string()
+		tenantId: joi.string(),
+		apiClientId: joi.string()
 	}),
 	serverProtocol: joi.string().valid('http', 'https'),
 	serverPort: joi.number(),
