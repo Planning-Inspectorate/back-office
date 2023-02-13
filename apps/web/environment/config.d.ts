@@ -44,6 +44,8 @@ export interface EnvironmentConfig {
 	featureFlags: {
 		[key: string]: boolean;
 	};
+
+	clientCredentialsGrantEnabled: boolean;
 }
 
 const config: EnvironmentConfig;
