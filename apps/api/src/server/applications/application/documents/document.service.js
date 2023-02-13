@@ -1,6 +1,6 @@
-import * as caseRepository from '../../repositories/case.repository.js';
-import * as documentRepository from '../../repositories/document.repository.js';
-import { getStorageLocation } from '../../utils/document-storage-api-client.js';
+import * as caseRepository from '../../../repositories/case.repository.js';
+import * as documentRepository from '../../../repositories/document.repository.js';
+import { getStorageLocation } from '../../../utils/document-storage-api-client.js';
 
 /**
  *
