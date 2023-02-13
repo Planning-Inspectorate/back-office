@@ -7,11 +7,13 @@ import config from './config.js';
  * @param {string} machineAction
  */
 const sendRequestToBackOffice = async (documentGuid, machineAction) => {
-	await got.patch(`https://${config.API_HOST}/applications/documents/${documentGuid}/status`, {
-		json: {
-			machineAction
-		}
-	});
+	await got
+		.patch(`https://${config.API_HOST}/applications/documents/${documentGuid}/status`, {
+			json: {
+				machineAction
+			}
+		})
+		.json();
 };
 
 /**
