@@ -6,12 +6,30 @@ import logger from '../utils/logger.js';
 
 const DISCOVERY_KEYS_ENDPOINT = `${config.msal.authority}/discovery/v2.0/keys`;
 
+/**
+ * Initializes and returns an instance of the jwksClient library with the given options.
+ *
+ * @typedef {object} jwksClientOptions
+ * @property {boolean} cache - A flag indicating whether to cache the JSON Web Key Set (JWKS) retrieved from the jwksUri endpoint.
+ * @property {boolean} rateLimit - A flag indicating whether to limit the rate at which the JWKS endpoint is accessed.
+ * @property {string} jwksUri - The URI of the JWKS endpoint that provides the public keys needed to validate JSON Web Tokens (JWTs).
+ * @param {jwksClientOptions} options - An object containing the options for the jwksClient instance.
+ * @returns {object} An instance of the jwksClient library.
+ */
 const client = jwksClient({
 	cache: true,
 	rateLimit: true,
 	jwksUri: DISCOVERY_KEYS_ENDPOINT
 });
 
+/**
+ * Options for verifying JSON Web Tokens (JWTs).
+ *
+ * @typedef {object} jwtVerifyOptions
+ * @property {string[]} audience - An array of valid audience (aud) claims in the JWT.
+ * @property {string[]} issuer - An array of valid issuer (iss) claims in the JWT.
+ * @property {string[]} algorithms - An array of valid signing algorithms used in the JWT.
+ */
 const jwtOptions = {
 	audience: [`api://${config.msal.clientId}`],
 	issuer: [`https://sts.windows.net/${config.msal.tenantId}/`],
