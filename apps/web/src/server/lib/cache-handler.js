@@ -22,7 +22,7 @@ export const storeInCacheTTL = (ttl) => ttl || 3600;
  * @param {string} key - The key to set in the cache.
  * @param {any} value - The value to set in the cache.
  * @param {number} [ttl] - The Time To Live (TTL) value in seconds.
- * @description A constant holding a function that sets a value in the cache with a specified key and TTL.
+ * @description A function that sets a value in the cache with a specified key and TTL.
  * The function takes in three parameters: a `key` (string) to set in the cache, a `value` (of any type) to set in the cache, and an optional `ttl` (number) in seconds.
  * The `ttl` parameter is passed to the `storeInCacheTTL` function, which returns the cache TTL value.
  * The `nodeCache.set` method is then used to set the `value` in the cache with the specified `key` and `cacheTTL`.
