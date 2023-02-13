@@ -1,3 +1,4 @@
+import { jest } from '@jest/globals';
 import supertest from 'supertest';
 import { app } from '../../../app.js';
 import { nodeCache, setCache } from '../../../utils/cache-data.js';
@@ -33,6 +34,14 @@ const subSector = {
 };
 
 describe('Get sectors', () => {
+	beforeEach(() => {
+		nodeCache.flushAll();
+	});
+
+	afterEach(() => {
+		jest.resetAllMocks();
+	});
+
 	test('gets all sectors', async () => {
 		// GIVEN
 		databaseConnector.sector.findMany.mockResolvedValue([sector]);
@@ -73,9 +82,9 @@ describe('Get sectors', () => {
 		]);
 	});
 
-	test('fails to get any subsectors when an unknown sector name is provided', async () => {
+	test('returns {} if sector name is unknown', async () => {
 		// GIVEN
-		databaseConnector.sector.findUnique.mockResolvedValue(null);
+		databaseConnector.subSector.findMany.mockResolvedValue(null);
 
 		// WHEN
 		const response = await request
@@ -83,18 +92,14 @@ describe('Get sectors', () => {
 			.query({ sectorName: unknownSectorName });
 
 		// THEN
-		expect(response.status).toEqual(400);
+		expect(response.status).toEqual(404);
 		expect(response.body).toEqual({
-			errors: {
-				sectorName: 'Sector name not recognised'
-			}
+			errors: 'Sectors not found'
 		});
 	});
 });
 
 test('test if sector cache is working', async () => {
-	nodeCache.flushAll();
-
 	const cacheSector = {
 		id: 3,
 		name: 'cache test name',
@@ -103,68 +108,11 @@ test('test if sector cache is working', async () => {
 		displayNameCy: 'cache test name cy'
 	};
 
-	setCache('', [cacheSector]);
+	setCache('sectors', [cacheSector]);
 
 	const response = await request.get('/applications/sector');
 
-	expect(response.status).toEqual(200);
-	expect(response.body).toEqual([
-		{
-			name: cacheSector.name,
-			abbreviation: cacheSector.abbreviation,
-			displayNameEn: cacheSector.displayNameEn,
-			displayNameCy: cacheSector.displayNameCy
-		}
-	]);
-});
-
-const sectorName = 'Test1';
-
-test('test if cache is working with specific string', async () => {
-	nodeCache.flushAll();
-
-	const cacheSector = {
-		id: 3,
-		name: 'cache test name',
-		abbreviation: 'CC',
-		displayNameEn: 'cache test name en',
-		displayNameCy: 'cache test name cy'
-	};
-
-	setCache('Test1', [cacheSector]);
-
-	databaseConnector.sector.findUnique.mockResolvedValue([sector]);
-
-	const response = await request.get('/applications/sector').query({ sectorName });
-
-	expect(response.status).toEqual(200);
-	expect(response.body).toEqual([
-		{
-			name: cacheSector.name,
-			abbreviation: cacheSector.abbreviation,
-			displayNameEn: cacheSector.displayNameEn,
-			displayNameCy: cacheSector.displayNameCy
-		}
-	]);
-});
-
-test('test if cache is working with specific string', async () => {
-	nodeCache.flushAll();
-
-	const cacheSector = {
-		id: 3,
-		name: 'cache test name',
-		abbreviation: 'CC',
-		displayNameEn: 'cache test name en',
-		displayNameCy: 'cache test name cy'
-	};
-
-	setCache('Test1', [cacheSector]);
-
-	databaseConnector.sector.findUnique.mockResolvedValue([sector]);
-
-	const response = await request.get('/applications/sector').query({ sectorName });
-
+	expect(databaseConnector.subSector.findMany).not.toHaveBeenCalled();
 	expect(response.status).toEqual(200);
 	expect(response.body).toEqual([
 		{

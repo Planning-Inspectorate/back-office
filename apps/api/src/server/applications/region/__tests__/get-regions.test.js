@@ -1,3 +1,4 @@
+import { jest } from '@jest/globals';
 import supertest from 'supertest';
 import { app } from '../../../app.js';
 import { nodeCache, setCache } from '../../../utils/cache-data.js';
@@ -14,6 +15,14 @@ const region = {
 };
 
 describe('Get regions', () => {
+	beforeEach(() => {
+		nodeCache.flushAll();
+	});
+
+	afterEach(() => {
+		jest.resetAllMocks();
+	});
+
 	test('gets all regions', async () => {
 		// GIVEN
 		databaseConnector.region.findMany.mockResolvedValue([region]);
@@ -35,8 +44,6 @@ describe('Get regions', () => {
 });
 
 test('checks cache working for regions', async () => {
-	nodeCache.flushAll();
-
 	const cachedRegion = {
 		id: 1,
 		name: 'cached test',
@@ -48,6 +55,7 @@ test('checks cache working for regions', async () => {
 
 	const resp = await request.get('/applications/region');
 
+	expect(databaseConnector.region.findMany).not.toHaveBeenCalled();
 	expect(resp.status).toEqual(200);
 	expect(resp.body).toEqual([
 		{
