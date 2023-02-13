@@ -1,3 +1,4 @@
+import { jest } from '@jest/globals';
 import supertest from 'supertest';
 import { app } from '../../../../app.js';
 const { databaseConnector } = await import('../../../../utils/database-connector.js');
@@ -20,22 +21,20 @@ describe('Provide document upload URLs', () => {
 		// GIVEN
 		databaseConnector.case.findUnique.mockResolvedValue(application);
 		databaseConnector.folder.findUnique.mockResolvedValue({ id: 1, caseId: 1 });
-		got.post.mockResolvedValue({
-			json: () => {
-				return {
-					blobStorageHost: 'blob-store-host',
-					blobStorageContainer: 'blob-store-container',
-					documents: [
-						{
-							caseType: 'application',
-							blobStoreUrl: '/some/path/test doc',
-							caseReference: 'test reference',
-							GUID: 'some-guid',
-							documentName: 'test doc'
-						}
-					]
-				};
-			}
+		got.post.mockReturnValue({
+			json: jest.fn().mockResolvedValue({
+				blobStorageHost: 'blob-store-host',
+				blobStorageContainer: 'blob-store-container',
+				documents: [
+					{
+						caseType: 'application',
+						blobStoreUrl: '/some/path/test doc',
+						caseReference: 'test reference',
+						GUID: 'some-guid',
+						documentName: 'test doc'
+					}
+				]
+			})
 		});
 
 		// WHEN

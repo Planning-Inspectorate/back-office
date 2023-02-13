@@ -5,7 +5,7 @@ import {
 	formatResponseBody,
 	nextStatusInDocumentStateMachine
 } from '../application/application.service.js';
-import { obtainURLsForDocuments } from './documents.service.js';
+import { obtainURLsForDocuments } from '../application/documents/document.service.js';
 
 /**
  * @type {import('express').RequestHandler<?, ?, ?, ?>}
