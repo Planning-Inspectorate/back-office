@@ -3,6 +3,7 @@ import jwksClient from 'jwks-rsa';
 import config from '../config/config.js';
 import BackOfficeAppError from '../utils/app-error.js';
 import logger from '../utils/logger.js';
+import { asyncHandler } from './async-handler.js';
 
 const DISCOVERY_KEYS_ENDPOINT = `${config.msal.authority}/discovery/v2.0/keys`;
 
@@ -30,7 +31,7 @@ const client = jwksClient({
  * @property {string[]} issuer - An array of valid issuer (iss) claims in the JWT.
  * @property {string[]} algorithms - An array of valid signing algorithms used in the JWT.
  */
-const jwtOptions = {
+export const jwtOptions = {
 	audience: [`api://${config.msal.clientId}`],
 	issuer: [`https://sts.windows.net/${config.msal.tenantId}/`],
 	algorithms: ['RS256']
@@ -59,22 +60,24 @@ const decodeClientAccessToken = async (accessToken) => {
 
 /**
  * @param {string} accessToken - The access token to be verified
- * @param {jwt.Jwt} decoded - The decoded JWT token object
  * @throws {Error} If the signing key cannot be retrieved or if the access token is invalid
  *@returns {Promise<jwt.Jwt>}
  */
-async function verifyClientAccessToken(accessToken, decoded) {
+async function verifyClientAccessToken(accessToken) {
 	logger.info('attempting to sign and retrieve public key');
+
+	const decoded = await decodeClientAccessToken(accessToken);
 
 	const key = await client.getSigningKey(decoded.header.kid);
 
-	const signingKey = key.getPublicKey();
+	const publicKey = key.getPublicKey();
 
 	logger.info('successfully retrieved public key');
+
 	logger.info('attempting to verify access token from client');
 
 	// @ts-ignore
-	return jwt.verify(accessToken, signingKey, jwtOptions);
+	return jwt.verify(accessToken, publicKey, jwtOptions);
 }
 
 /**
@@ -87,32 +90,29 @@ async function verifyClientAccessToken(accessToken, decoded) {
  * if the access token is invalid, or if the client is not authorized.
  * The error message is sent in the response body with a status code of 401.
  */
-export async function authorizeClientMiddleware(req, response, next) {
+export const authorizeClientMiddleware = asyncHandler(async (req, _response, next) => {
+	if (!config.clientCredentialsGrantEnabled) return next();
+
 	const errorMessage = 'You have no access! Please try again later.';
 
-	if (config.clientCredentialsGrantEnabled) {
-		try {
-			// 1) Getting token and check of it's there
-			const accessToken = req.headers.authorization?.split(' ')[1];
+	try {
+		// 1) Getting token and check of it's there
+		const accessToken = req.headers.authorization?.split(' ')[1];
 
-			if (!accessToken) {
-				logger.error(`Access token not present in request header`);
-				throw new BackOfficeAppError(errorMessage, 401);
-			}
-
-			const decoded = await decodeClientAccessToken(accessToken);
-			const payload = await verifyClientAccessToken(accessToken, decoded);
-
-			logger.info('successfully verified access token', payload);
-
-			next();
-		} catch (error) {
-			logger.error(error);
-
-			// @ts-ignore
-			response.status(401).send({ errors: [{ message: error?.message || errorMessage }] });
+		if (!accessToken) {
+			logger.error(`Access token not present in request header`);
+			return next(new BackOfficeAppError(errorMessage, 401));
 		}
-	} else {
+
+		const payload = await verifyClientAccessToken(accessToken);
+
+		logger.info('successfully verified access token', payload);
+
 		next();
+	} catch (error) {
+		logger.error(error);
+
+		// @ts-ignore
+		return next(new BackOfficeAppError(error?.message || errorMessage, 401));
 	}
-}
+});

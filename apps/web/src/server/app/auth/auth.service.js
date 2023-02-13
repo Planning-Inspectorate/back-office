@@ -31,13 +31,13 @@ export const acquireTokenByCode = async (code) => {
  *
  * @function
  * @async
- * @param {string[]} [customeScopes=[`api://${config.msal.clientId}/.default`]] - Array of custom scopes to be requested.
+ * @param {string[]} [customeScopes=[`api://${config.msal.apiClientId}/.default`]] - Array of custom scopes to be requested.
  * @returns {Promise<OriginalAuthenticationResult | null>} The token response object containing the token and other information.
- * const scopes = ['api://myApp.com/myScope1', 'api://myApp.com/myScope2']
+ * const scopes = ['api://myApp.com/myScope1']
  * const tokenResponse = await acquireTokenByClientCredential(scopes)
  */
 export const acquireTokenByClientCredential = async (
-	customeScopes = [`api://${config.msal.clientId}/.default`]
+	customeScopes = [`api://${config.msal.apiClientId}/.default`]
 ) => {
 	return msalClient.acquireTokenByClientCredential({
 		authority: config.msal.authority,

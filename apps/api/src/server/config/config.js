@@ -47,7 +47,6 @@ const { value, error } = schema.validate({
 	clientCredentialsGrantEnabled:
 		environment.CLIENT_CREDENTIAL_GRANT_ENABLED &&
 		environment.CLIENT_CREDENTIAL_GRANT_ENABLED === 'true'
-	// service_bus_ena
 });
 
 if (error) {

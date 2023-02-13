@@ -180,9 +180,7 @@ jest.unstable_mockModule('@prisma/client', () => ({
 
 jest.unstable_mockModule('jwks-rsa', () => ({
 	default: jest.fn().mockImplementation(() => ({
-		getSigningKey: jest.fn().mockImplementation(() => ({
-			getPublicKey: jest.fn()
-		}))
+		getSigningKey: () => ({ getPublicKey: () => 'string' })
 	}))
 }));
 
