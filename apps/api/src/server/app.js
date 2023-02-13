@@ -9,7 +9,7 @@ import swaggerUi from 'swagger-ui-express';
 import { appealsRoutes } from './appeals/appeals.routes.js';
 import { applicationsRoutes } from './applications/applications.routes.js';
 import config from './config/config.js';
-import { validateClientHandler } from './middleware/auth-handler.js';
+import { authorizeClientMiddleware } from './middleware/auth-handler.js';
 import { defaultErrorHandler, stateMachineErrorHandler } from './middleware/error-handler.js';
 import versionRoutes from './middleware/version-routes.js';
 
@@ -25,7 +25,7 @@ app.use(compression());
 app.use(morgan('combined'));
 app.use(helmet());
 
-app.use(validateClientHandler);
+app.use(authorizeClientMiddleware);
 
 app.use(
 	'/appeals',

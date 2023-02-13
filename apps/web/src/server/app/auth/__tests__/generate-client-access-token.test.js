@@ -1,6 +1,7 @@
 import { jest } from '@jest/globals';
 import { ConfidentialClientApplication } from '../../../../../testing/app/app.js';
-import { getAccessToken, nodeCache } from '../generate-client-access-token.js';
+import { nodeCache, storeInCache } from '../../../lib/cache-handler.js';
+import { getAccessToken } from '../generate-client-access-token.js';
 
 const azureMsalMock = ConfidentialClientApplication.getMock();
 
@@ -8,7 +9,7 @@ jest.mock('node-cache');
 
 describe('getAccessToken', () => {
 	test('returns the token from cache if it is not expired', async () => {
-		nodeCache.set('access_token', 'mock_access_token');
+		storeInCache('access_token', 'mock_access_token');
 
 		const client = getConfidentialClientApplication();
 

@@ -25,8 +25,7 @@ const { value, error } = schema.validate({
 		subscriber: environment.SERVICE_BUS_SUBSCRIBER
 	},
 	msal: {
-		clientId: environment.AUTH_CLIENT_ID,
-		clientSecret: environment.AUTH_CLIENT_SECRET,
+		clientId: environment.AUTH_API_CLIENT_ID,
 		tenantId: environment.AUTH_TENANT_ID
 	},
 	queues: {

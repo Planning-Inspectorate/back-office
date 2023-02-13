@@ -178,6 +178,14 @@ jest.unstable_mockModule('@prisma/client', () => ({
 	}
 }));
 
+jest.unstable_mockModule('jwks-rsa', () => ({
+	default: jest.fn().mockImplementation(() => ({
+		getSigningKey: jest.fn().mockImplementation(() => ({
+			getPublicKey: jest.fn()
+		}))
+	}))
+}));
+
 const mockSendEvents = jest.fn();
 
 jest.unstable_mockModule('./src/server/infrastructure/event-client.js', () => ({
@@ -188,6 +196,13 @@ jest.unstable_mockModule('./src/server/infrastructure/event-client.js', () => ({
 
 const mockGotGet = jest.fn();
 const mockGotPost = jest.fn();
+
+jest.unstable_mockModule('jsonwebtoken', () => ({
+	default: {
+		decode: jest.fn(),
+		verify: jest.fn()
+	}
+}));
 
 jest.unstable_mockModule('got', () => ({
 	default: {

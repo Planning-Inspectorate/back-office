@@ -18,6 +18,7 @@ export interface EnvironmentConfig {
 	msal: {
 		authority: string;
 		clientId: string;
+		apiClientId: string;
 		clientSecret: string;
 		redirectUri: string;
 		logoutUri: string;
