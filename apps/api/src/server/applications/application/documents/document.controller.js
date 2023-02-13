@@ -4,7 +4,7 @@ import BackOfficeAppError from '../../../utils/app-error.js';
 import { mapSingleDocumentDetails } from '../../../utils/mapping/map-document-details.js';
 import { applicationStates } from '../../state-machine/application.machine.js';
 import { obtainURLsForDocuments } from './document.service.js';
-import { getDocumentByIdAndCaseId } from './document.validators.js';
+import { fetchDocumentByGuidAndCaseId } from './document.validators.js';
 /**
  * @typedef {import('apps/api/prisma/schema.js').Document} Document
  * @typedef {import('apps/api/prisma/schema.js').DocumentDetails} DocumentDetails
@@ -74,12 +74,15 @@ export const getDocumentProperties = async ({ params }, response) => {
 };
 
 /**
- * add soft delete flag to db so that this document cannot be accessible.
+ * Soft deletes a document by its GUID and case ID.
  *
+ *@async
  * @type {import('express').RequestHandler<{id:string; guid: string;}, ?, ?, any>}
+ * @throws {BackOfficeAppError} If the document is published, or if the document cannot be deleted for any other reason.
+ * @returns {Promise<void>} An object with the key "isDeleted" set to true.
  */
-export const softDeleteDocument = async ({ params: { id: caseId, guid } }, response) => {
-	const document = await getDocumentByIdAndCaseId(guid, +caseId);
+export const deleteDocumentSoftly = async ({ params: { id: caseId, guid } }, response) => {
+	const document = await fetchDocumentByGuidAndCaseId(guid, +caseId);
 
 	const documentIsPublished = document.status === applicationStates.published;
 

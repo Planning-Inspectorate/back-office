@@ -1,10 +1,15 @@
 import { Prisma } from '@prisma/client';
 
 /**
- * @param {Prisma.MiddlewareParams} parameters
- * @param {(arg0: any) => any} next
+ * A middleware function that modifies Prisma Client parameters for Document model.
+ * The middleware ensures that when fetching Document data, only non-deleted records are returned.
+ * When deleting a Document, it updates the `isDeleted` property instead of actually deleting the record.
+ *
+ * @param {Prisma.MiddlewareParams} parameters - The Prisma Client parameters object.
+ * @param {(arg0: any) => any} next - The next middleware in the chain.
+ * @returns {Promise<(arg0: any) => any>} The result of the next middleware in the chain.
  */
-export async function prismaClientDocumentMiddleWare(parameters, next) {
+export async function modifyPrismaDocumentQueryMiddleware(parameters, next) {
 	const isDocumentModel = parameters.model === 'Document';
 
 	const isDeleteAction = parameters.action === 'delete';

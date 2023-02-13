@@ -27,11 +27,14 @@ export const acquireTokenByCode = async (code) => {
 };
 
 /**
- * Acquire a {@link AuthenticationResult} using a acquireTokenByClientCredential sourced
- * having signed in manually at a MSAL authentication url.
+ * Acquire a token from the Azure Active Directory using client credentials flow.
  *
- * @param {string[]} customeScopes
- * @returns {Promise<OriginalAuthenticationResult | null>}
+ * @function
+ * @async
+ * @param {string[]} [customeScopes=[`api://${config.msal.clientId}/.default`]] - Array of custom scopes to be requested.
+ * @returns {Promise<OriginalAuthenticationResult | null>} The token response object containing the token and other information.
+ * const scopes = ['api://myApp.com/myScope1', 'api://myApp.com/myScope2']
+ * const tokenResponse = await acquireTokenByClientCredential(scopes)
  */
 export const acquireTokenByClientCredential = async (
 	customeScopes = [`api://${config.msal.clientId}/.default`]

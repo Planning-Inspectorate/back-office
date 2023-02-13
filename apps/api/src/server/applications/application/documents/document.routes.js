@@ -4,9 +4,9 @@ import { trimUnexpectedRequestParameters } from '../../../middleware/trim-unexpe
 import { validateApplicationId } from '../../application/application.validators.js';
 import { validateFolderIds } from '../../documents/documents.validators.js';
 import {
+	deleteDocumentSoftly,
 	getDocumentProperties,
 	provideDocumentUploadURLs,
-	softDeleteDocument,
 	updateDocuments
 } from './document.controller.js';
 import {
@@ -108,7 +108,7 @@ router.post(
 	/*
         #swagger.tags = ['Applications']
         #swagger.path = '/applications/{id}/documents/{guid}/delete'
-        #swagger.description = 'Gets the blob storage uri for a single file on a case'
+        #swagger.description = 'Deletes a document associated with a specific application'
         #swagger.parameters['id'] = {
             in: 'path',
 			description: 'Application ID here',
@@ -121,12 +121,20 @@ router.post(
 			required: true,
 			type: 'string'
 		}
-        #swagger.responses[200] = {
-            description: 'blob storage document will not be accessible once soft delete has taken placed.',
-            schema: { isDeleted: true }
-        }
+		#swagger.responses[200] = {
+			description: 'The document has been successfully soft-deleted and is no longer accessible.',
+			schema: {
+				type: 'object',
+				properties: {
+					isDeleted: {
+						type: 'boolean',
+						description: 'Indicates whether the document has been successfully soft-deleted.'
+					}
+				}
+			}
+		}
     */
-	asyncHandler(softDeleteDocument)
+	asyncHandler(deleteDocumentSoftly)
 );
 
 export { router as documentRoutes };
