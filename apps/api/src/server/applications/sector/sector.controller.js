@@ -1,6 +1,7 @@
 import { isEmpty } from 'lodash-es';
 import * as sectorRepository from '../../repositories/sector.repository.js';
 import * as subSectorRepository from '../../repositories/sub-sector.repository.js';
+import BackOfficeAppError from '../../utils/app-error.js';
 import { getCache, setCache } from '../../utils/cache-data.js';
 import { mapSector } from '../../utils/mapping/map-sector.js';
 
@@ -14,7 +15,7 @@ import { mapSector } from '../../utils/mapping/map-sector.js';
  * @returns {SectorResponse[]}
  */
 const mapSectors = (sectors) => {
-	return sectors.map((sector) => mapSector(sector));
+	return sectors?.map((sector) => mapSector(sector));
 };
 
 /**
@@ -22,18 +23,28 @@ const mapSectors = (sectors) => {
  * @type {import('express').RequestHandler}
  */
 export const getSectors = async (request, response) => {
-	let sectors = await getCache(request.query.sectorName?.toString() || '');
+	const sectorName = request.query.sectorName?.toString() || 'sectors';
+
+	let sectors = await getCache(sectorName);
 
 	if (!sectors) {
-		sectors = isEmpty(request.query)
-			? await sectorRepository.getAll()
-			: await subSectorRepository.getBySector({ name: request.query.sectorName?.toString() });
-
-		// sort ascending order of subsector abbreviation, BC, EN, ... WA, WS, WW
-		sectors.sort((a, b) => (a.abbreviation > b.abbreviation ? 1 : -1));
-
-		setCache(request.query.sectorName?.toString() || '', sectors);
+		sectors = await getSectorsFromRepository(request);
+		setCache(sectorName, sectors);
 	}
 
 	response.send(mapSectors(sectors));
+};
+
+const getSectorsFromRepository = async (
+	/** @type {import("express-serve-static-core").Request<import("express-serve-static-core").ParamsDictionary, any, any, import("qs").ParsedQs, Record<string, any>>} */ request
+) => {
+	const sectors = isEmpty(request.query)
+		? await sectorRepository.getAll()
+		: await subSectorRepository.getBySector({ name: request.query.sectorName?.toString() });
+
+	if (!sectors) {
+		throw new BackOfficeAppError(`Sectors not found`, 404);
+	}
+
+	return sectors;
 };

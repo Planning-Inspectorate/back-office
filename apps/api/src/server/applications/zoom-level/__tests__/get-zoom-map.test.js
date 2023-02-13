@@ -1,3 +1,4 @@
+import { jest } from '@jest/globals';
 import supertest from 'supertest';
 import { app } from '../../../app.js';
 import { nodeCache, setCache } from '../../../utils/cache-data.js';
@@ -15,6 +16,14 @@ const mapZoomLevels = {
 };
 
 describe('Get zoom map', () => {
+	beforeEach(() => {
+		nodeCache.flushAll();
+	});
+
+	afterEach(() => {
+		jest.resetAllMocks();
+	});
+
 	test('gets all map zoom levels', async () => {
 		// GIVEN
 		databaseConnector.zoomLevel.findMany.mockResolvedValue([mapZoomLevels]);
@@ -37,8 +46,6 @@ describe('Get zoom map', () => {
 });
 
 test('tests if cache is working', async () => {
-	nodeCache.flushAll();
-
 	const cachedMapZoomLevels = {
 		id: 2,
 		name: 'cached test',
@@ -51,6 +58,7 @@ test('tests if cache is working', async () => {
 
 	const resp = await request.get('/applications/zoom-level');
 
+	expect(databaseConnector.zoomLevel.findMany).not.toHaveBeenCalled();
 	expect(resp.status).toEqual(200);
 	expect(resp.body).toEqual([
 		{
