@@ -153,7 +153,7 @@ extends:
               workingDirectory: $(Build.Repository.LocalPath)
           - script: |
               source ~/.bashrc
-              mv -f $(Build.Repository.LocalPath)/node_modules/* $(Build.Repository.LocalPath)/apps/document-check-function/node_modules
+              mv -n $(Build.Repository.LocalPath)/node_modules/* $(Build.Repository.LocalPath)/apps/document-check-function/node_modules
           - task: ArchiveFiles@2
             displayName: Archive files
             inputs:
