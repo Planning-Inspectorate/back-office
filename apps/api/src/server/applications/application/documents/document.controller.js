@@ -1,10 +1,9 @@
 import { pick } from 'lodash-es';
-import * as caseRepository from '../../../repositories/case.repository.js';
 import * as documentRepository from '../../../repositories/document.repository.js';
 import BackOfficeAppError from '../../../utils/app-error.js';
-import { getStorageLocation } from '../../../utils/document-storage-api-client.js';
 import { mapSingleDocumentDetails } from '../../../utils/mapping/map-document-details.js';
 import { applicationStates } from '../../state-machine/application.machine.js';
+import { obtainURLsForDocuments } from './document.service.js';
 import { getDocumentByIdAndCaseId } from './document.validators.js';
 /**
  * @typedef {import('apps/api/prisma/schema.js').Document} Document
@@ -16,60 +15,20 @@ import { getDocumentByIdAndCaseId } from './document.validators.js';
  * @type {import('express').RequestHandler<any, ?, ?, any>}
  */
 export const provideDocumentUploadURLs = async ({ params, body }, response) => {
-	const documents = body[''];
+	const documentsToUpload = body[''];
 
-	const caseFromDatabase = await caseRepository.getById(params.id, {});
-
-	const documentsToSendToDatabase = documents.map(
-		(
-			/** @type {{ documentName: any; folderId: any; documentType: string; documentSize: number }} */ document
-		) => {
-			return {
-				name: document.documentName,
-				folderId: document.folderId,
-				fileType: document.documentType,
-				fileSize: document.documentSize
-			};
-		}
+	const { blobStorageHost, blobStorageContainer, documents } = await obtainURLsForDocuments(
+		documentsToUpload,
+		params.id
 	);
 
-	const documentsFromDatabase = await Promise.all(
-		documentsToSendToDatabase.map(
-			(
-				/** @type {{ name: string; folderId: number; fileType: string; fileSize: number }} */ documentToDatabase
-			) => {
-				return documentRepository.upsert(documentToDatabase);
-			}
-		)
-	);
-
-	const requestToDocumentStorage = documentsFromDatabase.map((document) => {
-		return {
-			caseType: 'application',
-			caseReference: caseFromDatabase?.reference,
-			GUID: document.guid,
-			documentName: document.name
-		};
-	});
-
-	const responseFromDocumentStorage = await getStorageLocation(requestToDocumentStorage);
-
-	await Promise.all(
-		responseFromDocumentStorage.documents.map((documentWithPath) => {
-			return documentRepository.update(documentWithPath.GUID, {
-				blobStorageContainer: responseFromDocumentStorage.blobStorageContainer,
-				blobStoragePath: documentWithPath.blobStoreUrl
-			});
-		})
-	);
-
-	const documentsWithUrls = responseFromDocumentStorage.documents.map((document) => {
+	const documentsWithUrls = documents.map((document) => {
 		return pick(document, ['documentName', 'blobStoreUrl']);
 	});
 
 	response.send({
-		blobStorageHost: responseFromDocumentStorage.blobStorageHost,
-		blobStorageContainer: responseFromDocumentStorage.blobStorageContainer,
+		blobStorageHost,
+		blobStorageContainer,
 		documents: documentsWithUrls
 	});
 };

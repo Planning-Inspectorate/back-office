@@ -11,8 +11,7 @@ const { value, error } = schema.validate({
 	DATABASE_URL: environment.DATABASE_URL,
 	defaultApiVersion: environment.DEFAULT_API_VERSION || '1',
 	documentStorageApi: {
-		host: environment.DOCUMENT_STORAGE_API_HOST,
-		port: environment.DOCUMENT_STORAGE_API_PORT
+		host: environment.DOCUMENT_STORAGE_API_HOST
 	},
 	serviceBusOptions: {
 		host: environment.SERVICE_BUS_HOST,

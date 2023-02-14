@@ -11,31 +11,33 @@ const mockClamAvScanStream = jest.spyOn(clamAvClient, 'scanStream');
 
 // Mock Errors
 
-const denerateHttpError = (body, statusCode) => {
+const mock200Response = { json: jest.fn().mockResolvedValue({}) };
+
+const generateHttpError = (body, statusCode) => {
 	const response = { body, statusCode };
 	const error = new HTTPError(response);
 
 	error.response = response;
 
-	return error;
+	return { json: jest.fn().mockRejectedValue(error) };
 };
 
-const backOfficeFailedToMarkAsUploadedError = denerateHttpError(
+const backOfficeFailedToMarkAsUploadedError = generateHttpError(
 	'{"errors":{"application":"Could not transition \'awaiting_virus_check\' using \'uploading\'."}}',
 	409
 );
 
-const backOfficeFailedToMarkAsPassedAVError = denerateHttpError(
+const backOfficeFailedToMarkAsPassedAVError = generateHttpError(
 	'{"errors":{"application":"Could not transition \'not_user_checked\' using \'check_success\'."}}',
 	409
 );
 
-const backOfficeFailedToMarkAsFailedAVError = denerateHttpError(
+const backOfficeFailedToMarkAsFailedAVError = generateHttpError(
 	'{"errors":{"application":"Could not transition \'failed_virus_check\' using \'check_fail\'."}}',
 	409
 );
 
-const documentStorageFailedToDeleteError = denerateHttpError(
+const documentStorageFailedToDeleteError = generateHttpError(
 	'{"errors":{"documentPath":"Document does not exist in Blob Storage"}}',
 	404
 );
@@ -76,7 +78,7 @@ describe('document passes AV checks', () => {
 		// GIVEN
 		const documentGuid = randomUUID();
 
-		mockGotPatch.mockResolvedValueOnce({}).mockResolvedValueOnce({});
+		mockGotPatch.mockReturnValueOnce(mock200Response).mockReturnValueOnce(mock200Response);
 		mockClamAvScanStream.mockResolvedValueOnce({ isInfected: false });
 
 		// WHEN
@@ -106,8 +108,8 @@ describe('document passes AV checks', () => {
 			const documentGuid = randomUUID();
 
 			mockGotPatch
-				.mockRejectedValueOnce(backOfficeFailedToMarkAsUploadedError)
-				.mockResolvedValueOnce({});
+				.mockReturnValueOnce(backOfficeFailedToMarkAsUploadedError)
+				.mockReturnValueOnce(mock200Response);
 			mockClamAvScanStream.mockResolvedValueOnce({ isInfected: false });
 
 			// WHEN
@@ -134,11 +136,12 @@ describe('document passes AV checks', () => {
 
 	describe('if document has already been marked as passed AV checks', () => {
 		test('completes without issues', async () => {
+			// GIVEN
 			const documentGuid = randomUUID();
 
 			mockGotPatch
-				.mockResolvedValueOnce({})
-				.mockRejectedValueOnce(backOfficeFailedToMarkAsPassedAVError);
+				.mockReturnValueOnce(mock200Response)
+				.mockReturnValueOnce(backOfficeFailedToMarkAsPassedAVError);
 			mockClamAvScanStream.mockResolvedValueOnce({ isInfected: false });
 
 			// WHEN
@@ -170,8 +173,8 @@ describe('document fails AV checks', () => {
 		const documentGuid = randomUUID();
 		const documentPath = `/application/ABC/${documentGuid}/test.pdf`;
 
-		mockGotPatch.mockResolvedValueOnce({}).mockResolvedValueOnce({});
-		mockGotDelete.mockResolvedValueOnce({});
+		mockGotPatch.mockReturnValueOnce(mock200Response).mockReturnValueOnce(mock200Response);
+		mockGotDelete.mockReturnValueOnce(mock200Response);
 		mockClamAvScanStream.mockResolvedValueOnce({ isInfected: true });
 
 		// WHEN
@@ -203,9 +206,9 @@ describe('document fails AV checks', () => {
 			const documentPath = `/application/ABC/${documentGuid}/test.pdf`;
 
 			mockGotPatch
-				.mockRejectedValueOnce(backOfficeFailedToMarkAsUploadedError)
-				.mockResolvedValueOnce({});
-			mockGotDelete.mockResolvedValueOnce({});
+				.mockReturnValueOnce(backOfficeFailedToMarkAsUploadedError)
+				.mockReturnValueOnce(mock200Response);
+			mockGotDelete.mockReturnValueOnce(mock200Response);
 			mockClamAvScanStream.mockResolvedValueOnce({ isInfected: true });
 
 			// WHEN
@@ -241,8 +244,8 @@ describe('document fails AV checks', () => {
 			const documentGuid = randomUUID();
 			const documentPath = `/application/ABC/${documentGuid}/test.pdf`;
 
-			mockGotPatch.mockResolvedValueOnce({}).mockResolvedValueOnce({});
-			mockGotDelete.mockRejectedValueOnce(documentStorageFailedToDeleteError);
+			mockGotPatch.mockReturnValueOnce(mock200Response).mockReturnValueOnce(mock200Response);
+			mockGotDelete.mockReturnValueOnce(documentStorageFailedToDeleteError);
 			mockClamAvScanStream.mockResolvedValueOnce({ isInfected: true });
 
 			// WHEN
@@ -279,9 +282,9 @@ describe('document fails AV checks', () => {
 			const documentPath = `/application/ABC/${documentGuid}/test.pdf`;
 
 			mockGotPatch
-				.mockResolvedValueOnce({})
-				.mockRejectedValueOnce(backOfficeFailedToMarkAsFailedAVError);
-			mockGotDelete.mockResolvedValueOnce({});
+				.mockReturnValueOnce(mock200Response)
+				.mockReturnValueOnce(backOfficeFailedToMarkAsFailedAVError);
+			mockGotDelete.mockReturnValueOnce(mock200Response);
 			mockClamAvScanStream.mockResolvedValueOnce({ isInfected: true });
 
 			// WHEN
