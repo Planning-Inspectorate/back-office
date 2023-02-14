@@ -6,8 +6,8 @@ export class ApplicantAddressSection extends SectionBase {
 		postcode: () => cy.get('#postcode')
 	};
 
-	fillApplicantWebsite(applicantWebsite) {
-		this.elements.postcode().clear().type(applicantWebsite);
+	fillApplicantPostcode(postcode) {
+		this.elements.postcode().clear().type(postcode);
 	}
 
 	validatePage() {

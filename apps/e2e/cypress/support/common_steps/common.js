@@ -4,8 +4,10 @@
 import { Given, Then, When } from '@badeball/cypress-cucumber-preprocessor';
 import { Page } from '../../page_objects/basePage';
 import '../commands';
+import { CreateCasePage } from '../../page_objects/createCasePage';
 
 const page = new Page();
+const createCasePage = new CreateCasePage();
 
 // U S E R  A C T I O N S
 
@@ -20,10 +22,10 @@ When('the user navigates to the create a new case page', function () {
 });
 
 When('the user validates previous page', function () {
-	cy.get('.govuk-back-link').click();
-	cy.contains('button', 'Save and continue').click();
+	page.basePageElements.backLink().click();
+	page.clickSaveAndContinue();
 });
 
 When("the user enters the applicant's postcode as {string}", function (postcode) {
-	cy.get('#postcode').type(postcode);
+	createCasePage.sections.applicantAddress.fillApplicantPostcode(postcode);
 });

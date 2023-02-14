@@ -61,7 +61,7 @@ module.exports = defineConfig({
 		viewportWidth: 1536,
 		defaultCommandTimeout: 10000,
 		pageLoadTimeout: 30000,
-		experimentalModifyObstructiveThirdPartyCode: false,
+		experimentalModifyObstructiveThirdPartyCode: true,
 		chromeWebSecurity: false,
 		experimentalInteractiveRunEvents: true
 	}
