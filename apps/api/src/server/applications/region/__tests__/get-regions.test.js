@@ -43,7 +43,7 @@ describe('Get regions', () => {
 	});
 });
 
-test('checks cache working for regions', async () => {
+test('tests if cached data for region call is returned without hitting db', async () => {
 	const cachedRegion = {
 		id: 1,
 		name: 'cached test',

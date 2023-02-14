@@ -99,7 +99,7 @@ describe('Get sectors', () => {
 	});
 });
 
-test('test if sector cache is working', async () => {
+test('tests if cached data for sectors call is returned without hitting db', async () => {
 	const cacheSector = {
 		id: 3,
 		name: 'cache test name',

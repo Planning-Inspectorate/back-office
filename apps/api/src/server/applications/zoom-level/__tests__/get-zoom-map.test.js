@@ -45,7 +45,7 @@ describe('Get zoom map', () => {
 	});
 });
 
-test('tests if cache is working', async () => {
+test('tests if cached data for zoom-level call is returned without hitting db', async () => {
 	const cachedMapZoomLevels = {
 		id: 2,
 		name: 'cached test',
