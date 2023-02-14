@@ -1,8 +1,8 @@
 // @ts-nocheck
 import { When, Then } from '@badeball/cypress-cucumber-preprocessor';
-import { ApplicationsHomePage } from '../../../page_objects/applicationsHomePage';
+import { ApplicationsHomePage } from '../../page_objects/applicationsHomePage';
 import { faker } from '@faker-js/faker';
-import { CreateCasePage } from '../../../page_objects/createCasePage';
+import { CreateCasePage } from '../../page_objects/createCasePage';
 
 const applicationHomePage = new ApplicationsHomePage();
 const createCasePage = new CreateCasePage();
@@ -18,8 +18,6 @@ const caseTeamEmail = faker.internet.email();
 const applicantEmail = `${firstName}.${lastName}@email.com`;
 const website = faker.internet.url();
 const phoneNumber = faker.phone.number('+4479########');
-const dateSubmissionPublished = `Q1 ${new Date().getFullYear() + 1}`;
-const dateInternal = faker.date.future(1);
 
 When('the user starts the creation of a new case', function () {
 	applicationHomePage.clickCreateNewCaseButton();

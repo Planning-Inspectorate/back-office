@@ -31,7 +31,7 @@ Feature: Verify Search Functionality as a Case Admin user
 
 
 	@CaseAdmin @smoke
-	Scenario: Case Admin user should see an error when nothing is entered - Open Cases
+	Scenario: Case Admin user should see some results when a correct search term is entered - Open Cases
 		Given the user searches for "TR"
 		Then the user should get some results from the search
 

@@ -22,6 +22,7 @@ export class Page {
 		select: '.govuk-select',
 		smallHeader: '.govuk-heading-s',
 		tableBody: '.govuk-table__body',
+		tableCell: '.govuk-table__cell',
 		tableRow: '.govuk-table__row'
 	};
 
