@@ -40,6 +40,10 @@ const nocks = (/** @type {string} */ domainType) => {
 		.times(2)
 		.reply(200, fixtureDocumentationFiles[99]);
 	nock('http://test/')
+		.get('/applications/123/documents/90')
+		.times(2)
+		.reply(200, fixtureDocumentationFiles[89]);
+	nock('http://test/')
 		.post('/applications/123/documents/100/delete')
 		.times(2)
 		.reply(200, { isDeleted: true });
@@ -301,22 +305,19 @@ describe('applications documentation', () => {
 					expect(element.innerHTML).toMatchSnapshot();
 					expect(element.innerHTML).toContain('Delete selected document');
 				});
-			});
-			describe('POST /case/123/project-documentation/21/100/delete', () => {
-				it('should return error if status is "ready_to_publish"', async () => {
-					const response = await request
-						.post(`${baseUrl}/project-documentation/21/document/100/delete`)
-						.send({
-							status: 'ready_to_publish'
-						});
+
+				it('should display warning if status is "ready_to_publish"', async () => {
+					const response = await request.get(
+						`${baseUrl}/project-documentation/21/document/90/delete`
+					);
+
 					const element = parseHtml(response.text);
 
 					expect(element.innerHTML).toMatchSnapshot();
-					expect(element.innerHTML).toContain(
-						'This document is in the publishing queue ready to be published'
-					);
+					expect(element.innerHTML).toContain('is in the publishing queue ready to be published');
 				});
-
+			});
+			describe('POST /case/123/project-documentation/21/100/delete', () => {
 				it('should go to success page if status is not "ready-to-publish"', async () => {
 					const response = await request.post(
 						`${baseUrl}/project-documentation/21/document/100/delete`

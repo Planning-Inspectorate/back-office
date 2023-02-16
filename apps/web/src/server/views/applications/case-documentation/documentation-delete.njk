@@ -1,24 +1,19 @@
 {% extends "../layouts/applications.layout.njk" %}
-
 {% from "govuk/components/back-link/macro.njk" import govukBackLink %}
 {% from "govuk/components/button/macro.njk" import govukButton %}
 {% from "govuk/components/table/macro.njk" import govukTable %}
-
-
-{% set serviceName = "Delete selected document"  %}
+{% from "govuk/components/warning-text/macro.njk" import govukWarningText %}
+{% set serviceName = "Delete selected document" %}
 {% block pageTitle %}
-	{{ serviceName }} – {{ pageTitle | default('GOV.UK') }}
+    {{ serviceName }} – {{ pageTitle | default('GOV.UK') }}
 {% endblock %}
-
 {% block beforeContent %}
-	{{ govukBackLink({
+    {{ govukBackLink({
 		text: "Back",
 		href: 'document'|url({caseId: caseId, folderId: folderId, documentGuid: documentationFile.guid, step: "properties"})
 	}) }}
 {% endblock %}
-
 {% block pageHeading %}{% endblock %}
-
 {% block errorSummary %}
     {% if errors %}
         <div class="govuk-grid-row">
@@ -30,24 +25,26 @@
             </div>
         </div>
     {% endif %}
+    {% if warningText %}
+        {{ govukWarningText({
+  			text: warningText,
+ 			iconFallbackText: "Warning"
+			}) }}
+    {% endif %}
 {% endblock %}
-
 {% block pageContent %}
-	<div class="{% if errors %}pins-table--error {% endif %}govuk-grid-row">
-		<form action='' method='post' class="govuk-grid-column-full govuk-!-margin-top-0">
-			<h1 class="govuk-heading-l">{{ serviceName }}</h1>
-			<input type="hidden" value="{{ documentationFile.status }}" name="status" />
-
-			{% set documentNameHtml %}
-				{% if errors %}
-					<p class='govuk-body font-weight--700 colour--red govuk-!-margin-bottom-0'>
-						Your document could not be deleted, please try again
-					</p>
-				{% endif %}
-				{{documentationFile.documentName}}
-			{% endset %}
-
-			{{ govukTable({
+    <div class="{% if errors %}pins-table--error {% endif %}govuk-grid-row">
+        <form action='' method='post' class="govuk-grid-column-full govuk-!-margin-top-0">
+            <h1 class="govuk-heading-l">{{ serviceName }}</h1>
+            <input type="hidden" value="{{ documentationFile.status }}" name="status"/> {% set documentNameHtml %}
+            {% if errors %}
+                <p class='govuk-body font-weight--700 colour--red govuk-!-margin-bottom-0'>
+                    Your document could not be deleted, please try again
+                </p>
+            {% endif %}
+            {{ documentationFile.documentName }}
+            {% endset %}
+            {{ govukTable({
 				captionClasses: "govuk-table__caption--m",
 				head: [
 					{
@@ -68,20 +65,18 @@
 					]
 				]
 			}) }}
-
-			<p class="govuk-body govuk-!-margin-top-7 govuk-!-margin-bottom-7">
-				You are deleting the document from:
-
-				{% for breadcrumbItem in breadcrumbItems %}
-					<span class="font-weight--700"> {{ breadcrumbItem.text }}
-						{% if loop.index < breadcrumbItems.length %}
-							>
-						{% endif %}
-					</span>
-				{% endfor %}
-			</p>
-
-			{{ govukButton({ text: "Delete",  classes: "govuk-button--warning" }) }}
-		</form>
-	</div>
+            <p class="govuk-body govuk-!-margin-top-7 govuk-!-margin-bottom-7">
+                You are deleting the document from:
+                {% for breadcrumbItem in breadcrumbItems %}
+                    <span class="font-weight--700">
+                        {{ breadcrumbItem.text }}
+                        {% if loop.index < breadcrumbItems.length %}
+                            >
+                        {% endif %}
+                    </span>
+                {% endfor %}
+            </p>
+            {{ govukButton({ text: "Delete",  classes: "govuk-button--warning" }) }}
+        </form>
+    </div>
 {% endblock %}

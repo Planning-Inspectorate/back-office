@@ -5428,8 +5428,42 @@ exports[`applications documentation Document properties delete page If the user 
                 </tbody>
             </table>
             <p class=\\"govuk-body govuk-!-margin-top-7 govuk-!-margin-bottom-7\\">You are deleting the document from:<span class=\\"font-weight--700\\"> Project documentation
-							></span><span class=\\"font-weight--700\\"> Project management
-							></span><span class=\\"font-weight--700\\"> Sub folder level 2</span>
+                            ></span><span class=\\"font-weight--700\\"> Project management
+                            ></span><span class=\\"font-weight--700\\"> Sub folder level 2</span>
+            </p>
+            <button class=\\"govuk-button govuk-button--warning\\" data-module=\\"govuk-button\\">Delete</button>
+        </form>
+    </div>
+</main>"
+`;
+
+exports[`applications documentation Document properties delete page If the user is not inspector GET /case/123/project-documentation/21/100/delete should display warning if status is "ready_to_publish" 1`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <div class=\\"govuk-warning-text\\"><span class=\\"govuk-warning-text__icon\\" aria-hidden=\\"true\\">!</span>
+        <strong         class=\\"govuk-warning-text__text\\"><span class=\\"govuk-warning-text__assistive\\">Warning</span> This document
+            is in the publishing queue ready to be published.</strong>
+    </div>
+    <div class=\\"govuk-grid-row\\">
+        <form action='' method='post' class=\\"govuk-grid-column-full govuk-!-margin-top-0\\">
+            <h1 class=\\"govuk-heading-l\\">Delete selected document</h1>
+            <input type=\\"hidden\\" value=\\"ready_to_publish\\" name=\\"status\\">
+            <table class=\\"govuk-table\\">
+                <thead class=\\"govuk-table__head\\">
+                    <tr class=\\"govuk-table__row\\">
+                        <th scope=\\"col\\" class=\\"govuk-table__header\\">File name</th>
+                        <th scope=\\"col\\" class=\\"govuk-table__header\\">From</th>
+                    </tr>
+                </thead>
+                <tbody class=\\"govuk-table__body\\">
+                    <tr class=\\"govuk-table__row\\">
+                        <td class=\\"govuk-table__cell\\">90 Eiusmod tempor incididunt.pdf</td>
+                        <td class=\\"govuk-table__cell\\">Eiusmod Tempor</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p class=\\"govuk-body govuk-!-margin-top-7 govuk-!-margin-bottom-7\\">You are deleting the document from:<span class=\\"font-weight--700\\"> Project documentation
+                            ></span><span class=\\"font-weight--700\\"> Project management
+                            ></span><span class=\\"font-weight--700\\"> Sub folder level 2</span>
             </p>
             <button class=\\"govuk-button govuk-button--warning\\" data-module=\\"govuk-button\\">Delete</button>
         </form>
@@ -5451,51 +5485,6 @@ exports[`applications documentation Document properties delete page If the user 
 						> Sub folder level 2</span></a>
             </div>
         </div>
-    </div>
-</main>"
-`;
-
-exports[`applications documentation Document properties delete page If the user is not inspector POST /case/123/project-documentation/21/100/delete should return error if status is "ready_to_publish" 1`] = `
-"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
-    <div class=\\"govuk-grid-row\\">
-        <div class=\\"govuk-grid-column-full\\">
-            <div class=\\"govuk-error-summary\\" aria-labelledby=\\"error-summary-title\\"
-            role=\\"alert\\" data-module=\\"govuk-error-summary\\">
-                <h2 class=\\"govuk-error-summary__title\\" id=\\"error-summary-title\\"> There is a problem</h2>
-                <div class=\\"govuk-error-summary__body\\">
-                    <ul class=\\"govuk-list govuk-error-summary__list\\">
-                        <li><a href=\\"#status\\">This document is in the publishing queue ready to be published.</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class=\\"pins-table--error govuk-grid-row\\">
-        <form action='' method='post' class=\\"govuk-grid-column-full govuk-!-margin-top-0\\">
-            <h1 class=\\"govuk-heading-l\\">Delete selected document</h1>
-            <input type=\\"hidden\\" value=\\"not_user_checked\\" name=\\"status\\">
-            <table class=\\"govuk-table\\">
-                <thead class=\\"govuk-table__head\\">
-                    <tr class=\\"govuk-table__row\\">
-                        <th scope=\\"col\\" class=\\"govuk-table__header\\">File name</th>
-                        <th scope=\\"col\\" class=\\"govuk-table__header\\">From</th>
-                    </tr>
-                </thead>
-                <tbody class=\\"govuk-table__body\\">
-                    <tr class=\\"govuk-table__row\\">
-                        <td class=\\"govuk-table__cell\\">
-                            <p class='govuk-body font-weight--700 colour--red govuk-!-margin-bottom-0'>Your document could not be deleted, please try again</p>100 Elit sed do.pdf</td>
-                        <td                         class=\\"govuk-table__cell\\">Elit Eiusmod</td>
-                    </tr>
-                </tbody>
-            </table>
-            <p class=\\"govuk-body govuk-!-margin-top-7 govuk-!-margin-bottom-7\\">You are deleting the document from:<span class=\\"font-weight--700\\"> Project documentation
-							></span><span class=\\"font-weight--700\\"> Project management
-							></span><span class=\\"font-weight--700\\"> Sub folder level 2</span>
-            </p>
-            <button class=\\"govuk-button govuk-button--warning\\" data-module=\\"govuk-button\\">Delete</button>
-        </form>
     </div>
 </main>"
 `;
