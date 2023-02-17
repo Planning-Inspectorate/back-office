@@ -1,0 +1,65 @@
+{
+	"$schema": "http://json-schema.org/draft-07/schema#",
+	"$id": "exam-timetable.schema.json",
+	"title": "Examination Timetable",
+	"description": "Examination Timetable for an NSIP Project",
+	"type": "object",
+	"required": [],
+	"properties": {
+		"events": {
+			"type": "array",
+			"items": {
+				"$ref": "#/$defs/event"
+			}
+		}
+	},
+	"$defs": {
+		"event": {
+			"type": "object",
+			"required": ["title", "description", "type", "date"],
+			"properties": {
+				"id": {
+					"type": "number"
+				},
+				"title": {
+					"type": "string"
+				},
+				"description": {
+					"type": "string"
+				},
+				"line-items": {
+					"type": "array",
+					"items": {
+						"$ref": "#/$defs/line-item"
+					}
+				},
+				"type": {
+					"type": "string",
+					"enum": ["deadline", "other"]
+				},
+				"startDate": {
+					"type": "string",
+					"format": "date-time",
+					"examples": ["2023-03-26T00:00:00.000"]
+				},
+				"date": {
+					"type": "string",
+					"format": "date-time",
+					"examples": ["2023-03-26T00:00:00.000"]
+				}
+			}
+		},
+		"line-item": {
+			"type": "object",
+			"required": ["description"],
+			"properties": {
+				"id": {
+					"type": "number"
+				},
+				"description": {
+					"type": "string"
+				}
+			}
+		}
+	}
+}
