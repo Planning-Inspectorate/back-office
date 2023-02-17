@@ -1,6 +1,8 @@
 {
 	"$schema": "http://json-schema.org/draft-07/schema#",
-	"title": "Document",
+	"$id": "case-schedule.schema.json",
+	"title": "Case Schedule",
+	"description": "???",
 	"type": "object",
 	"required": [],
 	"properties": {}

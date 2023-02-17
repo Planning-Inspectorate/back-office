@@ -1,7 +1,7 @@
 {
 	"$schema": "http://json-schema.org/draft-07/schema#",
-	"title": "Examination Timetable",
-	"description": "Examination Timetable for an NSIP Project",
+	"$id": "s51-advice.schema.json",
+	"title": "S51 Advice",
 	"type": "object",
 	"required": [],
 	"properties": {}

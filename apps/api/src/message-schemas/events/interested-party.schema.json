@@ -1,0 +1,56 @@
+{
+	"$schema": "http://json-schema.org/draft-07/schema#",
+	"$id": "service-user.schema.json",
+	"title": "interested-party",
+	"description": "Subset of Pins Data Model [Service User]",
+	"type": "object",
+	"required": ["id", "interestedPartyNo"],
+	"properties": {
+		"id": {
+			"type": "number",
+			"examples": [18]
+		},
+		"interestedPartyNumber": {
+			"type": "string",
+			"examples": ["IP1234"]
+		},
+		"firstName": {
+			"type": "string",
+			"examples": ["Alan"]
+		},
+		"lastName": {
+			"type": "string",
+			"examples": ["Turing"]
+		},
+		"name": {
+			"title": "Name",
+			"type": "string",
+			"default": "",
+			"examples": ["National Highways"],
+			"pattern": "^.*$"
+		},
+		"address": {
+			"title": "Address",
+			"type": "object",
+			"required": ["addressLine1", "town", "postcode"],
+			"properties": {
+				"addressLine1": {
+					"type": "string",
+					"examples": ["National Traffic Operations Centre"]
+				},
+				"addressLine2": {
+					"type": "string",
+					"examples": ["3 Ridgeway, Quinton Business Park"]
+				},
+				"town": {
+					"type": "string",
+					"examples": ["Birmingham"]
+				},
+				"postcode": {
+					"type": "string",
+					"examples": ["B32 1AF"]
+				}
+			}
+		}
+	}
+}
