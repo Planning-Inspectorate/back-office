@@ -29,13 +29,24 @@
 				},
 				"line-items": {
 					"type": "array",
+					"description": "Only applicable to 'Deadline' type events",
 					"items": {
 						"$ref": "#/$defs/line-item"
 					}
 				},
 				"type": {
 					"type": "string",
-					"enum": ["deadline", "other"]
+					"enum": [
+						"Compulsory Acquisition Hearing",
+						"Deadline",
+						"Issue Specific Hearing",
+						"Open Floor Hearing",
+						"Preliminary Meeting",
+						"Procedural Decision",
+						"Site Visit (Accompanied)",
+						"Site Visit (Unaccompanied)",
+						"Other Meeting"
+					]
 				},
 				"startDate": {
 					"type": "string",
