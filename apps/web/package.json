@@ -12,7 +12,7 @@
     "build:release": "cross-env NODE_ENV=production APP_RELEASE=true npm-run-all --silent sass rollup",
     "clean": "rimraf .tmp .turbo node_modules dist",
     "clean:dev": "rimraf dist src/server/static/scripts src/server/static/styles",
-    "dev": "NODE_ENV=local npm-run-all --silent clean:dev sass rollup --parallel --race watch:** nodemon",
+    "dev": "cross-env NODE_ENV=local npm-run-all --silent clean:dev sass rollup --parallel --race watch:** nodemon",
     "lint:js": "npx eslint .",
     "lint:js:fix": "npx eslint . --fix",
     "nodemon": "nodemon --config ./nodemon.json ./src/server/server.js",

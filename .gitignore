@@ -52,6 +52,7 @@ pids
 # Env settings / local env files
 .env.local
 .env.*.local
+.env
 
 # Certificates
 *.pem
