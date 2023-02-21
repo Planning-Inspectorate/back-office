@@ -10,7 +10,12 @@ import * as caseOfficerService from './case-officer.service.js';
 /** @typedef {import('./case-officer.routes').AppealParams} AppealParams */
 
 /**
+ * Express request handler function to get all appeals for a case officer.
+ *
  * @type {import('express').RequestHandler}
+ * @param {import('express').Request} request
+ * @param {import('express').Response} response
+ * @returns {Promise<void>}
  */
 export const getAppeals = async (request, response) => {
 	const caseOfficerStatuses = [
@@ -47,7 +52,10 @@ export const getAppeals = async (request, response) => {
 };
 
 /**
- * @type {import('express').RequestHandler}
+ * Asynchronous function to handle Express requests for getting all appeals for a case officer.
+ *
+ * @param {import('express').Request} request
+ * @param {import('express').Response} response
  */
 export const getAppealDetails = async (request, response) => {
 	const appeal = await appealRepository.getById(request.params.appealId, {
@@ -62,7 +70,10 @@ export const getAppealDetails = async (request, response) => {
 };
 
 /**
- * @type {import('express').RequestHandler}
+ * Asynchronous function to handle Express requests for getting all appeals for a case officer.
+ *
+ * @param {import('express').Request} request
+ * @param {import('express').Response} response
  */
 export const getAppealDetailsForStatementsAndComments = async (request, response) => {
 	const appeal = await appealRepository.getById(request.params.appealId, { address: true });
@@ -82,7 +93,10 @@ export const getAppealDetailsForStatementsAndComments = async (request, response
 };
 
 /**
- * @type {import('express').RequestHandler}
+ * Asynchronous function to handle Express requests for getting all appeals for a case officer.
+ *
+ * @param {import('express').Request} request
+ * @param {import('express').Response} response
  */
 export const confirmLPAQuestionnaire = async (request, response) => {
 	await caseOfficerService.confirmLPAQuestionnaireService(
@@ -93,11 +107,13 @@ export const confirmLPAQuestionnaire = async (request, response) => {
 };
 
 /**
+ * @param {import('express').Request} request
+ * @param {import('express').Response} response
+ * @property {string} appealId
  * @typedef {object} UpdateAppealDetailsBody
  * @property {string} listedBuildingDescription
  */
-
-/** @type {import('express').RequestHandler<AppealParams, ?, UpdateAppealDetailsBody>} */
+/** @type {import('express').RequestHandler<AppealParams, void, UpdateAppealDetailsBody>} */
 export const updateAppealDetails = async ({ body, params }, response) => {
 	await caseOfficerService.updateAppealDetails(params.appealId, body);
 
