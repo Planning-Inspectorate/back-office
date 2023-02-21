@@ -20,7 +20,8 @@ module.exports = {
 					'@pins/express',
 					'@pins/platform',
 					'@pins/rollup',
-					'@pins/web'
+					'@pins/web',
+					'@pins/event-client'
 				]
 			}
 		],
