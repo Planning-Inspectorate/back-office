@@ -62,7 +62,9 @@ export const update = (documentGuid, documentDetails) => {
 };
 
 /**
+ *  Deletes a document from the database based on its `guid`
  *
+ * @async
  * @param {string} documentGuid
  * @returns {import('@prisma/client').PrismaPromise<import('@pins/api').Schema.Document>}
  */
