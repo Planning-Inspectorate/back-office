@@ -1,9 +1,9 @@
 // @ts-nocheck
 /// <reference types="cypress"/>
 import { Before, Then } from '@badeball/cypress-cucumber-preprocessor';
-import { users } from '../../fixtures/users';
-import '../commands';
-import { Page } from '../../page_objects/basePage';
+import { users } from '../../../fixtures/users';
+import '../../commands';
+import { Page } from '../../../page_objects/basePage';
 
 const page = new Page();
 const preserveCookies = Cypress.env('PRESERVE_COOKIES') === 'true';
@@ -14,6 +14,7 @@ if (!preserveCookies) {
 		cy.task('ClearAllCookies');
 	});
 }
+
 beforeEach(() => {
 	cy.clearLocalStorage();
 	cy.clearCookies();
@@ -37,7 +38,7 @@ Then('the logged in user should be an Inspector', function () {
 	page.verifyInspectorIsSignedIn();
 });
 
-Then('the logged in user should be a Case Team user', function () {
+Then('the logged in user should be a Case Team member', function () {
 	page.verifyCaseTeamIsSignedIn();
 });
 

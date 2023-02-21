@@ -1,6 +1,6 @@
+// @ts-nocheck
 import { faker } from '@faker-js/faker';
-import { SECTORS } from './options';
-import { SUBSECTORS } from './options';
+import { SECTORS, SUBSECTORS } from './options';
 import { REGIONS } from './options';
 import { ZOOM_LEVELS } from './options';
 
@@ -11,11 +11,11 @@ const currentYear = new Date().getFullYear();
 let projectName = `Automation_Test_Case_${now}`;
 let projectDescription = faker.lorem.sentence();
 let sector = faker.helpers.arrayElement(SECTORS);
-let subsector = faker.helpers.arrayElement(SUBSECTORS);
+let subsector = faker.helpers.arrayElement(SUBSECTORS[sector]);
 let projectLocation = faker.lorem.sentence();
 const gridRefEasting = faker.random.numeric(6);
 const gridRefNorthing = faker.random.numeric(6);
-const regions = faker.helpers.arrayElements(REGIONS);
+const regions = faker.helpers.arrayElements(REGIONS).sort();
 const zoomLevel = faker.helpers.arrayElement(ZOOM_LEVELS);
 const projectEmail = faker.internet.email();
 
@@ -25,7 +25,9 @@ let applicantFirstName = faker.name.firstName();
 let applicantLastName = faker.name.lastName();
 let applicantFullName = `${applicantFirstName} ${applicantLastName}`;
 const postcode = 'BS1 6PN';
+const postcode2 = 'SW1P 4DF';
 let applicantFullAddress = `2 Temple Quay, Planning Inspectorate, Bristol, ${postcode}`;
+let applicantFullAddress2 = `2 Marsham Street, Home Office, London, ${postcode2}`;
 const applicantWebsite = faker.internet.url();
 const applicantEmail = `${applicantFirstName}.${applicantLastName}@email.com`;
 const applicantPhoneNumber = faker.phone.number('+4479########');
@@ -80,6 +82,7 @@ export const projectInformation = () => {
 		applicantEmail,
 		applicantFirstName,
 		applicantFullAddress,
+		applicantFullAddress2,
 		applicantFullName,
 		applicantLastName,
 		applicantPhoneNumber,
@@ -92,6 +95,7 @@ export const projectInformation = () => {
 		internalDateYear,
 		orgName,
 		postcode,
+		postcode2,
 		projectDescription,
 		projectEmail,
 		projectLocation,

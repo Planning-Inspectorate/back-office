@@ -17,6 +17,7 @@
     "clean": "turbo run clean && rimraf node_modules",
     "dev": "turbo run dev --no-cache --parallel --continue",
 		"e2e": "npm run cy:run:smoke --workspace=@pins/e2e",
+		"e2e:open": "npm run cy:open --workspace=@pins/e2e",
     "format": "prettier --write \"**/*.{js}\"",
     "lint:js": "turbo run lint:js --parallel",
     "lint:js:fix": "turbo run lint:js:fix",

@@ -8,14 +8,14 @@ export class CaseCreatedSection extends SectionBase {
 			.then((text) => {
 				cy.wrap(text.trim()).should('equal', 'New case has been created');
 			});
+		this.saveCaseReference();
 	}
 
-	getCaseRefeRefreence() {
-		this.validateCaseCreated();
+	saveCaseReference() {
 		cy.get('strong')
 			.invoke('text')
 			.then((text) => {
-				Cypress.env('CURRENT_CASE_REFEENCE', text);
+				Cypress.env('currentCreatedCase', text);
 			});
 	}
 }

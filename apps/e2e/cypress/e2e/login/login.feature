@@ -9,9 +9,8 @@ Feature: Visit the homepage
 
 	@CaseTeam @smoke
 	Scenario: Log in as a Case Team Member
-		Then the logged in user should be a Case Team user
+		Then the logged in user should be a Case Team member
 
 	@Inspector @smoke
 	Scenario: Log in as an Inspector
 		Then the logged in user should be an Inspector
-

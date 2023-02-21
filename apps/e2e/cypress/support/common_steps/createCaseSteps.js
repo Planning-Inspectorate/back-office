@@ -1,23 +1,41 @@
 // @ts-nocheck
-import { When, Then } from '@badeball/cypress-cucumber-preprocessor';
+/// <reference types="cypress"/>
+
+import { When, Then, Before, After } from '@badeball/cypress-cucumber-preprocessor';
 import { ApplicationsHomePage } from '../../page_objects/applicationsHomePage';
-import { faker } from '@faker-js/faker';
 import { CreateCasePage } from '../../page_objects/createCasePage';
+import { SECTORS, SUBSECTORS, REGIONS } from '../utils/options';
+import { faker } from '@faker-js/faker';
 
 const applicationHomePage = new ApplicationsHomePage();
 const createCasePage = new CreateCasePage();
+let projectInfo;
+let projectInfoNew;
 
-const now = Date.now();
-let caseName = `Automation_Test_Case_${now}`;
-let orgName = `Automation_Test_Org_${now}`;
-let firstName = faker.name.firstName();
-let lastName = faker.name.lastName();
-let description = faker.lorem.sentence();
-let geographicalLocation = faker.lorem.sentence();
-const caseTeamEmail = faker.internet.email();
-const applicantEmail = `${firstName}.${lastName}@email.com`;
-const website = faker.internet.url();
-const phoneNumber = faker.phone.number('+4479########');
+const fileOne = `${faker.lorem.word(5)}.json`;
+const fileTwo = `${faker.lorem.word(5)}.json`;
+
+after(() => {
+	cy.deleteFile([fileOne, fileTwo]);
+});
+
+Before(() => {
+	Cypress.env({ mainProjectFile: fileOne, secondProjectFile: fileTwo });
+	cy.createProjectInformation(fileOne);
+	cy.fixture(fileOne).then((file) => {
+		projectInfo = file;
+	});
+	cy.createProjectInformation(fileTwo);
+	cy.fixture(fileTwo).then((file) => {
+		projectInfoNew = file;
+	});
+});
+
+Before({ tags: '@CreateCaseForTest' }, () => {
+	createCasePage.createCase(projectInfo);
+});
+
+// W H E N - P R O J E C T  I N F O R M A T I O N
 
 When('the user starts the creation of a new case', function () {
 	applicationHomePage.clickCreateNewCaseButton();
@@ -25,66 +43,130 @@ When('the user starts the creation of a new case', function () {
 
 When('the user enters a name and description for the new case', function () {
 	createCasePage.sections.nameAndDescription.validatePage();
-	createCasePage.sections.nameAndDescription.fillCaseName(caseName);
-	createCasePage.sections.nameAndDescription.fillCaseDescription(description);
+	createCasePage.sections.nameAndDescription.fillCaseName(projectInfo.projectName);
+	createCasePage.sections.nameAndDescription.fillCaseDescription(projectInfo.projectDescription);
+	createCasePage.clickSaveAndContinue();
 });
 
 When('the user enters geographical information for the new case', function () {
 	createCasePage.sections.geographicalInformation.validatePage();
-	createCasePage.sections.geographicalInformation.fillLocation(geographicalLocation);
-	createCasePage.sections.geographicalInformation.fillEastingGridRef('123456');
-	createCasePage.sections.geographicalInformation.fillNorthingGridRef('123456');
+	createCasePage.sections.geographicalInformation.fillLocation(projectInfo.projectLocation);
+	createCasePage.sections.geographicalInformation.fillEastingGridRef(projectInfo.gridRefEasting);
+	createCasePage.sections.geographicalInformation.fillNorthingGridRef(projectInfo.gridRefNorthing);
+	createCasePage.clickSaveAndContinue();
 });
 
-When('the user enters the case team email address for the new case', function () {
+When('the user enters the case email address for the new case', function () {
 	createCasePage.sections.projectEmail.validatePage();
-	createCasePage.sections.projectEmail.fillCaseEmail(caseTeamEmail);
+	createCasePage.sections.projectEmail.fillCaseEmail(projectInfo.projectEmail);
+	createCasePage.clickSaveAndContinue();
+});
+
+When('the user chooses the {string} sector option', function (sectorOption) {
+	const options = SECTORS;
+	const index = options.indexOf(sectorOption);
+	if (index === -1) {
+		throw new Error(
+			`Error: ${sectorOption} does not exist\n Available options: ${options.join(',')}}`
+		);
+	}
+	createCasePage.chooseRadioBtnByIndex(index);
+	createCasePage.clickSaveAndContinue();
+});
+
+When('the user chooses the {string} subsector option', function (subsectorOption) {
+	const options = SUBSECTORS;
+	const index = options.indexOf(subsectorOption);
+	if (index === -1) {
+		throw new Error(
+			`Error: ${sectorOption} does not exist\n Available options: ${options.join(',')}}`
+		);
+	}
+	createCasePage.chooseRadioBtnByIndex(index);
+	createCasePage.clickSaveAndContinue();
+});
+
+When('the user chooses the sector and subsector for the case', function () {
+	createCasePage.sections.sector.chooseSector(projectInfo.sector);
+	createCasePage.clickSaveAndContinue();
+	createCasePage.sections.subSector.chooseSubsector(projectInfo.sector, projectInfo.subsector);
+	createCasePage.clickSaveAndContinue();
+});
+
+When('the user chooses the regions for the new case', function () {
+	createCasePage.sections.regions.chooseRegions(projectInfo.regions);
+	createCasePage.clickSaveAndContinue();
+});
+
+When('the user chooses the zoom level for the new case', function () {
+	createCasePage.sections.zoomLevel.chooseZoomLevel(projectInfo.zoomLevel);
+	createCasePage.clickSaveAndContinue();
+});
+
+// W H E N - A P P L I C A N T  I N F O R M A T I O N
+
+When('the user chooses all the available options for applicant information available', function () {
+	createCasePage.sections.applicantInformationAvailable.chooseAll();
+	createCasePage.clickSaveAndContinue();
 });
 
 When("the user enters the applicant's organisation name for the new case", function () {
 	createCasePage.sections.applicantOrganisation.validatePage();
-	createCasePage.sections.applicantOrganisation.fillOrganisationName(orgName);
+	createCasePage.sections.applicantOrganisation.fillOrganisationName(projectInfo.orgName);
+	createCasePage.clickSaveAndContinue();
 });
 
 When("the user enters the applicant's first and last name for the new case", function () {
 	createCasePage.sections.applicantName.validatePage();
-	createCasePage.sections.applicantName.fillApplicantFirstName(firstName);
-	createCasePage.sections.applicantName.fillApplicantLastName(lastName);
+	createCasePage.sections.applicantName.fillApplicantFirstName(projectInfo.applicantFirstName);
+	createCasePage.sections.applicantName.fillApplicantLastName(projectInfo.applicantLastName);
+	createCasePage.clickSaveAndContinue();
 });
 
 When("the user enters the applicant's website for the new case", function () {
 	createCasePage.sections.applicantWebsite.validatePage();
-	createCasePage.sections.applicantWebsite.fillApplicantWebsite(website);
+	createCasePage.sections.applicantWebsite.fillApplicantWebsite(projectInfo.applicantWebsite);
+	createCasePage.clickSaveAndContinue();
 });
 
 When("the user enters the applicant's email for the new case", function () {
 	createCasePage.sections.applicantEmail.validatePage();
-	createCasePage.sections.applicantEmail.fillApplicantEmail(applicantEmail);
+	createCasePage.sections.applicantEmail.fillApplicantEmail(projectInfo.applicantEmail);
+	createCasePage.clickSaveAndContinue();
 });
 
 When("the user enters the applicant's phone number for the new case", function () {
 	createCasePage.sections.applicantPhoneNumber.validatePage();
-	createCasePage.sections.applicantPhoneNumber.fillPhoneNumber(phoneNumber);
+	createCasePage.sections.applicantPhoneNumber.fillPhoneNumber(projectInfo.applicantPhoneNumber);
+	createCasePage.clickSaveAndContinue();
 });
 
-When(
-	'the user enters {string} into the key dates anticipated submission date input',
-	function (dateAsQuarter) {
-		createCasePage.sections.keyDates.validatePage();
-		createCasePage.sections.keyDates.fillSumbissionPublishedDate(dateAsQuarter);
-	}
-);
+// W H E N - K E Y  D A T E S
+When('the user enters the anticipated submission date', function () {
+	createCasePage.sections.keyDates.validatePage();
+	createCasePage.sections.keyDates.fillSumbissionPublishedDate(projectInfo.publishedDate);
+});
 
-When(
-	'the user enters {string} {string} {string} into the key dates internal anticipated submission date input',
-	function (dd, mm, yyyy) {
-		createCasePage.sections.keyDates.validatePage();
-		createCasePage.sections.keyDates.fillInternalAnticipatedDay(dd);
-		createCasePage.sections.keyDates.fillInternalAnticipatedMonth(mm);
-		createCasePage.sections.keyDates.fillInternalAnticipatedYear(yyyy);
-	}
-);
+When('the user enters the internal anticipated submission date', function () {
+	createCasePage.sections.keyDates.validatePage();
+	createCasePage.sections.keyDates.fillInternalAnticipatedDay(projectInfo.internalDateDay);
+	createCasePage.sections.keyDates.fillInternalAnticipatedMonth(projectInfo.internalDateMonth);
+	createCasePage.sections.keyDates.fillInternalAnticipatedYear(projectInfo.internalDateYear);
+});
 
+// W H E N - C O N F I R M A T I O N
+When('the user confirms the creation of the new case', function () {
+	createCasePage.clickButtonByText('I accept - confirm creation of a new case');
+});
+
+// T H E N - C O N F I R M A T I O N
 Then('the user should confirm that a new case has been created', function () {
 	createCasePage.sections.caseCreated.validateCaseCreated();
 });
+
+Then(
+	'the user should successfully verify the answers on the summary page against form inputs',
+	function () {
+		createCasePage.sections.checkYourAnswers.checkAllAnswers(projectInfo);
+	}
+);
