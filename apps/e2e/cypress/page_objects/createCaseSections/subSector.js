@@ -3,14 +3,14 @@ import { SUBSECTORS } from '../../support/utils/options';
 import { SectionBase } from './sectionBase';
 
 export class SubSectorSection extends SectionBase {
-	getSubsectorIndex(subsectorName) {
-		let options = SUBSECTORS;
-		let index = options.indexOf(subsectorName);
-		return { optionName: subsectorName, index };
+	getSubsectorIndex(sectorName, subsectorName) {
+		let subsectors = SUBSECTORS[sectorName];
+		return subsectors.indexOf(subsectorName);
 	}
 
-	chooseSubsector(subsectorName) {
-		this.chooseRadioBtnByIndex(this.getSubsectorIndex(subsectorName).index + 1);
+	chooseSubsector(sectorName, subsectorName) {
+		const index = this.getSubsectorIndex(sectorName, subsectorName);
+		this.chooseRadioBtnByIndex(index);
 	}
 
 	validatePage() {

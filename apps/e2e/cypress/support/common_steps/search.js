@@ -49,3 +49,11 @@ When('the user searches for a case using its {string}', function (searchWithType
 When('the user searches for {string}', function (searchTerm) {
 	applicationsHomePage.searchFor(searchTerm);
 });
+
+When('the user searches for the current case', function () {
+	applicationsHomePage.searchFor(Cypress.env('currentCreatedCase'));
+});
+
+When('the user clicks the top search result', function () {
+	searchResultsPage.clickTopSearchResult();
+});

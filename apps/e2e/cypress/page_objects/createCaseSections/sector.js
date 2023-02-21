@@ -5,12 +5,11 @@ import { SectionBase } from './sectionBase';
 export class SectorSection extends SectionBase {
 	getSectorIndex(sectorName) {
 		let options = SECTORS;
-		let index = options.indexOf(sectorName);
-		return { optionName: sectorName, index: index };
+		return options.indexOf(sectorName);
 	}
 
 	chooseSector(sectorName) {
-		this.chooseRadioBtnByIndex(this.getSectorIndex(sectorName).index + 1);
+		this.chooseRadioBtnByIndex(this.getSectorIndex(sectorName));
 	}
 
 	validatePage() {
