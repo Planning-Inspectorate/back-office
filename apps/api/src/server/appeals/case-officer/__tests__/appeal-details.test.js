@@ -3,7 +3,7 @@ import { app } from '../../../app.js';
 const { databaseConnector } = await import('../../../utils/database-connector.js');
 
 /** @typedef {import('@pins/api').Schema.Appeal} Appeal */
-/** @typedef {import('../appeals/case-officer.controller').UpdateAppealDetailsBody} UpdateAppealDetailsBody */
+/** @typedef {import('apps/api/src/server/appeals/case-officer/case-officer.controller.js').UpdateAppealDetailsBody} UpdateAppealDetailsBody */
 
 const request = supertest(app);
 

@@ -8,9 +8,14 @@ import {
 import { obtainURLsForDocuments } from '../application/documents/document.service.js';
 
 /**
- * @type {import('express').RequestHandler<?, ?, ?, ?>}
+ * Provides document upload URLs.
+ *
+ * @param {import('express').Request} request
+ * @param {import('express').Response} response
+ * @returns {Promise<void>}
  */
-export const provideDocumentUploadURLs = async ({ params, body }, response) => {
+export const provideDocumentUploadURLs = async (request, response) => {
+	const { params, body } = request;
 	const documentsToUpload = body[''];
 
 	const { blobStorageHost, blobStorageContainer, documents } = await obtainURLsForDocuments(
@@ -32,6 +37,7 @@ export const provideDocumentUploadURLs = async ({ params, body }, response) => {
 /**
  * @param {string} guid
  * @param {string} status
+ * @returns {Promise<object>}
  */
 export const updatedDocumentStatusResponse = async (guid, status) => {
 	const updatedResponse = await documentRepository.updateDocumentStatus({
@@ -43,9 +49,15 @@ export const updatedDocumentStatusResponse = async (guid, status) => {
 };
 
 /**
- * @type {import('express').RequestHandler<{caseId: string, documentGUID: string }>}
+ * Handles requests to update a document's status.
+ *
+ * @param {import('express').Request<{caseId: string, documentGUID: string }, any, any, any, {}>} request
+ * @param {import('express').Response} response
+ * @returns {Promise<void>}
  */
-export const updateDocumentStatus = async ({ params, body }, response) => {
+export const updateDocumentStatus = async (request, response) => {
+	const { params, body } = request;
+
 	const documentDetails = await documentRepository.getByDocumentGUID(params.documentGUID);
 
 	const folderId = documentDetails?.folderId;

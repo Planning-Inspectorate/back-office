@@ -4,6 +4,15 @@ import logger from '../src/server/utils/logger.js';
 import { regions, sectors, subSectors, zoomLevels } from './seed-samples.js';
 
 // create reference data only, no test data, as delivering to production DB
+
+/**
+ * Upserts data for sectors, sub-sectors, regions, and zoom levels into the database.
+ *
+ * @async
+ * @function
+ * @throws {Error} If any database operation fails.
+ * @returns {Promise<void>}
+ */
 const productionMain = async () => {
 	try {
 		for (const sector of sectors) {

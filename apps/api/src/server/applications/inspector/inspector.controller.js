@@ -27,6 +27,8 @@ const getListOfStatusesWithoutDraft = () => {
 
 /**
  * @type {import('express').RequestHandler}
+ * @returns {Promise<void>}
+ * @throws {Error}
  */
 export const getApplications = async (_request, response) => {
 	const applications = await caseRepository.getByStatus(getListOfStatusesWithoutDraft());

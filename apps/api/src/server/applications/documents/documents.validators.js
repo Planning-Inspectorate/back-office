@@ -5,8 +5,11 @@ import * as documentRepository from '../../repositories/document.repository.js';
 import * as folderRepository from '../../repositories/folder.repository.js';
 
 /**
+ * Validates that a folder with the given ID belongs to the case specified in the request parameters.
+ *
  * @param {number} value
  * @param {import('express-validator').Meta} meta
+ * @throws {Error} Throws an error if the folder does not exist in the database or if it does not belong to the case in the request parameters.
  */
 const validateFolderBelongsToCase = async (value, { req }) => {
 	const folder = await folderRepository.getById(value);
@@ -21,7 +24,11 @@ const validateFolderBelongsToCase = async (value, { req }) => {
 };
 
 /**
+ * Validates if the given document GUID exists in the database.
+ *
  * @param {string} value
+ * @throws {Error}
+ * @returns {Promise<void>}
  */
 const validateDocumentGUIDBelongsToCase = async (value) => {
 	const documentGUID = await documentRepository.getByDocumentGUID(value);

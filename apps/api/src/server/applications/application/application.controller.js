@@ -19,7 +19,12 @@ const getServiceCustomerIds = (serviceCustomers) => {
 };
 
 /**
+ * Express request handler for creating application
+ *
  * @type {import('express').RequestHandler}
+ * @param {import('express').Request} request
+ * @param {import('express').Response} response
+ * @returns { Promise<void> }
  */
 export const createApplication = async (request, response) => {
 	const mappedApplicationDetails = mapCreateApplicationRequestToRepository(request.body);
@@ -34,9 +39,16 @@ export const createApplication = async (request, response) => {
 };
 
 /**
- * @type {import('express').RequestHandler<{id: number}, ?, import('@pins/applications').CreateUpdateApplication>}
+ * Express request handler function for updating an application.
+ *
+ * @param {import('express').Request<{id: number}, void, import('@pins/applications').CreateUpdateApplication>} request
+ * @param {import('express').Response} response
+ * @throws {Error}
+ * @returns {Promise<void>}
  */
-export const updateApplication = async ({ params, body }, response) => {
+export const updateApplication = async (request, response) => {
+	const { params, body } = request;
+
 	const mappedApplicationDetails = mapCreateApplicationRequestToRepository(body);
 
 	const updateResponse = await caseRepository.updateApplication({
@@ -49,7 +61,6 @@ export const updateApplication = async ({ params, body }, response) => {
 		throw new Error('Application not found');
 	}
 
-	// @ts-ignore
 	await eventClient.sendEvents(NSIP_PROJECT, [buildNsipProjectPayload(updateResponse)]);
 
 	const applicantIds = getServiceCustomerIds(updateResponse.serviceCustomer);
@@ -58,30 +69,48 @@ export const updateApplication = async ({ params, body }, response) => {
 };
 
 /**
+ * Express request handler to start a case.
  *
- * @type {import('express').RequestHandler<{id: number}>}
+ * @param {import('express').Request<{id: number}>} request
+ * @param {import('express').Response} response
+ * @returns {Promise<void>}
  */
-export const startCase = async ({ params }, response) => {
+export const startCase = async (request, response) => {
+	const { params } = request;
+
 	const { id, reference, status } = await startApplication(params.id);
 
 	response.send({ id, reference, status: mapCaseStatusString(status.toString()) });
 };
 
 /**
+ * Express request handler for getting application details.
  *
- * @type {import('express').RequestHandler<{id: number}, ?, ?, any>}
+ * @param {import('express').Request<{id: number}, any, any, any>} req - The HTTP request object.
+ * @param {import('express').Response} res - The HTTP response object.
+ * @returns {Promise<void>} A Promise that resolves when the request handler has finished processing the request.
  */
-export const getApplicationDetails = async ({ params, query }, response) => {
+export const getApplicationDetails = async (req, res) => {
+	const { params, query } = req;
+
 	const applicationDetails = await getCaseDetails(params.id, query);
 
-	response.send(applicationDetails);
+	res.send(applicationDetails);
 };
 
 /**
+ * Express request handler to publish a case
  *
- * @type {import('express').RequestHandler<{id: number}, ?, ?, any>}
+ * @type {import('express').RequestHandler<{ id: number }, any, any, any, {}>}
+ * @param {import('express').Request<{ id: number }>} request
+ * @param {import('express').Response<{}>} response
+ * @returns {Promise<void>}
  */
-export const publishCase = async ({ params: { id } }, response) => {
+export const publishCase = async (request, response) => {
+	const {
+		params: { id }
+	} = request;
+
 	logger.info(`attempting to publish a case with id ${id}`);
 
 	const publishedDate = await caseRepository.publishCase({
