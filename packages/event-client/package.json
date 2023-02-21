@@ -1,0 +1,19 @@
+{
+    "name": "@pins/event-client",
+    "version": "0.0.0",
+    "type": "module",
+    "private": true,
+    "engines": {
+        "node": ">=16.14.0"
+    },
+    "scripts": {
+        "clean": "rimraf .turbo node_modules",
+        "lint:js": "npx eslint .",
+        "lint:js:fix": "npx eslint . --fix",
+        "tscheck": "npx tsc -p jsconfig.json --maxNodeModuleJsDepth 0"
+    },
+    "dependencies": {
+        "@azure/identity": "3.0.1",
+        "@azure/service-bus": "^7.7.3"
+    }
+}

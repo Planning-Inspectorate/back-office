@@ -1,7 +1,9 @@
+import { getEventClient } from '@pins/event-client';
 import config from '../config/config.js';
-import { LocalEventClient } from './local-event-client.js';
-import { ServiceBusEventClient } from './service-bus-event-client.js';
+import logger from '../utils/logger.js';
 
-export const eventClient = config.serviceBusEnabled
-	? new ServiceBusEventClient()
-	: new LocalEventClient();
+export const eventClient = getEventClient(
+	config.serviceBusEnabled,
+	logger,
+	config.serviceBusOptions.hostname
+);
