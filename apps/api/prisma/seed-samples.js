@@ -1,3 +1,8 @@
+/**
+ * An array of appellants, each containing a name and email address.
+ *
+ * @type {Array<{name: string, email: string}>}
+ */
 export const appellantsList = [
 	{
 		name: 'Lee Thornton',
@@ -119,6 +124,26 @@ export const addressesList = [
 	}
 ];
 
+/**
+ * An array of objects representing LPA questionnaire lists.
+ *
+ * @typedef {object[]} LPAQuestionnaireList
+ * @property {boolean} affectsListedBuilding - Whether the proposed development affects a listed building.
+ * @property {boolean} extraConditions - Whether there are any extra conditions attached to the planning permission.
+ * @property {boolean} inGreenBelt - Whether the proposed development is in the green belt.
+ * @property {boolean} inOrNearConservationArea - Whether the proposed development is in or near a conservation area.
+ * @property {boolean} siteVisibleFromPublicLand - Whether the proposed development is visible from public land.
+ * @property {string} siteVisibleFromPublicLandDescription - Description of the proposed development's visibility from public land.
+ * @property {boolean} doesInspectorNeedToEnterSite - Whether the inspector needs to enter the site to view the proposed development.
+ * @property {string} doesInspectorNeedToEnterSiteDescription - Description of why the inspector needs to enter the site to view the proposed development.
+ * @property {boolean} doesInspectorNeedToAccessNeighboursLand - Whether the inspector needs to access the neighbour's land to view the proposed development.
+ * @property {string} doesInspectorNeedToAccessNeighboursLandDescription - Description of why the inspector needs to access the neighbour's land to view the proposed development.
+ * @property {boolean} healthAndSafetyIssues - Whether there are any health and safety issues associated with the proposed development.
+ * @property {string} healthAndSafetyIssuesDescription - Description of the health and safety issues associated with the proposed development.
+ * @property {string} appealsInImmediateAreaBeingConsidered - Appeals in the immediate area being considered.
+ * @property {Date} sentAt - The date the questionnaire was sent.
+ * @property {Date} receivedAt - The date the questionnaire was received.
+ */
 export const lpaQuestionnaireList = [
 	{
 		affectsListedBuilding: false,
@@ -216,6 +241,25 @@ export const lpaQuestionnaireList = [
 	}
 ];
 
+/**
+ * Sample incomplete review questionnaire data.
+ *
+ * @typedef {object} IncompleteReviewQuestionnaire
+ * @property {Date} createdAt - The date when the questionnaire was created.
+ * @property {boolean} complete - Indicates whether the questionnaire is complete or not.
+ * @property {boolean} applicationPlanningOfficersReportMissingOrIncorrect - Indicates if the planning officer's report is missing or incorrect.
+ * @property {boolean} applicationPlansToReachDecisionMissingOrIncorrect - Indicates if the plans to reach decision are missing or incorrect.
+ * @property {string} applicationPlansToReachDecisionMissingOrIncorrectDescription - The description of the missing or incorrect plans to reach decision.
+ * @property {boolean} policiesStatutoryDevelopmentPlanPoliciesMissingOrIncorrect - Indicates if the statutory development plan policies are missing or incorrect.
+ * @property {boolean} policiesOtherRelevantPoliciesMissingOrIncorrect - Indicates if other relevant policies are missing or incorrect.
+ * @property {boolean} policiesSupplementaryPlanningDocumentsMissingOrIncorrect - Indicates if the supplementary planning documents are missing or incorrect.
+ * @property {boolean} siteConservationAreaMapAndGuidanceMissingOrIncorrect - Indicates if the conservation area map and guidance are missing or incorrect.
+ * @property {boolean} siteListedBuildingDescriptionMissingOrIncorrect - Indicates if the listed building description is missing or incorrect.
+ * @property {boolean} thirdPartyApplicationNotificationMissingOrIncorrect - Indicates if the third party application notification is missing or incorrect.
+ * @property {boolean} thirdPartyApplicationPublicityMissingOrIncorrect - Indicates if the third party application publicity is missing or incorrect.
+ * @property {boolean} thirdPartyRepresentationsMissingOrIncorrect - Indicates if the third party representations are missing or incorrect.
+ * @property {boolean} thirdPartyAppealNotificationMissingOrIncorrect - Indicates if the third party appeal notification is missing or incorrect.
+ */
 export const incompleteReviewQuestionnaireSample = {
 	createdAt: new Date(2022, 3, 20),
 	complete: false,
@@ -233,6 +277,17 @@ export const incompleteReviewQuestionnaireSample = {
 	thirdPartyAppealNotificationMissingOrIncorrect: false
 };
 
+/**
+ * An array of objects representing appeal details provided by the appellant.
+ *
+ * @typedef {object[]} AppealDetailsFromAppellantList
+ * @property {boolean} siteVisibleFromPublicLand - Indicates if the site is visible from public land.
+ * @property {string} siteVisibleFromPublicLandDescription - Description of the site's visibility from public land.
+ * @property {boolean} appellantOwnsWholeSite - Indicates if the appellant owns the whole site.
+ * @property {string} appellantOwnsWholeSiteDescription - Description of the appellant's ownership of the whole site.
+ * @property {boolean} healthAndSafetyIssues - Indicates if there are any health and safety issues with the site.
+ * @property {string} healthAndSafetyIssuesDescription - Description of any health and safety issues with the site.
+ */
 export const appealDetailsFromAppellantList = [
 	{
 		siteVisibleFromPublicLand: true,
@@ -252,6 +307,22 @@ export const appealDetailsFromAppellantList = [
 	}
 ];
 
+/**
+ * An object representing a sample of an incomplete validation decision.
+ *
+ * @typedef {object} IncompleteValidationDecisionSample
+ * @property {string} decision - The decision status, which should be "incomplete".
+ * @property {boolean} namesDoNotMatch - Indicates if the names do not match.
+ * @property {boolean} sensitiveInfo - Indicates if there is sensitive information missing.
+ * @property {boolean} missingApplicationForm - Indicates if the application form is missing.
+ * @property {boolean} missingDecisionNotice - Indicates if the decision notice is missing.
+ * @property {boolean} missingGroundsForAppeal - Indicates if the grounds for appeal are missing.
+ * @property {boolean} missingSupportingDocuments - Indicates if the supporting documents are missing.
+ * @property {boolean} inflammatoryComments - Indicates if there are any inflammatory comments.
+ * @property {boolean} openedInError - Indicates if the decision was opened in error.
+ * @property {boolean} wrongAppealTypeUsed - Indicates if the wrong appeal type was used.
+ * @property {string} otherReasons - Any other reasons for the incomplete decision.
+ */
 export const incompleteValidationDecisionSample = {
 	decision: 'incomplete',
 	namesDoNotMatch: true,
@@ -266,6 +337,17 @@ export const incompleteValidationDecisionSample = {
 	otherReasons: 'Some reason'
 };
 
+/**
+ * An object representing a sample of an invalid validation decision.
+ *
+ * @typedef {object} InvalidValidationDecisionSample
+ * @property {string} decision - The decision status, which should be "invalid".
+ * @property {boolean} outOfTime - Indicates if the appeal is out of time.
+ * @property {boolean} noRightOfAppeal - Indicates if there is no right of appeal.
+ * @property {boolean} notAppealable - Indicates if the decision is not appealable.
+ * @property {boolean} lPADeemedInvalid - Indicates if the Local Planning Authority deemed the appeal invalid.
+ * @property {string} otherReasons - Any other reasons for the invalid decision.
+ */
 export const invalidValidationDecisionSample = {
 	decision: 'invalid',
 	outOfTime: true,
@@ -275,11 +357,28 @@ export const invalidValidationDecisionSample = {
 	otherReasons: 'Some reason'
 };
 
+/**
+ * An object representing a sample of a complete validation decision.
+ *
+ * @typedef {object} CompleteValidationDecisionSample
+ * @property {string} decision - The decision status, which should be "complete".
+ * @property {string} descriptionOfDevelopment - The description of the development.
+ */
 export const completeValidationDecisionSample = {
 	decision: 'complete',
 	descriptionOfDevelopment: 'Some Description'
 };
 
+/**
+ * An object representing a sector.
+ *
+ * @typedef {object} Sector
+ * @type {Sector[]}
+ * @property {string} name - The name of the sector.
+ * @property {string} abbreviation - The abbreviation of the sector.
+ * @property {string} displayNameEn - The English display name of the sector.
+ * @property {string} displayNameCy - The Welsh display name of the sector.
+ */
 export const sectors = [
 	{
 		name: 'business_and_commercial',
@@ -319,6 +418,18 @@ export const sectors = [
 	}
 ];
 
+/**
+ * Array of objects containing sub-sector details, grouped by sector.
+ *
+ * @type {Array<{ subSector: {
+ *                    name: string,
+ *                    abbreviation: string,
+ *                    displayNameEn: string,
+ *                    displayNameCy: string
+ *                  },
+ *                  sectorName: string
+ *                }>}
+ */
 export const subSectors = [
 	{
 		subSector: {
@@ -547,6 +658,15 @@ export const subSectors = [
 	}
 ];
 
+/**
+ * An array of regions.
+ *
+ * @typedef {object} Region
+ * @type {Region[]}
+ * @property {string} name - The name of the region.
+ * @property {string} displayNameEn - The display name of the region in English.
+ * @property {string} displayNameCy - The display name of the region in Welsh.
+ */
 export const regions = [
 	{
 		name: 'east_midlands',
@@ -600,6 +720,16 @@ export const regions = [
 	}
 ];
 
+/**
+ * An array of zoom levels.
+ *
+ * @typedef {object} ZoomLevel
+ * @type {ZoomLevel[]}
+ * @property {string} name - The name of the zoom level.
+ * @property {number} displayOrder - The display order of the zoom level.
+ * @property {string} displayNameEn - The display name of the zoom level in English.
+ * @property {string} displayNameCy - The display name of the zoom level in Welsh.
+ */
 export const zoomLevels = [
 	{
 		name: 'country',
@@ -657,6 +787,13 @@ export const zoomLevels = [
 	}
 ];
 
+/**
+ * An array of case status names.
+ *
+ * @typedef {object} CaseStatus
+ * @type {CaseStatus[]}
+ * @property {string} name - The name of the case status.
+ */
 export const caseStatusNames = [
 	{ name: 'draft' },
 	{ name: 'pre_application' },

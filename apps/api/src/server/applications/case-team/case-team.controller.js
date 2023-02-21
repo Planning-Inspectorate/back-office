@@ -5,7 +5,7 @@ import { applicationStates } from '../state-machine/application.machine.js';
 
 /**
  * @typedef {{name: string, displayNameEn: string, displayNameCy: string, abbreviation: string}} SectorResponse
- * @typedef {{id: number, modifiedDate: number, reference: string, status: string | object, sector: SectorResponse, subSector: SectorResponse}} ApplicationWithSectorResponse
+ * @typedef {{id: number, modifiedDate: number, reference: string, status: string | object, sector: SectorResponse | null | undefined, subSector?: SectorResponse | null | undefined}} ApplicationWithSectorResponse
  */
 
 /**
@@ -27,6 +27,7 @@ const getListOfStatuses = () => {
 
 /**
  * @type {import('express').RequestHandler}
+ * @returns {Promise<void>}
  */
 export const getApplications = async (_request, response) => {
 	const applications = await caseRepository.getByStatus(getListOfStatuses());
