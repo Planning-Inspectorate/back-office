@@ -1,8 +1,7 @@
 import { checkMyBlob } from './check-my-blob.js';
 
 /**
- * @param {import('./check-my-blob').Context} context
- * @param {import('node:stream').Readable} myBlob
+ * @type {import('@azure/functions').AzureFunction}
  */
 export const index = async (context, myBlob) => {
 	context.log(

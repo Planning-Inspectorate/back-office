@@ -6,10 +6,6 @@ import config from './config.js';
 import { scanStream } from './scan-stream.js';
 
 /**
- * @typedef {{bindingData: {uri: string, blobTrigger: any}, error: any, info: any, log: any}} Context
- */
-
-/**
  * @param {boolean} isInfected
  * @returns {string}
  */
@@ -52,7 +48,7 @@ const errorIsDueToDocumentMissing = (error) => {
 
 /**
  * @param {string} documentUri
- * @param {Context} context
+ * @param {import('@azure/functions').Context} context
  */
 const deleteDocument = async (documentUri, context) => {
 	const documentPath = `/${documentUri.split('/').slice(-4).join('/')}`;
@@ -73,7 +69,7 @@ const deleteDocument = async (documentUri, context) => {
 };
 
 /**
- * @param {Context} context
+ * @param {import('@azure/functions').Context} context
  * @param {import('node:stream').Readable} myBlob
  */
 export const checkMyBlob = async (context, myBlob) => {
