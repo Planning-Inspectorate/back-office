@@ -1,16 +1,18 @@
 import { PrismaClient } from '@prisma/client';
 import { modifyPrismaDocumentQueryMiddleware } from './prisma-middleware.js';
 
-/** @type {PrismaClient<Prisma.PrismaClientOptions, never, Prisma.RejectOnNotFound | Prisma.RejectPerOperation | undefined>} */
+/** @type {PrismaClient} */
 let prismaClient;
 
 /**
- *@returns {PrismaClient<Prisma.PrismaClientOptions, never, Prisma.RejectOnNotFound | Prisma.RejectPerOperation | undefined>}
- */
+ *@returns {PrismaClient} */
+// @ts-ignore
 function createPrismaClient() {
+	// @ts-ignore
 	if (!prismaClient) {
 		prismaClient = new PrismaClient();
 	}
+
 
 	prismaClient.$use(modifyPrismaDocumentQueryMiddleware);
 
