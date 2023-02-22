@@ -48,7 +48,7 @@ const errorIsDueToDocumentAlreadyMakedWithNewStatus = (error, machineAction) => 
 /**
  * @param {string} documentGuid
  * @param {string} machineAction
- * @param {import('./check-my-blob').Context} context
+ * @param {import('@azure/functions').Context} context
  */
 export const sendDocumentStateAction = async (documentGuid, machineAction, context) => {
 	try {
