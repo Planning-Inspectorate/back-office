@@ -10,7 +10,7 @@ import { Prisma } from '@prisma/client';
  * @returns {Promise<(arg0: any) => any>} The result of the next middleware in the chain.
  */
 export async function modifyPrismaDocumentQueryMiddleware(parameters, next) {
-	const isDocumentModel = parameters.model === 'Document';
+	const allowedModels = new Set(['Document', 'DocumentVersion']);
 
 	const isDeleteAction = parameters.action === 'delete';
 
@@ -21,7 +21,7 @@ export async function modifyPrismaDocumentQueryMiddleware(parameters, next) {
 
 	const isFindMany = parameters.action === 'findMany';
 
-	if (!isDocumentModel) return next(parameters);
+	if (!allowedModels.has(String(parameters?.model))) return next(parameters);
 
 	if (isFindUniqueOrFirst) {
 		// Change action to findFirst - you cannot filter by anything except (ID or setting a unique constraint) with findUnique

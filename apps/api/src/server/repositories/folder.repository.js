@@ -241,7 +241,7 @@ const defaultCaseFolders = [
 							{ displayNameEn: 'Compulsory acquisition information', displayOrder: 200 },
 							{ displayNameEn: 'DCO documents', displayOrder: 300 },
 							{ displayNameEn: 'Environmental statement', displayOrder: 400 },
-							{ displayNameEn: 'Other docuents', displayOrder: 500 },
+							{ displayNameEn: 'Other documents', displayOrder: 500 },
 							{ displayNameEn: 'Plans', displayOrder: 600 },
 							{ displayNameEn: 'Reports', displayOrder: 700 },
 							{ displayNameEn: 'Additional Reg 6 information', displayOrder: 800 }

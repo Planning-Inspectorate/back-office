@@ -1,10 +1,10 @@
-import { BlobServiceClient } from '@azure/storage-blob';
-
 /** @typedef {import('./_html.js').AnError} AnError */
 /** @typedef {import('./_html.js').FileWithRowId} FileWithRowId */
 /** @typedef {import('@azure/core-auth').AccessToken} AccessToken */
 /** @typedef {{documentName: string, fileRowId: string, blobStoreUrl?: string, failedReason?: string}} DocumentUploadInfo */
 /** @typedef {{documents: DocumentUploadInfo[], blobStorageHost: string, blobStorageContainer: string, accessToken: AccessToken}} UploadInfo */
+
+import { BlobStorageClient } from '@pins/blob-storage-client';
 
 /**
  *
@@ -63,11 +63,7 @@ const serverActions = (uploadForm) => {
 	const uploadFiles = async (fileList, uploadInfo) => {
 		const { documents, blobStorageHost, blobStorageContainer, accessToken } = uploadInfo;
 
-		const blobServiceClient = new BlobServiceClient(blobStorageHost, {
-			getToken: async () => accessToken
-		});
-
-		const containerClient = blobServiceClient.getContainerClient(blobStorageContainer);
+		const blobStorageClient = BlobStorageClient.fromUrlAndToken(blobStorageHost, accessToken);
 
 		for (const documentUploadInfo of documents) {
 			const fileToUpload = [...fileList].find(
@@ -76,7 +72,12 @@ const serverActions = (uploadForm) => {
 			const { blobStoreUrl } = documentUploadInfo;
 
 			if (fileToUpload && blobStoreUrl) {
-				const errorOutcome = await uploadOnBlobStorage(fileToUpload, blobStoreUrl, containerClient);
+				const errorOutcome = await uploadOnBlobStorage(
+					fileToUpload,
+					blobStoreUrl,
+					blobStorageClient,
+					blobStorageContainer
+				);
 
 				if (errorOutcome) {
 					failedUploads.push(errorOutcome);
@@ -91,18 +92,26 @@ const serverActions = (uploadForm) => {
 	 *
 	 * @param {FileWithRowId} fileToUpload
 	 * @param {string} blobStoreUrl
-	 * @param {import('@azure/storage-blob').ContainerClient} containerClient
+	 * @param {import('@pins/blob-storage-client').BlobStorageClient} blobStorageClient
+	 * @param {string} blobStorageContainer
 	 * @returns {Promise<AnError | undefined>}
 	 */
-	const uploadOnBlobStorage = async (fileToUpload, blobStoreUrl, containerClient) => {
+	const uploadOnBlobStorage = async (
+		fileToUpload,
+		blobStoreUrl,
+		blobStorageClient,
+		blobStorageContainer
+	) => {
 		let response;
 
 		try {
 			// todo: remove the initial / from backend
-			const blobClient = containerClient.getBlockBlobClient(blobStoreUrl.slice(1));
-			const options = { blobHTTPHeaders: { blobContentType: fileToUpload.type } };
-
-			await blobClient.uploadData(fileToUpload, options);
+			await blobStorageClient.uploadFile(
+				blobStorageContainer,
+				fileToUpload,
+				blobStoreUrl.slice(1),
+				fileToUpload.type
+			);
 		} catch {
 			response = {
 				message: 'GENERIC_SINGLE_FILE',

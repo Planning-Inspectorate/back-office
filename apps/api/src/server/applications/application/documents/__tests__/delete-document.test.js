@@ -34,6 +34,7 @@ describe('delete Document', () => {
 		expect(response.status).toEqual(200);
 		expect(response.body).toEqual({ isDeleted });
 		expect(databaseConnector.document.findFirst).toHaveBeenCalledWith({
+			include: { documentVersion: true },
 			where: {
 				guid: '1111-2222-3333',
 				isDeleted: false,

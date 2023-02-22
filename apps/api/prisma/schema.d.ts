@@ -18,7 +18,9 @@ export {
 	CaseStatus,
 	RegionsOnApplicationDetails,
 	Document,
-	DocumentUpdateInput
+	DocumentVersion,
+	DocumentUpdateInput,
+	DocumentVersionUpdateInput
 } from '@prisma/client';
 
 export interface Case extends schema.Case {
@@ -187,21 +189,44 @@ export type CaseStatusNameType =
 	| 'Withdrawn';
 
 export interface DocumentDetails {
-	guid: string;
+	documentId: string | null;
+	sourceSystem: string;
+	documentGuid: string | null;
 	documentName: string;
-	blobStorageContainer: string | null;
+	fileName: String;
+	originalFilename: string;
+	datePublished: number | null;
 	blobStoragePath: string | null;
-	from: string;
-	receivedDate: number | null;
+	blobStorageContainer: string;
+	author: string;
+	dateCreated: number | null;
+	publishedStatus: string;
+	redactedStatus: string;
 	size: number;
-	type: string;
-	redacted: boolean;
-	status: string;
-	description: string;
-	documentReferenceNumber: string;
-	version: number;
-	agent: string;
-	caseStage: string;
-	webFilter: string;
-	documentType: string;
+	mime: string;
+	status: string | null;
+	description: string | null;
+	version: number | null;
+	agent: string | null;
+	stage: string | null;
+	filter1: string | null;
+	documentType: string | null;
+	caseRef: string | null;
+	examinationRefNo: string;
+}
+
+export interface DocumentVersion extends schema.DocumentVersion {}
+
+export interface IDocument extends schema.Document {
+	folder: Folder;
+	documentVersion: DocumentVersion;
+}
+
+export interface DocumentVersionWithDocument extends DocumentVersion {
+	documentName?: string;
+	Document?: IDocument;
+}
+
+export interface DocumentVersionInput extends DocumentVersion {
+	documentName?: string;
 }

@@ -34,14 +34,14 @@ Before({ tags: '@Inspector' }, () => {
 
 // A S S E R T I O N S
 
-Then('the logged in user should be an Inspector', function () {
+Then(/^the logged in user should be an Inspector$/, function () {
 	page.verifyInspectorIsSignedIn();
 });
 
-Then('the logged in user should be a Case Team member', function () {
+Then(/^the logged in user should be a Case Team member$/, function () {
 	page.verifyCaseTeamIsSignedIn();
 });
 
-Then('the logged in user should be a Case Admin', function () {
+Then(/^the logged in user should be a Case Admin$/, function () {
 	page.verifyCaseAdminIsSignedIn();
 });

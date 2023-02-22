@@ -14,6 +14,8 @@ import * as zoomLevelRepository from '../../repositories/zoom-level.repository.j
 /**
  *
  * @param {string} value
+ * @throws {Error}
+ * @returns {Promise<void>}
  */
 const validateExistingSubsector = async (value) => {
 	const subSector = await subSectorRepository.getByName(value);
@@ -26,6 +28,8 @@ const validateExistingSubsector = async (value) => {
 /**
  *
  * @param {string[]} value
+ * @throws {Error}
+ * @returns {Promise<void>}
  */
 const validateExistingRegions = async (value) => {
 	for (const regionName of value) {
@@ -40,6 +44,8 @@ const validateExistingRegions = async (value) => {
 /**
  *
  * @param {number} value
+ * @throws {Error}
+ * @returns {Promise<void>}
  */
 const validateExistingApplication = async (value) => {
 	const caseFromDatabase = await caseRepository.getById(value, {});
@@ -53,6 +59,8 @@ const validateExistingApplication = async (value) => {
  *
  * @param {number} value
  * @param {{req: any}} requestInfo
+ * @throws {Error}
+ * @returns {Promise<void>}
  */
 const validateExistingApplicantThatBelongsToCase = async (value, { req }) => {
 	const applicant = await serviceCustomerRepository.getById(value);
@@ -69,6 +77,8 @@ const validateExistingApplicantThatBelongsToCase = async (value, { req }) => {
 /**
  *
  * @param {string} value
+ * @throws {Error}
+ * @returns {Promise<void>}
  */
 const validateExistingMapZoomLevel = async (value) => {
 	const mapZoomLevel = await zoomLevelRepository.getByName(value);

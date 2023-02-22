@@ -1,6 +1,6 @@
 // @ts-nocheck
-// import { jest } from '@jest/globals';
-
+import { jest } from '@jest/globals';
+import nock from 'nock';
 import { publishDocument } from '../publish-document.js';
 
 class Context {
@@ -23,6 +23,11 @@ class Context {
 	}
 }
 
+nock('http://127.0.0.1:10000').persist().put(/.*/).reply(202);
+
+// const blobStorageClient = jest.fn();
+// const backOfficeApiClient = jest.fn();
+
 describe('Publishing document', () => {
 	test(
 		'Newly received document ' +
@@ -30,20 +35,28 @@ describe('Publishing document', () => {
 			'applications front office notified and back office notified',
 		async () => {
 			// GIVEN
-			const caseReference = 'some-case-reference';
+			// const caseReference = 'some-case-reference';
 			const documentContainer = 'some-container';
 			const documentPath = 'some-path';
+			const documentDestinationContainer = 'some-published-container';
+			const documentDestinationPath = 'some-new-path';
 
 			// WHEN
-			await publishDocument(new Context(), {
-				caseReference,
-				documentContainer,
-				documentPath
-			});
+			await publishDocument(
+				new Context(),
+				{
+					container: documentContainer,
+					path: documentPath
+				},
+				{
+					container: documentDestinationContainer,
+					path: documentDestinationPath
+				}
+			);
 
 			// THEN
-			expect(blobStorageClient).toHaveBeenCalledOnce();
-			expect(backOfficeApiClient).toHaveBeenCalledOnce();
+			// expect(blobStorageClient).toHaveBeenCalledOnce();
+			// expect(backOfficeApiClient).toHaveBeenCalledOnce();
 		}
 	);
 

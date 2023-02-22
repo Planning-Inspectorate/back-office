@@ -1,10 +1,15 @@
 import { composeMiddleware } from '@pins/express';
 import { body } from 'express-validator';
+import joi from 'joi';
 import { validationErrorHandler } from '../../../middleware/error-handler.js';
 import * as DocumentRepository from '../../../repositories/document.repository.js';
 import BackOfficeAppError from '../../../utils/app-error.js';
 
 /** @typedef {{ guid: string}} documentGuid */
+
+/**
+ * @typedef {import('apps/api/prisma/schema.js').DocumentVersion} DocumentVersion
+ */
 
 /**
  * Fetch the document by its `guid` and related to a `caseId`.
@@ -14,7 +19,7 @@ import BackOfficeAppError from '../../../utils/app-error.js';
  * @param {string} guid - The document's globally unique identifier.
  * @param {number} caseId - The case's identifier the document is related to.
  * @throws {BackOfficeAppError} - If the document is not found with the specified `guid` and related to the specified `caseId`.
- * @returns {Promise<{blobStorageContainer?: string; blobStoragePath?: string;status?: string;}>} - The document object with properties `blobStorageContainer`, `blobStoragePath`, and `status`.
+ * @returns {Promise<{blobStorageContainer?: string; blobStoragePath?: string;status?: string; guid: string;}>} - The document object with properties `blobStorageContainer`, `blobStoragePath`, and `status`.
  */
 export const fetchDocumentByGuidAndCaseId = async (
 	/** @type {string} */ guid,
@@ -31,10 +36,64 @@ export const fetchDocumentByGuidAndCaseId = async (
 	}
 
 	return {
-		blobStorageContainer: document?.blobStorageContainer,
-		blobStoragePath: document?.blobStoragePath,
-		status: document?.status
+		blobStorageContainer: document?.blobStorageContainer || '',
+		blobStoragePath: document?.blobStoragePath || '',
+		status: document?.status,
+		guid: document.guid
 	};
+};
+
+/**
+ * Validates that the event body for document metadata exists based on the provided DocumentVersion schema.
+ *
+ * @param {DocumentVersion} documentVersonEventBody
+ * @returns {DocumentVersion}
+ */
+
+export const validateDocumentVersionBody = (documentVersonEventBody) => {
+	const documentVersionSchema = joi.object({
+		version: joi.number().positive().optional(),
+		receivedDate: joi.date().iso().optional(),
+		publishedDate: joi.date().iso().optional(),
+		lastModified: joi.date().iso().optional(),
+		documentType: joi.string().optional(),
+		documentName: joi.string().optional(),
+		fileName: joi.string().optional(),
+		documentId: joi.string().optional(),
+		published: joi.boolean().optional(),
+		redacted: joi.boolean().optional(),
+		sourceSystem: joi.string().optional(),
+		origin: joi.string().optional(),
+		representative: joi.string().optional(),
+		description: joi.string().optional(),
+		documentGuid: joi.string().optional(),
+		owner: joi.string().optional(),
+		author: joi.string().optional(),
+		securityClassification: joi.string().optional(),
+		mime: joi.string().optional(),
+		horizonDataID: joi.string().optional(),
+		fileMD5: joi.string().optional(),
+		path: joi.string().optional(),
+		size: joi.number().optional(),
+		stage: joi.number().optional(),
+		filter1: joi.string().optional(),
+		filter2: joi.string().optional(),
+		status: joi.string().optional(),
+		examinationRefNo: joi.string().optional()
+	});
+
+	const { error } = documentVersionSchema.validate(documentVersonEventBody, {
+		abortEarly: false
+	});
+
+	if (error) {
+		throw new BackOfficeAppError(
+			error?.message || 'there was an error validating request body',
+			400
+		);
+	}
+
+	return documentVersonEventBody;
 };
 
 /**

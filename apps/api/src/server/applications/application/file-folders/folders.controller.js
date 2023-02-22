@@ -1,6 +1,7 @@
 import { getDocumentsInFolder, getFolder, getFolderPath, getFolders } from './folders.service.js';
 
 /**
+ * Handles a GET request for multiple folders and sends the corresponding details in the request
  *
  * @type {import('express').RequestHandler<{ id: number, folderId: number }, ?, ?, any>}
  */

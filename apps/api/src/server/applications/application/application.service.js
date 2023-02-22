@@ -14,6 +14,7 @@ import { buildNsipProjectPayload } from './application.js';
  * @param {Object<any, string>} errors
  * @param {string | number | object[] | undefined | null} field
  * @param {string} fieldName
+ * @returns {void}
  */
 const addErrorIfMissing = (errors, field, fieldName) => {
 	if (field === null || typeof field === 'undefined' || (isArray(field) && isEmpty(field))) {
@@ -35,6 +36,7 @@ class StartApplicationError extends Error {
 /**
  * @param {number} id
  * @returns {Promise<import('@pins/api').Schema.Case>}
+ * @throws {Error}
  */
 const verifyAllApplicationDetailsPresent = async (id) => {
 	const caseDetails = await caseRepository.getById(id, {
@@ -91,11 +93,12 @@ export const startApplication = async (id) => {
 
 	const nextStatusForRepository = breakUpCompoundStatus(
 		nextStatusInStateMachine.value,
-		caseDetails.id
+		caseDetails.id.toString()
 	);
 
 	const updatedCase = await caseRepository.updateApplicationStatusAndDataById(
 		caseDetails.id,
+		caseDetails.ApplicationDetails?.id,
 		{
 			status: nextStatusForRepository,
 			data: {},
@@ -230,7 +233,7 @@ export const nextStatusInDocumentStateMachine = (status, machineAction) => {
  * @param {number | any} caseId
  * @param {string} guid
  * @param {string} status
- * @returns {object}
+ * @returns {Record<string, any>} An object containing the formatted case ID, GUID, and status.
  */
 export const formatResponseBody = (caseId, guid, status) => {
 	return { caseId, guid, status };

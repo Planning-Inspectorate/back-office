@@ -6,27 +6,27 @@ import { SearchResultsPage } from '../../page_objects/searchResultsPage';
 const applicationsHomePage = new ApplicationsHomePage();
 const searchResultsPage = new SearchResultsPage();
 
-Then('the user should see the search cases section', function () {
+Then(/^the user should see the search cases section$/, function () {
 	applicationsHomePage.verifySearchSection();
 });
 
-Then('the user should get {string} matching cases in the results', function (count) {
+Then(/^the user should get "([^"]*)" matching cases in the results$/, function (count) {
 	searchResultsPage.verifySearchResultsCount(count);
 });
 
-Then('the user should get some results from the search', function (count) {
+Then(/^the user should get some results from the search$/, function (count) {
 	searchResultsPage.verifySearchResultsCount();
 });
 
-Then('the user should see the {string} error', function (errorText) {
+Then(/^the user should see the "([^"]*)" error$/, function (errorText) {
 	searchResultsPage.verifySearchError(errorText);
 });
 
-Then('the top search result should be {string}', function (caseResultName) {
+Then(/^the top search result should be "([^"]*)"$/, function (caseResultName) {
 	searchResultsPage.verifyTopSearchResultName(caseResultName);
 });
 
-When('the user searches for a case using its {string}', function (searchWithType) {
+When(/^the user searches for a case using its "([^"]*)"$/, function (searchWithType) {
 	cy.fixture('case-search').then((json) => {
 		switch (searchWithType) {
 			case 'Case Reference':
@@ -46,14 +46,14 @@ When('the user searches for a case using its {string}', function (searchWithType
 	});
 });
 
-When('the user searches for {string}', function (searchTerm) {
+When(/^the user searches for "([^"]*)"$/, function (searchTerm) {
 	applicationsHomePage.searchFor(searchTerm);
 });
 
-When('the user searches for the current case', function () {
+When(/^the user searches for the current case$/, function () {
 	applicationsHomePage.searchFor(Cypress.env('currentCreatedCase'));
 });
 
-When('the user clicks the top search result', function () {
+When(/^the user clicks the top search result$/, function () {
 	searchResultsPage.clickTopSearchResult();
 });

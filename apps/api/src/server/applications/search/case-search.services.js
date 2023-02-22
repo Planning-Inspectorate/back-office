@@ -2,7 +2,7 @@ import * as caseRepository from '../../repositories/case.repository.js';
 import { getPageCount, getSkipValue } from '../../utils/database-pagination.js';
 import { mapApplicationWithSearchCriteria } from '../../utils/mapping/map-application-with-search-criteria.js';
 /**
- * @typedef {{id: number, reference: string, modifiedDate: number, title: string, description: string, status: string}} ApplicationWithSearchCriteriaResponse
+ * @typedef {import('apps/api/src/server/utils/mapping/map-application-with-search-criteria').ApplicationWithSearchCriteriaResponse} ApplicationWithSearchCriteriaResponse
  * @typedef {{page:number, pageSize: number, pageCount: number, itemCount: number, items: ApplicationWithSearchCriteriaResponse[]}} paginationInfo
  */
 

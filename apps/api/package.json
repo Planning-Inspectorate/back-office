@@ -33,6 +33,7 @@
     "@azure/identity": "3.0.1",
     "@azure/service-bus": "^7.7.3",
     "@prisma/client": "^4.2.1",
+    "@supercharge/promise-pool": "^2.4.0",
     "body-parser": "1.20.0",
     "c8": "^7.11.3",
     "compression": "1.7.4",

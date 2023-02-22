@@ -8,6 +8,6 @@ import '../commands';
 const page = new Page();
 
 // U S E R  A C T I O N S
-When('the user clicks the {string} link', function (linkText) {
+When(/^the user clicks the "([^"]*)" link$/, function (linkText) {
 	page.clickLinkByText(linkText);
 });

@@ -1,5 +1,5 @@
 import { jest } from '@jest/globals';
-import { modifyPrismaDocumentQueryMiddleware } from '../prisma-middleware.js';
+import { modifyPrismaDocumentQueryMiddleware } from '../prisma-middleware/index.js';
 
 const nextFunctionStub = jest.fn();
 

@@ -11,21 +11,25 @@ const createCasePage = new CreateCasePage();
 
 // U S E R  A C T I O N S
 
-Given('the user visits the home page', function () {
+Given(/^the user visits the home page$/, function () {
 	cy.visit('/');
 });
 
-When('the user navigates to the create a new case page', function () {
+Given(/^the user goes to the dashboard$/, function () {
+	page.clickLinkByText('Go to Dashboard');
+});
+
+When(/^the user navigates to the create a new case page$/, function () {
 	cy.visit('/applications-service/create-new-case', {
 		failOnStatusCode: false
 	});
 });
 
-When('the user validates previous page', function () {
+When(/^the user validates previous page$/, function () {
 	page.basePageElements.backLink().click();
 	page.clickSaveAndContinue();
 });
 
-When("the user enters the applicant's postcode as {string}", function (postcode) {
+When(/^the user enters the applicant's postcode as "([^"]*)"$/, function (postcode) {
 	createCasePage.sections.applicantAddress.fillApplicantPostcode(postcode);
 });

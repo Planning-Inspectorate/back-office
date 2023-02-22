@@ -1,6 +1,9 @@
 import { createMachine } from 'xstate';
 import mapObjectKeysToStrings from '../../utils/map-states-to-strings.js';
 
+/**
+ * @returns {object}
+ */
 const documentStatesForMachine = {
 	awaiting_upload: {
 		on: {
@@ -25,7 +28,7 @@ const documentStatesForMachine = {
 export const createDocumentsMachine = (context) => {
 	return createMachine({
 		id: 'document',
-		initial: 'uploading',
+		initial: 'awaiting_upload',
 		context,
 		states: documentStatesForMachine
 	});

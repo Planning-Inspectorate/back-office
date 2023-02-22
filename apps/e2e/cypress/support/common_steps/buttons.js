@@ -8,6 +8,6 @@ import '../commands';
 const page = new Page();
 
 // U S E R  A C T I O N S
-When('the user clicks the {string} button', function (buttonText) {
+When(/^the user clicks the "([^"]*)" button$/, function (buttonText) {
 	page.clickButtonByText(buttonText);
 });

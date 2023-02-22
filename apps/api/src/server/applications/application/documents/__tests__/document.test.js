@@ -14,16 +14,73 @@ describe('Update Document', () => {
 		// GIVEN
 		databaseConnector.case.findUnique.mockResolvedValue(application);
 		databaseConnector.document.findUnique.mockResolvedValue({
-			guid: '1111-2222-3333',
-			name: 'my doc.pdf',
-			folderId: 1,
-			blobStorageContainer: 'document-service-uploads',
-			blobStoragePath: '/application/BC010001/1111-2222-3333/my doc.pdf',
-			status: 'awaiting_upload',
-			createdAt: '2022-12-12 17:12:25.9610000',
-			redacted: true,
-			fileSize: 1024,
-			fileType: 'application/pdf'
+			id: 9,
+			version: null,
+			createdAt: '2023-02-28T11:59:38.129Z',
+			lastModified: null,
+			documentType: '',
+			published: false,
+			sourceSystem: null,
+			origin: null,
+			representative: null,
+			description: null,
+			documentGuid: 'a6f9f2e0-12c9-49b7-8a1c-3b5edc34dd99',
+			datePublished: null,
+			owner: null,
+			author: 'joe blogs',
+			securityClassification: null,
+			mime: null,
+			horizonDataID: null,
+			redacted: false,
+			fileMD5: null,
+			path: null,
+			virusCheckStatus: null,
+			size: null,
+			stage: null,
+			filter1: null,
+			filter2: null,
+			webfilter: null,
+			Document: {
+				guid: 'a6f9f2e0-12c9-49b7-8a1c-3b5edc34dd99',
+				name: '5',
+				folderId: 5391,
+				blobStorageContainer: 'document-service-uploads',
+				blobStoragePath: '/application/BC010001/1111-2222-3333/my doc.pdf',
+				status: 'awaiting_upload',
+				isDeleted: false,
+				createdAt: '2023-02-28T11:59:38.129Z',
+				fileSize: 0,
+				fileType: null,
+				versionId: 9,
+				folder: {
+					id: 5391,
+					displayNameEn: '5ssssssssssxxds',
+					displayOrder: null,
+					parentFolderId: null,
+					caseId: 5,
+					case: {
+						id: 5,
+						reference: 'BC0210002',
+						modifiedAt: '2023-02-28T10:21:40.758Z',
+						createdAt: '2023-02-28T10:21:40.761Z',
+						description:
+							'A description of test case 2 which is a case of subsector type Research and Development of Products or Processes',
+						publishedAt: null,
+						title: 'Research and Development of Products or Processes Test Application 2',
+						CaseStatus: [
+							{
+								id: 5,
+								status: 'acceptance',
+								createdAt: '2023-02-28T10:21:40.761Z',
+								valid: true,
+								subStateMachineName: null,
+								compoundStateName: null,
+								caseId: 5
+							}
+						]
+					}
+				}
+			}
 		});
 
 		// WHEN
@@ -108,59 +165,151 @@ describe('Update Document', () => {
 
 	test('returns document properties for a single document on a case', async () => {
 		// GIVEN
-		databaseConnector.case.findUnique.mockResolvedValue(application);
-		databaseConnector.document.findUnique.mockResolvedValue({
-			guid: '1111-2222-3333',
-			name: 'my doc.pdf',
-			folderId: 1,
-			blobStorageContainer: 'document-service-uploads',
-			blobStoragePath: '/application/BC010001/1111-2222-3333/my doc.pdf',
+		databaseConnector.document.findFirst.mockResolvedValue({
+			blobStorageContainer: '',
+			blobStoragePath: '',
 			status: 'awaiting_upload',
-			createdAt: '2022-12-12 17:12:25.9610000',
-			redacted: true,
-			fileSize: 1024,
-			fileType: 'application/pdf'
+			guid: 'a6f9f2e0-12c9-49b7-8a1c-3b5edc34dd99'
+		});
+
+		databaseConnector.documentVersion.findUnique.mockResolvedValue({
+			id: 9,
+			version: null,
+			createdAt: '2023-02-28T11:59:38.129Z',
+			lastModified: null,
+			documentType: '',
+			published: false,
+			sourceSystem: null,
+			origin: null,
+			representative: null,
+			description: null,
+			documentGuid: 'a6f9f2e0-12c9-49b7-8a1c-3b5edc34dd99',
+			datePublished: null,
+			owner: null,
+			author: 'joe blogs',
+			securityClassification: null,
+			mime: null,
+			horizonDataID: null,
+			redacted: false,
+			fileMD5: null,
+			path: null,
+			virusCheckStatus: null,
+			size: null,
+			stage: null,
+			filter1: null,
+			filter2: null,
+			webfilter: null,
+			Document: {
+				guid: 'a6f9f2e0-12c9-49b7-8a1c-3b5edc34dd99',
+				name: '5',
+				folderId: 5391,
+				blobStorageContainer: 'document-service-uploads',
+				blobStoragePath: '/application/BC010001/1111-2222-3333/my doc.pdf',
+				status: 'awaiting_upload',
+				isDeleted: false,
+				createdAt: '2023-02-28T11:59:38.129Z',
+				fileSize: 0,
+				fileType: null,
+				versionId: 9,
+				folder: {
+					id: 5391,
+					displayNameEn: '5ssssssssssxxds',
+					displayOrder: null,
+					parentFolderId: null,
+					caseId: 5,
+					case: {
+						id: 5,
+						reference: 'BC0210002',
+						modifiedAt: '2023-02-28T10:21:40.758Z',
+						createdAt: '2023-02-28T10:21:40.761Z',
+						description:
+							'A description of test case 2 which is a case of subsector type Research and Development of Products or Processes',
+						publishedAt: null,
+						title: 'Research and Development of Products or Processes Test Application 2',
+						CaseStatus: [
+							{
+								id: 5,
+								status: 'acceptance',
+								createdAt: '2023-02-28T10:21:40.761Z',
+								valid: true,
+								subStateMachineName: null,
+								compoundStateName: null,
+								caseId: 5
+							}
+						]
+					}
+				}
+			}
 		});
 
 		// WHEN
-		const response = await request.get('/applications/1/documents/1111-2222-3333');
+		const response = await request.get(
+			'/applications/1/documents/a6f9f2e0-12c9-49b7-8a1c-3b5edc34dd99/properties'
+		);
 
 		// THEN
+
+		expect(databaseConnector.documentVersion.findUnique).toBeCalledWith({
+			where: {
+				documentGuid: 'a6f9f2e0-12c9-49b7-8a1c-3b5edc34dd99'
+			},
+			include: {
+				Document: {
+					include: {
+						folder: {
+							include: {
+								case: {
+									include: {
+										CaseStatus: true
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		});
 		expect(response.status).toEqual(200);
+
 		expect(response.body).toEqual({
-			guid: '1111-2222-3333',
-			documentName: 'my doc.pdf',
+			documentGuid: 'a6f9f2e0-12c9-49b7-8a1c-3b5edc34dd99',
+			documentId: '',
+			caseRef: 'BC0210002',
+			documentName: '5',
+			sourceSystem: 'Back Office',
 			blobStorageContainer: 'document-service-uploads',
 			blobStoragePath: '/application/BC010001/1111-2222-3333/my doc.pdf',
-			from: '',
-			receivedDate: 1_670_865_145,
-			size: 1024,
-			type: 'application/pdf',
-			redacted: true,
+			author: 'joe blogs',
+			fileName: '',
+			originalFilename: '',
+			dateCreated: null,
+			size: 0,
+			mime: '',
+			publishedStatus: '',
+			redactedStatus: '',
 			status: 'awaiting_upload',
-			description: '',
-			documentReferenceNumber: '',
-			version: 1,
-			agent: '',
-			caseStage: '',
-			webFilter: '',
-			documentType: ''
+			datePublished: null,
+			description: null,
+			version: null,
+			agent: null,
+			stage: null,
+			documentType: '',
+			filter1: null,
+			examinationRefNo: ''
 		});
 	});
 
 	test('checks invalid case id on document properties call', async () => {
 		// GIVEN
-		databaseConnector.case.findUnique.mockResolvedValue(null);
+		databaseConnector.document.findFirst.mockResolvedValue(null);
 
 		// WHEN
-		const response = await request.get('/applications/999999/documents/1111-2222-3333');
+		const response = await request.get('/applications/999999/documents/1111-2222-3333/properties');
 
 		// THEN
 		expect(response.status).toEqual(404);
 		expect(response.body).toEqual({
-			errors: {
-				id: 'Must be an existing application'
-			}
+			errors: 'document not found guid 1111-2222-3333 related to casedId 999999'
 		});
 	});
 });

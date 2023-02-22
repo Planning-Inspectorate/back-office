@@ -18,9 +18,13 @@ describe('Provide document upload URLs', () => {
 	});
 
 	test('saves documents information and returns upload URL', async () => {
+		const guid = 'some-guid';
+
 		// GIVEN
 		databaseConnector.case.findUnique.mockResolvedValue(application);
 		databaseConnector.folder.findUnique.mockResolvedValue({ id: 1, caseId: 1 });
+		databaseConnector.document.upsert.mockResolvedValue({ id: 1, guid, name: 'test doc' });
+		databaseConnector.documentVersion.upsert.mockResolvedValue({});
 		got.post.mockReturnValue({
 			json: jest.fn().mockResolvedValue({
 				blobStorageHost: 'blob-store-host',
@@ -67,6 +71,87 @@ describe('Provide document upload URLs', () => {
 			data: {
 				blobStorageContainer: 'blob-store-container',
 				blobStoragePath: '/some/path/test doc'
+			}
+		});
+
+		const metadata = {
+			documentGuid: guid,
+			originalFilename: 'test doc',
+			documentURI: '/some/path/test doc'
+		};
+
+		expect(databaseConnector.documentVersion.upsert).toBeCalledTimes(2);
+
+		expect(databaseConnector.documentVersion.upsert).toHaveBeenCalledWith({
+			create: {
+				Document: { connect: { guid: 'some-guid' } },
+				originalFilename: 'test doc',
+				documentGuid: 'some-guid',
+				mime: 'application/pdf',
+				size: 1024
+			},
+			include: {
+				Document: { include: { folder: { include: { case: { include: { CaseStatus: true } } } } } }
+			},
+			update: {
+				documentGuid: 'some-guid',
+				originalFilename: 'test doc',
+				mime: 'application/pdf',
+				size: 1024
+			},
+			where: { documentGuid: 'some-guid' }
+		});
+
+		expect(databaseConnector.documentVersion.upsert).toHaveBeenCalledWith({
+			create: {
+				documentGuid: 'some-guid',
+				documentURI: '/some/path/test doc',
+				Document: { connect: { guid: metadata?.documentGuid } }
+			},
+			where: { documentGuid: metadata?.documentGuid },
+			update: { documentGuid: 'some-guid', documentURI: '/some/path/test doc' },
+			include: {
+				Document: {
+					include: {
+						folder: {
+							include: {
+								case: {
+									include: {
+										CaseStatus: true
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		});
+
+		expect(databaseConnector.documentVersion.upsert).lastCalledWith({
+			create: {
+				documentGuid: metadata?.documentGuid,
+				documentURI: '/some/path/test doc',
+				Document: { connect: { guid: metadata?.documentGuid } }
+			},
+			where: { documentGuid: metadata?.documentGuid },
+			update: {
+				documentGuid: metadata?.documentGuid,
+				documentURI: '/some/path/test doc'
+			},
+			include: {
+				Document: {
+					include: {
+						folder: {
+							include: {
+								case: {
+									include: {
+										CaseStatus: true
+									}
+								}
+							}
+						}
+					}
+				}
 			}
 		});
 	});

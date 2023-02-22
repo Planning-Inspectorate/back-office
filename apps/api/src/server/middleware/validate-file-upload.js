@@ -3,7 +3,7 @@ import { body } from 'express-validator';
 import multer from 'multer';
 import { handleValidationError } from './handle-validation-error.js';
 
-export const validateFileUpload = (filename) => {
+export const validateFileUpload = (/** @type {string | string[] | undefined} */ filename) => {
 	return composeMiddleware(
 		multer({
 			storage: multer.memoryStorage(),
