@@ -1,0 +1,12 @@
+{
+	"bindings": [
+		{
+			"name": "myQueueItem",
+			"type": "serviceBusTrigger",
+			"direction": "in",
+			"topicName": "documentsToPublish",
+			"subscriptionName": "documents-to-publish-subscription",
+			"connection": "MyServiceBusConnection"
+		}
+	]
+}

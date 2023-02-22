@@ -1,10 +1,5 @@
 /**
- * @typedef {{ error: any, info: any, log: any}} Context
- */
-
-/**
- * @param {Context} context
- * @param {any} employee
+ * @type {import('@azure/functions').AzureFunction}
  */
 export const index = async (context, employee) => {
 	context.log('Received employee update', employee);

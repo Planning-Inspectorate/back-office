@@ -1,0 +1,10 @@
+docker
+.editorconfig
+.env.example
+.eslintignore
+.eslintrc.js
+.gitignore
+.prettierrc
+local.settings.json
+test
+tsconfig.json

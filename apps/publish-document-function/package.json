@@ -1,11 +1,11 @@
 {
-    "name": "@pins/document-check-function",
+    "name": "@pins/publish-document-function",
     "version": "0.0.0",
     "private": true,
     "engines": {
         "node": ">=16.14.0"
     },
-    "description": "Sends documents to be checked by anti-virus",
+    "description": "Publishes documents to the applications front office",
     "type": "module",
     "scripts": {
         "start": "func start",
@@ -14,11 +14,9 @@
     "dependencies": {
         "@azure/functions": "^1.2.2",
         "azure-functions-core-tools": "3",
-        "clamscan": "^2.1.2",
         "dotenv": "16.0.3",
         "got": "*",
         "joi": "*",
-        "lodash-es": "^4.17.21",
         "pino": "7.11.0",
         "stub-azure-function-context": "^2.0.0-alpha.4"
     },
