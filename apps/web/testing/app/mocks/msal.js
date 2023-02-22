@@ -1,3 +1,4 @@
+// @ts-nocheck
 import msal from '@azure/msal-node';
 import { jest } from '@jest/globals';
 import { last } from 'lodash-es';
@@ -26,6 +27,18 @@ export class ConfidentialClientApplication extends msal.ConfidentialClientApplic
 				account: this.account,
 				idTokenClaims: {
 					nonce: this.nonce
+				}
+			})
+		)
+	);
+
+	// @ts-ignore
+	acquireTokenByClientCredential = jest.fn(() =>
+		Promise.resolve(
+			/** @type {Partial<import('@azure/msal-node').AuthenticationResult>} */ ({
+				accessToken: 'accessToken',
+				expiresOn: {
+					getTime: () => jest.fn(() => Date.now() + 3600)
 				}
 			})
 		)

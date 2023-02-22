@@ -12,10 +12,11 @@ export class RegionsSection extends SectionBase {
 
 	chooseRegions(regions) {
 		const allRegions = REGIONS;
-		regions.forEach((region) => {
-			console.log(region);
+		regions.map((region) => {
 			if (allRegions.includes(region)) {
-				this.chooseCheckboxByIndex(allRegions.indexOf(region) + 1);
+				this.chooseCheckboxByIndex(allRegions.indexOf(region));
+			} else {
+				throw new Error(`Invalid region: ${region}`);
 			}
 		});
 	}

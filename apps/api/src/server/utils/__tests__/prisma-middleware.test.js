@@ -1,5 +1,5 @@
 import { jest } from '@jest/globals';
-import { prismaClientDocumentMiddleWare } from '../prisma-middleware.js';
+import { modifyPrismaDocumentQueryMiddleware } from '../prisma-middleware.js';
 
 const nextFunctionStub = jest.fn();
 
@@ -7,7 +7,7 @@ beforeEach(() => {
 	nextFunctionStub.mockRestore();
 });
 
-test('prismaClientDocumentMiddleWare() testing delete action should convert action to update', () => {
+test('modifyPrismaDocumentQueryMiddleware() testing delete action should convert action to update', () => {
 	// GIVEN
 	/** @type {Partial<import('@prisma/client').Prisma.MiddlewareParams>} */
 	const parameters = {
@@ -21,7 +21,7 @@ test('prismaClientDocumentMiddleWare() testing delete action should convert acti
 
 	// WHEN
 	// @ts-ignore
-	prismaClientDocumentMiddleWare(parameters, nextFunctionStub);
+	modifyPrismaDocumentQueryMiddleware(parameters, nextFunctionStub);
 
 	// THEN
 	expect(nextFunctionStub).toHaveBeenCalledTimes(1);
@@ -29,7 +29,7 @@ test('prismaClientDocumentMiddleWare() testing delete action should convert acti
 	expect(parameters.args.data.isDeleted).toEqual(true);
 });
 
-test('prismaClientDocumentMiddleWare() testing findFirst action', () => {
+test('modifyPrismaDocumentQueryMiddleware() testing findFirst action', () => {
 	// GIVEN
 	/** @type {Partial<import('@prisma/client').Prisma.MiddlewareParams>} */
 	const parameters = {
@@ -43,7 +43,7 @@ test('prismaClientDocumentMiddleWare() testing findFirst action', () => {
 
 	// WHEN
 	// @ts-ignore
-	prismaClientDocumentMiddleWare(parameters, nextFunctionStub);
+	modifyPrismaDocumentQueryMiddleware(parameters, nextFunctionStub);
 
 	// THEN
 	expect(nextFunctionStub).toHaveBeenCalledTimes(1);
@@ -52,7 +52,7 @@ test('prismaClientDocumentMiddleWare() testing findFirst action', () => {
 	expect(parameters.args.where.isDeleted).toEqual(false);
 });
 
-test('prismaClientDocumentMiddleWare() testing count action', () => {
+test('modifyPrismaDocumentQueryMiddleware() testing count action', () => {
 	// GIVEN
 	/** @type {Partial<import('@prisma/client').Prisma.MiddlewareParams>} */
 	const parameters = {
@@ -66,7 +66,7 @@ test('prismaClientDocumentMiddleWare() testing count action', () => {
 
 	// WHEN
 	// @ts-ignore
-	prismaClientDocumentMiddleWare(parameters, nextFunctionStub);
+	modifyPrismaDocumentQueryMiddleware(parameters, nextFunctionStub);
 
 	// THEN
 	expect(nextFunctionStub).toHaveBeenCalledTimes(1);
@@ -74,7 +74,7 @@ test('prismaClientDocumentMiddleWare() testing count action', () => {
 	expect(parameters.args.where.isDeleted).toEqual(false);
 });
 
-test('prismaClientDocumentMiddleWare() testing findUnique action should convert action to findFirst', () => {
+test('modifyPrismaDocumentQueryMiddleware() testing findUnique action should convert action to findFirst', () => {
 	// GIVEN
 	/** @type {Partial<import('@prisma/client').Prisma.MiddlewareParams>} */
 	const parameters = {
@@ -88,7 +88,7 @@ test('prismaClientDocumentMiddleWare() testing findUnique action should convert 
 
 	// WHEN
 	// @ts-ignore
-	prismaClientDocumentMiddleWare(parameters, nextFunctionStub);
+	modifyPrismaDocumentQueryMiddleware(parameters, nextFunctionStub);
 
 	// THEN
 	expect(nextFunctionStub).toHaveBeenCalledTimes(1);
@@ -96,7 +96,7 @@ test('prismaClientDocumentMiddleWare() testing findUnique action should convert 
 	expect(parameters.args.where.isDeleted).toEqual(false);
 });
 
-test('prismaClientDocumentMiddleWare() testing findMany action when isDeleted is included', () => {
+test('modifyPrismaDocumentQueryMiddleware() testing findMany action when isDeleted is included', () => {
 	// GIVEN
 	/** @type {Partial<import('@prisma/client').Prisma.MiddlewareParams>} */
 	const parameters = {
@@ -112,7 +112,7 @@ test('prismaClientDocumentMiddleWare() testing findMany action when isDeleted is
 
 	// WHEN
 	// @ts-ignore
-	prismaClientDocumentMiddleWare(parameters, nextFunctionStub);
+	modifyPrismaDocumentQueryMiddleware(parameters, nextFunctionStub);
 
 	// THEN
 	expect(nextFunctionStub).toHaveBeenCalledTimes(1);
@@ -121,7 +121,7 @@ test('prismaClientDocumentMiddleWare() testing findMany action when isDeleted is
 	expect(parameters.args.where.isDeleted).toEqual(true);
 });
 
-test('prismaClientDocumentMiddleWare() testing findMany action when isDeleted is not included', () => {
+test('modifyPrismaDocumentQueryMiddleware() testing findMany action when isDeleted is not included', () => {
 	// GIVEN
 	/** @type {Partial<import('@prisma/client').Prisma.MiddlewareParams>} */
 	const parameters = {
@@ -135,7 +135,7 @@ test('prismaClientDocumentMiddleWare() testing findMany action when isDeleted is
 
 	// WHEN
 	// @ts-ignore
-	prismaClientDocumentMiddleWare(parameters, nextFunctionStub);
+	modifyPrismaDocumentQueryMiddleware(parameters, nextFunctionStub);
 
 	// THEN
 	expect(nextFunctionStub).toHaveBeenCalledTimes(1);

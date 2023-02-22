@@ -1,5 +1,12 @@
 // @ts-nocheck
 import { BrowserAuthData } from '../fixtures/browser-auth-data';
+import { projectInformation } from './utils/createProjectInformation';
+
+Cypress.Commands.add('clearCookiesFile', () => {
+	cy.task('ClearAllCookies').then((cleared) => {
+		console.log(cleared);
+	});
+});
 
 Cypress.Commands.add('loginWithPuppeteer', (user) => {
 	var config = {
@@ -46,9 +53,13 @@ Cypress.Commands.add('login', (user) => {
 	});
 });
 
-Cypress.Commands.add('clearCookiesFile', () => {
-	cy.task('ClearAllCookies').then((cleared) => {
-		console.log(cleared);
+Cypress.Commands.add('createProjectInformation', (fileName) => {
+	cy.writeFile(`./cypress/fixtures/${fileName}`, JSON.stringify(projectInformation()));
+});
+
+Cypress.Commands.add('deleteFile', (files) => {
+	files.map((file) => {
+		cy.task('DeleteFile', file);
 	});
 });
 

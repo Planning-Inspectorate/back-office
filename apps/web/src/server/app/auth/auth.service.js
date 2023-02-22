@@ -27,6 +27,25 @@ export const acquireTokenByCode = async (code) => {
 };
 
 /**
+ * Acquire a token from the Azure Active Directory using client credentials flow.
+ *
+ * @function
+ * @async
+ * @param {string[]} [customeScopes=[`api://${config.msal.apiClientId}/.default`]] - Array of custom scopes to be requested.
+ * @returns {Promise<OriginalAuthenticationResult | null>} The token response object containing the token and other information.
+ * const scopes = ['api://myApp.com/myScope1']
+ * const tokenResponse = await acquireTokenByClientCredential(scopes)
+ */
+export const acquireTokenByClientCredential = async (
+	customeScopes = [`api://${config.msal.apiClientId}/.default`]
+) => {
+	return msalClient.acquireTokenByClientCredential({
+		authority: config.msal.authority,
+		scopes: customeScopes
+	});
+};
+
+/**
  * Acquire a new {@link AuthenticationResult} using an account. Note that
  * `acquireTokenSilent` will use a cached access token where posisble, and only
  * use a network request as a last resort.

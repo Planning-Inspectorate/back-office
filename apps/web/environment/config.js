@@ -16,6 +16,7 @@ const { value: validatedConfig, error } = schema.validate({
 	msal: {
 		clientId: environment.AUTH_CLIENT_ID,
 		clientSecret: environment.AUTH_CLIENT_SECRET,
+		apiClientId: environment.AUTH_API_CLIENT_ID,
 		tenantId: environment.AUTH_TENANT_ID
 	},
 	serverPort: environment.HTTPS_ENABLED === 'true' ? environment.HTTPS_PORT : environment.HTTP_PORT,
@@ -41,7 +42,11 @@ const { value: validatedConfig, error } = schema.validate({
 		featureFlagBoas1TestFeature: !environment.FEATURE_FLAG_BOAS_1_TEST_FEATURE
 			? false
 			: environment.FEATURE_FLAG_BOAS_1_TEST_FEATURE === 'true'
-	}
+	},
+
+	clientCredentialsGrantEnabled:
+		environment.CLIENT_CREDENTIAL_GRANT_ENABLED &&
+		environment.CLIENT_CREDENTIAL_GRANT_ENABLED === 'true'
 });
 
 if (error) {

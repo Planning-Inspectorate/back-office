@@ -1,10 +1,13 @@
+// @ts-nocheck
 const { defineConfig } = require('cypress');
 const { azureSignIn } = require('./cypress/support/login');
 const {
 	clearAllCookies,
 	cookiesFileExists,
 	getCookiesFileContents,
-	getConfigByFile
+	getConfigByFile,
+	sayHello,
+	deleteFile
 } = require('./cypress/support/utils');
 const preprocessor = require('@badeball/cypress-cucumber-preprocessor');
 const webpack = require('@cypress/webpack-preprocessor');
@@ -19,6 +22,7 @@ module.exports = defineConfig({
 			on('task', { AzureSignIn: azureSignIn });
 			on('task', { ClearAllCookies: clearAllCookies });
 			on('task', { CookiesFileExists: cookiesFileExists });
+			on('task', { DeleteFile: deleteFile });
 			on('task', { GetConfigByFile: getConfigByFile });
 			on('task', { GetCookiesFileContents: getCookiesFileContents });
 			on(
@@ -63,6 +67,7 @@ module.exports = defineConfig({
 		pageLoadTimeout: 30000,
 		experimentalModifyObstructiveThirdPartyCode: true,
 		chromeWebSecurity: false,
-		experimentalInteractiveRunEvents: true
+		experimentalInteractiveRunEvents: true,
+		video: false
 	}
 });

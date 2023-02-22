@@ -87,27 +87,21 @@ export async function viewApplicationsCaseDocumentationUpload(request, response)
 /**
  * View the documentation pages
  *
- * @type {import('@pins/express').RenderHandler<{documentationFile: *}, {}>}
+ * @type {import('@pins/express').RenderHandler<{documentationFile: DocumentationFile, warningText: string|null}, {}>}
  */
 export async function viewApplicationsCaseDocumentationPages({ params }, response) {
 	const { documentGuid, action } = params;
 	const { caseId } = response.locals;
 	const documentationFile = await getCaseDocumentationFileInfo(caseId, documentGuid);
+	const isReadyToPublish = documentationFile.status === 'ready_to_publish';
+	const warningText = isReadyToPublish
+		? 'This document is in the publishing queue ready to be published.'
+		: null;
 
-	response.render(`applications/case-documentation/documentation-${action}`, { documentationFile });
-}
-
-/**
- * View the documentation delete page
- *
- * @type {import('@pins/express').RenderHandler<{documentationFile: DocumentationFile}, {}>}
- */
-export async function viewApplicationsCaseDocumentationDelete({ params }, response) {
-	const { documentGuid, action } = params;
-	const { caseId } = response.locals;
-	const documentationFile = await getCaseDocumentationFileInfo(caseId, documentGuid);
-
-	response.render(`applications/case-documentation/documentation-${action}`, { documentationFile });
+	response.render(`applications/case-documentation/documentation-${action}`, {
+		documentationFile,
+		warningText
+	});
 }
 
 /**

@@ -1,7 +1,8 @@
 {
 	"$schema": "http://json-schema.org/draft-07/schema#",
+	"$id": "nsip-project.schema.json",
 	"title": "NSIP Project",
-	"description": "Currently only represents an NSIP Project, but will transform into a generic Case in the future.",
+	"description": "Subset of Pins Data Model [Case]",
 	"type": "object",
 	"required": ["id", "type", "sourceSystem"],
 	"properties": {
@@ -43,25 +44,25 @@
 		"customers": {
 			"type": "array",
 			"items": {
-				"$ref": "#/$defs/service-user"
+				"$ref": "#/$defs/applicant"
 			}
 		},
 		"inspectors": {
 			"type": "array",
 			"items": {
-				"$ref": "#/$defs/employee"
+				"$ref": "employee.schema.json"
 			}
 		},
 		"validationOfficers": {
 			"type": "array",
 			"items": {
-				"$ref": "#/$defs/employee"
+				"$ref": "employee.schema.json"
 			}
 		},
 		"caseOfficers": {
 			"type": "array",
 			"items": {
-				"$ref": "#/$defs/employee"
+				"$ref": "employee.schema.json"
 			}
 		},
 		"decision": {
@@ -209,24 +210,10 @@
 				}
 			}
 		},
-		"employee": {
+		"applicant": {
+			"description": "Subset of Pins Data Model [Service User]",
 			"type": "object",
-			"required": ["id", "firstName", "lastName"],
-			"properties": {
-				"id": {
-					"type": "string"
-				},
-				"firstName": {
-					"type": "string"
-				},
-				"lastName": {
-					"type": "string"
-				}
-			}
-		},
-		"service-user": {
-			"type": "object",
-			"required": ["id", "customerType"],
+			"required": ["id", "name"],
 			"properties": {
 				"id": {
 					"type": "number",
@@ -239,10 +226,6 @@
 				"lastName": {
 					"type": "string",
 					"examples": ["Turing"]
-				},
-				"customerType": {
-					"type": "string",
-					"enum": ["applicant"]
 				},
 				"name": {
 					"title": "Name",

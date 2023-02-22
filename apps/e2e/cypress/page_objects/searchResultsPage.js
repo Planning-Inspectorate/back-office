@@ -8,12 +8,8 @@ export class SearchResultsPage extends Page {
 	};
 
 	// U S E R  A C T I O N S
-	searchFor(searchTerm, pressEnter = false) {
-		const _searchTerm = pressEnter ? `${searchTerm}{enter}` : searchTerm;
-		this.elements.searchApplicationsInput().type(_searchTerm);
-		if (!pressEnter) {
-			this.elements.searchApplicationsBtn().click();
-		}
+	clickTopSearchResult() {
+		this.basePageElements.tableRow().eq(1).find(this.selectors.body).click();
 	}
 
 	// A S S E R T I O N S

@@ -6,12 +6,22 @@ import BackOfficeAppError from '../../../utils/app-error.js';
 
 /** @typedef {{ guid: string}} documentGuid */
 
-export const getDocumentByIdAndCaseId = async (
+/**
+ * Fetch the document by its `guid` and related to a `caseId`.
+ *
+ * @function
+ * @async
+ * @param {string} guid - The document's globally unique identifier.
+ * @param {number} caseId - The case's identifier the document is related to.
+ * @throws {BackOfficeAppError} - If the document is not found with the specified `guid` and related to the specified `caseId`.
+ * @returns {Promise<{blobStorageContainer?: string; blobStoragePath?: string;status?: string;}>} - The document object with properties `blobStorageContainer`, `blobStoragePath`, and `status`.
+ */
+export const fetchDocumentByGuidAndCaseId = async (
 	/** @type {string} */ guid,
 	/** @type {number} */ caseId
 ) => {
-	/** @type {import('apps/api/prisma/schema.js').Document | null} */
-	const document = await DocumentRepository.getByIdRelatedToCaseId(guid, caseId);
+	const /** @type {import('apps/api/prisma/schema.js').Document | null} */ document =
+			await DocumentRepository.getByIdRelatedToCaseId(guid, caseId);
 
 	if (document === null || typeof document === 'undefined') {
 		throw new BackOfficeAppError(

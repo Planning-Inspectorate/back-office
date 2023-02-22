@@ -7,9 +7,9 @@ export class ApplicantInformationAvailableSection extends SectionBase {
 		this.validateSectionHeader('Choose the Applicant information you have available');
 	}
 
-	chooseAll(applicantInfo) {
+	chooseAll() {
 		for (let i = 0; i < APPLICANT_INFO.length; i++) {
-			this.chooseCheckboxByIndex(i + 1);
+			this.chooseCheckboxByIndex(i);
 		}
 	}
 

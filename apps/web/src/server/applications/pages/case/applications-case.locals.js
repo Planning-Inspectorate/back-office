@@ -1,3 +1,4 @@
+import pino from '../../../lib/logger.js';
 import { url } from '../../../lib/nunjucks-filters/index.js';
 import { getCase } from '../../lib/services/case.service.js';
 import {
@@ -34,7 +35,8 @@ export const registerCase = async (request, response, next) => {
 	}
 
 	if (response.locals.case.status === 'Draft') {
-		throw new Error(`Trying to load a non-draft page for a draft case`);
+		pino.error('[WEB] Trying to load a non-draft page for a draft case');
+		return response.render(`app/404.njk`);
 	}
 
 	next();
