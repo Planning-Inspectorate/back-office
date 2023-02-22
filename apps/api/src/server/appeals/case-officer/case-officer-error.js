@@ -1,9 +1,3 @@
-/**
- * Custom error class for case officer errors.
- *
- * @class CaseOfficerError
- * @augments Error
- */
 class CaseOfficerError extends Error {
 	/**
 	 * Creates a new instance of the CaseOfficerError class.

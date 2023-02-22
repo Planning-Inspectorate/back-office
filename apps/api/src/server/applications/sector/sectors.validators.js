@@ -5,6 +5,8 @@ import * as sectorRepository from '../../repositories/sector.repository.js';
 
 /**
  * @param {string} value
+ * @throws {Error}
+ * @returns {Promise<void>}
  */
 const validateSectorName = async (value) => {
 	const subSector = await sectorRepository.getByName(value);
