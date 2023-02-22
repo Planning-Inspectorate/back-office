@@ -20,8 +20,7 @@ const mapSectors = (sectors) => {
 
 /**
  *
- * @param {import('express').Request} request
- * @param {import('express').Response} response
+ * @type {import('express').RequestHandler}
  * @throws {Error}
  * @returns {Promise<void>}
  */

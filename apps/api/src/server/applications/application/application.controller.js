@@ -22,8 +22,6 @@ const getServiceCustomerIds = (serviceCustomers) => {
  * Express request handler for creating application
  *
  * @type {import('express').RequestHandler}
- * @param {import('express').Request} request
- * @param {import('express').Response} response
  * @returns { Promise<void> }
  */
 export const createApplication = async (request, response) => {
@@ -71,8 +69,7 @@ export const updateApplication = async (request, response) => {
 /**
  * Express request handler to start a case.
  *
- * @param {import('express').Request<{id: number}>} request
- * @param {import('express').Response} response
+ * @type {import('express').RequestHandler<{ id: number }, {}>}
  * @returns {Promise<void>}
  */
 export const startCase = async (request, response) => {
@@ -86,8 +83,7 @@ export const startCase = async (request, response) => {
 /**
  * Express request handler for getting application details.
  *
- * @param {import('express').Request<{id: number}, any, any, any>} req - The HTTP request object.
- * @param {import('express').Response} res - The HTTP response object.
+ * @type {import('express').RequestHandler<{ id: number }, any, any, any, {}>}
  * @returns {Promise<void>} A Promise that resolves when the request handler has finished processing the request.
  */
 export const getApplicationDetails = async (req, res) => {
@@ -102,8 +98,6 @@ export const getApplicationDetails = async (req, res) => {
  * Express request handler to publish a case
  *
  * @type {import('express').RequestHandler<{ id: number }, any, any, any, {}>}
- * @param {import('express').Request<{ id: number }>} request
- * @param {import('express').Response<{}>} response
  * @returns {Promise<void>}
  */
 export const publishCase = async (request, response) => {

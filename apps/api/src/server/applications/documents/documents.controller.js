@@ -10,8 +10,7 @@ import { obtainURLsForDocuments } from '../application/documents/document.servic
 /**
  * Provides document upload URLs.
  *
- * @param {import('express').Request} request
- * @param {import('express').Response} response
+ * @type {import('express').RequestHandler}
  * @returns {Promise<void>}
  */
 export const provideDocumentUploadURLs = async (request, response) => {
