@@ -1,4 +1,12 @@
 /**
+ * @typedef {import('../src/server/applications/application/application.js')} Sector
+ * @typedef {import('../src/server/applications/application/application.js').Sector} SubSector
+ * @typedef {import('apps/web/src/server/applications/applications.types').Region} Region
+ * @typedef {import('apps/web/src/server/applications/applications.types').ZoomLevel} ZoomLevel
+ * @typedef {import('apps/api/prisma/schema').CaseStatus} CaseStatus
+ */
+
+/**
  * An array of appellants, each containing a name and email address.
  *
  * @type {Array<{name: string, email: string}>}
@@ -372,12 +380,7 @@ export const completeValidationDecisionSample = {
 /**
  * An object representing a sector.
  *
- * @typedef {object} Sector
  * @type {Sector[]}
- * @property {string} name - The name of the sector.
- * @property {string} abbreviation - The abbreviation of the sector.
- * @property {string} displayNameEn - The English display name of the sector.
- * @property {string} displayNameCy - The Welsh display name of the sector.
  */
 export const sectors = [
 	{
@@ -421,14 +424,7 @@ export const sectors = [
 /**
  * Array of objects containing sub-sector details, grouped by sector.
  *
- * @type {Array<{ subSector: {
- *                    name: string,
- *                    abbreviation: string,
- *                    displayNameEn: string,
- *                    displayNameCy: string
- *                  },
- *                  sectorName: string
- *                }>}
+ * @type {SubSector[]}
  */
 export const subSectors = [
 	{
@@ -659,13 +655,9 @@ export const subSectors = [
 ];
 
 /**
- * An array of regions.
+ * An object representing a region.
  *
- * @typedef {object} Region
  * @type {Region[]}
- * @property {string} name - The name of the region.
- * @property {string} displayNameEn - The display name of the region in English.
- * @property {string} displayNameCy - The display name of the region in Welsh.
  */
 export const regions = [
 	{
@@ -723,12 +715,7 @@ export const regions = [
 /**
  * An array of zoom levels.
  *
- * @typedef {object} ZoomLevel
- * @type {ZoomLevel[]}
- * @property {string} name - The name of the zoom level.
- * @property {number} displayOrder - The display order of the zoom level.
- * @property {string} displayNameEn - The display name of the zoom level in English.
- * @property {string} displayNameCy - The display name of the zoom level in Welsh.
+ * @typedef {ZoomLevel}
  */
 export const zoomLevels = [
 	{
@@ -790,7 +777,6 @@ export const zoomLevels = [
 /**
  * An array of case status names.
  *
- * @typedef {object} CaseStatus
  * @type {CaseStatus[]}
  * @property {string} name - The name of the case status.
  */
