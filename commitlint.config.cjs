@@ -10,6 +10,7 @@ const scopes = [
 	'document-storage',
 	'document-check-function',
 	'odw-integration',
+	'publish-document-function',
 	'express',
 	'platform',
 	'storage',
