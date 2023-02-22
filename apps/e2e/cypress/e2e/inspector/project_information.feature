@@ -5,7 +5,7 @@ Feature: View and Edit a case from the Project Information Page as an Inspector
 		Then the logged in user should be an Inspector
 
 	@Inspector @smoke
-	Scenario: Case Admins should be able view and edit the case
+	Scenario: Inspectors should be able view a case but not be able to edit the case
 		Given the user searches for a case using its "Case Reference"
 		And the user clicks the top search result
 		And the user clicks the "Project information" link
