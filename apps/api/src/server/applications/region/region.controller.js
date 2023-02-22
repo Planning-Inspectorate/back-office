@@ -11,7 +11,13 @@ const mapRegions = (regions) => {
 	return regions.map((region) => mapRegion(region));
 };
 
-/** @type {import('express').RequestHandler} */
+/**
+ *
+ * @param {import('express').Request} _request
+ * @param {import('express').Response} response
+ * @throws {Error}
+ * @returns {Promise<void>}
+ */
 export const getRegions = async (_request, response) => {
 	let regions = getCache('regions');
 

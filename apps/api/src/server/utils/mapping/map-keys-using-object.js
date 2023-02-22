@@ -4,7 +4,7 @@ import { mapKeys } from 'lodash-es';
  *
  * @param {object | undefined} objectToModify
  * @param {object} keyMap
- * @returns {object | undefined}
+ * @returns {object}
  */
 export const mapKeysUsingObject = (objectToModify, keyMap) => {
 	return mapKeys(objectToModify, (value, key) => {
