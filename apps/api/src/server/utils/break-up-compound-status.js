@@ -1,5 +1,10 @@
 import { isString, keys, map } from 'lodash-es';
 
+/**
+ * @param {object[]} compoundStatus
+ * @param {string} appealId
+ * @returns {object}
+ */
 export const breakUpCompoundStatus = (compoundStatus, appealId) => {
 	if (isString(compoundStatus)) return compoundStatus;
 

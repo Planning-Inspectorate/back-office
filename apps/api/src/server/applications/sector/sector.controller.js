@@ -20,7 +20,10 @@ const mapSectors = (sectors) => {
 
 /**
  *
- * @type {import('express').RequestHandler}
+ * @param {import('express').Request} request
+ * @param {import('express').Response} response
+ * @throws {Error}
+ * @returns {Promise<void>}
  */
 export const getSectors = async (request, response) => {
 	const sectorName = request.query.sectorName?.toString() || 'sectors';
