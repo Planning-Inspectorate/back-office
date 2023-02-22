@@ -1,16 +1,11 @@
-import { PrismaClient } from '@prisma/client';
+import { Prisma, PrismaClient } from '@prisma/client';
 import { prismaClientDocumentMiddleWare } from './prisma-middleware.js';
 
-/**
- * @type {PrismaClient}
- */
+/** @type {PrismaClient<Prisma.PrismaClientOptions, never, Prisma.RejectOnNotFound | Prisma.RejectPerOperation | undefined>} */
 let prismaClient;
 
 /**
- * Creates a new instance of PrismaClient, if one doesn't already exist.
- * Adds `prismaClientDocumentMiddleWare` to the instance and returns it.
- *
- * @returns {PrismaClient}
+ *@returns {PrismaClient<Prisma.PrismaClientOptions, never, Prisma.RejectOnNotFound | Prisma.RejectPerOperation | undefined>}
  */
 function createPrismaClient() {
 	if (!prismaClient) {
