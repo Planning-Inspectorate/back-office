@@ -5,7 +5,7 @@ Feature: View and Edit a case from the Project Information Page as a Case Team m
 		Then the logged in user should be a Case Team member
 
 	@CaseTeam @smoke @CreateCaseForTest
-	Scenario: Case Admins should be able view and edit the case
+	Scenario: Case Team members should be able view and edit the case
 		When the user searches for the current case
 		And the user clicks the top search result
 		Then the user should validate the summary page with file 1

@@ -65,7 +65,8 @@ export class Page {
 			}),
 		tableBody: () => cy.get(this.selectors.tableBody),
 		tableRow: () => cy.get(this.selectors.tableRow),
-		textArea: () => cy.get(this.selectors.textArea)
+		textArea: () => cy.get(this.selectors.textArea),
+		genericText: () => cy.get(this.selectors.body)
 	};
 
 	// A C T I O N S
