@@ -81,7 +81,7 @@ const appealFormatter = {
 	},
 	/**
 	 * @param {import('@pins/api').Schema.Appeal} appeal
-	 *  @returns {object}
+	 * @returns {object}
 	 */
 	formatAppealForAfterStatementUpload(appeal) {
 		return {

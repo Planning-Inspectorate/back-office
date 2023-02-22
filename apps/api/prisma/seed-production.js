@@ -8,8 +8,6 @@ import { regions, sectors, subSectors, zoomLevels } from './seed-samples.js';
 /**
  * Upserts data for sectors, sub-sectors, regions, and zoom levels into the database.
  *
- * @async
- * @function
  * @throws {Error} If any database operation fails.
  * @returns {Promise<void>}
  */
