@@ -11,7 +11,12 @@ const mapZoomLevels = (zoomLevels) => {
 	return zoomLevels.map((zoomLevel) => mapZoomLevel(zoomLevel));
 };
 
-/** @type {import('express').RequestHandler} */
+/**
+ * @param {import('express').Request} _request
+ * @param {import('express').Response} response
+ * @throws {Error}
+ * @returns {Promise<void>}
+ */
 export const getZoomLevels = async (_request, response) => {
 	let zoomLevels = getCache('zoom-level');
 
