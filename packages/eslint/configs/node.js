@@ -21,7 +21,8 @@ module.exports = {
 					'@pins/platform',
 					'@pins/rollup',
 					'@pins/web',
-					'@pins/event-client'
+					'@pins/event-client',
+					'@pins/blob-storage-client'
 				]
 			}
 		],

@@ -1,1 +1,1 @@
-import './src/blob-storage-client.js';
+export * from './src/blob-storage-client.js';

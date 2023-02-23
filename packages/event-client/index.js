@@ -1,1 +1,1 @@
-import './src/event-client.js';
+export * from './src/event-client.js';
