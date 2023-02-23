@@ -1,4 +1,5 @@
 import { BlobServiceClient } from '@azure/storage-blob';
+import { Readable } from 'node:stream';
 
 export class BlobStorageClient {
 	/**
@@ -52,6 +53,15 @@ export class BlobStorageClient {
 
 	/**
 	 *
+	 * @param {string} fileType
+	 * @returns {import('@azure/storage-blob').BlockBlobUploadStreamOptions}
+	 */
+	#getFileUploadOptions = (fileType) => {
+		return { blobHTTPHeaders: { blobContentType: fileType } };
+	};
+
+	/**
+	 *
 	 * @param {string} container
 	 * @param {File} fileContent
 	 * @param {string} filePath
@@ -64,8 +74,74 @@ export class BlobStorageClient {
 			container,
 			filePath
 		);
-		const options = { blobHTTPHeaders: { blobContentType: fileType } };
+		const options = this.#getFileUploadOptions(fileType);
 
 		await blockBlobClient.uploadData(fileContent, options);
+	};
+
+	/**
+	 *
+	 * @param {string} container
+	 * @param {import('node:stream').Readable} fileStream
+	 * @param {string} filePath
+	 * @param {string | undefined} fileType
+	 */
+	uploadStream = async (container, fileStream, filePath, fileType) => {
+		const blockBlobClient = this.#getBlockBlobClient(
+			this.url,
+			this.accessToken,
+			container,
+			filePath
+		);
+
+		let bufferSize;
+		let maxConcurrency;
+		let defaultOptions;
+
+		const options = fileType ? this.#getFileUploadOptions(fileType) : defaultOptions;
+
+		await blockBlobClient.uploadStream(fileStream, bufferSize, maxConcurrency, options);
+	};
+
+	/**
+	 *
+	 * @param {string} container
+	 * @param {string} filePath
+	 * @returns {Promise<import('@azure/storage-blob').BlobDownloadResponseParsed>}
+	 */
+	downloadStream = async (container, filePath) => {
+		const blockBlobClient = this.#getBlockBlobClient(
+			this.url,
+			this.accessToken,
+			container,
+			filePath
+		);
+
+		return blockBlobClient.download();
+	};
+
+	/**
+	 *
+	 * @param {string} currentContainer
+	 * @param {string} currentFilePath
+	 * @param {string} desiredContainer
+	 * @param {string} desiredFilePath
+	 */
+	copyFile = async (currentContainer, currentFilePath, desiredContainer, desiredFilePath) => {
+		const { readableStreamBody, blobType } = await this.downloadStream(
+			currentContainer,
+			currentFilePath
+		);
+
+		if (!readableStreamBody) {
+			throw new Error(`Document ${currentFilePath} not found in container ${currentContainer}`);
+		}
+
+		await this.uploadStream(
+			desiredContainer,
+			Readable.from(readableStreamBody),
+			desiredFilePath,
+			blobType
+		);
 	};
 }
