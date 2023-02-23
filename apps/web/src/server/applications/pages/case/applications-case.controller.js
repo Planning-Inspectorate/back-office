@@ -1,3 +1,4 @@
+import signed from 'signed';
 import { publishCase } from '../../lib/services/case.service.js';
 
 /** @typedef {import('../../applications.types').Case} Case */
@@ -58,4 +59,27 @@ export async function updateApplicationsCasePublishPage(request, response) {
 		showPublishedBanner: true,
 		isFirstTimePublished: !isAlreadyPublic
 	});
+}
+
+/**
+ *
+ * @param {*} request
+ * @param {*} response
+ */
+export async function createRepresentation(request, response) {
+	const { case: caseToPublish } = response.locals;
+	const haveYourSayUrl = `http://localhost:9004/register-have-your-say/${caseToPublish.reference}`;
+
+	// @ts-ignore
+	const signature = signed.default({
+		secret: 'supersecret',
+		ttl: 60 * 60 * 1
+	});
+
+	// This lib is fine for the POC, but an acutal implementation would need to encode the auth user
+	const signedUrl = signature.sign(haveYourSayUrl, {
+		method: 'GET'
+	});
+
+	response.redirect(signedUrl);
 }

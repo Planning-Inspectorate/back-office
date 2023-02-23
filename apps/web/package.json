@@ -65,6 +65,7 @@
     "regenerator-runtime": "^0.13.10",
     "response-time": "2.3.2",
     "serve-static": "1.15.0",
+    "signed": "^2.0.3",
     "slugify": "^1.6.5"
   },
   "devDependencies": {

@@ -22,6 +22,12 @@ applicationsCaseRouter
 		asyncRoute(controller.updateApplicationsCasePublishPage)
 	);
 
+applicationsCaseRouter.get(
+	'/:caseId/register-to-have-your-say',
+	[locals.registerCase],
+	asyncRoute(controller.createRepresentation)
+);
+
 applicationsCaseRouter.use('/:caseId/:pageType?', applicationsCaseSummaryRouter);
 
 applicationsCaseSummaryRouter.use(locals.registerCase);
