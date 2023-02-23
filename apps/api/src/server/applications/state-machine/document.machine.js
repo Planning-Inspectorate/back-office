@@ -25,7 +25,7 @@ const documentStatesForMachine = {
 export const createDocumentsMachine = (context) => {
 	return createMachine({
 		id: 'document',
-		initial: 'uploading',
+		initial: 'awaiting_upload',
 		context,
 		states: documentStatesForMachine
 	});
