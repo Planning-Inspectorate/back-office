@@ -155,6 +155,31 @@ const document = {
 				displayNameCy: 'Region Name Cy'
 			}
 		],
+		documentsMetadataRequestBody: {
+			version: 1,
+			dateCreated: '2023-02-27T10:00:00Z',
+			lastModified: '2023-02-27T12:00:00Z',
+			documentType: 'PDF',
+			published: false,
+			sourceSystem: 'Salesforce',
+			origin: 'Email',
+			representative: 'John Doe',
+			description: 'Marketing Brochure',
+			documentGuid: 'ab12cd34-5678-90ef-ghij-klmnopqrstuv',
+			datePublished: '2023-03-01T10:00:00Z',
+			owner: 'Jane Doe',
+			author: 'Marketing Team',
+			securityClassification: 'Confidential',
+			mime: 'application/pdf',
+			horizonDataID: '123456789',
+			fileMD5: 'f60c381d96dcedec4b4fb4b9e1f6e14e',
+			path: '/documents/marketing/ab12cd34-5678-90ef-ghij-klmnopqrstuv.pdf',
+			virusCheckStatus: 'Clean',
+			size: 1024,
+			stage: 3,
+			filter1: 'Marketing',
+			filter2: 'Brochure'
+		},
 		ApplicationsForCaseTeam: [
 			{
 				id: 1,
@@ -448,6 +473,31 @@ const document = {
 			$appealType: 'HAS',
 			specialist: 'General',
 			$provisionalSiteVisitType: { '@enum': ['unaccompanied', 'access required'] }
+		},
+		documentsMetadataResponse: {
+			id: 1,
+			caseRef: '',
+			documentGuid: '1111-2222-3333',
+			horizonDataID: '',
+			version: '',
+			path: '',
+			virusCheckStatus: '',
+			fileMD5: '',
+			mime: '',
+			fileSize: 0,
+			fileType: '',
+			dateCreated: '',
+			lastModified: '',
+			datePublished: '',
+			documentType: '',
+			securityClassification: '',
+			sourceSystem: '',
+			origin: '',
+			owner: '',
+			author: '',
+			representative: '',
+			description: '',
+			stage: 1
 		},
 		AppealsForInspector: {
 			$appealId: 1,

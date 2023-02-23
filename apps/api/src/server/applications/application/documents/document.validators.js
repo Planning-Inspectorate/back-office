@@ -14,7 +14,7 @@ import BackOfficeAppError from '../../../utils/app-error.js';
  * @param {string} guid - The document's globally unique identifier.
  * @param {number} caseId - The case's identifier the document is related to.
  * @throws {BackOfficeAppError} - If the document is not found with the specified `guid` and related to the specified `caseId`.
- * @returns {Promise<{blobStorageContainer?: string; blobStoragePath?: string;status?: string;}>} - The document object with properties `blobStorageContainer`, `blobStoragePath`, and `status`.
+ * @returns {Promise<{blobStorageContainer?: string; blobStoragePath?: string;status?: string; guid: string;}>} - The document object with properties `blobStorageContainer`, `blobStoragePath`, and `status`.
  */
 export const fetchDocumentByGuidAndCaseId = async (
 	/** @type {string} */ guid,
@@ -31,9 +31,10 @@ export const fetchDocumentByGuidAndCaseId = async (
 	}
 
 	return {
-		blobStorageContainer: document?.blobStorageContainer,
-		blobStoragePath: document?.blobStoragePath,
-		status: document?.status
+		blobStorageContainer: document?.blobStorageContainer || '',
+		blobStoragePath: document?.blobStoragePath || '',
+		status: document?.status,
+		guid: document.guid
 	};
 };
 

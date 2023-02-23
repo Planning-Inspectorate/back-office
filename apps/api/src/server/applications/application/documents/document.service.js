@@ -94,3 +94,47 @@ export const obtainURLsForDocuments = async (documentsToUpload, caseId) => {
 
 	return responseFromDocumentStorage;
 };
+
+/**
+ *
+ * @param {number} id
+ */
+export const fetchDocumentMetadata = async (id) => {
+	const documentMetadata = [
+		{
+			id: 77,
+			metadataId: 'abc123',
+			representative: 'DDE Agriculture',
+			documentGuid: 'xyz789',
+			caseRef: 'EN010120',
+			horizonDataID: 'EN010120-001',
+			version: '1.0',
+			filename: 'document.pdf',
+			originalFilename: null,
+			size: 1024,
+			mime: 'application/pdf',
+			documentURI: 'https://example.com/documents/abc123',
+			path: null,
+			virusCheckStatus: 'Scanned',
+			fileMD5: 'abcd1234',
+			dateCreated: '2023-02-21T10:30:00Z',
+			lastModified: '2023-02-21T11:30:00Z',
+			caseType: null,
+			documentStatus: 'Internal',
+			redacted: false,
+			published: false,
+			datePublished: null,
+			documentType: 'Report',
+			securityClassification: 'Official',
+			sourceSystem: 'NI Filestore',
+			origin: 'PINS',
+			owner: null,
+			author: null,
+			description:
+				'Attachments to the letter to Department for Business, Energy & Industrial Strategy',
+			stage: null
+		}
+	];
+
+	return documentMetadata.find((data) => data.id === id);
+};
