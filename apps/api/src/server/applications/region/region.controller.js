@@ -15,7 +15,6 @@ const mapRegions = (regions) => {
  *
  * @type {import('express').RequestHandler}
  * @throws {Error}
- * @returns {Promise<void>}
  */
 export const getRegions = async (_request, response) => {
 	let regions = getCache('regions');
