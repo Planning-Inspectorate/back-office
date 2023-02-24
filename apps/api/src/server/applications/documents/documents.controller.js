@@ -19,7 +19,7 @@ export const provideDocumentUploadURLs = async (request, response) => {
 
 	const { blobStorageHost, blobStorageContainer, documents } = await obtainURLsForDocuments(
 		documentsToUpload,
-		params.id
+		Number.parseInt(params.id, 10)
 	);
 
 	const documentsWithUrls = documents.map((document) => {
@@ -35,8 +35,8 @@ export const provideDocumentUploadURLs = async (request, response) => {
 
 /**
  * @param {string} guid
- * @param {string} status
- * @returns {Promise<object>}
+ * @param {(import('xstate').StateValue)} status
+ * @returns {Promise<Record<string,any>>}
  */
 export const updatedDocumentStatusResponse = async (guid, status) => {
 	const updatedResponse = await documentRepository.updateDocumentStatus({

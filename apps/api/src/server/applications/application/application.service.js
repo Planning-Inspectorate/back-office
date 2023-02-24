@@ -93,7 +93,7 @@ export const startApplication = async (id) => {
 
 	const nextStatusForRepository = breakUpCompoundStatus(
 		nextStatusInStateMachine.value,
-		caseDetails.id
+		caseDetails.id.toString()
 	);
 
 	const updatedCase = await caseRepository.updateApplicationStatusAndDataById(
@@ -232,7 +232,7 @@ export const nextStatusInDocumentStateMachine = (status, machineAction) => {
  * @param {number | any} caseId
  * @param {string} guid
  * @param {string} status
- * @returns {{ caseId: number | any, guid: string, status: string }} An object containing the formatted case ID, GUID, and status.
+ * @returns {Record<string, any>} An object containing the formatted case ID, GUID, and status.
  */
 export const formatResponseBody = (caseId, guid, status) => {
 	return { caseId, guid, status };

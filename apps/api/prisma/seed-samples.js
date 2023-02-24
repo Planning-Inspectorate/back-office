@@ -715,7 +715,7 @@ export const regions = [
 /**
  * An array of zoom levels.
  *
- * @typedef {ZoomLevel}
+ * @type {ZoomLevel[]}
  */
 export const zoomLevels = [
 	{
@@ -778,7 +778,6 @@ export const zoomLevels = [
  * An array of case status names.
  *
  * @type {CaseStatus[]}
- * @property {string} name - The name of the case status.
  */
 export const caseStatusNames = [
 	{ name: 'draft' },

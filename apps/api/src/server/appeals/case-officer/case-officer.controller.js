@@ -13,9 +13,6 @@ import * as caseOfficerService from './case-officer.service.js';
  * Express request handler function to get all appeals for a case officer.
  *
  * @type {import('express').RequestHandler}
- * @param {import('express').Request} request
- * @param {import('express').Response} response
- * @returns {Promise<void>}
  */
 export const getAppeals = async (request, response) => {
 	const caseOfficerStatuses = [
@@ -76,7 +73,9 @@ export const getAppealDetails = async (request, response) => {
  * @param {import('express').Response} response
  */
 export const getAppealDetailsForStatementsAndComments = async (request, response) => {
-	const appeal = await appealRepository.getById(request.params.appealId, { address: true });
+	const appeal = await appealRepository.getById(Number.parseInt(request.params.appealId, 10), {
+		address: true
+	});
 
 	return response.send({
 		AppealId: appeal.id,
@@ -101,19 +100,17 @@ export const getAppealDetailsForStatementsAndComments = async (request, response
 export const confirmLPAQuestionnaire = async (request, response) => {
 	await caseOfficerService.confirmLPAQuestionnaireService(
 		request.body.reason,
-		request.params.appealId
+		Number.parseInt(request.params.appealId, 10)
 	);
+
 	return response.send();
 };
 
 /**
- * @param {import('express').Request} request
- * @param {import('express').Response} response
- * @property {string} appealId
  * @typedef {object} UpdateAppealDetailsBody
  * @property {string} listedBuildingDescription
  */
-/** @type {import('express').RequestHandler<AppealParams, void, UpdateAppealDetailsBody>} */
+/** @type {import('express').RequestHandler<AppealParams, object, UpdateAppealDetailsBody>} */
 export const updateAppealDetails = async ({ body, params }, response) => {
 	await caseOfficerService.updateAppealDetails(params.appealId, body);
 
@@ -126,7 +123,7 @@ export const updateAppealDetails = async ({ body, params }, response) => {
  * @type {import('express').RequestHandler}
  */
 export const uploadStatement = async (request, response) => {
-	const appeal = await appealRepository.getById(request.params.appealId);
+	const appeal = await appealRepository.getById(Number.parseInt(request.params.appealId, 10));
 
 	response.send(appealFormatter.formatAppealForAfterStatementUpload(appeal));
 };
@@ -135,7 +132,7 @@ export const uploadStatement = async (request, response) => {
  * @type {import('express').RequestHandler}
  */
 export const uploadFinalComment = async (request, response) => {
-	const appeal = await appealRepository.getById(request.params.appealId);
+	const appeal = await appealRepository.getById(Number.parseInt(request.params.appealId, 10));
 
 	response.send(appealFormatter.formatAppealAfterFinalCommentUpload(appeal));
 };
