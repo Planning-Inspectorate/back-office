@@ -27,7 +27,6 @@ const getListOfStatuses = () => {
 
 /**
  * @type {import('express').RequestHandler}
- * @returns {Promise<void>}
  */
 export const getApplications = async (request, response) => {
 	const applications = await caseRepository.getByStatus(getListOfStatuses());
