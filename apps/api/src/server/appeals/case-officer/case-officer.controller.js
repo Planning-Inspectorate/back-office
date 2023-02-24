@@ -10,8 +10,6 @@ import * as caseOfficerService from './case-officer.service.js';
 /** @typedef {import('./case-officer.routes').AppealParams} AppealParams */
 
 /**
- * Express request handler function to get all appeals for a case officer.
- *
  * @type {import('express').RequestHandler}
  */
 export const getAppeals = async (request, response) => {
@@ -49,10 +47,7 @@ export const getAppeals = async (request, response) => {
 };
 
 /**
- * Asynchronous function to handle Express requests for getting all appeals for a case officer.
- *
- * @param {import('express').Request} request
- * @param {import('express').Response} response
+ * @type {import('express').RequestHandler}
  */
 export const getAppealDetails = async (request, response) => {
 	const appeal = await appealRepository.getById(request.params.appealId, {
@@ -67,15 +62,10 @@ export const getAppealDetails = async (request, response) => {
 };
 
 /**
- * Asynchronous function to handle Express requests for getting all appeals for a case officer.
- *
- * @param {import('express').Request} request
- * @param {import('express').Response} response
+ * @type {import('express').RequestHandler}
  */
 export const getAppealDetailsForStatementsAndComments = async (request, response) => {
-	const appeal = await appealRepository.getById(Number.parseInt(request.params.appealId, 10), {
-		address: true
-	});
+	const appeal = await appealRepository.getById(request.params.appealId, { address: true });
 
 	return response.send({
 		AppealId: appeal.id,
@@ -92,17 +82,13 @@ export const getAppealDetailsForStatementsAndComments = async (request, response
 };
 
 /**
- * Asynchronous function to handle Express requests for getting all appeals for a case officer.
- *
- * @param {import('express').Request} request
- * @param {import('express').Response} response
+ * @type {import('express').RequestHandler}
  */
 export const confirmLPAQuestionnaire = async (request, response) => {
 	await caseOfficerService.confirmLPAQuestionnaireService(
 		request.body.reason,
-		Number.parseInt(request.params.appealId, 10)
+		request.params.appealId
 	);
-
 	return response.send();
 };
 
@@ -110,7 +96,8 @@ export const confirmLPAQuestionnaire = async (request, response) => {
  * @typedef {object} UpdateAppealDetailsBody
  * @property {string} listedBuildingDescription
  */
-/** @type {import('express').RequestHandler<AppealParams, object, UpdateAppealDetailsBody>} */
+
+/** @type {import('express').RequestHandler<AppealParams, ?, UpdateAppealDetailsBody>} */
 export const updateAppealDetails = async ({ body, params }, response) => {
 	await caseOfficerService.updateAppealDetails(params.appealId, body);
 
@@ -123,7 +110,7 @@ export const updateAppealDetails = async ({ body, params }, response) => {
  * @type {import('express').RequestHandler}
  */
 export const uploadStatement = async (request, response) => {
-	const appeal = await appealRepository.getById(Number.parseInt(request.params.appealId, 10));
+	const appeal = await appealRepository.getById(request.params.appealId);
 
 	response.send(appealFormatter.formatAppealForAfterStatementUpload(appeal));
 };
@@ -132,7 +119,7 @@ export const uploadStatement = async (request, response) => {
  * @type {import('express').RequestHandler}
  */
 export const uploadFinalComment = async (request, response) => {
-	const appeal = await appealRepository.getById(Number.parseInt(request.params.appealId, 10));
+	const appeal = await appealRepository.getById(request.params.appealId);
 
 	response.send(appealFormatter.formatAppealAfterFinalCommentUpload(appeal));
 };
