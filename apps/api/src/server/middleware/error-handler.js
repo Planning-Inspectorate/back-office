@@ -6,9 +6,6 @@ import { TransitionStateError } from '../utils/transition-state.js';
  * The default catch-all error handler.
  *
  * @type {import('express').ErrorRequestHandler}
- * @param {import('express').Request} _request
- * @param {import('express').Response} response
- * @param {import('express').NextFunction} next
  */
 export function defaultErrorHandler(error, _request, response, next) {
 	if (response.headersSent) {
