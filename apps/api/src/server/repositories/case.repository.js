@@ -468,7 +468,7 @@ export const updateApplicationStatusAndDataById = async (
 		currentStatuses
 	);
 
-	const transactions = [
+	/** @type {import('@prisma/client').PrismaPromise<any>[]} */ const transactions = [
 		invalidateCaseStatuses(caseStatesToInvalidate),
 		createNewStatuses(id, caseStatesToCreate)
 	];
