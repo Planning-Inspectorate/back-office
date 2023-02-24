@@ -7,7 +7,7 @@ import { pick } from 'lodash-es';
 /**
  *
  * @param {import('@pins/api').Schema.Sector | import('@pins/api').Schema.SubSector | null | undefined} sector
- * @returns {SectorResponse | null | undefined}
+ * @returns {SectorResponse}
  */
 export const mapSector = (sector) => {
 	return pick(sector, ['name', 'abbreviation', 'displayNameEn', 'displayNameCy']);
