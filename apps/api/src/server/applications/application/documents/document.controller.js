@@ -12,7 +12,7 @@ import { fetchDocumentByGuidAndCaseId } from './document.validators.js';
 
 /**
  *
- * @type {import('express').RequestHandler<any, ?, ?, any>}
+ * @type {import('express').RequestHandler<any, any, { blobStorageHost: string, blobStorageContainer: string, documents: { documentName: string, blobStoreUrl: string }[] } | any, any>}
  */
 export const provideDocumentUploadURLs = async ({ params, body }, response) => {
 	const documentsToUpload = body[''];
@@ -37,7 +37,7 @@ export const provideDocumentUploadURLs = async ({ params, body }, response) => {
  * Updates the status and / or redaction status of an array of documents
  * There can be a status parameter, or a redacted parameter, or both
  *
- * @type {import('express').RequestHandler<{id: number}, ?, ?, any>}
+ * @type {import('express').RequestHandler<{id: number}, any, any, any>}
  */
 export const updateDocuments = async ({ body }, response) => {
 	const { status, redacted, items } = body[''];

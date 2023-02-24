@@ -4,7 +4,7 @@ import { mapSector } from './map-sector.js';
 
 /**
  * @typedef {import('./map-sector').SectorResponse} SectorResponse
- * @typedef {{id: number, modifiedDate: number, reference: string, status: string | object, sector: SectorResponse, subSector?: SectorResponse}} ApplicationWithSectorResponse
+ * @typedef {{id: number, modifiedDate: number, reference: string, status: string | object, sector?: SectorResponse | null, subSector?: SectorResponse | null}} ApplicationWithSectorResponse
  */
 
 /**

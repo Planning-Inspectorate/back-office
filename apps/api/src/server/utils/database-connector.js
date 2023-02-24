@@ -6,6 +6,7 @@ let prismaClient;
 
 /**
  *@returns {PrismaClient} */
+
 // @ts-ignore
 function createPrismaClient() {
 	// @ts-ignore
