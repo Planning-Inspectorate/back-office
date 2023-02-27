@@ -31,7 +31,7 @@ Feature: Verify Search Functionality as a Inspector user
 
 
 	@Inspector @smoke
-	Scenario: Inspector user should see an error when nothing is entered - Open Cases
+	Scenario: Inspector user should get some result with a general search - Open Cases
 		Given the user searches for "TR"
 		Then the user should get some results from the search
 

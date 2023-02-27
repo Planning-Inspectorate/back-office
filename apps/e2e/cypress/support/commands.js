@@ -53,8 +53,11 @@ Cypress.Commands.add('login', (user) => {
 	});
 });
 
-Cypress.Commands.add('createProjectInformation', (fileName) => {
-	cy.writeFile(`./cypress/fixtures/${fileName}`, JSON.stringify(projectInformation()));
+Cypress.Commands.add('createProjectInformation', (fileOne, fileTwo) => {
+	const p1 = JSON.stringify(projectInformation());
+	const p2 = JSON.stringify(projectInformation());
+	cy.writeFile(`./cypress/fixtures/${fileOne}`, p1);
+	cy.writeFile(`./cypress/fixtures/${fileTwo}`, p2);
 });
 
 Cypress.Commands.add('deleteFile', (files) => {
