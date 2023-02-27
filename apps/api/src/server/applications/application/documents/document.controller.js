@@ -1,5 +1,6 @@
 import { pick } from 'lodash-es';
 import * as documentRepository from '../../../repositories/document.repository.js';
+import * as documentMetadataRepository from '../../../repositories/document-metadata.repository.js';
 import BackOfficeAppError from '../../../utils/app-error.js';
 import { mapSingleDocumentDetails } from '../../../utils/mapping/map-document-details.js';
 import { applicationStates } from '../../state-machine/application.machine.js';
@@ -8,6 +9,7 @@ import { fetchDocumentByGuidAndCaseId } from './document.validators.js';
 /**
  * @typedef {import('apps/api/prisma/schema.js').Document} Document
  * @typedef {import('apps/api/prisma/schema.js').DocumentDetails} DocumentDetails
+ * @typedef {import('apps/api/prisma/schema.js').DocumentMetadata} DocumentMetadata
  */
 
 /**
@@ -96,4 +98,48 @@ export const deleteDocumentSoftly = async ({ params: { id: caseId, guid } }, res
 	await documentRepository.deleteDocument(guid);
 
 	response.status(200).send({ isDeleted: true });
+};
+
+/**
+ * Creates or updates a document metadata record in the database.
+ *
+ * @async
+ * @function
+ * @name storeDocumentMetadata
+ * @type {import('express').RequestHandler<{id: string; guid:string;}, ?, ?, any>}
+ * @throws {BackOfficeAppError} if the metadata cannot be stored in the database.
+ * @returns {Promise<void>} A Promise that resolves when the metadata has been successfully stored in the database.
+ */
+export const storeDocumentMetadata = async (request, response) => {
+	const { id: caseId, guid } = request.params;
+
+	/** @type {DocumentMetadata} */
+	const documentMetadataBody = request.body;
+
+	const document = await fetchDocumentByGuidAndCaseId(guid, +caseId);
+
+	const documentMetadata = await documentMetadataRepository.upsert({
+		...documentMetadataBody,
+		documentGuid: document.guid
+	});
+
+	response.status(200).send(documentMetadata);
+};
+
+// @TODO
+// THIS IS A PLACEHOLDER FOR GETTING A DOCUMENT
+/**
+ * Retrieves the metadata for a document with the given GUID and case ID.
+ *
+ *@async
+ * @type {import('express').RequestHandler<{id: string; guid:string; medataId:string;}, ?, ?, any>}
+ * @throws {BackOfficeAppError} If the document cannot be found or if there is an error fetching the metadata.
+ * @returns {Promise<void>} The metadata for the specified document.
+ */
+export const documentMetadata = async ({ params: { id: caseId, guid } }, response) => {
+	const document = await fetchDocumentByGuidAndCaseId(guid, +caseId);
+
+	const metadata = await documentMetadataRepository.getById(document.guid);
+
+	response.status(200).send(metadata);
 };

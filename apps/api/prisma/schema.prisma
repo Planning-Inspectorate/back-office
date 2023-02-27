@@ -316,8 +316,41 @@ model Document {
   redacted             Boolean  @default(false)
   isDeleted            Boolean  @default(false)
   createdAt            DateTime @default(now())
-  fileSize             Int      @default(0)
+  fileSize             Int?     @default(0)
   fileType             String?
 
+  documentMetadata DocumentMetadata? @relation(fields: [metadataId], references: [id])
+  metadataId       Int?              @unique
+
   @@unique([name, folderId])
+}
+
+model DocumentMetadata {
+  id                     Int       @id @unique @default(autoincrement())
+  version                Int
+  dateCreated            DateTime
+  lastModified           DateTime?
+  documentType           String
+  published              Boolean   @default(false)
+  sourceSystem           String?
+  origin                 String?
+  representative         String?
+  description            String?
+  documentGuid           String    @unique
+  Document               Document?
+  datePublished          DateTime?
+  owner                  String?
+  author                 String?
+  securityClassification String?
+  mime                   String?
+  horizonDataID          String?
+  fileMD5                String?
+  path                   String?
+  virusCheckStatus       String?
+  size                   Int?
+  stage                  Int?
+  filter1                String?
+  filter2                String?
+
+  @@index([documentGuid], name: "documentGuid")
 }

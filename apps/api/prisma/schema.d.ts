@@ -205,3 +205,5 @@ export interface DocumentDetails {
 	webFilter: string;
 	documentType: string;
 }
+
+export interface DocumentMetadata extends schema.DocumentMetadata {}
