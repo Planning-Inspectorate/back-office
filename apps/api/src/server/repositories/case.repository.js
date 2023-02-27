@@ -207,14 +207,15 @@ export const createApplication = ({
 
 /**
  * Removes all regions on a case records from the regionsOnApplicationDetails table.
- * used eg when updating regions selected on a case
+ * used eg when updating regions selected on a case.
+ * The applicationDetailsId is passed in - which may not necessarily be the caseId
  *
- * @param {number} caseId
+ * @param {number} applicationDetailsId
  * @returns {import('@prisma/client').PrismaPromise<import('@pins/api').Schema.BatchPayload>}
  */
-const removeRegions = (caseId) => {
+const removeRegions = (applicationDetailsId) => {
 	return databaseConnector.regionsOnApplicationDetails.deleteMany({
-		where: { applicationDetailsId: caseId }
+		where: { applicationDetailsId }
 	});
 };
 
@@ -325,7 +326,14 @@ export const updateApplication = async ({
 	const transactions = [];
 
 	if (typeof regionNames !== 'undefined') {
-		transactions.push(removeRegions(caseId));
+		// get the correct ApplicationDetails record id corresponding to this case
+		const applicationDetailsRecord = await databaseConnector.applicationDetails.findFirst({
+			where: { caseId }
+		});
+
+		if (applicationDetailsRecord) {
+			transactions.push(removeRegions(applicationDetailsRecord.id));
+		}
 	}
 
 	transactions.push(
@@ -454,12 +462,14 @@ const createNewStatuses = (id, status) => {
 /**
  *
  * @param {number} id
+ * @param {number |undefined} applicationDetailsId
  * @param {{status: string | object, data: {regionNames?: string[]}, currentStatuses: object[], setReference: boolean}} updateData
  * @param {import('@prisma/client').PrismaPromise<any>[]} additionalTransactions
  * @returns {Promise<import('@pins/api').Schema.Case | null>}
  */
 export const updateApplicationStatusAndDataById = async (
 	id,
+	applicationDetailsId,
 	{ status, data, currentStatuses, setReference = false },
 	additionalTransactions
 ) => {
@@ -473,8 +483,8 @@ export const updateApplicationStatusAndDataById = async (
 		createNewStatuses(id, caseStatesToCreate)
 	];
 
-	if (typeof data.regionNames !== 'undefined') {
-		transactions.push(removeRegions(id));
+	if (typeof data.regionNames !== 'undefined' && applicationDetailsId) {
+		transactions.push(removeRegions(applicationDetailsId));
 	}
 
 	if (!isEmpty(data)) {
