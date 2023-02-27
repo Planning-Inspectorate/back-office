@@ -34,7 +34,7 @@ export const projectInformation = () => {
 	const applicantEmail = `${applicantFirstName}.${applicantLastName}@email.com`;
 	const applicantPhoneNumber = faker.phone.number('+4479########');
 
-	// K E T  D A T E S
+	// K E Y  D A T E S
 	const publishedDate = `Q${faker.datatype.number({
 		min: 1,
 		max: 4
