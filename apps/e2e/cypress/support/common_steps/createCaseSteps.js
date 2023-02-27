@@ -151,7 +151,6 @@ When(
 	/^the user enters the internal anticipated submission date (\d{2}\/\d{2}\/\d{4}|correctly)?$/,
 	function (date) {
 		createCasePage.sections.keyDates.validatePage();
-		console.log(date);
 		const validDate = date !== 'correctly';
 		const [dd, mm, yyyy] = date.split('/');
 		const day = validDate ? dd : projectInfo.internalDateDay;
