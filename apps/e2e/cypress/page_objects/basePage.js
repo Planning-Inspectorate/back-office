@@ -8,10 +8,12 @@ export class Page {
 	selectors = {
 		accordion: '.govuk-accordion',
 		backLink: '.govuk-back-link',
+		bannerHeader: '.govuk-notification-banner__heading',
 		button: '.govuk-button',
 		body: '.govuk-body',
 		centralCol: '.pins-column--central',
 		checkbox: '.govuk-checkboxes__item',
+		errorMessage: '.govuk-error-message',
 		formGroup: '.govuk-form-group',
 		fullColumn: '.govuk-grid-column-full',
 		headingLeft: '.govuk-heading-l',
@@ -44,10 +46,12 @@ export class Page {
 			cy.get(this.selectors.accordion).contains('span', text, { matchCase: false }),
 		applicationHeaderCentral: () => cy.get(`${this.selectors.centralCol} > p`),
 		backLink: () => cy.get(this.selectors.backLink),
+		bannerHeader: () => cy.get(this.selectors.bannerHeader),
 		button: () => cy.get(this.selectors.button),
 		buttonByLabelText: (buttonText) =>
 			cy.contains(this.selectors.button, buttonText, { matchCase: false }),
 		checkbox: () => cy.get(this.selectors.checkbox).find('input'),
+		errorMessage: () => cy.get(this.selectors.errorMessage),
 		goToDashboardLink: () =>
 			cy.contains(`${this.selectors.rightCol} ${this.selectors.link}`, 'Go To Dashboard', {
 				matchCase: false
@@ -118,6 +122,10 @@ export class Page {
 
 	// A S S E R T I O N S
 
+	validateErrorMessage(errorMessage) {
+		this.basePageElements.errorMessage().contains(errorMessage).should('exist');
+	}
+
 	validateNumberOfCheckboxes(checkboxCount) {
 		this.basePageElements.checkbox().should('have.length', checkboxCount);
 	}
@@ -127,14 +135,14 @@ export class Page {
 	}
 
 	verifyCaseAdminIsSignedIn() {
-		this.basePageElements.loggedInUser().invoke('text').should('equal', users.caseAdmin.typeName);
+		this.basePageElements.loggedInUser().should('have.text', users.caseAdmin.typeName);
 	}
 
 	verifyCaseTeamIsSignedIn() {
-		this.basePageElements.loggedInUser().invoke('text').should('equal', users.caseTeam.typeName);
+		this.basePageElements.loggedInUser().should('have.text', users.caseTeam.typeName);
 	}
 
 	verifyInspectorIsSignedIn() {
-		this.basePageElements.loggedInUser().invoke('text').should('equal', users.inspector.typeName);
+		this.basePageElements.loggedInUser().should('have.text', users.inspector.typeName);
 	}
 }

@@ -15,6 +15,10 @@ Given('the user visits the home page', function () {
 	cy.visit('/');
 });
 
+Given('the user goes to the dashboard', function () {
+	page.clickLinkByText('Go To Dashboard');
+});
+
 When('the user navigates to the create a new case page', function () {
 	cy.visit('/applications-service/create-new-case', {
 		failOnStatusCode: false

@@ -6,7 +6,6 @@ const {
 	cookiesFileExists,
 	getCookiesFileContents,
 	getConfigByFile,
-	sayHello,
 	deleteFile
 } = require('./cypress/support/utils');
 const preprocessor = require('@badeball/cypress-cucumber-preprocessor');
@@ -58,9 +57,9 @@ module.exports = defineConfig({
 			INSPECTOR_EMAIL: process.env.INSPECTOR_EMAIL,
 			PRESERVE_COOKIES: process.env.PRESERVE_COOKIES
 		},
-		retries: 1,
 		specPattern: 'cypress/e2e/**/*.feature',
 		supportFile: false,
+		retries: 1,
 		viewportHeight: 960,
 		viewportWidth: 1536,
 		defaultCommandTimeout: 10000,
