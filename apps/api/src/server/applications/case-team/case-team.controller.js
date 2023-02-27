@@ -4,9 +4,8 @@ import { mapApplicationWithSectorAndSubSector } from '../../utils/mapping/map-ap
 import { applicationStates } from '../state-machine/application.machine.js';
 
 /**
- * @typedef {{name: string, displayNameEn: string, displayNameCy: string, abbreviation: string}} SectorResponse
- * @typedef {{id: number, modifiedDate: number, reference: string, status: string | object, sector: SectorResponse, subSector: SectorResponse}} ApplicationWithSectorResponse
- */
+ * @typedef {import('apps/api/src/server/utils/mapping/map-sector.js').SectorResponse} SectorResponse
+  @typedef {import('apps/api/src/server/utils/mapping/map-application-with-sector-and-subsector').ApplicationWithSectorResponse} ApplicationWithSectorResponse */
 
 /**
  *

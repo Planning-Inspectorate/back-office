@@ -6,7 +6,7 @@ import { getCache, setCache } from '../../utils/cache-data.js';
 import { mapSector } from '../../utils/mapping/map-sector.js';
 
 /**
- * @typedef {{name: string, displayNameEn: string, displayNameCy: string, abbreviation: string}} SectorResponse
+ * @typedef {import('apps/api/src/server/utils/mapping/map-sector.js').SectorResponse} SectorResponse
  */
 
 /**
@@ -21,6 +21,8 @@ const mapSectors = (sectors) => {
 /**
  *
  * @type {import('express').RequestHandler}
+ * @throws {Error}
+ * @returns {Promise<void>}
  */
 export const getSectors = async (request, response) => {
 	const sectorName = request.query.sectorName?.toString() || 'sectors';

@@ -8,7 +8,9 @@ import {
 import { obtainURLsForDocuments } from '../application/documents/document.service.js';
 
 /**
- * @type {import('express').RequestHandler<?, ?, ?, ?>}
+ * Provides document upload URLs.
+ *
+ * @type {import('express').RequestHandler<any, any, any, any>}
  */
 export const provideDocumentUploadURLs = async ({ params, body }, response) => {
 	const documentsToUpload = body[''];

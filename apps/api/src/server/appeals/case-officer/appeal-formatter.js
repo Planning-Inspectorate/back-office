@@ -8,11 +8,12 @@ import { appealStates } from '../../utils/transition-state.js';
 import { weeksReceivingDocuments } from '../state-machine/full-planning-appeal.machine.js';
 
 /**
+ * adds 14 days to appeal started date
  *
  * @param {Date} date
  * @returns {Date}
  */
-const add2Weeks = (date) => {
+const addTwoWeeks = (date) => {
 	const newDate = new Date(date.valueOf());
 
 	newDate.setDate(newDate.getDate() + 14);
@@ -60,7 +61,7 @@ const appealFormatter = {
 			AppealReference: appeal.reference,
 			QuestionnaireStatus: appealStatus,
 			AppealSite: formatAddress(appeal.address),
-			QuestionnaireDueDate: appeal.startedAt ? formatDate(add2Weeks(appeal.startedAt)) : ''
+			QuestionnaireDueDate: appeal.startedAt ? formatDate(addTwoWeeks(appeal.startedAt)) : ''
 		};
 	},
 	/**
@@ -75,12 +76,12 @@ const appealFormatter = {
 			AppealReference: appeal.reference,
 			StatementsAndFinalCommentsStatus: appealStatusParallel,
 			AppealSite: formatAddress(appeal.address),
-			QuestionnaireDueDate: appeal.startedAt ? formatDate(add2Weeks(appeal.startedAt)) : ''
+			QuestionnaireDueDate: appeal.startedAt ? formatDate(addTwoWeeks(appeal.startedAt)) : ''
 		};
 	},
 	/**
 	 * @param {import('@pins/api').Schema.Appeal} appeal
-	 *  @returns {object}
+	 * @returns {object}
 	 */
 	formatAppealForAfterStatementUpload(appeal) {
 		return {

@@ -19,6 +19,8 @@ const getServiceCustomerIds = (serviceCustomers) => {
 };
 
 /**
+ * Express request handler for creating application
+ *
  * @type {import('express').RequestHandler}
  */
 export const createApplication = async (request, response) => {

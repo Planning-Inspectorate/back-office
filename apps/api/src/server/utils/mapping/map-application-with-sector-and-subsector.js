@@ -4,7 +4,7 @@ import { mapSector } from './map-sector.js';
 
 /**
  * @typedef {import('./map-sector').SectorResponse} SectorResponse
- * @typedef {{id: number, modifiedDate: number, reference: string, status: string | object, sector: SectorResponse | null | undefined, subSector?: SectorResponse | null | undefined}} ApplicationWithSectorResponse
+ * @typedef {{id: number, modifiedDate: number, reference: string, status: string | object, sector?: SectorResponse | null, subSector?: SectorResponse | null}} ApplicationWithSectorResponse
  */
 
 /**
@@ -20,7 +20,7 @@ export const mapApplicationWithSectorAndSubSector = (application) => {
 	return {
 		...applicationData,
 		subSector: mapSector(application?.ApplicationDetails?.subSector),
-		sector: mapSector(application?.ApplicationDetails?.subSector?.sector),
+		sector: mapSector(application?.ApplicationDetails?.subSector?.sector) || null,
 		status: applicationStatus
 	};
 };
