@@ -98,6 +98,7 @@ export const startApplication = async (id) => {
 
 	const updatedCase = await caseRepository.updateApplicationStatusAndDataById(
 		caseDetails.id,
+		caseDetails.ApplicationDetails?.id,
 		{
 			status: nextStatusForRepository,
 			data: {},
