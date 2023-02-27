@@ -5,15 +5,13 @@ import { modifyPrismaDocumentQueryMiddleware } from './prisma-middleware.js';
 let prismaClient;
 
 /**
- *@returns {PrismaClient} */
-
-// @ts-ignore
+ * @returns {PrismaClient}
+ */
 function createPrismaClient() {
 	// @ts-ignore
 	if (!prismaClient) {
 		prismaClient = new PrismaClient();
 	}
-
 
 	prismaClient.$use(modifyPrismaDocumentQueryMiddleware);
 

@@ -1,9 +1,9 @@
 import { isString, keys, map } from 'lodash-es';
 
 /**
- * @param {Record<string,any>[string]} compoundStatus
+ * @param {Record<string,any>[]} compoundStatus
  * @param {string} appealId
- * @returns {Record<string, any>[string]}
+ * @returns {Record<string, any>[]}
  */
 export const breakUpCompoundStatus = (compoundStatus, appealId) => {
 	if (isString(compoundStatus)) return compoundStatus;
