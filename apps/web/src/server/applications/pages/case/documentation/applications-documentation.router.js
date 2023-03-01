@@ -7,6 +7,7 @@ import {
 	validateApplicationsDocumentations,
 	validateApplicationsDocumentationsDeleteStatus
 } from './applications-documentation.validators.js';
+import applicationsDocumentationMetadataRouter from './metadata/documentation-metadata.router.js';
 
 const applicationsDocumentationRouter = createRouter({ mergeParams: true });
 
@@ -30,6 +31,11 @@ applicationsDocumentationRouter
 		[assertDomainTypeIsNotInspector, locals.registerFolder],
 		asyncRoute(controller.viewApplicationsCaseDocumentationUpload)
 	);
+
+applicationsDocumentationRouter.use(
+	'/:folderId/document/:documentGuid/edit',
+	applicationsDocumentationMetadataRouter
+);
 
 applicationsDocumentationRouter
 	.route('/:folderId/document/:documentGuid/:action')
