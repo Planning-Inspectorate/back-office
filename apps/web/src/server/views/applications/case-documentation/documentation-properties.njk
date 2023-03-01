@@ -66,8 +66,8 @@
 				<div class="govuk-!-margin-top-7">
 
 					{% set properties = [
-						{label: 'Document Name', value: documentationFile.documentName|documentName, link: '#'},
-						{label: 'Description', value: '', link: '#'},
+						{label: 'Document Name', value: documentationFile.documentName|documentName, link: 'name'},
+						{label: 'Description', value: '', link: 'description'},
 						{label: 'From', value: '', link: '#'},
 						{label: 'Agent', value: '', link: '#'},
 						{label: 'Case Stage', value: '', link: '#'},
@@ -85,7 +85,7 @@
 							key: { text: property.label },
 							value: { text: property.value },
 							actions: { items: [{
-								href: property.link,
+								href: 'document-edit'|url({caseId: caseId, folderId: folderId, documentGuid: documentationFile.guid, step: property.link}),
 								text: "Change",
 								visuallyHiddenText: property.label
 							}]}
