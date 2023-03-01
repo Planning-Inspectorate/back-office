@@ -1,12 +1,10 @@
 {
 	"bindings": [
 		{
-			"name": "myQueueItem",
-			"type": "serviceBusTrigger",
+			"authLevel": "function",
+			"type": "httpTrigger",
 			"direction": "in",
-			"topicName": "documentsToPublish",
-			"subscriptionName": "documents-to-publish-subscription",
-			"connection": "MyServiceBusConnection"
+			"name": "req"
 		}
 	]
 }

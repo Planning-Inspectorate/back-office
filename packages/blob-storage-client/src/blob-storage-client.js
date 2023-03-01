@@ -1,52 +1,53 @@
 import { BlobServiceClient } from '@azure/storage-blob';
-import { Readable } from 'node:stream';
 
 export class BlobStorageClient {
 	/**
-	 *
-	 * @param {string} url
-	 * @param {import('@azure/core-auth').AccessToken} accessToken
+	 * @param {BlobServiceClient} client
 	 */
-	constructor(url, accessToken) {
-		this.url = url;
-		this.accessToken = accessToken;
+	constructor(client) {
+		this.client = client;
 	}
 
 	/**
 	 *
 	 * @param {string} url
 	 * @param {import('@azure/core-auth').AccessToken} accessToken
-	 * @returns {BlobServiceClient}
+	 * @returns {BlobStorageClient}
 	 */
-	#getBlobStorageClient = (url, accessToken) => {
-		return new BlobServiceClient(url, {
+	static fromUrlAndToken(url, accessToken) {
+		const client = new BlobServiceClient(url, {
 			getToken: async () => accessToken
 		});
-	};
+
+		return new BlobStorageClient(client);
+	}
 
 	/**
-	 *
-	 * @param {string} url
-	 * @param {import('@azure/core-auth').AccessToken} accessToken
+	 * @param {string} connectionString
+	 * @returns {BlobStorageClient}
+	 */
+	static fromConnectionString(connectionString) {
+		const client = BlobServiceClient.fromConnectionString(connectionString);
+
+		return new BlobStorageClient(client);
+	}
+
+	/**
 	 * @param {string} container
 	 * @returns {import('@azure/storage-blob').ContainerClient}
 	 */
-	#getContainerClient = (url, accessToken, container) => {
-		const blobStorageClient = this.#getBlobStorageClient(url, accessToken);
-
-		return blobStorageClient.getContainerClient(container);
+	#getContainerClient = (container) => {
+		return this.client.getContainerClient(container);
 	};
 
 	/**
 	 *
-	 * @param {string} url
-	 * @param {import('@azure/core-auth').AccessToken} accessToken
 	 * @param {string} container
 	 * @param {string} blobPath
 	 * @returns {import('@azure/storage-blob').BlockBlobClient}
 	 */
-	#getBlockBlobClient = (url, accessToken, container, blobPath) => {
-		const containerClient = this.#getContainerClient(url, accessToken, container);
+	#getBlockBlobClient = (container, blobPath) => {
+		const containerClient = this.#getContainerClient(container);
 
 		return containerClient.getBlockBlobClient(blobPath);
 	};
@@ -68,12 +69,7 @@ export class BlobStorageClient {
 	 * @param {string} fileType
 	 */
 	uploadFile = async (container, fileContent, filePath, fileType) => {
-		const blockBlobClient = this.#getBlockBlobClient(
-			this.url,
-			this.accessToken,
-			container,
-			filePath
-		);
+		const blockBlobClient = this.#getBlockBlobClient(container, filePath);
 		const options = this.#getFileUploadOptions(fileType);
 
 		await blockBlobClient.uploadData(fileContent, options);
@@ -87,12 +83,7 @@ export class BlobStorageClient {
 	 * @param {string | undefined} fileType
 	 */
 	uploadStream = async (container, fileStream, filePath, fileType) => {
-		const blockBlobClient = this.#getBlockBlobClient(
-			this.url,
-			this.accessToken,
-			container,
-			filePath
-		);
+		const blockBlobClient = this.#getBlockBlobClient(container, filePath);
 
 		let bufferSize;
 		let maxConcurrency;
@@ -110,12 +101,7 @@ export class BlobStorageClient {
 	 * @returns {Promise<import('@azure/storage-blob').BlobDownloadResponseParsed>}
 	 */
 	downloadStream = async (container, filePath) => {
-		const blockBlobClient = this.#getBlockBlobClient(
-			this.url,
-			this.accessToken,
-			container,
-			filePath
-		);
+		const blockBlobClient = this.#getBlockBlobClient(container, filePath);
 
 		return blockBlobClient.download();
 	};
@@ -128,20 +114,30 @@ export class BlobStorageClient {
 	 * @param {string} desiredFilePath
 	 */
 	copyFile = async (currentContainer, currentFilePath, desiredContainer, desiredFilePath) => {
-		const { readableStreamBody, blobType } = await this.downloadStream(
-			currentContainer,
-			currentFilePath
-		);
+		const blockBlobClient = this.#getBlockBlobClient(desiredContainer, desiredFilePath);
 
-		if (!readableStreamBody) {
-			throw new Error(`Document ${currentFilePath} not found in container ${currentContainer}`);
-		}
+		const currentBlobPath = `http://localhost:10000/devstoreaccount1/${currentContainer}/${currentFilePath}`;
 
-		await this.uploadStream(
-			desiredContainer,
-			Readable.from(readableStreamBody),
-			desiredFilePath,
-			blobType
-		);
+		await blockBlobClient.syncCopyFromURL(currentBlobPath);
+		// console.log('downloading stream')
+
+		// const { readableStreamBody, blobType } = await this.downloadStream(
+		// 	currentContainer,
+		// 	currentFilePath
+		// );
+
+		// console.log('downloaded stream')
+
+		// if (!readableStreamBody) {
+		// 	throw new Error(`Document ${currentFilePath} not found in container ${currentContainer}`);
+		// }
+
+		// console.log('uploading stream')
+		// await this.uploadStream(
+		// 	desiredContainer,
+		// 	Readable.from(readableStreamBody),
+		// 	desiredFilePath,
+		// 	blobType
+		// );
 	};
 }

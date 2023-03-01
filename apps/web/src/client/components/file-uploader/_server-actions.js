@@ -63,7 +63,7 @@ const serverActions = (uploadForm) => {
 	const uploadFiles = async (fileList, uploadInfo) => {
 		const { documents, blobStorageHost, blobStorageContainer, accessToken } = uploadInfo;
 
-		const blobStorageClient = new BlobStorageClient(blobStorageHost, accessToken);
+		const blobStorageClient = BlobStorageClient.fromUrlAndToken(blobStorageHost, accessToken);
 
 		for (const documentUploadInfo of documents) {
 			const fileToUpload = [...fileList].find(
