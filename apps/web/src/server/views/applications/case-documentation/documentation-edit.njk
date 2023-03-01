@@ -1,0 +1,40 @@
+{% extends "../layouts/applications.layout.njk" %}
+
+{% from "govuk/components/input/macro.njk" import govukInput %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+
+{% block pageHeading %}{% endblock %}
+{% block beforeContent %}
+    {{ govukBackLink({
+		classes: 'govuk-!-margin-top-3',
+		text: "Back",
+		href: backLink
+	}) }}
+{% endblock %}
+{% block pageContent %}
+    <h1 class="govuk-heading-l">
+        {{ layout.pageTitle }}
+    </h1>
+    <form method="post" action="" novalidate="novalidate" class="pins-applications-create">
+        {% include 'app/includes/csrf.njk' %}
+        {{ govukInput({
+			label: {
+				text: layout.label,
+				classes: 'font-weight--700'
+			},
+			id: "title",
+			name: "title",
+			classes: "govuk-!-width-one-third",
+			value: documentMetaData[metaDataName],
+			errorMessage: errors | errorMessage,
+			hint: {
+				text: layout.hint
+			}
+		})}}
+        <div class="govuk-grid-row">
+            <div class="govuk-button-group pins-button-group govuk-grid-column-one-half">
+                {{ govukButton({ text: 'Save and return' }) }}
+            </div>
+        </div>
+    </form>
+{% endblock %}
