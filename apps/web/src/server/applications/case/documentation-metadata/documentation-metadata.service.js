@@ -9,6 +9,7 @@
  */
 export const getDocumentMetaData = async (caseId, documentGuid) => {
 	let response;
+	// TODO: this is a mock
 
 	try {
 		response = await new Promise((resolve) => {
@@ -33,6 +34,7 @@ export const getDocumentMetaData = async (caseId, documentGuid) => {
 export const updateDocumentMetaData = async (caseId, documentGuid, newMetaData) => {
 	let response;
 
+	// TODO: this is a mock
 	try {
 		response = await new Promise((resolve) => {
 			setTimeout(() => {
