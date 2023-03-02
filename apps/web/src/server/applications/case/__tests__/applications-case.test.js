@@ -1,8 +1,8 @@
 import { parseHtml } from '@pins/platform';
 import nock from 'nock';
 import supertest from 'supertest';
-import { fixtureCases } from '../../../../../../testing/applications/fixtures/cases.js';
-import { createTestEnvironment } from '../../../../../../testing/index.js';
+import { fixtureCases } from '../../../../../testing/applications/fixtures/cases.js';
+import { createTestEnvironment } from '../../../../../testing/index.js';
 
 const { app, installMockApi, teardown } = createTestEnvironment();
 const request = supertest(app);
