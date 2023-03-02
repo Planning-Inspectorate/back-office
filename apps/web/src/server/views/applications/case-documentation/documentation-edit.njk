@@ -1,14 +1,13 @@
 {% extends "../layouts/applications.layout.njk" %}
-
 {% from "govuk/components/input/macro.njk" import govukInput %}
 {% from "govuk/components/button/macro.njk" import govukButton %}
-
+{% from "./edit/character-count-input.njk" import characterCountInput %}
 {% block pageHeading %}{% endblock %}
 {% block beforeContent %}
     {{ govukBackLink({
 		classes: 'govuk-!-margin-top-3',
 		text: "Back",
-		href: backLink
+		href: layout.backLink
 	}) }}
 {% endblock %}
 {% block pageContent %}
@@ -17,20 +16,7 @@
     </h1>
     <form method="post" action="" novalidate="novalidate" class="pins-applications-create">
         {% include 'app/includes/csrf.njk' %}
-        {{ govukInput({
-			label: {
-				text: layout.label,
-				classes: 'font-weight--700'
-			},
-			id: "title",
-			name: "title",
-			classes: "govuk-!-width-one-third",
-			value: documentMetaData[metaDataName],
-			errorMessage: errors | errorMessage,
-			hint: {
-				text: layout.hint
-			}
-		})}}
+        {{ renderComponent(layout.metaDataName) }}
         <div class="govuk-grid-row">
             <div class="govuk-button-group pins-button-group govuk-grid-column-one-half">
                 {{ govukButton({ text: 'Save and return' }) }}
@@ -38,3 +24,10 @@
         </div>
     </form>
 {% endblock %}
+{% macro renderComponent(componentName) %}
+    {% if(componentName === 'received-date') %}
+        {{ dateInput(layout, documentMetaData[layout.metaDataName], errors) }}
+    {% else %}
+        {{ characterCountInput(layout, documentMetaData[layout.metaDataName], errors) }}
+    {% endif %}
+{% endmacro %}
