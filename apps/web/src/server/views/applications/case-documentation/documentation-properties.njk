@@ -1,113 +1,93 @@
 {% extends "../layouts/applications.layout.njk" %}
-
 {% from "govuk/components/breadcrumbs/macro.njk" import govukBreadcrumbs %}
 {% from "govuk/components/details/macro.njk" import govukDetails %}
 {% from "govuk/components/tabs/macro.njk" import govukTabs %}
 {% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
 {% from "govuk/components/button/macro.njk" import govukButton %}
-
-
 {% block beforeContent %}
-	{{ govukBackLink({
+    {{ govukBackLink({
 		text: "Back",
 		href: breadcrumbItems[breadcrumbItems.length - 1].href
 	}) }}
 {% endblock %}
-
 {% block pageHeading %}{% endblock %}
-
 {% block pageContent %}
-	<div class="govuk-grid-row">
-		<div class="govuk-grid-column-full pins-dashboard-list--hide-controls govuk-!-margin-top-0">
-			{% block sectionContent %}
-				{{ govukBreadcrumbs({
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full pins-dashboard-list--hide-controls govuk-!-margin-top-0">
+            {% block sectionContent %}
+                {{ govukBreadcrumbs({
 					classes: 'govuk-!-margin-top-0',
 					items: breadcrumbItems
 				}) }}
-
-
-				<h2 class="govuk-caption-xl">Document properties</h2>
-				<h3 class="govuk-heading-xl">{{ documentationFile.documentName|documentName }}</h3>
-
-				<ul class="govuk-list">
-					<li class="govuk-!-margin-top-7">{# documentationFile.description #}</li>
-					<li class="govuk-!-margin-top-4">Case reference: {{ case.reference }}</li>
-					<li class="govuk-!-margin-top-4">Document reference number:</li>
-					<li class="govuk-!-margin-top-4">
-						{{ documentationFile.type|fileType }}, {{ documentationFile.size|fileSize }}
-					</li>
-				</ul>
-
-				<div class="display--flex govuk-!-margin-top-7 govuk-!-margin-bottom-7">
-					<a class="govuk-button govuk-!-margin-0"
-					   href="upload/new/version">
-						Upload new version
-					</a>
-					<a class="govuk-button govuk-button--secondary govuk-!-margin-0 govuk-!-margin-left-4"
-					   href="{{ 'document-download'|url({caseId: caseId, documentGuid: documentationFile.guid}) }}">
-						Download
-					</a>
-				</div>
-
-				<nav>
-					{% set actionLinks %}
-						<a class="govuk-link display--block" href="/open">Open</a>
-
-						<a class="govuk-link display--block" href="/move">Move</a>
-
-						<a class="govuk-link display--block" href="{{ 'document'|url({caseId: caseId, folderId: folderId, documentGuid: documentationFile.guid, step: 'delete'}) }}">Delete</a>
-					{% endset %}
-					{{ govukDetails({
+                <h2 class="govuk-caption-xl">Document properties</h2>
+                <h3 class="govuk-heading-xl">{{ documentationFile.documentName|documentName }}</h3>
+                <ul class="govuk-list">
+                    <li class="govuk-!-margin-top-7">{# documentationFile.description #}</li>
+                    <li class="govuk-!-margin-top-4">Case reference: {{ case.reference }}</li>
+                    <li class="govuk-!-margin-top-4">Document reference number:</li>
+                    <li class="govuk-!-margin-top-4">
+                        {{ documentationFile.type|fileType }},
+                        {{ documentationFile.size|fileSize }}
+                    </li>
+                </ul>
+                <div class="display--flex govuk-!-margin-top-7 govuk-!-margin-bottom-7">
+                    <a class="govuk-button govuk-!-margin-0" href="upload/new/version">
+                        Upload new version
+                    </a>
+                    <a class="govuk-button govuk-button--secondary govuk-!-margin-0 govuk-!-margin-left-4" href="{{ 'document-download'|url({caseId: caseId, documentGuid: documentationFile.guid}) }}">
+                        Download
+                    </a>
+                </div>
+                <nav>
+                    {% set actionLinks %}
+                    <a class="govuk-link display--block" href="/open">Open</a>
+                    <a class="govuk-link display--block" href="/move">Move</a>
+                    <a class="govuk-link display--block" href="{{ 'document'|url({caseId: caseId, folderId: folderId, documentGuid: documentationFile.guid, step: 'delete'}) }}">Delete</a>
+                    {% endset %}
+                    {{ govukDetails({
 						summaryText: "Document actions",
 						html: actionLinks
 					}) }}
-				</nav>
-
-				<div class="govuk-!-margin-top-7">
-
-					{% set properties = [
-						{label: 'Document Name', value: documentationFile.documentName|documentName, link: 'name'},
+                </nav>
+                <div class="govuk-!-margin-top-7">
+                    {% set properties = [
+						{label: 'File name', value: documentationFile.documentName|documentName, link: 'name'},
 						{label: 'Description', value: '', link: 'description'},
-						{label: 'From', value: '', link: '#'},
-						{label: 'Agent', value: '', link: '#'},
-						{label: 'Case Stage', value: '', link: '#'},
-						{label: 'Webfilter', value: '', link: '#'},
-						{label: 'Date received', value: (documentationFile.receivedDate|datestamp({format: 'dd/MM/yyyy'})), link: '#'},
-						{label: 'Document type', value: '', link: '#'},
-						{label: 'Redaction', value: ('Redacted' if documentationFile.redacted else 'Unredacted') , link: '#'},
-						{label: 'Status', value: documentationFile.status|statusName , link: '#'},
-						{label: 'Exam library reference', value: '', link: '#'}
+						{label: 'From', value: '', link: 'from'},
+						{label: 'Agent (optional)', value: '', link: 'agent'},
+						{label: 'Case Stage', value: ''},
+						{label: 'Webfilter', value: '', link: 'webfilter'},
+						{label: 'Document type (optional)', value: '', link: 'type'},
+						{label: 'Date received', value: (documentationFile.receivedDate|datestamp({format: 'dd/MM/yyyy'})), link: 'received-date'},
+						{label: 'Published date', value: (documentationFile.publishedDate|datestamp({format: 'dd/MM/yyyy'})), link: 'published-date'},
+						{label: 'Redaction', value: ('Redacted' if documentationFile.redacted else 'Unredacted') , link: 'redaction'},
+						{label: 'Status', value: documentationFile.status|statusName }
 					] %}
-
-					{% set propertiesRow = [] %}
-					{% for property in properties %}
-						{% set row = {
+                    {% set propertiesRow = [] %}
+                    {% for property in properties %}
+                        {% set row = {
 							key: { text: property.label },
 							value: { text: property.value },
 							actions: { items: [{
-								href: 'document-edit'|url({caseId: caseId, folderId: folderId, documentGuid: documentationFile.guid, step: property.link}),
+								href: ('document-edit'|url({caseId: caseId, folderId: folderId, documentGuid: documentationFile.guid, step: property.link})) if property.link else '',
 								text: "Change",
 								visuallyHiddenText: property.label
-							}]}
+							} if property.link else {}]}
 						} %}
-						{% set propertiesRow = propertiesRow.concat([row]) %}
-					{% endfor %}
-
-					{% set documentPropertiesTabHtml %}
-						<h4 class="govuk-heading-m govuk-!-margin-bottom-4">Document properties</h4>
-
-						{{ govukSummaryList({
+                        {% set propertiesRow = propertiesRow.concat([row]) %}
+                    {% endfor %}
+                    {% set documentPropertiesTabHtml %}
+                    <h4 class="govuk-heading-m govuk-!-margin-bottom-4">Document properties</h4>
+                    {{ govukSummaryList({
 							rows: propertiesRow
 						}) }}
-						<div class="text-align--right">
-							<a href="{{ 'document'|url({caseId: caseId, folderId: folderId, documentGuid: documentationFile.guid, step: 'delete'}) }}"
-							   class="govuk-button govuk-!-margin-0 govuk-button--warning pins-button-link">
-								Delete
-							</a>
-						</div>
-					{% endset %}
-
-					{{ govukTabs({
+                    <div class="text-align--right">
+                        <a href="{{ 'document'|url({caseId: caseId, folderId: folderId, documentGuid: documentationFile.guid, step: 'delete'}) }}" class="govuk-button govuk-!-margin-0 govuk-button--warning pins-button-link">
+                            Delete
+                        </a>
+                    </div>
+                    {% endset %}
+                    {{ govukTabs({
 						items: [
 							{
 								label: "Document properties",
@@ -121,10 +101,8 @@
 							}
 						]
 					}) }}
-				</div>
-			{% endblock %}
-		</div>
-	</div>
+                </div>
+            {% endblock %}
+        </div>
+    </div>
 {% endblock %}
-
-
