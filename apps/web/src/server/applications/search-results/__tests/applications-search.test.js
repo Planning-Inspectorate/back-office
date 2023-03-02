@@ -1,7 +1,7 @@
 import { parseHtml } from '@pins/platform';
 import nock from 'nock';
 import supertest from 'supertest';
-import { createTestEnvironment } from '../../../../../../testing/index.js';
+import { createTestEnvironment } from '../../../../../testing/index.js';
 
 const { app, installMockApi, teardown } = createTestEnvironment();
 const request = supertest(app);
