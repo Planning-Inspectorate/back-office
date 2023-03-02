@@ -19,13 +19,12 @@ after(() => {
 	cy.deleteFile([fileOne, fileTwo]);
 });
 
-Before(() => {
+Before({ tags: '@InitCaseInfo' }, () => {
 	Cypress.env({ mainProjectFile: fileOne, secondProjectFile: fileTwo });
-	cy.createProjectInformation(fileOne);
+	cy.createProjectInformation(fileOne, fileTwo);
 	cy.fixture(fileOne).then((file) => {
 		projectInfo = file;
 	});
-	cy.createProjectInformation(fileTwo);
 	cy.fixture(fileTwo).then((file) => {
 		projectInfoNew = file;
 	});
@@ -36,7 +35,6 @@ Before({ tags: '@CreateCaseForTest' }, () => {
 });
 
 // W H E N - P R O J E C T  I N F O R M A T I O N
-
 When('the user starts the creation of a new case', function () {
 	applicationHomePage.clickCreateNewCaseButton();
 });
@@ -86,9 +84,12 @@ When('the user chooses the {string} subsector option', function (subsectorOption
 	createCasePage.clickSaveAndContinue();
 });
 
-When('the user chooses the sector and subsector for the case', function () {
+When('the user chooses the sector for the case', function () {
 	createCasePage.sections.sector.chooseSector(projectInfo.sector);
 	createCasePage.clickSaveAndContinue();
+});
+
+When('the user chooses the subsector for the case', function () {
 	createCasePage.sections.subSector.chooseSubsector(projectInfo.sector, projectInfo.subsector);
 	createCasePage.clickSaveAndContinue();
 });
@@ -104,7 +105,6 @@ When('the user chooses the zoom level for the new case', function () {
 });
 
 // W H E N - A P P L I C A N T  I N F O R M A T I O N
-
 When('the user chooses all the available options for applicant information available', function () {
 	createCasePage.sections.applicantInformationAvailable.chooseAll();
 	createCasePage.clickSaveAndContinue();
@@ -147,12 +147,20 @@ When('the user enters the anticipated submission date', function () {
 	createCasePage.sections.keyDates.fillSumbissionPublishedDate(projectInfo.publishedDate);
 });
 
-When('the user enters the internal anticipated submission date', function () {
-	createCasePage.sections.keyDates.validatePage();
-	createCasePage.sections.keyDates.fillInternalAnticipatedDay(projectInfo.internalDateDay);
-	createCasePage.sections.keyDates.fillInternalAnticipatedMonth(projectInfo.internalDateMonth);
-	createCasePage.sections.keyDates.fillInternalAnticipatedYear(projectInfo.internalDateYear);
-});
+When(
+	/^the user enters the internal anticipated submission date (\d{2}\/\d{2}\/\d{4}|correctly)?$/,
+	function (date) {
+		createCasePage.sections.keyDates.validatePage();
+		const validDate = date !== 'correctly';
+		const [dd, mm, yyyy] = date.split('/');
+		const day = validDate ? dd : projectInfo.internalDateDay;
+		const month = validDate ? mm : projectInfo.internalDateMonth;
+		const year = validDate ? yyyy : projectInfo.internalDateYear;
+		createCasePage.sections.keyDates.fillInternalAnticipatedDay(day);
+		createCasePage.sections.keyDates.fillInternalAnticipatedMonth(month);
+		createCasePage.sections.keyDates.fillInternalAnticipatedYear(year);
+	}
+);
 
 // W H E N - C O N F I R M A T I O N
 When('the user confirms the creation of the new case', function () {
@@ -165,8 +173,9 @@ Then('the user should confirm that a new case has been created', function () {
 });
 
 Then(
-	'the user should successfully verify the answers on the summary page against form inputs',
-	function () {
-		createCasePage.sections.checkYourAnswers.checkAllAnswers(projectInfo);
+	/^the user should successfully verify (complete|mandatory) answers on the summary page against form inputs$/,
+	function (checkType) {
+		const mandatoryOnly = checkType === 'mandatory';
+		createCasePage.sections.checkYourAnswers.checkAllAnswers(projectInfo, mandatoryOnly);
 	}
 );

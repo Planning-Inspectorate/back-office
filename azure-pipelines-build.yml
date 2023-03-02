@@ -19,6 +19,10 @@ parameters:
     displayName: Build ODW Integration Functions
     type: boolean
     default: true
+  - name: buildDocumentPublishFunctions
+    displayName: Build Document Publish Functions
+    type: boolean
+    default: true
 
 resources:
   repositories:
@@ -70,6 +74,8 @@ extends:
                   path: apps/document-check-function
                 - name: odw-integration
                   path: apps/odw-integration
+                - name: document-publish-function
+                  path: apps/document-publish-function
               stepName: check_files
       - name: Build API
         condition: >-
@@ -200,6 +206,44 @@ extends:
               archiveFile: $(System.DefaultWorkingDirectory)/functions.zip
           - publish: $(System.DefaultWorkingDirectory)/functions.zip
             artifact: odw-integration-functions
+            displayName: Publish Functions Artifact
+      - name: Build Document Publish Functions
+        condition: >-
+          and(
+            succeeded(),
+            or(
+              and(
+                eq(variables['Build.Reason'], 'Manual'),
+                eq(${{ parameters.buildDocumentPublishFunctions }}, 'true')
+              ),
+              and(
+                ne(variables['Build.Reason'], 'Manual'),
+                or(
+                  eq(variables['Build.SourceBranchName'], 'main'),
+                  eq(dependencies.run_linting_and_tests.outputs['check_files.document-publish-function'], 'true')
+                )
+              )
+            )
+          )
+        dependsOn:
+          - Run Linting & Tests
+        steps:
+          - template: ../steps/node_script.yml
+            parameters:
+              nodeVersion: 16
+              script: npm install --only=prod --workspace=@pins/document-publish-function
+              workingDirectory: $(Build.Repository.LocalPath)
+          - script: |
+              source ~/.bashrc
+              mv $(Build.Repository.LocalPath)/node_modules $(Build.Repository.LocalPath)/apps/document-publish-function/node_modules/
+          - task: ArchiveFiles@2
+            displayName: Archive files
+            inputs:
+              rootFolderOrFile: $(Build.Repository.LocalPath)/apps/document-publish-function
+              includeRootFolder: false
+              archiveFile: $(System.DefaultWorkingDirectory)/functions.zip
+          - publish: $(System.DefaultWorkingDirectory)/functions.zip
+            artifact: document-publish-function
             displayName: Publish Functions Artifact
       - name: Build Web
         condition: >-

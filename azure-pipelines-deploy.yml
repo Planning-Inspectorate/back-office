@@ -19,6 +19,10 @@ parameters:
     displayName: Deploy ODW Integration Function
     type: boolean
     default: true
+  - name: deployDocumentPublishFunction
+    displayName: Deploy Document Publish Function
+    type: boolean
+    default: true
   - name: region
     displayName: Region
     type: string
@@ -105,6 +109,16 @@ extends:
               - template: ../steps/function_app_deploy.yml
                 parameters:
                   appName: pins-func-odw-subscriber-odw-subscriber-$(ENVIRONMENT)-$(REGION_SHORT)-001
+                  resourceGroup: $(resourceGroup)
+          - name: Deploy Document Publish Function
+            artifact:
+              name: document-publish-function
+              sourcePipeline: Back Office Build
+            condition: eq(${{ parameters.deployDocumentPublishFunction }}, 'true')
+            steps:
+              - template: ../steps/function_app_deploy.yml
+                parameters:
+                  appName: pins-func-doc-publisher-doc-publisher-$(ENVIRONMENT)-$(REGION_SHORT)-001
                   resourceGroup: $(resourceGroup)
           - name: Deploy Web
             condition: eq(${{ parameters.deployWeb }}, 'true')

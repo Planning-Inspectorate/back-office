@@ -24,7 +24,7 @@ export class CreateCasePage extends Page {
 		zoomLevel: new sections.ZoomLevelSection()
 	};
 
-	createCase(projectInformation) {
+	createCase(projectInformation, mandatoryOnly = false) {
 		cy.visit('/');
 		this.clickButtonByText('Create new case here');
 		this.sections.nameAndDescription.fillCaseName(projectInformation.projectName);

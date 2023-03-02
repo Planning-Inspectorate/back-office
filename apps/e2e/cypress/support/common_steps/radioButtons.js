@@ -10,7 +10,7 @@ const page = new Page();
 // U S E R  A C T I O N S
 
 When('the user chooses option {int} radio button', function (optionNumber) {
-	page.chooseRadioBtnByIndex(optionNumber);
+	page.chooseRadioBtnByIndex(optionNumber - 1);
 });
 
 // A S S E R T I O N S
