@@ -2,22 +2,30 @@ import { url } from '../../../lib/nunjucks-filters/url.js';
 import { updateDocumentMetaData } from './documentation-metadata.service.js';
 
 /** @typedef {import('@pins/express').ValidationErrors} ValidationErrors */
-/** @typedef {"name" | "description"} MetaDataNames */
-/** @typedef {{label: string, hint: string, pageTitle: string}} MetaDataLayoutParams */
+/** @typedef {"name" | "description"| "received-date"} MetaDataNames */
+/** @typedef {{label: string, hint: string, pageTitle: string, backLink?: string, metaDataName?: string, maxLength?: number}} MetaDataLayoutParams */
 /** @typedef {{documentGuid: string, metaDataName: MetaDataNames}} RequestParams */
-/** @typedef {{caseId: number, folderId: number}} ResponseLocals */
+/** @typedef {{caseId: number, folderId: number }} ResponseLocals */
 
 /** @type {Record<MetaDataNames, MetaDataLayoutParams>} */
 const layouts = {
 	name: {
 		label: 'What is the file name?',
 		hint: 'There is a limit of 255 characters',
-		pageTitle: 'Enter file name'
+		pageTitle: 'Enter file name',
+		maxLength: 255
 	},
 	description: {
 		label: 'Description of the document',
 		hint: 'There is a limit of 800 characters',
-		pageTitle: 'Enter document description'
+		pageTitle: 'Enter document description',
+		maxLength: 800
+	},
+	'received-date': {
+		label: 'Description of the document',
+		hint: 'There is a limit of 800 characters',
+		pageTitle: 'Enter document description',
+		maxLength: 800
 	}
 };
 
@@ -27,9 +35,9 @@ const layouts = {
  * @type {import('@pins/express').RenderHandler<{}, {}, {}, {}, RequestParams, ResponseLocals>}
  */
 export async function viewDocumentationMetaData({ params }, response) {
-	const layoutParameters = getLayoutParameters(params, response.locals);
+	const layout = getLayoutParameters(params, response.locals);
 
-	response.render(`applications/case-documentation/documentation-edit.njk`, layoutParameters);
+	response.render(`applications/case-documentation/documentation-edit.njk`, { layout });
 }
 
 /**
@@ -61,7 +69,7 @@ export async function updateDocumentationMetaData(request, response) {
  *
  * @param {RequestParams} requestParameters
  * @param {ResponseLocals} responseLocals
- * @returns {{metaDataName: MetaDataNames, layout: MetaDataLayoutParams, backLink: string }}
+ * @returns {MetaDataLayoutParams}
  */
 const getLayoutParameters = (requestParameters, responseLocals) => {
 	const { documentGuid, metaDataName } = requestParameters;
@@ -76,9 +84,5 @@ const getLayoutParameters = (requestParameters, responseLocals) => {
 
 	const layout = layouts[metaDataName];
 
-	return {
-		metaDataName,
-		layout,
-		backLink
-	};
+	return { ...layout, backLink, metaDataName };
 };
