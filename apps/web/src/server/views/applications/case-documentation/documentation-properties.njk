@@ -59,7 +59,7 @@
 						{label: 'Webfilter', value: '', link: 'webfilter'},
 						{label: 'Document type (optional)', value: '', link: 'type'},
 						{label: 'Date received', value: (documentationFile.receivedDate|datestamp({format: 'dd/MM/yyyy'})), link: 'received-date'},
-						{label: 'Published date', value: (documentationFile.publishedDate|datestamp({format: 'dd/MM/yyyy'})), link: 'published-date'},
+						{label: 'Published date', value: (documentationFile.publishedDate|datestamp({format: 'dd/MM/yyyy'})), link: 'published-date' if documentationFile.publishedDate else null},
 						{label: 'Redaction', value: ('Redacted' if documentationFile.redacted else 'Unredacted') , link: 'redaction'},
 						{label: 'Status', value: documentationFile.status|statusName }
 					] %}
@@ -69,7 +69,7 @@
 							key: { text: property.label },
 							value: { text: property.value },
 							actions: { items: [{
-								href: ('document-edit'|url({caseId: caseId, folderId: folderId, documentGuid: documentationFile.guid, step: property.link})) if property.link else '',
+								href: ('document-edit'|url({caseId: caseId, folderId: folderId, documentGuid: documentationFile.guid, step: property.link})),
 								text: "Change",
 								visuallyHiddenText: property.label
 							} if property.link else {}]}
