@@ -1,4 +1,4 @@
-/** @typedef {import('../../applications.types.js').FormCaseLayout} FormCaseLayout */
+/** @typedef {import('../../../applications.types.js').FormCaseLayout} FormCaseLayout */
 
 /**
  * View the sector choice step of the Casecreation

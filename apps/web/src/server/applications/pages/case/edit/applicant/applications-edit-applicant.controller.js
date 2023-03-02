@@ -1,3 +1,4 @@
+import { handleErrors } from '../../../../common/components/error-handler/error-handler.component.js';
 import {
 	applicantAddressData,
 	applicantAddressDataUpdate,
@@ -11,12 +12,11 @@ import {
 	applicantTelephoneNumberDataUpdate,
 	applicantWebsiteData,
 	applicantWebsiteDataUpdate
-} from '../../../../components/form/form-applicant-components.controller.js';
-import { handleErrors } from '../../../../lib/controllers/errors.controller.js';
+} from '../../../../common/components/form/form-applicant.component.js';
 
 /** @typedef {import('../../../create-new-case/applicant/applications-create-applicant.types.js').ApplicationsCreateApplicantTypesProps} ApplicationsCreateApplicantTypesProps */
 /** @typedef {import('../../../create-new-case/applicant/applications-create-applicant.types.js').ApplicationsCreateApplicantTypesBody} ApplicationsCreateApplicantTypesBody */
-/** @typedef {import('../../../../lib/services/session.service.js').SessionWithApplicationsCreateApplicantInfoTypes} SessionWithApplicationsCreateApplicantInfoTypes */
+/** @typedef {import('../../../../common/services/session.service.js').SessionWithApplicationsCreateApplicantInfoTypes} SessionWithApplicationsCreateApplicantInfoTypes */
 /** @typedef {import('../../../create-new-case/applicant/applications-create-applicant.types.js').ApplicationsCreateApplicantOrganisationNameProps} ApplicationsCreateApplicantOrganisationNameProps */
 /** @typedef {import('../../../create-new-case/applicant/applications-create-applicant.types.js').ApplicationsCreateApplicantOrganisationNameBody} ApplicationsCreateApplicantOrganisationNameBody */
 /** @typedef {import('../../../create-new-case/applicant/applications-create-applicant.types.js').ApplicationsCreateApplicantFullNameProps} ApplicationsCreateApplicantFullNameProps */

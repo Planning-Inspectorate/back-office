@@ -1,8 +1,8 @@
+import { handleErrors } from '../../../common/components/error-handler/error-handler.component.js';
 import {
 	keyDatesData,
 	keyDatesDataUpdate
-} from '../../../components/form/form-key-dates-components.controller.js';
-import { handleErrors } from '../../../lib/controllers/errors.controller.js';
+} from '../../../common/components/form/form-key-dates.component.js';
 
 /** @typedef {import('./applications-create-key-dates.types.js').ApplicationsCreateKeyDatesProps} ApplicationsCreateKeyDatesProps */
 /** @typedef {import('./applications-create-key-dates.types.js').ApplicationsCreateKeyDatesBody} ApplicationsCreateKeyDatesBody */
