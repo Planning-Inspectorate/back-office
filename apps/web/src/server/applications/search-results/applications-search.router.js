@@ -1,5 +1,5 @@
 import { Router as createRouter } from 'express';
-import asyncRoute from '../../../lib/async-route.js';
+import asyncRoute from '../../lib/async-route.js';
 import * as validators from './application-search.validators.js';
 import * as controller from './applications-search.controller.js';
 
