@@ -1,6 +1,6 @@
 import { Router as createRouter } from 'express';
-import asyncRoute from '../../../../lib/async-route.js';
-import { registerCaseWithQuery } from '../../../applications.locals.js';
+import asyncRoute from '../../../lib/async-route.js';
+import { registerCaseWithQuery } from '../../applications.locals.js';
 import * as controller from './applications-create-case.controller.js';
 import * as validators from './applications-create-case.validators.js';
 
