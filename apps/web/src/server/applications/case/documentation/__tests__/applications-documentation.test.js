@@ -1,18 +1,18 @@
 import { parseHtml } from '@pins/platform';
 import nock from 'nock';
 import supertest from 'supertest';
-import { fixtureCases } from '../../../../../../../testing/applications/fixtures/cases.js';
+import { fixtureCases } from '../../../../../../testing/applications/fixtures/cases.js';
 import {
 	fixtureDocumentationFiles,
 	fixturePaginatedDocumentationFiles
-} from '../../../../../../../testing/applications/fixtures/documentation-files.js';
+} from '../../../../../../testing/applications/fixtures/documentation-files.js';
 import {
 	fixtureDocumentationFolderPath,
 	fixtureDocumentationSingleFolder,
 	fixtureDocumentationSubFolders,
 	fixtureDocumentationTopLevelFolders
-} from '../../../../../../../testing/applications/fixtures/options-item.js';
-import { createTestEnvironment } from '../../../../../../../testing/index.js';
+} from '../../../../../../testing/applications/fixtures/options-item.js';
+import { createTestEnvironment } from '../../../../../../testing/index.js';
 
 const { app, installMockApi, teardown } = createTestEnvironment();
 const request = supertest(app);

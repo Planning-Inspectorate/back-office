@@ -1,13 +1,13 @@
 import { Router as createRouter } from 'express';
-import asyncRoute from '../../../../lib/async-route.js';
-import { assertDomainTypeIsNotInspector } from '../../create-new-case/applications-create.guards.js';
+import asyncRoute from '../../../lib/async-route.js';
+import { assertDomainTypeIsNotInspector } from '../../pages/create-new-case/applications-create.guards.js';
 import * as locals from '../applications-case.locals.js';
+import applicationsDocumentationMetadataRouter from '../documentation-metadata/documentation-metadata.router.js';
 import * as controller from './applications-documentation.controller.js';
 import {
 	validateApplicationsDocumentations,
 	validateApplicationsDocumentationsDeleteStatus
 } from './applications-documentation.validators.js';
-import applicationsDocumentationMetadataRouter from './metadata/documentation-metadata.router.js';
 
 const applicationsDocumentationRouter = createRouter({ mergeParams: true });
 

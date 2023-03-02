@@ -1,6 +1,6 @@
-import { publishCase } from '../../common/services/case.service.js';
+import { publishCase } from '../common/services/case.service.js';
 
-/** @typedef {import('../../applications.types').Case} Case */
+/** @typedef {import('../applications.types').Case} Case */
 /** @typedef {import('@pins/express').ValidationErrors} ValidationErrors */
 /**
  * @typedef {object} CasePageProps

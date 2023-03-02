@@ -1,10 +1,10 @@
-import { get, patch, post } from '../../../../lib/request.js';
+import { get, patch, post } from '../../../lib/request.js';
 
 /**
  * @typedef {import('@pins/express').ValidationErrors} ValidationErrors
- * @typedef {import('../../../applications.types').DocumentationCategory} DocumentationCategory
- * @typedef {import('../../../applications.types').DocumentationFile} DocumentationFile
- * @typedef {import('../../../applications.types').PaginatedResponse<DocumentationFile>} PaginatedDocumentationFiles
+ * @typedef {import('../../applications.types').DocumentationCategory} DocumentationCategory
+ * @typedef {import('../../applications.types').DocumentationFile} DocumentationFile
+ * @typedef {import('../../applications.types').PaginatedResponse<DocumentationFile>} PaginatedDocumentationFiles
  */
 
 /**
