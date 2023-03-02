@@ -1,6 +1,6 @@
 import { createValidator } from '@pins/express';
 import { body } from 'express-validator';
-import { dateIsValid } from '../../../../lib/dates.js';
+import { dateIsValid } from '../../../lib/dates.js';
 
 export const validateApplicationsCreateKeyDates = createValidator(
 	body('keyDates.submissionDateInternal')
