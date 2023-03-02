@@ -2,7 +2,7 @@ import { sortBy } from 'lodash-es';
 import {
 	getSessionFilesNumberOnList,
 	setSessionFilesNumberOnList
-} from '../../../lib/services/session.service.js';
+} from '../../../common/services/session.service.js';
 import {
 	deleteCaseDocumentationFile,
 	getCaseDocumentationFileInfo,
@@ -15,7 +15,7 @@ import {
 /** @typedef {import('../applications-case.locals.js').ApplicationCaseLocals} ApplicationCaseLocals */
 /** @typedef {import('../../../applications.types').DocumentationCategory} DocumentationCategory */
 /** @typedef {import('../../../applications.types').DocumentationFile} DocumentationFile */
-/** @typedef {import('../../../lib/services/session.service.js').SessionWithFilesNumberOnList} SessionWithFilesNumberOnList */
+/** @typedef {import('../../../common/services/session.service.js').SessionWithFilesNumberOnList} SessionWithFilesNumberOnList */
 /** @typedef {import('./applications-documentation.types').CaseDocumentationUploadProps} CaseDocumentationUploadProps */
 /** @typedef {import('./applications-documentation.types').CaseDocumentationBody} CaseDocumentationBody */
 /** @typedef {import('./applications-documentation.types').CaseDocumentationProps} CaseDocumentationProps */
