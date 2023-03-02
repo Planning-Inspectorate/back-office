@@ -8,7 +8,10 @@ import * as validators from './documentation-metadata.validators.js';
 const applicationsDocumentationMetadataRouter = createRouter({ mergeParams: true });
 
 applicationsDocumentationMetadataRouter.use(assertDomainTypeIsNotInspector);
-applicationsDocumentationMetadataRouter.use(locals.registerDocumentMetaData);
+applicationsDocumentationMetadataRouter.use([
+	locals.registerUrlParameters,
+	locals.registerDocumentMetaData
+]);
 
 applicationsDocumentationMetadataRouter
 	.route('/:metaDataName')
