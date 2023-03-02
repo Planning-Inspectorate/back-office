@@ -5591,7 +5591,7 @@ exports[`applications documentation Document properties page If the user is not 
                             </div>
                             <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Published date</dt>
                                 <dd class=\\"govuk-summary-list__value\\"></dd>
-                                <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/123/project-documentation/21/document/99/edit/published-date\\"> Change<span class=\\"govuk-visually-hidden\\"> Published date</span></a>
+                                <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"\\"></a>
                                 </dd>
                             </div>
                             <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Redaction</dt>
