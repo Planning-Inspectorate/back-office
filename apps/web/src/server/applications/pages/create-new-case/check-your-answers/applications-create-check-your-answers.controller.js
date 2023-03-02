@@ -1,6 +1,6 @@
 import pino from '../../../../lib/logger.js';
-import { getCase } from '../../../lib/services/case.service.js';
-import { destroySessionCaseHasNeverBeenResumed } from '../../../lib/services/session.service.js';
+import { getCase } from '../../../common/services/case.service.js';
+import { destroySessionCaseHasNeverBeenResumed } from '../../../common/services/session.service.js';
 import { moveStateToPreApplication } from '../applications-create.service.js';
 import * as applicationsCreateCheckYourAnswersService from './applications-create-check-your-answers.service.js';
 

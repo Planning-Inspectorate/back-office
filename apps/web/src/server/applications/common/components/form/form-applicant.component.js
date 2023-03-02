@@ -1,16 +1,16 @@
 import { findAddressListByPostcode } from '@planning-inspectorate/address-lookup';
-import { getApplicantById } from '../../lib/services/applicant.service.js';
-import { updateCase } from '../../lib/services/case.service.js';
+import { getApplicantById } from '../../services/applicant.service.js';
+import { updateCase } from '../../services/case.service.js';
 
 /** @typedef {import('@pins/express').ValidationErrors} ValidationErrors */
-/** @typedef {import('../../applications.types').ApplicationsAddress} ApplicationsAddress */
-/** @typedef {import('../../pages/create-new-case/applicant/applications-create-applicant.types').ApplicationCreateApplicantAddressStage} ApplicationCreateApplicantAddressStage */
-/** @typedef {import('../../pages/create-new-case/applicant/applications-create-applicant.types').ApplicationsCreateApplicantAddressProps} ApplicationsCreateApplicantAddressProps */
-/** @typedef {import('../../pages/create-new-case/applicant/applications-create-applicant.types').ApplicationsCreateApplicantOrganisationNameProps} ApplicationsCreateApplicantOrganisationNameProps */
-/** @typedef {import('../../pages/create-new-case/applicant/applications-create-applicant.types').ApplicationsCreateApplicantFullNameProps} ApplicationsCreateApplicantFullNameProps */
-/** @typedef {import('../../pages/create-new-case/applicant/applications-create-applicant.types').ApplicationsCreateApplicantWebsiteProps} ApplicationsCreateApplicantWebsiteProps */
-/** @typedef {import('../../pages/create-new-case/applicant/applications-create-applicant.types').ApplicationsCreateApplicantEmailProps} ApplicationsCreateApplicantEmailProps */
-/** @typedef {import('../../pages/create-new-case/applicant/applications-create-applicant.types').ApplicationsCreateApplicantTelephoneNumberProps} ApplicationsCreateApplicantTelephoneNumberProps */
+/** @typedef {import('../../../applications.types').ApplicationsAddress} ApplicationsAddress */
+/** @typedef {import('../../../pages/create-new-case/applicant/applications-create-applicant.types').ApplicationCreateApplicantAddressStage} ApplicationCreateApplicantAddressStage */
+/** @typedef {import('../../../pages/create-new-case/applicant/applications-create-applicant.types').ApplicationsCreateApplicantAddressProps} ApplicationsCreateApplicantAddressProps */
+/** @typedef {import('../../../pages/create-new-case/applicant/applications-create-applicant.types').ApplicationsCreateApplicantOrganisationNameProps} ApplicationsCreateApplicantOrganisationNameProps */
+/** @typedef {import('../../../pages/create-new-case/applicant/applications-create-applicant.types').ApplicationsCreateApplicantFullNameProps} ApplicationsCreateApplicantFullNameProps */
+/** @typedef {import('../../../pages/create-new-case/applicant/applications-create-applicant.types').ApplicationsCreateApplicantWebsiteProps} ApplicationsCreateApplicantWebsiteProps */
+/** @typedef {import('../../../pages/create-new-case/applicant/applications-create-applicant.types').ApplicationsCreateApplicantEmailProps} ApplicationsCreateApplicantEmailProps */
+/** @typedef {import('../../../pages/create-new-case/applicant/applications-create-applicant.types').ApplicationsCreateApplicantTelephoneNumberProps} ApplicationsCreateApplicantTelephoneNumberProps */
 
 /**
  * Format properties for applicant organisation page
