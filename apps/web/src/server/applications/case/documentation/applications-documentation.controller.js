@@ -92,6 +92,7 @@ export async function viewApplicationsCaseDocumentationUpload(request, response)
 export async function viewApplicationsCaseDocumentationPages({ params }, response) {
 	const { documentGuid, action } = params;
 	const { caseId } = response.locals;
+
 	const documentationFile = await getCaseDocumentationFileInfo(caseId, documentGuid);
 	const isReadyToPublish = documentationFile.status === 'ready_to_publish';
 	const warningText = isReadyToPublish

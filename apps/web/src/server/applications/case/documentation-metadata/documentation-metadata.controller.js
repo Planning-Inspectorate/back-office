@@ -2,8 +2,8 @@ import { url } from '../../../lib/nunjucks-filters/url.js';
 import { updateDocumentMetaData } from './documentation-metadata.service.js';
 
 /** @typedef {import('@pins/express').ValidationErrors} ValidationErrors */
-/** @typedef {"name" | "description"| "received-date"} MetaDataNames */
-/** @typedef {{label: string, hint: string, pageTitle: string, backLink?: string, metaDataName?: string, maxLength?: number}} MetaDataLayoutParams */
+/** @typedef {"name" | "description"| "published-date" | "received-date"| "redaction"} MetaDataNames */
+/** @typedef {{label?: string, hint?: string, pageTitle: string, backLink?: string, metaDataName?: string, maxLength?: number, items?: {value: string, text: string}[]}} MetaDataLayoutParams */
 /** @typedef {{documentGuid: string, metaDataName: MetaDataNames}} RequestParams */
 /** @typedef {{caseId: number, folderId: number }} ResponseLocals */
 
@@ -21,11 +21,22 @@ const layouts = {
 		pageTitle: 'Enter document description',
 		maxLength: 800
 	},
+	'published-date': {
+		label: 'Date document published',
+		hint: 'for example, 27 03 2023',
+		pageTitle: 'Enter the document published date'
+	},
 	'received-date': {
-		label: 'Description of the document',
-		hint: 'There is a limit of 800 characters',
-		pageTitle: 'Enter document description',
-		maxLength: 800
+		label: 'Date document received',
+		hint: 'for example, 27 03 2023',
+		pageTitle: 'Enter the document receipt date'
+	},
+	redaction: {
+		items: [
+			{ value: 'redacted', text: 'Redacted' },
+			{ value: 'unredacted', text: 'Unredacted' }
+		],
+		pageTitle: 'Select the redaction status'
 	}
 };
 
@@ -44,14 +55,24 @@ export async function viewDocumentationMetaData({ params }, response) {
  * Update changes for documentation metadata or return errors
  *
  *
- * @type {import('@pins/express').RenderHandler<{}, {}, {}, {}, RequestParams, ResponseLocals>}
+ * @type {import('@pins/express').RenderHandler<{}, {}, Partial<Record<string, any>>, {}, RequestParams, ResponseLocals>}
  */
 export async function updateDocumentationMetaData(request, response) {
 	const { errors: validationErrors, params, body } = request;
 	const { caseId } = response.locals;
-	const { documentGuid } = params;
+	const { documentGuid, metaDataName } = params;
 
-	const { errors: apiErrors } = await updateDocumentMetaData(caseId, documentGuid, body);
+	let newMetaData = body;
+
+	if (metaDataName === 'published-date' || metaDataName === 'received-date') {
+		const newValue = `${body[`${metaDataName}.year`]}-${body[`${metaDataName}.month`]}-${
+			body[`${metaDataName}.day`]
+		}`;
+
+		newMetaData = { [metaDataName]: newValue };
+	}
+
+	const { errors: apiErrors } = await updateDocumentMetaData(caseId, documentGuid, newMetaData);
 
 	if (validationErrors || apiErrors) {
 		const layout = getLayoutParameters(params, response.locals);
