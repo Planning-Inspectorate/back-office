@@ -5549,59 +5549,59 @@ exports[`applications documentation Document properties page If the user is not 
                     <div class=\\"govuk-tabs__panel\\" id=\\"document-properties\\">
                         <h4 class=\\"govuk-heading-m govuk-!-margin-bottom-4\\">Document properties</h4>
                         <dl class=\\"govuk-summary-list\\">
-                            <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Document Name</dt>
+                            <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> File name</dt>
                                 <dd class=\\"govuk-summary-list__value\\">100 Elit sed do</dd>
-                                <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"#\\"> Change<span class=\\"govuk-visually-hidden\\"> Document Name</span></a>
+                                <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/123/project-documentation/21/document/99/edit/name\\"> Change<span class=\\"govuk-visually-hidden\\"> File name</span></a>
                                 </dd>
                             </div>
                             <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Description</dt>
                                 <dd class=\\"govuk-summary-list__value\\"></dd>
-                                <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"#\\"> Change<span class=\\"govuk-visually-hidden\\"> Description</span></a>
+                                <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/123/project-documentation/21/document/99/edit/description\\"> Change<span class=\\"govuk-visually-hidden\\"> Description</span></a>
                                 </dd>
                             </div>
                             <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> From</dt>
                                 <dd class=\\"govuk-summary-list__value\\"></dd>
-                                <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"#\\"> Change<span class=\\"govuk-visually-hidden\\"> From</span></a>
+                                <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/123/project-documentation/21/document/99/edit/from\\"> Change<span class=\\"govuk-visually-hidden\\"> From</span></a>
                                 </dd>
                             </div>
-                            <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Agent</dt>
+                            <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Agent (optional)</dt>
                                 <dd class=\\"govuk-summary-list__value\\"></dd>
-                                <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"#\\"> Change<span class=\\"govuk-visually-hidden\\"> Agent</span></a>
+                                <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/123/project-documentation/21/document/99/edit/agent\\"> Change<span class=\\"govuk-visually-hidden\\"> Agent (optional)</span></a>
                                 </dd>
                             </div>
                             <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Case Stage</dt>
                                 <dd class=\\"govuk-summary-list__value\\"></dd>
-                                <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"#\\"> Change<span class=\\"govuk-visually-hidden\\"> Case Stage</span></a>
+                                <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"\\"></a>
                                 </dd>
                             </div>
                             <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Webfilter</dt>
                                 <dd class=\\"govuk-summary-list__value\\"></dd>
-                                <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"#\\"> Change<span class=\\"govuk-visually-hidden\\"> Webfilter</span></a>
+                                <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/123/project-documentation/21/document/99/edit/webfilter\\"> Change<span class=\\"govuk-visually-hidden\\"> Webfilter</span></a>
                                 </dd>
+                            </div>
+                            <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Document type (optional)</dt>
+                                <dd                                 class=\\"govuk-summary-list__value\\"></dd>
+                                    <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/123/project-documentation/21/document/99/edit/type\\"> Change<span class=\\"govuk-visually-hidden\\"> Document type (optional)</span></a>
+                                    </dd>
                             </div>
                             <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Date received</dt>
                                 <dd class=\\"govuk-summary-list__value\\">01/12/2022</dd>
-                                <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"#\\"> Change<span class=\\"govuk-visually-hidden\\"> Date received</span></a>
+                                <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/123/project-documentation/21/document/99/edit/received-date\\"> Change<span class=\\"govuk-visually-hidden\\"> Date received</span></a>
                                 </dd>
                             </div>
-                            <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Document type</dt>
+                            <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Published date</dt>
                                 <dd class=\\"govuk-summary-list__value\\"></dd>
-                                <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"#\\"> Change<span class=\\"govuk-visually-hidden\\"> Document type</span></a>
+                                <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/123/project-documentation/21/document/99/edit/published-date\\"> Change<span class=\\"govuk-visually-hidden\\"> Published date</span></a>
                                 </dd>
                             </div>
                             <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Redaction</dt>
                                 <dd class=\\"govuk-summary-list__value\\">Redacted</dd>
-                                <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"#\\"> Change<span class=\\"govuk-visually-hidden\\"> Redaction</span></a>
+                                <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/123/project-documentation/21/document/99/edit/redaction\\"> Change<span class=\\"govuk-visually-hidden\\"> Redaction</span></a>
                                 </dd>
                             </div>
                             <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Status</dt>
                                 <dd class=\\"govuk-summary-list__value\\">Unchecked</dd>
-                                <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"#\\"> Change<span class=\\"govuk-visually-hidden\\"> Status</span></a>
-                                </dd>
-                            </div>
-                            <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Exam library reference</dt>
-                                <dd class=\\"govuk-summary-list__value\\"></dd>
-                                <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"#\\"> Change<span class=\\"govuk-visually-hidden\\"> Exam library reference</span></a>
+                                <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"\\"></a>
                                 </dd>
                             </div>
                         </dl>

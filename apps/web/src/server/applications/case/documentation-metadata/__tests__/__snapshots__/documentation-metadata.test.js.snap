@@ -1,0 +1,37 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Edit applications documentation metadata Edit name GET /case/123/project-documentation/18/document/456/edit/name If user is inspector should not render the page 1`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <div class=\\"govuk-grid-row\\">
+        <div class=\\"govuk-grid-column-two-thirds\\">
+            <h1 class=\\"govuk-heading-xl\\">Sorry, there is a problem with your login</h1>
+            <p class=\\"govuk-body\\">You are not permitted to access this URL.</p>
+            <p class=\\"govuk-body\\"><a href=\\"https://has-appeal.herokuapp.com/help/contact\\" class=\\"govuk-link\\">Contact the Planning Inspectorate Customer Support</a> if
+                the problem persists.</p>
+        </div>
+    </div>
+</main>"
+`;
+
+exports[`Edit applications documentation metadata Edit name GET /case/123/project-documentation/18/document/456/edit/name If user is not inspector should render the page 1`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <h1 class=\\"govuk-heading-l\\"> Enter file name</h1>
+    <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
+        <div class=\\"govuk-character-count\\" data-module=\\"govuk-character-count\\"
+        data-maxlength=\\"255\\">
+            <div class=\\"govuk-form-group\\">
+                <label class=\\"govuk-label font-weight--700\\" for=\\"name\\">What is the file name?</label>
+                <div id=\\"name-hint\\" class=\\"govuk-hint\\">There is a limit of 255 characters</div>
+                <textarea class=\\"govuk-textarea govuk-js-character-count govuk-!-width-two-third\\"
+                id=\\"name\\" name=\\"name\\" rows=\\"5\\" aria-describedby=\\"name-info name-hint\\">A title</textarea>
+            </div>
+            <div id=\\"name-info\\" class=\\"govuk-hint govuk-character-count__message\\">You can enter up to 255 characters</div>
+        </div>
+        <div class=\\"govuk-grid-row\\">
+            <div class=\\"govuk-button-group pins-button-group govuk-grid-column-one-half\\">
+                <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and return</button>
+            </div>
+        </div>
+    </form>
+</main>"
+`;
