@@ -54,11 +54,11 @@ export async function updateDocumentationMetaData(request, response) {
 	const { errors: apiErrors } = await updateDocumentMetaData(caseId, documentGuid, body);
 
 	if (validationErrors || apiErrors) {
-		const layoutParameters = getLayoutParameters(params, response.locals);
+		const layout = getLayoutParameters(params, response.locals);
 
 		return response.render(`applications/case-documentation/documentation-edit.njk`, {
 			errors: validationErrors || apiErrors,
-			...layoutParameters
+			layout
 		});
 	}
 	response.redirect('../properties');
