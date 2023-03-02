@@ -1,6 +1,6 @@
 import { updateCase } from '../../services/case.service.js';
 
-/** @typedef {import('../../../pages/create-new-case/key-dates/applications-create-key-dates.types').ApplicationsCreateKeyDatesProps} ApplicationsCreateKeyDatesProps */
+/** @typedef {import('../../../create-new-case/key-dates/applications-create-key-dates.types').ApplicationsCreateKeyDatesProps} ApplicationsCreateKeyDatesProps */
 
 /**
  * Format properties for key dates page

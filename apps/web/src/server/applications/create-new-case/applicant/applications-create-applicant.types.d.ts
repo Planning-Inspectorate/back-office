@@ -1,5 +1,5 @@
 import { ValidationErrors } from '@pins/express';
-import { CaseCreateProps, FormCaseLayout, SelectItem } from '../../../applications.types';
+import { CaseCreateProps, FormCaseLayout, SelectItem } from '../../applications.types';
 
 export type ApplicationsCreateApplicantTypesProps = {
 	applicantInfoTypes: SelectItem[];

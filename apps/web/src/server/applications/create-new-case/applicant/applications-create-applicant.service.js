@@ -1,11 +1,11 @@
 import {
 	getSessionApplicantInfoTypes,
 	getSessionCaseHasNeverBeenResumed
-} from '../../../common/services/session.service.js';
+} from '../../common/services/session.service.js';
 
-/** @typedef {import('../../../applications.types').OptionsItem} OptionsItem */
-/** @typedef {import('../../../applications.types').Applicant} Applicant */
-/** @typedef {import('../../../common/services/session.service.js').SessionWithApplicationsCreateApplicantInfoTypes} SessionWithApplicationsCreateApplicantInfoTypes */
+/** @typedef {import('../../applications.types').OptionsItem} OptionsItem */
+/** @typedef {import('../../applications.types').Applicant} Applicant */
+/** @typedef {import('../../common/services/session.service.js').SessionWithApplicationsCreateApplicantInfoTypes} SessionWithApplicationsCreateApplicantInfoTypes */
 
 /**
  * Get the list of types of applicant info

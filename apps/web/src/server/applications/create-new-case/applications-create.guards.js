@@ -1,6 +1,6 @@
-import { getSessionApplicationsDomainType } from '../../applications-session.service.js';
+import { getSessionApplicationsDomainType } from '../applications-session.service.js';
 
-/** @typedef {import('../../applications.router.js').DomainParams} DomainParams */
+/** @typedef {import('../applications.router.js').DomainParams} DomainParams */
 
 /**
  *  Make sure the domainType of the user is either case-team or case-admin-officer.

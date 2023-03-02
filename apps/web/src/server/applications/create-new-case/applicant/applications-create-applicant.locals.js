@@ -1,5 +1,5 @@
-import pino from '../../../../lib/logger.js';
-import { getCase } from '../../../common/services/case.service.js';
+import pino from '../../../lib/logger.js';
+import { getCase } from '../../common/services/case.service.js';
 import * as applicationsCreateApplicantService from './applications-create-applicant.service.js';
 
 /**
