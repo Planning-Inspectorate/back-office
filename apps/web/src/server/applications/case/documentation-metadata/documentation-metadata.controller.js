@@ -1,4 +1,4 @@
-import { url } from '../../../../../lib/nunjucks-filters/url.js';
+import { url } from '../../../lib/nunjucks-filters/url.js';
 import { updateDocumentMetaData } from './documentation-metadata.service.js';
 
 /** @typedef {import('@pins/express').ValidationErrors} ValidationErrors */

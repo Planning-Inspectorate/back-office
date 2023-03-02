@@ -1,7 +1,7 @@
 import { Router as createRouter } from 'express';
-import asyncRoute from '../../../../../lib/async-route.js';
-import { registerCaseWithQuery } from '../../../../applications.locals.js';
-import * as validators from '../../../create-new-case/case/applications-create-case.validators.js';
+import asyncRoute from '../../../../lib/async-route.js';
+import { registerCaseWithQuery } from '../../../applications.locals.js';
+import * as validators from '../../../pages/create-new-case/case/applications-create-case.validators.js';
 import * as controller from './applications-edit-case.controller.js';
 
 const applicationsEditCaseRouter = createRouter();
