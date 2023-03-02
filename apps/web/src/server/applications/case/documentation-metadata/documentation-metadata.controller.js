@@ -7,6 +7,9 @@ import { updateDocumentMetaData } from './documentation-metadata.service.js';
 /** @typedef {{documentGuid: string, metaDataName: MetaDataNames}} RequestParams */
 /** @typedef {{caseId: number, folderId: number }} ResponseLocals */
 
+// TODO: the current layouts list is needed for testing purposes,
+// will be checked and completed for every page
+
 /** @type {Record<MetaDataNames, MetaDataLayoutParams>} */
 const layouts = {
 	name: {

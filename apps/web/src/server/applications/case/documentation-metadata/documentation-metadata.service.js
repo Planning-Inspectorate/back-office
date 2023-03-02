@@ -1,5 +1,7 @@
 /** @typedef {import('@pins/express').ValidationErrors} ValidationErrors */
 
+// TODO: replace with the real API and fix types
+
 /**
  * Get all the metadata for the document
  *
