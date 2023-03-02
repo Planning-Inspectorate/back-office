@@ -11,6 +11,7 @@ const scopes = [
 	'document-check-function',
 	'odw-integration',
 	'document-publish-function',
+	'publish-document-function',
 	'express',
 	'platform',
 	'storage',
