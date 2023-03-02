@@ -1,8 +1,7 @@
+import { assertDomainTypeIsNotInspector } from '@pins/web/src/server/applications/create-new-case/applications-create.guards.js';
 import { Router as createRouter } from 'express';
 import asyncRoute from '../../../lib/async-route.js';
-import { assertDomainTypeIsNotInspector } from '../../create-new-case/applications-create.guards.js';
 import * as locals from '../applications-case.locals.js';
-import applicationsDocumentationMetadataRouter from '../documentation-metadata/documentation-metadata.router.js';
 import * as controller from './applications-documentation.controller.js';
 import {
 	validateApplicationsDocumentations,
@@ -11,6 +10,7 @@ import {
 
 const applicationsDocumentationRouter = createRouter({ mergeParams: true });
 
+// TODO: make sure this is used only by the routes that require it
 applicationsDocumentationRouter.use(locals.registerCase);
 
 applicationsDocumentationRouter
@@ -31,11 +31,6 @@ applicationsDocumentationRouter
 		[assertDomainTypeIsNotInspector, locals.registerFolder],
 		asyncRoute(controller.viewApplicationsCaseDocumentationUpload)
 	);
-
-applicationsDocumentationRouter.use(
-	'/:folderId/document/:documentGuid/edit',
-	applicationsDocumentationMetadataRouter
-);
 
 applicationsDocumentationRouter
 	.route('/:folderId/document/:documentGuid/:action')
