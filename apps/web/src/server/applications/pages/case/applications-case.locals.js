@@ -1,6 +1,6 @@
 import pino from '../../../lib/logger.js';
 import { url } from '../../../lib/nunjucks-filters/index.js';
-import { getCase } from '../../lib/services/case.service.js';
+import { getCase } from '../../common/services/case.service.js';
 import {
 	getCaseDocumentationFolderPath,
 	getCaseFolder

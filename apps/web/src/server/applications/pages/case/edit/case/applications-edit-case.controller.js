@@ -1,3 +1,4 @@
+import { handleErrors } from '../../../../common/components/error-handler/error-handler.component.js';
 import {
 	caseGeographicalInformationData,
 	caseGeographicalInformationDataUpdate,
@@ -9,8 +10,7 @@ import {
 	caseTeamEmailDataUpdate,
 	caseZoomLevelData,
 	caseZoomLevelDataUpdate
-} from '../../../../components/form/form-case-components.controller.js';
-import { handleErrors } from '../../../../lib/controllers/errors.controller.js';
+} from '../../../../common/components/form/form-case.component.js';
 
 const nameLayout = {
 	pageTitle: 'Enter project name',

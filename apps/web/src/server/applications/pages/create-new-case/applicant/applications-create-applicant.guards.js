@@ -2,7 +2,7 @@ import pino from '../../../../lib/logger.js';
 import {
 	getSessionApplicantInfoTypes,
 	getSessionCaseHasNeverBeenResumed
-} from '../../../lib/services/session.service.js';
+} from '../../../common/services/session.service.js';
 import * as applicationsCreateApplicantService from './applications-create-applicant.service.js';
 
 /**
