@@ -327,7 +327,7 @@ export const updateApplication = async ({
 
 	if (typeof regionNames !== 'undefined') {
 		// get the correct ApplicationDetails record id corresponding to this case
-		const applicationDetailsRecord = await databaseConnector.applicationDetails.findFirst({
+		const applicationDetailsRecord = await databaseConnector.applicationDetails.findUnique({
 			where: { caseId }
 		});
 
