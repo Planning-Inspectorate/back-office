@@ -4,7 +4,7 @@ import {
 	Sector,
 	SelectItem,
 	ZoomLevel
-} from '../../../applications.types';
+} from '../../applications.types';
 import { ValidationErrors } from '@pins/express';
 
 // Name and description
