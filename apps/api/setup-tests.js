@@ -3,6 +3,7 @@ import { jest } from '@jest/globals';
 
 const mockCaseFindUnique = jest.fn().mockResolvedValue({});
 const mockCaseUpdate = jest.fn().mockResolvedValue({});
+const mockApplicationDetailsFindUnique = jest.fn().mockResolvedValue({});
 const mockZoomLevelFindUnique = jest.fn().mockResolvedValue({});
 const mockSubSectorFindUnique = jest.fn().mockResolvedValue({});
 const mockServiceCustomerFindUnique = jest.fn().mockResolvedValue({});
@@ -43,7 +44,9 @@ const mockDocumentFindFirst = jest.fn().mockResolvedValue({});
 const mockDocumentDelete = jest.fn().mockResolvedValue({});
 const mockDocumentMetadataCreate = jest.fn().mockResolvedValue({});
 const mockDocumentMetdataFindFirst = jest.fn().mockResolvedValue({});
+const mockDocumentMetdataFindUnique = jest.fn().mockResolvedValue({});
 const mockDocumentMetdataUpsert = jest.fn().mockResolvedValue({});
+const mockDocumentMetdataUpdate = jest.fn().mockResolvedValue({});
 
 class MockPrismaClient {
 	get appeal() {
@@ -98,6 +101,12 @@ class MockPrismaClient {
 		};
 	}
 
+	get applicationDetails() {
+		return {
+			findUnique: mockApplicationDetailsFindUnique
+		};
+	}
+
 	get document() {
 		return {
 			delete: mockDocumentDelete,
@@ -114,7 +123,9 @@ class MockPrismaClient {
 		return {
 			create: mockDocumentMetadataCreate,
 			findFirst: mockDocumentMetdataFindFirst,
-			upsert: mockDocumentMetdataUpsert
+			findUnique: mockDocumentMetdataFindUnique,
+			upsert: mockDocumentMetdataUpsert,
+			update: mockDocumentMetdataUpdate
 		};
 	}
 

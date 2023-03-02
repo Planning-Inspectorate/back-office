@@ -126,6 +126,7 @@ describe('Update application', () => {
 			id: 1,
 			serviceCustomer: [{ id: 2 }, { id: 3 }]
 		});
+		databaseConnector.applicationDetails.findUnique.mockResolvedValue({ id: 1, caseId: 1 });
 
 		databaseConnector.case.update.mockResolvedValue({});
 		databaseConnector.subSector.findUnique.mockResolvedValue({});
@@ -177,6 +178,9 @@ describe('Update application', () => {
 		// THEN
 		expect(response.status).toEqual(200);
 		expect(response.body).toEqual({ id: 1, applicantIds: [2, 3] });
+		expect(databaseConnector.applicationDetails.findUnique).toHaveBeenCalledWith({
+			where: { caseId: 1 }
+		});
 		expect(databaseConnector.regionsOnApplicationDetails.deleteMany).toHaveBeenCalledWith({
 			where: { applicationDetailsId: 1 }
 		});
