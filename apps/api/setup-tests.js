@@ -3,6 +3,7 @@ import { jest } from '@jest/globals';
 
 const mockCaseFindUnique = jest.fn().mockResolvedValue({});
 const mockCaseUpdate = jest.fn().mockResolvedValue({});
+const mockApplicationDetailsFindUnique = jest.fn().mockResolvedValue({});
 const mockZoomLevelFindUnique = jest.fn().mockResolvedValue({});
 const mockSubSectorFindUnique = jest.fn().mockResolvedValue({});
 const mockServiceCustomerFindUnique = jest.fn().mockResolvedValue({});
@@ -95,6 +96,12 @@ class MockPrismaClient {
 			create: mockCaseCreate,
 			count: mockCaseCount,
 			updateMany: mockCaseUpdateMany
+		};
+	}
+
+	get applicationDetails() {
+		return {
+			findUnique: mockApplicationDetailsFindUnique
 		};
 	}
 
