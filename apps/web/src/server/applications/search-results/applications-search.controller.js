@@ -1,4 +1,4 @@
-import { url } from '../../../lib/nunjucks-filters/index.js';
+import { url } from '../../lib/nunjucks-filters/index.js';
 import * as applicationsService from './application-search.service.js';
 
 /** @typedef {import('./applications-search.types.js').ApplicationsSearchResultsBody} ApplicationsSearchResultsBody */
@@ -8,8 +8,7 @@ import * as applicationsService from './application-search.service.js';
 /**
  * Search applications.
  *
- * @type {import('@pins/express').RenderHandler<ApplicationsSearchResultsProps,
-  {}, ApplicationsSearchResultsBody, {q: string}, {pageNumber: string}>} */
+  @type {import('@pins/express').RenderHandler<ApplicationsSearchResultsProps, {}, ApplicationsSearchResultsBody, {q: string}, {pageNumber: string}>} */
 export async function searchApplications(req, response) {
 	const { errors, body, params } = req;
 	const { query: bodyQuery } = body;
