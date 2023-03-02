@@ -7,34 +7,9 @@ import { applicationStates } from '../../../state-machine/application.machine.js
 
 const request = supertest(app);
 
-const documentMetadata = {
-	id: 1,
-	documentGuid: '1111-2222-3333',
-	horizonDataID: '',
-	version: '',
-	path: '',
-	virusCheckStatus: '',
-	fileMD5: '',
-	mime: '',
-	fileSize: 0,
-	fileType: '',
-	dateCreated: '',
-	lastModified: '',
-	datePublished: '',
-	documentType: '',
-	securityClassification: '',
-	sourceSystem: '',
-	origin: '',
-	owner: '',
-	author: '',
-	representative: '',
-	description: '',
-	stage: 1
-};
-
 describe('store Document metadata', () => {
 	beforeEach(() => {
-		jest.clearAllMocks();
+		jest.resetAllMocks();
 	});
 
 	test('This test case verifies that the metadata is correctly associated with the appropriate document and case when creating/updating document metadata.', async () => {
@@ -49,27 +24,65 @@ describe('store Document metadata', () => {
 			redacted: true
 		});
 
-		databaseConnector.documentMetadata.upsert.mockResolvedValue(documentMetadata);
+		databaseConnector.documentMetadata.upsert.mockResolvedValue({
+			version: 1,
+			createdAt: '2023-02-28T11:59:38.129Z',
+			lastModified: '2023-02-28T11:59:38.129Z',
+			documentGuid: '1111-2222-3333'
+		});
+		// azuread_auth_client_id
+		// azuread_auth_api_client_id
 
 		const { body, statusCode } = await request
 			.post('/applications/1/documents/1111-2222-3333/metadata')
-			.send(documentMetadata);
+			.send({
+				version: 1,
+				createdAt: '2023-02-28T11:59:38.129Z',
+				lastModified: '2023-02-28T11:59:38.129Z'
+			});
 
-		expect(body).toEqual(documentMetadata);
+		expect(body).toEqual({
+			version: 1,
+			createdAt: '2023-02-28T11:59:38.129Z',
+			lastModified: '2023-02-28T11:59:38.129Z',
+			documentGuid: '1111-2222-3333'
+		});
+
+		const upsertCalledWIth = {
+			version: 1,
+			createdAt: '2023-02-28T11:59:38.129Z',
+			lastModified: '2023-02-28T11:59:38.129Z',
+			documentGuid: '1111-2222-3333'
+		};
+
 		expect(statusCode).toEqual(200);
+
 		expect(databaseConnector.documentMetadata.upsert).toBeCalledWith({
 			create: {
-				...documentMetadata,
-				Document: { connect: { guid: documentMetadata?.documentGuid } }
+				...upsertCalledWIth,
+				Document: { connect: { guid: upsertCalledWIth?.documentGuid } }
 			},
-			where: { id: documentMetadata.id },
-			update: documentMetadata,
+			where: { documentGuid: upsertCalledWIth.documentGuid },
+			update: upsertCalledWIth,
 			include: {
-				Document: true
+				Document: {
+					include: {
+						folder: {
+							include: {
+								case: {
+									include: {
+										CaseStatus: true
+									}
+								}
+							}
+						}
+					}
+				}
 			}
 		});
 
 		expect(databaseConnector.document.findFirst).toHaveBeenCalledWith({
+			include: { documentMetadata: true },
 			where: {
 				guid: '1111-2222-3333',
 				isDeleted: false,
@@ -85,7 +98,7 @@ describe('store Document metadata', () => {
 
 		const { body, statusCode } = await request
 			.post('/applications/1/documents/1111-2222-3333/metadata')
-			.send(documentMetadata);
+			.send({ published: false });
 
 		expect(statusCode).toEqual(404);
 
@@ -96,6 +109,7 @@ describe('store Document metadata', () => {
 		expect(databaseConnector.documentMetadata.upsert).not.toBeCalled();
 
 		expect(databaseConnector.document.findFirst).toHaveBeenCalledWith({
+			include: { documentMetadata: true },
 			where: {
 				guid: '1111-2222-3333',
 				isDeleted: false,

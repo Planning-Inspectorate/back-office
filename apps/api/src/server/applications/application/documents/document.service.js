@@ -1,5 +1,6 @@
 import * as caseRepository from '../../../repositories/case.repository.js';
 import * as documentRepository from '../../../repositories/document.repository.js';
+import * as documentMetadataRepository from '../../../repositories/document-metadata.repository.js';
 import { getStorageLocation } from '../../../utils/document-storage-api-client.js';
 
 /**
@@ -66,6 +67,33 @@ const updateDocumentsWithContainersAndPaths = async (documents, blobStorageConta
 /**
  *
  * @param {{documentName: string, folderId: number, documentType: string, documentSize: number}[]} documentsToUpload
+ * @param {import('@pins/api').Schema.Document[]} documentsFromDatabase
+ * @returns {Promise<void>}}
+ */
+
+const upsertDocumentsMetadataToDatabase = async (documentsFromDatabase, documentsToUpload) => {
+	const guidMap = new Map();
+
+	for (const document of documentsFromDatabase) {
+		guidMap.set(document.name, document.guid);
+	}
+
+	const documentsMetadataToSendToDatabase = documentsToUpload.map((document) => ({
+		documentGuid: guidMap.get(document.documentName),
+		documentType: document.documentType,
+		size: document.documentSize
+	}));
+
+	await Promise.all(
+		documentsMetadataToSendToDatabase.map((metadata) => documentMetadataRepository.upsert(metadata))
+	);
+
+	guidMap.clear();
+};
+
+/**
+ *
+ * @param {{documentName: string, folderId: number, documentType: string, documentSize: number}[]} documentsToUpload
  * @param {number} caseId
  * @returns {Promise<{blobStorageHost: string, blobStorageContainer: string, documents: {blobStoreUrl: string, caseType: string, caseReference: string,documentName: string, GUID: string}[]}>}}
  */
@@ -79,6 +107,8 @@ export const obtainURLsForDocuments = async (documentsToUpload, caseId) => {
 	const documentsToSendToDatabase = mapDocumentsToSendToDatabase(documentsToUpload);
 
 	const documentsFromDatabase = await upsertDocumentsToDatabase(documentsToSendToDatabase);
+
+	await upsertDocumentsMetadataToDatabase(documentsFromDatabase, documentsToUpload);
 
 	const requestToDocumentStorage = mapDocumentsToSendToBlobStorage(
 		documentsFromDatabase,
