@@ -1,6 +1,6 @@
 import { Router as createRouter } from 'express';
-import asyncRoute from '../../../../lib/async-route.js';
-import { registerCaseWithQuery } from '../../../applications.locals.js';
+import asyncRoute from '../../../lib/async-route.js';
+import { registerCaseWithQuery } from '../../applications.locals.js';
 import * as controller from './applications-create-check-your-answers.controller.js';
 
 const applicationsCreateCheckYourAnswersRouter = createRouter();

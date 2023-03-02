@@ -5,7 +5,7 @@ import * as filters from './applications.filters.js';
 import * as guards from './applications.guards.js';
 import * as locals from './applications.locals.js';
 import applicationsCaseRouter from './case/applications-case.router.js';
-import applicationsCreateRouter from './pages/create-new-case/applications-create.router.js';
+import applicationsCreateRouter from './create-new-case/applications-create.router.js';
 import applicationsSearchRouter from './search-results/applications-search.router.js';
 
 const router = createRouter();

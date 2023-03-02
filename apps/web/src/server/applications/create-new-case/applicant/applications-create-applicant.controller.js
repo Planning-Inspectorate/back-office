@@ -1,4 +1,4 @@
-import { handleErrors } from '../../../common/components/error-handler/error-handler.component.js';
+import { handleErrors } from '../../common/components/error-handler/error-handler.component.js';
 import {
 	applicantAddressData,
 	applicantAddressDataUpdate,
@@ -12,16 +12,16 @@ import {
 	applicantTelephoneNumberDataUpdate,
 	applicantWebsiteData,
 	applicantWebsiteDataUpdate
-} from '../../../common/components/form/form-applicant.component.js';
+} from '../../common/components/form/form-applicant.component.js';
 import {
 	getSessionApplicantInfoTypes,
 	setSessionApplicantInfoTypes
-} from '../../../common/services/session.service.js';
+} from '../../common/services/session.service.js';
 import * as applicationsCreateApplicantService from './applications-create-applicant.service.js';
 
 /** @typedef {import('./applications-create-applicant.types.js').ApplicationsCreateApplicantTypesProps} ApplicationsCreateApplicantTypesProps */
 /** @typedef {import('./applications-create-applicant.types.js').ApplicationsCreateApplicantTypesBody} ApplicationsCreateApplicantTypesBody */
-/** @typedef {import('../../../common/services/session.service.js').SessionWithApplicationsCreateApplicantInfoTypes} SessionWithApplicationsCreateApplicantInfoTypes */
+/** @typedef {import('../../common/services/session.service.js').SessionWithApplicationsCreateApplicantInfoTypes} SessionWithApplicationsCreateApplicantInfoTypes */
 /** @typedef {import('./applications-create-applicant.types.js').ApplicationsCreateApplicantOrganisationNameProps} ApplicationsCreateApplicantOrganisationNameProps */
 /** @typedef {import('./applications-create-applicant.types.js').ApplicationsCreateApplicantOrganisationNameBody} ApplicationsCreateApplicantOrganisationNameBody */
 /** @typedef {import('./applications-create-applicant.types.js').ApplicationsCreateApplicantFullNameProps} ApplicationsCreateApplicantFullNameProps */
