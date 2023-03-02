@@ -2,6 +2,10 @@
 {% from "govuk/components/input/macro.njk" import govukInput %}
 {% from "govuk/components/button/macro.njk" import govukButton %}
 {% from "./edit/character-count-input.njk" import characterCountInput %}
+{% from "./edit/date-input.njk" import dateInput %}
+{% from "./edit/checkboxes-input.njk" import checkboxesInput %}
+
+
 {% block pageHeading %}{% endblock %}
 {% block beforeContent %}
     {{ govukBackLink({
@@ -25,9 +29,11 @@
     </form>
 {% endblock %}
 {% macro renderComponent(componentName) %}
-    {% if(componentName === 'received-date') %}
-        {{ dateInput(layout, documentMetaData[layout.metaDataName], errors) }}
+    {% if(componentName === 'received-date' or componentName === 'published-date') %}
+        {{ dateInput(layout, documentMetaData[layout.metaDataName]) }}
+    {% elif(componentName === 'redaction' or componentName === 'type') %}
+        {{ checkboxesInput(layout, documentMetaData[layout.metaDataName]) }}
     {% else %}
-        {{ characterCountInput(layout, documentMetaData[layout.metaDataName], errors) }}
+        {{ characterCountInput(layout, documentMetaData[layout.metaDataName]) }}
     {% endif %}
 {% endmacro %}
