@@ -1,5 +1,5 @@
-import pino from '../../../../lib/logger.js';
-import { handleErrors } from '../../../common/components/error-handler/error-handler.component.js';
+import pino from '../../../lib/logger.js';
+import { handleErrors } from '../../common/components/error-handler/error-handler.component.js';
 import {
 	caseGeographicalInformationData,
 	caseGeographicalInformationDataUpdate,
@@ -15,12 +15,12 @@ import {
 	caseTeamEmailDataUpdate,
 	caseZoomLevelData,
 	caseZoomLevelDataUpdate
-} from '../../../common/components/form/form-case.component.js';
+} from '../../common/components/form/form-case.component.js';
 import {
 	destroySessionCaseSectorName,
 	getSessionCaseHasNeverBeenResumed,
 	setSessionCaseSectorName
-} from '../../../common/services/session.service.js';
+} from '../../common/services/session.service.js';
 
 /** @typedef {import('./applications-create-case.types.js').ApplicationsCreateCaseNameProps} ApplicationsCreateCaseNameProps */
 /** @typedef {import('./applications-create-case.types.js').ApplicationsCreateCaseNameBody} ApplicationsCreateCaseNameBody */

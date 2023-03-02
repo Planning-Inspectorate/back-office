@@ -1,4 +1,4 @@
-import { post } from '../../../lib/request.js';
+import { post } from '../../lib/request.js';
 
 /** @typedef {import('@pins/express').ValidationErrors} ValidationErrors */
 

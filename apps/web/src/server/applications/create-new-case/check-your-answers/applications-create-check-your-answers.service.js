@@ -1,5 +1,5 @@
-import { addressToString } from '../../../../lib/address-formatter.js';
-import { nameToString } from '../../../../lib/person-name-formatter.js';
+import { addressToString } from '../../../lib/address-formatter.js';
+import { nameToString } from '../../../lib/person-name-formatter.js';
 import { getErrorMessageCaseCreate } from '../applications-create.service.js';
 
 /** @typedef {import('./applications-create-check-your-answers.types.js').ApplicationsCreateCheckYourAnswersProps} ApplicationsCreateCheckYourAnswersProps */
