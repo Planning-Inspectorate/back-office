@@ -18,7 +18,6 @@
 				},
 				id: [layout.metaDataName, '.day']|join,
 				name: [layout.metaDataName, '.day']|join,
-				value: values['keyDates.submissionDateInternal'] |datestamp({format: 'dd'})
 			}) }}
                 {{ govukInput({
 				label: {
@@ -27,7 +26,6 @@
 				},
 				id: [layout.metaDataName, '.month']|join,
 				name: [layout.metaDataName, '.month']|join,
-				value: values['keyDates.submissionDateInternal'] |datestamp({format: 'MM'})
 			}) }}
                 {{ govukInput({
 				label: {
@@ -36,7 +34,6 @@
 				},
 				id: [layout.metaDataName, '.year']|join,
 				name: [layout.metaDataName, '.year']|join,
-				value: values['keyDates.submissionDateInternal'] |datestamp({format: 'yyyy'})
 			}) }}
             </div>
         </div>
