@@ -1,6 +1,6 @@
 import { Router as createRouter } from 'express';
-import asyncRoute from '../../../lib/async-route.js';
-import { assertDomainTypeIsNotInspector } from '../create-new-case/applications-create.guards.js';
+import asyncRoute from '../../lib/async-route.js';
+import { assertDomainTypeIsNotInspector } from '../pages/create-new-case/applications-create.guards.js';
 import * as controller from './applications-case.controller.js';
 import * as locals from './applications-case.locals.js';
 import applicationsDocumentationRouter from './documentation/applications-documentation.router.js';

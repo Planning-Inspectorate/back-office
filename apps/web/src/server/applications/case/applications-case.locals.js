@@ -1,6 +1,6 @@
-import pino from '../../../lib/logger.js';
-import { url } from '../../../lib/nunjucks-filters/index.js';
-import { getCase } from '../../common/services/case.service.js';
+import pino from '../../lib/logger.js';
+import { url } from '../../lib/nunjucks-filters/index.js';
+import { getCase } from '../common/services/case.service.js';
 import {
 	getCaseDocumentationFolderPath,
 	getCaseFolder
@@ -10,12 +10,12 @@ import {
  * @typedef {object} ApplicationCaseLocals
  * @property {number} caseId
  * @property {number} folderId
- * @property {import('../../applications.types').Case} Case
+ * @property {import('../applications.types').Case} Case
  */
 
 /**
  * @typedef {object} FolderLocals
- * @property {import('../../applications.types').DocumentationCategory} currentFolder
+ * @property {import('../applications.types').DocumentationCategory} currentFolder
  * @property {Array<{href: string, text: string}>} breadcrumbItems
  */
 
