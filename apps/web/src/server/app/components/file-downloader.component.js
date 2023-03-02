@@ -1,6 +1,6 @@
 import { request } from 'node:https';
 import config from '../../../../environment/config.js';
-import { getCaseDocumentationFileInfo } from '../../applications/pages/case/documentation/applications-documentation.service.js';
+import { getCaseDocumentationFileInfo } from '../../applications/case/documentation/applications-documentation.service.js';
 import getActiveDirectoryAccessToken from '../../lib/active-directory-token.js';
 import createSasToken from '../../lib/sas-token.js';
 

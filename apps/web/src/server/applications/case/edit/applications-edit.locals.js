@@ -1,4 +1,4 @@
-import { url } from '../../../../lib/nunjucks-filters/index.js';
+import { url } from '../../../lib/nunjucks-filters/index.js';
 
 /**
  * Register the backpath for edit pages.
