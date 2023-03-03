@@ -1,5 +1,5 @@
 {% from "govuk/components/character-count/macro.njk" import govukCharacterCount %}
-{% macro characterCountInput(layout, value, errors) %}
+{% macro characterCountInput(layout, value) %}
 
 	{{ govukCharacterCount({
   		name: layout.metaDataName,
@@ -11,7 +11,6 @@
 		},
 		classes: "govuk-!-width-two-third",
 		value: value,
-		errorMessage: errors | errorMessage,
 		hint: {
 			text: layout.hint
 		}
