@@ -19,8 +19,10 @@
 					classes: 'govuk-!-margin-top-0',
 					items: breadcrumbItems
 				}) }}
-                <h2 class="govuk-caption-xl">Document properties</h2>
-                <h3 class="govuk-heading-xl">{{ documentationFile.documentName|documentName }}</h3>
+                <h1 class="govuk-heading-xl govuk-!-margin-top-4">
+                    <span class="govuk-caption-xl">Document properties</span>
+                    {{ documentationFile.documentName|documentName }}
+                </h1>
                 <ul class="govuk-list">
                     <li class="govuk-!-margin-top-7">{# documentationFile.description #}</li>
                     <li class="govuk-!-margin-top-4">Case reference: {{ case.reference }}</li>

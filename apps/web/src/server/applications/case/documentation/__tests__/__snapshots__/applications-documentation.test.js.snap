@@ -5516,8 +5516,7 @@ exports[`applications documentation Document properties page If the user is not 
                     </li>
                 </ol>
             </div>
-            <h2 class=\\"govuk-caption-xl\\">Document properties</h2>
-            <h3 class=\\"govuk-heading-xl\\">100 Elit sed do</h3>
+            <h1 class=\\"govuk-heading-xl govuk-!-margin-top-4\\"><span class=\\"govuk-caption-xl\\">Document properties</span> 100 Elit sed do</h1>
             <ul class=\\"govuk-list\\">
                 <li class=\\"govuk-!-margin-top-7\\"></li>
                 <li class=\\"govuk-!-margin-top-4\\">Case reference: CASE/04</li>
