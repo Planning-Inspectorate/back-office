@@ -31,6 +31,11 @@ export function createDocumentationFile({
 		startOffset: createUniqueRandomNumberFromSeed(0, 30, uniqueSeed)
 	})}.${type.ext}`;
 
+	const filter1 = `${createRandomDescription({
+		wordsNumber: createUniqueRandomNumberFromSeed(1, 2, uniqueSeed),
+		startOffset: createUniqueRandomNumberFromSeed(2, 15, uniqueSeed)
+	})}`;
+
 	const url = `url/to/file/${uniqueSeed}`;
 	const from = `${createRandomDescription({
 		wordsNumber: 1,
@@ -57,6 +62,7 @@ export function createDocumentationFile({
 
 	return {
 		guid,
+		filter1,
 		documentName,
 		url,
 		from,

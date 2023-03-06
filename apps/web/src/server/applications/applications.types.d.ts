@@ -106,4 +106,5 @@ export interface DocumentationFile {
 	redacted: boolean;
 	blobStorageContainer?: string;
 	blobStoragePath?: string;
+	filter1: string;
 }
