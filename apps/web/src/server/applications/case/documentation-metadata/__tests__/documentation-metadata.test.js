@@ -45,13 +45,105 @@ describe('Edit applications documentation metadata', () => {
 					await request.get('/applications-service/case-team');
 				});
 
-				it('should render the page', async () => {
+				it('should render the page with values', async () => {
 					const response = await request.get(`${baseUrl}/name`);
 					const element = parseHtml(response.text);
 
 					expect(element.innerHTML).toMatchSnapshot();
 					expect(element.innerHTML).toContain('Enter file name');
 				});
+			});
+		});
+
+		describe('POST /case/123/project-documentation/18/document/456/edit/name', () => {
+			beforeEach(async () => {
+				nocks();
+
+				await request.get('/applications-service/case-team');
+			});
+
+			it('should return an error if value is not defined', async () => {
+				const response = await request.post(`${baseUrl}/name`).send({
+					name: null
+				});
+				const element = parseHtml(response.text);
+
+				expect(element.innerHTML).toMatchSnapshot();
+				expect(element.innerHTML).toContain('There is a problem');
+				expect(element.innerHTML).toContain('Enter the file name');
+			});
+
+			it('should return an error if value length > 255', async () => {
+				const response = await request.post(`${baseUrl}/name`).send({
+					name: 'x'.repeat(256)
+				});
+				const element = parseHtml(response.text);
+
+				expect(element.innerHTML).toMatchSnapshot();
+				expect(element.innerHTML).toContain('There is a limit of 255 characters');
+			});
+
+			it('should redirect to document properties page if there is no error', async () => {
+				const response = await request.post(`${baseUrl}/name`).send({
+					name: 'a valid name'
+				});
+
+				expect(response?.headers?.location).toEqual('../properties');
+			});
+		});
+	});
+
+	describe('Edit description', () => {
+		describe('GET /case/123/project-documentation/18/document/456/edit/description', () => {
+			beforeEach(async () => {
+				nocks();
+
+				await request.get('/applications-service/case-team');
+			});
+
+			it('should render the page with values', async () => {
+				const response = await request.get(`${baseUrl}/description`);
+				const element = parseHtml(response.text);
+
+				expect(element.innerHTML).toMatchSnapshot();
+				expect(element.innerHTML).toContain('Description of the document');
+			});
+		});
+
+		describe('POST /case/123/project-documentation/18/document/456/edit/description', () => {
+			beforeEach(async () => {
+				nocks();
+
+				await request.get('/applications-service/case-team');
+			});
+
+			it('should return an error if value is not defined', async () => {
+				const response = await request.post(`${baseUrl}/description`).send({
+					description: null
+				});
+				const element = parseHtml(response.text);
+
+				expect(element.innerHTML).toMatchSnapshot();
+				expect(element.innerHTML).toContain('There is a problem');
+				expect(element.innerHTML).toContain('Enter the document description');
+			});
+
+			it('should return an error if value length > 800', async () => {
+				const response = await request.post(`${baseUrl}/description`).send({
+					name: 'x'.repeat(801)
+				});
+				const element = parseHtml(response.text);
+
+				expect(element.innerHTML).toMatchSnapshot();
+				expect(element.innerHTML).toContain('There is a limit of 800 characters');
+			});
+
+			it('should redirect to document properties page if there is no error', async () => {
+				const response = await request.post(`${baseUrl}/name`).send({
+					name: 'a valid description'
+				});
+
+				expect(response?.headers?.location).toEqual('../properties');
 			});
 		});
 	});
