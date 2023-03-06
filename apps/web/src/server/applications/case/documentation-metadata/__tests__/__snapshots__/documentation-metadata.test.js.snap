@@ -29,7 +29,7 @@ exports[`Edit applications documentation metadata Edit description POST /case/12
                 <h2 class=\\"govuk-error-summary__title\\" id=\\"error-summary-title\\"> There is a problem</h2>
                 <div class=\\"govuk-error-summary__body\\">
                     <ul class=\\"govuk-list govuk-error-summary__list\\">
-                        <li><a href=\\"#description\\">Enter the document description</a>
+                        <li><a href=\\"#description\\">You must enter a description of the document</a>
                         </li>
                     </ul>
                 </div>
@@ -41,9 +41,10 @@ exports[`Edit applications documentation metadata Edit description POST /case/12
         <div class=\\"govuk-form-group govuk-form-group--error\\">
             <label class=\\"govuk-label font-weight--700\\" for=\\"description\\">Description of the document</label>
             <div id=\\"description-hint\\" class=\\"govuk-hint\\">There is a limit of 800 characters</div>
-            <p id=\\"description-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> Enter the document description</p>
-            <input             class=\\"govuk-input govuk-!-width-two-thirds govuk-input--error\\" id=\\"description\\"
-            name=\\"description\\" type=\\"text\\" value=\\"Ut enim ad minim veniam quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.jpeg\\"
+            <p id=\\"description-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> You must enter a description
+                of the document</p>
+            <input class=\\"govuk-input govuk-!-width-two-thirds govuk-input--error\\"
+            id=\\"description\\" name=\\"description\\" type=\\"text\\" value=\\"Ut enim ad minim veniam quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.jpeg\\"
             aria-describedby=\\"description-hint description-error\\">
         </div>
         <div class=\\"govuk-grid-row\\">
@@ -133,7 +134,7 @@ exports[`Edit applications documentation metadata Edit name POST /case/123/proje
                 <h2 class=\\"govuk-error-summary__title\\" id=\\"error-summary-title\\"> There is a problem</h2>
                 <div class=\\"govuk-error-summary__body\\">
                     <ul class=\\"govuk-list govuk-error-summary__list\\">
-                        <li><a href=\\"#documentName\\">Enter the file name</a>
+                        <li><a href=\\"#documentName\\">You must enter a file name</a>
                         </li>
                     </ul>
                 </div>
@@ -145,9 +146,10 @@ exports[`Edit applications documentation metadata Edit name POST /case/123/proje
         <div class=\\"govuk-form-group govuk-form-group--error\\">
             <label class=\\"govuk-label font-weight--700\\" for=\\"documentName\\">What is the file name?</label>
             <div id=\\"documentName-hint\\" class=\\"govuk-hint\\">There is a limit of 255 characters</div>
-            <p id=\\"documentName-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> Enter the file name</p>
-            <input             class=\\"govuk-input govuk-!-width-two-thirds govuk-input--error\\" id=\\"documentName\\"
-            name=\\"documentName\\" type=\\"text\\" value=\\"1 Ut enim ad minim veniam.jpeg\\"
+            <p id=\\"documentName-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> You must enter a file
+                name</p>
+            <input class=\\"govuk-input govuk-!-width-two-thirds govuk-input--error\\"
+            id=\\"documentName\\" name=\\"documentName\\" type=\\"text\\" value=\\"1 Ut enim ad minim veniam.jpeg\\"
             aria-describedby=\\"documentName-hint documentName-error\\">
         </div>
         <div class=\\"govuk-grid-row\\">
