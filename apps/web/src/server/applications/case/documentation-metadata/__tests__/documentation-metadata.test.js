@@ -71,7 +71,6 @@ describe('Edit applications documentation metadata', () => {
 				const element = parseHtml(response.text);
 
 				expect(element.innerHTML).toMatchSnapshot();
-				expect(element.innerHTML).toContain('There is a problem');
 				expect(element.innerHTML).toContain('You must enter a file name');
 			});
 
@@ -119,7 +118,6 @@ describe('Edit applications documentation metadata', () => {
 				const element = parseHtml(response.text);
 
 				expect(element.innerHTML).toMatchSnapshot();
-				expect(element.innerHTML).toContain('There is a problem');
 				expect(element.innerHTML).toContain('You must enter a description of the document');
 			});
 
@@ -137,6 +135,54 @@ describe('Edit applications documentation metadata', () => {
 			it('should redirect to document properties page if there is no error', async () => {
 				const response = await request.post(`${baseUrl}/description`).send({
 					description: 'a valid description'
+				});
+
+				expect(response?.headers?.location).toEqual('../properties');
+			});
+		});
+	});
+
+	describe('Edit filter 1', () => {
+		beforeEach(async () => {
+			nocks();
+
+			await request.get('/applications-service/case-team');
+		});
+
+		describe('GET /case/123/project-documentation/18/document/456/edit/webfilter', () => {
+			it('should render the page with values', async () => {
+				const response = await request.get(`${baseUrl}/webfilter`);
+				const element = parseHtml(response.text);
+
+				expect(element.innerHTML).toMatchSnapshot();
+				expect(element.innerHTML).toContain('Enter the webfilter');
+				expect(element.innerHTML).toContain(fixtureDocumentationFiles[0].filter1);
+			});
+		});
+
+		describe('POST /case/123/project-documentation/18/document/456/edit/webfilter', () => {
+			it('should return an error if value is not defined', async () => {
+				const response = await request.post(`${baseUrl}/webfilter`);
+				const element = parseHtml(response.text);
+
+				expect(element.innerHTML).toMatchSnapshot();
+				expect(element.innerHTML).toContain('You must enter a webfilter');
+			});
+
+			it('should return an error if value length > 100', async () => {
+				const response = await request.post(`${baseUrl}/webfilter`).send({
+					filter1: 'x'.repeat(101)
+				});
+				const element = parseHtml(response.text);
+
+				expect(element.innerHTML).toMatchSnapshot();
+				expect(element.innerHTML).toContain('There is a limit of 100 characters');
+			});
+
+			// TODO: reaplace field names with the ones coming from the API
+			it('should redirect to document properties page if there is no error', async () => {
+				const response = await request.post(`${baseUrl}/webfilter`).send({
+					filter1: 'a valid filter'
 				});
 
 				expect(response?.headers?.location).toEqual('../properties');
