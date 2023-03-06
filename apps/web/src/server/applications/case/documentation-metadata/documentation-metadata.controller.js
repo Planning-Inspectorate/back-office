@@ -3,7 +3,7 @@ import { updateDocumentMetaData } from './documentation-metadata.service.js';
 
 /** @typedef {import('@pins/express').ValidationErrors} ValidationErrors */
 /** @typedef {"name" | "description"| "published-date" | "received-date"| "redaction"} MetaDataNames */
-/** @typedef {{label?: string, hint?: string, pageTitle: string, backLink?: string, metaDataName?: string, maxLength?: number, items?: {value: string, text: string}[]}} MetaDataLayoutParams */
+/** @typedef {{label?: string, hint?: string, pageTitle: string, backLink?: string, metaDataName?: string, items?: {value: string, text: string}[]}} MetaDataLayoutParams */
 /** @typedef {{documentGuid: string, metaDataName: MetaDataNames}} RequestParams */
 /** @typedef {{caseId: number, folderId: number }} ResponseLocals */
 
@@ -15,14 +15,12 @@ const layouts = {
 	name: {
 		label: 'What is the file name?',
 		hint: 'There is a limit of 255 characters',
-		pageTitle: 'Enter file name',
-		maxLength: 255
+		pageTitle: 'Enter file name'
 	},
 	description: {
 		label: 'Description of the document',
 		hint: 'There is a limit of 800 characters',
-		pageTitle: 'Enter document description',
-		maxLength: 800
+		pageTitle: 'Enter document description'
 	},
 	'published-date': {
 		label: 'Date document published',
