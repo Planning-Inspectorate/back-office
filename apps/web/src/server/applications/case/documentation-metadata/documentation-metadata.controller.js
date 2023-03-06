@@ -44,17 +44,18 @@ const layouts = {
 		metaDataName: 'redacted'
 	},
 	type: {
+		// TODO: values might change
 		items: [
 			{
-				value: 'rule_8_letter',
+				value: 'Rule 8 letter',
 				text: 'Rule 8 letter'
 			},
 			{
-				value: 'exam_library',
+				value: 'Exam library',
 				text: 'Exam library'
 			},
 			{
-				value: 'no_type',
+				value: '',
 				text: 'No document type'
 			}
 		],
