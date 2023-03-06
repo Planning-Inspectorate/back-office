@@ -5554,13 +5554,13 @@ exports[`applications documentation Document properties page If the user is not 
                                 </dd>
                             </div>
                             <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Description</dt>
-                                <dd class=\\"govuk-summary-list__value\\"></dd>
-                                <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/123/project-documentation/21/document/99/edit/description\\"> Change<span class=\\"govuk-visually-hidden\\"> Description</span></a>
-                                </dd>
+                                <dd class=\\"govuk-summary-list__value\\">Elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.pdf</dd>
+                                <dd                                 class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/123/project-documentation/21/document/99/edit/description\\"> Change<span class=\\"govuk-visually-hidden\\"> Description</span></a>
+                                    </dd>
                             </div>
                             <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> From</dt>
                                 <dd class=\\"govuk-summary-list__value\\"></dd>
-                                <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/123/project-documentation/21/document/99/edit/from\\"> Change<span class=\\"govuk-visually-hidden\\"> From</span></a>
+                                <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/123/project-documentation/21/document/99/edit/author\\"> Change<span class=\\"govuk-visually-hidden\\"> From</span></a>
                                 </dd>
                             </div>
                             <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Agent (optional)</dt>

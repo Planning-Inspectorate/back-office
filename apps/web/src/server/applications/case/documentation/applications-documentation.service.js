@@ -1,3 +1,4 @@
+import { fixtureDocumentationFiles } from '@pins/web/testing/applications/fixtures/documentation-files.js';
 import { get, patch, post } from '../../../lib/request.js';
 
 /**
@@ -96,7 +97,23 @@ export const updateCaseDocumentationFiles = async (caseId, { status, redacted, i
  * @returns {Promise<DocumentationFile>}
  */
 export const getCaseDocumentationFileInfo = async (caseId, fileGuid) => {
+	// TODO: remove this and replace is the function below
 	return get(`applications/${caseId}/documents/${fileGuid}`);
+};
+
+/**
+ * Get the blob storage info for the file with the given GUID
+ *
+ * @param {number} caseId
+ * @param {string} fileGuid
+ * @returns {Promise<*>}
+ */
+export const getCaseDocumentationFileInfoMOCKED = async (caseId, fileGuid) => {
+	return new Promise((resolve) => {
+		setTimeout(() => {
+			resolve({ ...fixtureDocumentationFiles[0], caseId, fileGuid });
+		}, 500);
+	});
 };
 
 /**

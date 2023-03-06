@@ -1,6 +1,6 @@
 {% from "govuk/components/input/macro.njk" import govukInput %}
 
-{% macro characterCountInput(layout, value, errors) %}
+{% macro textInput(layout, value, errors) %}
 	{{ govukInput({
   		name: layout.metaDataName,
   		id: layout.metaDataName,
@@ -9,7 +9,7 @@
 			classes: 'font-weight--700'
 		},
 		classes: "govuk-!-width-two-thirds",
-		errorMessage: errors.name | errorMessage,
+		errorMessage: errors[layout.metaDataName] | errorMessage,
 		value: value,
 		hint: {
 			text: layout.hint
