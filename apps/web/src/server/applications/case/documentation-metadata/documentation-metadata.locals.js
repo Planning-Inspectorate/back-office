@@ -1,4 +1,4 @@
-import { getDocumentMetaData } from './documentation-metadata.service.js';
+import { getCaseDocumentationFileInfoMOCKED } from '../documentation/applications-documentation.service.js';
 
 /**
  * Register url parameters.
@@ -23,7 +23,10 @@ export const registerUrlParameters = async ({ params }, response, next) => {
 export const registerDocumentMetaData = async ({ params }, response, next) => {
 	const { caseId, documentGuid } = params;
 
-	const documentMetaData = await getDocumentMetaData(Number.parseInt(caseId, 10), documentGuid);
+	const documentMetaData = await getCaseDocumentationFileInfoMOCKED(
+		Number.parseInt(caseId, 10),
+		documentGuid
+	);
 
 	response.locals.documentMetaData = documentMetaData;
 
