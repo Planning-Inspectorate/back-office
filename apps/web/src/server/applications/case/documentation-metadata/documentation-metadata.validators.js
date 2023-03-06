@@ -24,8 +24,9 @@ export const validatorsDispatcher = async (request, response, next) => {
 	return next();
 };
 
+// TODO: replace with correct fieldName
 export const validateDocumentationMetaName = createValidator(
-	body('name')
+	body('documentName')
 		.trim()
 		.isLength({ min: 1 })
 		.withMessage('Enter the file name')
