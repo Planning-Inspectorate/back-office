@@ -193,7 +193,7 @@ extends:
           - template: ../steps/node_script.yml
             parameters:
               nodeVersion: 16
-              script: npm install --only=prod --workspace=@pins/odw-integration-functions
+              script: npm install $(npm pack $(Build.Repository.LocalPath)/packages/blob-storage-client) $(npm pack $(Build.Repository.LocalPath)/packages/platform) --only=prod --workspace=@pins/odw-integration-functions
               workingDirectory: $(Build.Repository.LocalPath)
           - script: |
               source ~/.bashrc
