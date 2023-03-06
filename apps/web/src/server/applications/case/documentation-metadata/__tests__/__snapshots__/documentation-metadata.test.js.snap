@@ -100,17 +100,17 @@ exports[`Edit applications documentation metadata Edit document type GET /case/1
             <div class=\\"govuk-radios\\" data-module=\\"govuk-radios\\">
                 <div class=\\"govuk-radios__item\\">
                     <input class=\\"govuk-radios__input\\" id=\\"type\\" name=\\"type\\" type=\\"radio\\"
-                    value=\\"rule_8_letter\\">
+                    value=\\"Rule 8 letter\\">
                     <label class=\\"govuk-label govuk-radios__label\\" for=\\"type\\">Rule 8 letter</label>
                 </div>
                 <div class=\\"govuk-radios__item\\">
                     <input class=\\"govuk-radios__input\\" id=\\"type-2\\" name=\\"type\\" type=\\"radio\\"
-                    value=\\"exam_library\\">
+                    value=\\"Exam library\\">
                     <label class=\\"govuk-label govuk-radios__label\\" for=\\"type-2\\">Exam library</label>
                 </div>
                 <div class=\\"govuk-radios__item\\">
                     <input class=\\"govuk-radios__input\\" id=\\"type-3\\" name=\\"type\\" type=\\"radio\\"
-                    value=\\"no_type\\">
+                    value=\\"\\">
                     <label class=\\"govuk-label govuk-radios__label\\" for=\\"type-3\\">No document type</label>
                 </div>
             </div>
