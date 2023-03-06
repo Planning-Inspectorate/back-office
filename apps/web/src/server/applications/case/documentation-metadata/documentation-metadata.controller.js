@@ -2,8 +2,8 @@ import { url } from '../../../lib/nunjucks-filters/url.js';
 import { updateDocumentMetaData } from './documentation-metadata.service.js';
 
 /** @typedef {import('@pins/express').ValidationErrors} ValidationErrors */
-/** @typedef {"name" | "description"| "published-date" | "received-date"| "redaction"} MetaDataNames */
-/** @typedef {{label?: string, metaDataName: string, hint?: string, pageTitle: string, backLink?: string, items?: {value: string, text: string}[]}} MetaDataLayoutParams */
+/** @typedef {"name" | "description"| "published-date" | "received-date"| "redaction" |"type"} MetaDataNames */
+/** @typedef {{label?: string, metaDataName: string, hint?: string, pageTitle: string, backLink?: string, items?: {value: boolean|string, text: string}[]}} MetaDataLayoutParams */
 /** @typedef {{documentGuid: string, metaDataName: MetaDataNames}} RequestParams */
 /** @typedef {{caseId: number, folderId: number }} ResponseLocals */
 
@@ -37,11 +37,29 @@ const layouts = {
 	},
 	redaction: {
 		items: [
-			{ value: 'redacted', text: 'Redacted' },
-			{ value: 'unredacted', text: 'Unredacted' }
+			{ value: true, text: 'Redacted' },
+			{ value: false, text: 'Unredacted' }
 		],
 		pageTitle: 'Select the redaction status',
 		metaDataName: 'redacted'
+	},
+	type: {
+		items: [
+			{
+				value: 'rule_8_letter',
+				text: 'Rule 8 letter'
+			},
+			{
+				value: 'exam_library',
+				text: 'Exam library'
+			},
+			{
+				value: 'no_type',
+				text: 'No document type'
+			}
+		],
+		metaDataName: 'type',
+		pageTitle: 'Select the document type'
 	}
 };
 
