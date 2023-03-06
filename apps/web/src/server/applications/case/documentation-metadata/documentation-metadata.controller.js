@@ -2,7 +2,7 @@ import { url } from '../../../lib/nunjucks-filters/url.js';
 import { updateDocumentMetaData } from './documentation-metadata.service.js';
 
 /** @typedef {import('@pins/express').ValidationErrors} ValidationErrors */
-/** @typedef {"name" | "description"| "published-date" | "received-date"| "redaction" |"type"} MetaDataNames */
+/** @typedef {"name" | "description"| "published-date" | "received-date"| "redaction" |"type"|"webfilter"} MetaDataNames */
 /** @typedef {{label?: string, metaDataName: string, hint?: string, pageTitle: string, backLink?: string, items?: {value: boolean|string, text: string}[]}} MetaDataLayoutParams */
 /** @typedef {{documentGuid: string, metaDataName: MetaDataNames}} RequestParams */
 /** @typedef {{caseId: number, folderId: number }} ResponseLocals */
@@ -22,6 +22,12 @@ const layouts = {
 		hint: 'There is a limit of 800 characters',
 		pageTitle: 'Enter document description',
 		metaDataName: 'description'
+	},
+	webfilter: {
+		label: 'Webfilter',
+		hint: 'There is a limit of 100 characters',
+		pageTitle: 'Enter the webfilter',
+		metaDataName: 'filter1'
 	},
 	'published-date': {
 		label: 'Date document published',
