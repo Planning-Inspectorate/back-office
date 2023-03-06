@@ -72,7 +72,7 @@ describe('Edit applications documentation metadata', () => {
 
 				expect(element.innerHTML).toMatchSnapshot();
 				expect(element.innerHTML).toContain('There is a problem');
-				expect(element.innerHTML).toContain('Enter the file name');
+				expect(element.innerHTML).toContain('You must enter a file name');
 			});
 
 			it('should return an error if value length > 255', async () => {
@@ -128,7 +128,7 @@ describe('Edit applications documentation metadata', () => {
 
 				expect(element.innerHTML).toMatchSnapshot();
 				expect(element.innerHTML).toContain('There is a problem');
-				expect(element.innerHTML).toContain('Enter the document description');
+				expect(element.innerHTML).toContain('You must enter a description of the document');
 			});
 
 			it('should return an error if value length > 800', async () => {
