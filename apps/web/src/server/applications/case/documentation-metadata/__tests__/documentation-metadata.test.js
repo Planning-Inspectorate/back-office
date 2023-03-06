@@ -96,13 +96,13 @@ describe('Edit applications documentation metadata', () => {
 	});
 
 	describe('Edit description', () => {
+		beforeEach(async () => {
+			nocks();
+
+			await request.get('/applications-service/case-team');
+		});
+
 		describe('GET /case/123/project-documentation/18/document/456/edit/description', () => {
-			beforeEach(async () => {
-				nocks();
-
-				await request.get('/applications-service/case-team');
-			});
-
 			it('should render the page with values', async () => {
 				const response = await request.get(`${baseUrl}/description`);
 				const element = parseHtml(response.text);
@@ -114,16 +114,8 @@ describe('Edit applications documentation metadata', () => {
 		});
 
 		describe('POST /case/123/project-documentation/18/document/456/edit/description', () => {
-			beforeEach(async () => {
-				nocks();
-
-				await request.get('/applications-service/case-team');
-			});
-
 			it('should return an error if value is not defined', async () => {
-				const response = await request.post(`${baseUrl}/description`).send({
-					description: null
-				});
+				const response = await request.post(`${baseUrl}/description`);
 				const element = parseHtml(response.text);
 
 				expect(element.innerHTML).toMatchSnapshot();
@@ -146,6 +138,69 @@ describe('Edit applications documentation metadata', () => {
 				const response = await request.post(`${baseUrl}/description`).send({
 					description: 'a valid description'
 				});
+
+				expect(response?.headers?.location).toEqual('../properties');
+			});
+		});
+	});
+
+	describe('Edit redaction status', () => {
+		beforeEach(async () => {
+			nocks();
+
+			await request.get('/applications-service/case-team');
+		});
+
+		describe('GET /case/123/project-documentation/18/document/456/edit/redaction', () => {
+			it('should render the page with values', async () => {
+				const response = await request.get(`${baseUrl}/redaction`);
+				const element = parseHtml(response.text);
+
+				expect(element.innerHTML).toMatchSnapshot();
+				expect(element.innerHTML).toContain('Select the redaction status');
+				expect(element.innerHTML).toContain(`value="true" checked`);
+			});
+		});
+
+		describe('POST /case/123/project-documentation/18/document/456/edit/redaction', () => {
+			it('should return an error if value is not defined', async () => {
+				const response = await request.post(`${baseUrl}/redaction`);
+				const element = parseHtml(response.text);
+
+				expect(element.innerHTML).toMatchSnapshot();
+				expect(element.innerHTML).toContain('There is a problem');
+				expect(element.innerHTML).toContain('You must select a redaction status');
+			});
+
+			it('should redirect to document properties page if there is no error', async () => {
+				const response = await request.post(`${baseUrl}/redaction`).send({
+					redacted: true
+				});
+
+				expect(response?.headers?.location).toEqual('../properties');
+			});
+		});
+	});
+
+	describe('Edit document type', () => {
+		beforeEach(async () => {
+			nocks();
+
+			await request.get('/applications-service/case-team');
+		});
+		describe('GET /case/123/project-documentation/18/document/456/edit/type', () => {
+			it('should render the page with values', async () => {
+				const response = await request.get(`${baseUrl}/type`);
+				const element = parseHtml(response.text);
+
+				expect(element.innerHTML).toMatchSnapshot();
+				expect(element.innerHTML).toContain('Select the document type');
+			});
+		});
+
+		describe('POST /case/123/project-documentation/18/document/456/edit/type', () => {
+			it('should redirect to document properties page if there is no error', async () => {
+				const response = await request.post(`${baseUrl}/type`);
 
 				expect(response?.headers?.location).toEqual('../properties');
 			});

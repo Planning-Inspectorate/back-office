@@ -92,6 +92,38 @@ exports[`Edit applications documentation metadata Edit description POST /case/12
 </main>"
 `;
 
+exports[`Edit applications documentation metadata Edit document type GET /case/123/project-documentation/18/document/456/edit/type should render the page with values 1`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <h1 class=\\"govuk-heading-l\\"> Select the document type</h1>
+    <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
+        <div class=\\"govuk-form-group\\">
+            <div class=\\"govuk-radios\\" data-module=\\"govuk-radios\\">
+                <div class=\\"govuk-radios__item\\">
+                    <input class=\\"govuk-radios__input\\" id=\\"type\\" name=\\"type\\" type=\\"radio\\"
+                    value=\\"rule_8_letter\\">
+                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"type\\">Rule 8 letter</label>
+                </div>
+                <div class=\\"govuk-radios__item\\">
+                    <input class=\\"govuk-radios__input\\" id=\\"type-2\\" name=\\"type\\" type=\\"radio\\"
+                    value=\\"exam_library\\">
+                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"type-2\\">Exam library</label>
+                </div>
+                <div class=\\"govuk-radios__item\\">
+                    <input class=\\"govuk-radios__input\\" id=\\"type-3\\" name=\\"type\\" type=\\"radio\\"
+                    value=\\"no_type\\">
+                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"type-3\\">No document type</label>
+                </div>
+            </div>
+        </div>
+        <div class=\\"govuk-grid-row\\">
+            <div class=\\"govuk-button-group pins-button-group govuk-grid-column-one-half\\">
+                <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and return</button>
+            </div>
+        </div>
+    </form>
+</main>"
+`;
+
 exports[`Edit applications documentation metadata Edit name GET /case/123/project-documentation/18/document/456/edit/name If user is inspector should not render the page 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"govuk-grid-row\\">
@@ -187,6 +219,76 @@ exports[`Edit applications documentation metadata Edit name POST /case/123/proje
             <input class=\\"govuk-input govuk-!-width-two-thirds govuk-input--error\\"
             id=\\"documentName\\" name=\\"documentName\\" type=\\"text\\" value=\\"1 Ut enim ad minim veniam.jpeg\\"
             aria-describedby=\\"documentName-hint documentName-error\\">
+        </div>
+        <div class=\\"govuk-grid-row\\">
+            <div class=\\"govuk-button-group pins-button-group govuk-grid-column-one-half\\">
+                <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and return</button>
+            </div>
+        </div>
+    </form>
+</main>"
+`;
+
+exports[`Edit applications documentation metadata Edit redaction status GET /case/123/project-documentation/18/document/456/edit/redaction should render the page with values 1`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <h1 class=\\"govuk-heading-l\\"> Select the redaction status</h1>
+    <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
+        <div class=\\"govuk-form-group\\">
+            <div class=\\"govuk-radios\\" data-module=\\"govuk-radios\\">
+                <div class=\\"govuk-radios__item\\">
+                    <input class=\\"govuk-radios__input\\" id=\\"redacted\\" name=\\"redacted\\" type=\\"radio\\"
+                    value=\\"true\\" checked>
+                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"redacted\\">Redacted</label>
+                </div>
+                <div class=\\"govuk-radios__item\\">
+                    <input class=\\"govuk-radios__input\\" id=\\"redacted-2\\" name=\\"redacted\\" type=\\"radio\\"
+                    value=\\"false\\">
+                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"redacted-2\\">Unredacted</label>
+                </div>
+            </div>
+        </div>
+        <div class=\\"govuk-grid-row\\">
+            <div class=\\"govuk-button-group pins-button-group govuk-grid-column-one-half\\">
+                <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and return</button>
+            </div>
+        </div>
+    </form>
+</main>"
+`;
+
+exports[`Edit applications documentation metadata Edit redaction status POST /case/123/project-documentation/18/document/456/edit/redaction should return an error if value is not defined 1`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <div class=\\"govuk-grid-row\\">
+        <div class=\\"govuk-grid-column-two-thirds\\">
+            <div class=\\"govuk-error-summary\\" aria-labelledby=\\"error-summary-title\\"
+            role=\\"alert\\" data-module=\\"govuk-error-summary\\">
+                <h2 class=\\"govuk-error-summary__title\\" id=\\"error-summary-title\\"> There is a problem</h2>
+                <div class=\\"govuk-error-summary__body\\">
+                    <ul class=\\"govuk-list govuk-error-summary__list\\">
+                        <li><a href=\\"#redacted\\">You must select a redaction status</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <h1 class=\\"govuk-heading-l\\"> Select the redaction status</h1>
+    <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
+        <div class=\\"govuk-form-group govuk-form-group--error\\">
+            <p id=\\"redacted-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> You must select a redaction
+                status</p>
+            <div class=\\"govuk-radios\\" data-module=\\"govuk-radios\\">
+                <div class=\\"govuk-radios__item\\">
+                    <input class=\\"govuk-radios__input\\" id=\\"redacted\\" name=\\"redacted\\" type=\\"radio\\"
+                    value=\\"true\\" checked>
+                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"redacted\\">Redacted</label>
+                </div>
+                <div class=\\"govuk-radios__item\\">
+                    <input class=\\"govuk-radios__input\\" id=\\"redacted-2\\" name=\\"redacted\\" type=\\"radio\\"
+                    value=\\"false\\">
+                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"redacted-2\\">Unredacted</label>
+                </div>
+            </div>
         </div>
         <div class=\\"govuk-grid-row\\">
             <div class=\\"govuk-button-group pins-button-group govuk-grid-column-one-half\\">
