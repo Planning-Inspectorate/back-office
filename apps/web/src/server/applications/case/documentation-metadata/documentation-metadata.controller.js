@@ -3,41 +3,45 @@ import { updateDocumentMetaData } from './documentation-metadata.service.js';
 
 /** @typedef {import('@pins/express').ValidationErrors} ValidationErrors */
 /** @typedef {"name" | "description"| "published-date" | "received-date"| "redaction"} MetaDataNames */
-/** @typedef {{label?: string, hint?: string, pageTitle: string, backLink?: string, metaDataName?: string, items?: {value: string, text: string}[]}} MetaDataLayoutParams */
+/** @typedef {{label?: string, metaDataName: string, hint?: string, pageTitle: string, backLink?: string, items?: {value: string, text: string}[]}} MetaDataLayoutParams */
 /** @typedef {{documentGuid: string, metaDataName: MetaDataNames}} RequestParams */
 /** @typedef {{caseId: number, folderId: number }} ResponseLocals */
 
-// TODO: the current layouts list is needed for testing purposes,
-// will be checked and completed for every page
+// TODO: replace the metadataname field witht the correct field name from api
 
 /** @type {Record<MetaDataNames, MetaDataLayoutParams>} */
 const layouts = {
 	name: {
 		label: 'What is the file name?',
 		hint: 'There is a limit of 255 characters',
-		pageTitle: 'Enter file name'
+		pageTitle: 'Enter file name',
+		metaDataName: 'documentName'
 	},
 	description: {
 		label: 'Description of the document',
 		hint: 'There is a limit of 800 characters',
-		pageTitle: 'Enter document description'
+		pageTitle: 'Enter document description',
+		metaDataName: 'description'
 	},
 	'published-date': {
 		label: 'Date document published',
 		hint: 'for example, 27 03 2023',
-		pageTitle: 'Enter the document published date'
+		pageTitle: 'Enter the document published date',
+		metaDataName: 'publishedDate'
 	},
 	'received-date': {
 		label: 'Date document received',
 		hint: 'for example, 27 03 2023',
-		pageTitle: 'Enter the document receipt date'
+		pageTitle: 'Enter the document receipt date',
+		metaDataName: 'receivedDate'
 	},
 	redaction: {
 		items: [
 			{ value: 'redacted', text: 'Redacted' },
 			{ value: 'unredacted', text: 'Unredacted' }
 		],
-		pageTitle: 'Select the redaction status'
+		pageTitle: 'Select the redaction status',
+		metaDataName: 'redacted'
 	}
 };
 
@@ -106,5 +110,5 @@ const getLayoutParameters = (requestParameters, responseLocals) => {
 
 	const layout = layouts[metaDataName];
 
-	return { ...layout, backLink, metaDataName };
+	return { ...layout, backLink };
 };

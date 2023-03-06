@@ -1,4 +1,5 @@
 import { parseHtml } from '@pins/platform';
+import { fixtureDocumentationFiles } from '@pins/web/testing/applications/fixtures/documentation-files.js';
 import nock from 'nock';
 import supertest from 'supertest';
 import { createTestEnvironment } from '../../../../../../testing/index.js';
@@ -51,6 +52,7 @@ describe('Edit applications documentation metadata', () => {
 
 					expect(element.innerHTML).toMatchSnapshot();
 					expect(element.innerHTML).toContain('Enter file name');
+					expect(element.innerHTML).toContain(fixtureDocumentationFiles[0].documentName);
 				});
 			});
 		});
@@ -64,7 +66,7 @@ describe('Edit applications documentation metadata', () => {
 
 			it('should return an error if value is not defined', async () => {
 				const response = await request.post(`${baseUrl}/name`).send({
-					name: null
+					documentName: null
 				});
 				const element = parseHtml(response.text);
 
@@ -75,7 +77,7 @@ describe('Edit applications documentation metadata', () => {
 
 			it('should return an error if value length > 255', async () => {
 				const response = await request.post(`${baseUrl}/name`).send({
-					name: 'x'.repeat(256)
+					documentName: 'x'.repeat(256)
 				});
 				const element = parseHtml(response.text);
 
@@ -85,7 +87,7 @@ describe('Edit applications documentation metadata', () => {
 
 			it('should redirect to document properties page if there is no error', async () => {
 				const response = await request.post(`${baseUrl}/name`).send({
-					name: 'a valid name'
+					documentName: 'a valid name'
 				});
 
 				expect(response?.headers?.location).toEqual('../properties');
@@ -107,6 +109,7 @@ describe('Edit applications documentation metadata', () => {
 
 				expect(element.innerHTML).toMatchSnapshot();
 				expect(element.innerHTML).toContain('Description of the document');
+				expect(element.innerHTML).toContain(fixtureDocumentationFiles[0].description);
 			});
 		});
 
@@ -130,7 +133,7 @@ describe('Edit applications documentation metadata', () => {
 
 			it('should return an error if value length > 800', async () => {
 				const response = await request.post(`${baseUrl}/description`).send({
-					name: 'x'.repeat(801)
+					description: 'x'.repeat(801)
 				});
 				const element = parseHtml(response.text);
 
@@ -138,9 +141,10 @@ describe('Edit applications documentation metadata', () => {
 				expect(element.innerHTML).toContain('There is a limit of 800 characters');
 			});
 
+			// TODO: reaplace field names with the ones coming from the API
 			it('should redirect to document properties page if there is no error', async () => {
-				const response = await request.post(`${baseUrl}/name`).send({
-					name: 'a valid description'
+				const response = await request.post(`${baseUrl}/description`).send({
+					description: 'a valid description'
 				});
 
 				expect(response?.headers?.location).toEqual('../properties');

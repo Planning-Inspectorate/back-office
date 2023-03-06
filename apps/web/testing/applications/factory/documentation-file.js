@@ -40,6 +40,11 @@ export function createDocumentationFile({
 		startOffset: createUniqueRandomNumberFromSeed(5, 20, uniqueSeed)
 	})}`;
 
+	const description = `${createRandomDescription({
+		wordsNumber: createUniqueRandomNumberFromSeed(2, 40, uniqueSeed),
+		startOffset: createUniqueRandomNumberFromSeed(0, 30, uniqueSeed)
+	})}.${type.ext}`;
+
 	const status = [
 		'user_checked',
 		'not_user_checked',
@@ -57,6 +62,7 @@ export function createDocumentationFile({
 		from,
 		receivedDate,
 		size,
+		description,
 		type: type.mime,
 		status,
 		redacted
