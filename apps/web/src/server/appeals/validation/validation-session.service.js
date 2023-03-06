@@ -32,7 +32,7 @@ const getState = (session) => session.validation || {};
  *
  * @param {SessionWithInspector} session
  * @param {number} appealId
- * @returns {(InitialReviewOutcomeState | ReviewOutcomeState)=}
+ * @returns {(InitialReviewOutcomeState | ReviewOutcomeState)|void}
  */
 const getReviewOutcomeState = (session, appealId) => {
 	const { reviewOutcome } = getState(session);
