@@ -29,7 +29,7 @@ export const validateDocumentationMetaName = createValidator(
 	body('documentName')
 		.trim()
 		.isLength({ min: 1 })
-		.withMessage('Enter the file name')
+		.withMessage('You must enter a file name')
 		.isLength({ max: 255 })
 		.withMessage('The name must be 255 characters or fewer')
 );
@@ -38,7 +38,7 @@ export const validateDocumentationMetaDescription = createValidator(
 	body('description')
 		.trim()
 		.isLength({ min: 1 })
-		.withMessage('Enter the document description')
+		.withMessage('You must enter a description of the document')
 		.isLength({ max: 800 })
 		.withMessage('The description must be 800 characters or fewer')
 );
