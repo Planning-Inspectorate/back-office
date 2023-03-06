@@ -8,7 +8,8 @@ exports[`Edit applications documentation metadata Edit description GET /case/123
             <label class=\\"govuk-label font-weight--700\\" for=\\"description\\">Description of the document</label>
             <div id=\\"description-hint\\" class=\\"govuk-hint\\">There is a limit of 800 characters</div>
             <input class=\\"govuk-input govuk-!-width-two-thirds\\"
-            id=\\"description\\" name=\\"description\\" type=\\"text\\" value=\\"A description\\" aria-describedby=\\"description-hint\\">
+            id=\\"description\\" name=\\"description\\" type=\\"text\\" value=\\"Ut enim ad minim veniam quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.jpeg\\"
+            aria-describedby=\\"description-hint\\">
         </div>
         <div class=\\"govuk-grid-row\\">
             <div class=\\"govuk-button-group pins-button-group govuk-grid-column-one-half\\">
@@ -37,11 +38,13 @@ exports[`Edit applications documentation metadata Edit description POST /case/12
     </div>
     <h1 class=\\"govuk-heading-l\\"> Enter document description</h1>
     <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
-        <div class=\\"govuk-form-group\\">
+        <div class=\\"govuk-form-group govuk-form-group--error\\">
             <label class=\\"govuk-label font-weight--700\\" for=\\"description\\">Description of the document</label>
             <div id=\\"description-hint\\" class=\\"govuk-hint\\">There is a limit of 800 characters</div>
-            <input class=\\"govuk-input govuk-!-width-two-thirds\\"
-            id=\\"description\\" name=\\"description\\" type=\\"text\\" value=\\"A description\\" aria-describedby=\\"description-hint\\">
+            <p id=\\"description-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> Enter the document description</p>
+            <input             class=\\"govuk-input govuk-!-width-two-thirds govuk-input--error\\" id=\\"description\\"
+            name=\\"description\\" type=\\"text\\" value=\\"Ut enim ad minim veniam quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.jpeg\\"
+            aria-describedby=\\"description-hint description-error\\">
         </div>
         <div class=\\"govuk-grid-row\\">
             <div class=\\"govuk-button-group pins-button-group govuk-grid-column-one-half\\">
@@ -61,7 +64,7 @@ exports[`Edit applications documentation metadata Edit description POST /case/12
                 <h2 class=\\"govuk-error-summary__title\\" id=\\"error-summary-title\\"> There is a problem</h2>
                 <div class=\\"govuk-error-summary__body\\">
                     <ul class=\\"govuk-list govuk-error-summary__list\\">
-                        <li><a href=\\"#description\\">Enter the document description</a>
+                        <li><a href=\\"#description\\">The description must be 800 characters or fewer</a>
                         </li>
                     </ul>
                 </div>
@@ -70,11 +73,14 @@ exports[`Edit applications documentation metadata Edit description POST /case/12
     </div>
     <h1 class=\\"govuk-heading-l\\"> Enter document description</h1>
     <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
-        <div class=\\"govuk-form-group\\">
+        <div class=\\"govuk-form-group govuk-form-group--error\\">
             <label class=\\"govuk-label font-weight--700\\" for=\\"description\\">Description of the document</label>
             <div id=\\"description-hint\\" class=\\"govuk-hint\\">There is a limit of 800 characters</div>
-            <input class=\\"govuk-input govuk-!-width-two-thirds\\"
-            id=\\"description\\" name=\\"description\\" type=\\"text\\" value=\\"A description\\" aria-describedby=\\"description-hint\\">
+            <p id=\\"description-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> The description must
+                be 800 characters or fewer</p>
+            <input class=\\"govuk-input govuk-!-width-two-thirds govuk-input--error\\"
+            id=\\"description\\" name=\\"description\\" type=\\"text\\" value=\\"Ut enim ad minim veniam quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.jpeg\\"
+            aria-describedby=\\"description-hint description-error\\">
         </div>
         <div class=\\"govuk-grid-row\\">
             <div class=\\"govuk-button-group pins-button-group govuk-grid-column-one-half\\">
@@ -103,10 +109,11 @@ exports[`Edit applications documentation metadata Edit name GET /case/123/projec
     <h1 class=\\"govuk-heading-l\\"> Enter file name</h1>
     <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
         <div class=\\"govuk-form-group\\">
-            <label class=\\"govuk-label font-weight--700\\" for=\\"name\\">What is the file name?</label>
-            <div id=\\"name-hint\\" class=\\"govuk-hint\\">There is a limit of 255 characters</div>
+            <label class=\\"govuk-label font-weight--700\\" for=\\"documentName\\">What is the file name?</label>
+            <div id=\\"documentName-hint\\" class=\\"govuk-hint\\">There is a limit of 255 characters</div>
             <input class=\\"govuk-input govuk-!-width-two-thirds\\"
-            id=\\"name\\" name=\\"name\\" type=\\"text\\" value=\\"A title\\" aria-describedby=\\"name-hint\\">
+            id=\\"documentName\\" name=\\"documentName\\" type=\\"text\\" value=\\"1 Ut enim ad minim veniam.jpeg\\"
+            aria-describedby=\\"documentName-hint\\">
         </div>
         <div class=\\"govuk-grid-row\\">
             <div class=\\"govuk-button-group pins-button-group govuk-grid-column-one-half\\">
@@ -126,7 +133,7 @@ exports[`Edit applications documentation metadata Edit name POST /case/123/proje
                 <h2 class=\\"govuk-error-summary__title\\" id=\\"error-summary-title\\"> There is a problem</h2>
                 <div class=\\"govuk-error-summary__body\\">
                     <ul class=\\"govuk-list govuk-error-summary__list\\">
-                        <li><a href=\\"#name\\">Enter the file name</a>
+                        <li><a href=\\"#documentName\\">Enter the file name</a>
                         </li>
                     </ul>
                 </div>
@@ -136,11 +143,12 @@ exports[`Edit applications documentation metadata Edit name POST /case/123/proje
     <h1 class=\\"govuk-heading-l\\"> Enter file name</h1>
     <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
         <div class=\\"govuk-form-group govuk-form-group--error\\">
-            <label class=\\"govuk-label font-weight--700\\" for=\\"name\\">What is the file name?</label>
-            <div id=\\"name-hint\\" class=\\"govuk-hint\\">There is a limit of 255 characters</div>
-            <p id=\\"name-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> Enter the file name</p>
-            <input             class=\\"govuk-input govuk-!-width-two-thirds govuk-input--error\\" id=\\"name\\"
-            name=\\"name\\" type=\\"text\\" value=\\"A title\\" aria-describedby=\\"name-hint name-error\\">
+            <label class=\\"govuk-label font-weight--700\\" for=\\"documentName\\">What is the file name?</label>
+            <div id=\\"documentName-hint\\" class=\\"govuk-hint\\">There is a limit of 255 characters</div>
+            <p id=\\"documentName-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> Enter the file name</p>
+            <input             class=\\"govuk-input govuk-!-width-two-thirds govuk-input--error\\" id=\\"documentName\\"
+            name=\\"documentName\\" type=\\"text\\" value=\\"1 Ut enim ad minim veniam.jpeg\\"
+            aria-describedby=\\"documentName-hint documentName-error\\">
         </div>
         <div class=\\"govuk-grid-row\\">
             <div class=\\"govuk-button-group pins-button-group govuk-grid-column-one-half\\">
@@ -160,7 +168,7 @@ exports[`Edit applications documentation metadata Edit name POST /case/123/proje
                 <h2 class=\\"govuk-error-summary__title\\" id=\\"error-summary-title\\"> There is a problem</h2>
                 <div class=\\"govuk-error-summary__body\\">
                     <ul class=\\"govuk-list govuk-error-summary__list\\">
-                        <li><a href=\\"#name\\">The name must be 255 characters or fewer</a>
+                        <li><a href=\\"#documentName\\">The name must be 255 characters or fewer</a>
                         </li>
                     </ul>
                 </div>
@@ -170,12 +178,13 @@ exports[`Edit applications documentation metadata Edit name POST /case/123/proje
     <h1 class=\\"govuk-heading-l\\"> Enter file name</h1>
     <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
         <div class=\\"govuk-form-group govuk-form-group--error\\">
-            <label class=\\"govuk-label font-weight--700\\" for=\\"name\\">What is the file name?</label>
-            <div id=\\"name-hint\\" class=\\"govuk-hint\\">There is a limit of 255 characters</div>
-            <p id=\\"name-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> The name must be 255
+            <label class=\\"govuk-label font-weight--700\\" for=\\"documentName\\">What is the file name?</label>
+            <div id=\\"documentName-hint\\" class=\\"govuk-hint\\">There is a limit of 255 characters</div>
+            <p id=\\"documentName-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> The name must be 255
                 characters or fewer</p>
             <input class=\\"govuk-input govuk-!-width-two-thirds govuk-input--error\\"
-            id=\\"name\\" name=\\"name\\" type=\\"text\\" value=\\"A title\\" aria-describedby=\\"name-hint name-error\\">
+            id=\\"documentName\\" name=\\"documentName\\" type=\\"text\\" value=\\"1 Ut enim ad minim veniam.jpeg\\"
+            aria-describedby=\\"documentName-hint documentName-error\\">
         </div>
         <div class=\\"govuk-grid-row\\">
             <div class=\\"govuk-button-group pins-button-group govuk-grid-column-one-half\\">
