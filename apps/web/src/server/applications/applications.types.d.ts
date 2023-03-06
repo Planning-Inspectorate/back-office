@@ -92,10 +92,12 @@ export interface CaseCreateProps<BodyValues> {
 	layout?: FormCaseLayout;
 }
 
+// TODO: use new field names
 export interface DocumentationFile {
 	guid: string;
 	documentName: string;
 	url: string;
+	description: string;
 	from: string;
 	receivedDate: number;
 	size: number;
