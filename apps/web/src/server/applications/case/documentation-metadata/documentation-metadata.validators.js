@@ -14,7 +14,8 @@ export const validatorsDispatcher = async (request, response, next) => {
 	/** @type {Record<string, RequestHandler>} */
 	const validators = {
 		name: validateDocumentationMetaName,
-		description: validateDocumentationMetaDescription
+		description: validateDocumentationMetaDescription,
+		redaction: validateDocumentationMetaRedacted
 	};
 
 	if (validators[metaDataName]) {
@@ -41,4 +42,8 @@ export const validateDocumentationMetaDescription = createValidator(
 		.withMessage('You must enter a description of the document')
 		.isLength({ max: 800 })
 		.withMessage('The description must be 800 characters or fewer')
+);
+
+export const validateDocumentationMetaRedacted = createValidator(
+	body('redacted').trim().isLength({ min: 1 }).withMessage('You must select a redaction status')
 );
