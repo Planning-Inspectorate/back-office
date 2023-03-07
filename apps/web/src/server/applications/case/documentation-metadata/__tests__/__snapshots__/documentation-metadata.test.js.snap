@@ -56,6 +56,98 @@ exports[`Edit applications documentation metadata Edit agent (representative) PO
 </main>"
 `;
 
+exports[`Edit applications documentation metadata Edit author GET /case/123/project-documentation/18/document/456/edit/author should render the page with values 1`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <h1 class=\\"govuk-heading-l\\"> Enter who the document is from</h1>
+    <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
+        <div class=\\"govuk-form-group \\">
+            <label class=\\"govuk-label font-weight--700\\" for=\\"author\\">Document from</label>
+            <div id=\\"author-hint\\" class=\\"govuk-hint\\">There is a limit of 150 characters</div>
+            <input class=\\"govuk-input govuk-!-width-two-thirds  \\"
+            id=\\"author\\" name=\\"author\\" type=\\"text\\" value=\\"Ut Aliqua\\" aria-describedby=\\"author-hint\\"
+            maxlength=\\"150\\">
+        </div>
+        <div class=\\"govuk-grid-row\\">
+            <div class=\\"govuk-button-group pins-button-group govuk-grid-column-one-half\\">
+                <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and return</button>
+            </div>
+        </div>
+    </form>
+</main>"
+`;
+
+exports[`Edit applications documentation metadata Edit author POST /case/123/project-documentation/18/document/456/edit/author should return an error if value is not defined 1`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <div class=\\"govuk-grid-row\\">
+        <div class=\\"govuk-grid-column-two-thirds\\">
+            <div class=\\"govuk-error-summary\\" aria-labelledby=\\"error-summary-title\\"
+            role=\\"alert\\" data-module=\\"govuk-error-summary\\">
+                <h2 class=\\"govuk-error-summary__title\\" id=\\"error-summary-title\\"> There is a problem</h2>
+                <div class=\\"govuk-error-summary__body\\">
+                    <ul class=\\"govuk-list govuk-error-summary__list\\">
+                        <li><a href=\\"#author\\">You must enter who the document is from</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <h1 class=\\"govuk-heading-l\\"> Enter who the document is from</h1>
+    <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
+        <div class=\\"govuk-form-group govuk-form-group--error\\">
+            <label class=\\"govuk-label font-weight--700\\" for=\\"author\\">Document from</label>
+            <div id=\\"author-hint\\" class=\\"govuk-hint\\">There is a limit of 150 characters</div>
+            <p id=\\"author-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> You must enter who the
+                document is from</p>
+            <input class=\\"govuk-input govuk-!-width-two-thirds govuk-input--error\\"
+            id=\\"author\\" name=\\"author\\" type=\\"text\\" value=\\"Ut Aliqua\\" aria-describedby=\\"author-hint\\"
+            maxlength=\\"150\\">
+        </div>
+        <div class=\\"govuk-grid-row\\">
+            <div class=\\"govuk-button-group pins-button-group govuk-grid-column-one-half\\">
+                <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and return</button>
+            </div>
+        </div>
+    </form>
+</main>"
+`;
+
+exports[`Edit applications documentation metadata Edit author POST /case/123/project-documentation/18/document/456/edit/author should return an error if value length > 100 1`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <div class=\\"govuk-grid-row\\">
+        <div class=\\"govuk-grid-column-two-thirds\\">
+            <div class=\\"govuk-error-summary\\" aria-labelledby=\\"error-summary-title\\"
+            role=\\"alert\\" data-module=\\"govuk-error-summary\\">
+                <h2 class=\\"govuk-error-summary__title\\" id=\\"error-summary-title\\"> There is a problem</h2>
+                <div class=\\"govuk-error-summary__body\\">
+                    <ul class=\\"govuk-list govuk-error-summary__list\\">
+                        <li><a href=\\"#author\\">The value must be 150 characters or fewer</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <h1 class=\\"govuk-heading-l\\"> Enter who the document is from</h1>
+    <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
+        <div class=\\"govuk-form-group govuk-form-group--error\\">
+            <label class=\\"govuk-label font-weight--700\\" for=\\"author\\">Document from</label>
+            <div id=\\"author-hint\\" class=\\"govuk-hint\\">There is a limit of 150 characters</div>
+            <p id=\\"author-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> The value must be 150
+                characters or fewer</p>
+            <input class=\\"govuk-input govuk-!-width-two-thirds govuk-input--error\\"
+            id=\\"author\\" name=\\"author\\" type=\\"text\\" value=\\"Ut Aliqua\\" aria-describedby=\\"author-hint\\"
+            maxlength=\\"150\\">
+        </div>
+        <div class=\\"govuk-grid-row\\">
+            <div class=\\"govuk-button-group pins-button-group govuk-grid-column-one-half\\">
+                <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and return</button>
+            </div>
+        </div>
+    </form>
+</main>"
+`;
+
 exports[`Edit applications documentation metadata Edit description GET /case/123/project-documentation/18/document/456/edit/description should render the page with values 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <h1 class=\\"govuk-heading-l\\"> Enter document description</h1>
