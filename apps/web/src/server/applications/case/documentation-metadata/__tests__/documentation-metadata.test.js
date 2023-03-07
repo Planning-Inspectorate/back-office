@@ -19,18 +19,22 @@ describe('Edit applications documentation metadata', () => {
 		nock.cleanAll();
 	});
 
+	beforeEach(async () => {
+		nocks();
+
+		await request.get('/applications-service/case-team');
+	});
+
 	const baseUrl = '/applications-service/case/123/project-documentation/18/document/456/edit';
 
 	describe('Edit name', () => {
 		describe('GET /case/123/project-documentation/18/document/456/edit/name', () => {
 			describe('If user is inspector', () => {
-				beforeEach(async () => {
+				it('should not render the page', async () => {
 					nock('http://test/').get('/applications/inspector').reply(200, {});
 
 					await request.get('/applications-service/inspector');
-				});
 
-				it('should not render the page', async () => {
 					const response = await request.get(`${baseUrl}/name`);
 					const element = parseHtml(response.text);
 
@@ -40,12 +44,6 @@ describe('Edit applications documentation metadata', () => {
 			});
 
 			describe('If user is not inspector', () => {
-				beforeEach(async () => {
-					nocks();
-
-					await request.get('/applications-service/case-team');
-				});
-
 				it('should render the page with values', async () => {
 					const response = await request.get(`${baseUrl}/name`);
 					const element = parseHtml(response.text);
@@ -58,12 +56,6 @@ describe('Edit applications documentation metadata', () => {
 		});
 
 		describe('POST /case/123/project-documentation/18/document/456/edit/name', () => {
-			beforeEach(async () => {
-				nocks();
-
-				await request.get('/applications-service/case-team');
-			});
-
 			it('should return an error if value is not defined', async () => {
 				const response = await request.post(`${baseUrl}/name`).send({
 					documentName: null
@@ -95,12 +87,6 @@ describe('Edit applications documentation metadata', () => {
 	});
 
 	describe('Edit description', () => {
-		beforeEach(async () => {
-			nocks();
-
-			await request.get('/applications-service/case-team');
-		});
-
 		describe('GET /case/123/project-documentation/18/document/456/edit/description', () => {
 			it('should render the page with values', async () => {
 				const response = await request.get(`${baseUrl}/description`);
@@ -131,7 +117,6 @@ describe('Edit applications documentation metadata', () => {
 				expect(element.innerHTML).toContain('There is a limit of 800 characters');
 			});
 
-			// TODO: reaplace field names with the ones coming from the API
 			it('should redirect to document properties page if there is no error', async () => {
 				const response = await request.post(`${baseUrl}/description`).send({
 					description: 'a valid description'
@@ -143,12 +128,6 @@ describe('Edit applications documentation metadata', () => {
 	});
 
 	describe('Edit agent (representative)', () => {
-		beforeEach(async () => {
-			nocks();
-
-			await request.get('/applications-service/case-team');
-		});
-
 		describe('GET /case/123/project-documentation/18/document/456/edit/agent', () => {
 			it('should render the page with values', async () => {
 				const response = await request.get(`${baseUrl}/agent`);
@@ -182,12 +161,6 @@ describe('Edit applications documentation metadata', () => {
 	});
 
 	describe('Edit webfilter (filter1)', () => {
-		beforeEach(async () => {
-			nocks();
-
-			await request.get('/applications-service/case-team');
-		});
-
 		describe('GET /case/123/project-documentation/18/document/456/edit/webfilter', () => {
 			it('should render the page with values', async () => {
 				const response = await request.get(`${baseUrl}/webfilter`);
@@ -218,7 +191,6 @@ describe('Edit applications documentation metadata', () => {
 				expect(element.innerHTML).toContain('There is a limit of 100 characters');
 			});
 
-			// TODO: reaplace field names with the ones coming from the API
 			it('should redirect to document properties page if there is no error', async () => {
 				const response = await request.post(`${baseUrl}/webfilter`).send({
 					filter1: 'a valid filter'
@@ -229,13 +201,48 @@ describe('Edit applications documentation metadata', () => {
 		});
 	});
 
-	describe('Edit redaction status', () => {
-		beforeEach(async () => {
-			nocks();
+	describe('Edit author', () => {
+		describe('GET /case/123/project-documentation/18/document/456/edit/author', () => {
+			it('should render the page with values', async () => {
+				const response = await request.get(`${baseUrl}/author`);
+				const element = parseHtml(response.text);
 
-			await request.get('/applications-service/case-team');
+				expect(element.innerHTML).toMatchSnapshot();
+				expect(element.innerHTML).toContain('Enter who the document is from');
+				expect(element.innerHTML).toContain(fixtureDocumentationFiles[0].author);
+			});
 		});
 
+		describe('POST /case/123/project-documentation/18/document/456/edit/author', () => {
+			it('should return an error if value is not defined', async () => {
+				const response = await request.post(`${baseUrl}/author`);
+				const element = parseHtml(response.text);
+
+				expect(element.innerHTML).toMatchSnapshot();
+				expect(element.innerHTML).toContain('You must enter who the document is from');
+			});
+
+			it('should return an error if value length > 100', async () => {
+				const response = await request.post(`${baseUrl}/author`).send({
+					author: 'x'.repeat(151)
+				});
+				const element = parseHtml(response.text);
+
+				expect(element.innerHTML).toMatchSnapshot();
+				expect(element.innerHTML).toContain('There is a limit of 150 characters');
+			});
+
+			it('should redirect to document properties page if there is no error', async () => {
+				const response = await request.post(`${baseUrl}/author`).send({
+					author: 'a valid author'
+				});
+
+				expect(response?.headers?.location).toEqual('../properties');
+			});
+		});
+	});
+
+	describe('Edit redaction status', () => {
 		describe('GET /case/123/project-documentation/18/document/456/edit/redaction', () => {
 			it('should render the page with values', async () => {
 				const response = await request.get(`${baseUrl}/redaction`);
@@ -268,11 +275,6 @@ describe('Edit applications documentation metadata', () => {
 	});
 
 	describe('Edit document type', () => {
-		beforeEach(async () => {
-			nocks();
-
-			await request.get('/applications-service/case-team');
-		});
 		describe('GET /case/123/project-documentation/18/document/456/edit/type', () => {
 			it('should render the page with values', async () => {
 				const response = await request.get(`${baseUrl}/type`);
