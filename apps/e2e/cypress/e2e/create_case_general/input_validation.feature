@@ -39,6 +39,6 @@ Feature: Validate mandatory fields
 		Then the user should see the "The anticipated submission date internal must be in the future" error message
 		And the user enters the internal anticipated submission date correctly
 		And the user clicks the "Save and Continue" button
-		Then the user should successfully verify mandatory answers on the summary page against form inputs
+		Then the user should successfully verify "mandatory" answers on the summary page against form inputs
 		When the user clicks the "I accept - confirm creation of a new case" button
 		Then the user should confirm that a new case has been created

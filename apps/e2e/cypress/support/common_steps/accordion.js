@@ -8,6 +8,6 @@ import '../commands';
 const page = new Page();
 
 // U S E R  A C T I O N S
-When('the user clicks the {string} accordion', function (accordionText) {
+When(/^the user clicks the "([^"]*)" accordion$/, function (accordionText) {
 	page.clickAccordionByText(accordionText);
 });

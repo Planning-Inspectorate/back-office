@@ -8,13 +8,13 @@ import '../commands';
 const page = new Page();
 
 // U S E R  A C T I O N S
-When('the user chooses option {int} checkbox', function (optionNumber) {
+When(/^the user chooses option (\d+) checkbox$/, function (optionNumber) {
 	page.chooseCheckboxByIndex(optionNumber - 1);
 });
 
 // A S S E R T I O N S
 Then(
-	'the user should see {int} checkboxes options to choose on the page',
+	/^the user should see (\d+) (checkbox(es)?) (option(s)?) to choose on the page$/,
 	function (checkboxesCount) {
 		page.validateNumberOfCheckboxes(checkboxesCount);
 	}

@@ -19,7 +19,7 @@ Feature: Create New Case journey as an Case Team member
 		And the user enters the applicant's first and last name for the new case
 		And the user enters the applicant's postcode as "BS1 6PN"
 		And the user clicks the "Find address" button
-		And the user selects option 1 from the "Address" list
+		And the user selects option "1" from the "Address" list
 		And the user clicks the "Save and continue" button
 		And the user enters the applicant's website for the new case
 		And the user enters the applicant's email for the new case
@@ -27,7 +27,7 @@ Feature: Create New Case journey as an Case Team member
 		And the user enters the anticipated submission date
 		And the user enters the internal anticipated submission date correctly
 		And the user clicks the "Save and continue" button
-		Then the user should successfully verify complete answers on the summary page against form inputs
+		Then the user should successfully verify "complete" answers on the summary page against form inputs
 		When the user clicks the "I accept - confirm creation of a new case" button
 		Then the user should confirm that a new case has been created
 
@@ -45,7 +45,7 @@ Feature: Create New Case journey as an Case Team member
 		And the user enters the anticipated submission date
 		And the user enters the internal anticipated submission date correctly
 		And the user clicks the "Save and continue" button
-		Then the user should successfully verify mandatory answers on the summary page against form inputs
+		Then the user should successfully verify "mandatory" answers on the summary page against form inputs
 		When the user clicks the "I accept - confirm creation of a new case" button
 		Then the user should confirm that a new case has been created
 
