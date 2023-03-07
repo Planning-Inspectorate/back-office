@@ -2,8 +2,8 @@ import { url } from '../../../lib/nunjucks-filters/url.js';
 import { updateDocumentMetaData } from './documentation-metadata.service.js';
 
 /** @typedef {import('@pins/express').ValidationErrors} ValidationErrors */
-/** @typedef {"name" | "description"| "published-date" | "received-date"| "redaction" |"type"|"webfilter"} MetaDataNames */
-/** @typedef {{label?: string, metaDataName: string, hint?: string, pageTitle: string, backLink?: string, items?: {value: boolean|string, text: string}[]}} MetaDataLayoutParams */
+/** @typedef {"name" | "description"| "published-date" | "received-date"| "redaction" |"type"|"webfilter"|"agent"} MetaDataNames */
+/** @typedef {{label?: string, metaDataName: string, hint?: string, pageTitle: string, backLink?: string, maxLength?: number, items?: {value: boolean|string, text: string}[]}} MetaDataLayoutParams */
 /** @typedef {{documentGuid: string, metaDataName: MetaDataNames}} RequestParams */
 /** @typedef {{caseId: number, folderId: number }} ResponseLocals */
 
@@ -15,19 +15,29 @@ const layouts = {
 		label: 'What is the file name?',
 		hint: 'There is a limit of 255 characters',
 		pageTitle: 'Enter file name',
-		metaDataName: 'documentName'
+		metaDataName: 'documentName',
+		maxLength: 255
 	},
 	description: {
 		label: 'Description of the document',
 		hint: 'There is a limit of 800 characters',
 		pageTitle: 'Enter document description',
-		metaDataName: 'description'
+		metaDataName: 'description',
+		maxLength: 800
 	},
 	webfilter: {
 		label: 'Webfilter',
 		hint: 'There is a limit of 100 characters',
 		pageTitle: 'Enter the webfilter',
-		metaDataName: 'filter1'
+		metaDataName: 'filter1',
+		maxLength: 100
+	},
+	agent: {
+		label: 'Agent name  (optional)',
+		hint: 'There is a limit of 150 characters',
+		pageTitle: 'Enter the name of the agent',
+		metaDataName: 'representative',
+		maxLength: 150
 	},
 	'published-date': {
 		label: 'Date document published',
@@ -65,7 +75,7 @@ const layouts = {
 				text: 'No document type'
 			}
 		],
-		metaDataName: 'type',
+		metaDataName: 'documentType',
 		pageTitle: 'Select the document type'
 	}
 };
