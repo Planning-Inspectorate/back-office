@@ -2,7 +2,7 @@ import { url } from '../../../lib/nunjucks-filters/url.js';
 import { updateDocumentMetaData } from './documentation-metadata.service.js';
 
 /** @typedef {import('@pins/express').ValidationErrors} ValidationErrors */
-/** @typedef {"name" | "description"| "published-date" | "received-date"| "redaction" |"type"|"webfilter"|"agent"} MetaDataNames */
+/** @typedef {"name" | "description"| "published-date" | "received-date"| "redaction" |"type"|"webfilter"|"agent"| "author"} MetaDataNames */
 /** @typedef {{label?: string, metaDataName: string, hint?: string, pageTitle: string, backLink?: string, maxLength?: number, items?: {value: boolean|string, text: string}[]}} MetaDataLayoutParams */
 /** @typedef {{documentGuid: string, metaDataName: MetaDataNames}} RequestParams */
 /** @typedef {{caseId: number, folderId: number }} ResponseLocals */
@@ -33,10 +33,17 @@ const layouts = {
 		maxLength: 100
 	},
 	agent: {
-		label: 'Agent name  (optional)',
+		label: 'Agent name (optional)',
 		hint: 'There is a limit of 150 characters',
 		pageTitle: 'Enter the name of the agent',
 		metaDataName: 'representative',
+		maxLength: 150
+	},
+	author: {
+		label: 'Document from',
+		hint: 'There is a limit of 150 characters',
+		pageTitle: 'Enter who the document is from',
+		metaDataName: 'author',
 		maxLength: 150
 	},
 	'published-date': {
