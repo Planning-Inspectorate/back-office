@@ -1,5 +1,5 @@
 {% from "govuk/components/input/macro.njk" import govukInput %}
-{% macro dateInput(layout, value) %}
+{% macro dateInput(layout, value, errors) %}
 
     <div class="govuk-form-group {{ 'govuk-form-group--error' if (errors['keyDates.submissionDateInternal'] !== undefined and
             errors['keyDates.submissionDateInternal'] !== false) else '' }}">
@@ -17,7 +17,10 @@
 					classes: "govuk-hint"
 				},
 				id: [layout.metaDataName, '.day']|join,
-				name: [layout.metaDataName, '.day']|join
+				name: [layout.metaDataName, '.day']|join,
+				value: value |datestamp({format: 'dd'}),
+				errorMessage: (errors[layout.metaDataName] !== undefined and errors[layout.metaDataName] !== false)
+
 			}) }}
                 {{ govukInput({
 				label: {
@@ -25,7 +28,9 @@
 					classes: "govuk-hint"
 				},
 				id: [layout.metaDataName, '.month']|join,
-				name: [layout.metaDataName, '.month']|join
+				name: [layout.metaDataName, '.month']|join,
+				value: value |datestamp({format: 'MM'}),
+				errorMessage: (errors[layout.metaDataName] !== undefined and errors[layout.metaDataName] !== false)
 			}) }}
                 {{ govukInput({
 				label: {
@@ -33,7 +38,9 @@
 					classes: "govuk-hint"
 				},
 				id: [layout.metaDataName, '.year']|join,
-				name: [layout.metaDataName, '.year']|join
+				name: [layout.metaDataName, '.year']|join,
+				value: value |datestamp({format: 'yyyy'}),
+				errorMessage: (errors[layout.metaDataName] !== undefined and errors[layout.metaDataName] !== false)
 			}) }}
             </div>
         </div>
