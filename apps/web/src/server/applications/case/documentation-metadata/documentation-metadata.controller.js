@@ -50,13 +50,13 @@ const layouts = {
 		label: 'Date document published',
 		hint: 'for example, 27 03 2023',
 		pageTitle: 'Enter the document published date',
-		metaDataName: 'publishedDate'
+		metaDataName: 'publishedAt'
 	},
 	'received-date': {
 		label: 'Date document received',
 		hint: 'for example, 27 03 2023',
 		pageTitle: 'Enter the document receipt date',
-		metaDataName: 'receivedDate'
+		metaDataName: 'createdAt'
 	},
 	redaction: {
 		items: [

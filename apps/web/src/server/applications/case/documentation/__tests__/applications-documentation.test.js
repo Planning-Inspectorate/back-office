@@ -38,7 +38,7 @@ const nocks = (/** @type {string} */ domainType) => {
 	nock('http://test/')
 		.get('/applications/123/documents/100')
 		.times(2)
-		.reply(200, fixtureDocumentationFiles[99]);
+		.reply(200, fixtureDocumentationFiles[3]);
 	nock('http://test/')
 		.get('/applications/123/documents/90')
 		.times(2)
@@ -264,10 +264,22 @@ describe('applications documentation', () => {
 				const response = await request.get(
 					`${baseUrl}/project-documentation/21/document/100/properties`
 				);
+
 				const element = parseHtml(response.text);
 
 				expect(element.innerHTML).toMatchSnapshot();
 				expect(element.innerHTML).toContain('Document properties');
+				expect(element.innerHTML).toContain('/edit/published-date');
+			});
+
+			it('should not show publishedDate edit link if document is not published', async () => {
+				const response = await request.get(
+					`${baseUrl}/project-documentation/21/document/90/properties`
+				);
+				const element = parseHtml(response.text);
+
+				expect(element.innerHTML).toMatchSnapshot();
+				expect(element.innerHTML).not.toContain('/edit/published-date');
 			});
 		});
 	});
