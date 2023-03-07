@@ -99,13 +99,16 @@ export interface DocumentationFile {
 	url: string;
 	description: string;
 	author: string;
-	receivedDate: number;
+	createdAt: number;
+	publishedAt?: number;
 	size: number;
 	type: string;
 	status: string;
+	stage?: string;
 	redacted: boolean;
 	blobStorageContainer?: string;
 	blobStoragePath?: string;
 	filter1: string;
 	representative: string;
+	documentType: string;
 }
