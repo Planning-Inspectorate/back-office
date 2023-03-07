@@ -1,15 +1,71 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`Edit applications documentation metadata Edit agent (representative) GET /case/123/project-documentation/18/document/456/edit/agent should render the page with values 1`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <h1 class=\\"govuk-heading-l\\"> Enter the name of the agent</h1>
+    <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
+        <div class=\\"govuk-form-group \\">
+            <label class=\\"govuk-label font-weight--700\\" for=\\"representative\\">Agent name (optional)</label>
+            <div id=\\"representative-hint\\" class=\\"govuk-hint\\">There is a limit of 150 characters</div>
+            <input class=\\"govuk-input govuk-!-width-two-thirds  \\"
+            id=\\"representative\\" name=\\"representative\\" type=\\"text\\" value=\\"Ut Aliqua\\"
+            aria-describedby=\\"representative-hint\\" maxlength=\\"150\\">
+        </div>
+        <div class=\\"govuk-grid-row\\">
+            <div class=\\"govuk-button-group pins-button-group govuk-grid-column-one-half\\">
+                <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and return</button>
+            </div>
+        </div>
+    </form>
+</main>"
+`;
+
+exports[`Edit applications documentation metadata Edit agent (representative) POST /case/123/project-documentation/18/document/456/edit/agent should return an error if value length > 150 1`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <div class=\\"govuk-grid-row\\">
+        <div class=\\"govuk-grid-column-two-thirds\\">
+            <div class=\\"govuk-error-summary\\" aria-labelledby=\\"error-summary-title\\"
+            role=\\"alert\\" data-module=\\"govuk-error-summary\\">
+                <h2 class=\\"govuk-error-summary__title\\" id=\\"error-summary-title\\"> There is a problem</h2>
+                <div class=\\"govuk-error-summary__body\\">
+                    <ul class=\\"govuk-list govuk-error-summary__list\\">
+                        <li><a href=\\"#representative\\">The agent name be 150 characters or fewer</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <h1 class=\\"govuk-heading-l\\"> Enter the name of the agent</h1>
+    <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
+        <div class=\\"govuk-form-group govuk-form-group--error\\">
+            <label class=\\"govuk-label font-weight--700\\" for=\\"representative\\">Agent name (optional)</label>
+            <div id=\\"representative-hint\\" class=\\"govuk-hint\\">There is a limit of 150 characters</div>
+            <p id=\\"representative-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> The agent name be 150
+                characters or fewer</p>
+            <input class=\\"govuk-input govuk-!-width-two-thirds govuk-input--error\\"
+            id=\\"representative\\" name=\\"representative\\" type=\\"text\\" value=\\"Ut Aliqua\\"
+            aria-describedby=\\"representative-hint\\" maxlength=\\"150\\">
+        </div>
+        <div class=\\"govuk-grid-row\\">
+            <div class=\\"govuk-button-group pins-button-group govuk-grid-column-one-half\\">
+                <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and return</button>
+            </div>
+        </div>
+    </form>
+</main>"
+`;
+
 exports[`Edit applications documentation metadata Edit description GET /case/123/project-documentation/18/document/456/edit/description should render the page with values 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <h1 class=\\"govuk-heading-l\\"> Enter document description</h1>
     <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
-        <div class=\\"govuk-form-group\\">
+        <div class=\\"govuk-form-group \\">
             <label class=\\"govuk-label font-weight--700\\" for=\\"description\\">Description of the document</label>
             <div id=\\"description-hint\\" class=\\"govuk-hint\\">There is a limit of 800 characters</div>
-            <input class=\\"govuk-input govuk-!-width-two-thirds\\"
+            <input class=\\"govuk-input govuk-!-width-two-thirds  \\"
             id=\\"description\\" name=\\"description\\" type=\\"text\\" value=\\"Ut enim ad minim veniam quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.jpeg\\"
-            aria-describedby=\\"description-hint\\">
+            aria-describedby=\\"description-hint\\" maxlength=\\"800\\">
         </div>
         <div class=\\"govuk-grid-row\\">
             <div class=\\"govuk-button-group pins-button-group govuk-grid-column-one-half\\">
@@ -45,7 +101,7 @@ exports[`Edit applications documentation metadata Edit description POST /case/12
                 of the document</p>
             <input class=\\"govuk-input govuk-!-width-two-thirds govuk-input--error\\"
             id=\\"description\\" name=\\"description\\" type=\\"text\\" value=\\"Ut enim ad minim veniam quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.jpeg\\"
-            aria-describedby=\\"description-hint description-error\\">
+            aria-describedby=\\"description-hint\\" maxlength=\\"800\\">
         </div>
         <div class=\\"govuk-grid-row\\">
             <div class=\\"govuk-button-group pins-button-group govuk-grid-column-one-half\\">
@@ -81,7 +137,7 @@ exports[`Edit applications documentation metadata Edit description POST /case/12
                 be 800 characters or fewer</p>
             <input class=\\"govuk-input govuk-!-width-two-thirds govuk-input--error\\"
             id=\\"description\\" name=\\"description\\" type=\\"text\\" value=\\"Ut enim ad minim veniam quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.jpeg\\"
-            aria-describedby=\\"description-hint description-error\\">
+            aria-describedby=\\"description-hint\\" maxlength=\\"800\\">
         </div>
         <div class=\\"govuk-grid-row\\">
             <div class=\\"govuk-button-group pins-button-group govuk-grid-column-one-half\\">
@@ -99,109 +155,21 @@ exports[`Edit applications documentation metadata Edit document type GET /case/1
         <div class=\\"govuk-form-group\\">
             <div class=\\"govuk-radios\\" data-module=\\"govuk-radios\\">
                 <div class=\\"govuk-radios__item\\">
-                    <input class=\\"govuk-radios__input\\" id=\\"type\\" name=\\"type\\" type=\\"radio\\"
-                    value=\\"Rule 8 letter\\">
-                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"type\\">Rule 8 letter</label>
+                    <input class=\\"govuk-radios__input\\" id=\\"documentType\\" name=\\"documentType\\"
+                    type=\\"radio\\" value=\\"Rule 8 letter\\">
+                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"documentType\\">Rule 8 letter</label>
                 </div>
                 <div class=\\"govuk-radios__item\\">
-                    <input class=\\"govuk-radios__input\\" id=\\"type-2\\" name=\\"type\\" type=\\"radio\\"
-                    value=\\"Exam library\\">
-                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"type-2\\">Exam library</label>
+                    <input class=\\"govuk-radios__input\\" id=\\"documentType-2\\" name=\\"documentType\\"
+                    type=\\"radio\\" value=\\"Exam library\\">
+                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"documentType-2\\">Exam library</label>
                 </div>
                 <div class=\\"govuk-radios__item\\">
-                    <input class=\\"govuk-radios__input\\" id=\\"type-3\\" name=\\"type\\" type=\\"radio\\"
-                    value=\\"\\">
-                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"type-3\\">No document type</label>
+                    <input class=\\"govuk-radios__input\\" id=\\"documentType-3\\" name=\\"documentType\\"
+                    type=\\"radio\\" value=\\"\\" checked>
+                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"documentType-3\\">No document type</label>
                 </div>
             </div>
-        </div>
-        <div class=\\"govuk-grid-row\\">
-            <div class=\\"govuk-button-group pins-button-group govuk-grid-column-one-half\\">
-                <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and return</button>
-            </div>
-        </div>
-    </form>
-</main>"
-`;
-
-exports[`Edit applications documentation metadata Edit filter 1 GET /case/123/project-documentation/18/document/456/edit/webfilter should render the page with values 1`] = `
-"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
-    <h1 class=\\"govuk-heading-l\\"> Enter the webfilter</h1>
-    <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
-        <div class=\\"govuk-form-group\\">
-            <label class=\\"govuk-label font-weight--700\\" for=\\"filter1\\">Webfilter</label>
-            <div id=\\"filter1-hint\\" class=\\"govuk-hint\\">There is a limit of 100 characters</div>
-            <input class=\\"govuk-input govuk-!-width-two-thirds\\"
-            id=\\"filter1\\" name=\\"filter1\\" type=\\"text\\" value=\\"Tempor incididunt\\" aria-describedby=\\"filter1-hint\\">
-        </div>
-        <div class=\\"govuk-grid-row\\">
-            <div class=\\"govuk-button-group pins-button-group govuk-grid-column-one-half\\">
-                <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and return</button>
-            </div>
-        </div>
-    </form>
-</main>"
-`;
-
-exports[`Edit applications documentation metadata Edit filter 1 POST /case/123/project-documentation/18/document/456/edit/webfilter should return an error if value is not defined 1`] = `
-"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
-    <div class=\\"govuk-grid-row\\">
-        <div class=\\"govuk-grid-column-two-thirds\\">
-            <div class=\\"govuk-error-summary\\" aria-labelledby=\\"error-summary-title\\"
-            role=\\"alert\\" data-module=\\"govuk-error-summary\\">
-                <h2 class=\\"govuk-error-summary__title\\" id=\\"error-summary-title\\"> There is a problem</h2>
-                <div class=\\"govuk-error-summary__body\\">
-                    <ul class=\\"govuk-list govuk-error-summary__list\\">
-                        <li><a href=\\"#filter1\\">You must enter a webfilter</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-    <h1 class=\\"govuk-heading-l\\"> Enter the webfilter</h1>
-    <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
-        <div class=\\"govuk-form-group govuk-form-group--error\\">
-            <label class=\\"govuk-label font-weight--700\\" for=\\"filter1\\">Webfilter</label>
-            <div id=\\"filter1-hint\\" class=\\"govuk-hint\\">There is a limit of 100 characters</div>
-            <p id=\\"filter1-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> You must enter a webfilter</p>
-            <input             class=\\"govuk-input govuk-!-width-two-thirds govuk-input--error\\" id=\\"filter1\\"
-            name=\\"filter1\\" type=\\"text\\" value=\\"Tempor incididunt\\" aria-describedby=\\"filter1-hint filter1-error\\">
-        </div>
-        <div class=\\"govuk-grid-row\\">
-            <div class=\\"govuk-button-group pins-button-group govuk-grid-column-one-half\\">
-                <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and return</button>
-            </div>
-        </div>
-    </form>
-</main>"
-`;
-
-exports[`Edit applications documentation metadata Edit filter 1 POST /case/123/project-documentation/18/document/456/edit/webfilter should return an error if value length > 100 1`] = `
-"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
-    <div class=\\"govuk-grid-row\\">
-        <div class=\\"govuk-grid-column-two-thirds\\">
-            <div class=\\"govuk-error-summary\\" aria-labelledby=\\"error-summary-title\\"
-            role=\\"alert\\" data-module=\\"govuk-error-summary\\">
-                <h2 class=\\"govuk-error-summary__title\\" id=\\"error-summary-title\\"> There is a problem</h2>
-                <div class=\\"govuk-error-summary__body\\">
-                    <ul class=\\"govuk-list govuk-error-summary__list\\">
-                        <li><a href=\\"#filter1\\">The webfilter must be 100 characters or fewer</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-    <h1 class=\\"govuk-heading-l\\"> Enter the webfilter</h1>
-    <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
-        <div class=\\"govuk-form-group govuk-form-group--error\\">
-            <label class=\\"govuk-label font-weight--700\\" for=\\"filter1\\">Webfilter</label>
-            <div id=\\"filter1-hint\\" class=\\"govuk-hint\\">There is a limit of 100 characters</div>
-            <p id=\\"filter1-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> The webfilter must be
-                100 characters or fewer</p>
-            <input class=\\"govuk-input govuk-!-width-two-thirds govuk-input--error\\"
-            id=\\"filter1\\" name=\\"filter1\\" type=\\"text\\" value=\\"Tempor incididunt\\" aria-describedby=\\"filter1-hint filter1-error\\">
         </div>
         <div class=\\"govuk-grid-row\\">
             <div class=\\"govuk-button-group pins-button-group govuk-grid-column-one-half\\">
@@ -229,12 +197,12 @@ exports[`Edit applications documentation metadata Edit name GET /case/123/projec
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <h1 class=\\"govuk-heading-l\\"> Enter file name</h1>
     <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
-        <div class=\\"govuk-form-group\\">
+        <div class=\\"govuk-form-group \\">
             <label class=\\"govuk-label font-weight--700\\" for=\\"documentName\\">What is the file name?</label>
             <div id=\\"documentName-hint\\" class=\\"govuk-hint\\">There is a limit of 255 characters</div>
-            <input class=\\"govuk-input govuk-!-width-two-thirds\\"
+            <input class=\\"govuk-input govuk-!-width-two-thirds  \\"
             id=\\"documentName\\" name=\\"documentName\\" type=\\"text\\" value=\\"1 Ut enim ad minim veniam.jpeg\\"
-            aria-describedby=\\"documentName-hint\\">
+            aria-describedby=\\"documentName-hint\\" maxlength=\\"255\\">
         </div>
         <div class=\\"govuk-grid-row\\">
             <div class=\\"govuk-button-group pins-button-group govuk-grid-column-one-half\\">
@@ -270,7 +238,7 @@ exports[`Edit applications documentation metadata Edit name POST /case/123/proje
                 name</p>
             <input class=\\"govuk-input govuk-!-width-two-thirds govuk-input--error\\"
             id=\\"documentName\\" name=\\"documentName\\" type=\\"text\\" value=\\"1 Ut enim ad minim veniam.jpeg\\"
-            aria-describedby=\\"documentName-hint documentName-error\\">
+            aria-describedby=\\"documentName-hint\\" maxlength=\\"255\\">
         </div>
         <div class=\\"govuk-grid-row\\">
             <div class=\\"govuk-button-group pins-button-group govuk-grid-column-one-half\\">
@@ -306,7 +274,7 @@ exports[`Edit applications documentation metadata Edit name POST /case/123/proje
                 characters or fewer</p>
             <input class=\\"govuk-input govuk-!-width-two-thirds govuk-input--error\\"
             id=\\"documentName\\" name=\\"documentName\\" type=\\"text\\" value=\\"1 Ut enim ad minim veniam.jpeg\\"
-            aria-describedby=\\"documentName-hint documentName-error\\">
+            aria-describedby=\\"documentName-hint\\" maxlength=\\"255\\">
         </div>
         <div class=\\"govuk-grid-row\\">
             <div class=\\"govuk-button-group pins-button-group govuk-grid-column-one-half\\">
@@ -377,6 +345,97 @@ exports[`Edit applications documentation metadata Edit redaction status POST /ca
                     <label class=\\"govuk-label govuk-radios__label\\" for=\\"redacted-2\\">Unredacted</label>
                 </div>
             </div>
+        </div>
+        <div class=\\"govuk-grid-row\\">
+            <div class=\\"govuk-button-group pins-button-group govuk-grid-column-one-half\\">
+                <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and return</button>
+            </div>
+        </div>
+    </form>
+</main>"
+`;
+
+exports[`Edit applications documentation metadata Edit webfilter (filter1) GET /case/123/project-documentation/18/document/456/edit/webfilter should render the page with values 1`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <h1 class=\\"govuk-heading-l\\"> Enter the webfilter</h1>
+    <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
+        <div class=\\"govuk-form-group \\">
+            <label class=\\"govuk-label font-weight--700\\" for=\\"filter1\\">Webfilter</label>
+            <div id=\\"filter1-hint\\" class=\\"govuk-hint\\">There is a limit of 100 characters</div>
+            <input class=\\"govuk-input govuk-!-width-two-thirds  \\"
+            id=\\"filter1\\" name=\\"filter1\\" type=\\"text\\" value=\\"Tempor incididunt\\" aria-describedby=\\"filter1-hint\\"
+            maxlength=\\"100\\">
+        </div>
+        <div class=\\"govuk-grid-row\\">
+            <div class=\\"govuk-button-group pins-button-group govuk-grid-column-one-half\\">
+                <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and return</button>
+            </div>
+        </div>
+    </form>
+</main>"
+`;
+
+exports[`Edit applications documentation metadata Edit webfilter (filter1) POST /case/123/project-documentation/18/document/456/edit/webfilter should return an error if value is not defined 1`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <div class=\\"govuk-grid-row\\">
+        <div class=\\"govuk-grid-column-two-thirds\\">
+            <div class=\\"govuk-error-summary\\" aria-labelledby=\\"error-summary-title\\"
+            role=\\"alert\\" data-module=\\"govuk-error-summary\\">
+                <h2 class=\\"govuk-error-summary__title\\" id=\\"error-summary-title\\"> There is a problem</h2>
+                <div class=\\"govuk-error-summary__body\\">
+                    <ul class=\\"govuk-list govuk-error-summary__list\\">
+                        <li><a href=\\"#filter1\\">You must enter a webfilter</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <h1 class=\\"govuk-heading-l\\"> Enter the webfilter</h1>
+    <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
+        <div class=\\"govuk-form-group govuk-form-group--error\\">
+            <label class=\\"govuk-label font-weight--700\\" for=\\"filter1\\">Webfilter</label>
+            <div id=\\"filter1-hint\\" class=\\"govuk-hint\\">There is a limit of 100 characters</div>
+            <p id=\\"filter1-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> You must enter a webfilter</p>
+            <input             class=\\"govuk-input govuk-!-width-two-thirds govuk-input--error\\" id=\\"filter1\\"
+            name=\\"filter1\\" type=\\"text\\" value=\\"Tempor incididunt\\" aria-describedby=\\"filter1-hint\\"
+            maxlength=\\"100\\">
+        </div>
+        <div class=\\"govuk-grid-row\\">
+            <div class=\\"govuk-button-group pins-button-group govuk-grid-column-one-half\\">
+                <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and return</button>
+            </div>
+        </div>
+    </form>
+</main>"
+`;
+
+exports[`Edit applications documentation metadata Edit webfilter (filter1) POST /case/123/project-documentation/18/document/456/edit/webfilter should return an error if value length > 100 1`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <div class=\\"govuk-grid-row\\">
+        <div class=\\"govuk-grid-column-two-thirds\\">
+            <div class=\\"govuk-error-summary\\" aria-labelledby=\\"error-summary-title\\"
+            role=\\"alert\\" data-module=\\"govuk-error-summary\\">
+                <h2 class=\\"govuk-error-summary__title\\" id=\\"error-summary-title\\"> There is a problem</h2>
+                <div class=\\"govuk-error-summary__body\\">
+                    <ul class=\\"govuk-list govuk-error-summary__list\\">
+                        <li><a href=\\"#filter1\\">The webfilter must be 100 characters or fewer</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <h1 class=\\"govuk-heading-l\\"> Enter the webfilter</h1>
+    <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
+        <div class=\\"govuk-form-group govuk-form-group--error\\">
+            <label class=\\"govuk-label font-weight--700\\" for=\\"filter1\\">Webfilter</label>
+            <div id=\\"filter1-hint\\" class=\\"govuk-hint\\">There is a limit of 100 characters</div>
+            <p id=\\"filter1-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> The webfilter must be
+                100 characters or fewer</p>
+            <input class=\\"govuk-input govuk-!-width-two-thirds govuk-input--error\\"
+            id=\\"filter1\\" name=\\"filter1\\" type=\\"text\\" value=\\"Tempor incididunt\\" aria-describedby=\\"filter1-hint\\"
+            maxlength=\\"100\\">
         </div>
         <div class=\\"govuk-grid-row\\">
             <div class=\\"govuk-button-group pins-button-group govuk-grid-column-one-half\\">

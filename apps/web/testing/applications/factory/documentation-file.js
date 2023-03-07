@@ -37,7 +37,16 @@ export function createDocumentationFile({
 	})}`;
 
 	const url = `url/to/file/${uniqueSeed}`;
-	const from = `${createRandomDescription({
+
+	const representative = `${createRandomDescription({
+		wordsNumber: 1,
+		startOffset: createUniqueRandomNumberFromSeed(0, 30, uniqueSeed)
+	})} ${createRandomDescription({
+		wordsNumber: 1,
+		startOffset: createUniqueRandomNumberFromSeed(5, 20, uniqueSeed)
+	})}`;
+
+	const author = `${createRandomDescription({
 		wordsNumber: 1,
 		startOffset: createUniqueRandomNumberFromSeed(0, 30, uniqueSeed)
 	})} ${createRandomDescription({
@@ -65,7 +74,8 @@ export function createDocumentationFile({
 		filter1,
 		documentName,
 		url,
-		from,
+		author,
+		representative,
 		receivedDate,
 		size,
 		description,

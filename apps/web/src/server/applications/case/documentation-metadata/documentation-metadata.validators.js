@@ -17,6 +17,7 @@ export const validatorsDispatcher = async (request, response, next) => {
 		description: validateDocumentationMetaDescription,
 		webfilter: validateDocumentationMetaFilter1,
 		agent: validateDocumentationMetaRepresentative,
+		author: validateDocumentationMetaAuthor,
 		redaction: validateDocumentationMetaRedacted
 	};
 
@@ -44,6 +45,15 @@ export const validateDocumentationMetaDescription = createValidator(
 		.withMessage('You must enter a description of the document')
 		.isLength({ max: 800 })
 		.withMessage('The description must be 800 characters or fewer')
+);
+
+export const validateDocumentationMetaAuthor = createValidator(
+	body('author')
+		.trim()
+		.isLength({ min: 1 })
+		.withMessage('You must enter who the document is from')
+		.isLength({ max: 150 })
+		.withMessage('The value must be 150 characters or fewer')
 );
 
 export const validateDocumentationMetaFilter1 = createValidator(
