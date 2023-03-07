@@ -142,7 +142,46 @@ describe('Edit applications documentation metadata', () => {
 		});
 	});
 
-	describe('Edit filter 1', () => {
+	describe('Edit agent (representative)', () => {
+		beforeEach(async () => {
+			nocks();
+
+			await request.get('/applications-service/case-team');
+		});
+
+		describe('GET /case/123/project-documentation/18/document/456/edit/agent', () => {
+			it('should render the page with values', async () => {
+				const response = await request.get(`${baseUrl}/agent`);
+				const element = parseHtml(response.text);
+
+				expect(element.innerHTML).toMatchSnapshot();
+				expect(element.innerHTML).toContain('Enter the name of the agent');
+				expect(element.innerHTML).toContain(fixtureDocumentationFiles[0].representative);
+			});
+		});
+
+		describe('POST /case/123/project-documentation/18/document/456/edit/agent', () => {
+			it('should return an error if value length > 150', async () => {
+				const response = await request.post(`${baseUrl}/agent`).send({
+					representative: 'x'.repeat(151)
+				});
+				const element = parseHtml(response.text);
+
+				expect(element.innerHTML).toMatchSnapshot();
+				expect(element.innerHTML).toContain('There is a limit of 150 characters');
+			});
+
+			it('should redirect to document properties page if there is no error', async () => {
+				const response = await request.post(`${baseUrl}/agent`).send({
+					representative: 'a valid agent'
+				});
+
+				expect(response?.headers?.location).toEqual('../properties');
+			});
+		});
+	});
+
+	describe('Edit webfilter (filter1)', () => {
 		beforeEach(async () => {
 			nocks();
 

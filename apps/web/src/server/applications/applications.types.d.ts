@@ -98,7 +98,7 @@ export interface DocumentationFile {
 	documentName: string;
 	url: string;
 	description: string;
-	from: string;
+	author: string;
 	receivedDate: number;
 	size: number;
 	type: string;
@@ -107,4 +107,5 @@ export interface DocumentationFile {
 	blobStorageContainer?: string;
 	blobStoragePath?: string;
 	filter1: string;
+	representative: string;
 }

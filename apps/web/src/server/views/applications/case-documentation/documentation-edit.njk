@@ -1,7 +1,7 @@
 {% extends "../layouts/applications.layout.njk" %}
 {% from "govuk/components/input/macro.njk" import govukInput %}
 {% from "govuk/components/button/macro.njk" import govukButton %}
-{% from "./edit/text-input.njk" import textInput %}
+{% from "./edit/max-length-input.njk" import maxLengthInput %}
 {% from "./edit/date-input.njk" import dateInput %}
 {% from "./edit/checkboxes-input.njk" import checkboxesInput %}
 
@@ -34,6 +34,6 @@
     {% elif(componentName === 'redacted' or componentName === 'documentType') %}
         {{ checkboxesInput(layout, documentMetaData[layout.metaDataName], errors) }}
     {% else %}
-        {{ textInput(layout, documentMetaData[layout.metaDataName], errors) }}
+        {{ maxLengthInput(layout, documentMetaData[layout.metaDataName], errors) }}
     {% endif %}
 {% endmacro %}
