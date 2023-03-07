@@ -10,6 +10,6 @@ Then(/^the user should see (\d+) error (message|messages)$/, function (length) {
 	page.basePageElements.errorMessage().should('have.length', length);
 });
 
-Then('the user should see the {string} error message', function (errorMessage) {
+Then(/^the user should see the "([^"]*)" error message$/, function (errorMessage) {
 	page.validateErrorMessage(errorMessage);
 });

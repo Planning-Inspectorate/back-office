@@ -8,11 +8,11 @@ Feature: Upload files to a case as a Case Admin user
 	Scenario: Case Admins should be able upload files to a case
 		When the user searches for the current case
 		And the user clicks the top search result
-		Then the user should validate the summary page with file 1 and complete data
+		Then the user should validate the summary page with file "1" and "complete" data
 		When the user clicks the "Update project information" link
 		And the user clicks the "Project documentation" link
 		And the user clicks the "Project management" link
 		And the user clicks the "Upload files" button
 		When the user uploads a file
 		And the user clicks the "Save and continue" button
-		Then the folder should have 1 document
+		Then the folder should have "1" document

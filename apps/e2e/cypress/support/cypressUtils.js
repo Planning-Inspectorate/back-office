@@ -1,7 +1,7 @@
 // @ts-nocheck
 const fs = require('fs-extra');
 const path = require('path');
-const { BrowserAuthData } = require('../fixtures/browser-auth-data');
+const webpack = require('@cypress/webpack-preprocessor');
 
 const clearAllCookies = () => {
 	const fileName = path.join(__dirname, '/browserAuthData');
@@ -32,10 +32,33 @@ const getCookiesFileContents = (userId) => {
 	return JSON.parse(fs.readFileSync(fileName, 'utf8'));
 };
 
+const webpackConfig = (config) =>
+	webpack({
+		webpackOptions: {
+			resolve: {
+				extensions: ['.ts', '.js']
+			},
+			module: {
+				rules: [
+					{
+						test: /\.feature$/,
+						use: [
+							{
+								loader: '@badeball/cypress-cucumber-preprocessor/webpack',
+								options: config
+							}
+						]
+					}
+				]
+			}
+		}
+	});
+
 module.exports = {
 	clearAllCookies,
 	deleteFile,
 	getConfigByFile,
 	getCookiesFileContents,
-	cookiesFileExists
+	cookiesFileExists,
+	webpackConfig
 };
