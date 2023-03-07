@@ -5683,7 +5683,7 @@ TIF,
                 aria-live=\\"polite\\"></ul>
             </div>
     </div>
-    <div class=\\"govuk-inset-text\\">Saving files will default then to ‘Unredacted’ and ‘Not checked’</div>
+    <div class=\\"govuk-inset-text\\">Saving files will default them to ‘Unredacted’ and ‘Not checked’</div>
     <div     class=\\"display--flex\\">
         <button class=\\"govuk-button pins-file-upload--submit\\" data-module=\\"govuk-button\\"
         id=\\"submit-button-1\\">Save and continue</button>
