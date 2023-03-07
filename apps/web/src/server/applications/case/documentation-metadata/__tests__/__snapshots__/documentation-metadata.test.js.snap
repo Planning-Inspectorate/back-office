@@ -64,7 +64,7 @@ exports[`Edit applications documentation metadata Edit author GET /case/123/proj
             <label class=\\"govuk-label font-weight--700\\" for=\\"author\\">Document from</label>
             <div id=\\"author-hint\\" class=\\"govuk-hint\\">There is a limit of 150 characters</div>
             <input class=\\"govuk-input govuk-!-width-two-thirds  \\"
-            id=\\"author\\" name=\\"author\\" type=\\"text\\" value=\\"Ut Aliqua\\" aria-describedby=\\"author-hint\\"
+            id=\\"author\\" name=\\"author\\" type=\\"text\\" value=\\"Eiusmod tempor\\" aria-describedby=\\"author-hint\\"
             maxlength=\\"150\\">
         </div>
         <div class=\\"govuk-grid-row\\">
@@ -100,7 +100,7 @@ exports[`Edit applications documentation metadata Edit author POST /case/123/pro
             <p id=\\"author-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> You must enter who the
                 document is from</p>
             <input class=\\"govuk-input govuk-!-width-two-thirds govuk-input--error\\"
-            id=\\"author\\" name=\\"author\\" type=\\"text\\" value=\\"Ut Aliqua\\" aria-describedby=\\"author-hint\\"
+            id=\\"author\\" name=\\"author\\" type=\\"text\\" value=\\"Eiusmod tempor\\" aria-describedby=\\"author-hint\\"
             maxlength=\\"150\\">
         </div>
         <div class=\\"govuk-grid-row\\">
@@ -136,7 +136,7 @@ exports[`Edit applications documentation metadata Edit author POST /case/123/pro
             <p id=\\"author-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> The value must be 150
                 characters or fewer</p>
             <input class=\\"govuk-input govuk-!-width-two-thirds govuk-input--error\\"
-            id=\\"author\\" name=\\"author\\" type=\\"text\\" value=\\"Ut Aliqua\\" aria-describedby=\\"author-hint\\"
+            id=\\"author\\" name=\\"author\\" type=\\"text\\" value=\\"Eiusmod tempor\\" aria-describedby=\\"author-hint\\"
             maxlength=\\"150\\">
         </div>
         <div class=\\"govuk-grid-row\\">
@@ -156,7 +156,7 @@ exports[`Edit applications documentation metadata Edit description GET /case/123
             <label class=\\"govuk-label font-weight--700\\" for=\\"description\\">Description of the document</label>
             <div id=\\"description-hint\\" class=\\"govuk-hint\\">There is a limit of 800 characters</div>
             <input class=\\"govuk-input govuk-!-width-two-thirds  \\"
-            id=\\"description\\" name=\\"description\\" type=\\"text\\" value=\\"Ut enim ad minim veniam quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.jpeg\\"
+            id=\\"description\\" name=\\"description\\" type=\\"text\\" value=\\"Ut enim ad minim veniam quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat\\"
             aria-describedby=\\"description-hint\\" maxlength=\\"800\\">
         </div>
         <div class=\\"govuk-grid-row\\">
@@ -192,7 +192,7 @@ exports[`Edit applications documentation metadata Edit description POST /case/12
             <p id=\\"description-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> You must enter a description
                 of the document</p>
             <input class=\\"govuk-input govuk-!-width-two-thirds govuk-input--error\\"
-            id=\\"description\\" name=\\"description\\" type=\\"text\\" value=\\"Ut enim ad minim veniam quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.jpeg\\"
+            id=\\"description\\" name=\\"description\\" type=\\"text\\" value=\\"Ut enim ad minim veniam quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat\\"
             aria-describedby=\\"description-hint\\" maxlength=\\"800\\">
         </div>
         <div class=\\"govuk-grid-row\\">
@@ -228,7 +228,7 @@ exports[`Edit applications documentation metadata Edit description POST /case/12
             <p id=\\"description-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> The description must
                 be 800 characters or fewer</p>
             <input class=\\"govuk-input govuk-!-width-two-thirds govuk-input--error\\"
-            id=\\"description\\" name=\\"description\\" type=\\"text\\" value=\\"Ut enim ad minim veniam quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.jpeg\\"
+            id=\\"description\\" name=\\"description\\" type=\\"text\\" value=\\"Ut enim ad minim veniam quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat\\"
             aria-describedby=\\"description-hint\\" maxlength=\\"800\\">
         </div>
         <div class=\\"govuk-grid-row\\">
@@ -253,12 +253,12 @@ exports[`Edit applications documentation metadata Edit document type GET /case/1
                 </div>
                 <div class=\\"govuk-radios__item\\">
                     <input class=\\"govuk-radios__input\\" id=\\"documentType-2\\" name=\\"documentType\\"
-                    type=\\"radio\\" value=\\"Exam library\\">
+                    type=\\"radio\\" value=\\"Exam library\\" checked>
                     <label class=\\"govuk-label govuk-radios__label\\" for=\\"documentType-2\\">Exam library</label>
                 </div>
                 <div class=\\"govuk-radios__item\\">
                     <input class=\\"govuk-radios__input\\" id=\\"documentType-3\\" name=\\"documentType\\"
-                    type=\\"radio\\" value=\\"\\" checked>
+                    type=\\"radio\\" value=\\"\\">
                     <label class=\\"govuk-label govuk-radios__label\\" for=\\"documentType-3\\">No document type</label>
                 </div>
             </div>

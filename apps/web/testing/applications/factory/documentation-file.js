@@ -12,11 +12,12 @@ import {
  * @param {Partial<DocumentationFile>} [options={}]
  * @returns {DocumentationFile}
  */
-export function createDocumentationFile({
-	guid = `${fake.createUniqueId()}`,
-	receivedDate = 1_669_916_924
-} = {}) {
+export function createDocumentationFile(options = {}) {
+	const guid = options.guid ?? `${fake.createUniqueId()}`;
 	const uniqueSeed = Number.parseInt(guid, 10);
+
+	const createdAt = 1_669_916_924;
+	const publishedAt = 1_678_192_858;
 	const size = createUniqueRandomNumberFromSeed(100, 10_000_000, uniqueSeed);
 	const redacted = createUniqueRandomBooleanFromSeed(uniqueSeed);
 
@@ -26,10 +27,16 @@ export function createDocumentationFile({
 		{ mime: 'image/jpeg', ext: 'jpeg' },
 		{ mime: 'audio/mpeg', ext: 'mpeg' }
 	][createUniqueRandomNumberFromSeed(0, 4, uniqueSeed)];
+
 	const documentName = `${uniqueSeed + 1} ${createRandomDescription({
 		wordsNumber: createUniqueRandomNumberFromSeed(2, 5, uniqueSeed),
 		startOffset: createUniqueRandomNumberFromSeed(0, 30, uniqueSeed)
 	})}.${type.ext}`;
+
+	const description = `${createRandomDescription({
+		wordsNumber: createUniqueRandomNumberFromSeed(10, 30, uniqueSeed),
+		startOffset: createUniqueRandomNumberFromSeed(0, 30, uniqueSeed)
+	})}`;
 
 	const filter1 = `${createRandomDescription({
 		wordsNumber: createUniqueRandomNumberFromSeed(1, 2, uniqueSeed),
@@ -47,17 +54,24 @@ export function createDocumentationFile({
 	})}`;
 
 	const author = `${createRandomDescription({
-		wordsNumber: 1,
-		startOffset: createUniqueRandomNumberFromSeed(0, 30, uniqueSeed)
-	})} ${createRandomDescription({
-		wordsNumber: 1,
-		startOffset: createUniqueRandomNumberFromSeed(5, 20, uniqueSeed)
+		wordsNumber: 2,
+		startOffset: createUniqueRandomNumberFromSeed(3, 12, uniqueSeed)
 	})}`;
 
-	const description = `${createRandomDescription({
-		wordsNumber: createUniqueRandomNumberFromSeed(2, 40, uniqueSeed),
-		startOffset: createUniqueRandomNumberFromSeed(0, 30, uniqueSeed)
-	})}.${type.ext}`;
+	const documentType = ['Rule 8 letter', 'Exam library', ''][
+		createUniqueRandomNumberFromSeed(0, 3, uniqueSeed)
+	];
+
+	const stage = [
+		'1. Pre-application',
+		'2. Acceptance',
+		'3. Pre-examination',
+		'4. Examination',
+		'5. Recommendation',
+		'6. Decision',
+		'7. Post-decision',
+		"8. Developer's application"
+	][createUniqueRandomNumberFromSeed(0, 9, uniqueSeed)];
 
 	const status = [
 		'user_checked',
@@ -66,8 +80,9 @@ export function createDocumentationFile({
 		'do_not_publish',
 		'unpublished',
 		'awaiting_virus_check',
-		'failed_virus_check'
-	][createUniqueRandomNumberFromSeed(0, 7, uniqueSeed)];
+		'failed_virus_check',
+		'published'
+	][createUniqueRandomNumberFromSeed(0, 8, uniqueSeed)];
 
 	return {
 		guid,
@@ -76,11 +91,14 @@ export function createDocumentationFile({
 		url,
 		author,
 		representative,
-		receivedDate,
+		createdAt,
+		...(status === 'published' ? { publishedAt } : {}),
 		size,
 		description,
 		type: type.mime,
 		status,
-		redacted
+		stage,
+		redacted,
+		documentType
 	};
 }
