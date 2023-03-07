@@ -15,8 +15,9 @@ export const validatorsDispatcher = async (request, response, next) => {
 	const validators = {
 		name: validateDocumentationMetaName,
 		description: validateDocumentationMetaDescription,
-		redaction: validateDocumentationMetaRedacted,
-		webfilter: validateDocumentationMetaFilter1
+		webfilter: validateDocumentationMetaFilter1,
+		agent: validateDocumentationMetaRepresentative,
+		redaction: validateDocumentationMetaRedacted
 	};
 
 	if (validators[metaDataName]) {
@@ -52,6 +53,13 @@ export const validateDocumentationMetaFilter1 = createValidator(
 		.withMessage('You must enter a webfilter')
 		.isLength({ max: 100 })
 		.withMessage('The webfilter must be 100 characters or fewer')
+);
+
+export const validateDocumentationMetaRepresentative = createValidator(
+	body('representative')
+		.trim()
+		.isLength({ max: 150 })
+		.withMessage('The agent name be 150 characters or fewer')
 );
 
 export const validateDocumentationMetaRedacted = createValidator(
