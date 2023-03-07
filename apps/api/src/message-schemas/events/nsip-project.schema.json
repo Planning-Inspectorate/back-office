@@ -4,259 +4,357 @@
 	"title": "NSIP Project",
 	"description": "Subset of Pins Data Model [Case]",
 	"type": "object",
-	"required": ["id", "type", "sourceSystem"],
+	"required": ["caseId", "sourceSystem"],
 	"properties": {
-		"id": {
+		"caseId": {
 			"type": "number",
 			"examples": [1242],
-			"description": "The unique identifier within the Back Office. This is not the same as the reference number."
+			"description": "The unique identifier within the Back Office. This is not the same as the case reference"
 		},
-		"reference": {
+		"caseReference": {
 			"type": "string",
 			"examples": ["BC0510001"]
 		},
-		"title": {
+		"projectName": {
 			"type": "string",
+			"description": "Name of project",
 			"examples": ["A1 Birtley to Coal House Improvement Scheme"]
 		},
-		"description": {
+		"projectDescription": {
 			"type": "string",
 			"examples": [
 				"The scheme is 6.5 km in length and will consist of online widening of the A1 south of Gateshead to four lanes between junction 65"
 			]
 		},
-		"type": {
-			"$ref": "#/$defs/case-type"
+		"publishStatus": {
+			"type": "string",
+			"enum": ["published", "unpublished"]
+		},
+		"sector": {
+			"type": "string",
+			"description": "{Sector Abbreviation} - {Sector Display Name}",
+			"enum": [
+				"BC - Business and Commercial",
+				"EN - Energy",
+				"TR - Transport",
+				"WA - Water",
+				"WS - Waste",
+				"WW - Waste Water"
+			]
+		},
+		"projectType": {
+			"type": "string",
+			"description": "{SubSector Abbreviation} - {SubSector Display Name}",
+			"enum": [
+				"BC01 - Office Use",
+				"EN01 - Generating Stations",
+				"TR01 - Highways",
+				"WA01 - Dams and Reservoirs",
+				"WS01 - Hazardous Waste Facilities",
+				"WW01 - Waste Water Treatment Plants"
+			]
 		},
 		"sourceSystem": {
 			"type": "string",
 			"enum": ["ODT", "Horizon"]
 		},
-		"status": {
+		"stage": {
+			"type": "string",
+			"description": "Process stage identifier",
+			"enum": [
+				"draft",
+				"pre_application",
+				"acceptance",
+				"pre_examination",
+				"examination",
+				"recommendation",
+				"decision",
+				"post_decision",
+				"withdrawn"
+			]
+		},
+		"projectLocation": {
+			"type": "string",
+			"description": "Description of site location",
+			"examples": [
+				"The scheme is located on the A1 Newcastle Gateshead Western Bypass, between junctions 65 and 67."
+			]
+		},
+		"projectEmailAddress": {
+			"type": "string",
+			"description": "PINS Project email address pubished on website",
+			"examples": ["NIEnquiries@planninginspectorate.gsi.gov.uk"]
+		},
+		"regions": {
 			"type": "array",
 			"items": {
-				"$ref": "#/$defs/case-status"
+				"type": "string",
+				"description": "Geographical region of UK. Applications can cover multiple regions.",
+				"examples": ["east_midlands"]
 			}
 		},
-		"application": {
-			"$ref": "#/$defs/application"
+		"transboundary": {
+			"type": "boolean",
+			"description": "Drives addition of Transboundary tab on website. [TODO]",
+			"examples": [true, false]
 		},
-		"customers": {
+		"easting": {
+			"type": "number",
+			"description": "Project site Easting co-ordinate.",
+			"examples": [345678]
+		},
+		"northing": {
+			"type": "number",
+			"description": "Project site Northing co-ordinate.",
+			"examples": [345678]
+		},
+		"welshLanguage": {
+			"type": "boolean",
+			"description": "Welsh Language translation required.",
+			"examples": [true, false]
+		},
+		"mapZoomLevel": {
+			"type": "string",
+			"description": "Resolution of pinned map. Set when co-ordinates are created.",
+			"examples": ["region"]
+		},
+		"secretaryOfState": {
+			"type": "string",
+			"description": "Relevant Government Department. [TODO]"
+		},
+		"dateProjectAppearsOnWebsite": {
+			"type": "string",
+			"description": "Date Project Appears On Website",
+			"format": "date-time",
+			"examples": ["2023-03-26T00:00:00.000"]
+		},
+		"dateOfDCOAcceptance": {
+			"type": "string",
+			"description": "Date Application is Formerly Accepted by PINS",
+			"format": "date-time",
+			"examples": ["2023-03-26T00:00:00.000"]
+		},
+		"anticipatedDateOfSubmission": {
+			"type": "string",
+			"description": "Anticipated Submission Date Of Application",
+			"format": "date-time",
+			"examples": ["2023-03-26T00:00:00.000"]
+		},
+		"anticipatedSubmissionDateNonSpecific": {
+			"type": "string",
+			"description": "Approximate Anticipated Submission Date Of Application, e.g. Q3 2023",
+			"examples": ["Q3 2023"]
+		},
+		"dateOfDCOSubmission": {
+			"type": "string",
+			"description": "Date Applcation is submitted",
+			"format": "date-time",
+			"examples": ["2023-03-26T00:00:00.000"]
+		},
+		"dateOfRepresentationPeriodOpen": {
+			"type": "string",
+			"description": "Date at which point publish can submit relevant reps",
+			"format": "date-time",
+			"examples": ["2023-03-26T00:00:00.000"]
+		},
+		"dateOfRelevantRepresentationClose": {
+			"type": "string",
+			"description": "Date at which point publish can no longer submit relevant reps",
+			"format": "date-time",
+			"examples": ["2023-03-26T00:00:00.000"]
+		},
+		"dateRRepAppearOnWebsite": {
+			"type": "string",
+			"description": "Date at which relevant reps appear on the website",
+			"format": "date-time",
+			"examples": ["2023-03-26T00:00:00.000"]
+		},
+		"ConfirmedStartOfExamination": {
+			"type": "string",
+			"description": "ConfirmedStartOfExamination by panel",
+			"format": "date-time",
+			"examples": ["2023-03-26T00:00:00.000"]
+		},
+		"dateTimeExaminationEnds": {
+			"type": "string",
+			"description": "ConfirmedSEndOfExamination by panel",
+			"format": "date-time",
+			"examples": ["2023-03-26T00:00:00.000"]
+		},
+		"stage4ExtensionToExamCloseDate": {
+			"type": "string",
+			"description": "Examination Period extended to this date",
+			"format": "date-time",
+			"examples": ["2023-03-26T00:00:00.000"]
+		},
+		"stage5ExtensionToRecommendationDeadline": {
+			"type": "string",
+			"description": "Recommendation period extended to this date",
+			"format": "date-time",
+			"examples": ["2023-03-26T00:00:00.000"]
+		},
+		"dateOfRecommendations": {
+			"type": "string",
+			"description": "Date recomm report sent to SoS",
+			"format": "date-time",
+			"examples": ["2023-03-26T00:00:00.000"]
+		},
+		"confirmedDateOfDecision": {
+			"type": "string",
+			"description": "Decision by SoS",
+			"format": "date-time",
+			"examples": ["2023-03-26T00:00:00.000"]
+		},
+		"stage5ExtensionToDecisionDeadline": {
+			"type": "string",
+			"description": "Decision period extended to this date",
+			"format": "date-time",
+			"examples": ["2023-03-26T00:00:00.000"]
+		},
+		"dateProjectWithdrawn": {
+			"type": "string",
+			"description": "DateProjectWithdrawn by applicant",
+			"format": "date-time",
+			"examples": ["2023-03-26T00:00:00.000"]
+		},
+		"section46Notification": {
+			"type": "string",
+			"description": "Applicant must notify PINS of statutory consultation",
+			"format": "date-time",
+			"examples": ["2023-03-26T00:00:00.000"]
+		},
+		"datePINSFirstNotifiedOfProject": {
+			"type": "string",
+			"description": "Date at which applicant notify PINS of a project (pre-publishing)",
+			"format": "date-time",
+			"examples": ["2023-03-26T00:00:00.000"]
+		},
+		"screeningOpinionSought": {
+			"type": "string",
+			"description": "(TBC by Env. Services Team)",
+			"format": "date-time",
+			"examples": ["2023-03-26T00:00:00.000"]
+		},
+		"screeningOpinionIssued": {
+			"type": "string",
+			"description": "(TBC by Env. Services Team)",
+			"format": "date-time",
+			"examples": ["2023-03-26T00:00:00.000"]
+		},
+		"scopingOpinionSought": {
+			"type": "string",
+			"description": "(TBC by Env. Services Team)",
+			"format": "date-time",
+			"examples": ["2023-03-26T00:00:00.000"]
+		},
+		"scopingOpinionIssued": {
+			"type": "string",
+			"description": "(TBC by Env. Services Team)",
+			"format": "date-time",
+			"examples": ["2023-03-26T00:00:00.000"]
+		},
+		"deadlineForAcceptanceDecision": {
+			"type": "string",
+			"description": "DeadlineForAcceptanceDecision",
+			"format": "date-time",
+			"examples": ["2023-03-26T00:00:00.000"]
+		},
+		"dateSection58NoticeReceived": {
+			"type": "string",
+			"description": "Applicant has notified all parties of application",
+			"format": "date-time",
+			"examples": ["2023-03-26T00:00:00.000"]
+		},
+		"preliminaryMeetingStartDate": {
+			"type": "string",
+			"description": "Meeting between all parties inc public",
+			"format": "date-time",
+			"examples": ["2023-03-26T00:00:00.000"]
+		},
+		"deadlineForCloseOfExamination": {
+			"type": "string",
+			"description": "DeadlineForCloseOfExamination",
+			"format": "date-time",
+			"examples": ["2023-03-26T00:00:00.000"]
+		},
+		"deadlineForSubmissionOfRecommendation": {
+			"type": "string",
+			"description": "DeadlineForSubmissionOfRecommendation",
+			"format": "date-time",
+			"examples": ["2023-03-26T00:00:00.000"]
+		},
+		"deadlineForDecision": {
+			"type": "string",
+			"description": "DeadlineForDecision",
+			"format": "date-time",
+			"examples": ["2023-03-26T00:00:00.000"]
+		},
+		"jRPeriodEndDate": {
+			"type": "string",
+			"description": "Judicial Review",
+			"format": "date-time",
+			"examples": ["2023-03-26T00:00:00.000"]
+		},
+		"extensionToDateRelevantRepresentationsClose": {
+			"type": "string",
+			"description": "ExtensionToDateRelevantRepresentationsClose",
+			"format": "date-time",
+			"examples": ["2023-03-26T00:00:00.000"]
+		},
+		"operationsLeadId": {
+			"type": "string",
+			"description": "Maps to [Employee].[EmployeeID]."
+		},
+		"operationsManagerId": {
+			"type": "string",
+			"description": "New NSIP role, Maps to [Employee].[EmployeeID]"
+		},
+		"caseManagerId": {
+			"type": "string",
+			"description": "Maps to [Employee].[EmployeeID]"
+		},
+		"nsipOfficerIds": {
 			"type": "array",
 			"items": {
-				"$ref": "#/$defs/applicant"
+				"type": "string",
+				"description": "{Set}: Maps to [Employee].[EmployeeID]."
 			}
 		},
-		"inspectors": {
+		"nsipAdministrationOfficerIds": {
 			"type": "array",
 			"items": {
-				"$ref": "employee.schema.json"
+				"type": "string",
+				"description": "{Set}: Maps to [Employee].[EmployeeID]."
 			}
 		},
-		"validationOfficers": {
+		"leadInspectorId": {
+			"type": "string",
+			"description": "Maps to [Employee].[EmployeeID]"
+		},
+		"inspectorIds": {
 			"type": "array",
 			"items": {
-				"$ref": "employee.schema.json"
+				"type": "string",
+				"description": "{Set}: Maps to [Employee].[EmployeeID]"
 			}
 		},
-		"caseOfficers": {
+		"environmentalServicesOfficerId": {
+			"type": "string",
+			"description": "Maps to [Employee].[EmployeeID]"
+		},
+		"legalOfficerId": {
+			"type": "string",
+			"description": "Maps to [Employee].[EmployeeID]"
+		},
+		"applicantId": {
+			"type": "string",
+			"description": "Maps to [Service Customer].[CustomerID]"
+		},
+		"interestedPartyIds": {
 			"type": "array",
 			"items": {
-				"$ref": "employee.schema.json"
-			}
-		},
-		"decision": {
-			"$ref": "#/$defs/decision"
-		}
-	},
-	"$defs": {
-		"application": {
-			"type": "object",
-			"properties": {
-				"caseEmail": {
-					"type": "string",
-					"examples": ["NIEnquiries@planninginspectorate.gsi.gov.uk"]
-				},
-				"siteAddress": {
-					"type": "string",
-					"examples": [
-						"The scheme is located on the A1 Newcastle Gateshead Western Bypass, between junctions 65 and 67."
-					]
-				},
-				"sector": {
-					"type": "object",
-					"required": ["abbreviation", "name", "subSector"],
-					"properties": {
-						"abbreviation": {
-							"type": "string",
-							"examples": ["BC"]
-						},
-						"name": {
-							"type": "string",
-							"examples": ["business_and_commercial"]
-						},
-						"subSector": {
-							"type": "object",
-							"required": ["abbreviation", "name"],
-							"properties": {
-								"abbreviation": {
-									"type": "string",
-									"examples": ["BC05"]
-								},
-								"name": {
-									"type": "string",
-									"examples": ["conferences"]
-								}
-							}
-						}
-					}
-				},
-				"zoom": {
-					"type": "object",
-					"required": ["name"],
-					"properties": {
-						"name": {
-							"type": "string",
-							"examples": ["region"]
-						}
-					}
-				},
-				"regions": {
-					"type": "array",
-					"items": {
-						"type": "object",
-						"required": ["name"],
-						"properties": {
-							"name": {
-								"type": "string",
-								"examples": ["east_midlands"]
-							}
-						}
-					}
-				},
-				"gridReference": {
-					"type": "object",
-					"required": ["easting", "northing"],
-					"properties": {
-						"easting": {
-							"type": "number",
-							"examples": [345678]
-						},
-						"northing": {
-							"type": "number",
-							"examples": [345678]
-						}
-					}
-				},
-				"keyDates": {
-					"type": "object",
-					"description": "Much more key dates to come",
-					"properties": {
-						"anticipatedSubmissionDate": {
-							"type": "string",
-							"format": "date-time",
-							"examples": ["2023-03-26T00:00:00.000"]
-						},
-						"anticipatedSubmissionDateNonSpecific": {
-							"type": "string",
-							"examples": ["Q4 2023"]
-						}
-					}
-				}
-			}
-		},
-		"case-type": {
-			"type": "object",
-			"required": ["code"],
-			"properties": {
-				"code": {
-					"type": "string",
-					"enum": ["application", "appeal"]
-				}
-			}
-		},
-		"case-status": {
-			"type": "object",
-			"required": ["status"],
-			"properties": {
-				"status": {
-					"type": "string",
-					"enum": [
-						"draft",
-						"pre_application",
-						"acceptance",
-						"pre_examination",
-						"examination",
-						"recommendation",
-						"decision",
-						"post_decision",
-						"withdrawn"
-					]
-				}
-			}
-		},
-		"decision": {
-			"type": "object",
-			"required": ["code", "date"],
-			"properties": {
-				"code": {
-					"type": "string",
-					"enum": ["allowed", "dismissed", "split-decision"]
-				},
-				"date": {
-					"type": "string",
-					"format": "date-time",
-					"examples": ["2023-03-26T00:00:00.000"]
-				}
-			}
-		},
-		"applicant": {
-			"description": "Subset of Pins Data Model [Service User]",
-			"type": "object",
-			"required": ["id", "name"],
-			"properties": {
-				"id": {
-					"type": "number",
-					"examples": [18]
-				},
-				"firstName": {
-					"type": "string",
-					"examples": ["Alan"]
-				},
-				"lastName": {
-					"type": "string",
-					"examples": ["Turing"]
-				},
-				"name": {
-					"title": "Name",
-					"type": "string",
-					"default": "",
-					"examples": ["National Highways"],
-					"pattern": "^.*$"
-				},
-				"address": {
-					"title": "Address",
-					"type": "object",
-					"required": ["addressLine1", "town", "postcode"],
-					"properties": {
-						"addressLine1": {
-							"type": "string",
-							"examples": ["National Traffic Operations Centre"]
-						},
-						"addressLine2": {
-							"type": "string",
-							"examples": ["3 Ridgeway, Quinton Business Park"]
-						},
-						"town": {
-							"type": "string",
-							"examples": ["Birmingham"]
-						},
-						"postcode": {
-							"type": "string",
-							"examples": ["B32 1AF"]
-						}
-					}
-				}
+				"type": "string",
+				"description": "{Set}: Maps to [Service Customer].[CustomerID]"
 			}
 		}
 	}
