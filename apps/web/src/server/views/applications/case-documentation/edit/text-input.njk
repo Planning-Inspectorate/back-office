@@ -1,18 +1,22 @@
-{% from "govuk/components/input/macro.njk" import govukInput %}
-
 {% macro textInput(layout, value, errors) %}
-	{{ govukInput({
-  		name: layout.metaDataName,
-  		id: layout.metaDataName,
-  		label: {
-  			text: layout.label,
-			classes: 'font-weight--700'
-		},
-		classes: "govuk-!-width-two-thirds",
-		errorMessage: errors[layout.metaDataName] | errorMessage,
-		value: value,
-		hint: {
-			text: layout.hint
-		}
-	}) }}
+    <div class="govuk-form-group">
+
+		<label class="govuk-label font-weight--700" for="{{layout.metaDataName}}">
+           {{layout.label}}
+        </label>
+
+		<div id="{{layout.metaDataName}}-hint" class="govuk-hint">
+            {{layout.hint}}
+        </div>
+
+		<input
+            class="govuk-input govuk-!-width-two-thirds"
+            id="{{layout.metaDataName}}"
+            name="{{layout.metaDataName}}"
+            type="text"
+            value="{{value}}"
+            aria-describedby="{{layout.metaDataName}}-hint"
+            maxlength="{{layout.maxLength}}">
+
+	</div>
 {% endmacro %}
