@@ -53,11 +53,11 @@ export class Page {
 		checkbox: () => cy.get(this.selectors.checkbox).find('input'),
 		errorMessage: () => cy.get(this.selectors.errorMessage),
 		goToDashboardLink: () =>
-			cy.contains(`${this.selectors.rightCol} ${this.selectors.link}`, 'Go To Dashboard', {
-				matchCase: false
+			cy.contains(`${this.selectors.rightCol} ${this.selectors.link}`, 'Go to Dashboard', {
+				matchCase: true
 			}),
 		input: () => cy.get(this.selectors.input),
-		linkByText: (text) => cy.contains(this.selectors.link, text, { matchCase: false }),
+		linkByText: (text) => cy.contains(this.selectors.link, text, { matchCase: true }),
 		loggedInUser: () => cy.get(`${this.selectors.rightCol} > span`),
 		radioButton: () => cy.get(this.selectors.radio),
 		sectionHeader: () => cy.get(this.selectors.headingLeft),
@@ -144,5 +144,12 @@ export class Page {
 
 	verifyInspectorIsSignedIn() {
 		this.basePageElements.loggedInUser().should('have.text', users.inspector.typeName);
+	}
+
+	verifyFolderDocuments(fileCount) {
+		this.basePageElements
+			.genericText()
+			.contains(`This folder contains ${fileCount} document(s).`)
+			.should('exist');
 	}
 }

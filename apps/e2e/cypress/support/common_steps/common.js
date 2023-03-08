@@ -16,7 +16,7 @@ Given(/^the user visits the home page$/, function () {
 });
 
 Given(/^the user goes to the dashboard$/, function () {
-	page.clickLinkByText('Go To Dashboard');
+	page.clickLinkByText('Go to Dashboard');
 });
 
 When(/^the user navigates to the create a new case page$/, function () {
