@@ -13,8 +13,5 @@ When(/^the user uploads a file$/, function () {
 });
 
 Then(/^the folder should have "(\d+)" document$/, function (fileCount) {
-	fileUploadPage.basePageElements
-		.genericText()
-		.contains(`This folder contains ${fileCount} document(s).`)
-		.should('exist');
+	fileUploadPage.verifyFolderDocuments(fileCount);
 });

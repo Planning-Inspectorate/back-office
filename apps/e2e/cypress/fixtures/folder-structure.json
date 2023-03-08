@@ -1,0 +1,440 @@
+[
+	{
+		"documents": [],
+		"name": "Project management",
+		"subfolders": [
+			{
+				"name": "Logistics",
+				"subfolders": [
+					{
+						"name": "Travel",
+						"subfolders": []
+					},
+					{
+						"name": "Welsh",
+						"subfolders": []
+					}
+				]
+			},
+			{
+				"name": "Mail merge spreadsheet",
+				"subfolders": [],
+				"documents": []
+			},
+			{
+				"name": "Fees",
+				"subfolders": [],
+				"documents": []
+			}
+		],
+		"topLevel": true
+	},
+	{
+		"documents": [],
+		"name": "Legal advice",
+		"subfolders": [],
+		"topLevel": true
+	},
+	{
+		"documents": [],
+		"name": "Transboundary",
+		"subfolders": [
+			{
+				"documents": [],
+				"name": "First screening",
+				"subfolders": []
+			},
+			{
+				"documents": [],
+				"name": "Second screening",
+				"subfolders": []
+			}
+		],
+		"topLevel": true
+	},
+	{
+		"documents": [],
+		"name": "Land rights",
+		"subfolders": [
+			{
+				"documents": [],
+				"name": "S52",
+				"subfolders": [
+					{
+						"documents": [],
+						"name": "Applicant request",
+						"subfolders": []
+					},
+					{
+						"documents": [],
+						"name": "Recommendation and authorisation",
+						"subfolders": []
+					},
+					{
+						"documents": [],
+						"name": "Correspondence",
+						"subfolders": []
+					}
+				]
+			},
+			{
+				"documents": [],
+				"name": "S53",
+				"subfolders": [
+					{
+						"documents": [],
+						"name": "Applicant request",
+						"subfolders": []
+					},
+					{
+						"documents": [],
+						"name": "Recommendation and authorisation",
+						"subfolders": []
+					},
+					{
+						"documents": [],
+						"name": "Correspondence",
+						"subfolders": []
+					}
+				]
+			}
+		],
+		"topLevel": true
+	},
+	{
+		"documents": [],
+		"name": "S51 advice",
+		"subfolders": [],
+		"topLevel": true
+	},
+	{
+		"documents": [],
+		"name": "Pre-application",
+		"subfolders": [
+			{
+				"documents": [],
+				"name": "Events / meetings",
+				"subfolders": []
+			},
+			{
+				"documents": [],
+				"name": "Correspondence",
+				"subfolders": []
+			},
+			{
+				"documents": [],
+				"name": "EIA",
+				"subfolders": [
+					{
+						"documents": [],
+						"name": "Screening",
+						"subfolders": []
+					},
+					{
+						"documents": [],
+						"name": "Scoping",
+						"subfolders": []
+					}
+				]
+			},
+			{
+				"documents": [],
+				"name": "Habitat regulations",
+				"subfolders": []
+			},
+			{
+				"documents": [],
+				"name": "Evidence plans",
+				"subfolders": []
+			},
+			{
+				"documents": [],
+				"name": "Draft documents",
+				"subfolders": []
+			},
+			{
+				"documents": [],
+				"name": "Developers consultation",
+				"subfolders": [
+					{
+						"documents": [],
+						"name": "Statutory",
+						"subfolders": []
+					},
+					{
+						"documents": [],
+						"name": "Non-statutory",
+						"subfolders": []
+					},
+					{
+						"documents": [],
+						"name": "Consultation feedback",
+						"subfolders": []
+					}
+				]
+			}
+		],
+		"topLevel": true
+	},
+	{
+		"documents": [],
+		"name": "Acceptance",
+		"subfolders": [
+			{
+				"documents": [],
+				"name": "Events / meetings",
+				"subfolders": []
+			},
+			{
+				"documents": [],
+				"name": "Correspondence",
+				"subfolders": []
+			},
+			{
+				"documents": [],
+				"name": "EST",
+				"subfolders": []
+			},
+			{
+				"documents": [],
+				"name": "Application documents",
+				"subfolders": [
+					{
+						"documents": [],
+						"name": "Application form",
+						"subfolders": []
+					},
+					{
+						"documents": [],
+						"name": "Compulsory acquisition information",
+						"subfolders": []
+					},
+					{
+						"documents": [],
+						"name": "DCO documents",
+						"subfolders": []
+					},
+					{
+						"documents": [],
+						"name": "Environmental statement",
+						"subfolders": []
+					},
+					{
+						"documents": [],
+						"name": "Other docuents",
+						"subfolders": []
+					},
+					{
+						"documents": [],
+						"name": "Plans",
+						"subfolders": []
+					},
+					{
+						"documents": [],
+						"name": "Reports",
+						"subfolders": []
+					},
+					{
+						"documents": [],
+						"name": "Additional Reg 6 information",
+						"subfolders": []
+					}
+				]
+			},
+			{
+				"documents": [],
+				"name": "Adequacy of consultation",
+				"subfolders": []
+			},
+			{
+				"documents": [],
+				"name": "Reg 5 and Reg 6",
+				"subfolders": []
+			},
+			{
+				"documents": [],
+				"name": "Drafting and decision",
+				"subfolders": []
+			}
+		],
+		"topLevel": true
+	},
+	{
+		"documents": [],
+		"name": "Pre-examination",
+		"subfolders": [
+			{
+				"documents": [],
+				"name": "Events / meetings",
+				"subfolders": []
+			},
+			{
+				"documents": [],
+				"name": "Correspondence",
+				"subfolders": []
+			},
+			{
+				"documents": [],
+				"name": "Additional submissions",
+				"subfolders": [
+					{
+						"documents": [],
+						"name": "Post submission changes",
+						"subfolders": []
+					}
+				]
+			},
+			{
+				"documents": [],
+				"name": "Procedural decisions",
+				"subfolders": []
+			},
+			{
+				"documents": [],
+				"name": "EIA",
+				"subfolders": []
+			},
+			{
+				"documents": [],
+				"name": "Habitat regulations",
+				"subfolders": []
+			}
+		],
+		"topLevel": true
+	},
+	{
+		"documents": [],
+		"name": "Relevant representations",
+		"subfolders": [],
+		"topLevel": true
+	},
+	{
+		"documents": [],
+		"name": "Examination",
+		"subfolders": [
+			{
+				"documents": [],
+				"name": "Correspondence",
+				"subfolders": []
+			},
+			{
+				"documents": [],
+				"name": "Additional submissions",
+				"subfolders": []
+			},
+			{
+				"documents": [],
+				"name": "Examination timetable",
+				"subfolders": [
+					{
+						"documents": [],
+						"name": "Preliminary meetings",
+						"subfolders": []
+					},
+					{
+						"documents": [],
+						"name": "Site inspections",
+						"subfolders": []
+					}
+				]
+			},
+			{
+				"documents": [],
+				"name": "Procedural decisions",
+				"subfolders": []
+			},
+			{
+				"documents": [],
+				"name": "EIA",
+				"subfolders": []
+			},
+			{
+				"documents": [],
+				"name": "Habitat regulations",
+				"subfolders": []
+			}
+		],
+		"topLevel": true
+	},
+	{
+		"documents": [],
+		"name": "Recommendation",
+		"subfolders": [
+			{
+				"documents": [],
+				"name": "Events / meetings",
+				"subfolders": []
+			},
+			{
+				"documents": [],
+				"name": "Correspondence",
+				"subfolders": []
+			},
+			{
+				"documents": [],
+				"name": "Recommendation report",
+				"subfolders": [
+					{
+						"documents": [],
+						"name": "Drafts",
+						"subfolders": []
+					},
+					{
+						"documents": [],
+						"name": "Final submitted report",
+						"subfolders": []
+					}
+				]
+			}
+		],
+		"topLevel": true
+	},
+	{
+		"documents": [],
+		"name": "Decision",
+		"subfolders": [
+			{
+				"documents": [],
+				"name": "SoS consultation",
+				"subfolders": []
+			},
+			{
+				"documents": [],
+				"name": "Sos decision",
+				"subfolders": []
+			}
+		],
+		"topLevel": true
+	},
+	{
+		"name": "Post-decision",
+		"subfolders": [
+			{
+				"documents": [],
+				"name": "Judicial review",
+				"subfolders": []
+			},
+			{
+				"documents": [],
+				"name": "Costs",
+				"subfolders": []
+			},
+			{
+				"documents": [],
+				"name": "Non-material change",
+				"subfolders": []
+			},
+			{
+				"documents": [],
+				"name": "Material change",
+				"subfolders": []
+			},
+			{
+				"documents": [],
+				"name": "Redetermination",
+				"subfolders": []
+			}
+		],
+		"topLevel": true
+	}
+]
