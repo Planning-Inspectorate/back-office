@@ -155,9 +155,9 @@ const document = {
 				displayNameCy: 'Region Name Cy'
 			}
 		],
-		documentsMetadataRequestBody: {
+		documentsPropertiesRequestBody: {
 			version: 1,
-			dateCreated: '2023-02-27T10:00:00Z',
+			createdAt: '2023-02-27T10:00:00Z',
 			lastModified: '2023-02-27T12:00:00Z',
 			documentType: 'PDF',
 			published: false,
@@ -179,6 +179,25 @@ const document = {
 			stage: 3,
 			filter1: 'Marketing',
 			filter2: 'Brochure'
+		},
+		documentsMetadataResponseBody: {
+			version: 1,
+			documentId: 'a6f9f2e0-12c9-49b7-8a1c-3b5edc34dd99',
+			publishedDate: '',
+			caseRef: 'BC0210002',
+			documentName: '5',
+			blobStorageContainer: 'document-service-uploads',
+			blobStoragePath: '/application/BC010001/1111-2222-3333/my doc.pdf',
+			from: 'joe blogs',
+			receivedDate: 1_677_585_578,
+			size: 0,
+			fileType: '',
+			redacted: false,
+			status: 'awaiting_upload',
+			description: '',
+			agent: '',
+			documentType: '',
+			webFilter: ''
 		},
 		ApplicationsForCaseTeam: [
 			{
@@ -269,24 +288,24 @@ const document = {
 			pageSize: 1
 		},
 		DocumentDetails: {
-			guid: '0fab253b-2c0c-4c55-94c0-f3f81ffc589c',
-			documentName: 'document_name_1.pdf',
-			blobStorageContainer: 'document-service-uploads',
-			blobStoragePath:
-				'/application/TR010002/d38ef007-98d8-4d89-b7bb-34160d97e84e/document_name_1.pdf',
-			from: 'TBD',
-			receivedDate: 1_658_486_313,
-			size: 1024,
-			type: 'application/pdf',
-			redacted: false,
-			status: 'not_user_checked',
-			description: 'TBD',
-			documentReferenceNumber: 'TBD',
 			version: 1,
-			agent: 'Mr S King',
-			caseStage: 'Examination',
-			webFilter: 'TBD',
-			documentType: 'TBD'
+			documentGuid: '',
+			documentId: 'a6f9f2e0-12c9-49b7-8a1c-3b5edc34dd99',
+			publishedAt: '',
+			caseRef: 'BC0210002',
+			documentName: '5',
+			blobStorageContainer: 'document-service-uploads',
+			blobStoragePath: '/application/BC010001/1111-2222-3333/my doc.pdf',
+			from: 'joe blogs',
+			createdAt: 1_677_585_578,
+			size: 0,
+			fileType: '',
+			redacted: false,
+			status: 'awaiting_upload',
+			description: '',
+			agent: '',
+			documentType: '',
+			webFilter: ''
 		},
 		PaginatedDocumentDetails: [
 			{
@@ -296,24 +315,24 @@ const document = {
 				itemCount: 1,
 				items: [
 					{
-						guid: '0fab253b-2c0c-4c55-94c0-f3f81ffc589c',
-						documentName: 'document_name_1.pdf',
-						blobStorageContainer: 'document-service-uploads',
-						blobStoragePath:
-							'/application/TR010002/d38ef007-98d8-4d89-b7bb-34160d97e84e/document_name_1.pdf',
-						from: 'TBD',
-						receivedDate: 1_658_486_313,
-						size: 1024,
-						type: 'application/pdf',
-						redacted: false,
-						status: 'not_user_checked',
-						description: 'TBD',
-						documentReferenceNumber: 'TBD',
 						version: 1,
-						agent: 'Mr S King',
-						caseStage: 'Examination',
-						webFilter: 'TBD',
-						documentType: 'TBD'
+						documentGuid: '',
+						documentId: 'a6f9f2e0-12c9-49b7-8a1c-3b5edc34dd99',
+						publishedDate: '',
+						caseRef: 'BC0210002',
+						documentName: '5',
+						blobStorageContainer: 'document-service-uploads',
+						blobStoragePath: '/application/BC010001/1111-2222-3333/my doc.pdf',
+						from: 'joe blogs',
+						receivedDate: 1_677_585_578,
+						size: 0,
+						fileType: '',
+						redacted: false,
+						status: 'awaiting_upload',
+						description: '',
+						agent: '',
+						documentType: '',
+						webFilter: ''
 					}
 				]
 			}
@@ -486,7 +505,7 @@ const document = {
 			mime: '',
 			fileSize: 0,
 			fileType: '',
-			dateCreated: '',
+			createdAt: '',
 			lastModified: '',
 			datePublished: '',
 			documentType: '',

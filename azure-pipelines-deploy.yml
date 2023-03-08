@@ -74,6 +74,7 @@ extends:
                       environmentVariables:
                         DATABASE_URL: $(DATABASE_URL)
                       script: npx prisma introspect
+                      script: npm run db:migrate
                       workingDirectory: $(Build.Repository.LocalPath)/apps/api
               - template: ../steps/azure_web_app_deploy.yml
                 parameters:
