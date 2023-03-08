@@ -98,21 +98,14 @@ export const updateCaseDocumentationFiles = async (caseId, { status, redacted, i
  */
 export const getCaseDocumentationFileInfo = async (caseId, fileGuid) => {
 	// TODO: remove this and replace is the function below
-	return get(`applications/${caseId}/documents/${fileGuid}`);
-};
+	// return get(`applications/${caseId}/documents/${fileGuid}/properties`);
 
-/**
- * Get the blob storage info for the file with the given GUID
- *
- * @param {number} caseId
- * @param {string} fileGuid
- * @returns {Promise<*>}
- */
-export const getCaseDocumentationFileInfoMOCKED = async (caseId, fileGuid) => {
 	return new Promise((resolve) => {
-		setTimeout(() => {
-			resolve({ ...fixtureDocumentationFiles[3], caseId, fileGuid });
-		}, 500);
+		if (caseId !== null && fileGuid !== null) {
+			setTimeout(() => {
+				resolve({ ...fixtureDocumentationFiles[3] });
+			}, 500);
+		}
 	});
 };
 
