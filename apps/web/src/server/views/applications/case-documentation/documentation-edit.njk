@@ -29,7 +29,7 @@
     </form>
 {% endblock %}
 {% macro renderComponent(componentName) %}
-    {% if(componentName === 'createdAt' or componentName === 'publishedAt') %}
+    {% if(componentName === 'dateCreated' or componentName === 'datePublished') %}
         {{ dateInput(layout, documentMetaData[layout.metaDataName], errors) }}
     {% elif(componentName === 'redacted' or componentName === 'documentType') %}
         {{ checkboxesInput(layout, documentMetaData[layout.metaDataName], errors) }}

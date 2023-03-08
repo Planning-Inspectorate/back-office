@@ -99,8 +99,8 @@ export interface DocumentationFile {
 	url: string;
 	description: string;
 	author: string;
-	createdAt: number;
-	publishedAt?: number;
+	dateCreated: number;
+	datePublished?: number;
 	size: number;
 	type: string;
 	status: string;

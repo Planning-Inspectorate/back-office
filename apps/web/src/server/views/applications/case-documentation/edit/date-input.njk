@@ -1,14 +1,21 @@
 {% from "govuk/components/input/macro.njk" import govukInput %}
 {% macro dateInput(layout, value, errors) %}
 
-    <div class="govuk-form-group {{ 'govuk-form-group--error' if (errors['keyDates.submissionDateInternal'] !== undefined and
-            errors['keyDates.submissionDateInternal'] !== false) else '' }}">
+{% set isError = errors[layout.metaDataName] !== undefined and errors[layout.metaDataName] !== false %}
+
+    <div class="govuk-form-group {{ 'govuk-form-group--error' if isError else '' }}">
         <label class="govuk-label font-weight--700" for="submissionDateInternal">
             {{ layout.label }}
         </label>
         <div id="submissionDateInternal-hint" class="govuk-hint">
             {{ layout.hint }}
         </div>
+
+	{% if isError %}
+		<p id="submissionDateInternal-error" class="govuk-error-message">
+			<span class="govuk-visually-hidden">Error:</span> {{ errors[layout.metaDataName].msg }}
+		</p>
+	{% endif %}
         <div class="govuk-grid-column-one-third">
             <div class="govuk-grid-row pins-date-form-group">
                 {{ govukInput({
@@ -19,7 +26,7 @@
 				id: [layout.metaDataName, '.day']|join,
 				name: [layout.metaDataName, '.day']|join,
 				value: value |datestamp({format: 'dd'}),
-				errorMessage: (errors[layout.metaDataName] !== undefined and errors[layout.metaDataName] !== false)
+				errorMessage: isError
 
 			}) }}
                 {{ govukInput({
@@ -30,7 +37,7 @@
 				id: [layout.metaDataName, '.month']|join,
 				name: [layout.metaDataName, '.month']|join,
 				value: value |datestamp({format: 'MM'}),
-				errorMessage: (errors[layout.metaDataName] !== undefined and errors[layout.metaDataName] !== false)
+				errorMessage: isError
 			}) }}
                 {{ govukInput({
 				label: {
@@ -40,7 +47,7 @@
 				id: [layout.metaDataName, '.year']|join,
 				name: [layout.metaDataName, '.year']|join,
 				value: value |datestamp({format: 'yyyy'}),
-				errorMessage: (errors[layout.metaDataName] !== undefined and errors[layout.metaDataName] !== false)
+				errorMessage: isError
 			}) }}
             </div>
         </div>
