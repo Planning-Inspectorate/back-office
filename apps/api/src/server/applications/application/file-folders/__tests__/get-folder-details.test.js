@@ -65,7 +65,37 @@ const documents = [
 		redacted: false,
 		createdAt: new Date(1_658_486_313_000),
 		fileType: 'application/pdf',
-		fileSize: 1024
+		fileSize: 1024,
+		versionId: 9,
+		documentVersion: {
+			id: 9,
+			version: 1_675_774,
+			createdAt: null,
+			lastModified: null,
+			documentType: '',
+			published: false,
+			redacted: false,
+			isDeleted: false,
+			sourceSystem: null,
+			origin: null,
+			representative: null,
+			description: null,
+			documentGuid: 'a6f9f2e0-12c9-49b7-8a1c-3b5edc34dd99',
+			owner: '',
+			author: '',
+			securityClassification: null,
+			mime: null,
+			horizonDataID: null,
+			fileMD5: null,
+			path: null,
+			virusCheckStatus: null,
+			size: 1024,
+			stage: null,
+			filter1: null,
+			filter2: null,
+			webfilter: '',
+			status: 'not_user_checked'
+		}
 	}
 ];
 
@@ -117,6 +147,7 @@ describe('Get folder details', () => {
 		// GIVEN
 		databaseConnector.case.findUnique.mockResolvedValue(application1);
 		databaseConnector.folder.findMany.mockResolvedValue(subFolders);
+		databaseConnector.folder.findUnique.mockResolvedValue({ caseId: 1 });
 
 		// WHEN
 		const response = await request.get('/applications/1/folders/201/sub-folders');
@@ -219,6 +250,7 @@ describe('Get folder details', () => {
 
 		// THEN
 		expect(response.status).toEqual(200);
+
 		expect(response.body).toEqual({
 			page: 1,
 			pageDefaultSize: 50,
@@ -226,23 +258,30 @@ describe('Get folder details', () => {
 			itemCount: 1,
 			items: [
 				{
-					agent: '',
-					blobStorageContainer: null,
-					blobStoragePath: null,
-					caseStage: '',
-					description: '',
-					guid: '1111-2222-3333',
+					documentGuid: 'a6f9f2e0-12c9-49b7-8a1c-3b5edc34dd99',
+					documentId: '',
+					fileName: '',
+					originalFilename: '',
+					caseRef: null,
 					documentName: 'Document 1',
-					from: '',
-					receivedDate: 1_658_486_313,
+					sourceSystem: 'Back Office',
+					blobStorageContainer: '',
+					blobStoragePath: '',
+					author: '',
+					dateCreated: null,
 					size: 1024,
-					type: 'application/pdf',
-					redacted: false,
+					mime: '',
+					publishedStatus: '',
+					redactedStatus: '',
 					status: 'not_user_checked',
-					documentReferenceNumber: '',
+					datePublished: null,
+					description: null,
+					version: 1_675_774,
+					agent: null,
+					stage: null,
 					documentType: '',
-					version: 1,
-					webFilter: ''
+					filter1: null,
+					examinationRefNo: ''
 				}
 			]
 		});

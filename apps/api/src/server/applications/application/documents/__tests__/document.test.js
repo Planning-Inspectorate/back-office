@@ -1,6 +1,8 @@
+import { jest } from '@jest/globals';
 import supertest from 'supertest';
 import { app } from '../../../../app.js';
 const { databaseConnector } = await import('../../../../utils/database-connector.js');
+const { default: got } = await import('got');
 
 const request = supertest(app);
 
@@ -9,81 +11,209 @@ const application = {
 	reference: 'case reference'
 };
 
-describe('Update Document', () => {
-	test('updates document setting status and redacted status', async () => {
+describe('Provide document upload URLs', () => {
+	beforeAll(() => {
+		process.env.DOCUMENT_STORAGE_API_HOST = 'api-document-storage-host';
+		process.env.DOCUMENT_STORAGE_API_PROT = 'doc-storage-port';
+	});
+
+	test('saves documents information and returns upload URL', async () => {
+		const guid = 'some-guid';
+
 		// GIVEN
 		databaseConnector.case.findUnique.mockResolvedValue(application);
-		databaseConnector.document.findUnique.mockResolvedValue({
-			guid: '1111-2222-3333',
-			name: 'my doc.pdf',
-			folderId: 1,
-			blobStorageContainer: 'document-service-uploads',
-			blobStoragePath: '/application/BC010001/1111-2222-3333/my doc.pdf',
-			status: 'awaiting_upload',
-			createdAt: '2022-12-12 17:12:25.9610000',
-			redacted: true,
-			fileSize: 1024,
-			fileType: 'application/pdf'
+
+		databaseConnector.folder.findUnique.mockResolvedValue({ id: 1, caseId: 1 });
+		databaseConnector.document.upsert.mockResolvedValue({ id: 1, guid, name: 'test doc' });
+		databaseConnector.documentVersion.upsert.mockResolvedValue({});
+		got.post.mockReturnValue({
+			json: jest.fn().mockResolvedValue({
+				blobStorageHost: 'blob-store-host',
+				blobStorageContainer: 'blob-store-container',
+				documents: [
+					{
+						caseType: 'application',
+						blobStoreUrl: '/some/path/test doc',
+						caseReference: 'test reference',
+						GUID: 'some-guid',
+						documentName: 'test doc'
+					}
+				]
+			})
 		});
 
 		// WHEN
-		const response = await request
-			.patch('/applications/1/documents/update')
-			.send({ status: 'not_user_checked', redacted: true, items: [{ guid: '1111-2222-3333' }] });
-
-		// THEN
-		expect(response.status).toEqual(200);
-		expect(response.body).toEqual([
+		const response = await request.post('/applications/1/documents').send([
 			{
-				guid: '1111-2222-3333'
+				folderId: 1,
+				documentName: 'test doc',
+				documentType: 'application/pdf',
+				documentSize: 1024
 			}
 		]);
 
+		// THEN
+		expect(response.status).toEqual(200);
+		expect(response.body).toEqual({
+			blobStorageHost: 'blob-store-host',
+			blobStorageContainer: 'blob-store-container',
+			documents: [
+				{
+					documentName: 'test doc',
+					blobStoreUrl: '/some/path/test doc'
+				}
+			]
+		});
+
 		expect(databaseConnector.document.update).toHaveBeenCalledWith({
 			where: {
-				guid: '1111-2222-3333'
+				guid: 'some-guid'
 			},
 			data: {
-				redacted: true,
-				status: 'not_user_checked'
+				blobStorageContainer: 'blob-store-container',
+				blobStoragePath: '/some/path/test doc'
+			}
+		});
+
+		const metadata = {
+			documentGuid: guid,
+			originalFilename: 'test doc',
+			documentURI: '/some/path/test doc'
+		};
+
+		expect(databaseConnector.documentVersion.upsert).toBeCalledTimes(2);
+
+		expect(databaseConnector.documentVersion.upsert).toHaveBeenCalledWith({
+			create: {
+				Document: { connect: { guid: 'some-guid' } },
+				originalFilename: 'test doc',
+				documentGuid: 'some-guid',
+				mime: 'application/pdf',
+				size: 1024
+			},
+			include: {
+				Document: { include: { folder: { include: { case: { include: { CaseStatus: true } } } } } }
+			},
+			update: {
+				documentGuid: 'some-guid',
+				originalFilename: 'test doc',
+				mime: 'application/pdf',
+				size: 1024
+			},
+			where: { documentGuid: 'some-guid' }
+		});
+
+		expect(databaseConnector.documentVersion.upsert).toHaveBeenCalledWith({
+			create: {
+				documentGuid: 'some-guid',
+				documentURI: '/some/path/test doc',
+				Document: { connect: { guid: metadata?.documentGuid } }
+			},
+			where: { documentGuid: metadata?.documentGuid },
+			update: { documentGuid: 'some-guid', documentURI: '/some/path/test doc' },
+			include: {
+				Document: {
+					include: {
+						folder: {
+							include: {
+								case: {
+									include: {
+										CaseStatus: true
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		});
+
+		expect(databaseConnector.documentVersion.upsert).lastCalledWith({
+			create: {
+				documentGuid: metadata?.documentGuid,
+				documentURI: '/some/path/test doc',
+				Document: { connect: { guid: metadata?.documentGuid } }
+			},
+			where: { documentGuid: metadata?.documentGuid },
+			update: {
+				documentGuid: metadata?.documentGuid,
+				documentURI: '/some/path/test doc'
+			},
+			include: {
+				Document: {
+					include: {
+						folder: {
+							include: {
+								case: {
+									include: {
+										CaseStatus: true
+									}
+								}
+							}
+						}
+					}
+				}
 			}
 		});
 	});
 
-	test('throws error if document id does not exist', async () => {
+	test('throws error if folder id does not belong to case', async () => {
 		// GIVEN
 		databaseConnector.case.findUnique.mockResolvedValue(application);
-		databaseConnector.document.findUnique.mockResolvedValue(null);
+		databaseConnector.folder.findUnique.mockResolvedValue({ id: 1, caseId: 2 });
 
 		// WHEN
-		const response = await request
-			.patch('/applications/1/documents/update')
-			.send({ status: 'not_user_checked', redacted: true, items: [{ guid: 'xxxxx' }] });
+		const response = await request.post('/applications/1/documents').send([
+			{
+				folderId: 2,
+				documentName: 'test doc',
+				documentType: 'application/pdf',
+				documentSize: 1024
+			}
+		]);
 
 		// THEN
 		expect(response.status).toEqual(400);
 		expect(response.body).toEqual({
 			errors: {
-				items: 'Unknown document guid xxxxx'
+				'[0].folderId': 'Folder must belong to case'
 			}
 		});
 	});
 
-	test('throws error if no document ids are specified', async () => {
+	test('throws error if not all document details provided', async () => {
 		// GIVEN
 		databaseConnector.case.findUnique.mockResolvedValue(application);
-		databaseConnector.document.findUnique.mockResolvedValue(null);
+		databaseConnector.folder.findUnique.mockResolvedValue({ id: 1, caseId: 1 });
 
 		// WHEN
-		const response = await request
-			.patch('/applications/1/documents/update')
-			.send([{ status: 'not_user_checked' }]);
+		const response = await request.post('/applications/1/documents').send([{}]);
 
 		// THEN
 		expect(response.status).toEqual(400);
 		expect(response.body).toEqual({
 			errors: {
-				items: 'No document guids specified'
+				'[0].documentName': 'Must provide a document name',
+				'[0].documentSize': 'Must provide a document size',
+				'[0].documentType': 'Must provide a document type',
+				'[0].folderId': 'Must provide a folder id'
+			}
+		});
+	});
+
+	test('throws error if no documents provided', async () => {
+		// GIVEN
+		databaseConnector.case.findUnique.mockResolvedValue(application);
+		databaseConnector.folder.findUnique.mockResolvedValue({ id: 1, caseId: 1 });
+
+		// WHEN
+		const response = await request.post('/applications/1/documents').send([]);
+
+		// THEN
+		expect(response.status).toEqual(400);
+		expect(response.body).toEqual({
+			errors: {
+				'': 'Must provide documents to upload'
 			}
 		});
 	});
@@ -91,69 +221,10 @@ describe('Update Document', () => {
 	test('checks invalid case id', async () => {
 		// GIVEN
 		databaseConnector.case.findUnique.mockResolvedValue(null);
+		databaseConnector.folder.findUnique.mockResolvedValue({ id: 1, caseId: 1 });
 
 		// WHEN
-		const response = await request
-			.patch('/applications/2/documents/update')
-			.send([{ status: 'not_user_checked', items: [{ guid: 'xxxxx' }] }]);
-
-		// THEN
-		expect(response.status).toEqual(404);
-		expect(response.body).toEqual({
-			errors: {
-				id: 'Must be an existing application'
-			}
-		});
-	});
-
-	test('returns document properties for a single document on a case', async () => {
-		// GIVEN
-		databaseConnector.case.findUnique.mockResolvedValue(application);
-		databaseConnector.document.findUnique.mockResolvedValue({
-			guid: '1111-2222-3333',
-			name: 'my doc.pdf',
-			folderId: 1,
-			blobStorageContainer: 'document-service-uploads',
-			blobStoragePath: '/application/BC010001/1111-2222-3333/my doc.pdf',
-			status: 'awaiting_upload',
-			createdAt: '2022-12-12 17:12:25.9610000',
-			redacted: true,
-			fileSize: 1024,
-			fileType: 'application/pdf'
-		});
-
-		// WHEN
-		const response = await request.get('/applications/1/documents/1111-2222-3333');
-
-		// THEN
-		expect(response.status).toEqual(200);
-		expect(response.body).toEqual({
-			guid: '1111-2222-3333',
-			documentName: 'my doc.pdf',
-			blobStorageContainer: 'document-service-uploads',
-			blobStoragePath: '/application/BC010001/1111-2222-3333/my doc.pdf',
-			from: '',
-			receivedDate: 1_670_865_145,
-			size: 1024,
-			type: 'application/pdf',
-			redacted: true,
-			status: 'awaiting_upload',
-			description: '',
-			documentReferenceNumber: '',
-			version: 1,
-			agent: '',
-			caseStage: '',
-			webFilter: '',
-			documentType: ''
-		});
-	});
-
-	test('checks invalid case id on document properties call', async () => {
-		// GIVEN
-		databaseConnector.case.findUnique.mockResolvedValue(null);
-
-		// WHEN
-		const response = await request.get('/applications/999999/documents/1111-2222-3333');
+		const response = await request.post('/applications/2/documents');
 
 		// THEN
 		expect(response.status).toEqual(404);
