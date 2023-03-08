@@ -104,11 +104,9 @@ export interface DocumentationFile {
 	size: number;
 	type: string;
 	status: string;
-	stage?: string;
 	redacted: boolean;
 	blobStorageContainer?: string;
 	blobStoragePath?: string;
 	filter1: string;
 	representative: string;
-	documentType: string;
 }
