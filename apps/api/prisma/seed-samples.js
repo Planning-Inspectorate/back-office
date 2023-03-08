@@ -268,7 +268,6 @@ export const lpaQuestionnaireList = [
  * @property {boolean} thirdPartyRepresentationsMissingOrIncorrect - Indicates if the third party representations are missing or incorrect.
  * @property {boolean} thirdPartyAppealNotificationMissingOrIncorrect - Indicates if the third party appeal notification is missing or incorrect.
  */
-
 export const incompleteReviewQuestionnaireSample = {
 	createdAt: new Date(2022, 3, 20),
 	complete: false,

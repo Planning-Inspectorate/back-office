@@ -22,6 +22,7 @@ describe('Provide document upload URLs', () => {
 
 		// GIVEN
 		databaseConnector.case.findUnique.mockResolvedValue(application);
+
 		databaseConnector.folder.findUnique.mockResolvedValue({ id: 1, caseId: 1 });
 		databaseConnector.document.upsert.mockResolvedValue({ id: 1, guid, name: 'test doc' });
 		databaseConnector.documentVersion.upsert.mockResolvedValue({});

@@ -230,3 +230,5 @@ export interface DocumentVersionWithDocument extends DocumentVersion {
 export interface DocumentVersionInput extends DocumentVersion {
 	documentName?: string;
 }
+
+export interface DocumentMetadata extends schema.DocumentMetadata {}
