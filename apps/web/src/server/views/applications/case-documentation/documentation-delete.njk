@@ -10,7 +10,7 @@
 {% block beforeContent %}
     {{ govukBackLink({
 		text: "Back",
-		href: 'document'|url({caseId: caseId, folderId: folderId, documentGuid: documentationFile.guid, step: "properties"})
+		href: 'document'|url({caseId: caseId, folderId: folderId, documentGuid: documentationFile.documentGuid, step: "properties"})
 	}) }}
 {% endblock %}
 {% block pageHeading %}{% endblock %}

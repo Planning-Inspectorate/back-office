@@ -94,7 +94,7 @@ export async function viewApplicationsCaseDocumentationPages({ params }, respons
 	const { caseId } = response.locals;
 
 	const documentationFile = await getCaseDocumentationFileInfo(caseId, documentGuid);
-	const isReadyToPublish = documentationFile.status === 'ready_to_publish';
+	const isReadyToPublish = documentationFile.publishedStatus === 'ready_to_publish';
 	const warningText = isReadyToPublish
 		? 'This document is in the publishing queue ready to be published.'
 		: null;

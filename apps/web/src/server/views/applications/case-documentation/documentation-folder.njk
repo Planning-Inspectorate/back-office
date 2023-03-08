@@ -78,7 +78,7 @@
 										<h3 class="govuk-heading-s">Statuses</h3>
 										<div class="govuk-grid-row">
 											<div>{{ govukRadios({
-													name: "isRedacted",
+													name: "redactedStatus",
 													fieldset: {
 														legend: {
 															text: "Redaction"
@@ -96,7 +96,7 @@
 													]
 												}) }}</div>
 											<div>{{ govukRadios({
-													name: "status",
+													name: "publishedStatus",
 													fieldset: {
 														legend: {
 															text: "Status"
@@ -194,7 +194,7 @@
 									</td>
 								</tr>
 								{% for documentationFile in documentationFiles.items %}
-									{% set isNotDisabled = documentationFile.status !== 'awaiting_upload' and documentationFile.status !== 'awaiting_virus_check' and documentationFile.status !== 'failed_virus_check' %}
+									{% set isNotDisabled = documentationFile.publishedStatus !== 'awaiting_upload' and documentationFile.publishedStatus !== 'awaiting_virus_check' and documentationFile.publishedStatus !== 'failed_virus_check' %}
 
 									<tr class="govuk-table__row {{ "" if isNotDisabled else "govuk-table__row--disabled" }}">
 										<td class="govuk-table__cell">
@@ -203,8 +203,8 @@
 													name: "selectedFilesIds[]",
 													items: [
 														{
-															id: 'checkbox-id-' + documentationFile.guid,
-															value: documentationFile.guid,
+															id: 'checkbox-id-' + documentationFile.documentGuid,
+															value: documentationFile.documentGuid,
 															text: documentationFile.documentName|documentName,
 															label: 'select ' + documentationFile.documentName|documentName
 														}]
@@ -212,31 +212,31 @@
 											{% endif %}
 										</td>
 										<td class="govuk-table__cell">
-											{% set isPreviewActive = isNotDisabled and (documentationFile.type === 'application/pdf' or documentationFile.type === 'image/jpeg' or documentationFile.type === 'image/png') %}
+											{% set isPreviewActive = isNotDisabled and (documentationFile.mime === 'application/pdf' or documentationFile.mime === 'image/jpeg' or documentationFile.mime === 'image/png') %}
 											{{ createOptionalLink(
 												{
 													classes: 'govuk-body-s govuk-!-font-weight-bold',
-													href: 'document-download'|url({caseId: caseId, documentGuid: documentationFile.guid, isPreviewActive: isPreviewActive}),
+													href: 'document-download'|url({caseId: caseId, documentGuid: documentationFile.documentGuid, isPreviewActive: isPreviewActive}),
 													text:documentationFile.documentName|documentName
 												},
 												isPreviewActive
 											) }}
 
 											<p class="file-info colour--secondary">
-												From: {{ documentationFile.from }}
+												From: {{ documentationFile.author }}
 											</p>
 											<p class="file-info colour--secondary">
-												File type and size: {{ documentationFile.type|fileType }},
+												File type and size: {{ documentationFile.mime|fileType }},
 												{{ documentationFile.size|fileSize }}
 											</p>
 										</td>
 										<td class="govuk-table__cell">{{ documentationFile.dateCreated|datestamp({format: 'dd/MM/yyyy'}) }}</td>
-										<td class="govuk-table__cell">{{ 'Redacted' if  documentationFile.redacted else 'Unredacted' }}</td>
+										<td class="govuk-table__cell">{{ 'Redacted' if  documentationFile.redactedStatus === 'redacted' else 'Unredacted' }}</td>
 										<td class="govuk-table__cell">
-											{% set avWaiting = documentationFile.status === 'awaiting_virus_check'%}
-											{% set avFailed = documentationFile.status === 'failed_virus_check' %}
+											{% set avWaiting = documentationFile.publishedStatus === 'awaiting_virus_check'%}
+											{% set avFailed = documentationFile.publishedStatus === 'failed_virus_check' %}
 											{% if isNotDisabled %}
-												{{ documentationFile.status|statusName }}
+												{{ documentationFile.publishedStatus|statusName }}
 											{% else %}
 												{% if avWaiting %}
 												<strong class="govuk-tag govuk-tag--yellow">
@@ -245,7 +245,7 @@
 												{% else %}
 												<strong class="govuk-tag">
 												{% endif %}
-													{{ documentationFile.status|statusName }}
+													{{ documentationFile.publishedStatus|statusName }}
 												</strong>
 											{% endif %}
 										</td>
@@ -254,7 +254,7 @@
 											{{ createOptionalLink(
 												{
 													classes: 'govuk-body-s',
-													href: 'document'|url({caseId: caseId, folderId: folderId, documentGuid: documentationFile.guid, step: 'properties'}),
+													href: 'document'|url({caseId: caseId, folderId: folderId, documentGuid: documentationFile.documentGuid, step: 'properties'}),
 													text:'View/Edit properties'
 												},
 												isNotDisabled
@@ -263,8 +263,8 @@
 											{{ createOptionalLink(
 												{
 													classes: 'govuk-body-s',
-													data: ['download-', documentationFile.guid]|join,
-													href: 'document-download'|url({caseId: caseId, documentGuid: documentationFile.guid}),
+													data: ['download-', documentationFile.documentGuid]|join,
+													href: 'document-download'|url({caseId: caseId, documentGuid: documentationFile.documentGuid}),
 													text:'Download'
 												},
 												isNotDisabled

@@ -1,9 +1,5 @@
 import { fake } from '@pins/platform';
-import {
-	createRandomDescription,
-	createUniqueRandomBooleanFromSeed,
-	createUniqueRandomNumberFromSeed
-} from './util.js';
+import { createRandomDescription, createUniqueRandomNumberFromSeed } from './util.js';
 
 /** @typedef {import('../../../src/server/applications/applications.types').DocumentationFile} DocumentationFile */
 
@@ -13,13 +9,15 @@ import {
  * @returns {DocumentationFile}
  */
 export function createDocumentationFile(options = {}) {
-	const guid = options.guid ?? `${fake.createUniqueId()}`;
-	const uniqueSeed = Number.parseInt(guid, 10);
+	const documentGuid = options.documentGuid ?? `${fake.createUniqueId()}`;
+	const uniqueSeed = Number.parseInt(documentGuid, 10);
 
 	const dateCreated = 1_669_916_924;
 	const datePublished = 1_678_192_858;
 	const size = createUniqueRandomNumberFromSeed(100, 10_000_000, uniqueSeed);
-	const redacted = createUniqueRandomBooleanFromSeed(uniqueSeed);
+	const redactedStatus = ['redacted', 'not_redacted'][
+		createUniqueRandomNumberFromSeed(0, 2, uniqueSeed)
+	];
 
 	const type = [
 		{ mime: 'application/msword', ext: 'doc' },
@@ -43,7 +41,17 @@ export function createDocumentationFile(options = {}) {
 		startOffset: createUniqueRandomNumberFromSeed(2, 15, uniqueSeed)
 	})}`;
 
-	const url = `url/to/file/${uniqueSeed}`;
+	const stage = [
+		'pre-application',
+		'acceptance',
+		'pre-examination',
+		'examination',
+		'recommendation',
+		'decision',
+		'post_decision',
+		'withdrawn',
+		'developers_application'
+	][createUniqueRandomNumberFromSeed(0, 9, uniqueSeed)];
 
 	const representative = `${createRandomDescription({
 		wordsNumber: 1,
@@ -58,7 +66,7 @@ export function createDocumentationFile(options = {}) {
 		startOffset: createUniqueRandomNumberFromSeed(3, 12, uniqueSeed)
 	})}`;
 
-	const status = [
+	const publishedStatus = [
 		'user_checked',
 		'not_user_checked',
 		'ready_to_publish',
@@ -69,19 +77,24 @@ export function createDocumentationFile(options = {}) {
 		'published'
 	][createUniqueRandomNumberFromSeed(0, 8, uniqueSeed)];
 
+	const documentType = ['Rule 8 letter', 'Exam library'][
+		createUniqueRandomNumberFromSeed(0, 3, uniqueSeed)
+	];
+
 	return {
-		guid,
+		documentGuid,
 		filter1,
 		documentName,
-		url,
 		author,
 		representative,
 		dateCreated,
-		...(status === 'published' ? { datePublished } : {}),
+		...(publishedStatus === 'published' ? { datePublished } : {}),
 		size,
 		description,
-		type: type.mime,
-		status,
-		redacted
+		mime: type.mime,
+		publishedStatus,
+		redactedStatus,
+		stage,
+		documentType
 	};
 }
