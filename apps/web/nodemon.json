@@ -1,11 +1,5 @@
 {
 	"verbose": false,
 	"ignore": ["src/server/static/**/*.js", "src/client/**/*.js", "scripts/**/*.js"],
-	"ext": "js,njk",
-
-	"events": {
-		"restart": "kill-port 8080",
-		"crash": "kill-port 8080"
-	},
-	"delay": "1500"
+	"ext": "js,njk"
 }

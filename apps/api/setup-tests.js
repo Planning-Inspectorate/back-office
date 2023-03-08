@@ -44,7 +44,9 @@ const mockDocumentFindFirst = jest.fn().mockResolvedValue({});
 const mockDocumentDelete = jest.fn().mockResolvedValue({});
 const mockDocumentMetadataCreate = jest.fn().mockResolvedValue({});
 const mockDocumentMetdataFindFirst = jest.fn().mockResolvedValue({});
+const mockDocumentMetdataFindUnique = jest.fn().mockResolvedValue({});
 const mockDocumentMetdataUpsert = jest.fn().mockResolvedValue({});
+const mockDocumentMetdataUpdate = jest.fn().mockResolvedValue({});
 
 class MockPrismaClient {
 	get appeal() {
@@ -121,7 +123,9 @@ class MockPrismaClient {
 		return {
 			create: mockDocumentMetadataCreate,
 			findFirst: mockDocumentMetdataFindFirst,
-			upsert: mockDocumentMetdataUpsert
+			findUnique: mockDocumentMetdataFindUnique,
+			upsert: mockDocumentMetdataUpsert,
+			update: mockDocumentMetdataUpdate
 		};
 	}
 
