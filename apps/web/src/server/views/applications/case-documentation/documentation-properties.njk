@@ -60,8 +60,8 @@
 						{label: 'Case stage', value: documentationFile.stage},
 						{label: 'Webfilter', value: documentationFile.filter1, link: 'webfilter'},
 						{label: 'Document type (optional)', value: documentationFile.documentType, link: 'type'},
-						{label: 'Date received', value: (documentationFile.createdAt|datestamp({format: 'dd/MM/yyyy'})), link: 'received-date'},
-						{label: 'Published date', value: (documentationFile.publishedAt|datestamp({format: 'dd/MM/yyyy'})), link: 'published-date' if documentationFile.publishedAt else null},
+						{label: 'Date received', value: (documentationFile.dateCreated|datestamp({format: 'dd/MM/yyyy'})), link: 'receipt-date'},
+						{label: 'Published date', value: (documentationFile.datePublished|datestamp({format: 'dd/MM/yyyy'})), link: 'published-date' if documentationFile.datePublished else null},
 						{label: 'Redaction', value: ('Redacted' if documentationFile.redacted else 'Unredacted') , link: 'redaction'},
 						{label: 'Status', value: documentationFile.status|statusName }
 					] %}
