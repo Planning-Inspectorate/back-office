@@ -119,21 +119,21 @@ export const storeDocumentVersion = async (request, response) => {
 	const { id: caseId, guid } = request.params;
 
 	/** @type {DocumentVersion} */
-	const DocumentVersionBody = validateDocumentVersionBody(request.body);
+	const documentVersionBody = validateDocumentVersionBody(request.body);
 
 	const document = await fetchDocumentByGuidAndCaseId(guid, +caseId);
 
-	if (DocumentVersionBody.documentName) {
+	if (documentVersionBody.documentName) {
 		await documentRepository.update(document.guid, {
-			name: DocumentVersionBody.documentName
+			name: documentVersionBody.documentName
 		});
 
-		delete DocumentVersionBody.documentName;
+		delete documentVersionBody.documentName;
 	}
 
 	const documentDetails = await upsertDocumentVersionAndReturnDetails(
 		document.guid,
-		DocumentVersionBody
+		documentVersionBody
 	);
 
 	response.status(200).send(documentDetails);
