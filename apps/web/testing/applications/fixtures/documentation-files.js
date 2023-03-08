@@ -7,7 +7,7 @@ import { createDocumentationFile } from '../factory/documentation-file.js';
 
 /** @type {DocumentationFile[]} */
 export const fixtureDocumentationFiles = [...Array.from({ length: 123 }).keys()].map((index) =>
-	createDocumentationFile({ guid: `${index}` })
+	createDocumentationFile({ documentGuid: `${index}` })
 );
 
 /**

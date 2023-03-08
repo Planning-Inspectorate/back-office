@@ -94,19 +94,23 @@ export interface CaseCreateProps<BodyValues> {
 
 // TODO: use new field names
 export interface DocumentationFile {
-	guid: string;
+	documentGuid: string;
 	documentName: string;
-	url: string;
+	// url: string; => not returned anymore
 	description: string;
-	author: string;
 	dateCreated: number;
 	datePublished?: number;
 	size: number;
-	type: string;
-	status: string;
-	redacted: boolean;
+	mime: string;
+	publishedStatus: string;
+	redactedStatus: string;
 	blobStorageContainer?: string;
 	blobStoragePath?: string;
+
 	filter1: string;
+	author: string;
 	representative: string;
+	stage: string;
+	documentType: string;
+	filter1: string;
 }
