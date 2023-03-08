@@ -33,7 +33,7 @@
 		"sector": {
 			"type": "string",
 			"description": "{Sector Abbreviation} - {Sector Display Name}",
-			"enum": [
+			"examples": [
 				"BC - Business and Commercial",
 				"EN - Energy",
 				"TR - Transport",
@@ -45,7 +45,7 @@
 		"projectType": {
 			"type": "string",
 			"description": "{SubSector Abbreviation} - {SubSector Display Name}",
-			"enum": [
+			"examples": [
 				"BC01 - Office Use",
 				"EN01 - Generating Stations",
 				"TR01 - Highways",
@@ -317,14 +317,14 @@
 			"type": "array",
 			"items": {
 				"type": "string",
-				"description": "{Set}: Maps to [Employee].[EmployeeID]."
+				"description": "Maps to [Employee].[EmployeeID]."
 			}
 		},
 		"nsipAdministrationOfficerIds": {
 			"type": "array",
 			"items": {
 				"type": "string",
-				"description": "{Set}: Maps to [Employee].[EmployeeID]."
+				"description": "Maps to [Employee].[EmployeeID]."
 			}
 		},
 		"leadInspectorId": {
@@ -335,7 +335,7 @@
 			"type": "array",
 			"items": {
 				"type": "string",
-				"description": "{Set}: Maps to [Employee].[EmployeeID]"
+				"description": "Maps to [Employee].[EmployeeID]"
 			}
 		},
 		"environmentalServicesOfficerId": {
@@ -346,15 +346,18 @@
 			"type": "string",
 			"description": "Maps to [Employee].[EmployeeID]"
 		},
-		"applicantId": {
-			"type": "string",
-			"description": "Maps to [Service Customer].[CustomerID]"
+		"applicantIds": {
+			"type": "array",
+			"items": {
+				"type": "string",
+				"description": "Maps to [Service Customer].[CustomerID]"
+			}
 		},
 		"interestedPartyIds": {
 			"type": "array",
 			"items": {
 				"type": "string",
-				"description": "{Set}: Maps to [Service Customer].[CustomerID]"
+				"description": "Maps to [Service Customer].[CustomerID]"
 			}
 		}
 	}

@@ -2,26 +2,16 @@
 import { jest } from '@jest/globals';
 import supertest from 'supertest';
 
+/** @type {import('../application.js').NsipProjectPayload} */
 const expectedEventPayload = {
-	id: 1,
-	caseTeams: [],
-	customers: [
-		{
-			id: 2,
-			customerType: 'applicant'
-		},
-		{
-			id: 3,
-			customerType: 'applicant'
-		}
-	],
-	inspectors: [],
+	caseId: 1,
 	sourceSystem: 'ODT',
-	status: [],
-	type: {
-		code: 'application'
-	},
-	validationOfficers: []
+	publishStatus: 'unpublished',
+	applicantIds: ['2', '3'],
+	nsipOfficerIds: [],
+	nsipAdministrationOfficerIds: [],
+	inspectorIds: [],
+	interestedPartyIds: []
 };
 
 const { app } = await import('../../../app.js');
