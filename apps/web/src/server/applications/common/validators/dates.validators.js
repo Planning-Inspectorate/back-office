@@ -5,30 +5,40 @@ import { dateIsValid } from '../../../lib/dates.js';
  *
  * @param {string} fieldName
  * @param {string} extendedFieldName
- * @param {{day: string, month: string, year: string}} dateParams
+ * @param {{day?: string, month?: string, year?: string}} dateParams
  * @returns {import("express-validator").ValidationChain}
  */
-export const createValidationDateValid = (fieldName, extendedFieldName, { day, month, year }) =>
-	body(fieldName)
+export const createValidationDateValid = (
+	fieldName,
+	extendedFieldName,
+	{ day: stringDay = '', month: stringMonth = '', year: stringYear = '' }
+) => {
+	const day = Number.parseInt(stringDay, 10);
+	const month = Number.parseInt(stringMonth, 10);
+	const year = Number.parseInt(stringYear, 10);
+
+	return body(fieldName)
 		.custom(() => {
-			return day === '' || (Number.parseInt(day, 10) > 0 && Number.parseInt(day, 10) < 32);
+			return !(stringDay === '' && stringMonth === '' && stringYear === '');
+		})
+		.withMessage(`Enter the ${extendedFieldName}`)
+		.custom(() => {
+			return stringDay === '' || (day > 0 && day < 32);
 		})
 		.withMessage(`Enter a valid day for the ${extendedFieldName}`)
 		.custom(() => {
-			return month === '' || (Number.parseInt(month, 10) > 0 && Number.parseInt(month, 10) < 13);
+			return stringMonth === '' || (month > 0 && month < 13);
 		})
 		.withMessage(`Enter a valid month for the ${extendedFieldName}`)
 		.custom(() => {
-			return year === '' || `${year}`.length === 4;
+			return stringYear === '' || stringYear.length === 4;
 		})
 		.withMessage(`Enter a valid year for the ${extendedFieldName}`)
 		.custom(() => {
-			return (
-				(day === '' && month === '' && year === '') ||
-				dateIsValid(Number.parseInt(year, 10), Number.parseInt(month, 10), Number.parseInt(day, 10))
-			);
+			return dateIsValid(year, month, day);
 		})
 		.withMessage(`Enter a valid ${extendedFieldName}`);
+};
 
 /**
  *
@@ -52,7 +62,7 @@ export const createValidationDateFuture = (
 				Number.parseInt(day, 10)
 			);
 
-			const isFuture = (day === '' && month === '' && year === '') || date > new Date();
+			const isFuture = date > new Date();
 
 			return isFuture === mustBeFuture;
 		})

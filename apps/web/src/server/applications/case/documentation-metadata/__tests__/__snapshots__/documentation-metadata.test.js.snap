@@ -8,7 +8,7 @@ exports[`Edit applications documentation metadata Edit agent (representative) GE
             <label class=\\"govuk-label font-weight--700\\" for=\\"representative\\">Agent name (optional)</label>
             <div id=\\"representative-hint\\" class=\\"govuk-hint\\">There is a limit of 150 characters</div>
             <input class=\\"govuk-input govuk-!-width-two-thirds  \\"
-            id=\\"representative\\" name=\\"representative\\" type=\\"text\\" value=\\"Ut Aliqua\\"
+            id=\\"representative\\" name=\\"representative\\" type=\\"text\\" value=\\"Laboris Quis\\"
             aria-describedby=\\"representative-hint\\" maxlength=\\"150\\">
         </div>
         <div class=\\"govuk-grid-row\\">
@@ -44,7 +44,7 @@ exports[`Edit applications documentation metadata Edit agent (representative) PO
             <p id=\\"representative-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> The agent name be 150
                 characters or fewer</p>
             <input class=\\"govuk-input govuk-!-width-two-thirds govuk-input--error\\"
-            id=\\"representative\\" name=\\"representative\\" type=\\"text\\" value=\\"Ut Aliqua\\"
+            id=\\"representative\\" name=\\"representative\\" type=\\"text\\" value=\\"Laboris Quis\\"
             aria-describedby=\\"representative-hint\\" maxlength=\\"150\\">
         </div>
         <div class=\\"govuk-grid-row\\">
@@ -64,7 +64,7 @@ exports[`Edit applications documentation metadata Edit author GET /case/123/proj
             <label class=\\"govuk-label font-weight--700\\" for=\\"author\\">Document from</label>
             <div id=\\"author-hint\\" class=\\"govuk-hint\\">There is a limit of 150 characters</div>
             <input class=\\"govuk-input govuk-!-width-two-thirds  \\"
-            id=\\"author\\" name=\\"author\\" type=\\"text\\" value=\\"Eiusmod tempor\\" aria-describedby=\\"author-hint\\"
+            id=\\"author\\" name=\\"author\\" type=\\"text\\" value=\\"Labore et\\" aria-describedby=\\"author-hint\\"
             maxlength=\\"150\\">
         </div>
         <div class=\\"govuk-grid-row\\">
@@ -100,7 +100,7 @@ exports[`Edit applications documentation metadata Edit author POST /case/123/pro
             <p id=\\"author-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> You must enter who the
                 document is from</p>
             <input class=\\"govuk-input govuk-!-width-two-thirds govuk-input--error\\"
-            id=\\"author\\" name=\\"author\\" type=\\"text\\" value=\\"Eiusmod tempor\\" aria-describedby=\\"author-hint\\"
+            id=\\"author\\" name=\\"author\\" type=\\"text\\" value=\\"Labore et\\" aria-describedby=\\"author-hint\\"
             maxlength=\\"150\\">
         </div>
         <div class=\\"govuk-grid-row\\">
@@ -136,7 +136,7 @@ exports[`Edit applications documentation metadata Edit author POST /case/123/pro
             <p id=\\"author-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> The value must be 150
                 characters or fewer</p>
             <input class=\\"govuk-input govuk-!-width-two-thirds govuk-input--error\\"
-            id=\\"author\\" name=\\"author\\" type=\\"text\\" value=\\"Eiusmod tempor\\" aria-describedby=\\"author-hint\\"
+            id=\\"author\\" name=\\"author\\" type=\\"text\\" value=\\"Labore et\\" aria-describedby=\\"author-hint\\"
             maxlength=\\"150\\">
         </div>
         <div class=\\"govuk-grid-row\\">
@@ -156,7 +156,7 @@ exports[`Edit applications documentation metadata Edit description GET /case/123
             <label class=\\"govuk-label font-weight--700\\" for=\\"description\\">Description of the document</label>
             <div id=\\"description-hint\\" class=\\"govuk-hint\\">There is a limit of 800 characters</div>
             <input class=\\"govuk-input govuk-!-width-two-thirds  \\"
-            id=\\"description\\" name=\\"description\\" type=\\"text\\" value=\\"Ut enim ad minim veniam quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat\\"
+            id=\\"description\\" name=\\"description\\" type=\\"text\\" value=\\"Laboris nisi ut aliquip ex ea commodo consequat\\"
             aria-describedby=\\"description-hint\\" maxlength=\\"800\\">
         </div>
         <div class=\\"govuk-grid-row\\">
@@ -192,7 +192,7 @@ exports[`Edit applications documentation metadata Edit description POST /case/12
             <p id=\\"description-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> You must enter a description
                 of the document</p>
             <input class=\\"govuk-input govuk-!-width-two-thirds govuk-input--error\\"
-            id=\\"description\\" name=\\"description\\" type=\\"text\\" value=\\"Ut enim ad minim veniam quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat\\"
+            id=\\"description\\" name=\\"description\\" type=\\"text\\" value=\\"Laboris nisi ut aliquip ex ea commodo consequat\\"
             aria-describedby=\\"description-hint\\" maxlength=\\"800\\">
         </div>
         <div class=\\"govuk-grid-row\\">
@@ -228,7 +228,7 @@ exports[`Edit applications documentation metadata Edit description POST /case/12
             <p id=\\"description-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> The description must
                 be 800 characters or fewer</p>
             <input class=\\"govuk-input govuk-!-width-two-thirds govuk-input--error\\"
-            id=\\"description\\" name=\\"description\\" type=\\"text\\" value=\\"Ut enim ad minim veniam quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat\\"
+            id=\\"description\\" name=\\"description\\" type=\\"text\\" value=\\"Laboris nisi ut aliquip ex ea commodo consequat\\"
             aria-describedby=\\"description-hint\\" maxlength=\\"800\\">
         </div>
         <div class=\\"govuk-grid-row\\">
@@ -253,12 +253,12 @@ exports[`Edit applications documentation metadata Edit document type GET /case/1
                 </div>
                 <div class=\\"govuk-radios__item\\">
                     <input class=\\"govuk-radios__input\\" id=\\"documentType-2\\" name=\\"documentType\\"
-                    type=\\"radio\\" value=\\"Exam library\\" checked>
+                    type=\\"radio\\" value=\\"Exam library\\">
                     <label class=\\"govuk-label govuk-radios__label\\" for=\\"documentType-2\\">Exam library</label>
                 </div>
                 <div class=\\"govuk-radios__item\\">
                     <input class=\\"govuk-radios__input\\" id=\\"documentType-3\\" name=\\"documentType\\"
-                    type=\\"radio\\" value=\\"\\">
+                    type=\\"radio\\" value=\\"\\" checked>
                     <label class=\\"govuk-label govuk-radios__label\\" for=\\"documentType-3\\">No document type</label>
                 </div>
             </div>
@@ -293,7 +293,7 @@ exports[`Edit applications documentation metadata Edit name GET /case/123/projec
             <label class=\\"govuk-label font-weight--700\\" for=\\"documentName\\">What is the file name?</label>
             <div id=\\"documentName-hint\\" class=\\"govuk-hint\\">There is a limit of 255 characters</div>
             <input class=\\"govuk-input govuk-!-width-two-thirds  \\"
-            id=\\"documentName\\" name=\\"documentName\\" type=\\"text\\" value=\\"1 Ut enim ad minim veniam.jpeg\\"
+            id=\\"documentName\\" name=\\"documentName\\" type=\\"text\\" value=\\"4 Laboris nisi ut aliquip ex ea.mpeg\\"
             aria-describedby=\\"documentName-hint\\" maxlength=\\"255\\">
         </div>
         <div class=\\"govuk-grid-row\\">
@@ -329,7 +329,7 @@ exports[`Edit applications documentation metadata Edit name POST /case/123/proje
             <p id=\\"documentName-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> You must enter a file
                 name</p>
             <input class=\\"govuk-input govuk-!-width-two-thirds govuk-input--error\\"
-            id=\\"documentName\\" name=\\"documentName\\" type=\\"text\\" value=\\"1 Ut enim ad minim veniam.jpeg\\"
+            id=\\"documentName\\" name=\\"documentName\\" type=\\"text\\" value=\\"4 Laboris nisi ut aliquip ex ea.mpeg\\"
             aria-describedby=\\"documentName-hint\\" maxlength=\\"255\\">
         </div>
         <div class=\\"govuk-grid-row\\">
@@ -365,8 +365,658 @@ exports[`Edit applications documentation metadata Edit name POST /case/123/proje
             <p id=\\"documentName-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> The name must be 255
                 characters or fewer</p>
             <input class=\\"govuk-input govuk-!-width-two-thirds govuk-input--error\\"
-            id=\\"documentName\\" name=\\"documentName\\" type=\\"text\\" value=\\"1 Ut enim ad minim veniam.jpeg\\"
+            id=\\"documentName\\" name=\\"documentName\\" type=\\"text\\" value=\\"4 Laboris nisi ut aliquip ex ea.mpeg\\"
             aria-describedby=\\"documentName-hint\\" maxlength=\\"255\\">
+        </div>
+        <div class=\\"govuk-grid-row\\">
+            <div class=\\"govuk-button-group pins-button-group govuk-grid-column-one-half\\">
+                <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and return</button>
+            </div>
+        </div>
+    </form>
+</main>"
+`;
+
+exports[`Edit applications documentation metadata Edit published date GET /case/123/project-documentation/18/document/456/edit/published-date should render the page with values 1`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <h1 class=\\"govuk-heading-l\\"> Enter the document published date</h1>
+    <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
+        <div class=\\"govuk-form-group \\">
+            <label class=\\"govuk-label font-weight--700\\" for=\\"submissionDateInternal\\">Date document published</label>
+            <div id=\\"submissionDateInternal-hint\\" class=\\"govuk-hint\\">for example, 27 03 2023</div>
+            <div class=\\"govuk-grid-column-one-third\\">
+                <div class=\\"govuk-grid-row pins-date-form-group\\">
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"datePublished.day\\">Day</label>
+                        <input class=\\"govuk-input\\" id=\\"datePublished.day\\" name=\\"datePublished.day\\"
+                        type=\\"text\\" value=\\"07\\">
+                    </div>
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"datePublished.month\\">Month</label>
+                        <input class=\\"govuk-input\\" id=\\"datePublished.month\\" name=\\"datePublished.month\\"
+                        type=\\"text\\" value=\\"03\\">
+                    </div>
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"datePublished.year\\">Year</label>
+                        <input class=\\"govuk-input\\" id=\\"datePublished.year\\" name=\\"datePublished.year\\"
+                        type=\\"text\\" value=\\"2023\\">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class=\\"govuk-grid-row\\">
+            <div class=\\"govuk-button-group pins-button-group govuk-grid-column-one-half\\">
+                <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and return</button>
+            </div>
+        </div>
+    </form>
+</main>"
+`;
+
+exports[`Edit applications documentation metadata Edit published date POST /case/123/project-documentation/18/document/456/edit/published-date should return an error if the date fields are empty 1`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <div class=\\"govuk-grid-row\\">
+        <div class=\\"govuk-grid-column-two-thirds\\">
+            <div class=\\"govuk-error-summary\\" aria-labelledby=\\"error-summary-title\\"
+            role=\\"alert\\" data-module=\\"govuk-error-summary\\">
+                <h2 class=\\"govuk-error-summary__title\\" id=\\"error-summary-title\\"> There is a problem</h2>
+                <div class=\\"govuk-error-summary__body\\">
+                    <ul class=\\"govuk-list govuk-error-summary__list\\">
+                        <li><a href=\\"#datePublished\\">Enter the published date</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <h1 class=\\"govuk-heading-l\\"> Enter the document published date</h1>
+    <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
+        <div class=\\"govuk-form-group govuk-form-group--error\\">
+            <label class=\\"govuk-label font-weight--700\\" for=\\"submissionDateInternal\\">Date document published</label>
+            <div id=\\"submissionDateInternal-hint\\" class=\\"govuk-hint\\">for example, 27 03 2023</div>
+            <p id=\\"submissionDateInternal-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> Enter the published date</p>
+            <div             class=\\"govuk-grid-column-one-third\\">
+                <div class=\\"govuk-grid-row pins-date-form-group\\">
+                    <div class=\\"govuk-form-group govuk-form-group--error\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"datePublished.day\\">Day</label>
+                        <p id=\\"datePublished.day-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
+                        </p>
+                        <input class=\\"govuk-input govuk-input--error\\" id=\\"datePublished.day\\" name=\\"datePublished.day\\"
+                        type=\\"text\\" value=\\"07\\" aria-describedby=\\"datePublished.day-error\\">
+                    </div>
+                    <div class=\\"govuk-form-group govuk-form-group--error\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"datePublished.month\\">Month</label>
+                        <p id=\\"datePublished.month-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
+                        </p>
+                        <input class=\\"govuk-input govuk-input--error\\" id=\\"datePublished.month\\"
+                        name=\\"datePublished.month\\" type=\\"text\\" value=\\"03\\" aria-describedby=\\"datePublished.month-error\\">
+                    </div>
+                    <div class=\\"govuk-form-group govuk-form-group--error\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"datePublished.year\\">Year</label>
+                        <p id=\\"datePublished.year-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
+                        </p>
+                        <input class=\\"govuk-input govuk-input--error\\" id=\\"datePublished.year\\"
+                        name=\\"datePublished.year\\" type=\\"text\\" value=\\"2023\\" aria-describedby=\\"datePublished.year-error\\">
+                    </div>
+                </div>
+        </div>
+        </div>
+        <div class=\\"govuk-grid-row\\">
+            <div class=\\"govuk-button-group pins-button-group govuk-grid-column-one-half\\">
+                <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and return</button>
+            </div>
+        </div>
+    </form>
+</main>"
+`;
+
+exports[`Edit applications documentation metadata Edit published date POST /case/123/project-documentation/18/document/456/edit/published-date should return an error if the date is in the future 1`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <div class=\\"govuk-grid-row\\">
+        <div class=\\"govuk-grid-column-two-thirds\\">
+            <div class=\\"govuk-error-summary\\" aria-labelledby=\\"error-summary-title\\"
+            role=\\"alert\\" data-module=\\"govuk-error-summary\\">
+                <h2 class=\\"govuk-error-summary__title\\" id=\\"error-summary-title\\"> There is a problem</h2>
+                <div class=\\"govuk-error-summary__body\\">
+                    <ul class=\\"govuk-list govuk-error-summary__list\\">
+                        <li><a href=\\"#datePublished\\">The published date cannot be in the future</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <h1 class=\\"govuk-heading-l\\"> Enter the document published date</h1>
+    <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
+        <div class=\\"govuk-form-group govuk-form-group--error\\">
+            <label class=\\"govuk-label font-weight--700\\" for=\\"submissionDateInternal\\">Date document published</label>
+            <div id=\\"submissionDateInternal-hint\\" class=\\"govuk-hint\\">for example, 27 03 2023</div>
+            <p id=\\"submissionDateInternal-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> The published date cannot
+                be in the future</p>
+            <div class=\\"govuk-grid-column-one-third\\">
+                <div class=\\"govuk-grid-row pins-date-form-group\\">
+                    <div class=\\"govuk-form-group govuk-form-group--error\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"datePublished.day\\">Day</label>
+                        <p id=\\"datePublished.day-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
+                        </p>
+                        <input class=\\"govuk-input govuk-input--error\\" id=\\"datePublished.day\\" name=\\"datePublished.day\\"
+                        type=\\"text\\" value=\\"07\\" aria-describedby=\\"datePublished.day-error\\">
+                    </div>
+                    <div class=\\"govuk-form-group govuk-form-group--error\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"datePublished.month\\">Month</label>
+                        <p id=\\"datePublished.month-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
+                        </p>
+                        <input class=\\"govuk-input govuk-input--error\\" id=\\"datePublished.month\\"
+                        name=\\"datePublished.month\\" type=\\"text\\" value=\\"03\\" aria-describedby=\\"datePublished.month-error\\">
+                    </div>
+                    <div class=\\"govuk-form-group govuk-form-group--error\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"datePublished.year\\">Year</label>
+                        <p id=\\"datePublished.year-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
+                        </p>
+                        <input class=\\"govuk-input govuk-input--error\\" id=\\"datePublished.year\\"
+                        name=\\"datePublished.year\\" type=\\"text\\" value=\\"2023\\" aria-describedby=\\"datePublished.year-error\\">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class=\\"govuk-grid-row\\">
+            <div class=\\"govuk-button-group pins-button-group govuk-grid-column-one-half\\">
+                <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and return</button>
+            </div>
+        </div>
+    </form>
+</main>"
+`;
+
+exports[`Edit applications documentation metadata Edit published date POST /case/123/project-documentation/18/document/456/edit/published-date should return an error if the day is not valid 1`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <div class=\\"govuk-grid-row\\">
+        <div class=\\"govuk-grid-column-two-thirds\\">
+            <div class=\\"govuk-error-summary\\" aria-labelledby=\\"error-summary-title\\"
+            role=\\"alert\\" data-module=\\"govuk-error-summary\\">
+                <h2 class=\\"govuk-error-summary__title\\" id=\\"error-summary-title\\"> There is a problem</h2>
+                <div class=\\"govuk-error-summary__body\\">
+                    <ul class=\\"govuk-list govuk-error-summary__list\\">
+                        <li><a href=\\"#datePublished\\">Enter a valid day for the published date</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <h1 class=\\"govuk-heading-l\\"> Enter the document published date</h1>
+    <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
+        <div class=\\"govuk-form-group govuk-form-group--error\\">
+            <label class=\\"govuk-label font-weight--700\\" for=\\"submissionDateInternal\\">Date document published</label>
+            <div id=\\"submissionDateInternal-hint\\" class=\\"govuk-hint\\">for example, 27 03 2023</div>
+            <p id=\\"submissionDateInternal-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> Enter a valid day for
+                the published date</p>
+            <div class=\\"govuk-grid-column-one-third\\">
+                <div class=\\"govuk-grid-row pins-date-form-group\\">
+                    <div class=\\"govuk-form-group govuk-form-group--error\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"datePublished.day\\">Day</label>
+                        <p id=\\"datePublished.day-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
+                        </p>
+                        <input class=\\"govuk-input govuk-input--error\\" id=\\"datePublished.day\\" name=\\"datePublished.day\\"
+                        type=\\"text\\" value=\\"07\\" aria-describedby=\\"datePublished.day-error\\">
+                    </div>
+                    <div class=\\"govuk-form-group govuk-form-group--error\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"datePublished.month\\">Month</label>
+                        <p id=\\"datePublished.month-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
+                        </p>
+                        <input class=\\"govuk-input govuk-input--error\\" id=\\"datePublished.month\\"
+                        name=\\"datePublished.month\\" type=\\"text\\" value=\\"03\\" aria-describedby=\\"datePublished.month-error\\">
+                    </div>
+                    <div class=\\"govuk-form-group govuk-form-group--error\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"datePublished.year\\">Year</label>
+                        <p id=\\"datePublished.year-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
+                        </p>
+                        <input class=\\"govuk-input govuk-input--error\\" id=\\"datePublished.year\\"
+                        name=\\"datePublished.year\\" type=\\"text\\" value=\\"2023\\" aria-describedby=\\"datePublished.year-error\\">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class=\\"govuk-grid-row\\">
+            <div class=\\"govuk-button-group pins-button-group govuk-grid-column-one-half\\">
+                <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and return</button>
+            </div>
+        </div>
+    </form>
+</main>"
+`;
+
+exports[`Edit applications documentation metadata Edit published date POST /case/123/project-documentation/18/document/456/edit/published-date should return an error if the month is not valid 1`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <div class=\\"govuk-grid-row\\">
+        <div class=\\"govuk-grid-column-two-thirds\\">
+            <div class=\\"govuk-error-summary\\" aria-labelledby=\\"error-summary-title\\"
+            role=\\"alert\\" data-module=\\"govuk-error-summary\\">
+                <h2 class=\\"govuk-error-summary__title\\" id=\\"error-summary-title\\"> There is a problem</h2>
+                <div class=\\"govuk-error-summary__body\\">
+                    <ul class=\\"govuk-list govuk-error-summary__list\\">
+                        <li><a href=\\"#datePublished\\">Enter a valid month for the published date</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <h1 class=\\"govuk-heading-l\\"> Enter the document published date</h1>
+    <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
+        <div class=\\"govuk-form-group govuk-form-group--error\\">
+            <label class=\\"govuk-label font-weight--700\\" for=\\"submissionDateInternal\\">Date document published</label>
+            <div id=\\"submissionDateInternal-hint\\" class=\\"govuk-hint\\">for example, 27 03 2023</div>
+            <p id=\\"submissionDateInternal-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> Enter a valid month for
+                the published date</p>
+            <div class=\\"govuk-grid-column-one-third\\">
+                <div class=\\"govuk-grid-row pins-date-form-group\\">
+                    <div class=\\"govuk-form-group govuk-form-group--error\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"datePublished.day\\">Day</label>
+                        <p id=\\"datePublished.day-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
+                        </p>
+                        <input class=\\"govuk-input govuk-input--error\\" id=\\"datePublished.day\\" name=\\"datePublished.day\\"
+                        type=\\"text\\" value=\\"07\\" aria-describedby=\\"datePublished.day-error\\">
+                    </div>
+                    <div class=\\"govuk-form-group govuk-form-group--error\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"datePublished.month\\">Month</label>
+                        <p id=\\"datePublished.month-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
+                        </p>
+                        <input class=\\"govuk-input govuk-input--error\\" id=\\"datePublished.month\\"
+                        name=\\"datePublished.month\\" type=\\"text\\" value=\\"03\\" aria-describedby=\\"datePublished.month-error\\">
+                    </div>
+                    <div class=\\"govuk-form-group govuk-form-group--error\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"datePublished.year\\">Year</label>
+                        <p id=\\"datePublished.year-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
+                        </p>
+                        <input class=\\"govuk-input govuk-input--error\\" id=\\"datePublished.year\\"
+                        name=\\"datePublished.year\\" type=\\"text\\" value=\\"2023\\" aria-describedby=\\"datePublished.year-error\\">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class=\\"govuk-grid-row\\">
+            <div class=\\"govuk-button-group pins-button-group govuk-grid-column-one-half\\">
+                <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and return</button>
+            </div>
+        </div>
+    </form>
+</main>"
+`;
+
+exports[`Edit applications documentation metadata Edit published date POST /case/123/project-documentation/18/document/456/edit/published-date should return an error if the year is not valid 1`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <div class=\\"govuk-grid-row\\">
+        <div class=\\"govuk-grid-column-two-thirds\\">
+            <div class=\\"govuk-error-summary\\" aria-labelledby=\\"error-summary-title\\"
+            role=\\"alert\\" data-module=\\"govuk-error-summary\\">
+                <h2 class=\\"govuk-error-summary__title\\" id=\\"error-summary-title\\"> There is a problem</h2>
+                <div class=\\"govuk-error-summary__body\\">
+                    <ul class=\\"govuk-list govuk-error-summary__list\\">
+                        <li><a href=\\"#datePublished\\">Enter a valid year for the published date</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <h1 class=\\"govuk-heading-l\\"> Enter the document published date</h1>
+    <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
+        <div class=\\"govuk-form-group govuk-form-group--error\\">
+            <label class=\\"govuk-label font-weight--700\\" for=\\"submissionDateInternal\\">Date document published</label>
+            <div id=\\"submissionDateInternal-hint\\" class=\\"govuk-hint\\">for example, 27 03 2023</div>
+            <p id=\\"submissionDateInternal-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> Enter a valid year for
+                the published date</p>
+            <div class=\\"govuk-grid-column-one-third\\">
+                <div class=\\"govuk-grid-row pins-date-form-group\\">
+                    <div class=\\"govuk-form-group govuk-form-group--error\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"datePublished.day\\">Day</label>
+                        <p id=\\"datePublished.day-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
+                        </p>
+                        <input class=\\"govuk-input govuk-input--error\\" id=\\"datePublished.day\\" name=\\"datePublished.day\\"
+                        type=\\"text\\" value=\\"07\\" aria-describedby=\\"datePublished.day-error\\">
+                    </div>
+                    <div class=\\"govuk-form-group govuk-form-group--error\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"datePublished.month\\">Month</label>
+                        <p id=\\"datePublished.month-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
+                        </p>
+                        <input class=\\"govuk-input govuk-input--error\\" id=\\"datePublished.month\\"
+                        name=\\"datePublished.month\\" type=\\"text\\" value=\\"03\\" aria-describedby=\\"datePublished.month-error\\">
+                    </div>
+                    <div class=\\"govuk-form-group govuk-form-group--error\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"datePublished.year\\">Year</label>
+                        <p id=\\"datePublished.year-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
+                        </p>
+                        <input class=\\"govuk-input govuk-input--error\\" id=\\"datePublished.year\\"
+                        name=\\"datePublished.year\\" type=\\"text\\" value=\\"2023\\" aria-describedby=\\"datePublished.year-error\\">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class=\\"govuk-grid-row\\">
+            <div class=\\"govuk-button-group pins-button-group govuk-grid-column-one-half\\">
+                <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and return</button>
+            </div>
+        </div>
+    </form>
+</main>"
+`;
+
+exports[`Edit applications documentation metadata Edit receipt date GET /case/123/project-documentation/18/document/456/edit/receipt-date should render the page with values 1`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <h1 class=\\"govuk-heading-l\\"> Enter the document receipt date</h1>
+    <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
+        <div class=\\"govuk-form-group \\">
+            <label class=\\"govuk-label font-weight--700\\" for=\\"submissionDateInternal\\">Date document received</label>
+            <div id=\\"submissionDateInternal-hint\\" class=\\"govuk-hint\\">for example, 27 03 2023</div>
+            <div class=\\"govuk-grid-column-one-third\\">
+                <div class=\\"govuk-grid-row pins-date-form-group\\">
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"dateCreated.day\\">Day</label>
+                        <input class=\\"govuk-input\\" id=\\"dateCreated.day\\" name=\\"dateCreated.day\\"
+                        type=\\"text\\" value=\\"01\\">
+                    </div>
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"dateCreated.month\\">Month</label>
+                        <input class=\\"govuk-input\\" id=\\"dateCreated.month\\" name=\\"dateCreated.month\\"
+                        type=\\"text\\" value=\\"12\\">
+                    </div>
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"dateCreated.year\\">Year</label>
+                        <input class=\\"govuk-input\\" id=\\"dateCreated.year\\" name=\\"dateCreated.year\\"
+                        type=\\"text\\" value=\\"2022\\">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class=\\"govuk-grid-row\\">
+            <div class=\\"govuk-button-group pins-button-group govuk-grid-column-one-half\\">
+                <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and return</button>
+            </div>
+        </div>
+    </form>
+</main>"
+`;
+
+exports[`Edit applications documentation metadata Edit receipt date POST /case/123/project-documentation/18/document/456/edit/receipt-date should return an error if the date fields are empty 1`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <div class=\\"govuk-grid-row\\">
+        <div class=\\"govuk-grid-column-two-thirds\\">
+            <div class=\\"govuk-error-summary\\" aria-labelledby=\\"error-summary-title\\"
+            role=\\"alert\\" data-module=\\"govuk-error-summary\\">
+                <h2 class=\\"govuk-error-summary__title\\" id=\\"error-summary-title\\"> There is a problem</h2>
+                <div class=\\"govuk-error-summary__body\\">
+                    <ul class=\\"govuk-list govuk-error-summary__list\\">
+                        <li><a href=\\"#dateCreated\\">Enter the receipt date</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <h1 class=\\"govuk-heading-l\\"> Enter the document receipt date</h1>
+    <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
+        <div class=\\"govuk-form-group govuk-form-group--error\\">
+            <label class=\\"govuk-label font-weight--700\\" for=\\"submissionDateInternal\\">Date document received</label>
+            <div id=\\"submissionDateInternal-hint\\" class=\\"govuk-hint\\">for example, 27 03 2023</div>
+            <p id=\\"submissionDateInternal-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> Enter the receipt date</p>
+            <div             class=\\"govuk-grid-column-one-third\\">
+                <div class=\\"govuk-grid-row pins-date-form-group\\">
+                    <div class=\\"govuk-form-group govuk-form-group--error\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"dateCreated.day\\">Day</label>
+                        <p id=\\"dateCreated.day-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
+                        </p>
+                        <input class=\\"govuk-input govuk-input--error\\" id=\\"dateCreated.day\\" name=\\"dateCreated.day\\"
+                        type=\\"text\\" value=\\"01\\" aria-describedby=\\"dateCreated.day-error\\">
+                    </div>
+                    <div class=\\"govuk-form-group govuk-form-group--error\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"dateCreated.month\\">Month</label>
+                        <p id=\\"dateCreated.month-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
+                        </p>
+                        <input class=\\"govuk-input govuk-input--error\\" id=\\"dateCreated.month\\" name=\\"dateCreated.month\\"
+                        type=\\"text\\" value=\\"12\\" aria-describedby=\\"dateCreated.month-error\\">
+                    </div>
+                    <div class=\\"govuk-form-group govuk-form-group--error\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"dateCreated.year\\">Year</label>
+                        <p id=\\"dateCreated.year-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
+                        </p>
+                        <input class=\\"govuk-input govuk-input--error\\" id=\\"dateCreated.year\\" name=\\"dateCreated.year\\"
+                        type=\\"text\\" value=\\"2022\\" aria-describedby=\\"dateCreated.year-error\\">
+                    </div>
+                </div>
+        </div>
+        </div>
+        <div class=\\"govuk-grid-row\\">
+            <div class=\\"govuk-button-group pins-button-group govuk-grid-column-one-half\\">
+                <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and return</button>
+            </div>
+        </div>
+    </form>
+</main>"
+`;
+
+exports[`Edit applications documentation metadata Edit receipt date POST /case/123/project-documentation/18/document/456/edit/receipt-date should return an error if the date is in the future 1`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <div class=\\"govuk-grid-row\\">
+        <div class=\\"govuk-grid-column-two-thirds\\">
+            <div class=\\"govuk-error-summary\\" aria-labelledby=\\"error-summary-title\\"
+            role=\\"alert\\" data-module=\\"govuk-error-summary\\">
+                <h2 class=\\"govuk-error-summary__title\\" id=\\"error-summary-title\\"> There is a problem</h2>
+                <div class=\\"govuk-error-summary__body\\">
+                    <ul class=\\"govuk-list govuk-error-summary__list\\">
+                        <li><a href=\\"#dateCreated\\">The receipt date cannot be in the future</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <h1 class=\\"govuk-heading-l\\"> Enter the document receipt date</h1>
+    <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
+        <div class=\\"govuk-form-group govuk-form-group--error\\">
+            <label class=\\"govuk-label font-weight--700\\" for=\\"submissionDateInternal\\">Date document received</label>
+            <div id=\\"submissionDateInternal-hint\\" class=\\"govuk-hint\\">for example, 27 03 2023</div>
+            <p id=\\"submissionDateInternal-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> The receipt date cannot
+                be in the future</p>
+            <div class=\\"govuk-grid-column-one-third\\">
+                <div class=\\"govuk-grid-row pins-date-form-group\\">
+                    <div class=\\"govuk-form-group govuk-form-group--error\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"dateCreated.day\\">Day</label>
+                        <p id=\\"dateCreated.day-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
+                        </p>
+                        <input class=\\"govuk-input govuk-input--error\\" id=\\"dateCreated.day\\" name=\\"dateCreated.day\\"
+                        type=\\"text\\" value=\\"01\\" aria-describedby=\\"dateCreated.day-error\\">
+                    </div>
+                    <div class=\\"govuk-form-group govuk-form-group--error\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"dateCreated.month\\">Month</label>
+                        <p id=\\"dateCreated.month-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
+                        </p>
+                        <input class=\\"govuk-input govuk-input--error\\" id=\\"dateCreated.month\\" name=\\"dateCreated.month\\"
+                        type=\\"text\\" value=\\"12\\" aria-describedby=\\"dateCreated.month-error\\">
+                    </div>
+                    <div class=\\"govuk-form-group govuk-form-group--error\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"dateCreated.year\\">Year</label>
+                        <p id=\\"dateCreated.year-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
+                        </p>
+                        <input class=\\"govuk-input govuk-input--error\\" id=\\"dateCreated.year\\" name=\\"dateCreated.year\\"
+                        type=\\"text\\" value=\\"2022\\" aria-describedby=\\"dateCreated.year-error\\">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class=\\"govuk-grid-row\\">
+            <div class=\\"govuk-button-group pins-button-group govuk-grid-column-one-half\\">
+                <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and return</button>
+            </div>
+        </div>
+    </form>
+</main>"
+`;
+
+exports[`Edit applications documentation metadata Edit receipt date POST /case/123/project-documentation/18/document/456/edit/receipt-date should return an error if the day is not valid 1`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <div class=\\"govuk-grid-row\\">
+        <div class=\\"govuk-grid-column-two-thirds\\">
+            <div class=\\"govuk-error-summary\\" aria-labelledby=\\"error-summary-title\\"
+            role=\\"alert\\" data-module=\\"govuk-error-summary\\">
+                <h2 class=\\"govuk-error-summary__title\\" id=\\"error-summary-title\\"> There is a problem</h2>
+                <div class=\\"govuk-error-summary__body\\">
+                    <ul class=\\"govuk-list govuk-error-summary__list\\">
+                        <li><a href=\\"#dateCreated\\">Enter a valid day for the receipt date</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <h1 class=\\"govuk-heading-l\\"> Enter the document receipt date</h1>
+    <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
+        <div class=\\"govuk-form-group govuk-form-group--error\\">
+            <label class=\\"govuk-label font-weight--700\\" for=\\"submissionDateInternal\\">Date document received</label>
+            <div id=\\"submissionDateInternal-hint\\" class=\\"govuk-hint\\">for example, 27 03 2023</div>
+            <p id=\\"submissionDateInternal-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> Enter a valid day for
+                the receipt date</p>
+            <div class=\\"govuk-grid-column-one-third\\">
+                <div class=\\"govuk-grid-row pins-date-form-group\\">
+                    <div class=\\"govuk-form-group govuk-form-group--error\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"dateCreated.day\\">Day</label>
+                        <p id=\\"dateCreated.day-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
+                        </p>
+                        <input class=\\"govuk-input govuk-input--error\\" id=\\"dateCreated.day\\" name=\\"dateCreated.day\\"
+                        type=\\"text\\" value=\\"01\\" aria-describedby=\\"dateCreated.day-error\\">
+                    </div>
+                    <div class=\\"govuk-form-group govuk-form-group--error\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"dateCreated.month\\">Month</label>
+                        <p id=\\"dateCreated.month-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
+                        </p>
+                        <input class=\\"govuk-input govuk-input--error\\" id=\\"dateCreated.month\\" name=\\"dateCreated.month\\"
+                        type=\\"text\\" value=\\"12\\" aria-describedby=\\"dateCreated.month-error\\">
+                    </div>
+                    <div class=\\"govuk-form-group govuk-form-group--error\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"dateCreated.year\\">Year</label>
+                        <p id=\\"dateCreated.year-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
+                        </p>
+                        <input class=\\"govuk-input govuk-input--error\\" id=\\"dateCreated.year\\" name=\\"dateCreated.year\\"
+                        type=\\"text\\" value=\\"2022\\" aria-describedby=\\"dateCreated.year-error\\">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class=\\"govuk-grid-row\\">
+            <div class=\\"govuk-button-group pins-button-group govuk-grid-column-one-half\\">
+                <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and return</button>
+            </div>
+        </div>
+    </form>
+</main>"
+`;
+
+exports[`Edit applications documentation metadata Edit receipt date POST /case/123/project-documentation/18/document/456/edit/receipt-date should return an error if the month is not valid 1`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <div class=\\"govuk-grid-row\\">
+        <div class=\\"govuk-grid-column-two-thirds\\">
+            <div class=\\"govuk-error-summary\\" aria-labelledby=\\"error-summary-title\\"
+            role=\\"alert\\" data-module=\\"govuk-error-summary\\">
+                <h2 class=\\"govuk-error-summary__title\\" id=\\"error-summary-title\\"> There is a problem</h2>
+                <div class=\\"govuk-error-summary__body\\">
+                    <ul class=\\"govuk-list govuk-error-summary__list\\">
+                        <li><a href=\\"#dateCreated\\">Enter a valid month for the receipt date</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <h1 class=\\"govuk-heading-l\\"> Enter the document receipt date</h1>
+    <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
+        <div class=\\"govuk-form-group govuk-form-group--error\\">
+            <label class=\\"govuk-label font-weight--700\\" for=\\"submissionDateInternal\\">Date document received</label>
+            <div id=\\"submissionDateInternal-hint\\" class=\\"govuk-hint\\">for example, 27 03 2023</div>
+            <p id=\\"submissionDateInternal-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> Enter a valid month for
+                the receipt date</p>
+            <div class=\\"govuk-grid-column-one-third\\">
+                <div class=\\"govuk-grid-row pins-date-form-group\\">
+                    <div class=\\"govuk-form-group govuk-form-group--error\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"dateCreated.day\\">Day</label>
+                        <p id=\\"dateCreated.day-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
+                        </p>
+                        <input class=\\"govuk-input govuk-input--error\\" id=\\"dateCreated.day\\" name=\\"dateCreated.day\\"
+                        type=\\"text\\" value=\\"01\\" aria-describedby=\\"dateCreated.day-error\\">
+                    </div>
+                    <div class=\\"govuk-form-group govuk-form-group--error\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"dateCreated.month\\">Month</label>
+                        <p id=\\"dateCreated.month-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
+                        </p>
+                        <input class=\\"govuk-input govuk-input--error\\" id=\\"dateCreated.month\\" name=\\"dateCreated.month\\"
+                        type=\\"text\\" value=\\"12\\" aria-describedby=\\"dateCreated.month-error\\">
+                    </div>
+                    <div class=\\"govuk-form-group govuk-form-group--error\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"dateCreated.year\\">Year</label>
+                        <p id=\\"dateCreated.year-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
+                        </p>
+                        <input class=\\"govuk-input govuk-input--error\\" id=\\"dateCreated.year\\" name=\\"dateCreated.year\\"
+                        type=\\"text\\" value=\\"2022\\" aria-describedby=\\"dateCreated.year-error\\">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class=\\"govuk-grid-row\\">
+            <div class=\\"govuk-button-group pins-button-group govuk-grid-column-one-half\\">
+                <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and return</button>
+            </div>
+        </div>
+    </form>
+</main>"
+`;
+
+exports[`Edit applications documentation metadata Edit receipt date POST /case/123/project-documentation/18/document/456/edit/receipt-date should return an error if the year is not valid 1`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <div class=\\"govuk-grid-row\\">
+        <div class=\\"govuk-grid-column-two-thirds\\">
+            <div class=\\"govuk-error-summary\\" aria-labelledby=\\"error-summary-title\\"
+            role=\\"alert\\" data-module=\\"govuk-error-summary\\">
+                <h2 class=\\"govuk-error-summary__title\\" id=\\"error-summary-title\\"> There is a problem</h2>
+                <div class=\\"govuk-error-summary__body\\">
+                    <ul class=\\"govuk-list govuk-error-summary__list\\">
+                        <li><a href=\\"#dateCreated\\">Enter a valid year for the receipt date</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <h1 class=\\"govuk-heading-l\\"> Enter the document receipt date</h1>
+    <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
+        <div class=\\"govuk-form-group govuk-form-group--error\\">
+            <label class=\\"govuk-label font-weight--700\\" for=\\"submissionDateInternal\\">Date document received</label>
+            <div id=\\"submissionDateInternal-hint\\" class=\\"govuk-hint\\">for example, 27 03 2023</div>
+            <p id=\\"submissionDateInternal-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> Enter a valid year for
+                the receipt date</p>
+            <div class=\\"govuk-grid-column-one-third\\">
+                <div class=\\"govuk-grid-row pins-date-form-group\\">
+                    <div class=\\"govuk-form-group govuk-form-group--error\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"dateCreated.day\\">Day</label>
+                        <p id=\\"dateCreated.day-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
+                        </p>
+                        <input class=\\"govuk-input govuk-input--error\\" id=\\"dateCreated.day\\" name=\\"dateCreated.day\\"
+                        type=\\"text\\" value=\\"01\\" aria-describedby=\\"dateCreated.day-error\\">
+                    </div>
+                    <div class=\\"govuk-form-group govuk-form-group--error\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"dateCreated.month\\">Month</label>
+                        <p id=\\"dateCreated.month-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
+                        </p>
+                        <input class=\\"govuk-input govuk-input--error\\" id=\\"dateCreated.month\\" name=\\"dateCreated.month\\"
+                        type=\\"text\\" value=\\"12\\" aria-describedby=\\"dateCreated.month-error\\">
+                    </div>
+                    <div class=\\"govuk-form-group govuk-form-group--error\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"dateCreated.year\\">Year</label>
+                        <p id=\\"dateCreated.year-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
+                        </p>
+                        <input class=\\"govuk-input govuk-input--error\\" id=\\"dateCreated.year\\" name=\\"dateCreated.year\\"
+                        type=\\"text\\" value=\\"2022\\" aria-describedby=\\"dateCreated.year-error\\">
+                    </div>
+                </div>
+            </div>
         </div>
         <div class=\\"govuk-grid-row\\">
             <div class=\\"govuk-button-group pins-button-group govuk-grid-column-one-half\\">
@@ -455,7 +1105,7 @@ exports[`Edit applications documentation metadata Edit webfilter (filter1) GET /
             <label class=\\"govuk-label font-weight--700\\" for=\\"filter1\\">Webfilter</label>
             <div id=\\"filter1-hint\\" class=\\"govuk-hint\\">There is a limit of 100 characters</div>
             <input class=\\"govuk-input govuk-!-width-two-thirds  \\"
-            id=\\"filter1\\" name=\\"filter1\\" type=\\"text\\" value=\\"Tempor incididunt\\" aria-describedby=\\"filter1-hint\\"
+            id=\\"filter1\\" name=\\"filter1\\" type=\\"text\\" value=\\"Dolore magna\\" aria-describedby=\\"filter1-hint\\"
             maxlength=\\"100\\">
         </div>
         <div class=\\"govuk-grid-row\\">
@@ -490,7 +1140,7 @@ exports[`Edit applications documentation metadata Edit webfilter (filter1) POST 
             <div id=\\"filter1-hint\\" class=\\"govuk-hint\\">There is a limit of 100 characters</div>
             <p id=\\"filter1-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> You must enter a webfilter</p>
             <input             class=\\"govuk-input govuk-!-width-two-thirds govuk-input--error\\" id=\\"filter1\\"
-            name=\\"filter1\\" type=\\"text\\" value=\\"Tempor incididunt\\" aria-describedby=\\"filter1-hint\\"
+            name=\\"filter1\\" type=\\"text\\" value=\\"Dolore magna\\" aria-describedby=\\"filter1-hint\\"
             maxlength=\\"100\\">
         </div>
         <div class=\\"govuk-grid-row\\">
@@ -526,7 +1176,7 @@ exports[`Edit applications documentation metadata Edit webfilter (filter1) POST 
             <p id=\\"filter1-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> The webfilter must be
                 100 characters or fewer</p>
             <input class=\\"govuk-input govuk-!-width-two-thirds govuk-input--error\\"
-            id=\\"filter1\\" name=\\"filter1\\" type=\\"text\\" value=\\"Tempor incididunt\\" aria-describedby=\\"filter1-hint\\"
+            id=\\"filter1\\" name=\\"filter1\\" type=\\"text\\" value=\\"Dolore magna\\" aria-describedby=\\"filter1-hint\\"
             maxlength=\\"100\\">
         </div>
         <div class=\\"govuk-grid-row\\">
