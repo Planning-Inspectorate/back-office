@@ -8,22 +8,16 @@ const request = supertest(app);
 
 const createdCase = { id: 1, serviceCustomer: [{ id: 4 }] };
 
+/** @type {import('../application.js').NsipProjectPayload} */
 const expectedEventPayload = {
-	id: 1,
-	caseTeams: [],
-	customers: [
-		{
-			id: 4,
-			customerType: 'applicant'
-		}
-	],
-	inspectors: [],
+	caseId: 1,
 	sourceSystem: 'ODT',
-	status: [],
-	type: {
-		code: 'application'
-	},
-	validationOfficers: []
+	publishStatus: 'unpublished',
+	applicantIds: ['4'],
+	nsipOfficerIds: [],
+	nsipAdministrationOfficerIds: [],
+	inspectorIds: [],
+	interestedPartyIds: []
 };
 
 jest.useFakeTimers({ now: 1_649_319_144_000 });

@@ -135,34 +135,31 @@ describe('Start case', () => {
 			}
 		});
 
+		/** @type {import('../application.js').NsipProjectPayload} */
 		const expectedEventPayload = {
-			id: 1,
-			reference: 'EN01-1',
-			title: 'Title',
-			description: 'Description',
-			type: { code: 'application' },
+			caseId: 1,
+			caseReference: 'EN01-1',
+			projectName: 'Title',
+			projectDescription: 'Description',
+			publishStatus: 'unpublished',
 			sourceSystem: 'ODT',
-			inspectors: [],
-			validationOfficers: [],
-			caseTeams: [],
-			status: [{ status: 'draft' }],
-			application: {
-				caseEmail: 'test@test.com',
-				siteAddress: 'Some Location',
-				sector: {
-					abbreviation: 'BB',
-					name: 'sector',
-					subSector: { abbreviation: 'AA', name: 'sub_sector' }
-				},
-				zoom: { name: 'zoom-level' },
-				regions: [{ name: 'region1' }, { name: 'region2' }],
-				gridReference: { easting: 123_456, northing: 654_321 },
-				keyDates: {
-					anticipatedSubmissionDate: new Date('2022-07-22T10:38:33.000Z'),
-					anticipatedSubmissionDateNonSpecific: 'Q1 2023'
-				}
-			},
-			customers: []
+			stage: 'draft',
+			projectLocation: 'Some Location',
+			projectEmailAddress: 'test@test.com',
+			regions: ['region1', 'region2'],
+			welshLanguage: false,
+			mapZoomLevel: 'zoom-level',
+			easting: 123_456,
+			northing: 654_321,
+			anticipatedDateOfSubmission: new Date('2022-07-22T10:38:33.000Z'),
+			anticipatedSubmissionDateNonSpecific: 'Q1 2023',
+			sector: 'BB - Sector Name En',
+			projectType: 'AA - Sub Sector Name En',
+			applicantIds: [],
+			nsipOfficerIds: [],
+			nsipAdministrationOfficerIds: [],
+			inspectorIds: [],
+			interestedPartyIds: []
 		};
 
 		expect(eventClient.sendEvents).toHaveBeenCalledWith('nsip-project', [expectedEventPayload]);
