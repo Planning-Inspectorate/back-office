@@ -111,7 +111,7 @@ export const getCaseDocumentationFileInfo = async (caseId, fileGuid) => {
 export const getCaseDocumentationFileInfoMOCKED = async (caseId, fileGuid) => {
 	return new Promise((resolve) => {
 		setTimeout(() => {
-			resolve({ ...fixtureDocumentationFiles[0], caseId, fileGuid });
+			resolve({ ...fixtureDocumentationFiles[3], caseId, fileGuid });
 		}, 500);
 	});
 };

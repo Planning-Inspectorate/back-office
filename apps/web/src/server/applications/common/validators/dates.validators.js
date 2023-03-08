@@ -35,9 +35,15 @@ export const createValidationDateValid = (fieldName, extendedFieldName, { day, m
  * @param {string} fieldName
  * @param {string} extendedFieldName
  * @param {{day: string, month: string, year: string}} dateParams
+ * @param {boolean} mustBeFuture
  * @returns {import("express-validator").ValidationChain}
  */
-export const createValidationDateFuture = (fieldName, extendedFieldName, { day, month, year }) =>
+export const createValidationDateFuture = (
+	fieldName,
+	extendedFieldName,
+	{ day, month, year },
+	mustBeFuture
+) =>
 	body(fieldName)
 		.custom(() => {
 			const date = new Date(
@@ -46,6 +52,8 @@ export const createValidationDateFuture = (fieldName, extendedFieldName, { day, 
 				Number.parseInt(day, 10)
 			);
 
-			return (day === '' && month === '' && year === '') || date > new Date();
+			const isFuture = (day === '' && month === '' && year === '') || date > new Date();
+
+			return isFuture === mustBeFuture;
 		})
-		.withMessage(`The ${extendedFieldName} must be in the future`);
+		.withMessage(`The ${extendedFieldName} ${mustBeFuture ? 'must' : 'cannot'} be in the future`);

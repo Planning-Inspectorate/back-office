@@ -26,11 +26,16 @@ export const validateApplicationsCreateKeyDates = (request, response, next) => {
 		year
 	});
 
-	const checkFutureDate = createValidationDateFuture(fieldName, extendedFieldName, {
-		day,
-		month,
-		year
-	});
+	const checkFutureDate = createValidationDateFuture(
+		fieldName,
+		extendedFieldName,
+		{
+			day,
+			month,
+			year
+		},
+		true
+	);
 
 	return createValidator([checkValidDate, checkFutureDate])(request, response, next);
 };

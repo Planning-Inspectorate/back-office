@@ -16,8 +16,8 @@ export function createDocumentationFile(options = {}) {
 	const guid = options.guid ?? `${fake.createUniqueId()}`;
 	const uniqueSeed = Number.parseInt(guid, 10);
 
-	const createdAt = 1_669_916_924;
-	const publishedAt = 1_678_192_858;
+	const dateCreated = 1_669_916_924;
+	const datePublished = 1_678_192_858;
 	const size = createUniqueRandomNumberFromSeed(100, 10_000_000, uniqueSeed);
 	const redacted = createUniqueRandomBooleanFromSeed(uniqueSeed);
 
@@ -91,8 +91,8 @@ export function createDocumentationFile(options = {}) {
 		url,
 		author,
 		representative,
-		createdAt,
-		...(status === 'published' ? { publishedAt } : {}),
+		dateCreated,
+		...(status === 'published' ? { datePublished } : {}),
 		size,
 		description,
 		type: type.mime,

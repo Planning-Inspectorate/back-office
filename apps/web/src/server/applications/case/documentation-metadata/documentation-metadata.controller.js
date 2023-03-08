@@ -2,7 +2,7 @@ import { url } from '../../../lib/nunjucks-filters/url.js';
 import { updateDocumentMetaData } from './documentation-metadata.service.js';
 
 /** @typedef {import('@pins/express').ValidationErrors} ValidationErrors */
-/** @typedef {"name" | "description"| "published-date" | "received-date"| "redaction" |"type"|"webfilter"|"agent"| "author"} MetaDataNames */
+/** @typedef {"name" | "description"| "published-date" | "receipt-date"| "redaction" |"type"|"webfilter"|"agent"| "author"} MetaDataNames */
 /** @typedef {{label?: string, metaDataName: string, hint?: string, pageTitle: string, backLink?: string, maxLength?: number, items?: {value: boolean|string, text: string}[]}} MetaDataLayoutParams */
 /** @typedef {{documentGuid: string, metaDataName: MetaDataNames}} RequestParams */
 /** @typedef {{caseId: number, folderId: number }} ResponseLocals */
@@ -50,13 +50,13 @@ const layouts = {
 		label: 'Date document published',
 		hint: 'for example, 27 03 2023',
 		pageTitle: 'Enter the document published date',
-		metaDataName: 'publishedAt'
+		metaDataName: 'datePublished'
 	},
-	'received-date': {
+	'receipt-date': {
 		label: 'Date document received',
 		hint: 'for example, 27 03 2023',
 		pageTitle: 'Enter the document receipt date',
-		metaDataName: 'createdAt'
+		metaDataName: 'dateCreated'
 	},
 	redaction: {
 		items: [
@@ -111,12 +111,13 @@ export async function updateDocumentationMetaData(request, response) {
 
 	let newMetaData = body;
 
-	if (metaDataName === 'published-date' || metaDataName === 'received-date') {
-		const newValue = `${body[`${metaDataName}.year`]}-${body[`${metaDataName}.month`]}-${
-			body[`${metaDataName}.day`]
+	if (metaDataName === 'published-date' || metaDataName === 'receipt-date') {
+		const fieldName = layouts[metaDataName].metaDataName;
+		const newValue = `${body[`${fieldName}.year`]}-${body[`${fieldName}.month`]}-${
+			body[`${fieldName}.day`]
 		}`;
 
-		newMetaData = { [metaDataName]: newValue };
+		newMetaData = { [fieldName]: newValue };
 	}
 
 	const { errors: apiErrors } = await updateDocumentMetaData(caseId, documentGuid, newMetaData);
