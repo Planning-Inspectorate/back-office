@@ -25,7 +25,7 @@ const { value, error } = schema.validate({
 		subscriber: environment.SERVICE_BUS_SUBSCRIBER
 	},
 	msal: {
-		clientId: environment.AUTH_API_CLIENT_ID,
+		clientId: environment.AUTH_CLIENT_BACKEND_API_ID,
 		tenantId: environment.AUTH_TENANT_ID
 	},
 	queues: {
@@ -45,7 +45,7 @@ const { value, error } = schema.validate({
 	},
 	serviceBusEnabled: environment.SERVICE_BUS_ENABLED && environment.SERVICE_BUS_ENABLED === 'true',
 	clientCredentialsGrantEnabled:
-		environment.CLIENT_CREDENTIAL_GRANT_ENABLED &&
+		environment?.CLIENT_CREDENTIAL_GRANT_ENABLED &&
 		environment.CLIENT_CREDENTIAL_GRANT_ENABLED === 'true'
 });
 

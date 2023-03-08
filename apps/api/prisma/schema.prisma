@@ -72,7 +72,7 @@ model AppealDetailsFromAppellant {
 
 model Case {
   id                 Int                 @id @default(autoincrement())
-  reference          String? // @unique OR NULL defined in migrations
+  reference          String?
   modifiedAt         DateTime            @default(now())
   createdAt          DateTime            @default(now())
   description        String?
@@ -80,9 +80,9 @@ model Case {
   title              String?
   ApplicationDetails ApplicationDetails?
   CaseStatus         CaseStatus[]
+  folder             Folder[]
   gridReference      GridReference?
   serviceCustomer    ServiceCustomer[]
-  folder             Folder[]
 }
 
 model ServiceCustomer {
@@ -124,10 +124,10 @@ model ApplicationDetails {
   caseId                Int                           @unique
   subSectorId           Int?
   locationDescription   String?
-  submissionAtPublished String?
-  submissionAtInternal  DateTime?
   zoomLevelId           Int?
   caseEmail             String?
+  submissionAtInternal  DateTime?
+  submissionAtPublished String?
   case                  Case                          @relation(fields: [caseId], references: [id])
   subSector             SubSector?                    @relation(fields: [subSectorId], references: [id])
   zoomLevel             ZoomLevel?                    @relation(fields: [zoomLevelId], references: [id])
@@ -159,8 +159,8 @@ model SubSector {
   displayNameEn      String
   displayNameCy      String
   sectorId           Int
-  sector             Sector               @relation(fields: [sectorId], references: [id])
   applicationDetails ApplicationDetails[]
+  sector             Sector               @relation(fields: [sectorId], references: [id])
 }
 
 model Address {
@@ -296,61 +296,75 @@ model Folder {
   displayNameEn  String
   displayOrder   Int?
   parentFolderId Int?
-  parentFolder   Folder?    @relation("FolderTree", fields: [parentFolderId], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  childFolders   Folder[]   @relation("FolderTree")
-  case           Case?      @relation(fields: [caseId], references: [id])
   caseId         Int?
   document       Document[]
+  case           Case?      @relation(fields: [caseId], references: [id])
+  parentFolder   Folder?    @relation("FolderTree", fields: [parentFolderId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  childFolders   Folder[]   @relation("FolderTree")
 
   @@unique([caseId, displayNameEn, parentFolderId])
 }
 
 model Document {
-  guid                 String   @id @default(uuid())
+  guid                 String           @id @default(uuid())
   name                 String
-  folder               Folder   @relation(fields: [folderId], references: [id])
   folderId             Int
   blobStorageContainer String?
   blobStoragePath      String?
-  status               String   @default("awaiting_upload")
-  redacted             Boolean  @default(false)
-  isDeleted            Boolean  @default(false)
-  createdAt            DateTime @default(now())
-  fileSize             Int?     @default(0)
+  status               String           @default("awaiting_upload")
+  createdAt            DateTime         @default(now())
+  redacted             Boolean          @default(false)
+  fileSize             Int?             @default(0)
   fileType             String?
-
-  documentMetadata DocumentMetadata? @relation(fields: [metadataId], references: [id])
-  metadataId       Int?              @unique
+  isDeleted            Boolean          @default(false)
+  versionId            Int?             @unique
+  folder               Folder           @relation(fields: [folderId], references: [id])
+  documentVersion      DocumentVersion? @relation(fields: [versionId], references: [id])
 
   @@unique([name, folderId])
 }
 
-model DocumentMetadata {
+model DocumentVersion {
   id                     Int       @id @unique @default(autoincrement())
-  version                Int
-  dateCreated            DateTime
+  version                Int       @default(1)
   lastModified           DateTime?
-  documentType           String
+  documentType           String    @default("")
   published              Boolean   @default(false)
-  sourceSystem           String?
+  sourceSystem           String    @default("back-office")
   origin                 String?
+  originalFilename       String?
+  fileName               String?
   representative         String?
   description            String?
-  documentGuid           String    @unique
-  Document               Document?
-  datePublished          DateTime?
+  documentGuid           String?   @unique
   owner                  String?
   author                 String?
   securityClassification String?
   mime                   String?
   horizonDataID          String?
   fileMD5                String?
+  documentId             String?
   path                   String?
   virusCheckStatus       String?
   size                   Int?
-  stage                  Int?
+  stage                  String?
   filter1                String?
+  blobStorageContainer   String?
+  blobStoragePath        String?
+  createdAt              DateTime? @default(now())
+  receivedDate           DateTime? @default(now())
+  isDeleted              Boolean   @default(false)
+  publishedAt            DateTime?
+  publishedDate          DateTime?
+  status                 String?
+  examinationRefNo       String?
   filter2                String?
+  publishedStatus        String?
+  redactedStatus         String?
+  redacted               Boolean   @default(false)
+  Document               Document?
 
-  @@index([documentGuid], name: "documentGuid")
+  @@unique([documentId, version])
+  @@index([filter1], map: "filter1")
+  @@index([documentGuid], map: "documentGuid")
 }

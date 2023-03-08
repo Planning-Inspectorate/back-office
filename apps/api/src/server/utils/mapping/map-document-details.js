@@ -1,41 +1,59 @@
 import { mapDateStringToUnixTimestamp } from './map-date-string-to-unix-timestamp.js';
 
-/** @typedef {import('@pins/api').Schema.Document} Document */
+/** @typedef {import('apps/api/prisma/schema.js').DocumentVersionWithDocument} DocumentVersionWithDocument */
+/** @typedef {import('apps/api/prisma/schema.js').IDocument} Document */
 /** @typedef {import('apps/api/prisma/schema.js').DocumentDetails} DocumentDetails */
 
 /**
  *
- * @param { Document } documentDetails
+ * @param { DocumentVersionWithDocument } documentVersion
  * @returns { DocumentDetails }
  */
-export const mapSingleDocumentDetails = (documentDetails) => {
-	// TODO: currently some fields not in DB, hence null / blank values returned
+export const mapSingleDocumentDetailsFromVersion = ({ Document, ...documentVersion }) => {
 	return {
-		guid: documentDetails.guid,
-		documentName: documentDetails.name,
-		blobStorageContainer: documentDetails.blobStorageContainer,
-		blobStoragePath: documentDetails.blobStoragePath,
-		from: '',
-		receivedDate: mapDateStringToUnixTimestamp(documentDetails.createdAt.toString()),
-		size: documentDetails.fileSize,
-		type: documentDetails.fileType ?? '',
-		redacted: documentDetails.redacted,
-		status: documentDetails.status,
-		description: '',
-		documentReferenceNumber: '',
-		version: 1,
-		agent: '',
-		caseStage: '',
-		webFilter: '',
-		documentType: ''
+		documentGuid: documentVersion.documentGuid,
+		documentId: documentVersion?.documentId ?? '',
+		caseRef: Document?.folder?.case?.reference || null,
+		documentName: Document?.name || '',
+		sourceSystem: documentVersion.sourceSystem ?? 'Back Office',
+		blobStorageContainer: Document?.blobStorageContainer || '',
+		blobStoragePath: Document?.blobStoragePath || '',
+		author: documentVersion?.author || '',
+		fileName: documentVersion.fileName ?? '',
+		originalFilename: documentVersion?.originalFilename || '',
+		dateCreated: documentVersion?.receivedDate
+			? mapDateStringToUnixTimestamp(documentVersion?.receivedDate?.toString())
+			: null,
+
+		size: documentVersion?.size || 0,
+
+		mime: documentVersion.mime ?? '',
+
+		publishedStatus: documentVersion.publishedStatus ?? '',
+		redactedStatus: '',
+
+		// user has to assign stage
+		status: Document?.status || null,
+
+		datePublished: documentVersion?.publishedDate
+			? mapDateStringToUnixTimestamp(documentVersion?.publishedDate?.toString())
+			: null,
+		description: documentVersion?.description,
+		version: documentVersion?.version,
+		agent: documentVersion?.representative,
+
+		stage: documentVersion?.stage || null,
+		documentType: documentVersion?.documentType,
+		filter1: documentVersion?.filter1 || null,
+		examinationRefNo: documentVersion.examinationRefNo ?? ''
 	};
 };
 
 /**
  *
- * @param { Document[] } documents
+ * @param { DocumentVersionWithDocument[] } documents
  * @returns { DocumentDetails[]}
  */
-export const mapDocumentDetails = (documents) => {
-	return documents.map((document) => mapSingleDocumentDetails(document));
+export const mapDocumentVersionDetails = (documents) => {
+	return documents.map((document) => mapSingleDocumentDetailsFromVersion(document));
 };

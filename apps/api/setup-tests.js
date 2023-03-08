@@ -42,7 +42,7 @@ const mockSubSectorFindMany = jest.fn().mockResolvedValue({});
 const mockZoomLevelFindMany = jest.fn().mockResolvedValue({});
 const mockDocumentFindFirst = jest.fn().mockResolvedValue({});
 const mockDocumentDelete = jest.fn().mockResolvedValue({});
-const mockDocumentMetadataCreate = jest.fn().mockResolvedValue({});
+const mockDocumentVersionCreate = jest.fn().mockResolvedValue({});
 const mockDocumentMetdataFindFirst = jest.fn().mockResolvedValue({});
 const mockDocumentMetdataFindUnique = jest.fn().mockResolvedValue({});
 const mockDocumentMetdataUpsert = jest.fn().mockResolvedValue({});
@@ -119,9 +119,9 @@ class MockPrismaClient {
 		};
 	}
 
-	get documentMetadata() {
+	get documentVersion() {
 		return {
-			create: mockDocumentMetadataCreate,
+			create: mockDocumentVersionCreate,
 			findFirst: mockDocumentMetdataFindFirst,
 			findUnique: mockDocumentMetdataFindUnique,
 			upsert: mockDocumentMetdataUpsert,
