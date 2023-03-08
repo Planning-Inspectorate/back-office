@@ -117,7 +117,7 @@
 		},
 		"sourceSystem": {
 			"type": "string",
-			"enum": ["appeals", "back-office", "horizon", "ni_file", "sharepoint"]
+			"enum": ["appeals", "back_office", "horizon", "ni_file", "sharepoint"]
 		},
 		"origin": {
 			"type": "string",
