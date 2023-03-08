@@ -58,21 +58,6 @@ export function createDocumentationFile(options = {}) {
 		startOffset: createUniqueRandomNumberFromSeed(3, 12, uniqueSeed)
 	})}`;
 
-	const documentType = ['Rule 8 letter', 'Exam library', ''][
-		createUniqueRandomNumberFromSeed(0, 3, uniqueSeed)
-	];
-
-	const stage = [
-		'1. Pre-application',
-		'2. Acceptance',
-		'3. Pre-examination',
-		'4. Examination',
-		'5. Recommendation',
-		'6. Decision',
-		'7. Post-decision',
-		"8. Developer's application"
-	][createUniqueRandomNumberFromSeed(0, 9, uniqueSeed)];
-
 	const status = [
 		'user_checked',
 		'not_user_checked',
@@ -97,8 +82,6 @@ export function createDocumentationFile(options = {}) {
 		description,
 		type: type.mime,
 		status,
-		stage,
-		redacted,
-		documentType
+		redacted
 	};
 }
