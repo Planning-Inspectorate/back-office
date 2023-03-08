@@ -16,7 +16,7 @@ const { value: validatedConfig, error } = schema.validate({
 	msal: {
 		clientId: environment.AUTH_CLIENT_ID,
 		clientSecret: environment.AUTH_CLIENT_SECRET,
-		apiClientId: environment.AUTH_API_CLIENT_ID,
+		apiClientId: environment.AUTH_CLIENT_BACKEND_API_ID,
 		tenantId: environment.AUTH_TENANT_ID
 	},
 	serverPort: environment.HTTPS_ENABLED === 'true' ? environment.HTTPS_PORT : environment.HTTP_PORT,

@@ -1,7 +1,7 @@
 import * as documentRepository from '../../../repositories/document.repository.js';
 import * as folderRepository from '../../../repositories/folder.repository.js';
 import { getPageCount, getSkipValue } from '../../../utils/database-pagination.js';
-import { mapDocumentDetails } from '../../../utils/mapping/map-document-details.js';
+import { mapDocumentVersionDetails } from '../../../utils/mapping/map-document-details.js';
 import {
 	mapBreadcrumbFolderDetails,
 	mapFolderDetails,
@@ -50,6 +50,7 @@ export const getFolder = async (folderId) => {
 export const getFolderPath = async (id, folderId) => {
 	const folders = await folderRepository.getFolderPath(id, folderId);
 
+	// @ts-ignore
 	return mapBreadcrumbFolderDetails(folders);
 };
 
@@ -66,11 +67,17 @@ export const getDocumentsInFolder = async (folderId, pageNumber = 1, pageSize = 
 	const documentsCount = await documentRepository.getDocumentsCountInFolder(folderId);
 	const documents = await documentRepository.getDocumentsInFolder(folderId, skipValue, pageSize);
 
+	// @ts-ignore
+	const mapDocument = documents.map(({ documentVersion, ...Document }) => ({
+		Document,
+		...documentVersion
+	}));
+
 	return {
 		page: pageNumber,
 		pageDefaultSize: pageSize,
 		pageCount: getPageCount(documentsCount, pageSize),
 		itemCount: documentsCount,
-		items: mapDocumentDetails(documents)
+		items: mapDocumentVersionDetails(mapDocument)
 	};
 };

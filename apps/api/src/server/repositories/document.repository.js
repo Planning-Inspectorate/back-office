@@ -38,7 +38,7 @@ export const getById = (documentGuid) => {
  */
 export const getByIdRelatedToCaseId = (documentGuid, caseId) => {
 	return databaseConnector.document.findFirst({
-		include: { documentMetadata: true },
+		include: { documentVersion: true },
 		where: {
 			guid: documentGuid,
 			isDeleted: false,
@@ -89,7 +89,7 @@ export const deleteDocument = (documentGuid) => {
 export const getDocumentsInFolder = (folderId, skipValue, pageSize) => {
 	return databaseConnector.document.findMany({
 		include: {
-			documentMetadata: true,
+			documentVersion: true,
 			folder: true
 		},
 		skip: skipValue,
