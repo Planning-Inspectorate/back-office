@@ -6,7 +6,6 @@ import {
 import {
 	deleteCaseDocumentationFile,
 	getCaseDocumentationFileInfo,
-	getCaseDocumentationFileInfoMOCKED,
 	getCaseDocumentationFilesInFolder,
 	getCaseFolders,
 	updateCaseDocumentationFiles
@@ -94,7 +93,7 @@ export async function viewApplicationsCaseDocumentationPages({ params }, respons
 	const { documentGuid, action } = params;
 	const { caseId } = response.locals;
 
-	const documentationFile = await getCaseDocumentationFileInfoMOCKED(caseId, documentGuid);
+	const documentationFile = await getCaseDocumentationFileInfo(caseId, documentGuid);
 	const isReadyToPublish = documentationFile.status === 'ready_to_publish';
 	const warningText = isReadyToPublish
 		? 'This document is in the publishing queue ready to be published.'
