@@ -18,9 +18,21 @@ describe('Provide document upload URLs', () => {
 	});
 
 	test('saves documents information and returns upload URL', async () => {
+		const guid = '11-112-233';
+
 		// GIVEN
 		databaseConnector.case.findUnique.mockResolvedValue(application);
+
 		databaseConnector.folder.findUnique.mockResolvedValue({ id: 1, caseId: 1 });
+
+		databaseConnector.document.upsert.mockResolvedValue({
+			id: 1,
+			guid,
+			name: 'test doc'
+		});
+
+		databaseConnector.documentMetadata.upsert.mockResolvedValue({});
+
 		got.post.mockReturnValue({
 			json: jest.fn().mockResolvedValue({
 				blobStorageHost: 'blob-store-host',
@@ -67,6 +79,29 @@ describe('Provide document upload URLs', () => {
 			data: {
 				blobStorageContainer: 'blob-store-container',
 				blobStoragePath: '/some/path/test doc'
+			}
+		});
+
+		const metadata = { documentGuid: guid, documentType: 'application/pdf', size: 1024 };
+
+		expect(databaseConnector.documentMetadata.upsert).toHaveBeenCalledWith({
+			create: { ...metadata, Document: { connect: { guid: metadata?.documentGuid } } },
+			where: { documentGuid: metadata?.documentGuid },
+			update: metadata,
+			include: {
+				Document: {
+					include: {
+						folder: {
+							include: {
+								case: {
+									include: {
+										CaseStatus: true
+									}
+								}
+							}
+						}
+					}
+				}
 			}
 		});
 	});

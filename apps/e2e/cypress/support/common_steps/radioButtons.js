@@ -9,12 +9,12 @@ const page = new Page();
 
 // U S E R  A C T I O N S
 
-When('the user chooses option {int} radio button', function (optionNumber) {
+When(/^the user chooses option (\d+) radio button$/, function (optionNumber) {
 	page.chooseRadioBtnByIndex(optionNumber - 1);
 });
 
 // A S S E R T I O N S
 
-Then('the user should see {int} radio options to choose on the page', function (radiosCount) {
+Then(/^the user should see (\d+) radio options to choose on the page$/, function (radiosCount) {
 	page.validateNumberOfRadioBtn(radiosCount);
 });

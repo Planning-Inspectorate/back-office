@@ -1,5 +1,7 @@
 import { databaseConnector } from '../utils/database-connector.js';
 
+/** @typedef {import('apps/api/prisma/schema.js').Document} Document */
+
 /**
  *
  * @param {{name: string, folderId: number}} document
@@ -36,6 +38,7 @@ export const getById = (documentGuid) => {
  */
 export const getByIdRelatedToCaseId = (documentGuid, caseId) => {
 	return databaseConnector.document.findFirst({
+		include: { documentMetadata: true },
 		where: {
 			guid: documentGuid,
 			isDeleted: false,
@@ -85,6 +88,10 @@ export const deleteDocument = (documentGuid) => {
  */
 export const getDocumentsInFolder = (folderId, skipValue, pageSize) => {
 	return databaseConnector.document.findMany({
+		include: {
+			documentMetadata: true,
+			folder: true
+		},
 		skip: skipValue,
 		take: pageSize,
 		orderBy: [

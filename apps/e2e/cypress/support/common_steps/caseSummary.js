@@ -7,7 +7,7 @@ const casePage = new CasePage();
 const createCasePage = new CreateCasePage();
 const files = ['mainProjectFile', 'secondProjectFile'];
 
-When(/^the user updates the project information with file (1|2)$/, function (fileIndex) {
+When(/^the user updates the project information with file "(1|2)"$/, function (fileIndex) {
 	const projectFileName = Cypress.env(files[fileIndex - 1]);
 	cy.fixture(projectFileName).then((file) => {
 		// P R O J E C T  D E T A I L S
@@ -81,7 +81,7 @@ When(/^the user updates the project information with file (1|2)$/, function (fil
 });
 
 Then(
-	/^the user should validate the (Preview and Publish|Project information) page with file (1|2) and (complete|mandatory) data$/,
+	/^the user should validate the "(Preview and Publish|Project information)" page with file "(1|2)" and "(complete|mandatory)" data$/,
 	function (page, fileIndex, checkType) {
 		const projectFileName = Cypress.env(files[fileIndex - 1]);
 		const mandatoryOnly = checkType === 'mandatory';
@@ -128,7 +128,7 @@ Then(
 );
 
 Then(
-	/^the user should validate the summary page with file (1|2) and (complete|mandatory) data$/,
+	/^the user should validate the summary page with file "(1|2)" and "(complete|mandatory)" data$/,
 	function (fileIndex, checkType) {
 		const mandatoryOnly = checkType === 'mandatory';
 

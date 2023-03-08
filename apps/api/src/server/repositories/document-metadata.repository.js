@@ -7,14 +7,25 @@ import { databaseConnector } from '../utils/database-connector.js';
 export const upsert = (metadata) => {
 	return databaseConnector.documentMetadata.upsert({
 		create: { ...metadata, Document: { connect: { guid: metadata?.documentGuid } } },
-		where: { id: metadata.id },
+		where: { documentGuid: metadata?.documentGuid },
 		update: metadata,
 		include: {
-			Document: true
+			Document: {
+				include: {
+					folder: {
+						include: {
+							case: {
+								include: {
+									CaseStatus: true
+								}
+							}
+						}
+					}
+				}
+			}
 		}
 	});
 };
-
 /**
  * Get a document by documentGuid
  *
