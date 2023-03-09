@@ -259,14 +259,13 @@ describe('Get folder details', () => {
 			items: [
 				{
 					documentGuid: 'a6f9f2e0-12c9-49b7-8a1c-3b5edc34dd99',
-					documentId: '',
+					documentId: null,
 					fileName: '',
 					originalFilename: '',
 					caseRef: null,
-					documentName: 'Document 1',
 					sourceSystem: 'Back Office',
 					blobStorageContainer: '',
-					blobStoragePath: '',
+					documentURI: '',
 					author: '',
 					dateCreated: null,
 					size: 1024,
@@ -277,10 +276,11 @@ describe('Get folder details', () => {
 					datePublished: null,
 					description: null,
 					version: 1_675_774,
-					agent: null,
+					representative: null,
 					stage: null,
 					documentType: '',
 					filter1: null,
+					filter2: null,
 					examinationRefNo: ''
 				}
 			]

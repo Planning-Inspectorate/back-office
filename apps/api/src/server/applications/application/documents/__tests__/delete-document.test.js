@@ -70,7 +70,7 @@ describe('delete Document', () => {
 		// THEN
 		expect(response.status).toEqual(400);
 		expect(response.body).toEqual({
-			errors: 'unable to delete document guid 1111-2222-3333 related to casedId 1'
+			errors: 'unable to delete document guid 1111-2222-3333 related to caseId 1'
 		});
 	});
 
@@ -85,7 +85,7 @@ describe('delete Document', () => {
 		expect(response.status).toEqual(404);
 
 		expect(response.body).toEqual({
-			errors: 'document not found guid 1111-2222-3333 related to casedId 1'
+			errors: 'document not found: guid 1111-2222-3333 related to caseId 1'
 		});
 	});
 });

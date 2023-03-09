@@ -12,39 +12,45 @@ import { mapDateStringToUnixTimestamp } from './map-date-string-to-unix-timestam
 export const mapSingleDocumentDetailsFromVersion = ({ Document, ...documentVersion }) => {
 	return {
 		documentGuid: documentVersion.documentGuid,
-		documentId: documentVersion?.documentId ?? '',
-		caseRef: Document?.folder?.case?.reference || null,
-		documentName: Document?.name || '',
+		documentId: documentVersion?.documentId ?? null,
+		caseRef: Document?.folder?.case?.reference ?? null,
 		sourceSystem: documentVersion.sourceSystem ?? 'Back Office',
-		blobStorageContainer: Document?.blobStorageContainer || '',
-		blobStoragePath: Document?.blobStoragePath || '',
-		author: documentVersion?.author || '',
+		blobStorageContainer: documentVersion?.blobStorageContainer ?? '',
+		documentURI: documentVersion?.documentURI ?? '',
+		author: documentVersion?.author ?? '',
+
 		fileName: documentVersion.fileName ?? '',
-		originalFilename: documentVersion?.originalFilename || '',
+
+		originalFilename: documentVersion?.originalFilename ?? '',
+
 		dateCreated: documentVersion?.receivedDate
 			? mapDateStringToUnixTimestamp(documentVersion?.receivedDate?.toString())
 			: null,
 
-		size: documentVersion?.size || 0,
+		size: documentVersion?.size ?? 0,
 
 		mime: documentVersion.mime ?? '',
 
 		publishedStatus: documentVersion.publishedStatus ?? '',
-		redactedStatus: '',
 
-		// user has to assign stage
-		status: Document?.status || null,
+		redactedStatus: documentVersion.redactedStatus ?? '',
+
+		status: documentVersion?.status ?? null,
 
 		datePublished: documentVersion?.publishedDate
 			? mapDateStringToUnixTimestamp(documentVersion?.publishedDate?.toString())
 			: null,
+
 		description: documentVersion?.description,
 		version: documentVersion?.version,
-		agent: documentVersion?.representative,
+		representative: documentVersion?.representative,
 
-		stage: documentVersion?.stage || null,
+		stage: documentVersion?.stage ?? null,
+
 		documentType: documentVersion?.documentType,
-		filter1: documentVersion?.filter1 || null,
+
+		filter1: documentVersion?.filter1 ?? null,
+		filter2: documentVersion?.filter2 ?? null,
 		examinationRefNo: documentVersion.examinationRefNo ?? ''
 	};
 };

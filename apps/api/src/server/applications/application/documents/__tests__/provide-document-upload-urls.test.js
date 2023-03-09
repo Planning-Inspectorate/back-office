@@ -65,16 +65,6 @@ describe('Provide document upload URLs', () => {
 			]
 		});
 
-		expect(databaseConnector.document.update).toHaveBeenCalledWith({
-			where: {
-				guid: 'some-guid'
-			},
-			data: {
-				blobStorageContainer: 'blob-store-container',
-				blobStoragePath: '/some/path/test doc'
-			}
-		});
-
 		const metadata = {
 			documentGuid: guid,
 			originalFilename: 'test doc',
@@ -103,39 +93,16 @@ describe('Provide document upload URLs', () => {
 			where: { documentGuid: 'some-guid' }
 		});
 
-		expect(databaseConnector.documentVersion.upsert).toHaveBeenCalledWith({
-			create: {
-				documentGuid: 'some-guid',
-				documentURI: '/some/path/test doc',
-				Document: { connect: { guid: metadata?.documentGuid } }
-			},
-			where: { documentGuid: metadata?.documentGuid },
-			update: { documentGuid: 'some-guid', documentURI: '/some/path/test doc' },
-			include: {
-				Document: {
-					include: {
-						folder: {
-							include: {
-								case: {
-									include: {
-										CaseStatus: true
-									}
-								}
-							}
-						}
-					}
-				}
-			}
-		});
-
 		expect(databaseConnector.documentVersion.upsert).lastCalledWith({
 			create: {
+				blobStorageContainer: 'blob-store-container',
 				documentGuid: metadata?.documentGuid,
 				documentURI: '/some/path/test doc',
 				Document: { connect: { guid: metadata?.documentGuid } }
 			},
 			where: { documentGuid: metadata?.documentGuid },
 			update: {
+				blobStorageContainer: 'blob-store-container',
 				documentGuid: metadata?.documentGuid,
 				documentURI: '/some/path/test doc'
 			},

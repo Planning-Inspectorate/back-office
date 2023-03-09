@@ -50,37 +50,6 @@ router.post(
 );
 
 router.post(
-	'/:id/documents/:guid/metadata',
-	/*
-        #swagger.tags = ['Applications']
-        #swagger.path = '/applications/{id}/documents/{guid}/metadata'
-        #swagger.description = 'This endpoint enables the storage of metadata for a document linked to a particular case, whether it's newly created or updated.'
-        #swagger.parameters['id'] = {
-            in: 'path',
-			description: 'Application ID here',
-			required: true,
-			type: 'integer'
-		}
-		#swagger.parameters['guid'] = {
-            in: 'path',
-			description: 'guid of the required document here',
-			required: true,
-			type: 'string'
-		}
-		#swagger.parameters['body'] = {
-            in: 'body',
-            description: 'Document Details',
-            schema: { $ref: '#/definitions/documentsPropertiesRequestBody' }
-        }
-		#swagger.responses[200] = {
-			description: 'The metadata has been successfully stored.',
-			schema: { $ref: '#/definitions/documentsPropertiesRequestBody' }
-		}
-    */
-	asyncHandler(storeDocumentVersion)
-);
-
-router.post(
 	'/:id/documents',
 	/*
         #swagger.tags = ['Applications']
