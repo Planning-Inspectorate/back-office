@@ -319,13 +319,13 @@ model Document {
   isDeleted            Boolean          @default(false)
   versionId            Int?             @unique
   folder               Folder           @relation(fields: [folderId], references: [id])
-  documentVersion      DocumentVersion? @relation(fields: [versionId], references: [id])
+  documentVersion      DocumentVersion? @relation(fields: [versionId], references: [documentId])
 
   @@unique([name, folderId])
 }
 
 model DocumentVersion {
-  id                     Int       @id @unique @default(autoincrement())
+  documentId             Int       @unique @default(autoincrement())
   version                Int       @default(1)
   lastModified           DateTime?
   documentType           String    @default("")
@@ -343,14 +343,12 @@ model DocumentVersion {
   mime                   String?
   horizonDataID          String?
   fileMD5                String?
-  documentId             String?
   path                   String?
   virusCheckStatus       String?
   size                   Int?
   stage                  String?
   filter1                String?
   blobStorageContainer   String?
-  blobStoragePath        String?
   createdAt              DateTime? @default(now())
   receivedDate           DateTime? @default(now())
   isDeleted              Boolean   @default(false)
@@ -362,9 +360,10 @@ model DocumentVersion {
   publishedStatus        String?
   redactedStatus         String?
   redacted               Boolean   @default(false)
+  documentURI            String?
   Document               Document?
 
-  @@unique([documentId, version])
+  @@id([documentId, version])
   @@index([filter1], map: "filter1")
   @@index([documentGuid], map: "documentGuid")
 }

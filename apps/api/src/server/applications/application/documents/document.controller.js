@@ -1,7 +1,8 @@
 import { pick } from 'lodash-es';
 import * as documentRepository from '../../../repositories/document.repository.js';
-import * as DocumentVersionRepository from '../../../repositories/document-metadata.repository.js';
+import * as documentVersionRepository from '../../../repositories/document-metadata.repository.js';
 import BackOfficeAppError from '../../../utils/app-error.js';
+import logger from '../../../utils/logger.js';
 import { mapSingleDocumentDetailsFromVersion } from '../../../utils/mapping/map-document-details.js';
 import { applicationStates } from '../../state-machine/application.machine.js';
 import {
@@ -10,7 +11,8 @@ import {
 } from './document.service.js';
 import {
 	fetchDocumentByGuidAndCaseId,
-	validateDocumentVersionBody
+	getRedactionStatus,
+	validateDocumentVersionMetatdataBody
 } from './document.validators.js';
 
 /**
@@ -26,15 +28,18 @@ import {
 export const provideDocumentUploadURLs = async ({ params, body }, response) => {
 	const documentsToUpload = body[''];
 
+	// Obtain URLs for documents from blob storage
 	const { blobStorageHost, blobStorageContainer, documents } = await obtainURLsForDocuments(
 		documentsToUpload,
 		params.id
 	);
 
+	// Map the obtained URLs with documentName
 	const documentsWithUrls = documents.map((document) => {
 		return pick(document, ['documentName', 'blobStoreUrl']);
 	});
 
+	// Send response with blob storage host, container, and documents with URLs
 	response.send({
 		blobStorageHost,
 		blobStorageContainer,
@@ -49,13 +54,20 @@ export const provideDocumentUploadURLs = async ({ params, body }, response) => {
  * @type {import('express').RequestHandler<{id: number}, any, any, any>}
  */
 export const updateDocuments = async ({ body }, response) => {
-	const { status, redacted, items } = body[''];
+	const { status: publishedStatus, redacted: isRedacted, items } = body[''];
+
+	const redactedStatus = getRedactionStatus(isRedacted);
 
 	if (items) {
 		for (const document of items) {
-			await documentRepository.update(document.guid, { status, redacted });
+			logger.info(
+				`Updating document with guid: ${document.guid} to published status: ${publishedStatus} and redacted status: ${redactedStatus}`
+			);
+			await documentVersionRepository.update(document.guid, { publishedStatus, redactedStatus });
 		}
 	}
+
+	logger.info(`Updated ${items.length} documents`);
 	response.send(items);
 };
 
@@ -67,16 +79,21 @@ export const updateDocuments = async ({ body }, response) => {
  * @returns {Promise<void>} A Promise that resolves when the metadata has been successfully stored in the database.
  */
 export const getDocumentProperties = async ({ params: { id: caseId, guid } }, response) => {
+	// Step 1: Retrieve the document by its GUID and case ID.
 	const document = await fetchDocumentByGuidAndCaseId(guid, +caseId);
 
-	const DocumentVersion = await DocumentVersionRepository.getById(document.guid);
+	// Step 2: Retrieve the metadata for the document version associated with the GUID.
+	const documentVersion = await documentVersionRepository.getById(document.guid);
 
-	if (DocumentVersion === null || typeof DocumentVersion === 'undefined') {
+	// Step 3: If the document metadata is not found, throw an error.
+	if (documentVersion === null || typeof documentVersion === 'undefined') {
 		throw new BackOfficeAppError(`Unknown document metadata guid ${guid}`, 404);
 	}
 
-	const documentDetails = mapSingleDocumentDetailsFromVersion(DocumentVersion);
+	// Step 4: Map the document metadata to a format to be returned in the API response.
+	const documentDetails = mapSingleDocumentDetailsFromVersion(documentVersion);
 
+	// Step 5: Return the document metadata in the response.
 	response.status(200).send(documentDetails);
 };
 
@@ -89,19 +106,24 @@ export const getDocumentProperties = async ({ params: { id: caseId, guid } }, re
  * @returns {Promise<void>} An object with the key "isDeleted" set to true.
  */
 export const deleteDocumentSoftly = async ({ params: { id: caseId, guid } }, response) => {
+	// Step 1: Fetch the document to be deleted from the database
 	const document = await fetchDocumentByGuidAndCaseId(guid, +caseId);
 
-	const documentIsPublished = document.status === applicationStates.published;
+	// Step 2: Check if the document is published; if so, throw an error as it cannot be deleted
+	const documentIsPublished =
+		document.status?.toLowerCase() === applicationStates.published?.toLowerCase();
 
 	if (documentIsPublished) {
 		throw new BackOfficeAppError(
-			`unable to delete document guid ${guid} related to casedId ${caseId}`,
+			`unable to delete document guid ${guid} related to caseId ${caseId}`,
 			400
 		);
 	}
 
+	// Step 3: Soft delete the document from the database
 	await documentRepository.deleteDocument(guid);
 
+	// Step 4: Send a success response to the client
 	response.status(200).send({ isDeleted: true });
 };
 
@@ -116,25 +138,22 @@ export const deleteDocumentSoftly = async ({ params: { id: caseId, guid } }, res
  * @returns {Promise<void>} A Promise that resolves when the metadata has been successfully stored in the database.
  */
 export const storeDocumentVersion = async (request, response) => {
+	// Extract caseId and guid from the request parameters
 	const { id: caseId, guid } = request.params;
 
+	// Validate the request body and extract the document version metadata
 	/** @type {DocumentVersion} */
-	const documentVersionBody = validateDocumentVersionBody(request.body);
+	const documentVersionMetadataBody = validateDocumentVersionMetatdataBody(request.body);
 
+	// Retrieve the document from the database using the provided guid and caseId
 	const document = await fetchDocumentByGuidAndCaseId(guid, +caseId);
 
-	if (documentVersionBody.documentName) {
-		await documentRepository.update(document.guid, {
-			name: documentVersionBody.documentName
-		});
-
-		delete documentVersionBody.documentName;
-	}
-
+	// Upsert the document version metadata to the database and get the updated document details
 	const documentDetails = await upsertDocumentVersionAndReturnDetails(
 		document.guid,
-		documentVersionBody
+		documentVersionMetadataBody
 	);
 
+	// Send the document details back in the response
 	response.status(200).send(documentDetails);
 };

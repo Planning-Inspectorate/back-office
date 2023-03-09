@@ -189,14 +189,14 @@ export type CaseStatusNameType =
 	| 'Withdrawn';
 
 export interface DocumentDetails {
-	documentId: string | null;
+	documentId: number | null;
 	sourceSystem: string;
 	documentGuid: string | null;
-	documentName: string;
 	fileName: String;
 	originalFilename: string;
+	version;
 	datePublished: number | null;
-	blobStoragePath: string | null;
+	documentURI: string | null;
 	blobStorageContainer: string;
 	author: string;
 	dateCreated: number | null;
@@ -207,9 +207,10 @@ export interface DocumentDetails {
 	status: string | null;
 	description: string | null;
 	version: number | null;
-	agent: string | null;
+	representative: string | null;
 	stage: string | null;
 	filter1: string | null;
+	filter2: string | null;
 	documentType: string | null;
 	caseRef: string | null;
 	examinationRefNo: string;

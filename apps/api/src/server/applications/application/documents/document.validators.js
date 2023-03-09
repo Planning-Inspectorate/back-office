@@ -4,12 +4,24 @@ import joi from 'joi';
 import { validationErrorHandler } from '../../../middleware/error-handler.js';
 import * as DocumentRepository from '../../../repositories/document.repository.js';
 import BackOfficeAppError from '../../../utils/app-error.js';
+import {
+	originEnum,
+	publishedStatusEnum,
+	redactedStatusEnum,
+	securityClassificationEnum,
+	sourceSystemEnum
+} from '../../../utils/create-enums.js';
+import logger from '../../../utils/logger.js';
 
 /** @typedef {{ guid: string}} documentGuid */
 
 /**
  * @typedef {import('apps/api/prisma/schema.js').DocumentVersion} DocumentVersion
  */
+
+export const getRedactionStatus = (/** @type {boolean} */ redactedStatus) => {
+	return redactedStatus ? 'redacted' : 'not_redacted';
+};
 
 /**
  * Fetch the document by its `guid` and related to a `caseId`.
@@ -30,7 +42,7 @@ export const fetchDocumentByGuidAndCaseId = async (
 
 	if (document === null || typeof document === 'undefined') {
 		throw new BackOfficeAppError(
-			`document not found guid ${guid} related to casedId ${caseId}`,
+			`document not found: guid ${guid} related to caseId ${caseId}`,
 			404
 		);
 	}
@@ -46,53 +58,72 @@ export const fetchDocumentByGuidAndCaseId = async (
 /**
  * Validates that the event body for document metadata exists based on the provided DocumentVersion schema.
  *
- * @param {DocumentVersion} documentVersonEventBody
- * @returns {DocumentVersion}
+ * @param {DocumentVersion} documentVersonEventBody - the event body for document metadata to validate
+ * @returns {DocumentVersion} - the validated document metadata event body
  */
-
-export const validateDocumentVersionBody = (documentVersonEventBody) => {
+export const validateDocumentVersionMetatdataBody = (documentVersonEventBody) => {
+	// Define the schema for the document version
 	const documentVersionSchema = joi.object({
 		version: joi.number().positive().optional(),
-		receivedDate: joi.date().iso().optional(),
-		publishedDate: joi.date().iso().optional(),
+		dateCreated: joi.date().iso().optional(),
+		datePublished: joi.date().iso().optional(),
 		lastModified: joi.date().iso().optional(),
 		documentType: joi.string().optional(),
 		documentName: joi.string().optional(),
 		fileName: joi.string().optional(),
 		documentId: joi.string().optional(),
-		published: joi.boolean().optional(),
-		redacted: joi.boolean().optional(),
-		sourceSystem: joi.string().optional(),
-		origin: joi.string().optional(),
+		sourceSystem: joi
+			.string()
+			.valid(...sourceSystemEnum.values())
+			.optional(),
+		origin: joi
+			.string()
+			.valid(...originEnum.values())
+			.optional(),
 		representative: joi.string().optional(),
 		description: joi.string().optional(),
 		documentGuid: joi.string().optional(),
 		owner: joi.string().optional(),
 		author: joi.string().optional(),
-		securityClassification: joi.string().optional(),
+		securityClassification: joi
+			.string()
+			.valid(...securityClassificationEnum.values())
+			.optional(),
 		mime: joi.string().optional(),
 		horizonDataID: joi.string().optional(),
 		fileMD5: joi.string().optional(),
 		path: joi.string().optional(),
 		size: joi.number().optional(),
-		stage: joi.number().optional(),
+		redactedStatus: joi
+			.string()
+			.valid(...redactedStatusEnum.values())
+			.optional(),
+		publishedStatus: joi
+			.string()
+			.valid(...publishedStatusEnum.values())
+			.optional(),
 		filter1: joi.string().optional(),
 		filter2: joi.string().optional(),
-		status: joi.string().optional(),
 		examinationRefNo: joi.string().optional()
 	});
 
+	// Validate the document version event body using the schema
 	const { error } = documentVersionSchema.validate(documentVersonEventBody, {
 		abortEarly: false
 	});
 
+	// If there was an error, throw an exception with a message
 	if (error) {
-		throw new BackOfficeAppError(
-			error?.message || 'there was an error validating request body',
-			400
-		);
+		const errorMessage = error?.message || 'there was an error validating request body';
+
+		logger.error(`[validateDocumentVersionMetatdataBody] ${errorMessage}`);
+		throw new BackOfficeAppError(errorMessage, 400);
 	}
 
+	// If there were no errors, log a message and return the validated document version event body
+	logger.info(
+		'[validateDocumentVersionMetatdataBody] Successfully validated document version event body'
+	);
 	return documentVersonEventBody;
 };
 
