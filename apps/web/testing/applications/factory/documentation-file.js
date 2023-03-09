@@ -49,9 +49,8 @@ export function createDocumentationFile(options = {}) {
 		'recommendation',
 		'decision',
 		'post_decision',
-		'withdrawn',
-		'developers_application'
-	][createUniqueRandomNumberFromSeed(0, 9, uniqueSeed)];
+		'withdrawn'
+	][createUniqueRandomNumberFromSeed(0, 8, uniqueSeed)];
 
 	const representative = `${createRandomDescription({
 		wordsNumber: 1,

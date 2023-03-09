@@ -96,7 +96,6 @@ export interface CaseCreateProps<BodyValues> {
 export interface DocumentationFile {
 	documentGuid: string;
 	documentName: string;
-	// url: string; => not returned anymore
 	description: string;
 	dateCreated: number;
 	datePublished?: number;
@@ -112,5 +111,4 @@ export interface DocumentationFile {
 	representative: string;
 	stage: string;
 	documentType: string;
-	filter1: string;
 }
