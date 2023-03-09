@@ -73,7 +73,7 @@ extends:
                     parameters:
                       environmentVariables:
                         DATABASE_URL: $(DATABASE_URL)
-                      script: npm run db:migrate:prod
+                      script: npm run db:push
                       workingDirectory: $(Build.Repository.LocalPath)/apps/api
               - template: ../steps/azure_web_app_deploy.yml
                 parameters:

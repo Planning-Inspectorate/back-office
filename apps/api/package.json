@@ -22,6 +22,7 @@
     "swagger-autogen": "node ./src/server/swagger.js",
     "db:migrate": "npx prisma migrate dev",
     "db:migrate:prod": "npx prisma migrate deploy",
+    "db:push": "npx prisma db push --accept-data-loss",
     "db:reset": "npx prisma migrate reset",
     "db:seed": "npm run prisma-generate && npx prisma db seed",
     "db:seed:prod": "npm run prisma-generate && NODE_ENV=production node prisma/seed-production.js",
