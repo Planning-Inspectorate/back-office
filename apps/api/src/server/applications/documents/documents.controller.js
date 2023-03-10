@@ -1,5 +1,6 @@
 import { pick } from 'lodash-es';
 import * as documentRepository from '../../repositories/document.repository.js';
+import * as documentVersionRepository from '../../repositories/document-metadata.repository.js';
 import * as folderRepository from '../../repositories/folder.repository.js';
 import {
 	formatResponseBody,
@@ -36,7 +37,7 @@ export const provideDocumentUploadURLs = async ({ params, body }, response) => {
  * @param {string} status
  */
 export const updatedDocumentStatusResponse = async (guid, status) => {
-	const updatedResponse = await documentRepository.updateDocumentStatus({
+	const updatedResponse = await documentVersionRepository.updateDocumentStatus({
 		guid,
 		status
 	});
@@ -67,8 +68,8 @@ export const updateDocumentStatus = async ({ params, body }, response) => {
 
 	const formattedResponse = formatResponseBody(
 		caseId,
-		updateResponseInTable.guid,
-		updateResponseInTable.status
+		updateResponseInTable.documentGuid,
+		updateResponseInTable.publishedStatus
 	);
 
 	response.send(formattedResponse);

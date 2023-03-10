@@ -1875,7 +1875,7 @@
 					"type": "string",
 					"example": "a6f9f2e0-12c9-49b7-8a1c-3b5edc34dd99"
 				},
-				"publishedDate": {
+				"datePublished": {
 					"type": "string",
 					"example": ""
 				},
@@ -1891,7 +1891,7 @@
 					"type": "string",
 					"example": "document-service-uploads"
 				},
-				"blobStoragePath": {
+				"documentURI": {
 					"type": "string",
 					"example": "/application/BC010001/1111-2222-3333/my doc.pdf"
 				},
@@ -1899,7 +1899,7 @@
 					"type": "string",
 					"example": "joe blogs"
 				},
-				"receivedDate": {
+				"dateCreated": {
 					"type": "number",
 					"example": 1677585578
 				},
@@ -2202,7 +2202,7 @@
 									"type": "number",
 									"example": 1655298882
 								},
-								"publishedDate": {}
+								"datePublished": {}
 							}
 						}
 					}
@@ -2225,125 +2225,89 @@
 		"documentsMetadataRequestBody": {
 			"type": "object",
 			"properties": {
+				"documentId": {
+					"type": "string",
+					"example": "123"
+				},
 				"version": {
 					"type": "number",
 					"example": 1
 				},
-				"receivedDate": {
-					"type": "object",
-					"properties": {}
-				},
-				"publishedDate": {
-					"type": "object",
-					"properties": {}
-				},
-				"lastModified": {
-					"type": "object",
-					"properties": {}
-				},
-				"documentType": {
-					"type": "string",
-					"example": "example"
-				},
-				"documentName": {
-					"type": "string",
-					"example": "Example Document"
-				},
-				"fileName": {
-					"type": "string",
-					"example": "example_document.txt"
-				},
-				"documentId": {
-					"type": "string",
-					"example": "123456"
-				},
-				"published": {
-					"type": "boolean",
-					"example": true
-				},
-				"redacted": {
-					"type": "boolean",
-					"example": true
-				},
 				"sourceSystem": {
 					"type": "string",
-					"example": "example_source_system"
-				},
-				"origin": {
-					"type": "string",
-					"example": "example_origin"
-				},
-				"representative": {
-					"type": "string",
-					"example": "example_representative"
-				},
-				"description": {
-					"type": "string",
-					"example": "This is an example document"
+					"example": "ABC"
 				},
 				"documentGuid": {
 					"type": "string",
-					"example": "abc123"
+					"example": "456"
 				},
-				"owner": {
+				"fileName": {
 					"type": "string",
-					"example": "example_owner"
+					"example": "document.pdf"
+				},
+				"datePublished": {
+					"type": "string",
+					"example": "2022-12-21T12:42:40.885Z"
+				},
+				"documentURI": {
+					"type": "string",
+					"example": "/documents/123.pdf"
+				},
+				"blobStorageContainer": {
+					"type": "string",
+					"example": "my-blob-storage"
 				},
 				"author": {
 					"type": "string",
-					"example": "example_author"
+					"example": "John Smith"
 				},
-				"securityClassification": {
+				"dateCreated": {
 					"type": "string",
-					"example": "example_classification"
+					"example": "2022-12-21T12:42:40.885Z"
 				},
-				"mime": {
+				"publishedStatus": {
 					"type": "string",
-					"example": "text/plain"
+					"example": "published"
 				},
-				"horizonDataID": {
+				"redactedStatus": {
 					"type": "string",
-					"example": "example_horizon_id"
-				},
-				"fileMD5": {
-					"type": "string",
-					"example": "example_file_md5"
-				},
-				"path": {
-					"type": "string",
-					"example": "/path/to/document"
+					"example": "not redacted"
 				},
 				"size": {
 					"type": "number",
 					"example": 1024
 				},
-				"redactedStatus": {
+				"mime": {
 					"type": "string",
-					"example": "example_redacted_status"
+					"example": "application/pdf"
 				},
-				"publishedStatus": {
+				"description": {
 					"type": "string",
-					"example": "example_published_status"
+					"example": "This is a sample document."
 				},
-				"stage": {
-					"type": "number",
-					"example": 1
+				"representative": {
+					"type": "string",
+					"example": "Jane Doe"
 				},
 				"filter1": {
 					"type": "string",
-					"example": "example_filter1"
+					"example": "some filter value"
 				},
 				"filter2": {
 					"type": "string",
-					"example": "example_filter2"
+					"example": "some filter value"
 				},
-				"status": {
+				"documentType": {
 					"type": "string",
-					"example": "example_status"
+					"example": "contract"
+				},
+				"caseRef": {
+					"type": "string",
+					"example": "ABC-123"
 				},
 				"examinationRefNo": {
 					"type": "string",
-					"example": "example_examination_ref_no"
+					"example": "EXM-456"
 				}
 			}
 		},
@@ -2370,15 +2334,11 @@
 					"type": "string",
 					"example": "document.pdf"
 				},
-				"originalFilename": {
-					"type": "string",
-					"example": "original_document.pdf"
-				},
 				"datePublished": {
 					"type": "number",
 					"example": 1646822400
 				},
-				"blobStoragePath": {
+				"documentURI": {
 					"type": "string",
 					"example": "/documents/123.pdf"
 				},
@@ -2392,7 +2352,7 @@
 				},
 				"dateCreated": {
 					"type": "number",
-					"example": 1646168000
+					"example": 1646822400
 				},
 				"publishedStatus": {
 					"type": "string",
@@ -2410,10 +2370,6 @@
 					"type": "string",
 					"example": "application/pdf"
 				},
-				"status": {
-					"type": "string",
-					"example": "active"
-				},
 				"description": {
 					"type": "string",
 					"example": "This is a sample document."
@@ -2427,6 +2383,10 @@
 					"example": "draft"
 				},
 				"filter1": {
+					"type": "string",
+					"example": "some filter value"
+				},
+				"filter2": {
 					"type": "string",
 					"example": "some filter value"
 				},
@@ -2498,7 +2458,7 @@
 									"type": "number",
 									"example": 1646822400
 								},
-								"blobStoragePath": {
+								"documentURI": {
 									"type": "string",
 									"example": "/documents/123.pdf"
 								},
@@ -2512,7 +2472,7 @@
 								},
 								"dateCreated": {
 									"type": "number",
-									"example": 1646168000
+									"example": 1646822400
 								},
 								"publishedStatus": {
 									"type": "string",

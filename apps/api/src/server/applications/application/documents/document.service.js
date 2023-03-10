@@ -58,13 +58,14 @@ const upsertDocumentsToDatabase = async (documents) => {
 			throw error;
 		})
 		.process(async (documentToDB) => {
+			const fileName = documentName(documentToDB.name);
 			// Log that the function is upserting the document to the database.
 
 			logger.info(`Upserting document to database: ${documentToDB}`);
 
 			// Call the documentRepository.upsert function to upsert the document to the database.
 			const document = await documentRepository.upsert({
-				name: documentName(documentToDB.name),
+				name: fileName,
 				folderId: documentToDB.folderId
 			});
 
@@ -74,7 +75,8 @@ const upsertDocumentsToDatabase = async (documents) => {
 			// Call the documentVersionRepository.upsert function to upsert metadata for the document to the database.
 			await documentVerisonRepository.upsert({
 				documentGuid: document.guid,
-				originalFilename: documentName(document.name),
+				fileName,
+				originalFilename: fileName,
 				mime: documentToDB.documentType,
 				size: documentToDB.documentSize
 			});

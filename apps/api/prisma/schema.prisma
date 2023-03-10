@@ -349,15 +349,12 @@ model DocumentVersion {
   stage                  String?
   filter1                String?
   blobStorageContainer   String?
-  createdAt              DateTime? @default(now())
-  receivedDate           DateTime? @default(now())
+  dateCreated            DateTime? @default(now())
+  datePublished          DateTime?
   isDeleted              Boolean   @default(false)
-  publishedAt            DateTime?
-  publishedDate          DateTime?
-  status                 String?
   examinationRefNo       String?
   filter2                String?
-  publishedStatus        String?
+  publishedStatus        String?   @default("awaiting_upload")
   redactedStatus         String?
   redacted               Boolean   @default(false)
   documentURI            String?
