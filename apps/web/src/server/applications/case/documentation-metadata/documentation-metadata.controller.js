@@ -114,7 +114,7 @@ export async function updateDocumentationMetaData(request, response) {
 			body[`${fieldName}.day`]
 		}`;
 
-		newMetaData = { [fieldName]: newValue };
+		newMetaData = { [fieldName]: new Date(newValue) };
 	}
 
 	const { errors: apiErrors } = await updateDocumentMetaData(caseId, documentGuid, newMetaData);
