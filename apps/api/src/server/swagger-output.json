@@ -511,6 +511,44 @@
 				}
 			}
 		},
+		"/applications/{id}/documents/{guid}/metadata": {
+			"post": {
+				"tags": ["Applications"],
+				"description": "This endpoint enables the storage of metadata for a document linked to a particular case, whether it",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"type": "integer",
+						"description": "Application ID here"
+					},
+					{
+						"name": "guid",
+						"in": "path",
+						"required": true,
+						"type": "string",
+						"description": "guid of the required document here"
+					},
+					{
+						"name": "body",
+						"in": "body",
+						"description": "Document Details",
+						"schema": {
+							"$ref": "#/definitions/documentsMetadataRequestBody"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "The metadata has been successfully stored.",
+						"schema": {
+							"$ref": "#/definitions/DocumentDetails"
+						}
+					}
+				}
+			}
+		},
 		"/applications/{id}/documents": {
 			"post": {
 				"tags": ["Applications"],
@@ -586,7 +624,7 @@
 				}
 			}
 		},
-		"/applications/{id}/documents/{guid}": {
+		"/applications/{id}/documents/{guid}/properties": {
 			"get": {
 				"tags": ["Applications"],
 				"description": "Gets the properties of a single file on a case",
@@ -610,34 +648,59 @@
 					"200": {
 						"description": "Document properties",
 						"schema": {
-							"$ref": "#/definitions/DocumentDetails"
+							"$ref": "#/definitions/documentsPropertiesRequestBody"
 						}
 					}
 				}
 			}
 		},
-		"/applications/{id}/publish": {
-			"patch": {
+		"/applications/{id}/documents/{guid}/delete": {
+			"post": {
 				"tags": ["Applications"],
-				"description": "publish application",
+				"description": "Deletes a document associated with a specific application",
 				"parameters": [
 					{
 						"name": "id",
 						"in": "path",
 						"required": true,
 						"type": "integer",
-						"description": "Application ID"
+						"description": "Application ID here"
+					},
+					{
+						"name": "guid",
+						"in": "path",
+						"required": true,
+						"type": "string",
+						"description": "guid of the required document here"
 					}
 				],
 				"responses": {
 					"200": {
-						"description": "response will have the date that the case was published as a timestamp",
+						"description": "The document has been successfully soft-deleted and is no longer accessible.",
 						"schema": {
 							"type": "object",
 							"properties": {
-								"publishedDate": {
-									"type": "number",
-									"example": 1673873105
+								"type": {
+									"type": "string",
+									"example": "object"
+								},
+								"properties": {
+									"type": "object",
+									"properties": {
+										"isDeleted": {
+											"type": "object",
+											"properties": {
+												"type": {
+													"type": "string",
+													"example": "boolean"
+												},
+												"description": {
+													"type": "string",
+													"example": "Indicates whether the document has been successfully soft-deleted."
+												}
+											}
+										}
+									}
 								}
 							},
 							"xml": {
@@ -1116,6 +1179,38 @@
 								"status": {
 									"type": "string",
 									"example": "Pre-Application"
+								}
+							},
+							"xml": {
+								"name": "main"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/applications/{id}/publish": {
+			"patch": {
+				"tags": ["Applications"],
+				"description": "publish application",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"type": "integer",
+						"description": "Application ID"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "response will have the date that the case was published as a timestamp",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"publishedDate": {
+									"type": "number",
+									"example": 1673873105
 								}
 							},
 							"xml": {
@@ -1672,6 +1767,176 @@
 				}
 			}
 		},
+		"documentsPropertiesRequestBody": {
+			"type": "object",
+			"properties": {
+				"version": {
+					"type": "number",
+					"example": 1
+				},
+				"createdAt": {
+					"type": "string",
+					"example": "2023-02-27T10:00:00Z"
+				},
+				"lastModified": {
+					"type": "string",
+					"example": "2023-02-27T12:00:00Z"
+				},
+				"documentType": {
+					"type": "string",
+					"example": "PDF"
+				},
+				"published": {
+					"type": "boolean",
+					"example": false
+				},
+				"sourceSystem": {
+					"type": "string",
+					"example": "Salesforce"
+				},
+				"origin": {
+					"type": "string",
+					"example": "Email"
+				},
+				"representative": {
+					"type": "string",
+					"example": "John Doe"
+				},
+				"description": {
+					"type": "string",
+					"example": "Marketing Brochure"
+				},
+				"documentGuid": {
+					"type": "string",
+					"example": "ab12cd34-5678-90ef-ghij-klmnopqrstuv"
+				},
+				"datePublished": {
+					"type": "string",
+					"example": "2023-03-01T10:00:00Z"
+				},
+				"owner": {
+					"type": "string",
+					"example": "Jane Doe"
+				},
+				"author": {
+					"type": "string",
+					"example": "Marketing Team"
+				},
+				"securityClassification": {
+					"type": "string",
+					"example": "Confidential"
+				},
+				"mime": {
+					"type": "string",
+					"example": "application/pdf"
+				},
+				"horizonDataID": {
+					"type": "string",
+					"example": "123456789"
+				},
+				"fileMD5": {
+					"type": "string",
+					"example": "f60c381d96dcedec4b4fb4b9e1f6e14e"
+				},
+				"path": {
+					"type": "string",
+					"example": "/documents/marketing/ab12cd34-5678-90ef-ghij-klmnopqrstuv.pdf"
+				},
+				"virusCheckStatus": {
+					"type": "string",
+					"example": "Clean"
+				},
+				"size": {
+					"type": "number",
+					"example": 1024
+				},
+				"stage": {
+					"type": "number",
+					"example": 3
+				},
+				"filter1": {
+					"type": "string",
+					"example": "Marketing"
+				},
+				"filter2": {
+					"type": "string",
+					"example": "Brochure"
+				}
+			}
+		},
+		"documentsMetadataResponseBody": {
+			"type": "object",
+			"properties": {
+				"version": {
+					"type": "number",
+					"example": 1
+				},
+				"documentId": {
+					"type": "string",
+					"example": "a6f9f2e0-12c9-49b7-8a1c-3b5edc34dd99"
+				},
+				"publishedDate": {
+					"type": "string",
+					"example": ""
+				},
+				"caseRef": {
+					"type": "string",
+					"example": "BC0210002"
+				},
+				"documentName": {
+					"type": "string",
+					"example": "5"
+				},
+				"blobStorageContainer": {
+					"type": "string",
+					"example": "document-service-uploads"
+				},
+				"blobStoragePath": {
+					"type": "string",
+					"example": "/application/BC010001/1111-2222-3333/my doc.pdf"
+				},
+				"from": {
+					"type": "string",
+					"example": "joe blogs"
+				},
+				"receivedDate": {
+					"type": "number",
+					"example": 1677585578
+				},
+				"size": {
+					"type": "number",
+					"example": 0
+				},
+				"fileType": {
+					"type": "string",
+					"example": ""
+				},
+				"redacted": {
+					"type": "boolean",
+					"example": false
+				},
+				"status": {
+					"type": "string",
+					"example": "awaiting_upload"
+				},
+				"description": {
+					"type": "string",
+					"example": ""
+				},
+				"agent": {
+					"type": "string",
+					"example": ""
+				},
+				"documentType": {
+					"type": "string",
+					"example": ""
+				},
+				"webFilter": {
+					"type": "string",
+					"example": ""
+				}
+			}
+		},
 		"ApplicationsForCaseTeam": {
 			"type": "array",
 			"items": {
@@ -1957,76 +2222,225 @@
 				}
 			}
 		},
-		"DocumentDetails": {
+		"documentsMetadataRequestBody": {
 			"type": "object",
 			"properties": {
-				"guid": {
+				"version": {
+					"type": "number",
+					"example": 1
+				},
+				"receivedDate": {
+					"type": "object",
+					"properties": {}
+				},
+				"publishedDate": {
+					"type": "object",
+					"properties": {}
+				},
+				"lastModified": {
+					"type": "object",
+					"properties": {}
+				},
+				"documentType": {
 					"type": "string",
-					"example": "0fab253b-2c0c-4c55-94c0-f3f81ffc589c"
+					"example": "example"
 				},
 				"documentName": {
 					"type": "string",
-					"example": "document_name_1.pdf"
+					"example": "Example Document"
 				},
-				"blobStorageContainer": {
+				"fileName": {
 					"type": "string",
-					"example": "document-service-uploads"
+					"example": "example_document.txt"
 				},
-				"blobStoragePath": {
+				"documentId": {
 					"type": "string",
-					"example": "/application/TR010002/d38ef007-98d8-4d89-b7bb-34160d97e84e/document_name_1.pdf"
+					"example": "123456"
 				},
-				"from": {
+				"published": {
+					"type": "boolean",
+					"example": true
+				},
+				"redacted": {
+					"type": "boolean",
+					"example": true
+				},
+				"sourceSystem": {
 					"type": "string",
-					"example": "TBD"
+					"example": "example_source_system"
 				},
-				"receivedDate": {
-					"type": "number",
-					"example": 1658486313
+				"origin": {
+					"type": "string",
+					"example": "example_origin"
+				},
+				"representative": {
+					"type": "string",
+					"example": "example_representative"
+				},
+				"description": {
+					"type": "string",
+					"example": "This is an example document"
+				},
+				"documentGuid": {
+					"type": "string",
+					"example": "abc123"
+				},
+				"owner": {
+					"type": "string",
+					"example": "example_owner"
+				},
+				"author": {
+					"type": "string",
+					"example": "example_author"
+				},
+				"securityClassification": {
+					"type": "string",
+					"example": "example_classification"
+				},
+				"mime": {
+					"type": "string",
+					"example": "text/plain"
+				},
+				"horizonDataID": {
+					"type": "string",
+					"example": "example_horizon_id"
+				},
+				"fileMD5": {
+					"type": "string",
+					"example": "example_file_md5"
+				},
+				"path": {
+					"type": "string",
+					"example": "/path/to/document"
 				},
 				"size": {
 					"type": "number",
 					"example": 1024
 				},
-				"type": {
+				"redactedStatus": {
 					"type": "string",
-					"example": "application/pdf"
+					"example": "example_redacted_status"
 				},
-				"redacted": {
-					"type": "boolean",
-					"example": false
+				"publishedStatus": {
+					"type": "string",
+					"example": "example_published_status"
+				},
+				"stage": {
+					"type": "number",
+					"example": 1
+				},
+				"filter1": {
+					"type": "string",
+					"example": "example_filter1"
+				},
+				"filter2": {
+					"type": "string",
+					"example": "example_filter2"
 				},
 				"status": {
 					"type": "string",
-					"example": "not_user_checked"
+					"example": "example_status"
 				},
-				"description": {
+				"examinationRefNo": {
 					"type": "string",
-					"example": "TBD"
-				},
-				"documentReferenceNumber": {
+					"example": "example_examination_ref_no"
+				}
+			}
+		},
+		"DocumentDetails": {
+			"type": "object",
+			"properties": {
+				"documentId": {
 					"type": "string",
-					"example": "TBD"
+					"example": "123"
 				},
 				"version": {
 					"type": "number",
 					"example": 1
 				},
-				"agent": {
+				"sourceSystem": {
 					"type": "string",
-					"example": "Mr S King"
+					"example": "ABC"
 				},
-				"caseStage": {
+				"documentGuid": {
 					"type": "string",
-					"example": "Examination"
+					"example": "456"
 				},
-				"webFilter": {
+				"fileName": {
 					"type": "string",
-					"example": "TBD"
+					"example": "document.pdf"
+				},
+				"originalFilename": {
+					"type": "string",
+					"example": "original_document.pdf"
+				},
+				"datePublished": {
+					"type": "number",
+					"example": 1646822400
+				},
+				"blobStoragePath": {
+					"type": "string",
+					"example": "/documents/123.pdf"
+				},
+				"blobStorageContainer": {
+					"type": "string",
+					"example": "my-blob-storage"
+				},
+				"author": {
+					"type": "string",
+					"example": "John Smith"
+				},
+				"dateCreated": {
+					"type": "number",
+					"example": 1646168000
+				},
+				"publishedStatus": {
+					"type": "string",
+					"example": "published"
+				},
+				"redactedStatus": {
+					"type": "string",
+					"example": "not redacted"
+				},
+				"size": {
+					"type": "number",
+					"example": 1024
+				},
+				"mime": {
+					"type": "string",
+					"example": "application/pdf"
+				},
+				"status": {
+					"type": "string",
+					"example": "active"
+				},
+				"description": {
+					"type": "string",
+					"example": "This is a sample document."
+				},
+				"representative": {
+					"type": "string",
+					"example": "Jane Doe"
+				},
+				"stage": {
+					"type": "string",
+					"example": "draft"
+				},
+				"filter1": {
+					"type": "string",
+					"example": "some filter value"
 				},
 				"documentType": {
 					"type": "string",
-					"example": "TBD"
+					"example": "contract"
+				},
+				"caseRef": {
+					"type": "string",
+					"example": "ABC-123"
+				},
+				"examinationRefNo": {
+					"type": "string",
+					"example": "EXM-456"
 				}
 			}
 		},
@@ -2056,73 +2470,101 @@
 						"items": {
 							"type": "object",
 							"properties": {
-								"guid": {
+								"documentId": {
 									"type": "string",
-									"example": "0fab253b-2c0c-4c55-94c0-f3f81ffc589c"
-								},
-								"documentName": {
-									"type": "string",
-									"example": "document_name_1.pdf"
-								},
-								"blobStorageContainer": {
-									"type": "string",
-									"example": "document-service-uploads"
-								},
-								"blobStoragePath": {
-									"type": "string",
-									"example": "/application/TR010002/d38ef007-98d8-4d89-b7bb-34160d97e84e/document_name_1.pdf"
-								},
-								"from": {
-									"type": "string",
-									"example": "TBD"
-								},
-								"receivedDate": {
-									"type": "number",
-									"example": 1658486313
-								},
-								"size": {
-									"type": "number",
-									"example": 1024
-								},
-								"type": {
-									"type": "string",
-									"example": "application/pdf"
-								},
-								"redacted": {
-									"type": "boolean",
-									"example": false
-								},
-								"status": {
-									"type": "string",
-									"example": "not_user_checked"
-								},
-								"description": {
-									"type": "string",
-									"example": "TBD"
-								},
-								"documentReferenceNumber": {
-									"type": "string",
-									"example": "TBD"
+									"example": "123"
 								},
 								"version": {
 									"type": "number",
 									"example": 1
 								},
-								"agent": {
+								"sourceSystem": {
 									"type": "string",
-									"example": "Mr S King"
+									"example": "ABC"
 								},
-								"caseStage": {
+								"documentGuid": {
 									"type": "string",
-									"example": "Examination"
+									"example": "456"
 								},
-								"webFilter": {
+								"fileName": {
 									"type": "string",
-									"example": "TBD"
+									"example": "document.pdf"
+								},
+								"originalFilename": {
+									"type": "string",
+									"example": "original_document.pdf"
+								},
+								"datePublished": {
+									"type": "number",
+									"example": 1646822400
+								},
+								"blobStoragePath": {
+									"type": "string",
+									"example": "/documents/123.pdf"
+								},
+								"blobStorageContainer": {
+									"type": "string",
+									"example": "my-blob-storage"
+								},
+								"author": {
+									"type": "string",
+									"example": "John Smith"
+								},
+								"dateCreated": {
+									"type": "number",
+									"example": 1646168000
+								},
+								"publishedStatus": {
+									"type": "string",
+									"example": "published"
+								},
+								"redactedStatus": {
+									"type": "string",
+									"example": "not_redacted"
+								},
+								"size": {
+									"type": "number",
+									"example": 1024
+								},
+								"mime": {
+									"type": "string",
+									"example": "application/pdf"
+								},
+								"status": {
+									"type": "string",
+									"example": "active"
+								},
+								"description": {
+									"type": "string",
+									"example": "This is a sample document."
+								},
+								"representative": {
+									"type": "string",
+									"example": "Jane Doe"
+								},
+								"stage": {
+									"type": "string",
+									"example": "draft"
+								},
+								"filter1": {
+									"type": "string",
+									"example": "some filter value"
+								},
+								"filter2": {
+									"type": "string",
+									"example": "some filter value"
 								},
 								"documentType": {
 									"type": "string",
-									"example": "TBD"
+									"example": "contract"
+								},
+								"caseRef": {
+									"type": "string",
+									"example": "ABC-123"
+								},
+								"examinationRefNo": {
+									"type": "string",
+									"example": "EXM-456"
 								}
 							}
 						}
@@ -2722,6 +3164,103 @@
 				}
 			},
 			"required": ["appealId", "appealAge", "address", "appealType", "provisionalSiteVisitType"]
+		},
+		"documentsMetadataResponse": {
+			"type": "object",
+			"properties": {
+				"id": {
+					"type": "number",
+					"example": 1
+				},
+				"caseRef": {
+					"type": "string",
+					"example": ""
+				},
+				"documentGuid": {
+					"type": "string",
+					"example": "1111-2222-3333"
+				},
+				"horizonDataID": {
+					"type": "string",
+					"example": ""
+				},
+				"version": {
+					"type": "string",
+					"example": ""
+				},
+				"path": {
+					"type": "string",
+					"example": ""
+				},
+				"virusCheckStatus": {
+					"type": "string",
+					"example": ""
+				},
+				"fileMD5": {
+					"type": "string",
+					"example": ""
+				},
+				"mime": {
+					"type": "string",
+					"example": ""
+				},
+				"fileSize": {
+					"type": "number",
+					"example": 0
+				},
+				"fileType": {
+					"type": "string",
+					"example": ""
+				},
+				"createdAt": {
+					"type": "string",
+					"example": ""
+				},
+				"lastModified": {
+					"type": "string",
+					"example": ""
+				},
+				"datePublished": {
+					"type": "string",
+					"example": ""
+				},
+				"documentType": {
+					"type": "string",
+					"example": ""
+				},
+				"securityClassification": {
+					"type": "string",
+					"example": ""
+				},
+				"sourceSystem": {
+					"type": "string",
+					"example": ""
+				},
+				"origin": {
+					"type": "string",
+					"example": ""
+				},
+				"owner": {
+					"type": "string",
+					"example": ""
+				},
+				"author": {
+					"type": "string",
+					"example": ""
+				},
+				"representative": {
+					"type": "string",
+					"example": ""
+				},
+				"description": {
+					"type": "string",
+					"example": ""
+				},
+				"stage": {
+					"type": "number",
+					"example": 1
+				}
+			}
 		},
 		"AppealsForInspector": {
 			"type": "object",

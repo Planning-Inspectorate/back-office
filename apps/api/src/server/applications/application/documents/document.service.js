@@ -137,6 +137,7 @@ const upsertDocumentVersionsMetadataToDatabase = async (
 		return {
 			blobStorageContainer,
 			documentGuid: document.GUID,
+			// blobStoragePath: document.blobStoreUrl,
 			documentURI: document.blobStoreUrl
 		};
 	});

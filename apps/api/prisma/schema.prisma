@@ -363,7 +363,6 @@ model DocumentVersion {
   documentURI            String?
   Document               Document?
 
-  @@id([documentId, version])
   @@index([filter1], map: "filter1")
   @@index([documentGuid], map: "documentGuid")
 }
