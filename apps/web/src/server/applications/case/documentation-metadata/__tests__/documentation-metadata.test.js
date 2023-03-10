@@ -52,7 +52,7 @@ describe('Edit applications documentation metadata', () => {
 
 					expect(element.innerHTML).toMatchSnapshot();
 					expect(element.innerHTML).toContain('Enter file name');
-					expect(element.innerHTML).toContain(publishedDocumentation.documentName);
+					expect(element.innerHTML).toContain(publishedDocumentation.fileName);
 				});
 			});
 		});
@@ -60,7 +60,7 @@ describe('Edit applications documentation metadata', () => {
 		describe('POST /case/123/project-documentation/18/document/456/edit/name', () => {
 			it('should return an error if value is not defined', async () => {
 				const response = await request.post(`${baseUrl}/name`).send({
-					documentName: null
+					fileName: null
 				});
 				const element = parseHtml(response.text);
 
@@ -70,7 +70,7 @@ describe('Edit applications documentation metadata', () => {
 
 			it('should return an error if value length > 255', async () => {
 				const response = await request.post(`${baseUrl}/name`).send({
-					documentName: 'x'.repeat(256)
+					fileName: 'x'.repeat(256)
 				});
 				const element = parseHtml(response.text);
 
@@ -80,7 +80,7 @@ describe('Edit applications documentation metadata', () => {
 
 			it('should redirect to document properties page if there is no error', async () => {
 				const response = await request.post(`${baseUrl}/name`).send({
-					documentName: 'a valid name'
+					fileName: 'a valid name'
 				});
 
 				expect(response?.headers?.location).toEqual('../properties');
@@ -449,13 +449,11 @@ describe('Edit applications documentation metadata', () => {
 			});
 
 			it('should redirect to document properties page if there is no error', async () => {
-				const response = await request
-					.post(`${baseUrl}/published-date`)
-					.send({
-						'datePublished.day': '1',
-						'datePublished.month': '1',
-						'datePublished.year': '2000'
-					});
+				const response = await request.post(`${baseUrl}/published-date`).send({
+					'datePublished.day': '1',
+					'datePublished.month': '1',
+					'datePublished.year': '2000'
+				});
 
 				expect(response?.headers?.location).toEqual('../properties');
 			});

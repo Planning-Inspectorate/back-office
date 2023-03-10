@@ -95,7 +95,7 @@ export interface CaseCreateProps<BodyValues> {
 // TODO: use new field names
 export interface DocumentationFile {
 	documentGuid: string;
-	documentName: string;
+	fileName: string;
 	description: string;
 	dateCreated: number;
 	datePublished?: number;

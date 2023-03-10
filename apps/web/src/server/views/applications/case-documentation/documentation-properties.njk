@@ -21,7 +21,7 @@
 				}) }}
                 <h1 class="govuk-heading-xl govuk-!-margin-top-4">
                     <span class="govuk-caption-xl">Document properties</span>
-                    {{ documentationFile.documentName|documentName }}
+                    {{ documentationFile.fileName }}
                 </h1>
                 <ul class="govuk-list">
                     <li class="govuk-!-margin-top-7">{# documentationFile.description #}</li>
@@ -51,9 +51,11 @@
 						html: actionLinks
 					}) }}
                 </nav>
+				{{documentationFile|dump}}
+				{{documentationFile.dateCreated}}
                 <div class="govuk-!-margin-top-7">
                     {% set properties = [
-						{label: 'File name', value: documentationFile.documentName|documentName, link: 'name'},
+						{label: 'File name', value: documentationFile.fileName, link: 'name'},
 						{label: 'Description', value: documentationFile.description, link: 'description'},
 						{label: 'From', value: documentationFile.author, link: 'author'},
 						{label: 'Agent (optional)', value: documentationFile.representative, link: 'agent'},
@@ -65,6 +67,8 @@
 						{label: 'Redaction', value: ('Redacted' if documentationFile.redactedStatus === 'redacted' else 'Unredacted') , link: 'redaction'},
 						{label: 'Status', value: documentationFile.publishedStatus|statusName }
 					] %}
+
+					{{properties|dump}}
                     {% set propertiesRow = [] %}
                     {% for property in properties %}
                         {% set row = {
