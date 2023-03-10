@@ -78,6 +78,7 @@ describe('Provide document upload URLs', () => {
 				Document: { connect: { guid: 'some-guid' } },
 				originalFilename: 'test doc',
 				documentGuid: 'some-guid',
+				fileName: 'test doc',
 				mime: 'application/pdf',
 				size: 1024
 			},
@@ -86,6 +87,7 @@ describe('Provide document upload URLs', () => {
 			},
 			update: {
 				documentGuid: 'some-guid',
+				fileName: 'test doc',
 				originalFilename: 'test doc',
 				mime: 'application/pdf',
 				size: 1024

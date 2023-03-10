@@ -204,7 +204,6 @@ export interface DocumentDetails {
 	redactedStatus: string;
 	size: number;
 	mime: string;
-	status: string | null;
 	description: string | null;
 	version: number | null;
 	representative: string | null;
@@ -218,14 +217,14 @@ export interface DocumentDetails {
 
 export interface DocumentVersion extends schema.DocumentVersion {}
 
-export interface IDocument extends schema.Document {
+export interface DocumentWithSubTables extends schema.Document {
 	folder: Folder;
 	documentVersion: DocumentVersion;
 }
 
 export interface DocumentVersionWithDocument extends DocumentVersion {
 	documentName?: string;
-	Document?: IDocument;
+	Document?: DocumentWithSubTables;
 }
 
 export interface DocumentVersionInput extends DocumentVersion {

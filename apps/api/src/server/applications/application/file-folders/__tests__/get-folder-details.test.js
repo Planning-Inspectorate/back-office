@@ -67,6 +67,18 @@ const documents = [
 		fileType: 'application/pdf',
 		fileSize: 1024,
 		versionId: 9,
+		folder: {
+			case: {
+				id: 3,
+				reference: 'EN01-823011',
+				title: 'EN010003 - NI Case 3 Name',
+				description: 'test',
+				createdAt: '2023-03-10T13:49:09.666Z',
+				modifiedAt: '2022-06-15T13:14:42.000Z',
+				publishedAt: null,
+				CaseStatus: [{ id: 1, status: 'draft' }]
+			}
+		},
 		documentVersion: {
 			id: 9,
 			version: 1_675_774,
@@ -262,7 +274,7 @@ describe('Get folder details', () => {
 					documentId: null,
 					fileName: '',
 					originalFilename: '',
-					caseRef: null,
+					caseRef: 'EN01-823011',
 					sourceSystem: 'Back Office',
 					blobStorageContainer: '',
 					documentURI: '',
@@ -272,12 +284,11 @@ describe('Get folder details', () => {
 					mime: '',
 					publishedStatus: '',
 					redactedStatus: '',
-					status: 'not_user_checked',
 					datePublished: null,
 					description: null,
 					version: 1_675_774,
 					representative: null,
-					stage: null,
+					stage: 'Draft',
 					documentType: '',
 					filter1: null,
 					filter2: null,
