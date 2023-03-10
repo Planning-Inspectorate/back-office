@@ -326,9 +326,7 @@ CREATE TABLE [dbo].[Document] (
     [fileSize] INT CONSTRAINT [Document_fileSize_df] DEFAULT 0,
     [fileType] NVARCHAR(1000),
     [isDeleted] BIT NOT NULL CONSTRAINT [Document_isDeleted_df] DEFAULT 0,
-    [versionId] INT,
     CONSTRAINT [Document_pkey] PRIMARY KEY CLUSTERED ([guid]),
-    CONSTRAINT [Document_versionId_key] UNIQUE NONCLUSTERED ([versionId]),
     CONSTRAINT [Document_name_folderId_key] UNIQUE NONCLUSTERED ([name],[folderId])
 );
 
