@@ -51,8 +51,6 @@
 						html: actionLinks
 					}) }}
                 </nav>
-				{{documentationFile|dump}}
-				{{documentationFile.dateCreated}}
                 <div class="govuk-!-margin-top-7">
                     {% set properties = [
 						{label: 'File name', value: documentationFile.fileName, link: 'name'},
@@ -68,7 +66,6 @@
 						{label: 'Status', value: documentationFile.publishedStatus|statusName }
 					] %}
 
-					{{properties|dump}}
                     {% set propertiesRow = [] %}
                     {% for property in properties %}
                         {% set row = {

@@ -92,7 +92,6 @@ export interface CaseCreateProps<BodyValues> {
 	layout?: FormCaseLayout;
 }
 
-// TODO: use new field names
 export interface DocumentationFile {
 	documentGuid: string;
 	fileName: string;
@@ -105,7 +104,6 @@ export interface DocumentationFile {
 	redactedStatus: string;
 	blobStorageContainer?: string;
 	blobStoragePath?: string;
-
 	filter1: string;
 	author: string;
 	representative: string;

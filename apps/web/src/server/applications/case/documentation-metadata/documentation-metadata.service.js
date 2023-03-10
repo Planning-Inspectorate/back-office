@@ -1,14 +1,15 @@
 import { post } from '../../../lib/request.js';
 
 /** @typedef {import('@pins/express').ValidationErrors} ValidationErrors */
+/** @typedef {import('../../applications.types.js').DocumentationFile} DocumentationFile */
 
 /**
  * Save new metadata for the document
  *
  * @param {number} caseId
  * @param {string} documentGuid
- * @param {*} newMetaData
- * @returns {Promise<ValidationErrors>}
+ * @param {Partial<DocumentationFile>} newMetaData
+ * @returns {Promise<Partial<DocumentationFile> & ValidationErrors>}
  */
 export const updateDocumentMetaData = async (caseId, documentGuid, newMetaData) => {
 	let response;
@@ -17,8 +18,10 @@ export const updateDocumentMetaData = async (caseId, documentGuid, newMetaData) 
 		response = await post(`applications/${caseId}/documents/${documentGuid}/metadata`, {
 			json: newMetaData
 		});
-	} catch (/** @type {any} */ error) {
-		response = { errors: 'Error.', ...error };
+	} catch {
+		response = new Promise((resolve) => {
+			resolve({ errors: { msg: 'An error occurred, please try again later' } });
+		});
 	}
 	return response;
 };
