@@ -80,14 +80,14 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                                             <legend class=\\"govuk-fieldset__legend\\">Redaction</legend>
                                             <div class=\\"govuk-radios\\" data-module=\\"govuk-radios\\">
                                                 <div class=\\"govuk-radios__item\\">
-                                                    <input class=\\"govuk-radios__input\\" id=\\"redactedStatus\\" name=\\"redactedStatus\\"
-                                                    type=\\"radio\\" value=\\"0\\">
-                                                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"redactedStatus\\">Unredacted</label>
+                                                    <input class=\\"govuk-radios__input\\" id=\\"isRedacted\\" name=\\"isRedacted\\" type=\\"radio\\"
+                                                    value=\\"0\\">
+                                                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"isRedacted\\">Unredacted</label>
                                                 </div>
                                                 <div class=\\"govuk-radios__item\\">
-                                                    <input class=\\"govuk-radios__input\\" id=\\"redactedStatus-2\\" name=\\"redactedStatus\\"
+                                                    <input class=\\"govuk-radios__input\\" id=\\"isRedacted-2\\" name=\\"isRedacted\\"
                                                     type=\\"radio\\" value=\\"1\\">
-                                                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"redactedStatus-2\\">Redacted</label>
+                                                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"isRedacted-2\\">Redacted</label>
                                                 </div>
                                             </div>
                                         </fieldset>
@@ -99,24 +99,24 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                                             <legend class=\\"govuk-fieldset__legend\\">Status</legend>
                                             <div class=\\"govuk-radios\\" data-module=\\"govuk-radios\\">
                                                 <div class=\\"govuk-radios__item\\">
-                                                    <input class=\\"govuk-radios__input\\" id=\\"publishedStatus\\" name=\\"publishedStatus\\"
-                                                    type=\\"radio\\" value=\\"not_user_checked\\">
-                                                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"publishedStatus\\">Not checked</label>
+                                                    <input class=\\"govuk-radios__input\\" id=\\"status\\" name=\\"status\\" type=\\"radio\\"
+                                                    value=\\"not_user_checked\\">
+                                                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"status\\">Not checked</label>
                                                 </div>
                                                 <div class=\\"govuk-radios__item\\">
-                                                    <input class=\\"govuk-radios__input\\" id=\\"publishedStatus-2\\" name=\\"publishedStatus\\"
-                                                    type=\\"radio\\" value=\\"user_checked\\">
-                                                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"publishedStatus-2\\">Checked</label>
+                                                    <input class=\\"govuk-radios__input\\" id=\\"status-2\\" name=\\"status\\" type=\\"radio\\"
+                                                    value=\\"user_checked\\">
+                                                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"status-2\\">Checked</label>
                                                 </div>
                                                 <div class=\\"govuk-radios__item\\">
-                                                    <input class=\\"govuk-radios__input\\" id=\\"publishedStatus-3\\" name=\\"publishedStatus\\"
-                                                    type=\\"radio\\" value=\\"ready_to_publish\\">
-                                                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"publishedStatus-3\\">Ready to publish</label>
+                                                    <input class=\\"govuk-radios__input\\" id=\\"status-3\\" name=\\"status\\" type=\\"radio\\"
+                                                    value=\\"ready_to_publish\\">
+                                                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"status-3\\">Ready to publish</label>
                                                 </div>
                                                 <div class=\\"govuk-radios__item\\">
-                                                    <input class=\\"govuk-radios__input\\" id=\\"publishedStatus-4\\" name=\\"publishedStatus\\"
-                                                    type=\\"radio\\" value=\\"do_not_publish\\">
-                                                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"publishedStatus-4\\">Do not publish</label>
+                                                    <input class=\\"govuk-radios__input\\" id=\\"status-4\\" name=\\"status\\" type=\\"radio\\"
+                                                    value=\\"do_not_publish\\">
+                                                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"status-4\\">Do not publish</label>
                                                 </div>
                                             </div>
                                         </fieldset>
@@ -905,14 +905,14 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                                             <legend class=\\"govuk-fieldset__legend\\">Redaction</legend>
                                             <div class=\\"govuk-radios\\" data-module=\\"govuk-radios\\">
                                                 <div class=\\"govuk-radios__item\\">
-                                                    <input class=\\"govuk-radios__input\\" id=\\"redactedStatus\\" name=\\"redactedStatus\\"
-                                                    type=\\"radio\\" value=\\"0\\">
-                                                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"redactedStatus\\">Unredacted</label>
+                                                    <input class=\\"govuk-radios__input\\" id=\\"isRedacted\\" name=\\"isRedacted\\" type=\\"radio\\"
+                                                    value=\\"0\\">
+                                                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"isRedacted\\">Unredacted</label>
                                                 </div>
                                                 <div class=\\"govuk-radios__item\\">
-                                                    <input class=\\"govuk-radios__input\\" id=\\"redactedStatus-2\\" name=\\"redactedStatus\\"
+                                                    <input class=\\"govuk-radios__input\\" id=\\"isRedacted-2\\" name=\\"isRedacted\\"
                                                     type=\\"radio\\" value=\\"1\\">
-                                                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"redactedStatus-2\\">Redacted</label>
+                                                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"isRedacted-2\\">Redacted</label>
                                                 </div>
                                             </div>
                                         </fieldset>
@@ -924,24 +924,24 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                                             <legend class=\\"govuk-fieldset__legend\\">Status</legend>
                                             <div class=\\"govuk-radios\\" data-module=\\"govuk-radios\\">
                                                 <div class=\\"govuk-radios__item\\">
-                                                    <input class=\\"govuk-radios__input\\" id=\\"publishedStatus\\" name=\\"publishedStatus\\"
-                                                    type=\\"radio\\" value=\\"not_user_checked\\">
-                                                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"publishedStatus\\">Not checked</label>
+                                                    <input class=\\"govuk-radios__input\\" id=\\"status\\" name=\\"status\\" type=\\"radio\\"
+                                                    value=\\"not_user_checked\\">
+                                                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"status\\">Not checked</label>
                                                 </div>
                                                 <div class=\\"govuk-radios__item\\">
-                                                    <input class=\\"govuk-radios__input\\" id=\\"publishedStatus-2\\" name=\\"publishedStatus\\"
-                                                    type=\\"radio\\" value=\\"user_checked\\">
-                                                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"publishedStatus-2\\">Checked</label>
+                                                    <input class=\\"govuk-radios__input\\" id=\\"status-2\\" name=\\"status\\" type=\\"radio\\"
+                                                    value=\\"user_checked\\">
+                                                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"status-2\\">Checked</label>
                                                 </div>
                                                 <div class=\\"govuk-radios__item\\">
-                                                    <input class=\\"govuk-radios__input\\" id=\\"publishedStatus-3\\" name=\\"publishedStatus\\"
-                                                    type=\\"radio\\" value=\\"ready_to_publish\\">
-                                                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"publishedStatus-3\\">Ready to publish</label>
+                                                    <input class=\\"govuk-radios__input\\" id=\\"status-3\\" name=\\"status\\" type=\\"radio\\"
+                                                    value=\\"ready_to_publish\\">
+                                                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"status-3\\">Ready to publish</label>
                                                 </div>
                                                 <div class=\\"govuk-radios__item\\">
-                                                    <input class=\\"govuk-radios__input\\" id=\\"publishedStatus-4\\" name=\\"publishedStatus\\"
-                                                    type=\\"radio\\" value=\\"do_not_publish\\">
-                                                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"publishedStatus-4\\">Do not publish</label>
+                                                    <input class=\\"govuk-radios__input\\" id=\\"status-4\\" name=\\"status\\" type=\\"radio\\"
+                                                    value=\\"do_not_publish\\">
+                                                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"status-4\\">Do not publish</label>
                                                 </div>
                                             </div>
                                         </fieldset>
@@ -2210,14 +2210,14 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                                             <legend class=\\"govuk-fieldset__legend\\">Redaction</legend>
                                             <div class=\\"govuk-radios\\" data-module=\\"govuk-radios\\">
                                                 <div class=\\"govuk-radios__item\\">
-                                                    <input class=\\"govuk-radios__input\\" id=\\"redactedStatus\\" name=\\"redactedStatus\\"
-                                                    type=\\"radio\\" value=\\"0\\">
-                                                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"redactedStatus\\">Unredacted</label>
+                                                    <input class=\\"govuk-radios__input\\" id=\\"isRedacted\\" name=\\"isRedacted\\" type=\\"radio\\"
+                                                    value=\\"0\\">
+                                                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"isRedacted\\">Unredacted</label>
                                                 </div>
                                                 <div class=\\"govuk-radios__item\\">
-                                                    <input class=\\"govuk-radios__input\\" id=\\"redactedStatus-2\\" name=\\"redactedStatus\\"
+                                                    <input class=\\"govuk-radios__input\\" id=\\"isRedacted-2\\" name=\\"isRedacted\\"
                                                     type=\\"radio\\" value=\\"1\\">
-                                                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"redactedStatus-2\\">Redacted</label>
+                                                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"isRedacted-2\\">Redacted</label>
                                                 </div>
                                             </div>
                                         </fieldset>
@@ -2229,24 +2229,24 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                                             <legend class=\\"govuk-fieldset__legend\\">Status</legend>
                                             <div class=\\"govuk-radios\\" data-module=\\"govuk-radios\\">
                                                 <div class=\\"govuk-radios__item\\">
-                                                    <input class=\\"govuk-radios__input\\" id=\\"publishedStatus\\" name=\\"publishedStatus\\"
-                                                    type=\\"radio\\" value=\\"not_user_checked\\">
-                                                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"publishedStatus\\">Not checked</label>
+                                                    <input class=\\"govuk-radios__input\\" id=\\"status\\" name=\\"status\\" type=\\"radio\\"
+                                                    value=\\"not_user_checked\\">
+                                                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"status\\">Not checked</label>
                                                 </div>
                                                 <div class=\\"govuk-radios__item\\">
-                                                    <input class=\\"govuk-radios__input\\" id=\\"publishedStatus-2\\" name=\\"publishedStatus\\"
-                                                    type=\\"radio\\" value=\\"user_checked\\">
-                                                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"publishedStatus-2\\">Checked</label>
+                                                    <input class=\\"govuk-radios__input\\" id=\\"status-2\\" name=\\"status\\" type=\\"radio\\"
+                                                    value=\\"user_checked\\">
+                                                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"status-2\\">Checked</label>
                                                 </div>
                                                 <div class=\\"govuk-radios__item\\">
-                                                    <input class=\\"govuk-radios__input\\" id=\\"publishedStatus-3\\" name=\\"publishedStatus\\"
-                                                    type=\\"radio\\" value=\\"ready_to_publish\\">
-                                                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"publishedStatus-3\\">Ready to publish</label>
+                                                    <input class=\\"govuk-radios__input\\" id=\\"status-3\\" name=\\"status\\" type=\\"radio\\"
+                                                    value=\\"ready_to_publish\\">
+                                                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"status-3\\">Ready to publish</label>
                                                 </div>
                                                 <div class=\\"govuk-radios__item\\">
-                                                    <input class=\\"govuk-radios__input\\" id=\\"publishedStatus-4\\" name=\\"publishedStatus\\"
-                                                    type=\\"radio\\" value=\\"do_not_publish\\">
-                                                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"publishedStatus-4\\">Do not publish</label>
+                                                    <input class=\\"govuk-radios__input\\" id=\\"status-4\\" name=\\"status\\" type=\\"radio\\"
+                                                    value=\\"do_not_publish\\">
+                                                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"status-4\\">Do not publish</label>
                                                 </div>
                                             </div>
                                         </fieldset>
@@ -3147,14 +3147,14 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                                             <legend class=\\"govuk-fieldset__legend\\">Redaction</legend>
                                             <div class=\\"govuk-radios\\" data-module=\\"govuk-radios\\">
                                                 <div class=\\"govuk-radios__item\\">
-                                                    <input class=\\"govuk-radios__input\\" id=\\"redactedStatus\\" name=\\"redactedStatus\\"
-                                                    type=\\"radio\\" value=\\"0\\">
-                                                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"redactedStatus\\">Unredacted</label>
+                                                    <input class=\\"govuk-radios__input\\" id=\\"isRedacted\\" name=\\"isRedacted\\" type=\\"radio\\"
+                                                    value=\\"0\\">
+                                                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"isRedacted\\">Unredacted</label>
                                                 </div>
                                                 <div class=\\"govuk-radios__item\\">
-                                                    <input class=\\"govuk-radios__input\\" id=\\"redactedStatus-2\\" name=\\"redactedStatus\\"
+                                                    <input class=\\"govuk-radios__input\\" id=\\"isRedacted-2\\" name=\\"isRedacted\\"
                                                     type=\\"radio\\" value=\\"1\\">
-                                                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"redactedStatus-2\\">Redacted</label>
+                                                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"isRedacted-2\\">Redacted</label>
                                                 </div>
                                             </div>
                                         </fieldset>
@@ -3166,24 +3166,24 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                                             <legend class=\\"govuk-fieldset__legend\\">Status</legend>
                                             <div class=\\"govuk-radios\\" data-module=\\"govuk-radios\\">
                                                 <div class=\\"govuk-radios__item\\">
-                                                    <input class=\\"govuk-radios__input\\" id=\\"publishedStatus\\" name=\\"publishedStatus\\"
-                                                    type=\\"radio\\" value=\\"not_user_checked\\">
-                                                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"publishedStatus\\">Not checked</label>
+                                                    <input class=\\"govuk-radios__input\\" id=\\"status\\" name=\\"status\\" type=\\"radio\\"
+                                                    value=\\"not_user_checked\\">
+                                                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"status\\">Not checked</label>
                                                 </div>
                                                 <div class=\\"govuk-radios__item\\">
-                                                    <input class=\\"govuk-radios__input\\" id=\\"publishedStatus-2\\" name=\\"publishedStatus\\"
-                                                    type=\\"radio\\" value=\\"user_checked\\">
-                                                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"publishedStatus-2\\">Checked</label>
+                                                    <input class=\\"govuk-radios__input\\" id=\\"status-2\\" name=\\"status\\" type=\\"radio\\"
+                                                    value=\\"user_checked\\">
+                                                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"status-2\\">Checked</label>
                                                 </div>
                                                 <div class=\\"govuk-radios__item\\">
-                                                    <input class=\\"govuk-radios__input\\" id=\\"publishedStatus-3\\" name=\\"publishedStatus\\"
-                                                    type=\\"radio\\" value=\\"ready_to_publish\\">
-                                                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"publishedStatus-3\\">Ready to publish</label>
+                                                    <input class=\\"govuk-radios__input\\" id=\\"status-3\\" name=\\"status\\" type=\\"radio\\"
+                                                    value=\\"ready_to_publish\\">
+                                                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"status-3\\">Ready to publish</label>
                                                 </div>
                                                 <div class=\\"govuk-radios__item\\">
-                                                    <input class=\\"govuk-radios__input\\" id=\\"publishedStatus-4\\" name=\\"publishedStatus\\"
-                                                    type=\\"radio\\" value=\\"do_not_publish\\">
-                                                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"publishedStatus-4\\">Do not publish</label>
+                                                    <input class=\\"govuk-radios__input\\" id=\\"status-4\\" name=\\"status\\" type=\\"radio\\"
+                                                    value=\\"do_not_publish\\">
+                                                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"status-4\\">Do not publish</label>
                                                 </div>
                                             </div>
                                         </fieldset>
@@ -4396,14 +4396,14 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                                             <legend class=\\"govuk-fieldset__legend\\">Redaction</legend>
                                             <div class=\\"govuk-radios\\" data-module=\\"govuk-radios\\">
                                                 <div class=\\"govuk-radios__item\\">
-                                                    <input class=\\"govuk-radios__input\\" id=\\"redactedStatus\\" name=\\"redactedStatus\\"
-                                                    type=\\"radio\\" value=\\"0\\">
-                                                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"redactedStatus\\">Unredacted</label>
+                                                    <input class=\\"govuk-radios__input\\" id=\\"isRedacted\\" name=\\"isRedacted\\" type=\\"radio\\"
+                                                    value=\\"0\\">
+                                                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"isRedacted\\">Unredacted</label>
                                                 </div>
                                                 <div class=\\"govuk-radios__item\\">
-                                                    <input class=\\"govuk-radios__input\\" id=\\"redactedStatus-2\\" name=\\"redactedStatus\\"
+                                                    <input class=\\"govuk-radios__input\\" id=\\"isRedacted-2\\" name=\\"isRedacted\\"
                                                     type=\\"radio\\" value=\\"1\\">
-                                                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"redactedStatus-2\\">Redacted</label>
+                                                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"isRedacted-2\\">Redacted</label>
                                                 </div>
                                             </div>
                                         </fieldset>
@@ -4415,24 +4415,24 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                                             <legend class=\\"govuk-fieldset__legend\\">Status</legend>
                                             <div class=\\"govuk-radios\\" data-module=\\"govuk-radios\\">
                                                 <div class=\\"govuk-radios__item\\">
-                                                    <input class=\\"govuk-radios__input\\" id=\\"publishedStatus\\" name=\\"publishedStatus\\"
-                                                    type=\\"radio\\" value=\\"not_user_checked\\">
-                                                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"publishedStatus\\">Not checked</label>
+                                                    <input class=\\"govuk-radios__input\\" id=\\"status\\" name=\\"status\\" type=\\"radio\\"
+                                                    value=\\"not_user_checked\\">
+                                                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"status\\">Not checked</label>
                                                 </div>
                                                 <div class=\\"govuk-radios__item\\">
-                                                    <input class=\\"govuk-radios__input\\" id=\\"publishedStatus-2\\" name=\\"publishedStatus\\"
-                                                    type=\\"radio\\" value=\\"user_checked\\">
-                                                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"publishedStatus-2\\">Checked</label>
+                                                    <input class=\\"govuk-radios__input\\" id=\\"status-2\\" name=\\"status\\" type=\\"radio\\"
+                                                    value=\\"user_checked\\">
+                                                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"status-2\\">Checked</label>
                                                 </div>
                                                 <div class=\\"govuk-radios__item\\">
-                                                    <input class=\\"govuk-radios__input\\" id=\\"publishedStatus-3\\" name=\\"publishedStatus\\"
-                                                    type=\\"radio\\" value=\\"ready_to_publish\\">
-                                                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"publishedStatus-3\\">Ready to publish</label>
+                                                    <input class=\\"govuk-radios__input\\" id=\\"status-3\\" name=\\"status\\" type=\\"radio\\"
+                                                    value=\\"ready_to_publish\\">
+                                                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"status-3\\">Ready to publish</label>
                                                 </div>
                                                 <div class=\\"govuk-radios__item\\">
-                                                    <input class=\\"govuk-radios__input\\" id=\\"publishedStatus-4\\" name=\\"publishedStatus\\"
-                                                    type=\\"radio\\" value=\\"do_not_publish\\">
-                                                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"publishedStatus-4\\">Do not publish</label>
+                                                    <input class=\\"govuk-radios__input\\" id=\\"status-4\\" name=\\"status\\" type=\\"radio\\"
+                                                    value=\\"do_not_publish\\">
+                                                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"status-4\\">Do not publish</label>
                                                 </div>
                                             </div>
                                         </fieldset>

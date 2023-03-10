@@ -7,8 +7,6 @@ import { updateDocumentMetaData } from './documentation-metadata.service.js';
 /** @typedef {{documentGuid: string, metaDataName: MetaDataNames}} RequestParams */
 /** @typedef {{caseId: number, folderId: number }} ResponseLocals */
 
-// TODO: replace the metadataname field witht the correct field name from api
-
 /** @type {Record<MetaDataNames, MetaDataLayoutParams>} */
 const layouts = {
 	name: {
