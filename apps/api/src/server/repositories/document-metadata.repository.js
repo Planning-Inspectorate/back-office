@@ -28,6 +28,17 @@ export const upsert = (metadata) => {
 };
 
 /**
+ * @param {{guid: string, status: import('xstate').StateValue }} documentStatusUpdate
+ * @returns {import('@prisma/client').PrismaPromise<import('@pins/api').Schema.DocumentVersion>}
+ */
+export const updateDocumentStatus = ({ guid, status }) => {
+	return databaseConnector.documentVersion.update({
+		where: { documentGuid: guid },
+		data: { publishedStatus: status }
+	});
+};
+
+/**
  * Get a document metadata by documentGuid
  *
  * @param {string} documentGuid

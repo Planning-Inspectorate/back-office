@@ -13,7 +13,7 @@ const generatesDocumentMetadataResponse = (
 	...updateResponseValues,
 	documentGuid: '1111-2222-3333',
 	documentId: 12,
-	caseRef: null,
+	caseRef: 'EN01-823011',
 	sourceSystem: 'Back Office',
 	blobStorageContainer: '',
 	documentURI: '',
@@ -25,10 +25,9 @@ const generatesDocumentMetadataResponse = (
 	mime: '',
 	publishedStatus: '',
 	redactedStatus: '',
-	status: null,
 	datePublished: null,
 	version: 1,
-	stage: null,
+	stage: 'Draft',
 	filter1: null,
 	filter2: null,
 	examinationRefNo: ''
@@ -54,7 +53,21 @@ const mockResolvedDocumentVersionValue = (
 	documentId: 12,
 	createdAt: '2023-02-28T11:59:38.129Z',
 	lastModified: '2023-02-28T11:59:38.129Z',
-	documentGuid: '1111-2222-3333'
+	documentGuid: '1111-2222-3333',
+	Document: {
+		folder: {
+			case: {
+				id: 3,
+				reference: 'EN01-823011',
+				title: 'EN010003 - NI Case 3 Name',
+				description: 'test',
+				createdAt: '2023-03-10T13:49:09.666Z',
+				modifiedAt: '2022-06-15T13:14:42.000Z',
+				publishedAt: null,
+				CaseStatus: [{ id: 1, status: 'draft' }]
+			}
+		}
+	}
 });
 
 describe('store Document metadata', () => {

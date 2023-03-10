@@ -6,8 +6,8 @@ const request = supertest(app);
 
 const document1 = {
 	caseId: 1,
-	guid: 'D1234',
-	status: 'awaiting_virus_check'
+	documentGuid: 'D1234',
+	publishedStatus: 'awaiting_virus_check'
 };
 
 describe('Update document status', () => {
@@ -24,7 +24,7 @@ describe('Update document status', () => {
 		databaseConnector.folder.findUnique.mockResolvedValue({
 			caseId: 1
 		});
-		databaseConnector.document.update.mockResolvedValue(document1);
+		databaseConnector.documentVersion.update.mockResolvedValue(document1);
 
 		// WHEN
 		const response = await request.patch('/applications/documents/D1234/status').send({
@@ -38,10 +38,10 @@ describe('Update document status', () => {
 			guid: 'D1234',
 			status: 'awaiting_virus_check'
 		});
-		expect(databaseConnector.document.update).toHaveBeenCalledWith({
-			where: { guid: 'D1234' },
+		expect(databaseConnector.documentVersion.update).toHaveBeenCalledWith({
+			where: { documentGuid: 'D1234' },
 			data: {
-				status: 'awaiting_virus_check'
+				publishedStatus: 'awaiting_virus_check'
 			}
 		});
 	});
