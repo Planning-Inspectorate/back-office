@@ -53,16 +53,12 @@ export const getCaseDocumentationFolderPath = (caseId, folderId) => {
  * @returns {Promise<PaginatedDocumentationFiles>}
  */
 export const getCaseDocumentationFilesInFolder = async (caseId, folderId, pageSize, pageNumber) => {
-	const k = await post(`applications/${caseId}/folders/${folderId}/documents`, {
+	return post(`applications/${caseId}/folders/${folderId}/documents`, {
 		json: {
 			pageSize,
 			pageNumber
 		}
 	});
-
-	// console.log(k);
-
-	return k;
 };
 
 /**
@@ -100,18 +96,7 @@ export const updateCaseDocumentationFiles = async (caseId, { status, redacted, i
  * @returns {Promise<DocumentationFile>}
  */
 export const getCaseDocumentationFileInfo = async (caseId, fileGuid) => {
-	const fileinfo = await get(`applications/${caseId}/documents/${fileGuid}/properties`);
-
-	// console.log(j);
-
-	return { ...fileinfo, datePublished: 88_890_987 };
-	// return new Promise((resolve) => {
-	// 	if (caseId !== null && fileGuid !== null) {
-	// 		setTimeout(() => {
-	// 			resolve({ ...fixtureDocumentationFiles[3] });
-	// 		}, 500);
-	// 	}
-	// });
+	return get(`applications/${caseId}/documents/${fileGuid}/properties`);
 };
 
 /**

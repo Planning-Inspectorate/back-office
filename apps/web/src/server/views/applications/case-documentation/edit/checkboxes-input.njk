@@ -1,7 +1,5 @@
 {% from "govuk/components/radios/macro.njk" import govukRadios %}
 
-{{value|dump}}
-
 {% macro checkboxesInput(layout, value, errors) %}
     {{ govukRadios({
 		idPrefix: layout.metaDataName,

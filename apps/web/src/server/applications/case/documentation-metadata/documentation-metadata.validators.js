@@ -34,7 +34,6 @@ export const validatorsDispatcher = async (request, response, next) => {
 	return next();
 };
 
-// TODO: replace with correct fieldName
 export const validateDocumentationMetaName = createValidator(
 	body('fileName')
 		.trim()
@@ -79,7 +78,10 @@ export const validateDocumentationMetaRepresentative = createValidator(
 );
 
 export const validateDocumentationMetaRedacted = createValidator(
-	body('redacted').trim().isLength({ min: 1 }).withMessage('You must select a redaction status')
+	body('redactedStatus')
+		.trim()
+		.isLength({ min: 1 })
+		.withMessage('You must select a redaction status')
 );
 
 /**
