@@ -4,7 +4,17 @@ import { databaseConnector } from '../utils/database-connector.js';
  * @param {any} metadata
  * @returns {import('@prisma/client').PrismaPromise<import('@pins/api').Schema.DocumentVersion>}
  */
-export const upsert = ({ documentGuid, version = 1, ...metadata }) => {
+export const upsert = (metadata) => {
+	if (metadata.datePublished) {
+		metadata.publishedDate = metadata.datePublished;
+		delete metadata.datePublished;
+	}
+
+	if (metadata.dateCreated) {
+		metadata.receivedDate = metadata.dateCreated;
+		delete metadata.dateCreated;
+	}
+
 	return databaseConnector.documentVersion.upsert({
 		create: { ...metadata, version, Document: { connect: { guid: documentGuid } } },
 		where: { documentGuid_version: { documentGuid, version } },
