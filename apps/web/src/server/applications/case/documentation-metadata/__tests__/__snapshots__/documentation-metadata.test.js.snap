@@ -290,11 +290,11 @@ exports[`Edit applications documentation metadata Edit name GET /case/123/projec
     <h1 class=\\"govuk-heading-l\\"> Enter file name</h1>
     <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
         <div class=\\"govuk-form-group \\">
-            <label class=\\"govuk-label font-weight--700\\" for=\\"documentName\\">What is the file name?</label>
-            <div id=\\"documentName-hint\\" class=\\"govuk-hint\\">There is a limit of 255 characters</div>
+            <label class=\\"govuk-label font-weight--700\\" for=\\"fileName\\">What is the file name?</label>
+            <div id=\\"fileName-hint\\" class=\\"govuk-hint\\">There is a limit of 255 characters</div>
             <input class=\\"govuk-input govuk-!-width-two-thirds  \\"
-            id=\\"documentName\\" name=\\"documentName\\" type=\\"text\\" value=\\"4 Laboris nisi ut aliquip ex ea.mpeg\\"
-            aria-describedby=\\"documentName-hint\\" maxlength=\\"255\\">
+            id=\\"fileName\\" name=\\"fileName\\" type=\\"text\\" value=\\"4 Laboris nisi ut aliquip ex ea.mpeg\\"
+            aria-describedby=\\"fileName-hint\\" maxlength=\\"255\\">
         </div>
         <div class=\\"govuk-grid-row\\">
             <div class=\\"govuk-button-group pins-button-group govuk-grid-column-one-half\\">
@@ -314,7 +314,7 @@ exports[`Edit applications documentation metadata Edit name POST /case/123/proje
                 <h2 class=\\"govuk-error-summary__title\\" id=\\"error-summary-title\\"> There is a problem</h2>
                 <div class=\\"govuk-error-summary__body\\">
                     <ul class=\\"govuk-list govuk-error-summary__list\\">
-                        <li><a href=\\"#documentName\\">You must enter a file name</a>
+                        <li><a href=\\"#fileName\\">You must enter a file name</a>
                         </li>
                     </ul>
                 </div>
@@ -324,13 +324,13 @@ exports[`Edit applications documentation metadata Edit name POST /case/123/proje
     <h1 class=\\"govuk-heading-l\\"> Enter file name</h1>
     <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
         <div class=\\"govuk-form-group govuk-form-group--error\\">
-            <label class=\\"govuk-label font-weight--700\\" for=\\"documentName\\">What is the file name?</label>
-            <div id=\\"documentName-hint\\" class=\\"govuk-hint\\">There is a limit of 255 characters</div>
-            <p id=\\"documentName-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> You must enter a file
+            <label class=\\"govuk-label font-weight--700\\" for=\\"fileName\\">What is the file name?</label>
+            <div id=\\"fileName-hint\\" class=\\"govuk-hint\\">There is a limit of 255 characters</div>
+            <p id=\\"fileName-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> You must enter a file
                 name</p>
             <input class=\\"govuk-input govuk-!-width-two-thirds govuk-input--error\\"
-            id=\\"documentName\\" name=\\"documentName\\" type=\\"text\\" value=\\"4 Laboris nisi ut aliquip ex ea.mpeg\\"
-            aria-describedby=\\"documentName-hint\\" maxlength=\\"255\\">
+            id=\\"fileName\\" name=\\"fileName\\" type=\\"text\\" value=\\"4 Laboris nisi ut aliquip ex ea.mpeg\\"
+            aria-describedby=\\"fileName-hint\\" maxlength=\\"255\\">
         </div>
         <div class=\\"govuk-grid-row\\">
             <div class=\\"govuk-button-group pins-button-group govuk-grid-column-one-half\\">
@@ -350,7 +350,7 @@ exports[`Edit applications documentation metadata Edit name POST /case/123/proje
                 <h2 class=\\"govuk-error-summary__title\\" id=\\"error-summary-title\\"> There is a problem</h2>
                 <div class=\\"govuk-error-summary__body\\">
                     <ul class=\\"govuk-list govuk-error-summary__list\\">
-                        <li><a href=\\"#documentName\\">The name must be 255 characters or fewer</a>
+                        <li><a href=\\"#fileName\\">The name must be 255 characters or fewer</a>
                         </li>
                     </ul>
                 </div>
@@ -360,13 +360,13 @@ exports[`Edit applications documentation metadata Edit name POST /case/123/proje
     <h1 class=\\"govuk-heading-l\\"> Enter file name</h1>
     <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
         <div class=\\"govuk-form-group govuk-form-group--error\\">
-            <label class=\\"govuk-label font-weight--700\\" for=\\"documentName\\">What is the file name?</label>
-            <div id=\\"documentName-hint\\" class=\\"govuk-hint\\">There is a limit of 255 characters</div>
-            <p id=\\"documentName-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> The name must be 255
+            <label class=\\"govuk-label font-weight--700\\" for=\\"fileName\\">What is the file name?</label>
+            <div id=\\"fileName-hint\\" class=\\"govuk-hint\\">There is a limit of 255 characters</div>
+            <p id=\\"fileName-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> The name must be 255
                 characters or fewer</p>
             <input class=\\"govuk-input govuk-!-width-two-thirds govuk-input--error\\"
-            id=\\"documentName\\" name=\\"documentName\\" type=\\"text\\" value=\\"4 Laboris nisi ut aliquip ex ea.mpeg\\"
-            aria-describedby=\\"documentName-hint\\" maxlength=\\"255\\">
+            id=\\"fileName\\" name=\\"fileName\\" type=\\"text\\" value=\\"4 Laboris nisi ut aliquip ex ea.mpeg\\"
+            aria-describedby=\\"fileName-hint\\" maxlength=\\"255\\">
         </div>
         <div class=\\"govuk-grid-row\\">
             <div class=\\"govuk-button-group pins-button-group govuk-grid-column-one-half\\">
@@ -1034,14 +1034,14 @@ exports[`Edit applications documentation metadata Edit redaction status GET /cas
         <div class=\\"govuk-form-group\\">
             <div class=\\"govuk-radios\\" data-module=\\"govuk-radios\\">
                 <div class=\\"govuk-radios__item\\">
-                    <input class=\\"govuk-radios__input\\" id=\\"redacted\\" name=\\"redacted\\" type=\\"radio\\"
-                    value=\\"true\\" checked>
-                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"redacted\\">Redacted</label>
+                    <input class=\\"govuk-radios__input\\" id=\\"redactedStatus\\" name=\\"redactedStatus\\"
+                    type=\\"radio\\" value=\\"redacted\\">
+                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"redactedStatus\\">Redacted</label>
                 </div>
                 <div class=\\"govuk-radios__item\\">
-                    <input class=\\"govuk-radios__input\\" id=\\"redacted-2\\" name=\\"redacted\\" type=\\"radio\\"
-                    value=\\"false\\">
-                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"redacted-2\\">Unredacted</label>
+                    <input class=\\"govuk-radios__input\\" id=\\"redactedStatus-2\\" name=\\"redactedStatus\\"
+                    type=\\"radio\\" value=\\"not_redacted\\" checked>
+                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"redactedStatus-2\\">Unredacted</label>
                 </div>
             </div>
         </div>
@@ -1063,7 +1063,7 @@ exports[`Edit applications documentation metadata Edit redaction status POST /ca
                 <h2 class=\\"govuk-error-summary__title\\" id=\\"error-summary-title\\"> There is a problem</h2>
                 <div class=\\"govuk-error-summary__body\\">
                     <ul class=\\"govuk-list govuk-error-summary__list\\">
-                        <li><a href=\\"#redacted\\">You must select a redaction status</a>
+                        <li><a href=\\"#redactedStatus\\">You must select a redaction status</a>
                         </li>
                     </ul>
                 </div>
@@ -1072,18 +1072,16 @@ exports[`Edit applications documentation metadata Edit redaction status POST /ca
     </div>
     <h1 class=\\"govuk-heading-l\\"> Select the redaction status</h1>
     <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
-        <div class=\\"govuk-form-group govuk-form-group--error\\">
-            <p id=\\"redacted-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> You must select a redaction
-                status</p>
+        <div class=\\"govuk-form-group\\">
             <div class=\\"govuk-radios\\" data-module=\\"govuk-radios\\">
                 <div class=\\"govuk-radios__item\\">
                     <input class=\\"govuk-radios__input\\" id=\\"redacted\\" name=\\"redacted\\" type=\\"radio\\"
-                    value=\\"true\\" checked>
+                    value=\\"redacted\\">
                     <label class=\\"govuk-label govuk-radios__label\\" for=\\"redacted\\">Redacted</label>
                 </div>
                 <div class=\\"govuk-radios__item\\">
                     <input class=\\"govuk-radios__input\\" id=\\"redacted-2\\" name=\\"redacted\\" type=\\"radio\\"
-                    value=\\"false\\">
+                    value=\\"not_redacted\\">
                     <label class=\\"govuk-label govuk-radios__label\\" for=\\"redacted-2\\">Unredacted</label>
                 </div>
             </div>

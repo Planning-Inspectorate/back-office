@@ -31,7 +31,7 @@
 {% macro renderComponent(componentName) %}
     {% if(componentName === 'dateCreated' or componentName === 'datePublished') %}
         {{ dateInput(layout, documentMetaData[layout.metaDataName], errors) }}
-    {% elif(componentName === 'redacted' or componentName === 'documentType') %}
+    {% elif(componentName === 'redactedStatus' or componentName === 'documentType') %}
         {{ checkboxesInput(layout, documentMetaData[layout.metaDataName], errors) }}
     {% else %}
         {{ maxLengthInput(layout, documentMetaData[layout.metaDataName], errors) }}

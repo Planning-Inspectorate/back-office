@@ -60,14 +60,13 @@ const layouts = {
 	},
 	redaction: {
 		items: [
-			{ value: true, text: 'Redacted' },
-			{ value: false, text: 'Unredacted' }
+			{ value: 'redacted', text: 'Redacted' },
+			{ value: 'not_redacted', text: 'Unredacted' }
 		],
 		pageTitle: 'Select the redaction status',
-		metaDataName: 'redacted'
+		metaDataName: 'redactedStatus'
 	},
 	type: {
-		// TODO: values might change
 		items: [
 			{
 				value: 'Rule 8 letter',

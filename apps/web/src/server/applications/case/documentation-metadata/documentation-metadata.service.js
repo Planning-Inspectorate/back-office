@@ -13,15 +13,7 @@ import { post } from '../../../lib/request.js';
 export const updateDocumentMetaData = async (caseId, documentGuid, newMetaData) => {
 	let response;
 
-	// console.log(14, newMetaData);
-
 	try {
-		// response = await new Promise((resolve) => {
-		// 	setTimeout(() => {
-		// 		resolve({ caseId, documentGuid, newMetaData });
-		// 	}, 1000);
-		// });
-
 		response = await post(`applications/${caseId}/documents/${documentGuid}/metadata`, {
 			json: newMetaData
 		});

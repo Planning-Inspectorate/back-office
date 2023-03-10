@@ -36,11 +36,11 @@ const nocks = (/** @type {string} */ domainType) => {
 		.times(2)
 		.reply(200, fixtureDocumentationSubFolders);
 	nock('http://test/')
-		.get('/applications/123/documents/100')
+		.get('/applications/123/documents/100/properties')
 		.times(2)
 		.reply(200, fixtureDocumentationFiles[3]);
 	nock('http://test/')
-		.get('/applications/123/documents/90')
+		.get('/applications/123/documents/90/properties')
 		.times(2)
 		.reply(200, fixtureDocumentationFiles[89]);
 	nock('http://test/')

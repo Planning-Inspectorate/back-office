@@ -6,12 +6,15 @@ import { createTestEnvironment } from '../../../../../../testing/index.js';
 
 const { app, installMockApi, teardown } = createTestEnvironment();
 const request = supertest(app);
+const publishedDocumentation = fixtureDocumentationFiles[3];
 
 const nocks = () => {
 	nock('http://test/').get('/applications/case-team').reply(200, {});
+	nock('http://test/')
+		.get('/applications/123/documents/456/properties')
+		.reply(200, publishedDocumentation);
+	nock('http://test/').post('/applications/123/documents/456/metadata').reply(200, {});
 };
-
-const publishedDocumentation = fixtureDocumentationFiles[3];
 
 describe('Edit applications documentation metadata', () => {
 	beforeEach(installMockApi);
@@ -252,7 +255,9 @@ describe('Edit applications documentation metadata', () => {
 
 				expect(element.innerHTML).toMatchSnapshot();
 				expect(element.innerHTML).toContain('Select the redaction status');
-				expect(element.innerHTML).toContain(`value="true" checked`);
+				expect(element.innerHTML).toContain(
+					`value="${publishedDocumentation.redactedStatus}" checked`
+				);
 			});
 		});
 
@@ -268,7 +273,7 @@ describe('Edit applications documentation metadata', () => {
 
 			it('should redirect to document properties page if there is no error', async () => {
 				const response = await request.post(`${baseUrl}/redaction`).send({
-					redacted: true
+					redactedStatus: 'redacted'
 				});
 
 				expect(response?.headers?.location).toEqual('../properties');
