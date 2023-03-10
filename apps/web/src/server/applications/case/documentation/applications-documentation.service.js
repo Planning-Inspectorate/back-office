@@ -1,4 +1,3 @@
-import { fixtureDocumentationFiles } from '@pins/web/testing/applications/fixtures/documentation-files.js';
 import { get, patch, post } from '../../../lib/request.js';
 
 /**
@@ -54,12 +53,16 @@ export const getCaseDocumentationFolderPath = (caseId, folderId) => {
  * @returns {Promise<PaginatedDocumentationFiles>}
  */
 export const getCaseDocumentationFilesInFolder = async (caseId, folderId, pageSize, pageNumber) => {
-	return post(`applications/${caseId}/folders/${folderId}/documents`, {
+	const k = await post(`applications/${caseId}/folders/${folderId}/documents`, {
 		json: {
 			pageSize,
 			pageNumber
 		}
 	});
+
+	// console.log(k);
+
+	return k;
 };
 
 /**
@@ -97,34 +100,36 @@ export const updateCaseDocumentationFiles = async (caseId, { status, redacted, i
  * @returns {Promise<DocumentationFile>}
  */
 export const getCaseDocumentationFileInfo = async (caseId, fileGuid) => {
-	// TODO: remove this and replace is the function below
-	// return get(`applications/${caseId}/documents/${fileGuid}/properties`);
+	const fileinfo = await get(`applications/${caseId}/documents/${fileGuid}/properties`);
 
-	return new Promise((resolve) => {
-		if (caseId !== null && fileGuid !== null) {
-			setTimeout(() => {
-				resolve({ ...fixtureDocumentationFiles[3] });
-			}, 500);
-		}
-	});
+	// console.log(j);
+
+	return { ...fileinfo, datePublished: 88_890_987 };
+	// return new Promise((resolve) => {
+	// 	if (caseId !== null && fileGuid !== null) {
+	// 		setTimeout(() => {
+	// 			resolve({ ...fixtureDocumentationFiles[3] });
+	// 		}, 500);
+	// 	}
+	// });
 };
 
 /**
  * Soft delete the documentation file
  *
  * @param {number} caseId
- * @param {string} fileGuid
- * @param {string} documentName
+ * @param {string} documentGuid
+ * @param {string} fileName
  * @returns {Promise<{isDeleted?: boolean, errors?: ValidationErrors}>}
  */
-export const deleteCaseDocumentationFile = async (caseId, fileGuid, documentName) => {
+export const deleteCaseDocumentationFile = async (caseId, documentGuid, fileName) => {
 	let response;
 
 	try {
-		response = await post(`applications/${caseId}/documents/${fileGuid}/delete`);
+		response = await post(`applications/${caseId}/documents/${documentGuid}/delete`);
 	} catch {
 		response = new Promise((resolve) => {
-			resolve({ errors: { msg: `${documentName} could not be deleted, please try again.` } });
+			resolve({ errors: { msg: `${fileName} could not be deleted, please try again.` } });
 		});
 	}
 

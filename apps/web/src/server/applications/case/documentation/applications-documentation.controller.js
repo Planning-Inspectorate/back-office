@@ -94,6 +94,9 @@ export async function viewApplicationsCaseDocumentationPages({ params }, respons
 	const { caseId } = response.locals;
 
 	const documentationFile = await getCaseDocumentationFileInfo(caseId, documentGuid);
+
+	// console.log(97, documentationFile);
+
 	const isReadyToPublish = documentationFile.publishedStatus === 'ready_to_publish';
 	const warningText = isReadyToPublish
 		? 'This document is in the publishing queue ready to be published.'
@@ -120,7 +123,7 @@ export async function updateApplicationsCaseDocumentationDelete(
 
 	const { errors } = validationErrors
 		? { errors: validationErrors }
-		: await deleteCaseDocumentationFile(caseId, documentGuid, documentationFile.documentName);
+		: await deleteCaseDocumentationFile(caseId, documentGuid, documentationFile.fileName);
 
 	if (errors) {
 		return response.render(`applications/case-documentation/documentation-delete`, {

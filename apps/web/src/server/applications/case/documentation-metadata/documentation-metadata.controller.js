@@ -15,7 +15,7 @@ const layouts = {
 		label: 'What is the file name?',
 		hint: 'There is a limit of 255 characters',
 		pageTitle: 'Enter file name',
-		metaDataName: 'documentName',
+		metaDataName: 'fileName',
 		maxLength: 255
 	},
 	description: {

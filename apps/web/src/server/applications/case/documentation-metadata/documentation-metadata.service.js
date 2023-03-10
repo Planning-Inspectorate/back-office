@@ -1,3 +1,5 @@
+import { post } from '../../../lib/request.js';
+
 /** @typedef {import('@pins/express').ValidationErrors} ValidationErrors */
 
 /**
@@ -11,15 +13,20 @@
 export const updateDocumentMetaData = async (caseId, documentGuid, newMetaData) => {
 	let response;
 
-	// TODO: this is a mock
+	// console.log(14, newMetaData);
+
 	try {
-		response = await new Promise((resolve) => {
-			setTimeout(() => {
-				resolve({ caseId, documentGuid, newMetaData });
-			}, 1000);
+		// response = await new Promise((resolve) => {
+		// 	setTimeout(() => {
+		// 		resolve({ caseId, documentGuid, newMetaData });
+		// 	}, 1000);
+		// });
+
+		response = await post(`applications/${caseId}/documents/${documentGuid}/metadata`, {
+			json: newMetaData
 		});
-	} catch {
-		response = { errors: 'Error.' };
+	} catch (/** @type {any} */ error) {
+		response = { errors: 'Error.', ...error };
 	}
 	return response;
 };

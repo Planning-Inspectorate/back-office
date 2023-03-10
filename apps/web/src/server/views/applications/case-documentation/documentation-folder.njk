@@ -205,8 +205,8 @@
 														{
 															id: 'checkbox-id-' + documentationFile.documentGuid,
 															value: documentationFile.documentGuid,
-															text: documentationFile.documentName|documentName,
-															label: 'select ' + documentationFile.documentName|documentName
+															text: documentationFile.fileName,
+															label: 'select ' + documentationFile.fileName
 														}]
 												}) }}
 											{% endif %}
@@ -217,7 +217,7 @@
 												{
 													classes: 'govuk-body-s govuk-!-font-weight-bold',
 													href: 'document-download'|url({caseId: caseId, documentGuid: documentationFile.documentGuid, isPreviewActive: isPreviewActive}),
-													text:documentationFile.documentName|documentName
+													text:documentationFile.fileName
 												},
 												isPreviewActive
 											) }}

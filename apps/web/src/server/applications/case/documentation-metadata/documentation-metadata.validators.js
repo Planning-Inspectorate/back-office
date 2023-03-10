@@ -36,7 +36,7 @@ export const validatorsDispatcher = async (request, response, next) => {
 
 // TODO: replace with correct fieldName
 export const validateDocumentationMetaName = createValidator(
-	body('documentName')
+	body('fileName')
 		.trim()
 		.isLength({ min: 1 })
 		.withMessage('You must enter a file name')

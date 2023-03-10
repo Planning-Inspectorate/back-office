@@ -26,7 +26,7 @@ export function createDocumentationFile(options = {}) {
 		{ mime: 'audio/mpeg', ext: 'mpeg' }
 	][createUniqueRandomNumberFromSeed(0, 4, uniqueSeed)];
 
-	const documentName = `${uniqueSeed + 1} ${createRandomDescription({
+	const fileName = `${uniqueSeed + 1} ${createRandomDescription({
 		wordsNumber: createUniqueRandomNumberFromSeed(2, 5, uniqueSeed),
 		startOffset: createUniqueRandomNumberFromSeed(0, 30, uniqueSeed)
 	})}.${type.ext}`;
@@ -83,7 +83,7 @@ export function createDocumentationFile(options = {}) {
 	return {
 		documentGuid,
 		filter1,
-		documentName,
+		fileName,
 		author,
 		representative,
 		dateCreated,
