@@ -111,41 +111,55 @@ const mapDocumentsToSendToBlobStorage = (documents, caseReference) => {
 };
 
 /**
+ * Upserts metadata for a set of documents to a database.
  *
- * @param {{documentName: string, folderId: number, documentType: string, documentSize: number}[]} documentsToUpload
- * @param {{ blobStoreUrl: string;caseType: string;documentName: string;GUID: string;}[]} blobStorageDocuments
- *  @param {string} blobStorageContainer
- * @returns {Promise<void>}}
+ * @param {{documentName: string, folderId: number, documentType: string, documentSize: number}[]} documentsToUpload - Array of documents to upload metadata for.
+ * @param {{blobStoreUrl: string;caseType: string;documentName: string;GUID: string;}[]} blobStorageDocuments - Array of documents containing metadata to upsert.
+ * @param {string} blobStorageContainer - Name of the blob storage container where documents are stored.
+ * @returns {Promise<void>}
  */
-
 const upsertDocumentVersionsMetadataToDatabase = async (
 	documentsToUpload,
 	blobStorageDocuments,
 	blobStorageContainer
 ) => {
+	// Create a map of document names to their metadata objects for easy lookup
 	const documentNameMap = new Map();
 
 	for (const document of blobStorageDocuments) {
 		documentNameMap.set(document.documentName, document);
 	}
 
-	/** @type {Partial<DocumentVersion>[]} */
+	// Generate an array of documents to upsert, with metadata pulled from the blob storage documents
 	const documentsMetadataToSendToDatabase = documentsToUpload.map((documentToUpload) => {
-		/** @type {{blobStoreUrl:string;documentName: string;GUID: string;}} */
+		// Look up the metadata for the current document by its name
 		const document = documentNameMap.get(documentToUpload.documentName);
 
+		// Create an object containing the metadata to upsert for the current document
 		return {
 			blobStorageContainer,
 			documentGuid: document.GUID,
-			// blobStoragePath: document.blobStoreUrl,
 			documentURI: document.blobStoreUrl
 		};
 	});
 
-	await Promise.all(
-		documentsMetadataToSendToDatabase.map((metadata) => documentVerisonRepository.upsert(metadata))
-	);
+	// Use PromisePool to concurrently process the documents metadata with a concurrency of 5.
+	await PromisePool.withConcurrency(5)
+		.for(documentsMetadataToSendToDatabase)
+		.handleError((error) => {
+			// Log any errors that occur during the upsert process and re-throw the error.
+			logger.error(`Error while upserting documents to database: ${error}`);
+			throw error;
+		})
+		.process(async (metadata) => {
+			// Log the metadata being upserted for debugging purposes
+			logger.info(`Upserting document metadata: ${JSON.stringify(metadata)}`);
 
+			// Upsert the metadata using the documentVerisonRepository
+			return documentVerisonRepository.upsert(metadata);
+		});
+
+	// Clear the document name map to free memory
 	documentNameMap.clear();
 };
 
