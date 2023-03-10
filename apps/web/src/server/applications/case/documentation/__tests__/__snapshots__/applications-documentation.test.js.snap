@@ -5692,22 +5692,9 @@ exports[`applications documentation Document properties page If the user is not 
                         href=\\"/move\\">Move</a><a class=\\"govuk-link display--block\\" href=\\"/applications-service/case/123/project-documentation/21/document/3/delete\\">Delete</a>
                     </div>
                 </details>
-            </nav>{&quot;documentGuid&quot;:&quot;3&quot;,&quot;filter1&quot;:&quot;Dolore
-            magna&quot;,&quot;fileName&quot;:&quot;4 Laboris nisi ut aliquip ex ea.mpeg&quot;,&quot;author&quot;:&quot;Labore
-            et&quot;,&quot;representative&quot;:&quot;Laboris Quis&quot;,&quot;dateCreated&quot;:1669916924,&quot;datePublished&quot;:1678192858,&quot;size&quot;:9649100,&quot;description&quot;:&quot;Laboris
-            nisi ut aliquip ex ea commodo consequat&quot;,&quot;mime&quot;:&quot;audio/mpeg&quot;,&quot;publishedStatus&quot;:&quot;published&quot;,&quot;redactedStatus&quot;:&quot;not_redacted&quot;,&quot;stage&quot;:&quot;withdrawn&quot;}
-            1669916924
-            <div class=\\"govuk-!-margin-top-7\\">[{&quot;label&quot;:&quot;File name&quot;,&quot;value&quot;:&quot;4 Laboris
-                nisi ut aliquip ex ea.mpeg&quot;,&quot;link&quot;:&quot;name&quot;},{&quot;label&quot;:&quot;Description&quot;,&quot;value&quot;:&quot;Laboris
-                nisi ut aliquip ex ea commodo consequat&quot;,&quot;link&quot;:&quot;description&quot;},{&quot;label&quot;:&quot;From&quot;,&quot;value&quot;:&quot;Labore
-                et&quot;,&quot;link&quot;:&quot;author&quot;},{&quot;label&quot;:&quot;Agent
-                (optional)&quot;,&quot;value&quot;:&quot;Laboris Quis&quot;,&quot;link&quot;:&quot;agent&quot;},{&quot;label&quot;:&quot;Case
-                stage&quot;,&quot;value&quot;:&quot;withdrawn&quot;},{&quot;label&quot;:&quot;Webfilter&quot;,&quot;value&quot;:&quot;Dolore
-                magna&quot;,&quot;link&quot;:&quot;webfilter&quot;},{&quot;label&quot;:&quot;Document
-                type (optional)&quot;,&quot;link&quot;:&quot;type&quot;},{&quot;label&quot;:&quot;Date
-                received&quot;,&quot;value&quot;:&quot;01/12/2022&quot;,&quot;link&quot;:&quot;receipt-date&quot;},{&quot;label&quot;:&quot;Published
-                date&quot;,&quot;value&quot;:&quot;07/03/2023&quot;,&quot;link&quot;:&quot;published-date&quot;},{&quot;label&quot;:&quot;Redaction&quot;,&quot;value&quot;:&quot;Unredacted&quot;,&quot;link&quot;:&quot;redaction&quot;},{&quot;label&quot;:&quot;Status&quot;,&quot;value&quot;:&quot;Published&quot;}]
-                <div                 class=\\"govuk-tabs\\" data-module=\\"govuk-tabs\\">
+            </nav>
+            <div class=\\"govuk-!-margin-top-7\\">
+                <div class=\\"govuk-tabs\\" data-module=\\"govuk-tabs\\">
                     <h2 class=\\"govuk-tabs__title\\"> Contents</h2>
                     <ul class=\\"govuk-tabs__list\\">
                         <li class=\\"govuk-tabs__list-item govuk-tabs__list-item--selected\\"><a class=\\"govuk-tabs__tab\\" href=\\"#document-properties\\"> Document properties</a>
@@ -5779,9 +5766,9 @@ exports[`applications documentation Document properties page If the user is not 
                         </div>
                     </div>
                     <div class=\\"govuk-tabs__panel govuk-tabs__panel--hidden\\" id=\\"version-history\\"></div>
+                </div>
             </div>
         </div>
-    </div>
     </div>
 </main>"
 `;
@@ -5819,23 +5806,8 @@ exports[`applications documentation Document properties page If the user is not 
                         href=\\"/move\\">Move</a><a class=\\"govuk-link display--block\\" href=\\"/applications-service/case/123/project-documentation/21/document/89/delete\\">Delete</a>
                     </div>
                 </details>
-            </nav>{&quot;documentGuid&quot;:&quot;89&quot;,&quot;filter1&quot;:&quot;Elit&quot;,&quot;fileName&quot;:&quot;90
-            Eiusmod tempor incididunt.pdf&quot;,&quot;author&quot;:&quot;Elit sed&quot;,&quot;representative&quot;:&quot;Eiusmod
-            Tempor&quot;,&quot;dateCreated&quot;:1669916924,&quot;size&quot;:3459100,&quot;description&quot;:&quot;Eiusmod
-            tempor incididunt ut labore et dolore magna aliqua Ut enim ad minim veniam
-            quis nostrud exercitation ullamco laboris nisi&quot;,&quot;mime&quot;:&quot;application/pdf&quot;,&quot;publishedStatus&quot;:&quot;ready_to_publish&quot;,&quot;redactedStatus&quot;:&quot;redacted&quot;,&quot;stage&quot;:&quot;pre-examination&quot;,&quot;documentType&quot;:&quot;Exam
-            library&quot;} 1669916924
-            <div class=\\"govuk-!-margin-top-7\\">[{&quot;label&quot;:&quot;File name&quot;,&quot;value&quot;:&quot;90 Eiusmod
-                tempor incididunt.pdf&quot;,&quot;link&quot;:&quot;name&quot;},{&quot;label&quot;:&quot;Description&quot;,&quot;value&quot;:&quot;Eiusmod
-                tempor incididunt ut labore et dolore magna aliqua Ut enim ad minim veniam
-                quis nostrud exercitation ullamco laboris nisi&quot;,&quot;link&quot;:&quot;description&quot;},{&quot;label&quot;:&quot;From&quot;,&quot;value&quot;:&quot;Elit
-                sed&quot;,&quot;link&quot;:&quot;author&quot;},{&quot;label&quot;:&quot;Agent
-                (optional)&quot;,&quot;value&quot;:&quot;Eiusmod Tempor&quot;,&quot;link&quot;:&quot;agent&quot;},{&quot;label&quot;:&quot;Case
-                stage&quot;,&quot;value&quot;:&quot;pre-examination&quot;},{&quot;label&quot;:&quot;Webfilter&quot;,&quot;value&quot;:&quot;Elit&quot;,&quot;link&quot;:&quot;webfilter&quot;},{&quot;label&quot;:&quot;Document
-                type (optional)&quot;,&quot;value&quot;:&quot;Exam library&quot;,&quot;link&quot;:&quot;type&quot;},{&quot;label&quot;:&quot;Date
-                received&quot;,&quot;value&quot;:&quot;01/12/2022&quot;,&quot;link&quot;:&quot;receipt-date&quot;},{&quot;label&quot;:&quot;Published
-                date&quot;,&quot;value&quot;:&quot;&quot;,&quot;link&quot;:null},{&quot;label&quot;:&quot;Redaction&quot;,&quot;value&quot;:&quot;Redacted&quot;,&quot;link&quot;:&quot;redaction&quot;},{&quot;label&quot;:&quot;Status&quot;,&quot;value&quot;:&quot;Ready
-                to publish&quot;}]
+            </nav>
+            <div class=\\"govuk-!-margin-top-7\\">
                 <div class=\\"govuk-tabs\\" data-module=\\"govuk-tabs\\">
                     <h2 class=\\"govuk-tabs__title\\"> Contents</h2>
                     <ul class=\\"govuk-tabs__list\\">

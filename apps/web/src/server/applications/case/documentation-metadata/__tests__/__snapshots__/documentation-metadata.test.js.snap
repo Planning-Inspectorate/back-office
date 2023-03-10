@@ -1072,17 +1072,19 @@ exports[`Edit applications documentation metadata Edit redaction status POST /ca
     </div>
     <h1 class=\\"govuk-heading-l\\"> Select the redaction status</h1>
     <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
-        <div class=\\"govuk-form-group\\">
+        <div class=\\"govuk-form-group govuk-form-group--error\\">
+            <p id=\\"redactedStatus-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> You must select a redaction
+                status</p>
             <div class=\\"govuk-radios\\" data-module=\\"govuk-radios\\">
                 <div class=\\"govuk-radios__item\\">
-                    <input class=\\"govuk-radios__input\\" id=\\"redacted\\" name=\\"redacted\\" type=\\"radio\\"
-                    value=\\"redacted\\">
-                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"redacted\\">Redacted</label>
+                    <input class=\\"govuk-radios__input\\" id=\\"redactedStatus\\" name=\\"redactedStatus\\"
+                    type=\\"radio\\" value=\\"redacted\\">
+                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"redactedStatus\\">Redacted</label>
                 </div>
                 <div class=\\"govuk-radios__item\\">
-                    <input class=\\"govuk-radios__input\\" id=\\"redacted-2\\" name=\\"redacted\\" type=\\"radio\\"
-                    value=\\"not_redacted\\">
-                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"redacted-2\\">Unredacted</label>
+                    <input class=\\"govuk-radios__input\\" id=\\"redactedStatus-2\\" name=\\"redactedStatus\\"
+                    type=\\"radio\\" value=\\"not_redacted\\" checked>
+                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"redactedStatus-2\\">Unredacted</label>
                 </div>
             </div>
         </div>
