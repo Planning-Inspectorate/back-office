@@ -2335,8 +2335,8 @@
 					"example": "document.pdf"
 				},
 				"datePublished": {
-					"type": "number",
-					"example": 1646822400
+					"type": "string",
+					"example": "2023-02-27T10:00:00Z"
 				},
 				"documentURI": {
 					"type": "string",
@@ -2351,8 +2351,8 @@
 					"example": "John Smith"
 				},
 				"dateCreated": {
-					"type": "number",
-					"example": 1646822400
+					"type": "string",
+					"example": "2023-02-27T10:00:00Z"
 				},
 				"publishedStatus": {
 					"type": "string",
@@ -2455,8 +2455,8 @@
 									"example": "original_document.pdf"
 								},
 								"datePublished": {
-									"type": "number",
-									"example": 1646822400
+									"type": "string",
+									"example": "2023-02-27T10:00:00Z"
 								},
 								"documentURI": {
 									"type": "string",
