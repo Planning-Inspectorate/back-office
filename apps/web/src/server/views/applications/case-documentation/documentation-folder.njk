@@ -50,11 +50,11 @@
     <div class="govuk-grid-row govuk-!-margin-top-0">
       <div class="govuk-grid-column-two-thirds govuk-!-margin-top-0">
        <h3 class="govuk-heading-m">Documents</h3>
+	    <p class="govuk-body">This folder contains {{ documentationFiles.itemCount }} document(s).</p>
       </div>
     </div>
     <div class="govuk-grid-row govuk-!-margin-top-0">
       <div class="govuk-grid-column-two-thirds govuk-!-margin-top-0">
-       <p class="govuk-body">This folder contains {{ documentationFiles.itemCount }} document(s).</p>
 						{% if not userIsInspector %}
 			<a class="govuk-button govuk-button--secondary govuk-!-margin-0"
 				href="{{ 'document-category'|url({caseId: caseId, documentationCategory: currentFolder, step: 'upload'}) }}">
@@ -63,7 +63,7 @@
 		{% endif %}
       </div>
       <div class="govuk-grid-column-one-third">
-        	<a class="govuk-link govuk-body-m" href= ""> View publishing queue </a>
+        	<a class="govuk-link govuk-body-m govuk-!-text-align-right" href= ""> View publishing queue </a>
       </div>
     </div>
   </main>
