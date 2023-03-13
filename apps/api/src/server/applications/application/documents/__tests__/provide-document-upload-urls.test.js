@@ -77,36 +77,37 @@ describe('Provide document upload URLs', () => {
 			create: {
 				Document: { connect: { guid: 'some-guid' } },
 				originalFilename: 'test doc',
-				documentGuid: 'some-guid',
 				fileName: 'test doc',
 				mime: 'application/pdf',
-				size: 1024
+				size: 1024,
+				version: 1
 			},
 			include: {
 				Document: { include: { folder: { include: { case: { include: { CaseStatus: true } } } } } }
 			},
 			update: {
-				documentGuid: 'some-guid',
 				fileName: 'test doc',
 				originalFilename: 'test doc',
 				mime: 'application/pdf',
-				size: 1024
+				size: 1024,
+				version: 1
 			},
-			where: { documentGuid: 'some-guid' }
+			where: { documentGuid_version: { documentGuid: 'some-guid', version: 1 } }
 		});
 
 		expect(databaseConnector.documentVersion.upsert).lastCalledWith({
 			create: {
 				blobStorageContainer: 'blob-store-container',
-				documentGuid: metadata?.documentGuid,
 				documentURI: '/some/path/test doc',
-				Document: { connect: { guid: metadata?.documentGuid } }
+				Document: { connect: { guid: metadata?.documentGuid } },
+				version: 1
 			},
-			where: { documentGuid: metadata?.documentGuid },
+			where: { documentGuid_version: { documentGuid: metadata?.documentGuid, version: 1 } },
+
 			update: {
 				blobStorageContainer: 'blob-store-container',
-				documentGuid: metadata?.documentGuid,
-				documentURI: '/some/path/test doc'
+				documentURI: '/some/path/test doc',
+				version: 1
 			},
 			include: {
 				Document: {

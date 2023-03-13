@@ -39,7 +39,7 @@ describe('Update document status', () => {
 			status: 'awaiting_virus_check'
 		});
 		expect(databaseConnector.documentVersion.update).toHaveBeenCalledWith({
-			where: { documentGuid: 'D1234' },
+			where: { documentGuid_version: { documentGuid: 'D1234', version: 1 } },
 			data: {
 				publishedStatus: 'awaiting_virus_check'
 			}
