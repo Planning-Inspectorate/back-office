@@ -99,7 +99,14 @@ export const getDocumentsInFolder = (folderId, skipValue, pageSize) => {
 				createdAt: 'desc'
 			}
 		],
-		where: { folderId }
+		where: {
+			folderId,
+			documentVersion: {
+				some: {
+					version: 1
+				}
+			}
+		}
 	});
 };
 /**
