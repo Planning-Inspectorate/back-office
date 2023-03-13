@@ -399,6 +399,11 @@
 				"type": "string",
 				"description": "Maps to [Service Customer].[CustomerID]"
 			}
+		},
+		"examinationTimetableId": {
+			"type": "number",
+			"examples": [1242],
+			"description": "ID of the Examination Timetable"
 		}
 	}
 }
