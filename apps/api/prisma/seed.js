@@ -669,9 +669,11 @@ const deleteAllRecords = async () => {
 	const deleteServiceCustomers = databaseConnector.serviceCustomer.deleteMany();
 	const deleteGridReference = databaseConnector.gridReference.deleteMany();
 	const deleteDocuments = databaseConnector.document.deleteMany();
+	const deleteDocumentsVersions = databaseConnector.documentVersion.deleteMany();
 	const deleteFolders = databaseConnector.folder.deleteMany();
 
 	await deleteDocuments;
+	await deleteDocumentsVersions;
 	await deleteLowestFolders();
 	await deleteLowestFolders();
 	await deleteLowestFolders();

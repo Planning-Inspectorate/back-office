@@ -306,26 +306,26 @@ model Folder {
 }
 
 model Document {
-  guid                 String           @id @default(uuid())
+  guid                 String            @id @default(uuid())
   name                 String
   folderId             Int
   blobStorageContainer String?
   blobStoragePath      String?
-  status               String           @default("awaiting_upload")
-  createdAt            DateTime         @default(now())
-  redacted             Boolean          @default(false)
-  fileSize             Int?             @default(0)
+  status               String            @default("awaiting_upload")
+  createdAt            DateTime          @default(now())
+  redacted             Boolean           @default(false)
+  fileSize             Int?              @default(0)
   fileType             String?
-  isDeleted            Boolean          @default(false)
-  versionId            Int?             @unique
-  folder               Folder           @relation(fields: [folderId], references: [id])
-  documentVersion      DocumentVersion? @relation(fields: [versionId], references: [documentId])
+  isDeleted            Boolean           @default(false)
+  versionId            Int?              @unique
+  folder               Folder            @relation(fields: [folderId], references: [id])
+  documentVersion      DocumentVersion[]
 
   @@unique([name, folderId])
 }
 
 model DocumentVersion {
-  documentId             Int       @unique @default(autoincrement())
+  documentGuid           String
   version                Int       @default(1)
   lastModified           DateTime?
   documentType           String    @default("")
@@ -336,7 +336,6 @@ model DocumentVersion {
   fileName               String?
   representative         String?
   description            String?
-  documentGuid           String?   @unique
   owner                  String?
   author                 String?
   securityClassification String?
@@ -349,19 +348,18 @@ model DocumentVersion {
   stage                  String?
   filter1                String?
   blobStorageContainer   String?
-  createdAt              DateTime? @default(now())
-  receivedDate           DateTime? @default(now())
+  dateCreated            DateTime? @default(now())
+  datePublished          DateTime?
   isDeleted              Boolean   @default(false)
-  publishedAt            DateTime?
-  publishedDate          DateTime?
   examinationRefNo       String?
   filter2                String?
   publishedStatus        String?   @default("awaiting_upload")
   redactedStatus         String?
   redacted               Boolean   @default(false)
   documentURI            String?
-  Document               Document?
+  Document               Document? @relation(fields: [documentGuid], references: [guid])
 
+  @@id([documentGuid, version])
   @@index([filter1], map: "filter1")
   @@index([documentGuid], map: "documentGuid")
 }
