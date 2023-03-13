@@ -95,8 +95,7 @@ describe('store Document metadata', () => {
 		const upsertCalledWIth = {
 			version: 1,
 			dateCreated: '2023-02-28T11:59:38.129Z',
-			lastModified: '2023-02-28T11:59:38.129Z',
-			documentGuid: '1111-2222-3333'
+			lastModified: '2023-02-28T11:59:38.129Z'
 		};
 
 		expect(statusCode).toEqual(200);
@@ -104,9 +103,9 @@ describe('store Document metadata', () => {
 		expect(databaseConnector.documentVersion.upsert).toBeCalledWith({
 			create: {
 				...upsertCalledWIth,
-				Document: { connect: { guid: upsertCalledWIth?.documentGuid } }
+				Document: { connect: { guid: '1111-2222-3333' } }
 			},
-			where: { documentGuid: upsertCalledWIth.documentGuid },
+			where: { documentGuid_version: { documentGuid: '1111-2222-3333', version: 1 } },
 			update: upsertCalledWIth,
 			include: {
 				Document: {
