@@ -51,11 +51,18 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                     </div>
                 </div>
             </div>
-            <div class=\\"govuk-grid-row govuk-!-margin-top-0\\">
-                <div class=\\"govuk-grid-column-one-half govuk-!-margin-top-0\\">
-                    <h3 class=\\"govuk-heading-m\\">Documents</h3>
-                    <p class=\\"govuk-body\\">This folder contains 123 document(s).</p><a class=\\"govuk-button govuk-button--secondary govuk-!-margin-0\\"
-                    href=\\"/applications-service/case/123/project-documentation/21/sub-folder-level-2/upload\\"> Upload files</a>
+            <div class=\\"govuk-width-container\\">
+                <div class=\\"govuk-grid-row govuk-!-margin-top-0\\">
+                    <div class=\\"govuk-grid-column-two-thirds govuk-!-margin-top-0\\">
+                        <h3 class=\\"govuk-heading-m\\">Documents</h3>
+                        <p class=\\"govuk-body\\">This folder contains 123 document(s).</p>
+                    </div>
+                </div>
+                <div class=\\"govuk-grid-row govuk-!-margin-top-0\\">
+                    <div class=\\"govuk-grid-column-two-thirds govuk-!-margin-top-0\\"><a class=\\"govuk-button govuk-button--secondary govuk-!-margin-0\\" href=\\"/applications-service/case/123/project-documentation/21/sub-folder-level-2/upload\\"> Upload files</a>
+                    </div>
+                    <div class=\\"govuk-grid-column-one-third\\"><a class=\\"govuk-link govuk-body-m govuk-!-text-align-right\\" href=\\"\\"> View publishing queue </a>
+                    </div>
                 </div>
             </div>
             <hr class=\\"govuk-section-break govuk-section-break--l govuk-section-break--visible\\">
@@ -855,11 +862,18 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                     </div>
                 </div>
             </div>
-            <div class=\\"govuk-grid-row govuk-!-margin-top-0\\">
-                <div class=\\"govuk-grid-column-one-half govuk-!-margin-top-0\\">
-                    <h3 class=\\"govuk-heading-m\\">Documents</h3>
-                    <p class=\\"govuk-body\\">This folder contains 123 document(s).</p><a class=\\"govuk-button govuk-button--secondary govuk-!-margin-0\\"
-                    href=\\"/applications-service/case/123/project-documentation/21/sub-folder-level-2/upload\\"> Upload files</a>
+            <div class=\\"govuk-width-container\\">
+                <div class=\\"govuk-grid-row govuk-!-margin-top-0\\">
+                    <div class=\\"govuk-grid-column-two-thirds govuk-!-margin-top-0\\">
+                        <h3 class=\\"govuk-heading-m\\">Documents</h3>
+                        <p class=\\"govuk-body\\">This folder contains 123 document(s).</p>
+                    </div>
+                </div>
+                <div class=\\"govuk-grid-row govuk-!-margin-top-0\\">
+                    <div class=\\"govuk-grid-column-two-thirds govuk-!-margin-top-0\\"><a class=\\"govuk-button govuk-button--secondary govuk-!-margin-0\\" href=\\"/applications-service/case/123/project-documentation/21/sub-folder-level-2/upload\\"> Upload files</a>
+                    </div>
+                    <div class=\\"govuk-grid-column-one-third\\"><a class=\\"govuk-link govuk-body-m govuk-!-text-align-right\\" href=\\"\\"> View publishing queue </a>
+                    </div>
                 </div>
             </div>
             <hr class=\\"govuk-section-break govuk-section-break--l govuk-section-break--visible\\">
@@ -2056,11 +2070,18 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                     </div>
                 </div>
             </div>
-            <div class=\\"govuk-grid-row govuk-!-margin-top-0\\">
-                <div class=\\"govuk-grid-column-one-half govuk-!-margin-top-0\\">
-                    <h3 class=\\"govuk-heading-m\\">Documents</h3>
-                    <p class=\\"govuk-body\\">This folder contains 0 document(s).</p><a class=\\"govuk-button govuk-button--secondary govuk-!-margin-0\\"
-                    href=\\"/applications-service/case/123/project-documentation/21/sub-folder-level-2/upload\\"> Upload files</a>
+            <div class=\\"govuk-width-container\\">
+                <div class=\\"govuk-grid-row govuk-!-margin-top-0\\">
+                    <div class=\\"govuk-grid-column-two-thirds govuk-!-margin-top-0\\">
+                        <h3 class=\\"govuk-heading-m\\">Documents</h3>
+                        <p class=\\"govuk-body\\">This folder contains 0 document(s).</p>
+                    </div>
+                </div>
+                <div class=\\"govuk-grid-row govuk-!-margin-top-0\\">
+                    <div class=\\"govuk-grid-column-two-thirds govuk-!-margin-top-0\\"><a class=\\"govuk-button govuk-button--secondary govuk-!-margin-0\\" href=\\"/applications-service/case/123/project-documentation/21/sub-folder-level-2/upload\\"> Upload files</a>
+                    </div>
+                    <div class=\\"govuk-grid-column-one-third\\"><a class=\\"govuk-link govuk-body-m govuk-!-text-align-right\\" href=\\"\\"> View publishing queue </a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -2119,11 +2140,18 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                     </div>
                 </div>
             </div>
-            <div class=\\"govuk-grid-row govuk-!-margin-top-0\\">
-                <div class=\\"govuk-grid-column-one-half govuk-!-margin-top-0\\">
-                    <h3 class=\\"govuk-heading-m\\">Documents</h3>
-                    <p class=\\"govuk-body\\">This folder contains 123 document(s).</p><a class=\\"govuk-button govuk-button--secondary govuk-!-margin-0\\"
-                    href=\\"/applications-service/case/123/project-documentation/21/sub-folder-level-2/upload\\"> Upload files</a>
+            <div class=\\"govuk-width-container\\">
+                <div class=\\"govuk-grid-row govuk-!-margin-top-0\\">
+                    <div class=\\"govuk-grid-column-two-thirds govuk-!-margin-top-0\\">
+                        <h3 class=\\"govuk-heading-m\\">Documents</h3>
+                        <p class=\\"govuk-body\\">This folder contains 123 document(s).</p>
+                    </div>
+                </div>
+                <div class=\\"govuk-grid-row govuk-!-margin-top-0\\">
+                    <div class=\\"govuk-grid-column-two-thirds govuk-!-margin-top-0\\"><a class=\\"govuk-button govuk-button--secondary govuk-!-margin-0\\" href=\\"/applications-service/case/123/project-documentation/21/sub-folder-level-2/upload\\"> Upload files</a>
+                    </div>
+                    <div class=\\"govuk-grid-column-one-third\\"><a class=\\"govuk-link govuk-body-m govuk-!-text-align-right\\" href=\\"\\"> View publishing queue </a>
+                    </div>
                 </div>
             </div>
             <hr class=\\"govuk-section-break govuk-section-break--l govuk-section-break--visible\\">
@@ -2956,10 +2984,17 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                     </div>
                 </div>
             </div>
-            <div class=\\"govuk-grid-row govuk-!-margin-top-0\\">
-                <div class=\\"govuk-grid-column-one-half govuk-!-margin-top-0\\">
-                    <h3 class=\\"govuk-heading-m\\">Documents</h3>
-                    <p class=\\"govuk-body\\">This folder contains 123 document(s).</p>
+            <div class=\\"govuk-width-container\\">
+                <div class=\\"govuk-grid-row govuk-!-margin-top-0\\">
+                    <div class=\\"govuk-grid-column-two-thirds govuk-!-margin-top-0\\">
+                        <h3 class=\\"govuk-heading-m\\">Documents</h3>
+                        <p class=\\"govuk-body\\">This folder contains 123 document(s).</p>
+                    </div>
+                </div>
+                <div class=\\"govuk-grid-row govuk-!-margin-top-0\\">
+                    <div class=\\"govuk-grid-column-two-thirds govuk-!-margin-top-0\\"></div>
+                    <div class=\\"govuk-grid-column-one-third\\"><a class=\\"govuk-link govuk-body-m govuk-!-text-align-right\\" href=\\"\\"> View publishing queue </a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -3029,11 +3064,18 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                     </div>
                 </div>
             </div>
-            <div class=\\"govuk-grid-row govuk-!-margin-top-0\\">
-                <div class=\\"govuk-grid-column-one-half govuk-!-margin-top-0\\">
-                    <h3 class=\\"govuk-heading-m\\">Documents</h3>
-                    <p class=\\"govuk-body\\">This folder contains 123 document(s).</p><a class=\\"govuk-button govuk-button--secondary govuk-!-margin-0\\"
-                    href=\\"/applications-service/case/123/project-documentation/21/sub-folder-level-2/upload\\"> Upload files</a>
+            <div class=\\"govuk-width-container\\">
+                <div class=\\"govuk-grid-row govuk-!-margin-top-0\\">
+                    <div class=\\"govuk-grid-column-two-thirds govuk-!-margin-top-0\\">
+                        <h3 class=\\"govuk-heading-m\\">Documents</h3>
+                        <p class=\\"govuk-body\\">This folder contains 123 document(s).</p>
+                    </div>
+                </div>
+                <div class=\\"govuk-grid-row govuk-!-margin-top-0\\">
+                    <div class=\\"govuk-grid-column-two-thirds govuk-!-margin-top-0\\"><a class=\\"govuk-button govuk-button--secondary govuk-!-margin-0\\" href=\\"/applications-service/case/123/project-documentation/21/sub-folder-level-2/upload\\"> Upload files</a>
+                    </div>
+                    <div class=\\"govuk-grid-column-one-third\\"><a class=\\"govuk-link govuk-body-m govuk-!-text-align-right\\" href=\\"\\"> View publishing queue </a>
+                    </div>
                 </div>
             </div>
             <hr class=\\"govuk-section-break govuk-section-break--l govuk-section-break--visible\\">
@@ -4244,11 +4286,18 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                     </div>
                 </div>
             </div>
-            <div class=\\"govuk-grid-row govuk-!-margin-top-0\\">
-                <div class=\\"govuk-grid-column-one-half govuk-!-margin-top-0\\">
-                    <h3 class=\\"govuk-heading-m\\">Documents</h3>
-                    <p class=\\"govuk-body\\">This folder contains 123 document(s).</p><a class=\\"govuk-button govuk-button--secondary govuk-!-margin-0\\"
-                    href=\\"/applications-service/case/123/project-documentation/21/sub-folder-level-2/upload\\"> Upload files</a>
+            <div class=\\"govuk-width-container\\">
+                <div class=\\"govuk-grid-row govuk-!-margin-top-0\\">
+                    <div class=\\"govuk-grid-column-two-thirds govuk-!-margin-top-0\\">
+                        <h3 class=\\"govuk-heading-m\\">Documents</h3>
+                        <p class=\\"govuk-body\\">This folder contains 123 document(s).</p>
+                    </div>
+                </div>
+                <div class=\\"govuk-grid-row govuk-!-margin-top-0\\">
+                    <div class=\\"govuk-grid-column-two-thirds govuk-!-margin-top-0\\"><a class=\\"govuk-button govuk-button--secondary govuk-!-margin-0\\" href=\\"/applications-service/case/123/project-documentation/21/sub-folder-level-2/upload\\"> Upload files</a>
+                    </div>
+                    <div class=\\"govuk-grid-column-one-third\\"><a class=\\"govuk-link govuk-body-m govuk-!-text-align-right\\" href=\\"\\"> View publishing queue </a>
+                    </div>
                 </div>
             </div>
             <hr class=\\"govuk-section-break govuk-section-break--l govuk-section-break--visible\\">
