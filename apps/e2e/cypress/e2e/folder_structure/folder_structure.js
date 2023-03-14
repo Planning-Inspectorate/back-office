@@ -27,7 +27,6 @@ Then(/^the user validates all folder paths$/, function async() {
 		const folderBase = '/applications-service/case/785/project-documentation';
 		const paths = getAllPaths(folders);
 		paths.forEach((folderPath) => {
-			console.log(folderPath);
 			cy.wait(1000);
 			cy.visit(folderBase);
 			folderPath.forEach((p, i) => {
