@@ -70,6 +70,7 @@ extends:
                         - name: back-office-sql-connection-string
                           variable: DATABASE_URL
                   - template: ../steps/node_script.yml
+
                     parameters:
                       environmentVariables:
                         DATABASE_URL: $(DATABASE_URL)
