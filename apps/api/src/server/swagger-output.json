@@ -2247,7 +2247,7 @@
 				},
 				"datePublished": {
 					"type": "string",
-					"example": "2023-02-27T10:00:00Z"
+					"example": "2022-12-21T12:42:40.885Z"
 				},
 				"documentURI": {
 					"type": "string",
@@ -2263,7 +2263,7 @@
 				},
 				"dateCreated": {
 					"type": "string",
-					"example": "2023-02-27T10:00:00Z"
+					"example": "2022-12-21T12:42:40.885Z"
 				},
 				"publishedStatus": {
 					"type": "string",
@@ -2335,8 +2335,8 @@
 					"example": "document.pdf"
 				},
 				"datePublished": {
-					"type": "string",
-					"example": "2023-02-27T10:00:00Z"
+					"type": "number",
+					"example": 1646822400
 				},
 				"documentURI": {
 					"type": "string",
@@ -2351,8 +2351,8 @@
 					"example": "John Smith"
 				},
 				"dateCreated": {
-					"type": "string",
-					"example": "2023-02-27T10:00:00Z"
+					"type": "number",
+					"example": 1646822400
 				},
 				"publishedStatus": {
 					"type": "string",
@@ -2455,8 +2455,8 @@
 									"example": "original_document.pdf"
 								},
 								"datePublished": {
-									"type": "string",
-									"example": "2023-02-27T10:00:00Z"
+									"type": "number",
+									"example": 1646822400
 								},
 								"documentURI": {
 									"type": "string",
@@ -2471,8 +2471,8 @@
 									"example": "John Smith"
 								},
 								"dateCreated": {
-									"type": "string",
-									"example": "2023-02-27T10:00:00Z"
+									"type": "number",
+									"example": 1646822400
 								},
 								"publishedStatus": {
 									"type": "string",

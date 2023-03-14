@@ -10,6 +10,7 @@
   },
   "scripts": {
     "api": "npm run dev --workspace=@pins/api",
+		"api:test": "npm run test --workspace=@pins/api-testing",
     "build": "turbo run build",
     "build:release": "turbo run build:release",
     "commit": "cz",
