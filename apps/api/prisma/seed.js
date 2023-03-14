@@ -13,6 +13,7 @@ import {
 	localPlanningDepartmentList,
 	lpaQuestionnaireList,
 	regions,
+	represenations,
 	sectors,
 	subSectors,
 	zoomLevels
@@ -671,6 +672,8 @@ const deleteAllRecords = async () => {
 	const deleteDocuments = databaseConnector.document.deleteMany();
 	const deleteDocumentsVersions = databaseConnector.documentVersion.deleteMany();
 	const deleteFolders = databaseConnector.folder.deleteMany();
+	const deleteRepresentationContact = databaseConnector.representationContact.deleteMany();
+	const deleteRepresentation = databaseConnector.representation.deleteMany();
 
 	await deleteDocuments;
 	await deleteDocumentsVersions;
@@ -702,9 +705,32 @@ const deleteAllRecords = async () => {
 		deleteInspectorDecision,
 		deleteAppeals,
 		deleteAppellant,
-		deleteFolders
+		deleteFolders,
+		deleteRepresentationContact,
+		deleteRepresentation
 	]);
 };
+
+/**
+ *
+ * @param {string} caseReference
+ * @param {number} index
+ * @returns {any}
+ */
+function createRepresentation(caseReference, index) {
+	const { contacts, ...rep } = pickRandom(represenations);
+
+	return {
+		reference: `${caseReference}-${index}`,
+		...rep,
+		contacts: {
+			create: contacts.create.map((contact) => ({
+				...contact,
+				address: { create: pickRandom(addressesList) }
+			}))
+		}
+	};
+}
 
 /**
  *
@@ -716,6 +742,16 @@ const createApplication = async (subSector, index) => {
 	const caseStatus = pickRandom(caseStatusNames).name;
 	// Draft cases do not have a reference assigned to them yet
 	const reference = caseStatus === 'draft' ? null : generateApplicationReference(subSector, index);
+
+	let representations = [];
+
+	if (caseStatus !== 'draft') {
+		representations = [
+			createRepresentation(reference, 1),
+			createRepresentation(reference, 2),
+			createRepresentation(reference, 3)
+		];
+	}
 
 	const newCase = await databaseConnector.case.create({
 		data: {
@@ -757,6 +793,9 @@ const createApplication = async (subSector, index) => {
 			},
 			serviceCustomer: {
 				create: [{}]
+			},
+			Representation: {
+				create: representations
 			}
 		}
 	});
