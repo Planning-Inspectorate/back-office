@@ -4,11 +4,11 @@ import { databaseConnector } from '../utils/database-connector.js';
  * @param {any} metadata
  * @returns {import('@prisma/client').PrismaPromise<import('@pins/api').Schema.DocumentVersion>}
  */
-export const upsert = (metadata) => {
+export const upsert = ({ documentGuid, version = 1, ...metadata }) => {
 	return databaseConnector.documentVersion.upsert({
-		create: { ...metadata, Document: { connect: { guid: metadata?.documentGuid } } },
-		where: { documentGuid: metadata?.documentGuid },
-		update: metadata,
+		create: { ...metadata, version, Document: { connect: { guid: documentGuid } } },
+		where: { documentGuid_version: { documentGuid, version } },
+		update: { ...metadata, version },
 		include: {
 			Document: {
 				include: {
@@ -28,12 +28,12 @@ export const upsert = (metadata) => {
 };
 
 /**
- * @param {{guid: string, status: import('xstate').StateValue }} documentStatusUpdate
+ * @param {{guid: string, status: import('xstate').StateValue, version: number }} documentStatusUpdate
  * @returns {import('@prisma/client').PrismaPromise<import('@pins/api').Schema.DocumentVersion>}
  */
-export const updateDocumentStatus = ({ guid, status }) => {
+export const updateDocumentStatus = ({ guid, status, version = 1 }) => {
 	return databaseConnector.documentVersion.update({
-		where: { documentGuid: guid },
+		where: { documentGuid_version: { documentGuid: guid, version } },
 		data: { publishedStatus: status }
 	});
 };
@@ -42,13 +42,12 @@ export const updateDocumentStatus = ({ guid, status }) => {
  * Get a document metadata by documentGuid
  *
  * @param {string} documentGuid
+ * @param {number} version
  * @returns {import('@prisma/client').PrismaPromise<import('@pins/api').Schema.DocumentVersion |null>}
  */
-export const getById = (documentGuid) => {
+export const getById = (documentGuid, version = 1) => {
 	return databaseConnector.documentVersion.findUnique({
-		where: {
-			documentGuid
-		},
+		where: { documentGuid_version: { documentGuid, version } },
 		include: {
 			Document: {
 				include: {
@@ -81,11 +80,9 @@ export const getAll = () => {
  * @param {import('@pins/api').Schema.DocumentVersionUpdateInput} documentDetails
  * @returns {import('@prisma/client').PrismaPromise<import('@pins/api').Schema.DocumentVersion>}
  */
-export const update = (documentGuid, documentDetails) => {
+export const update = (documentGuid, { version = 1, ...documentDetails }) => {
 	return databaseConnector.documentVersion.update({
-		where: {
-			documentGuid
-		},
+		where: { documentGuid_version: { documentGuid, version } },
 		data: documentDetails
 	});
 };
