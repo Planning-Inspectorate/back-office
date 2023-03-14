@@ -3,3 +3,4 @@ src/server/_data/resource*.json
 src/server/static/scripts/**
 src/server/static/styles/**
 bundle-stats.html
+.env
