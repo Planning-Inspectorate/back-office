@@ -1,0 +1,57 @@
+{% from "govuk/components/input/macro.njk" import govukInput %}
+{% macro dateInput(layout, value, errors) %}
+
+{% set isError = errors[layout.metaDataName] !== undefined and errors[layout.metaDataName] !== false %}
+
+    <div class="govuk-form-group {{ 'govuk-form-group--error' if isError else '' }}">
+        <label class="govuk-label font-weight--700" for="submissionDateInternal">
+            {{ layout.label }}
+        </label>
+        <div id="submissionDateInternal-hint" class="govuk-hint">
+            {{ layout.hint }}
+        </div>
+
+	{% if isError %}
+		<p id="submissionDateInternal-error" class="govuk-error-message">
+			<span class="govuk-visually-hidden">Error:</span> {{ errors[layout.metaDataName].msg }}
+		</p>
+	{% endif %}
+        <div class="govuk-grid-column-one-third">
+            <div class="govuk-grid-row pins-date-form-group">
+                {{ govukInput({
+				label: {
+					text: "Day",
+					classes: "govuk-hint"
+				},
+				id: [layout.metaDataName, '.day']|join,
+				name: [layout.metaDataName, '.day']|join,
+				value: value |datestamp({format: 'dd'}),
+				errorMessage: isError
+
+			}) }}
+			
+                {{ govukInput({
+				label: {
+					text: "Month",
+					classes: "govuk-hint"
+				},
+				id: [layout.metaDataName, '.month']|join,
+				name: [layout.metaDataName, '.month']|join,
+				value: value |datestamp({format: 'MM'}),
+				errorMessage: isError
+			}) }}
+
+                {{ govukInput({
+				label: {
+					text: "Year",
+					classes: "govuk-hint"
+				},
+				id: [layout.metaDataName, '.year']|join,
+				name: [layout.metaDataName, '.year']|join,
+				value: value |datestamp({format: 'yyyy'}),
+				errorMessage: isError
+			}) }}
+            </div>
+        </div>
+    </div>
+{% endmacro %}

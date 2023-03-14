@@ -23,7 +23,7 @@
     "db:migrate": "npx prisma migrate dev",
     "db:migrate:prod": "npx prisma migrate deploy",
     "db:push": "npx prisma db push --accept-data-loss",
-    "db:reset": "npx prisma migrate reset --force --skip-generate",
+    "db:reset": "npx prisma migrate reset --force",
     "db:seed": "npm run prisma-generate && npx prisma db seed",
     "db:seed:prod": "npm run prisma-generate && NODE_ENV=production node prisma/seed-production.js",
     "prisma:format": "npx prisma format",
