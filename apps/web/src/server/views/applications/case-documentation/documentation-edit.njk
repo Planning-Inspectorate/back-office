@@ -1,0 +1,39 @@
+{% extends "../layouts/applications.layout.njk" %}
+{% from "govuk/components/input/macro.njk" import govukInput %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "./edit/max-length-input.njk" import maxLengthInput %}
+{% from "./edit/date-input.njk" import dateInput %}
+{% from "./edit/checkboxes-input.njk" import checkboxesInput %}
+
+
+{% block pageHeading %}{% endblock %}
+{% block beforeContent %}
+    {{ govukBackLink({
+		classes: 'govuk-!-margin-top-3',
+		text: "Back",
+		href: layout.backLink
+	}) }}
+{% endblock %}
+{% block pageContent %}
+    <h1 class="govuk-heading-l">
+        {{ layout.pageTitle }}
+    </h1>
+    <form method="post" action="" novalidate="novalidate" class="pins-applications-create">
+        {% include 'app/includes/csrf.njk' %}
+        {{ renderComponent(layout.metaDataName) }}
+        <div class="govuk-grid-row">
+            <div class="govuk-button-group pins-button-group govuk-grid-column-one-half">
+                {{ govukButton({ text: 'Save and return' }) }}
+            </div>
+        </div>
+    </form>
+{% endblock %}
+{% macro renderComponent(componentName) %}
+    {% if(componentName === 'dateCreated' or componentName === 'datePublished') %}
+        {{ dateInput(layout, documentMetaData[layout.metaDataName], errors) }}
+    {% elif(componentName === 'redactedStatus' or componentName === 'documentType') %}
+        {{ checkboxesInput(layout, documentMetaData[layout.metaDataName], errors) }}
+    {% else %}
+        {{ maxLengthInput(layout, documentMetaData[layout.metaDataName], errors) }}
+    {% endif %}
+{% endmacro %}
