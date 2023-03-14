@@ -24,8 +24,8 @@ export const mapSingleDocumentDetailsFromVersion = ({ Document, ...documentVersi
 
 		originalFilename: documentVersion?.originalFilename ?? '',
 
-		dateCreated: documentVersion?.receivedDate
-			? mapDateStringToUnixTimestamp(documentVersion?.receivedDate?.toString())
+		dateCreated: documentVersion?.dateCreated
+			? mapDateStringToUnixTimestamp(documentVersion?.dateCreated?.toString())
 			: null,
 
 		size: documentVersion?.size ?? 0,
@@ -36,15 +36,13 @@ export const mapSingleDocumentDetailsFromVersion = ({ Document, ...documentVersi
 
 		redactedStatus: documentVersion.redactedStatus ?? '',
 
-		datePublished: documentVersion?.publishedDate
-			? mapDateStringToUnixTimestamp(documentVersion?.publishedDate?.toString())
+		datePublished: documentVersion?.datePublished
+			? mapDateStringToUnixTimestamp(documentVersion?.datePublished?.toString())
 			: null,
 
 		description: documentVersion?.description,
 		version: documentVersion?.version,
 		representative: documentVersion?.representative,
-
-		// stage: documentVersion?.stage ?? null,
 
 		...(Document?.folder?.case?.CaseStatus && {
 			stage: mapCaseStatus(Document?.folder.case.CaseStatus)
