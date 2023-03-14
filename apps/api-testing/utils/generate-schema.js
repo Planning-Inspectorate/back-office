@@ -12,7 +12,6 @@ async function extractPathsAndSchemas(swaggerJson) {
 
 	for (const [path, pathObject] of Object.entries(swaggerJson.paths)) {
 		for (const [method, methodObject] of Object.entries(pathObject)) {
-			console.log(method);
 			const response = methodObject.responses?.['200'];
 
 			if (response?.schema) {
