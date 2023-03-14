@@ -65,12 +65,16 @@ export const getFolderPath = async (id, folderId) => {
 export const getDocumentsInFolder = async (folderId, pageNumber = 1, pageSize = 50) => {
 	const skipValue = getSkipValue(pageNumber, pageSize);
 	const documentsCount = await documentRepository.getDocumentsCountInFolder(folderId);
-	const documents = await documentRepository.getDocumentsInFolder(folderId, skipValue, pageSize);
+	const documents = await documentRepository.getDocumentsInFolder({
+		folderId,
+		skipValue,
+		pageSize
+	});
 
 	// @ts-ignore
 	const mapDocument = documents.map(({ documentVersion, ...Document }) => ({
 		Document,
-		...documentVersion
+		...documentVersion[0]
 	}));
 
 	return {
