@@ -676,10 +676,8 @@ const deleteAllRecords = async () => {
 	const deleteRepresentation = databaseConnector.representation.deleteMany();
 
 	await deleteRepresentationContact;
-
 	await deleteRepresentation;
-	await deleteDocuments;
-	await deleteDocumentsVersions;
+
 	await deleteLowestFolders();
 	await deleteLowestFolders();
 	await deleteLowestFolders();
@@ -709,7 +707,9 @@ const deleteAllRecords = async () => {
 		deleteInspectorDecision,
 		deleteAppeals,
 		deleteAppellant,
-		deleteFolders
+		deleteFolders,
+		deleteDocuments,
+		deleteDocumentsVersions
 	]);
 };
 
