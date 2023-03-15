@@ -150,3 +150,27 @@ export const getDocumentsCountInFolder = (folderId, getAllDocuments = false) => 
 		where
 	});
 };
+
+/**
+ *
+ * @param {{skipValue: number, pageSize: number, publishedStatus?: string}} publishedStatus
+ * @returns {import('@prisma/client').PrismaPromise<import('@pins/api').Schema.Document[]>}
+ */
+export const getReadyToPublishDocuments = ({ skipValue, pageSize }) => {
+	return databaseConnector.document.findMany({
+		include: {
+			publishedStatus: true,
+			documentVersion: true
+		},
+		skip: skipValue,
+		take: pageSize,
+		orderBy: [
+			{
+				createdAt: 'desc'
+			}
+		],
+		where: {
+			publishedStatus: 'ready-to-publish'
+		}
+	});
+};
