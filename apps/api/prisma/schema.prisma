@@ -320,7 +320,6 @@ model Document {
   fileSize             Int?              @default(0)
   fileType             String?
   isDeleted            Boolean           @default(false)
-  versionId            Int?              @unique
   representationId     Int?
   folder               Folder            @relation(fields: [folderId], references: [id])
   documentVersion      DocumentVersion[]
