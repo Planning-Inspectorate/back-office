@@ -121,27 +121,16 @@ const mapDocumentsToSendToBlobStorage = (documents, caseReference) => {
  * @returns {Promise<void>}
  */
 const upsertDocumentVersionsMetadataToDatabase = async (
-	documentsToUpload,
 	blobStorageDocuments,
 	blobStorageContainer
 ) => {
-	// Create a map of document names to their metadata objects for easy lookup
-	const documentNameMap = new Map();
-
-	for (const document of blobStorageDocuments) {
-		documentNameMap.set(document.documentName, document);
-	}
-
 	// Generate an array of documents to upsert, with metadata pulled from the blob storage documents
-	const documentsMetadataToSendToDatabase = documentsToUpload.map((documentToUpload) => {
-		// Look up the metadata for the current document by its name
-		const document = documentNameMap.get(documentToUpload.documentName);
-
+	const documentsMetadataToSendToDatabase = blobStorageDocuments.map((documentToUpload) => {
 		// Create an object containing the metadata to upsert for the current document
 		return {
 			blobStorageContainer,
-			documentGuid: document.GUID,
-			documentURI: document.blobStoreUrl
+			documentGuid: documentToUpload.GUID,
+			documentURI: documentToUpload.blobStoreUrl
 		};
 	});
 
@@ -160,9 +149,6 @@ const upsertDocumentVersionsMetadataToDatabase = async (
 			// Upsert the metadata using the documentVerisonRepository
 			return documentVerisonRepository.upsert(metadata);
 		});
-
-	// Clear the document name map to free memory
-	documentNameMap.clear();
 };
 
 /**
@@ -223,7 +209,6 @@ export const obtainURLsForDocuments = async (documentsToUpload, caseId) => {
 	logger.info(`Upserting document versions metadata to database...`);
 
 	await upsertDocumentVersionsMetadataToDatabase(
-		documentsToUpload,
 		responseFromDocumentStorage.documents,
 		responseFromDocumentStorage.blobStorageContainer
 	);
