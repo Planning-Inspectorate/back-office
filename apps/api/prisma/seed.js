@@ -675,6 +675,9 @@ const deleteAllRecords = async () => {
 	const deleteRepresentationContact = databaseConnector.representationContact.deleteMany();
 	const deleteRepresentation = databaseConnector.representation.deleteMany();
 
+	await deleteRepresentationContact;
+
+	await deleteRepresentation;
 	await deleteDocuments;
 	await deleteDocumentsVersions;
 	await deleteLowestFolders();
@@ -682,6 +685,7 @@ const deleteAllRecords = async () => {
 	await deleteLowestFolders();
 	await deleteLowestFolders();
 	await deleteLowestFolders();
+
 	await databaseConnector.$transaction([
 		deleteGridReference,
 		deleteServiceCustomers,
@@ -705,9 +709,7 @@ const deleteAllRecords = async () => {
 		deleteInspectorDecision,
 		deleteAppeals,
 		deleteAppellant,
-		deleteFolders,
-		deleteRepresentationContact,
-		deleteRepresentation
+		deleteFolders
 	]);
 };
 
