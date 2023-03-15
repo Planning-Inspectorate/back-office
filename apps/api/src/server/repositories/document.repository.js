@@ -114,6 +114,9 @@ export const getDocumentsInFolder = ({ folderId, skipValue, pageSize, documentVe
  */
 export const getByDocumentGUID = (documentGUID) => {
 	return databaseConnector.document.findUnique({
+		include: {
+			documentVersion: true
+		},
 		where: {
 			guid: documentGUID
 		}
@@ -126,6 +129,10 @@ export const getByDocumentGUID = (documentGUID) => {
  */
 export const updateDocumentStatus = ({ guid, status }) => {
 	return databaseConnector.document.update({
+		include: {
+			documentVersion: true,
+			folder: true
+		},
 		where: { guid },
 		data: { status }
 	});

@@ -19,7 +19,11 @@ describe('Update document status', () => {
 			folderId: 2,
 			blobStorageContainer: 'Container',
 			blobStoragePath: 'Container',
-			status: 'awaiting_upload'
+			documentVersion: [
+				{
+					publishedStatus: 'awaiting_upload'
+				}
+			]
 		});
 		databaseConnector.folder.findUnique.mockResolvedValue({
 			caseId: 1

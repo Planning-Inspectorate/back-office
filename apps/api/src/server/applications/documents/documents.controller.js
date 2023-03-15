@@ -57,7 +57,7 @@ export const updateDocumentStatus = async ({ params, body }, response) => {
 
 	const caseId = caseIdFromFolderRepository?.caseId;
 
-	const documentStatus = documentDetails?.status;
+	const documentStatus = documentDetails?.documentVersion[0]?.publishedStatus;
 
 	const nextStatus = nextStatusInDocumentStateMachine(documentStatus, body.machineAction);
 
