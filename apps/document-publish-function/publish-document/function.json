@@ -1,11 +1,11 @@
 {
 	"bindings": [
 		{
-			"queueName": "documents-to-publish",
-			"connection": "MyServiceBusConnection",
 			"name": "myQueueItem",
 			"type": "serviceBusTrigger",
-			"direction": "in"
+			"direction": "in",
+			"topicName": "documents_to_publish",
+			"connection": "AZURE_SERVICE_BUS_CONNECTION"
 		}
 	]
 }
