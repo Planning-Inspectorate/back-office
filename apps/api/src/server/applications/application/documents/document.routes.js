@@ -6,6 +6,7 @@ import { validateFolderIds } from '../../documents/documents.validators.js';
 import {
 	deleteDocumentSoftly,
 	getDocumentProperties,
+	getReadyToPublishDocuments,
 	provideDocumentUploadURLs,
 	storeDocumentVersion,
 	updateDocuments
@@ -166,6 +167,12 @@ router.post(
 		}
     */
 	asyncHandler(deleteDocumentSoftly)
+);
+
+router.get(
+	'/:id/documents/ready-to-publish',
+
+	asyncHandler(getReadyToPublishDocuments)
 );
 
 export { router as documentRoutes };

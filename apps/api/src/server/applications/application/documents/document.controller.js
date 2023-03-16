@@ -157,3 +157,19 @@ export const storeDocumentVersion = async (request, response) => {
 	// Send the document details back in the response
 	response.status(200).send(documentDetails);
 };
+
+/**
+ * Gets paginated array of documents in a folder
+ *
+ * @type {import('express').RequestHandler<{ publishedStatus: string }, ?, {pageNumber?: number, pageSize?: number}, any>}
+ */
+export const getReadyToPublishDocuments = async ({ body }, response) => {
+	const { pageNumber, pageSize } = body;
+
+	const documentVersion = documentVersionRepository.getReadyPublishDocuments;
+
+	const paginatedDocuments = await documentRepository.getDocumentsInFolder(pageNumber, pageSize);
+
+	// response.send(paginatedDocuments);
+	response.send(documentVersion, paginatedDocuments);
+};
