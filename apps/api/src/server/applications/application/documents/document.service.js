@@ -144,13 +144,11 @@ const upsertDocumentVersionsMetadataToDatabase = async (
 		})
 		.process(async (metadata) => {
 			// Log the metadata being upserted for debugging purposes
-			logger.info(`Upserting document metadata: ${JSON.stringify(metadata)}`);
+			logger.info(`Upserting document metadata:  ${JSON.stringify(metadata)}`);
 
 			// Upsert the metadata using the documentVerisonRepository
 			return documentVerisonRepository.upsert(metadata);
 		});
-
-	// Clear the document name map to free memory
 };
 
 /**
