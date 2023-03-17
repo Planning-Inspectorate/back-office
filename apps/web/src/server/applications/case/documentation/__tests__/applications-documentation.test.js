@@ -134,7 +134,7 @@ describe('applications documentation', () => {
 					const element = parseHtml(response.text);
 
 					expect(element.innerHTML).toMatchSnapshot();
-					expect(element.innerHTML).toContain('This folder contains 123 document');
+					expect(element.innerHTML).toContain('This folder contains 200 document');
 					expect(element.innerHTML).toContain('Showing 1 - 50 document');
 				});
 
@@ -338,6 +338,55 @@ describe('applications documentation', () => {
 
 					expect(element.innerHTML).toMatchSnapshot();
 					expect(element.innerHTML).toContain('Document successfully deleted');
+				});
+			});
+		});
+	});
+
+	describe('Document publishing queue', () => {
+		describe('If the user is inspector', () => {
+			beforeAll(async () => {
+				nock('http://test/').get(`/applications/inspector`).reply(200, {});
+				nock('http://test/').get('/applications/123').times(2).reply(200, fixtureCases[3]);
+
+				await request.get('/applications-service/inspector');
+			});
+			it('page should not render', async () => {
+				const response = await request.get(`${baseUrl}/project-documentation/publishing-queue`);
+				const element = parseHtml(response.text);
+
+				expect(element.innerHTML).toMatchSnapshot();
+				expect(element.innerHTML).toContain('there is a problem with your login');
+			});
+		});
+
+		describe('If the user is not inspector', () => {
+			beforeEach(async () => {
+				nocks('case-team');
+				await request.get('/applications-service/case-team');
+			});
+
+			describe('GET /case/123/project-documentation/publishing-queue`', () => {
+				it('page should render', async () => {
+					const response = await request.get(`${baseUrl}/project-documentation/publishing-queue`);
+					const element = parseHtml(response.text);
+
+					expect(element.innerHTML).toMatchSnapshot();
+					expect(element.innerHTML).toContain('Select documents for publishing');
+					expect(element.innerHTML).toContain('File name: 125 ');
+					expect(element.innerHTML).not.toContain('File name: 126 ');
+				});
+
+				it('page should render with correct pagination', async () => {
+					const response = await request.get(
+						`${baseUrl}/project-documentation/publishing-queue?number=2`
+					);
+					const element = parseHtml(response.text);
+
+					expect(element.innerHTML).toMatchSnapshot();
+					expect(element.innerHTML).toContain('Select documents for publishing');
+					expect(element.innerHTML).not.toContain('File name: 125 ');
+					expect(element.innerHTML).toContain('File name: 126 ');
 				});
 			});
 		});
