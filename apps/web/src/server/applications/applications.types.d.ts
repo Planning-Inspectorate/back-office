@@ -109,4 +109,5 @@ export interface DocumentationFile {
 	representative: string;
 	stage: string;
 	documentType: string;
+	folderId?: number;
 }
