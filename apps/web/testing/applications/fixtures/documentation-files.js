@@ -6,7 +6,7 @@ import { createDocumentationFile } from '../factory/documentation-file.js';
  */
 
 /** @type {DocumentationFile[]} */
-export const fixtureDocumentationFiles = [...Array.from({ length: 123 }).keys()].map((index) =>
+export const fixtureDocumentationFiles = [...Array.from({ length: 200 }).keys()].map((index) =>
 	createDocumentationFile({ documentGuid: `${index}` })
 );
 
@@ -20,8 +20,8 @@ export const fixturePaginatedDocumentationFiles = (page, pageDefaultSize) => ({
 	page,
 	pageSize: pageDefaultSize,
 	pageDefaultSize,
-	pageCount: Math.ceil(123 / pageDefaultSize),
-	itemCount: 123,
+	pageCount: Math.ceil(200 / pageDefaultSize),
+	itemCount: 200,
 	items: fixtureDocumentationFiles.slice(
 		(page - 1) * pageDefaultSize,
 		pageDefaultSize + (page - 1) * pageDefaultSize
