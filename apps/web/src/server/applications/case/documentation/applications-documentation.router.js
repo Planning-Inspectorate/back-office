@@ -37,6 +37,13 @@ applicationsDocumentationRouter
 	);
 
 applicationsDocumentationRouter
+	.route('/:folderId/document/:documentGuid/remove-from-publishing-queue')
+	.get(
+		[assertDomainTypeIsNotInspector, locals.registerFolder],
+		asyncRoute(controller.removeApplicationsCaseDocumentationPublishingQueue)
+	);
+
+applicationsDocumentationRouter
 	.route('/:folderId/document/:documentGuid/:action')
 	.get(
 		[assertDomainTypeIsNotInspector, locals.registerFolder],

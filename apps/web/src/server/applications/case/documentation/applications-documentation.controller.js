@@ -6,6 +6,7 @@ import {
 } from '../../common/services/session.service.js';
 import {
 	deleteCaseDocumentationFile,
+	deleteCaseDocumentationPublishinQueue,
 	getCaseDocumentationFileInfo,
 	getCaseDocumentationFilesInFolder,
 	getCaseDocumentationReadyToPublish,
@@ -174,6 +175,19 @@ export async function viewApplicationsCaseDocumentationPublishingQueue(request, 
 		paginationButtons,
 		backLink
 	});
+}
+
+/**
+ * Handle the removal of the documentation from the publishing queue
+ *
+ * @type {import('@pins/express').RenderHandler<{}, {}, {}, {}, {caseId: number, documentGuid: string}>}
+ */
+export async function removeApplicationsCaseDocumentationPublishingQueue(request, response) {
+	const { caseId, documentGuid } = request.params;
+
+	await deleteCaseDocumentationPublishinQueue(caseId, documentGuid);
+
+	return response.redirect(url('documents-queue', { caseId }));
 }
 
 // Data for controllers
