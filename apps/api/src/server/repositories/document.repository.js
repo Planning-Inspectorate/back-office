@@ -150,3 +150,53 @@ export const getDocumentsCountInFolder = (folderId, getAllDocuments = false) => 
 		where
 	});
 };
+
+/**
+ * Filter document table to retrieve documents by 'ready-to-publish' status
+ *
+ * @param {{skipValue: number, pageSize: number, documentVersion?: number}} params
+ * @returns {import('@prisma/client').PrismaPromise<import('@pins/api').Schema.Document[]>}
+ */
+export const getDocumentsReadyPublishStatus = ({ skipValue, pageSize, documentVersion = 1 }) => {
+	return databaseConnector.document.findMany({
+		include: {
+			documentVersion: true,
+			folder: true
+		},
+		skip: skipValue,
+		take: pageSize,
+		orderBy: [
+			{
+				createdAt: 'desc'
+			}
+		],
+		where: {
+			documentVersion: {
+				some: {
+					version: documentVersion,
+					publishedStatus: 'ready_to_publish'
+				}
+			}
+		}
+	});
+};
+
+/**
+ * Returns total number of documents by published status (ready-to-publish)
+ *
+ * @param {number} documentVersion
+ * @returns {import('@prisma/client').PrismaPromise<number>}
+ */
+export const getDocumentsCountInByPublishStatus = (documentVersion = 1) => {
+	return databaseConnector.document.count({
+		where: {
+			isDeleted: true,
+			documentVersion: {
+				some: {
+					version: documentVersion,
+					publishedStatus: 'ready_to_publish'
+				}
+			}
+		}
+	});
+};
