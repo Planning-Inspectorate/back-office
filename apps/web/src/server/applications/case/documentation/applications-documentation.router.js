@@ -18,6 +18,10 @@ applicationsDocumentationRouter
 	.get(asyncRoute(controller.viewApplicationsCaseDocumentationCategories));
 
 applicationsDocumentationRouter
+	.route('/publishing-queue')
+	.get(asyncRoute(controller.viewApplicationsCaseDocumentationPublishingQueue));
+
+applicationsDocumentationRouter
 	.route('/:folderId/:folderName')
 	.get(locals.registerFolder, asyncRoute(controller.viewApplicationsCaseDocumentationFolder))
 	.post(

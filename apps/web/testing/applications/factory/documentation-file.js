@@ -19,17 +19,14 @@ export function createDocumentationFile(options = {}) {
 		createUniqueRandomNumberFromSeed(0, 2, uniqueSeed)
 	];
 
-	const type = [
-		{ mime: 'application/msword', ext: 'doc' },
-		{ mime: 'application/pdf', ext: 'pdf' },
-		{ mime: 'image/jpeg', ext: 'jpeg' },
-		{ mime: 'audio/mpeg', ext: 'mpeg' }
-	][createUniqueRandomNumberFromSeed(0, 4, uniqueSeed)];
+	const mime = ['application/msword', 'application/pdf', 'image/jpeg', 'audio/mpeg'][
+		createUniqueRandomNumberFromSeed(0, 4, uniqueSeed)
+	];
 
 	const fileName = `${uniqueSeed + 1} ${createRandomDescription({
 		wordsNumber: createUniqueRandomNumberFromSeed(2, 5, uniqueSeed),
 		startOffset: createUniqueRandomNumberFromSeed(0, 30, uniqueSeed)
-	})}.${type.ext}`;
+	})}`;
 
 	const description = `${createRandomDescription({
 		wordsNumber: createUniqueRandomNumberFromSeed(10, 30, uniqueSeed),
@@ -90,7 +87,7 @@ export function createDocumentationFile(options = {}) {
 		...(publishedStatus === 'published' ? { datePublished } : {}),
 		size,
 		description,
-		mime: type.mime,
+		mime,
 		publishedStatus,
 		redactedStatus,
 		stage,

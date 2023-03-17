@@ -1,4 +1,5 @@
 import { sortBy } from 'lodash-es';
+import { url } from '../../../lib/nunjucks-filters/url.js';
 import {
 	getSessionFilesNumberOnList,
 	setSessionFilesNumberOnList
@@ -7,9 +8,15 @@ import {
 	deleteCaseDocumentationFile,
 	getCaseDocumentationFileInfo,
 	getCaseDocumentationFilesInFolder,
+	getCaseDocumentationReadyToPublish,
 	getCaseFolders,
 	updateCaseDocumentationFiles
 } from './applications-documentation.service.js';
+import {
+	destroySessionFolderPage,
+	getSessionFolderPage,
+	setSessionFolderPage
+} from './applications-documentation.session.js';
 
 /** @typedef {import('@pins/express').ValidationErrors} ValidationErrors */
 /** @typedef {import('../applications-case.locals.js').ApplicationCaseLocals} ApplicationCaseLocals */
@@ -19,6 +26,8 @@ import {
 /** @typedef {import('./applications-documentation.types').CaseDocumentationUploadProps} CaseDocumentationUploadProps */
 /** @typedef {import('./applications-documentation.types').CaseDocumentationBody} CaseDocumentationBody */
 /** @typedef {import('./applications-documentation.types').CaseDocumentationProps} CaseDocumentationProps */
+/** @typedef {import('./applications-documentation.types').PaginationButtons} PaginationButtons */
+/** @typedef {import('../../applications.types').PaginatedResponse<DocumentationFile>} PaginatedDocumentationFiles */
 
 /**
  * View the documentation for a single case - the top level folders
@@ -36,7 +45,7 @@ export async function viewApplicationsCaseDocumentationCategories(request, respo
 /**
  * View a folder, showing files in the folder, and listing subfolders
  *
- * @type {import('@pins/express').RenderHandler<CaseDocumentationProps, ApplicationCaseLocals, {}, {size?: string, number?: string}, {}>}
+ * @type {import('@pins/express').RenderHandler<CaseDocumentationProps, ApplicationCaseLocals, {}, {size?: string, number?: string}, {folderName: string}>}
  */
 export async function viewApplicationsCaseDocumentationFolder(request, response) {
 	const properties = await documentationFolderData(request, response);
@@ -48,7 +57,7 @@ export async function viewApplicationsCaseDocumentationFolder(request, response)
  * Change properties for the documentation files
  *
  *
- * @type {import('@pins/express').RenderHandler<{}, {}, CaseDocumentationBody, {size?: string, number?: string}, {}>}
+ * @type {import('@pins/express').RenderHandler<{}, {}, CaseDocumentationBody, {size?: string, number?: string}, {folderName: string}>}
  */
 export async function updateApplicationsCaseDocumentationFolder(request, response) {
 	const { errors: validationErrors, body } = request;
@@ -95,8 +104,6 @@ export async function viewApplicationsCaseDocumentationPages({ params }, respons
 
 	const documentationFile = await getCaseDocumentationFileInfo(caseId, documentGuid);
 
-	// console.log(97, documentationFile);
-
 	const isReadyToPublish = documentationFile.publishedStatus === 'ready_to_publish';
 	const warningText = isReadyToPublish
 		? 'This document is in the publishing queue ready to be published.'
@@ -137,17 +144,50 @@ export async function updateApplicationsCaseDocumentationDelete(
 	});
 }
 
+/**
+ * View a folder, showing files in the folder, and listing subfolders
+ *
+ * @type {import('@pins/express').RenderHandler<{documentationFiles: PaginatedDocumentationFiles, paginationButtons: PaginationButtons, backLink: string}, ApplicationCaseLocals, {}, {size?: string, number?: string}, {}>}
+ */
+export async function viewApplicationsCaseDocumentationPublishingQueue(request, response) {
+	const number = Number.parseInt(request.query.number || '1', 10);
+	const { caseId } = response.locals;
+
+	const documentationFiles = await getCaseDocumentationReadyToPublish(caseId, number);
+
+	const backLink = getSessionFolderPage(request.session) ?? url('document-category', { caseId });
+
+	destroySessionFolderPage(request.session);
+
+	const paginationButtons = {
+		...(number === 1 ? {} : { previous: { href: `?number=${number - 1}` } }),
+		...(number === documentationFiles.pageCount ? {} : { next: { href: `?number=${number + 1}` } }),
+		items: [...Array.from({ length: documentationFiles.pageCount }).keys()].map((index) => ({
+			number: index + 1,
+			href: `?number=${index + 1}`,
+			current: index + 1 === number
+		}))
+	};
+
+	response.render(`applications/case-documentation/documentation-publish`, {
+		documentationFiles,
+		paginationButtons,
+		backLink
+	});
+}
+
 // Data for controllers
 
 /**
  * Get all the data for the display folder page (used by POST and GET) to retrieve shared template properties
  *
- * @param {{query: {number?: string, size?: string}, session: SessionWithFilesNumberOnList}} request
+ * @param {{params: {folderName: string}, query: {number?: string, size?: string}, session: SessionWithFilesNumberOnList}} request
  * @param {{locals: Record<string, any>}} response
  * @returns {Promise<CaseDocumentationProps>}
  */
 const documentationFolderData = async (request, response) => {
 	const { caseId, folderId } = response.locals;
+	const { folderName } = request.params;
 	const number = Number.parseInt(request.query.number || '1', 10);
 	const sizeInSession = getSessionFilesNumberOnList(request.session);
 	const sizeInQuery =
@@ -157,6 +197,13 @@ const documentationFolderData = async (request, response) => {
 	const size = sizeInQuery || sizeInSession || 50;
 
 	setSessionFilesNumberOnList(request.session, size);
+	setSessionFolderPage(
+		request.session,
+		url('document-category', {
+			caseId,
+			documentationCategory: { id: folderId, displayNameEn: folderName }
+		})
+	);
 
 	// get all the sub folders in this folder
 	const subFoldersUnordered = await getCaseFolders(caseId, folderId);

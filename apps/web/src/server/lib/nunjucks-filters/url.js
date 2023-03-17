@@ -11,7 +11,7 @@ import slugify from 'slugify';
  * @property {string=} documentGuid
  * @property {string=} step
  * @property {string=} query
- * @property {DocumentationCategory=} documentationCategory
+ * @property {Partial<DocumentationCategory>=} documentationCategory
  */
 
 /**
@@ -78,6 +78,8 @@ export const url = (key, filterArguments = {}) => {
 			return `${domainUrl}/case/${caseId}/project-documentation/${documentationCategory}/${step}`;
 		case 'document-download':
 			return `/documents/${caseId}/download/${documentGuid}/${isPreviewActive ? 'preview' : ''}`;
+		case 'documents-queue':
+			return `${domainUrl}/case/${caseId}/project-documentation/publishing-queue`;
 		case 'search-results':
 			return `${domainUrl}/search-results/${step}?q=${query}`;
 		default:

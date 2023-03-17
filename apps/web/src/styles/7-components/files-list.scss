@@ -81,16 +81,18 @@
 
   &__table {
 
-	tr:nth-child(1) td:nth-child(1) {
-	  vertical-align: middle;
-	}
+	&:not([class*="publish"]) {
+		tr:nth-child(1) td:nth-child(1) {
+		vertical-align: middle;
+		}
 
-	td:nth-child(1) {
-	  width: 2.6rem;
-	}
+		td:nth-child(1) {
+		width: 2.6rem;
+		}
 
-	td:nth-child(2) {
-	  width: 19rem;
+		td:nth-child(2) {
+		width: 19rem;
+		}
 	}
 
 	.govuk-table__row--disabled {
@@ -100,10 +102,12 @@
 	  }
 	}
 
-	.govuk-table__cell {
-		a,
-		p {
-			word-break: break-all;
+	&:not([class*="publish"]) {
+		.govuk-table__cell {
+			a,
+			p {
+				word-break: break-all;
+			}
 		}
 	}
 

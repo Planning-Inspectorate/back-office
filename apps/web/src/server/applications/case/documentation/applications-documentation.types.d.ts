@@ -5,16 +5,18 @@ import {
 } from '../../../applications.types';
 import { ValidationErrors } from '@pins/express';
 
+export interface PaginationButtons {
+	previous?: { href: string };
+	next?: { href: string };
+	items: { number: number; href: string; current: boolean }[];
+}
+
 export interface CaseDocumentationProps {
 	subFolders: DocumentationCategory[] | null;
 	documentationFiles: PaginatedResponse<DocumentationFile>;
 	pagination: {
 		dropdownItems: { value: number; text: number; selected: boolean }[];
-		buttons: {
-			previous?: { href: string };
-			next?: { href: string };
-			items: { number: number; href: string; current: boolean }[];
-		};
+		buttons: PaginationButtons;
 	};
 	errors?: ValidationErrors;
 }
