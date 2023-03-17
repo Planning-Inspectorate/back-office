@@ -7,6 +7,8 @@ import slugify from 'slugify';
  * @typedef {object} urlFilterArguments
  * @property {DomainType=} domainType
  * @property {number=} caseId
+ * @property {number=} folderId
+ * @property {string=} documentGuid
  * @property {string=} step
  * @property {string=} query
  * @property {DocumentationCategory=} documentationCategory
@@ -24,7 +26,6 @@ const getArgument = (argumentName, filterArguments) => {
 	return argument ? `${argument}` : '';
 };
 
-// TODO: handle subfolders
 /**
  *
  * @param {urlFilterArguments} filterArguments
@@ -71,6 +72,8 @@ export const url = (key, filterArguments = {}) => {
 			return `${domainUrl}/${domainType}`;
 		case 'document':
 			return `${domainUrl}/case/${caseId}/project-documentation/${folderId}/document/${documentGuid}/${step}`;
+		case 'document-edit':
+			return `${domainUrl}/case/${caseId}/project-documentation/${folderId}/document/${documentGuid}/edit/${step}`;
 		case 'document-category':
 			return `${domainUrl}/case/${caseId}/project-documentation/${documentationCategory}/${step}`;
 		case 'document-download':
