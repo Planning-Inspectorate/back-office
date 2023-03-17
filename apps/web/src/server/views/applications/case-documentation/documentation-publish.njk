@@ -1,0 +1,130 @@
+{% extends "../layouts/applications.layout.njk" %}
+
+{% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/pagination/macro.njk" import govukPagination %}
+
+{% block beforeContent %}
+    {{ govukBackLink({
+		text: "Back",
+		href: backLink
+	}) }}
+{% endblock %}
+
+{% block pageHeading %}{% endblock %}
+
+{% block pageContent %}
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full govuk-!-margin-top-0">
+            {% block sectionContent %}
+                <h1 class="govuk-heading-l govuk-!-margin-top-2 govuk-!-margin-bottom-9">
+                    <span class="govuk-caption-m">Publishing queue</span>
+                    Select documents for publishing
+                </h1>
+                <ul class="govuk-list">
+                    <li>
+                        <span class='font-weight--700'>Case name:</span>
+                        {{ case.title }}
+                    </li>
+                    <li>
+                        <span class='font-weight--700'>Case reference:</span>
+                        {{ case.reference }}
+                    </li>
+                </ul>
+                <p class='govuk-body govuk-!-margin-top-6'>
+                    The queue contains {{ documentationFiles.itemCount }} document(s).
+										Showing {{ ((documentationFiles.page - 1) * documentationFiles.pageDefaultSize) + 1 }}
+										- {{ ((documentationFiles.page - 1) * documentationFiles.pageDefaultSize) +  documentationFiles.items.length }}
+										document(s).
+                </p>
+                <p class='govuk-body font-weight--700'>
+                    0 documents on this page are selected.
+                </p>
+                <form class="pins-files-list" method="post">
+                    <table class="govuk-table pins-files-list__table pins-files-list__table-publish pins-table">
+                        <thead class="govuk-table__head govuk-body-s">
+                            <tr class="govuk-table__row">
+                                <th scope="col" class="govuk-table__header">Select</th>
+                                <th scope="col" class="govuk-table__header">Document information</th>
+                                <th scope="col" class="govuk-table__header">Properties</th>
+                                <th scope="col" class="govuk-table__header">Actions</th>
+                                <th scope="col" class="govuk-table__header">Remove</th>
+                            </tr>
+                        </thead>
+                        <tbody class="govuk-table__body govuk-body-s">
+                            <tr class="govuk-table__row">
+                                <td class="govuk-table__cell">
+                                    {{ govukCheckboxes({
+											name: "selectAll",
+											items: [
+												{
+													value: true,
+													text: 'Select all'
+												}]
+										}) }}
+                                </td>
+                                <td class="govuk-table__cell" colspan="5">
+                                    <p>Select all documents on page</p>
+                                </td>
+                            </tr>
+                            {% for documentationFile in documentationFiles.items %}
+                                <tr class="govuk-table__row">
+                                    <td class="govuk-table__cell">
+                                        {{ govukCheckboxes({
+													name: "selectedFilesIds[]",
+													items: [
+														{
+															id: 'checkbox-id-' + documentationFile.documentGuid,
+															value: documentationFile.documentGuid,
+															text: documentationFile.fileName,
+															label: 'select ' + documentationFile.fileName
+														}]
+												}) }}
+                                    </td>
+                                    <td class="govuk-table__cell">
+                                        <p class='font-weight--700 govuk-body-m'>{{ documentationFile.description }}</p>
+                                        <p class="file-info">
+                                            File name: {{ documentationFile.fileName }}
+                                        </p>
+                                        <p class="file-info">
+                                            From: {{ documentationFile.author }}
+                                        </p>
+                                        {% if documentationFile.representative %}
+                                            <p class="file-info">
+                                                Agent: {{ documentationFile.representative }}
+                                            </p>
+                                        {% endif %}
+                                    </td>
+                                    <td class="govuk-table__cell">
+                                        <p class="file-info colour--secondary">
+                                            Case stage: {{ documentationFile.stage }}
+                                        </p>
+                                        <p class="file-info colour--secondary">
+                                            Webfilter: {{ documentationFile.filter1 }}
+                                        </p>
+                                        <p class="file-info colour--secondary">
+                                            {{ documentationFile.mime|fileType }},
+                                            {{ documentationFile.size|fileSize }}
+                                        </p>
+                                    </td>
+                                    <td class="govuk-table__cell">
+                                        <a href="{{ 'document'|url({caseId: caseId, folderId: documentationFile.folderId, documentGuid: documentationFile.documentGuid, step: 'properties'}) }}" class='govuk-link govuk-body-s'>
+                                            View/Edit properties
+                                        </a>
+                                    </td>
+                                    <td class="govuk-table__cell">
+                                        <a href="{{ 'document'|url({caseId: caseId, folderId: documentationFile.folderId, documentGuid: documentationFile.documentGuid, step: 'properties'}) }}" class='govuk-link govuk-body-s'>
+                                            Remove
+                                        </a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                    {{ govukButton({ text: 'Publish documents' }) }}
+                    {{ govukPagination(paginationButtons) }}
+                </form>
+            {% endblock %}
+        </div>
+    </div>
+{% endblock %}

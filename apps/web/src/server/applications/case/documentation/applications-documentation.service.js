@@ -1,3 +1,4 @@
+import { fixturePaginatedDocumentationFiles } from '@pins/web/testing/applications/fixtures/documentation-files.js';
 import { get, patch, post } from '../../../lib/request.js';
 
 /**
@@ -119,4 +120,19 @@ export const deleteCaseDocumentationFile = async (caseId, documentGuid, fileName
 	}
 
 	return response;
+};
+
+/**
+ * Get the documents for the current folder
+ *
+ * @param {number} caseId
+ * @param {number} pageNumber
+ * @returns {Promise<PaginatedDocumentationFiles>}
+ */
+export const getCaseDocumentationReadyToPublish = async (caseId, pageNumber) => {
+	return new Promise((resolve) => {
+		if (caseId) {
+			resolve(fixturePaginatedDocumentationFiles(pageNumber, 125));
+		}
+	});
 };
