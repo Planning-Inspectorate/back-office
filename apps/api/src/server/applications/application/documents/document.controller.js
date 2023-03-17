@@ -2,8 +2,12 @@ import { pick } from 'lodash-es';
 import * as documentRepository from '../../../repositories/document.repository.js';
 import * as documentVersionRepository from '../../../repositories/document-metadata.repository.js';
 import BackOfficeAppError from '../../../utils/app-error.js';
+import { getPageCount, getSkipValue } from '../../../utils/database-pagination.js';
 import logger from '../../../utils/logger.js';
-import { mapSingleDocumentDetailsFromVersion } from '../../../utils/mapping/map-document-details.js';
+import {
+	mapDocumentVersionDetails,
+	mapSingleDocumentDetailsFromVersion
+} from '../../../utils/mapping/map-document-details.js';
 import { applicationStates } from '../../state-machine/application.machine.js';
 import {
 	obtainURLsForDocuments,
@@ -161,15 +165,30 @@ export const storeDocumentVersion = async (request, response) => {
 /**
  * Gets paginated array of documents in a folder
  *
- * @type {import('express').RequestHandler<{ publishedStatus: string }, ?, {pageNumber?: number, pageSize?: number}, any>}
+ * @type {import('express').RequestHandler<{ folderId: number }, ?, {pageNumber?: number, pageSize?: number}, any>}
  */
 export const getReadyToPublishDocuments = async ({ body }, response) => {
-	const { pageNumber, pageSize } = body;
+	const { pageNumber = 1, pageSize = 125 } = body;
+	const skipValue = getSkipValue(pageNumber, pageSize);
 
-	const documentVersion = documentVersionRepository.getReadyPublishDocuments;
+	const paginatedReadyToPublishDocuments = await documentRepository.getDocumentsReadyPublishStatus({
+		skipValue,
+		pageSize
+	});
 
-	const paginatedDocuments = await documentRepository.getDocumentsInFolder(pageNumber, pageSize);
+	const documentsCount = await documentRepository.getDocumentsCountInByPublishStatus();
 
-	// response.send(paginatedDocuments);
-	response.send(documentVersion, paginatedDocuments);
+	// @ts-ignore
+	const mapDocument = paginatedReadyToPublishDocuments.map(({ documentVersion, ...Document }) => ({
+		Document,
+		...documentVersion[0]
+	}));
+
+	response.send({
+		page: pageNumber,
+		pageDefaultSize: pageSize,
+		pageCount: getPageCount(documentsCount, pageSize),
+		itemCount: documentsCount,
+		items: mapDocumentVersionDetails(mapDocument)
+	});
 };
