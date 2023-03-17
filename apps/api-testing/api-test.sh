@@ -19,4 +19,5 @@ npm run swagger-autogen
 
 echo "Creating schema files and starting test..."
 cd ../api-testing
-npm run init-test
+npm run init-test && npm run test
+

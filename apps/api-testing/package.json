@@ -4,10 +4,11 @@
 	"description": "API Tests for the Back Office Application",
 	"main": "index.js",
 	"scripts": {
-		"pretest": "./api-test.sh",
+		"start:test": "./api-test.sh",
 		"schemas:clean": "rm -rf ./schemas",
 		"test": "mocha 'tests/**/*.test.js'",
 		"init-test": "node utils/generate-schema.js"
+
 	},
 	"license": "ISC",
 	"dependencies": {
