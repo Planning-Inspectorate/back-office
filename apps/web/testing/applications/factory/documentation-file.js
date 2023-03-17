@@ -78,6 +78,7 @@ export function createDocumentationFile(options = {}) {
 	];
 
 	return {
+		folderId: 11,
 		documentGuid,
 		filter1,
 		fileName,
