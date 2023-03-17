@@ -38,7 +38,7 @@
 										document(s).
                 </p>
                 <p class='govuk-body font-weight--700'>
-                    0 documents on this page are selected.
+                    <span id="selectedFilesNumber">0</span> document(s) on this page are selected.
                 </p>
                 <form class="pins-files-list" method="post">
                     <table class="govuk-table pins-files-list__table pins-files-list__table-publish pins-table">
@@ -113,7 +113,7 @@
                                         </a>
                                     </td>
                                     <td class="govuk-table__cell">
-                                        <a href="{{ 'document'|url({caseId: caseId, folderId: documentationFile.folderId, documentGuid: documentationFile.documentGuid, step: 'properties'}) }}" class='govuk-link govuk-body-s'>
+                                        <a href="{{ 'document'|url({caseId: caseId, folderId: documentationFile.folderId, documentGuid: documentationFile.documentGuid, step: 'remove-from-publishing-queue'}) }}" class='govuk-link govuk-body-s'>
                                             Remove
                                         </a>
                                     </td>
