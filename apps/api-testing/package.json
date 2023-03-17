@@ -5,7 +5,7 @@
 	"main": "index.js",
 	"scripts": {
 		"pretest": "./api-test.sh",
-		"posttest": "rm -rf ./schemas",
+		"schemas:clean": "rm -rf ./schemas",
 		"test": "mocha 'tests/**/*.test.js'",
 		"init-test": "node utils/generate-schema.js"
 	},

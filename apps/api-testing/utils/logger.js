@@ -17,7 +17,7 @@ export class Logger {
 			case 'cyan':
 				return `\u001B[36m${value}\u001B[0m`;
 			default:
-				return `\u001B[32m${value}\u001B[0m`;
+				return `\u001B[37m${value}\u001B[0m`;
 		}
 	}
 

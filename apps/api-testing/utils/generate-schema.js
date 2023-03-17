@@ -1,48 +1,59 @@
 // @ts-nocheck
-import fs from 'node:fs';
+import fs from 'node:fs/promises';
 import json from '../../../apps/api/src/server/swagger-output.json' assert { type: 'json' };
 
-/**
- *
- * @param {JSON} swaggerJson
- * @returns {void}
- */
-async function extractPathsAndSchemas(swaggerJson) {
-	const pathsAndSchemas = {};
+const extractSwaggerInfo = (swaggerDoc) => {
+	const extractedData = [];
 
-	for (const [path, pathObject] of Object.entries(swaggerJson.paths)) {
-		for (const [method, methodObject] of Object.entries(pathObject)) {
-			const response = methodObject.responses?.['200'];
+	for (const [path, methods] of Object.entries(swaggerDoc.paths)) {
+		for (const [method, schema] of Object.entries(methods)) {
+			const { responses = {}, parameters = [] } = schema;
 
-			if (response?.schema) {
-				const { schema } = response;
+			const responseSchemas = Object.entries(responses).reduce((acc, [key, response]) => {
+				const responseSchema = response.schema || {};
+				const responseSchemaResolved = resolveSchemaRefs(swaggerDoc, responseSchema);
+				return { ...acc, [key]: responseSchemaResolved };
+			}, {});
 
-				if (schema?.$ref) {
-					const referenceSchema = await getDefinitionSchema(swaggerJson, schema.$ref);
-
-					if (referenceSchema) {
-						pathsAndSchemas[path] = referenceSchema;
-					}
+			const parameterSchemas = parameters.map((param) => {
+				if (param.hasOwnProperty('$ref')) {
+					const ref = param.$ref;
+					const [_, paramName] = ref.split('#/parameters/');
+					return resolveSchemaRefs(swaggerDoc, swaggerDoc.parameters[paramName].schema);
 				} else {
-					pathsAndSchemas[path] = schema;
+					return resolveSchemaRefs(swaggerDoc, param.schema);
 				}
-			}
+			});
+
+			extractedData.push({
+				path,
+				method,
+				responses: responseSchemas,
+				parameters: parameterSchemas
+			});
 		}
 	}
-	fs.writeFileSync('./schemas/schema.json', JSON.stringify(pathsAndSchemas));
-}
 
-/**
- *
- * @param {JSON} swaggerJson
- * @param {string} reference
- * @returns {object}
- */
-function getDefinitionSchema(swaggerJson, reference) {
-	const definitionKey = reference.split('/').pop();
-	const definition = swaggerJson.definitions[definitionKey];
+	return extractedData;
+};
 
-	return definition;
-}
+const resolveSchemaRefs = (swaggerDoc, schema) => {
+	if (schema && schema.hasOwnProperty('$ref')) {
+		const ref = schema.$ref;
+		const [_, definitionName] = ref.split('#/definitions/');
+		return { schema: swaggerDoc.definitions[definitionName] };
+	}
+	return { schema };
+};
 
-void extractPathsAndSchemas(json);
+(async () => {
+	const swaggerDoc = json;
+	const extractedData = extractSwaggerInfo(swaggerDoc);
+
+	for (const data of extractedData) {
+		const json = JSON.stringify(data, null, 2);
+
+		const fileName = data.path.replace(/^\/|\/$/g, '').replace(/\//g, '-');
+		await fs.writeFile(`./schemas/${fileName}-${data.method}.json`, json);
+	}
+})();

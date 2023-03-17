@@ -11,6 +11,7 @@ create_folder() {
 }
 
 create_folder "schemas"
+sleep 1
 
 cd ../api
 echo "Generating swagger..."

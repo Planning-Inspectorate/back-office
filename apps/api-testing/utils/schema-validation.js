@@ -1,6 +1,7 @@
 // @ts-nocheck
 import Ajv from 'ajv';
 import { Logger } from './logger.js';
+import { expect } from 'chai';
 
 const logger = new Logger();
 
@@ -22,10 +23,7 @@ export async function validateSchema(schema, responseBody) {
 	});
 
 	const validate = await ajv.compile(schema);
-
-	const valid = validate(responseBody);
-
-	if (!valid) logger.error(`Schema Validation Error: \n${JSON.stringify(validate.errors)}`);
-
-	return valid;
+	const isValid = validate(responseBody);
+	if (!isValid) logger.error(JSON.stringify(validate.errors, null, 2));
+	expect(isValid).to.be.true;
 }
