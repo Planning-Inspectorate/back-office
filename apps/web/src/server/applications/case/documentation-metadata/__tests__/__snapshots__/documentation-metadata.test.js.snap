@@ -293,7 +293,7 @@ exports[`Edit applications documentation metadata Edit name GET /case/123/projec
             <label class=\\"govuk-label font-weight--700\\" for=\\"fileName\\">What is the file name?</label>
             <div id=\\"fileName-hint\\" class=\\"govuk-hint\\">There is a limit of 255 characters</div>
             <input class=\\"govuk-input govuk-!-width-two-thirds  \\"
-            id=\\"fileName\\" name=\\"fileName\\" type=\\"text\\" value=\\"4 Laboris nisi ut aliquip ex ea.mpeg\\"
+            id=\\"fileName\\" name=\\"fileName\\" type=\\"text\\" value=\\"4 Laboris nisi ut aliquip ex ea\\"
             aria-describedby=\\"fileName-hint\\" maxlength=\\"255\\">
         </div>
         <div class=\\"govuk-grid-row\\">
@@ -329,7 +329,7 @@ exports[`Edit applications documentation metadata Edit name POST /case/123/proje
             <p id=\\"fileName-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> You must enter a file
                 name</p>
             <input class=\\"govuk-input govuk-!-width-two-thirds govuk-input--error\\"
-            id=\\"fileName\\" name=\\"fileName\\" type=\\"text\\" value=\\"4 Laboris nisi ut aliquip ex ea.mpeg\\"
+            id=\\"fileName\\" name=\\"fileName\\" type=\\"text\\" value=\\"4 Laboris nisi ut aliquip ex ea\\"
             aria-describedby=\\"fileName-hint\\" maxlength=\\"255\\">
         </div>
         <div class=\\"govuk-grid-row\\">
@@ -365,7 +365,7 @@ exports[`Edit applications documentation metadata Edit name POST /case/123/proje
             <p id=\\"fileName-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> The name must be 255
                 characters or fewer</p>
             <input class=\\"govuk-input govuk-!-width-two-thirds govuk-input--error\\"
-            id=\\"fileName\\" name=\\"fileName\\" type=\\"text\\" value=\\"4 Laboris nisi ut aliquip ex ea.mpeg\\"
+            id=\\"fileName\\" name=\\"fileName\\" type=\\"text\\" value=\\"4 Laboris nisi ut aliquip ex ea\\"
             aria-describedby=\\"fileName-hint\\" maxlength=\\"255\\">
         </div>
         <div class=\\"govuk-grid-row\\">

@@ -19,7 +19,10 @@ applicationsDocumentationRouter
 
 applicationsDocumentationRouter
 	.route('/publishing-queue')
-	.get(asyncRoute(controller.viewApplicationsCaseDocumentationPublishingQueue));
+	.get(
+		[assertDomainTypeIsNotInspector],
+		asyncRoute(controller.viewApplicationsCaseDocumentationPublishingQueue)
+	);
 
 applicationsDocumentationRouter
 	.route('/:folderId/:folderName')
