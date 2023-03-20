@@ -108,15 +108,18 @@ export class BlobStorageClient {
 
 	/**
 	 *
-	 * @param {string} currentContainer
-	 * @param {string} currentFilePath
-	 * @param {string} desiredContainer
-	 * @param {string} desiredFilePath
+	 * @param {{blobStorageHost: string, currentContainer: string, currentFilePath: string, desiredContainer: string, desiredFilePath: string}} blobStorageHost
 	 */
-	copyFile = async (currentContainer, currentFilePath, desiredContainer, desiredFilePath) => {
+	copyFile = async ({
+		blobStorageHost,
+		currentContainer,
+		currentFilePath,
+		desiredContainer,
+		desiredFilePath
+	}) => {
 		const blockBlobClient = this.#getBlockBlobClient(desiredContainer, desiredFilePath);
 
-		const currentBlobPath = `http://localhost:10000/devstoreaccount1/${currentContainer}/${currentFilePath}`;
+		const currentBlobPath = `${blobStorageHost}/${currentContainer}/${currentFilePath}`;
 
 		await blockBlobClient.syncCopyFromURL(currentBlobPath);
 		// console.log('downloading stream')

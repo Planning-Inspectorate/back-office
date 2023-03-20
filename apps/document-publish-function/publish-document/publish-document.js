@@ -12,10 +12,17 @@ export const publishDocument = async (context, documentToCopy, documentDestinati
 		config.DOCUMENT_STORAGE_CONNECTION_STRING
 	);
 
-	await blobStorageClient.copyFile(
-		documentToCopy.container,
-		documentToCopy.path,
-		documentDestination.container,
-		documentDestination.path
+	context.log.info(
+		`Copying document from ${JSON.stringify(documentToCopy)} to ${JSON.stringify(
+			documentDestination
+		)}`
 	);
+
+	await blobStorageClient.copyFile({
+		blobStorageHost: config.DOCUMENT_STORAGE_HOST,
+		currentContainer: documentToCopy.container,
+		currentFilePath: documentToCopy.path,
+		desiredContainer: documentDestination.container,
+		desiredFilePath: documentDestination.path
+	});
 };
