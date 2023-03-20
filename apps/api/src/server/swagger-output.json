@@ -1199,28 +1199,65 @@
 						"in": "path",
 						"required": true,
 						"type": "integer",
-						"description": "Application ID here"
+						"description": "Application ID"
 					}
 				],
 				"responses": {
 					"200": {
-						"description": "IDs of application",
+						"description": "Representations",
 						"schema": {
-							"type": "array",
-							"items": {
-								"type": "object",
-								"properties": {
-									"id": {
-										"type": "number",
-										"example": 1
-									},
-									"displayNameEn": {
-										"type": "string",
-										"example": "Post-decision"
-									},
-									"displayOrder": {
-										"type": "number",
-										"example": 1100
+							"type": "object",
+							"properties": {
+								"page": {
+									"type": "number",
+									"example": 1
+								},
+								"pageSize": {
+									"type": "number",
+									"example": 25
+								},
+								"pageCount": {
+									"type": "number",
+									"example": 1
+								},
+								"itemCount": {
+									"type": "number",
+									"example": 100
+								},
+								"items": {
+									"type": "array",
+									"items": {
+										"type": "object",
+										"properties": {
+											"id": {
+												"type": "number",
+												"example": 1
+											},
+											"reference": {
+												"type": "string",
+												"example": "BC0110001-2"
+											},
+											"status": {
+												"type": "string",
+												"example": "VALID"
+											},
+											"originalRepresentation": {
+												"type": "string",
+												"example": "I wish to object to this planning application."
+											},
+											"redactedRepresentation": {
+												"type": "string",
+												"example": "I wish to object to this planning application"
+											},
+											"edacted": {
+												"type": "boolean",
+												"example": true
+											},
+											"received": {
+												"type": "string",
+												"example": "2023-03-14T14:28:25.704Z"
+											}
+										}
 									}
 								}
 							},

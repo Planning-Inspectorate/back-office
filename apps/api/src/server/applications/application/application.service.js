@@ -213,13 +213,11 @@ export const getCaseDetails = async (id, query) => {
 
 /**
  *
- * @param {numbera} caseId
- * @returns {Promise<object[]>}
+ * @param {number} caseId
+ * @returns {Promise<{ count: number, items: any[]}>}
  */
 export const getCaseRepresentations = async (caseId) => {
-	const representations = await representationsRepository.getByCaseId(caseId);
-
-	return representations;
+	return representationsRepository.getByCaseId(caseId);
 };
 
 /**
