@@ -1,12 +1,11 @@
-// import { publishDocument } from './publish-document.js';
+import { publishDocument } from './publish-document.js';
 
 /**
  * @type {import('@azure/functions').AzureFunction}
  */
 export const index = async (context, myQueueItem) => {
-	// const { documentToCopy, documentDestination } = myQueueItem;
+	const { documentToCopy, documentDestination } = myQueueItem.body;
 
-	// await publishDocument(context, documentToCopy, documentDestination);
+	await publishDocument(context, documentToCopy, documentDestination);
 	context.log('Publishing document');
-	context.log(myQueueItem);
 };
