@@ -108,39 +108,12 @@ export class BlobStorageClient {
 
 	/**
 	 *
-	 * @param {{blobStorageHost: string, currentContainer: string, currentFilePath: string, desiredContainer: string, desiredFilePath: string}} blobStorageHost
+	 * @param {{currentContainer: string, currentFilePath: string, desiredContainer: string, desiredFilePath: string}} blobStorageHost
 	 */
-	copyFile = async ({
-		blobStorageHost,
-		currentContainer,
-		currentFilePath,
-		desiredContainer,
-		desiredFilePath
-	}) => {
-		const blockBlobClient = this.#getBlockBlobClient(desiredContainer, desiredFilePath);
+	copyFile = async ({ currentContainer, currentFilePath, desiredContainer, desiredFilePath }) => {
+		const currentBlockBlobClient = this.#getBlockBlobClient(desiredContainer, desiredFilePath);
+		const desiredBlockBlobClient = this.#getBlockBlobClient(currentContainer, currentFilePath);
 
-		const currentBlobPath = `${blobStorageHost}/${currentContainer}/${currentFilePath}`;
-
-		await blockBlobClient.syncCopyFromURL(currentBlobPath);
-		// console.log('downloading stream')
-
-		// const { readableStreamBody, blobType } = await this.downloadStream(
-		// 	currentContainer,
-		// 	currentFilePath
-		// );
-
-		// console.log('downloaded stream')
-
-		// if (!readableStreamBody) {
-		// 	throw new Error(`Document ${currentFilePath} not found in container ${currentContainer}`);
-		// }
-
-		// console.log('uploading stream')
-		// await this.uploadStream(
-		// 	desiredContainer,
-		// 	Readable.from(readableStreamBody),
-		// 	desiredFilePath,
-		// 	blobType
-		// );
+		await desiredBlockBlobClient.syncCopyFromURL(currentBlockBlobClient.url);
 	};
 }
