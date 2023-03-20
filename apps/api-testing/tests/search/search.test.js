@@ -24,7 +24,7 @@ describe('Applications - Search', () => {
 			await validateSchema(schema, results);
 		});
 
-		it('should allow case team memmbers to perform a search', async () => {
+		it('should allow case team members to perform a search', async () => {
 			const { body: results, statusCode } = await request.post({
 				payload: getPayload({ role: 'case-team' })
 			});
@@ -72,6 +72,25 @@ describe('Applications - Search', () => {
 	});
 
 	describe('Negative', () => {
+		it('should not return draft cases for inpectors', async () => {
+			//Todo: ensure there is at least one draft case in the database
+			const { body, statusCode } = await request.post({
+				payload: getPayload({ role: 'inspector' })
+			});
+			expect(statusCode).to.equal(200);
+			body.items.map((result) => {
+				expect(result.status.toLowerCase()).not.to.equal('draft');
+			});
+		});
+
+		it('should return a 403 error and relevant error message if the query parameter is missing or null', async () => {
+			const { body, statusCode } = await request.post({
+				payload: { query: null }
+			});
+			expect(statusCode).to.equal(403);
+			expect(body).to.deep.equal(invalidRoleError);
+		});
+
 		it('should return a 403 error and relevant error message if the query parameter is missing or null', async () => {
 			const { body, statusCode } = await request.post({
 				payload: { query: null }
