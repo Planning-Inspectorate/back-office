@@ -6,7 +6,7 @@ import { createTestEnvironment } from '../../../../../../testing/index.js';
 
 const { app, installMockApi, teardown } = createTestEnvironment();
 const request = supertest(app);
-const publishedDocumentation = fixtureDocumentationFiles[3];
+const publishedDocumentation = fixtureDocumentationFiles[6];
 
 const nocks = () => {
 	nock('http://test/').get('/applications/case-team').reply(200, {});
