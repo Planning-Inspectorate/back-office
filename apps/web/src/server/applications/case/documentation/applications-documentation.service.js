@@ -1,4 +1,3 @@
-import { fixturePaginatedDocumentationFiles } from '@pins/web/testing/applications/fixtures/documentation-files.js';
 import { get, patch, post } from '../../../lib/request.js';
 
 /**
@@ -151,9 +150,11 @@ export const deleteCaseDocumentationPublishinQueue = async (caseId, documentGuid
  * @returns {Promise<PaginatedDocumentationFiles>}
  */
 export const getCaseDocumentationReadyToPublish = async (caseId, pageNumber) => {
-	return new Promise((resolve) => {
-		if (caseId) {
-			resolve(fixturePaginatedDocumentationFiles(pageNumber, 125));
+	// TODO: this is a mock using (temporary) the wrong API
+	return post(`applications/${caseId}/folders/11/documents`, {
+		json: {
+			pageSize: 125,
+			pageNumber
 		}
 	});
 };
