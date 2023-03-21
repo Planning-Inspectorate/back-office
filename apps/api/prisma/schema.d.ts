@@ -20,7 +20,9 @@ export {
 	Document,
 	DocumentVersion,
 	DocumentUpdateInput,
-	DocumentVersionUpdateInput
+	DocumentVersionUpdateInput,
+	Representation,
+	RepresentationContact
 } from '@prisma/client';
 
 export interface Case extends schema.Case {

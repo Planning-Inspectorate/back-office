@@ -6,7 +6,7 @@ import logger from '../../utils/logger.js';
 import { mapCaseStatusString } from '../../utils/mapping/map-case-status-string.js';
 import { buildNsipProjectPayload } from './application.js';
 import { mapCreateApplicationRequestToRepository } from './application.mapper.js';
-import { getCaseDetails, startApplication } from './application.service.js';
+import { getCaseDetails, getCaseRepresentations, startApplication } from './application.service.js';
 /**
  *
  * @param {import('@pins/api').Schema.ServiceCustomer[] | undefined} serviceCustomers
@@ -77,6 +77,23 @@ export const getApplicationDetails = async ({ params, query }, response) => {
 	const applicationDetails = await getCaseDetails(params.id, query);
 
 	response.send(applicationDetails);
+};
+
+/**
+ *
+ * @type {import('express').RequestHandler<{id: number}, ?, ?, any>}
+ */
+export const getApplicationRepresentations = async ({ params }, response) => {
+	const itemsPerPage = 25;
+	const { count, items } = await getCaseRepresentations(params.id);
+
+	response.send({
+		page: 1,
+		pageSize: itemsPerPage,
+		pageCount: Math.ceil(Math.max(1, count) / itemsPerPage),
+		itemCount: count,
+		items
+	});
 };
 
 /**
