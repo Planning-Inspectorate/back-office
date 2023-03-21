@@ -1,18 +1,17 @@
 import { parseHtml } from '@pins/platform';
-import { fixtureDocumentationFiles } from '@pins/web/testing/applications/fixtures/documentation-files.js';
+import { fixturePublishedDocumentationFile } from '@pins/web/testing/applications/fixtures/documentation-files.js';
 import nock from 'nock';
 import supertest from 'supertest';
 import { createTestEnvironment } from '../../../../../../testing/index.js';
 
 const { app, installMockApi, teardown } = createTestEnvironment();
 const request = supertest(app);
-const publishedDocumentation = fixtureDocumentationFiles[6];
 
 const nocks = () => {
 	nock('http://test/').get('/applications/case-team').reply(200, {});
 	nock('http://test/')
 		.get('/applications/123/documents/456/properties')
-		.reply(200, publishedDocumentation);
+		.reply(200, fixturePublishedDocumentationFile);
 	nock('http://test/').post('/applications/123/documents/456/metadata').reply(200, {});
 };
 
@@ -55,7 +54,7 @@ describe('Edit applications documentation metadata', () => {
 
 					expect(element.innerHTML).toMatchSnapshot();
 					expect(element.innerHTML).toContain('Enter file name');
-					expect(element.innerHTML).toContain(publishedDocumentation.fileName);
+					expect(element.innerHTML).toContain(fixturePublishedDocumentationFile.fileName);
 				});
 			});
 		});
@@ -99,7 +98,7 @@ describe('Edit applications documentation metadata', () => {
 
 				expect(element.innerHTML).toMatchSnapshot();
 				expect(element.innerHTML).toContain('Description of the document');
-				expect(element.innerHTML).toContain(publishedDocumentation.description);
+				expect(element.innerHTML).toContain(fixturePublishedDocumentationFile.description);
 			});
 		});
 
@@ -140,7 +139,7 @@ describe('Edit applications documentation metadata', () => {
 
 				expect(element.innerHTML).toMatchSnapshot();
 				expect(element.innerHTML).toContain('Enter the name of the agent');
-				expect(element.innerHTML).toContain(publishedDocumentation.representative);
+				expect(element.innerHTML).toContain(fixturePublishedDocumentationFile.representative);
 			});
 		});
 
@@ -173,7 +172,7 @@ describe('Edit applications documentation metadata', () => {
 
 				expect(element.innerHTML).toMatchSnapshot();
 				expect(element.innerHTML).toContain('Enter the webfilter');
-				expect(element.innerHTML).toContain(publishedDocumentation.filter1);
+				expect(element.innerHTML).toContain(fixturePublishedDocumentationFile.filter1);
 			});
 		});
 
@@ -214,7 +213,7 @@ describe('Edit applications documentation metadata', () => {
 
 				expect(element.innerHTML).toMatchSnapshot();
 				expect(element.innerHTML).toContain('Enter who the document is from');
-				expect(element.innerHTML).toContain(publishedDocumentation.author);
+				expect(element.innerHTML).toContain(fixturePublishedDocumentationFile.author);
 			});
 		});
 
@@ -256,7 +255,7 @@ describe('Edit applications documentation metadata', () => {
 				expect(element.innerHTML).toMatchSnapshot();
 				expect(element.innerHTML).toContain('Select the redaction status');
 				expect(element.innerHTML).toContain(
-					`value="${publishedDocumentation.redactedStatus}" checked`
+					`value="${fixturePublishedDocumentationFile.redactedStatus}" checked`
 				);
 			});
 		});
