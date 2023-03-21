@@ -195,7 +195,7 @@ router.get(
 						status: 'VALID',
 						originalRepresentation: 'I wish to object to this planning application.',
 						redactedRepresentation: 'I wish to object to this planning application',
-						edacted: true,
+						redacted: true,
 						received: '2023-03-14T14:28:25.704Z'
 					}
 				]
