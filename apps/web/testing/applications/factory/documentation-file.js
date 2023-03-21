@@ -1,4 +1,3 @@
-import { fake } from '@pins/platform';
 import { createRandomDescription, createUniqueRandomNumberFromSeed } from './util.js';
 
 /** @typedef {import('../../../src/server/applications/applications.types').DocumentationFile} DocumentationFile */
@@ -9,7 +8,7 @@ import { createRandomDescription, createUniqueRandomNumberFromSeed } from './uti
  * @returns {DocumentationFile}
  */
 export function createDocumentationFile(options = {}) {
-	const documentGuid = options.documentGuid ?? `${fake.createUniqueId()}`;
+	const documentGuid = `${options.documentGuid}`;
 	const uniqueSeed = Number.parseInt(documentGuid, 10);
 
 	const dateCreated = 1_669_916_924;

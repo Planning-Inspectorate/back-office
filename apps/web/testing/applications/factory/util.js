@@ -1,5 +1,6 @@
 import { fake } from '@pins/platform';
 import { random } from 'lodash-es';
+import pino from '../../../src/server/lib/logger.js';
 
 /**
  * @param {{prefix: string}} [options={prefix: 'APP'}]
@@ -28,6 +29,13 @@ export const createUniqueRandomNumberFromSeed = (min, max, seed) => {
 
 	const randomFloat =
 		Number.parseInt([...date.getTime().toString()].reverse().slice(-4).join(''), 10) / 10_000;
+
+	if ((seed === 87 || seed === 109 || seed === 190 || seed === 131) && max === 8) {
+		pino.info(`seed: ${seed}, ${date.getTime().toString()}`);
+		pino.info(
+			`seed: ${seed}, ${randomFloat}, ${randomFloat * max}, ${Math.floor(randomFloat * max)}`
+		);
+	}
 
 	return Math.floor(randomFloat * max) + min;
 };
