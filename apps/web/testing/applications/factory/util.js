@@ -23,7 +23,7 @@ export const createCaseReference = ({ prefix = 'APP' }) =>
  * @returns {number}
  */
 export const createUniqueRandomNumberFromSeed = (min, max, seed) => {
-	const date = new Date('2000-01-01');
+	const date = new Date(Date.UTC(2000, 1, 1, 3, 0, 0));
 
 	date.setDate(date.getDate() + seed);
 
