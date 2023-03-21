@@ -122,7 +122,10 @@
                         </tbody>
                     </table>
                     {{ govukButton({ text: 'Publish documents' }) }}
-                    {{ govukPagination(paginationButtons) }}
+
+					{% if documentationFiles.itemCount > 125 %}
+                    	{{ govukPagination(paginationButtons) }}
+					{% endif %}
                 </form>
             {% endblock %}
         </div>
