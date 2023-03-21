@@ -35,14 +35,18 @@ const nocks = (/** @type {string} */ domainType) => {
 		.get('/applications/123/folders/21/sub-folders')
 		.times(2)
 		.reply(200, fixtureDocumentationSubFolders);
+
+	// published doc
 	nock('http://test/')
 		.get('/applications/123/documents/100/properties')
 		.times(2)
-		.reply(200, fixtureDocumentationFiles[3]);
+		.reply(200, fixtureDocumentationFiles[6]);
+
+	// ready_to_publish doc
 	nock('http://test/')
 		.get('/applications/123/documents/90/properties')
 		.times(2)
-		.reply(200, fixtureDocumentationFiles[89]);
+		.reply(200, fixtureDocumentationFiles[11]);
 	nock('http://test/')
 		.post('/applications/123/documents/100/delete')
 		.times(2)
