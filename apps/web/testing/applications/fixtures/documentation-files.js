@@ -10,6 +10,16 @@ export const fixtureDocumentationFiles = [...Array.from({ length: 200 }).keys()]
 	createDocumentationFile({ documentGuid: `${index}` })
 );
 
+/** @type {DocumentationFile} */
+export const fixturePublishedDocumentationFile =
+	fixtureDocumentationFiles.find((document) => document.publishedStatus === 'published') ||
+	fixtureDocumentationFiles[0];
+
+/** @type {DocumentationFile} */
+export const fixtureReadyToPublishDocumentationFile =
+	fixtureDocumentationFiles.find((document) => document.publishedStatus === 'ready_to_publish') ||
+	fixtureDocumentationFiles[0];
+
 /**
  *
  * @param {number} page

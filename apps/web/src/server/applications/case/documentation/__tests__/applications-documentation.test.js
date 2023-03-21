@@ -3,8 +3,9 @@ import nock from 'nock';
 import supertest from 'supertest';
 import { fixtureCases } from '../../../../../../testing/applications/fixtures/cases.js';
 import {
-	fixtureDocumentationFiles,
-	fixturePaginatedDocumentationFiles
+	fixturePaginatedDocumentationFiles,
+	fixturePublishedDocumentationFile,
+	fixtureReadyToPublishDocumentationFile
 } from '../../../../../../testing/applications/fixtures/documentation-files.js';
 import {
 	fixtureDocumentationFolderPath,
@@ -36,17 +37,15 @@ const nocks = (/** @type {string} */ domainType) => {
 		.times(2)
 		.reply(200, fixtureDocumentationSubFolders);
 
-	// published doc
 	nock('http://test/')
 		.get('/applications/123/documents/100/properties')
 		.times(2)
-		.reply(200, fixtureDocumentationFiles[6]);
+		.reply(200, fixturePublishedDocumentationFile);
 
-	// ready_to_publish doc
 	nock('http://test/')
 		.get('/applications/123/documents/90/properties')
 		.times(2)
-		.reply(200, fixtureDocumentationFiles[11]);
+		.reply(200, fixtureReadyToPublishDocumentationFile);
 	nock('http://test/')
 		.post('/applications/123/documents/100/delete')
 		.times(2)

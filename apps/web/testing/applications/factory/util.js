@@ -23,14 +23,16 @@ export const createCaseReference = ({ prefix = 'APP' }) =>
  * @returns {number}
  */
 export const createUniqueRandomNumberFromSeed = (min, max, seed) => {
-	const date = new Date(Date.UTC(2000, 1, 1, 0, 0, 0));
+	const date = new Date(Date.UTC(2000, 0, 0, 0, 0, 0));
 
-	date.setDate(date.getDate() + seed);
+	date.setDate(date.getDate() + (1 + seed) * (1 + seed) * (1 + seed));
 
 	const randomFloat =
-		Number.parseInt([...date.getTime().toString()].reverse().slice(-4).join(''), 10) / 10_000;
+		Number.parseInt([...date.getTime().toString()].reverse().slice(-3).join(''), 10) / 1000;
 
 	if ((seed === 87 || seed === 109 || seed === 190 || seed === 131) && max === 8) {
+		// if ((seed === 87 || seed === 88) && max === 8) {
+
 		pino.info(`seed: ${seed}, ${date.getTime().toString()}`);
 		pino.info(
 			`seed: ${seed}, ${randomFloat}, ${randomFloat * max}, ${Math.floor(randomFloat * max)}`
