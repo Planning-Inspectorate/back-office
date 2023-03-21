@@ -81,12 +81,10 @@ export const deleteDocument = (documentGuid) => {
 
 /**
  *
- * @param {number} folderId
- * @param {number} skipValue
- * @param {number} pageSize
+ * @param {{folderId: number, skipValue: number, pageSize: number, documentVersion?: number}} folderId
  * @returns {import('@prisma/client').PrismaPromise<import('@pins/api').Schema.Document[]>}
  */
-export const getDocumentsInFolder = (folderId, skipValue, pageSize) => {
+export const getDocumentsInFolder = ({ folderId, skipValue, pageSize, documentVersion = 1 }) => {
 	return databaseConnector.document.findMany({
 		include: {
 			documentVersion: true,
@@ -99,7 +97,14 @@ export const getDocumentsInFolder = (folderId, skipValue, pageSize) => {
 				createdAt: 'desc'
 			}
 		],
-		where: { folderId }
+		where: {
+			folderId,
+			documentVersion: {
+				some: {
+					version: documentVersion
+				}
+			}
+		}
 	});
 };
 /**
@@ -109,6 +114,9 @@ export const getDocumentsInFolder = (folderId, skipValue, pageSize) => {
  */
 export const getByDocumentGUID = (documentGUID) => {
 	return databaseConnector.document.findUnique({
+		include: {
+			documentVersion: true
+		},
 		where: {
 			guid: documentGUID
 		}
@@ -121,6 +129,10 @@ export const getByDocumentGUID = (documentGUID) => {
  */
 export const updateDocumentStatus = ({ guid, status }) => {
 	return databaseConnector.document.update({
+		include: {
+			documentVersion: true,
+			folder: true
+		},
 		where: { guid },
 		data: { status }
 	});

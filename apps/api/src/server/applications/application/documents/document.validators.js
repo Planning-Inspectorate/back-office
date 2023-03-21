@@ -80,7 +80,7 @@ export const validateDocumentVersionMetatdataBody = (documentVersonEventBody) =>
 			.string()
 			.valid(...originEnum.values())
 			.optional(),
-		representative: joi.string().optional(),
+		representative: joi.string().allow('').optional(),
 		description: joi.string().optional(),
 		documentGuid: joi.string().optional(),
 		owner: joi.string().optional(),

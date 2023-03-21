@@ -10,7 +10,7 @@
 {% block beforeContent %}
     {{ govukBackLink({
 		text: "Back",
-		href: 'document'|url({caseId: caseId, folderId: folderId, documentGuid: documentationFile.guid, step: "properties"})
+		href: 'document'|url({caseId: caseId, folderId: folderId, documentGuid: documentationFile.documentGuid, step: "properties"})
 	}) }}
 {% endblock %}
 {% block pageHeading %}{% endblock %}
@@ -36,13 +36,13 @@
     <div class="{% if errors %}pins-table--error {% endif %}govuk-grid-row">
         <form action='' method='post' class="govuk-grid-column-full govuk-!-margin-top-0">
             <h1 class="govuk-heading-l">{{ serviceName }}</h1>
-            <input type="hidden" value="{{ documentationFile.status }}" name="status"/> {% set documentNameHtml %}
+            <input type="hidden" value="{{ documentationFile.status }}" name="status"/> {% set fileNameHtml %}
             {% if errors %}
                 <p class='govuk-body font-weight--700 colour--red govuk-!-margin-bottom-0'>
                     Your document could not be deleted, please try again
                 </p>
             {% endif %}
-            {{ documentationFile.documentName }}
+            {{ documentationFile.fileName }}
             {% endset %}
             {{ govukTable({
 				captionClasses: "govuk-table__caption--m",
@@ -57,7 +57,7 @@
 				rows: [
 					[
 						{
-							html: documentNameHtml
+							html: fileNameHtml
 						},
 						{
 							text: documentationFile.from

@@ -2,7 +2,7 @@ import {
 	getSessionApplicationsDomainType,
 	setSessionApplicationsDomainType
 } from './applications-session.service.js';
-import { getCase } from './lib/services/case.service.js';
+import { getCase } from './common/services/case.service.js';
 
 /** @typedef {import('./applications.router').DomainParams} DomainParams */
 /** @typedef {import('./applications.types').DomainType} DomainType */

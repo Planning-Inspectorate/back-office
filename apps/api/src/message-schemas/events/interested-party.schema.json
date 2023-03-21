@@ -4,7 +4,7 @@
 	"title": "interested-party",
 	"description": "Subset of Pins Data Model [Service User]",
 	"type": "object",
-	"required": ["id", "interestedPartyNo"],
+	"required": ["id"],
 	"properties": {
 		"id": {
 			"type": "number",
@@ -22,12 +22,27 @@
 			"type": "string",
 			"examples": ["Turing"]
 		},
-		"name": {
+		"under18": {
+			"type": "boolean"
+		},
+		"organisationName": {
 			"title": "Name",
 			"type": "string",
 			"default": "",
 			"examples": ["National Highways"],
 			"pattern": "^.*$"
+		},
+		"contactMethod": {
+			"type": "string",
+			"enum": ["email", "post"]
+		},
+		"emailAddress": {
+			"type": "string",
+			"examples": ["alan.turing@planninginspectorate.gov.uk"]
+		},
+		"telephone": {
+			"type": "string",
+			"examples": ["0137732432"]
 		},
 		"address": {
 			"title": "Address",

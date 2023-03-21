@@ -93,15 +93,20 @@ export interface CaseCreateProps<BodyValues> {
 }
 
 export interface DocumentationFile {
-	guid: string;
-	documentName: string;
-	url: string;
-	from: string;
-	receivedDate: number;
+	documentGuid: string;
+	fileName: string;
+	description: string;
+	dateCreated: number;
+	datePublished?: number;
 	size: number;
-	type: string;
-	status: string;
-	redacted: boolean;
+	mime: string;
+	publishedStatus: string;
+	redactedStatus: string;
 	blobStorageContainer?: string;
 	blobStoragePath?: string;
+	filter1: string;
+	author: string;
+	representative: string;
+	stage: string;
+	documentType: string;
 }

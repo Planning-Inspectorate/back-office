@@ -83,6 +83,7 @@ model Case {
   folder             Folder[]
   gridReference      GridReference?
   serviceCustomer    ServiceCustomer[]
+  Representation     Representation[]
 }
 
 model ServiceCustomer {
@@ -164,14 +165,15 @@ model SubSector {
 }
 
 model Address {
-  id              Int               @id @default(autoincrement())
-  addressLine1    String?
-  addressLine2    String?
-  postcode        String?
-  county          String?
-  town            String?
-  Appeal          Appeal[]
-  ServiceCustomer ServiceCustomer[]
+  id                    Int                     @id @default(autoincrement())
+  addressLine1          String?
+  addressLine2          String?
+  postcode              String?
+  county                String?
+  town                  String?
+  Appeal                Appeal[]
+  ServiceCustomer       ServiceCustomer[]
+  RepresentationContact RepresentationContact[]
 }
 
 model ValidationDecision {
@@ -277,9 +279,10 @@ model InspectorDecision {
 }
 
 model User {
-  id             Int      @id @default(autoincrement())
-  azureReference Int?     @unique
+  id             Int              @id @default(autoincrement())
+  azureReference Int?             @unique
   appeal         Appeal[]
+  Representation Representation[]
 }
 
 model ZoomLevel {
@@ -317,9 +320,10 @@ model Document {
   fileSize             Int?              @default(0)
   fileType             String?
   isDeleted            Boolean           @default(false)
-  versionId            Int?              @unique
+  representationId     Int?
   folder               Folder            @relation(fields: [folderId], references: [id])
   documentVersion      DocumentVersion[]
+  Representation       Representation?   @relation(fields: [representationId], references: [id], onUpdate: NoAction, onDelete: NoAction)
 
   @@unique([name, folderId])
 }
@@ -362,4 +366,38 @@ model DocumentVersion {
   @@id([documentGuid, version])
   @@index([filter1], map: "filter1")
   @@index([documentGuid], map: "documentGuid")
+}
+
+model Representation {
+  id                     Int                     @id @default(autoincrement())
+  reference              String
+  caseId                 Int
+  status                 String
+  originalRepresentation String                  @db.NText
+  redactedRepresentation String?                 @db.NText
+  redacted               Boolean                 @default(false)
+  userId                 Int?
+  received               DateTime                @default(now())
+  case                   Case                    @relation(fields: [caseId], references: [id])
+  user                   User?                   @relation(fields: [userId], references: [id])
+  contacts               RepresentationContact[]
+  attachments            Document[]
+
+  @@index([reference], name: "reference")
+}
+
+model RepresentationContact {
+  id               Int            @id @default(autoincrement())
+  representationId Int
+  firstName        String?
+  lastName         String?
+  jobTitle         String?
+  isOver18         Boolean
+  type             String // AGENT|PERSON|ORGANISATION|FAMILY_GROUP
+  organisationName String?
+  email            String?
+  phoneNumber      String?
+  addressId        Int?
+  address          Address?       @relation(fields: [addressId], references: [id])
+  Representation   Representation @relation(fields: [representationId], references: [id])
 }
