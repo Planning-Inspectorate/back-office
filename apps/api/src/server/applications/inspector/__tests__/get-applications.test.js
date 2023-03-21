@@ -36,16 +36,16 @@ describe('get applications', () => {
 				modifiedDate: 1_655_298_882,
 				reference: application.reference,
 				sector: {
-					abbreviation: 'BB',
-					displayNameCy: 'Sector Name Cy',
-					displayNameEn: 'Sector Name En',
-					name: 'sector'
+					name: 'business_and_commercial',
+					abbreviation: 'BC',
+					displayNameEn: 'Business and Commercial',
+					displayNameCy: 'Business and Commercial'
 				},
 				subSector: {
-					abbreviation: 'AA',
-					displayNameCy: 'Sub Sector Name Cy',
-					displayNameEn: 'Sub Sector Name En',
-					name: 'sub_sector'
+					name: 'office_use',
+					abbreviation: 'BC01',
+					displayNameEn: 'Office Use',
+					displayNameCy: 'Office Use'
 				},
 				status: 'Pre-Application'
 			}
