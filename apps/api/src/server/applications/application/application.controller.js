@@ -83,14 +83,16 @@ export const getApplicationDetails = async ({ params, query }, response) => {
  *
  * @type {import('express').RequestHandler<{id: number}, ?, ?, any>}
  */
-export const getApplicationRepresentations = async ({ params }, response) => {
-	const itemsPerPage = 25;
-	const { count, items } = await getCaseRepresentations(params.id);
+export const getApplicationRepresentations = async ({ params, query }, response) => {
+	const pageSize = query.pageSize ?? 25;
+	const page = query.page ?? 1;
+
+	const { count, items } = await getCaseRepresentations(params.id, { page, pageSize });
 
 	response.send({
-		page: 1,
-		pageSize: itemsPerPage,
-		pageCount: Math.ceil(Math.max(1, count) / itemsPerPage),
+		page,
+		pageSize,
+		pageCount: Math.ceil(Math.max(1, count) / pageSize),
 		itemCount: count,
 		items
 	});
