@@ -18,7 +18,6 @@
     "eslint-plugin-jest": "^26.1.5",
     "eslint-plugin-jsdoc": "^39.2.9",
     "eslint-plugin-n": "^15.2.0",
-    "eslint-plugin-pins-eslint": "file:./plugin",
     "eslint-plugin-simple-import-sort": "^7.0.0",
     "eslint-plugin-unicorn": "^42.0.0"
   },

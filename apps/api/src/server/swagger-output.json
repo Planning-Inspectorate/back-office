@@ -1189,6 +1189,86 @@
 				}
 			}
 		},
+		"/applications/{id}/representations": {
+			"get": {
+				"tags": ["Applications"],
+				"description": "Gets list of representations on a case",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"type": "integer",
+						"description": "Application ID"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Representations",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"page": {
+									"type": "number",
+									"example": 1
+								},
+								"pageSize": {
+									"type": "number",
+									"example": 25
+								},
+								"pageCount": {
+									"type": "number",
+									"example": 1
+								},
+								"itemCount": {
+									"type": "number",
+									"example": 100
+								},
+								"items": {
+									"type": "array",
+									"items": {
+										"type": "object",
+										"properties": {
+											"id": {
+												"type": "number",
+												"example": 1
+											},
+											"reference": {
+												"type": "string",
+												"example": "BC0110001-2"
+											},
+											"status": {
+												"type": "string",
+												"example": "VALID"
+											},
+											"originalRepresentation": {
+												"type": "string",
+												"example": "I wish to object to this planning application."
+											},
+											"redactedRepresentation": {
+												"type": "string",
+												"example": "I wish to object to this planning application"
+											},
+											"redacted": {
+												"type": "boolean",
+												"example": true
+											},
+											"received": {
+												"type": "string",
+												"example": "2023-03-14T14:28:25.704Z"
+											}
+										}
+									}
+								}
+							},
+							"xml": {
+								"name": "main"
+							}
+						}
+					}
+				}
+			}
+		},
 		"/applications/{id}/publish": {
 			"patch": {
 				"tags": ["Applications"],
