@@ -10,7 +10,7 @@ const document = {
 		description: 'PINS Back Office API documentation from Swagger'
 	},
 	// by default: 'localhost:3000'
-	host: 'localhost:3000',
+	host: '',
 	// by default: '/'
 	basePath: '',
 	// by default: ['http']

@@ -3,9 +3,10 @@ import { databaseConnector } from '../utils/database-connector.js';
 /**
  *
  * @param {number} caseId
- * @returns {Promise<{ count: number, items: any[]}>}
+ * @param {{page: number, pageSize: number}} pagination
+ * @returns {Promise<{count: number, items: any[]}>}
  */
-export const getByCaseId = async (caseId) => {
+export const getByCaseId = async (caseId, { page, pageSize }) => {
 	const where = { caseId };
 
 	const [count, items] = await databaseConnector.$transaction([
@@ -23,7 +24,9 @@ export const getByCaseId = async (caseId) => {
 				received: true
 			},
 			where,
-			take: 25
+			take: pageSize,
+			skip: (page - 1) * pageSize,
+			orderBy: [{ received: 'desc' }, { id: 'asc' }]
 		})
 	]);
 
