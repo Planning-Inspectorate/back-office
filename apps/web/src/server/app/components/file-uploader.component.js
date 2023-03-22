@@ -16,6 +16,22 @@ export const createNewDocument = async (caseId, payload) => {
 };
 
 /**
+ * Remove extension from document name
+ *
+ * @param {string} documentNameWithExtension
+ * @returns {string}
+ */
+export const documentName = (documentNameWithExtension) => {
+	if (!documentNameWithExtension.includes('.')) return documentNameWithExtension;
+
+	const documentNameSplit = documentNameWithExtension.split('.');
+
+	documentNameSplit.pop();
+
+	return documentNameSplit.join('.');
+};
+
+/**
  * Generic controller for applications and appeals for files upload
  *
  * @param {{params: {caseId: string}, session: SessionWithAuth, body: DocumentUploadInfo[]}} request
@@ -30,7 +46,9 @@ export async function postDocumentsUpload({ params, body, session }, response) {
 	const accessToken = await getActiveDirectoryAccessToken(session);
 
 	uploadInfo.documents = documents.map((document) => {
-		const fileToUpload = body.find((file) => file.documentName === document.documentName);
+		const fileToUpload = body.find(
+			(file) => documentName(file.documentName) === document.documentName
+		);
 		const documentWithRowId = { ...document };
 
 		documentWithRowId.fileRowId = fileToUpload?.fileRowId || '';
