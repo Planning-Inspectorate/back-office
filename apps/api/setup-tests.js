@@ -47,6 +47,8 @@ const mockDocumentMetdataFindFirst = jest.fn().mockResolvedValue({});
 const mockDocumentMetdataFindUnique = jest.fn().mockResolvedValue({});
 const mockDocumentMetdataUpsert = jest.fn().mockResolvedValue({});
 const mockDocumentMetdataUpdate = jest.fn().mockResolvedValue({});
+const mockRepresentationCount = jest.fn().mockResolvedValue({});
+const mockRepresentationFindMany = jest.fn().mockResolvedValue({});
 
 class MockPrismaClient {
 	get appeal() {
@@ -179,8 +181,15 @@ class MockPrismaClient {
 		};
 	}
 
-	$transaction() {
-		return {};
+	get representation() {
+		return {
+			count: mockRepresentationCount,
+			findMany: mockRepresentationFindMany
+		};
+	}
+
+	$transaction(queries = []) {
+		return Promise.all(queries);
 	}
 }
 

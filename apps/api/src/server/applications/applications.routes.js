@@ -4,6 +4,7 @@ import { trimUnexpectedRequestParameters } from '../middleware/trim-unexpected-r
 import {
 	createApplication,
 	getApplicationDetails,
+	getApplicationRepresentations,
 	publishCase,
 	startCase,
 	updateApplication
@@ -166,6 +167,44 @@ router.get(
 	validateGetApplicationQuery,
 	trimUnexpectedRequestParameters,
 	asyncHandler(getApplicationDetails)
+);
+
+router.get(
+	'/:id/representations',
+	/*
+        #swagger.tags = ['Applications']
+        #swagger.path = '/applications/{id}/representations'
+        #swagger.description = 'Gets list of representations on a case'
+        #swagger.parameters['id'] = {
+            in: 'path',
+			description: 'Application ID',
+			required: true,
+			type: 'integer'
+		}
+        #swagger.responses[200] = {
+            description: 'Representations',
+            schema: {
+				page: 1,
+				pageSize: 25,
+				pageCount: 1,
+				itemCount: 100,
+				items:  [
+					{
+						id: 1,
+						reference: 'BC0110001-2',
+						status: 'VALID',
+						originalRepresentation: 'I wish to object to this planning application.',
+						redactedRepresentation: 'I wish to object to this planning application',
+						redacted: true,
+						received: '2023-03-14T14:28:25.704Z'
+					}
+				]
+			}
+		}
+    */
+	validateApplicationId,
+	trimUnexpectedRequestParameters,
+	asyncHandler(getApplicationRepresentations)
 );
 
 router.patch(
