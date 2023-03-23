@@ -187,7 +187,8 @@ router.get(
 			description: 'Page to show',
 			required: false,
 			type: 'integer',
-			example: 1
+			example: 1,
+			minimum: 1,
 		}
 		#swagger.parameters['pageSize'] = {
             in: 'query',
@@ -197,6 +198,12 @@ router.get(
 			example: 25,
 			minimum: 1,
 			maximun: 100
+		}
+		#swagger.parameters['searchTerm'] = {
+            in: 'query',
+			description: 'Search Term',
+			required: false,
+			type: 'string'
 		}
         #swagger.responses[200] = {
             description: 'Representations',
