@@ -95,4 +95,20 @@ describe('Get Application Representations', () => {
 			}
 		});
 	});
+
+	it('supports a search term', async () => {
+		databaseConnector.representation.count.mockResolvedValue(existingRepresentations.length);
+		databaseConnector.representation.findMany.mockResolvedValue(existingRepresentations);
+
+		const response = await request.get('/applications/1/representations?searchTerm=hello%20world');
+
+		expect(response.status).toEqual(200);
+		expect(response.body).toEqual({
+			page: 1,
+			pageSize: 25,
+			pageCount: 1,
+			itemCount: 5,
+			items: existingRepresentations
+		});
+	});
 });
