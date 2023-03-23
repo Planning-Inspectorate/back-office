@@ -71,20 +71,28 @@ function buildSearch(searchTerm) {
 									contains: searchTerm
 								}
 							},
-							{
-								firstName: {
-									contains: searchTerm
-								}
-							},
-							{
-								lastName: {
-									contains: searchTerm
-								}
-							}
+							...buildSplitContains('firstName', searchTerm),
+							...buildSplitContains('lastName', searchTerm)
 						]
 					}
 				}
 			}
 		]
 	};
+}
+
+/**
+ *
+ * @param {string} field
+ * @param {string} searchTerm
+ * @returns {any}
+ */
+function buildSplitContains(field, searchTerm = '') {
+	const terms = searchTerm.split(/\s+/);
+
+	return terms.map((term) => ({
+		[field]: {
+			contains: term
+		}
+	}));
 }
