@@ -42,10 +42,12 @@ export const getByCaseId = async (caseId, { page, pageSize }, searchTerm) => {
 
 /**
  *
- * @param {string} searchTerm
+ * @param {string} rawSearchTerm
  * @returns {any}
  */
-function buildSearch(searchTerm) {
+function buildSearch(rawSearchTerm) {
+	const searchTerm = rawSearchTerm.replace(/\s+/, ' ');
+
 	return {
 		OR: [
 			{

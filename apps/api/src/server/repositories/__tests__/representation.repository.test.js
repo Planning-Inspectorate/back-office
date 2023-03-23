@@ -1,3 +1,4 @@
+import { jest } from '@jest/globals';
 const { databaseConnector } = await import('../../utils/database-connector.js');
 
 import * as representationRepository from '../representation.repository.js';
@@ -5,6 +6,10 @@ import * as representationRepository from '../representation.repository.js';
 const existingRepresentations = [{ id: 1 }, { id: 2 }];
 
 describe('Representation repository', () => {
+	beforeEach(() => {
+		jest.resetAllMocks();
+	});
+
 	it('finds representations by case id', async () => {
 		databaseConnector.representation.count.mockResolvedValue(2);
 		databaseConnector.representation.findMany.mockResolvedValue(existingRepresentations);
@@ -16,5 +21,171 @@ describe('Representation repository', () => {
 
 		expect(count).toEqual(2);
 		expect(items).toEqual(existingRepresentations);
+		expect(databaseConnector.representation.count).toBeCalledWith({
+			where: {
+				caseId: 1
+			}
+		});
+		expect(databaseConnector.representation.findMany).toBeCalledWith({
+			select: {
+				id: true,
+				originalRepresentation: true,
+				received: true,
+				redacted: true,
+				redactedRepresentation: true,
+				reference: true,
+				status: true
+			},
+			where: {
+				caseId: 1
+			},
+			orderBy: [
+				{
+					received: 'desc'
+				},
+				{
+					id: 'asc'
+				}
+			],
+			skip: 0,
+			take: 25
+		});
+	});
+
+	it('supports pagination', async () => {
+		databaseConnector.representation.count.mockResolvedValue(2);
+		databaseConnector.representation.findMany.mockResolvedValue(existingRepresentations);
+
+		const { count, items } = await representationRepository.getByCaseId(1, {
+			page: 2,
+			pageSize: 50
+		});
+
+		expect(count).toEqual(2);
+		expect(items).toEqual(existingRepresentations);
+		expect(databaseConnector.representation.count).toBeCalledWith({
+			where: {
+				caseId: 1
+			}
+		});
+		expect(databaseConnector.representation.findMany).toBeCalledWith({
+			select: {
+				id: true,
+				originalRepresentation: true,
+				received: true,
+				redacted: true,
+				redactedRepresentation: true,
+				reference: true,
+				status: true
+			},
+			where: {
+				caseId: 1
+			},
+			orderBy: [
+				{
+					received: 'desc'
+				},
+				{
+					id: 'asc'
+				}
+			],
+			skip: 50,
+			take: 50
+		});
+	});
+
+	it('supports search term', async () => {
+		databaseConnector.representation.count.mockResolvedValue(2);
+		databaseConnector.representation.findMany.mockResolvedValue(existingRepresentations);
+
+		const { count, items } = await representationRepository.getByCaseId(
+			1,
+			{
+				page: 1,
+				pageSize: 25
+			},
+			'James    Bond'
+		);
+
+		expect(count).toEqual(2);
+		expect(items).toEqual(existingRepresentations);
+
+		const where = {
+			caseId: 1,
+			OR: [
+				{
+					reference: {
+						contains: 'James Bond'
+					}
+				},
+				{
+					originalRepresentation: {
+						contains: 'James Bond'
+					}
+				},
+				{
+					contacts: {
+						some: {
+							NOT: {
+								type: 'AGENT'
+							},
+							OR: [
+								{
+									organisationName: {
+										contains: 'James Bond'
+									}
+								},
+								{
+									firstName: {
+										contains: 'James'
+									}
+								},
+								{
+									firstName: {
+										contains: 'Bond'
+									}
+								},
+								{
+									lastName: {
+										contains: 'James'
+									}
+								},
+								{
+									lastName: {
+										contains: 'Bond'
+									}
+								}
+							]
+						}
+					}
+				}
+			]
+		};
+
+		expect(databaseConnector.representation.count).toBeCalledWith({
+			where
+		});
+		expect(databaseConnector.representation.findMany).toBeCalledWith({
+			select: {
+				id: true,
+				originalRepresentation: true,
+				received: true,
+				redacted: true,
+				redactedRepresentation: true,
+				reference: true,
+				status: true
+			},
+			where,
+			orderBy: [
+				{
+					received: 'desc'
+				},
+				{
+					id: 'asc'
+				}
+			],
+			skip: 0,
+			take: 25
+		});
 	});
 });
