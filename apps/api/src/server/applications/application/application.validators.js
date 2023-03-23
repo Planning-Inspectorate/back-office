@@ -205,7 +205,12 @@ export const validateGetApplicationQuery = composeMiddleware(
 );
 
 export const validateGetRepresentationsQuery = composeMiddleware(
-	query('page').toInt().isInt().optional({ nullable: true }),
+	query('page')
+		.toInt()
+		.isInt({
+			min: 1
+		})
+		.optional({ nullable: true }),
 	query('pageSize')
 		.toInt()
 		.isInt({
@@ -213,5 +218,6 @@ export const validateGetRepresentationsQuery = composeMiddleware(
 			min: 1
 		})
 		.optional({ nullable: true }),
+	query('searchTerm').optional({ nullable: true }),
 	validationErrorHandler
 );

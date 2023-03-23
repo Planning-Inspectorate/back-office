@@ -1207,7 +1207,8 @@
 						"description": "Page to show",
 						"required": false,
 						"type": "integer",
-						"example": 1
+						"example": 1,
+						"minimum": 1
 					},
 					{
 						"name": "pageSize",
@@ -1218,6 +1219,13 @@
 						"example": 25,
 						"minimum": 1,
 						"maximun": 100
+					},
+					{
+						"name": "searchTerm",
+						"in": "query",
+						"description": "Search Term",
+						"required": false,
+						"type": "string"
 					}
 				],
 				"responses": {
