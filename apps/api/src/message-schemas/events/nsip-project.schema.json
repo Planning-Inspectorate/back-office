@@ -33,7 +33,7 @@
 		"sector": {
 			"type": "string",
 			"description": "{Sector Abbreviation} - {Sector Display Name}",
-			"examples": [
+			"enum": [
 				"BC - Business and Commercial",
 				"EN - Energy",
 				"TR - Transport",
@@ -45,13 +45,32 @@
 		"projectType": {
 			"type": "string",
 			"description": "{SubSector Abbreviation} - {SubSector Display Name}",
-			"examples": [
+			"enum": [
 				"BC01 - Office Use",
+				"BC02 - Research and Development of Products or Processes",
+				"BC03 - An Industrial Process or Processes",
+				"BC04 - Storage or Distribution of Goods",
+				"BC05 - Conferences",
+				"BC06 - Exhibitions",
+				"BC07 - Sport",
+				"BC08 - Leisure",
+				"BC09 - Tourism",
 				"EN01 - Generating Stations",
+				"EN02 - Electric Lines",
+				"EN03 - Underground Gas Storage Facilities",
+				"EN04 - LNG Facilities",
+				"EN05 - Gas Reception Facilities",
+				"EN06 - Gas Transporter Pipe-lines",
+				"EN07 - Other Pipe-lines",
 				"TR01 - Highways",
-				"WA01 - Dams and Reservoirs",
+				"TR02 - Airports",
+				"TR03 - Harbour Facilities",
+				"TR04 - Railways",
+				"TR05 - Rail Freight Interchanges",
 				"WS01 - Hazardous Waste Facilities",
-				"WW01 - Waste Water Treatment Plants"
+				"WW01 - Waste Water Treatment Plants",
+				"WA01 - Dams and Reservoirs",
+				"WA02 - Transfer of Water Resources"
 			]
 		},
 		"sourceSystem": {
@@ -90,7 +109,18 @@
 			"items": {
 				"type": "string",
 				"description": "Geographical region of UK. Applications can cover multiple regions.",
-				"examples": ["east_midlands"]
+				"enum": [
+					"east_midlands",
+					"eastern",
+					"london",
+					"north_east",
+					"north_west",
+					"south_east",
+					"south_west",
+					"wales",
+					"west_midlands",
+					"yorkshire_and_the_humber"
+				]
 			}
 		},
 		"transboundary": {
@@ -116,7 +146,17 @@
 		"mapZoomLevel": {
 			"type": "string",
 			"description": "Resolution of pinned map. Set when co-ordinates are created.",
-			"examples": ["region"]
+			"enum": [
+				"country",
+				"region",
+				"county",
+				"borough",
+				"district",
+				"city",
+				"town",
+				"junction",
+				"none"
+			]
 		},
 		"secretaryOfState": {
 			"type": "string",

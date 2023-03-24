@@ -46,17 +46,17 @@ const getApplicationDetails = ({ regions = true, mapZoomLevel = true, subSector 
 				{
 					region: {
 						id: 1,
-						name: 'region1',
-						displayNameEn: 'Region Name 1 En',
-						displayNameCy: 'Region Name 1 Cy'
+						name: 'north_west',
+						displayNameEn: 'North West',
+						displayNameCy: 'North West'
 					}
 				},
 				{
 					region: {
 						id: 2,
-						name: 'region2',
-						displayNameEn: 'Region Name 2 En',
-						displayNameCy: 'Region Name 2 Cy'
+						name: 'south_west',
+						displayNameEn: 'South West',
+						displayNameCy: 'South West'
 					}
 				}
 			]
@@ -65,27 +65,27 @@ const getApplicationDetails = ({ regions = true, mapZoomLevel = true, subSector 
 		...(mapZoomLevel && {
 			zoomLevel: {
 				id: 1,
-				displayOrder: 100,
-				name: 'zoom-level',
-				displayNameEn: 'Zoom Level Name En',
-				displayNameCy: 'Zoom Level Name Cy'
+				displayOrder: 900,
+				name: 'country',
+				displayNameEn: 'Country',
+				displayNameCy: 'Country'
 			}
 		}),
 		subSectorId: subSector ? 1 : null,
 		...(subSector && {
 			subSector: {
 				id: 1,
-				abbreviation: 'AA',
-				name: 'sub_sector',
-				displayNameEn: 'Sub Sector Name En',
-				displayNameCy: 'Sub Sector Name Cy',
+				abbreviation: 'BC01',
+				name: 'office_use',
+				displayNameEn: 'Office Use',
+				displayNameCy: 'Office Use',
 				sectorId: 1,
 				sector: {
 					id: 1,
-					abbreviation: 'BB',
-					name: 'sector',
-					displayNameEn: 'Sector Name En',
-					displayNameCy: 'Sector Name Cy'
+					abbreviation: 'BC',
+					name: 'business_and_commercial',
+					displayNameEn: 'Business and Commercial',
+					displayNameCy: 'Business and Commercial'
 				}
 			}
 		})

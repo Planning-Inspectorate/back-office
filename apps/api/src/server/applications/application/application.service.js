@@ -3,6 +3,7 @@ import { eventClient } from '../../infrastructure/event-client.js';
 import { NSIP_PROJECT } from '../../infrastructure/topics.js';
 import * as caseRepository from '../../repositories/case.repository.js';
 import * as folderRepository from '../../repositories/folder.repository.js';
+import * as representationsRepository from '../../repositories/representation.repository.js';
 import { breakUpCompoundStatus } from '../../utils/break-up-compound-status.js';
 import { buildAppealCompundStatus } from '../../utils/build-appeal-compound-status.js';
 import { mapApplicationDetails } from '../../utils/mapping/map-case-details.js';
@@ -208,6 +209,16 @@ export const getCaseDetails = async (id, query) => {
 	return typeof parsedQuery !== 'undefined'
 		? filterOutResponse(parsedQuery, applicationDetailsFormatted)
 		: applicationDetailsFormatted;
+};
+
+/**
+ *
+ * @param {number} caseId
+ * @param {{page: number, pageSize: number}} pagination
+ * @returns {Promise<{ count: number, items: any[]}>}
+ */
+export const getCaseRepresentations = async (caseId, pagination) => {
+	return representationsRepository.getByCaseId(caseId, pagination);
 };
 
 /**
