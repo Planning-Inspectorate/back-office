@@ -22,10 +22,20 @@ export const getByCaseId = async (caseId, { page, pageSize }, searchTerm) => {
 				id: true,
 				reference: true,
 				status: true,
-				originalRepresentation: true,
-				redactedRepresentation: true,
 				redacted: true,
-				received: true
+				received: true,
+				contacts: {
+					select: {
+						firstName: true,
+						lastName: true,
+						organisationName: true
+					},
+					where: {
+						NOT: {
+							type: 'AGENT'
+						}
+					}
+				}
 			},
 			where,
 			take: pageSize,

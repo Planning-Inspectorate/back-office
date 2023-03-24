@@ -217,10 +217,11 @@ router.get(
 						id: 1,
 						reference: 'BC0110001-2',
 						status: 'VALID',
-						originalRepresentation: 'I wish to object to this planning application.',
-						redactedRepresentation: 'I wish to object to this planning application',
 						redacted: true,
-						received: '2023-03-14T14:28:25.704Z'
+						received: '2023-03-14T14:28:25.704Z',
+						firstName: 'James',
+						lastName: 'Bond',
+						organisationName: 'MI6'
 					}
 				]
 			}

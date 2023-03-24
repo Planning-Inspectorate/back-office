@@ -1267,14 +1267,6 @@
 												"type": "string",
 												"example": "VALID"
 											},
-											"originalRepresentation": {
-												"type": "string",
-												"example": "I wish to object to this planning application."
-											},
-											"redactedRepresentation": {
-												"type": "string",
-												"example": "I wish to object to this planning application"
-											},
 											"redacted": {
 												"type": "boolean",
 												"example": true
@@ -1282,6 +1274,18 @@
 											"received": {
 												"type": "string",
 												"example": "2023-03-14T14:28:25.704Z"
+											},
+											"firstName": {
+												"type": "string",
+												"example": "James"
+											},
+											"lastName": {
+												"type": "string",
+												"example": "Bond"
+											},
+											"organisationName": {
+												"type": "string",
+												"example": "MI6"
 											}
 										}
 									}

@@ -9,8 +9,6 @@ const existingRepresentations = [
 		id: 1,
 		reference: 'BC0110001-2',
 		status: 'VALID',
-		originalRepresentation: 'I wish to object to this planning application.',
-		redactedRepresentation: 'I wish to object to this planning application',
 		redacted: true,
 		received: '2023-03-14T14:28:25.704Z'
 	},
@@ -18,7 +16,6 @@ const existingRepresentations = [
 		id: 2,
 		reference: 'BC0110001-2',
 		status: 'INVALID',
-		originalRepresentation: 'I wish to object to this planning application.',
 		redacted: false,
 		received: '2023-03-15T15:18:25.704Z'
 	},
@@ -26,7 +23,6 @@ const existingRepresentations = [
 		id: 3,
 		reference: 'BC0110001-3',
 		status: 'INVALID',
-		originalRepresentation: 'I wish to object to this planning application.',
 		redacted: false,
 		received: '2023-03-15T15:18:25.704Z'
 	},
@@ -34,8 +30,6 @@ const existingRepresentations = [
 		id: 4,
 		reference: 'BC0110001-4',
 		status: 'VALID',
-		originalRepresentation: 'I wish to object to this planning application.',
-		redactedRepresentation: 'I wish to object to this planning application',
 		redacted: false,
 		received: '2023-03-15T15:18:25.704Z'
 	},
@@ -43,7 +37,6 @@ const existingRepresentations = [
 		id: 5,
 		reference: 'BC0110001-5',
 		status: 'INVALID',
-		originalRepresentation: 'I wish to object to this planning application.',
 		redacted: false,
 		received: '2023-03-15T15:18:25.704Z'
 	}
