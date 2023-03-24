@@ -29,12 +29,22 @@ describe('Representation repository', () => {
 		expect(databaseConnector.representation.findMany).toBeCalledWith({
 			select: {
 				id: true,
-				originalRepresentation: true,
-				received: true,
-				redacted: true,
-				redactedRepresentation: true,
 				reference: true,
-				status: true
+				status: true,
+				redacted: true,
+				received: true,
+				contacts: {
+					select: {
+						firstName: true,
+						lastName: true,
+						organisationName: true
+					},
+					where: {
+						NOT: {
+							type: 'AGENT'
+						}
+					}
+				}
 			},
 			where: {
 				caseId: 1
@@ -71,12 +81,22 @@ describe('Representation repository', () => {
 		expect(databaseConnector.representation.findMany).toBeCalledWith({
 			select: {
 				id: true,
-				originalRepresentation: true,
-				received: true,
-				redacted: true,
-				redactedRepresentation: true,
 				reference: true,
-				status: true
+				status: true,
+				redacted: true,
+				received: true,
+				contacts: {
+					select: {
+						firstName: true,
+						lastName: true,
+						organisationName: true
+					},
+					where: {
+						NOT: {
+							type: 'AGENT'
+						}
+					}
+				}
 			},
 			where: {
 				caseId: 1
@@ -168,12 +188,22 @@ describe('Representation repository', () => {
 		expect(databaseConnector.representation.findMany).toBeCalledWith({
 			select: {
 				id: true,
-				originalRepresentation: true,
-				received: true,
-				redacted: true,
-				redactedRepresentation: true,
 				reference: true,
-				status: true
+				status: true,
+				redacted: true,
+				received: true,
+				contacts: {
+					select: {
+						firstName: true,
+						lastName: true,
+						organisationName: true
+					},
+					where: {
+						NOT: {
+							type: 'AGENT'
+						}
+					}
+				}
 			},
 			where,
 			orderBy: [

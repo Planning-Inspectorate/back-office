@@ -98,7 +98,14 @@ export const getApplicationRepresentations = async ({ params, query }, response)
 		pageSize,
 		pageCount: Math.ceil(Math.max(1, count) / pageSize),
 		itemCount: count,
-		items
+		items: items.map((item) => {
+			const { contacts, ...rep } = item;
+
+			return {
+				...rep,
+				...contacts?.[0]
+			};
+		})
 	});
 };
 
