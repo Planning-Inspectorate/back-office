@@ -1,4 +1,5 @@
 import { BlobServiceClient } from '@azure/storage-blob';
+import { Readable } from 'node:stream';
 
 export class BlobStorageClient {
 	/**
@@ -114,6 +115,13 @@ export class BlobStorageClient {
 		const currentBlockBlobClient = this.#getBlockBlobClient(desiredContainer, desiredFilePath);
 		const desiredBlockBlobClient = this.#getBlockBlobClient(currentContainer, currentFilePath);
 
-		await desiredBlockBlobClient.syncCopyFromURL(currentBlockBlobClient.url);
+		const file = await currentBlockBlobClient.download();
+		const fileStream = file.readableStreamBody;
+
+		if (typeof fileStream === 'undefined') {
+			throw new TypeError('File Empty');
+		}
+
+		desiredBlockBlobClient.uploadStream(Readable.from(fileStream));
 	};
 }
