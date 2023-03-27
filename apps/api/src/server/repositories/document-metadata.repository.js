@@ -63,9 +63,7 @@ export const deleteDocument = (documentGuid) => {
 /**
  
  * Get a document metadata by documentGuid
- 
  *
- 
  * @param {string} documentGuid
  * @param {number} version
  * @returns {import('@prisma/client').PrismaPromise<import('@pins/api').Schema.DocumentVersion |null>}
