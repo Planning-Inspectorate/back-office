@@ -6,7 +6,7 @@
 	"scripts": {
 		"start:test": "./api-test.sh",
 		"schemas:clean": "rm -rf ./schemas",
-		"test": "mocha 'tests/**/*.test.js'",
+		"api:test": "mocha 'tests/**/*.test.js'",
 		"test:parallel": "mocha 'tests/**/*.test.js' --parallel --jobs 10",
 		"init-test": "node utils/generate-schema.js"
 	},
