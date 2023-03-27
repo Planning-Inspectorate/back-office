@@ -71,7 +71,7 @@ export const updateDocuments = async ({ body }, response) => {
 		}
 	}
 
-	// logger.info(`Updated ${items.length} documents`);
+	logger.info(`Updated ${items.length} documents`);
 	response.send(items);
 };
 
