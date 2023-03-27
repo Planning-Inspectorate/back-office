@@ -171,7 +171,27 @@ router.post(
 
 router.get(
 	'/:id/documents/ready-to-publish',
-
+	/*
+        #swagger.tags = ['Applications']
+        #swagger.path = '/applications/{id}/documents/ready-to-publish'
+        #swagger.description = 'Gets all documents that are ready to publish'
+		#swagger.parameters['id'] = {
+            in: 'path',
+			description: 'id of the required document here',
+			required: true,
+			type: 'string'
+		},
+		#swagger.parameters['body'] = {
+            in: 'body',
+            description: 'document pagination parameters',
+            schema: { $ref: '#/definitions/DocumentsInCriteriaRequestBody' },
+            required: true
+        }
+		#swagger.responses[200] = {
+            description: 'An paginated data set of documents and their properties',
+            schema: { $ref: '#/definitions/PaginatedDocumentDetails' }
+        }
+    */
 	asyncHandler(getReadyToPublishDocuments)
 );
 
