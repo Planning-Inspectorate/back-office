@@ -1249,7 +1249,7 @@
 												"type": "string",
 												"example": "I wish to object to this planning application"
 											},
-											"edacted": {
+											"redacted": {
 												"type": "boolean",
 												"example": true
 											},
@@ -1833,8 +1833,8 @@
 						"example": "Region Name"
 					},
 					"displayOrder": {
-						"type": "string",
-						"example": "Display Order"
+						"type": "number",
+						"example": 100
 					},
 					"displayNameEn": {
 						"type": "string",
@@ -2237,53 +2237,50 @@
 			}
 		},
 		"ApplicationsForSearchCriteria": {
-			"type": "array",
-			"items": {
-				"type": "object",
-				"properties": {
-					"page": {
-						"type": "number",
-						"example": 1
-					},
-					"pageSize": {
-						"type": "number",
-						"example": 1
-					},
-					"pageCount": {
-						"type": "number",
-						"example": 1
-					},
-					"itemCount": {
-						"type": "number",
-						"example": 1
-					},
+			"type": "object",
+			"properties": {
+				"page": {
+					"type": "number",
+					"example": 1
+				},
+				"pageSize": {
+					"type": "number",
+					"example": 1
+				},
+				"pageCount": {
+					"type": "number",
+					"example": 1
+				},
+				"itemCount": {
+					"type": "number",
+					"example": 1
+				},
+				"items": {
+					"type": "array",
 					"items": {
-						"type": "array",
-						"items": {
-							"type": "object",
-							"properties": {
-								"id": {
-									"type": "number",
-									"example": 3
-								},
-								"status": {
-									"type": "string",
-									"example": "open"
-								},
-								"reference": {
-									"type": "string",
-									"example": "EN010003"
-								},
-								"title": {
-									"type": "string",
-									"example": "EN010003 - NI Case 3 Name"
-								},
-								"modifiedDate": {
-									"type": "number",
-									"example": 1655298882
-								},
-								"datePublished": {}
-							}
+						"type": "object",
+						"properties": {
+							"id": {
+								"type": "number",
+								"example": 3
+							},
+							"status": {
+								"type": "string",
+								"example": "open"
+							},
+							"reference": {
+								"type": "string",
+								"example": "EN010003"
+							},
+							"title": {
+								"type": "string",
+								"example": "EN010003 - NI Case 3 Name"
+							},
+							"modifiedDate": {
+								"type": "number",
+								"example": 1655298882
+							},
+							"datePublished": {}
 						}
 					}
 				}
