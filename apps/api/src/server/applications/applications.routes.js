@@ -13,7 +13,8 @@ import {
 	validateApplicantId,
 	validateApplicationId,
 	validateCreateUpdateApplication,
-	validateGetApplicationQuery
+	validateGetApplicationQuery,
+	validateGetRepresentationsQuery
 } from './application/application.validators.js';
 import { documentRoutes } from './application/documents/document.routes.js';
 import { fileFoldersRoutes } from './application/file-folders/folders.routes.js';
@@ -181,6 +182,22 @@ router.get(
 			required: true,
 			type: 'integer'
 		}
+		#swagger.parameters['page'] = {
+            in: 'query',
+			description: 'Page to show',
+			required: false,
+			type: 'integer',
+			example: 1
+		}
+		#swagger.parameters['pageSize'] = {
+            in: 'query',
+			description: 'Page size',
+			required: false,
+			type: 'integer',
+			example: 25,
+			minimum: 1,
+			maximun: 100
+		}
         #swagger.responses[200] = {
             description: 'Representations',
             schema: {
@@ -203,7 +220,8 @@ router.get(
 		}
     */
 	validateApplicationId,
-	trimUnexpectedRequestParameters,
+	validateGetApplicationQuery,
+	validateGetRepresentationsQuery,
 	asyncHandler(getApplicationRepresentations)
 );
 

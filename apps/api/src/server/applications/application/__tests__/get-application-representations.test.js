@@ -21,12 +21,37 @@ const existingRepresentations = [
 		originalRepresentation: 'I wish to object to this planning application.',
 		redacted: false,
 		received: '2023-03-15T15:18:25.704Z'
+	},
+	{
+		id: 3,
+		reference: 'BC0110001-3',
+		status: 'INVALID',
+		originalRepresentation: 'I wish to object to this planning application.',
+		redacted: false,
+		received: '2023-03-15T15:18:25.704Z'
+	},
+	{
+		id: 4,
+		reference: 'BC0110001-4',
+		status: 'VALID',
+		originalRepresentation: 'I wish to object to this planning application.',
+		redactedRepresentation: 'I wish to object to this planning application',
+		redacted: false,
+		received: '2023-03-15T15:18:25.704Z'
+	},
+	{
+		id: 5,
+		reference: 'BC0110001-5',
+		status: 'INVALID',
+		originalRepresentation: 'I wish to object to this planning application.',
+		redacted: false,
+		received: '2023-03-15T15:18:25.704Z'
 	}
 ];
 
 describe('Get Application Representations', () => {
-	it('gets all reps for a case', async () => {
-		databaseConnector.representation.count.mockResolvedValue(2);
+	it('gets all reps for a case, defaulting pagination', async () => {
+		databaseConnector.representation.count.mockResolvedValue(existingRepresentations.length);
 		databaseConnector.representation.findMany.mockResolvedValue(existingRepresentations);
 
 		const response = await request.get('/applications/1/representations');
@@ -36,8 +61,38 @@ describe('Get Application Representations', () => {
 			page: 1,
 			pageSize: 25,
 			pageCount: 1,
-			itemCount: 2,
+			itemCount: 5,
 			items: existingRepresentations
+		});
+	});
+
+	it('gets the second page of results', async () => {
+		databaseConnector.representation.count.mockResolvedValue(existingRepresentations.length);
+		databaseConnector.representation.findMany.mockResolvedValue(existingRepresentations);
+
+		const response = await request.get('/applications/1/representations?pageSize=3&page=2');
+
+		expect(response.status).toEqual(200);
+		expect(response.body).toEqual({
+			page: 2,
+			pageSize: 3,
+			pageCount: 2,
+			itemCount: 5,
+			items: existingRepresentations
+		});
+	});
+
+	it('throws if pageSize > 100', async () => {
+		databaseConnector.representation.count.mockResolvedValue(existingRepresentations.length);
+		databaseConnector.representation.findMany.mockResolvedValue(existingRepresentations);
+
+		const response = await request.get('/applications/1/representations?pageSize=103&page=2');
+
+		expect(response.status).toEqual(400);
+		expect(response.body).toEqual({
+			errors: {
+				pageSize: 'Invalid value'
+			}
 		});
 	});
 });

@@ -5,7 +5,7 @@
 		"title": "PINS Back Office API",
 		"description": "PINS Back Office API documentation from Swagger"
 	},
-	"host": "localhost:3000",
+	"host": "",
 	"basePath": "",
 	"tags": [
 		{
@@ -1200,6 +1200,24 @@
 						"required": true,
 						"type": "integer",
 						"description": "Application ID"
+					},
+					{
+						"name": "page",
+						"in": "query",
+						"description": "Page to show",
+						"required": false,
+						"type": "integer",
+						"example": 1
+					},
+					{
+						"name": "pageSize",
+						"in": "query",
+						"description": "Page size",
+						"required": false,
+						"type": "integer",
+						"example": 25,
+						"minimum": 1,
+						"maximun": 100
 					}
 				],
 				"responses": {
