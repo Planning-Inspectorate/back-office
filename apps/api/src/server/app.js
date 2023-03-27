@@ -12,6 +12,7 @@ import config from './config/config.js';
 import { authorizeClientMiddleware } from './middleware/auth-handler.js';
 import { defaultErrorHandler, stateMachineErrorHandler } from './middleware/error-handler.js';
 import versionRoutes from './middleware/version-routes.js';
+import BackOfficeAppError from './utils/app-error.js';
 
 const app = express();
 
@@ -40,6 +41,10 @@ app.use(
 		1: applicationsRoutes
 	})
 );
+
+app.all('*', (req, res, next) => {
+	next(new BackOfficeAppError(`Method is not allowed`, 405));
+});
 
 app.use(stateMachineErrorHandler);
 app.use(defaultErrorHandler);

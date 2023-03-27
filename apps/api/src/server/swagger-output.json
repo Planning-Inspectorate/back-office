@@ -5,7 +5,7 @@
 		"title": "PINS Back Office API",
 		"description": "PINS Back Office API documentation from Swagger"
 	},
-	"host": "localhost:3000",
+	"host": "",
 	"basePath": "",
 	"tags": [
 		{
@@ -1189,6 +1189,104 @@
 				}
 			}
 		},
+		"/applications/{id}/representations": {
+			"get": {
+				"tags": ["Applications"],
+				"description": "Gets list of representations on a case",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"type": "integer",
+						"description": "Application ID"
+					},
+					{
+						"name": "page",
+						"in": "query",
+						"description": "Page to show",
+						"required": false,
+						"type": "integer",
+						"example": 1
+					},
+					{
+						"name": "pageSize",
+						"in": "query",
+						"description": "Page size",
+						"required": false,
+						"type": "integer",
+						"example": 25,
+						"minimum": 1,
+						"maximun": 100
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Representations",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"page": {
+									"type": "number",
+									"example": 1
+								},
+								"pageSize": {
+									"type": "number",
+									"example": 25
+								},
+								"pageCount": {
+									"type": "number",
+									"example": 1
+								},
+								"itemCount": {
+									"type": "number",
+									"example": 100
+								},
+								"items": {
+									"type": "array",
+									"items": {
+										"type": "object",
+										"properties": {
+											"id": {
+												"type": "number",
+												"example": 1
+											},
+											"reference": {
+												"type": "string",
+												"example": "BC0110001-2"
+											},
+											"status": {
+												"type": "string",
+												"example": "VALID"
+											},
+											"originalRepresentation": {
+												"type": "string",
+												"example": "I wish to object to this planning application."
+											},
+											"redactedRepresentation": {
+												"type": "string",
+												"example": "I wish to object to this planning application"
+											},
+											"redacted": {
+												"type": "boolean",
+												"example": true
+											},
+											"received": {
+												"type": "string",
+												"example": "2023-03-14T14:28:25.704Z"
+											}
+										}
+									}
+								}
+							},
+							"xml": {
+								"name": "main"
+							}
+						}
+					}
+				}
+			}
+		},
 		"/applications/{id}/publish": {
 			"patch": {
 				"tags": ["Applications"],
@@ -1753,8 +1851,8 @@
 						"example": "Region Name"
 					},
 					"displayOrder": {
-						"type": "string",
-						"example": "Display Order"
+						"type": "number",
+						"example": 100
 					},
 					"displayNameEn": {
 						"type": "string",
@@ -2157,53 +2255,50 @@
 			}
 		},
 		"ApplicationsForSearchCriteria": {
-			"type": "array",
-			"items": {
-				"type": "object",
-				"properties": {
-					"page": {
-						"type": "number",
-						"example": 1
-					},
-					"pageSize": {
-						"type": "number",
-						"example": 1
-					},
-					"pageCount": {
-						"type": "number",
-						"example": 1
-					},
-					"itemCount": {
-						"type": "number",
-						"example": 1
-					},
+			"type": "object",
+			"properties": {
+				"page": {
+					"type": "number",
+					"example": 1
+				},
+				"pageSize": {
+					"type": "number",
+					"example": 1
+				},
+				"pageCount": {
+					"type": "number",
+					"example": 1
+				},
+				"itemCount": {
+					"type": "number",
+					"example": 1
+				},
+				"items": {
+					"type": "array",
 					"items": {
-						"type": "array",
-						"items": {
-							"type": "object",
-							"properties": {
-								"id": {
-									"type": "number",
-									"example": 3
-								},
-								"status": {
-									"type": "string",
-									"example": "open"
-								},
-								"reference": {
-									"type": "string",
-									"example": "EN010003"
-								},
-								"title": {
-									"type": "string",
-									"example": "EN010003 - NI Case 3 Name"
-								},
-								"modifiedDate": {
-									"type": "number",
-									"example": 1655298882
-								},
-								"datePublished": {}
-							}
+						"type": "object",
+						"properties": {
+							"id": {
+								"type": "number",
+								"example": 3
+							},
+							"status": {
+								"type": "string",
+								"example": "open"
+							},
+							"reference": {
+								"type": "string",
+								"example": "EN010003"
+							},
+							"title": {
+								"type": "string",
+								"example": "EN010003 - NI Case 3 Name"
+							},
+							"modifiedDate": {
+								"type": "number",
+								"example": 1655298882
+							},
+							"datePublished": {}
 						}
 					}
 				}

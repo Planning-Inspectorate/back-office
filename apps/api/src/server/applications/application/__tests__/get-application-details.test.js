@@ -69,16 +69,16 @@ describe('Get Application details', () => {
 			modifiedDate: mapDateStringToUnixTimestamp(time.toISOString()),
 			publishedDate: mapDateStringToUnixTimestamp(time.toISOString()),
 			sector: {
-				name: 'sector',
-				abbreviation: 'BB',
-				displayNameEn: 'Sector Name En',
-				displayNameCy: 'Sector Name Cy'
+				name: 'business_and_commercial',
+				abbreviation: 'BC',
+				displayNameEn: 'Business and Commercial',
+				displayNameCy: 'Business and Commercial'
 			},
 			subSector: {
-				name: 'sub_sector',
-				abbreviation: 'AA',
-				displayNameEn: 'Sub Sector Name En',
-				displayNameCy: 'Sub Sector Name Cy'
+				name: 'office_use',
+				abbreviation: 'BC01',
+				displayNameEn: 'Office Use',
+				displayNameCy: 'Office Use'
 			},
 			applicants: [
 				{
@@ -102,10 +102,10 @@ describe('Get Application details', () => {
 			geographicalInformation: {
 				mapZoomLevel: {
 					id: 1,
-					name: 'zoom-level',
-					displayOrder: 100,
-					displayNameEn: 'Zoom Level Name En',
-					displayNameCy: 'Zoom Level Name Cy'
+					name: 'country',
+					displayOrder: 900,
+					displayNameEn: 'Country',
+					displayNameCy: 'Country'
 				},
 				locationDescription: 'Some Location',
 				gridReference: {
@@ -114,16 +114,16 @@ describe('Get Application details', () => {
 				},
 				regions: [
 					{
-						displayNameCy: 'Region Name 1 Cy',
-						displayNameEn: 'Region Name 1 En',
+						displayNameCy: 'North West',
+						displayNameEn: 'North West',
 						id: 1,
-						name: 'region1'
+						name: 'north_west'
 					},
 					{
-						displayNameCy: 'Region Name 2 Cy',
-						displayNameEn: 'Region Name 2 En',
+						displayNameCy: 'South West',
+						displayNameEn: 'South West',
 						id: 2,
-						name: 'region2'
+						name: 'south_west'
 					}
 				]
 			},
@@ -303,10 +303,10 @@ describe('Get Application details', () => {
 		expect(response.body).toEqual({
 			id: 1,
 			subSector: {
-				abbreviation: 'AA',
-				displayNameCy: 'Sub Sector Name Cy',
-				displayNameEn: 'Sub Sector Name En',
-				name: 'sub_sector'
+				name: 'office_use',
+				abbreviation: 'BC01',
+				displayNameEn: 'Office Use',
+				displayNameCy: 'Office Use'
 			}
 		});
 
@@ -351,24 +351,24 @@ describe('Get Application details', () => {
 				},
 				locationDescription: 'Some Location',
 				mapZoomLevel: {
-					displayNameCy: 'Zoom Level Name Cy',
-					displayNameEn: 'Zoom Level Name En',
-					displayOrder: 100,
 					id: 1,
-					name: 'zoom-level'
+					name: 'country',
+					displayOrder: 900,
+					displayNameEn: 'Country',
+					displayNameCy: 'Country'
 				},
 				regions: [
 					{
-						displayNameCy: 'Region Name 1 Cy',
-						displayNameEn: 'Region Name 1 En',
+						displayNameCy: 'North West',
+						displayNameEn: 'North West',
 						id: 1,
-						name: 'region1'
+						name: 'north_west'
 					},
 					{
-						displayNameCy: 'Region Name 2 Cy',
-						displayNameEn: 'Region Name 2 En',
+						displayNameCy: 'South West',
+						displayNameEn: 'South West',
 						id: 2,
-						name: 'region2'
+						name: 'south_west'
 					}
 				]
 			},
