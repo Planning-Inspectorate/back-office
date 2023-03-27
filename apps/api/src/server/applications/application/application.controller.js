@@ -86,11 +86,23 @@ export const getApplicationDetails = async ({ params, query }, response) => {
 export const getApplicationRepresentations = async ({ params, query }, response) => {
 	const pageSize = query.pageSize ?? 25;
 	const page = query.page ?? 1;
+	const under18 = query.under18 ? query.under18 === 'true' : null;
+	const status = query.status ? [query.status].flat() : [];
+
+	let filters = null;
+
+	if (status.length > 0 || under18) {
+		filters = {
+			...(under18 ? { under18 } : {}),
+			...(status.length > 0 ? { status } : {})
+		};
+	}
 
 	const { count, items } = await getCaseRepresentations(
 		params.id,
 		{ page, pageSize },
-		query.searchTerm
+		query.searchTerm,
+		filters
 	);
 
 	response.send({

@@ -216,10 +216,11 @@ export const getCaseDetails = async (id, query) => {
  * @param {number} caseId
  * @param {{page: number, pageSize: number}} pagination
  * @param {string?} searchTerm
+ * @param {Record<string, string[] | boolean>?} filters
  * @returns {Promise<{ count: number, items: any[]}>}
  */
-export const getCaseRepresentations = async (caseId, pagination, searchTerm) => {
-	return representationsRepository.getByCaseId(caseId, pagination, searchTerm);
+export const getCaseRepresentations = async (caseId, pagination, searchTerm, filters) => {
+	return representationsRepository.getByCaseId(caseId, pagination, searchTerm, filters);
 };
 
 /**

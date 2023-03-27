@@ -219,5 +219,7 @@ export const validateGetRepresentationsQuery = composeMiddleware(
 		})
 		.optional({ nullable: true }),
 	query('searchTerm').optional({ nullable: true }),
+	query('status').optional({ nullable: true }),
+	query('under18').optional({ nullable: true }),
 	validationErrorHandler
 );

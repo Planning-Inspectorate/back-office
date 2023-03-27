@@ -5,12 +5,14 @@ import { databaseConnector } from '../utils/database-connector.js';
  * @param {number} caseId
  * @param {{page: number, pageSize: number}} pagination
  * @param {string?} searchTerm
+ * @param {Record<string, string[] | boolean>?} filters
  * @returns {Promise<{count: number, items: any[]}>}
  */
-export const getByCaseId = async (caseId, { page, pageSize }, searchTerm) => {
+export const getByCaseId = async (caseId, { page, pageSize }, searchTerm, filters) => {
 	const where = {
 		caseId,
-		...(searchTerm ? buildSearch(searchTerm) : {})
+		...(searchTerm ? buildSearch(searchTerm) : {}),
+		...(filters ? buildFilters(filters) : {})
 	};
 
 	const [count, items] = await databaseConnector.$transaction([
@@ -107,4 +109,40 @@ function buildSplitContains(field, searchTerm = '') {
 			contains: term
 		}
 	}));
+}
+
+/**
+ *
+ * @param {Record<string, string[] | boolean>} filters
+ * @returns {any}
+ */
+function buildFilters(filters = {}) {
+	return {
+		AND: Object.entries(filters).map(([name, values]) => {
+			if (Array.isArray(values)) {
+				return {
+					[name]: {
+						in: values
+					}
+				};
+			}
+
+			if (name === 'under18') {
+				return {
+					contacts: {
+						some: {
+							NOT: {
+								type: 'AGENT'
+							},
+							isOver18: !values
+						}
+					}
+				};
+			}
+
+			return {
+				[name]: values
+			};
+		})
+	};
 }
