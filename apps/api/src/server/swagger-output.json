@@ -875,7 +875,7 @@
 						"in": "body",
 						"description": "document pagination parameters",
 						"schema": {
-							"$ref": "#/definitions/DocumentsInFolderCriteriaRequestBody"
+							"$ref": "#/definitions/DocumentsInCriteriaRequestBody"
 						},
 						"required": true
 					}
@@ -2304,7 +2304,7 @@
 				}
 			}
 		},
-		"DocumentsInFolderCriteriaRequestBody": {
+		"DocumentsInCriteriaRequestBody": {
 			"type": "object",
 			"properties": {
 				"pageNumber": {

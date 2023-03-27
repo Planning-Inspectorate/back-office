@@ -58,7 +58,7 @@ export const provideDocumentUploadURLs = async ({ params, body }, response) => {
  * @type {import('express').RequestHandler<{id: number}, any, any, any>}
  */
 export const updateDocuments = async ({ body }, response) => {
-	const { status: publishedStatus, redacted: isRedacted, items } = body[''];
+	const { status: publishedStatus, redacted: isRedacted, items } = body[''][''];
 
 	const redactedStatus = getRedactionStatus(isRedacted);
 
@@ -71,7 +71,7 @@ export const updateDocuments = async ({ body }, response) => {
 		}
 	}
 
-	logger.info(`Updated ${items.length} documents`);
+	// logger.info(`Updated ${items.length} documents`);
 	response.send(items);
 };
 
