@@ -205,6 +205,20 @@ router.get(
 			required: false,
 			type: 'string'
 		}
+		#swagger.parameters['status'] = {
+            in: 'query',
+			description: 'Filter by status',
+			required: false,
+			schema: [''],
+			style: 'form',
+			explode: true
+		}
+		#swagger.parameters['under18'] = {
+            in: 'query',
+			description: 'Filter by under18',
+			required: false,
+			type: 'boolean'
+		}
         #swagger.responses[200] = {
             description: 'Representations',
             schema: {

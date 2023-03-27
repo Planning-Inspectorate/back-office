@@ -1226,6 +1226,28 @@
 						"description": "Search Term",
 						"required": false,
 						"type": "string"
+					},
+					{
+						"name": "status",
+						"in": "query",
+						"description": "Filter by status",
+						"required": false,
+						"schema": {
+							"type": "array",
+							"example": [""],
+							"items": {
+								"type": "string"
+							}
+						},
+						"style": "form",
+						"explode": false
+					},
+					{
+						"name": "under18",
+						"in": "query",
+						"description": "Filter by under18",
+						"required": false,
+						"type": "boolean"
 					}
 				],
 				"responses": {
