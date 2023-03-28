@@ -125,6 +125,9 @@ export class BlobStorageClient {
 
 		context.log.info('Got blob clients');
 
+		context.log.info(currentBlockBlobClient);
+		context.log.info(currentBlockBlobClient.url);
+
 		const file = await currentBlockBlobClient.download();
 		const fileStream = file.readableStreamBody;
 
