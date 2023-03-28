@@ -136,7 +136,7 @@ export class BlobStorageClient {
 			throw new TypeError('File Empty');
 		}
 
-		context.log.into('Uploading...');
+		context.log.info('Uploading...');
 
 		const desiredBlockBlobClient = this.#getBlockBlobClient(desiredContainer, desiredFilePath);
 
