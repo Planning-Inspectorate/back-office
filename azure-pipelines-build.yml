@@ -155,13 +155,15 @@ extends:
           - template: ../steps/node_script.yml
             parameters:
               nodeVersion: 16
-              script: npm install --only=prod --workspace=@pins/document-check-function
+							script: npm install $(npm pack $(Build.Repository.LocalPath)/packages/blob-storage-client) $(npm pack $(Build.Repository.LocalPath)/packages/platform) --only=prod --workspace=@pins/document-check-function
               workingDirectory: $(Build.Repository.LocalPath)
           - script: |
               source ~/.bashrc
               mv -n $(Build.Repository.LocalPath)/node_modules/* $(Build.Repository.LocalPath)/apps/document-check-function/node_modules
+
           - task: ArchiveFiles@2
             displayName: Archive files
+
             inputs:
               rootFolderOrFile: $(Build.Repository.LocalPath)/apps/document-check-function
               includeRootFolder: false
