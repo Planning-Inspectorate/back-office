@@ -109,39 +109,20 @@ export class BlobStorageClient {
 
 	/**
 	 *
-	 * @param {{context: any, currentContainer: string, currentFilePath: string, desiredContainer: string, desiredFilePath: string}} blobStorageHost
+	 * @param {{currentContainer: string, currentFilePath: string, desiredContainer: string, desiredFilePath: string}} blobStorageHost
 	 */
-	copyFile = async ({
-		context,
-		currentContainer,
-		currentFilePath,
-		desiredContainer,
-		desiredFilePath
-	}) => {
-		context.log.info('Copying files');
-
+	copyFile = async ({ currentContainer, currentFilePath, desiredContainer, desiredFilePath }) => {
 		const currentBlockBlobClient = this.#getBlockBlobClient(currentContainer, currentFilePath);
-
-		context.log.info('Got blob clients');
-
-		context.log.info(currentBlockBlobClient);
-		context.log.info(currentBlockBlobClient.url);
 
 		const file = await currentBlockBlobClient.download();
 		const fileStream = file.readableStreamBody;
-
-		context.log.info('Got file stream');
 
 		if (typeof fileStream === 'undefined') {
 			throw new TypeError('File Empty');
 		}
 
-		context.log.info('Uploading...');
-
 		const desiredBlockBlobClient = this.#getBlockBlobClient(desiredContainer, desiredFilePath);
 
 		await desiredBlockBlobClient.uploadStream(Readable.from(fileStream));
-
-		context.log.info('Uploaded');
 	};
 }
