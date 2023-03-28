@@ -51,7 +51,10 @@ describe('Representation repository', () => {
 			},
 			orderBy: [
 				{
-					received: 'desc'
+					status: 'asc'
+				},
+				{
+					received: 'asc'
 				},
 				{
 					id: 'asc'
@@ -103,7 +106,10 @@ describe('Representation repository', () => {
 			},
 			orderBy: [
 				{
-					received: 'desc'
+					status: 'asc'
+				},
+				{
+					received: 'asc'
 				},
 				{
 					id: 'asc'
@@ -208,7 +214,10 @@ describe('Representation repository', () => {
 			where,
 			orderBy: [
 				{
-					received: 'desc'
+					status: 'asc'
+				},
+				{
+					received: 'asc'
 				},
 				{
 					id: 'asc'
@@ -286,7 +295,10 @@ describe('Representation repository', () => {
 			where,
 			orderBy: [
 				{
-					received: 'desc'
+					status: 'asc'
+				},
+				{
+					received: 'asc'
 				},
 				{
 					id: 'asc'

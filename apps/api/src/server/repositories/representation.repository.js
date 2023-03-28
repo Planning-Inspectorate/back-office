@@ -42,7 +42,7 @@ export const getByCaseId = async (caseId, { page, pageSize }, searchTerm, filter
 			where,
 			take: pageSize,
 			skip: (page - 1) * pageSize,
-			orderBy: [{ received: 'desc' }, { id: 'asc' }]
+			orderBy: [{ status: 'asc' }, { received: 'asc' }, { id: 'asc' }]
 		})
 	]);
 
