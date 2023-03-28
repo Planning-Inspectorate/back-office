@@ -218,4 +218,82 @@ describe('Representation repository', () => {
 			take: 25
 		});
 	});
+
+	it('supports filters', async () => {
+		databaseConnector.representation.count.mockResolvedValue(2);
+		databaseConnector.representation.findMany.mockResolvedValue(existingRepresentations);
+
+		const { count, items } = await representationRepository.getByCaseId(
+			1,
+			{
+				page: 1,
+				pageSize: 25
+			},
+			null,
+			{
+				under18: true,
+				status: ['VALID', 'PUBLISHED']
+			}
+		);
+
+		expect(count).toEqual(2);
+		expect(items).toEqual(existingRepresentations);
+
+		const where = {
+			caseId: 1,
+			AND: [
+				{
+					contacts: {
+						some: {
+							NOT: {
+								type: 'AGENT'
+							},
+							isOver18: false
+						}
+					}
+				},
+				{
+					status: {
+						in: ['VALID', 'PUBLISHED']
+					}
+				}
+			]
+		};
+
+		expect(databaseConnector.representation.count).toBeCalledWith({
+			where
+		});
+		expect(databaseConnector.representation.findMany).toBeCalledWith({
+			select: {
+				id: true,
+				reference: true,
+				status: true,
+				redacted: true,
+				received: true,
+				contacts: {
+					select: {
+						firstName: true,
+						lastName: true,
+						organisationName: true
+					},
+					where: {
+						NOT: {
+							type: 'AGENT'
+						}
+					}
+				}
+			},
+			where,
+			orderBy: [
+				{
+					received: 'desc'
+				},
+				{
+					id: 'asc'
+				}
+			],
+			skip: 0,
+			take: 25
+		});
+	});
 });

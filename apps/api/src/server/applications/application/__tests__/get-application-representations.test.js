@@ -104,4 +104,38 @@ describe('Get Application Representations', () => {
 			items: existingRepresentations
 		});
 	});
+
+	it('supports filters', async () => {
+		databaseConnector.representation.count.mockResolvedValue(existingRepresentations.length);
+		databaseConnector.representation.findMany.mockResolvedValue(existingRepresentations);
+
+		const response = await request.get(
+			'/applications/1/representations?under18=true&status=VALID&status=PUBLISHED'
+		);
+
+		expect(response.status).toEqual(200);
+		expect(response.body).toEqual({
+			page: 1,
+			pageSize: 25,
+			pageCount: 1,
+			itemCount: 5,
+			items: existingRepresentations
+		});
+	});
+
+	it('supports filters - single status', async () => {
+		databaseConnector.representation.count.mockResolvedValue(existingRepresentations.length);
+		databaseConnector.representation.findMany.mockResolvedValue(existingRepresentations);
+
+		const response = await request.get('/applications/1/representations?status=VALID');
+
+		expect(response.status).toEqual(200);
+		expect(response.body).toEqual({
+			page: 1,
+			pageSize: 25,
+			pageCount: 1,
+			itemCount: 5,
+			items: existingRepresentations
+		});
+	});
 });
