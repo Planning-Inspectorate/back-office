@@ -9,7 +9,7 @@
     "type": "module",
     "scripts": {
         "start": "func start",
-        "test": "cross-env NODE_ENV=test NODE_OPTIONS=--experimental-vm-modules npx jest"
+        "test": "cross-env NODE_ENV=test NODE_OPTIONS=--experimental-vm-modules npx jest --forceExit"
     },
     "dependencies": {
         "@azure/functions": "^1.2.2",

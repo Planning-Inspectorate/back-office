@@ -122,6 +122,6 @@ export class BlobStorageClient {
 			throw new TypeError('File Empty');
 		}
 
-		desiredBlockBlobClient.uploadStream(Readable.from(fileStream));
+		await desiredBlockBlobClient.uploadStream(Readable.from(fileStream));
 	};
 }
