@@ -392,7 +392,7 @@ model RepresentationContact {
   firstName        String?
   lastName         String?
   jobTitle         String?
-  isOver18         Boolean
+  under18          Boolean
   type             String // AGENT|PERSON|ORGANISATION|FAMILY_GROUP
   organisationName String?
   email            String?

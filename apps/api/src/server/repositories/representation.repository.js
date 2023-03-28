@@ -134,7 +134,7 @@ function buildFilters(filters = {}) {
 							NOT: {
 								type: 'AGENT'
 							},
-							isOver18: !values
+							under18: values
 						}
 					}
 				};

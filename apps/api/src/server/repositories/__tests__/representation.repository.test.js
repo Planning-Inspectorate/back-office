@@ -248,7 +248,7 @@ describe('Representation repository', () => {
 							NOT: {
 								type: 'AGENT'
 							},
-							isOver18: false
+							under18: true
 						}
 					}
 				},
