@@ -19,6 +19,7 @@ export const publishDocument = async (context, documentToCopy, documentDestinati
 	);
 
 	await blobStorageClient.copyFile({
+		context,
 		currentContainer: documentToCopy.container,
 		currentFilePath: documentToCopy.path,
 		desiredContainer: documentDestination.container,
