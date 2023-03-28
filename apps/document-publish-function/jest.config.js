@@ -1,3 +1,5 @@
 export default {
-	transform: {}
+	transform: {},
+	moduleNameMapper: { '^uuid$': 'uuid' },
+	setupFilesAfterEnv: ['<rootDir>/setup-tests.js']
 };
