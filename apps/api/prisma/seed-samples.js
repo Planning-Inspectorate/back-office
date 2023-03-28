@@ -814,7 +814,7 @@ export const represenations = [
 				{
 					firstName: '',
 					lastName: '',
-					isOver18: true,
+					under18: false,
 					type: 'FAMILY_GROUP',
 					organisationName: 'Árni G',
 					email: 'test@example.com',
@@ -845,7 +845,7 @@ export const represenations = [
 				{
 					firstName: 'Tom',
 					lastName: 'Tom',
-					isOver18: true,
+					under18: false,
 					type: 'PERSON',
 					organisationName: null,
 					email: 'test@example.com',
@@ -876,7 +876,7 @@ export const represenations = [
 				{
 					firstName: 'Michael',
 					lastName: 'Vick',
-					isOver18: true,
+					under18: false,
 					type: 'PERSON',
 					organisationName: null,
 					email: 'test@example.com',
@@ -907,7 +907,7 @@ export const represenations = [
 				{
 					firstName: '',
 					lastName: '',
-					isOver18: true,
+					under18: false,
 					type: 'ORGANISATION',
 					organisationName: 'Test Organisation for John',
 					email: 'test@example.com',
@@ -936,7 +936,7 @@ export const represenations = [
 				{
 					firstName: '',
 					lastName: '',
-					isOver18: true,
+					under18: false,
 					type: 'FAMILY_GROUP',
 					organisationName: 'Test Organisation for John Wick 2',
 					email: 'test@example.com',
@@ -965,7 +965,7 @@ export const represenations = [
 				{
 					firstName: 'Vijaya',
 					lastName: 'Krishna',
-					isOver18: true,
+					under18: false,
 					type: 'PERSON',
 					organisationName: null,
 					email: 'test@example.com',
@@ -994,7 +994,7 @@ export const represenations = [
 				{
 					firstName: '',
 					lastName: '',
-					isOver18: true,
+					under18: false,
 					type: 'ORGANISATION',
 					organisationName: 'Test Organisation',
 					email: 'test@example.com',
@@ -1014,7 +1014,7 @@ export const represenations = [
 				{
 					firstName: '',
 					lastName: '',
-					isOver18: true,
+					under18: false,
 					type: 'ORGANISATION',
 					organisationName: 'Environment Agency',
 					email: 'test@example.com',
@@ -1045,7 +1045,7 @@ export const represenations = [
 				{
 					firstName: 'James',
 					lastName: 'Bond',
-					isOver18: true,
+					under18: false,
 					type: 'AGENT',
 					organisationName: '',
 					email: 'test-agent@example.com',
@@ -1054,7 +1054,7 @@ export const represenations = [
 				{
 					firstName: '',
 					lastName: '',
-					isOver18: true,
+					under18: false,
 					type: 'ORGANISATION',
 					organisationName: 'Vijaya Krishna Vasantha',
 					email: 'test@example.com',
@@ -1085,7 +1085,7 @@ export const represenations = [
 				{
 					firstName: 'James',
 					lastName: 'Bond',
-					isOver18: true,
+					under18: false,
 					type: 'AGENT',
 					organisationName: '',
 					email: 'test-agent@example.com',
@@ -1094,7 +1094,7 @@ export const represenations = [
 				{
 					firstName: 'Bart',
 					lastName: 'Simms',
-					isOver18: true,
+					under18: false,
 					type: 'PERSON',
 					organisationName: null,
 					email: 'test@example.com',
@@ -1125,7 +1125,7 @@ export const represenations = [
 				{
 					firstName: 'James',
 					lastName: 'Bond',
-					isOver18: true,
+					under18: false,
 					type: 'AGENT',
 					organisationName: '',
 					email: 'test-agent@example.com',
@@ -1134,7 +1134,7 @@ export const represenations = [
 				{
 					firstName: 'Paul',
 					lastName: 'test',
-					isOver18: true,
+					under18: false,
 					type: 'PERSON',
 					organisationName: null,
 					email: 'test@example.com',
@@ -1165,7 +1165,7 @@ export const represenations = [
 				{
 					firstName: 'James',
 					lastName: 'Bond',
-					isOver18: true,
+					under18: false,
 					type: 'AGENT',
 					organisationName: '',
 					email: 'test-agent@example.com',
@@ -1174,7 +1174,7 @@ export const represenations = [
 				{
 					firstName: 'Mrs',
 					lastName: 'Test',
-					isOver18: true,
+					under18: false,
 					type: 'PERSON',
 					organisationName: null,
 					email: 'test@example.com',
@@ -1205,7 +1205,7 @@ export const represenations = [
 				{
 					firstName: 'James',
 					lastName: 'Bond',
-					isOver18: true,
+					under18: false,
 					type: 'AGENT',
 					organisationName: '',
 					email: 'test-agent@example.com',
@@ -1214,7 +1214,7 @@ export const represenations = [
 				{
 					firstName: '',
 					lastName: '',
-					isOver18: true,
+					under18: false,
 					type: 'ORGANISATION',
 					organisationName: 'Association Fields Allotment Association',
 					email: 'test@example.com',
@@ -1245,7 +1245,7 @@ export const represenations = [
 				{
 					firstName: '',
 					lastName: '',
-					isOver18: true,
+					under18: false,
 					type: 'FAMILY_GROUP',
 					organisationName: 'Local Highways ',
 					email: 'test@example.com',
@@ -1276,7 +1276,7 @@ export const represenations = [
 				{
 					firstName: 'James',
 					lastName: 'Bond',
-					isOver18: true,
+					under18: false,
 					type: 'AGENT',
 					organisationName: '',
 					email: 'test-agent@example.com',
@@ -1285,7 +1285,7 @@ export const represenations = [
 				{
 					firstName: 'Peter',
 					lastName: 'Testerer',
-					isOver18: true,
+					under18: false,
 					type: 'PERSON',
 					organisationName: null,
 					email: 'test@example.com',
@@ -1316,7 +1316,7 @@ export const represenations = [
 				{
 					firstName: 'James',
 					lastName: 'Bond',
-					isOver18: true,
+					under18: false,
 					type: 'AGENT',
 					organisationName: '',
 					email: 'test-agent@example.com',
@@ -1325,7 +1325,7 @@ export const represenations = [
 				{
 					firstName: '',
 					lastName: '',
-					isOver18: true,
+					under18: false,
 					type: 'ORGANISATION',
 					organisationName: 'Test2  Planning Alliance (Community Planning Alliance)',
 					email: 'test@example.com',
@@ -1356,7 +1356,7 @@ export const represenations = [
 				{
 					firstName: 'James',
 					lastName: 'Bond',
-					isOver18: true,
+					under18: false,
 					type: 'AGENT',
 					organisationName: '',
 					email: 'test-agent@example.com',
@@ -1365,7 +1365,7 @@ export const represenations = [
 				{
 					firstName: 'Mrs',
 					lastName: 'F',
-					isOver18: true,
+					under18: false,
 					type: 'PERSON',
 					organisationName: null,
 					email: 'test@example.com',
@@ -1396,7 +1396,7 @@ export const represenations = [
 				{
 					firstName: 'James',
 					lastName: 'Bond',
-					isOver18: true,
+					under18: false,
 					type: 'AGENT',
 					organisationName: '',
 					email: 'test-agent@example.com',
@@ -1405,7 +1405,7 @@ export const represenations = [
 				{
 					firstName: 'Road',
 					lastName: 'Test',
-					isOver18: true,
+					under18: false,
 					type: 'PERSON',
 					organisationName: null,
 					email: 'test@example.com',
@@ -1425,7 +1425,7 @@ export const represenations = [
 				{
 					firstName: 'James',
 					lastName: 'Bond',
-					isOver18: true,
+					under18: false,
 					type: 'AGENT',
 					organisationName: '',
 					email: 'test-agent@example.com',
@@ -1434,7 +1434,7 @@ export const represenations = [
 				{
 					firstName: 'James',
 					lastName: 'Test',
-					isOver18: true,
+					under18: false,
 					type: 'PERSON',
 					organisationName: null,
 					email: 'test@example.com',
@@ -1465,7 +1465,7 @@ export const represenations = [
 				{
 					firstName: 'James',
 					lastName: 'Bond',
-					isOver18: true,
+					under18: false,
 					type: 'AGENT',
 					organisationName: '',
 					email: 'test-agent@example.com',
@@ -1474,7 +1474,7 @@ export const represenations = [
 				{
 					firstName: '',
 					lastName: '',
-					isOver18: true,
+					under18: false,
 					type: 'ORGANISATION',
 					organisationName: 'Test Association (Church Fields Allotment Association)',
 					email: 'test@example.com',
@@ -1505,7 +1505,7 @@ export const represenations = [
 				{
 					firstName: '',
 					lastName: '',
-					isOver18: true,
+					under18: false,
 					type: 'FAMILY_GROUP',
 					organisationName: 'National Highways (National Highways)',
 					email: 'test@example.com',
@@ -1536,7 +1536,7 @@ export const represenations = [
 				{
 					firstName: 'James',
 					lastName: 'Bond',
-					isOver18: true,
+					under18: false,
 					type: 'AGENT',
 					organisationName: '',
 					email: 'test-agent@example.com',
@@ -1545,7 +1545,7 @@ export const represenations = [
 				{
 					firstName: 'Peter',
 					lastName: 'Test',
-					isOver18: true,
+					under18: true,
 					type: 'PERSON',
 					organisationName: null,
 					email: 'test@example.com',
@@ -1576,7 +1576,7 @@ export const represenations = [
 				{
 					firstName: '',
 					lastName: '',
-					isOver18: true,
+					under18: false,
 					type: 'ORGANISATION',
 					organisationName: 'Test Planning Alliance (Community Planning Alliance)',
 					email: 'test@example.com',
@@ -1596,7 +1596,7 @@ export const represenations = [
 				{
 					firstName: 'James',
 					lastName: 'Bond',
-					isOver18: true,
+					under18: false,
 					type: 'AGENT',
 					organisationName: '',
 					email: 'test-agent@example.com',
@@ -1605,7 +1605,7 @@ export const represenations = [
 				{
 					firstName: 'Mrs',
 					lastName: 'Sue',
-					isOver18: true,
+					under18: false,
 					type: 'PERSON',
 					organisationName: null,
 					email: 'test@example.com',
@@ -1636,7 +1636,7 @@ export const represenations = [
 				{
 					firstName: 'James',
 					lastName: 'Bond',
-					isOver18: true,
+					under18: false,
 					type: 'AGENT',
 					organisationName: '',
 					email: 'test-agent@example.com',
@@ -1645,7 +1645,7 @@ export const represenations = [
 				{
 					firstName: 'Pearl',
 					lastName: 'Test',
-					isOver18: true,
+					under18: false,
 					type: 'PERSON',
 					organisationName: null,
 					email: 'test@example.com',
@@ -1676,7 +1676,7 @@ export const represenations = [
 				{
 					firstName: 'James',
 					lastName: 'Bond',
-					isOver18: true,
+					under18: false,
 					type: 'AGENT',
 					organisationName: '',
 					email: 'test-agent@example.com',
@@ -1685,7 +1685,7 @@ export const represenations = [
 				{
 					firstName: 'Arthur',
 					lastName: 'Test',
-					isOver18: true,
+					under18: false,
 					type: 'PERSON',
 					organisationName: null,
 					email: 'test@example.com',
@@ -1716,7 +1716,7 @@ export const represenations = [
 				{
 					firstName: '',
 					lastName: '',
-					isOver18: true,
+					under18: false,
 					type: 'FAMILY_GROUP',
 					organisationName: 'Nina Test',
 					email: 'test@example.com',
@@ -1747,7 +1747,7 @@ export const represenations = [
 				{
 					firstName: 'James',
 					lastName: 'Bond',
-					isOver18: true,
+					under18: false,
 					type: 'AGENT',
 					organisationName: '',
 					email: 'test-agent@example.com',
@@ -1756,7 +1756,7 @@ export const represenations = [
 				{
 					firstName: 'Jimbo',
 					lastName: 'Test',
-					isOver18: true,
+					under18: false,
 					type: 'PERSON',
 					organisationName: null,
 					email: 'test@example.com',
