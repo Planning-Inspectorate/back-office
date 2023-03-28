@@ -121,7 +121,6 @@ export class BlobStorageClient {
 		context.log.info('Copying files');
 
 		const currentBlockBlobClient = this.#getBlockBlobClient(currentContainer, currentFilePath);
-		const desiredBlockBlobClient = this.#getBlockBlobClient(desiredContainer, desiredFilePath);
 
 		context.log.info('Got blob clients');
 
@@ -138,6 +137,8 @@ export class BlobStorageClient {
 		}
 
 		context.log.into('Uploading...');
+
+		const desiredBlockBlobClient = this.#getBlockBlobClient(desiredContainer, desiredFilePath);
 
 		await desiredBlockBlobClient.uploadStream(Readable.from(fileStream));
 
