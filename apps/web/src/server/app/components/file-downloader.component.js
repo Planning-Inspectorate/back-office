@@ -20,22 +20,18 @@ const getDocumentsDownload = async ({ params, session }, response) => {
 
 	const accessToken = await getActiveDirectoryAccessToken(session);
 
-	const { blobStorageContainer, blobStoragePath } = await getCaseDocumentationFileInfo(
+	const { blobStorageContainer, documentURI } = await getCaseDocumentationFileInfo(
 		caseId,
 		fileGuid
 	);
 
-	if (!blobStorageContainer || !blobStoragePath) {
-		throw new Error('Blobstorage container or blobStorage path not found');
+	if (!blobStorageContainer || !documentURI) {
+		throw new Error('Blob storage container or Document UR not found');
 	}
 
-	const sasToken = await createSasToken(
-		accessToken,
-		blobStorageContainer,
-		blobStoragePath.slice(1)
-	);
-	const completeURI = `${blobStorageUrl}${blobStorageContainer}${blobStoragePath}${sasToken}`;
-	const fileName = `${blobStoragePath}`.split(/\/+/).pop();
+	const sasToken = await createSasToken(accessToken, blobStorageContainer, documentURI.slice(1));
+	const completeURI = `${blobStorageUrl}${blobStorageContainer}${documentURI}${sasToken}`;
+	const fileName = `${documentURI}`.split(/\/+/).pop();
 
 	const externalRequest = request(completeURI, (externalResource) => {
 		const contentType = externalResource.headers['content-type'];
