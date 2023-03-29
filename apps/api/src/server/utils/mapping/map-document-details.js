@@ -17,6 +17,7 @@ export const mapSingleDocumentDetailsFromVersion = ({ Document, ...documentVersi
 		caseRef: Document?.folder?.case?.reference ?? null,
 		sourceSystem: documentVersion.sourceSystem ?? 'Back Office',
 		blobStorageContainer: documentVersion?.blobStorageContainer ?? '',
+		blobStoragePath: documentVersion?.path ?? '',
 		documentURI: documentVersion?.documentURI ?? '',
 		author: documentVersion?.author ?? '',
 
