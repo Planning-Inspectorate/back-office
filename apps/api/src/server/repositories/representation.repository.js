@@ -154,5 +154,11 @@ function buildFilters(filters = {}) {
  * @returns {object[]}
  */
 function buildOrderBy(sort) {
-	return [...(sort || [{ status: 'asc' }]), { received: 'asc' }, { id: 'asc' }];
+	const primarySort = sort || [{ status: 'asc' }];
+	const secondarySort =
+		sort && sort.some((sortObject) => Object.keys(sortObject)[0] === 'received')
+			? []
+			: [{ received: 'asc' }];
+
+	return [...primarySort, ...secondarySort, { id: 'asc' }];
 }

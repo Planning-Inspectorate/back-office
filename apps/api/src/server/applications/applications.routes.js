@@ -200,13 +200,13 @@ router.get(
 			maximun: 100
 		}
 		#swagger.parameters['searchTerm'] = {
-            in: 'query',
+			in: 'query',
 			description: 'Search Term',
 			required: false,
 			type: 'string'
 		}
 		#swagger.parameters['status'] = {
-            in: 'query',
+			in: 'query',
 			description: 'Filter by status',
 			required: false,
 			schema: [''],
@@ -214,10 +214,16 @@ router.get(
 			explode: true
 		}
 		#swagger.parameters['under18'] = {
-            in: 'query',
+			in: 'query',
 			description: 'Filter by under18',
 			required: false,
 			type: 'boolean'
+		}
+		#swagger.parameters['sortBy'] = {
+			in: 'query',
+			description: 'Sory by field. +field for ASC, -field for DESC',
+			required: false,
+			type: 'string'
 		}
         #swagger.responses[200] = {
             description: 'Representations',

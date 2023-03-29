@@ -1279,7 +1279,7 @@
 							}
 						},
 						"style": "form",
-						"explode": false
+						"explode": true
 					},
 					{
 						"name": "under18",
@@ -1287,6 +1287,13 @@
 						"description": "Filter by under18",
 						"required": false,
 						"type": "boolean"
+					},
+					{
+						"name": "sortBy",
+						"in": "query",
+						"description": "Sory by field. +field for ASC, -field for DESC",
+						"required": false,
+						"type": "string"
 					}
 				],
 				"responses": {
