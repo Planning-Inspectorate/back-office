@@ -16,6 +16,7 @@ const generatesDocumentMetadataResponse = (
 	caseRef: 'EN01-823011',
 	sourceSystem: 'Back Office',
 	blobStorageContainer: '',
+	blobStoragePath: '',
 	documentURI: '',
 	author: '',
 	fileName: '',
