@@ -101,8 +101,10 @@ export const getApplicationRepresentations = async ({ params, query }, response)
 	const { count, items } = await getCaseRepresentations(
 		params.id,
 		{ page, pageSize },
-		query.searchTerm,
-		filters
+		{
+			searchTerm: query.searchTerm,
+			filters
+		}
 	);
 
 	response.send({
