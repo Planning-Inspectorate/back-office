@@ -104,6 +104,7 @@ export interface DocumentationFile {
 	redactedStatus: string;
 	blobStorageContainer?: string;
 	blobStoragePath?: string;
+	documentURI?: string;
 	filter1: string;
 	author: string;
 	representative: string;
