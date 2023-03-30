@@ -4,6 +4,7 @@ import { trimUnexpectedRequestParameters } from '../middleware/trim-unexpected-r
 import {
 	createApplication,
 	getApplicationDetails,
+	getApplicationRepresentation,
 	getApplicationRepresentations,
 	publishCase,
 	startCase,
@@ -14,7 +15,8 @@ import {
 	validateApplicationId,
 	validateCreateUpdateApplication,
 	validateGetApplicationQuery,
-	validateGetRepresentationsQuery
+	validateGetRepresentationsQuery,
+	validateRepresentationId
 } from './application/application.validators.js';
 import { documentRoutes } from './application/documents/document.routes.js';
 import { fileFoldersRoutes } from './application/file-folders/folders.routes.js';
@@ -248,9 +250,47 @@ router.get(
 		}
     */
 	validateApplicationId,
-	validateGetApplicationQuery,
 	validateGetRepresentationsQuery,
 	asyncHandler(getApplicationRepresentations)
+);
+
+router.get(
+	'/:id/representations/:repId',
+	/*
+        #swagger.tags = ['Applications']
+        #swagger.path = '/applications/{id}/representations/{repId}'
+        #swagger.description = 'Gets a representation on a case'
+        #swagger.parameters['id'] = {
+            in: 'path',
+			description: 'Application ID',
+			required: true,
+			type: 'integer'
+		}
+		#swagger.parameters['repId'] = {
+            in: 'path',
+			description: 'Representation ID',
+			required: true,
+			type: 'integer'
+		}
+        #swagger.responses[200] = {
+            description: 'Representation',
+            schema: {
+				id: 1,
+				reference: 'BC0110001-2',
+				status: 'VALID',
+				redacted: true,
+				received: '2023-03-14T14:28:25.704Z',
+				originalRepresentation: '',
+				redactedRepresentation: '',
+				redactedBy: {},
+				contacts: [],
+				attachments: []
+			}
+		}
+    */
+	validateApplicationId,
+	validateRepresentationId,
+	asyncHandler(getApplicationRepresentation)
 );
 
 router.patch(

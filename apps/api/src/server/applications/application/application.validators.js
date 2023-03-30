@@ -223,3 +223,24 @@ export const validateGetRepresentationsQuery = composeMiddleware(
 	query('under18').optional({ nullable: true }),
 	validationErrorHandler
 );
+
+export const validateGetRepresentationQuery = composeMiddleware(
+	query('page')
+		.toInt()
+		.isInt({
+			min: 1
+		})
+		.optional({ nullable: true }),
+	query('page')
+		.toInt()
+		.isInt({
+			min: 1
+		})
+		.optional({ nullable: true }),
+	validationErrorHandler
+);
+
+export const validateRepresentationId = composeMiddleware(
+	param('repId').toInt().isInt().withMessage('Representation id must be a valid numerical value'),
+	validationErrorHandler
+);

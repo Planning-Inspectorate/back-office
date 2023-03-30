@@ -153,6 +153,16 @@ export const getApplicationRepresentations = async ({ params, query }, response)
  *
  * @type {import('express').RequestHandler<{id: number}, ?, ?, any>}
  */
+export const getApplicationRepresentation = async ({ params }, response) => {
+	response.send({
+		id: params.id
+	});
+};
+
+/**
+ *
+ * @type {import('express').RequestHandler<{id: number}, ?, ?, any>}
+ */
 export const publishCase = async ({ params: { id } }, response) => {
 	logger.info(`attempting to publish a case with id ${id}`);
 
