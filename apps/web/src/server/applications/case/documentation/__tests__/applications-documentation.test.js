@@ -372,7 +372,7 @@ describe('applications documentation', () => {
 			describe('GET /case/123/project-documentation/publishing-queue`', () => {
 				it('page should render', async () => {
 					nock('http://test/')
-						.post('/applications/123/folders/11/documents')
+						.post('/applications/123/documents/ready-to-publish')
 						.reply(200, fixturePaginatedDocumentationFiles(1, 125));
 
 					const response = await request.get(`${baseUrl}/project-documentation/publishing-queue`);
@@ -386,7 +386,7 @@ describe('applications documentation', () => {
 
 				it('page should render with correct pagination', async () => {
 					nock('http://test/')
-						.post('/applications/123/folders/11/documents')
+						.post('/applications/123/documents/ready-to-publish')
 						.reply(200, fixturePaginatedDocumentationFiles(2, 125));
 
 					const response = await request.get(

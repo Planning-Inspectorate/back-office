@@ -83,7 +83,7 @@ describe('Ready-to-publish-documents', () => {
 		databaseConnector.document.count.mockResolvedValue(1);
 
 		// WHEN
-		const response = await request.get('/applications/1/documents/ready-to-publish').send({
+		const response = await request.post('/applications/1/documents/ready-to-publish').send({
 			pageNumber: 1,
 			pageSize: 125
 		});
