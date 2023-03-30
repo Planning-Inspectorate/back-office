@@ -159,9 +159,12 @@ export const getApplicationRepresentations = async ({ params, query }, response)
  * @type {import('express').RequestHandler<{id: number, repId: number}, ?, ?, any>}
  */
 export const getApplicationRepresentation = async ({ params }, response) => {
-	const representation = await getCaseRepresentation(params.id, params.repId);
+	const { user, ...representation } = await getCaseRepresentation(params.id, params.repId);
 
-	response.send(representation);
+	response.send({
+		...representation,
+		redactedBy: user
+	});
 };
 
 /**
