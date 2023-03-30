@@ -79,6 +79,11 @@ export const getById = async (id, caseId) => {
 			received: true,
 			originalRepresentation: true,
 			redactedRepresentation: true,
+			user: {
+				select: {
+					azureReference: true
+				}
+			},
 			contacts: {
 				select: {
 					type: true,
@@ -98,6 +103,20 @@ export const getById = async (id, caseId) => {
 							postcode: true
 						}
 					}
+				}
+			},
+			attachments: {
+				select: {
+					documentVersion: {
+						select: {
+							fileName: true,
+							mime: true,
+							path: true
+						}
+					}
+				},
+				where: {
+					isDeleted: false
 				}
 			}
 		},
