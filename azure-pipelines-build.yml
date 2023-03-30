@@ -155,7 +155,7 @@ extends:
           - template: ../steps/node_script.yml
             parameters:
               nodeVersion: 16
-              script: npm install $(npm pack $(Build.Repository.LocalPath)/packages/blob-storage-client) $(npm pack $(Build.Repository.LocalPath)/packages/platform) --only=prod --workspace=@pins/document-check-function
+              script: npm install $(for package in $(Build.Repository.LocalPath)/packages/*; do npm pack $package; done) --only=prod --workspace=@pins/document-check-function
               workingDirectory: $(Build.Repository.LocalPath)
           - script: |
               source ~/.bashrc
@@ -193,7 +193,7 @@ extends:
           - template: ../steps/node_script.yml
             parameters:
               nodeVersion: 16
-              script: npm install $(npm pack $(Build.Repository.LocalPath)/packages/blob-storage-client) $(npm pack $(Build.Repository.LocalPath)/packages/platform) --only=prod --workspace=@pins/odw-integration-functions
+              script: npm install $(for package in $(Build.Repository.LocalPath)/packages/*; do npm pack $package; done) --only=prod --workspace=@pins/odw-integration-functions
               workingDirectory: $(Build.Repository.LocalPath)
           - script: |
               source ~/.bashrc
@@ -231,7 +231,7 @@ extends:
           - template: ../steps/node_script.yml
             parameters:
               nodeVersion: 16
-              script: npm install $(npm pack $(Build.Repository.LocalPath)/packages/blob-storage-client) $(npm pack $(Build.Repository.LocalPath)/packages/platform) --only=prod --workspace=@pins/document-publish-function
+              script: npm install $(for package in $(Build.Repository.LocalPath)/packages/*; do npm pack $package; done) --only=prod --workspace=@pins/document-publish-function
               workingDirectory: $(Build.Repository.LocalPath)
           - script: |
               source ~/.bashrc
