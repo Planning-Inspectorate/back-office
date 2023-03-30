@@ -55,6 +55,49 @@ export const getByCaseId = async (caseId, { page, pageSize }, { searchTerm, filt
 
 /**
  *
+ * @param {number} id
+ * @returns {Promise<any>}
+ */
+export const getById = async (id) => {
+	const representation = await databaseConnector.representation.findUnique({
+		select: {
+			id: true,
+			reference: true,
+			status: true,
+			redacted: true,
+			received: true,
+			contacts: {
+				select: {
+					type: true,
+					firstName: true,
+					lastName: true,
+					organisationName: true,
+					jobTitle: true,
+					// under18: true,
+					email: true,
+					phoneNumber: true,
+					address: {
+						select: {
+							addressLine1: true,
+							addressLine2: true,
+							town: true,
+							county: true,
+							postcode: true
+						}
+					}
+				}
+			}
+		},
+		where: {
+			id
+		}
+	});
+
+	return representation;
+};
+
+/**
+ *
  * @param {string} rawSearchTerm
  * @returns {any}
  */
