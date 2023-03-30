@@ -13,6 +13,7 @@ const generatesDocumentMetadataResponse = (
 	...updateResponseValues,
 	documentGuid: '1111-2222-3333',
 	documentId: 12,
+	folderId: null,
 	caseRef: 'EN01-823011',
 	sourceSystem: 'Back Office',
 	blobStorageContainer: '',

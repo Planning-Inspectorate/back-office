@@ -42,8 +42,6 @@ export const mapSingleDocumentDetailsFromVersion = ({ Document, ...documentVersi
 			? mapDateStringToUnixTimestamp(documentVersion?.datePublished?.toString())
 			: null,
 
-		stage: documentVersion?.stage ?? '',
-
 		description: documentVersion?.description,
 		version: documentVersion?.version,
 		representative: documentVersion?.representative,

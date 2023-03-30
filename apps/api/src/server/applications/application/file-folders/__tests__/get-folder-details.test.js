@@ -71,6 +71,7 @@ const documents = [
 		documentVersion: [
 			{
 				documentGuid: '688fad5e-b41c-45d5-8fb3-dcad37d38092',
+				folderId: 1,
 				version: 1,
 				lastModified: null,
 				documentType: '',
@@ -276,6 +277,7 @@ describe('Get folder details', () => {
 					documentGuid: '688fad5e-b41c-45d5-8fb3-dcad37d38092',
 					documentId: null,
 					caseRef: null,
+					folderId: 1,
 					sourceSystem: 'back-office',
 					blobStorageContainer: '',
 					blobStoragePath: '',
