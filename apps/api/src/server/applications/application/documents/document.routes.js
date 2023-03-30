@@ -169,7 +169,7 @@ router.post(
 	asyncHandler(deleteDocumentSoftly)
 );
 
-router.get(
+router.post(
 	'/:id/documents/ready-to-publish',
 	/*
         #swagger.tags = ['Applications']

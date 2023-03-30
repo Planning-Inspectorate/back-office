@@ -14,6 +14,7 @@ export const mapSingleDocumentDetailsFromVersion = ({ Document, ...documentVersi
 	return {
 		documentGuid: documentVersion.documentGuid,
 		documentId: documentVersion?.documentId ?? null,
+		folderId: Document?.folder?.id ?? null,
 		caseRef: Document?.folder?.case?.reference ?? null,
 		sourceSystem: documentVersion.sourceSystem ?? 'Back Office',
 		blobStorageContainer: documentVersion?.blobStorageContainer ?? '',
@@ -40,6 +41,8 @@ export const mapSingleDocumentDetailsFromVersion = ({ Document, ...documentVersi
 		datePublished: documentVersion?.datePublished
 			? mapDateStringToUnixTimestamp(documentVersion?.datePublished?.toString())
 			: null,
+
+		stage: documentVersion?.stage ?? '',
 
 		description: documentVersion?.description,
 		version: documentVersion?.version,

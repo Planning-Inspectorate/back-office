@@ -711,6 +711,45 @@
 				}
 			}
 		},
+		"/applications/{id}/documents/ready-to-publish": {
+			"post": {
+				"tags": ["Applications"],
+				"description": "Gets all documents that are ready to publish",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"type": "string",
+						"description": "id of the required document here"
+					},
+					{
+						"name": "query",
+						"in": "query",
+						"description": "Application details",
+						"example": "{ &ldquo;title&rdquo;:true, &ldquo;description&rdquo;:true, &ldquo;reference&rdquo;:true, &ldquo;status&rdquo;:true, &ldquo;caseEmail&rdquo;:true, &ldquo;sector&rdquo;:true, &ldquo;subSector&rdquo;:true, &ldquo;applicants&rdquo;:true, &ldquo;geographicalInformation&rdquo;:true, &ldquo;keyDates&rdquo;:true }",
+						"type": "string"
+					},
+					{
+						"name": "body",
+						"in": "body",
+						"description": "document pagination parameters",
+						"schema": {
+							"$ref": "#/definitions/DocumentsInCriteriaRequestBody"
+						},
+						"required": true
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "An paginated data set of documents and their properties",
+						"schema": {
+							"$ref": "#/definitions/PaginatedDocumentDetails"
+						}
+					}
+				}
+			}
+		},
 		"/applications/{id}/folders": {
 			"get": {
 				"tags": ["Applications"],
@@ -2289,50 +2328,53 @@
 			}
 		},
 		"ApplicationsForSearchCriteria": {
-			"type": "object",
-			"properties": {
-				"page": {
-					"type": "number",
-					"example": 1
-				},
-				"pageSize": {
-					"type": "number",
-					"example": 1
-				},
-				"pageCount": {
-					"type": "number",
-					"example": 1
-				},
-				"itemCount": {
-					"type": "number",
-					"example": 1
-				},
-				"items": {
-					"type": "array",
+			"type": "array",
+			"items": {
+				"type": "object",
+				"properties": {
+					"page": {
+						"type": "number",
+						"example": 1
+					},
+					"pageSize": {
+						"type": "number",
+						"example": 1
+					},
+					"pageCount": {
+						"type": "number",
+						"example": 1
+					},
+					"itemCount": {
+						"type": "number",
+						"example": 1
+					},
 					"items": {
-						"type": "object",
-						"properties": {
-							"id": {
-								"type": "number",
-								"example": 3
-							},
-							"status": {
-								"type": "string",
-								"example": "open"
-							},
-							"reference": {
-								"type": "string",
-								"example": "EN010003"
-							},
-							"title": {
-								"type": "string",
-								"example": "EN010003 - NI Case 3 Name"
-							},
-							"modifiedDate": {
-								"type": "number",
-								"example": 1655298882
-							},
-							"datePublished": {}
+						"type": "array",
+						"items": {
+							"type": "object",
+							"properties": {
+								"id": {
+									"type": "number",
+									"example": 3
+								},
+								"status": {
+									"type": "string",
+									"example": "open"
+								},
+								"reference": {
+									"type": "string",
+									"example": "EN010003"
+								},
+								"title": {
+									"type": "string",
+									"example": "EN010003 - NI Case 3 Name"
+								},
+								"modifiedDate": {
+									"type": "number",
+									"example": 1655298882
+								},
+								"datePublished": {}
+							}
 						}
 					}
 				}
