@@ -4,8 +4,7 @@
 			"name": "myQueueItem",
 			"type": "serviceBusTrigger",
 			"direction": "in",
-			"topicName": "documents_to_publish",
-			"subscriptionName": "documents_to_publish_subscription",
+			"queueName": "nsip-documents-to-publish",
 			"connection": "AZURE_SERVICE_BUS_CONNECTION"
 		}
 	]
