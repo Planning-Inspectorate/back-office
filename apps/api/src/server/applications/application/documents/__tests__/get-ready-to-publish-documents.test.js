@@ -124,6 +124,7 @@ describe('Ready-to-publish-documents', () => {
 					caseRef: null,
 					sourceSystem: 'back-office',
 					blobStorageContainer: '',
+					blobStoragePath: '',
 					documentURI: '',
 					author: '',
 					fileName: '8883cbfd43ed5b261961cd258d2f6fcb (1)',
