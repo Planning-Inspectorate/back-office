@@ -56,16 +56,29 @@ export const getByCaseId = async (caseId, { page, pageSize }, { searchTerm, filt
 /**
  *
  * @param {number} id
+ * @param {number?} caseId
  * @returns {Promise<any>}
  */
-export const getById = async (id) => {
-	const representation = await databaseConnector.representation.findUnique({
+export const getById = async (id, caseId) => {
+	let caseFilter = {};
+
+	if (caseId) {
+		caseFilter = {
+			case: {
+				id: caseId
+			}
+		};
+	}
+
+	const representations = await databaseConnector.representation.findMany({
 		select: {
 			id: true,
 			reference: true,
 			status: true,
 			redacted: true,
 			received: true,
+			originalRepresentation: true,
+			redactedRepresentation: true,
 			contacts: {
 				select: {
 					type: true,
@@ -73,7 +86,7 @@ export const getById = async (id) => {
 					lastName: true,
 					organisationName: true,
 					jobTitle: true,
-					// under18: true,
+					under18: true,
 					email: true,
 					phoneNumber: true,
 					address: {
@@ -89,11 +102,18 @@ export const getById = async (id) => {
 			}
 		},
 		where: {
-			id
+			id,
+			...caseFilter
 		}
 	});
 
-	return representation;
+	const representation = representations[0];
+
+	if (representation === null || typeof representation === 'undefined') {
+		throw new Error('Unknown representation on application');
+	}
+
+	return representations[0];
 };
 
 /**
