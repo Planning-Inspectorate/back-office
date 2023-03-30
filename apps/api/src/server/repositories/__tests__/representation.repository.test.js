@@ -319,4 +319,66 @@ describe('Representation repository', () => {
 			take: 25
 		});
 	});
+
+	it('supports sort', async () => {
+		databaseConnector.representation.count.mockResolvedValue(2);
+		databaseConnector.representation.findMany.mockResolvedValue(existingRepresentations);
+
+		const { count, items } = await representationRepository.getByCaseId(
+			1,
+			{
+				page: 1,
+				pageSize: 25
+			},
+			{
+				sort: [{ reference: 'desc' }]
+			}
+		);
+
+		expect(count).toEqual(2);
+		expect(items).toEqual(existingRepresentations);
+
+		const where = {
+			caseId: 1
+		};
+
+		expect(databaseConnector.representation.count).toBeCalledWith({
+			where
+		});
+		expect(databaseConnector.representation.findMany).toBeCalledWith({
+			select: {
+				id: true,
+				reference: true,
+				status: true,
+				redacted: true,
+				received: true,
+				contacts: {
+					select: {
+						firstName: true,
+						lastName: true,
+						organisationName: true
+					},
+					where: {
+						NOT: {
+							type: 'AGENT'
+						}
+					}
+				}
+			},
+			where,
+			orderBy: [
+				{
+					reference: 'desc'
+				},
+				{
+					received: 'asc'
+				},
+				{
+					id: 'asc'
+				}
+			],
+			skip: 0,
+			take: 25
+		});
+	});
 });

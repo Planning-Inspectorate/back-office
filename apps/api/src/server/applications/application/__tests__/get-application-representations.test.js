@@ -138,4 +138,36 @@ describe('Get Application Representations', () => {
 			items: existingRepresentations
 		});
 	});
+
+	it('supports sorting', async () => {
+		databaseConnector.representation.count.mockResolvedValue(existingRepresentations.length);
+		databaseConnector.representation.findMany.mockResolvedValue(existingRepresentations);
+
+		const response = await request.get('/applications/1/representations?sortBy=reference');
+
+		expect(response.status).toEqual(200);
+		expect(response.body).toEqual({
+			page: 1,
+			pageSize: 25,
+			pageCount: 1,
+			itemCount: 5,
+			items: existingRepresentations
+		});
+	});
+
+	it('supports sorting - desc', async () => {
+		databaseConnector.representation.count.mockResolvedValue(existingRepresentations.length);
+		databaseConnector.representation.findMany.mockResolvedValue(existingRepresentations);
+
+		const response = await request.get('/applications/1/representations?sortBy=-reference');
+
+		expect(response.status).toEqual(200);
+		expect(response.body).toEqual({
+			page: 1,
+			pageSize: 25,
+			pageCount: 1,
+			itemCount: 5,
+			items: existingRepresentations
+		});
+	});
 });
