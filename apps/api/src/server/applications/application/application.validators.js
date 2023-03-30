@@ -7,6 +7,7 @@ import {
 } from '../../middleware/error-handler.js';
 import * as caseRepository from '../../repositories/case.repository.js';
 import * as regionRepository from '../../repositories/region.repository.js';
+import * as representationRepository from '../../repositories/representation.repository.js';
 import * as serviceCustomerRepository from '../../repositories/service-customer.repository.js';
 import * as subSectorRepository from '../../repositories/sub-sector.repository.js';
 import * as zoomLevelRepository from '../../repositories/zoom-level.repository.js';
@@ -52,6 +53,20 @@ const validateExistingApplication = async (value) => {
 
 	if (caseFromDatabase === null || typeof caseFromDatabase === 'undefined') {
 		throw new Error('Unknown case');
+	}
+};
+
+/**
+ *
+ * @param {number} value
+ * @throws {Error}
+ * @returns {Promise<void>}
+ */
+const validateExistingRepresentation = async (value) => {
+	const representation = await representationRepository.getById(value);
+
+	if (representation === null || typeof representation === 'undefined') {
+		throw new Error('Unknown representation');
 	}
 };
 
@@ -241,6 +256,11 @@ export const validateGetRepresentationQuery = composeMiddleware(
 );
 
 export const validateRepresentationId = composeMiddleware(
-	param('repId').toInt().isInt().withMessage('Representation id must be a valid numerical value'),
-	validationErrorHandler
+	param('repId')
+		.toInt()
+		.isInt()
+		.withMessage('Representation id must be a valid numerical value')
+		.custom(validateExistingRepresentation)
+		.withMessage('Must be an existing representation'),
+	validationErrorHandlerMissing
 );
