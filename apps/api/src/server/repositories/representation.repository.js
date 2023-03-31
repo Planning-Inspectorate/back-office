@@ -4,16 +4,17 @@ import { databaseConnector } from '../utils/database-connector.js';
  *
  * @param {number} caseId
  * @param {{page: number, pageSize: number}} pagination
- * @param {string?} searchTerm
- * @param {Record<string, string[] | boolean>?} filters
+ * @param {{searchTerm: string?, filters: Record<string, string[] | boolean>?, sort: object[]?}} filterAndSort
  * @returns {Promise<{count: number, items: any[]}>}
  */
-export const getByCaseId = async (caseId, { page, pageSize }, searchTerm, filters) => {
+export const getByCaseId = async (caseId, { page, pageSize }, { searchTerm, filters, sort }) => {
 	const where = {
 		caseId,
 		...(searchTerm ? buildSearch(searchTerm) : {}),
 		...(filters ? buildFilters(filters) : {})
 	};
+
+	const orderBy = buildOrderBy(sort);
 
 	const [count, items] = await databaseConnector.$transaction([
 		databaseConnector.representation.count({
@@ -42,7 +43,7 @@ export const getByCaseId = async (caseId, { page, pageSize }, searchTerm, filter
 			where,
 			take: pageSize,
 			skip: (page - 1) * pageSize,
-			orderBy: [{ received: 'desc' }, { id: 'asc' }]
+			orderBy
 		})
 	]);
 
@@ -145,4 +146,19 @@ function buildFilters(filters = {}) {
 			};
 		})
 	};
+}
+
+/**
+ *
+ * @param {object[]?} sort
+ * @returns {object[]}
+ */
+function buildOrderBy(sort) {
+	const primarySort = sort || [{ status: 'asc' }];
+	const secondarySort =
+		sort && sort.some((sortObject) => Object.keys(sortObject)[0] === 'received')
+			? []
+			: [{ received: 'asc' }];
+
+	return [...primarySort, ...secondarySort, { id: 'asc' }];
 }
