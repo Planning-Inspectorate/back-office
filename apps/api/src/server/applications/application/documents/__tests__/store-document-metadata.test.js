@@ -29,7 +29,6 @@ const generatesDocumentMetadataResponse = (
 	redactedStatus: '',
 	datePublished: null,
 	version: 1,
-	stage: 'Draft',
 	filter1: null,
 	filter2: null,
 	examinationRefNo: ''
