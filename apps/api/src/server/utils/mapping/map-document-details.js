@@ -1,4 +1,3 @@
-import { mapCaseStatus } from './map-case-status.js';
 import { mapDateStringToUnixTimestamp } from './map-date-string-to-unix-timestamp.js';
 
 /** @typedef {import('apps/api/prisma/schema.js').DocumentVersionWithDocument} DocumentVersionWithDocument */
@@ -45,10 +44,7 @@ export const mapSingleDocumentDetailsFromVersion = ({ Document, ...documentVersi
 		description: documentVersion?.description,
 		version: documentVersion?.version,
 		representative: documentVersion?.representative,
-
-		...(Document?.folder?.case?.CaseStatus && {
-			stage: mapCaseStatus(Document?.folder.case.CaseStatus)
-		}),
+		stage: documentVersion?.stage,
 
 		documentType: documentVersion?.documentType,
 
