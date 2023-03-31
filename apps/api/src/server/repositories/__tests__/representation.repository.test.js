@@ -15,10 +15,14 @@ describe('Representation repository', () => {
 			databaseConnector.representation.count.mockResolvedValue(2);
 			databaseConnector.representation.findMany.mockResolvedValue(existingRepresentations);
 
-			const { count, items } = await representationRepository.getByCaseId(1, {
-				page: 1,
-				pageSize: 25
-			});
+			const { count, items } = await representationRepository.getByCaseId(
+				1,
+				{
+					page: 1,
+					pageSize: 25
+				},
+				{}
+			);
 
 			expect(count).toEqual(2);
 			expect(items).toEqual(existingRepresentations);
@@ -52,7 +56,10 @@ describe('Representation repository', () => {
 				},
 				orderBy: [
 					{
-						received: 'desc'
+						status: 'asc'
+					},
+					{
+						received: 'asc'
 					},
 					{
 						id: 'asc'
@@ -67,10 +74,14 @@ describe('Representation repository', () => {
 			databaseConnector.representation.count.mockResolvedValue(2);
 			databaseConnector.representation.findMany.mockResolvedValue(existingRepresentations);
 
-			const { count, items } = await representationRepository.getByCaseId(1, {
-				page: 2,
-				pageSize: 50
-			});
+			const { count, items } = await representationRepository.getByCaseId(
+				1,
+				{
+					page: 2,
+					pageSize: 50
+				},
+				{}
+			);
 
 			expect(count).toEqual(2);
 			expect(items).toEqual(existingRepresentations);
@@ -104,7 +115,10 @@ describe('Representation repository', () => {
 				},
 				orderBy: [
 					{
-						received: 'desc'
+						status: 'asc'
+					},
+					{
+						received: 'asc'
 					},
 					{
 						id: 'asc'
@@ -125,7 +139,9 @@ describe('Representation repository', () => {
 					page: 1,
 					pageSize: 25
 				},
-				'James    Bond'
+				{
+					searchTerm: 'James    Bond'
+				}
 			);
 
 			expect(count).toEqual(2);
@@ -209,7 +225,10 @@ describe('Representation repository', () => {
 				where,
 				orderBy: [
 					{
-						received: 'desc'
+						status: 'asc'
+					},
+					{
+						received: 'asc'
 					},
 					{
 						id: 'asc'
@@ -230,10 +249,11 @@ describe('Representation repository', () => {
 					page: 1,
 					pageSize: 25
 				},
-				null,
 				{
-					under18: true,
-					status: ['VALID', 'PUBLISHED']
+					filters: {
+						under18: true,
+						status: ['VALID', 'PUBLISHED']
+					}
 				}
 			);
 
@@ -287,7 +307,10 @@ describe('Representation repository', () => {
 				where,
 				orderBy: [
 					{
-						received: 'desc'
+						status: 'asc'
+					},
+					{
+						received: 'asc'
 					},
 					{
 						id: 'asc'
