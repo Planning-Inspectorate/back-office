@@ -112,6 +112,10 @@ export const getById = async (id, caseId) => {
 							fileName: true,
 							mime: true,
 							path: true
+						},
+						take: 1,
+						orderBy: {
+							lastModified: 'desc'
 						}
 					}
 				},
