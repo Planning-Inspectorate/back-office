@@ -40,7 +40,7 @@ router.patch(
 	'/documents/:documentGUID/status',
 	/*
         #swagger.tags = ['Applications']
-        #swagger.path =  'applications/documents/{documentGUID}/status'
+        #swagger.path =  '/applications/documents/{documentGUID}/status'
         #swagger.description = 'Updates document status from state machine'
         #swagger.parameters['documentGUID'] = {
             in: 'path',
@@ -48,9 +48,14 @@ router.patch(
 			required: true,
 			type: 'string'
         }
+		#swagger.parameters['body'] = {
+            in: 'body',
+            description: 'Machine Action',
+            schema: { machineAction: 'uploading' }
+        }
         #swagger.responses[200] = {
             description: 'Document status updated',
-            schema: { caseId: 1, guid: 'DB0110203', status: 'awaiting_virus_check'}
+            schema: { caseId: 1, guid: 'a1b2c4d4-7ce5-410c-937e-28926dd7ab24', status: 'awaiting_virus_check'}
         }
 	 */
 	validateDocumentGUID,

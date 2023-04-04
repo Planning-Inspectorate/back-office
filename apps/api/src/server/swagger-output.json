@@ -724,13 +724,6 @@
 						"description": "id of the required document here"
 					},
 					{
-						"name": "query",
-						"in": "query",
-						"description": "Application details",
-						"example": "{ &ldquo;title&rdquo;:true, &ldquo;description&rdquo;:true, &ldquo;reference&rdquo;:true, &ldquo;status&rdquo;:true, &ldquo;caseEmail&rdquo;:true, &ldquo;sector&rdquo;:true, &ldquo;subSector&rdquo;:true, &ldquo;applicants&rdquo;:true, &ldquo;geographicalInformation&rdquo;:true, &ldquo;keyDates&rdquo;:true }",
-						"type": "string"
-					},
-					{
 						"name": "body",
 						"in": "body",
 						"description": "document pagination parameters",
@@ -969,7 +962,7 @@
 				}
 			}
 		},
-		"applications/documents/{documentGUID}/status": {
+		"/applications/documents/{documentGUID}/status": {
 			"patch": {
 				"tags": ["Applications"],
 				"description": "Updates document status from state machine",
@@ -980,6 +973,20 @@
 						"required": true,
 						"type": "string",
 						"description": "Document GUID"
+					},
+					{
+						"name": "body",
+						"in": "body",
+						"description": "Machine Action",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"machineAction": {
+									"type": "string",
+									"example": "uploading"
+								}
+							}
+						}
 					}
 				],
 				"responses": {
@@ -994,7 +1001,7 @@
 								},
 								"guid": {
 									"type": "string",
-									"example": "DB0110203"
+									"example": "a1b2c4d4-7ce5-410c-937e-28926dd7ab24"
 								},
 								"status": {
 									"type": "string",
