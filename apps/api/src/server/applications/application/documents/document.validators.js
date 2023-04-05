@@ -1,8 +1,10 @@
 import { composeMiddleware } from '@pins/express';
 import { body } from 'express-validator';
 import joi from 'joi';
+import { isArray, isEmpty } from 'lodash-es';
 import { validationErrorHandler } from '../../../middleware/error-handler.js';
 import * as DocumentRepository from '../../../repositories/document.repository.js';
+import * as DocumentVersionRepository from '../../../repositories/document-metadata.repository.js';
 import BackOfficeAppError from '../../../utils/app-error.js';
 import {
 	originEnum,
@@ -18,6 +20,19 @@ import logger from '../../../utils/logger.js';
 /**
  * @typedef {import('apps/api/prisma/schema.js').DocumentVersion} DocumentVersion
  */
+
+/**
+ *
+ * @param {Object<any, string>} errors
+ * @param {string | number | object[] | undefined | null} field
+ * @param {string} fieldName
+ * @returns {void}
+ */
+const addErrorIfMissing = (errors, field, fieldName) => {
+	if (field === null || typeof field === 'undefined' || (isArray(field) && isEmpty(field))) {
+		errors[fieldName] = `Missing ${fieldName}`;
+	}
+};
 
 export const getRedactionStatus = (/** @type {boolean} */ redactedStatus) => {
 	return redactedStatus ? 'redacted' : 'not_redacted';
@@ -168,3 +183,68 @@ export const validateDocumentIds = composeMiddleware(
 	body('[].items').custom(validateAllDocumentsExist),
 	validationErrorHandler
 );
+
+/**
+ * verifies the required properties to be able to publish a doc
+ * returning the errors or {}
+ *
+ * @param {import('@prisma/client').Document} document
+ * @param {import('@prisma/client').DocumentVersion} documentVersion
+ * @throws {Error}
+ * @returns {Promise<Error>}
+ */
+const verifyDocumentPropertiesForReadyToPublish = async (document, documentVersion) => {
+	const errors = {};
+
+	// Step 4: Map the document metadata to a format to be returned in the API response.
+	addErrorIfMissing(errors, document.name, 'name');
+	addErrorIfMissing(errors, documentVersion.filter1, 'filter1');
+	addErrorIfMissing(errors, documentVersion.description, 'description');
+	addErrorIfMissing(errors, documentVersion.author, 'author');
+
+	/* @type Promise<Error> */
+	const response = new Promise((resolve) => {
+		resolve(errors || {});
+	});
+
+	return response;
+};
+
+/**
+ * Verifies if the given array of document GUIDs have the correct meta set, so that they are ready to publish
+ *
+ * @param {documentGuid[]} items
+ * @throws {Error}
+ * @returns {Promise<void>}
+ */
+export const verifyMovingToReadyToPublish = async (items) => {
+	const allErrors = [];
+
+	if (items) {
+		for (const documentItem of items) {
+			const document = await DocumentRepository.getByDocumentGUID(documentItem.guid);
+
+			if (document === null || typeof document === 'undefined') {
+				// throw new Error(`Unknown document guid ${document.guid}`);
+				allErrors.push({ guid: documentItem.guid, errors: 'Unknown document guid' });
+			} else {
+				const documentVersion = await DocumentVersionRepository.getById(documentItem.guid);
+
+				// If the document metadata is not found, throw an error.
+				if (documentVersion === null || typeof documentVersion === 'undefined') {
+					allErrors.push({ guid: documentItem.guid, errors: 'Unknown document metadata guid' });
+				} else {
+					// check all required fields are populated:
+					const errors = await verifyDocumentPropertiesForReadyToPublish(document, documentVersion);
+
+					if (!isEmpty(errors)) {
+						allErrors.push({ guid: documentItem.guid });
+					}
+				}
+			}
+		}
+	}
+	if (allErrors.length > 0) {
+		throw new Error(JSON.stringify(allErrors));
+	}
+};

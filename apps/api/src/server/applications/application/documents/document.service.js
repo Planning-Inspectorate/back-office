@@ -232,3 +232,14 @@ export const upsertDocumentVersionAndReturnDetails = async (documentGuid, docume
 
 	return mapSingleDocumentDetailsFromVersion(documentVersion);
 };
+
+/**
+ *
+ * @param {string} guid
+ * @param {string} status
+ * @param {string} redactedStatus
+ * @returns {Record<string, any>} An object containing the formatted GUID, and status and redactedStatus.
+ */
+export const formatDocumentUpdateResponseBody = (guid, status, redactedStatus) => {
+	return { guid, status, redactedStatus };
+};
