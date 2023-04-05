@@ -23,4 +23,16 @@ describe('Get Application Representation', () => {
 		expect(response.status).toEqual(200);
 		expect(response.body).toEqual(existingRepresentations[0]);
 	});
+	it('gets rep with no id', async () => {
+		databaseConnector.representation.findMany.mockResolvedValue({});
+
+		const response = await request.get('/applications/1/representations/1');
+
+		expect(response.status).toEqual(404);
+		expect(response.body).toEqual({
+			errors: {
+				repId: 'Must be an existing representation'
+			}
+		});
+	});
 });
