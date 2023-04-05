@@ -1,6 +1,15 @@
 import { Router as createRouter } from 'express';
-import { asyncHandler } from '../middleware/async-handler.js';
-import { trimUnexpectedRequestParameters } from '../middleware/trim-unexpected-request-parameters.js';
+import { asyncHandler } from '../../middleware/async-handler.js';
+import { trimUnexpectedRequestParameters } from '../../middleware/trim-unexpected-request-parameters.js';
+import { caseAdminOfficerRoutes } from '../case-admin-officer/case-admin-officer.routes.js';
+import { caseTeamRoutes } from '../case-team/case-team.routes.js';
+import { updateDocumentStatus } from '../documents/documents.controller.js';
+import { validateDocumentGUID, validateMachineAction } from '../documents/documents.validators.js';
+import { inspectorRoutes } from '../inspector/inspector.routes.js';
+import { regionRoutes } from '../region/region.routes.js';
+import { caseSearchRoutes } from '../search/case-search.routes.js';
+import { sectorRoutes } from '../sector/sector.routes.js';
+import { zoomLevelRoutes } from '../zoom-level/zoom-level.routes.js';
 import {
 	createApplication,
 	getApplicationDetails,
@@ -9,7 +18,7 @@ import {
 	publishCase,
 	startCase,
 	updateApplication
-} from './application/application.controller.js';
+} from './application.controller.js';
 import {
 	validateApplicantId,
 	validateApplicationId,
@@ -17,18 +26,9 @@ import {
 	validateGetApplicationQuery,
 	validateGetRepresentationsQuery,
 	validateRepresentationId
-} from './application/application.validators.js';
-import { documentRoutes } from './application/documents/document.routes.js';
-import { fileFoldersRoutes } from './application/file-folders/folders.routes.js';
-import { caseAdminOfficerRoutes } from './case-admin-officer/case-admin-officer.routes.js';
-import { caseTeamRoutes } from './case-team/case-team.routes.js';
-import { updateDocumentStatus } from './documents/documents.controller.js';
-import { validateDocumentGUID, validateMachineAction } from './documents/documents.validators.js';
-import { inspectorRoutes } from './inspector/inspector.routes.js';
-import { regionRoutes } from './region/region.routes.js';
-import { caseSearchRoutes } from './search/case-search.routes.js';
-import { sectorRoutes } from './sector/sector.routes.js';
-import { zoomLevelRoutes } from './zoom-level/zoom-level.routes.js';
+} from './application.validators.js';
+import { documentRoutes } from './documents/document.routes.js';
+import { fileFoldersRoutes } from './file-folders/folders.routes.js';
 
 const router = createRouter();
 
