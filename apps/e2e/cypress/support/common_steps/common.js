@@ -33,3 +33,7 @@ When(/^the user validates previous page$/, function () {
 When(/^the user enters the applicant's postcode as "([^"]*)"$/, function (postcode) {
 	createCasePage.sections.applicantAddress.fillApplicantPostcode(postcode);
 });
+
+When(/^the user refreshes the page$/, function () {
+	cy.reload();
+});

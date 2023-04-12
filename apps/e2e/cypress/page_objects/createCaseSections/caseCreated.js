@@ -9,6 +9,7 @@ export class CaseCreatedSection extends SectionBase {
 				cy.wrap(text.trim()).should('equal', 'New case has been created');
 			});
 		this.saveCaseReference();
+		this.saveCaseIdFromUrl();
 	}
 
 	saveCaseReference() {
@@ -17,5 +18,15 @@ export class CaseCreatedSection extends SectionBase {
 			.then((text) => {
 				Cypress.env('currentCreatedCase', text);
 			});
+	}
+
+	saveCaseIdFromUrl(url) {
+		cy.url().then((url) => {
+			expect(url).include('case-created');
+			const regex = /\/(\d+)\/case-created$/;
+			const match = url.match(regex);
+			const id = match[1];
+			Cypress.env('currentCreatedCaseId', id);
+		});
 	}
 }
