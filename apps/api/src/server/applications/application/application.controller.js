@@ -1,3 +1,4 @@
+import { EventType } from '@pins/event-client';
 import { head, map } from 'lodash-es';
 import { eventClient } from '../../infrastructure/event-client.js';
 import { NSIP_PROJECT } from '../../infrastructure/topics.js';
@@ -28,7 +29,11 @@ export const createApplication = async (request, response) => {
 
 	const application = await caseRepository.createApplication(mappedApplicationDetails);
 
-	await eventClient.sendEvents(NSIP_PROJECT, [buildNsipProjectPayload(application)]);
+	await eventClient.sendEvents(
+		NSIP_PROJECT,
+		[buildNsipProjectPayload(application)],
+		EventType.Create
+	);
 
 	const applicantIds = getServiceCustomerIds(application.serviceCustomer);
 
@@ -52,7 +57,11 @@ export const updateApplication = async ({ params, body }, response) => {
 	}
 
 	// @ts-ignore
-	await eventClient.sendEvents(NSIP_PROJECT, [buildNsipProjectPayload(updateResponse)]);
+	await eventClient.sendEvents(
+		NSIP_PROJECT,
+		[buildNsipProjectPayload(updateResponse)],
+		EventType.Update
+	);
 
 	const applicantIds = getServiceCustomerIds(updateResponse.serviceCustomer);
 

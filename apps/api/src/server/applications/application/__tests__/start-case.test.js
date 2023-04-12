@@ -162,7 +162,11 @@ describe('Start case', () => {
 			interestedPartyIds: []
 		};
 
-		expect(eventClient.sendEvents).toHaveBeenCalledWith('nsip-project', [expectedEventPayload]);
+		expect(eventClient.sendEvents).toHaveBeenCalledWith(
+			'nsip-project',
+			[expectedEventPayload],
+			'Update'
+		);
 	});
 
 	test('throws an error if the application id is not recognised', async () => {

@@ -1,5 +1,6 @@
 import { DefaultAzureCredential } from '@azure/identity';
 import { ServiceBusClient } from '@azure/service-bus';
+import { EventType } from './event-type.js';
 
 /** @typedef {{body: any, contentType: string, applicationProperties: {version: string, purpose: string, traceId: number}}} MessageObjectToSend */
 
@@ -34,47 +35,40 @@ export class ServiceBusEventClient {
 
 	/**
 	 *
-	 * @param {object} body
+	 * @param {object[]} events
 	 * @param {number} traceId
-	 * @returns {MessageObjectToSend}
+	 * @param {EventType} type
+	 * @returns {MessageObjectToSend[]}
 	 */
-	#transformMessageToServiceBusMessage = (body, traceId) => {
-		return {
+	#transformMessagesToSend = (events, traceId, type) => {
+		return events.map((body) => ({
 			body,
 			contentType: 'application/json',
 			applicationProperties: {
 				version: '0.1',
 				purpose: 'create',
-				traceId
+				traceId,
+				type
 			}
-		};
-	};
-
-	/**
-	 *
-	 * @param {object[]} events
-	 * @param {number} traceId
-	 * @returns {MessageObjectToSend[]}
-	 */
-	#transformMessagesToSend = (events, traceId) => {
-		return events.map((body) => this.#transformMessageToServiceBusMessage(body, traceId));
+		}));
 	};
 
 	/**
 	 *
 	 * @param {string} topic
 	 * @param {any[]} events
+	 * @param {EventType} eventType
 	 */
-	sendEvents = async (topic, events) => {
+	sendEvents = async (topic, events, eventType) => {
 		const sender = this.#createSender(topic);
 
 		const traceId = this.#createTraceId();
 
 		this.logger.info(
-			`Publishing ${events.length} events to topic ${topic} with trace id ${traceId}`
+			`Publishing ${events.length} events to topic ${topic} with type ${eventType} and trace id ${traceId}`
 		);
 
-		await sender.sendMessages(this.#transformMessagesToSend(events, traceId));
+		await sender.sendMessages(this.#transformMessagesToSend(events, traceId, eventType));
 
 		return events;
 	};
