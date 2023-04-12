@@ -1,3 +1,4 @@
+import { EventType } from '@pins/event-client';
 import { isArray, isEmpty, pick, pickBy } from 'lodash-es';
 import { eventClient } from '../../infrastructure/event-client.js';
 import { NSIP_PROJECT } from '../../infrastructure/topics.js';
@@ -113,7 +114,11 @@ export const startApplication = async (id) => {
 		throw new Error('Case does not exist');
 	}
 
-	await eventClient.sendEvents(NSIP_PROJECT, [buildNsipProjectPayload(caseDetails)]);
+	await eventClient.sendEvents(
+		NSIP_PROJECT,
+		[buildNsipProjectPayload(caseDetails)],
+		EventType.Update
+	);
 
 	return {
 		id: updatedCase.id,
