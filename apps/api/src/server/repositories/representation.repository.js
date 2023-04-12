@@ -130,12 +130,6 @@ export const getById = async (id, caseId) => {
 		}
 	});
 
-	const representation = representations[0];
-
-	if (representation === null || typeof representation === 'undefined') {
-		throw new Error('Unknown representation on application');
-	}
-
 	return representations[0];
 };
 
