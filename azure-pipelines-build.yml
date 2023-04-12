@@ -231,7 +231,7 @@ extends:
           - template: ../steps/node_script.yml
             parameters:
               nodeVersion: 16
-              script: npm install $(for package in $(Build.Repository.LocalPath)/packages/*; do npm pack $package; done) --only=prod --workspace=@pins/document-publish-function
+              script: npm ci $(for package in $(Build.Repository.LocalPath)/packages/(blob-storage-client|platform|event-client); do npm pack $package; done) --only=prod --workspace=@pins/document-publish-function
               workingDirectory: $(Build.Repository.LocalPath)
           - script: |
               source ~/.bashrc
