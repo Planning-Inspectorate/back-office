@@ -1,5 +1,21 @@
 import { BlobStorageClient } from '@pins/blob-storage-client';
+import { getEventClient } from '@pins/event-client';
 import config from './config.js';
+
+/**
+ *
+ * @param {object} event
+ * @param {import('@azure/functions').Context} context
+ */
+const sendEvent = async (event, context) => {
+	const eventClient = getEventClient(
+		config.serviceBusEnabled,
+		context.log,
+		config.serviceBusOptions.hostname
+	);
+
+	await eventClient.sendEvents('nsip-documents', [event]);
+};
 
 /**
  *
@@ -24,4 +40,6 @@ export const publishDocument = async (context, documentToCopy, documentDestinati
 		desiredContainer: documentDestination.container,
 		desiredFilePath: documentDestination.path
 	});
+
+	await sendEvent(documentDestination, context);
 };

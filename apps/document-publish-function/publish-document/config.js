@@ -8,6 +8,10 @@ const schema = joi.object({
 	DOCUMENT_STORAGE_HOST: joi.string(),
 	log: joi.object({
 		levelStdOut: joi.string()
+	}),
+	serviceBusEnabled: joi.boolean(),
+	serviceBusOptions: joi.object({
+		hostname: joi.string()
 	})
 });
 
@@ -20,6 +24,10 @@ const { value, error } = schema.validate({
 	DOCUMENT_STORAGE_HOST: environment.DOCUMENT_STORAGE_HOST,
 	log: {
 		levelStdOut: environment.LOG_LEVEL_STDOUT || 'debug'
+	},
+	serviceBusEnabled: environment.SERVICE_BUS_ENABLED || true,
+	serviceBusOptions: {
+		hostname: environment.SERVICE_BUS_HOSTNAME
 	}
 });
 
