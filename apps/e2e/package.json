@@ -6,7 +6,7 @@
 	"scripts": {
 		"cy:open": "npx cypress open",
 		"cy:run": "npx cypress run",
-		"cy:run:smoke": "npx cypress run -e TAGS='not @smoke'"
+		"cy:run:smoke": "npx cypress run -e TAGS='@smoke'"
 	},
 	"author": "",
 	"license": "ISC",

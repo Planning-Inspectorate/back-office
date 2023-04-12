@@ -66,6 +66,10 @@ Cypress.Commands.add('deleteFile', (files) => {
 	});
 });
 
+Cypress.Commands.add('deleteDownloads', () => {
+	cy.task('DeleteDownloads');
+});
+
 export function setLocalCookies(userId) {
 	cy.readFile(
 		`${BrowserAuthData.BrowserAuthDataFolder}/${userId}-${BrowserAuthData.CookiesFile}`
