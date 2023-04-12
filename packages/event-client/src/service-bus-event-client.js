@@ -2,7 +2,7 @@ import { DefaultAzureCredential } from '@azure/identity';
 import { ServiceBusClient } from '@azure/service-bus';
 import { EventType } from './event-type.js';
 
-/** @typedef {{body: any, contentType: string, applicationProperties: {version: string, purpose: string, traceId: number}}} MessageObjectToSend */
+/** @typedef {{body: any, contentType: string, applicationProperties: {version: string, type: string, traceId: number}}} MessageObjectToSend */
 
 export class ServiceBusEventClient {
 	/**
@@ -46,7 +46,6 @@ export class ServiceBusEventClient {
 			contentType: 'application/json',
 			applicationProperties: {
 				version: '0.1',
-				purpose: 'create',
 				traceId,
 				type
 			}
