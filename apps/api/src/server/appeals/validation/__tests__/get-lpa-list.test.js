@@ -1,5 +1,5 @@
 import supertest from 'supertest';
-import { app } from '../../../app.js';
+import { app } from '../../../app-test.js';
 const { default: got } = await import('got');
 
 const request = supertest(app);

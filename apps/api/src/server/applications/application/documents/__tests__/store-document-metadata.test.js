@@ -2,7 +2,7 @@ import { jest } from '@jest/globals';
 const { databaseConnector } = await import('../../../../utils/database-connector.js');
 
 import supertest from 'supertest';
-import { app } from '../../../../app.js';
+import { app } from '../../../../app-test.js';
 import { applicationStates } from '../../../state-machine/application.machine.js';
 
 const request = supertest(app);

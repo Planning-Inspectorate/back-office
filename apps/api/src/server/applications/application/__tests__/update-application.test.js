@@ -14,7 +14,7 @@ const expectedEventPayload = {
 	interestedPartyIds: []
 };
 
-const { app } = await import('../../../app.js');
+const { app } = await import('../../../app-test.js');
 const { databaseConnector } = await import('../../../utils/database-connector.js');
 const { eventClient } = await import('../../../infrastructure/event-client.js');
 
