@@ -21,6 +21,7 @@
     "start": "node ./src/server/server.js",
     "schedule:start": "node ./scripts/schedule/index.js",
     "test": "cross-env NODE_ENV=test NODE_OPTIONS=--experimental-vm-modules npx jest",
+	"test:cov": "cross-env NODE_ENV=test NODE_OPTIONS=--experimental-vm-modules npx jest --coverage",
     "posttest": "rimraf .tmp",
     "tscheck": "npx tsc -p jsconfig.json --maxNodeModuleJsDepth 0",
     "watch:rollup": "chokidar \"src/client/**/*.js\" --silent -c \"npm run rollup\"",
