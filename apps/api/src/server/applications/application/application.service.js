@@ -229,6 +229,16 @@ export const getCaseRepresentations = async (caseId, pagination, filterAndSort) 
 
 /**
  *
+ * @param {number} caseId
+ * @param {number} repId
+ * @returns {Promise<object>}
+ */
+export const getCaseRepresentation = async (caseId, repId) => {
+	return representationsRepository.getById(repId, caseId);
+};
+
+/**
+ *
  * @param {string | any } status
  * @param {string} machineAction
  * @returns {import('xstate').StateValue}
