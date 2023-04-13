@@ -29,7 +29,6 @@
     "web": "npm run dev --workspace=@pins/web"
   },
   "dependencies": {
-    "eslint-plugin-pins": "^0.0.0",
     "got": "^12.5.2",
     "joi": "^17.7.0",
     "node-cache": "^5.1.2"
