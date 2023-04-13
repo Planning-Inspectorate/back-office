@@ -24,9 +24,28 @@ applicationsDocumentationRouter
 		asyncRoute(controller.viewApplicationsCaseDocumentationPublishingQueue)
 	);
 
+import * as express from 'express';
+/**
+ *
+ * @param {express.Request} req
+ * @param {express.Response} res
+ * @param {Function} next
+ * @returns {*}
+ */
+function relevantRepsMiddleware(req, res, next) {
+	if (req.params.folderName === 'relevant-representations') {
+		return res.redirect(`/applications-service/case/${req.params.caseId}/relevant-representations`);
+	}
+	next();
+}
+
 applicationsDocumentationRouter
 	.route('/:folderId/:folderName')
-	.get(locals.registerFolder, asyncRoute(controller.viewApplicationsCaseDocumentationFolder))
+	.get(
+		relevantRepsMiddleware,
+		locals.registerFolder,
+		asyncRoute(controller.viewApplicationsCaseDocumentationFolder)
+	)
 	.post(
 		[validateApplicationsDocumentations, locals.registerFolder],
 		asyncRoute(controller.updateApplicationsCaseDocumentationFolder)

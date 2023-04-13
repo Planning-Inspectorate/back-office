@@ -1,0 +1,49 @@
+{% extends "applications/layouts/applications.layout.njk" %}
+
+{% from "govuk/components/breadcrumbs/macro.njk" import govukBreadcrumbs %}
+{% from "govuk/components/back-link/macro.njk" import govukBackLink %}
+{% from "applications/representations/representations-table.component.njk" import representationsTableComponent %}
+{% from "applications/components/status-tag.component.njk" import statusTag %}
+
+{% block pageHeading %}
+{% endblock %}
+
+{% block pageContent %}
+	<div class="govuk-grid-row govuk-!-padding-top-9 govuk-!-padding-bottom-2 govuk-!-margin-left-0 govuk-!-margin-bottom-7 pins-masthead-summary">
+		<div class="govuk-grid-column-full">
+			<span class="govuk-caption-xl"> {{ caseReference.reference }} </span>
+			<h1 class="govuk-heading-xl govuk-!-margin-bottom-3"> {{ caseReference.title }} </h1>
+
+			<p class="govuk-body">
+				{{ caseReference.title }}
+			</p>
+
+			<strong class="govuk-heading-s">
+				{{ statusTag(caseReference.status.text ) }}
+			</strong>
+
+		</div>
+	</div>
+	<div class="govuk-grid-row">
+		<div class="govuk-grid-column-full">
+			{{ govukBreadcrumbs({
+				items: [
+					{
+						text: "Project documentation",
+						href: "/applications-service/case/" + caseId + "/project-documentation"
+					},
+					{
+						text: "Relevant representations",
+						href: "#"
+					}
+				]
+			}) }}
+			<h2 class="govuk-heading-l ">Relevant representations</h2>
+
+			{{ representationsTableComponent(representations) }}
+		</div>
+	</div>
+{% endblock %}
+
+
+
