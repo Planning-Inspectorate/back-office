@@ -24,9 +24,7 @@ const sendEvent = async (event, context) => {
  * @param {{container: string, path: string}} documentDestination
  */
 export const publishDocument = async (context, documentToCopy, documentDestination) => {
-	const blobStorageClient = BlobStorageClient.fromConnectionString(
-		config.DOCUMENT_STORAGE_CONNECTION_STRING
-	);
+	const blobStorageClient = BlobStorageClient.fromUrl(config.DOCUMENT_STORAGE_HOST);
 
 	context.log.info(
 		`Copying document from ${JSON.stringify(documentToCopy)} to ${JSON.stringify(
@@ -40,6 +38,8 @@ export const publishDocument = async (context, documentToCopy, documentDestinati
 		desiredContainer: documentDestination.container,
 		desiredFilePath: documentDestination.path
 	});
+
+	context.log.info('Document copied to Published container');
 
 	await sendEvent(documentDestination, context);
 };
