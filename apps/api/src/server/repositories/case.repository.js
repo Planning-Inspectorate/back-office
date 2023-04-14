@@ -390,7 +390,6 @@ export const publishCase = async ({ caseId }) => {
 		serviceCustomerAddress: true,
 		gridReference: true
 	});
-	// return mapDateStringToUnixTimestamp(String(publishedCase?.publishedAt));
 };
 
 /**
