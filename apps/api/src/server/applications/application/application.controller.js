@@ -1,3 +1,4 @@
+import { EventType } from '@pins/event-client';
 import { head, map } from 'lodash-es';
 import { eventClient } from '../../infrastructure/event-client.js';
 import { NSIP_PROJECT } from '../../infrastructure/topics.js';
@@ -6,7 +7,12 @@ import logger from '../../utils/logger.js';
 import { mapCaseStatusString } from '../../utils/mapping/map-case-status-string.js';
 import { buildNsipProjectPayload } from './application.js';
 import { mapCreateApplicationRequestToRepository } from './application.mapper.js';
-import { getCaseDetails, getCaseRepresentations, startApplication } from './application.service.js';
+import {
+	getCaseDetails,
+	getCaseRepresentation,
+	getCaseRepresentations,
+	startApplication
+} from './application.service.js';
 /**
  *
  * @param {import('@pins/api').Schema.ServiceCustomer[] | undefined} serviceCustomers
@@ -28,7 +34,11 @@ export const createApplication = async (request, response) => {
 
 	const application = await caseRepository.createApplication(mappedApplicationDetails);
 
-	await eventClient.sendEvents(NSIP_PROJECT, [buildNsipProjectPayload(application)]);
+	await eventClient.sendEvents(
+		NSIP_PROJECT,
+		[buildNsipProjectPayload(application)],
+		EventType.Create
+	);
 
 	const applicantIds = getServiceCustomerIds(application.serviceCustomer);
 
@@ -52,7 +62,11 @@ export const updateApplication = async ({ params, body }, response) => {
 	}
 
 	// @ts-ignore
-	await eventClient.sendEvents(NSIP_PROJECT, [buildNsipProjectPayload(updateResponse)]);
+	await eventClient.sendEvents(
+		NSIP_PROJECT,
+		[buildNsipProjectPayload(updateResponse)],
+		EventType.Update
+	);
 
 	const applicantIds = getServiceCustomerIds(updateResponse.serviceCustomer);
 
@@ -146,6 +160,19 @@ export const getApplicationRepresentations = async ({ params, query }, response)
 				...contacts?.[0]
 			};
 		})
+	});
+};
+
+/**
+ *
+ * @type {import('express').RequestHandler<{id: number, repId: number}, ?, ?, any>}
+ */
+export const getApplicationRepresentation = async ({ params }, response) => {
+	const { user, ...representation } = await getCaseRepresentation(params.id, params.repId);
+
+	response.send({
+		...representation,
+		redactedBy: user
 	});
 };
 

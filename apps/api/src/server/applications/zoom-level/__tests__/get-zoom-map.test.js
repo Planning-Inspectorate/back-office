@@ -1,6 +1,6 @@
 import { jest } from '@jest/globals';
 import supertest from 'supertest';
-import { app } from '../../../app.js';
+import { app } from '../../../app-test.js';
 import { nodeCache, setCache } from '../../../utils/cache-data.js';
 
 const { databaseConnector } = await import('../../../utils/database-connector.js');

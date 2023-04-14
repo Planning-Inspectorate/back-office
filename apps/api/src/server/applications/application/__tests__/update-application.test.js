@@ -14,7 +14,7 @@ const expectedEventPayload = {
 	interestedPartyIds: []
 };
 
-const { app } = await import('../../../app.js');
+const { app } = await import('../../../app-test.js');
 const { databaseConnector } = await import('../../../utils/database-connector.js');
 const { eventClient } = await import('../../../infrastructure/event-client.js');
 
@@ -63,7 +63,11 @@ describe('Update application', () => {
 			}
 		});
 
-		expect(eventClient.sendEvents).toHaveBeenCalledWith('nsip-project', [expectedEventPayload]);
+		expect(eventClient.sendEvents).toHaveBeenCalledWith(
+			'nsip-project',
+			[expectedEventPayload],
+			'Update'
+		);
 	});
 
 	test('update-application updates application with just easting and sub-sector name', async () => {
@@ -107,7 +111,11 @@ describe('Update application', () => {
 			}
 		});
 
-		expect(eventClient.sendEvents).toHaveBeenCalledWith('nsip-project', [expectedEventPayload]);
+		expect(eventClient.sendEvents).toHaveBeenCalledWith(
+			'nsip-project',
+			[expectedEventPayload],
+			'Update'
+		);
 	});
 
 	test('update-application updates application when all possible details provided', async () => {
@@ -257,7 +265,11 @@ describe('Update application', () => {
 			}
 		});
 
-		expect(eventClient.sendEvents).toHaveBeenCalledWith('nsip-project', [expectedEventPayload]);
+		expect(eventClient.sendEvents).toHaveBeenCalledWith(
+			'nsip-project',
+			[expectedEventPayload],
+			'Update'
+		);
 	});
 
 	test(`update-application with new applicant using first and last name,
@@ -319,7 +331,11 @@ describe('Update application', () => {
 			}
 		});
 
-		expect(eventClient.sendEvents).toHaveBeenCalledWith('nsip-project', [expectedEventPayload]);
+		expect(eventClient.sendEvents).toHaveBeenCalledWith(
+			'nsip-project',
+			[expectedEventPayload],
+			'Update'
+		);
 	});
 
 	test('update-application returns error if any validated values are invalid', async () => {

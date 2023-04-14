@@ -1,6 +1,6 @@
 import { jest } from '@jest/globals';
 import supertest from 'supertest';
-import { app } from '../../../app.js';
+import { app } from '../../../app-test.js';
 const { databaseConnector } = await import('../../../utils/database-connector.js');
 
 import logger from '../../../utils/logger.js';
