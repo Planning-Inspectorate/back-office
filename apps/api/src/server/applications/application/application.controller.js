@@ -169,11 +169,17 @@ export const getApplicationRepresentations = async ({ params, query }, response)
  * @type {import('express').RequestHandler<{id: number, repId: number}, ?, ?, any>}
  */
 export const getApplicationRepresentation = async ({ params }, response) => {
-	const { user, ...representation } = await getCaseRepresentation(params.id, params.repId);
+	const representation = await getCaseRepresentation(params.id, params.repId);
 
-	response.send({
+	if (!representation && params.repId) {
+		return response
+			.status(404)
+			.json({ errors: { repId: `Representation with id: ${params.repId} not found` } });
+	}
+
+	return response.send({
 		...representation,
-		redactedBy: user
+		redactedBy: representation.user
 	});
 };
 
