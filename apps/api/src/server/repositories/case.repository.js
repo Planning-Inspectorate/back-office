@@ -4,7 +4,6 @@ import path from 'node:path';
 import url from 'node:url';
 import { databaseConnector } from '../utils/database-connector.js';
 import logger from '../utils/logger.js';
-import { mapDateStringToUnixTimestamp } from '../utils/mapping/map-date-string-to-unix-timestamp.js';
 import { separateStatusesToSaveAndInvalidate } from './separate-statuses-to-save-and-invalidate.js';
 
 const DEFAULT_CASE_CREATE_STATUS = 'draft';
@@ -368,7 +367,7 @@ export const updateApplication = async ({
 
 /**
  * @param {UpdateApplicationParams} caseInfo
- * @returns {Promise<number>}
+ * @returns {import('@prisma/client').PrismaPromise<import('@pins/api').Schema.Case | null>}
  */
 export const publishCase = async ({ caseId }) => {
 	const publishedCase = await databaseConnector.case.update({
@@ -380,7 +379,17 @@ export const publishCase = async ({ caseId }) => {
 
 	logger.info(`case was published at ${publishedCase.publishedAt}`);
 
-	return mapDateStringToUnixTimestamp(String(publishedCase?.publishedAt));
+	return getById(caseId, {
+		subSector: true,
+		sector: true,
+		applicationDetails: true,
+		zoomLevel: true,
+		regions: true,
+		caseStatus: true,
+		serviceCustomer: true,
+		serviceCustomerAddress: true,
+		gridReference: true
+	});
 };
 
 /**
