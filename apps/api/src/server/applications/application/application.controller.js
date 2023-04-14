@@ -5,6 +5,7 @@ import { NSIP_PROJECT } from '../../infrastructure/topics.js';
 import * as caseRepository from '../../repositories/case.repository.js';
 import logger from '../../utils/logger.js';
 import { mapCaseStatusString } from '../../utils/mapping/map-case-status-string.js';
+import { mapDateStringToUnixTimestamp } from '../../utils/mapping/map-date-string-to-unix-timestamp.js';
 import { buildNsipProjectPayload } from './application.js';
 import { mapCreateApplicationRequestToRepository } from './application.mapper.js';
 import {
@@ -183,11 +184,19 @@ export const getApplicationRepresentation = async ({ params }, response) => {
 export const publishCase = async ({ params: { id } }, response) => {
 	logger.info(`attempting to publish a case with id ${id}`);
 
-	const publishedDate = await caseRepository.publishCase({
+	const publishedCase = await caseRepository.publishCase({
 		caseId: id
 	});
 
+	await eventClient.sendEvents(
+		NSIP_PROJECT,
+		[buildNsipProjectPayload(publishedCase)],
+		EventType.Publish
+	);
+
 	logger.info(`successfully published case with id ${id}`);
 
-	response.send({ publishedDate });
+	response.send({
+		publishedDate: mapDateStringToUnixTimestamp(String(publishedCase?.publishedAt))
+	});
 };
