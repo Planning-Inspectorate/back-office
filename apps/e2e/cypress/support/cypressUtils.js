@@ -16,6 +16,11 @@ const deleteFile = (fileName) => {
 	return null;
 };
 
+const deleteDownloads = () => {
+	fs.removeSync(path.join(__dirname, `../downloads`));
+	return null;
+};
+
 const cookiesFileExists = (userId) => {
 	const fileName = path.join(__dirname, `/browserAuthData/${userId}-cookies.json`);
 	return fs.existsSync(fileName);
@@ -57,6 +62,7 @@ const webpackConfig = (config) =>
 module.exports = {
 	clearAllCookies,
 	deleteFile,
+	deleteDownloads,
 	getConfigByFile,
 	getCookiesFileContents,
 	cookiesFileExists,

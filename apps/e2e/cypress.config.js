@@ -7,6 +7,7 @@ const {
 	getCookiesFileContents,
 	getConfigByFile,
 	deleteFile,
+	deleteDownloads,
 	webpackConfig
 } = require('./cypress/support/cypressUtils');
 const preprocessor = require('@badeball/cypress-cucumber-preprocessor');
@@ -21,6 +22,7 @@ module.exports = defineConfig({
 			on('task', { ClearAllCookies: clearAllCookies });
 			on('task', { CookiesFileExists: cookiesFileExists });
 			on('task', { DeleteFile: deleteFile });
+			on('task', { DeleteDownloads: deleteDownloads });
 			on('task', { GetConfigByFile: getConfigByFile });
 			on('task', { GetCookiesFileContents: getCookiesFileContents });
 			on('file:preprocessor', webpackConfig(config));

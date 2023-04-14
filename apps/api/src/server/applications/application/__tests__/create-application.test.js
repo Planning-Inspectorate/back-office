@@ -1,6 +1,6 @@
 import { jest } from '@jest/globals';
 import supertest from 'supertest';
-import { app } from '../../../app.js';
+import { app } from '../../../app-test.js';
 const { eventClient } = await import('../../../infrastructure/event-client.js');
 const { databaseConnector } = await import('../../../utils/database-connector.js');
 
@@ -54,7 +54,11 @@ test('creates new application with just title and first notified date', async ()
 		include: expect.any(Object)
 	});
 
-	expect(eventClient.sendEvents).toHaveBeenCalledWith('nsip-project', [expectedEventPayload]);
+	expect(eventClient.sendEvents).toHaveBeenCalledWith(
+		'nsip-project',
+		[expectedEventPayload],
+		'Create'
+	);
 });
 
 test('creates new application with just easting and sub-sector name', async () => {
@@ -99,7 +103,11 @@ test('creates new application with just easting and sub-sector name', async () =
 		include: expect.any(Object)
 	});
 
-	expect(eventClient.sendEvents).toHaveBeenCalledWith('nsip-project', [expectedEventPayload]);
+	expect(eventClient.sendEvents).toHaveBeenCalledWith(
+		'nsip-project',
+		[expectedEventPayload],
+		'Create'
+	);
 });
 
 test('creates new application when all possible details provided', async () => {
@@ -193,7 +201,11 @@ test('creates new application when all possible details provided', async () => {
 		include: expect.any(Object)
 	});
 
-	expect(eventClient.sendEvents).toHaveBeenCalledWith('nsip-project', [expectedEventPayload]);
+	expect(eventClient.sendEvents).toHaveBeenCalledWith(
+		'nsip-project',
+		[expectedEventPayload],
+		'Create'
+	);
 });
 
 test(`creates new application with application first and last name,
@@ -245,7 +257,11 @@ test(`creates new application with application first and last name,
 		},
 		include: expect.any(Object)
 	});
-	expect(eventClient.sendEvents).toHaveBeenCalledWith('nsip-project', [expectedEventPayload]);
+	expect(eventClient.sendEvents).toHaveBeenCalledWith(
+		'nsip-project',
+		[expectedEventPayload],
+		'Create'
+	);
 });
 
 test('returns error if any validated values are invalid', async () => {

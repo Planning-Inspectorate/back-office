@@ -1374,6 +1374,83 @@
 				}
 			}
 		},
+		"/applications/{id}/representations/{repId}": {
+			"get": {
+				"tags": ["Applications"],
+				"description": "Gets a representation on a case",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"type": "integer",
+						"description": "Application ID"
+					},
+					{
+						"name": "repId",
+						"in": "path",
+						"required": true,
+						"type": "integer",
+						"description": "Representation ID"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Representation",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"id": {
+									"type": "number",
+									"example": 1
+								},
+								"reference": {
+									"type": "string",
+									"example": "BC0110001-2"
+								},
+								"status": {
+									"type": "string",
+									"example": "VALID"
+								},
+								"redacted": {
+									"type": "boolean",
+									"example": true
+								},
+								"received": {
+									"type": "string",
+									"example": "2023-03-14T14:28:25.704Z"
+								},
+								"originalRepresentation": {
+									"type": "string",
+									"example": ""
+								},
+								"redactedRepresentation": {
+									"type": "string",
+									"example": ""
+								},
+								"redactedBy": {
+									"type": "object",
+									"properties": {}
+								},
+								"contacts": {
+									"type": "array",
+									"example": [],
+									"items": {}
+								},
+								"attachments": {
+									"type": "array",
+									"example": [],
+									"items": {}
+								}
+							},
+							"xml": {
+								"name": "main"
+							}
+						}
+					}
+				}
+			}
+		},
 		"/applications/{id}/publish": {
 			"patch": {
 				"tags": ["Applications"],

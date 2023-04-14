@@ -55,6 +55,86 @@ export const getByCaseId = async (caseId, { page, pageSize }, { searchTerm, filt
 
 /**
  *
+ * @param {number} id
+ * @param {number?} caseId
+ * @returns {Promise<any>}
+ */
+export const getById = async (id, caseId) => {
+	let caseFilter = {};
+
+	if (caseId) {
+		caseFilter = {
+			case: {
+				id: caseId
+			}
+		};
+	}
+
+	const representations = await databaseConnector.representation.findMany({
+		select: {
+			id: true,
+			reference: true,
+			status: true,
+			redacted: true,
+			received: true,
+			originalRepresentation: true,
+			redactedRepresentation: true,
+			user: {
+				select: {
+					azureReference: true
+				}
+			},
+			contacts: {
+				select: {
+					type: true,
+					firstName: true,
+					lastName: true,
+					organisationName: true,
+					jobTitle: true,
+					under18: true,
+					email: true,
+					phoneNumber: true,
+					address: {
+						select: {
+							addressLine1: true,
+							addressLine2: true,
+							town: true,
+							county: true,
+							postcode: true
+						}
+					}
+				}
+			},
+			attachments: {
+				select: {
+					documentVersion: {
+						select: {
+							fileName: true,
+							mime: true,
+							path: true
+						},
+						take: 1,
+						orderBy: {
+							lastModified: 'desc'
+						}
+					}
+				},
+				where: {
+					isDeleted: false
+				}
+			}
+		},
+		where: {
+			id,
+			...caseFilter
+		}
+	});
+
+	return representations[0];
+};
+
+/**
+ *
  * @param {string} rawSearchTerm
  * @returns {any}
  */

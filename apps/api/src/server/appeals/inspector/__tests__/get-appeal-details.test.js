@@ -1,6 +1,6 @@
 import { jest } from '@jest/globals';
 import supertest from 'supertest';
-import { app } from '../../../app.js';
+import { app } from '../../../app-test.js';
 import formatAddressLowerCase from '../../../utils/address-formatter-lowercase.js';
 import { appealFactoryForTests } from '../../../utils/appeal-factory-for-tests.js';
 const { databaseConnector } = await import('../../../utils/database-connector.js');

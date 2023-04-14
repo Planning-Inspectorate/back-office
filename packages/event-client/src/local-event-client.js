@@ -1,3 +1,5 @@
+import { EventType } from './event-type.js';
+
 export class LocalEventClient {
 	/**
 	 *
@@ -7,8 +9,14 @@ export class LocalEventClient {
 		this.logger = logger;
 	}
 
-	sendEvents = async (/** @type {string} */ topic, /** @type {any[]} */ events) => {
-		this.logger.info(`Dummy publishing events ${JSON.stringify(events)} to topic ${topic}`);
+	sendEvents = async (
+		/** @type {string} */ topic,
+		/** @type {any[]} */ events,
+		/** @type {EventType} */ type
+	) => {
+		this.logger.info(
+			`Dummy publishing events ${JSON.stringify(events)} with type ${type} to topic ${topic}`
+		);
 
 		return events;
 	};
