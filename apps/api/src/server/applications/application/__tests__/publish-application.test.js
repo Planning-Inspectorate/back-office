@@ -1,6 +1,7 @@
 import { jest } from '@jest/globals';
 import supertest from 'supertest';
 import { app } from '../../../app-test.js';
+const { eventClient } = await import('../../../infrastructure/event-client.js');
 const { databaseConnector } = await import('../../../utils/database-connector.js');
 
 import logger from '../../../utils/logger.js';
@@ -9,8 +10,6 @@ const request = supertest(app);
 
 const now = 1_649_319_144_000;
 const mockDate = new Date(now);
-
-const mockPublishedAt = new Date('2023-01-15T23:14:04.193Z');
 
 const loggerInfo = jest.spyOn(logger, 'info');
 
@@ -21,7 +20,7 @@ describe('Publish application', () => {
 		// GIVEN
 		const caseId = 1;
 
-		databaseConnector.case.findUnique.mockResolvedValue({ id: 1, publishedAt: mockPublishedAt });
+		databaseConnector.case.findUnique.mockResolvedValue({ id: 1, publishedAt: mockDate });
 		databaseConnector.case.update.mockResolvedValue({ publishedAt: mockDate });
 
 		// WHEN
@@ -48,6 +47,23 @@ describe('Publish application', () => {
 				publishedAt: mockDate
 			}
 		});
+
+		expect(eventClient.sendEvents).toHaveBeenCalledWith(
+			'nsip-project',
+			[
+				{
+					caseId: 1,
+					sourceSystem: 'ODT',
+					publishStatus: 'published',
+					applicantIds: [],
+					nsipOfficerIds: [],
+					nsipAdministrationOfficerIds: [],
+					inspectorIds: [],
+					interestedPartyIds: []
+				}
+			],
+			'Publish'
+		);
 	});
 
 	test('returns 404 error if a caseId does not exist', async () => {
