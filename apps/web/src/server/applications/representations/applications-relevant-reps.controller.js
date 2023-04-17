@@ -1,3 +1,5 @@
+import * as express from 'express';
+import querystring from 'node:querystring';
 import {
 	getCaseReferenceViewModel,
 	getRepresentationsViewModel
@@ -5,15 +7,23 @@ import {
 import { getCase, getRepresentations } from './applications-relevant-reps.service.js';
 const view = 'applications/representations/representations.njk';
 
-import * as express from 'express';
+/**
+ *
+ * @param {any} query
+ * @returns {string}
+ */
+const buildQueryString = (query) => querystring.stringify(query);
+
 /**
  * @param {express.Request} req
  * @param {express.Response} res
  */
-export async function relevantRepsApplications(req, res) {
-	const { id } = req.params;
+export async function relevantRepsApplications({ params, query }, res) {
+	const { id } = params;
+
+	const queryString = buildQueryString(query);
 	const caseReference = await getCase(id);
-	const representations = await getRepresentations(id);
+	const representations = await getRepresentations(id, queryString);
 
 	const representationsVieModel = getRepresentationsViewModel(representations);
 	const caseReferenceViewModel = getCaseReferenceViewModel(caseReference);
@@ -21,6 +31,7 @@ export async function relevantRepsApplications(req, res) {
 	return res.render(view, {
 		representations: representationsVieModel,
 		caseReference: caseReferenceViewModel,
-		caseId: id
+		caseId: id,
+		searchTerm: query.searchTerm
 	});
 }

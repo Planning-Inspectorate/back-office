@@ -9,11 +9,16 @@ const request = supertest(app);
 
 const mockCaseReference = { title: 'mock title', status: 'in test', reference: 'mock reference' };
 const nocks = () => {
-	nock('http://test/').get('/applications/1').reply(200, mockCaseReference);
 	nock('http://test/')
 		.get(`/applications/1/representations`)
 		.reply(200, representationsFixture)
 		.persist();
+	// RR - search term response
+	nock('http://test/')
+		.get(`/applications/1/representations?searchTerm=mock-search-term`)
+		.reply(200, { items: [representationsFixture.items[0]] })
+		.persist();
+	nock('http://test/').get('/applications/1').reply(200, mockCaseReference);
 };
 
 describe('applications representations', () => {
@@ -48,6 +53,29 @@ describe('applications representations', () => {
 			);
 			expect(element.innerHTML).toContain(
 				`<td class="govuk-table__cell"><span class="govuk-tag govuk-tag" id="list-convictions-status-2">VALID</span>`
+			);
+		});
+	});
+
+	describe('GET /applications-service/:id/relevant-representations with a search term', () => {
+		beforeEach(async () => {
+			nocks();
+			await request.get('/applications-service/case-team');
+		});
+
+		it('should render the page', async () => {
+			const response = await request.get(`${baseUrl}?searchTerm=mock-search-term`);
+			const element = parseHtml(response.text);
+
+			expect(element.innerHTML).toMatchSnapshot();
+			// Assert - case ref data is present
+			expect(element.innerHTML).toContain(mockCaseReference.title);
+			expect(element.innerHTML).toContain(mockCaseReference.status);
+			expect(element.innerHTML).toContain(mockCaseReference.reference);
+
+			// Assert - css classes applied to the status
+			expect(element.innerHTML).toContain(
+				`<td class="govuk-table__cell"><span class="govuk-tag govuk-tag--grey" id="list-convictions-status-1">AWAITING REVIEW</span>`
 			);
 		});
 	});
