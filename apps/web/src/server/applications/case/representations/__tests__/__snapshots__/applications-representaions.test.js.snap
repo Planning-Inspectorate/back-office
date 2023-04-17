@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`applications representations GET /applications-service/:id/relevant-representations should render the page 1`] = `
+exports[`applications representations GET /applications-service/:caseId/relevant-representations should render the page 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"govuk-grid-row govuk-!-padding-top-9 govuk-!-padding-bottom-2 govuk-!-margin-left-0 govuk-!-margin-bottom-7 pins-masthead-summary\\">
         <div class=\\"govuk-grid-column-full\\"><span class=\\"govuk-caption-xl\\"> mock reference </span>
@@ -57,4 +57,3 @@ exports[`applications representations GET /applications-service/:id/relevant-rep
     </div>
 </main>"
 `;
-
