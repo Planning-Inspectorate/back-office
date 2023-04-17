@@ -1,7 +1,7 @@
 import { parseHtml } from '@pins/platform';
 import nock from 'nock';
 import supertest from 'supertest';
-import { createTestEnvironment } from '../../../../../testing/index.js';
+import { createTestEnvironment } from '../../../../../../testing/index.js';
 import { representationsFixture } from '../__fixtures__/representations.fixture.js';
 
 const { app, installMockApi, teardown } = createTestEnvironment();
@@ -26,7 +26,7 @@ describe('applications representations', () => {
 
 	const baseUrl = '/applications-service/case/1/relevant-representations';
 
-	describe('GET /applications-service/:id/relevant-representations', () => {
+	describe('GET /applications-service/:caseId/relevant-representations', () => {
 		beforeEach(async () => {
 			nocks();
 			await request.get('/applications-service/case-team');
