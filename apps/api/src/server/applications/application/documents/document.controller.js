@@ -10,13 +10,15 @@ import {
 } from '../../../utils/mapping/map-document-details.js';
 import { applicationStates } from '../../state-machine/application.machine.js';
 import {
+	formatDocumentUpdateResponseBody,
 	obtainURLsForDocuments,
 	upsertDocumentVersionAndReturnDetails
 } from './document.service.js';
 import {
 	fetchDocumentByGuidAndCaseId,
 	getRedactionStatus,
-	validateDocumentVersionMetatdataBody
+	validateDocumentVersionMetatdataBody,
+	verifyMovingToReadyToPublish
 } from './document.validators.js';
 
 /**
@@ -59,20 +61,43 @@ export const provideDocumentUploadURLs = async ({ params, body }, response) => {
  */
 export const updateDocuments = async ({ body }, response) => {
 	const { status: publishedStatus, redacted: isRedacted, items } = body[''];
+	const formattedResponseList = [];
 
-	const redactedStatus = getRedactionStatus(isRedacted);
+	let redactedStatus;
+
+	// special case - this fn can be called without setting redaction status - in which case a redaction status should not be passed in to the update fn
+	// and the redaction status of each document should remain unchanged.
+	if (isRedacted) {
+		redactedStatus = getRedactionStatus(isRedacted);
+	}
+
+	// special case - for Ready to Publish, need to check that required metadata is set on all the files - else error
+	if (publishedStatus === 'ready_to_publish') {
+		await verifyMovingToReadyToPublish(items);
+	}
 
 	if (items) {
 		for (const document of items) {
 			logger.info(
 				`Updating document with guid: ${document.guid} to published status: ${publishedStatus} and redacted status: ${redactedStatus}`
 			);
-			await documentVersionRepository.update(document.guid, { publishedStatus, redactedStatus });
+
+			const updateResponseInTable = await documentVersionRepository.update(document.guid, {
+				publishedStatus,
+				redactedStatus
+			});
+			const formattedResponse = formatDocumentUpdateResponseBody(
+				updateResponseInTable.documentGuid ?? '',
+				updateResponseInTable.publishedStatus ?? '',
+				updateResponseInTable.redactedStatus ?? ''
+			);
+
+			formattedResponseList.push(formattedResponse);
 		}
 	}
 
 	logger.info(`Updated ${items.length} documents`);
-	response.send(items);
+	response.send(formattedResponseList);
 };
 
 /**

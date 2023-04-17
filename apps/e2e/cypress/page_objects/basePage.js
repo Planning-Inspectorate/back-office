@@ -151,5 +151,7 @@ export class Page {
 			.genericText()
 			.contains(`This folder contains ${fileCount} document(s).`)
 			.should('exist');
+
+		cy.get('.pins-files-list > .govuk-table').should('exist');
 	}
 }

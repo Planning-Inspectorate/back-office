@@ -1,6 +1,6 @@
 // @ts-nocheck
 /// <reference types="cypress"/>
-import { Before, Then } from '@badeball/cypress-cucumber-preprocessor';
+import { After, Before, Then } from '@badeball/cypress-cucumber-preprocessor';
 import { users } from '../../../fixtures/users';
 import '../../commands';
 import { Page } from '../../../page_objects/basePage';
@@ -18,6 +18,10 @@ if (!preserveCookies) {
 beforeEach(() => {
 	cy.clearLocalStorage();
 	cy.clearCookies();
+});
+
+after(() => {
+	cy.deleteDownloads();
 });
 
 Before({ tags: '@CaseTeam' }, () => {

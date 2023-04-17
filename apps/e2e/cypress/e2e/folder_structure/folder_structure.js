@@ -24,7 +24,8 @@ const getAllPaths = (folders, path = []) => {
 // U S E R  A C T I O N S
 Then(/^the user validates all folder paths$/, function async() {
 	cy.fixture('folder-structure').then((folders) => {
-		const folderBase = '/applications-service/case/785/project-documentation';
+		const caseId = Cypress.env('currentCreatedCaseId');
+		const folderBase = `/applications-service/case/${caseId}/project-documentation`;
 		const paths = getAllPaths(folders);
 		paths.forEach((folderPath) => {
 			console.log(folderPath);

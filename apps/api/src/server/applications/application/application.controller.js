@@ -1,9 +1,11 @@
+import { EventType } from '@pins/event-client';
 import { head, map } from 'lodash-es';
 import { eventClient } from '../../infrastructure/event-client.js';
 import { NSIP_PROJECT } from '../../infrastructure/topics.js';
 import * as caseRepository from '../../repositories/case.repository.js';
 import logger from '../../utils/logger.js';
 import { mapCaseStatusString } from '../../utils/mapping/map-case-status-string.js';
+import { mapDateStringToUnixTimestamp } from '../../utils/mapping/map-date-string-to-unix-timestamp.js';
 import { buildNsipProjectPayload } from './application.js';
 import { mapCreateApplicationRequestToRepository } from './application.mapper.js';
 import {
@@ -33,7 +35,11 @@ export const createApplication = async (request, response) => {
 
 	const application = await caseRepository.createApplication(mappedApplicationDetails);
 
-	await eventClient.sendEvents(NSIP_PROJECT, [buildNsipProjectPayload(application)]);
+	await eventClient.sendEvents(
+		NSIP_PROJECT,
+		[buildNsipProjectPayload(application)],
+		EventType.Create
+	);
 
 	const applicantIds = getServiceCustomerIds(application.serviceCustomer);
 
@@ -57,7 +63,11 @@ export const updateApplication = async ({ params, body }, response) => {
 	}
 
 	// @ts-ignore
-	await eventClient.sendEvents(NSIP_PROJECT, [buildNsipProjectPayload(updateResponse)]);
+	await eventClient.sendEvents(
+		NSIP_PROJECT,
+		[buildNsipProjectPayload(updateResponse)],
+		EventType.Update
+	);
 
 	const applicantIds = getServiceCustomerIds(updateResponse.serviceCustomer);
 
@@ -159,11 +169,17 @@ export const getApplicationRepresentations = async ({ params, query }, response)
  * @type {import('express').RequestHandler<{id: number, repId: number}, ?, ?, any>}
  */
 export const getApplicationRepresentation = async ({ params }, response) => {
-	const { user, ...representation } = await getCaseRepresentation(params.id, params.repId);
+	const representation = await getCaseRepresentation(params.id, params.repId);
 
-	response.send({
+	if (!representation && params.repId) {
+		return response
+			.status(404)
+			.json({ errors: { repId: `Representation with id: ${params.repId} not found` } });
+	}
+
+	return response.send({
 		...representation,
-		redactedBy: user
+		redactedBy: representation.user
 	});
 };
 
@@ -174,11 +190,19 @@ export const getApplicationRepresentation = async ({ params }, response) => {
 export const publishCase = async ({ params: { id } }, response) => {
 	logger.info(`attempting to publish a case with id ${id}`);
 
-	const publishedDate = await caseRepository.publishCase({
+	const publishedCase = await caseRepository.publishCase({
 		caseId: id
 	});
 
+	await eventClient.sendEvents(
+		NSIP_PROJECT,
+		[buildNsipProjectPayload(publishedCase)],
+		EventType.Publish
+	);
+
 	logger.info(`successfully published case with id ${id}`);
 
-	response.send({ publishedDate });
+	response.send({
+		publishedDate: mapDateStringToUnixTimestamp(String(publishedCase?.publishedAt))
+	});
 };

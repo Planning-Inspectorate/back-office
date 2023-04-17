@@ -8,14 +8,7 @@ export class FileUploadPage extends Page {
 
 	// U S E R  A C T I O N S
 	uploadFile() {
-		this.elements.chooseFileInput().selectFile(
-			{
-				contents: Cypress.Buffer.from('file contents'),
-				fileName: 'test.pdf',
-				mimeType: 'application/pdf',
-				lastModified: Date.now()
-			},
-			{ force: true }
-		);
+		cy.fixture('sample-doc.pdf').as('pdf');
+		this.elements.chooseFileInput().selectFile('@pdf', { force: true });
 	}
 }

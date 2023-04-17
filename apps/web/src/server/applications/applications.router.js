@@ -30,6 +30,8 @@ router.use('/search-results', guards.assertDomainTypeExists, applicationsSearchR
 
 router.use('/create-new-case', guards.assertDomainTypeExists, applicationsCreateRouter);
 
+router.use('/case', guards.assertDomainTypeExists, relevantRepsRouter);
+
 router.use('/case', guards.assertDomainTypeExists, applicationsCaseRouter);
 
 // router.use('/relevant-representations', guards.assertDomainTypeExists, relevantRepsRouter);

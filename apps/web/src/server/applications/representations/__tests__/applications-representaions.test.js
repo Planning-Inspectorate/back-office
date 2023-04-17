@@ -24,11 +24,12 @@ describe('applications representations', () => {
 		nock.cleanAll();
 	});
 
-	const baseUrl = '/applications-service/1/relevant-representations';
+	const baseUrl = '/applications-service/case/1/relevant-representations';
 
 	describe('GET /applications-service/:id/relevant-representations', () => {
 		beforeEach(async () => {
 			nocks();
+			await request.get('/applications-service/case-team');
 		});
 
 		it('should render the page', async () => {

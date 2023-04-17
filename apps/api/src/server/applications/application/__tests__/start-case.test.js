@@ -1,6 +1,6 @@
 import { jest } from '@jest/globals';
 import supertest from 'supertest';
-import { app } from '../../../app.js';
+import { app } from '../../../app-test.js';
 const { eventClient } = await import('../../../infrastructure/event-client.js');
 
 import { applicationFactoryForTests } from '../../../utils/application-factory-for-tests.js';
@@ -162,7 +162,11 @@ describe('Start case', () => {
 			interestedPartyIds: []
 		};
 
-		expect(eventClient.sendEvents).toHaveBeenCalledWith('nsip-project', [expectedEventPayload]);
+		expect(eventClient.sendEvents).toHaveBeenCalledWith(
+			'nsip-project',
+			[expectedEventPayload],
+			'Update'
+		);
 	});
 
 	test('throws an error if the application id is not recognised', async () => {

@@ -1,5 +1,5 @@
 import supertest from 'supertest';
-import { app } from '../../../app.js';
+import { app } from '../../../app-test.js';
 import formatAddress from '../../../utils/address-formatter.js';
 import { appealFactoryForTests } from '../../../utils/appeal-factory-for-tests.js';
 const { databaseConnector } = await import('../../../utils/database-connector.js');

@@ -34,7 +34,7 @@ import * as express from 'express';
  */
 function relevantRepsMiddleware(req, res, next) {
 	if (req.params.folderName === 'relevant-representations') {
-		return res.redirect(`/applications-service/${req.params.caseId}/relevant-representations`);
+		return res.redirect(`/applications-service/case/${req.params.caseId}/relevant-representations`);
 	}
 	next();
 }
