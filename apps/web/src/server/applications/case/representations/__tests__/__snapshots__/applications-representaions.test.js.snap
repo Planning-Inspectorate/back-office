@@ -19,6 +19,19 @@ exports[`applications representations GET /applications-service/:caseId/relevant
                 </ol>
             </div>
             <h2 class=\\"govuk-heading-l \\">Relevant representations</h2>
+            <h3 class=\\"govuk-heading-m\\">Search representations</h3>
+            <form method=\\"GET\\">
+                <div class=\\"govuk-grid-row\\">
+                    <div class=\\"govuk-grid-column-one-half\\">
+                        <div class=\\"govuk-form-group\\">
+                            <input class=\\"govuk-input\\" id=\\"searchTerm\\" name=\\"searchTerm\\" type=\\"text\\">
+                        </div>
+                    </div>
+                    <div class=\\"govuk-grid-column-one-half\\">
+                        <button class=\\"govuk-button govuk-button--secondary\\" data-module=\\"govuk-button\\">Search</button>
+                    </div>
+                </div>
+            </form>
             <table class=\\"govuk-table\\">
                 <thead class=\\"govuk-table__head\\">
                     <tr class=\\"govuk-table__row\\">
@@ -47,6 +60,68 @@ exports[`applications representations GET /applications-service/:caseId/relevant
                         <td class=\\"govuk-table__cell\\">01 Jan 2022</td>
                         <td class=\\"govuk-table__cell\\">Unredacted</td>
                         <td class=\\"govuk-table__cell\\"><span class=\\"govuk-tag govuk-tag\\" id=\\"list-convictions-status-2\\">VALID</span>
+                        </td>
+                        <td class=\\"govuk-table__cell\\"><a href=\\"#\\"> Review </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</main>"
+`;
+
+exports[`applications representations GET /applications-service/:id/relevant-representations with a search term should render the page with search term 1`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <div class=\\"govuk-grid-row govuk-!-padding-top-9 govuk-!-padding-bottom-2 govuk-!-margin-left-0 govuk-!-margin-bottom-7 pins-masthead-summary\\">
+        <div class=\\"govuk-grid-column-full\\"><span class=\\"govuk-caption-xl\\"> mock reference </span>
+            <h1 class=\\"govuk-heading-xl govuk-!-margin-bottom-3\\"> mock title </h1>
+            <p class=\\"govuk-body\\">mock title</p><strong class=\\"govuk-heading-s\\"><strong class=\\"govuk-tag govuk-tag--\\">in test</strong></strong>
+        </div>
+    </div>
+    <div class=\\"govuk-grid-row\\">
+        <div class=\\"govuk-grid-column-full\\">
+            <div class=\\"govuk-breadcrumbs\\">
+                <ol class=\\"govuk-breadcrumbs__list\\">
+                    <li class=\\"govuk-breadcrumbs__list-item\\"><a class=\\"govuk-breadcrumbs__link\\" href=\\"/applications-service/case/1/project-documentation\\">Project documentation</a>
+                    </li>
+                    <li class=\\"govuk-breadcrumbs__list-item\\"><a class=\\"govuk-breadcrumbs__link\\" href=\\"#\\">Relevant representations</a>
+                    </li>
+                </ol>
+            </div>
+            <h2 class=\\"govuk-heading-l \\">Relevant representations</h2>
+            <h3 class=\\"govuk-heading-m\\">Search representations</h3>
+            <form method=\\"GET\\">
+                <div class=\\"govuk-grid-row\\">
+                    <div class=\\"govuk-grid-column-one-half\\">
+                        <div class=\\"govuk-form-group\\">
+                            <input class=\\"govuk-input\\" id=\\"searchTerm\\" name=\\"searchTerm\\" type=\\"text\\"
+                            value=\\"mock-search-term\\">
+                        </div>
+                    </div>
+                    <div class=\\"govuk-grid-column-one-half\\">
+                        <button class=\\"govuk-button govuk-button--secondary\\" data-module=\\"govuk-button\\">Search</button>
+                    </div>
+                </div>
+            </form>
+            <table class=\\"govuk-table\\">
+                <thead class=\\"govuk-table__head\\">
+                    <tr class=\\"govuk-table__row\\">
+                        <th scope=\\"col\\" class=\\"govuk-table__header\\">Reference</th>
+                        <th scope=\\"col\\" class=\\"govuk-table__header\\">From</th>
+                        <th scope=\\"col\\" class=\\"govuk-table__header\\">Date received</th>
+                        <th scope=\\"col\\" class=\\"govuk-table__header\\">Redacted</th>
+                        <th scope=\\"col\\" class=\\"govuk-table__header\\">Status</th>
+                        <th scope=\\"col\\" class=\\"govuk-table__header\\">Actions</th>
+                    </tr>
+                </thead>
+                <tbody class=\\"govuk-table__body\\">
+                    <tr class=\\"govuk-table__row\\">
+                        <td class=\\"govuk-table__cell\\">mock reference</td>
+                        <td class=\\"govuk-table__cell\\">org name 1</td>
+                        <td class=\\"govuk-table__cell\\">01 Jan 2022</td>
+                        <td class=\\"govuk-table__cell\\">Redacted</td>
+                        <td class=\\"govuk-table__cell\\"><span class=\\"govuk-tag govuk-tag--grey\\" id=\\"list-convictions-status-1\\">AWAITING REVIEW</span>
                         </td>
                         <td class=\\"govuk-table__cell\\"><a href=\\"#\\"> Review </a>
                         </td>
