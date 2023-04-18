@@ -209,12 +209,27 @@ describe('applications documentation', () => {
 				expect(element.innerHTML).toContain('There is a problem');
 			});
 
+			it('should return an error if no action is selected', async () => {
+				nock('http://test/').patch('/applications/123/documents/update').reply(200, []);
+
+				const response = await request
+					.post(`${baseUrl}/project-documentation/21/sub-folder-level2`)
+					.send({
+						selectedFilesIds: ['2']
+					});
+				const element = parseHtml(response.text);
+
+				expect(element.innerHTML).toMatchSnapshot();
+				expect(element.innerHTML).toContain('Select a status to apply a change');
+			});
+
 			it('should refresh the page if there are no errors', async () => {
 				nock('http://test/').patch('/applications/123/documents/update').reply(200, []);
 
 				const response = await request
 					.post(`${baseUrl}/project-documentation/21/sub-folder-level2`)
 					.send({
+						status: 'not_user_checked',
 						selectedFilesIds: ['2']
 					});
 
