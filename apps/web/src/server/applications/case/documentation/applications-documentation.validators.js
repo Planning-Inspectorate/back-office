@@ -7,6 +7,12 @@ export const validateApplicationsDocumentations = createValidator(
 		.withMessage('Select documents to make changes to statuses')
 );
 
+export const validateApplicationsDocumentationsActions = createValidator(
+	body('isRedacted')
+		.custom((value, { req }) => !!value || !!req?.body?.status)
+		.withMessage('Select a status to apply a change')
+);
+
 export const validateApplicationsDocumentationsDeleteStatus = createValidator(
 	body('status')
 		.custom((value) => value !== 'published')

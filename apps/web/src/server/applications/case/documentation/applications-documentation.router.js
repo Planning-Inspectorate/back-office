@@ -5,6 +5,7 @@ import * as locals from '../applications-case.locals.js';
 import * as controller from './applications-documentation.controller.js';
 import {
 	validateApplicationsDocumentations,
+	validateApplicationsDocumentationsActions,
 	validateApplicationsDocumentationsDeleteStatus
 } from './applications-documentation.validators.js';
 
@@ -47,7 +48,11 @@ applicationsDocumentationRouter
 		asyncRoute(controller.viewApplicationsCaseDocumentationFolder)
 	)
 	.post(
-		[validateApplicationsDocumentations, locals.registerFolder],
+		[
+			validateApplicationsDocumentations,
+			validateApplicationsDocumentationsActions,
+			locals.registerFolder
+		],
 		asyncRoute(controller.updateApplicationsCaseDocumentationFolder)
 	);
 

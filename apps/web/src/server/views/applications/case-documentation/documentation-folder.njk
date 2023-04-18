@@ -10,6 +10,20 @@
 {% from "govuk/components/radios/macro.njk" import govukRadios %}
 {% from "govuk/components/tag/macro.njk" import govukTag %}
 
+{% block errorSummary %}
+    {% if errors %}
+      <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full">
+          {{
+					govukErrorSummary({
+						titleText: "There is a problem",
+						errorList: errors | mapToErrorSummary
+					})
+				}}
+        </div>
+      </div>
+    {% endif %}
+{% endblock %}
 
 {% block beforeContent %}{% endblock %}
 
@@ -196,7 +210,7 @@
 								{% for documentationFile in documentationFiles.items %}
 									{% set isNotDisabled = documentationFile.publishedStatus !== 'awaiting_upload' and documentationFile.publishedStatus !== 'awaiting_virus_check' and documentationFile.publishedStatus !== 'failed_virus_check' %}
 
-									<tr class="govuk-table__row {{ "" if isNotDisabled else "govuk-table__row--disabled" }}">
+									<tr class="govuk-table__row {{ "" if isNotDisabled else "govuk-table__row--disabled" }} {{ "govuk-table__row--failed" if documentationFile.failed else "" }}">
 										<td class="govuk-table__cell">
 											{% if isNotDisabled %}
 												{{ govukCheckboxes({
@@ -212,6 +226,7 @@
 											{% endif %}
 										</td>
 										<td class="govuk-table__cell">
+											{% if documentationFile.failed %} <span class='govuk-body-s govuk-!-font-weight-bold colour--red'> You must fill in all mandatory document properties to publish a document </span>{% endif %}
 											{% set isPreviewActive = isNotDisabled and (documentationFile.mime === 'application/pdf' or documentationFile.mime === 'image/jpeg' or documentationFile.mime === 'image/png') %}
 											{{ createOptionalLink(
 												{
