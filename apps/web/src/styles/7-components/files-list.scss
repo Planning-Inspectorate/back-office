@@ -95,11 +95,25 @@
 		}
 	}
 
-	.govuk-table__row--disabled {
-	  background: rgba(colors.govuk-colour('light-grey'), 0.5);
-	  * {
-		pointer-events: none;
-	  }
+	.govuk-table__row {
+		position: relative;
+
+		&--disabled {
+	  		background: rgba(colors.govuk-colour('light-grey'), 0.5);
+	  		* {
+				pointer-events: none;
+	  		}
+		}
+
+		&--failed:after {
+			content: "";
+			position: absolute;
+			height: 100%;
+			width: 5px;
+			left: -15px;
+			display: block;
+			background: colors.govuk-colour('red');
+		}
 	}
 
 	&:not([class*="publish"]) {

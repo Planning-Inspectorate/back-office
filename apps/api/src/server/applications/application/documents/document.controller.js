@@ -67,7 +67,7 @@ export const updateDocuments = async ({ body }, response) => {
 
 	// special case - this fn can be called without setting redaction status - in which case a redaction status should not be passed in to the update fn
 	// and the redaction status of each document should remain unchanged.
-	if (isRedacted) {
+	if (typeof isRedacted !== 'undefined') {
 		redactedStatus = getRedactionStatus(isRedacted);
 	}
 
