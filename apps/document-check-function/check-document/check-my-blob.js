@@ -54,7 +54,7 @@ const deleteDocument = async (documentUri, log) => {
 
 	try {
 		await got
-			.delete(`https://${config.DOCUMENT_STORAGE_API_HOST}/document`, {
+			.delete(`https://${config.pinsstdocsbodevukw001__blobServiceUri}/document`, {
 				json: { documentPath }
 			})
 			.json();
