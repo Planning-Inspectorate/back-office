@@ -17,7 +17,7 @@ import {
 import {
 	fetchDocumentByGuidAndCaseId,
 	getRedactionStatus,
-	validateDocumentVersionMetatdataBody,
+	validateDocumentVersionMetadataBody,
 	verifyMovingToReadyToPublish
 } from './document.validators.js';
 
@@ -172,7 +172,7 @@ export const storeDocumentVersion = async (request, response) => {
 
 	// Validate the request body and extract the document version metadata
 	/** @type {DocumentVersion} */
-	const documentVersionMetadataBody = validateDocumentVersionMetatdataBody(request.body);
+	const documentVersionMetadataBody = validateDocumentVersionMetadataBody(request.body);
 
 	// Retrieve the document from the database using the provided guid and caseId
 	const document = await fetchDocumentByGuidAndCaseId(guid, +caseId);
