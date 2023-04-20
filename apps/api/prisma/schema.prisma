@@ -332,7 +332,7 @@ model DocumentVersion {
   documentGuid           String
   version                Int       @default(1)
   lastModified           DateTime?
-  documentType           String    @default("")
+  documentType           String?
   published              Boolean   @default(false)
   sourceSystem           String    @default("back-office")
   origin                 String?
