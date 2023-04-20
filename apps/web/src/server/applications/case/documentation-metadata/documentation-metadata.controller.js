@@ -116,6 +116,10 @@ export async function updateDocumentationMetaData(request, response) {
 
 		newMetaData = { [fieldName]: new Date(newValue) };
 	}
+	// special case for documentType "No document type" - we need to send null to the api
+	if (metaDataName === 'type' && newMetaData.documentType === '') {
+		newMetaData.documentType = null;
+	}
 
 	const { errors: apiErrors } = await updateDocumentMetaData(caseId, documentGuid, newMetaData);
 
