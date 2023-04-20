@@ -5,7 +5,7 @@
 			"type": "blobTrigger",
 			"direction": "in",
 			"path": "document-service-uploads/{name}",
-			"connection": "AzureWebJobsStorage__blobServiceUri"
+			"connection": "pinsstdocsbodevukw001__blobServiceUri"
 		}
 	]
 }
