@@ -83,7 +83,7 @@ export const validateDocumentVersionMetatdataBody = (documentVersonEventBody) =>
 		dateCreated: joi.date().iso().optional(),
 		datePublished: joi.date().iso().optional(),
 		lastModified: joi.date().iso().optional(),
-		documentType: joi.string().allow('').optional(),
+		documentType: joi.string().allow(null).optional(),
 		documentName: joi.string().optional(),
 		fileName: joi.string().optional(),
 		documentId: joi.string().optional(),
