@@ -44,6 +44,7 @@ const getContactDetailsByContactType = ({ contacts }, type) => {
             res = {
                 orgName: contact.organisationName || '',
                 name: `${ contact.firstName} ${ contact.lastName }`,
+                orgOrName: contact.organisationName ? contact.organisationName : `${ contact.firstName} ${ contact.lastName }`,
                 jobTitle: contact.jobTitle || '',
                 under18: contact.under18 ? 'Yes' : 'No',
                 email: contact.email || '',
