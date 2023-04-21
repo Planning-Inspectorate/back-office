@@ -26,6 +26,17 @@ export async function viewApplicationsCasePages({ params }, response) {
 }
 
 /**
+ * View the examination timetable page for a single case
+ *
+ * @type {import('@pins/express').RenderHandler<{}, {}, {}, {}, {}>}
+ */
+export async function viewApplicationsCaseExaminationTimeTable(request, response) {
+	response.render(`applications/case/examination-timetable`, {
+		selectedPageType: 'examination-timetable'
+	});
+}
+
+/**
  * View page for previewing and publishing case
  *
  * @type {import('@pins/express').RenderHandler<{}, {}, {}, {}, {}>}

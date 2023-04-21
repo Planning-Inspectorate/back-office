@@ -1,6 +1,7 @@
 {% macro casePageNavigation(params) %}
 	{% set case = params.case %}
 	{% set domainType = params.domainType %}
+	{% set userIsInspector = domainType === 'inspector' %}
 	{% set selectedPageType = params.selectedPageType %}
 
 	<aside class="govuk-!-margin-bottom-8 pins-list-menu">
@@ -19,6 +20,10 @@
 						caseId: case.id }) }}</li>
 				<li class="govuk-heading-s">{{ writeMenuLink({ pageTitle: 'Project documentation', pageType: 'project-documentation', selectedPageType: selectedPageType,
 						caseId: case.id }) }}</li>
+				{% if not userIsInspector %}
+					<li class="govuk-heading-s">{{ writeMenuLink({ pageTitle: 'Examination timetable', pageType: 'examination-timetable', selectedPageType: selectedPageType,
+						caseId: case.id }) }}</li>
+				{% endif %}
 			</ul>
 		</nav>
 	</aside>
