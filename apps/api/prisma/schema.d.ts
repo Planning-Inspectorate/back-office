@@ -53,17 +53,21 @@ export interface ServiceCustomer extends schema.ServiceCustomer {
 }
 
 export interface Appeal extends schema.Appeal {
+	address?: schema.Address;
+	appealDetailsFromAppellant?: schema.AppealDetailsFromAppellant;
 	appealStatus: AppealStatus[];
 	appealType: AppealType;
-	address?: schema.Address;
 	appellant?: schema.Appellant;
-	appealDetailsFromAppellant?: schema.AppealDetailsFromAppellant;
-	validationDecision?: ValidationDecision[];
-	reviewQuestionnaire?: schema.ReviewQuestionnaire[];
-	lpaQuestionnaire?: schema.LPAQuestionnaire;
-	inspectorDecision?: InspectorDecision;
-	siteVisit?: SiteVisit;
+	createdAt: Date;
 	documents?: AppealDocument[];
+	id: number;
+	inspectorDecision?: InspectorDecision;
+	localPlanningDepartment: string;
+	lpaQuestionnaire?: schema.LPAQuestionnaire;
+	reference: string;
+	reviewQuestionnaire?: schema.ReviewQuestionnaire[];
+	siteVisit?: SiteVisit;
+	validationDecision?: ValidationDecision[];
 }
 
 export interface AppealDocument {
@@ -80,6 +84,7 @@ export interface AppealStatus extends schema.AppealStatus {
 
 export interface AppealType extends schema.AppealType {
 	shorthand: AppealTypeCode;
+	type: string;
 }
 
 export type AppealTypeCode = 'HAS' | 'FPA';
