@@ -72,14 +72,21 @@ const getContactDetailsByContactType = ({ contacts }, type) => {
  */
 const formatDate = ( date ) => format(new Date(date), 'dd MMM yyyy');
 
+// Shorten a string to less than maxLen characters without truncating words.
+const createExcerpt = (string, maxLength) => {
+    const lastSpaceIndex = string.lastIndexOf(' ', maxLength)
+    return `${string.substr(0, lastSpaceIndex )}...`;
+  }
+
 const getRepresentationData = ( data ) => {
-
+    const maxRepTextLength = 200
     //TODO: remove test rep text
-    data.originalRepresentation = 'Ipsum ex deserunt et consequat esse reprehenderit excepteur ipsum eu. Ea sit Lorem irure duis pariatur sit ea est ut magna. Elit in ea sint reprehenderit anim aute ullamco laboris enim adipisicing elit tempor. Aliqua duis exercitation ex exercitation sit ullamco in nostrud dolor sit elit exercitation velit. Ea ad ad ut laboris sunt eiusmod. Commodo in eiusmod ipsum sit elit occaecat ad reprehenderit eiusmod elit sit. In aliquip eu aliquip est ad Officia qui sint dolor ut quis consequat Lorem velit fugiat do dolor velit veniam. Duis dolore eu sit qui nisi aliquip deserunt culpa ut sint veniam ullamco. Dolore esse dolor exercitation nisi consectetur dolor anim veniam ad. Deserunt cillum incididunt officia ullamco mollit voluptate id sunt nisi proident officia laborum sit. Do exercitation dolore culpa exercitation nisi voluptate esse fugiat. Elit aliquip quis cupidatat sint aliqua. Irure aute exercitation cillum est. Ut dolore veniam consequat excepteur tempor sit. Adipisicing officia quis ea labore nostrud ullamco nisi. Proident minim anim proident velit duis do elit reprehenderit commodo. Anim laborum laborum quis id qui fugiat nulla duis ipsum exercitation aute elit reprehenderit dolor. Adipisicing incididunt eu anim aliqua Lorem eiusmod irure Lorem ex do duis. Aliquip officia occaecat non ullamco cupidatat laborum deserunt laboris consectetur. Ex consequat pariatur nulla do ex proident laboris pariatur adipisicing deserunt adipisicing in occaecat fugiat. Ullamco elit dolore consequat consectetur.Voluptate sint id aliqua eu aliqua incididunt nulla do deserunt elit. Veniam cupidatat adipisicing est nostrud occaecat tempor. Elit ad aute culpa culpa.'
+    data.originalRepresentation = 'Ipsum ex deserunt et consequat esse reprehenderit excepteur ipsum eu. Ea sit Lorem irure duis pariatur sit ea est ut magna. Elit in ea sint reprehenderit anim aute ullamco laboris enim adipisicing elit tempor.'
 
+    
     let representationExcerpt = false
-    if( data.originalRepresentation.length >= 200 ) {
-        representationExcerpt = data.originalRepresentation.substring( 0, 200 )
+    if( data.originalRepresentation.length >= maxRepTextLength ) {
+        representationExcerpt = createExcerpt( data.originalRepresentation, maxRepTextLength )
     }
 
 
