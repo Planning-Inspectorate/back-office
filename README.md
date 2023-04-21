@@ -59,6 +59,9 @@ Once the repository has been cloned you can follow the instructions bellow to ru
 npm ci
 ```
 
+Duplicate `apps/web/.env.development` and rename it to `.env.local`
+Add `SESSION_SECRET=anyValue` to the end of `.env.local`
+
 Run all apps in dev mode
 
 ```shell
