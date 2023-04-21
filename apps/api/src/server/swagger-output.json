@@ -16,6 +16,21 @@
 	"schemes": [],
 	"securityDefinitions": {},
 	"paths": {
+		"/appeals": {
+			"get": {
+				"tags": ["Appeals"],
+				"description": "Gets all appeals",
+				"parameters": [],
+				"responses": {
+					"200": {
+						"description": "Gets all appeals",
+						"schema": {
+							"$ref": "#/definitions/AllAppeals"
+						}
+					}
+				}
+			}
+		},
 		"/appeals/validation/": {
 			"get": {
 				"tags": ["Appeals"],
@@ -511,6 +526,513 @@
 				}
 			}
 		},
+		"/applications": {
+			"post": {
+				"tags": ["Applications"],
+				"description": "Creates new application",
+				"parameters": [
+					{
+						"name": "body",
+						"in": "body",
+						"description": "Application Details",
+						"schema": {
+							"$ref": "#/definitions/CreateApplication"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "ID of application",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"id": {
+									"type": "number",
+									"example": 1
+								},
+								"applicantIds": {
+									"type": "array",
+									"example": [2],
+									"items": {
+										"type": "number"
+									}
+								}
+							},
+							"xml": {
+								"name": "main"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/applications/{id}/start": {
+			"post": {
+				"tags": ["Applications"],
+				"description": "Moves application from Draft state to Pre-Application state",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"type": "integer",
+						"description": "Application ID"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Application Details",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"id": {
+									"type": "number",
+									"example": 1
+								},
+								"reference": {
+									"type": "string",
+									"example": "AB0110203"
+								},
+								"status": {
+									"type": "string",
+									"example": "Pre-Application"
+								}
+							},
+							"xml": {
+								"name": "main"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/applications/{id}": {
+			"get": {
+				"tags": ["Applications"],
+				"description": "Gets all of the application details",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"type": "integer",
+						"description": "Application ID here"
+					},
+					{
+						"name": "query",
+						"in": "query",
+						"description": "Application details",
+						"example": "{ &ldquo;title&rdquo;:true, &ldquo;description&rdquo;:true, &ldquo;reference&rdquo;:true, &ldquo;status&rdquo;:true, &ldquo;caseEmail&rdquo;:true, &ldquo;sector&rdquo;:true, &ldquo;subSector&rdquo;:true, &ldquo;applicants&rdquo;:true, &ldquo;geographicalInformation&rdquo;:true, &ldquo;keyDates&rdquo;:true }",
+						"type": "string"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "IDs of application",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"id": {
+									"type": "number",
+									"example": 1
+								},
+								"reference": {
+									"type": "string",
+									"example": "BC010001"
+								},
+								"title": {
+									"type": "string",
+									"example": "Office Use Test Application 1"
+								},
+								"description": {
+									"type": "string",
+									"example": "A description of test case 1 which is a case of subsector type Office Use"
+								},
+								"status": {
+									"type": "string",
+									"example": "Withdrawn"
+								},
+								"caseEmail": {
+									"type": "string",
+									"example": "caseemail@gmail.com"
+								},
+								"sector": {
+									"type": "object",
+									"properties": {}
+								},
+								"subSector": {
+									"type": "object",
+									"properties": {
+										"name": {
+											"type": "string",
+											"example": "office_use"
+										},
+										"abbreviation": {
+											"type": "string",
+											"example": "BC01"
+										},
+										"displayNameEn": {
+											"type": "string",
+											"example": "Office Use"
+										},
+										"displayNameCy": {
+											"type": "string",
+											"example": "Office Use"
+										}
+									}
+								},
+								"applicants": {
+									"type": "array",
+									"example": [],
+									"items": {}
+								},
+								"geographicalInformation": {
+									"type": "object",
+									"properties": {
+										"mapZoomLevel": {
+											"type": "object",
+											"properties": {
+												"id": {
+													"type": "number",
+													"example": 5
+												},
+												"name": {
+													"type": "string",
+													"example": "district"
+												},
+												"displayNameEn": {
+													"type": "string",
+													"example": "District"
+												},
+												"displayNameCy": {
+													"type": "string",
+													"example": "District"
+												}
+											}
+										}
+									}
+								},
+								"locationDescription": {
+									"type": "string",
+									"example": "location description"
+								},
+								"gridReference": {
+									"type": "object",
+									"properties": {}
+								},
+								"regions": {
+									"type": "array",
+									"items": {
+										"type": "object",
+										"properties": {}
+									}
+								},
+								"keyDates": {
+									"type": "object",
+									"properties": {}
+								}
+							},
+							"xml": {
+								"name": "main"
+							}
+						}
+					}
+				}
+			},
+			"patch": {
+				"tags": ["Applications"],
+				"description": "Updates application",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"type": "integer",
+						"description": "Application ID"
+					},
+					{
+						"name": "body",
+						"in": "body",
+						"description": "Application Details",
+						"schema": {
+							"$ref": "#/definitions/UpdateApplication"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "ID of application",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"id": {
+									"type": "number",
+									"example": 1
+								},
+								"applicantIds": {
+									"type": "array",
+									"example": [2],
+									"items": {
+										"type": "number"
+									}
+								}
+							},
+							"xml": {
+								"name": "main"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/applications/{id}/representations": {
+			"get": {
+				"tags": ["Applications"],
+				"description": "Gets list of representations on a case",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"type": "integer",
+						"description": "Application ID"
+					},
+					{
+						"name": "page",
+						"in": "query",
+						"description": "Page to show",
+						"required": false,
+						"type": "integer",
+						"example": 1,
+						"minimum": 1
+					},
+					{
+						"name": "pageSize",
+						"in": "query",
+						"description": "Page size",
+						"required": false,
+						"type": "integer",
+						"example": 25,
+						"minimum": 1,
+						"maximun": 100
+					},
+					{
+						"name": "searchTerm",
+						"in": "query",
+						"description": "Search Term",
+						"required": false,
+						"type": "string"
+					},
+					{
+						"name": "status",
+						"in": "query",
+						"description": "Filter by status",
+						"required": false,
+						"schema": {
+							"type": "array",
+							"example": [""],
+							"items": {
+								"type": "string"
+							}
+						},
+						"style": "form",
+						"explode": true
+					},
+					{
+						"name": "under18",
+						"in": "query",
+						"description": "Filter by under18",
+						"required": false,
+						"type": "boolean"
+					},
+					{
+						"name": "sortBy",
+						"in": "query",
+						"description": "Sory by field. +field for ASC, -field for DESC",
+						"required": false,
+						"type": "string"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Representations",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"page": {
+									"type": "number",
+									"example": 1
+								},
+								"pageSize": {
+									"type": "number",
+									"example": 25
+								},
+								"pageCount": {
+									"type": "number",
+									"example": 1
+								},
+								"itemCount": {
+									"type": "number",
+									"example": 100
+								},
+								"items": {
+									"type": "array",
+									"items": {
+										"type": "object",
+										"properties": {
+											"id": {
+												"type": "number",
+												"example": 1
+											},
+											"reference": {
+												"type": "string",
+												"example": "BC0110001-2"
+											},
+											"status": {
+												"type": "string",
+												"example": "VALID"
+											},
+											"redacted": {
+												"type": "boolean",
+												"example": true
+											},
+											"received": {
+												"type": "string",
+												"example": "2023-03-14T14:28:25.704Z"
+											},
+											"firstName": {
+												"type": "string",
+												"example": "James"
+											},
+											"lastName": {
+												"type": "string",
+												"example": "Bond"
+											},
+											"organisationName": {
+												"type": "string",
+												"example": "MI6"
+											}
+										}
+									}
+								}
+							},
+							"xml": {
+								"name": "main"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/applications/{id}/representations/{repId}": {
+			"get": {
+				"tags": ["Applications"],
+				"description": "Gets a representation on a case",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"type": "integer",
+						"description": "Application ID"
+					},
+					{
+						"name": "repId",
+						"in": "path",
+						"required": true,
+						"type": "integer",
+						"description": "Representation ID"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Representation",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"id": {
+									"type": "number",
+									"example": 1
+								},
+								"reference": {
+									"type": "string",
+									"example": "BC0110001-2"
+								},
+								"status": {
+									"type": "string",
+									"example": "VALID"
+								},
+								"redacted": {
+									"type": "boolean",
+									"example": true
+								},
+								"received": {
+									"type": "string",
+									"example": "2023-03-14T14:28:25.704Z"
+								},
+								"originalRepresentation": {
+									"type": "string",
+									"example": ""
+								},
+								"redactedRepresentation": {
+									"type": "string",
+									"example": ""
+								},
+								"redactedBy": {
+									"type": "object",
+									"properties": {}
+								},
+								"contacts": {
+									"type": "array",
+									"example": [],
+									"items": {}
+								},
+								"attachments": {
+									"type": "array",
+									"example": [],
+									"items": {}
+								}
+							},
+							"xml": {
+								"name": "main"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/applications/{id}/publish": {
+			"patch": {
+				"tags": ["Applications"],
+				"description": "publish application",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"type": "integer",
+						"description": "Application ID"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "response will have the date that the case was published as a timestamp",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"publishedDate": {
+									"type": "number",
+									"example": 1673873105
+								}
+							},
+							"xml": {
+								"name": "main"
+							}
+						}
+					}
+				}
+			}
+		},
 		"/applications/{id}/documents/{guid}/metadata": {
 			"post": {
 				"tags": ["Applications"],
@@ -922,46 +1444,6 @@
 				}
 			}
 		},
-		"/applications": {
-			"post": {
-				"tags": ["Applications"],
-				"description": "Creates new application",
-				"parameters": [
-					{
-						"name": "body",
-						"in": "body",
-						"description": "Application Details",
-						"schema": {
-							"$ref": "#/definitions/CreateApplication"
-						}
-					}
-				],
-				"responses": {
-					"200": {
-						"description": "ID of application",
-						"schema": {
-							"type": "object",
-							"properties": {
-								"id": {
-									"type": "number",
-									"example": 1
-								},
-								"applicantIds": {
-									"type": "array",
-									"example": [2],
-									"items": {
-										"type": "number"
-									}
-								}
-							},
-							"xml": {
-								"name": "main"
-							}
-						}
-					}
-				}
-			}
-		},
 		"/applications/documents/{documentGUID}/status": {
 			"patch": {
 				"tags": ["Applications"],
@@ -1006,473 +1488,6 @@
 								"status": {
 									"type": "string",
 									"example": "awaiting_virus_check"
-								}
-							},
-							"xml": {
-								"name": "main"
-							}
-						}
-					}
-				}
-			}
-		},
-		"/applications/{id}": {
-			"patch": {
-				"tags": ["Applications"],
-				"description": "Updates application",
-				"parameters": [
-					{
-						"name": "id",
-						"in": "path",
-						"required": true,
-						"type": "integer",
-						"description": "Application ID"
-					},
-					{
-						"name": "body",
-						"in": "body",
-						"description": "Application Details",
-						"schema": {
-							"$ref": "#/definitions/UpdateApplication"
-						}
-					}
-				],
-				"responses": {
-					"200": {
-						"description": "ID of application",
-						"schema": {
-							"type": "object",
-							"properties": {
-								"id": {
-									"type": "number",
-									"example": 1
-								},
-								"applicantIds": {
-									"type": "array",
-									"example": [2],
-									"items": {
-										"type": "number"
-									}
-								}
-							},
-							"xml": {
-								"name": "main"
-							}
-						}
-					}
-				}
-			},
-			"get": {
-				"tags": ["Applications"],
-				"description": "Gets all of the application details",
-				"parameters": [
-					{
-						"name": "id",
-						"in": "path",
-						"required": true,
-						"type": "integer",
-						"description": "Application ID here"
-					},
-					{
-						"name": "query",
-						"in": "query",
-						"description": "Application details",
-						"example": "{ &ldquo;title&rdquo;:true, &ldquo;description&rdquo;:true, &ldquo;reference&rdquo;:true, &ldquo;status&rdquo;:true, &ldquo;caseEmail&rdquo;:true, &ldquo;sector&rdquo;:true, &ldquo;subSector&rdquo;:true, &ldquo;applicants&rdquo;:true, &ldquo;geographicalInformation&rdquo;:true, &ldquo;keyDates&rdquo;:true }",
-						"type": "string"
-					}
-				],
-				"responses": {
-					"200": {
-						"description": "IDs of application",
-						"schema": {
-							"type": "object",
-							"properties": {
-								"id": {
-									"type": "number",
-									"example": 1
-								},
-								"reference": {
-									"type": "string",
-									"example": "BC010001"
-								},
-								"title": {
-									"type": "string",
-									"example": "Office Use Test Application 1"
-								},
-								"description": {
-									"type": "string",
-									"example": "A description of test case 1 which is a case of subsector type Office Use"
-								},
-								"status": {
-									"type": "string",
-									"example": "Withdrawn"
-								},
-								"caseEmail": {
-									"type": "string",
-									"example": "caseemail@gmail.com"
-								},
-								"sector": {
-									"type": "object",
-									"properties": {}
-								},
-								"subSector": {
-									"type": "object",
-									"properties": {
-										"name": {
-											"type": "string",
-											"example": "office_use"
-										},
-										"abbreviation": {
-											"type": "string",
-											"example": "BC01"
-										},
-										"displayNameEn": {
-											"type": "string",
-											"example": "Office Use"
-										},
-										"displayNameCy": {
-											"type": "string",
-											"example": "Office Use"
-										}
-									}
-								},
-								"applicants": {
-									"type": "array",
-									"example": [],
-									"items": {}
-								},
-								"geographicalInformation": {
-									"type": "object",
-									"properties": {
-										"mapZoomLevel": {
-											"type": "object",
-											"properties": {
-												"id": {
-													"type": "number",
-													"example": 5
-												},
-												"name": {
-													"type": "string",
-													"example": "district"
-												},
-												"displayNameEn": {
-													"type": "string",
-													"example": "District"
-												},
-												"displayNameCy": {
-													"type": "string",
-													"example": "District"
-												}
-											}
-										}
-									}
-								},
-								"locationDescription": {
-									"type": "string",
-									"example": "location description"
-								},
-								"gridReference": {
-									"type": "object",
-									"properties": {}
-								},
-								"regions": {
-									"type": "array",
-									"items": {
-										"type": "object",
-										"properties": {}
-									}
-								},
-								"keyDates": {
-									"type": "object",
-									"properties": {}
-								}
-							},
-							"xml": {
-								"name": "main"
-							}
-						}
-					}
-				}
-			}
-		},
-		"/applications/{id}/start": {
-			"post": {
-				"tags": ["Applications"],
-				"description": "Moves application from Draft state to Pre-Application state",
-				"parameters": [
-					{
-						"name": "id",
-						"in": "path",
-						"required": true,
-						"type": "integer",
-						"description": "Application ID"
-					}
-				],
-				"responses": {
-					"200": {
-						"description": "Application Details",
-						"schema": {
-							"type": "object",
-							"properties": {
-								"id": {
-									"type": "number",
-									"example": 1
-								},
-								"reference": {
-									"type": "string",
-									"example": "AB0110203"
-								},
-								"status": {
-									"type": "string",
-									"example": "Pre-Application"
-								}
-							},
-							"xml": {
-								"name": "main"
-							}
-						}
-					}
-				}
-			}
-		},
-		"/applications/{id}/representations": {
-			"get": {
-				"tags": ["Applications"],
-				"description": "Gets list of representations on a case",
-				"parameters": [
-					{
-						"name": "id",
-						"in": "path",
-						"required": true,
-						"type": "integer",
-						"description": "Application ID"
-					},
-					{
-						"name": "page",
-						"in": "query",
-						"description": "Page to show",
-						"required": false,
-						"type": "integer",
-						"example": 1,
-						"minimum": 1
-					},
-					{
-						"name": "pageSize",
-						"in": "query",
-						"description": "Page size",
-						"required": false,
-						"type": "integer",
-						"example": 25,
-						"minimum": 1,
-						"maximun": 100
-					},
-					{
-						"name": "searchTerm",
-						"in": "query",
-						"description": "Search Term",
-						"required": false,
-						"type": "string"
-					},
-					{
-						"name": "status",
-						"in": "query",
-						"description": "Filter by status",
-						"required": false,
-						"schema": {
-							"type": "array",
-							"example": [""],
-							"items": {
-								"type": "string"
-							}
-						},
-						"style": "form",
-						"explode": true
-					},
-					{
-						"name": "under18",
-						"in": "query",
-						"description": "Filter by under18",
-						"required": false,
-						"type": "boolean"
-					},
-					{
-						"name": "sortBy",
-						"in": "query",
-						"description": "Sory by field. +field for ASC, -field for DESC",
-						"required": false,
-						"type": "string"
-					}
-				],
-				"responses": {
-					"200": {
-						"description": "Representations",
-						"schema": {
-							"type": "object",
-							"properties": {
-								"page": {
-									"type": "number",
-									"example": 1
-								},
-								"pageSize": {
-									"type": "number",
-									"example": 25
-								},
-								"pageCount": {
-									"type": "number",
-									"example": 1
-								},
-								"itemCount": {
-									"type": "number",
-									"example": 100
-								},
-								"items": {
-									"type": "array",
-									"items": {
-										"type": "object",
-										"properties": {
-											"id": {
-												"type": "number",
-												"example": 1
-											},
-											"reference": {
-												"type": "string",
-												"example": "BC0110001-2"
-											},
-											"status": {
-												"type": "string",
-												"example": "VALID"
-											},
-											"redacted": {
-												"type": "boolean",
-												"example": true
-											},
-											"received": {
-												"type": "string",
-												"example": "2023-03-14T14:28:25.704Z"
-											},
-											"firstName": {
-												"type": "string",
-												"example": "James"
-											},
-											"lastName": {
-												"type": "string",
-												"example": "Bond"
-											},
-											"organisationName": {
-												"type": "string",
-												"example": "MI6"
-											}
-										}
-									}
-								}
-							},
-							"xml": {
-								"name": "main"
-							}
-						}
-					}
-				}
-			}
-		},
-		"/applications/{id}/representations/{repId}": {
-			"get": {
-				"tags": ["Applications"],
-				"description": "Gets a representation on a case",
-				"parameters": [
-					{
-						"name": "id",
-						"in": "path",
-						"required": true,
-						"type": "integer",
-						"description": "Application ID"
-					},
-					{
-						"name": "repId",
-						"in": "path",
-						"required": true,
-						"type": "integer",
-						"description": "Representation ID"
-					}
-				],
-				"responses": {
-					"200": {
-						"description": "Representation",
-						"schema": {
-							"type": "object",
-							"properties": {
-								"id": {
-									"type": "number",
-									"example": 1
-								},
-								"reference": {
-									"type": "string",
-									"example": "BC0110001-2"
-								},
-								"status": {
-									"type": "string",
-									"example": "VALID"
-								},
-								"redacted": {
-									"type": "boolean",
-									"example": true
-								},
-								"received": {
-									"type": "string",
-									"example": "2023-03-14T14:28:25.704Z"
-								},
-								"originalRepresentation": {
-									"type": "string",
-									"example": ""
-								},
-								"redactedRepresentation": {
-									"type": "string",
-									"example": ""
-								},
-								"redactedBy": {
-									"type": "object",
-									"properties": {}
-								},
-								"contacts": {
-									"type": "array",
-									"example": [],
-									"items": {}
-								},
-								"attachments": {
-									"type": "array",
-									"example": [],
-									"items": {}
-								}
-							},
-							"xml": {
-								"name": "main"
-							}
-						}
-					}
-				}
-			}
-		},
-		"/applications/{id}/publish": {
-			"patch": {
-				"tags": ["Applications"],
-				"description": "publish application",
-				"parameters": [
-					{
-						"name": "id",
-						"in": "path",
-						"required": true,
-						"type": "integer",
-						"description": "Application ID"
-					}
-				],
-				"responses": {
-					"200": {
-						"description": "response will have the date that the case was published as a timestamp",
-						"schema": {
-							"type": "object",
-							"properties": {
-								"publishedDate": {
-									"type": "number",
-									"example": 1673873105
 								}
 							},
 							"xml": {
@@ -3187,6 +3202,55 @@
 				"acceptingFinalComments": {
 					"type": "boolean",
 					"example": true
+				}
+			}
+		},
+		"AllAppeals": {
+			"type": "array",
+			"items": {
+				"type": "object",
+				"properties": {
+					"appealId": {
+						"type": "number",
+						"example": 1
+					},
+					"appealReference": {
+						"type": "string",
+						"example": "APP/Q9999/D/21/235348"
+					},
+					"appealSite": {
+						"type": "object",
+						"properties": {
+							"addressLine1": {
+								"type": "string",
+								"example": "19 Beauchamp Road"
+							},
+							"town": {
+								"type": "string",
+								"example": "Bristol"
+							},
+							"postCode": {
+								"type": "string",
+								"example": "BS7 8LQ"
+							}
+						}
+					},
+					"appealStatus": {
+						"type": "string",
+						"example": "awaiting_lpa_questionnaire"
+					},
+					"appealType": {
+						"type": "string",
+						"example": "household"
+					},
+					"createdAt": {
+						"type": "string",
+						"example": "2023-02-16T11:43:27.096Z"
+					},
+					"localPlanningDepartment": {
+						"type": "string",
+						"example": "Wiltshire Council"
+					}
 				}
 			}
 		},
