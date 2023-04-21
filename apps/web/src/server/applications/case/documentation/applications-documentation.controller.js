@@ -73,12 +73,27 @@ export async function updateApplicationsCaseDocumentationFolder(request, respons
 		...redacted,
 		items: (selectedFilesIds || []).map((guid) => ({ guid }))
 	};
+
 	const { errors: apiErrors } = await updateCaseDocumentationFiles(caseId, payload);
 
 	if (validationErrors || apiErrors) {
+		const apiErrorMessage = (apiErrors || [])[0]?.guid
+			? { msg: 'You must fill in all mandatory document properties to publish a document' }
+			: { msg: 'Something went wrong. Please, try again later.' };
+
+		/** @type {DocumentationFile[]} */
+		const allItems = properties.documentationFiles.items;
+		const failedItems = allItems.map((file) => ({
+			...file,
+			failed: !!(apiErrors || []).some((failedItem) => failedItem.guid === file.documentGuid)
+		}));
+
+		properties.documentationFiles.items = failedItems;
+
 		return response.render(`applications/case-documentation/documentation-folder`, {
 			...properties,
-			errors: validationErrors || apiErrors
+			errors: validationErrors || apiErrorMessage,
+			failedItems: apiErrors
 		});
 	}
 

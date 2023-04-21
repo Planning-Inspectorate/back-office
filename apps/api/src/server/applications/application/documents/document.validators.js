@@ -76,14 +76,14 @@ export const fetchDocumentByGuidAndCaseId = async (
  * @param {DocumentVersion} documentVersonEventBody - the event body for document metadata to validate
  * @returns {DocumentVersion} - the validated document metadata event body
  */
-export const validateDocumentVersionMetatdataBody = (documentVersonEventBody) => {
+export const validateDocumentVersionMetadataBody = (documentVersonEventBody) => {
 	// Define the schema for the document version
 	const documentVersionSchema = joi.object({
 		version: joi.number().positive().optional(),
 		dateCreated: joi.date().iso().optional(),
 		datePublished: joi.date().iso().optional(),
 		lastModified: joi.date().iso().optional(),
-		documentType: joi.string().optional(),
+		documentType: joi.string().allow(null).optional(),
 		documentName: joi.string().optional(),
 		fileName: joi.string().optional(),
 		documentId: joi.string().optional(),
@@ -131,13 +131,13 @@ export const validateDocumentVersionMetatdataBody = (documentVersonEventBody) =>
 	if (error) {
 		const errorMessage = error?.message || 'there was an error validating request body';
 
-		logger.error(`[validateDocumentVersionMetatdataBody] ${errorMessage}`);
+		logger.error(`[validateDocumentVersionMetadataBody] ${errorMessage}`);
 		throw new BackOfficeAppError(errorMessage, 400);
 	}
 
 	// If there were no errors, log a message and return the validated document version event body
 	logger.info(
-		'[validateDocumentVersionMetatdataBody] Successfully validated document version event body'
+		'[validateDocumentVersionMetadataBody] Successfully validated document version event body'
 	);
 	return documentVersonEventBody;
 };

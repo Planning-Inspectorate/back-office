@@ -1,7 +1,9 @@
 {% extends "applications/layouts/applications.layout.njk" %}
 
 {% from "govuk/components/breadcrumbs/macro.njk" import govukBreadcrumbs %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
 {% from "govuk/components/back-link/macro.njk" import govukBackLink %}
+{% from "govuk/components/input/macro.njk" import govukInput %}
 {% from "applications/representations/representations-table.component.njk" import representationsTableComponent %}
 {% from "applications/components/status-tag.component.njk" import statusTag %}
 
@@ -40,7 +42,29 @@
 			}) }}
 			<h2 class="govuk-heading-l ">Relevant representations</h2>
 
-			{{ representationsTableComponent(representations, caseId) }}
+			<h3 class="govuk-heading-m">Search representations</h3>
+			<form method="GET">
+				<div class="govuk-grid-row">
+					<div class="govuk-grid-column-one-half">
+						{{ govukInput({
+							id: "searchTerm",
+							name: "searchTerm",
+							value: searchTerm
+						}) }}
+					</div>
+					<div class="govuk-grid-column-one-half">
+						{{ govukButton({
+							classes: "govuk-button--secondary",
+							text: "Search"
+						}) }}
+					</div>
+				</div>
+			</form>
+			{% if representations.length > 0 %}
+				{{ representationsTableComponent(representations) }}
+			{% else %}
+				<p>No matching representations to show.</p>
+			{% endif %}
 		</div>
 	</div>
 {% endblock %}

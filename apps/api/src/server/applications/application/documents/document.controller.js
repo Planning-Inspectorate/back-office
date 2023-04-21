@@ -17,7 +17,7 @@ import {
 import {
 	fetchDocumentByGuidAndCaseId,
 	getRedactionStatus,
-	validateDocumentVersionMetatdataBody,
+	validateDocumentVersionMetadataBody,
 	verifyMovingToReadyToPublish
 } from './document.validators.js';
 
@@ -67,7 +67,7 @@ export const updateDocuments = async ({ body }, response) => {
 
 	// special case - this fn can be called without setting redaction status - in which case a redaction status should not be passed in to the update fn
 	// and the redaction status of each document should remain unchanged.
-	if (isRedacted) {
+	if (typeof isRedacted !== 'undefined') {
 		redactedStatus = getRedactionStatus(isRedacted);
 	}
 
@@ -172,7 +172,7 @@ export const storeDocumentVersion = async (request, response) => {
 
 	// Validate the request body and extract the document version metadata
 	/** @type {DocumentVersion} */
-	const documentVersionMetadataBody = validateDocumentVersionMetatdataBody(request.body);
+	const documentVersionMetadataBody = validateDocumentVersionMetadataBody(request.body);
 
 	// Retrieve the document from the database using the provided guid and caseId
 	const document = await fetchDocumentByGuidAndCaseId(guid, +caseId);

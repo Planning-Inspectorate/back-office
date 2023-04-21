@@ -6,9 +6,12 @@ import applicationsEditRouter from '@pins/web/src/server/applications/case/edit/
 import { assertDomainTypeIsNotInspector } from '@pins/web/src/server/applications/create-new-case/applications-create.guards.js';
 import asyncRoute from '@pins/web/src/server/lib/async-route.js';
 import { Router as createRouter } from 'express';
+import relevantRepsRouter from './representations/applications-relevant-reps.router.js';
 
 const applicationsCaseRouter = createRouter();
 const applicationsCaseSummaryRouter = createRouter({ mergeParams: true });
+
+applicationsCaseRouter.use('/:caseId/relevant-representations', relevantRepsRouter);
 
 applicationsCaseRouter.use('/:caseId/edit', applicationsEditRouter);
 applicationsCaseRouter.use(
