@@ -1,0 +1,442 @@
+{% extends "applications/layouts/applications.layout.njk" %}
+
+{% from "govuk/components/breadcrumbs/macro.njk" import govukBreadcrumbs %}
+{% from "govuk/components/back-link/macro.njk" import govukBackLink %}
+{% from "applications/components/status-tag.component.njk" import statusTag %}
+
+{% set backUrl = "/applications-service/case/" + caseId + "/relevant-representations" %}
+
+{% block pageHeading %}
+{% endblock %}
+{% block pageTitle %}
+	Representation details
+{% endblock %}
+
+{% block beforeContent %}
+<div class="govuk-width-container">
+	<a class="govuk-back-link" href="{{backUrl}}" >Back</a>
+</div>
+{% endblock %}
+
+{% block pageContent %}
+	{# <div class="govuk-grid-row govuk-!-padding-top-9 govuk-!-padding-bottom-2 govuk-!-margin-left-0 govuk-!-margin-bottom-7 pins-masthead-summary">
+		<div class="govuk-grid-column-full">
+			<span class="govuk-caption-xl">
+				{{ caseReference.reference }}
+			</span>
+			<h1 class="govuk-heading-xl govuk-!-margin-bottom-3">
+				{{ caseReference.title }}
+			</h1>
+
+			<p class="govuk-body">
+				{{ caseReference.title }}
+			</p>
+
+			<strong class="govuk-heading-s">
+				{{ statusTag(caseReference.status.text ) }}
+			</strong>
+
+		</div>
+	</div> #}
+	{# <div class="govuk-grid-row">
+		<div class="govuk-grid-column-full">
+			{{ govukBreadcrumbs({
+				items: [
+					{
+						text: "Project documentation",
+						href: "/applications-service/case/" + caseId + "/project-documentation"
+					},
+					{
+						text: "Relevant representations",
+						href: "#"
+					}
+				]
+			}) }}
+		</div>
+	</div> #}
+
+	<div class="govuk-grid-row">
+		<div class="govuk-grid-column-full">
+			<h1 class="govuk-heading-l">Org or name?{{ representationDetails.personName }}</h1>
+			<strong class="govuk-heading-s">{{ statusTag(caseReference.status.text ) }}</strong>
+			<p><strong>Project name:</strong> {{ caseReference.title }}</p>
+			<h3 class="govuk-heading-m">Contact details</h3>
+			<dl class="govuk-summary-list">
+				<div class="govuk-summary-list__row ">
+					<dt class="govuk-summary-list__key">
+						Organisation name
+					</dt>
+					<dd class="govuk-summary-list__value">
+						--
+					</dd>
+					<dd class="govuk-summary-list__actions">
+						<a class="govuk-link" href="#">
+							Change<span class="govuk-visually-hidden"> organisation name</span>
+						</a>
+					</dd>
+				</div>
+				<div class="govuk-summary-list__row govuk-summary-list__row--no-actions">
+					<dt class="govuk-summary-list__key">
+					Name
+					</dt>
+					<dd class="govuk-summary-list__value">
+						{{ representationDetails.personData.name }}
+					</dd>
+				</div>
+				<div class="govuk-summary-list__row govuk-summary-list__row--no-actions">
+					<dt class="govuk-summary-list__key">
+					Job title
+					</dt>
+					<dd class="govuk-summary-list__value">
+						{{ representationDetails.personData.jobTitle }}
+					</dd>
+				</div>
+				<div class="govuk-summary-list__row govuk-summary-list__row--no-actions">
+					<dt class="govuk-summary-list__key">
+					Email address
+					</dt>
+					<dd class="govuk-summary-list__value">
+						{{ representationDetails.personData.email }}
+					</dd>
+
+				</div>
+				<div class="govuk-summary-list__row govuk-summary-list__row--no-actions">
+					<dt class="govuk-summary-list__key">
+					Telephone number
+					</dt>
+					<dd class="govuk-summary-list__value">
+						{{ representationDetails.personData.phoneNumber }}
+					</dd>
+				</div>
+				<div class="govuk-summary-list__row">
+					<dt class="govuk-summary-list__key">
+						Address
+					</dt>
+					<dd class="govuk-summary-list__value">
+						{{ representationDetails.personData.addressLine1 }} </br>
+
+						{% if representationDetails.personData.addressLine2 %}
+							{{ representationDetails.personData.addressLine2 }} </br>
+						{% endif %}
+
+						{% if representationDetails.personData.town %}
+							{{ representationDetails.personData.town }} </br>
+						{% endif %}
+
+						{% if representationDetails.personData.county %}
+							{{ representationDetails.personData.county }} </br>
+						{% endif %}
+					
+						{{ representationDetails.personData.postcode }}
+					</dd>
+					<dd class="govuk-summary-list__actions">
+						<a class="govuk-link" href="#">
+							Change<span class="govuk-visually-hidden"> address</span>
+						</a>
+              		</dd>
+				</div>
+				<div class="govuk-summary-list__row">
+					<dt class="govuk-summary-list__key">
+						Preferred contact method
+					</dt>
+					<dd class="govuk-summary-list__value">
+						{{ representationDetails.personData.prefferedContact if representationDetails.personData.prefferedContact else 'Email' }}
+					</dd>
+					<dd class="govuk-summary-list__actions">
+						<a class="govuk-link" href="edit/preferred-contact">
+							Change<span class="govuk-visually-hidden"> preferred preferred contact method</span>
+						</a>
+					</dd>
+				</div>
+				<div class="govuk-summary-list__row">
+					<dt class="govuk-summary-list__key">
+					Type
+					</dt>
+					<dd class="govuk-summary-list__value">
+						no data?
+					</dd>
+					<dd class="govuk-summary-list__actions">
+						<a class="govuk-link" href="edit/preferred-contact">
+							Change<span class="govuk-visually-hidden"> type</span>
+						</a>
+					</dd>
+				</div>
+				<div class="govuk-summary-list__row">
+					<dt class="govuk-summary-list__key">
+					Representation on behalf of
+					</dt>
+					<dd class="govuk-summary-list__value">
+						no data?
+					</dd>
+					<dd class="govuk-summary-list__actions">
+						<a class="govuk-link" href="edit/preferred-contact">
+							Change<span class="govuk-visually-hidden"> representation on behalf of</span>
+						</a>
+					</dd>
+				</div>
+				<div class="govuk-summary-list__row">
+					<dt class="govuk-summary-list__key">
+					Under 18
+					</dt>
+					<dd class="govuk-summary-list__value">
+						{# {{ 'Yes' if representationDetails.personData.under18 else 'No'  }} #}
+						{{ representationDetails.personData.under18 }}
+					</dd>
+					<dd class="govuk-summary-list__actions">
+						<a class="govuk-link" href="edit/preferred-contact">
+							Change<span class="govuk-visually-hidden"> under 18</span>
+						</a>
+					</dd>
+				</div>
+			</dl>
+		</div>
+	</div>
+
+{% if representationDetails.agentData != false  %}
+	<div class="govuk-grid-row">
+		<div class="govuk-grid-column-full">
+			<h3 class="govuk-heading-m">Agent contact details</h3>
+			<dl class="govuk-summary-list">
+				<div class="govuk-summary-list__row">
+					<dt class="govuk-summary-list__key">
+						Organisation name
+					</dt>
+					<dd class="govuk-summary-list__value">
+						{{ representationDetails.personData.organisationName }}
+					</dd>
+					<dd class="govuk-summary-list__actions">
+						<a class="govuk-link" href="#">
+							Change<span class="govuk-visually-hidden">organisation name</span>
+						</a>
+					</dd>
+				</div>
+				<div class="govuk-summary-list__row govuk-summary-list__row--no-actions">
+					<dt class="govuk-summary-list__key">
+						Name
+					</dt>
+					<dd class="govuk-summary-list__value">
+						{{ representationDetails.agentData.name }}
+					</dd>
+				</div>
+				<div class="govuk-summary-list__row govuk-summary-list__row--no-actions">
+					<dt class="govuk-summary-list__key">
+					Job title
+					</dt>
+					<dd class="govuk-summary-list__value">
+						{{ representationDetails.agentData.jobTitle }}
+					</dd>
+				</div>
+				<div class="govuk-summary-list__row govuk-summary-list__row--no-actions">
+					<dt class="govuk-summary-list__key">
+					Email address
+					</dt>
+					<dd class="govuk-summary-list__value">
+						{{ representationDetails.agentData.email }}
+					</dd>
+
+				</div>
+				<div class="govuk-summary-list__row govuk-summary-list__row--no-actions">
+					<dt class="govuk-summary-list__key">
+					Telephone number
+					</dt>
+					<dd class="govuk-summary-list__value">
+						{{ representationDetails.agentData.phoneNumber }}
+					</dd>
+				</div>
+				<div class="govuk-summary-list__row">
+					<dt class="govuk-summary-list__key">
+					Address
+					</dt>
+					<dd class="govuk-summary-list__value">
+						{{ representationDetails.agentData.addressLine1 }} </br>
+
+						{% if representationDetails.agentData.addressLine2 %}
+							{{ representationDetails.agentData.addressLine2 }} </br>
+						{% endif %}
+
+						{% if representationDetails.agentData.town %}
+							{{ representationDetails.agentData.town }} </br>
+						{% endif %}
+
+						{% if representationDetails.agentData.county %}
+							{{ representationDetails.agentData.county }} </br>
+						{% endif %}
+					
+						{{ representationDetails.agentData.postcode }}
+					</dd>
+					<dd class="govuk-summary-list__actions">
+						<a class="govuk-link" href="#">
+							Change<span class="govuk-visually-hidden"> address</span>
+						</a>
+              		</dd>
+				</div>
+				<div class="govuk-summary-list__row">
+					<dt class="govuk-summary-list__key">
+					Preferred contact method
+					</dt>
+					<dd class="govuk-summary-list__value">
+						{{ representationDetails.agentData.prefferedContact if representationDetails.agentData.prefferedContact else 'Email' }}
+					</dd>
+					<dd class="govuk-summary-list__actions">
+						<a class="govuk-link" href="#">
+							Change<span class="govuk-visually-hidden"> preferred contact method</span>
+						</a>
+              		</dd>
+				</div>
+				<div class="govuk-summary-list__row">
+					<dt class="govuk-summary-list__key">
+						Type
+					</dt>
+					<dd class="govuk-summary-list__value">
+						no data?
+					</dd>
+					<dd class="govuk-summary-list__actions">
+						<a class="govuk-link" href="#">
+							Change<span class="govuk-visually-hidden"> type</span>
+						</a>
+              		</dd>
+				</div>
+				<div class="govuk-summary-list__row">
+					<dt class="govuk-summary-list__key">
+					Under 18
+					</dt>
+					<dd class="govuk-summary-list__value">
+						{{ representationDetails.agentData.under18 }}
+					</dd>
+					<dd class="govuk-summary-list__actions">
+						<a class="govuk-link" href="#">
+							Change<span class="govuk-visually-hidden"> under 18</span>
+						</a>
+              		</dd>
+				</div>
+			</dl>
+		</div>
+	</div>
+	{% endif %}
+
+	<div class="govuk-grid-row">
+		<div class="govuk-grid-column-full">
+			<h3 class="govuk-heading-m">Representation</h3>
+			<dl class="govuk-summary-list">
+				<div class="govuk-summary-list__row">
+					<dt class="govuk-summary-list__key">
+						Reference
+					</dt>
+					<dd class="govuk-summary-list__value">
+						{{ representationDetails.representationData.reference }}
+					</dd>
+				</div>
+				<div class="govuk-summary-list__row">
+					<dt class="govuk-summary-list__key">
+						Date received
+					</dt>
+					<dd class="govuk-summary-list__value">
+						{{ representationDetails.representationData.received }}
+					</dd>
+				</div>
+				<div class="govuk-summary-list__row">
+					<dt class="govuk-summary-list__key">
+					Original representation
+					</dt>
+					<dd class="govuk-summary-list__value">
+
+					<noscript>
+						{{ representationDetails.representationData.originalRepresentation }}
+						    <style>
+
+								#fullRepToggle {
+									display: none; 
+								}
+
+								* {
+									color: red;
+								}
+							</style>
+					</noscript>
+
+					{% if representationDetails.representationData.representationExcerpt %}
+					{# {% if true %} #}
+						<div id="representationText">
+							{{ representationDetails.representationData.representationExcerpt }}
+						</div>
+						
+						<a href="#" id="fullRepToggle" class="govuk-link govuk-link--no-visited-state">Show full representation</a>
+
+						<script nonce="{{cspNonce}}">
+
+							const repTextEl = document.querySelector('#representationText')
+							const fullRepToggleEl = document.querySelector('#fullRepToggle')
+
+							const repExcerpt = '{{ representationDetails.representationData.representationExcerpt }}'
+							const repFullText = '{{ representationDetails.representationData.originalRepresentation }}'
+
+							let isToggled = false
+
+							
+							const handleClick =function(e) {
+								e.preventDefault() 
+
+								if( !isToggled ) {
+									repTextEl.innerText = repFullText
+									fullRepToggleEl.innerText = 'Hide full representation'
+									isToggled = true
+								} else {
+									repTextEl.innerText = repExcerpt
+									fullRepToggleEl.innerText = 'Show full representation'
+									isToggled = false
+								}
+							}
+
+							fullRepToggleEl.addEventListener( 'click', handleClick )
+						</script>
+
+
+					{% else %}
+						{{ representationDetails.representationData.originalRepresentation }}
+					{% endif %}
+
+
+					</dd>
+					<dd class="govuk-summary-list__actions">
+						<a class="govuk-link" href="edit/preferred-contact">
+							Redact<span class="govuk-visually-hidden"> original representation</span>
+						</a>
+					</dd>
+				</div>
+			</dl>
+		</div>
+	</div>
+
+	<div class="govuk-grid-row">
+		<div class="govuk-grid-column-full">
+			<h3 class="govuk-heading-m">Workflow</h3>
+			<dl class="govuk-summary-list">
+				<div class="govuk-summary-list__row">
+					<dt class="govuk-summary-list__key">
+						Status
+					</dt>
+					<dd class="govuk-summary-list__value">
+						--
+					</dd>
+					<dd class="govuk-summary-list__actions">
+						<a class="govuk-link" href="edit/preferred-contact">
+							Change<span class="govuk-visually-hidden"> status</span>
+						</a>
+					</dd>
+				</div>
+			</dl>
+			<div>
+				<a class="govuk-button govuk-button--secondary" href="#">View task log</a>
+			</div>
+		</div>
+	</div>
+
+	<div class="govuk-grid-row">
+		<div class="govuk-grid-column-full">
+			<h3 class="govuk-heading-m">Attachments</h3>
+			<div>
+				<a class="govuk-button govuk-button--secondary" href="#">Upload files</a>
+			</div>
+		</div>
+	</div>
+{% endblock %}

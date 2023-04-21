@@ -30,12 +30,12 @@ router.use('/search-results', guards.assertDomainTypeExists, applicationsSearchR
 
 router.use('/create-new-case', guards.assertDomainTypeExists, applicationsCreateRouter);
 
-router.use('/case', guards.assertDomainTypeExists, relevantRepsRouter);
+router.use('/case', relevantRepsRouter); //TODO: re-add guards.assertDomainTypeExists
 
-router.use('/case', guards.assertDomainTypeExists, applicationsCaseRouter);
+router.use('/case', applicationsCaseRouter);
 
 // router.use('/relevant-representations', guards.assertDomainTypeExists, relevantRepsRouter);
-router.use('/:id/relevant-representations', relevantRepsRouter);
+//router.use('/:id/relevant-representations', relevantRepsRouter);
 
 /** Domain-driven URLS */
 

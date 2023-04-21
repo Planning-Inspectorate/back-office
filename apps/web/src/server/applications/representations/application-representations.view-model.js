@@ -65,7 +65,8 @@ export function getRepresentationsViewModel({ items }) {
 		title: getTitle(rep),
 		received: formatDate(rep),
 		redacted: getRedacted(rep),
-		status: getStatus(rep)
+		status: getStatus(rep),
+		id: rep.id
 	}));
 }
 
