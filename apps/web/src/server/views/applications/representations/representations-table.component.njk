@@ -1,4 +1,4 @@
-{% macro representationsTableComponent(representations) %}
+{% macro representationsTableComponent(representations, caseId) %}
 	<table class="govuk-table">
 		<thead class="govuk-table__head">
 		<tr class="govuk-table__row">
@@ -19,7 +19,7 @@
 				<td class="govuk-table__cell">{{ reps.redacted}}</td>
 				{{ statusTag(reps.status, loop.index) }}
 				<td class="govuk-table__cell">
-					<a href="#"> Review </a>
+					<a href="/applications-service/case/{{caseId}}/relevant-representations/{{reps.id}}/representation-details"> Review </a>
 				</td>
 			</tr>
 		{% endfor %}

@@ -1,4 +1,4 @@
-import { get } from '../../../lib/request.js';
+import { get } from '../../../../lib/request.js';
 
 /**
  * @param {string} caseId
