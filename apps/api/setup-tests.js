@@ -49,6 +49,8 @@ const mockDocumentMetdataUpsert = jest.fn().mockResolvedValue({});
 const mockDocumentMetdataUpdate = jest.fn().mockResolvedValue({});
 const mockRepresentationCount = jest.fn().mockResolvedValue({});
 const mockRepresentationFindMany = jest.fn().mockResolvedValue({});
+const mockExaminationTimetableTypeFindUnique = jest.fn().mockResolvedValue({});
+const mockExaminationTimetableTypeFindMany = jest.fn().mockResolvedValue({});
 
 class MockPrismaClient {
 	get appeal() {
@@ -144,6 +146,13 @@ class MockPrismaClient {
 		return {
 			findMany: mockZoomLevelFindMany,
 			findUnique: mockZoomLevelFindUnique
+		};
+	}
+
+	get examinationTimetableType() {
+		return {
+			findMany: mockExaminationTimetableTypeFindMany,
+			findUnique: mockExaminationTimetableTypeFindUnique
 		};
 	}
 
