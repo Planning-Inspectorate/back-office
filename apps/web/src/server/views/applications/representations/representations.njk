@@ -49,7 +49,7 @@
 						{{ govukInput({
 							id: "searchTerm",
 							name: "searchTerm",
-							value: searchTerm
+							value: queries.searchTerm
 						}) }}
 					</div>
 					<div class="govuk-grid-column-one-half">
@@ -59,12 +59,16 @@
 						}) }}
 					</div>
 				</div>
+
+				<input type="hidden" name="page" id="page" value="{{ queries.page }}">
+				<input type="hidden" name="pageSize" id="pageSize" value="{{ queries.pageSize }}">
+
+				{% if representations.length > 0 %}
+					{{ representationsTableComponent(representations, queries) }}
+				{% else %}
+					<p>No matching representations to show.</p>
+				{% endif %}
 			</form>
-			{% if representations.length > 0 %}
-				{{ representationsTableComponent(representations) }}
-			{% else %}
-				<p>No matching representations to show.</p>
-			{% endif %}
 		</div>
 	</div>
 {% endblock %}
