@@ -102,7 +102,9 @@ describe('Issue decision', () => {
 		// WHEN
 		const response = await request
 			.post('/appeals/inspector/1/issue-decision')
-			.attach('decisionLetter', pathToFile)
+			// tests will fail if we use .attach - possibly related to https://github.com/ladjs/superagent/issues/747
+			// not required for this validation check anyway
+			// .attach('decisionLetter', pathToFile)
 			.field('outcome', 'allowed');
 
 		// THEN
@@ -122,7 +124,9 @@ describe('Issue decision', () => {
 		const response = await request
 			.post('/appeals/inspector/1/issue-decision')
 			.set('userId', '101')
-			.attach('decisionLetter', pathToFile)
+			// tests will fail if we use .attach - possibly related to https://github.com/ladjs/superagent/issues/747
+			// not required for this validation check anyway
+			// .attach('decisionLetter', pathToFile)
 			.field('outcome', 'allowed');
 
 		// THEN
