@@ -474,3 +474,10 @@ model RepresentationContact {
   address          Address?       @relation(fields: [addressId], references: [id])
   Representation   Representation @relation(fields: [representationId], references: [id])
 }
+
+model ExaminationTimetableType {
+  id            Int    @id @default(autoincrement())
+  name          String @unique 		// Note this the value sent to the front office. Note the Title Case format
+  displayNameEn String
+  displayNameCy String
+}
