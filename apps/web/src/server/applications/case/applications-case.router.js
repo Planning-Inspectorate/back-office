@@ -31,6 +31,13 @@ applicationsCaseRouter
 		asyncRoute(controller.updateApplicationsCasePublishPage)
 	);
 
+applicationsCaseRouter
+	.route('/:caseId/examination-timetable')
+	.get(
+		[assertDomainTypeIsNotInspector, locals.registerCase],
+		asyncRoute(controller.viewApplicationsCaseExaminationTimeTable)
+	);
+
 applicationsCaseRouter.use('/:caseId/:pageType?', applicationsCaseSummaryRouter);
 
 applicationsCaseSummaryRouter.use(locals.registerCase);
