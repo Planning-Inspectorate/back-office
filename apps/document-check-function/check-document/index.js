@@ -1,12 +1,9 @@
 /**
  * @type {import('@azure/functions').AzureFunction}
  */
-export const index = async (context, myBlob) => {
-	context.log(
-		'JavaScript blob trigger function processed blob \n Blob:',
-		context.bindingData.blobTrigger,
-		'\n Blob Size:',
-		myBlob.length,
-		'Bytes'
-	);
+export const index = async (context, eventGridEvent) => {
+	context.log('JavaScript Event Grid function processed a request.');
+	context.log(`Subject: ${eventGridEvent.subject}`);
+	context.log(`Time: ${eventGridEvent.eventTime}`);
+	context.log(`Data: ${JSON.stringify(eventGridEvent.data)}`);
 };
