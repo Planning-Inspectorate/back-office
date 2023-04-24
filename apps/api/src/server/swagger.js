@@ -155,6 +155,14 @@ const document = {
 				displayNameCy: 'Region Name Cy'
 			}
 		],
+		ExaminationTimetableTypes: [
+			{
+				id: 1,
+				name: 'Accompanied Site Inspection',
+				displayNameEn: 'Accompanied site inspection',
+				displayNameCy: 'Accompanied site inspection Cy'
+			}
+		],
 		documentsPropertiesRequestBody: {
 			version: 1,
 			createdAt: '2023-02-27T10:00:00Z',
