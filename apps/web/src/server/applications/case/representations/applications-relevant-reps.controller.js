@@ -21,7 +21,15 @@ import * as express from 'express';
  */
 export async function relevantRepsApplications({ params, query }, res) {
 	const { caseId } = params;
-	const queryString = buildQueryString(query);
+
+	const { searchTerm, sortBy, pageSize = 25, page = 1 } = query;
+
+	const queryString = buildQueryString({
+		searchTerm,
+		sortBy,
+		pageSize,
+		page
+	});
 
 	const caseReference = await getCase(caseId);
 	const representations = await getRepresentations(caseId, queryString);
@@ -33,6 +41,11 @@ export async function relevantRepsApplications({ params, query }, res) {
 		representations: representationsVieModel,
 		caseReference: caseReferenceViewModel,
 		caseId,
-		searchTerm: query.searchTerm
+		queries: {
+			searchTerm,
+			activeSort: sortBy,
+			page,
+			pageSize
+		}
 	});
 }

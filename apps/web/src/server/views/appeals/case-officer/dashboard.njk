@@ -2,6 +2,7 @@
 
 {% from "govuk/components/table/macro.njk" import govukTable %}
 {% from "app/components/info-box.njk" import infoBox %}
+{%- from "../components/status-tag.njk" import statusTag -%}
 
 {% set pageTitle = 'Questionnaires for review' %}
 
@@ -92,7 +93,7 @@
 
 		{% set row = row | concat({ text: appeal.QuestionnaireDueDate }) %}
 		{% set row = row | concat({ text: appeal.AppealSite | collapse(', ') }) %}
-		{% set row = row | concat({ html: createStatusTag(appeal[params.statusKey]) }) %}
+		{% set row = row | concat({ html: statusTag(appeal[params.statusKey]) }) %}
 		{% set rows = rows | concat([row]) %}
 	{% endfor %}
 	{{
@@ -108,29 +109,4 @@
 			rows: rows
 		})
 	}}
-{% endmacro %}
-
-{% macro createStatusTag(status) %}
-	{% set statusTagColor = '' %}
-	{% set statusLabel = status %}
-
-	{% switch (status) %}
-		{% case 'available_for_final_comments' %}
-			{% set statusTagColor = 'purple' %}
-			{% set statusLabel = 'awaiting' %}
-		{% case 'available_for_statements' %}
-			{% set statusTagColor = 'purple' %}
-			{% set statusLabel = 'awaiting' %}
-		{% case 'awaiting' %}
-			{% set statusTagColor = 'blue' %}
-		{% case 'overdue' %}
-			{% set statusTagColor = 'red' %}
-		{% case 'incomplete_lpa_questionnaire' %}
-			{% set statusTagColor = 'yellow' %}
-			{% set statusLabel = 'incomplete' %}
-		{% case 'received' %}
-			{% set statusTagColor = 'green' %}
-	{% endswitch %}
-
-	<strong class="govuk-tag govuk-tag--{{statusTagColor}}">{{ statusLabel }}</strong>
 {% endmacro %}

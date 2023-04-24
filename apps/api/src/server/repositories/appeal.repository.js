@@ -56,6 +56,30 @@ const appealRepository = (function () {
 	return {
 		/**
 		 *
+		 * @returns {Promise<import('@pins/api').Schema.Appeal[]>}
+		 */
+		getAll() {
+			return databaseConnector.appeal.findMany({
+				where: {
+					appealStatus: {
+						some: {
+							valid: true
+						}
+					}
+				},
+				include: {
+					address: true,
+					appealType: true,
+					appealStatus: {
+						where: {
+							valid: true
+						}
+					}
+				}
+			});
+		},
+		/**
+		 *
 		 * @param {{statuses: string[], includeAddress: boolean, includeAppellant: boolean, includeLPAQuestionnaire: boolean, includeAppealDetailsFromAppellant: boolean}} param0
 		 * @returns {Promise<import('@pins/api').Schema.Appeal[]>}
 		 */
