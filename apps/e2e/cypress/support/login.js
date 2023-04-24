@@ -12,7 +12,7 @@ const locators = {
 
 azureSignIn = async (config) => {
 	const browser = await puppeteer.launch({
-		headless: true,
+		headless: false,
 		ignoreHTTPSErrors: true,
 		args: ['--no-sandbox', '--ignore-certificate-errors']
 	});

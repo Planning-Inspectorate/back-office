@@ -6,26 +6,24 @@ const {
 	cookiesFileExists,
 	getCookiesFileContents,
 	getConfigByFile,
-	deleteFile,
 	deleteDownloads,
-	webpackConfig
+	deleteUnwantedFixtures
 } = require('./cypress/support/cypressUtils');
-const preprocessor = require('@badeball/cypress-cucumber-preprocessor');
+const { getSpecPattern } = require('./cypress/support/utils/getSpecPattern');
 
 require('dotenv').config();
+const app = process.env.APP;
 
 module.exports = defineConfig({
 	e2e: {
 		async setupNodeEvents(on, config) {
-			await preprocessor.addCucumberPreprocessorPlugin(on, config);
 			on('task', { AzureSignIn: azureSignIn });
 			on('task', { ClearAllCookies: clearAllCookies });
 			on('task', { CookiesFileExists: cookiesFileExists });
-			on('task', { DeleteFile: deleteFile });
 			on('task', { DeleteDownloads: deleteDownloads });
+			on('task', { DeleteUnwantedFixtures: deleteUnwantedFixtures });
 			on('task', { GetConfigByFile: getConfigByFile });
 			on('task', { GetCookiesFileContents: getCookiesFileContents });
-			on('file:preprocessor', webpackConfig(config));
 			return config;
 		},
 		baseUrl: process.env.BASE_URL,
@@ -36,8 +34,8 @@ module.exports = defineConfig({
 			INSPECTOR_EMAIL: process.env.INSPECTOR_EMAIL,
 			PRESERVE_COOKIES: process.env.PRESERVE_COOKIES
 		},
-		specPattern: 'cypress/e2e/**/*.feature',
-		supportFile: false,
+		specPattern: getSpecPattern(app),
+		supportFile: './cypress/support/e2e.js',
 		viewportHeight: 960,
 		viewportWidth: 1536,
 		defaultCommandTimeout: 10000,
@@ -45,7 +43,6 @@ module.exports = defineConfig({
 		experimentalModifyObstructiveThirdPartyCode: true,
 		chromeWebSecurity: false,
 		experimentalInteractiveRunEvents: true,
-		video: false,
-		retries: 1
+		video: false
 	}
 });

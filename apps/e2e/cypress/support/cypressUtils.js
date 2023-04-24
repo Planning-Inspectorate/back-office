@@ -11,11 +11,6 @@ const clearAllCookies = () => {
 	return fileName;
 };
 
-const deleteFile = (fileName) => {
-	fs.rmSync(path.join(__dirname, `../fixtures/${fileName}`), { recursive: true, force: true });
-	return null;
-};
-
 const deleteDownloads = () => {
 	fs.removeSync(path.join(__dirname, `../downloads`));
 	return null;
@@ -37,34 +32,48 @@ const getCookiesFileContents = (userId) => {
 	return JSON.parse(fs.readFileSync(fileName, 'utf8'));
 };
 
-const webpackConfig = (config) =>
-	webpack({
-		webpackOptions: {
-			resolve: {
-				extensions: ['.ts', '.js']
-			},
-			module: {
-				rules: [
-					{
-						test: /\.feature$/,
-						use: [
-							{
-								loader: '@badeball/cypress-cucumber-preprocessor/webpack',
-								options: config
-							}
-						]
-					}
-				]
-			}
+const deleteUnwantedFixtures = () => {
+	const folderPath = path.join(__dirname, '../fixtures');
+	const keepList = [
+		'browser-auth-data.js',
+		'case-search.json',
+		'folder-structure.json',
+		'sample-doc.pdf',
+		'sample-file.doc',
+		'sample-img.gif',
+		'sample-img.jpeg',
+		'sample-img.jpg',
+		'sample-video.mp4',
+		'users.js',
+		'test.pdf'
+	];
+	fs.readdir(folderPath, (err, files) => {
+		if (err) {
+			console.error(err);
+			return;
 		}
+
+		files.forEach((file) => {
+			if (!keepList.includes(file)) {
+				fs.unlink(`${folderPath}/${file}`, (err) => {
+					if (err) {
+						console.error(err);
+						return;
+					}
+					console.log(`Deleted ${file}`);
+				});
+			}
+		});
 	});
+
+	return null;
+};
 
 module.exports = {
 	clearAllCookies,
-	deleteFile,
+	deleteUnwantedFixtures,
 	deleteDownloads,
 	getConfigByFile,
 	getCookiesFileContents,
-	cookiesFileExists,
-	webpackConfig
+	cookiesFileExists
 };

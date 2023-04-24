@@ -5,8 +5,7 @@
 	"main": "index.js",
 	"scripts": {
 		"cy:open": "npx cypress open",
-		"cy:run": "npx cypress run",
-		"cy:run:smoke": "npx cypress run -e TAGS='@smoke'"
+		"cy:run": "npx cypress run"
 	},
 	"author": "",
 	"license": "ISC",
