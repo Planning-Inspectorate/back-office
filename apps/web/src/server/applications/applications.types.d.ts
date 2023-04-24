@@ -85,6 +85,7 @@ export interface Sector extends OptionsItem {}
 export interface Region extends OptionsItem {}
 export interface ZoomLevel extends OptionsItem {}
 export interface DocumentationCategory extends OptionsItem {}
+export interface ExaminationTimetableType extends OptionsItem {}
 
 export interface CaseCreateProps<BodyValues> {
 	errors?: ValidationErrors;
