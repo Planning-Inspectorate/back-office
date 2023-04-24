@@ -7,6 +7,7 @@ export {
 	Address,
 	AppealDetailsFromAppellant,
 	Appellant,
+	ExaminationTimetableType,
 	LPAQuestionnaire,
 	ReviewQuestionnaire,
 	Region,
@@ -239,3 +240,5 @@ export interface DocumentVersionInput extends DocumentVersion {
 }
 
 export interface DocumentMetadata extends schema.DocumentMetadata {}
+
+export interface ExaminationTimetableType extends schema.ExaminationTimetableType {}
