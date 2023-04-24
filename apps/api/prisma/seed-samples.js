@@ -3,6 +3,7 @@
  * @typedef {import('../src/server/applications/application/application.js').Sector} SubSector
  * @typedef {import('apps/web/src/server/applications/applications.types').Region} Region
  * @typedef {import('apps/web/src/server/applications/applications.types').ZoomLevel} ZoomLevel
+ * @typedef {import('apps/web/src/server/applications/applications.types').ExaminationTimetableType} ExaminationTimetableType
  * @typedef {import('apps/api/prisma/schema').CaseStatus} CaseStatus
  */
 
@@ -789,6 +790,74 @@ export const caseStatusNames = [
 	{ name: 'decision' },
 	{ name: 'post_decision' },
 	{ name: 'withdrawn' }
+];
+
+/**
+ * An array of zoom levels.
+ *
+ * @type {ExaminationTimetableType[]}
+ */
+export const examinationTimetableTypes = [
+	{
+		name: 'Accompanied Site Inspection',
+		displayNameEn: 'Accompanied site inspection',
+		displayNameCy: 'Accompanied site inspection'
+	},
+	{
+		name: 'Compulsory Acquisition Hearing',
+		displayNameEn: 'Compulsory acquisition hearing',
+		displayNameCy: 'Compulsory acquisition hearing'
+	},
+	{
+		name: 'Deadline',
+		displayNameEn: 'Deadline',
+		displayNameCy: 'Deadline'
+	},
+	{
+		name: 'Deadline For Close Of Examination',
+		displayNameEn: 'Deadline for close of examination',
+		displayNameCy: 'Deadline for close of examination'
+	},
+	{
+		name: 'Issued By',
+		displayNameEn: 'Issued by',
+		displayNameCy: 'Issued by'
+	},
+	{
+		name: 'Issue Specific Hearing',
+		displayNameEn: 'Issue specific hearing',
+		displayNameCy: 'Issue specific hearing'
+	},
+	{
+		name: 'Open Floor Hearing',
+		displayNameEn: 'Open floor hearing',
+		displayNameCy: 'Open floor hearing'
+	},
+	{
+		name: 'Other Meeting',
+		displayNameEn: 'Other meeting',
+		displayNameCy: 'Other meeting'
+	},
+	{
+		name: 'Preliminary Meeting',
+		displayNameEn: 'Preliminary meeting',
+		displayNameCy: 'Preliminary meeting'
+	},
+	{
+		name: 'Procedural Deadline (Pre-Examination)',
+		displayNameEn: 'Procedural deadline (pre-examination)',
+		displayNameCy: 'Procedural deadline (pre-examination)'
+	},
+	{
+		name: 'Procedural Decision',
+		displayNameEn: 'Procedural decision',
+		displayNameCy: 'Procedural decision'
+	},
+	{
+		name: 'Publication Of',
+		displayNameEn: 'Publication of',
+		displayNameCy: 'Publication of'
+	}
 ];
 
 export const represenations = [
