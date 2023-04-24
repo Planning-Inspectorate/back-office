@@ -11,11 +11,13 @@ const mockCaseReference = { title: 'mock title', status: 'in test', reference: '
 const nocks = () => {
 	nock('http://test/').get('/applications/1').reply(200, mockCaseReference);
 	nock('http://test/')
-		.get(`/applications/1/representations?searchTerm=mock-search-term`)
+		.get(`/applications/1/representations`)
+		.query({ searchTerm: 'mock-search-term', sortBy: '', page: 1, pageSize: 25 })
 		.reply(200, { items: [representationsFixture.items[0]] })
 		.persist();
 	nock('http://test/')
 		.get(`/applications/1/representations`)
+		.query({ searchTerm: '', sortBy: '', page: 1, pageSize: 25 })
 		.reply(200, representationsFixture)
 		.persist();
 };

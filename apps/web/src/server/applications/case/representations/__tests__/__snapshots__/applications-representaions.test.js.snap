@@ -31,41 +31,55 @@ exports[`applications representations GET /applications-service/:caseId/relevant
                         <button class=\\"govuk-button govuk-button--secondary\\" data-module=\\"govuk-button\\">Search</button>
                     </div>
                 </div>
+                <input type=\\"hidden\\" name=\\"page\\" id=\\"page\\" value=\\"1\\">
+                <input type=\\"hidden\\" name=\\"pageSize\\" id=\\"pageSize\\" value=\\"25\\">
+                <table class=\\"govuk-table\\">
+                    <thead class=\\"govuk-table__head\\">
+                        <tr class=\\"govuk-table__row\\">
+                            <th scope=\\"col\\" class=\\"govuk-table__header\\">
+                                <button class=\\"sort-table sort-table__button sort-table__accending sort-table__decending sort-table--small\\"
+                                name=\\"sortBy\\" id=\\"sort-by-reference\\" value=\\"reference\\">Reference</button>
+                            </th>
+                            <th scope=\\"col\\" class=\\"govuk-table__header\\">From</th>
+                            <th scope=\\"col\\" class=\\"govuk-table__header\\">
+                                <button class=\\"sort-table sort-table__button sort-table__accending sort-table__decending sort-table--small\\"
+                                name=\\"sortBy\\" id=\\"sort-by-received\\" value=\\"received\\">Date received</button>
+                            </th>
+                            <th scope=\\"col\\" class=\\"govuk-table__header\\">
+                                <button class=\\"sort-table sort-table__button sort-table__accending sort-table__decending sort-table--small\\"
+                                name=\\"sortBy\\" id=\\"sort-by-redacted\\" value=\\"redacted\\">Redacted</button>
+                            </th>
+                            <th scope=\\"col\\" class=\\"govuk-table__header\\">
+                                <button class=\\"sort-table sort-table__button sort-table__accending sort-table__decending sort-table--small\\"
+                                name=\\"sortBy\\" id=\\"sort-by-status\\" value=\\"status\\">Status</button>
+                            </th>
+                            <th scope=\\"col\\" class=\\"govuk-table__header\\">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody class=\\"govuk-table__body\\">
+                        <tr class=\\"govuk-table__row\\">
+                            <td class=\\"govuk-table__cell\\">mock reference</td>
+                            <td class=\\"govuk-table__cell\\">org name 1</td>
+                            <td class=\\"govuk-table__cell\\">01 Jan 2022</td>
+                            <td class=\\"govuk-table__cell\\">Redacted</td>
+                            <td class=\\"govuk-table__cell\\"><span class=\\"govuk-tag govuk-tag--grey\\" id=\\"list-convictions-status-1\\">AWAITING REVIEW</span>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><a href=\\"#\\"> Review </a>
+                            </td>
+                        </tr>
+                        <tr class=\\"govuk-table__row\\">
+                            <td class=\\"govuk-table__cell\\">mock reference</td>
+                            <td class=\\"govuk-table__cell\\">first lastName</td>
+                            <td class=\\"govuk-table__cell\\">01 Jan 2022</td>
+                            <td class=\\"govuk-table__cell\\">Unredacted</td>
+                            <td class=\\"govuk-table__cell\\"><span class=\\"govuk-tag govuk-tag\\" id=\\"list-convictions-status-2\\">VALID</span>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><a href=\\"#\\"> Review </a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
             </form>
-            <table class=\\"govuk-table\\">
-                <thead class=\\"govuk-table__head\\">
-                    <tr class=\\"govuk-table__row\\">
-                        <th scope=\\"col\\" class=\\"govuk-table__header\\">Reference</th>
-                        <th scope=\\"col\\" class=\\"govuk-table__header\\">From</th>
-                        <th scope=\\"col\\" class=\\"govuk-table__header\\">Date received</th>
-                        <th scope=\\"col\\" class=\\"govuk-table__header\\">Redacted</th>
-                        <th scope=\\"col\\" class=\\"govuk-table__header\\">Status</th>
-                        <th scope=\\"col\\" class=\\"govuk-table__header\\">Actions</th>
-                    </tr>
-                </thead>
-                <tbody class=\\"govuk-table__body\\">
-                    <tr class=\\"govuk-table__row\\">
-                        <td class=\\"govuk-table__cell\\">mock reference</td>
-                        <td class=\\"govuk-table__cell\\">org name 1</td>
-                        <td class=\\"govuk-table__cell\\">01 Jan 2022</td>
-                        <td class=\\"govuk-table__cell\\">Redacted</td>
-                        <td class=\\"govuk-table__cell\\"><span class=\\"govuk-tag govuk-tag--grey\\" id=\\"list-convictions-status-1\\">AWAITING REVIEW</span>
-                        </td>
-                        <td class=\\"govuk-table__cell\\"><a href=\\"#\\"> Review </a>
-                        </td>
-                    </tr>
-                    <tr class=\\"govuk-table__row\\">
-                        <td class=\\"govuk-table__cell\\">mock reference</td>
-                        <td class=\\"govuk-table__cell\\">first lastName</td>
-                        <td class=\\"govuk-table__cell\\">01 Jan 2022</td>
-                        <td class=\\"govuk-table__cell\\">Unredacted</td>
-                        <td class=\\"govuk-table__cell\\"><span class=\\"govuk-tag govuk-tag\\" id=\\"list-convictions-status-2\\">VALID</span>
-                        </td>
-                        <td class=\\"govuk-table__cell\\"><a href=\\"#\\"> Review </a>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
         </div>
     </div>
 </main>"
@@ -103,31 +117,45 @@ exports[`applications representations GET /applications-service/:id/relevant-rep
                         <button class=\\"govuk-button govuk-button--secondary\\" data-module=\\"govuk-button\\">Search</button>
                     </div>
                 </div>
+                <input type=\\"hidden\\" name=\\"page\\" id=\\"page\\" value=\\"1\\">
+                <input type=\\"hidden\\" name=\\"pageSize\\" id=\\"pageSize\\" value=\\"25\\">
+                <table class=\\"govuk-table\\">
+                    <thead class=\\"govuk-table__head\\">
+                        <tr class=\\"govuk-table__row\\">
+                            <th scope=\\"col\\" class=\\"govuk-table__header\\">
+                                <button class=\\"sort-table sort-table__button sort-table__accending sort-table__decending sort-table--small\\"
+                                name=\\"sortBy\\" id=\\"sort-by-reference\\" value=\\"reference\\">Reference</button>
+                            </th>
+                            <th scope=\\"col\\" class=\\"govuk-table__header\\">From</th>
+                            <th scope=\\"col\\" class=\\"govuk-table__header\\">
+                                <button class=\\"sort-table sort-table__button sort-table__accending sort-table__decending sort-table--small\\"
+                                name=\\"sortBy\\" id=\\"sort-by-received\\" value=\\"received\\">Date received</button>
+                            </th>
+                            <th scope=\\"col\\" class=\\"govuk-table__header\\">
+                                <button class=\\"sort-table sort-table__button sort-table__accending sort-table__decending sort-table--small\\"
+                                name=\\"sortBy\\" id=\\"sort-by-redacted\\" value=\\"redacted\\">Redacted</button>
+                            </th>
+                            <th scope=\\"col\\" class=\\"govuk-table__header\\">
+                                <button class=\\"sort-table sort-table__button sort-table__accending sort-table__decending sort-table--small\\"
+                                name=\\"sortBy\\" id=\\"sort-by-status\\" value=\\"status\\">Status</button>
+                            </th>
+                            <th scope=\\"col\\" class=\\"govuk-table__header\\">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody class=\\"govuk-table__body\\">
+                        <tr class=\\"govuk-table__row\\">
+                            <td class=\\"govuk-table__cell\\">mock reference</td>
+                            <td class=\\"govuk-table__cell\\">org name 1</td>
+                            <td class=\\"govuk-table__cell\\">01 Jan 2022</td>
+                            <td class=\\"govuk-table__cell\\">Redacted</td>
+                            <td class=\\"govuk-table__cell\\"><span class=\\"govuk-tag govuk-tag--grey\\" id=\\"list-convictions-status-1\\">AWAITING REVIEW</span>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><a href=\\"#\\"> Review </a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
             </form>
-            <table class=\\"govuk-table\\">
-                <thead class=\\"govuk-table__head\\">
-                    <tr class=\\"govuk-table__row\\">
-                        <th scope=\\"col\\" class=\\"govuk-table__header\\">Reference</th>
-                        <th scope=\\"col\\" class=\\"govuk-table__header\\">From</th>
-                        <th scope=\\"col\\" class=\\"govuk-table__header\\">Date received</th>
-                        <th scope=\\"col\\" class=\\"govuk-table__header\\">Redacted</th>
-                        <th scope=\\"col\\" class=\\"govuk-table__header\\">Status</th>
-                        <th scope=\\"col\\" class=\\"govuk-table__header\\">Actions</th>
-                    </tr>
-                </thead>
-                <tbody class=\\"govuk-table__body\\">
-                    <tr class=\\"govuk-table__row\\">
-                        <td class=\\"govuk-table__cell\\">mock reference</td>
-                        <td class=\\"govuk-table__cell\\">org name 1</td>
-                        <td class=\\"govuk-table__cell\\">01 Jan 2022</td>
-                        <td class=\\"govuk-table__cell\\">Redacted</td>
-                        <td class=\\"govuk-table__cell\\"><span class=\\"govuk-tag govuk-tag--grey\\" id=\\"list-convictions-status-1\\">AWAITING REVIEW</span>
-                        </td>
-                        <td class=\\"govuk-table__cell\\"><a href=\\"#\\"> Review </a>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
         </div>
     </div>
 </main>"

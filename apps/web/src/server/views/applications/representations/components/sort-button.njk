@@ -1,0 +1,21 @@
+{% macro sortButton(params) %}
+	{% set classes = 'sort-table__accending sort-table__decending sort-table--small' %}
+	{% set value = params.value %}
+	{% set descValue = "-" + params.value %}
+
+	{% if params.queries.activeSort === params.value %}
+		{% set classes = 'sort-table__accending sort-table--big' %}
+		{% set value = descValue %}
+	{% elseif params.queries.activeSort === descValue %}
+		{% set classes = 'sort-table__decending sort-table--big' %}
+	{% endif %}
+
+	<button
+			class="sort-table sort-table__button {{ classes }}"
+			name="sortBy"
+			id="sort-by-{{ params.value }}"
+			value="{{ value }}"
+	>
+		{{ params.text }}
+	</button>
+{% endmacro %}
