@@ -1,12 +1,10 @@
 {
 	"bindings": [
 		{
-			"name": "myBlob",
-			"type": "blobTrigger",
-			"direction": "in",
-			"path": "document-service-uploads/{name}",
-			"source": "EventGrid",
-			"connection": "pinsstdocsbo__blobServiceUri"
+			"type": "eventGridTrigger",
+			"name": "eventGridEvent",
+			"direction": "in"
 		}
-	]
+	],
+	"disabled": false
 }
