@@ -8,6 +8,7 @@ import { caseAdminOfficerRoutes } from './case-admin-officer/case-admin-officer.
 import { caseTeamRoutes } from './case-team/case-team.routes.js';
 import { updateDocumentStatus } from './documents/documents.controller.js';
 import { validateDocumentGUID, validateMachineAction } from './documents/documents.validators.js';
+import { examinationTimetableTypeRoutes } from './examination-timetable-type/examination-timetable-type.routes.js';
 import { inspectorRoutes } from './inspector/inspector.routes.js';
 import { regionRoutes } from './region/region.routes.js';
 import { caseSearchRoutes } from './search/case-search.routes.js';
@@ -22,13 +23,13 @@ router.use('/case-admin-officer', caseAdminOfficerRoutes);
 
 router.use('/inspector', inspectorRoutes);
 
-router.use('/region', regionRoutes);
-
-router.use('/sector', sectorRoutes);
-
 router.use('/search', caseSearchRoutes);
 
+// reference data
+router.use('/region', regionRoutes);
+router.use('/sector', sectorRoutes);
 router.use('/zoom-level', zoomLevelRoutes);
+router.use('/examination-timetable-type', examinationTimetableTypeRoutes);
 
 router.use('/', documentRoutes);
 
