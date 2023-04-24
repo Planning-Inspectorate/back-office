@@ -1543,6 +1543,31 @@
 				}
 			}
 		},
+		"/applications/search": {
+			"post": {
+				"tags": ["Applications"],
+				"description": "Gets all applications as per search criteria",
+				"parameters": [
+					{
+						"name": "body",
+						"in": "body",
+						"description": "case query parameters",
+						"schema": {
+							"$ref": "#/definitions/ApplicationsForSearchCriteriaRequestBody"
+						},
+						"required": true
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "List of applications as per search criteria",
+						"schema": {
+							"$ref": "#/definitions/ApplicationsForSearchCriteria"
+						}
+					}
+				}
+			}
+		},
 		"/applications/region": {
 			"get": {
 				"tags": ["Applications"],
@@ -1588,31 +1613,6 @@
 				}
 			}
 		},
-		"/applications/search": {
-			"post": {
-				"tags": ["Applications"],
-				"description": "Gets all applications as per search criteria",
-				"parameters": [
-					{
-						"name": "body",
-						"in": "body",
-						"description": "case query parameters",
-						"schema": {
-							"$ref": "#/definitions/ApplicationsForSearchCriteriaRequestBody"
-						},
-						"required": true
-					}
-				],
-				"responses": {
-					"200": {
-						"description": "List of applications as per search criteria",
-						"schema": {
-							"$ref": "#/definitions/ApplicationsForSearchCriteria"
-						}
-					}
-				}
-			}
-		},
 		"/applications/zoom-level": {
 			"get": {
 				"tags": ["Applications"],
@@ -1623,6 +1623,21 @@
 						"description": "List of map zoom levels",
 						"schema": {
 							"$ref": "#/definitions/MapZoomLevelForApplications"
+						}
+					}
+				}
+			}
+		},
+		"/applications/examination-timetable-type": {
+			"get": {
+				"tags": ["Applications"],
+				"description": "Gets all examination timetable types available",
+				"parameters": [],
+				"responses": {
+					"200": {
+						"description": "List of examination timetable types",
+						"schema": {
+							"$ref": "#/definitions/ExaminationTimetableTypes"
 						}
 					}
 				}
@@ -2040,6 +2055,30 @@
 					"displayNameCy": {
 						"type": "string",
 						"example": "Region Name Cy"
+					}
+				}
+			}
+		},
+		"ExaminationTimetableTypes": {
+			"type": "array",
+			"items": {
+				"type": "object",
+				"properties": {
+					"id": {
+						"type": "number",
+						"example": 1
+					},
+					"name": {
+						"type": "string",
+						"example": "Accompanied Site Inspection"
+					},
+					"displayNameEn": {
+						"type": "string",
+						"example": "Accompanied site inspection"
+					},
+					"displayNameCy": {
+						"type": "string",
+						"example": "Accompanied site inspection Cy"
 					}
 				}
 			}
