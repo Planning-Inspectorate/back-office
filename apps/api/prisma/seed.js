@@ -7,6 +7,7 @@ import {
 	appellantsList,
 	caseStatusNames,
 	completeValidationDecisionSample,
+	examinationTimetableTypes,
 	incompleteReviewQuestionnaireSample,
 	incompleteValidationDecisionSample,
 	invalidValidationDecisionSample,
@@ -652,6 +653,7 @@ const deleteAllRecords = async () => {
 	const deleteSectors = databaseConnector.sector.deleteMany();
 	const deleteRegions = databaseConnector.region.deleteMany();
 	const deleteZoomLevels = databaseConnector.zoomLevel.deleteMany();
+	const deleteExaminationTimetables = databaseConnector.examinationTimetableType.deleteMany();
 	const deleteRegionsOnApplicationDetails =
 		databaseConnector.regionsOnApplicationDetails.deleteMany();
 	const deleteAppeals = databaseConnector.appeal.deleteMany();
@@ -678,6 +680,10 @@ const deleteAllRecords = async () => {
 	await deleteRepresentationContact;
 	await deleteRepresentation;
 
+	// delete document versions, documents, and THEN the folders.  Has to be in this order for integrity constraints
+	await deleteDocumentsVersions;
+	await deleteDocuments;
+
 	await deleteLowestFolders();
 	await deleteLowestFolders();
 	await deleteLowestFolders();
@@ -695,6 +701,7 @@ const deleteAllRecords = async () => {
 		deleteSectors,
 		deleteRegions,
 		deleteZoomLevels,
+		deleteExaminationTimetables,
 		deleteAppealDetailsFromAppellant,
 		deleteAppealStatus,
 		deleteValidationDecision,
@@ -707,9 +714,7 @@ const deleteAllRecords = async () => {
 		deleteInspectorDecision,
 		deleteAppeals,
 		deleteAppellant,
-		deleteFolders,
-		deleteDocuments,
-		deleteDocumentsVersions
+		deleteFolders
 	]);
 };
 
@@ -815,6 +820,7 @@ const createApplication = async (subSector, index) => {
  */
 const developMain = async () => {
 	try {
+		// ---------- Re-create all the reference tables
 		await deleteAllRecords();
 		await databaseConnector.appealType.createMany({
 			data: [
@@ -843,6 +849,14 @@ const developMain = async () => {
 				data: zoomLevel
 			});
 		}
+		for (const examinationTimetableType of examinationTimetableTypes) {
+			await databaseConnector.examinationTimetableType.create({
+				data: examinationTimetableType
+			});
+		}
+		// ----------end of Re-create all the reference tables
+
+		// now create some sample applications
 		for (const { subSector } of subSectors) {
 			for (let index = 1; index < 4; index += 1) {
 				await createApplication(subSector, index);
