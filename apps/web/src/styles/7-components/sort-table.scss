@@ -1,0 +1,60 @@
+@use "../govuk-frontend/govuk/settings/_colours-applied" as colors;
+.sort-table {
+  &__button {
+	background-color: colors.govuk-colour('white');
+	border-width: 0;
+	box-shadow: 0 0 0 0;
+	color: #005ea5;
+	cursor: pointer;
+	font-family: inherit;
+	font-size: inherit;
+	font-weight: inherit;
+	padding: 0 10px 0 0;
+	position: relative;
+	text-align: inherit;
+	margin: 0;
+  }
+
+  &__button:focus {
+	background-color: #fd0;
+	color: #0b0c0c;
+	box-shadow: 0 -2px #fd0, 0 4px #0b0c0c;
+	outline: none;
+  }
+
+  &__accending:after {
+	content: "\25b2";
+  }
+
+  &__decending:before {
+	content: "\25bc";
+  }
+
+  &--big:after {
+	font-size: .8em;
+	position: absolute;
+	right: -5px;
+	top: 2px;
+  }
+
+  &--big:before {
+	font-size: .8em;
+	position: absolute;
+	right: -5px;
+	top: 2px;
+  }
+
+  &--small:after {
+	position: absolute;
+	right: -1px;
+	top: 1px;
+	font-size: .5em;
+  }
+
+  &--small:before {
+	position: absolute;
+	right: -1px;
+	top: 9px;
+	font-size: .5em;
+  }
+}
