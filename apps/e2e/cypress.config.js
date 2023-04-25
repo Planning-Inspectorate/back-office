@@ -31,8 +31,7 @@ module.exports = defineConfig({
 			PASSWORD: process.env.USER_PASSWORD,
 			CASE_TEAM_EMAIL: process.env.CASE_TEAM_EMAIL,
 			CASE_ADMIN_EMAIL: process.env.CASE_ADMIN_EMAIL,
-			INSPECTOR_EMAIL: process.env.INSPECTOR_EMAIL,
-			PRESERVE_COOKIES: process.env.PRESERVE_COOKIES
+			INSPECTOR_EMAIL: process.env.INSPECTOR_EMAIL
 		},
 		specPattern: getSpecPattern(app),
 		supportFile: './cypress/support/e2e.js',
@@ -43,6 +42,7 @@ module.exports = defineConfig({
 		experimentalModifyObstructiveThirdPartyCode: true,
 		chromeWebSecurity: false,
 		experimentalInteractiveRunEvents: true,
-		video: false
+		video: false,
+		retries: 1
 	}
 });

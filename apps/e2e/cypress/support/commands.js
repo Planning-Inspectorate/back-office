@@ -1,15 +1,7 @@
 // @ts-nocheck
 import { BrowserAuthData } from '../fixtures/browser-auth-data';
-import { projectInformation } from './utils/createProjectInformation';
 
-Cypress.Commands.add('createProjectInformation', (fileOne, fileTwo) => {
-	const p1 = JSON.stringify(projectInformation());
-	const p2 = JSON.stringify(projectInformation());
-	cy.writeFile(`./cypress/fixtures/${fileOne}`, p1);
-	cy.writeFile(`./cypress/fixtures/${fileTwo}`, p2);
-});
-
-Cypress.Commands.add('clearCookiesFile', () => {
+Cypress.Commands.add('clearCookiesFiles', () => {
 	cy.task('ClearAllCookies').then((cleared) => {
 		console.log(cleared);
 	});
@@ -26,19 +18,11 @@ Cypress.Commands.add('deleteUnwantedFixtures', () => {
 Cypress.Commands.add('login', (user) => {
 	cy.task('CookiesFileExists', user.id).then((exists) => {
 		if (!exists) {
+			cy.log(`No cookies 🍪 found!\nLogging in as: ${user.id}`);
 			cy.loginWithPuppeteer(user);
 		} else {
-			cy.task('GetCookiesFileContents', user.id).then((fileContents) => {
-				const expiry = fileContents[fileContents.length - 1]['expires'];
-				const now = Math.floor(Date.now() / 1000);
-				const tokenIsValid = expiry > now + 1200;
-
-				if (!tokenIsValid) {
-					cy.loginWithPuppeteer(user);
-				} else {
-					setLocalCookies(user.id);
-				}
-			});
+			cy.log(`Found some cookies! 🍪\nSetting cookies for: ${user.id}`);
+			setLocalCookies(user.id);
 		}
 	});
 });

@@ -8,6 +8,8 @@ jobs:
         values:
           - dev
           - test
+      - name: APP
+        value: applications
 
     steps:
       - task: AzureKeyVault@2
@@ -31,8 +33,8 @@ jobs:
       - task: Npm@1
         inputs:
           command: 'custom'
-          customCommand: 'run cy:run:smoke'
-          workingDir: 'apps/e2e'
+          customCommand: 'run e2e'
+          workingDir: '.'
           envVars: >
             ${{ if eq(variables['Environment'], 'dev') }}BASE_URL=$(BASE_URL_DEV);CASE_TEAM_EMAIL=$(CASE_TEAM_EMAIL_DEV);CASE_ADMIN_EMAIL=$(CASE_ADMIN_EMAIL_DEV);INSPECTOR_EMAIL=$(INSPECTOR_EMAIL_DEV);USER_PASSWORD=$(USER_PASSWORD_DEV)${{ else }}BASE_URL=$(BASE_URL_TEST);CASE_TEAM_EMAIL=$(CASE_TEAM_EMAIL_TEST);CASE_ADMIN_EMAIL=$(CASE_ADMIN_EMAIL_TEST);INSPECTOR_EMAIL=$(INSPECTOR_EMAIL_TEST);USER_PASSWORD=$(USER_PASSWORD_TEST)${{ endif }}
         displayName: 'Run Cypress Tests'

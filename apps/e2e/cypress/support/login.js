@@ -10,33 +10,27 @@ const locators = {
 	pinsApplicationHeader: '#pins-applications-header'
 };
 
+const timeout = async (ms) => await new Promise((resolve) => setTimeout(resolve, ms));
+
 azureSignIn = async (config) => {
 	const browser = await puppeteer.launch({
-		headless: false,
+		headless: true,
 		ignoreHTTPSErrors: true,
 		args: ['--no-sandbox', '--ignore-certificate-errors']
 	});
 
 	const page = await browser.newPage();
 	await page.goto(config.loginUrl, { timeout: 60000 });
-	await page.waitForSelector(locators.usernameInput, { timeout: 60000 });
+	await page.waitForSelector(locators.usernameInput, { visible: true, timeout: 10000 });
 	await page.type(locators.usernameInput, config.username);
 	await page.keyboard.press('Enter');
-	await page.waitForSelector(locators.passwordInput, { visible: true });
-	await page.waitForTimeout(1000);
+	await page.waitForSelector(locators.passwordInput, { visible: true, timeout: 10000 });
+	await timeout(2000);
 	await page.type(locators.passwordInput, config.password);
 	await page.keyboard.press('Enter');
-	await page.waitForTimeout(2000);
+	await page.waitForNavigation({ timeout: 10000 });
 	await page.waitForSelector(locators.pinsApplicationHeader, { visible: true, timeout: 10000 });
-	await page.click(locators.pinsApplicationHeader);
 
-	const tokenValues = await page.evaluate(() => {
-		let values = {};
-		for (let index = 0, length = localStorage.length; index < length; ++index) {
-			values[localStorage.key(index)] = localStorage.getItem(localStorage.key(index));
-		}
-		return values;
-	});
 	const cookies = await getCookies(page);
 
 	if (!fs.existsSync(BrowserAuthData.BrowserAuthDataFolder)) {

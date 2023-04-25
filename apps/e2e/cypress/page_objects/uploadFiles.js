@@ -26,19 +26,25 @@ export class FileUploadPage extends Page {
 		const checkUpload = () => {
 			cy.get('body').then(($body) => {
 				if ($body.text().includes('Awaiting upload')) {
-					cy.wait(15000);
 					cy.reload();
 				}
 			});
 		};
-		// Checks if file is uploaded up to 3 times
-		checkUpload();
-		checkUpload();
-		checkUpload();
-		cy.contains('a', 'Download').should('exist');
+
+		for (let i = 0; i < 3; i++) {
+			checkUpload();
+		}
+
+		cy.contains('a', 'Download', { timeout: 15000 }).should('exist');
 	}
 
 	downloadFile(fileNumber) {
+		/**
+			Cypress waits for a load event when the download button/link is clicked.
+			The event doesn't fire when the download link is clicked which fails our test.
+			So we reload the page 5s after the button/link is clicked to remedy this.
+		**/
+
 		cy.window()
 			.document()
 			.then(function (doc) {

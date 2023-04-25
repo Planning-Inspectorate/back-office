@@ -78,6 +78,5 @@ export class CreateCasePage extends Page {
 		this.sections.checkYourAnswers.checkAllAnswers(projectInformation, mandatoryOnly);
 		this.clickButtonByText('I accept - confirm creation of a new case');
 		this.sections.caseCreated.validateCaseCreated();
-		cy.wait(2000);
 	}
 }

@@ -12,16 +12,18 @@ const applicationsHomePage = new ApplicationsHomePage();
 
 describe('Create A Case', () => {
 	context('As Inspector', () => {
-		before(() => {
+		beforeEach(() => {
 			cy.login(users.inspector);
 		});
 
 		it('Should not be able to create a case - button is not available', () => {
 			cy.visit('/');
+			applicationsHomePage.verifyInspectorIsSignedIn();
 			applicationsHomePage.verifyCreateCaseIsNotAvailable();
 		});
 
-		it('Should not be able to create a case - button is not available', () => {
+		it('Should not be able to create a case - cannot navigate to URL', () => {
+			cy.visit('/');
 			cy.visit('/applications-service/create-new-case', {
 				failOnStatusCode: false
 			});
@@ -30,23 +32,20 @@ describe('Create A Case', () => {
 	});
 
 	context('As a Case Team Admin User', () => {
-		before(() => {
-			cy.login(users.caseAdmin);
-		});
-
 		it('Should successfully create a case as an admin', () => {
+			cy.login(users.caseAdmin);
 			cy.visit('/');
+			createCasePage.verifyCaseAdminIsSignedIn();
 			const projectInfo = projectInformation();
 			createCasePage.createCase(projectInfo);
 		});
 	});
 
 	context('As a Case Team User', () => {
-		before(() => {
-			cy.login(users.caseTeam);
-		});
 		it('Should successfully create a case when the logged in user is a case team user', () => {
+			cy.login(users.caseTeam);
 			cy.visit('/');
+			createCasePage.verifyCaseTeamIsSignedIn();
 			const projectInfo = projectInformation();
 			createCasePage.createCase(projectInfo);
 		});
