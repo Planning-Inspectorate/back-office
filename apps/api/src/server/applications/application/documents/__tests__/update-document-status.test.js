@@ -411,6 +411,19 @@ describe('Update document statuses and redacted statuses', () => {
 				}
 			},
 			{
+				name: 'no document version',
+				guid: 'document-guid',
+				document: {},
+				documentVersion: null,
+				want: {
+					status: 404,
+					body: {
+						errors: 'No document found'
+					},
+					update: false
+				}
+			},
+			{
 				name: 'no previous status',
 				guid: 'document-guid',
 				document: {},
