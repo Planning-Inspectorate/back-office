@@ -82,10 +82,39 @@ export const updateDocuments = async ({ body }, response) => {
 				`Updating document with guid: ${document.guid} to published status: ${publishedStatus} and redacted status: ${redactedStatus}`
 			);
 
-			const updateResponseInTable = await documentVersionRepository.update(document.guid, {
+			/**
+			 * @typedef {object} Updates
+			 * @property {string} [publishedStatus]
+			 * @property {string} [publishedStatusPrev]
+			 * @property {string} [redactedStatus]
+			 */
+
+			/** @type {Updates} */
+			const documentVersionUpdates = {
 				publishedStatus,
 				redactedStatus
-			});
+			};
+
+			if (typeof publishedStatus === 'undefined') {
+				delete documentVersionUpdates.publishedStatus;
+			} else {
+				// when setting publishedStatus, save previous publishedStatus
+				const documentVersion = await documentVersionRepository.getById(document.guid);
+
+				// do we have a previous doc version, does it have a published status, and is that status different
+				if (
+					typeof documentVersion !== 'undefined' &&
+					typeof documentVersion.publishedStatus !== 'undefined' &&
+					documentVersion.publishedStatus !== publishedStatus
+				) {
+					documentVersionUpdates.publishedStatusPrev = documentVersion.publishedStatus;
+				}
+			}
+
+			const updateResponseInTable = await documentVersionRepository.update(
+				document.guid,
+				documentVersionUpdates
+			);
 			const formattedResponse = formatDocumentUpdateResponseBody(
 				updateResponseInTable.documentGuid ?? '',
 				updateResponseInTable.publishedStatus ?? '',
@@ -124,6 +153,39 @@ export const getDocumentProperties = async ({ params: { id: caseId, guid } }, re
 
 	// Step 5: Return the document metadata in the response.
 	response.status(200).send(documentDetails);
+};
+
+/**
+ * Revert the published status of a document to the previous published status.
+ *
+ * @type {import('express').RequestHandler<{id: number;guid: string}, any, any, any>}
+ */
+export const revertDocumentPublishedStatus = async ({ params: { guid } }, response) => {
+	const documentVersion = await documentVersionRepository.getById(guid);
+
+	if (!documentVersion) {
+		throw new BackOfficeAppError(`No document found`, 404);
+	}
+
+	let publishedStatus;
+
+	if (
+		typeof documentVersion.publishedStatusPrev !== 'undefined' &&
+		documentVersion.publishedStatusPrev !== null
+	) {
+		publishedStatus = documentVersion.publishedStatusPrev;
+	} else {
+		throw new BackOfficeAppError(`No previous published status to revert to`, 412);
+	}
+
+	logger.info(
+		`updating document version ${guid} to previous publishedStatus: '${publishedStatus}'`
+	);
+	await documentVersionRepository.update(guid, {
+		publishedStatus,
+		publishedStatusPrev: null
+	});
+	response.sendStatus(200);
 };
 
 /**
