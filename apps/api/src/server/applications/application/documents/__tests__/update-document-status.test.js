@@ -181,7 +181,6 @@ describe('Update document statuses and redacted statuses', () => {
 			description: 'doc with all required fields for publishing',
 			author: 'David',
 			filter1: 'Filter Category 1',
-			publishedStatus: 'ready_to_publish',
 			redactedStatus: 'unredacted'
 		};
 
@@ -342,5 +341,140 @@ describe('Update document statuses and redacted statuses', () => {
 				redactedStatus: 'redacted'
 			}
 		});
+	});
+
+	test('updates published status, and sets previous published status', async () => {
+		// GIVEN
+		const updatedDocument = {
+			caseId: 1,
+			documentGuid: 'documenttoupdate_1a_guid',
+			name: 'doc to update 2',
+			description: 'doc with all required fields for publishing',
+			publishedStatus: 'ready_to_publish',
+			filter1: 'Filter Category 1',
+			redactedStatus: 'unredacted',
+			author: 'David'
+		};
+		const documentVersion = {
+			documentGuid: 'documenttoupdate_1a_guid',
+			version: 1,
+			description: 'doc with all required fields for publishing',
+			author: 'David',
+			filter1: 'Filter Category 1',
+			publishedStatus: 'user_checked',
+			redactedStatus: 'unredacted'
+		};
+
+		databaseConnector.document.findUnique.mockResolvedValue({
+			...updatedDocument,
+			documentVersion
+		});
+		databaseConnector.documentVersion.findUnique.mockResolvedValue(documentVersion);
+		databaseConnector.folder.findUnique.mockResolvedValue({ caseId: 1 });
+		databaseConnector.documentVersion.update.mockResolvedValue(updatedDocument);
+
+		// WHEN
+		const response = await request.patch('/applications/1/documents/update').send({
+			status: 'ready_to_publish',
+			items: [{ guid: 'documenttoupdate_1a_guid' }]
+		});
+
+		// THEN
+		expect(response.status).toEqual(200);
+		expect(response.body).toEqual([
+			{
+				guid: 'documenttoupdate_1a_guid',
+				redactedStatus: 'unredacted',
+				status: 'ready_to_publish'
+			}
+		]);
+		expect(databaseConnector.documentVersion.update).toHaveBeenCalledWith({
+			where: { documentGuid_version: { documentGuid: 'documenttoupdate_1a_guid', version: 1 } },
+			data: {
+				publishedStatus: 'ready_to_publish',
+				publishedStatusPrev: 'user_checked'
+			}
+		});
+	});
+
+	describe('revert document published status', () => {
+		const tests = [
+			{
+				name: 'invalid guid',
+				guid: 'not-a-document-guid',
+				want: {
+					status: 404,
+					body: {
+						errors: 'No document found'
+					},
+					update: false
+				}
+			},
+			{
+				name: 'no previous status',
+				guid: 'document-guid',
+				document: {},
+				documentVersion: {},
+				want: {
+					status: 412,
+					body: {
+						errors: 'No previous published status to revert to'
+					},
+					update: false
+				}
+			},
+			{
+				name: 'reverts to previous status',
+				guid: 'document-guid',
+				document: {},
+				documentVersion: {
+					publishedStatus: 'ready_to_publish',
+					publishedStatusPrev: 'checked'
+				},
+				want: {
+					status: 200,
+					body: {},
+					update: {
+						publishedStatus: 'checked',
+						publishedStatusPrev: null
+					}
+				}
+			}
+		];
+
+		// this is to stop an eslint error about unused refernces inside a loop
+		// see https://eslint.org/docs/latest/rules/no-loop-func
+		const localExpect = expect;
+
+		for (const { name, guid, document, documentVersion, want } of tests) {
+			test(name, async () => {
+				// setup
+				databaseConnector.document.findUnique.mockReset();
+				databaseConnector.documentVersion.findUnique.mockReset();
+
+				if (document) {
+					databaseConnector.document.findUnique.mockResolvedValueOnce(document);
+				}
+
+				if (documentVersion) {
+					databaseConnector.documentVersion.findUnique.mockResolvedValueOnce(documentVersion);
+				}
+
+				// action
+				const response = await request.post(
+					`/applications/1/documents/${guid}/revert-published-status`
+				);
+
+				// checks
+				localExpect(response.status).toEqual(want.status);
+				localExpect(response.body).toEqual(want.body);
+				if (want.update) {
+					localExpect(databaseConnector.documentVersion.update).toHaveBeenCalledWith({
+						where: { documentGuid_version: { documentGuid: guid, version: 1 } },
+						data: want.update
+					});
+				}
+			});
+		}
 	});
 });
