@@ -58,10 +58,17 @@ const getContactDetailsByContactType = ({ contacts }, type) => {
 const formatDate = ( date ) => format(new Date(date), 'dd MMM yyyy');
 
 // Shorten a string to less than maxLen characters without truncating words.
-const createExcerpt = (string, maxLength) => {
-    const lastSpaceIndex = string.lastIndexOf(' ', maxLength)
 
-    return `${string.slice(0, Math.max(0, lastSpaceIndex) )}...`;
+/**
+ * 
+ * @param { string } str
+ * @param { number } maxLength 
+ * @returns { string }
+ */
+const createExcerpt = (str, maxLength) => {
+    const lastSpaceIndex = str.lastIndexOf(' ', maxLength)
+
+    return `${str.slice(0, Math.max(0, lastSpaceIndex) )}...`;
   }
 
 const getRepresentationData = ( data ) => {
@@ -98,7 +105,11 @@ const getAttachmensData = () => {
     return false
 }
 
-
+/**
+ * 
+ * @param {*} data 
+ * @returns 
+ */
 export const getRepresentationDetailsViewModel = function ( data ) {
 
     const viewData = {
