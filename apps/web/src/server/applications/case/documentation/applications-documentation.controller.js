@@ -6,11 +6,11 @@ import {
 } from '../../common/services/session.service.js';
 import {
 	deleteCaseDocumentationFile,
-	deleteCaseDocumentationPublishinQueue,
 	getCaseDocumentationFileInfo,
 	getCaseDocumentationFilesInFolder,
 	getCaseDocumentationReadyToPublish,
 	getCaseFolders,
+	removeCaseDocumentationPublishingQueue,
 	updateCaseDocumentationFiles
 } from './applications-documentation.service.js';
 import {
@@ -200,7 +200,7 @@ export async function viewApplicationsCaseDocumentationPublishingQueue(request, 
 export async function removeApplicationsCaseDocumentationPublishingQueue(request, response) {
 	const { caseId, documentGuid } = request.params;
 
-	await deleteCaseDocumentationPublishinQueue(caseId, documentGuid);
+	await removeCaseDocumentationPublishingQueue(caseId, documentGuid);
 
 	return response.redirect(url('documents-queue', { caseId }));
 }

@@ -128,14 +128,20 @@ export const deleteCaseDocumentationFile = async (caseId, documentGuid, fileName
  * @param {string} documentGuid
  * @returns {Promise<{isDeleted?: boolean, errors?: ValidationErrors}>}
  */
-export const deleteCaseDocumentationPublishinQueue = async (caseId, documentGuid) => {
+export const removeCaseDocumentationPublishingQueue = async (caseId, documentGuid) => {
 	let response;
 
 	try {
-		response = await post(`applications/${caseId}/documents/${documentGuid}/delete`);
+		response = await post(
+			`applications/${caseId}/documents/${documentGuid}/revert-published-status`
+		);
 	} catch {
 		response = new Promise((resolve) => {
-			resolve({ errors: { msg: `The document could not be deleted, please try again.` } });
+			resolve({
+				errors: {
+					msg: `The document could not be removed from the publishing queue, please try again.`
+				}
+			});
 		});
 	}
 
