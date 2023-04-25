@@ -167,22 +167,20 @@ export const revertDocumentPublishedStatus = async ({ params: { guid } }, respon
 		throw new BackOfficeAppError(`No document found`, 404);
 	}
 
-	let publishedStatus;
-
 	if (
-		typeof documentVersion.publishedStatusPrev !== 'undefined' &&
-		documentVersion.publishedStatusPrev !== null
+		typeof documentVersion.publishedStatusPrev === 'undefined' ||
+		documentVersion.publishedStatusPrev === null
 	) {
-		publishedStatus = documentVersion.publishedStatusPrev;
-	} else {
 		throw new BackOfficeAppError(`No previous published status to revert to`, 412);
 	}
 
+	const publishedStatusToRevertTo = documentVersion.publishedStatusPrev;
+
 	logger.info(
-		`updating document version ${guid} to previous publishedStatus: '${publishedStatus}'`
+		`updating document version ${guid} to previous publishedStatus: '${publishedStatusToRevertTo}'`
 	);
 	await documentVersionRepository.update(guid, {
-		publishedStatus,
+		publishedStatus: publishedStatusToRevertTo,
 		publishedStatusPrev: null
 	});
 	response.sendStatus(200);
