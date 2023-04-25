@@ -112,9 +112,10 @@ exports[`Representation details page GET /applications-service/case/1/relevant-r
                         <noscript>Ipsum ex deserunt et consequat esse reprehenderit excepteur ipsum eu.
                             Ea sit Lorem irure duis pariatur sit ea est ut magna. Elit in ea sint reprehenderit
                             anim aute ullamco laboris enim adipisicing elit tempor.</noscript>
-                        <div                         id=\\"representationText\\" class=\\"govuk-!-margin-bottom-2\\"></div>
-                <p class=\\"govuk-body govuk-!-margin-bottom-4\\"><a href=\\"#\\" id=\\"fullRepToggle\\" class=\\"govuk-link govuk-link--no-visited-state\\"
-                    hidden>Show full representation</a>
+                        <div                         id=\\"representationText\\" class=\\"govuk-!-margin-bottom-2\\">Ipsum ex deserunt et consequat esse reprehenderit excepteur ipsum eu.
+                            Ea sit Lorem irure duis pariatur sit ea est ut magna. Elit in ea sint reprehenderit
+                            anim aute ullamco laboris enim adipisicing...</div>
+                <p class=\\"govuk-body govuk-!-margin-bottom-4\\"><a href=\\"#\\" id=\\"fullRepToggle\\" class=\\"govuk-link govuk-link--no-visited-state\\">Show full representation</a>
                 </p>
                 <script nonce=\\"EdcOUaJ8lczj9tIPO0lPow==\\">
                     const repTextEl = document.querySelector('#representationText')
@@ -124,10 +125,9 @@ exports[`Representation details page GET /applications-service/case/1/relevant-r
                     							const repFullText = 'Ipsum ex deserunt et consequat esse reprehenderit excepteur ipsum eu. Ea sit Lorem irure duis pariatur sit ea est ut magna. Elit in ea sint reprehenderit anim aute ullamco laboris enim adipisicing elit tempor.'
                     
                     							let isToggled = false
-                    							fullRepToggleEl.removeAttribute('hidden');
-                    							repTextEl.innerText = repExcerpt
+                    
                     							
-                    							const handleClick = function(e) {
+                    							const handleClick =function(e) {
                     								e.preventDefault() 
                     
                     								if( !isToggled ) {

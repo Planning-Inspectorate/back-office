@@ -1,19 +1,5 @@
 import { format } from 'date-fns';
 
-// const getName = ({ contacts }, type) => {
-//     let res = ''
-
-//     contacts.forEach(contact => {
-//         const contactType = contact.type.toLowerCase()
-
-//         if( contactType === type) {
-//            res = `${ contact.firstName} ${ contact.lastName }`
-//         }
-//     });
-//     return res
-
-// }
-
 const getContactDetailsByContactType = ({ contacts }, type) => {
     let res = false
 
@@ -58,30 +44,6 @@ const getContactDetailsByContactType = ({ contacts }, type) => {
            }
         }
     }
-
-    // contacts.forEach(contact => {
-    //     const contactType = contact.type?.toLowerCase()
-
-    //     if ( contactType === type ) {
-    //         res = {
-    //             orgName: contact.organisationName || '',
-    //             name: `${ contact.firstName} ${ contact.lastName }`,
-    //             orgOrName: contact.organisationName ? contact.organisationName : `${ contact.firstName} ${ contact.lastName }`,
-    //             jobTitle: contact.jobTitle || '',
-    //             under18: contact.under18 ? 'Yes' : 'No',
-    //             email: contact.email || '',
-    //             phoneNumber: contact.phoneNumber || '',
-    //             prefferedContact: '',
-    //             addressLine1: contact.address.addressLine1 || '',
-    //             addressLine2: contact.address.addressLine2 || '',
-    //             town: contact.address.town || '',
-    //             county: contact.address.county || '',
-    //             postcode: contact.address.postcode || ''
-    //        }
-    //     }
-    // });
-
-    // TODO on behalf off, part of agent or contact? inconsistent design/field description
 
     return res
 }
