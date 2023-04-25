@@ -8,6 +8,7 @@ import {
 	getDocumentProperties,
 	getReadyToPublishDocuments,
 	provideDocumentUploadURLs,
+	revertDocumentPublishedStatus,
 	storeDocumentVersion,
 	updateDocuments
 } from './document.controller.js';
@@ -133,6 +134,32 @@ router.get(
         }
     */
 	asyncHandler(getDocumentProperties)
+);
+
+router.post(
+	'/:id/documents/:guid/revert-published-status',
+	/*
+        #swagger.tags = ['Applications']
+        #swagger.path = '/applications/{id}/documents/{guid}/revert-published-status'
+        #swagger.description = 'Reverts the published status of a document to the previous status'
+        #swagger.parameters['id'] = {
+            in: 'path',
+			description: 'Application ID here',
+			required: true,
+			type: 'integer'
+		}
+		#swagger.parameters['guid'] = {
+            in: 'path',
+			description: 'guid of the document',
+			required: true,
+			type: 'string'
+		}
+        #swagger.responses[200] = {
+            description: 'OK'
+        }
+    */
+	validateApplicationId,
+	asyncHandler(revertDocumentPublishedStatus)
 );
 
 router.post(

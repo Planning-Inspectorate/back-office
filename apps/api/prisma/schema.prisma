@@ -428,6 +428,7 @@ model DocumentVersion {
   examinationRefNo       String?
   filter2                String?
   publishedStatus        String?   @default("awaiting_upload")
+  publishedStatusPrev    String?
   redactedStatus         String?
   redacted               Boolean   @default(false)
   documentURI            String?
