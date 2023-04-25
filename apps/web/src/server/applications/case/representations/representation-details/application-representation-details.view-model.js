@@ -37,10 +37,10 @@ const getContactDetailsByContactType = ({ contacts }, type) => {
     //     }
     // ]
 
-    contacts.forEach(contact => {
+    for ( const contact of contacts) {
         const contactType = contact.type?.toLowerCase()
 
-        if( contactType === type) {
+        if ( contactType === type ) {
             res = {
                 orgName: contact.organisationName || '',
                 name: `${ contact.firstName} ${ contact.lastName }`,
@@ -57,9 +57,31 @@ const getContactDetailsByContactType = ({ contacts }, type) => {
                 postcode: contact.address.postcode || ''
            }
         }
-    });
+    }
 
-    //TODO on behalf off, part of agent or contact? inconsistent design/field description
+    // contacts.forEach(contact => {
+    //     const contactType = contact.type?.toLowerCase()
+
+    //     if ( contactType === type ) {
+    //         res = {
+    //             orgName: contact.organisationName || '',
+    //             name: `${ contact.firstName} ${ contact.lastName }`,
+    //             orgOrName: contact.organisationName ? contact.organisationName : `${ contact.firstName} ${ contact.lastName }`,
+    //             jobTitle: contact.jobTitle || '',
+    //             under18: contact.under18 ? 'Yes' : 'No',
+    //             email: contact.email || '',
+    //             phoneNumber: contact.phoneNumber || '',
+    //             prefferedContact: '',
+    //             addressLine1: contact.address.addressLine1 || '',
+    //             addressLine2: contact.address.addressLine2 || '',
+    //             town: contact.address.town || '',
+    //             county: contact.address.county || '',
+    //             postcode: contact.address.postcode || ''
+    //        }
+    //     }
+    // });
+
+    // TODO on behalf off, part of agent or contact? inconsistent design/field description
 
     return res
 }
@@ -68,6 +90,7 @@ const getContactDetailsByContactType = ({ contacts }, type) => {
  *
  * @param {object} arg
  * @param {string} arg.received
+ * @param date
  * @returns {string}
  */
 const formatDate = ( date ) => format(new Date(date), 'dd MMM yyyy');
@@ -75,20 +98,21 @@ const formatDate = ( date ) => format(new Date(date), 'dd MMM yyyy');
 // Shorten a string to less than maxLen characters without truncating words.
 const createExcerpt = (string, maxLength) => {
     const lastSpaceIndex = string.lastIndexOf(' ', maxLength)
-    return `${string.substr(0, lastSpaceIndex )}...`;
+
+    return `${string.slice(0, Math.max(0, lastSpaceIndex) )}...`;
   }
 
 const getRepresentationData = ( data ) => {
     const maxRepTextLength = 200
-    //TODO: remove test rep text
+
+    // TODO: remove test rep text
     data.originalRepresentation = 'Ipsum ex deserunt et consequat esse reprehenderit excepteur ipsum eu. Ea sit Lorem irure duis pariatur sit ea est ut magna. Elit in ea sint reprehenderit anim aute ullamco laboris enim adipisicing elit tempor.'
 
-    
     let representationExcerpt = false
-    if( data.originalRepresentation.length >= maxRepTextLength ) {
+
+    if ( data.originalRepresentation.length >= maxRepTextLength ) {
         representationExcerpt = createExcerpt( data.originalRepresentation, maxRepTextLength )
     }
-
 
     return {
         id: data.id,
@@ -102,12 +126,12 @@ const getRepresentationData = ( data ) => {
     }
 }
 
-//placeholder function
+// placeholder function
 const getWorkflowData = () => {
     return false
 }
 
-//placeholder function
+// placeholder function
 const getAttachmensData = () => {
     return false
 }
@@ -122,6 +146,7 @@ export const getRepresentationDetailsViewModel = function ( data ) {
         workflowData: getWorkflowData( data ),
         attachmentsData: getAttachmensData( data )
     }
+
     return viewData
 }
 

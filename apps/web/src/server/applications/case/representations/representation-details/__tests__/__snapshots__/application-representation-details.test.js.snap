@@ -1,0 +1,175 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Representation details page GET /applications-service/case/1/relevant-representations/1/representations-details should render the page 1`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <div class=\\"govuk-grid-row govuk-!-margin-bottom-6\\">
+        <div class=\\"govuk-grid-column-full\\">
+            <h1 class=\\"govuk-heading-l govuk-!-margin-bottom-2\\">Arthur Test</h1><strong class=\\"govuk-heading-s govuk-!-margin-bottom-6\\"><strong class=\\"govuk-tag govuk-tag--\\">in test</strong></strong>
+            <p             class=\\"govuk-!-margin-bottom-6\\"><strong>Project name:</strong> mock title</p>
+                <h3 class=\\"govuk-heading-m\\">Contact details</h3>
+                <dl class=\\"govuk-summary-list\\">
+                    <div class=\\"govuk-summary-list__row govuk-summary-list__row--no-border\\"><dt class=\\"govuk-summary-list__key\\"> Organisation name</dt>
+                        <dd class=\\"govuk-summary-list__value\\">--</dd>
+                        <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"#\\"> Change<span class=\\"govuk-visually-hidden\\"> organisation name</span></a>
+                        </dd>
+                    </div>
+                    <div class=\\"govuk-summary-list__row govuk-summary-list__row--no-actions govuk-summary-list__row--no-border\\"><dt class=\\"govuk-summary-list__key\\"> Name</dt>
+                        <dd class=\\"govuk-summary-list__value\\">Arthur Test</dd>
+                    </div>
+                    <div class=\\"govuk-summary-list__row govuk-summary-list__row--no-actions govuk-summary-list__row--no-border\\"><dt class=\\"govuk-summary-list__key\\"> Job title</dt>
+                        <dd class=\\"govuk-summary-list__value\\"></dd>
+                    </div>
+                    <div class=\\"govuk-summary-list__row govuk-summary-list__row--no-actions govuk-summary-list__row--no-border\\"><dt class=\\"govuk-summary-list__key\\"> Email address</dt>
+                        <dd class=\\"govuk-summary-list__value\\">test@example.com</dd>
+                    </div>
+                    <div class=\\"govuk-summary-list__row govuk-summary-list__row--no-actions\\"><dt class=\\"govuk-summary-list__key\\"> Telephone number</dt>
+                        <dd class=\\"govuk-summary-list__value\\">01234 567890</dd>
+                    </div>
+                    <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Address</dt>
+                        <dd class=\\"govuk-summary-list__value\\">21 The Pavement Wandsworth SW4 0HY</dd>
+                        <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"#\\"> Change<span class=\\"govuk-visually-hidden\\"> address</span></a>
+                        </dd>
+                    </div>
+                    <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Preferred contact method</dt>
+                        <dd                         class=\\"govuk-summary-list__value\\">Email</dd>
+                            <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"edit/preferred-contact\\"> Change<span class=\\"govuk-visually-hidden\\"> preferred preferred contact method</span></a>
+                            </dd>
+                    </div>
+                    <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Type</dt>
+                        <dd class=\\"govuk-summary-list__value\\">no data?</dd>
+                        <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"edit/preferred-contact\\"> Change<span class=\\"govuk-visually-hidden\\"> type</span></a>
+                        </dd>
+                    </div>
+                    <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Representation on behalf of</dt>
+                        <dd                         class=\\"govuk-summary-list__value\\">no data?</dd>
+                            <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"edit/preferred-contact\\"> Change<span class=\\"govuk-visually-hidden\\"> representation on behalf of</span></a>
+                            </dd>
+                    </div>
+                    <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Under 18</dt>
+                        <dd class=\\"govuk-summary-list__value\\">No</dd>
+                        <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"edit/preferred-contact\\"> Change<span class=\\"govuk-visually-hidden\\"> under 18</span></a>
+                        </dd>
+                    </div>
+                </dl>
+        </div>
+    </div>
+    <div class=\\"govuk-grid-row govuk-!-margin-bottom-6\\">
+        <div class=\\"govuk-grid-column-full\\">
+            <h3 class=\\"govuk-heading-m\\">Agent contact details</h3>
+            <dl class=\\"govuk-summary-list\\">
+                <div class=\\"govuk-summary-list__row govuk-summary-list__row--no-border\\"><dt class=\\"govuk-summary-list__key\\"> Organisation name</dt>
+                    <dd class=\\"govuk-summary-list__value\\"></dd>
+                    <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"#\\"> Change<span class=\\"govuk-visually-hidden\\">organisation name</span></a>
+                    </dd>
+                </div>
+                <div class=\\"govuk-summary-list__row govuk-summary-list__row--no-actions govuk-summary-list__row--no-border\\"><dt class=\\"govuk-summary-list__key\\"> Name</dt>
+                    <dd class=\\"govuk-summary-list__value\\">James Bond</dd>
+                </div>
+                <div class=\\"govuk-summary-list__row govuk-summary-list__row--no-actions govuk-summary-list__row--no-border\\"><dt class=\\"govuk-summary-list__key\\"> Job title</dt>
+                    <dd class=\\"govuk-summary-list__value\\"></dd>
+                </div>
+                <div class=\\"govuk-summary-list__row govuk-summary-list__row--no-actions govuk-summary-list__row--no-border\\"><dt class=\\"govuk-summary-list__key\\"> Email address</dt>
+                    <dd class=\\"govuk-summary-list__value\\">test-agent@example.com</dd>
+                </div>
+                <div class=\\"govuk-summary-list__row govuk-summary-list__row--no-actions\\"><dt class=\\"govuk-summary-list__key\\"> Telephone number</dt>
+                    <dd class=\\"govuk-summary-list__value\\">01234 567890</dd>
+                </div>
+                <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Address</dt>
+                    <dd class=\\"govuk-summary-list__value\\">96 The Avenue Maidstone Kent MD21 5XY</dd>
+                    <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"#\\"> Change<span class=\\"govuk-visually-hidden\\"> address</span></a>
+                    </dd>
+                </div>
+                <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Preferred contact method</dt>
+                    <dd                     class=\\"govuk-summary-list__value\\">Email</dd>
+                        <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"#\\"> Change<span class=\\"govuk-visually-hidden\\"> preferred contact method</span></a>
+                        </dd>
+                </div>
+                <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Type</dt>
+                    <dd class=\\"govuk-summary-list__value\\">no data?</dd>
+                    <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"#\\"> Change<span class=\\"govuk-visually-hidden\\"> type</span></a>
+                    </dd>
+                </div>
+                <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Under 18</dt>
+                    <dd class=\\"govuk-summary-list__value\\">No</dd>
+                    <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"#\\"> Change<span class=\\"govuk-visually-hidden\\"> under 18</span></a>
+                    </dd>
+                </div>
+            </dl>
+        </div>
+    </div>
+    <div class=\\"govuk-grid-row govuk-!-margin-bottom-6\\">
+        <div class=\\"govuk-grid-column-full\\">
+            <h3 class=\\"govuk-heading-m\\">Representation</h3>
+            <dl class=\\"govuk-summary-list\\">
+                <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Reference</dt>
+                    <dd class=\\"govuk-summary-list__value\\">BC0110001-3</dd>
+                </div>
+                <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Date received</dt>
+                    <dd class=\\"govuk-summary-list__value\\">14 Apr 2023</dd>
+                </div>
+                <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Original representation</dt>
+                    <dd class=\\"govuk-summary-list__value\\">
+                        <noscript>Ipsum ex deserunt et consequat esse reprehenderit excepteur ipsum eu.
+                            Ea sit Lorem irure duis pariatur sit ea est ut magna. Elit in ea sint reprehenderit
+                            anim aute ullamco laboris enim adipisicing elit tempor.</noscript>
+                        <div                         id=\\"representationText\\" class=\\"govuk-!-margin-bottom-2\\"></div>
+                <p class=\\"govuk-body govuk-!-margin-bottom-4\\"><a href=\\"#\\" id=\\"fullRepToggle\\" class=\\"govuk-link govuk-link--no-visited-state\\"
+                    hidden>Show full representation</a>
+                </p>
+                <script nonce=\\"EdcOUaJ8lczj9tIPO0lPow==\\">
+                    const repTextEl = document.querySelector('#representationText')
+                    							const fullRepToggleEl = document.querySelector('#fullRepToggle')
+                    
+                    							const repExcerpt = 'Ipsum ex deserunt et consequat esse reprehenderit excepteur ipsum eu. Ea sit Lorem irure duis pariatur sit ea est ut magna. Elit in ea sint reprehenderit anim aute ullamco laboris enim adipisicing...'
+                    							const repFullText = 'Ipsum ex deserunt et consequat esse reprehenderit excepteur ipsum eu. Ea sit Lorem irure duis pariatur sit ea est ut magna. Elit in ea sint reprehenderit anim aute ullamco laboris enim adipisicing elit tempor.'
+                    
+                    							let isToggled = false
+                    							fullRepToggleEl.removeAttribute('hidden');
+                    							repTextEl.innerText = repExcerpt
+                    							
+                    							const handleClick = function(e) {
+                    								e.preventDefault() 
+                    
+                    								if( !isToggled ) {
+                    									repTextEl.innerText = repFullText
+                    									fullRepToggleEl.innerText = 'Hide full representation'
+                    									isToggled = true
+                    								} else {
+                    									repTextEl.innerText = repExcerpt
+                    									fullRepToggleEl.innerText = 'Show full representation'
+                    									isToggled = false
+                    								}
+                    							}
+                    
+                    							fullRepToggleEl.addEventListener( 'click', handleClick )
+                </script>
+                </dd>
+                <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"edit/preferred-contact\\"> Redact<span class=\\"govuk-visually-hidden\\"> original representation</span></a>
+                </dd>
+        </div>
+        </dl>
+    </div>
+    </div>
+    <div class=\\"govuk-grid-row govuk-!-margin-bottom-6\\">
+        <div class=\\"govuk-grid-column-full\\">
+            <h3 class=\\"govuk-heading-m\\">Workflow</h3>
+            <dl class=\\"govuk-summary-list\\">
+                <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Status</dt>
+                    <dd class=\\"govuk-summary-list__value\\">--</dd>
+                    <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"edit/preferred-contact\\"> Change<span class=\\"govuk-visually-hidden\\"> status</span></a>
+                    </dd>
+                </div>
+            </dl>
+            <div><a class=\\"govuk-button govuk-button--secondary\\" href=\\"#\\">View task log</a>
+            </div>
+        </div>
+    </div>
+    <div class=\\"govuk-grid-row govuk-!-margin-bottom-6\\">
+        <div class=\\"govuk-grid-column-full\\">
+            <h3 class=\\"govuk-heading-m\\">Attachments</h3>
+            <div><a class=\\"govuk-button govuk-button--secondary\\" href=\\"#\\">Upload files</a>
+            </div>
+        </div>
+    </div>
+</main>"
+`;

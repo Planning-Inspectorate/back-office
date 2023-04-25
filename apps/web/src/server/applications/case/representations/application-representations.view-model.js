@@ -56,7 +56,7 @@ const getRedacted = ({ redacted }) => (redacted ? 'Redacted' : 'Unredacted');
 /**
  *
  * @param {object} args
- * @param {Array.<{reference: string, organisationName?: string, firstName?: string , lastName?: string, received: string, redacted: boolean, status: string}>} args.items
+ * @param {Array.<{reference: string, organisationName?: string, firstName?: string , lastName?: string, received: string, redacted: boolean, status: string, id: string}>} args.items
  * @returns {Array.<{}>}
  */
 export function getRepresentationsViewModel({ items }) {
