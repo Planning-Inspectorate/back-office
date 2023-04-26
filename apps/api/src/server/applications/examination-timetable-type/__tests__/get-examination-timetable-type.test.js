@@ -10,6 +10,7 @@ const request = supertest(app);
 const examinationTimetableTypes = {
 	id: 1,
 	name: 'Accompanied Site Inspection',
+	templateType: 'starttime-optional',
 	displayNameEn: 'Accompanied site inspection',
 	displayNameCy: 'Accompanied site inspection Cy'
 };
@@ -38,6 +39,7 @@ describe('Get examination timetable types', () => {
 			{
 				id: examinationTimetableTypes.id,
 				name: examinationTimetableTypes.name,
+				templateType: examinationTimetableTypes.templateType,
 				displayNameEn: examinationTimetableTypes.displayNameEn,
 				displayNameCy: examinationTimetableTypes.displayNameCy
 			}
@@ -49,6 +51,7 @@ test('tests if cached data for examination-timetable-type call is returned witho
 	const cachedExaminationTimetableTypes = {
 		id: 2,
 		name: 'cached test',
+		templateType: 'cached templateType',
 		displayNameEn: 'cached test name en',
 		displayNameCy: 'cached test name cy'
 	};
@@ -63,6 +66,7 @@ test('tests if cached data for examination-timetable-type call is returned witho
 		{
 			id: cachedExaminationTimetableTypes.id,
 			name: cachedExaminationTimetableTypes.name,
+			templateType: cachedExaminationTimetableTypes.templateType,
 			displayNameEn: cachedExaminationTimetableTypes.displayNameEn,
 			displayNameCy: cachedExaminationTimetableTypes.displayNameCy
 		}

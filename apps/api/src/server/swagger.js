@@ -158,6 +158,7 @@ const document = {
 		ExaminationTimetableTypes: [
 			{
 				id: 1,
+				templateType: 'starttime-mandatory',
 				name: 'Accompanied Site Inspection',
 				displayNameEn: 'Accompanied site inspection',
 				displayNameCy: 'Accompanied site inspection Cy'
