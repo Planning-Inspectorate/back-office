@@ -1,7 +1,7 @@
 import { format } from 'date-fns';
 
 /**
- * @typedef {Object} Address
+ * @typedef {object} Address
  * @property {string} addressLine1
  * @property {string} addressLine2
  * @property {string} town
@@ -51,30 +51,31 @@ const formatDate = ( date ) => format(new Date(date), 'dd MMM yyyy');
 
 /**
  * 
- * @param {string} str
+ * @param {string} text
  * @param {number} maxLength 
  * @returns {string}
  */
-const createExcerpt = (str, maxLength) => {
-    const lastSpaceIndex = str.lastIndexOf(' ', maxLength)
+const createExcerpt = (text, maxLength) => {
+    const lastSpaceIndex = text.lastIndexOf(' ', maxLength)
 
-    return `${str.slice(0, Math.max(0, lastSpaceIndex) )}...`;
+    return `${text.slice(0, Math.max(0, lastSpaceIndex) )}...`;
   }
 
 /**
-*
-* @param {object} data
-* @param {string} data.id
-* @param {string} data.reference
-* @param {string} data.status
-* @param {string} data.redacted
-* @param {string} data.received
-* @param {string} data.originalRepresentation
-* @param {string} data.redactedRepresentation
-* @returns 
-*/
+ *
+ * @param {object} data
+ * @param {string} data.id
+ * @param {string} data.reference
+ * @param {string} data.status
+ * @param {string} data.redacted
+ * @param {string} data.received
+ * @param {string} data.originalRepresentation
+ * @param {string} data.redactedRepresentation
+ * @returns {object}
+ */
 const getRepresentationData = ( data ) => {
     const maxRepTextLength = 200
+
     let representationExcerpt = ''
 
     if ( data.originalRepresentation.length >= maxRepTextLength ) {
@@ -97,37 +98,36 @@ const getRepresentationData = ( data ) => {
 /**
  * 
  * @param {*} data 
- * @returns 
+ * @returns {object}
  */
 const getWorkflowData = ( data ) => {
-    return false
+    return data
 }
 
 // placeholder function
 /**
  * 
  * @param {*} data 
- * @returns 
+ * @returns {object}
  */
-const getAttachmensData = ( data) => {
-    return false
+const getAttachmensData = ( data ) => {
+    return data
 }
 
 /**
-*
-* @param {object} data
-* @param {string} data.id
-* @param {string} data.reference
-* @param {string} data.status
-* @param {Array.<{organisationName: string, firstName: string, lastName: string, jobTitle: string, type: string, under18: boolean, email: string,phoneNumber: string, address: { addressLine1: string, addressLine2: string, town: string, county: string, postcode: string}}>} data.contacts
-* @param {string} data.redacted
-* @param {string} data.received
-* @param {string} data.originalRepresentation
-* @param {string} data.redactedRepresentation
-* @returns 
-*/
-export const getRepresentationDetailsViewModel = function ( data ) {
-
+ *
+ * @param {object} data
+ * @param {string} data.id
+ * @param {string} data.reference
+ * @param {string} data.status
+ * @param {Array.<{organisationName: string, firstName: string, lastName: string, jobTitle: string, type: string, under18: boolean, email: string,phoneNumber: string, address: { addressLine1: string, addressLine2: string, town: string, county: string, postcode: string}}>} data.contacts
+ * @param {string} data.redacted
+ * @param {string} data.received
+ * @param {string} data.originalRepresentation
+ * @param {string} data.redactedRepresentation
+ * @returns {object}
+ */
+export const getRepresentationDetailsViewModel = ( data ) => {
     const viewData = {
         agentData: getContactDetailsByContactType( data, 'agent'),
         personData: getContactDetailsByContactType( data, 'person'),
