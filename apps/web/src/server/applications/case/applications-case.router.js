@@ -6,6 +6,7 @@ import applicationsEditRouter from '@pins/web/src/server/applications/case/edit/
 import { assertDomainTypeIsNotInspector } from '@pins/web/src/server/applications/create-new-case/applications-create.guards.js';
 import asyncRoute from '@pins/web/src/server/lib/async-route.js';
 import { Router as createRouter } from 'express';
+import applicationsTimetableRouter from './examination-timetable/applications-timetable.router.js';
 import relevantRepsRouter from './representations/applications-relevant-reps.router.js';
 
 const applicationsCaseRouter = createRouter();
@@ -19,6 +20,7 @@ applicationsCaseRouter.use(
 	applicationsDocumentationMetadataRouter
 );
 applicationsCaseRouter.use('/:caseId/project-documentation', applicationsDocumentationRouter);
+applicationsCaseRouter.use('/:caseId/examination-timetable', applicationsTimetableRouter);
 
 applicationsCaseRouter
 	.route('/:caseId/preview-and-publish')
@@ -29,13 +31,6 @@ applicationsCaseRouter
 	.post(
 		[assertDomainTypeIsNotInspector, locals.registerCase],
 		asyncRoute(controller.updateApplicationsCasePublishPage)
-	);
-
-applicationsCaseRouter
-	.route('/:caseId/examination-timetable')
-	.get(
-		[assertDomainTypeIsNotInspector, locals.registerCase],
-		asyncRoute(controller.viewApplicationsCaseExaminationTimeTable)
 	);
 
 applicationsCaseRouter.use('/:caseId/:pageType?', applicationsCaseSummaryRouter);
