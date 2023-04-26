@@ -71,6 +71,11 @@ const createExcerpt = (str, maxLength) => {
     return `${str.slice(0, Math.max(0, lastSpaceIndex) )}...`;
   }
 
+  /**
+   * 
+   * @param {*} data 
+   * @returns 
+   */
 const getRepresentationData = ( data ) => {
     const maxRepTextLength = 200
 
