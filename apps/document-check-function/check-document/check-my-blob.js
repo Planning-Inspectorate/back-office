@@ -1,6 +1,5 @@
 import got, { HTTPError } from 'got';
 import { isEqual } from 'lodash-es';
-import { Readable } from 'node:stream';
 import { sendDocumentStateAction } from './back-office-api-client.js';
 import config from './config.js';
 import { scanStream } from './scan-stream.js';
@@ -48,9 +47,9 @@ const errorIsDueToDocumentMissing = (error) => {
 
 /**
  * @param {string} documentUri
- * @param {import('@azure/functions').Context} context
+ * @param {import('@azure/functions').Logger} log
  */
-const deleteDocument = async (documentUri, context) => {
+const deleteDocument = async (documentUri, log) => {
 	const documentPath = `/${documentUri.split('/').slice(-4).join('/')}`;
 
 	try {
@@ -61,7 +60,7 @@ const deleteDocument = async (documentUri, context) => {
 			.json();
 	} catch (error) {
 		if (errorIsDueToDocumentMissing(error)) {
-			context.log.info('Unable to delete document from Blob Store because it is already deleted');
+			log.info('Unable to delete document from Blob Store because it is already deleted');
 		} else {
 			throw error;
 		}
@@ -69,30 +68,28 @@ const deleteDocument = async (documentUri, context) => {
 };
 
 /**
- * @param {import('@azure/functions').Context} context
- * @param {import('node:stream').Readable} myBlob
+ * @param {import('@azure/functions').Logger} log
+ * @param {string} blobUri
+ * @param {import('node:stream').Readable} blobStream
  */
-export const checkMyBlob = async (context, myBlob) => {
-	const documentUri = context.bindingData.uri;
-	const { guid } = getBlobCaseReferenceAndGuid(documentUri);
+export const checkMyBlob = async (log, blobUri, blobStream) => {
+	const { guid } = getBlobCaseReferenceAndGuid(blobUri);
 
-	context.log('Sending document state is uploading to back office');
-	await sendDocumentStateAction(guid, 'uploading', context);
+	log.info('Sending document state is uploading to back office');
+	await sendDocumentStateAction(guid, 'uploading', log);
 
-	const blobStream = Readable.from(myBlob);
-
-	context.log('Scanning document for viruses');
+	log.info('Scanning document for viruses');
 
 	const isInfected = await scanStream(blobStream);
 
 	if (isInfected) {
-		context.log.error('Document did not pass AV checks');
-		context.log('Deleting document from blob storage');
-		await deleteDocument(documentUri, context);
+		log.error('Document did not pass AV checks');
+		log.info('Deleting document from blob storage');
+		await deleteDocument(blobUri, log);
 	}
 
 	const machineAction = mapIsInfectedToMachineAction(isInfected);
 
-	context.log('Sending AV result to back office');
-	await sendDocumentStateAction(guid, machineAction, context);
+	log.info('Sending AV result to back office');
+	await sendDocumentStateAction(guid, machineAction, log);
 };

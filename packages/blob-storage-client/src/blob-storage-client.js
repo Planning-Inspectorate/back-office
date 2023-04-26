@@ -10,6 +10,17 @@ export class BlobStorageClient {
 	}
 
 	/**
+	 * @param {string} url
+	 * @param {import("@azure/storage-blob").StorageSharedKeyCredential | import("@azure/storage-blob").AnonymousCredential | import("@azure/core-auth").TokenCredential | undefined} credential
+	 * @returns {BlobStorageClient}
+	 */
+	static fromUrlAndCredential(url, credential) {
+		const client = new BlobServiceClient(url, credential);
+
+		return new BlobStorageClient(client);
+	}
+
+	/**
 	 *
 	 * @param {string} url
 	 * @param {import('@azure/core-auth').AccessToken} accessToken
