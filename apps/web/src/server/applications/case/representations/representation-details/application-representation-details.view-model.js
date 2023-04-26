@@ -1,30 +1,25 @@
 import { format } from 'date-fns';
 
-const getContactDetailsByContactType = ({ contacts }, type) => {
-    let res = false
+/**
+ * @typedef {Object} Address
+ * @property {string} addressLine1
+ * @property {string} addressLine2
+ * @property {string} town
+ * @property {string} county
+ * @property {string} postcode
+ */
 
-    // let sampleContacts = [
-    //     {
-    //         "type": "PERSON",
-    //         "firstName": "Mrs",
-    //         "lastName": "Sue",
-    //         "organisationName": null,
-    //         "jobTitle": null,
-    //         "under18": false,
-    //         "email": "test@example.com",
-    //         "phoneNumber": "01234 567890",
-    //         "address": {
-    //             "addressLine1": "92 Huntsmoor Road",
-    //             "addressLine2": null,
-    //             "town": "Tadley",
-    //             "county": null,
-    //             "postcode": "RG26 4BX"
-    //         }
-    //     }
-    // ]
+/**
+ * @param {object} arg
+ * @param {Array.<{organisationName: string, firstName: string, lastName: string, jobTitle: string, type: string, under18: boolean, email: string,phoneNumber: string, address: Address }>} arg.contacts
+ * @param {string} type
+ * @returns {object}
+ */
+const getContactDetailsByContactType = ({ contacts }, type) => {
+    let res = {}
 
     for ( const contact of contacts) {
-        const contactType = contact.type?.toLowerCase()
+        const contactType = contact.type.toLowerCase()
 
         if ( contactType === type ) {
             res = {
@@ -49,21 +44,16 @@ const getContactDetailsByContactType = ({ contacts }, type) => {
 }
 
 /**
- *
- * @param {object} arg
- * @param {string} arg.received
- * @param date
+ * @param {string} date
  * @returns {string}
  */
 const formatDate = ( date ) => format(new Date(date), 'dd MMM yyyy');
 
-// Shorten a string to less than maxLen characters without truncating words.
-
 /**
  * 
- * @param { string } str
- * @param { number } maxLength 
- * @returns { string }
+ * @param {string} str
+ * @param {number} maxLength 
+ * @returns {string}
  */
 const createExcerpt = (str, maxLength) => {
     const lastSpaceIndex = str.lastIndexOf(' ', maxLength)
@@ -71,18 +61,21 @@ const createExcerpt = (str, maxLength) => {
     return `${str.slice(0, Math.max(0, lastSpaceIndex) )}...`;
   }
 
-  /**
-   * 
-   * @param {*} data 
-   * @returns 
-   */
+/**
+*
+* @param {object} data
+* @param {string} data.id
+* @param {string} data.reference
+* @param {string} data.status
+* @param {string} data.redacted
+* @param {string} data.received
+* @param {string} data.originalRepresentation
+* @param {string} data.redactedRepresentation
+* @returns 
+*/
 const getRepresentationData = ( data ) => {
     const maxRepTextLength = 200
-
-    // TODO: remove test rep text
-    data.originalRepresentation = 'Ipsum ex deserunt et consequat esse reprehenderit excepteur ipsum eu. Ea sit Lorem irure duis pariatur sit ea est ut magna. Elit in ea sint reprehenderit anim aute ullamco laboris enim adipisicing elit tempor.'
-
-    let representationExcerpt = false
+    let representationExcerpt = ''
 
     if ( data.originalRepresentation.length >= maxRepTextLength ) {
         representationExcerpt = createExcerpt( data.originalRepresentation, maxRepTextLength )
@@ -101,20 +94,38 @@ const getRepresentationData = ( data ) => {
 }
 
 // placeholder function
-const getWorkflowData = () => {
-    return false
-}
-
-// placeholder function
-const getAttachmensData = () => {
-    return false
-}
-
 /**
  * 
  * @param {*} data 
  * @returns 
  */
+const getWorkflowData = ( data ) => {
+    return false
+}
+
+// placeholder function
+/**
+ * 
+ * @param {*} data 
+ * @returns 
+ */
+const getAttachmensData = ( data) => {
+    return false
+}
+
+/**
+*
+* @param {object} data
+* @param {string} data.id
+* @param {string} data.reference
+* @param {string} data.status
+* @param {Array.<{organisationName: string, firstName: string, lastName: string, jobTitle: string, type: string, under18: boolean, email: string,phoneNumber: string, address: { addressLine1: string, addressLine2: string, town: string, county: string, postcode: string}}>} data.contacts
+* @param {string} data.redacted
+* @param {string} data.received
+* @param {string} data.originalRepresentation
+* @param {string} data.redactedRepresentation
+* @returns 
+*/
 export const getRepresentationDetailsViewModel = function ( data ) {
 
     const viewData = {

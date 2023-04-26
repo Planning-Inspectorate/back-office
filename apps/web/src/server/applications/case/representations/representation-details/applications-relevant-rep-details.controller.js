@@ -20,7 +20,6 @@ export async function relevantRepDetails(req, res) {
 	const representationDetailsViewModel = getRepresentationDetailsViewModel(representationDetails);
 
 	return res.render(view, {
-		test: 'Hello World!',
 		caseId,
 		representationId,
 		caseReference: caseReferenceViewModel,
