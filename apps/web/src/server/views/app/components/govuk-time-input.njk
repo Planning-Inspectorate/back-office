@@ -1,0 +1,34 @@
+{% from "govuk/components/input/macro.njk" import govukInput %}
+{% macro govukTimeInput(params) %}
+  <div class="govuk-form-group {{ params.classes }} {{ 'govuk-form-group--error' if isError else '' }}">
+    <label class="govuk-label font-weight--700" for="submissionDateInternal">
+      {{ params.label }}
+    </label>
+    {% if isError %}
+      <p id="submissionDateInternal-error" class="govuk-error-message">
+        <span class="govuk-visually-hidden">Error:</span>
+        {{ errors[layout.metaDataName].msg }}
+      </p>
+    {% endif %}
+
+      <div class="govuk-grid-row">
+        {{ govukInput({
+
+								formGroup: {classes: 'govuk-hint govuk-grid-column-one-half'},
+
+				id: [layout.metaDataName, '.month']|join,
+				name: [layout.metaDataName, '.month']|join,
+				value: value |datestamp({format: 'MM'}),
+				errorMessage: isError
+			}) }}
+        {{ govukInput({
+
+				formGroup: {classes: 'govuk-hint govuk-grid-column-one-half'},
+				id: [layout.metaDataName, '.year']|join,
+				name: [layout.metaDataName, '.year']|join,
+				value: value |datestamp({format: 'yyyy'}),
+				errorMessage: isError
+			}) }}
+    </div>
+  </div>
+{% endmacro %}

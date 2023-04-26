@@ -82,6 +82,8 @@ export const url = (key, filterArguments = {}) => {
 			return `${domainUrl}/case/${caseId}/project-documentation/publishing-queue`;
 		case 'search-results':
 			return `${domainUrl}/search-results/${step}?q=${query}`;
+		case 'timetable':
+			return `${domainUrl}/case/${caseId}/examination-timetable/${step}`;
 		default:
 			return 'app/404';
 	}
