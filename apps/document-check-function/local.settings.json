@@ -5,8 +5,9 @@
 		"FUNCTIONS_EXTENSION_VERSION": "~4",
 		"WEBSITE_NODE_DEFAULT_VERSION": "~16",
 		"AzureWebJobsStorage": "UseDevelopmentStorage=true",
-		"BlobContainerName": "input-container",
-		"BlobOutputContainerName": "output-container",
-		"QueueName": "queue"
+		"CLAM_AV_HOST": "0.0.0.0",
+		"CLAM_AV_PORT": "3310",
+		"API_HOST": "http://localhost:3000",
+		"DOCUMENT_STORAGE_API_HOST": "http://localhost:3001"
 	}
 }

@@ -17,7 +17,7 @@ const environment = loadEnvironment(process.env.NODE_ENV);
 const { value, error } = schema.validate({
 	NODE_ENV: environment.NODE_ENV,
 	API_HOST: environment.API_HOST,
-	DOCUMENT_STORAGE_API_HOST: environment.pinsstdocsbo__blobServiceUri,
+	DOCUMENT_STORAGE_API_HOST: environment.DOCUMENT_STORAGE_API_HOST,
 	CLAM_AV_HOST: environment.CLAM_AV_HOST,
 	CLAM_AV_PORT: environment.CLAM_AV_PORT,
 	log: {

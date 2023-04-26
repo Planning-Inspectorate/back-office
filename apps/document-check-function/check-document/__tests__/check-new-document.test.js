@@ -2,6 +2,7 @@
 import { jest } from '@jest/globals';
 import got, { HTTPError } from 'got';
 import { randomUUID } from 'node:crypto';
+import { Readable } from 'node:stream';
 import { checkMyBlob } from '../check-my-blob.js';
 import { clamAvClient } from '../clam-av-client.js';
 
@@ -44,28 +45,12 @@ const documentStorageFailedToDeleteError = generateHttpError(
 
 // End Mock Errors
 
-const documentBuffer = Buffer.alloc(0);
+const stream = Readable.from([]);
 
-class Context {
-	constructor(bindingData) {
-		this.bindingData = bindingData;
-		this.log = () => {
-			jest.fn();
-		};
-		this.log.verbose = () => {
-			jest.fn();
-		};
-		this.log.info = () => {
-			jest.fn();
-		};
-		this.log.warn = () => {
-			jest.fn();
-		};
-		this.log.error = () => {
-			jest.fn();
-		};
-	}
-}
+const logger = {
+	info: jest.fn(),
+	error: jest.fn()
+};
 
 const blobHostUrl = 'https://blobhost/container';
 
@@ -82,10 +67,7 @@ describe('document passes AV checks', () => {
 		mockClamAvScanStream.mockResolvedValueOnce({ isInfected: false });
 
 		// WHEN
-		await checkMyBlob(
-			new Context({ uri: `${blobHostUrl}/application/ABC/${documentGuid}/test.pdf` }),
-			documentBuffer
-		);
+		await checkMyBlob(logger, `${blobHostUrl}/application/ABC/${documentGuid}/test.pdf`, stream);
 
 		// THEN
 		expect(mockGotPatch).toHaveBeenCalledTimes(2);
@@ -113,10 +95,7 @@ describe('document passes AV checks', () => {
 			mockClamAvScanStream.mockResolvedValueOnce({ isInfected: false });
 
 			// WHEN
-			await checkMyBlob(
-				new Context({ uri: `${blobHostUrl}/application/ABC/${documentGuid}/test.pdf` }),
-				documentBuffer
-			);
+			await checkMyBlob(logger, `${blobHostUrl}/application/ABC/${documentGuid}/test.pdf`, stream);
 
 			// THEN
 			expect(mockGotPatch).toHaveBeenCalledTimes(2);
@@ -145,10 +124,7 @@ describe('document passes AV checks', () => {
 			mockClamAvScanStream.mockResolvedValueOnce({ isInfected: false });
 
 			// WHEN
-			await checkMyBlob(
-				new Context({ uri: `${blobHostUrl}/application/ABC/${documentGuid}/test.pdf` }),
-				documentBuffer
-			);
+			await checkMyBlob(logger, `${blobHostUrl}/application/ABC/${documentGuid}/test.pdf`, stream);
 
 			// THEN
 			expect(mockGotPatch).toHaveBeenCalledTimes(2);
@@ -178,7 +154,7 @@ describe('document fails AV checks', () => {
 		mockClamAvScanStream.mockResolvedValueOnce({ isInfected: true });
 
 		// WHEN
-		await checkMyBlob(new Context({ uri: `${blobHostUrl}${documentPath}` }), documentBuffer);
+		await checkMyBlob(logger, `${blobHostUrl}${documentPath}`, stream);
 
 		// THEN
 		expect(mockGotPatch).toHaveBeenCalledTimes(2);
@@ -212,7 +188,7 @@ describe('document fails AV checks', () => {
 			mockClamAvScanStream.mockResolvedValueOnce({ isInfected: true });
 
 			// WHEN
-			await checkMyBlob(new Context({ uri: `${blobHostUrl}${documentPath}` }), documentBuffer);
+			await checkMyBlob(logger, `${blobHostUrl}${documentPath}`, stream);
 
 			// THEN
 			expect(mockGotPatch).toHaveBeenCalledTimes(2);
@@ -249,7 +225,7 @@ describe('document fails AV checks', () => {
 			mockClamAvScanStream.mockResolvedValueOnce({ isInfected: true });
 
 			// WHEN
-			await checkMyBlob(new Context({ uri: `${blobHostUrl}${documentPath}` }), documentBuffer);
+			await checkMyBlob(logger, `${blobHostUrl}${documentPath}`, stream);
 
 			// THEN
 			expect(mockGotPatch).toHaveBeenCalledTimes(2);
@@ -288,7 +264,7 @@ describe('document fails AV checks', () => {
 			mockClamAvScanStream.mockResolvedValueOnce({ isInfected: true });
 
 			// WHEN
-			await checkMyBlob(new Context({ uri: `${blobHostUrl}${documentPath}` }), documentBuffer);
+			await checkMyBlob(logger, `${blobHostUrl}${documentPath}`, stream);
 
 			// THEN
 			expect(mockGotPatch).toHaveBeenCalledTimes(2);
