@@ -51,4 +51,8 @@ export class CasePage extends Page {
 	clickChangeLink(question) {
 		this.elements.changeLink(question).click();
 	}
+
+	validateUserIsUnableToEdit() {
+		this.elements.changeLink('Project name').should('not.exist');
+	}
 }
