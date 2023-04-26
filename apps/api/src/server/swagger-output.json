@@ -1176,6 +1176,33 @@
 				}
 			}
 		},
+		"/applications/{id}/documents/{guid}/revert-published-status": {
+			"post": {
+				"tags": ["Applications"],
+				"description": "Reverts the published status of a document to the previous status",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"type": "integer",
+						"description": "Application ID here"
+					},
+					{
+						"name": "guid",
+						"in": "path",
+						"required": true,
+						"type": "string",
+						"description": "guid of the document"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK"
+					}
+				}
+			}
+		},
 		"/applications/{id}/documents/{guid}/delete": {
 			"post": {
 				"tags": ["Applications"],
@@ -2067,6 +2094,10 @@
 					"id": {
 						"type": "number",
 						"example": 1
+					},
+					"templateType": {
+						"type": "string",
+						"example": "starttime-mandatory"
 					},
 					"name": {
 						"type": "string",
