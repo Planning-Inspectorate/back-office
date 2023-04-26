@@ -48,18 +48,16 @@ const errorIsDueToDocumentAlreadyMakedWithNewStatus = (error, machineAction) => 
 /**
  * @param {string} documentGuid
  * @param {string} machineAction
- * @param {import('@azure/functions').Context} context
+ * @param {import('@azure/functions').Logger} log
  */
-export const sendDocumentStateAction = async (documentGuid, machineAction, context) => {
+export const sendDocumentStateAction = async (documentGuid, machineAction, log) => {
 	try {
 		await sendRequestToBackOffice(documentGuid, machineAction);
 	} catch (error) {
 		if (errorIsDueToDocumentAlreadyMakedWithNewStatus(error, machineAction)) {
-			context.log.info(
-				`Document status already updated using the state machine trigger ${machineAction}`
-			);
+			log.info(`Document status already updated using the state machine trigger ${machineAction}`);
 		} else {
-			context.log.error(error);
+			log.error(error);
 			throw error;
 		}
 	}
