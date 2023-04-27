@@ -8,9 +8,7 @@ import config from './config.js';
  * @param {{container: string, path: string}} documentDestination
  */
 export const publishDocument = async (context, documentToCopy, documentDestination) => {
-	const blobStorageClient = BlobStorageClient.fromConnectionString(
-		config.DOCUMENT_STORAGE_CONNECTION_STRING
-	);
+	const blobStorageClient = BlobStorageClient.fromUrl(config.DOCUMENT_STORAGE_HOST);
 
 	context.log.info(
 		`Copying document from ${JSON.stringify(documentToCopy)} to ${JSON.stringify(
