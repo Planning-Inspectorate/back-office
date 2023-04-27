@@ -27,32 +27,35 @@
 {% block pageContent %}
 	<div class='govuk-grid-row'>
 		<div class='govuk-grid-column-two-thirds'>
-			<h1 class="govuk-heading-l govuk-!-margin-bottom-5 govuk-grid-row">
-				{{ pageTitle }}
-			</h1>
-			<p class='govuk-body govuk-!-margin-bottom-5 govuk-grid-row'>
-                Add examination timetable details
-            </p>
+
+			<div>
+				<h1 class="govuk-heading-l govuk-!-margin-bottom-5">
+					{{ pageTitle }}
+				</h1>
+				<p class='govuk-body govuk-!-margin-bottom-5'>
+					Add examination timetable details
+				</p>
+			</div>
+
 			<form method="post" action="{{'timetable'|url({caseId: caseId, step: 'new-item/validate'}) }}" novalidate="novalidate" class="govuk-grid-row">
 				{% include 'app/includes/csrf.njk' %}
-				<div class='govuk-grid-row'>
 
-					{# Item type (input hidden coming from previous step) #}
-					<div class="govuk-form-group govuk-grid-column-one-half float--none">
-						<label class="govuk-label font-weight--700 govuk-!-margin-bottom-4" for="item-type">
+				{# Item type (input hidden coming from previous step) #}
+				<div class="govuk-form-group govuk-grid-column-full">
+					<label class="govuk-label font-weight--700 govuk-!-margin-bottom-4" for="item-type">
                             Timetable item type
                         </label>
-						<p class='govuk-body'>{{ selectedItemType }}</p>
-						<input class="govuk-input" value='{{ selectedItemType }}' id="itemType" name="itemType" type="hidden" >
-						<input class="govuk-input" value='{{ selectedTemplateType }}' id="templateType" name="templateType" type="hidden" >
-					</div>
+					<p class='govuk-body'>{{ selectedItemType }}</p>
+					<input class="govuk-input" value='{{ selectedItemType }}' id="itemType" name="itemType" type="hidden" >
+					<input class="govuk-input" value='{{ selectedTemplateType }}' id="templateType" name="templateType" type="hidden" >
+				</div>
 
-					{# Item name #}
-					{{ govukInput({
+				{# Item name #}
+				{{ govukInput({
 							id: 'itemName',
 							type: 'text',
 							formGroup: {
-							classes: 'govuk-grid-column-one-half float--none'
+							classes: 'govuk-grid-column-one-half'
 							},
 							name: "itemName",
 							label: {
@@ -63,46 +66,55 @@
 							value: values.itemName
 					}) }}
 
-					{% if selectedTemplateType === 'deadline' %}
-						{# startDate #}
-						{{ dateInput({
+				{% if selectedTemplateType === 'deadline' %}
+					{# startDate #}
+					{{ dateInput({
 						 	layout: {
 								fieldName: 'startDate',
 								label: 'Start date',
-								classes: 'govuk-grid-column-one-half float--none',
+								classes: 'govuk-grid-column-one-half',
 								hint: 'For example, 01 02 2000'
 							},
 							errors: errors,
 							value: values
 					}) }}
-					{% endif %}
+				{% endif %}
 
-					{% if selectedTemplateType === 'starttime-mandatory' %}
-						{# Date #}
-						{{ dateInput({
+				{% if selectedTemplateType === 'starttime-mandatory' %}
+					{# Date #}
+					{{ dateInput({
 						 	layout: {
 								fieldName: 'date',
 								label: 'Date',
-								classes: 'govuk-grid-column-one-half float--none',
+								classes: 'govuk-grid-column-one-half',
 								hint: 'For example, 01 02 2000'
 							},
 							errors: errors,
 							values: values
 					}) }}
-					{% endif %}
+				{% endif %}
 
-					{{ timeInput({
+				{{ timeInput({
+						layout: {
 							fieldName: 'startTime',
-							classes: 'govuk-grid-column-one-half float--none',
-							label: ['Start time', ' (optional)' if selectedTemplateType !== 'starttime-mandatory' else '']|join
-						}) }}
-					{{ timeInput({
+							classes: 'govuk-grid-column-one-half',
+							label: ['Start time', ' (optional)' if selectedTemplateType !== 'starttime-mandatory' else '']|join,
+							hint: 'For example, 13 : 00'
+						},
+						errors: errors,
+						values: values
+					})  }}
+
+				{{ timeInput({
+						layout: {
 							fieldName: 'endTime',
-							classes: 'govuk-grid-column-one-half float--none',
-							label: 'End time (optional)'
+							classes: 'govuk-grid-column-one-half',
+							label: 'End time (optional)',
+							hint: 'For example, 13 : 00'
+						}
 					}) }}
 
-					{{ govukTextarea({
+				{{ govukTextarea({
   							name: "description",
   							id: "description",
 							formGroup: {
@@ -116,9 +128,10 @@
 							value: values.description
 						}) }}
 
+				<div class='govuk-grid-column-full'>
 					{{ govukButton({ text: 'Continue', classes: 'govuk-!-margin-top-6'}) }}
-
 				</div>
+
 			</form>
 		</div>
 	</div>
