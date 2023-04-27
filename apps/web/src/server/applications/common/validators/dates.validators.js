@@ -21,7 +21,7 @@ export const createValidationDateValid = (
 		.custom(() => {
 			return !(stringDay === '' && stringMonth === '' && stringYear === '');
 		})
-		.withMessage(`Enter the ${extendedFieldName}`)
+		.withMessage(`You must enter the ${extendedFieldName}`)
 		.custom(() => {
 			return stringDay === '' || (day > 0 && day < 32);
 		})
@@ -35,9 +35,12 @@ export const createValidationDateValid = (
 		})
 		.withMessage(`Enter a valid year for the ${extendedFieldName}`)
 		.custom(() => {
-			return dateIsValid(year, month, day);
+			return (
+				!(stringDay.length !== 2 || stringMonth.length !== 2 || stringYear.length !== 4) &&
+				dateIsValid(year, month, day)
+			);
 		})
-		.withMessage(`Enter a valid ${extendedFieldName}`);
+		.withMessage(`You must enter the ${extendedFieldName} in the correct format`);
 };
 
 /**

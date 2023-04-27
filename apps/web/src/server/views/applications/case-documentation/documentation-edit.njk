@@ -1,10 +1,10 @@
 {% extends "../layouts/applications.layout.njk" %}
+
 {% from "govuk/components/input/macro.njk" import govukInput %}
 {% from "govuk/components/button/macro.njk" import govukButton %}
 {% from "./edit/max-length-input.njk" import maxLengthInput %}
-{% from "./edit/date-input.njk" import dateInput %}
+{% from "../components/inputs/date-input.component.njk" import dateInput %}
 {% from "./edit/checkboxes-input.njk" import checkboxesInput %}
-
 
 {% block pageHeading %}{% endblock %}
 {% block beforeContent %}
@@ -14,6 +14,7 @@
 		href: layout.backLink
 	}) }}
 {% endblock %}
+
 {% block pageContent %}
     <h1 class="govuk-heading-l">
         {{ layout.pageTitle }}
@@ -28,9 +29,19 @@
         </div>
     </form>
 {% endblock %}
+
 {% macro renderComponent(componentName) %}
     {% if(componentName === 'dateCreated' or componentName === 'datePublished') %}
-        {{ dateInput(layout, documentMetaData[layout.metaDataName], errors) }}
+		{% set dateLayout = layout|setAttribute('classes', 'govuk-grid-column-one-third') %}
+		{% set dateLayout = dateLayout|setAttribute('fieldName', layout.metaDataName) %}
+
+		<div class='govuk-grid-row'>
+			{{ dateInput({
+				layout: dateLayout,
+				values: documentMetaData,
+				errors: errors})
+			}}
+		</div>
     {% elif(componentName === 'redactedStatus' or componentName === 'documentType') %}
         {{ checkboxesInput(layout, documentMetaData[layout.metaDataName], errors) }}
     {% else %}

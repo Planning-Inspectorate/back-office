@@ -4,6 +4,7 @@ import asyncRoute from '../../../lib/async-route.js';
 import { assertDomainTypeIsNotInspector } from '../../create-new-case/applications-create.guards.js';
 import { registerCaseId } from '../../create-new-case/applications-create.locals.js';
 import * as controller from './applications-timetable.controller.js';
+import * as validators from './applications-timetable.validators.js';
 
 const applicationsTimetableRouter = createRouter({ mergeParams: true });
 
@@ -16,5 +17,12 @@ applicationsTimetableRouter
 	.route('/new-item')
 	.get(asyncRoute(controller.viewApplicationsCaseTimetableNew))
 	.post(asyncRoute(controller.postApplicationsCaseTimetableNew));
+
+applicationsTimetableRouter
+	.route('/new-item/validate')
+	.post(
+		validators.validatorsDispatcher,
+		asyncRoute(controller.postApplicationsCaseTimetableDetails)
+	);
 
 export default applicationsTimetableRouter;

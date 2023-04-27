@@ -1,0 +1,42 @@
+{% from "govuk/components/input/macro.njk" import govukInput %}
+
+{% macro timeInput(params) %}
+	<div class="govuk-form-group {{ params.classes }} {{ 'govuk-form-group--error' if isError else '' }}">
+		<label class="govuk-label font-weight--700 govuk-!-margin-bottom-4" for="submissionDateInternal">
+			{{ params.label }}
+		</label>
+		<div id="{{params.fieldName}}-hint" class="govuk-hint">
+			For example, 13 : 00
+		</div>
+		{% if isError %}
+			<p id="submissionDateInternal-error" class="govuk-error-message">
+				<span class="govuk-visually-hidden">Error:</span>
+				{{ errors[params.fieldName].msg }}
+			</p>
+		{% endif %}
+
+		<div class="govuk-grid-row">
+			<div class='govuk-grid-column-two-thirds govuk-grid-row'>
+				{{ govukInput({
+          			formGroup: {
+						classes: 'govuk-hint govuk-grid-column-one-half govuk-!-margin-bottom-0'
+					},
+          			id: [params.fieldName, '.hours']|join,
+				  	name: [params.fieldName, '.hours']|join,
+					value: value |datestamp({format: 'MM'}),
+					errorMessage: isError
+				}) }}
+
+				{{ govukInput({
+					formGroup: {
+						classes: 'govuk-hint govuk-grid-column-one-half govuk-!-margin-bottom-0'
+					},
+					id: [params.fieldName, '.minutes']|join,
+					name: [params.fieldName, '.minutes']|join,
+					value: value |datestamp({format: 'yyyy'}),
+					errorMessage: isError
+				}) }}
+			</div>
+		</div>
+	</div>
+{% endmacro %}

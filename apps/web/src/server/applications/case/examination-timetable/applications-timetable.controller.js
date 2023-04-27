@@ -51,3 +51,26 @@ export async function postApplicationsCaseTimetableNew(request, response) {
 
 	response.render(`app/500.njk`);
 }
+
+/**
+ * Handle the new examination timetable details form
+ *
+ * @type {import('@pins/express').RenderHandler<{}, {}, {templateType: string, itemType: string}, {}, {}>}
+ */
+export async function postApplicationsCaseTimetableDetails(
+	{ errors: validationErrors, body },
+	response
+) {
+	const { templateType: selectedTemplateType, itemType: selectedItemType } = body;
+
+	if (validationErrors) {
+		return response.render(`applications/case-timetable/timetable-new-item-details.njk`, {
+			errors: validationErrors,
+			values: body,
+			selectedItemType,
+			selectedTemplateType
+		});
+	}
+
+	return response.redirect(`/`);
+}
