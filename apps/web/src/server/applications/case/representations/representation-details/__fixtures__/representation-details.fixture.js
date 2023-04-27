@@ -1,32 +1,29 @@
 export const representationDetailsFixture = {
 	id: 1,
-	reference: 'BC0110001-3',
-	status: 'VALID',
-	redacted: true,
-	received: '2023-04-14T15:52:56.507Z',
+	reference: 'BC0110001-1',
+	status: 'AWAITING_REVIEW',
+	redacted: false,
+	received: '2023-04-27T11:23:45.755Z',
 	originalRepresentation:
 		'The proposals size, loss of food producing land, battery storage size and technology, joined up thinking between DCO applications',
-	redactedRepresentation:
-		'The proposals size, loss of food producing land, battery storage size and technology, joined up thinking between DCO applications',
-	user: {
-		azureReference: 1
-	},
+	redactedRepresentation: null,
+	user: null,
 	contacts: [
 		{
 			type: 'PERSON',
-			firstName: 'Arthur',
-			lastName: 'Test',
+			firstName: 'Mrs',
+			lastName: 'Sue',
 			organisationName: null,
 			jobTitle: null,
 			under18: false,
 			email: 'test@example.com',
 			phoneNumber: '01234 567890',
 			address: {
-				addressLine1: '21 The Pavement',
+				addressLine1: '44 Rivervale',
 				addressLine2: null,
-				town: null,
-				county: 'Wandsworth',
-				postcode: 'SW4 0HY'
+				town: 'Bridport',
+				county: null,
+				postcode: 'DT6 5RN'
 			}
 		},
 		{
@@ -39,16 +36,14 @@ export const representationDetailsFixture = {
 			email: 'test-agent@example.com',
 			phoneNumber: '01234 567890',
 			address: {
-				addressLine1: '96 The Avenue',
-				addressLine2: 'Maidstone',
-				town: null,
-				county: 'Kent',
-				postcode: 'MD21 5XY'
+				addressLine1: '8 The Chase',
+				addressLine2: null,
+				town: 'Findon',
+				county: null,
+				postcode: 'BN14 0TT'
 			}
 		}
 	],
 	attachments: [],
-	redactedBy: {
-		azureReference: 1
-	}
+	redactedBy: null
 };
