@@ -1,8 +1,9 @@
 import { createValidator } from '@pins/express';
 import { body } from 'express-validator';
 import {
-	createValidationDateFuture,
-	createValidationDateValid
+	validationDateFuture,
+	validationDateMandatory,
+	validationDateValid
 } from '../../common/validators/dates.validators.js';
 
 /** @typedef {import('express').RequestHandler} RequestHandler */
@@ -93,25 +94,20 @@ export const validateDocumentationMetaDateCreated = (request, response, next) =>
 	const fieldName = 'dateCreated';
 	const extendedFieldName = 'receipt date';
 
-	const {
-		'dateCreated.day': day,
-		'dateCreated.month': month,
-		'dateCreated.year': year
-	} = request.body;
-
-	const checkValidDate = createValidationDateValid(fieldName, extendedFieldName, {
-		day,
-		month,
-		year
-	});
-	const checkPastDate = createValidationDateFuture(
-		fieldName,
-		extendedFieldName,
-		{ day, month, year },
-		false
+	const checkMandatoryDate = validationDateMandatory(
+		{ fieldName, extendedFieldName },
+		request.body
 	);
 
-	return createValidator([checkValidDate, checkPastDate])(request, response, next);
+	const checkValidDate = validationDateValid({ fieldName, extendedFieldName }, request.body);
+
+	const checkPastDate = validationDateFuture({ fieldName, extendedFieldName }, request.body, false);
+
+	return createValidator([checkMandatoryDate, checkValidDate, checkPastDate])(
+		request,
+		response,
+		next
+	);
 };
 
 /**
@@ -123,23 +119,18 @@ export const validateDocumentationMetaDatePublished = (request, response, next) 
 	const fieldName = 'datePublished';
 	const extendedFieldName = 'published date';
 
-	const {
-		'datePublished.day': day,
-		'datePublished.month': month,
-		'datePublished.year': year
-	} = request.body;
-
-	const checkValidDate = createValidationDateValid(fieldName, extendedFieldName, {
-		day,
-		month,
-		year
-	});
-	const checkPastDate = createValidationDateFuture(
-		fieldName,
-		extendedFieldName,
-		{ day, month, year },
-		false
+	const checkMandatoryDate = validationDateMandatory(
+		{ fieldName, extendedFieldName },
+		request.body
 	);
 
-	return createValidator([checkValidDate, checkPastDate])(request, response, next);
+	const checkValidDate = validationDateValid({ fieldName, extendedFieldName }, request.body);
+
+	const checkPastDate = validationDateFuture({ fieldName, extendedFieldName }, request.body, false);
+
+	return createValidator([checkMandatoryDate, checkValidDate, checkPastDate])(
+		request,
+		response,
+		next
+	);
 };

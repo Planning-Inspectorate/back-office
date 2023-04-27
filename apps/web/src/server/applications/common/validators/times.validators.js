@@ -2,16 +2,16 @@ import { body } from 'express-validator';
 
 /**
  *
- * @param {string} fieldName
- * @param {string} extendedFieldName
- * @param {{hours?: string, minutes?: string}} timeParams
+ * @param {{fieldName: string, extendedFieldName: string}} field
+ * @param {Record<string, string>} data
  * @returns {import("express-validator").ValidationChain}
  */
-export const createValidationTimeMandatory = (
-	fieldName,
-	extendedFieldName,
-	{ hours: stringHours = '', minutes: stringMinutes = '' }
-) => {
+export const validationTimeMandatory = (field, data) => {
+	const { fieldName, extendedFieldName } = field;
+
+	const stringHours = data[`${fieldName}.hours`] || '';
+	const stringMinutes = data[`${fieldName}.minutes`] || '';
+
 	return body(fieldName)
 		.custom(() => {
 			return !(stringHours === '' && stringMinutes === '');
@@ -21,16 +21,16 @@ export const createValidationTimeMandatory = (
 
 /**
  *
- * @param {string} fieldName
- * @param {string} extendedFieldName
- * @param {{hours?: string, minutes?: string}} timeParams
+ * @param {{fieldName: string, extendedFieldName: string}} field
+ * @param {Record<string, string>} data
  * @returns {import("express-validator").ValidationChain}
  */
-export const createValidationTimeValid = (
-	fieldName,
-	extendedFieldName,
-	{ hours: stringHours = '', minutes: stringMinutes = '' }
-) => {
+export const validationTimeValid = (field, data) => {
+	const { fieldName, extendedFieldName } = field;
+
+	const stringHours = data[`${fieldName}.hours`] || '';
+	const stringMinutes = data[`${fieldName}.minutes`] || '';
+
 	const hours = Number.parseInt(stringHours, 10);
 	const minutes = Number.parseInt(stringMinutes, 10);
 
