@@ -1,0 +1,11 @@
+$float-attrs: (
+	none: "none",
+	left: "left",
+	right: "right"
+);
+
+@each $key, $val in $float-attrs {
+	.float--#{$key} {
+		float: #{$val};
+	}
+}

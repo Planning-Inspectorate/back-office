@@ -1,0 +1,125 @@
+{% extends "../layouts/applications.layout.njk" %}
+
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/input/macro.njk" import govukInput %}
+{% from "govuk/components/textarea/macro.njk" import govukTextarea %}
+{% from '../components/inputs/date-input.component.njk' import dateInput %}
+{% from '../components/inputs/time-input.component.njk' import timeInput %}
+
+{% set serviceName = "Examination timetable" %}
+{% set pageTitle = "Create new item" %}
+
+{% block pageTitle %}
+	{{ serviceName }} - {{ pageTitle | default('GOV.UK') }}
+{% endblock %}
+
+{% block sectionMenu %}{% endblock %}
+
+{% block beforeContent %}
+	{{ govukBackLink({
+		text: "Back",
+		href: 'timetable'|url({caseId: caseId, step: 'new-item'})
+	}) }}
+{% endblock %}
+
+{% block pageHeading %}{% endblock %}
+
+{% block pageContent %}
+	<div class='govuk-grid-row'>
+		<div class='govuk-grid-column-two-thirds'>
+			<h1 class="govuk-heading-l govuk-!-margin-bottom-5 govuk-grid-row">
+				{{ pageTitle }}
+			</h1>
+			<p class='govuk-body govuk-!-margin-bottom-5 govuk-grid-row'>
+                Add examination timetable details
+            </p>
+			<form method="post" action="{{'timetable'|url({caseId: caseId, step: 'new-item/validate'}) }}" novalidate="novalidate" class="govuk-grid-row">
+				{% include 'app/includes/csrf.njk' %}
+				<div class='govuk-grid-row'>
+
+					{# Item type (input hidden coming from previous step) #}
+					<div class="govuk-form-group govuk-grid-column-one-half float--none">
+						<label class="govuk-label font-weight--700 govuk-!-margin-bottom-4" for="item-type">
+                            Timetable item type
+                        </label>
+						<p class='govuk-body'>{{ selectedItemType }}</p>
+						<input class="govuk-input" value='{{ selectedItemType }}' id="itemType" name="itemType" type="hidden" >
+						<input class="govuk-input" value='{{ selectedTemplateType }}' id="templateType" name="templateType" type="hidden" >
+					</div>
+
+					{# Item name #}
+					{{ govukInput({
+							id: 'itemName',
+							type: 'text',
+							formGroup: {
+							classes: 'govuk-grid-column-one-half float--none'
+							},
+							name: "itemName",
+							label: {
+								text: 'Item name',
+								classes: 'font-weight--700 govuk-!-margin-bottom-4'
+								},
+							errorMessage: errors.itemName | errorMessage,
+							value: values.itemName
+					}) }}
+
+					{% if selectedTemplateType === 'deadline' %}
+						{# startDate #}
+						{{ dateInput({
+						 	layout: {
+								fieldName: 'startDate',
+								label: 'Start date',
+								classes: 'govuk-grid-column-one-half float--none',
+								hint: 'For example, 01 02 2000'
+							},
+							errors: errors,
+							value: values
+					}) }}
+					{% endif %}
+
+					{% if selectedTemplateType === 'starttime-mandatory' %}
+						{# Date #}
+						{{ dateInput({
+						 	layout: {
+								fieldName: 'date',
+								label: 'Date',
+								classes: 'govuk-grid-column-one-half float--none',
+								hint: 'For example, 01 02 2000'
+							},
+							errors: errors,
+							values: values
+					}) }}
+					{% endif %}
+
+					{{ timeInput({
+							fieldName: 'startTime',
+							classes: 'govuk-grid-column-one-half float--none',
+							label: ['Start time', ' (optional)' if selectedTemplateType !== 'starttime-mandatory' else '']|join
+						}) }}
+					{{ timeInput({
+							fieldName: 'endTime',
+							classes: 'govuk-grid-column-one-half float--none',
+							label: 'End time (optional)'
+					}) }}
+
+					{{ govukTextarea({
+  							name: "description",
+  							id: "description",
+							formGroup: {
+								classes: 'govuk-grid-column-full'
+							},
+  							label: {
+    							text: "Timetable item description (optional)",
+								classes: 'font-weight--700 govuk-!-margin-bottom-4'
+							  },
+							errorMessage: errors.description | errorMessage,
+							value: values.description
+						}) }}
+
+					{{ govukButton({ text: 'Continue', classes: 'govuk-!-margin-top-6'}) }}
+
+				</div>
+			</form>
+		</div>
+	</div>
+{% endblock %}
