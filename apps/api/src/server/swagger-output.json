@@ -16,21 +16,6 @@
 	"schemes": [],
 	"securityDefinitions": {},
 	"paths": {
-		"/appeals": {
-			"get": {
-				"tags": ["Appeals"],
-				"description": "Gets all appeals",
-				"parameters": [],
-				"responses": {
-					"200": {
-						"description": "Gets all appeals",
-						"schema": {
-							"$ref": "#/definitions/AllAppeals"
-						}
-					}
-				}
-			}
-		},
 		"/appeals/validation/": {
 			"get": {
 				"tags": ["Appeals"],
@@ -521,6 +506,43 @@
 						"description": "The updated appeal.",
 						"schema": {
 							"$ref": "#/definitions/AppealsForInspector"
+						}
+					}
+				}
+			}
+		},
+		"/appeals": {
+			"get": {
+				"tags": ["Appeals"],
+				"description": "Gets all appeals",
+				"parameters": [],
+				"responses": {
+					"200": {
+						"description": "Gets all appeals",
+						"schema": {
+							"$ref": "#/definitions/AllAppeals"
+						}
+					}
+				}
+			}
+		},
+		"/appeals/{appealId}": {
+			"get": {
+				"tags": ["Appeals"],
+				"description": "Gets a single appeal by id",
+				"parameters": [
+					{
+						"name": "appealId",
+						"in": "path",
+						"required": true,
+						"type": "string"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Gets a single appeal by id",
+						"schema": {
+							"$ref": "#/definitions/SingleAppeal"
 						}
 					}
 				}
@@ -3321,6 +3343,114 @@
 						"type": "string",
 						"example": "Wiltshire Council"
 					}
+				}
+			}
+		},
+		"SingleAppeal": {
+			"type": "object",
+			"properties": {
+				"agentName": {},
+				"allocationDetails": {
+					"type": "string",
+					"example": "F / General Allocation"
+				},
+				"appealId": {
+					"type": "number",
+					"example": 1
+				},
+				"appealReference": {
+					"type": "string",
+					"example": "APP/Q9999/D/21/235348"
+				},
+				"appealSite": {
+					"type": "object",
+					"properties": {
+						"addressLine1": {
+							"type": "string",
+							"example": "19 Beauchamp Road"
+						},
+						"town": {
+							"type": "string",
+							"example": "Bristol"
+						},
+						"postCode": {
+							"type": "string",
+							"example": "BS7 8LQ"
+						}
+					}
+				},
+				"appealStatus": {
+					"type": "string",
+					"example": "awaiting_lpa_questionnaire"
+				},
+				"appealType": {
+					"type": "string",
+					"example": "household"
+				},
+				"appellantName": {
+					"type": "string",
+					"example": "Fiona Burgess"
+				},
+				"appellantOwnsWholeSite": {
+					"type": "boolean",
+					"example": true
+				},
+				"caseProcedure": {
+					"type": "string",
+					"example": "Written"
+				},
+				"decision": {
+					"type": "string",
+					"example": "Not issued yet"
+				},
+				"developmentType": {
+					"type": "string",
+					"example": "Minor Dwellings"
+				},
+				"eventType": {
+					"type": "string",
+					"example": "Site Visit"
+				},
+				"linkedAppeal": {
+					"type": "object",
+					"properties": {
+						"appealId": {
+							"type": "number",
+							"example": 1
+						},
+						"appealReference": {
+							"type": "string",
+							"example": "APP/Q9999/D/21/725284"
+						}
+					}
+				},
+				"localPlanningDepartment": {
+					"type": "string",
+					"example": "Wiltshire Council"
+				},
+				"otherAppeals": {
+					"type": "array",
+					"items": {
+						"type": "object",
+						"properties": {
+							"appealId": {
+								"type": "number",
+								"example": 1
+							},
+							"appealReference": {
+								"type": "string",
+								"example": "APP/Q9999/D/21/725284"
+							}
+						}
+					}
+				},
+				"planningApplicationReference": {
+					"type": "string",
+					"example": "48269/APP/2021/1482"
+				},
+				"visitType": {
+					"type": "string",
+					"example": "unaccompanied"
 				}
 			}
 		},

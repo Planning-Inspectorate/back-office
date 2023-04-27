@@ -65,6 +65,7 @@ export interface Appeal extends schema.Appeal {
 	inspectorDecision?: InspectorDecision;
 	localPlanningDepartment: string;
 	lpaQuestionnaire?: schema.LPAQuestionnaire;
+	planningApplicationReference: string;
 	reference: string;
 	reviewQuestionnaire?: schema.ReviewQuestionnaire[];
 	siteVisit?: SiteVisit;
