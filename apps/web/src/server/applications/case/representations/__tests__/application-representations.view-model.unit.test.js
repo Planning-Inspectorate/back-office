@@ -15,7 +15,8 @@ describe('application representations view-model', () => {
 						class: 'govuk-tag--grey',
 						text: 'AWAITING REVIEW'
 					},
-					title: 'org name 1'
+					title: 'org name 1',
+					id: '1'
 				},
 				{
 					received: '01 Jan 2022',
@@ -25,7 +26,8 @@ describe('application representations view-model', () => {
 						class: 'govuk-tag',
 						text: 'VALID'
 					},
-					title: 'first lastName'
+					title: 'first lastName',
+					id: '2'
 				}
 			]);
 		});
