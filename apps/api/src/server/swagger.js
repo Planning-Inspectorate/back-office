@@ -500,6 +500,38 @@ const document = {
 				localPlanningDepartment: 'Wiltshire Council'
 			}
 		],
+		SingleAppeal: {
+			agentName: null,
+			allocationDetails: 'F / General Allocation',
+			appealId: 1,
+			appealReference: 'APP/Q9999/D/21/235348',
+			appealSite: {
+				addressLine1: '19 Beauchamp Road',
+				town: 'Bristol',
+				postCode: 'BS7 8LQ'
+			},
+			appealStatus: 'awaiting_lpa_questionnaire',
+			appealType: 'household',
+			appellantName: 'Fiona Burgess',
+			appellantOwnsWholeSite: true,
+			caseProcedure: 'Written',
+			decision: 'Not issued yet',
+			developmentType: 'Minor Dwellings',
+			eventType: 'Site Visit',
+			linkedAppeal: {
+				appealId: 1,
+				appealReference: 'APP/Q9999/D/21/725284'
+			},
+			localPlanningDepartment: 'Wiltshire Council',
+			otherAppeals: [
+				{
+					appealId: 1,
+					appealReference: 'APP/Q9999/D/21/725284'
+				}
+			],
+			planningApplicationReference: '48269/APP/2021/1482',
+			visitType: 'unaccompanied'
+		},
 		AppealsForCaseOfficer: {
 			$AppealId: 1,
 			$AppealReference: '',
