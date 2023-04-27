@@ -320,13 +320,13 @@ describe('Edit applications documentation metadata', () => {
 				const element = parseHtml(response.text);
 
 				expect(element.innerHTML).toMatchSnapshot();
-				expect(element.innerHTML).toContain('Enter the receipt date');
+				expect(element.innerHTML).toContain('You must enter the receipt date');
 			});
 
 			it('should return an error if the day is not valid', async () => {
 				const response = await request.post(`${baseUrl}/receipt-date`).send({
 					'dateCreated.day': '99',
-					'dateCreated.month': '1',
+					'dateCreated.month': '01',
 					'dateCreated.year': '2000'
 				});
 				const element = parseHtml(response.text);
@@ -337,7 +337,7 @@ describe('Edit applications documentation metadata', () => {
 
 			it('should return an error if the month is not valid', async () => {
 				const response = await request.post(`${baseUrl}/receipt-date`).send({
-					'dateCreated.day': '1',
+					'dateCreated.day': '01',
 					'dateCreated.month': '99',
 					'dateCreated.year': '2000'
 				});
@@ -349,8 +349,8 @@ describe('Edit applications documentation metadata', () => {
 
 			it('should return an error if the year is not valid', async () => {
 				const response = await request.post(`${baseUrl}/receipt-date`).send({
-					'dateCreated.day': '1',
-					'dateCreated.month': '1',
+					'dateCreated.day': '01',
+					'dateCreated.month': '01',
 					'dateCreated.year': '200'
 				});
 				const element = parseHtml(response.text);
@@ -361,8 +361,8 @@ describe('Edit applications documentation metadata', () => {
 
 			it('should return an error if the date is in the future', async () => {
 				const response = await request.post(`${baseUrl}/receipt-date`).send({
-					'dateCreated.day': '1',
-					'dateCreated.month': '1',
+					'dateCreated.day': '01',
+					'dateCreated.month': '01',
 					'dateCreated.year': '2100'
 				});
 				const element = parseHtml(response.text);
@@ -374,7 +374,7 @@ describe('Edit applications documentation metadata', () => {
 			it('should redirect to document properties page if there is no error', async () => {
 				const response = await request
 					.post(`${baseUrl}/receipt-date`)
-					.send({ 'dateCreated.day': '1', 'dateCreated.month': '1', 'dateCreated.year': '2000' });
+					.send({ 'dateCreated.day': '01', 'dateCreated.month': '01', 'dateCreated.year': '2000' });
 
 				expect(response?.headers?.location).toEqual('../properties');
 			});
@@ -401,13 +401,13 @@ describe('Edit applications documentation metadata', () => {
 				const element = parseHtml(response.text);
 
 				expect(element.innerHTML).toMatchSnapshot();
-				expect(element.innerHTML).toContain('Enter the published date');
+				expect(element.innerHTML).toContain('You must enter the published date');
 			});
 
 			it('should return an error if the day is not valid', async () => {
 				const response = await request.post(`${baseUrl}/published-date`).send({
 					'datePublished.day': '99',
-					'datePublished.month': '1',
+					'datePublished.month': '01',
 					'datePublished.year': '2000'
 				});
 				const element = parseHtml(response.text);
@@ -418,7 +418,7 @@ describe('Edit applications documentation metadata', () => {
 
 			it('should return an error if the month is not valid', async () => {
 				const response = await request.post(`${baseUrl}/published-date`).send({
-					'datePublished.day': '1',
+					'datePublished.day': '01',
 					'datePublished.month': '99',
 					'datePublished.year': '2000'
 				});
@@ -430,8 +430,8 @@ describe('Edit applications documentation metadata', () => {
 
 			it('should return an error if the year is not valid', async () => {
 				const response = await request.post(`${baseUrl}/published-date`).send({
-					'datePublished.day': '1',
-					'datePublished.month': '1',
+					'datePublished.day': '01',
+					'datePublished.month': '01',
 					'datePublished.year': '200'
 				});
 				const element = parseHtml(response.text);
@@ -442,8 +442,8 @@ describe('Edit applications documentation metadata', () => {
 
 			it('should return an error if the date is in the future', async () => {
 				const response = await request.post(`${baseUrl}/published-date`).send({
-					'datePublished.day': '1',
-					'datePublished.month': '1',
+					'datePublished.day': '01',
+					'datePublished.month': '01',
 					'datePublished.year': '2100'
 				});
 				const element = parseHtml(response.text);
@@ -454,8 +454,8 @@ describe('Edit applications documentation metadata', () => {
 
 			it('should redirect to document properties page if there is no error', async () => {
 				const response = await request.post(`${baseUrl}/published-date`).send({
-					'datePublished.day': '1',
-					'datePublished.month': '1',
+					'datePublished.day': '01',
+					'datePublished.month': '01',
 					'datePublished.year': '2000'
 				});
 

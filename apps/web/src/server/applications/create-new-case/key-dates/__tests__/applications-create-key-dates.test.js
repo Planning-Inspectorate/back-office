@@ -45,7 +45,7 @@ describe('Applications create key dates', () => {
 		describe('Web-side validation:', () => {
 			it('should show validation errors if dates are not valid', async () => {
 				const response = await request.post(baseUrl).send({
-					submissionInternalDay: 32
+					'keyDates.submissionDateInternal.day': 32
 				});
 				const element = parseHtml(response.text);
 
@@ -57,15 +57,27 @@ describe('Applications create key dates', () => {
 
 			it('should show validation errors if submission date is not in the future', async () => {
 				const response = await request.post(baseUrl).send({
-					submissionInternalDay: '14',
-					submissionInternalMonth: '7',
-					submissionInternalYear: '1789'
+					'keyDates.submissionDateInternal.day': '14',
+					'keyDates.submissionDateInternal.month': '07',
+					'keyDates.submissionDateInternal.year': '1789'
 				});
 				const element = parseHtml(response.text);
 
 				expect(element.innerHTML).toMatchSnapshot();
 				expect(element.innerHTML).toContain(
 					'The anticipated submission date internal must be in the future'
+				);
+			});
+
+			it('should redirect to check-your-answers page if there is no error', async () => {
+				const response = await request.post(baseUrl).send({
+					'keyDates.submissionDateInternal.day': '14',
+					'keyDates.submissionDateInternal.month': '07',
+					'keyDates.submissionDateInternal.year': '2030'
+				});
+
+				expect(response?.headers?.location).toEqual(
+					'/applications-service/create-new-case/123/check-your-answers'
 				);
 			});
 		});
