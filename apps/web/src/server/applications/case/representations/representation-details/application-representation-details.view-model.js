@@ -9,7 +9,7 @@ import { format } from 'date-fns';
  * @property {boolean} redacted
  * @property {string} received
  * @property {string} originalRepresentation
- * @property {string} redactedRepresentation
+ * @property {string|null} redactedRepresentation
  */
 
 /**
