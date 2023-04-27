@@ -14,7 +14,7 @@ const sendEvent = async (event, context) => {
 		config.SERVICE_BUS_HOSTNAME
 	);
 
-	await eventClient.sendEvents(config.NSIP_DOC_EVENT_QUEUE, [event], 'Publish');
+	await eventClient.sendEvents(config.NSIP_DOC_TOPIC_NAME, [event], 'Publish');
 };
 
 /**
