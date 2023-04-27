@@ -1,8 +1,13 @@
 import { createValidator } from '@pins/express';
 import { body } from 'express-validator';
 import { createValidationDateValid } from '../../common/validators/dates.validators.js';
+import {
+	createValidationTimeMandatory,
+	createValidationTimeValid
+} from '../../common/validators/times.validators.js';
 
 /** @typedef {import('express').RequestHandler} RequestHandler */
+/** @typedef {import("express-validator").ValidationChain} ValidationChain */
 
 /**
  * Dispatch the POST route to the right validator
@@ -14,17 +19,24 @@ export const validatorsDispatcher = async (request, response, next) => {
 
 	// starttime-mandatory (name, date, mandatory start time, optional endtime, optional description)
 
-	/** @type {Record<string, RequestHandler>} */
-	const validators = {
-		'starttime-mandatory': validateStartTimeMandatory
+	// set the list of validators to run for each template type
+	/** @type {Record<string, ValidationChain[]>} */
+	const templateValidators = {
+		'starttime-mandatory': [
+			itemNameValidation,
+			dateValidation(request),
+			...startTimeValidation(request, true)
+		]
 	};
 
-	if (validators[templateType]) {
-		return validators[templateType](request, response, next);
+	if (templateValidators[templateType]) {
+		return createValidator(templateValidators[templateType])(request, response, next);
 	}
 
 	return next();
 };
+
+/** Validators */
 
 const itemNameValidation = body('itemName')
 	.trim()
@@ -36,7 +48,7 @@ const itemNameValidation = body('itemName')
 /**
  *
  * @param {import('@pins/express').Request} request
- * @returns {import("express-validator").ValidationChain}
+ * @returns {ValidationChain}
 }
  */
 export const dateValidation = (request) => {
@@ -55,10 +67,31 @@ export const dateValidation = (request) => {
 };
 
 /**
- * Check date is valid and in the past
  *
- * @type {RequestHandler}
+ * @param {import('@pins/express').Request} request
+ * @param {boolean} isMandatory
+ * @returns {ValidationChain[]}
+}
  */
-export const validateStartTimeMandatory = (request, response, next) => {
-	return createValidator([itemNameValidation, dateValidation(request)])(request, response, next);
+export const startTimeValidation = (request, isMandatory) => {
+	const fieldName = 'startTime';
+	const extendedFieldName = 'item start time';
+
+	const { 'startTime.hours': hours, 'startTime.minutes': minutes } = request.body;
+
+	const checkValidTime = createValidationTimeValid(fieldName, extendedFieldName, {
+		hours,
+		minutes
+	});
+
+	if (isMandatory) {
+		const checkTimeIsProvided = createValidationTimeMandatory(fieldName, extendedFieldName, {
+			hours,
+			minutes
+		});
+
+		return [checkValidTime, checkTimeIsProvided];
+	}
+
+	return [checkValidTime];
 };
