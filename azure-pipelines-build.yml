@@ -236,6 +236,7 @@ extends:
           - script: |
               source ~/.bashrc
               mv -n $(Build.Repository.LocalPath)/node_modules/* $(Build.Repository.LocalPath)/apps/document-publish-function/node_modules/
+              mv -n $(Build.Repository.LocalPath)/node_modules/@pins/* $(Build.Repository.LocalPath)/apps/document-publish-function/node_modules/@pins/
           - task: ArchiveFiles@2
             displayName: Archive files
             inputs:
