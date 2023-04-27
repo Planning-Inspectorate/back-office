@@ -8,7 +8,11 @@ import config from './config.js';
  * @param {import('@azure/functions').Context} context
  */
 const sendEvent = async (event, context) => {
-	const eventClient = getEventClient(true, context.log, config.SERVICE_BUS_HOSTNAME);
+	const eventClient = getEventClient(
+		config.NODE_ENV !== 'test',
+		context.log,
+		config.SERVICE_BUS_HOSTNAME
+	);
 
 	await eventClient.sendEvents(config.NSIP_DOC_EVENT_QUEUE, [event], 'Publish');
 };
