@@ -1,5 +1,5 @@
 import nock from 'nock';
-import { localPlanningDepartments } from '../../app/fixtures/referencedata.js';
+import { appealsNationalList, localPlanningDepartments } from '../../app/fixtures/referencedata.js';
 import {
 	appealDetailsForFinalComments,
 	appealDetailsForIncompleteQuestionnaire,
@@ -37,6 +37,9 @@ export function installMockAppealsService() {
 		.get('/appeals/validation/lpa-list')
 		.reply(200, localPlanningDepartments)
 		.persist();
+
+	// national list
+	nock('http://test/').get('/appeals/').reply(200, appealsNationalList).persist();
 
 	// remote error
 	nock('http://test/').get('/appeals/validation/0').reply(500).persist();
