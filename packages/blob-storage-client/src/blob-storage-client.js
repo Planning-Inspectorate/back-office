@@ -1,3 +1,4 @@
+import { DefaultAzureCredential } from '@azure/identity';
 import { BlobServiceClient } from '@azure/storage-blob';
 import { Readable } from 'node:stream';
 
@@ -7,6 +8,17 @@ export class BlobStorageClient {
 	 */
 	constructor(client) {
 		this.client = client;
+	}
+
+	/**
+	 *
+	 * @param {string} url
+	 * @returns {BlobStorageClient}
+	 */
+	static fromUrl(url) {
+		const client = new BlobServiceClient(url, new DefaultAzureCredential());
+
+		return new BlobStorageClient(client);
 	}
 
 	/**
