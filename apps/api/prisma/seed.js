@@ -1,6 +1,7 @@
 import { createFolders } from '../src/server/repositories/folder.repository.js';
 import { databaseConnector } from '../src/server/utils/database-connector.js';
 import logger from '../src/server/utils/logger.js';
+import { truncateTable } from './prisma.truncate.js';
 import {
 	addressesList,
 	appealDetailsFromAppellantList,
@@ -654,8 +655,6 @@ const deleteAllRecords = async () => {
 	const deleteRegions = databaseConnector.region.deleteMany();
 	const deleteZoomLevels = databaseConnector.zoomLevel.deleteMany();
 	const deleteExaminationTimetables = databaseConnector.examinationTimetableType.deleteMany();
-	const deleteRegionsOnApplicationDetails =
-		databaseConnector.regionsOnApplicationDetails.deleteMany();
 	const deleteAppeals = databaseConnector.appeal.deleteMany();
 	const deleteUsers = databaseConnector.user.deleteMany();
 	const deleteAppealTypes = databaseConnector.appealType.deleteMany();
@@ -677,12 +676,18 @@ const deleteAllRecords = async () => {
 	const deleteRepresentationContact = databaseConnector.representationContact.deleteMany();
 	const deleteRepresentation = databaseConnector.representation.deleteMany();
 
+	// Truncate calls
+	const deleteRegionsOnApplicationDetails = truncateTable('RegionsOnApplicationDetails');
+
 	await deleteRepresentationContact;
 	await deleteRepresentation;
 
 	// delete document versions, documents, and THEN the folders.  Has to be in this order for integrity constraints
 	await deleteDocumentsVersions;
 	await deleteDocuments;
+
+	// truncate table
+	await deleteRegionsOnApplicationDetails;
 
 	await deleteLowestFolders();
 	await deleteLowestFolders();
@@ -693,7 +698,6 @@ const deleteAllRecords = async () => {
 	await databaseConnector.$transaction([
 		deleteGridReference,
 		deleteServiceCustomers,
-		deleteRegionsOnApplicationDetails,
 		deleteApplicationDetails,
 		deleteCaseStatuses,
 		deleteCases,
