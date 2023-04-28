@@ -1,0 +1,373 @@
+{%- extends "app/layouts/app-two-column.layout.njk" -%}
+
+{%- from "govuk/components/notification-banner/macro.njk" import govukNotificationBanner -%}
+{%- from "govuk/components/summary-list/macro.njk" import govukSummaryList -%}
+{%- from "govuk/components/accordion/macro.njk" import govukAccordion -%}
+{%- from "govuk/components/inset-text/macro.njk" import govukInsetText -%}
+{%- from "../components/status-tag.njk" import statusTag -%}
+
+{%- set containerSize = "xl" -%}
+{%- set pageTitle = "Appeal details - GOV.UK" -%}
+
+{%- set notificationBannerHtml -%}
+	<p class="govuk-notification-banner__heading">
+		LPA questionnaire is ready for review
+		<br />
+		<a class="govuk-notification-banner__link" href="#">Review project documentation</a>
+	</p>
+{%- endset -%}
+
+{%- set otherAppealsHtml -%}
+	{%- for otherAppeal in appeal.otherAppeals -%}
+		<p class="govuk-!-margin-0">{{ otherAppeal }}</p>
+	{%- endfor -%}
+{%- endset -%}
+
+{%- set caseTimetableInsetHtml -%}
+	<p>Case not started</p>
+	<a href="#" class="govuk-link">Add start date</a>
+{%- endset -%}
+
+{%- macro teamMemberHtml(teamMember) -%}
+	{%- if teamMember -%}
+		{%- if teamMember.name -%}
+			<p class="govuk-!-margin-0">{{ teamMember.name }}</p>
+		{%- endif -%}
+		{%- if teamMember.email -%}
+			<p class="govuk-!-margin-0">{{ teamMember.email }}</p>
+		{%- endif -%}
+		{%- if teamMember.phone -%}
+			<p class="govuk-!-margin-0">{{ teamMember.phone }}</p>
+		{%- endif -%}
+	{%- else -%}
+		<p class="govuk-!-margin-0">No project members have been added yet</p>
+	{%- endif -%}
+{%- endmacro -%}
+
+{%- block pageHeading -%}
+	{{
+		govukNotificationBanner({
+			titleText: "Important",
+			titleHeadingLevel: 3,
+			html: notificationBannerHtml
+		})
+	}}
+	<div class="govuk-grid-row">
+		<div class="govuk-grid-column-full">
+			<span class="govuk-caption-l govuk-!-margin-bottom-3">{{appeal.shortReference}}</span>
+			<h1 class="govuk-heading-xl govuk-!-margin-bottom-3">Case details</h1>
+		</div>
+	</div>
+{%- endblock -%}
+
+{%- block pageContent -%}
+	{{ statusTag(appeal.status) }}
+	{{ govukSummaryList({
+		classes: "govuk-summary-list--no-border",
+		rows: [{
+				key: {
+					text: "Site address"
+				},
+				value: {
+					text: appeal.siteAddress
+				}
+			}, {
+				key: {
+					text: "Local planning authority"
+				},
+				value: {
+					text: appeal.localPlanningAuthority
+				}
+			}]
+		})
+	}}
+	{{
+		govukAccordion({
+			id: "accordion-default",
+			items: [{
+				heading: {
+					text: "Case overview"
+				},
+				content: {
+					html: govukSummaryList({
+						rows: [{
+							key: {
+								text: "Appeal type"
+							},
+							value: {
+								text: appeal.type
+							},
+							actions: {
+								items: [{
+									href: "#",
+									text: "Change",
+									visuallyHiddenText: "Appeal type"
+								}]
+							}
+						}, {
+							key: {
+								text: "Case procedure"
+							},
+							value: {
+								text: appeal.caseProcedure
+							},
+							actions: {
+								items: [{
+									href: "#",
+									text: "Change",
+									visuallyHiddenText: "Case procedure"
+								}]
+							}
+						}, {
+							key: {
+								text: "Appellant name"
+							},
+							value: {
+								text: appellant.name
+							},
+							actions: {
+								items: [{
+									href: "#",
+									text: "Change",
+									visuallyHiddenText: "Appellant name"
+								}]
+							}
+						}, {
+							key: {
+								text: "Agent name"
+							},
+							value: {
+								text: agent.name
+							},
+							actions: {
+								items: [{
+									href: "#",
+									text: "Change",
+									visuallyHiddenText: "Agent name"
+								}]
+							}
+						}, {
+							key: {
+								text: "Linked appeal"
+							},
+							value: {
+								text: appeal.linkedAppeal
+							},
+							actions: {
+								items: [{
+									href: "#",
+									text: "Change",
+									visuallyHiddenText: "Linked appeal"
+								}]
+							}
+						}, {
+							key: {
+								text: "Other appeals"
+							},
+							value: {
+								html: otherAppealsHtml
+							},
+							actions: {
+								items: [{
+									href: "#",
+									text: "Change",
+									visuallyHiddenText: "Other appeals"
+								}]
+							}
+						}, {
+							key: {
+								text: "Allocation details"
+							},
+							value: {
+								text: appeal.allocationDetails
+							},
+							actions: {
+								items: [{
+									href: "#",
+									text: "Change",
+									visuallyHiddenText: "Allocation details"
+								}]
+							}
+						}, {
+							key: {
+								text: "LPA reference"
+							},
+							value: {
+								text: appeal.lpaReference
+							},
+							actions: {
+								items: [{
+									href: "#",
+									text: "Change",
+									visuallyHiddenText: "LPA reference"
+								}]
+							}
+						}, {
+							key: {
+								text: "Development type"
+							},
+							value: {
+								text: appeal.developmentType
+							},
+							actions: {
+								items: [{
+									href: "#",
+									text: "Change",
+									visuallyHiddenText: "Development type"
+								}]
+							}
+						}, {
+							key: {
+								text: "Event type"
+							},
+							value: {
+								text: appeal.eventType
+							},
+							actions: {
+								items: [{
+									href: "#",
+									text: "Change",
+									visuallyHiddenText: "Event type"
+								}]
+							}
+						}, {
+							key: {
+								text: "Decision"
+							},
+							value: {
+								text: appeal.decision
+							},
+							actions: {
+								items: [{
+									href: "#",
+									text: "Change",
+									visuallyHiddenText: "Decision"
+								}]
+							}
+						}]
+					})
+				}
+			}, {
+				heading: {
+					text: "Case timetable"
+				},
+				content: {
+					html: govukInsetText({
+						html: caseTimetableInsetHtml,
+						classes: "govuk-!-margin-top-0"
+					})
+				}
+			}, {
+				heading: {
+					text: "Case documentation"
+				},
+				content: {
+					html: govukSummaryList({
+						rows: [{
+							key: {
+								text: "Appellant case"
+							},
+							value: {
+								html: statusTag(appeal.documentationStatus.appellantCase)
+							},
+							actions: appeal.documentationStatus.appellantCase | actionsParameterForDocumentStatus("#", "Review", "Appellant case")
+						}, {
+							key: {
+								text: "LPA questionnaire"
+							},
+							value: {
+								html: statusTag(appeal.documentationStatus.lpaQuestionnaire)
+							},
+							actions: appeal.documentationStatus.lpaQuestionnaire | actionsParameterForDocumentStatus("#", "Review", "LPA questionnaire")
+						}, {
+							key: {
+								text: "Statement and Proofs"
+							},
+							value: {
+								html: statusTag(appeal.documentationStatus.statementAndProofs)
+							},
+							actions: appeal.documentationStatus.statementAndProofs | actionsParameterForDocumentStatus("#", "Review", "Statement and Proofs")
+						}, {
+							key: {
+								text: "Interested parties"
+							},
+							value: {
+								html: statusTag(appeal.documentationStatus.interestedParties)
+							},
+							actions: appeal.documentationStatus.interestedParties | actionsParameterForDocumentStatus("#", "Review", "Interested parties")
+						}, {
+							key: {
+								text: "Final comments"
+							},
+							value: {
+								html: statusTag(appeal.documentationStatus.finalComments)
+							},
+							actions: appeal.documentationStatus.finalComments | actionsParameterForDocumentStatus("#", "Review", "Final comments")
+						}, {
+							key: {
+								text: "Costs"
+							},
+							value: {
+								html: statusTag(appeal.documentationStatus.costs)
+							},
+							actions: appeal.documentationStatus.costs | actionsParameterForDocumentStatus("#", "Review", "Costs")
+						}, {
+							key: {
+								text: "Planning obligation"
+							},
+							value: {
+								html: statusTag(appeal.documentationStatus.planningObligation)
+							},
+							actions: appeal.documentationStatus.planningObligation | actionsParameterForDocumentStatus("#", "Review", "Planning obligation")
+						}, {
+							key: {
+								text: "Statement of common ground"
+							},
+							value: {
+								html: statusTag(appeal.documentationStatus.statementOfCommonGround)
+							},
+							actions: appeal.documentationStatus.statementOfCommonGround | actionsParameterForDocumentStatus("#", "Review", "Statement of common ground")
+						}]
+					})
+				}
+			}, {
+				heading: {
+					text: "Case team"
+				},
+				content: {
+					html: govukSummaryList({
+						rows: [{
+							key: {
+								text: "Case officer"
+							},
+							value: {
+								html: teamMemberHtml(caseOfficer)
+							},
+							actions: {
+								items: [{
+									href: "#",
+									text: "Change" if caseOfficer else "Add",
+									visuallyHiddenText: "Case officer"
+								}]
+							}
+						}, {
+							key: {
+								text: "Inspector"
+							},
+							value: {
+								html: teamMemberHtml(inspector)
+							},
+							actions: {
+								items: [{
+									href: "#",
+									text: "Change" if inspector else "Add",
+									visuallyHiddenText: "Interested parties"
+								}]
+							}
+						}]
+					})
+				}
+			}]
+		})
+	}}
+{%- endblock -%}

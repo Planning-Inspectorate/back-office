@@ -1,7 +1,7 @@
 {%- macro statusTag(status) -%}
 	{%- set statusTagColor = '' -%}
 	{%- set statusLabel = status -%}
-    {# list of available color classes can be found at https://github.dev/alphagov/govuk-frontend/src/govuk/components/tag/_index.scss #}
+	{# list of available color classes can be found at https://github.dev/alphagov/govuk-frontend/src/govuk/components/tag/_index.scss #}
 	{%- switch (status | string | lower) -%}
 		{%- case 'available_for_final_comments' -%}
 			{%- set statusTagColor = 'purple' -%}
@@ -9,6 +9,10 @@
 		{%- case 'available_for_statements' -%}
 			{%- set statusTagColor = 'purple' -%}
 			{%- set statusLabel = 'awaiting' -%}
+		{%- case 'not started' -%}
+			{%- set statusTagColor = 'grey' -%}
+		{%- case 'none' -%}
+			{%- set statusTagColor = 'grey' -%}
 		{%- case 'awaiting' -%}
 			{%- set statusTagColor = 'blue' -%}
 		{%- case 'overdue' -%}
@@ -18,9 +22,11 @@
 			{%- set statusLabel = 'incomplete' -%}
 		{%- case 'received' -%}
 			{%- set statusTagColor = 'green' -%}
-        {%- case 'new' -%}
+		{%- case 'new' -%}
 			{%- set statusTagColor = 'green' -%}
-        {%- case 'incomplete' -%}
+		{%- case 'complete' -%}
+			{%- set statusTagColor = 'green' -%}
+		{%- case 'incomplete' -%}
 			{%- set statusTagColor = 'yellow' -%}
 	{%- endswitch -%}
 	<strong class="govuk-tag govuk-tag--{{statusTagColor}}">{{ statusLabel }}</strong>

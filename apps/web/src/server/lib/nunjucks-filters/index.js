@@ -31,6 +31,7 @@ export { MIME } from './mime-type.js';
 export { fileType } from './mime-type.js';
 export { statusName } from './status-name.js';
 export { default as stripQueryParamsDev } from './strip-query-parameters.js';
+export { actionsParameterForDocumentStatus } from './actions-parameter-for-document-status.js';
 
 // export domain-specific filters
 export { lpaLabel, lpaDocumentType } from '../../appeals/case-officer/case-officer.filters.js';
