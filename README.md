@@ -1,140 +1,195 @@
 # Planning Inspectorate Back Office
 
-> This is the Planning Inspectorate Back Office monorepo that holds the API and WEB apps plus any additional required packages.
+This is the Planning Inspectorate Back Office monorepo that contains all the apps for running the back office. 
 
-- [Planning Inspectorate Back Office](#planning-inspectorate-back-office)
-	- [Installing / Getting started](#installing--getting-started)
-	- [Developing](#developing)
-		- [Built With](#built-with)
-		- [Prerequisites](#prerequisites)
-		- [Setting up Dev](#setting-up-dev)
-		- [Setting up Database locally](#setting-up-database-locally)
-		- [Building](#building)
-		- [Deploying / Publishing](#deploying--publishing)
-		- [Docker](#docker)
-			- [API](#api)
-			- [Web](#web)
-	- [Configuration](#configuration)
-	- [Tests](#tests)
-	- [Style guide](#style-guide)
-	- [Licensing](#licensing)
+The back office system includes a JSON API, which retrieves data from a database, and a web front-end (utilising [server-side rendering](https://web.dev/rendering-on-the-web/#server-rendering)). There are also some [Azure Functions](https://learn.microsoft.com/en-us/azure/azure-functions/functions-overview) for background tasks (such as virus scans), [Azure Blob Storage](https://azure.microsoft.com/en-gb/products/storage/blobs) is used for documents, and [Azure Service Bus](https://learn.microsoft.com/en-us/azure/service-bus-messaging/service-bus-messaging-overview) for integration.
 
-## Installing / Getting started
+Most of the apps are built with [Express.js](https://expressjs.com/), and the front-end uses the [Nunjucks templating language](https://mozilla.github.io/nunjucks/templating.html) and the [GOV.UK Design System](https://design-system.service.gov.uk/).
 
-In order to get started you will need to run the LTS version of [Node.js](https://nodejs.org/en/).
+- [Getting Started](#getting-started)
+- [Tests](#tests)
+- [API Documentation](#api-documentation)
+- [Style Guide](#style-guide)
 
-Additionaly you can run the entire solution using Docker containers so a local [Docker](https://www.docker.com/products/docker-desktop) instance is required.
-
-The repository is structured like a monorepo with two main folders `apps` and `packages`.
-
-`apps` - Holds the main Express.js applications responsible for the DB access API backend and the front facing web app.
-`packages` - Holds the common packages that can be used by all apps.
-
-## Developing
-
-### Built With
-
-The entire solution is built on top [Express.js](https://expressjs.com/) and [Nunjucks templating language](https://mozilla.github.io/nunjucks/templating.html), both for the web and api backends.
+## Getting Started
 
 ### Prerequisites
 
-Before you get started you need to make sure you are running the latest Node LTS version and latest NPM version.
+* [Node.js](https://nodejs.org/en/) LTS & npm
+* [Docker](https://www.docker.com/products/docker-desktop) (to run a local db)
 
-### Setting up Dev
+### Database Setup
 
-Here's a brief intro about what a developer must do in order to start developing
-the project further:
+#### Database Server Setup
+
+Use Docker to run an instance of SQL Server, replace "<YourStrong@Passw0rd>":
 
 ```shell
-# Navigate to a folder on your system and clone the repository.
-git clone git@github.com:Planning-Inspectorate/back-office.git
-cd back-office
+docker run -e "ACCEPT_EULA=Y" -e "SA_PASSWORD=<YourStrong@Passw0rd>" -p 1433:1433 --name pins_sql_server --hostname pins_sql_server -d mcr.microsoft.com/mssql/server:2019-latest
 ```
 
-Once the repository has been cloned you can follow the instructions bellow to run it locally.
+**Notes for M1 Macs**
+
+For M1 Macs until [this issue](https://github.com/microsoft/mssql-docker/issues/668) gets resolved you should use the following instructions, or as an alternative you can use [colima](https://github.com/abiosoft/colima) instead of Docker.
+
+Additionally, SQL Client tools are not included in the sql-edge image for ARM64, so you won't be able to use sqlcmd from with the container. One workaround for this is to use the mcr.microsoft.com/mssql-tools docker image. You can run this temporarily in another container and connect to your `pins_sql_server` container by name if they are on the same network. Firstly, create a network:
 
 ```shell
-# Run NPM install to install all workspace dependencies.
-# This will install all packages and apps dependencies so you don't have to run it in all folders.
-npm ci
-```
-
-Duplicate `apps/web/.env.development` and rename it to `.env.local`
-Add `SESSION_SECRET=anyValue` to the end of `.env.local`
-
-Run all apps in dev mode
-
-```shell
-# This will run the dev script in all apps via Turbo
-npm run dev
-
-# OR you can manually run them
-npm run dev --workspace=@pins/api
-npm run dev --workspace=@pins/web
-npm run dev --workspace=@pins/document-storage
-
-# OR you can cd into the folder and run
-cd apps/web
-npm run dev
-```
-
-You can then open the local development server at `http://localhost:8080`.
-
-### Setting up Database locally
-
-> ⚠️ The local DB instance will be needed to run the API app.
-
-Use Docker to run an instance of a SQL Server Docker container using the command:
-
-```shell
-sudo docker run -e "ACCEPT_EULA=Y" -e "SA_PASSWORD=<YourStrong@Passw0rd>" \
-   -p 1433:1433 --name pins_sql_server --hostname pins_sql_server \
-   -d mcr.microsoft.com/mssql/server:2019-latest
-
-# For M1 Macs until [this issue](https://github.com/microsoft/mssql-docker/issues/668) gets resolved should use this version
-# or as an alternative you can use [colima](https://github.com/abiosoft/colima) instead of Docker.
-
-# Additionally, SQL Client tools are not included in the sql-edge image for ARM64, so you won't be able to use sqlcmd from with the container. One workaround for this is to use the mcr.microsoft.com/mssql-tools docker image. You can run this temporarily in another container and connect to your pins_sql_server container by name if they are on the same network. Firstly, create a network:
 docker network create -d bridge db_network
-
-# Then, start your pins_sql_server container in that same network
-docker run --cap-add SYS_PTRACE -e 'ACCEPT_EULA=1' -e 'MSSQL_SA_PASSWORD=<YourStrong@Passw0rd>' -p 1433:1433 --name pins_sql_server --network db_network -d mcr.microsoft.com/azure-sql-edge
-
-# Later on, when connecting to the database, follow the instructions for ARM64
 ```
 
-and create a `.env` file containing the following string:
-
-```json
-DATABASE_URL="sqlserver://0.0.0.0:1433;database=pins_development;user=sa;password=<YourStrong@Passw0rd>;trustServerCertificate=true"
-```
-
-You will need to also create a database called `pins_development` within your Docker container:
+Then, start your `pins_sql_server` container in that same network
 
 ```shell
-# 1.1 If you're NOT on ARM64
-# Firstly you'll need to access sqlcmd. Connect to the pins_sql_server interactive shell where sqlcmd will be installed
-sudo docker exec -it pins_sql_server "bash"
+docker run --cap-add SYS_PTRACE -e 'ACCEPT_EULA=1' -e 'MSSQL_SA_PASSWORD=<YourStrong@Passw0rd>' -p 1433:1433 --name pins_sql_server --network db_network -d mcr.microsoft.com/azure-sql-edge
+```
 
-# then within the container:
+Later on, when connecting to the database, follow the instructions for ARM64.
+
+#### Database Setup
+
+1. Connect to the container
+
+```shell
+docker exec -it pins_sql_server "bash"
+```
+
+or use the Docker Desktop Terminal tab for the container.
+
+2. Start `sqlcmd`
+
+```shell
 /opt/mssql-tools/bin/sqlcmd -S localhost -U SA -P "<YourStrong@Passw0rd>"
+```
 
-# 1.2 If you ARE on ARM64
-# Instead of connecting to the pins_sql_server interactive shell, run the mssql-tools image as a container and connect to the pins_sql_server host like so (this requires that your pins_sql_server container is running on the network you created):
-docker run --network db_network -it mcr.microsoft.com/mssql-tools
+3. Create the database
 
-# Within the interactive shell, you'll then be able to run sqlcmd like so:
-sqlcmd -S pins_sql_server -U SA -P "<YourStrong@Passw0rd>"
-
-# 2. Then within the SQL command prompt:
+```sql
 CREATE DATABASE pins_development
 GO
-
-# then you can exit with
 exit
 ```
 
-Next step will be to run the Prisma migrations and seed to get some test data. Pleas follow the [docs here](docs/database-migration.md).
+**Notes for M1 Macs**
+
+Replace steps 1 and 2 with:
+
+Instead of connecting to the pins_sql_server interactive shell, run the mssql-tools image as a container and connect to the pins_sql_server host like so (this requires that your pins_sql_server container is running on the network you created):
+
+```shell
+docker run --network db_network -it mcr.microsoft.com/mssql-tools
+```
+
+Run `sqlcmd`:
+
+```shell
+sqlcmd -S pins_sql_server -U SA -P "<YourStrong@Passw0rd>"
+```
+
+#### Environment Setup
+
+The `api` app needs to know how to connect to the database. Create a `.env` file in `apps/api` with a `DATABASE_URL` entry, as follows:
+
+```
+DATABASE_URL="sqlserver://0.0.0.0:1433;database=pins_development;user=sa;password=<YourStrong@Passw0rd>;trustServerCertificate=true"
+```
+
+#### Schema & Seed Data
+
+1. First setup the database schema
+
+```shell
+apps/api> npm run db:migrate
+```
+
+2. Next add the seed data
+
+```shell
+apps/api> npm run db:seed
+```
+
+### Running Locally
+
+Ensure a database is running and setup, then:
+
+1. `apps/api` requires an `.env` file with a `DATABASE_URL` entry, as per [Database Environment Setup](#environment-setup)
+2. `apps/web` requires a `.env.local` file, copying `.env.development` gives a good starting point, but `SESSION_SECRET=anyValue` needs adding to it
+
+To run the apps, either:
+
+Run the dev script in all apps via [Turbo](https://turbo.build/repo/docs), from root:
+
+```shell
+npm run dev
+```
+
+**Note** the web app may fail to run on Windows due to an [npm bug](https://github.com/npm/cli/issues/5066), use the methods below to run the apps separately. 
+
+or manually run any individual app, from root or the app directory:
+
+```shell
+npm run dev --workspace=@pins/api
+
+# which is equivalent to
+apps/api> npm run dev
+```
+
+For most development it is useful to have the `api` and `web` apps running; which run on `http://localhost:3000` and `http://localhost:8080` respectively.
+
+## Structure
+
+The two main folders are `apps` (which contains the deployable services, such as the API and web front-end), and `packages` which contains libraries, as well as shared code and configuration. The whole setup is using [npm workspaces](https://docs.npmjs.com/cli/v7/using-npm/workspaces).
+
+## Building
+
+```shell
+# In the root folder
+npm run build
+```
+
+This will run the build process via Turbo, getting the benefit of speed and caching. All static assets will combiled in production mode and all requried distribution folders will be created.
+
+## Tests
+
+[Cypress](https://www.cypress.io/) is used for e2e tests, and [Jest](https://jestjs.io/) for unit testing.
+
+Run the e2e tests with:
+
+```shell
+npm run e2e
+```
+
+Run the unit tests with:
+
+```shell
+npm run test
+```
+
+## API Documentation
+
+The API is documented using an [OpenAPI (previously Swagger) spec](https://swagger.io/specification/v2/). The spec is generated from code comments in the Express route definitions.
+
+To generate up-to-date documentation, run:
+
+```shell
+apps/api> npm run swagger-autogen
+```
+
+This will re-generate the `apps/api/src/server/swagger-output.json` file. This spec is hosted by the api, and can be found at `http://localhost:3000/api-docs/`.
+
+## Style guide
+
+Eslint is used to enforce styles. Run
+
+```shell
+npm run lint:js
+```
+
+to check all apps.
+
+## Other Tools
+
+If testing storage or the service bus integration, then some extra tools are useful, as below.
 
 ### Setting up RabbitMQ locally
 
@@ -154,32 +209,9 @@ Run the following command:
 docker run -p 10000:10000 -p 10001:10001 -p 10002:10002 --name blob-store-test -d mcr.microsoft.com/azure-storage/azurite:latest
 ```
 
-### Building
+## Docker
 
-Building the entire solution means running most of the dev tools into PROD mode.
-
-```shell
-# In the root folder
-npm run build
-```
-
-This will run the build process via Turbo, getting the benefit of speed and caching. All static assets will combiled in production mode and all requried distribution folders will be created.
-
-### Deploying / Publishing
-
-TODO: Once we have the pipelines ready update the docs here.
-
-give instructions on how to build and release a new version
-In case there's some step you have to take that publishes this project to a
-server, this is the right time to state it.
-
-```shell
-packagemanager deploy your-project -s server.com -u username -p password
-```
-
-And again you'd need to tell what the previous code actually does.
-
-### Docker
+The apps are designed to run as containers, they can be built and run locally as per the instructions below.
 
 #### API
 
@@ -213,41 +245,6 @@ docker container run -dp 3001:3001 -t pins-back-office-document-storage
 ```
 
 which should create and run a container at `http://0.0.0.0:3001` on your machine.
-
-## Configuration
-
-All required configurations are part of dotenv files found in each application's
-root folder. If you want to change any of the variables used for the environment
-under which you're running, create an `.env.local` file in the root of the
-application to extend the configuration.
-The Web application requires an `.env.local` with configuration for the local dev environment.
-
-## Tests
-
-Describe and show how to run the tests with code examples.
-Explain what these tests test and why.
-
-```shell
-Give an example
-```
-
-Coverage for Backend testing reporting available with the instruction:
-```
-npm run coverage
-``
-
-## Swagger documentation
-
-In order to be able to generate the ducumentation fom Swagger you need to travel to the api folder in your terminal and run:
-```
-npm run swagger-autogen
-```
-that will create/re-do the `swagger-output.json` that is the source of information for the documentation file.
-That documentation can be checked in `/api-docs/` in the localhost
-
-## Style guide
-
-The codebase has README.md files in all relevant folder that explain what is the purpose or any other guidelines to follow.
 
 ## Licensing
 
