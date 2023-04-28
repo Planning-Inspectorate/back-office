@@ -45,43 +45,29 @@
 					<label class="govuk-label font-weight--700 govuk-!-margin-bottom-4" for="item-type">
                             Timetable item type
                         </label>
-					<p class='govuk-body'>{{ selectedItemType }}</p>
-					<input class="govuk-input" value='{{ selectedItemType }}' id="itemType" name="itemType" type="hidden" >
-					<input class="govuk-input" value='{{ selectedTemplateType }}' id="templateType" name="templateType" type="hidden" >
+					<p class='govuk-body'>{{ selectedItemType.text }}</p>
+					<input class="govuk-input" value='{{ selectedItemType.value }}' id="itemTypeName" name="itemTypeName" type="hidden" >
+					<input class="govuk-input" value='{{ selectedItemType.templateType }}' id="templateType" name="templateType" type="hidden" >
 				</div>
 
-				{# Item name #}
-				{{ govukInput({
-							id: 'itemName',
+				{% if not isUndefined(templateFields.name) %}
+					{{ govukInput({
+							id: 'name',
 							type: 'text',
 							formGroup: {
 							classes: 'govuk-grid-column-one-half'
 							},
-							name: "itemName",
+							name: "name",
 							label: {
 								text: 'Item name',
 								classes: 'font-weight--700 govuk-!-margin-bottom-4'
 								},
-							errorMessage: errors.itemName | errorMessage,
-							value: values.itemName
-					}) }}
-
-				{% if selectedTemplateType === 'deadline' %}
-					{# startDate #}
-					{{ dateInput({
-						 	layout: {
-								fieldName: 'startDate',
-								label: 'Start date',
-								classes: 'govuk-grid-column-one-half',
-								hint: 'For example, 01 02 2000'
-							},
-							errors: errors,
-							value: values
+							errorMessage: errors.name | errorMessage,
+							value: values.name
 					}) }}
 				{% endif %}
 
-				{% if selectedTemplateType === 'starttime-mandatory' %}
-					{# Date #}
+				{% if not isUndefined(templateFields.date) %}
 					{{ dateInput({
 						 	layout: {
 								fieldName: 'date',
@@ -94,27 +80,60 @@
 					}) }}
 				{% endif %}
 
-				{{ timeInput({
+				{% if not isUndefined(templateFields.startDate) %}
+					{{ dateInput({
+						 	layout: {
+								fieldName: 'startDate',
+								label: ['Start date', '' if templateFields.startDate else ' (optional)']|join,
+								classes: 'govuk-grid-column-one-half',
+								hint: 'For example, 01 02 2000'
+							},
+							errors: errors,
+							value: values
+					}) }}
+				{% endif %}
+
+				{% if not isUndefined(templateFields.startTime) %}
+					{{ timeInput({
 						layout: {
 							fieldName: 'startTime',
 							classes: 'govuk-grid-column-one-half',
-							label: ['Start time', ' (optional)' if selectedTemplateType !== 'starttime-mandatory' else '']|join,
+							label: ['Start time', '' if templateFields.startTime else ' (optional)']|join,
 							hint: 'For example, 13 : 00'
 						},
 						errors: errors,
 						values: values
 					})  }}
+				{% endif %}
 
-				{{ timeInput({
+				{% if not isUndefined(templateFields.endDate) %}
+					{{ dateInput({
+						 	layout: {
+								fieldName: 'endDate',
+								label: 'End date',
+								classes: 'govuk-grid-column-one-half',
+								hint: 'For example, 01 02 2000'
+							},
+							errors: errors,
+							value: values
+					}) }}
+				{% endif %}
+
+				{% if not isUndefined(templateFields.endTime) %}
+					{{ timeInput({
 						layout: {
 							fieldName: 'endTime',
 							classes: 'govuk-grid-column-one-half',
-							label: 'End time (optional)',
+							label: ['End time', '' if templateFields.endTime else ' (optional)']|join,
 							hint: 'For example, 13 : 00'
-						}
-					}) }}
+						},
+						errors: errors,
+						values: values
+					})  }}
+				{% endif %}
 
-				{{ govukTextarea({
+				{% if not isUndefined(templateFields.description) %}
+					{{ govukTextarea({
   							name: "description",
   							id: "description",
 							formGroup: {
@@ -127,6 +146,7 @@
 							errorMessage: errors.description | errorMessage,
 							value: values.description
 						}) }}
+				{% endif %}
 
 				<div class='govuk-grid-column-full'>
 					{{ govukButton({ text: 'Continue', classes: 'govuk-!-margin-top-6'}) }}
