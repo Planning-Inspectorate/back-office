@@ -12,7 +12,7 @@ import {
 // create reference data only, no test data, as delivering to production DB
 
 /**
- * Upserts data for sectors, sub-sectors, regions, and zoom levels into the database.
+ * Upserts data for sectors, sub-sectors, regions, zoom levels, and examination timetable types into the database.
  *
  * @throws {Error} If any database operation fails.
  * @returns {Promise<void>}
