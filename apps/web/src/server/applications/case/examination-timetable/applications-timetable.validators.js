@@ -8,6 +8,7 @@ import {
 	validationTimeMandatory,
 	validationTimeValid
 } from '../../common/validators/times.validators.js';
+import { timetableTemplatesSchema } from './applications-timetable.controller.js';
 
 /** @typedef {import('express').RequestHandler} RequestHandler */
 /** @typedef {import("express-validator").ValidationChain} ValidationChain */
@@ -23,7 +24,7 @@ import {
 /** Validators */
 
 const nameValidationChains = [
-	body('itemName')
+	body('name')
 		.trim()
 		.isLength({ min: 1 })
 		.withMessage('You must enter the item name')
@@ -58,20 +59,11 @@ const dateValidationChains = (fieldName, extendedFieldName) => {
 /** @type {Record<string, ValidationChainsCallback>} */
 const fieldValidationsCreators = {
 	name: () => nameValidationChains,
-	dateTime: dateValidationChains('date', 'item date'),
+	date: dateValidationChains('date', 'item date'),
+	startDate: dateValidationChains('startDate', 'item start date'),
+	endDate: dateValidationChains('endDate', 'item end date'),
 	startTime: timeValidationChains('startTime', 'item start time'),
 	endTime: timeValidationChains('endTime', 'item end time')
-};
-
-/** @type {Record<string, Record<string, boolean>>} */
-const schema = {
-	'starttime-mandatory': {
-		name: true,
-		date: true,
-		startTime: true,
-		endTime: false,
-		description: false
-	}
 };
 
 /**
@@ -82,7 +74,7 @@ const schema = {
 export const validatorsDispatcher = async (request, response, next) => {
 	const templateValidations = [];
 	const { templateType } = request.body;
-	const allowedFields = schema[templateType];
+	const allowedFields = timetableTemplatesSchema[templateType];
 
 	for (const fieldName in allowedFields) {
 		if (fieldValidationsCreators[fieldName]) {
