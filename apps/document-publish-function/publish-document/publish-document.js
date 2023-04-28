@@ -1,6 +1,8 @@
 import { BlobStorageClient } from '@pins/blob-storage-client';
-import { getEventClient } from '@pins/event-client';
 import config from './config.js';
+import { getEventClientWithContext } from './event-client.js';
+
+const blobStorageClient = BlobStorageClient.fromUrl(config.DOCUMENT_STORAGE_HOST);
 
 /**
  *
@@ -8,11 +10,7 @@ import config from './config.js';
  * @param {import('@azure/functions').Context} context
  */
 const sendEvent = async (event, context) => {
-	const eventClient = getEventClient(
-		config.NODE_ENV !== 'test',
-		context.log,
-		config.SERVICE_BUS_HOSTNAME
-	);
+	const eventClient = getEventClientWithContext(context);
 
 	await eventClient.sendEvents(config.NSIP_DOC_TOPIC_NAME, [event], 'Publish');
 };
@@ -24,8 +22,6 @@ const sendEvent = async (event, context) => {
  * @param {{container: string, path: string}} documentDestination
  */
 export const publishDocument = async (context, documentToCopy, documentDestination) => {
-	const blobStorageClient = BlobStorageClient.fromUrl(config.DOCUMENT_STORAGE_HOST);
-
 	context.log.info(
 		`Copying document from ${JSON.stringify(documentToCopy)} to ${JSON.stringify(
 			documentDestination
