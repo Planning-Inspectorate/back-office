@@ -48,6 +48,8 @@ docker run --cap-add SYS_PTRACE -e 'ACCEPT_EULA=1' -e 'MSSQL_SA_PASSWORD=<YourSt
 
 Later on, when connecting to the database, follow the instructions for ARM64.
 
+Another alternative is to use [Azure Data Studio](https://learn.microsoft.com/en-us/sql/azure-data-studio/download-azure-data-studio).
+
 #### Database Setup
 
 1. Connect to the container
