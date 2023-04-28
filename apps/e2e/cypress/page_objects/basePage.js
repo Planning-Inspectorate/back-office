@@ -121,6 +121,11 @@ export class Page {
 	}
 
 	// A S S E R T I O N S
+	validateBannerMessage(successMessage) {
+		this.basePageElements.bannerHeader().then(($banner) => {
+			expect($banner.text().trim()).to.equal(successMessage);
+		});
+	}
 
 	validateErrorMessage(errorMessage) {
 		this.basePageElements.errorMessage().contains(errorMessage).should('exist');

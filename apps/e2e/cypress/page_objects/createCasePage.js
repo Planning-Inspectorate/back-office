@@ -43,32 +43,39 @@ export class CreateCasePage extends Page {
 		this.clickSaveAndContinue();
 		this.sections.regions.chooseRegions(projectInformation.regions);
 		this.clickSaveAndContinue();
-		this.sections.zoomLevel.chooseZoomLevel(projectInformation.zoomLevel);
+		this.sections.zoomLevel.chooseZoomLevel(mandatoryOnly ? 'None' : projectInformation.zoomLevel);
 		this.clickSaveAndContinue();
-		this.sections.projectEmail.fillCaseEmail(projectInformation.projectEmail);
-		this.clickSaveAndContinue();
-		this.sections.applicantInformationAvailable.chooseAll();
-		this.clickSaveAndContinue();
-		this.sections.applicantOrganisation.fillOrganisationName(projectInformation.orgName);
-		this.clickSaveAndContinue();
-		this.sections.applicantName.fillApplicantFirstName(projectInformation.applicantFirstName);
-		this.sections.applicantName.fillApplicantLastName(projectInformation.applicantLastName);
-		this.clickSaveAndContinue();
-		this.sections.applicantAddress.fillApplicantPostcode(projectInformation.postcode);
-		this.clickButtonByText('Find address');
-		this.chooseSelectItemByIndex(1);
-		this.clickSaveAndContinue();
-		this.sections.applicantWebsite.fillApplicantWebsite(projectInformation.applicantWebsite);
-		this.clickSaveAndContinue();
-		this.sections.applicantEmail.fillApplicantEmail(projectInformation.applicantEmail);
-		this.clickSaveAndContinue();
-		this.sections.applicantPhoneNumber.fillPhoneNumber(projectInformation.applicantPhoneNumber);
-		this.clickSaveAndContinue();
+
+		if (!mandatoryOnly) {
+			this.sections.projectEmail.fillCaseEmail(projectInformation.projectEmail);
+			this.clickSaveAndContinue();
+			this.sections.applicantInformationAvailable.chooseAll();
+			this.clickSaveAndContinue();
+			this.sections.applicantOrganisation.fillOrganisationName(projectInformation.orgName);
+			this.clickSaveAndContinue();
+			this.sections.applicantName.fillApplicantFirstName(projectInformation.applicantFirstName);
+			this.sections.applicantName.fillApplicantLastName(projectInformation.applicantLastName);
+			this.clickSaveAndContinue();
+			this.sections.applicantAddress.fillApplicantPostcode(projectInformation.postcode);
+			this.clickButtonByText('Find address');
+			this.chooseSelectItemByIndex(1);
+			this.clickSaveAndContinue();
+			this.sections.applicantWebsite.fillApplicantWebsite(projectInformation.applicantWebsite);
+			this.clickSaveAndContinue();
+			this.sections.applicantEmail.fillApplicantEmail(projectInformation.applicantEmail);
+			this.clickSaveAndContinue();
+			this.sections.applicantPhoneNumber.fillPhoneNumber(projectInformation.applicantPhoneNumber);
+			this.clickSaveAndContinue();
+		} else {
+			this.clickSaveAndContinue();
+			this.clickSaveAndContinue();
+		}
 		this.sections.keyDates.fillSumbissionPublishedDate(projectInformation.publishedDate);
 		this.sections.keyDates.fillInternalAnticipatedDay(projectInformation.internalDateDay);
 		this.sections.keyDates.fillInternalAnticipatedMonth(projectInformation.internalDateMonth);
 		this.sections.keyDates.fillInternalAnticipatedYear(projectInformation.internalDateYear);
 		this.clickSaveAndContinue();
+		this.sections.checkYourAnswers.checkAllAnswers(projectInformation, mandatoryOnly);
 		this.clickButtonByText('I accept - confirm creation of a new case');
 		this.sections.caseCreated.validateCaseCreated();
 	}

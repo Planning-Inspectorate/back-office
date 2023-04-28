@@ -31,16 +31,18 @@
 					"type": "string",
 					"description": "Compulsory Acquisition Hearing/Deadline/Issue Specific Hearing etc",
 					"enum": [
-						"Procedural Deadline",
+						"Accompanied Site Inspection",
 						"Compulsory Acquisition Hearing",
 						"Deadline",
+						"Deadline For Close Of Examination",
+						"Issued By",
 						"Issue Specific Hearing",
 						"Open Floor Hearing",
+						"Other Meeting",
 						"Preliminary Meeting",
+						"Procedural Deadline (Pre-Examination)",
 						"Procedural Decision",
-						"Site Visit (Accompanied)",
-						"Site Visit (Unaccompanied)",
-						"Other Meeting"
+						"Publication Of"
 					]
 				},
 				"eventTitle": {

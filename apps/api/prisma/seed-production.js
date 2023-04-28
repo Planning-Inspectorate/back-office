@@ -1,7 +1,13 @@
 import config from '../src/server/config/config.js';
 import { databaseConnector } from '../src/server/utils/database-connector.js';
 import logger from '../src/server/utils/logger.js';
-import { regions, sectors, subSectors, zoomLevels } from './seed-samples.js';
+import {
+	examinationTimetableTypes,
+	regions,
+	sectors,
+	subSectors,
+	zoomLevels
+} from './seed-samples.js';
 
 // create reference data only, no test data, as delivering to production DB
 
@@ -38,6 +44,13 @@ const productionMain = async () => {
 			await databaseConnector.zoomLevel.upsert({
 				create: zoomLevel,
 				where: { name: zoomLevel.name },
+				update: {}
+			});
+		}
+		for (const examinationTimetableType of examinationTimetableTypes) {
+			await databaseConnector.examinationTimetableType.upsert({
+				create: examinationTimetableType,
+				where: { name: examinationTimetableType.name },
 				update: {}
 			});
 		}

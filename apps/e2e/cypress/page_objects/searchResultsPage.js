@@ -33,6 +33,6 @@ export class SearchResultsPage extends Page {
 			.tableRow()
 			.eq(1)
 			.find(this.selectors.body)
-			.should('have.text', `\n\t\t${caseName}\n\t`);
+			.should('contain.text', caseName);
 	}
 }

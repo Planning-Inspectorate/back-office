@@ -72,7 +72,7 @@ model Appellant {
 }
 
 /// AppealDetailsFromAppellant model
-/// Contains information from the questionnaire that the Appellant 
+/// Contains information from the questionnaire that the Appellant
 /// would have filled out when submitting the Appeal
 model AppealDetailsFromAppellant {
   id                                   Int      @id @default(autoincrement())
@@ -372,7 +372,7 @@ model Folder {
 
 /// Document model
 /// Contains information about the documents that are saved against a case.
-/// This model is a central space for each document which might have several 
+/// This model is a central space for each document which might have several
 /// versions and can store shared metadata.
 model Document {
   guid                 String            @id @default(uuid())
@@ -473,4 +473,12 @@ model RepresentationContact {
   addressId        Int?
   address          Address?       @relation(fields: [addressId], references: [id])
   Representation   Representation @relation(fields: [representationId], references: [id])
+}
+
+model ExaminationTimetableType {
+  id            Int    	@id @default(autoincrement())
+  name          String 	@unique 		// Note this the value sent to the front office. Note the Title Case format
+	templateType	String?
+  displayNameEn String
+  displayNameCy String
 }
