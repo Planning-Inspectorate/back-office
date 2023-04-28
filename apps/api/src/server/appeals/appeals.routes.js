@@ -6,12 +6,12 @@ import { validationRoutes } from './validation/validation.routes.js';
 
 const router = createRouter();
 
-router.use('/', appealsRoutes);
-
 router.use('/validation', validationRoutes);
 
 router.use('/case-officer', caseOfficerRoutes);
 
 router.use('/inspector', inspectorRoutes);
+
+router.use('/', appealsRoutes);
 
 export { router as appealsRoutes };

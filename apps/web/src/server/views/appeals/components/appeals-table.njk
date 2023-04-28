@@ -3,23 +3,22 @@
 
 {%- macro appealsTable(params) -%}
 	{%- macro createReferenceCell(appeal) -%}
-		<a class="govuk-link" href="/appeals-service/validation/appeals/{{appeal.AppealId}}">
-			{{ appeal.AppealReference }}
+		<a class="govuk-link" href="/appeals-service/validation/appeals/{{appeal.appealId}}">
+			{{ appeal.appealReference }}
 		</a>
 	{%- endmacro -%}
 	{%- set rows = [] -%}
 	{%- for appeal in params.appeals -%}
 		{%- set statusHtml -%}
-			{{ 
-				statusTag(appeal.AppealStatus)
+			{{
+				statusTag(appeal.appealStatus)
 			}}
 		{%- endset -%}
 		{%- set row = [
 			{ html: createReferenceCell(appeal) },
-			{ text: appeal.AppealSite | collapse(', ') },
+			{ text: appeal.appealSite | collapse(', ') },
 			{ text: 'Householder Appeal' },
 			{ text: 'Bradford Council' },
-			{ text: appeal.Received },
 			{ html: statusHtml }
 		] -%}
 		{%- set rows = rows | concat([row]) -%}
@@ -33,7 +32,6 @@
 				{ text: "Site address" },
 				{ text: "Appeal type" },
 				{ text: "Local planning authority" },
-				{ text: "Date received" },
 				{ text: "Status" }
 			],
 			rows: rows

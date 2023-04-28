@@ -129,6 +129,11 @@ const appealRepository = (function () {
 				include: {
 					...inclusions,
 					...(latestLPAReviewQuestionnaire && includeLatestReviewQuestionnaireFilter),
+					appealDetailsFromAppellant: true,
+					siteVisit: true,
+					appellant: true,
+					address: true,
+					inspectorDecision: true,
 					appealStatus: {
 						where: {
 							valid: true
