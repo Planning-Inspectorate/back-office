@@ -1,8 +1,7 @@
-import { request } from 'node:https';
+import { BlobStorageClient } from '@pins/blob-storage-client';
 import config from '../../../../environment/config.js';
 import { getCaseDocumentationFileInfo } from '../../applications/case/documentation/applications-documentation.service.js';
 import getActiveDirectoryAccessToken from '../../lib/active-directory-token.js';
-import createSasToken from '../../lib/sas-token.js';
 
 /** @typedef {import('../auth/auth-session.service').SessionWithAuth} SessionWithAuth */
 /** @typedef {import('express').Response} Response */
@@ -29,22 +28,32 @@ const getDocumentsDownload = async ({ params, session }, response) => {
 		throw new Error('Blob storage container or Document UR not found');
 	}
 
-	const sasToken = await createSasToken(accessToken, blobStorageContainer, documentURI.slice(1));
-	const completeURI = `${blobStorageUrl}${blobStorageContainer}${documentURI}${sasToken}`;
-	const fileName = `${documentURI}`.split(/\/+/).pop();
+	// Document URIs are persisted with a prepended slash, but this slash is treated as part of the key by blob storage so we need to remove it
+	const documentKey = documentURI.startsWith('/') ? documentURI.slice(1) : documentURI;
 
-	const externalRequest = request(completeURI, (externalResource) => {
-		const contentType = externalResource.headers['content-type'];
+	const fileName = `${documentKey}`.split(/\/+/).pop();
 
-		if (preview && contentType) {
-			response.setHeader('content-type', contentType);
-		} else {
-			response.setHeader('content-disposition', `attachment; filename=${fileName}`);
-		}
-		externalResource.pipe(response);
-	});
+	const client = BlobStorageClient.fromUrlAndToken(blobStorageUrl, accessToken);
 
-	externalRequest.end();
+	const blobProperties = await client.getBlobProperties(blobStorageContainer, documentKey);
+
+	if (!blobProperties) {
+		return response.status(404);
+	}
+
+	if (preview && blobProperties?.contentType) {
+		response.setHeader('content-type', blobProperties.contentType);
+	} else {
+		response.setHeader('content-disposition', `attachment; filename=${fileName}`);
+	}
+
+	const blobStream = await client.downloadStream(blobStorageContainer, documentKey);
+
+	if (!blobStream?.readableStreamBody) {
+		throw new Error(`Document ${documentKey} missing stream body`);
+	}
+
+	blobStream.readableStreamBody?.pipe(response);
 
 	return response.status(200);
 };

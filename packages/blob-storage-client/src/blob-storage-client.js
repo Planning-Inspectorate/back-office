@@ -88,6 +88,18 @@ export class BlobStorageClient {
 	/**
 	 *
 	 * @param {string} container
+	 * @param {string} blobPath
+	 * @returns {Promise<import('@azure/storage-blob').BlobGetPropertiesResponse>}
+	 */
+	getBlobProperties = (container, blobPath) => {
+		const blockBlobClient = this.#getBlockBlobClient(container, blobPath);
+
+		return blockBlobClient.getProperties();
+	};
+
+	/**
+	 *
+	 * @param {string} container
 	 * @param {File} fileContent
 	 * @param {string} filePath
 	 * @param {string} fileType
