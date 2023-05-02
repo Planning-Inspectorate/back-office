@@ -28,7 +28,8 @@ router.use(locals.registerLocals);
 router.use('/search-results', guards.assertDomainTypeExists, applicationsSearchRouter);
 
 router.use('/create-new-case', guards.assertDomainTypeExists, applicationsCreateRouter);
-router.use('/case', applicationsCaseRouter);
+
+router.use('/case', guards.assertDomainTypeExists, applicationsCaseRouter);
 
 /** Domain-driven URLS */
 
