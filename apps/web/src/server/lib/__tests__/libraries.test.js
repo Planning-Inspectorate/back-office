@@ -2,6 +2,7 @@ import { addressToString } from '../address-formatter.js';
 import asyncRoute from '../async-route.js';
 import { bodyToPayload } from '../body-formatter.js';
 import { dateIsValid, isDateInstance } from '../dates.js';
+import { datestamp, displayDate } from '../nunjucks-filters/date.js';
 import { nameToString } from '../person-name-formatter.js';
 
 describe('Libraries', () => {
@@ -120,6 +121,46 @@ describe('Libraries', () => {
 				const instanceOfDate = isDateInstance(date);
 
 				expect(typeof instanceOfDate).toEqual('boolean');
+			});
+		});
+
+		describe('datestamp', () => {
+			it('should return BST date if date between March-October', () => {
+				// 05/02/2023 @ 8:54am
+				const unixTimestamp = '1683017640';
+				const options = { format: 'yyyy-MM-dd HH:mm:ss zzz' };
+
+				const gmtDate = datestamp(unixTimestamp, options);
+
+				expect(gmtDate).toEqual('2023-05-02 09:54:00 BST');
+			});
+
+			it('should return GMT date if date between November-February', () => {
+				// 12/02/2023 @ 8:54am
+				const unixTimestamp = '1701507240';
+				const options = { format: 'yyyy-MM-dd HH:mm:ss zzz' };
+
+				const gmtDate = datestamp(unixTimestamp, options);
+
+				expect(gmtDate).toEqual('2023-12-02 08:54:00 GMT');
+			});
+		});
+
+		describe('displayDate', () => {
+			it('should return BST date if between last Sunday in March and last Sunday of October', () => {
+				const date = '2023-03-26T23:00:00+00:00';
+
+				const gmtDate = displayDate(date);
+
+				expect(gmtDate).toEqual('27 March 2023');
+			});
+
+			it('should return GMT date if not if between last Sunday in March and last Sunday of October', () => {
+				const date = '2023-10-30T29:23:00+00:00';
+
+				const gmtDate = displayDate(date);
+
+				expect(gmtDate).toEqual('29 October 2023');
 			});
 		});
 	});
