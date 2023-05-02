@@ -127,6 +127,30 @@ extends:
                   appResourceGroup: $(resourceGroup)
                   appStagingSlotName: staging
                   appTargetSlotName: production
+          - name: Deploy Document Check Function
+            artifact:
+              name: document-check-functions
+              sourcePipeline: Back Office Build
+            steps:
+              - template: ../steps/function_app_deploy.yml
+                appName: pins-func-doc-check-doc-check-$(ENVIRONMENT)-$(REGION_SHORT)-001
+                resourceGroup: $(resourceGroup)
+          - name: Deploy Document Publish Function
+            artifact:
+              name: document-publish-function
+              sourcePipeline: Back Office Build
+            steps:
+              - template: ../steps/function_app_deploy.yml
+                appName: pins-func-doc-publisher-doc-publisher-$(ENVIRONMENT)-$(REGION_SHORT)-001
+                resourceGroup: $(resourceGroup)
+          - name: Deploy ODW Integration Functions
+            artifact:
+              name: odw-integration-functions
+              sourcePipeline: Back Office Build
+            steps:
+              - template: ../steps/function_app_deploy.yml
+                appName: pins-func-odw-subscriber-odw-subscriber-$(ENVIRONMENT)-$(REGION_SHORT)-001
+                resourceGroup: $(resourceGroup)
     preDeploymentStages:
       - name: Semantic Release
         jobs:
