@@ -172,6 +172,9 @@ extends:
                   API_VERSION=$(cat apps/api/.release-version)
                   DOCUMENT_STORAGE_API_VERSION=$(cat apps/document-storage/.release-version)
                   WEB_VERSION=$(cat apps/web/.release-version)
+                  DOCUMENT_CHECK_FUNCTION_VERSION=$(cat apps/document-check-function/.release-version)
+                  DOCUMENT_PUBLISH_FUNCTION_VERSION=$(cat apps/document-publish-function/.release-version)
+                  ODW_INTEGRATION_FUNCTION_VERSION=$(cat apps/odw-integration/.release-version)
 
                   RELEASE=false
 
@@ -203,6 +206,36 @@ extends:
                   else
                     WEB_VERSION=$(git describe --match "web@*" --abbrev=0 --tags $(git rev-list --tags --max-count=1))
                     echo "API version: $WEB_VERSION (No change)"
+                  fi
+
+                  if [[ ! -z "$DOCUMENT_CHECK_FUNCTION_VERSION" ]]; then
+                    echo "Document check function version: $DOCUMENT_CHECK_FUNCTION_VERSION"
+                    echo "##vso[task.setvariable variable=documentCheckFunctionVersion;isOutput=true]$DOCUMENT_CHECK_FUNCTION_VERSION"
+                    echo "##vso[task.setvariable variable=documentCheckFunctionRelease;isOutput=true]true"
+                    RELEASE=true
+                  else
+                    DOCUMENT_CHECK_FUNCTION_VERSION=$(git describe --match "document-check-function@*" --abbrev=0 --tags $(git rev-list --tags --max-count=1))
+                    echo "Function version: $DOCUMENT_CHECK_FUNCTION_VERSION (No change)"
+                  fi
+
+                  if [[ ! -z "$DOCUMENT_PUBLISH_FUNCTION_VERSION" ]]; then
+                    echo "Web version: $DOCUMENT_PUBLISH_FUNCTION_VERSION"
+                    echo "##vso[task.setvariable variable=documentPublishFunctionVersion;isOutput=true]$DOCUMENT_PUBLISH_FUNCTION_VERSION"
+                    echo "##vso[task.setvariable variable=documentPublishFunctionRelease;isOutput=true]true"
+                    RELEASE=true
+                  else
+                    DOCUMENT_PUBLISH_FUNCTION_VERSION=$(git describe --match "document-publish-function@*" --abbrev=0 --tags $(git rev-list --tags --max-count=1))
+                    echo "Function version: $DOCUMENT_PUBLISH_FUNCTION_VERSION (No change)"
+                  fi
+
+                  if [[ ! -z "$ODW_INTEGRATION_FUNCTION_VERSION" ]]; then
+                    echo "Web version: $ODW_INTEGRATION_FUNCTION_VERSION"
+                    echo "##vso[task.setvariable variable=odwIntegrationFunctionVersion;isOutput=true]$ODW_INTEGRATION_FUNCTION_VERSION"
+                    echo "##vso[task.setvariable variable=odwIntegrationFunctionRelease;isOutput=true]true"
+                    RELEASE=true
+                  else
+                    ODW_INTEGRATION_FUNCTION_VERSION=$(git describe --match "odw-integration@*" --abbrev=0 --tags $(git rev-list --tags --max-count=1))
+                    echo "Function version: $ODW_INTEGRATION_FUNCTION_VERSION (No change)"
                   fi
 
                   if [[ $RELEASE == true ]]; then
