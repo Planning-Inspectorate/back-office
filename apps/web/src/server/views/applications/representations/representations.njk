@@ -69,11 +69,6 @@
 					<p>No matching representations to show.</p>
 				{% endif %}
 			</form>
-			{% if representations.length > 0 %}
-				{{ representationsTableComponent(representations, queries, caseId) }}
-			{% else %}
-				<p>No matching representations to show.</p>
-			{% endif %}
 		</div>
 	</div>
 {% endblock %}
