@@ -1,0 +1,115 @@
+<h3 class="govuk-heading-m">Agent contact details</h3>
+<dl class="govuk-summary-list">
+    <div class="govuk-summary-list__row govuk-summary-list__row--no-border">
+        <dt class="govuk-summary-list__key">
+            Organisation name
+        </dt>
+        <dd class="govuk-summary-list__value">
+            {{ representationDetails.agentData.orgName }}
+        </dd>
+        <dd class="govuk-summary-list__actions">
+            <a class="govuk-link" href="#">
+                Change<span class="govuk-visually-hidden">organisation name</span>
+            </a>
+        </dd>
+    </div>
+    <div class="govuk-summary-list__row govuk-summary-list__row--no-actions govuk-summary-list__row--no-border">
+        <dt class="govuk-summary-list__key">
+            Name
+        </dt>
+        <dd class="govuk-summary-list__value">
+            {{ representationDetails.agentData.name }}
+        </dd>
+    </div>
+    <div class="govuk-summary-list__row govuk-summary-list__row--no-actions govuk-summary-list__row--no-border">
+        <dt class="govuk-summary-list__key">
+        Job title
+        </dt>
+        <dd class="govuk-summary-list__value">
+            {{ representationDetails.agentData.jobTitle }}
+        </dd>
+    </div>
+    <div class="govuk-summary-list__row govuk-summary-list__row--no-actions govuk-summary-list__row--no-border">
+        <dt class="govuk-summary-list__key">
+        Email address
+        </dt>
+        <dd class="govuk-summary-list__value">
+            {{ representationDetails.agentData.email }}
+        </dd>
+
+    </div>
+    <div class="govuk-summary-list__row govuk-summary-list__row--no-actions">
+        <dt class="govuk-summary-list__key">
+        Telephone number
+        </dt>
+        <dd class="govuk-summary-list__value">
+            {{ representationDetails.agentData.phoneNumber }}
+        </dd>
+    </div>
+    <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+        Address
+        </dt>
+        <dd class="govuk-summary-list__value">
+            {{ representationDetails.agentData.addressLine1 }} </br>
+
+            {% if representationDetails.agentData.addressLine2 %}
+                {{ representationDetails.agentData.addressLine2 }} </br>
+            {% endif %}
+
+            {% if representationDetails.agentData.town %}
+                {{ representationDetails.agentData.town }} </br>
+            {% endif %}
+
+            {% if representationDetails.agentData.county %}
+                {{ representationDetails.agentData.county }} </br>
+            {% endif %}
+        
+            {{ representationDetails.agentData.postcode }}
+        </dd>
+        <dd class="govuk-summary-list__actions">
+            <a class="govuk-link" href="#">
+                Change<span class="govuk-visually-hidden"> address</span>
+            </a>
+        </dd>
+    </div>
+    <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+        Preferred contact method
+        </dt>
+        <dd class="govuk-summary-list__value">
+            {{ representationDetails.agentData.preferredContact if representationDetails.agentData.preferredContact else 'Email' }}
+        </dd>
+        <dd class="govuk-summary-list__actions">
+            <a class="govuk-link" href="#">
+                Change<span class="govuk-visually-hidden"> preferred contact method</span>
+            </a>
+        </dd>
+    </div>
+    <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+            Type
+        </dt>
+        <dd class="govuk-summary-list__value">
+            
+        </dd>
+        <dd class="govuk-summary-list__actions">
+            <a class="govuk-link" href="#">
+                Change<span class="govuk-visually-hidden"> type</span>
+            </a>
+        </dd>
+    </div>
+    <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+        Under 18
+        </dt>
+        <dd class="govuk-summary-list__value">
+            {{ representationDetails.agentData.under18 }}
+        </dd>
+        <dd class="govuk-summary-list__actions">
+            <a class="govuk-link" href="#">
+                Change<span class="govuk-visually-hidden"> under 18</span>
+            </a>
+        </dd>
+    </div>
+</dl>
