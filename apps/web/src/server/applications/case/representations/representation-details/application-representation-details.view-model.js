@@ -41,13 +41,13 @@ import { format } from 'date-fns';
  * @returns {object}
  */
 const getContactDetailsByContactType = ({ contacts }, type) => {
-	let res = {};
+	let result = {};
 
 	for (const contact of contacts) {
 		const contactType = contact.type.toLowerCase();
 
 		if (contactType === type) {
-			res = {
+			result = {
 				orgName: contact.organisationName || '',
 				name: `${contact.firstName} ${contact.lastName}`,
 				orgOrName: contact.organisationName
@@ -67,7 +67,7 @@ const getContactDetailsByContactType = ({ contacts }, type) => {
 		}
 	}
 
-	return res;
+	return result;
 };
 
 /**
@@ -85,7 +85,7 @@ const formatDate = (date) => format(new Date(date), 'dd MMM yyyy');
 const createExcerpt = (text, maxLength) => {
 	const lastSpaceIndex = text.lastIndexOf(' ', maxLength);
 
-	return `${text.slice(0, Math.max(0, lastSpaceIndex))}...`;
+	return `${text.slice(0, Math.max(0, lastSpaceIndex))}`;
 };
 
 /**
@@ -114,38 +114,12 @@ const getRepresentationData = (representation) => {
 	};
 };
 
-// placeholder function
-/**
- *
- * @param {*} data
- * @returns {object}
- */
-const getWorkflowData = (data) => {
-	return data;
-};
-
-// placeholder function
-/**
- *
- * @param {*} data
- * @returns {object}
- */
-const getAttachmentsData = (data) => {
-	return data;
-};
-
 /**
  * @param {Representation} representation
- * @returns {object}
+ * @returns {{agentData: object, personData: object, representationData: object}}
  */
-export const getRepresentationDetailsViewModel = (representation) => {
-	const viewData = {
-		agentData: getContactDetailsByContactType(representation, 'agent'),
-		personData: getContactDetailsByContactType(representation, 'person'),
-		representationData: getRepresentationData(representation),
-		workflowData: getWorkflowData(representation),
-		attachmentsData: getAttachmentsData(representation)
-	};
-
-	return viewData;
-};
+export const getRepresentationDetailsViewModel = (representation) => ({
+	agentData: getContactDetailsByContactType(representation, 'agent'),
+	personData: getContactDetailsByContactType(representation, 'person'),
+	representationData: getRepresentationData(representation)
+});
