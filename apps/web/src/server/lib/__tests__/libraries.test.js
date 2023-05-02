@@ -156,7 +156,7 @@ describe('Libraries', () => {
 			});
 
 			it('should return GMT date if not if between last Sunday in March and last Sunday of October', () => {
-				const date = '2023-10-30T29:23:00+00:00';
+				const date = '2023-10-29T23:00:00+00:00';
 
 				const gmtDate = displayDate(date);
 
