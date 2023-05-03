@@ -20,8 +20,8 @@
 					text: "Day",
 					classes: "govuk-hint"
 				},
-				id: "submissionInternalDay",
-				name: "submissionInternalDay",
+				id: "keyDates.submissionDateInternal.day",
+				name: "keyDates.submissionDateInternal.day",
 				value: values['keyDates.submissionDateInternal'] |datestamp({format: 'dd'}),
 				errorMessage: (errors['keyDates.submissionDateInternal'] !== undefined and errors['keyDates.submissionDateInternal'] !== false)
 			}) }}
@@ -30,8 +30,8 @@
 					text: "Month",
 					classes: "govuk-hint"
 				},
-				id: "submissionInternalMonth",
-				name: "submissionInternalMonth",
+				id: "keyDates.submissionDateInternal.month",
+				name: "keyDates.submissionDateInternal.month",
 				value: values['keyDates.submissionDateInternal'] |datestamp({format: 'MM'}),
 				errorMessage: (errors['keyDates.submissionDateInternal'] !== undefined and errors['keyDates.submissionDateInternal'] !== false)
 			}) }}
@@ -40,8 +40,8 @@
 					text: "Year",
 					classes: "govuk-hint"
 				},
-				id: "submissionInternalYear",
-				name: "submissionInternalYear",
+				id: "keyDates.submissionDateInternal.year",
+				name: "keyDates.submissionDateInternal.year",
 				value: values['keyDates.submissionDateInternal'] |datestamp({format: 'yyyy'}),
 				errorMessage: (errors['keyDates.submissionDateInternal'] !== undefined and errors['keyDates.submissionDateInternal'] !== false)
 			}) }}

@@ -1,6 +1,8 @@
-import formatDate from 'date-fns/format/index.js';
 import enGB from 'date-fns/locale/en-GB/index.js';
+import { formatInTimeZone } from 'date-fns-tz';
 import { isDateInstance } from '../dates.js';
+
+const timeZone = 'Europe/London';
 
 // TODO: remove this and always use the function below
 /**
@@ -9,7 +11,9 @@ import { isDateInstance } from '../dates.js';
  * @returns {string}
  */
 export function displayDate(date, { condensed = false } = {}) {
-	return formatDate(new Date(date), condensed ? 'd MMM yyyy' : 'd MMMM yyyy', { locale: enGB });
+	return formatInTimeZone(new Date(date), timeZone, condensed ? 'd MMM yyyy' : 'd MMMM yyyy', {
+		locale: enGB
+	});
 }
 
 /**
@@ -26,5 +30,5 @@ export function datestamp(unixDate, options) {
 		return '';
 	}
 
-	return formatDate(date, format, { locale: enGB }) || '';
+	return formatInTimeZone(date, timeZone, format, { locale: enGB }) || '';
 }

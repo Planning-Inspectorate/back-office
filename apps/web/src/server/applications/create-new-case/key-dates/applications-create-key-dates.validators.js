@@ -1,7 +1,8 @@
 import { createValidator } from '@pins/express';
 import {
-	createValidationDateFuture,
-	createValidationDateValid
+	validationDateFuture,
+	validationDateMandatory,
+	validationDateValid
 } from '../../common/validators/dates.validators.js';
 
 /**
@@ -14,28 +15,22 @@ export const validateApplicationsCreateKeyDates = (request, response, next) => {
 	const fieldName = 'keyDates.submissionDateInternal';
 	const extendedFieldName = 'anticipated submission date internal';
 
-	const {
-		submissionInternalDay: day,
-		submissionInternalMonth: month,
-		submissionInternalYear: year
-	} = request.body;
+	const checkMandatoryDate = validationDateMandatory(
+		{ fieldName, extendedFieldName },
+		request.body
+	);
 
-	const checkValidDate = createValidationDateValid(fieldName, extendedFieldName, {
-		day,
-		month,
-		year
-	});
+	const checkValidDate = validationDateValid({ fieldName, extendedFieldName }, request.body);
 
-	const checkFutureDate = createValidationDateFuture(
-		fieldName,
-		extendedFieldName,
-		{
-			day,
-			month,
-			year
-		},
+	const checkFutureDate = validationDateFuture(
+		{ fieldName, extendedFieldName },
+		request.body,
 		true
 	);
 
-	return createValidator([checkValidDate, checkFutureDate])(request, response, next);
+	return createValidator([checkMandatoryDate, checkValidDate, checkFutureDate])(
+		request,
+		response,
+		next
+	);
 };

@@ -30,6 +30,7 @@ export { userTypeMap } from './user-type-map.js';
 export { MIME } from './mime-type.js';
 export { fileType } from './mime-type.js';
 export { statusName } from './status-name.js';
+export { setAttribute } from './set-attribute.js';
 export { default as stripQueryParamsDev } from './strip-query-parameters.js';
 export { actionsParameterForDocumentStatus } from './actions-parameter-for-document-status.js';
 
