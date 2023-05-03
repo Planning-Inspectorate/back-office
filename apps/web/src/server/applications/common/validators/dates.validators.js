@@ -63,6 +63,40 @@ export const validationDateValid = (field, data) => {
 /**
  *
  * @param {{fieldName: string, extendedFieldName: string}} field
+ * @param {{fieldName: string, extendedFieldName: string}|null} compareField
+ * @param {Record<string, string>} data
+ * @returns {import("express-validator").ValidationChain}
+ */
+export const validationDateStartBeforeEnd = (field, compareField, data) => {
+	const { fieldName, extendedFieldName } = field;
+
+	const stringDay = data[`${fieldName}.day`] || '';
+	const stringMonth = data[`${fieldName}.month`] || '';
+	const stringYear = data[`${fieldName}.year`] || '';
+
+	const stringCompareDay = data[`${compareField?.fieldName}.day`] || '32';
+	const stringCompareMonth = data[`${compareField?.fieldName}.month`] || '13';
+	const stringCompareYear = data[`${compareField?.fieldName}.year`] || '9999';
+
+	return body(fieldName)
+		.custom(() => {
+			if (stringYear > stringCompareYear) {
+				return false;
+			}
+			if (stringMonth > stringCompareMonth) {
+				return false;
+			}
+			if (stringDay > stringCompareDay) {
+				return false;
+			}
+			return true;
+		})
+		.withMessage(`The ${compareField?.extendedFieldName} must be after the ${extendedFieldName}`);
+};
+
+/**
+ *
+ * @param {{fieldName: string, extendedFieldName: string}} field
  * @param {Record<string, string>} data
  * @param {boolean} mustBeFuture
  * @returns {import("express-validator").ValidationChain}

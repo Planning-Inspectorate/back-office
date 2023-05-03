@@ -123,43 +123,6 @@ describe('Applications case pages', () => {
 		});
 	});
 
-	// TODO: if the examination timetable section becomes big, move everything in its folder as like as the project-documentation section
-	describe('Examination timetable page', () => {
-		describe('GET /case/123/examination-timetable', () => {
-			describe('When domainType is inspector', () => {
-				beforeEach(async () => {
-					nock('http://test/').get('/applications/inspector').reply(200, {});
-					nock('http://test/').get('/applications/123').reply(200, fixtureCases[6]);
-
-					await request.get('/applications-service/inspector');
-				});
-
-				it('should not show the page', async () => {
-					const response = await request.get(`${baseUrl}/examination-timetable`);
-					const element = parseHtml(response.text);
-
-					expect(element.innerHTML).toMatchSnapshot();
-					expect(element.innerHTML).toContain('there is a problem with your login');
-				});
-			});
-
-			describe('When domainType is not inspector', () => {
-				beforeEach(async () => {
-					await request.get('/applications-service/case-team');
-					nocks();
-				});
-
-				it('should show the page', async () => {
-					const response = await request.get(`${baseUrl}/project-information`);
-					const element = parseHtml(response.text);
-
-					expect(element.innerHTML).toMatchSnapshot();
-					expect(element.innerHTML).toContain('Examination timetable');
-				});
-			});
-		});
-	});
-
 	describe('Preview and publish page', () => {
 		describe('GET /case/123/preview-and-publish', () => {
 			describe('When domainType is inspector', () => {

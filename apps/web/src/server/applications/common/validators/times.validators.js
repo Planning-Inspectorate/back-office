@@ -22,6 +22,35 @@ export const validationTimeMandatory = (field, data) => {
 /**
  *
  * @param {{fieldName: string, extendedFieldName: string}} field
+ * @param {{fieldName: string, extendedFieldName: string}|null} compareField
+ * @param {Record<string, string>} data
+ * @returns {import("express-validator").ValidationChain}
+ */
+export const validationTimeStartBeforeEnd = (field, compareField, data) => {
+	const { fieldName, extendedFieldName } = field;
+
+	const stringHours = data[`${fieldName}.hours`] || '';
+	const stringMinutes = data[`${fieldName}.minutes`] || '';
+
+	const stringCompareHours = data[`${compareField?.fieldName}.hours`] || '24';
+	const stringCompareMinutes = data[`${compareField?.fieldName}.minutes`] || '61';
+
+	return body(fieldName)
+		.custom(() => {
+			if (stringHours > stringCompareHours) {
+				return false;
+			}
+			if (stringMinutes > stringCompareMinutes) {
+				return false;
+			}
+			return true;
+		})
+		.withMessage(`The ${compareField?.extendedFieldName} must be after the ${extendedFieldName}`);
+};
+
+/**
+ *
+ * @param {{fieldName: string, extendedFieldName: string}} field
  * @param {Record<string, string>} data
  * @returns {import("express-validator").ValidationChain}
  */
