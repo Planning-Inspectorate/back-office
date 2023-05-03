@@ -47,6 +47,23 @@ const deleteDownloads = () => {
 };
 
 /**
+ * Checks if a file exists in the downloads folder.
+ *  * @param {string} fileName - The user ID to check for.
+ * @returns {boolean}
+ */
+const validateDownloadedFile = (fileName) => {
+	const downloadsPath = path.join(__dirname, `../downloads`);
+	const filePath = path.join(downloadsPath, fileName);
+
+	try {
+		const stats = fs.statSync(filePath);
+		return stats.isFile();
+	} catch (err) {
+		return false;
+	}
+};
+
+/**
  * Deletes all files in the 'fixtures' directory that are not included in the keep list.
  * @returns {null}
  */
@@ -114,5 +131,6 @@ module.exports = {
 	getCookiesFileContents,
 	deleteUnwantedFixtures,
 	deleteDownloads,
-	getConfigByFile
+	getConfigByFile,
+	validateDownloadedFile
 };

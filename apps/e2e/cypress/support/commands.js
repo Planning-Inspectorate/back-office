@@ -15,6 +15,12 @@ Cypress.Commands.add('deleteUnwantedFixtures', () => {
 	cy.task('DeleteUnwantedFixtures');
 });
 
+Cypress.Commands.add('validateDownloadedFile', (fileName) => {
+	cy.task('ValidateDownloadedFile', fileName).then((success) => {
+		expect(success).to.be.true;
+	});
+});
+
 Cypress.Commands.add('login', (user) => {
 	cy.task('CookiesFileExists', user.id).then((exists) => {
 		if (!exists) {

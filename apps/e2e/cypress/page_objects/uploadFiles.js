@@ -23,19 +23,12 @@ export class FileUploadPage extends Page {
 	}
 
 	verifyUploadIsComplete() {
-		const checkUpload = () => {
-			cy.get('body').then(($body) => {
-				if ($body.text().includes('Awaiting upload')) {
-					cy.reload();
-				}
-			});
-		};
-
-		for (let i = 0; i < 3; i++) {
-			checkUpload();
-		}
-
-		cy.contains('a', 'Download', { timeout: 15000 }).should('exist');
+		cy.wait(5000);
+		cy.reload();
+		const messages = ['Awaiting upload', 'Awaiting virus check'];
+		messages.map((message) => cy.contains(message).should('not.exist'));
+		cy.contains('a', 'View/Edit properties').should('exist');
+		cy.contains('a', 'Download').should('exist');
 	}
 
 	downloadFile(fileNumber) {
