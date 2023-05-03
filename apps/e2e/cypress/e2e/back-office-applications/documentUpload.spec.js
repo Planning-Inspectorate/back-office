@@ -38,7 +38,7 @@ describe('Document Upload', () => {
 		fileUploadPage.uploadFile();
 		searchResultsPage.clickButtonByText('Save and continue');
 		fileUploadPage.verifyFolderDocuments(1);
-		// TODO: Add check to ensure upload is completed correctly
+		fileUploadPage.verifyUploadIsComplete();
 	});
 
 	it('Inspector user should not be able to upload a document to a case', () => {
