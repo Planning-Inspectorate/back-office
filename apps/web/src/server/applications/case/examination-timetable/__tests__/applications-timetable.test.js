@@ -1,0 +1,163 @@
+import { parseHtml } from '@pins/platform';
+import nock from 'nock';
+import supertest from 'supertest';
+import { fixtureCases } from '../../../../../../testing/applications/fixtures/cases.js';
+import { fixtureTimetableTypes } from '../../../../../../testing/applications/fixtures/timetable-types.js';
+import { createTestEnvironment } from '../../../../../../testing/index.js';
+
+const { app } = createTestEnvironment();
+const request = supertest(app);
+
+const nocks = () => {
+	nock('http://test/').get('/applications/case-team').reply(200, {});
+	nock('http://test/').get('/applications/123').reply(200, fixtureCases[3]);
+	nock('http://test/')
+		.get('/applications/examination-timetable-type')
+		.reply(200, fixtureTimetableTypes);
+};
+
+describe('Examination timetable page', () => {
+	describe('GET /case/123/examination-timetable', () => {
+		describe('When domainType is inspector', () => {
+			beforeEach(async () => {
+				nock('http://test/').get('/applications/inspector').reply(200, {});
+
+				await request.get('/applications-service/inspector');
+			});
+
+			it('should not show the page', async () => {
+				const response = await request.get(`/applications-service/case/123/examination-timetable`);
+				const element = parseHtml(response.text);
+
+				expect(element.innerHTML).toMatchSnapshot();
+				expect(element.innerHTML).toContain('there is a problem with your login');
+			});
+		});
+
+		describe('When domainType is not inspector', () => {
+			beforeEach(async () => {
+				await request.get('/applications-service/case-team');
+				nocks();
+			});
+
+			it('should show the page', async () => {
+				const response = await request.get(`/applications-service/case/123/examination-timetable`);
+				const element = parseHtml(response.text);
+
+				expect(element.innerHTML).toMatchSnapshot();
+				expect(element.innerHTML).toContain('Examination timetable');
+			});
+		});
+	});
+});
+
+describe('Select examination timetable type page', () => {
+	describe('GET /case/123/examination-timetable/new-item', () => {
+		beforeEach(async () => {
+			await request.get('/applications-service/case-team');
+			nocks();
+		});
+
+		it('should show the page', async () => {
+			const response = await request.get(
+				`/applications-service/case/123/examination-timetable/new-item`
+			);
+			const element = parseHtml(response.text);
+
+			expect(element.innerHTML).toMatchSnapshot();
+			expect(element.innerHTML).toContain('Timetable item type');
+		});
+	});
+});
+
+describe('Create examination timetable page', () => {
+	describe('Timetable type: starttime-mandatory', () => {
+		describe('POST /case/123/examination-timetable/new-item', () => {
+			beforeEach(async () => {
+				await request.get('/applications-service/case-team');
+				nocks();
+			});
+
+			it('should show the page', async () => {
+				const response = await request
+					.post(`/applications-service/case/123/examination-timetable/new-item`)
+					.send({ 'timetable-type': 'starttime-mandatory' });
+				const element = parseHtml(response.text);
+
+				expect(element.innerHTML).toMatchSnapshot();
+				expect(element.innerHTML).toContain('starttime-mandatory');
+				expect(element.innerHTML).toContain('Date');
+				expect(element.innerHTML).toContain('Item name');
+				expect(element.innerHTML).toContain('Start time');
+				expect(element.innerHTML).toContain('End time (optional)');
+				expect(element.innerHTML).toContain('Timetable item description (optional)');
+			});
+		});
+
+		describe('POST /case/123/examination-timetable/new-item/validate', () => {
+			beforeEach(async () => {
+				await request.get('/applications-service/case-team');
+				nocks();
+			});
+
+			describe('templateType: starttime-mandatory', () => {
+				it('should display errors if mandatory fields are missing', async () => {
+					const response = await request
+						.post(`/applications-service/case/123/examination-timetable/new-item/validate`)
+						.send({
+							templateType: 'starttime-mandatory',
+							itemTypeName: 'starttime-mandatory'
+						});
+					const element = parseHtml(response.text);
+
+					expect(element.innerHTML).toMatchSnapshot();
+					expect(element.innerHTML).toContain('starttime-mandatory');
+					expect(element.innerHTML).toContain('You must enter the item name');
+					expect(element.innerHTML).toContain('You must enter the item date in the correct format');
+					expect(element.innerHTML).toContain('You must enter the item start time');
+				});
+			});
+
+			it('should display errors if start date/time are after end date/time', async () => {
+				const response = await request
+					.post(`/applications-service/case/123/examination-timetable/new-item/validate`)
+					.send({
+						templateType: 'deadline',
+						itemTypeName: 'deadline',
+						'startDate.day': '01',
+						'startDate.month': '02',
+						'startDate.year': '2001',
+						'startTime.hours': '02',
+						'startTime.minutes': '02',
+						'endDate.day': '01',
+						'endDate.month': '02',
+						'endDate.year': '2000',
+						'endTime.hours': '01',
+						'endTime.minutes': '02'
+					});
+				const element = parseHtml(response.text);
+
+				expect(element.innerHTML).toMatchSnapshot();
+				expect(element.innerHTML).toContain('The item end time must be after the item start time');
+				expect(element.innerHTML).toContain('The item end date must be after the item start date');
+			});
+
+			it('should go to check-your-answers page if nothing is missing', async () => {
+				const response = await request
+					.post(`/applications-service/case/123/examination-timetable/new-item/validate`)
+					.send({
+						templateType: 'starttime-mandatory',
+						itemTypeName: 'starttime-mandatory',
+						name: 'Lorem',
+						'date.day': '01',
+						'date.month': '02',
+						'date.year': '2000',
+						'startTime.hours': '01',
+						'startTime.minutes': '02'
+					});
+
+				expect(response?.headers?.location).toEqual('../check-your-answers');
+			});
+		});
+	});
+});
