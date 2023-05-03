@@ -33,7 +33,9 @@ export function keyDatesData(request, locals) {
  */
 export async function keyDatesDataUpdate({ body, errors: validationErrors }, locals) {
 	const { caseId } = locals;
-	const { submissionInternalDay, submissionInternalMonth, submissionInternalYear } = body;
+	const submissionInternalDay = body['keyDates.submissionDateInternal.day'];
+	const submissionInternalMonth = body['keyDates.submissionDateInternal.month'];
+	const submissionInternalYear = body['keyDates.submissionDateInternal.year'];
 	const submissionDatePublished = body['keyDates.submissionDatePublished'];
 
 	const submissionInternalDateSeconds =
@@ -43,7 +45,10 @@ export async function keyDatesDataUpdate({ body, errors: validationErrors }, loc
 		submissionInternalDateSeconds > 0 ? `${submissionInternalDateSeconds}` : '';
 	const values = {
 		'keyDates.submissionDatePublished': submissionDatePublished,
-		'keyDates.submissionDateInternal': submissionDateInternal
+		'keyDates.submissionDateInternal': submissionDateInternal,
+		'keyDates.submissionDateInternal.day': submissionInternalDay,
+		'keyDates.submissionDateInternal.month': submissionInternalMonth,
+		'keyDates.submissionDateInternal.year': submissionInternalYear
 	};
 
 	const payload = {
