@@ -37,10 +37,3 @@ jobs:
           customCommand: 'run cy:run'
           workingDir: 'apps/e2e'
         displayName: 'Run Cypress Tests'
-
-      - task: PublishBuildArtifacts@1
-        inputs:
-          artifactName: 'Cypress Test Report'
-          pathToPublish: 'apps/e2e/reports'
-        condition: always()
-        displayName: 'Publish Test Report'
