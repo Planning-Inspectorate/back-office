@@ -38,23 +38,26 @@ export const validationDateValid = (field, data) => {
 	const month = Number.parseInt(stringMonth, 10);
 	const year = Number.parseInt(stringYear, 10);
 
+	const allEmpty = stringDay === '' && stringMonth === '' && stringYear === '';
+
 	return body(fieldName)
 		.custom(() => {
-			return stringDay === '' || (day > 0 && day < 32);
+			return allEmpty || stringDay === '' || (day > 0 && day < 32);
 		})
 		.withMessage(`Enter a valid day for the ${extendedFieldName}`)
 		.custom(() => {
-			return stringMonth === '' || (month > 0 && month < 13);
+			return allEmpty || stringMonth === '' || (month > 0 && month < 13);
 		})
 		.withMessage(`Enter a valid month for the ${extendedFieldName}`)
 		.custom(() => {
-			return stringYear === '' || stringYear.length === 4;
+			return allEmpty || stringYear === '' || stringYear.length === 4;
 		})
 		.withMessage(`Enter a valid year for the ${extendedFieldName}`)
 		.custom(() => {
 			return (
-				!(stringDay.length !== 2 || stringMonth.length !== 2 || stringYear.length !== 4) &&
-				dateIsValid(year, month, day)
+				allEmpty ||
+				(!(stringDay.length !== 2 || stringMonth.length !== 2 || stringYear.length !== 4) &&
+					dateIsValid(year, month, day))
 			);
 		})
 		.withMessage(`You must enter the ${extendedFieldName} in the correct format`);
