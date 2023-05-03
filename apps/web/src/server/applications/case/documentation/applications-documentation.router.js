@@ -87,4 +87,11 @@ applicationsDocumentationRouter
 		asyncRoute(controller.updateApplicationsCaseDocumentationDelete)
 	);
 
+applicationsDocumentationRouter
+	.route('/:folderId/:folders/version/upload')
+	.get(
+		[assertDomainTypeIsNotInspector, locals.registerFolder],
+		asyncRoute(controller.viewApplicationsCaseDocumentationVersionUpload)
+	);
+
 export default applicationsDocumentationRouter;
