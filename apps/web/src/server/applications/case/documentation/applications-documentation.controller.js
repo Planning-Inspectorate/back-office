@@ -110,6 +110,15 @@ export async function viewApplicationsCaseDocumentationUpload(request, response)
 }
 
 /**
+ * View the documentation version upload page
+ *
+ * @type {import('@pins/express').RenderHandler<CaseDocumentationUploadProps, {}>}
+ */
+export async function viewApplicationsCaseDocumentationVersionUpload(request, response) {
+	response.render(`applications/case-documentation/documentation-version-upload`);
+}
+
+/**
  * View the documentation pages
  *
  * @type {import('@pins/express').RenderHandler<{documentationFile: DocumentationFile, warningText: string|null}, {}>}
