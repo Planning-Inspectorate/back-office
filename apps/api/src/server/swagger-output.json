@@ -694,7 +694,7 @@
 						"in": "path",
 						"required": true,
 						"type": "integer",
-						"description": "Application ID here"
+						"description": "Application ID"
 					},
 					{
 						"name": "query",
@@ -1121,7 +1121,7 @@
 						"in": "path",
 						"required": true,
 						"type": "integer",
-						"description": "Application ID here"
+						"description": "Application ID"
 					},
 					{
 						"name": "guid",
@@ -1159,7 +1159,7 @@
 						"in": "path",
 						"required": true,
 						"type": "integer",
-						"description": "Application ID here"
+						"description": "Application ID"
 					},
 					{
 						"name": "body",
@@ -1190,7 +1190,7 @@
 						"in": "path",
 						"required": true,
 						"type": "integer",
-						"description": "Application ID here"
+						"description": "Application ID"
 					},
 					{
 						"name": "body",
@@ -1234,7 +1234,7 @@
 						"in": "path",
 						"required": true,
 						"type": "integer",
-						"description": "Application ID here"
+						"description": "Application ID"
 					},
 					{
 						"name": "guid",
@@ -1264,7 +1264,7 @@
 						"in": "path",
 						"required": true,
 						"type": "integer",
-						"description": "Application ID here"
+						"description": "Application ID"
 					},
 					{
 						"name": "guid",
@@ -1291,7 +1291,7 @@
 						"in": "path",
 						"required": true,
 						"type": "integer",
-						"description": "Application ID here"
+						"description": "Application ID"
 					},
 					{
 						"name": "guid",
@@ -1347,8 +1347,8 @@
 						"name": "id",
 						"in": "path",
 						"required": true,
-						"type": "string",
-						"description": "id of the required document here"
+						"type": "integer",
+						"description": "Application ID"
 					},
 					{
 						"name": "body",
@@ -1380,7 +1380,7 @@
 						"in": "path",
 						"required": true,
 						"type": "integer",
-						"description": "Application ID here"
+						"description": "Application ID"
 					}
 				],
 				"responses": {
@@ -1423,14 +1423,14 @@
 						"in": "path",
 						"required": true,
 						"type": "integer",
-						"description": "Application ID here"
+						"description": "Application ID"
 					},
 					{
 						"name": "folderId",
 						"in": "path",
 						"required": true,
 						"type": "integer",
-						"description": "Id of current folder here"
+						"description": "Id of current folder"
 					}
 				],
 				"responses": {
@@ -1470,14 +1470,14 @@
 						"in": "path",
 						"required": true,
 						"type": "integer",
-						"description": "Application ID here"
+						"description": "Application ID"
 					},
 					{
 						"name": "folderId",
 						"in": "path",
 						"required": true,
 						"type": "integer",
-						"description": "Id of current folder here"
+						"description": "Id of current folder"
 					}
 				],
 				"responses": {
@@ -1520,14 +1520,14 @@
 						"in": "path",
 						"required": true,
 						"type": "integer",
-						"description": "Application ID here"
+						"description": "Application ID"
 					},
 					{
 						"name": "folderId",
 						"in": "path",
 						"required": true,
 						"type": "integer",
-						"description": "Id of current folder here"
+						"description": "Id of current folder"
 					},
 					{
 						"name": "body",

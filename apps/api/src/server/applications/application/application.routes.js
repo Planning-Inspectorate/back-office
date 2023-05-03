@@ -71,7 +71,7 @@ router.get(
         #swagger.description = 'Gets all of the application details'
         #swagger.parameters['id'] = {
             in: 'path',
-			description: 'Application ID here',
+			description: 'Application ID',
 			required: true,
 			type: 'integer'
 		}
