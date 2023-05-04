@@ -142,6 +142,7 @@ extends:
                 value: applications
             steps:
               - script: |
+                 ls
                  cd apps/e2e
                  npm install
                  npm run cy:run
