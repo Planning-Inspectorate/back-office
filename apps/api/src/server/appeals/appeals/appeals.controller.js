@@ -1,4 +1,5 @@
 import appealRepository from '../../repositories/appeal.repository.js';
+import { DEFAULT_PAGE_NUMBER, DEFAULT_PAGE_SIZE } from '../constants.js';
 import appealFormatter from './appeals.formatter.js';
 
 /** @typedef {import('./appeals.routes.js').AppealParams} AppealParams */
@@ -8,7 +9,10 @@ import appealFormatter from './appeals.formatter.js';
  * @returns {Promise<object>}
  */
 const getAppeals = async (req, res) => {
-	const appeals = await appealRepository.getAll();
+	const pageNumber = Number(req.query.pageNumber) || DEFAULT_PAGE_NUMBER;
+	const pageSize = Number(req.query.pageSize) || DEFAULT_PAGE_SIZE;
+
+	const appeals = await appealRepository.getAll(pageNumber, pageSize);
 	const formattedAppeals = appeals.map((appeal) => appealFormatter.formatAppeals(appeal));
 
 	return res.send(formattedAppeals);

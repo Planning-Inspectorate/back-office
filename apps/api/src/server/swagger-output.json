@@ -514,14 +514,32 @@
 		"/appeals": {
 			"get": {
 				"tags": ["Appeals"],
-				"description": "Gets all appeals",
-				"parameters": [],
+				"description": "Gets requested appeals, limited to the first 30 if no pagination params are given",
+				"parameters": [
+					{
+						"name": "pageNumber",
+						"in": "query",
+						"description": "The pagination page number, required if pageSize is given",
+						"example": 1,
+						"type": "string"
+					},
+					{
+						"name": "pageSize",
+						"in": "query",
+						"description": "The pagination page size, required if pageNumber is given",
+						"example": 30,
+						"type": "string"
+					}
+				],
 				"responses": {
 					"200": {
-						"description": "Gets all appeals",
+						"description": "Requested appeals",
 						"schema": {
 							"$ref": "#/definitions/AllAppeals"
 						}
+					},
+					"400": {
+						"description": "Bad Request"
 					}
 				}
 			}
@@ -544,6 +562,12 @@
 						"schema": {
 							"$ref": "#/definitions/SingleAppeal"
 						}
+					},
+					"400": {
+						"description": "Bad Request"
+					},
+					"404": {
+						"description": "Not Found"
 					}
 				}
 			}
