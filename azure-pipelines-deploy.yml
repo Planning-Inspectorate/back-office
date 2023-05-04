@@ -153,8 +153,7 @@ extends:
               - task: Npm@1
                 inputs:
                   command: "custom"
-                  customCommand: "run cy:run"
-                  workingDir: "apps/e2e"
-                displayName: "Run Cypress Tests"
+                  customCommand: "run e2e"
+                  workingDir: "."
     globalVariables:
       - template: azure-pipelines-variables.yml@self
