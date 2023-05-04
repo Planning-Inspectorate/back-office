@@ -45,6 +45,9 @@ const document = {
 			redacted: true,
 			items: [{ guid: '0084b156-006b-48b1-a47f-e7176414db29' }]
 		},
+		documentsToPublishRequestBody: {
+			items: [{ guid: '0084b156-006b-48b1-a47f-e7176414db29' }]
+		},
 		documentsAndBlobStorageURLs: {
 			blobStorageHost: 'blob-storage-host',
 			blobStorageContainer: 'blob-storage-container',
@@ -55,6 +58,12 @@ const document = {
 				}
 			]
 		},
+		documentsPublished: [
+			{
+				guid: '0084b156-006b-48b1-a47f-e7176414db29',
+				status: 'published'
+			}
+		],
 		UpdateApplication: {
 			title: '',
 			description: '',

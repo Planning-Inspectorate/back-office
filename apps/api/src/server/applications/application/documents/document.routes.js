@@ -8,6 +8,7 @@ import {
 	getDocumentProperties,
 	getReadyToPublishDocuments,
 	provideDocumentUploadURLs,
+	publishDocuments,
 	revertDocumentPublishedStatus,
 	storeDocumentVersion,
 	updateDocuments
@@ -220,6 +221,35 @@ router.post(
         }
     */
 	asyncHandler(getReadyToPublishDocuments)
+);
+
+router.patch(
+	'/:id/documents/publish',
+	/*
+        #swagger.tags = ['Applications']
+        #swagger.path = '/applications/{id}/documents/publish'
+        #swagger.description = 'Publishes the documents selected from the Ready to Publish queue'
+        #swagger.parameters['id'] = {
+            in: 'path',
+			description: 'Application ID',
+			required: true,
+			type: 'integer'
+        }
+        #swagger.parameters['body'] = {
+            in: 'body',
+            description: 'Array of document guids to publish',
+            schema: { $ref: '#/definitions/documentsToPublishRequestBody' }
+        }
+        #swagger.responses[200] = {
+            description: 'Documents that have been published',
+            schema: { $ref: '#/definitions/documentsPublished' }
+        }
+	 */
+	validateApplicationId,
+	validateDocumentsToUpdateProvided,
+	validateDocumentIds,
+	trimUnexpectedRequestParameters,
+	asyncHandler(publishDocuments)
 );
 
 export { router as documentRoutes };
