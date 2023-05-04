@@ -141,14 +141,10 @@ extends:
               - name: APP
                 value: applications
             steps:
-              - task: NodeTool@0
-                inputs:
-                  versionSpec: "16.x"
-                displayName: "Install Node.js"
               - task: Npm@1
                 inputs:
                   command: "install"
-                  workingDir: $(Build.Repository.LocalPath)/apps/e2e
+                  workingDir: $(Build.Repository.LocalPath)
                 displayName: "Install Dependencies"
               - task: Npm@1
                 inputs:
