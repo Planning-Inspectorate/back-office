@@ -1370,6 +1370,37 @@
 				}
 			}
 		},
+		"/applications/{id}/documents/publish": {
+			"patch": {
+				"tags": ["Applications"],
+				"description": "Publishes the documents selected from the Ready to Publish queue",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"type": "integer",
+						"description": "Application ID"
+					},
+					{
+						"name": "body",
+						"in": "body",
+						"description": "Array of document guids to publish",
+						"schema": {
+							"$ref": "#/definitions/documentsToPublishRequestBody"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Documents that have been published",
+						"schema": {
+							"$ref": "#/definitions/documentsPublished"
+						}
+					}
+				}
+			}
+		},
 		"/applications/{id}/folders": {
 			"get": {
 				"tags": ["Applications"],
@@ -1799,6 +1830,23 @@
 				}
 			}
 		},
+		"documentsToPublishRequestBody": {
+			"type": "object",
+			"properties": {
+				"items": {
+					"type": "array",
+					"items": {
+						"type": "object",
+						"properties": {
+							"guid": {
+								"type": "string",
+								"example": "0084b156-006b-48b1-a47f-e7176414db29"
+							}
+						}
+					}
+				}
+			}
+		},
 		"documentsAndBlobStorageURLs": {
 			"type": "object",
 			"properties": {
@@ -1824,6 +1872,22 @@
 								"example": "/some/path/document.pdf"
 							}
 						}
+					}
+				}
+			}
+		},
+		"documentsPublished": {
+			"type": "array",
+			"items": {
+				"type": "object",
+				"properties": {
+					"guid": {
+						"type": "string",
+						"example": "0084b156-006b-48b1-a47f-e7176414db29"
+					},
+					"status": {
+						"type": "string",
+						"example": "published"
 					}
 				}
 			}
