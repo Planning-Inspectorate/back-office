@@ -155,5 +155,6 @@ extends:
                   command: "custom"
                   customCommand: "run e2e"
                   workingDir: $(Build.Repository.LocalPath)
+                displayName: "Running Cypress Tests"
     globalVariables:
       - template: azure-pipelines-variables.yml@self
