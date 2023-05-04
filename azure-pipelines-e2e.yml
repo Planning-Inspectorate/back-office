@@ -1,4 +1,4 @@
-variables: &test-variables
+variables:
   - name: Environment
     value: dev
     values:
