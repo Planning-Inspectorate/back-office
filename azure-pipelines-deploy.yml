@@ -136,7 +136,36 @@ extends:
           - name: Run Cypress Tests
             condition: eq(${{ parameters.runCypressTests }}, 'true')
             dependsOn: Deploy Web
+            variables:
+              - name:
+                value: dev
+                values:
+                  - dev
+                  - test
+                  - ${{ if eq(lower(variables['Environment']), 'dev') }}:
+                    - group: e2e-dev
+                  - ${{ if eq(lower(variables['Environment']), 'test') }}:
+                    - group: e2e-test
+              - name: APP
+                value: applications
+                values:
+                  - applications
+                  - appeals
             steps:
-              - template: ./azure-pipelines-e2e.yml
+              - task: NodeTool@0
+                inputs:
+                  versionSpec: "16.x"
+                displayName: "Install Node.js"
+              - task: Npm@1
+                inputs:
+                  command: "install"
+                  workingDir: "apps/e2e"
+                displayName: "Install Dependencies"
+              - task: Npm@1
+                inputs:
+                  command: "custom"
+                  customCommand: "run cy:run"
+                  workingDir: "apps/e2e"
+                displayName: "Run Cypress Tests"
     globalVariables:
       - template: azure-pipelines-variables.yml@self
