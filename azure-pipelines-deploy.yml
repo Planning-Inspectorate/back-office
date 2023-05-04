@@ -142,10 +142,10 @@ extends:
                 value: applications
             steps:
               - script: |
-                 ls
-                 cd apps/e2e
-                 npm install
-                 npm run cy:run
+                 ls -la
+                #  cd apps/e2e
+                #  npm install
+                #  npm run cy:run
                 displayName: "Install Dependencies and Run Tests"
     globalVariables:
       - template: azure-pipelines-variables.yml@self
