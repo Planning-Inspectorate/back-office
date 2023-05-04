@@ -144,9 +144,7 @@ extends:
               - script: |
                  cd apps/e2e
                  npm install
-            displayName: "Install Dependencies"
-              - script: |
-                 npm install
-            displayName: "Cypress Tests"
+                 npm run cy:run
+            displayName: "Install Dependencies and Run Tests"
     globalVariables:
       - template: azure-pipelines-variables.yml@self
