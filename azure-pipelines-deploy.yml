@@ -148,7 +148,7 @@ extends:
               - task: Npm@1
                 inputs:
                   command: "install"
-                  workingDir: "./apps/e2e"
+                  workingDir: $(Build.Repository.LocalPath)/apps/e2e
                 displayName: "Install Dependencies"
               - task: Npm@1
                 inputs:
