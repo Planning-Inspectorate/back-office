@@ -1,5 +1,7 @@
+import { Prisma } from '@prisma/client';
 import { filter, includes, isString, map } from 'lodash-es';
 import { databaseConnector } from '../utils/database-connector.js';
+import { getSkipValue } from '../utils/database-pagination.js';
 
 /** @typedef {import('@pins/api').Schema.Appeal} Appeal */
 
@@ -55,10 +57,11 @@ const separateStatusesToSaveAndInvalidate = (newStatuses, currentStatuses) => {
 const appealRepository = (function () {
 	return {
 		/**
-		 *
-		 * @returns {Promise<import('@pins/api').Schema.Appeal[]>}
+		 * @param {number} pageNumber
+		 * @param {number} pageSize
+		 * @returns {Prisma.PrismaPromise<import('@pins/api').Schema.Appeal[]>}
 		 */
-		getAll() {
+		getAll(pageNumber, pageSize) {
 			return databaseConnector.appeal.findMany({
 				where: {
 					appealStatus: {
@@ -75,7 +78,9 @@ const appealRepository = (function () {
 							valid: true
 						}
 					}
-				}
+				},
+				skip: getSkipValue(pageNumber, pageSize),
+				take: pageSize
 			});
 		},
 		/**
@@ -119,7 +124,7 @@ const appealRepository = (function () {
 		 *
 		 * @param {number} id
 		 * @param {AppealInclusionOptions} [inclusions={}]
-		 * @returns {import('@prisma/client').PrismaPromise<import('@pins/api').Schema.Appeal>}
+		 * @returns {Prisma.PrismaPromise<import('@pins/api').Schema.Appeal | null>}
 		 */
 		getById(id, { latestLPAReviewQuestionnaire, ...inclusions } = {}) {
 			return databaseConnector.appeal.findUnique({

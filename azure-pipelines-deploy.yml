@@ -133,11 +133,5 @@ extends:
                   appResourceGroup: $(resourceGroup)
                   azurecrName: $(azurecrName)
                   repository: back-office/back-office-web
-          - name: Run Cypress Tests
-            condition: eq(${{ parameters.runCypressTests }}, 'true')
-            dependsOn: Deploy Web
-            <<: *test-variables
-            steps:
-              - template: ./azure-pipelines-e2e.yml
     globalVariables:
       - template: azure-pipelines-variables.yml@self
