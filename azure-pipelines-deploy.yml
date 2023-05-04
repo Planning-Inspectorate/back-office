@@ -141,16 +141,12 @@ extends:
               - name: APP
                 value: applications
             steps:
-              - task: Npm@1
-                inputs:
-                  command: "install"
-                  workingDir: $(Build.Repository.LocalPath)
-                displayName: "Install Dependencies"
-              - task: Npm@1
-                inputs:
-                  command: "custom"
-                  customCommand: "run e2e"
-                  workingDir: $(Build.Repository.LocalPath)
-                displayName: "Running Cypress Tests"
+              - script: |
+                 cd apps/e2e
+                 npm install
+            displayName: "Install Dependencies"
+              - script: |
+                 npm install
+            displayName: "Cypress Tests"
     globalVariables:
       - template: azure-pipelines-variables.yml@self
