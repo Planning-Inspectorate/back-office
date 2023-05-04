@@ -16,7 +16,8 @@ const fileUploadPage = new FileUploadPage();
 let projectInfo;
 
 describe('Document Download', () => {
-	before(() => {
+	beforeEach(() => {
+		cy.deleteDownloads();
 		projectInfo = projectInformation();
 		cy.login(users.caseAdmin);
 		createCasePage.createCase(projectInfo);
@@ -42,7 +43,7 @@ describe('Document Download', () => {
 		fileUploadPage.verifyFolderDocuments(1);
 		fileUploadPage.verifyUploadIsComplete();
 		fileUploadPage.downloadFile(1);
-		cy.readFile('../../downloads/sample-doc').should('exist');
+		cy.validateDownloadedFile('sample-doc');
 	});
 
 	it('Case Team user should be able to download a document', () => {
@@ -60,7 +61,8 @@ describe('Document Download', () => {
 		searchResultsPage.clickButtonByText('Save and continue');
 		fileUploadPage.verifyFolderDocuments(1);
 		fileUploadPage.verifyUploadIsComplete();
-		fileUploadPage.downloadFile(1);
-		cy.readFile('../../downloads/sample-doc').should('exist');
+		fileUploadPage.clickLinkByText('View/Edit properties');
+		fileUploadPage.clickButtonByText('Download');
+		cy.validateDownloadedFile('sample-doc');
 	});
 });

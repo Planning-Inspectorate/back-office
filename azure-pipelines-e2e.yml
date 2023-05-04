@@ -1,22 +1,25 @@
+variables: &test-variables
+  - name: Environment
+    value: dev
+    values:
+      - dev
+      - test
+      - ${{ if eq(lower(variables['Environment']), 'dev') }}:
+        - group: e2e-dev
+      - ${{ if eq(lower(variables['Environment']), 'test') }}:
+        - group: e2e-test
+  - name: APP
+    value: applications
+    values:
+      - applications
+      - appeals
+
 jobs:
   - job: Run_Cypress_Tests
     pool:
       vmImage: 'ubuntu-latest'
-    variables:
-      - name: Environment
-        value: dev
-        values:
-          - dev
-          - test
 
     steps:
-      - task: AzureKeyVault@2
-        inputs:
-          azureSubscription: ''
-          KeyVaultName: 'back-office-e2e-secrets'
-          SecretsFilter: 'BASE_URL_DEV,CASE_TEAM_EMAIL_DEV,CASE_ADMIN_EMAIL_DEV,INSPECTOR_EMAIL_DEV,USER_PASSWORD_DEV,BASE_URL_TEST,CASE_TEAM_EMAIL_TEST,CASE_ADMIN_EMAIL_TEST,INSPECTOR_EMAIL_TEST,USER_PASSWORD_TEST'
-        displayName: 'Retrieve Secrets from Azure Key Vault'
-
       - task: NodeTool@0
         inputs:
           versionSpec: '16.x'
@@ -31,15 +34,6 @@ jobs:
       - task: Npm@1
         inputs:
           command: 'custom'
-          customCommand: 'run cy:run:smoke'
+          customCommand: 'run cy:run'
           workingDir: 'apps/e2e'
-          envVars: >
-            ${{ if eq(variables['Environment'], 'dev') }}BASE_URL=$(BASE_URL_DEV);CASE_TEAM_EMAIL=$(CASE_TEAM_EMAIL_DEV);CASE_ADMIN_EMAIL=$(CASE_ADMIN_EMAIL_DEV);INSPECTOR_EMAIL=$(INSPECTOR_EMAIL_DEV);USER_PASSWORD=$(USER_PASSWORD_DEV)${{ else }}BASE_URL=$(BASE_URL_TEST);CASE_TEAM_EMAIL=$(CASE_TEAM_EMAIL_TEST);CASE_ADMIN_EMAIL=$(CASE_ADMIN_EMAIL_TEST);INSPECTOR_EMAIL=$(INSPECTOR_EMAIL_TEST);USER_PASSWORD=$(USER_PASSWORD_TEST)${{ endif }}
         displayName: 'Run Cypress Tests'
-
-      - task: PublishBuildArtifacts@1
-        inputs:
-          artifactName: 'Cypress Test Report'
-          pathToPublish: 'apps/e2e/reports'
-        condition: always()
-        displayName: 'Publish Test Report'

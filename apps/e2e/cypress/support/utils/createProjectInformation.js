@@ -51,14 +51,16 @@ export const projectInformation = () => {
 			min: 1,
 			max: 28
 		})
-		.toString();
+		.toString()
+		.padStart(2, '0');
 
 	const internalDateMonth = faker.datatype
 		.number({
 			min: 1,
 			max: 12
 		})
-		.toString();
+		.toString()
+		.padStart(2, '0');
 
 	const internalDateYear = faker.datatype
 		.number({
@@ -67,17 +69,7 @@ export const projectInformation = () => {
 		})
 		.toString();
 
-	function convertDate() {
-		const internalDateFull = `${internalDateDay}/${internalDateMonth}/${internalDateYear}`;
-		let [day, month, year] = internalDateFull.split('/');
-		if (parseInt(day) < 10) {
-			day = '0' + day;
-		}
-		if (parseInt(month) < 10) {
-			month = '0' + month;
-		}
-		return `${day}/${month}/${year}`;
-	}
+	const internalDateFull = `${internalDateDay}/${internalDateMonth}/${internalDateYear}`;
 
 	return {
 		applicantEmail,
@@ -91,7 +83,7 @@ export const projectInformation = () => {
 		gridRefEasting,
 		gridRefNorthing,
 		internalDateDay,
-		internalDateFull: convertDate(),
+		internalDateFull,
 		internalDateMonth,
 		internalDateYear,
 		orgName,
