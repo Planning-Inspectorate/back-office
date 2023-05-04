@@ -154,6 +154,6 @@ extends:
                 inputs:
                   command: "custom"
                   customCommand: "run e2e"
-                  workingDir: "."
+                  workingDir: $(Build.Repository.LocalPath)
     globalVariables:
       - template: azure-pipelines-variables.yml@self
