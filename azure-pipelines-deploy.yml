@@ -138,7 +138,7 @@ extends:
             dependsOn: Deploy Web
             variables:
               - name:
-                value: dev
+                default: dev
                 values:
                   - dev
                   - test
@@ -147,7 +147,7 @@ extends:
                   - ${{ if eq(lower(variables['Environment']), 'test') }}:
                     - group: e2e-test
               - name: APP
-                value: applications
+                default: applications
                 values:
                   - applications
                   - appeals
