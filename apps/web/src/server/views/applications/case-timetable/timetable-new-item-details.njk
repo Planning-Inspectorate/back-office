@@ -5,6 +5,7 @@
 {% from "govuk/components/textarea/macro.njk" import govukTextarea %}
 {% from '../components/inputs/date-input.component.njk' import dateInput %}
 {% from '../components/inputs/time-input.component.njk' import timeInput %}
+{% from "govuk/components/inset-text/macro.njk" import govukInsetText %}
 
 {% set serviceName = "Examination timetable" %}
 {% set pageTitle = "Create new item" %}
@@ -132,12 +133,18 @@
 					})  }}
 				{% endif %}
 
+				{% if selectedItemType.templateType === 'deadline' or selectedItemType.templateType === 'deadline-startdate-mandatory' %}
+					{{ govukInsetText({
+						text: "The portal for this deadline will open when the previous one closes or on your chosen start and end dates."
+					}) }}
+				{% endif %}
+
 				{% if not isUndefined(templateFields.description) %}
 					{{ govukTextarea({
   							name: "description",
   							id: "description",
 							formGroup: {
-								classes: 'govuk-grid-column-full'
+								classes: 'govuk-grid-column-full govuk-!-margin-top-4'
 							},
   							label: {
     							text: "Timetable item description (optional)",

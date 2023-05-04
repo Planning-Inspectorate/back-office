@@ -6,7 +6,7 @@
 		Anticipated submission date internal
 	</label>
 	<div id="submissionDateInternal-hint" class="govuk-hint">
-		for example, 27 3 2023
+		for example, 27 03 2023
 	</div>
 	{% if (errors['keyDates.submissionDateInternal'] !== undefined and errors['keyDates.submissionDateInternal'] !== false) %}
 		<p id="submissionDateInternal-error" class="govuk-error-message">
@@ -22,7 +22,7 @@
 				},
 				id: "keyDates.submissionDateInternal.day",
 				name: "keyDates.submissionDateInternal.day",
-				value: values['keyDates.submissionDateInternal'] |datestamp({format: 'dd'}),
+				value: values['keyDates.submissionDateInternal'] | datestamp({format: 'dd'}) if values['keyDates.submissionDateInternal'] else values['keyDates.submissionDateInternal.day'],
 				errorMessage: (errors['keyDates.submissionDateInternal'] !== undefined and errors['keyDates.submissionDateInternal'] !== false)
 			}) }}
 			{{ govukInput({
@@ -32,7 +32,7 @@
 				},
 				id: "keyDates.submissionDateInternal.month",
 				name: "keyDates.submissionDateInternal.month",
-				value: values['keyDates.submissionDateInternal'] |datestamp({format: 'MM'}),
+				value: values['keyDates.submissionDateInternal'] | datestamp({format: 'MM'}) if values['keyDates.submissionDateInternal'] else values['keyDates.submissionDateInternal.month'],
 				errorMessage: (errors['keyDates.submissionDateInternal'] !== undefined and errors['keyDates.submissionDateInternal'] !== false)
 			}) }}
 			{{ govukInput({
@@ -42,7 +42,7 @@
 				},
 				id: "keyDates.submissionDateInternal.year",
 				name: "keyDates.submissionDateInternal.year",
-				value: values['keyDates.submissionDateInternal'] |datestamp({format: 'yyyy'}),
+				value: values['keyDates.submissionDateInternal'] | datestamp({format: 'yyyy'}) if values['keyDates.submissionDateInternal'] else values['keyDates.submissionDateInternal.year'],
 				errorMessage: (errors['keyDates.submissionDateInternal'] !== undefined and errors['keyDates.submissionDateInternal'] !== false)
 			}) }}
 		</div>

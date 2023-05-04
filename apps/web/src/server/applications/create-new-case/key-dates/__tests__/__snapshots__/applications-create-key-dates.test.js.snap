@@ -15,7 +15,7 @@ exports[`Applications create key dates GET /key-dates should render the page 1`]
         <div class=\\"govuk-form-group \\">
             <label class=\\"govuk-label font-weight--700\\" for=\\"submissionDateInternal\\">Anticipated submission date internal</label>
             <div id=\\"submissionDateInternal-hint\\"
-            class=\\"govuk-hint\\">for example, 27 3 2023</div>
+            class=\\"govuk-hint\\">for example, 27 03 2023</div>
             <div class=\\"govuk-grid-column-one-third\\">
                 <div class=\\"govuk-grid-row pins-date-form-group\\">
                     <div class=\\"govuk-form-group\\">
@@ -74,7 +74,7 @@ exports[`Applications create key dates POST /key-dates Web-side validation: shou
         <div class=\\"govuk-form-group govuk-form-group--error\\">
             <label class=\\"govuk-label font-weight--700\\" for=\\"submissionDateInternal\\">Anticipated submission date internal</label>
             <div id=\\"submissionDateInternal-hint\\"
-            class=\\"govuk-hint\\">for example, 27 3 2023</div>
+            class=\\"govuk-hint\\">for example, 27 03 2023</div>
             <p id=\\"submissionDateInternal-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> Enter a valid day for
                 the anticipated submission date internal</p>
             <div class=\\"govuk-grid-column-one-third\\">
@@ -84,21 +84,21 @@ exports[`Applications create key dates POST /key-dates Web-side validation: shou
                         <p id=\\"keyDates.submissionDateInternal.day-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
                         </p>
                         <input class=\\"govuk-input govuk-input--error\\" id=\\"keyDates.submissionDateInternal.day\\"
-                        name=\\"keyDates.submissionDateInternal.day\\" type=\\"text\\" aria-describedby=\\"keyDates.submissionDateInternal.day-error\\">
+                        name=\\"keyDates.submissionDateInternal.day\\" type=\\"text\\" value=\\"01\\" aria-describedby=\\"keyDates.submissionDateInternal.day-error\\">
                     </div>
                     <div class=\\"govuk-form-group govuk-form-group--error\\">
                         <label class=\\"govuk-label govuk-hint\\" for=\\"keyDates.submissionDateInternal.month\\">Month</label>
                         <p id=\\"keyDates.submissionDateInternal.month-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
                         </p>
                         <input class=\\"govuk-input govuk-input--error\\" id=\\"keyDates.submissionDateInternal.month\\"
-                        name=\\"keyDates.submissionDateInternal.month\\" type=\\"text\\" aria-describedby=\\"keyDates.submissionDateInternal.month-error\\">
+                        name=\\"keyDates.submissionDateInternal.month\\" type=\\"text\\" value=\\"01\\" aria-describedby=\\"keyDates.submissionDateInternal.month-error\\">
                     </div>
                     <div class=\\"govuk-form-group govuk-form-group--error\\">
                         <label class=\\"govuk-label govuk-hint\\" for=\\"keyDates.submissionDateInternal.year\\">Year</label>
                         <p id=\\"keyDates.submissionDateInternal.year-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
                         </p>
                         <input class=\\"govuk-input govuk-input--error\\" id=\\"keyDates.submissionDateInternal.year\\"
-                        name=\\"keyDates.submissionDateInternal.year\\" type=\\"text\\" aria-describedby=\\"keyDates.submissionDateInternal.year-error\\">
+                        name=\\"keyDates.submissionDateInternal.year\\" type=\\"text\\" value=\\"2032\\" aria-describedby=\\"keyDates.submissionDateInternal.year-error\\">
                     </div>
                 </div>
             </div>
@@ -141,7 +141,7 @@ exports[`Applications create key dates POST /key-dates Web-side validation: shou
         <div class=\\"govuk-form-group govuk-form-group--error\\">
             <label class=\\"govuk-label font-weight--700\\" for=\\"submissionDateInternal\\">Anticipated submission date internal</label>
             <div id=\\"submissionDateInternal-hint\\"
-            class=\\"govuk-hint\\">for example, 27 3 2023</div>
+            class=\\"govuk-hint\\">for example, 27 03 2023</div>
             <p id=\\"submissionDateInternal-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> The anticipated submission
                 date internal must be in the future</p>
             <div class=\\"govuk-grid-column-one-third\\">
@@ -151,21 +151,21 @@ exports[`Applications create key dates POST /key-dates Web-side validation: shou
                         <p id=\\"keyDates.submissionDateInternal.day-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
                         </p>
                         <input class=\\"govuk-input govuk-input--error\\" id=\\"keyDates.submissionDateInternal.day\\"
-                        name=\\"keyDates.submissionDateInternal.day\\" type=\\"text\\" aria-describedby=\\"keyDates.submissionDateInternal.day-error\\">
+                        name=\\"keyDates.submissionDateInternal.day\\" type=\\"text\\" value=\\"14\\" aria-describedby=\\"keyDates.submissionDateInternal.day-error\\">
                     </div>
                     <div class=\\"govuk-form-group govuk-form-group--error\\">
                         <label class=\\"govuk-label govuk-hint\\" for=\\"keyDates.submissionDateInternal.month\\">Month</label>
                         <p id=\\"keyDates.submissionDateInternal.month-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
                         </p>
                         <input class=\\"govuk-input govuk-input--error\\" id=\\"keyDates.submissionDateInternal.month\\"
-                        name=\\"keyDates.submissionDateInternal.month\\" type=\\"text\\" aria-describedby=\\"keyDates.submissionDateInternal.month-error\\">
+                        name=\\"keyDates.submissionDateInternal.month\\" type=\\"text\\" value=\\"07\\" aria-describedby=\\"keyDates.submissionDateInternal.month-error\\">
                     </div>
                     <div class=\\"govuk-form-group govuk-form-group--error\\">
                         <label class=\\"govuk-label govuk-hint\\" for=\\"keyDates.submissionDateInternal.year\\">Year</label>
                         <p id=\\"keyDates.submissionDateInternal.year-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
                         </p>
                         <input class=\\"govuk-input govuk-input--error\\" id=\\"keyDates.submissionDateInternal.year\\"
-                        name=\\"keyDates.submissionDateInternal.year\\" type=\\"text\\" aria-describedby=\\"keyDates.submissionDateInternal.year-error\\">
+                        name=\\"keyDates.submissionDateInternal.year\\" type=\\"text\\" value=\\"1789\\" aria-describedby=\\"keyDates.submissionDateInternal.year-error\\">
                     </div>
                 </div>
             </div>
