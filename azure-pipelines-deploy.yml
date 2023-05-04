@@ -137,20 +137,9 @@ extends:
             condition: eq(${{ parameters.runCypressTests }}, 'true')
             dependsOn: Deploy Web
             variables:
-              - name:
-                default: dev
-                values:
-                  - dev
-                  - test
-                  - ${{ if eq(lower(variables['Environment']), 'dev') }}:
-                    - group: e2e-dev
-                  - ${{ if eq(lower(variables['Environment']), 'test') }}:
-                    - group: e2e-test
+              - group: e2e-dev
               - name: APP
-                default: applications
-                values:
-                  - applications
-                  - appeals
+                value: applications
             steps:
               - task: NodeTool@0
                 inputs:
