@@ -145,6 +145,6 @@ extends:
                  cd apps/e2e
                  npm install
                  npm run cy:run
-            displayName: "Install Dependencies and Run Tests"
+                displayName: "Install Dependencies and Run Tests"
     globalVariables:
       - template: azure-pipelines-variables.yml@self
