@@ -19,7 +19,7 @@
 
 {%- set otherAppealsHtml -%}
 	{%- for otherAppeal in appeal.otherAppeals -%}
-		<p class="govuk-!-margin-0">{{ otherAppeal }}</p>
+		<a href="/appeals-service/appeal-details/{{ otherAppeal.appealId }}">{{ otherAppeal.appealReference }}</a>
 	{%- endfor -%}
 {%- endset -%}
 
@@ -123,7 +123,7 @@
 								text: "Appellant name"
 							},
 							value: {
-								text: appellant.name
+								text: appeal.appellant.name
 							},
 							actions: {
 								items: [{
@@ -137,7 +137,7 @@
 								text: "Agent name"
 							},
 							value: {
-								text: agent.name
+								text: appeal.agent.name
 							},
 							actions: {
 								items: [{
@@ -341,7 +341,7 @@
 								text: "Case officer"
 							},
 							value: {
-								html: teamMemberHtml(caseOfficer)
+								html: teamMemberHtml(appeal.caseOfficer)
 							},
 							actions: {
 								items: [{
@@ -355,7 +355,7 @@
 								text: "Inspector"
 							},
 							value: {
-								html: teamMemberHtml(inspector)
+								html: teamMemberHtml(appeal.inspector)
 							},
 							actions: {
 								items: [{
