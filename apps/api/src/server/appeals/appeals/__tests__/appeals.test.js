@@ -37,9 +37,6 @@ const appeal = {
 		siteVisibleFromPublicLand: true,
 		healthAndSafetyIssues: false
 	},
-	siteVisit: {
-		visitType: 'unaccompanied'
-	},
 	inspectorDecision: {
 		outcome: 'Not issued yet'
 	}
@@ -218,8 +215,6 @@ describe('Appeals', () => {
 				appellantName: appeal.appellant.name,
 				caseProcedure: 'Written',
 				decision: appeal.inspectorDecision.outcome,
-				developmentType: 'Minor Dwellings',
-				eventType: 'Site Visit',
 				linkedAppeal: {
 					appealId: 1,
 					appealReference: 'APP/Q9999/D/21/725284'
@@ -232,7 +227,7 @@ describe('Appeals', () => {
 					}
 				],
 				planningApplicationReference: appeal.planningApplicationReference,
-				visitType: appeal.siteVisit.visitType
+				startedAt: appeal.startedAt.toISOString()
 			});
 		});
 

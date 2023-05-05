@@ -516,8 +516,6 @@ const document = {
 			appellantOwnsWholeSite: true,
 			caseProcedure: 'Written',
 			decision: 'Not issued yet',
-			developmentType: 'Minor Dwellings',
-			eventType: 'Site Visit',
 			linkedAppeal: {
 				appealId: 1,
 				appealReference: 'APP/Q9999/D/21/725284'
@@ -530,7 +528,7 @@ const document = {
 				}
 			],
 			planningApplicationReference: '48269/APP/2021/1482',
-			visitType: 'unaccompanied'
+			startedAt: '2022-05-17T23:00:00.000Z'
 		},
 		AppealsForCaseOfficer: {
 			$AppealId: 1,

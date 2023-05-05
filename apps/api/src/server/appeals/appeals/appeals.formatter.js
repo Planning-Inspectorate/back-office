@@ -7,7 +7,7 @@ const appealFormatter = {
 	 * 	 appealId: number,
 	 * 	 appealReference: string,
 	 * 	 appealSite: { addressLine1?: string, addressLine2?: string, town?: string, county?: string, postCode?: string | null },
-	 * 	 appealStatus: string
+	 * 	 appealStatus: string,
 	 * 	 appealType: string,
 	 * 	 createdAt: Date,
 	 * 	 localPlanningDepartment: string,
@@ -30,18 +30,16 @@ const appealFormatter = {
 	 *   appealId: number,
 	 *   appealReference: string,
 	 *   appealSite: { addressLine1?: string, addressLine2?: string, town?: string, county?: string, postCode?: string | null },
-	 *   appealStatus: string
+	 *   appealStatus: string,
 	 *   appealType: string,
 	 *   appellantName?: string,
 	 *   caseProcedure: string,
 	 *   decision?: string,
-	 *   developmentType: string,
-	 *   eventType: string,
-	 *   linkedAppeal: { appealId: number | null, appealReference: string | null }
+	 *   linkedAppeal: { appealId: number | null, appealReference: string | null },
 	 *   localPlanningDepartment: string,
-	 *   otherAppeals: [{ appealId: number | null, appealReference: string | null }]
+	 *   otherAppeals: [{ appealId: number | null, appealReference: string | null }],
 	 *   planningApplicationReference: string,
-	 *   visitType?: string,
+	 * 	 startedAt: Date | null,
 	 * }}}
 	 */
 	formatAppeal(appeal) {
@@ -56,8 +54,6 @@ const appealFormatter = {
 			appellantName: appeal.appellant?.name,
 			caseProcedure: 'Written',
 			decision: appeal.inspectorDecision?.outcome,
-			developmentType: 'Minor Dwellings',
-			eventType: 'Site Visit',
 			linkedAppeal: {
 				appealId: 1,
 				appealReference: 'APP/Q9999/D/21/725284'
@@ -70,7 +66,7 @@ const appealFormatter = {
 				}
 			],
 			planningApplicationReference: appeal.planningApplicationReference,
-			visitType: appeal.siteVisit?.visitType
+			startedAt: appeal.startedAt
 		};
 	}
 };

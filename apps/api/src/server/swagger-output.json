@@ -3427,14 +3427,6 @@
 					"type": "string",
 					"example": "Not issued yet"
 				},
-				"developmentType": {
-					"type": "string",
-					"example": "Minor Dwellings"
-				},
-				"eventType": {
-					"type": "string",
-					"example": "Site Visit"
-				},
 				"linkedAppeal": {
 					"type": "object",
 					"properties": {
@@ -3472,9 +3464,9 @@
 					"type": "string",
 					"example": "48269/APP/2021/1482"
 				},
-				"visitType": {
+				"startedAt": {
 					"type": "string",
-					"example": "unaccompanied"
+					"example": "2022-05-17T23:00:00.000Z"
 				}
 			}
 		},

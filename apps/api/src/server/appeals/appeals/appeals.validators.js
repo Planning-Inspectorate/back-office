@@ -17,9 +17,9 @@ const isGreaterThanZero = (value) => Number(value) >= 1;
 /**
  * @param {string} pageNumber
  * @param {string} pageSize
- * @returns {string}
+ * @returns {boolean}
  */
-const hasPageNumberAndPageSize = (pageNumber, pageSize) => pageNumber && pageSize;
+const hasPageNumberAndPageSize = (pageNumber, pageSize) => !!(pageNumber && pageSize);
 
 /**
  * @param {string} parameterName
