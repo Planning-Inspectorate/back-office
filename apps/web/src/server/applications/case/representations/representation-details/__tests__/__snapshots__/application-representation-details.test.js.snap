@@ -119,31 +119,33 @@ exports[`Representation details page GET /applications-service/case/1/relevant-r
                         </p>
                         <script nonce=\\"EdcOUaJ8lczj9tIPO0lPow==\\">
                             const repTextEl = document.querySelector('#representationText')
-                                            const fullRepToggleEl = document.querySelector('#fullRepToggle')
+                                                const fullRepToggleEl = document.querySelector('#fullRepToggle')
                             
-                                            const repExcerpt = 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec...'
-                                            const repFullText = 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla con.'
+                                                const repExcerpt = 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec...'
+                                                const repFullText = 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla con.'
                             
-                                            let isToggled = false
-                                            fullRepToggleEl.removeAttribute('hidden')
-                                            repTextEl.innerText = repExcerpt
+                                                console.log(repExcerpt)
                             
-                                            
-                                            const handleClick =function(e) {
-                                                e.preventDefault() 
+                                                let isToggled = false
+                                                fullRepToggleEl.removeAttribute('hidden')
+                                                repTextEl.innerText = repExcerpt
                             
-                                                if( !isToggled ) {
-                                                    repTextEl.innerText = repFullText
-                                                    fullRepToggleEl.innerText = 'Hide full representation'
-                                                    isToggled = true
-                                                } else {
-                                                    repTextEl.innerText = repExcerpt
-                                                    fullRepToggleEl.innerText = 'Show full representation'
-                                                    isToggled = false
+                                                
+                                                const handleClick =function(e) {
+                                                    e.preventDefault() 
+                            
+                                                    if( !isToggled ) {
+                                                        repTextEl.innerText = repFullText
+                                                        fullRepToggleEl.innerText = 'Hide full representation'
+                                                        isToggled = true
+                                                    } else {
+                                                        repTextEl.innerText = repExcerpt
+                                                        fullRepToggleEl.innerText = 'Show full representation'
+                                                        isToggled = false
+                                                    }
                                                 }
-                                            }
                             
-                                            fullRepToggleEl.addEventListener( 'click', handleClick )
+                                                fullRepToggleEl.addEventListener( 'click', handleClick )
                         </script>
                     </dd>
                     <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"edit/preferred-contact\\"> Redact<span class=\\"govuk-visually-hidden\\"> original representation</span></a>

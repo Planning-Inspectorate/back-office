@@ -29,7 +29,7 @@ router.use('/search-results', guards.assertDomainTypeExists, applicationsSearchR
 
 router.use('/create-new-case', guards.assertDomainTypeExists, applicationsCreateRouter);
 
-router.use('/case', guards.assertDomainTypeExists, applicationsCaseRouter);
+router.use('/case', applicationsCaseRouter);
 
 /** Domain-driven URLS */
 
