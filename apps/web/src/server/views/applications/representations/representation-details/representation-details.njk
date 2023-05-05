@@ -3,6 +3,11 @@
 {% from "govuk/components/breadcrumbs/macro.njk" import govukBreadcrumbs %}
 {% from "govuk/components/back-link/macro.njk" import govukBackLink %}
 {% from "applications/components/status-tag.component.njk" import statusTag %}
+{% from "./components/person-contact.njk" import personContact as personContactSection %}
+{% from "./components/agent-contact.njk" import agentContact as agentContactSection %}
+{% from "./components/representation.njk" import representation as representationSection %}
+{% from "./components/attachments.njk" import attachments as attachmentsSection %}
+{% from "./components/workflow.njk" import workflow as workflowSection%}
 
 {% set backUrl = "/applications-service/case/" + caseId + "/relevant-representations" %}
 
@@ -24,33 +29,33 @@
 			<h1 class="govuk-heading-l govuk-!-margin-bottom-2">{{ representationDetails.personData.orgOrName }}</h1>
 			<strong class="govuk-heading-s govuk-!-margin-bottom-6">{{ statusTag(caseReference.status.text ) }}</strong>
 			<p class="govuk-!-margin-bottom-6"><strong>Project name:</strong> {{ caseReference.title }}</p>
-			{% include "./partials/person-contact.njk" %}
+			{{ personContactSection(representationDetails.personData) }}
 		</div>
 	</div>
 
 {% if representationDetails.agentData|length  %}
 	<div class="govuk-grid-row govuk-!-margin-bottom-6">
 		<div class="govuk-grid-column-full">
-			{% include "./partials/agent-contact.njk" %}
+			{{ agentContactSection(representationDetails.agentData) }}
 		</div>
 	</div>
 {% endif %}
 
 	<div class="govuk-grid-row govuk-!-margin-bottom-6">
 		<div class="govuk-grid-column-full">
-			{% include "./partials/representation.njk" %}
+			{{ representationSection(representationDetails.representationData, cspNonce )}}
 		</div>
 	</div>
 
 	<div class="govuk-grid-row govuk-!-margin-bottom-6">
 		<div class="govuk-grid-column-full">
-			{% include "./partials/workflow.njk" %}
+			{{ workflowSection(caseReference.status.text) }}
 		</div>
 	</div>
 
 	<div class="govuk-grid-row govuk-!-margin-bottom-6">
 		<div class="govuk-grid-column-full">
-			{% include "./partials/attachments.njk" %}
+			{{ attachmentsSection() }}
 		</div>
 	</div>
 {% endblock %}

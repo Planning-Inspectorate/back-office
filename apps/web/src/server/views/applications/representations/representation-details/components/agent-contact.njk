@@ -1,3 +1,5 @@
+{% macro agentContact(agentData) %}
+    
 <h3 class="govuk-heading-m">Agent contact details</h3>
 <dl class="govuk-summary-list">
     <div class="govuk-summary-list__row govuk-summary-list__row--no-border">
@@ -5,7 +7,7 @@
             Organisation name
         </dt>
         <dd class="govuk-summary-list__value">
-            {{ representationDetails.agentData.orgName }}
+            {{ agentData.orgName }}
         </dd>
         <dd class="govuk-summary-list__actions">
             <a class="govuk-link" href="#">
@@ -18,7 +20,7 @@
             Name
         </dt>
         <dd class="govuk-summary-list__value">
-            {{ representationDetails.agentData.name }}
+            {{ agentData.name }}
         </dd>
     </div>
     <div class="govuk-summary-list__row govuk-summary-list__row--no-actions govuk-summary-list__row--no-border">
@@ -26,7 +28,7 @@
         Job title
         </dt>
         <dd class="govuk-summary-list__value">
-            {{ representationDetails.agentData.jobTitle }}
+            {{ agentData.jobTitle }}
         </dd>
     </div>
     <div class="govuk-summary-list__row govuk-summary-list__row--no-actions govuk-summary-list__row--no-border">
@@ -34,7 +36,7 @@
         Email address
         </dt>
         <dd class="govuk-summary-list__value">
-            {{ representationDetails.agentData.email }}
+            {{ agentData.email }}
         </dd>
 
     </div>
@@ -43,7 +45,7 @@
         Telephone number
         </dt>
         <dd class="govuk-summary-list__value">
-            {{ representationDetails.agentData.phoneNumber }}
+            {{ agentData.phoneNumber }}
         </dd>
     </div>
     <div class="govuk-summary-list__row">
@@ -51,21 +53,21 @@
         Address
         </dt>
         <dd class="govuk-summary-list__value">
-            {{ representationDetails.agentData.addressLine1 }} </br>
+            {{ agentData.addressLine1 }} </br>
 
-            {% if representationDetails.agentData.addressLine2 %}
-                {{ representationDetails.agentData.addressLine2 }} </br>
+            {% if agentData.addressLine2 %}
+                {{ agentData.addressLine2 }} </br>
             {% endif %}
 
-            {% if representationDetails.agentData.town %}
-                {{ representationDetails.agentData.town }} </br>
+            {% if agentData.town %}
+                {{ agentData.town }} </br>
             {% endif %}
 
-            {% if representationDetails.agentData.county %}
-                {{ representationDetails.agentData.county }} </br>
+            {% if agentData.county %}
+                {{ agentData.county }} </br>
             {% endif %}
         
-            {{ representationDetails.agentData.postcode }}
+            {{ agentData.postcode }}
         </dd>
         <dd class="govuk-summary-list__actions">
             <a class="govuk-link" href="#">
@@ -78,7 +80,7 @@
         Preferred contact method
         </dt>
         <dd class="govuk-summary-list__value">
-            {{ representationDetails.agentData.preferredContact if representationDetails.agentData.preferredContact else 'Email' }}
+            {{ agentData.preferredContact if agentData.preferredContact else 'Email' }}
         </dd>
         <dd class="govuk-summary-list__actions">
             <a class="govuk-link" href="#">
@@ -104,7 +106,7 @@
         Under 18
         </dt>
         <dd class="govuk-summary-list__value">
-            {{ representationDetails.agentData.under18 }}
+            {{ agentData.under18 }}
         </dd>
         <dd class="govuk-summary-list__actions">
             <a class="govuk-link" href="#">
@@ -113,3 +115,4 @@
         </dd>
     </div>
 </dl>
+{% endmacro %}
