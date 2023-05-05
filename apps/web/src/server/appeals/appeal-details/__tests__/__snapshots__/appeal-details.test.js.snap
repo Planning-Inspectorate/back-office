@@ -30,7 +30,7 @@ exports[`appeal-details GET /:appealId should render the received appeal details
                 </div>
             </div>
             <div class=\\"govuk-grid-row\\">
-                <div class=\\"govuk-grid-column-full\\"><span class=\\"govuk-caption-l govuk-!-margin-bottom-3\\">351062</span>
+                <div class=\\"govuk-grid-column-full\\"><span class=\\"govuk-caption-l govuk-!-margin-bottom-3\\">Appeal 351062</span>
                     <h1                     class=\\"govuk-heading-xl govuk-!-margin-bottom-3\\">Case details</h1>
                 </div>
             </div><strong class=\\"govuk-tag govuk-tag--\\">received_appeal</strong>
@@ -66,12 +66,13 @@ exports[`appeal-details GET /:appealId should render the received appeal details
                                 </dd>
                             </div>
                             <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Agent name</dt>
-                                <dd class=\\"govuk-summary-list__value\\"></dd>
+                                <dd class=\\"govuk-summary-list__value\\">No agent for this appeal</dd>
                                 <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"#\\"> Change<span class=\\"govuk-visually-hidden\\"> Agent name</span></a>
                                 </dd>
                             </div>
                             <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Linked appeal</dt>
-                                <dd class=\\"govuk-summary-list__value\\">APP/Q9999/D/21/725284</dd>
+                                <dd class=\\"govuk-summary-list__value\\"><a href=\\"/appeals-service/appeal-details/1\\">APP/Q9999/D/21/725284</a>
+                                </dd>
                                 <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"#\\"> Change<span class=\\"govuk-visually-hidden\\"> Linked appeal</span></a>
                                 </dd>
                             </div>
@@ -89,16 +90,6 @@ exports[`appeal-details GET /:appealId should render the received appeal details
                             <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> LPA reference</dt>
                                 <dd class=\\"govuk-summary-list__value\\">48269/APP/2021/1482</dd>
                                 <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"#\\"> Change<span class=\\"govuk-visually-hidden\\"> LPA reference</span></a>
-                                </dd>
-                            </div>
-                            <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Development type</dt>
-                                <dd class=\\"govuk-summary-list__value\\">Minor Dwellings</dd>
-                                <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"#\\"> Change<span class=\\"govuk-visually-hidden\\"> Development type</span></a>
-                                </dd>
-                            </div>
-                            <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Event type</dt>
-                                <dd class=\\"govuk-summary-list__value\\">Site Visit</dd>
-                                <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"#\\"> Change<span class=\\"govuk-visually-hidden\\"> Event type</span></a>
                                 </dd>
                             </div>
                             <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Decision</dt>
@@ -185,7 +176,7 @@ exports[`appeal-details GET /:appealId should render the received appeal details
                                     <p class=\\"govuk-!-margin-0\\">robert.williams@planninginspectorate.gov.uk</p>
                                     <p class=\\"govuk-!-margin-0\\">0300 027 1289</p>
                                 </dd>
-                                <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"#\\"> Add<span class=\\"govuk-visually-hidden\\"> Case officer</span></a>
+                                <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"#\\"> Change<span class=\\"govuk-visually-hidden\\"> Case officer</span></a>
                                 </dd>
                             </div>
                             <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Inspector</dt>
