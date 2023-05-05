@@ -1,34 +1,57 @@
 @use "../govuk-frontend/govuk/settings/_colours-applied" as colors;
 .sort-table {
-  &__button {
-	background-color: colors.govuk-colour('white');
-	border-width: 0;
-	box-shadow: colors.govuk-colour('white');
+
+  &__link {
+	display: flex;
+	align-items: center;
+	text-decoration: none;
 	color: colors.govuk-colour('blue');
-	cursor: pointer;
-	font-family: inherit;
-	font-size: inherit;
-	font-weight: inherit;
-	padding: 0 10px 0 0;
-	position: relative;
-	text-align: inherit;
-	margin: 0;
+	white-space: nowrap;
   }
 
-  &__button:focus {
-	background-color: colors.govuk-colour('yellow');
-	color: colors.govuk-colour('black');;
-	box-shadow: 0 -2px colors.govuk-colour('yellow'), 0 4px colors.govuk-colour('black');
-	outline: none;
+  &__link-icon {
+	display: flex;
+	flex-direction: column;
+	margin-left: .5em;
+
+	&:before, &:after {
+	  line-height: 1;
+	}
+
+	&:before {
+	  content: "\25b2";
+	}
+
+	&:after {
+	  content: "\25bc";
+	}
+
+	&--small {
+	font-size: .5em;
+	}
+
+	&--big {
+	  font-size: .8em;
+
+	  &:after {
+		content: "";
+	  }
+
+	  .sort-table__link--descending & {
+		&:after {
+		  content: "\25bc";
+		}
+
+		&:before {
+		  content: "";
+		}
+	  }
+
+
+	}
+
   }
 
-  &__accending:after {
-	content: "\25b2";
-  }
-
-  &__decending:before {
-	content: "\25bc";
-  }
 
   &--big:after {
 	font-size: .8em;
