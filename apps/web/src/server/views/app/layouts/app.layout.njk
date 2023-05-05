@@ -22,7 +22,9 @@
 
 {% block beforeContent %}
   {% block backLink %}
-    {% if backLinkUrl %}
+		{% if backLinkUrl and backLinkText %}
+      {{ govukBackLink({ text: backLinkText, href: backLinkUrl }) }}
+    {% elseif backLinkUrl %}
       {{ govukBackLink({ href: backLinkUrl }) }}
     {% elseif backURL %}
       {{ govukBackLink({ href: backURL }) }}

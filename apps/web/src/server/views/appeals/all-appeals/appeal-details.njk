@@ -9,6 +9,9 @@
 {%- set containerSize = "xl" -%}
 {%- set pageTitle = "Appeal details - GOV.UK" -%}
 
+{% set backLinkUrl = '/appeals-service/validation' %}
+{% set backLinkText = 'Back to National list' %}
+
 {%- set notificationBannerHtml -%}
 	<p class="govuk-notification-banner__heading">
 		LPA questionnaire is ready for review
@@ -21,6 +24,10 @@
 	{%- for otherAppeal in appeal.otherAppeals -%}
 		<a href="/appeals-service/appeal-details/{{ otherAppeal.appealId }}">{{ otherAppeal.appealReference }}</a>
 	{%- endfor -%}
+{%- endset -%}
+
+{%- set linkedAppealHtml -%}
+		<a href="/appeals-service/appeal-details/{{ appeal.linkedAppeal.appealId }}">{{ appeal.linkedAppeal.appealReference }}</a>
 {%- endset -%}
 
 {%- set caseTimetableInsetHtml -%}
@@ -54,7 +61,7 @@
 	}}
 	<div class="govuk-grid-row">
 		<div class="govuk-grid-column-full">
-			<span class="govuk-caption-l govuk-!-margin-bottom-3">{{appeal.shortReference}}</span>
+			<span class="govuk-caption-l govuk-!-margin-bottom-3">Appeal {{appeal.shortReference}}</span>
 			<h1 class="govuk-heading-xl govuk-!-margin-bottom-3">Case details</h1>
 		</div>
 	</div>
@@ -151,7 +158,7 @@
 								text: "Linked appeal"
 							},
 							value: {
-								text: appeal.linkedAppeal
+								html: linkedAppealHtml
 							},
 							actions: {
 								items: [{
@@ -200,34 +207,6 @@
 									href: "#",
 									text: "Change",
 									visuallyHiddenText: "LPA reference"
-								}]
-							}
-						}, {
-							key: {
-								text: "Development type"
-							},
-							value: {
-								text: appeal.developmentType
-							},
-							actions: {
-								items: [{
-									href: "#",
-									text: "Change",
-									visuallyHiddenText: "Development type"
-								}]
-							}
-						}, {
-							key: {
-								text: "Event type"
-							},
-							value: {
-								text: appeal.eventType
-							},
-							actions: {
-								items: [{
-									href: "#",
-									text: "Change",
-									visuallyHiddenText: "Event type"
 								}]
 							}
 						}, {
@@ -346,7 +325,7 @@
 							actions: {
 								items: [{
 									href: "#",
-									text: "Change" if caseOfficer else "Add",
+									text: "Change" if appeal.caseOfficer else "Add",
 									visuallyHiddenText: "Case officer"
 								}]
 							}
@@ -360,7 +339,7 @@
 							actions: {
 								items: [{
 									href: "#",
-									text: "Change" if inspector else "Add",
+									text: "Change" if appeal.inspector else "Add",
 									visuallyHiddenText: "Interested parties"
 								}]
 							}
