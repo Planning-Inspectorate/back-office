@@ -23,16 +23,23 @@ export const viewAppealDetails = async (request, response) => {
 			reference: appealDetails?.appealReference,
 			shortReference: appealReferenceFragments?.[appealReferenceFragments.length - 1],
 			status: appealDetails?.appealStatus,
-			siteAddress: formattedSiteAddress,
+			siteAddress: formattedSiteAddress ?? 'No site address for this appeal',
 			localPlanningAuthority: appealDetails?.localPlanningDepartment,
 			type: appealDetails?.appealType,
 			caseProcedure: appealDetails?.caseProcedure,
-			linkedAppeal: appealDetails?.linkedAppeal?.appealReference,
-			otherAppeals: appealDetails?.otherAppeals,
-			allocationDetails: appealDetails?.allocationDetails,
-			lpaReference: appealDetails?.planningApplicationReference,
-			developmentType: appealDetails?.developmentType,
-			eventType: appealDetails?.eventType,
+			linkedAppeal: {
+				appealId: appealDetails?.linkedAppeal?.appealId,
+				appealReference: appealDetails?.linkedAppeal?.appealReference
+			} ?? { appealId: 'None', appealReference: 'No linked appeal' },
+			otherAppeals: appealDetails?.otherAppeals ?? [
+				{ appealId: 'None', appealReference: 'No linked appeal' }
+			],
+			allocationDetails:
+				appealDetails?.allocationDetails ?? 'No allocation details for this appeal',
+			lpaReference:
+				appealDetails?.planningApplicationReference ?? 'No LPA reference for this appeal',
+			developmentType: appealDetails?.developmentType ?? ' No development type for this appeal',
+			eventType: appealDetails?.eventType ?? ' No event type for this appeal',
 			decision: appealDetails?.decision ?? 'Not issued yet',
 			// TODO: BOAT-80: add documentation status data
 			documentationStatus: {
@@ -46,10 +53,10 @@ export const viewAppealDetails = async (request, response) => {
 				statementOfCommonGround: 'None'
 			},
 			appellant: {
-				name: appealDetails?.appellantName
+				name: appealDetails?.appellantName ?? 'No appellant for this appeal'
 			},
 			agent: {
-				name: appealDetails?.agentName
+				name: appealDetails?.agentName ?? 'No agent for this appeal'
 			},
 			// TODO: BOAT-81: add case officer and inspector data
 			caseOfficer: {
