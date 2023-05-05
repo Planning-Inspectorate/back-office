@@ -21,6 +21,9 @@ exports[`applications representations GET /applications-service/:caseId/relevant
             <h2 class=\\"govuk-heading-l \\">Relevant representations</h2>
             <h3 class=\\"govuk-heading-m\\">Search representations</h3>
             <form method=\\"GET\\">
+                <input type=\\"hidden\\" name=\\"page\\" value=\\"1\\">
+                <input type=\\"hidden\\" name=\\"pageSize\\" value=\\"25\\">
+                <input type=\\"hidden\\" name=\\"sortBy\\" value=\\"\\">
                 <div class=\\"govuk-grid-row\\">
                     <div class=\\"govuk-grid-column-one-half\\">
                         <div class=\\"govuk-form-group\\">
@@ -28,32 +31,40 @@ exports[`applications representations GET /applications-service/:caseId/relevant
                         </div>
                     </div>
                     <div class=\\"govuk-grid-column-one-half\\">
-                        <button class=\\"govuk-button govuk-button--secondary\\" data-module=\\"govuk-button\\">Search</button>
+                        <button value=\\"updated\\" name=\\"searchUpdated\\" class=\\"govuk-button govuk-button--secondary\\"
+                        data-module=\\"govuk-button\\">Search</button>
                     </div>
                 </div>
-                <input type=\\"hidden\\" name=\\"page\\" id=\\"page\\" value=\\"1\\">
-                <input type=\\"hidden\\" name=\\"pageSize\\" id=\\"pageSize\\" value=\\"25\\">
+                <div class=\\"govuk-grid-row\\">
+                    <div class=\\"govuk-grid-column-one-half\\">
+                        <p>Showing<b>1</b> to <b>3</b> of <b>3</b> results</p>
+                    </div>
+                    <div class=\\"govuk-grid-column-one-half\\">
+                        <p><span class=\\"govuk-!-margin-right-2\\"><strong>Results per page</strong></span>
+                            <span                             class=\\"govuk-!-margin-left-1\\"><a class=\\"govuk-link\\" href=\\"relevant-representations?page=1&amp;pageSize=25\\"><span class=\\"govuk-visually-hidden\\">View </span> 25<span class=\\"govuk-visually-hidden\\"> results per page</span></a>
+                                </span><span class=\\"govuk-!-margin-left-1\\">|</span><span class=\\"govuk-!-margin-left-1\\"><a class=\\"govuk-link\\" href=\\"relevant-representations?page=1&amp;pageSize=50\\"><span class=\\"govuk-visually-hidden\\">View </span> 50
+                                <span                                 class=\\"govuk-visually-hidden\\">results per page</span>
+                                    </a>
+                                    </span><span class=\\"govuk-!-margin-left-1\\">|</span><span class=\\"govuk-!-margin-left-1\\"><a class=\\"govuk-link\\" href=\\"relevant-representations?page=1&amp;pageSize=100\\"><span class=\\"govuk-visually-hidden\\">View </span> 100
+                                    <span                                     class=\\"govuk-visually-hidden\\">results per page</span>
+                                        </a>
+                                        </span>
+                        </p>
+                    </div>
+                </div>
                 <table class=\\"govuk-table\\">
                     <thead class=\\"govuk-table__head\\">
                         <tr class=\\"govuk-table__row\\">
-                            <th scope=\\"col\\" class=\\"govuk-table__header\\">
-                                <button class=\\"sort-table sort-table__button sort-table__accending sort-table__decending sort-table--small\\"
-                                name=\\"sortBy\\" id=\\"sort-by-reference\\" value=\\"reference\\">Reference</button>
+                            <th scope=\\"col\\" class=\\"govuk-table__header\\"><a href=\\"relevant-representations?page=1&amp;sortBy=reference\\" class=\\"sort-table__link \\"> Reference<span class=\\"sort-table__link-icon  sort-table__link-icon--small \\"></span></a>
                             </th>
                             <th scope=\\"col\\" class=\\"govuk-table__header\\">From</th>
-                            <th scope=\\"col\\" class=\\"govuk-table__header\\">
-                                <button class=\\"sort-table sort-table__button sort-table__accending sort-table__decending sort-table--small\\"
-                                name=\\"sortBy\\" id=\\"sort-by-received\\" value=\\"received\\">Date received</button>
+                            <th scope=\\"col\\" class=\\"govuk-table__header\\"><a href=\\"relevant-representations?page=1&amp;sortBy=received\\" class=\\"sort-table__link \\"> Date received<span class=\\"sort-table__link-icon  sort-table__link-icon--small \\"></span></a>
                             </th>
-                            <th scope=\\"col\\" class=\\"govuk-table__header\\">
-                                <button class=\\"sort-table sort-table__button sort-table__accending sort-table__decending sort-table--small\\"
-                                name=\\"sortBy\\" id=\\"sort-by-redacted\\" value=\\"redacted\\">Redacted</button>
+                            <th scope=\\"col\\" class=\\"govuk-table__header\\"><a href=\\"relevant-representations?page=1&amp;sortBy=redacted\\" class=\\"sort-table__link \\"> Redacted<span class=\\"sort-table__link-icon  sort-table__link-icon--small \\"></span></a>
                             </th>
-                            <th scope=\\"col\\" class=\\"govuk-table__header\\">
-                                <button class=\\"sort-table sort-table__button sort-table__accending sort-table__decending sort-table--small\\"
-                                name=\\"sortBy\\" id=\\"sort-by-status\\" value=\\"status\\">Status</button>
+                            <th scope=\\"col\\" class=\\"govuk-table__header\\"><a href=\\"relevant-representations?page=1&amp;sortBy=status\\" class=\\"sort-table__link \\"> Status<span class=\\"sort-table__link-icon  sort-table__link-icon--small \\"></span></a>
                             </th>
-                            <th scope=\\"col\\" class=\\"govuk-table__header\\">Actions</th>
+                            <th scope=\\"col\\" class=\\"govuk-table__header\\">Action</th>
                         </tr>
                     </thead>
                     <tbody class=\\"govuk-table__body\\">
@@ -64,7 +75,7 @@ exports[`applications representations GET /applications-service/:caseId/relevant
                             <td class=\\"govuk-table__cell\\">Redacted</td>
                             <td class=\\"govuk-table__cell\\"><span class=\\"govuk-tag govuk-tag--grey\\" id=\\"list-convictions-status-1\\">AWAITING REVIEW</span>
                             </td>
-                            <td class=\\"govuk-table__cell\\"><a href=\\"/applications-service/case/1/relevant-representations/1/representation-details\\"> Review </a>
+                            <td class=\\"govuk-table__cell\\"><a href=\\"relevant-representations/1/representation-details\\"> Review </a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row\\">
@@ -74,7 +85,7 @@ exports[`applications representations GET /applications-service/:caseId/relevant
                             <td class=\\"govuk-table__cell\\">Unredacted</td>
                             <td class=\\"govuk-table__cell\\"><span class=\\"govuk-tag govuk-tag\\" id=\\"list-convictions-status-2\\">VALID</span>
                             </td>
-                            <td class=\\"govuk-table__cell\\"><a href=\\"/applications-service/case/1/relevant-representations/2/representation-details\\"> Review </a>
+                            <td class=\\"govuk-table__cell\\"><a href=\\"relevant-representations/2/representation-details\\"> Review </a>
                             </td>
                         </tr>
                     </tbody>
@@ -106,6 +117,9 @@ exports[`applications representations GET /applications-service/:id/relevant-rep
             <h2 class=\\"govuk-heading-l \\">Relevant representations</h2>
             <h3 class=\\"govuk-heading-m\\">Search representations</h3>
             <form method=\\"GET\\">
+                <input type=\\"hidden\\" name=\\"page\\" value=\\"1\\">
+                <input type=\\"hidden\\" name=\\"pageSize\\" value=\\"25\\">
+                <input type=\\"hidden\\" name=\\"sortBy\\" value=\\"\\">
                 <div class=\\"govuk-grid-row\\">
                     <div class=\\"govuk-grid-column-one-half\\">
                         <div class=\\"govuk-form-group\\">
@@ -114,32 +128,44 @@ exports[`applications representations GET /applications-service/:id/relevant-rep
                         </div>
                     </div>
                     <div class=\\"govuk-grid-column-one-half\\">
-                        <button class=\\"govuk-button govuk-button--secondary\\" data-module=\\"govuk-button\\">Search</button>
+                        <button value=\\"updated\\" name=\\"searchUpdated\\" class=\\"govuk-button govuk-button--secondary\\"
+                        data-module=\\"govuk-button\\">Search</button>
                     </div>
                 </div>
-                <input type=\\"hidden\\" name=\\"page\\" id=\\"page\\" value=\\"1\\">
-                <input type=\\"hidden\\" name=\\"pageSize\\" id=\\"pageSize\\" value=\\"25\\">
+                <div class=\\"govuk-grid-row\\">
+                    <div class=\\"govuk-grid-column-one-half\\">
+                        <p>Showing<b>1</b> to <b>3</b> of <b>3</b> results</p>
+                    </div>
+                    <div class=\\"govuk-grid-column-one-half\\">
+                        <p><span class=\\"govuk-!-margin-right-2\\"><strong>Results per page</strong></span>
+                            <span                             class=\\"govuk-!-margin-left-1\\"><a class=\\"govuk-link\\" href=\\"relevant-representations?searchTerm=mock-search-term&amp;page=1&amp;pageSize=25\\"><span class=\\"govuk-visually-hidden\\">View </span> 25<span class=\\"govuk-visually-hidden\\"> results per page</span></a>
+                                </span><span class=\\"govuk-!-margin-left-1\\">|</span><span class=\\"govuk-!-margin-left-1\\"><a class=\\"govuk-link\\" href=\\"relevant-representations?searchTerm=mock-search-term&amp;page=1&amp;pageSize=50\\"><span class=\\"govuk-visually-hidden\\">View </span> 50
+                                <span                                 class=\\"govuk-visually-hidden\\">results per page</span>
+                                    </a>
+                                    </span><span class=\\"govuk-!-margin-left-1\\">|</span><span class=\\"govuk-!-margin-left-1\\"><a class=\\"govuk-link\\" href=\\"relevant-representations?searchTerm=mock-search-term&amp;page=1&amp;pageSize=100\\"><span class=\\"govuk-visually-hidden\\">View </span> 100
+                                    <span                                     class=\\"govuk-visually-hidden\\">results per page</span>
+                                        </a>
+                                        </span>
+                        </p>
+                    </div>
+                </div>
                 <table class=\\"govuk-table\\">
                     <thead class=\\"govuk-table__head\\">
                         <tr class=\\"govuk-table__row\\">
-                            <th scope=\\"col\\" class=\\"govuk-table__header\\">
-                                <button class=\\"sort-table sort-table__button sort-table__accending sort-table__decending sort-table--small\\"
-                                name=\\"sortBy\\" id=\\"sort-by-reference\\" value=\\"reference\\">Reference</button>
+                            <th scope=\\"col\\" class=\\"govuk-table__header\\"><a href=\\"relevant-representations?searchTerm=mock-search-term&amp;page=1&amp;sortBy=reference\\"
+                                class=\\"sort-table__link \\"> Reference<span class=\\"sort-table__link-icon  sort-table__link-icon--small \\"></span></a>
                             </th>
                             <th scope=\\"col\\" class=\\"govuk-table__header\\">From</th>
-                            <th scope=\\"col\\" class=\\"govuk-table__header\\">
-                                <button class=\\"sort-table sort-table__button sort-table__accending sort-table__decending sort-table--small\\"
-                                name=\\"sortBy\\" id=\\"sort-by-received\\" value=\\"received\\">Date received</button>
+                            <th scope=\\"col\\" class=\\"govuk-table__header\\"><a href=\\"relevant-representations?searchTerm=mock-search-term&amp;page=1&amp;sortBy=received\\"
+                                class=\\"sort-table__link \\"> Date received<span class=\\"sort-table__link-icon  sort-table__link-icon--small \\"></span></a>
                             </th>
-                            <th scope=\\"col\\" class=\\"govuk-table__header\\">
-                                <button class=\\"sort-table sort-table__button sort-table__accending sort-table__decending sort-table--small\\"
-                                name=\\"sortBy\\" id=\\"sort-by-redacted\\" value=\\"redacted\\">Redacted</button>
+                            <th scope=\\"col\\" class=\\"govuk-table__header\\"><a href=\\"relevant-representations?searchTerm=mock-search-term&amp;page=1&amp;sortBy=redacted\\"
+                                class=\\"sort-table__link \\"> Redacted<span class=\\"sort-table__link-icon  sort-table__link-icon--small \\"></span></a>
                             </th>
-                            <th scope=\\"col\\" class=\\"govuk-table__header\\">
-                                <button class=\\"sort-table sort-table__button sort-table__accending sort-table__decending sort-table--small\\"
-                                name=\\"sortBy\\" id=\\"sort-by-status\\" value=\\"status\\">Status</button>
+                            <th scope=\\"col\\" class=\\"govuk-table__header\\"><a href=\\"relevant-representations?searchTerm=mock-search-term&amp;page=1&amp;sortBy=status\\"
+                                class=\\"sort-table__link \\"> Status<span class=\\"sort-table__link-icon  sort-table__link-icon--small \\"></span></a>
                             </th>
-                            <th scope=\\"col\\" class=\\"govuk-table__header\\">Actions</th>
+                            <th scope=\\"col\\" class=\\"govuk-table__header\\">Action</th>
                         </tr>
                     </thead>
                     <tbody class=\\"govuk-table__body\\">
@@ -150,7 +176,7 @@ exports[`applications representations GET /applications-service/:id/relevant-rep
                             <td class=\\"govuk-table__cell\\">Redacted</td>
                             <td class=\\"govuk-table__cell\\"><span class=\\"govuk-tag govuk-tag--grey\\" id=\\"list-convictions-status-1\\">AWAITING REVIEW</span>
                             </td>
-                            <td class=\\"govuk-table__cell\\"><a href=\\"/applications-service/case/1/relevant-representations/1/representation-details\\"> Review </a>
+                            <td class=\\"govuk-table__cell\\"><a href=\\"relevant-representations/1/representation-details\\"> Review </a>
                             </td>
                         </tr>
                     </tbody>

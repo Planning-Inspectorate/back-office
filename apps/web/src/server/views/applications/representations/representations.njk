@@ -4,8 +4,10 @@
 {% from "govuk/components/button/macro.njk" import govukButton %}
 {% from "govuk/components/back-link/macro.njk" import govukBackLink %}
 {% from "govuk/components/input/macro.njk" import govukInput %}
-{% from "applications/representations/representations-table.component.njk" import representationsTableComponent %}
+{% from "applications/representations/components/table/representations-table.component.njk" import representationsTableComponent %}
 {% from "applications/components/status-tag.component.njk" import statusTag %}
+{% from "applications/representations/components/pagination/results-per-page.component.njk" import uiPageSizeInformation %}
+{% from "govuk/components/pagination/macro.njk" import govukPagination %}
 
 {% block pageHeading %}
 {% endblock %}
@@ -44,27 +46,33 @@
 
 			<h3 class="govuk-heading-m">Search representations</h3>
 			<form method="GET">
+				<input type="hidden" name="page" value="{{ queryData.page }}">
+				<input type="hidden" name="pageSize" value="{{ queryData.pageSize }}">
+				<input type="hidden" name="sortBy" value="{{ queryData.sortBy }}">
 				<div class="govuk-grid-row">
 					<div class="govuk-grid-column-one-half">
 						{{ govukInput({
 							id: "searchTerm",
 							name: "searchTerm",
-							value: queries.searchTerm
+							value: queryData.searchTerm
 						}) }}
 					</div>
 					<div class="govuk-grid-column-one-half">
 						{{ govukButton({
 							classes: "govuk-button--secondary",
-							text: "Search"
+							text: "Search",
+							name: "searchUpdated",
+							value: "updated"
 						}) }}
 					</div>
 				</div>
 
-				<input type="hidden" name="page" id="page" value="{{ queries.page }}">
-				<input type="hidden" name="pageSize" id="pageSize" value="{{ queries.pageSize }}">
-
 				{% if representations.length > 0 %}
-					{{ representationsTableComponent(representations, queries, caseId) }}
+					{{ uiPageSizeInformation(pagination) }}
+					{{ representationsTableComponent(representations, table, caseId) }}
+					{% if pagination.paginationLinks.items.length > 1 %}
+						{{ govukPagination(pagination.paginationLinks) }}
+					{% endif %}
 				{% else %}
 					<p>No matching representations to show.</p>
 				{% endif %}
