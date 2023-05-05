@@ -41,5 +41,35 @@ export const appealsNationalList = [
 	}
 ];
 
+export const appealData = {
+	agentName: null,
+	allocationDetails: 'F / General Allocation',
+	appealId: 1,
+	appealReference: 'APP/Q9999/D/21/351062',
+	appealSite: {
+		addressLine1: '21 The Pavement',
+		county: 'Wandsworth',
+		postCode: 'SW4 0HY'
+	},
+	appealStatus: 'received_appeal',
+	appealType: 'household',
+	appellantName: 'Eva Sharma',
+	caseProcedure: 'Written',
+	developmentType: 'Minor Dwellings',
+	eventType: 'Site Visit',
+	linkedAppeal: {
+		appealId: 1,
+		appealReference: 'APP/Q9999/D/21/725284'
+	},
+	localPlanningDepartment: 'Wiltshire Council',
+	otherAppeals: [
+		{
+			appealId: 1,
+			appealReference: 'APP/Q9999/D/21/725284'
+		}
+	],
+	planningApplicationReference: '48269/APP/2021/1482'
+};
+
 export const getRandomLocalPlanningDepartment = () =>
 	/** @type {string} */ (sample(localPlanningDepartments));

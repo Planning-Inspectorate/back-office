@@ -1,0 +1,205 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`appeal-details GET /:appealId should render a page not found when the appealId is not valid/does not exist 1`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <div class=\\"govuk-grid-row\\">
+        <div class=\\"govuk-grid-column-two-thirds\\">
+            <h1 class=\\"govuk-heading-xl\\">Page not found</h1>
+            <p class=\\"govuk-body\\">If you typed the web address, check it is correct.</p>
+            <p class=\\"govuk-body\\">If you pasted the web address, check you copied the entire address.</p>
+            <p             class=\\"govuk-body\\"><a href=\\"https://has-appeal.herokuapp.com/help/contact\\" class=\\"govuk-link\\">Contact the Planning Inspectorate Customer Support</a> if
+                the problem persists</p>
+        </div>
+    </div>
+</main>"
+`;
+
+exports[`appeal-details GET /:appealId should render the received appeal details for a valid appealId 1`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <div class=\\"govuk-grid-row\\">
+        <div class=\\"govuk-grid-column-two-thirds\\">
+            <div class=\\"govuk-notification-banner\\" role=\\"region\\" aria-labelledby=\\"govuk-notification-banner-title\\"
+            data-module=\\"govuk-notification-banner\\">
+                <div class=\\"govuk-notification-banner__header\\">
+                    <h3 class=\\"govuk-notification-banner__title\\" id=\\"govuk-notification-banner-title\\"> Important</h3>
+                </div>
+                <div class=\\"govuk-notification-banner__content\\">
+                    <p class=\\"govuk-notification-banner__heading\\">LPA questionnaire is ready for review
+                        <br><a class=\\"govuk-notification-banner__link\\" href=\\"#\\">Review project documentation</a>
+                    </p>
+                </div>
+            </div>
+            <div class=\\"govuk-grid-row\\">
+                <div class=\\"govuk-grid-column-full\\"><span class=\\"govuk-caption-l govuk-!-margin-bottom-3\\">351062</span>
+                    <h1                     class=\\"govuk-heading-xl govuk-!-margin-bottom-3\\">Case details</h1>
+                </div>
+            </div><strong class=\\"govuk-tag govuk-tag--\\">received_appeal</strong>
+            <dl class=\\"govuk-summary-list govuk-summary-list--no-border\\">
+                <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Site address</dt>
+                    <dd class=\\"govuk-summary-list__value\\">21 The Pavement, Wandsworth, SW4 0HY</dd>
+                </div>
+                <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Local planning authority</dt>
+                    <dd                     class=\\"govuk-summary-list__value\\">Wiltshire Council</dd>
+                </div>
+            </dl>
+            <div class=\\"govuk-accordion\\" data-module=\\"govuk-accordion\\" id=\\"accordion-default\\">
+                <div class=\\"govuk-accordion__section \\">
+                    <div class=\\"govuk-accordion__section-header\\">
+                        <h2 class=\\"govuk-accordion__section-heading\\"><span class=\\"govuk-accordion__section-button\\" id=\\"accordion-default-heading-1\\"> Case overview</span></h2>
+                    </div>
+                    <div id=\\"accordion-default-content-1\\" class=\\"govuk-accordion__section-content\\"
+                    aria-labelledby=\\"accordion-default-heading-1\\">
+                        <dl class=\\"govuk-summary-list\\">
+                            <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Appeal type</dt>
+                                <dd class=\\"govuk-summary-list__value\\">household</dd>
+                                <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"#\\"> Change<span class=\\"govuk-visually-hidden\\"> Appeal type</span></a>
+                                </dd>
+                            </div>
+                            <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Case procedure</dt>
+                                <dd class=\\"govuk-summary-list__value\\">Written</dd>
+                                <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"#\\"> Change<span class=\\"govuk-visually-hidden\\"> Case procedure</span></a>
+                                </dd>
+                            </div>
+                            <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Appellant name</dt>
+                                <dd class=\\"govuk-summary-list__value\\">Eva Sharma</dd>
+                                <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"#\\"> Change<span class=\\"govuk-visually-hidden\\"> Appellant name</span></a>
+                                </dd>
+                            </div>
+                            <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Agent name</dt>
+                                <dd class=\\"govuk-summary-list__value\\"></dd>
+                                <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"#\\"> Change<span class=\\"govuk-visually-hidden\\"> Agent name</span></a>
+                                </dd>
+                            </div>
+                            <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Linked appeal</dt>
+                                <dd class=\\"govuk-summary-list__value\\">APP/Q9999/D/21/725284</dd>
+                                <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"#\\"> Change<span class=\\"govuk-visually-hidden\\"> Linked appeal</span></a>
+                                </dd>
+                            </div>
+                            <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Other appeals</dt>
+                                <dd class=\\"govuk-summary-list__value\\"><a href=\\"/appeals-service/appeal-details/1\\">APP/Q9999/D/21/725284</a>
+                                </dd>
+                                <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"#\\"> Change<span class=\\"govuk-visually-hidden\\"> Other appeals</span></a>
+                                </dd>
+                            </div>
+                            <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Allocation details</dt>
+                                <dd class=\\"govuk-summary-list__value\\">F / General Allocation</dd>
+                                <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"#\\"> Change<span class=\\"govuk-visually-hidden\\"> Allocation details</span></a>
+                                </dd>
+                            </div>
+                            <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> LPA reference</dt>
+                                <dd class=\\"govuk-summary-list__value\\">48269/APP/2021/1482</dd>
+                                <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"#\\"> Change<span class=\\"govuk-visually-hidden\\"> LPA reference</span></a>
+                                </dd>
+                            </div>
+                            <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Development type</dt>
+                                <dd class=\\"govuk-summary-list__value\\">Minor Dwellings</dd>
+                                <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"#\\"> Change<span class=\\"govuk-visually-hidden\\"> Development type</span></a>
+                                </dd>
+                            </div>
+                            <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Event type</dt>
+                                <dd class=\\"govuk-summary-list__value\\">Site Visit</dd>
+                                <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"#\\"> Change<span class=\\"govuk-visually-hidden\\"> Event type</span></a>
+                                </dd>
+                            </div>
+                            <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Decision</dt>
+                                <dd class=\\"govuk-summary-list__value\\">Not issued yet</dd>
+                                <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"#\\"> Change<span class=\\"govuk-visually-hidden\\"> Decision</span></a>
+                                </dd>
+                            </div>
+                        </dl>
+                    </div>
+                </div>
+                <div class=\\"govuk-accordion__section \\">
+                    <div class=\\"govuk-accordion__section-header\\">
+                        <h2 class=\\"govuk-accordion__section-heading\\"><span class=\\"govuk-accordion__section-button\\" id=\\"accordion-default-heading-2\\"> Case timetable</span></h2>
+                    </div>
+                    <div id=\\"accordion-default-content-2\\" class=\\"govuk-accordion__section-content\\"
+                    aria-labelledby=\\"accordion-default-heading-2\\">
+                        <div class=\\"govuk-inset-text govuk-!-margin-top-0\\">
+                            <p>Case not started</p><a href=\\"#\\" class=\\"govuk-link\\">Add start date</a>
+                        </div>
+                    </div>
+                </div>
+                <div class=\\"govuk-accordion__section \\">
+                    <div class=\\"govuk-accordion__section-header\\">
+                        <h2 class=\\"govuk-accordion__section-heading\\"><span class=\\"govuk-accordion__section-button\\" id=\\"accordion-default-heading-3\\"> Case documentation</span></h2>
+                    </div>
+                    <div id=\\"accordion-default-content-3\\" class=\\"govuk-accordion__section-content\\"
+                    aria-labelledby=\\"accordion-default-heading-3\\">
+                        <dl class=\\"govuk-summary-list\\">
+                            <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Appellant case</dt>
+                                <dd class=\\"govuk-summary-list__value\\"><strong class=\\"govuk-tag govuk-tag--green\\">Complete</strong>
+                                </dd>
+                                <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"#\\"> Review<span class=\\"govuk-visually-hidden\\"> Appellant case</span></a>
+                                </dd>
+                            </div>
+                            <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> LPA questionnaire</dt>
+                                <dd class=\\"govuk-summary-list__value\\"><strong class=\\"govuk-tag govuk-tag--red\\">Overdue</strong>
+                                </dd>
+                                <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"#\\"> Review<span class=\\"govuk-visually-hidden\\"> LPA questionnaire</span></a>
+                                </dd>
+                            </div>
+                            <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Statement and Proofs</dt>
+                                <dd class=\\"govuk-summary-list__value\\"><strong class=\\"govuk-tag govuk-tag--yellow\\">Incomplete</strong>
+                                </dd>
+                                <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"#\\"> Review<span class=\\"govuk-visually-hidden\\"> Statement and Proofs</span></a>
+                                </dd>
+                            </div>
+                            <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Interested parties</dt>
+                                <dd class=\\"govuk-summary-list__value\\"><strong class=\\"govuk-tag govuk-tag--green\\">Complete</strong>
+                                </dd>
+                                <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"#\\"> Review<span class=\\"govuk-visually-hidden\\"> Interested parties</span></a>
+                                </dd>
+                            </div>
+                            <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Final comments</dt>
+                                <dd class=\\"govuk-summary-list__value\\"><strong class=\\"govuk-tag govuk-tag--red\\">Overdue</strong>
+                                </dd>
+                                <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"#\\"> Review<span class=\\"govuk-visually-hidden\\"> Final comments</span></a>
+                                </dd>
+                            </div>
+                            <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Costs</dt>
+                                <dd class=\\"govuk-summary-list__value\\"><strong class=\\"govuk-tag govuk-tag--grey\\">Not started</strong>
+                                </dd>
+                            </div>
+                            <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Planning obligation</dt>
+                                <dd class=\\"govuk-summary-list__value\\"><strong class=\\"govuk-tag govuk-tag--grey\\">None</strong>
+                                </dd>
+                            </div>
+                            <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Statement of common ground</dt>
+                                <dd                                 class=\\"govuk-summary-list__value\\"><strong class=\\"govuk-tag govuk-tag--grey\\">None</strong>
+                                    </dd>
+                            </div>
+                        </dl>
+                    </div>
+                </div>
+                <div class=\\"govuk-accordion__section \\">
+                    <div class=\\"govuk-accordion__section-header\\">
+                        <h2 class=\\"govuk-accordion__section-heading\\"><span class=\\"govuk-accordion__section-button\\" id=\\"accordion-default-heading-4\\"> Case team</span></h2>
+                    </div>
+                    <div id=\\"accordion-default-content-4\\" class=\\"govuk-accordion__section-content\\"
+                    aria-labelledby=\\"accordion-default-heading-4\\">
+                        <dl class=\\"govuk-summary-list\\">
+                            <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Case officer</dt>
+                                <dd class=\\"govuk-summary-list__value\\">
+                                    <p class=\\"govuk-!-margin-0\\">Robert Williams</p>
+                                    <p class=\\"govuk-!-margin-0\\">robert.williams@planninginspectorate.gov.uk</p>
+                                    <p class=\\"govuk-!-margin-0\\">0300 027 1289</p>
+                                </dd>
+                                <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"#\\"> Add<span class=\\"govuk-visually-hidden\\"> Case officer</span></a>
+                                </dd>
+                            </div>
+                            <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Inspector</dt>
+                                <dd class=\\"govuk-summary-list__value\\">
+                                    <p class=\\"govuk-!-margin-0\\">No project members have been added yet</p>
+                                </dd>
+                                <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"#\\"> Add<span class=\\"govuk-visually-hidden\\"> Interested parties</span></a>
+                                </dd>
+                            </div>
+                        </dl>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>"
+`;

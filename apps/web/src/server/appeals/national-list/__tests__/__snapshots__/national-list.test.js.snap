@@ -20,7 +20,7 @@ exports[`national-list GET / should render national list 1`] = `
         </thead>
         <tbody class=\\"govuk-table__body\\">
             <tr class=\\"govuk-table__row\\">
-                <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link\\" href=\\"/appeals-service/validation/appeals/1\\"> APP/Q9999/D/21/943245</a>
+                <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link\\" href=\\"/appeals-service/appeal-details/1\\"> APP/Q9999/D/21/943245</a>
                 </td>
                 <td class=\\"govuk-table__cell\\">Copthalls, Clevedon Road, West Hill, BS48 1PN</td>
                 <td class=\\"govuk-table__cell\\">Householder Appeal</td>
@@ -29,7 +29,7 @@ exports[`national-list GET / should render national list 1`] = `
                 </td>
             </tr>
             <tr class=\\"govuk-table__row\\">
-                <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link\\" href=\\"/appeals-service/validation/appeals/2\\"> APP/Q9999/D/21/129285</a>
+                <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link\\" href=\\"/appeals-service/appeal-details/2\\"> APP/Q9999/D/21/129285</a>
                 </td>
                 <td class=\\"govuk-table__cell\\">19 Beauchamp Road, Bristol, BS7 8LQ</td>
                 <td class=\\"govuk-table__cell\\">Householder Appeal</td>

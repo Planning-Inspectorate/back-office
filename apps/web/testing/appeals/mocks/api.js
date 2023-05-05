@@ -1,5 +1,9 @@
 import nock from 'nock';
-import { appealsNationalList, localPlanningDepartments } from '../../app/fixtures/referencedata.js';
+import {
+	appealData,
+	appealsNationalList,
+	localPlanningDepartments
+} from '../../app/fixtures/referencedata.js';
 import {
 	appealDetailsForFinalComments,
 	appealDetailsForIncompleteQuestionnaire,
@@ -41,6 +45,9 @@ export function installMockAppealsService() {
 	// national list
 	nock('http://test/').get('/appeals/').reply(200, appealsNationalList).persist();
 
+	// appeal details
+	nock('http://test/').get(`/appeals/${appealData.appealId}`).reply(200, appealData).persist();
+
 	// remote error
 	nock('http://test/').get('/appeals/validation/0').reply(500).persist();
 
@@ -66,6 +73,7 @@ export function installMockAppealsService() {
 	// Unknown appeals
 	nock('http://test/').get('/appeals/case-officer/0').reply(500).persist();
 	nock('http://test/').get('/appeals/case-officer/0/statements-comments').reply(500).persist();
+	nock('http://test/').get('/appeals/0').reply(500).persist();
 
 	// Inspector
 
