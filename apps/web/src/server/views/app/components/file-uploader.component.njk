@@ -53,7 +53,7 @@
 			{% endif %}
 
 			<div class="display--flex">
-				{{ govukButton({ text: 'Save and continue', classes: 'pins-file-upload--submit', attributes: { id: ["submit-button-", params.formId] | join } }) }}
+				{{ govukButton({ text: params.text, classes: 'pins-file-upload--submit', attributes: { id: ["submit-button-", params.formId] | join } }) }}
 				<div class="progress-hook"></div>
 			</div>
 		</form>
