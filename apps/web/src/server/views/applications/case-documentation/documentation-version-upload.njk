@@ -4,7 +4,7 @@
 {% from "govuk/components/breadcrumbs/macro.njk" import govukBreadcrumbs %}
 
 
-{% set serviceName = ["Upload new version of ", currentFolder.displayNameEn, " folder"] | join  %}
+{% set serviceName = ["Upload new version of ", documentationFile.fileName] | join  %}
 {% block pageTitle %}
 	{{ pageTitle | default('GOV.UK') }} – {{ serviceName }}
 {% endblock %}

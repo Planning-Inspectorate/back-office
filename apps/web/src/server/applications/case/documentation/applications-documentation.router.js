@@ -89,7 +89,7 @@ applicationsDocumentationRouter
 	);
 
 applicationsDocumentationRouter
-	.route('/:folderId/:folders/version/upload')
+	.route('/:folderId/document/:documentGuid/version/upload')
 	.get(
 		[assertDomainTypeIsNotInspector, locals.registerFolder],
 		asyncRoute(controller.viewApplicationsCaseDocumentationVersionUpload)
