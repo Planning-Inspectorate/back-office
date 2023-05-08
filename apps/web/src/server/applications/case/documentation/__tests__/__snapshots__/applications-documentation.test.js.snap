@@ -6807,7 +6807,7 @@ exports[`applications documentation Document properties page If the user is not 
                 <li class=\\"govuk-!-margin-top-4\\">Document reference number:</li>
                 <li class=\\"govuk-!-margin-top-4\\">MP3, 9 MB</li>
             </ul>
-            <div class=\\"display--flex govuk-!-margin-top-7 govuk-!-margin-bottom-7\\"><a class=\\"govuk-button govuk-!-margin-0\\" href=\\"upload/new/version\\"> Upload new version</a>
+            <div class=\\"display--flex govuk-!-margin-top-7 govuk-!-margin-bottom-7\\"><a class=\\"govuk-button govuk-!-margin-0\\" href=\\"version/upload\\"> Upload new version</a>
                 <a                 class=\\"govuk-button govuk-button--secondary govuk-!-margin-0 govuk-!-margin-left-4\\"
                 href=\\"/documents/123/download/11/\\">Download</a>
             </div>
@@ -6921,7 +6921,7 @@ exports[`applications documentation Document properties page If the user is not 
                 <li class=\\"govuk-!-margin-top-4\\">Document reference number:</li>
                 <li class=\\"govuk-!-margin-top-4\\">PDF, 2.6 MB</li>
             </ul>
-            <div class=\\"display--flex govuk-!-margin-top-7 govuk-!-margin-bottom-7\\"><a class=\\"govuk-button govuk-!-margin-0\\" href=\\"upload/new/version\\"> Upload new version</a>
+            <div class=\\"display--flex govuk-!-margin-top-7 govuk-!-margin-bottom-7\\"><a class=\\"govuk-button govuk-!-margin-0\\" href=\\"version/upload\\"> Upload new version</a>
                 <a                 class=\\"govuk-button govuk-button--secondary govuk-!-margin-0 govuk-!-margin-left-4\\"
                 href=\\"/documents/123/download/3/\\">Download</a>
             </div>

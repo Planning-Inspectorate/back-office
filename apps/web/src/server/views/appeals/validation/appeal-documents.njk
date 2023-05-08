@@ -36,6 +36,7 @@
     {% if isUniqueDocument %}
       {{
         fileUploader({
+          text: 'Save and continue',
           name: 'files',
           errorMessage: errors.files | errorMessage,
           hintText: 'The uploaded file will replace the existing ' + documentType + '.'
@@ -44,6 +45,7 @@
     {% else %}
       {{
         fileUploader({
+          text: 'Save and continue',
           name: 'files',
           errorMessage: errors.files | errorMessage,
           hintText: 'The uploaded files will be added to the list of current ' + documentType | pluralize(documentLimit) + '.',
