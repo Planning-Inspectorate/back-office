@@ -112,10 +112,17 @@ export async function viewApplicationsCaseDocumentationUpload(request, response)
 /**
  * View the documentation version upload page
  *
- * @type {import('@pins/express').RenderHandler<CaseDocumentationUploadProps, {}>}
+ * @type {import('@pins/express').RenderHandler<{documentationFile: DocumentationFile}, {}>}
  */
-export async function viewApplicationsCaseDocumentationVersionUpload(request, response) {
-	response.render(`applications/case-documentation/documentation-version-upload`);
+export async function viewApplicationsCaseDocumentationVersionUpload({ params }, response) {
+	const { documentGuid } = params;
+	const { caseId } = response.locals;
+
+	const documentationFile = await getCaseDocumentationFileInfo(caseId, documentGuid);
+
+	response.render(`applications/case-documentation/documentation-version-upload`, {
+		documentationFile
+	});
 }
 
 /**
