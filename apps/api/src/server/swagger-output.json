@@ -3322,51 +3322,72 @@
 			}
 		},
 		"AllAppeals": {
-			"type": "array",
-			"items": {
-				"type": "object",
-				"properties": {
-					"appealId": {
-						"type": "number",
-						"example": 1
-					},
-					"appealReference": {
-						"type": "string",
-						"example": "APP/Q9999/D/21/235348"
-					},
-					"appealSite": {
+			"type": "object",
+			"properties": {
+				"itemCount": {
+					"type": "number",
+					"example": 57
+				},
+				"items": {
+					"type": "array",
+					"items": {
 						"type": "object",
 						"properties": {
-							"addressLine1": {
-								"type": "string",
-								"example": "19 Beauchamp Road"
+							"appealId": {
+								"type": "number",
+								"example": 1
 							},
-							"town": {
+							"appealReference": {
 								"type": "string",
-								"example": "Bristol"
+								"example": "APP/Q9999/D/21/235348"
 							},
-							"postCode": {
+							"appealSite": {
+								"type": "object",
+								"properties": {
+									"addressLine1": {
+										"type": "string",
+										"example": "19 Beauchamp Road"
+									},
+									"town": {
+										"type": "string",
+										"example": "Bristol"
+									},
+									"postCode": {
+										"type": "string",
+										"example": "BS7 8LQ"
+									}
+								}
+							},
+							"appealStatus": {
 								"type": "string",
-								"example": "BS7 8LQ"
+								"example": "awaiting_lpa_questionnaire"
+							},
+							"appealType": {
+								"type": "string",
+								"example": "household"
+							},
+							"createdAt": {
+								"type": "string",
+								"example": "2023-02-16T11:43:27.096Z"
+							},
+							"localPlanningDepartment": {
+								"type": "string",
+								"example": "Wiltshire Council"
 							}
 						}
-					},
-					"appealStatus": {
-						"type": "string",
-						"example": "awaiting_lpa_questionnaire"
-					},
-					"appealType": {
-						"type": "string",
-						"example": "household"
-					},
-					"createdAt": {
-						"type": "string",
-						"example": "2023-02-16T11:43:27.096Z"
-					},
-					"localPlanningDepartment": {
-						"type": "string",
-						"example": "Wiltshire Council"
 					}
+				},
+				"page": {
+					"type": "number",
+					"example": 1
+				},
+				"pageCount": {
+					"type": "number",
+					"example": 27
+				},
+				"pageSize": {
+					"type": "number",
+					"example": 30
 				}
 			}
 		},
