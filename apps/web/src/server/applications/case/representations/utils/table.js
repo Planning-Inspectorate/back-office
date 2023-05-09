@@ -1,4 +1,4 @@
-import { tableSortingHeaderLinks } from '../../../../../common/table/table-sorting-header-links.js';
+import { tableSortingHeaderLinks } from '../../../common/components/table/table-sorting-header-links.js';
 import { representationsUrl } from '../config.js';
 
 /**

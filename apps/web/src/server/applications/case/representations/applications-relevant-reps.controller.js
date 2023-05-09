@@ -1,5 +1,5 @@
 import * as express from 'express';
-import { buildQueryString } from '../../../../common/build-query-string.js';
+import { buildQueryString } from '../../common/components/build-query-string.js';
 import {
 	getCaseReferenceViewModel,
 	getRepresentationsViewModel
