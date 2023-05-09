@@ -45,4 +45,10 @@ jobs:
           command: "custom"
           customCommand: "run cy:run"
           workingDir: $(System.DefaultWorkingDirectory)/apps/e2e
+        env:
+          BASE_URL: $(e2e-${{parameters.Environment}}.BASE_URL)
+          CASE_TEAM_EMAIL: $(e2e-${{parameters.Environment}}.CASE_TEAM_EMAIL)
+          CASE_ADMIN_EMAIL: $(e2e-${{parameters.Environment}}.CASE_ADMIN_EMAIL)
+          INSPECTOR_EMAIL: $(e2e-${{parameters.Environment}}.INSPECTOR_EMAIL)
+          USER_PASSWORD: $(e2e-${{parameters.Environment}}.USER_PASSWORD)
         displayName: "Run Cypress Tests"
