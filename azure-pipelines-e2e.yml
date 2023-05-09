@@ -13,7 +13,9 @@ parameters:
 variables:
   - name: APP
     value: ${{parameters.APP}}
-  - group: e2e-${{parameters.Environment}}
+  - name: ENV_GROUP_NAME
+    value: e2e-${{parameters.Environment}}
+  - group: ${{variables.ENV_GROUP_NAME}}
 
 pr:
   branches:
@@ -46,9 +48,9 @@ jobs:
           customCommand: "run cy:run"
           workingDir: $(System.DefaultWorkingDirectory)/apps/e2e
         env:
-          BASE_URL: $(e2e-${{parameters.Environment}}.BASE_URL)
-          CASE_TEAM_EMAIL: $(e2e-${{parameters.Environment}}.CASE_TEAM_EMAIL)
-          CASE_ADMIN_EMAIL: $(e2e-${{parameters.Environment}}.CASE_ADMIN_EMAIL)
-          INSPECTOR_EMAIL: $(e2e-${{parameters.Environment}}.INSPECTOR_EMAIL)
-          USER_PASSWORD: $(e2e-${{parameters.Environment}}.USER_PASSWORD)
+          BASE_URL: ${{variables.ENV_GROUP_NAME}}.BASE_URL
+          CASE_TEAM_EMAIL: ${{variables.ENV_GROUP_NAME}}.CASE_TEAM_EMAIL
+          CASE_ADMIN_EMAIL: ${{variables.ENV_GROUP_NAME}}.CASE_ADMIN_EMAIL
+          INSPECTOR_EMAIL: ${{variables.ENV_GROUP_NAME}}.INSPECTOR_EMAIL
+          USER_PASSWORD: ${{variables.ENV_GROUP_NAME}}.USER_PASSWORD
         displayName: "Run Cypress Tests"
