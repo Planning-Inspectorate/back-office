@@ -22,7 +22,7 @@ pr:
       - apps
 
 jobs:
-  - job: Run_Cypress_Tests
+  - job: Run Cypress Tests
     pool:
       vmImage: "ubuntu-latest"
 
@@ -31,9 +31,6 @@ jobs:
         inputs:
           versionSpec: "16.x"
         displayName: "Install Node.js"
-
-      - script: |
-          echo ${process.env}
 
       - task: Npm@1
         inputs:
@@ -44,6 +41,6 @@ jobs:
       - task: Npm@1
         inputs:
           command: "custom"
-          customCommand: "run e2e"
-          workingDir: $(System.DefaultWorkingDirectory)
+          customCommand: "run cy:run"
+          workingDir: $(System.DefaultWorkingDirectory)/apps/e2e
         displayName: "Run Cypress Tests"
