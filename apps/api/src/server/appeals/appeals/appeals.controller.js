@@ -1,4 +1,5 @@
 import appealRepository from '../../repositories/appeal.repository.js';
+import { getPageCount } from '../../utils/database-pagination.js';
 import { DEFAULT_PAGE_NUMBER, DEFAULT_PAGE_SIZE } from '../constants.js';
 import appealFormatter from './appeals.formatter.js';
 
@@ -12,10 +13,16 @@ const getAppeals = async (req, res) => {
 	const pageNumber = Number(req.query.pageNumber) || DEFAULT_PAGE_NUMBER;
 	const pageSize = Number(req.query.pageSize) || DEFAULT_PAGE_SIZE;
 
-	const appeals = await appealRepository.getAll(pageNumber, pageSize);
+	const [itemCount, appeals = []] = await appealRepository.getAll(pageNumber, pageSize);
 	const formattedAppeals = appeals.map((appeal) => appealFormatter.formatAppeals(appeal));
 
-	return res.send(formattedAppeals);
+	return res.send({
+		itemCount,
+		items: formattedAppeals,
+		page: pageNumber,
+		pageCount: getPageCount(itemCount, pageSize),
+		pageSize
+	});
 };
 
 /**
