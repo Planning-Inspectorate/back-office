@@ -4,7 +4,7 @@
 {%- macro appealsTable(params) -%}
 	{%- macro createReferenceCell(appeal) -%}
 		<a class="govuk-link" href="/appeals-service/appeal-details/{{appeal.appealId}}">
-			{{ appeal.appealReference }}
+			{{ appeal.appealReference | appealShortReference }}
 		</a>
 	{%- endmacro -%}
 	{%- set rows = [] -%}
