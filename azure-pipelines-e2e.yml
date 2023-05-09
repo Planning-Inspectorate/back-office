@@ -49,8 +49,8 @@ jobs:
       - task: Npm@1
         inputs:
           command: "custom"
-          customCommand: "run cy:run"
-          workingDir: $(System.DefaultWorkingDirectory)/apps/e2e
+          customCommand: "run e2e:ci"
+          workingDir: $(System.DefaultWorkingDirectory)
         env:
           BASE_URL: $(BASE_URL)
           CASE_TEAM_EMAIL: $(CASE_TEAM_EMAIL)
