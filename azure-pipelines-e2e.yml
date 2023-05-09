@@ -48,7 +48,7 @@ jobs:
           customCommand: "run cy:run"
           workingDir: $(System.DefaultWorkingDirectory)/apps/e2e
         env:
-          BASE_URL: ${{variables.ENV_GROUP_NAME}}.BASE_URL
+          BASE_URL: $(${{variables.ENV_GROUP_NAME}}.BASE_URL)
           CASE_TEAM_EMAIL: ${{variables.ENV_GROUP_NAME}}.CASE_TEAM_EMAIL
           CASE_ADMIN_EMAIL: ${{variables.ENV_GROUP_NAME}}.CASE_ADMIN_EMAIL
           INSPECTOR_EMAIL: ${{variables.ENV_GROUP_NAME}}.INSPECTOR_EMAIL
