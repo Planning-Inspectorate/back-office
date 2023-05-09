@@ -28,3 +28,9 @@ export type DocumentType =
 	| 'decision letter'
 	| 'planning application form'
 	| 'supporting document';
+
+export interface AppealSummary {
+	appealId: number;
+	appealReference: string;
+	appealStatus: string;
+}

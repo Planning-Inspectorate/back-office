@@ -1,6 +1,6 @@
 import * as nationalListService from './national-list.service.js';
 
-/** @typedef {import('@pins/appeals').CaseOfficer.AppealSummary} AppealSummary */
+/** @typedef {import('@pins/appeals').AppealSummary} AppealSummary */
 
 /**
  * @typedef {object} ViewNationalListRenderOptions

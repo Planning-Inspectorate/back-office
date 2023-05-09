@@ -2,6 +2,7 @@ import { addressToString } from '../address-formatter.js';
 import asyncRoute from '../async-route.js';
 import { bodyToPayload } from '../body-formatter.js';
 import { dateIsValid, isDateInstance } from '../dates.js';
+import { appealShortReference } from '../nunjucks-filters/appeals.js';
 import { datestamp, displayDate } from '../nunjucks-filters/date.js';
 import { nameToString } from '../person-name-formatter.js';
 
@@ -18,6 +19,49 @@ describe('Libraries', () => {
 			const adressFormatted = addressToString(address);
 
 			expect(typeof adressFormatted).toBe('string');
+		});
+	});
+
+	describe('appeals', () => {
+		describe('appealShortRef', () => {
+			const tests = [
+				{
+					name: 'null',
+					ref: null,
+					want: null
+				},
+				{
+					name: 'undefined'
+				},
+				{
+					name: 'empty',
+					ref: '',
+					want: ''
+				},
+				{
+					name: 'invalid',
+					ref: 'APP/5141/9999',
+					want: 'APP/5141/9999'
+				},
+				{
+					name: 'valid 1',
+					ref: 'APP/Q9999/D/21/1345264',
+					want: '1345264'
+				},
+				{
+					name: 'valid 2',
+					ref: 'APP/Q9999/D/21/5463281',
+					want: '5463281'
+				}
+			];
+
+			for (const { name, ref, want } of tests) {
+				it(`should handle ${name}`, () => {
+					const got = appealShortReference(ref);
+
+					expect(got).toEqual(want);
+				});
+			}
 		});
 	});
 
