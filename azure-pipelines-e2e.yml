@@ -13,9 +13,7 @@ parameters:
 variables:
   - name: APP
     value: ${{parameters.APP}}
-  - name: ENV_GROUP_NAME
-    value: e2e-${{parameters.Environment}}
-  - group: ${{variables.ENV_GROUP_NAME}}
+  - group: e2e-${{parameters.Environment}}
 
 pr:
   branches:
