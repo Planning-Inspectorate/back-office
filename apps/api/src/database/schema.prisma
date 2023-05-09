@@ -399,6 +399,7 @@ model Document {
   fileType             String?
   isDeleted            Boolean           @default(false)
   representationId     Int?
+  latestVersionId      Int?              @default(1)
   folder               Folder            @relation(fields: [folderId], references: [id])
   documentVersion      DocumentVersion[]
   Representation       Representation?   @relation(fields: [representationId], references: [id], onUpdate: NoAction, onDelete: NoAction)
