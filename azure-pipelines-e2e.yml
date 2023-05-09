@@ -11,7 +11,7 @@ parameters:
       - appeals
 
 variables:
-  - group: e2e-${{paramters.Environment}}
+  - group: e2e-${{parameters.Environment}}
 
 pr:
   branches:
