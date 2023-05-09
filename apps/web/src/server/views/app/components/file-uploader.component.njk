@@ -14,7 +14,11 @@
 		<form class="govuk-grid-column-two-thirds">
 			<div class="pins-file-upload--container">
 				<div class="govuk-body colour--secondary pins-file-upload--instructions">
-					<label for="upload-file-{{ params.formId }}">Choose a single or multiple files to upload.</label>
+					{% if params.multiple %}
+						<label for="upload-file-{{ params.formId }}">Choose a single or multiple files to upload.</label>
+					{% else %}
+						<label for="upload-file-{{ params.formId }}">Choose a single file to upload.</label>
+					{% endif %}
 					<span>
 					Your file must be {% for extension in params.allowedTypes %}
 
@@ -30,7 +34,7 @@
 						   accept="{% for value in params.allowedTypes %}{{ value|MIME }}{% endfor %}"
 						   type="file" name="files" value="Choose file"
 						   aria-controls="file-list-{{ params.formId }}"
-						   multiple>
+						   {% if params.multiple %}multiple{% endif %}>
 					<button type='button' class="pins-file-upload--button govuk-button">
 						Choose file
 					</button>
