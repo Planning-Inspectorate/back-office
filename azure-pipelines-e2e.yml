@@ -48,11 +48,11 @@ jobs:
           customCommand: "run cy:run"
           workingDir: $(System.DefaultWorkingDirectory)/apps/e2e
         env:
-          BASE_URL: $[variables.BASE_URL]
-          CASE_TEAM_EMAIL: $[variables.CASE_TEAM_EMAIL]
-          CASE_ADMIN_EMAIL: $[variables.CASE_ADMIN_EMAIL]
-          INSPECTOR_EMAIL: $[variables.INSPECTOR_EMAIL]
-          USER_PASSWORD: $[variables.USER_PASSWORD]
+          BASE_URL: $(BASE_URL)
+          CASE_TEAM_EMAIL: $CASE_TEAM_EMAIL)
+          CASE_ADMIN_EMAIL: $CASE_ADMIN_EMAIL)
+          INSPECTOR_EMAIL: $INSPECTOR_EMAIL)
+          USER_PASSWORD: $USER_PASSWORD)
         displayName: "Run Cypress Tests"
 
       - task: PublishBuildArtifacts@1
