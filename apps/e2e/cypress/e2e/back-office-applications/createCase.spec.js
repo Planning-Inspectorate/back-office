@@ -11,7 +11,7 @@ const createCasePage = new CreateCasePage();
 const applicationsHomePage = new ApplicationsHomePage();
 
 describe('Create A Case', () => {
-	context('As Inspector', () => {
+	context.only('As Inspector', () => {
 		beforeEach(() => {
 			cy.login(users.inspector);
 		});
