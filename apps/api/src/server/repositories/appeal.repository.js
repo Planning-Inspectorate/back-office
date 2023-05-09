@@ -59,29 +59,36 @@ const appealRepository = (function () {
 		/**
 		 * @param {number} pageNumber
 		 * @param {number} pageSize
-		 * @returns {Prisma.PrismaPromise<import('@pins/api').Schema.Appeal[]>}
+		 * @returns {Prisma.PrismaPromise<[number, import('@pins/api').Schema.Appeal[]]>}
 		 */
 		getAll(pageNumber, pageSize) {
-			return databaseConnector.appeal.findMany({
-				where: {
-					appealStatus: {
-						some: {
-							valid: true
-						}
+			const where = {
+				appealStatus: {
+					some: {
+						valid: true
 					}
-				},
-				include: {
-					address: true,
-					appealType: true,
-					appealStatus: {
-						where: {
-							valid: true
+				}
+			};
+
+			return databaseConnector.$transaction([
+				databaseConnector.appeal.count({
+					where
+				}),
+				databaseConnector.appeal.findMany({
+					where,
+					include: {
+						address: true,
+						appealType: true,
+						appealStatus: {
+							where: {
+								valid: true
+							}
 						}
-					}
-				},
-				skip: getSkipValue(pageNumber, pageSize),
-				take: pageSize
-			});
+					},
+					skip: getSkipValue(pageNumber, pageSize),
+					take: pageSize
+				})
+			]);
 		},
 		/**
 		 *

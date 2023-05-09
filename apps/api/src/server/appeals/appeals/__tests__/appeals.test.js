@@ -50,6 +50,8 @@ describe('Appeals', () => {
 	describe('/appeals', () => {
 		test('gets appeals when not given pagination params', async () => {
 			// @ts-ignore
+			databaseConnector.appeal.count.mockResolvedValue(5);
+			// @ts-ignore
 			databaseConnector.appeal.findMany.mockResolvedValue([appeal, appealTwo]);
 
 			const response = await request.get('/appeals');
@@ -61,39 +63,47 @@ describe('Appeals', () => {
 				})
 			);
 			expect(response.status).toEqual(200);
-			expect(response.body).toEqual([
-				{
-					appealId: appeal.id,
-					appealReference: appeal.reference,
-					appealSite: {
-						addressLine1: appeal.address.addressLine1,
-						town: appeal.address.town,
-						county: appeal.address.county,
-						postCode: appeal.address.postcode
+			expect(response.body).toEqual({
+				itemCount: 5,
+				items: [
+					{
+						appealId: appeal.id,
+						appealReference: appeal.reference,
+						appealSite: {
+							addressLine1: appeal.address.addressLine1,
+							town: appeal.address.town,
+							county: appeal.address.county,
+							postCode: appeal.address.postcode
+						},
+						appealStatus: appeal.appealStatus[0].status,
+						appealType: appeal.appealType.type,
+						createdAt: appeal.createdAt.toISOString(),
+						localPlanningDepartment: appeal.localPlanningDepartment
 					},
-					appealStatus: appeal.appealStatus[0].status,
-					appealType: appeal.appealType.type,
-					createdAt: appeal.createdAt.toISOString(),
-					localPlanningDepartment: appeal.localPlanningDepartment
-				},
-				{
-					appealId: appealTwo.id,
-					appealReference: appeal.reference,
-					appealSite: {
-						addressLine1: appeal.address.addressLine1,
-						town: appeal.address.town,
-						county: appeal.address.county,
-						postCode: appeal.address.postcode
-					},
-					appealStatus: appeal.appealStatus[0].status,
-					appealType: appeal.appealType.type,
-					createdAt: appeal.createdAt.toISOString(),
-					localPlanningDepartment: appeal.localPlanningDepartment
-				}
-			]);
+					{
+						appealId: appealTwo.id,
+						appealReference: appeal.reference,
+						appealSite: {
+							addressLine1: appeal.address.addressLine1,
+							town: appeal.address.town,
+							county: appeal.address.county,
+							postCode: appeal.address.postcode
+						},
+						appealStatus: appeal.appealStatus[0].status,
+						appealType: appeal.appealType.type,
+						createdAt: appeal.createdAt.toISOString(),
+						localPlanningDepartment: appeal.localPlanningDepartment
+					}
+				],
+				page: 1,
+				pageCount: 1,
+				pageSize: 30
+			});
 		});
 
 		test('gets appeals when given pagination params', async () => {
+			// @ts-ignore
+			databaseConnector.appeal.count.mockResolvedValue(5);
 			// @ts-ignore
 			databaseConnector.appeal.findMany.mockResolvedValue([appealTwo]);
 
@@ -106,22 +116,28 @@ describe('Appeals', () => {
 				})
 			);
 			expect(response.status).toEqual(200);
-			expect(response.body).toEqual([
-				{
-					appealId: appealTwo.id,
-					appealReference: appeal.reference,
-					appealSite: {
-						addressLine1: appeal.address.addressLine1,
-						town: appeal.address.town,
-						county: appeal.address.county,
-						postCode: appeal.address.postcode
-					},
-					appealStatus: appeal.appealStatus[0].status,
-					appealType: appeal.appealType.type,
-					createdAt: appeal.createdAt.toISOString(),
-					localPlanningDepartment: appeal.localPlanningDepartment
-				}
-			]);
+			expect(response.body).toEqual({
+				itemCount: 5,
+				items: [
+					{
+						appealId: appealTwo.id,
+						appealReference: appeal.reference,
+						appealSite: {
+							addressLine1: appeal.address.addressLine1,
+							town: appeal.address.town,
+							county: appeal.address.county,
+							postCode: appeal.address.postcode
+						},
+						appealStatus: appeal.appealStatus[0].status,
+						appealType: appeal.appealType.type,
+						createdAt: appeal.createdAt.toISOString(),
+						localPlanningDepartment: appeal.localPlanningDepartment
+					}
+				],
+				page: 2,
+				pageCount: 5,
+				pageSize: 1
+			});
 		});
 
 		test('returns an error if pageNumber is given and pageSize is not given', async () => {
