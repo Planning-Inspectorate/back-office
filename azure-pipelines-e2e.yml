@@ -57,7 +57,7 @@ jobs:
 
       - task: PublishBuildArtifacts@1
         inputs:
-          pathToPublish: '$(Build.ArtifactStagingDirectory)/apps/e2e/cypress/screenshots'
+          pathToPublish: '$(Build.DefaultWorkingDirectory)/apps/e2e/cypress/screenshots'
           artifactName: 'FailedTests'
         displayName: "Publish FailedTests Artifacts"
         condition: failed()
