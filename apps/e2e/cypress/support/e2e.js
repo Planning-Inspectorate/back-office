@@ -22,3 +22,7 @@ import './commands';
 after(() => {
 	cy.deleteUnwantedFixtures();
 });
+
+before(() => {
+	cy.clearAllCookies();
+});
