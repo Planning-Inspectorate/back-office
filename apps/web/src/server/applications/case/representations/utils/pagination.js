@@ -1,8 +1,8 @@
-import { getPaginationLinks } from '../../../../../common/pagination/pagination-links.js';
+import { getPaginationLinks } from '../../../common/components/pagination/pagination-links.js';
 import {
 	getResultsPerPage,
 	showingPage
-} from '../../../../../common/pagination/pagination-results-per-page.js';
+} from '../../../common/components/pagination/pagination-results-per-page.js';
 import { representationsUrl } from '../config.js';
 
 /**
