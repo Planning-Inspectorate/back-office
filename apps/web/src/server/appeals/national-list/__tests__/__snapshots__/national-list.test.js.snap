@@ -25,7 +25,7 @@ exports[`national-list GET / should render national list 1`] = `
                 <td class=\\"govuk-table__cell\\">Copthalls, Clevedon Road, West Hill, BS48 1PN</td>
                 <td class=\\"govuk-table__cell\\">Householder Appeal</td>
                 <td class=\\"govuk-table__cell\\">Bradford Council</td>
-                <td class=\\"govuk-table__cell\\"><strong class=\\"govuk-tag govuk-tag--\\">received_appeal</strong>
+                <td class=\\"govuk-table__cell\\"><strong class=\\"govuk-tag govuk-tag--\\">received appeal</strong>
                 </td>
             </tr>
             <tr class=\\"govuk-table__row\\">
@@ -34,7 +34,7 @@ exports[`national-list GET / should render national list 1`] = `
                 <td class=\\"govuk-table__cell\\">19 Beauchamp Road, Bristol, BS7 8LQ</td>
                 <td class=\\"govuk-table__cell\\">Householder Appeal</td>
                 <td class=\\"govuk-table__cell\\">Bradford Council</td>
-                <td class=\\"govuk-table__cell\\"><strong class=\\"govuk-tag govuk-tag--\\">received_appeal</strong>
+                <td class=\\"govuk-table__cell\\"><strong class=\\"govuk-tag govuk-tag--\\">received appeal</strong>
                 </td>
             </tr>
         </tbody>

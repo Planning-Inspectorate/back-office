@@ -29,5 +29,5 @@
 		{%- case 'incomplete' -%}
 			{%- set statusTagColor = 'yellow' -%}
 	{%- endswitch -%}
-	<strong class="govuk-tag govuk-tag--{{statusTagColor}}">{{ statusLabel }}</strong>
+	<strong class="govuk-tag govuk-tag--{{statusTagColor}}">{{ statusLabel | replace("_", " ") }}</strong>
 {%- endmacro -%}
