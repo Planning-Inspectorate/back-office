@@ -11,9 +11,9 @@ parameters:
       - appeals
 
 variables:
-  - group: e2e-${{parameters.Environment}}
   - name: APP
     value: ${{parameters.APP}}
+  - group: e2e-${{parameters.Environment}}
 
 pr:
   branches:
