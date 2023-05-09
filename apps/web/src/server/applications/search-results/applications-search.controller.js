@@ -26,7 +26,7 @@ export async function searchApplications(req, response) {
 		});
 	}
 
-	const pageSize = 1;
+	const pageSize = 50;
 	const pageNumber = Number.parseInt(params?.pageNumber, 10) || 1;
 
 	const searchResponse = await applicationsService.searchApplications({
