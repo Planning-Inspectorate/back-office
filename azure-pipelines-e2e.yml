@@ -22,7 +22,7 @@ pr:
       - apps
 
 jobs:
-  - job: Run Cypress Tests
+  - job: Run_Cypress_Tests
     pool:
       vmImage: "ubuntu-latest"
 
