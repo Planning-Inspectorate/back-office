@@ -36,7 +36,7 @@ jobs:
 
       - task: ShellScript@2
         inputs:
-          scriptPath: 'aaps/e2e/install_chromium.sh'
+          scriptPath: 'apps/e2e/install_chromium.sh'
         displayName: 'Install Chromium'
         condition: eq(variables['agent.os'], 'Linux')
 
