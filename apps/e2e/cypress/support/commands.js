@@ -23,11 +23,8 @@ Cypress.Commands.add('validateDownloadedFile', (fileName) => {
 
 Cypress.Commands.add('login', (user) => {
 	cy.task('CookiesFileExists', user.id).then((exists) => {
-		const isCI = Cypress.env('isCI');
-		if (!exists || isCI) {
-			!exists
-				? cy.log(`No cookies 🍪 found!\nLogging in as: ${user.id}`)
-				: cy.log(`Logging in as: ${user.id}`);
+		if (!exists) {
+			cy.log(`No cookies 🍪 found!\nLogging in as: ${user.id}`);
 			cy.loginWithPuppeteer(user);
 		} else {
 			cy.log(`Found some cookies! 🍪\nSetting cookies for: ${user.id}`);

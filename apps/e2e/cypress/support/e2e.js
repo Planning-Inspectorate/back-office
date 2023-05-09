@@ -17,6 +17,7 @@
 // ***********************************************************
 
 // Import commands.js using ES2015 syntax:
+import { users } from '../fixtures/users';
 import './commands';
 
 after(() => {
@@ -24,5 +25,8 @@ after(() => {
 });
 
 before(() => {
-	cy.clearAllCookies();
+	cy.clearCookiesFiles();
+	cy.login(users.caseAdmin);
+	cy.login(users.caseTeam);
+	cy.login(users.inspector);
 });
