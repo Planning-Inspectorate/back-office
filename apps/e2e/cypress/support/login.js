@@ -28,8 +28,7 @@ azureSignIn = async (config) => {
 	await timeout(2000);
 	await page.type(locators.passwordInput, config.password);
 	await page.keyboard.press('Enter');
-	await page.waitForNetworkIdle();
-	// await page.waitForSelector(locators.pinsApplicationHeader, { visible: true, timeout: 10000 });
+	await new Promise((r) => setTimeout(r, 5000));
 
 	const cookies = await getCookies(page);
 
