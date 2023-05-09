@@ -23,10 +23,3 @@ import './commands';
 after(() => {
 	cy.deleteUnwantedFixtures();
 });
-
-before(() => {
-	cy.clearCookiesFiles();
-	cy.login(users.caseAdmin);
-	cy.login(users.caseTeam);
-	cy.login(users.inspector);
-});
