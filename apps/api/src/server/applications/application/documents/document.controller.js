@@ -11,6 +11,7 @@ import {
 import { applicationStates } from '../../state-machine/application.machine.js';
 import {
 	formatDocumentUpdateResponseBody,
+	obtainURLForDocumentVersion,
 	obtainURLsForDocuments,
 	upsertDocumentVersionAndReturnDetails
 } from './document.service.js';
@@ -38,6 +39,33 @@ export const provideDocumentUploadURLs = async ({ params, body }, response) => {
 	const { blobStorageHost, blobStorageContainer, documents } = await obtainURLsForDocuments(
 		documentsToUpload,
 		params.id
+	);
+
+	// Map the obtained URLs with documentName
+	const documentsWithUrls = documents.map((document) => {
+		return pick(document, ['documentName', 'blobStoreUrl']);
+	});
+
+	// Send response with blob storage host, container, and documents with URLs
+	response.send({
+		blobStorageHost,
+		blobStorageContainer,
+		documents: documentsWithUrls
+	});
+};
+
+/**
+ *
+ * @type {import('express').RequestHandler<any, any, { blobStorageHost: string, blobStorageContainer: string, documents: { documentName: string, blobStoreUrl: string }[] } | any, any>}
+ */
+export const provideDocumentVersionUploadURL = async ({ params, body }, response) => {
+	const documentsToUpload = body[''];
+
+	// Obtain URLs for documents from blob storage
+	const { blobStorageHost, blobStorageContainer, documents } = await obtainURLForDocumentVersion(
+		documentsToUpload,
+		params.id,
+		params.documentId
 	);
 
 	// Map the obtained URLs with documentName

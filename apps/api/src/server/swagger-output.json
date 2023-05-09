@@ -1021,6 +1021,44 @@
 				}
 			}
 		},
+		"/applications/{id}/document/{documentId}/version": {
+			"post": {
+				"tags": ["Applications"],
+				"description": "Saves new documents to database and returns location in Blob Storage",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"type": "integer",
+						"description": "Application ID here"
+					},
+					{
+						"name": "documentId",
+						"in": "path",
+						"required": true,
+						"type": "string",
+						"description": "Document ID here"
+					},
+					{
+						"name": "body",
+						"in": "body",
+						"description": "Document Details",
+						"schema": {
+							"$ref": "#/definitions/documentToSave"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Document that have been saved",
+						"schema": {
+							"$ref": "#/definitions/documentsAndBlobStorageURLs"
+						}
+					}
+				}
+			}
+		},
 		"/applications/{id}/documents/update": {
 			"patch": {
 				"tags": ["Applications"],
@@ -1643,6 +1681,27 @@
 						"type": "number",
 						"example": 1024
 					}
+				}
+			}
+		},
+		"documentToSave": {
+			"type": "object",
+			"properties": {
+				"documentName": {
+					"type": "string",
+					"example": "document.pdf"
+				},
+				"folderId": {
+					"type": "number",
+					"example": 123
+				},
+				"documentType": {
+					"type": "string",
+					"example": "application/pdf"
+				},
+				"documentSize": {
+					"type": "number",
+					"example": 1024
 				}
 			}
 		},

@@ -16,6 +16,16 @@ export const createNewDocument = async (caseId, payload) => {
 };
 
 /**
+ * @param {string} caseId
+ * @param {string} documentId
+ * @param {DocumentUploadInfo} payload
+ * @returns {Promise<DocumentUploadInfo>}
+ */
+export const createNewDocumentVersion = async (caseId, documentId, payload) => {
+	return post(`applications/${caseId}/document/${documentId}/version`, { json: payload });
+};
+
+/**
  * Remove extension from document name
  *
  * @param {string} documentNameWithExtension
@@ -57,4 +67,23 @@ export async function postDocumentsUpload({ params, body, session }, response) {
 	});
 
 	return response.send({ ...uploadInfo, accessToken });
+}
+
+/**
+ * Generic controller for applications and appeals for files upload
+ *
+ * @param {{params: {caseId: string, documentId: string}, session: SessionWithAuth, body: DocumentUploadInfo}} request
+ * @param {*} response
+ * @returns {Promise<{}>}
+ */
+export async function postUploadDocumentVersion({ params, body, session }, response) {
+	const { caseId, documentId } = params;
+
+	const document = await createNewDocumentVersion(caseId, documentId, body);
+
+	const accessToken = await getActiveDirectoryAccessToken(session);
+
+	document.fileRowId = body?.fileRowId || '';
+
+	return response.send({ ...document, accessToken });
 }

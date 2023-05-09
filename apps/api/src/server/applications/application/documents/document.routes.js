@@ -9,6 +9,7 @@ import {
 	getReadyToPublishDocuments,
 	provideDocumentUploadURLs,
 	publishDocuments,
+	provideDocumentVersionUploadURL,
 	revertDocumentPublishedStatus,
 	storeDocumentVersion,
 	updateDocuments
@@ -16,7 +17,8 @@ import {
 import {
 	validateDocumentIds,
 	validateDocumentsToUpdateProvided,
-	validateDocumentsToUploadProvided
+	validateDocumentsToUploadProvided,
+	validateDocumentToUploadProvided
 } from './document.validators.js';
 
 const router = createRouter();
@@ -79,6 +81,41 @@ router.post(
 	validateFolderIds,
 	trimUnexpectedRequestParameters,
 	asyncHandler(provideDocumentUploadURLs)
+);
+
+router.post(
+	'/:id/document/:documentId/version',
+	/*
+        #swagger.tags = ['Applications']
+        #swagger.path = '/applications/{id}/documents'
+        #swagger.description = 'Saves new documents to database and returns location in Blob Storage'
+        #swagger.parameters['id'] = {
+            in: 'path',
+			description: 'Application ID here',
+			required: true,
+			type: 'integer'
+        }
+		#swagger.parameters['documentId'] = {
+            in: 'path',
+			description: 'Document ID here',
+			required: true,
+			type: 'string'
+        }
+        #swagger.parameters['body'] = {
+            in: 'body',
+            description: 'Document Details',
+            schema: { $ref: '#/definitions/documentToSave' }
+        }
+        #swagger.responses[200] = {
+            description: 'Document that have been saved',
+            schema: { $ref: '#/definitions/documentsAndBlobStorageURLs' }
+        }
+	 */
+	validateApplicationId,
+	validateDocumentToUploadProvided,
+	validateFolderIds,
+	trimUnexpectedRequestParameters,
+	asyncHandler(provideDocumentVersionUploadURL)
 );
 
 router.patch(

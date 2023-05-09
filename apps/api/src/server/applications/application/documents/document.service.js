@@ -44,6 +44,20 @@ const mapDocumentsToSendToDatabase = (documents) => {
 
 /**
  *
+ * @param {{documentName: string, folderId: number, documentType: string, documentSize: number}} document
+ * @returns {{name: string, folderId: number; documentType: string, documentSize: number}}
+ */
+const mapDocumentToSendToDatabase = (document) => {
+	return {
+		name: document.documentName,
+		folderId: document.folderId,
+		documentType: document.documentType,
+		documentSize: document.documentSize
+	};
+};
+
+/**
+ *
  * @param {{name: string, folderId: number; documentType: string, documentSize: number}[]} documents
  * @returns {Promise<import('@pins/api').Schema.Document[]>}
  */
@@ -184,6 +198,74 @@ export const obtainURLsForDocuments = async (documentsToUpload, caseId) => {
 	logger.info(`Upserting documents to database...`);
 
 	const documentsFromDatabase = await upsertDocumentsToDatabase(documentsToSendToDatabase);
+
+	logger.info(`Documents upserted: ${JSON.stringify(documentsFromDatabase)}`);
+
+	// Step 5: Map documents to the format expected by the blob storage service
+	logger.info(`Mapping documents to blob storage format...`);
+
+	const requestToDocumentStorage = mapDocumentsToSendToBlobStorage(
+		documentsFromDatabase,
+		caseForDocuments.reference
+	);
+
+	logger.info(`Documents mapped: ${JSON.stringify(requestToDocumentStorage)}`);
+
+	// Step 6: Send a request to the blob storage service to get the storage location for each document
+
+	logger.info(`Sending request to blob storage service...`);
+
+	const responseFromDocumentStorage = await getStorageLocation(requestToDocumentStorage);
+
+	logger.info(`Response from blob storage service: ${JSON.stringify(responseFromDocumentStorage)}`);
+
+	// Step 7: Upsert document versions metadata to the database
+	logger.info(`Upserting document versions metadata to database...`);
+
+	await upsertDocumentVersionsMetadataToDatabase(
+		responseFromDocumentStorage.documents,
+		responseFromDocumentStorage.blobStorageContainer
+	);
+
+	// Step 8: Return the response from the blob storage service, including information about the uploaded documents and their storage location
+	logger.info(`Returning response from blob storage service...`);
+	return responseFromDocumentStorage;
+};
+
+/**
+ * @param {{documentName: string, folderId: number, documentType: string, documentSize: number}} documentToUpload
+ * @param {number} caseId
+ * @param {string} documentId
+ * @returns {Promise<{blobStorageHost: string, blobStorageContainer: string, documents: {blobStoreUrl: string, caseType: string, caseReference: string,documentName: string, GUID: string}[]}>}}
+ */
+export const obtainURLForDocumentVersion = async (documentToUpload, caseId, documentId) => {
+	// Step 1: Retrieve the case object associated with the provided caseId
+	logger.info(`Retrieving case for caseId ${caseId} ${documentId}...`);
+
+	const caseForDocuments = await caseRepository.getById(+caseId, {});
+
+	logger.info(`Case retrieved: ${JSON.stringify(caseForDocuments)}`);
+
+	// Step 2: Check if the case object is found and has a reference
+	logger.info(`Checking if case has reference...`);
+
+	if (caseForDocuments == null || caseForDocuments.reference == null) {
+		throw new Error('Case not found or has no reference');
+	}
+
+	logger.info(`Case has reference`);
+
+	// Step 3: Map documents to the format expected by the database
+	logger.info(`Mapping documents to database format...`);
+
+	const documentToSendToDatabase = mapDocumentToSendToDatabase(documentToUpload);
+
+	logger.info(`Document mapped: ${JSON.stringify(documentToSendToDatabase)}`);
+
+	// Step 4: Upsert the documents to the database
+	logger.info(`Upserting documents to database...`);
+
+	const documentsFromDatabase = await upsertDocumentsToDatabase([documentToSendToDatabase]);
 
 	logger.info(`Documents upserted: ${JSON.stringify(documentsFromDatabase)}`);
 
