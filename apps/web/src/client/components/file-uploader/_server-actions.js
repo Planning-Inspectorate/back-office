@@ -56,6 +56,43 @@ const serverActions = (uploadForm) => {
 
 	/**
 	 *
+	 * @param {FileWithRowId} file
+	 * @returns {Promise<AnError[]>}
+	 */
+	const getVersionUploadInfoFromInternalDB = async (file) => {
+		const { folderId, caseId, documentId } = uploadForm.dataset;
+		const payload = {
+			documentName: file.name,
+			documentSize: file.size,
+			documentType: file.type,
+			caseId,
+			folderId,
+			fileRowId: file.fileRowId
+		};
+
+		return fetch(`/documents/${caseId}/upload/${documentId}/version`, {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify(payload)
+		})
+			.then((response) => response.json())
+			.then((documentUploadInfo) => {
+				if (documentUploadInfo.failedReason) {
+					failedUploads.push({
+						message: 'GENERIC_SINGLE_FILE',
+						fileRowId: documentUploadInfo.fileRowId,
+						name: documentUploadInfo.documentName
+					});
+				}
+
+				return documentUploadInfo;
+			});
+	};
+
+	/**
+	 *
 	 * @param {FileWithRowId[]} fileList
 	 * @param {UploadInfo} uploadInfo
 	 * @returns {Promise<AnError[]>}>}
@@ -123,7 +160,7 @@ const serverActions = (uploadForm) => {
 		return response;
 	};
 
-	return { getUploadInfoFromInternalDB, uploadFiles };
+	return { getUploadInfoFromInternalDB, uploadFiles, getVersionUploadInfoFromInternalDB };
 };
 
 export default serverActions;
