@@ -20,7 +20,7 @@ azureSignIn = async (config) => {
 	});
 
 	const page = await browser.newPage();
-	await page.goto(config.loginUrl, { timeout: 60000 });
+	await page.goto(config.loginUrl, { waitUntil: 'networkidle2', timeout: 0 });
 	await page.waitForSelector(locators.usernameInput, { visible: true, timeout: 10000 });
 	await page.type(locators.usernameInput, config.username);
 	await page.keyboard.press('Enter');
@@ -28,7 +28,7 @@ azureSignIn = async (config) => {
 	await timeout(2000);
 	await page.type(locators.passwordInput, config.password);
 	await page.keyboard.press('Enter');
-	await page.waitForNavigation({ timeout: 10000 });
+	await page.waitForNetworkIdle();
 	await page.waitForSelector(locators.pinsApplicationHeader, { visible: true, timeout: 10000 });
 
 	const cookies = await getCookies(page);
