@@ -1,0 +1,46 @@
+parameters:
+  - name: Environment
+    default: dev
+    values:
+      - dev
+      - test
+  - name: APP
+    default: applications
+    values:
+      - applications
+      - appeals
+
+variables:
+  - group: e2e-${{paramters.Environment}}
+
+pr:
+  branches:
+    include:
+      - main
+  paths:
+    include:
+      - apps
+
+jobs:
+  - job: Run_Cypress_Tests
+    pool:
+      vmImage: "ubuntu-latest"
+
+    steps:
+      - task: NodeTool@0
+        inputs:
+          versionSpec: "16.x"
+        displayName: "Install Node.js"
+
+      - task: Npm@1
+        inputs:
+          command: "install"
+          workingDir: $(System.DefaultWorkingDirectory)/apps/e2e
+        displayName: "Install Dependencies"
+
+      - task: Npm@1
+        inputs:
+          command: "custom"
+          customCommand: "run e2e"
+          workingDir: $(System.DefaultWorkingDirectory)
+        displayName: "Run Cypress Tests"
