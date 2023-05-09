@@ -10,9 +10,6 @@ parameters:
       - applications
       - appeals
 
-variables:
-  - group: e2e-${{parameters.Environment}}
-
 pr:
   branches:
     include:
@@ -39,6 +36,10 @@ jobs:
         displayName: "Install Dependencies"
 
       - task: Npm@1
+        variables:
+          - group: e2e-${{parameters.Environment}}
+          - name: APP
+            value: ${{parameters.APP}}
         inputs:
           command: "custom"
           customCommand: "run cy:run"
