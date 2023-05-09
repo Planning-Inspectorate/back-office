@@ -49,15 +49,15 @@ jobs:
           workingDir: $(System.DefaultWorkingDirectory)/apps/e2e
         env:
           BASE_URL: $(BASE_URL)
-          CASE_TEAM_EMAIL: $CASE_TEAM_EMAIL)
-          CASE_ADMIN_EMAIL: $CASE_ADMIN_EMAIL)
-          INSPECTOR_EMAIL: $INSPECTOR_EMAIL)
-          USER_PASSWORD: $USER_PASSWORD)
+          CASE_TEAM_EMAIL: $(CASE_TEAM_EMAIL)
+          CASE_ADMIN_EMAIL: $C(ASE_ADMIN_EMAIL)
+          INSPECTOR_EMAIL: $(INSPECTOR_EMAIL)
+          USER_PASSWORD: $(USER_PASSWORD)
         displayName: "Run Cypress Tests"
 
       - task: PublishBuildArtifacts@1
         inputs:
-          pathToPublish: '$(Build.DefaultWorkingDirectory)/apps/e2e/cypress/screenshots'
+          pathToPublish: 'apps/e2e/cypress/screenshots'
           artifactName: 'FailedTests'
         displayName: "Publish FailedTests Artifacts"
         condition: failed()
