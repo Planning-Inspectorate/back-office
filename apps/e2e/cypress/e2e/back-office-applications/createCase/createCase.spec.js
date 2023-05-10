@@ -1,7 +1,7 @@
 // @ts-nocheck
 /// <reference types="cypress"/>
 
-import { ApplicationsHomePage } from '../../..//page_objects/applicationsHomePage';
+import { ApplicationsHomePage } from '../../../page_objects/applicationsHomePage';
 import { users } from '../../../fixtures/users';
 
 const applicationsHomePage = new ApplicationsHomePage();
