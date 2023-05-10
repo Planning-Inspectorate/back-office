@@ -5,6 +5,7 @@ fi
 
 if [ -f .environment ]; then
   . .environment
+fi
 
   BASE_URL=$BASE_URL
   CASE_TEAM_EMAIL=$CASE_TEAM_EMAIL
@@ -19,5 +20,4 @@ if [ -f .environment ]; then
   echo "INSPECTOR_EMAIL=${INSPECTOR_EMAIL}" >> .env
   echo "USER_PASSWORD=${USER_PASSWORD}" >> .env
   echo "APP=${APP}" >> .env
-fi
 
