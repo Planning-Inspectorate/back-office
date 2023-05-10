@@ -295,11 +295,10 @@ export const publishDocuments = async ({ body }, response) => {
 		for (const document of items) {
 			logger.info(`publishing document with guid: ${document.guid}`);
 
-			// publishing does not change the Previous Published status, as that would just override it with "ready to publish",
-			// and we would lose the original status before that
 			/**
 			 * @typedef {object} PublishUpdates
 			 * @property {string} [publishedStatus]
+			 * @property {string} [publishedStatusPrev]
 			 * @property {Date} [datePublished]
 			 * @property {boolean} [published]
 			 */
@@ -307,6 +306,7 @@ export const publishDocuments = async ({ body }, response) => {
 			/** @type {PublishUpdates} */
 			const documentVersionUpdates = {
 				publishedStatus: 'published',
+				publishedStatusPrev: 'ready_to_publish',
 				datePublished: new Date(),
 				published: true
 			};
@@ -314,6 +314,10 @@ export const publishDocuments = async ({ body }, response) => {
 				document.guid,
 				documentVersionUpdates
 			);
+
+			// there is also a status field in Document - update this too
+			await documentRepository.update(document.guid, { status: 'published' });
+
 			const formattedResponse = {
 				guid: updateResponseInTable.documentGuid,
 				status: updateResponseInTable.publishedStatus
