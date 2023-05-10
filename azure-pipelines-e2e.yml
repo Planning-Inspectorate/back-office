@@ -31,15 +31,14 @@ jobs:
     steps:
       - task: Docker@2
         displayName: 'Build Docker image'
-        workingDirectory: $(System.DefaultWorkingDirectory)/apps/e2e
         inputs:
           command: build
           Dockerfile: 'Dockerfile'
           tags: 'my-cypress-tests'
+          workingDirectory: 'apps/e2e'
 
       - task: Docker@2
         displayName: 'Run Cypress tests'
-        workingDirectory: $(System.DefaultWorkingDirectory)/apps/e2e
         inputs:
           command: run
           containerCommand: '-v "$(pwd)/failed-tests:/app/cypress/screenshots" my-cypress-tests'
@@ -49,6 +48,7 @@ jobs:
             CASE_ADMIN_EMAIL=$(CASE_ADMIN_EMAIL)
             INSPECTOR_EMAIL=$(INSPECTOR_EMAIL)
             USER_PASSWORD=$(USER_PASSWORD)
+          workingDirectory: 'apps/e2e'
           displayName: "Run Cypress Tests in Docker"
 
       - task: PublishBuildArtifacts@1
