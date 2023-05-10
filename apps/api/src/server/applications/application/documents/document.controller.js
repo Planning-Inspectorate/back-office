@@ -59,7 +59,7 @@ export const provideDocumentUploadURLs = async ({ params, body }, response) => {
  * @type {import('express').RequestHandler<any, any, { blobStorageHost: string, blobStorageContainer: string, documents: { documentName: string, blobStoreUrl: string }[] } | any, any>}
  */
 export const provideDocumentVersionUploadURL = async ({ params, body }, response) => {
-	const documentsToUpload = body[''];
+	const documentsToUpload = body;
 
 	// Obtain URLs for documents from blob storage
 	const { blobStorageHost, blobStorageContainer, documents } = await obtainURLForDocumentVersion(

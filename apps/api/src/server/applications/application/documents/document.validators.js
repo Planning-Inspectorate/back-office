@@ -175,10 +175,10 @@ export const validateDocumentsToUploadProvided = composeMiddleware(
 );
 
 export const validateDocumentToUploadProvided = composeMiddleware(
-	body('*.documentName').exists().withMessage('Must provide a document name'),
-	body('*.documentType').exists().withMessage('Must provide a document type'),
-	body('*.documentSize').exists().withMessage('Must provide a document size'),
-	body('*.folderId').exists().withMessage('Must provide a folder id'),
+	body('.documentName').exists().withMessage('Must provide a document names'),
+	body('.documentType').exists().withMessage('Must provide a document type'),
+	body('.documentSize').exists().withMessage('Must provide a document size'),
+	body('.folderId').exists().withMessage('Must provide a folder id'),
 	validationErrorHandler
 );
 
