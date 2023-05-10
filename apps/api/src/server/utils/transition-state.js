@@ -1,12 +1,4 @@
 import { interpret } from 'xstate';
-import {
-	createFullPlanningAppealMachine,
-	fullPlanningStates
-} from '../appeals/state-machine/full-planning-appeal.machine.js';
-import {
-	createHouseholdAppealMachine,
-	householdStates
-} from '../appeals/state-machine/household-appeal.machine.js';
 import { createApplicationsMachine } from '../applications/state-machine/application.machine.js';
 import { createDocumentsMachine } from '../applications/state-machine/document.machine.js';
 
@@ -28,8 +20,6 @@ export class TransitionStateError extends Error {
  */
 const mapStateMachine = (caseType) => {
 	const stateMachines = {
-		household: createHouseholdAppealMachine,
-		'full planning': createFullPlanningAppealMachine,
 		application: createApplicationsMachine,
 		document: createDocumentsMachine
 	};
@@ -75,9 +65,4 @@ export const transitionState = ({
 		});
 	}
 	return nextState;
-};
-
-export const appealStates = {
-	...householdStates,
-	...fullPlanningStates
 };

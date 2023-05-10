@@ -2,4 +2,4 @@ import * as Schema from './src/database/schema';
 
 export { Schema };
 
-export type CaseType = 'household' | 'full planning' | 'application' | 'document';
+export type CaseType = 'application' | 'document';
