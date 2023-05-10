@@ -29,16 +29,27 @@ jobs:
       vmImage: "ubuntu-latest"
 
     steps:
-      - task: ShellScript@2
+      - task: Docker@2
+        displayName: 'Build Docker image'
+        workingDirectory: $(System.DefaultWorkingDirectory)/apps/e2e
         inputs:
-          scriptPath: 'apps/e2e/run-tests.sh'
-        env:
-          BASE_URL: $(BASE_URL)
-          CASE_TEAM_EMAIL: $(CASE_TEAM_EMAIL)
-          CASE_ADMIN_EMAIL: $C(ASE_ADMIN_EMAIL)
-          INSPECTOR_EMAIL: $(INSPECTOR_EMAIL)
-          USER_PASSWORD: $(USER_PASSWORD)
-        displayName: "Run Cypress Tests in Docker"
+          command: build
+          Dockerfile: 'Dockerfile'
+          tags: 'my-cypress-tests'
+
+      - task: Docker@2
+        displayName: 'Run Cypress tests'
+        workingDirectory: $(System.DefaultWorkingDirectory)/apps/e2e
+        inputs:
+          command: run
+          containerCommand: '-v "$(pwd)/failed-tests:/app/cypress/screenshots" my-cypress-tests'
+          envVars: >
+            BASE_URL=$(BASE_URL)
+            CASE_TEAM_EMAIL=$(CASE_TEAM_EMAIL)
+            CASE_ADMIN_EMAIL=$(CASE_ADMIN_EMAIL)
+            INSPECTOR_EMAIL=$(INSPECTOR_EMAIL)
+            USER_PASSWORD=$(USER_PASSWORD)
+          displayName: "Run Cypress Tests in Docker"
 
       - task: PublishBuildArtifacts@1
         inputs:
