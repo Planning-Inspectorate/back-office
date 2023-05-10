@@ -26,7 +26,7 @@ pr:
 jobs:
   - job: Run_Cypress_Tests
     pool:
-      vmImage: "ubuntu-latest"
+      vmImage: 'macOS-latest'
 
     steps:
       - task: NodeTool@0
@@ -38,7 +38,6 @@ jobs:
         inputs:
           scriptPath: 'apps/e2e/install-chromium.sh'
         displayName: 'Install Chromium'
-        condition: eq(variables['agent.os'], 'Linux')
 
       - task: Npm@1
         inputs:
