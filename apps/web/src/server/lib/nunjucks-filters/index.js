@@ -34,7 +34,3 @@ export { statusName } from './status-name.js';
 export { setAttribute } from './set-attribute.js';
 export { default as stripQueryParamsDev } from './strip-query-parameters.js';
 export { actionsParameterForDocumentStatus } from './actions-parameter-for-document-status.js';
-
-// export domain-specific filters
-export { lpaLabel, lpaDocumentType } from '../../appeals/case-officer/case-officer.filters.js';
-export * from '../../appeals/validation/validation.filters.js';

@@ -42,13 +42,9 @@ export function viewHomepage(request, response, next) {
 	if (applicationGroupIds.length === 0 && appealGroupIds.length === 1) {
 		switch (appealGroupIds[0]) {
 			case config.referenceData.appeals.validationOfficerGroupId:
-				return response.redirect('/appeals-service/validation');
-
 			case config.referenceData.appeals.caseOfficerGroupId:
-				return response.redirect('/appeals-service/case-officer');
-
 			case config.referenceData.appeals.inspectorGroupId:
-				return response.redirect('/appeals-service/inspector');
+				return response.redirect('/appeals-service/appeals-list');
 
 			default: {
 				const error = new Error('User logged in successfully but the user group is valid.');

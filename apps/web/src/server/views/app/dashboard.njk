@@ -39,7 +39,10 @@
           <div class="govuk-grid-column-one-half">
             <h2 class="govuk-heading-m">Appeals</h2>
             <ul class="govuk-list">
-              {% if appealGroupIds | includes(referenceData.appeals.caseOfficerGroupId) %}
+                <li>
+                  <a href="/appeals-service/appeals-list" class="govuk-link">National List</a>
+                </li>
+              {# {% if appealGroupIds | includes(referenceData.appeals.caseOfficerGroupId) %}
                 <li>
                   <a href="/appeals-service/case-officer" class="govuk-link">Case officer</a>
                 </li>
@@ -53,7 +56,7 @@
                 <li>
                   <a href="/appeals-service/validation" class="govuk-link">Validation officer</a>
                 </li>
-              {% endif %}
+              {% endif %} #}
             </ul>
           </div>
         {% endif %}
