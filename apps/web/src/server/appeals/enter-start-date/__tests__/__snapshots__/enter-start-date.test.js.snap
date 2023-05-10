@@ -1,0 +1,51 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`appeal-details GET /enter-start-date should render the enter start date page 1`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <div class=\\"govuk-grid-row\\">
+        <div class=\\"govuk-grid-column-two-thirds\\">
+            <div class=\\"govuk-grid-row\\">
+                <div class=\\"govuk-grid-column-full\\"><span class=\\"govuk-caption-l govuk-!-margin-bottom-3\\">351062</span>
+                </div>
+            </div>
+            <form method=\\"post\\" novalidate=\\"novalidate\\">
+                <div class=\\"govuk-form-group\\">
+                    <fieldset class=\\"govuk-fieldset\\" role=\\"group\\" aria-describedby=\\"start-date-hint\\">
+                        <legend class=\\"govuk-fieldset__legend govuk-fieldset__legend--l\\">
+                            <h1 class=\\"govuk-fieldset__heading\\"> Enter the case start date</h1>
+                        </legend>
+                        <div id=\\"start-date-hint\\" class=\\"govuk-hint\\">For example, 27 3 2023</div>
+                        <div class=\\"govuk-date-input\\" id=\\"start-date\\">
+                            <div class=\\"govuk-date-input__item\\">
+                                <div class=\\"govuk-form-group\\">
+                                    <label class=\\"govuk-label govuk-date-input__label\\" for=\\"start-date-day\\">Day</label>
+                                    <input class=\\"govuk-input govuk-date-input__input govuk-input--width-2\\"
+                                    id=\\"start-date-day\\" name=\\"start-date-day\\" type=\\"text\\" inputmode=\\"numeric\\">
+                                </div>
+                            </div>
+                            <div class=\\"govuk-date-input__item\\">
+                                <div class=\\"govuk-form-group\\">
+                                    <label class=\\"govuk-label govuk-date-input__label\\" for=\\"start-date-month\\">Month</label>
+                                    <input class=\\"govuk-input govuk-date-input__input govuk-input--width-2\\"
+                                    id=\\"start-date-month\\" name=\\"start-date-month\\" type=\\"text\\" inputmode=\\"numeric\\">
+                                </div>
+                            </div>
+                            <div class=\\"govuk-date-input__item\\">
+                                <div class=\\"govuk-form-group\\">
+                                    <label class=\\"govuk-label govuk-date-input__label\\" for=\\"start-date-year\\">Year</label>
+                                    <input class=\\"govuk-input govuk-date-input__input govuk-input--width-4\\"
+                                    id=\\"start-date-year\\" name=\\"start-date-year\\" type=\\"text\\" inputmode=\\"numeric\\">
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+                <div class=\\"govuk-inset-text govuk-!-margin-top-0\\">Entering the start date will create the case timetable and publish the
+                    appeal on the Appeals Casework Portal</div>
+                <button type=\\"submit\\" class=\\"govuk-button\\"
+                data-module=\\"govuk-button\\">Save and continue</button>
+            </form>
+        </div>
+    </div>
+</main>"
+`;
