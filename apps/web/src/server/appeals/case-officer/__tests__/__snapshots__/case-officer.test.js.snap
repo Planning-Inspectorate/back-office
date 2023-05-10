@@ -41,21 +41,21 @@ exports[`case-officer GET / should render incoming and incomplete questionnaires
                 </td>
                 <td class=\\"govuk-table__cell\\">21 Jan 2022</td>
                 <td class=\\"govuk-table__cell\\">London Industrial Park – Unit 201, Alpine Way, London, E6 6LA</td>
-                <td                 class=\\"govuk-table__cell\\"><strong class=\\"govuk-tag govuk-tag--green\\">received</strong>
+                <td                 class=\\"govuk-table__cell\\"><strong class=\\"govuk-tag govuk-tag--grey single-line\\">received</strong>
                     </td>
             </tr>
             <tr class=\\"govuk-table__row\\">
                 <td class=\\"govuk-table__cell\\">LPA/A0000/A/00/0000203</td>
                 <td class=\\"govuk-table__cell\\">21 Jan 2022</td>
                 <td class=\\"govuk-table__cell\\">London Industrial Park – Unit 203, Alpine Way, London, E6 6LA</td>
-                <td                 class=\\"govuk-table__cell\\"><strong class=\\"govuk-tag govuk-tag--red\\">overdue</strong>
+                <td                 class=\\"govuk-table__cell\\"><strong class=\\"govuk-tag govuk-tag--grey single-line\\">overdue</strong>
                     </td>
             </tr>
             <tr class=\\"govuk-table__row\\">
                 <td class=\\"govuk-table__cell\\">LPA/A0000/A/00/0000202</td>
                 <td class=\\"govuk-table__cell\\">21 Jan 2022</td>
                 <td class=\\"govuk-table__cell\\">London Industrial Park – Unit 202, Alpine Way, London, E6 6LA</td>
-                <td                 class=\\"govuk-table__cell\\"><strong class=\\"govuk-tag govuk-tag--blue\\">awaiting</strong>
+                <td                 class=\\"govuk-table__cell\\"><strong class=\\"govuk-tag govuk-tag--grey single-line\\">awaiting</strong>
                     </td>
             </tr>
         </tbody>
@@ -76,7 +76,7 @@ exports[`case-officer GET / should render incoming and incomplete questionnaires
                 </td>
                 <td class=\\"govuk-table__cell\\">21 Jan 2022</td>
                 <td class=\\"govuk-table__cell\\">London Industrial Park – Unit 204, Alpine Way, London, E6 6LA</td>
-                <td                 class=\\"govuk-table__cell\\"><strong class=\\"govuk-tag govuk-tag--yellow\\">incomplete</strong>
+                <td                 class=\\"govuk-table__cell\\"><strong class=\\"govuk-tag govuk-tag--grey single-line\\">incomplete lpa questionnaire</strong>
                     </td>
             </tr>
         </tbody>
@@ -97,7 +97,7 @@ exports[`case-officer GET / should render incoming and incomplete questionnaires
                 </td>
                 <td class=\\"govuk-table__cell\\">21 Jan 2022</td>
                 <td class=\\"govuk-table__cell\\">London Industrial Park – Unit 206, Alpine Way, London, E6 6LA</td>
-                <td                 class=\\"govuk-table__cell\\"><strong class=\\"govuk-tag govuk-tag--purple\\">awaiting</strong>
+                <td                 class=\\"govuk-table__cell\\"><strong class=\\"govuk-tag govuk-tag--grey single-line\\">available for statements</strong>
                     </td>
             </tr>
         </tbody>
@@ -118,7 +118,7 @@ exports[`case-officer GET / should render incoming and incomplete questionnaires
                 </td>
                 <td class=\\"govuk-table__cell\\">21 Jan 2022</td>
                 <td class=\\"govuk-table__cell\\">London Industrial Park – Unit 205, Alpine Way, London, E6 6LA</td>
-                <td                 class=\\"govuk-table__cell\\"><strong class=\\"govuk-tag govuk-tag--purple\\">awaiting</strong>
+                <td                 class=\\"govuk-table__cell\\"><strong class=\\"govuk-tag govuk-tag--grey single-line\\">available for final comments</strong>
                     </td>
             </tr>
         </tbody>
