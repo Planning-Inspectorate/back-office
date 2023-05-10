@@ -46,11 +46,9 @@ jobs:
           workingDir: $(System.DefaultWorkingDirectory)/apps/e2e
         displayName: "Install Dependencies"
 
-      - task: Npm@1
+      - task: ShellScript@2
         inputs:
-          command: "custom"
-          customCommand: "run e2e:ci"
-          workingDir: $(System.DefaultWorkingDirectory)
+          scriptPath: 'apps/e2e/run-tests.sh'
         env:
           BASE_URL: $(BASE_URL)
           CASE_TEAM_EMAIL: $(CASE_TEAM_EMAIL)
