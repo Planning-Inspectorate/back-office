@@ -1,0 +1,49 @@
+{%- extends "app/layouts/app-two-column.layout.njk" -%}
+
+{%- from "govuk/components/date-input/macro.njk" import govukDateInput -%}
+{%- from "govuk/components/inset-text/macro.njk" import govukInsetText -%}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+
+{%- set containerSize = "xl" -%}
+{%- set pageTitle = "Enter start date - GOV.UK" -%}
+
+{%- set backLinkUrl -%}
+	/appeals-service/appeal-details/{{ appeal.id }}
+{%- endset -%}
+
+{%- block pageHeading -%}
+	<div class="govuk-grid-row">
+		<div class="govuk-grid-column-full">
+			<span class="govuk-caption-l govuk-!-margin-bottom-3">{{ appeal.reference | appealShortReference }}</span>
+		</div>
+	</div>
+{%- endblock -%}
+
+{%- block pageContent -%}
+	<form method="post" novalidate="novalidate">
+		{{ govukDateInput({
+			id: "start-date",
+			namePrefix: "start-date",
+			fieldset: {
+				legend: {
+					text: "Enter the case start date",
+					isPageHeading: true,
+					classes: "govuk-fieldset__legend--l"
+				}
+			},
+			hint: {
+				text: "For example, 27 3 2023"
+			}
+		}) }}
+		{{ govukInsetText({
+			text: "Entering the start date will create the case timetable and publish the appeal on the Appeals Casework Portal",
+			classes: "govuk-!-margin-top-0"
+		}) }}
+		{{
+		govukButton({
+			text: "Save and continue",
+			type: "submit"
+		})
+		}}
+	</form>
+{%- endblock -%}

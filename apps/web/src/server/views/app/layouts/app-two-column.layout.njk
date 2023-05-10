@@ -21,11 +21,11 @@
 				}}
 			{% endif %}
 			{% block pageHeading %}
-					<h1 class="govuk-heading-xl">
-            {% if pageCaption %}
-              <span class="govuk-caption-xl">{{ pageCaption }}</span>
-            {% endif %}{{ pageHeading or pageTitle }}
-          </h1>{% endblock %}
+				<h1 class="govuk-heading-xl">
+					{% if pageCaption %}
+						<span class="govuk-caption-xl">{{ pageCaption }}</span>
+					{% endif %}{{ pageHeading or pageTitle }}
+				</h1>{% endblock %}
 			{% block pageContent %}{% endblock %}
 		</div>
 	</div>
