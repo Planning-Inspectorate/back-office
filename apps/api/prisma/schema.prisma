@@ -52,7 +52,7 @@ model AppealType {
 /// `compoundStateName` values.
 model AppealStatus {
   id                  Int      @id @default(autoincrement())
-  status              String   @default("received_appeal")
+  status              String   @default("ready_to_start")
   createdAt           DateTime @default(now())
   valid               Boolean  @default(true)
   appealId            Int

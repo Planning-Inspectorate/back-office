@@ -5,6 +5,7 @@ import {
 	getRepresentationsViewModel
 } from './application-representations.view-model.js';
 import { getCase, getRepresentations } from './applications-relevant-reps.service.js';
+import { buildFilterQueryString, getFilterViewModel } from './utils/filter/filter-view-model.js';
 import { getPagination } from './utils/pagination.js';
 import { hasSearchUpdated } from './utils/search/has-search-updated.js';
 import { tableSortLinks } from './utils/table.js';
@@ -20,11 +21,12 @@ export async function relevantRepsApplications({ params, query }, res) {
 
 	hasSearchUpdated(query);
 
-	const { searchTerm, sortBy, pageSize = 25, page = 1 } = query;
+	const { searchTerm, sortBy, pageSize = 25, page = 1, filters } = query;
+
 	const caseReference = await getCase(caseId);
 	const representations = await getRepresentations(
 		caseId,
-		buildQueryString({ searchTerm, sortBy, pageSize, page })
+		buildQueryString({ searchTerm, sortBy, pageSize, page, ...buildFilterQueryString(filters) })
 	);
 
 	return res.render(view, {
@@ -40,6 +42,7 @@ export async function relevantRepsApplications({ params, query }, res) {
 			sortBy,
 			pageSize,
 			page
-		}
+		},
+		filters: getFilterViewModel(filters)
 	});
 }

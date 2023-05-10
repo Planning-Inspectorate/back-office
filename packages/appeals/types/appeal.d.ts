@@ -34,3 +34,12 @@ export interface AppealSummary {
 	appealReference: string;
 	appealStatus: string;
 }
+
+export type AppealStatus =
+	| 'ready_to_start'
+	| 'lpa_questionnaire_due'
+	| 'statement_review'
+	| 'final_comment_review'
+	| 'arrange_site_visit'
+	| 'issue_determination'
+	| 'complete';
