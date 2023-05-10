@@ -1,6 +1,8 @@
 // @ts-nocheck
 import { BrowserAuthData } from '../fixtures/browser-auth-data';
 
+const cookiesToSet = ['domain', 'expiry', 'httpOnly', 'path', 'secure'];
+
 Cypress.Commands.add('clearCookiesFiles', () => {
 	cy.task('ClearAllCookies').then((cleared) => {
 		console.log(cleared);
@@ -45,16 +47,19 @@ Cypress.Commands.add('loginWithPuppeteer', (user) => {
 	};
 
 	cy.task('AzureSignIn', config).then((cookies) => {
-		cy.clearAllCookies({ log: false });
+		cy.clearAllCookies();
+		cy.getAllCookies().should('be.empty');
 		cookies.forEach((cookie) => {
 			cy.setCookie(cookie.name, cookie.value, {
 				domain: cookie.domain,
 				expiry: cookie.expires,
 				httpOnly: cookie.httpOnly,
 				path: cookie.path,
-				secure: cookie.secure,
-				log: false
+				secure: cookie.secure
 			});
+			if (cookiesToSet.includes(cookie.name)) {
+				cy.getCookie(cookie.name).should('not.be.empty');
+			}
 		});
 	});
 
@@ -65,17 +70,18 @@ export function setLocalCookies(userId) {
 	cy.readFile(
 		`${BrowserAuthData.BrowserAuthDataFolder}/${userId}-${BrowserAuthData.CookiesFile}`
 	).then((data) => {
-		cy.clearAllCookies({ log: false });
+		cy.clearAllCookies();
+		cy.getAllCookies().should('be.empty');
 		data.forEach((cookie) => {
-			if (cookie.name === 'connect.sid') {
-				cy.setCookie(cookie.name, cookie.value, {
-					domain: cookie.domain,
-					expiry: cookie.expires,
-					httpOnly: cookie.httpOnly,
-					path: cookie.path,
-					secure: cookie.secure,
-					log: false
-				});
+			cy.setCookie(cookie.name, cookie.value, {
+				domain: cookie.domain,
+				expiry: cookie.expires,
+				httpOnly: cookie.httpOnly,
+				path: cookie.path,
+				secure: cookie.secure
+			});
+			if (cookiesToSet.includes(cookie.name)) {
+				cy.getCookie(cookie.name).should('not.be.empty');
 			}
 		});
 	});
