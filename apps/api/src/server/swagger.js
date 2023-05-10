@@ -536,6 +536,9 @@ const document = {
 			planningApplicationReference: '48269/APP/2021/1482',
 			startedAt: '2022-05-17T23:00:00.000Z'
 		},
+		UpdateAppeal: {
+			startedAt: '2023-05-09'
+		},
 		AppealsForCaseOfficer: {
 			$AppealId: 1,
 			$AppealReference: '',
