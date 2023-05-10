@@ -24,4 +24,19 @@ router.route('/:appealId/enter-start-date').get(async (request, response) => {
 	}
 });
 
+router.route('/:appealId/start-date-entered').get(async (request, response) => {
+	const appealDetails = await appealDetailsService
+		.getAppealDetailsFromId(request.params.appealId)
+		.catch((error) => logger.error(error));
+
+	if (appealDetails) {
+		response.render('appeals/appeal/start-date-entered.njk', {
+			appeal: {
+				id: appealDetails?.appealId,
+				reference: appealDetails?.appealReference
+			}
+		});
+	}
+});
+
 export default router;
