@@ -201,11 +201,11 @@ describe('auth', () => {
 
 		describe('/appeals-service/appeals-list', () => {
 			beforeEach(() => {
-				nock('http://test/').get('/appeals-service/appeals-list').reply(200, []);
+				nock('http://test/').get('/appeals/').reply(200, []);
 			});
 
 			it('should deny access to the domain if the user does not have permission', async () => {
-				await signinWithGroups(['appeals_inspector', 'appeals_case_officer']);
+				await signinWithGroups([]);
 
 				const response = await request.get('/appeals-service/appeals-list').redirects(1);
 				const element = parseHtml(response.text);
