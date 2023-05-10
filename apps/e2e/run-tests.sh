@@ -1,4 +1,4 @@
 #!/bin/bash
 
 npx cypress verify
-npm run cy:run
+npm run cy:ci
