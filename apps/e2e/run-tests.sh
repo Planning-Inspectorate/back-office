@@ -6,4 +6,4 @@
 # docker logs -f $container_id
 
 npx cypress verify
-npm run cy:run
+npm run cy:ci
