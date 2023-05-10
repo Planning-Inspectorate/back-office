@@ -6,7 +6,7 @@
 	"scripts": {
 		"cy:open": "npx cypress open",
 		"cy:run": "npx cypress run",
-		"cy:ci": "npx cypress run --env isCI=true --browser=chrome"
+		"cy:ci": "npx cypress run --env isCI=true --browser chrome"
 	},
 	"author": "",
 	"license": "ISC",
