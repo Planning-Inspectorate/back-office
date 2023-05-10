@@ -19,6 +19,7 @@
 // Import commands.js using ES2015 syntax:
 import { users } from '../fixtures/users';
 import './commands';
+import { isCI } from './utils/isCI';
 
 after(() => {
 	cy.deleteUnwantedFixtures();
