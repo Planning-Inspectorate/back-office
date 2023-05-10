@@ -13,6 +13,7 @@ const {
 const { getSpecPattern } = require('./cypress/support/utils/getSpecPattern');
 
 require('dotenv').config();
+
 const app = process.env.APP;
 
 module.exports = defineConfig({
