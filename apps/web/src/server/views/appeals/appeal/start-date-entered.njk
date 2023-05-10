@@ -1,0 +1,29 @@
+{%- extends "app/layouts/app-two-column.layout.njk" -%}
+
+{%- from "govuk/components/panel/macro.njk" import govukPanel -%}
+
+{%- set containerSize = "xl" -%}
+{%- set pageTitle = "Time successfully published - GOV.UK" -%}
+
+{%- set panelHtml -%}
+	Case reference number<br><strong>{{ appeal.reference | appealShortReference }}</strong>
+{%- endset -%}
+
+{%- set backToDetailsUrl -%}
+	/appeals-service/appeal-details/{{ appeal.id }}
+{%- endset -%}
+
+{%- block pageHeading -%}
+	{{ govukPanel({
+		titleText: "Time successfully published",
+		html: panelHtml
+	}) }}
+{%- endblock -%}
+
+{%- block pageContent -%}
+	<p class="govuk-body">The timetable is now created.</p>
+	<h2>What happens next</h2>
+	<p class="govuk-body">We've sent the start letter email to the Appellant and LPA.</p>
+	<p class="govuk-body">The case has been published on the Appeals Casework Portal.</p>
+	<p class="govuk-body"><a class="govuk-link" href="{{ backToDetailsUrl | trim }}">Go back to case details</a></p>
+{%- endblock -%}
