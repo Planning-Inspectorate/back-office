@@ -42,7 +42,7 @@ Cypress.Commands.add('loginWithPuppeteer', (user) => {
 	};
 
 	cy.task('AzureSignIn', config).then((cookies) => {
-		cy.clearCookies({ log: false });
+		cy.clearAllCookies({ log: false });
 		cookies.forEach((cookie) => {
 			cy.setCookie(cookie.name, cookie.value, {
 				domain: cookie.domain,
@@ -50,6 +50,7 @@ Cypress.Commands.add('loginWithPuppeteer', (user) => {
 				httpOnly: cookie.httpOnly,
 				path: cookie.path,
 				secure: cookie.secure,
+				sameSite: cookie.sameSite,
 				log: false
 			});
 		});
@@ -62,16 +63,19 @@ export function setLocalCookies(userId) {
 	cy.readFile(
 		`${BrowserAuthData.BrowserAuthDataFolder}/${userId}-${BrowserAuthData.CookiesFile}`
 	).then((data) => {
-		cy.clearCookies({ log: false });
+		cy.clearAllCookies({ log: false });
 		data.forEach((cookie) => {
-			cy.setCookie(cookie.name, cookie.value, {
-				domain: cookie.domain,
-				expiry: cookie.expires,
-				httpOnly: cookie.httpOnly,
-				path: cookie.path,
-				secure: cookie.secure,
-				log: false
-			});
+			if (cookie.name === 'connect.sid') {
+				cy.setCookie(cookie.name, cookie.value, {
+					domain: cookie.domain,
+					expiry: cookie.expires,
+					httpOnly: cookie.httpOnly,
+					path: cookie.path,
+					secure: cookie.secure,
+					sameSite: cookie.sameSite,
+					log: false
+				});
+			}
 		});
 	});
 }
