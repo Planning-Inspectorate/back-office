@@ -199,15 +199,15 @@ describe('auth', () => {
 			expect(element.innerHTML).toMatchSnapshot();
 		});
 
-		describe('/appeals-service/validation', () => {
+		describe('/appeals-service/national-list', () => {
 			beforeEach(() => {
-				nock('http://test/').get('/appeals/validation').reply(200, []);
+				nock('http://test/').get('/appeals/national-list').reply(200, []);
 			});
 
 			it('should deny access to the domain if the user does not have permission', async () => {
 				await signinWithGroups(['appeals_inspector', 'appeals_case_officer']);
 
-				const response = await request.get('/appeals-service/validation').redirects(1);
+				const response = await request.get('/appeals-service/national-list').redirects(1);
 				const element = parseHtml(response.text);
 
 				expect(element.querySelector('h1')?.innerHTML).toEqual(
@@ -218,89 +218,19 @@ describe('auth', () => {
 			it('should permit access to the domain if the user has permission', async () => {
 				await signinWithGroups(['appeals_validation_officer']);
 
-				const response = await request.get('/appeals-service/validation');
+				const response = await request.get('/appeals-service/national-list');
 				const element = parseHtml(response.text);
 
-				expect(element.querySelector('h1')?.innerHTML).toEqual('Appeal submissions for review');
+				expect(element.querySelector('h1')?.innerHTML).toEqual('Appeals');
 			});
 
-			it('should redirect to the validation page from the root path', async () => {
+			it('should redirect to the national-list page from the root path', async () => {
 				await signinWithGroups(['appeals_validation_officer']);
 
 				const response = await request.get('/').redirects(1);
 				const element = parseHtml(response.text);
 
-				expect(element.querySelector('h1')?.innerHTML).toEqual('Appeal submissions for review');
-			});
-		});
-
-		describe('/appeals-service/case-officer', () => {
-			beforeEach(() => {
-				nock('http://test/').get('/appeals/case-officer').reply(200, []);
-			});
-
-			it('should deny access to the domain if the user does not have permission', async () => {
-				await signinWithGroups(['appeals_inspector', 'appeals_validation_officer']);
-
-				const response = await request.get('/appeals-service/case-officer').redirects(1);
-				const element = parseHtml(response.text);
-
-				expect(element.querySelector('h1')?.innerHTML).toEqual(
-					'Sorry, there is a problem with your login'
-				);
-			});
-
-			it('should permit access to the domain if the user has permission', async () => {
-				await signinWithGroups(['appeals_case_officer']);
-
-				const response = await request.get('/appeals-service/case-officer');
-				const element = parseHtml(response.text);
-
-				expect(element.querySelector('h1')?.innerHTML).toEqual('Questionnaires for review');
-			});
-
-			it('should redirect to the case officer page from the root path', async () => {
-				await signinWithGroups(['appeals_case_officer']);
-
-				const response = await request.get('/').redirects(1);
-				const element = parseHtml(response.text);
-
-				expect(element.querySelector('h1')?.innerHTML).toEqual('Questionnaires for review');
-			});
-		});
-
-		describe('/appeals-service/inspector', () => {
-			beforeEach(() => {
-				nock('http://test/').get('/appeals/inspector').reply(200, []);
-			});
-
-			it('should deny access to the domain if the user does not have permission', async () => {
-				await signinWithGroups(['appeals_validation_officer', 'appeals_case_officer']);
-
-				const response = await request.get('/appeals-service/inspector').redirects(1);
-				const element = parseHtml(response.text);
-
-				expect(element.querySelector('h1')?.innerHTML).toEqual(
-					'Sorry, there is a problem with your login'
-				);
-			});
-
-			it('should permit access to the domain if the user has permission', async () => {
-				await signinWithGroups(['appeals_inspector']);
-
-				const response = await request.get('/appeals-service/inspector');
-				const element = parseHtml(response.text);
-
-				expect(element.querySelector('h1')?.innerHTML).toEqual('My appeals');
-			});
-
-			it('should redirect to the inspector page from the root path', async () => {
-				await signinWithGroups(['appeals_inspector']);
-
-				const response = await request.get('/').redirects(1);
-				const element = parseHtml(response.text);
-
-				expect(element.querySelector('h1')?.innerHTML).toEqual('My appeals');
+				expect(element.querySelector('h1')?.innerHTML).toEqual('Appeals');
 			});
 		});
 
