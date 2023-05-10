@@ -175,6 +175,25 @@ const appealRepository = (function () {
 				this.createNewStatuses(id, appealStatesToCreate)
 			]);
 		},
+		/**
+		 * @param {number} id
+		 * @param {{
+		 *	startedAt?: string;
+		 * }} data
+		 * @returns {Prisma.PrismaPromise<{
+		 * 	id: number,
+		 *	reference: string,
+		 *	createdAt: Date,
+		 *	updatedAt: Date,
+		 *	addressId: number | null,
+		 *	localPlanningDepartment: string,
+		 *	planningApplicationReference: string,
+		 *	startedAt: Date | null,
+		 *	userId: number | null,
+		 *	appellantId: number | null,
+		 *	appealTypeId: number | null,
+		 * }>}
+		 */
 		updateById(id, data) {
 			const updatedAt = new Date();
 

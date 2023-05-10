@@ -570,6 +570,38 @@
 						"description": "Not Found"
 					}
 				}
+			},
+			"patch": {
+				"tags": ["Appeals"],
+				"description": "Updates a single appeal by id",
+				"parameters": [
+					{
+						"name": "appealId",
+						"in": "path",
+						"required": true,
+						"type": "string"
+					},
+					{
+						"name": "body",
+						"in": "body",
+						"description": "Appeal details to update",
+						"schema": {
+							"$ref": "#/definitions/UpdateAppeal"
+						},
+						"required": true
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK"
+					},
+					"400": {
+						"description": "Bad Request"
+					},
+					"500": {
+						"description": "Internal Server Error"
+					}
+				}
 			}
 		},
 		"/applications": {
@@ -3488,6 +3520,15 @@
 				"startedAt": {
 					"type": "string",
 					"example": "2022-05-17T23:00:00.000Z"
+				}
+			}
+		},
+		"UpdateAppeal": {
+			"type": "object",
+			"properties": {
+				"startedAt": {
+					"type": "string",
+					"example": "2023-05-09"
 				}
 			}
 		},

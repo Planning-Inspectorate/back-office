@@ -20,6 +20,7 @@ export const viewAppealDetails = async (request, response) => {
 			: 'Address not known';
 
 		const formattedAppeal = {
+			id: appealDetails?.appealId,
 			reference: appealDetails?.appealReference,
 			shortReference: appealReferenceFragments?.[appealReferenceFragments.length - 1],
 			status: appealDetails?.appealStatus,
@@ -67,7 +68,7 @@ export const viewAppealDetails = async (request, response) => {
 			inspector: null
 		};
 
-		response.render('appeals/all-appeals/appeal-details.njk', { appeal: { ...formattedAppeal } });
+		response.render('appeals/appeal/appeal-details.njk', { appeal: { ...formattedAppeal } });
 	} else {
 		response.render('app/404.njk');
 	}
