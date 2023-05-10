@@ -31,6 +31,9 @@ Cypress.Commands.add('login', (user) => {
 			setLocalCookies(user.id);
 		}
 	});
+	cy.wait(2000);
+	cy.visit('/');
+	cy.reload();
 });
 
 Cypress.Commands.add('loginWithPuppeteer', (user) => {
