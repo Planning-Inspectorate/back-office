@@ -1,3 +1,4 @@
 #!/bin/bash
 
-npm run cy:ci
+npx cypress verify
+npm run cy:run
