@@ -35,20 +35,25 @@ jobs:
           command: build
           Dockerfile:  $(Build.SourcesDirectory)/apps/e2e/Dockerfile
           tags: 'my-cypress-tests'
-
-      - task: Docker@2
-        displayName: 'Run Cypress tests'
-        inputs:
-          command: run
-          containerCommand: '-v "$(pwd)/failed-tests:/app/cypress/screenshots" my-cypress-tests'
-          envVars: >
+          buildArguments: |
             BASE_URL=$(BASE_URL)
             CASE_TEAM_EMAIL=$(CASE_TEAM_EMAIL)
             CASE_ADMIN_EMAIL=$(CASE_ADMIN_EMAIL)
             INSPECTOR_EMAIL=$(INSPECTOR_EMAIL)
             USER_PASSWORD=$(USER_PASSWORD)
-          workingDirectory: 'apps/e2e'
-          displayName: "Run Cypress Tests in Docker"
+
+      - task: ShellScript@2
+        inputs:
+          script: |
+           cd $(Build.SourcesDirectory)/apps/e2e
+           docker run -it -v "$(pwd)/failed-tests:/app/cypress/screenshots" my-cypress-tests
+        env:
+          BASE_URL: $(BASE_URL)
+          CASE_TEAM_EMAIL: $(CASE_TEAM_EMAIL)
+          CASE_ADMIN_EMAIL: $(CASE_ADMIN_EMAIL)
+          INSPECTOR_EMAIL: $(INSPECTOR_EMAIL)
+          USER_PASSWORD: $(USER_PASSWORD
+        displayName: 'Run Cypress tests'
 
       - task: PublishBuildArtifacts@1
         inputs:
