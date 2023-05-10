@@ -1,33 +1,26 @@
 {%- macro statusTag(status) -%}
-	{%- set statusTagColor = '' -%}
+	{%- set statusTagColor = 'grey' -%}
 	{%- set statusLabel = status -%}
-	{# list of available color classes can be found at https://github.dev/alphagov/govuk-frontend/src/govuk/components/tag/_index.scss #}
+	{#
+		list of available color classes can be found
+		at https://design-system.service.gov.uk/components/tag/#additional-colours
+		or https://github.dev/alphagov/govuk-frontend/src/govuk/components/tag/_index.scss
+	#}
 	{%- switch (status | string | lower) -%}
-		{%- case 'available_for_final_comments' -%}
-			{%- set statusTagColor = 'purple' -%}
-			{%- set statusLabel = 'awaiting' -%}
-		{%- case 'available_for_statements' -%}
-			{%- set statusTagColor = 'purple' -%}
-			{%- set statusLabel = 'awaiting' -%}
-		{%- case 'not started' -%}
-			{%- set statusTagColor = 'grey' -%}
-		{%- case 'none' -%}
-			{%- set statusTagColor = 'grey' -%}
-		{%- case 'awaiting' -%}
-			{%- set statusTagColor = 'blue' -%}
-		{%- case 'overdue' -%}
-			{%- set statusTagColor = 'red' -%}
-		{%- case 'incomplete_lpa_questionnaire' -%}
+		{%- case 'ready_to_start' -%}
+			{%- set statusTagColor = 'turquoise' -%}
+		{%- case 'lpa_questionnaire_due' -%}
 			{%- set statusTagColor = 'yellow' -%}
-			{%- set statusLabel = 'incomplete' -%}
-		{%- case 'received' -%}
-			{%- set statusTagColor = 'green' -%}
-		{%- case 'new' -%}
-			{%- set statusTagColor = 'green' -%}
+		{%- case 'statement_review' -%}
+			{%- set statusTagColor = 'orange' -%}
+		{%- case 'final_comment_review' -%}
+			{%- set statusTagColor = 'purple' -%}
+		{%- case 'arrange_site_visit' -%}
+			{%- set statusTagColor = 'blue' -%}
+		{%- case 'issue_determination' -%}
+			{%- set statusTagColor = 'pink' -%}
 		{%- case 'complete' -%}
 			{%- set statusTagColor = 'green' -%}
-		{%- case 'incomplete' -%}
-			{%- set statusTagColor = 'yellow' -%}
 	{%- endswitch -%}
-	<strong class="govuk-tag govuk-tag--{{statusTagColor}}">{{ statusLabel | replace("_", " ") }}</strong>
+	<strong class="govuk-tag govuk-tag--{{statusTagColor}} single-line">{{ statusLabel | replace("_", " ") }}</strong>
 {%- endmacro -%}
