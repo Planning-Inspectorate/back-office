@@ -29,37 +29,20 @@ jobs:
       vmImage: "ubuntu-latest"
 
     steps:
-      - task: NodeTool@0
-        inputs:
-          versionSpec: "16.x"
-        displayName: "Install Node.js"
-
       - task: ShellScript@2
         inputs:
-          scriptPath: 'apps/e2e/install-chromium.sh'
-        displayName: 'Install Chromium'
-        condition: eq(variables['agent.os'], 'Linux')
-
-      - task: Npm@1
-        inputs:
-          command: "install"
-          workingDir: $(System.DefaultWorkingDirectory)/apps/e2e
-        displayName: "Install Dependencies"
-
-      - task: ShellScript@2
-        inputs:
-          scriptPath: 'apps/e2e/run-tests.sh'
+          scriptPath: $(Build.SourcesDirectory)/apps/e2e/run-tests.sh
         env:
           BASE_URL: $(BASE_URL)
           CASE_TEAM_EMAIL: $(CASE_TEAM_EMAIL)
-          CASE_ADMIN_EMAIL: $C(ASE_ADMIN_EMAIL)
+          CASE_ADMIN_EMAIL: $(CASE_ADMIN_EMAIL)
           INSPECTOR_EMAIL: $(INSPECTOR_EMAIL)
           USER_PASSWORD: $(USER_PASSWORD)
-        displayName: "Run Cypress Tests"
+        displayName: 'Run Cypress tests'
 
       - task: PublishBuildArtifacts@1
         inputs:
-          pathToPublish: 'apps/e2e/cypress/screenshots'
+          pathToPublish: 'apps/e2e/cypress/failed-tests'
           artifactName: 'FailedTests'
         displayName: "Publish FailedTests Artifacts"
         condition: failed()

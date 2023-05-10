@@ -50,7 +50,6 @@ Cypress.Commands.add('loginWithPuppeteer', (user) => {
 				httpOnly: cookie.httpOnly,
 				path: cookie.path,
 				secure: cookie.secure,
-				sameSite: cookie.sameSite,
 				log: false
 			});
 		});
@@ -72,7 +71,6 @@ export function setLocalCookies(userId) {
 					httpOnly: cookie.httpOnly,
 					path: cookie.path,
 					secure: cookie.secure,
-					sameSite: cookie.sameSite,
 					log: false
 				});
 			}
