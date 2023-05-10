@@ -33,9 +33,8 @@ jobs:
         displayName: 'Build Docker image'
         inputs:
           command: build
-          Dockerfile: 'Dockerfile'
+          Dockerfile:  $(Build.SourcesDirectory)/apps/e2e/Dockerfile
           tags: 'my-cypress-tests'
-          workingDirectory: 'apps/e2e'
 
       - task: Docker@2
         displayName: 'Run Cypress tests'
