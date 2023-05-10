@@ -1,4 +1,6 @@
 .env
+.environment
+/failed-tests
 /cypress/videos
 /cypress/screenshots
 /cypress/support/browserAuthData
