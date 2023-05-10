@@ -55,6 +55,14 @@ export const validateFolderIds = composeMiddleware(
 	validationErrorHandler
 );
 
+export const validateFolderId = composeMiddleware(
+	body('.folderId')
+		.toInt()
+		.custom(validateFolderBelongsToCase)
+		.withMessage('Folder must belong to case'),
+	validationErrorHandler
+);
+
 export const validateDocumentGUID = composeMiddleware(
 	param('documentGUID')
 		.custom(validateDocumentGUIDBelongsToCase)
