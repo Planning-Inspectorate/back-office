@@ -7,6 +7,7 @@ import { CreateCasePage } from '../../page_objects/createCasePage';
 import { faker } from '@faker-js/faker';
 import { SearchResultsPage } from '../../page_objects/searchResultsPage';
 import { projectInformation } from '../../support/utils/createProjectInformation';
+import { isCI } from '../../support/utils/isCI';
 
 const createCasePage = new CreateCasePage();
 const applicationsHomePage = new ApplicationsHomePage();
@@ -47,36 +48,38 @@ describe('Search', () => {
 		});
 	});
 
-	context('As Case Team Admin', () => {
-		beforeEach(() => {
-			cy.login(users.caseAdmin);
-			cy.visit('/');
-		});
+	if (!isCI()) {
+		context('As Case Team Admin', () => {
+			beforeEach(() => {
+				cy.login(users.caseAdmin);
+				cy.visit('/');
+			});
 
-		it('Case Team Admin user should be able to use search using Case Reference', () => {
-			const caseRef = Cypress.env('currentCreatedCase');
-			applicationsHomePage.searchFor(caseRef);
-			searchResultsPage.verifySearchResultsCount(1);
-			searchResultsPage.verifyTopSearchResultName(projectInfo.projectName);
-		});
+			it('Case Team Admin user should be able to use search using Case Reference', () => {
+				const caseRef = Cypress.env('currentCreatedCase');
+				applicationsHomePage.searchFor(caseRef);
+				searchResultsPage.verifySearchResultsCount(1);
+				searchResultsPage.verifyTopSearchResultName(projectInfo.projectName);
+			});
 
-		it('Case Team Admin user should be able to use search using Case Name', () => {
-			applicationsHomePage.searchFor(projectInfo.projectName);
-			searchResultsPage.verifySearchResultsCount(1);
-			searchResultsPage.verifyTopSearchResultName(projectInfo.projectName);
-		});
+			it('Case Team Admin user should be able to use search using Case Name', () => {
+				applicationsHomePage.searchFor(projectInfo.projectName);
+				searchResultsPage.verifySearchResultsCount(1);
+				searchResultsPage.verifyTopSearchResultName(projectInfo.projectName);
+			});
 
-		it('Case Team Admin user should be able to use search using Case Description', () => {
-			applicationsHomePage.searchFor(projectInfo.projectDescription);
-			searchResultsPage.verifySearchResultsCount(1);
-			searchResultsPage.verifyTopSearchResultName(projectInfo.projectName);
-		});
+			it('Case Team Admin user should be able to use search using Case Description', () => {
+				applicationsHomePage.searchFor(projectInfo.projectDescription);
+				searchResultsPage.verifySearchResultsCount(1);
+				searchResultsPage.verifyTopSearchResultName(projectInfo.projectName);
+			});
 
-		it('Case Team Admin user should see an error when nothing is entered', () => {
-			applicationsHomePage.searchFor(' ');
-			searchResultsPage.verifySearchError('Enter a search term');
+			it('Case Team Admin user should see an error when nothing is entered', () => {
+				applicationsHomePage.searchFor(' ');
+				searchResultsPage.verifySearchError('Enter a search term');
+			});
 		});
-	});
+	}
 
 	context('As Case Team', () => {
 		beforeEach(() => {

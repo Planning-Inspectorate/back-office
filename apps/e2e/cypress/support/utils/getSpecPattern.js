@@ -9,7 +9,7 @@ function getSpecPattern(app) {
 	if (typeof app !== 'string' || app.length === 0) {
 		throw new Error('Invalid input. App name must be a non-empty string.');
 	}
-	return `cypress/e2e/back-office-${app}/createCase/createCase1.spec.js`;
+	return `cypress/e2e/back-office-${app}/createCase.spec.js`;
 }
 
 module.exports = { getSpecPattern };
