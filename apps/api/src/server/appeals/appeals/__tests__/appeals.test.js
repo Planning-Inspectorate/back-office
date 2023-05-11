@@ -1,7 +1,15 @@
 import supertest from 'supertest';
 import { app } from '../../../app-test.js';
-const { databaseConnector } = await import('../../../utils/database-connector.js');
+import {
+	ERROR_FAILED_TO_SAVE_DATA,
+	ERROR_MUST_BE_CORRECT_DATE_FORMAT,
+	ERROR_MUST_BE_GREATER_THAN_ZERO,
+	ERROR_MUST_BE_NUMBER,
+	ERROR_NOT_FOUND,
+	ERROR_PAGENUMBER_AND_PAGESIZE_ARE_REQUIRED
+} from '../../constants.js';
 
+const { databaseConnector } = await import('../../../utils/database-connector.js');
 const request = supertest(app);
 const appeal = {
 	id: 1,
@@ -50,6 +58,8 @@ describe('Appeals', () => {
 	describe('/appeals', () => {
 		test('gets appeals when not given pagination params', async () => {
 			// @ts-ignore
+			databaseConnector.appeal.count.mockResolvedValue(5);
+			// @ts-ignore
 			databaseConnector.appeal.findMany.mockResolvedValue([appeal, appealTwo]);
 
 			const response = await request.get('/appeals');
@@ -61,39 +71,47 @@ describe('Appeals', () => {
 				})
 			);
 			expect(response.status).toEqual(200);
-			expect(response.body).toEqual([
-				{
-					appealId: appeal.id,
-					appealReference: appeal.reference,
-					appealSite: {
-						addressLine1: appeal.address.addressLine1,
-						town: appeal.address.town,
-						county: appeal.address.county,
-						postCode: appeal.address.postcode
+			expect(response.body).toEqual({
+				itemCount: 5,
+				items: [
+					{
+						appealId: appeal.id,
+						appealReference: appeal.reference,
+						appealSite: {
+							addressLine1: appeal.address.addressLine1,
+							town: appeal.address.town,
+							county: appeal.address.county,
+							postCode: appeal.address.postcode
+						},
+						appealStatus: appeal.appealStatus[0].status,
+						appealType: appeal.appealType.type,
+						createdAt: appeal.createdAt.toISOString(),
+						localPlanningDepartment: appeal.localPlanningDepartment
 					},
-					appealStatus: appeal.appealStatus[0].status,
-					appealType: appeal.appealType.type,
-					createdAt: appeal.createdAt.toISOString(),
-					localPlanningDepartment: appeal.localPlanningDepartment
-				},
-				{
-					appealId: appealTwo.id,
-					appealReference: appeal.reference,
-					appealSite: {
-						addressLine1: appeal.address.addressLine1,
-						town: appeal.address.town,
-						county: appeal.address.county,
-						postCode: appeal.address.postcode
-					},
-					appealStatus: appeal.appealStatus[0].status,
-					appealType: appeal.appealType.type,
-					createdAt: appeal.createdAt.toISOString(),
-					localPlanningDepartment: appeal.localPlanningDepartment
-				}
-			]);
+					{
+						appealId: appealTwo.id,
+						appealReference: appeal.reference,
+						appealSite: {
+							addressLine1: appeal.address.addressLine1,
+							town: appeal.address.town,
+							county: appeal.address.county,
+							postCode: appeal.address.postcode
+						},
+						appealStatus: appeal.appealStatus[0].status,
+						appealType: appeal.appealType.type,
+						createdAt: appeal.createdAt.toISOString(),
+						localPlanningDepartment: appeal.localPlanningDepartment
+					}
+				],
+				page: 1,
+				pageCount: 1,
+				pageSize: 30
+			});
 		});
 
 		test('gets appeals when given pagination params', async () => {
+			// @ts-ignore
+			databaseConnector.appeal.count.mockResolvedValue(5);
 			// @ts-ignore
 			databaseConnector.appeal.findMany.mockResolvedValue([appealTwo]);
 
@@ -106,22 +124,28 @@ describe('Appeals', () => {
 				})
 			);
 			expect(response.status).toEqual(200);
-			expect(response.body).toEqual([
-				{
-					appealId: appealTwo.id,
-					appealReference: appeal.reference,
-					appealSite: {
-						addressLine1: appeal.address.addressLine1,
-						town: appeal.address.town,
-						county: appeal.address.county,
-						postCode: appeal.address.postcode
-					},
-					appealStatus: appeal.appealStatus[0].status,
-					appealType: appeal.appealType.type,
-					createdAt: appeal.createdAt.toISOString(),
-					localPlanningDepartment: appeal.localPlanningDepartment
-				}
-			]);
+			expect(response.body).toEqual({
+				itemCount: 5,
+				items: [
+					{
+						appealId: appealTwo.id,
+						appealReference: appeal.reference,
+						appealSite: {
+							addressLine1: appeal.address.addressLine1,
+							town: appeal.address.town,
+							county: appeal.address.county,
+							postCode: appeal.address.postcode
+						},
+						appealStatus: appeal.appealStatus[0].status,
+						appealType: appeal.appealType.type,
+						createdAt: appeal.createdAt.toISOString(),
+						localPlanningDepartment: appeal.localPlanningDepartment
+					}
+				],
+				page: 2,
+				pageCount: 5,
+				pageSize: 1
+			});
 		});
 
 		test('returns an error if pageNumber is given and pageSize is not given', async () => {
@@ -130,7 +154,7 @@ describe('Appeals', () => {
 			expect(response.status).toEqual(400);
 			expect(response.body).toEqual({
 				errors: {
-					pageNumber: 'Both pageNumber and pageSize are required for pagination'
+					pageNumber: ERROR_PAGENUMBER_AND_PAGESIZE_ARE_REQUIRED
 				}
 			});
 		});
@@ -141,7 +165,7 @@ describe('Appeals', () => {
 			expect(response.status).toEqual(400);
 			expect(response.body).toEqual({
 				errors: {
-					pageSize: 'Both pageNumber and pageSize are required for pagination'
+					pageSize: ERROR_PAGENUMBER_AND_PAGESIZE_ARE_REQUIRED
 				}
 			});
 		});
@@ -152,7 +176,7 @@ describe('Appeals', () => {
 			expect(response.status).toEqual(400);
 			expect(response.body).toEqual({
 				errors: {
-					pageNumber: 'Must be a number'
+					pageNumber: ERROR_MUST_BE_NUMBER
 				}
 			});
 		});
@@ -163,7 +187,7 @@ describe('Appeals', () => {
 			expect(response.status).toEqual(400);
 			expect(response.body).toEqual({
 				errors: {
-					pageNumber: 'Must be greater than 0'
+					pageNumber: ERROR_MUST_BE_GREATER_THAN_ZERO
 				}
 			});
 		});
@@ -174,7 +198,7 @@ describe('Appeals', () => {
 			expect(response.status).toEqual(400);
 			expect(response.body).toEqual({
 				errors: {
-					pageSize: 'Must be a number'
+					pageSize: ERROR_MUST_BE_NUMBER
 				}
 			});
 		});
@@ -185,7 +209,7 @@ describe('Appeals', () => {
 			expect(response.status).toEqual(400);
 			expect(response.body).toEqual({
 				errors: {
-					pageSize: 'Must be greater than 0'
+					pageSize: ERROR_MUST_BE_GREATER_THAN_ZERO
 				}
 			});
 		});
@@ -237,7 +261,7 @@ describe('Appeals', () => {
 			expect(response.status).toEqual(400);
 			expect(response.body).toEqual({
 				errors: {
-					appealId: 'Appeal id must be a number'
+					appealId: ERROR_MUST_BE_NUMBER
 				}
 			});
 		});
@@ -251,9 +275,96 @@ describe('Appeals', () => {
 			expect(response.status).toEqual(404);
 			expect(response.body).toEqual({
 				errors: {
-					appealId: `Appeal with id ${appeal.id} not found`
+					appealId: ERROR_NOT_FOUND
 				}
 			});
+		});
+
+		test('updates an appeal', async () => {
+			const response = await request.patch(`/appeals/${appeal.id}`).send({
+				startedAt: '2023-05-05'
+			});
+
+			expect(databaseConnector.appeal.update).toBeCalledWith({
+				data: {
+					startedAt: '2023-05-05T00:00:00.000Z',
+					updatedAt: expect.any(Date)
+				},
+				where: {
+					id: appeal.id
+				}
+			});
+			expect(response.status).toEqual(200);
+			expect(response.body).toEqual({
+				startedAt: '2023-05-05T00:00:00.000Z'
+			});
+		});
+
+		test('returns an error if startedAt is not in the correct format', async () => {
+			const response = await request.patch(`/appeals/${appeal.id}`).send({
+				startedAt: '05/05/2023'
+			});
+
+			expect(response.status).toEqual(400);
+			expect(response.body).toEqual({
+				errors: {
+					startedAt: ERROR_MUST_BE_CORRECT_DATE_FORMAT
+				}
+			});
+		});
+
+		test('returns an error if startedAt does not contain leading zeros', async () => {
+			const response = await request.patch(`/appeals/${appeal.id}`).send({
+				startedAt: '2023-5-5'
+			});
+
+			expect(response.status).toEqual(400);
+			expect(response.body).toEqual({
+				errors: {
+					startedAt: ERROR_MUST_BE_CORRECT_DATE_FORMAT
+				}
+			});
+		});
+
+		test('returns an error if startedAt is not a valid date', async () => {
+			const response = await request.patch(`/appeals/${appeal.id}`).send({
+				startedAt: '2023-02-30'
+			});
+
+			expect(response.status).toEqual(400);
+			expect(response.body).toEqual({
+				errors: {
+					startedAt: ERROR_MUST_BE_CORRECT_DATE_FORMAT
+				}
+			});
+		});
+
+		test('returns an error if given an incorrect field name', async () => {
+			// @ts-ignore
+			databaseConnector.appeal.update.mockImplementation(() => {
+				throw new Error(ERROR_FAILED_TO_SAVE_DATA);
+			});
+
+			const response = await request.patch(`/appeals/${appeal.id}`).send({
+				startedAtDate: '2023-02-10'
+			});
+
+			expect(response.status).toEqual(500);
+			expect(response.body).toEqual({
+				errors: {
+					body: ERROR_FAILED_TO_SAVE_DATA
+				}
+			});
+		});
+
+		test('does not throw an error if given an empty body', async () => {
+			// @ts-ignore
+			databaseConnector.appeal.update.mockResolvedValue(true);
+
+			const response = await request.patch(`/appeals/${appeal.id}`).send({});
+
+			expect(response.status).toEqual(200);
+			expect(response.body).toEqual({});
 		});
 	});
 });

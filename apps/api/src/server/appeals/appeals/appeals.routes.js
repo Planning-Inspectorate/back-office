@@ -1,7 +1,11 @@
 import { Router as createRouter } from 'express';
 import { asyncHandler } from '../../middleware/async-handler.js';
-import { getAppealById, getAppeals } from './appeals.controller.js';
-import { validateAppealId, validatePaginationParameters } from './appeals.validators.js';
+import { getAppealById, getAppeals, updateAppealById } from './appeals.controller.js';
+import {
+	validateAppealId,
+	validateAppealUpdate,
+	validatePaginationParameters
+} from './appeals.validators.js';
 
 /**
  * @typedef {object} AppealParams
@@ -51,6 +55,26 @@ router.get(
 	 */
 	validateAppealId,
 	asyncHandler(getAppealById)
+);
+
+router.patch(
+	'/:appealId',
+	/*
+		#swagger.tags = ['Appeals']
+		#swagger.path = '/appeals/{appealId}'
+		#swagger.description = 'Updates a single appeal by id'
+		#swagger.parameters['body'] = {
+			in: 'body',
+			description: 'Appeal details to update',
+			schema: { $ref: '#/definitions/UpdateAppeal' },
+			required: true
+		}
+		#swagger.responses[200] = {}
+		#swagger.responses[400] = {}
+		#swagger.responses[500] = {}
+	 */
+	validateAppealUpdate,
+	asyncHandler(updateAppealById)
 );
 
 export { router as appealsRoutes };

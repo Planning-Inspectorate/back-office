@@ -18,7 +18,7 @@ import {
 	fetchDocumentByGuidAndCaseId,
 	getRedactionStatus,
 	validateDocumentVersionMetadataBody,
-	verifyMovingToReadyToPublish
+	verifyAllDocumentsHaveRequiredPropertiesForPublishing
 } from './document.validators.js';
 
 /**
@@ -73,7 +73,7 @@ export const updateDocuments = async ({ body }, response) => {
 
 	// special case - for Ready to Publish, need to check that required metadata is set on all the files - else error
 	if (publishedStatus === 'ready_to_publish') {
-		await verifyMovingToReadyToPublish(items);
+		await verifyAllDocumentsHaveRequiredPropertiesForPublishing(items);
 	}
 
 	if (items) {
@@ -276,4 +276,59 @@ export const getReadyToPublishDocuments = async ({ body }, response) => {
 		itemCount: documentsCount,
 		items: mapDocumentVersionDetails(mapDocument)
 	});
+};
+
+/**
+ * Publishes an array of documents
+ * on any errors, none are published
+ *
+ * @type {import('express').RequestHandler}
+ */
+export const publishDocuments = async ({ body }, response) => {
+	const { items } = body;
+	const formattedResponseList = [];
+
+	// same as for Ready To Publish, need to check that required metadata is set on all the files - else error
+	await verifyAllDocumentsHaveRequiredPropertiesForPublishing(items);
+
+	if (items) {
+		for (const document of items) {
+			logger.info(`publishing document with guid: ${document.guid}`);
+
+			/**
+			 * @typedef {object} PublishUpdates
+			 * @property {string} [publishedStatus]
+			 * @property {string} [publishedStatusPrev]
+			 * @property {Date} [datePublished]
+			 * @property {boolean} [published]
+			 */
+
+			/** @type {PublishUpdates} */
+			const documentVersionUpdates = {
+				publishedStatus: 'published',
+				publishedStatusPrev: 'ready_to_publish',
+				datePublished: new Date(),
+				published: true
+			};
+			const updateResponseInTable = await documentVersionRepository.update(
+				document.guid,
+				documentVersionUpdates
+			);
+
+			// there is also a status field in Document - update this too
+			await documentRepository.update(document.guid, { status: 'published' });
+
+			const formattedResponse = {
+				guid: updateResponseInTable.documentGuid,
+				status: updateResponseInTable.publishedStatus
+			};
+
+			// TODO: now xfer the file to the correct destination, and pass the message to the service bus
+			// TODO: call document-publish-function.  Also need to populate and send required doc properties
+			formattedResponseList.push(formattedResponse);
+		}
+	}
+
+	logger.info(`Published ${items.length} documents`);
+	response.send(formattedResponseList);
 };

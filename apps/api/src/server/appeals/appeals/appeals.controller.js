@@ -1,5 +1,11 @@
 import appealRepository from '../../repositories/appeal.repository.js';
-import { DEFAULT_PAGE_NUMBER, DEFAULT_PAGE_SIZE } from '../constants.js';
+import { getPageCount } from '../../utils/database-pagination.js';
+import {
+	DEFAULT_PAGE_NUMBER,
+	DEFAULT_PAGE_SIZE,
+	ERROR_FAILED_TO_SAVE_DATA,
+	ERROR_NOT_FOUND
+} from '../constants.js';
 import appealFormatter from './appeals.formatter.js';
 
 /** @typedef {import('./appeals.routes.js').AppealParams} AppealParams */
@@ -12,10 +18,16 @@ const getAppeals = async (req, res) => {
 	const pageNumber = Number(req.query.pageNumber) || DEFAULT_PAGE_NUMBER;
 	const pageSize = Number(req.query.pageSize) || DEFAULT_PAGE_SIZE;
 
-	const appeals = await appealRepository.getAll(pageNumber, pageSize);
+	const [itemCount, appeals = []] = await appealRepository.getAll(pageNumber, pageSize);
 	const formattedAppeals = appeals.map((appeal) => appealFormatter.formatAppeals(appeal));
 
-	return res.send(formattedAppeals);
+	return res.send({
+		itemCount,
+		items: formattedAppeals,
+		page: pageNumber,
+		pageCount: getPageCount(itemCount, pageSize),
+		pageSize
+	});
 };
 
 /**
@@ -29,7 +41,7 @@ const getAppealById = async (req, res) => {
 	const appeal = await appealRepository.getById(Number(appealId));
 
 	if (!appeal) {
-		return res.status(404).send({ errors: { appealId: `Appeal with id ${appealId} not found` } });
+		return res.status(404).send({ errors: { appealId: ERROR_NOT_FOUND } });
 	}
 
 	const formattedAppeal = appealFormatter.formatAppeal(appeal);
@@ -37,4 +49,25 @@ const getAppealById = async (req, res) => {
 	return res.send(formattedAppeal);
 };
 
-export { getAppealById, getAppeals };
+/**
+ * @type {import('express').RequestHandler}
+ * @returns {Promise<object>}
+ */
+const updateAppealById = async (req, res) => {
+	const {
+		body,
+		params: { appealId }
+	} = req;
+
+	try {
+		await appealRepository.updateById(Number(appealId), body);
+	} catch (error) {
+		if (error) {
+			return res.status(500).send({ errors: { body: ERROR_FAILED_TO_SAVE_DATA } });
+		}
+	}
+
+	return res.send(body);
+};
+
+export { getAppealById, getAppeals, updateAppealById };

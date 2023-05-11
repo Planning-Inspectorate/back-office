@@ -1,4 +1,8 @@
 export const representationsFixture = {
+	page: 1,
+	pageSize: 25,
+	pageCount: 1,
+	itemCount: 3,
 	items: [
 		{
 			status: 'AWAITING_REVIEW',

@@ -193,7 +193,7 @@ export const validateDocumentIds = composeMiddleware(
  * @throws {Error}
  * @returns {Promise<Error>}
  */
-const verifyDocumentPropertiesForReadyToPublish = async (document, documentVersion) => {
+const verifyDocumentHasRequiredPropertiesForPublishing = async (document, documentVersion) => {
 	const errors = {};
 
 	// Step 4: Map the document metadata to a format to be returned in the API response.
@@ -217,7 +217,7 @@ const verifyDocumentPropertiesForReadyToPublish = async (document, documentVersi
  * @throws {Error}
  * @returns {Promise<void>}
  */
-export const verifyMovingToReadyToPublish = async (items) => {
+export const verifyAllDocumentsHaveRequiredPropertiesForPublishing = async (items) => {
 	const allErrors = [];
 
 	if (items) {
@@ -235,7 +235,10 @@ export const verifyMovingToReadyToPublish = async (items) => {
 					allErrors.push({ guid: documentItem.guid, errors: 'Unknown document metadata guid' });
 				} else {
 					// check all required fields are populated:
-					const errors = await verifyDocumentPropertiesForReadyToPublish(document, documentVersion);
+					const errors = await verifyDocumentHasRequiredPropertiesForPublishing(
+						document,
+						documentVersion
+					);
 
 					if (!isEmpty(errors)) {
 						allErrors.push({ guid: documentItem.guid });

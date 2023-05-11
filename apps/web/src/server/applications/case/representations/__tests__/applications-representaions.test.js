@@ -12,12 +12,18 @@ const nocks = () => {
 	nock('http://test/').get('/applications/1').reply(200, mockCaseReference);
 	nock('http://test/')
 		.get(`/applications/1/representations`)
-		.query({ searchTerm: 'mock-search-term', sortBy: '', page: 1, pageSize: 25 })
-		.reply(200, { items: [representationsFixture.items[0]] })
+		.query({ searchTerm: 'mock-search-term', sortBy: '', page: 1, pageSize: 25, status: '', under18: false })
+		.reply(200, {
+			page: 1,
+			pageSize: 25,
+			pageCount: 1,
+			itemCount: 3,
+			items: [representationsFixture.items[0]]
+		})
 		.persist();
 	nock('http://test/')
 		.get(`/applications/1/representations`)
-		.query({ searchTerm: '', sortBy: '', page: 1, pageSize: 25 })
+		.query({ searchTerm: '', sortBy: '', page: 1, pageSize: 25, status: '', under18: false })
 		.reply(200, representationsFixture)
 		.persist();
 };
