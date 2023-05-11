@@ -61,5 +61,5 @@ jobs:
         inputs:
           pathToPublish: 'apps/e2e/cypress/screenshots'
           artifactName: 'FailedTests'
-        displayName: "Publish FailedTests Artifacts"
+        displayName: "Publish Failed Tests Artifacts"
         condition: failed()
