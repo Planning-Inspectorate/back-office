@@ -6,9 +6,9 @@ import { getStorageLocation } from '../../../utils/document-storage-api-client.j
 import logger from '../../../utils/logger.js';
 import { mapSingleDocumentDetailsFromVersion } from '../../../utils/mapping/map-document-details.js';
 
-/** @typedef {import('apps/api/prisma/schema.js').DocumentDetails} DocumentDetails */
+/** @typedef {import('apps/api/src/database/schema.js').DocumentDetails} DocumentDetails */
 
-/**  @typedef {import('apps/api/prisma/schema.js').DocumentVersion} DocumentVersion */
+/**  @typedef {import('apps/api/src/database/schema.js').DocumentVersion} DocumentVersion */
 
 /**
  * Remove extension from document name

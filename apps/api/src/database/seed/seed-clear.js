@@ -1,4 +1,4 @@
-import { truncateTable } from './prisma.truncate.js';
+import { truncateTable } from '../prisma.truncate.js';
 
 /**
  * @param {import('@prisma/client').PrismaClient} databaseConnector

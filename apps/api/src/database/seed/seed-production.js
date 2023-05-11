@@ -1,7 +1,7 @@
-import config from '../src/server/config/config.js';
-import { databaseConnector } from '../src/server/utils/database-connector.js';
-import logger from '../src/server/utils/logger.js';
-import { seedStaticData } from './seed-static.js';
+import config from '../../server/config/config.js';
+import { databaseConnector } from '../../server/utils/database-connector.js';
+import logger from '../../server/utils/logger.js';
+import { seedStaticData } from './data-static.js';
 
 /**
  * Seed the production database with the required static data

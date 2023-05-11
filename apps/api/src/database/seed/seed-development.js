@@ -1,8 +1,8 @@
-import { databaseConnector } from '../src/server/utils/database-connector.js';
-import logger from '../src/server/utils/logger.js';
+import { databaseConnector } from '../../server/utils/database-connector.js';
+import logger from '../../server/utils/logger.js';
+import { seedStaticData } from './data-static.js';
+import { seedTestData } from './data-test.js';
 import { deleteAllRecords } from './seed-clear.js';
-import { seedStaticData } from './seed-static.js';
-import { seedTestData } from './seed-test-data.js';
 
 /**
  * Clear the dev database, then add in the static and test data

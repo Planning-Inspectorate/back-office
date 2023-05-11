@@ -10,8 +10,8 @@ import {
 
 /**
  * @typedef {import('@pins/applications').FolderDetails} FolderDetails
- * @typedef {import('apps/api/prisma/schema.js').Document} Document
- * @typedef {import('apps/api/prisma/schema.js').DocumentDetails} DocumentDetails
+ * @typedef {import('apps/api/src/database/schema.js').Document} Document
+ * @typedef {import('apps/api/src/database/schema.js').DocumentDetails} DocumentDetails
  * @typedef {{ page: number, pageDefaultSize: number, pageCount: number, itemCount: number, items: DocumentDetails[]}} PaginatedDocumentDetails
  */
 
