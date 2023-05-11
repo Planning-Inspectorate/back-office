@@ -6,6 +6,7 @@ import nationalListRouter from '../appeals/national-list/national-list.router.js
 import appealDetailsRouter from './appeal-details/appeal-details.router.js';
 import inspectorRouter from './inspector/inspector.router.js';
 import validationRouter from './validation/validation.router.js';
+
 const router = createRouter();
 
 router.use('/appeals-list', nationalListRouter);
