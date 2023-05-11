@@ -13,6 +13,7 @@ const {
 const { getSpecPattern } = require('./cypress/support/utils/getSpecPattern');
 
 require('dotenv').config();
+
 const app = process.env.APP;
 
 module.exports = defineConfig({
@@ -44,6 +45,7 @@ module.exports = defineConfig({
 		experimentalModifyObstructiveThirdPartyCode: true,
 		chromeWebSecurity: false,
 		experimentalInteractiveRunEvents: true,
+		experimentalSessionAndOrigin: true,
 		video: false,
 		retries: 1
 	}

@@ -1,6 +1,8 @@
 // @ts-nocheck
 import { BrowserAuthData } from '../fixtures/browser-auth-data';
 
+const cookiesToSet = ['domain', 'expiry', 'httpOnly', 'path', 'secure'];
+
 Cypress.Commands.add('clearCookiesFiles', () => {
 	cy.task('ClearAllCookies').then((cleared) => {
 		console.log(cleared);
@@ -42,7 +44,8 @@ Cypress.Commands.add('loginWithPuppeteer', (user) => {
 	};
 
 	cy.task('AzureSignIn', config).then((cookies) => {
-		cy.clearCookies({ log: false });
+		cy.clearAllCookies();
+		cy.getAllCookies().should('be.empty');
 		cookies.forEach((cookie) => {
 			cy.setCookie(cookie.name, cookie.value, {
 				domain: cookie.domain,
@@ -52,6 +55,9 @@ Cypress.Commands.add('loginWithPuppeteer', (user) => {
 				secure: cookie.secure,
 				log: false
 			});
+			if (cookiesToSet.includes(cookie.name)) {
+				cy.getCookie(cookie.name).should('not.be.empty');
+			}
 		});
 	});
 
@@ -62,7 +68,8 @@ export function setLocalCookies(userId) {
 	cy.readFile(
 		`${BrowserAuthData.BrowserAuthDataFolder}/${userId}-${BrowserAuthData.CookiesFile}`
 	).then((data) => {
-		cy.clearCookies({ log: false });
+		cy.clearAllCookies();
+		cy.getAllCookies().should('be.empty');
 		data.forEach((cookie) => {
 			cy.setCookie(cookie.name, cookie.value, {
 				domain: cookie.domain,
@@ -72,6 +79,9 @@ export function setLocalCookies(userId) {
 				secure: cookie.secure,
 				log: false
 			});
+			if (cookiesToSet.includes(cookie.name)) {
+				cy.getCookie(cookie.name).should('not.be.empty');
+			}
 		});
 	});
 }

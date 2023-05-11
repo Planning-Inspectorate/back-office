@@ -1,11 +1,12 @@
 {
 	"name": "@pins/e2e",
 	"version": "1.0.0",
-	"description": "E2E TestS for the Back Office Application",
+	"description": "E2E Tests for the Back Office Application",
 	"main": "index.js",
 	"scripts": {
 		"cy:open": "npx cypress open",
-		"cy:run": "npx cypress run"
+		"cy:run": "npx cypress run",
+		"cy:ci": "npx cypress run --env isCI=true --browser chrome"
 	},
 	"author": "",
 	"license": "ISC",
