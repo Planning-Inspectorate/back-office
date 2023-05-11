@@ -3,12 +3,12 @@
  */
 
 /**
- * @typedef {import('../src/server/applications/application/application.js')} Sector
- * @typedef {import('../src/server/applications/application/application.js').Sector} SubSector
+ * @typedef {import('../../server/applications/application/application.js')} Sector
+ * @typedef {import('../../server/applications/application/application.js').Sector} SubSector
  * @typedef {import('apps/web/src/server/applications/applications.types').Region} Region
  * @typedef {import('apps/web/src/server/applications/applications.types').ZoomLevel} ZoomLevel
  * @typedef {import('apps/web/src/server/applications/applications.types').ExaminationTimetableType} ExaminationTimetableType
- * @typedef {import('apps/api/prisma/schema').CaseStatus} CaseStatus
+ * @typedef {import('apps/api/src/database/schema').CaseStatus} CaseStatus
  */
 
 /**

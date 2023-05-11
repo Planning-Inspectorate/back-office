@@ -2,7 +2,7 @@
  * Test data used for development and testing
  */
 
-import { createFolders } from '../src/server/repositories/folder.repository.js';
+import { createFolders } from '../../server/repositories/folder.repository.js';
 import {
 	addressesList,
 	appealDetailsFromAppellantList,
@@ -15,8 +15,8 @@ import {
 	localPlanningDepartmentList,
 	lpaQuestionnaireList,
 	represenations
-} from './seed-samples.js';
-import { regions, subSectors, zoomLevels } from './seed-static.js';
+} from './data-samples.js';
+import { regions, subSectors, zoomLevels } from './data-static.js';
 
 /**
  * @returns {Date} date two weeks ago

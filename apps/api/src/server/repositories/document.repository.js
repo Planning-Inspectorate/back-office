@@ -1,6 +1,6 @@
 import { databaseConnector } from '../utils/database-connector.js';
 
-/** @typedef {import('apps/api/prisma/schema.js').Document} Document */
+/** @typedef {import('apps/api/src/database/schema.js').Document} Document */
 
 /**
  *
