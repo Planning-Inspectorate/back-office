@@ -33,9 +33,6 @@ Cypress.Commands.add('login', (user) => {
 			setLocalCookies(user.id);
 		}
 	});
-	cy.wait(2000);
-	cy.visit('/');
-	cy.reload();
 });
 
 Cypress.Commands.add('loginWithPuppeteer', (user) => {
@@ -55,7 +52,8 @@ Cypress.Commands.add('loginWithPuppeteer', (user) => {
 				expiry: cookie.expires,
 				httpOnly: cookie.httpOnly,
 				path: cookie.path,
-				secure: cookie.secure
+				secure: cookie.secure,
+				log: false
 			});
 			if (cookiesToSet.includes(cookie.name)) {
 				cy.getCookie(cookie.name).should('not.be.empty');
@@ -78,7 +76,8 @@ export function setLocalCookies(userId) {
 				expiry: cookie.expires,
 				httpOnly: cookie.httpOnly,
 				path: cookie.path,
-				secure: cookie.secure
+				secure: cookie.secure,
+				log: false
 			});
 			if (cookiesToSet.includes(cookie.name)) {
 				cy.getCookie(cookie.name).should('not.be.empty');
