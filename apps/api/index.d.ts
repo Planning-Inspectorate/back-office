@@ -1,4 +1,4 @@
-import * as Schema from './prisma/schema';
+import * as Schema from './src/database/schema';
 
 export { Schema };
 

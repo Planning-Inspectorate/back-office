@@ -562,7 +562,9 @@ const replaceValueInString = (inputString, keysToReplace) => {
 const assignApplicationReference = (id) => {
 	const sqlQueryAbsolutePath = getSqlQuery('update-application-reference');
 
-	const data = fs.readFileSync(sqlQueryAbsolutePath, 'utf8').replace(/\r|\n/g, '');
+	// remove new lines from the sql script - but replace with a space.
+	// otherwise, if there are not spaces on the end of each line, then the wordswillallruntogether
+	const data = fs.readFileSync(sqlQueryAbsolutePath, 'utf8').replace(/\r|\n/g, ' ');
 
 	const formattedSqlQuery = replaceValueInString(data, { CASE_ID: id.toString() });
 

@@ -49,12 +49,19 @@ export const mapCaseData = (caseData) => {
  * @returns { Record<string, string>}
  */
 export const mapErrorsToDisplayErrors = (validationErrors) => {
-	const errorFieldKeys = Object.keys(validationErrors);
 	/** @type {Record<string, string>} */
 	const errors = {};
 
-	for (const aField of errorFieldKeys) {
-		errors[aField] = getErrorMessageCaseCreate(aField, validationErrors[aField]);
+	// expected errors like missing required properties are in an object eg { description: 'Missing description'}
+	// but we also need to handle unexpected errors - which will be a string
+	if (typeof validationErrors === 'string') {
+		errors['Error'] = getErrorMessageCaseCreate('Error', validationErrors);
+	} else {
+		const errorFieldKeys = Object.keys(validationErrors);
+
+		for (const aField of errorFieldKeys) {
+			errors[aField] = getErrorMessageCaseCreate(aField, validationErrors[aField]);
+		}
 	}
 
 	return errors;

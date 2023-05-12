@@ -4,7 +4,7 @@
 
 {%- set containerSize = 'xl' -%}
 {%- set pageTitle = 'Appeals' -%}
-{%- set allAppeals = appeals -%}
+{%- set allAppeals = appeals.items -%}
 
 {%- block pageContent -%}
 	<span class="govuk-caption-xl">{{userRole}}</span>

@@ -1,6 +1,6 @@
 ## Creating a new migration
 
-Edit the `schema.prisma` file to match the desired database schema.
+Edit the `apps/api/src/database/schema.prisma` file to match the desired database schema.
 
 Run the migration using the command:
 
