@@ -22,9 +22,9 @@ import {
 } from './document.validators.js';
 
 /**
- * @typedef {import('apps/api/prisma/schema.js').Document} Document
- * @typedef {import('apps/api/prisma/schema.js').DocumentDetails} DocumentDetails
- * @typedef {import('apps/api/prisma/schema.js').DocumentVersionInput} DocumentVersion
+ * @typedef {import('apps/api/src/database/schema.js').Document} Document
+ * @typedef {import('apps/api/src/database/schema.js').DocumentDetails} DocumentDetails
+ * @typedef {import('apps/api/src/database/schema.js').DocumentVersionInput} DocumentVersion
  */
 
 /**

@@ -65,9 +65,6 @@ exports[`Representation details page GET /applications-service/case/1/relevant-r
                 <div class=\\"govuk-summary-list__row govuk-summary-list__row--no-actions govuk-summary-list__row--no-border\\"><dt class=\\"govuk-summary-list__key\\"> Name</dt>
                     <dd class=\\"govuk-summary-list__value\\">James Bond</dd>
                 </div>
-                <div class=\\"govuk-summary-list__row govuk-summary-list__row--no-actions govuk-summary-list__row--no-border\\"><dt class=\\"govuk-summary-list__key\\"> Job title</dt>
-                    <dd class=\\"govuk-summary-list__value\\"></dd>
-                </div>
                 <div class=\\"govuk-summary-list__row govuk-summary-list__row--no-actions govuk-summary-list__row--no-border\\"><dt class=\\"govuk-summary-list__key\\"> Email address</dt>
                     <dd class=\\"govuk-summary-list__value\\">test-agent@example.com</dd>
                 </div>

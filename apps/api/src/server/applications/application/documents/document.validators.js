@@ -18,7 +18,7 @@ import logger from '../../../utils/logger.js';
 /** @typedef {{ guid: string}} documentGuid */
 
 /**
- * @typedef {import('apps/api/prisma/schema.js').DocumentVersion} DocumentVersion
+ * @typedef {import('apps/api/src/database/schema.js').DocumentVersion} DocumentVersion
  */
 
 /**
@@ -52,7 +52,7 @@ export const fetchDocumentByGuidAndCaseId = async (
 	/** @type {string} */ guid,
 	/** @type {number} */ caseId
 ) => {
-	const /** @type {import('apps/api/prisma/schema.js').Document | null} */ document =
+	const /** @type {import('apps/api/src/database/schema.js').Document | null} */ document =
 			await DocumentRepository.getByIdRelatedToCaseId(guid, caseId);
 
 	if (document === null || typeof document === 'undefined') {

@@ -1,25 +1,22 @@
-import { createFolders } from '../src/server/repositories/folder.repository.js';
-import { databaseConnector } from '../src/server/utils/database-connector.js';
-import logger from '../src/server/utils/logger.js';
-import { truncateTable } from './prisma.truncate.js';
+/**
+ * Test data used for development and testing
+ */
+
+import { createFolders } from '../../server/repositories/folder.repository.js';
 import {
 	addressesList,
 	appealDetailsFromAppellantList,
 	appellantsList,
 	caseStatusNames,
 	completeValidationDecisionSample,
-	examinationTimetableTypes,
 	incompleteReviewQuestionnaireSample,
 	incompleteValidationDecisionSample,
 	invalidValidationDecisionSample,
 	localPlanningDepartmentList,
 	lpaQuestionnaireList,
-	regions,
-	represenations,
-	sectors,
-	subSectors,
-	zoomLevels
-} from './seed-samples.js';
+	represenations
+} from './data-samples.js';
+import { regions, subSectors, zoomLevels } from './data-static.js';
 
 /**
  * @returns {Date} date two weeks ago
@@ -343,94 +340,6 @@ const appealsData = [
 	...appealsComplete
 ];
 
-const deleteLowestFolders = async () => {
-	await databaseConnector.folder.deleteMany({
-		where: {
-			childFolders: {
-				every: {
-					parentFolder: null
-				}
-			}
-		}
-	});
-};
-
-const deleteAllRecords = async () => {
-	const deleteCases = databaseConnector.case.deleteMany();
-	const deleteCaseStatuses = databaseConnector.caseStatus.deleteMany();
-	const deleteApplicationDetails = databaseConnector.applicationDetails.deleteMany();
-	const deleteSubSectors = databaseConnector.subSector.deleteMany();
-	const deleteSectors = databaseConnector.sector.deleteMany();
-	const deleteRegions = databaseConnector.region.deleteMany();
-	const deleteZoomLevels = databaseConnector.zoomLevel.deleteMany();
-	const deleteExaminationTimetables = databaseConnector.examinationTimetableType.deleteMany();
-	const deleteAppeals = databaseConnector.appeal.deleteMany();
-	const deleteUsers = databaseConnector.user.deleteMany();
-	const deleteAppealTypes = databaseConnector.appealType.deleteMany();
-	const deleteAddresses = databaseConnector.address.deleteMany();
-	const deleteAppealDetailsFromAppellant =
-		databaseConnector.appealDetailsFromAppellant.deleteMany();
-	const deleteAppealStatus = databaseConnector.appealStatus.deleteMany();
-	const deleteAppellant = databaseConnector.appellant.deleteMany();
-	const deleteInspectorDecision = databaseConnector.inspectorDecision.deleteMany();
-	const deleteLPAQuestionnaire = databaseConnector.lPAQuestionnaire.deleteMany();
-	const deleteReviewQuestionnaire = databaseConnector.reviewQuestionnaire.deleteMany();
-	const deleteSiteVisit = databaseConnector.siteVisit.deleteMany();
-	const deleteValidationDecision = databaseConnector.validationDecision.deleteMany();
-	const deleteServiceCustomers = databaseConnector.serviceCustomer.deleteMany();
-	const deleteGridReference = databaseConnector.gridReference.deleteMany();
-	const deleteDocuments = databaseConnector.document.deleteMany();
-	const deleteDocumentsVersions = databaseConnector.documentVersion.deleteMany();
-	const deleteFolders = databaseConnector.folder.deleteMany();
-	const deleteRepresentationContact = databaseConnector.representationContact.deleteMany();
-	const deleteRepresentation = databaseConnector.representation.deleteMany();
-
-	// Truncate calls
-	const deleteRegionsOnApplicationDetails = truncateTable('RegionsOnApplicationDetails');
-
-	await deleteRepresentationContact;
-	await deleteRepresentation;
-
-	// delete document versions, documents, and THEN the folders.  Has to be in this order for integrity constraints
-	await deleteDocumentsVersions;
-	await deleteDocuments;
-
-	// truncate table
-	await deleteRegionsOnApplicationDetails;
-
-	await deleteLowestFolders();
-	await deleteLowestFolders();
-	await deleteLowestFolders();
-	await deleteLowestFolders();
-	await deleteLowestFolders();
-
-	await databaseConnector.$transaction([
-		deleteGridReference,
-		deleteServiceCustomers,
-		deleteApplicationDetails,
-		deleteCaseStatuses,
-		deleteCases,
-		deleteSubSectors,
-		deleteSectors,
-		deleteRegions,
-		deleteZoomLevels,
-		deleteExaminationTimetables,
-		deleteAppealDetailsFromAppellant,
-		deleteAppealStatus,
-		deleteValidationDecision,
-		deleteLPAQuestionnaire,
-		deleteReviewQuestionnaire,
-		deleteSiteVisit,
-		deleteUsers,
-		deleteAppealTypes,
-		deleteAddresses,
-		deleteInspectorDecision,
-		deleteAppeals,
-		deleteAppellant,
-		deleteFolders
-	]);
-};
-
 /**
  *
  * @param {string} caseReference
@@ -454,10 +363,11 @@ function createRepresentation(caseReference, index) {
 
 /**
  *
+ * @param {import('@prisma/client').PrismaClient} databaseConnector
  * @param {{name: string, displayNameEn: string}} subSector
  * @param {number} index
  */
-const createApplication = async (subSector, index) => {
+const createApplication = async (databaseConnector, subSector, index) => {
 	const title = `${subSector.displayNameEn} Test Application ${index}`;
 	const caseStatus = pickRandom(caseStatusNames).name;
 	// Draft cases do not have a reference assigned to them yet
@@ -529,58 +439,23 @@ const createApplication = async (subSector, index) => {
 };
 
 /**
- *
+ * @param {import('@prisma/client').PrismaClient} databaseConnector
  */
-const developMain = async () => {
-	try {
-		// ---------- Re-create all the reference tables
-		await deleteAllRecords();
-		await databaseConnector.appealType.createMany({
-			data: [
-				{ shorthand: 'FPA', type: appealTypes.FPA },
-				{ shorthand: 'HAS', type: appealTypes.HAS }
-			]
-		});
-		for (const appealData of appealsData) {
-			await databaseConnector.appeal.create({ data: appealData });
-		}
-		for (const sector of sectors) {
-			await databaseConnector.sector.create({ data: sector });
-		}
-		for (const { subSector, sectorName } of subSectors) {
-			await databaseConnector.subSector.create({
-				data: { ...subSector, sector: { connect: { name: sectorName } } }
-			});
-		}
-		for (const region of regions) {
-			await databaseConnector.region.create({
-				data: region
-			});
-		}
-		for (const zoomLevel of zoomLevels) {
-			await databaseConnector.zoomLevel.create({
-				data: zoomLevel
-			});
-		}
-		for (const examinationTimetableType of examinationTimetableTypes) {
-			await databaseConnector.examinationTimetableType.create({
-				data: examinationTimetableType
-			});
-		}
-		// ----------end of Re-create all the reference tables
-
-		// now create some sample applications
-		for (const { subSector } of subSectors) {
-			for (let index = 1; index < 4; index += 1) {
-				await createApplication(subSector, index);
-			}
-		}
-	} catch (error) {
-		logger.error(error);
-		throw error;
-	} finally {
-		await databaseConnector.$disconnect();
+export async function seedTestData(databaseConnector) {
+	await databaseConnector.appealType.createMany({
+		data: [
+			{ shorthand: 'FPA', type: appealTypes.FPA },
+			{ shorthand: 'HAS', type: appealTypes.HAS }
+		]
+	});
+	for (const appealData of appealsData) {
+		await databaseConnector.appeal.create({ data: appealData });
 	}
-};
 
-await developMain();
+	// now create some sample applications
+	for (const { subSector } of subSectors) {
+		for (let index = 1; index < 4; index += 1) {
+			await createApplication(databaseConnector, subSector, index);
+		}
+	}
+}
