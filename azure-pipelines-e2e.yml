@@ -23,7 +23,8 @@ pr:
       - main
   paths:
     include:
-      - apps
+      - apps/e2e
+trigger: none
 
 jobs:
   - job: Run_Cypress_Tests
@@ -54,7 +55,7 @@ jobs:
         env:
           BASE_URL: $(BASE_URL)
           CASE_TEAM_EMAIL: $(CASE_TEAM_EMAIL)
-          CASE_ADMIN_EMAIL: $C(ASE_ADMIN_EMAIL)
+          CASE_ADMIN_EMAIL: $(CASE_ADMIN_EMAIL)
           INSPECTOR_EMAIL: $(INSPECTOR_EMAIL)
           USER_PASSWORD: $(USER_PASSWORD)
         displayName: "Run Cypress Tests"
