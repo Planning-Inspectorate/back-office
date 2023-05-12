@@ -157,37 +157,28 @@ export const createApplicationRepresentation = async ({
 		...representationDetails
 	};
 
-	representation.contacts = isEmpty(representative) ? {
-			create: [
-				{
-					...represented,
-					address: {
-						create: {
-							...representedAddress
-						}
+	representation.contacts = {
+		create: [
+			{
+				...represented,
+				address: {
+					create: {
+						...representedAddress
 					}
 				}
-			]
-		} : {
-			create: [
-				{
-					...represented,
-					address: {
-						create: {
-							...representedAddress
-						}
-					}
-				},
-				{
-					...representative,
-					address: {
-						create: {
-							...representativeAddress
-						}
-					}
+			}
+		]
+	};
+	if (!isEmpty(representative)) {
+		representation.contacts.create.push({
+			...representative,
+			address: {
+				create: {
+					...representativeAddress
 				}
-			]
-		};
+			}
+		});
+	}
 
 	const createResponse = await databaseConnector.representation.create({
 		data: {
@@ -320,5 +311,5 @@ function buildOrderBy(sort) {
  * @returns {string}
  */
 function generateRepresentationReference(id) {
-	return `B${ id.toString().padStart(7, '0')}`;
+	return `B${id.toString().padStart(7, '0')}`;
 }
