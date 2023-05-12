@@ -133,14 +133,5 @@ extends:
                   appResourceGroup: $(resourceGroup)
                   azurecrName: $(azurecrName)
                   repository: back-office/back-office-web
-          - name: Run Cypress Tests
-            condition: eq(${{ parameters.runCypressTests }}, 'true')
-            variables:
-              - group: e2e-dev
-            steps:
-              - script: |
-                 az extension add --name azure-devops
-                 az devops login --organization "https://dev.azure.com/planninginspectorate" --token $(e2e-dev.TOKEN)
-                 az pipelines build queue --organization "https://dev.azure.com/planninginspectorate" --project "back-office" --definition-name "Back Office Applications E2E Tests"
-    globalVariables:
+  globalVariables:
       - template: azure-pipelines-variables.yml@self

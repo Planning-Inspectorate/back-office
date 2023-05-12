@@ -8,7 +8,6 @@ import { SearchResultsPage } from '../../page_objects/searchResultsPage';
 import { validateSummaryPageInfo } from '../../support/utils/utils';
 import { FileUploadPage } from '../../page_objects/uploadFiles';
 import { projectInformation } from '../../support/utils/createProjectInformation';
-import { isCI } from '../../support/utils/isCI';
 
 const createCasePage = new CreateCasePage();
 const applicationsHomePage = new ApplicationsHomePage();
@@ -20,29 +19,27 @@ describe('Document Upload', () => {
 
 	before(() => {
 		projectInfo = projectInformation();
-		cy.login(users.caseTeam);
+		cy.login(users.caseAdmin);
 		createCasePage.createCase(projectInfo);
 	});
 
-	if (!isCI()) {
-		it('Case Team Admin user should be able to upload a document to a case', () => {
-			cy.clearAllCookies();
-			cy.login(users.caseAdmin);
-			cy.visit('/');
-			const caseRef = Cypress.env('currentCreatedCase');
-			applicationsHomePage.searchFor(caseRef);
-			searchResultsPage.clickTopSearchResult();
-			validateSummaryPageInfo(projectInfo, 'complete');
-			searchResultsPage.clickLinkByText('Update project information');
-			searchResultsPage.clickLinkByText('Project documentation');
-			searchResultsPage.clickLinkByText('Project management');
-			fileUploadPage.verifyUploadButtonIsVisible();
-			fileUploadPage.uploadFile();
-			searchResultsPage.clickButtonByText('Save and continue');
-			fileUploadPage.verifyFolderDocuments(1);
-			fileUploadPage.verifyUploadIsComplete();
-		});
-	}
+	it('Case Team Admin user should be able to upload a document to a case', () => {
+		cy.clearAllCookies();
+		cy.login(users.caseAdmin);
+		cy.visit('/');
+		const caseRef = Cypress.env('currentCreatedCase');
+		applicationsHomePage.searchFor(caseRef);
+		searchResultsPage.clickTopSearchResult();
+		validateSummaryPageInfo(projectInfo, 'complete');
+		searchResultsPage.clickLinkByText('Update project information');
+		searchResultsPage.clickLinkByText('Project documentation');
+		searchResultsPage.clickLinkByText('Project management');
+		fileUploadPage.verifyUploadButtonIsVisible();
+		fileUploadPage.uploadFile();
+		searchResultsPage.clickButtonByText('Save and continue');
+		fileUploadPage.verifyFolderDocuments(1);
+		fileUploadPage.verifyUploadIsComplete();
+	});
 
 	it('Inspector user should not be able to upload a document to a case', () => {
 		cy.clearAllCookies();
