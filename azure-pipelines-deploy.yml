@@ -137,12 +137,9 @@ extends:
             condition: eq(${{ parameters.runCypressTests }}, 'true')
             steps:
               - script: |
-                 $orgName = "planninginspectorate"
-                 $projectName = "back-office"
-                 $parameters = @{
-                     Environment = "dev"
-                     APP = "applications"
-                 } | ConvertTo-Json -Depth 10
+                 orgName = "planninginspectorate"
+                 projectName = "back-office"
+                 parameters="{\"Environment\":\"dev\",\"APP\":\"applications\"}"
                  az extension add --name azure-devops
                  az pipelines build queue --organization $orgName --project $projectName --definition-name "Back Office Applications E2E Tests" --parameters $parameters
     globalVariables:
