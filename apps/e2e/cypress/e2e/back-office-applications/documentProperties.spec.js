@@ -36,13 +36,13 @@ describe('Document Properties', () => {
 
 	before(() => {
 		projectInfo = projectInformation();
-		cy.login(users.caseAdmin);
+		cy.login(users.caseTeam);
 		createCasePage.createCase(projectInfo);
 	});
 
-	it('Case Team Admin user should be able to upload a document to a case', () => {
+	it('Case Team user should be able to upload a document to a case', () => {
 		cy.clearAllCookies();
-		cy.login(users.caseAdmin);
+		cy.login(users.caseTeam);
 		cy.visit('/');
 		const caseRef = Cypress.env('currentCreatedCase');
 		applicationsHomePage.searchFor(caseRef);

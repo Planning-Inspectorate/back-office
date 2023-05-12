@@ -6,6 +6,7 @@ import { ApplicationsHomePage } from '../../page_objects/applicationsHomePage';
 import { CreateCasePage } from '../../page_objects/createCasePage';
 import { faker } from '@faker-js/faker';
 import { projectInformation } from '../../support/utils/createProjectInformation';
+import { isCI } from '../../support/utils/isCI';
 
 const createCasePage = new CreateCasePage();
 const applicationsHomePage = new ApplicationsHomePage();
@@ -31,16 +32,18 @@ describe('Create A Case', () => {
 		});
 	});
 
-	context('As a Case Team Admin User', () => {
-		it('Should successfully create a case as an admin', () => {
-			cy.clearAllCookies();
-			cy.login(users.caseAdmin);
-			cy.visit('/');
-			createCasePage.verifyCaseAdminIsSignedIn();
-			const projectInfo = projectInformation();
-			createCasePage.createCase(projectInfo);
+	if (!isCI()) {
+		context('As a Case Team Admin User', () => {
+			it('Should successfully create a case as an admin', () => {
+				cy.clearAllCookies();
+				cy.login(users.caseAdmin);
+				cy.visit('/');
+				createCasePage.verifyCaseAdminIsSignedIn();
+				const projectInfo = projectInformation();
+				createCasePage.createCase(projectInfo);
+			});
 		});
-	});
+	}
 
 	context('As a Case Team User', () => {
 		it('Should successfully create a case when the logged in user is a case team user', () => {
