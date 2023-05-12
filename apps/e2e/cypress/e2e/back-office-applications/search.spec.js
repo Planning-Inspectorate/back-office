@@ -7,7 +7,6 @@ import { CreateCasePage } from '../../page_objects/createCasePage';
 import { faker } from '@faker-js/faker';
 import { SearchResultsPage } from '../../page_objects/searchResultsPage';
 import { projectInformation } from '../../support/utils/createProjectInformation';
-import { isCI } from '../../support/utils/isCI';
 
 const createCasePage = new CreateCasePage();
 const applicationsHomePage = new ApplicationsHomePage();
@@ -17,7 +16,7 @@ describe('Search', () => {
 	let projectInfo;
 	before(() => {
 		projectInfo = projectInformation();
-		cy.login(users.caseTeam);
+		cy.login(users.caseAdmin);
 		createCasePage.createCase(projectInfo);
 		cy.clearAllCookies();
 	});
@@ -48,38 +47,36 @@ describe('Search', () => {
 		});
 	});
 
-	if (!isCI()) {
-		context('As Case Team Admin', () => {
-			beforeEach(() => {
-				cy.login(users.caseAdmin);
-				cy.visit('/');
-			});
-
-			it('Case Team Admin user should be able to use search using Case Reference', () => {
-				const caseRef = Cypress.env('currentCreatedCase');
-				applicationsHomePage.searchFor(caseRef);
-				searchResultsPage.verifySearchResultsCount(1);
-				searchResultsPage.verifyTopSearchResultName(projectInfo.projectName);
-			});
-
-			it('Case Team Admin user should be able to use search using Case Name', () => {
-				applicationsHomePage.searchFor(projectInfo.projectName);
-				searchResultsPage.verifySearchResultsCount(1);
-				searchResultsPage.verifyTopSearchResultName(projectInfo.projectName);
-			});
-
-			it('Case Team Admin user should be able to use search using Case Description', () => {
-				applicationsHomePage.searchFor(projectInfo.projectDescription);
-				searchResultsPage.verifySearchResultsCount(1);
-				searchResultsPage.verifyTopSearchResultName(projectInfo.projectName);
-			});
-
-			it('Case Team Admin user should see an error when nothing is entered', () => {
-				applicationsHomePage.searchFor(' ');
-				searchResultsPage.verifySearchError('Enter a search term');
-			});
+	context('As Case Team Admin', () => {
+		beforeEach(() => {
+			cy.login(users.caseAdmin);
+			cy.visit('/');
 		});
-	}
+
+		it('Case Team Admin user should be able to use search using Case Reference', () => {
+			const caseRef = Cypress.env('currentCreatedCase');
+			applicationsHomePage.searchFor(caseRef);
+			searchResultsPage.verifySearchResultsCount(1);
+			searchResultsPage.verifyTopSearchResultName(projectInfo.projectName);
+		});
+
+		it('Case Team Admin user should be able to use search using Case Name', () => {
+			applicationsHomePage.searchFor(projectInfo.projectName);
+			searchResultsPage.verifySearchResultsCount(1);
+			searchResultsPage.verifyTopSearchResultName(projectInfo.projectName);
+		});
+
+		it('Case Team Admin user should be able to use search using Case Description', () => {
+			applicationsHomePage.searchFor(projectInfo.projectDescription);
+			searchResultsPage.verifySearchResultsCount(1);
+			searchResultsPage.verifyTopSearchResultName(projectInfo.projectName);
+		});
+
+		it('Case Team Admin user should see an error when nothing is entered', () => {
+			applicationsHomePage.searchFor(' ');
+			searchResultsPage.verifySearchError('Enter a search term');
+		});
+	});
 
 	context('As Case Team', () => {
 		beforeEach(() => {
@@ -118,24 +115,19 @@ describe('Search', () => {
 	});
 });
 
-if (isCI()) {
-	delete users.caseAdmin;
-}
-
 Object.keys(users).forEach((user) => {
-	if (user != users.caseAdmin)
-		describe(`Search - Error/General - ${user}`, () => {
-			beforeEach(() => {
-				cy.login(users[user]);
-				cy.visit('/');
-			});
-			it(`${user} user should see an error when nothing is entered`, () => {
-				applicationsHomePage.searchFor('TR');
-				searchResultsPage.verifySearchResultsCount();
-			});
-			it(`${user} user should see an error when nothing is entered`, () => {
-				applicationsHomePage.searchFor('TR');
-				searchResultsPage.verifySearchResultsCount();
-			});
+	describe(`Search - Error/General - ${user}`, () => {
+		beforeEach(() => {
+			cy.login(users[user]);
+			cy.visit('/');
 		});
+		it(`${user} user should see an error when nothing is entered`, () => {
+			applicationsHomePage.searchFor('TR');
+			searchResultsPage.verifySearchResultsCount();
+		});
+		it(`${user} user should see an error when nothing is entered`, () => {
+			applicationsHomePage.searchFor('TR');
+			searchResultsPage.verifySearchResultsCount();
+		});
+	});
 });
