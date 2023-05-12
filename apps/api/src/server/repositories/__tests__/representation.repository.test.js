@@ -5,6 +5,18 @@ import * as representationRepository from '../representation.repository.js';
 
 const existingRepresentations = [{ id: 1 }, { id: 2 }];
 
+const createdRepresentation = {
+	id: 1,
+	reference: '',
+	caseId: 1,
+	status: 'DRAFT',
+	originalRepresentation: '',
+	redactedRepresentation: null,
+	redacted: false,
+	userId: null,
+	received: '2023-05-11T09:57:06.139Z'
+};
+
 describe('Representation repository', () => {
 	beforeEach(() => {
 		jest.resetAllMocks();
@@ -516,6 +528,103 @@ describe('Representation repository', () => {
 						id: 2
 					},
 					id: 1
+				}
+			});
+		});
+	});
+
+	describe('createRepresentation', () => {
+		it('Create a representation', async () => {
+			// GIVEN
+			const mappedData = {
+				representationDetails: {
+					status: 'DRAFT',
+					caseId: 1
+				},
+				represented: {
+					firstName: 'Joe',
+					lastName: 'Bloggs',
+					under18: false,
+					type: 'PERSON',
+					received: '2023-05-11T09:57:06.139Z'
+				},
+				representedAddress: {
+					addressLine1: 'Test Address Line 1'
+				},
+				representative: {
+					firstName: 'Jack',
+					lastName: 'Jones',
+					under18: false,
+					type: 'AGENT',
+					received: '2023-05-11T09:57:06.139Z'
+				},
+				representativeAddress: {
+					addressLine1: 'Test Address2 Line 1',
+					postcode: 'XX2 9XX'
+				}
+			};
+
+			databaseConnector.representation.create.mockResolvedValue(createdRepresentation);
+
+			const updatedRepresentation = createdRepresentation;
+
+			updatedRepresentation.reference = 'B0000001';
+			databaseConnector.representation.update.mockResolvedValue(updatedRepresentation);
+
+			// WHEN
+			const representation = await representationRepository.createApplicationRepresentation(
+				mappedData
+			);
+
+			// THEN
+			expect(representation).toEqual({
+				caseId: 1,
+				id: 1,
+				originalRepresentation: '',
+				received: '2023-05-11T09:57:06.139Z',
+				redacted: false,
+				redactedRepresentation: null,
+				reference: 'B0000001',
+				status: 'DRAFT',
+				userId: null
+			});
+
+			expect(databaseConnector.representation.create).toBeCalledWith({
+				data: {
+					status: 'DRAFT',
+					caseId: 1,
+					contacts: {
+						create: [
+							{
+								firstName: 'Joe',
+								lastName: 'Bloggs',
+								under18: false,
+								type: 'PERSON',
+								received: '2023-05-11T09:57:06.139Z',
+								address: { create: { addressLine1: 'Test Address Line 1' } }
+							},
+							{
+								firstName: 'Jack',
+								lastName: 'Jones',
+								under18: false,
+								type: 'AGENT',
+								received: '2023-05-11T09:57:06.139Z',
+								address: {
+									create: {
+										addressLine1: 'Test Address2 Line 1',
+										postcode: 'XX2 9XX'
+									}
+								}
+							}
+						]
+					}
+				}
+			});
+
+			expect(databaseConnector.representation.update).toBeCalledWith({
+				where: { id: 1 },
+				data: {
+					reference: 'B0000001'
 				}
 			});
 		});

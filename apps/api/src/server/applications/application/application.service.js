@@ -239,6 +239,15 @@ export const getCaseRepresentation = async (caseId, repId) => {
 
 /**
  *
+ * @param {import('../../repositories/representation.repository').CreateRepresentationParams} representation
+ * @returns {Promise<object>}
+ */
+export const createCaseRepresentation = async (representation) => {
+	return representationsRepository.createApplicationRepresentation(representation);
+};
+
+/**
+ *
  * @param {string | any } status
  * @param {string} machineAction
  * @returns {import('xstate').StateValue}

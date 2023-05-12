@@ -1,4 +1,14 @@
+import { isEmpty } from 'lodash-es';
 import { databaseConnector } from '../utils/database-connector.js';
+
+/**
+ * @typedef {{
+ *  representationDetails: { caseId: number, status: string, originalRepresentation?: string | null, redacted: boolean, received: Date },
+ *  represented?: { organisationName?: string | null, firstName?: string | null, lastName?: string | null, email?: string | null, phoneNumber?: string | null, jobTitle?: string | null, under18: boolean, type: string},
+ *  representedAddress?: { addressLine1?: string | null, addressLine2?: string | null, town?: string | null, county?: string | null, postcode?: string | null},
+ *  representative?: { organisationName?: string | null, firstName?: string | null, lastName?: string | null, email?: string | null, phoneNumber?: string | null, jobTitle?: string | null, under18: boolean, type: string},
+ *  representedAddress?: { addressLine1?: string | null, addressLine2?: string | null, town?: string | null, county?: string | null, postcode?: string | null}}} CreateRepresentationParams
+ */
 
 /**
  *
@@ -134,6 +144,67 @@ export const getById = async (id, caseId) => {
 };
 
 /**
+ * @param  {CreateRepresentationParams} representationCreateDetails
+ */
+export const createApplicationRepresentation = async ({
+	representationDetails,
+	represented,
+	representedAddress,
+	representative,
+	representativeAddress
+}) => {
+	const representation = {
+		...representationDetails
+	};
+
+	representation.contacts = isEmpty(representative) ? {
+			create: [
+				{
+					...represented,
+					address: {
+						create: {
+							...representedAddress
+						}
+					}
+				}
+			]
+		} : {
+			create: [
+				{
+					...represented,
+					address: {
+						create: {
+							...representedAddress
+						}
+					}
+				},
+				{
+					...representative,
+					address: {
+						create: {
+							...representativeAddress
+						}
+					}
+				}
+			]
+		};
+
+	const createResponse = await databaseConnector.representation.create({
+		data: {
+			...representation
+		}
+	});
+
+	// Using the DB Id to generate a short reference id, references will also be created in FO so prefix id with 'B'
+	return databaseConnector.representation.update({
+		where: { id: createResponse.id },
+		data: {
+			reference: generateRepresentationReference(createResponse.id)
+		}
+	});
+};
+
+/**
  *
  * @param {string} rawSearchTerm
  * @returns {any}
@@ -241,4 +312,13 @@ function buildOrderBy(sort) {
 			: [{ received: 'asc' }];
 
 	return [...primarySort, ...secondarySort, { id: 'asc' }];
+}
+
+/**
+ *
+ * @param {number} id
+ * @returns {string}
+ */
+function generateRepresentationReference(id) {
+	return `B${ id.toString().padStart(7, '0')}`;
 }
