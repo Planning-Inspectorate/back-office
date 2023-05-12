@@ -3,6 +3,7 @@ import { asyncHandler } from '../../middleware/async-handler.js';
 import { trimUnexpectedRequestParameters } from '../../middleware/trim-unexpected-request-parameters.js';
 import {
 	createApplication,
+	createApplicationRepresentation,
 	getApplicationDetails,
 	getApplicationRepresentation,
 	getApplicationRepresentations,
@@ -13,6 +14,7 @@ import {
 import {
 	validateApplicantId,
 	validateApplicationId,
+	validateCreateRepresentation,
 	validateCreateUpdateApplication,
 	validateGetApplicationQuery,
 	validateGetRepresentationsQuery,
@@ -125,7 +127,7 @@ router.get(
 	/*
         #swagger.tags = ['Applications']
         #swagger.path = '/applications/{id}/representations'
-        #swagger.description = 'Gets list of representations on a case'
+        #swagger.description = 'Gets list of representations on an application'
         #swagger.parameters['id'] = {
             in: 'path',
 			description: 'Application ID',
@@ -147,7 +149,7 @@ router.get(
 			type: 'integer',
 			example: 25,
 			minimum: 1,
-			maximun: 100
+			maximum: 100
 		}
 		#swagger.parameters['searchTerm'] = {
 			in: 'query',
@@ -171,7 +173,7 @@ router.get(
 		}
 		#swagger.parameters['sortBy'] = {
 			in: 'query',
-			description: 'Sory by field. +field for ASC, -field for DESC',
+			description: 'Sort by field. +field for ASC, -field for DESC',
 			required: false,
 			type: 'string'
 		}
@@ -207,7 +209,7 @@ router.get(
 	/*
         #swagger.tags = ['Applications']
         #swagger.path = '/applications/{id}/representations/{repId}'
-        #swagger.description = 'Gets a representation on a case'
+        #swagger.description = 'Gets a representation on an application'
         #swagger.parameters['id'] = {
             in: 'path',
 			description: 'Application ID',
@@ -239,6 +241,59 @@ router.get(
 	validateApplicationId,
 	validateRepresentationId,
 	asyncHandler(getApplicationRepresentation)
+);
+
+router.post(
+	'/:id/representations',
+	/*
+        #swagger.tags = ['Applications']
+        #swagger.path = '/applications/{id}/representations'
+        #swagger.description = 'Creates a representation for an application'
+        #swagger.parameters['id'] = {
+            in: 'path',
+			description: 'Application ID',
+			required: true,
+			type: 'integer'
+		}
+		#swagger.parameters['body'] = {
+            in: 'body',
+            description: 'Representation Details',
+            schema: {
+				status: 'DRAFT',
+				redacted: false,
+				received: '2023-03-14T14:28:25.704Z',
+				originalRepresentation: 'This is the representation text',
+				represented: {
+					firstName: 'Peter',
+					lastName: 'Biggins',
+					organisationName: '',
+				    jobTitle: '',
+				    email: 'peter.bigins@dummy.email',
+				    phoneNumber: '0123456789',
+				    address: {
+						addressLine1: '',
+						addressLine2: '',
+						town: '',
+						county: '',
+						postcode: ''
+						},
+					type: 'PERSON',
+					under18: false
+				},
+				representative: {}
+			}
+        }
+        #swagger.responses[200] = {
+            description: 'Representation',
+            schema: {
+				id: 1,
+				status: 'DRAFT',
+			}
+		}
+    */
+	validateApplicationId,
+	validateCreateRepresentation,
+	asyncHandler(createApplicationRepresentation)
 );
 
 router.patch(

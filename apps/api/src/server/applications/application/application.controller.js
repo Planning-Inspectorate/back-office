@@ -9,11 +9,13 @@ import { mapDateStringToUnixTimestamp } from '../../utils/mapping/map-date-strin
 import { buildNsipProjectPayload } from './application.js';
 import { mapCreateApplicationRequestToRepository } from './application.mapper.js';
 import {
+	createCaseRepresentation,
 	getCaseDetails,
 	getCaseRepresentation,
 	getCaseRepresentations,
 	startApplication
 } from './application.service.js';
+import { mapCreateRepresentationRequestToRepository } from './representation.mapper.js';
 /**
  *
  * @param {import('@pins/api').Schema.ServiceCustomer[] | undefined} serviceCustomers
@@ -181,6 +183,24 @@ export const getApplicationRepresentation = async ({ params }, response) => {
 		...representation,
 		redactedBy: representation.user
 	});
+};
+
+/**
+ *
+ * @type {import('express').RequestHandler<{id: number}, ?, import('@pins/applications').CreateUpdateRepresentation>}
+ */
+export const createApplicationRepresentation = async ({ params, body }, response) => {
+	const mappedRepresentation = mapCreateRepresentationRequestToRepository(params.id, body);
+
+	const representation = await createCaseRepresentation(mappedRepresentation);
+
+	if (!representation) {
+		return response
+			.status(400)
+			.json({ errors: { representation: `Error creating representation` } });
+	}
+
+	return response.send({ id: representation.id, status: representation.status });
 };
 
 /**
