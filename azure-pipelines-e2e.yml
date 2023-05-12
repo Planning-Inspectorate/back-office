@@ -1,19 +1,21 @@
 parameters:
   - name: Environment
-    default: dev
+    type: string
+    default: 'dev'
     values:
-      - dev
-      - test
+      - 'dev'
+      - 'test'
   - name: APP
-    default: applications
+    type: string
+    default: 'applications'
     values:
-      - applications
-      - appeals
+      - 'applications'
+      - 'appeals'
 
 variables:
   - name: APP
-    value: ${{parameters.APP}}
-  - group: e2e-${{parameters.Environment}}
+    value: ${{ parameters.APP }}
+  - group: e2e-${{ parameters.Environment }}
 
 pr:
   branches:

@@ -56,6 +56,19 @@ resources:
         branches:
           include:
             - main
+    - pipeline: e2e-tests
+      project: Back Office
+      source: Back Office Applications E2E Tests
+      trigger:
+        branches:
+          include:
+            - main
+        paths:
+          include:
+            - apps
+      parameters:
+        Environment: ${{ variables.environment }}
+        APP: 'applications'
 
 extends:
   template: stages/wrapper_cd.yml@templates
@@ -133,5 +146,20 @@ extends:
                   appResourceGroup: $(resourceGroup)
                   azurecrName: $(azurecrName)
                   repository: back-office/back-office-web
+
+          - name: Run Cypress Tests
+            condition: eq(${{ parameters.runCypressTests }}, 'true')
+            jobs:
+              - job: TriggerE2EPipeline
+                displayName: 'Trigger E2E Pipeline'
+                pool:
+                  vmImage: 'ubuntu-latest'
+                steps:
+                  - script: |
+                      $orgName = "planninginspectorate"
+                      $projectName = "back-offic"
+
+                      az extension add --name azure-devops
+                      az pipelines build queue --organization $orgName --project $projectName --definition-name "Back Office Applications E2E Tests"
     globalVariables:
       - template: azure-pipelines-variables.yml@self
