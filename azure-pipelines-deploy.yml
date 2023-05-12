@@ -56,9 +56,6 @@ resources:
         branches:
           include:
             - main
-    - pipeline: e2e-tests
-      project: back-office
-      source: Back Office Applications E2E Tests
 
 extends:
   template: stages/wrapper_cd.yml@templates
