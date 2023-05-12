@@ -19,7 +19,7 @@ FROM [dbo].[Case] as case_table
     on application_details_table.subSectorId = sub_sector_table.id
         and sub_sector_table.abbreviation = @sub_sector_abbreviation;
 
-if(@max_reference < @minimum_new_reference OR @max_reference IS NULL) select @reference_number = @minimum_new_reference else select @reference_number = @max_reference + 1;
+if(@max_reference < @minimum_new_reference OR @max_reference IS NULL) select @reference_number = @minimum_new_reference else select @reference_number = @max_reference + 1;
 
 update [dbo].[Case]
     set reference = CONCAT(@sub_sector_abbreviation, cast(@reference_number as nchar(5)))

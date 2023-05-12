@@ -11,35 +11,41 @@ export const localPlanningDepartments = [
 	'Bristol City Council'
 ];
 
-export const appealsNationalList = [
-	{
-		appealId: 1,
-		appealReference: 'APP/Q9999/D/21/943245',
-		appealSite: {
-			addressLine1: 'Copthalls',
-			addressLine2: 'Clevedon Road',
-			town: 'West Hill',
-			postCode: 'BS48 1PN'
+export const appealsNationalList = {
+	itemsCount: 2,
+	items: [
+		{
+			appealId: 1,
+			appealReference: 'APP/Q9999/D/21/943245',
+			appealSite: {
+				addressLine1: 'Copthalls',
+				addressLine2: 'Clevedon Road',
+				town: 'West Hill',
+				postCode: 'BS48 1PN'
+			},
+			appealStatus: 'received_appeal',
+			appealType: 'household',
+			createdAt: '2023-04-17T09:49:22.021Z',
+			localPlanningDepartment: 'Wiltshire Council'
 		},
-		appealStatus: 'received_appeal',
-		appealType: 'household',
-		createdAt: '2023-04-17T09:49:22.021Z',
-		localPlanningDepartment: 'Wiltshire Council'
-	},
-	{
-		appealId: 2,
-		appealReference: 'APP/Q9999/D/21/129285',
-		appealSite: {
-			addressLine1: '19 Beauchamp Road',
-			town: 'Bristol',
-			postCode: 'BS7 8LQ'
-		},
-		appealStatus: 'received_appeal',
-		appealType: 'household',
-		createdAt: '2023-04-17T09:49:22.057Z',
-		localPlanningDepartment: 'Dorset Council'
-	}
-];
+		{
+			appealId: 2,
+			appealReference: 'APP/Q9999/D/21/129285',
+			appealSite: {
+				addressLine1: '19 Beauchamp Road',
+				town: 'Bristol',
+				postCode: 'BS7 8LQ'
+			},
+			appealStatus: 'received_appeal',
+			appealType: 'household',
+			createdAt: '2023-04-17T09:49:22.057Z',
+			localPlanningDepartment: 'Dorset Council'
+		}
+	],
+	page: 1,
+	pageCount: 1,
+	pageSize: 30
+};
 
 export const appealData = {
 	agentName: null,
