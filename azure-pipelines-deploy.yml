@@ -133,5 +133,5 @@ extends:
                   appResourceGroup: $(resourceGroup)
                   azurecrName: $(azurecrName)
                   repository: back-office/back-office-web
-  globalVariables:
+    globalVariables:
       - template: azure-pipelines-variables.yml@self

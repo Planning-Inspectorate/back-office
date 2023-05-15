@@ -19,7 +19,13 @@ Cypress.Commands.add('deleteUnwantedFixtures', () => {
 
 Cypress.Commands.add('validateDownloadedFile', (fileName) => {
 	cy.task('ValidateDownloadedFile', fileName).then((success) => {
-		expect(success).to.be.true;
+		if (success) {
+			expect(success).to.be.true;
+		} else {
+			throw new Error(
+				`${fileName} was not found. The file either not downloaded or the file name is not correct.`
+			);
+		}
 	});
 });
 

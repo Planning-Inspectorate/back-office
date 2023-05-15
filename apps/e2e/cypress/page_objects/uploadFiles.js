@@ -31,7 +31,7 @@ export class FileUploadPage extends Page {
 		cy.contains('a', 'Download').should('exist');
 	}
 
-	downloadFile(fileNumber) {
+	downloadFile(fileNumber, button = false) {
 		/**
 			Cypress waits for a load event when the download button/link is clicked.
 			The event doesn't fire when the download link is clicked which fails our test.
@@ -40,15 +40,20 @@ export class FileUploadPage extends Page {
 
 		cy.window()
 			.document()
-			.then(function (doc) {
+			.then((doc) => {
 				doc.addEventListener('click', () => {
-					setTimeout(function () {
+					setTimeout(() => {
 						doc.location.reload();
 					}, 5000);
 				});
-				cy.get('[data-action]')
-					.eq(fileNumber - 1)
-					.click();
+
+				if (button) {
+					this.clickButtonByText('Download');
+				} else {
+					cy.get('[data-action]')
+						.eq(fileNumber - 1)
+						.click();
+				}
 			});
 	}
 }

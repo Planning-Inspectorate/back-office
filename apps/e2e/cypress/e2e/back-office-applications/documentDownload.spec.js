@@ -62,7 +62,8 @@ describe('Document Download', () => {
 		fileUploadPage.verifyFolderDocuments(1);
 		fileUploadPage.verifyUploadIsComplete();
 		fileUploadPage.clickLinkByText('View/Edit properties');
-		fileUploadPage.clickButtonByText('Download');
+		const useButton = true;
+		fileUploadPage.downloadFile(1, useButton);
 		cy.validateDownloadedFile('sample-doc');
 	});
 });
