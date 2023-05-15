@@ -84,10 +84,10 @@ router.post(
 );
 
 router.post(
-	'/:id/document/:documentId/version',
+	'/:id/document/:guid/version',
 	/*
         #swagger.tags = ['Applications']
-        #swagger.path = '/applications/{id}/documents'
+        #swagger.path = '/applications/{id}/document/{guid}/version'
         #swagger.description = 'Saves new documents to database and returns location in Blob Storage'
         #swagger.parameters['id'] = {
             in: 'path',
@@ -95,9 +95,9 @@ router.post(
 			required: true,
 			type: 'integer'
         }
-		#swagger.parameters['documentId'] = {
+		#swagger.parameters['guid'] = {
             in: 'path',
-			description: 'Document ID here',
+			description: 'guid of the required document here',
 			required: true,
 			type: 'string'
         }
@@ -114,7 +114,6 @@ router.post(
 	validateApplicationId,
 	validateDocumentToUploadProvided,
 	validateFolderId,
-	trimUnexpectedRequestParameters,
 	asyncHandler(provideDocumentVersionUploadURL)
 );
 

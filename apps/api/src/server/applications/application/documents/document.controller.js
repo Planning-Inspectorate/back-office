@@ -65,7 +65,7 @@ export const provideDocumentVersionUploadURL = async ({ params, body }, response
 	const { blobStorageHost, blobStorageContainer, documents } = await obtainURLForDocumentVersion(
 		documentsToUpload,
 		params.id,
-		params.documentId
+		params.guid
 	);
 
 	// Map the obtained URLs with documentName
