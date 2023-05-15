@@ -1,12 +1,7 @@
 import logger from '../../lib/logger.js';
 import * as appealDetailsService from '../appeal-details/appeal-details.service.js';
 
-/**
- * @typedef {object} EnterStartDateRenderOptions
- * @property {object} appeal
- */
-
-/** @type {import('@pins/express').RenderHandler<EnterStartDateRenderOptions>}  */
+/** @type {import('@pins/express').RequestHandler<Response>}  */
 export const getEnterStartDate = async (request, response) => {
 	const appealDetails = await appealDetailsService
 		.getAppealDetailsFromId(request.params.appealId)
@@ -27,12 +22,30 @@ export const getEnterStartDate = async (request, response) => {
 // TODO: BOAT-105
 import { patch } from '../../lib/request.js';
 
-/** @type {import('@pins/express').RequestHandler<Request, Response>} */
-// @ts-ignore
-export const postEnterStartDate = async ({ body, params: { appealId } }, response) => {
-	const startDateDay = body['start-date-day'];
-	const startDateMonth = body['start-date-month'];
-	const startDateYear = body['start-date-year'];
+/** @type {import('@pins/express').RequestHandler<Response>} */
+
+export const postEnterStartDate = async ({ body, params: { appealId }, errors }, response) => {
+	const startDateDay = body?.['start-date-day'];
+	const startDateMonth = body?.['start-date-month'];
+	const startDateYear = body?.['start-date-year'];
+
+	if (errors) {
+		const appealDetails = await appealDetailsService
+			.getAppealDetailsFromId(appealId)
+			.catch((error) => logger.error(error));
+
+		if (appealDetails) {
+			return response.render('appeals/appeal/enter-start-date.njk', {
+				appeal: {
+					id: appealDetails?.appealId,
+					reference: appealDetails?.appealReference
+				},
+				errors
+			});
+		}
+
+		return response.render(`app/500.njk`);
+	}
 
 	// TODO: move into service and add error handling as part of BOAT-105
 	await patch(`appeals/${appealId}`, {
