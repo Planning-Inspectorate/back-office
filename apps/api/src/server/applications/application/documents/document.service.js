@@ -253,33 +253,55 @@ export const obtainURLForDocumentVersion = async (documentToUpload, caseId, docu
 		throw new Error('Case not found or has no reference');
 	}
 
+	// Step 3: Finding existing document from database
+	logger.info(`Finding existing document from database...`);
+
+	const documentFromDatabase = await documentRepository.getById(documentId);
+
+	if (!documentFromDatabase) {
+		throw new Error('Document not found');
+	}
+
 	logger.info(`Case has reference`);
 
-	// Step 3: Map documents to the format expected by the database
+	// Step 4: Map documents to the format expected by the database
 	logger.info(`Mapping documents to database format...`);
 
 	const documentToSendToDatabase = mapDocumentToSendToDatabase(documentToUpload);
 
 	logger.info(`Document mapped: ${JSON.stringify(documentToSendToDatabase)}`);
 
-	// Step 4: Upsert the documents to the database
-	logger.info(`Upserting documents to database...`);
+	// Step 5: upsert the document to the database
 
-	const documentsFromDatabase = await upsertDocumentsToDatabase([documentToSendToDatabase]);
+	logger.info(`Document found from database: ${JSON.stringify(documentFromDatabase)}`);
 
-	logger.info(`Documents upserted: ${JSON.stringify(documentsFromDatabase)}`);
+	const fileName = documentName(documentToSendToDatabase.name);
+	const version = documentFromDatabase.latestVersionId + 1;
 
-	// Step 5: Map documents to the format expected by the blob storage service
+	await documentVerisonRepository.upsert({
+		documentGuid: documentId,
+		fileName,
+		originalFilename: fileName,
+		mime: documentToSendToDatabase.documentType,
+		size: documentToSendToDatabase.documentSize,
+		version
+	});
+
+	// Step 6: Map documents to the format expected by the blob storage service
 	logger.info(`Mapping documents to blob storage format...`);
 
-	const requestToDocumentStorage = mapDocumentsToSendToBlobStorage(
-		documentsFromDatabase,
-		caseForDocuments.reference
-	);
+	const requestToDocumentStorage = [
+		{
+			caseType: 'application',
+			caseReference: caseForDocuments.reference,
+			GUID: documentFromDatabase.guid,
+			documentName: documentFromDatabase.name
+		}
+	];
 
 	logger.info(`Documents mapped: ${JSON.stringify(requestToDocumentStorage)}`);
 
-	// Step 6: Send a request to the blob storage service to get the storage location for each document
+	// Step 7: Send a request to the blob storage service to get the storage location for each document
 
 	logger.info(`Sending request to blob storage service...`);
 
@@ -287,13 +309,18 @@ export const obtainURLForDocumentVersion = async (documentToUpload, caseId, docu
 
 	logger.info(`Response from blob storage service: ${JSON.stringify(responseFromDocumentStorage)}`);
 
-	// Step 7: Upsert document versions metadata to the database
+	// Step 8: Upsert document versions metadata to the database
 	logger.info(`Upserting document versions metadata to database...`);
 
-	await upsertDocumentVersionsMetadataToDatabase(
-		responseFromDocumentStorage.documents,
-		responseFromDocumentStorage.blobStorageContainer
-	);
+	await documentVerisonRepository.update(documentId, {
+		blobStorageContainer: responseFromDocumentStorage.blobStorageContainer,
+		version,
+		documentURI: responseFromDocumentStorage.documents[0].blobStoreUrl
+	});
+
+	await documentRepository.update(documentId, {
+		latestVersionId: documentFromDatabase.latestVersionId + 1
+	});
 
 	// Step 8: Return the response from the blob storage service, including information about the uploaded documents and their storage location
 	logger.info(`Returning response from blob storage service...`);

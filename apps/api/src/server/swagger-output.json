@@ -1021,7 +1021,7 @@
 				}
 			}
 		},
-		"/applications/{id}/document/{documentId}/version": {
+		"/applications/{id}/document/{guid}/version": {
 			"post": {
 				"tags": ["Applications"],
 				"description": "Saves new documents to database and returns location in Blob Storage",
@@ -1034,11 +1034,11 @@
 						"description": "Application ID here"
 					},
 					{
-						"name": "documentId",
+						"name": "guid",
 						"in": "path",
 						"required": true,
 						"type": "string",
-						"description": "Document ID here"
+						"description": "guid of the required document here"
 					},
 					{
 						"name": "body",
