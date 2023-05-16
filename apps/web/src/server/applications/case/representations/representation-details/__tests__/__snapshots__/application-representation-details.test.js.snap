@@ -4,7 +4,7 @@ exports[`Representation details page GET /applications-service/case/1/relevant-r
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"govuk-grid-row govuk-!-margin-bottom-6\\">
         <div class=\\"govuk-grid-column-full\\">
-            <h1 class=\\"govuk-heading-l govuk-!-margin-bottom-2\\">Mrs Sue</h1><strong class=\\"govuk-heading-s govuk-!-margin-bottom-6\\"><strong class=\\"govuk-tag govuk-tag--\\">in test</strong></strong>
+            <h1 class=\\"govuk-heading-l govuk-!-margin-bottom-2\\">Mrs Sue</h1><strong class=\\"govuk-heading-s govuk-!-margin-bottom-6\\"><strong class=\\"govuk-tag govuk-tag--grey\\">awaiting review</strong></strong>
             <p             class=\\"govuk-!-margin-bottom-6\\"><strong>Project name:</strong> mock title</p>
                 <h3 class=\\"govuk-heading-m\\">Contact details</h3>
                 <dl class=\\"govuk-summary-list\\">
@@ -156,7 +156,7 @@ exports[`Representation details page GET /applications-service/case/1/relevant-r
             <h3 class=\\"govuk-heading-m\\">Workflow</h3>
             <dl class=\\"govuk-summary-list\\">
                 <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Status</dt>
-                    <dd class=\\"govuk-summary-list__value\\"><strong class=\\"govuk-heading-s govuk-!-margin-bottom-6\\"><strong class=\\"govuk-tag govuk-tag--\\">in test</strong></strong>
+                    <dd class=\\"govuk-summary-list__value\\"><strong class=\\"govuk-heading-s govuk-!-margin-bottom-6\\"><strong class=\\"govuk-tag govuk-tag--grey\\">awaiting review</strong></strong>
                     </dd>
                     <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"edit/preferred-contact\\"> Change<span class=\\"govuk-visually-hidden\\"> status</span></a>
                     </dd>

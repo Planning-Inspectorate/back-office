@@ -1,5 +1,5 @@
 {% macro workflow(status) %}
-{% from "applications/components/status-tag.component.njk" import statusTag %}
+{% from "./representation-status-tag.njk" import representationStatusTag %}
     <h3 class="govuk-heading-m">Workflow</h3>
     <dl class="govuk-summary-list">
         <div class="govuk-summary-list__row">
@@ -7,7 +7,7 @@
                 Status
             </dt>
             <dd class="govuk-summary-list__value">
-                <strong class="govuk-heading-s govuk-!-margin-bottom-6">{{ statusTag(status) }}</strong>
+                <strong class="govuk-heading-s govuk-!-margin-bottom-6">{{ representationStatusTag(status) }}</strong>
             </dd>
             <dd class="govuk-summary-list__actions">
                 <a class="govuk-link" href="edit/preferred-contact">
