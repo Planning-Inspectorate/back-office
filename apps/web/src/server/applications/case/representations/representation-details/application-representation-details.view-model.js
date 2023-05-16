@@ -116,10 +116,12 @@ const getRepresentationData = (representation) => {
 
 /**
  * @param {Representation} representation
- * @returns {{agentData: object, personData: object, representationData: object}}
+ * @returns {{agentData: object, personData: object, familyData: object, organisationData: object, representationData: object}}
  */
 export const getRepresentationDetailsViewModel = (representation) => ({
 	agentData: getContactDetailsByContactType(representation, 'agent'),
 	personData: getContactDetailsByContactType(representation, 'person'),
+	familyData: getContactDetailsByContactType(representation, 'family_group'),
+	organisationData: getContactDetailsByContactType(representation, 'organisation'),
 	representationData: getRepresentationData(representation)
 });
