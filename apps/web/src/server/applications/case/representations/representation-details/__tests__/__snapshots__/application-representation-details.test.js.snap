@@ -4,53 +4,57 @@ exports[`Representation details page GET /applications-service/case/1/relevant-r
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"govuk-grid-row govuk-!-margin-bottom-6\\">
         <div class=\\"govuk-grid-column-full\\">
-            <h1 class=\\"govuk-heading-l govuk-!-margin-bottom-2\\">Mrs Sue</h1><strong class=\\"govuk-heading-s govuk-!-margin-bottom-6\\"><strong class=\\"govuk-tag govuk-tag--\\">in test</strong></strong>
+            <h1 class=\\"govuk-heading-l govuk-!-margin-bottom-2\\"> Mrs Sue</h1><strong class=\\"govuk-heading-s govuk-!-margin-bottom-6\\"><strong class=\\"govuk-tag govuk-tag--\\">in test</strong></strong>
             <p             class=\\"govuk-!-margin-bottom-6\\"><strong>Project name:</strong> mock title</p>
-                <h3 class=\\"govuk-heading-m\\">Contact details</h3>
-                <dl class=\\"govuk-summary-list\\">
-                    <div class=\\"govuk-summary-list__row govuk-summary-list__row--no-border\\"><dt class=\\"govuk-summary-list__key\\"> Organisation name</dt>
-                        <dd class=\\"govuk-summary-list__value\\"></dd>
-                        <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"#\\"> Change<span class=\\"govuk-visually-hidden\\"> organisation name</span></a>
+        </div>
+    </div>
+    <div class=\\"govuk-grid-row govuk-!-margin-bottom-6\\">
+        <div class=\\"govuk-grid-column-full\\">
+            <h3 class=\\"govuk-heading-m\\">Contact details</h3>
+            <dl class=\\"govuk-summary-list\\">
+                <div class=\\"govuk-summary-list__row govuk-summary-list__row--no-border\\"><dt class=\\"govuk-summary-list__key\\"> Organisation name</dt>
+                    <dd class=\\"govuk-summary-list__value\\"></dd>
+                    <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"#\\"> Change<span class=\\"govuk-visually-hidden\\"> organisation name</span></a>
+                    </dd>
+                </div>
+                <div class=\\"govuk-summary-list__row govuk-summary-list__row--no-actions govuk-summary-list__row--no-border\\"><dt class=\\"govuk-summary-list__key\\"> Name</dt>
+                    <dd class=\\"govuk-summary-list__value\\">Mrs Sue</dd>
+                </div>
+                <div class=\\"govuk-summary-list__row govuk-summary-list__row--no-actions govuk-summary-list__row--no-border\\"><dt class=\\"govuk-summary-list__key\\"> Job title</dt>
+                    <dd class=\\"govuk-summary-list__value\\"></dd>
+                </div>
+                <div class=\\"govuk-summary-list__row govuk-summary-list__row--no-actions govuk-summary-list__row--no-border\\"><dt class=\\"govuk-summary-list__key\\"> Email address</dt>
+                    <dd class=\\"govuk-summary-list__value\\">test@example.com</dd>
+                </div>
+                <div class=\\"govuk-summary-list__row govuk-summary-list__row--no-actions\\"><dt class=\\"govuk-summary-list__key\\"> Telephone number</dt>
+                    <dd class=\\"govuk-summary-list__value\\">01234 567890</dd>
+                </div>
+                <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Address</dt>
+                    <dd class=\\"govuk-summary-list__value\\">44 Rivervale Bridport DT6 5RN</dd>
+                    <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"#\\"> Change<span class=\\"govuk-visually-hidden\\"> address</span></a>
+                    </dd>
+                </div>
+                <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Preferred contact method</dt>
+                    <dd                     class=\\"govuk-summary-list__value\\">Email</dd>
+                        <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"edit/preferred-contact\\"> Change<span class=\\"govuk-visually-hidden\\"> preferred preferred contact method</span></a>
                         </dd>
-                    </div>
-                    <div class=\\"govuk-summary-list__row govuk-summary-list__row--no-actions govuk-summary-list__row--no-border\\"><dt class=\\"govuk-summary-list__key\\"> Name</dt>
-                        <dd class=\\"govuk-summary-list__value\\">Mrs Sue</dd>
-                    </div>
-                    <div class=\\"govuk-summary-list__row govuk-summary-list__row--no-actions govuk-summary-list__row--no-border\\"><dt class=\\"govuk-summary-list__key\\"> Job title</dt>
-                        <dd class=\\"govuk-summary-list__value\\"></dd>
-                    </div>
-                    <div class=\\"govuk-summary-list__row govuk-summary-list__row--no-actions govuk-summary-list__row--no-border\\"><dt class=\\"govuk-summary-list__key\\"> Email address</dt>
-                        <dd class=\\"govuk-summary-list__value\\">test@example.com</dd>
-                    </div>
-                    <div class=\\"govuk-summary-list__row govuk-summary-list__row--no-actions\\"><dt class=\\"govuk-summary-list__key\\"> Telephone number</dt>
-                        <dd class=\\"govuk-summary-list__value\\">01234 567890</dd>
-                    </div>
-                    <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Address</dt>
-                        <dd class=\\"govuk-summary-list__value\\">44 Rivervale Bridport DT6 5RN</dd>
-                        <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"#\\"> Change<span class=\\"govuk-visually-hidden\\"> address</span></a>
+                </div>
+                <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Type</dt>
+                    <dd class=\\"govuk-summary-list__value\\"></dd>
+                    <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"edit/preferred-contact\\"> Change<span class=\\"govuk-visually-hidden\\"> type</span></a>
+                    </dd>
+                </div>
+                <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Representation on behalf of</dt>
+                    <dd                     class=\\"govuk-summary-list__value\\"></dd>
+                        <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"edit/preferred-contact\\"> Change<span class=\\"govuk-visually-hidden\\"> representation on behalf of</span></a>
                         </dd>
-                    </div>
-                    <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Preferred contact method</dt>
-                        <dd                         class=\\"govuk-summary-list__value\\">Email</dd>
-                            <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"edit/preferred-contact\\"> Change<span class=\\"govuk-visually-hidden\\"> preferred preferred contact method</span></a>
-                            </dd>
-                    </div>
-                    <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Type</dt>
-                        <dd class=\\"govuk-summary-list__value\\"></dd>
-                        <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"edit/preferred-contact\\"> Change<span class=\\"govuk-visually-hidden\\"> type</span></a>
-                        </dd>
-                    </div>
-                    <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Representation on behalf of</dt>
-                        <dd                         class=\\"govuk-summary-list__value\\"></dd>
-                            <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"edit/preferred-contact\\"> Change<span class=\\"govuk-visually-hidden\\"> representation on behalf of</span></a>
-                            </dd>
-                    </div>
-                    <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Under 18</dt>
-                        <dd class=\\"govuk-summary-list__value\\">No</dd>
-                        <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"edit/preferred-contact\\"> Change<span class=\\"govuk-visually-hidden\\"> under 18</span></a>
-                        </dd>
-                    </div>
-                </dl>
+                </div>
+                <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Under 18</dt>
+                    <dd class=\\"govuk-summary-list__value\\">No</dd>
+                    <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"edit/preferred-contact\\"> Change<span class=\\"govuk-visually-hidden\\"> under 18</span></a>
+                    </dd>
+                </div>
+            </dl>
         </div>
     </div>
     <div class=\\"govuk-grid-row govuk-!-margin-bottom-6\\">
