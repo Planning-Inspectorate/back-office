@@ -2,7 +2,7 @@
 
 {% from "govuk/components/breadcrumbs/macro.njk" import govukBreadcrumbs %}
 {% from "govuk/components/back-link/macro.njk" import govukBackLink %}
-{% from "applications/components/status-tag.component.njk" import statusTag %}
+{% from "./components/representation-status-tag.njk" import representationStatusTag %}
 {% from "./components/person-contact.njk" import personContact as personContactSection %}
 {% from "./components/agent-contact.njk" import agentContact as agentContactSection %}
 {% from "./components/representation.njk" import representation as representationSection %}
@@ -27,7 +27,7 @@
 	<div class="govuk-grid-row govuk-!-margin-bottom-6">
 		<div class="govuk-grid-column-full">
 			<h1 class="govuk-heading-l govuk-!-margin-bottom-2">{{ representationDetails.personData.orgOrName }}</h1>
-			<strong class="govuk-heading-s govuk-!-margin-bottom-6">{{ statusTag(caseReference.status.text ) }}</strong>
+			<strong class="govuk-heading-s govuk-!-margin-bottom-6">{{ representationStatusTag(representationDetails.representationData.status) }}</strong>
 			<p class="govuk-!-margin-bottom-6"><strong>Project name:</strong> {{ caseReference.title }}</p>
 			{{ personContactSection(representationDetails.personData) }}
 		</div>
@@ -49,7 +49,7 @@
 
 	<div class="govuk-grid-row govuk-!-margin-bottom-6">
 		<div class="govuk-grid-column-full">
-			{{ workflowSection(caseReference.status.text) }}
+			{{ workflowSection(representationDetails.representationData.status) }}
 		</div>
 	</div>
 
