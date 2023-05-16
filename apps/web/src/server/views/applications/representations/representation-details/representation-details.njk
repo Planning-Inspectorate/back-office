@@ -2,7 +2,7 @@
 
 {% from "govuk/components/breadcrumbs/macro.njk" import govukBreadcrumbs %}
 {% from "govuk/components/back-link/macro.njk" import govukBackLink %}
-{% from "applications/components/status-tag.component.njk" import statusTag %}
+{% from "./components/representation-status-tag.njk" import representationStatusTag %}
 {% from "./components/person-contact.njk" import personContact as personContactSection %}
 {% from "./components/family-contact.njk" import familyContact as familyContactSection %}
 {% from "./components/organisation-contact.njk" import organisationContact as organisationContactSection %}
@@ -85,7 +85,7 @@
 
 	<div class="govuk-grid-row govuk-!-margin-bottom-6">
 		<div class="govuk-grid-column-full">
-			{{ workflowSection(caseReference.status.text) }}
+			{{ workflowSection(representationDetails.representationData.status) }}
 		</div>
 	</div>
 
