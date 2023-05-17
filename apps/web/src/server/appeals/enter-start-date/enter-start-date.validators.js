@@ -1,5 +1,6 @@
 import { createValidator } from '@pins/express';
 import { body } from 'express-validator';
+import dateIsValid from '../../lib/validation/date-is-valid.js';
 
 export const validateEnteredStartDate = createValidator(
 	body('start-date-day')
@@ -28,14 +29,12 @@ export const validateEnteredStartDate = createValidator(
 			const day = bodyFields['start-date-day'];
 			const month = bodyFields['start-date-month'];
 			const year = bodyFields['start-date-year'];
-			const date = new Date(year, Number.parseInt(month, 10) - 1, day);
 
-			return (
-				date.getDate() === Number(day) &&
-				date.getMonth() + 1 === Number(month) &&
-				date.getFullYear() === Number(year) &&
-				!Number.isNaN(date.getTime())
-			);
+			if (!day || !month || !year) {
+				return false;
+			}
+
+			return dateIsValid(day, month, year);
 		})
 		.withMessage('Please enter a valid date')
 		.bail()
