@@ -21,7 +21,7 @@ export async function relevantRepsApplications({ params, query }, res) {
 
 	hasSearchUpdated(query);
 
-	const { searchTerm, sortBy, pageSize = 25, page = 1, filters } = query;
+	const { searchTerm, sortBy, pageSize = 25, page = 1, filters = [] } = query;
 
 	const caseReference = await getCase(caseId);
 	const representations = await getRepresentations(
