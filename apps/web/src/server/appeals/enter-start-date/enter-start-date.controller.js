@@ -34,25 +34,25 @@ export const postEnterStartDate = async ({ body, params: { appealId }, errors },
 			.getAppealDetailsFromId(appealId)
 			.catch((error) => logger.error(error));
 
-		if (appealDetails) {
-			return response.render('appeals/appeal/enter-start-date.njk', {
-				appeal: {
-					id: appealDetails?.appealId,
-					reference: appealDetails?.appealReference
-				},
-				errors
-			});
+		if (!appealDetails) {
+			return response.render(`app/500.njk`);
 		}
 
-		return response.render(`app/500.njk`);
+		return response.render('appeals/appeal/enter-start-date.njk', {
+			appeal: {
+				id: appealDetails?.appealId,
+				reference: appealDetails?.appealReference
+			},
+			errors
+		});
 	}
 
-	// TODO: move into service and add error handling as part of BOAT-105
-	await patch(`appeals/${appealId}`, {
-		json: {
-			startedAt: `${startDateYear}-${startDateMonth}-${startDateDay}`
-		}
-	});
+	// TODO: wire up to service as part of BOAT-105
+	// await patch(`appeals/${appealId}`, {
+	// 	json: {
+	// 		startedAt: `${startDateYear}-${startDateMonth}-${startDateDay}`
+	// 	}
+	// });
 
 	response.redirect(`/appeals-service/appeal-details/${appealId}/start-date-entered`);
 };
