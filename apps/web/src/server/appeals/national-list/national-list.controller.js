@@ -53,7 +53,7 @@ export const viewNationalList = async (request, response) => {
 		// first index
 		pagination.items.push({
 			number: 1,
-			href: `${urlWithoutQuery}?pageSize=${pageSize}&pageNumber=1`,
+			href: `${urlWithoutQuery}?pageSize=${pageSize}&pageNumber=${paginationDefaultSettings.firstPageNumber}`,
 			current: currentPage === 1
 		});
 
