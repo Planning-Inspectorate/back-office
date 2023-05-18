@@ -8,17 +8,11 @@ import { mapCaseStatusString } from '../../utils/mapping/map-case-status-string.
 import { mapDateStringToUnixTimestamp } from '../../utils/mapping/map-date-string-to-unix-timestamp.js';
 import { buildNsipProjectPayload } from './application.js';
 import { mapCreateApplicationRequestToRepository } from './application.mapper.js';
-import {
-	createCaseRepresentation,
-	getCaseDetails,
-	getCaseRepresentation,
-	getCaseRepresentations,
-	startApplication
-} from './application.service.js';
-import { mapCreateRepresentationRequestToRepository } from './representation.mapper.js';
+import { getCaseDetails, startApplication } from './application.service.js';
+
 /**
  *
- * @param {import('@pins/api').Schema.ServiceCustomer[] | undefined} serviceCustomers
+ * @param {import("@pins/api").Schema.ServiceCustomer[] | undefined} serviceCustomers
  * @returns {number[]}
  */
 const getServiceCustomerIds = (serviceCustomers) => {
@@ -30,7 +24,7 @@ const getServiceCustomerIds = (serviceCustomers) => {
 /**
  * Express request handler for creating application
  *
- * @type {import('express').RequestHandler}
+ * @type {import("express").RequestHandler}
  */
 export const createApplication = async (request, response) => {
 	const mappedApplicationDetails = mapCreateApplicationRequestToRepository(request.body);
@@ -49,7 +43,7 @@ export const createApplication = async (request, response) => {
 };
 
 /**
- * @type {import('express').RequestHandler<{id: number}, ?, import('@pins/applications').CreateUpdateApplication>}
+ * @type {import("express").RequestHandler<{id: number}, ?, import("@pins/applications").CreateUpdateApplication>}
  */
 export const updateApplication = async ({ params, body }, response) => {
 	const mappedApplicationDetails = mapCreateApplicationRequestToRepository(body);
@@ -78,7 +72,7 @@ export const updateApplication = async ({ params, body }, response) => {
 
 /**
  *
- * @type {import('express').RequestHandler<{id: number}>}
+ * @type {import("express").RequestHandler<{id: number}>}
  */
 export const startCase = async ({ params }, response) => {
 	const { id, reference, status } = await startApplication(params.id);
@@ -88,7 +82,7 @@ export const startCase = async ({ params }, response) => {
 
 /**
  *
- * @type {import('express').RequestHandler<{id: number}, ?, ?, any>}
+ * @type {import("express").RequestHandler<{id: number}, ?, ?, any>}
  */
 export const getApplicationDetails = async ({ params, query }, response) => {
 	const applicationDetails = await getCaseDetails(params.id, query);
@@ -98,114 +92,7 @@ export const getApplicationDetails = async ({ params, query }, response) => {
 
 /**
  *
- * @type {import('express').RequestHandler<{id: number}, ?, ?, any>}
- */
-export const getApplicationRepresentations = async ({ params, query }, response) => {
-	const pageSize = query.pageSize ?? 25;
-	const page = query.page ?? 1;
-	const under18 = query.under18 ? query.under18 === 'true' : null;
-	const status = query.status ? [query.status].flat() : [];
-
-	let filters = null;
-
-	if (status.length > 0 || under18) {
-		filters = {
-			...(under18 ? { under18 } : {}),
-			...(status.length > 0 ? { status } : {})
-		};
-	}
-
-	let sort = null;
-
-	if (query.sortBy) {
-		let field;
-		let direction;
-
-		switch (query.sortBy.slice(0, 1)) {
-			case '-':
-				direction = 'desc';
-				field = query.sortBy.slice(1);
-				break;
-
-			case '+':
-				direction = 'asc';
-				field = query.sortBy.slice(1);
-				break;
-
-			default:
-				direction = 'asc';
-				field = query.sortBy;
-		}
-
-		sort = [{ [field]: direction }];
-	}
-
-	const { count, items } = await getCaseRepresentations(
-		params.id,
-		{ page, pageSize },
-		{
-			searchTerm: query.searchTerm,
-			filters,
-			sort
-		}
-	);
-
-	response.send({
-		page,
-		pageSize,
-		pageCount: Math.ceil(Math.max(1, count) / pageSize),
-		itemCount: count,
-		items: items.map((item) => {
-			const { contacts, ...rep } = item;
-
-			return {
-				...rep,
-				...contacts?.[0]
-			};
-		})
-	});
-};
-
-/**
- *
- * @type {import('express').RequestHandler<{id: number, repId: number}, ?, ?, any>}
- */
-export const getApplicationRepresentation = async ({ params }, response) => {
-	const representation = await getCaseRepresentation(params.id, params.repId);
-
-	if (!representation && params.repId) {
-		return response
-			.status(404)
-			.json({ errors: { repId: `Representation with id: ${params.repId} not found` } });
-	}
-
-	return response.send({
-		...representation,
-		redactedBy: representation.user
-	});
-};
-
-/**
- *
- * @type {import('express').RequestHandler<{id: number}, ?, import('@pins/applications').CreateUpdateRepresentation>}
- */
-export const createApplicationRepresentation = async ({ params, body }, response) => {
-	const mappedRepresentation = mapCreateRepresentationRequestToRepository(params.id, body);
-
-	const representation = await createCaseRepresentation(mappedRepresentation);
-
-	if (!representation) {
-		return response
-			.status(400)
-			.json({ errors: { representation: `Error creating representation` } });
-	}
-
-	return response.send({ id: representation.id, status: representation.status });
-};
-
-/**
- *
- * @type {import('express').RequestHandler<{id: number}, ?, ?, any>}
+ * @type {import("express").RequestHandler<{id: number}, ?, ?, any>}
  */
 export const publishCase = async ({ params: { id } }, response) => {
 	logger.info(`attempting to publish a case with id ${id}`);
