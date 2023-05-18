@@ -19,16 +19,8 @@ export const getEnterStartDate = async (request, response) => {
 	return response.render(`app/404.njk`);
 };
 
-// TODO: BOAT-105
-import { patch } from '../../lib/request.js';
-
 /** @type {import('@pins/express').RequestHandler<Response>} */
-
-export const postEnterStartDate = async ({ body, params: { appealId }, errors }, response) => {
-	const startDateDay = body?.['start-date-day'];
-	const startDateMonth = body?.['start-date-month'];
-	const startDateYear = body?.['start-date-year'];
-
+export const postEnterStartDate = async ({ params: { appealId }, errors }, response) => {
 	if (errors) {
 		const appealDetails = await appealDetailsService
 			.getAppealDetailsFromId(appealId)
@@ -47,12 +39,7 @@ export const postEnterStartDate = async ({ body, params: { appealId }, errors },
 		});
 	}
 
-	// TODO: wire up to service as part of BOAT-105
-	// await patch(`appeals/${appealId}`, {
-	// 	json: {
-	// 		startedAt: `${startDateYear}-${startDateMonth}-${startDateDay}`
-	// 	}
-	// });
+	// TODO: BOAT-105 - call service to set start date
 
 	response.redirect(`/appeals-service/appeal-details/${appealId}/start-date-entered`);
 };
