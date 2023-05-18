@@ -32,3 +32,20 @@ export function datestamp(unixDate, options) {
 
 	return formatInTimeZone(date, timeZone, format, { locale: enGB }) || '';
 }
+
+/**
+ * @param {string=} year
+ * @param {string=} month
+ * @param {string=} day
+ * @returns {string|null}
+ */
+export function dateString(year, month, day) {
+	const numberDay = Number.parseInt(day || '', 10);
+	const date = new Date(`${year}-${month}-${numberDay}`);
+
+	if (!isDateInstance(date)) {
+		return null;
+	}
+
+	return formatInTimeZone(date, timeZone, 'dd MMM yyyy', { locale: enGB }) || '';
+}

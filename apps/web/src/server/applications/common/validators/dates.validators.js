@@ -65,38 +65,41 @@ export const validationDateValid = (field, data) => {
 
 /**
  *
- * @param {{fieldName: string, extendedFieldName: string}} field
- * @param {{fieldName: string, extendedFieldName: string}|null} compareField
  * @param {Record<string, string>} data
  * @returns {import("express-validator").ValidationChain}
  */
-export const validationDateStartBeforeEnd = (field, compareField, data) => {
-	const { fieldName, extendedFieldName } = field;
+export const validationDateStartBeforeEnd = (data) => {
+	const stringDay = data['startDate.day'] || '0';
+	const stringMonth = data['startDate.month'] || '0';
+	const stringYear = data[`startDate.year`] || '0';
+	const stringHours = data[`startTime.hours`] || '0';
+	const stringMinutes = data[`startTime.minutes`] || '0';
 
-	const stringDay = data[`${fieldName}.day`] || '';
-	const stringMonth = data[`${fieldName}.month`] || '';
-	const stringYear = data[`${fieldName}.year`] || '';
+	const stringCompareDay = data[`endDate.day`] || '32';
+	const stringCompareMonth = data[`endDate.month`] || '13';
+	const stringCompareYear = data[`endDate.year`] || '9999';
+	const stringCompareHours = data[`endTime.hours`] || '24';
+	const stringCompareMinutes = data[`endTime.minutes`] || '60';
 
-	const stringCompareDay = data[`${compareField?.fieldName}.day`] || '32';
-	const stringCompareMonth = data[`${compareField?.fieldName}.month`] || '13';
-	const stringCompareYear = data[`${compareField?.fieldName}.year`] || '9999';
+	const startTime = `${stringHours}:${stringMinutes}`;
+	const endTime = `${stringCompareHours}:${stringCompareMinutes}`;
 
-	return body(fieldName)
-		.custom(() => {
-			if (stringYear > stringCompareYear) {
-				return false;
-			}
-			if (stringMonth > stringCompareMonth) {
-				return false;
-			}
-			if (stringDay > stringCompareDay) {
-				return false;
-			}
-			return true;
-		})
-		.withMessage(`The ${compareField?.extendedFieldName} must be after the ${extendedFieldName}`);
+	const startDate = `${stringYear}-${stringMonth}-${stringDay}`;
+	const endDate = `${stringCompareYear}-${stringCompareMonth}-${stringCompareDay}`;
+
+	const startDateTime = new Date(`${startDate} ${startTime}`);
+	const endDateTime = new Date(`${endDate} ${endTime}`);
+
+	if (stringDay === '0' || startDate === endDate) {
+		return body('startTime')
+			.custom(() => startTime < endTime)
+			.withMessage(`The item end time must be after the item start time`);
+	}
+
+	return body('startDate')
+		.custom(() => startDateTime < endDateTime)
+		.withMessage(`The item end date must be after the item start date`);
 };
-
 /**
  *
  * @param {{fieldName: string, extendedFieldName: string}} field

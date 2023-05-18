@@ -1,0 +1,76 @@
+{% extends "../layouts/applications.layout.njk" %}
+
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
+
+{% set serviceName = "Examination timetable" %}
+{% set pageTitle = "Check your answers" %}
+
+{% block pageTitle %}
+	{{ serviceName }} - {{ pageTitle | default('GOV.UK') }}
+{% endblock %}
+
+{% block sectionMenu %}{% endblock %}
+
+{% block beforeContent %}{% endblock %}
+
+{% block pageHeading %}{% endblock %}
+
+{% macro formValues() %}
+	<input class="govuk-input" value='{{ values.itemTypeName }}' id="timetable-type" name="timetable-type" type="hidden" >
+	<input class="govuk-input" value='{{ values.name }}' id="name" name="name" type="hidden" >
+	<input class="govuk-input" value='{{ values.description }}' id="description" name="description" type="hidden" >
+	<input class="govuk-input" value='{{ values['date.day'] }}' id="date.day" name="date.day" type="hidden" >
+	<input class="govuk-input" value='{{ values['date.month'] }}' id="date.month" name="date.month" type="hidden" >
+	<input class="govuk-input" value='{{ values['date.year'] }}' id="date.year" name="date.year" type="hidden" >
+	<input class="govuk-input" value='{{ values['startDate.day'] }}' id="startDate.day" name="startDate.day" type="hidden" >
+	<input class="govuk-input" value='{{ values['startDate.month'] }}' id="startDate.month" name="startDate.month" type="hidden" >
+	<input class="govuk-input" value='{{ values['startDate.year'] }}' id="startDate.year" name="startDate.year" type="hidden" >
+	<input class="govuk-input" value='{{ values['endDate.day'] }}' id="endDate.day" name="endDate.day" type="hidden" >
+	<input class="govuk-input" value='{{ values['endDate.month'] }}' id="endDate.month" name="endDate.month" type="hidden" >
+	<input class="govuk-input" value='{{ values['endDate.year'] }}' id="endDate.year" name="endDate.year" type="hidden" >
+	<input class="govuk-input" value='{{ values['startTime.hours'] }}' id="startTime.hours" name="startTime.hours" type="hidden" >
+	<input class="govuk-input" value='{{ values['startTime.minutes'] }}' id="startTime.minutes" name="startTime.minutes" type="hidden" >
+	<input class="govuk-input" value='{{ values['endTime.hours'] }}' id="endTime.hours" name="endTime.hours" type="hidden" >
+	<input class="govuk-input" value='{{ values['endTime.minutes'] }}' id="endTime.minutes" name="endTime.minutes" type="hidden" >
+{% endmacro %}
+
+{% block pageContent %}
+
+	<div class='govuk-grid-row'>
+		<div class='govuk-grid-column-full'>
+
+			<h1 class="govuk-heading-l govuk-!-margin-bottom-5">
+				Check your answers before creating a new item
+			</h1>
+
+			<form method="post" action="{{'timetable'|url({caseId: caseId, step: 'new-item'}) }}">
+				{% include 'app/includes/csrf.njk' %}
+				{{ formValues() }}
+				<dl class="govuk-summary-list pins-files-list">
+					<dt class="govuk-summary-list__key">Item details</dt>
+					<dd class="govuk-summary-list__actions">
+						<button class="pins-files-list__button-link govuk-link govuk-body-m" >Change</button>
+					</dd>
+				</dl>
+
+			</form>
+
+			{{ govukSummaryList({
+  					rows: rows
+				}) }}
+
+			<form method="post" action="{{'timetable'|url({caseId: caseId, step: 'new-item/save'}) }}">
+				{% include 'app/includes/csrf.njk' %}
+
+				{{ formValues() }}
+
+				<div class='govuk-grid-column-full'>
+					{{ govukButton({ text: 'Save item', classes: 'govuk-!-margin-top-6'}) }}
+				</div>
+
+			</form>
+		</div>
+	</div>
+
+{% endblock %}
