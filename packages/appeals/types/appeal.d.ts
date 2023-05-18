@@ -35,6 +35,27 @@ export interface AppealSummary {
 	appealStatus: string;
 }
 
+export interface AppealList {
+	itemCount: number;
+	items: AppealSummary[];
+	page: number;
+	pageCount: number;
+	pageSize: number;
+}
+
+export interface PaginationItem {
+	number?: number;
+	href?: string;
+	current?: boolean;
+	ellipsis?: boolean;
+}
+
+export interface Pagination {
+	items: PaginationItem[];
+	previous: PaginationItem;
+	next: PaginationItem;
+}
+
 export type AppealStatus =
 	| 'ready_to_start'
 	| 'lpa_questionnaire_due'
