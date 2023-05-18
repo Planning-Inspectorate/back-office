@@ -390,16 +390,10 @@ model Document {
   guid                 String            @id @default(uuid())
   name                 String
   folderId             Int
-  blobStorageContainer String?
-  blobStoragePath      String?
-  status               String            @default("awaiting_upload")
   createdAt            DateTime          @default(now())
-  redacted             Boolean           @default(false)
-  fileSize             Int?              @default(0)
-  fileType             String?
   isDeleted            Boolean           @default(false)
   representationId     Int?
-  latestVersionId      Int?              @default(1)
+  latestVersionId      Int
   folder               Folder            @relation(fields: [folderId], references: [id])
   documentVersion      DocumentVersion[]
   Representation       Representation?   @relation(fields: [representationId], references: [id], onUpdate: NoAction, onDelete: NoAction)
@@ -413,7 +407,7 @@ model Document {
 /// The physical location of these documents should be stored here.
 model DocumentVersion {
   documentGuid           String
-  version                Int       @default(1)
+  version                Int
   lastModified           DateTime?
   documentType           String?
   published              Boolean   @default(false)
@@ -435,6 +429,7 @@ model DocumentVersion {
   stage                  String?
   filter1                String?
   blobStorageContainer   String?
+  blobStoragePath        String?
   dateCreated            DateTime? @default(now())
   datePublished          DateTime?
   isDeleted              Boolean   @default(false)
