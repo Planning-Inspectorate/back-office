@@ -1,4 +1,10 @@
-import { getCaseTimetableItemTypes } from './applications-timetable.service.js';
+import { dateString } from '../../../lib/nunjucks-filters/date.js';
+import {
+	createCaseTimetableItem,
+	getCaseTimetableItemTypes
+} from './applications-timetable.service.js';
+
+/** @typedef {import('./applications-timetable.types.js').ApplicationsTimetableCreateBody} ApplicationsTimetableCreateBody */
 
 /** @type {Record<string, Record<string, boolean>>} */
 export const timetableTemplatesSchema = {
@@ -75,13 +81,14 @@ export async function viewApplicationsCaseTimetableNew(request, response) {
  */
 export async function postApplicationsCaseTimetableNew(request, response) {
 	const selectedItemTypeName = request.body['timetable-type'];
+
 	const formProperties = await getCreateTimetableFormProperties(selectedItemTypeName);
 
 	if (formProperties) {
-		return response.render(
-			`applications/case-timetable/timetable-new-item-details.njk`,
-			formProperties
-		);
+		return response.render(`applications/case-timetable/timetable-new-item-details.njk`, {
+			...formProperties,
+			values: request.body
+		});
 	}
 
 	response.render(`app/500.njk`);
@@ -90,7 +97,7 @@ export async function postApplicationsCaseTimetableNew(request, response) {
 /**
  * Handle the new examination timetable details form
  *
- * @type {import('@pins/express').RenderHandler<{}, {}, {itemTypeName: string}, {}, {}>}
+ * @type {import('@pins/express').RenderHandler<{}, {}, ApplicationsTimetableCreateBody, {}, {}>}
  */
 export async function postApplicationsCaseTimetableDetails(
 	{ errors: validationErrors, body },
@@ -106,7 +113,64 @@ export async function postApplicationsCaseTimetableDetails(
 		});
 	}
 
-	return response.redirect(`../check-your-answers`);
+	return response.redirect(307, './check-your-answers');
+}
+
+/**
+ * New examination timetable check your anwers page
+ *
+ * @type {import('@pins/express').RenderHandler<{}, {}, ApplicationsTimetableCreateBody, {}, {}>}
+ */
+export async function postApplicationsCaseTimetableCheckYourAnswers({ body }, response) {
+	const rows = getCheckYourAnswersRows(body);
+
+	response.render(`applications/case-timetable/timetable-check-your-answers.njk`, {
+		rows,
+		values: body
+	});
+}
+
+/**
+ * Save new examination timetable
+ *
+ * @type {import('@pins/express').RenderHandler<{}, {}, ApplicationsTimetableCreateBody, {}, {}>}
+ */
+export async function postApplicationsCaseTimetableSave({ body }, response) {
+	const splitDescription = body.description.split('*');
+	const preText = splitDescription.shift();
+	const bulletPoints = splitDescription;
+
+	// TODO: change properties names for the API needs
+	// probably dates need to include times
+	// probably the field called just "date" should be named always "startDate"
+	// even when theres no "endDate"
+	const payload = {
+		name: body.name,
+		description: { preText, bulletPoints },
+		type: body['timetable-type'],
+		date: new Date(`${body['date.year']}-${body['date.month']}-${body['date.day']}`),
+		startDate: new Date(
+			`${body['startDate.year']}-${body['startDate.month']}-${body['startDate.day']}`
+		),
+		endDate: new Date(`${body['endDate.year']}-${body['endDate.month']}-${body['endDate.day']}`),
+		startTime: `${body['startTime.hours']}:${body['startTime.minutes']}`,
+		endTime: `${body['endTime.hours']}:${body['endTime.minutes']}`
+	};
+
+	const { errors } = await createCaseTimetableItem(payload);
+
+	if (errors) {
+		const rows = getCheckYourAnswersRows(body);
+
+		response.render(`applications/case-timetable/timetable-check-your-answers.njk`, {
+			rows,
+			values: body,
+			errors
+		});
+	}
+
+	// TODO: redirect to success page
+	response.redirect('/');
 }
 
 /**
@@ -133,4 +197,51 @@ const getCreateTimetableFormProperties = async (selectedItemTypeName) => {
 	}
 
 	return null;
+};
+
+/**
+ *
+ * @param {ApplicationsTimetableCreateBody} body
+ * @returns {{key: {text: string}, value: {html: string}}[]}
+ */
+const getCheckYourAnswersRows = (body) => {
+	const { description, name, itemTypeName } = body;
+
+	const date = dateString(body['date.year'], body['date.month'], body['date.day']);
+	const startDate = dateString(
+		body['startDate.year'],
+		body['startDate.month'],
+		body['startDate.day']
+	);
+	const endDate = dateString(body['endDate.year'], body['endDate.month'], body['endDate.day']);
+	const startTime = body['startTime.hours']
+		? `${body['startTime.hours']}:${body['startTime.minutes']}`
+		: null;
+	const endTime = body['endTime.hours']
+		? `${body['endTime.hours']}:${body['endTime.minutes']}`
+		: null;
+
+	/** @type {{key: string, value: string}[]} */
+	const rowsItems = [
+		{ key: 'Item type', value: itemTypeName },
+		{ key: 'Item name', value: name },
+		...(date ? [{ key: 'Date', value: date }] : []),
+		...(startDate ? [{ key: 'Start date', value: startDate }] : []),
+		...(endDate ? [{ key: 'End date', value: endDate }] : []),
+		...(startTime ? [{ key: 'Start time', value: startTime }] : []),
+		...(endTime ? [{ key: 'End time', value: endTime }] : []),
+		{
+			key: 'Timetable item description (optional)',
+			value: (description || '').replace(/\*/g, '&middot;').replace(/\n/g, '<br />')
+		}
+	];
+
+	return rowsItems.map((rowItem) => ({
+		key: {
+			text: rowItem.key
+		},
+		value: {
+			html: rowItem.value
+		}
+	}));
 };
