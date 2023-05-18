@@ -18,13 +18,13 @@ az login
 
 You'll need to point your local environment at the dev environment database and blob storage. You can limit this to just the blob storage environment, but then you'll pollute the dev environment with orphaned file uploads, so it's best to point at the database too if possible.
 
-Log into the azure portal and take a look at the App Configuration settings for web, api and document api. Create a .env file in 'api' that mirrors the dev settings for:
+Log into the azure portal and take a look at the App Configuration settings for web, api and document storage api. Create a .env file in 'api' that mirrors the dev settings for:
 
 ```
 DATABASE_URL
 ```
 
-Then for the document API, create a .env.local file that mirrors the dev settings for:
+Then for the document storage API, create a .env.local file that mirrors the dev settings for:
 
 ```
 AZURE_BLOB_STORE_HOST
@@ -41,8 +41,6 @@ APPLICATIONS_CASEOFFICER_GROUP_ID
 APPLICATIONS_CASETEAM_GROUP_ID
 APPLICATIONS_INSPECTOR_GROUP_ID
 AZURE_BLOB_STORE_HOST
-AZURE_BLOB_STORE_ACCOUNT_NAME
-AZURE_BLOB_STORE_ACCOUNT_KEY
 ```
 
 ## 3. Enable authentication and HTTPS on Web
@@ -54,7 +52,7 @@ openssl req -new -key client-key.pem -out client.csr
 openssl x509 -req -in client.csr -signkey client-key.pem -out client-cert.pem
 ```
 
-Then place them in the root of the back-office project folder (they'll be ignored by gitignore). Then, configure your .env.local file for the web app with the following settings:
+Then place them in the root of the 'web' folder (they'll be ignored by gitignore). Then, configure your .env.local file for the web app with the following settings:
 
 ```
 SSL_CERT_FILE=client-cert.pem
@@ -62,14 +60,16 @@ SSL_KEY_FILE=client-key.pem
 HTTP_PORT=8081
 HTTPS_PORT=8080
 AUTH_DISABLED=false
-AUTH_CLIENT_ID={copy from portal}
-AUTH_TENANT_ID={copy from portal}
-AUTH_CLIENT_SECRET={copy from portal}
+AUTH_CLIENT_ID={obtain from local AD app}
+AUTH_TENANT_ID={obtain from local AD app}
+AUTH_CLIENT_SECRET={obtain from local AD app}
 AUTH_REDIRECT_URI=/auth/redirect
 AUTH_CLOUD_INSTANCE_ID=https://login.microsoftonline.com
 ```
 
-You'll have to log into the Azure Portal and copy the values for the keys with {copy from portal} values.
+Speak with a member of the team to obtain the credentials for the local AD application (TODO: Let's move these to key vault and provide access to devs).
+
+Finally, you'll need to trust your generated certificate on your local machine. Chrome and Edge will facilitate this in different ways - if you try to visit the application when you run it on Chrome, you should be able to click on the warning and opt to install the root CA. On Edge, you'll need to enable the flag to ignore certificate errors for localhost.
 
 ## 4. Grant yourself temporary access to the database (optional)
 
