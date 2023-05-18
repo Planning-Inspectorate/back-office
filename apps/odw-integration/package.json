@@ -8,7 +8,8 @@
 	"description": "Consume ECST events published by ODW",
 	"type": "module",
 	"scripts": {
-		"start": "func start"
+		"start": "func start",
+		"sync-prisma": "rsync -av ../api/src/database ./migrate-nsip --exclude={'migrations','seed','prisma.truncate.js'}"
 	},
 	"dependencies": {
 		"@azure/functions": "^3.5.0"
