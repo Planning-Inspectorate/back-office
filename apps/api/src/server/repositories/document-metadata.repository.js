@@ -105,6 +105,19 @@ export const getAll = () => {
 };
 
 /**
+ * Get all document metadata
+ *
+ * @param {string} guid
+ * @returns {import('@prisma/client').PrismaPromise<import('@pins/api').Schema.DocumentVersion[] |null>}
+ */
+
+export const getAllByDocumentGuid = (guid) => {
+	return databaseConnector.documentVersion.findMany({
+		where: { documentGuid: guid }
+	});
+};
+
+/**
  
  *
  

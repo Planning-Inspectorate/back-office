@@ -184,6 +184,23 @@ export const getDocumentProperties = async ({ params: { id: caseId, guid } }, re
 };
 
 /**
+ * Gets the properties/metadata for a single document
+ *
+ * @type {import('express').RequestHandler<{id: string;guid: string}, ?, ?, any>}
+ * @throws {BackOfficeAppError} if the metadata cannot be stored in the database.
+ * @returns {Promise<void>} A Promise that resolves when the metadata has been successfully stored in the database.
+ */
+export const getDocumentVersions = async ({ params: { guid } }, response) => {
+	const documentVersions = await documentVersionRepository.getAllByDocumentGuid(guid);
+
+	if (!documentVersions || documentVersions.length === 0) {
+		throw new BackOfficeAppError(`No document versions found for guid ${guid}`, 404);
+	}
+
+	response.status(200).send(documentVersions);
+};
+
+/**
  * Revert the published status of a document to the previous published status.
  *
  * @type {import('express').RequestHandler<{id: number;guid: string}, any, any, any>}

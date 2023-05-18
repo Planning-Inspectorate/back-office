@@ -8,6 +8,7 @@ import {
 	deleteCaseDocumentationFile,
 	getCaseDocumentationFileInfo,
 	getCaseDocumentationFilesInFolder,
+	getCaseDocumentationFileVersions,
 	getCaseDocumentationReadyToPublish,
 	getCaseFolders,
 	removeCaseDocumentationPublishingQueue,
@@ -128,13 +129,27 @@ export async function viewApplicationsCaseDocumentationVersionUpload({ params },
 /**
  * View the documentation pages
  *
- * @type {import('@pins/express').RenderHandler<{documentationFile: DocumentationFile, warningText: string|null}, {}>}
+ * @type {import('@pins/express').RenderHandler<{documentationFile: DocumentationFile, warningText: string|null, documentVersionsRows: any[]}, {}>}
  */
 export async function viewApplicationsCaseDocumentationPages({ params }, response) {
 	const { documentGuid, action } = params;
 	const { caseId } = response.locals;
 
 	const documentationFile = await getCaseDocumentationFileInfo(caseId, documentGuid);
+	const documentVersions = await getCaseDocumentationFileVersions(documentGuid);
+
+	const documentVersionsRows = [];
+
+	for (const documentVersion of documentVersions) {
+		const row = [
+			{ text: documentVersion.version },
+			{ text: documentVersion.fileName },
+			{ text: documentVersion.dateCreated },
+			{ text: documentVersion.redacted }
+		];
+
+		documentVersionsRows.push(row);
+	}
 
 	const isReadyToPublish = documentationFile.publishedStatus === 'ready_to_publish';
 	const warningText = isReadyToPublish
@@ -143,7 +158,8 @@ export async function viewApplicationsCaseDocumentationPages({ params }, respons
 
 	response.render(`applications/case-documentation/documentation-${action}`, {
 		documentationFile,
-		warningText
+		warningText,
+		documentVersionsRows
 	});
 }
 
