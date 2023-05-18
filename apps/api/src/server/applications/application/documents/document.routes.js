@@ -6,6 +6,7 @@ import { validateFolderId, validateFolderIds } from '../../documents/documents.v
 import {
 	deleteDocumentSoftly,
 	getDocumentProperties,
+	getDocumentVersions,
 	getReadyToPublishDocuments,
 	provideDocumentUploadURLs,
 	provideDocumentVersionUploadURL,
@@ -171,6 +172,26 @@ router.get(
         }
     */
 	asyncHandler(getDocumentProperties)
+);
+
+router.get(
+	'/document/:guid/versions',
+	/*
+        #swagger.tags = ['Applications']
+        #swagger.path = '/applications/documents/{guid}/properties'
+        #swagger.description = 'Gets the properties of a single file on a case'
+		#swagger.parameters['guid'] = {
+            in: 'path',
+			description: 'guid of the required document here',
+			required: true,
+			type: 'string'
+		}
+        #swagger.responses[200] = {
+            description: 'Document properties',
+            schema: { $ref: '#/definitions/documentsPropertiesRequestBody' }
+        }
+    */
+	asyncHandler(getDocumentVersions)
 );
 
 router.post(

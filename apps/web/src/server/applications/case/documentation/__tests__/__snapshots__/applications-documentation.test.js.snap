@@ -6826,7 +6826,7 @@ exports[`applications documentation Document properties page If the user is not 
                     <ul class=\\"govuk-tabs__list\\">
                         <li class=\\"govuk-tabs__list-item govuk-tabs__list-item--selected\\"><a class=\\"govuk-tabs__tab\\" href=\\"#document-properties\\"> Document properties</a>
                         </li>
-                        <li class=\\"govuk-tabs__list-item\\"><a class=\\"govuk-tabs__tab\\" href=\\"#version-history\\"> Version history</a>
+                        <li class=\\"govuk-tabs__list-item\\"><a class=\\"govuk-tabs__tab\\" href=\\"#document-history\\"> Document history</a>
                         </li>
                     </ul>
                     <div class=\\"govuk-tabs__panel\\" id=\\"document-properties\\">
@@ -6892,7 +6892,27 @@ exports[`applications documentation Document properties page If the user is not 
                             class=\\"govuk-button govuk-!-margin-0 govuk-button--warning pins-button-link\\"> Delete</a>
                         </div>
                     </div>
-                    <div class=\\"govuk-tabs__panel govuk-tabs__panel--hidden\\" id=\\"version-history\\"></div>
+                    <div class=\\"govuk-tabs__panel govuk-tabs__panel--hidden\\" id=\\"document-history\\">
+                        <h4 class=\\"govuk-heading-m govuk-!-margin-bottom-4\\">Document history</h4>
+                        <table class=\\"govuk-table\\">
+                            <thead class=\\"govuk-table__head\\">
+                                <tr class=\\"govuk-table__row\\">
+                                    <th scope=\\"col\\" class=\\"govuk-table__header\\">Version</th>
+                                    <th scope=\\"col\\" class=\\"govuk-table__header\\">File name</th>
+                                    <th scope=\\"col\\" class=\\"govuk-table__header\\">Activity</th>
+                                    <th scope=\\"col\\" class=\\"govuk-table__header\\">Redaction</th>
+                                </tr>
+                            </thead>
+                            <tbody class=\\"govuk-table__body\\">
+                                <tr class=\\"govuk-table__row\\">
+                                    <td class=\\"govuk-table__cell\\">1</td>
+                                    <td class=\\"govuk-table__cell\\">test-file-1.pdf</td>
+                                    <td class=\\"govuk-table__cell\\">2021-01-01T00:00:00.000Z</td>
+                                    <td class=\\"govuk-table__cell\\">false</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
@@ -6940,7 +6960,7 @@ exports[`applications documentation Document properties page If the user is not 
                     <ul class=\\"govuk-tabs__list\\">
                         <li class=\\"govuk-tabs__list-item govuk-tabs__list-item--selected\\"><a class=\\"govuk-tabs__tab\\" href=\\"#document-properties\\"> Document properties</a>
                         </li>
-                        <li class=\\"govuk-tabs__list-item\\"><a class=\\"govuk-tabs__tab\\" href=\\"#version-history\\"> Version history</a>
+                        <li class=\\"govuk-tabs__list-item\\"><a class=\\"govuk-tabs__tab\\" href=\\"#document-history\\"> Document history</a>
                         </li>
                     </ul>
                     <div class=\\"govuk-tabs__panel\\" id=\\"document-properties\\">
@@ -7007,7 +7027,27 @@ exports[`applications documentation Document properties page If the user is not 
                             class=\\"govuk-button govuk-!-margin-0 govuk-button--warning pins-button-link\\"> Delete</a>
                         </div>
                     </div>
-                    <div class=\\"govuk-tabs__panel govuk-tabs__panel--hidden\\" id=\\"version-history\\"></div>
+                    <div class=\\"govuk-tabs__panel govuk-tabs__panel--hidden\\" id=\\"document-history\\">
+                        <h4 class=\\"govuk-heading-m govuk-!-margin-bottom-4\\">Document history</h4>
+                        <table class=\\"govuk-table\\">
+                            <thead class=\\"govuk-table__head\\">
+                                <tr class=\\"govuk-table__row\\">
+                                    <th scope=\\"col\\" class=\\"govuk-table__header\\">Version</th>
+                                    <th scope=\\"col\\" class=\\"govuk-table__header\\">File name</th>
+                                    <th scope=\\"col\\" class=\\"govuk-table__header\\">Activity</th>
+                                    <th scope=\\"col\\" class=\\"govuk-table__header\\">Redaction</th>
+                                </tr>
+                            </thead>
+                            <tbody class=\\"govuk-table__body\\">
+                                <tr class=\\"govuk-table__row\\">
+                                    <td class=\\"govuk-table__cell\\">1</td>
+                                    <td class=\\"govuk-table__cell\\">test-file-1.pdf</td>
+                                    <td class=\\"govuk-table__cell\\">2021-01-01T00:00:00.000Z</td>
+                                    <td class=\\"govuk-table__cell\\">false</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>

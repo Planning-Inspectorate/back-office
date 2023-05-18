@@ -37,3 +37,14 @@ export const fixturePaginatedDocumentationFiles = (page, pageDefaultSize) => ({
 		pageDefaultSize + (page - 1) * pageDefaultSize
 	)
 });
+
+export const fixtureDocumentFileVersions = () => {
+	return [
+		{
+			version: 1,
+			dateCreated: '2021-01-01T00:00:00.000Z',
+			redacted: false,
+			fileName: 'test-file-1.pdf',
+		}
+	];
+}
