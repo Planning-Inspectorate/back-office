@@ -80,7 +80,8 @@ const upsertDocumentsToDatabase = async (documents) => {
 			// Call the documentRepository.upsert function to upsert the document to the database.
 			const document = await documentRepository.upsert({
 				name: fileName,
-				folderId: documentToDB.folderId
+				folderId: documentToDB.folderId,
+				latestVersionId: 1
 			});
 
 			// Log that the document has been upserted and its GUID.
@@ -92,7 +93,8 @@ const upsertDocumentsToDatabase = async (documents) => {
 				fileName,
 				originalFilename: fileName,
 				mime: documentToDB.documentType,
-				size: documentToDB.documentSize
+				size: documentToDB.documentSize,
+				version: 1
 			});
 
 			// Log that the metadata for the document has been upserted and its GUID.
