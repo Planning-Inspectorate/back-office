@@ -1,3 +1,4 @@
+import { paginationDefaultSettings } from '../appeal.constants.js';
 import * as nationalListService from './national-list.service.js';
 
 /** @typedef {import('@pins/appeals').Pagination} Pagination */
@@ -14,10 +15,15 @@ export const viewNationalList = async (request, response) => {
 	const { originalUrl, query } = request;
 	const urlWithoutQuery = originalUrl.split('?')[0];
 
-	// pageNumber = 1 by default
-	const pageNumber = query?.pageNumber ? Number.parseInt(String(query.pageNumber), 10) : 1;
+	// defaults
+	const pageNumber = query?.pageNumber
+		? Number.parseInt(String(query.pageNumber), 10)
+		: paginationDefaultSettings.firstPageNumber;
+	const pageSize = query?.pageSize
+		? Number.parseInt(String(query.pageSize), 10)
+		: paginationDefaultSettings.pageSize;
 
-	const appealsData = await nationalListService.getAppealsByPage(pageNumber);
+	const appealsData = await nationalListService.getAppealsByPage(pageNumber, pageSize);
 	const { items: appeals, page: currentPage, pageCount: totalPages } = appealsData;
 
 	const previousPage = currentPage - 1;
@@ -34,20 +40,20 @@ export const viewNationalList = async (request, response) => {
 	if (totalPages > 1) {
 		if (currentPage > 1) {
 			pagination.previous = {
-				href: `${urlWithoutQuery}?pageNumber=${pageNumber - 1}`
+				href: `${urlWithoutQuery}?pageSize=${pageSize}&pageNumber=${pageNumber - 1}`
 			};
 		}
 
 		if (currentPage < totalPages) {
 			pagination.next = {
-				href: `${urlWithoutQuery}?pageNumber=${pageNumber + 1}`
+				href: `${urlWithoutQuery}?pageSize=${pageSize}&pageNumber=${pageNumber + 1}`
 			};
 		}
 
 		// first index
 		pagination.items.push({
 			number: 1,
-			href: `${urlWithoutQuery}?pageNumber=1`,
+			href: `${urlWithoutQuery}?pageSize=${pageSize}&pageNumber=${paginationDefaultSettings.firstPageNumber}`,
 			current: currentPage === 1
 		});
 
@@ -57,7 +63,7 @@ export const viewNationalList = async (request, response) => {
 			for (let pageIndex = 2; pageIndex <= totalPages; pageIndex += 1) {
 				pagination.items.push({
 					number: pageIndex,
-					href: `${urlWithoutQuery}?pageNumber=${pageIndex}`,
+					href: `${urlWithoutQuery}?pageSize=${pageSize}&pageNumber=${pageIndex}`,
 					current: currentPage === pageIndex
 				});
 			}
@@ -71,7 +77,7 @@ export const viewNationalList = async (request, response) => {
 			if (previousPage > 1) {
 				pagination.items.push({
 					number: previousPage,
-					href: `${urlWithoutQuery}?pageNumber=${previousPage}`,
+					href: `${urlWithoutQuery}?pageSize=${pageSize}&pageNumber=${previousPage}`,
 					current: false
 				});
 			}
@@ -79,7 +85,7 @@ export const viewNationalList = async (request, response) => {
 			if (currentPage > 1) {
 				pagination.items.push({
 					number: currentPage,
-					href: `${urlWithoutQuery}?pageNumber=${currentPage}`,
+					href: `${urlWithoutQuery}?pageSize=${pageSize}&pageNumber=${currentPage}`,
 					current: true
 				});
 			}
@@ -87,7 +93,7 @@ export const viewNationalList = async (request, response) => {
 			if (nextPage > 1 && nextPage < totalPages) {
 				pagination.items.push({
 					number: nextPage,
-					href: `${urlWithoutQuery}?pageNumber=${nextPage}`,
+					href: `${urlWithoutQuery}?pageSize=${pageSize}&pageNumber=${nextPage}`,
 					current: false
 				});
 			}
@@ -101,7 +107,7 @@ export const viewNationalList = async (request, response) => {
 			if (currentPage < totalPages) {
 				pagination.items.push({
 					number: totalPages,
-					href: `${urlWithoutQuery}?pageNumber=${totalPages}`,
+					href: `${urlWithoutQuery}?pageSize=${pageSize}&pageNumber=${totalPages}`,
 					current: currentPage === totalPages
 				});
 			}
