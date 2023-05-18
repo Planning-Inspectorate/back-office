@@ -7,7 +7,6 @@ import {
 } from '../../common/validators/dates.validators.js';
 import {
 	validationTimeMandatory,
-	validationTimeStartBeforeEnd,
 	validationTimeValid
 } from '../../common/validators/times.validators.js';
 import { timetableTemplatesSchema } from './applications-timetable.controller.js';
@@ -25,7 +24,7 @@ import { timetableTemplatesSchema } from './applications-timetable.controller.js
 
 /** Validators */
 
-const nameValidationChains = [
+const nameValidationChain = [
 	body('name')
 		.trim()
 		.isLength({ min: 1 })
@@ -36,43 +35,33 @@ const nameValidationChains = [
 
 /**
  * @param {{fieldName: string, extendedFieldName: string}} field
- * @param {{fieldName: string, extendedFieldName: string}|null} compareField
  * @returns {ValidationChainsCallback}
  */
-const timeValidationChains = (field, compareField = null) => {
+const timeValidationChains = (field) => {
 	return (data, isMandatory) => [
 		validationTimeValid(field, data),
-		validationTimeStartBeforeEnd(field, compareField, data),
 		...(isMandatory ? [validationTimeMandatory(field, data)] : [])
 	];
 };
 
 /**
  * @param {{fieldName: string, extendedFieldName: string}} field
- * @param {{fieldName: string, extendedFieldName: string}|null} compareField
  * @returns {ValidationChainsCallback}
  */
-const dateValidationChains = (field, compareField = null) => {
+const dateValidationChains = (field) => {
 	return (data, isMandatory) => [
 		validationDateValid(field, data),
-		validationDateStartBeforeEnd(field, compareField, data),
 		...(isMandatory ? [validationDateMandatory(field, data)] : [])
 	];
 };
 
 /** @type {Record<string, ValidationChainsCallback>} */
 const fieldValidationsCreators = {
-	name: () => nameValidationChains,
+	name: () => nameValidationChain,
 	date: dateValidationChains({ fieldName: 'date', extendedFieldName: 'item date' }),
-	startDate: dateValidationChains(
-		{ fieldName: 'startDate', extendedFieldName: 'item start date' },
-		{ fieldName: 'endDate', extendedFieldName: 'item end date' }
-	),
+	startDate: dateValidationChains({ fieldName: 'startDate', extendedFieldName: 'item start date' }),
 	endDate: dateValidationChains({ fieldName: 'endDate', extendedFieldName: 'item end date' }),
-	startTime: timeValidationChains(
-		{ fieldName: 'startTime', extendedFieldName: 'item start time' },
-		{ fieldName: 'endTime', extendedFieldName: 'item end time' }
-	),
+	startTime: timeValidationChains({ fieldName: 'startTime', extendedFieldName: 'item start time' }),
 	endTime: timeValidationChains({ fieldName: 'endTime', extendedFieldName: 'item end time' })
 };
 
@@ -94,6 +83,10 @@ export const validatorsDispatcher = async (request, response, next) => {
 
 			templateValidations.push(...fieldValidations);
 		}
+	}
+
+	if (templateType !== 'no-times') {
+		templateValidations.push(validationDateStartBeforeEnd(request.body));
 	}
 
 	if (templateValidations.length > 0) {

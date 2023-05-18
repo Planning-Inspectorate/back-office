@@ -8,3 +8,18 @@ import { get } from '../../../lib/request.js';
 export const getCaseTimetableItemTypes = async () => {
 	return get(`applications/examination-timetable-type`);
 };
+
+// TODO: just a mock
+/**
+ * Save new timetable item
+ *
+ * @param {*} payload
+ * @returns {Promise<{errors?: import('@pins/express').ValidationErrors}>}
+ */
+export const createCaseTimetableItem = async (payload) => {
+	return new Promise((resolve) => {
+		setTimeout(() => {
+			resolve(payload);
+		}, 1000);
+	});
+};

@@ -25,4 +25,12 @@ applicationsTimetableRouter
 		asyncRoute(controller.postApplicationsCaseTimetableDetails)
 	);
 
+applicationsTimetableRouter
+	.route('/new-item/check-your-answers')
+	.post(asyncRoute(controller.postApplicationsCaseTimetableCheckYourAnswers));
+
+applicationsTimetableRouter
+	.route('/new-item/save')
+	.post(asyncRoute(controller.postApplicationsCaseTimetableSave));
+
 export default applicationsTimetableRouter;
