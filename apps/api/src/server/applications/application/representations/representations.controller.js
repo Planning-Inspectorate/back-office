@@ -102,6 +102,10 @@ export const getRepresentations = async ({ params, query }, response) => {
 export const patchRepresentation = async ({ params, body, method }, response) => {
 	const { id: caseId, repId: representationId } = params;
 
+	if (Object.keys(body).length === 0) {
+		return response.status(400).json({ errors: { representation: `Request body empty` } });
+	}
+
 	const mappedRepresentation = mapCreateOrUpdateRepRequestToRepository(caseId, body, method);
 
 	const representation = await updateCaseRepresentation(
