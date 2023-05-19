@@ -50,8 +50,11 @@ const mockDocumentMetdataUpsert = jest.fn().mockResolvedValue({});
 const mockDocumentMetdataUpdate = jest.fn().mockResolvedValue({});
 const mockRepresentationCount = jest.fn().mockResolvedValue({});
 const mockRepresentationFindMany = jest.fn().mockResolvedValue({});
+const mockRepresentationFindFirst = jest.fn().mockResolvedValue({});
 const mockRepresentationCreate = jest.fn().mockResolvedValue({});
 const mockRepresentationUpdate = jest.fn().mockResolvedValue({});
+const mockRepresentationContactUpdate = jest.fn().mockResolvedValue({});
+const mockRepresentationContactFindFirst = jest.fn().mockResolvedValue({});
 const mockExaminationTimetableTypeFindUnique = jest.fn().mockResolvedValue({});
 const mockExaminationTimetableTypeFindMany = jest.fn().mockResolvedValue({});
 
@@ -198,8 +201,16 @@ class MockPrismaClient {
 		return {
 			count: mockRepresentationCount,
 			findMany: mockRepresentationFindMany,
+			findFirst: mockRepresentationFindFirst,
 			create: mockRepresentationCreate,
 			update: mockRepresentationUpdate
+		};
+	}
+
+	get representationContact() {
+		return {
+			findFirst: mockRepresentationContactFindFirst,
+			update: mockRepresentationContactUpdate
 		};
 	}
 

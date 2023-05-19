@@ -2,18 +2,33 @@ import { isEmpty, pick } from 'lodash-es';
 
 /**
  * @param {number} caseId
- * @param {import('@pins/applications').CreateUpdateRepresentation} representation
- * @returns {import('../../repositories/representation.repository').CreateRepresentationParams}
+ * @param {import("@pins/applications").CreateUpdateRepresentation} representation
+ * @param {string} method
+ * @returns {import("../../../repositories/representation.repository.js").CreateRepresentationParams}
  */
-export const mapCreateRepresentationRequestToRepository = (caseId, representation) => {
-	const defaultRepresentationDetails = {
-		reference: '',
-		caseId,
-		status: representation.status || 'DRAFT',
-		originalRepresentation: representation.originalRepresentation || '',
-		redacted: representation.redacted || false,
-		received: representation.received || new Date()
-	};
+export const mapCreateOrUpdateRepRequestToRepository = (
+	caseId,
+	representation,
+	method = 'POST'
+) => {
+	let defaultRepresentationDetails = pick(representation, [
+		'originalRepresentation',
+		'status',
+		'reference',
+		'redacted',
+		'received'
+	]);
+
+	if (method === 'POST') {
+		defaultRepresentationDetails = {
+			reference: '',
+			caseId,
+			status: representation.status || 'DRAFT',
+			originalRepresentation: representation.originalRepresentation || '',
+			redacted: representation.redacted || false,
+			received: representation.received || new Date()
+		};
+	}
 
 	const formatContactDetails = (contact) => {
 		return pick(contact, [
@@ -46,13 +61,19 @@ export const mapCreateRepresentationRequestToRepository = (caseId, representatio
 			representationDetails: defaultRepresentationDetails
 		}),
 		...(!isEmpty(formattedRepresented) && {
-			represented: checkContactMandatoryFields(formattedRepresented, 'PERSON', false)
+			represented:
+				method === 'POST'
+					? checkContactMandatoryFields(formattedRepresented, 'PERSON', false)
+					: formattedRepresented
 		}),
 		...(!isEmpty(formattedRepresentedAddress) && {
 			representedAddress: formattedRepresentedAddress
 		}),
 		...(!isEmpty(formattedRepresentative) && {
-			representative: checkContactMandatoryFields(formattedRepresentative, 'AGENT', false)
+			representative:
+				method === 'POST'
+					? checkContactMandatoryFields(formattedRepresentative, 'AGENT', false)
+					: formattedRepresentative
 		}),
 		...(!isEmpty(formattedRepresentativeAddress) && {
 			representativeAddress: formattedRepresentativeAddress
@@ -62,10 +83,10 @@ export const mapCreateRepresentationRequestToRepository = (caseId, representatio
 
 /**
  *
- * @param {import('../../repositories/representation.repository').Contact} contactDetails
+ * @param {import("../../../repositories/representation.repository.js").Contact} contactDetails
  * @param {string} type
  * @param {boolean} under18
- * @returns {import('../../repositories/representation.repository').Contact}
+ * @returns {import("../../../repositories/representation.repository.js").Contact}
  */
 function checkContactMandatoryFields(contactDetails, type, under18) {
 	if (!contactDetails.under18) contactDetails.under18 = under18;
