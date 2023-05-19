@@ -368,6 +368,38 @@
 				}
 			}
 		},
+		"/applications/{id}/publish": {
+			"patch": {
+				"tags": ["Applications"],
+				"description": "publish application",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"type": "integer",
+						"description": "Application ID"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "response will have the date that the case was published as a timestamp",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"publishedDate": {
+									"type": "number",
+									"example": 1673873105
+								}
+							},
+							"xml": {
+								"name": "main"
+							}
+						}
+					}
+				}
+			}
+		},
 		"/applications/{id}/representations": {
 			"get": {
 				"tags": ["Applications"],
@@ -708,12 +740,10 @@
 						}
 					}
 				}
-			}
-		},
-		"/applications/{id}/publish": {
+			},
 			"patch": {
 				"tags": ["Applications"],
-				"description": "publish application",
+				"description": "Updates a representation for an application",
 				"parameters": [
 					{
 						"name": "id",
@@ -721,17 +751,119 @@
 						"required": true,
 						"type": "integer",
 						"description": "Application ID"
+					},
+					{
+						"name": "repId",
+						"in": "path",
+						"required": true,
+						"type": "string"
+					},
+					{
+						"name": "body",
+						"in": "body",
+						"description": "Representation Details",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"status": {
+									"type": "string",
+									"example": "DRAFT"
+								},
+								"redacted": {
+									"type": "boolean",
+									"example": false
+								},
+								"received": {
+									"type": "string",
+									"example": "2023-03-14T14:28:25.704Z"
+								},
+								"originalRepresentation": {
+									"type": "string",
+									"example": "This is the representation text"
+								},
+								"represented": {
+									"type": "object",
+									"properties": {
+										"firstName": {
+											"type": "string",
+											"example": "Peter"
+										},
+										"lastName": {
+											"type": "string",
+											"example": "Biggins"
+										},
+										"organisationName": {
+											"type": "string",
+											"example": ""
+										},
+										"jobTitle": {
+											"type": "string",
+											"example": ""
+										},
+										"email": {
+											"type": "string",
+											"example": "peter.bigins@dummy.email"
+										},
+										"phoneNumber": {
+											"type": "string",
+											"example": "0123456789"
+										},
+										"address": {
+											"type": "object",
+											"properties": {
+												"addressLine1": {
+													"type": "string",
+													"example": ""
+												},
+												"addressLine2": {
+													"type": "string",
+													"example": ""
+												},
+												"town": {
+													"type": "string",
+													"example": ""
+												},
+												"county": {
+													"type": "string",
+													"example": ""
+												},
+												"postcode": {
+													"type": "string",
+													"example": ""
+												}
+											}
+										},
+										"type": {
+											"type": "string",
+											"example": "PERSON"
+										},
+										"under18": {
+											"type": "boolean",
+											"example": false
+										}
+									}
+								},
+								"representative": {
+									"type": "object",
+									"properties": {}
+								}
+							}
+						}
 					}
 				],
 				"responses": {
 					"200": {
-						"description": "response will have the date that the case was published as a timestamp",
+						"description": "Representation",
 						"schema": {
 							"type": "object",
 							"properties": {
-								"publishedDate": {
+								"id": {
 									"type": "number",
-									"example": 1673873105
+									"example": 1
+								},
+								"status": {
+									"type": "string",
+									"example": "DRAFT"
 								}
 							},
 							"xml": {
