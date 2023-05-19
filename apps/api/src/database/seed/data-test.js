@@ -349,9 +349,12 @@ const appealsData = [
 function createRepresentation(caseReference, index) {
 	const { contacts, ...rep } = pickRandom(represenations);
 
+	const statuses = ['AWAITING_REVIEW', 'REFERRED', 'INVALID', 'PUBLISHED', 'WITHDRAWN', 'ARCHIVED'];
+
 	return {
 		reference: `${caseReference}-${index}`,
 		...rep,
+		status: statuses[Math.floor(Math.random() * statuses.length)],
 		contacts: {
 			create: contacts.create.map((contact) => ({
 				...contact,
@@ -376,11 +379,17 @@ const createApplication = async (databaseConnector, subSector, index) => {
 	let representations = [];
 
 	if (caseStatus !== 'draft') {
-		representations = [
-			createRepresentation(reference, 1),
-			createRepresentation(reference, 2),
-			createRepresentation(reference, 3)
-		];
+		if (subSector.name === 'office_use' && index === 1) {
+			for (let loopIndex = 0; loopIndex < 101; loopIndex += 1) {
+				representations.push(createRepresentation(reference, loopIndex));
+			}
+		} else {
+			representations = [
+				createRepresentation(reference, 1),
+				createRepresentation(reference, 2),
+				createRepresentation(reference, 3)
+			];
+		}
 	}
 
 	const newCase = await databaseConnector.case.create({
@@ -451,7 +460,6 @@ export async function seedTestData(databaseConnector) {
 	for (const appealData of appealsData) {
 		await databaseConnector.appeal.create({ data: appealData });
 	}
-
 	// now create some sample applications
 	for (const { subSector } of subSectors) {
 		for (let index = 1; index < 4; index += 1) {

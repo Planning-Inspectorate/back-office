@@ -32,10 +32,12 @@ export async function deleteAllRecords(databaseConnector) {
 	const deleteFolders = databaseConnector.folder.deleteMany();
 	const deleteRepresentationContact = databaseConnector.representationContact.deleteMany();
 	const deleteRepresentation = databaseConnector.representation.deleteMany();
+	const deleteRepresentationAction = databaseConnector.representationAction.deleteMany();
 
 	// Truncate calls
 	const deleteRegionsOnApplicationDetails = truncateTable('RegionsOnApplicationDetails');
 
+	await deleteRepresentationAction;
 	await deleteRepresentationContact;
 	await deleteRepresentation;
 
