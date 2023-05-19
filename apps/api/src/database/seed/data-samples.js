@@ -429,6 +429,22 @@ export const represenations = [
 					phoneNumber: '01234 567890'
 				}
 			]
+		},
+		RepresentationAction: {
+			create: [
+				{
+					type: 'STATUS',
+					status: 'VALID',
+					previousStatus: 'AWAITING_REVIEW',
+					redactStatus: true,
+					previousRedactStatus: false,
+					invalidReason: '',
+					referredTo: '',
+					actionBy: '',
+					actionDate: new Date(2022, 3, 1),
+					notes: ''
+				}
+			]
 		}
 	},
 	{
