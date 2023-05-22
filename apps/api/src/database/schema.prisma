@@ -104,6 +104,7 @@ model Case {
   gridReference      GridReference?
   serviceCustomer    ServiceCustomer[]
   Representation     Representation[]
+  ExaminationTimetableItems ExaminationTimetableItems[]
 }
 
 /// ServiceCustomer model
@@ -505,12 +506,14 @@ model ExaminationTimetableType {
 }
 
 model ExaminationTimetableItems {
-  id                Int                  @id @default(autoincrement())
+  id                Int         @id @default(autoincrement())
+  caseId            Int
   examinationTypeId Int
   name              String
-  description       String?
+  description       String?     @db.NText
   date              DateTime?
   startDate         DateTime?
   endDate           DateTime?
-  examinationType   ExaminationTimetableType @relation(fields: [examinationTypeId], references: [id])
+  Case              Case        @relation(fields: [caseId], references: [id]) 
+  ExaminationTimetableType   ExaminationTimetableType @relation(fields: [examinationTypeId], references: [id])
 }
