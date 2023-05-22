@@ -11,7 +11,7 @@ import {
 
 const { databaseConnector } = await import('../../../utils/database-connector.js');
 const request = supertest(app);
-const appeal = {
+const householdAppeal = {
 	id: 1,
 	reference: 'APP/Q9999/D/21/1345264',
 	appealStatus: [
@@ -35,6 +35,14 @@ const appeal = {
 		county: 'Kent',
 		postcode: 'MD21 5XY'
 	},
+	appealTimetable: {
+		id: 1,
+		appealId: 1,
+		finalEventsDueDate: '2023-04-16T00:00:00.000Z',
+		interestedPartyRepsDueDate: '2023-05-17T00:00:00.000Z',
+		questionnaireDueDate: '2023-06-18T00:00:00.000Z',
+		statementDueDate: '2023-07-19T00:00:00.000Z'
+	},
 	appealType: {
 		id: 2,
 		type: 'household',
@@ -47,324 +55,586 @@ const appeal = {
 	},
 	inspectorDecision: {
 		outcome: 'Not issued yet'
+	},
+	siteVisit: {
+		id: 1,
+		appealId: 1,
+		visitDate: '2022-03-31T12:00:00.000Z',
+		visitSlot: '1pm - 2pm',
+		visitType: 'unaccompanied'
 	}
 };
-const appealTwo = {
-	...appeal,
-	id: 2
+const fullPlanningAppeal = {
+	...householdAppeal,
+	id: 2,
+	appealType: {
+		id: 1,
+		type: 'full planning',
+		shorthand: 'FPA'
+	}
 };
 
 describe('Appeals', () => {
 	describe('/appeals', () => {
-		test('gets appeals when not given pagination params', async () => {
-			// @ts-ignore
-			databaseConnector.appeal.count.mockResolvedValue(5);
-			// @ts-ignore
-			databaseConnector.appeal.findMany.mockResolvedValue([appeal, appealTwo]);
+		describe('GET', () => {
+			test('gets appeals when not given pagination params', async () => {
+				// @ts-ignore
+				databaseConnector.appeal.count.mockResolvedValue(5);
+				// @ts-ignore
+				databaseConnector.appeal.findMany.mockResolvedValue([householdAppeal, fullPlanningAppeal]);
 
-			const response = await request.get('/appeals');
+				const response = await request.get('/appeals');
 
-			expect(databaseConnector.appeal.findMany).toBeCalledWith(
-				expect.objectContaining({
-					skip: 0,
-					take: 30
-				})
-			);
-			expect(response.status).toEqual(200);
-			expect(response.body).toEqual({
-				itemCount: 5,
-				items: [
-					{
-						appealId: appeal.id,
-						appealReference: appeal.reference,
-						appealSite: {
-							addressLine1: appeal.address.addressLine1,
-							town: appeal.address.town,
-							county: appeal.address.county,
-							postCode: appeal.address.postcode
+				expect(databaseConnector.appeal.findMany).toBeCalledWith(
+					expect.objectContaining({
+						skip: 0,
+						take: 30
+					})
+				);
+				expect(response.status).toEqual(200);
+				expect(response.body).toEqual({
+					itemCount: 5,
+					items: [
+						{
+							appealId: householdAppeal.id,
+							appealReference: householdAppeal.reference,
+							appealSite: {
+								addressLine1: householdAppeal.address.addressLine1,
+								town: householdAppeal.address.town,
+								county: householdAppeal.address.county,
+								postCode: householdAppeal.address.postcode
+							},
+							appealStatus: householdAppeal.appealStatus[0].status,
+							appealType: householdAppeal.appealType.type,
+							createdAt: householdAppeal.createdAt.toISOString(),
+							localPlanningDepartment: householdAppeal.localPlanningDepartment
 						},
-						appealStatus: appeal.appealStatus[0].status,
-						appealType: appeal.appealType.type,
-						createdAt: appeal.createdAt.toISOString(),
-						localPlanningDepartment: appeal.localPlanningDepartment
-					},
-					{
-						appealId: appealTwo.id,
-						appealReference: appeal.reference,
-						appealSite: {
-							addressLine1: appeal.address.addressLine1,
-							town: appeal.address.town,
-							county: appeal.address.county,
-							postCode: appeal.address.postcode
-						},
-						appealStatus: appeal.appealStatus[0].status,
-						appealType: appeal.appealType.type,
-						createdAt: appeal.createdAt.toISOString(),
-						localPlanningDepartment: appeal.localPlanningDepartment
+						{
+							appealId: fullPlanningAppeal.id,
+							appealReference: fullPlanningAppeal.reference,
+							appealSite: {
+								addressLine1: fullPlanningAppeal.address.addressLine1,
+								town: fullPlanningAppeal.address.town,
+								county: fullPlanningAppeal.address.county,
+								postCode: fullPlanningAppeal.address.postcode
+							},
+							appealStatus: fullPlanningAppeal.appealStatus[0].status,
+							appealType: fullPlanningAppeal.appealType.type,
+							createdAt: fullPlanningAppeal.createdAt.toISOString(),
+							localPlanningDepartment: fullPlanningAppeal.localPlanningDepartment
+						}
+					],
+					page: 1,
+					pageCount: 1,
+					pageSize: 30
+				});
+			});
+
+			test('gets appeals when given pagination params', async () => {
+				// @ts-ignore
+				databaseConnector.appeal.count.mockResolvedValue(5);
+				// @ts-ignore
+				databaseConnector.appeal.findMany.mockResolvedValue([fullPlanningAppeal]);
+
+				const response = await request.get('/appeals?pageNumber=2&pageSize=1');
+
+				expect(databaseConnector.appeal.findMany).toBeCalledWith(
+					expect.objectContaining({
+						skip: 1,
+						take: 1
+					})
+				);
+				expect(response.status).toEqual(200);
+				expect(response.body).toEqual({
+					itemCount: 5,
+					items: [
+						{
+							appealId: fullPlanningAppeal.id,
+							appealReference: fullPlanningAppeal.reference,
+							appealSite: {
+								addressLine1: fullPlanningAppeal.address.addressLine1,
+								town: fullPlanningAppeal.address.town,
+								county: fullPlanningAppeal.address.county,
+								postCode: fullPlanningAppeal.address.postcode
+							},
+							appealStatus: fullPlanningAppeal.appealStatus[0].status,
+							appealType: fullPlanningAppeal.appealType.type,
+							createdAt: fullPlanningAppeal.createdAt.toISOString(),
+							localPlanningDepartment: fullPlanningAppeal.localPlanningDepartment
+						}
+					],
+					page: 2,
+					pageCount: 5,
+					pageSize: 1
+				});
+			});
+
+			test('returns an error if pageNumber is given and pageSize is not given', async () => {
+				const response = await request.get('/appeals?pageNumber=1');
+
+				expect(response.status).toEqual(400);
+				expect(response.body).toEqual({
+					errors: {
+						pageNumber: ERROR_PAGENUMBER_AND_PAGESIZE_ARE_REQUIRED
 					}
-				],
-				page: 1,
-				pageCount: 1,
-				pageSize: 30
+				});
 			});
-		});
 
-		test('gets appeals when given pagination params', async () => {
-			// @ts-ignore
-			databaseConnector.appeal.count.mockResolvedValue(5);
-			// @ts-ignore
-			databaseConnector.appeal.findMany.mockResolvedValue([appealTwo]);
+			test('returns an error if pageSize is given and pageNumber is not given', async () => {
+				const response = await request.get('/appeals?pageSize=1');
 
-			const response = await request.get('/appeals?pageNumber=2&pageSize=1');
-
-			expect(databaseConnector.appeal.findMany).toBeCalledWith(
-				expect.objectContaining({
-					skip: 1,
-					take: 1
-				})
-			);
-			expect(response.status).toEqual(200);
-			expect(response.body).toEqual({
-				itemCount: 5,
-				items: [
-					{
-						appealId: appealTwo.id,
-						appealReference: appeal.reference,
-						appealSite: {
-							addressLine1: appeal.address.addressLine1,
-							town: appeal.address.town,
-							county: appeal.address.county,
-							postCode: appeal.address.postcode
-						},
-						appealStatus: appeal.appealStatus[0].status,
-						appealType: appeal.appealType.type,
-						createdAt: appeal.createdAt.toISOString(),
-						localPlanningDepartment: appeal.localPlanningDepartment
+				expect(response.status).toEqual(400);
+				expect(response.body).toEqual({
+					errors: {
+						pageSize: ERROR_PAGENUMBER_AND_PAGESIZE_ARE_REQUIRED
 					}
-				],
-				page: 2,
-				pageCount: 5,
-				pageSize: 1
+				});
 			});
-		});
 
-		test('returns an error if pageNumber is given and pageSize is not given', async () => {
-			const response = await request.get('/appeals?pageNumber=1');
+			test('returns an error if pageNumber is not numeric', async () => {
+				const response = await request.get('/appeals?pageNumber=one&pageSize=1');
 
-			expect(response.status).toEqual(400);
-			expect(response.body).toEqual({
-				errors: {
-					pageNumber: ERROR_PAGENUMBER_AND_PAGESIZE_ARE_REQUIRED
-				}
+				expect(response.status).toEqual(400);
+				expect(response.body).toEqual({
+					errors: {
+						pageNumber: ERROR_MUST_BE_NUMBER
+					}
+				});
 			});
-		});
 
-		test('returns an error if pageSize is given and pageNumber is not given', async () => {
-			const response = await request.get('/appeals?pageSize=1');
+			test('returns an error if pageNumber is less than 1', async () => {
+				const response = await request.get('/appeals?pageNumber=-1&pageSize=1');
 
-			expect(response.status).toEqual(400);
-			expect(response.body).toEqual({
-				errors: {
-					pageSize: ERROR_PAGENUMBER_AND_PAGESIZE_ARE_REQUIRED
-				}
+				expect(response.status).toEqual(400);
+				expect(response.body).toEqual({
+					errors: {
+						pageNumber: ERROR_MUST_BE_GREATER_THAN_ZERO
+					}
+				});
 			});
-		});
 
-		test('returns an error if pageNumber is not numeric', async () => {
-			const response = await request.get('/appeals?pageNumber=one&pageSize=1');
+			test('returns an error if pageSize is not numeric', async () => {
+				const response = await request.get('/appeals?pageNumber=1&pageSize=one');
 
-			expect(response.status).toEqual(400);
-			expect(response.body).toEqual({
-				errors: {
-					pageNumber: ERROR_MUST_BE_NUMBER
-				}
+				expect(response.status).toEqual(400);
+				expect(response.body).toEqual({
+					errors: {
+						pageSize: ERROR_MUST_BE_NUMBER
+					}
+				});
 			});
-		});
 
-		test('returns an error if pageNumber is less than 1', async () => {
-			const response = await request.get('/appeals?pageNumber=-1&pageSize=1');
+			test('returns an error if pageSize is less than 1', async () => {
+				const response = await request.get('/appeals?pageNumber=1&pageSize=-1');
 
-			expect(response.status).toEqual(400);
-			expect(response.body).toEqual({
-				errors: {
-					pageNumber: ERROR_MUST_BE_GREATER_THAN_ZERO
-				}
-			});
-		});
-
-		test('returns an error if pageSize is not numeric', async () => {
-			const response = await request.get('/appeals?pageNumber=1&pageSize=one');
-
-			expect(response.status).toEqual(400);
-			expect(response.body).toEqual({
-				errors: {
-					pageSize: ERROR_MUST_BE_NUMBER
-				}
-			});
-		});
-
-		test('returns an error if pageSize is less than 1', async () => {
-			const response = await request.get('/appeals?pageNumber=1&pageSize=-1');
-
-			expect(response.status).toEqual(400);
-			expect(response.body).toEqual({
-				errors: {
-					pageSize: ERROR_MUST_BE_GREATER_THAN_ZERO
-				}
+				expect(response.status).toEqual(400);
+				expect(response.body).toEqual({
+					errors: {
+						pageSize: ERROR_MUST_BE_GREATER_THAN_ZERO
+					}
+				});
 			});
 		});
 	});
 
 	describe('/appeals/:appealId', () => {
-		test('gets a single appeal', async () => {
-			// @ts-ignore
-			databaseConnector.appeal.findUnique.mockResolvedValue(appeal);
+		describe('GET', () => {
+			test('gets a single household appeal', async () => {
+				// @ts-ignore
+				databaseConnector.appeal.findUnique.mockResolvedValue(householdAppeal);
 
-			const response = await request.get(`/appeals/${appeal.id}`);
+				const response = await request.get(`/appeals/${householdAppeal.id}`);
 
-			expect(response.status).toEqual(200);
-			expect(response.body).toEqual({
-				agentName: appeal.appellant.agentName,
-				allocationDetails: 'F / General Allocation',
-				appealId: appeal.id,
-				appealReference: appeal.reference,
-				appealSite: {
-					addressLine1: appeal.address.addressLine1,
-					town: appeal.address.town,
-					county: appeal.address.county,
-					postCode: appeal.address.postcode
-				},
-				appealStatus: appeal.appealStatus[0].status,
-				appealType: appeal.appealType.type,
-				appellantName: appeal.appellant.name,
-				caseProcedure: 'Written',
-				decision: appeal.inspectorDecision.outcome,
-				linkedAppeal: {
-					appealId: 1,
-					appealReference: 'APP/Q9999/D/21/725284'
-				},
-				localPlanningDepartment: appeal.localPlanningDepartment,
-				otherAppeals: [
-					{
+				expect(response.status).toEqual(200);
+				expect(response.body).toEqual({
+					agentName: householdAppeal.appellant.agentName,
+					allocationDetails: 'F / General Allocation',
+					appealId: householdAppeal.id,
+					appealReference: householdAppeal.reference,
+					appealSite: {
+						addressLine1: householdAppeal.address.addressLine1,
+						town: householdAppeal.address.town,
+						county: householdAppeal.address.county,
+						postCode: householdAppeal.address.postcode
+					},
+					appealStatus: householdAppeal.appealStatus[0].status,
+					appealTimetable: {
+						finalEventsDueDate: householdAppeal.appealTimetable.finalEventsDueDate,
+						questionnaireDueDate: householdAppeal.appealTimetable.questionnaireDueDate
+					},
+					appealType: householdAppeal.appealType.type,
+					appellantName: householdAppeal.appellant.name,
+					caseProcedure: 'Written',
+					decision: householdAppeal.inspectorDecision.outcome,
+					linkedAppeal: {
 						appealId: 1,
 						appealReference: 'APP/Q9999/D/21/725284'
+					},
+					localPlanningDepartment: householdAppeal.localPlanningDepartment,
+					otherAppeals: [
+						{
+							appealId: 1,
+							appealReference: 'APP/Q9999/D/21/725284'
+						}
+					],
+					planningApplicationReference: householdAppeal.planningApplicationReference,
+					siteVisit: {
+						visitDate: householdAppeal.siteVisit.visitDate
+					},
+					startedAt: householdAppeal.startedAt.toISOString()
+				});
+			});
+
+			test('gets a single full planning appeal', async () => {
+				// @ts-ignore
+				databaseConnector.appeal.findUnique.mockResolvedValue(fullPlanningAppeal);
+
+				const response = await request.get(`/appeals/${fullPlanningAppeal.id}`);
+
+				expect(response.status).toEqual(200);
+				expect(response.body).toEqual({
+					agentName: fullPlanningAppeal.appellant.agentName,
+					allocationDetails: 'F / General Allocation',
+					appealId: fullPlanningAppeal.id,
+					appealReference: fullPlanningAppeal.reference,
+					appealSite: {
+						addressLine1: fullPlanningAppeal.address.addressLine1,
+						town: fullPlanningAppeal.address.town,
+						county: fullPlanningAppeal.address.county,
+						postCode: fullPlanningAppeal.address.postcode
+					},
+					appealStatus: fullPlanningAppeal.appealStatus[0].status,
+					appealTimetable: {
+						finalEventsDueDate: fullPlanningAppeal.appealTimetable.finalEventsDueDate,
+						interestedPartyRepsDueDate:
+							fullPlanningAppeal.appealTimetable.interestedPartyRepsDueDate,
+						questionnaireDueDate: fullPlanningAppeal.appealTimetable.questionnaireDueDate,
+						statementDueDate: fullPlanningAppeal.appealTimetable.statementDueDate
+					},
+					appealType: fullPlanningAppeal.appealType.type,
+					appellantName: fullPlanningAppeal.appellant.name,
+					caseProcedure: 'Written',
+					decision: fullPlanningAppeal.inspectorDecision.outcome,
+					linkedAppeal: {
+						appealId: 1,
+						appealReference: 'APP/Q9999/D/21/725284'
+					},
+					localPlanningDepartment: fullPlanningAppeal.localPlanningDepartment,
+					otherAppeals: [
+						{
+							appealId: 1,
+							appealReference: 'APP/Q9999/D/21/725284'
+						}
+					],
+					planningApplicationReference: fullPlanningAppeal.planningApplicationReference,
+					siteVisit: {
+						visitDate: fullPlanningAppeal.siteVisit.visitDate
+					},
+					startedAt: fullPlanningAppeal.startedAt.toISOString()
+				});
+			});
+
+			test('returns an error if appealId is not numeric', async () => {
+				const response = await request.get('/appeals/one');
+
+				expect(response.status).toEqual(400);
+				expect(response.body).toEqual({
+					errors: {
+						appealId: ERROR_MUST_BE_NUMBER
 					}
-				],
-				planningApplicationReference: appeal.planningApplicationReference,
-				startedAt: appeal.startedAt.toISOString()
+				});
+			});
+
+			test('returns an error if appealId is not found', async () => {
+				// @ts-ignore
+				databaseConnector.appeal.findUnique.mockResolvedValue(null);
+
+				const response = await request.get(`/appeals/${householdAppeal.id}`);
+
+				expect(response.status).toEqual(404);
+				expect(response.body).toEqual({
+					errors: {
+						appealId: ERROR_NOT_FOUND
+					}
+				});
 			});
 		});
 
-		test('returns an error if appealId is not numeric', async () => {
-			const response = await request.get('/appeals/one');
+		describe('PATCH', () => {
+			test('updates an appeal', async () => {
+				// @ts-ignore
+				databaseConnector.appeal.findUnique.mockResolvedValue(householdAppeal);
 
-			expect(response.status).toEqual(400);
-			expect(response.body).toEqual({
-				errors: {
-					appealId: ERROR_MUST_BE_NUMBER
-				}
-			});
-		});
+				const response = await request.patch(`/appeals/${householdAppeal.id}`).send({
+					startedAt: '2023-05-05'
+				});
 
-		test('returns an error if an appeal is not found', async () => {
-			// @ts-ignore
-			databaseConnector.appeal.findUnique.mockResolvedValue(null);
-
-			const response = await request.get(`/appeals/${appeal.id}`);
-
-			expect(response.status).toEqual(404);
-			expect(response.body).toEqual({
-				errors: {
-					appealId: ERROR_NOT_FOUND
-				}
-			});
-		});
-
-		test('updates an appeal', async () => {
-			const response = await request.patch(`/appeals/${appeal.id}`).send({
-				startedAt: '2023-05-05'
+				expect(databaseConnector.appeal.update).toBeCalledWith({
+					data: {
+						startedAt: '2023-05-05T01:00:00.000Z',
+						updatedAt: expect.any(Date)
+					},
+					where: {
+						id: householdAppeal.id
+					}
+				});
+				expect(response.status).toEqual(200);
+				expect(response.body).toEqual({
+					startedAt: '2023-05-05T01:00:00.000Z'
+				});
 			});
 
-			expect(databaseConnector.appeal.update).toBeCalledWith({
-				data: {
-					startedAt: '2023-05-05T00:00:00.000Z',
-					updatedAt: expect.any(Date)
-				},
-				where: {
-					id: appeal.id
-				}
-			});
-			expect(response.status).toEqual(200);
-			expect(response.body).toEqual({
-				startedAt: '2023-05-05T00:00:00.000Z'
-			});
-		});
+			test('sets the timetable for a houshold appeal', async () => {
+				// @ts-ignore
+				databaseConnector.appeal.findUnique.mockResolvedValue(householdAppeal);
 
-		test('returns an error if startedAt is not in the correct format', async () => {
-			const response = await request.patch(`/appeals/${appeal.id}`).send({
-				startedAt: '05/05/2023'
-			});
+				const response = await request.patch(`/appeals/${householdAppeal.id}`).send({
+					startedAt: '2023-05-05'
+				});
 
-			expect(response.status).toEqual(400);
-			expect(response.body).toEqual({
-				errors: {
-					startedAt: ERROR_MUST_BE_CORRECT_DATE_FORMAT
-				}
-			});
-		});
-
-		test('returns an error if startedAt does not contain leading zeros', async () => {
-			const response = await request.patch(`/appeals/${appeal.id}`).send({
-				startedAt: '2023-5-5'
+				expect(databaseConnector.appealTimetable.upsert).toBeCalledWith(
+					expect.objectContaining({
+						update: {
+							questionnaireDueDate: new Date('2023-06-20T01:00:00.000Z'),
+							finalEventsDueDate: new Date('2023-08-01T01:00:00.000Z')
+						}
+					})
+				);
+				expect(databaseConnector.appeal.update).toBeCalledWith({
+					data: {
+						startedAt: '2023-05-05T01:00:00.000Z',
+						updatedAt: expect.any(Date)
+					},
+					where: {
+						id: householdAppeal.id
+					}
+				});
+				expect(response.status).toEqual(200);
+				expect(response.body).toEqual({
+					startedAt: '2023-05-05T01:00:00.000Z'
+				});
 			});
 
-			expect(response.status).toEqual(400);
-			expect(response.body).toEqual({
-				errors: {
-					startedAt: ERROR_MUST_BE_CORRECT_DATE_FORMAT
-				}
+			test('sets the timetable for a full planning appeal', async () => {
+				// @ts-ignore
+				databaseConnector.appeal.findUnique.mockResolvedValue(fullPlanningAppeal);
+
+				const response = await request.patch(`/appeals/${fullPlanningAppeal.id}`).send({
+					startedAt: '2023-05-05'
+				});
+
+				expect(databaseConnector.appealTimetable.upsert).toBeCalledWith(
+					expect.objectContaining({
+						update: {
+							questionnaireDueDate: new Date('2023-06-20T01:00:00.000Z'),
+							statementDueDate: new Date('2023-08-01T01:00:00.000Z'),
+							interestedPartyRepsDueDate: new Date('2023-09-13T01:00:00.000Z'),
+							finalEventsDueDate: new Date('2023-10-25T01:00:00.000Z')
+						}
+					})
+				);
+				expect(databaseConnector.appeal.update).toBeCalledWith({
+					data: {
+						startedAt: '2023-05-05T01:00:00.000Z',
+						updatedAt: expect.any(Date)
+					},
+					where: {
+						id: fullPlanningAppeal.id
+					}
+				});
+				expect(response.status).toEqual(200);
+				expect(response.body).toEqual({
+					startedAt: '2023-05-05T01:00:00.000Z'
+				});
 			});
-		});
 
-		test('returns an error if startedAt is not a valid date', async () => {
-			const response = await request.patch(`/appeals/${appeal.id}`).send({
-				startedAt: '2023-02-30'
+			test('sets the deadline to two days after the deadline if the deadline day and the day after are bank holidays', async () => {
+				// @ts-ignore
+				databaseConnector.appeal.findUnique.mockResolvedValue(householdAppeal);
+
+				const response = await request.patch(`/appeals/${householdAppeal.id}`).send({
+					startedAt: '2023-11-13'
+				});
+
+				expect(databaseConnector.appealTimetable.upsert).toBeCalledWith(
+					expect.objectContaining({
+						update: {
+							questionnaireDueDate: new Date('2023-12-27T01:00:00.000Z'),
+							finalEventsDueDate: new Date('2024-02-08T01:00:00.000Z')
+						}
+					})
+				);
+				expect(databaseConnector.appeal.update).toBeCalledWith({
+					data: {
+						startedAt: '2023-11-13T01:00:00.000Z',
+						updatedAt: expect.any(Date)
+					},
+					where: {
+						id: householdAppeal.id
+					}
+				});
+				expect(response.status).toEqual(200);
+				expect(response.body).toEqual({
+					startedAt: '2023-11-13T01:00:00.000Z'
+				});
 			});
 
-			expect(response.status).toEqual(400);
-			expect(response.body).toEqual({
-				errors: {
-					startedAt: ERROR_MUST_BE_CORRECT_DATE_FORMAT
-				}
+			test('sets the deadline to the Monday after the deadline if the deadline is a Saturday', async () => {
+				// @ts-ignore
+				databaseConnector.appeal.findUnique.mockResolvedValue(householdAppeal);
+
+				const response = await request.patch(`/appeals/${householdAppeal.id}`).send({
+					startedAt: '2023-04-19'
+				});
+
+				expect(databaseConnector.appealTimetable.upsert).toBeCalledWith(
+					expect.objectContaining({
+						update: {
+							questionnaireDueDate: new Date('2023-06-05T01:00:00.000Z'),
+							finalEventsDueDate: new Date('2023-07-17T01:00:00.000Z')
+						}
+					})
+				);
+				expect(databaseConnector.appeal.update).toBeCalledWith({
+					data: {
+						startedAt: '2023-04-19T01:00:00.000Z',
+						updatedAt: expect.any(Date)
+					},
+					where: {
+						id: householdAppeal.id
+					}
+				});
+				expect(response.status).toEqual(200);
+				expect(response.body).toEqual({
+					startedAt: '2023-04-19T01:00:00.000Z'
+				});
 			});
-		});
 
-		test('returns an error if given an incorrect field name', async () => {
-			// @ts-ignore
-			databaseConnector.appeal.update.mockImplementation(() => {
-				throw new Error(ERROR_FAILED_TO_SAVE_DATA);
+			test('sets the deadline to the Tuesday after the deadline if the deadline is a Saturday and the Monday after is a bank holiday', async () => {
+				// @ts-ignore
+				databaseConnector.appeal.findUnique.mockResolvedValue(householdAppeal);
+
+				const response = await request.patch(`/appeals/${householdAppeal.id}`).send({
+					startedAt: '2023-04-13'
+				});
+
+				expect(databaseConnector.appealTimetable.upsert).toBeCalledWith(
+					expect.objectContaining({
+						update: {
+							questionnaireDueDate: new Date('2023-05-30T01:00:00.000Z'),
+							finalEventsDueDate: new Date('2023-07-11T01:00:00.000Z')
+						}
+					})
+				);
+				expect(databaseConnector.appeal.update).toBeCalledWith({
+					data: {
+						startedAt: '2023-04-13T01:00:00.000Z',
+						updatedAt: expect.any(Date)
+					},
+					where: {
+						id: householdAppeal.id
+					}
+				});
+				expect(response.status).toEqual(200);
+				expect(response.body).toEqual({
+					startedAt: '2023-04-13T01:00:00.000Z'
+				});
 			});
 
-			const response = await request.patch(`/appeals/${appeal.id}`).send({
-				startedAtDate: '2023-02-10'
+			test('returns an error if appealId is not numeric', async () => {
+				const response = await request.patch('/appeals/one');
+
+				expect(response.status).toEqual(400);
+				expect(response.body).toEqual({
+					errors: {
+						appealId: ERROR_MUST_BE_NUMBER
+					}
+				});
 			});
 
-			expect(response.status).toEqual(500);
-			expect(response.body).toEqual({
-				errors: {
-					body: ERROR_FAILED_TO_SAVE_DATA
-				}
+			test('returns an error if appealId is not found', async () => {
+				// @ts-ignore
+				databaseConnector.appeal.findUnique.mockResolvedValue(null);
+
+				const response = await request.get(`/appeals/${householdAppeal.id}`);
+
+				expect(response.status).toEqual(404);
+				expect(response.body).toEqual({
+					errors: {
+						appealId: ERROR_NOT_FOUND
+					}
+				});
 			});
-		});
 
-		test('does not throw an error if given an empty body', async () => {
-			// @ts-ignore
-			databaseConnector.appeal.update.mockResolvedValue(true);
+			test('returns an error if startedAt is not in the correct format', async () => {
+				const response = await request.patch(`/appeals/${householdAppeal.id}`).send({
+					startedAt: '05/05/2023'
+				});
 
-			const response = await request.patch(`/appeals/${appeal.id}`).send({});
+				expect(response.status).toEqual(400);
+				expect(response.body).toEqual({
+					errors: {
+						startedAt: ERROR_MUST_BE_CORRECT_DATE_FORMAT
+					}
+				});
+			});
 
-			expect(response.status).toEqual(200);
-			expect(response.body).toEqual({});
+			test('returns an error if startedAt does not contain leading zeros', async () => {
+				const response = await request.patch(`/appeals/${householdAppeal.id}`).send({
+					startedAt: '2023-5-5'
+				});
+
+				expect(response.status).toEqual(400);
+				expect(response.body).toEqual({
+					errors: {
+						startedAt: ERROR_MUST_BE_CORRECT_DATE_FORMAT
+					}
+				});
+			});
+
+			test('returns an error if startedAt is not a valid date', async () => {
+				const response = await request.patch(`/appeals/${householdAppeal.id}`).send({
+					startedAt: '2023-02-30'
+				});
+
+				expect(response.status).toEqual(400);
+				expect(response.body).toEqual({
+					errors: {
+						startedAt: ERROR_MUST_BE_CORRECT_DATE_FORMAT
+					}
+				});
+			});
+
+			test('returns an error if given an incorrect field name', async () => {
+				// @ts-ignore
+				databaseConnector.appeal.findUnique.mockResolvedValue(householdAppeal);
+
+				// @ts-ignore
+				databaseConnector.appeal.update.mockImplementation(() => {
+					throw new Error(ERROR_FAILED_TO_SAVE_DATA);
+				});
+
+				const response = await request.patch(`/appeals/${householdAppeal.id}`).send({
+					startedAtDate: '2023-02-10'
+				});
+
+				expect(response.status).toEqual(500);
+				expect(response.body).toEqual({
+					errors: {
+						body: ERROR_FAILED_TO_SAVE_DATA
+					}
+				});
+			});
+
+			test('does not throw an error if given an empty body', async () => {
+				// @ts-ignore
+				databaseConnector.appeal.update.mockResolvedValue(true);
+
+				const response = await request.patch(`/appeals/${householdAppeal.id}`).send({});
+
+				expect(response.status).toEqual(200);
+				expect(response.body).toEqual({});
+			});
 		});
 	});
 });

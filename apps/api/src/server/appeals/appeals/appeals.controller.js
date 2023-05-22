@@ -1,12 +1,9 @@
 import appealRepository from '../../repositories/appeal.repository.js';
 import { getPageCount } from '../../utils/database-pagination.js';
-import {
-	DEFAULT_PAGE_NUMBER,
-	DEFAULT_PAGE_SIZE,
-	ERROR_FAILED_TO_SAVE_DATA,
-	ERROR_NOT_FOUND
-} from '../constants.js';
+import logger from '../../utils/logger.js';
+import { DEFAULT_PAGE_NUMBER, DEFAULT_PAGE_SIZE, ERROR_FAILED_TO_SAVE_DATA } from '../constants.js';
 import appealFormatter from './appeals.formatter.js';
+import { calculateTimetable } from './appeals.service.js';
 
 /** @typedef {import('./appeals.routes.js').AppealParams} AppealParams */
 
@@ -35,15 +32,7 @@ const getAppeals = async (req, res) => {
  * @returns {Promise<object>}
  */
 const getAppealById = async (req, res) => {
-	const {
-		params: { appealId }
-	} = req;
-	const appeal = await appealRepository.getById(Number(appealId));
-
-	if (!appeal) {
-		return res.status(404).send({ errors: { appealId: ERROR_NOT_FOUND } });
-	}
-
+	const { appeal } = req;
 	const formattedAppeal = appealFormatter.formatAppeal(appeal);
 
 	return res.send(formattedAppeal);
@@ -55,14 +44,26 @@ const getAppealById = async (req, res) => {
  */
 const updateAppealById = async (req, res) => {
 	const {
+		appeal: { appealType },
 		body,
-		params: { appealId }
+		body: { startedAt },
+		params
 	} = req;
+	const appealId = Number(params.appealId);
 
 	try {
-		await appealRepository.updateById(Number(appealId), body);
+		if (appealType) {
+			const timetable = await calculateTimetable(appealType.shorthand, startedAt);
+
+			if (timetable) {
+				await appealRepository.upsertAppealTimetableById(appealId, timetable);
+			}
+		}
+
+		await appealRepository.updateById(appealId, body);
 	} catch (error) {
 		if (error) {
+			logger.error(error);
 			return res.status(500).send({ errors: { body: ERROR_FAILED_TO_SAVE_DATA } });
 		}
 	}

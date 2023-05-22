@@ -31,7 +31,7 @@ const hasPageNumberAndPageSize = (pageNumber, pageSize) => !!(pageNumber && page
  * @param {string} value
  * @returns {string}
  */
-const joinDateAndTime = (value) => `${value}T00:00:00.000Z`;
+const joinDateAndTime = (value) => `${value}T01:00:00.000Z`;
 
 /**
  * @param {string} parameterName
@@ -49,18 +49,18 @@ const validatePaginationParameter = (parameterName) =>
 		)
 		.withMessage(ERROR_PAGENUMBER_AND_PAGESIZE_ARE_REQUIRED);
 
-const validateAppealId = composeMiddleware(
-	param('appealId').isInt().withMessage(ERROR_MUST_BE_NUMBER),
-	validationErrorHandler
-);
+const validateAppealId = param('appealId').isInt().withMessage(ERROR_MUST_BE_NUMBER);
 
-const validatePaginationParameters = composeMiddleware(
+const getAppealValidator = composeMiddleware(validateAppealId, validationErrorHandler);
+
+const paginationParameterValidator = composeMiddleware(
 	validatePaginationParameter('pageNumber'),
 	validatePaginationParameter('pageSize'),
 	validationErrorHandler
 );
 
-const validateAppealUpdate = composeMiddleware(
+const patchAppealValidator = composeMiddleware(
+	validateAppealId,
 	body('startedAt')
 		.optional()
 		.isDate()
@@ -69,4 +69,4 @@ const validateAppealUpdate = composeMiddleware(
 	validationErrorHandler
 );
 
-export { validateAppealId, validatePaginationParameters, validateAppealUpdate };
+export { getAppealValidator, paginationParameterValidator, patchAppealValidator };

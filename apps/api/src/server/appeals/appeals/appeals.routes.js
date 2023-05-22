@@ -1,10 +1,11 @@
 import { Router as createRouter } from 'express';
 import { asyncHandler } from '../../middleware/async-handler.js';
 import { getAppealById, getAppeals, updateAppealById } from './appeals.controller.js';
+import { checkAppealExistsAndAddToRequest } from './appeals.service.js';
 import {
-	validateAppealId,
-	validateAppealUpdate,
-	validatePaginationParameters
+	getAppealValidator,
+	paginationParameterValidator,
+	patchAppealValidator
 } from './appeals.validators.js';
 
 /**
@@ -19,7 +20,7 @@ router.get(
 	/*
 		#swagger.tags = ['Appeals']
 		#swagger.path = '/appeals'
-		#swagger.description = 'Gets requested appeals, limited to the first 30 if no pagination params are given'
+		#swagger.description = 'Gets requested appeals, limited to the first 30 appeals if no pagination params are given'
 		#swagger.parameters['pageNumber'] = {
 			in: 'query',
 			description: 'The pagination page number, required if pageSize is given',
@@ -36,7 +37,7 @@ router.get(
 		}
 		#swagger.responses[400] = {}
 	 */
-	validatePaginationParameters,
+	paginationParameterValidator,
 	asyncHandler(getAppeals)
 );
 
@@ -45,15 +46,16 @@ router.get(
 	/*
 		#swagger.tags = ['Appeals']
 		#swagger.path = '/appeals/{appealId}'
-		#swagger.description = 'Gets a single appeal by id'
+		#swagger.description = Gets a single appeal by id
 		#swagger.responses[200] = {
 			description: 'Gets a single appeal by id',
-			schema: { $ref: '#/definitions/SingleAppeal' },
+			schema: { $ref: '#/definitions/SingleAppealResponse' }
 		}
 		#swagger.responses[400] = {}
 		#swagger.responses[404] = {}
 	 */
-	validateAppealId,
+	getAppealValidator,
+	checkAppealExistsAndAddToRequest,
 	asyncHandler(getAppealById)
 );
 
@@ -66,14 +68,18 @@ router.patch(
 		#swagger.parameters['body'] = {
 			in: 'body',
 			description: 'Appeal details to update',
-			schema: { $ref: '#/definitions/UpdateAppeal' },
+			schema: { $ref: '#/definitions/UpdateAppealRequest' },
 			required: true
 		}
-		#swagger.responses[200] = {}
+		#swagger.responses[200] = {
+			description: 'Updates a single appeal by id',
+			schema: { $ref: '#/definitions/UpdateAppealResponse' }
+		}
 		#swagger.responses[400] = {}
 		#swagger.responses[500] = {}
 	 */
-	validateAppealUpdate,
+	patchAppealValidator,
+	checkAppealExistsAndAddToRequest,
 	asyncHandler(updateAppealById)
 );
 

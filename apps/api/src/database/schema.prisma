@@ -33,6 +33,7 @@ model Appeal {
   reviewQuestionnaire          ReviewQuestionnaire[]
   siteVisit                    SiteVisit?
   validationDecision           ValidationDecision[]
+  appealTimetable              AppealTimetable?
 }
 
 /// AppealType model
@@ -42,6 +43,17 @@ model AppealType {
   type      String   @unique
   shorthand String   @unique
   Appeal    Appeal[]
+}
+
+/// AppealTimetable model
+model AppealTimetable {
+  id                          Int      @id @default(autoincrement())
+  appealId                    Int      @unique
+  finalEventsDueDate          DateTime
+  interestedPartyRepsDueDate  DateTime?
+  questionnaireDueDate        DateTime
+  statementDueDate            DateTime?
+  appeal                      Appeal   @relation(fields: [appealId], references: [id])
 }
 
 /// AppealStatus model

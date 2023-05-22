@@ -11,26 +11,16 @@ import { getSkipValue } from '../utils/database-pagination.js';
  * @property {boolean=} appellant
  * @property {boolean=} inspectorDecision
  * @property {boolean=} lpaQuestionnaire
- * @property {boolean=} latestLPAReviewQuestionnaire
  * @property {boolean=} siteVisit
  * @property {boolean=} validationDecision
  */
-
-const includeLatestReviewQuestionnaireFilter = {
-	reviewQuestionnaire: {
-		take: 1,
-		orderBy: {
-			createdAt: 'desc'
-		}
-	}
-};
 
 const appealRepository = (function () {
 	return {
 		/**
 		 * @param {number} pageNumber
 		 * @param {number} pageSize
-		 * @returns {Prisma.PrismaPromise<[number, import('@pins/api').Schema.Appeal[]]>}
+		 * @returns {Promise<[number, import('@pins/api').Appeals.RepositoryGetAllResultItem[]]>}
 		 */
 		getAll(pageNumber, pageSize) {
 			const where = {
@@ -62,20 +52,15 @@ const appealRepository = (function () {
 			]);
 		},
 		/**
-		 * Query an appeal by its id, including any optional relations.
-		 *
 		 * @param {number} id
-		 * @param {AppealInclusionOptions} [inclusions={}]
-		 * @returns {Prisma.PrismaPromise<import('@pins/api').Schema.Appeal | null>}
+		 * @returns {Prisma.PrismaPromise<import('@pins/api').Appeals.RepositoryGetByIdResultItem | null>}
 		 */
-		getById(id, { latestLPAReviewQuestionnaire, ...inclusions } = {}) {
+		getById(id) {
 			return databaseConnector.appeal.findUnique({
 				where: {
 					id
 				},
 				include: {
-					...inclusions,
-					...(latestLPAReviewQuestionnaire && includeLatestReviewQuestionnaireFilter),
 					appealDetailsFromAppellant: true,
 					siteVisit: true,
 					appellant: true,
@@ -86,7 +71,8 @@ const appealRepository = (function () {
 							valid: true
 						}
 					},
-					appealType: true
+					appealType: true,
+					appealTimetable: true
 				}
 			});
 		},
@@ -115,6 +101,27 @@ const appealRepository = (function () {
 			return databaseConnector.appeal.update({
 				where: { id },
 				data: { updatedAt, ...data }
+			});
+		},
+		/**
+		 * @param {number} id
+		 * @param {import('@pins/api').Appeals.TimetableDeadlineDate} data
+		 * @returns {Prisma.PrismaPromise<import('@pins/api').Schema.AppealTimetable>}
+		 */
+		upsertAppealTimetableById(id, data) {
+			return databaseConnector.appealTimetable.upsert({
+				where: { appealId: id },
+				update: data,
+				create: {
+					appealId: id,
+					finalEventsDueDate: data.finalEventsDueDate,
+					interestedPartyRepsDueDate: data.interestedPartyRepsDueDate,
+					questionnaireDueDate: data.questionnaireDueDate,
+					statementDueDate: data.statementDueDate
+				},
+				include: {
+					appeal: true
+				}
 			});
 		}
 	};
