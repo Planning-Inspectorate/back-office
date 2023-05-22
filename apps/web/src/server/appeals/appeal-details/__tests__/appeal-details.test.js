@@ -18,7 +18,7 @@ describe('appeal-details', () => {
 
 			nock('http://test/').get(`/appeals/${appealId}`).reply(200, appealData);
 
-			const response = await request.get(`${baseUrl}/1`);
+			const response = await request.get(`${baseUrl}/${appealId}`);
 			const element = parseHtml(response.text);
 
 			expect(element.innerHTML).toMatchSnapshot();
