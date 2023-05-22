@@ -6,7 +6,8 @@ import * as controller from './applications-documentation.controller.js';
 import {
 	validateApplicationsDocumentations,
 	validateApplicationsDocumentationsActions,
-	validateApplicationsDocumentationsDeleteStatus
+	validateApplicationsDocumentationsDeleteStatus,
+	validateApplicationsDocumentsToPublish
 } from './applications-documentation.validators.js';
 
 const applicationsDocumentationRouter = createRouter({ mergeParams: true });
@@ -23,6 +24,11 @@ applicationsDocumentationRouter
 	.get(
 		[assertDomainTypeIsNotInspector],
 		asyncRoute(controller.viewApplicationsCaseDocumentationPublishingQueue)
+	)
+	.post(
+		[assertDomainTypeIsNotInspector],
+		validateApplicationsDocumentsToPublish,
+		asyncRoute(controller.updateApplicationsCaseDocumentationPublish)
 	);
 
 /**

@@ -4,12 +4,14 @@ import {
 	getSessionFilesNumberOnList,
 	setSessionFilesNumberOnList
 } from '../../common/services/session.service.js';
+import { buildBreadcrumbItems } from '../applications-case.locals.js';
 import {
 	deleteCaseDocumentationFile,
 	getCaseDocumentationFileInfo,
 	getCaseDocumentationFilesInFolder,
 	getCaseDocumentationReadyToPublish,
 	getCaseFolders,
+	publishCaseDocumentationFiles,
 	removeCaseDocumentationPublishingQueue,
 	updateCaseDocumentationFiles
 } from './applications-documentation.service.js';
@@ -134,7 +136,7 @@ export async function viewApplicationsCaseDocumentationPages({ params }, respons
 /**
  * Delete a document
  *
- * @type {import('@pins/express').RenderHandler<{message?: string, documentationFile?: DocumentationFile, errors?: ValidationErrors}, {}>}
+ * @type {import('@pins/express').RenderHandler<{documentationFile?: DocumentationFile, errors?: ValidationErrors} | {serviceName?: string, successMessage?: string}, {}>}
  */
 export async function updateApplicationsCaseDocumentationDelete(
 	{ params, errors: validationErrors },
@@ -156,7 +158,7 @@ export async function updateApplicationsCaseDocumentationDelete(
 	}
 
 	response.render(`applications/case-documentation/documentation-success-banner`, {
-		message: 'Document successfully deleted '
+		serviceName: 'Document successfully deleted'
 	});
 }
 
@@ -166,29 +168,82 @@ export async function updateApplicationsCaseDocumentationDelete(
  * @type {import('@pins/express').RenderHandler<{documentationFiles: PaginatedDocumentationFiles, paginationButtons: PaginationButtons, backLink: string}, ApplicationCaseLocals, {}, {size?: string, number?: string}, {}>}
  */
 export async function viewApplicationsCaseDocumentationPublishingQueue(request, response) {
-	const number = Number.parseInt(request.query.number || '1', 10);
+	const currentPageNumber = Number.parseInt(request.query.number || '1', 10);
 	const { caseId } = response.locals;
-
-	const documentationFiles = await getCaseDocumentationReadyToPublish(caseId, number);
-
+	const documentationFiles = await getCaseDocumentationReadyToPublish(caseId, currentPageNumber);
 	const backLink = getSessionFolderPage(request.session) ?? url('document-category', { caseId });
-
-	destroySessionFolderPage(request.session);
-
-	const paginationButtons = {
-		...(number === 1 ? {} : { previous: { href: `?number=${number - 1}` } }),
-		...(number === documentationFiles.pageCount ? {} : { next: { href: `?number=${number + 1}` } }),
-		items: [...Array.from({ length: documentationFiles.pageCount }).keys()].map((index) => ({
-			number: index + 1,
-			href: `?number=${index + 1}`,
-			current: index + 1 === number
-		}))
-	};
+	const paginationButtons = getPaginationButtonData(
+		currentPageNumber,
+		documentationFiles.pageCount
+	);
 
 	response.render(`applications/case-documentation/documentation-publish`, {
 		documentationFiles,
 		paginationButtons,
 		backLink
+	});
+}
+
+/**
+ * Send publishing request for selected documents
+ *
+ * @param {*} request
+ * @param {*} response
+ * @type {import('@pins/express').RenderHandler<{documentationFiles: DocumentationFile[], backLink: any, paginationButtons: any, errors?: ValidationErrors |string} | {serviceName: string, successMessage: string}, {}>}
+ */
+export async function updateApplicationsCaseDocumentationPublish(request, response) {
+	const currentPageNumber = Number.parseInt(request.query.number || '1', 10);
+	const { caseId } = response.locals;
+	const { selectedFilesIds } = request.body;
+	const { errors: validationErrors, session } = request;
+
+	// convert the array of ids into format that the API expects.
+	// incoming:  [ 'guid-1', 'guid-2']
+	// API wants: [ { guid: 'guid-1'}, { guid: 'guid-2'} ]
+	const items = (selectedFilesIds || []).map((/** @type {string} */ item) => {
+		const container = { guid: item };
+
+		return container;
+	});
+
+	const tryPublish = await publishCaseDocumentationFiles(caseId, items);
+	const { errors } = tryPublish;
+
+	const backLinkFolder = getSessionFolderPage(session) ?? '';
+	const backLink = backLinkFolder ?? url('document-category', { caseId });
+
+	// re-display publishing queue page, with error messages
+	if (validationErrors || errors) {
+		// need to get the info on the current publishing page to re-display it
+		const documentationFiles = await getCaseDocumentationReadyToPublish(caseId, currentPageNumber);
+		const paginationButtons = getPaginationButtonData(
+			currentPageNumber,
+			documentationFiles.pageCount
+		);
+
+		return response.render(`applications/case-documentation/documentation-publish`, {
+			documentationFiles,
+			paginationButtons,
+			backLink,
+			errors: validationErrors || errors
+		});
+	}
+
+	// else deliver the success page
+	// and get the breadcrumbs for the folder that was being viewed before publishing queue
+	// 	so we can put the link up on the success page, and they can return there
+	const { title: caseName, reference: caseReference } = response.locals.case;
+	const backlinkFolderId = getFolderIdFromFolderPath(backLinkFolder);
+	const backlinkFolderBreadcrumbItems = await buildBreadcrumbItems(caseId, backlinkFolderId);
+
+	// store the breadcrumb items in locals
+	response.locals.breadcrumbItems = backlinkFolderBreadcrumbItems;
+
+	response.render(`applications/case-documentation/documentation-success-banner`, {
+		selectedPageType: 'documentation-publish-success',
+		serviceName: 'Document/s successfully published',
+		successMessage: `${tryPublish.items?.length} documents published to the NI website<br><br><p class="govuk-!-font-size-19">Case: ${caseName}<br>Reference: ${caseReference}</p>`,
+		showPublishedBanner: true
 	});
 }
 
@@ -226,6 +281,8 @@ const documentationFolderData = async (request, response) => {
 	const size = sizeInQuery || sizeInSession || 50;
 
 	setSessionFilesNumberOnList(request.session, size);
+	// clear session folder back link
+	destroySessionFolderPage(request.session);
 	setSessionFolderPage(
 		request.session,
 		url('document-category', {
@@ -270,5 +327,42 @@ const documentationFolderData = async (request, response) => {
 			dropdownItems: paginationDropdownItems,
 			buttons: paginationButtons
 		}
+	};
+};
+
+/**
+ * Gets the id of the current folder from the folder path
+ * eg for /applications-service/case/1/project-documentation/55/responses/
+ * it will return 55
+ *
+ * @param {string} folderPath
+ * @returns {number}}
+ */
+const getFolderIdFromFolderPath = (folderPath) => {
+	// folder paths look like this: /applications-service/case/1/project-documentation/55/responses/
+	// we want the current folder Id: 55 in this example
+	const folderIdString = folderPath.split('/')[5];
+	const folderId = Number.parseInt(folderIdString, 10);
+
+	return folderId;
+};
+
+/**
+ *
+ * @param {number} currentPageNumber
+ * @param {number} pageCount
+ * @returns {any}
+ */
+const getPaginationButtonData = (currentPageNumber, pageCount) => {
+	return {
+		...(currentPageNumber === 1 ? {} : { previous: { href: `?number=${currentPageNumber - 1}` } }),
+		...(currentPageNumber === pageCount
+			? {}
+			: { next: { href: `?number=${currentPageNumber + 1}` } }),
+		items: [...Array.from({ length: pageCount }).keys()].map((index) => ({
+			number: index + 1,
+			href: `?number=${index + 1}`,
+			current: index + 1 === currentPageNumber
+		}))
 	};
 };

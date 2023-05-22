@@ -13,10 +13,12 @@ import {
  * @property {import('../applications.types').Case} Case
  */
 
+/** @typedef {{href: string, text: string}} BreadcrumbItem */
+
 /**
  * @typedef {object} FolderLocals
  * @property {import('../applications.types').DocumentationCategory} currentFolder
- * @property {Array<{href: string, text: string}>} breadcrumbItems
+ * @property {Array<BreadcrumbItem>} breadcrumbItems
  */
 
 /**
@@ -57,6 +59,20 @@ export const registerFolder = async ({ params }, response, next) => {
 	response.locals.currentFolder = await getCaseFolder(caseId, folderId);
 
 	// get the folderTree for breadcrumbs
+	response.locals.breadcrumbItems = await buildBreadcrumbItems(caseId, folderId);
+
+	next();
+};
+
+/**
+ * Returns a set of folder breadcrumbs for a particular folder in a case
+ *
+ * @param {number} caseId
+ * @param {number} folderId
+ * @returns {Promise<BreadcrumbItem[]>}
+ */
+export const buildBreadcrumbItems = async (caseId, folderId) => {
+	// get the folderTree for breadcrumbs
 	const folderPath = await getCaseDocumentationFolderPath(caseId, folderId);
 	const breadcrumbItems = folderPath.map((folder) => ({
 		href: url('document-category', { caseId, documentationCategory: folder }),
@@ -67,7 +83,5 @@ export const registerFolder = async ({ params }, response, next) => {
 		href: url('case-view', { caseId, step: 'project-documentation' }),
 		text: 'Project documentation'
 	});
-	response.locals.breadcrumbItems = breadcrumbItems;
-
-	next();
+	return breadcrumbItems;
 };
