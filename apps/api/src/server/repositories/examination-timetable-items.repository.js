@@ -8,3 +8,12 @@ import { databaseConnector } from '../utils/database-connector.js';
 export const getByCaseId = (caseId) => {
 	return databaseConnector.examinationTimetableItems.findMany({ where: { caseId } });
 };
+
+/**
+ *
+ * @param {import('@pins/api').Schema.ExaminationTimetableItems} examinationTimetableItem
+ * @returns {Promise<import('@pins/api').Schema.ExaminationTimetableItems>}
+ */
+export const create = (examinationTimetableItem) => {
+	return databaseConnector.examinationTimetableItems.create({ data: examinationTimetableItem });
+};
